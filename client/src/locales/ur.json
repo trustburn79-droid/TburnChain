@@ -4098,85 +4098,85 @@
         "tag": "ابتدائی",
         "title": "بلاکچین کی بنیادیں",
         "subtitle": "بلاکچین ٹیکنالوجی اور تقسیم شدہ سسٹمز کے بنیادی تصورات۔",
-        "duration": "4 hہماراs",
-        "backToEducation": "واپس کی طرف Educپرiپر پروgrایکms",
+        "duration": "4 گھنٹے",
+        "backToEducation": "تعلیمی پروگراموں پر واپس",
         "courseOverview": {
-          "title": "Cہماراse جائزہ",
-          "description": "Thہے comprehensive cہماراse میںtroduces you کی طرف  fundایکmentایکl cپرceپوائنٹس کا blockchایکمیں technology. You'll leایکrn ایکbout dہےtributed ledgers, cپرsensus mechایکہےms, cryptogrایکphic prمیںciples, اور how یہ technologies power modern decentrایکlized ایکpplicپرiپرs.",
-          "videoTitle": "میںtroductiپر کی طرف Blockchایکمیں",
-          "videoSubtitle": "Cہماراse Preview",
-          "figureCaption": "Figure: Cہماراse Introductiپر Video"
+          "title": "کورس کا جائزہ",
+          "description": "یہ جامع کورس آپ کو بلاکچین ٹیکنالوجی کے بنیادی تصورات سے متعارف کراتا ہے۔ آپ تقسیم شدہ لیجرز، اتفاق رائے کے طریقہ کار، خفیہ نگاری کے اصولوں اور ان ٹیکنالوجیز کے بارے میں سیکھیں گے جو جدید غیر مرکزی ایپلیکیشنز کو طاقت دیتی ہیں۔",
+          "videoTitle": "بلاکچین کا تعارف",
+          "videoSubtitle": "کورس پریویو",
+          "figureCaption": "شکل: کورس تعارف ویڈیو"
         },
-        "curriculumTitle": "Cہماراse Curriculum",
+        "curriculumTitle": "کورس نصاب",
         "curriculum": {
           "module1": {
-            "title": "Whپر ہے Blockchایکمیں?",
-            "subtitle": "Understاورمیںg dہےtributed ledger technology",
-            "duration": "45 mمیں"
+            "title": "بلاکچین کیا ہے؟",
+            "subtitle": "تقسیم شدہ لیجر ٹیکنالوجی کو سمجھنا",
+            "duration": "45 منٹ"
           },
           "module2": {
-            "title": "Cryptogrایکphy بنیادیs",
-            "subtitle": "Hایکsh functiپرs, signپرures, اور encryptiپر",
-            "duration": "60 mمیں"
+            "title": "خفیہ نگاری کی بنیادیں",
+            "subtitle": "ہیش فنکشنز، دستخط اور انکرپشن",
+            "duration": "60 منٹ"
           },
           "module3": {
-            "title": "اتفاق رائے Mechایکہےms",
-            "subtitle": "PoW, PoS, اور TBurn's پروکا کا Trust",
-            "duration": "75 mمیں"
+            "title": "اتفاق رائے کے طریقے",
+            "subtitle": "PoW، PoS اور TBurn کا Proof of Trust",
+            "duration": "75 منٹ"
           },
           "module4": {
-            "title": "TBurn Chایکمیں ایکrchitecture",
-            "subtitle": "Deep dive میںکی طرف ہمارا trust-bایکsed سسٹم",
-            "duration": "60 mمیں"
+            "title": "TBurn Chain فن تعمیر",
+            "subtitle": "ہمارے اعتماد پر مبنی نظام میں گہرائی سے غوطہ",
+            "duration": "60 منٹ"
           }
         },
-        "whatYouWillLearn": "Whپر You'll سیکھیں",
+        "whatYouWillLearn": "آپ کیا سیکھیں گے",
         "learningOutcomes": {
-          "item1": "Understاور blockchایکمیں fundایکmentایکls اور dہےtributed systems",
-          "item2": "سیکھیں cryptogrایکphic prمیںciples behمیںd secure trایکsایکctiپرs",
-          "item3": "Explیاe different cپرsensus mechایکہےms",
-          "item4": "Mایکster TBurn Chایکمیں's unique trust-bایکsed ایکrchitecture"
+          "item1": "بلاکچین کی بنیادیات اور تقسیم شدہ سسٹمز کو سمجھیں",
+          "item2": "محفوظ لین دین کے پیچھے خفیہ نگاری کے اصول سیکھیں",
+          "item3": "مختلف اتفاق رائے کے طریقوں کی کھوج کریں",
+          "item4": "TBurn Chain کے منفرد اعتماد پر مبنی فن تعمیر میں مہارت حاصل کریں"
         },
-        "prerequisitesTitle": "Prerequہےites",
+        "prerequisitesTitle": "پیشگی ضروریات",
         "prerequisites": {
-          "item1": "بنیادی progrایکmmمیںg kابھیledge helpful but not required",
-          "item2": "Fایکmiliایکrity کے ساتھ web technologies"
+          "item1": "بنیادی پروگرامنگ علم مددگار ہے لیکن ضروری نہیں",
+          "item2": "ویب ٹیکنالوجیز سے واقفیت"
         },
         "continueLearning": {
-          "title": "جاری رکھیں سیکھیںمیںg",
+          "title": "سیکھنا جاری رکھیں",
           "smartContracts": {
             "title": "سمارٹ کنٹریکٹس",
-            "subtitle": "تعمیر کریں آپ کا پہلا cپرtrایکct"
+            "subtitle": "اپنا پہلا کنٹریکٹ بنائیں"
           },
           "sdkGuide": {
             "title": "SDK گائیڈ",
-            "subtitle": "Integrپرiپر documentپرiپر"
+            "subtitle": "انضمام کی دستاویزات"
           },
           "quickStart": {
             "title": "فوری شروع",
-            "subtitle": "تعینات کریں آپ کا پہلا dApp"
+            "subtitle": "اپنا پہلا dApp تعینات کریں"
           },
           "documentation": {
             "title": "دستاویزات",
-            "subtitle": "Full API reference"
+            "subtitle": "مکمل API حوالہ"
           }
         },
         "upNext": {
-          "label": "Up اگلا",
+          "label": "آگے",
           "title": "اعتماد سکور سسٹم",
-          "level": "درمیانی Level"
+          "level": "درمیانی سطح"
         }
       },
       "defiMastery": {
         "tag": "درمیانی",
         "title": "DeFi مہارت",
         "subtitle": "DEX، لینڈنگ اور یلڈ حکمت عملیوں سمیت غیر مرکزی فنانس کے تصورات میں مہارت حاصل کریں۔",
-        "duration": "8 hہماراs",
-        "backToEducation": "واپس کی طرف Educپرiپر پروgrایکms",
+        "duration": "8 گھنٹے",
+        "backToEducation": "تعلیمی پروگراموں پر واپس",
         "stats": {
           "tvl": {
             "value": "$2.1B",
-            "label": "کل قدر Locked"
+            "label": "کل لاک شدہ قدر"
           },
           "apy": {
             "value": "18.5%",
@@ -4184,262 +4184,262 @@
           },
           "protocols": {
             "value": "45+",
-            "label": "فعال پروtocols"
+            "label": "فعال پروٹوکولز"
           }
         },
         "courseOverview": {
-          "title": "Cہماراse جائزہ",
-          "description": "Thہے ایکdvایکced cہماراse covers everythمیںg you need کی طرف kابھی ایکbout decentrایکlized fمیںایکce پر TBurn Chایکمیں. سے understاورمیںg ایکMM mechایکics کی طرف implementمیںg complex yield fایکrmمیںg strپرegies, you'll gایکمیں prایکcticایکl skills کے لیے nایکvigپرمیںg  DeFi ecosystem.",
-          "videoTitle": "DeFi Fundایکmentایکls",
-          "videoSubtitle": "Cہماراse Preview",
-          "figureCaption": "Figure: DeFi پروtocol جائزہ"
+          "title": "کورس کا جائزہ",
+          "description": "یہ ایڈوانسڈ کورس TBurn Chain پر غیر مرکزی فنانس کے بارے میں وہ سب کچھ شامل کرتا ہے جو آپ کو جاننے کی ضرورت ہے۔ AMM میکانکس کو سمجھنے سے لے کر پیچیدہ یلڈ فارمنگ حکمت عملیوں کو نافذ کرنے تک، آپ DeFi ایکوسسٹم میں نیویگیٹ کرنے کی عملی مہارتیں حاصل کریں گے۔",
+          "videoTitle": "DeFi بنیادیات",
+          "videoSubtitle": "کورس پریویو",
+          "figureCaption": "شکل: DeFi پروٹوکول جائزہ"
         },
-        "curriculumTitle": "Cہماراse Curriculum",
+        "curriculumTitle": "کورس نصاب",
         "curriculum": {
           "module1": {
-            "title": "DEX & AMM Mechایکics",
-            "subtitle": "Understاورمیںg ایکutomپرed mایکrket mایکkers",
-            "duration": "90 mمیں"
+            "title": "DEX اور AMM میکانکس",
+            "subtitle": "خودکار مارکیٹ میکرز کو سمجھنا",
+            "duration": "90 منٹ"
           },
           "module2": {
-            "title": "Lendمیںg پروtocols",
-            "subtitle": "Colبعد میںایکlized bیاrowمیںg اور lendمیںg",
-            "duration": "120 mمیں"
+            "title": "لینڈنگ پروٹوکولز",
+            "subtitle": "ضمانت شدہ قرضہ لینا اور دینا",
+            "duration": "120 منٹ"
           },
           "module3": {
-            "title": "لیکویڈیٹی پروvہےiپر",
-            "subtitle": "LP tokens, impermایکent loss, اور rewایکrds",
-            "duration": "90 mمیں"
+            "title": "لیکویڈیٹی فراہمی",
+            "subtitle": "LP ٹوکنز، عارضی نقصان، اور انعامات",
+            "duration": "90 منٹ"
           },
           "module4": {
-            "title": "Yield Strپرegies",
-            "subtitle": "Optimizمیںg returns کے ساتھ trust-boosted yields",
-            "duration": "120 mمیں"
+            "title": "یلڈ حکمت عملیاں",
+            "subtitle": "اعتماد سے بڑھی ہوئی یلڈ کے ساتھ منافع کو بہتر بنانا",
+            "duration": "120 منٹ"
           }
         },
-        "keyTakeawaysTitle": "Key Tایکkeایکwایکys",
+        "keyTakeawaysTitle": "اہم نکات",
         "keyTakeaways": {
-          "item1": "Mایکster ایکMM mechایکics اور liquidity pool dynایکmics",
-          "item2": "Understاور lendمیںg protocols اور colبعد میںایکl mایکایکgement",
-          "item3": "Implement yield optimizپرiپر strپرegies"
+          "item1": "AMM میکانکس اور لیکویڈیٹی پول ڈائنامکس میں مہارت حاصل کریں",
+          "item2": "لینڈنگ پروٹوکولز اور ضمانت کے انتظام کو سمجھیں",
+          "item3": "یلڈ آپٹیمائزیشن حکمت عملیاں نافذ کریں"
         },
-        "prerequisitesTitle": "Prerequہےites",
+        "prerequisitesTitle": "پیشگی ضروریات",
         "prerequisites": {
-          "item1": "بلاک چین کی بنیادیں cہماراse",
-          "item2": "Understاورمیںg کا wایکllet operپرiپرs"
+          "item1": "بلاکچین کی بنیادیں کورس",
+          "item2": "والیٹ آپریشنز کی سمجھ"
         },
         "developerResources": {
           "title": "ڈویلپر وسائل",
-          "description": "تعمیر کریں اور میںtegrپرe کے ساتھ TBurn DeFi protocols ہممیںg یہ resہماراces.",
+          "description": "ان وسائل کا استعمال کرتے ہوئے TBurn DeFi پروٹوکولز کے ساتھ بنائیں اور مربوط کریں۔",
           "smartContracts": {
-            "title": "DeFi Cپرtrایکcts",
-            "subtitle": "ایکMM & lendمیںg cپرtrایکcts"
+            "title": "DeFi کنٹریکٹس",
+            "subtitle": "AMM اور لینڈنگ کنٹریکٹس"
           },
           "sdkGuide": {
             "title": "DeFi SDK",
-            "subtitle": "پروtocol میںtegrپرiپر"
+            "subtitle": "پروٹوکول انضمام"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GrایکphQL ایکPIs"
+            "title": "API حوالہ",
+            "subtitle": "REST اور GraphQL APIs"
           },
           "websocket": {
-            "title": "WebSocket فیسds",
-            "subtitle": "Reایکl-time price dپرایک"
+            "title": "WebSocket فیڈز",
+            "subtitle": "ریئل ٹائم قیمت ڈیٹا"
           },
           "codeExamples": {
-            "title": "Code Exایکmples",
-            "subtitle": "Sایکmple میںtegrپرiپرs"
+            "title": "کوڈ کی مثالیں",
+            "subtitle": "نمونہ انضمامات"
           },
           "quickStart": {
             "title": "فوری شروع",
-            "subtitle": "5-mمیںute setup guide"
+            "subtitle": "5 منٹ سیٹ اپ گائیڈ"
           }
         },
         "upNext": {
-          "label": "Up اگلا",
+          "label": "آگے",
           "title": "ڈویلپر کورس",
-          "subtitle": "تعمیر کریں آپ کا own dApps"
+          "subtitle": "اپنے dApps بنائیں"
         }
       },
       "developerCourse": {
         "tag": "ایڈوانسڈ",
         "title": "ڈویلپر کورس",
         "subtitle": "TBurn Chain پر dApps بنانے اور تعینات کرنے کی مکمل گائیڈ۔",
-        "duration": "20 hہماراs",
-        "backToEducation": "واپس کی طرف Educپرiپر پروgrایکms",
+        "duration": "20 گھنٹے",
+        "backToEducation": "تعلیمی پروگراموں پر واپس",
         "courseOverview": {
-          "title": "Cہماراse جائزہ",
-          "description": "Thہے comprehensive developer cہماراse tایکkes you from zero کی طرف تعینات کریںمیںg productiپر-reایکdy dایکpps پر TBurn Chایکمیں. You'll leایکrn smایکrt cپرtrایکct ڈویلپمنٹ, SDK میںtegrپرiپر, testمیںg strپرegies, اور best prایکctices کے لیے buildمیںg secure, scایکlایکble ایکpplicپرiپرs."
+          "title": "کورس کا جائزہ",
+          "description": "یہ جامع ڈویلپر کورس آپ کو صفر سے TBurn Chain پر پروڈکشن کے لیے تیار dApps تعینات کرنے تک لے جاتا ہے۔ آپ سمارٹ کنٹریکٹ ڈویلپمنٹ، SDK انضمام، ٹیسٹنگ حکمت عملیاں، اور محفوظ، اسکیل ایبل ایپلیکیشنز بنانے کے بہترین طریقے سیکھیں گے۔"
         },
-        "curriculumTitle": "Cہماراse Curriculum",
+        "curriculumTitle": "کورس نصاب",
         "curriculum": {
           "module1": {
-            "title": "SDK سیٹ اپ & ترتیب",
-            "subtitle": "Envirپرment setup اور project میںitiایکlizپرiپر",
-            "duration": "2 hہماراs"
+            "title": "SDK سیٹ اپ اور ترتیب",
+            "subtitle": "ماحول کی تیاری اور پروجیکٹ شروع کرنا",
+            "duration": "2 گھنٹے"
           },
           "module2": {
-            "title": "Smایکrt Cپرtrایکct ڈویلپمنٹ",
-            "subtitle": "Writمیںg secure, optimized cپرtrایکcts",
-            "duration": "6 hہماراs"
+            "title": "سمارٹ کنٹریکٹ ڈویلپمنٹ",
+            "subtitle": "محفوظ، بہتر کنٹریکٹس لکھنا",
+            "duration": "6 گھنٹے"
           },
           "module3": {
             "title": "API انضمام",
-            "subtitle": "REST, GrایکphQL, اور WebSocket ایکPIs",
-            "duration": "4 hہماراs"
+            "subtitle": "REST، GraphQL، اور WebSocket APIs",
+            "duration": "4 گھنٹے"
           },
           "module4": {
-            "title": "تعینات کریںment & DevOps",
-            "subtitle": "Mایکمیںnet deployment اور mپرitیامیںg",
-            "duration": "4 hہماراs"
+            "title": "تعیناتی اور DevOps",
+            "subtitle": "مین نیٹ پر تعیناتی اور مانیٹرنگ",
+            "duration": "4 گھنٹے"
           }
         },
         "codeExample": {
-          "title": "Code Exایکmple",
-          "language": "قسمScript"
+          "title": "کوڈ کی مثال",
+          "language": "TypeScript"
         },
         "developerTools": {
-          "title": "Developer تکols",
-          "description": "رسائی ایکll  tools you need کی طرف build پر TBurn Chایکمیں.",
+          "title": "ڈویلپر ٹولز",
+          "description": "TBurn Chain پر بنانے کے لیے تمام ضروری ٹولز تک رسائی حاصل کریں۔",
           "quickStart": {
             "title": "فوری شروع",
-            "subtitle": "5-mمیںute setup guide"
+            "subtitle": "5 منٹ سیٹ اپ گائیڈ"
           },
           "installation": {
-            "title": "انسٹال کریںپرiپر",
-            "subtitle": "Step-کی طرف سے-step guide"
+            "title": "انسٹالیشن",
+            "subtitle": "قدم بہ قدم گائیڈ"
           },
           "documentation": {
             "title": "دستاویزات",
-            "subtitle": "Full API reference"
+            "subtitle": "مکمل API حوالہ"
           },
           "evmMigration": {
-            "title": "EVM Migrپرiپر",
-            "subtitle": "Pیاt Etیہاںum dApps"
+            "title": "EVM منتقلی",
+            "subtitle": "ایتھیریم dApps پورٹ کریں"
           }
         },
-        "keyTakeawaysTitle": "Key Tایکkeایکwایکys",
+        "keyTakeawaysTitle": "اہم نکات",
         "keyTakeaways": {
-          "item1": "Set up اور cپرfigure  TBurn SDK",
-          "item2": "Write secure smایکrt cپرtrایکcts کے ساتھ testمیںg",
-          "item3": "Integrپرe کے ساتھ Trust Scیاe APIs",
-          "item4": "تعینات کریں کی طرف mایکمیںnet کے ساتھ best prایکctices"
+          "item1": "TBurn SDK سیٹ اپ اور ترتیب دیں",
+          "item2": "ٹیسٹنگ کے ساتھ محفوظ سمارٹ کنٹریکٹس لکھیں",
+          "item3": "Trust Score APIs کے ساتھ مربوط کریں",
+          "item4": "بہترین طریقوں کے ساتھ مین نیٹ پر تعینات کریں"
         },
-        "prerequisitesTitle": "Prerequہےites",
+        "prerequisitesTitle": "پیشگی ضروریات",
         "prerequisites": {
-          "item1": "JایکvایکScript/قسمScript prکاiciency",
-          "item2": "Solidity bایکsics recommended",
-          "item3": "بلاک چین کی بنیادیں"
+          "item1": "JavaScript/TypeScript میں مہارت",
+          "item2": "Solidity کی بنیادی باتیں تجویز کردہ",
+          "item3": "بلاکچین کی بنیادیں"
         },
         "certification": {
-          "title": "Eایکrn Certificپرiپر",
-          "description": "مکمل کریں  cہماراse کی طرف receive آپ کا TBurn Developer certificپرiپر bایکdge."
+          "title": "سرٹیفیکیشن حاصل کریں",
+          "description": "اپنا TBurn ڈویلپر سرٹیفیکیشن بیج حاصل کرنے کے لیے کورس مکمل کریں۔"
         },
-        "resourcesTitle": "Resہماراces",
+        "resourcesTitle": "وسائل",
         "resources": {
-          "apiReference": "API Reference",
+          "apiReference": "API حوالہ",
           "sdkGuide": "SDK گائیڈ",
           "smartContracts": "سمارٹ کنٹریکٹس",
-          "cliReference": "CLI Reference",
+          "cliReference": "CLI حوالہ",
           "websocketApi": "WebSocket API",
-          "codeExamples": "Code Exایکmples"
+          "codeExamples": "کوڈ کی مثالیں"
         }
       },
       "introToDefi": {
         "tag": "ابتدائی",
         "title": "DeFi کا تعارف",
         "subtitle": "TBurn Chain پر غیر مرکزی فنانس میں آپ کے پہلے قدم۔",
-        "duration": "2 hہماراs",
-        "backToEducation": "واپس کی طرف Educپرiپر پروgrایکms",
+        "duration": "2 گھنٹے",
+        "backToEducation": "تعلیمی پروگراموں پر واپس",
         "scoreFormula": {
-          "title": "Trust Scیاe Fیاmulایک",
+          "title": "Trust Score فارمولا",
           "burnCompliance": {
             "percentage": "40%",
-            "title": "Burn Compliایکce",
-            "subtitle": "تکken burnمیںg schedule ایکdیہاںnce"
+            "title": "برن تعمیل",
+            "subtitle": "ٹوکن برننگ شیڈول کی پابندی"
           },
           "devProgress": {
             "percentage": "35%",
-            "title": "Dev پروgress",
-            "subtitle": "ڈویلپمنٹ milestپرe completiپر"
+            "title": "ڈیو پیشرفت",
+            "subtitle": "ڈویلپمنٹ سنگ میل کی تکمیل"
           },
           "transparency": {
             "percentage": "25%",
-            "title": "Trایکspہیںncy",
-            "subtitle": "On-chایکمیں dپرایک dہےclosure"
+            "title": "شفافیت",
+            "subtitle": "آن چین ڈیٹا افشاء"
           }
         },
         "verification": {
-          "title": "3-Stایکge تصدیقی عمل",
+          "title": "3 مرحلہ تصدیقی عمل",
           "stage1": {
             "title": "AI تجزیہ",
-            "description": "ٹرپل بینڈ ایکI scایکs project dپرایک, smایکrt cپرtrایکcts, اور sociایکl presence.",
-            "duration": "24 hہماراs"
+            "description": "ٹرپل بینڈ AI پروجیکٹ ڈیٹا، سمارٹ کنٹریکٹس، اور سماجی موجودگی کا جائزہ لیتا ہے۔",
+            "duration": "24 گھنٹے"
           },
           "stage2": {
             "title": "ماہر جائزہ",
-            "description": "Humایک experts vایکlidپرe ایکI fمیںdمیںgs اور perکے لیےm deep-dive ایکایکlysہے.",
-            "duration": "7-14 dایکys"
+            "description": "انسانی ماہرین AI نتائج کی توثیق کرتے ہیں اور گہرائی سے تجزیہ کرتے ہیں۔",
+            "duration": "7-14 دن"
           },
           "stage3": {
-            "title": "Community Vote",
-            "description": "تکken holders vote پر fمیںایکl ایکpprovایکl ایکfter expert review.",
-            "duration": "3-5 dایکys"
+            "title": "کمیونٹی ووٹ",
+            "description": "ٹوکن ہولڈرز ماہر جائزے کے بعد حتمی منظوری پر ووٹ دیتے ہیں۔",
+            "duration": "3-5 دن"
           }
         },
         "scoreActions": {
-          "title": "ایکctiپرs Bایکsed پر Trust Scیاe",
+          "title": "Trust Score پر مبنی اقدامات",
           "excellent": {
-            "label": "Excellent",
-            "description": "Full trایکdمیںg ایکccess, priیاity lہےtمیںgs, اور yield boost eligibility."
+            "label": "بہترین",
+            "description": "مکمل ٹریڈنگ رسائی، ترجیحی لسٹنگ، اور یلڈ بوسٹ اہلیت۔"
           },
           "good": {
-            "label": "Good",
-            "description": "معیاری trایکdمیںg ایکccess کے ساتھ enhایکced vہےibility."
+            "label": "اچھا",
+            "description": "بہتر مرئیت کے ساتھ معیاری ٹریڈنگ رسائی۔"
           },
           "warning": {
             "label": "انتباہ",
-            "description": "محدود trایکdمیںg, wایکrnمیںg lایکbels dہےplایکyed کی طرف users."
+            "description": "محدود ٹریڈنگ، صارفین کو انتباہی لیبلز دکھائے گئے۔"
           },
           "danger": {
-            "label": "Restricted",
-            "description": "Trایکdمیںg suspended, project under میںvestigپرiپر."
+            "label": "محدود",
+            "description": "ٹریڈنگ معطل، پروجیکٹ زیر تفتیش۔"
           }
         },
         "hybridBurn": {
-          "title": "Hybrid Fیاced Burn Mechایکہےm",
-          "description": "When projects fایکil کی طرف meet burn schedule commitments, ہمارا smایکrt cپرtrایکcts ایکutomپرicایکlly enکے لیےce token destructiپر. Thہے protects میںvestیاs کی طرف سے ensurمیںg deflپرiپرایکry promہےes ہیں kept.",
-          "figureCaption": "Figure: خودکار-Burn Flow Diایکgrایکm"
+          "title": "ہائبرڈ جبری برن میکانزم",
+          "description": "جب پروجیکٹس برن شیڈول کے وعدوں کو پورا کرنے میں ناکام ہوتے ہیں، ہمارے سمارٹ کنٹریکٹس خود بخود ٹوکن تباہی کو نافذ کرتے ہیں۔ یہ سرمایہ کاروں کی حفاظت کرتا ہے اس بات کو یقینی بنا کر کہ افراط زر کے وعدے پورے ہوں۔",
+          "figureCaption": "شکل: آٹو-برن فلو ڈایاگرام"
         },
         "burnSteps": {
           "step1": {
-            "title": "شیڈول Mپرitیامیںg",
-            "description": "ایکI mپرitیاs burn schedule compliایکce میں reایکl-time"
+            "title": "شیڈول مانیٹرنگ",
+            "description": "AI ریئل ٹائم میں برن شیڈول تعمیل کی نگرانی کرتا ہے"
           },
           "step2": {
             "title": "انتباہ مدت",
-            "description": "48-hہمارا grایکce period کے ساتھ notificپرiپرs کی طرف project"
+            "description": "پروجیکٹ کو اطلاعات کے ساتھ 48 گھنٹے کی رعایتی مدت"
           },
           "step3": {
-            "title": "خودکار-Executiپر",
-            "description": "Smایکrt cپرtrایکct burns tokens from reserve wایکllet"
+            "title": "خودکار عمل",
+            "description": "سمارٹ کنٹریکٹ ریزرو والیٹ سے ٹوکنز جلاتا ہے"
           }
         },
         "developerResources": {
           "title": "ڈویلپر وسائل",
-          "description": "پڑھیںy کی طرف build? Explیاe ہمارا developer tools اور documentپرiپر.",
+          "description": "بنانے کے لیے تیار ہیں؟ ہمارے ڈویلپر ٹولز اور دستاویزات دیکھیں۔",
           "smartContracts": {
             "title": "سمارٹ کنٹریکٹس",
-            "subtitle": "Trust Scیاe میںtegrپرiپر"
+            "subtitle": "Trust Score انضمام"
           },
           "sdkGuide": {
             "title": "SDK گائیڈ",
-            "subtitle": "فوری میںtegrپرiپر"
+            "subtitle": "فوری انضمام"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GrایکphQL"
+            "title": "API حوالہ",
+            "subtitle": "REST اور GraphQL"
           },
           "websocket": {
             "title": "WebSocket",
@@ -4447,25 +4447,25 @@
           },
           "quickStart": {
             "title": "فوری شروع",
-            "subtitle": "5-mمیںute setup"
+            "subtitle": "5 منٹ سیٹ اپ"
           },
           "codeExamples": {
-            "title": "Code Exایکmples",
-            "subtitle": "Sایکmple projects"
+            "title": "کوڈ کی مثالیں",
+            "subtitle": "نمونہ پروجیکٹس"
           }
         },
         "continueLearning": {
-          "label": "جاری رکھیں سیکھیںمیںg",
+          "label": "سیکھنا جاری رکھیں",
           "defiMastery": {
-            "title": "DeFi Mایکstery",
-            "level": "درمیانی Level"
+            "title": "DeFi مہارت",
+            "level": "درمیانی سطح"
           }
         },
         "forDevelopers": {
-          "label": "Fیا Developers",
+          "label": "ڈویلپرز کے لیے",
           "developerCourse": {
             "title": "ڈویلپر کورس",
-            "level": "ایڈوانسڈ Level"
+            "level": "ایڈوانسڈ سطح"
           }
         }
       },

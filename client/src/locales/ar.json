@@ -5103,251 +5103,251 @@
         }
       },
       "trustScore": {
-        "tag": "CORE FEATURE",
+        "tag": "ميزة أساسية",
         "title": "نظام درجة الثقة",
-        "subtitle": "Deep dive into the 3-stage verification system, AI analysis, and dynamic scoring algorithm.",
-        "evaluationPhilosophy": "Our evaluation methodology combines automated analysis with human expertise to provide comprehensive project assessments.",
-        "gradeSystem": "Trust Grade Classification",
-        "scoreComponents": "Score Components",
-        "scoreComponentsStatus": "Real-time component tracking",
-        "verificationProcess": "Verification Process",
-        "pts": "pts",
-        "ptsUnit": "points",
-        "importantLabel": "Important",
-        "importantNote": "Trust Scores are dynamic and updated in real-time based on ongoing project behavior and community feedback.",
+        "subtitle": "تعمق في نظام التحقق من 3 مراحل، وتحليل الذكاء الاصطناعي، وخوارزمية التقييم الديناميكية.",
+        "evaluationPhilosophy": "تجمع منهجيتنا التقييمية بين التحليل الآلي والخبرة البشرية لتقديم تقييمات شاملة للمشاريع.",
+        "gradeSystem": "تصنيف درجات الثقة",
+        "scoreComponents": "مكونات الدرجة",
+        "scoreComponentsStatus": "تتبع المكونات في الوقت الفعلي",
+        "verificationProcess": "عملية التحقق",
+        "pts": "نقطة",
+        "ptsUnit": "نقاط",
+        "importantLabel": "مهم",
+        "importantNote": "درجات الثقة ديناميكية وتُحدث في الوقت الفعلي بناءً على سلوك المشروع المستمر وملاحظات المجتمع.",
         "philosophy": {
-          "title": "Evaluation Philosophy",
-          "description": "Trust scores are designed to protect investors by evaluating project reliability through multiple dimensions",
+          "title": "فلسفة التقييم",
+          "description": "صُممت درجات الثقة لحماية المستثمرين من خلال تقييم موثوقية المشروع عبر أبعاد متعددة",
           "objective": {
-            "title": "Objective Analysis",
-            "description": "Data-driven evaluation eliminating human bias through standardized metrics and AI-powered assessment"
+            "title": "تحليل موضوعي",
+            "description": "تقييم قائم على البيانات يزيل التحيز البشري من خلال مقاييس موحدة وتقييم مدعوم بالذكاء الاصطناعي"
           },
           "comprehensive": {
-            "title": "Comprehensive Review",
-            "description": "Multi-dimensional analysis covering team, technology, financials, and execution capabilities"
+            "title": "مراجعة شاملة",
+            "description": "تحليل متعدد الأبعاد يغطي الفريق والتكنولوجيا والمالية وقدرات التنفيذ"
           },
           "transparent": {
-            "title": "Full Transparency",
-            "description": "All scoring factors and methodologies are publicly documented and on-chain verifiable"
+            "title": "شفافية كاملة",
+            "description": "جميع عوامل التقييم والمنهجيات موثقة علنياً وقابلة للتحقق على السلسلة"
           },
           "realtime": {
-            "title": "Real-time Updates",
-            "description": "Continuous monitoring with instant score adjustments based on project behavior changes"
+            "title": "تحديثات في الوقت الفعلي",
+            "description": "مراقبة مستمرة مع تعديلات فورية للدرجات بناءً على تغييرات سلوك المشروع"
           }
         },
         "components": {
-          "title": "Score Components",
+          "title": "مكونات الدرجة",
           "items": {
             "team": {
-              "title": "Team Identity",
-              "points": "30 pts",
-              "description": "KYC verification, track record, and social presence"
+              "title": "هوية الفريق",
+              "points": "30 نقطة",
+              "description": "التحقق من KYC، السجل، والحضور الاجتماعي"
             },
             "technology": {
-              "title": "Technology",
-              "points": "25 pts",
-              "description": "Smart contract audits, code quality, and security"
+              "title": "التكنولوجيا",
+              "points": "25 نقطة",
+              "description": "تدقيق العقود الذكية، جودة الكود، والأمان"
             },
             "community": {
               "title": "المجتمع",
-              "points": "20 pts",
-              "description": "Social engagement, governance participation"
+              "points": "20 نقطة",
+              "description": "المشاركة الاجتماعية، المشاركة في الحوكمة"
             },
             "financials": {
-              "title": "Financials",
-              "points": "15 pts",
-              "description": "Liquidity, tokenomics, and fund management"
+              "title": "المالية",
+              "points": "15 نقطة",
+              "description": "السيولة، اقتصاديات الرمز، وإدارة الأموال"
             },
             "execution": {
-              "title": "Execution",
-              "points": "10 pts",
-              "description": "Roadmap delivery and milestone achievement"
+              "title": "التنفيذ",
+              "points": "10 نقاط",
+              "description": "تسليم خارطة الطريق وتحقيق المعالم"
             }
           },
           "teamTransparency": {
-            "title": "Team Transparency",
+            "title": "شفافية الفريق",
             "items": {
-              "kyc": "KYC Verification Status",
-              "realName": "Real Name Disclosure",
-              "experience": "Industry Experience & Track Record",
-              "communication": "Community Communication Quality"
+              "kyc": "حالة التحقق من KYC",
+              "realName": "الإفصاح عن الاسم الحقيقي",
+              "experience": "الخبرة الصناعية والسجل",
+              "communication": "جودة التواصل المجتمعي"
             }
           },
           "technical": {
-            "title": "Technical Assessment",
+            "title": "التقييم التقني",
             "items": {
-              "codeQuality": "Code Quality & Standards",
-              "securityAudit": "Security Audit Results",
-              "testCoverage": "Test Coverage Percentage",
-              "documentation": "Technical Documentation"
+              "codeQuality": "جودة الكود والمعايير",
+              "securityAudit": "نتائج التدقيق الأمني",
+              "testCoverage": "نسبة تغطية الاختبارات",
+              "documentation": "التوثيق التقني"
             }
           },
           "financial": {
-            "title": "Financial Health",
+            "title": "الصحة المالية",
             "items": {
-              "fundingReport": "Funding Source Transparency",
-              "walletDisclosure": "Wallet Disclosure Status",
-              "accountingAudit": "Financial Audit Results",
-              "distributionData": "Token Distribution Data"
+              "fundingReport": "شفافية مصادر التمويل",
+              "walletDisclosure": "حالة الإفصاح عن المحفظة",
+              "accountingAudit": "نتائج التدقيق المالي",
+              "distributionData": "بيانات توزيع الرموز"
             }
           }
         },
         "grades": {
-          "title": "Trust Grades",
+          "title": "درجات الثقة",
           "diamond": {
-            "name": "Diamond",
+            "name": "ألماس",
             "range": "90-100",
-            "description": "Highest trust level"
+            "description": "أعلى مستوى ثقة"
           },
           "gold": {
-            "name": "Gold",
+            "name": "ذهب",
             "range": "70-89",
-            "description": "High reliability"
+            "description": "موثوقية عالية"
           },
           "silver": {
-            "name": "Silver",
+            "name": "فضة",
             "range": "50-69",
-            "description": "Moderate trust"
+            "description": "ثقة معتدلة"
           },
           "bronze": {
-            "name": "Bronze",
+            "name": "برونز",
             "range": "40-49",
-            "description": "Caution advised"
+            "description": "ينصح بالحذر"
           },
           "restricted": {
-            "name": "Restricted",
+            "name": "مقيد",
             "range": "0-39",
-            "description": "Trading suspended"
+            "description": "التداول معلق"
           },
           "s": {
-            "title": "S Grade - Diamond",
-            "description": "Exceptional project with perfect verification. Full trading access and priority DEX listing."
+            "title": "الدرجة S - ألماس",
+            "description": "مشروع استثنائي مع تحقق مثالي. وصول كامل للتداول وإدراج أولوية على DEX."
           },
           "a": {
-            "title": "A Grade - Gold",
-            "description": "Highly reliable project with strong fundamentals. Standard trading access with enhanced visibility."
+            "title": "الدرجة A - ذهب",
+            "description": "مشروع موثوق للغاية مع أساسيات قوية. وصول قياسي للتداول مع رؤية محسنة."
           },
           "b": {
-            "title": "B Grade - Silver",
-            "description": "Good project with minor concerns. Trading allowed with standard monitoring."
+            "title": "الدرجة B - فضة",
+            "description": "مشروع جيد مع مخاوف طفيفة. التداول مسموح مع المراقبة القياسية."
           },
           "c": {
-            "title": "C Grade - Bronze",
-            "description": "Project requires attention. Trading allowed with warning labels displayed."
+            "title": "الدرجة C - برونز",
+            "description": "المشروع يتطلب انتباهاً. التداول مسموح مع عرض تسميات التحذير."
           },
           "f": {
-            "title": "F Grade - Restricted",
-            "description": "Failed verification or serious concerns. Trading suspended pending investigation."
+            "title": "الدرجة F - مقيد",
+            "description": "فشل التحقق أو مخاوف خطيرة. التداول معلق بانتظار التحقيق."
           }
         },
         "process": {
           "dataCollection": {
-            "title": "Data Collection",
-            "description": "Automated gathering of on-chain data, social metrics, and project documentation"
+            "title": "جمع البيانات",
+            "description": "جمع آلي للبيانات على السلسلة، والمقاييس الاجتماعية، ووثائق المشروع"
           },
           "aiAnalysis": {
-            "title": "AI Analysis",
-            "description": "Triple-Band AI performs comprehensive analysis across all scoring dimensions"
+            "title": "تحليل الذكاء الاصطناعي",
+            "description": "يقوم الذكاء الاصطناعي ثلاثي النطاق بإجراء تحليل شامل عبر جميع أبعاد التقييم"
           },
           "expertReview": {
-            "title": "Expert Review",
-            "description": "Human experts validate AI findings and perform deep-dive investigation"
+            "title": "مراجعة الخبراء",
+            "description": "يتحقق الخبراء البشريون من نتائج الذكاء الاصطناعي ويجرون تحقيقاً معمقاً"
           },
           "onchainCommit": {
-            "title": "On-Chain Commit",
-            "description": "Final score is committed to blockchain with full audit trail and transparency"
+            "title": "التثبيت على السلسلة",
+            "description": "يتم تثبيت الدرجة النهائية على البلوكتشين مع مسار تدقيق كامل وشفافية"
           }
         },
         "stages": {
-          "title": "3-Stage Verification",
+          "title": "التحقق من 3 مراحل",
           "stage1": {
-            "title": "AI Analysis",
-            "duration": "24 hours",
-            "description": "Automated screening using Triple-Band AI"
+            "title": "تحليل الذكاء الاصطناعي",
+            "duration": "24 ساعة",
+            "description": "فحص آلي باستخدام الذكاء الاصطناعي ثلاثي النطاق"
           },
           "stage2": {
-            "title": "Expert Review",
-            "duration": "7-14 days",
-            "description": "Human experts validate AI findings"
+            "title": "مراجعة الخبراء",
+            "duration": "7-14 يوماً",
+            "description": "يتحقق الخبراء البشريون من نتائج الذكاء الاصطناعي"
           },
           "stage3": {
-            "title": "Community Vote",
-            "duration": "3-5 days",
-            "description": "Token holders vote on final approval"
+            "title": "تصويت المجتمع",
+            "duration": "3-5 أيام",
+            "description": "يصوت حاملو الرموز على الموافقة النهائية"
           }
         }
       },
       "wallet": {
-        "tag": "GETTING STARTED",
-        "title": "What is a Wallet?",
-        "subtitle": "Learn about cryptocurrency wallets, security best practices, and how to set up your TBurn wallet.",
+        "tag": "البدء",
+        "title": "ما هي المحفظة؟",
+        "subtitle": "تعرف على محافظ العملات المشفرة وأفضل ممارسات الأمان وكيفية إعداد محفظة TBurn الخاصة بك.",
         "understanding": {
-          "title": "Understanding Crypto Wallets",
-          "description": "A cryptocurrency wallet is a digital tool that stores your private keys and allows you to send, receive, and manage your digital assets securely."
+          "title": "فهم محافظ العملات المشفرة",
+          "description": "محفظة العملات المشفرة هي أداة رقمية تخزن مفاتيحك الخاصة وتتيح لك إرسال واستقبال وإدارة أصولك الرقمية بأمان."
         },
         "walletTypes": {
-          "title": "Wallet Types Explained",
-          "subtitle": "Choose the right wallet type based on your security needs and usage patterns"
+          "title": "شرح أنواع المحافظ",
+          "subtitle": "اختر نوع المحفظة المناسب بناءً على احتياجاتك الأمنية وأنماط استخدامك"
         },
         "types": {
-          "title": "Wallet Types",
+          "title": "أنواع المحافظ",
           "hot": {
-            "title": "Hot Wallets",
-            "description": "Connected to internet, convenient for daily use"
+            "title": "المحافظ الساخنة",
+            "description": "متصلة بالإنترنت، مريحة للاستخدام اليومي"
           },
           "cold": {
-            "title": "Cold Wallets",
-            "description": "Offline storage for maximum security"
+            "title": "المحافظ الباردة",
+            "description": "تخزين غير متصل للحصول على أقصى درجات الأمان"
           },
           "hardware": {
-            "title": "Hardware Wallets",
-            "description": "Physical devices for secure key storage"
+            "title": "محافظ الأجهزة",
+            "description": "أجهزة فعلية لتخزين المفاتيح بأمان"
           },
           "software": {
-            "title": "Software Wallets",
-            "description": "Desktop and mobile applications for convenient access to your crypto assets"
+            "title": "محافظ البرمجيات",
+            "description": "تطبيقات سطح المكتب والهاتف المحمول للوصول المريح إلى أصولك المشفرة"
           }
         },
         "keys": {
-          "title": "Understanding Keys",
-          "description": "Your wallet security depends on proper key management. Learn the difference between public and private keys.",
+          "title": "فهم المفاتيح",
+          "description": "يعتمد أمان محفظتك على إدارة المفاتيح بشكل صحيح. تعلم الفرق بين المفاتيح العامة والخاصة.",
           "public": {
-            "title": "Public Key",
-            "description": "Your wallet address that others use to send you cryptocurrency. Safe to share publicly."
+            "title": "المفتاح العام",
+            "description": "عنوان محفظتك الذي يستخدمه الآخرون لإرسال العملات المشفرة إليك. آمن للمشاركة علناً."
           },
           "private": {
-            "title": "Private Key",
-            "description": "Secret key that controls access to your funds. Never share this with anyone."
+            "title": "المفتاح الخاص",
+            "description": "المفتاح السري الذي يتحكم في الوصول إلى أموالك. لا تشاركه أبداً مع أي شخص."
           }
         },
         "securityProtocol": {
-          "title": "Security Protocol"
+          "title": "بروتوكول الأمان"
         },
         "security": {
-          "title": "Security Best Practices",
+          "title": "أفضل ممارسات الأمان",
           "items": {
-            "seedPhrase": "Never share your seed phrase",
-            "verifyUrls": "Always verify website URLs",
-            "enable2fa": "Enable two-factor authentication",
-            "regularBackups": "Make regular backups"
+            "seedPhrase": "لا تشارك عبارة الاسترداد أبداً",
+            "verifyUrls": "تحقق دائماً من عناوين URL للمواقع",
+            "enable2fa": "تفعيل المصادقة الثنائية",
+            "regularBackups": "قم بعمل نسخ احتياطية منتظمة"
           },
           "neverShare": {
-            "title": "Never Share Private Keys",
-            "description": "Your private keys and seed phrase should never be shared with anyone. No legitimate service will ever ask for them."
+            "title": "لا تشارك المفاتيح الخاصة أبداً",
+            "description": "لا ينبغي أبداً مشاركة مفاتيحك الخاصة وعبارة الاسترداد مع أي شخص. لن تطلب أي خدمة شرعية هذه المعلومات منك."
           },
           "offlineStorage": {
-            "title": "Use Offline Storage",
-            "description": "Store large amounts in cold wallets. Keep only small amounts in hot wallets for daily transactions."
+            "title": "استخدم التخزين غير المتصل",
+            "description": "خزن المبالغ الكبيرة في المحافظ الباردة. احتفظ بمبالغ صغيرة فقط في المحافظ الساخنة للمعاملات اليومية."
           },
           "verifyTransactions": {
-            "title": "Verify All Transactions",
-            "description": "Always double-check recipient addresses and transaction amounts before confirming any transfer."
+            "title": "تحقق من جميع المعاملات",
+            "description": "تحقق دائماً من عناوين المستلمين ومبالغ المعاملات قبل تأكيد أي تحويل."
           }
         },
         "cta": {
-          "title": "Ready to Get Started?",
-          "description": "Create your first TBurn wallet and start exploring the ecosystem. Our setup guide will walk you through every step.",
-          "button": "Create Wallet"
+          "title": "هل أنت مستعد للبدء؟",
+          "description": "أنشئ محفظة TBurn الأولى وابدأ في استكشاف النظام البيئي. سيرشدك دليل الإعداد خلال كل خطوة.",
+          "button": "إنشاء محفظة"
         }
       },
       "whitepaper": {
@@ -5690,76 +5690,76 @@
         }
       },
       "blockchainBasics": {
-        "tag": "BEGINNER",
+        "tag": "مبتدئ",
         "title": "أساسيات البلوكتشين",
-        "subtitle": "Build a solid foundation in blockchain technology. Learn how distributed ledgers, consensus mechanisms, and cryptography work together.",
-        "duration": "4 hours",
-        "backToEducation": "Back to Education Programs",
+        "subtitle": "ابنِ أساساً متيناً في تكنولوجيا البلوكتشين. تعلم كيف تعمل السجلات الموزعة وآليات الإجماع والتشفير معاً.",
+        "duration": "4 ساعات",
+        "backToEducation": "العودة إلى البرامج التعليمية",
         "courseOverview": {
-          "title": "Course Overview",
-          "description": "This comprehensive course introduces you to the fundamental concepts of blockchain technology. You'll learn about distributed ledgers, consensus mechanisms, cryptographic principles, and how these technologies power modern decentralized applications.",
-          "videoTitle": "Introduction to Blockchain",
-          "videoSubtitle": "Course Preview",
-          "figureCaption": "Figure: Course Introduction Video"
+          "title": "نظرة عامة على الدورة",
+          "description": "تقدم لك هذه الدورة الشاملة المفاهيم الأساسية لتكنولوجيا البلوكتشين. ستتعلم عن السجلات الموزعة وآليات الإجماع والمبادئ التشفيرية وكيف تدعم هذه التقنيات التطبيقات اللامركزية الحديثة.",
+          "videoTitle": "مقدمة في البلوكتشين",
+          "videoSubtitle": "معاينة الدورة",
+          "figureCaption": "الشكل: فيديو تقديم الدورة"
         },
-        "curriculumTitle": "Course Curriculum",
+        "curriculumTitle": "منهج الدورة",
         "curriculum": {
           "module1": {
-            "title": "What is Blockchain?",
-            "subtitle": "Understanding distributed ledger technology",
-            "duration": "45 min"
+            "title": "ما هو البلوكتشين؟",
+            "subtitle": "فهم تكنولوجيا السجل الموزع",
+            "duration": "45 دقيقة"
           },
           "module2": {
-            "title": "Cryptography Basics",
-            "subtitle": "Hash functions, signatures, and encryption",
-            "duration": "60 min"
+            "title": "أساسيات التشفير",
+            "subtitle": "دوال التجزئة والتوقيعات والتشفير",
+            "duration": "60 دقيقة"
           },
           "module3": {
-            "title": "Consensus Mechanisms",
-            "subtitle": "PoW, PoS, and TBurn's Proof of Trust",
-            "duration": "75 min"
+            "title": "آليات الإجماع",
+            "subtitle": "PoW وPoS وProof of Trust من TBurn",
+            "duration": "75 دقيقة"
           },
           "module4": {
-            "title": "TBurn Chain Architecture",
-            "subtitle": "Deep dive into our trust-based system",
-            "duration": "60 min"
+            "title": "بنية TBurn Chain",
+            "subtitle": "تعمق في نظامنا القائم على الثقة",
+            "duration": "60 دقيقة"
           }
         },
-        "whatYouWillLearn": "What You'll Learn",
+        "whatYouWillLearn": "ما ستتعلمه",
         "learningOutcomes": {
-          "item1": "Understand blockchain fundamentals and distributed systems",
-          "item2": "Learn cryptographic principles behind secure transactions",
-          "item3": "Explore different consensus mechanisms",
-          "item4": "Master TBurn Chain's unique trust-based architecture"
+          "item1": "فهم أساسيات البلوكتشين والأنظمة الموزعة",
+          "item2": "تعلم المبادئ التشفيرية وراء المعاملات الآمنة",
+          "item3": "استكشاف آليات الإجماع المختلفة",
+          "item4": "إتقان بنية TBurn Chain الفريدة القائمة على الثقة"
         },
-        "prerequisitesTitle": "Prerequisites",
+        "prerequisitesTitle": "المتطلبات المسبقة",
         "prerequisites": {
-          "item1": "Basic programming knowledge helpful but not required",
-          "item2": "Familiarity with web technologies"
+          "item1": "معرفة البرمجة الأساسية مفيدة ولكنها ليست مطلوبة",
+          "item2": "الإلمام بتقنيات الويب"
         },
         "continueLearning": {
-          "title": "Continue Learning",
+          "title": "متابعة التعلم",
           "smartContracts": {
             "title": "العقود الذكية",
-            "subtitle": "Build your first contract"
+            "subtitle": "ابنِ عقدك الأول"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "subtitle": "Integration documentation"
+            "title": "دليل SDK",
+            "subtitle": "وثائق التكامل"
           },
           "quickStart": {
-            "title": "Quick Start",
-            "subtitle": "Deploy your first dApp"
+            "title": "البدء السريع",
+            "subtitle": "انشر تطبيقك اللامركزي الأول"
           },
           "documentation": {
             "title": "الوثائق",
-            "subtitle": "Full API reference"
+            "subtitle": "مرجع API الكامل"
           }
         },
         "upNext": {
-          "label": "Up Next",
+          "label": "التالي",
           "title": "نظام درجة الثقة",
-          "level": "Intermediate Level"
+          "level": "المستوى المتوسط"
         }
       },
       "defiMastery": {

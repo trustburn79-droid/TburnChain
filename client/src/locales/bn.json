@@ -4102,7 +4102,7 @@
         "backToEducation": "শিক্ষা প্রোগ্রামে ফিরে যান",
         "courseOverview": {
           "title": "কোর্স ওভারভিউ",
-          "description": "This comprehensive course introduces you to the fundamental conceপয়েন্ট of blockchain technology. You'll learn about distributed ledgers, কনসেনসাস mechanisms, cryptographic principles, and how these technologies power modern decentralized applications.",
+          "description": "এই বিস্তৃত কোর্স আপনাকে ব্লকচেইন প্রযুক্তির মৌলিক ধারণাগুলির সাথে পরিচয় করিয়ে দেয়। আপনি বিতরণকৃত লেজার, কনসেনসাস মেকানিজম, ক্রিপ্টোগ্রাফিক নীতি এবং এই প্রযুক্তিগুলি কীভাবে আধুনিক বিকেন্দ্রীভূত অ্যাপ্লিকেশনগুলিকে শক্তি দেয় সে সম্পর্কে শিখবেন।",
           "videoTitle": "ব্লকচেইন পরিচিতি",
           "videoSubtitle": "কোর্স প্রিভিউ",
           "figureCaption": "চিত্র: কোর্স পরিচিতি ভিডিও"
@@ -4140,17 +4140,17 @@
         "prerequisitesTitle": "পূর্বশর্ত",
         "prerequisites": {
           "item1": "মৌলিক প্রোগ্রামিং জ্ঞান সহায়ক কিন্তু প্রয়োজনীয় নয়",
-          "item2": "Familiarity with web technologies"
+          "item2": "ওয়েব প্রযুক্তির সাথে পরিচিতি"
         },
         "continueLearning": {
           "title": "শেখা চালিয়ে যান",
           "smartContracts": {
             "title": "স্মার্ট কন্ট্রাক্ট",
-            "subtitle": "Build your first contract"
+            "subtitle": "আপনার প্রথম কন্ট্রাক্ট তৈরি করুন"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "subtitle": "Integration ডকুমেন্টেশন"
+            "title": "SDK গাইড",
+            "subtitle": "ইন্টিগ্রেশন ডকুমেন্টেশন"
           },
           "quickStart": {
             "title": "দ্রুত শুরু",
@@ -4189,7 +4189,7 @@
         },
         "courseOverview": {
           "title": "কোর্স ওভারভিউ",
-          "description": "This উন্নত স্তর course covers everything you need to know about decentralized finance on TBurn Chain. From understanding AMM mechanics to implementing complex ইয়েল্ড ফার্মিং strategies, you'll gain practical skills for navigating the DeFi ecosystem.",
+          "description": "এই উন্নত কোর্স TBurn Chain-এ বিকেন্দ্রীভূত ফিনান্স সম্পর্কে আপনার যা জানা দরকার তা সব কভার করে। AMM মেকানিক্স বোঝা থেকে শুরু করে জটিল ইয়েল্ড ফার্মিং কৌশল বাস্তবায়ন পর্যন্ত, আপনি DeFi ইকোসিস্টেমে নেভিগেট করার প্রায়োগিক দক্ষতা অর্জন করবেন।",
           "videoTitle": "DeFi মৌলিক",
           "videoSubtitle": "কোর্স প্রিভিউ",
           "figureCaption": "চিত্র: DeFi প্রোটোকল ওভারভিউ"
@@ -4230,7 +4230,7 @@
         },
         "developerResources": {
           "title": "ডেভেলপার রিসোর্স",
-          "description": "Build and integrate with TBurn DeFi protocols using these resources.",
+          "description": "এই রিসোর্সগুলি ব্যবহার করে TBurn DeFi প্রোটোকলের সাথে নির্মাণ এবং ইন্টিগ্রেট করুন।",
           "smartContracts": {
             "title": "DeFi কন্ট্রাক্ট",
             "subtitle": "AMM ও লেন্ডিং কন্ট্রাক্ট"
@@ -4249,66 +4249,66 @@
           },
           "codeExamples": {
             "title": "কোড উদাহরণ",
-            "subtitle": "Sample integrations"
+            "subtitle": "নমুনা ইন্টিগ্রেশন"
           },
           "quickStart": {
             "title": "দ্রুত শুরু",
-            "subtitle": "5-minute setup guide"
+            "subtitle": "৫ মিনিটের সেটআপ গাইড"
           }
         },
         "upNext": {
           "label": "পরবর্তী",
           "title": "ডেভেলপার কোর্স",
-          "subtitle": "Build your own dApps"
+          "subtitle": "আপনার নিজের dApps তৈরি করুন"
         }
       },
       "developerCourse": {
         "tag": "উন্নত",
         "title": "ডেভেলপার কোর্স",
         "subtitle": "TBurn Chain-এ dApps নির্মাণ এবং ডিপ্লয় করার সম্পূর্ণ গাইড।",
-        "duration": "20 hours",
+        "duration": "২০ ঘণ্টা",
         "backToEducation": "শিক্ষা প্রোগ্রামে ফিরে যান",
         "courseOverview": {
           "title": "কোর্স ওভারভিউ",
-          "description": "This comprehensive ডেভেলপার কোর্স takes you from zero to deploying production-ready dApps on TBurn Chain. You'll learn smart contract development, SDK integration, testing strategies, and best practices for building secure, scalable applications."
+          "description": "এই বিস্তৃত ডেভেলপার কোর্স আপনাকে শূন্য থেকে TBurn Chain-এ প্রোডাকশন-রেডি dApps ডিপ্লয় করা পর্যন্ত নিয়ে যায়। আপনি স্মার্ট কন্ট্রাক্ট ডেভেলপমেন্ট, SDK ইন্টিগ্রেশন, টেস্টিং স্ট্র্যাটেজি এবং সুরক্ষিত, স্কেলযোগ্য অ্যাপ্লিকেশন তৈরির সেরা অনুশীলন শিখবেন।"
         },
         "curriculumTitle": "কোর্স কারিকুলাম",
         "curriculum": {
           "module1": {
-            "title": "SDK সেটআপ & কনফিগারেশন",
-            "subtitle": "Environment setup and project initialization",
-            "duration": "2 hours"
+            "title": "SDK সেটআপ ও কনফিগারেশন",
+            "subtitle": "এনভায়রনমেন্ট সেটআপ এবং প্রজেক্ট ইনিশিয়ালাইজেশন",
+            "duration": "২ ঘণ্টা"
           },
           "module2": {
-            "title": "Smart Contract Development",
-            "subtitle": "Writing secure, optimized contracts",
+            "title": "স্মার্ট কন্ট্রাক্ট ডেভেলপমেন্ট",
+            "subtitle": "সুরক্ষিত, অপ্টিমাইজড কন্ট্রাক্ট লেখা",
             "duration": "৬ ঘণ্টা"
           },
           "module3": {
             "title": "API ইন্টিগ্রেশন",
-            "subtitle": "REST, GraphQL, and WebSocket APIs",
+            "subtitle": "REST, GraphQL এবং WebSocket APIs",
             "duration": "৪ ঘণ্টা"
           },
           "module4": {
-            "title": "Deployment & DevOps",
-            "subtitle": "Mainnet deployment and monitoring",
+            "title": "ডিপ্লয়মেন্ট ও DevOps",
+            "subtitle": "মেইননেট ডিপ্লয়মেন্ট এবং মনিটরিং",
             "duration": "৪ ঘণ্টা"
           }
         },
         "codeExample": {
-          "title": "Code Example",
+          "title": "কোড উদাহরণ",
           "language": "TypeScript"
         },
         "developerTools": {
-          "title": "Developer Tools",
-          "description": "Access all the tools you need to build on TBurn Chain.",
+          "title": "ডেভেলপার টুলস",
+          "description": "TBurn Chain-এ নির্মাণ করতে প্রয়োজনীয় সব টুলে অ্যাক্সেস করুন।",
           "quickStart": {
             "title": "দ্রুত শুরু",
-            "subtitle": "5-minute setup guide"
+            "subtitle": "৫ মিনিটের সেটআপ গাইড"
           },
           "installation": {
-            "title": "Installation",
-            "subtitle": "Step-by-step guide"
+            "title": "ইনস্টলেশন",
+            "subtitle": "ধাপে ধাপে গাইড"
           },
           "documentation": {
             "title": "ডকুমেন্টেশন",
@@ -4316,32 +4316,32 @@
           },
           "evmMigration": {
             "title": "EVM মাইগ্রেশন",
-            "subtitle": "Port Ethereum dApps"
+            "subtitle": "ইথেরিয়াম dApps পোর্ট করুন"
           }
         },
         "keyTakeawaysTitle": "মূল শিক্ষা",
         "keyTakeaways": {
-          "item1": "Set up and configure the TBurn SDK",
-          "item2": "Write secure স্মার্ট কন্ট্রাক্ট with testing",
-          "item3": "Integrate with Trust Score APIs",
-          "item4": "Deploy to mainnet with best practices"
+          "item1": "TBurn SDK সেটআপ এবং কনফিগার করুন",
+          "item2": "টেস্টিং সহ সুরক্ষিত স্মার্ট কন্ট্রাক্ট লিখুন",
+          "item3": "Trust Score APIs-এর সাথে ইন্টিগ্রেট করুন",
+          "item4": "সেরা অনুশীলন সহ মেইননেটে ডিপ্লয় করুন"
         },
         "prerequisitesTitle": "পূর্বশর্ত",
         "prerequisites": {
-          "item1": "JavaScript/TypeScript proficiency",
-          "item2": "Solidity basics recommended",
+          "item1": "JavaScript/TypeScript দক্ষতা",
+          "item2": "Solidity মৌলিক বিষয় সুপারিশকৃত",
           "item3": "ব্লকচেইন মৌলিক বিষয়"
         },
         "certification": {
-          "title": "Earn Certification",
-          "description": "Complete the course to receive your TBurn Developer certification badge."
+          "title": "সার্টিফিকেশন অর্জন করুন",
+          "description": "আপনার TBurn ডেভেলপার সার্টিফিকেশন ব্যাজ পেতে কোর্সটি সম্পূর্ণ করুন।"
         },
-        "resourcesTitle": "Resources",
+        "resourcesTitle": "রিসোর্স",
         "resources": {
           "apiReference": "API রেফারেন্স",
-          "sdkGuide": "SDK Guide",
+          "sdkGuide": "SDK গাইড",
           "smartContracts": "স্মার্ট কন্ট্রাক্ট",
-          "cliReference": "CLI Reference",
+          "cliReference": "CLI রেফারেন্স",
           "websocketApi": "WebSocket API",
           "codeExamples": "কোড উদাহরণ"
         }
@@ -4350,96 +4350,96 @@
         "tag": "প্রারম্ভিক",
         "title": "DeFi-তে পরিচিতি",
         "subtitle": "TBurn Chain-এ বিকেন্দ্রীভূত ফিনান্সে আপনার প্রথম পদক্ষেপ।",
-        "duration": "2 hours",
+        "duration": "২ ঘণ্টা",
         "backToEducation": "শিক্ষা প্রোগ্রামে ফিরে যান",
         "scoreFormula": {
-          "title": "Trust Score Formula",
+          "title": "Trust Score ফর্মুলা",
           "burnCompliance": {
             "percentage": "40%",
-            "title": "Burn Compliance",
-            "subtitle": "Token burning schedule adherence"
+            "title": "বার্ন কমপ্লায়েন্স",
+            "subtitle": "টোকেন বার্নিং সিডিউল মেনে চলা"
           },
           "devProgress": {
             "percentage": "35%",
-            "title": "Dev Progress",
-            "subtitle": "Development milestone completion"
+            "title": "ডেভ প্রগ্রেস",
+            "subtitle": "ডেভেলপমেন্ট মাইলস্টোন সম্পূর্ণতা"
           },
           "transparency": {
             "percentage": "25%",
-            "title": "Transparency",
-            "subtitle": "On-chain data disclosure"
+            "title": "স্বচ্ছতা",
+            "subtitle": "অন-চেইন ডেটা প্রকাশ"
           }
         },
         "verification": {
-          "title": "3-Stage যাচাইকরণ Process",
+          "title": "৩-পর্যায় যাচাইকরণ প্রক্রিয়া",
           "stage1": {
             "title": "AI বিশ্লেষণ",
-            "description": "ট্রিপল-ব্যান্ড AI scans project data, স্মার্ট কন্ট্রাক্ট, and social presence.",
-            "duration": "2৪ ঘণ্টা"
+            "description": "ট্রিপল-ব্যান্ড AI প্রজেক্ট ডেটা, স্মার্ট কন্ট্রাক্ট এবং সামাজিক উপস্থিতি স্ক্যান করে।",
+            "duration": "২৪ ঘণ্টা"
           },
           "stage2": {
             "title": "বিশেষজ্ঞ পর্যালোচনা",
-            "description": "Human experts validate AI findings and perform deep-dive analysis.",
-            "duration": "7-14 days"
+            "description": "মানব বিশেষজ্ঞরা AI ফলাফল যাচাই করেন এবং গভীর বিশ্লেষণ করেন।",
+            "duration": "৭-১৪ দিন"
           },
           "stage3": {
-            "title": "Community Vote",
-            "description": "Token holders vote on final approval after বিশেষজ্ঞ পর্যালোচনা.",
-            "duration": "3-5 days"
+            "title": "কমিউনিটি ভোট",
+            "description": "বিশেষজ্ঞ পর্যালোচনার পর টোকেন হোল্ডাররা চূড়ান্ত অনুমোদনে ভোট দেন।",
+            "duration": "৩-৫ দিন"
           }
         },
         "scoreActions": {
-          "title": "Actions Based on Trust Score",
+          "title": "Trust Score ভিত্তিক অ্যাকশন",
           "excellent": {
-            "label": "Excellent",
-            "description": "Full trading access, priority listings, and yield boost eligibility."
+            "label": "চমৎকার",
+            "description": "সম্পূর্ণ ট্রেডিং অ্যাক্সেস, অগ্রাধিকার তালিকাভুক্তি এবং ইয়েল্ড বুস্ট যোগ্যতা।"
           },
           "good": {
-            "label": "Good",
-            "description": "স্ট্যান্ডার্ড trading access with enhanced visibility."
+            "label": "ভালো",
+            "description": "উন্নত দৃশ্যমানতা সহ স্ট্যান্ডার্ড ট্রেডিং অ্যাক্সেস।"
           },
           "warning": {
-            "label": "Warning",
-            "description": "Limited trading, warning labels displayed to users."
+            "label": "সতর্কতা",
+            "description": "সীমিত ট্রেডিং, ব্যবহারকারীদের কাছে সতর্কতা লেবেল প্রদর্শিত।"
           },
           "danger": {
-            "label": "Restricted",
-            "description": "Trading suspended, project under investigation."
+            "label": "সীমাবদ্ধ",
+            "description": "ট্রেডিং স্থগিত, প্রজেক্ট তদন্তাধীন।"
           }
         },
         "hybridBurn": {
-          "title": "Hybrid Forced Burn Mechanism",
-          "description": "When projects fail to meet burn schedule commitments, our স্মার্ট কন্ট্রাক্ট automatically enforce token destruction. This protects investors by ensuring deflationary promises are kept.",
-          "figureCaption": "Figure: Auto-Burn Flow Diagram"
+          "title": "হাইব্রিড ফোর্সড বার্ন মেকানিজম",
+          "description": "যখন প্রজেক্টগুলি বার্ন সিডিউল প্রতিশ্রুতি পূরণ করতে ব্যর্থ হয়, আমাদের স্মার্ট কন্ট্রাক্ট স্বয়ংক্রিয়ভাবে টোকেন ধ্বংস প্রয়োগ করে। এটি বিনিয়োগকারীদের সুরক্ষা দেয় নিশ্চিত করে যে মুদ্রাস্ফীতি বিরোধী প্রতিশ্রুতি রক্ষা করা হয়।",
+          "figureCaption": "চিত্র: অটো-বার্ন ফ্লো ডায়াগ্রাম"
         },
         "burnSteps": {
           "step1": {
-            "title": "Schedule Monitoring",
-            "description": "AI monitors burn schedule compliance in real-time"
+            "title": "সিডিউল মনিটরিং",
+            "description": "AI রিয়েল-টাইমে বার্ন সিডিউল কমপ্লায়েন্স মনিটর করে"
           },
           "step2": {
-            "title": "Warning Period",
-            "description": "48-hour grace period with notifications to project"
+            "title": "সতর্কতা সময়কাল",
+            "description": "প্রজেক্টে নোটিফিকেশন সহ ৪৮ ঘণ্টার গ্রেস পিরিয়ড"
           },
           "step3": {
-            "title": "Auto-Execution",
-            "description": "Smart contract burns tokens from reserve wallet"
+            "title": "অটো-এক্সিকিউশন",
+            "description": "স্মার্ট কন্ট্রাক্ট রিজার্ভ ওয়ালেট থেকে টোকেন বার্ন করে"
           }
         },
         "developerResources": {
           "title": "ডেভেলপার রিসোর্স",
-          "description": "Ready to build? Explore our developer tools and ডকুমেন্টেশন.",
+          "description": "নির্মাণ করতে প্রস্তুত? আমাদের ডেভেলপার টুলস এবং ডকুমেন্টেশন অন্বেষণ করুন।",
           "smartContracts": {
             "title": "স্মার্ট কন্ট্রাক্ট",
-            "subtitle": "Trust Score integration"
+            "subtitle": "Trust Score ইন্টিগ্রেশন"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "subtitle": "Quick integration"
+            "title": "SDK গাইড",
+            "subtitle": "দ্রুত ইন্টিগ্রেশন"
           },
           "apiReference": {
             "title": "API রেফারেন্স",
-            "subtitle": "REST & GraphQL"
+            "subtitle": "REST ও GraphQL"
           },
           "websocket": {
             "title": "WebSocket",
@@ -4447,17 +4447,17 @@
           },
           "quickStart": {
             "title": "দ্রুত শুরু",
-            "subtitle": "5-minute setup"
+            "subtitle": "৫ মিনিটের সেটআপ"
           },
           "codeExamples": {
             "title": "কোড উদাহরণ",
-            "subtitle": "Sample projects"
+            "subtitle": "নমুনা প্রজেক্ট"
           }
         },
         "continueLearning": {
           "label": "শেখা চালিয়ে যান",
           "defiMastery": {
-            "title": "DeFi Mastery",
+            "title": "DeFi মাস্টারি",
             "level": "মধ্যবর্তী স্তর"
           }
         },
