@@ -6190,14 +6190,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/bridge/stats", async (_req, res) => {
     try {
       res.json({
-        totalVolume: '$1,250,000,000',
-        dailyVolume: '$25,000,000',
+        totalVolume24h: '$25,000,000',
         activeTransfers: 45,
-        completedTransfers: 125000,
-        failedTransfers: 12,
-        averageTime: '5m 30s',
-        chains: 5,
-        validators: 21
+        completedToday: 1247,
+        avgTransferTime: '5m 30s'
       });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch bridge stats" });
@@ -6234,11 +6230,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       res.json({
         chains: [
-          { id: 1, name: 'Ethereum', chainId: 1, status: 'active', tvl: '$500,000,000', dailyVolume: '$10,000,000' },
-          { id: 2, name: 'BSC', chainId: 56, status: 'active', tvl: '$250,000,000', dailyVolume: '$5,000,000' },
-          { id: 3, name: 'Polygon', chainId: 137, status: 'active', tvl: '$150,000,000', dailyVolume: '$3,000,000' },
-          { id: 4, name: 'Arbitrum', chainId: 42161, status: 'active', tvl: '$200,000,000', dailyVolume: '$4,000,000' },
-          { id: 5, name: 'TBURN', chainId: 8545, status: 'active', tvl: '$150,000,000', dailyVolume: '$3,000,000' }
+          { id: 1, name: 'Ethereum', symbol: 'ETH', chainId: 1, status: 'active', tvl: '$500M', volume24h: '$10M', pendingTx: 12, validators: 7, maxValidators: 10, rpcEndpoint: 'https://eth.tburn.io', explorerUrl: 'https://etherscan.io', bridgeContract: '0x1234...5678', confirmations: 12, enabled: true, lastBlock: 18965432, blockTime: '12s', latency: 45 },
+          { id: 2, name: 'BSC', symbol: 'BNB', chainId: 56, status: 'active', tvl: '$250M', volume24h: '$5M', pendingTx: 8, validators: 5, maxValidators: 10, rpcEndpoint: 'https://bsc.tburn.io', explorerUrl: 'https://bscscan.com', bridgeContract: '0x2345...6789', confirmations: 15, enabled: true, lastBlock: 34567890, blockTime: '3s', latency: 32 },
+          { id: 3, name: 'Polygon', symbol: 'MATIC', chainId: 137, status: 'active', tvl: '$150M', volume24h: '$3M', pendingTx: 5, validators: 4, maxValidators: 10, rpcEndpoint: 'https://polygon.tburn.io', explorerUrl: 'https://polygonscan.com', bridgeContract: '0x3456...7890', confirmations: 128, enabled: true, lastBlock: 52345678, blockTime: '2s', latency: 28 },
+          { id: 4, name: 'Arbitrum', symbol: 'ARB', chainId: 42161, status: 'degraded', tvl: '$200M', volume24h: '$4M', pendingTx: 23, validators: 6, maxValidators: 10, rpcEndpoint: 'https://arb.tburn.io', explorerUrl: 'https://arbiscan.io', bridgeContract: '0x4567...8901', confirmations: 20, enabled: true, lastBlock: 178965432, blockTime: '0.3s', latency: 85 },
+          { id: 5, name: 'TBURN', symbol: 'TBURN', chainId: 8545, status: 'active', tvl: '$150M', volume24h: '$3M', pendingTx: 3, validators: 21, maxValidators: 25, rpcEndpoint: 'http://localhost:8545', explorerUrl: 'https://explorer.tburn.io', bridgeContract: '0x5678...9012', confirmations: 1, enabled: true, lastBlock: 18203567, blockTime: '0.5s', latency: 12 }
         ]
       });
     } catch (error) {
@@ -6247,29 +6243,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/bridge/chains/stats", async (_req, res) => {
-    res.json({ totalChains: 5, activeChains: 5, totalTVL: '$1,250,000,000' });
+    res.json({ 
+      totalChains: 5, 
+      activeChains: 4, 
+      degradedChains: 1, 
+      offlineChains: 0, 
+      totalTvl: '$1,250,000,000' 
+    });
   });
 
   app.get("/api/admin/bridge/validators", async (_req, res) => {
     try {
+      const statuses = ['active', 'active', 'active', 'inactive', 'slashed'] as const;
       const validators = Array.from({ length: 21 }, (_, i) => ({
-        id: `bval-${i + 1}`,
-        address: `0x${Math.random().toString(16).slice(2, 42)}`,
+        id: i + 1,
         name: `Bridge Validator ${i + 1}`,
-        status: 'active',
-        stake: '100000 TBURN',
-        uptime: 99.5 + Math.random() * 0.5,
-        signaturesProcessed: 10000 + Math.floor(Math.random() * 5000),
-        lastActive: new Date(Date.now() - Math.random() * 60000).toISOString()
+        address: `0x${Math.random().toString(16).slice(2, 42)}`,
+        stake: `${(100000 + Math.floor(Math.random() * 50000)).toLocaleString()} TBURN`,
+        status: statuses[i % 5] as "active" | "inactive" | "slashed",
+        uptime: 95 + Math.random() * 5,
+        signatures: 10000 + Math.floor(Math.random() * 5000),
+        chains: ['Ethereum', 'BSC', 'Polygon', 'Arbitrum'].slice(0, 2 + (i % 3))
       }));
-      res.json({ validators, total: validators.length });
+      res.json({ validators });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch bridge validators" });
     }
   });
 
   app.get("/api/admin/bridge/validators/stats", async (_req, res) => {
-    res.json({ totalValidators: 21, activeValidators: 21, threshold: 14, averageUptime: 99.8 });
+    res.json({ 
+      total: 21, 
+      active: 18, 
+      inactive: 2, 
+      slashed: 1, 
+      quorum: "14/21" 
+    });
+  });
+
+  app.get("/api/admin/bridge/signatures", async (_req, res) => {
+    const signatures = Array.from({ length: 20 }, (_, i) => ({
+      id: i + 1,
+      transfer: `TX${(10000 + i).toString(16).toUpperCase()}`,
+      validators: 14 + Math.floor(Math.random() * 7),
+      required: 14,
+      time: new Date(Date.now() - i * 300000).toISOString()
+    }));
+    res.json({ signatures });
   });
 
   app.get("/api/admin/bridge/liquidity", async (_req, res) => {
@@ -6285,19 +6305,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/bridge/liquidity/pools", async (_req, res) => {
-    res.json({ pools: [{ id: 1, name: 'ETH Pool', tvl: '$200,000,000' }] });
+    const chains = ['Ethereum', 'BSC', 'Polygon', 'Arbitrum', 'Optimism'];
+    res.json({ 
+      pools: chains.map((chain, i) => ({
+        chain,
+        locked: `$${(100 + i * 50).toLocaleString()}M`,
+        available: `$${(50 + i * 20).toLocaleString()}M`,
+        utilization: 50 + Math.floor(Math.random() * 30),
+        tokens: ['ETH', 'USDC', 'USDT', 'TBURN'].slice(0, 2 + (i % 3))
+      }))
+    });
   });
 
   app.get("/api/admin/bridge/liquidity/stats", async (_req, res) => {
-    res.json({ totalLiquidity: '$500,000,000', utilizationRate: 0.55 });
+    res.json({ 
+      totalLocked: '$500,000,000',
+      utilizationRate: '55%',
+      dailyVolume: '$25,000,000',
+      rebalanceNeeded: 2
+    });
   });
 
   app.get("/api/admin/bridge/liquidity/history", async (_req, res) => {
-    res.json({ history: Array.from({ length: 30 }, (_, i) => ({ date: new Date(Date.now() - i * 86400000).toISOString(), value: 500000000 - i * 1000000 })) });
+    res.json({ 
+      history: Array.from({ length: 30 }, (_, i) => ({ 
+        date: new Date(Date.now() - (29 - i) * 86400000).toISOString().split('T')[0], 
+        total: 450000000 + Math.floor(Math.random() * 100000000) 
+      })) 
+    });
   });
 
   app.get("/api/admin/bridge/liquidity/alerts", async (_req, res) => {
-    res.json({ alerts: [] });
+    const priorities = ['high', 'medium', 'low'] as const;
+    res.json({ 
+      alerts: [
+        { id: 1, from: "Ethereum", to: "BSC", amount: "$5M", reason: "Utilization imbalance", priority: "high" },
+        { id: 2, from: "Polygon", to: "Arbitrum", amount: "$2M", reason: "Low liquidity warning", priority: "medium" }
+      ]
+    });
   });
 
   app.get("/api/admin/bridge/signatures", async (_req, res) => {
@@ -6305,7 +6350,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/bridge/volume", async (_req, res) => {
-    res.json({ daily: '$25,000,000', weekly: '$175,000,000', monthly: '$750,000,000' });
+    const hours = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
+    res.json({
+      history: hours.map((time, i) => ({
+        time,
+        eth: 1000000 + Math.floor(Math.random() * 500000),
+        bsc: 500000 + Math.floor(Math.random() * 250000),
+        polygon: 300000 + Math.floor(Math.random() * 150000)
+      }))
+    });
   });
 
   // AI Management
@@ -6555,14 +6608,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Analytics
   app.get("/api/admin/analytics/network", async (_req, res) => {
+    const times = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
     res.json({
-      tps: 50000,
-      blockTime: 2,
-      activeAddresses: 150000,
-      dailyTransactions: 5000000,
-      networkUtilization: 0.65,
-      peakTps: 75000,
-      averageFee: '0.001 TBURN'
+      stats: {
+        tps: '50,000 TPS',
+        blockTime: '0.5s',
+        nodeCount: 125,
+        avgLatency: '45ms'
+      },
+      tpsHistory: times.map((time, i) => ({
+        time,
+        tps: 45000 + Math.floor(Math.random() * 10000)
+      })),
+      latencyHistory: times.map((time, i) => ({
+        time,
+        p50: 30 + Math.floor(Math.random() * 10),
+        p95: 50 + Math.floor(Math.random() * 15),
+        p99: 80 + Math.floor(Math.random() * 20)
+      })),
+      shardPerformance: Array.from({ length: 8 }, (_, i) => ({
+        shard: `Shard ${i + 1}`,
+        tps: 5000 + Math.floor(Math.random() * 2000),
+        load: 50 + Math.floor(Math.random() * 40),
+        nodes: 15 + (i % 5)
+      })),
+      resourceUsage: [
+        { resource: 'CPU', usage: 65, trend: 'stable' },
+        { resource: 'Memory', usage: 72, trend: 'up' },
+        { resource: 'Storage', usage: 45, trend: 'stable' },
+        { resource: 'Network', usage: 58, trend: 'down' }
+      ] as const
     });
   });
 
@@ -6849,22 +6924,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Security
   app.get("/api/admin/security", async (_req, res) => {
     res.json({
-      status: 'secure',
-      lastAudit: new Date(Date.now() - 7 * 86400000).toISOString(),
-      vulnerabilities: { critical: 0, high: 0, medium: 2, low: 5 },
-      securityScore: 95,
-      twoFactorEnabled: 0.85,
-      recentEvents: []
+      securityScore: {
+        overall: 94,
+        authentication: 98,
+        authorization: 92,
+        encryption: 96,
+        monitoring: 91,
+        compliance: 95
+      },
+      threatEvents: [
+        { id: 1, type: "Brute Force", severity: "high", source: "192.168.1.100", target: "/api/auth/login", attempts: 15, status: "blocked", time: new Date(Date.now() - 300000).toISOString() },
+        { id: 2, type: "SQL Injection", severity: "critical", source: "10.0.5.23", target: "/api/search", attempts: 3, status: "blocked", time: new Date(Date.now() - 1200000).toISOString() },
+        { id: 3, type: "DDoS Attempt", severity: "medium", source: "Multiple", target: "/api/*", attempts: 1247, status: "mitigated", time: new Date(Date.now() - 3600000).toISOString() },
+        { id: 4, type: "Suspicious Access", severity: "low", source: "10.0.3.45", target: "/admin/*", attempts: 2, status: "monitored", time: new Date(Date.now() - 7200000).toISOString() },
+        { id: 5, type: "Invalid Token", severity: "low", source: "10.0.8.12", target: "/api/wallet", attempts: 5, status: "blocked", time: new Date(Date.now() - 14400000).toISOString() }
+      ],
+      activeSessions: [
+        { id: 1, user: "admin@tburn.io", role: "Super Admin", ip: "10.0.1.5", location: "US-East", device: "Chrome/Windows", lastActivity: new Date(Date.now() - 60000).toISOString() },
+        { id: 2, user: "ops@tburn.io", role: "Operator", ip: "10.0.2.15", location: "EU-West", device: "Firefox/macOS", lastActivity: new Date(Date.now() - 300000).toISOString() },
+        { id: 3, user: "security@tburn.io", role: "Security", ip: "10.0.3.25", location: "AP-East", device: "Safari/macOS", lastActivity: new Date(Date.now() - 900000).toISOString() },
+        { id: 4, user: "dev@tburn.io", role: "Developer", ip: "10.0.4.35", location: "US-West", device: "Chrome/Linux", lastActivity: new Date(Date.now() - 1800000).toISOString() }
+      ]
     });
   });
 
   app.get("/api/admin/security/threats", async (_req, res) => {
+    const severities = ['critical', 'high', 'medium', 'low'] as const;
+    const statuses = ['active', 'blocked', 'investigating', 'resolved'] as const;
     res.json({
-      threats: [
-        { id: 'threat-1', type: 'Suspicious Login', severity: 'medium', status: 'investigating', detectedAt: new Date().toISOString() }
+      stats: {
+        threatsDetected: 1247,
+        threatsBlocked: 1189,
+        activeIncidents: 12,
+        riskScore: 23
+      },
+      recentThreats: Array.from({ length: 15 }, (_, i) => ({
+        id: i + 1,
+        type: ['DDoS Attack', 'Brute Force', 'SQL Injection', 'XSS Attempt', 'Suspicious Login'][i % 5],
+        severity: severities[i % 4],
+        source: `${10 + (i % 100)}.${50 + (i % 50)}.${i % 255}.${(i * 7) % 255}`,
+        target: ['/api/auth', '/api/wallet', '/api/bridge', '/admin/*', '/api/transactions'][i % 5],
+        status: statuses[i % 4],
+        timestamp: new Date(Date.now() - i * 1800000).toISOString()
+      })),
+      aiDetections: [
+        { pattern: "Unusual transaction volume spike", confidence: 94, risk: "high", recommendation: "Monitor for 24h, prepare rate limits" },
+        { pattern: "New IP accessing admin endpoints", confidence: 87, risk: "medium", recommendation: "Verify user identity" },
+        { pattern: "Repeated failed auth attempts", confidence: 98, risk: "high", recommendation: "Implement CAPTCHA" },
+        { pattern: "Cross-shard anomaly detected", confidence: 72, risk: "low", recommendation: "Log for analysis" },
       ],
-      blockedIPs: 125,
-      blockedRequests: 5000
+      threatTrend: [
+        { date: "Dec 1", critical: 2, high: 5, medium: 12, low: 25 },
+        { date: "Dec 2", critical: 1, high: 8, medium: 15, low: 22 },
+        { date: "Dec 3", critical: 3, high: 6, medium: 10, low: 28 },
+        { date: "Dec 4", critical: 0, high: 4, medium: 14, low: 20 },
+      ]
     });
   });
 
@@ -6879,24 +6993,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/compliance", async (_req, res) => {
     res.json({
-      status: 'compliant',
-      frameworks: ['SOC2', 'ISO27001', 'GDPR'],
-      lastAudit: new Date(Date.now() - 30 * 86400000).toISOString(),
-      nextAudit: new Date(Date.now() + 60 * 86400000).toISOString(),
-      issues: []
+      complianceScore: {
+        overall: 94,
+        security: 98,
+        dataProtection: 92,
+        operationalRisk: 95,
+        regulatory: 91
+      },
+      frameworks: [
+        { name: "SOC 2 Type II", status: "compliant", lastAudit: "2024-11-15", nextAudit: "2025-05-15", score: 98 },
+        { name: "ISO 27001", status: "compliant", lastAudit: "2024-10-01", nextAudit: "2025-04-01", score: 96 },
+        { name: "GDPR", status: "compliant", lastAudit: "2024-09-20", nextAudit: "2025-03-20", score: 94 },
+        { name: "PCI DSS", status: "in_progress", lastAudit: "2024-08-01", nextAudit: "2025-02-01", score: 88 },
+        { name: "CCPA", status: "compliant", lastAudit: "2024-11-01", nextAudit: "2025-05-01", score: 92 }
+      ],
+      recentFindings: [
+        { id: 1, category: "Security", finding: "Update TLS certificates before expiry", severity: "medium", status: "open", due: "2024-12-15" },
+        { id: 2, category: "Data Protection", finding: "Review data retention policies", severity: "low", status: "in_progress", due: "2024-12-20" },
+        { id: 3, category: "Access Control", finding: "Implement MFA for all admin accounts", severity: "high", status: "resolved", due: "2024-11-30" },
+        { id: 4, category: "Operational", finding: "Document disaster recovery procedures", severity: "medium", status: "open", due: "2024-12-25" }
+      ],
+      auditSchedule: [
+        { audit: "Quarterly Security Review", date: "2024-12-15", auditor: "Internal", status: "scheduled" },
+        { audit: "SOC 2 Annual Audit", date: "2025-01-10", auditor: "External (Deloitte)", status: "scheduled" },
+        { audit: "Penetration Test", date: "2024-12-20", auditor: "External (CyberSec)", status: "scheduled" },
+        { audit: "ISO 27001 Surveillance", date: "2025-02-15", auditor: "External (BSI)", status: "pending" }
+      ]
     });
   });
 
   app.get("/api/admin/audit/logs", async (_req, res) => {
+    const actions = ['UPDATE_CONFIG', 'RESTART_SERVICE', 'BLOCK_IP', 'CREATE_USER', 'DEPLOY_CONTRACT', 'PAUSE_BRIDGE', 'UPDATE_ROLE', 'AUTO_BACKUP'];
+    const categories = ['configuration', 'operations', 'security', 'user_management', 'development', 'system'];
+    const statuses = ['success', 'failure', 'pending'] as const;
+    const actors = ['admin@tburn.io', 'ops@tburn.io', 'security@tburn.io', 'dev@tburn.io', 'system'];
+    const roles = ['Super Admin', 'Operator', 'Security', 'Developer', 'System'];
     res.json({
-      logs: Array.from({ length: 100 }, (_, i) => ({
+      logs: Array.from({ length: 50 }, (_, i) => ({
         id: `audit-${i + 1}`,
-        timestamp: new Date(Date.now() - i * 60000).toISOString(),
-        user: `user${(i % 10) + 1}`,
-        action: ['CREATE', 'UPDATE', 'DELETE', 'ACCESS'][i % 4],
-        resource: ['user', 'validator', 'token', 'setting'][i % 4],
-        details: 'Action completed successfully',
-        ip: `192.168.1.${i % 255}`
+        timestamp: new Date(Date.now() - i * 300000).toISOString(),
+        actor: actors[i % 5],
+        actorRole: roles[i % 5],
+        action: actions[i % 8],
+        category: categories[i % 6],
+        target: ['network_params', 'consensus_engine', '192.168.1.100', 'new_user@tburn.io', '0xabcd...ef01', 'eth_bridge'][i % 6],
+        targetType: ['config', 'service', 'ip_address', 'user', 'contract', 'bridge'][i % 6],
+        status: statuses[i % 3],
+        ipAddress: `10.0.${(i % 5) + 1}.${(i * 5) % 100}`,
+        userAgent: ['Chrome/120.0', 'Firefox/121.0', 'Safari/17.0', 'System'][i % 4],
+        details: { action: actions[i % 8], timestamp: new Date().toISOString() }
       }))
     });
   });
@@ -7114,11 +7259,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Finance
   app.get("/api/admin/finance", async (_req, res) => {
+    const transactionStatuses = ['completed', 'pending', 'failed'] as const;
     res.json({
-      revenue: { daily: '$50,000', weekly: '$350,000', monthly: '$1,500,000' },
-      expenses: { daily: '$10,000', weekly: '$70,000', monthly: '$300,000' },
-      profit: { daily: '$40,000', weekly: '$280,000', monthly: '$1,200,000' },
-      treasury: '$50,000,000'
+      metrics: [
+        { label: "Market Cap", value: "$2.47B", change: 5.2, trend: "up", icon: "CircleDollarSign" },
+        { label: "Circulating Supply", value: "847.5M TBURN", change: -0.02, trend: "down", icon: "Coins" },
+        { label: "Total Burned", value: "152.5M TBURN", change: 2.3, trend: "up", icon: "Flame" },
+        { label: "Treasury Balance", value: "$89.4M", change: 1.8, trend: "up", icon: "Building2" }
+      ],
+      revenueData: [
+        { month: "Jul", revenue: 12500000, expenses: 8200000, profit: 4300000 },
+        { month: "Aug", revenue: 14200000, expenses: 8800000, profit: 5400000 },
+        { month: "Sep", revenue: 15800000, expenses: 9200000, profit: 6600000 },
+        { month: "Oct", revenue: 18500000, expenses: 9800000, profit: 8700000 },
+        { month: "Nov", revenue: 21200000, expenses: 10500000, profit: 10700000 },
+        { month: "Dec", revenue: 24500000, expenses: 11200000, profit: 13300000 }
+      ],
+      revenueBreakdown: [
+        { name: "Transaction Fees", value: 45, color: "#8884d8" },
+        { name: "Staking Rewards", value: 25, color: "#82ca9d" },
+        { name: "Bridge Fees", value: 20, color: "#ffc658" },
+        { name: "Other", value: 10, color: "#ff8042" }
+      ],
+      recentTransactions: Array.from({ length: 10 }, (_, i) => ({
+        id: `tx-${i + 1}`,
+        type: i % 2 === 0 ? "inflow" : "outflow",
+        category: ["Staking Fees", "Bridge Revenue", "Validator Rewards", "Operating Costs", "Development"][i % 5],
+        amount: 10000 + Math.floor(Math.random() * 100000),
+        date: new Date(Date.now() - i * 86400000).toISOString(),
+        description: `Transaction ${i + 1} description`,
+        status: transactionStatuses[i % 3]
+      })),
+      treasuryAllocation: [
+        { category: "Operating Reserve", amount: 35000000, percentage: 39 },
+        { category: "Development Fund", amount: 25000000, percentage: 28 },
+        { category: "Marketing", amount: 15000000, percentage: 17 },
+        { category: "Community Grants", amount: 10000000, percentage: 11 },
+        { category: "Emergency Fund", amount: 4400000, percentage: 5 }
+      ]
     });
   });
 
@@ -7208,24 +7386,64 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/feedback", async (_req, res) => {
+    const types = ['suggestion', 'bug', 'praise', 'complaint'] as const;
+    const categories = ['UI/UX', 'Performance', 'Features', 'Documentation', 'Support'];
+    const statuses = ['new', 'reviewed', 'actioned', 'archived'] as const;
     res.json({
-      feedback: Array.from({ length: 20 }, (_, i) => ({
+      items: Array.from({ length: 25 }, (_, i) => ({
         id: `fb-${i + 1}`,
-        type: ['suggestion', 'bug', 'praise', 'question'][i % 4],
-        message: `Feedback message ${i + 1}`,
-        rating: 3 + Math.floor(Math.random() * 3),
-        createdAt: new Date(Date.now() - i * 86400000).toISOString()
+        type: types[i % 4],
+        category: categories[i % 5],
+        message: `User feedback message ${i + 1}. This contains detailed feedback about the platform.`,
+        rating: 1 + Math.floor(Math.random() * 5),
+        user: `user${i + 1}@example.com`,
+        createdAt: new Date(Date.now() - i * 86400000).toISOString(),
+        status: statuses[i % 4],
+        response: i % 3 === 0 ? `Thank you for your feedback. We have addressed your concern.` : null
       })),
-      averageRating: 4.5
+      ratingData: [
+        { rating: "5 Stars", count: 45, percentage: 45 },
+        { rating: "4 Stars", count: 28, percentage: 28 },
+        { rating: "3 Stars", count: 15, percentage: 15 },
+        { rating: "2 Stars", count: 8, percentage: 8 },
+        { rating: "1 Star", count: 4, percentage: 4 }
+      ],
+      typeDistribution: [
+        { name: "Suggestions", value: 35, color: "#8884d8" },
+        { name: "Bug Reports", value: 25, color: "#ff8042" },
+        { name: "Praise", value: 30, color: "#00C49F" },
+        { name: "Complaints", value: 10, color: "#FFBB28" }
+      ],
+      trendData: [
+        { day: "Mon", feedback: 12, avgRating: 4.2 },
+        { day: "Tue", feedback: 15, avgRating: 4.0 },
+        { day: "Wed", feedback: 8, avgRating: 4.5 },
+        { day: "Thu", feedback: 18, avgRating: 3.8 },
+        { day: "Fri", feedback: 22, avgRating: 4.1 },
+        { day: "Sat", feedback: 10, avgRating: 4.3 },
+        { day: "Sun", feedback: 6, avgRating: 4.6 }
+      ]
     });
   });
 
   app.get("/api/admin/announcements", async (_req, res) => {
+    const types = ['info', 'warning', 'critical', 'maintenance'] as const;
+    const statuses = ['draft', 'scheduled', 'published', 'archived'] as const;
+    const audiences = [['all'], ['validators'], ['operators', 'developers'], ['all', 'validators']];
     res.json({
-      announcements: [
-        { id: 'ann-1', title: 'System Maintenance', content: 'Scheduled maintenance on Saturday', status: 'active', createdAt: new Date().toISOString() },
-        { id: 'ann-2', title: 'New Feature', content: 'Bridge v2 is now live', status: 'active', createdAt: new Date().toISOString() }
-      ]
+      announcements: Array.from({ length: 12 }, (_, i) => ({
+        id: `ann-${i + 1}`,
+        title: ['System Maintenance', 'Bridge v2 Launch', 'Security Update', 'New Feature Release', 'Network Upgrade', 'API Changes'][i % 6],
+        content: `Detailed announcement content for item ${i + 1}. This provides important information to the community.`,
+        type: types[i % 4],
+        audience: audiences[i % 4],
+        status: statuses[i % 4],
+        pinned: i < 2,
+        publishedAt: i % 4 === 2 ? new Date(Date.now() - i * 86400000).toISOString() : null,
+        scheduledFor: i % 4 === 1 ? new Date(Date.now() + (i + 1) * 86400000).toISOString() : null,
+        author: ['Admin', 'Ops Team', 'Security'][i % 3],
+        views: Math.floor(Math.random() * 5000)
+      }))
     });
   });
 

@@ -2,6 +2,21 @@
 
 ## Recent Changes (December 4, 2024)
 
+### API Endpoint Fixes for Admin Portal Pages
+- Fixed API-frontend data structure mismatches across multiple admin portal endpoints
+- Bridge APIs:
+  - `/api/admin/bridge/stats` - Returns `totalVolume24h`, `activeTransfers`, `completedToday`, `avgTransferTime`
+  - `/api/admin/bridge/chains` - Returns chains with `pendingTx` (not `pending`), full chain properties
+  - `/api/admin/bridge/chains/stats` - Returns `totalChains`, `activeChains`, `degradedChains`, `offlineChains`, `totalTvl`
+  - `/api/admin/bridge/volume` - Returns `{ history: VolumeData[] }` with time, eth, bsc, polygon fields
+  - `/api/admin/bridge/liquidity/*` - Updated pools, stats, history, alerts endpoints
+- Analytics APIs:
+  - `/api/admin/analytics/network` - Returns complete `NetworkAnalytics` structure (stats, tpsHistory, latencyHistory, shardPerformance, resourceUsage)
+- Admin Management APIs:
+  - `/api/admin/feedback` - Returns items with ratings, categories, status, plus ratingData, typeDistribution, trendData
+  - `/api/admin/finance` - Returns metrics, revenueData, revenueBreakdown, recentTransactions, treasuryAllocation
+  - `/api/admin/audit/logs` - Returns logs with actor, actorRole, action, category, target, targetType, status
+
 ### Admin Portal Authentication & Dashboard Fixes
 - Fixed UnifiedDashboard crash caused by null `aiStatus.models` and `validatorSummary.topValidators`
   - Added proper null checks and fallback empty arrays in useMemo hooks
