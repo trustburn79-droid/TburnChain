@@ -11720,6 +11720,193 @@
           "subscribed": "Has sido añadido a nuestro boletín. Revisa tu bandeja de entrada para confirmación.",
           "error": "Error de Suscripción",
           "invalidEmail": "Por favor ingresa un correo electrónico válido."
+        },
+        "detail": {
+          "backToNews": "Volver a Noticias",
+          "notFound": "Artículo no encontrado",
+          "notFoundDesc": "El artículo que busca no existe o ha sido eliminado.",
+          "linkCopied": "¡Enlace copiado!",
+          "shareSuccess": "Enlace del artículo copiado al portapapeles",
+          "bookmarked": "¡Guardado!",
+          "bookmarkSuccess": "Artículo guardado en marcadores",
+          "helpful": "Útil",
+          "discuss": "Discutir",
+          "relatedArticles": "Artículos Relacionados",
+          "articles": {
+            "v4-mainnet-launch": {
+              "title": "Lanzamiento de TBURN v7.0 Mainnet: Una Nueva Era de Innovación Blockchain",
+              "description": "Después de meses de pruebas rigurosas, TBURN v7.0 mainnet está ahora en vivo con consenso mejorado por IA revolucionario y características de nivel empresarial.",
+              "author": "Equipo Core TBURN",
+              "authorRole": "Anuncio Oficial",
+              "date": "28 de noviembre de 2024",
+              "readTime": "5 min de lectura",
+              "views": "128.5K",
+              "category": "Anuncio",
+              "content": {
+                "0": "Nos complace anunciar que TBURN v7.0 mainnet ha sido lanzado oficialmente. Este lanzamiento representa un hito significativo en nuestro viaje para revolucionar la tecnología blockchain, representando la culminación de más de dos años de investigación y desarrollo.",
+                "1": "Características Clave de TBURN v7.0:",
+                "2": "Consenso BFT de Comité Mejorado por IA: Nuestro mecanismo de consenso propietario combina la Tolerancia a Fallos Bizantinos tradicional con algoritmos de IA avanzados para la selección óptima de validadores y seguridad de red.",
+                "3": "Sistema de Fragmentación Dinámica: La red ahora soporta balanceo de carga automático a través de múltiples fragmentos, permitiendo escalabilidad sin precedentes sin sacrificar la descentralización.",
+                "4": "Orquestación Triple-Band AI: Tres sistemas de IA independientes (GPT-5, Claude Sonnet 4.5, Llama 4) trabajan en armonía para optimizar las operaciones de red.",
+                "5": "Estándares de Token Empresarial (TBC-20, TBC-721, TBC-1155): Nuestros estándares de token mejorados proporcionan seguridad resistente a quantum y características de cumplimiento integradas.",
+                "6": "El lanzamiento de mainnet incluye un ecosistema DeFi completo con DEX/AMM, protocolos de préstamo, staking líquido, marketplace NFT y capacidades de puente cross-chain.",
+                "7": "Invitamos a desarrolladores, validadores y usuarios a unirse a nosotros para construir el futuro de las finanzas descentralizadas en TBURN v7.0."
+              },
+              "tags": { "0": "Mainnet", "1": "Lanzamiento", "2": "v7.0", "3": "IA", "4": "DeFi" }
+            },
+            "triple-band-ai-revealed": {
+              "title": "Arquitectura Triple-Band AI Revelada: El Futuro de la Inteligencia Blockchain",
+              "description": "Exploración técnica profunda de cómo TBURN aprovecha tres sistemas de IA para un rendimiento blockchain óptimo.",
+              "author": "Dr. Sarah Chen",
+              "authorRole": "Arquitecta Jefe de IA",
+              "date": "25 de noviembre de 2024",
+              "readTime": "8 min de lectura",
+              "views": "89.2K",
+              "category": "Tecnología",
+              "content": {
+                "0": "El sistema de Orquestación de IA TBURN v7.0 representa un avance en la tecnología blockchain, combinando múltiples proveedores de IA para redundancia, precisión y toma de decisiones óptima.",
+                "1": "Entendiendo la Arquitectura Triple-Band:",
+                "2": "Primary Band (GPT-5): Maneja tareas analíticas complejas incluyendo puntuación de confianza de validadores, detección de anomalías y mantenimiento predictivo.",
+                "3": "Secondary Band (Claude Sonnet 4.5): Se especializa en análisis de código, auditoría de contratos inteligentes y procesamiento de lenguaje natural para propuestas de gobernanza.",
+                "4": "Tertiary Band (Llama 4): Proporciona procesamiento de alto rendimiento y baja latencia para enrutamiento de transacciones en tiempo real y decisiones de balanceo de carga.",
+                "5": "Interacción Cross-Band: Cuando una decisión requiere alta confianza, los tres sistemas de IA analizan la situación de forma independiente y luego combinan sus salidas ponderadas por precisión histórica.",
+                "6": "Sistema de Aprendizaje por Retroalimentación: Todas las decisiones de IA son rastreadas y evaluadas contra resultados reales. Este bucle de retroalimentación continuo permite que el sistema mejore con el tiempo, con métricas de precisión que actualmente superan el 99.7%.",
+                "7": "El resultado es una capa de IA auto-mejorante y tolerante a fallos que mejora todos los aspectos de las operaciones blockchain."
+              },
+              "tags": { "0": "IA", "1": "Tecnología", "2": "Análisis Profundo", "3": "Arquitectura" }
+            },
+            "global-partnership-expansion": {
+              "title": "Expansión Global de Asociaciones: TBURN Une Fuerzas con Líderes de la Industria",
+              "description": "Asociaciones estratégicas anunciadas para acelerar el crecimiento del ecosistema TBURN y la adopción global.",
+              "author": "Equipo de Desarrollo de Negocios",
+              "authorRole": "Actualización de Asociaciones",
+              "date": "15 de noviembre de 2024",
+              "readTime": "4 min de lectura",
+              "views": "98.7K",
+              "category": "Asociación",
+              "content": {
+                "0": "TBURN se enorgullece de anunciar una serie de asociaciones estratégicas que acelerarán el crecimiento de nuestro ecosistema y llevarán la tecnología blockchain a millones de nuevos usuarios en todo el mundo.",
+                "1": "Destacados de Asociaciones Clave:",
+                "2": "Socios de Integración Empresarial: Instituciones financieras líderes y empresas tecnológicas se han comprometido a integrar las soluciones empresariales de TBURN.",
+                "3": "Ecosistema de Desarrolladores: Estudios de desarrollo importantes y proveedores de herramientas blockchain están construyendo sobre TBURN.",
+                "4": "Socios de Infraestructura: Proveedores de nube y operadores de centros de datos están apoyando nuestra red global de nodos.",
+                "5": "Expansión Regional: Estas asociaciones permiten a TBURN establecer presencia en mercados clave de Asia, Europa y las Américas.",
+                "6": "Recursos para Desarrolladores: Nuestros socios contribuyen a recursos integrales para desarrolladores, incluyendo SDKs, documentación y programas de formación.",
+                "7": "Estamos emocionados por las oportunidades que estas asociaciones crean para nuestra comunidad y el ecosistema blockchain más amplio."
+              },
+              "tags": { "0": "Asociación", "1": "Expansión", "2": "Empresarial", "3": "Global" }
+            },
+            "staking-program-details": {
+              "title": "Detalles del Programa de Staking: Maximice sus Recompensas TBURN",
+              "description": "Guía completa de los niveles de staking, recompensas y cómo maximizar sus retornos.",
+              "author": "Equipo de Economía TBURN",
+              "authorRole": "Guía Oficial",
+              "date": "22 de noviembre de 2024",
+              "readTime": "6 min de lectura",
+              "views": "67.8K",
+              "category": "Tokenomics",
+              "content": {
+                "0": "El programa de staking de TBURN ofrece múltiples formas de ganar recompensas mientras apoya la seguridad de la red.",
+                "1": "Niveles de Staking:",
+                "2": "Nivel Bronce: Mínimo 1,000 TBURN - APY base 8%",
+                "3": "Nivel Plata: Mínimo 10,000 TBURN - APY base 12% + derechos de gobernanza",
+                "4": "Nivel Oro: Mínimo 100,000 TBURN - APY base 18% + selección prioritaria de validadores",
+                "5": "Nivel Platino: Mínimo 1,000,000 TBURN - APY base 25% + todos los beneficios",
+                "6": "Bonificaciones por Período de Bloqueo: Períodos de bloqueo más largos proporcionan bonificaciones APY adicionales de hasta 50%.",
+                "7": "Auto-composición: Habilite la auto-composición para reinvertir automáticamente sus recompensas y maximizar retornos.",
+                "8": "Comenzar: Visite el panel de staking de TBURN hoy para comenzar a ganar recompensas."
+              },
+              "tags": { "0": "Staking", "1": "Recompensas", "2": "Tokenomics", "3": "APY" }
+            },
+            "trust-score-deep-dive": {
+              "title": "Análisis Profundo del Trust Score: Cómo la IA de TBURN Evalúa la Seguridad de la Red",
+              "description": "Explicación completa del sistema Trust Score impulsado por IA que asegura la integridad de la red.",
+              "author": "Equipo de Seguridad",
+              "authorRole": "Guía Técnica",
+              "date": "20 de noviembre de 2024",
+              "readTime": "7 min de lectura",
+              "views": "56.3K",
+              "category": "Seguridad",
+              "content": {
+                "0": "El sistema Trust Score de TBURN es un enfoque revolucionario para la seguridad de red, aprovechando la IA para evaluar y puntuar continuamente a cada participante del ecosistema.",
+                "1": "Cómo Funciona Trust Score:",
+                "2": "Monitoreo en Tiempo Real: Los sistemas de IA analizan continuamente el comportamiento del validador, patrones de transacción y contribuciones a la red.",
+                "3": "Análisis Multifactor: Las puntuaciones consideran tiempo de actividad, tiempo de respuesta, precisión de producción de bloques, participación en gobernanza y fiabilidad histórica.",
+                "4": "Ajuste Dinámico: Las puntuaciones de confianza se actualizan en tiempo real basándose en actividad reciente.",
+                "5": "Impacto del Trust Score: Puntuaciones más altas desbloquean beneficios como procesamiento prioritario de transacciones, tarifas reducidas y poder de voto de gobernanza mejorado.",
+                "6": "Manteniendo Puntuaciones Altas: Tiempo de actividad consistente, producción de bloques oportuna y participación activa en gobernanza son factores clave.",
+                "7": "El sistema Trust Score asegura que los participantes más confiables sean recompensados, creando un mecanismo de seguridad auto-reforzante."
+              },
+              "tags": { "0": "Seguridad", "1": "Trust Score", "2": "IA", "3": "Validadores" }
+            },
+            "sdk-2-released": {
+              "title": "TBURN SDK 2.0 Lanzado: Construya Más Rápido con Nuevas Herramientas para Desarrolladores",
+              "description": "La nueva versión del SDK trae APIs mejoradas, soporte TypeScript y documentación completa.",
+              "author": "Relaciones con Desarrolladores",
+              "authorRole": "Notas de Lanzamiento",
+              "date": "18 de noviembre de 2024",
+              "readTime": "5 min de lectura",
+              "views": "43.1K",
+              "category": "Desarrollo",
+              "content": {
+                "0": "Nos complace anunciar el lanzamiento del SDK 2.0 de TBURN, con mejoras significativas para desarrolladores.",
+                "1": "Novedades en SDK 2.0:",
+                "2": "Soporte TypeScript Completo: Definiciones de tipos completas para todas las funciones y objetos del SDK.",
+                "3": "APIs Simplificadas: Interfaces optimizadas para operaciones comunes como transacciones, staking e interacciones con contratos inteligentes.",
+                "4": "React Hooks: Hooks preconstruidos para fácil integración con aplicaciones React.",
+                "5": "Mejor Manejo de Errores: Tipos de error y mensajes completos para depuración más fácil.",
+                "6": "Comenzar: Instale con npm: npm install @tburn/sdk",
+                "7": "Documentación: Visite nuestro portal de desarrolladores para guías completas, referencias de API y proyectos de ejemplo.",
+                "8": "SDK 2.0 representa nuestro compromiso de hacer el desarrollo TBURN accesible y agradable."
+              },
+              "tags": { "0": "SDK", "1": "Desarrollo", "2": "TypeScript", "3": "Herramientas" }
+            },
+            "quantum-resistant-cryptography": {
+              "title": "Criptografía Resistente a Quantum: Asegurando el Futuro de TBURN",
+              "description": "Cómo TBURN implementa algoritmos resistentes a quantum para proteger contra amenazas futuras.",
+              "author": "Equipo de Criptografía",
+              "authorRole": "Investigación de Seguridad",
+              "date": "12 de noviembre de 2024",
+              "readTime": "6 min de lectura",
+              "views": "34.2K",
+              "category": "Seguridad",
+              "content": {
+                "0": "A medida que avanza la computación cuántica, los métodos criptográficos tradicionales enfrentan vulnerabilidades potenciales. TBURN está abordando proactivamente esto con implementaciones resistentes a quantum.",
+                "1": "Nuestro Enfoque:",
+                "2": "Criptografía Híbrida: Combinando algoritmos tradicionales y post-cuánticos para seguridad inmediata y preparación para el futuro.",
+                "3": "Estándares Aprobados por NIST: Implementando algoritmos criptográficos aprobados por NIST para seguridad post-cuántica.",
+                "4": "Migración Gradual: Despliegue por fases de características resistentes a quantum para asegurar estabilidad.",
+                "5": "Componentes Protegidos:",
+                "6": "Firmas de Transacción: Todas las nuevas transacciones usan esquemas de firma resistentes a quantum.",
+                "7": "Intercambio de Claves: Protocolos de intercambio de claves seguros que resisten ataques cuánticos.",
+                "8": "Funciones Hash: Sistema multi-hash con opciones resistentes a quantum.",
+                "9": "Este enfoque proactivo asegura que TBURN permanezca seguro incluso mientras evolucionan las capacidades de computación cuántica."
+              },
+              "tags": { "0": "Quantum", "1": "Criptografía", "2": "Seguridad", "3": "Investigación" }
+            },
+            "tburn-dex-beta": {
+              "title": "Lanzamiento Beta del DEX TBURN: El Trading Descentralizado Está Aquí",
+              "description": "El exchange descentralizado TBURN está ahora en beta con múltiples tipos de curvas AMM y enrutamiento optimizado por IA.",
+              "author": "Equipo DeFi",
+              "authorRole": "Lanzamiento de Producto",
+              "date": "10 de noviembre de 2024",
+              "readTime": "5 min de lectura",
+              "views": "51.4K",
+              "category": "DeFi",
+              "content": {
+                "0": "El beta de TBURN DEX ya está en vivo, trayendo trading descentralizado a nuestro ecosistema con características avanzadas y optimización por IA.",
+                "1": "Características Clave:",
+                "2": "Múltiples Tipos AMM: Pools de producto constante, swap estable y liquidez concentrada.",
+                "3": "Enrutamiento Optimizado por IA: El enrutamiento inteligente encuentra el mejor camino a través de todos los pools para tasas de swap óptimas.",
+                "4": "Protección MEV: Protección integrada contra ataques sandwich y front-running.",
+                "5": "Bajas Tarifas: Tarifas de trading competitivas con descuentos para traders de alto volumen.",
+                "6": "Provisión de Liquidez: Gane tarifas proporcionando liquidez a pools. Nuestra función de auto-composición maximiza sus retornos.",
+                "7": "Comenzar: Conecte su wallet y comience a operar en TBURN DEX hoy.",
+                "8": "Únase a nuestros canales de comunidad para proporcionar comentarios y ayudar a dar forma al futuro del trading descentralizado en TBURN."
+              },
+              "tags": { "0": "DEX", "1": "DeFi", "2": "Trading", "3": "AMM" }
+            }
+          }
         }
       },
       "events": {
@@ -11815,6 +12002,155 @@
         "toast": {
           "reminderSet": "Recordatorio Establecido",
           "reminderDescription": "Serás notificado antes de \"{{title}}\""
+        },
+        "detail": {
+          "backToEvents": "Volver a Eventos",
+          "notFound": "Evento no encontrado",
+          "notFoundDesc": "El evento que busca no existe o ha terminado.",
+          "about": "Acerca de Este Evento",
+          "agenda": "Agenda del Evento",
+          "speakers": "Ponentes",
+          "requirements": "Requisitos",
+          "registration": "Registro",
+          "spotsFilled": "Plazas ocupadas",
+          "full": "completo",
+          "youAreRegistered": "¡Estás Registrado!",
+          "registerNow": "Registrarse Ahora",
+          "remindMe": "Recordarme",
+          "eventDetails": "Detalles del Evento",
+          "wantToHost": "¿Quieres organizar un evento?",
+          "registered": "¡Registro Exitoso!",
+          "registeredDesc": "Se ha registrado para este evento. Revise su email para más detalles.",
+          "notificationSet": "¡Recordatorio Configurado!",
+          "notificationDesc": "Le notificaremos antes de que comience el evento.",
+          "linkCopied": "¡Enlace copiado!",
+          "shareSuccess": "Enlace del evento copiado al portapapeles",
+          "events": {
+            "1": {
+              "title": "Evento de Lanzamiento de TBURN v7.0 Mainnet",
+              "description": "Únase a la celebración oficial del lanzamiento de TBURN v7.0 mainnet con demostraciones en vivo y Q&A.",
+              "date": "3 de diciembre de 2024",
+              "time": "14:00 - 16:00",
+              "timezone": "UTC",
+              "location": "Evento Virtual (Zoom)",
+              "locationType": "virtual",
+              "type": "Evento de Lanzamiento",
+              "fullDescription": {
+                "0": "¡Sea parte de la historia mientras lanzamos oficialmente TBURN v7.0 mainnet! Este evento virtual contará con demostraciones en vivo de nuestra revolucionaria tecnología blockchain mejorada por IA.",
+                "1": "El Equipo Core de TBURN le guiará a través de las características clave de v7.0, incluyendo el sistema de Orquestación Triple-Band AI, Fragmentación Dinámica y el ecosistema DeFi completo.",
+                "2": "Los asistentes tendrán la oportunidad de hacer preguntas directamente a nuestros desarrolladores y aprender cómo comenzar con TBURN v7.0."
+              },
+              "speakers": {
+                "0": { "name": "Alex Park", "role": "CEO y Fundador", "avatar": "AP" },
+                "1": { "name": "Dr. Sarah Chen", "role": "Arquitecta Jefe de IA", "avatar": "SC" },
+                "2": { "name": "Michael Rodriguez", "role": "Líder de Producto DeFi", "avatar": "MR" }
+              },
+              "agenda": {
+                "0": { "time": "14:00", "title": "Bienvenida e Introducción", "speaker": "Alex Park" },
+                "1": { "time": "14:15", "title": "Visión General Técnica de TBURN v7.0" },
+                "2": { "time": "14:45", "title": "Análisis Profundo de Orquestación IA", "speaker": "Dr. Sarah Chen" },
+                "3": { "time": "15:15", "title": "Demo del Ecosistema DeFi", "speaker": "Michael Rodriguez" },
+                "4": { "time": "15:45", "title": "Sesión de Q&A en Vivo" }
+              },
+              "requirements": {
+                "0": "Conexión a internet estable",
+                "1": "Cliente Zoom instalado",
+                "2": "Preguntas preparadas para Q&A"
+              }
+            },
+            "2": {
+              "title": "Taller para Desarrolladores: Construyendo en TBURN",
+              "description": "Taller práctico para desarrolladores para aprender desarrollo de contratos inteligentes en TBURN v7.0.",
+              "date": "5 de diciembre de 2024",
+              "time": "10:00 - 14:00",
+              "timezone": "UTC",
+              "location": "Taller Virtual",
+              "locationType": "virtual",
+              "type": "Taller",
+              "fullDescription": {
+                "0": "Este taller intensivo está diseñado para desarrolladores que quieren construir aplicaciones descentralizadas en TBURN v7.0.",
+                "1": "Aprenderá sobre nuestros estándares de token mejorados (TBC-20, TBC-721, TBC-1155), mejores prácticas de contratos inteligentes y cómo integrarse con nuestras APIs impulsadas por IA.",
+                "2": "Al final de este taller, habrá desplegado su primer contrato inteligente en testnet TBURN."
+              },
+              "speakers": {
+                "0": { "name": "James Liu", "role": "Desarrollador Principal", "avatar": "JL" },
+                "1": { "name": "Emma Wilson", "role": "Relaciones con Desarrolladores", "avatar": "EW" }
+              },
+              "agenda": {
+                "0": { "time": "10:00", "title": "Configuración del Entorno y Prerrequisitos" },
+                "1": { "time": "10:30", "title": "Introducción al SDK TBURN", "speaker": "James Liu" },
+                "2": { "time": "11:30", "title": "Desarrollo de Contratos Inteligentes" },
+                "3": { "time": "12:30", "title": "Pausa para Almuerzo" },
+                "4": { "time": "13:00", "title": "Pruebas y Despliegue", "speaker": "Emma Wilson" },
+                "5": { "time": "13:45", "title": "Q&A y Cierre" }
+              },
+              "requirements": {
+                "0": "Node.js 18+ instalado",
+                "1": "Conocimiento básico de Solidity",
+                "2": "Editor de código (VS Code recomendado)",
+                "3": "Cuenta de GitHub"
+              }
+            },
+            "3": {
+              "title": "AMA de la Comunidad TBURN",
+              "description": "Sesión mensual de Pregúntame Lo Que Sea con el equipo TBURN. ¡Envía tus preguntas!",
+              "date": "10 de diciembre de 2024",
+              "time": "18:00 - 19:30",
+              "timezone": "UTC",
+              "location": "Canal de Voz Discord",
+              "locationType": "virtual",
+              "type": "AMA",
+              "fullDescription": {
+                "0": "¡Únase a nuestro AMA mensual de la comunidad donde el equipo TBURN responde sus preguntas!",
+                "1": "Esta es su oportunidad para obtener información directamente del equipo sobre actualizaciones del roadmap, decisiones técnicas e iniciativas comunitarias.",
+                "2": "Las preguntas pueden enviarse con anticipación a través de Discord o hacerse en vivo durante la sesión."
+              },
+              "speakers": {
+                "0": { "name": "Alex Park", "role": "CEO y Fundador", "avatar": "AP" },
+                "1": { "name": "Equipo de Comunidad", "role": "Moderadores", "avatar": "CT" }
+              },
+              "agenda": {
+                "0": { "time": "18:00", "title": "Bienvenida y Actualizaciones" },
+                "1": { "time": "18:15", "title": "Preguntas Pre-enviadas" },
+                "2": { "time": "18:45", "title": "Preguntas en Vivo de la Comunidad" },
+                "3": { "time": "19:15", "title": "Comentarios Finales y Anuncios" }
+              },
+              "requirements": {
+                "0": "Cuenta de Discord",
+                "1": "Unirse al servidor Discord de TBURN"
+              }
+            },
+            "4": {
+              "title": "Sesión de Incorporación de Validadores",
+              "description": "Aprenda cómo convertirse en un validador TBURN y comenzar a ganar recompensas.",
+              "date": "12 de diciembre de 2024",
+              "time": "15:00 - 17:00",
+              "timezone": "UTC",
+              "location": "Evento Virtual",
+              "locationType": "virtual",
+              "type": "Incorporación",
+              "fullDescription": {
+                "0": "¿Interesado en ejecutar un nodo validador en TBURN? Esta sesión cubre todo lo que necesita saber.",
+                "1": "Revisaremos los requisitos de hardware, procedimientos de configuración, requisitos de staking y la economía de ser un validador.",
+                "2": "Nuestro equipo también explicará el sistema de validadores de 3 niveles y cómo los Trust Scores de IA afectan sus recompensas."
+              },
+              "speakers": {
+                "0": { "name": "David Kim", "role": "Líder de Infraestructura", "avatar": "DK" },
+                "1": { "name": "Lisa Zhang", "role": "Relaciones con Validadores", "avatar": "LZ" }
+              },
+              "agenda": {
+                "0": { "time": "15:00", "title": "Introducción a la Validación TBURN" },
+                "1": { "time": "15:30", "title": "Requisitos Técnicos y Configuración", "speaker": "David Kim" },
+                "2": { "time": "16:00", "title": "Economía y Recompensas", "speaker": "Lisa Zhang" },
+                "3": { "time": "16:30", "title": "Demo en Vivo y Q&A" }
+              },
+              "requirements": {
+                "0": "Comprensión básica de blockchain",
+                "1": "Interés en ejecutar infraestructura",
+                "2": "Requisito mínimo de stake: 100,000 TBURN"
+              }
+            }
+          }
         },
         "past": "Eventos Pasados",
         "noEvents": "No hay eventos próximos programados",
