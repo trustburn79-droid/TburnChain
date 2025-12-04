@@ -109,7 +109,7 @@ export default function AdminAIAnalytics() {
     refetchInterval: 60000,
   });
 
-  const analyticsData = data || mockData;
+  const analyticsData = data && data.overallMetrics ? data : mockData;
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);

@@ -6042,23 +6042,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Sharding API
   app.get("/api/sharding", async (_req, res) => {
     try {
+      const statuses = ['healthy', 'healthy', 'healthy', 'warning', 'healthy', 'healthy', 'healthy', 'healthy'] as const;
       const shards = Array.from({ length: 8 }, (_, i) => ({
         id: i,
         name: `Shard ${i}`,
-        status: 'active',
-        nodes: 3 + Math.floor(Math.random() * 3),
-        transactions: Math.floor(Math.random() * 10000),
-        blockHeight: 18090000 + Math.floor(Math.random() * 100),
+        validators: 15 + Math.floor(Math.random() * 5),
         tps: 5000 + Math.floor(Math.random() * 2000),
-        latency: 50 + Math.floor(Math.random() * 50),
-        load: 30 + Math.random() * 50
+        load: 30 + Math.floor(Math.random() * 50),
+        pendingTx: Math.floor(Math.random() * 500),
+        crossShardTx: Math.floor(Math.random() * 200),
+        status: statuses[i] as "healthy" | "warning" | "critical",
+        rebalanceScore: 80 + Math.floor(Math.random() * 20)
       }));
+      
+      const totalTps = shards.reduce((sum, s) => sum + s.tps, 0);
+      const avgLoad = Math.round(shards.reduce((sum, s) => sum + s.load, 0) / shards.length);
+      const totalValidators = shards.reduce((sum, s) => sum + s.validators, 0);
+      const healthyShards = shards.filter(s => s.status === 'healthy').length;
+      
       res.json({
         shards,
-        totalShards: shards.length,
-        activeShards: shards.length,
-        crossShardMessages: Math.floor(Math.random() * 1000),
-        rebalancingStatus: 'stable'
+        stats: {
+          totalShards: shards.length,
+          totalTps,
+          avgLoad,
+          totalValidators,
+          healthyShards,
+          pendingRebalance: 1
+        },
+        loadHistory: [
+          { time: "00:00", shard0: 45, shard1: 52, shard2: 38, shard3: 61 },
+          { time: "04:00", shard0: 48, shard1: 55, shard2: 42, shard3: 58 },
+          { time: "08:00", shard0: 62, shard1: 58, shard2: 55, shard3: 65 },
+          { time: "12:00", shard0: 72, shard1: 68, shard2: 62, shard3: 70 },
+          { time: "16:00", shard0: 68, shard1: 65, shard2: 58, shard3: 68 },
+          { time: "20:00", shard0: 55, shard1: 52, shard2: 48, shard3: 58 },
+        ]
       });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch sharding data" });
@@ -6187,17 +6206,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/transfers", async (_req, res) => {
     try {
-      const transfers = Array.from({ length: 50 }, (_, i) => ({
-        id: `transfer-${i + 1}`,
-        sourceChain: ['Ethereum', 'BSC', 'Polygon', 'Arbitrum'][i % 4],
-        destinationChain: 'TBURN',
-        amount: `${(Math.random() * 100).toFixed(4)} ETH`,
-        status: ['completed', 'pending', 'processing', 'failed'][i % 4],
-        timestamp: new Date(Date.now() - i * 3600000).toISOString(),
-        txHash: `0x${Date.now().toString(16)}${i}`,
-        sender: `0x${Math.random().toString(16).slice(2, 42)}`,
-        recipient: `0x${Math.random().toString(16).slice(2, 42)}`
-      }));
+      const chains = ['Ethereum', 'BSC', 'Polygon', 'Arbitrum', 'TBURN'];
+      const statuses = ['completed', 'pending', 'validating', 'failed'] as const;
+      const transfers = Array.from({ length: 50 }, (_, i) => {
+        const fromChain = chains[i % 4];
+        const toChain = i % 2 === 0 ? 'TBURN' : chains[(i + 1) % 4];
+        return {
+          id: `TX${(10000 + i).toString(16).toUpperCase()}`,
+          from: { chain: fromChain, address: `0x${Math.random().toString(16).slice(2, 42)}` },
+          to: { chain: toChain, address: `0x${Math.random().toString(16).slice(2, 42)}` },
+          amount: `${(Math.random() * 100).toFixed(4)} ${fromChain === 'Ethereum' ? 'ETH' : fromChain === 'BSC' ? 'BNB' : 'MATIC'}`,
+          fee: `${(Math.random() * 0.01).toFixed(6)} ETH`,
+          status: statuses[i % 4],
+          confirmations: `${Math.floor(Math.random() * 100)}/100`,
+          timestamp: new Date(Date.now() - i * 3600000).toISOString(),
+          duration: `${Math.floor(Math.random() * 30)}m ${Math.floor(Math.random() * 60)}s`,
+          error: statuses[i % 4] === 'failed' ? 'Insufficient gas' : undefined
+        };
+      });
       res.json({ transfers, total: transfers.length });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch transfers" });
@@ -6314,23 +6340,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/ai/analytics", async (_req, res) => {
     try {
       res.json({
-        totalRequests: 150000,
-        successfulRequests: 147000,
-        failedRequests: 3000,
-        averageLatency: 250,
-        tokensUsed: 50000000,
-        costEstimate: '$2,500',
-        usageByModel: [
-          { model: 'claude-sonnet', requests: 100000, tokens: 35000000 },
-          { model: 'gpt-4', requests: 30000, tokens: 10000000 },
-          { model: 'gemini-pro', requests: 20000, tokens: 5000000 }
+        overallMetrics: {
+          totalDecisions: "1,234,567",
+          successRate: "98.7%",
+          avgConfidence: "92.4%",
+          costSavings: "$125,000",
+        },
+        decisionsByType: [
+          { name: "Operational", value: 65, color: "#22c55e" },
+          { name: "Tactical", value: 25, color: "#a855f7" },
+          { name: "Strategic", value: 10, color: "#3b82f6" },
         ],
-        usageByFeature: [
-          { feature: 'Burn Prediction', requests: 50000 },
-          { feature: 'Risk Assessment', requests: 40000 },
-          { feature: 'Governance Analysis', requests: 30000 },
-          { feature: 'Market Analysis', requests: 30000 }
-        ]
+        impactMetrics: [
+          { metric: "TPS Improvement", before: 45000, after: 52000, improvement: "+15.6%" },
+          { metric: "Latency Reduction", before: 180, after: 124, improvement: "-31.1%" },
+          { metric: "Gas Efficiency", before: 85, after: 94, improvement: "+10.6%" },
+          { metric: "Validator Uptime", before: 98.5, after: 99.9, improvement: "+1.4%" },
+        ],
+        accuracyTrend: [
+          { month: "Jul", strategic: 95, tactical: 92, operational: 88 },
+          { month: "Aug", strategic: 96, tactical: 93, operational: 90 },
+          { month: "Sep", strategic: 97, tactical: 94, operational: 92 },
+          { month: "Oct", strategic: 97, tactical: 95, operational: 94 },
+          { month: "Nov", strategic: 98, tactical: 96, operational: 95 },
+          { month: "Dec", strategic: 99, tactical: 97, operational: 96 },
+        ],
+        recentOutcomes: [
+          { decision: "Increase committee size to 120", type: "Strategic", confidence: 92, outcome: "success", impact: "+2.3% TPS" },
+          { decision: "Rebalance shard 5 to shard 8", type: "Tactical", confidence: 88, outcome: "success", impact: "-15ms latency" },
+          { decision: "Adjust gas to 115 Ember", type: "Operational", confidence: 95, outcome: "success", impact: "+5% efficiency" },
+          { decision: "Pause bridge temporarily", type: "Strategic", confidence: 65, outcome: "rejected", impact: "Manual review" },
+        ],
+        networkEfficiency: "+23.4%",
+        incidentReduction: "-67%"
       });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch AI analytics" });
