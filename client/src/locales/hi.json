@@ -9906,38 +9906,98 @@
     "network": {
       "validators": {
         "tag": "नेटवर्क वैलिडेटर्स",
-        "title": "वैलिडेटर",
-        "subtitle": "TBurn वैलिडेटर नेटवर्क में शामिल हों और ब्लॉकचेन को सुरक्षित करते हुए पुरस्कार कमाएं",
+        "title": "वैलिडेटर्स",
+        "subtitle": "TBurn वैलिडेटर नेटवर्क में शामिल हों और ब्लॉकचेन को सुरक्षित करते हुए पुरस्कार अर्जित करें।",
         "becomeValidator": "वैलिडेटर बनें",
+        "validatorDocs": "वैलिडेटर दस्तावेज़ीकरण देखें",
+        "stats": {
+          "activeValidators": "सक्रिय वैलिडेटर्स",
+          "totalStaked": "कुल स्टेक किया गया",
+          "averageUptime": "औसत अपटाइम",
+          "operatingCountries": "संचालन देश"
+        },
+        "applyNow": "अभी आवेदन करें",
+        "consensus": {
+          "title": "सहमति तंत्र",
+          "subtitle": "AI-संचालित सत्यापन के साथ प्रूफ ऑफ ट्रस्ट"
+        },
         "consensusSpecs": {
           "title": "सहमति विनिर्देश",
           "blockTime": {
             "label": "ब्लॉक टाइम",
             "value": "1 सेकंड",
-            "description": "औसत समय to produce a new ब्लॉक"
+            "description": "नया ब्लॉक बनाने का औसत समय"
           },
           "finality": {
-            "label": "फाइनलिटी",
+            "label": "अंतिमता",
             "value": "6 सेकंड",
-            "description": "समय until transactions are irreversible"
+            "description": "लेनदेन के अपरिवर्तनीय होने तक का समय"
           },
           "validatorSet": {
             "label": "वैलिडेटर सेट",
             "value": "100 सक्रिय"
           },
           "epochLength": {
-            "label": "एपॉक लंबाई",
+            "label": "एपॉक अवधि",
             "value": "6 घंटे"
           },
           "tps": {
             "label": "TPS",
             "value": "50,000+",
-            "description": "अधिकतम transactions per second"
+            "description": "अधिकतम प्रति सेकंड लेनदेन"
           },
           "uptime": {
             "label": "अपटाइम",
             "value": "99.99%",
-            "description": "Network उपलब्धता guarantee"
+            "description": "नेटवर्क उपलब्धता गारंटी"
+          }
+        },
+        "cta": {
+          "title": "वैलिडेटर बनने के लिए तैयार हैं?",
+          "subtitle": "नेटवर्क में शामिल हों और TBurn चेन को सुरक्षित करते हुए पुरस्कार अर्जित करें।",
+          "startValidating": "सत्यापन शुरू करें",
+          "readDocs": "दस्तावेज़ीकरण पढ़ें"
+        },
+        "tierSystem": {
+          "title": "वैलिडेटर टियर सिस्टम",
+          "stake": "न्यूनतम स्टेक",
+          "apy": "APY",
+          "slots": "उपलब्ध स्लॉट्स",
+          "elite": {
+            "name": "एलीट वैलिडेटर",
+            "badge": "एलीट",
+            "stakeAmount": "1,000,000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21 स्लॉट्स",
+            "benefits": {
+              "blockPriority": "ब्लॉक उत्पादन प्राथमिकता",
+              "revenueShare": "अतिरिक्त राजस्व हिस्सेदारी",
+              "aiDecision": "AI निर्णय में भागीदारी"
+            }
+          },
+          "standard": {
+            "name": "मानक वैलिडेटर",
+            "badge": "मानक",
+            "stakeAmount": "500,000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50 स्लॉट्स",
+            "benefits": {
+              "blockValidation": "ब्लॉक सत्यापन अधिकार",
+              "feeDistribution": "लेनदेन शुल्क वितरण",
+              "votingRights": "गवर्नेंस वोटिंग अधिकार"
+            }
+          },
+          "starter": {
+            "name": "स्टार्टर वैलिडेटर",
+            "badge": "स्टार्टर",
+            "stakeAmount": "100,000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "असीमित",
+            "benefits": {
+              "delegate": "बड़े वैलिडेटर्स को प्रतिनिधि",
+              "autoRewards": "स्वचालित पुरस्कार वितरण",
+              "unstakePeriod": "21-दिन अनस्टेकिंग अवधि"
+            }
           }
         },
         "validatorTiers": {
@@ -9958,12 +10018,61 @@
             "rewards": "बेस पुरस्कार"
           }
         },
+        "hardware": {
+          "title": "हार्डवेयर आवश्यकताएं",
+          "cpu": "CPU: 16+ कोर (AMD EPYC या Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "स्टोरेज: 2TB NVMe SSD",
+          "network": "नेटवर्क: 1Gbps समर्पित",
+          "superNode": {
+            "title": "सुपर नोड आवश्यकताएं",
+            "cpu": "CPU: 32+ कोर",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "स्टोरेज: 4TB NVMe RAID",
+            "network": "नेटवर्क: 10Gbps समर्पित"
+          },
+          "standardNode": {
+            "title": "मानक नोड आवश्यकताएं",
+            "cpu": "CPU: 8+ कोर",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "स्टोरेज: 1TB NVMe SSD",
+            "network": "नेटवर्क: 500Mbps"
+          }
+        },
         "hardwareRequirements": {
           "title": "हार्डवेयर आवश्यकताएं",
           "cpu": "CPU: 8+ कोर",
           "ram": "RAM: 32GB+",
           "storage": "स्टोरेज: 1TB NVMe SSD",
           "bandwidth": "बैंडविड्थ: 1Gbps"
+        },
+        "slashing": {
+          "title": "स्लैशिंग शर्तें",
+          "subtitle": "वैलिडेटर्स को उच्च मानकों का पालन करना चाहिए। उल्लंघन के परिणामस्वरूप स्टेक दंड लगता है।",
+          "minor": {
+            "title": "मामूली उल्लंघन",
+            "badge": "चेतावनी",
+            "description": "संक्षिप्त डाउनटाइम या छूटे हुए ब्लॉक्स",
+            "penalty": "0.1% स्टेक कटौती"
+          },
+          "moderate": {
+            "title": "मध्यम उल्लंघन",
+            "badge": "दंड",
+            "description": "24 घंटे से अधिक विस्तारित डाउनटाइम",
+            "penalty": "1-5% स्टेक कटौती"
+          },
+          "severe": {
+            "title": "गंभीर उल्लंघन",
+            "badge": "गंभीर",
+            "description": "दुर्भावनापूर्ण वोटिंग या सेंसरशिप के प्रयास",
+            "penalty": "25-50% स्टेक कटौती"
+          },
+          "critical": {
+            "title": "अत्यंत गंभीर उल्लंघन",
+            "badge": "अत्यंत गंभीर",
+            "description": "डबल साइनिंग या नेटवर्क हमले",
+            "penalty": "100% स्टेक स्लैश"
+          }
         },
         "slashingPolicy": {
           "title": "स्लैशिंग नीति",
@@ -9980,133 +10089,86 @@
             "penalty": "50% स्टेक स्लैश"
           }
         },
-        "validatorDocs": "व्यू वैलिडेटर दस्तावेज़ीकरण",
-        "stats": {
-          "activeValidators": "सक्रिय Validators",
-          "totalStaked": "कुल स्टेक किया गया",
-          "averageUptime": "औसत अपटाइम",
-          "operatingCountries": "Operating Countries"
-        },
-        "applyNow": "लागू करें Now",
-        "consensus": {
-          "title": "Consensus Mechanism",
-          "subtitle": "Proof of Trust with AI-powered सत्यापन"
-        },
-        "cta": {
-          "title": "Ready to Become a वैलिडेटर?",
-          "subtitle": "शामिल हों the network and earn rewards while securing TBurn चेन.",
-          "startValidating": "शुरू करें Validating",
-          "readDocs": "दस्तावेज़ीकरण पढ़ें"
-        },
-        "tierSystem": {
-          "title": "वैलिडेटर टियर सिस्टम",
-          "stake": "न्यूनतम स्टेक",
-          "apy": "APY",
-          "slots": "उपलब्ध Slots",
-          "elite": {
-            "name": "Elite वैलिडेटर",
-            "badge": "Elite",
-            "stakeAmount": "1,000,000 TBURN",
-            "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
-            "benefits": {
-              "blockPriority": "ब्लॉक उत्पादन priority",
-              "revenueShare": "Additional revenue share",
-              "aiDecision": "AI decision participation"
-            }
-          },
-          "standard": {
-            "name": "मानक वैलिडेटर",
-            "badge": "मानक",
-            "stakeAmount": "500,000 TBURN",
-            "apyAmount": "12-18%",
-            "slotsAmount": "50 slots",
-            "benefits": {
-              "blockValidation": "ब्लॉक सत्यापन rights",
-              "feeDistribution": "Transaction शुल्क distribution",
-              "votingRights": "गवर्नेंस voting rights"
-            }
-          },
-          "starter": {
-            "name": "Starter वैलिडेटर",
-            "badge": "Starter",
-            "stakeAmount": "100,000 TBURN",
-            "apyAmount": "8-12%",
-            "slotsAmount": "Unlimited",
-            "benefits": {
-              "delegate": "Delegate to larger validators",
-              "autoRewards": "Automatic रिवॉर्ड distribution",
-              "unstakePeriod": "21-day unstaking अवधि"
-            }
-          }
-        },
-        "hardware": {
-          "title": "Hardware Requirements",
-          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
-          "ram": "RAM: 64GB DDR4 ECC",
-          "storage": "Storage: 2TB NVMe SSD",
-          "network": "Network: 1Gbps dedicated",
-          "superNode": {
-            "title": "Super नोड Requirements",
-            "cpu": "CPU: 32+ cores",
-            "ram": "RAM: 128GB DDR4 ECC",
-            "storage": "Storage: 4TB NVMe RAID",
-            "network": "Network: 10Gbps dedicated"
-          },
-          "standardNode": {
-            "title": "मानक नोड Requirements",
-            "cpu": "CPU: 8+ cores",
-            "ram": "RAM: 32GB DDR4",
-            "storage": "Storage: 1TB NVMe SSD",
-            "network": "Network: 500Mbps"
-          }
-        },
-        "slashing": {
-          "title": "Slashing Conditions",
-          "subtitle": "Validators must maintain high standards. Violations परिणाम in स्टेक penalties.",
-          "minor": {
-            "title": "Minor Violation",
-            "badge": "चेतावनी",
-            "description": "Brief डाउनटाइम or missed blocks",
-            "penalty": "0.1% स्टेक reduction"
-          },
-          "moderate": {
-            "title": "Moderate Violation",
-            "badge": "दंड",
-            "description": "Extended डाउनटाइम over 24 घंटे",
-            "penalty": "1-5% स्टेक reduction"
-          },
-          "severe": {
-            "title": "Severe Violation",
-            "badge": "Severe",
-            "description": "Malicious voting or censorship attempts",
-            "penalty": "25-50% स्टेक reduction"
-          },
-          "critical": {
-            "title": "Critical Violation",
-            "badge": "Critical",
-            "description": "Double signing or network attacks",
-            "penalty": "100% स्टेक slashed"
-          }
-        },
         "geography": {
-          "title": "Geographic Distribution"
+          "title": "भौगोलिक वितरण"
         },
         "activeValidators": {
-          "title": "सक्रिय Validators",
-          "searchPlaceholder": "खोजें validators...",
-          "viewAll": "सभी देखें Validators"
+          "title": "सक्रिय वैलिडेटर्स",
+          "searchPlaceholder": "वैलिडेटर्स खोजें...",
+          "viewAll": "सभी वैलिडेटर्स देखें"
         }
       },
       "rpc": {
         "tag": "RPC इंफ्रास्ट्रक्चर",
-        "title": "RPC एंडपॉइंट्स",
-        "subtitle": "विश्वसनीय नेटवर्क एक्सेस के लिए आधिकारिक RPC नोड्स से कनेक्ट करें",
-        "getApiKey": "API Key प्राप्त करें",
-        "apiPlans": {
-          "title": "API प्लान और सीमाएं",
+        "title": "RPC प्रोवाइडर्स",
+        "subtitle": "एंटरप्राइज-ग्रेड विश्वसनीयता के साथ उच्च-प्रदर्शन RPC एंडपॉइंट्स। WebSocket और HTTP कनेक्शन के लिए समर्थन।",
+        "getApiKey": "API कुंजी प्राप्त करें",
+        "buttons": {
+          "getApiKey": "API कुंजी प्राप्त करें",
+          "viewDocs": "दस्तावेज़ीकरण देखें"
+        },
+        "sections": {
+          "apiPlans": "API प्लान्स",
+          "coreEndpoints": "कोर एंडपॉइंट्स",
+          "sdkExamples": "SDK उदाहरण",
+          "support": "सहायता"
+        },
+        "plans": {
           "free": {
-            "name": "फ्री",
+            "name": "निःशुल्क"
+          },
+          "basic": {
+            "name": "बेसिक"
+          },
+          "pro": {
+            "name": "प्रो"
+          },
+          "enterprise": {
+            "name": "एंटरप्राइज"
+          },
+          "requestsMin": "अनुरोध/मिनट",
+          "requestsDay": "अनुरोध/दिन",
+          "perMonth": "/माह",
+          "unlimited": "असीमित",
+          "contact": "संपर्क करें"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "स्कोर क्वेरी API"
+          },
+          "projectApi": {
+            "title": "प्रोजेक्ट API"
+          },
+          "analyticsApi": {
+            "title": "एनालिटिक्स API"
+          },
+          "webhookApi": {
+            "title": "Webhook API",
+            "events": "इवेंट्स: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "TypeScript SDK"
+          },
+          "python": {
+            "title": "Python SDK"
+          },
+          "curl": {
+            "title": "cURL उदाहरण"
+          }
+        },
+        "cta": {
+          "title": "निर्माण के लिए तैयार हैं?",
+          "subtitle": "आज ही TBurn Chain API के साथ निर्माण शुरू करें। अपनी निःशुल्क API कुंजी प्राप्त करें और एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर एक्सेस करें।",
+          "desc": "आज ही TBurn Chain API के साथ निर्माण शुरू करें। अपनी निःशुल्क API कुंजी प्राप्त करें और एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर एक्सेस करें।",
+          "getStartedFree": "निःशुल्क शुरू करें",
+          "contactSales": "बिक्री से संपर्क करें"
+        },
+        "apiPlans": {
+          "title": "API प्लान्स और सीमाएं",
+          "free": {
+            "name": "निःशुल्क",
             "requestsPerMin": "20",
             "requestsPerDay": "1,000",
             "price": "$0"
@@ -10170,180 +10232,118 @@
           "curl": "cURL प्रोडक्शन उदाहरण"
         },
         "support": {
-          "title": "समर्थन और संपर्क",
+          "title": "सहायता और संपर्क",
           "documentation": {
             "title": "दस्तावेज़ीकरण",
             "description": "विस्तृत API संदर्भ और गाइड।",
-            "desc": "Comprehensive API दस्तावेज़ीकरण and एकीकरण guides."
+            "desc": "व्यापक API दस्तावेज़ीकरण और एकीकरण गाइड।"
           },
           "apiStatus": {
-            "title": "API स्टेटस",
-            "description": "रियल-टाइम सिस्टम स्टेटस और अपटाइम।",
-            "desc": "Real-समय सिस्टम स्थिति, अपटाइम मेट्रिक्स, and incident reports."
+            "title": "API स्थिति",
+            "description": "रियल-टाइम सिस्टम स्थिति और अपटाइम।",
+            "desc": "रियल-टाइम सिस्टम स्थिति, अपटाइम मेट्रिक्स, और घटना रिपोर्ट।"
           },
           "developerHub": {
             "title": "डेवलपर हब",
             "description": "ओपन सोर्स SDKs और उदाहरण।",
-            "desc": "Open स्रोत SDKs, code examples, and community संसाधन."
-          }
-        },
-        "cta": {
-          "title": "निर्माण के लिए तैयार हैं?",
-          "subtitle": "आज ही TBurn Chain API के साथ निर्माण शुरू करें। अपनी मुफ्त API key प्राप्त करें और एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर एक्सेस करें।",
-          "getStartedFree": "मुफ्त में शुरू करें",
-          "contactSales": "सेल्स से संपर्क करें",
-          "desc": "शुरू करें building with TBurn चेन API today. Get your free API की and एक्सेस enterprise-ग्रेड blockchain इंफ्रास्ट्रक्चर."
-        },
-        "buttons": {
-          "getApiKey": "Get API की",
-          "viewDocs": "दस्तावेज़ीकरण देखें"
-        },
-        "sections": {
-          "apiPlans": "API Plans",
-          "coreEndpoints": "कोर एंडपॉइंट्स",
-          "sdkExamples": "SDK Examples",
-          "support": "सपोर्ट"
-        },
-        "plans": {
-          "free": {
-            "name": "Free"
-          },
-          "basic": {
-            "name": "Basic"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "Enterprise"
-          },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
-          "unlimited": "Unlimited",
-          "contact": "संपर्क Us"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "स्कोर Query API"
-          },
-          "projectApi": {
-            "title": "Project API"
-          },
-          "analyticsApi": {
-            "title": "Analytics API"
-          },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "Events: स्कोर.updated, स्कोर.अलर्ट, project.registered"
-          }
-        },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL उदाहरण"
+            "desc": "ओपन सोर्स SDKs, कोड उदाहरण, और समुदाय संसाधन।"
           }
         }
       },
       "status": {
-        "tag": "स्टेटस",
-        "title": "नेटवर्क स्टेटस",
-        "subtitle": "रियल-टाइम नेटवर्क हेल्थ और प्रदर्शन मेट्रिक्स।",
-        "operational": "Operational",
-        "lastUpdated": "Last updated",
-        "daysAgo": "दिन ago",
-        "today": "Today",
+        "tag": "स्थिति",
+        "title": "नेटवर्क स्थिति",
+        "subtitle": "रियल-टाइम नेटवर्क स्वास्थ्य और प्रदर्शन मेट्रिक्स।",
+        "operational": "परिचालित",
+        "lastUpdated": "अंतिम अपडेट",
+        "daysAgo": "दिन पहले",
+        "today": "आज",
         "uptimeAvg": "अपटाइम औसत",
         "buttons": {
-          "refreshData": "रीफ्रेश करें डेटा"
+          "refreshData": "डेटा रीफ्रेश करें"
         },
         "sections": {
-          "coreMetrics": "Core मेट्रिक्स",
-          "coreMetricsDesc": "Real-समय blockchain प्रदर्शन indicators",
-          "serviceStatus": "Service स्थिति",
-          "serviceStatusDesc": "Current स्थिति of all network services",
+          "coreMetrics": "कोर मेट्रिक्स",
+          "coreMetricsDesc": "रियल-टाइम ब्लॉकचेन प्रदर्शन संकेतक",
+          "serviceStatus": "सेवा स्थिति",
+          "serviceStatusDesc": "सभी नेटवर्क सेवाओं की वर्तमान स्थिति",
           "uptimeHistory": "अपटाइम इतिहास",
-          "uptimeHistoryDesc": "Network उपलब्धता over the past 90 दिन",
-          "aiSystem": "AI Orchestration सिस्टम",
-          "aiSystemDesc": "Triple-band AI model प्रदर्शन and स्थिति",
-          "validatorNetwork": "वैलिडेटर Network",
-          "validatorNetworkDesc": "सक्रिय validators and geographic distribution"
+          "uptimeHistoryDesc": "पिछले 90 दिनों में नेटवर्क उपलब्धता",
+          "aiSystem": "AI ऑर्केस्ट्रेशन सिस्टम",
+          "aiSystemDesc": "ट्रिपल-बैंड AI मॉडल प्रदर्शन और स्थिति",
+          "validatorNetwork": "वैलिडेटर नेटवर्क",
+          "validatorNetworkDesc": "सक्रिय वैलिडेटर्स और भौगोलिक वितरण"
         },
         "metrics": {
-          "tps": "Transactions Per Second",
-          "peak": "Peak",
+          "tps": "प्रति सेकंड लेनदेन",
+          "peak": "पीक",
           "blockHeight": "ब्लॉक ऊंचाई",
-          "latency": "Network लेटेंसी",
-          "finality": "Finality समय",
+          "latency": "नेटवर्क विलंबता",
+          "finality": "अंतिमता समय",
           "avgFee": "औसत शुल्क",
-          "cheapFast": "Cheap & Fast",
-          "shards": "सक्रिय Shards"
+          "cheapFast": "सस्ता और तेज़",
+          "shards": "सक्रिय शार्ड्स"
         },
         "services": {
           "mainnetRpc": {
-            "name": "Mainnet RPC",
-            "desc": "Primary JSON-RPC endpoints for mainnet"
+            "name": "मेननेट RPC",
+            "desc": "मेननेट के लिए प्राथमिक JSON-RPC एंडपॉइंट्स"
           },
           "wsApi": {
             "name": "WebSocket API",
-            "desc": "Real-समय इवेंट streaming and subscriptions"
+            "desc": "रियल-टाइम इवेंट स्ट्रीमिंग और सब्सक्रिप्शंस"
           },
           "explorerApi": {
-            "name": "Explorer API",
-            "desc": "ब्लॉक explorer डेटा endpoints"
+            "name": "एक्सप्लोरर API",
+            "desc": "ब्लॉक एक्सप्लोरर डेटा एंडपॉइंट्स"
           },
           "trustScoreApi": {
-            "name": "Trust स्कोर API",
-            "desc": "Project सत्यापन and scoring endpoints"
+            "name": "ट्रस्ट स्कोर API",
+            "desc": "प्रोजेक्ट सत्यापन और स्कोरिंग एंडपॉइंट्स"
           },
           "trustScore": {
-            "name": "Trust स्कोर Service",
-            "desc": "AI-powered trust सत्यापन and project scoring"
+            "name": "ट्रस्ट स्कोर सेवा",
+            "desc": "AI-संचालित ट्रस्ट सत्यापन और प्रोजेक्ट स्कोरिंग"
           },
           "crossChainBridge": {
-            "name": "Cross-चेन ब्रिज",
-            "desc": "Multi-चेन एसेट ट्रांसफर service"
+            "name": "क्रॉस-चेन ब्रिज",
+            "desc": "मल्टी-चेन एसेट ट्रांसफर सेवा"
           },
           "quantumSecurity": {
-            "name": "Quantum सुरक्षा मॉड्यूल",
-            "desc": "CRYSTALS-Dilithium signature सत्यापन"
+            "name": "क्वांटम सुरक्षा मॉड्यूल",
+            "desc": "CRYSTALS-Dilithium हस्ताक्षर सत्यापन"
           }
         },
         "ai": {
           "active": "सक्रिय",
-          "accuracy": "Accuracy",
-          "latency": "लेटेंसी",
+          "accuracy": "सटीकता",
+          "latency": "विलंबता",
           "strategic": {
-            "title": "Strategic AI",
+            "title": "रणनीतिक AI",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "सामरिक AI",
             "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operational AI",
+            "title": "परिचालन AI",
             "model": "Llama 4"
           }
         },
         "uptime": {
-          "monthlyAverage": "Monthly औसत",
-          "uptimeGuarantee": "अपटाइम Guarantee",
-          "lastIncident": "Last Incident"
+          "monthlyAverage": "मासिक औसत",
+          "uptimeGuarantee": "अपटाइम गारंटी",
+          "lastIncident": "अंतिम घटना"
         },
         "validators": {
-          "active": "सक्रिय Validators",
-          "countries": "Operating Countries",
+          "active": "सक्रिय वैलिडेटर्स",
+          "countries": "संचालन देश",
           "totalStaked": "कुल स्टेक किया गया",
           "avgUptime": "औसत अपटाइम",
-          "nodeCount": "नोड Count",
-          "regions": "Regions",
-          "superNodes": "Super Nodes"
+          "nodeCount": "नोड गणना",
+          "regions": "क्षेत्र",
+          "superNodes": "सुपर नोड्स"
         }
       },
       "ramp": {
@@ -10354,8 +10354,8 @@
         "sections": {
           "howItWorks": "यह कैसे काम करता है",
           "paymentMethods": "भुगतान विधियाँ",
-          "limitsFees": "सीमाएँ और शुल्क",
-          "whyBurnRamp": "Burn Ramp क्यों?"
+          "limitsFees": "सीमाएं और शुल्क",
+          "whyBurnRamp": "बर्न रैंप क्यों?"
         },
         "buy": {
           "title": "TBURN खरीदें",
@@ -10406,7 +10406,7 @@
           },
           "verified": {
             "title": "सत्यापित",
-            "desc": "पूर्ण KYC पूरा"
+            "desc": "पूर्ण KYC पूर्ण"
           },
           "institutional": {
             "title": "संस्थागत",
@@ -10434,7 +10434,7 @@
           }
         },
         "cta": {
-          "title": "शुरू करने के लिए तैयार?",
+          "title": "शुरू करने के लिए तैयार हैं?",
           "createAccount": "खाता बनाएं",
           "contactSupport": "सहायता से संपर्क करें"
         },

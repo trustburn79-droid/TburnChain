@@ -10905,40 +10905,100 @@
         "tag": "VALIDADORES DE RED",
         "title": "Validadores",
         "subtitle": "Únete a la red de validadores de TBurn y gana recompensas mientras aseguras la blockchain.",
-        "becomeValidator": "Convertirse en validador",
+        "becomeValidator": "Convertirse en Validador",
+        "validatorDocs": "Ver Documentación de Validadores",
+        "stats": {
+          "activeValidators": "Validadores Activos",
+          "totalStaked": "Total en Staking",
+          "averageUptime": "Tiempo de Actividad Promedio",
+          "operatingCountries": "Países Operativos"
+        },
+        "applyNow": "Aplicar Ahora",
+        "consensus": {
+          "title": "Mecanismo de Consenso",
+          "subtitle": "Prueba de Confianza con validación impulsada por AI"
+        },
         "consensusSpecs": {
-          "title": "Especificaciones de consenso",
+          "title": "Especificaciones de Consenso",
           "blockTime": {
-            "label": "Tiempo de bloque",
+            "label": "Tiempo de Bloque",
             "value": "1 segundo",
-            "description": "Tiempo promedio de bloque por consenso"
+            "description": "Tiempo promedio para producir un nuevo bloque"
           },
           "finality": {
             "label": "Finalidad",
             "value": "6 segundos",
-            "description": "Finalidad de transacciones en toda la red"
+            "description": "Tiempo hasta que las transacciones son irreversibles"
           },
           "validatorSet": {
-            "label": "Conjunto de validadores",
+            "label": "Conjunto de Validadores",
             "value": "100 activos"
           },
           "epochLength": {
-            "label": "Duración de época",
+            "label": "Duración de Época",
             "value": "6 horas"
           },
           "tps": {
             "label": "TPS",
             "value": "50,000+",
-            "description": "Maximum transactions per second"
+            "description": "Transacciones máximas por segundo"
           },
           "uptime": {
-            "label": "Uptime",
+            "label": "Tiempo de Actividad",
             "value": "99.99%",
-            "description": "Network availability guarantee"
+            "description": "Garantía de disponibilidad de red"
+          }
+        },
+        "cta": {
+          "title": "¿Listo para Convertirte en Validador?",
+          "subtitle": "Únete a la red y gana recompensas mientras aseguras TBurn Chain.",
+          "startValidating": "Comenzar a Validar",
+          "readDocs": "Leer Documentación"
+        },
+        "tierSystem": {
+          "title": "Sistema de Niveles de Validadores",
+          "stake": "Stake Mínimo",
+          "apy": "APY",
+          "slots": "Espacios Disponibles",
+          "elite": {
+            "name": "Validador Elite",
+            "badge": "Elite",
+            "stakeAmount": "1,000,000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21 espacios",
+            "benefits": {
+              "blockPriority": "Prioridad en producción de bloques",
+              "revenueShare": "Participación adicional en ingresos",
+              "aiDecision": "Participación en decisiones AI"
+            }
+          },
+          "standard": {
+            "name": "Validador Estándar",
+            "badge": "Estándar",
+            "stakeAmount": "500,000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50 espacios",
+            "benefits": {
+              "blockValidation": "Derechos de validación de bloques",
+              "feeDistribution": "Distribución de tarifas de transacción",
+              "votingRights": "Derechos de voto en gobernanza"
+            }
+          },
+          "starter": {
+            "name": "Validador Inicial",
+            "badge": "Inicial",
+            "stakeAmount": "100,000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "Ilimitado",
+            "benefits": {
+              "delegate": "Delegar a validadores más grandes",
+              "autoRewards": "Distribución automática de recompensas",
+              "unstakePeriod": "Período de desbloqueo de 21 días"
+            }
           }
         },
         "validatorTiers": {
-          "title": "Sistema de niveles de validadores",
+          "title": "Sistema de Niveles de Validadores",
           "genesis": {
             "name": "Génesis",
             "stake": "1,000,000 TBURN",
@@ -10955,158 +11015,155 @@
             "rewards": "Recompensas base"
           }
         },
+        "hardware": {
+          "title": "Requisitos de Hardware",
+          "cpu": "CPU: 16+ núcleos (AMD EPYC o Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "Almacenamiento: 2TB NVMe SSD",
+          "network": "Red: 1Gbps dedicado",
+          "superNode": {
+            "title": "Requisitos de Super Nodo",
+            "cpu": "CPU: 32+ núcleos",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "Almacenamiento: 4TB NVMe RAID",
+            "network": "Red: 10Gbps dedicado"
+          },
+          "standardNode": {
+            "title": "Requisitos de Nodo Estándar",
+            "cpu": "CPU: 8+ núcleos",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "Almacenamiento: 1TB NVMe SSD",
+            "network": "Red: 500Mbps"
+          }
+        },
         "hardwareRequirements": {
-          "title": "Requisitos de hardware",
+          "title": "Requisitos de Hardware",
           "cpu": "CPU: 8+ núcleos",
           "ram": "RAM: 32GB+",
           "storage": "Almacenamiento: 1TB NVMe SSD",
           "bandwidth": "Ancho de banda: 1Gbps"
         },
+        "slashing": {
+          "title": "Condiciones de Penalización",
+          "subtitle": "Los validadores deben mantener altos estándares. Las violaciones resultan en penalizaciones de stake.",
+          "minor": {
+            "title": "Violación Menor",
+            "badge": "Advertencia",
+            "description": "Tiempo de inactividad breve o bloques perdidos",
+            "penalty": "Reducción del 0.1% del stake"
+          },
+          "moderate": {
+            "title": "Violación Moderada",
+            "badge": "Penalización",
+            "description": "Tiempo de inactividad extendido por más de 24 horas",
+            "penalty": "Reducción del 1-5% del stake"
+          },
+          "severe": {
+            "title": "Violación Severa",
+            "badge": "Severa",
+            "description": "Votación maliciosa o intentos de censura",
+            "penalty": "Reducción del 25-50% del stake"
+          },
+          "critical": {
+            "title": "Violación Crítica",
+            "badge": "Crítica",
+            "description": "Doble firma o ataques a la red",
+            "penalty": "100% del stake penalizado"
+          }
+        },
         "slashingPolicy": {
-          "title": "Política de penalización",
+          "title": "Política de Penalización",
           "doubleSign": {
-            "offense": "Doble firma",
+            "offense": "Doble Firma",
             "penalty": "100% del stake penalizado"
           },
           "downtime": {
-            "offense": "Tiempo de inactividad extendido",
+            "offense": "Tiempo de Inactividad Extendido",
             "penalty": "1-5% del stake penalizado"
           },
           "maliciousVoting": {
-            "offense": "Votación maliciosa",
+            "offense": "Votación Maliciosa",
             "penalty": "50% del stake penalizado"
           }
         },
-        "validatorDocs": "View Validator Documentation",
-        "stats": {
-          "activeValidators": "Validadores Activos",
-          "totalStaked": "Total en Staking",
-          "averageUptime": "Average Tiempo de Actividad",
-          "operatingCountries": "Operating Countries"
-        },
-        "tierSystem": {
-          "title": "Validator Tier System",
-          "stake": "Minimum Stake",
-          "apy": "APY",
-          "slots": "Disponible Slots",
-          "elite": {
-            "name": "Elite Validator",
-            "badge": "Elite",
-            "stakeAmount": "1,000,000 TBURN",
-            "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
-            "benefits": {
-              "blockPriority": "Block production priority",
-              "revenueShare": "Additional revenue share",
-              "aiDecision": "AI decision participation"
-            }
-          },
-          "standard": {
-            "name": "Estándar Validator",
-            "badge": "Estándar",
-            "stakeAmount": "500,000 TBURN",
-            "apyAmount": "12-18%",
-            "slotsAmount": "50 slots",
-            "benefits": {
-              "blockValidation": "Block validation rights",
-              "feeDistribution": "Transaction fee distribution",
-              "votingRights": "Gobernanza voting rights"
-            }
-          },
-          "starter": {
-            "name": "Starter Validator",
-            "badge": "Starter",
-            "stakeAmount": "100,000 TBURN",
-            "apyAmount": "8-12%",
-            "slotsAmount": "Ilimitado",
-            "benefits": {
-              "delegate": "Delegate to larger validators",
-              "autoRewards": "Automatic reward distribution",
-              "unstakePeriod": "21-day unstaking period"
-            }
-          }
-        },
-        "hardware": {
-          "title": "Hardware Requirements",
-          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
-          "ram": "RAM: 64GB DDR4 ECC",
-          "storage": "Storage: 2TB NVMe SSD",
-          "network": "Network: 1Gbps dedicated",
-          "superNode": {
-            "title": "Super Node Requirements",
-            "cpu": "CPU: 32+ cores",
-            "ram": "RAM: 128GB DDR4 ECC",
-            "storage": "Storage: 4TB NVMe RAID",
-            "network": "Network: 10Gbps dedicated"
-          },
-          "standardNode": {
-            "title": "Standard Node Requirements",
-            "cpu": "CPU: 8+ cores",
-            "ram": "RAM: 32GB DDR4",
-            "storage": "Storage: 1TB NVMe SSD",
-            "network": "Network: 500Mbps"
-          }
-        },
-        "slashing": {
-          "title": "Slashing Conditions",
-          "subtitle": "Validadores must maintain high standards. Violations result in stake penalties.",
-          "minor": {
-            "title": "Minor Violation",
-            "badge": "Advertencia",
-            "description": "Brief downtime or missed blocks",
-            "penalty": "0.1% stake reduction"
-          },
-          "moderate": {
-            "title": "Moderate Violation",
-            "badge": "Penalty",
-            "description": "Extended downtime over 24 hours",
-            "penalty": "1-5% stake reduction"
-          },
-          "severe": {
-            "title": "Severe Violation",
-            "badge": "Severe",
-            "description": "Malicious voting or censorship attempts",
-            "penalty": "25-50% stake reduction"
-          },
-          "critical": {
-            "title": "Critical Violation",
-            "badge": "Critical",
-            "description": "Double signing or network attacks",
-            "penalty": "100% stake slashed"
-          }
-        },
         "geography": {
-          "title": "Geographic Distribution"
+          "title": "Distribución Geográfica"
         },
         "activeValidators": {
           "title": "Validadores Activos",
-          "searchPlaceholder": "Buscar validators...",
-          "viewAll": "Ver Todo Validadores"
-        },
-        "pageTitle": "Validadores",
-        "pageSubtitle": "Operadores de red asegurando consenso y seguridad de TBurn Chain",
-        "buttons": {
-          "becomeValidator": "Convertirse en Validador"
-        },
-        "applyNow": "Aplicar Ahora",
-        "consensus": {
-          "title": "Especificaciones de Consenso",
-          "subtitle": "Detalles técnicos que impulsan el blockchain de alto rendimiento"
-        },
-        "cta": {
-          "title": "Ready to Become a Validator?",
-          "subtitle": "Join the network and earn rewards while securing TBurn Chain.",
-          "startValidating": "Start Validating",
-          "readDocs": "Read Documentation"
+          "searchPlaceholder": "Buscar validadores...",
+          "viewAll": "Ver Todos los Validadores"
         }
       },
       "rpc": {
         "tag": "INFRAESTRUCTURA RPC",
         "title": "Proveedores RPC",
         "subtitle": "Endpoints RPC de alto rendimiento con fiabilidad de nivel empresarial. Soporte para conexiones WebSocket y HTTP.",
-        "getApiKey": "Obtener clave API",
+        "getApiKey": "Obtener Clave API",
+        "buttons": {
+          "getApiKey": "Obtener Clave API",
+          "viewDocs": "Ver Documentación"
+        },
+        "sections": {
+          "apiPlans": "Planes API",
+          "coreEndpoints": "Endpoints Principales",
+          "sdkExamples": "Ejemplos de SDK",
+          "support": "Soporte"
+        },
+        "plans": {
+          "free": {
+            "name": "Gratis"
+          },
+          "basic": {
+            "name": "Básico"
+          },
+          "pro": {
+            "name": "Pro"
+          },
+          "enterprise": {
+            "name": "Empresarial"
+          },
+          "requestsMin": "solicitudes/min",
+          "requestsDay": "solicitudes/día",
+          "perMonth": "/mes",
+          "unlimited": "Ilimitado",
+          "contact": "Contáctanos"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "API de Consulta de Puntuación"
+          },
+          "projectApi": {
+            "title": "API de Proyectos"
+          },
+          "analyticsApi": {
+            "title": "API de Analíticas"
+          },
+          "webhookApi": {
+            "title": "API de Webhooks",
+            "events": "Eventos: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "SDK TypeScript"
+          },
+          "python": {
+            "title": "SDK Python"
+          },
+          "curl": {
+            "title": "Ejemplo cURL"
+          }
+        },
+        "cta": {
+          "title": "¿Listo para Construir?",
+          "subtitle": "Comienza a construir con la API de TBurn Chain hoy. Obtén tu clave API gratuita y accede a infraestructura blockchain de nivel empresarial.",
+          "desc": "Comienza a construir con la API de TBurn Chain hoy. Obtén tu clave API gratuita y accede a infraestructura blockchain de nivel empresarial.",
+          "getStartedFree": "Comenzar Gratis",
+          "contactSales": "Contactar Ventas"
+        },
         "apiPlans": {
-          "title": "Planes y límites de API",
+          "title": "Planes y Límites de API",
           "free": {
             "name": "Gratis",
             "requestsPerMin": "20",
@@ -11133,9 +11190,9 @@
           }
         },
         "coreEndpoints": {
-          "title": "Endpoints principales",
+          "title": "Endpoints Principales",
           "scoreQuery": {
-            "title": "API de consulta de puntuación",
+            "title": "API de Consulta de Puntuación",
             "endpoints": [
               "GET /score/:address",
               "GET /score/:address/history",
@@ -11143,7 +11200,7 @@
             ]
           },
           "project": {
-            "title": "API de proyectos",
+            "title": "API de Proyectos",
             "endpoints": [
               "GET /projects",
               "POST /projects/register",
@@ -11151,14 +11208,14 @@
             ]
           },
           "analytics": {
-            "title": "API de analíticas",
+            "title": "API de Analíticas",
             "endpoints": [
               "GET /analytics/trends",
               "GET /analytics/leaderboard"
             ]
           },
           "webhook": {
-            "title": "API de webhooks",
+            "title": "API de Webhooks",
             "endpoints": [
               "POST /webhooks"
             ],
@@ -11166,13 +11223,13 @@
           }
         },
         "sdkExamples": {
-          "title": "Ejemplos de SDK y empresarial",
-          "typescript": "SDK empresarial TypeScript",
-          "python": "SDK empresarial Python",
-          "curl": "Ejemplo cURL de producción"
+          "title": "Ejemplos de SDK y Empresarial",
+          "typescript": "SDK Empresarial TypeScript",
+          "python": "SDK Empresarial Python",
+          "curl": "Ejemplo cURL de Producción"
         },
         "support": {
-          "title": "Soporte y contacto",
+          "title": "Soporte y Contacto",
           "documentation": {
             "title": "Documentación",
             "description": "Referencias detalladas de API y guías.",
@@ -11180,195 +11237,111 @@
           },
           "apiStatus": {
             "title": "Estado de API",
-            "description": "Estado del sistema en tiempo real y tiempo activo.",
-            "desc": "Real-time system status, uptime metrics, and incident reports."
+            "description": "Estado del sistema en tiempo real y tiempo de actividad.",
+            "desc": "Estado del sistema en tiempo real, métricas de tiempo de actividad e informes de incidentes."
           },
           "developerHub": {
-            "title": "Hub de desarrolladores",
+            "title": "Hub de Desarrolladores",
             "description": "SDKs y ejemplos de código abierto.",
-            "desc": "Open source SDKs, code examples, and community resources."
-          },
-          "discord": "Comunidad Discord",
-          "email": "Soporte por Email"
-        },
-        "cta": {
-          "title": "¿Listo para Empezar?",
-          "subtitle": "Comienza a construir con la API de TBurn Chain hoy. Obtén tu clave API gratuita y accede a infraestructura blockchain de nivel empresarial.",
-          "getStartedFree": "Comenzar gratis",
-          "contactSales": "Contactar ventas",
-          "description": "Obtén tu clave API gratuita y comienza a construir",
-          "button": "Obtener Clave API Gratuita",
-          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure."
-        },
-        "buttons": {
-          "getApiKey": "Get API Key",
-          "viewDocs": "Ver Documentación"
-        },
-        "sections": {
-          "apiPlans": "API Plans",
-          "coreEndpoints": "Endpoints Principales",
-          "sdkExamples": "SDK Examples",
-          "support": "Support"
-        },
-        "plans": {
-          "free": {
-            "name": "Gratis"
-          },
-          "basic": {
-            "name": "Básico"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "Empresarial"
-          },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
-          "unlimited": "Ilimitado",
-          "contact": "Contáctanos"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "Score Query API"
-          },
-          "projectApi": {
-            "title": "Project API"
-          },
-          "analyticsApi": {
-            "title": "Analíticas API"
-          },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "Eventos: score.updated, score.alert, project.registered"
-          }
-        },
-        "exampleCode": "Código de Ejemplo",
-        "pageTitle": "Servicios RPC",
-        "pageSubtitle": "Conecta a la infraestructura de red de TBurn Chain",
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "SDK de Python"
-          },
-          "curl": {
-            "title": "cURL Example"
+            "desc": "SDKs de código abierto, ejemplos de código y recursos comunitarios."
           }
         }
       },
       "status": {
         "tag": "ESTADO",
         "title": "Estado de la Red",
-        "subtitle": "Monitoreo en tiempo real de la salud y rendimiento de TBurn Chain",
-        "operational": "Operational",
-        "degraded": "Rendimiento Degradado",
-        "outage": "Interrupción del Servicio",
+        "subtitle": "Métricas de salud y rendimiento de la red en tiempo real.",
+        "operational": "Operativo",
+        "lastUpdated": "Última actualización",
+        "daysAgo": "días atrás",
+        "today": "Hoy",
+        "uptimeAvg": "Promedio de Tiempo de Actividad",
+        "buttons": {
+          "refreshData": "Actualizar Datos"
+        },
+        "sections": {
+          "coreMetrics": "Métricas Principales",
+          "coreMetricsDesc": "Indicadores de rendimiento blockchain en tiempo real",
+          "serviceStatus": "Estado de Servicios",
+          "serviceStatusDesc": "Estado actual de todos los servicios de red",
+          "uptimeHistory": "Historial de Tiempo de Actividad",
+          "uptimeHistoryDesc": "Disponibilidad de red en los últimos 90 días",
+          "aiSystem": "Sistema de Orquestación AI",
+          "aiSystemDesc": "Rendimiento y estado del modelo AI de triple banda",
+          "validatorNetwork": "Red de Validadores",
+          "validatorNetworkDesc": "Validadores activos y distribución geográfica"
+        },
         "metrics": {
-          "blockHeight": "Altura del Bloque",
           "tps": "Transacciones Por Segundo",
-          "validators": "Validadores Activos",
-          "uptime": "Uptime (30d)",
-          "peak": "Peak",
-          "latency": "Network Latency",
-          "finality": "Finality Hora",
-          "avgFee": "Average Tarifa",
-          "cheapFast": "Cheap & Fast",
-          "shards": "Activo Shards"
+          "peak": "Pico",
+          "blockHeight": "Altura del Bloque",
+          "latency": "Latencia de Red",
+          "finality": "Tiempo de Finalidad",
+          "avgFee": "Tarifa Promedio",
+          "cheapFast": "Económico y Rápido",
+          "shards": "Shards Activos"
         },
         "services": {
-          "title": "Estado de Servicios",
-          "mainnet": "Mainnet RPC",
-          "testnet": "Testnet RPC",
-          "explorer": "Explorador de Bloques",
-          "api": "API REST",
-          "websocket": "WebSocket",
-          "bridge": "Puente Cross-Chain",
           "mainnetRpc": {
             "name": "Mainnet RPC",
-            "desc": "Primary JSON-RPC endpoints for mainnet"
+            "desc": "Endpoints JSON-RPC primarios para mainnet"
           },
           "wsApi": {
             "name": "API WebSocket",
-            "desc": "Real-time event streaming and subscriptions"
+            "desc": "Streaming de eventos en tiempo real y suscripciones"
           },
           "explorerApi": {
-            "name": "Explorer API",
-            "desc": "Block explorer data endpoints"
+            "name": "API del Explorador",
+            "desc": "Endpoints de datos del explorador de bloques"
           },
           "trustScoreApi": {
-            "name": "Trust Score API",
-            "desc": "Project verification and scoring endpoints"
+            "name": "API de Puntuación de Confianza",
+            "desc": "Endpoints de verificación y puntuación de proyectos"
+          },
+          "trustScore": {
+            "name": "Servicio de Puntuación de Confianza",
+            "desc": "Verificación de confianza impulsada por AI y puntuación de proyectos"
           },
           "crossChainBridge": {
             "name": "Puente Cross-Chain",
-            "desc": "Multi-chain asset transfer service"
+            "desc": "Servicio de transferencia de activos multi-cadena"
           },
           "quantumSecurity": {
-            "name": "Quantum Seguridad Module",
-            "desc": "CRYSTALS-Dilithium signature verification"
-          },
-          "trustScore": {
-            "name": "Trust Score Service",
-            "desc": "AI-powered trust verification and project scoring"
+            "name": "Módulo de Seguridad Cuántica",
+            "desc": "Verificación de firma CRYSTALS-Dilithium"
           }
-        },
-        "incidents": {
-          "title": "Incidentes Recientes",
-          "none": "No hay incidentes recientes"
-        },
-        "lastUpdated": "Último updated",
-        "daysAgo": "days ago",
-        "buttons": {
-          "refreshData": "Actualizar Data"
-        },
-        "sections": {
-          "coreMetrics": "Core Métricas",
-          "coreMetricsDesc": "Real-time blockchain performance indicators",
-          "serviceStatus": "Service Estado",
-          "serviceStatusDesc": "Current status of all network services",
-          "uptimeHistory": "Tiempo de Actividad Historial",
-          "uptimeHistoryDesc": "Network availability over the past 90 days",
-          "aiSystem": "AI Orchestration System",
-          "aiSystemDesc": "Triple-band AI model performance and status",
-          "validatorNetwork": "Validator Network",
-          "validatorNetworkDesc": "Activo validators and geographic distribution"
         },
         "ai": {
           "active": "Activo",
-          "accuracy": "Accuracy",
-          "latency": "Latency",
+          "accuracy": "Precisión",
+          "latency": "Latencia",
           "strategic": {
-            "title": "Strategic AI",
+            "title": "AI Estratégico",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "AI Táctico",
             "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operational AI",
+            "title": "AI Operativo",
             "model": "Llama 4"
           }
         },
         "uptime": {
-          "monthlyAverage": "Monthly Average",
-          "uptimeGuarantee": "Tiempo de Actividad Guarantee",
-          "lastIncident": "Último Incident"
+          "monthlyAverage": "Promedio Mensual",
+          "uptimeGuarantee": "Garantía de Tiempo de Actividad",
+          "lastIncident": "Último Incidente"
         },
         "validators": {
           "active": "Validadores Activos",
-          "countries": "Operating Countries",
+          "countries": "Países Operativos",
           "totalStaked": "Total en Staking",
-          "avgUptime": "Average Tiempo de Actividad",
-          "nodeCount": "Node Count",
-          "regions": "Regions",
-          "superNodes": "Super Nodes"
-        },
-        "today": "Today",
-        "uptimeAvg": "Uptime Average"
+          "avgUptime": "Tiempo de Actividad Promedio",
+          "nodeCount": "Cantidad de Nodos",
+          "regions": "Regiones",
+          "superNodes": "Super Nodos"
+        }
       },
       "ramp": {
         "tag": "PASARELA FIAT",
@@ -11379,20 +11352,20 @@
           "howItWorks": "Cómo Funciona",
           "paymentMethods": "Métodos de Pago",
           "limitsFees": "Límites y Comisiones",
-          "whyBurnRamp": "¿Por qué Burn Ramp?"
+          "whyBurnRamp": "¿Por Qué Burn Ramp?"
         },
         "buy": {
           "title": "Comprar TBURN",
           "desc": "Compra tokens TBURN con tu método de pago preferido",
           "amountPlaceholder": "Ingresa monto en USD",
-          "estTburn": "TBURN estimado",
+          "estTburn": "TBURN Estimado",
           "button": "Comprar TBURN"
         },
         "sell": {
           "title": "Vender TBURN",
           "desc": "Convierte tus tokens TBURN a moneda fiduciaria",
           "amountPlaceholder": "Ingresa cantidad de TBURN",
-          "estUsd": "USD estimado",
+          "estUsd": "USD Estimado",
           "button": "Vender TBURN"
         },
         "steps": {
@@ -11469,41 +11442,6 @@
           "enterValidAmount": "Por favor ingresa un monto válido",
           "error": "Transacción fallida. Por favor intenta de nuevo."
         }
-      },
-      "bridge": {
-        "title": "Puente de Activos",
-        "subtitle": "Transfiere activos entre TBurn Chain y otras redes",
-        "from": "Desde",
-        "to": "Hacia",
-        "amount": "Cantidad",
-        "estimatedTime": "Tiempo estimado",
-        "fees": "Tarifas de puente",
-        "confirm": "Confirmar Puente"
-      },
-      "staking": {
-        "title": "Staking",
-        "subtitle": "Stakea TBURN para asegurar la red y ganar recompensas",
-        "stake": "Stakear",
-        "unstake": "Retirar Stake",
-        "claim": "Reclamar Recompensas",
-        "totalStaked": "Total en Staking",
-        "yourStake": "Tu Stake",
-        "pendingRewards": "Recompensas Pendientes",
-        "apy": "APY Actual"
-      },
-      "governance": {
-        "title": "Gobernanza",
-        "subtitle": "Participa en la gobernanza del protocolo TBurn Chain",
-        "proposals": "Propuestas",
-        "voting": "Votación",
-        "treasury": "Tesorería",
-        "delegate": "Delegar",
-        "activeProposals": "Propuestas Activas",
-        "pastProposals": "Propuestas Pasadas",
-        "createProposal": "Crear Propuesta",
-        "voteFor": "Votar a Favor",
-        "voteAgainst": "Votar en Contra",
-        "abstain": "Abstención"
       }
     },
     "community": {

@@ -7750,8 +7750,20 @@
       "validators": {
         "tag": "নেটওয়ার্ক ভ্যালিডেটর",
         "title": "ভ্যালিডেটর",
-        "subtitle": "TBurn ভ্যালিডেটর নেটওয়ার্কে যোগ দিন এবং ব্লকচেইন সুরক্ষিত করে পুরস্কার অর্জন করুন",
+        "subtitle": "TBurn ভ্যালিডেটর নেটওয়ার্কে যোগ দিন এবং ব্লকচেইন সুরক্ষিত করে পুরস্কার অর্জন করুন।",
         "becomeValidator": "ভ্যালিডেটর হন",
+        "validatorDocs": "ভ্যালিডেটর ডকুমেন্টেশন দেখুন",
+        "stats": {
+          "activeValidators": "সক্রিয় ভ্যালিডেটর",
+          "totalStaked": "মোট স্টেক করা",
+          "averageUptime": "গড় আপটাইম",
+          "operatingCountries": "অপারেটিং দেশ"
+        },
+        "applyNow": "এখনই আবেদন করুন",
+        "consensus": {
+          "title": "কনসেনসাস মেকানিজম",
+          "subtitle": "AI-চালিত ভ্যালিডেশন সহ Proof of Trust"
+        },
         "consensusSpecs": {
           "title": "কনসেনসাস স্পেসিফিকেশন",
           "blockTime": {
@@ -7783,58 +7795,6 @@
             "description": "নেটওয়ার্ক প্রাপ্যতা গ্যারান্টি"
           }
         },
-        "validatorTiers": {
-          "title": "ভ্যালিডেটর টিয়ার সিস্টেম",
-          "genesis": {
-            "name": "জেনেসিস",
-            "stake": "১,০০০,০০০ TBURN",
-            "rewards": "প্রিমিয়াম রিওয়ার্ড + গভর্ন্যান্স"
-          },
-          "core": {
-            "name": "কোর",
-            "stake": "৫০০,০০০ TBURN",
-            "rewards": "স্ট্যান্ডার্ড রিওয়ার্ড + ভোটিং"
-          },
-          "community": {
-            "name": "কমিউনিটি",
-            "stake": "১০০,০০০ TBURN",
-            "rewards": "বেস রিওয়ার্ড"
-          }
-        },
-        "hardwareRequirements": {
-          "title": "হার্ডওয়্যার প্রয়োজনীয়তা",
-          "cpu": "CPU: ৮+ কোর",
-          "ram": "RAM: ৩২GB+",
-          "storage": "স্টোরেজ: ১TB NVMe SSD",
-          "bandwidth": "ব্যান্ডউইথ: ১Gbps"
-        },
-        "slashingPolicy": {
-          "title": "স্ল্যাশিং নীতি",
-          "doubleSign": {
-            "offense": "ডাবল সাইনিং",
-            "penalty": "১০০% স্টেক স্ল্যাশড"
-          },
-          "downtime": {
-            "offense": "বর্ধিত ডাউনটাইম",
-            "penalty": "১-৫% স্টেক স্ল্যাশড"
-          },
-          "maliciousVoting": {
-            "offense": "ক্ষতিকর ভোটিং",
-            "penalty": "৫০% স্টেক স্ল্যাশড"
-          }
-        },
-        "validatorDocs": "ভ্যালিডেটর ডকুমেন্টেশন দেখুন",
-        "stats": {
-          "activeValidators": "সক্রিয় ভ্যালিডেটর",
-          "totalStaked": "মোট স্টেক করা",
-          "averageUptime": "গড় আপটাইম",
-          "operatingCountries": "অপারেটিং দেশ"
-        },
-        "applyNow": "এখনই আবেদন করুন",
-        "consensus": {
-          "title": "কনসেনসাস মেকানিজম",
-          "subtitle": "AI-চালিত ভ্যালিডেশন সহ Proof of Trust"
-        },
         "cta": {
           "title": "ভ্যালিডেটর হতে প্রস্তুত?",
           "subtitle": "TBurn Chain সুরক্ষিত করার সময় নেটওয়ার্কে যোগ দিন এবং পুরস্কার অর্জন করুন।",
@@ -7865,87 +7825,189 @@
             "apyAmount": "12-18%",
             "slotsAmount": "৫০ স্লট",
             "benefits": {
-              "blockValidation": "Block validation rights",
-              "feeDistribution": "Transaction fee distribution",
-              "votingRights": "Governance voting rights"
+              "blockValidation": "ব্লক ভ্যালিডেশন অধিকার",
+              "feeDistribution": "লেনদেন ফি বিতরণ",
+              "votingRights": "গভর্ন্যান্স ভোটিং অধিকার"
             }
           },
           "starter": {
-            "name": "Starter Validator",
-            "badge": "Starter",
-            "stakeAmount": "100,000 TBURN",
+            "name": "স্টার্টার ভ্যালিডেটর",
+            "badge": "স্টার্টার",
+            "stakeAmount": "১০০,০০০ TBURN",
             "apyAmount": "8-12%",
-            "slotsAmount": "Unlimited",
+            "slotsAmount": "আনলিমিটেড",
             "benefits": {
-              "delegate": "Delegate to larger ভ্যালিডেটর",
-              "autoRewards": "Automatic reward distribution",
-              "unstakePeriod": "21-day unstaking period"
+              "delegate": "বড় ভ্যালিডেটরদের কাছে ডেলিগেট করুন",
+              "autoRewards": "স্বয়ংক্রিয় পুরস্কার বিতরণ",
+              "unstakePeriod": "২১-দিনের আনস্টেকিং পিরিয়ড"
             }
           }
         },
-        "hardware": {
-          "title": "Hardware Requirements",
-          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
-          "ram": "RAM: 64GB DDR4 ECC",
-          "storage": "Storage: 2TB NVMe SSD",
-          "network": "Network: 1Gbps dedicated",
-          "superNode": {
-            "title": "Super Node Requirements",
-            "cpu": "CPU: 32+ cores",
-            "ram": "RAM: 128GB DDR4 ECC",
-            "storage": "Storage: 4TB NVMe RAID",
-            "network": "Network: 10Gbps dedicated"
+        "validatorTiers": {
+          "title": "ভ্যালিডেটর টিয়ার সিস্টেম",
+          "genesis": {
+            "name": "জেনেসিস",
+            "stake": "১,০০০,০০০ TBURN",
+            "rewards": "প্রিমিয়াম রিওয়ার্ড + গভর্ন্যান্স"
           },
-          "standardNode": {
-            "title": "স্ট্যান্ডার্ড Node Requirements",
-            "cpu": "CPU: 8+ cores",
-            "ram": "RAM: 32GB DDR4",
-            "storage": "Storage: 1TB NVMe SSD",
-            "network": "Network: 500Mbps"
+          "core": {
+            "name": "কোর",
+            "stake": "৫০০,০০০ TBURN",
+            "rewards": "স্ট্যান্ডার্ড রিওয়ার্ড + ভোটিং"
+          },
+          "community": {
+            "name": "কমিউনিটি",
+            "stake": "১০০,০০০ TBURN",
+            "rewards": "বেস রিওয়ার্ড"
           }
         },
+        "hardware": {
+          "title": "হার্ডওয়্যার প্রয়োজনীয়তা",
+          "cpu": "CPU: ১৬+ কোর (AMD EPYC বা Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "স্টোরেজ: 2TB NVMe SSD",
+          "network": "নেটওয়ার্ক: 1Gbps ডেডিকেটেড",
+          "superNode": {
+            "title": "সুপার নোড প্রয়োজনীয়তা",
+            "cpu": "CPU: ৩২+ কোর",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "স্টোরেজ: 4TB NVMe RAID",
+            "network": "নেটওয়ার্ক: 10Gbps ডেডিকেটেড"
+          },
+          "standardNode": {
+            "title": "স্ট্যান্ডার্ড নোড প্রয়োজনীয়তা",
+            "cpu": "CPU: ৮+ কোর",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "স্টোরেজ: 1TB NVMe SSD",
+            "network": "নেটওয়ার্ক: 500Mbps"
+          }
+        },
+        "hardwareRequirements": {
+          "title": "হার্ডওয়্যার প্রয়োজনীয়তা",
+          "cpu": "CPU: ৮+ কোর",
+          "ram": "RAM: ৩২GB+",
+          "storage": "স্টোরেজ: 1TB NVMe SSD",
+          "bandwidth": "ব্যান্ডউইথ: 1Gbps"
+        },
         "slashing": {
-          "title": "Slashing Conditions",
-          "subtitle": "ভ্যালিডেটর must maintain high স্ট্যান্ডার্ডs. Violations result in stake penalties.",
+          "title": "স্ল্যাশিং শর্তাবলী",
+          "subtitle": "ভ্যালিডেটরদের উচ্চ মান বজায় রাখতে হবে। লঙ্ঘনের ফলে স্টেক জরিমানা হয়।",
           "minor": {
-            "title": "Minor Violation",
-            "badge": "Warning",
-            "description": "Brief downtime or missed blocks",
-            "penalty": "0.1% stake reduction"
+            "title": "ছোট লঙ্ঘন",
+            "badge": "সতর্কতা",
+            "description": "সংক্ষিপ্ত ডাউনটাইম বা মিসড ব্লক",
+            "penalty": "০.১% স্টেক হ্রাস"
           },
           "moderate": {
-            "title": "Moderate Violation",
-            "badge": "Penalty",
-            "description": "Extended downtime over 2৪ ঘণ্টা",
-            "penalty": "1-5% stake reduction"
+            "title": "মাঝারি লঙ্ঘন",
+            "badge": "জরিমানা",
+            "description": "২৪ ঘণ্টার বেশি বর্ধিত ডাউনটাইম",
+            "penalty": "১-৫% স্টেক হ্রাস"
           },
           "severe": {
-            "title": "Severe Violation",
-            "badge": "Severe",
-            "description": "Malicious voting or censorship attemপয়েন্ট",
-            "penalty": "25-50% stake reduction"
+            "title": "গুরুতর লঙ্ঘন",
+            "badge": "গুরুতর",
+            "description": "ক্ষতিকর ভোটিং বা সেন্সরশিপ প্রচেষ্টা",
+            "penalty": "২৫-৫০% স্টেক হ্রাস"
           },
           "critical": {
-            "title": "Critical Violation",
-            "badge": "Critical",
-            "description": "Double signing or network attacks",
-            "penalty": "100% stake slashed"
+            "title": "জটিল লঙ্ঘন",
+            "badge": "জটিল",
+            "description": "ডাবল সাইনিং বা নেটওয়ার্ক আক্রমণ",
+            "penalty": "১০০% স্টেক স্ল্যাশড"
+          }
+        },
+        "slashingPolicy": {
+          "title": "স্ল্যাশিং নীতি",
+          "doubleSign": {
+            "offense": "ডাবল সাইনিং",
+            "penalty": "১০০% স্টেক স্ল্যাশড"
+          },
+          "downtime": {
+            "offense": "বর্ধিত ডাউনটাইম",
+            "penalty": "১-৫% স্টেক স্ল্যাশড"
+          },
+          "maliciousVoting": {
+            "offense": "ক্ষতিকর ভোটিং",
+            "penalty": "৫০% স্টেক স্ল্যাশড"
           }
         },
         "geography": {
-          "title": "Geographic Distribution"
+          "title": "ভৌগোলিক বিতরণ"
         },
         "activeValidators": {
           "title": "সক্রিয় ভ্যালিডেটর",
-          "searchPlaceholder": "Search ভ্যালিডেটর...",
-          "viewAll": "View All ভ্যালিডেটর"
+          "searchPlaceholder": "ভ্যালিডেটর অনুসন্ধান করুন...",
+          "viewAll": "সকল ভ্যালিডেটর দেখুন"
         }
       },
       "rpc": {
         "tag": "RPC অবকাঠামো",
-        "title": "RPC এন্ডপয়েন্ট",
-        "subtitle": "নির্ভরযোগ্য নেটওয়ার্ক অ্যাক্সেসের জন্য অফিসিয়াল RPC নোডের সাথে সংযোগ করুন",
+        "title": "RPC প্রোভাইডার",
+        "subtitle": "এন্টারপ্রাইজ-গ্রেড নির্ভরযোগ্যতা সহ উচ্চ-পারফরম্যান্স RPC এন্ডপয়েন্ট। WebSocket এবং HTTP সংযোগের জন্য সমর্থন।",
         "getApiKey": "API কী পান",
+        "buttons": {
+          "getApiKey": "API কী পান",
+          "viewDocs": "ডকুমেন্টেশন দেখুন"
+        },
+        "sections": {
+          "apiPlans": "API প্ল্যান",
+          "coreEndpoints": "কোর এন্ডপয়েন্ট",
+          "sdkExamples": "SDK উদাহরণ",
+          "support": "সহায়তা"
+        },
+        "plans": {
+          "free": {
+            "name": "ফ্রি"
+          },
+          "basic": {
+            "name": "বেসিক"
+          },
+          "pro": {
+            "name": "প্রো"
+          },
+          "enterprise": {
+            "name": "এন্টারপ্রাইজ"
+          },
+          "requestsMin": "রিকোয়েস্ট/মিনিট",
+          "requestsDay": "রিকোয়েস্ট/দিন",
+          "perMonth": "/মাস",
+          "unlimited": "আনলিমিটেড",
+          "contact": "যোগাযোগ করুন"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "স্কোর কোয়েরি API"
+          },
+          "projectApi": {
+            "title": "প্রজেক্ট API"
+          },
+          "analyticsApi": {
+            "title": "অ্যানালিটিক্স API"
+          },
+          "webhookApi": {
+            "title": "Webhook API",
+            "events": "ইভেন্ট: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "TypeScript SDK"
+          },
+          "python": {
+            "title": "Python SDK"
+          },
+          "curl": {
+            "title": "cURL উদাহরণ"
+          }
+        },
+        "cta": {
+          "title": "নির্মাণ করতে প্রস্তুত?",
+          "subtitle": "আজই TBurn Chain API দিয়ে নির্মাণ শুরু করুন। আপনার ফ্রি API কী পান এবং এন্টারপ্রাইজ-গ্রেড ব্লকচেইন অবকাঠামো অ্যাক্সেস করুন।",
+          "desc": "আজই TBurn Chain API দিয়ে নির্মাণ শুরু করুন। আপনার ফ্রি API কী পান এবং এন্টারপ্রাইজ-গ্রেড ব্লকচেইন অবকাঠামো অ্যাক্সেস করুন।",
+          "getStartedFree": "ফ্রি শুরু করুন",
+          "contactSales": "বিক্রয়ে যোগাযোগ করুন"
+        },
         "apiPlans": {
           "title": "API প্ল্যান এবং লিমিট",
           "free": {
@@ -8017,79 +8079,17 @@
           "documentation": {
             "title": "ডকুমেন্টেশন",
             "description": "বিস্তারিত API রেফারেন্স এবং গাইড।",
-            "desc": "Comprehensive API ডকুমেন্টেশন and integration guides."
+            "desc": "সম্পূর্ণ API ডকুমেন্টেশন এবং ইন্টিগ্রেশন গাইড।"
           },
           "apiStatus": {
             "title": "API স্ট্যাটাস",
             "description": "রিয়েল-টাইম সিস্টেম স্ট্যাটাস এবং আপটাইম।",
-            "desc": "Real-time system status, আপটাইম metrics, and incident reports."
+            "desc": "রিয়েল-টাইম সিস্টেম স্ট্যাটাস, আপটাইম মেট্রিক্স এবং ইনসিডেন্ট রিপোর্ট।"
           },
           "developerHub": {
             "title": "ডেভেলপার হাব",
             "description": "ওপেন সোর্স SDK এবং উদাহরণ।",
-            "desc": "Open source SDKs, কোড উদাহরণ, and community resources."
-          }
-        },
-        "cta": {
-          "title": "নির্মাণ করতে প্রস্তুত?",
-          "subtitle": "আজই TBurn Chain API দিয়ে নির্মাণ শুরু করুন। আপনার ফ্রি API কী পান এবং এন্টারপ্রাইজ-গ্রেড ব্লকচেইন অবকাঠামো অ্যাক্সেস করুন।",
-          "getStartedFree": "ফ্রি শুরু করুন",
-          "contactSales": "বিক্রয়ে যোগাযোগ করুন",
-          "desc": "তৈরি শুরু করুন with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure."
-        },
-        "buttons": {
-          "getApiKey": "Get API Key",
-          "viewDocs": "ডকুমেন্টেশন দেখুন"
-        },
-        "sections": {
-          "apiPlans": "API Plans",
-          "coreEndpoints": "Core Endপয়েন্ট",
-          "sdkExamples": "SDK Examples",
-          "support": "Support"
-        },
-        "plans": {
-          "free": {
-            "name": "Free"
-          },
-          "basic": {
-            "name": "Basic"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "Enterprise"
-          },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
-          "unlimited": "Unlimited",
-          "contact": "যোগাযোগ Us"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "Score Query API"
-          },
-          "projectApi": {
-            "title": "Project API"
-          },
-          "analyticsApi": {
-            "title": "Analytics API"
-          },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "Events: score.updated, score.alert, project.registered"
-          }
-        },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL Example"
+            "desc": "ওপেন সোর্স SDK, কোড উদাহরণ এবং কমিউনিটি রিসোর্স।"
           }
         }
       },
@@ -8097,96 +8097,96 @@
         "tag": "স্ট্যাটাস",
         "title": "নেটওয়ার্ক স্ট্যাটাস",
         "subtitle": "রিয়েল-টাইম নেটওয়ার্ক স্বাস্থ্য এবং পারফরম্যান্স মেট্রিক্স।",
-        "operational": "Operational",
-        "lastUpdated": "Last updated",
-        "daysAgo": "days ago",
-        "today": "Today",
-        "uptimeAvg": "আপটাইম Average",
+        "operational": "অপারেশনাল",
+        "lastUpdated": "সর্বশেষ আপডেট",
+        "daysAgo": "দিন আগে",
+        "today": "আজ",
+        "uptimeAvg": "আপটাইম গড়",
         "buttons": {
-          "refreshData": "Refresh Data"
+          "refreshData": "ডেটা রিফ্রেশ করুন"
         },
         "sections": {
-          "coreMetrics": "Core Metrics",
-          "coreMetricsDesc": "Real-time blockchain performance indicators",
-          "serviceStatus": "Service Status",
-          "serviceStatusDesc": "Current status of all network services",
-          "uptimeHistory": "আপটাইম History",
-          "uptimeHistoryDesc": "Network availability over the past 90 days",
-          "aiSystem": "AI Orchestration System",
-          "aiSystemDesc": "ট্রিপল-ব্যান্ড AI model performance and status",
-          "validatorNetwork": "Validator Network",
-          "validatorNetworkDesc": "Active ভ্যালিডেটর and geographic distribution"
+          "coreMetrics": "কোর মেট্রিক্স",
+          "coreMetricsDesc": "রিয়েল-টাইম ব্লকচেইন পারফরম্যান্স সূচক",
+          "serviceStatus": "সার্ভিস স্ট্যাটাস",
+          "serviceStatusDesc": "সকল নেটওয়ার্ক সার্ভিসের বর্তমান অবস্থা",
+          "uptimeHistory": "আপটাইম ইতিহাস",
+          "uptimeHistoryDesc": "গত ৯০ দিনে নেটওয়ার্ক প্রাপ্যতা",
+          "aiSystem": "AI অর্কেস্ট্রেশন সিস্টেম",
+          "aiSystemDesc": "ট্রিপল-ব্যান্ড AI মডেল পারফরম্যান্স এবং স্ট্যাটাস",
+          "validatorNetwork": "ভ্যালিডেটর নেটওয়ার্ক",
+          "validatorNetworkDesc": "সক্রিয় ভ্যালিডেটর এবং ভৌগোলিক বিতরণ"
         },
         "metrics": {
-          "tps": "Transactions Per Second",
-          "peak": "Peak",
-          "blockHeight": "Block Height",
-          "latency": "Network ল্যাটেন্সি",
-          "finality": "ফাইনালিটি Time",
-          "avgFee": "Average Fee",
-          "cheapFast": "Cheap & Fast",
-          "shards": "Active Shards"
+          "tps": "প্রতি সেকেন্ডে লেনদেন",
+          "peak": "শীর্ষ",
+          "blockHeight": "ব্লক উচ্চতা",
+          "latency": "নেটওয়ার্ক ল্যাটেন্সি",
+          "finality": "ফাইনালিটি সময়",
+          "avgFee": "গড় ফি",
+          "cheapFast": "সস্তা এবং দ্রুত",
+          "shards": "সক্রিয় শার্ড"
         },
         "services": {
           "mainnetRpc": {
-            "name": "Mainnet RPC",
-            "desc": "Primary JSON-RPC endপয়েন্ট for mainnet"
+            "name": "মেইননেট RPC",
+            "desc": "মেইননেটের জন্য প্রাথমিক JSON-RPC এন্ডপয়েন্ট"
           },
           "wsApi": {
             "name": "WebSocket API",
-            "desc": "Real-time event streaming and subscriptions"
+            "desc": "রিয়েল-টাইম ইভেন্ট স্ট্রিমিং এবং সাবস্ক্রিপশন"
           },
           "explorerApi": {
-            "name": "Explorer API",
-            "desc": "Block explorer data endপয়েন্ট"
+            "name": "এক্সপ্লোরার API",
+            "desc": "ব্লক এক্সপ্লোরার ডেটা এন্ডপয়েন্ট"
           },
           "trustScoreApi": {
-            "name": "Trust Score API",
-            "desc": "Project যাচাইকরণ and scoring endপয়েন্ট"
+            "name": "ট্রাস্ট স্কোর API",
+            "desc": "প্রজেক্ট যাচাই এবং স্কোরিং এন্ডপয়েন্ট"
           },
           "trustScore": {
-            "name": "Trust Score Service",
-            "desc": "AI-powered trust যাচাইকরণ and project scoring"
+            "name": "ট্রাস্ট স্কোর সার্ভিস",
+            "desc": "AI-চালিত ট্রাস্ট যাচাই এবং প্রজেক্ট স্কোরিং"
           },
           "crossChainBridge": {
             "name": "ক্রস-চেইন ব্রিজ",
-            "desc": "Multi-chain asset transfer service"
+            "desc": "মাল্টি-চেইন অ্যাসেট ট্রান্সফার সার্ভিস"
           },
           "quantumSecurity": {
-            "name": "কোয়ান্টাম সিকিউরিটি Module",
-            "desc": "CRYSTALS-Dilithium signature যাচাইকরণ"
+            "name": "কোয়ান্টাম সিকিউরিটি মডিউল",
+            "desc": "CRYSTALS-Dilithium সিগনেচার যাচাই"
           }
         },
         "ai": {
-          "active": "Active",
-          "accuracy": "Accuracy",
+          "active": "সক্রিয়",
+          "accuracy": "নির্ভুলতা",
           "latency": "ল্যাটেন্সি",
           "strategic": {
-            "title": "Strategic AI",
+            "title": "কৌশলগত AI",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "সামরিক AI",
             "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operational AI",
+            "title": "অপারেশনাল AI",
             "model": "Llama 4"
           }
         },
         "uptime": {
-          "monthlyAverage": "Monthly Average",
-          "uptimeGuarantee": "আপটাইম Guarantee",
-          "lastIncident": "Last Incident"
+          "monthlyAverage": "মাসিক গড়",
+          "uptimeGuarantee": "আপটাইম গ্যারান্টি",
+          "lastIncident": "সর্বশেষ ইনসিডেন্ট"
         },
         "validators": {
           "active": "সক্রিয় ভ্যালিডেটর",
           "countries": "অপারেটিং দেশ",
           "totalStaked": "মোট স্টেক করা",
           "avgUptime": "গড় আপটাইম",
-          "nodeCount": "Node Count",
-          "regions": "Regions",
-          "superNodes": "Super নোড"
+          "nodeCount": "নোড সংখ্যা",
+          "regions": "অঞ্চল",
+          "superNodes": "সুপার নোড"
         }
       },
       "ramp": {

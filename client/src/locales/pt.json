@@ -9081,17 +9081,29 @@
         "title": "Validadores",
         "subtitle": "Junte-se à rede de validadores TBurn e ganhe recompensas enquanto protege a blockchain.",
         "becomeValidator": "Tornar-se Validador",
+        "validatorDocs": "Ver Documentação de Validadores",
+        "stats": {
+          "activeValidators": "Validadores Ativos",
+          "totalStaked": "Total em Staking",
+          "averageUptime": "Uptime Médio",
+          "operatingCountries": "Países em Operação"
+        },
+        "applyNow": "Candidatar-se Agora",
+        "consensus": {
+          "title": "Mecanismo de Consenso",
+          "subtitle": "Prova de Confiança com validação potencializada por IA"
+        },
         "consensusSpecs": {
           "title": "Especificações de Consenso",
           "blockTime": {
             "label": "Tempo de Bloco",
             "value": "1 segundo",
-            "description": "Umverage time to produce a new block"
+            "description": "Tempo médio para produzir um novo bloco"
           },
           "finality": {
             "label": "Finalidade",
             "value": "6 segundos",
-            "description": "Time until transactions are irreversible"
+            "description": "Tempo até as transações serem irreversíveis"
           },
           "validatorSet": {
             "label": "Conjunto de Validadores",
@@ -9103,13 +9115,61 @@
           },
           "tps": {
             "label": "TPS",
-            "value": "50,000+",
-            "description": "Máximo transactions per segundo"
+            "value": "50.000+",
+            "description": "Máximo de transações por segundo"
           },
           "uptime": {
             "label": "Uptime",
-            "value": "99.99%",
-            "description": "Rede availability guarantee"
+            "value": "99,99%",
+            "description": "Garantia de disponibilidade da rede"
+          }
+        },
+        "cta": {
+          "title": "Pronto para se Tornar um Validador?",
+          "subtitle": "Junte-se à rede e ganhe recompensas enquanto protege a TBurn Chain.",
+          "startValidating": "Começar a Validar",
+          "readDocs": "Ler Documentação"
+        },
+        "tierSystem": {
+          "title": "Sistema de Níveis de Validadores",
+          "stake": "Stake Mínimo",
+          "apy": "APY",
+          "slots": "Vagas Disponíveis",
+          "elite": {
+            "name": "Validador Elite",
+            "badge": "Elite",
+            "stakeAmount": "1.000.000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21 vagas",
+            "benefits": {
+              "blockPriority": "Prioridade na produção de blocos",
+              "revenueShare": "Participação adicional na receita",
+              "aiDecision": "Participação em decisões de IA"
+            }
+          },
+          "standard": {
+            "name": "Validador Padrão",
+            "badge": "Padrão",
+            "stakeAmount": "500.000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50 vagas",
+            "benefits": {
+              "blockValidation": "Direitos de validação de blocos",
+              "feeDistribution": "Distribuição de taxas de transação",
+              "votingRights": "Direitos de voto em governança"
+            }
+          },
+          "starter": {
+            "name": "Validador Iniciante",
+            "badge": "Iniciante",
+            "stakeAmount": "100.000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "Ilimitado",
+            "benefits": {
+              "delegate": "Delegar para validadores maiores",
+              "autoRewards": "Distribuição automática de recompensas",
+              "unstakePeriod": "Período de desbloqueio de 21 dias"
+            }
           }
         },
         "validatorTiers": {
@@ -9130,12 +9190,61 @@
             "rewards": "Recompensas base"
           }
         },
+        "hardware": {
+          "title": "Requisitos de Hardware",
+          "cpu": "CPU: 16+ núcleos (AMD EPYC ou Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "Armazenamento: 2TB NVMe SSD",
+          "network": "Rede: 1Gbps dedicado",
+          "superNode": {
+            "title": "Requisitos de Super Nó",
+            "cpu": "CPU: 32+ núcleos",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "Armazenamento: 4TB NVMe RAID",
+            "network": "Rede: 10Gbps dedicado"
+          },
+          "standardNode": {
+            "title": "Requisitos de Nó Padrão",
+            "cpu": "CPU: 8+ núcleos",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "Armazenamento: 1TB NVMe SSD",
+            "network": "Rede: 500Mbps"
+          }
+        },
         "hardwareRequirements": {
           "title": "Requisitos de Hardware",
           "cpu": "CPU: 8+ núcleos",
           "ram": "RAM: 32GB+",
           "storage": "Armazenamento: 1TB NVMe SSD",
           "bandwidth": "Largura de banda: 1Gbps"
+        },
+        "slashing": {
+          "title": "Condições de Slashing",
+          "subtitle": "Validadores devem manter altos padrões. Violações resultam em penalidades de stake.",
+          "minor": {
+            "title": "Violação Menor",
+            "badge": "Aviso",
+            "description": "Breve inatividade ou blocos perdidos",
+            "penalty": "Redução de 0,1% do stake"
+          },
+          "moderate": {
+            "title": "Violação Moderada",
+            "badge": "Penalidade",
+            "description": "Inatividade prolongada por mais de 24 horas",
+            "penalty": "Redução de 1-5% do stake"
+          },
+          "severe": {
+            "title": "Violação Grave",
+            "badge": "Grave",
+            "description": "Votação maliciosa ou tentativas de censura",
+            "penalty": "Redução de 25-50% do stake"
+          },
+          "critical": {
+            "title": "Violação Crítica",
+            "badge": "Crítico",
+            "description": "Assinatura dupla ou ataques à rede",
+            "penalty": "100% do stake cortado"
+          }
         },
         "slashingPolicy": {
           "title": "Política de Slashing",
@@ -9144,7 +9253,7 @@
             "penalty": "100% do stake cortado"
           },
           "downtime": {
-            "offense": "Tempo de Inatividade Prolongado",
+            "offense": "Inatividade Prolongada",
             "penalty": "1-5% do stake cortado"
           },
           "maliciousVoting": {
@@ -9152,122 +9261,13 @@
             "penalty": "50% do stake cortado"
           }
         },
-        "validatorDocs": "Ver Validador Documentoação",
-        "stats": {
-          "activeValidators": "Emivo Validadors",
-          "totalStaked": "Total em Staking",
-          "averageUptime": "Umverage Uptime",
-          "operatingCountries": "Operating Countries"
-        },
-        "applyNow": "Umpply Now",
-        "consensus": {
-          "title": "Consenso Mecanismo",
-          "subtitle": "Proof of Confiança with UmI-powered validation"
-        },
-        "cta": {
-          "title": "Lery to Become a Validador?",
-          "subtitle": "Participar the network and earn rewards while securing TQueima Chain.",
-          "startValidating": "Emiciar Validating",
-          "readDocs": "Ler Documentação"
-        },
-        "tierSystem": {
-          "title": "Validador Nível System",
-          "stake": "Mínimo Stake",
-          "apy": "UmPY",
-          "slots": "Disponível Slots",
-          "elite": {
-            "name": "Elite Validador",
-            "badge": "Elite",
-            "stakeAmount": "1,000,000 TBURN",
-            "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
-            "benefits": {
-              "blockPriority": "Bloco production priority",
-              "revenueShare": "Umdicionaritional revenue share",
-              "aiDecision": "UmI decision participation"
-            }
-          },
-          "standard": {
-            "name": "Padrão Validador",
-            "badge": "Padrão",
-            "stakeAmount": "500,000 TBURN",
-            "apyAmount": "12-18%",
-            "slotsAmount": "50 slots",
-            "benefits": {
-              "blockValidation": "Bloco validation rights",
-              "feeDistribution": "Transação fee distribution",
-              "votingRights": "Governança voting rights"
-            }
-          },
-          "starter": {
-            "name": "Emiciarer Validador",
-            "badge": "Emiciarer",
-            "stakeAmount": "100,000 TBURN",
-            "apyAmount": "8-12%",
-            "slotsAmount": "Unlimited",
-            "benefits": {
-              "delegate": "Delegar to larger validators",
-              "autoRewards": "Umutomatic reward distribution",
-              "unstakePeriod": "21-dia unstaking period"
-            }
-          }
-        },
-        "hardware": {
-          "title": "Hardware Requisitos",
-          "cpu": "CPU: 16+ cores (UmMD EPYC or Emtel Xeon)",
-          "ram": "RUmM: 64GB DDR4 ECC",
-          "storage": "Storage: 2TB NVMe SSD",
-          "network": "Rede: 1Gbps dedicated",
-          "superNode": {
-            "title": "Super Nó Requisitos",
-            "cpu": "CPU: 32+ cores",
-            "ram": "RUmM: 128GB DDR4 ECC",
-            "storage": "Storage: 4TB NVMe RUmID",
-            "network": "Rede: 10Gbps dedicated"
-          },
-          "standardNode": {
-            "title": "Padrão Nó Requisitos",
-            "cpu": "CPU: 8+ cores",
-            "ram": "RUmM: 32GB DDR4",
-            "storage": "Storage: 1TB NVMe SSD",
-            "network": "Rede: 500Mbps"
-          }
-        },
-        "slashing": {
-          "title": "Slashing Conditions",
-          "subtitle": "Validadors must maintain high standards. Violations result in stake penalties.",
-          "minor": {
-            "title": "Minor Violation",
-            "badge": "Umviso",
-            "description": "Brief downtime or missed blocks",
-            "penalty": "0.1% stake reduction"
-          },
-          "moderate": {
-            "title": "Moderate Violation",
-            "badge": "Penalty",
-            "description": "Extended downtime over 24 horas",
-            "penalty": "1-5% stake reduction"
-          },
-          "severe": {
-            "title": "Severe Violation",
-            "badge": "Severe",
-            "description": "Malicious voting or censorship attempts",
-            "penalty": "25-50% stake reduction"
-          },
-          "critical": {
-            "title": "Critical Violation",
-            "badge": "Critical",
-            "description": "Double signing or network attacks",
-            "penalty": "100% stake slashed"
-          }
-        },
         "geography": {
-          "title": "Geographic Distribuição"
+          "title": "Distribuição Geográfica"
         },
         "activeValidators": {
-          "title": "Emivo Validadors",
-          "searchPlaceholder": "Buscar validators...",
-          "viewAll": "Ver Parados Validadors"
+          "title": "Validadores Ativos",
+          "searchPlaceholder": "Buscar validadores...",
+          "viewAll": "Ver Todos os Validadores"
         }
       },
       "rpc": {
@@ -9275,6 +9275,68 @@
         "title": "Provedores RPC",
         "subtitle": "Endpoints RPC de alto desempenho com confiabilidade de nível empresarial. Suporte para conexões WebSocket e HTTP.",
         "getApiKey": "Obter Chave API",
+        "buttons": {
+          "getApiKey": "Obter Chave API",
+          "viewDocs": "Ver Documentação"
+        },
+        "sections": {
+          "apiPlans": "Planos API",
+          "coreEndpoints": "Endpoints Principais",
+          "sdkExamples": "Exemplos SDK",
+          "support": "Suporte"
+        },
+        "plans": {
+          "free": {
+            "name": "Grátis"
+          },
+          "basic": {
+            "name": "Básico"
+          },
+          "pro": {
+            "name": "Pro"
+          },
+          "enterprise": {
+            "name": "Empresarial"
+          },
+          "requestsMin": "requisições/min",
+          "requestsDay": "requisições/dia",
+          "perMonth": "/mês",
+          "unlimited": "Ilimitado",
+          "contact": "Entre em Contato"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "API de Consulta de Pontuação"
+          },
+          "projectApi": {
+            "title": "API de Projetos"
+          },
+          "analyticsApi": {
+            "title": "API de Analytics"
+          },
+          "webhookApi": {
+            "title": "API de Webhook",
+            "events": "Eventos: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "SDK TypeScript"
+          },
+          "python": {
+            "title": "SDK Python"
+          },
+          "curl": {
+            "title": "Exemplo cURL"
+          }
+        },
+        "cta": {
+          "title": "Pronto para Construir?",
+          "subtitle": "Comece a construir com a API TBurn Chain hoje. Obtenha sua chave API gratuita e acesse infraestrutura blockchain de nível empresarial.",
+          "desc": "Comece a construir com a API TBurn Chain hoje. Obtenha sua chave API gratuita e acesse infraestrutura blockchain de nível empresarial.",
+          "getStartedFree": "Começar Grátis",
+          "contactSales": "Contatar Vendas"
+        },
         "apiPlans": {
           "title": "Planos e Limites de API",
           "free": {
@@ -9313,7 +9375,7 @@
             ]
           },
           "project": {
-            "title": "API de Projeto",
+            "title": "API de Projetos",
             "endpoints": [
               "GET /projects",
               "POST /projects/register",
@@ -9336,7 +9398,7 @@
           }
         },
         "sdkExamples": {
-          "title": "Exemplos de SDK e Empresarial",
+          "title": "Exemplos SDK e Empresariais",
           "typescript": "SDK Empresarial TypeScript",
           "python": "SDK Empresarial Python",
           "curl": "Exemplo cURL de Produção"
@@ -9346,79 +9408,17 @@
           "documentation": {
             "title": "Documentação",
             "description": "Referências detalhadas de API e guias.",
-            "desc": "Abrangente UmPI documentation and integration guides."
+            "desc": "Documentação abrangente de API e guias de integração."
           },
           "apiStatus": {
             "title": "Status da API",
             "description": "Status do sistema em tempo real e uptime.",
-            "desc": "Em tempo real system status, uptime metrics, and incident reports."
+            "desc": "Status do sistema em tempo real, métricas de uptime e relatórios de incidentes."
           },
           "developerHub": {
             "title": "Hub do Desenvolvedor",
             "description": "SDKs open source e exemplos.",
-            "desc": "Umberto source SDKs, code examples, and community resources."
-          }
-        },
-        "cta": {
-          "title": "Pronto para Construir?",
-          "subtitle": "Comece a construir com a API TBurn Chain hoje. Obtenha sua chave API gratuita e acesse infraestrutura blockchain de nível empresarial.",
-          "getStartedFree": "Começar Grátis",
-          "contactSales": "Contato Comercial",
-          "desc": "Emiciar building with TQueima Chain UmPI todia. Get your free UmPI key and access enterprise-grade blockchain infrastructure."
-        },
-        "buttons": {
-          "getApiKey": "Get UmPI Key",
-          "viewDocs": "Ver Documentação"
-        },
-        "sections": {
-          "apiPlans": "UmPI Plans",
-          "coreEndpoints": "Endpoints Principais",
-          "sdkExamples": "SDK Exemplos",
-          "support": "Suporte"
-        },
-        "plans": {
-          "free": {
-            "name": "Free"
-          },
-          "basic": {
-            "name": "Básico"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "Empresarial"
-          },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/dia",
-          "perMonth": "/mês",
-          "unlimited": "Unlimited",
-          "contact": "Contato Us"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "Pontuação Consulta UmPI"
-          },
-          "projectApi": {
-            "title": "Project UmPI"
-          },
-          "analyticsApi": {
-            "title": "Umnálises UmPI"
-          },
-          "webhookApi": {
-            "title": "Webhook UmPI",
-            "events": "Eventos: score.updated, score.alert, project.registered"
-          }
-        },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "SDK Python"
-          },
-          "curl": {
-            "title": "cURL Exemplo"
+            "desc": "SDKs open source, exemplos de código e recursos da comunidade."
           }
         }
       },
@@ -9426,95 +9426,95 @@
         "tag": "STATUS",
         "title": "Status da Rede",
         "subtitle": "Saúde da rede em tempo real e métricas de desempenho.",
-        "operational": "Operational",
-        "lastUpdated": "Último updated",
-        "daysAgo": "dias ago",
-        "today": "Paradia",
-        "uptimeAvg": "Uptime Umverage",
+        "operational": "Operacional",
+        "lastUpdated": "Última atualização",
+        "daysAgo": "dias atrás",
+        "today": "Hoje",
+        "uptimeAvg": "Média de Uptime",
         "buttons": {
-          "refreshData": "Refresh Data"
+          "refreshData": "Atualizar Dados"
         },
         "sections": {
-          "coreMetrics": "Core Métricas",
-          "coreMetricsDesc": "Em tempo real blockchain performance indicators",
-          "serviceStatus": "Service Status",
-          "serviceStatusDesc": "Atual status of all network services",
-          "uptimeHistory": "Uptime Histórico",
-          "uptimeHistoryDesc": "Rede availability over the past 90 dias",
-          "aiSystem": "UmI Ouchestration System",
-          "aiSystemDesc": "Triple-band UmI model performance and status",
-          "validatorNetwork": "Validador Rede",
-          "validatorNetworkDesc": "Emivo validators and geographic distribution"
+          "coreMetrics": "Métricas Principais",
+          "coreMetricsDesc": "Indicadores de desempenho blockchain em tempo real",
+          "serviceStatus": "Status dos Serviços",
+          "serviceStatusDesc": "Status atual de todos os serviços da rede",
+          "uptimeHistory": "Histórico de Uptime",
+          "uptimeHistoryDesc": "Disponibilidade da rede nos últimos 90 dias",
+          "aiSystem": "Sistema de Orquestração IA",
+          "aiSystemDesc": "Desempenho e status do modelo de IA de três camadas",
+          "validatorNetwork": "Rede de Validadores",
+          "validatorNetworkDesc": "Validadores ativos e distribuição geográfica"
         },
         "metrics": {
-          "tps": "Transaçãos Per Second",
-          "peak": "Peak",
-          "blockHeight": "Bloco Height",
-          "latency": "Rede Latency",
-          "finality": "Finality Time",
-          "avgFee": "Umverage Taxa",
-          "cheapFast": "Cheap & Rápido",
-          "shards": "Emivo Shards"
+          "tps": "Transações Por Segundo",
+          "peak": "Pico",
+          "blockHeight": "Altura do Bloco",
+          "latency": "Latência da Rede",
+          "finality": "Tempo de Finalidade",
+          "avgFee": "Taxa Média",
+          "cheapFast": "Barato e Rápido",
+          "shards": "Shards Ativos"
         },
         "services": {
           "mainnetRpc": {
             "name": "Mainnet RPC",
-            "desc": "Primary JSON-RPC endpoints for mainnet"
+            "desc": "Endpoints JSON-RPC primários para mainnet"
           },
           "wsApi": {
             "name": "API WebSocket",
-            "desc": "Em tempo real event streaming and subscriptions"
+            "desc": "Streaming de eventos em tempo real e assinaturas"
           },
           "explorerApi": {
-            "name": "Explorarr UmPI",
-            "desc": "Bloco explorer data endpoints"
+            "name": "API do Explorador",
+            "desc": "Endpoints de dados do explorador de blocos"
           },
           "trustScoreApi": {
-            "name": "Confiança Pontuação UmPI",
-            "desc": "Project verification and scoring endpoints"
+            "name": "API de Pontuação de Confiança",
+            "desc": "Endpoints de verificação de projetos e pontuação"
           },
           "trustScore": {
-            "name": "Confiança Pontuação Service",
-            "desc": "UmI-powered trust verification and project scoring"
+            "name": "Serviço de Pontuação de Confiança",
+            "desc": "Verificação de confiança e pontuação de projetos potencializada por IA"
           },
           "crossChainBridge": {
-            "name": "Cross-Chain Ponte",
-            "desc": "Multi-chain asset transfer service"
+            "name": "Ponte Cross-Chain",
+            "desc": "Serviço de transferência de ativos multi-chain"
           },
           "quantumSecurity": {
-            "name": "Quantum Segurança Módulo",
-            "desc": "CRYSTUmLS-Dilithium signature verification"
+            "name": "Módulo de Segurança Quântica",
+            "desc": "Verificação de assinatura CRYSTALS-Dilithium"
           }
         },
         "ai": {
-          "active": "Emivo",
-          "accuracy": "Umccuracy",
+          "active": "Ativo",
+          "accuracy": "Precisão",
           "latency": "Latência",
           "strategic": {
-            "title": "Strategic UmI",
+            "title": "IA Estratégica",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tactical UmI",
+            "title": "IA Tática",
             "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operational UmI",
+            "title": "IA Operacional",
             "model": "Llama 4"
           }
         },
         "uptime": {
-          "monthlyAverage": "Mensal Umverage",
-          "uptimeGuarantee": "Uptime Guarantee",
-          "lastIncident": "Último Emcident"
+          "monthlyAverage": "Média Mensal",
+          "uptimeGuarantee": "Garantia de Uptime",
+          "lastIncident": "Último Incidente"
         },
         "validators": {
-          "active": "Emivo Validadors",
-          "countries": "Operating Countries",
+          "active": "Validadores Ativos",
+          "countries": "Países em Operação",
           "totalStaked": "Total em Staking",
-          "avgUptime": "Umverage Uptime",
-          "nodeCount": "Nó Count",
-          "regions": "Regions",
+          "avgUptime": "Uptime Médio",
+          "nodeCount": "Contagem de Nós",
+          "regions": "Regiões",
           "superNodes": "Super Nós"
         }
       },
