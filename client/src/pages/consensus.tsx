@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useEnterpriseShards } from "@/hooks/use-enterprise-shards";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -774,6 +775,16 @@ export default function Consensus() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedTab, setSelectedTab] = useState("overview");
 
+  const { 
+    totalValidators: enterpriseValidators, 
+    config: shardConfig,
+    isLoading: shardsLoading 
+  } = useEnterpriseShards();
+
+  const dynamicQuorum = useMemo(() => {
+    return Math.floor((enterpriseValidators * 2) / 3) + 1;
+  }, [enterpriseValidators]);
+
   const { data: consensusState, isLoading } = useQuery<ConsensusState>({
     queryKey: ["/api/consensus/current"],
   });
@@ -785,22 +796,22 @@ export default function Consensus() {
     updateMode: "replace",
   });
 
-  const consensusRoundsSnapshotSchema = z.array(z.object({
+  const consensusRoundsSnapshotSchema = useMemo(() => z.array(z.object({
     id: z.string(),
     blockHeight: z.number(),
     proposerAddress: z.string(),
     currentPhase: z.number().optional().default(5),
     prevoteCount: z.number().optional().default(0),
     precommitCount: z.number().optional().default(0),
-    totalValidators: z.number().optional().default(21),
-    requiredQuorum: z.number().optional().default(14),
+    totalValidators: z.number().optional().default(enterpriseValidators || 21),
+    requiredQuorum: z.number().optional().default(dynamicQuorum || 14),
     avgBlockTimeMs: z.number().optional().default(200),
     status: z.string().optional().default("completed"),
     startTime: z.number().optional().default(0),
     completedTime: z.number().nullable().optional().default(null),
     phasesJson: z.string().optional().default("[]"),
     createdAt: z.string().or(z.date()).optional(),
-  }));
+  })), [enterpriseValidators, dynamicQuorum]);
 
   const { data: consensusRoundsData } = useQuery<ConsensusRound[]>({
     queryKey: ["/api/consensus/rounds"],
@@ -855,26 +866,28 @@ export default function Consensus() {
   const progress = Math.floor((completedPhases / 5) * 100);
   const proposerAddress = consensusState?.proposer || "N/A";
   const avgBlockTime = consensusState?.avgBlockTimeMs || 0;
-  const requiredQuorum = consensusState?.requiredQuorum || 0;
   
+  const effectiveValidators = consensusState?.totalValidators || enterpriseValidators || 0;
+  const effectiveQuorum = consensusState?.requiredQuorum || dynamicQuorum || 0;
+
   const prevoteCount = {
     current: consensusState?.prevoteCount || 0,
-    total: consensusState?.totalValidators || 0,
+    total: effectiveValidators,
   };
   const precommitCount = {
     current: consensusState?.precommitCount || 0,
-    total: consensusState?.totalValidators || 0,
+    total: effectiveValidators,
   };
   const prevoteProgress = prevoteCount.total > 0 ? (prevoteCount.current / prevoteCount.total) * 100 : 0;
   const precommitProgress = precommitCount.total > 0 ? (precommitCount.current / precommitCount.total) * 100 : 0;
-  const prevoteNeeded = Math.max(0, requiredQuorum - prevoteCount.current);
-  const precommitNeeded = Math.max(0, requiredQuorum - precommitCount.current);
+  const prevoteNeeded = Math.max(0, effectiveQuorum - prevoteCount.current);
+  const precommitNeeded = Math.max(0, effectiveQuorum - precommitCount.current);
 
   const successRate = 99.8;
   const participationRate = prevoteCount.total > 0 ? (prevoteCount.current / prevoteCount.total) * 100 : 98.4;
   const finalityTime = 150;
 
-  if (isLoading) {
+  if (isLoading || shardsLoading) {
     return (
       <div className="flex flex-col gap-6 p-6">
         <Skeleton className="h-16 w-full" />
@@ -1007,7 +1020,7 @@ export default function Consensus() {
                 <Shield className="h-5 w-5 text-amber-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-amber-600">{requiredQuorum}</div>
+                <div className="text-2xl font-bold text-amber-600">{effectiveQuorum}</div>
                 <div className="text-xs text-muted-foreground">{t('consensus.quorum')} (2f+1)</div>
               </div>
             </div>
@@ -1105,7 +1118,7 @@ export default function Consensus() {
                       </div>
                       <div>
                         <div className="text-muted-foreground mb-1">{t('consensus.quorum')} (2f+1)</div>
-                        <div className="font-bold text-lg">{requiredQuorum} {t('consensus.votes')}</div>
+                        <div className="font-bold text-lg">{effectiveQuorum} {t('consensus.votes')}</div>
                       </div>
                       <div>
                         <div className="text-muted-foreground mb-1">{t('consensus.selectionMethod')}</div>
