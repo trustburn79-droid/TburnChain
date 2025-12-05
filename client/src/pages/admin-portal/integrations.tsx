@@ -35,6 +35,16 @@ import {
 } from "lucide-react";
 import { SiSlack, SiDiscord, SiGithub, SiTelegram, SiAmazon, SiGooglecloud } from "react-icons/si";
 
+const integrationIconMap: Record<string, any> = {
+  slack: SiSlack,
+  discord: SiDiscord,
+  telegram: SiTelegram,
+  github: SiGithub,
+  aws: SiAmazon,
+  gcp: SiGooglecloud,
+  azure: Cloud,
+};
+
 interface Integration {
   id: string;
   name: string;
@@ -42,7 +52,7 @@ interface Integration {
   category: string;
   status: "connected" | "disconnected" | "error";
   lastSync?: string;
-  icon: any;
+  icon?: any;
   config?: Record<string, string>;
 }
 
@@ -380,7 +390,10 @@ export default function Integrations() {
                     <CardHeader className="flex flex-row items-start justify-between gap-2">
                       <div className="flex items-center gap-3">
                         <div className="p-2 bg-muted rounded-lg">
-                          <integration.icon className="h-6 w-6" />
+                          {(() => {
+                            const IconComponent = integration.icon || integrationIconMap[integration.id] || Plug;
+                            return <IconComponent className="h-6 w-6" />;
+                          })()}
                         </div>
                         <div>
                           <CardTitle className="text-lg">{integration.name}</CardTitle>

@@ -72,10 +72,7 @@ export default function AdminReportGenerator() {
 
   const generateReportMutation = useMutation({
     mutationFn: async (data: { name: string; dateRange: string; format: string; sections: string[] }) => {
-      return apiRequest("/api/admin/reports/generate", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("POST", "/api/admin/reports/generate", data);
     },
     onSuccess: () => {
       toast({
@@ -95,10 +92,7 @@ export default function AdminReportGenerator() {
 
   const toggleScheduleMutation = useMutation({
     mutationFn: async (data: { id: number; status: "active" | "paused" }) => {
-      return apiRequest(`/api/admin/reports/schedule/${data.id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ status: data.status }),
-      });
+      return apiRequest("PATCH", `/api/admin/reports/schedule/${data.id}`, { status: data.status });
     },
     onSuccess: () => {
       toast({
@@ -111,9 +105,7 @@ export default function AdminReportGenerator() {
 
   const deleteScheduleMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest(`/api/admin/reports/schedule/${id}`, {
-        method: "DELETE",
-      });
+      return apiRequest("DELETE", `/api/admin/reports/schedule/${id}`);
     },
     onSuccess: () => {
       toast({

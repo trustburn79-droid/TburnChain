@@ -68,10 +68,7 @@ export default function DebugTools() {
 
   const traceMutation = useMutation({
     mutationFn: async (hash: string) => {
-      return apiRequest("/api/admin/debug/trace", {
-        method: "POST",
-        body: JSON.stringify({ txHash: hash }),
-      });
+      return apiRequest("POST", "/api/admin/debug/trace", { txHash: hash });
     },
     onSuccess: (data: any) => {
       setDebugOutput(data?.output || generateMockTraceOutput(txHash));
@@ -91,10 +88,7 @@ export default function DebugTools() {
 
   const executeMutation = useMutation({
     mutationFn: async (code: string) => {
-      return apiRequest("/api/admin/debug/execute", {
-        method: "POST",
-        body: JSON.stringify({ code }),
-      });
+      return apiRequest("POST", "/api/admin/debug/execute", { code });
     },
     onSuccess: () => {
       toast({

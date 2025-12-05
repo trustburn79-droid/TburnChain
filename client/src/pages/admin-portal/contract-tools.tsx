@@ -65,10 +65,7 @@ export default function ContractTools() {
 
   const deployMutation = useMutation({
     mutationFn: async (data: { sourceCode: string; contractName: string; compiler: string }) => {
-      return apiRequest("/api/admin/developer/contracts/deploy", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("POST", "/api/admin/developer/contracts/deploy", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/developer/contracts"] });
@@ -88,10 +85,7 @@ export default function ContractTools() {
 
   const verifyMutation = useMutation({
     mutationFn: async (data: { address: string; sourceCode: string; compiler: string }) => {
-      return apiRequest("/api/admin/developer/contracts/verify", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("POST", "/api/admin/developer/contracts/verify", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/developer/contracts"] });

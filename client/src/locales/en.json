@@ -16839,10 +16839,24 @@
       "fontSystem": "System Default",
       "fontMonospace": "Monospace"
     },
+    "themes": {
+      "light": "Light Theme",
+      "dark": "Dark Theme",
+      "system": "System Theme"
+    },
+    "accentColor": {
+      "title": "Accent Color",
+      "description": "Choose your preferred accent color",
+      "selected": "Selected color"
+    },
     "layout": {
       "title": "Layout Settings",
       "description": "Configure layout preferences",
       "sidebarCollapsed": "Collapsed Sidebar",
+      "collapsedSidebar": "Collapsed Sidebar",
+      "collapsedSidebarDesc": "Start with a minimized sidebar",
+      "compactMode": "Compact Mode",
+      "compactModeDesc": "Reduce spacing for more content",
       "contentWidth": "Content Width",
       "widthNarrow": "Narrow",
       "widthDefault": "Default",
@@ -16851,6 +16865,29 @@
       "defaultViewMode": "Default View Mode",
       "viewList": "List",
       "viewGrid": "Grid"
+    },
+    "language": {
+      "title": "Language Settings",
+      "description": "Configure language preferences",
+      "englishDesc": "Use English interface",
+      "koreanDesc": "한국어 인터페이스 사용",
+      "showBoth": "Show Both Languages",
+      "showBothDesc": "Display content in both languages where available"
+    },
+    "display": {
+      "title": "Display Settings",
+      "description": "Configure display preferences",
+      "animations": "Enable Animations",
+      "animationsDesc": "Smooth transitions and effects",
+      "reducedMotion": "Reduced Motion",
+      "reducedMotionDesc": "Minimize animations for accessibility",
+      "highContrast": "High Contrast",
+      "highContrastDesc": "Increase contrast for better visibility",
+      "chartAnimationSpeed": "Chart Animation Speed",
+      "animationOff": "Off",
+      "animationSlow": "Slow",
+      "animationNormal": "Normal",
+      "animationFast": "Fast"
     },
     "branding": {
       "title": "Branding",
@@ -16878,6 +16915,7 @@
       "primaryColor": "Primary Color",
       "accentColor": "Accent Color"
     },
+    "previewButton": "Preview",
     "saveChanges": "Save Changes",
     "saveSuccess": "Appearance Saved",
     "saveSuccessDesc": "Appearance settings have been saved",
@@ -16890,6 +16928,82 @@
     "retry": "Retry",
     "errorLoading": "Failed to Load Settings",
     "errorLoadingDesc": "Unable to fetch appearance settings. Please try again."
+  },
+  "adminAccounts": {
+    "title": "Account Management",
+    "subtitle": "Manage admin accounts and user access",
+    "accountCreated": "Account Created",
+    "accountCreatedDesc": "New account has been created successfully",
+    "accountUpdated": "Account Updated",
+    "accountUpdatedDesc": "Account has been updated successfully",
+    "accountDeleted": "Account Deleted",
+    "accountDeletedDesc": "Account has been deleted successfully",
+    "createError": "Failed to create account",
+    "updateError": "Failed to update account",
+    "deleteError": "Failed to delete account",
+    "refreshing": "Refreshing",
+    "refreshingDesc": "Loading account data...",
+    "exported": "Accounts Exported",
+    "exportedDesc": "Account data exported successfully",
+    "errorLoading": "Failed to Load Accounts",
+    "errorLoadingDesc": "Unable to fetch account data. Please try again.",
+    "retry": "Retry",
+    "searchPlaceholder": "Search accounts...",
+    "filterByRole": "Filter by role",
+    "allRoles": "All Roles",
+    "createAccount": "Create Account",
+    "export": "Export",
+    "refresh": "Refresh",
+    "never": "Never",
+    "ago": "ago",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "suspended": "Suspended"
+    },
+    "metrics": {
+      "totalAccounts": "Total Accounts",
+      "activeAccounts": "Active Accounts",
+      "twoFactorEnabled": "2FA Enabled",
+      "suspendedAccounts": "Suspended",
+      "configured": "configured",
+      "enabled": "enabled",
+      "restricted": "restricted",
+      "allAccounts": "all accounts",
+      "active": "Active",
+      "currentlyActive": "currently active",
+      "inactive": "Inactive",
+      "dormant": "dormant",
+      "suspended": "Suspended",
+      "with2FA": "With 2FA",
+      "secured": "secured"
+    },
+    "table": {
+      "account": "Account",
+      "role": "Role",
+      "status": "Status",
+      "lastLogin": "Last Login",
+      "twoFactor": "2FA",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit",
+      "suspend": "Suspend",
+      "activate": "Activate",
+      "delete": "Delete",
+      "resetPassword": "Reset Password"
+    },
+    "createDialog": {
+      "title": "Create New Account",
+      "name": "Name",
+      "namePlaceholder": "Enter name...",
+      "email": "Email",
+      "emailPlaceholder": "Enter email...",
+      "role": "Role",
+      "selectRole": "Select role...",
+      "create": "Create",
+      "cancel": "Cancel"
+    }
   },
   "adminRoles": {
     "title": "Role Management",

@@ -69,9 +69,7 @@ export default function AdminCompliance() {
 
   const runAssessmentMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("/api/admin/compliance/assessment", {
-        method: "POST",
-      });
+      return apiRequest("POST", "/api/admin/compliance/assessment");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/compliance"] });

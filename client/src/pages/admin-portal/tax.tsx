@@ -72,10 +72,7 @@ export default function TaxReporting() {
 
   const generateReportMutation = useMutation({
     mutationFn: async (reportType: string) => {
-      return apiRequest("/api/admin/tax/reports/generate", {
-        method: "POST",
-        body: JSON.stringify({ reportType, year: selectedYear }),
-      });
+      return apiRequest("POST", "/api/admin/tax/reports/generate", { reportType, year: selectedYear });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tax"] });

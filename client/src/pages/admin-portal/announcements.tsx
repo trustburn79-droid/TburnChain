@@ -79,10 +79,7 @@ export default function AnnouncementsManagement() {
 
   const createMutation = useMutation({
     mutationFn: async (announcement: typeof newAnnouncement) => {
-      return apiRequest("/api/admin/announcements", {
-        method: "POST",
-        body: JSON.stringify(announcement),
-      });
+      return apiRequest("POST", "/api/admin/announcements", announcement);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
@@ -104,9 +101,7 @@ export default function AnnouncementsManagement() {
 
   const publishMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/announcements/${id}/publish`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/announcements/${id}/publish`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
@@ -119,9 +114,7 @@ export default function AnnouncementsManagement() {
 
   const archiveMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/announcements/${id}/archive`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/announcements/${id}/archive`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
@@ -134,9 +127,7 @@ export default function AnnouncementsManagement() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/announcements/${id}`, {
-        method: "DELETE",
-      });
+      return apiRequest("DELETE", `/api/admin/announcements/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
@@ -149,10 +140,7 @@ export default function AnnouncementsManagement() {
 
   const togglePinMutation = useMutation({
     mutationFn: async ({ id, pinned }: { id: string; pinned: boolean }) => {
-      return apiRequest(`/api/admin/announcements/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ pinned }),
-      });
+      return apiRequest("PATCH", `/api/admin/announcements/${id}`, { pinned });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });

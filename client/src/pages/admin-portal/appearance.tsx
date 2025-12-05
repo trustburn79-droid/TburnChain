@@ -198,7 +198,7 @@ export default function Appearance() {
           <div className="flex gap-2">
             <Button variant="outline" onClick={handlePreview} data-testid="button-preview">
               <Eye className="h-4 w-4 mr-2" />
-              {t("adminAppearance.preview")}
+              {t("adminAppearance.previewButton")}
             </Button>
             <Button variant="outline" onClick={handleRefresh} disabled={isLoading} data-testid="button-refresh">
               <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />

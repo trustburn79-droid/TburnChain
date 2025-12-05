@@ -121,7 +121,7 @@ export default function AdminShards() {
   });
 
   const rebalanceMutation = useMutation({
-    mutationFn: () => apiRequest("/api/sharding/rebalance", { method: "POST" }),
+    mutationFn: () => apiRequest("POST", "/api/sharding/rebalance"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/sharding"] });
       toast({

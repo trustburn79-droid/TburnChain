@@ -80,10 +80,7 @@ export default function BudgetManagement() {
 
   const createRequestMutation = useMutation({
     mutationFn: async (request: typeof newRequest) => {
-      return apiRequest("/api/admin/budget/requests", {
-        method: "POST",
-        body: JSON.stringify(request),
-      });
+      return apiRequest("POST", "/api/admin/budget/requests", request);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
@@ -105,9 +102,7 @@ export default function BudgetManagement() {
 
   const approveRequestMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/budget/requests/${id}/approve`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/budget/requests/${id}/approve`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
@@ -120,9 +115,7 @@ export default function BudgetManagement() {
 
   const rejectRequestMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/budget/requests/${id}/reject`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/budget/requests/${id}/reject`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });

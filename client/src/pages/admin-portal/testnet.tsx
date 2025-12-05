@@ -79,10 +79,7 @@ export default function TestnetManagement() {
 
   const faucetMutation = useMutation({
     mutationFn: async (data: { address: string; amount: number }) => {
-      return apiRequest("/api/admin/testnet/faucet", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("POST", "/api/admin/testnet/faucet", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/testnet"] });
@@ -103,9 +100,7 @@ export default function TestnetManagement() {
 
   const resetMutation = useMutation({
     mutationFn: async (instanceId: string) => {
-      return apiRequest(`/api/admin/testnet/${instanceId}/reset`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/testnet/${instanceId}/reset`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/testnet"] });
@@ -125,9 +120,7 @@ export default function TestnetManagement() {
 
   const toggleMutation = useMutation({
     mutationFn: async ({ instanceId, action }: { instanceId: string; action: "start" | "stop" }) => {
-      return apiRequest(`/api/admin/testnet/${instanceId}/${action}`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/testnet/${instanceId}/${action}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/testnet"] });

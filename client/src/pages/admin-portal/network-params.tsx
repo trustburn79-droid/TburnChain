@@ -121,11 +121,7 @@ export default function AdminNetworkParams() {
 
   const saveMutation = useMutation({
     mutationFn: (data: Partial<NetworkParamsResponse>) => 
-      apiRequest("/api/admin/network/params", { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      }),
+      apiRequest("POST", "/api/admin/network/params", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/network/params"] });
       setHasChanges(false);

@@ -96,10 +96,7 @@ export default function SupportTickets() {
 
   const createTicketMutation = useMutation({
     mutationFn: async (ticket: { title: string; category: string; priority: string; description: string }) => {
-      return apiRequest("/api/admin/tickets", {
-        method: "POST",
-        body: JSON.stringify(ticket),
-      });
+      return apiRequest("POST", "/api/admin/tickets", ticket);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tickets"] });
@@ -120,10 +117,7 @@ export default function SupportTickets() {
 
   const updateTicketMutation = useMutation({
     mutationFn: async ({ ticketId, status }: { ticketId: string; status: string }) => {
-      return apiRequest(`/api/admin/tickets/${ticketId}`, {
-        method: "PATCH",
-        body: JSON.stringify({ status }),
-      });
+      return apiRequest("PATCH", `/api/admin/tickets/${ticketId}`, { status });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tickets"] });
@@ -136,9 +130,7 @@ export default function SupportTickets() {
 
   const closeTicketMutation = useMutation({
     mutationFn: async (ticketId: string) => {
-      return apiRequest(`/api/admin/tickets/${ticketId}/close`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/tickets/${ticketId}/close`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tickets"] });

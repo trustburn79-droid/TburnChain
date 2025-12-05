@@ -68,9 +68,7 @@ export default function AdminUpdates() {
 
   const checkUpdatesMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("/api/admin/updates/check", {
-        method: "POST",
-      });
+      return apiRequest("POST", "/api/admin/updates/check");
     },
     onSuccess: () => {
       toast({
@@ -90,10 +88,7 @@ export default function AdminUpdates() {
 
   const installUpdateMutation = useMutation({
     mutationFn: async (version: string) => {
-      return apiRequest("/api/admin/updates/install", {
-        method: "POST",
-        body: JSON.stringify({ version }),
-      });
+      return apiRequest("POST", "/api/admin/updates/install", { version });
     },
     onSuccess: (_, version) => {
       toast({
@@ -114,10 +109,7 @@ export default function AdminUpdates() {
 
   const rollbackMutation = useMutation({
     mutationFn: async (version: string) => {
-      return apiRequest("/api/admin/updates/rollback", {
-        method: "POST",
-        body: JSON.stringify({ version }),
-      });
+      return apiRequest("POST", "/api/admin/updates/rollback", { version });
     },
     onSuccess: (_, version) => {
       toast({
@@ -138,10 +130,7 @@ export default function AdminUpdates() {
 
   const updateNodeMutation = useMutation({
     mutationFn: async (nodeName: string) => {
-      return apiRequest("/api/admin/updates/node", {
-        method: "POST",
-        body: JSON.stringify({ nodeName }),
-      });
+      return apiRequest("POST", "/api/admin/updates/node", { nodeName });
     },
     onSuccess: (_, nodeName) => {
       toast({

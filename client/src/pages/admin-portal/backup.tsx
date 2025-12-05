@@ -67,10 +67,7 @@ export default function AdminBackup() {
 
   const createBackupMutation = useMutation({
     mutationFn: async (type: "full" | "incremental") => {
-      return apiRequest("/api/admin/backups/create", {
-        method: "POST",
-        body: JSON.stringify({ type }),
-      });
+      return apiRequest("POST", "/api/admin/backups/create", { type });
     },
     onSuccess: () => {
       toast({
@@ -91,9 +88,7 @@ export default function AdminBackup() {
 
   const restoreBackupMutation = useMutation({
     mutationFn: async (backupId: number) => {
-      return apiRequest(`/api/admin/backups/restore/${backupId}`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/backups/restore/${backupId}`);
     },
     onSuccess: () => {
       toast({
@@ -114,9 +109,7 @@ export default function AdminBackup() {
 
   const deleteBackupMutation = useMutation({
     mutationFn: async (backupId: number) => {
-      return apiRequest(`/api/admin/backups/${backupId}`, {
-        method: "DELETE",
-      });
+      return apiRequest("DELETE", `/api/admin/backups/${backupId}`);
     },
     onSuccess: () => {
       toast({
@@ -137,10 +130,7 @@ export default function AdminBackup() {
 
   const toggleJobMutation = useMutation({
     mutationFn: async (data: { name: string; enabled: boolean }) => {
-      return apiRequest("/api/admin/backups/job", {
-        method: "PATCH",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("PATCH", "/api/admin/backups/job", data);
     },
     onSuccess: () => {
       toast({

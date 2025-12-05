@@ -77,10 +77,7 @@ export default function AlertRules() {
 
   const createRuleMutation = useMutation({
     mutationFn: async (rule: typeof newRule) => {
-      return apiRequest("/api/admin/alerts/rules", {
-        method: "POST",
-        body: JSON.stringify(rule),
-      });
+      return apiRequest("POST", "/api/admin/alerts/rules", rule);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
@@ -110,10 +107,7 @@ export default function AlertRules() {
 
   const updateRuleMutation = useMutation({
     mutationFn: async ({ id, enabled }: { id: string; enabled: boolean }) => {
-      return apiRequest(`/api/admin/alerts/rules/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ enabled }),
-      });
+      return apiRequest("PATCH", `/api/admin/alerts/rules/${id}`, { enabled });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
@@ -126,9 +120,7 @@ export default function AlertRules() {
 
   const deleteRuleMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/alerts/rules/${id}`, {
-        method: "DELETE",
-      });
+      return apiRequest("DELETE", `/api/admin/alerts/rules/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
@@ -141,9 +133,7 @@ export default function AlertRules() {
 
   const testRulesMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("/api/admin/alerts/rules/test", {
-        method: "POST",
-      });
+      return apiRequest("POST", "/api/admin/alerts/rules/test");
     },
     onSuccess: () => {
       toast({

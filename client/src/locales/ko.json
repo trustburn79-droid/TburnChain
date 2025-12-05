@@ -16812,10 +16812,24 @@
       "fontSystem": "시스템 기본",
       "fontMonospace": "모노스페이스"
     },
+    "themes": {
+      "light": "라이트 테마",
+      "dark": "다크 테마",
+      "system": "시스템 테마"
+    },
+    "accentColor": {
+      "title": "강조 색상",
+      "description": "원하는 강조 색상을 선택하세요",
+      "selected": "선택된 색상"
+    },
     "layout": {
       "title": "레이아웃 설정",
       "description": "레이아웃 기본 설정 구성",
       "sidebarCollapsed": "사이드바 축소",
+      "collapsedSidebar": "사이드바 축소",
+      "collapsedSidebarDesc": "축소된 사이드바로 시작",
+      "compactMode": "컴팩트 모드",
+      "compactModeDesc": "더 많은 콘텐츠를 위해 간격 줄이기",
       "contentWidth": "콘텐츠 너비",
       "widthNarrow": "좁게",
       "widthDefault": "기본",
@@ -16824,6 +16838,29 @@
       "defaultViewMode": "기본 보기 모드",
       "viewList": "목록",
       "viewGrid": "그리드"
+    },
+    "language": {
+      "title": "언어 설정",
+      "description": "언어 기본 설정 구성",
+      "englishDesc": "영어 인터페이스 사용",
+      "koreanDesc": "한국어 인터페이스 사용",
+      "showBoth": "두 언어 모두 표시",
+      "showBothDesc": "가능한 경우 두 언어로 콘텐츠 표시"
+    },
+    "display": {
+      "title": "디스플레이 설정",
+      "description": "디스플레이 기본 설정 구성",
+      "animations": "애니메이션 활성화",
+      "animationsDesc": "부드러운 전환 및 효과",
+      "reducedMotion": "모션 줄이기",
+      "reducedMotionDesc": "접근성을 위해 애니메이션 최소화",
+      "highContrast": "고대비",
+      "highContrastDesc": "더 나은 가시성을 위해 대비 증가",
+      "chartAnimationSpeed": "차트 애니메이션 속도",
+      "animationOff": "끄기",
+      "animationSlow": "느리게",
+      "animationNormal": "보통",
+      "animationFast": "빠르게"
     },
     "branding": {
       "title": "브랜딩",
@@ -16851,6 +16888,7 @@
       "primaryColor": "기본 색상",
       "accentColor": "강조 색상"
     },
+    "previewButton": "미리보기",
     "saveChanges": "변경 저장",
     "saveSuccess": "외관 저장됨",
     "saveSuccessDesc": "외관 설정이 저장되었습니다",
@@ -16863,6 +16901,82 @@
     "retry": "재시도",
     "errorLoading": "설정 로드 실패",
     "errorLoadingDesc": "외관 설정을 가져올 수 없습니다. 다시 시도해 주세요."
+  },
+  "adminAccounts": {
+    "title": "계정 관리",
+    "subtitle": "관리자 계정 및 사용자 접근 관리",
+    "accountCreated": "계정 생성됨",
+    "accountCreatedDesc": "새 계정이 성공적으로 생성되었습니다",
+    "accountUpdated": "계정 업데이트됨",
+    "accountUpdatedDesc": "계정이 성공적으로 업데이트되었습니다",
+    "accountDeleted": "계정 삭제됨",
+    "accountDeletedDesc": "계정이 성공적으로 삭제되었습니다",
+    "createError": "계정 생성 실패",
+    "updateError": "계정 업데이트 실패",
+    "deleteError": "계정 삭제 실패",
+    "refreshing": "새로고침 중",
+    "refreshingDesc": "계정 데이터 로딩 중...",
+    "exported": "계정 내보내기 완료",
+    "exportedDesc": "계정 데이터를 성공적으로 내보냈습니다",
+    "errorLoading": "계정 로드 실패",
+    "errorLoadingDesc": "계정 데이터를 가져올 수 없습니다. 다시 시도해 주세요.",
+    "retry": "재시도",
+    "searchPlaceholder": "계정 검색...",
+    "filterByRole": "역할로 필터링",
+    "allRoles": "모든 역할",
+    "createAccount": "계정 생성",
+    "export": "내보내기",
+    "refresh": "새로고침",
+    "never": "없음",
+    "ago": "전",
+    "status": {
+      "active": "활성",
+      "inactive": "비활성",
+      "suspended": "정지됨"
+    },
+    "metrics": {
+      "totalAccounts": "전체 계정",
+      "activeAccounts": "활성 계정",
+      "twoFactorEnabled": "2FA 활성화됨",
+      "suspendedAccounts": "정지된 계정",
+      "configured": "구성됨",
+      "enabled": "활성화됨",
+      "restricted": "제한됨",
+      "allAccounts": "모든 계정",
+      "active": "활성",
+      "currentlyActive": "현재 활성",
+      "inactive": "비활성",
+      "dormant": "휴면 상태",
+      "suspended": "정지됨",
+      "with2FA": "2FA 보유",
+      "secured": "보안 적용됨"
+    },
+    "table": {
+      "account": "계정",
+      "role": "역할",
+      "status": "상태",
+      "lastLogin": "마지막 로그인",
+      "twoFactor": "2FA",
+      "actions": "작업"
+    },
+    "actions": {
+      "edit": "편집",
+      "suspend": "정지",
+      "activate": "활성화",
+      "delete": "삭제",
+      "resetPassword": "비밀번호 재설정"
+    },
+    "createDialog": {
+      "title": "새 계정 생성",
+      "name": "이름",
+      "namePlaceholder": "이름 입력...",
+      "email": "이메일",
+      "emailPlaceholder": "이메일 입력...",
+      "role": "역할",
+      "selectRole": "역할 선택...",
+      "create": "생성",
+      "cancel": "취소"
+    }
   },
   "adminRoles": {
     "title": "역할 관리",

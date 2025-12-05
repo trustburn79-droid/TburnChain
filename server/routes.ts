@@ -6878,15 +6878,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // User Management
   app.get("/api/admin/accounts", async (_req, res) => {
+    const roles = ['Super Admin', 'Admin', 'Operator', 'Security', 'Developer', 'Viewer'];
+    const statuses: ('active' | 'inactive' | 'suspended')[] = ['active', 'active', 'active', 'active', 'inactive', 'suspended'];
+    const names = ['System Admin', 'Operations Lead', 'Security Officer', 'Lead Developer', 'Data Analyst', 'Backup Admin', 'Support Lead', 'QA Engineer'];
     res.json({
       accounts: Array.from({ length: 20 }, (_, i) => ({
         id: `user-${i + 1}`,
-        username: `user${i + 1}`,
-        email: `user${i + 1}@example.com`,
-        role: ['admin', 'operator', 'analyst', 'viewer'][i % 4],
-        status: 'active',
-        lastLogin: new Date(Date.now() - Math.random() * 86400000).toISOString(),
-        createdAt: new Date(Date.now() - Math.random() * 30 * 86400000).toISOString()
+        name: names[i % names.length] + (i >= names.length ? ` ${Math.floor(i / names.length) + 1}` : ''),
+        email: `user${i + 1}@tburn.io`,
+        role: roles[i % roles.length],
+        status: statuses[i % statuses.length],
+        lastLogin: i % 6 === 5 ? null : new Date(Date.now() - Math.random() * 86400000 * 7).toISOString(),
+        createdAt: new Date(Date.now() - Math.random() * 180 * 86400000).toISOString(),
+        twoFactorEnabled: i % 3 !== 2,
+        permissions: i % 6 === 0 ? ['all'] : ['read', 'write'].slice(0, (i % 3) + 1)
       })),
       total: 20
     });
@@ -7177,10 +7182,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/integrations", async (_req, res) => {
     res.json({
       integrations: [
-        { id: 'slack', name: 'Slack', status: 'connected', lastSync: new Date().toISOString() },
-        { id: 'discord', name: 'Discord', status: 'connected', lastSync: new Date().toISOString() },
-        { id: 'telegram', name: 'Telegram', status: 'disconnected', lastSync: null }
-      ]
+        { id: 'slack', name: 'Slack', description: 'Team messaging and notifications', category: 'communication', status: 'connected', lastSync: new Date().toISOString(), config: { channel: '#alerts' } },
+        { id: 'discord', name: 'Discord', description: 'Community engagement platform', category: 'communication', status: 'connected', lastSync: new Date().toISOString(), config: { serverId: '12345' } },
+        { id: 'telegram', name: 'Telegram', description: 'Instant messaging alerts', category: 'communication', status: 'disconnected', lastSync: null, config: {} },
+        { id: 'github', name: 'GitHub', description: 'Source code and CI/CD integration', category: 'development', status: 'connected', lastSync: new Date().toISOString(), config: { org: 'tburn-network' } },
+        { id: 'aws', name: 'AWS', description: 'Cloud infrastructure services', category: 'infrastructure', status: 'connected', lastSync: new Date().toISOString(), config: { region: 'us-east-1' } },
+        { id: 'gcp', name: 'Google Cloud', description: 'Cloud platform services', category: 'infrastructure', status: 'disconnected', lastSync: null, config: {} }
+      ],
+      webhookConfig: {
+        incomingUrl: 'https://api.tburn.io/webhooks/incoming',
+        secret: '••••••••••••••••',
+        events: {
+          blockCreated: true,
+          transaction: true,
+          alertTriggered: true,
+          validatorUpdate: false
+        }
+      }
     });
   });
 

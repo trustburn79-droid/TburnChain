@@ -64,10 +64,7 @@ export default function AdminMaintenance() {
 
   const toggleMaintenanceModeMutation = useMutation({
     mutationFn: async (enabled: boolean) => {
-      return apiRequest("/api/admin/maintenance/mode", {
-        method: "POST",
-        body: JSON.stringify({ enabled }),
-      });
+      return apiRequest("POST", "/api/admin/maintenance/mode", { enabled });
     },
     onSuccess: (_, enabled) => {
       toast({
@@ -87,10 +84,7 @@ export default function AdminMaintenance() {
 
   const scheduleWindowMutation = useMutation({
     mutationFn: async (data: typeof newWindow) => {
-      return apiRequest("/api/admin/maintenance/schedule", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("POST", "/api/admin/maintenance/schedule", data);
     },
     onSuccess: () => {
       toast({
@@ -111,9 +105,7 @@ export default function AdminMaintenance() {
 
   const cancelWindowMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest(`/api/admin/maintenance/cancel/${id}`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/maintenance/cancel/${id}`);
     },
     onSuccess: () => {
       toast({

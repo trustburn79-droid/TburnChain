@@ -85,10 +85,7 @@ export default function DashboardBuilder() {
 
   const createDashboardMutation = useMutation({
     mutationFn: async (dashboard: typeof newDashboard) => {
-      return apiRequest("/api/admin/dashboards", {
-        method: "POST",
-        body: JSON.stringify(dashboard),
-      });
+      return apiRequest("POST", "/api/admin/dashboards", dashboard);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/dashboards"] });
@@ -110,10 +107,7 @@ export default function DashboardBuilder() {
 
   const updateDashboardMutation = useMutation({
     mutationFn: async ({ id, widgets }: { id: string; widgets: Widget[] }) => {
-      return apiRequest(`/api/admin/dashboards/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ widgets }),
-      });
+      return apiRequest("PATCH", `/api/admin/dashboards/${id}`, { widgets });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/dashboards"] });
@@ -127,9 +121,7 @@ export default function DashboardBuilder() {
 
   const deleteDashboardMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/dashboards/${id}`, {
-        method: "DELETE",
-      });
+      return apiRequest("DELETE", `/api/admin/dashboards/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/dashboards"] });

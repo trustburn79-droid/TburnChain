@@ -40,8 +40,8 @@ interface AdminAccount {
   name: string;
   role: string;
   status: "active" | "inactive" | "suspended";
-  lastLogin: Date | null;
-  createdAt: Date;
+  lastLogin: Date | string | null;
+  createdAt: Date | string;
   twoFactorEnabled: boolean;
   permissions: string[];
 }
@@ -259,9 +259,11 @@ export default function AdminAccounts() {
     }
   };
 
-  const formatTimeAgo = (date: Date | null) => {
+  const formatTimeAgo = (date: Date | string | null) => {
     if (!date) return t("adminAccounts.never");
-    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    if (isNaN(dateObj.getTime())) return t("adminAccounts.never");
+    const seconds = Math.floor((Date.now() - dateObj.getTime()) / 1000);
     if (seconds < 60) return `${seconds}s ${t("adminAccounts.ago")}`;
     const minutes = Math.floor(seconds / 60);
     if (minutes < 60) return `${minutes}m ${t("adminAccounts.ago")}`;

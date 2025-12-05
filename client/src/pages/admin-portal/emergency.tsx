@@ -75,9 +75,7 @@ export default function AdminEmergency() {
 
   const activateControlMutation = useMutation({
     mutationFn: async (controlId: string) => {
-      return apiRequest(`/api/admin/emergency/activate/${controlId}`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/emergency/activate/${controlId}`);
     },
     onSuccess: (_, controlId) => {
       toast({
@@ -98,10 +96,7 @@ export default function AdminEmergency() {
 
   const toggleBreakerMutation = useMutation({
     mutationFn: async (data: { name: string; enabled: boolean }) => {
-      return apiRequest("/api/admin/emergency/breaker", {
-        method: "PATCH",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("PATCH", "/api/admin/emergency/breaker", data);
     },
     onSuccess: () => {
       toast({
