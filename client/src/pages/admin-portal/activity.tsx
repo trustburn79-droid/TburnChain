@@ -124,7 +124,7 @@ export default function ActivityMonitor() {
   const wsRef = useRef<WebSocket | null>(null);
 
   const { data: activityData, isLoading, error, refetch } = useQuery<ActivityData>({
-    queryKey: ["/api/admin/activity", timeRange],
+    queryKey: ["/api/admin/activity", `timeRange=${timeRange}`],
     refetchInterval: wsConnected ? false : 30000,
   });
 

@@ -456,6 +456,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/auth/")) {
       return next();
     }
+    // Skip auth check for admin portal routes (session-based auth handled separately)
+    if (req.path.startsWith("/admin/")) {
+      return next();
+    }
     // Skip auth check for community routes (public access)
     if (req.path.startsWith("/community/")) {
       return next();
