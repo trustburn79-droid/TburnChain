@@ -1,6 +1,30 @@
 # TBURN Blockchain Mainnet Explorer
 
-## Recent Changes (December 4, 2024)
+## Recent Changes (December 5, 2024)
+
+### Help Page Translation Fixes
+- Fixed Help page translation issue where raw keys (e.g., "adminHelp.searchTitle") were displaying instead of translated text
+- Added missing translation keys to adminHelp section in both en.json and ko.json:
+  - `description`, `searchTitle` - Page header content
+  - `tabs.articles`, `tabs.videos`, `tabs.faq` - Tab labels
+  - `featuredArticles`, `recentlyUpdated` - Section headings
+  - `popularTopics.*` - Popular topic links
+  - `views`, `updated`, `articles` - Article metadata labels
+  - `noResults`, `noResultsDesc` - Search empty states
+  - `videoDuration`, `watchNow` - Video-related labels
+
+### Icon Mapping Pattern for API Data
+- Established pattern for handling icons in pages that receive data from API:
+  - API cannot serialize React components (icons)
+  - Frontend uses `categoryIconMap` or similar to map IDs/names to icons
+  - Applied to: Help page, Integrations page
+
+### API Signature Corrections
+- Fixed 43+ apiRequest call signatures across 16 admin portal files
+- Correct signature: `apiRequest(method, url, data?)` not `apiRequest(url, { method, body })`
+- Fixed files: network-params, shards, compliance, updates, backup, maintenance, emergency, report-generator, debug, testnet, dashboard-builder, alert-rules, tickets, announcements, tax, budget
+
+## Previous Changes (December 4, 2024)
 
 ### API Endpoint Fixes for Admin Portal Pages
 - Fixed API-frontend data structure mismatches across multiple admin portal endpoints
