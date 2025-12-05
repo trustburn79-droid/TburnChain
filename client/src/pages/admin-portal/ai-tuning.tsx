@@ -67,7 +67,7 @@ interface AITuningData {
 const mockData: AITuningData = {
   modelConfigs: [
     { 
-      name: "GPT-5 Turbo", 
+      name: "Gemini 3 Pro", 
       layer: "Strategic",
       temperature: 0.7,
       maxTokens: 4096,
@@ -85,13 +85,22 @@ const mockData: AITuningData = {
       presencePenalty: 0.2
     },
     { 
-      name: "Llama 3.3 70B", 
+      name: "GPT-4o", 
       layer: "Operational",
       temperature: 0.3,
       maxTokens: 2048,
       topP: 0.8,
       frequencyPenalty: 0.1,
       presencePenalty: 0.1
+    },
+    { 
+      name: "Grok 3", 
+      layer: "Fallback",
+      temperature: 0.4,
+      maxTokens: 4096,
+      topP: 0.85,
+      frequencyPenalty: 0.15,
+      presencePenalty: 0.15
     },
   ],
   decisionParams: [

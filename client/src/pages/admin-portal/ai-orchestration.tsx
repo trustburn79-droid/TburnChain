@@ -44,6 +44,7 @@ interface PerformanceDataPoint {
   gpt5: number;
   claude: number;
   llama: number;
+  grok: number;
 }
 
 interface AIOrchestrationData {
@@ -62,7 +63,7 @@ const mockData: AIOrchestrationData = {
   models: [
     { 
       id: 1, 
-      name: "GPT-5 Turbo", 
+      name: "Gemini 3 Pro", 
       layer: "Strategic", 
       status: "online", 
       latency: 450, 
@@ -84,13 +85,24 @@ const mockData: AIOrchestrationData = {
     },
     { 
       id: 3, 
-      name: "Llama 3.3 70B", 
+      name: "GPT-4o", 
       layer: "Operational", 
       status: "online", 
       latency: 45, 
       tokenRate: 890,
       accuracy: 95.8,
       requests24h: 180000,
+      cost24h: 45.00
+    },
+    { 
+      id: 4, 
+      name: "Grok 3", 
+      layer: "Fallback", 
+      status: "standby", 
+      latency: 120, 
+      tokenRate: 750,
+      accuracy: 94.5,
+      requests24h: 0,
       cost24h: 0
     },
   ],
@@ -101,12 +113,12 @@ const mockData: AIOrchestrationData = {
     { id: 4, type: "Strategic", content: "Activate bridge circuit breaker", confidence: 65, executed: false, timestamp: "2024-12-03 14:15" },
   ],
   performance: [
-    { time: "00:00", gpt5: 450, claude: 180, llama: 45 },
-    { time: "04:00", gpt5: 460, claude: 175, llama: 48 },
-    { time: "08:00", gpt5: 480, claude: 190, llama: 52 },
-    { time: "12:00", gpt5: 445, claude: 185, llama: 44 },
-    { time: "16:00", gpt5: 455, claude: 178, llama: 46 },
-    { time: "20:00", gpt5: 448, claude: 182, llama: 47 },
+    { time: "00:00", gpt5: 450, claude: 180, llama: 45, grok: 0 },
+    { time: "04:00", gpt5: 460, claude: 175, llama: 48, grok: 0 },
+    { time: "08:00", gpt5: 480, claude: 190, llama: 52, grok: 0 },
+    { time: "12:00", gpt5: 445, claude: 185, llama: 44, grok: 0 },
+    { time: "16:00", gpt5: 455, claude: 178, llama: 46, grok: 0 },
+    { time: "20:00", gpt5: 448, claude: 182, llama: 47, grok: 0 },
   ],
   stats: {
     overallAccuracy: 98.2,
@@ -125,6 +137,7 @@ export default function AdminAIOrchestration() {
       'Strategic': t("adminAI.strategic"),
       'Tactical': t("adminAI.tactical"),
       'Operational': t("adminAI.operational"),
+      'Fallback': t("adminAI.fallback"),
     };
     return typeMap[type] || type;
   };
@@ -134,6 +147,7 @@ export default function AdminAIOrchestration() {
       'online': t("adminAI.statusOnline"),
       'offline': t("adminAI.statusOffline"),
       'degraded': t("adminAI.statusDegraded"),
+      'standby': t("adminAI.statusStandby"),
     };
     return statusMap[status] || status;
   };
@@ -323,13 +337,14 @@ export default function AdminAIOrchestration() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4" data-testid="grid-models">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" data-testid="grid-models">
             {aiData.models.map((model) => (
               <Card 
                 key={model.id} 
                 className={
                   model.layer === "Strategic" ? "border-blue-500/30 bg-blue-500/5" :
                   model.layer === "Tactical" ? "border-purple-500/30 bg-purple-500/5" :
+                  model.layer === "Fallback" ? "border-orange-500/30 bg-orange-500/5" :
                   "border-green-500/30 bg-green-500/5"
                 }
                 data-testid={`card-model-${model.id}`}
@@ -337,19 +352,27 @@ export default function AdminAIOrchestration() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <CardTitle className="text-lg flex items-center gap-2">
-                      <Brain className={
-                        model.layer === "Strategic" ? "text-blue-500" :
-                        model.layer === "Tactical" ? "text-purple-500" :
-                        "text-green-500"
-                      } />
+                      {model.layer === "Fallback" ? (
+                        <RefreshCw className="text-orange-500" />
+                      ) : (
+                        <Brain className={
+                          model.layer === "Strategic" ? "text-blue-500" :
+                          model.layer === "Tactical" ? "text-purple-500" :
+                          "text-green-500"
+                        } />
+                      )}
                       <span data-testid={`text-model-name-${model.id}`}>{model.name}</span>
                     </CardTitle>
                     <Badge 
                       variant="outline" 
-                      className="bg-green-500/10 text-green-500 border-green-500/30"
+                      className={
+                        model.status === "standby" ? "bg-orange-500/10 text-orange-500 border-orange-500/30" :
+                        model.status === "online" ? "bg-green-500/10 text-green-500 border-green-500/30" :
+                        "bg-red-500/10 text-red-500 border-red-500/30"
+                      }
                       data-testid={`badge-model-status-${model.id}`}
                     >
-                      <CheckCircle className="w-3 h-3 mr-1" />
+                      {model.status === "standby" ? <Clock className="w-3 h-3 mr-1" /> : <CheckCircle className="w-3 h-3 mr-1" />}
                       {translateStatus(model.status)}
                     </Badge>
                   </div>
@@ -403,7 +426,7 @@ export default function AdminAIOrchestration() {
                     <Brain className="w-6 h-6 text-blue-500" />
                   </div>
                   <div>
-                    <p className="font-medium" data-testid="text-strategic-label">{t("adminAI.strategic")} (GPT-5)</p>
+                    <p className="font-medium" data-testid="text-strategic-label">{t("adminAI.strategic")} (Gemini)</p>
                     <p className="text-sm text-muted-foreground">{t("adminAI.every6Hours")} • 50% {t("adminAI.weight")}</p>
                   </div>
                 </div>
@@ -423,8 +446,18 @@ export default function AdminAIOrchestration() {
                     <Brain className="w-6 h-6 text-green-500" />
                   </div>
                   <div>
-                    <p className="font-medium" data-testid="text-operational-label">{t("adminAI.operational")} (Llama)</p>
+                    <p className="font-medium" data-testid="text-operational-label">{t("adminAI.operational")} (GPT-4o)</p>
                     <p className="text-sm text-muted-foreground">{t("adminAI.immediate")} • 20% {t("adminAI.weight")}</p>
+                  </div>
+                </div>
+                <div className="text-2xl hidden md:block">⇢</div>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-full bg-orange-500/20">
+                    <RefreshCw className="w-6 h-6 text-orange-500" />
+                  </div>
+                  <div>
+                    <p className="font-medium" data-testid="text-fallback-label">{t("adminAI.fallback")} (Grok)</p>
+                    <p className="text-sm text-muted-foreground">{t("adminAI.fallbackDesc")}</p>
                   </div>
                 </div>
               </div>
@@ -485,6 +518,7 @@ export default function AdminAIOrchestration() {
                               className={
                                 decision.type === "Strategic" ? "bg-blue-500/10 text-blue-500" :
                                 decision.type === "Tactical" ? "bg-purple-500/10 text-purple-500" :
+                                decision.type === "Fallback" ? "bg-orange-500/10 text-orange-500" :
                                 "bg-green-500/10 text-green-500"
                               }
                               data-testid={`badge-decision-type-${decision.id}`}
