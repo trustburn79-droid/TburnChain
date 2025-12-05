@@ -277,7 +277,7 @@ export default function ActivityMonitor() {
               </Badge>
             </h1>
             <p className="text-muted-foreground" data-testid="text-activity-subtitle">
-              {t("adminActivity.subtitle")} | {i18n.language === 'ko' ? 'Track user activity and system events' : '활동 모니터링'}
+              {t("adminActivity.subtitle")}
             </p>
           </div>
           <div className="flex gap-2">

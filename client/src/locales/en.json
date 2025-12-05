@@ -19273,12 +19273,14 @@
     "ipAddress": "IP Address",
     "details": "Details",
     "resource": "Resource",
-    "status": "Status",
-    "success": "Success",
-    "failure": "Failure",
-    "warning": "Warning",
-    "info": "Info",
-    "critical": "Critical",
+    "status": {
+      "label": "Status",
+      "success": "Success",
+      "failed": "Failed",
+      "warning": "Warning",
+      "info": "Info",
+      "critical": "Critical"
+    },
     "activityTypes": {
       "login": "Login",
       "logout": "Logout",

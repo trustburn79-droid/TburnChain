@@ -19273,12 +19273,14 @@
     "ipAddress": "IP 주소",
     "details": "상세",
     "resource": "리소스",
-    "status": "상태",
-    "success": "성공",
-    "failure": "실패",
-    "warning": "경고",
-    "info": "정보",
-    "critical": "위험",
+    "status": {
+      "label": "상태",
+      "success": "성공",
+      "failed": "실패",
+      "warning": "경고",
+      "info": "정보",
+      "critical": "위험"
+    },
     "activityTypes": {
       "login": "로그인",
       "logout": "로그아웃",
