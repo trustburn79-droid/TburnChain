@@ -6208,18 +6208,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const chains = ['Ethereum', 'BSC', 'Polygon', 'Arbitrum', 'TBURN'];
       const statuses = ['completed', 'pending', 'validating', 'failed'] as const;
+      const timeAgo = ['1 min ago', '3 min ago', '5 min ago', '8 min ago', '12 min ago', '20 min ago', '30 min ago', '1 hour ago'];
       const transfers = Array.from({ length: 50 }, (_, i) => {
         const fromChain = chains[i % 4];
         const toChain = i % 2 === 0 ? 'TBURN' : chains[(i + 1) % 4];
+        const token = fromChain === 'Ethereum' ? 'ETH' : fromChain === 'BSC' ? 'BNB' : 'MATIC';
         return {
-          id: `TX${(10000 + i).toString(16).toUpperCase()}`,
-          from: { chain: fromChain, address: `0x${Math.random().toString(16).slice(2, 42)}` },
-          to: { chain: toChain, address: `0x${Math.random().toString(16).slice(2, 42)}` },
-          amount: `${(Math.random() * 100).toFixed(4)} ${fromChain === 'Ethereum' ? 'ETH' : fromChain === 'BSC' ? 'BNB' : 'MATIC'}`,
+          id: `0x${(10000 + i).toString(16)}...${(Math.random().toString(16).slice(2, 5))}`,
+          from: fromChain,
+          to: toChain,
+          fromAddress: `0x${Math.random().toString(16).slice(2, 42)}`,
+          toAddress: `0x${Math.random().toString(16).slice(2, 42)}`,
+          amount: `${(Math.random() * 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${token}`,
           fee: `${(Math.random() * 0.01).toFixed(6)} ETH`,
           status: statuses[i % 4],
           confirmations: `${Math.floor(Math.random() * 100)}/100`,
           timestamp: new Date(Date.now() - i * 3600000).toISOString(),
+          time: timeAgo[i % 8],
           duration: `${Math.floor(Math.random() * 30)}m ${Math.floor(Math.random() * 60)}s`,
           error: statuses[i % 4] === 'failed' ? 'Insufficient gas' : undefined
         };
