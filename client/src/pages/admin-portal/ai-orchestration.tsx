@@ -119,6 +119,24 @@ const mockData: AIOrchestrationData = {
 export default function AdminAIOrchestration() {
   const { t } = useTranslation();
   const { toast } = useToast();
+
+  const translateType = (type: string) => {
+    const typeMap: Record<string, string> = {
+      'Strategic': t("adminAI.strategic"),
+      'Tactical': t("adminAI.tactical"),
+      'Operational': t("adminAI.operational"),
+    };
+    return typeMap[type] || type;
+  };
+
+  const translateStatus = (status: string) => {
+    const statusMap: Record<string, string> = {
+      'online': t("adminAI.statusOnline"),
+      'offline': t("adminAI.statusOffline"),
+      'degraded': t("adminAI.statusDegraded"),
+    };
+    return statusMap[status] || status;
+  };
   
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -332,11 +350,11 @@ export default function AdminAIOrchestration() {
                       data-testid={`badge-model-status-${model.id}`}
                     >
                       <CheckCircle className="w-3 h-3 mr-1" />
-                      {model.status}
+                      {translateStatus(model.status)}
                     </Badge>
                   </div>
                   <CardDescription data-testid={`text-model-layer-${model.id}`}>
-                    {model.layer} {t("adminAI.layer")}
+                    {translateType(model.layer)} {t("adminAI.layer")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -471,7 +489,7 @@ export default function AdminAIOrchestration() {
                               }
                               data-testid={`badge-decision-type-${decision.id}`}
                             >
-                              {decision.type}
+                              {translateType(decision.type)}
                             </Badge>
                           </TableCell>
                           <TableCell data-testid={`text-decision-content-${decision.id}`}>{decision.content}</TableCell>
@@ -598,7 +616,7 @@ export default function AdminAIOrchestration() {
                       >
                         <div>
                           <p className="font-medium" data-testid={`text-setting-model-name-${model.id}`}>{model.name}</p>
-                          <p className="text-sm text-muted-foreground">{model.layer} {t("adminAI.layer")}</p>
+                          <p className="text-sm text-muted-foreground">{translateType(model.layer)} {t("adminAI.layer")}</p>
                         </div>
                         <Switch defaultChecked data-testid={`switch-model-${model.id}`} />
                       </div>
