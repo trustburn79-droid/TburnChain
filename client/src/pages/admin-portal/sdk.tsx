@@ -8,6 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Package,
   Download,
@@ -18,6 +20,7 @@ import {
   Book,
   RefreshCw,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 import { SiTypescript, SiPython, SiRust, SiGo } from "react-icons/si";
 
@@ -43,6 +46,10 @@ export default function SdkManagement() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("typescript");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showSdkDetail, setShowSdkDetail] = useState(false);
+  const [selectedSdk, setSelectedSdk] = useState<SdkVersion | null>(null);
+  const [showDownloadConfirm, setShowDownloadConfirm] = useState(false);
+  const [pendingDownloadSdk, setPendingDownloadSdk] = useState<string | null>(null);
 
   const { data: sdkData, isLoading, error, refetch } = useQuery<SdkData>({
     queryKey: ["/api/admin/developer/sdk"],
@@ -86,6 +93,47 @@ export default function SdkManagement() {
       description: t("adminSdk.copiedToClipboard"),
     });
   }, [toast, t]);
+
+  const getSdkDetailSections = useCallback((sdk: SdkVersion): DetailSection[] => {
+    const installCommands: Record<string, string> = {
+      "TypeScript/JavaScript": "npm install @tburn/sdk",
+      "Python": "pip install tburn-sdk",
+      "Rust": "tburn-sdk = \"4.0\"",
+      "Go": "go get github.com/tburn/sdk-go",
+    };
+    return [
+      {
+        title: t("adminSdk.detail.sdkInfo"),
+        fields: [
+          { label: t("adminSdk.language"), value: sdk.lang, type: "text" },
+          { label: t("adminSdk.currentVersion"), value: `v${sdk.version}`, type: "badge", badgeVariant: "secondary" },
+          { label: t("adminSdk.downloads"), value: sdk.downloads, type: "text" },
+        ],
+      },
+      {
+        title: t("adminSdk.detail.installation"),
+        fields: [
+          { label: t("adminSdk.installation"), value: installCommands[sdk.lang] || "npm install @tburn/sdk", type: "code", copyable: true },
+        ],
+      },
+    ];
+  }, [t]);
+
+  const confirmDownload = useCallback((sdkLang: string) => {
+    setPendingDownloadSdk(sdkLang);
+    setShowDownloadConfirm(true);
+  }, []);
+
+  const handleDownloadConfirm = useCallback(() => {
+    if (pendingDownloadSdk) {
+      toast({
+        title: t("adminSdk.downloadStarted"),
+        description: `${pendingDownloadSdk} SDK ${t("adminSdk.downloadStartedDesc")}`,
+      });
+    }
+    setShowDownloadConfirm(false);
+    setPendingDownloadSdk(null);
+  }, [pendingDownloadSdk, toast, t]);
 
   if (error) {
     return (
@@ -162,10 +210,31 @@ export default function SdkManagement() {
                 <CardContent>
                   <div className="text-2xl font-bold">v{sdk.version}</div>
                   <p className="text-xs text-muted-foreground">{sdk.downloads} {t("adminSdk.downloadsPerMonth")}</p>
-                  <Button variant="outline" size="sm" className="w-full mt-4" data-testid={`button-install-${index}`}>
-                    <Download className="h-4 w-4 mr-2" />
-                    {t("adminSdk.install")}
-                  </Button>
+                  <div className="flex gap-2 mt-4">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="flex-1" 
+                      onClick={() => {
+                        setSelectedSdk(sdk);
+                        setShowSdkDetail(true);
+                      }}
+                      data-testid={`button-view-${index}`}
+                    >
+                      <Eye className="h-4 w-4 mr-2" />
+                      {t("adminSdk.view")}
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="flex-1" 
+                      onClick={() => confirmDownload(sdk.lang)}
+                      data-testid={`button-install-${index}`}
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      {t("adminSdk.install")}
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))
@@ -501,6 +570,28 @@ func main() {
           </CardContent>
         </Card>
       </div>
+
+      {selectedSdk && (
+        <DetailSheet
+          open={showSdkDetail}
+          onOpenChange={setShowSdkDetail}
+          title={selectedSdk.lang}
+          subtitle={`v${selectedSdk.version}`}
+          icon={<Package className="h-5 w-5" />}
+          sections={getSdkDetailSections(selectedSdk)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showDownloadConfirm}
+        onOpenChange={setShowDownloadConfirm}
+        title={t("adminSdk.confirm.downloadTitle")}
+        description={t("adminSdk.confirm.downloadDesc")}
+        onConfirm={handleDownloadConfirm}
+        confirmText={t("common.download")}
+        cancelText={t("adminSdk.cancel")}
+        destructive={false}
+      />
     </div>
   );
 }

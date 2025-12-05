@@ -11,6 +11,8 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   FileText,
   Download,
@@ -26,6 +28,7 @@ import {
   FilePlus,
   Printer,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 
 interface TaxReport {
@@ -65,6 +68,10 @@ export default function TaxReporting() {
   const { toast } = useToast();
   const [selectedYear, setSelectedYear] = useState("2024");
   const [activeTab, setActiveTab] = useState("overview");
+  const [showReportDetail, setShowReportDetail] = useState(false);
+  const [selectedReport, setSelectedReport] = useState<TaxReport | null>(null);
+  const [showGenerateConfirm, setShowGenerateConfirm] = useState(false);
+  const [pendingReportType, setPendingReportType] = useState<string | null>(null);
 
   const { data: taxData, isLoading, error, refetch } = useQuery<TaxData>({
     queryKey: ["/api/admin/tax"],
@@ -164,6 +171,45 @@ export default function TaxReporting() {
     }
   };
 
+  const getStatusBadgeColor = (status: string) => {
+    switch (status) {
+      case "filed": return "bg-green-500/10 text-green-500";
+      case "pending": return "bg-yellow-500/10 text-yellow-500";
+      case "draft": return "bg-gray-500/10 text-gray-500";
+      case "overdue": return "bg-red-500/10 text-red-500";
+      default: return "";
+    }
+  };
+
+  const getReportDetailSections = (report: TaxReport): DetailSection[] => [
+    {
+      title: t("adminTax.detail.reportInfo"),
+      fields: [
+        { label: t("adminTax.reports.id"), value: report.id, type: "code", copyable: true },
+        { label: t("adminTax.reports.type"), value: report.type },
+        { label: t("adminTax.reports.period"), value: report.period },
+        { label: t("adminTax.reports.jurisdiction"), value: report.jurisdiction },
+        { label: t("adminTax.reports.status"), value: t(`adminTax.status.${report.status}`), type: "badge", badgeColor: getStatusBadgeColor(report.status) },
+      ],
+    },
+    {
+      title: t("adminTax.detail.filingDetails"),
+      fields: [
+        { label: t("adminTax.reports.amount"), value: `$${(report.amount / 1000000).toFixed(2)}M`, type: "currency" },
+        { label: t("adminTax.reports.dueDate"), value: report.dueDate, type: "date" },
+        { label: t("adminTax.filedDate"), value: report.filedDate || "-", type: "date" },
+      ],
+    },
+  ];
+
+  const confirmGenerate = useCallback(() => {
+    if (pendingReportType) {
+      generateReportMutation.mutate(pendingReportType);
+      setShowGenerateConfirm(false);
+      setPendingReportType(null);
+    }
+  }, [pendingReportType, generateReportMutation]);
+
   if (error) {
     return (
       <div className="flex-1 overflow-auto">
@@ -253,7 +299,10 @@ export default function TaxReporting() {
             </Button>
             <Button 
               variant="outline" 
-              onClick={() => generateReportMutation.mutate("annual")}
+              onClick={() => {
+                setPendingReportType("annual");
+                setShowGenerateConfirm(true);
+              }}
               disabled={generateReportMutation.isPending}
               data-testid="button-new-report"
             >
@@ -443,7 +492,18 @@ export default function TaxReporting() {
                         <TableCell>{getStatusBadge(report.status)}</TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-1">
-                            <Button variant="ghost" size="icon" data-testid={`button-view-${index}`}>
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              onClick={() => {
+                                setSelectedReport(report);
+                                setShowReportDetail(true);
+                              }}
+                              data-testid={`button-view-report-${index}`}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button variant="ghost" size="icon" data-testid={`button-check-${index}`}>
                               <FileCheck className="h-4 w-4" />
                             </Button>
                             <Button variant="ghost" size="icon" data-testid={`button-print-${index}`}>
@@ -548,6 +608,29 @@ export default function TaxReporting() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {selectedReport && (
+          <DetailSheet
+            open={showReportDetail}
+            onOpenChange={setShowReportDetail}
+            title={selectedReport.type}
+            subtitle={selectedReport.id}
+            icon={<FileText className="h-5 w-5" />}
+            sections={getReportDetailSections(selectedReport)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showGenerateConfirm}
+          onOpenChange={setShowGenerateConfirm}
+          title={t("adminTax.confirm.generateTitle")}
+          description={t("adminTax.confirm.generateDesc")}
+          onConfirm={confirmGenerate}
+          isLoading={generateReportMutation.isPending}
+          destructive={false}
+          confirmText={t("adminTax.generateReport")}
+          cancelText={t("adminTax.cancel")}
+        />
       </div>
     </div>
   );

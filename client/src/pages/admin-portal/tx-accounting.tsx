@@ -10,6 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Calculator,
   Search,
@@ -24,6 +26,7 @@ import {
   CheckCircle,
   XCircle,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
@@ -61,6 +64,9 @@ export default function TxAccounting() {
   const [selectedType, setSelectedType] = useState("all");
   const [dateRange, setDateRange] = useState("30d");
   const [activeTab, setActiveTab] = useState("ledger");
+  const [showEntryDetail, setShowEntryDetail] = useState(false);
+  const [selectedEntry, setSelectedEntry] = useState<AccountingEntry | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: accountingData, isLoading, error, refetch } = useQuery<TxAccountingData>({
     queryKey: ["/api/admin/accounting/transactions"],
@@ -74,7 +80,7 @@ export default function TxAccounting() {
     });
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const performExport = useCallback(() => {
     const exportData = {
       timestamp: new Date().toISOString(),
       dateRange,
@@ -90,11 +96,61 @@ export default function TxAccounting() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    setShowExportConfirm(false);
     toast({
       title: t("adminTxAccounting.exported"),
       description: t("adminTxAccounting.exportedDesc"),
     });
   }, [dateRange, toast, t]);
+
+  const handleExport = useCallback(() => {
+    setShowExportConfirm(true);
+  }, []);
+
+  const getEntryDetailSections = (entry: AccountingEntry): DetailSection[] => {
+    const getStatusBadgeColor = (status: string) => {
+      switch (status) {
+        case "posted": return "";
+        case "pending": return "bg-yellow-500/10 text-yellow-500";
+        case "reconciled": return "bg-green-500";
+        default: return "";
+      }
+    };
+
+    const getTypeBadgeColor = (type: string) => {
+      switch (type) {
+        case "fee": return "bg-green-500";
+        case "reward": return "bg-blue-500";
+        case "burn": return "bg-orange-500";
+        case "bridge": return "bg-purple-500";
+        case "transfer": return "bg-cyan-500";
+        default: return "bg-gray-500";
+      }
+    };
+
+    return [
+      {
+        title: t("adminTxAccounting.detail.entryInfo"),
+        fields: [
+          { label: t("adminTxAccounting.table.id"), value: entry.id, type: "text" },
+          { label: t("adminTxAccounting.table.txHash"), value: entry.txHash, type: "code", copyable: true },
+          { label: t("adminTxAccounting.table.type"), value: t(`adminTxAccounting.entryTypes.${entry.type}`), type: "badge", badgeColor: getTypeBadgeColor(entry.type) },
+          { label: t("adminTxAccounting.table.status"), value: t(`adminTxAccounting.status.${entry.status}`), type: "badge", badgeColor: getStatusBadgeColor(entry.status) },
+        ],
+      },
+      {
+        title: t("adminTxAccounting.detail.accounting"),
+        fields: [
+          { label: t("adminTxAccounting.table.debit"), value: entry.debit > 0 ? `$${(entry.debit / 1000).toFixed(1)}K` : "-", type: "currency" },
+          { label: t("adminTxAccounting.table.credit"), value: entry.credit > 0 ? `$${(entry.credit / 1000).toFixed(1)}K` : "-", type: "currency" },
+          { label: t("adminTxAccounting.table.account"), value: entry.account, type: "text" },
+          { label: "Category", value: entry.category, type: "text" },
+          { label: t("adminTxAccounting.table.reference"), value: entry.reference, type: "text" },
+          { label: t("adminTxAccounting.table.timestamp"), value: entry.timestamp, type: "date" },
+        ],
+      },
+    ];
+  };
 
   const accountingEntries: AccountingEntry[] = accountingData?.entries || [
     { id: "ACC-001", txHash: "0x1a2b3c...", type: "fee", debit: 0, credit: 125000, account: t("adminTxAccounting.accounts.txFees"), category: t("adminTxAccounting.categories.revenue"), timestamp: "2024-12-03T14:30:00Z", status: "posted", reference: "Block #12847563" },
@@ -371,6 +427,7 @@ export default function TxAccounting() {
                       <TableHead>{t("adminTxAccounting.table.reference")}</TableHead>
                       <TableHead>{t("adminTxAccounting.table.timestamp")}</TableHead>
                       <TableHead>{t("adminTxAccounting.table.status")}</TableHead>
+                      <TableHead>{t("common.actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -395,6 +452,19 @@ export default function TxAccounting() {
                           {new Date(entry.timestamp).toLocaleString()}
                         </TableCell>
                         <TableCell>{getStatusBadge(entry.status)}</TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              setSelectedEntry(entry);
+                              setShowEntryDetail(true);
+                            }}
+                            data-testid={`button-view-entry-${index}`}
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -519,6 +589,28 @@ export default function TxAccounting() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedEntry && (
+        <DetailSheet
+          open={showEntryDetail}
+          onOpenChange={setShowEntryDetail}
+          title={selectedEntry.id}
+          subtitle={selectedEntry.txHash}
+          icon={<Calculator className="h-5 w-5" />}
+          sections={getEntryDetailSections(selectedEntry)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminTxAccounting.confirm.exportTitle")}
+        description={t("adminTxAccounting.confirm.exportDesc")}
+        confirmText={t("common.export")}
+        cancelText={t("adminTxAccounting.cancel")}
+        onConfirm={performExport}
+        destructive={false}
+      />
     </div>
   );
 }

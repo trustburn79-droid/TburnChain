@@ -10,6 +10,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   ChartPie,
   Download,
@@ -29,6 +31,7 @@ import {
   Target,
   AlertTriangle,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 import { AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from "recharts";
 
@@ -67,6 +70,9 @@ export default function CostAnalysis() {
   const { toast } = useToast();
   const [timeRange, setTimeRange] = useState("30d");
   const [activeTab, setActiveTab] = useState("overview");
+  const [showCostDetail, setShowCostDetail] = useState(false);
+  const [selectedCost, setSelectedCost] = useState<CostItem | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: costData, isLoading, error, refetch } = useQuery<CostData>({
     queryKey: ["/api/admin/costs"],
@@ -80,7 +86,7 @@ export default function CostAnalysis() {
     });
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const performExport = useCallback(() => {
     const exportData = {
       timestamp: new Date().toISOString(),
       timeRange,
@@ -97,11 +103,41 @@ export default function CostAnalysis() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    setShowExportConfirm(false);
     toast({
       title: t("adminCosts.exported"),
       description: t("adminCosts.exportedDesc"),
     });
   }, [timeRange, toast, t]);
+
+  const handleExport = useCallback(() => {
+    setShowExportConfirm(true);
+  }, []);
+
+  const getCostDetailSections = (cost: CostItem): DetailSection[] => [
+    {
+      title: t("adminCosts.detail.costInfo"),
+      fields: [
+        { label: t("adminCosts.breakdown.category"), value: cost.category },
+        { label: t("adminCosts.breakdown.subcategory"), value: cost.subcategory },
+        { label: t("adminCosts.breakdown.current"), value: `$${(cost.current / 1000000).toFixed(2)}M`, type: "currency" as const },
+        { label: t("adminCosts.breakdown.previous"), value: `$${(cost.previous / 1000000).toFixed(2)}M`, type: "currency" as const },
+      ],
+    },
+    {
+      title: t("adminCosts.detail.budgetAnalysis"),
+      fields: [
+        { label: t("adminCosts.breakdown.budget"), value: `$${(cost.budget / 1000000).toFixed(2)}M`, type: "currency" as const },
+        { 
+          label: t("adminCosts.breakdown.change"), 
+          value: cost.change > 0 ? `+${cost.change.toFixed(1)}%` : cost.change < 0 ? `${cost.change.toFixed(1)}%` : "0%",
+          type: "badge" as const,
+          badgeVariant: cost.change > 0 ? "destructive" as const : cost.change < 0 ? "default" as const : "secondary" as const,
+          badgeColor: cost.change > 0 ? "bg-red-500" : cost.change < 0 ? "bg-green-500" : undefined,
+        },
+      ],
+    },
+  ];
 
   const costItems: CostItem[] = costData?.costItems || [
     { category: t("adminCosts.categories.infrastructure"), subcategory: t("adminCosts.subcategories.cloudCompute"), current: 2450000, previous: 2200000, budget: 2500000, change: 11.4, icon: Cloud },
@@ -413,6 +449,7 @@ export default function CostAnalysis() {
                       <TableHead className="text-right">{t("adminCosts.breakdown.budget")}</TableHead>
                       <TableHead>{t("adminCosts.breakdown.utilization")}</TableHead>
                       <TableHead>{t("adminCosts.breakdown.change")}</TableHead>
+                      <TableHead className="text-right">{t("common.actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -434,6 +471,19 @@ export default function CostAnalysis() {
                           </div>
                         </TableCell>
                         <TableCell>{getChangeIndicator(item.change)}</TableCell>
+                        <TableCell className="text-right">
+                          <Button 
+                            variant="ghost" 
+                            size="icon"
+                            onClick={() => {
+                              setSelectedCost(item);
+                              setShowCostDetail(true);
+                            }}
+                            data-testid={`button-view-cost-${index}`}
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -550,6 +600,28 @@ export default function CostAnalysis() {
             </div>
           </TabsContent>
         </Tabs>
+
+        {selectedCost && (
+          <DetailSheet
+            open={showCostDetail}
+            onOpenChange={setShowCostDetail}
+            title={selectedCost.subcategory}
+            subtitle={selectedCost.category}
+            icon={<ChartPie className="h-5 w-5" />}
+            sections={getCostDetailSections(selectedCost)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showExportConfirm}
+          onOpenChange={setShowExportConfirm}
+          title={t("adminCosts.confirm.exportTitle")}
+          description={t("adminCosts.confirm.exportDesc")}
+          onConfirm={performExport}
+          confirmText={t("common.export")}
+          cancelText={t("adminCosts.cancel")}
+          destructive={false}
+        />
       </div>
     </div>
   );

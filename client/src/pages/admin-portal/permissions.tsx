@@ -10,6 +10,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Shield,
   Key,
@@ -101,6 +103,9 @@ export default function Permissions() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
+  const [showPermissionDetail, setShowPermissionDetail] = useState(false);
+  const [selectedPermission, setSelectedPermission] = useState<Permission | null>(null);
+  const [showSaveConfirm, setShowSaveConfirm] = useState(false);
 
   const { data: permissionsData, isLoading, error, refetch } = useQuery<PermissionsData>({
     queryKey: ["/api/admin/permissions"],
@@ -236,6 +241,39 @@ export default function Permissions() {
     }
   };
 
+  const getPermissionDetailSections = (permission: Permission): DetailSection[] => [
+    {
+      title: t("adminPermissions.detail.permissionInfo"),
+      fields: [
+        { label: t("common.name"), value: permission.name },
+        { label: t("common.description"), value: permission.description },
+        { label: t("adminPermissions.matrix.category"), value: permission.category },
+        { 
+          label: t("adminPermissions.table.level"), 
+          value: t(`adminPermissions.levels.${permission.level}`), 
+          type: "badge" as const, 
+          badgeColor: getLevelColor(permission.level) 
+        },
+      ],
+    },
+    {
+      title: t("adminPermissions.detail.accessControl"),
+      fields: [
+        { label: t("common.status"), value: t("adminPermissions.active"), type: "status" as const },
+        { label: t("adminPermissions.table.permission"), value: permission.id, type: "code" as const },
+      ],
+    },
+  ];
+
+  const confirmSave = useCallback(() => {
+    setShowSaveConfirm(true);
+  }, []);
+
+  const handleConfirmSave = useCallback(async () => {
+    await updatePermissionsMutation.mutateAsync([]);
+    setShowSaveConfirm(false);
+  }, [updatePermissionsMutation]);
+
   if (error) {
     return (
       <div className="flex-1 overflow-auto" data-testid="permissions-error-container">
@@ -280,7 +318,7 @@ export default function Permissions() {
               <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
               {t("adminPermissions.refresh")}
             </Button>
-            <Button onClick={() => updatePermissionsMutation.mutate([])} disabled={updatePermissionsMutation.isPending} data-testid="button-save">
+            <Button onClick={confirmSave} disabled={updatePermissionsMutation.isPending} data-testid="button-save">
               {updatePermissionsMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}
               {t("adminPermissions.saveChanges")}
             </Button>
@@ -397,6 +435,7 @@ export default function Permissions() {
                         <TableHead>{t("adminPermissions.table.description")}</TableHead>
                         <TableHead>{t("adminPermissions.table.level")}</TableHead>
                         <TableHead>{t("adminPermissions.table.status")}</TableHead>
+                        <TableHead className="w-20">{t("common.actions")}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -424,6 +463,19 @@ export default function Permissions() {
                               <CheckCircle className="h-3 w-3 mr-1" />
                               {t("adminPermissions.active")}
                             </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => {
+                                setSelectedPermission(permission);
+                                setShowPermissionDetail(true);
+                              }}
+                              data-testid={`button-view-${permission.id}`}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -490,6 +542,29 @@ export default function Permissions() {
           </CardContent>
         </Card>
       </div>
+
+      {selectedPermission && (
+        <DetailSheet
+          open={showPermissionDetail}
+          onOpenChange={setShowPermissionDetail}
+          title={selectedPermission.name}
+          subtitle={selectedPermission.id}
+          icon={<Key className="h-5 w-5" />}
+          sections={getPermissionDetailSections(selectedPermission)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showSaveConfirm}
+        onOpenChange={setShowSaveConfirm}
+        title={t("adminPermissions.confirm.saveTitle")}
+        description={t("adminPermissions.confirm.saveDesc")}
+        onConfirm={handleConfirmSave}
+        isLoading={updatePermissionsMutation.isPending}
+        destructive={false}
+        confirmText={t("common.save")}
+        cancelText={t("adminPermissions.cancel")}
+      />
     </div>
   );
 }

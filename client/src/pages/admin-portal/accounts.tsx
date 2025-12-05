@@ -11,6 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Users,
   UserPlus,
@@ -26,6 +28,7 @@ import {
   AlertCircle,
   CheckCircle,
   XCircle,
+  Eye,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -114,6 +117,10 @@ export default function AdminAccounts() {
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [showAccountDetail, setShowAccountDetail] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState<AdminAccount | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: accountsData, isLoading, error, refetch } = useQuery<AccountsData>({
     queryKey: ["/api/admin/accounts"],
@@ -272,6 +279,47 @@ export default function AdminAccounts() {
     const days = Math.floor(hours / 24);
     return `${days}d ${t("adminAccounts.ago")}`;
   };
+
+  const getAccountDetailSections = (account: AdminAccount): DetailSection[] => {
+    const statusColors: Record<string, string> = {
+      active: "bg-green-500/10 text-green-500",
+      inactive: "bg-yellow-500/10 text-yellow-500",
+      suspended: "bg-red-500/10 text-red-500",
+    };
+
+    return [
+      {
+        title: t("adminAccounts.detail.accountInfo"),
+        fields: [
+          { label: t("common.name"), value: account.name, type: "text" },
+          { label: t("adminAccounts.createDialog.email"), value: account.email, type: "text", copyable: true },
+          { label: t("adminAccounts.role"), value: account.role, type: "badge", badgeVariant: "secondary" },
+          { label: t("common.status"), value: t(`adminAccounts.status.${account.status}`), type: "badge", badgeColor: statusColors[account.status] },
+        ],
+      },
+      {
+        title: t("adminAccounts.detail.security"),
+        fields: [
+          { 
+            label: t("adminAccounts.table.twoFA"), 
+            value: account.twoFactorEnabled ? t("common.enable") : t("common.disable"), 
+            type: "badge", 
+            badgeColor: account.twoFactorEnabled ? "bg-green-500/10 text-green-500" : "bg-muted text-muted-foreground" 
+          },
+          { label: t("adminAccounts.table.lastLogin"), value: account.lastLogin, type: "date" },
+          { label: t("common.date"), value: account.createdAt, type: "date" },
+        ],
+      },
+    ];
+  };
+
+  const confirmDelete = useCallback(() => {
+    if (pendingDeleteId) {
+      deleteAccountMutation.mutate(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
+    }
+  }, [pendingDeleteId, deleteAccountMutation]);
 
   if (error) {
     return (
@@ -471,6 +519,16 @@ export default function AdminAccounts() {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
+                              <DropdownMenuItem 
+                                onClick={() => {
+                                  setSelectedAccount(account);
+                                  setShowAccountDetail(true);
+                                }}
+                                data-testid={`action-view-detail-${account.id}`}
+                              >
+                                <Eye className="h-4 w-4 mr-2" />
+                                {t("adminAccounts.view")}
+                              </DropdownMenuItem>
                               <DropdownMenuItem data-testid={`action-edit-${account.id}`}>{t("adminAccounts.actions.edit")}</DropdownMenuItem>
                               <DropdownMenuItem data-testid={`action-reset-${account.id}`}>{t("adminAccounts.actions.resetPassword")}</DropdownMenuItem>
                               <DropdownMenuItem data-testid={`action-view-${account.id}`}>{t("adminAccounts.actions.viewActivity")}</DropdownMenuItem>
@@ -493,7 +551,10 @@ export default function AdminAccounts() {
                               ) : null}
                               <DropdownMenuItem 
                                 className="text-red-500"
-                                onClick={() => deleteAccountMutation.mutate(account.id)}
+                                onClick={() => {
+                                  setPendingDeleteId(account.id);
+                                  setShowDeleteConfirm(true);
+                                }}
                                 data-testid={`action-delete-${account.id}`}
                               >
                                 {t("adminAccounts.actions.delete")}
@@ -558,6 +619,30 @@ export default function AdminAccounts() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        {selectedAccount && (
+          <DetailSheet
+            open={showAccountDetail}
+            onOpenChange={setShowAccountDetail}
+            title={selectedAccount.name}
+            subtitle={selectedAccount.email}
+            icon={<Users className="h-5 w-5" />}
+            sections={getAccountDetailSections(selectedAccount)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showDeleteConfirm}
+          onOpenChange={setShowDeleteConfirm}
+          title={t("adminAccounts.confirm.deleteTitle")}
+          description={t("adminAccounts.confirm.deleteDesc")}
+          actionType="delete"
+          onConfirm={confirmDelete}
+          destructive={true}
+          isLoading={deleteAccountMutation.isPending}
+          confirmText={t("common.delete")}
+          cancelText={t("adminAccounts.cancel")}
+        />
       </div>
     </div>
   );

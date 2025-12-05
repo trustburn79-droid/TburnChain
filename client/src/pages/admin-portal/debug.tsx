@@ -14,6 +14,8 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Bug,
   Search,
@@ -32,6 +34,7 @@ import {
   XCircle,
   Activity,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 
 interface DebugLog {
@@ -61,6 +64,9 @@ export default function DebugTools() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [realtimeLogs, setRealtimeLogs] = useState<DebugLog[]>([]);
+  const [showLogDetail, setShowLogDetail] = useState(false);
+  const [selectedLog, setSelectedLog] = useState<DebugLog | null>(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const { data: debugData, isLoading, error, refetch } = useQuery<DebugData>({
     queryKey: ["/api/admin/debug"],
@@ -263,11 +269,82 @@ Storage:
 
   const handleClearLogs = useCallback(() => {
     setRealtimeLogs([]);
+    setShowClearConfirm(false);
     toast({
       title: t("adminDebug.logsCleared"),
       description: t("adminDebug.logsClearedDesc"),
     });
   }, [toast, t]);
+
+  const confirmClear = useCallback(() => {
+    handleClearLogs();
+  }, [handleClearLogs]);
+
+  const getLevelBadgeVariant = (level: string): "default" | "destructive" | "outline" | "secondary" => {
+    switch (level) {
+      case "error": return "destructive";
+      case "warn": return "outline";
+      case "info": return "default";
+      case "debug": return "secondary";
+      default: return "secondary";
+    }
+  };
+
+  const getLevelBadgeColor = (level: string): string => {
+    switch (level) {
+      case "error": return "";
+      case "warn": return "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
+      case "info": return "bg-blue-500/10 text-blue-500 border-blue-500/20";
+      case "debug": return "bg-gray-500/10 text-gray-500 border-gray-500/20";
+      default: return "";
+    }
+  };
+
+  const getLogDetailSections = (log: DebugLog): DetailSection[] => {
+    const sections: DetailSection[] = [
+      {
+        title: t("adminDebug.detail.logInfo"),
+        fields: [
+          {
+            label: t("adminDebug.level"),
+            value: log.level.toUpperCase(),
+            type: "badge",
+            badgeVariant: getLevelBadgeVariant(log.level),
+            badgeColor: getLevelBadgeColor(log.level),
+          },
+          {
+            label: t("adminDebug.timestamp"),
+            value: log.timestamp,
+            type: "text",
+          },
+          {
+            label: t("adminDebug.source"),
+            value: log.source,
+            type: "badge",
+            badgeVariant: "outline",
+          },
+          {
+            label: t("adminDebug.message"),
+            value: log.message,
+            type: "text",
+            copyable: true,
+          },
+        ],
+      },
+      {
+        title: t("adminDebug.detail.metadata"),
+        fields: [
+          {
+            label: t("adminDebug.logId"),
+            value: log.id,
+            type: "code",
+            copyable: true,
+          },
+        ],
+      },
+    ];
+    return sections;
+  };
 
   const handleCopy = useCallback((text: string) => {
     navigator.clipboard.writeText(text);
@@ -321,7 +398,7 @@ Storage:
                 <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
                 {t("adminDebug.refresh")}
               </Button>
-              <Button variant="outline" onClick={handleClearLogs} data-testid="button-clear-logs">
+              <Button variant="outline" onClick={() => setShowClearConfirm(true)} data-testid="button-clear-logs">
                 <Trash2 className="h-4 w-4 mr-2" />
                 {t("adminDebug.clearLogs")}
               </Button>
@@ -526,7 +603,19 @@ Storage:
                           {getLevelIcon(log.level)}
                           <span className="text-muted-foreground">{log.timestamp}</span>
                           <Badge variant="outline" className="text-xs">{log.source}</Badge>
-                          <span className={getLevelColor(log.level)}>{log.message}</span>
+                          <span className={`flex-1 ${getLevelColor(log.level)}`}>{log.message}</span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 shrink-0"
+                            onClick={() => {
+                              setSelectedLog(log);
+                              setShowLogDetail(true);
+                            }}
+                            data-testid={`button-view-log-${index}`}
+                          >
+                            <Eye className="h-3 w-3" />
+                          </Button>
                         </div>
                       ))}
                     </div>
@@ -648,6 +737,29 @@ web3.eth.getBlockNumber().then(console.log)`}
             </Card>
           </TabsContent>
         </Tabs>
+
+        {selectedLog && (
+          <DetailSheet
+            open={showLogDetail}
+            onOpenChange={setShowLogDetail}
+            title={t("adminDebug.logDetails")}
+            subtitle={selectedLog.id}
+            icon={<Bug className="h-5 w-5" />}
+            sections={getLogDetailSections(selectedLog)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showClearConfirm}
+          onOpenChange={setShowClearConfirm}
+          title={t("adminDebug.confirm.clearTitle")}
+          description={t("adminDebug.confirm.clearDesc")}
+          actionType="delete"
+          onConfirm={confirmClear}
+          destructive={true}
+          confirmText={t("common.confirm")}
+          cancelText={t("adminDebug.cancel")}
+        />
       </div>
     </div>
   );

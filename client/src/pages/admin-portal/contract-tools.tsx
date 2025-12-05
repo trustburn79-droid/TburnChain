@@ -15,6 +15,8 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   FileCode,
   Search,
@@ -58,6 +60,9 @@ export default function ContractTools() {
   const [activeTab, setActiveTab] = useState("interact");
   const [contractAddress, setContractAddress] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showContractDetail, setShowContractDetail] = useState(false);
+  const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
+  const [showDeployConfirm, setShowDeployConfirm] = useState(false);
 
   const { data: contractsData, isLoading, error, refetch } = useQuery<ContractsData>({
     queryKey: ["/api/admin/developer/contracts"],
@@ -174,6 +179,36 @@ export default function ContractTools() {
     });
   }, [contracts, stats, toast, t]);
 
+  const getContractDetailSections = (contract: Contract): DetailSection[] => [
+    {
+      title: t("adminContracts.detail.contractInfo"),
+      fields: [
+        { label: t("adminContracts.address"), value: contract.address, type: "code", copyable: true },
+        { label: t("adminContracts.name"), value: contract.name },
+        { 
+          label: t("adminContracts.verified"), 
+          value: contract.verified ? t("adminContracts.verifiedBadge") : t("adminContracts.unverified"), 
+          type: "badge",
+          badgeVariant: contract.verified ? "default" : "secondary",
+          badgeColor: contract.verified ? "bg-green-500" : undefined
+        },
+        { label: t("adminContracts.compiler"), value: contract.compiler },
+      ],
+    },
+    {
+      title: t("adminContracts.detail.statistics"),
+      fields: [
+        { label: t("adminContracts.deployed"), value: contract.deployedAt, type: "date" },
+        { label: t("adminContracts.transactions"), value: contract.transactions.toLocaleString() },
+      ],
+    },
+  ];
+
+  const confirmDeploy = useCallback(() => {
+    deployMutation.mutate({ sourceCode: "", contractName: "", compiler: "0.8.20" });
+    setShowDeployConfirm(false);
+  }, [deployMutation]);
+
   if (error) {
     return (
       <div className="flex-1 flex items-center justify-center" data-testid="contracts-error">
@@ -217,7 +252,7 @@ export default function ContractTools() {
               <Download className="h-4 w-4 mr-2" />
               {t("adminContracts.export")}
             </Button>
-            <Button data-testid="button-deploy">
+            <Button onClick={() => setShowDeployConfirm(true)} data-testid="button-deploy">
               <Upload className="h-4 w-4 mr-2" />
               {t("adminContracts.deployContract")}
             </Button>
@@ -583,7 +618,15 @@ contract MyToken {
                           <TableCell>{contract.transactions.toLocaleString()}</TableCell>
                           <TableCell>
                             <div className="flex gap-1">
-                              <Button variant="ghost" size="icon" data-testid={`button-view-${index}`}>
+                              <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                onClick={() => {
+                                  setSelectedContract(contract);
+                                  setShowContractDetail(true);
+                                }}
+                                data-testid={`button-view-${index}`}
+                              >
                                 <Eye className="h-4 w-4" />
                               </Button>
                               <Button variant="ghost" size="icon" data-testid={`button-code-${index}`}>
@@ -603,6 +646,29 @@ contract MyToken {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {selectedContract && (
+          <DetailSheet
+            open={showContractDetail}
+            onOpenChange={setShowContractDetail}
+            title={selectedContract.name}
+            subtitle={selectedContract.address}
+            icon={<FileCode className="h-5 w-5" />}
+            sections={getContractDetailSections(selectedContract)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showDeployConfirm}
+          onOpenChange={setShowDeployConfirm}
+          title={t("adminContracts.confirm.deployTitle")}
+          description={t("adminContracts.confirm.deployDesc")}
+          onConfirm={confirmDeploy}
+          isLoading={deployMutation.isPending}
+          destructive={false}
+          confirmText={t("adminContracts.deploy")}
+          cancelText={t("adminContracts.cancel")}
+        />
       </div>
     </div>
   );

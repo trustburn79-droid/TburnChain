@@ -10,6 +10,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Book,
   Code,
@@ -27,6 +29,7 @@ import {
   Shield,
   AlertCircle,
   Download,
+  Eye,
 } from "lucide-react";
 
 interface ApiEndpoint {
@@ -54,6 +57,9 @@ export default function ApiDocs() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showEndpointDetail, setShowEndpointDetail] = useState(false);
+  const [selectedEndpoint, setSelectedEndpoint] = useState<ApiEndpoint | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: apiDocsData, isLoading, error, refetch } = useQuery<ApiDocsData>({
     queryKey: ["/api/admin/developer/docs"],
@@ -83,7 +89,7 @@ export default function ApiDocs() {
     apiVersion: "v4.0",
   };
 
-  const categories = ["all", ...new Set(endpoints.map(e => e.category))];
+  const categories = ["all", ...Array.from(new Set(endpoints.map(e => e.category)))];
 
   const filteredEndpoints = endpoints.filter((endpoint) => {
     const matchesSearch = 
@@ -123,7 +129,56 @@ export default function ApiDocs() {
     }
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const handleCopy = useCallback((text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: t("adminApiDocs.copied"),
+      description: t("adminApiDocs.copiedToClipboard"),
+    });
+  }, [toast, t]);
+
+  const getEndpointDetailSections = (endpoint: ApiEndpoint): DetailSection[] => [
+    {
+      title: t("adminApiDocs.detail.endpointInfo"),
+      fields: [
+        {
+          label: t("adminApiDocs.method"),
+          value: endpoint.method,
+          type: "badge" as const,
+          badgeColor: getMethodColor(endpoint.method),
+        },
+        {
+          label: t("adminApiDocs.path"),
+          value: endpoint.path,
+          type: "code" as const,
+          copyable: true,
+        },
+        {
+          label: t("adminApiDocs.description"),
+          value: endpoint.description,
+          type: "text" as const,
+        },
+        {
+          label: t("adminApiDocs.category"),
+          value: endpoint.category,
+          type: "text" as const,
+        },
+      ],
+    },
+    {
+      title: t("adminApiDocs.detail.authentication"),
+      fields: [
+        {
+          label: t("adminApiDocs.authentication"),
+          value: endpoint.auth ? t("common.required") : t("adminApiDocs.publicApis"),
+          type: "badge" as const,
+          badgeVariant: endpoint.auth ? "destructive" : "secondary",
+        },
+      ],
+    },
+  ];
+
+  const performExport = useCallback(() => {
     const exportData = {
       exportedAt: new Date().toISOString(),
       endpoints,
@@ -141,15 +196,8 @@ export default function ApiDocs() {
       title: t("adminApiDocs.exportSuccess"),
       description: t("adminApiDocs.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [endpoints, stats, toast, t]);
-
-  const handleCopy = useCallback((text: string) => {
-    navigator.clipboard.writeText(text);
-    toast({
-      title: t("adminApiDocs.copied"),
-      description: t("adminApiDocs.copiedToClipboard"),
-    });
-  }, [toast, t]);
 
   if (error) {
     return (
@@ -194,7 +242,7 @@ export default function ApiDocs() {
               <Play className="h-4 w-4 mr-2" />
               {t("adminApiDocs.tryApi")}
             </Button>
-            <Button variant="outline" onClick={handleExport} data-testid="button-export">
+            <Button variant="outline" onClick={() => setShowExportConfirm(true)} data-testid="button-export">
               <Download className="h-4 w-4 mr-2" />
               {t("adminApiDocs.exportOpenApi")}
             </Button>
@@ -465,6 +513,17 @@ export default function ApiDocs() {
                           ) : (
                             <Unlock className="h-4 w-4 text-green-500" />
                           )}
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            onClick={() => {
+                              setSelectedEndpoint(endpoint);
+                              setShowEndpointDetail(true);
+                            }}
+                            data-testid={`button-endpoint-view-${index}`}
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
                           <Button variant="ghost" size="icon" data-testid={`button-endpoint-details-${index}`}>
                             <ChevronRight className="h-4 w-4" />
                           </Button>
@@ -563,6 +622,28 @@ ws.onmessage = (event) => {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedEndpoint && (
+        <DetailSheet
+          open={showEndpointDetail}
+          onOpenChange={setShowEndpointDetail}
+          title={selectedEndpoint.path}
+          subtitle={selectedEndpoint.method}
+          icon={<Code className="h-5 w-5" />}
+          sections={getEndpointDetailSections(selectedEndpoint)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminApiDocs.confirm.exportTitle")}
+        description={t("adminApiDocs.confirm.exportDesc")}
+        confirmText={t("adminApiDocs.export")}
+        cancelText={t("adminApiDocs.cancel")}
+        onConfirm={performExport}
+        destructive={false}
+      />
     </div>
   );
 }

@@ -14,6 +14,8 @@ import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Briefcase,
   Plus,
@@ -30,6 +32,7 @@ import {
   ArrowUp,
   ArrowDown,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart as RechartsPie, Pie, Cell } from "recharts";
 
@@ -73,6 +76,10 @@ export default function BudgetManagement() {
     amount: 0,
     justification: "",
   });
+  const [showBudgetDetail, setShowBudgetDetail] = useState(false);
+  const [selectedBudget, setSelectedBudget] = useState<BudgetItem | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: budgetData, isLoading, error, refetch } = useQuery<BudgetData>({
     queryKey: ["/api/admin/budget"],
@@ -125,6 +132,62 @@ export default function BudgetManagement() {
       });
     },
   });
+
+  const deleteBudgetMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest("DELETE", `/api/admin/budget/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
+      toast({
+        title: t("adminBudget.budgetDeleted"),
+        description: t("adminBudget.budgetDeletedDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminBudget.error"),
+        description: t("adminBudget.deleteError"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const getBudgetDetailSections = (budget: BudgetItem): DetailSection[] => {
+    const statusBadgeColor = budget.status === "on-track" 
+      ? "bg-green-500" 
+      : budget.status === "at-risk" 
+        ? "bg-yellow-500" 
+        : "bg-red-500";
+    
+    return [
+      {
+        title: t("adminBudget.detail.budgetInfo"),
+        fields: [
+          { label: t("adminBudget.table.category"), value: budget.category, type: "text" },
+          { label: t("adminBudget.table.department"), value: budget.department, type: "text" },
+          { label: t("adminBudget.table.status"), value: t(`adminBudget.status.${budget.status === "on-track" ? "onTrack" : budget.status === "at-risk" ? "atRisk" : "overBudget"}`), type: "badge", badgeColor: statusBadgeColor },
+        ],
+      },
+      {
+        title: t("adminBudget.detail.financial"),
+        fields: [
+          { label: t("adminBudget.table.allocated"), value: `$${(budget.allocated / 1000000).toFixed(2)}M`, type: "currency" },
+          { label: t("adminBudget.table.spent"), value: `$${(budget.spent / 1000000).toFixed(2)}M`, type: "currency" },
+          { label: t("adminBudget.table.remaining"), value: `$${(budget.remaining / 1000000).toFixed(2)}M`, type: "currency" },
+          { label: t("adminBudget.forecast.projected"), value: `$${(budget.forecast / 1000000).toFixed(2)}M`, type: "currency" },
+        ],
+      },
+    ];
+  };
+
+  const confirmDelete = () => {
+    if (pendingDeleteId) {
+      deleteBudgetMutation.mutate(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
+    }
+  };
 
   const handleRefresh = useCallback(() => {
     refetch();
@@ -544,9 +607,34 @@ export default function BudgetManagement() {
                         </TableCell>
                         <TableCell>{getStatusBadge(item.status)}</TableCell>
                         <TableCell className="text-right">
-                          <Button variant="ghost" size="icon" data-testid={`button-edit-budget-${index}`}>
-                            <Edit className="h-4 w-4" />
-                          </Button>
+                          <div className="flex justify-end gap-1">
+                            <Button 
+                              variant="ghost" 
+                              size="icon"
+                              onClick={() => {
+                                setSelectedBudget(item);
+                                setShowBudgetDetail(true);
+                              }}
+                              data-testid={`button-view-budget-${index}`}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button variant="ghost" size="icon" data-testid={`button-edit-budget-${index}`}>
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="icon"
+                              className="text-destructive"
+                              onClick={() => {
+                                setPendingDeleteId(item.id);
+                                setShowDeleteConfirm(true);
+                              }}
+                              data-testid={`button-delete-budget-${index}`}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -653,6 +741,28 @@ export default function BudgetManagement() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {selectedBudget && (
+          <DetailSheet
+            open={showBudgetDetail}
+            onOpenChange={setShowBudgetDetail}
+            title={selectedBudget.category}
+            subtitle={selectedBudget.id}
+            icon={<Briefcase className="h-5 w-5" />}
+            sections={getBudgetDetailSections(selectedBudget)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showDeleteConfirm}
+          onOpenChange={setShowDeleteConfirm}
+          title={t("adminBudget.confirm.deleteTitle")}
+          description={t("adminBudget.confirm.deleteDesc")}
+          actionType="delete"
+          onConfirm={confirmDelete}
+          isLoading={deleteBudgetMutation.isPending}
+          destructive={true}
+        />
       </div>
     </div>
   );

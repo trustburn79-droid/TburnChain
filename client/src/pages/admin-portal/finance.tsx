@@ -10,6 +10,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   DollarSign,
   TrendingUp,
@@ -24,6 +26,7 @@ import {
   Coins,
   Building2,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart as RechartsPie, Pie, Cell } from "recharts";
 
@@ -75,6 +78,9 @@ export default function FinanceOverview() {
   const { toast } = useToast();
   const [timeRange, setTimeRange] = useState("30d");
   const [activeTab, setActiveTab] = useState("overview");
+  const [showTxDetail, setShowTxDetail] = useState(false);
+  const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: financeData, isLoading, error, refetch } = useQuery<FinanceData>({
     queryKey: ["/api/admin/finance"],
@@ -88,7 +94,7 @@ export default function FinanceOverview() {
     });
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const performExport = useCallback(() => {
     const exportData = {
       timestamp: new Date().toISOString(),
       timeRange,
@@ -105,11 +111,46 @@ export default function FinanceOverview() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    setShowExportConfirm(false);
     toast({
       title: t("adminFinance.exported"),
       description: t("adminFinance.exportedDesc"),
     });
   }, [timeRange, toast, t]);
+
+  const handleExport = useCallback(() => {
+    setShowExportConfirm(true);
+  }, []);
+
+  const getTxDetailSections = (tx: Transaction): DetailSection[] => [
+    {
+      title: t("adminFinance.detail.txInfo"),
+      fields: [
+        { label: t("adminFinance.transactions.id"), value: tx.id, type: "code", copyable: true },
+        { 
+          label: t("adminFinance.transactions.type"), 
+          value: tx.type === "inflow" ? t("adminFinance.transactions.inflow") : t("adminFinance.transactions.outflow"), 
+          type: "badge",
+          badgeColor: tx.type === "inflow" ? "bg-green-500" : "bg-red-500"
+        },
+        { label: t("adminFinance.transactions.category"), value: tx.category },
+        { label: t("adminFinance.transactions.amount"), value: `${tx.type === "inflow" ? "+" : "-"}$${(tx.amount / 1000000).toFixed(2)}M`, type: "currency" },
+        { label: t("adminFinance.transactions.date"), value: tx.date, type: "date" },
+      ],
+    },
+    {
+      title: t("adminFinance.detail.details"),
+      fields: [
+        { label: t("adminFinance.transactions.description"), value: tx.description },
+        { 
+          label: t("adminFinance.transactions.status"), 
+          value: t(`adminFinance.transactions.${tx.status}`), 
+          type: "badge",
+          badgeVariant: tx.status === "completed" ? "default" : tx.status === "pending" ? "secondary" : "destructive"
+        },
+      ],
+    },
+  ];
 
   const financialMetrics: FinancialMetric[] = financeData?.metrics || [
     { label: t("adminFinance.metrics.marketCap"), value: "$2.47B", change: 5.2, trend: "up", icon: CircleDollarSign },
@@ -461,6 +502,7 @@ export default function FinanceOverview() {
                       <TableHead>{t("adminFinance.transactions.date")}</TableHead>
                       <TableHead>{t("adminFinance.transactions.description")}</TableHead>
                       <TableHead>{t("adminFinance.transactions.status")}</TableHead>
+                      <TableHead>{t("common.actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -485,6 +527,19 @@ export default function FinanceOverview() {
                             {t(`adminFinance.transactions.${tx.status}`)}
                           </Badge>
                         </TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              setSelectedTx(tx);
+                              setShowTxDetail(true);
+                            }}
+                            data-testid={`button-view-tx-${index}`}
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -494,6 +549,28 @@ export default function FinanceOverview() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedTx && (
+        <DetailSheet
+          open={showTxDetail}
+          onOpenChange={setShowTxDetail}
+          title={selectedTx.id}
+          description={selectedTx.description}
+          icon={<DollarSign className="h-5 w-5" />}
+          sections={getTxDetailSections(selectedTx)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminFinance.confirm.exportTitle")}
+        description={t("adminFinance.confirm.exportDesc")}
+        onConfirm={performExport}
+        destructive={false}
+        confirmText={t("common.export")}
+        cancelText={t("adminFinance.cancel")}
+      />
     </div>
   );
 }

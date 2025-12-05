@@ -15516,7 +15516,22 @@
     "refreshErrorDesc": "로그 데이터 새로고침에 실패했습니다",
     "exportSuccess": "내보내기 완료",
     "exportSuccessDesc": "로그 데이터가 성공적으로 내보내졌습니다",
-    "retry": "재시도"
+    "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "clearLogs": "로그 삭제",
+    "clearSuccess": "로그 삭제됨",
+    "clearSuccessDesc": "모든 로그가 성공적으로 삭제되었습니다",
+    "detail": {
+      "logEntry": "로그 항목",
+      "metadata": "메타데이터"
+    },
+    "confirm": {
+      "clearTitle": "로그 삭제",
+      "clearDesc": "모든 로그를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+      "exportTitle": "로그 내보내기",
+      "exportDesc": "모든 로그를 JSON으로 내보내시겠습니까?"
+    }
   },
   "adminTokenIssuance": {
     "title": "토큰 발행 관리",
@@ -17343,6 +17358,16 @@
       "completed": "완료",
       "pending": "대기 중",
       "failed": "실패"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "txInfo": "거래 정보",
+      "details": "상세 정보"
+    },
+    "confirm": {
+      "exportTitle": "재무 데이터 내보내기",
+      "exportDesc": "모든 재무 데이터를 JSON으로 내보내시겠습니까?"
     }
   },
   "adminAnnouncements": {
@@ -19180,7 +19205,20 @@
     "keyCreateError": "키 생성 실패",
     "keyDeleted": "API 키 삭제됨",
     "keyDeletedDesc": "API 키가 성공적으로 삭제되었습니다",
-    "keyDeleteError": "키 삭제 실패"
+    "keyDeleteError": "키 삭제 실패",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "keyInfo": "API 키 정보",
+      "permissions": "권한",
+      "description": "API 키 세부 정보 및 권한 보기",
+      "createdAt": "생성일"
+    },
+    "confirm": {
+      "deleteTitle": "API 키 삭제",
+      "deleteDesc": "이 API 키를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+      "delete": "삭제"
+    }
   },
   "adminIntegrations": {
     "title": "통합",
@@ -19658,6 +19696,16 @@
       "passwordNote": "임시 비밀번호가 이메일로 발송됩니다",
       "create": "생성",
       "cancel": "취소"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "accountInfo": "계정 정보",
+      "security": "보안"
+    },
+    "confirm": {
+      "deleteTitle": "계정 삭제",
+      "deleteDesc": "이 관리자 계정을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다."
     }
   },
   "adminRoles": {
@@ -19681,6 +19729,8 @@
     "refreshing": "새로고침 중",
     "refreshingDesc": "역할 로딩 중...",
     "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
     "roleCreated": "역할 생성됨",
     "roleCreatedDesc": "새 역할이 성공적으로 생성되었습니다",
     "roleUpdated": "역할 업데이트됨",
@@ -19692,6 +19742,14 @@
     "deleteError": "역할 삭제 실패",
     "errorLoading": "역할 로드 실패",
     "errorLoadingDesc": "역할 데이터를 가져올 수 없습니다. 다시 시도해 주세요.",
+    "detail": {
+      "roleInfo": "역할 정보",
+      "permissions": "권한"
+    },
+    "confirm": {
+      "deleteTitle": "역할 삭제",
+      "deleteDesc": "이 역할을 삭제하시겠습니까? 이 역할을 가진 사용자는 권한을 잃게 됩니다."
+    },
     "createDialog": {
       "title": "새 역할 생성",
       "roleName": "역할 이름",
@@ -19854,7 +19912,17 @@
     },
     "saveSuccess": "권한 저장됨",
     "saveSuccessDesc": "권한 변경 사항이 저장되었습니다",
-    "saveError": "저장 실패"
+    "saveError": "저장 실패",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "permissionInfo": "권한 정보",
+      "accessControl": "접근 제어"
+    },
+    "confirm": {
+      "saveTitle": "권한 변경 저장",
+      "saveDesc": "모든 권한 변경 사항을 저장하시겠습니까? 이는 즉시 사용자 접근에 영향을 미칩니다."
+    }
   },
   "adminAccess": {
     "title": "접근 제어",
@@ -20129,6 +20197,16 @@
     },
     "live": "실시간",
     "offline": "오프라인",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "activityInfo": "활동 정보",
+      "userLocation": "사용자 및 위치"
+    },
+    "confirm": {
+      "exportTitle": "활동 로그 내보내기",
+      "exportDesc": "모든 활동 로그를 JSON으로 내보내시겠습니까?"
+    },
     "timeline": {
       "description": "활동 타임라인 보기",
       "title": "타임라인"
@@ -20225,7 +20303,26 @@
     "wsConnected": "실시간",
     "wsConnectedDesc": "실시간 업데이트 활성",
     "errorLoading": "세션 로드 실패",
-    "errorLoadingDesc": "세션 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
+    "errorLoadingDesc": "세션 데이터를 가져올 수 없습니다. 다시 시도해 주세요.",
+    "view": "보기",
+    "cancel": "취소",
+    "live": "실시간",
+    "offline": "오프라인",
+    "current": "현재",
+    "allSessionsTerminated": "모든 세션 종료됨",
+    "allSessionsTerminatedDesc": "모든 세션이 성공적으로 종료되었습니다",
+    "acrossAllUsers": "모든 사용자에서",
+    "ofTotal": "전체 대비",
+    "inactive30min": "30분 이상 비활성",
+    "needCleanup": "정리 필요",
+    "detail": {
+      "sessionInfo": "세션 정보",
+      "deviceLocation": "기기 및 위치"
+    },
+    "confirm": {
+      "terminateTitle": "세션 종료",
+      "terminateDesc": "이 세션을 종료하시겠습니까? 사용자가 로그아웃됩니다."
+    }
   },
   "adminProposals": {
     "title": "제안 관리",
@@ -20860,7 +20957,17 @@
     "exported": "문서 내보내기 완료",
     "exportedDesc": "API 문서를 성공적으로 내보냈습니다",
     "loadError": "문서 로드 실패",
-    "retry": "재시도"
+    "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "endpointInfo": "엔드포인트 정보",
+      "authentication": "인증"
+    },
+    "confirm": {
+      "exportTitle": "API 문서 내보내기",
+      "exportDesc": "모든 API 문서를 JSON으로 내보내시겠습니까?"
+    }
   },
   "adminSdk": {
     "title": "SDK 관리",
@@ -20960,6 +21067,18 @@
     "loadError": "SDK 데이터 로드 실패",
     "error": "오류",
     "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "downloadStarted": "다운로드 시작",
+    "downloadStartedDesc": "다운로드가 시작되었습니다",
+    "detail": {
+      "sdkInfo": "SDK 정보",
+      "installation": "설치"
+    },
+    "confirm": {
+      "downloadTitle": "SDK 다운로드",
+      "downloadDesc": "이 SDK 패키지를 다운로드하시겠습니까?"
+    },
     "metrics": {
       "sdks": "SDK",
       "downloads": "다운로드",
@@ -21087,7 +21206,16 @@
     "compiler": "컴파일러",
     "deployed": "배포됨",
     "transactions": "트랜잭션",
-    "verifiedBadge": "검증됨"
+    "verifiedBadge": "검증됨",
+    "cancel": "취소",
+    "detail": {
+      "contractInfo": "컨트랙트 정보",
+      "statistics": "통계"
+    },
+    "confirm": {
+      "deployTitle": "컨트랙트 배포",
+      "deployDesc": "이 컨트랙트를 네트워크에 배포하시겠습니까?"
+    }
   },
   "adminTestnet": {
     "title": "테스트넷 관리",
@@ -21215,7 +21343,17 @@
     "rateLimiting": "속도 제한",
     "rateLimitingDesc": "파우셋 요청에 대한 속도 제한 활성화",
     "faucetDailyLimit": "일일 파우셋 제한 (TBURN)",
-    "faucetRequestAmount": "파우셋 요청 금액 (TBURN)"
+    "faucetRequestAmount": "파우셋 요청 금액 (TBURN)",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "instanceInfo": "인스턴스 정보",
+      "blockchainStats": "블록체인 통계"
+    },
+    "confirm": {
+      "resetTitle": "테스트넷 초기화",
+      "resetDesc": "이 테스트넷을 초기화하시겠습니까? 모든 데이터가 삭제됩니다."
+    }
   },
   "adminDebug": {
     "title": "디버그 도구",
@@ -21345,7 +21483,19 @@
     "storageSlots": "스토리지 슬롯",
     "warning": "경고",
     "info": "정보",
-    "debug": "디버그"
+    "debug": "디버그",
+    "view": "보기",
+    "cancel": "취소",
+    "logDetails": "로그 상세",
+    "logId": "로그 ID",
+    "detail": {
+      "logInfo": "로그 정보",
+      "metadata": "메타데이터"
+    },
+    "confirm": {
+      "clearTitle": "디버그 로그 삭제",
+      "clearDesc": "모든 디버그 로그를 삭제하시겠습니까?"
+    }
   },
   "adminRealtime": {
     "title": "실시간 모니터링",
@@ -22221,6 +22371,29 @@
       "transactions": "거래",
       "fees": "수수료",
       "settlements": "정산"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "entryInfo": "항목 정보",
+      "accounting": "회계"
+    },
+    "confirm": {
+      "exportTitle": "회계 데이터 내보내기",
+      "exportDesc": "모든 회계 항목을 JSON으로 내보내시겠습니까?"
+    },
+    "entryTypes": {
+      "fee": "수수료",
+      "reward": "보상",
+      "burn": "소각",
+      "transfer": "전송",
+      "bridge": "브릿지"
+    },
+    "timeRanges": {
+      "7d": "7일",
+      "30d": "30일",
+      "90d": "90일",
+      "1y": "1년"
     }
   },
   "adminBudget": {
@@ -22417,6 +22590,16 @@
       "spent": "사용됨",
       "variance": "차이",
       "projected": "예상"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "budgetInfo": "예산 정보",
+      "financial": "재무"
+    },
+    "confirm": {
+      "deleteTitle": "예산 항목 삭제",
+      "deleteDesc": "이 예산 항목을 삭제하시겠습니까?"
     }
   },
   "adminCosts": {
@@ -22526,6 +22709,16 @@
       "savings": "절감",
       "efficiency": "효율성",
       "optimizations": "최적화"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "costInfo": "비용 정보",
+      "budgetAnalysis": "예산 분석"
+    },
+    "confirm": {
+      "exportTitle": "비용 분석 내보내기",
+      "exportDesc": "모든 비용 분석 데이터를 JSON으로 내보내시겠습니까?"
     }
   },
   "adminTax": {
@@ -22688,6 +22881,17 @@
     "loadError": "세금 데이터 로드 실패",
     "error": "오류",
     "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "filedDate": "신고일",
+    "detail": {
+      "reportInfo": "보고서 정보",
+      "filingDetails": "제출 세부사항"
+    },
+    "confirm": {
+      "generateTitle": "세금 보고서 생성",
+      "generateDesc": "이 세금 보고서를 생성하시겠습니까? 몇 분이 소요될 수 있습니다."
+    },
     "metrics": {
       "events": "이벤트",
       "taxable": "과세 대상",

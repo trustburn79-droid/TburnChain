@@ -128,10 +128,48 @@ export default function ApiConfig() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("keys");
   const [showKey, setShowKey] = useState<string | null>(null);
-  const [showKeyDetail, setShowKeyDetail] = useState(false);
-  const [selectedKey, setSelectedKey] = useState<ApiKey | null>(null);
+  const [showApiKeyDetail, setShowApiKeyDetail] = useState(false);
+  const [selectedApiKey, setSelectedApiKey] = useState<ApiKey | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+
+  const getApiKeyDetailSections = (apiKey: ApiKey): DetailSection[] => [
+    {
+      title: t("adminApiConfig.detail.keyInfo"),
+      fields: [
+        { label: t("adminApiConfig.keys.tableName"), value: apiKey.name, type: "text" },
+        { label: t("adminApiConfig.keys.tableKey"), value: apiKey.key, type: "code", copyable: true },
+        { 
+          label: t("adminApiConfig.keys.tableStatus"), 
+          value: t(`adminApiConfig.keys.status.${apiKey.status}`), 
+          type: "badge",
+          badgeVariant: apiKey.status === "active" ? "default" : apiKey.status === "expired" ? "destructive" : "secondary"
+        },
+        { label: t("adminApiConfig.detail.createdAt"), value: apiKey.createdAt, type: "date" },
+        { label: t("adminApiConfig.keys.tableLastUsed"), value: apiKey.lastUsed, type: "date" },
+      ],
+    },
+    {
+      title: t("adminApiConfig.detail.permissions"),
+      fields: [
+        { 
+          label: t("adminApiConfig.keys.permissions"), 
+          value: apiKey.permissions.map(p => t(`adminApiConfig.keys.perm.${p}`)).join(", "), 
+          type: "text" 
+        },
+        { label: t("adminApiConfig.keys.rateLimit"), value: `${apiKey.rateLimit.toLocaleString()}/min`, type: "text" },
+        { label: t("adminApiConfig.keys.tableUsage"), value: apiKey.usageCount.toLocaleString(), type: "text" },
+      ],
+    },
+  ];
+
+  const confirmDelete = () => {
+    if (pendingDeleteId) {
+      deleteKeyMutation.mutate(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
+    }
+  };
 
   const { data: apiConfig, isLoading, error, refetch } = useQuery<ApiConfigData>({
     queryKey: ["/api/admin/config/api"],
@@ -489,6 +527,17 @@ export default function ApiConfig() {
                           <TableCell className="text-muted-foreground text-sm">{key.lastUsed}</TableCell>
                           <TableCell>
                             <div className="flex gap-1">
+                              <Button 
+                                variant="ghost" 
+                                size="icon"
+                                onClick={() => {
+                                  setSelectedApiKey(key);
+                                  setShowApiKeyDetail(true);
+                                }}
+                                data-testid={`button-view-key-${key.id}`}
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Button>
                               <Button variant="ghost" size="icon" data-testid={`button-settings-key-${key.id}`}>
                                 <Settings className="h-4 w-4" />
                               </Button>
@@ -499,7 +548,10 @@ export default function ApiConfig() {
                                 variant="ghost" 
                                 size="icon" 
                                 className="text-red-500"
-                                onClick={() => deleteKeyMutation.mutate(key.id)}
+                                onClick={() => {
+                                  setPendingDeleteId(key.id);
+                                  setShowDeleteConfirm(true);
+                                }}
                                 data-testid={`button-delete-key-${key.id}`}
                               >
                                 <Trash2 className="h-4 w-4" />
@@ -738,6 +790,28 @@ export default function ApiConfig() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedApiKey && (
+        <DetailSheet
+          open={showApiKeyDetail}
+          onOpenChange={setShowApiKeyDetail}
+          title={selectedApiKey.name}
+          description={t("adminApiConfig.detail.description")}
+          icon={Key}
+          sections={getApiKeyDetailSections(selectedApiKey)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showDeleteConfirm}
+        onOpenChange={setShowDeleteConfirm}
+        title={t("adminApiConfig.confirm.deleteTitle")}
+        description={t("adminApiConfig.confirm.deleteDesc")}
+        confirmText={t("adminApiConfig.confirm.delete")}
+        cancelText={t("adminApiConfig.cancel")}
+        onConfirm={confirmDelete}
+        destructive={true}
+      />
     </div>
   );
 }

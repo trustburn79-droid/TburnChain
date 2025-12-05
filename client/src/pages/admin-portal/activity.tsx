@@ -12,6 +12,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Activity,
   Search,
@@ -122,6 +124,9 @@ export default function ActivityMonitor() {
   const [timeRange, setTimeRange] = useState("24h");
   const [wsConnected, setWsConnected] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
+  const [showActivityDetail, setShowActivityDetail] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState<ActivityLog | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: activityData, isLoading, error, refetch } = useQuery<ActivityData>({
     queryKey: ["/api/admin/activity", `timeRange=${timeRange}`],
@@ -180,7 +185,7 @@ export default function ActivityMonitor() {
     });
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const performExport = useCallback(() => {
     const dataStr = JSON.stringify(activityData, null, 2);
     const blob = new Blob([dataStr], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -193,7 +198,42 @@ export default function ActivityMonitor() {
       title: t("adminActivity.exported"),
       description: t("adminActivity.exportedDesc"),
     });
+    setShowExportConfirm(false);
   }, [activityData, toast, t]);
+
+  const getActivityDetailSections = useCallback((activity: ActivityLog): DetailSection[] => {
+    const getStatusBadgeColor = (status: string) => {
+      switch (status) {
+        case "success": return "bg-green-500/10 text-green-500";
+        case "failed": return "bg-red-500/10 text-red-500";
+        case "warning": return "bg-yellow-500/10 text-yellow-500";
+        default: return "";
+      }
+    };
+
+    return [
+      {
+        title: t("adminActivity.detail.activityInfo"),
+        fields: [
+          { label: t("adminActivity.action"), value: activity.action, type: "text" },
+          { label: t("common.type"), value: activity.actionType, type: "badge", badgeVariant: "outline" },
+          { label: t("adminActivity.resource"), value: activity.target, type: "text" },
+          { label: t("common.status"), value: t(`adminActivity.status.${activity.status}`), type: "badge", badgeColor: getStatusBadgeColor(activity.status) },
+          { label: t("adminActivity.timestamp"), value: activity.timestamp, type: "date" },
+        ],
+      },
+      {
+        title: t("adminActivity.detail.userLocation"),
+        fields: [
+          { label: t("common.name"), value: activity.user.name, type: "text" },
+          { label: t("adminAccounts.email"), value: activity.user.email, type: "text" },
+          { label: t("adminActivity.ipAddress"), value: activity.ip, type: "code", copyable: true },
+          { label: t("adminSessions.device"), value: activity.device, type: "text" },
+          { label: t("adminSessions.location"), value: activity.location, type: "text" },
+        ],
+      },
+    ];
+  }, [t]);
 
   const mockActivityLogs: ActivityLog[] = [
     { id: "1", user: { name: "John Admin", email: "john@tburn.io" }, action: t("adminActivity.actions.loggedIn"), actionType: "login", target: "Admin Portal", ip: "192.168.1.100", device: "Chrome on MacOS", location: "Seoul, KR", timestamp: "2024-12-04 14:45:23", status: "success" },
@@ -281,7 +321,7 @@ export default function ActivityMonitor() {
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={handleExport} data-testid="button-export">
+            <Button variant="outline" onClick={() => setShowExportConfirm(true)} data-testid="button-export">
               <Download className="h-4 w-4 mr-2" />
               {t("adminActivity.export")}
             </Button>
@@ -439,6 +479,17 @@ export default function ActivityMonitor() {
                           </span>
                         </div>
                       </div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => {
+                          setSelectedActivity(log);
+                          setShowActivityDetail(true);
+                        }}
+                        data-testid={`button-view-activity-${log.id}`}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
                     </div>
                   ))}
                 </div>
@@ -513,6 +564,28 @@ export default function ActivityMonitor() {
             )}
           </CardContent>
         </Card>
+
+        {selectedActivity && (
+          <DetailSheet
+            open={showActivityDetail}
+            onOpenChange={setShowActivityDetail}
+            title={selectedActivity.action}
+            subtitle={selectedActivity.id}
+            icon={<Activity className="h-5 w-5" />}
+            sections={getActivityDetailSections(selectedActivity)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showExportConfirm}
+          onOpenChange={setShowExportConfirm}
+          title={t("adminActivity.confirm.exportTitle")}
+          description={t("adminActivity.confirm.exportDesc")}
+          onConfirm={performExport}
+          confirmText={t("adminActivity.export")}
+          cancelText={t("adminActivity.cancel")}
+          destructive={false}
+        />
       </div>
     </div>
   );

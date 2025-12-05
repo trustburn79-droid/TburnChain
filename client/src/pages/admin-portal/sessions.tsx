@@ -15,6 +15,8 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Monitor,
   Search,
@@ -33,6 +35,7 @@ import {
   AlertCircle,
   Wifi,
   WifiOff,
+  Eye,
 } from "lucide-react";
 
 interface Session {
@@ -129,6 +132,10 @@ export default function Sessions() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [wsConnected, setWsConnected] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
+  const [showSessionDetail, setShowSessionDetail] = useState(false);
+  const [selectedSession, setSelectedSession] = useState<Session | null>(null);
+  const [showTerminateConfirm, setShowTerminateConfirm] = useState(false);
+  const [pendingTerminateId, setPendingTerminateId] = useState<string | null>(null);
 
   const { data: sessionsData, isLoading, error, refetch } = useQuery<SessionsData>({
     queryKey: ["/api/admin/sessions"],
@@ -281,6 +288,43 @@ export default function Sessions() {
       case "idle": return "bg-yellow-500";
       case "expired": return "bg-red-500";
       default: return "bg-gray-500";
+    }
+  };
+
+  const getSessionDetailSections = (session: Session): DetailSection[] => [
+    {
+      title: t("adminSessions.detail.sessionInfo"),
+      fields: [
+        { label: t("common.name"), value: session.user.name },
+        { label: t("common.email"), value: session.user.email },
+        { 
+          label: t("common.status"), 
+          value: t(`adminSessions.statusTypes.${session.status}`), 
+          type: "badge" as const,
+          badgeColor: getStatusColor(session.status)
+        },
+        { label: t("adminSessions.sessionsTable.started"), value: session.startTime, type: "date" as const },
+        { label: t("adminSessions.sessionsTable.lastActivity"), value: session.lastActivity },
+      ],
+    },
+    {
+      title: t("adminSessions.detail.deviceLocation"),
+      fields: [
+        { label: t("adminSessions.sessionsTable.device"), value: session.device },
+        { label: t("common.type"), value: session.deviceType },
+        { label: "Browser", value: session.browser },
+        { label: "OS", value: session.os },
+        { label: "IP", value: session.ip, copyable: true },
+        { label: t("adminSessions.sessionsTable.location"), value: session.location },
+      ],
+    },
+  ];
+
+  const confirmTerminate = () => {
+    if (pendingTerminateId) {
+      terminateSessionMutation.mutate(pendingTerminateId);
+      setShowTerminateConfirm(false);
+      setPendingTerminateId(null);
     }
   };
 
@@ -560,6 +604,17 @@ export default function Sessions() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-1">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            onClick={() => {
+                              setSelectedSession(session);
+                              setShowSessionDetail(true);
+                            }}
+                            data-testid={`button-view-${session.id}`}
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
                           <Button variant="ghost" size="icon" disabled={session.isCurrent} data-testid={`button-key-${session.id}`}>
                             <Key className="h-4 w-4" />
                           </Button>
@@ -568,7 +623,10 @@ export default function Sessions() {
                             size="icon" 
                             className="text-red-500"
                             disabled={session.isCurrent}
-                            onClick={() => terminateSessionMutation.mutate(session.id)}
+                            onClick={() => {
+                              setPendingTerminateId(session.id);
+                              setShowTerminateConfirm(true);
+                            }}
                             data-testid={`button-terminate-${session.id}`}
                           >
                             <LogOut className="h-4 w-4" />
@@ -608,6 +666,43 @@ export default function Sessions() {
           </CardContent>
         </Card>
       </div>
+
+      {selectedSession && (
+        <DetailSheet
+          open={showSessionDetail}
+          onOpenChange={setShowSessionDetail}
+          title={selectedSession.user.name}
+          subtitle={selectedSession.user.email}
+          icon={<Monitor className="h-5 w-5" />}
+          sections={getSessionDetailSections(selectedSession)}
+          actions={[
+            {
+              label: t("adminSessions.terminate"),
+              icon: <LogOut className="h-4 w-4" />,
+              onClick: () => {
+                setPendingTerminateId(selectedSession.id);
+                setShowSessionDetail(false);
+                setShowTerminateConfirm(true);
+              },
+              variant: "destructive",
+              disabled: selectedSession.isCurrent,
+            },
+          ]}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showTerminateConfirm}
+        onOpenChange={setShowTerminateConfirm}
+        title={t("adminSessions.confirm.terminateTitle")}
+        description={t("adminSessions.confirm.terminateDesc")}
+        actionType="terminate"
+        onConfirm={confirmTerminate}
+        isLoading={terminateSessionMutation.isPending}
+        destructive={true}
+        confirmText={t("adminSessions.terminate")}
+        cancelText={t("adminSessions.cancel")}
+      />
     </div>
   );
 }

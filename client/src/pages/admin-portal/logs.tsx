@@ -12,6 +12,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   AlertCircle,
   AlertTriangle,
@@ -19,6 +21,7 @@ import {
   CheckCircle2,
   Clock,
   Download,
+  Eye,
   FileText,
   Filter,
   Info,
@@ -98,6 +101,10 @@ export default function AdminLogs() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [autoScroll, setAutoScroll] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
+  const [showLogDetail, setShowLogDetail] = useState(false);
+  const [selectedLog, setSelectedLog] = useState<LogEntry | null>(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const logSources = ["All", "Consensus", "Bridge", "AI", "Network", "Storage", "Security", "Database", "Mempool"];
 
@@ -178,6 +185,75 @@ export default function AdminLogs() {
       default: return "";
     }
   };
+
+  const getLevelBadgeProps = (level: string) => {
+    switch (level) {
+      case "error":
+        return { variant: "destructive" as const, color: "bg-red-500/10 text-red-500" };
+      case "warn":
+        return { variant: "secondary" as const, color: "bg-yellow-500/10 text-yellow-500" };
+      case "info":
+        return { variant: "secondary" as const, color: "bg-blue-500/10 text-blue-500" };
+      case "debug":
+        return { variant: "secondary" as const, color: "" };
+      default:
+        return { variant: "outline" as const, color: "" };
+    }
+  };
+
+  const getLogDetailSections = (log: LogEntry): DetailSection[] => {
+    const sections: DetailSection[] = [
+      {
+        title: t("adminLogs.detail.logEntry"),
+        fields: [
+          {
+            label: t("adminLogs.level"),
+            value: log.level.toUpperCase(),
+            type: "badge" as const,
+            badgeVariant: getLevelBadgeProps(log.level).variant,
+            badgeColor: getLevelBadgeProps(log.level).color,
+          },
+          {
+            label: t("dashboard.timestamp"),
+            value: new Date(log.timestamp).toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US'),
+            type: "text" as const,
+          },
+          {
+            label: t("adminLogs.source"),
+            value: log.source,
+            type: "text" as const,
+          },
+          {
+            label: t("common.description"),
+            value: log.message,
+            type: "text" as const,
+          },
+        ],
+      },
+    ];
+
+    if (log.metadata && Object.keys(log.metadata).length > 0) {
+      sections.push({
+        title: t("adminLogs.detail.metadata"),
+        fields: Object.entries(log.metadata).map(([key, value]) => ({
+          label: key,
+          value: typeof value === "object" ? JSON.stringify(value) : String(value),
+          type: "code" as const,
+          copyable: true,
+        })),
+      });
+    }
+
+    return sections;
+  };
+
+  const confirmClear = useCallback(() => {
+    toast({
+      title: t("adminLogs.clearSuccess"),
+      description: t("adminLogs.clearSuccessDesc"),
+    });
+    setShowClearConfirm(false);
+  }, [toast, t]);
 
   useEffect(() => {
     let ws: WebSocket | null = null;
@@ -265,7 +341,13 @@ export default function AdminLogs() {
       title: t("adminLogs.exportSuccess"),
       description: t("adminLogs.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [logStats, filteredLogs, toast, t]);
+
+  const handleViewLog = useCallback((log: LogEntry) => {
+    setSelectedLog(log);
+    setShowLogDetail(true);
+  }, []);
 
   const formatTimestamp = (date: Date) => {
     return new Date(date).toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', {
@@ -357,13 +439,26 @@ export default function AdminLogs() {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={handleExport}
+                      onClick={() => setShowExportConfirm(true)}
                       data-testid="button-export"
                     >
                       <Download className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>{t("adminLogs.export")}</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => setShowClearConfirm(true)}
+                      data-testid="button-clear"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminLogs.clearLogs")}</TooltipContent>
                 </Tooltip>
               </div>
             </div>
@@ -518,6 +613,15 @@ export default function AdminLogs() {
                             {getLevelBadge(log.level)}
                             <span className="text-blue-500 whitespace-nowrap text-xs" data-testid={`log-source-${index}`}>[{log.source}]</span>
                             <span className={`flex-1 ${getLevelColor(log.level)}`} data-testid={`log-message-${index}`}>{log.message}</span>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-6 w-6 shrink-0"
+                              onClick={() => handleViewLog(log)}
+                              data-testid={`button-view-log-${index}`}
+                            >
+                              <Eye className="h-3 w-3" />
+                            </Button>
                           </div>
                         ))}
                         {filteredLogs.length === 0 && (
@@ -621,6 +725,36 @@ export default function AdminLogs() {
           </Tabs>
         </div>
       </div>
+
+      {selectedLog && (
+        <DetailSheet
+          open={showLogDetail}
+          onOpenChange={setShowLogDetail}
+          title={t("adminLogs.detail.logEntry")}
+          subtitle={selectedLog.id}
+          icon={<FileText className="h-5 w-5" />}
+          sections={getLogDetailSections(selectedLog)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showClearConfirm}
+        onOpenChange={setShowClearConfirm}
+        title={t("adminLogs.confirm.clearTitle")}
+        description={t("adminLogs.confirm.clearDesc")}
+        actionType="delete"
+        onConfirm={confirmClear}
+        destructive={true}
+      />
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminLogs.confirm.exportTitle")}
+        description={t("adminLogs.confirm.exportDesc")}
+        onConfirm={handleExport}
+        destructive={false}
+      />
     </TooltipProvider>
   );
 }

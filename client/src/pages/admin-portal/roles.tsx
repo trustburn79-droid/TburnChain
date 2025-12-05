@@ -13,6 +13,8 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Shield,
   ShieldCheck,
@@ -28,6 +30,7 @@ import {
   RefreshCw,
   Download,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 
 interface Role {
@@ -108,6 +111,10 @@ export default function AdminRoles() {
   const { toast } = useToast();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+  const [showRoleDetail, setShowRoleDetail] = useState(false);
+  const [detailRole, setDetailRole] = useState<Role | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: rolesData, isLoading, error, refetch } = useQuery<RolesData>({
     queryKey: ["/api/admin/roles"],
@@ -268,6 +275,49 @@ export default function AdminRoles() {
     }
   };
 
+  const getRoleDetailSections = (role: Role): DetailSection[] => {
+    return [
+      {
+        title: t("adminRoles.detail.roleInfo"),
+        icon: <Shield className="h-4 w-4" />,
+        fields: [
+          { label: t("common.name"), value: role.name },
+          { label: t("common.description"), value: role.description },
+          { 
+            label: t("adminRoles.system"), 
+            value: role.isSystem ? t("common.yes") : t("common.no"), 
+            type: "badge" as const,
+            badgeVariant: role.isSystem ? "secondary" : "outline"
+          },
+          { label: t("adminRoles.metrics.totalUsers"), value: role.userCount },
+        ],
+      },
+      {
+        title: t("adminRoles.detail.permissions"),
+        icon: <Lock className="h-4 w-4" />,
+        fields: role.permissions.map((perm) => ({
+          label: perm,
+          value: permissions.find(p => p.id === perm)?.name || perm,
+          type: "badge" as const,
+          badgeVariant: "secondary" as const,
+        })),
+      },
+    ];
+  };
+
+  const confirmDelete = useCallback((roleId: string) => {
+    setPendingDeleteId(roleId);
+    setShowDeleteConfirm(true);
+  }, []);
+
+  const handleConfirmDelete = useCallback(async () => {
+    if (pendingDeleteId) {
+      await deleteRoleMutation.mutateAsync(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
+    }
+  }, [pendingDeleteId, deleteRoleMutation]);
+
   if (error) {
     return (
       <div className="flex-1 overflow-auto" data-testid="roles-error-container">
@@ -395,9 +445,23 @@ export default function AdminRoles() {
                             <Badge variant="outline" className="ml-2 text-xs">{t("adminRoles.system")}</Badge>
                           )}
                         </div>
-                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                          <Users className="h-3 w-3" />
-                          {role.userCount}
+                        <div className="flex items-center gap-2">
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setDetailRole(role);
+                              setShowRoleDetail(true);
+                            }}
+                            data-testid={`button-view-role-${role.id}`}
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                            <Users className="h-3 w-3" />
+                            {role.userCount}
+                          </div>
                         </div>
                       </div>
                       <p className="text-sm text-muted-foreground">{role.description}</p>
@@ -434,7 +498,7 @@ export default function AdminRoles() {
                       size="sm" 
                       variant="outline" 
                       className="text-red-500"
-                      onClick={() => deleteRoleMutation.mutate(selectedRole.id)}
+                      onClick={() => confirmDelete(selectedRole.id)}
                       data-testid="button-delete-role"
                     >
                       <Trash2 className="h-4 w-4 mr-1" />
@@ -546,6 +610,30 @@ export default function AdminRoles() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        {detailRole && (
+          <DetailSheet
+            open={showRoleDetail}
+            onOpenChange={setShowRoleDetail}
+            title={detailRole.name}
+            subtitle={detailRole.id}
+            icon={<Shield className="h-5 w-5" />}
+            sections={getRoleDetailSections(detailRole)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showDeleteConfirm}
+          onOpenChange={setShowDeleteConfirm}
+          title={t("adminRoles.confirm.deleteTitle")}
+          description={t("adminRoles.confirm.deleteDesc")}
+          actionType="delete"
+          onConfirm={handleConfirmDelete}
+          isLoading={deleteRoleMutation.isPending}
+          destructive={true}
+          confirmText={t("common.delete")}
+          cancelText={t("adminRoles.cancel")}
+        />
       </div>
     </div>
   );

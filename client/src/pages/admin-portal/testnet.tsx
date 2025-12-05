@@ -14,6 +14,8 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   FlaskConical,
   RefreshCw,
@@ -33,6 +35,7 @@ import {
   RotateCcw,
   AlertCircle,
   Download,
+  Eye,
 } from "lucide-react";
 
 interface TestnetInstance {
@@ -72,6 +75,10 @@ export default function TestnetManagement() {
   const [activeTab, setActiveTab] = useState("instances");
   const [faucetAddress, setFaucetAddress] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showInstanceDetail, setShowInstanceDetail] = useState(false);
+  const [selectedInstance, setSelectedInstance] = useState<TestnetInstance | null>(null);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [pendingResetId, setPendingResetId] = useState<string | null>(null);
 
   const { data: testnetData, isLoading, error, refetch } = useQuery<TestnetData>({
     queryKey: ["/api/admin/testnet"],
@@ -219,6 +226,50 @@ export default function TestnetManagement() {
       description: t("adminTestnet.copiedToClipboard"),
     });
   }, [toast, t]);
+
+  const getInstanceDetailSections = (instance: TestnetInstance): DetailSection[] => {
+    const statusColors: Record<string, string> = {
+      running: "bg-green-500/10 text-green-500",
+      stopped: "bg-red-500/10 text-red-500",
+      syncing: "bg-yellow-500/10 text-yellow-500",
+    };
+
+    return [
+      {
+        title: t("adminTestnet.detail.instanceInfo"),
+        icon: <Server className="h-4 w-4" />,
+        fields: [
+          { label: t("common.name"), value: instance.name },
+          { label: t("adminTestnet.chainId"), value: instance.chainId },
+          { label: t("common.status"), value: t(`adminTestnet.status.${instance.status}`), type: "status" as const, badgeColor: statusColors[instance.status] },
+          { label: t("adminTestnet.nodes"), value: instance.nodes },
+          { label: t("adminTestnet.uptime"), value: instance.uptime },
+        ],
+      },
+      {
+        title: t("adminTestnet.detail.blockchainStats"),
+        icon: <Activity className="h-4 w-4" />,
+        fields: [
+          { label: t("adminTestnet.blockHeight"), value: instance.blockHeight.toLocaleString() },
+          { label: t("adminTestnet.tps"), value: instance.tps.toLocaleString() },
+          { label: t("adminTestnet.created"), value: instance.createdAt, type: "date" as const },
+        ],
+      },
+    ];
+  };
+
+  const confirmReset = useCallback((instanceId: string) => {
+    setPendingResetId(instanceId);
+    setShowResetConfirm(true);
+  }, []);
+
+  const handleConfirmReset = useCallback(() => {
+    if (pendingResetId) {
+      resetMutation.mutate(pendingResetId);
+      setShowResetConfirm(false);
+      setPendingResetId(null);
+    }
+  }, [pendingResetId, resetMutation]);
 
   if (error) {
     return (
@@ -385,12 +436,24 @@ export default function TestnetManagement() {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          onClick={() => resetMutation.mutate(instance.id)}
+                          onClick={() => confirmReset(instance.id)}
                           disabled={resetMutation.isPending}
                           data-testid={`button-reset-${index}`}
                         >
                           <RotateCcw className="h-4 w-4 mr-1" />
                           {t("adminTestnet.reset")}
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            setSelectedInstance(instance);
+                            setShowInstanceDetail(true);
+                          }}
+                          data-testid={`button-view-${index}`}
+                        >
+                          <Eye className="h-4 w-4 mr-1" />
+                          {t("adminTestnet.view")}
                         </Button>
                         <Button variant="outline" size="sm" data-testid={`button-settings-${index}`}>
                           <Settings className="h-4 w-4" />
@@ -447,7 +510,7 @@ export default function TestnetManagement() {
                       </div>
                       <div className="space-y-1">
                         <p className="text-sm text-muted-foreground">{t("adminTestnet.explorer")}</p>
-                        <Button variant="link" size="sm" className="h-auto p-0" data-testid={`button-explorer-${index}`}>
+                        <Button variant="ghost" size="sm" className="h-auto p-0" data-testid={`button-explorer-${index}`}>
                           <ExternalLink className="h-3 w-3 mr-1" />
                           {t("adminTestnet.viewExplorer")}
                         </Button>
@@ -623,6 +686,30 @@ export default function TestnetManagement() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedInstance && (
+        <DetailSheet
+          open={showInstanceDetail}
+          onOpenChange={setShowInstanceDetail}
+          title={selectedInstance.name}
+          subtitle={`${t("adminTestnet.chainId")}: ${selectedInstance.chainId}`}
+          icon={<FlaskConical className="h-5 w-5" />}
+          sections={getInstanceDetailSections(selectedInstance)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showResetConfirm}
+        onOpenChange={setShowResetConfirm}
+        title={t("adminTestnet.confirm.resetTitle")}
+        description={t("adminTestnet.confirm.resetDesc")}
+        actionType="restart"
+        confirmText={t("adminTestnet.reset")}
+        cancelText={t("adminTestnet.cancel")}
+        onConfirm={handleConfirmReset}
+        isLoading={resetMutation.isPending}
+        destructive={true}
+      />
     </div>
   );
 }
