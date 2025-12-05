@@ -17882,6 +17882,12 @@
   "adminEmergency": {
     "title": "긴급 제어",
     "subtitle": "중요 시스템 제어 및 회로 차단기",
+    "mainnet": "메인넷",
+    "bridge": "브릿지",
+    "consensus": "합의",
+    "ai": "AI",
+    "database": "데이터베이스",
+    "actionHistory": "조치 기록",
     "emergencyActions": "긴급 조치",
     "emergencyActionsDesc": "중요 시스템 종료 제어",
     "circuitBreakers": "회로 차단기",

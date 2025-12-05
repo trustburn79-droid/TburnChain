@@ -17980,6 +17980,12 @@
   "adminEmergency": {
     "title": "Emergency Controls",
     "subtitle": "Critical system control and circuit breakers",
+    "mainnet": "Mainnet",
+    "bridge": "Bridge",
+    "consensus": "Consensus",
+    "ai": "AI",
+    "database": "Database",
+    "actionHistory": "Action History",
     "emergencyActions": "Emergency Actions",
     "emergencyActionsDesc": "Critical system shutdown controls",
     "circuitBreakers": "Circuit Breakers",
