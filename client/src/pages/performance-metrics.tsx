@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useEnterpriseShards } from "@/hooks/use-enterprise-shards";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
@@ -277,6 +278,13 @@ export default function PerformanceMetrics() {
   const [selectedDialog, setSelectedDialog] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
   
+  const { 
+    totalValidators: enterpriseValidators, 
+    totalShards,
+    config: shardConfig,
+    isLoading: shardsLoading 
+  } = useEnterpriseShards();
+
   const { lastMessage, isConnected } = useWebSocket();
   
   const { data: stats, isLoading: isStatsLoading, refetch: refetchStats } = useQuery<NetworkStats>({
@@ -840,21 +848,21 @@ export default function PerformanceMetrics() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <StatCardWithDialog
               title={t("metrics.totalValidators")}
-              value={validatorStats?.totalValidators || 512}
+              value={validatorStats?.totalValidators || enterpriseValidators}
               icon={Users}
               iconColor="text-blue-600"
               trend="up"
-              trendValue={`+${Math.floor(Math.random() * 5)} ${t("metrics.thisWeek")}`}
-              isLoading={!validatorStats}
+              trendValue={`${totalShards} ${t("metrics.shards")}, ${shardConfig?.validatorsPerShard || 25}/shard`}
+              isLoading={!validatorStats && shardsLoading}
               testId="card-total-validators"
             />
             <StatCardWithDialog
               title={t("metrics.activeValidators")}
-              value={validatorStats?.activeValidators || 498}
+              value={validatorStats?.activeValidators || Math.floor(enterpriseValidators * 0.98)}
               icon={CheckCircle}
               iconColor="text-green-600"
-              trendValue={`${((validatorStats?.activeValidators || 498) / (validatorStats?.totalValidators || 512) * 100).toFixed(1)}% ${t("metrics.online")}`}
-              isLoading={!validatorStats}
+              trendValue={`${((validatorStats?.activeValidators || Math.floor(enterpriseValidators * 0.98)) / (validatorStats?.totalValidators || enterpriseValidators) * 100).toFixed(1)}% ${t("metrics.online")}`}
+              isLoading={!validatorStats && shardsLoading}
               testId="card-active-validators"
             />
             <StatCardWithDialog
