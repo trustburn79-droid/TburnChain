@@ -18,9 +18,12 @@ import { queryClient } from "@/lib/queryClient";
 import { 
   Flame, Clock, TrendingUp, Brain, Calendar, Target, 
   History, Settings, AlertTriangle, Zap, BarChart3,
-  RefreshCw, Download, Wifi, WifiOff
+  RefreshCw, Download, Wifi, WifiOff, Eye, Pause, Play
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
+import { DetailSheet } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
+import { apiRequest } from "@/lib/queryClient";
 
 interface BurnStats {
   totalBurned: string;
@@ -71,6 +74,9 @@ export default function AdminBurnControl() {
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [selectedBurn, setSelectedBurn] = useState<ScheduledBurn | null>(null);
+  const [burnToToggle, setBurnToToggle] = useState<ScheduledBurn | null>(null);
+  const [showSaveConfirm, setShowSaveConfirm] = useState(false);
 
   const { data, isLoading, error, refetch } = useQuery<BurnData>({
     queryKey: ['/api/admin/burn/stats'],
@@ -161,15 +167,11 @@ export default function AdminBurnControl() {
 
   const updateRatesMutation = useMutation({
     mutationFn: async (data: { txBurnRate: number; timeBurnRate: number }) => {
-      const response = await fetch('/api/admin/burn/rates', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error('Failed to update rates');
+      const response = await apiRequest('POST', '/api/admin/burn/rates', data);
       return response.json();
     },
     onSuccess: () => {
+      setShowSaveConfirm(false);
       toast({
         title: t("adminBurnControl.ratesUpdated"),
         description: t("adminBurnControl.ratesUpdatedDesc"),
@@ -177,6 +179,37 @@ export default function AdminBurnControl() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/burn/stats'] });
     },
   });
+
+  const toggleBurnMutation = useMutation({
+    mutationFn: async (data: { burnId: number; action: 'pause' | 'resume' }) => {
+      const response = await apiRequest('POST', `/api/admin/burn/scheduled/${data.burnId}/${data.action}`);
+      return response.json();
+    },
+    onSuccess: () => {
+      setBurnToToggle(null);
+      toast({
+        title: t("adminBurnControl.statusUpdated"),
+        description: t("adminBurnControl.statusUpdatedDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/burn/stats'] });
+    },
+  });
+
+  const confirmSaveRates = useCallback(() => {
+    updateRatesMutation.mutate({
+      txBurnRate: txBurnRate[0],
+      timeBurnRate: timeBurnRate[0],
+    });
+  }, [txBurnRate, timeBurnRate, updateRatesMutation]);
+
+  const confirmToggleBurn = useCallback(() => {
+    if (burnToToggle) {
+      toggleBurnMutation.mutate({
+        burnId: burnToToggle.id,
+        action: burnToToggle.status === 'active' ? 'pause' : 'resume',
+      });
+    }
+  }, [burnToToggle, toggleBurnMutation]);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -468,7 +501,7 @@ export default function AdminBurnControl() {
 
             <div className="flex justify-end">
               <Button 
-                onClick={() => updateRatesMutation.mutate({ txBurnRate: txBurnRate[0], timeBurnRate: timeBurnRate[0] })}
+                onClick={() => setShowSaveConfirm(true)}
                 disabled={updateRatesMutation.isPending}
                 data-testid="button-update-rates"
               >
@@ -592,9 +625,25 @@ export default function AdminBurnControl() {
                             </TableCell>
                             <TableCell className="text-muted-foreground">{burn.nextRun}</TableCell>
                             <TableCell>
-                              <Button size="sm" variant="ghost" data-testid={`button-edit-schedule-${burn.id}`}>
-                                {t("adminBurnControl.edit")}
-                              </Button>
+                              <div className="flex gap-1">
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  onClick={() => setSelectedBurn(burn)}
+                                  data-testid={`button-view-schedule-${burn.id}`}
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </Button>
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  onClick={() => setBurnToToggle(burn)}
+                                  disabled={toggleBurnMutation.isPending}
+                                  data-testid={`button-toggle-schedule-${burn.id}`}
+                                >
+                                  {burn.status === "active" ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                                </Button>
+                              </div>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -680,6 +729,54 @@ export default function AdminBurnControl() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <DetailSheet
+        open={!!selectedBurn}
+        onOpenChange={(open) => !open && setSelectedBurn(null)}
+        title={t("adminBurnControl.detail.title")}
+        sections={selectedBurn ? [
+          {
+            title: t("adminBurnControl.detail.overview"),
+            fields: [
+              { label: t("adminBurnControl.detail.id"), value: String(selectedBurn.id), copyable: true },
+              { label: t("adminBurnControl.detail.type"), value: selectedBurn.type, type: "badge" as const },
+              { label: t("adminBurnControl.detail.status"), value: selectedBurn.status, type: "badge" as const, badgeVariant: selectedBurn.status === "active" ? "default" as const : "secondary" as const },
+            ],
+          },
+          {
+            title: t("adminBurnControl.detail.schedule"),
+            fields: [
+              { label: t("adminBurnControl.detail.amount"), value: selectedBurn.amount },
+              { label: t("adminBurnControl.detail.scheduleType"), value: selectedBurn.schedule },
+              { label: t("adminBurnControl.detail.nextRun"), value: selectedBurn.nextRun },
+            ],
+          },
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={!!burnToToggle}
+        onOpenChange={(open) => !open && setBurnToToggle(null)}
+        title={burnToToggle?.status === 'active' ? t("adminBurnControl.confirmPause.title") : t("adminBurnControl.confirmResume.title")}
+        description={burnToToggle?.status === 'active' 
+          ? t("adminBurnControl.confirmPause.description", { type: burnToToggle?.type })
+          : t("adminBurnControl.confirmResume.description", { type: burnToToggle?.type })
+        }
+        confirmText={burnToToggle?.status === 'active' ? t("adminBurnControl.pause") : t("adminBurnControl.resume")}
+        onConfirm={confirmToggleBurn}
+        destructive={burnToToggle?.status === 'active'}
+        isLoading={toggleBurnMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={showSaveConfirm}
+        onOpenChange={setShowSaveConfirm}
+        title={t("adminBurnControl.confirmSave.title")}
+        description={t("adminBurnControl.confirmSave.description", { txRate: txBurnRate[0], timeRate: timeBurnRate[0] })}
+        confirmText={t("adminBurnControl.save")}
+        onConfirm={confirmSaveRates}
+        isLoading={updateRatesMutation.isPending}
+      />
     </ScrollArea>
   );
 }

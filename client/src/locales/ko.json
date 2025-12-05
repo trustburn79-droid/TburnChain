@@ -15617,7 +15617,34 @@
       "title": "토큰 데이터 로드 실패",
       "description": "토큰 발행 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "재시도"
+    "retry": "재시도",
+    "enabled": "활성화됨",
+    "disabled": "비활성화됨",
+    "pause": "일시 중지",
+    "resume": "재개",
+    "detail": {
+      "title": "토큰 상세 정보",
+      "overview": "개요",
+      "tokenId": "토큰 ID",
+      "name": "토큰 이름",
+      "symbol": "심볼",
+      "standard": "토큰 표준",
+      "status": "상태",
+      "supplyInfo": "공급 정보",
+      "totalSupply": "총 공급량",
+      "circulatingSupply": "순환 공급량",
+      "holders": "총 보유자",
+      "features": "기능",
+      "aiEnabled": "AI 기능"
+    },
+    "confirmPause": {
+      "title": "토큰 일시 중지",
+      "description": "{{name}} ({{symbol}})을(를) 일시 중지하시겠습니까? 모든 전송이 중단됩니다."
+    },
+    "confirmResume": {
+      "title": "토큰 재개",
+      "description": "{{name}} ({{symbol}})을(를) 재개하시겠습니까? 전송이 다시 활성화됩니다."
+    }
   },
   "adminBurnControl": {
     "title": "소각 제어",
@@ -15698,7 +15725,35 @@
       "title": "소각 데이터 로드 실패",
       "description": "소각 제어 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "재시도"
+    "retry": "재시도",
+    "pause": "일시 중지",
+    "resume": "재개",
+    "save": "저장",
+    "statusUpdated": "상태 업데이트됨",
+    "statusUpdatedDesc": "소각 스케줄 상태가 성공적으로 업데이트되었습니다",
+    "detail": {
+      "title": "소각 스케줄 상세 정보",
+      "overview": "개요",
+      "id": "스케줄 ID",
+      "type": "소각 유형",
+      "status": "상태",
+      "schedule": "스케줄 정보",
+      "amount": "소각량",
+      "scheduleType": "스케줄 유형",
+      "nextRun": "다음 실행"
+    },
+    "confirmPause": {
+      "title": "소각 스케줄 일시 중지",
+      "description": "{{type}} 소각 스케줄을 일시 중지하시겠습니까? 자동 소각이 중단됩니다."
+    },
+    "confirmResume": {
+      "title": "소각 스케줄 재개",
+      "description": "{{type}} 소각 스케줄을 재개하시겠습니까? 자동 소각이 다시 시작됩니다."
+    },
+    "confirmSave": {
+      "title": "소각률 업데이트",
+      "description": "소각률을 업데이트하시겠습니까? 트랜잭션 비율: {{txRate}}%, 시간 비율: {{timeRate}}%"
+    }
   },
   "adminEconomics": {
     "title": "경제 매개변수",
@@ -15781,7 +15836,19 @@
       "title": "경제 데이터 로드 실패",
       "description": "경제 매개변수를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "재시도"
+    "retry": "재시도",
+    "save": "저장",
+    "detail": {
+      "title": "경제 지표 상세 정보",
+      "overview": "개요",
+      "metric": "지표",
+      "currentValue": "현재 값",
+      "description": "설명"
+    },
+    "confirmSave": {
+      "title": "경제 매개변수 업데이트",
+      "description": "{{type}}을(를) {{value}}(으)로 업데이트하시겠습니까?"
+    }
   },
   "adminAI": {
     "title": "AI 오케스트레이션",
@@ -16249,7 +16316,31 @@
       "title": "재무 데이터 로드 실패",
       "description": "재무 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "재시도"
+    "retry": "재시도",
+    "timestamp": "타임스탬프",
+    "actions": "작업",
+    "transfer": "이체",
+    "transactionCancelled": "거래 취소됨",
+    "transactionCancelledDesc": "대기 중인 거래가 성공적으로 취소되었습니다",
+    "detail": {
+      "title": "거래 상세 정보",
+      "overview": "개요",
+      "transactionId": "거래 ID",
+      "type": "유형",
+      "category": "카테고리",
+      "status": "상태",
+      "transaction": "거래 정보",
+      "amount": "금액",
+      "timestamp": "타임스탬프"
+    },
+    "confirmCancel": {
+      "title": "거래 취소",
+      "description": "{{category}}에 대한 {{amount}} TBURN의 대기 중인 거래를 취소하시겠습니까?"
+    },
+    "confirmTransfer": {
+      "title": "자금 이체 확인",
+      "description": "{{from}}에서 {{to}}으로 {{amount}} TBURN을 이체하시겠습니까? 이 작업에는 다중 서명 승인이 필요합니다."
+    }
   },
   "adminValidators": {
     "title": "검증자 관리",

@@ -15617,7 +15617,34 @@
       "title": "Failed to Load Token Data",
       "description": "Unable to fetch token issuance data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "pause": "Pause",
+    "resume": "Resume",
+    "detail": {
+      "title": "Token Details",
+      "overview": "Overview",
+      "tokenId": "Token ID",
+      "name": "Token Name",
+      "symbol": "Symbol",
+      "standard": "Token Standard",
+      "status": "Status",
+      "supplyInfo": "Supply Information",
+      "totalSupply": "Total Supply",
+      "circulatingSupply": "Circulating Supply",
+      "holders": "Total Holders",
+      "features": "Features",
+      "aiEnabled": "AI Features"
+    },
+    "confirmPause": {
+      "title": "Pause Token",
+      "description": "Are you sure you want to pause {{name}} ({{symbol}})? All transfers will be suspended."
+    },
+    "confirmResume": {
+      "title": "Resume Token",
+      "description": "Are you sure you want to resume {{name}} ({{symbol}})? Transfers will be re-enabled."
+    }
   },
   "adminBurnControl": {
     "title": "Burn Control",
@@ -15698,7 +15725,35 @@
       "title": "Failed to Load Burn Data",
       "description": "Unable to fetch burn control data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "pause": "Pause",
+    "resume": "Resume",
+    "save": "Save",
+    "statusUpdated": "Status Updated",
+    "statusUpdatedDesc": "Burn schedule status has been updated successfully",
+    "detail": {
+      "title": "Burn Schedule Details",
+      "overview": "Overview",
+      "id": "Schedule ID",
+      "type": "Burn Type",
+      "status": "Status",
+      "schedule": "Schedule Information",
+      "amount": "Burn Amount",
+      "scheduleType": "Schedule Type",
+      "nextRun": "Next Run"
+    },
+    "confirmPause": {
+      "title": "Pause Burn Schedule",
+      "description": "Are you sure you want to pause the {{type}} burn schedule? No automatic burns will occur."
+    },
+    "confirmResume": {
+      "title": "Resume Burn Schedule",
+      "description": "Are you sure you want to resume the {{type}} burn schedule? Automatic burns will resume."
+    },
+    "confirmSave": {
+      "title": "Update Burn Rates",
+      "description": "Are you sure you want to update the burn rates? Transaction rate: {{txRate}}%, Time rate: {{timeRate}}%"
+    }
   },
   "adminEconomics": {
     "title": "Economic Parameters",
@@ -15781,7 +15836,19 @@
       "title": "Failed to Load Economics Data",
       "description": "Unable to fetch economic parameters. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "save": "Save",
+    "detail": {
+      "title": "Economic Metric Details",
+      "overview": "Overview",
+      "metric": "Metric",
+      "currentValue": "Current Value",
+      "description": "Description"
+    },
+    "confirmSave": {
+      "title": "Update Economic Parameters",
+      "description": "Are you sure you want to update {{type}} to {{value}}?"
+    }
   },
   "adminAI": {
     "title": "AI Orchestration",
@@ -16269,7 +16336,31 @@
       "title": "Failed to Load Treasury Data",
       "description": "Unable to fetch treasury data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "timestamp": "Timestamp",
+    "actions": "Actions",
+    "transfer": "Transfer",
+    "transactionCancelled": "Transaction Cancelled",
+    "transactionCancelledDesc": "The pending transaction has been cancelled successfully",
+    "detail": {
+      "title": "Transaction Details",
+      "overview": "Overview",
+      "transactionId": "Transaction ID",
+      "type": "Type",
+      "category": "Category",
+      "status": "Status",
+      "transaction": "Transaction Information",
+      "amount": "Amount",
+      "timestamp": "Timestamp"
+    },
+    "confirmCancel": {
+      "title": "Cancel Transaction",
+      "description": "Are you sure you want to cancel this pending transaction of {{amount}} TBURN for {{category}}?"
+    },
+    "confirmTransfer": {
+      "title": "Confirm Fund Transfer",
+      "description": "Are you sure you want to transfer {{amount}} TBURN from {{from}} to {{to}}? This action requires multi-sig approval."
+    }
   },
   "adminValidators": {
     "title": "Validator Management",

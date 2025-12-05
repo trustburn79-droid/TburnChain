@@ -17,9 +17,12 @@ import { queryClient } from "@/lib/queryClient";
 import { 
   TrendingUp, TrendingDown, Coins, Gift, Percent, PiggyBank, 
   Brain, BarChart3, Target, AlertTriangle, Calculator,
-  RefreshCw, Download, Wifi, WifiOff
+  RefreshCw, Download, Wifi, WifiOff, Eye, Settings
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { DetailSheet } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
+import { apiRequest } from "@/lib/queryClient";
 
 interface EconomicMetrics {
   inflationRate: string;
@@ -61,6 +64,9 @@ export default function AdminEconomics() {
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [selectedMetric, setSelectedMetric] = useState<{ title: string; value: string; description: string } | null>(null);
+  const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+  const [pendingChanges, setPendingChanges] = useState<{ type: string; value: number } | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<EconomicsData>({
     queryKey: ['/api/admin/economics'],
@@ -151,15 +157,12 @@ export default function AdminEconomics() {
 
   const saveParametersMutation = useMutation({
     mutationFn: async (params: Record<string, unknown>) => {
-      const response = await fetch('/api/admin/economics/parameters', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(params),
-      });
-      if (!response.ok) throw new Error('Failed to save parameters');
+      const response = await apiRequest('POST', '/api/admin/economics/parameters', params);
       return response.json();
     },
     onSuccess: () => {
+      setShowSaveConfirm(false);
+      setPendingChanges(null);
       toast({
         title: t("adminEconomics.changesSaved"),
         description: t("adminEconomics.changesSavedDesc"),
@@ -167,6 +170,17 @@ export default function AdminEconomics() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/economics'] });
     },
   });
+
+  const confirmSaveParameters = useCallback(() => {
+    if (pendingChanges) {
+      saveParametersMutation.mutate({ [pendingChanges.type]: pendingChanges.value });
+    }
+  }, [pendingChanges, saveParametersMutation]);
+
+  const handleSaveParameter = useCallback((type: string, value: number) => {
+    setPendingChanges({ type, value });
+    setShowSaveConfirm(true);
+  }, []);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -640,6 +654,40 @@ export default function AdminEconomics() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <DetailSheet
+        open={!!selectedMetric}
+        onOpenChange={(open) => !open && setSelectedMetric(null)}
+        title={t("adminEconomics.detail.title")}
+        sections={selectedMetric ? [
+          {
+            title: t("adminEconomics.detail.overview"),
+            fields: [
+              { label: t("adminEconomics.detail.metric"), value: selectedMetric.title },
+              { label: t("adminEconomics.detail.currentValue"), value: selectedMetric.value, type: "badge" as const },
+              { label: t("adminEconomics.detail.description"), value: selectedMetric.description },
+            ],
+          },
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={showSaveConfirm}
+        onOpenChange={(open) => {
+          if (!open) {
+            setShowSaveConfirm(false);
+            setPendingChanges(null);
+          }
+        }}
+        title={t("adminEconomics.confirmSave.title")}
+        description={pendingChanges 
+          ? t("adminEconomics.confirmSave.description", { type: pendingChanges.type, value: pendingChanges.value })
+          : ""
+        }
+        confirmText={t("adminEconomics.save")}
+        onConfirm={confirmSaveParameters}
+        isLoading={saveParametersMutation.isPending}
+      />
     </ScrollArea>
   );
 }

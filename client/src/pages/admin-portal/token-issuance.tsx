@@ -18,8 +18,10 @@ import { queryClient, apiRequest } from "@/lib/queryClient";
 import { 
   Coins, Plus, Flame, Pause, Play, Users, TrendingUp, 
   Shield, Brain, AlertTriangle, CheckCircle, FileText,
-  RefreshCw, Download, Wifi, WifiOff
+  RefreshCw, Download, Wifi, WifiOff, Eye
 } from "lucide-react";
+import { DetailSheet } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 
 interface Token {
   id: number;
@@ -62,6 +64,8 @@ export default function AdminTokenIssuance() {
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [selectedToken, setSelectedToken] = useState<Token | null>(null);
+  const [tokenToToggle, setTokenToToggle] = useState<Token | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<TokenData>({
     queryKey: ['/api/admin/tokens'],
@@ -139,10 +143,8 @@ export default function AdminTokenIssuance() {
 
   const mintMutation = useMutation({
     mutationFn: async (data: { token: string; amount: string; recipient: string; reason: string }) => {
-      return apiRequest('/api/admin/tokens/mint', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      const response = await apiRequest('POST', '/api/admin/tokens/mint', data);
+      return response.json();
     },
     onSuccess: () => {
       toast({
@@ -155,10 +157,8 @@ export default function AdminTokenIssuance() {
 
   const burnMutation = useMutation({
     mutationFn: async (data: { token: string; amount: string; reason: string }) => {
-      return apiRequest('/api/admin/tokens/burn', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      const response = await apiRequest('POST', '/api/admin/tokens/burn', data);
+      return response.json();
     },
     onSuccess: () => {
       toast({
@@ -171,14 +171,27 @@ export default function AdminTokenIssuance() {
 
   const toggleStatusMutation = useMutation({
     mutationFn: async (data: { tokenId: number; action: 'pause' | 'resume' }) => {
-      return apiRequest(`/api/admin/tokens/${data.tokenId}/${data.action}`, {
-        method: 'POST',
-      });
+      const response = await apiRequest('POST', `/api/admin/tokens/${data.tokenId}/${data.action}`);
+      return response.json();
     },
     onSuccess: () => {
+      setTokenToToggle(null);
       queryClient.invalidateQueries({ queryKey: ['/api/admin/tokens'] });
+      toast({
+        title: t("adminTokenIssuance.statusUpdated"),
+        description: t("adminTokenIssuance.statusUpdatedDesc"),
+      });
     },
   });
+
+  const confirmToggleStatus = useCallback(() => {
+    if (tokenToToggle) {
+      toggleStatusMutation.mutate({
+        tokenId: tokenToToggle.id,
+        action: tokenToToggle.status === 'active' ? 'pause' : 'resume',
+      });
+    }
+  }, [tokenToToggle, toggleStatusMutation]);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -459,6 +472,14 @@ export default function AdminTokenIssuance() {
                           </TableCell>
                           <TableCell>
                             <div className="flex gap-1">
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                onClick={() => setSelectedToken(token)}
+                                data-testid={`button-view-${token.id}`}
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
                               <Button size="icon" variant="ghost" data-testid={`button-mint-${token.id}`}>
                                 <Plus className="w-4 h-4" />
                               </Button>
@@ -468,7 +489,7 @@ export default function AdminTokenIssuance() {
                               <Button 
                                 size="icon" 
                                 variant="ghost" 
-                                onClick={() => toggleStatusMutation.mutate({ tokenId: token.id, action: token.status === "active" ? 'pause' : 'resume' })}
+                                onClick={() => setTokenToToggle(token)}
                                 disabled={toggleStatusMutation.isPending}
                                 data-testid={`button-toggle-${token.id}`}
                               >
@@ -690,6 +711,52 @@ export default function AdminTokenIssuance() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <DetailSheet
+        open={!!selectedToken}
+        onOpenChange={(open) => !open && setSelectedToken(null)}
+        title={t("adminTokenIssuance.detail.title")}
+        sections={selectedToken ? [
+          {
+            title: t("adminTokenIssuance.detail.overview"),
+            fields: [
+              { label: t("adminTokenIssuance.detail.tokenId"), value: String(selectedToken.id), copyable: true },
+              { label: t("adminTokenIssuance.detail.name"), value: selectedToken.name },
+              { label: t("adminTokenIssuance.detail.symbol"), value: selectedToken.symbol },
+              { label: t("adminTokenIssuance.detail.standard"), value: selectedToken.standard, type: "badge" as const },
+              { label: t("adminTokenIssuance.detail.status"), value: selectedToken.status, type: "badge" as const, badgeVariant: selectedToken.status === "active" ? "default" as const : "secondary" as const },
+            ],
+          },
+          {
+            title: t("adminTokenIssuance.detail.supplyInfo"),
+            fields: [
+              { label: t("adminTokenIssuance.detail.totalSupply"), value: selectedToken.totalSupply },
+              { label: t("adminTokenIssuance.detail.circulatingSupply"), value: selectedToken.circulatingSupply },
+              { label: t("adminTokenIssuance.detail.holders"), value: selectedToken.holders.toLocaleString() },
+            ],
+          },
+          {
+            title: t("adminTokenIssuance.detail.features"),
+            fields: [
+              { label: t("adminTokenIssuance.detail.aiEnabled"), value: selectedToken.aiEnabled ? t("adminTokenIssuance.enabled") : t("adminTokenIssuance.disabled"), type: "badge" as const, badgeVariant: selectedToken.aiEnabled ? "default" as const : "secondary" as const },
+            ],
+          },
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={!!tokenToToggle}
+        onOpenChange={(open) => !open && setTokenToToggle(null)}
+        title={tokenToToggle?.status === 'active' ? t("adminTokenIssuance.confirmPause.title") : t("adminTokenIssuance.confirmResume.title")}
+        description={tokenToToggle?.status === 'active' 
+          ? t("adminTokenIssuance.confirmPause.description", { name: tokenToToggle?.name, symbol: tokenToToggle?.symbol })
+          : t("adminTokenIssuance.confirmResume.description", { name: tokenToToggle?.name, symbol: tokenToToggle?.symbol })
+        }
+        confirmText={tokenToToggle?.status === 'active' ? t("adminTokenIssuance.pause") : t("adminTokenIssuance.resume")}
+        onConfirm={confirmToggleStatus}
+        destructive={tokenToToggle?.status === 'active'}
+        isLoading={toggleStatusMutation.isPending}
+      />
     </ScrollArea>
   );
 }

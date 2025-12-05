@@ -18,9 +18,12 @@ import { queryClient } from "@/lib/queryClient";
 import { 
   Wallet, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, 
   PiggyBank, FileText, Lock, Key, Send, History, DollarSign,
-  RefreshCw, Download, Wifi, WifiOff, AlertTriangle
+  RefreshCw, Download, Wifi, WifiOff, AlertTriangle, Eye, XCircle
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
+import { DetailSheet } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
+import { apiRequest } from "@/lib/queryClient";
 
 interface TreasuryStats {
   totalBalance: string;
@@ -72,6 +75,10 @@ export default function AdminTreasury() {
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+  const [transactionToCancel, setTransactionToCancel] = useState<Transaction | null>(null);
+  const [showTransferConfirm, setShowTransferConfirm] = useState(false);
+  const [transferData, setTransferData] = useState<{ from: string; to: string; amount: string } | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<TreasuryData>({
     queryKey: ['/api/admin/treasury'],
@@ -170,15 +177,12 @@ export default function AdminTreasury() {
 
   const transferMutation = useMutation({
     mutationFn: async (data: { fromPool: string; to: string; amount: string; reason: string }) => {
-      const response = await fetch('/api/admin/treasury/transfer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error('Failed to submit transfer');
+      const response = await apiRequest('POST', '/api/admin/treasury/transfer', data);
       return response.json();
     },
     onSuccess: () => {
+      setShowTransferConfirm(false);
+      setTransferData(null);
       toast({
         title: t("adminTreasury.transferSubmitted"),
         description: t("adminTreasury.transferSubmittedDesc"),
@@ -187,6 +191,43 @@ export default function AdminTreasury() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/treasury'] });
     },
   });
+
+  const cancelTransactionMutation = useMutation({
+    mutationFn: async (transactionId: number) => {
+      const response = await apiRequest('POST', `/api/admin/treasury/transactions/${transactionId}/cancel`);
+      return response.json();
+    },
+    onSuccess: () => {
+      setTransactionToCancel(null);
+      toast({
+        title: t("adminTreasury.transactionCancelled"),
+        description: t("adminTreasury.transactionCancelledDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/treasury'] });
+    },
+  });
+
+  const confirmCancelTransaction = useCallback(() => {
+    if (transactionToCancel) {
+      cancelTransactionMutation.mutate(transactionToCancel.id);
+    }
+  }, [transactionToCancel, cancelTransactionMutation]);
+
+  const confirmTransfer = useCallback(() => {
+    if (transferData) {
+      transferMutation.mutate({
+        fromPool: transferData.from,
+        to: transferData.to,
+        amount: transferData.amount,
+        reason: "Admin transfer",
+      });
+    }
+  }, [transferData, transferMutation]);
+
+  const initiateTransfer = useCallback((from: string, to: string, amount: string) => {
+    setTransferData({ from, to, amount });
+    setShowTransferConfirm(true);
+  }, []);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -473,6 +514,7 @@ export default function AdminTreasury() {
                         <TableHead>{t("adminTreasury.amount")}</TableHead>
                         <TableHead>{t("adminTreasury.timestamp")}</TableHead>
                         <TableHead>{t("adminTreasury.status")}</TableHead>
+                        <TableHead>{t("adminTreasury.actions")}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -496,6 +538,29 @@ export default function AdminTreasury() {
                             <Badge variant={tx.status === "completed" ? "outline" : "secondary"}>
                               {tx.status === "completed" ? t("adminTreasury.completed") : t("adminTreasury.pending")}
                             </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex gap-1">
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                onClick={() => setSelectedTransaction(tx)}
+                                data-testid={`button-view-transaction-${tx.id}`}
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
+                              {tx.status === "pending" && (
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  onClick={() => setTransactionToCancel(tx)}
+                                  disabled={cancelTransactionMutation.isPending}
+                                  data-testid={`button-cancel-transaction-${tx.id}`}
+                                >
+                                  <XCircle className="w-4 h-4" />
+                                </Button>
+                              )}
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -658,6 +723,66 @@ export default function AdminTreasury() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <DetailSheet
+        open={!!selectedTransaction}
+        onOpenChange={(open) => !open && setSelectedTransaction(null)}
+        title={t("adminTreasury.detail.title")}
+        sections={selectedTransaction ? [
+          {
+            title: t("adminTreasury.detail.overview"),
+            fields: [
+              { label: t("adminTreasury.detail.transactionId"), value: String(selectedTransaction.id), copyable: true },
+              { label: t("adminTreasury.detail.type"), value: selectedTransaction.type, type: "badge" as const, badgeVariant: selectedTransaction.type === "income" ? "default" as const : "destructive" as const },
+              { label: t("adminTreasury.detail.category"), value: selectedTransaction.category },
+              { label: t("adminTreasury.detail.status"), value: selectedTransaction.status, type: "badge" as const, badgeVariant: selectedTransaction.status === "completed" ? "default" as const : "secondary" as const },
+            ],
+          },
+          {
+            title: t("adminTreasury.detail.transaction"),
+            fields: [
+              { label: t("adminTreasury.detail.amount"), value: `${selectedTransaction.amount} TBURN` },
+              { label: t("adminTreasury.detail.timestamp"), value: selectedTransaction.timestamp },
+            ],
+          },
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={!!transactionToCancel}
+        onOpenChange={(open) => !open && setTransactionToCancel(null)}
+        title={t("adminTreasury.confirmCancel.title")}
+        description={t("adminTreasury.confirmCancel.description", { 
+          amount: transactionToCancel?.amount,
+          category: transactionToCancel?.category 
+        })}
+        confirmText={t("adminTreasury.cancel")}
+        onConfirm={confirmCancelTransaction}
+        destructive
+        isLoading={cancelTransactionMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={showTransferConfirm}
+        onOpenChange={(open) => {
+          if (!open) {
+            setShowTransferConfirm(false);
+            setTransferData(null);
+          }
+        }}
+        title={t("adminTreasury.confirmTransfer.title")}
+        description={transferData 
+          ? t("adminTreasury.confirmTransfer.description", { 
+              from: transferData.from,
+              to: transferData.to,
+              amount: transferData.amount 
+            })
+          : ""
+        }
+        confirmText={t("adminTreasury.transfer")}
+        onConfirm={confirmTransfer}
+        isLoading={transferMutation.isPending}
+      />
     </ScrollArea>
   );
 }
