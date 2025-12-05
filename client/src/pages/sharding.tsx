@@ -475,19 +475,22 @@ export default function Sharding() {
     );
   };
 
-  const ShardDetailDialog = () => {
-    if (!selectedShard) return null;
-
-    const radarData = [
+  const shardRadarData = useMemo(() => {
+    if (!selectedShard) return [];
+    return [
       { metric: t('sharding.load'), value: selectedShard.load, fullMark: 100 },
       { metric: t('sharding.mlScore'), value: selectedShard.mlOptimizationScore / 100, fullMark: 100 },
       { metric: t('sharding.profiling'), value: selectedShard.profilingScore / 100, fullMark: 100 },
       { metric: t('sharding.capacity'), value: selectedShard.capacityUtilization / 100, fullMark: 100 },
       { metric: t('sharding.predictedLoad'), value: selectedShard.predictedLoad, fullMark: 100 },
     ];
+  }, [selectedShard, t]);
+
+  const renderShardDetailDialog = () => {
+    if (!selectedShard) return null;
 
     return (
-      <Dialog open={selectedShard !== null} onOpenChange={() => setSelectedShard(null)}>
+      <Dialog open={!!selectedShard} onOpenChange={(open) => !open && setSelectedShard(null)}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
@@ -555,7 +558,7 @@ export default function Sharding() {
                 <CardContent>
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
+                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={shardRadarData}>
                         <PolarGrid />
                         <PolarAngleAxis dataKey="metric" />
                         <PolarRadiusAxis angle={30} domain={[0, 100]} />
@@ -666,7 +669,7 @@ export default function Sharding() {
   return (
     <div className="flex flex-col gap-6 p-6">
       <ShardStatsDetailDialog />
-      <ShardDetailDialog />
+      {renderShardDetailDialog()}
 
       <div className="flex items-center justify-between">
         <div>
