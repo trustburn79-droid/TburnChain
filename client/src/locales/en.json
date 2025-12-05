@@ -21416,6 +21416,42 @@
   "adminCosts": {
     "title": "Cost Management",
     "subtitle": "Track and optimize costs",
+    "description": "Track and optimize costs",
+    "refresh": "Refresh",
+    "export": "Export",
+    "other": "Other",
+    "stats": {
+      "totalCost": "Total Cost",
+      "vsPrevious": "vs Previous",
+      "budgetUtilization": "Budget Utilization",
+      "potentialSavings": "Potential Savings"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "breakdown": "Breakdown",
+      "trends": "Trends",
+      "optimization": "Optimization"
+    },
+    "charts": {
+      "costTrend": "Cost Trend",
+      "costTrendDesc": "Monthly cost trend",
+      "costDistribution": "Cost Distribution",
+      "costDistributionDesc": "Cost distribution by category"
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
     "overview": "Overview",
     "overviewDesc": "Cost summary",
     "breakdown": "Breakdown",
@@ -21444,6 +21480,10 @@
       "validators": "Validators",
       "bridges": "Bridges",
       "services": "Services",
+      "infrastructure": "Infrastructure",
+      "aiServices": "AI Services",
+      "security": "Security",
+      "operations": "Operations",
       "other": "Other"
     },
     "timeRange": "Time Range",
