@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,11 +6,20 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { queryClient, apiRequest } from "@/lib/queryClient";
+import {
+  ConfirmationDialog,
+  useConfirmation,
+  DetailSheet,
+  AdminFormDialog,
+  ActionMenu,
+  StatusBadge,
+} from "@/components/admin";
+import type { FormField, DetailSection } from "@/components/admin";
 import {
   ShieldCheck,
   Server,
@@ -21,7 +30,6 @@ import {
   Award,
   AlertTriangle,
   Search,
-  Filter,
   CheckCircle2,
   XCircle,
   Clock,
@@ -33,6 +41,20 @@ import {
   Settings,
   Unlock,
   Plus,
+  Edit,
+  Trash2,
+  Slash,
+  Play,
+  Square,
+  BarChart3,
+  Shield,
+  Coins,
+  Activity,
+  Globe,
+  Cpu,
+  HardDrive,
+  MemoryStick,
+  Network,
 } from "lucide-react";
 
 interface Validator {
@@ -48,6 +70,15 @@ interface Validator {
   rewards: string;
   aiTrustScore: number;
   jailedUntil: Date | null;
+  website?: string;
+  description?: string;
+  votingPower?: number;
+  selfDelegation?: string;
+  minDelegation?: string;
+  maxValidatorStake?: string;
+  slashingEvents?: number;
+  missedBlocks?: number;
+  signatureRate?: number;
 }
 
 interface ValidatorsResponse {
@@ -103,6 +134,36 @@ export default function AdminValidators() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [selectedValidator, setSelectedValidator] = useState<Validator | null>(null);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingValidator, setEditingValidator] = useState<Validator | null>(null);
+  
+  const {
+    isOpen: isUnjailDialogOpen,
+    confirm: confirmUnjail,
+    cancel: cancelUnjail,
+    data: unjailValidator,
+    openConfirmation: openUnjailDialog,
+  } = useConfirmation<Validator>();
+  
+  const {
+    isOpen: isSlashDialogOpen,
+    confirm: confirmSlash,
+    cancel: cancelSlash,
+    data: slashValidator,
+    openConfirmation: openSlashDialog,
+  } = useConfirmation<Validator>();
+  
+  const {
+    isOpen: isDeleteDialogOpen,
+    confirm: confirmDelete,
+    cancel: cancelDelete,
+    data: deleteValidator,
+    openConfirmation: openDeleteDialog,
+  } = useConfirmation<Validator>();
 
   const { data: validatorsData, isLoading, error, refetch } = useQuery<ValidatorsResponse>({
     queryKey: ["/api/validators"],
@@ -110,15 +171,130 @@ export default function AdminValidators() {
   });
 
   const validators: Validator[] = useMemo(() => validatorsData?.validators || [
-    { address: "0x1234...5678", name: "TBURN Genesis", status: "active", stake: "15000000", delegators: 1245, commission: 5, uptime: 99.99, blocksProduced: 45678, blocksProposed: 45680, rewards: "125000", aiTrustScore: 9850, jailedUntil: null },
-    { address: "0x2345...6789", name: "BlockForge", status: "active", stake: "12500000", delegators: 987, commission: 7, uptime: 99.95, blocksProduced: 38456, blocksProposed: 38460, rewards: "98000", aiTrustScore: 9720, jailedUntil: null },
-    { address: "0x3456...789a", name: "CryptoStake", status: "active", stake: "10800000", delegators: 756, commission: 6, uptime: 99.92, blocksProduced: 32145, blocksProposed: 32150, rewards: "85000", aiTrustScore: 9680, jailedUntil: null },
-    { address: "0x4567...89ab", name: "NodeMaster", status: "active", stake: "9200000", delegators: 645, commission: 8, uptime: 99.88, blocksProduced: 28765, blocksProposed: 28770, rewards: "72000", aiTrustScore: 9540, jailedUntil: null },
-    { address: "0x5678...9abc", name: "ValidateX", status: "active", stake: "8100000", delegators: 534, commission: 5, uptime: 99.85, blocksProduced: 25432, blocksProposed: 25440, rewards: "65000", aiTrustScore: 9480, jailedUntil: null },
-    { address: "0x6789...abcd", name: "StakePool Pro", status: "inactive", stake: "7500000", delegators: 423, commission: 6, uptime: 98.5, blocksProduced: 21567, blocksProposed: 21600, rewards: "58000", aiTrustScore: 9120, jailedUntil: null },
-    { address: "0x789a...bcde", name: "CryptoValidate", status: "jailed", stake: "6800000", delegators: 312, commission: 10, uptime: 95.2, blocksProduced: 18234, blocksProposed: 18500, rewards: "45000", aiTrustScore: 7850, jailedUntil: new Date(Date.now() + 86400000) },
-    { address: "0x89ab...cdef", name: "BlockNode", status: "active", stake: "6200000", delegators: 289, commission: 7, uptime: 99.82, blocksProduced: 15678, blocksProposed: 15680, rewards: "42000", aiTrustScore: 9380, jailedUntil: null },
+    { address: "0x1234...5678", name: "TBURN Genesis", status: "active", stake: "15000000", delegators: 1245, commission: 5, uptime: 99.99, blocksProduced: 45678, blocksProposed: 45680, rewards: "125000", aiTrustScore: 9850, jailedUntil: null, votingPower: 15.2, selfDelegation: "1000000", minDelegation: "100", slashingEvents: 0, missedBlocks: 2, signatureRate: 99.99, description: "Official TBURN Genesis validator", website: "https://tburn.network" },
+    { address: "0x2345...6789", name: "BlockForge", status: "active", stake: "12500000", delegators: 987, commission: 7, uptime: 99.95, blocksProduced: 38456, blocksProposed: 38460, rewards: "98000", aiTrustScore: 9720, jailedUntil: null, votingPower: 12.8, selfDelegation: "800000", minDelegation: "50", slashingEvents: 0, missedBlocks: 18, signatureRate: 99.95 },
+    { address: "0x3456...789a", name: "CryptoStake", status: "active", stake: "10800000", delegators: 756, commission: 6, uptime: 99.92, blocksProduced: 32145, blocksProposed: 32150, rewards: "85000", aiTrustScore: 9680, jailedUntil: null, votingPower: 11.0, selfDelegation: "650000", minDelegation: "100", slashingEvents: 0, missedBlocks: 26, signatureRate: 99.92 },
+    { address: "0x4567...89ab", name: "NodeMaster", status: "active", stake: "9200000", delegators: 645, commission: 8, uptime: 99.88, blocksProduced: 28765, blocksProposed: 28770, rewards: "72000", aiTrustScore: 9540, jailedUntil: null, votingPower: 9.4, selfDelegation: "500000", minDelegation: "200", slashingEvents: 0, missedBlocks: 35, signatureRate: 99.88 },
+    { address: "0x5678...9abc", name: "ValidateX", status: "active", stake: "8100000", delegators: 534, commission: 5, uptime: 99.85, blocksProduced: 25432, blocksProposed: 25440, rewards: "65000", aiTrustScore: 9480, jailedUntil: null, votingPower: 8.3, selfDelegation: "450000", minDelegation: "100", slashingEvents: 0, missedBlocks: 44, signatureRate: 99.85 },
+    { address: "0x6789...abcd", name: "StakePool Pro", status: "inactive", stake: "7500000", delegators: 423, commission: 6, uptime: 98.5, blocksProduced: 21567, blocksProposed: 21600, rewards: "58000", aiTrustScore: 9120, jailedUntil: null, votingPower: 7.7, selfDelegation: "400000", minDelegation: "150", slashingEvents: 1, missedBlocks: 465, signatureRate: 98.5 },
+    { address: "0x789a...bcde", name: "CryptoValidate", status: "jailed", stake: "6800000", delegators: 312, commission: 10, uptime: 95.2, blocksProduced: 18234, blocksProposed: 18500, rewards: "45000", aiTrustScore: 7850, jailedUntil: new Date(Date.now() + 86400000), votingPower: 0, selfDelegation: "350000", minDelegation: "100", slashingEvents: 3, missedBlocks: 1520, signatureRate: 95.2 },
+    { address: "0x89ab...cdef", name: "BlockNode", status: "active", stake: "6200000", delegators: 289, commission: 7, uptime: 99.82, blocksProduced: 15678, blocksProposed: 15680, rewards: "42000", aiTrustScore: 9380, jailedUntil: null, votingPower: 6.3, selfDelegation: "300000", minDelegation: "100", slashingEvents: 0, missedBlocks: 56, signatureRate: 99.82 },
   ], [validatorsData]);
+
+  const addValidatorMutation = useMutation({
+    mutationFn: async (data: Partial<Validator>) => {
+      return apiRequest("/api/admin/validators", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
+      toast({
+        title: t("adminValidators.addSuccess"),
+        description: t("adminValidators.addSuccessDesc"),
+      });
+      setIsAddDialogOpen(false);
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminValidators.addError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateValidatorMutation = useMutation({
+    mutationFn: async ({ address, data }: { address: string; data: Partial<Validator> }) => {
+      return apiRequest(`/api/admin/validators/${address}`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
+      toast({
+        title: t("adminValidators.updateSuccess"),
+        description: t("adminValidators.updateSuccessDesc"),
+      });
+      setIsEditDialogOpen(false);
+      setEditingValidator(null);
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminValidators.updateError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const unjailMutation = useMutation({
+    mutationFn: async (address: string) => {
+      return apiRequest(`/api/admin/validators/${address}/unjail`, {
+        method: "POST",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
+      toast({
+        title: t("adminValidators.unjailSuccess"),
+        description: t("adminValidators.unjailSuccessDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminValidators.unjailError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const slashMutation = useMutation({
+    mutationFn: async (address: string) => {
+      return apiRequest(`/api/admin/validators/${address}/slash`, {
+        method: "POST",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
+      toast({
+        title: t("adminValidators.slashSuccess"),
+        description: t("adminValidators.slashSuccessDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminValidators.slashError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteValidatorMutation = useMutation({
+    mutationFn: async (address: string) => {
+      return apiRequest(`/api/admin/validators/${address}`, {
+        method: "DELETE",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
+      toast({
+        title: t("adminValidators.deleteSuccess"),
+        description: t("adminValidators.deleteSuccessDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminValidators.deleteError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
 
   useEffect(() => {
     let ws: WebSocket | null = null;
@@ -209,6 +385,171 @@ export default function AdminValidators() {
     });
   }, [validators, toast, t]);
 
+  const handleViewValidator = (validator: Validator) => {
+    setSelectedValidator(validator);
+    setIsDetailOpen(true);
+  };
+
+  const handleEditValidator = (validator: Validator) => {
+    setEditingValidator(validator);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUnjailValidator = async (validator: Validator) => {
+    const confirmed = await openUnjailDialog(validator);
+    if (confirmed) {
+      unjailMutation.mutate(validator.address);
+    }
+  };
+
+  const handleSlashValidator = async (validator: Validator) => {
+    const confirmed = await openSlashDialog(validator);
+    if (confirmed) {
+      slashMutation.mutate(validator.address);
+    }
+  };
+
+  const handleDeleteValidator = async (validator: Validator) => {
+    const confirmed = await openDeleteDialog(validator);
+    if (confirmed) {
+      deleteValidatorMutation.mutate(validator.address);
+    }
+  };
+
+  const getValidatorActions = (validator: Validator) => [
+    {
+      id: "view",
+      label: t("common.view"),
+      icon: <Eye className="h-4 w-4" />,
+      onClick: () => handleViewValidator(validator),
+    },
+    {
+      id: "edit",
+      label: t("common.edit"),
+      icon: <Edit className="h-4 w-4" />,
+      onClick: () => handleEditValidator(validator),
+    },
+    { separator: true },
+    ...(validator.status === "jailed" ? [{
+      id: "unjail",
+      label: t("adminValidators.unjail"),
+      icon: <Unlock className="h-4 w-4" />,
+      onClick: () => handleUnjailValidator(validator),
+      variant: "success" as const,
+    }] : []),
+    ...(validator.status !== "jailed" ? [{
+      id: "slash",
+      label: t("adminValidators.slash"),
+      icon: <Slash className="h-4 w-4" />,
+      onClick: () => handleSlashValidator(validator),
+      variant: "warning" as const,
+    }] : []),
+    { separator: true },
+    {
+      id: "delete",
+      label: t("common.delete"),
+      icon: <Trash2 className="h-4 w-4" />,
+      onClick: () => handleDeleteValidator(validator),
+      variant: "destructive" as const,
+    },
+  ];
+
+  const getValidatorFormFields = (): FormField[] => [
+    {
+      name: "name",
+      label: t("adminValidators.validatorName"),
+      type: "text",
+      required: true,
+      placeholder: t("adminValidators.validatorNamePlaceholder"),
+    },
+    {
+      name: "address",
+      label: t("adminValidators.address"),
+      type: "text",
+      required: true,
+      placeholder: "0x...",
+    },
+    {
+      name: "commission",
+      label: t("adminValidators.commission"),
+      type: "number",
+      required: true,
+      placeholder: "5",
+    },
+    {
+      name: "minDelegation",
+      label: t("adminValidators.minDelegation"),
+      type: "text",
+      placeholder: "100",
+    },
+    {
+      name: "website",
+      label: t("adminValidators.website"),
+      type: "text",
+      placeholder: "https://...",
+    },
+    {
+      name: "description",
+      label: t("adminValidators.description"),
+      type: "textarea",
+      placeholder: t("adminValidators.descriptionPlaceholder"),
+    },
+  ];
+
+  const formatTBURN = (value: string) => {
+    const num = parseFloat(value);
+    if (num >= 1e6) return (num / 1e6).toFixed(2) + "M";
+    if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
+    return num.toFixed(0);
+  };
+
+  const getValidatorDetailSections = (validator: Validator): DetailSection[] => [
+    {
+      title: t("adminValidators.basicInfo"),
+      icon: <ShieldCheck className="h-4 w-4" />,
+      fields: [
+        { label: t("adminValidators.address"), value: validator.address, copyable: true },
+        { label: t("common.status"), value: validator.status, type: "badge" as const, badgeVariant: validator.status === "active" ? "secondary" as const : "destructive" as const },
+        { label: t("adminValidators.commission"), value: `${validator.commission}%` },
+        { label: t("adminValidators.website"), value: validator.website || "-" },
+        { label: t("adminValidators.description"), value: validator.description || "-" },
+      ],
+    },
+    {
+      title: t("adminValidators.performance"),
+      icon: <BarChart3 className="h-4 w-4" />,
+      fields: [
+        { label: t("adminValidators.uptime"), value: `${validator.uptime}%`, type: "badge" as const, badgeVariant: validator.uptime >= 99.9 ? "secondary" as const : "outline" as const },
+        { label: t("adminValidators.blocksProduced"), value: validator.blocksProduced.toLocaleString() },
+        { label: t("adminValidators.blocksProposed"), value: validator.blocksProposed.toLocaleString() },
+        { label: t("adminValidators.signatureRate"), value: `${validator.signatureRate || validator.uptime}%` },
+        { label: t("adminValidators.missedBlocks"), value: (validator.missedBlocks || 0).toLocaleString() },
+        { label: t("adminValidators.slashingEvents"), value: (validator.slashingEvents || 0).toString(), type: "badge" as const, badgeVariant: (validator.slashingEvents || 0) === 0 ? "secondary" as const : "destructive" as const },
+      ],
+    },
+    {
+      title: t("adminValidators.staking"),
+      icon: <Coins className="h-4 w-4" />,
+      fields: [
+        { label: t("adminValidators.totalStake"), value: `${formatTBURN(validator.stake)} TBURN` },
+        { label: t("adminValidators.selfDelegation"), value: `${formatTBURN(validator.selfDelegation || "0")} TBURN` },
+        { label: t("adminValidators.delegators"), value: validator.delegators.toLocaleString() },
+        { label: t("adminValidators.votingPower"), value: `${validator.votingPower?.toFixed(2) || 0}%` },
+        { label: t("adminValidators.rewards"), value: `${formatTBURN(validator.rewards)} TBURN` },
+        { label: t("adminValidators.minDelegation"), value: `${formatTBURN(validator.minDelegation || "0")} TBURN` },
+      ],
+    },
+    {
+      title: t("adminValidators.aiAnalysis"),
+      icon: <Brain className="h-4 w-4" />,
+      fields: [
+        { label: t("adminValidators.aiTrustScore"), value: (validator.aiTrustScore / 100).toFixed(1), type: "progress" as const },
+        { label: t("adminValidators.riskLevel"), value: validator.aiTrustScore >= 9000 ? t("adminValidators.riskLow") : validator.aiTrustScore >= 7500 ? t("adminValidators.riskMedium") : t("adminValidators.riskHigh"), type: "badge" as const, badgeVariant: validator.aiTrustScore >= 9000 ? "secondary" as const : validator.aiTrustScore >= 7500 ? "outline" as const : "destructive" as const },
+        ...(validator.jailedUntil ? [{ label: t("adminValidators.jailedUntil"), value: validator.jailedUntil.toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US') }] : []),
+      ],
+    },
+  ];
+
   const filteredValidators = useMemo(() => {
     return validators.filter((v: Validator) => {
       const matchesSearch = searchQuery === "" ||
@@ -227,22 +568,6 @@ export default function AdminValidators() {
     totalStake: validatorsData?.totalStake || validators.reduce((acc: number, v: Validator) => acc + parseFloat(v.stake), 0),
     totalDelegators: validatorsData?.totalDelegators || validators.reduce((acc: number, v: Validator) => acc + v.delegators, 0),
   }), [validators, validatorsData]);
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "active": return <Badge className="bg-green-500/10 text-green-500" data-testid="badge-status-active">{t("adminValidators.statusActive")}</Badge>;
-      case "inactive": return <Badge className="bg-yellow-500/10 text-yellow-500" data-testid="badge-status-inactive">{t("adminValidators.statusInactive")}</Badge>;
-      case "jailed": return <Badge className="bg-red-500/10 text-red-500" data-testid="badge-status-jailed">{t("adminValidators.statusJailed")}</Badge>;
-      default: return <Badge variant="secondary">{status}</Badge>;
-    }
-  };
-
-  const formatTBURN = (value: string) => {
-    const num = parseFloat(value);
-    if (num >= 1e6) return (num / 1e6).toFixed(2) + "M";
-    if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
-    return num.toFixed(0);
-  };
 
   if (error) {
     return (
@@ -318,15 +643,10 @@ export default function AdminValidators() {
                   </TooltipTrigger>
                   <TooltipContent>{t("common.export")}</TooltipContent>
                 </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button data-testid="button-add-validator">
-                      <Plus className="h-4 w-4 mr-2" />
-                      {t("adminValidators.addValidator")}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>{t("adminValidators.addValidatorTooltip")}</TooltipContent>
-                </Tooltip>
+                <Button onClick={() => setIsAddDialogOpen(true)} data-testid="button-add-validator">
+                  <Plus className="h-4 w-4 mr-2" />
+                  {t("adminValidators.addValidator")}
+                </Button>
               </div>
             </div>
           </div>
@@ -442,7 +762,12 @@ export default function AdminValidators() {
                       </>
                     ) : (
                       filteredValidators.map((validator: Validator) => (
-                        <tr key={validator.address} className="border-b hover-elevate cursor-pointer" data-testid={`row-validator-${validator.address}`}>
+                        <tr 
+                          key={validator.address} 
+                          className="border-b hover-elevate cursor-pointer" 
+                          data-testid={`row-validator-${validator.address}`}
+                          onClick={() => handleViewValidator(validator)}
+                        >
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-2">
                               <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -454,7 +779,16 @@ export default function AdminValidators() {
                               </div>
                             </div>
                           </td>
-                          <td className="py-3 px-4">{getStatusBadge(validator.status)}</td>
+                          <td className="py-3 px-4">
+                            <StatusBadge 
+                              status={validator.status} 
+                              statusMap={{
+                                active: { label: t("adminValidators.statusActive"), variant: "success" },
+                                inactive: { label: t("adminValidators.statusInactive"), variant: "warning" },
+                                jailed: { label: t("adminValidators.statusJailed"), variant: "error" },
+                              }}
+                            />
+                          </td>
                           <td className="py-3 px-4 text-right font-mono" data-testid={`text-validator-stake-${validator.address}`}>{formatTBURN(validator.stake)} TBURN</td>
                           <td className="py-3 px-4 text-right" data-testid={`text-validator-delegators-${validator.address}`}>{validator.delegators.toLocaleString()}</td>
                           <td className="py-3 px-4 text-right" data-testid={`text-validator-commission-${validator.address}`}>{validator.commission}%</td>
@@ -480,26 +814,12 @@ export default function AdminValidators() {
                               </TooltipContent>
                             </Tooltip>
                           </td>
-                          <td className="py-3 px-4 text-center">
-                            <div className="flex items-center justify-center gap-1">
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Button size="icon" variant="ghost" data-testid={`button-view-validator-${validator.address}`}>
-                                    <Eye className="h-4 w-4" />
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>{t("common.view")}</TooltipContent>
-                              </Tooltip>
-                              {validator.status === "jailed" && (
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button size="icon" variant="ghost" className="text-green-500" data-testid={`button-unjail-validator-${validator.address}`}>
-                                      <Unlock className="h-4 w-4" />
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent>{t("adminValidators.unjail")}</TooltipContent>
-                                </Tooltip>
-                              )}
+                          <td className="py-3 px-4" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center justify-center">
+                              <ActionMenu 
+                                actions={getValidatorActions(validator)} 
+                                testId={`menu-validator-actions-${validator.address}`}
+                              />
                             </div>
                           </td>
                         </tr>
@@ -517,6 +837,115 @@ export default function AdminValidators() {
           </Card>
         </div>
       </div>
+
+      <DetailSheet
+        open={isDetailOpen}
+        onOpenChange={setIsDetailOpen}
+        title={selectedValidator?.name || ""}
+        subtitle={selectedValidator?.address}
+        sections={selectedValidator ? getValidatorDetailSections(selectedValidator) : []}
+        actions={selectedValidator ? [
+          {
+            label: t("common.edit"),
+            icon: <Edit className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleEditValidator(selectedValidator);
+            },
+          },
+          ...(selectedValidator.status === "jailed" ? [{
+            label: t("adminValidators.unjail"),
+            icon: <Unlock className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleUnjailValidator(selectedValidator);
+            },
+            variant: "success" as const,
+          }] : [{
+            label: t("adminValidators.slash"),
+            icon: <Slash className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleSlashValidator(selectedValidator);
+            },
+            variant: "warning" as const,
+          }]),
+        ] : []}
+      />
+
+      <AdminFormDialog
+        open={isAddDialogOpen}
+        onOpenChange={setIsAddDialogOpen}
+        title={t("adminValidators.addValidator")}
+        description={t("adminValidators.addValidatorDesc")}
+        fields={getValidatorFormFields()}
+        onSubmit={(data) => addValidatorMutation.mutate(data as Partial<Validator>)}
+        isLoading={addValidatorMutation.isPending}
+        submitLabel={t("common.create")}
+      />
+
+      <AdminFormDialog
+        open={isEditDialogOpen}
+        onOpenChange={(open) => {
+          setIsEditDialogOpen(open);
+          if (!open) setEditingValidator(null);
+        }}
+        title={t("adminValidators.editValidator")}
+        description={t("adminValidators.editValidatorDesc")}
+        fields={getValidatorFormFields()}
+        defaultValues={editingValidator ? {
+          name: editingValidator.name,
+          address: editingValidator.address,
+          commission: editingValidator.commission,
+          minDelegation: editingValidator.minDelegation || "",
+          website: editingValidator.website || "",
+          description: editingValidator.description || "",
+        } : undefined}
+        onSubmit={(data) => editingValidator && updateValidatorMutation.mutate({ 
+          address: editingValidator.address, 
+          data: data as Partial<Validator> 
+        })}
+        isLoading={updateValidatorMutation.isPending}
+        submitLabel={t("common.save")}
+      />
+
+      <ConfirmationDialog
+        open={isUnjailDialogOpen}
+        onOpenChange={(open) => !open && cancelUnjail()}
+        title={t("adminValidators.confirmUnjail")}
+        description={t("adminValidators.confirmUnjailDesc", { name: unjailValidator?.name })}
+        onConfirm={confirmUnjail}
+        onCancel={cancelUnjail}
+        confirmLabel={t("adminValidators.unjail")}
+        variant="default"
+        isLoading={unjailMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={isSlashDialogOpen}
+        onOpenChange={(open) => !open && cancelSlash()}
+        title={t("adminValidators.confirmSlash")}
+        description={t("adminValidators.confirmSlashDesc", { name: slashValidator?.name })}
+        onConfirm={confirmSlash}
+        onCancel={cancelSlash}
+        confirmLabel={t("adminValidators.slash")}
+        variant="destructive"
+        isLoading={slashMutation.isPending}
+        requireConfirmText={slashValidator?.name}
+      />
+
+      <ConfirmationDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={(open) => !open && cancelDelete()}
+        title={t("adminValidators.confirmDelete")}
+        description={t("adminValidators.confirmDeleteDesc", { name: deleteValidator?.name })}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+        confirmLabel={t("common.delete")}
+        variant="destructive"
+        isLoading={deleteValidatorMutation.isPending}
+        requireConfirmText={deleteValidator?.name}
+      />
     </TooltipProvider>
   );
 }

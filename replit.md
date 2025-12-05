@@ -21,6 +21,16 @@ Key architectural decisions include:
 - **Enhanced Security**: Access control, audit logging, and threat detection integrated into the Admin Portal.
 - **Developer Tools**: Debugging, testnet interaction, and smart contract tools.
 - **Governance**: Supports proposal management within the Admin Portal.
+- **Reusable Admin Components**: Five production-ready components for Admin Portal CRUD operations:
+  - `DetailSheet`: Multi-section detail view with field types (text, badge, progress, code, link, status) and copyable fields
+  - `AdminFormDialog`: Form dialog with validation for Add/Edit operations
+  - `ConfirmationDialog`: Destructive action confirmations with customizable variants
+  - `ActionMenu`: Dropdown action menu supporting separators and variants
+  - `StatusBadge`: Status indicator component for node/validator states
+
+## Recent Changes (December 2024)
+- **Validator Management Enhancement**: Added 4-section detail sheet (Basic Info, Performance, Staking, AI Analysis), CRUD operations with confirmation dialogs, Unjail/Slash actions, comprehensive bilingual translations (70+ new keys)
+- **Node Management Enhancement**: Production-ready with detail views, Add/Edit dialogs, node control actions (restart/stop/start)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
