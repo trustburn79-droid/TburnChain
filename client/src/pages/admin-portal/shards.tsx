@@ -191,8 +191,12 @@ export default function AdminShards() {
     mutationFn: (newConfig: { shardCount: number }) => 
       apiRequest("POST", "/api/admin/shards/config", newConfig),
     onSuccess: () => {
+      // Invalidate all shard-related queries for real-time sync across /admin and /app pages
       queryClient.invalidateQueries({ queryKey: ["/api/admin/shards/config"] });
       queryClient.invalidateQueries({ queryKey: ["/api/sharding"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/shards"] }); // Enterprise node shards data
+      queryClient.invalidateQueries({ queryKey: ["/api/cross-shard/messages"] }); // Cross-shard messages
+      queryClient.invalidateQueries({ queryKey: ["/api/consensus/current"] }); // Consensus state with validators
       setShowConfigDialog(false);
       setSelectedShardCount(null);
       toast({
@@ -212,7 +216,10 @@ export default function AdminShards() {
   const rebalanceMutation = useMutation({
     mutationFn: () => apiRequest("POST", "/api/sharding/rebalance"),
     onSuccess: () => {
+      // Invalidate all shard-related queries after rebalance
       queryClient.invalidateQueries({ queryKey: ["/api/sharding"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/shards"] }); // Enterprise node shards data
+      queryClient.invalidateQueries({ queryKey: ["/api/cross-shard/messages"] });
       toast({
         title: t("adminShards.rebalanceSuccess"),
         description: t("adminShards.rebalanceSuccessDesc"),
