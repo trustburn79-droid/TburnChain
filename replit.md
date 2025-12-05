@@ -29,6 +29,12 @@ Key architectural decisions include:
   - `StatusBadge`: Status indicator component for node/validator states
 
 ## Recent Changes (December 2024)
+- **Economics/Token Pages Enhancement (Phase 4)**: All 4 pages fully enhanced with production-level features
+  - `token-issuance.tsx`: DetailSheet (3 sections), ConfirmationDialog (pause/resume tokens)
+  - `burn-control.tsx`: DetailSheet (2 sections), ConfirmationDialog (pause/resume schedules, save settings)
+  - `economics.tsx`: DetailSheet for metrics, ConfirmationDialog for parameter updates
+  - `treasury.tsx`: DetailSheet (2 sections), ConfirmationDialog (cancel transactions, confirm transfers)
+  - 70+ bilingual translation keys added for detail views and confirmation dialogs
 - **Validator Management Enhancement**: Added 4-section detail sheet (Basic Info, Performance, Staking, AI Analysis), CRUD operations with confirmation dialogs, Unjail/Slash actions, comprehensive bilingual translations (70+ new keys)
 - **Node Management Enhancement**: Production-ready with detail views, Add/Edit dialogs, node control actions (restart/stop/start)
 
