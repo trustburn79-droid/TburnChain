@@ -168,6 +168,8 @@
     "totalBlocks": "총 블록",
     "totalTransactions": "총 트랜잭션",
     "activeValidators": "활성 검증자",
+    "activeShards": "활성 샤드",
+    "validatorsPerShard": "밸리데이터/샤드",
     "networkTps": "네트워크 TPS",
     "recentBlocks": "최근 블록",
     "recentTransactions": "최근 트랜잭션",

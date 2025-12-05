@@ -168,6 +168,8 @@
     "totalBlocks": "Total Blocks",
     "totalTransactions": "Total Transactions",
     "activeValidators": "Active Validators",
+    "activeShards": "Active Shards",
+    "validatorsPerShard": "validators/shard",
     "networkTps": "Network TPS",
     "recentBlocks": "Recent Blocks",
     "recentTransactions": "Recent Transactions",
