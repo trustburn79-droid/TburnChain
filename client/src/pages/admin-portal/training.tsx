@@ -40,7 +40,7 @@ interface Course {
   level: "beginner" | "intermediate" | "advanced";
   enrolled: number;
   rating: number;
-  icon: any;
+  iconName: string;
 }
 
 interface Achievement {
@@ -48,8 +48,25 @@ interface Achievement {
   title: string;
   description: string;
   earnedDate: string | null;
-  icon: any;
+  iconName: string;
 }
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  BookOpen,
+  Network,
+  Shield,
+  Bot,
+  Zap,
+  Settings,
+  Star,
+  Award,
+  GraduationCap,
+  TrendingUp,
+};
+
+const getIcon = (iconName: string) => {
+  return iconMap[iconName] || BookOpen;
+};
 
 interface LearningPath {
   name: string;
@@ -75,9 +92,7 @@ export default function TrainingMaterials() {
 
   const enrollMutation = useMutation({
     mutationFn: async (courseId: string) => {
-      return apiRequest(`/api/admin/training/courses/${courseId}/enroll`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/training/courses/${courseId}/enroll`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/training"] });
@@ -97,9 +112,7 @@ export default function TrainingMaterials() {
 
   const completeMutation = useMutation({
     mutationFn: async ({ courseId, moduleId }: { courseId: string; moduleId: string }) => {
-      return apiRequest(`/api/admin/training/courses/${courseId}/modules/${moduleId}/complete`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/training/courses/${courseId}/modules/${moduleId}/complete`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/training"] });
@@ -119,21 +132,21 @@ export default function TrainingMaterials() {
   }, [refetch, toast, t]);
 
   const courses: Course[] = trainingData?.courses || [
-    { id: "1", title: t("adminTraining.courses.fundamentals.title"), description: t("adminTraining.courses.fundamentals.desc"), category: t("adminTraining.categories.gettingStarted"), duration: "2h 30m", modules: 8, completedModules: 8, level: "beginner", enrolled: 245, rating: 4.8, icon: BookOpen },
-    { id: "2", title: t("adminTraining.courses.network.title"), description: t("adminTraining.courses.network.desc"), category: t("adminTraining.categories.network"), duration: "4h 15m", modules: 12, completedModules: 7, level: "intermediate", enrolled: 189, rating: 4.9, icon: Network },
-    { id: "3", title: t("adminTraining.courses.security.title"), description: t("adminTraining.courses.security.desc"), category: t("adminTraining.categories.security"), duration: "3h 45m", modules: 10, completedModules: 3, level: "advanced", enrolled: 156, rating: 4.7, icon: Shield },
-    { id: "4", title: t("adminTraining.courses.ai.title"), description: t("adminTraining.courses.ai.desc"), category: t("adminTraining.categories.ai"), duration: "3h 00m", modules: 8, completedModules: 0, level: "intermediate", enrolled: 134, rating: 4.6, icon: Bot },
-    { id: "5", title: t("adminTraining.courses.emergency.title"), description: t("adminTraining.courses.emergency.desc"), category: t("adminTraining.categories.operations"), duration: "2h 00m", modules: 6, completedModules: 0, level: "advanced", enrolled: 98, rating: 4.9, icon: Zap },
-    { id: "6", title: t("adminTraining.courses.config.title"), description: t("adminTraining.courses.config.desc"), category: t("adminTraining.categories.settings"), duration: "2h 45m", modules: 7, completedModules: 4, level: "intermediate", enrolled: 112, rating: 4.5, icon: Settings },
+    { id: "1", title: t("adminTraining.courses.fundamentals.title"), description: t("adminTraining.courses.fundamentals.desc"), category: t("adminTraining.categories.gettingStarted"), duration: "2h 30m", modules: 8, completedModules: 8, level: "beginner", enrolled: 245, rating: 4.8, iconName: "BookOpen" },
+    { id: "2", title: t("adminTraining.courses.network.title"), description: t("adminTraining.courses.network.desc"), category: t("adminTraining.categories.network"), duration: "4h 15m", modules: 12, completedModules: 7, level: "intermediate", enrolled: 189, rating: 4.9, iconName: "Network" },
+    { id: "3", title: t("adminTraining.courses.security.title"), description: t("adminTraining.courses.security.desc"), category: t("adminTraining.categories.security"), duration: "3h 45m", modules: 10, completedModules: 3, level: "advanced", enrolled: 156, rating: 4.7, iconName: "Shield" },
+    { id: "4", title: t("adminTraining.courses.ai.title"), description: t("adminTraining.courses.ai.desc"), category: t("adminTraining.categories.ai"), duration: "3h 00m", modules: 8, completedModules: 0, level: "intermediate", enrolled: 134, rating: 4.6, iconName: "Bot" },
+    { id: "5", title: t("adminTraining.courses.emergency.title"), description: t("adminTraining.courses.emergency.desc"), category: t("adminTraining.categories.operations"), duration: "2h 00m", modules: 6, completedModules: 0, level: "advanced", enrolled: 98, rating: 4.9, iconName: "Zap" },
+    { id: "6", title: t("adminTraining.courses.config.title"), description: t("adminTraining.courses.config.desc"), category: t("adminTraining.categories.settings"), duration: "2h 45m", modules: 7, completedModules: 4, level: "intermediate", enrolled: 112, rating: 4.5, iconName: "Settings" },
   ];
 
   const achievements: Achievement[] = trainingData?.achievements || [
-    { id: "1", title: t("adminTraining.achievements.firstSteps.title"), description: t("adminTraining.achievements.firstSteps.desc"), earnedDate: "2024-11-15", icon: Star },
-    { id: "2", title: t("adminTraining.achievements.quickLearner.title"), description: t("adminTraining.achievements.quickLearner.desc"), earnedDate: "2024-11-28", icon: Zap },
-    { id: "3", title: t("adminTraining.achievements.securityExpert.title"), description: t("adminTraining.achievements.securityExpert.desc"), earnedDate: null, icon: Shield },
-    { id: "4", title: t("adminTraining.achievements.networkMaster.title"), description: t("adminTraining.achievements.networkMaster.desc"), earnedDate: null, icon: Network },
-    { id: "5", title: t("adminTraining.achievements.aiSpecialist.title"), description: t("adminTraining.achievements.aiSpecialist.desc"), earnedDate: null, icon: Bot },
-    { id: "6", title: t("adminTraining.achievements.completionist.title"), description: t("adminTraining.achievements.completionist.desc"), earnedDate: null, icon: Award },
+    { id: "1", title: t("adminTraining.achievements.firstSteps.title"), description: t("adminTraining.achievements.firstSteps.desc"), earnedDate: "2024-11-15", iconName: "Star" },
+    { id: "2", title: t("adminTraining.achievements.quickLearner.title"), description: t("adminTraining.achievements.quickLearner.desc"), earnedDate: "2024-11-28", iconName: "Zap" },
+    { id: "3", title: t("adminTraining.achievements.securityExpert.title"), description: t("adminTraining.achievements.securityExpert.desc"), earnedDate: null, iconName: "Shield" },
+    { id: "4", title: t("adminTraining.achievements.networkMaster.title"), description: t("adminTraining.achievements.networkMaster.desc"), earnedDate: null, iconName: "Network" },
+    { id: "5", title: t("adminTraining.achievements.aiSpecialist.title"), description: t("adminTraining.achievements.aiSpecialist.desc"), earnedDate: null, iconName: "Bot" },
+    { id: "6", title: t("adminTraining.achievements.completionist.title"), description: t("adminTraining.achievements.completionist.desc"), earnedDate: null, iconName: "Award" },
   ];
 
   const learningPaths: LearningPath[] = trainingData?.learningPaths || [
@@ -312,11 +325,13 @@ export default function TrainingMaterials() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {courses.filter(c => c.completedModules > 0 && c.completedModules < c.modules).map((course, index) => (
+                  {courses.filter(c => c.completedModules > 0 && c.completedModules < c.modules).map((course, index) => {
+                    const CourseIcon = getIcon(course.iconName);
+                    return (
                     <div key={course.id} className="p-4 border rounded-lg hover-elevate" data-testid={`continue-course-${index}`}>
                       <div className="flex items-start gap-4">
                         <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                          <course.icon className="h-6 w-6 text-primary" />
+                          <CourseIcon className="h-6 w-6 text-primary" />
                         </div>
                         <div className="flex-1">
                           <h4 className="font-medium">{course.title}</h4>
@@ -335,7 +350,8 @@ export default function TrainingMaterials() {
                         </div>
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -346,10 +362,12 @@ export default function TrainingMaterials() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {courses.map((course, index) => (
+                  {courses.map((course, index) => {
+                    const CourseIcon = getIcon(course.iconName);
+                    return (
                     <div key={course.id} className="border rounded-lg overflow-hidden hover-elevate" data-testid={`course-card-${index}`}>
                       <div className="h-32 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                        <course.icon className="h-12 w-12 text-primary" />
+                        <CourseIcon className="h-12 w-12 text-primary" />
                       </div>
                       <div className="p-4">
                         <div className="flex items-center justify-between mb-2">
@@ -399,7 +417,8 @@ export default function TrainingMaterials() {
                         )}
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -446,7 +465,9 @@ export default function TrainingMaterials() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                  {achievements.map((achievement, index) => (
+                  {achievements.map((achievement, index) => {
+                    const AchievementIcon = getIcon(achievement.iconName);
+                    return (
                     <div
                       key={achievement.id}
                       className={`p-4 border rounded-lg text-center ${
@@ -458,7 +479,7 @@ export default function TrainingMaterials() {
                         achievement.earnedDate ? "bg-primary/10" : "bg-muted"
                       }`}>
                         {achievement.earnedDate ? (
-                          <achievement.icon className="h-8 w-8 text-primary" />
+                          <AchievementIcon className="h-8 w-8 text-primary" />
                         ) : (
                           <Lock className="h-8 w-8 text-muted-foreground" />
                         )}
@@ -469,7 +490,8 @@ export default function TrainingMaterials() {
                         <p className="text-xs text-green-500 mt-2">{t("adminTraining.earned")} {achievement.earnedDate}</p>
                       )}
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>

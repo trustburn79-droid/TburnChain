@@ -7714,10 +7714,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/training", async (_req, res) => {
     res.json({
       courses: [
-        { id: 'course-1', name: 'Admin Basics', progress: 100, completed: true },
-        { id: 'course-2', name: 'Advanced Operations', progress: 50, completed: false }
+        { id: "1", title: "TBURN Platform Fundamentals", description: "Learn the core concepts of TBURN blockchain and admin operations", category: "Getting Started", duration: "2h 30m", modules: 8, completedModules: 8, level: "beginner", enrolled: 245, rating: 4.8, iconName: "BookOpen" },
+        { id: "2", title: "Network Operations Mastery", description: "Advanced network monitoring and node management techniques", category: "Network", duration: "4h 15m", modules: 12, completedModules: 7, level: "intermediate", enrolled: 189, rating: 4.9, iconName: "Network" },
+        { id: "3", title: "Security & Compliance", description: "Enterprise security protocols and compliance frameworks", category: "Security", duration: "3h 45m", modules: 10, completedModules: 3, level: "advanced", enrolled: 156, rating: 4.7, iconName: "Shield" },
+        { id: "4", title: "AI System Administration", description: "Managing and optimizing AI-powered features", category: "AI Systems", duration: "3h 00m", modules: 8, completedModules: 0, level: "intermediate", enrolled: 134, rating: 4.6, iconName: "Bot" },
+        { id: "5", title: "Emergency Response Protocols", description: "Critical incident handling and disaster recovery", category: "Operations", duration: "2h 00m", modules: 6, completedModules: 0, level: "advanced", enrolled: 98, rating: 4.9, iconName: "Zap" },
+        { id: "6", title: "System Configuration", description: "Advanced configuration and optimization strategies", category: "Settings", duration: "2h 45m", modules: 7, completedModules: 4, level: "intermediate", enrolled: 112, rating: 4.5, iconName: "Settings" }
+      ],
+      achievements: [
+        { id: "1", title: "First Steps", description: "Complete your first training module", earnedDate: "2024-11-15", iconName: "Star" },
+        { id: "2", title: "Quick Learner", description: "Complete 3 courses in one week", earnedDate: "2024-11-28", iconName: "Zap" },
+        { id: "3", title: "Security Expert", description: "Master all security courses", earnedDate: null, iconName: "Shield" },
+        { id: "4", title: "Network Master", description: "Complete all network training", earnedDate: null, iconName: "Network" },
+        { id: "5", title: "AI Specialist", description: "Master AI system administration", earnedDate: null, iconName: "Bot" },
+        { id: "6", title: "Completionist", description: "Complete all available courses", earnedDate: null, iconName: "Award" }
+      ],
+      learningPaths: [
+        { name: "New Admin Onboarding", courses: 3, duration: "8h", progress: 100 },
+        { name: "Security Specialist", courses: 4, duration: "12h", progress: 45 },
+        { name: "Network Operations", courses: 5, duration: "15h", progress: 30 },
+        { name: "AI & Automation", courses: 3, duration: "9h", progress: 0 }
       ]
     });
+  });
+
+  app.post("/api/admin/training/courses/:courseId/enroll", async (req, res) => {
+    const { courseId } = req.params;
+    res.json({ success: true, courseId, message: "Successfully enrolled in course" });
+  });
+
+  app.post("/api/admin/training/courses/:courseId/modules/:moduleId/complete", async (req, res) => {
+    const { courseId, moduleId } = req.params;
+    res.json({ success: true, courseId, moduleId, message: "Module marked as complete" });
   });
 
   // ============================================
