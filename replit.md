@@ -11,6 +11,9 @@ The platform is built with a modern web stack. The frontend leverages React 18, 
 
 Key architectural decisions include:
 - **Dynamic Shard Management**: Enterprise Shard Management System allows dynamic scaling of shards (5-64) and validators, with transactional updates, rollback capabilities, and comprehensive audit logging.
+  - **Integration Architecture**: Admin Portal (`/admin/shards`) configures shards via `/api/admin/shards/config`, while public pages (`/app/sharding`) display data from `/api/shards` (enterprise node proxy).
+  - **Real-time Sync**: WebSocket channel `shards_snapshot` broadcasts updates to all connected clients when admin changes configuration.
+  - **Unified API**: Single `/api/shards` endpoint proxies to TBurnEnterpriseNode (port 8545) for dynamic shard generation based on current config.
 - **Unified AI Model Configuration**: Utilizes a Quad-Band AI System with Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3 (fallback), ensuring consistent AI model usage across Admin Portal and public applications. Includes automatic fallback activation logic and health check integration.
 - **Comprehensive Bilingual Support**: Full Korean and English translation system covering all Admin Portal pages (17,000+ keys) and public pages.
 - **Standardized UI Components**: Utilizes `MetricCard` component, skeleton loading states, error boundaries with retry, and export functionality (CSV/JSON).
