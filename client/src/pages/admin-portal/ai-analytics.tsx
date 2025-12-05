@@ -10,10 +10,12 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Brain, TrendingUp, Target, BarChart3, PieChart, 
   Activity, Zap, Clock, CheckCircle, XCircle, RefreshCw,
-  Download, AlertCircle
+  Download, AlertCircle, Eye
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, PieChart as RechartsPie, Pie, Cell } from "recharts";
 
@@ -102,6 +104,9 @@ export default function AdminAIAnalytics() {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [selectedOutcome, setSelectedOutcome] = useState<RecentOutcome | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [exportDialogOpen, setExportDialogOpen] = useState(false);
 
   const { data, isLoading, error, refetch } = useQuery<AnalyticsData>({
     queryKey: ["/api/admin/ai/analytics"],
@@ -132,6 +137,10 @@ export default function AdminAIAnalytics() {
   }, [refetch, toast, t]);
 
   const handleExport = useCallback(() => {
+    setExportDialogOpen(true);
+  }, []);
+
+  const confirmExport = useCallback(() => {
     const exportData = {
       exportDate: new Date().toISOString(),
       ...analyticsData
@@ -145,11 +154,35 @@ export default function AdminAIAnalytics() {
     a.click();
     URL.revokeObjectURL(url);
 
+    setExportDialogOpen(false);
     toast({
       title: t("adminAIAnalytics.exportSuccess"),
       description: t("adminAIAnalytics.exportSuccessDesc"),
     });
   }, [analyticsData, toast, t]);
+
+  const handleViewOutcome = (outcome: RecentOutcome) => {
+    setSelectedOutcome(outcome);
+    setDetailOpen(true);
+  };
+
+  const getOutcomeDetailSections = (outcome: RecentOutcome): DetailSection[] => [
+    {
+      title: t("adminAIAnalytics.detail.overview"),
+      fields: [
+        { label: t("adminAIAnalytics.detail.decision"), value: outcome.decision },
+        { label: t("adminAIAnalytics.detail.type"), value: outcome.type, type: "badge" as const },
+        { label: t("adminAIAnalytics.detail.outcome"), value: outcome.outcome === "success" ? "success" : "failed", type: "status" as const },
+      ]
+    },
+    {
+      title: t("adminAIAnalytics.detail.analysis"),
+      fields: [
+        { label: t("adminAIAnalytics.detail.confidence"), value: outcome.confidence, type: "progress" as const },
+        { label: t("adminAIAnalytics.detail.impact"), value: outcome.impact },
+      ]
+    }
+  ];
 
   if (error) {
     return (
@@ -492,6 +525,7 @@ export default function AdminAIAnalytics() {
                         <TableHead data-testid="table-head-confidence">{t("adminAI.confidence")}</TableHead>
                         <TableHead data-testid="table-head-outcome">{t("adminAIAnalytics.outcome")}</TableHead>
                         <TableHead data-testid="table-head-impact">{t("adminAIAnalytics.improvement")}</TableHead>
+                        <TableHead data-testid="table-head-actions">{t("adminAIAnalytics.actions")}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -531,6 +565,16 @@ export default function AdminAIAnalytics() {
                             )}
                           </TableCell>
                           <TableCell className="text-muted-foreground" data-testid={`text-outcome-impact-${index}`}>{outcome.impact}</TableCell>
+                          <TableCell>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleViewOutcome(outcome)}
+                              data-testid={`button-view-outcome-${index}`}
+                            >
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -541,6 +585,28 @@ export default function AdminAIAnalytics() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedOutcome && (
+        <DetailSheet
+          open={detailOpen}
+          onOpenChange={setDetailOpen}
+          title={t("adminAIAnalytics.detail.title")}
+          subtitle={selectedOutcome.type}
+          icon={<Brain className="w-5 h-5" />}
+          sections={getOutcomeDetailSections(selectedOutcome)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={exportDialogOpen}
+        onOpenChange={setExportDialogOpen}
+        title={t("adminAIAnalytics.confirm.exportTitle")}
+        description={t("adminAIAnalytics.confirm.exportDescription")}
+        confirmText={t("adminAIAnalytics.confirm.export")}
+        cancelText={t("adminAIAnalytics.confirm.cancel")}
+        variant="default"
+        onConfirm={confirmExport}
+      />
     </ScrollArea>
   );
 }

@@ -10,10 +10,12 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Brain, Database, Play, Pause, Clock, CheckCircle, 
   AlertTriangle, BarChart3, TrendingUp, Layers, RefreshCw,
-  Download, Wifi, WifiOff, AlertCircle, X
+  Download, Wifi, WifiOff, AlertCircle, X, Eye
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -108,6 +110,10 @@ export default function AdminAITraining() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [liveJobs, setLiveJobs] = useState<TrainingJob[]>([]);
+  const [selectedJob, setSelectedJob] = useState<TrainingJob | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
+  const [jobToCancel, setJobToCancel] = useState<TrainingJob | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<TrainingData>({
     queryKey: ["/api/admin/ai/training"],
@@ -252,6 +258,44 @@ export default function AdminAITraining() {
       description: t("adminTraining.exportSuccessDesc"),
     });
   }, [trainingData, jobs, toast, t]);
+
+  const handleViewJob = (job: TrainingJob) => {
+    setSelectedJob(job);
+    setDetailOpen(true);
+  };
+
+  const handleCancelJob = (job: TrainingJob) => {
+    setJobToCancel(job);
+    setCancelDialogOpen(true);
+  };
+
+  const confirmCancelJob = () => {
+    if (jobToCancel) {
+      cancelJobMutation.mutate(jobToCancel.id);
+      setCancelDialogOpen(false);
+      setJobToCancel(null);
+    }
+  };
+
+  const getJobDetailSections = (job: TrainingJob): DetailSection[] => [
+    {
+      title: t("adminTraining.detail.overview"),
+      fields: [
+        { label: t("adminTraining.detail.jobId"), value: job.id.toString(), copyable: true },
+        { label: t("adminTraining.detail.name"), value: job.name },
+        { label: t("adminTraining.detail.model"), value: job.model, type: "badge" as const },
+        { label: t("adminTraining.detail.status"), value: job.status === "running" ? "active" : job.status === "completed" ? "success" : job.status === "paused" ? "warning" : "pending", type: "status" as const },
+      ]
+    },
+    {
+      title: t("adminTraining.detail.progress"),
+      fields: [
+        { label: t("adminTraining.progress"), value: job.progress, type: "progress" as const },
+        { label: t("adminTraining.dataPoints"), value: job.dataPoints },
+        { label: t("adminTraining.eta"), value: job.eta },
+      ]
+    }
+  ];
 
   if (error) {
     return (
@@ -457,6 +501,14 @@ export default function AdminAITraining() {
                           <TableCell className="text-muted-foreground" data-testid={`text-job-eta-${job.id}`}>{job.eta}</TableCell>
                           <TableCell>
                             <div className="flex gap-1">
+                              <Button 
+                                size="icon" 
+                                variant="ghost"
+                                onClick={() => handleViewJob(job)}
+                                data-testid={`button-view-job-${job.id}`}
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
                               {job.status === "running" && (
                                 <Button 
                                   size="icon" 
@@ -483,7 +535,7 @@ export default function AdminAITraining() {
                                 <Button 
                                   size="icon" 
                                   variant="ghost"
-                                  onClick={() => cancelJobMutation.mutate(job.id)}
+                                  onClick={() => handleCancelJob(job)}
                                   disabled={cancelJobMutation.isPending}
                                   data-testid={`button-cancel-job-${job.id}`}
                                 >
@@ -648,6 +700,29 @@ export default function AdminAITraining() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedJob && (
+        <DetailSheet
+          open={detailOpen}
+          onOpenChange={setDetailOpen}
+          title={t("adminTraining.detail.title")}
+          subtitle={selectedJob.model}
+          icon={<Brain className="w-5 h-5" />}
+          sections={getJobDetailSections(selectedJob)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={cancelDialogOpen}
+        onOpenChange={setCancelDialogOpen}
+        title={t("adminTraining.confirm.cancelTitle")}
+        description={t("adminTraining.confirm.cancelDescription", { name: jobToCancel?.name })}
+        confirmText={t("adminTraining.confirm.cancel")}
+        cancelText={t("adminTraining.confirm.keep")}
+        variant="destructive"
+        onConfirm={confirmCancelJob}
+        isLoading={cancelJobMutation.isPending}
+      />
     </ScrollArea>
   );
 }

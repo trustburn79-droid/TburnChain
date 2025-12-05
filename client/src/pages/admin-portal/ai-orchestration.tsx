@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,10 +11,13 @@ import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { 
   Brain, Cpu, Zap, Activity, Clock, CheckCircle, 
   AlertTriangle, Settings, History, BarChart3, RefreshCw,
-  Download, Wifi, WifiOff, AlertCircle
+  Download, Wifi, WifiOff, AlertCircle, Eye, RotateCcw
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -156,6 +159,10 @@ export default function AdminAIOrchestration() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [liveDecisions, setLiveDecisions] = useState<AIDecision[]>([]);
+  const [selectedModel, setSelectedModel] = useState<AIModel | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [syncDialogOpen, setSyncDialogOpen] = useState(false);
+  const [modelToSync, setModelToSync] = useState<AIModel | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<AIOrchestrationData>({
     queryKey: ["/api/admin/ai/models"],
@@ -251,6 +258,58 @@ export default function AdminAIOrchestration() {
       description: t("adminAI.exportSuccessDesc"),
     });
   }, [aiData, decisions, toast, t]);
+
+  const syncModelMutation = useMutation({
+    mutationFn: async (modelId: number) => {
+      return apiRequest('POST', `/api/admin/ai/models/${modelId}/sync`);
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminAI.syncSuccess"),
+        description: t("adminAI.syncSuccessDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/models"] });
+      setSyncDialogOpen(false);
+      setModelToSync(null);
+    },
+  });
+
+  const handleViewModel = (model: AIModel) => {
+    setSelectedModel(model);
+    setDetailOpen(true);
+  };
+
+  const handleSyncModel = (model: AIModel) => {
+    setModelToSync(model);
+    setSyncDialogOpen(true);
+  };
+
+  const getModelDetailSections = (model: AIModel): DetailSection[] => [
+    {
+      title: t("adminAI.detail.overview"),
+      fields: [
+        { label: t("adminAI.detail.modelId"), value: model.id.toString(), copyable: true },
+        { label: t("adminAI.detail.name"), value: model.name },
+        { label: t("adminAI.detail.layer"), value: translateType(model.layer), type: "badge" as const },
+        { label: t("adminAI.detail.status"), value: model.status === "online" ? "online" : model.status === "standby" ? "pending" : "offline", type: "status" as const },
+      ]
+    },
+    {
+      title: t("adminAI.detail.performance"),
+      fields: [
+        { label: t("adminAI.latency"), value: `${model.latency}ms` },
+        { label: t("adminAI.tokenRate"), value: `${model.tokenRate}/sec` },
+        { label: t("adminAI.accuracy"), value: model.accuracy, type: "progress" as const },
+      ]
+    },
+    {
+      title: t("adminAI.detail.usage"),
+      fields: [
+        { label: t("adminAI.requests24h"), value: (model.requests24h ?? 0).toLocaleString() },
+        { label: t("adminAI.cost24h"), value: `$${model.cost24h.toFixed(2)}` },
+      ]
+    }
+  ];
 
   if (error) {
     return (
@@ -404,6 +463,26 @@ export default function AdminAIOrchestration() {
                       <span className="text-muted-foreground">{t("adminAI.cost24h")}</span>
                       <span className="font-medium" data-testid={`text-model-cost-${model.id}`}>${model.cost24h.toFixed(2)}</span>
                     </div>
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleViewModel(model)}
+                      data-testid={`button-view-model-${model.id}`}
+                    >
+                      <Eye className="w-4 h-4 mr-1" />
+                      {t("adminAI.view")}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleSyncModel(model)}
+                      data-testid={`button-sync-model-${model.id}`}
+                    >
+                      <RotateCcw className="w-4 h-4 mr-1" />
+                      {t("adminAI.sync")}
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -716,6 +795,37 @@ export default function AdminAIOrchestration() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedModel && (
+        <DetailSheet
+          open={detailOpen}
+          onOpenChange={setDetailOpen}
+          title={t("adminAI.detail.title")}
+          subtitle={selectedModel.name}
+          icon={<Brain className="w-5 h-5" />}
+          sections={getModelDetailSections(selectedModel)}
+          actions={[
+            {
+              label: t("adminAI.sync"),
+              icon: <RotateCcw className="w-4 h-4" />,
+              onClick: () => {
+                setDetailOpen(false);
+                handleSyncModel(selectedModel);
+              },
+            },
+          ]}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={syncDialogOpen}
+        onOpenChange={setSyncDialogOpen}
+        title={t("adminAI.confirmSync.title")}
+        description={t("adminAI.confirmSync.description", { name: modelToSync?.name })}
+        confirmLabel={t("adminAI.sync")}
+        onConfirm={() => modelToSync && syncModelMutation.mutate(modelToSync.id)}
+        isLoading={syncModelMutation.isPending}
+      />
     </ScrollArea>
   );
 }

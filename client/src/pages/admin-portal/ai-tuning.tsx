@@ -12,9 +12,11 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Settings, Sliders, Brain, Zap, Save, RotateCcw, 
-  AlertTriangle, CheckCircle, TestTube, RefreshCw, Wifi, WifiOff, AlertCircle
+  AlertTriangle, CheckCircle, TestTube, RefreshCw, Wifi, WifiOff, AlertCircle, Eye
 } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
@@ -147,6 +149,10 @@ export default function AdminAITuning() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [localParams, setLocalParams] = useState<AITuningData | null>(null);
+  const [selectedModel, setSelectedModel] = useState<ModelConfig | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+  const [resetDialogOpen, setResetDialogOpen] = useState(false);
 
   const { data, isLoading, error, refetch } = useQuery<AITuningData>({
     queryKey: ["/api/admin/ai/params"],
@@ -236,8 +242,13 @@ export default function AdminAITuning() {
   }, [refetch, toast, t]);
 
   const handleReset = useCallback(() => {
+    setResetDialogOpen(true);
+  }, []);
+
+  const confirmReset = useCallback(() => {
     setLocalParams(data || mockData);
     setHasChanges(false);
+    setResetDialogOpen(false);
     toast({
       title: t("adminAITuning.changesReset"),
       description: t("adminAITuning.changesResetDesc"),
@@ -252,14 +263,44 @@ export default function AdminAITuning() {
   }, [toast, t]);
 
   const handleApply = useCallback(() => {
+    setSaveDialogOpen(true);
+  }, []);
+
+  const confirmApply = useCallback(() => {
     if (localParams) {
       saveParamsMutation.mutate(localParams);
+      setSaveDialogOpen(false);
     }
   }, [localParams, saveParamsMutation]);
 
   const markChanged = useCallback(() => {
     setHasChanges(true);
   }, []);
+
+  const handleViewModel = (model: ModelConfig) => {
+    setSelectedModel(model);
+    setDetailOpen(true);
+  };
+
+  const getModelDetailSections = (model: ModelConfig): DetailSection[] => [
+    {
+      title: t("adminAITuning.detail.overview"),
+      fields: [
+        { label: t("adminAITuning.detail.modelName"), value: model.name },
+        { label: t("adminAITuning.detail.layer"), value: model.layer, type: "badge" as const },
+      ]
+    },
+    {
+      title: t("adminAITuning.detail.parameters"),
+      fields: [
+        { label: t("adminAITuning.temperature"), value: model.temperature.toString() },
+        { label: t("adminAITuning.maxTokens"), value: model.maxTokens.toString() },
+        { label: t("adminAITuning.topP"), value: model.topP.toString() },
+        { label: t("adminAITuning.freqPenalty"), value: model.frequencyPenalty.toString() },
+        { label: t("adminAITuning.presPenalty"), value: model.presencePenalty.toString() },
+      ]
+    }
+  ];
 
   if (error) {
     return (
@@ -385,11 +426,21 @@ export default function AdminAITuning() {
                         } />
                         <span data-testid={`text-model-name-${index}`}>{model.name}</span>
                       </CardTitle>
-                      <Badge variant="outline" data-testid={`badge-model-layer-${index}`}>
-                        {model.layer === "Strategic" ? t("adminAITuning.strategicLayer") :
-                         model.layer === "Tactical" ? t("adminAITuning.tacticalLayer") :
-                         t("adminAITuning.operationalLayer")}
-                      </Badge>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" data-testid={`badge-model-layer-${index}`}>
+                          {model.layer === "Strategic" ? t("adminAITuning.strategicLayer") :
+                           model.layer === "Tactical" ? t("adminAITuning.tacticalLayer") :
+                           t("adminAITuning.operationalLayer")}
+                        </Badge>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => handleViewModel(model)}
+                          data-testid={`button-view-model-${index}`}
+                        >
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -813,6 +864,40 @@ export default function AdminAITuning() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedModel && (
+        <DetailSheet
+          open={detailOpen}
+          onOpenChange={setDetailOpen}
+          title={t("adminAITuning.detail.title")}
+          subtitle={selectedModel.layer}
+          icon={<Brain className="w-5 h-5" />}
+          sections={getModelDetailSections(selectedModel)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={saveDialogOpen}
+        onOpenChange={setSaveDialogOpen}
+        title={t("adminAITuning.confirm.saveTitle")}
+        description={t("adminAITuning.confirm.saveDescription")}
+        confirmText={t("adminAITuning.confirm.save")}
+        cancelText={t("adminAITuning.confirm.cancel")}
+        variant="default"
+        onConfirm={confirmApply}
+        isLoading={saveParamsMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={resetDialogOpen}
+        onOpenChange={setResetDialogOpen}
+        title={t("adminAITuning.confirm.resetTitle")}
+        description={t("adminAITuning.confirm.resetDescription")}
+        confirmText={t("adminAITuning.confirm.reset")}
+        cancelText={t("adminAITuning.confirm.keep")}
+        variant="destructive"
+        onConfirm={confirmReset}
+      />
     </ScrollArea>
   );
 }

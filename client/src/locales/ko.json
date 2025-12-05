@@ -15924,7 +15924,32 @@
       "title": "AI 데이터 로드 실패",
       "description": "AI 오케스트레이션 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "actions": "작업",
+    "detail": {
+      "title": "AI 모델 상세정보",
+      "overview": "개요",
+      "performance": "성능",
+      "configuration": "설정",
+      "modelName": "모델 이름",
+      "layer": "계층",
+      "status": "상태",
+      "provider": "제공자",
+      "latency": "지연 시간",
+      "tokenRate": "토큰 속도",
+      "accuracy": "정확도",
+      "requests24h": "24시간 요청",
+      "cost24h": "24시간 비용",
+      "temperature": "온도",
+      "maxTokens": "최대 토큰",
+      "topP": "Top P"
+    },
+    "confirm": {
+      "syncTitle": "AI 모델 동기화",
+      "syncDescription": "이 작업은 모든 AI 모델 설정을 최신 데이터와 동기화합니다. 계속하시겠습니까?",
+      "sync": "모두 동기화",
+      "cancel": "취소"
+    }
   },
   "adminBridge": {
     "title": "브릿지 대시보드",
@@ -16089,6 +16114,21 @@
       "description": "학습 관리 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
     "retry": "다시 시도",
+    "detail": {
+      "title": "학습 작업 상세정보",
+      "overview": "개요",
+      "progress": "진행 상황",
+      "jobId": "작업 ID",
+      "name": "이름",
+      "model": "모델",
+      "status": "상태"
+    },
+    "confirm": {
+      "cancelTitle": "학습 작업 취소",
+      "cancelDescription": "\"{{name}}\" 학습 작업을 취소하시겠습니까? 이 작업은 취소할 수 없습니다.",
+      "cancel": "작업 취소",
+      "keep": "계속 실행"
+    },
     "enrolled": "등록 완료",
     "enrolledDesc": "이 과정에 등록되었습니다",
     "enrollError": "과정 등록에 실패했습니다. 다시 시도해 주세요.",
@@ -18065,7 +18105,24 @@
       "title": "분석 데이터 로드 실패",
       "description": "분석 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "actions": "작업",
+    "detail": {
+      "title": "의사결정 결과 상세정보",
+      "overview": "개요",
+      "analysis": "분석",
+      "decision": "결정",
+      "type": "유형",
+      "outcome": "결과",
+      "confidence": "신뢰도",
+      "impact": "영향"
+    },
+    "confirm": {
+      "exportTitle": "분석 리포트 내보내기",
+      "exportDescription": "의사결정 결과, 성능 지표, 영향 분석을 포함한 모든 AI 분석 데이터를 내보냅니다. 계속하시겠습니까?",
+      "export": "리포트 내보내기",
+      "cancel": "취소"
+    }
   },
   "adminAITuning": {
     "title": "AI 파라미터 튜닝",
@@ -18148,7 +18205,24 @@
       "title": "AI 파라미터 로드 실패",
       "description": "AI 파라미터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "detail": {
+      "title": "모델 설정 상세정보",
+      "overview": "개요",
+      "parameters": "파라미터",
+      "modelName": "모델 이름",
+      "layer": "레이어"
+    },
+    "confirm": {
+      "saveTitle": "AI 파라미터 저장",
+      "saveDescription": "이 변경사항을 AI 시스템에 적용하시겠습니까? 모든 AI 의사결정 프로세스에 영향을 미칩니다.",
+      "save": "변경사항 저장",
+      "cancel": "취소",
+      "resetTitle": "파라미터 초기화",
+      "resetDescription": "저장되지 않은 모든 변경사항을 취소하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "reset": "초기화",
+      "keep": "변경사항 유지"
+    }
   },
   "adminThreats": {
     "title": "위협 탐지",

@@ -15924,7 +15924,32 @@
       "title": "Failed to Load AI Data",
       "description": "Unable to fetch AI orchestration data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "actions": "Actions",
+    "detail": {
+      "title": "AI Model Details",
+      "overview": "Overview",
+      "performance": "Performance",
+      "configuration": "Configuration",
+      "modelName": "Model Name",
+      "layer": "Layer",
+      "status": "Status",
+      "provider": "Provider",
+      "latency": "Latency",
+      "tokenRate": "Token Rate",
+      "accuracy": "Accuracy",
+      "requests24h": "24h Requests",
+      "cost24h": "24h Cost",
+      "temperature": "Temperature",
+      "maxTokens": "Max Tokens",
+      "topP": "Top P"
+    },
+    "confirm": {
+      "syncTitle": "Sync AI Models",
+      "syncDescription": "This will synchronize all AI model configurations with the latest data. Proceed?",
+      "sync": "Sync All",
+      "cancel": "Cancel"
+    }
   },
   "adminTraining": {
     "title": "Training Materials",
@@ -16001,6 +16026,21 @@
       "description": "Unable to fetch training data. Please try again."
     },
     "retry": "Retry",
+    "detail": {
+      "title": "Training Job Details",
+      "overview": "Overview",
+      "progress": "Progress",
+      "jobId": "Job ID",
+      "name": "Name",
+      "model": "Model",
+      "status": "Status"
+    },
+    "confirm": {
+      "cancelTitle": "Cancel Training Job",
+      "cancelDescription": "Are you sure you want to cancel the training job \"{{name}}\"? This action cannot be undone.",
+      "cancel": "Cancel Job",
+      "keep": "Keep Running"
+    },
     "enrolled": "Enrolled Successfully",
     "enrolledDesc": "You have been enrolled in this course",
     "enrollError": "Failed to enroll in course. Please try again.",
@@ -16180,7 +16220,24 @@
     "trends": "Trends",
     "insights": "Insights",
     "recommendations": "Recommendations",
-    "inferenceTime": "Inference Time"
+    "inferenceTime": "Inference Time",
+    "actions": "Actions",
+    "detail": {
+      "title": "Decision Outcome Details",
+      "overview": "Overview",
+      "analysis": "Analysis",
+      "decision": "Decision",
+      "type": "Type",
+      "outcome": "Outcome",
+      "confidence": "Confidence",
+      "impact": "Impact"
+    },
+    "confirm": {
+      "exportTitle": "Export Analytics Report",
+      "exportDescription": "This will export all AI analytics data including decision outcomes, performance metrics, and impact analysis. Proceed?",
+      "export": "Export Report",
+      "cancel": "Cancel"
+    }
   },
   "adminAITuning": {
     "title": "AI Parameter Tuning",
@@ -16263,7 +16320,24 @@
     "learningRate": "Learning Rate",
     "batchSize": "Batch Size",
     "epochs": "Epochs",
-    "hyperparameters": "Hyperparameters"
+    "hyperparameters": "Hyperparameters",
+    "detail": {
+      "title": "Model Configuration Details",
+      "overview": "Overview",
+      "parameters": "Parameters",
+      "modelName": "Model Name",
+      "layer": "Layer"
+    },
+    "confirm": {
+      "saveTitle": "Save AI Parameters",
+      "saveDescription": "Are you sure you want to apply these changes to the AI system? This will affect all AI decision-making processes.",
+      "save": "Save Changes",
+      "cancel": "Cancel",
+      "resetTitle": "Reset Parameters",
+      "resetDescription": "Are you sure you want to discard all unsaved changes? This action cannot be undone.",
+      "reset": "Reset",
+      "keep": "Keep Changes"
+    }
   },
   "adminTreasury": {
     "title": "Treasury Dashboard",
