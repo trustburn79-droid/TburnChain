@@ -16733,6 +16733,8 @@
     "type": "Type",
     "format": "Format",
     "frequency": "Frequency",
+    "defaultFrequency": "Default Frequency",
+    "actions": "Actions",
     "status": "Status",
     "lastGenerated": "Last Generated",
     "nextRun": "Next Run",

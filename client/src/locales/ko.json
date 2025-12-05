@@ -16701,6 +16701,8 @@
     "type": "유형",
     "format": "형식",
     "frequency": "빈도",
+    "defaultFrequency": "기본 빈도",
+    "actions": "작업",
     "status": "상태",
     "lastGenerated": "마지막 생성",
     "nextRun": "다음 실행",
