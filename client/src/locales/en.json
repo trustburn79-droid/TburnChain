@@ -18584,6 +18584,12 @@
     "actions": "Actions",
     "connected": "Connected",
     "disconnected": "Disconnected",
+    "statusTypes": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "error": "Error",
+      "pending": "Pending"
+    },
     "error": "Error",
     "configure": "Configure",
     "disconnect": "Disconnect",

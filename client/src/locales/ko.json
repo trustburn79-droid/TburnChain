@@ -18486,6 +18486,12 @@
     "actions": "작업",
     "connected": "연결됨",
     "disconnected": "연결 해제됨",
+    "statusTypes": {
+      "connected": "연결됨",
+      "disconnected": "연결 해제됨",
+      "error": "오류",
+      "pending": "대기 중"
+    },
     "error": "오류",
     "configure": "구성",
     "disconnect": "연결 해제",
