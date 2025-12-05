@@ -837,6 +837,8 @@ export default function AIOrchestration() {
         return <Badge className="bg-green-600">{t('common.active')}</Badge>;
       case "inactive":
         return <Badge variant="secondary">{t('common.inactive')}</Badge>;
+      case "standby":
+        return <Badge className="bg-orange-500">{t('aiOrchestration.standby')}</Badge>;
       case "error":
         return <Badge variant="destructive">{t('common.error')}</Badge>;
       default:
@@ -845,6 +847,7 @@ export default function AIOrchestration() {
   };
 
   const getModelIcon = (name: string) => {
+    if (name.includes("grok")) return <RefreshCw className="h-4 w-4" />;
     if (name.includes("gpt")) return <Brain className="h-4 w-4" />;
     if (name.includes("claude")) return <Target className="h-4 w-4" />;
     if (name.includes("llama") || name.includes("gemini")) return <Zap className="h-4 w-4" />;
@@ -859,6 +862,8 @@ export default function AIOrchestration() {
         return `${t('aiOrchestration.tacticalAi')} • ${t('aiOrchestration.midTermOptimization')}`;
       case "operational":
         return `${t('aiOrchestration.operationalAi')} • ${t('aiOrchestration.realTimeControl')}`;
+      case "fallback":
+        return `${t('aiOrchestration.fallbackAi')} • ${t('aiOrchestration.emergencyBackup')}`;
       default:
         return band;
     }
@@ -872,6 +877,8 @@ export default function AIOrchestration() {
         return "border-l-4 border-l-purple-500 bg-purple-50 dark:bg-purple-500/10";
       case "operational":
         return "border-l-4 border-l-green-500 bg-green-50 dark:bg-green-500/10";
+      case "fallback":
+        return "border-l-4 border-l-orange-500 bg-orange-50 dark:bg-orange-500/10";
       default:
         return "";
     }

@@ -1044,34 +1044,35 @@ export class MemStorage implements IStorage {
   }
 
   private initializeMockData() {
-    // Initialize Triple-Band AI Models (basis points: 10000 = 100.00%)
+    // Initialize Triple-Band AI Models + Grok Fallback (basis points: 10000 = 100.00%)
+    // Priority: 1=Gemini (Primary), 2=Anthropic, 3=OpenAI, 99=Grok (Fallback)
     const aiModels: AiModel[] = [
       {
         id: randomUUID(),
-        name: "gpt-5",
-        band: "strategic", // Strategic AI
+        name: "gemini-3-pro",
+        band: "strategic", // Strategic AI - Priority 1 (PRIMARY)
         status: "active",
-        requestCount: 2341,
-        successCount: 2267,
-        failureCount: 74,
-        avgResponseTime: 245,
-        totalCost: "124.56",
+        requestCount: 45892,
+        successCount: 45234,
+        failureCount: 658,
+        avgResponseTime: 180,
+        totalCost: "145.67",
         lastUsed: new Date(),
-        cacheHitRate: 6800, // 68.00% (basis points)
-        accuracy: 9680, // 96.80% (basis points)
-        uptime: 9990, // 99.90% (basis points)
-        feedbackLearningScore: 8200, // 82.00%
-        crossBandInteractions: 1542,
-        strategicDecisions: 12450,
-        tacticalDecisions: 2100,
-        operationalDecisions: 684,
+        cacheHitRate: 7500, // 75.00% (basis points)
+        accuracy: 9720, // 97.20% (basis points)
+        uptime: 9995, // 99.95% (basis points)
+        feedbackLearningScore: 8800, // 88.00%
+        crossBandInteractions: 4521,
+        strategicDecisions: 28450,
+        tacticalDecisions: 12100,
+        operationalDecisions: 5342,
         modelWeight: 3500, // 35.00%
-        consensusContribution: 8934,
+        consensusContribution: 18934,
       },
       {
         id: randomUUID(),
         name: "claude-sonnet-4-5",
-        band: "tactical", // Tactical AI
+        band: "tactical", // Tactical AI - Priority 2
         status: "active",
         requestCount: 15892,
         successCount: 15734,
@@ -1092,14 +1093,14 @@ export class MemStorage implements IStorage {
       },
       {
         id: randomUUID(),
-        name: "llama-3",
-        band: "operational", // Operational AI
+        name: "gpt-4o",
+        band: "operational", // Operational AI - Priority 3
         status: "active",
         requestCount: 89234,
         successCount: 88789,
         failureCount: 445,
-        avgResponseTime: 45,
-        totalCost: "12.45",
+        avgResponseTime: 125,
+        totalCost: "78.45",
         lastUsed: new Date(),
         cacheHitRate: 8500, // 85.00% (basis points)
         accuracy: 9850, // 98.50% (basis points)
@@ -1112,15 +1113,37 @@ export class MemStorage implements IStorage {
         modelWeight: 3200, // 32.00%
         consensusContribution: 67834,
       },
+      {
+        id: randomUUID(),
+        name: "grok-3",
+        band: "fallback", // Fallback AI - Priority 99 (activates after 3 consecutive failures)
+        status: "standby",
+        requestCount: 0,
+        successCount: 0,
+        failureCount: 0,
+        avgResponseTime: 0,
+        totalCost: "0.00",
+        lastUsed: null,
+        cacheHitRate: 0, // Not yet used
+        accuracy: 9500, // 95.00% estimated (basis points)
+        uptime: 9999, // 99.99% (basis points)
+        feedbackLearningScore: 0, // Not yet trained
+        crossBandInteractions: 0,
+        strategicDecisions: 0,
+        tacticalDecisions: 0,
+        operationalDecisions: 0,
+        modelWeight: 0, // 0% - Fallback only
+        consensusContribution: 0,
+      },
     ];
 
     aiModels.forEach(model => this.aiModels.set(model.name, model));
 
-    // Initialize AI Decisions (recent decisions from Triple-Band AI)
+    // Initialize AI Decisions (recent decisions from Triple-Band AI + Grok Fallback)
     const aiDecisionData: InsertAiDecision[] = [
       {
         band: "strategic",
-        modelName: "gpt-5",
+        modelName: "gemini-3-pro",
         decision: "Shard Splitting Approved",
         impact: "high",
         category: "scaling",
@@ -1139,7 +1162,7 @@ export class MemStorage implements IStorage {
       },
       {
         band: "operational",
-        modelName: "llama-3",
+        modelName: "gpt-4o",
         decision: "Load Balancing Adjusted",
         impact: "low",
         category: "optimization",
