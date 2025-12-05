@@ -32,7 +32,7 @@ interface FinancialMetric {
   value: string;
   change: number;
   trend: "up" | "down" | "stable";
-  icon: string;
+  icon: string | React.ComponentType<{ className?: string }>;
 }
 
 const iconMap: Record<string, typeof CircleDollarSign> = {
@@ -43,6 +43,13 @@ const iconMap: Record<string, typeof CircleDollarSign> = {
   DollarSign,
   TrendingUp,
   TrendingDown,
+};
+
+const getIconComponent = (icon: string | React.ComponentType<{ className?: string }>): React.ComponentType<{ className?: string }> => {
+  if (typeof icon === "string") {
+    return iconMap[icon] || CircleDollarSign;
+  }
+  return icon || CircleDollarSign;
 };
 
 interface Transaction {
@@ -105,10 +112,10 @@ export default function FinanceOverview() {
   }, [timeRange, toast, t]);
 
   const financialMetrics: FinancialMetric[] = financeData?.metrics || [
-    { label: t("adminFinance.metrics.marketCap"), value: "$2.47B", change: 5.2, trend: "up", icon: "CircleDollarSign" },
-    { label: t("adminFinance.metrics.circulatingSupply"), value: "847.5M TBURN", change: -0.02, trend: "down", icon: "Coins" },
-    { label: t("adminFinance.metrics.totalBurned"), value: "152.5M TBURN", change: 2.3, trend: "up", icon: "Flame" },
-    { label: t("adminFinance.metrics.treasuryBalance"), value: "$89.4M", change: 1.8, trend: "up", icon: "Building2" },
+    { label: t("adminFinance.metrics.marketCap"), value: "$2.47B", change: 5.2, trend: "up", icon: CircleDollarSign },
+    { label: t("adminFinance.metrics.circulatingSupply"), value: "847.5M TBURN", change: -0.02, trend: "down", icon: Coins },
+    { label: t("adminFinance.metrics.totalBurned"), value: "152.5M TBURN", change: 2.3, trend: "up", icon: Flame },
+    { label: t("adminFinance.metrics.treasuryBalance"), value: "$89.4M", change: 1.8, trend: "up", icon: Building2 },
   ];
 
   const revenueData = financeData?.revenueData || [
@@ -264,7 +271,7 @@ export default function FinanceOverview() {
                   </div>
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
                     {(() => {
-                      const IconComponent = iconMap[metric.icon] || CircleDollarSign;
+                      const IconComponent = getIconComponent(metric.icon);
                       return <IconComponent className="h-6 w-6 text-primary" />;
                     })()}
                   </div>
