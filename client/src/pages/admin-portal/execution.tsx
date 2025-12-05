@@ -361,7 +361,7 @@ export default function Execution() {
               {t("adminExecution.title")}
             </h1>
             <p className="text-muted-foreground" data-testid="text-execution-subtitle">
-              {t("adminExecution.subtitleKo")} | {t("adminExecution.subtitleEn")}
+              {t("adminExecution.subtitle")}
             </p>
           </div>
           <div className="flex gap-2 flex-wrap">
