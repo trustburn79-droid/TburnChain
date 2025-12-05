@@ -5,8 +5,15 @@ import pLimit from "p-limit";
 import pRetry from "p-retry";
 import { EventEmitter } from "events";
 
-// AI Provider Types
-export type AIProvider = "anthropic" | "openai" | "gemini";
+// AI Provider Types - Grok is fallback provider
+export type AIProvider = "anthropic" | "openai" | "gemini" | "grok";
+
+// Consecutive failure tracking for Grok fallback activation
+interface FailureTracker {
+  consecutiveFailures: number;
+  lastFailureTime?: Date;
+  grokActivated: boolean;
+}
 
 export interface AIUsageStats {
   provider: AIProvider;
@@ -71,6 +78,13 @@ class AIServiceManager extends EventEmitter {
   private usageStats: Map<AIProvider, AIUsageStats> = new Map();
   private requestLimiters: Map<AIProvider, ReturnType<typeof pLimit>> = new Map();
   private activeProvider: AIProvider = "gemini"; // Gemini is now the default primary provider
+  
+  // Grok fallback tracking - activates when any primary provider fails 3+ consecutive times
+  private failureTracker: FailureTracker = {
+    consecutiveFailures: 0,
+    grokActivated: false
+  };
+  private readonly GROK_ACTIVATION_THRESHOLD = 3; // Activate Grok after 3 consecutive failures
   
   constructor() {
     super();
@@ -138,11 +152,33 @@ class AIServiceManager extends EventEmitter {
       this.requestLimiters.set("gemini", pLimit(4)); // 4 concurrent requests (increased)
       console.log("[AI Service] 🚀 Gemini initialized as PRIMARY provider");
     }
+    
+    // Initialize Grok (xAI) - FALLBACK PROVIDER
+    // Activates when primary providers fail 3+ consecutive times
+    const grokApiKey = process.env.GROK_API_KEY;
+    if (grokApiKey) {
+      const grok = new OpenAI({
+        apiKey: grokApiKey,
+        baseURL: "https://api.x.ai/v1"
+      });
+      this.providers.set("grok", grok);
+      this.configs.set("grok", {
+        provider: "grok",
+        model: "grok-3-latest", // Grok 3 latest model
+        priority: 99, // FALLBACK - Only used when primary providers fail
+        maxRetries: 3,
+        maxRequestsPerMinute: 60,
+        dailyTokenLimit: 1000000, // 1M tokens per day
+        costPerToken: 0.000005 // $5 per 1M tokens (estimated)
+      });
+      this.requestLimiters.set("grok", pLimit(2)); // 2 concurrent requests
+      console.log("[AI Service] 🔄 Grok initialized as FALLBACK provider (activates after 3 consecutive failures)");
+    }
   }
   
   private initializeUsageStats() {
-    // Initialize in priority order: Gemini first, then Anthropic, then OpenAI
-    for (const provider of ["gemini", "anthropic", "openai"] as AIProvider[]) {
+    // Initialize in priority order: Gemini first, then Anthropic, then OpenAI, then Grok (fallback)
+    for (const provider of ["gemini", "anthropic", "openai", "grok"] as AIProvider[]) {
       this.usageStats.set(provider, {
         provider,
         totalRequests: 0,
@@ -412,6 +448,114 @@ class AIServiceManager extends EventEmitter {
     }
   }
   
+  // Grok AI (xAI) - Fallback provider using OpenAI-compatible API
+  private async callGrok(request: AIRequest): Promise<AIResponse> {
+    const grok = this.providers.get("grok");
+    const config = this.configs.get("grok")!;
+    const stats = this.usageStats.get("grok")!;
+    
+    const startTime = Date.now();
+    
+    try {
+      const messages: any[] = [];
+      if (request.systemPrompt) {
+        messages.push({ role: "system", content: request.systemPrompt });
+      }
+      messages.push({ role: "user", content: request.prompt });
+      
+      const completionParams: any = {
+        model: config.model,
+        messages,
+        temperature: request.temperature || 0.5,
+        max_tokens: request.maxTokens || 1024,
+      };
+
+      const completion = await grok.chat.completions.create(completionParams);
+      
+      const text = completion.choices[0]?.message?.content || "";
+      const tokensUsed = completion.usage?.total_tokens || 0;
+      const cost = tokensUsed * (config.costPerToken || 0);
+      
+      // Update stats
+      stats.successfulRequests++;
+      stats.totalTokensUsed += tokensUsed;
+      stats.totalCost += cost;
+      stats.dailyUsage = (stats.dailyUsage || 0) + tokensUsed;
+      
+      // Reset failure tracker on successful Grok response
+      this.failureTracker.consecutiveFailures = 0;
+      
+      return {
+        text,
+        provider: "grok",
+        model: config.model,
+        tokensUsed,
+        cost,
+        processingTime: Date.now() - startTime
+      };
+    } catch (error) {
+      stats.failedRequests++;
+      if (this.isRateLimitError(error)) {
+        this.handleRateLimit("grok");
+      }
+      throw error;
+    } finally {
+      stats.totalRequests++;
+      stats.lastRequestTime = new Date();
+    }
+  }
+  
+  // Track consecutive failures and check if Grok should be activated
+  private trackFailureAndCheckGrok(provider: AIProvider): boolean {
+    // Only track failures for primary providers (not Grok itself)
+    if (provider === "grok") return false;
+    
+    this.failureTracker.consecutiveFailures++;
+    this.failureTracker.lastFailureTime = new Date();
+    
+    console.log(`[AI Service] ⚠️ Provider ${provider} failed. Consecutive failures: ${this.failureTracker.consecutiveFailures}/${this.GROK_ACTIVATION_THRESHOLD}`);
+    
+    // Activate Grok if we've hit the threshold and haven't already
+    if (this.failureTracker.consecutiveFailures >= this.GROK_ACTIVATION_THRESHOLD && 
+        !this.failureTracker.grokActivated && 
+        this.providers.has("grok")) {
+      this.failureTracker.grokActivated = true;
+      console.log(`[AI Service] 🔄 GROK FALLBACK ACTIVATED! ${this.failureTracker.consecutiveFailures} consecutive failures detected.`);
+      this.emit("grokActivated", {
+        consecutiveFailures: this.failureTracker.consecutiveFailures,
+        lastFailedProvider: provider,
+        activatedAt: new Date()
+      });
+      return true;
+    }
+    
+    return this.failureTracker.grokActivated;
+  }
+  
+  // Reset failure tracker when a primary provider succeeds
+  private resetFailureTracker() {
+    if (this.failureTracker.consecutiveFailures > 0) {
+      console.log(`[AI Service] ✅ Primary provider succeeded. Resetting failure counter.`);
+    }
+    this.failureTracker.consecutiveFailures = 0;
+    // Keep grokActivated true - once activated, Grok remains available as an option
+  }
+  
+  // Check if Grok is available and should be used
+  public isGrokActive(): boolean {
+    return this.failureTracker.grokActivated && this.providers.has("grok");
+  }
+  
+  // Get Grok activation status
+  public getGrokStatus(): { activated: boolean; consecutiveFailures: number; threshold: number; available: boolean } {
+    return {
+      activated: this.failureTracker.grokActivated,
+      consecutiveFailures: this.failureTracker.consecutiveFailures,
+      threshold: this.GROK_ACTIVATION_THRESHOLD,
+      available: this.providers.has("grok")
+    };
+  }
+  
   public async makeRequest(request: AIRequest): Promise<AIResponse> {
     const maxAttempts = 3;
     let lastError: any;
@@ -440,7 +584,7 @@ class AIServiceManager extends EventEmitter {
       }
       
       try {
-        return await limiter(() => 
+        const result = await limiter(() => 
           pRetry(
             async () => {
               switch (provider) {
@@ -459,6 +603,11 @@ class AIServiceManager extends EventEmitter {
                     return await this.callGemini(request);
                   }
                   break;
+                case "grok":
+                  if (this.providers.has("grok")) {
+                    return await this.callGrok(request);
+                  }
+                  break;
               }
               throw new Error(`Provider ${provider} not available`);
             },
@@ -473,15 +622,39 @@ class AIServiceManager extends EventEmitter {
             }
           )
         );
+        
+        // Reset failure tracker on success (for primary providers only)
+        if (provider !== "grok") {
+          this.resetFailureTracker();
+        }
+        
+        return result;
       } catch (error) {
         lastError = error;
         console.error(`[AI Service] Failed with ${provider}:`, error);
+        
+        // Track failure for Grok activation (only for primary providers)
+        const shouldTryGrok = this.trackFailureAndCheckGrok(provider);
         
         if (this.isRateLimitError(error)) {
           // Rate limit already handled in provider methods
         } else {
           // Try next provider for other errors
           this.switchToNextProvider(provider);
+        }
+        
+        // If Grok is activated and available, try it as last resort
+        if (shouldTryGrok && attempt === maxAttempts - 1 && this.providers.has("grok")) {
+          console.log(`[AI Service] 🔄 Attempting Grok fallback...`);
+          try {
+            const grokLimiter = this.requestLimiters.get("grok");
+            if (grokLimiter) {
+              return await grokLimiter(() => this.callGrok(request));
+            }
+          } catch (grokError) {
+            console.error(`[AI Service] Grok fallback also failed:`, grokError);
+            lastError = grokError;
+          }
         }
       }
     }
@@ -610,6 +783,14 @@ class AIServiceManager extends EventEmitter {
           }
           result = await this.callOpenAI(testRequest);
           break;
+        case "grok":
+          if (!this.providers.has("grok")) {
+            stats.connectionStatus = "disconnected";
+            stats.lastHealthCheck = new Date();
+            return false;
+          }
+          result = await this.callGrok(testRequest);
+          break;
         default:
           stats.connectionStatus = "disconnected";
           stats.lastHealthCheck = new Date();
@@ -646,10 +827,13 @@ class AIServiceManager extends EventEmitter {
     }
   }
 
-  // Health check for all providers
+  // Health check for all providers (including Grok if available)
   public async checkAllProviderConnections(): Promise<Map<AIProvider, boolean>> {
     const healthStatus = new Map<AIProvider, boolean>();
-    const providers: AIProvider[] = ["gemini", "anthropic", "openai"];
+    // Include Grok in health checks if it's configured
+    const providers: AIProvider[] = this.providers.has("grok") 
+      ? ["gemini", "anthropic", "openai", "grok"]
+      : ["gemini", "anthropic", "openai"];
     
     // Check all providers in parallel
     const results = await Promise.allSettled(
