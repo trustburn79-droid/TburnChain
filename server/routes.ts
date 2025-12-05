@@ -6777,11 +6777,96 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/governance/proposals", async (_req, res) => {
     const proposals = [
-      { id: 'prop-1', title: 'Increase Burn Rate', description: 'Increase the burn rate from 0.5% to 1%', status: 'active', votes: { for: 1500000, against: 500000, abstain: 100000 }, proposer: '0x1234...', createdAt: new Date(Date.now() - 86400000 * 3).toISOString(), endDate: new Date(Date.now() + 604800000).toISOString() },
-      { id: 'prop-2', title: 'Add New Bridge Chain', description: 'Add support for Avalanche', status: 'passed', votes: { for: 2000000, against: 300000, abstain: 50000 }, proposer: '0x5678...', createdAt: new Date(Date.now() - 86400000 * 14).toISOString(), endDate: new Date(Date.now() - 86400000).toISOString() },
-      { id: 'prop-3', title: 'Reduce Validator Minimum Stake', description: 'Reduce minimum stake from 10k to 5k TBURN', status: 'pending', votes: { for: 0, against: 0, abstain: 0 }, proposer: '0x9abc...', createdAt: new Date(Date.now() - 86400000).toISOString(), endDate: new Date(Date.now() + 86400000 * 14).toISOString() }
+      {
+        id: "TIP-001",
+        title: "Increase Block Gas Limit to 30M",
+        description: "Proposal to increase the block gas limit from 20M to 30M to accommodate higher transaction throughput",
+        category: "Network",
+        proposer: "0x1234...5678",
+        status: "active",
+        votesFor: 8500000,
+        votesAgainst: 2100000,
+        votesAbstain: 400000,
+        quorum: 10000000,
+        startDate: new Date(Date.now() - 86400000 * 3).toISOString().split('T')[0],
+        endDate: new Date(Date.now() + 86400000 * 4).toISOString().split('T')[0],
+        totalVoters: 1247,
+        requiredApproval: 66
+      },
+      {
+        id: "TIP-002",
+        title: "Reduce Transaction Fee Base Rate",
+        description: "Lower the base transaction fee from 0.001 TBURN to 0.0005 TBURN to improve network accessibility",
+        category: "Economics",
+        proposer: "0xabcd...efgh",
+        status: "passed",
+        votesFor: 12000000,
+        votesAgainst: 3000000,
+        votesAbstain: 1000000,
+        quorum: 10000000,
+        startDate: new Date(Date.now() - 86400000 * 14).toISOString().split('T')[0],
+        endDate: new Date(Date.now() - 86400000 * 7).toISOString().split('T')[0],
+        totalVoters: 2156,
+        requiredApproval: 66
+      },
+      {
+        id: "TIP-003",
+        title: "Add New Bridge Chain: Solana",
+        description: "Integrate Solana blockchain into the TBURN cross-chain bridge infrastructure",
+        category: "Bridge",
+        proposer: "0x9876...5432",
+        status: "active",
+        votesFor: 5000000,
+        votesAgainst: 4500000,
+        votesAbstain: 500000,
+        quorum: 10000000,
+        startDate: new Date(Date.now() - 86400000 * 2).toISOString().split('T')[0],
+        endDate: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0],
+        totalVoters: 987,
+        requiredApproval: 66
+      },
+      {
+        id: "TIP-004",
+        title: "Implement Auto-Compounding Rewards",
+        description: "Enable automatic reward compounding for stakers to improve DeFi experience",
+        category: "Staking",
+        proposer: "0xdead...beef",
+        status: "rejected",
+        votesFor: 4000000,
+        votesAgainst: 8000000,
+        votesAbstain: 2000000,
+        quorum: 10000000,
+        startDate: new Date(Date.now() - 86400000 * 21).toISOString().split('T')[0],
+        endDate: new Date(Date.now() - 86400000 * 14).toISOString().split('T')[0],
+        totalVoters: 1543,
+        requiredApproval: 66
+      },
+      {
+        id: "TIP-005",
+        title: "Upgrade AI Orchestration to v2.0",
+        description: "Major upgrade to AI systems including improved consensus optimization and security features",
+        category: "AI",
+        proposer: "0xface...cafe",
+        status: "executed",
+        votesFor: 15000000,
+        votesAgainst: 1500000,
+        votesAbstain: 500000,
+        quorum: 10000000,
+        startDate: new Date(Date.now() - 86400000 * 35).toISOString().split('T')[0],
+        endDate: new Date(Date.now() - 86400000 * 28).toISOString().split('T')[0],
+        totalVoters: 2847,
+        requiredApproval: 66
+      }
     ];
-    res.json({ proposals });
+    res.json({
+      proposals,
+      stats: {
+        total: proposals.length,
+        active: proposals.filter(p => p.status === 'active').length,
+        passed: proposals.filter(p => p.status === 'passed' || p.status === 'executed').length,
+        rejected: proposals.filter(p => p.status === 'rejected').length
+      }
+    });
   });
 
   app.get("/api/admin/proposals", async (_req, res) => {
