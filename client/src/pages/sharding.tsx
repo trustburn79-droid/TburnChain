@@ -214,11 +214,10 @@ export default function Sharding() {
     return date.toLocaleString(i18n.language || 'en');
   };
 
-  const ShardStatsDetailDialog = () => {
+  const getStatDialogContent = () => {
     if (!selectedStatType || !shards) return null;
 
-    const dialogContent = () => {
-      switch (selectedStatType) {
+    switch (selectedStatType) {
         case 'shards':
           return (
             <div className="space-y-6">
@@ -435,41 +434,44 @@ export default function Sharding() {
             </div>
           );
 
-        default:
-          return null;
-      }
-    };
+      default:
+        return null;
+    }
+  };
 
-    const getDialogTitle = () => {
-      switch (selectedStatType) {
-        case 'shards': return t('sharding.shardAnalytics');
-        case 'tps': return t('sharding.tpsAnalytics');
-        case 'load': return t('sharding.loadAnalytics');
-        case 'validators': return t('sharding.validatorAnalytics');
-        case 'crossShard': return t('sharding.crossShardAnalytics');
-        default: return '';
-      }
-    };
+  const getStatDialogTitle = () => {
+    switch (selectedStatType) {
+      case 'shards': return t('sharding.shardAnalytics');
+      case 'tps': return t('sharding.tpsAnalytics');
+      case 'load': return t('sharding.loadAnalytics');
+      case 'validators': return t('sharding.validatorAnalytics');
+      case 'crossShard': return t('sharding.crossShardAnalytics');
+      default: return '';
+    }
+  };
 
-    const getDialogDescription = () => {
-      switch (selectedStatType) {
-        case 'shards': return t('sharding.shardAnalyticsDesc');
-        case 'tps': return t('sharding.tpsAnalyticsDesc');
-        case 'load': return t('sharding.loadAnalyticsDesc');
-        case 'validators': return t('sharding.validatorAnalyticsDesc');
-        case 'crossShard': return t('sharding.crossShardAnalyticsDesc');
-        default: return '';
-      }
-    };
+  const getStatDialogDescription = () => {
+    switch (selectedStatType) {
+      case 'shards': return t('sharding.shardAnalyticsDesc');
+      case 'tps': return t('sharding.tpsAnalyticsDesc');
+      case 'load': return t('sharding.loadAnalyticsDesc');
+      case 'validators': return t('sharding.validatorAnalyticsDesc');
+      case 'crossShard': return t('sharding.crossShardAnalyticsDesc');
+      default: return '';
+    }
+  };
+
+  const renderShardStatsDialog = () => {
+    if (!selectedStatType || !shards) return null;
 
     return (
-      <Dialog open={selectedStatType !== null} onOpenChange={() => setSelectedStatType(null)}>
+      <Dialog open={!!selectedStatType} onOpenChange={(open) => !open && setSelectedStatType(null)}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{getDialogTitle()}</DialogTitle>
-            <DialogDescription>{getDialogDescription()}</DialogDescription>
+            <DialogTitle>{getStatDialogTitle()}</DialogTitle>
+            <DialogDescription>{getStatDialogDescription()}</DialogDescription>
           </DialogHeader>
-          {dialogContent()}
+          {getStatDialogContent()}
         </DialogContent>
       </Dialog>
     );
@@ -668,7 +670,7 @@ export default function Sharding() {
 
   return (
     <div className="flex flex-col gap-6 p-6">
-      <ShardStatsDetailDialog />
+      {renderShardStatsDialog()}
       {renderShardDetailDialog()}
 
       <div className="flex items-center justify-between">
