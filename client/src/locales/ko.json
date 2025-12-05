@@ -17960,6 +17960,11 @@
   "adminMaintenance": {
     "title": "유지보수 모드",
     "subtitle": "시스템 유지보수 예약 및 관리",
+    "tabScheduled": "예약됨",
+    "tabScheduleNew": "새로 예약",
+    "tabHistory": "기록",
+    "upcomingMaintenance": "예정된 유지보수",
+    "upcomingMaintenanceDesc": "예정된 유지보수 작업",
     "quickMaintenanceToggle": "빠른 유지보수 전환",
     "quickMaintenanceToggleDesc": "즉시 유지보수 모드 활성화/비활성화",
     "scheduleMaintenanceWindow": "유지보수 창 예약",

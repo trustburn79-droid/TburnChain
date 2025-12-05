@@ -18058,6 +18058,11 @@
   "adminMaintenance": {
     "title": "Maintenance Mode",
     "subtitle": "Schedule and manage system maintenance",
+    "tabScheduled": "Scheduled",
+    "tabScheduleNew": "Schedule New",
+    "tabHistory": "History",
+    "upcomingMaintenance": "Upcoming Maintenance",
+    "upcomingMaintenanceDesc": "Scheduled maintenance tasks",
     "quickMaintenanceToggle": "Quick Maintenance Toggle",
     "quickMaintenanceToggleDesc": "Enable or disable maintenance mode instantly",
     "scheduleMaintenanceWindow": "Schedule Maintenance Window",
