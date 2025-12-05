@@ -18143,6 +18143,12 @@
   "adminUpdates": {
     "title": "시스템 업데이트",
     "subtitle": "시스템 및 노드 업데이트 관리",
+    "checkForUpdates": "업데이트 확인",
+    "availableUpdates": "사용 가능한 업데이트",
+    "availableUpdatesDesc": "설치 가능한 업데이트",
+    "available": "사용 가능",
+    "bugFixesAndSecurity": "버그 수정 및 보안",
+    "settings": "설정",
     "availableUpdate": "사용 가능한 업데이트",
     "availableUpdateDesc": "설치 준비된 새 버전",
     "updateHistory": "업데이트 기록",

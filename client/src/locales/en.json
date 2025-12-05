@@ -18241,6 +18241,12 @@
   "adminUpdates": {
     "title": "System Updates",
     "subtitle": "Manage system and node updates",
+    "checkForUpdates": "Check for Updates",
+    "availableUpdates": "Available Updates",
+    "availableUpdatesDesc": "Updates available for installation",
+    "available": "Available",
+    "bugFixesAndSecurity": "Bug fixes and security",
+    "settings": "Settings",
     "availableUpdate": "Available Update",
     "availableUpdateDesc": "New version ready for installation",
     "updateHistory": "Update History",
