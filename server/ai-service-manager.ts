@@ -108,7 +108,7 @@ class AIServiceManager extends EventEmitter {
       this.providers.set("openai", openai);
       this.configs.set("openai", {
         provider: "openai",
-        model: "gpt-5",
+        model: "gpt-4o",  // Using GPT-4o for stable performance
         priority: 3, // Changed from 2 to 3 (Gemini is priority 1, Anthropic is priority 2)
         maxRetries: 3,
         maxRequestsPerMinute: 60,
@@ -303,19 +303,12 @@ class AIServiceManager extends EventEmitter {
       }
       messages.push({ role: "user", content: request.prompt });
       
-      // GPT-5 uses max_completion_tokens instead of max_tokens
       const completionParams: any = {
         model: config.model,
         messages,
         temperature: request.temperature || 0.5,
+        max_tokens: request.maxTokens || 1024,
       };
-
-      // Use appropriate parameter based on model
-      if (config.model === "gpt-5") {
-        completionParams.max_completion_tokens = request.maxTokens || 1024;
-      } else {
-        completionParams.max_tokens = request.maxTokens || 1024;
-      }
 
       const completion = await openai.chat.completions.create(completionParams);
       
@@ -582,11 +575,10 @@ class AIServiceManager extends EventEmitter {
     }
 
     try {
-      // GPT-5 only supports temperature=1, so adjust for OpenAI
       const testRequest: AIRequest = {
         prompt: "Hi",
         maxTokens: 10,
-        temperature: provider === "openai" ? 1.0 : 0.1
+        temperature: 0.5
       };
 
       console.log(`[AI Health Check] Testing ${provider}...`);
