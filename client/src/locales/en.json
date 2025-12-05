@@ -20247,7 +20247,8 @@
     "name": "Name",
     "compiler": "Compiler",
     "deployed": "Deployed",
-    "transactions": "Transactions"
+    "transactions": "Transactions",
+    "verifiedBadge": "Verified"
   },
   "adminTestnet": {
     "title": "Testnet Management",

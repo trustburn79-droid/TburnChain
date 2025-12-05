@@ -20247,7 +20247,8 @@
     "name": "이름",
     "compiler": "컴파일러",
     "deployed": "배포됨",
-    "transactions": "트랜잭션"
+    "transactions": "트랜잭션",
+    "verifiedBadge": "검증됨"
   },
   "adminTestnet": {
     "title": "테스트넷 관리",

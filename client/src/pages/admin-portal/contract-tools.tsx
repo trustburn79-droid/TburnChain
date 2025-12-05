@@ -264,7 +264,7 @@ export default function ContractTools() {
               {isLoading ? <Skeleton className="h-8 w-16" /> : (
                 <>
                   <div className="text-2xl font-bold">{stats.interactions24h}</div>
-                  <p className="text-xs text-green-500">{t("adminContracts.from yesterday", { percent: "+18%" })}</p>
+                  <p className="text-xs text-green-500">{t("adminContracts.fromYesterday", { percent: "+18%" })}</p>
                 </>
               )}
             </CardContent>
