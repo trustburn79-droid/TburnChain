@@ -18907,7 +18907,40 @@
       "development": "개발",
       "marketing": "마케팅",
       "security": "보안",
-      "other": "기타"
+      "research": "연구개발",
+      "legal": "법무",
+      "hr": "인사",
+      "other": "기타",
+      "title": "예산 카테고리"
+    },
+    "departments": {
+      "engineering": "엔지니어링",
+      "marketing": "마케팅",
+      "security": "보안",
+      "operations": "운영",
+      "rd": "연구개발",
+      "legal": "법무",
+      "hr": "인사"
+    },
+    "requestTitles": {
+      "cloudInfra": "클라우드 인프라 업그레이드",
+      "securityAudit": "Q4 보안 감사",
+      "marketingQ1": "Q1 마케팅 캠페인",
+      "aiTraining": "AI 모델 학습 인프라"
+    },
+    "months": {
+      "jan": "1월",
+      "feb": "2월",
+      "mar": "3월",
+      "apr": "4월",
+      "may": "5월",
+      "jun": "6월",
+      "jul": "7월",
+      "aug": "8월",
+      "sep": "9월",
+      "oct": "10월",
+      "nov": "11월",
+      "dec": "12월"
     },
     "createBudget": "예산 생성",
     "editBudget": "예산 편집",
@@ -18927,8 +18960,14 @@
     "periods": {
       "monthly": "월간",
       "quarterly": "분기",
-      "yearly": "연간"
+      "yearly": "연간",
+      "q4-2024": "2024년 4분기",
+      "q3-2024": "2024년 3분기",
+      "q2-2024": "2024년 2분기",
+      "fy2024": "2024 회계연도"
     },
+    "other": "기타",
+    "description": "조직 예산 및 지출 계획 및 추적",
     "budgetCreated": "예산 생성됨",
     "budgetCreatedDesc": "예산이 생성되었습니다",
     "budgetUpdated": "예산 업데이트됨",
@@ -18952,6 +18991,85 @@
       "onTrack": "정상 진행",
       "overBudget": "예산 초과",
       "underBudget": "예산 미만"
+    },
+    "errorTitle": "예산 로드 실패",
+    "errorDescription": "예산 데이터를 로드할 수 없습니다. 다시 시도해 주세요.",
+    "newRequest": "새 요청",
+    "requestCreated": "요청 생성됨",
+    "requestCreatedDesc": "예산 요청이 제출되었습니다",
+    "requestApproved": "요청 승인됨",
+    "requestApprovedDesc": "예산 요청이 승인되었습니다",
+    "requestRejected": "요청 거부됨",
+    "requestRejectedDesc": "예산 요청이 거부되었습니다",
+    "dialog": {
+      "createTitle": "예산 요청 생성",
+      "createDescription": "새 예산 할당 요청 제출",
+      "title": "요청 제목",
+      "titlePlaceholder": "요청 제목 입력...",
+      "department": "부서",
+      "selectDepartment": "부서 선택",
+      "amount": "금액",
+      "justification": "사유",
+      "justificationPlaceholder": "이 예산이 필요한 이유를 설명하세요...",
+      "cancel": "취소",
+      "submit": "요청 제출"
+    },
+    "stats": {
+      "totalBudget": "총 예산",
+      "spent": "총 사용액",
+      "utilization": "사용률",
+      "overBudget": "예산 초과 항목"
+    },
+    "tabs": {
+      "overview": "개요",
+      "categories": "카테고리",
+      "requests": "요청",
+      "forecast": "예측"
+    },
+    "charts": {
+      "budgetActual": "예산 vs 실제",
+      "budgetActualDesc": "월간 예산 실적 비교",
+      "budget": "예산",
+      "actual": "실제",
+      "departmentAllocation": "부서별 할당"
+    },
+    "table": {
+      "category": "카테고리",
+      "department": "부서",
+      "allocated": "할당됨",
+      "spent": "사용됨",
+      "remaining": "남은 금액",
+      "utilization": "사용률",
+      "status": "상태",
+      "actions": "작업"
+    },
+    "status": {
+      "onTrack": "정상 진행",
+      "atRisk": "위험",
+      "overBudget": "예산 초과",
+      "pending": "대기 중",
+      "approved": "승인됨",
+      "rejected": "거부됨"
+    },
+    "requests": {
+      "title": "예산 요청",
+      "description": "대기 중 및 최근 예산 요청",
+      "id": "ID",
+      "titleCol": "제목",
+      "department": "부서",
+      "requester": "요청자",
+      "amount": "금액",
+      "date": "날짜",
+      "status": "상태",
+      "actions": "작업"
+    },
+    "forecast": {
+      "title": "예산 예측",
+      "description": "예상 예산 사용률",
+      "allocated": "할당됨",
+      "spent": "사용됨",
+      "variance": "차이",
+      "projected": "예상"
     }
   },
   "adminCosts": {
@@ -19057,7 +19175,52 @@
       "summary": "요약 보고서",
       "detailed": "상세 보고서",
       "gainLoss": "손익 보고서",
-      "income": "수익 보고서"
+      "income": "수익 보고서",
+      "corporateIncome": "법인세",
+      "salesTax": "판매세",
+      "corporateTax": "법인세",
+      "vat": "부가가치세",
+      "withholding": "원천징수세"
+    },
+    "jurisdictions": {
+      "title": "관할권",
+      "description": "관할권별 세금 의무",
+      "us": "미국",
+      "eu": "유럽연합",
+      "singapore": "싱가포르",
+      "korea": "한국",
+      "japan": "일본"
+    },
+    "liabilityTypes": {
+      "various": "각종 세금"
+    },
+    "events": {
+      "usSalesTax": "미국 Q4 판매세",
+      "koreaQ4": "한국 Q4 원천징수",
+      "usQ4Estimated": "미국 Q4 예정세액",
+      "euVatQ4": "EU Q4 부가가치세",
+      "singaporeAnnual": "싱가포르 연간 신고",
+      "usAnnual": "미국 연간 세금 신고"
+    },
+    "status": {
+      "filed": "신고됨",
+      "pending": "대기 중",
+      "draft": "초안",
+      "overdue": "연체",
+      "completed": "완료됨",
+      "upcoming": "예정"
+    },
+    "stats": {
+      "totalLiability": "총 세금 부채",
+      "paid": "납부됨",
+      "pendingReports": "대기 중인 보고서",
+      "overdue": "연체"
+    },
+    "tabs": {
+      "overview": "개요",
+      "reports": "보고서",
+      "liabilities": "세금 부채",
+      "calendar": "일정"
     },
     "period": "기간",
     "periods": {
@@ -19065,7 +19228,48 @@
       "q2": "2분기",
       "q3": "3분기",
       "q4": "4분기",
-      "yearly": "연간"
+      "yearly": "연간",
+      "nov2024": "2024년 11월"
+    },
+    "description": "세금 보고 및 컴플라이언스 관리",
+    "errorTitle": "세금 데이터 로드 실패",
+    "errorDescription": "세금 데이터를 로드할 수 없습니다. 다시 시도해 주세요.",
+    "newReport": "새 보고서",
+    "compliance": {
+      "title": "컴플라이언스 상태",
+      "paymentProgress": "납부 진행률",
+      "filed": "신고됨",
+      "pending": "대기 중"
+    },
+    "deadlines": {
+      "title": "다가오는 마감일"
+    },
+    "reports": {
+      "title": "세금 보고서",
+      "id": "ID",
+      "type": "유형",
+      "period": "기간",
+      "jurisdiction": "관할권",
+      "amount": "금액",
+      "dueDate": "마감일",
+      "status": "상태",
+      "actions": "작업"
+    },
+    "liabilities": {
+      "title": "세금 부채",
+      "jurisdiction": "관할권",
+      "taxType": "세금 유형",
+      "totalLiability": "총 부채",
+      "paid": "납부됨",
+      "remaining": "남은 금액",
+      "dueDate": "마감일",
+      "progress": "진행률",
+      "total": "합계"
+    },
+    "calendar": {
+      "title": "세금 일정",
+      "description": "다가오는 세금 마감일 및 이벤트",
+      "setReminder": "알림 설정"
     },
     "complianceStatus": "컴플라이언스 상태",
     "compliant": "준수",

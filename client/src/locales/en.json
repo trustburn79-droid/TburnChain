@@ -18836,7 +18836,40 @@
       "development": "Development",
       "marketing": "Marketing",
       "security": "Security",
-      "other": "Other"
+      "research": "Research & Development",
+      "legal": "Legal",
+      "hr": "Human Resources",
+      "other": "Other",
+      "title": "Budget Categories"
+    },
+    "departments": {
+      "engineering": "Engineering",
+      "marketing": "Marketing",
+      "security": "Security",
+      "operations": "Operations",
+      "rd": "R&D",
+      "legal": "Legal",
+      "hr": "Human Resources"
+    },
+    "requestTitles": {
+      "cloudInfra": "Cloud Infrastructure Upgrade",
+      "securityAudit": "Security Audit Q4",
+      "marketingQ1": "Marketing Campaign Q1",
+      "aiTraining": "AI Model Training Infrastructure"
+    },
+    "months": {
+      "jan": "January",
+      "feb": "February",
+      "mar": "March",
+      "apr": "April",
+      "may": "May",
+      "jun": "June",
+      "jul": "July",
+      "aug": "August",
+      "sep": "September",
+      "oct": "October",
+      "nov": "November",
+      "dec": "December"
     },
     "createBudget": "Create Budget",
     "editBudget": "Edit Budget",
@@ -18856,8 +18889,14 @@
     "periods": {
       "monthly": "Monthly",
       "quarterly": "Quarterly",
-      "yearly": "Yearly"
+      "yearly": "Yearly",
+      "q4-2024": "Q4 2024",
+      "q3-2024": "Q3 2024",
+      "q2-2024": "Q2 2024",
+      "fy2024": "FY 2024"
     },
+    "other": "Other",
+    "description": "Plan and track organizational budgets and spending",
     "budgetCreated": "Budget Created",
     "budgetCreatedDesc": "Budget has been created",
     "budgetUpdated": "Budget Updated",
@@ -18881,6 +18920,85 @@
       "onTrack": "On Track",
       "overBudget": "Over Budget",
       "underBudget": "Under Budget"
+    },
+    "errorTitle": "Failed to Load Budget",
+    "errorDescription": "Unable to load budget data. Please try again.",
+    "newRequest": "New Request",
+    "requestCreated": "Request Created",
+    "requestCreatedDesc": "Budget request has been submitted",
+    "requestApproved": "Request Approved",
+    "requestApprovedDesc": "Budget request has been approved",
+    "requestRejected": "Request Rejected",
+    "requestRejectedDesc": "Budget request has been rejected",
+    "dialog": {
+      "createTitle": "Create Budget Request",
+      "createDescription": "Submit a new budget allocation request",
+      "title": "Request Title",
+      "titlePlaceholder": "Enter request title...",
+      "department": "Department",
+      "selectDepartment": "Select Department",
+      "amount": "Amount",
+      "justification": "Justification",
+      "justificationPlaceholder": "Explain why this budget is needed...",
+      "cancel": "Cancel",
+      "submit": "Submit Request"
+    },
+    "stats": {
+      "totalBudget": "Total Budget",
+      "spent": "Total Spent",
+      "utilization": "Utilization",
+      "overBudget": "Over Budget Items"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "categories": "Categories",
+      "requests": "Requests",
+      "forecast": "Forecast"
+    },
+    "charts": {
+      "budgetActual": "Budget vs Actual",
+      "budgetActualDesc": "Monthly budget performance comparison",
+      "budget": "Budget",
+      "actual": "Actual",
+      "departmentAllocation": "Department Allocation"
+    },
+    "table": {
+      "category": "Category",
+      "department": "Department",
+      "allocated": "Allocated",
+      "spent": "Spent",
+      "remaining": "Remaining",
+      "utilization": "Utilization",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "onTrack": "On Track",
+      "atRisk": "At Risk",
+      "overBudget": "Over Budget",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "requests": {
+      "title": "Budget Requests",
+      "description": "Pending and recent budget requests",
+      "id": "ID",
+      "titleCol": "Title",
+      "department": "Department",
+      "requester": "Requester",
+      "amount": "Amount",
+      "date": "Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "forecast": {
+      "title": "Budget Forecast",
+      "description": "Projected budget utilization",
+      "allocated": "Allocated",
+      "spent": "Spent",
+      "variance": "Variance",
+      "projected": "Projected"
     }
   },
   "adminCosts": {
@@ -18986,7 +19104,52 @@
       "summary": "Summary Report",
       "detailed": "Detailed Report",
       "gainLoss": "Gain/Loss Report",
-      "income": "Income Report"
+      "income": "Income Report",
+      "corporateIncome": "Corporate Income Tax",
+      "salesTax": "Sales Tax",
+      "corporateTax": "Corporate Tax",
+      "vat": "VAT",
+      "withholding": "Withholding Tax"
+    },
+    "jurisdictions": {
+      "title": "Jurisdictions",
+      "description": "Tax obligations by jurisdiction",
+      "us": "United States",
+      "eu": "European Union",
+      "singapore": "Singapore",
+      "korea": "South Korea",
+      "japan": "Japan"
+    },
+    "liabilityTypes": {
+      "various": "Various Taxes"
+    },
+    "events": {
+      "usSalesTax": "US Sales Tax Q4",
+      "koreaQ4": "Korea Q4 Withholding",
+      "usQ4Estimated": "US Q4 Estimated Tax",
+      "euVatQ4": "EU VAT Q4",
+      "singaporeAnnual": "Singapore Annual Filing",
+      "usAnnual": "US Annual Tax Filing"
+    },
+    "status": {
+      "filed": "Filed",
+      "pending": "Pending",
+      "draft": "Draft",
+      "overdue": "Overdue",
+      "completed": "Completed",
+      "upcoming": "Upcoming"
+    },
+    "stats": {
+      "totalLiability": "Total Liability",
+      "paid": "Paid",
+      "pendingReports": "Pending Reports",
+      "overdue": "Overdue"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "reports": "Reports",
+      "liabilities": "Liabilities",
+      "calendar": "Calendar"
     },
     "period": "Period",
     "periods": {
@@ -18994,7 +19157,48 @@
       "q2": "Q2",
       "q3": "Q3",
       "q4": "Q4",
-      "yearly": "Full Year"
+      "yearly": "Full Year",
+      "nov2024": "November 2024"
+    },
+    "description": "Manage tax reporting and compliance",
+    "errorTitle": "Failed to Load Tax Data",
+    "errorDescription": "Unable to load tax data. Please try again.",
+    "newReport": "New Report",
+    "compliance": {
+      "title": "Compliance Status",
+      "paymentProgress": "Payment Progress",
+      "filed": "Filed",
+      "pending": "Pending"
+    },
+    "deadlines": {
+      "title": "Upcoming Deadlines"
+    },
+    "reports": {
+      "title": "Tax Reports",
+      "id": "ID",
+      "type": "Type",
+      "period": "Period",
+      "jurisdiction": "Jurisdiction",
+      "amount": "Amount",
+      "dueDate": "Due Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "liabilities": {
+      "title": "Tax Liabilities",
+      "jurisdiction": "Jurisdiction",
+      "taxType": "Tax Type",
+      "totalLiability": "Total Liability",
+      "paid": "Paid",
+      "remaining": "Remaining",
+      "dueDate": "Due Date",
+      "progress": "Progress",
+      "total": "Total"
+    },
+    "calendar": {
+      "title": "Tax Calendar",
+      "description": "Upcoming tax deadlines and events",
+      "setReminder": "Set Reminder"
     },
     "complianceStatus": "Compliance Status",
     "compliant": "Compliant",
