@@ -20255,6 +20255,8 @@
     "subtitle": "Manage testnet environments",
     "testnetStatus": "Testnet Status",
     "testnetStatusDesc": "Current testnet health",
+    "statusHeader": "Status",
+    "export": "Export",
     "faucet": "Faucet",
     "faucetDesc": "Test token distribution",
     "testAccounts": "Test Accounts",

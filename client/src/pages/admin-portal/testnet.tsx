@@ -520,7 +520,7 @@ export default function TestnetManagement() {
                       <TableRow>
                         <TableHead>{t("adminTestnet.address")}</TableHead>
                         <TableHead>{t("adminTestnet.amount")}</TableHead>
-                        <TableHead>{t("adminTestnet.status")}</TableHead>
+                        <TableHead>{t("adminTestnet.statusHeader")}</TableHead>
                         <TableHead>{t("adminTestnet.timestamp")}</TableHead>
                       </TableRow>
                     </TableHeader>

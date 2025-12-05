@@ -20269,6 +20269,8 @@
       "pending": "대기 중",
       "failed": "실패"
     },
+    "statusHeader": "상태",
+    "export": "내보내기",
     "online": "온라인",
     "offline": "오프라인",
     "degraded": "저하됨",
