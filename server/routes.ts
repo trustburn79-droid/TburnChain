@@ -7040,15 +7040,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/activity", async (_req, res) => {
+    const actionTypes = ['login', 'logout', 'create', 'update', 'delete', 'view', 'settings', 'security'] as const;
+    const statuses = ['success', 'failed', 'warning'] as const;
+    const devices = ['Chrome/Windows 11', 'Firefox/macOS Sonoma', 'Safari/iOS 17', 'Edge/Windows 11', 'Chrome/Android 14'];
+    const locations = ['Seoul, KR', 'Tokyo, JP', 'New York, US', 'London, UK', 'Singapore, SG', 'Sydney, AU'];
+    const targets = ['User Settings', 'Validator Node #23', 'Token Contract', 'Bridge Configuration', 'Security Policy', 'API Key', 'Dashboard Widget', 'Report Template'];
+    const actions = ['Logged in', 'Updated settings', 'Created new record', 'Viewed details', 'Deleted item', 'Modified configuration', 'Exported data', 'Changed permissions'];
+    const names = ['Admin Kim', 'Operator Lee', 'Developer Park', 'Analyst Choi', 'Manager Hong', 'Security Jung', 'Support Yang', 'Auditor Kang'];
+    
     res.json({
-      activities: Array.from({ length: 50 }, (_, i) => ({
+      logs: Array.from({ length: 50 }, (_, i) => ({
         id: `act-${i + 1}`,
-        user: `user${(i % 10) + 1}`,
-        action: ['login', 'view', 'update', 'create', 'delete'][i % 5],
-        resource: ['settings', 'users', 'validators', 'tokens'][i % 4],
+        user: {
+          name: names[i % names.length],
+          email: `${names[i % names.length].toLowerCase().replace(' ', '.')}@tburn.io`,
+          avatar: null
+        },
+        action: actions[i % actions.length],
+        actionType: actionTypes[i % actionTypes.length],
+        target: targets[i % targets.length],
+        ip: `192.168.${Math.floor(i / 50)}.${(i % 255) + 1}`,
+        device: devices[i % devices.length],
+        location: locations[i % locations.length],
         timestamp: new Date(Date.now() - i * 600000).toISOString(),
-        ip: `192.168.1.${i % 255}`
-      }))
+        status: statuses[i % 10 === 0 ? 1 : i % 15 === 0 ? 2 : 0]
+      })),
+      stats: {
+        totalActivities24h: 1247,
+        activeUsers: 42,
+        failedAttempts: 7,
+        securityEvents: 3
+      }
     });
   });
 
