@@ -163,10 +163,7 @@ export default function AdminAITuning() {
 
   const saveParamsMutation = useMutation({
     mutationFn: async (params: AITuningData) => {
-      return apiRequest('/api/admin/ai/params', { 
-        method: 'PUT',
-        body: JSON.stringify(params)
-      });
+      return apiRequest('PUT', '/api/admin/ai/params', params);
     },
     onSuccess: () => {
       setHasChanges(false);

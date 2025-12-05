@@ -6381,15 +6381,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const stats = aiService.getAllUsageStats();
       const models = [
-        { name: "Claude 4.5 Sonnet", status: "operational", accuracy: 97.8, decisionsToday: 1247, avgConfidence: 94.2, latency: 145 },
-        { name: "GPT-4o", status: stats.find(s => s.provider === 'openai')?.isHealthy ? "operational" : "degraded", accuracy: 96.5, decisionsToday: 892, avgConfidence: 92.8, latency: 178 },
-        { name: "Gemini Pro", status: stats.find(s => s.provider === 'gemini')?.isHealthy ? "operational" : "degraded", accuracy: 95.2, decisionsToday: 634, avgConfidence: 91.5, latency: 156 }
+        { name: "Gemini 3 Pro", status: stats.find(s => s.provider === 'gemini')?.isHealthy ? "operational" : "degraded", accuracy: 99.1, decisionsToday: 1247, avgConfidence: 94.2, latency: 145 },
+        { name: "Claude Sonnet 4.5", status: stats.find(s => s.provider === 'anthropic')?.isHealthy ? "operational" : "degraded", accuracy: 97.2, decisionsToday: 892, avgConfidence: 92.8, latency: 178 },
+        { name: "GPT-4o", status: stats.find(s => s.provider === 'openai')?.isHealthy ? "operational" : "degraded", accuracy: 95.8, decisionsToday: 634, avgConfidence: 91.5, latency: 156 },
+        { name: "Grok 3", status: stats.find(s => s.provider === 'grok')?.isHealthy ? "standby" : "offline", accuracy: 94.5, decisionsToday: 0, avgConfidence: 0, latency: 0 }
       ];
       res.json({
         models,
         totalDecisionsToday: models.reduce((sum, m) => sum + m.decisionsToday, 0),
         avgConfidence: 92.8,
-        activeProvider: 'anthropic',
+        activeProvider: 'gemini',
         providers: stats.map(s => ({
           name: s.provider,
           status: s.isHealthy ? 'healthy' : 'unhealthy',
@@ -6450,9 +6451,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/ai/models", async (_req, res) => {
     res.json({
       models: [
-        { id: 1, name: "GPT-5 Omni", layer: "Strategic", status: "online", latency: 450, tokenRate: 3200, accuracy: 99.1, requests24h: 12500, cost24h: 125.50 },
+        { id: 1, name: "Gemini 3 Pro", layer: "Strategic", status: "online", latency: 450, tokenRate: 3200, accuracy: 99.1, requests24h: 12500, cost24h: 125.50 },
         { id: 2, name: "Claude Sonnet 4.5", layer: "Tactical", status: "online", latency: 180, tokenRate: 2100, accuracy: 97.2, requests24h: 45000, cost24h: 89.25 },
-        { id: 3, name: "Llama 3.3 70B", layer: "Operational", status: "online", latency: 45, tokenRate: 890, accuracy: 95.8, requests24h: 180000, cost24h: 0 },
+        { id: 3, name: "GPT-4o", layer: "Operational", status: "online", latency: 45, tokenRate: 890, accuracy: 95.8, requests24h: 180000, cost24h: 35.00 },
+        { id: 4, name: "Grok 3", layer: "Fallback", status: "standby", latency: 0, tokenRate: 0, accuracy: 94.5, requests24h: 0, cost24h: 0 },
       ],
       decisions: [
         { id: 1, type: "Strategic", content: "Increase validator committee to 120", confidence: 92, executed: true, timestamp: new Date(Date.now() - 300000).toISOString() },
@@ -6461,17 +6463,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { id: 4, type: "Strategic", content: "Activate bridge circuit breaker", confidence: 65, executed: false, timestamp: new Date(Date.now() - 1200000).toISOString() },
       ],
       performance: [
-        { time: "00:00", gpt5: 450, claude: 180, llama: 45 },
-        { time: "04:00", gpt5: 460, claude: 175, llama: 48 },
-        { time: "08:00", gpt5: 480, claude: 190, llama: 52 },
-        { time: "12:00", gpt5: 445, claude: 185, llama: 44 },
-        { time: "16:00", gpt5: 455, claude: 178, llama: 46 },
-        { time: "20:00", gpt5: 448, claude: 182, llama: 47 },
+        { time: "00:00", gemini: 450, claude: 180, gpt4o: 45, grok: 0 },
+        { time: "04:00", gemini: 460, claude: 175, gpt4o: 48, grok: 0 },
+        { time: "08:00", gemini: 480, claude: 190, gpt4o: 52, grok: 0 },
+        { time: "12:00", gemini: 445, claude: 185, gpt4o: 44, grok: 0 },
+        { time: "16:00", gemini: 455, claude: 178, gpt4o: 46, grok: 0 },
+        { time: "20:00", gemini: 448, claude: 182, gpt4o: 47, grok: 0 },
       ],
       stats: {
         overallAccuracy: 98.2,
         totalRequests24h: "237.5k",
-        totalCost24h: 214.75,
+        totalCost24h: 249.75,
         uptime: 99.9
       }
     });
@@ -6481,7 +6483,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({
       modelConfigs: [
         { 
-          name: "GPT-5 Turbo", 
+          name: "Gemini 3 Pro", 
           layer: "Strategic",
           temperature: 0.7,
           maxTokens: 4096,
@@ -6499,13 +6501,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
           presencePenalty: 0.2
         },
         { 
-          name: "Llama 3.3 70B", 
+          name: "GPT-4o", 
           layer: "Operational",
           temperature: 0.3,
           maxTokens: 2048,
           topP: 0.8,
           frequencyPenalty: 0.1,
           presencePenalty: 0.1
+        },
+        { 
+          name: "Grok 3", 
+          layer: "Fallback",
+          temperature: 0.4,
+          maxTokens: 4096,
+          topP: 0.85,
+          frequencyPenalty: 0.15,
+          presencePenalty: 0.15
         },
       ],
       decisionParams: [
@@ -11277,7 +11288,7 @@ Provide JSON portfolio analysis:
     if (clients.size === 0) return;
     
     const aiUsageSchema = z.array(z.object({
-      provider: z.enum(["anthropic", "openai", "gemini"]),
+      provider: z.enum(["anthropic", "openai", "gemini", "grok"]),
       totalRequests: z.number(),
       successfulRequests: z.number(),
       failedRequests: z.number(),
@@ -11307,7 +11318,7 @@ Provide JSON portfolio analysis:
     
     if (type === 'ai-usage') {
       schema = z.array(z.object({
-        provider: z.enum(["anthropic", "openai", "gemini"]),
+        provider: z.enum(["anthropic", "openai", "gemini", "grok"]),
         totalRequests: z.number(),
         successfulRequests: z.number(),
         failedRequests: z.number(),

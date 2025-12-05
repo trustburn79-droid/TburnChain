@@ -120,7 +120,7 @@ export default function AdminAITraining() {
 
   const pauseJobMutation = useMutation({
     mutationFn: async (jobId: number) => {
-      return apiRequest(`/api/admin/ai/training/${jobId}/pause`, { method: 'POST' });
+      return apiRequest('POST', `/api/admin/ai/training/${jobId}/pause`);
     },
     onSuccess: (_, jobId) => {
       const job = jobs.find(j => j.id === jobId);
@@ -134,7 +134,7 @@ export default function AdminAITraining() {
 
   const resumeJobMutation = useMutation({
     mutationFn: async (jobId: number) => {
-      return apiRequest(`/api/admin/ai/training/${jobId}/resume`, { method: 'POST' });
+      return apiRequest('POST', `/api/admin/ai/training/${jobId}/resume`);
     },
     onSuccess: (_, jobId) => {
       const job = jobs.find(j => j.id === jobId);
@@ -148,7 +148,7 @@ export default function AdminAITraining() {
 
   const cancelJobMutation = useMutation({
     mutationFn: async (jobId: number) => {
-      return apiRequest(`/api/admin/ai/training/${jobId}/cancel`, { method: 'POST' });
+      return apiRequest('POST', `/api/admin/ai/training/${jobId}/cancel`);
     },
     onSuccess: (_, jobId) => {
       const job = jobs.find(j => j.id === jobId);
