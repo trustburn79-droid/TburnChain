@@ -14,6 +14,8 @@ import { Slider } from "@/components/ui/slider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Bell,
   Mail,
@@ -32,6 +34,7 @@ import {
   Plus,
   Trash2,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 import { SiSlack, SiDiscord, SiTelegram } from "react-icons/si";
 
@@ -119,6 +122,10 @@ export default function NotificationSettings() {
   const [activeTab, setActiveTab] = useState("channels");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [notificationVolume, setNotificationVolume] = useState([70]);
+  const [showDetailSheet, setShowDetailSheet] = useState(false);
+  const [selectedChannel, setSelectedChannel] = useState<NotificationChannel | null>(null);
+  const [showSaveConfirmDialog, setShowSaveConfirmDialog] = useState(false);
+  const [showTestConfirmDialog, setShowTestConfirmDialog] = useState(false);
 
   const { data: notificationSettings, isLoading, error, refetch } = useQuery<NotificationSettings>({
     queryKey: ["/api/admin/notifications/settings"],
@@ -131,6 +138,7 @@ export default function NotificationSettings() {
       return response.json();
     },
     onSuccess: () => {
+      setShowSaveConfirmDialog(false);
       queryClient.invalidateQueries({ queryKey: ["/api/admin/notifications/settings"] });
       toast({
         title: t("adminNotifications.saveSuccess"),
@@ -152,6 +160,7 @@ export default function NotificationSettings() {
       return response.json();
     },
     onSuccess: () => {
+      setShowTestConfirmDialog(false);
       toast({
         title: t("adminNotifications.testSent"),
         description: t("adminNotifications.testSentDesc"),
@@ -183,6 +192,31 @@ export default function NotificationSettings() {
   ];
 
   const channels = notificationSettings?.channels || mockChannels;
+
+  const getChannelDetailSections = useCallback((channel: NotificationChannel): DetailSection[] => [
+    {
+      title: t("adminNotifications.detail.channelInfo"),
+      fields: [
+        { label: t("adminNotifications.channels.name"), value: channel.name, type: "text" as const },
+        { label: t("adminNotifications.channels.type"), value: channel.type.toUpperCase(), type: "badge" as const },
+        { label: t("adminNotifications.channels.destination"), value: channel.destination, type: "text" as const, copyable: true },
+        { label: t("adminNotifications.channels.status"), value: channel.enabled ? t("common.enabled") : t("common.disabled"), type: "badge" as const, badgeVariant: channel.enabled ? "default" : "secondary" },
+      ],
+    },
+    {
+      title: t("adminNotifications.detail.deliveryStatus"),
+      fields: [
+        { label: t("adminNotifications.detail.lastDelivery"), value: "2024-12-05 18:30:00", type: "text" as const },
+        { label: t("adminNotifications.detail.deliveryRate"), value: "99.8%", type: "text" as const },
+        { label: t("adminNotifications.detail.avgLatency"), value: "1.2s", type: "text" as const },
+      ],
+    },
+  ], [t]);
+
+  const handleViewChannel = (channel: NotificationChannel) => {
+    setSelectedChannel(channel);
+    setShowDetailSheet(true);
+  };
 
   const getChannelIcon = (type: string) => {
     switch (type) {
@@ -238,10 +272,10 @@ export default function NotificationSettings() {
               {t("adminNotifications.subtitle")} | {i18n.language === 'ko' ? 'Configure notification preferences and channels' : '알림 설정 관리'}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <Button 
               variant="outline" 
-              onClick={() => testNotificationMutation.mutate()}
+              onClick={() => setShowTestConfirmDialog(true)}
               disabled={testNotificationMutation.isPending}
               data-testid="button-test-notification"
             >
@@ -252,7 +286,7 @@ export default function NotificationSettings() {
               <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
               {t("adminNotifications.refresh")}
             </Button>
-            <Button onClick={() => saveSettingsMutation.mutate({})} disabled={saveSettingsMutation.isPending} data-testid="button-save">
+            <Button onClick={() => setShowSaveConfirmDialog(true)} disabled={saveSettingsMutation.isPending} data-testid="button-save">
               {saveSettingsMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}
               {t("adminNotifications.saveChanges")}
             </Button>
@@ -348,6 +382,9 @@ export default function NotificationSettings() {
                           {channel.enabled ? t("adminNotifications.channels.enabled") : t("adminNotifications.channels.disabled")}
                         </Badge>
                         <Switch defaultChecked={channel.enabled} data-testid={`switch-channel-${channel.id}`} />
+                        <Button variant="ghost" size="icon" onClick={() => handleViewChannel(channel)} data-testid={`button-view-channel-${channel.id}`}>
+                          <Eye className="h-4 w-4" />
+                        </Button>
                         <Button variant="ghost" size="icon" data-testid={`button-settings-channel-${channel.id}`}>
                           <Settings className="h-4 w-4" />
                         </Button>
@@ -582,6 +619,39 @@ export default function NotificationSettings() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedChannel && (
+        <DetailSheet
+          open={showDetailSheet}
+          onOpenChange={setShowDetailSheet}
+          title={selectedChannel.name}
+          sections={getChannelDetailSections(selectedChannel)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showSaveConfirmDialog}
+        onOpenChange={setShowSaveConfirmDialog}
+        title={t("adminNotifications.confirm.saveTitle")}
+        description={t("adminNotifications.confirm.saveDescription")}
+        confirmText={t("adminNotifications.confirm.saveConfirm")}
+        cancelText={t("common.cancel")}
+        onConfirm={() => saveSettingsMutation.mutate({})}
+        isLoading={saveSettingsMutation.isPending}
+        destructive={false}
+      />
+
+      <ConfirmationDialog
+        open={showTestConfirmDialog}
+        onOpenChange={setShowTestConfirmDialog}
+        title={t("adminNotifications.confirm.testTitle")}
+        description={t("adminNotifications.confirm.testDescription")}
+        confirmText={t("adminNotifications.confirm.testConfirm")}
+        cancelText={t("common.cancel")}
+        onConfirm={() => testNotificationMutation.mutate()}
+        isLoading={testNotificationMutation.isPending}
+        destructive={false}
+      />
     </div>
   );
 }

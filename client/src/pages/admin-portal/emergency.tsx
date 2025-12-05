@@ -13,9 +13,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   AlertTriangle, Shield, Power, Pause, Play, 
-  RefreshCw, Clock, CheckCircle, XCircle, AlertCircle, Loader2
+  RefreshCw, Clock, CheckCircle, XCircle, AlertCircle, Loader2, Eye
 } from "lucide-react";
 
 interface SystemStatus {
@@ -67,6 +69,15 @@ export default function AdminEmergency() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [wsConnected, setWsConnected] = useState(false);
+  
+  const [showControlDetail, setShowControlDetail] = useState(false);
+  const [selectedControl, setSelectedControl] = useState<EmergencyControl | null>(null);
+  const [showBreakerDetail, setShowBreakerDetail] = useState(false);
+  const [selectedBreaker, setSelectedBreaker] = useState<CircuitBreaker | null>(null);
+  const [showActionDetail, setShowActionDetail] = useState(false);
+  const [selectedAction, setSelectedAction] = useState<RecentAction | null>(null);
+  const [showBreakerConfirm, setShowBreakerConfirm] = useState(false);
+  const [pendingBreakerToggle, setPendingBreakerToggle] = useState<{ name: string; enabled: boolean } | null>(null);
 
   const { data: emergencyData, isLoading, error, refetch } = useQuery<EmergencyData>({
     queryKey: ["/api/admin/emergency/status"],
@@ -222,6 +233,112 @@ export default function AdminEmergency() {
     }
   }, [refetch, toast, t]);
 
+  const handleBreakerToggle = useCallback((name: string, enabled: boolean) => {
+    setPendingBreakerToggle({ name, enabled });
+    setShowBreakerConfirm(true);
+  }, []);
+
+  const confirmBreakerToggle = useCallback(() => {
+    if (pendingBreakerToggle) {
+      toggleBreakerMutation.mutate(pendingBreakerToggle);
+    }
+    setShowBreakerConfirm(false);
+    setPendingBreakerToggle(null);
+  }, [pendingBreakerToggle, toggleBreakerMutation]);
+
+  const getControlDetailSections = useCallback((control: EmergencyControl): DetailSection[] => {
+    return [
+      {
+        title: t("adminEmergency.detail.controlInfo"),
+        fields: [
+          { label: t("adminEmergency.controlId"), value: control.id, copyable: true },
+          { label: t("adminEmergency.controlName"), value: control.name },
+          { label: t("adminEmergency.description"), value: control.description },
+          { 
+            label: t("adminEmergency.severity"), 
+            value: control.severity, 
+            type: "badge" as const,
+            badgeVariant: control.severity === "critical" ? "destructive" : control.severity === "high" ? "default" : "secondary"
+          },
+          { 
+            label: t("adminEmergency.status"), 
+            value: control.status === "ready" ? t("adminEmergency.ready") : t("adminEmergency.active"),
+            type: "badge" as const,
+            badgeVariant: control.status === "ready" ? "outline" : "destructive"
+          },
+        ]
+      },
+      {
+        title: t("adminEmergency.detail.impact"),
+        fields: [
+          { label: t("adminEmergency.affectedServices"), value: control.severity === "critical" ? t("adminEmergency.allServices") : t("adminEmergency.partialServices") },
+          { label: t("adminEmergency.estimatedDowntime"), value: control.severity === "critical" ? "5-10 min" : "1-5 min" },
+          { label: t("adminEmergency.recoveryTime"), value: control.severity === "critical" ? "15-30 min" : "5-15 min" },
+        ]
+      }
+    ];
+  }, [t]);
+
+  const getBreakerDetailSections = useCallback((breaker: CircuitBreaker): DetailSection[] => {
+    return [
+      {
+        title: t("adminEmergency.detail.breakerInfo"),
+        fields: [
+          { label: t("adminEmergency.breakerName"), value: breaker.name },
+          { label: t("adminEmergency.threshold"), value: breaker.threshold },
+          { label: t("adminEmergency.current"), value: breaker.current },
+          { 
+            label: t("adminEmergency.status"), 
+            value: breaker.status,
+            type: "badge" as const,
+            badgeVariant: breaker.status === "normal" ? "outline" : breaker.status === "warning" ? "default" : "destructive"
+          },
+          { 
+            label: t("adminEmergency.enabled"), 
+            value: breaker.enabled ? t("adminEmergency.yes") : t("adminEmergency.no"),
+            type: "badge" as const,
+            badgeVariant: breaker.enabled ? "outline" : "secondary"
+          },
+        ]
+      },
+      {
+        title: t("adminEmergency.detail.thresholdConfig"),
+        fields: [
+          { label: t("adminEmergency.triggerCondition"), value: t("adminEmergency.exceedsThreshold") },
+          { label: t("adminEmergency.cooldownPeriod"), value: "5 min" },
+          { label: t("adminEmergency.autoRecovery"), value: t("adminEmergency.enabled") },
+        ]
+      }
+    ];
+  }, [t]);
+
+  const getActionDetailSections = useCallback((action: RecentAction): DetailSection[] => {
+    return [
+      {
+        title: t("adminEmergency.detail.actionInfo"),
+        fields: [
+          { label: t("adminEmergency.actionId"), value: String(action.id), copyable: true },
+          { label: t("adminEmergency.action"), value: action.action },
+          { label: t("adminEmergency.initiatedBy"), value: action.by },
+          { label: t("adminEmergency.reason"), value: action.reason },
+        ]
+      },
+      {
+        title: t("adminEmergency.detail.timeline"),
+        fields: [
+          { label: t("adminEmergency.timestamp"), value: action.timestamp },
+          { label: t("adminEmergency.duration"), value: action.duration },
+          { 
+            label: t("adminEmergency.status"), 
+            value: action.status === "resolved" ? t("adminEmergency.resolved") : t("adminEmergency.active"),
+            type: "badge" as const,
+            badgeVariant: action.status === "resolved" ? "outline" : "default"
+          },
+        ]
+      }
+    ];
+  }, [t]);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "running": return "bg-green-500";
@@ -350,44 +467,62 @@ export default function AdminEmergency() {
                         </div>
                         <p className="text-sm text-muted-foreground" data-testid={`control-desc-${index}`}>{control.description}</p>
                       </div>
-                      <Dialog open={confirmDialog === control.id} onOpenChange={(open) => setConfirmDialog(open ? control.id : null)}>
-                        <DialogTrigger asChild>
-                          <Button variant="destructive" size="sm" data-testid={`button-activate-${index}`}>
-                            <Pause className="w-4 h-4 mr-2" />
-                            {t("adminEmergency.activate")}
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent data-testid={`dialog-confirm-${control.id}`}>
-                          <DialogHeader>
-                            <DialogTitle className="flex items-center gap-2 text-red-500">
-                              <AlertTriangle className="w-5 h-5" />
-                              {t("adminEmergency.confirm")} {control.name}
-                            </DialogTitle>
-                            <DialogDescription>
-                              {t("adminEmergency.confirmDesc", { action: control.name.toLowerCase() })}
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
-                            <p className="text-sm">{control.description}</p>
-                          </div>
-                          <DialogFooter>
-                            <Button variant="outline" onClick={() => setConfirmDialog(null)} data-testid="button-cancel">
-                              {t("adminEmergency.cancel")}
-                            </Button>
+                      <div className="flex items-center gap-2">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
                             <Button 
-                              variant="destructive" 
-                              onClick={() => activateControlMutation.mutate(control.id)}
-                              disabled={activateControlMutation.isPending}
-                              data-testid="button-confirm-action"
+                              variant="ghost" 
+                              size="icon"
+                              onClick={() => {
+                                setSelectedControl(control);
+                                setShowControlDetail(true);
+                              }}
+                              data-testid={`button-view-control-${index}`}
                             >
-                              {activateControlMutation.isPending ? (
-                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                              ) : null}
-                              {t("adminEmergency.confirmAction")}
+                              <Eye className="h-4 w-4" />
                             </Button>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
+                          </TooltipTrigger>
+                          <TooltipContent>{t("adminEmergency.view")}</TooltipContent>
+                        </Tooltip>
+                        <Dialog open={confirmDialog === control.id} onOpenChange={(open) => setConfirmDialog(open ? control.id : null)}>
+                          <DialogTrigger asChild>
+                            <Button variant="destructive" size="sm" data-testid={`button-activate-${index}`}>
+                              <Pause className="w-4 h-4 mr-2" />
+                              {t("adminEmergency.activate")}
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent data-testid={`dialog-confirm-${control.id}`}>
+                            <DialogHeader>
+                              <DialogTitle className="flex items-center gap-2 text-red-500">
+                                <AlertTriangle className="w-5 h-5" />
+                                {t("adminEmergency.confirm")} {control.name}
+                              </DialogTitle>
+                              <DialogDescription>
+                                {t("adminEmergency.confirmDesc", { action: control.name.toLowerCase() })}
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+                              <p className="text-sm">{control.description}</p>
+                            </div>
+                            <DialogFooter>
+                              <Button variant="outline" onClick={() => setConfirmDialog(null)} data-testid="button-cancel">
+                                {t("adminEmergency.cancel")}
+                              </Button>
+                              <Button 
+                                variant="destructive" 
+                                onClick={() => activateControlMutation.mutate(control.id)}
+                                disabled={activateControlMutation.isPending}
+                                data-testid="button-confirm-action"
+                              >
+                                {activateControlMutation.isPending ? (
+                                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                ) : null}
+                                {t("adminEmergency.confirmAction")}
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -423,6 +558,7 @@ export default function AdminEmergency() {
                           <TableHead>{t("adminEmergency.current")}</TableHead>
                           <TableHead>{t("adminEmergency.status")}</TableHead>
                           <TableHead>{t("adminEmergency.enabled")}</TableHead>
+                          <TableHead>{t("adminEmergency.actions")}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -440,10 +576,28 @@ export default function AdminEmergency() {
                             <TableCell>
                               <Switch 
                                 checked={breaker.enabled} 
-                                onCheckedChange={(enabled) => toggleBreakerMutation.mutate({ name: breaker.name, enabled })}
+                                onCheckedChange={(enabled) => handleBreakerToggle(breaker.name, enabled)}
                                 disabled={toggleBreakerMutation.isPending}
                                 data-testid={`breaker-switch-${index}`}
                               />
+                            </TableCell>
+                            <TableCell>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button 
+                                    variant="ghost" 
+                                    size="icon"
+                                    onClick={() => {
+                                      setSelectedBreaker(breaker);
+                                      setShowBreakerDetail(true);
+                                    }}
+                                    data-testid={`button-view-breaker-${index}`}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>{t("adminEmergency.view")}</TooltipContent>
+                              </Tooltip>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -477,6 +631,7 @@ export default function AdminEmergency() {
                           <TableHead>{t("adminEmergency.timestamp")}</TableHead>
                           <TableHead>{t("adminEmergency.duration")}</TableHead>
                           <TableHead>{t("adminEmergency.status")}</TableHead>
+                          <TableHead>{t("adminEmergency.actions")}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -492,6 +647,24 @@ export default function AdminEmergency() {
                                 {action.status === "resolved" ? t("adminEmergency.resolved") : t("adminEmergency.active")}
                               </Badge>
                             </TableCell>
+                            <TableCell>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button 
+                                    variant="ghost" 
+                                    size="icon"
+                                    onClick={() => {
+                                      setSelectedAction(action);
+                                      setShowActionDetail(true);
+                                    }}
+                                    data-testid={`button-view-action-${index}`}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>{t("adminEmergency.view")}</TooltipContent>
+                              </Tooltip>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -503,6 +676,46 @@ export default function AdminEmergency() {
           </Tabs>
         </div>
       </ScrollArea>
+
+      {selectedControl && (
+        <DetailSheet
+          open={showControlDetail}
+          onOpenChange={setShowControlDetail}
+          title={selectedControl.name}
+          sections={getControlDetailSections(selectedControl)}
+        />
+      )}
+
+      {selectedBreaker && (
+        <DetailSheet
+          open={showBreakerDetail}
+          onOpenChange={setShowBreakerDetail}
+          title={selectedBreaker.name}
+          sections={getBreakerDetailSections(selectedBreaker)}
+        />
+      )}
+
+      {selectedAction && (
+        <DetailSheet
+          open={showActionDetail}
+          onOpenChange={setShowActionDetail}
+          title={selectedAction.action}
+          sections={getActionDetailSections(selectedAction)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showBreakerConfirm}
+        onOpenChange={setShowBreakerConfirm}
+        title={t("adminEmergency.confirm.toggleBreaker")}
+        description={pendingBreakerToggle?.enabled 
+          ? t("adminEmergency.confirm.enableBreakerDesc", { name: pendingBreakerToggle?.name })
+          : t("adminEmergency.confirm.disableBreakerDesc", { name: pendingBreakerToggle?.name })}
+        confirmText={pendingBreakerToggle?.enabled ? t("adminEmergency.enable") : t("adminEmergency.disable")}
+        cancelText={t("adminEmergency.cancel")}
+        onConfirm={confirmBreakerToggle}
+        destructive={!pendingBreakerToggle?.enabled}
+      />
     </TooltipProvider>
   );
 }

@@ -12,6 +12,8 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Settings,
   Save,
@@ -28,6 +30,8 @@ import {
   CheckCircle,
   Server,
   Activity,
+  RotateCcw,
+  Eye,
 } from "lucide-react";
 
 interface SystemSettings {
@@ -133,6 +137,10 @@ export default function AdminSettings() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("general");
   const [localSettings, setLocalSettings] = useState<SystemSettings | null>(null);
+  const [selectedSection, setSelectedSection] = useState<string | null>(null);
+  const [detailSheetOpen, setDetailSheetOpen] = useState(false);
+  const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const { data: settings, isLoading, error, refetch } = useQuery<SystemSettings>({
     queryKey: ["/api/admin/settings"],
@@ -193,6 +201,48 @@ export default function AdminSettings() {
     });
   }, []);
 
+  const resetSettingsMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/admin/settings/reset");
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/settings"] });
+      setShowResetConfirm(false);
+      toast({
+        title: t("adminSettings.resetSuccess"),
+        description: t("adminSettings.resetSuccessDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminSettings.resetError"),
+        description: t("adminSettings.resetErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleViewSection = useCallback((section: string) => {
+    setSelectedSection(section);
+    setDetailSheetOpen(true);
+  }, []);
+
+  const handleSaveClick = useCallback(() => {
+    setShowSaveConfirm(true);
+  }, []);
+
+  const confirmSave = useCallback(() => {
+    if (localSettings) {
+      saveSettingsMutation.mutate(localSettings);
+      setShowSaveConfirm(false);
+    }
+  }, [localSettings, saveSettingsMutation]);
+
+  const confirmReset = useCallback(() => {
+    resetSettingsMutation.mutate();
+  }, [resetSettingsMutation]);
+
   const mockSettings: SystemSettings = {
     general: {
       chainName: "TBURN Mainnet",
@@ -242,6 +292,82 @@ export default function AdminSettings() {
 
   const currentSettings = localSettings || settings || mockSettings;
 
+  const getDetailSections = useCallback((): DetailSection[] => {
+    if (!selectedSection) return [];
+
+    const sectionMap: Record<string, () => DetailSection[]> = {
+      general: () => [
+        {
+          title: t("adminSettings.detail.generalInfo"),
+          fields: [
+            { label: t("adminSettings.general.chainName"), value: currentSettings.general.chainName, type: "text" as const },
+            { label: t("adminSettings.general.chainId"), value: currentSettings.general.chainId, type: "badge" as const },
+            { label: t("adminSettings.general.rpcEndpoint"), value: currentSettings.general.rpcEndpoint, type: "code" as const, copyable: true },
+            { label: t("adminSettings.general.wsEndpoint"), value: currentSettings.general.wsEndpoint, type: "code" as const, copyable: true },
+            { label: t("adminSettings.general.explorerUrl"), value: currentSettings.general.explorerUrl, type: "link" as const },
+            { label: t("adminSettings.general.timezone"), value: currentSettings.general.timezone.toUpperCase(), type: "badge" as const },
+          ],
+        },
+      ],
+      network: () => [
+        {
+          title: t("adminSettings.detail.networkParams"),
+          fields: [
+            { label: t("adminSettings.network.blockTime"), value: `${currentSettings.network.blockTime}s`, type: "text" as const },
+            { label: t("adminSettings.network.maxBlockSize"), value: `${currentSettings.network.maxBlockSize} MB`, type: "text" as const },
+            { label: t("adminSettings.network.gasLimit"), value: currentSettings.network.gasLimit, type: "text" as const },
+            { label: t("adminSettings.network.minGasPrice"), value: `${currentSettings.network.minGasPrice} gwei`, type: "text" as const },
+          ],
+        },
+        {
+          title: t("adminSettings.detail.validators"),
+          fields: [
+            { label: t("adminSettings.network.maxValidators"), value: currentSettings.network.maxValidators.toString(), type: "text" as const },
+            { label: t("adminSettings.network.minStake"), value: `${Number(currentSettings.network.minStake).toLocaleString()} TBURN`, type: "text" as const },
+            { label: t("adminSettings.network.aiEnhancedBft"), value: currentSettings.network.aiEnhancedBft ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+            { label: t("adminSettings.network.dynamicSharding"), value: currentSettings.network.dynamicSharding ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+          ],
+        },
+      ],
+      security: () => [
+        {
+          title: t("adminSettings.detail.securitySettings"),
+          fields: [
+            { label: t("adminSettings.security.twoFactorAuth"), value: currentSettings.security.twoFactorAuth ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+            { label: t("adminSettings.security.sessionTimeout"), value: `${currentSettings.security.sessionTimeout} ${t("common.minutes")}`, type: "text" as const },
+            { label: t("adminSettings.security.ipWhitelist"), value: currentSettings.security.ipWhitelist ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+            { label: t("adminSettings.security.rateLimiting"), value: currentSettings.security.rateLimiting ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+            { label: t("adminSettings.security.autoKeyRotation"), value: `${currentSettings.security.autoKeyRotation} ${t("common.days")}`, type: "text" as const },
+          ],
+        },
+      ],
+      notifications: () => [
+        {
+          title: t("adminSettings.detail.alertSettings"),
+          fields: [
+            { label: t("adminSettings.notifications.criticalAlerts"), value: currentSettings.notifications.criticalAlerts ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+            { label: t("adminSettings.notifications.securityEvents"), value: currentSettings.notifications.securityEvents ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+            { label: t("adminSettings.notifications.validatorStatus"), value: currentSettings.notifications.validatorStatus ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+            { label: t("adminSettings.email.alertEmail"), value: currentSettings.notifications.alertEmail, type: "text" as const },
+            { label: t("adminSettings.email.smtpServer"), value: currentSettings.notifications.smtpServer, type: "code" as const },
+          ],
+        },
+      ],
+      appearance: () => [
+        {
+          title: t("adminSettings.detail.displaySettings"),
+          fields: [
+            { label: t("adminSettings.appearance.defaultTheme"), value: currentSettings.appearance.defaultTheme, type: "badge" as const },
+            { label: t("adminSettings.appearance.defaultLanguage"), value: currentSettings.appearance.defaultLanguage === "en" ? "English" : "한국어", type: "badge" as const },
+            { label: t("adminSettings.appearance.compactMode"), value: currentSettings.appearance.compactMode ? t("common.enabled") : t("common.disabled"), type: "status" as const },
+          ],
+        },
+      ],
+    };
+
+    return sectionMap[selectedSection]?.() || [];
+  }, [selectedSection, currentSettings, t]);
+
   if (error) {
     return (
       <div className="flex-1 overflow-auto" data-testid="settings-error-container">
@@ -288,7 +414,16 @@ export default function AdminSettings() {
               {t("adminSettings.refresh")}
             </Button>
             <Button 
-              onClick={handleSave} 
+              variant="outline"
+              onClick={() => setShowResetConfirm(true)} 
+              disabled={resetSettingsMutation.isPending}
+              data-testid="button-reset-settings"
+            >
+              <RotateCcw className="h-4 w-4 mr-2" />
+              {t("adminSettings.resetDefaults")}
+            </Button>
+            <Button 
+              onClick={handleSaveClick} 
               disabled={saveSettingsMutation.isPending}
               data-testid="button-save-settings"
             >
@@ -360,12 +495,18 @@ export default function AdminSettings() {
 
           <TabsContent value="general" className="space-y-6" data-testid="content-general">
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Globe className="h-5 w-5" />
-                  {t("adminSettings.general.title")}
-                </CardTitle>
-                <CardDescription>{t("adminSettings.general.description")}</CardDescription>
+              <CardHeader className="flex flex-row items-center justify-between gap-4">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Globe className="h-5 w-5" />
+                    {t("adminSettings.general.title")}
+                  </CardTitle>
+                  <CardDescription>{t("adminSettings.general.description")}</CardDescription>
+                </div>
+                <Button variant="outline" size="sm" onClick={() => handleViewSection("general")} data-testid="button-view-general">
+                  <Eye className="h-4 w-4 mr-2" />
+                  {t("adminSettings.viewDetails")}
+                </Button>
               </CardHeader>
               <CardContent className="space-y-6">
                 {isLoading ? (
@@ -833,6 +974,39 @@ export default function AdminSettings() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* DetailSheet for viewing section details */}
+      <DetailSheet
+        open={detailSheetOpen}
+        onOpenChange={setDetailSheetOpen}
+        title={t(`adminSettings.tabs.${selectedSection || "general"}`)}
+        description={t("adminSettings.detail.description")}
+        sections={getDetailSections()}
+      />
+
+      {/* Confirmation dialog for saving settings */}
+      <ConfirmationDialog
+        open={showSaveConfirm}
+        onOpenChange={setShowSaveConfirm}
+        title={t("adminSettings.confirm.saveTitle")}
+        description={t("adminSettings.confirm.saveDescription")}
+        confirmText={t("adminSettings.confirm.save")}
+        cancelText={t("adminSettings.confirm.cancel")}
+        onConfirm={confirmSave}
+        destructive={false}
+      />
+
+      {/* Confirmation dialog for resetting settings */}
+      <ConfirmationDialog
+        open={showResetConfirm}
+        onOpenChange={setShowResetConfirm}
+        title={t("adminSettings.confirm.resetTitle")}
+        description={t("adminSettings.confirm.resetDescription")}
+        confirmText={t("adminSettings.confirm.reset")}
+        cancelText={t("adminSettings.confirm.cancel")}
+        onConfirm={confirmReset}
+        destructive={true}
+      />
     </div>
   );
 }

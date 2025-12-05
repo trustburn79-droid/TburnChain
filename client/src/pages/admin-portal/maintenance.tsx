@@ -15,9 +15,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Wrench, Clock, Calendar, AlertTriangle, 
-  CheckCircle, Play, Pause, Settings, RefreshCw, AlertCircle as AlertCircleIcon, Loader2
+  CheckCircle, Play, Pause, Settings, RefreshCw, AlertCircle as AlertCircleIcon, Loader2, Eye
 } from "lucide-react";
 
 interface MaintenanceWindow {
@@ -56,6 +58,12 @@ export default function AdminMaintenance() {
     description: "",
     notification: "",
   });
+  const [showDetailSheet, setShowDetailSheet] = useState(false);
+  const [selectedWindow, setSelectedWindow] = useState<MaintenanceWindow | null>(null);
+  const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [windowToCancel, setWindowToCancel] = useState<MaintenanceWindow | null>(null);
+  const [showMaintenanceModeDialog, setShowMaintenanceModeDialog] = useState(false);
+  const [pendingMaintenanceMode, setPendingMaintenanceMode] = useState(false);
 
   const { data: maintenanceData, isLoading, error, refetch } = useQuery<MaintenanceData>({
     queryKey: ["/api/admin/maintenance"],
@@ -67,6 +75,7 @@ export default function AdminMaintenance() {
       return apiRequest("POST", "/api/admin/maintenance/mode", { enabled });
     },
     onSuccess: (_, enabled) => {
+      setShowMaintenanceModeDialog(false);
       toast({
         title: enabled ? t("adminMaintenance.modeEnabled") : t("adminMaintenance.modeDisabled"),
         description: enabled ? t("adminMaintenance.modeEnabledDesc") : t("adminMaintenance.modeDisabledDesc"),
@@ -108,6 +117,8 @@ export default function AdminMaintenance() {
       return apiRequest("POST", `/api/admin/maintenance/cancel/${id}`);
     },
     onSuccess: () => {
+      setShowCancelDialog(false);
+      setWindowToCancel(null);
       toast({
         title: t("adminMaintenance.windowCancelled"),
         description: t("adminMaintenance.windowCancelledDesc"),
@@ -137,6 +148,40 @@ export default function AdminMaintenance() {
       { id: 3, name: t("adminMaintenance.bridgeMaintenanceName"), date: "2024-11-20", duration: "1h 30m", status: "completed" as const, impact: t("adminMaintenance.bridgeOnly") },
     ];
   }, [maintenanceData, t]);
+
+  const getWindowDetailSections = useCallback((window: MaintenanceWindow): DetailSection[] => [
+    {
+      title: t("adminMaintenance.detail.windowInfo"),
+      fields: [
+        { label: t("adminMaintenance.name"), value: window.name, type: "text" as const },
+        { label: t("adminMaintenance.type"), value: window.type.toUpperCase(), type: "badge" as const },
+        { label: t("adminMaintenance.status"), value: window.status, type: "badge" as const, badgeVariant: window.status === "completed" ? "default" : "secondary" },
+      ],
+    },
+    {
+      title: t("adminMaintenance.detail.schedule"),
+      fields: [
+        { label: t("adminMaintenance.start"), value: window.start, type: "text" as const },
+        { label: t("adminMaintenance.end"), value: window.end, type: "text" as const },
+        { label: t("adminMaintenance.detail.estimatedDuration"), value: "2h 00m", type: "text" as const },
+      ],
+    },
+  ], [t]);
+
+  const handleViewWindow = (window: MaintenanceWindow) => {
+    setSelectedWindow(window);
+    setShowDetailSheet(true);
+  };
+
+  const handleCancelWindow = (window: MaintenanceWindow) => {
+    setWindowToCancel(window);
+    setShowCancelDialog(true);
+  };
+
+  const handleMaintenanceModeChange = (checked: boolean) => {
+    setPendingMaintenanceMode(checked);
+    setShowMaintenanceModeDialog(true);
+  };
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -230,7 +275,7 @@ export default function AdminMaintenance() {
                     </div>
                     <Switch 
                       checked={maintenanceMode} 
-                      onCheckedChange={(checked) => toggleMaintenanceModeMutation.mutate(checked)}
+                      onCheckedChange={handleMaintenanceModeChange}
                       disabled={toggleMaintenanceModeMutation.isPending}
                       data-testid="switch-maintenance-mode"
                     />
@@ -300,12 +345,16 @@ export default function AdminMaintenance() {
                             </TableCell>
                             <TableCell>
                               <div className="flex gap-1">
+                                <Button size="sm" variant="ghost" onClick={() => handleViewWindow(window)} data-testid={`button-view-${index}`}>
+                                  <Eye className="h-4 w-4 mr-1" />
+                                  {t("adminMaintenance.view")}
+                                </Button>
                                 <Button size="sm" variant="ghost" data-testid={`button-edit-${index}`}>{t("adminMaintenance.edit")}</Button>
                                 <Button 
                                   size="sm" 
                                   variant="ghost" 
                                   className="text-red-500"
-                                  onClick={() => cancelWindowMutation.mutate(window.id)}
+                                  onClick={() => handleCancelWindow(window)}
                                   disabled={cancelWindowMutation.isPending}
                                   data-testid={`button-cancel-${index}`}
                                 >
@@ -459,6 +508,39 @@ export default function AdminMaintenance() {
           </Tabs>
         </div>
       </ScrollArea>
+
+      {selectedWindow && (
+        <DetailSheet
+          open={showDetailSheet}
+          onOpenChange={setShowDetailSheet}
+          title={selectedWindow.name}
+          sections={getWindowDetailSections(selectedWindow)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showCancelDialog}
+        onOpenChange={setShowCancelDialog}
+        title={t("adminMaintenance.confirm.cancelTitle")}
+        description={t("adminMaintenance.confirm.cancelDescription", { name: windowToCancel?.name })}
+        confirmText={t("adminMaintenance.confirm.cancelConfirm")}
+        cancelText={t("common.cancel")}
+        onConfirm={() => { if (windowToCancel) cancelWindowMutation.mutate(windowToCancel.id); }}
+        isLoading={cancelWindowMutation.isPending}
+        destructive={true}
+      />
+
+      <ConfirmationDialog
+        open={showMaintenanceModeDialog}
+        onOpenChange={setShowMaintenanceModeDialog}
+        title={pendingMaintenanceMode ? t("adminMaintenance.confirm.enableTitle") : t("adminMaintenance.confirm.disableTitle")}
+        description={pendingMaintenanceMode ? t("adminMaintenance.confirm.enableDescription") : t("adminMaintenance.confirm.disableDescription")}
+        confirmText={pendingMaintenanceMode ? t("adminMaintenance.confirm.enableConfirm") : t("adminMaintenance.confirm.disableConfirm")}
+        cancelText={t("common.cancel")}
+        onConfirm={() => toggleMaintenanceModeMutation.mutate(pendingMaintenanceMode)}
+        isLoading={toggleMaintenanceModeMutation.isPending}
+        destructive={pendingMaintenanceMode}
+      />
     </TooltipProvider>
   );
 }

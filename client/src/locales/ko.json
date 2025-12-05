@@ -18512,6 +18512,43 @@
     "breakerUpdated": "차단기 업데이트됨",
     "breakerUpdatedDesc": "회로 차단기 설정이 업데이트되었습니다",
     "retry": "재시도",
+    "view": "보기",
+    "actions": "작업",
+    "yes": "예",
+    "no": "아니오",
+    "enable": "활성화",
+    "disable": "비활성화",
+    "ready": "준비",
+    "controlId": "제어 ID",
+    "controlName": "제어 이름",
+    "description": "설명",
+    "severity": "심각도",
+    "actionId": "조치 ID",
+    "breakerName": "차단기 이름",
+    "affectedServices": "영향 받는 서비스",
+    "allServices": "모든 서비스",
+    "partialServices": "일부 서비스",
+    "estimatedDowntime": "예상 다운타임",
+    "recoveryTime": "복구 시간",
+    "triggerCondition": "트리거 조건",
+    "exceedsThreshold": "임계값 초과",
+    "cooldownPeriod": "대기 기간",
+    "autoRecovery": "자동 복구",
+    "bridgePause": "브릿지 일시 중지",
+    "maintenanceActivated": "유지보수 활성화됨",
+    "detail": {
+      "controlInfo": "제어 정보",
+      "impact": "영향 평가",
+      "breakerInfo": "차단기 정보",
+      "thresholdConfig": "임계값 설정",
+      "actionInfo": "조치 정보",
+      "timeline": "타임라인"
+    },
+    "confirm": {
+      "toggleBreaker": "회로 차단기 전환",
+      "enableBreakerDesc": "{{name}} 회로 차단기를 활성화하시겠습니까?",
+      "disableBreakerDesc": "{{name}} 회로 차단기를 비활성화하시겠습니까? 시스템이 위험에 노출될 수 있습니다."
+    },
     "error": {
       "title": "긴급 제어 로드 실패",
       "description": "긴급 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
@@ -18586,9 +18623,26 @@
     "scheduleError": "예약 실패",
     "scheduleErrorDesc": "유지보수 예약에 실패했습니다",
     "retry": "재시도",
+    "view": "보기",
     "error": {
       "title": "유지보수 로드 실패",
       "description": "유지보수 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
+    },
+    "detail": {
+      "windowInfo": "윈도우 정보",
+      "schedule": "일정 상세",
+      "estimatedDuration": "예상 소요 시간"
+    },
+    "confirm": {
+      "cancelTitle": "유지보수 윈도우 취소",
+      "cancelDescription": "유지보수 윈도우 \"{{name}}\"을(를) 취소하시겠습니까? 이 작업은 취소할 수 없습니다.",
+      "cancelConfirm": "윈도우 취소",
+      "enableTitle": "유지보수 모드 활성화",
+      "enableDescription": "유지보수 모드를 활성화하면 시스템이 읽기 전용 상태가 됩니다. 유지보수 모드가 비활성화될 때까지 사용자는 쓰기 작업을 수행할 수 없습니다.",
+      "enableConfirm": "유지보수 활성화",
+      "disableTitle": "유지보수 모드 비활성화",
+      "disableDescription": "유지보수 모드를 비활성화하면 시스템 전체 기능이 복원됩니다. 모든 쓰기 작업이 다시 가능해집니다.",
+      "disableConfirm": "유지보수 비활성화"
     }
   },
   "adminBackup": {
@@ -18697,8 +18751,13 @@
     "success": "성공",
     "sundayAt0200": "일요일 02:00",
     "totalBackups": "전체 백업",
+    "view": "보기",
     "warning": "경고",
-    "weeklyArchive": "주간 아카이브"
+    "weeklyArchive": "주간 아카이브",
+    "detail": {
+      "backupInfo": "백업 정보",
+      "storageInfo": "저장소 정보"
+    }
   },
   "adminUpdates": {
     "title": "시스템 업데이트",
@@ -18796,7 +18855,11 @@
       "gasLimit": "가스 제한",
       "minGasPrice": "최소 가스 가격",
       "maxValidators": "최대 검증자",
-      "minStake": "최소 스테이크"
+      "minStake": "최소 스테이크",
+      "aiEnhancedBft": "AI 강화 BFT",
+      "aiEnhancedBftDesc": "AI 최적화 합의 활성화",
+      "dynamicSharding": "동적 샤딩",
+      "dynamicShardingDesc": "AI 기반 샤딩 활성화"
     },
     "security": {
       "title": "보안 설정",
@@ -18808,6 +18871,8 @@
       "ipWhitelistDesc": "특정 IP로 접근 제한",
       "rateLimiting": "요청 제한",
       "rateLimitingDesc": "사용자당 API 요청 제한",
+      "autoKeyRotation": "자동 키 교체",
+      "autoKeyRotationDesc": "API 키 자동 교체 주기",
       "hours": "시간",
       "minutes": "분"
     },
@@ -18885,7 +18950,31 @@
     "refreshingDesc": "설정 로딩 중...",
     "retry": "재시도",
     "errorLoading": "설정 로드 실패",
-    "errorLoadingDesc": "설정을 가져올 수 없습니다. 다시 시도해 주세요."
+    "errorLoadingDesc": "설정을 가져올 수 없습니다. 다시 시도해 주세요.",
+    "resetDefaults": "기본값으로 재설정",
+    "resetSuccess": "설정 재설정됨",
+    "resetSuccessDesc": "설정이 기본값으로 재설정되었습니다",
+    "resetError": "재설정 실패",
+    "resetErrorDesc": "설정을 재설정할 수 없습니다. 다시 시도해 주세요.",
+    "viewDetails": "상세정보 보기",
+    "detail": {
+      "description": "현재 설정 값",
+      "generalInfo": "일반 정보",
+      "networkParams": "네트워크 파라미터",
+      "validators": "검증자 설정",
+      "securitySettings": "보안 설정",
+      "alertSettings": "알림 설정",
+      "displaySettings": "표시 설정"
+    },
+    "confirm": {
+      "saveTitle": "설정 저장",
+      "saveDescription": "모든 변경사항을 저장하시겠습니까? 시스템 설정이 업데이트됩니다.",
+      "save": "변경 저장",
+      "resetTitle": "기본값으로 재설정",
+      "resetDescription": "모든 설정을 기본값으로 재설정하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "reset": "전체 재설정",
+      "cancel": "취소"
+    }
   },
   "adminApiConfig": {
     "title": "API 구성",
@@ -19265,7 +19354,22 @@
     "refreshingDesc": "알림 설정 로딩 중...",
     "retry": "재시도",
     "errorLoading": "설정 로드 실패",
-    "errorLoadingDesc": "알림 설정을 가져올 수 없습니다. 다시 시도해 주세요."
+    "errorLoadingDesc": "알림 설정을 가져올 수 없습니다. 다시 시도해 주세요.",
+    "detail": {
+      "channelInfo": "채널 정보",
+      "deliveryStatus": "전달 상태",
+      "lastDelivery": "마지막 전달",
+      "deliveryRate": "전달률",
+      "avgLatency": "평균 지연 시간"
+    },
+    "confirm": {
+      "saveTitle": "알림 설정 저장",
+      "saveDescription": "업데이트된 알림 설정이 모든 채널에 적용됩니다. 변경 사항은 즉시 적용됩니다.",
+      "saveConfirm": "설정 저장",
+      "testTitle": "테스트 알림 전송",
+      "testDescription": "연결 확인을 위해 활성화된 모든 채널에 테스트 알림이 전송됩니다. 이 작업은 취소할 수 없습니다.",
+      "testConfirm": "테스트 전송"
+    }
   },
   "adminAppearance": {
     "title": "외관 설정",
@@ -19385,7 +19489,30 @@
     "refreshingDesc": "외관 설정 로딩 중...",
     "retry": "재시도",
     "errorLoading": "설정 로드 실패",
-    "errorLoadingDesc": "외관 설정을 가져올 수 없습니다. 다시 시도해 주세요."
+    "errorLoadingDesc": "외관 설정을 가져올 수 없습니다. 다시 시도해 주세요.",
+    "viewDetails": "상세정보 보기",
+    "resetDefaults": "기본값으로 재설정",
+    "resetSuccess": "설정 재설정됨",
+    "resetSuccessDesc": "외관 설정이 기본값으로 재설정되었습니다",
+    "resetError": "재설정 실패",
+    "resetErrorDesc": "외관 설정을 재설정할 수 없습니다. 다시 시도해 주세요.",
+    "detail": {
+      "title": "현재 외관 설정",
+      "description": "현재 외관 구성 보기",
+      "themeSettings": "테마 설정",
+      "layoutSettings": "레이아웃 설정",
+      "languageSettings": "언어 설정",
+      "displaySettings": "디스플레이 설정"
+    },
+    "confirm": {
+      "saveTitle": "외관 설정 저장",
+      "saveDescription": "이 외관 설정을 저장하시겠습니까? 변경 사항이 즉시 적용됩니다.",
+      "save": "변경 저장",
+      "resetTitle": "기본값으로 재설정",
+      "resetDescription": "모든 외관 설정을 기본값으로 재설정하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "reset": "전체 재설정",
+      "cancel": "취소"
+    }
   },
   "adminAccounts": {
     "title": "계정 관리",

@@ -12,6 +12,8 @@ import { Slider } from "@/components/ui/slider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Palette,
   Sun,
@@ -30,6 +32,8 @@ import {
   Sparkles,
   Accessibility,
   Gauge,
+  RotateCcw,
+  Info,
 } from "lucide-react";
 
 interface AppearanceSettings {
@@ -109,6 +113,9 @@ export default function Appearance() {
   const [fontSize, setFontSize] = useState([14]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [language, setLanguage] = useState(i18n.language || "en");
+  const [showDetailSheet, setShowDetailSheet] = useState(false);
+  const [showSaveConfirmDialog, setShowSaveConfirmDialog] = useState(false);
+  const [showResetConfirmDialog, setShowResetConfirmDialog] = useState(false);
 
   const { data: appearanceSettings, isLoading, error, refetch } = useQuery<AppearanceSettings>({
     queryKey: ["/api/admin/appearance"],
@@ -122,6 +129,7 @@ export default function Appearance() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/appearance"] });
+      setShowSaveConfirmDialog(false);
       toast({
         title: t("adminAppearance.saveSuccess"),
         description: t("adminAppearance.saveSuccessDesc"),
@@ -130,6 +138,33 @@ export default function Appearance() {
     onError: (error: Error) => {
       toast({
         title: t("adminAppearance.saveError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const resetSettingsMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/admin/appearance/reset");
+      return response.json();
+    },
+    onSuccess: () => {
+      setTheme("system");
+      setAccentColor("orange");
+      setFontSize([14]);
+      setSidebarCollapsed(false);
+      setLanguage("en");
+      setShowResetConfirmDialog(false);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/appearance"] });
+      toast({
+        title: t("adminAppearance.resetSuccess"),
+        description: t("adminAppearance.resetSuccessDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminAppearance.resetError"),
         description: error.message,
         variant: "destructive",
       });
@@ -159,6 +194,41 @@ export default function Appearance() {
     { name: "Red", value: "red", color: "#ef4444" },
     { name: "Cyan", value: "cyan", color: "#06b6d4" },
   ];
+
+  const getDetailSections = useCallback((): DetailSection[] => [
+    {
+      title: t("adminAppearance.detail.themeSettings"),
+      fields: [
+        { label: t("adminAppearance.theme.title"), value: t(`adminAppearance.themes.${theme}`), type: "text" as const },
+        { label: t("adminAppearance.accentColor.title"), value: accentColor.charAt(0).toUpperCase() + accentColor.slice(1), type: "badge" as const },
+        { label: t("adminAppearance.typography.baseFontSize"), value: `${fontSize[0]}px`, type: "text" as const },
+      ],
+    },
+    {
+      title: t("adminAppearance.detail.layoutSettings"),
+      fields: [
+        { label: t("adminAppearance.layout.collapsedSidebar"), value: sidebarCollapsed ? t("common.enabled") : t("common.disabled"), type: "badge" as const, badgeVariant: sidebarCollapsed ? "default" : "secondary" },
+        { label: t("adminAppearance.layout.contentWidth"), value: t("adminAppearance.layout.widthFull"), type: "text" as const },
+        { label: t("adminAppearance.layout.defaultViewMode"), value: t("adminAppearance.layout.viewGrid"), type: "text" as const },
+      ],
+    },
+    {
+      title: t("adminAppearance.detail.languageSettings"),
+      fields: [
+        { label: t("adminAppearance.language.title"), value: language === 'ko' ? '한국어' : 'English', type: "badge" as const },
+        { label: t("adminAppearance.language.showBoth"), value: t("common.enabled"), type: "badge" as const, badgeVariant: "default" },
+      ],
+    },
+    {
+      title: t("adminAppearance.detail.displaySettings"),
+      fields: [
+        { label: t("adminAppearance.display.animations"), value: t("common.enabled"), type: "badge" as const, badgeVariant: "default" },
+        { label: t("adminAppearance.display.reducedMotion"), value: t("common.disabled"), type: "badge" as const, badgeVariant: "secondary" },
+        { label: t("adminAppearance.display.highContrast"), value: t("common.disabled"), type: "badge" as const, badgeVariant: "secondary" },
+        { label: t("adminAppearance.display.chartAnimationSpeed"), value: t("adminAppearance.display.animationNormal"), type: "text" as const },
+      ],
+    },
+  ], [t, theme, accentColor, fontSize, sidebarCollapsed, language]);
 
   if (error) {
     return (
@@ -195,7 +265,11 @@ export default function Appearance() {
               {t("adminAppearance.subtitle")} | {i18n.language === 'ko' ? 'Customize the look and feel of the admin portal' : '외관 설정'}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
+            <Button variant="outline" onClick={() => setShowDetailSheet(true)} data-testid="button-view-details">
+              <Info className="h-4 w-4 mr-2" />
+              {t("adminAppearance.viewDetails")}
+            </Button>
             <Button variant="outline" onClick={handlePreview} data-testid="button-preview">
               <Eye className="h-4 w-4 mr-2" />
               {t("adminAppearance.previewButton")}
@@ -204,7 +278,11 @@ export default function Appearance() {
               <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
               {t("adminAppearance.refresh")}
             </Button>
-            <Button onClick={() => saveSettingsMutation.mutate({ theme, accentColor, fontSize: fontSize[0] })} disabled={saveSettingsMutation.isPending} data-testid="button-save">
+            <Button variant="outline" onClick={() => setShowResetConfirmDialog(true)} data-testid="button-reset">
+              <RotateCcw className="h-4 w-4 mr-2" />
+              {t("adminAppearance.resetDefaults")}
+            </Button>
+            <Button onClick={() => setShowSaveConfirmDialog(true)} disabled={saveSettingsMutation.isPending} data-testid="button-save">
               {saveSettingsMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}
               {t("adminAppearance.saveChanges")}
             </Button>
@@ -635,6 +713,37 @@ export default function Appearance() {
           </CardContent>
         </Card>
       </div>
+
+      <DetailSheet
+        open={showDetailSheet}
+        onOpenChange={setShowDetailSheet}
+        title={t("adminAppearance.detail.title")}
+        description={t("adminAppearance.detail.description")}
+        sections={getDetailSections()}
+      />
+
+      <ConfirmationDialog
+        open={showSaveConfirmDialog}
+        onOpenChange={setShowSaveConfirmDialog}
+        title={t("adminAppearance.confirm.saveTitle")}
+        description={t("adminAppearance.confirm.saveDescription")}
+        confirmText={t("adminAppearance.confirm.save")}
+        cancelText={t("adminAppearance.confirm.cancel")}
+        onConfirm={() => saveSettingsMutation.mutate({ theme, accentColor, fontSize: fontSize[0] })}
+        isLoading={saveSettingsMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={showResetConfirmDialog}
+        onOpenChange={setShowResetConfirmDialog}
+        title={t("adminAppearance.confirm.resetTitle")}
+        description={t("adminAppearance.confirm.resetDescription")}
+        confirmText={t("adminAppearance.confirm.reset")}
+        cancelText={t("adminAppearance.confirm.cancel")}
+        onConfirm={() => resetSettingsMutation.mutate()}
+        isLoading={resetSettingsMutation.isPending}
+        destructive
+      />
     </div>
   );
 }

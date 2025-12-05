@@ -14,9 +14,10 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
 import { 
   Database, HardDrive, Clock, Download, Upload, 
-  RotateCcw, Trash2, CheckCircle, RefreshCw, AlertCircle, Loader2, AlertTriangle, Play
+  RotateCcw, Trash2, CheckCircle, RefreshCw, AlertCircle, Loader2, AlertTriangle, Play, Eye
 } from "lucide-react";
 
 interface BackupStats {
@@ -59,6 +60,8 @@ export default function AdminBackup() {
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ type: "backup" | "restore" | "delete"; id?: number } | null>(null);
+  const [showDetailSheet, setShowDetailSheet] = useState(false);
+  const [selectedBackup, setSelectedBackup] = useState<BackupItem | null>(null);
 
   const { data: backupData, isLoading, error, refetch } = useQuery<BackupData>({
     queryKey: ["/api/admin/backups"],
@@ -175,6 +178,30 @@ export default function AdminBackup() {
 
   const isBackingUp = backupData?.isBackingUp ?? false;
   const backupProgress = backupData?.backupProgress ?? 0;
+
+  const getBackupDetailSections = useCallback((backup: BackupItem): DetailSection[] => [
+    {
+      title: t("adminBackup.detail.backupInfo"),
+      fields: [
+        { label: t("adminBackup.name"), value: backup.name, type: "text" as const },
+        { label: t("adminBackup.type"), value: backup.type.toUpperCase(), type: "badge" as const },
+        { label: t("adminBackup.status"), value: backup.status, type: "badge" as const, badgeVariant: backup.status === "completed" ? "default" : "secondary" },
+      ],
+    },
+    {
+      title: t("adminBackup.detail.storageInfo"),
+      fields: [
+        { label: t("adminBackup.size"), value: backup.size, type: "text" as const },
+        { label: t("adminBackup.created"), value: backup.created, type: "text" as const },
+        { label: t("adminBackup.retention"), value: backup.retention, type: "text" as const },
+      ],
+    },
+  ], [t]);
+
+  const handleViewBackup = (backup: BackupItem) => {
+    setSelectedBackup(backup);
+    setShowDetailSheet(true);
+  };
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -391,6 +418,14 @@ export default function AdminBackup() {
                               <div className="flex gap-1">
                                 <Tooltip>
                                   <TooltipTrigger asChild>
+                                    <Button size="icon" variant="ghost" onClick={() => handleViewBackup(backup)} data-testid={`button-view-${index}`}>
+                                      <Eye className="w-4 h-4" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>{t("adminBackup.view")}</TooltipContent>
+                                </Tooltip>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
                                     <Button size="icon" variant="ghost" data-testid={`button-download-${index}`}>
                                       <Download className="w-4 h-4" />
                                     </Button>
@@ -576,6 +611,15 @@ export default function AdminBackup() {
           </Tabs>
         </div>
       </ScrollArea>
+
+      {selectedBackup && (
+        <DetailSheet
+          open={showDetailSheet}
+          onOpenChange={setShowDetailSheet}
+          title={selectedBackup.name}
+          sections={getBackupDetailSections(selectedBackup)}
+        />
+      )}
     </TooltipProvider>
   );
 }

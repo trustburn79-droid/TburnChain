@@ -18650,6 +18650,43 @@
     "breakerUpdated": "Breaker Updated",
     "breakerUpdatedDesc": "Circuit breaker settings updated",
     "retry": "Retry",
+    "view": "View",
+    "actions": "Actions",
+    "yes": "Yes",
+    "no": "No",
+    "enable": "Enable",
+    "disable": "Disable",
+    "ready": "Ready",
+    "controlId": "Control ID",
+    "controlName": "Control Name",
+    "description": "Description",
+    "severity": "Severity",
+    "actionId": "Action ID",
+    "breakerName": "Breaker Name",
+    "affectedServices": "Affected Services",
+    "allServices": "All Services",
+    "partialServices": "Partial Services",
+    "estimatedDowntime": "Estimated Downtime",
+    "recoveryTime": "Recovery Time",
+    "triggerCondition": "Trigger Condition",
+    "exceedsThreshold": "Exceeds Threshold",
+    "cooldownPeriod": "Cooldown Period",
+    "autoRecovery": "Auto Recovery",
+    "bridgePause": "Bridge Pause",
+    "maintenanceActivated": "Maintenance Activated",
+    "detail": {
+      "controlInfo": "Control Information",
+      "impact": "Impact Assessment",
+      "breakerInfo": "Breaker Information",
+      "thresholdConfig": "Threshold Configuration",
+      "actionInfo": "Action Information",
+      "timeline": "Timeline"
+    },
+    "confirm": {
+      "toggleBreaker": "Toggle Circuit Breaker",
+      "enableBreakerDesc": "Are you sure you want to enable the {{name}} circuit breaker?",
+      "disableBreakerDesc": "Are you sure you want to disable the {{name}} circuit breaker? This may expose the system to risks."
+    },
     "error": {
       "title": "Failed to Load Emergency Controls",
       "description": "Unable to fetch emergency data. Please try again."
@@ -18724,9 +18761,26 @@
     "scheduleError": "Schedule Failed",
     "scheduleErrorDesc": "Failed to schedule maintenance",
     "retry": "Retry",
+    "view": "View",
     "error": {
       "title": "Failed to Load Maintenance",
       "description": "Unable to fetch maintenance data. Please try again."
+    },
+    "detail": {
+      "windowInfo": "Window Information",
+      "schedule": "Schedule Details",
+      "estimatedDuration": "Estimated Duration"
+    },
+    "confirm": {
+      "cancelTitle": "Cancel Maintenance Window",
+      "cancelDescription": "Are you sure you want to cancel the maintenance window \"{{name}}\"? This action cannot be undone.",
+      "cancelConfirm": "Cancel Window",
+      "enableTitle": "Enable Maintenance Mode",
+      "enableDescription": "Enabling maintenance mode will put the system in read-only state. Users will not be able to perform write operations until maintenance mode is disabled.",
+      "enableConfirm": "Enable Maintenance",
+      "disableTitle": "Disable Maintenance Mode",
+      "disableDescription": "Disabling maintenance mode will restore full system functionality. All write operations will be available again.",
+      "disableConfirm": "Disable Maintenance"
     }
   },
   "adminBackup": {
@@ -18835,8 +18889,13 @@
     "success": "Success",
     "sundayAt0200": "Sunday at 02:00",
     "totalBackups": "Total Backups",
+    "view": "View",
     "warning": "Warning",
-    "weeklyArchive": "Weekly Archive"
+    "weeklyArchive": "Weekly Archive",
+    "detail": {
+      "backupInfo": "Backup Information",
+      "storageInfo": "Storage Information"
+    }
   },
   "adminUpdates": {
     "title": "System Updates",
@@ -18934,7 +18993,11 @@
       "gasLimit": "Gas Limit",
       "minGasPrice": "Min Gas Price",
       "maxValidators": "Max Validators",
-      "minStake": "Min Stake"
+      "minStake": "Min Stake",
+      "aiEnhancedBft": "AI-Enhanced BFT",
+      "aiEnhancedBftDesc": "Enable AI-optimized consensus",
+      "dynamicSharding": "Dynamic Sharding",
+      "dynamicShardingDesc": "Enable AI-driven sharding"
     },
     "security": {
       "title": "Security Settings",
@@ -18946,6 +19009,8 @@
       "ipWhitelistDesc": "Restrict access to specific IPs",
       "rateLimiting": "Rate Limiting",
       "rateLimitingDesc": "Limit API requests per user",
+      "autoKeyRotation": "Auto Key Rotation",
+      "autoKeyRotationDesc": "Automatic API key rotation period",
       "hours": "hours",
       "minutes": "minutes"
     },
@@ -19023,7 +19088,31 @@
     "refreshingDesc": "Loading settings...",
     "retry": "Retry",
     "errorLoading": "Failed to Load Settings",
-    "errorLoadingDesc": "Unable to fetch settings. Please try again."
+    "errorLoadingDesc": "Unable to fetch settings. Please try again.",
+    "resetDefaults": "Reset Defaults",
+    "resetSuccess": "Settings Reset",
+    "resetSuccessDesc": "Settings have been reset to defaults",
+    "resetError": "Reset Failed",
+    "resetErrorDesc": "Unable to reset settings. Please try again.",
+    "viewDetails": "View Details",
+    "detail": {
+      "description": "Current configuration values",
+      "generalInfo": "General Information",
+      "networkParams": "Network Parameters",
+      "validators": "Validator Settings",
+      "securitySettings": "Security Configuration",
+      "alertSettings": "Alert Configuration",
+      "displaySettings": "Display Preferences"
+    },
+    "confirm": {
+      "saveTitle": "Save Settings",
+      "saveDescription": "Are you sure you want to save all changes? This will update the system configuration.",
+      "save": "Save Changes",
+      "resetTitle": "Reset to Defaults",
+      "resetDescription": "Are you sure you want to reset all settings to their default values? This action cannot be undone.",
+      "reset": "Reset All",
+      "cancel": "Cancel"
+    }
   },
   "adminApiConfig": {
     "title": "API Configuration",
@@ -19403,7 +19492,22 @@
     "refreshingDesc": "Loading notification settings...",
     "retry": "Retry",
     "errorLoading": "Failed to Load Settings",
-    "errorLoadingDesc": "Unable to fetch notification settings. Please try again."
+    "errorLoadingDesc": "Unable to fetch notification settings. Please try again.",
+    "detail": {
+      "channelInfo": "Channel Information",
+      "deliveryStatus": "Delivery Status",
+      "lastDelivery": "Last Delivery",
+      "deliveryRate": "Delivery Rate",
+      "avgLatency": "Average Latency"
+    },
+    "confirm": {
+      "saveTitle": "Save Notification Settings",
+      "saveDescription": "This will apply the updated notification settings across all channels. Changes will take effect immediately.",
+      "saveConfirm": "Save Settings",
+      "testTitle": "Send Test Notification",
+      "testDescription": "A test notification will be sent to all enabled channels to verify connectivity. This action cannot be undone.",
+      "testConfirm": "Send Test"
+    }
   },
   "adminAppearance": {
     "title": "Appearance Settings",
@@ -19523,7 +19627,30 @@
     "refreshingDesc": "Loading appearance settings...",
     "retry": "Retry",
     "errorLoading": "Failed to Load Settings",
-    "errorLoadingDesc": "Unable to fetch appearance settings. Please try again."
+    "errorLoadingDesc": "Unable to fetch appearance settings. Please try again.",
+    "viewDetails": "View Details",
+    "resetDefaults": "Reset Defaults",
+    "resetSuccess": "Settings Reset",
+    "resetSuccessDesc": "Appearance settings have been reset to defaults",
+    "resetError": "Reset Failed",
+    "resetErrorDesc": "Failed to reset appearance settings. Please try again.",
+    "detail": {
+      "title": "Current Appearance Settings",
+      "description": "View current appearance configuration",
+      "themeSettings": "Theme Settings",
+      "layoutSettings": "Layout Settings",
+      "languageSettings": "Language Settings",
+      "displaySettings": "Display Settings"
+    },
+    "confirm": {
+      "saveTitle": "Save Appearance Settings",
+      "saveDescription": "Are you sure you want to save these appearance settings? The changes will be applied immediately.",
+      "save": "Save Changes",
+      "resetTitle": "Reset to Defaults",
+      "resetDescription": "Are you sure you want to reset all appearance settings to defaults? This action cannot be undone.",
+      "reset": "Reset All",
+      "cancel": "Cancel"
+    }
   },
   "adminAccounts": {
     "title": "Account Management",
