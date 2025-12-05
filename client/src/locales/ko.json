@@ -15130,7 +15130,8 @@
     "retry": "재시도"
   },
   "adminTraining": {
-    "title": "AI 학습 관리",
+    "title": "학습 자료",
+    "description": "블록체인 관리 및 네트워크 운영에 대해 학습하세요",
     "subtitle": "모델 학습, 데이터셋 및 배포 관리",
     "newTrainingJob": "새 학습 작업",
     "refresh": "새로고침",
@@ -15160,7 +15161,114 @@
       "title": "학습 데이터 로드 실패",
       "description": "학습 관리 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "enrolled": "등록 완료",
+    "enrolledDesc": "이 과정에 등록되었습니다",
+    "enrollError": "과정 등록에 실패했습니다. 다시 시도해 주세요.",
+    "moduleCompleted": "모듈 완료",
+    "moduleCompletedDesc": "축하합니다! 이 모듈을 완료했습니다.",
+    "refreshed": "학습 자료 새로고침 완료",
+    "refreshedDesc": "학습 자료가 업데이트되었습니다",
+    "errorTitle": "학습 자료 로드 실패",
+    "errorDescription": "학습 데이터를 가져올 수 없습니다. 다시 시도해 주세요.",
+    "myProgress": "내 진행 상황",
+    "certifications": "인증",
+    "continue": "계속하기",
+    "startCourse": "과정 시작",
+    "startPath": "경로 시작",
+    "modules": "모듈",
+    "courses": "과정",
+    "total": "총",
+    "earned": "획득",
+    "stats": {
+      "completed": "완료",
+      "inProgress": "진행 중",
+      "achievements": "업적",
+      "learningTime": "학습 시간"
+    },
+    "tabs": {
+      "courses": "과정",
+      "paths": "학습 경로",
+      "achievements": "업적"
+    },
+    "continueLearning": "계속 학습하기",
+    "continueLearningDesc": "이전에 멈춘 곳에서 계속하세요",
+    "allCourses": "모든 과정",
+    "learningPaths": "학습 경로",
+    "learningPathsDesc": "체계적인 커리큘럼으로 종합적인 학습",
+    "yourAchievements": "내 업적",
+    "achievementsDesc": "획득한 배지 및 인증",
+    "levels": {
+      "beginner": "초급",
+      "intermediate": "중급",
+      "advanced": "고급"
+    },
+    "categories": {
+      "gettingStarted": "시작하기",
+      "network": "네트워크",
+      "security": "보안",
+      "ai": "AI",
+      "operations": "운영",
+      "settings": "설정"
+    },
+    "paths": {
+      "newAdmin": "신규 관리자 필수",
+      "security": "보안 전문가",
+      "network": "네트워크 전문가",
+      "ai": "AI 운영"
+    },
+    "achievements": {
+      "firstSteps": {
+        "title": "첫걸음",
+        "desc": "첫 번째 과정을 완료하세요"
+      },
+      "quickLearner": {
+        "title": "빠른 학습자",
+        "desc": "일주일 안에 3개의 과정을 완료하세요"
+      },
+      "securityExpert": {
+        "title": "보안 전문가",
+        "desc": "모든 보안 과정을 완료하세요"
+      },
+      "networkMaster": {
+        "title": "네트워크 마스터",
+        "desc": "모든 네트워크 과정을 완료하세요"
+      },
+      "aiSpecialist": {
+        "title": "AI 전문가",
+        "desc": "모든 AI 과정을 완료하세요"
+      },
+      "completionist": {
+        "title": "완주자",
+        "desc": "사용 가능한 모든 과정을 완료하세요"
+      }
+    },
+    "courses": {
+      "fundamentals": {
+        "title": "플랫폼 기초",
+        "desc": "TBURN 블록체인 관리의 기본을 배우세요"
+      },
+      "network": {
+        "title": "네트워크 관리",
+        "desc": "네트워크 구성 및 모니터링 마스터"
+      },
+      "security": {
+        "title": "보안 모범 사례",
+        "desc": "고급 보안 프로토콜 및 위협 예방 학습"
+      },
+      "ai": {
+        "title": "AI 시스템 관리",
+        "desc": "AI 기반 기능 구성 및 최적화"
+      },
+      "emergency": {
+        "title": "비상 대응",
+        "desc": "중요 상황 및 시스템 장애 처리"
+      },
+      "config": {
+        "title": "고급 구성",
+        "desc": "시스템 설정 및 최적화 심화 학습"
+      }
+    }
   },
   "adminTreasury": {
     "title": "재무 대시보드",
@@ -16023,19 +16131,88 @@
     "retry": "다시 시도"
   },
   "adminCompliance": {
-    "title": "규정 준수",
-    "subtitle": "규정 준수 모니터링 및 보고",
+    "title": "컴플라이언스",
+    "subtitle": "규정 준수 및 감사 관리",
+    "exportReport": "보고서 내보내기",
+    "runAssessment": "평가 실행",
     "refresh": "새로고침",
     "export": "내보내기",
+    "lastUpdate": "마지막 업데이트",
     "overallCompliance": "전체 준수율",
     "policiesActive": "활성 정책",
     "upcomingAudits": "예정된 감사",
     "violations": "위반 사항",
+    "stats": {
+      "overallScore": "전체 점수",
+      "security": "보안",
+      "dataProtection": "데이터 보호",
+      "operationalRisk": "운영 리스크",
+      "regulatory": "규제"
+    },
+    "tabs": {
+      "frameworks": "프레임워크",
+      "findings": "발견 사항",
+      "audits": "감사 일정",
+      "reports": "보고서"
+    },
     "frameworks": {
+      "title": "컴플라이언스 프레임워크",
+      "description": "컴플라이언스 인증 상태",
+      "columns": {
+        "framework": "프레임워크",
+        "status": "상태",
+        "lastAudit": "마지막 감사",
+        "nextAudit": "다음 감사",
+        "score": "점수",
+        "actions": "작업"
+      },
+      "compliant": "준수",
+      "inProgress": "진행 중",
+      "viewDetails": "상세 보기",
       "soc2": "SOC 2",
       "gdpr": "GDPR",
       "iso27001": "ISO 27001",
       "pciDss": "PCI DSS"
+    },
+    "findings": {
+      "title": "컴플라이언스 발견 사항",
+      "description": "주의가 필요한 문제",
+      "columns": {
+        "category": "카테고리",
+        "finding": "발견 사항",
+        "severity": "심각도",
+        "status": "상태",
+        "dueDate": "마감일",
+        "actions": "작업"
+      },
+      "resolved": "해결됨",
+      "inProgress": "진행 중",
+      "open": "미해결",
+      "manage": "관리"
+    },
+    "audits": {
+      "title": "예정된 감사",
+      "description": "예정된 감사 활동",
+      "columns": {
+        "audit": "감사",
+        "date": "날짜",
+        "auditor": "감사자",
+        "status": "상태",
+        "actions": "작업"
+      },
+      "scheduled": "예정됨",
+      "pending": "대기 중",
+      "prepare": "준비"
+    },
+    "reports": {
+      "title": "컴플라이언스 보고서",
+      "description": "보고서 생성 및 다운로드",
+      "soc2": "SOC 2 보고서",
+      "gdpr": "GDPR 보고서",
+      "securityAssessment": "보안 평가",
+      "riskAssessment": "리스크 평가",
+      "auditTrail": "감사 추적",
+      "customReport": "사용자 정의 보고서"
     },
     "status": {
       "compliant": "준수",
@@ -16043,9 +16220,19 @@
       "nonCompliant": "비준수",
       "pending": "검토 중"
     },
+    "refreshSuccess": "컴플라이언스 데이터 새로고침 완료",
+    "dataUpdated": "컴플라이언스 데이터가 업데이트되었습니다",
+    "refreshError": "새로고침 실패",
+    "refreshErrorDesc": "컴플라이언스 데이터를 새로고침할 수 없습니다. 다시 시도해 주세요.",
+    "exportSuccess": "내보내기 완료",
+    "exportSuccessDesc": "컴플라이언스 보고서가 내보내졌습니다",
+    "assessmentSuccess": "평가 완료",
+    "assessmentSuccessDesc": "컴플라이언스 평가가 성공적으로 완료되었습니다",
+    "assessmentError": "평가 실패",
+    "assessmentErrorDesc": "평가를 실행할 수 없습니다. 다시 시도해 주세요.",
     "error": {
-      "title": "규정 준수 데이터 로드 실패",
-      "description": "규정 준수 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
+      "title": "컴플라이언스 데이터 로드 실패",
+      "description": "컴플라이언스 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
     "retry": "다시 시도"
   },
@@ -16070,30 +16257,138 @@
     "retry": "다시 시도"
   },
   "adminFeedback": {
-    "title": "피드백",
+    "title": "피드백 관리",
+    "description": "사용자 피드백 수집, 분석 및 응답",
     "subtitle": "사용자 피드백 및 제안 관리",
     "refresh": "새로고침",
     "export": "내보내기",
+    "refreshed": "피드백 새로고침 완료",
+    "refreshedDesc": "피드백 데이터가 업데이트되었습니다",
+    "exported": "내보내기 완료",
+    "exportedDesc": "피드백 데이터가 내보내졌습니다",
+    "error": "오류",
+    "errorTitle": "피드백 로드 실패",
+    "errorDescription": "피드백 데이터를 가져올 수 없습니다. 다시 시도해 주세요.",
+    "retry": "다시 시도",
+    "respondError": "응답 전송에 실패했습니다. 다시 시도해 주세요.",
+    "responseSent": "응답 전송 완료",
+    "responseSentDesc": "응답이 성공적으로 전송되었습니다",
+    "statusUpdated": "상태 업데이트 완료",
+    "statusUpdatedDesc": "피드백 상태가 업데이트되었습니다",
+    "edit": "편집",
+    "respond": "응답",
+    "day": "일",
+    "mentions": "언급",
     "totalFeedback": "총 피드백",
     "pendingReview": "검토 대기",
     "resolved": "해결됨",
+    "stats": {
+      "avgRating": "평균 평점",
+      "totalFeedback": "총 피드백",
+      "responseRate": "응답률",
+      "pending": "검토 대기"
+    },
+    "tabs": {
+      "overview": "개요",
+      "allFeedback": "모든 피드백",
+      "analytics": "분석"
+    },
+    "allFeedback": "모든 피드백",
+    "searchPlaceholder": "피드백 검색...",
+    "filters": {
+      "allTypes": "모든 유형"
+    },
+    "types": {
+      "suggestions": "제안",
+      "praise": "칭찬",
+      "bugs": "버그",
+      "complaints": "불만",
+      "suggestion": "제안",
+      "praiseItem": "칭찬",
+      "bug": "버그",
+      "complaint": "불만"
+    },
+    "status": {
+      "new": "신규",
+      "reviewed": "검토됨",
+      "actioned": "조치됨",
+      "archived": "보관됨",
+      "inReview": "검토 중",
+      "resolved": "해결됨",
+      "closed": "종료됨"
+    },
+    "ratings": {
+      "5stars": "5점",
+      "4stars": "4점",
+      "3stars": "3점",
+      "2stars": "2점",
+      "1star": "1점"
+    },
     "categories": {
+      "dashboard": "대시보드",
+      "performance": "성능",
+      "alerts": "알림",
+      "documentation": "문서",
+      "security": "보안",
+      "uiux": "UI/UX",
       "bug": "버그",
       "feature": "기능 요청",
       "improvement": "개선 제안",
       "other": "기타"
     },
-    "status": {
-      "new": "신규",
-      "inReview": "검토 중",
-      "resolved": "해결됨",
-      "closed": "종료됨"
+    "sampleMessages": {
+      "customWidgets": "관리자 대시보드에 커스텀 위젯이 있으면 좋겠습니다",
+      "realtimeMonitoring": "실시간 모니터링 도구가 훌륭합니다",
+      "lateNotifications": "알림이 가끔 늦게 도착합니다",
+      "outdatedDocs": "일부 API 문서가 오래되었습니다",
+      "hardwareKeys": "하드웨어 보안 키 지원을 추가해 주세요",
+      "darkMode": "새로운 다크 모드 테마가 아름답습니다"
     },
-    "error": {
-      "title": "피드백 데이터 로드 실패",
-      "description": "피드백 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
+    "sampleResponses": {
+      "thanks": "긍정적인 피드백 감사합니다!",
+      "fixed": "이 문제는 최신 업데이트에서 수정되었습니다",
+      "updating": "문서를 업데이트하고 있습니다",
+      "glad": "마음에 드셨다니 기쁩니다!"
     },
-    "retry": "다시 시도"
+    "table": {
+      "id": "ID",
+      "type": "유형",
+      "category": "카테고리",
+      "message": "메시지",
+      "rating": "평점",
+      "user": "사용자",
+      "status": "상태",
+      "date": "날짜",
+      "actions": "작업"
+    },
+    "charts": {
+      "feedbackTrend": "피드백 추이",
+      "feedbackTrendDesc": "시간별 피드백 양 및 평균 평점",
+      "feedbackCount": "피드백 수",
+      "avgRating": "평균 평점",
+      "typeDistribution": "유형 분포",
+      "ratingDistribution": "평점 분포"
+    },
+    "analytics": {
+      "categoryAnalysis": "카테고리 분석",
+      "topIssues": "주요 이슈",
+      "topIssuesDesc": "가장 많이 언급된 우려 사항"
+    },
+    "issues": {
+      "dashboardSpeed": "대시보드 로딩 속도",
+      "alertDelays": "알림 지연",
+      "apiDocs": "API 문서 부족",
+      "mobileResponsive": "모바일 반응성",
+      "searchFunc": "검색 기능"
+    },
+    "dialog": {
+      "respondTitle": "피드백에 응답",
+      "respondDesc": "사용자 피드백에 응답 보내기",
+      "yourResponse": "응답 내용",
+      "responsePlaceholder": "여기에 응답을 입력하세요...",
+      "cancel": "취소",
+      "send": "응답 전송"
+    }
   },
   "adminAudit": {
     "title": "감사 로그",
@@ -16683,9 +16978,14 @@
       "description": "전역 요청 제한 구성",
       "requestsPerMinute": "분당 요청 수",
       "burstLimit": "버스트 제한",
+      "burstLimitDesc": "버스트 모드의 최대 요청 수",
       "windowSize": "윈도우 크기",
       "retryAfter": "재시도 대기",
-      "seconds": "초"
+      "seconds": "초",
+      "defaultLimit": "기본 제한",
+      "defaultLimitDesc": "모든 엔드포인트의 기본 요청 제한",
+      "enableRateLimiting": "요청 제한 활성화",
+      "enableRateLimitingDesc": "API 요청에 요청 제한 적용"
     },
     "apiVersioning": {
       "title": "API 버전 관리",
@@ -16703,6 +17003,82 @@
       "exposeHeaders": "노출 헤더",
       "maxAge": "최대 기간"
     },
+    "metrics": {
+      "activeKeys": "활성 API 키",
+      "inactive": "비활성",
+      "totalCalls24h": "총 호출 (24시간)",
+      "fromYesterday": "어제 대비",
+      "rateLimitStatus": "요청 제한 상태",
+      "healthy": "정상",
+      "allWithinLimits": "모두 한도 이내",
+      "avgResponseTime": "평균 응답 시간"
+    },
+    "tabs": {
+      "keys": "API 키",
+      "rateLimits": "요청 제한",
+      "endpoints": "엔드포인트",
+      "security": "보안"
+    },
+    "keys": {
+      "title": "API 키",
+      "description": "API 키 및 접근 토큰 관리",
+      "createNew": "새 키 생성",
+      "createTitle": "새 API 키 생성",
+      "createDescription": "지정된 권한으로 새 API 키 생성",
+      "keyName": "키 이름",
+      "keyNamePlaceholder": "키 이름 입력...",
+      "permissions": "권한",
+      "permRead": "읽기 권한",
+      "permWrite": "쓰기 권한",
+      "permAdmin": "관리자 권한",
+      "rateLimit": "요청 제한 (요청/분)",
+      "createButton": "키 생성",
+      "tableName": "이름",
+      "tableKey": "키",
+      "tableStatus": "상태",
+      "tablePermissions": "권한",
+      "tableRateLimit": "요청 제한",
+      "tableUsage": "사용량",
+      "tableLastUsed": "마지막 사용",
+      "tableActions": "작업",
+      "status": {
+        "active": "활성",
+        "inactive": "비활성",
+        "expired": "만료됨"
+      },
+      "perm": {
+        "read": "읽기",
+        "write": "쓰기",
+        "admin": "관리자"
+      }
+    },
+    "rateLimits": {
+      "title": "요청 제한",
+      "description": "엔드포인트별 요청 제한 구성",
+      "endpoint": "엔드포인트",
+      "limit": "제한",
+      "window": "윈도우",
+      "currentUsage": "현재 사용량",
+      "status": "상태",
+      "actions": "작업",
+      "requests": "요청",
+      "ok": "정상",
+      "warning": "경고",
+      "edit": "편집"
+    },
+    "security": {
+      "title": "보안 설정",
+      "httpsOnly": "HTTPS 전용",
+      "httpsOnlyDesc": "모든 API 요청에 HTTPS 필요",
+      "keyRotation": "키 순환",
+      "keyRotationDesc": "자동 키 순환 활성화",
+      "ipWhitelisting": "IP 화이트리스팅",
+      "ipWhitelistingDesc": "화이트리스트된 IP로 접근 제한",
+      "requestSigning": "요청 서명",
+      "requestSigningDesc": "서명된 요청 필요",
+      "corsOrigins": "CORS 출처",
+      "corsOriginsDesc": "허용된 출처 구성"
+    },
     "saveChanges": "변경 저장",
     "saveSuccess": "구성 저장됨",
     "saveSuccessDesc": "API 구성이 저장되었습니다",
@@ -16715,7 +17091,13 @@
     "refreshingDesc": "구성 로딩 중...",
     "retry": "재시도",
     "errorLoading": "구성 로드 실패",
-    "errorLoadingDesc": "API 구성을 가져올 수 없습니다. 다시 시도해 주세요."
+    "errorLoadingDesc": "API 구성을 가져올 수 없습니다. 다시 시도해 주세요.",
+    "keyCreated": "API 키 생성됨",
+    "keyCreatedDesc": "새 API 키가 성공적으로 생성되었습니다",
+    "keyCreateError": "키 생성 실패",
+    "keyDeleted": "API 키 삭제됨",
+    "keyDeletedDesc": "API 키가 성공적으로 삭제되었습니다",
+    "keyDeleteError": "키 삭제 실패"
   },
   "adminIntegrations": {
     "title": "통합",
@@ -16767,10 +17149,13 @@
   },
   "adminNotifications": {
     "title": "알림 설정",
-    "subtitle": "알림 기본 설정 구성",
+    "subtitle": "알림 기본 설정 및 채널 구성",
     "channels": {
       "title": "알림 채널",
-      "description": "전달 채널 구성",
+      "description": "알림 전달 채널 구성",
+      "addChannel": "채널 추가",
+      "enabled": "활성화됨",
+      "disabled": "비활성화됨",
       "email": "이메일",
       "emailDesc": "이메일로 알림 수신",
       "sms": "SMS",
@@ -16796,14 +17181,76 @@
       "success": "성공",
       "successDesc": "성공 알림"
     },
+    "alerts": {
+      "title": "알림 심각도 규칙",
+      "description": "알림 심각도에 따른 알림 라우팅 구성",
+      "critical": "긴급",
+      "criticalDesc": "즉각적인 대응 필요 - 모든 채널 활성화",
+      "high": "높음",
+      "highDesc": "긴급한 주의 필요 - 주요 채널 알림",
+      "medium": "중간",
+      "mediumDesc": "표준 우선순위 - 이메일 및 Slack 알림",
+      "low": "낮음",
+      "lowDesc": "낮은 우선순위 - 인지용 Slack만",
+      "channels": {
+        "email": "이메일",
+        "slack": "Slack",
+        "sms": "SMS",
+        "discord": "Discord",
+        "telegram": "Telegram",
+        "push": "푸시"
+      }
+    },
     "schedule": {
-      "title": "알림 일정",
-      "description": "조용한 시간 및 일정 설정",
+      "title": "알림 예약",
+      "description": "조용한 시간 및 알림 예약 설정",
       "quietHours": "조용한 시간",
-      "quietHoursDesc": "설정된 시간 동안 알림 일시 중지",
+      "quietHoursDesc": "설정된 시간 동안 비긴급 알림 일시 중지",
+      "quietHoursStart": "시작 시간",
+      "quietHoursEnd": "종료 시간",
       "start": "시작 시간",
       "end": "종료 시간",
-      "days": "활성 요일"
+      "days": "활성 요일",
+      "timezone": "시간대",
+      "weekendNotifications": "주말 알림",
+      "weekendNotificationsDesc": "주말에 알림 활성화"
+    },
+    "preferences": {
+      "title": "알림 기본 설정",
+      "description": "알림 동작 및 전달 옵션 구성",
+      "soundNotifications": "소리 알림",
+      "soundNotificationsDesc": "알림 수신 시 소리 재생",
+      "notificationVolume": "알림 볼륨",
+      "desktopNotifications": "데스크톱 알림",
+      "desktopNotificationsDesc": "브라우저 데스크톱 알림 표시",
+      "emailDigest": "이메일 요약",
+      "emailDigestDesc": "매일 이메일로 알림 요약 수신",
+      "duplicateSuppression": "중복 억제",
+      "duplicateSuppressionDesc": "동일 이벤트에 대한 반복 알림 억제",
+      "alertBatchWindow": "알림 일괄 처리 창",
+      "alertBatchWindowDesc": "이 시간 창 내에서 유사한 알림 그룹화",
+      "batchImmediate": "즉시",
+      "batch1min": "1분",
+      "batch5min": "5분",
+      "batch15min": "15분",
+      "batch30min": "30분"
+    },
+    "tabs": {
+      "channels": "채널",
+      "alertRules": "알림 규칙",
+      "schedule": "예약",
+      "preferences": "기본 설정"
+    },
+    "metrics": {
+      "activeChannels": "활성 채널",
+      "of": "중",
+      "channelsEnabled": "채널 활성화됨",
+      "notificationsSent24h": "알림 (24시간)",
+      "allDelivered": "모두 성공적으로 전달됨",
+      "criticalAlerts": "긴급 알림",
+      "pendingAcknowledgment": "확인 대기 중",
+      "avgDeliveryTime": "평균 전달 시간",
+      "acrossAllChannels": "모든 채널 평균"
     },
     "templates": {
       "title": "알림 템플릿",
@@ -16814,11 +17261,22 @@
       "edit": "편집",
       "preview": "미리보기"
     },
+    "delivery": {
+      "title": "전달 상태",
+      "sent": "전송됨",
+      "delivered": "전달됨",
+      "failed": "실패",
+      "pending": "대기 중",
+      "retrying": "재시도 중"
+    },
     "saveChanges": "변경 저장",
     "saveSuccess": "설정 저장됨",
     "saveSuccessDesc": "알림 설정이 저장되었습니다",
     "saveError": "저장 실패",
     "testNotification": "테스트 전송",
+    "testSent": "테스트 전송됨",
+    "testSentDesc": "테스트 알림이 성공적으로 전송되었습니다",
+    "testError": "테스트 실패",
     "testSuccess": "테스트 전송됨",
     "testSuccessDesc": "테스트 알림이 성공적으로 전송되었습니다",
     "refresh": "새로고침",
@@ -18128,7 +18586,69 @@
       "verified": "검증됨",
       "pending": "대기 중",
       "templates": "템플릿"
-    }
+    },
+    "refreshSuccess": "데이터 새로고침 완료",
+    "dataUpdated": "컨트랙트 데이터가 업데이트되었습니다",
+    "refreshError": "새로고침 실패",
+    "refreshErrorDesc": "컨트랙트 데이터 새로고침에 실패했습니다",
+    "exportSuccess": "데이터 내보내기 완료",
+    "exportSuccessDesc": "컨트랙트 데이터를 성공적으로 내보냈습니다",
+    "error": {
+      "title": "컨트랙트 데이터 로드 오류",
+      "description": "컨트랙트 데이터를 로드하지 못했습니다. 다시 시도해 주세요."
+    },
+    "totalContracts": "총 컨트랙트",
+    "deployedOnMainnet": "메인넷에 배포됨",
+    "sourceVerified": "소스 코드 검증됨",
+    "interactions24h": "상호작용 (24시간)",
+    "fromYesterday": "어제 대비 {{percent}}",
+    "gasUsed24h": "사용된 가스 (24시간)",
+    "gasUnits": "가스 단위",
+    "tabs": {
+      "interact": "상호작용",
+      "verify": "검증",
+      "abiTools": "ABI 도구",
+      "deployedContracts": "배포된 컨트랙트"
+    },
+    "contractInteraction": "컨트랙트 상호작용",
+    "readWriteToContracts": "스마트 컨트랙트 읽기 및 쓰기",
+    "contractAddress": "컨트랙트 주소",
+    "network": "네트워크",
+    "mainnet": "메인넷",
+    "testnet": "테스트넷",
+    "abiJson": "ABI (JSON)",
+    "pasteAbi": "컨트랙트 ABI를 여기에 붙여넣기...",
+    "readFunctions": "읽기 함수",
+    "query": "조회",
+    "writeFunctions": "쓰기 함수",
+    "toAddress": "수신 주소",
+    "amount": "금액",
+    "execute": "실행",
+    "verifyContract": "컨트랙트 검증",
+    "submitSourceCode": "검증을 위해 소스 코드 제출",
+    "optimization": "최적화",
+    "yes200runs": "예 (200회)",
+    "no": "아니오",
+    "sourceCode": "소스 코드",
+    "constructorArguments": "생성자 인자 (ABI 인코딩)",
+    "abiEncoderDecoder": "ABI 인코더/디코더",
+    "encode": "인코드",
+    "decode": "디코드",
+    "functionSignature": "함수 시그니처",
+    "parameters": "매개변수",
+    "encodedData": "인코딩된 데이터",
+    "resultWillAppear": "결과가 여기에 표시됩니다...",
+    "abiOptional": "ABI (선택사항)",
+    "pasteAbiForBetterDecoding": "더 나은 디코딩을 위해 ABI 붙여넣기...",
+    "decodedOutput": "디코딩된 출력",
+    "coreProtocolContracts": "TBURN 네트워크의 핵심 프로토콜 컨트랙트",
+    "searchContracts": "컨트랙트 검색...",
+    "name": "이름",
+    "compiler": "컴파일러",
+    "deployed": "배포됨",
+    "transactions": "트랜잭션",
+    "actions": "작업",
+    "interact": "상호작용"
   },
   "adminTestnet": {
     "title": "테스트넷 관리",
@@ -18182,7 +18702,81 @@
       "transactions": "트랜잭션",
       "accounts": "계정",
       "uptime": "가동 시간"
-    }
+    },
+    "faucetSuccess": "토큰 전송됨",
+    "faucetSuccessDesc": "테스트 토큰이 주소로 전송되었습니다",
+    "faucetError": "파우셋 요청 실패",
+    "faucetErrorDesc": "테스트 토큰 전송에 실패했습니다",
+    "toggleSuccess": "테스트넷 상태 변경됨",
+    "toggleSuccessDesc": "테스트넷 상태가 업데이트되었습니다",
+    "toggleError": "상태 변경 실패",
+    "toggleErrorDesc": "테스트넷 상태 변경에 실패했습니다",
+    "refreshSuccess": "데이터 새로고침 완료",
+    "dataUpdated": "테스트넷 데이터가 업데이트되었습니다",
+    "refreshError": "새로고침 실패",
+    "refreshErrorDesc": "테스트넷 데이터 새로고침에 실패했습니다",
+    "exportSuccess": "데이터 내보내기 완료",
+    "exportSuccessDesc": "테스트넷 데이터를 성공적으로 내보냈습니다",
+    "copied": "복사됨",
+    "copiedToClipboard": "클립보드에 복사됨",
+    "error": {
+      "title": "테스트넷 데이터 로드 오류",
+      "description": "테스트넷 데이터를 로드하지 못했습니다. 다시 시도해 주세요."
+    },
+    "createTestnet": "테스트넷 생성",
+    "activeTestnets": "활성 테스트넷",
+    "of3Instances": "3개 인스턴스 중",
+    "totalNodes": "총 노드",
+    "acrossAllTestnets": "모든 테스트넷 합계",
+    "faucetBalance": "파우셋 잔액",
+    "testTburnAvailable": "사용 가능한 테스트 TBURN",
+    "faucetRequests24h": "파우셋 요청 (24시간)",
+    "testTokensDistributed": "배포된 테스트 토큰",
+    "tabs": {
+      "testnetInstances": "테스트넷 인스턴스",
+      "faucet": "파우셋",
+      "settings": "설정"
+    },
+    "status": {
+      "running": "실행 중",
+      "stopped": "중지됨",
+      "syncing": "동기화 중",
+      "completed": "완료됨",
+      "pending": "대기 중",
+      "failed": "실패"
+    },
+    "stop": "중지",
+    "start": "시작",
+    "reset": "초기화",
+    "nodes": "노드",
+    "tps": "TPS",
+    "uptime": "가동 시간",
+    "created": "생성일",
+    "explorer": "익스플로러",
+    "viewExplorer": "익스플로러 보기",
+    "requestTestTokens": "테스트 토큰 요청",
+    "getTestTokensForDev": "개발 및 테스트용 테스트 토큰 받기",
+    "walletAddress": "지갑 주소",
+    "faucetLimit": "파우셋 제한: 요청당 100 TBURN, 하루 최대 3회 요청",
+    "recentFaucetRequests": "최근 파우셋 요청",
+    "timestamp": "타임스탬프",
+    "faucetStatistics": "파우셋 통계",
+    "totalDistributed": "총 배포량",
+    "allTime": "전체 기간",
+    "today": "오늘",
+    "requests": "요청",
+    "uniqueAddresses": "고유 주소",
+    "successRate": "성공률",
+    "testnetSettings": "테스트넷 설정",
+    "configureTestnetParameters": "테스트넷 매개변수 및 동작 구성",
+    "autoRestartOnFailure": "실패 시 자동 재시작",
+    "autoRestartDesc": "노드 실패 시 테스트넷 노드를 자동으로 재시작",
+    "dailyBackups": "일일 백업",
+    "dailyBackupsDesc": "모든 테스트넷에 대해 일일 상태 백업 활성화",
+    "rateLimiting": "속도 제한",
+    "rateLimitingDesc": "파우셋 요청에 대한 속도 제한 활성화",
+    "faucetDailyLimit": "일일 파우셋 제한 (TBURN)",
+    "faucetRequestAmount": "파우셋 요청 금액 (TBURN)"
   },
   "adminDebug": {
     "title": "디버그 도구",
@@ -18248,11 +18842,78 @@
       "warnings": "경고",
       "requests": "요청",
       "avgResponse": "평균 응답"
-    }
+    },
+    "refreshSuccess": "데이터 새로고침 완료",
+    "dataUpdated": "디버그 데이터가 업데이트되었습니다",
+    "refreshError": "새로고침 실패",
+    "refreshErrorDesc": "디버그 데이터 새로고침에 실패했습니다",
+    "exportSuccess": "로그 내보내기 완료",
+    "exportSuccessDesc": "디버그 로그를 성공적으로 내보냈습니다",
+    "executeSuccess": "명령 실행됨",
+    "executeSuccessDesc": "명령이 성공적으로 실행되었습니다",
+    "executeError": "실행 실패",
+    "executeErrorDesc": "명령 실행에 실패했습니다",
+    "logsCleared": "로그 삭제됨",
+    "logsClearedDesc": "디버그 로그가 삭제되었습니다",
+    "copied": "복사됨",
+    "copiedToClipboard": "클립보드에 복사됨",
+    "error": {
+      "title": "디버그 데이터 로드 오류",
+      "description": "디버그 데이터를 로드하지 못했습니다. 다시 시도해 주세요."
+    },
+    "connected": "연결됨",
+    "reconnecting": "재연결 중",
+    "clearLogs": "로그 삭제",
+    "debugSessions": "디버그 세션",
+    "activeSessions": "활성 디버깅 세션",
+    "tracedTransactions": "트레이스된 트랜잭션",
+    "last24Hours": "지난 24시간",
+    "errorRate": "오류율",
+    "failedTransactions": "실패한 트랜잭션",
+    "avgGasUsed": "평균 가스 사용량",
+    "perTransaction": "트랜잭션당",
+    "tabs": {
+      "transactionTracer": "트랜잭션 트레이서",
+      "debugLogs": "디버그 로그",
+      "console": "콘솔",
+      "stateInspector": "상태 검사기"
+    },
+    "transactionTracer": "트랜잭션 트레이서",
+    "traceAndDebug": "블록체인 트랜잭션 트레이스 및 디버그",
+    "enterTxHash": "트랜잭션 해시 입력...",
+    "traceOptions": "트레이스 옵션",
+    "traceOutput": "트레이스 출력",
+    "copy": "복사",
+    "debugLogs": "디버그 로그",
+    "realtimeSystemLogs": "실시간 시스템 및 블록체인 로그",
+    "allLevels": "모든 레벨",
+    "allSources": "모든 소스",
+    "consensus": "합의",
+    "mempool": "멤풀",
+    "p2p": "P2P",
+    "bridge": "브릿지",
+    "ai": "AI",
+    "javascriptConsole": "JavaScript 콘솔",
+    "executeCodeAgainstNode": "블록체인 노드에 코드 실행",
+    "input": "입력",
+    "enterJsCode": "JavaScript 코드 입력...",
+    "output": "출력",
+    "stateInspector": "상태 검사기",
+    "inspectBlockchainState": "블록체인 상태 및 스토리지 검사",
+    "address": "주소",
+    "blockNumber": "블록 번호",
+    "inspectState": "상태 검사",
+    "accountState": "계정 상태",
+    "balance": "잔액",
+    "nonce": "논스",
+    "codeHash": "코드 해시",
+    "storageRoot": "스토리지 루트",
+    "storageSlots": "스토리지 슬롯"
   },
   "adminRealtime": {
     "title": "실시간 모니터링",
     "subtitle": "실시간 시스템 모니터링 및 알림",
+    "description": "실시간으로 시스템 성능 및 이벤트 모니터링",
     "liveStatus": "실시간 상태",
     "liveStatusDesc": "현재 시스템 상태",
     "networkHealth": "네트워크 상태",
@@ -18291,6 +18952,7 @@
     "pauseUpdates": "업데이트 일시 중지",
     "resumeUpdates": "업데이트 재개",
     "refresh": "새로고침",
+    "refreshBtn": "새로고침",
     "refreshed": "데이터 새로고침 완료",
     "refreshedDesc": "모니터링 데이터가 업데이트되었습니다",
     "export": "내보내기",
@@ -18299,10 +18961,63 @@
     "loadError": "모니터링 데이터 로드 실패",
     "error": "오류",
     "retry": "재시도",
+    "errorTitle": "모니터링 데이터 로드 실패",
+    "errorDescription": "실시간 지표를 가져올 수 없습니다. 다시 시도해 주세요.",
     "wsConnected": "연결됨",
     "wsConnectedDesc": "실시간 업데이트 활성",
+    "wsDisconnected": "연결 해제됨",
     "wsReconnecting": "재연결 중",
     "wsReconnectingDesc": "서버에 재연결 중...",
+    "tpsCurrent": "현재 TPS",
+    "blockHeight": "블록 높이",
+    "avgLatency": "평균 지연 시간",
+    "activeValidators": "활성 검증자",
+    "mempoolSize": "멤풀 크기",
+    "networkPeers": "네트워크 피어",
+    "memory": "메모리",
+    "diskIO": "디스크 I/O",
+    "network": "네트워크",
+    "systemResources": "시스템 리소스",
+    "tabs": {
+      "overview": "개요",
+      "performance": "성능",
+      "resources": "리소스",
+      "events": "이벤트"
+    },
+    "charts": {
+      "tps": "초당 트랜잭션",
+      "latency": "네트워크 지연 시간"
+    },
+    "performance": {
+      "currentTps": "현재 TPS",
+      "peakTps": "최대: 520,000 tx/s",
+      "blockTime": "블록 시간",
+      "blockTimeTarget": "목표: 500ms",
+      "consensusTime": "합의 시간",
+      "consensusTarget": "목표: 100ms",
+      "finality": "파이널리티",
+      "instantFinality": "즉시 파이널리티"
+    },
+    "resources": {
+      "cpuByCore": "코어별 CPU 사용량",
+      "core": "코어",
+      "storage": "스토리지 사용량",
+      "blockchainData": "블록체인 데이터",
+      "stateDb": "상태 데이터베이스",
+      "logs": "로그",
+      "snapshots": "스냅샷"
+    },
+    "events": {
+      "title": "실시간 이벤트",
+      "description": "실시간 시스템 이벤트 및 알림",
+      "blockProduced": "블록 #12847563 성공적으로 생성됨",
+      "peerConnected": "아시아-태평양 지역에서 새 피어 연결됨",
+      "highMempool": "멤풀 크기 일시적 상승",
+      "crossShardComplete": "크로스 샤드 트랜잭션 완료",
+      "aiOptimization": "AI 최적화가 라우팅에 적용됨",
+      "rpcTimeout": "RPC 엔드포인트 시간 초과 (자동 복구됨)",
+      "validatorJoined": "새 검증자가 네트워크에 참여함"
+    },
     "metrics": {
       "uptime": "가동 시간",
       "alerts": "알림",
@@ -18653,11 +19368,88 @@
       "publicDashboards": "공개 대시보드",
       "sharedDashboards": "공유 대시보드",
       "widgets": "위젯"
+    },
+    "dashboardSaved": "대시보드 저장됨",
+    "dashboardSavedDesc": "대시보드가 성공적으로 저장되었습니다",
+    "errorTitle": "대시보드 로드 오류",
+    "errorDescription": "대시보드 데이터를 로드하지 못했습니다. 다시 시도해 주세요.",
+    "cancel": "취소",
+    "default": "기본",
+    "newDashboard": "새 대시보드",
+    "updated": "업데이트됨",
+    "yes": "예",
+    "no": "아니오",
+    "owner": "소유자",
+    "view": "보기",
+    "clone": "복제",
+    "share": "공유",
+    "dashboards": {
+      "main": "메인 대시보드",
+      "mainDesc": "주요 네트워크 지표 개요",
+      "performance": "성능 대시보드",
+      "performanceDesc": "상세 성능 분석",
+      "security": "보안 대시보드",
+      "securityDesc": "보안 모니터링 및 알림",
+      "bridge": "브릿지 대시보드",
+      "bridgeDesc": "크로스체인 브릿지 지표"
+    },
+    "widgets": {
+      "lineChart": "라인 차트",
+      "lineChartDesc": "시계열 데이터 시각화",
+      "barChart": "막대 차트",
+      "barChartDesc": "범주별 데이터 비교",
+      "pieChart": "파이 차트",
+      "pieChartDesc": "분포 시각화",
+      "gauge": "게이지",
+      "gaugeDesc": "목표 대비 단일 값",
+      "dataTable": "데이터 테이블",
+      "dataTableDesc": "표 형식 데이터 표시",
+      "alertList": "알림 목록",
+      "alertListDesc": "활성 알림 및 알림"
+    },
+    "preview": {
+      "title": "대시보드 미리보기",
+      "currentTps": "현재 TPS",
+      "blockHeight": "블록 높이",
+      "activeValidators": "활성 검증자",
+      "networkPeers": "네트워크 피어",
+      "tpsOverTime": "시간별 TPS",
+      "latencyDist": "지연 시간 분포",
+      "recentBlocks": "최근 블록",
+      "activeAlerts": "활성 알림"
+    },
+    "dialog": {
+      "createTitle": "새 대시보드 생성",
+      "createDescription": "새 대시보드 설정 구성",
+      "name": "대시보드 이름",
+      "namePlaceholder": "대시보드 이름 입력...",
+      "description": "설명",
+      "descriptionPlaceholder": "설명 입력...",
+      "public": "공개 설정",
+      "cancel": "취소",
+      "create": "생성"
+    },
+    "widgetLibrary": {
+      "title": "위젯 라이브러리",
+      "description": "위젯을 드래그하여 대시보드에 추가"
+    },
+    "allDashboards": {
+      "title": "모든 대시보드",
+      "description": "사용 가능한 모든 대시보드 탐색 및 관리"
+    },
+    "import": {
+      "title": "대시보드 가져오기",
+      "description": "JSON 파일에서 대시보드 가져오기",
+      "dropzone": "JSON 파일을 여기에 놓거나 클릭하여 탐색",
+      "button": "가져오기",
+      "or": "또는"
     }
   },
   "adminSla": {
     "title": "SLA 관리",
     "subtitle": "서비스 수준 계약 모니터링",
+    "description": "서비스 수준 계약 모니터링 및 관리",
+    "day": "일",
     "slaOverview": "SLA 개요",
     "slaOverviewDesc": "현재 SLA 상태",
     "slaTargets": "SLA 목표",
@@ -18669,14 +19461,9 @@
     "serviceName": "서비스 이름",
     "target": "목표",
     "current": "현재",
-    "status": "상태",
     "uptime": "가동 시간",
     "responseTime": "응답 시간",
-    "errorRate": "오류율",
     "availability": "가용성",
-    "met": "충족",
-    "atRisk": "위험",
-    "breached": "위반",
     "period": "기간",
     "startDate": "시작일",
     "endDate": "종료일",
@@ -18709,16 +19496,119 @@
     "refreshed": "SLA 데이터 새로고침 완료",
     "refreshedDesc": "SLA 데이터가 업데이트되었습니다",
     "export": "내보내기",
+    "exportReport": "보고서 내보내기",
     "exported": "SLA 보고서 내보내기 완료",
     "exportedDesc": "SLA 보고서를 성공적으로 내보냈습니다",
     "loadError": "SLA 데이터 로드 실패",
     "error": "오류",
     "retry": "재시도",
+    "errorTitle": "SLA 데이터 로드 실패",
+    "errorDescription": "SLA 지표를 가져올 수 없습니다. 다시 시도해 주세요.",
     "metrics": {
       "totalServices": "전체 서비스",
       "slaMet": "SLA 충족",
+      "uptime": "가동 시간",
+      "txLatency": "트랜잭션 지연 시간",
+      "tpsCapacity": "TPS 용량",
+      "blockTime": "블록 시간",
+      "apiResponse": "API 응답 시간",
+      "errorRate": "오류율"
+    },
+    "status": {
+      "met": "충족",
       "atRisk": "위험",
-      "breached": "위반"
+      "breached": "위반",
+      "unknown": "알 수 없음"
+    },
+    "impact": {
+      "critical": "심각",
+      "major": "주요",
+      "minor": "경미"
+    },
+    "incidentTypes": {
+      "networkLatency": "네트워크 지연 급증",
+      "validatorSync": "검증자 동기화 지연",
+      "apiTimeout": "API 시간 초과"
+    },
+    "rootCauses": {
+      "networkCongestion": "네트워크 혼잡",
+      "diskIO": "디스크 I/O 병목 현상",
+      "memoryLeak": "서비스 메모리 누수"
+    },
+    "months": {
+      "jan": "1월",
+      "feb": "2월",
+      "mar": "3월",
+      "apr": "4월",
+      "may": "5월",
+      "jun": "6월",
+      "jul": "7월",
+      "aug": "8월",
+      "sep": "9월",
+      "oct": "10월",
+      "nov": "11월",
+      "dec": "12월"
+    },
+    "timeRanges": {
+      "7d": "7일",
+      "30d": "30일",
+      "90d": "90일",
+      "1y": "1년"
+    },
+    "stats": {
+      "compliance": "SLA 준수",
+      "allTargetsMet": "모든 목표 충족",
+      "currentUptime": "현재 가동 시간",
+      "vsTarget": "목표 대비 +0.07%",
+      "mttr": "평균 복구 시간",
+      "mttrDesc": "평균 복구 소요 시간",
+      "incidents30d": "인시던트 (30일)",
+      "allResolved": "모두 해결됨"
+    },
+    "tabs": {
+      "overview": "개요",
+      "metrics": "지표",
+      "incidents": "인시던트",
+      "reports": "보고서"
+    },
+    "charts": {
+      "uptimeTrend": "가동 시간 추세",
+      "uptimeTrendDesc": "월별 가동 시간 성능 vs 목표",
+      "actualUptime": "실제 가동 시간",
+      "target": "목표",
+      "statusDistribution": "SLA 상태 분포"
+    },
+    "metricsOverview": {
+      "title": "지표 개요",
+      "target": "목표",
+      "trend": "추세"
+    },
+    "trends": {
+      "up": "개선 중",
+      "down": "하락 중",
+      "stable": "안정"
+    },
+    "detailedMetrics": {
+      "title": "상세 지표",
+      "metric": "지표",
+      "current": "현재",
+      "target": "목표",
+      "status": "상태",
+      "trend": "추세",
+      "avg30d": "30일 평균"
+    },
+    "incidents": {
+      "title": "인시던트",
+      "description": "최근 SLA 인시던트 및 해결 상태",
+      "id": "ID",
+      "type": "유형",
+      "startTime": "시작 시간",
+      "duration": "기간",
+      "impact": "영향",
+      "rootCause": "근본 원인",
+      "status": "상태",
+      "resolved": "해결됨",
+      "minutes": "분"
     }
   },
   "adminTxAccounting": {
@@ -19395,8 +20285,9 @@
     }
   },
   "adminTickets": {
-    "title": "티켓 관리",
+    "title": "지원 티켓",
     "subtitle": "지원 티켓 관리",
+    "description": "고객 지원 요청 관리 및 응답",
     "overview": "개요",
     "overviewDesc": "티켓 통계",
     "allTickets": "전체 티켓",
@@ -19406,6 +20297,7 @@
     "unassigned": "미할당",
     "unassignedDesc": "할당 대기 중인 티켓",
     "ticketId": "티켓 ID",
+    "ticket": "티켓",
     "subject": "제목",
     "requester": "요청자",
     "assignee": "담당자",
@@ -19414,11 +20306,27 @@
     "createdAt": "생성일",
     "updatedAt": "업데이트일",
     "actions": "작업",
+    "all": "전체",
+    "newTicket": "새 티켓",
+    "selectTicket": "티켓 선택",
+    "selectTicketToView": "상세 정보를 보려면 티켓을 선택하세요",
+    "typeReply": "답장을 입력하세요...",
+    "errorTitle": "티켓 로딩 오류",
+    "errorDescription": "티켓 데이터를 로드하는 중 문제가 발생했습니다. 다시 시도해 주세요.",
+    "supportTeam": "지원팀",
     "priorities": {
       "low": "낮음",
       "medium": "중간",
       "high": "높음",
-      "urgent": "긴급"
+      "urgent": "긴급",
+      "critical": "긴급"
+    },
+    "priority": {
+      "label": "우선순위",
+      "low": "낮음",
+      "medium": "중간",
+      "high": "높음",
+      "critical": "긴급"
     },
     "statuses": {
       "open": "열림",
@@ -19428,13 +20336,26 @@
       "resolved": "해결됨",
       "closed": "닫힘"
     },
+    "status": {
+      "open": "열림",
+      "inProgress": "진행 중",
+      "waiting": "대기 중",
+      "resolved": "해결됨",
+      "closed": "닫힘"
+    },
     "categories": {
       "general": "일반",
       "technical": "기술",
       "billing": "결제",
       "account": "계정",
       "feature": "기능 요청",
-      "bug": "버그 신고"
+      "bug": "버그 신고",
+      "accessIssue": "접근 문제",
+      "bugReport": "버그 신고",
+      "documentation": "문서",
+      "featureRequest": "기능 요청",
+      "training": "교육",
+      "other": "기타"
     },
     "view": "보기",
     "assign": "할당",
@@ -19462,6 +20383,78 @@
       "assignTo": "할당 대상",
       "create": "티켓 생성",
       "cancel": "취소"
+    },
+    "dialog": {
+      "createTitle": "새 티켓 생성",
+      "createDesc": "새 지원 티켓을 생성하려면 세부 정보를 입력하세요",
+      "title": "제목",
+      "titlePlaceholder": "티켓 제목을 입력하세요...",
+      "category": "카테고리",
+      "selectCategory": "카테고리 선택",
+      "priority": "우선순위",
+      "selectPriority": "우선순위 선택",
+      "description": "설명",
+      "descPlaceholder": "문제를 상세히 설명하세요...",
+      "attachments": "첨부 파일",
+      "dropFiles": "파일을 여기에 드래그하거나 클릭하여 업로드",
+      "cancel": "취소",
+      "submit": "티켓 제출"
+    },
+    "details": {
+      "category": "카테고리",
+      "requester": "요청자",
+      "assignee": "담당자",
+      "created": "생성일"
+    },
+    "table": {
+      "ticket": "티켓",
+      "priority": "우선순위",
+      "status": "상태",
+      "requester": "요청자",
+      "updated": "업데이트"
+    },
+    "tabs": {
+      "all": "전체",
+      "open": "열림",
+      "resolved": "해결됨"
+    },
+    "stats": {
+      "openTickets": "열린 티켓",
+      "critical": "긴급",
+      "resolvedToday": "오늘 해결됨",
+      "avgResponse": "평균 응답"
+    },
+    "sampleTickets": {
+      "accessIssue": {
+        "title": "관리자 대시보드 접근 불가",
+        "desc": "비밀번호 재설정 후 관리자 포털에 로그인할 수 없습니다"
+      },
+      "dashboard": {
+        "title": "대시보드 지표가 로드되지 않음",
+        "desc": "대시보드가 데이터를 표시하지 않고 로딩 스피너만 계속 표시됩니다"
+      },
+      "apiDocs": {
+        "title": "API 문서 업데이트 필요",
+        "desc": "REST API 문서가 오래되어 새 엔드포인트가 누락되어 있습니다"
+      },
+      "alertNotif": {
+        "title": "알림 전송이 되지 않음",
+        "desc": "긴급 알림 이메일이 운영팀에 전달되지 않습니다"
+      },
+      "customDashboard": {
+        "title": "커스텀 대시보드 위젯 요청",
+        "desc": "특정 모니터링 요구에 맞는 커스텀 지표 위젯 생성 기능이 필요합니다"
+      },
+      "training": {
+        "title": "신규 팀원 교육 세션",
+        "desc": "신규 팀원 3명을 위한 온보딩 교육 요청"
+      }
+    },
+    "messages": {
+      "sample1": "관리자 대시보드에 접근하는 데 문제가 있습니다. 로그인이 계속 실패합니다.",
+      "sample2": "문의해 주셔서 감사합니다. 이 문제를 조사 중입니다. 사용자 이름을 알려주시겠습니까?",
+      "sample3": "제 사용자 이름은 admin@tburn.io입니다. 비밀번호를 재설정했지만 여전히 로그인할 수 없습니다.",
+      "sample4": "문제를 확인했습니다. 여러 번의 로그인 실패로 인해 계정이 일시적으로 잠겼습니다. 지금 잠금이 해제되었습니다."
     },
     "search": "검색",
     "searchPlaceholder": "티켓 검색...",
@@ -19510,6 +20503,14 @@
       "openTickets": "열린 티켓",
       "resolvedToday": "오늘 해결됨",
       "avgResponseTime": "평균 응답 시간"
+    },
+    "sla": {
+      "title": "SLA 추적",
+      "firstResponse": "첫 응답",
+      "resolution": "해결 시간",
+      "breached": "SLA 위반",
+      "onTrack": "정상",
+      "atRisk": "위험"
     }
   }
 }

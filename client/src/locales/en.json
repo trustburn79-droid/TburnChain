@@ -14355,7 +14355,8 @@
     "retry": "Retry"
   },
   "adminTraining": {
-    "title": "AI Training Management",
+    "title": "Training Materials",
+    "description": "Learn about blockchain administration and network operations",
     "subtitle": "Manage model training, datasets, and deployments",
     "newTrainingJob": "New Training Job",
     "refresh": "Refresh",
@@ -14427,7 +14428,114 @@
       "title": "Failed to Load Training Data",
       "description": "Unable to fetch training data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "enrolled": "Enrolled Successfully",
+    "enrolledDesc": "You have been enrolled in this course",
+    "enrollError": "Failed to enroll in course. Please try again.",
+    "moduleCompleted": "Module Completed",
+    "moduleCompletedDesc": "Congratulations! You have completed this module.",
+    "refreshed": "Training Data Refreshed",
+    "refreshedDesc": "Training materials have been updated",
+    "errorTitle": "Failed to Load Training Materials",
+    "errorDescription": "Unable to fetch training data. Please try again.",
+    "myProgress": "My Progress",
+    "certifications": "Certifications",
+    "continue": "Continue",
+    "startCourse": "Start Course",
+    "startPath": "Start Path",
+    "modules": "modules",
+    "courses": "courses",
+    "total": "total",
+    "earned": "Earned",
+    "stats": {
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "achievements": "Achievements",
+      "learningTime": "Learning Time"
+    },
+    "tabs": {
+      "courses": "Courses",
+      "paths": "Learning Paths",
+      "achievements": "Achievements"
+    },
+    "continueLearning": "Continue Learning",
+    "continueLearningDesc": "Pick up where you left off",
+    "allCourses": "All Courses",
+    "learningPaths": "Learning Paths",
+    "learningPathsDesc": "Structured curriculum for comprehensive learning",
+    "yourAchievements": "Your Achievements",
+    "achievementsDesc": "Badges and certifications you've earned",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "categories": {
+      "gettingStarted": "Getting Started",
+      "network": "Network",
+      "security": "Security",
+      "ai": "AI",
+      "operations": "Operations",
+      "settings": "Settings"
+    },
+    "paths": {
+      "newAdmin": "New Admin Essentials",
+      "security": "Security Specialist",
+      "network": "Network Expert",
+      "ai": "AI Operations"
+    },
+    "achievements": {
+      "firstSteps": {
+        "title": "First Steps",
+        "desc": "Complete your first course"
+      },
+      "quickLearner": {
+        "title": "Quick Learner",
+        "desc": "Complete 3 courses in one week"
+      },
+      "securityExpert": {
+        "title": "Security Expert",
+        "desc": "Complete all security courses"
+      },
+      "networkMaster": {
+        "title": "Network Master",
+        "desc": "Complete all network courses"
+      },
+      "aiSpecialist": {
+        "title": "AI Specialist",
+        "desc": "Complete all AI courses"
+      },
+      "completionist": {
+        "title": "Completionist",
+        "desc": "Complete all available courses"
+      }
+    },
+    "courses": {
+      "fundamentals": {
+        "title": "Platform Fundamentals",
+        "desc": "Learn the basics of TBURN blockchain administration"
+      },
+      "network": {
+        "title": "Network Administration",
+        "desc": "Master network configuration and monitoring"
+      },
+      "security": {
+        "title": "Security Best Practices",
+        "desc": "Learn advanced security protocols and threat prevention"
+      },
+      "ai": {
+        "title": "AI System Management",
+        "desc": "Configure and optimize AI-powered features"
+      },
+      "emergency": {
+        "title": "Emergency Response",
+        "desc": "Handle critical situations and system failures"
+      },
+      "config": {
+        "title": "Advanced Configuration",
+        "desc": "Deep dive into system settings and optimization"
+      }
+    }
   },
   "adminAIAnalytics": {
     "title": "AI Decision Analytics",
@@ -16710,9 +16818,14 @@
       "description": "Configure global rate limiting",
       "requestsPerMinute": "Requests Per Minute",
       "burstLimit": "Burst Limit",
+      "burstLimitDesc": "Maximum requests in burst mode",
       "windowSize": "Window Size",
       "retryAfter": "Retry After",
-      "seconds": "seconds"
+      "seconds": "seconds",
+      "defaultLimit": "Default Limit",
+      "defaultLimitDesc": "Default rate limit for all endpoints",
+      "enableRateLimiting": "Enable Rate Limiting",
+      "enableRateLimitingDesc": "Apply rate limits to API requests"
     },
     "apiVersioning": {
       "title": "API Versioning",
@@ -16730,6 +16843,82 @@
       "exposeHeaders": "Expose Headers",
       "maxAge": "Max Age"
     },
+    "metrics": {
+      "activeKeys": "Active API Keys",
+      "inactive": "inactive",
+      "totalCalls24h": "Total Calls (24h)",
+      "fromYesterday": "from yesterday",
+      "rateLimitStatus": "Rate Limit Status",
+      "healthy": "Healthy",
+      "allWithinLimits": "All within limits",
+      "avgResponseTime": "Avg Response Time"
+    },
+    "tabs": {
+      "keys": "API Keys",
+      "rateLimits": "Rate Limits",
+      "endpoints": "Endpoints",
+      "security": "Security"
+    },
+    "keys": {
+      "title": "API Keys",
+      "description": "Manage API keys and access tokens",
+      "createNew": "Create New Key",
+      "createTitle": "Create New API Key",
+      "createDescription": "Generate a new API key with specified permissions",
+      "keyName": "Key Name",
+      "keyNamePlaceholder": "Enter key name...",
+      "permissions": "Permissions",
+      "permRead": "Read Access",
+      "permWrite": "Write Access",
+      "permAdmin": "Admin Access",
+      "rateLimit": "Rate Limit (requests/min)",
+      "createButton": "Create Key",
+      "tableName": "Name",
+      "tableKey": "Key",
+      "tableStatus": "Status",
+      "tablePermissions": "Permissions",
+      "tableRateLimit": "Rate Limit",
+      "tableUsage": "Usage",
+      "tableLastUsed": "Last Used",
+      "tableActions": "Actions",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "expired": "Expired"
+      },
+      "perm": {
+        "read": "Read",
+        "write": "Write",
+        "admin": "Admin"
+      }
+    },
+    "rateLimits": {
+      "title": "Rate Limits",
+      "description": "Configure endpoint-specific rate limits",
+      "endpoint": "Endpoint",
+      "limit": "Limit",
+      "window": "Window",
+      "currentUsage": "Current Usage",
+      "status": "Status",
+      "actions": "Actions",
+      "requests": "requests",
+      "ok": "OK",
+      "warning": "Warning",
+      "edit": "Edit"
+    },
+    "security": {
+      "title": "Security Settings",
+      "httpsOnly": "HTTPS Only",
+      "httpsOnlyDesc": "Require HTTPS for all API requests",
+      "keyRotation": "Key Rotation",
+      "keyRotationDesc": "Enable automatic key rotation",
+      "ipWhitelisting": "IP Whitelisting",
+      "ipWhitelistingDesc": "Restrict access to whitelisted IPs",
+      "requestSigning": "Request Signing",
+      "requestSigningDesc": "Require signed requests",
+      "corsOrigins": "CORS Origins",
+      "corsOriginsDesc": "Configure allowed origins"
+    },
     "saveChanges": "Save Changes",
     "saveSuccess": "Configuration Saved",
     "saveSuccessDesc": "API configuration has been saved",
@@ -16742,7 +16931,13 @@
     "refreshingDesc": "Loading configuration...",
     "retry": "Retry",
     "errorLoading": "Failed to Load Configuration",
-    "errorLoadingDesc": "Unable to fetch API configuration. Please try again."
+    "errorLoadingDesc": "Unable to fetch API configuration. Please try again.",
+    "keyCreated": "API Key Created",
+    "keyCreatedDesc": "New API key has been generated successfully",
+    "keyCreateError": "Failed to Create Key",
+    "keyDeleted": "API Key Deleted",
+    "keyDeletedDesc": "API key has been deleted successfully",
+    "keyDeleteError": "Failed to Delete Key"
   },
   "adminIntegrations": {
     "title": "Integrations",
@@ -16794,10 +16989,13 @@
   },
   "adminNotifications": {
     "title": "Notification Settings",
-    "subtitle": "Configure notification preferences",
+    "subtitle": "Configure notification preferences and channels",
     "channels": {
       "title": "Notification Channels",
-      "description": "Configure delivery channels",
+      "description": "Configure delivery channels for notifications",
+      "addChannel": "Add Channel",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
       "email": "Email",
       "emailDesc": "Receive notifications via email",
       "sms": "SMS",
@@ -16823,14 +17021,76 @@
       "success": "Success",
       "successDesc": "Success notifications"
     },
+    "alerts": {
+      "title": "Alert Severity Rules",
+      "description": "Configure notification routing based on alert severity",
+      "critical": "Critical",
+      "criticalDesc": "Immediate response required - all channels activated",
+      "high": "High",
+      "highDesc": "Urgent attention needed - primary channels notified",
+      "medium": "Medium",
+      "mediumDesc": "Standard priority - email and Slack notifications",
+      "low": "Low",
+      "lowDesc": "Low priority - Slack only for awareness",
+      "channels": {
+        "email": "Email",
+        "slack": "Slack",
+        "sms": "SMS",
+        "discord": "Discord",
+        "telegram": "Telegram",
+        "push": "Push"
+      }
+    },
     "schedule": {
       "title": "Notification Schedule",
-      "description": "Set quiet hours and schedules",
+      "description": "Set quiet hours and notification schedules",
       "quietHours": "Quiet Hours",
-      "quietHoursDesc": "Pause notifications during set hours",
+      "quietHoursDesc": "Pause non-critical notifications during set hours",
+      "quietHoursStart": "Start Time",
+      "quietHoursEnd": "End Time",
       "start": "Start Time",
       "end": "End Time",
-      "days": "Active Days"
+      "days": "Active Days",
+      "timezone": "Timezone",
+      "weekendNotifications": "Weekend Notifications",
+      "weekendNotificationsDesc": "Enable notifications on weekends"
+    },
+    "preferences": {
+      "title": "Notification Preferences",
+      "description": "Configure notification behavior and delivery options",
+      "soundNotifications": "Sound Notifications",
+      "soundNotificationsDesc": "Play sound for incoming notifications",
+      "notificationVolume": "Notification Volume",
+      "desktopNotifications": "Desktop Notifications",
+      "desktopNotificationsDesc": "Show browser desktop notifications",
+      "emailDigest": "Email Digest",
+      "emailDigestDesc": "Receive daily summary of notifications via email",
+      "duplicateSuppression": "Duplicate Suppression",
+      "duplicateSuppressionDesc": "Suppress repeated notifications for same event",
+      "alertBatchWindow": "Alert Batch Window",
+      "alertBatchWindowDesc": "Group similar alerts within this time window",
+      "batchImmediate": "Immediate",
+      "batch1min": "1 minute",
+      "batch5min": "5 minutes",
+      "batch15min": "15 minutes",
+      "batch30min": "30 minutes"
+    },
+    "tabs": {
+      "channels": "Channels",
+      "alertRules": "Alert Rules",
+      "schedule": "Schedule",
+      "preferences": "Preferences"
+    },
+    "metrics": {
+      "activeChannels": "Active Channels",
+      "of": "of",
+      "channelsEnabled": "channels enabled",
+      "notificationsSent24h": "Notifications (24h)",
+      "allDelivered": "All delivered successfully",
+      "criticalAlerts": "Critical Alerts",
+      "pendingAcknowledgment": "Pending acknowledgment",
+      "avgDeliveryTime": "Avg Delivery Time",
+      "acrossAllChannels": "Across all channels"
     },
     "templates": {
       "title": "Notification Templates",
@@ -16841,11 +17101,22 @@
       "edit": "Edit",
       "preview": "Preview"
     },
+    "delivery": {
+      "title": "Delivery Status",
+      "sent": "Sent",
+      "delivered": "Delivered",
+      "failed": "Failed",
+      "pending": "Pending",
+      "retrying": "Retrying"
+    },
     "saveChanges": "Save Changes",
     "saveSuccess": "Settings Saved",
     "saveSuccessDesc": "Notification settings have been saved",
     "saveError": "Save Failed",
     "testNotification": "Send Test",
+    "testSent": "Test Sent",
+    "testSentDesc": "Test notification sent successfully",
+    "testError": "Test Failed",
     "testSuccess": "Test Sent",
     "testSuccessDesc": "Test notification sent successfully",
     "refresh": "Refresh",
@@ -18057,7 +18328,69 @@
       "verified": "Verified",
       "pending": "Pending",
       "templates": "Templates"
-    }
+    },
+    "refreshSuccess": "Data Refreshed",
+    "dataUpdated": "Contract data has been updated",
+    "refreshError": "Refresh Failed",
+    "refreshErrorDesc": "Failed to refresh contract data",
+    "exportSuccess": "Data Exported",
+    "exportSuccessDesc": "Contract data exported successfully",
+    "error": {
+      "title": "Error Loading Contract Data",
+      "description": "Failed to load contract data. Please try again."
+    },
+    "totalContracts": "Total Contracts",
+    "deployedOnMainnet": "Deployed on mainnet",
+    "sourceVerified": "Source code verified",
+    "interactions24h": "Interactions (24h)",
+    "fromYesterday": "{{percent}} from yesterday",
+    "gasUsed24h": "Gas Used (24h)",
+    "gasUnits": "Gas units",
+    "tabs": {
+      "interact": "Interact",
+      "verify": "Verify",
+      "abiTools": "ABI Tools",
+      "deployedContracts": "Deployed Contracts"
+    },
+    "contractInteraction": "Contract Interaction",
+    "readWriteToContracts": "Read and write to smart contracts",
+    "contractAddress": "Contract Address",
+    "network": "Network",
+    "mainnet": "Mainnet",
+    "testnet": "Testnet",
+    "abiJson": "ABI (JSON)",
+    "pasteAbi": "Paste contract ABI here...",
+    "readFunctions": "Read Functions",
+    "query": "Query",
+    "writeFunctions": "Write Functions",
+    "toAddress": "To Address",
+    "amount": "Amount",
+    "execute": "Execute",
+    "verifyContract": "Verify Contract",
+    "submitSourceCode": "Submit source code for verification",
+    "optimization": "Optimization",
+    "yes200runs": "Yes (200 runs)",
+    "no": "No",
+    "sourceCode": "Source Code",
+    "constructorArguments": "Constructor Arguments (ABI-encoded)",
+    "abiEncoderDecoder": "ABI Encoder/Decoder",
+    "encode": "Encode",
+    "decode": "Decode",
+    "functionSignature": "Function Signature",
+    "parameters": "Parameters",
+    "encodedData": "Encoded Data",
+    "resultWillAppear": "Result will appear here...",
+    "abiOptional": "ABI (Optional)",
+    "pasteAbiForBetterDecoding": "Paste ABI for better decoding...",
+    "decodedOutput": "Decoded Output",
+    "coreProtocolContracts": "Core protocol contracts on TBURN network",
+    "searchContracts": "Search contracts...",
+    "name": "Name",
+    "compiler": "Compiler",
+    "deployed": "Deployed",
+    "transactions": "Transactions",
+    "actions": "Actions",
+    "interact": "Interact"
   },
   "adminTestnet": {
     "title": "Testnet Management",
@@ -18111,7 +18444,81 @@
       "transactions": "Transactions",
       "accounts": "Accounts",
       "uptime": "Uptime"
-    }
+    },
+    "faucetSuccess": "Tokens Sent",
+    "faucetSuccessDesc": "Test tokens have been sent to your address",
+    "faucetError": "Faucet Request Failed",
+    "faucetErrorDesc": "Failed to send test tokens",
+    "toggleSuccess": "Testnet Status Changed",
+    "toggleSuccessDesc": "Testnet status has been updated",
+    "toggleError": "Toggle Failed",
+    "toggleErrorDesc": "Failed to change testnet status",
+    "refreshSuccess": "Data Refreshed",
+    "dataUpdated": "Testnet data has been updated",
+    "refreshError": "Refresh Failed",
+    "refreshErrorDesc": "Failed to refresh testnet data",
+    "exportSuccess": "Data Exported",
+    "exportSuccessDesc": "Testnet data exported successfully",
+    "copied": "Copied",
+    "copiedToClipboard": "Copied to clipboard",
+    "error": {
+      "title": "Error Loading Testnet Data",
+      "description": "Failed to load testnet data. Please try again."
+    },
+    "createTestnet": "Create Testnet",
+    "activeTestnets": "Active Testnets",
+    "of3Instances": "of 3 instances",
+    "totalNodes": "Total Nodes",
+    "acrossAllTestnets": "Across all testnets",
+    "faucetBalance": "Faucet Balance",
+    "testTburnAvailable": "Test TBURN available",
+    "faucetRequests24h": "Faucet Requests (24h)",
+    "testTokensDistributed": "Test tokens distributed",
+    "tabs": {
+      "testnetInstances": "Testnet Instances",
+      "faucet": "Faucet",
+      "settings": "Settings"
+    },
+    "status": {
+      "running": "Running",
+      "stopped": "Stopped",
+      "syncing": "Syncing",
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed"
+    },
+    "stop": "Stop",
+    "start": "Start",
+    "reset": "Reset",
+    "nodes": "Nodes",
+    "tps": "TPS",
+    "uptime": "Uptime",
+    "created": "Created",
+    "explorer": "Explorer",
+    "viewExplorer": "View Explorer",
+    "requestTestTokens": "Request Test Tokens",
+    "getTestTokensForDev": "Get test tokens for development and testing",
+    "walletAddress": "Wallet Address",
+    "faucetLimit": "Faucet limit: 100 TBURN per request, max 3 requests per day",
+    "recentFaucetRequests": "Recent Faucet Requests",
+    "timestamp": "Timestamp",
+    "faucetStatistics": "Faucet Statistics",
+    "totalDistributed": "Total Distributed",
+    "allTime": "All time",
+    "today": "Today",
+    "requests": "requests",
+    "uniqueAddresses": "Unique Addresses",
+    "successRate": "Success Rate",
+    "testnetSettings": "Testnet Settings",
+    "configureTestnetParameters": "Configure testnet parameters and behavior",
+    "autoRestartOnFailure": "Auto-restart on Failure",
+    "autoRestartDesc": "Automatically restart testnet nodes when they fail",
+    "dailyBackups": "Daily Backups",
+    "dailyBackupsDesc": "Enable daily state backups for all testnets",
+    "rateLimiting": "Rate Limiting",
+    "rateLimitingDesc": "Enable rate limiting for faucet requests",
+    "faucetDailyLimit": "Faucet Daily Limit (TBURN)",
+    "faucetRequestAmount": "Faucet Request Amount (TBURN)"
   },
   "adminDebug": {
     "title": "Debug Tools",
@@ -18177,11 +18584,82 @@
       "warnings": "Warnings",
       "requests": "Requests",
       "avgResponse": "Avg Response"
-    }
+    },
+    "refreshSuccess": "Data Refreshed",
+    "dataUpdated": "Debug data has been updated",
+    "refreshError": "Refresh Failed",
+    "refreshErrorDesc": "Failed to refresh debug data",
+    "exportSuccess": "Logs Exported",
+    "exportSuccessDesc": "Debug logs exported successfully",
+    "executeSuccess": "Command Executed",
+    "executeSuccessDesc": "Command executed successfully",
+    "executeError": "Execution Failed",
+    "executeErrorDesc": "Failed to execute command",
+    "logsCleared": "Logs Cleared",
+    "logsClearedDesc": "Debug logs have been cleared",
+    "copied": "Copied",
+    "copiedToClipboard": "Copied to clipboard",
+    "error": {
+      "title": "Error Loading Debug Data",
+      "description": "Failed to load debug data. Please try again."
+    },
+    "connected": "Connected",
+    "reconnecting": "Reconnecting",
+    "clearLogs": "Clear Logs",
+    "debugSessions": "Debug Sessions",
+    "activeSessions": "Active debugging sessions",
+    "tracedTransactions": "Traced Transactions",
+    "last24Hours": "Last 24 hours",
+    "errorRate": "Error Rate",
+    "failedTransactions": "Failed transactions",
+    "avgGasUsed": "Avg Gas Used",
+    "perTransaction": "Per transaction",
+    "tabs": {
+      "transactionTracer": "Transaction Tracer",
+      "debugLogs": "Debug Logs",
+      "console": "Console",
+      "stateInspector": "State Inspector"
+    },
+    "transactionTracer": "Transaction Tracer",
+    "traceAndDebug": "Trace and debug blockchain transactions",
+    "enterTxHash": "Enter transaction hash...",
+    "traceOptions": "Trace Options",
+    "traceOutput": "Trace Output",
+    "copy": "Copy",
+    "debugLogs": "Debug Logs",
+    "realtimeSystemLogs": "Real-time system and blockchain logs",
+    "allLevels": "All Levels",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info",
+    "debug": "Debug",
+    "allSources": "All Sources",
+    "consensus": "Consensus",
+    "mempool": "Mempool",
+    "p2p": "P2P",
+    "bridge": "Bridge",
+    "ai": "AI",
+    "javascriptConsole": "JavaScript Console",
+    "executeCodeAgainstNode": "Execute code against the blockchain node",
+    "input": "Input",
+    "enterJsCode": "Enter JavaScript code...",
+    "output": "Output",
+    "stateInspector": "State Inspector",
+    "inspectBlockchainState": "Inspect blockchain state and storage",
+    "address": "Address",
+    "blockNumber": "Block Number",
+    "inspectState": "Inspect State",
+    "accountState": "Account State",
+    "balance": "Balance",
+    "nonce": "Nonce",
+    "codeHash": "Code Hash",
+    "storageRoot": "Storage Root",
+    "storageSlots": "Storage Slots"
   },
   "adminRealtime": {
     "title": "Real-time Monitoring",
     "subtitle": "Live system monitoring and alerts",
+    "description": "Monitor system performance and events in real-time",
     "liveStatus": "Live Status",
     "liveStatusDesc": "Current system status",
     "networkHealth": "Network Health",
@@ -18220,6 +18698,7 @@
     "pauseUpdates": "Pause Updates",
     "resumeUpdates": "Resume Updates",
     "refresh": "Refresh",
+    "refreshBtn": "Refresh",
     "refreshed": "Data Refreshed",
     "refreshedDesc": "Monitoring data has been updated",
     "export": "Export",
@@ -18228,10 +18707,63 @@
     "loadError": "Failed to load monitoring data",
     "error": "Error",
     "retry": "Retry",
+    "errorTitle": "Failed to Load Monitoring Data",
+    "errorDescription": "Unable to fetch real-time metrics. Please try again.",
     "wsConnected": "Connected",
     "wsConnectedDesc": "Real-time updates active",
+    "wsDisconnected": "Disconnected",
     "wsReconnecting": "Reconnecting",
     "wsReconnectingDesc": "Reconnecting to server...",
+    "tpsCurrent": "Current TPS",
+    "blockHeight": "Block Height",
+    "avgLatency": "Avg Latency",
+    "activeValidators": "Active Validators",
+    "mempoolSize": "Mempool Size",
+    "networkPeers": "Network Peers",
+    "memory": "Memory",
+    "diskIO": "Disk I/O",
+    "network": "Network",
+    "systemResources": "System Resources",
+    "tabs": {
+      "overview": "Overview",
+      "performance": "Performance",
+      "resources": "Resources",
+      "events": "Events"
+    },
+    "charts": {
+      "tps": "Transactions Per Second",
+      "latency": "Network Latency"
+    },
+    "performance": {
+      "currentTps": "Current TPS",
+      "peakTps": "Peak: 520,000 tx/s",
+      "blockTime": "Block Time",
+      "blockTimeTarget": "Target: 500ms",
+      "consensusTime": "Consensus Time",
+      "consensusTarget": "Target: 100ms",
+      "finality": "Finality",
+      "instantFinality": "Instant finality"
+    },
+    "resources": {
+      "cpuByCore": "CPU Usage by Core",
+      "core": "Core",
+      "storage": "Storage Usage",
+      "blockchainData": "Blockchain Data",
+      "stateDb": "State Database",
+      "logs": "Logs",
+      "snapshots": "Snapshots"
+    },
+    "events": {
+      "title": "Live Events",
+      "description": "Real-time system events and notifications",
+      "blockProduced": "Block #12847563 produced successfully",
+      "peerConnected": "New peer connected from Asia-Pacific region",
+      "highMempool": "Mempool size temporarily elevated",
+      "crossShardComplete": "Cross-shard transaction completed",
+      "aiOptimization": "AI optimization applied to routing",
+      "rpcTimeout": "RPC endpoint timeout (auto-recovered)",
+      "validatorJoined": "New validator joined the network"
+    },
     "metrics": {
       "uptime": "Uptime",
       "alerts": "Alerts",
@@ -18582,11 +19114,88 @@
       "publicDashboards": "Public Dashboards",
       "sharedDashboards": "Shared Dashboards",
       "widgets": "Widgets"
+    },
+    "dashboardSaved": "Dashboard Saved",
+    "dashboardSavedDesc": "Dashboard has been saved successfully",
+    "errorTitle": "Error Loading Dashboard",
+    "errorDescription": "Failed to load dashboard data. Please try again.",
+    "cancel": "Cancel",
+    "default": "Default",
+    "newDashboard": "New Dashboard",
+    "updated": "Updated",
+    "yes": "Yes",
+    "no": "No",
+    "owner": "Owner",
+    "view": "View",
+    "clone": "Clone",
+    "share": "Share",
+    "dashboards": {
+      "main": "Main Dashboard",
+      "mainDesc": "Overview of key network metrics",
+      "performance": "Performance Dashboard",
+      "performanceDesc": "Detailed performance analytics",
+      "security": "Security Dashboard",
+      "securityDesc": "Security monitoring and alerts",
+      "bridge": "Bridge Dashboard",
+      "bridgeDesc": "Cross-chain bridge metrics"
+    },
+    "widgets": {
+      "lineChart": "Line Chart",
+      "lineChartDesc": "Time-series data visualization",
+      "barChart": "Bar Chart",
+      "barChartDesc": "Categorical data comparison",
+      "pieChart": "Pie Chart",
+      "pieChartDesc": "Distribution visualization",
+      "gauge": "Gauge",
+      "gaugeDesc": "Single value with target",
+      "dataTable": "Data Table",
+      "dataTableDesc": "Tabular data display",
+      "alertList": "Alert List",
+      "alertListDesc": "Active alerts and notifications"
+    },
+    "preview": {
+      "title": "Dashboard Preview",
+      "currentTps": "Current TPS",
+      "blockHeight": "Block Height",
+      "activeValidators": "Active Validators",
+      "networkPeers": "Network Peers",
+      "tpsOverTime": "TPS Over Time",
+      "latencyDist": "Latency Distribution",
+      "recentBlocks": "Recent Blocks",
+      "activeAlerts": "Active Alerts"
+    },
+    "dialog": {
+      "createTitle": "Create New Dashboard",
+      "createDescription": "Configure your new dashboard settings",
+      "name": "Dashboard Name",
+      "namePlaceholder": "Enter dashboard name...",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter description...",
+      "public": "Make Public",
+      "cancel": "Cancel",
+      "create": "Create"
+    },
+    "widgetLibrary": {
+      "title": "Widget Library",
+      "description": "Drag widgets to add to your dashboard"
+    },
+    "allDashboards": {
+      "title": "All Dashboards",
+      "description": "Browse and manage all available dashboards"
+    },
+    "import": {
+      "title": "Import Dashboard",
+      "description": "Import a dashboard from JSON file",
+      "dropzone": "Drop JSON file here or click to browse",
+      "button": "Import",
+      "or": "or"
     }
   },
   "adminSla": {
     "title": "SLA Management",
     "subtitle": "Service Level Agreement monitoring",
+    "description": "Monitor and manage service level agreements",
+    "day": "Day",
     "slaOverview": "SLA Overview",
     "slaOverviewDesc": "Current SLA status",
     "slaTargets": "SLA Targets",
@@ -18598,14 +19207,9 @@
     "serviceName": "Service Name",
     "target": "Target",
     "current": "Current",
-    "status": "Status",
     "uptime": "Uptime",
     "responseTime": "Response Time",
-    "errorRate": "Error Rate",
     "availability": "Availability",
-    "met": "Met",
-    "atRisk": "At Risk",
-    "breached": "Breached",
     "period": "Period",
     "startDate": "Start Date",
     "endDate": "End Date",
@@ -18638,16 +19242,119 @@
     "refreshed": "SLA Data Refreshed",
     "refreshedDesc": "SLA data has been updated",
     "export": "Export",
+    "exportReport": "Export Report",
     "exported": "SLA Report Exported",
     "exportedDesc": "SLA report exported successfully",
     "loadError": "Failed to load SLA data",
     "error": "Error",
     "retry": "Retry",
+    "errorTitle": "Failed to Load SLA Data",
+    "errorDescription": "Unable to fetch SLA metrics. Please try again.",
     "metrics": {
       "totalServices": "Total Services",
       "slaMet": "SLA Met",
+      "uptime": "Uptime",
+      "txLatency": "Transaction Latency",
+      "tpsCapacity": "TPS Capacity",
+      "blockTime": "Block Time",
+      "apiResponse": "API Response Time",
+      "errorRate": "Error Rate"
+    },
+    "status": {
+      "met": "Met",
       "atRisk": "At Risk",
-      "breached": "Breached"
+      "breached": "Breached",
+      "unknown": "Unknown"
+    },
+    "impact": {
+      "critical": "Critical",
+      "major": "Major",
+      "minor": "Minor"
+    },
+    "incidentTypes": {
+      "networkLatency": "Network Latency Spike",
+      "validatorSync": "Validator Sync Delay",
+      "apiTimeout": "API Timeout"
+    },
+    "rootCauses": {
+      "networkCongestion": "Network Congestion",
+      "diskIO": "Disk I/O Bottleneck",
+      "memoryLeak": "Memory Leak in Service"
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "timeRanges": {
+      "7d": "7 Days",
+      "30d": "30 Days",
+      "90d": "90 Days",
+      "1y": "1 Year"
+    },
+    "stats": {
+      "compliance": "SLA Compliance",
+      "allTargetsMet": "All targets met",
+      "currentUptime": "Current Uptime",
+      "vsTarget": "+0.07% vs target",
+      "mttr": "Mean Time to Recover",
+      "mttrDesc": "Average recovery time",
+      "incidents30d": "Incidents (30d)",
+      "allResolved": "All resolved"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "metrics": "Metrics",
+      "incidents": "Incidents",
+      "reports": "Reports"
+    },
+    "charts": {
+      "uptimeTrend": "Uptime Trend",
+      "uptimeTrendDesc": "Monthly uptime performance vs target",
+      "actualUptime": "Actual Uptime",
+      "target": "Target",
+      "statusDistribution": "SLA Status Distribution"
+    },
+    "metricsOverview": {
+      "title": "Metrics Overview",
+      "target": "target",
+      "trend": "Trend"
+    },
+    "trends": {
+      "up": "Improving",
+      "down": "Declining",
+      "stable": "Stable"
+    },
+    "detailedMetrics": {
+      "title": "Detailed Metrics",
+      "metric": "Metric",
+      "current": "Current",
+      "target": "Target",
+      "status": "Status",
+      "trend": "Trend",
+      "avg30d": "30d Average"
+    },
+    "incidents": {
+      "title": "Incidents",
+      "description": "Recent SLA incidents and their resolution status",
+      "id": "ID",
+      "type": "Type",
+      "startTime": "Start Time",
+      "duration": "Duration",
+      "impact": "Impact",
+      "rootCause": "Root Cause",
+      "status": "Status",
+      "resolved": "Resolved",
+      "minutes": "minutes"
     }
   },
   "adminTxAccounting": {
@@ -19324,8 +20031,9 @@
     }
   },
   "adminTickets": {
-    "title": "Ticket Management",
+    "title": "Support Tickets",
     "subtitle": "Manage support tickets",
+    "description": "Manage and respond to customer support requests",
     "overview": "Overview",
     "overviewDesc": "Ticket statistics",
     "allTickets": "All Tickets",
@@ -19335,6 +20043,7 @@
     "unassigned": "Unassigned",
     "unassignedDesc": "Tickets awaiting assignment",
     "ticketId": "Ticket ID",
+    "ticket": "Ticket",
     "subject": "Subject",
     "requester": "Requester",
     "assignee": "Assignee",
@@ -19343,11 +20052,27 @@
     "createdAt": "Created",
     "updatedAt": "Updated",
     "actions": "Actions",
+    "all": "All",
+    "newTicket": "New Ticket",
+    "selectTicket": "Select a Ticket",
+    "selectTicketToView": "Select a ticket to view details",
+    "typeReply": "Type your reply...",
+    "errorTitle": "Error Loading Tickets",
+    "errorDescription": "There was a problem loading the ticket data. Please try again.",
+    "supportTeam": "Support Team",
     "priorities": {
       "low": "Low",
       "medium": "Medium",
       "high": "High",
-      "urgent": "Urgent"
+      "urgent": "Urgent",
+      "critical": "Critical"
+    },
+    "priority": {
+      "label": "Priority",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
     },
     "statuses": {
       "open": "Open",
@@ -19357,13 +20082,26 @@
       "resolved": "Resolved",
       "closed": "Closed"
     },
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "waiting": "Waiting",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    },
     "categories": {
       "general": "General",
       "technical": "Technical",
       "billing": "Billing",
       "account": "Account",
       "feature": "Feature Request",
-      "bug": "Bug Report"
+      "bug": "Bug Report",
+      "accessIssue": "Access Issue",
+      "bugReport": "Bug Report",
+      "documentation": "Documentation",
+      "featureRequest": "Feature Request",
+      "training": "Training",
+      "other": "Other"
     },
     "view": "View",
     "assign": "Assign",
@@ -19391,6 +20129,78 @@
       "assignTo": "Assign To",
       "create": "Create Ticket",
       "cancel": "Cancel"
+    },
+    "dialog": {
+      "createTitle": "Create New Ticket",
+      "createDesc": "Fill in the details to create a new support ticket",
+      "title": "Title",
+      "titlePlaceholder": "Enter ticket title...",
+      "category": "Category",
+      "selectCategory": "Select a category",
+      "priority": "Priority",
+      "selectPriority": "Select priority",
+      "description": "Description",
+      "descPlaceholder": "Describe the issue in detail...",
+      "attachments": "Attachments",
+      "dropFiles": "Drag and drop files here or click to upload",
+      "cancel": "Cancel",
+      "submit": "Submit Ticket"
+    },
+    "details": {
+      "category": "Category",
+      "requester": "Requester",
+      "assignee": "Assignee",
+      "created": "Created"
+    },
+    "table": {
+      "ticket": "Ticket",
+      "priority": "Priority",
+      "status": "Status",
+      "requester": "Requester",
+      "updated": "Updated"
+    },
+    "tabs": {
+      "all": "All",
+      "open": "Open",
+      "resolved": "Resolved"
+    },
+    "stats": {
+      "openTickets": "Open Tickets",
+      "critical": "Critical",
+      "resolvedToday": "Resolved Today",
+      "avgResponse": "Avg Response"
+    },
+    "sampleTickets": {
+      "accessIssue": {
+        "title": "Cannot access admin dashboard",
+        "desc": "User is unable to log into the admin portal after password reset"
+      },
+      "dashboard": {
+        "title": "Dashboard metrics not loading",
+        "desc": "The dashboard shows loading spinner indefinitely without displaying data"
+      },
+      "apiDocs": {
+        "title": "API documentation update needed",
+        "desc": "The REST API documentation is outdated and missing new endpoints"
+      },
+      "alertNotif": {
+        "title": "Alert notifications not being sent",
+        "desc": "Critical alert emails are not being delivered to the ops team"
+      },
+      "customDashboard": {
+        "title": "Request for custom dashboard widgets",
+        "desc": "Need ability to create custom metric widgets for specific monitoring needs"
+      },
+      "training": {
+        "title": "New team member training session",
+        "desc": "Request for onboarding training for 3 new team members"
+      }
+    },
+    "messages": {
+      "sample1": "I'm having trouble accessing the admin dashboard. The login keeps failing.",
+      "sample2": "Thank you for reaching out. We're looking into this issue. Can you provide your username?",
+      "sample3": "My username is admin@tburn.io. I tried resetting my password but still can't log in.",
+      "sample4": "We've identified the issue. Your account was temporarily locked due to multiple failed attempts. It has been unlocked now."
     },
     "search": "Search",
     "searchPlaceholder": "Search tickets...",
@@ -19439,6 +20249,14 @@
       "openTickets": "Open Tickets",
       "resolvedToday": "Resolved Today",
       "avgResponseTime": "Avg Response Time"
+    },
+    "sla": {
+      "title": "SLA Tracking",
+      "firstResponse": "First Response",
+      "resolution": "Resolution Time",
+      "breached": "SLA Breached",
+      "onTrack": "On Track",
+      "atRisk": "At Risk"
     }
   }
 }
