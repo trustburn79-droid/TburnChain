@@ -47,7 +47,14 @@ All 72 Admin Portal pages verified across 15 functional groups with 340+ API end
 - Established pattern for handling icons in pages that receive data from API:
   - API cannot serialize React components (icons)
   - Frontend uses `categoryIconMap` or similar to map IDs/names to icons
-  - Applied to: Help page, Integrations page
+  - Applied to: Help page, Integrations page, Finance page
+
+### Finance Page Icon Rendering Fix
+- Fixed finance.tsx icon rendering issue where React warnings about unrecognized HTML tags were appearing
+- Implemented `getIconComponent` helper function that handles both:
+  - String icon names from API responses (mapped via iconMap)
+  - Direct React component references (used directly)
+- Pattern ensures backward compatibility with existing code while properly handling API responses
 
 ### API Signature Corrections
 - Fixed 43+ apiRequest call signatures across 16 admin portal files
