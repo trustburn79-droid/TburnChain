@@ -39,6 +39,8 @@ import {
   Download,
   Activity,
 } from "lucide-react";
+import { DetailSheet } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 
 interface Proposal {
   id: string;
@@ -134,6 +136,8 @@ export default function Proposals() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
+  const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(null);
+  const [proposalToDelete, setProposalToDelete] = useState<Proposal | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<ProposalsData>({
     queryKey: ['/api/admin/governance/proposals'],
@@ -203,6 +207,7 @@ export default function Proposals() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/proposals'] });
+      setProposalToDelete(null);
       toast({
         title: t("adminProposals.proposalDeleted"),
         description: t("adminProposals.proposalDeletedDesc"),
@@ -216,6 +221,12 @@ export default function Proposals() {
       });
     },
   });
+
+  const confirmDeleteProposal = useCallback(() => {
+    if (proposalToDelete) {
+      deleteProposalMutation.mutate(proposalToDelete.id);
+    }
+  }, [proposalToDelete, deleteProposalMutation]);
 
   const handleRefresh = useCallback(() => {
     refetch();
@@ -599,7 +610,12 @@ export default function Proposals() {
                         <CardDescription data-testid={`text-description-${proposal.id}`}>{proposal.description}</CardDescription>
                       </div>
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="icon" data-testid={`button-view-${proposal.id}`}>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => setSelectedProposal(proposal)}
+                          data-testid={`button-view-${proposal.id}`}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
                         {proposal.status === "active" && (
@@ -611,7 +627,7 @@ export default function Proposals() {
                               variant="ghost" 
                               size="icon" 
                               className="text-red-500"
-                              onClick={() => deleteProposalMutation.mutate(proposal.id)}
+                              onClick={() => setProposalToDelete(proposal)}
                               disabled={deleteProposalMutation.isPending}
                               data-testid={`button-delete-${proposal.id}`}
                             >
@@ -684,6 +700,59 @@ export default function Proposals() {
           )}
         </div>
       </div>
+
+      <DetailSheet
+        open={!!selectedProposal}
+        onOpenChange={(open) => !open && setSelectedProposal(null)}
+        title={t("adminProposals.detail.title")}
+        sections={selectedProposal ? [
+          {
+            title: t("adminProposals.detail.overview"),
+            fields: [
+              { label: t("adminProposals.detail.proposalId"), value: selectedProposal.id, copyable: true },
+              { label: t("adminProposals.detail.proposalTitle"), value: selectedProposal.title },
+              { label: t("adminProposals.detail.category"), value: selectedProposal.category, type: "badge" as const },
+              { label: t("adminProposals.detail.status"), value: selectedProposal.status, type: "badge" as const, badgeVariant: selectedProposal.status === "passed" || selectedProposal.status === "executed" ? "default" as const : selectedProposal.status === "active" ? "secondary" as const : "destructive" as const },
+            ],
+          },
+          {
+            title: t("adminProposals.detail.voting"),
+            fields: [
+              { label: t("adminProposals.detail.votesFor"), value: `${(selectedProposal.votesFor / 1000000).toFixed(2)}M TBURN` },
+              { label: t("adminProposals.detail.votesAgainst"), value: `${(selectedProposal.votesAgainst / 1000000).toFixed(2)}M TBURN` },
+              { label: t("adminProposals.detail.votesAbstain"), value: `${(selectedProposal.votesAbstain / 1000000).toFixed(2)}M TBURN` },
+              { label: t("adminProposals.detail.totalVoters"), value: selectedProposal.totalVoters.toLocaleString() },
+              { label: t("adminProposals.detail.quorum"), value: `${(selectedProposal.quorum / 1000000).toFixed(0)}M TBURN` },
+              { label: t("adminProposals.detail.requiredApproval"), value: `${selectedProposal.requiredApproval}%` },
+            ],
+          },
+          {
+            title: t("adminProposals.detail.timeline"),
+            fields: [
+              { label: t("adminProposals.detail.startDate"), value: selectedProposal.startDate },
+              { label: t("adminProposals.detail.endDate"), value: selectedProposal.endDate },
+              { label: t("adminProposals.detail.proposer"), value: selectedProposal.proposer, copyable: true },
+            ],
+          },
+          {
+            title: t("adminProposals.detail.description"),
+            fields: [
+              { label: t("adminProposals.detail.fullDescription"), value: selectedProposal.description },
+            ],
+          },
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={!!proposalToDelete}
+        onOpenChange={(open) => !open && setProposalToDelete(null)}
+        title={t("adminProposals.confirmDelete.title")}
+        description={t("adminProposals.confirmDelete.description", { title: proposalToDelete?.title, id: proposalToDelete?.id })}
+        confirmText={t("adminProposals.delete")}
+        onConfirm={confirmDeleteProposal}
+        destructive={true}
+        isLoading={deleteProposalMutation.isPending}
+      />
     </div>
   );
 }

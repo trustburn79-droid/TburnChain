@@ -32,6 +32,8 @@ import {
   Lock,
   Download,
 } from "lucide-react";
+import { DetailSheet } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 
 interface ExecutionTask {
   id: string;
@@ -121,6 +123,9 @@ export default function Execution() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("pending");
+  const [selectedTask, setSelectedTask] = useState<ExecutionTask | null>(null);
+  const [taskToExecute, setTaskToExecute] = useState<ExecutionTask | null>(null);
+  const [taskToCancel, setTaskToCancel] = useState<ExecutionTask | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<ExecutionData>({
     queryKey: ['/api/admin/governance/execution'],
@@ -134,6 +139,7 @@ export default function Execution() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/execution'] });
+      setTaskToExecute(null);
       toast({
         title: t("adminExecution.executionStarted"),
         description: t("adminExecution.executionStartedDesc"),
@@ -176,6 +182,7 @@ export default function Execution() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/execution'] });
+      setTaskToCancel(null);
       toast({
         title: t("adminExecution.executionCancelled"),
         description: t("adminExecution.executionCancelledDesc"),
@@ -189,6 +196,18 @@ export default function Execution() {
       });
     },
   });
+
+  const confirmExecute = useCallback(() => {
+    if (taskToExecute) {
+      executeProposalMutation.mutate(taskToExecute.id);
+    }
+  }, [taskToExecute, executeProposalMutation]);
+
+  const confirmCancel = useCallback(() => {
+    if (taskToCancel) {
+      cancelExecutionMutation.mutate(taskToCancel.id);
+    }
+  }, [taskToCancel, cancelExecutionMutation]);
 
   const handleRefresh = useCallback(() => {
     refetch();
@@ -605,7 +624,12 @@ export default function Execution() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-1">
-                          <Button variant="ghost" size="icon" data-testid={`button-view-history-${task.id}`}>
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            onClick={() => setSelectedTask(task)}
+                            data-testid={`button-view-history-${task.id}`}
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
                           {task.status === "failed" && (
@@ -675,6 +699,66 @@ export default function Execution() {
           </Card>
         )}
       </div>
+
+      <DetailSheet
+        open={!!selectedTask}
+        onOpenChange={(open) => !open && setSelectedTask(null)}
+        title={t("adminExecution.detail.title")}
+        sections={selectedTask ? [
+          {
+            title: t("adminExecution.detail.overview"),
+            fields: [
+              { label: t("adminExecution.detail.executionId"), value: selectedTask.id, copyable: true },
+              { label: t("adminExecution.detail.proposalId"), value: selectedTask.proposalId, copyable: true },
+              { label: t("adminExecution.detail.title"), value: selectedTask.title },
+              { label: t("adminExecution.detail.type"), value: selectedTask.type, type: "badge" as const },
+              { label: t("adminExecution.detail.status"), value: selectedTask.status, type: "badge" as const, badgeVariant: selectedTask.status === "completed" ? "default" as const : selectedTask.status === "in_progress" ? "secondary" as const : "destructive" as const },
+            ],
+          },
+          {
+            title: t("adminExecution.detail.progress"),
+            fields: [
+              { label: t("adminExecution.detail.progress"), value: `${selectedTask.progress}%`, type: "progress" as const },
+              { label: t("adminExecution.detail.startTime"), value: selectedTask.startTime || "-" },
+              { label: t("adminExecution.detail.endTime"), value: selectedTask.endTime || "-" },
+              { label: t("adminExecution.detail.executedBy"), value: selectedTask.executedBy || "-", copyable: !!selectedTask.executedBy },
+            ],
+          },
+          ...(selectedTask.txHash ? [{
+            title: t("adminExecution.detail.transaction"),
+            fields: [
+              { label: t("adminExecution.detail.txHash"), value: selectedTask.txHash, copyable: true, type: "code" as const },
+            ],
+          }] : []),
+          ...(selectedTask.error ? [{
+            title: t("adminExecution.detail.error"),
+            fields: [
+              { label: t("adminExecution.detail.errorMessage"), value: selectedTask.error, type: "code" as const },
+            ],
+          }] : []),
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={!!taskToExecute}
+        onOpenChange={(open) => !open && setTaskToExecute(null)}
+        title={t("adminExecution.confirmExecute.title")}
+        description={t("adminExecution.confirmExecute.description", { title: taskToExecute?.title, proposalId: taskToExecute?.proposalId })}
+        confirmText={t("adminExecution.execute")}
+        onConfirm={confirmExecute}
+        isLoading={executeProposalMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={!!taskToCancel}
+        onOpenChange={(open) => !open && setTaskToCancel(null)}
+        title={t("adminExecution.confirmCancel.title")}
+        description={t("adminExecution.confirmCancel.description", { title: taskToCancel?.title })}
+        confirmText={t("adminExecution.cancel")}
+        onConfirm={confirmCancel}
+        destructive={true}
+        isLoading={cancelExecutionMutation.isPending}
+      />
     </div>
   );
 }

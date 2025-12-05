@@ -19838,7 +19838,33 @@
     "createError": "Failed to create proposal",
     "deleteError": "Failed to delete proposal",
     "loadError": "Failed to load proposals",
-    "error": "Error"
+    "error": "Error",
+    "detail": {
+      "title": "Proposal Details",
+      "overview": "Overview",
+      "proposalId": "Proposal ID",
+      "proposalTitle": "Proposal Title",
+      "category": "Category",
+      "status": "Status",
+      "description": "Description",
+      "votingResults": "Voting Results",
+      "totalVotes": "Total Votes",
+      "forVotes": "For",
+      "againstVotes": "Against",
+      "abstainVotes": "Abstain",
+      "quorum": "Quorum",
+      "approvalRate": "Approval Rate",
+      "details": "Details",
+      "proposer": "Proposer",
+      "createdAt": "Created At",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "executionDate": "Execution Date"
+    },
+    "confirmDelete": {
+      "title": "Delete Proposal",
+      "description": "Are you sure you want to delete the proposal \"{{title}}\"? This action cannot be undone."
+    }
   },
   "adminVoting": {
     "title": "Voting Management",
@@ -19888,7 +19914,27 @@
     "voteCastDesc": "Your vote has been recorded",
     "voteError": "Failed to cast vote",
     "loadError": "Failed to load voting data",
-    "error": "Error"
+    "error": "Error",
+    "detail": {
+      "title": "Voter Details",
+      "voterInfo": "Voter Information",
+      "voterId": "Voter ID",
+      "voterAddress": "Wallet Address",
+      "voterName": "Name",
+      "delegatedTo": "Delegated To",
+      "registrationDate": "Registration Date",
+      "votingHistory": "Voting History",
+      "totalVotes": "Total Votes",
+      "forVotes": "For Votes",
+      "againstVotes": "Against Votes",
+      "abstainVotes": "Abstain Votes",
+      "lastVoted": "Last Voted",
+      "stats": "Statistics",
+      "votingPower": "Voting Power",
+      "delegatedPower": "Delegated Power",
+      "participationRate": "Participation Rate",
+      "averageVoteWeight": "Average Vote Weight"
+    }
   },
   "adminExecution": {
     "title": "Proposal Execution",
@@ -19976,6 +20022,31 @@
       "completedTotal": "completed total",
       "requireReview": "require review",
       "scheduledToday": "scheduled today"
+    },
+    "detail": {
+      "title": "Execution Details",
+      "overview": "Overview",
+      "executionId": "Execution ID",
+      "proposalId": "Proposal ID",
+      "title": "Title",
+      "type": "Type",
+      "status": "Status",
+      "progress": "Progress Information",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "executedBy": "Executed By",
+      "transaction": "Transaction",
+      "txHash": "Transaction Hash",
+      "error": "Error Information",
+      "errorMessage": "Error Message"
+    },
+    "confirmExecute": {
+      "title": "Confirm Execution",
+      "description": "Are you sure you want to execute the proposal \"{{title}}\" ({{proposalId}})? This action cannot be undone."
+    },
+    "confirmCancel": {
+      "title": "Confirm Cancellation",
+      "description": "Are you sure you want to cancel the execution of \"{{title}}\"? This action cannot be undone."
     }
   },
   "adminGovParams": {
@@ -20100,7 +20171,16 @@
       "approval": "Approval",
       "votingDays": "Voting Days",
       "timeLock": "Time Lock"
-    }
+    },
+    "confirmSave": {
+      "title": "Confirm Save Changes",
+      "description": "Are you sure you want to update the governance parameters? These changes will be applied network-wide."
+    },
+    "confirmReset": {
+      "title": "Confirm Reset to Defaults",
+      "description": "Are you sure you want to reset all governance parameters to their default values? This action cannot be undone."
+    },
+    "resetError": "Reset Failed"
   },
   "adminCommunity": {
     "title": "Community Management",

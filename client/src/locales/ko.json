@@ -19838,7 +19838,33 @@
     "createError": "제안 생성 실패",
     "deleteError": "제안 삭제 실패",
     "loadError": "제안 로드 실패",
-    "error": "오류"
+    "error": "오류",
+    "detail": {
+      "title": "제안 상세",
+      "overview": "개요",
+      "proposalId": "제안 ID",
+      "proposalTitle": "제안 제목",
+      "category": "카테고리",
+      "status": "상태",
+      "description": "설명",
+      "votingResults": "투표 결과",
+      "totalVotes": "총 투표",
+      "forVotes": "찬성",
+      "againstVotes": "반대",
+      "abstainVotes": "기권",
+      "quorum": "정족수",
+      "approvalRate": "승인율",
+      "details": "상세 정보",
+      "proposer": "제안자",
+      "createdAt": "생성일",
+      "startDate": "시작일",
+      "endDate": "종료일",
+      "executionDate": "실행일"
+    },
+    "confirmDelete": {
+      "title": "제안 삭제",
+      "description": "정말로 \"{{title}}\" 제안을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+    }
   },
   "adminVoting": {
     "title": "투표 관리",
@@ -19888,7 +19914,27 @@
     "voteCastDesc": "투표가 기록되었습니다",
     "voteError": "투표 실패",
     "loadError": "투표 데이터 로드 실패",
-    "error": "오류"
+    "error": "오류",
+    "detail": {
+      "title": "투표자 상세",
+      "voterInfo": "투표자 정보",
+      "voterId": "투표자 ID",
+      "voterAddress": "지갑 주소",
+      "voterName": "이름",
+      "delegatedTo": "위임 대상",
+      "registrationDate": "등록일",
+      "votingHistory": "투표 이력",
+      "totalVotes": "총 투표",
+      "forVotes": "찬성 투표",
+      "againstVotes": "반대 투표",
+      "abstainVotes": "기권 투표",
+      "lastVoted": "마지막 투표",
+      "stats": "통계",
+      "votingPower": "투표력",
+      "delegatedPower": "위임받은 투표력",
+      "participationRate": "참여율",
+      "averageVoteWeight": "평균 투표 가중치"
+    }
   },
   "adminExecution": {
     "title": "제안 실행",
@@ -19976,6 +20022,31 @@
       "completedTotal": "총 완료",
       "requireReview": "검토 필요",
       "scheduledToday": "오늘 예정"
+    },
+    "detail": {
+      "title": "실행 상세",
+      "overview": "개요",
+      "executionId": "실행 ID",
+      "proposalId": "제안 ID",
+      "title": "제목",
+      "type": "유형",
+      "status": "상태",
+      "progress": "진행 정보",
+      "startTime": "시작 시간",
+      "endTime": "종료 시간",
+      "executedBy": "실행자",
+      "transaction": "트랜잭션",
+      "txHash": "트랜잭션 해시",
+      "error": "오류 정보",
+      "errorMessage": "오류 메시지"
+    },
+    "confirmExecute": {
+      "title": "제안 실행 확인",
+      "description": "\"{{title}}\" ({{proposalId}}) 제안을 실행하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+    },
+    "confirmCancel": {
+      "title": "실행 취소 확인",
+      "description": "\"{{title}}\" 실행을 취소하시겠습니까? 이 작업은 되돌릴 수 없습니다."
     }
   },
   "adminGovParams": {
@@ -20100,7 +20171,16 @@
       "approval": "승인",
       "votingDays": "투표 일수",
       "timeLock": "시간 잠금"
-    }
+    },
+    "confirmSave": {
+      "title": "변경 사항 저장 확인",
+      "description": "거버넌스 파라미터를 변경하시겠습니까? 이 변경 사항은 전체 네트워크에 적용됩니다."
+    },
+    "confirmReset": {
+      "title": "기본값으로 초기화 확인",
+      "description": "모든 거버넌스 파라미터를 기본값으로 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+    },
+    "resetError": "초기화 실패"
   },
   "adminCommunity": {
     "title": "커뮤니티 관리",

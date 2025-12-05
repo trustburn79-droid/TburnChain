@@ -30,6 +30,7 @@ import {
   Eye,
   Download,
 } from "lucide-react";
+import { DetailSheet } from "@/components/admin/detail-sheet";
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RePieChart, Pie, Cell } from "recharts";
 
 interface VotingData {
@@ -121,6 +122,7 @@ export default function VotingMonitor() {
   const [selectedProposal, setSelectedProposal] = useState("TIP-001");
   const [timeRange, setTimeRange] = useState("24h");
   const [wsConnected, setWsConnected] = useState(false);
+  const [selectedVoter, setSelectedVoter] = useState<VoterRecord | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<VotingStats>({
     queryKey: ['/api/admin/governance/votes', selectedProposal],
@@ -545,7 +547,12 @@ export default function VotingMonitor() {
                       <TableCell data-testid={`text-voting-power-${index}`}>{(voter.power / 1000).toFixed(1)}K TBURN</TableCell>
                       <TableCell className="text-muted-foreground" data-testid={`text-vote-timestamp-${index}`}>{voter.timestamp}</TableCell>
                       <TableCell>
-                        <Button variant="ghost" size="icon" data-testid={`button-view-voter-${index}`}>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => setSelectedVoter(voter)}
+                          data-testid={`button-view-voter-${index}`}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
                       </TableCell>
@@ -589,6 +596,29 @@ export default function VotingMonitor() {
           </CardContent>
         </Card>
       </div>
+
+      <DetailSheet
+        open={!!selectedVoter}
+        onOpenChange={(open) => !open && setSelectedVoter(null)}
+        title={t("adminVoting.detail.title")}
+        sections={selectedVoter ? [
+          {
+            title: t("adminVoting.detail.voterInfo"),
+            fields: [
+              { label: t("adminVoting.detail.address"), value: selectedVoter.address, copyable: true },
+              { label: t("adminVoting.detail.vote"), value: selectedVoter.vote, type: "badge" as const, badgeVariant: selectedVoter.vote === "for" ? "default" as const : selectedVoter.vote === "against" ? "destructive" as const : "secondary" as const },
+            ],
+          },
+          {
+            title: t("adminVoting.detail.votingDetails"),
+            fields: [
+              { label: t("adminVoting.detail.votingPower"), value: `${(selectedVoter.power / 1000).toFixed(1)}K TBURN` },
+              { label: t("adminVoting.detail.timestamp"), value: selectedVoter.timestamp },
+              { label: t("adminVoting.detail.proposal"), value: selectedProposal },
+            ],
+          },
+        ] : []}
+      />
     </div>
   );
 }

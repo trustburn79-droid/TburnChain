@@ -30,6 +30,7 @@ import {
   Lock,
   Download,
 } from "lucide-react";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 
 interface GovParamsData {
   voting: {
@@ -127,6 +128,8 @@ export default function GovParams() {
   const [activeTab, setActiveTab] = useState("voting");
   const [quorumPercentage, setQuorumPercentage] = useState([30]);
   const [approvalThreshold, setApprovalThreshold] = useState([66]);
+  const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const { data, isLoading, error, refetch } = useQuery<GovParamsData>({
     queryKey: ['/api/admin/governance/params'],
@@ -140,6 +143,7 @@ export default function GovParams() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/params'] });
+      setShowSaveConfirm(false);
       toast({
         title: t("adminGovParams.saved"),
         description: t("adminGovParams.savedDesc"),
@@ -154,6 +158,30 @@ export default function GovParams() {
     },
   });
 
+  const resetParamsMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/admin/governance/params/reset");
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/params'] });
+      setShowResetConfirm(false);
+      setQuorumPercentage([30]);
+      setApprovalThreshold([66]);
+      toast({
+        title: t("adminGovParams.resetSuccess"),
+        description: t("adminGovParams.resetSuccessDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminGovParams.error"),
+        description: t("adminGovParams.resetError"),
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleRefresh = useCallback(() => {
     refetch();
     toast({
@@ -162,7 +190,7 @@ export default function GovParams() {
     });
   }, [refetch, toast, t]);
 
-  const handleSave = useCallback(() => {
+  const confirmSave = useCallback(() => {
     updateParamsMutation.mutate({
       voting: {
         quorumPercentage: quorumPercentage[0],
@@ -175,6 +203,10 @@ export default function GovParams() {
       },
     });
   }, [quorumPercentage, approvalThreshold, updateParamsMutation]);
+
+  const confirmReset = useCallback(() => {
+    resetParamsMutation.mutate();
+  }, [resetParamsMutation]);
 
   const handleExport = useCallback(() => {
     const exportData = {
@@ -241,7 +273,7 @@ export default function GovParams() {
               {t("adminGovParams.refresh")}
             </Button>
             <Button 
-              onClick={handleSave} 
+              onClick={() => setShowSaveConfirm(true)} 
               disabled={updateParamsMutation.isPending}
               data-testid="button-save"
             >
@@ -666,6 +698,27 @@ export default function GovParams() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <ConfirmationDialog
+        open={showSaveConfirm}
+        onOpenChange={setShowSaveConfirm}
+        title={t("adminGovParams.confirmSave.title")}
+        description={t("adminGovParams.confirmSave.description")}
+        confirmText={t("adminGovParams.saveChanges")}
+        onConfirm={confirmSave}
+        isLoading={updateParamsMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={showResetConfirm}
+        onOpenChange={setShowResetConfirm}
+        title={t("adminGovParams.confirmReset.title")}
+        description={t("adminGovParams.confirmReset.description")}
+        confirmText={t("adminGovParams.resetToDefaults")}
+        onConfirm={confirmReset}
+        destructive={true}
+        isLoading={resetParamsMutation.isPending}
+      />
     </div>
   );
 }
