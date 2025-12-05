@@ -5247,24 +5247,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Shards API endpoint
-  app.get("/api/shards", async (req, res) => {
-    try {
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const shards = await client.getShards();
-        res.json(shards);
-      } else {
-        // Fetch from local database (demo mode)
-        const shards = await storage.getAllShards();
-        res.json(shards);
-      }
-    } catch (error: unknown) {
-      console.error('Error fetching shards:', error);
-      res.status(500).json({ error: "Failed to fetch shards" });
-    }
-  });
+  // [CONSOLIDATED] Shards API endpoint - moved to Enterprise Node Proxy section (line ~8723)
+  // The /api/shards endpoint now uses the TBurnEnterpriseNode for dynamic shard generation
+  // based on the current shard configuration (5-64 shards with dynamic validators)
 
   // AI Decisions endpoints
   app.get("/api/ai/decisions", async (req, res) => {
@@ -5357,24 +5342,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
-  // Shards
+  // Shards - Individual Shard Endpoints
+  // Note: /api/shards is handled by Enterprise Node Proxy (line ~8710)
   // ============================================
-  app.get("/api/shards", async (_req, res) => {
-    try {
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const shards = await client.getShards();
-        res.json(shards);
-      } else {
-        // Fetch from local database (demo mode)
-        const shards = await storage.getAllShards();
-        res.json(shards);
-      }
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch shards" });
-    }
-  });
 
   app.get("/api/shards/:id", async (req, res) => {
     try {
@@ -6129,6 +6099,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(response.status).json(result);
       }
       
+      // Broadcast shard configuration update to all connected clients
+      // This ensures /app pages receive real-time updates when admin changes config
+      try {
+        const shardsResponse = await fetch('http://localhost:8545/api/shards');
+        if (shardsResponse.ok) {
+          const shards = await shardsResponse.json();
+          broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
+          console.log(`[WebSocket] Broadcasted shards_snapshot after config update: ${shards.length} shards`);
+        }
+        
+        // Also broadcast cross-shard messages with updated shard references
+        const messagesResponse = await fetch('http://localhost:8545/api/cross-shard/messages');
+        if (messagesResponse.ok) {
+          const messages = await messagesResponse.json();
+          broadcastUpdate('cross_shard_snapshot', messages, crossShardMessagesSnapshotSchema);
+          console.log(`[WebSocket] Broadcasted cross_shard_snapshot after config update`);
+        }
+        
+        // Broadcast config change event for admin portal real-time updates
+        broadcastUpdate('shard_config_update', result.config || result, z.any());
+        console.log(`[WebSocket] Broadcasted shard_config_update to admin clients`);
+      } catch (broadcastError) {
+        console.error('[WebSocket] Failed to broadcast shard updates:', broadcastError);
+        // Don't fail the request just because broadcast failed
+      }
+      
       res.json(result);
     } catch (error) {
       console.error('Failed to update shard config:', error);
@@ -6197,6 +6193,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       if (!response.ok) {
         return res.status(response.status).json(result);
+      }
+      
+      // Broadcast shard updates after rollback (same as config update)
+      try {
+        const shardsResponse = await fetch('http://localhost:8545/api/shards');
+        if (shardsResponse.ok) {
+          const shards = await shardsResponse.json();
+          broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
+          console.log(`[WebSocket] Broadcasted shards_snapshot after rollback: ${shards.length} shards`);
+        }
+        
+        const messagesResponse = await fetch('http://localhost:8545/api/cross-shard/messages');
+        if (messagesResponse.ok) {
+          const messages = await messagesResponse.json();
+          broadcastUpdate('cross_shard_snapshot', messages, crossShardMessagesSnapshotSchema);
+        }
+        
+        broadcastUpdate('shard_config_update', result.config || result, z.any());
+        console.log(`[WebSocket] Broadcasted shard_config_update after rollback`);
+      } catch (broadcastError) {
+        console.error('[WebSocket] Failed to broadcast shard updates after rollback:', broadcastError);
       }
       
       res.json(result);
