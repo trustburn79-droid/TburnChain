@@ -2555,6 +2555,7 @@
     "contributions": "기여",
     "time": {
       "justNow": "방금 전",
+      "secondsAgo": "{{count}}초 전",
       "minutesAgo": "{{count}}분 전",
       "hoursAgo": "{{count}}시간 전",
       "daysAgo": "{{count}}일 전"
@@ -3625,6 +3626,12 @@
     "verifications": "검증",
     "upgrades": "업그레이드",
     "liveUpdates": "실시간 업데이트",
+    "activityTypes": {
+      "deploy": "배포",
+      "call": "호출",
+      "verify": "검증",
+      "upgrade": "업그레이드"
+    },
     "contractInfo": "컨트랙트 정보",
     "securityInfo": "보안 정보",
     "auditStatus": "감사 상태",

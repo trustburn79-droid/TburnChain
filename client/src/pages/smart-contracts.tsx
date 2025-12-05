@@ -956,6 +956,24 @@ export default function SmartContracts() {
     }
   };
 
+  const getTranslatedActivityType = (type: ContractActivity['type']) => {
+    return t(`smartContracts.activityTypes.${type}`);
+  };
+
+  const getTranslatedTimeAgo = (timestamp: Date): string => {
+    const now = Date.now();
+    const diff = now - timestamp.getTime();
+    const seconds = Math.floor(diff / 1000);
+    
+    if (seconds < 60) return t('community.time.secondsAgo', { count: seconds });
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return t('community.time.minutesAgo', { count: minutes });
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return t('community.time.hoursAgo', { count: hours });
+    const days = Math.floor(hours / 24);
+    return t('community.time.daysAgo', { count: days });
+  };
+
   return (
     <div className="flex flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
@@ -1500,7 +1518,7 @@ export default function SmartContracts() {
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="font-semibold">{activity.contractName}</span>
-                            <Badge variant="outline" className="capitalize">{activity.type}</Badge>
+                            <Badge variant="outline" className="capitalize">{getTranslatedActivityType(activity.type)}</Badge>
                             {activity.method && <Badge variant="secondary">{activity.method}</Badge>}
                           </div>
                           <div className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
@@ -1514,7 +1532,7 @@ export default function SmartContracts() {
                         <div className="text-right">
                           <div className="text-sm font-semibold tabular-nums">{formatGasEmber(activity.gasUsed)}</div>
                           <div className="text-xs text-muted-foreground">
-                            {formatTimeAgo(Math.floor(activity.timestamp.getTime() / 1000))}
+                            {getTranslatedTimeAgo(activity.timestamp)}
                           </div>
                         </div>
                         {getStatusBadge(activity.status)}

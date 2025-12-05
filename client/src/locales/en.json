@@ -2555,6 +2555,7 @@
     "contributions": "Contributions",
     "time": {
       "justNow": "Just now",
+      "secondsAgo": "{{count}}s ago",
       "minutesAgo": "{{count}}m ago",
       "hoursAgo": "{{count}}h ago",
       "daysAgo": "{{count}}d ago"
@@ -3625,6 +3626,12 @@
     "verifications": "Verifications",
     "upgrades": "Upgrades",
     "liveUpdates": "Live Updates",
+    "activityTypes": {
+      "deploy": "Deploy",
+      "call": "Call",
+      "verify": "Verify",
+      "upgrade": "Upgrade"
+    },
     "contractInfo": "Contract Info",
     "securityInfo": "Security Info",
     "auditStatus": "Audit Status",
