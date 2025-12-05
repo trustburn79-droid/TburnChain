@@ -6893,6 +6893,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  app.get("/api/admin/governance/votes/:proposalId", async (req, res) => {
+    const { proposalId } = req.params;
+    res.json({
+      totalVotes: 8500000,
+      forPercentage: 72.5,
+      againstPercentage: 20.3,
+      abstainPercentage: 7.2,
+      quorumPercentage: 85.0,
+      votersCount: 1247,
+      proposalId,
+      recentVoters: [
+        { address: "0x1234...5678", vote: "for", power: 150000, timestamp: new Date(Date.now() - 300000).toISOString() },
+        { address: "0xabcd...efgh", vote: "against", power: 75000, timestamp: new Date(Date.now() - 600000).toISOString() },
+        { address: "0x9876...5432", vote: "for", power: 120000, timestamp: new Date(Date.now() - 900000).toISOString() },
+        { address: "0xdead...beef", vote: "abstain", power: 50000, timestamp: new Date(Date.now() - 1200000).toISOString() },
+        { address: "0xface...cafe", vote: "for", power: 200000, timestamp: new Date(Date.now() - 1500000).toISOString() },
+        { address: "0xbeef...dead", vote: "for", power: 180000, timestamp: new Date(Date.now() - 1800000).toISOString() },
+        { address: "0x4321...8765", vote: "against", power: 90000, timestamp: new Date(Date.now() - 2100000).toISOString() },
+        { address: "0x5678...1234", vote: "for", power: 160000, timestamp: new Date(Date.now() - 2400000).toISOString() }
+      ],
+      proposals: [
+        { id: "TIP-001", title: "Treasury Allocation Q1 2025", status: "active" },
+        { id: "TIP-002", title: "Bridge Fee Adjustment", status: "active" },
+        { id: "TIP-003", title: "Validator Reward Update", status: "ended" },
+        { id: "TIP-004", title: "Governance Parameter Changes", status: "pending" }
+      ]
+    });
+  });
+
+  app.post("/api/admin/governance/votes", async (req, res) => {
+    const { proposalId, vote } = req.body;
+    res.json({ success: true, proposalId, vote, message: "Vote cast successfully" });
+  });
+
   app.get("/api/admin/voting", async (_req, res) => {
     res.json({
       activeProposals: 3,
