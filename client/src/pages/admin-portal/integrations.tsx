@@ -45,6 +45,16 @@ const integrationIconMap: Record<string, any> = {
   azure: Cloud,
 };
 
+const integrationDescKeyMap: Record<string, string> = {
+  slack: "slackDesc",
+  discord: "discordDesc",
+  telegram: "telegramDesc",
+  github: "githubDesc",
+  aws: "awsDesc",
+  gcp: "gcpDesc",
+  azure: "azureDesc",
+};
+
 interface Integration {
   id: string;
   name: string;
@@ -298,7 +308,7 @@ export default function Integrations() {
               {t("adminIntegrations.title")}
             </h1>
             <p className="text-muted-foreground" data-testid="text-integrations-subtitle">
-              {t("adminIntegrations.subtitle")} | {i18n.language === 'ko' ? 'Manage third-party service integrations' : '통합 설정 관리'}
+              {t("adminIntegrations.subtitle")}
             </p>
           </div>
           <div className="flex gap-2">
@@ -397,7 +407,11 @@ export default function Integrations() {
                         </div>
                         <div>
                           <CardTitle className="text-lg">{integration.name}</CardTitle>
-                          <CardDescription className="text-sm">{integration.description}</CardDescription>
+                          <CardDescription className="text-sm">
+                            {integrationDescKeyMap[integration.id] 
+                              ? t(`adminIntegrations.integrations.${integrationDescKeyMap[integration.id]}`)
+                              : integration.description}
+                          </CardDescription>
                         </div>
                       </div>
                       {getStatusIcon(integration.status)}
