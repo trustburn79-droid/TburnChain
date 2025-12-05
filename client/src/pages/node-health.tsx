@@ -114,10 +114,10 @@ export default function NodeHealth() {
   ], []);
 
   const alerts: AlertEvent[] = useMemo(() => [
-    { id: "1", severity: "info", message: "Scheduled maintenance completed successfully", source: "System", timestamp: Date.now() - 3600000, acknowledged: true },
-    { id: "2", severity: "info", message: "New validator node joined the network", source: "P2P Network", timestamp: Date.now() - 7200000, acknowledged: true },
-    { id: "3", severity: "info", message: "AI model weights updated", source: "AI Orchestrator", timestamp: Date.now() - 14400000, acknowledged: true },
-  ], []);
+    { id: "1", severity: "info", message: t('nodeHealth.alertMessages.maintenanceCompleted'), source: t('nodeHealth.alertSources.system'), timestamp: Date.now() - 3600000, acknowledged: true },
+    { id: "2", severity: "info", message: t('nodeHealth.alertMessages.validatorJoined'), source: t('nodeHealth.alertSources.p2pNetwork'), timestamp: Date.now() - 7200000, acknowledged: true },
+    { id: "3", severity: "info", message: t('nodeHealth.alertMessages.aiWeightsUpdated'), source: t('nodeHealth.alertSources.aiOrchestrator'), timestamp: Date.now() - 14400000, acknowledged: true },
+  ], [t]);
 
   const resourceHistory: ResourceHistory[] = useMemo(() => {
     const now = Date.now();
@@ -904,7 +904,7 @@ export default function NodeHealth() {
                         </div>
                       </div>
                       {alert.acknowledged && (
-                        <Badge variant="outline" className="text-xs">Acknowledged</Badge>
+                        <Badge variant="outline" className="text-xs">{t('nodeHealth.acknowledged')}</Badge>
                       )}
                     </div>
                   ))}
@@ -924,15 +924,15 @@ export default function NodeHealth() {
               <CardContent>
                 <div className="space-y-3">
                   {[
-                    { label: "Node Version", value: "TBURN v7.0.3" },
-                    { label: "Runtime", value: "Node.js v20.10.0" },
-                    { label: "Platform", value: "Linux x86_64" },
-                    { label: "Process Uptime", value: health ? formatUptime(health.uptime) : "—" },
-                    { label: "Memory Limit", value: "16 GB" },
-                    { label: "CPU Cores", value: "8 vCPUs" },
+                    { labelKey: "nodeVersion", value: "TBURN v7.0.3" },
+                    { labelKey: "runtime", value: "Node.js v20.10.0" },
+                    { labelKey: "platform", value: "Linux x86_64" },
+                    { labelKey: "processUptime", value: health ? formatUptime(health.uptime) : "—" },
+                    { labelKey: "memoryLimit", value: "16 GB" },
+                    { labelKey: "cpuCores", value: "8 vCPUs" },
                   ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between py-2 border-b last:border-0">
-                      <span className="text-sm text-muted-foreground">{item.label}</span>
+                    <div key={item.labelKey} className="flex items-center justify-between py-2 border-b last:border-0">
+                      <span className="text-sm text-muted-foreground">{t(`nodeHealth.systemInfo.${item.labelKey}`)}</span>
                       <span className="font-mono text-sm">{item.value}</span>
                     </div>
                   ))}
@@ -950,17 +950,17 @@ export default function NodeHealth() {
               <CardContent>
                 <div className="space-y-3">
                   {[
-                    { check: "Database Connection", status: "passed", time: "2ms" },
-                    { check: "Redis Connection", status: "passed", time: "1ms" },
-                    { check: "P2P Network", status: "passed", time: "45ms" },
-                    { check: "Consensus Engine", status: "passed", time: "5ms" },
-                    { check: "State Sync", status: "passed", time: "12ms" },
-                    { check: "Block Producer", status: "passed", time: "3ms" },
+                    { checkKey: "databaseConnection", status: "passed", time: "2ms" },
+                    { checkKey: "redisConnection", status: "passed", time: "1ms" },
+                    { checkKey: "p2pNetwork", status: "passed", time: "45ms" },
+                    { checkKey: "consensusEngine", status: "passed", time: "5ms" },
+                    { checkKey: "stateSync", status: "passed", time: "12ms" },
+                    { checkKey: "blockProducer", status: "passed", time: "3ms" },
                   ].map((item) => (
-                    <div key={item.check} className="flex items-center justify-between py-2 border-b last:border-0">
+                    <div key={item.checkKey} className="flex items-center justify-between py-2 border-b last:border-0">
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500" />
-                        <span className="text-sm">{item.check}</span>
+                        <span className="text-sm">{t(`nodeHealth.checks.${item.checkKey}`)}</span>
                       </div>
                       <span className="text-xs text-muted-foreground">{item.time}</span>
                     </div>

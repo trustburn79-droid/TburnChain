@@ -3721,6 +3721,33 @@
     "total": "전체",
     "systemInformation": "시스템 정보",
     "healthChecks": "상태 점검",
+    "acknowledged": "확인됨",
+    "systemInfo": {
+      "nodeVersion": "노드 버전",
+      "runtime": "런타임",
+      "platform": "플랫폼",
+      "processUptime": "프로세스 가동 시간",
+      "memoryLimit": "메모리 한도",
+      "cpuCores": "CPU 코어"
+    },
+    "checks": {
+      "databaseConnection": "데이터베이스 연결",
+      "redisConnection": "Redis 연결",
+      "p2pNetwork": "P2P 네트워크",
+      "consensusEngine": "합의 엔진",
+      "stateSync": "상태 동기화",
+      "blockProducer": "블록 생성기"
+    },
+    "alertMessages": {
+      "maintenanceCompleted": "예정된 유지보수가 성공적으로 완료되었습니다",
+      "validatorJoined": "새 검증자 노드가 네트워크에 참여했습니다",
+      "aiWeightsUpdated": "AI 모델 가중치가 업데이트되었습니다"
+    },
+    "alertSources": {
+      "system": "시스템",
+      "p2pNetwork": "P2P 네트워크",
+      "aiOrchestrator": "AI 오케스트레이터"
+    },
     "healthScoreAnalysis": "상태 점수 분석",
     "detailedHealthBreakdown": "시스템 상태 지표 상세 분석",
     "uptimeAnalysis": "가동 시간 분석",

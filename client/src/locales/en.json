@@ -3721,6 +3721,33 @@
     "total": "total",
     "systemInformation": "System Information",
     "healthChecks": "Health Checks",
+    "acknowledged": "Acknowledged",
+    "systemInfo": {
+      "nodeVersion": "Node Version",
+      "runtime": "Runtime",
+      "platform": "Platform",
+      "processUptime": "Process Uptime",
+      "memoryLimit": "Memory Limit",
+      "cpuCores": "CPU Cores"
+    },
+    "checks": {
+      "databaseConnection": "Database Connection",
+      "redisConnection": "Redis Connection",
+      "p2pNetwork": "P2P Network",
+      "consensusEngine": "Consensus Engine",
+      "stateSync": "State Sync",
+      "blockProducer": "Block Producer"
+    },
+    "alertMessages": {
+      "maintenanceCompleted": "Scheduled maintenance completed successfully",
+      "validatorJoined": "New validator node joined the network",
+      "aiWeightsUpdated": "AI model weights updated"
+    },
+    "alertSources": {
+      "system": "System",
+      "p2pNetwork": "P2P Network",
+      "aiOrchestrator": "AI Orchestrator"
+    },
     "healthScoreAnalysis": "Health Score Analysis",
     "detailedHealthBreakdown": "Detailed breakdown of system health metrics",
     "uptimeAnalysis": "Uptime Analysis",
