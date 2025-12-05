@@ -571,30 +571,30 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json(this.getTokenEconomics());
     });
 
-    // AI Models endpoint - TBURN v7.0 Triple-Band AI System
+    // AI Models endpoint - TBURN v7.0 Quad-Band AI System (Matching Admin Portal)
     this.rpcApp.get('/api/ai/models', (_req: Request, res: Response) => {
       const models = [
         { 
-          id: 'ai-model-gpt5',
-          name: 'GPT-5',
+          id: 'ai-model-gemini',
+          name: 'Gemini 3 Pro',
           band: 'strategic',
           status: 'active',
           requestCount: Math.floor(Math.random() * 50000) + 100000,
           successCount: Math.floor(Math.random() * 50000) + 95000,
           failureCount: Math.floor(Math.random() * 500) + 100,
-          avgResponseTime: Math.floor(45 + Math.random() * 10),
-          totalCost: (0.02 * (Math.random() * 50000 + 100000) / 1000).toFixed(4),
+          avgResponseTime: Math.floor(42 + Math.random() * 10),
+          totalCost: (0.0125 * (Math.random() * 50000 + 100000) / 1000).toFixed(4),
           lastUsed: new Date().toISOString(),
-          cacheHitRate: Math.floor((0.78 + Math.random() * 0.05) * 10000), // basis points
-          accuracy: Math.floor((0.995 + Math.random() * 0.004) * 10000), // basis points
-          uptime: 9990, // 99.90%
-          feedbackLearningScore: 8500 + Math.floor(Math.random() * 1000),
-          crossBandInteractions: Math.floor(Math.random() * 5000) + 10000,
-          strategicDecisions: Math.floor(Math.random() * 30000) + 50000,
-          tacticalDecisions: Math.floor(Math.random() * 10000) + 5000,
-          operationalDecisions: Math.floor(Math.random() * 5000) + 1000,
-          modelWeight: 4000, // 40% weight in basis points
-          consensusContribution: Math.floor(Math.random() * 10000) + 20000
+          cacheHitRate: Math.floor((0.82 + Math.random() * 0.05) * 10000), // basis points
+          accuracy: Math.floor((0.996 + Math.random() * 0.003) * 10000), // basis points
+          uptime: 9995, // 99.95%
+          feedbackLearningScore: 9200 + Math.floor(Math.random() * 500),
+          crossBandInteractions: Math.floor(Math.random() * 6000) + 12000,
+          strategicDecisions: Math.floor(Math.random() * 40000) + 60000,
+          tacticalDecisions: Math.floor(Math.random() * 15000) + 10000,
+          operationalDecisions: Math.floor(Math.random() * 8000) + 5000,
+          modelWeight: 4000, // 40% weight in basis points (Primary)
+          consensusContribution: Math.floor(Math.random() * 15000) + 30000
         },
         {
           id: 'ai-model-claude',
@@ -619,26 +619,26 @@ export class TBurnEnterpriseNode extends EventEmitter {
           consensusContribution: Math.floor(Math.random() * 12000) + 25000
         },
         {
-          id: 'ai-model-llama',
-          name: 'Llama 4',
+          id: 'ai-model-openai',
+          name: 'GPT-4o',
           band: 'operational',
           status: 'active',
           requestCount: Math.floor(Math.random() * 30000) + 60000,
           successCount: Math.floor(Math.random() * 30000) + 58000,
           failureCount: Math.floor(Math.random() * 400) + 150,
-          avgResponseTime: Math.floor(42 + Math.random() * 12),
-          totalCost: (0.015 * (Math.random() * 30000 + 60000) / 1000).toFixed(4),
+          avgResponseTime: Math.floor(45 + Math.random() * 12),
+          totalCost: (0.02 * (Math.random() * 30000 + 60000) / 1000).toFixed(4),
           lastUsed: new Date().toISOString(),
-          cacheHitRate: Math.floor((0.75 + Math.random() * 0.06) * 10000), // basis points
-          accuracy: Math.floor((0.993 + Math.random() * 0.005) * 10000), // basis points
-          uptime: 9985, // 99.85%
-          feedbackLearningScore: 8200 + Math.floor(Math.random() * 800),
-          crossBandInteractions: Math.floor(Math.random() * 4000) + 8000,
-          strategicDecisions: Math.floor(Math.random() * 5000) + 1000,
-          tacticalDecisions: Math.floor(Math.random() * 10000) + 5000,
+          cacheHitRate: Math.floor((0.78 + Math.random() * 0.06) * 10000), // basis points
+          accuracy: Math.floor((0.995 + Math.random() * 0.004) * 10000), // basis points
+          uptime: 9990, // 99.90%
+          feedbackLearningScore: 8800 + Math.floor(Math.random() * 600),
+          crossBandInteractions: Math.floor(Math.random() * 5000) + 10000,
+          strategicDecisions: Math.floor(Math.random() * 8000) + 3000,
+          tacticalDecisions: Math.floor(Math.random() * 15000) + 8000,
           operationalDecisions: Math.floor(Math.random() * 50000) + 80000,
           modelWeight: 2500, // 25% weight in basis points
-          consensusContribution: Math.floor(Math.random() * 8000) + 15000
+          consensusContribution: Math.floor(Math.random() * 10000) + 18000
         },
         {
           id: 'ai-model-grok',
@@ -670,20 +670,20 @@ export class TBurnEnterpriseNode extends EventEmitter {
     this.rpcApp.get('/api/ai/models/:name', (req: Request, res: Response) => {
       const modelName = req.params.name;
       const models: Record<string, any> = {
-        'GPT-5': { 
-          name: 'GPT-5', 
-          provider: 'OpenAI',
-          capability: 'General Intelligence',
+        'Gemini 3 Pro': { 
+          name: 'Gemini 3 Pro', 
+          provider: 'Google',
+          capability: 'Strategic Intelligence',
           weight: 0.40,
           requestCount: Math.floor(Math.random() * 50000) + 100000,
-          avgResponseTime: 45 + Math.random() * 10,
-          successRate: 0.995 + Math.random() * 0.004,
-          cost: 0.02,
-          cacheHitRate: 0.78 + Math.random() * 0.05,
+          avgResponseTime: 42 + Math.random() * 10,
+          successRate: 0.996 + Math.random() * 0.003,
+          cost: 0.0125,
+          cacheHitRate: 0.82 + Math.random() * 0.05,
           details: {
-            maxContextLength: 128000,
+            maxContextLength: 2000000,
             trainingCutoff: '2024-12',
-            specializations: ['Reasoning', 'Code Generation', 'Analysis']
+            specializations: ['Multimodal Reasoning', 'Strategic Planning', 'Code Generation']
           }
         },
         'Claude Sonnet 4.5': {
@@ -702,20 +702,20 @@ export class TBurnEnterpriseNode extends EventEmitter {
             specializations: ['Pattern Detection', 'Security Analysis', 'Validation']
           }
         },
-        'Llama 4': {
-          name: 'Llama 4',
-          provider: 'Meta',
-          capability: 'Optimization',
+        'GPT-4o': {
+          name: 'GPT-4o',
+          provider: 'OpenAI',
+          capability: 'Operational Execution',
           weight: 0.25,
           requestCount: Math.floor(Math.random() * 30000) + 60000,
-          avgResponseTime: 42 + Math.random() * 12,
-          successRate: 0.993 + Math.random() * 0.005,
-          cost: 0.015,
-          cacheHitRate: 0.75 + Math.random() * 0.06,
+          avgResponseTime: 45 + Math.random() * 12,
+          successRate: 0.995 + Math.random() * 0.004,
+          cost: 0.02,
+          cacheHitRate: 0.78 + Math.random() * 0.06,
           details: {
-            maxContextLength: 100000,
+            maxContextLength: 128000,
             trainingCutoff: '2024-10',
-            specializations: ['Resource Optimization', 'Sharding Strategy', 'Load Balancing']
+            specializations: ['Task Execution', 'API Integration', 'Load Balancing']
           }
         },
         'Grok 3': {
@@ -748,11 +748,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
       const decisions = [];
       
-      // Triple-Band AI Model Configuration
+      // Quad-Band AI Model Configuration (Matching Admin Portal)
       const modelConfigs = [
-        { name: 'GPT-5', band: 'strategic', category: 'planning' },
+        { name: 'Gemini 3 Pro', band: 'strategic', category: 'planning' },
         { name: 'Claude Sonnet 4.5', band: 'tactical', category: 'optimization' },
-        { name: 'Llama 4', band: 'operational', category: 'execution' }
+        { name: 'GPT-4o', band: 'operational', category: 'execution' }
       ];
       
       const decisionTemplates = [
@@ -892,9 +892,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
         
         // AI participation data
         const aiParticipation = [
-          { modelName: 'GPT-5', confidence: 0.95 + Math.random() * 0.05 },
+          { modelName: 'Gemini 3 Pro', confidence: 0.95 + Math.random() * 0.05 },
           { modelName: 'Claude Sonnet 4.5', confidence: 0.92 + Math.random() * 0.08 },
-          { modelName: 'Llama 4', confidence: 0.88 + Math.random() * 0.12 }
+          { modelName: 'GPT-4o', confidence: 0.88 + Math.random() * 0.12 }
         ];
         
         rounds.push({
@@ -1078,11 +1078,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
       const decisions = [];
       
-      // Triple-Band AI Model Configuration - aligned with frontend schema
+      // Quad-Band AI Model Configuration - aligned with Admin Portal
       const modelConfigs = [
-        { name: 'GPT-5', band: 'strategic' },
+        { name: 'Gemini 3 Pro', band: 'strategic' },
         { name: 'Claude Sonnet 4.5', band: 'tactical' },
-        { name: 'Llama 4', band: 'operational' }
+        { name: 'GPT-4o', band: 'operational' }
       ];
       
       const decisionTemplates = [
@@ -1173,9 +1173,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
       ];
       
       const aiParticipation = [
-        { modelName: 'GPT-5', confidence: 0.95 + Math.random() * 0.05 },
+        { modelName: 'Gemini 3 Pro', confidence: 0.95 + Math.random() * 0.05 },
         { modelName: 'Claude Sonnet 4.5', confidence: 0.92 + Math.random() * 0.08 },
-        { modelName: 'Llama 4', confidence: 0.88 + Math.random() * 0.12 }
+        { modelName: 'GPT-4o', confidence: 0.88 + Math.random() * 0.12 }
       ];
       
       res.json({

@@ -41,9 +41,9 @@ interface AIDecision {
 
 interface PerformanceDataPoint {
   time: string;
-  gpt5: number;
+  gemini: number;
   claude: number;
-  llama: number;
+  openai: number;
   grok: number;
 }
 
@@ -113,12 +113,12 @@ const mockData: AIOrchestrationData = {
     { id: 4, type: "Strategic", content: "Activate bridge circuit breaker", confidence: 65, executed: false, timestamp: "2024-12-03 14:15" },
   ],
   performance: [
-    { time: "00:00", gpt5: 450, claude: 180, llama: 45, grok: 0 },
-    { time: "04:00", gpt5: 460, claude: 175, llama: 48, grok: 0 },
-    { time: "08:00", gpt5: 480, claude: 190, llama: 52, grok: 0 },
-    { time: "12:00", gpt5: 445, claude: 185, llama: 44, grok: 0 },
-    { time: "16:00", gpt5: 455, claude: 178, llama: 46, grok: 0 },
-    { time: "20:00", gpt5: 448, claude: 182, llama: 47, grok: 0 },
+    { time: "00:00", gemini: 42, claude: 180, openai: 450, grok: 0 },
+    { time: "04:00", gemini: 45, claude: 175, openai: 460, grok: 0 },
+    { time: "08:00", gemini: 48, claude: 190, openai: 480, grok: 0 },
+    { time: "12:00", gemini: 44, claude: 185, openai: 445, grok: 0 },
+    { time: "16:00", gemini: 46, claude: 178, openai: 455, grok: 0 },
+    { time: "20:00", gemini: 47, claude: 182, openai: 448, grok: 0 },
   ],
   stats: {
     overallAccuracy: 98.2,
@@ -579,9 +579,9 @@ export default function AdminAIOrchestration() {
                         <XAxis dataKey="time" />
                         <YAxis />
                         <Tooltip />
-                        <Line type="monotone" dataKey="gpt5" stroke="#3b82f6" name="GPT-5" strokeWidth={2} />
+                        <Line type="monotone" dataKey="gemini" stroke="#3b82f6" name="Gemini 3 Pro" strokeWidth={2} />
                         <Line type="monotone" dataKey="claude" stroke="#a855f7" name="Claude" strokeWidth={2} />
-                        <Line type="monotone" dataKey="llama" stroke="#22c55e" name="Llama" strokeWidth={2} />
+                        <Line type="monotone" dataKey="openai" stroke="#22c55e" name="GPT-4o" strokeWidth={2} />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>

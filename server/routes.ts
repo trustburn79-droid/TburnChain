@@ -1898,7 +1898,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         gasOptimization: Math.floor(Math.random() * 20) + 10,
         securityScore: Math.floor(Math.random() * 15) + 85,
         recommendation: aiOptimizationEnabled 
-          ? "AI optimization enabled. Contract will use GPT-5 Turbo for gas optimization and Claude Sonnet 4.5 for security monitoring."
+          ? "AI optimization enabled. Contract will use Gemini 3 Pro for gas optimization and Claude Sonnet 4.5 for security monitoring."
           : "Consider enabling AI optimization for better gas efficiency and security monitoring."
       };
 
@@ -2323,7 +2323,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           createdAt: new Date(now - 86400000 * 4).toISOString(),
           riskScore: 0.35,
           aiAnalysis: {
-            model: "GPT-5 Turbo",
+            model: "Gemini 3 Pro",
             confidence: 0.89,
             economicImpact: 15,
             securityImpact: 85,
@@ -2379,7 +2379,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           createdAt: new Date(now - 86400000 * 9).toISOString(),
           riskScore: 0.15,
           aiAnalysis: {
-            model: "GPT-5 Turbo",
+            model: "Gemini 3 Pro",
             confidence: 0.95,
             economicImpact: 10,
             securityImpact: 90,
@@ -2417,7 +2417,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           createdAt: new Date(now - 86400000 * 1).toISOString(),
           riskScore: 0.12,
           aiAnalysis: {
-            model: "GPT-5 Turbo",
+            model: "Gemini 3 Pro",
             confidence: 0.97,
             economicImpact: 5,
             securityImpact: 98,
@@ -10226,7 +10226,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // ============================================
   // STAKING AI ORCHESTRATION INTEGRATION
-  // Triple-Band AI: GPT-5, Claude Sonnet 4.5, Gemini
+  // Quad-Band AI: Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, Grok 3
   // APY Prediction, Risk Analysis, Pool Recommendations
   // ============================================
 
