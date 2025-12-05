@@ -29,6 +29,15 @@ import {
   AlertCircle,
 } from "lucide-react";
 
+const categoryIconMap: Record<string, any> = {
+  'Getting Started': BookOpen,
+  'Network Operations': Network,
+  'Security': Shield,
+  'AI Systems': Bot,
+  'Token Management': Wallet,
+  'Settings': Settings,
+};
+
 interface HelpArticle {
   id: string;
   title: string;
@@ -232,17 +241,19 @@ export default function HelpCenter() {
         </Card>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categories.map((category, index) => (
+          {categories.map((category, index) => {
+            const IconComponent = category.icon || categoryIconMap[category.name] || HelpCircle;
+            return (
             <Card key={category.name} className="cursor-pointer hover-elevate" data-testid={`card-category-${index}`}>
               <CardContent className="p-4 text-center">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <category.icon className="h-6 w-6 text-primary" />
+                  <IconComponent className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-medium text-sm mb-1">{category.name}</h3>
                 <p className="text-xs text-muted-foreground">{category.articleCount} {t("adminHelp.articles")}</p>
               </CardContent>
             </Card>
-          ))}
+          );})}
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>

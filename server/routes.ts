@@ -6934,16 +6934,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/sessions", async (_req, res) => {
+    const deviceTypes = ['desktop', 'mobile', 'tablet'] as const;
+    const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
+    const oses = ['Windows 11', 'macOS Sonoma', 'Ubuntu 22.04', 'iOS 17', 'Android 14'];
+    const locations = ['Seoul, KR', 'Tokyo, JP', 'New York, US', 'London, UK', 'Singapore, SG'];
+    const statuses = ['active', 'idle', 'expired'] as const;
+    const roles = ['Admin', 'Operator', 'Developer', 'Analyst', 'Viewer'];
+    
     res.json({
       sessions: Array.from({ length: 15 }, (_, i) => ({
         id: `sess-${i + 1}`,
-        user: `user${(i % 10) + 1}`,
-        device: ['Chrome/Windows', 'Safari/Mac', 'Firefox/Linux'][i % 3],
-        ip: `192.168.1.${i % 255}`,
-        startedAt: new Date(Date.now() - Math.random() * 3600000).toISOString(),
+        user: {
+          name: `User ${(i % 10) + 1}`,
+          email: `user${(i % 10) + 1}@tburn.io`,
+          role: roles[i % 5],
+          avatar: null
+        },
+        device: `${browsers[i % 4]}/${oses[i % 5]}`,
+        deviceType: deviceTypes[i % 3],
+        browser: browsers[i % 4],
+        os: oses[i % 5],
+        ip: `192.168.1.${i + 10}`,
+        location: locations[i % 5],
+        startTime: new Date(Date.now() - Math.random() * 3600000).toISOString(),
         lastActivity: new Date(Date.now() - Math.random() * 600000).toISOString(),
-        status: 'active'
-      }))
+        status: statuses[i % 3],
+        isCurrent: i === 0
+      })),
+      stats: {
+        total: 15,
+        active: 10,
+        idle: 3,
+        expired: 2
+      },
+      settings: {
+        timeout: 3600,
+        concurrentSessions: true,
+        sessionLockOnIdle: true,
+        deviceTrust: false
+      }
     });
   });
 
@@ -7470,11 +7499,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/help", async (_req, res) => {
     res.json({
       categories: [
-        { id: 'getting-started', name: 'Getting Started', articles: 10 },
-        { id: 'troubleshooting', name: 'Troubleshooting', articles: 25 },
-        { id: 'faq', name: 'FAQ', articles: 50 }
+        { name: 'Getting Started', articleCount: 12, description: 'Basic guides to get you started with the admin portal' },
+        { name: 'Network Operations', articleCount: 18, description: 'Managing validators, nodes, and network settings' },
+        { name: 'Security', articleCount: 15, description: 'Security best practices and configurations' },
+        { name: 'AI Systems', articleCount: 10, description: 'AI orchestration and decision systems' },
+        { name: 'Token Management', articleCount: 14, description: 'Token issuance, burn, and economics' },
+        { name: 'Settings', articleCount: 8, description: 'System and account settings' }
       ],
-      recentArticles: []
+      featuredArticles: [
+        { id: '1', title: 'How to Add a New Validator', description: 'Step-by-step guide to adding validators', category: 'Network Operations', views: 2847, lastUpdated: '2024-12-01', featured: true },
+        { id: '2', title: 'Understanding AI Decision Layers', description: 'Deep dive into AI orchestration', category: 'AI Systems', views: 1956, lastUpdated: '2024-11-28', featured: true },
+        { id: '3', title: 'Security Best Practices', description: 'Essential security configurations', category: 'Security', views: 3421, lastUpdated: '2024-11-25', featured: true },
+        { id: '4', title: 'Token Burn Mechanism', description: 'How token burning works', category: 'Token Management', views: 1432, lastUpdated: '2024-11-20', featured: true }
+      ],
+      recentArticles: [
+        { id: '5', title: 'Configuring Alert Rules', description: 'Setting up custom monitoring alerts', category: 'Getting Started', views: 892, lastUpdated: '2024-12-03', featured: false },
+        { id: '6', title: 'Bridge Operations Guide', description: 'Managing cross-chain transfers', category: 'Network Operations', views: 654, lastUpdated: '2024-12-02', featured: false }
+      ],
+      faqs: [
+        { question: 'How do I reset my admin password?', answer: 'Go to Settings > Security > Password Reset to change your password.' },
+        { question: 'How do I add a new validator?', answer: 'Navigate to Network > Validators and click Add New Validator.' },
+        { question: 'How do I export system logs?', answer: 'Go to Monitoring > Logs and use the Export button.' }
+      ],
+      videos: [
+        { title: 'Admin Portal Overview', duration: '12:45', views: 4521 },
+        { title: 'Validator Management', duration: '18:32', views: 3287 },
+        { title: 'AI Configuration Guide', duration: '15:20', views: 2654 }
+      ]
     });
   });
 
