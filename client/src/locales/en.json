@@ -16854,6 +16854,18 @@
   "adminTransfers": {
     "title": "Bridge Transfers",
     "subtitle": "Monitor and manage cross-chain transfers",
+    "errorTypes": {
+      "insufficientGas": "Insufficient gas",
+      "insufficientLiquidity": "Insufficient liquidity",
+      "timeout": "Timeout",
+      "networkError": "Network error",
+      "validationFailed": "Validation failed",
+      "slippageExceeded": "Slippage exceeded",
+      "contractError": "Contract error",
+      "invalidSignature": "Invalid signature",
+      "bridgeOffline": "Bridge offline",
+      "unknown": "Unknown error"
+    },
     "searchPlaceholder": "Search by TX ID, address, or chain...",
     "allStatus": "All Status",
     "allChains": "All Chains",

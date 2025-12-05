@@ -284,6 +284,23 @@ export default function AdminBridgeTransfers() {
     return <Badge className={variants[status] || ""} data-testid={`badge-status-${status}`}>{t(`adminTransfers.${status}`)}</Badge>;
   };
 
+  const translateError = (error: string | undefined): string => {
+    if (!error) return "";
+    const errorMap: Record<string, string> = {
+      "Insufficient gas": "insufficientGas",
+      "Insufficient liquidity": "insufficientLiquidity",
+      "Timeout": "timeout",
+      "Network error": "networkError",
+      "Validation failed": "validationFailed",
+      "Slippage exceeded": "slippageExceeded",
+      "Contract error": "contractError",
+      "Invalid signature": "invalidSignature",
+      "Bridge offline": "bridgeOffline",
+    };
+    const key = errorMap[error];
+    return key ? t(`adminTransfers.errorTypes.${key}`) : error;
+  };
+
   if (error) {
     return (
       <div className="flex-1 flex items-center justify-center" data-testid="transfers-error">
@@ -494,7 +511,7 @@ export default function AdminBridgeTransfers() {
                                       {selectedTransfer.error && (
                                         <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg" data-testid="dialog-error">
                                           <p className="text-red-500 font-medium">{t("adminTransfers.error.label")}</p>
-                                          <p className="text-sm">{selectedTransfer.error}</p>
+                                          <p className="text-sm">{translateError(selectedTransfer.error)}</p>
                                         </div>
                                       )}
                                       <div className="flex gap-2">
@@ -585,7 +602,7 @@ export default function AdminBridgeTransfers() {
                             <TableCell className="font-mono">{tx.id}</TableCell>
                             <TableCell>{tx.from.chain} → {tx.to.chain}</TableCell>
                             <TableCell>{tx.amount}</TableCell>
-                            <TableCell className="text-red-500">{tx.error}</TableCell>
+                            <TableCell className="text-red-500">{translateError(tx.error)}</TableCell>
                             <TableCell>
                               <Button 
                                 size="sm" 
