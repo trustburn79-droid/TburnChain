@@ -14,6 +14,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Bell,
   Plus,
@@ -34,6 +36,7 @@ import {
   Webhook,
   Activity,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 
 interface AlertRule {
@@ -70,6 +73,10 @@ export default function AlertRules() {
     cooldown: 300,
     notifications: [] as string[],
   });
+  const [showRuleDetail, setShowRuleDetail] = useState(false);
+  const [selectedRule, setSelectedRule] = useState<AlertRule | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: alertData, isLoading, error, refetch } = useQuery<AlertRulesData>({
     queryKey: ["/api/admin/alerts/rules"],
@@ -150,6 +157,69 @@ export default function AlertRules() {
       description: t("adminAlertRules.refreshedDesc"),
     });
   }, [refetch, toast, t]);
+
+  const getSeverityBadgeColor = (severity: string) => {
+    switch (severity) {
+      case "critical": return "bg-red-500/10 text-red-500";
+      case "high": return "bg-orange-500/10 text-orange-500";
+      case "medium": return "bg-yellow-500/10 text-yellow-500";
+      case "low": return "bg-blue-500/10 text-blue-500";
+      default: return "";
+    }
+  };
+
+  const getRuleDetailSections = (rule: AlertRule): DetailSection[] => [
+    {
+      title: t("adminAlertRules.detail.ruleInfo"),
+      fields: [
+        { label: t("common.name"), value: rule.name },
+        { label: t("common.description"), value: rule.description },
+        { 
+          label: t("adminAlertRules.dialog.category"), 
+          value: t(`adminAlertRules.categories.${rule.category}`), 
+          type: "badge" as const 
+        },
+        { 
+          label: t("adminAlertRules.dialog.severity"), 
+          value: t(`adminAlertRules.severity.${rule.severity}`), 
+          type: "badge" as const,
+          badgeColor: getSeverityBadgeColor(rule.severity)
+        },
+        { 
+          label: t("common.status"), 
+          value: rule.enabled ? t("adminAlertRules.enabled") : t("adminAlertRules.disabled"), 
+          type: "badge" as const,
+          badgeVariant: rule.enabled ? "default" as const : "secondary" as const
+        },
+      ],
+    },
+    {
+      title: t("adminAlertRules.detail.configuration"),
+      fields: [
+        { label: t("adminAlertRules.condition"), value: rule.condition, type: "code" as const },
+        { label: t("adminAlertRules.dialog.cooldown"), value: `${rule.cooldown}s` },
+        { label: t("adminAlertRules.table.count"), value: rule.triggerCount },
+        { 
+          label: t("adminAlertRules.table.lastTriggered"), 
+          value: rule.lastTriggered, 
+          type: "date" as const 
+        },
+      ],
+    },
+  ];
+
+  const confirmDelete = (id: string) => {
+    setPendingDeleteId(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (pendingDeleteId) {
+      await deleteRuleMutation.mutateAsync(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
+    }
+  };
 
   const alertRules: AlertRule[] = alertData?.rules || [
     {
@@ -675,6 +745,17 @@ export default function AlertRules() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => {
+                            setSelectedRule(rule);
+                            setShowRuleDetail(true);
+                          }}
+                          data-testid={`button-view-rule-${index}`}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
                         <Button variant="ghost" size="icon" data-testid={`button-test-rule-${index}`}>
                           <Play className="h-4 w-4" />
                         </Button>
@@ -688,7 +769,7 @@ export default function AlertRules() {
                           variant="ghost" 
                           size="icon" 
                           className="text-destructive"
-                          onClick={() => deleteRuleMutation.mutate(rule.id)}
+                          onClick={() => confirmDelete(rule.id)}
                           data-testid={`button-delete-rule-${index}`}
                         >
                           <Trash2 className="h-4 w-4" />
@@ -765,6 +846,30 @@ export default function AlertRules() {
           </CardContent>
         </Card>
       </div>
+
+      {selectedRule && (
+        <DetailSheet
+          open={showRuleDetail}
+          onOpenChange={setShowRuleDetail}
+          title={selectedRule.name}
+          subtitle={selectedRule.id}
+          icon={<Bell className="h-5 w-5" />}
+          sections={getRuleDetailSections(selectedRule)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showDeleteConfirm}
+        onOpenChange={setShowDeleteConfirm}
+        title={t("adminAlertRules.confirm.deleteTitle")}
+        description={t("adminAlertRules.confirm.deleteDesc")}
+        actionType="delete"
+        onConfirm={handleConfirmDelete}
+        isLoading={deleteRuleMutation.isPending}
+        destructive={true}
+        confirmText={t("common.delete")}
+        cancelText={t("adminAlertRules.cancel")}
+      />
     </div>
   );
 }

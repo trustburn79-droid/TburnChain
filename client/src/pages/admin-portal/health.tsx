@@ -9,6 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Activity,
   AlertCircle,
@@ -18,6 +20,7 @@ import {
   Cpu,
   Database,
   Download,
+  Eye,
   Globe,
   HardDrive,
   Heart,
@@ -104,6 +107,9 @@ export default function AdminHealth() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [showServiceDetail, setShowServiceDetail] = useState(false);
+  const [selectedService, setSelectedService] = useState<ServiceHealth | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: networkStats, refetch: refetchNetwork, isLoading: loadingNetwork, error: networkError } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
@@ -251,7 +257,7 @@ export default function AdminHealth() {
     }
   }, [refetchNetwork, refetchServices, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const doExport = useCallback(() => {
     const exportData = {
       exportedAt: new Date().toISOString(),
       overallStatus,
@@ -271,7 +277,48 @@ export default function AdminHealth() {
       title: t("adminHealth.exportSuccess"),
       description: t("adminHealth.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [overallStatus, healthMetrics, services, healthEvents, toast, t]);
+
+  const handleExport = useCallback(() => {
+    setShowExportConfirm(true);
+  }, []);
+
+  const getServiceDetailSections = useCallback((service: ServiceHealth): DetailSection[] => {
+    const getStatusBadgeColor = (status: string) => {
+      switch (status) {
+        case "healthy": return "bg-green-500/10 text-green-500";
+        case "degraded": return "bg-yellow-500/10 text-yellow-500";
+        case "unhealthy": return "bg-red-500/10 text-red-500";
+        default: return "";
+      }
+    };
+
+    const sections: DetailSection[] = [
+      {
+        title: t("adminHealth.detail.serviceInfo"),
+        fields: [
+          { label: t("common.name"), value: service.name },
+          { 
+            label: t("common.status"), 
+            value: t(`adminHealth.${service.status}`),
+            type: "badge" as const,
+            badgeColor: getStatusBadgeColor(service.status)
+          },
+          { label: t("adminHealth.latency"), value: `${service.latency}ms` },
+          { label: t("adminHealth.uptime"), value: `${service.uptime}%` },
+        ],
+      },
+      {
+        title: t("adminHealth.detail.statusDetails"),
+        fields: [
+          { label: t("adminHealth.lastUpdate"), value: service.lastCheck, type: "date" as const },
+          ...(service.details ? [{ label: t("common.details"), value: service.details }] : []),
+        ],
+      },
+    ];
+    return sections;
+  }, [t]);
 
   if (networkError) {
     return (
@@ -429,7 +476,27 @@ export default function AdminHealth() {
                             {getStatusIcon(service.status)}
                             <span className="font-medium text-sm" data-testid={`service-name-${index}`}>{service.name}</span>
                           </div>
-                          {getStatusBadge(service.status)}
+                          <div className="flex items-center gap-2">
+                            {getStatusBadge(service.status)}
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-6 w-6"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedService(service);
+                                    setShowServiceDetail(true);
+                                  }}
+                                  data-testid={`button-view-service-${index}`}
+                                >
+                                  <Eye className="h-3.5 w-3.5" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>{t("adminHealth.view")}</TooltipContent>
+                            </Tooltip>
+                          </div>
                         </div>
                         <div className="space-y-1 text-xs text-muted-foreground">
                           <div className="flex justify-between">
@@ -537,6 +604,27 @@ export default function AdminHealth() {
           </div>
         </div>
       </div>
+
+      {selectedService && (
+        <DetailSheet
+          open={showServiceDetail}
+          onOpenChange={setShowServiceDetail}
+          title={selectedService.name}
+          icon={<Heart className="h-5 w-5" />}
+          sections={getServiceDetailSections(selectedService)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminHealth.confirm.exportTitle")}
+        description={t("adminHealth.confirm.exportDesc")}
+        onConfirm={doExport}
+        confirmText={t("common.export")}
+        cancelText={t("adminHealth.cancel")}
+        destructive={false}
+      />
     </TooltipProvider>
   );
 }

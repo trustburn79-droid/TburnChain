@@ -15,6 +15,8 @@ import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Bell,
   Plus,
@@ -72,6 +74,10 @@ export default function AnnouncementsManagement() {
     sendEmail: false,
     scheduledFor: "",
   });
+  const [showAnnouncementDetail, setShowAnnouncementDetail] = useState(false);
+  const [detailAnnouncement, setDetailAnnouncement] = useState<Announcement | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: announcementData, isLoading, error, refetch } = useQuery<AnnouncementData>({
     queryKey: ["/api/admin/announcements"],
@@ -260,6 +266,26 @@ export default function AnnouncementsManagement() {
     },
   ];
 
+  const getTypeBadgeColor = (type: string) => {
+    switch (type) {
+      case "info": return "bg-blue-500";
+      case "warning": return "bg-yellow-500";
+      case "critical": return "bg-red-500";
+      case "maintenance": return "bg-purple-500";
+      default: return "";
+    }
+  };
+
+  const getStatusBadgeProps = (status: string) => {
+    switch (status) {
+      case "published": return { variant: "default" as const, color: "bg-green-500" };
+      case "scheduled": return { variant: "secondary" as const, color: "" };
+      case "draft": return { variant: "outline" as const, color: "" };
+      case "archived": return { variant: "outline" as const, color: "opacity-50" };
+      default: return { variant: "default" as const, color: "" };
+    }
+  };
+
   const getTypeBadge = (type: string) => {
     switch (type) {
       case "info": return <Badge className="bg-blue-500">{t("adminAnnouncements.types.info")}</Badge>;
@@ -267,6 +293,71 @@ export default function AnnouncementsManagement() {
       case "critical": return <Badge className="bg-red-500">{t("adminAnnouncements.types.critical")}</Badge>;
       case "maintenance": return <Badge className="bg-purple-500">{t("adminAnnouncements.types.maintenance")}</Badge>;
       default: return <Badge>{type}</Badge>;
+    }
+  };
+
+  const getAnnouncementDetailSections = (announcement: Announcement): DetailSection[] => {
+    return [
+      {
+        title: t("adminAnnouncements.detail.info"),
+        fields: [
+          { label: t("adminAnnouncements.table.title"), value: announcement.title },
+          { 
+            label: t("adminAnnouncements.table.type"), 
+            value: t(`adminAnnouncements.types.${announcement.type}`), 
+            type: "badge",
+            badgeColor: getTypeBadgeColor(announcement.type)
+          },
+          { 
+            label: t("adminAnnouncements.table.status"), 
+            value: t(`adminAnnouncements.status.${announcement.status}`), 
+            type: "badge",
+            badgeVariant: getStatusBadgeProps(announcement.status).variant,
+            badgeColor: getStatusBadgeProps(announcement.status).color
+          },
+          { 
+            label: t("adminAnnouncements.dialog.pinToTop"), 
+            value: announcement.pinned ? t("common.yes") : t("common.no"), 
+            type: "badge",
+            badgeVariant: announcement.pinned ? "default" : "outline"
+          },
+          { label: t("adminAnnouncements.table.author"), value: announcement.author },
+        ],
+      },
+      {
+        title: t("adminAnnouncements.detail.engagement"),
+        fields: [
+          { label: t("adminAnnouncements.table.views"), value: announcement.views },
+          { 
+            label: t("adminAnnouncements.table.date"), 
+            value: announcement.publishedAt, 
+            type: "date" 
+          },
+          ...(announcement.scheduledFor ? [{
+            label: t("adminAnnouncements.scheduledFor"),
+            value: announcement.scheduledFor,
+            type: "date" as const
+          }] : []),
+        ],
+      },
+    ];
+  };
+
+  const handleViewAnnouncement = (announcement: Announcement) => {
+    setDetailAnnouncement(announcement);
+    setShowAnnouncementDetail(true);
+  };
+
+  const handleDeleteClick = (id: string) => {
+    setPendingDeleteId(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    if (pendingDeleteId) {
+      deleteMutation.mutate(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
     }
   };
 
@@ -632,7 +723,12 @@ export default function AnnouncementsManagement() {
                     <TableCell>{ann.views}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon" data-testid={`button-view-${index}`}>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => handleViewAnnouncement(ann)}
+                          data-testid={`button-view-${index}`}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
                         <Button variant="ghost" size="icon" data-testid={`button-edit-${index}`}>
@@ -662,7 +758,7 @@ export default function AnnouncementsManagement() {
                           variant="ghost" 
                           size="icon" 
                           className="text-destructive"
-                          onClick={() => deleteMutation.mutate(ann.id)}
+                          onClick={() => handleDeleteClick(ann.id)}
                           data-testid={`button-delete-${index}`}
                         >
                           <Trash2 className="h-4 w-4" />
@@ -754,6 +850,28 @@ export default function AnnouncementsManagement() {
             </CardContent>
           </Card>
         </div>
+
+        {detailAnnouncement && (
+          <DetailSheet
+            open={showAnnouncementDetail}
+            onOpenChange={setShowAnnouncementDetail}
+            title={detailAnnouncement.title}
+            subtitle={detailAnnouncement.id}
+            icon={<Megaphone className="h-5 w-5" />}
+            sections={getAnnouncementDetailSections(detailAnnouncement)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showDeleteConfirm}
+          onOpenChange={setShowDeleteConfirm}
+          title={t("adminAnnouncements.confirm.deleteTitle")}
+          description={t("adminAnnouncements.confirm.deleteDesc")}
+          actionType="delete"
+          onConfirm={confirmDelete}
+          destructive={true}
+          isLoading={deleteMutation.isPending}
+        />
       </div>
     </div>
   );

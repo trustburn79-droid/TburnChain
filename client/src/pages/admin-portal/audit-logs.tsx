@@ -11,6 +11,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   FileText,
   Search,
@@ -53,6 +55,8 @@ export default function AdminAuditLogs() {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selectedLog, setSelectedLog] = useState<AuditLog | null>(null);
+  const [showLogDetail, setShowLogDetail] = useState(false);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
@@ -107,7 +111,6 @@ export default function AdminAuditLogs() {
               setLastUpdate(new Date());
             }
           } catch {
-            // Ignore parse errors
           }
         };
 
@@ -173,6 +176,7 @@ export default function AdminAuditLogs() {
       title: t("adminAudit.exportSuccess"),
       description: t("adminAudit.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [filteredLogs, toast, t]);
 
   const categories = [
@@ -194,6 +198,15 @@ export default function AdminAuditLogs() {
     }
   };
 
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "success": return "bg-green-500/10 text-green-500";
+      case "failure": return "bg-red-500/10 text-red-500";
+      case "pending": return "bg-yellow-500/10 text-yellow-500";
+      default: return "";
+    }
+  };
+
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case "configuration": return <Settings className="h-4 w-4" />;
@@ -208,6 +221,42 @@ export default function AdminAuditLogs() {
 
   const formatTimestamp = (dateStr: string) => {
     return new Date(dateStr).toLocaleString();
+  };
+
+  const getLogDetailSections = (log: AuditLog): DetailSection[] => {
+    return [
+      {
+        title: t("adminAudit.detail.logInfo"),
+        fields: [
+          { label: t("common.id"), value: log.id, copyable: true },
+          { label: t("adminAudit.logDetails.action"), value: log.action },
+          { label: t("adminAudit.filters.allCategories").replace("All ", ""), value: log.category },
+          { label: t("adminAudit.logDetails.status"), value: t(`adminAudit.status.${log.status}`), type: "badge", badgeColor: getStatusColor(log.status) },
+        ],
+      },
+      {
+        title: t("adminAudit.detail.actorDetails"),
+        fields: [
+          { label: t("adminAudit.logDetails.actor"), value: log.actor },
+          { label: t("adminAudit.logDetails.role"), value: log.actorRole },
+          { label: t("adminAudit.logDetails.ipAddress"), value: log.ipAddress, copyable: true },
+          { label: t("adminAudit.logDetails.userAgent"), value: log.userAgent },
+        ],
+      },
+      {
+        title: t("adminAudit.detail.target"),
+        fields: [
+          { label: t("adminAudit.logDetails.target"), value: log.target },
+          { label: t("adminAudit.logDetails.targetType"), value: log.targetType },
+          { label: t("adminAudit.logDetails.timestamp"), value: log.timestamp, type: "date" },
+        ],
+      },
+    ];
+  };
+
+  const handleViewLog = (log: AuditLog) => {
+    setSelectedLog(log);
+    setShowLogDetail(true);
   };
 
   if (error) {
@@ -272,7 +321,7 @@ export default function AdminAuditLogs() {
               <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
               {t("adminAudit.refresh")}
             </Button>
-            <Button variant="outline" onClick={handleExport} data-testid="button-export-logs">
+            <Button variant="outline" onClick={() => setShowExportConfirm(true)} data-testid="button-export-logs">
               <Download className="h-4 w-4 mr-2" />
               {t("adminAudit.exportLogs")}
             </Button>
@@ -332,7 +381,7 @@ export default function AdminAuditLogs() {
                     <div
                       key={log.id}
                       className="p-4 rounded-lg border hover-elevate cursor-pointer"
-                      onClick={() => setSelectedLog(log)}
+                      onClick={() => handleViewLog(log)}
                       data-testid={`log-entry-${log.id}`}
                     >
                       <div className="flex items-start justify-between gap-4">
@@ -371,64 +420,27 @@ export default function AdminAuditLogs() {
           </CardContent>
         </Card>
 
-        <Dialog open={!!selectedLog} onOpenChange={() => setSelectedLog(null)} data-testid="dialog-log-details">
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <Eye className="h-5 w-5" />
-                {t("adminAudit.logDetails.title")}
-              </DialogTitle>
-            </DialogHeader>
-            {selectedLog && (
-              <div className="space-y-4" data-testid="log-details-content">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("adminAudit.logDetails.action")}</p>
-                    <p className="font-medium" data-testid="detail-action">{selectedLog.action}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("adminAudit.logDetails.status")}</p>
-                    {getStatusBadge(selectedLog.status)}
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("adminAudit.logDetails.actor")}</p>
-                    <p className="font-medium" data-testid="detail-actor">{selectedLog.actor}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("adminAudit.logDetails.role")}</p>
-                    <p className="font-medium" data-testid="detail-role">{selectedLog.actorRole}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("adminAudit.logDetails.target")}</p>
-                    <p className="font-medium font-mono text-sm" data-testid="detail-target">{selectedLog.target}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("adminAudit.logDetails.targetType")}</p>
-                    <p className="font-medium" data-testid="detail-target-type">{selectedLog.targetType}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("adminAudit.logDetails.timestamp")}</p>
-                    <p className="font-medium" data-testid="detail-timestamp">{formatTimestamp(selectedLog.timestamp)}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{t("adminAudit.logDetails.ipAddress")}</p>
-                    <p className="font-medium font-mono" data-testid="detail-ip">{selectedLog.ipAddress}</p>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground mb-2">{t("adminAudit.logDetails.userAgent")}</p>
-                  <p className="font-mono text-xs p-2 rounded bg-muted" data-testid="detail-user-agent">{selectedLog.userAgent}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground mb-2">{t("adminAudit.logDetails.details")}</p>
-                  <pre className="p-4 rounded-lg bg-muted text-xs overflow-auto" data-testid="detail-json">
-                    {JSON.stringify(selectedLog.details, null, 2)}
-                  </pre>
-                </div>
-              </div>
-            )}
-          </DialogContent>
-        </Dialog>
+        {selectedLog && (
+          <DetailSheet
+            open={showLogDetail}
+            onOpenChange={setShowLogDetail}
+            title={t("adminAudit.logDetails.title")}
+            subtitle={selectedLog.id}
+            icon={<FileText className="h-5 w-5" />}
+            sections={getLogDetailSections(selectedLog)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showExportConfirm}
+          onOpenChange={setShowExportConfirm}
+          title={t("adminAudit.confirm.exportTitle")}
+          description={t("adminAudit.confirm.exportDesc")}
+          onConfirm={handleExport}
+          confirmText={t("common.export")}
+          cancelText={t("adminAudit.cancel")}
+          destructive={false}
+        />
       </div>
     </div>
   );

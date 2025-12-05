@@ -16,6 +16,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Ticket,
   Plus,
@@ -29,6 +31,7 @@ import {
   Send,
   Download,
   AlertCircle,
+  Eye,
 } from "lucide-react";
 
 interface SupportTicket {
@@ -67,6 +70,10 @@ export default function SupportTickets() {
   const [selectedTicket, setSelectedTicket] = useState<SupportTicket | null>(null);
   const [activeTab, setActiveTab] = useState("all");
   const [replyMessage, setReplyMessage] = useState("");
+  const [showTicketDetail, setShowTicketDetail] = useState(false);
+  const [detailTicket, setDetailTicket] = useState<SupportTicket | null>(null);
+  const [showCloseConfirm, setShowCloseConfirm] = useState(false);
+  const [pendingCloseId, setPendingCloseId] = useState<string | null>(null);
   const wsRef = useRef<WebSocket | null>(null);
 
   const { data: ticketData, isLoading, error, refetch } = useQuery<TicketData>({
@@ -205,6 +212,69 @@ export default function SupportTickets() {
       default: return <Badge>{status}</Badge>;
     }
   };
+
+  const getPriorityBadgeColor = (priority: string) => {
+    switch (priority) {
+      case "critical": return "bg-red-500";
+      case "high": return "bg-orange-500";
+      case "medium": return "bg-yellow-500";
+      case "low": return "bg-blue-500";
+      default: return "";
+    }
+  };
+
+  const getStatusBadgeConfig = (status: string) => {
+    switch (status) {
+      case "open": return { variant: "outline" as const, color: "text-blue-500 border-blue-500" };
+      case "in-progress": return { variant: "default" as const, color: "bg-purple-500" };
+      case "waiting": return { variant: "secondary" as const, color: "" };
+      case "resolved": return { variant: "default" as const, color: "bg-green-500" };
+      case "closed": return { variant: "outline" as const, color: "" };
+      default: return { variant: "default" as const, color: "" };
+    }
+  };
+
+  const getTicketDetailSections = (ticket: SupportTicket): DetailSection[] => [
+    {
+      title: t("adminTickets.detail.ticketInfo"),
+      fields: [
+        { label: t("common.id"), value: ticket.id, type: "code", copyable: true },
+        { label: t("adminTickets.dialog.title"), value: ticket.title },
+        { label: t("adminTickets.details.category"), value: ticket.category },
+        { 
+          label: t("adminTickets.priority.label"), 
+          value: t(`adminTickets.priority.${ticket.priority}`), 
+          type: "badge",
+          badgeColor: getPriorityBadgeColor(ticket.priority)
+        },
+        { 
+          label: t("common.status"), 
+          value: t(`adminTickets.status.${ticket.status === "in-progress" ? "inProgress" : ticket.status}`), 
+          type: "badge",
+          badgeVariant: getStatusBadgeConfig(ticket.status).variant,
+          badgeColor: getStatusBadgeConfig(ticket.status).color
+        },
+      ],
+    },
+    {
+      title: t("adminTickets.detail.details"),
+      fields: [
+        { label: t("adminTickets.details.requester"), value: ticket.requester },
+        { label: t("adminTickets.details.assignee"), value: ticket.assignee || t("adminTickets.unassigned") },
+        { label: t("adminTickets.conversation"), value: ticket.responses },
+        { label: t("adminTickets.createdAt"), value: ticket.createdAt, type: "date" },
+        { label: t("adminTickets.updatedAt"), value: ticket.updatedAt, type: "date" },
+      ],
+    },
+  ];
+
+  const confirmClose = useCallback(() => {
+    if (pendingCloseId) {
+      closeTicketMutation.mutate(pendingCloseId);
+      setShowCloseConfirm(false);
+      setPendingCloseId(null);
+    }
+  }, [pendingCloseId, closeTicketMutation]);
 
   const filteredTickets = tickets.filter((ticket) => {
     const title = ticket.title || '';
@@ -477,6 +547,7 @@ export default function SupportTickets() {
                     <TableHead>{t("adminTickets.table.status")}</TableHead>
                     <TableHead>{t("adminTickets.table.requester")}</TableHead>
                     <TableHead>{t("adminTickets.table.updated")}</TableHead>
+                    <TableHead>{t("adminTickets.actions")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -498,6 +569,20 @@ export default function SupportTickets() {
                       <TableCell className="text-sm">{ticket.requester}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">
                         {new Date(ticket.updatedAt).toLocaleString()}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDetailTicket(ticket);
+                            setShowTicketDetail(true);
+                          }}
+                          data-testid={`button-view-ticket-${index}`}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -589,6 +674,28 @@ export default function SupportTickets() {
             </CardContent>
           </Card>
         </div>
+
+        {detailTicket && (
+          <DetailSheet
+            open={showTicketDetail}
+            onOpenChange={setShowTicketDetail}
+            title={detailTicket.title}
+            subtitle={detailTicket.id}
+            icon={<Ticket className="h-5 w-5" />}
+            sections={getTicketDetailSections(detailTicket)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showCloseConfirm}
+          onOpenChange={setShowCloseConfirm}
+          title={t("adminTickets.confirm.closeTitle")}
+          description={t("adminTickets.confirm.closeDesc")}
+          onConfirm={confirmClose}
+          destructive={false}
+          confirmText={t("common.confirm")}
+          cancelText={t("adminTickets.cancel")}
+        />
       </div>
     </div>
   );

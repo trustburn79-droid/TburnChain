@@ -18,6 +18,8 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Users,
   MessageSquare,
@@ -145,6 +147,10 @@ export default function CommunityManagement() {
   const [activeTab, setActiveTab] = useState("posts");
   const [searchQuery, setSearchQuery] = useState("");
   const [isAnnouncementDialogOpen, setIsAnnouncementDialogOpen] = useState(false);
+  const [showPostDetail, setShowPostDetail] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
+  const [showBanConfirm, setShowBanConfirm] = useState(false);
+  const [pendingBanId, setPendingBanId] = useState<string | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<CommunityData>({
     queryKey: ['/api/admin/community'],
@@ -351,6 +357,45 @@ export default function CommunityManagement() {
         return "bg-gray-500";
     }
   };
+
+  const getPostDetailSections = (post: CommunityPost): DetailSection[] => [
+    {
+      title: t("adminCommunity.detail.postInfo"),
+      fields: [
+        { label: t("adminCommunity.titleLabel"), value: post.title },
+        { label: t("adminCommunity.category"), value: post.category, type: "badge" as const },
+        { 
+          label: t("adminCommunity.status"), 
+          value: post.status, 
+          type: "badge" as const,
+          badgeColor: getStatusColor(post.status)
+        },
+        { label: t("adminCommunity.createdAt"), value: post.createdAt, type: "date" as const },
+      ],
+    },
+    {
+      title: t("adminCommunity.detail.engagement"),
+      fields: [
+        { label: t("adminCommunity.author"), value: post.author.name },
+        { 
+          label: t("adminCommunity.tier"), 
+          value: post.author.tier, 
+          type: "badge" as const,
+          badgeColor: getTierColor(post.author.tier)
+        },
+        { label: t("adminCommunity.likes"), value: post.likes },
+        { label: t("adminCommunity.comments"), value: post.comments },
+      ],
+    },
+  ];
+
+  const confirmBan = useCallback(() => {
+    if (pendingBanId) {
+      banMemberMutation.mutate(pendingBanId);
+      setShowBanConfirm(false);
+      setPendingBanId(null);
+    }
+  }, [pendingBanId, banMemberMutation]);
 
   const totalMembers = data?.stats?.totalMembers || 24847;
   const activePosts = data?.stats?.activePosts || 1256;
@@ -572,7 +617,15 @@ export default function CommunityManagement() {
                               </div>
                             </div>
                             <div className="flex gap-1">
-                              <Button variant="ghost" size="icon" data-testid={`button-view-post-${post.id}`}>
+                              <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                onClick={() => {
+                                  setSelectedPost(post);
+                                  setShowPostDetail(true);
+                                }}
+                                data-testid={`button-view-post-${post.id}`}
+                              >
                                 <Eye className="h-4 w-4" />
                               </Button>
                               <Button variant="ghost" size="icon" data-testid={`button-flag-post-${post.id}`}>
@@ -664,7 +717,10 @@ export default function CommunityManagement() {
                                 variant="ghost" 
                                 size="icon" 
                                 className="text-red-500"
-                                onClick={() => banMemberMutation.mutate(member.id)}
+                                onClick={() => {
+                                  setPendingBanId(member.id);
+                                  setShowBanConfirm(true);
+                                }}
                                 disabled={banMemberMutation.isPending}
                                 data-testid={`button-ban-member-${member.id}`}
                               >
@@ -807,6 +863,29 @@ export default function CommunityManagement() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {selectedPost && (
+          <DetailSheet
+            open={showPostDetail}
+            onOpenChange={setShowPostDetail}
+            title={selectedPost.title}
+            subtitle={selectedPost.author.address}
+            icon={<MessageSquare className="h-5 w-5" />}
+            sections={getPostDetailSections(selectedPost)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showBanConfirm}
+          onOpenChange={setShowBanConfirm}
+          title={t("adminCommunity.confirm.banTitle")}
+          description={t("adminCommunity.confirm.banDesc")}
+          onConfirm={confirmBan}
+          destructive={true}
+          confirmText={t("adminCommunity.banUser")}
+          cancelText={t("adminCommunity.cancel")}
+          isLoading={banMemberMutation.isPending}
+        />
       </div>
     </div>
   );

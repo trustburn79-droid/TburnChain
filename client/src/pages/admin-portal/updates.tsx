@@ -13,9 +13,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Download, CheckCircle, Clock, AlertTriangle, 
-  Play, RefreshCw, History, AlertCircle, Loader2, RotateCcw
+  Play, RefreshCw, History, AlertCircle, Loader2, RotateCcw, Eye
 } from "lucide-react";
 
 interface CurrentVersion {
@@ -60,6 +62,8 @@ export default function AdminUpdates() {
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ type: "install" | "rollback"; version?: string } | null>(null);
+  const [showUpdateDetail, setShowUpdateDetail] = useState(false);
+  const [selectedUpdate, setSelectedUpdate] = useState<AvailableUpdate | null>(null);
 
   const { data: updateData, isLoading, error, refetch } = useQuery<UpdateData>({
     queryKey: ["/api/admin/updates"],
@@ -202,6 +206,40 @@ export default function AdminUpdates() {
     }
   }, [refetch, toast, t]);
 
+  const getUpdateDetailSections = useCallback((update: AvailableUpdate): DetailSection[] => {
+    const getStatusColor = (status: string) => {
+      switch (status) {
+        case "available": return "bg-green-500/10 text-green-500";
+        case "scheduled": return "bg-blue-500/10 text-blue-500";
+        case "pending": return "bg-yellow-500/10 text-yellow-500";
+        default: return "";
+      }
+    };
+
+    return [
+      {
+        title: t("adminUpdates.detail.updateInfo"),
+        fields: [
+          { label: t("adminUpdates.version"), value: `v${update.version}` },
+          { label: t("common.type"), value: update.type, type: "badge", badgeVariant: "outline" },
+          { label: t("adminUpdates.releaseDate"), value: update.releaseDate, type: "date" },
+          { 
+            label: t("adminUpdates.status"), 
+            value: update.status === "available" ? t("adminUpdates.available") : t("adminUpdates.scheduled"), 
+            type: "badge",
+            badgeColor: getStatusColor(update.status)
+          },
+        ],
+      },
+      {
+        title: t("adminUpdates.detail.changes"),
+        fields: [
+          { label: t("adminUpdates.detail.changes"), value: update.changes },
+        ],
+      },
+    ];
+  }, [t]);
+
   if (error) {
     return (
       <div className="flex-1 flex items-center justify-center" data-testid="updates-error">
@@ -328,14 +366,31 @@ export default function AdminUpdates() {
                                 {update.status === "available" ? t("adminUpdates.available") : t("adminUpdates.scheduled")}
                               </Badge>
                             </div>
-                            {update.status === "available" && (
-                              <Dialog open={confirmDialog?.type === "install" && confirmDialog.version === update.version} onOpenChange={(open) => !open && setConfirmDialog(null)}>
-                                <DialogTrigger asChild>
-                                  <Button onClick={() => setConfirmDialog({ type: "install", version: update.version })} disabled={isUpdating} data-testid={`button-install-${index}`}>
-                                    <Download className="w-4 h-4 mr-2" />
-                                    {t("adminUpdates.installUpdate")}
+                            <div className="flex items-center gap-2">
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button 
+                                    size="icon" 
+                                    variant="ghost" 
+                                    onClick={() => {
+                                      setSelectedUpdate(update);
+                                      setShowUpdateDetail(true);
+                                    }}
+                                    data-testid={`button-view-update-${index}`}
+                                  >
+                                    <Eye className="w-4 h-4" />
                                   </Button>
-                                </DialogTrigger>
+                                </TooltipTrigger>
+                                <TooltipContent>{t("adminUpdates.view")}</TooltipContent>
+                              </Tooltip>
+                              {update.status === "available" && (
+                                <Dialog open={confirmDialog?.type === "install" && confirmDialog.version === update.version} onOpenChange={(open) => !open && setConfirmDialog(null)}>
+                                  <DialogTrigger asChild>
+                                    <Button onClick={() => setConfirmDialog({ type: "install", version: update.version })} disabled={isUpdating} data-testid={`button-install-${index}`}>
+                                      <Download className="w-4 h-4 mr-2" />
+                                      {t("adminUpdates.installUpdate")}
+                                    </Button>
+                                  </DialogTrigger>
                                 <DialogContent data-testid={`dialog-install-${update.version}`}>
                                   <DialogHeader>
                                     <DialogTitle>{t("adminUpdates.confirmInstall")}</DialogTitle>
@@ -548,6 +603,28 @@ export default function AdminUpdates() {
           </Tabs>
         </div>
       </ScrollArea>
+
+      {selectedUpdate && (
+        <DetailSheet
+          open={showUpdateDetail}
+          onOpenChange={setShowUpdateDetail}
+          title={`v${selectedUpdate.version}`}
+          description={selectedUpdate.changes}
+          icon={<Download className="w-5 h-5" />}
+          sections={getUpdateDetailSections(selectedUpdate)}
+          actions={selectedUpdate.status === "available" ? [
+            {
+              label: t("adminUpdates.installUpdate"),
+              icon: <Download className="w-4 h-4" />,
+              onClick: () => {
+                setShowUpdateDetail(false);
+                setConfirmDialog({ type: "install", version: selectedUpdate.version });
+              },
+              disabled: isUpdating,
+            },
+          ] : undefined}
+        />
+      )}
     </TooltipProvider>
   );
 }

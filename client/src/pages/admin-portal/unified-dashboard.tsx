@@ -11,6 +11,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Activity,
   AlertTriangle,
@@ -24,6 +26,7 @@ import {
   Cpu,
   Database,
   Download,
+  Eye,
   Flame,
   Gauge,
   Globe,
@@ -252,6 +255,9 @@ export default function UnifiedDashboard() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
+  const [showAlertDetail, setShowAlertDetail] = useState(false);
+  const [selectedAlert, setSelectedAlert] = useState<SecurityAlert | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: networkStats, isLoading: loadingNetwork, error: networkError, refetch: refetchNetwork } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
@@ -364,6 +370,47 @@ export default function UnifiedDashboard() {
     }
   }, [refetchNetwork, refetchAlerts, refetchValidators, toast, t]);
 
+  const getAlertDetailSections = useCallback((alert: SecurityAlert): DetailSection[] => {
+    const getSeverityBadgeColor = (severity: string) => {
+      switch (severity) {
+        case "critical": return "bg-red-500/10 text-red-500";
+        case "high": return "bg-orange-500/10 text-orange-500";
+        case "medium": return "bg-yellow-500/10 text-yellow-500";
+        case "low": return "bg-blue-500/10 text-blue-500";
+        default: return "";
+      }
+    };
+    
+    const getStatusBadgeColor = (status: string) => {
+      switch (status) {
+        case "active": return "bg-red-500/10 text-red-500";
+        case "acknowledged": return "bg-yellow-500/10 text-yellow-500";
+        case "resolved": return "bg-green-500/10 text-green-500";
+        default: return "";
+      }
+    };
+
+    return [
+      {
+        title: t("adminDashboard.detail.alertInfo"),
+        fields: [
+          { label: t("common.id"), value: alert.id, type: "code", copyable: true },
+          { label: t("common.type"), value: alert.type },
+          { label: t("adminDashboard.severity"), value: alert.severity, type: "badge", badgeColor: getSeverityBadgeColor(alert.severity) },
+          { label: t("common.status"), value: alert.status, type: "badge", badgeColor: getStatusBadgeColor(alert.status) },
+        ],
+      },
+      {
+        title: t("adminDashboard.detail.details"),
+        fields: [
+          { label: t("adminDashboard.alertTitle"), value: alert.title },
+          { label: t("adminDashboard.alertMessage"), value: alert.message },
+          { label: t("common.time"), value: alert.timestamp, type: "date" },
+        ],
+      },
+    ];
+  }, [t]);
+
   const handleExportDashboard = useCallback(() => {
     const exportData = {
       exportedAt: new Date().toISOString(),
@@ -383,6 +430,7 @@ export default function UnifiedDashboard() {
       title: t("adminDashboard.exportSuccess"),
       description: t("adminDashboard.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [networkStats, alertsData, validatorsData, toast, t]);
 
   const systemStatus = useMemo(() => {
@@ -592,7 +640,7 @@ export default function UnifiedDashboard() {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={handleExportDashboard}
+                      onClick={() => setShowExportConfirm(true)}
                       data-testid="button-export"
                     >
                       <Download className="h-4 w-4" />
@@ -777,9 +825,24 @@ export default function UnifiedDashboard() {
                                 <p className="text-sm font-medium truncate">{alert.title}</p>
                                 <p className="text-xs text-muted-foreground truncate">{alert.message}</p>
                               </div>
-                              <Badge variant={getSeverityBadgeVariant(alert.severity)} className="text-xs">
-                                {alert.severity}
-                              </Badge>
+                              <div className="flex items-center gap-1">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-6 w-6"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedAlert(alert);
+                                    setShowAlertDetail(true);
+                                  }}
+                                  data-testid={`button-view-alert-${alert.id}`}
+                                >
+                                  <Eye className="h-3 w-3" />
+                                </Button>
+                                <Badge variant={getSeverityBadgeVariant(alert.severity)} className="text-xs">
+                                  {alert.severity}
+                                </Badge>
+                              </div>
                             </div>
                           ))
                         )}
@@ -1176,6 +1239,28 @@ export default function UnifiedDashboard() {
             </CardContent>
           </Card>
         </div>
+
+        {selectedAlert && (
+          <DetailSheet
+            open={showAlertDetail}
+            onOpenChange={setShowAlertDetail}
+            title={selectedAlert.title}
+            subtitle={selectedAlert.id}
+            icon={<Shield className="h-5 w-5" />}
+            sections={getAlertDetailSections(selectedAlert)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showExportConfirm}
+          onOpenChange={setShowExportConfirm}
+          title={t("adminDashboard.confirm.exportTitle")}
+          description={t("adminDashboard.confirm.exportDesc")}
+          onConfirm={handleExportDashboard}
+          confirmText={t("common.export")}
+          cancelText={t("adminDashboard.cancel")}
+          destructive={false}
+        />
       </div>
     </TooltipProvider>
   );

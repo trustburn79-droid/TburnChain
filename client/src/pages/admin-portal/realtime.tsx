@@ -12,6 +12,8 @@ import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Monitor,
   Activity,
@@ -32,6 +34,7 @@ import {
   TrendingDown,
   AlertCircle,
   Download,
+  Eye,
 } from "lucide-react";
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -73,6 +76,9 @@ export default function RealtimeMonitor() {
   const [activeTab, setActiveTab] = useState("overview");
   const [lastUpdate, setLastUpdate] = useState(new Date().toISOString());
   const [wsConnected, setWsConnected] = useState(false);
+  const [showEventDetail, setShowEventDetail] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<LiveEvent | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const generateTimeSeriesData = () => {
     return Array.from({ length: 60 }, (_, i) => ({
@@ -197,6 +203,10 @@ export default function RealtimeMonitor() {
   }, [refetch, toast, t]);
 
   const handleExport = useCallback(() => {
+    setShowExportConfirm(true);
+  }, []);
+
+  const performExport = useCallback(() => {
     const exportData = {
       timestamp: new Date().toISOString(),
       tpsData,
@@ -213,6 +223,7 @@ export default function RealtimeMonitor() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    setShowExportConfirm(false);
     toast({
       title: t("adminRealtime.exported"),
       description: t("adminRealtime.exportedDesc"),
@@ -303,6 +314,35 @@ export default function RealtimeMonitor() {
       case "error": return <XCircle className="h-4 w-4 text-red-500" />;
       default: return <Activity className="h-4 w-4 text-blue-500" />;
     }
+  };
+
+  const getEventTypeBadgeColor = (type: string) => {
+    switch (type) {
+      case "success": return "bg-green-500/10 text-green-500";
+      case "warning": return "bg-yellow-500/10 text-yellow-500";
+      case "error": return "bg-red-500/10 text-red-500";
+      default: return "bg-blue-500/10 text-blue-500";
+    }
+  };
+
+  const getEventDetailSections = (event: LiveEvent): DetailSection[] => {
+    return [
+      {
+        title: t("adminRealtime.detail.eventInfo"),
+        fields: [
+          { label: t("common.id"), value: event.id, type: "code", copyable: true },
+          { label: t("common.type"), value: event.type, type: "badge", badgeColor: getEventTypeBadgeColor(event.type) },
+          { label: t("adminRealtime.events.source"), value: event.source },
+          { label: t("adminRealtime.timestamp"), value: event.timestamp, type: "date" },
+        ],
+      },
+      {
+        title: t("adminRealtime.detail.message"),
+        fields: [
+          { label: t("adminRealtime.message"), value: event.message },
+        ],
+      },
+    ];
   };
 
   if (error) {
@@ -700,6 +740,17 @@ export default function RealtimeMonitor() {
                             </span>
                           </div>
                         </div>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            setSelectedEvent(event);
+                            setShowEventDetail(true);
+                          }}
+                          data-testid={`button-view-event-${index}`}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
                       </div>
                     ))}
                   </div>
@@ -709,6 +760,28 @@ export default function RealtimeMonitor() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedEvent && (
+        <DetailSheet
+          open={showEventDetail}
+          onOpenChange={setShowEventDetail}
+          title={t("adminRealtime.events.title")}
+          subtitle={selectedEvent.id}
+          icon={<Activity className="h-5 w-5" />}
+          sections={getEventDetailSections(selectedEvent)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminRealtime.confirm.exportTitle")}
+        description={t("adminRealtime.confirm.exportDesc")}
+        onConfirm={performExport}
+        confirmText={t("common.export")}
+        cancelText={t("adminRealtime.cancel")}
+        destructive={false}
+      />
     </div>
   );
 }

@@ -11,9 +11,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   FileCheck, Shield, AlertTriangle, CheckCircle, Clock, 
-  Download, FileText, Calendar, RefreshCw
+  Download, FileText, Calendar, RefreshCw, Eye
 } from "lucide-react";
 
 interface ComplianceScore {
@@ -61,6 +63,9 @@ export default function AdminCompliance() {
   const [activeTab, setActiveTab] = useState("frameworks");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [showFrameworkDetail, setShowFrameworkDetail] = useState(false);
+  const [selectedFramework, setSelectedFramework] = useState<Framework | null>(null);
+  const [showAssessmentConfirm, setShowAssessmentConfirm] = useState(false);
 
   const { data, isLoading, error, refetch } = useQuery<ComplianceData>({
     queryKey: ["/api/admin/compliance"],
@@ -160,6 +165,34 @@ export default function AdminCompliance() {
     });
   }, [complianceScore, frameworks, recentFindings, auditSchedule, toast, t]);
 
+  const getFrameworkDetailSections = (framework: Framework): DetailSection[] => [
+    {
+      title: t("adminCompliance.detail.frameworkInfo"),
+      fields: [
+        { label: t("common.name"), value: framework.name },
+        {
+          label: t("common.status"),
+          value: framework.status === "compliant" ? t("adminCompliance.frameworks.compliant") : t("adminCompliance.frameworks.inProgress"),
+          type: "badge",
+          badgeColor: framework.status === "compliant" ? "bg-green-500" : "bg-yellow-500",
+        },
+        { label: t("adminCompliance.frameworks.columns.score"), value: framework.score, type: "progress" },
+      ],
+    },
+    {
+      title: t("adminCompliance.detail.auditSchedule"),
+      fields: [
+        { label: t("adminCompliance.frameworks.columns.lastAudit"), value: framework.lastAudit, type: "date" },
+        { label: t("adminCompliance.frameworks.columns.nextAudit"), value: framework.nextAudit, type: "date" },
+      ],
+    },
+  ];
+
+  const confirmAssessment = useCallback(() => {
+    runAssessmentMutation.mutate();
+    setShowAssessmentConfirm(false);
+  }, [runAssessmentMutation]);
+
   if (error) {
     return (
       <div className="flex-1 overflow-auto" data-testid="compliance-error">
@@ -211,7 +244,7 @@ export default function AdminCompliance() {
               {t("adminCompliance.exportReport")}
             </Button>
             <Button 
-              onClick={() => runAssessmentMutation.mutate()} 
+              onClick={() => setShowAssessmentConfirm(true)} 
               disabled={runAssessmentMutation.isPending}
               data-testid="button-run-assessment"
             >
@@ -349,7 +382,19 @@ export default function AdminCompliance() {
                             </div>
                           </TableCell>
                           <TableCell>
-                            <Button size="sm" variant="ghost" data-testid={`button-view-${index}`}>{t("adminCompliance.frameworks.viewDetails")}</Button>
+                            <div className="flex items-center gap-1">
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                onClick={() => {
+                                  setSelectedFramework(fw);
+                                  setShowFrameworkDetail(true);
+                                }}
+                                data-testid={`button-view-${index}`}
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -518,6 +563,26 @@ export default function AdminCompliance() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {selectedFramework && (
+        <DetailSheet
+          open={showFrameworkDetail}
+          onOpenChange={setShowFrameworkDetail}
+          title={selectedFramework.name}
+          icon={<Shield className="h-5 w-5" />}
+          sections={getFrameworkDetailSections(selectedFramework)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showAssessmentConfirm}
+        onOpenChange={setShowAssessmentConfirm}
+        title={t("adminCompliance.confirm.assessmentTitle")}
+        description={t("adminCompliance.confirm.assessmentDesc")}
+        onConfirm={confirmAssessment}
+        isLoading={runAssessmentMutation.isPending}
+        destructive={false}
+      />
     </ScrollArea>
   );
 }

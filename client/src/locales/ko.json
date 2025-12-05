@@ -15239,6 +15239,19 @@
     "error": {
       "title": "대시보드 로드 실패",
       "description": "대시보드 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "severity": "심각도",
+    "alertTitle": "제목",
+    "alertMessage": "메시지",
+    "detail": {
+      "alertInfo": "알림 정보",
+      "details": "상세 정보"
+    },
+    "confirm": {
+      "exportTitle": "대시보드 데이터 내보내기",
+      "exportDesc": "모든 대시보드 데이터를 JSON으로 내보내시겠습니까?"
     }
   },
   "adminPerformance": {
@@ -15301,7 +15314,17 @@
       "title": "성능 데이터 로드 실패",
       "description": "성능 지표를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "재시도"
+    "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "shardInfo": "샤드 정보",
+      "perfMetrics": "성능 지표"
+    },
+    "confirm": {
+      "exportTitle": "성능 데이터 내보내기",
+      "exportDesc": "성능 지표를 JSON으로 내보내시겠습니까?"
+    }
   },
   "adminHealth": {
     "title": "시스템 상태",
@@ -15377,7 +15400,18 @@
       "title": "상태 데이터 로드 실패",
       "description": "시스템 상태를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "재시도"
+    "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "active": "활성",
+    "detail": {
+      "serviceInfo": "서비스 정보",
+      "statusDetails": "상태 세부정보"
+    },
+    "confirm": {
+      "exportTitle": "상태 보고서 내보내기",
+      "exportDesc": "상태 보고서를 JSON으로 내보내시겠습니까?"
+    }
   },
   "adminAlerts": {
     "title": "알림 센터",
@@ -15455,6 +15489,18 @@
       "consensusEngine": "합의 엔진",
       "databaseMonitor": "데이터베이스 모니터",
       "aiMonitor": "AI 모니터"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "alertTitle": "제목",
+    "category": "카테고리",
+    "detail": {
+      "alertInfo": "알림 정보",
+      "status": "상태"
+    },
+    "confirm": {
+      "resolveTitle": "알림 해결",
+      "resolveDesc": "이 알림을 해결 완료로 표시하시겠습니까?"
     }
   },
   "adminLogs": {
@@ -17495,6 +17541,16 @@
       "schedule": "나중에 예약 (선택사항)",
       "saveDraft": "초안으로 저장",
       "publish": "지금 게시"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "info": "공지 정보",
+      "engagement": "참여도"
+    },
+    "confirm": {
+      "deleteTitle": "공지 삭제",
+      "deleteDesc": "이 공지를 삭제하시겠습니까?"
     }
   },
   "adminSecurity": {
@@ -17747,7 +17803,17 @@
     "generateReport": "Generate Report",
     "reviewCase": "Review Case",
     "approveKyc": "Approve KYC",
-    "rejectKyc": "Reject KYC"
+    "rejectKyc": "Reject KYC",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "frameworkInfo": "프레임워크 정보",
+      "auditSchedule": "감사 일정"
+    },
+    "confirm": {
+      "assessmentTitle": "규정 준수 평가 실행",
+      "assessmentDesc": "전체 규정 준수 평가를 실행하시겠습니까? 몇 분이 소요될 수 있습니다."
+    }
   },
   "adminLiquidity": {
     "title": "유동성 관리",
@@ -17891,7 +17957,12 @@
       "bug": "버그",
       "complaint": "불만"
     },
-    "status": "Status",
+    "status": {
+      "new": "신규",
+      "reviewed": "검토됨",
+      "actioned": "처리됨",
+      "archived": "보관됨"
+    },
     "ratings": {
       "5stars": "5점",
       "4stars": "4점",
@@ -17963,6 +18034,17 @@
       "responsePlaceholder": "여기에 응답을 입력하세요...",
       "cancel": "취소",
       "send": "응답 전송"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "archive": "보관",
+    "detail": {
+      "feedbackInfo": "피드백 정보",
+      "content": "내용"
+    },
+    "confirm": {
+      "archiveTitle": "피드백 보관",
+      "archiveDesc": "이 피드백을 보관하시겠습니까?"
     },
     "userFeedback": "User Feedback",
     "feedbackType": "Feedback Type",
@@ -18040,7 +18122,18 @@
     },
     "retry": "다시 시도",
     "auditLogs": "Audit Logs",
-    "eventType": "Event Type"
+    "eventType": "Event Type",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "logInfo": "로그 정보",
+      "actorDetails": "작업자 상세",
+      "target": "대상"
+    },
+    "confirm": {
+      "exportTitle": "감사 로그 내보내기",
+      "exportDesc": "모든 감사 로그를 JSON으로 내보내시겠습니까?"
+    }
   },
   "adminChains": {
     "title": "체인 연결",
@@ -18908,6 +19001,13 @@
     "warning": "경고",
     "yes": "예",
     "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "actions": "작업",
+    "detail": {
+      "updateInfo": "업데이트 정보",
+      "changes": "변경 사항"
+    },
     "error": {
       "title": "업데이트 로드 실패",
       "description": "업데이트 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
@@ -20833,6 +20933,22 @@
     "announcementSent": "공지 발송됨",
     "announcementSentDesc": "공지사항이 발송되었습니다",
     "announcementError": "공지 발송 실패",
+    "view": "보기",
+    "cancel": "취소",
+    "author": "작성자",
+    "category": "카테고리",
+    "createdAt": "작성일",
+    "likes": "좋아요",
+    "comments": "댓글",
+    "banUser": "사용자 차단",
+    "detail": {
+      "postInfo": "게시물 정보",
+      "engagement": "참여도"
+    },
+    "confirm": {
+      "banTitle": "사용자 차단",
+      "banDesc": "이 사용자를 차단하시겠습니까? 커뮤니티 접근이 제한됩니다."
+    },
     "metrics": {
       "members": "회원",
       "active": "활성",
@@ -21603,7 +21719,18 @@
       "crossShardComplete": "크로스 샤드 트랜잭션 완료",
       "aiOptimization": "AI 최적화가 라우팅에 적용됨",
       "rpcTimeout": "RPC 엔드포인트 시간 초과 (자동 복구됨)",
-      "validatorJoined": "새 검증자가 네트워크에 참여함"
+      "validatorJoined": "새 검증자가 네트워크에 참여함",
+      "source": "소스"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "eventInfo": "이벤트 정보",
+      "message": "메시지"
+    },
+    "confirm": {
+      "exportTitle": "실시간 데이터 내보내기",
+      "exportDesc": "현재 실시간 데이터를 JSON으로 내보내시겠습니까?"
     },
     "metrics": {
       "uptime": "가동 시간",
@@ -21899,7 +22026,17 @@
     "tableTitle": "알림 규칙",
     "testAll": "모두 테스트",
     "testComplete": "테스트 완료",
-    "testCompleteDesc": "모든 규칙 테스트 완료"
+    "testCompleteDesc": "모든 규칙 테스트 완료",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "ruleInfo": "규칙 정보",
+      "configuration": "설정"
+    },
+    "confirm": {
+      "deleteTitle": "알림 규칙 삭제",
+      "deleteDesc": "이 알림 규칙을 삭제하시겠습니까?"
+    }
   },
   "adminDashboardBuilder": {
     "title": "대시보드 빌더",
@@ -23209,6 +23346,15 @@
       "breached": "SLA 위반",
       "onTrack": "정상",
       "atRisk": "위험"
+    },
+    "cancel": "취소",
+    "detail": {
+      "ticketInfo": "티켓 정보",
+      "details": "상세 정보"
+    },
+    "confirm": {
+      "closeTitle": "티켓 종료",
+      "closeDesc": "이 티켓을 종료하시겠습니까?"
     }
   }
 }

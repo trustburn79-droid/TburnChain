@@ -12,6 +12,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   AlertCircle,
   AlertOctagon,
@@ -105,6 +107,10 @@ export default function AdminAlerts() {
   const [wsConnected, setWsConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [showResolved, setShowResolved] = useState(false);
+  const [showAlertDetail, setShowAlertDetail] = useState(false);
+  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
+  const [showResolveConfirm, setShowResolveConfirm] = useState(false);
+  const [pendingResolveId, setPendingResolveId] = useState<string | null>(null);
 
   const { data: alertsData, isLoading: loadingAlerts, error: alertsError, refetch: refetchAlerts } = useQuery<{ alerts: Alert[] }>({
     queryKey: ["/api/admin/alerts"],
@@ -223,6 +229,72 @@ export default function AdminAlerts() {
         return <AlertCircle className="h-5 w-5" />;
     }
   };
+
+  const getSeverityBadgeColor = (severity: string) => {
+    switch (severity) {
+      case "critical":
+        return "bg-red-500/10 text-red-500";
+      case "high":
+        return "bg-orange-500/10 text-orange-500";
+      case "medium":
+        return "bg-yellow-500/10 text-yellow-500";
+      case "low":
+        return "bg-blue-500/10 text-blue-500";
+      case "info":
+        return "bg-gray-500/10 text-gray-500";
+      default:
+        return "";
+    }
+  };
+
+  const getAlertDetailSections = (alert: Alert): DetailSection[] => [
+    {
+      title: t("adminAlerts.detail.alertInfo"),
+      fields: [
+        { label: t("common.id"), value: alert.id, type: "code", copyable: true },
+        { 
+          label: t("adminAlerts.severity"), 
+          value: t(`adminAlerts.${alert.severity}`), 
+          type: "badge", 
+          badgeColor: getSeverityBadgeColor(alert.severity) 
+        },
+        { label: t("adminAlerts.alertTitle"), value: alert.title },
+        { label: t("adminAlerts.category"), value: alert.category },
+        { label: t("adminAlerts.source"), value: alert.source },
+      ],
+    },
+    {
+      title: t("adminAlerts.detail.status"),
+      fields: [
+        { 
+          label: t("adminAlerts.acknowledged"), 
+          value: alert.acknowledged ? t("common.yes") : t("common.no"), 
+          type: "badge",
+          badgeColor: alert.acknowledged ? "bg-green-500/10 text-green-500" : "bg-muted text-muted-foreground"
+        },
+        { 
+          label: t("adminAlerts.resolved"), 
+          value: alert.resolved ? t("common.yes") : t("common.no"), 
+          type: "badge",
+          badgeColor: alert.resolved ? "bg-green-500/10 text-green-500" : "bg-muted text-muted-foreground"
+        },
+        { label: t("common.date"), value: alert.timestamp, type: "date" },
+      ],
+    },
+  ];
+
+  const confirmResolve = useCallback((alertId: string) => {
+    setPendingResolveId(alertId);
+    setShowResolveConfirm(true);
+  }, []);
+
+  const handleConfirmResolve = useCallback(() => {
+    if (pendingResolveId) {
+      resolveAlert.mutate(pendingResolveId);
+    }
+    setShowResolveConfirm(false);
+    setPendingResolveId(null);
+  }, [pendingResolveId, resolveAlert]);
 
   useEffect(() => {
     let ws: WebSocket | null = null;
@@ -579,6 +651,22 @@ export default function AdminAlerts() {
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  size="icon"
+                                  onClick={() => {
+                                    setSelectedAlert(alert);
+                                    setShowAlertDetail(true);
+                                  }}
+                                  data-testid={`button-view-${index}`}
+                                >
+                                  <Eye className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>{t("adminAlerts.view")}</TooltipContent>
+                            </Tooltip>
                             {!alert.acknowledged && !alert.resolved && (
                               <Tooltip>
                                 <TooltipTrigger asChild>
@@ -589,7 +677,7 @@ export default function AdminAlerts() {
                                     disabled={acknowledgeAlert.isPending}
                                     data-testid={`button-acknowledge-${index}`}
                                   >
-                                    <Eye className="h-4 w-4" />
+                                    <CheckCircle2 className="h-4 w-4" />
                                   </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>{t("adminAlerts.acknowledge")}</TooltipContent>
@@ -601,11 +689,11 @@ export default function AdminAlerts() {
                                   <Button
                                     variant="outline"
                                     size="icon"
-                                    onClick={() => resolveAlert.mutate(alert.id)}
+                                    onClick={() => confirmResolve(alert.id)}
                                     disabled={resolveAlert.isPending}
                                     data-testid={`button-resolve-${index}`}
                                   >
-                                    <CheckCircle2 className="h-4 w-4" />
+                                    <Shield className="h-4 w-4" />
                                   </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>{t("adminAlerts.resolve")}</TooltipContent>
@@ -622,6 +710,29 @@ export default function AdminAlerts() {
           </Card>
         </div>
       </div>
+
+      {selectedAlert && (
+        <DetailSheet
+          open={showAlertDetail}
+          onOpenChange={setShowAlertDetail}
+          title={selectedAlert.title}
+          subtitle={selectedAlert.id}
+          icon={<Bell className="h-5 w-5" />}
+          sections={getAlertDetailSections(selectedAlert)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showResolveConfirm}
+        onOpenChange={setShowResolveConfirm}
+        title={t("adminAlerts.confirm.resolveTitle")}
+        description={t("adminAlerts.confirm.resolveDesc")}
+        onConfirm={handleConfirmResolve}
+        confirmText={t("adminAlerts.resolve")}
+        cancelText={t("adminAlerts.cancel")}
+        isLoading={resolveAlert.isPending}
+        destructive={false}
+      />
     </TooltipProvider>
   );
 }

@@ -11,6 +11,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Activity,
   AlertCircle,
@@ -20,6 +22,7 @@ import {
   Cpu,
   Database,
   Download,
+  Eye,
   Gauge,
   HardDrive,
   MemoryStick,
@@ -135,6 +138,9 @@ export default function AdminPerformance() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [showShardDetail, setShowShardDetail] = useState(false);
+  const [selectedShard, setSelectedShard] = useState<ShardPerformance | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: networkStats, isLoading: loadingNetwork, error: networkError, refetch: refetchNetwork } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
@@ -247,7 +253,7 @@ export default function AdminPerformance() {
     }
   }, [refetchNetwork, refetchResources, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const handleExportConfirmed = useCallback(() => {
     const exportData = {
       exportedAt: new Date().toISOString(),
       timeRange,
@@ -269,7 +275,59 @@ export default function AdminPerformance() {
       title: t("adminPerformance.exportSuccess"),
       description: t("adminPerformance.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [networkStats, systemResources, shardPerformance, latencyBreakdown, performanceHistory, timeRange, toast, t]);
+
+  const handleExport = useCallback(() => {
+    setShowExportConfirm(true);
+  }, []);
+
+  const getShardDetailSections = useCallback((shard: ShardPerformance): DetailSection[] => {
+    const statusColors: Record<string, string> = {
+      healthy: "bg-green-500/10 text-green-500",
+      warning: "bg-yellow-500/10 text-yellow-500",
+      critical: "bg-red-500/10 text-red-500",
+    };
+
+    return [
+      {
+        title: t("adminPerformance.detail.shardInfo"),
+        fields: [
+          {
+            label: t("adminPerformance.shardId"),
+            value: `${t("adminPerformance.shard")} #${shard.shardId}`,
+            type: "text",
+          },
+          {
+            label: t("adminPerformance.status"),
+            value: t(`adminPerformance.${shard.status}`),
+            type: "badge",
+            badgeColor: statusColors[shard.status],
+          },
+          {
+            label: t("adminPerformance.load"),
+            value: shard.load,
+            type: "progress",
+          },
+        ],
+      },
+      {
+        title: t("adminPerformance.detail.perfMetrics"),
+        fields: [
+          {
+            label: t("adminPerformance.tps"),
+            value: `${shard.tps} tx/s`,
+            type: "text",
+          },
+          {
+            label: t("adminPerformance.latency"),
+            value: `${shard.latency}ms`,
+            type: "text",
+          },
+        ],
+      },
+    ];
+  }, [t]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -631,6 +689,7 @@ export default function AdminPerformance() {
                             <th className="text-right py-3 px-4 font-medium">{t("adminPerformance.latency")}</th>
                             <th className="text-center py-3 px-4 font-medium">{t("adminPerformance.load")}</th>
                             <th className="text-center py-3 px-4 font-medium">{t("adminPerformance.status")}</th>
+                            <th className="text-center py-3 px-4 font-medium">{t("common.actions")}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -648,6 +707,19 @@ export default function AdminPerformance() {
                               <td className="py-3 px-4 text-center" data-testid={`shard-status-${shard.shardId}`}>
                                 {getStatusBadge(shard.status)}
                               </td>
+                              <td className="py-3 px-4 text-center">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => {
+                                    setSelectedShard(shard);
+                                    setShowShardDetail(true);
+                                  }}
+                                  data-testid={`button-view-shard-${shard.shardId}`}
+                                >
+                                  <Eye className="h-4 w-4" />
+                                </Button>
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -660,6 +732,28 @@ export default function AdminPerformance() {
           </Tabs>
         </div>
       </div>
+
+      {selectedShard && (
+        <DetailSheet
+          open={showShardDetail}
+          onOpenChange={setShowShardDetail}
+          title={`${t("adminPerformance.shard")} #${selectedShard.shardId}`}
+          description={t("adminPerformance.shardPerformanceDesc")}
+          icon={<Gauge className="h-5 w-5" />}
+          sections={getShardDetailSections(selectedShard)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminPerformance.confirm.exportTitle")}
+        description={t("adminPerformance.confirm.exportDesc")}
+        confirmText={t("common.export")}
+        cancelText={t("adminPerformance.cancel")}
+        onConfirm={handleExportConfirmed}
+        destructive={false}
+      />
     </TooltipProvider>
   );
 }

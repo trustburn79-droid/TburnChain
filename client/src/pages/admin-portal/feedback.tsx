@@ -15,6 +15,8 @@ import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   MessageSquare,
   ThumbsUp,
@@ -37,6 +39,7 @@ import {
   Frown,
   AlertCircle,
   Send,
+  Eye,
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell, LineChart, Line } from "recharts";
 
@@ -68,6 +71,10 @@ export default function FeedbackSystem() {
   const [isRespondDialogOpen, setIsRespondDialogOpen] = useState(false);
   const [selectedFeedback, setSelectedFeedback] = useState<FeedbackItem | null>(null);
   const [responseText, setResponseText] = useState("");
+  const [showFeedbackDetail, setShowFeedbackDetail] = useState(false);
+  const [detailFeedback, setDetailFeedback] = useState<FeedbackItem | null>(null);
+  const [showArchiveConfirm, setShowArchiveConfirm] = useState(false);
+  const [pendingArchiveId, setPendingArchiveId] = useState<string | null>(null);
 
   const { data: feedbackData, isLoading, error, refetch } = useQuery<FeedbackData>({
     queryKey: ["/api/admin/feedback"],
@@ -75,10 +82,7 @@ export default function FeedbackSystem() {
 
   const respondMutation = useMutation({
     mutationFn: async ({ feedbackId, response }: { feedbackId: string; response: string }) => {
-      return apiRequest(`/api/admin/feedback/${feedbackId}/respond`, {
-        method: "POST",
-        body: JSON.stringify({ response }),
-      });
+      return apiRequest("POST", `/api/admin/feedback/${feedbackId}/respond`, { response });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/feedback"] });
@@ -101,10 +105,7 @@ export default function FeedbackSystem() {
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ feedbackId, status }: { feedbackId: string; status: string }) => {
-      return apiRequest(`/api/admin/feedback/${feedbackId}`, {
-        method: "PATCH",
-        body: JSON.stringify({ status }),
-      });
+      return apiRequest("PATCH", `/api/admin/feedback/${feedbackId}`, { status });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/feedback"] });
@@ -215,6 +216,62 @@ export default function FeedbackSystem() {
     setSelectedFeedback(feedback);
     setResponseText(feedback.response || "");
     setIsRespondDialogOpen(true);
+  };
+
+  const getTypeBadgeColor = (type: string) => {
+    switch (type) {
+      case "suggestion": return "bg-blue-500";
+      case "praise": return "bg-green-500";
+      case "bug": return "bg-orange-500";
+      case "complaint": return "bg-red-500";
+      default: return "";
+    }
+  };
+
+  const getRatingBadgeColor = (rating: number) => {
+    if (rating >= 4) return "bg-green-500";
+    if (rating >= 3) return "bg-yellow-500";
+    return "bg-red-500";
+  };
+
+  const getStatusBadgeColor = (status: string) => {
+    switch (status) {
+      case "new": return "text-blue-500 border-blue-500";
+      case "reviewed": return "";
+      case "actioned": return "bg-green-500";
+      case "archived": return "";
+      default: return "";
+    }
+  };
+
+  const getFeedbackDetailSections = (feedback: FeedbackItem): DetailSection[] => [
+    {
+      title: t("adminFeedback.detail.feedbackInfo"),
+      fields: [
+        { label: t("adminFeedback.table.id"), value: feedback.id, type: "code", copyable: true },
+        { label: t("adminFeedback.table.type"), value: t(`adminFeedback.types.${feedback.type === "praise" ? "praiseItem" : feedback.type}`), type: "badge", badgeColor: getTypeBadgeColor(feedback.type) },
+        { label: t("adminFeedback.table.category"), value: feedback.category },
+        { label: t("adminFeedback.table.rating"), value: `${feedback.rating}/5`, type: "badge", badgeColor: getRatingBadgeColor(feedback.rating) },
+        { label: t("adminFeedback.table.status"), value: t(`adminFeedback.status.${feedback.status}`), type: "badge", badgeColor: getStatusBadgeColor(feedback.status) },
+      ],
+    },
+    {
+      title: t("adminFeedback.detail.content"),
+      fields: [
+        { label: t("adminFeedback.table.user"), value: feedback.user },
+        { label: t("adminFeedback.table.message"), value: feedback.message },
+        { label: t("adminFeedback.table.date"), value: feedback.createdAt, type: "date" },
+        ...(feedback.response ? [{ label: t("adminFeedback.dialog.yourResponse"), value: feedback.response }] : []),
+      ],
+    },
+  ];
+
+  const confirmArchive = () => {
+    if (pendingArchiveId) {
+      updateStatusMutation.mutate({ feedbackId: pendingArchiveId, status: "archived" });
+      setShowArchiveConfirm(false);
+      setPendingArchiveId(null);
+    }
   };
 
   if (error) {
@@ -511,15 +568,28 @@ export default function FeedbackSystem() {
                           {new Date(item.createdAt).toLocaleDateString()}
                         </TableCell>
                         <TableCell className="text-right">
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => handleRespondClick(item)}
-                            data-testid={`button-respond-${index}`}
-                          >
-                            <Send className="h-4 w-4 mr-1" />
-                            {item.response ? t("adminFeedback.edit") : t("adminFeedback.respond")}
-                          </Button>
+                          <div className="flex items-center justify-end gap-1">
+                            <Button 
+                              variant="ghost" 
+                              size="icon"
+                              onClick={() => {
+                                setDetailFeedback(item);
+                                setShowFeedbackDetail(true);
+                              }}
+                              data-testid={`button-view-feedback-${index}`}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => handleRespondClick(item)}
+                              data-testid={`button-respond-${index}`}
+                            >
+                              <Send className="h-4 w-4 mr-1" />
+                              {item.response ? t("adminFeedback.edit") : t("adminFeedback.respond")}
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -628,6 +698,48 @@ export default function FeedbackSystem() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        {detailFeedback && (
+          <DetailSheet
+            open={showFeedbackDetail}
+            onOpenChange={setShowFeedbackDetail}
+            title={detailFeedback.id}
+            description={detailFeedback.message.substring(0, 100) + (detailFeedback.message.length > 100 ? "..." : "")}
+            icon={<MessageSquare className="h-5 w-5" />}
+            sections={getFeedbackDetailSections(detailFeedback)}
+            actions={[
+              {
+                label: t("adminFeedback.archive"),
+                onClick: () => {
+                  setPendingArchiveId(detailFeedback.id);
+                  setShowArchiveConfirm(true);
+                },
+                variant: "outline",
+                disabled: detailFeedback.status === "archived",
+              },
+              {
+                label: t("adminFeedback.respond"),
+                icon: <Send className="h-4 w-4" />,
+                onClick: () => {
+                  setShowFeedbackDetail(false);
+                  handleRespondClick(detailFeedback);
+                },
+              },
+            ]}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={showArchiveConfirm}
+          onOpenChange={setShowArchiveConfirm}
+          title={t("adminFeedback.confirm.archiveTitle")}
+          description={t("adminFeedback.confirm.archiveDesc")}
+          confirmText={t("adminFeedback.archive")}
+          cancelText={t("adminFeedback.cancel")}
+          onConfirm={confirmArchive}
+          isLoading={updateStatusMutation.isPending}
+          destructive={false}
+        />
       </div>
     </div>
   );

@@ -15239,6 +15239,19 @@
     "error": {
       "title": "Failed to Load Dashboard",
       "description": "Unable to fetch dashboard data. Please try again."
+    },
+    "view": "View",
+    "cancel": "Cancel",
+    "severity": "Severity",
+    "alertTitle": "Title",
+    "alertMessage": "Message",
+    "detail": {
+      "alertInfo": "Alert Information",
+      "details": "Details"
+    },
+    "confirm": {
+      "exportTitle": "Export Dashboard Data",
+      "exportDesc": "Export all dashboard data as JSON?"
     }
   },
   "adminPerformance": {
@@ -15301,7 +15314,17 @@
       "title": "Failed to Load Performance Data",
       "description": "Unable to fetch performance metrics. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "shardInfo": "Shard Information",
+      "perfMetrics": "Performance Metrics"
+    },
+    "confirm": {
+      "exportTitle": "Export Performance Data",
+      "exportDesc": "Export performance metrics as JSON?"
+    }
   },
   "adminHealth": {
     "title": "System Health",
@@ -15377,7 +15400,18 @@
       "title": "Failed to Load Health Data",
       "description": "Unable to fetch system health. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "view": "View",
+    "cancel": "Cancel",
+    "active": "Active",
+    "detail": {
+      "serviceInfo": "Service Information",
+      "statusDetails": "Status Details"
+    },
+    "confirm": {
+      "exportTitle": "Export Health Report",
+      "exportDesc": "Export health status report as JSON?"
+    }
   },
   "adminAlerts": {
     "title": "Alert Center",
@@ -15455,6 +15489,18 @@
       "consensusEngine": "Consensus Engine",
       "databaseMonitor": "Database Monitor",
       "aiMonitor": "AI Monitor"
+    },
+    "view": "View",
+    "cancel": "Cancel",
+    "alertTitle": "Title",
+    "category": "Category",
+    "detail": {
+      "alertInfo": "Alert Information",
+      "status": "Status"
+    },
+    "confirm": {
+      "resolveTitle": "Resolve Alert",
+      "resolveDesc": "Mark this alert as resolved?"
     }
   },
   "adminLogs": {
@@ -18042,7 +18088,18 @@
     "filterByUser": "사용자별 필터",
     "action": "작업",
     "resource": "리소스",
-    "export": "내보내기"
+    "export": "내보내기",
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "logInfo": "Log Information",
+      "actorDetails": "Actor Details",
+      "target": "Target"
+    },
+    "confirm": {
+      "exportTitle": "Export Audit Logs",
+      "exportDesc": "Export all audit logs as JSON?"
+    }
   },
   "adminThreats": {
     "title": "Threat Detection",
@@ -18282,6 +18339,16 @@
       "partiallyCompliant": "부분 준수",
       "nonCompliant": "비준수",
       "pending": "검토 중"
+    },
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "frameworkInfo": "Framework Information",
+      "auditSchedule": "Audit Schedule"
+    },
+    "confirm": {
+      "assessmentTitle": "Run Compliance Assessment",
+      "assessmentDesc": "Run a full compliance assessment? This may take several minutes."
     }
   },
   "adminFeedback": {
@@ -18332,7 +18399,12 @@
       "bug": "Bug",
       "complaint": "Complaint"
     },
-    "status": "Status",
+    "status": {
+      "new": "New",
+      "reviewed": "Reviewed",
+      "actioned": "Actioned",
+      "archived": "Archived"
+    },
     "ratings": {
       "5stars": "5 Stars",
       "4stars": "4 Stars",
@@ -18404,6 +18476,17 @@
       "responsePlaceholder": "Type your response here...",
       "cancel": "Cancel",
       "send": "Send Response"
+    },
+    "view": "View",
+    "cancel": "Cancel",
+    "archive": "Archive",
+    "detail": {
+      "feedbackInfo": "Feedback Information",
+      "content": "Content"
+    },
+    "confirm": {
+      "archiveTitle": "Archive Feedback",
+      "archiveDesc": "Archive this feedback item?"
     },
     "userFeedback": "User Feedback",
     "feedbackType": "Feedback Type",
@@ -18545,6 +18628,16 @@
       "schedule": "Schedule for later (optional)",
       "saveDraft": "Save as Draft",
       "publish": "Publish Now"
+    },
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "info": "Announcement Information",
+      "engagement": "Engagement"
+    },
+    "confirm": {
+      "deleteTitle": "Delete Announcement",
+      "deleteDesc": "Are you sure you want to delete this announcement?"
     }
   },
   "adminFinance": {
@@ -19046,6 +19139,13 @@
     "warning": "Warning",
     "yes": "Yes",
     "retry": "Retry",
+    "view": "View",
+    "cancel": "Cancel",
+    "actions": "Actions",
+    "detail": {
+      "updateInfo": "Update Information",
+      "changes": "Changes"
+    },
     "error": {
       "title": "Failed to Load Updates",
       "description": "Unable to fetch update data. Please try again."
@@ -20833,6 +20933,22 @@
     "announcementSent": "Announcement Sent",
     "announcementSentDesc": "Announcement has been sent",
     "announcementError": "Failed to send announcement",
+    "view": "View",
+    "cancel": "Cancel",
+    "author": "Author",
+    "category": "Category",
+    "createdAt": "Created At",
+    "likes": "Likes",
+    "comments": "Comments",
+    "banUser": "Ban User",
+    "detail": {
+      "postInfo": "Post Information",
+      "engagement": "Engagement"
+    },
+    "confirm": {
+      "banTitle": "Ban User",
+      "banDesc": "Are you sure you want to ban this user? They will lose access to the community."
+    },
     "metrics": {
       "members": "Members",
       "active": "Active",
@@ -21603,7 +21719,18 @@
       "crossShardComplete": "Cross-shard transaction completed",
       "aiOptimization": "AI optimization applied to routing",
       "rpcTimeout": "RPC endpoint timeout (auto-recovered)",
-      "validatorJoined": "New validator joined the network"
+      "validatorJoined": "New validator joined the network",
+      "source": "Source"
+    },
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "eventInfo": "Event Information",
+      "message": "Message"
+    },
+    "confirm": {
+      "exportTitle": "Export Realtime Data",
+      "exportDesc": "Export current realtime data as JSON?"
     },
     "metrics": {
       "uptime": "Uptime",
@@ -21899,7 +22026,17 @@
     "tableTitle": "Alert Rules",
     "testAll": "Test All",
     "testComplete": "Test Complete",
-    "testCompleteDesc": "All rule tests completed"
+    "testCompleteDesc": "All rule tests completed",
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "ruleInfo": "Rule Information",
+      "configuration": "Configuration"
+    },
+    "confirm": {
+      "deleteTitle": "Delete Alert Rule",
+      "deleteDesc": "Are you sure you want to delete this alert rule?"
+    }
   },
   "adminDashboardBuilder": {
     "title": "Dashboard Builder",
@@ -23209,6 +23346,15 @@
       "breached": "SLA Breached",
       "onTrack": "On Track",
       "atRisk": "At Risk"
+    },
+    "cancel": "Cancel",
+    "detail": {
+      "ticketInfo": "Ticket Information",
+      "details": "Details"
+    },
+    "confirm": {
+      "closeTitle": "Close Ticket",
+      "closeDesc": "Are you sure you want to close this ticket?"
     }
   }
 }
