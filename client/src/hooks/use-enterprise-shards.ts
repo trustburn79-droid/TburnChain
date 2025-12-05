@@ -85,7 +85,7 @@ export function useEnterpriseShards(): EnterpriseShardData {
   const avgLoad = shards?.length ? (shards.reduce((sum, s) => sum + s.load, 0) / shards.length) : 0;
   const activeShards = shards?.filter(s => s.status === "active").length || totalShards;
   
-  const requiredQuorum = Math.ceil((totalValidators * 2) / 3) + 1;
+  const requiredQuorum = Math.floor((totalValidators * 2) / 3) + 1;
 
   return {
     shards: shards || [],
