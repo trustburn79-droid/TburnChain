@@ -1131,9 +1131,10 @@ export default function AIOrchestration() {
           </Card>
 
           {/* AI Model Cards */}
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {isLoading ? (
               <>
+                <Skeleton className="h-48" />
                 <Skeleton className="h-48" />
                 <Skeleton className="h-48" />
                 <Skeleton className="h-48" />
@@ -1176,7 +1177,7 @@ export default function AIOrchestration() {
                         </div>
                         <div className="flex items-center justify-between text-sm">
                           <span className="text-muted-foreground">
-                            {model.band === 'strategic' ? t('aiOrchestration.decisionsLabel') : model.band === 'tactical' ? t('aiOrchestration.actionsLabel') : t('aiOrchestration.operationsLabel')}:
+                            {model.band === 'strategic' ? t('aiOrchestration.decisionsLabel') : model.band === 'tactical' ? t('aiOrchestration.actionsLabel') : model.band === 'fallback' ? t('aiOrchestration.fallbackLabel') : t('aiOrchestration.operationsLabel')}:
                           </span>
                           <span className="font-semibold tabular-nums">{formatNumber(model.requestCount)}</span>
                         </div>

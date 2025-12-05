@@ -46,7 +46,9 @@ All 72 Admin Portal pages verified across 15 functional groups with 340+ API end
 - **Health Check Integration**: All 4 providers included in periodic health checks
 - **WebSocket Events**: `grokActivated` event emitted when fallback triggers
 - **Zod Schema Fix**: Added 'grok' to provider enum in ai_usage_stats schema for WebSocket broadcasts
-- **UI Verification**: AI Orchestration page displays 4-column grid with all providers (Gemini/Claude/GPT-4o/Grok)
+- **Admin Portal UI**: AI Orchestration page displays 4-column grid with all providers (Gemini/Claude/GPT-4o/Grok)
+- **Public App UI**: /app/ai page updated with Grok 3 fallback model (GPT-5/Claude/Llama 4/Grok 3)
+- **TBurnEnterpriseNode**: Added Grok 3 to /api/ai/models endpoint for LIVE MODE
 
 ### Complete Bilingual Translation System (17,028 Keys)
 - **COMPLETED**: Full EN/KO translation synchronization across all Admin Portal pages

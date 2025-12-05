@@ -3127,10 +3127,12 @@
     "decisionsLabel": "결정",
     "actionsLabel": "작업",
     "operationsLabel": "운영",
+    "fallbackLabel": "폴백 요청",
     "bands": {
       "strategic": "전략",
       "tactical": "전술",
-      "operational": "운영"
+      "operational": "운영",
+      "fallback": "폴백"
     },
     "categories": {
       "security": "보안",

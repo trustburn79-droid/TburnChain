@@ -3127,10 +3127,12 @@
     "decisionsLabel": "Decisions",
     "actionsLabel": "Actions",
     "operationsLabel": "Operations",
+    "fallbackLabel": "Fallback Requests",
     "bands": {
       "strategic": "Strategic",
       "tactical": "Tactical",
-      "operational": "Operational"
+      "operational": "Operational",
+      "fallback": "Fallback"
     },
     "categories": {
       "security": "Security",

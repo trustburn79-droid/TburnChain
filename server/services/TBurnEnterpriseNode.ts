@@ -639,6 +639,28 @@ export class TBurnEnterpriseNode extends EventEmitter {
           operationalDecisions: Math.floor(Math.random() * 50000) + 80000,
           modelWeight: 2500, // 25% weight in basis points
           consensusContribution: Math.floor(Math.random() * 8000) + 15000
+        },
+        {
+          id: 'ai-model-grok',
+          name: 'Grok 3',
+          band: 'fallback',
+          status: 'standby',
+          requestCount: 0,
+          successCount: 0,
+          failureCount: 0,
+          avgResponseTime: 0,
+          totalCost: '0.0000',
+          lastUsed: null,
+          cacheHitRate: 9450, // basis points
+          accuracy: 9450, // basis points
+          uptime: 9999, // 99.99%
+          feedbackLearningScore: 8500,
+          crossBandInteractions: 0,
+          strategicDecisions: 0,
+          tacticalDecisions: 0,
+          operationalDecisions: 0,
+          modelWeight: 0, // 0% weight (standby)
+          consensusContribution: 0
         }
       ];
       res.json(models);
@@ -694,6 +716,22 @@ export class TBurnEnterpriseNode extends EventEmitter {
             maxContextLength: 100000,
             trainingCutoff: '2024-10',
             specializations: ['Resource Optimization', 'Sharding Strategy', 'Load Balancing']
+          }
+        },
+        'Grok 3': {
+          name: 'Grok 3',
+          provider: 'xAI',
+          capability: 'Emergency Fallback',
+          weight: 0,
+          requestCount: 0,
+          avgResponseTime: 0,
+          successRate: 0.945,
+          cost: 0.01,
+          cacheHitRate: 0.945,
+          details: {
+            maxContextLength: 128000,
+            trainingCutoff: '2024-12',
+            specializations: ['Fallback Processing', 'Emergency Response', 'High Availability']
           }
         }
       };
