@@ -16,6 +16,8 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Globe,
   Key,
@@ -126,6 +128,10 @@ export default function ApiConfig() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("keys");
   const [showKey, setShowKey] = useState<string | null>(null);
+  const [showKeyDetail, setShowKeyDetail] = useState(false);
+  const [selectedKey, setSelectedKey] = useState<ApiKey | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: apiConfig, isLoading, error, refetch } = useQuery<ApiConfigData>({
     queryKey: ["/api/admin/config/api"],
