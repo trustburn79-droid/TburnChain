@@ -391,38 +391,39 @@ export default function AdminUpdates() {
                                       {t("adminUpdates.installUpdate")}
                                     </Button>
                                   </DialogTrigger>
-                                <DialogContent data-testid={`dialog-install-${update.version}`}>
-                                  <DialogHeader>
-                                    <DialogTitle>{t("adminUpdates.confirmInstall")}</DialogTitle>
-                                    <DialogDescription>
-                                      {t("adminUpdates.confirmInstallDesc", { version: update.version })}
-                                    </DialogDescription>
-                                  </DialogHeader>
-                                  <div className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                                    <div className="flex items-center gap-2 text-yellow-500">
-                                      <AlertTriangle className="w-4 h-4" />
-                                      <span className="font-medium">{t("adminUpdates.warning")}</span>
+                                  <DialogContent data-testid={`dialog-install-${update.version}`}>
+                                    <DialogHeader>
+                                      <DialogTitle>{t("adminUpdates.confirmInstall")}</DialogTitle>
+                                      <DialogDescription>
+                                        {t("adminUpdates.confirmInstallDesc", { version: update.version })}
+                                      </DialogDescription>
+                                    </DialogHeader>
+                                    <div className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                                      <div className="flex items-center gap-2 text-yellow-500">
+                                        <AlertTriangle className="w-4 h-4" />
+                                        <span className="font-medium">{t("adminUpdates.warning")}</span>
+                                      </div>
+                                      <p className="text-sm text-muted-foreground mt-1">
+                                        {t("adminUpdates.installWarning")}
+                                      </p>
                                     </div>
-                                    <p className="text-sm text-muted-foreground mt-1">
-                                      {t("adminUpdates.installWarning")}
-                                    </p>
-                                  </div>
-                                  <DialogFooter>
-                                    <Button variant="outline" onClick={() => setConfirmDialog(null)} data-testid="button-cancel-install">
-                                      {t("adminUpdates.cancel")}
-                                    </Button>
-                                    <Button 
-                                      onClick={() => installUpdateMutation.mutate(update.version)}
-                                      disabled={installUpdateMutation.isPending}
-                                      data-testid="button-confirm-install"
-                                    >
-                                      {installUpdateMutation.isPending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}
-                                      {t("adminUpdates.install")}
-                                    </Button>
-                                  </DialogFooter>
-                                </DialogContent>
-                              </Dialog>
-                            )}
+                                    <DialogFooter>
+                                      <Button variant="outline" onClick={() => setConfirmDialog(null)} data-testid="button-cancel-install">
+                                        {t("adminUpdates.cancel")}
+                                      </Button>
+                                      <Button 
+                                        onClick={() => installUpdateMutation.mutate(update.version)}
+                                        disabled={installUpdateMutation.isPending}
+                                        data-testid="button-confirm-install"
+                                      >
+                                        {installUpdateMutation.isPending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}
+                                        {t("adminUpdates.install")}
+                                      </Button>
+                                    </DialogFooter>
+                                  </DialogContent>
+                                </Dialog>
+                              )}
+                            </div>
                           </div>
                           <p className="text-sm text-muted-foreground mb-2" data-testid={`update-changes-${index}`}>{update.changes}</p>
                           <p className="text-xs text-muted-foreground" data-testid={`update-date-${index}`}>{t("adminUpdates.releaseDate")}: {update.releaseDate}</p>
