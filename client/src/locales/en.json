@@ -5843,17 +5843,23 @@
     "tiers": {
       "basic_user": "BASIC USER",
       "staker": "STAKER",
+      "delegated_staker": "DELEGATED STAKER",
+      "candidate_validator": "CANDIDATE VALIDATOR",
       "active_validator": "ACTIVE VALIDATOR",
       "inactive_validator": "INACTIVE VALIDATOR",
       "genesis_validator": "GENESIS VALIDATOR",
       "enterprise_validator": "ENTERPRISE VALIDATOR",
-      "governance_validator": "GOVERNANCE VALIDATOR"
+      "governance_validator": "GOVERNANCE VALIDATOR",
+      "cover": "COVER"
     },
     "statuses": {
       "active": "ACTIVE",
       "inactive": "INACTIVE",
       "suspended": "SUSPENDED",
-      "pending_kyc": "PENDING KYC"
+      "pending": "PENDING",
+      "pending_kyc": "PENDING KYC",
+      "terminated": "TERMINATED",
+      "blacklisted": "BLACKLISTED"
     },
     "kycLevels": {
       "none": "NONE",

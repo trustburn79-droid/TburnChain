@@ -5843,17 +5843,23 @@
     "tiers": {
       "basic_user": "기본 사용자",
       "staker": "스테이커",
+      "delegated_staker": "위임 스테이커",
+      "candidate_validator": "후보 검증자",
       "active_validator": "활성 검증자",
       "inactive_validator": "비활성 검증자",
       "genesis_validator": "제네시스 검증자",
       "enterprise_validator": "기업 검증자",
-      "governance_validator": "거버넌스 검증자"
+      "governance_validator": "거버넌스 검증자",
+      "cover": "커버"
     },
     "statuses": {
       "active": "활성",
       "inactive": "비활성",
       "suspended": "정지됨",
-      "pending_kyc": "KYC 대기중"
+      "pending": "대기 중",
+      "pending_kyc": "KYC 대기중",
+      "terminated": "종료됨",
+      "blacklisted": "블랙리스트"
     },
     "kycLevels": {
       "none": "없음",
