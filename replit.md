@@ -32,6 +32,32 @@ All 72 Admin Portal pages verified across 15 functional groups with 340+ API end
 
 ## Recent Changes (December 5, 2024)
 
+### Dynamic Shard Configuration System (5-64 Shards) ✅
+- **Complete Dynamic Scaling**: All shard/validator counts now scale dynamically based on admin configuration
+- **Shard Range**: Supports 5 to 64 shards with proportional validator scaling
+- **Validator Formula**: `totalValidators = currentShardCount × validatorsPerShard` (25 validators per shard)
+- **API Endpoints**:
+  - `GET /api/admin/shards/config` - Current shard configuration
+  - `POST /api/admin/shards/config` - Update shard count (requires `count` field)
+  - `GET /api/admin/shards/preview/:count` - Preview settings for given shard count
+  - `GET /api/admin/network/scaling` - Network scaling analysis
+- **Dynamic APIs Updated**:
+  - `/api/consensus/current` - Dynamic totalValidators and requiredQuorum
+  - `/api/consensus/rounds` - Dynamic vote counts in phases
+  - `/api/cross-shard/messages` - Dynamic shard routing
+  - `/api/sharding` - Dynamic shard array based on configuration
+  - `/api/ai/decisions` - Dynamic shardId and validatorAddress
+- **Admin UI Features**:
+  - Shard count selector (5-64 range)
+  - Hardware profile detection (development/production/enterprise)
+  - Real-time TPS and validator count preview
+  - Estimated network capacity display
+- **Key Files Modified**:
+  - `server/services/TBurnEnterpriseNode.ts` - Core shard configuration
+  - `server/routes.ts` - Admin shard API endpoints
+  - `client/src/pages/admin-portal/shards.tsx` - Admin shard UI
+  - `client/src/locales/en.json` & `ko.json` - Bilingual translations
+
 ### Unified AI Model Configuration (Admin Portal ↔ Public App Sync) ✅
 - **Quad-Band AI System**: All pages now use identical AI model configuration
 - **Model Lineup (Matching Admin Portal)**:

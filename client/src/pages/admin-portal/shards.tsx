@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
@@ -27,6 +29,10 @@ import {
   Settings,
   PlayCircle,
   PauseCircle,
+  Cpu,
+  HardDrive,
+  Server,
+  Gauge,
 } from "lucide-react";
 import {
   AreaChart,
@@ -73,6 +79,55 @@ interface ShardingResponse {
   loadHistory: LoadHistory[];
 }
 
+interface ShardConfig {
+  currentShardCount: number;
+  minShards: number;
+  maxShards: number;
+  validatorsPerShard: number;
+  tpsPerShard: number;
+  crossShardLatencyMs: number;
+  scalingMode: 'automatic' | 'manual';
+  lastConfigUpdate: string;
+  totalValidators: number;
+  estimatedTps: number;
+  hardwareRequirements: {
+    minCores: number;
+    minRamGB: number;
+    recommendedCores: number;
+    recommendedRamGB: number;
+    storageGB: number;
+    networkBandwidthGbps: number;
+    profile: string;
+  };
+  scalingAnalysis: {
+    currentCapacity: { shards: number; tps: number; validators: number };
+    maxCapacity: { shards: number; tps: number; validators: number };
+    utilizationPercent: number;
+    recommendations: string[];
+    scalingReadiness: 'ready' | 'warning' | 'critical';
+  };
+}
+
+interface ShardPreview {
+  shardCount: number;
+  estimatedTps: number;
+  estimatedValidators: number;
+  requirements: {
+    minCores: number;
+    minRamGB: number;
+    recommendedCores: number;
+    recommendedRamGB: number;
+    storageGB: number;
+    networkBandwidthGbps: number;
+    profile: string;
+  };
+  comparison: {
+    current: { shards: number; tps: number; validators: number };
+    proposed: { shards: number; tps: number; validators: number };
+    improvement: { tpsIncrease: string; shardIncrease: string };
+  };
+}
+
 function MetricCardSkeleton() {
   return (
     <Card>
@@ -114,10 +169,44 @@ export default function AdminShards() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [selectedShardCount, setSelectedShardCount] = useState<number | null>(null);
+  const [showConfigDialog, setShowConfigDialog] = useState(false);
 
   const { data: shardingData, isLoading, error, refetch } = useQuery<ShardingResponse>({
     queryKey: ["/api/sharding"],
     refetchInterval: 5000,
+  });
+
+  const { data: shardConfig, isLoading: isConfigLoading } = useQuery<ShardConfig>({
+    queryKey: ["/api/admin/shards/config"],
+    refetchInterval: 10000,
+  });
+
+  const { data: shardPreview, isLoading: isPreviewLoading } = useQuery<ShardPreview>({
+    queryKey: ["/api/admin/shards/preview", selectedShardCount],
+    enabled: selectedShardCount !== null && selectedShardCount !== shardConfig?.currentShardCount,
+  });
+
+  const updateConfigMutation = useMutation({
+    mutationFn: (newConfig: { shardCount: number }) => 
+      apiRequest("POST", "/api/admin/shards/config", newConfig),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/shards/config"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/sharding"] });
+      setShowConfigDialog(false);
+      setSelectedShardCount(null);
+      toast({
+        title: t("adminShards.configUpdateSuccess"),
+        description: t("adminShards.configUpdateSuccessDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminShards.configUpdateError"),
+        description: t("adminShards.configUpdateErrorDesc"),
+        variant: "destructive",
+      });
+    },
   });
 
   const rebalanceMutation = useMutation({
@@ -422,6 +511,209 @@ export default function AdminShards() {
               </>
             )}
           </div>
+
+          {/* Shard Configuration Panel */}
+          <Card data-testid="card-shard-configuration">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <Settings className="h-5 w-5" />
+                  <CardTitle className="text-lg">{t("adminShards.shardConfiguration") || "Shard Configuration"}</CardTitle>
+                </div>
+                {shardConfig && (
+                  <Badge className={shardConfig.scalingAnalysis?.scalingReadiness === 'ready' ? 'bg-green-500/10 text-green-500' : shardConfig.scalingAnalysis?.scalingReadiness === 'warning' ? 'bg-yellow-500/10 text-yellow-500' : 'bg-red-500/10 text-red-500'}>
+                    {shardConfig.scalingAnalysis?.scalingReadiness === 'ready' ? t("adminShards.scalingReady") || "Ready to Scale" : shardConfig.scalingAnalysis?.scalingReadiness === 'warning' ? t("adminShards.scalingWarning") || "Scaling Limited" : t("adminShards.scalingCritical") || "Critical"}
+                  </Badge>
+                )}
+              </div>
+              <CardDescription>{t("adminShards.shardConfigDescription") || "Configure the number of shards based on hardware capacity"}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isConfigLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <Skeleton className="h-24" />
+                  <Skeleton className="h-24" />
+                  <Skeleton className="h-24" />
+                  <Skeleton className="h-24" />
+                </div>
+              ) : shardConfig ? (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="p-4 rounded-lg border bg-card" data-testid="config-current-shards">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                        <Grid3x3 className="h-4 w-4" />
+                        {t("adminShards.currentShards") || "Current Shards"}
+                      </div>
+                      <p className="text-2xl font-bold">{shardConfig.currentShardCount}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {t("adminShards.shardRange") || "Range"}: {shardConfig.minShards} - {shardConfig.maxShards}
+                      </p>
+                    </div>
+                    <div className="p-4 rounded-lg border bg-card" data-testid="config-hardware-profile">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                        <Cpu className="h-4 w-4" />
+                        {t("adminShards.hardwareProfile") || "Hardware Profile"}
+                      </div>
+                      <p className="text-2xl font-bold">{shardConfig.hardwareRequirements?.profile || "Production"}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {shardConfig.hardwareRequirements?.recommendedCores || 32} {t("adminShards.cores") || "cores"}, {shardConfig.hardwareRequirements?.recommendedRamGB || 256}GB RAM
+                      </p>
+                    </div>
+                    <div className="p-4 rounded-lg border bg-card" data-testid="config-estimated-tps">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                        <Gauge className="h-4 w-4" />
+                        {t("adminShards.estimatedTps") || "Estimated TPS"}
+                      </div>
+                      <p className="text-2xl font-bold">{shardConfig.estimatedTps?.toLocaleString() || "54,000+"}</p>
+                      <p className="text-xs text-muted-foreground">
+                        ~{shardConfig.tpsPerShard?.toLocaleString() || "10,800"} {t("adminShards.perShard") || "per shard"}
+                      </p>
+                    </div>
+                    <div className="p-4 rounded-lg border bg-card" data-testid="config-capacity">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                        <Server className="h-4 w-4" />
+                        {t("adminShards.capacity") || "Capacity"}
+                      </div>
+                      <Progress value={shardConfig.scalingAnalysis?.utilizationPercent || 8} className="h-2 mb-2" />
+                      <p className="text-sm font-medium">{shardConfig.scalingAnalysis?.utilizationPercent || 8}%</p>
+                      <p className="text-xs text-muted-foreground">
+                        {shardConfig.currentShardCount}/{shardConfig.maxShards} {t("adminShards.shardsUsed") || "shards active"}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Shard Scaling Controls */}
+                  <div className="flex flex-col md:flex-row items-start md:items-center gap-4 p-4 rounded-lg border bg-muted/30">
+                    <div className="flex-1">
+                      <label className="text-sm font-medium mb-2 block">
+                        {t("adminShards.selectShardCount") || "Select Shard Count"}
+                      </label>
+                      <Select
+                        value={selectedShardCount?.toString() || shardConfig.currentShardCount.toString()}
+                        onValueChange={(v) => setSelectedShardCount(parseInt(v))}
+                      >
+                        <SelectTrigger className="w-full md:w-48" data-testid="select-shard-count">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[5, 8, 12, 16, 24, 32, 48, 64].filter(n => n >= shardConfig.minShards && n <= shardConfig.maxShards).map((count) => (
+                            <SelectItem key={count} value={count.toString()}>
+                              {count} {t("adminShards.shardsLabel") || "shards"} {count === shardConfig.currentShardCount ? `(${t("adminShards.current") || "current"})` : ''}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    {shardPreview && selectedShardCount !== shardConfig.currentShardCount && (
+                      <div className="flex-1 p-3 rounded-lg border bg-card">
+                        <p className="text-sm font-medium mb-2">{t("adminShards.previewChanges") || "Preview Changes"}</p>
+                        <div className="grid grid-cols-3 gap-2 text-sm">
+                          <div>
+                            <p className="text-muted-foreground">{t("adminShards.shards") || "Shards"}</p>
+                            <p className="font-medium">{shardConfig.currentShardCount} → {selectedShardCount}</p>
+                          </div>
+                          <div>
+                            <p className="text-muted-foreground">{t("adminShards.tpsEstimate") || "TPS"}</p>
+                            <p className="font-medium text-green-500">+{shardPreview.comparison?.improvement?.tpsIncrease || "0%"}</p>
+                          </div>
+                          <div>
+                            <p className="text-muted-foreground">{t("adminShards.validatorsLabel") || "Validators"}</p>
+                            <p className="font-medium">{shardPreview.estimatedValidators?.toLocaleString()}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <Dialog open={showConfigDialog} onOpenChange={setShowConfigDialog}>
+                      <DialogTrigger asChild>
+                        <Button 
+                          disabled={!selectedShardCount || selectedShardCount === shardConfig.currentShardCount || updateConfigMutation.isPending}
+                          data-testid="button-apply-shard-config"
+                        >
+                          {t("adminShards.applyConfiguration") || "Apply Configuration"}
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>{t("adminShards.confirmConfigChange") || "Confirm Shard Configuration"}</DialogTitle>
+                          <DialogDescription>
+                            {t("adminShards.confirmConfigChangeDesc") || "This will change the network shard count. This operation requires network coordination."}
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4 py-4">
+                          <div className="grid grid-cols-2 gap-4 text-sm">
+                            <div className="p-3 rounded-lg border">
+                              <p className="text-muted-foreground">{t("adminShards.currentConfig") || "Current"}</p>
+                              <p className="font-bold text-xl">{shardConfig.currentShardCount} {t("adminShards.shardsLabel") || "shards"}</p>
+                              <p className="text-sm text-muted-foreground">{shardConfig.estimatedTps?.toLocaleString()} TPS</p>
+                            </div>
+                            <div className="p-3 rounded-lg border bg-primary/5">
+                              <p className="text-muted-foreground">{t("adminShards.newConfig") || "New"}</p>
+                              <p className="font-bold text-xl">{selectedShardCount} {t("adminShards.shardsLabel") || "shards"}</p>
+                              <p className="text-sm text-green-500">{shardPreview?.estimatedTps?.toLocaleString() || (selectedShardCount || 0) * 10800} TPS</p>
+                            </div>
+                          </div>
+                          {shardPreview?.requirements && (
+                            <div className="p-3 rounded-lg border bg-yellow-500/10">
+                              <p className="text-sm font-medium flex items-center gap-2">
+                                <AlertCircle className="h-4 w-4" />
+                                {t("adminShards.hardwareRequirements") || "Hardware Requirements"}
+                              </p>
+                              <p className="text-sm text-muted-foreground mt-1">
+                                {t("adminShards.requiresMinimum") || "Requires minimum"}: {shardPreview.requirements.minCores} {t("adminShards.cores") || "cores"}, {shardPreview.requirements.minRamGB}GB RAM
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                        <DialogFooter>
+                          <Button variant="outline" onClick={() => setShowConfigDialog(false)}>
+                            {t("common.cancel") || "Cancel"}
+                          </Button>
+                          <Button 
+                            onClick={() => selectedShardCount && updateConfigMutation.mutate({ shardCount: selectedShardCount })}
+                            disabled={updateConfigMutation.isPending}
+                            data-testid="button-confirm-shard-config"
+                          >
+                            {updateConfigMutation.isPending ? (
+                              <>
+                                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                                {t("adminShards.applying") || "Applying..."}
+                              </>
+                            ) : (
+                              t("adminShards.confirmApply") || "Confirm & Apply"
+                            )}
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                  
+                  {/* Scaling Recommendations */}
+                  {shardConfig.scalingAnalysis?.recommendations && shardConfig.scalingAnalysis.recommendations.length > 0 && (
+                    <div className="p-4 rounded-lg border bg-blue-500/5">
+                      <p className="text-sm font-medium flex items-center gap-2 mb-2">
+                        <Brain className="h-4 w-4" />
+                        {t("adminShards.aiRecommendations") || "AI Recommendations"}
+                      </p>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        {shardConfig.scalingAnalysis.recommendations.map((rec, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <TrendingUp className="h-3 w-3 mt-1 flex-shrink-0" />
+                            {rec}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center text-muted-foreground py-8">
+                  {t("adminShards.configLoadError") || "Unable to load configuration"}
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           <div className="flex items-center gap-4">
             <div className="relative flex-1 max-w-md">

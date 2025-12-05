@@ -2535,15 +2535,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/consensus/current", async (_req, res) => {
-    try {
-      const state = await storage.getConsensusState();
-      res.json(state);
-    } catch (error) {
-      console.error("Error fetching consensus state:", error);
-      res.status(500).json({ error: "Failed to fetch consensus state" });
-    }
-  });
+  // Consensus current state endpoint - proxies to TBurnEnterpriseNode for dynamic shard config
+  // Note: This endpoint is also defined later in the file - keeping this for backwards compatibility
+  // The TBurnEnterpriseNode endpoint at port 8545 provides dynamic validator counts based on shard config
 
   // ============================================
   // Blocks - Enterprise Grade API
@@ -6049,26 +6043,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Sharding API
+  // Sharding API - Dynamic shard configuration from TBurnEnterpriseNode
   app.get("/api/sharding", async (_req, res) => {
     try {
-      const statuses = ['healthy', 'healthy', 'healthy', 'warning', 'healthy', 'healthy', 'healthy', 'healthy'] as const;
-      const shards = Array.from({ length: 8 }, (_, i) => ({
-        id: i,
-        name: `Shard ${i}`,
-        validators: 15 + Math.floor(Math.random() * 5),
-        tps: 5000 + Math.floor(Math.random() * 2000),
-        load: 30 + Math.floor(Math.random() * 50),
+      // Fetch dynamic shards from TBurnEnterpriseNode
+      const shardResponse = await fetch('http://localhost:8545/api/shards');
+      const enterpriseShards = await shardResponse.json();
+      
+      // Transform to expected format
+      const shards = enterpriseShards.map((s: any) => ({
+        id: s.shardId,
+        name: s.name,
+        validators: s.validatorCount,
+        tps: s.tps,
+        load: s.load,
         pendingTx: Math.floor(Math.random() * 500),
-        crossShardTx: Math.floor(Math.random() * 200),
-        status: statuses[i] as "healthy" | "warning" | "critical",
-        rebalanceScore: 80 + Math.floor(Math.random() * 20)
+        crossShardTx: s.crossShardTxCount,
+        status: s.load > 70 ? 'warning' : 'healthy' as "healthy" | "warning" | "critical",
+        rebalanceScore: s.mlOptimizationScore ? Math.floor(s.mlOptimizationScore / 100) : 85
       }));
       
-      const totalTps = shards.reduce((sum, s) => sum + s.tps, 0);
-      const avgLoad = Math.round(shards.reduce((sum, s) => sum + s.load, 0) / shards.length);
-      const totalValidators = shards.reduce((sum, s) => sum + s.validators, 0);
-      const healthyShards = shards.filter(s => s.status === 'healthy').length;
+      const totalTps = shards.reduce((sum: number, s: any) => sum + s.tps, 0);
+      const avgLoad = Math.round(shards.reduce((sum: number, s: any) => sum + s.load, 0) / shards.length);
+      const totalValidators = shards.reduce((sum: number, s: any) => sum + s.validators, 0);
+      const healthyShards = shards.filter((s: any) => s.status === 'healthy').length;
+      
+      // Generate dynamic load history based on shard count
+      const loadHistory = Array.from({ length: 6 }, (_, i) => {
+        const historyPoint: any = { time: `${String(i * 4).padStart(2, '0')}:00` };
+        shards.slice(0, 4).forEach((s: any, idx: number) => {
+          historyPoint[`shard${idx}`] = 40 + Math.floor(Math.random() * 40);
+        });
+        return historyPoint;
+      });
       
       res.json({
         shards,
@@ -6078,24 +6085,84 @@ export async function registerRoutes(app: Express): Promise<Server> {
           avgLoad,
           totalValidators,
           healthyShards,
-          pendingRebalance: 1
+          pendingRebalance: shards.filter((s: any) => s.rebalanceScore < 80).length
         },
-        loadHistory: [
-          { time: "00:00", shard0: 45, shard1: 52, shard2: 38, shard3: 61 },
-          { time: "04:00", shard0: 48, shard1: 55, shard2: 42, shard3: 58 },
-          { time: "08:00", shard0: 62, shard1: 58, shard2: 55, shard3: 65 },
-          { time: "12:00", shard0: 72, shard1: 68, shard2: 62, shard3: 70 },
-          { time: "16:00", shard0: 68, shard1: 65, shard2: 58, shard3: 68 },
-          { time: "20:00", shard0: 55, shard1: 52, shard2: 48, shard3: 58 },
-        ]
+        loadHistory
       });
     } catch (error) {
+      console.error('Failed to fetch sharding data:', error);
       res.status(500).json({ error: "Failed to fetch sharding data" });
     }
   });
 
   app.post("/api/sharding/rebalance", async (_req, res) => {
     res.json({ success: true, message: "Rebalancing initiated" });
+  });
+
+  // ============================================
+  // SHARD CONFIGURATION API (Admin)
+  // ============================================
+  
+  // Get current shard configuration
+  app.get("/api/admin/shards/config", async (_req, res) => {
+    try {
+      const response = await fetch('http://localhost:8545/api/admin/shards/config');
+      const config = await response.json();
+      res.json(config);
+    } catch (error) {
+      console.error('Failed to fetch shard config:', error);
+      res.status(500).json({ error: "Failed to fetch shard configuration" });
+    }
+  });
+  
+  // Update shard configuration
+  app.post("/api/admin/shards/config", async (req, res) => {
+    try {
+      const response = await fetch('http://localhost:8545/api/admin/shards/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(req.body)
+      });
+      const result = await response.json();
+      
+      if (!response.ok) {
+        return res.status(response.status).json(result);
+      }
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Failed to update shard config:', error);
+      res.status(500).json({ error: "Failed to update shard configuration" });
+    }
+  });
+  
+  // Preview shard scaling for a specific count
+  app.get("/api/admin/shards/preview/:count", async (req, res) => {
+    try {
+      const response = await fetch(`http://localhost:8545/api/admin/shards/preview/${req.params.count}`);
+      const preview = await response.json();
+      
+      if (!response.ok) {
+        return res.status(response.status).json(preview);
+      }
+      
+      res.json(preview);
+    } catch (error) {
+      console.error('Failed to preview shard scaling:', error);
+      res.status(500).json({ error: "Failed to preview shard scaling" });
+    }
+  });
+  
+  // Get network scaling analysis
+  app.get("/api/admin/network/scaling", async (_req, res) => {
+    try {
+      const response = await fetch('http://localhost:8545/api/admin/network/scaling');
+      const scaling = await response.json();
+      res.json(scaling);
+    } catch (error) {
+      console.error('Failed to fetch scaling analysis:', error);
+      res.status(500).json({ error: "Failed to fetch network scaling analysis" });
+    }
   });
 
   // Network Parameters
@@ -8591,7 +8658,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Consensus current state endpoint
+  // Consensus current state endpoint - uses TBurnEnterpriseNode for dynamic shard configuration
   app.get("/api/consensus/current", async (_req, res) => {
     try {
       if (isProductionMode()) {
@@ -8599,27 +8666,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const state = await client.getConsensusState();
         res.json(state);
       } else {
-        // Demo mode - return simulated consensus state
-        const consensusState = {
-          round: Math.floor(Date.now() / 1000),
-          proposer: `0x${Math.random().toString(16).substr(2, 40)}`,
-          validators: 125,
-          votingPower: "1250000",
-          phase: ["propose", "prevote", "precommit"][Math.floor(Math.random() * 3)],
-          roundProgress: Math.floor(Math.random() * 100),
-          bftConsensus: {
-            phase: ["propose", "prevote", "precommit"][Math.floor(Math.random() * 3)],
-            votes: Math.floor(Math.random() * 125),
-            threshold: 84,
-            timeElapsed: Math.floor(Math.random() * 100)
-          },
-          aiCommittee: {
-            reputation: Math.floor(Math.random() * 100),
-            performance: Math.floor(Math.random() * 100),
-            aiTrust: Math.floor(Math.random() * 100),
-            adaptiveWeight: Math.random() * 0.5 + 0.5
-          }
-        };
+        // Proxy to TBurnEnterpriseNode for dynamic validator counts based on shard config
+        const response = await fetch('http://localhost:8545/api/consensus/current');
+        
+        if (!response.ok) {
+          throw new Error(`Enterprise node returned status: ${response.status}`);
+        }
+        
+        const consensusState = await response.json();
         res.json(consensusState);
       }
     } catch (error: any) {

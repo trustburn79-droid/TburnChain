@@ -150,6 +150,44 @@ export class TBurnEnterpriseNode extends EventEmitter {
   ];
 
   // ============================================
+  // DYNAMIC SHARD SCALING SYSTEM
+  // Supports 5-64 shards based on hardware capacity
+  // 8-core dev server: 5 shards (25 validators each)
+  // 32-core prod server: 64 shards (40+ validators each)
+  // ============================================
+  private shardConfig = {
+    currentShardCount: 5,           // Current active shards (5 for dev, 64 for prod)
+    minShards: 5,                   // Minimum shard count
+    maxShards: 64,                  // Maximum shard count (32-core optimized)
+    validatorsPerShard: 25,         // Base validators per shard
+    tpsPerShard: 10000,             // Base TPS per shard
+    crossShardLatencyMs: 50,        // Cross-shard communication latency
+    rebalanceThreshold: 0.3,        // Load imbalance threshold for rebalancing
+    scalingMode: 'automatic' as 'automatic' | 'manual',
+    lastConfigUpdate: new Date().toISOString()
+  };
+  
+  // Shard name generator for 64 shards
+  private readonly SHARD_NAMES = [
+    'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta',
+    'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi',
+    'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega',
+    'Alpha-2', 'Beta-2', 'Gamma-2', 'Delta-2', 'Epsilon-2', 'Zeta-2', 'Eta-2', 'Theta-2',
+    'Iota-2', 'Kappa-2', 'Lambda-2', 'Mu-2', 'Nu-2', 'Xi-2', 'Omicron-2', 'Pi-2',
+    'Rho-2', 'Sigma-2', 'Tau-2', 'Upsilon-2', 'Phi-2', 'Chi-2', 'Psi-2', 'Omega-2',
+    'Alpha-3', 'Beta-3', 'Gamma-3', 'Delta-3', 'Epsilon-3', 'Zeta-3', 'Eta-3', 'Theta-3',
+    'Iota-3', 'Kappa-3', 'Lambda-3', 'Mu-3', 'Nu-3', 'Xi-3', 'Omicron-3', 'Pi-3'
+  ];
+
+  // Hardware requirement profiles
+  private readonly HARDWARE_PROFILES = {
+    development: { cores: 8, ramGB: 32, maxShards: 8, tpsCapacity: 80000 },
+    staging: { cores: 16, ramGB: 64, maxShards: 16, tpsCapacity: 160000 },
+    production: { cores: 32, ramGB: 256, maxShards: 64, tpsCapacity: 640000 },
+    enterprise: { cores: 64, ramGB: 512, maxShards: 128, tpsCapacity: 1280000 }
+  };
+
+  // ============================================
   // ENTERPRISE WALLET CACHING SYSTEM
   // Maintains consistent wallet data to prevent flickering
   // ============================================
@@ -309,221 +347,139 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json({ status: 'ok', node: this.config.nodeId });
     });
 
-    // Shards endpoint
+    // Shards endpoint - uses dynamic shard generation
     this.rpcApp.get('/api/shards', (_req: Request, res: Response) => {
-      const shards = [
-        {
-          id: '1',
-          shardId: 0,
-          name: 'Shard Alpha',
-          status: 'active',
-          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
-          transactionCount: 18234567 + Math.floor(Math.random() * 1000000),
-          validatorCount: 25,
-          tps: 10200 + Math.floor(Math.random() * 500),
-          load: 45 + Math.floor(Math.random() * 20),
-          peakTps: 11500,
-          avgBlockTime: 0.1,
-          crossShardTxCount: 2456 + Math.floor(Math.random() * 500),
-          stateSize: 125.4,
-          lastSyncedAt: new Date(Date.now() - 1000).toISOString(),
-          mlOptimizationScore: 8500 + Math.floor(Math.random() * 500),
-          predictedLoad: 47 + Math.floor(Math.random() * 10),
-          rebalanceCount: 12,
-          aiRecommendation: 'stable',
-          profilingScore: 9000 + Math.floor(Math.random() * 500),
-          capacityUtilization: 5000 + Math.floor(Math.random() * 1000)
-        },
-        {
-          id: '2',
-          shardId: 1,
-          name: 'Shard Beta',
-          status: 'active',
-          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
-          transactionCount: 17891234 + Math.floor(Math.random() * 1000000),
-          validatorCount: 25,
-          tps: 10100 + Math.floor(Math.random() * 500),
-          load: 42 + Math.floor(Math.random() * 20),
-          peakTps: 11200,
-          avgBlockTime: 0.1,
-          crossShardTxCount: 2356 + Math.floor(Math.random() * 500),
-          stateSize: 122.8,
-          lastSyncedAt: new Date(Date.now() - 2000).toISOString(),
-          mlOptimizationScore: 8400 + Math.floor(Math.random() * 500),
-          predictedLoad: 44 + Math.floor(Math.random() * 10),
-          rebalanceCount: 11,
-          aiRecommendation: 'stable',
-          profilingScore: 8900 + Math.floor(Math.random() * 500),
-          capacityUtilization: 4900 + Math.floor(Math.random() * 1000)
-        },
-        {
-          id: '3',
-          shardId: 2,
-          name: 'Shard Gamma',
-          status: 'active',
-          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
-          transactionCount: 18123456 + Math.floor(Math.random() * 1000000),
-          validatorCount: 25,
-          tps: 10300 + Math.floor(Math.random() * 500),
-          load: 48 + Math.floor(Math.random() * 20),
-          peakTps: 11600,
-          avgBlockTime: 0.1,
-          crossShardTxCount: 2556 + Math.floor(Math.random() * 500),
-          stateSize: 128.1,
-          lastSyncedAt: new Date(Date.now() - 1500).toISOString(),
-          mlOptimizationScore: 8600 + Math.floor(Math.random() * 500),
-          predictedLoad: 50 + Math.floor(Math.random() * 10),
-          rebalanceCount: 13,
-          aiRecommendation: 'optimize',
-          profilingScore: 9100 + Math.floor(Math.random() * 500),
-          capacityUtilization: 5200 + Math.floor(Math.random() * 1000)
-        },
-        {
-          id: '4', 
-          shardId: 3,
-          name: 'Shard Delta',
-          status: 'active',
-          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
-          transactionCount: 17234567 + Math.floor(Math.random() * 1000000),
-          validatorCount: 25,
-          tps: 9900 + Math.floor(Math.random() * 500),
-          load: 39 + Math.floor(Math.random() * 20),
-          peakTps: 10900,
-          avgBlockTime: 0.1,
-          crossShardTxCount: 2256 + Math.floor(Math.random() * 500),
-          stateSize: 119.7,
-          lastSyncedAt: new Date(Date.now() - 2500).toISOString(),
-          mlOptimizationScore: 8200 + Math.floor(Math.random() * 500),
-          predictedLoad: 41 + Math.floor(Math.random() * 10),
-          rebalanceCount: 10,
-          aiRecommendation: 'stable',
-          profilingScore: 8700 + Math.floor(Math.random() * 500),
-          capacityUtilization: 4700 + Math.floor(Math.random() * 1000)
-        },
-        {
-          id: '5',
-          shardId: 4,
-          name: 'Shard Epsilon',
-          status: 'active',
-          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
-          transactionCount: 18345678 + Math.floor(Math.random() * 1000000),
-          validatorCount: 25,
-          tps: 10400 + Math.floor(Math.random() * 500),
-          load: 52 + Math.floor(Math.random() * 20),
-          peakTps: 11800,
-          avgBlockTime: 0.1,
-          crossShardTxCount: 2656 + Math.floor(Math.random() * 500),
-          stateSize: 131.2,
-          lastSyncedAt: new Date(Date.now() - 3000).toISOString(),
-          mlOptimizationScore: 8700 + Math.floor(Math.random() * 500),
-          predictedLoad: 54 + Math.floor(Math.random() * 10),
-          rebalanceCount: 14,
-          aiRecommendation: 'monitor',
-          profilingScore: 9200 + Math.floor(Math.random() * 500),
-          capacityUtilization: 5300 + Math.floor(Math.random() * 1000)
-        }
-      ];
+      const shards = this.generateShards();
       res.json(shards);
     });
+    
+    // ============================================
+    // SHARD CONFIGURATION API ENDPOINTS
+    // ============================================
+    
+    // Get shard configuration
+    this.rpcApp.get('/api/admin/shards/config', (_req: Request, res: Response) => {
+      res.json(this.getShardConfig());
+    });
+    
+    // Update shard configuration
+    this.rpcApp.post('/api/admin/shards/config', (req: Request, res: Response) => {
+      const { shardCount, validatorsPerShard, scalingMode } = req.body;
+      
+      const updates: any = {};
+      if (shardCount !== undefined) updates.currentShardCount = parseInt(shardCount);
+      if (validatorsPerShard !== undefined) updates.validatorsPerShard = parseInt(validatorsPerShard);
+      if (scalingMode !== undefined) updates.scalingMode = scalingMode;
+      
+      const result = this.updateShardConfig(updates);
+      
+      if (result.success) {
+        res.json(result);
+      } else {
+        res.status(400).json(result);
+      }
+    });
+    
+    // Get hardware profile for a specific shard count (preview)
+    this.rpcApp.get('/api/admin/shards/preview/:count', (req: Request, res: Response) => {
+      const count = parseInt(req.params.count);
+      if (isNaN(count) || count < 1 || count > 128) {
+        return res.status(400).json({ error: 'Invalid shard count. Must be between 1 and 128.' });
+      }
+      
+      const requirements = this.calculateHardwareRequirements(count);
+      const estimatedTps = count * this.shardConfig.tpsPerShard;
+      const estimatedValidators = count * this.shardConfig.validatorsPerShard;
+      
+      res.json({
+        shardCount: count,
+        estimatedTps,
+        estimatedValidators,
+        requirements,
+        comparison: {
+          current: {
+            shards: this.shardConfig.currentShardCount,
+            tps: this.shardConfig.currentShardCount * this.shardConfig.tpsPerShard,
+            validators: this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard
+          },
+          proposed: {
+            shards: count,
+            tps: estimatedTps,
+            validators: estimatedValidators
+          },
+          improvement: {
+            tpsIncrease: `${((estimatedTps / (this.shardConfig.currentShardCount * this.shardConfig.tpsPerShard)) * 100 - 100).toFixed(1)}%`,
+            shardIncrease: `${((count / this.shardConfig.currentShardCount) * 100 - 100).toFixed(1)}%`
+          }
+        }
+      });
+    });
+    
+    // Get scaling analysis
+    this.rpcApp.get('/api/admin/network/scaling', (_req: Request, res: Response) => {
+      res.json({
+        currentConfig: this.getShardConfig(),
+        profiles: this.HARDWARE_PROFILES,
+        analysis: this.getScalingAnalysis(),
+        timestamp: new Date().toISOString()
+      });
+    });
 
-    // Get single shard endpoint  
+    // Get single shard endpoint - uses dynamic shard configuration
     this.rpcApp.get('/api/shards/:id', (req: Request, res: Response) => {
       const shardId = parseInt(req.params.id);
-      const shards = [
-        { shardId: 0, name: 'Shard Alpha' },
-        { shardId: 1, name: 'Shard Beta' },
-        { shardId: 2, name: 'Shard Gamma' },
-        { shardId: 3, name: 'Shard Delta' },
-        { shardId: 4, name: 'Shard Epsilon' }
-      ];
+      const shardCount = this.shardConfig.currentShardCount;
       
-      const shard = shards.find(s => s.shardId === shardId);
-      if (!shard) {
-        return res.status(404).json({ error: 'Shard not found' });
+      if (shardId < 0 || shardId >= shardCount) {
+        return res.status(404).json({ error: `Shard not found. Active shards: 0-${shardCount - 1}` });
       }
+      
+      const shardName = this.SHARD_NAMES[shardId] || `Shard-${shardId + 1}`;
+      const loadVariation = 35 + Math.floor(Math.random() * 35);
       
       res.json({
         id: `shard-${shardId}`,
         shardId,
-        name: shard.name,
+        name: `Shard ${shardName}`,
         status: 'active',
         blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
-        transactionCount: 17000000 + Math.floor(Math.random() * 2000000),
-        validatorCount: 25,
-        tps: 10000 + Math.floor(Math.random() * 1000),
-        load: 40 + Math.floor(Math.random() * 30),
-        peakTps: 11000 + Math.floor(Math.random() * 1000),
+        transactionCount: 17000000 + Math.floor(Math.random() * 2000000) + (shardId * 500000),
+        validatorCount: this.shardConfig.validatorsPerShard,
+        tps: this.shardConfig.tpsPerShard * 0.9 + Math.floor(Math.random() * this.shardConfig.tpsPerShard * 0.2),
+        load: loadVariation,
+        peakTps: Math.floor(this.shardConfig.tpsPerShard * 1.15),
         avgBlockTime: 0.1,
-        crossShardTxCount: 2000 + Math.floor(Math.random() * 1000),
-        stateSize: 120 + Math.floor(Math.random() * 20),
+        crossShardTxCount: 2000 + Math.floor(Math.random() * 1000) + (shardCount > 10 ? Math.floor(shardCount * 50) : 0),
+        stateSize: 100 + Math.floor(Math.random() * 50) + (shardId * 2),
         lastSyncedAt: new Date().toISOString(),
         mlOptimizationScore: 8000 + Math.floor(Math.random() * 1000),
-        predictedLoad: 45 + Math.floor(Math.random() * 15),
-        rebalanceCount: 10 + Math.floor(Math.random() * 5),
-        aiRecommendation: 'stable',
+        predictedLoad: loadVariation - 5 + Math.floor(Math.random() * 10),
+        rebalanceCount: 10 + Math.floor(Math.random() * 10),
+        aiRecommendation: loadVariation > 60 ? 'optimize' : loadVariation > 50 ? 'monitor' : 'stable',
         profilingScore: 8500 + Math.floor(Math.random() * 1000),
-        capacityUtilization: 4500 + Math.floor(Math.random() * 1500)
+        capacityUtilization: 4500 + Math.floor(Math.random() * 2000)
       });
     });
 
-    // Cross-shard messages endpoint
+    // Cross-shard messages endpoint - uses dynamic shard count
     this.rpcApp.get('/api/cross-shard/messages', (_req: Request, res: Response) => {
-      const messages = [];
-      const messageTypes = ['transfer', 'contract_call', 'state_sync'];
-      const statuses = ['confirmed', 'pending', 'confirmed', 'confirmed', 'pending'];
-      
-      // Generate 20-30 cross-shard messages
       const messageCount = 20 + Math.floor(Math.random() * 11);
-      for (let i = 0; i < messageCount; i++) {
-        const fromShard = Math.floor(Math.random() * 5);
-        let toShard = Math.floor(Math.random() * 5);
-        while (toShard === fromShard) {
-          toShard = Math.floor(Math.random() * 5);
-        }
-        
-        const sentAt = new Date(Date.now() - Math.floor(Math.random() * 60000));
-        const status = statuses[Math.floor(Math.random() * statuses.length)];
-        const confirmedAt = status === 'confirmed' ? new Date(sentAt.getTime() + Math.floor(Math.random() * 5000)) : undefined;
-        const failedAt = status === 'failed' ? new Date(sentAt.getTime() + Math.floor(Math.random() * 5000)) : undefined;
-        
-        messages.push({
-          id: `msg-${Date.now()}-${i}`,
-          messageId: `0x${crypto.randomBytes(32).toString('hex')}`,
-          fromShardId: fromShard,
-          toShardId: toShard,
-          transactionHash: `0x${crypto.randomBytes(32).toString('hex')}`,
-          status,
-          messageType: messageTypes[Math.floor(Math.random() * messageTypes.length)],
-          payload: {
-            from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-            to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-            data: `0x${crypto.randomBytes(32).toString('hex')}`,
-            value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
-            gasUsed: (50000 + Math.floor(Math.random() * 100000)).toString()
-          },
-          sentAt: sentAt.toISOString(),
-          confirmedAt: confirmedAt?.toISOString(),
-          failedAt: failedAt?.toISOString(),
-          retryCount: Math.floor(Math.random() * 3),
-          gasUsed: 50000 + Math.floor(Math.random() * 100000), // Must be a number, not BigInt or string
-          routeOptimizationScore: 0.75 + Math.random() * 0.25,
-          aiRecommendations: ['Use direct route', 'Optimize gas usage', 'Batch with similar messages']
-        });
-      }
-      
-      // Sort by sentAt descending
-      messages.sort((a, b) => new Date(b.sentAt).getTime() - new Date(a.sentAt).getTime());
-      
+      const messages = this.generateCrossShardMessages(messageCount);
       res.json(messages);
     });
 
     // Consensus current state endpoint
 // Removed old /api/consensus/current endpoint - see new one below
 
-    // Network Stats endpoint
+    // Network Stats endpoint - uses dynamic shard configuration
     this.rpcApp.get('/api/network/stats', (_req: Request, res: Response) => {
-      // Calculate current TPS based on recent block production rate
-      const currentTps = 50000 + Math.floor(Math.random() * 5000);
+      // Calculate current TPS based on shard configuration
+      const shardCount = this.shardConfig.currentShardCount;
+      const baseTps = shardCount * this.shardConfig.tpsPerShard;
+      const currentTps = Math.floor(baseTps * 0.95 + Math.random() * baseTps * 0.1);
+      
+      // Calculate dynamic validators based on shard config
+      const totalValidators = shardCount * this.shardConfig.validatorsPerShard;
       
       // Update token economics
       this.updateTokenPrice();
@@ -534,15 +490,20 @@ export class TBurnEnterpriseNode extends EventEmitter {
         currentBlockHeight: this.currentBlockHeight,
         tps: currentTps,
         peakTps: this.peakTps,
-        avgBlockTime: 100,
+        avgBlockTime: 100, // milliseconds
         blockTimeP99: 120,
         slaUptime: 9990, // 99.90%
         latency: 45,
         latencyP99: 95,
-        activeValidators: 125, // 125 active validators on mainnet
-        totalValidators: 125, // Total 125 validators
+        activeValidators: totalValidators,
+        totalValidators: totalValidators,
         totalTransactions: this.totalTransactions,
         totalAccounts: 527849, // 527K+ accounts on mainnet
+        
+        // Shard configuration info
+        shardCount: shardCount,
+        tpsPerShard: this.shardConfig.tpsPerShard,
+        validatorsPerShard: this.shardConfig.validatorsPerShard,
         
         // Dynamic token economics (calculated values)
         tokenPrice: this.tokenPrice,
@@ -780,8 +741,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
           decision: template.decision,
           impact: template.impact,
           category: template.category,
-          shardId: Math.floor(Math.random() * 5),
-          validatorAddress: `tburn1validator${String(Math.floor(Math.random() * 125)).padStart(3, '0')}`,
+          shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
+          validatorAddress: `tburn1validator${String(Math.floor(Math.random() * (this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard))).padStart(4, '0')}`,
           status: 'executed',
           metadata: {
             confidence: 9000 + Math.floor(Math.random() * 1000),
@@ -863,10 +824,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
           network: Math.random() * 0.4 + 0.5
         },
         shardPerformance: {
-          totalShards: 5,
-          activeShards: 5,
-          averageTpsPerShard: Math.floor(10000 + Math.random() * 400), // ~10000-10400 per shard
-          crossShardLatency: Math.floor(Math.random() * 50) + 100
+          totalShards: this.shardConfig.currentShardCount,
+          activeShards: this.shardConfig.currentShardCount,
+          averageTpsPerShard: Math.floor(this.shardConfig.tpsPerShard + Math.random() * 400),
+          crossShardLatency: this.shardConfig.crossShardLatencyMs + Math.floor(Math.random() * 20)
         }
       };
       res.json(metrics);
@@ -877,17 +838,21 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const limit = Math.min(parseInt(req.query.limit as string) || 5, 10);
       const rounds = [];
       
+      // Dynamic validator count based on shard configuration
+      const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
+      const requiredQuorum = Math.ceil(totalValidators * 2 / 3);
+      
       for (let i = 0; i < limit; i++) {
         const blockHeight = this.currentBlockHeight - i;
         const startTime = Date.now() - (i * 100); // 100ms per block
         const endTime = i === 0 ? null : startTime + 100; // null for in-progress
         
-        // Create phases data
+        // Create phases data with dynamic validator counts
         const phasesData = [
-          { name: 'propose', durationMs: 20, votes: 125, status: 'completed' },
-          { name: 'prevote', durationMs: 25, votes: i === 0 ? Math.floor(Math.random() * 125) : 125, status: i === 0 ? 'in_progress' : 'completed' },
-          { name: 'precommit', durationMs: 25, votes: i === 0 ? Math.floor(Math.random() * 84) : 125, status: i === 0 ? 'pending' : 'completed' },
-          { name: 'commit', durationMs: 30, votes: i === 0 ? 0 : 125, status: i === 0 ? 'pending' : 'completed' }
+          { name: 'propose', durationMs: 20, votes: totalValidators, status: 'completed' },
+          { name: 'prevote', durationMs: 25, votes: i === 0 ? Math.floor(Math.random() * totalValidators) : totalValidators, status: i === 0 ? 'in_progress' : 'completed' },
+          { name: 'precommit', durationMs: 25, votes: i === 0 ? Math.floor(Math.random() * requiredQuorum) : totalValidators, status: i === 0 ? 'pending' : 'completed' },
+          { name: 'commit', durationMs: 30, votes: i === 0 ? 0 : totalValidators, status: i === 0 ? 'pending' : 'completed' }
         ];
         
         // AI participation data
@@ -916,8 +881,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
     // Consensus state endpoint - matches consensusStateSchema
     this.rpcApp.get('/api/consensus/current', (_req: Request, res: Response) => {
-      const totalValidators = 125;
-      const requiredQuorum = Math.ceil(totalValidators * 2 / 3); // 84 validators
+      // Dynamic validator count based on shard configuration
+      const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
+      const requiredQuorum = Math.ceil(totalValidators * 2 / 3); // 2/3 majority for consensus
       const currentPhase = Math.floor(Math.random() * 4); // 0=propose, 1=prevote, 2=precommit, 3=commit
       const startTime = Date.now() - Math.floor(Math.random() * 50); // Started 0-50ms ago
       
@@ -972,7 +938,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         }
       ];
       
-      const proposerAddress = `tburn1validator${Math.floor(Math.random() * 125).toString().padStart(3, '0')}`;
+      const proposerAddress = `tburn1validator${Math.floor(Math.random() * totalValidators).toString().padStart(4, '0')}`;
       const state = {
         currentPhase,
         phases,
@@ -989,15 +955,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json(state);
     });
 
-    // Get single cross-shard message
+    // Get single cross-shard message - uses dynamic shard count
     this.rpcApp.get('/api/cross-shard/messages/:id', (req: Request, res: Response) => {
       const messageId = req.params.id;
+      const shardCount = this.shardConfig.currentShardCount;
       
       res.json({
         id: messageId,
         messageId: messageId.startsWith('0x') ? messageId : `0x${messageId}`,
-        fromShard: Math.floor(Math.random() * 5),
-        toShard: Math.floor(Math.random() * 5),
+        fromShard: Math.floor(Math.random() * shardCount),
+        toShard: Math.floor(Math.random() * shardCount),
         type: 'transfer',
         status: 'confirmed',
         timestamp: Date.now() - 30000,
@@ -1103,6 +1070,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         const template = decisionTemplates[Math.floor(Math.random() * decisionTemplates.length)];
         const timestamp = new Date(Date.now() - i * 1500); // 1.5 seconds apart for recent
         
+        const totalValidatorsForDecision = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
         decisions.push({
           id: `ai-decision-recent-${this.currentBlockHeight}-${Date.now()}-${i}`,
           band: modelConfig.band,
@@ -1110,8 +1078,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
           decision: template.decision,
           impact: template.impact,
           category: template.category,
-          shardId: Math.floor(Math.random() * 5),
-          validatorAddress: `tburn1validator${String(Math.floor(Math.random() * 125)).padStart(3, '0')}`,
+          shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
+          validatorAddress: `tburn1validator${String(Math.floor(Math.random() * totalValidatorsForDecision)).padStart(4, '0')}`,
           status: i === 0 ? 'pending' : 'executed', // First one pending, rest executed
           metadata: {
             confidence: 9000 + Math.floor(Math.random() * 1000),
@@ -1119,7 +1087,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
             blockHeight: this.currentBlockHeight - i,
             gasUsed: 50000 + Math.floor(Math.random() * 100000),
             feedbackScore: 8500 + Math.floor(Math.random() * 1500),
-            input: { blockHash: `0x${crypto.randomBytes(32).toString('hex')}`, validatorCount: 125 },
+            input: { blockHash: `0x${crypto.randomBytes(32).toString('hex')}`, validatorCount: totalValidatorsForDecision },
             output: { approved: true, score: 9500 + Math.floor(Math.random() * 500) }
           },
           createdAt: timestamp.toISOString(),
@@ -1165,11 +1133,14 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const startTime = Date.now() - ((this.currentBlockHeight - blockHeight) * 100);
       const endTime = startTime + 100;
       
+      // Dynamic validator count based on shard configuration
+      const totalValidatorsForRound = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
+      
       const phasesData = [
-        { name: 'propose', durationMs: 20, votes: 125, status: 'completed' },
-        { name: 'prevote', durationMs: 25, votes: 125, status: 'completed' },
-        { name: 'precommit', durationMs: 25, votes: 125, status: 'completed' },
-        { name: 'commit', durationMs: 30, votes: 125, status: 'completed' }
+        { name: 'propose', durationMs: 20, votes: totalValidatorsForRound, status: 'completed' },
+        { name: 'prevote', durationMs: 25, votes: totalValidatorsForRound, status: 'completed' },
+        { name: 'precommit', durationMs: 25, votes: totalValidatorsForRound, status: 'completed' },
+        { name: 'commit', durationMs: 30, votes: totalValidatorsForRound, status: 'completed' }
       ];
       
       const aiParticipation = [
@@ -1352,15 +1323,19 @@ export class TBurnEnterpriseNode extends EventEmitter {
     }
     this.blockTimes.push(now);
 
+    // Dynamic validator count based on shard configuration
+    const totalValidatorsForBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
+    const requiredSignatures = Math.ceil(totalValidatorsForBlock * 2 / 3);
+    
     return {
       height: this.currentBlockHeight,
       hash: `0x${crypto.randomBytes(32).toString('hex')}`,
       timestamp: Math.floor(now / 1000),
-      proposer: `tburn1validator${Math.floor(Math.random() * 125).toString().padStart(3, '0')}`,
+      proposer: `tburn1validator${Math.floor(Math.random() * totalValidatorsForBlock).toString().padStart(4, '0')}`,
       transactionCount,
       gasUsed: gasUsed.toString(),
       size: 15000 + Math.floor(Math.random() * 10000),
-      validatorSignatures: 84 + Math.floor(Math.random() * 41) // 2/3+ of 125 validators
+      validatorSignatures: requiredSignatures + Math.floor(Math.random() * (totalValidatorsForBlock - requiredSignatures + 1)) // 2/3+ of total validators
     };
   }
 
@@ -1476,7 +1451,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
     const blockHash = typeof heightOrHash === 'string' ? heightOrHash : `0x${crypto.randomBytes(32).toString('hex')}`;
     const parentHash = `0x${crypto.randomBytes(32).toString('hex')}`;
-    const validatorIndex = Math.floor(Math.random() * 125);
+    // Dynamic validator index based on shard configuration
+    const totalValidatorsForGetBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
+    const validatorIndex = Math.floor(Math.random() * totalValidatorsForGetBlock);
     const validatorAddress = `0x${crypto.createHash('sha256').update(`validator${validatorIndex}`).digest('hex').slice(0, 40)}`;
     
     return {
@@ -1488,11 +1465,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
       timestamp: Math.floor(Date.now() / 1000) - (this.currentBlockHeight - height) * 100,
       transactionCount: 400 + Math.floor(Math.random() * 200),
       validatorAddress,
-      proposer: `tburn1validator${validatorIndex.toString().padStart(3, '0')}`,
+      proposer: `tburn1validator${validatorIndex.toString().padStart(4, '0')}`,
       size: 15000 + Math.floor(Math.random() * 10000),
       gasUsed: 15000000 + Math.floor(Math.random() * 5000000),
       gasLimit: 30000000,
-      shardId: Math.floor(Math.random() * 4),
+      shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
       stateRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
       receiptsRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
       hashAlgorithm: ['BLAKE3', 'SHA3-512', 'SHA-256'][Math.floor(Math.random() * 3)]
@@ -1877,6 +1854,254 @@ export class TBurnEnterpriseNode extends EventEmitter {
       
       lastUpdated: new Date().toISOString()
     };
+  }
+
+  // ============================================
+  // DYNAMIC SHARD GENERATION & CONFIGURATION
+  // ============================================
+  
+  // Get current shard configuration
+  getShardConfig() {
+    const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
+    const totalTps = this.shardConfig.currentShardCount * this.shardConfig.tpsPerShard;
+    
+    return {
+      ...this.shardConfig,
+      totalValidators,
+      estimatedTps: totalTps,
+      hardwareRequirements: this.calculateHardwareRequirements(this.shardConfig.currentShardCount),
+      scalingAnalysis: this.getScalingAnalysis()
+    };
+  }
+  
+  // Update shard configuration
+  updateShardConfig(newConfig: Partial<typeof this.shardConfig>): { success: boolean; message: string; config: any } {
+    const previousShardCount = this.shardConfig.currentShardCount;
+    
+    if (newConfig.currentShardCount !== undefined) {
+      if (newConfig.currentShardCount < this.shardConfig.minShards) {
+        return { 
+          success: false, 
+          message: `Minimum shard count is ${this.shardConfig.minShards}`,
+          config: this.getShardConfig()
+        };
+      }
+      if (newConfig.currentShardCount > this.shardConfig.maxShards) {
+        return { 
+          success: false, 
+          message: `Maximum shard count is ${this.shardConfig.maxShards}. Upgrade hardware for more shards.`,
+          config: this.getShardConfig()
+        };
+      }
+    }
+    
+    // Apply configuration updates
+    Object.assign(this.shardConfig, newConfig, { lastConfigUpdate: new Date().toISOString() });
+    
+    // Log scaling event
+    if (newConfig.currentShardCount && newConfig.currentShardCount !== previousShardCount) {
+      console.log(`[Enterprise Node] 🔄 Shard count updated: ${previousShardCount} → ${this.shardConfig.currentShardCount}`);
+      
+      // Broadcast shard configuration change via WebSocket
+      const message = JSON.stringify({
+        type: 'shard_config_update',
+        data: {
+          previousShardCount,
+          newShardCount: this.shardConfig.currentShardCount,
+          timestamp: new Date().toISOString()
+        }
+      });
+      this.wsClients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(message);
+        }
+      });
+    }
+    
+    return {
+      success: true,
+      message: `Shard configuration updated successfully. Active shards: ${this.shardConfig.currentShardCount}`,
+      config: this.getShardConfig()
+    };
+  }
+  
+  // Calculate hardware requirements for given shard count
+  calculateHardwareRequirements(shardCount: number): {
+    minCores: number;
+    minRamGB: number;
+    recommendedCores: number;
+    recommendedRamGB: number;
+    storageGB: number;
+    networkBandwidthGbps: number;
+    profile: string;
+  } {
+    // Each shard needs ~0.5 cores and ~4GB RAM minimum
+    const minCores = Math.ceil(shardCount * 0.5);
+    const minRamGB = Math.ceil(shardCount * 4);
+    
+    // Recommended is 2x minimum for headroom
+    const recommendedCores = Math.max(8, Math.ceil(shardCount * 0.75));
+    const recommendedRamGB = Math.max(32, Math.ceil(shardCount * 6));
+    
+    // Storage: ~50GB per shard for state + blocks
+    const storageGB = Math.max(500, shardCount * 50);
+    
+    // Network: ~100Mbps per shard for consensus + cross-shard
+    const networkBandwidthGbps = Math.max(1, Math.ceil(shardCount * 0.1));
+    
+    // Determine profile
+    let profile = 'custom';
+    for (const [name, spec] of Object.entries(this.HARDWARE_PROFILES)) {
+      if (shardCount <= spec.maxShards && recommendedCores <= spec.cores) {
+        profile = name;
+        break;
+      }
+    }
+    
+    return { minCores, minRamGB, recommendedCores, recommendedRamGB, storageGB, networkBandwidthGbps, profile };
+  }
+  
+  // Get scaling analysis for production readiness
+  getScalingAnalysis(): {
+    currentCapacity: { shards: number; tps: number; validators: number };
+    maxCapacity: { shards: number; tps: number; validators: number };
+    utilizationPercent: number;
+    recommendations: string[];
+    scalingReadiness: 'ready' | 'warning' | 'critical';
+  } {
+    const currentShards = this.shardConfig.currentShardCount;
+    const maxShards = this.shardConfig.maxShards;
+    const tpsPerShard = this.shardConfig.tpsPerShard;
+    const validatorsPerShard = this.shardConfig.validatorsPerShard;
+    
+    const currentCapacity = {
+      shards: currentShards,
+      tps: currentShards * tpsPerShard,
+      validators: currentShards * validatorsPerShard
+    };
+    
+    const maxCapacity = {
+      shards: maxShards,
+      tps: maxShards * tpsPerShard,
+      validators: maxShards * validatorsPerShard
+    };
+    
+    const utilizationPercent = (currentShards / maxShards) * 100;
+    
+    const recommendations: string[] = [];
+    let scalingReadiness: 'ready' | 'warning' | 'critical' = 'ready';
+    
+    if (currentShards < 16) {
+      recommendations.push('Consider increasing shard count for higher throughput');
+    }
+    if (currentShards >= maxShards * 0.9) {
+      recommendations.push('Approaching maximum shard capacity. Consider hardware upgrade.');
+      scalingReadiness = 'warning';
+    }
+    if (currentShards >= maxShards) {
+      recommendations.push('Maximum shard capacity reached. Hardware upgrade required for scaling.');
+      scalingReadiness = 'critical';
+    }
+    if (validatorsPerShard < 20) {
+      recommendations.push('Increase validators per shard for better decentralization');
+    }
+    
+    // Production-specific recommendations
+    if (currentShards === 5) {
+      recommendations.push('Development configuration detected. Increase to 64 shards for production deployment.');
+    }
+    if (currentShards === 64) {
+      recommendations.push('Production configuration active. System optimized for 32-core, 256GB infrastructure.');
+    }
+    
+    return { currentCapacity, maxCapacity, utilizationPercent, recommendations, scalingReadiness };
+  }
+  
+  // Generate dynamic shard data based on current configuration
+  generateShards(): any[] {
+    const shards = [];
+    const shardCount = this.shardConfig.currentShardCount;
+    const validatorsPerShard = this.shardConfig.validatorsPerShard;
+    const baseTps = this.shardConfig.tpsPerShard;
+    
+    for (let i = 0; i < shardCount; i++) {
+      const shardName = this.SHARD_NAMES[i] || `Shard-${i + 1}`;
+      const loadVariation = 35 + Math.floor(Math.random() * 35); // 35-70% load
+      const tpsVariation = baseTps * 0.9 + Math.floor(Math.random() * baseTps * 0.2); // ±10% TPS variation
+      
+      shards.push({
+        id: `${i + 1}`,
+        shardId: i,
+        name: `Shard ${shardName}`,
+        status: 'active',
+        blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
+        transactionCount: 17000000 + Math.floor(Math.random() * 3000000) + (i * 500000),
+        validatorCount: validatorsPerShard,
+        tps: Math.floor(tpsVariation),
+        load: loadVariation,
+        peakTps: Math.floor(baseTps * 1.15),
+        avgBlockTime: 0.1,
+        crossShardTxCount: 2000 + Math.floor(Math.random() * 1000) + (shardCount > 10 ? Math.floor(shardCount * 50) : 0),
+        stateSize: 100 + Math.floor(Math.random() * 50) + (i * 2),
+        lastSyncedAt: new Date(Date.now() - Math.floor(Math.random() * 5000)).toISOString(),
+        mlOptimizationScore: 8000 + Math.floor(Math.random() * 1000),
+        predictedLoad: loadVariation - 5 + Math.floor(Math.random() * 10),
+        rebalanceCount: 10 + Math.floor(Math.random() * 10),
+        aiRecommendation: loadVariation > 60 ? 'optimize' : loadVariation > 50 ? 'monitor' : 'stable',
+        profilingScore: 8500 + Math.floor(Math.random() * 1000),
+        capacityUtilization: 4500 + Math.floor(Math.random() * 2000)
+      });
+    }
+    
+    return shards;
+  }
+  
+  // Generate cross-shard messages based on current shard count
+  generateCrossShardMessages(count: number = 25): any[] {
+    const messages = [];
+    const shardCount = this.shardConfig.currentShardCount;
+    const messageTypes = ['transfer', 'contract_call', 'state_sync'];
+    const statuses = ['confirmed', 'pending', 'confirmed', 'confirmed', 'pending'];
+    
+    for (let i = 0; i < count; i++) {
+      const fromShard = Math.floor(Math.random() * shardCount);
+      let toShard = Math.floor(Math.random() * shardCount);
+      while (toShard === fromShard) {
+        toShard = Math.floor(Math.random() * shardCount);
+      }
+      
+      const sentAt = new Date(Date.now() - Math.floor(Math.random() * 60000));
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+      const confirmedAt = status === 'confirmed' ? new Date(sentAt.getTime() + Math.floor(Math.random() * 5000)) : undefined;
+      
+      messages.push({
+        id: `msg-${Date.now()}-${i}`,
+        messageId: `0x${crypto.randomBytes(32).toString('hex')}`,
+        fromShardId: fromShard,
+        fromShardName: this.SHARD_NAMES[fromShard] || `Shard-${fromShard + 1}`,
+        toShardId: toShard,
+        toShardName: this.SHARD_NAMES[toShard] || `Shard-${toShard + 1}`,
+        transactionHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+        status,
+        messageType: messageTypes[Math.floor(Math.random() * messageTypes.length)],
+        payload: {
+          from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+          to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+          data: `0x${crypto.randomBytes(32).toString('hex')}`,
+          value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
+          gasUsed: (50000 + Math.floor(Math.random() * 100000)).toString()
+        },
+        sentAt: sentAt.toISOString(),
+        confirmedAt: confirmedAt?.toISOString(),
+        retryCount: Math.floor(Math.random() * 3),
+        gasUsed: 50000 + Math.floor(Math.random() * 100000),
+        routeOptimizationScore: 0.75 + Math.random() * 0.25,
+        latencyMs: this.shardConfig.crossShardLatencyMs + Math.floor(Math.random() * 30),
+        hopCount: shardCount > 32 ? Math.floor(Math.random() * 3) + 1 : 1
+      });
+    }
+    
+    return messages.sort((a, b) => new Date(b.sentAt).getTime() - new Date(a.sentAt).getTime());
   }
 
   async getNetworkStats(): Promise<any> {
