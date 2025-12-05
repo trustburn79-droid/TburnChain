@@ -16972,7 +16972,15 @@
     "reconnecting": "재연결 중...",
     "wsConnected": "실시간 보안 업데이트 활성화",
     "wsReconnecting": "재연결 시도 중...",
-    "securityScore": "Security Score",
+    "securityScore": {
+      "label": "보안 점수",
+      "overall": "전체",
+      "authentication": "인증",
+      "authorization": "권한",
+      "encryption": "암호화",
+      "monitoring": "모니터링",
+      "compliance": "준수"
+    },
     "tabs": {
       "overview": "개요",
       "threats": "위협 이벤트",
@@ -17048,12 +17056,12 @@
       "description": "보안 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
     "retry": "다시 시도",
-    "securityOverview": "Security Overview",
-    "activeThreats": "Active Threats",
-    "blockedAttacks": "Blocked Attacks",
-    "firewallRules": "Firewall Rules",
-    "accessLogs": "Access Logs",
-    "twoFactorAuth": "Two-Factor Auth"
+    "securityOverview": "보안 개요",
+    "activeThreats": "활성 위협",
+    "blockedAttacks": "차단된 공격",
+    "firewallRules": "방화벽 규칙",
+    "accessLogs": "접근 로그",
+    "twoFactorAuth": "2단계 인증"
   },
   "adminCompliance": {
     "title": "컴플라이언스",

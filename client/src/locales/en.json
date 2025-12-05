@@ -17114,7 +17114,15 @@
     "reconnecting": "Reconnecting...",
     "wsConnected": "Real-time security updates active",
     "wsReconnecting": "Attempting to reconnect...",
-    "securityScore": "Security Score",
+    "securityScore": {
+      "label": "Security Score",
+      "overall": "Overall",
+      "authentication": "Authentication",
+      "authorization": "Authorization",
+      "encryption": "Encryption",
+      "monitoring": "Monitoring",
+      "compliance": "Compliance"
+    },
     "tabs": {
       "overview": "Overview",
       "threats": "Threat Events",
