@@ -19379,6 +19379,23 @@
       "updatedNetwork": "Updated Network",
       "viewedLogs": "Viewed Logs"
     },
+    "messages": {
+      "systemHealthCheckCompleted": "System health check completed",
+      "apiRateLimitAdjusted": "API rate limit adjusted for /api/blocks",
+      "websocketBroadcast": "WebSocket broadcast: {{count}} clients connected",
+      "configurationReloadCompleted": "Configuration reload completed",
+      "highMemoryUsageDetected": "High memory usage detected ({{percent}}%)",
+      "cacheInvalidationCompleted": "Cache invalidation completed",
+      "databaseConnectionPoolOptimized": "Database connection pool optimized",
+      "websocketHeartbeatSent": "WebSocket heartbeat sent",
+      "apiRequestProcessed": "API request processed",
+      "sessionCleanupExecuted": "Session cleanup executed",
+      "adminSessionCreated": "Admin session created",
+      "successfulLogin": "Successful login",
+      "rateLimitTriggered": "Rate limit triggered on /api/network/stats",
+      "systemConfigurationUpdated": "System configuration updated",
+      "ipBlockedSuspiciousActivity": "IP blocked due to suspicious activity"
+    },
     "activeSessions": {
       "active": "Active",
       "description": "Monitor currently active sessions",

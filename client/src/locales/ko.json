@@ -19379,6 +19379,23 @@
       "updatedNetwork": "네트워크 업데이트",
       "viewedLogs": "로그 조회"
     },
+    "messages": {
+      "systemHealthCheckCompleted": "시스템 상태 점검 완료",
+      "apiRateLimitAdjusted": "/api/blocks에 대한 API 속도 제한 조정됨",
+      "websocketBroadcast": "WebSocket 브로드캐스트: {{count}}개 클라이언트 연결됨",
+      "configurationReloadCompleted": "설정 다시 로드 완료",
+      "highMemoryUsageDetected": "높은 메모리 사용량 감지 ({{percent}}%)",
+      "cacheInvalidationCompleted": "캐시 무효화 완료",
+      "databaseConnectionPoolOptimized": "데이터베이스 연결 풀 최적화됨",
+      "websocketHeartbeatSent": "WebSocket 하트비트 전송됨",
+      "apiRequestProcessed": "API 요청 처리됨",
+      "sessionCleanupExecuted": "세션 정리 실행됨",
+      "adminSessionCreated": "관리자 세션 생성됨",
+      "successfulLogin": "로그인 성공",
+      "rateLimitTriggered": "/api/network/stats에서 속도 제한 발생",
+      "systemConfigurationUpdated": "시스템 설정 업데이트됨",
+      "ipBlockedSuspiciousActivity": "의심스러운 활동으로 인해 IP 차단됨"
+    },
     "activeSessions": {
       "active": "활성",
       "description": "현재 활성 세션 모니터링",

@@ -549,6 +549,34 @@ function useActiveSessions() {
   return sessions;
 }
 
+// Activity message translation key mapping
+const activityMessageKeyMap: Record<string, { key: string; params?: Record<string, string | number> }> = {
+  "System health check completed": { key: "adminActivity.messages.systemHealthCheckCompleted" },
+  "API rate limit adjusted for /api/blocks": { key: "adminActivity.messages.apiRateLimitAdjusted" },
+  "WebSocket broadcast: 245 clients connected": { key: "adminActivity.messages.websocketBroadcast", params: { count: 245 } },
+  "Configuration reload completed": { key: "adminActivity.messages.configurationReloadCompleted" },
+  "High memory usage detected (78%)": { key: "adminActivity.messages.highMemoryUsageDetected", params: { percent: 78 } },
+  "Cache invalidation completed": { key: "adminActivity.messages.cacheInvalidationCompleted" },
+  "Database connection pool optimized": { key: "adminActivity.messages.databaseConnectionPoolOptimized" },
+  "WebSocket heartbeat sent": { key: "adminActivity.messages.websocketHeartbeatSent" },
+  "API request processed": { key: "adminActivity.messages.apiRequestProcessed" },
+  "Session cleanup executed": { key: "adminActivity.messages.sessionCleanupExecuted" },
+  "Admin session created": { key: "adminActivity.messages.adminSessionCreated" },
+  "Successful login": { key: "adminActivity.messages.successfulLogin" },
+  "Rate limit triggered on /api/network/stats": { key: "adminActivity.messages.rateLimitTriggered" },
+  "System configuration updated": { key: "adminActivity.messages.systemConfigurationUpdated" },
+  "IP blocked due to suspicious activity": { key: "adminActivity.messages.ipBlockedSuspiciousActivity" }
+};
+
+// Helper function to get translated activity message
+const getTranslatedActivityMessage = (t: (key: string, params?: Record<string, unknown>) => string, message: string): string => {
+  const mapping = activityMessageKeyMap[message];
+  if (mapping) {
+    return t(mapping.key, mapping.params);
+  }
+  return message;
+};
+
 function useActivityFeed() {
   const [activities, setActivities] = useState<AdminActivityEvent[]>([]);
   const { subscribeToEvent } = useWebSocket();
@@ -1172,7 +1200,7 @@ function LiveActivityFeed({ activities }: { activities: AdminActivityEvent[] }) 
               >
                 <div className="mt-0.5 text-muted-foreground">{getTypeIcon(activity.type)}</div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm">{activity.message}</p>
+                  <p className="text-sm">{getTranslatedActivityMessage(t, activity.message)}</p>
                   <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
                     <span>{formatDistanceToNow(new Date(activity.timestamp), { addSuffix: true, locale: dateLocale })}</span>
                     <span className="font-mono">{activity.source}</span>
