@@ -5883,3 +5883,158 @@ export type InsertCommunityEventRegistration = z.infer<typeof insertCommunityEve
 
 export type ReactionType = "like" | "dislike";
 export type RegistrationStatus = "registered" | "attended" | "cancelled";
+
+// ============================================
+// ENTERPRISE SHARD CONFIGURATION INFRASTRUCTURE
+// ============================================
+
+// Shard Configuration - Persistent network configuration
+export const shardConfigurations = pgTable("shard_configurations", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Core Configuration
+  currentShardCount: integer("current_shard_count").notNull().default(5),
+  minShards: integer("min_shards").notNull().default(5),
+  maxShards: integer("max_shards").notNull().default(64),
+  validatorsPerShard: integer("validators_per_shard").notNull().default(25),
+  tpsPerShard: integer("tps_per_shard").notNull().default(10000),
+  crossShardLatencyMs: integer("cross_shard_latency_ms").notNull().default(50),
+  rebalanceThreshold: real("rebalance_threshold").notNull().default(0.3),
+  
+  // Scaling Settings
+  scalingMode: varchar("scaling_mode", { length: 20 }).notNull().default("automatic"), // automatic, manual, disabled
+  cooldownMinutes: integer("cooldown_minutes").notNull().default(5),
+  
+  // Version Control
+  version: integer("version").notNull().default(1),
+  isActive: boolean("is_active").notNull().default(true), // Only one active config at a time
+  
+  // Health Status
+  healthStatus: varchar("health_status", { length: 20 }).notNull().default("healthy"), // healthy, degraded, critical
+  lastHealthCheck: timestamp("last_health_check").defaultNow(),
+  
+  // Metadata
+  changedBy: varchar("changed_by", { length: 100 }),
+  changeReason: text("change_reason"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Shard Configuration History - Complete version history for rollback
+export const shardConfigHistory = pgTable("shard_config_history", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Version Reference
+  configId: varchar("config_id", { length: 64 }).notNull(),
+  version: integer("version").notNull(),
+  
+  // Snapshot of Configuration
+  configSnapshot: jsonb("config_snapshot").notNull(),
+  
+  // Change Details
+  changedBy: varchar("changed_by", { length: 100 }).notNull(),
+  changeReason: text("change_reason"),
+  changeType: varchar("change_type", { length: 30 }).notNull().default("update"), // create, update, rollback, auto_scale
+  
+  // Impact Analysis
+  previousShardCount: integer("previous_shard_count"),
+  newShardCount: integer("new_shard_count"),
+  affectedShards: jsonb("affected_shards").default([]),
+  estimatedDowntime: integer("estimated_downtime_seconds").default(0),
+  
+  // Rollback Info
+  rollbackable: boolean("rollbackable").notNull().default(true),
+  rolledBackAt: timestamp("rolled_back_at"),
+  rolledBackBy: varchar("rolled_back_by", { length: 100 }),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Shard Scaling Events - Track all scaling operations
+export const shardScalingEvents = pgTable("shard_scaling_events", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Event Type
+  eventType: varchar("event_type", { length: 30 }).notNull(), // scale_up, scale_down, rebalance, emergency_stop
+  status: varchar("status", { length: 20 }).notNull().default("pending"), // pending, in_progress, completed, failed, rolled_back
+  
+  // Scaling Details
+  fromShards: integer("from_shards").notNull(),
+  toShards: integer("to_shards").notNull(),
+  triggerReason: text("trigger_reason"),
+  triggeredBy: varchar("triggered_by", { length: 100 }).notNull(), // system, admin, ai_orchestrator
+  
+  // Impact
+  affectedValidators: integer("affected_validators").default(0),
+  estimatedDuration: integer("estimated_duration_seconds").default(0),
+  actualDuration: integer("actual_duration_seconds"),
+  
+  // Results
+  success: boolean("success"),
+  errorMessage: text("error_message"),
+  
+  startedAt: timestamp("started_at").defaultNow().notNull(),
+  completedAt: timestamp("completed_at"),
+});
+
+// Shard Configuration Audit Log - Comprehensive audit trail
+export const shardConfigAuditLogs = pgTable("shard_config_audit_logs", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Action Details
+  action: varchar("action", { length: 50 }).notNull(), // CONFIG_CHANGE, ROLLBACK, VALIDATION, HEALTH_CHECK, EMERGENCY_STOP
+  actor: varchar("actor", { length: 100 }).notNull(),
+  severity: varchar("severity", { length: 20 }).notNull().default("info"), // info, warning, error, critical
+  
+  // Change Details
+  oldValue: jsonb("old_value"),
+  newValue: jsonb("new_value"),
+  details: jsonb("details").default({}),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("success"), // success, failed, pending
+  errorMessage: text("error_message"),
+  
+  // Client Info
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Insert schemas for shard configuration
+export const insertShardConfigurationSchema = createInsertSchema(shardConfigurations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertShardConfigHistorySchema = createInsertSchema(shardConfigHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertShardScalingEventSchema = createInsertSchema(shardScalingEvents).omit({
+  id: true,
+  startedAt: true,
+  completedAt: true,
+});
+
+export const insertShardConfigAuditLogSchema = createInsertSchema(shardConfigAuditLogs).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Shard Configuration Types
+export type ShardConfiguration = typeof shardConfigurations.$inferSelect;
+export type InsertShardConfiguration = z.infer<typeof insertShardConfigurationSchema>;
+
+export type ShardConfigHistory = typeof shardConfigHistory.$inferSelect;
+export type InsertShardConfigHistory = z.infer<typeof insertShardConfigHistorySchema>;
+
+export type ShardScalingEvent = typeof shardScalingEvents.$inferSelect;
+export type InsertShardScalingEvent = z.infer<typeof insertShardScalingEventSchema>;
+
+export type ShardConfigAuditLog = typeof shardConfigAuditLogs.$inferSelect;
+export type InsertShardConfigAuditLog = z.infer<typeof insertShardConfigAuditLogSchema>;

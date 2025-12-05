@@ -8,6 +8,14 @@ import { EventEmitter } from 'events';
 import crypto from 'crypto';
 import express, { Request, Response } from 'express';
 import { createServer } from 'http';
+import { db } from '../db';
+import { 
+  shardConfigurations, 
+  shardConfigHistory, 
+  shardScalingEvents, 
+  shardConfigAuditLogs 
+} from '@shared/schema';
+import { eq, desc } from 'drizzle-orm';
 
 export interface NodeConfig {
   nodeId: string;
@@ -464,6 +472,26 @@ export class TBurnEnterpriseNode extends EventEmitter {
       }
     });
     
+    // Persist to database (async, non-blocking)
+    this.persistConfigToDatabase(actor, reason).catch(err => 
+      console.error('[Enterprise Node] Database persistence failed:', err)
+    );
+    this.persistConfigHistoryToDatabase(previousConfig, actor, reason, 'update').catch(err =>
+      console.error('[Enterprise Node] History persistence failed:', err)
+    );
+    const lastScalingEvent = this.scalingEvents[this.scalingEvents.length - 1];
+    if (lastScalingEvent) {
+      this.persistScalingEventToDatabase(lastScalingEvent).catch(err =>
+        console.error('[Enterprise Node] Scaling event persistence failed:', err)
+      );
+    }
+    const lastAuditLog = this.auditLog[this.auditLog.length - 1];
+    if (lastAuditLog) {
+      this.persistAuditLogToDatabase(lastAuditLog).catch(err =>
+        console.error('[Enterprise Node] Audit log persistence failed:', err)
+      );
+    }
+    
     console.log(`[Enterprise Node] ✅ Shard configuration updated: ${oldCount} → ${newCount} shards (v${this.shardConfig.version})`);
     
     return {
@@ -548,6 +576,25 @@ export class TBurnEnterpriseNode extends EventEmitter {
       restoredVersion: this.shardConfig.version,
       restoredCount: this.shardConfig.currentShardCount
     });
+    
+    // Persist rollback to database
+    this.persistConfigToDatabase(actor, `Rollback to v${targetConfig.version}`).catch(err =>
+      console.error('[Enterprise Node] Rollback database persistence failed:', err)
+    );
+    this.persistConfigHistoryToDatabase(
+      { ...targetConfig.config, version: previousVersion } as any, 
+      actor, 
+      `Rollback from v${previousVersion} to v${targetConfig.version}`,
+      'rollback'
+    ).catch(err =>
+      console.error('[Enterprise Node] Rollback history persistence failed:', err)
+    );
+    const lastAuditLog = this.auditLog[this.auditLog.length - 1];
+    if (lastAuditLog) {
+      this.persistAuditLogToDatabase(lastAuditLog).catch(err =>
+        console.error('[Enterprise Node] Rollback audit log persistence failed:', err)
+      );
+    }
     
     console.log(`[Enterprise Node] ⏪ Configuration rolled back to v${targetConfig.version}: ${oldCount} → ${this.shardConfig.currentShardCount} shards`);
     
@@ -806,42 +853,205 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return wallets.slice(0, limit);
   }
 
+  // ============================================
+  // STATE PERSISTENCE METHODS
+  // ============================================
+  
+  private async loadConfigFromDatabase(): Promise<void> {
+    try {
+      // Get active configuration from database
+      const configs = await db.select()
+        .from(shardConfigurations)
+        .where(eq(shardConfigurations.isActive, true))
+        .limit(1);
+      
+      if (configs.length > 0) {
+        const dbConfig = configs[0];
+        this.shardConfig = {
+          ...this.shardConfig,
+          currentShardCount: dbConfig.currentShardCount,
+          minShards: dbConfig.minShards,
+          maxShards: dbConfig.maxShards,
+          validatorsPerShard: dbConfig.validatorsPerShard,
+          tpsPerShard: dbConfig.tpsPerShard,
+          crossShardLatencyMs: dbConfig.crossShardLatencyMs,
+          rebalanceThreshold: dbConfig.rebalanceThreshold,
+          scalingMode: dbConfig.scalingMode as 'automatic' | 'manual' | 'disabled',
+          version: dbConfig.version,
+          healthStatus: dbConfig.healthStatus as 'healthy' | 'degraded' | 'critical',
+          lastConfigUpdate: dbConfig.updatedAt?.toISOString() || new Date().toISOString(),
+          lastHealthCheck: dbConfig.lastHealthCheck?.toISOString() || new Date().toISOString()
+        };
+        console.log(`[Enterprise Node] ✅ Loaded shard config from database: ${dbConfig.currentShardCount} shards, v${dbConfig.version}`);
+      } else {
+        // Create initial configuration in database
+        await this.persistConfigToDatabase('system', 'Initial configuration');
+        console.log('[Enterprise Node] ✅ Created initial shard config in database');
+      }
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to load config from database, using defaults:', error);
+    }
+  }
+  
+  private async persistConfigToDatabase(actor: string, reason: string): Promise<void> {
+    try {
+      // Deactivate any existing active configs
+      await db.update(shardConfigurations)
+        .set({ isActive: false, updatedAt: new Date() })
+        .where(eq(shardConfigurations.isActive, true));
+      
+      // Insert new active configuration
+      await db.insert(shardConfigurations).values({
+        currentShardCount: this.shardConfig.currentShardCount,
+        minShards: this.shardConfig.minShards,
+        maxShards: this.shardConfig.maxShards,
+        validatorsPerShard: this.shardConfig.validatorsPerShard,
+        tpsPerShard: this.shardConfig.tpsPerShard,
+        crossShardLatencyMs: this.shardConfig.crossShardLatencyMs,
+        rebalanceThreshold: this.shardConfig.rebalanceThreshold,
+        scalingMode: this.shardConfig.scalingMode,
+        version: this.shardConfig.version,
+        isActive: true,
+        healthStatus: this.shardConfig.healthStatus,
+        lastHealthCheck: new Date(),
+        changedBy: actor,
+        changeReason: reason
+      });
+      
+      console.log(`[Enterprise Node] ✅ Persisted config to database: ${this.shardConfig.currentShardCount} shards, v${this.shardConfig.version}`);
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to persist config to database:', error);
+    }
+  }
+  
+  private async persistConfigHistoryToDatabase(
+    previousConfig: typeof this.shardConfig,
+    actor: string,
+    reason: string,
+    changeType: 'create' | 'update' | 'rollback' | 'auto_scale'
+  ): Promise<void> {
+    try {
+      await db.insert(shardConfigHistory).values({
+        configId: `cfg-${Date.now()}`,
+        version: previousConfig.version,
+        configSnapshot: previousConfig,
+        changedBy: actor,
+        changeReason: reason,
+        changeType,
+        previousShardCount: previousConfig.currentShardCount,
+        newShardCount: this.shardConfig.currentShardCount,
+        affectedShards: this.getAffectedShards(previousConfig.currentShardCount, this.shardConfig.currentShardCount),
+        estimatedDowntimeSeconds: Math.abs(this.shardConfig.currentShardCount - previousConfig.currentShardCount) * 2
+      });
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to persist config history:', error);
+    }
+  }
+  
+  private async persistScalingEventToDatabase(event: typeof this.scalingEvents[0]): Promise<void> {
+    try {
+      await db.insert(shardScalingEvents).values({
+        eventType: event.type,
+        status: event.status,
+        fromShards: event.fromShards,
+        toShards: event.toShards,
+        triggerReason: event.triggerReason,
+        triggeredBy: 'admin',
+        affectedValidators: event.affectedValidators,
+        estimatedDurationSeconds: Math.floor(event.duration / 1000),
+        success: event.status === 'completed',
+        completedAt: new Date()
+      });
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to persist scaling event:', error);
+    }
+  }
+  
+  private async persistAuditLogToDatabase(log: typeof this.auditLog[0]): Promise<void> {
+    try {
+      await db.insert(shardConfigAuditLogs).values({
+        action: log.action,
+        actor: log.actor,
+        severity: log.severity,
+        oldValue: log.oldValue,
+        newValue: log.newValue,
+        details: log.details,
+        status: log.status
+      });
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to persist audit log:', error);
+    }
+  }
+  
+  private getAffectedShards(fromCount: number, toCount: number): number[] {
+    const affected: number[] = [];
+    if (toCount > fromCount) {
+      for (let i = fromCount; i < toCount; i++) {
+        affected.push(i);
+      }
+    } else if (toCount < fromCount) {
+      for (let i = toCount; i < fromCount; i++) {
+        affected.push(i);
+      }
+    }
+    return affected;
+  }
+
+  private isStarting = false;
+  
   async start(): Promise<void> {
     if (this.isRunning) {
       console.log('[Enterprise Node] Node already running');
       return;
     }
+    
+    // Prevent race condition during startup
+    if (this.isStarting) {
+      console.log('[Enterprise Node] Node startup already in progress');
+      return;
+    }
+    
+    this.isStarting = true;
 
     console.log('[Enterprise Node] Starting enterprise TBURN node...');
     
-    // Verify API key
-    if (this.config.apiKey !== 'tburn797900') {
-      console.error('[Enterprise Node] Invalid API key - expected tburn797900');
-      throw new Error('Invalid API key for enterprise node access');
+    try {
+      // Load configuration from database (cold start recovery)
+      await this.loadConfigFromDatabase();
+      
+      // Verify API key
+      if (this.config.apiKey !== 'tburn797900') {
+        console.error('[Enterprise Node] Invalid API key - expected tburn797900');
+        throw new Error('Invalid API key for enterprise node access');
+      }
+
+      this.isRunning = true;
+      this.startTime = Date.now();
+
+      // Start HTTP RPC server
+      await this.startHttpServer();
+
+      // Start WebSocket server for real-time updates
+      await this.startWebSocketServer();
+
+      // Start block production simulation
+      this.startBlockProduction();
+
+      // Start metrics collection
+      if (this.config.enableMetrics) {
+        this.startMetricsCollection();
+      }
+
+      // Simulate initial peer discovery
+      await this.discoverPeers();
+
+      console.log(`[Enterprise Node] ✅ Node started successfully on ports RPC:${this.config.rpcPort}, WS:${this.config.wsPort}`);
+      this.emit('started', this.getStatus());
+    } catch (error) {
+      this.isRunning = false;
+      this.isStarting = false;
+      throw error;
     }
-
-    this.isRunning = true;
-    this.startTime = Date.now();
-
-    // Start HTTP RPC server
-    await this.startHttpServer();
-
-    // Start WebSocket server for real-time updates
-    await this.startWebSocketServer();
-
-    // Start block production simulation
-    this.startBlockProduction();
-
-    // Start metrics collection
-    if (this.config.enableMetrics) {
-      this.startMetricsCollection();
-    }
-
-    // Simulate initial peer discovery
-    await this.discoverPeers();
-
-    console.log(`[Enterprise Node] ✅ Node started successfully on ports RPC:${this.config.rpcPort}, WS:${this.config.wsPort}`);
-    this.emit('started', this.getStatus());
   }
 
   private async startHttpServer(): Promise<void> {
