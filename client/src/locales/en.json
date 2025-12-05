@@ -1716,7 +1716,21 @@
     "burnSuccess": "Burn Initiated",
     "burnSuccessDesc": "Token burning transaction has been submitted.",
     "pauseSuccess": "Token Paused",
-    "pauseSuccessDesc": "Token transfers have been paused."
+    "pauseSuccessDesc": "Token transfers have been paused.",
+    "categories": {
+      "Native": "Native",
+      "GameFi": "GameFi",
+      "Stablecoin": "Stablecoin",
+      "DeFi": "DeFi",
+      "Metaverse": "Metaverse",
+      "NFT": "NFT",
+      "Commerce": "Commerce",
+      "Utility": "Utility",
+      "Enterprise": "Enterprise",
+      "Governance": "Governance",
+      "Meme": "Meme",
+      "Infrastructure": "Infrastructure"
+    }
   },
   "dex": {
     "title": "Decentralized Exchange",

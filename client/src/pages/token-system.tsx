@@ -360,6 +360,10 @@ const TOKEN_TEMPLATES: TokenTemplate[] = [
   }
 ];
 
+const getTranslatedCategory = (category: string, t: (key: string, fallback?: string) => string): string => {
+  return t(`tokenSystem.categories.${category}`, category);
+};
+
 export default function TokenSystem() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
@@ -2942,7 +2946,7 @@ function EnterpriseTokenSearch() {
                       </div>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground">
                         <Badge variant="secondary" className="text-xs">{token.standard}</Badge>
-                        <Badge variant="outline" className="text-xs">{token.category}</Badge>
+                        <Badge variant="outline" className="text-xs">{getTranslatedCategory(token.category, t)}</Badge>
                         <code className="bg-muted px-1 rounded">
                           {token.contractAddress.slice(0, 6)}...{token.contractAddress.slice(-4)}
                         </code>

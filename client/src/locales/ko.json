@@ -1716,7 +1716,21 @@
     "vulnBotRecommendation": "속도 제한 및 검증 구현",
     "recommendationAiGas": "AI 최적화 가스 소비",
     "recommendationStakingApy": "동적 스테이킹 APY 조정",
-    "recommendationVesting": "스마트 베스팅 일정"
+    "recommendationVesting": "스마트 베스팅 일정",
+    "categories": {
+      "Native": "네이티브",
+      "GameFi": "게임파이",
+      "Stablecoin": "스테이블코인",
+      "DeFi": "디파이",
+      "Metaverse": "메타버스",
+      "NFT": "NFT",
+      "Commerce": "커머스",
+      "Utility": "유틸리티",
+      "Enterprise": "엔터프라이즈",
+      "Governance": "거버넌스",
+      "Meme": "밈",
+      "Infrastructure": "인프라"
+    }
   },
   "dex": {
     "title": "탈중앙화 거래소",
