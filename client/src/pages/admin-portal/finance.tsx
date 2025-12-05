@@ -32,8 +32,18 @@ interface FinancialMetric {
   value: string;
   change: number;
   trend: "up" | "down" | "stable";
-  icon: any;
+  icon: string;
 }
+
+const iconMap: Record<string, typeof CircleDollarSign> = {
+  CircleDollarSign,
+  Coins,
+  Flame,
+  Building2,
+  DollarSign,
+  TrendingUp,
+  TrendingDown,
+};
 
 interface Transaction {
   id: string;
@@ -95,10 +105,10 @@ export default function FinanceOverview() {
   }, [timeRange, toast, t]);
 
   const financialMetrics: FinancialMetric[] = financeData?.metrics || [
-    { label: t("adminFinance.metrics.marketCap"), value: "$2.47B", change: 5.2, trend: "up", icon: CircleDollarSign },
-    { label: t("adminFinance.metrics.circulatingSupply"), value: "847.5M TBURN", change: -0.02, trend: "down", icon: Coins },
-    { label: t("adminFinance.metrics.totalBurned"), value: "152.5M TBURN", change: 2.3, trend: "up", icon: Flame },
-    { label: t("adminFinance.metrics.treasuryBalance"), value: "$89.4M", change: 1.8, trend: "up", icon: Building2 },
+    { label: t("adminFinance.metrics.marketCap"), value: "$2.47B", change: 5.2, trend: "up", icon: "CircleDollarSign" },
+    { label: t("adminFinance.metrics.circulatingSupply"), value: "847.5M TBURN", change: -0.02, trend: "down", icon: "Coins" },
+    { label: t("adminFinance.metrics.totalBurned"), value: "152.5M TBURN", change: 2.3, trend: "up", icon: "Flame" },
+    { label: t("adminFinance.metrics.treasuryBalance"), value: "$89.4M", change: 1.8, trend: "up", icon: "Building2" },
   ];
 
   const revenueData = financeData?.revenueData || [
@@ -253,7 +263,10 @@ export default function FinanceOverview() {
                     </div>
                   </div>
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <metric.icon className="h-6 w-6 text-primary" />
+                    {(() => {
+                      const IconComponent = iconMap[metric.icon] || CircleDollarSign;
+                      return <IconComponent className="h-6 w-6 text-primary" />;
+                    })()}
                   </div>
                 </div>
               </CardContent>
