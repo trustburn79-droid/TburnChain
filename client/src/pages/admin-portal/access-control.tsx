@@ -20,8 +20,8 @@ import {
 
 interface Policy {
   id: number;
-  name: string;
-  description: string;
+  nameKey: string;
+  descKey: string;
   roles: string[];
   resources: string;
   status: string;
@@ -122,10 +122,11 @@ export default function AdminAccessControl() {
   });
 
   const policies = data?.policies ?? [
-    { id: 1, name: "Admin Full Access", description: "Full system access for administrators", roles: ["Super Admin"], resources: "All", status: "active" },
-    { id: 2, name: "Operator Read-Write", description: "Read-write access for operators", roles: ["Operator"], resources: "Network, Nodes", status: "active" },
-    { id: 3, name: "Analyst Read-Only", description: "Read-only access for analysts", roles: ["Analyst"], resources: "Reports, Analytics", status: "active" },
-    { id: 4, name: "Bridge Manager", description: "Bridge operations management", roles: ["Bridge Operator"], resources: "Bridge, Transfers", status: "active" },
+    { id: 1, nameKey: "adminAccess", descKey: "adminAccessDesc", roles: ["admin", "super_admin"], resources: "/admin/*", status: "active" },
+    { id: 2, nameKey: "operatorAccess", descKey: "operatorAccessDesc", roles: ["operator"], resources: "/operator/*", status: "active" },
+    { id: 3, nameKey: "readOnly", descKey: "readOnlyDesc", roles: ["auditor", "viewer"], resources: "/api/read/*", status: "active" },
+    { id: 4, nameKey: "developerAccess", descKey: "developerAccessDesc", roles: ["developer"], resources: "/dev/*", status: "active" },
+    { id: 5, nameKey: "bridgeControl", descKey: "bridgeControlDesc", roles: ["bridge_operator"], resources: "/api/bridge/*", status: "active" },
   ];
 
   const ipWhitelist = data?.ipWhitelist ?? [
@@ -324,8 +325,8 @@ export default function AdminAccessControl() {
                     <TableBody>
                       {policies.map((policy) => (
                         <TableRow key={policy.id} data-testid={`row-policy-${policy.id}`}>
-                          <TableCell className="font-medium" data-testid={`text-policy-name-${policy.id}`}>{policy.name}</TableCell>
-                          <TableCell className="text-muted-foreground">{policy.description}</TableCell>
+                          <TableCell className="font-medium" data-testid={`text-policy-name-${policy.id}`}>{t(`adminAccess.policies.items.${policy.nameKey}`)}</TableCell>
+                          <TableCell className="text-muted-foreground">{t(`adminAccess.policies.items.${policy.descKey}`)}</TableCell>
                           <TableCell>
                             {policy.roles.map((role, i) => (
                               <Badge key={i} variant="outline" className="mr-1" data-testid={`badge-role-${policy.id}-${i}`}>{role}</Badge>

@@ -7190,11 +7190,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/access/policies", async (_req, res) => {
     res.json({
       policies: [
-        { id: 1, name: 'Admin Access', description: 'Full system access for administrators', roles: ['admin', 'super_admin'], resources: '/admin/*', status: 'active' },
-        { id: 2, name: 'Operator Access', description: 'Operational access for network operators', roles: ['operator'], resources: '/operator/*', status: 'active' },
-        { id: 3, name: 'Read Only', description: 'View only access for auditors', roles: ['auditor', 'viewer'], resources: '/api/read/*', status: 'active' },
-        { id: 4, name: 'Developer Access', description: 'Development and testing access', roles: ['developer'], resources: '/dev/*', status: 'active' },
-        { id: 5, name: 'Bridge Control', description: 'Bridge operation permissions', roles: ['bridge_operator'], resources: '/api/bridge/*', status: 'active' }
+        { id: 1, nameKey: 'adminAccess', descKey: 'adminAccessDesc', roles: ['admin', 'super_admin'], resources: '/admin/*', status: 'active' },
+        { id: 2, nameKey: 'operatorAccess', descKey: 'operatorAccessDesc', roles: ['operator'], resources: '/operator/*', status: 'active' },
+        { id: 3, nameKey: 'readOnly', descKey: 'readOnlyDesc', roles: ['auditor', 'viewer'], resources: '/api/read/*', status: 'active' },
+        { id: 4, nameKey: 'developerAccess', descKey: 'developerAccessDesc', roles: ['developer'], resources: '/dev/*', status: 'active' },
+        { id: 5, nameKey: 'bridgeControl', descKey: 'bridgeControlDesc', roles: ['bridge_operator'], resources: '/api/bridge/*', status: 'active' }
       ],
       ipWhitelist: [
         { ip: '10.0.0.0/8', description: 'Internal network', addedBy: 'admin@tburn.io', addedAt: '2024-11-01T00:00:00Z' },

@@ -17250,7 +17250,19 @@
         "status": "Status",
         "actions": "Actions"
       },
-      "active": "Active"
+      "active": "Active",
+      "items": {
+        "adminAccess": "Admin Access",
+        "adminAccessDesc": "Full system access for administrators",
+        "operatorAccess": "Operator Access",
+        "operatorAccessDesc": "Operational access for network operators",
+        "readOnly": "Read Only",
+        "readOnlyDesc": "View only access for auditors",
+        "developerAccess": "Developer Access",
+        "developerAccessDesc": "Development and testing access",
+        "bridgeControl": "Bridge Control",
+        "bridgeControlDesc": "Bridge operation permissions"
+      }
     },
     "permissions": {
       "title": "Permission Matrix",

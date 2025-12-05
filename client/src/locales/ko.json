@@ -19135,7 +19135,19 @@
         "status": "상태",
         "actions": "작업"
       },
-      "active": "활성"
+      "active": "활성",
+      "items": {
+        "adminAccess": "관리자 접근",
+        "adminAccessDesc": "관리자를 위한 전체 시스템 접근 권한",
+        "operatorAccess": "운영자 접근",
+        "operatorAccessDesc": "네트워크 운영자를 위한 운영 접근 권한",
+        "readOnly": "읽기 전용",
+        "readOnlyDesc": "감사자를 위한 조회 전용 접근 권한",
+        "developerAccess": "개발자 접근",
+        "developerAccessDesc": "개발 및 테스트 접근 권한",
+        "bridgeControl": "브릿지 제어",
+        "bridgeControlDesc": "브릿지 운영 권한"
+      }
     },
     "permissions": {
       "title": "권한 매트릭스",
