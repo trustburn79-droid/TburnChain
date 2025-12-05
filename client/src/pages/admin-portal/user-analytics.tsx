@@ -10,9 +10,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Users, UserPlus, Activity, TrendingUp, 
-  Globe, Clock, BarChart3, RefreshCw, Download, AlertCircle
+  Globe, Clock, BarChart3, RefreshCw, Download, AlertCircle, Eye
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
 
@@ -103,6 +105,9 @@ export default function AdminUserAnalytics() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [wsConnected, setWsConnected] = useState(false);
+  const [showTierDetail, setShowTierDetail] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<UserTier | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: userData, isLoading, error, refetch } = useQuery<UserAnalytics>({
     queryKey: ["/api/admin/analytics/users"],
@@ -238,7 +243,27 @@ export default function AdminUserAnalytics() {
     }
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const getTierDetailSections = useCallback((tier: UserTier): DetailSection[] => {
+    return [
+      {
+        title: t("adminUserAnalytics.detail.tierInfo"),
+        fields: [
+          { label: t("adminUserAnalytics.tier"), value: tier.tier, type: "text" },
+          { label: t("adminUserAnalytics.count"), value: tier.count.toLocaleString(), type: "text" },
+          { label: t("adminUserAnalytics.percentage"), value: `${tier.percentage}%`, type: "badge", badgeVariant: "secondary" },
+        ],
+      },
+      {
+        title: t("adminUserAnalytics.detail.benefits"),
+        fields: [
+          { label: t("adminUserAnalytics.detail.benefitPriority"), value: tier.tier.includes(t("adminUserAnalytics.whale")) ? "VIP" : tier.tier.includes(t("adminUserAnalytics.large")) ? "Priority" : "Standard", type: "badge" },
+          { label: t("adminUserAnalytics.detail.benefitRewards"), value: tier.tier.includes(t("adminUserAnalytics.whale")) ? "2x" : tier.tier.includes(t("adminUserAnalytics.large")) ? "1.5x" : "1x", type: "text" },
+        ],
+      },
+    ];
+  }, [t]);
+
+  const performExport = useCallback(() => {
     const exportData = {
       exportedAt: new Date().toISOString(),
       stats: userStats,
@@ -260,6 +285,7 @@ export default function AdminUserAnalytics() {
       title: t("adminUserAnalytics.exportSuccess"),
       description: t("adminUserAnalytics.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [userStats, userGrowth, userTiers, geoDistribution, activityDistribution, sessionMetrics, toast, t]);
 
   if (error) {
@@ -316,7 +342,7 @@ export default function AdminUserAnalytics() {
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" onClick={handleExport} data-testid="button-export">
+                    <Button variant="outline" size="icon" onClick={() => setShowExportConfirm(true)} data-testid="button-export">
                       <Download className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
@@ -419,6 +445,7 @@ export default function AdminUserAnalytics() {
                           <TableHead>{t("adminUserAnalytics.tier")}</TableHead>
                           <TableHead>{t("adminUserAnalytics.count")}</TableHead>
                           <TableHead>{t("adminUserAnalytics.percentage")}</TableHead>
+                          <TableHead>{t("common.actions")}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -434,6 +461,19 @@ export default function AdminUserAnalytics() {
                             </TableCell>
                             <TableCell data-testid={`tier-count-${index}`}>{tier.count.toLocaleString()}</TableCell>
                             <TableCell data-testid={`tier-pct-${index}`}>{tier.percentage}%</TableCell>
+                            <TableCell>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => {
+                                  setSelectedTier(tier);
+                                  setShowTierDetail(true);
+                                }}
+                                data-testid={`button-view-tier-${index}`}
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -571,6 +611,28 @@ export default function AdminUserAnalytics() {
           </Tabs>
         </div>
       </ScrollArea>
+
+      {selectedTier && (
+        <DetailSheet
+          open={showTierDetail}
+          onOpenChange={setShowTierDetail}
+          title={selectedTier.tier}
+          subtitle={`${selectedTier.count.toLocaleString()} ${t("adminUserAnalytics.users")}`}
+          icon={<Users className="h-5 w-5" />}
+          sections={getTierDetailSections(selectedTier)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminUserAnalytics.confirm.exportTitle")}
+        description={t("adminUserAnalytics.confirm.exportDesc")}
+        onConfirm={performExport}
+        confirmText={t("common.export")}
+        cancelText={t("adminUserAnalytics.cancel")}
+        destructive={false}
+      />
     </TooltipProvider>
   );
 }

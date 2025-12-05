@@ -10,6 +10,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Gauge,
   Search,
@@ -30,6 +32,7 @@ import {
   ExternalLink,
   AlertCircle,
   Play,
+  Eye,
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
@@ -56,6 +59,9 @@ export default function MetricsExplorer() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [timeRange, setTimeRange] = useState("1h");
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>(["tburn_tps_current"]);
+  const [showMetricDetail, setShowMetricDetail] = useState(false);
+  const [selectedMetric, setSelectedMetric] = useState<Metric | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: metricsData, isLoading, error, refetch } = useQuery<MetricsData>({
     queryKey: ["/api/admin/monitoring/metrics"],
@@ -104,7 +110,7 @@ export default function MetricsExplorer() {
     });
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const performExport = useCallback(() => {
     const exportData = {
       timestamp: new Date().toISOString(),
       timeRange,
@@ -124,7 +130,29 @@ export default function MetricsExplorer() {
       title: t("adminMetrics.exported"),
       description: t("adminMetrics.exportedDesc"),
     });
+    setShowExportConfirm(false);
   }, [metrics, selectedMetrics, chartData, timeRange, toast, t]);
+
+  const getMetricDetailSections = (metric: Metric): DetailSection[] => [
+    {
+      title: t("adminMetrics.detail.metricInfo"),
+      fields: [
+        { label: t("common.name"), value: metric.name, copyable: true },
+        { label: t("common.description"), value: metric.description },
+        { label: t("common.type"), value: metric.type, type: "badge" as const },
+        { label: t("adminMetrics.categories.all").replace("All Categories", "Category"), value: metric.category },
+        { label: t("common.value"), value: `${metric.value.toLocaleString()}${metric.unit}` },
+        { label: t("adminMetrics.details.labels"), value: metric.unit || "-" },
+      ],
+    },
+    {
+      title: t("adminMetrics.detail.labels"),
+      fields: Object.entries(metric.labels).map(([key, value]) => ({
+        label: key,
+        value: value,
+      })),
+    },
+  ];
 
   const filteredMetrics = metrics.filter((metric) => {
     const matchesSearch = 
@@ -253,7 +281,7 @@ export default function MetricsExplorer() {
               <RefreshCw className="h-4 w-4 mr-2" />
               {t("adminMetrics.refresh")}
             </Button>
-            <Button variant="outline" onClick={handleExport} data-testid="button-export-metrics">
+            <Button variant="outline" onClick={() => setShowExportConfirm(true)} data-testid="button-export-metrics">
               <Download className="h-4 w-4 mr-2" />
               {t("adminMetrics.export")}
             </Button>
@@ -419,9 +447,22 @@ export default function MetricsExplorer() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Button variant="ghost" size="icon" data-testid={`button-copy-metric-${index}`}>
-                            <Copy className="h-4 w-4" />
-                          </Button>
+                          <div className="flex items-center gap-1">
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              onClick={() => {
+                                setSelectedMetric(metric);
+                                setShowMetricDetail(true);
+                              }}
+                              data-testid={`button-view-metric-${index}`}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button variant="ghost" size="icon" data-testid={`button-copy-metric-${index}`}>
+                              <Copy className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -459,6 +500,26 @@ export default function MetricsExplorer() {
           </CardContent>
         </Card>
       </div>
+
+      {selectedMetric && (
+        <DetailSheet
+          open={showMetricDetail}
+          onOpenChange={setShowMetricDetail}
+          title={selectedMetric.name}
+          subtitle={selectedMetric.description}
+          icon={<Gauge className="h-5 w-5" />}
+          sections={getMetricDetailSections(selectedMetric)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminMetrics.confirm.exportTitle")}
+        description={t("adminMetrics.confirm.exportDesc")}
+        onConfirm={performExport}
+        destructive={false}
+      />
     </div>
   );
 }

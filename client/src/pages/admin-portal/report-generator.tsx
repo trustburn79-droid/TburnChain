@@ -15,9 +15,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   FileText, Download, Calendar, Clock, 
-  Play, Pause, Trash2, Settings, Plus, RefreshCw, AlertCircle, Loader2
+  Play, Pause, Trash2, Settings, Plus, RefreshCw, AlertCircle, Loader2, Eye
 } from "lucide-react";
 
 interface ReportTemplate {
@@ -64,6 +66,10 @@ export default function AdminReportGenerator() {
   const [dateRange, setDateRange] = useState("7d");
   const [reportFormat, setReportFormat] = useState("pdf");
   const [selectedSections, setSelectedSections] = useState<string[]>(["network", "transactions", "validators", "security"]);
+  const [showReportDetail, setShowReportDetail] = useState(false);
+  const [selectedReport, setSelectedReport] = useState<RecentReport | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<number | null>(null);
 
   const { data: reportData, isLoading, error, refetch } = useQuery<ReportData>({
     queryKey: ["/api/admin/reports/templates"],
@@ -189,6 +195,34 @@ export default function AdminReportGenerator() {
       setIsRefreshing(false);
     }
   }, [refetch, toast, t]);
+
+  const getReportDetailSections = useCallback((report: RecentReport): DetailSection[] => {
+    return [
+      {
+        title: t("adminReports.detail.reportInfo"),
+        fields: [
+          { label: t("adminReports.reportName"), value: report.name },
+          { label: t("adminReports.generated"), value: report.generated, type: "date" as const },
+          { label: t("adminReports.size"), value: report.size },
+          { label: t("adminReports.format"), value: report.format, type: "badge" as const },
+        ],
+      },
+      {
+        title: t("adminReports.detail.actions"),
+        fields: [
+          { label: t("adminReports.download"), value: t("adminReports.download") },
+        ],
+      },
+    ];
+  }, [t]);
+
+  const confirmDelete = useCallback(() => {
+    if (pendingDeleteId !== null) {
+      deleteScheduleMutation.mutate(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
+    }
+  }, [pendingDeleteId, deleteScheduleMutation]);
 
   if (error) {
     return (
@@ -474,7 +508,10 @@ export default function AdminReportGenerator() {
                                       size="icon" 
                                       variant="ghost" 
                                       className="text-red-500"
-                                      onClick={() => deleteScheduleMutation.mutate(report.id)}
+                                      onClick={() => {
+                                        setPendingDeleteId(report.id);
+                                        setShowDeleteConfirm(true);
+                                      }}
                                       disabled={deleteScheduleMutation.isPending}
                                       data-testid={`button-delete-${index}`}
                                     >
@@ -528,10 +565,28 @@ export default function AdminReportGenerator() {
                               <Badge variant="outline" data-testid={`history-format-${index}`}>{report.format}</Badge>
                             </TableCell>
                             <TableCell>
-                              <Button size="sm" variant="ghost" data-testid={`button-download-${index}`}>
-                                <Download className="w-4 h-4 mr-2" />
-                                {t("adminReports.download")}
-                              </Button>
+                              <div className="flex gap-1">
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button 
+                                      size="icon" 
+                                      variant="ghost"
+                                      onClick={() => {
+                                        setSelectedReport(report);
+                                        setShowReportDetail(true);
+                                      }}
+                                      data-testid={`button-view-${index}`}
+                                    >
+                                      <Eye className="w-4 h-4" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>{t("adminReports.view")}</TooltipContent>
+                                </Tooltip>
+                                <Button size="sm" variant="ghost" data-testid={`button-download-${index}`}>
+                                  <Download className="w-4 h-4 mr-2" />
+                                  {t("adminReports.download")}
+                                </Button>
+                              </div>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -544,6 +599,29 @@ export default function AdminReportGenerator() {
           </Tabs>
         </div>
       </ScrollArea>
+
+      {selectedReport && (
+        <DetailSheet
+          open={showReportDetail}
+          onOpenChange={setShowReportDetail}
+          title={selectedReport.name}
+          icon={<FileText className="h-5 w-5" />}
+          sections={getReportDetailSections(selectedReport)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showDeleteConfirm}
+        onOpenChange={setShowDeleteConfirm}
+        title={t("adminReports.confirm.deleteTitle")}
+        description={t("adminReports.confirm.deleteDesc")}
+        actionType="delete"
+        onConfirm={confirmDelete}
+        isLoading={deleteScheduleMutation.isPending}
+        destructive={true}
+        confirmText={t("common.delete")}
+        cancelText={t("adminReports.cancel")}
+      />
     </TooltipProvider>
   );
 }

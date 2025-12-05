@@ -10,9 +10,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   BarChart3, TrendingUp, TrendingDown, Users, Activity, 
-  Download, Calendar, Filter, PieChart, RefreshCw, Clock, AlertCircle
+  Download, Calendar, Filter, PieChart, RefreshCw, Clock, AlertCircle, Eye
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart as RechartsPie, Pie, Cell } from "recharts";
 
@@ -82,6 +84,13 @@ function StatCard({
   );
 }
 
+interface KPIMetric {
+  name: string;
+  value: string;
+  change: string;
+  trend: "up" | "down";
+}
+
 export default function AdminBIDashboard() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
@@ -89,6 +98,10 @@ export default function AdminBIDashboard() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [timeRange, setTimeRange] = useState("30d");
   const [wsConnected, setWsConnected] = useState(false);
+  
+  const [showKPIDetail, setShowKPIDetail] = useState(false);
+  const [selectedKPI, setSelectedKPI] = useState<KPIMetric | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: biData, isLoading, error, refetch } = useQuery<BIMetrics>({
     queryKey: ["/api/admin/bi/metrics", timeRange],
@@ -212,7 +225,7 @@ export default function AdminBIDashboard() {
     }
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const performExport = useCallback(() => {
     const exportData = {
       exportedAt: new Date().toISOString(),
       timeRange,
@@ -234,7 +247,33 @@ export default function AdminBIDashboard() {
       title: t("adminBI.exportSuccess"),
       description: t("adminBI.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [timeRange, kpiMetrics, revenueData, userGrowth, chainDistribution, summaryMetrics, toast, t]);
+
+  const getKPIDetailSections = useCallback((kpi: KPIMetric): DetailSection[] => {
+    const timeRangeLabel = timeRange === "7d" ? t("adminBI.last7Days") : 
+                          timeRange === "30d" ? t("adminBI.last30Days") : 
+                          timeRange === "90d" ? t("adminBI.last90Days") : t("adminBI.lastYear");
+    return [
+      {
+        title: t("adminBI.detail.metricInfo"),
+        fields: [
+          { label: t("adminBI.metricName"), value: kpi.name },
+          { label: t("adminBI.currentValue"), value: kpi.value },
+          { label: t("adminBI.changePercent"), value: kpi.change, type: "badge" as const, badgeVariant: kpi.trend === "up" ? "outline" : "destructive" },
+          { label: t("adminBI.trend"), value: kpi.trend === "up" ? t("adminBI.trending.up") : t("adminBI.trending.down"), type: "badge" as const, badgeVariant: kpi.trend === "up" ? "outline" : "secondary" },
+        ]
+      },
+      {
+        title: t("adminBI.detail.context"),
+        fields: [
+          { label: t("adminBI.timeRange"), value: timeRangeLabel },
+          { label: t("adminBI.lastUpdated"), value: lastUpdate.toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US') },
+          { label: t("adminBI.dataSource"), value: "TBURN Analytics Engine" },
+        ]
+      }
+    ];
+  }, [t, timeRange, lastUpdate, i18n.language]);
 
   if (error) {
     return (
@@ -302,7 +341,7 @@ export default function AdminBIDashboard() {
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" onClick={handleExport} data-testid="button-export">
+                    <Button variant="outline" size="icon" onClick={() => setShowExportConfirm(true)} data-testid="button-export">
                       <Download className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
@@ -314,15 +353,47 @@ export default function AdminBIDashboard() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" data-testid="kpi-metrics-grid">
             {kpiMetrics.map((kpi, index) => (
-              <StatCard
-                key={index}
-                name={kpi.name}
-                value={kpi.value}
-                change={kpi.change}
-                trend={kpi.trend}
-                isLoading={isLoading}
-                testId={`stat-kpi-${index}`}
-              />
+              <Card key={index} data-testid={`stat-kpi-${index}`}>
+                <CardContent className="pt-6">
+                  {isLoading ? (
+                    <>
+                      <Skeleton className="h-4 w-24 mb-2" />
+                      <Skeleton className="h-8 w-20 mb-1" />
+                      <Skeleton className="h-4 w-16" />
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <div className="text-sm text-muted-foreground mb-1" data-testid={`stat-kpi-${index}-name`}>{kpi.name}</div>
+                          <div className="text-3xl font-bold" data-testid={`stat-kpi-${index}-value`}>{kpi.value}</div>
+                          <div className={`text-sm flex items-center gap-1 ${kpi.trend === "up" ? "text-green-500" : "text-red-500"}`} data-testid={`stat-kpi-${index}-change`}>
+                            {kpi.trend === "up" ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
+                            {kpi.change} vs last period
+                          </div>
+                        </div>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button 
+                              variant="ghost" 
+                              size="icon"
+                              className="h-8 w-8"
+                              onClick={() => {
+                                setSelectedKPI(kpi);
+                                setShowKPIDetail(true);
+                              }}
+                              data-testid={`button-view-kpi-${index}`}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>{t("adminBI.view")}</TooltipContent>
+                        </Tooltip>
+                      </div>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
             ))}
           </div>
 
@@ -525,6 +596,26 @@ export default function AdminBIDashboard() {
           </Tabs>
         </div>
       </ScrollArea>
+
+      {selectedKPI && (
+        <DetailSheet
+          open={showKPIDetail}
+          onOpenChange={setShowKPIDetail}
+          title={selectedKPI.name}
+          sections={getKPIDetailSections(selectedKPI)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminBI.confirm.exportTitle")}
+        description={t("adminBI.confirm.exportDesc")}
+        confirmText={t("adminBI.export")}
+        cancelText={t("adminBI.cancel")}
+        onConfirm={performExport}
+        destructive={false}
+      />
     </TooltipProvider>
   );
 }

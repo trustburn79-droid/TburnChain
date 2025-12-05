@@ -16901,6 +16901,25 @@
     "exportSuccess": "Export Complete",
     "exportSuccessDesc": "BI data exported successfully",
     "retry": "Retry",
+    "view": "View",
+    "cancel": "Cancel",
+    "metricName": "Metric Name",
+    "currentValue": "Current Value",
+    "changePercent": "Change %",
+    "trend": "Trend",
+    "dataSource": "Data Source",
+    "trending": {
+      "up": "Trending Up",
+      "down": "Trending Down"
+    },
+    "detail": {
+      "metricInfo": "Metric Information",
+      "context": "Analysis Context"
+    },
+    "confirm": {
+      "exportTitle": "Export Dashboard Data",
+      "exportDesc": "Export all BI dashboard data as JSON file?"
+    },
     "error": {
       "title": "Failed to Load BI Dashboard",
       "description": "Unable to fetch BI data. Please try again."
@@ -16948,6 +16967,16 @@
     "exportSuccess": "Export Complete",
     "exportSuccessDesc": "Transaction data exported successfully",
     "retry": "Retry",
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "txTypeInfo": "Transaction Type Information",
+      "statistics": "Statistics"
+    },
+    "confirm": {
+      "exportTitle": "Export Transaction Analytics",
+      "exportDesc": "Export all transaction analytics data?"
+    },
     "error": {
       "title": "Failed to Load Transaction Analytics",
       "description": "Unable to fetch transaction data. Please try again."
@@ -17009,6 +17038,19 @@
     "exportSuccess": "Export Complete",
     "exportSuccessDesc": "User analytics data exported successfully",
     "retry": "Retry",
+    "whale": "Whale",
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "tierInfo": "Tier Information",
+      "benefits": "Tier Benefits",
+      "benefitPriority": "Priority Level",
+      "benefitRewards": "Reward Multiplier"
+    },
+    "confirm": {
+      "exportTitle": "Export User Analytics",
+      "exportDesc": "Export all user analytics data?"
+    },
     "error": {
       "title": "Failed to Load User Analytics",
       "description": "Unable to fetch user analytics data. Please try again."
@@ -17017,6 +17059,16 @@
   "adminNetworkAnalytics": {
     "title": "Network Analytics",
     "subtitle": "Network performance and health analysis",
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "shardInfo": "Shard Information",
+      "performance": "Performance Metrics"
+    },
+    "confirm": {
+      "exportTitle": "Export Network Analytics",
+      "exportDesc": "Export all network analytics data?"
+    },
     "tabPerformance": "Performance",
     "tabHealth": "Health",
     "tabValidators": "Validators",
@@ -17174,6 +17226,16 @@
     "scheduleDeleted": "Schedule Deleted",
     "scheduleDeletedDesc": "Report schedule has been deleted",
     "retry": "Retry",
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "reportInfo": "Report Information",
+      "actions": "Actions"
+    },
+    "confirm": {
+      "deleteTitle": "Delete Scheduled Report",
+      "deleteDesc": "Are you sure you want to delete this scheduled report?"
+    },
     "error": {
       "title": "Failed to Load Reports",
       "description": "Unable to fetch report data. Please try again."
@@ -21505,6 +21567,23 @@
       "throughput": "Throughput",
       "errorRate": "Error Rate",
       "availability": "Availability"
+    },
+    "view": "View",
+    "cancel": "Cancel",
+    "detail": {
+      "metricInfo": "Metric Information",
+      "labels": "Labels"
+    },
+    "confirm": {
+      "exportTitle": "Export Metrics",
+      "exportDesc": "Export selected metrics data?"
+    },
+    "timeRanges": {
+      "15m": "15 minutes",
+      "1h": "1 hour",
+      "6h": "6 hours",
+      "24h": "24 hours",
+      "7d": "7 days"
     }
   },
   "adminAlertRules": {
@@ -21813,6 +21892,16 @@
     "allDashboards": {
       "title": "All Dashboards",
       "description": "Browse and manage all available dashboards"
+    },
+    "detail": {
+      "dashboardInfo": "Dashboard Information",
+      "metadata": "Metadata"
+    },
+    "confirm": {
+      "deleteTitle": "Delete Dashboard",
+      "deleteDesc": "Are you sure you want to delete this dashboard?",
+      "exportTitle": "Export Dashboard",
+      "exportDesc": "Export this dashboard as JSON?"
     }
   },
   "adminSla": {

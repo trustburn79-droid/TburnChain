@@ -12,6 +12,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   LayoutDashboard,
   Plus,
@@ -78,6 +80,11 @@ export default function DashboardBuilder() {
     description: "",
     isPublic: true,
   });
+  const [showDashboardDetail, setShowDashboardDetail] = useState(false);
+  const [detailDashboard, setDetailDashboard] = useState<Dashboard | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: dashboardsData, isLoading, error, refetch } = useQuery<DashboardsData>({
     queryKey: ["/api/admin/dashboards"],
@@ -140,7 +147,8 @@ export default function DashboardBuilder() {
     });
   }, [refetch, toast, t]);
 
-  const handleExportJson = useCallback(() => {
+  const performExport = useCallback(() => {
+    setShowExportConfirm(false);
     const currentDash = dashboards.find(d => d.id === selectedDashboard);
     if (currentDash) {
       const exportData = {
@@ -162,6 +170,45 @@ export default function DashboardBuilder() {
       });
     }
   }, [selectedDashboard, toast, t]);
+
+  const confirmDelete = useCallback(() => {
+    if (pendingDeleteId) {
+      deleteDashboardMutation.mutate(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
+    }
+  }, [pendingDeleteId, deleteDashboardMutation]);
+
+  const getDashboardDetailSections = (dashboard: Dashboard): DetailSection[] => [
+    {
+      title: t("adminDashboardBuilder.detail.dashboardInfo"),
+      fields: [
+        { label: t("common.name"), value: dashboard.name },
+        { label: t("common.description"), value: dashboard.description },
+        { label: t("adminDashboardBuilder.owner"), value: dashboard.owner },
+        { 
+          label: t("adminDashboardBuilder.public"), 
+          value: dashboard.isPublic ? t("common.yes") : t("common.no"), 
+          type: "badge" as const,
+          badgeVariant: dashboard.isPublic ? "default" : "secondary"
+        },
+        { 
+          label: t("adminDashboardBuilder.default"), 
+          value: dashboard.isDefault ? t("common.yes") : t("common.no"), 
+          type: "badge" as const,
+          badgeVariant: dashboard.isDefault ? "default" : "secondary"
+        },
+      ],
+    },
+    {
+      title: t("adminDashboardBuilder.detail.metadata"),
+      fields: [
+        { label: t("common.date"), value: dashboard.createdAt, type: "date" as const },
+        { label: t("adminDashboardBuilder.updated"), value: dashboard.updatedAt, type: "date" as const },
+        { label: t("adminDashboardBuilder.metrics.widgets"), value: dashboard.widgets.length },
+      ],
+    },
+  ];
 
   const dashboards: Dashboard[] = dashboardsData?.dashboards || [
     {
@@ -586,7 +633,17 @@ export default function DashboardBuilder() {
                     <span>{new Date(dashboard.updatedAt).toLocaleDateString()}</span>
                   </div>
                   <div className="flex gap-1 mt-3">
-                    <Button variant="ghost" size="sm" className="flex-1" data-testid={`button-view-dashboard-${index}`}>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="flex-1" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDetailDashboard(dashboard);
+                        setShowDashboardDetail(true);
+                      }}
+                      data-testid={`button-view-dashboard-${index}`}
+                    >
                       <Eye className="h-3 w-3 mr-1" />
                       {t("adminDashboardBuilder.view")}
                     </Button>
@@ -635,7 +692,7 @@ export default function DashboardBuilder() {
                 {t("adminDashboardBuilder.export.info")}
               </p>
               <div className="flex gap-2">
-                <Button variant="outline" className="flex-1" onClick={handleExportJson} data-testid="button-export-json">
+                <Button variant="outline" className="flex-1" onClick={() => setShowExportConfirm(true)} data-testid="button-export-json">
                   <Download className="h-4 w-4 mr-2" />
                   {t("adminDashboardBuilder.export.json")}
                 </Button>
@@ -648,6 +705,38 @@ export default function DashboardBuilder() {
           </Card>
         </div>
       </div>
+
+      {detailDashboard && (
+        <DetailSheet
+          open={showDashboardDetail}
+          onOpenChange={setShowDashboardDetail}
+          title={detailDashboard.name}
+          description={detailDashboard.description}
+          sections={getDashboardDetailSections(detailDashboard)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showDeleteConfirm}
+        onOpenChange={setShowDeleteConfirm}
+        title={t("adminDashboardBuilder.confirm.deleteTitle")}
+        description={t("adminDashboardBuilder.confirm.deleteDesc")}
+        confirmLabel={t("adminDashboardBuilder.delete")}
+        cancelLabel={t("adminDashboardBuilder.cancel")}
+        onConfirm={confirmDelete}
+        destructive={true}
+      />
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminDashboardBuilder.confirm.exportTitle")}
+        description={t("adminDashboardBuilder.confirm.exportDesc")}
+        confirmLabel={t("adminDashboardBuilder.export")}
+        cancelLabel={t("adminDashboardBuilder.cancel")}
+        onConfirm={performExport}
+        destructive={false}
+      />
     </div>
   );
 }

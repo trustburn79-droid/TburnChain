@@ -11,9 +11,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Progress } from "@/components/ui/progress";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Network, Server, Cpu, HardDrive, 
-  Activity, Zap, Globe, Clock, RefreshCw, Download, AlertCircle
+  Activity, Zap, Globe, Clock, RefreshCw, Download, AlertCircle, Eye
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
 
@@ -97,6 +99,9 @@ export default function AdminNetworkAnalytics() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [wsConnected, setWsConnected] = useState(false);
+  const [showShardDetail, setShowShardDetail] = useState(false);
+  const [selectedShard, setSelectedShard] = useState<ShardPerformance | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: networkData, isLoading, error, refetch } = useQuery<NetworkAnalytics>({
     queryKey: ["/api/admin/analytics/network"],
@@ -204,6 +209,30 @@ export default function AdminNetworkAnalytics() {
     ];
   }, [networkData, t]);
 
+  const getShardDetailSections = useCallback((shard: ShardPerformance): DetailSection[] => {
+    return [
+      {
+        title: t("adminNetworkAnalytics.detail.shardInfo"),
+        fields: [
+          { label: t("adminNetworkAnalytics.shard"), value: shard.shard, type: "text" as const },
+          { label: t("adminNetworkAnalytics.tps"), value: shard.tps.toLocaleString(), type: "text" as const },
+          { label: t("adminNetworkAnalytics.load"), value: shard.load, type: "progress" as const },
+          { label: t("adminNetworkAnalytics.nodes"), value: shard.nodes, type: "text" as const },
+        ],
+      },
+      {
+        title: t("adminNetworkAnalytics.detail.performance"),
+        fields: [
+          {
+            label: t("adminNetworkAnalytics.status"),
+            value: shard.load > 80 ? t("adminNetworkAnalytics.critical") : shard.load > 60 ? t("adminNetworkAnalytics.warning") : t("adminNetworkAnalytics.healthy"),
+            type: "status" as const,
+          },
+        ],
+      },
+    ];
+  }, [t]);
+
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     try {
@@ -224,7 +253,7 @@ export default function AdminNetworkAnalytics() {
     }
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const performExport = useCallback(() => {
     const exportData = {
       exportedAt: new Date().toISOString(),
       stats: networkStats,
@@ -245,6 +274,7 @@ export default function AdminNetworkAnalytics() {
       title: t("adminNetworkAnalytics.exportSuccess"),
       description: t("adminNetworkAnalytics.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [networkStats, tpsHistory, latencyHistory, shardPerformance, resourceUsage, toast, t]);
 
   if (error) {
@@ -301,7 +331,7 @@ export default function AdminNetworkAnalytics() {
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" onClick={handleExport} data-testid="button-export">
+                    <Button variant="outline" size="icon" onClick={() => setShowExportConfirm(true)} data-testid="button-export">
                       <Download className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
@@ -430,6 +460,7 @@ export default function AdminNetworkAnalytics() {
                           <TableHead>{t("adminNetworkAnalytics.tps")}</TableHead>
                           <TableHead>{t("adminNetworkAnalytics.load")}</TableHead>
                           <TableHead>{t("adminNetworkAnalytics.nodes")}</TableHead>
+                          <TableHead className="text-right">{t("common.actions")}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -446,6 +477,20 @@ export default function AdminNetworkAnalytics() {
                               </div>
                             </TableCell>
                             <TableCell data-testid={`shard-nodes-${index}`}>{shard.nodes}</TableCell>
+                            <TableCell className="text-right">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => {
+                                  setSelectedShard(shard);
+                                  setShowShardDetail(true);
+                                }}
+                                data-testid={`button-view-shard-${index}`}
+                              >
+                                <Eye className="h-4 w-4 mr-1" />
+                                {t("adminNetworkAnalytics.view")}
+                              </Button>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -497,6 +542,28 @@ export default function AdminNetworkAnalytics() {
           </Tabs>
         </div>
       </ScrollArea>
+
+      {selectedShard && (
+        <DetailSheet
+          open={showShardDetail}
+          onOpenChange={setShowShardDetail}
+          title={selectedShard.shard}
+          subtitle={`${selectedShard.tps.toLocaleString()} TPS`}
+          icon={<Server className="h-5 w-5" />}
+          sections={getShardDetailSections(selectedShard)}
+        />
+      )}
+
+      <ConfirmationDialog
+        open={showExportConfirm}
+        onOpenChange={setShowExportConfirm}
+        title={t("adminNetworkAnalytics.confirm.exportTitle")}
+        description={t("adminNetworkAnalytics.confirm.exportDesc")}
+        onConfirm={performExport}
+        confirmText={t("common.export")}
+        cancelText={t("adminNetworkAnalytics.cancel")}
+        destructive={false}
+      />
     </TooltipProvider>
   );
 }

@@ -16898,6 +16898,25 @@
     "exportSuccess": "내보내기 완료",
     "exportSuccessDesc": "BI 데이터를 성공적으로 내보냈습니다",
     "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "metricName": "지표 이름",
+    "currentValue": "현재 값",
+    "changePercent": "변화율 %",
+    "trend": "추세",
+    "dataSource": "데이터 소스",
+    "trending": {
+      "up": "상승 추세",
+      "down": "하락 추세"
+    },
+    "detail": {
+      "metricInfo": "지표 정보",
+      "context": "분석 컨텍스트"
+    },
+    "confirm": {
+      "exportTitle": "대시보드 데이터 내보내기",
+      "exportDesc": "모든 BI 대시보드 데이터를 JSON 파일로 내보내시겠습니까?"
+    },
     "error": {
       "title": "BI 대시보드 로드 실패",
       "description": "BI 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
@@ -16945,6 +16964,16 @@
     "exportSuccess": "내보내기 완료",
     "exportSuccessDesc": "트랜잭션 데이터를 성공적으로 내보냈습니다",
     "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "txTypeInfo": "트랜잭션 유형 정보",
+      "statistics": "통계"
+    },
+    "confirm": {
+      "exportTitle": "트랜잭션 분석 내보내기",
+      "exportDesc": "모든 트랜잭션 분석 데이터를 내보내시겠습니까?"
+    },
     "error": {
       "title": "트랜잭션 분석 로드 실패",
       "description": "트랜잭션 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
@@ -17006,6 +17035,19 @@
     "exportSuccess": "내보내기 완료",
     "exportSuccessDesc": "사용자 분석 데이터를 성공적으로 내보냈습니다",
     "retry": "재시도",
+    "whale": "고래",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "tierInfo": "등급 정보",
+      "benefits": "등급 혜택",
+      "benefitPriority": "우선순위 레벨",
+      "benefitRewards": "보상 배수"
+    },
+    "confirm": {
+      "exportTitle": "사용자 분석 내보내기",
+      "exportDesc": "모든 사용자 분석 데이터를 내보내시겠습니까?"
+    },
     "error": {
       "title": "사용자 분석 로드 실패",
       "description": "사용자 분석 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
@@ -17014,6 +17056,16 @@
   "adminNetworkAnalytics": {
     "title": "네트워크 분석",
     "subtitle": "네트워크 성능 및 상태 분석",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "shardInfo": "샤드 정보",
+      "performance": "성능 지표"
+    },
+    "confirm": {
+      "exportTitle": "네트워크 분석 내보내기",
+      "exportDesc": "모든 네트워크 분석 데이터를 내보내시겠습니까?"
+    },
     "tabPerformance": "성능",
     "tabHealth": "상태",
     "tabValidators": "검증자",
@@ -17171,6 +17223,16 @@
     "scheduleDeleted": "예약 삭제됨",
     "scheduleDeletedDesc": "보고서 예약이 삭제되었습니다",
     "retry": "재시도",
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "reportInfo": "보고서 정보",
+      "actions": "작업"
+    },
+    "confirm": {
+      "deleteTitle": "예약된 보고서 삭제",
+      "deleteDesc": "이 예약된 보고서를 삭제하시겠습니까?"
+    },
     "error": {
       "title": "보고서 로드 실패",
       "description": "보고서 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
@@ -21505,6 +21567,23 @@
       "throughput": "처리량",
       "errorRate": "오류율",
       "availability": "가용성"
+    },
+    "view": "보기",
+    "cancel": "취소",
+    "detail": {
+      "metricInfo": "지표 정보",
+      "labels": "레이블"
+    },
+    "confirm": {
+      "exportTitle": "지표 내보내기",
+      "exportDesc": "선택한 지표 데이터를 내보내시겠습니까?"
+    },
+    "timeRanges": {
+      "15m": "15분",
+      "1h": "1시간",
+      "6h": "6시간",
+      "24h": "24시간",
+      "7d": "7일"
     }
   },
   "adminAlertRules": {
@@ -21813,6 +21892,16 @@
     "allDashboards": {
       "title": "모든 대시보드",
       "description": "사용 가능한 모든 대시보드 탐색 및 관리"
+    },
+    "detail": {
+      "dashboardInfo": "대시보드 정보",
+      "metadata": "메타데이터"
+    },
+    "confirm": {
+      "deleteTitle": "대시보드 삭제",
+      "deleteDesc": "이 대시보드를 삭제하시겠습니까?",
+      "exportTitle": "대시보드 내보내기",
+      "exportDesc": "이 대시보드를 JSON으로 내보내시겠습니까?"
     }
   },
   "adminSla": {

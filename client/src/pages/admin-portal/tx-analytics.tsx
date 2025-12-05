@@ -10,9 +10,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   ArrowLeftRight, TrendingUp, Clock, Flame, 
-  BarChart3, Filter, Download, RefreshCw, AlertCircle
+  BarChart3, Filter, Download, RefreshCw, AlertCircle, Eye
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from "recharts";
 
@@ -89,6 +91,9 @@ export default function AdminTxAnalytics() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [wsConnected, setWsConnected] = useState(false);
+  const [showTxTypeDetail, setShowTxTypeDetail] = useState(false);
+  const [selectedTxType, setSelectedTxType] = useState<TxType | null>(null);
+  const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: txData, isLoading, error, refetch } = useQuery<TransactionAnalytics>({
     queryKey: ["/api/admin/analytics/transactions"],
@@ -186,6 +191,26 @@ export default function AdminTxAnalytics() {
     ];
   }, [txData]);
 
+  const getTxTypeDetailSections = useCallback((txType: TxType): DetailSection[] => {
+    return [
+      {
+        title: t("adminTxAnalytics.detail.txTypeInfo"),
+        fields: [
+          { label: t("adminTxAnalytics.type"), value: txType.type },
+          { label: t("adminTxAnalytics.count24h"), value: txType.count },
+          { label: t("adminTxAnalytics.percentage"), value: `${txType.percentage}%`, type: "badge" as const },
+          { label: t("adminTxAnalytics.avgGas"), value: txType.avgGas },
+        ],
+      },
+      {
+        title: t("adminTxAnalytics.detail.statistics"),
+        fields: [
+          { label: t("adminTxAnalytics.percentage"), value: `${txType.percentage}% of total volume`, type: "text" as const },
+        ],
+      },
+    ];
+  }, [t]);
+
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     try {
@@ -206,7 +231,7 @@ export default function AdminTxAnalytics() {
     }
   }, [refetch, toast, t]);
 
-  const handleExport = useCallback(() => {
+  const performExport = useCallback(() => {
     const exportData = {
       exportedAt: new Date().toISOString(),
       stats: txStats,
@@ -226,6 +251,7 @@ export default function AdminTxAnalytics() {
       title: t("adminTxAnalytics.exportSuccess"),
       description: t("adminTxAnalytics.exportSuccessDesc"),
     });
+    setShowExportConfirm(false);
   }, [txStats, txVolume, txTypes, gasHistory, toast, t]);
 
   if (error) {
@@ -282,7 +308,7 @@ export default function AdminTxAnalytics() {
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" onClick={handleExport} data-testid="button-export">
+                    <Button variant="outline" size="icon" onClick={() => setShowExportConfirm(true)} data-testid="button-export">
                       <Download className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
@@ -382,6 +408,7 @@ export default function AdminTxAnalytics() {
                           <TableHead>{t("adminTxAnalytics.count24h")}</TableHead>
                           <TableHead>{t("adminTxAnalytics.percentage")}</TableHead>
                           <TableHead>{t("adminTxAnalytics.avgGas")}</TableHead>
+                          <TableHead>{t("common.actions")}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -393,6 +420,24 @@ export default function AdminTxAnalytics() {
                               <Badge variant="outline" data-testid={`tx-type-pct-${index}`}>{type.percentage}%</Badge>
                             </TableCell>
                             <TableCell data-testid={`tx-type-gas-${index}`}>{type.avgGas}</TableCell>
+                            <TableCell>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => {
+                                      setSelectedTxType(type);
+                                      setShowTxTypeDetail(true);
+                                    }}
+                                    data-testid={`button-view-txtype-${index}`}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>{t("adminTxAnalytics.view")}</TooltipContent>
+                              </Tooltip>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -431,6 +476,25 @@ export default function AdminTxAnalytics() {
             </TabsContent>
           </Tabs>
         </div>
+
+        <DetailSheet
+          open={showTxTypeDetail}
+          onOpenChange={setShowTxTypeDetail}
+          title={selectedTxType?.type || ""}
+          subtitle={t("adminTxAnalytics.detail.txTypeInfo")}
+          sections={selectedTxType ? getTxTypeDetailSections(selectedTxType) : []}
+        />
+
+        <ConfirmationDialog
+          open={showExportConfirm}
+          onOpenChange={setShowExportConfirm}
+          title={t("adminTxAnalytics.confirm.exportTitle")}
+          description={t("adminTxAnalytics.confirm.exportDesc")}
+          onConfirm={performExport}
+          confirmText={t("common.export")}
+          cancelText={t("adminTxAnalytics.cancel")}
+          destructive={false}
+        />
       </ScrollArea>
     </TooltipProvider>
   );
