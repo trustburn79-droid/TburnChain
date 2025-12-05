@@ -1287,6 +1287,78 @@
     "popular": "popular",
     "selectTokenStandard": "Or Select Token Standard",
     "startBlank": "Start with a blank token and configure everything manually",
+    "tokenTemplates": {
+      "defi": {
+        "name": "DeFi Governance",
+        "description": "Governance token with voting rights and staking features"
+      },
+      "gamefi": {
+        "name": "GameFi Utility",
+        "description": "Token optimized for in-game economy and rewards"
+      },
+      "nft": {
+        "name": "NFT Collection",
+        "description": "NFT with royalty and marketplace integration features"
+      },
+      "stablecoin": {
+        "name": "Stablecoin",
+        "description": "Collateral-backed stable value token"
+      },
+      "utility": {
+        "name": "Utility Token",
+        "description": "Used for platform access and fee payments"
+      },
+      "security": {
+        "name": "Security Token",
+        "description": "Regulatory compliant asset tokenization"
+      }
+    },
+    "selectTemplate": "Select Template",
+    "basicInfoDesc": "Enter basic information about your token",
+    "nextTokenomics": "Next: Tokenomics",
+    "tokenomicsSettings": "Tokenomics Settings",
+    "tokenomicsDesc": "Configure supply and burn mechanisms",
+    "burnMechanism": "Burn Mechanism",
+    "noBurn": "No Burn",
+    "transactionBurn": "Transaction Burn",
+    "aiOptimizedBurn": "AI Optimized Burn",
+    "burnRatePercent": "Burn Rate (%)",
+    "vestingPeriod": "Vesting Period (days)",
+    "backToBasicInfo": "Back to Basic Info",
+    "nextAccessControl": "Next: Access Control",
+    "accessControlSettings": "Access Control Settings",
+    "accessControlDesc": "Configure token management permissions",
+    "roleBased": "Role-Based",
+    "multiSig": "Multi-Sig",
+    "pausableDesc": "Allow pausing all token transfers",
+    "blacklistable": "Blacklistable",
+    "blacklistableDesc": "Ability to block specific addresses",
+    "upgradeable": "Upgradeable",
+    "backToAccessControl": "Back to Access Control",
+    "reviewYourToken": "Review your token settings and deploy",
+    "tokenSummary": "Token Summary",
+    "blacklist": "Blacklist",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "aiFeatures": "AI Features",
+    "antiBotProtection": "Anti-Bot Protection",
+    "securityAudit": "Security Audit",
+    "passed": "Passed",
+    "backToAiSecurity": "Back to AI & Security",
+    "tokenAddress": "Token Address",
+    "createAnotherToken": "Create Another Token",
+    "searchTokens": "Search tokens...",
+    "filterByStandard": "Filter by Standard",
+    "sortByField": "Sort By",
+    "volume": "Volume",
+    "deployedTokens": "Deployed Tokens",
+    "noTokensMatchSearch": "No tokens match your search criteria",
+    "tripleBandAiEnabled": "Triple-Band AI Enabled",
+    "tripleBandAiEnabledDesc": "AI optimization for strategic, tactical, and operational layers",
+    "quantumResistantSignatures": "Quantum-Resistant Signatures",
+    "mevProtectionEnabled": "MEV Protection",
+    "antiBotEnabled": "Anti-Bot Protection",
+    "antiBotDesc": "Prevent bot trading during launch",
     "fungibleToken": "Fungible Token",
     "nftCollection": "NFT Collection",
     "select": "Select",
@@ -1328,7 +1400,6 @@
     "burnable": "Burnable",
     "burnableDesc": "Allow tokens to be permanently destroyed",
     "pausable": "Pausable",
-    "pausableDesc": "Allow pausing all token transfers",
     "capped": "Capped",
     "cappedDesc": "Set maximum supply limit",
     "maxSupply": "Max Supply",
@@ -2800,7 +2871,9 @@
     "noActivityYet": "No activity recorded yet",
     "activityTab": "Activity",
     "registrationProgress": "Registration Progress",
-    "nftRequiredToJoin": "NFT ownership required to participate in this tournament"
+    "nftRequiredToJoin": "NFT ownership required to participate in this tournament",
+    "eventAssetEquipped": "Asset Equipped",
+    "eventAssetUpgraded": "Asset Upgraded"
   },
   "bridge": {
     "title": "Cross-Chain Bridge",
@@ -4178,7 +4251,30 @@
       "totalParameters": "Total Parameters",
       "modifiedParameters": "Modified Parameters",
       "pendingChanges": "Pending Changes"
-    }
+    },
+    "systemStatus": "System Status",
+    "running": "Running",
+    "paused": "Paused",
+    "maintenance": "Maintenance",
+    "restart": "Restart",
+    "pause": "Pause",
+    "resume": "Resume",
+    "healthCheck": "Health Check",
+    "configuration": "Configuration",
+    "logs": "Logs",
+    "alerts": "Alerts",
+    "users": "Users",
+    "roles": "Roles",
+    "permissions": "Permissions",
+    "apiKeyManagement": "API Key Management",
+    "generateKey": "Generate Key",
+    "revokeKey": "Revoke Key",
+    "keyName": "Key Name",
+    "keyPrefix": "Key Prefix",
+    "created": "Created",
+    "lastUsed": "Last Used",
+    "expiresAt": "Expires At",
+    "rateLimit": "Rate Limit"
   },
   "operator": {
     "title": "Operator Portal",
@@ -4334,7 +4430,8 @@
         "medium": "Medium",
         "low": "Low",
         "info": "Info"
-      }
+      },
+      "technicalDetails": "Technical Details"
     },
     "members": {
       "title": "Member Management",
@@ -4445,7 +4542,25 @@
       "exportComplete": "Export complete",
       "membersExported": "{{count}} members exported",
       "unpin": "Unpin",
-      "pin": "Pin"
+      "pin": "Pin",
+      "noNotes": "No notes",
+      "addNoteToMember": "Add a note to this member...",
+      "recentActivity": "Recent Activity",
+      "noRecentActivity": "No recent activity",
+      "updateMemberStatus": "Update Member Status",
+      "selectNewStatus": "Select new status",
+      "confirmStatusChange": "Confirm Status Change",
+      "statusUpdateFailed": "Failed to update status",
+      "updateMemberTier": "Update Member Tier",
+      "selectNewTier": "Select new tier",
+      "confirmTierChange": "Confirm Tier Change",
+      "tierUpdateFailed": "Failed to update tier",
+      "bulkStatusUpdated": "{{count}} member statuses updated",
+      "bulkTierUpdated": "{{count}} member tiers updated",
+      "kycDocuments": "KYC Documents",
+      "downloadDocument": "Download Document",
+      "noDocuments": "No documents uploaded yet",
+      "stakingPool": "Staking Pool"
     },
     "validators": {
       "title": "Validator Operations",
@@ -4635,7 +4750,43 @@
       "additionalStatistics": "Additional Statistics",
       "averageBlockTime": "Average Block Time",
       "blockSuccessRate": "Block Success Rate",
-      "unlimited": "Unlimited"
+      "unlimited": "Unlimited",
+      "createValidator": "Create Validator",
+      "activeValidators": "Active Validators",
+      "totalStaked": "Total Staked",
+      "slashingEvents": "Slashing Events",
+      "pendingReview": "Pending Review",
+      "inLast30Days": "In last 30 days",
+      "validators": "Validators",
+      "slashing": "Slashing",
+      "allValidators": "All Validators",
+      "manageAndMonitor": "Manage and monitor validators",
+      "searchPlaceholder": "Search validators...",
+      "active": "Active",
+      "inactive": "Inactive",
+      "jailed": "Jailed",
+      "name": "Name",
+      "apy": "APY",
+      "noValidatorsFound": "No validators found",
+      "overview": "Overview",
+      "delegators": "Delegators",
+      "directStake": "Direct Stake",
+      "delegatedStake": "Delegated Stake",
+      "lastActive": "Last Active",
+      "noSlashingHistory": "No slashing history",
+      "pendingApplicationsTitle": "Pending Validator Applications",
+      "reviewAndApprove": "Review and approve/reject validator applications",
+      "submittedAt": "Submitted At",
+      "noApplications": "No pending applications",
+      "applicantAddress": "Applicant Address",
+      "slashingEventsTitle": "Slashing Events",
+      "recentSlashingEvents": "Recent slashing events and penalties",
+      "reason": "Reason",
+      "noSlashingEvents": "No slashing events",
+      "applicationApproved": "Application Approved",
+      "applicationRejected": "Application Rejected",
+      "resolved": "해결됨",
+      "actionFailed": "작업에 Failed했습니다"
     },
     "security": {
       "title": "Security Audit",
@@ -4890,7 +5041,19 @@
         "admin": "Administrator",
         "system": "System",
         "api": "API"
-      }
+      },
+      "refresh": "새로고침",
+      "today": "오늘",
+      "threats": "위협",
+      "auditLogsTab": "Audit Log",
+      "activeSecurityEvents": "Active Security 이벤트 모니터링",
+      "searchPlaceholder": "이벤트 Search...",
+      "filterBySeverity": "심각도로 Filter",
+      "allSeverity": "모든 심각도",
+      "status": "Status",
+      "detectedAt": "탐지일",
+      "resolvedAt": "해결일",
+      "logNewEvent": "새 이벤트 기록"
     },
     "reports": {
       "title": "Compliance Reports",
@@ -6132,8 +6295,164 @@
           "Minimal downside",
           "Clear technical benefits"
         ]
-      }
-    }
+      },
+      "title": "Proposals",
+      "create": "Create Proposal",
+      "filter": "Filter",
+      "sort": "Sort",
+      "search": "Search proposals...",
+      "status": {
+        "all": "All",
+        "active": "Active",
+        "passed": "Passed",
+        "rejected": "Rejected",
+        "pending": "Pending",
+        "executed": "Executed"
+      },
+      "noProposals": "No proposals found",
+      "votes": "votes",
+      "votesFor": "For",
+      "votesAgainst": "Against",
+      "votesAbstain": "Abstain",
+      "endDate": "End Date",
+      "startDate": "Start Date",
+      "viewDetails": "View Details"
+    },
+    "overview": "개요",
+    "proposal": {
+      "title": "Proposal",
+      "description": "Description",
+      "proposer": "Proposer",
+      "createdAt": "Created At",
+      "votingEnds": "Voting Ends",
+      "currentStatus": "Current Status",
+      "voteDistribution": "Vote Distribution",
+      "castVote": "Cast Vote",
+      "voteFor": "Vote For",
+      "voteAgainst": "Vote Against",
+      "abstain": "Abstain",
+      "yourVote": "Your Vote",
+      "confirmVote": "Confirm Vote",
+      "voteSubmitted": "Vote Submitted",
+      "voteSubmittedDesc": "Your vote has been recorded",
+      "voteFailed": "Vote Failed",
+      "voteFailedDesc": "Failed to submit vote. Please try again.",
+      "discussionForum": "Discussion Forum",
+      "technicalDetails": "Technical Details",
+      "executionDetails": "Execution Details",
+      "timeline": "Timeline",
+      "quorumProgress": "Quorum Progress",
+      "quorumReached": "Quorum Reached",
+      "quorumNotReached": "Quorum Not Reached"
+    },
+    "create": {
+      "title": "Create Proposal",
+      "subtitle": "Submit a new governance proposal",
+      "proposalTitle": "Proposal Title",
+      "proposalTitlePlaceholder": "Enter proposal title",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe your proposal in detail",
+      "category": "Category",
+      "categories": {
+        "parameter": "Parameter Change",
+        "upgrade": "Protocol Upgrade",
+        "treasury": "Treasury",
+        "community": "Community",
+        "other": "Other"
+      },
+      "votingDuration": "Voting Duration",
+      "deposit": "Deposit",
+      "depositDescription": "Minimum deposit required to submit proposal",
+      "preview": "Preview",
+      "submit": "Submit Proposal",
+      "submitting": "Submitting...",
+      "success": "Proposal Created",
+      "successDesc": "Your proposal has been submitted for voting",
+      "failed": "Proposal Failed",
+      "failedDesc": "Failed to create proposal. Please try again."
+    },
+    "voting": "Vote",
+    "treasury": "트레저리",
+    "aiInsights": "AI 인사이트",
+    "totalVotingPower": "Total Vote력",
+    "eligibleVoters": "Vote 자격자",
+    "activeProposals": "Active Proposal",
+    "pendingVote": "Vote 대기",
+    "treasuryBalance": "트레저리 잔액",
+    "stakedAssets": "Staking된 자산",
+    "participationRate": "참여율",
+    "last30Days": "최근 30일",
+    "proposalsTab": "Proposal",
+    "newProposalTab": "새 Proposal",
+    "myVotesTab": "내 Vote",
+    "analyticsTab": "Analysis",
+    "activeProposalsTitle": "Active Proposal",
+    "activeProposalsDesc": "현재 Vote가 진행 중인 Proposal",
+    "allProposals": "모든 Proposal",
+    "core": "핵심",
+    "parameter": "매개변수",
+    "upgrade": "업그레이드",
+    "emergency": "긴급",
+    "searchPlaceholder": "Proposal Search...",
+    "proposedBy": "Proposal자:",
+    "endTime": "End Time:",
+    "forVotes": "찬성",
+    "againstVotes": "반대",
+    "quorumProgress": "정족수 진행:",
+    "viewDetails": "상세 보기",
+    "noActiveProposals": "Active Proposal 없음",
+    "noActiveProposalsDesc": "현재 Vote가 진행 중인 Proposal이 없습니다.",
+    "createProposal": "Proposal Create",
+    "createNewProposal": "새 Proposal Create",
+    "createNewProposalDesc": "커뮤니티가 Vote할 새 Governance Proposal Create",
+    "proposalTitle": "Proposal 제목",
+    "proposalTitlePlaceholder": "Proposal의 명확하고 간결한 제목 입력",
+    "proposalType": "Proposal 유형",
+    "selectType": "유형 선택",
+    "description": "설명",
+    "descriptionPlaceholder": "Proposal에 대한 상세 설명, 근거 및 예상 영향 제공...",
+    "votingDuration": "Vote Period",
+    "days3": "3일 (긴급)",
+    "days7": "7일 (표준)",
+    "days14": "14일 (복합)",
+    "days30": "30일 (주요)",
+    "requiredQuorum": "필요 정족수",
+    "quorum50": "50% (표준)",
+    "quorum67": "67% (상위 다수)",
+    "submitting": "Submit 중...",
+    "submitProposal": "Proposal Submit",
+    "myVotingHistory": "내 Vote 이력",
+    "myVotingHistoryDesc": "내 Vote 기록 및 위임 현황",
+    "totalVotes": "Total Vote",
+    "proposalsVoted": "Vote한 Proposal",
+    "votesFor": "찬성 Vote",
+    "votesAgainst": "반대 Vote",
+    "abstentions": "기권",
+    "delegatedPower": "위임된 권한",
+    "recentVotes": "최근 Vote",
+    "noVotesYet": "아직 Vote 없음",
+    "noVotesYetDesc": "아직 Proposal에 Vote하지 않았습니다. 참여하려면 Active Proposal을 Confirm하세요.",
+    "votingAnalytics": "Vote Analysis",
+    "votingAnalyticsDesc": "Governance 참여 Statistics 및 트렌드",
+    "proposalTypeDistribution": "Proposal 유형 분포",
+    "overallParticipation": "전체 참여",
+    "voteDistribution": "Vote 분포",
+    "proposalSuccessRate": "Proposal Success률",
+    "participationByTier": "티어별 참여",
+    "proposalDetails": "Proposal 상세",
+    "proposer": "Proposal자",
+    "created": "Create일",
+    "votingEnds": "Vote End",
+    "currentStatus": "현재 Status",
+    "voteNow": "지금 Vote",
+    "for": "찬성",
+    "against": "반대",
+    "abstain": "기권",
+    "castVote": "Vote하기",
+    "alreadyVoted": "이미 Vote함",
+    "aiAnalysisDesc": "트리플밴드 AI의 이 Proposal에 대한 Analysis",
+    "overallAssessment": "전체 평가",
+    "impactAnalysis": "영향 Analysis"
   },
   "burn": {
     "title": "Auto-Burn Dashboard",
@@ -6940,7 +7259,13 @@
         "blocks": "Blocks",
         "validators": "Validators",
         "dailyTxs": "Daily TXs",
-        "uptime": "Uptime"
+        "uptime": "Uptime",
+        "title": "Network Statistics",
+        "subtitle": "Real-time network data",
+        "totalTransactions": "Total Transactions",
+        "activeValidators": "Active Validators",
+        "totalStaked": "Total Staked",
+        "totalBurned": "Total Burned"
       },
       "solutions": {
         "title": "Core Solutions",
@@ -6975,10 +7300,50 @@
         "subtitle": "Real-time AI orchestration monitoring"
       },
       "cta": {
-        "title": "Ready to Build Trust?",
-        "subtitle": "Join thousands of developers building the future of trust-based blockchain",
+        "title": "Ready to Start?",
+        "subtitle": "Join the TBurn ecosystem today.",
         "exploreEcosystem": "Explore Ecosystem",
-        "joinCommunity": "Join Community"
+        "joinCommunity": "Join Community",
+        "getStarted": "Get Started",
+        "learnMore": "Learn More"
+      },
+      "hero": {
+        "tag": "TBurn Chain",
+        "title": "The Future of",
+        "titleHighlight": "Blockchain",
+        "subtitle": "A high-performance, sustainable blockchain platform.",
+        "buttons": {
+          "explore": "Explore",
+          "getStarted": "Get Started"
+        }
+      },
+      "features": {
+        "title": "Why TBurn?",
+        "subtitle": "Key features of our blockchain",
+        "performance": {
+          "title": "High Performance",
+          "description": "Fast transactions with low fees"
+        },
+        "security": {
+          "title": "Security",
+          "description": "Advanced security measures"
+        },
+        "sustainability": {
+          "title": "Sustainability",
+          "description": "Eco-friendly consensus"
+        },
+        "scalability": {
+          "title": "Scalability",
+          "description": "Built to scale"
+        }
+      },
+      "ecosystem": {
+        "title": "Ecosystem",
+        "subtitle": "Built on TBurn",
+        "defi": "DeFi",
+        "nft": "NFT",
+        "gaming": "Gaming",
+        "enterprise": "Enterprise"
       }
     },
     "learn": {
@@ -7522,6 +7887,20 @@
               "title": "60-80% Loss",
               "description": "Average investor loss rate in early-stage projects."
             }
+          },
+          "stats": {
+            "rugPulls": {
+              "value": "$28억",
+              "label": "2023년 러그풀로 손실"
+            },
+            "scamProjects": {
+              "value": "40%",
+              "label": "신규 Token 중 스캠"
+            },
+            "investorLoss": {
+              "value": "67%",
+              "label": "사기 피해 투자자"
+            }
           }
         },
         "performance": {
@@ -7549,6 +7928,14 @@
             "nodes": {
               "value": "30,000",
               "label": "Nodes"
+            },
+            "finality": {
+              "value": "6초",
+              "label": "Transaction 완결성"
+            },
+            "gasCost": {
+              "value": "$0.001",
+              "label": "평균 가스 비용"
             }
           }
         },
@@ -7574,6 +7961,18 @@
               "latency": "45ms",
               "description": "Executes real-time monitoring, emergency response (Auto-Burn), and automated actions."
             }
+          },
+          "strategic": {
+            "title": "전략적 AI",
+            "description": "장기 패턴 Analysis 및 위험 평가"
+          },
+          "tactical": {
+            "title": "전술적 AI",
+            "description": "실Time Transaction 모니터링"
+          },
+          "operational": {
+            "title": "운영 AI",
+            "description": "즉각적인 사기 탐지 및 방지"
           }
         },
         "quantumSecurity": {
@@ -7587,6 +7986,12 @@
               "title": "Hybrid Signatures",
               "description": "Combining ED25519 + Dilithium for backward compatibility and future-proofing."
             }
+          },
+          "description": "미래 지향적 암호화 보호",
+          "features": {
+            "crystals": "CRYSTALS-Dilithium 서명",
+            "hybrid": "ED25519 하이브리드 암호화",
+            "postQuantum": "포스트 양자 키 교환"
           }
         },
         "coreModules": {
@@ -7603,9 +8008,22 @@
             "bridge": {
               "title": "Cross-Chain Bridge",
               "description": "Secure atomic swaps connected to 7+ major blockchains."
+            },
+            "consensus": {
+              "title": "합의 엔진",
+              "description": "신뢰 증명 합의 메커니즘"
+            },
+            "verification": {
+              "title": "검증 레이어",
+              "description": "3단계 신뢰 검증 시스템"
+            },
+            "execution": {
+              "title": "실행 레이어",
+              "description": "EVM 호환 스마트 컨트랙트"
             }
           }
-        }
+        },
+        "viewGithub": "GitHub에서 보기"
       },
       "tokenomics": {
         "tag": "ECONOMICS",
@@ -7761,8 +8179,13 @@
               "item2": "Trust Score System V1",
               "item3": "Cross-Chain Bridge (ETH, BSC)",
               "item4": "DEX Launch with AMM",
-              "item5": "Mobile Wallet Beta"
-            }
+              "item5": "Mobile Wallet Beta",
+              "mainnet": "메인넷 출시",
+              "trustScore": "신뢰도 점수 시스템",
+              "bridge": "크로스체인 브릿지",
+              "dex": "DEX 출시"
+            },
+            "period": "2024년 1-2분기"
           },
           "phase2": {
             "quarter": "Q3-Q4 2024",
@@ -7773,8 +8196,13 @@
               "item2": "AI Enhancement Module",
               "item3": "Mobile Wallet Full Release",
               "item4": "Major CEX Listings",
-              "item5": "Developer SDK V2"
-            }
+              "item5": "Developer SDK V2",
+              "gamefi": "GameFi 플랫폼",
+              "aiEnhancement": "AI 강화",
+              "mobileWallet": "모바일 Wallet",
+              "partnerships": "주요 파트너십"
+            },
+            "period": "2024년 3-4분기"
           },
           "phase3": {
             "quarter": "Q1-Q2 2025",
@@ -7785,8 +8213,13 @@
               "item2": "DAO Governance Launch",
               "item3": "Cross-Chain Expansion (7+ chains)",
               "item4": "AI Trading Bot Integration",
-              "item5": "Enterprise Partnership Program"
-            }
+              "item5": "Enterprise Partnership Program",
+              "dao": "완전 DAO Governance",
+              "l2": "레이어 2 솔루션",
+              "enterprise": "엔터프라이즈 채택",
+              "global": "글로벌 확장"
+            },
+            "period": "2025년 1-2분기"
           },
           "phase4": {
             "quarter": "Q3-Q4 2025",
@@ -7796,8 +8229,13 @@
               "item1": "Global Marketing Campaign",
               "item2": "Institutional Services Launch",
               "item3": "Strategic Partnerships",
-              "item4": "Ecosystem Fund Deployment"
-            }
+              "item4": "Ecosystem Fund Deployment",
+              "quantum": "양자 업그레이드",
+              "fiat": "법정화폐 통합",
+              "institutions": "기관 서비스",
+              "metaverse": "메타버스 통합"
+            },
+            "period": "2025년 3-4분기"
           }
         },
         "growth": {
@@ -7831,6 +8269,13 @@
           "description": "Be part of the TBurn Chain ecosystem and help shape the future of trust-based blockchain technology.",
           "joinCommunity": "Join Community",
           "viewDocs": "View Documentation"
+        },
+        "metrics": {
+          "title": "성장 전망",
+          "users": "Active User",
+          "tvl": "Total 예치 가치",
+          "transactions": "일일 Transaction",
+          "developers": "Active 개발자"
         }
       },
       "blockchainBasics": {
@@ -8379,6 +8824,18 @@
           },
           "step4": {
             "comment": "# Deploy to Mainnet"
+          },
+          "install": {
+            "title": "CLI 설치",
+            "command": "npm install -g @tburn/cli"
+          },
+          "init": {
+            "title": "프로젝트 초기화",
+            "command": "tburn init my-project"
+          },
+          "deploy": {
+            "title": "컨트랙트 배포",
+            "command": "tburn deploy --network mainnet"
           }
         },
         "sdkList": {
@@ -8386,44 +8843,54 @@
             "name": "JavaScript / TypeScript",
             "version": "v4.2.1",
             "install": "npm install @burnchain/sdk",
-            "downloads": "1.2M/mo downloads"
+            "downloads": "1.2M/mo downloads",
+            "package": "@tburn/sdk"
           },
           "python": {
             "name": "Python",
             "version": "v4.1.0",
             "install": "pip install burnchain-py",
-            "downloads": "450K/mo downloads"
+            "downloads": "450K/mo downloads",
+            "package": "tburn-sdk"
           },
           "rust": {
             "name": "Rust",
             "version": "v4.0.3",
             "install": "cargo add burnchain-rs",
-            "downloads": "280K/mo downloads"
+            "downloads": "280K/mo downloads",
+            "package": "tburn-rs"
           },
           "go": {
             "name": "Go",
             "version": "v4.0.2",
             "install": "go get github.com/burnchain/go",
-            "downloads": "180K/mo downloads"
+            "downloads": "180K/mo downloads",
+            "package": "github.com/tburn/go-sdk"
           },
           "java": {
             "name": "Java / Kotlin",
             "version": "v4.0.1",
             "install": "implementation 'burnchain-jvm'",
-            "downloads": "120K/mo downloads"
+            "downloads": "120K/mo downloads",
+            "package": "io.tburn.sdk"
           },
           "swift": {
             "name": "Swift",
             "version": "v4.0.0",
             "install": "pod 'BurnChainSwift'",
             "downloads": "85K/mo downloads"
+          },
+          "csharp": {
+            "name": "C#/.NET",
+            "package": "TBurn.SDK"
           }
         },
         "grantTiers": {
           "seed": {
             "tier": "Seed",
             "amount": "$5K - $25K",
-            "description": "Idea Validation"
+            "description": "Idea Validation",
+            "title": "시드 지원금"
           },
           "build": {
             "tier": "Build",
@@ -8438,7 +8905,71 @@
           "enterprise": {
             "tier": "Enterprise",
             "amount": "$500K+",
-            "description": "Ecosystem Leader"
+            "description": "Ecosystem Leader",
+            "title": "엔터프라이즈 지원금"
+          },
+          "growth": {
+            "title": "성장 지원금",
+            "amount": "$25,000 - $100,000",
+            "description": "확장 프로젝트용"
+          }
+        },
+        "apiEndpoints": {
+          "blockchain": {
+            "title": "Block체인 API",
+            "description": "Block, Transaction, 계정"
+          },
+          "trustScore": {
+            "title": "신뢰도 점수 API",
+            "description": "점수 조회 및 검증"
+          },
+          "defi": {
+            "title": "DeFi API",
+            "description": "DEX, 대출, Staking"
+          },
+          "nft": {
+            "title": "NFT API",
+            "description": "민팅, 전송, 메타Data"
+          }
+        },
+        "devToolsList": {
+          "explorer": {
+            "title": "Block 익스플로러",
+            "description": "Transaction 및 컨트랙트 디버깅"
+          },
+          "faucet": {
+            "title": "테스트넷 Faucet",
+            "description": "테스트 Token 받기"
+          },
+          "ide": {
+            "title": "온라인 IDE",
+            "description": "브라우저 기반 개발"
+          },
+          "debugger": {
+            "title": "컨트랙트 디버거",
+            "description": "단계별 디버깅"
+          }
+        },
+        "grantsList": {
+          "infrastructure": {
+            "title": "인프라 프로젝트",
+            "description": "노드, 유효성 검사기, RPC 제공자",
+            "funding": "$25K-$100K"
+          },
+          "defi": {
+            "title": "DeFi 프로토콜",
+            "description": "DEX, 대출, 수익 농사",
+            "funding": "$50K-$250K"
+          },
+          "gamefi": {
+            "title": "GameFi",
+            "description": "P2E 게임, NFT 마켓플레이스",
+            "funding": "$25K-$150K"
+          },
+          "tooling": {
+            "title": "개발자 도구",
+            "description": "IDE, 라이브러리, 테스트 프레임워크",
+            "funding": "$10K-$50K"
           }
         }
       },
@@ -8578,7 +9109,15 @@
         "authentication": {
           "title": "Authentication",
           "description": "All API requests require an API key. Get your free key from the",
-          "dashboardLink": "Developer Dashboard"
+          "dashboardLink": "Developer Dashboard",
+          "subtitle": "Secure your API requests",
+          "apiKey": "API Key",
+          "apiKeyDesc": "Use API key for authenticated requests",
+          "rateLimit": "Rate Limits",
+          "rateLimitDesc": "Request limits per time period",
+          "apiKeyLabel": "API 키",
+          "headerLabel": "인증 헤더",
+          "getApiKey": "API 키 받기"
         },
         "sidebar": {
           "overview": "Overview",
@@ -8594,17 +9133,71 @@
         },
         "endpoints": {
           "blocks": {
-            "description": "Get block information by block number or hash",
-            "paramDesc": "Block number or 'latest'"
+            "description": "Get block information and history",
+            "paramDesc": "Block number or 'latest'",
+            "title": "Blocks"
           },
           "transactions": {
-            "description": "Get transaction details by transaction hash"
+            "description": "Query transaction data",
+            "title": "Transactions"
           },
           "sendTransaction": {
             "description": "Submit a signed transaction to the network"
           },
           "balance": {
             "description": "Get account balance and nonce"
+          },
+          "accounts": {
+            "title": "Accounts",
+            "description": "Account balances and activity"
+          },
+          "contracts": {
+            "title": "Contracts",
+            "description": "Smart contract interaction"
+          },
+          "staking": {
+            "title": "Staking",
+            "description": "Staking pools and validators"
+          },
+          "governance": {
+            "title": "Governance",
+            "description": "Governance proposals and voting"
+          },
+          "title": "API 엔드포인트",
+          "blockchain": {
+            "title": "블록체인",
+            "description": "블록, 트랜잭션, 계정 데이터 쿼리",
+            "endpoint1": "GET /v1/blocks",
+            "endpoint2": "GET /v1/transactions",
+            "endpoint3": "GET /v1/accounts/{address}"
+          },
+          "trustScore": {
+            "title": "신뢰 점수",
+            "description": "프로젝트 신뢰 점수 조회 및 검증",
+            "endpoint1": "GET /v1/trust/score/{address}",
+            "endpoint2": "GET /v1/trust/history/{address}",
+            "endpoint3": "POST /v1/trust/verify"
+          },
+          "defi": {
+            "title": "DeFi",
+            "description": "DEX, 유동성 풀, 스테이킹 데이터",
+            "endpoint1": "GET /v1/dex/pairs",
+            "endpoint2": "GET /v1/pools/{poolId}",
+            "endpoint3": "GET /v1/staking/validators"
+          },
+          "nft": {
+            "title": "NFT",
+            "description": "NFT 컬렉션 및 마켓플레이스 데이터",
+            "endpoint1": "GET /v1/nft/collections",
+            "endpoint2": "GET /v1/nft/{tokenId}",
+            "endpoint3": "GET /v1/nft/marketplace/listings"
+          },
+          "ai": {
+            "title": "AI 서비스",
+            "description": "AI 분석 및 예측 API",
+            "endpoint1": "POST /v1/ai/analyze",
+            "endpoint2": "GET /v1/ai/predictions",
+            "endpoint3": "POST /v1/ai/sentiment"
           }
         },
         "errorHandling": {
@@ -8648,6 +9241,75 @@
           "documentation": "Full Documentation",
           "codeExamples": "Code Examples",
           "quickStart": "Quick Start Guide"
+        },
+        "hero": {
+          "tag": "API Reference",
+          "title": "REST",
+          "titleHighlight": "API",
+          "subtitle": "Access TBurn Chain data and functionality through our RESTful API."
+        },
+        "buttons": {
+          "viewDocs": "View Docs",
+          "tryIt": "Try It",
+          "viewSpec": "API 사양 보기",
+          "openPlayground": "플레이그라운드 열기"
+        },
+        "overview": {
+          "title": "API Overview",
+          "subtitle": "Explore our API endpoints"
+        },
+        "cta": {
+          "title": "Start Using the API",
+          "subtitle": "Get your API key and start building.",
+          "getApiKey": "Get API Key",
+          "viewDocs": "View Docs"
+        },
+        "responseFormats": {
+          "title": "응답 형식",
+          "success": {
+            "title": "성공 응답"
+          },
+          "error": {
+            "title": "오류 응답"
+          }
+        },
+        "rateLimits": {
+          "title": "요청 제한",
+          "free": {
+            "title": "무료 티어",
+            "limit": "100 요청/분",
+            "rateLimit": "1,000 요청/일"
+          },
+          "pro": {
+            "title": "Pro 티어",
+            "limit": "1,000 요청/분",
+            "rateLimit": "100,000 요청/일"
+          },
+          "enterprise": {
+            "title": "엔터프라이즈",
+            "limit": "무제한",
+            "rateLimit": "맞춤형"
+          }
+        },
+        "developerResources": {
+          "title": "개발자 리소스",
+          "description": "API 통합을 위한 추가 도구 및 문서",
+          "sdkGuide": {
+            "title": "SDK 가이드",
+            "subtitle": "다국어 통합"
+          },
+          "websocket": {
+            "title": "WebSocket API",
+            "subtitle": "실시간 스트리밍"
+          },
+          "cliReference": {
+            "title": "CLI 레퍼런스",
+            "subtitle": "명령줄 도구"
+          },
+          "codeExamples": {
+            "title": "코드 예제",
+            "subtitle": "샘플 통합"
+          }
         }
       },
       "cli": {
@@ -8666,7 +9328,8 @@
         "relatedDocs": "Related Documentation",
         "installation": {
           "title": "Installation",
-          "verify": "Verify installation"
+          "verify": "Verify installation",
+          "npm": "npm으로 설치"
         },
         "categories": {
           "project": "Project",
@@ -8681,7 +9344,10 @@
             "options": {
               "template": "Project template (defi, nft, dao)",
               "typescript": "Use TypeScript"
-            }
+            },
+            "name": "init",
+            "description": "새 TBurn 프로젝트 초기화",
+            "usage": "tburn init [project-name]"
           },
           "dev": {
             "desc": "Start local development server",
@@ -8695,7 +9361,10 @@
             "options": {
               "outdir": "Output directory",
               "sourcemap": "Generate source maps"
-            }
+            },
+            "name": "build",
+            "description": "스마트 컨트랙트 컴파일",
+            "usage": "tburn build [--release]"
           },
           "deploy": {
             "desc": "Deploy to TBurn Chain network",
@@ -8703,7 +9372,10 @@
               "network": "Target network (mainnet, testnet)",
               "verify": "Verify contract on explorer",
               "gasPrice": "Gas price in gwei"
-            }
+            },
+            "name": "deploy",
+            "description": "네트워크에 배포",
+            "usage": "tburn deploy --network mainnet"
           },
           "wallet": {
             "desc": "Wallet management commands",
@@ -8712,6 +9384,12 @@
               "import": "Import existing wallet",
               "balance": "Check wallet balance"
             }
+          },
+          "title": "명령어",
+          "test": {
+            "name": "test",
+            "description": "테스트 스위트 실행",
+            "usage": "tburn test [--coverage]"
           }
         },
         "globalOptions": {
@@ -8732,6 +9410,42 @@
           "apiReference": "API Reference",
           "quickStart": "Quick Start",
           "installationGuide": "Installation Guide"
+        },
+        "developerResources": {
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST Endpoints"
+          },
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "Contract Development"
+          },
+          "quickStart": {
+            "title": "Quick Start",
+            "subtitle": "5 Minute Guide"
+          },
+          "title": "개발자 리소스",
+          "description": "CLI 도구와 함께 사용할 수 있는 리소스",
+          "sdkGuide": {
+            "title": "SDK 가이드",
+            "subtitle": "다국어 통합"
+          }
+        },
+        "cta": {
+          "title": "Start Building with CLI",
+          "subtitle": "Start TBurn Chain development with command line tools.",
+          "install": "Install",
+          "viewDocs": "View Docs"
+        },
+        "hero": {
+          "tag": "CLI 레퍼런스",
+          "title": "CLI",
+          "titleHighlight": "도구",
+          "subtitle": "TBurn 체인 명령줄 인터페이스를 사용한 프로젝트 관리 및 배포."
+        },
+        "buttons": {
+          "install": "설치하기",
+          "viewDocs": "문서 보기"
         }
       },
       "sdk": {
@@ -8757,6 +9471,24 @@
           "realTimeStreams": {
             "title": "Real-Time Streams",
             "description": "Subscribe to live blockchain events with WebSocket connections and reactive patterns."
+          },
+          "title": "SDK Features",
+          "subtitle": "Powerful features for developers",
+          "typeSupport": {
+            "title": "Type Support",
+            "description": "Full TypeScript and type definitions"
+          },
+          "errorHandling": {
+            "title": "Error Handling",
+            "description": "Comprehensive error handling and retry logic"
+          },
+          "rateLimit": {
+            "title": "Rate Limiting",
+            "description": "Built-in rate limiting and throttling"
+          },
+          "caching": {
+            "title": "Caching",
+            "description": "Automatic response caching"
           }
         },
         "examples": {
@@ -8770,6 +9502,100 @@
           "cliReference": "CLI Reference",
           "codeExamples": "Code Examples",
           "discordSupport": "Discord Community"
+        },
+        "hero": {
+          "tag": "SDK Guide",
+          "title": "SDK",
+          "titleHighlight": "Integration",
+          "subtitle": "Integrate with TBurn Chain using official SDKs for your preferred programming language."
+        },
+        "buttons": {
+          "viewDocs": "View Docs",
+          "viewExamples": "View Examples"
+        },
+        "sdkList": {
+          "javascript": {
+            "title": "JavaScript/TypeScript",
+            "description": "Full-featured SDK for Node.js and browser environments",
+            "features": {
+              "feature1": "Full TypeScript type support",
+              "feature2": "Promise-based API",
+              "feature3": "WebSocket real-time events"
+            }
+          },
+          "python": {
+            "title": "Python",
+            "description": "Python SDK for data analysis and backend services",
+            "features": {
+              "feature1": "Async/await support",
+              "feature2": "Pandas DataFrame integration",
+              "feature3": "Jupyter Notebook compatible"
+            }
+          },
+          "rust": {
+            "title": "Rust",
+            "description": "Rust SDK for high-performance systems",
+            "features": {
+              "feature1": "Zero-cost abstractions",
+              "feature2": "Safe type system",
+              "feature3": "Async runtime support"
+            }
+          },
+          "go": {
+            "title": "Go",
+            "description": "Go SDK for microservices and cloud-native",
+            "features": {
+              "feature1": "Goroutine-based concurrency",
+              "feature2": "Lightweight binaries",
+              "feature3": "gRPC support"
+            }
+          }
+        },
+        "quickStart": {
+          "title": "Quick Start",
+          "step1": {
+            "title": "Install SDK",
+            "description": "Install the SDK using your package manager"
+          },
+          "step2": {
+            "title": "Initialize",
+            "description": "Configure SDK with network settings"
+          },
+          "step3": {
+            "title": "Connect",
+            "description": "Connect to TBurn Chain network"
+          },
+          "step4": {
+            "title": "Build",
+            "description": "Start building your application"
+          }
+        },
+        "cta": {
+          "title": "Ready to Build?",
+          "subtitle": "Get started with our SDKs and build your first application.",
+          "getStarted": "Get Started",
+          "viewDocs": "View Docs",
+          "joinDiscord": "Discord 참여"
+        },
+        "developerResources": {
+          "title": "개발자 리소스",
+          "description": "SDK 사용을 위한 추가 도구 및 문서",
+          "apiReference": {
+            "title": "API 레퍼런스",
+            "subtitle": "REST 엔드포인트"
+          },
+          "smartContracts": {
+            "title": "스마트 컨트랙트",
+            "subtitle": "컨트랙트 상호작용"
+          },
+          "cliReference": {
+            "title": "CLI 레퍼런스",
+            "subtitle": "명령줄 도구"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "실시간 이벤트"
+          }
         }
       },
       "contracts": {
@@ -9390,6 +10216,64 @@
             "answer": "Simple contracts can be migrated in hours. Complex protocols may take 1-2 weeks."
           }
         }
+      },
+      "smartContracts": {
+        "hero": {
+          "tag": "Smart Contracts",
+          "title": "Smart",
+          "titleHighlight": "Contracts",
+          "subtitle": "Build and deploy smart contracts on TBurn Chain."
+        },
+        "buttons": {
+          "viewDocs": "View Docs",
+          "examples": "Examples"
+        },
+        "features": {
+          "title": "Contract Features",
+          "subtitle": "Powerful smart contract capabilities",
+          "solidity": {
+            "title": "Solidity Support",
+            "description": "Full Solidity compatibility"
+          },
+          "evm": {
+            "title": "EVM Compatible",
+            "description": "Ethereum Virtual Machine support"
+          },
+          "security": {
+            "title": "Security Audits",
+            "description": "Built-in security analysis"
+          },
+          "gas": {
+            "title": "Gas Optimization",
+            "description": "Optimized gas fees"
+          }
+        },
+        "templates": {
+          "title": "Contract Templates",
+          "subtitle": "Start with pre-built templates",
+          "token": {
+            "title": "Token",
+            "description": "TBC-20 Token template"
+          },
+          "nft": {
+            "title": "NFT",
+            "description": "TBC-721 NFT template"
+          },
+          "multisig": {
+            "title": "Multi-Sig",
+            "description": "Multi-signature wallet"
+          },
+          "dao": {
+            "title": "DAO",
+            "description": "Decentralized governance"
+          }
+        },
+        "cta": {
+          "title": "Deploy Your Contract",
+          "subtitle": "Build and deploy your smart contracts today.",
+          "getStarted": "Get Started",
+          "viewDocs": "View Docs"
+        }
       }
     },
     "solutions": {
@@ -9508,7 +10392,8 @@
           "aiFeatures": {
             "title": "AI Features",
             "subtitle": "Smart automation"
-          }
+          },
+          "title": "관련 솔루션"
         },
         "developerResources": {
           "description": "Build and integrate with TBurn DeFi using our comprehensive developer tools",
@@ -9535,6 +10420,15 @@
           "examples": {
             "title": "Code Examples",
             "subtitle": "Sample integrations"
+          },
+          "title": "개발자 리소스",
+          "codeExamples": {
+            "title": "코드 예제",
+            "subtitle": "샘플 통합"
+          },
+          "quickStart": {
+            "title": "빠른 시작",
+            "subtitle": "5분 가이드"
           }
         },
         "learnPages": {
@@ -9546,13 +10440,24 @@
           "introToDefi": {
             "title": "Introduction to DeFi",
             "subtitle": "Learn the fundamentals of decentralized finance"
-          }
+          },
+          "title": "DeFi 학습하기",
+          "description": "TBurn 체인에서 DeFi를 마스터하기 위한 종합 가이드"
         },
         "cta": {
           "title": "Ready to Trade on TBurn DeFi?",
           "subtitle": "Access the most trusted decentralized finance ecosystem with built-in trust verification",
           "launchApp": "Launch DeFi App",
           "viewDocs": "View Documentation"
+        },
+        "dexFeatures": {
+          "title": "DEX 기능",
+          "items": {
+            "amm": "자동화된 마켓 메이커",
+            "limitOrders": "지정가 주문",
+            "crossChain": "크로스체인 스왑",
+            "lowFees": "초저 수수료"
+          }
         }
       },
       "tokenExtensions": {
@@ -9800,7 +10705,8 @@
           "tokenExtensions": {
             "title": "Token Extensions",
             "subtitle": "TBC-20 standards"
-          }
+          },
+          "title": "관련 솔루션"
         },
         "developerResources": {
           "description": "Build powerful blockchain actions with our comprehensive developer toolkit",
@@ -9827,7 +10733,8 @@
           "examples": {
             "title": "Examples",
             "subtitle": "Sample code"
-          }
+          },
+          "title": "개발자 리소스"
         },
         "learnPages": {
           "introToDefi": {
@@ -9837,7 +10744,15 @@
           "developerCourse": {
             "title": "Developer Course",
             "subtitle": "Build dApps on TBurn Chain"
-          }
+          },
+          "title": "액션 & 블링크 학습하기",
+          "description": "블록체인 액션을 마스터하기 위한 종합 가이드"
+        },
+        "cta": {
+          "title": "블록체인 액션 시작하기",
+          "subtitle": "액션을 빌드하고 소셜 플랫폼에 블록체인을 통합하세요.",
+          "createAction": "액션 생성",
+          "viewDocs": "문서 보기"
         }
       },
       "wallets": {
@@ -9915,6 +10830,48 @@
           "checkTrustScores": {
             "title": "Check Trust Scores",
             "description": "Look for the Trust Score badge before interacting with any new project."
+          }
+        },
+        "cta": {
+          "title": "TBurn 지갑 시작하기",
+          "subtitle": "안전한 지갑으로 TBurn 생태계에 연결하세요.",
+          "download": "지갑 다운로드",
+          "viewDocs": "문서 보기"
+        },
+        "relatedSolutions": {
+          "title": "관련 솔루션",
+          "description": "지갑 기능을 확장하는 보완 솔루션",
+          "payments": {
+            "title": "결제",
+            "subtitle": "글로벌 결제"
+          },
+          "defiHub": {
+            "title": "DeFi Hub",
+            "subtitle": "DeFi 생태계"
+          },
+          "tokenExtensions": {
+            "title": "토큰 익스텐션",
+            "subtitle": "TBC-20 표준"
+          }
+        },
+        "developerResources": {
+          "title": "개발자 리소스",
+          "description": "지갑 통합을 위한 개발자 도구",
+          "sdkGuide": {
+            "title": "지갑 SDK",
+            "subtitle": "연결 통합"
+          },
+          "smartContracts": {
+            "title": "스마트 컨트랙트",
+            "subtitle": "지갑 인터페이스"
+          },
+          "apiReference": {
+            "title": "API 레퍼런스",
+            "subtitle": "REST 엔드포인트"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "실시간 이벤트"
           }
         }
       },
@@ -10257,7 +11214,8 @@
           "p2e": {
             "title": "Play-to-Earn Games",
             "desc": "Reward players with verified tokens and NFTs for gameplay achievements.",
-            "tags": "RPG, Strategy, Battle Royale"
+            "tags": "RPG, Strategy, Battle Royale",
+            "description": "신뢰 검증이 폰지 스킴을 차단합니다. 지속 가능한 플레이투언을 위한 안정적인 토큰노믹스."
           },
           "nftMarketplace": {
             "title": "NFT Marketplace",
@@ -10273,7 +11231,8 @@
           "metaverse": {
             "title": "Metaverse & Virtual Worlds",
             "desc": "Immersive virtual environments with verified digital asset ownership.",
-            "tags": "Virtual Land, Avatars, Social"
+            "tags": "Virtual Land, Avatars, Social",
+            "description": "가상 부동산, 아바타, 웨어러블. DAO 거버넌스를 통한 탈중앙화 소유권."
           },
           "casualGames": {
             "title": "Casual Games",
@@ -10311,7 +11270,8 @@
         "subtitle": "Accept verified crypto payments worldwide. Instant settlement, ultra-low fees, and Trust Score filtering for merchant protection.",
         "getApiKey": "Get API Key",
         "buttons": {
-          "viewDocs": "View Docs"
+          "viewDocs": "View Docs",
+          "getStarted": "시작하기"
         },
         "whyChoose": {
           "title": "Why Choose TBurn?",
@@ -10342,7 +11302,8 @@
             "scoring": {
               "volatility": "< 1% daily volatility",
               "liquidity": "$10M+ liquidity"
-            }
+            },
+            "requirement": "최소 85점 필요"
           },
           "contractSecurity": {
             "title": "Contract Security",
@@ -10352,7 +11313,8 @@
               "audits": "3+ audits completed",
               "criticalBug": "Critical bug found",
               "block": "BLOCK"
-            }
+            },
+            "requirement": "최소 90점 필요"
           },
           "adoptionUsage": {
             "title": "Adoption & Usage",
@@ -10362,8 +11324,10 @@
               "merchants": "100+ merchants",
               "transactions": "$1M+ monthly",
               "high": "HIGH"
-            }
-          }
+            },
+            "requirement": "최소 75점 필요"
+          },
+          "description": "TBurn 체인 결제에 승인된 토큰 및 점수 기준"
         },
         "solutionTypes": {
           "title": "Solution Types",
@@ -10401,6 +11365,72 @@
             "title": "Configure Webhooks",
             "description": "Receive instant server notifications upon payment completion."
           }
+        },
+        "hero": {
+          "tag": "결제 인프라",
+          "title": "결제 &",
+          "titleHighlight": "글로벌 커머스",
+          "subtitle": "신뢰 검증된 암호화폐 결제로 글로벌 상거래를 가능하게 합니다."
+        },
+        "features": {
+          "title": "결제 기능",
+          "instantSettlement": {
+            "title": "즉시 정산",
+            "description": "6초 내에 트랜잭션 완결"
+          },
+          "lowFees": {
+            "title": "저렴한 수수료",
+            "description": "트랜잭션당 $0.001 미만"
+          },
+          "trustVerified": {
+            "title": "신뢰 검증",
+            "description": "신뢰 점수가 높은 판매자만 허용"
+          },
+          "crossBorder": {
+            "title": "국경 없는 결제",
+            "description": "200개 이상의 국가 지원"
+          }
+        },
+        "relatedSolutions": {
+          "title": "관련 솔루션",
+          "description": "결제 기능을 확장하는 보완 솔루션",
+          "commerce": {
+            "title": "커머스",
+            "subtitle": "판매자 도구"
+          },
+          "wallets": {
+            "title": "지갑",
+            "subtitle": "안전한 연결"
+          },
+          "tokenExtensions": {
+            "title": "토큰 익스텐션",
+            "subtitle": "TBC-20 표준"
+          }
+        },
+        "developerResources": {
+          "title": "개발자 리소스",
+          "description": "결제 통합을 위한 개발자 도구",
+          "sdkGuide": {
+            "title": "결제 SDK",
+            "subtitle": "결제 통합"
+          },
+          "smartContracts": {
+            "title": "스마트 컨트랙트",
+            "subtitle": "결제 로직"
+          },
+          "apiReference": {
+            "title": "API 레퍼런스",
+            "subtitle": "REST 엔드포인트"
+          },
+          "webhooks": {
+            "title": "웹훅",
+            "subtitle": "실시간 알림"
+          }
+        },
+        "cta": {
+          "title": "결제 통합 시작하기",
+          "subtitle": "신뢰 기반 결제를 귀하의 비즈니스에 통합하세요.",
+          "getStarted": "시작하기"
         }
       },
       "commerce": {
@@ -11685,6 +12715,86 @@
           "desc": "Schedule a consultation with our enterprise team. We'll design a custom solution that fits your organization's requirements.",
           "scheduleConsultation": "Schedule Consultation"
         }
+      },
+      "defi": {
+        "hero": {
+          "tag": "DeFi Use Cases",
+          "title": "DeFi",
+          "titleHighlight": "Applications",
+          "subtitle": "Build decentralized finance applications on TBurn Chain."
+        },
+        "buttons": {
+          "getStarted": "Get Started",
+          "viewDocs": "View Docs"
+        },
+        "features": {
+          "title": "DeFi Features",
+          "subtitle": "Comprehensive DeFi capabilities",
+          "dex": {
+            "title": "DEX",
+            "description": "Decentralized exchange support"
+          },
+          "lending": {
+            "title": "Lending",
+            "description": "Lending and borrowing protocols"
+          },
+          "staking": {
+            "title": "Staking",
+            "description": "Staking and yield farming"
+          },
+          "bridge": {
+            "title": "Bridge",
+            "description": "Cross-chain asset transfers"
+          }
+        },
+        "protocols": {
+          "title": "Supported Protocols",
+          "subtitle": "Integrate with popular DeFi protocols"
+        },
+        "cta": {
+          "title": "Build DeFi on TBurn",
+          "subtitle": "Start building your DeFi application today.",
+          "getStarted": "Get Started",
+          "viewDocs": "View Docs"
+        }
+      },
+      "nft": {
+        "hero": {
+          "tag": "NFT Use Cases",
+          "title": "NFT",
+          "titleHighlight": "Ecosystem",
+          "subtitle": "Create, trade, and manage NFTs on TBurn Chain."
+        },
+        "buttons": {
+          "getStarted": "Get Started",
+          "viewDocs": "View Docs"
+        },
+        "features": {
+          "title": "NFT Features",
+          "subtitle": "Complete NFT infrastructure",
+          "mint": {
+            "title": "Minting",
+            "description": "Easy NFT creation and minting"
+          },
+          "marketplace": {
+            "title": "Marketplace",
+            "description": "Built-in marketplace support"
+          },
+          "royalties": {
+            "title": "Royalties",
+            "description": "Automatic royalty distribution"
+          },
+          "collections": {
+            "title": "Collections",
+            "description": "Manage NFT collections"
+          }
+        },
+        "cta": {
+          "title": "Create Your NFT",
+          "subtitle": "Launch your NFT project on TBurn Chain.",
+          "getStarted": "Get Started",
+          "viewDocs": "View Docs"
+        }
       }
     },
     "network": {
@@ -12645,8 +13755,8 @@
       },
       "events": {
         "tag": "EVENTS & ACTIVITIES",
-        "title": "Events & Activities",
-        "subtitle": "Join TBurn Chain community events, hackathons, and conferences.",
+        "title": "Upcoming Events",
+        "subtitle": "Join our events",
         "featuredTitle": "Featured Events",
         "upcomingTitle": "Upcoming Events",
         "capacity": "Capacity",
@@ -12779,16 +13889,46 @@
                 "2": "Attendees will have the opportunity to ask questions directly to our developers and learn how to get started with TBURN v7.0."
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO & Founder", "avatar": "AP" },
-                "1": { "name": "Dr. Sarah Chen", "role": "Chief AI Architect", "avatar": "SC" },
-                "2": { "name": "Michael Rodriguez", "role": "DeFi Product Lead", "avatar": "MR" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO & Founder",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "Dr. Sarah Chen",
+                  "role": "Chief AI Architect",
+                  "avatar": "SC"
+                },
+                "2": {
+                  "name": "Michael Rodriguez",
+                  "role": "DeFi Product Lead",
+                  "avatar": "MR"
+                }
               },
               "agenda": {
-                "0": { "time": "14:00", "title": "Welcome & Introduction", "speaker": "Alex Park" },
-                "1": { "time": "14:15", "title": "TBURN v7.0 Technical Overview" },
-                "2": { "time": "14:45", "title": "AI Orchestration Deep Dive", "speaker": "Dr. Sarah Chen" },
-                "3": { "time": "15:15", "title": "DeFi Ecosystem Demo", "speaker": "Michael Rodriguez" },
-                "4": { "time": "15:45", "title": "Live Q&A Session" }
+                "0": {
+                  "time": "14:00",
+                  "title": "Welcome & Introduction",
+                  "speaker": "Alex Park"
+                },
+                "1": {
+                  "time": "14:15",
+                  "title": "TBURN v7.0 Technical Overview"
+                },
+                "2": {
+                  "time": "14:45",
+                  "title": "AI Orchestration Deep Dive",
+                  "speaker": "Dr. Sarah Chen"
+                },
+                "3": {
+                  "time": "15:15",
+                  "title": "DeFi Ecosystem Demo",
+                  "speaker": "Michael Rodriguez"
+                },
+                "4": {
+                  "time": "15:45",
+                  "title": "Live Q&A Session"
+                }
               },
               "requirements": {
                 "0": "Stable internet connection",
@@ -12811,16 +13951,44 @@
                 "2": "By the end of this workshop, you'll have deployed your first smart contract on TBURN testnet and understand the full development lifecycle."
               },
               "speakers": {
-                "0": { "name": "James Liu", "role": "Lead Developer", "avatar": "JL" },
-                "1": { "name": "Emma Wilson", "role": "Developer Relations", "avatar": "EW" }
+                "0": {
+                  "name": "James Liu",
+                  "role": "Lead Developer",
+                  "avatar": "JL"
+                },
+                "1": {
+                  "name": "Emma Wilson",
+                  "role": "Developer Relations",
+                  "avatar": "EW"
+                }
               },
               "agenda": {
-                "0": { "time": "10:00", "title": "Environment Setup & Prerequisites" },
-                "1": { "time": "10:30", "title": "TBURN SDK Introduction", "speaker": "James Liu" },
-                "2": { "time": "11:30", "title": "Smart Contract Development" },
-                "3": { "time": "12:30", "title": "Lunch Break" },
-                "4": { "time": "13:00", "title": "Testing & Deployment", "speaker": "Emma Wilson" },
-                "5": { "time": "13:45", "title": "Q&A and Wrap-up" }
+                "0": {
+                  "time": "10:00",
+                  "title": "Environment Setup & Prerequisites"
+                },
+                "1": {
+                  "time": "10:30",
+                  "title": "TBURN SDK Introduction",
+                  "speaker": "James Liu"
+                },
+                "2": {
+                  "time": "11:30",
+                  "title": "Smart Contract Development"
+                },
+                "3": {
+                  "time": "12:30",
+                  "title": "Lunch Break"
+                },
+                "4": {
+                  "time": "13:00",
+                  "title": "Testing & Deployment",
+                  "speaker": "Emma Wilson"
+                },
+                "5": {
+                  "time": "13:45",
+                  "title": "Q&A and Wrap-up"
+                }
               },
               "requirements": {
                 "0": "Node.js 18+ installed",
@@ -12844,14 +14012,34 @@
                 "2": "Questions can be submitted in advance through our Discord or asked live during the session."
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO & Founder", "avatar": "AP" },
-                "1": { "name": "Community Team", "role": "Moderators", "avatar": "CT" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO & Founder",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "Community Team",
+                  "role": "Moderators",
+                  "avatar": "CT"
+                }
               },
               "agenda": {
-                "0": { "time": "18:00", "title": "Welcome & Updates" },
-                "1": { "time": "18:15", "title": "Pre-submitted Questions" },
-                "2": { "time": "18:45", "title": "Live Questions from Community" },
-                "3": { "time": "19:15", "title": "Closing Remarks & Announcements" }
+                "0": {
+                  "time": "18:00",
+                  "title": "Welcome & Updates"
+                },
+                "1": {
+                  "time": "18:15",
+                  "title": "Pre-submitted Questions"
+                },
+                "2": {
+                  "time": "18:45",
+                  "title": "Live Questions from Community"
+                },
+                "3": {
+                  "time": "19:15",
+                  "title": "Closing Remarks & Announcements"
+                }
               },
               "requirements": {
                 "0": "Discord account",
@@ -12873,14 +14061,36 @@
                 "2": "Our team will also explain the 3-tier validator system and how AI Trust Scores affect your rewards."
               },
               "speakers": {
-                "0": { "name": "David Kim", "role": "Infrastructure Lead", "avatar": "DK" },
-                "1": { "name": "Lisa Zhang", "role": "Validator Relations", "avatar": "LZ" }
+                "0": {
+                  "name": "David Kim",
+                  "role": "Infrastructure Lead",
+                  "avatar": "DK"
+                },
+                "1": {
+                  "name": "Lisa Zhang",
+                  "role": "Validator Relations",
+                  "avatar": "LZ"
+                }
               },
               "agenda": {
-                "0": { "time": "15:00", "title": "Introduction to TBURN Validation" },
-                "1": { "time": "15:30", "title": "Technical Requirements & Setup", "speaker": "David Kim" },
-                "2": { "time": "16:00", "title": "Economics & Rewards", "speaker": "Lisa Zhang" },
-                "3": { "time": "16:30", "title": "Live Demo & Q&A" }
+                "0": {
+                  "time": "15:00",
+                  "title": "Introduction to TBURN Validation"
+                },
+                "1": {
+                  "time": "15:30",
+                  "title": "Technical Requirements & Setup",
+                  "speaker": "David Kim"
+                },
+                "2": {
+                  "time": "16:00",
+                  "title": "Economics & Rewards",
+                  "speaker": "Lisa Zhang"
+                },
+                "3": {
+                  "time": "16:30",
+                  "title": "Live Demo & Q&A"
+                }
               },
               "requirements": {
                 "0": "Basic understanding of blockchain",
@@ -12889,7 +14099,57 @@
               }
             }
           }
+        },
+        "online": "Online",
+        "inPerson": "In Person",
+        "register": "Register",
+        "viewAll": "View All Events"
+      },
+      "hero": {
+        "tag": "Community",
+        "title": "Join the",
+        "titleHighlight": "Community",
+        "subtitle": "Connect with developers, validators, and enthusiasts."
+      },
+      "buttons": {
+        "joinDiscord": "Join Discord",
+        "followTwitter": "Follow on X"
+      },
+      "channels": {
+        "title": "Community Channels",
+        "subtitle": "Connect with us",
+        "discord": {
+          "title": "Discord",
+          "description": "Join our Discord community",
+          "members": "Members"
+        },
+        "twitter": {
+          "title": "X (Twitter)",
+          "description": "Follow for updates",
+          "followers": "Followers"
+        },
+        "telegram": {
+          "title": "Telegram",
+          "description": "Join our Telegram group",
+          "members": "Members"
+        },
+        "github": {
+          "title": "GitHub",
+          "description": "Contribute to our projects",
+          "stars": "Stars"
         }
+      },
+      "grants": {
+        "title": "Community Grants",
+        "subtitle": "Get funded for your project",
+        "description": "Apply for funding to build on TBurn Chain",
+        "applyNow": "Apply Now"
+      },
+      "ambassadors": {
+        "title": "Ambassador Program",
+        "subtitle": "Become an ambassador",
+        "description": "Help grow the TBurn ecosystem",
+        "apply": "Apply"
       }
     },
     "legal": {
@@ -13104,7 +14364,8 @@
             "noInvestmentAdvice": "No Investment Advice",
             "noInvestmentAdviceContent": "TBurn Chain does not provide investment, financial, or legal advice. Trust scores are informational only.",
             "limitationOfLiability": "Limitation of Liability",
-            "limitationOfLiabilityContent": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
+            "limitationOfLiabilityContent": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.",
+            "asIsContent": "서비스는 명시적이든 묵시적이든 어떠한 종류의 보증 없이 '있는 그대로' 및 '이용 가능한 대로' 제공됩니다."
           },
           "governing": {
             "title": "10. Governing Law",
@@ -13491,6 +14752,156 @@
           "introToDefi": "Intro to DeFi",
           "introToDefiDesc": "Understanding risks"
         }
+      }
+    },
+    "about": {
+      "hero": {
+        "tag": "About TBurn",
+        "title": "Building the",
+        "titleHighlight": "Future",
+        "subtitle": "Learn about our mission and vision."
+      },
+      "mission": {
+        "title": "Our Mission",
+        "description": "To create a sustainable, scalable, and decentralized blockchain ecosystem."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "A world where blockchain technology empowers everyone."
+      },
+      "values": {
+        "title": "Our Values",
+        "subtitle": "What drives us",
+        "decentralization": {
+          "title": "Decentralization",
+          "description": "True distributed governance"
+        },
+        "innovation": {
+          "title": "Innovation",
+          "description": "Pushing technological boundaries"
+        },
+        "sustainability": {
+          "title": "Sustainability",
+          "description": "Building for the long term"
+        },
+        "community": {
+          "title": "Community",
+          "description": "Growing together"
+        }
+      },
+      "team": {
+        "title": "Our Team",
+        "subtitle": "Meet the people behind TBurn"
+      },
+      "roadmap": {
+        "title": "Roadmap",
+        "subtitle": "Our journey forward",
+        "completed": "Completed",
+        "inProgress": "In Progress",
+        "upcoming": "Upcoming"
+      },
+      "partners": {
+        "title": "Partners",
+        "subtitle": "Organizations we work with"
+      },
+      "cta": {
+        "title": "Join the Journey",
+        "subtitle": "Be part of building the future.",
+        "getStarted": "Get Started",
+        "contactUs": "Contact Us"
+      }
+    },
+    "contact": {
+      "hero": {
+        "title": "Contact",
+        "titleHighlight": "Us",
+        "subtitle": "Get in touch with our team."
+      },
+      "form": {
+        "title": "Send a Message",
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "email": "Email",
+        "emailPlaceholder": "your@email.com",
+        "subject": "Subject",
+        "subjectPlaceholder": "How can we help?",
+        "message": "Message",
+        "messagePlaceholder": "Your message...",
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "success": "Message Sent",
+        "successDesc": "We will get back to you soon.",
+        "error": "Failed to Send",
+        "errorDesc": "Please try again."
+      },
+      "offices": {
+        "title": "Our Offices",
+        "subtitle": "Visit us"
+      },
+      "support": {
+        "title": "Support",
+        "subtitle": "Get help",
+        "general": "General Inquiries",
+        "technical": "Technical Support",
+        "partnership": "Partnerships",
+        "media": "Media Inquiries"
+      }
+    },
+    "features": {
+      "hero": {
+        "tag": "Features",
+        "title": "Powerful",
+        "titleHighlight": "Features",
+        "subtitle": "Everything you need to build on TBurn."
+      },
+      "performance": {
+        "title": "Performance",
+        "subtitle": "Optimized for speed",
+        "tps": "Transactions Per Second",
+        "blockTime": "Block Time",
+        "finality": "Finality"
+      },
+      "security": {
+        "title": "Security",
+        "subtitle": "Enterprise-grade security",
+        "audited": "Audited",
+        "encryption": "Encryption",
+        "multiSig": "Multi-Sig"
+      },
+      "developer": {
+        "title": "Developer Experience",
+        "subtitle": "Build with ease",
+        "sdks": "SDKs",
+        "docs": "Documentation",
+        "support": "Support"
+      }
+    },
+    "economics": {
+      "hero": {
+        "tag": "Economics",
+        "title": "Token",
+        "titleHighlight": "Economics",
+        "subtitle": "Understanding TBURN tokenomics."
+      },
+      "supply": {
+        "title": "Token Supply",
+        "subtitle": "Distribution and allocation",
+        "total": "Total Supply",
+        "circulating": "Circulating Supply",
+        "burned": "Burned"
+      },
+      "burn": {
+        "title": "Burn Mechanism",
+        "subtitle": "Deflationary model",
+        "rate": "Burn Rate",
+        "totalBurned": "Total Burned"
+      },
+      "staking": {
+        "title": "Staking Rewards",
+        "subtitle": "Earn by staking",
+        "apy": "Current APY",
+        "minStake": "Minimum Stake",
+        "lockPeriod": "Lock Period"
       }
     }
   },
@@ -13967,7 +15378,10 @@
     "totalLogs": "Total Logs",
     "errors": "Errors",
     "warnings": "Warnings",
-    "error": "Error",
+    "error": {
+      "title": "Failed to Load Logs",
+      "description": "Unable to fetch logs. Please try again."
+    },
     "warn": "Warn",
     "info": "Info",
     "debug": "Debug",
@@ -14017,10 +15431,6 @@
     "refreshErrorDesc": "Failed to refresh logs data",
     "exportSuccess": "Export Complete",
     "exportSuccessDesc": "Logs data exported successfully",
-    "error": {
-      "title": "Failed to Load Logs",
-      "description": "Unable to fetch logs. Please try again."
-    },
     "retry": "Retry"
   },
   "adminTokenIssuance": {
@@ -14444,7 +15854,32 @@
     "startCourse": "Start Course",
     "startPath": "Start Path",
     "modules": "modules",
-    "courses": "courses",
+    "courses": {
+      "fundamentals": {
+        "title": "Platform Fundamentals",
+        "desc": "Learn the basics of TBURN blockchain administration"
+      },
+      "network": {
+        "title": "Network Administration",
+        "desc": "Master network configuration and monitoring"
+      },
+      "security": {
+        "title": "Security Best Practices",
+        "desc": "Learn advanced security protocols and threat prevention"
+      },
+      "ai": {
+        "title": "AI System Management",
+        "desc": "Configure and optimize AI-powered features"
+      },
+      "emergency": {
+        "title": "Emergency Response",
+        "desc": "Handle critical situations and system failures"
+      },
+      "config": {
+        "title": "Advanced Configuration",
+        "desc": "Deep dive into system settings and optimization"
+      }
+    },
     "total": "total",
     "earned": "Earned",
     "stats": {
@@ -14510,32 +15945,13 @@
         "desc": "Complete all available courses"
       }
     },
-    "courses": {
-      "fundamentals": {
-        "title": "Platform Fundamentals",
-        "desc": "Learn the basics of TBURN blockchain administration"
-      },
-      "network": {
-        "title": "Network Administration",
-        "desc": "Master network configuration and monitoring"
-      },
-      "security": {
-        "title": "Security Best Practices",
-        "desc": "Learn advanced security protocols and threat prevention"
-      },
-      "ai": {
-        "title": "AI System Management",
-        "desc": "Configure and optimize AI-powered features"
-      },
-      "emergency": {
-        "title": "Emergency Response",
-        "desc": "Handle critical situations and system failures"
-      },
-      "config": {
-        "title": "Advanced Configuration",
-        "desc": "Deep dive into system settings and optimization"
-      }
-    }
+    "time": "Time",
+    "current": "Current",
+    "failed": "실패",
+    "models": "모델",
+    "deployments": "배포",
+    "history": "히스토리",
+    "trainingProgress": "학습 진행"
   },
   "adminAIAnalytics": {
     "title": "AI Decision Analytics",
@@ -14595,7 +16011,14 @@
       "title": "Failed to Load Analytics Data",
       "description": "Unable to fetch analytics data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "totalPredictions": "Total Predictions",
+    "accuracy": "Accuracy",
+    "modelPerformance": "Model Performance",
+    "trends": "Trends",
+    "insights": "Insights",
+    "recommendations": "Recommendations",
+    "inferenceTime": "Inference Time"
   },
   "adminAITuning": {
     "title": "AI Parameter Tuning",
@@ -14668,7 +16091,17 @@
       "title": "Failed to Load AI Parameters",
       "description": "Unable to fetch AI parameters. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "export": "Export",
+    "saveChanges": "Save Changes",
+    "parameters": "Parameters",
+    "optimization": "Optimization",
+    "testing": "Testing",
+    "deployment": "Deployment",
+    "learningRate": "Learning Rate",
+    "batchSize": "Batch Size",
+    "epochs": "Epochs",
+    "hyperparameters": "Hyperparameters"
   },
   "adminTreasury": {
     "title": "Treasury Dashboard",
@@ -15389,7 +16822,9 @@
       "title": "Failed to Load Transfers",
       "description": "Unable to fetch transfer data. Please try again.",
       "label": "Error"
-    }
+    },
+    "transferHistory": "Transfer History",
+    "time": "시간"
   },
   "adminBridgeValidators": {
     "title": "Bridge Validators",
@@ -15444,7 +16879,15 @@
       "title": "Failed to Load Validators",
       "description": "Unable to fetch validator data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "totalValidators": "Total Validators",
+    "activeValidators": "Active Validators",
+    "pendingValidations": "Pending Validations",
+    "validatorName": "Validator Name",
+    "address": "Address",
+    "validations": "Validations",
+    "online": "Online",
+    "offline": "Offline"
   },
   "adminChains": {
     "title": "Chain Connections",
@@ -15525,7 +16968,15 @@
       "title": "Failed to Load Chains",
       "description": "Unable to fetch chain data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "rpcUrl": "RPC URL",
+    "avgBlockTime": "Avg Block Time",
+    "totalTransactions": "Total Transactions",
+    "gasSettings": "Gas Settings",
+    "gasLimit": "Gas Limit",
+    "gasPrice": "Gas Price",
+    "inactive": "비활성",
+    "maintenance": "유지보수 중"
   },
   "adminLiquidity": {
     "title": "Liquidity Management",
@@ -15591,7 +17042,15 @@
       "title": "Failed to Load Liquidity Data",
       "description": "Unable to fetch liquidity data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "totalLiquidity": "Total Liquidity",
+    "fees24h": "Fees 24h",
+    "pools": "풀",
+    "poolDetails": "풀 상세",
+    "apy": "APY",
+    "tvl": "TVL",
+    "slippage": "슬리피지",
+    "liquidityProviders": "유동성 공급자"
   },
   "adminSecurity": {
     "title": "Security Dashboard",
@@ -15604,14 +17063,7 @@
     "reconnecting": "Reconnecting...",
     "wsConnected": "Real-time security updates active",
     "wsReconnecting": "Attempting to reconnect...",
-    "securityScore": {
-      "overall": "Overall",
-      "authentication": "Authentication",
-      "authorization": "Authorization",
-      "encryption": "Encryption",
-      "monitoring": "Monitoring",
-      "compliance": "Compliance"
-    },
+    "securityScore": "Security Score",
     "tabs": {
       "overview": "Overview",
       "threats": "Threat Events",
@@ -15677,7 +17129,22 @@
       "title": "Failed to Load Security Data",
       "description": "Unable to fetch security data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "vulnerabilities": "Vulnerabilities",
+    "securityOverview": "Security Overview",
+    "activeThreats": "Active Threats",
+    "blockedAttacks": "Blocked Attacks",
+    "firewallRules": "Firewall Rules",
+    "accessLogs": "Access Logs",
+    "twoFactorAuth": "Two-Factor Auth",
+    "threatLevel": "위협 수준",
+    "activeAlerts": "활성 알림",
+    "blockedAttempts": "차단된 시도",
+    "audits": "감사",
+    "firewall": "방화벽",
+    "encryption": "암호화",
+    "lastScan": "마지막 스캔",
+    "scanNow": "지금 스캔"
   },
   "adminAccess": {
     "title": "Access Control",
@@ -15830,7 +17297,19 @@
       "title": "Failed to Load Audit Logs",
       "description": "Unable to fetch audit logs. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "timestamp": "Timestamp",
+    "user": "User",
+    "details": "Details",
+    "ipAddress": "IP Address",
+    "auditLogs": "Audit Logs",
+    "eventType": "Event Type",
+    "searchPlaceholder": "로그 검색...",
+    "filterByAction": "작업별 필터",
+    "filterByUser": "사용자별 필터",
+    "action": "작업",
+    "resource": "리소스",
+    "export": "내보내기"
   },
   "adminThreats": {
     "title": "Threat Detection",
@@ -15914,7 +17393,24 @@
       "title": "Failed to Load Threat Data",
       "description": "Unable to fetch threat detection data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "activeThreat": "Active Threat",
+    "blockedToday": "Blocked Today",
+    "threatLevel": "Threat Level",
+    "recentThreats": "Recent Threats",
+    "threatType": "Threat Type",
+    "source": "Source",
+    "target": "Target",
+    "severity": "Severity",
+    "status": "Status",
+    "action": "Action",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "critical": "Critical",
+    "blocked": "Blocked",
+    "investigating": "Investigating",
+    "resolved": "Resolved"
   },
   "adminCompliance": {
     "title": "Compliance",
@@ -15949,7 +17445,11 @@
       },
       "compliant": "Compliant",
       "inProgress": "In Progress",
-      "viewDetails": "View Details"
+      "viewDetails": "View Details",
+      "soc2": "SOC 2",
+      "gdpr": "GDPR",
+      "iso27001": "ISO 27001",
+      "pciDss": "PCI DSS"
     },
     "findings": {
       "title": "Compliance Findings",
@@ -16005,7 +17505,31 @@
       "title": "Failed to Load Compliance Data",
       "description": "Unable to fetch compliance data. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "complianceStatus": "Compliance Status",
+    "kycStatus": "KYC Status",
+    "amlStatus": "AML Status",
+    "regulatoryReports": "Regulatory Reports",
+    "pendingReviews": "Pending Reviews",
+    "flaggedTransactions": "Flagged Transactions",
+    "riskScore": "Risk Score",
+    "lastAudit": "Last Audit",
+    "nextAudit": "Next Audit",
+    "generateReport": "Generate Report",
+    "reviewCase": "Review Case",
+    "approveKyc": "Approve KYC",
+    "rejectKyc": "Reject KYC",
+    "export": "내보내기",
+    "overallCompliance": "전체 준수율",
+    "policiesActive": "활성 정책",
+    "upcomingAudits": "예정된 감사",
+    "violations": "위반 사항",
+    "status": {
+      "compliant": "준수",
+      "partiallyCompliant": "부분 준수",
+      "nonCompliant": "비준수",
+      "pending": "검토 중"
+    }
   },
   "adminFeedback": {
     "title": "Feedback Management",
@@ -16055,12 +17579,7 @@
       "bug": "Bug",
       "complaint": "Complaint"
     },
-    "status": {
-      "new": "New",
-      "reviewed": "Reviewed",
-      "actioned": "Actioned",
-      "archived": "Archived"
-    },
+    "status": "Status",
     "ratings": {
       "5stars": "5 Stars",
       "4stars": "4 Stars",
@@ -16074,7 +17593,11 @@
       "alerts": "Alerts",
       "documentation": "Documentation",
       "security": "Security",
-      "uiux": "UI/UX"
+      "uiux": "UI/UX",
+      "bug": "버그",
+      "feature": "기능 요청",
+      "improvement": "개선 제안",
+      "other": "기타"
     },
     "sampleMessages": {
       "customWidgets": "Would love to see custom widgets on the admin dashboard",
@@ -16128,7 +17651,21 @@
       "responsePlaceholder": "Type your response here...",
       "cancel": "Cancel",
       "send": "Send Response"
-    }
+    },
+    "userFeedback": "User Feedback",
+    "feedbackType": "Feedback Type",
+    "priority": "Priority",
+    "submittedBy": "Submitted By",
+    "submittedAt": "Submitted At",
+    "assignTo": "Assign To",
+    "resolve": "Resolve",
+    "reply": "Reply",
+    "pending": "Pending",
+    "inProgress": "In Progress",
+    "subtitle": "사용자 피드백 및 제안 관리",
+    "totalFeedback": "총 피드백",
+    "pendingReview": "검토 대기",
+    "resolved": "해결됨"
   },
   "adminAnnouncements": {
     "title": "Announcements",
@@ -18193,7 +19730,21 @@
   "adminApiDocs": {
     "title": "API Documentation",
     "subtitle": "Browse and test API endpoints",
-    "endpoints": "Endpoints",
+    "endpoints": {
+      "getBlocks": "Get Blocks",
+      "getBlockByHeight": "Get Block by Height",
+      "getTransactions": "Get Transactions",
+      "getTransactionByHash": "Get Transaction by Hash",
+      "submitTransaction": "Submit Transaction",
+      "getWalletInfo": "Get Wallet Info",
+      "getWalletBalance": "Get Wallet Balance",
+      "getValidators": "Get Validators",
+      "delegateToValidator": "Delegate to Validator",
+      "undelegateFromValidator": "Undelegate from Validator",
+      "getNodeList": "Get Node List",
+      "restartNode": "Restart Node",
+      "getAdminDashboard": "Get Admin Dashboard"
+    },
     "endpointsDesc": "Available API endpoints",
     "authentication": "Authentication",
     "authenticationDesc": "API authentication methods",
@@ -18275,21 +19826,6 @@
     "exportOpenApi": "Export OpenAPI",
     "exportSuccess": "Export Successful",
     "exportSuccessDesc": "API documentation exported",
-    "endpoints": {
-      "getBlocks": "Get Blocks",
-      "getBlockByHeight": "Get Block by Height",
-      "getTransactions": "Get Transactions",
-      "getTransactionByHash": "Get Transaction by Hash",
-      "submitTransaction": "Submit Transaction",
-      "getWalletInfo": "Get Wallet Info",
-      "getWalletBalance": "Get Wallet Balance",
-      "getValidators": "Get Validators",
-      "delegateToValidator": "Delegate to Validator",
-      "undelegateFromValidator": "Undelegate from Validator",
-      "getNodeList": "Get Node List",
-      "restartNode": "Restart Node",
-      "getAdminDashboard": "Get Admin Dashboard"
-    },
     "error": {
       "title": "Error Loading Documentation",
       "description": "Failed to load API documentation"
@@ -18409,7 +19945,10 @@
     "verifyError": "Verification Failed",
     "verifyErrorDesc": "Failed to verify contract",
     "loadError": "Failed to load contracts",
-    "error": "Error",
+    "error": {
+      "title": "Error Loading Contract Data",
+      "description": "Failed to load contract data. Please try again."
+    },
     "retry": "Retry",
     "metrics": {
       "deployed": "Deployed",
@@ -18423,10 +19962,6 @@
     "refreshErrorDesc": "Failed to refresh contract data",
     "exportSuccess": "Data Exported",
     "exportSuccessDesc": "Contract data exported successfully",
-    "error": {
-      "title": "Error Loading Contract Data",
-      "description": "Failed to load contract data. Please try again."
-    },
     "totalContracts": "Total Contracts",
     "deployedOnMainnet": "Deployed on mainnet",
     "sourceVerified": "Source code verified",
@@ -18476,9 +20011,7 @@
     "name": "Name",
     "compiler": "Compiler",
     "deployed": "Deployed",
-    "transactions": "Transactions",
-    "actions": "Actions",
-    "interact": "Interact"
+    "transactions": "Transactions"
   },
   "adminTestnet": {
     "title": "Testnet Management",
@@ -18491,7 +20024,14 @@
     "testAccountsDesc": "Pre-funded test accounts",
     "networkInfo": "Network Information",
     "networkInfoDesc": "Testnet configuration",
-    "status": "Status",
+    "status": {
+      "running": "Running",
+      "stopped": "Stopped",
+      "syncing": "Syncing",
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed"
+    },
     "online": "Online",
     "offline": "Offline",
     "degraded": "Degraded",
@@ -18525,7 +20065,10 @@
     "refreshed": "Data Refreshed",
     "refreshedDesc": "Testnet data has been updated",
     "loadError": "Failed to load testnet data",
-    "error": "Error",
+    "error": {
+      "title": "Error Loading Testnet Data",
+      "description": "Failed to load testnet data. Please try again."
+    },
     "retry": "Retry",
     "metrics": {
       "blocks": "Blocks",
@@ -18549,10 +20092,6 @@
     "exportSuccessDesc": "Testnet data exported successfully",
     "copied": "Copied",
     "copiedToClipboard": "Copied to clipboard",
-    "error": {
-      "title": "Error Loading Testnet Data",
-      "description": "Failed to load testnet data. Please try again."
-    },
     "createTestnet": "Create Testnet",
     "activeTestnets": "Active Testnets",
     "of3Instances": "of 3 instances",
@@ -18566,14 +20105,6 @@
       "testnetInstances": "Testnet Instances",
       "faucet": "Faucet",
       "settings": "Settings"
-    },
-    "status": {
-      "running": "Running",
-      "stopped": "Stopped",
-      "syncing": "Syncing",
-      "completed": "Completed",
-      "pending": "Pending",
-      "failed": "Failed"
     },
     "stop": "Stop",
     "start": "Start",
@@ -18687,10 +20218,6 @@
     "logsClearedDesc": "Debug logs have been cleared",
     "copied": "Copied",
     "copiedToClipboard": "Copied to clipboard",
-    "error": {
-      "title": "Error Loading Debug Data",
-      "description": "Failed to load debug data. Please try again."
-    },
     "connected": "Connected",
     "reconnecting": "Reconnecting",
     "clearLogs": "Clear Logs",
@@ -18710,14 +20237,12 @@
     },
     "transactionTracer": "Transaction Tracer",
     "traceAndDebug": "Trace and debug blockchain transactions",
-    "enterTxHash": "Enter transaction hash...",
     "traceOptions": "Trace Options",
     "traceOutput": "Trace Output",
     "copy": "Copy",
     "debugLogs": "Debug Logs",
     "realtimeSystemLogs": "Real-time system and blockchain logs",
     "allLevels": "All Levels",
-    "error": "Error",
     "warning": "Warning",
     "info": "Info",
     "debug": "Debug",
@@ -18979,7 +20504,12 @@
     "ruleName": "Rule Name",
     "condition": "Condition",
     "threshold": "Threshold",
-    "severity": "Severity",
+    "severity": {
+      "critical": "Critical",
+      "high": "High",
+      "low": "Low",
+      "medium": "Medium"
+    },
     "status": "Status",
     "actions": "Actions",
     "enabled": "Enabled",
@@ -19105,12 +20635,6 @@
       "validatorOffline": "Validator went offline"
     },
     "searchPlaceholder": "Search rules...",
-    "severity": {
-      "critical": "Critical",
-      "high": "High",
-      "low": "Low",
-      "medium": "Medium"
-    },
     "stats": {
       "activeRules": "Active Rules",
       "criticalRules": "Critical Rules",
@@ -19135,10 +20659,32 @@
   "adminDashboardBuilder": {
     "title": "Dashboard Builder",
     "subtitle": "Create custom dashboards",
-    "dashboards": "Dashboards",
+    "dashboards": {
+      "main": "Main Dashboard",
+      "mainDesc": "Overview of key network metrics",
+      "performance": "Performance Dashboard",
+      "performanceDesc": "Detailed performance analytics",
+      "security": "Security Dashboard",
+      "securityDesc": "Security monitoring and alerts",
+      "bridge": "Bridge Dashboard",
+      "bridgeDesc": "Cross-chain bridge metrics"
+    },
     "dashboardsDesc": "Saved dashboards",
     "createDashboard": "Create Dashboard",
-    "widgets": "Widgets",
+    "widgets": {
+      "lineChart": "Line Chart",
+      "lineChartDesc": "Time-series data visualization",
+      "barChart": "Bar Chart",
+      "barChartDesc": "Categorical data comparison",
+      "pieChart": "Pie Chart",
+      "pieChartDesc": "Distribution visualization",
+      "gauge": "Gauge",
+      "gaugeDesc": "Single value with target",
+      "dataTable": "Data Table",
+      "dataTableDesc": "Tabular data display",
+      "alertList": "Alert List",
+      "alertListDesc": "Active alerts and notifications"
+    },
     "widgetsDesc": "Available widgets",
     "layout": "Layout",
     "layoutDesc": "Dashboard layout",
@@ -19152,7 +20698,17 @@
     "edit": "Edit",
     "delete": "Delete",
     "duplicate": "Duplicate",
-    "preview": "Preview",
+    "preview": {
+      "title": "Dashboard Preview",
+      "currentTps": "Current TPS",
+      "blockHeight": "Block Height",
+      "activeValidators": "Active Validators",
+      "networkPeers": "Network Peers",
+      "tpsOverTime": "TPS Over Time",
+      "latencyDist": "Latency Distribution",
+      "recentBlocks": "Recent Blocks",
+      "activeAlerts": "Active Alerts"
+    },
     "setDefault": "Set as Default",
     "widgetTypes": {
       "chart": "Chart",
@@ -19191,7 +20747,13 @@
     "export": "Export",
     "exported": "Dashboard Exported",
     "exportedDesc": "Dashboard exported successfully",
-    "import": "Import",
+    "import": {
+      "title": "Import Dashboard",
+      "description": "Import a dashboard from JSON file",
+      "dropzone": "Drop JSON file here or click to browse",
+      "button": "Import",
+      "or": "or"
+    },
     "imported": "Dashboard Imported",
     "importedDesc": "Dashboard imported successfully",
     "loadError": "Failed to load dashboards",
@@ -19217,41 +20779,6 @@
     "view": "View",
     "clone": "Clone",
     "share": "Share",
-    "dashboards": {
-      "main": "Main Dashboard",
-      "mainDesc": "Overview of key network metrics",
-      "performance": "Performance Dashboard",
-      "performanceDesc": "Detailed performance analytics",
-      "security": "Security Dashboard",
-      "securityDesc": "Security monitoring and alerts",
-      "bridge": "Bridge Dashboard",
-      "bridgeDesc": "Cross-chain bridge metrics"
-    },
-    "widgets": {
-      "lineChart": "Line Chart",
-      "lineChartDesc": "Time-series data visualization",
-      "barChart": "Bar Chart",
-      "barChartDesc": "Categorical data comparison",
-      "pieChart": "Pie Chart",
-      "pieChartDesc": "Distribution visualization",
-      "gauge": "Gauge",
-      "gaugeDesc": "Single value with target",
-      "dataTable": "Data Table",
-      "dataTableDesc": "Tabular data display",
-      "alertList": "Alert List",
-      "alertListDesc": "Active alerts and notifications"
-    },
-    "preview": {
-      "title": "Dashboard Preview",
-      "currentTps": "Current TPS",
-      "blockHeight": "Block Height",
-      "activeValidators": "Active Validators",
-      "networkPeers": "Network Peers",
-      "tpsOverTime": "TPS Over Time",
-      "latencyDist": "Latency Distribution",
-      "recentBlocks": "Recent Blocks",
-      "activeAlerts": "Active Alerts"
-    },
     "dialog": {
       "createTitle": "Create New Dashboard",
       "createDescription": "Configure your new dashboard settings",
@@ -19270,13 +20797,6 @@
     "allDashboards": {
       "title": "All Dashboards",
       "description": "Browse and manage all available dashboards"
-    },
-    "import": {
-      "title": "Import Dashboard",
-      "description": "Import a dashboard from JSON file",
-      "dropzone": "Drop JSON file here or click to browse",
-      "button": "Import",
-      "or": "or"
     }
   },
   "adminSla": {
@@ -19454,7 +20974,14 @@
     "overviewDesc": "Financial summary",
     "transactions": "Transactions",
     "transactionsDesc": "Transaction history",
-    "reconciliation": "Reconciliation",
+    "reconciliation": {
+      "title": "Account Reconciliation",
+      "description": "Verify account balances",
+      "runFull": "Run Full Reconciliation",
+      "reconciled": "Reconciled",
+      "pending": "Pending",
+      "discrepancies": "Discrepancies"
+    },
     "reconciliationDesc": "Account reconciliation",
     "reports": "Reports",
     "reportsDesc": "Financial reports",
@@ -19584,14 +21111,6 @@
       "rewards": "Rewards",
       "burns": "Burns"
     },
-    "reconciliation": {
-      "title": "Account Reconciliation",
-      "description": "Verify account balances",
-      "runFull": "Run Full Reconciliation",
-      "reconciled": "Reconciled",
-      "pending": "Pending",
-      "discrepancies": "Discrepancies"
-    },
     "metrics": {
       "volume": "Volume",
       "transactions": "Transactions",
@@ -19623,7 +21142,14 @@
     "allocation": "Allocation",
     "usedAmount": "Used",
     "usedPercent": "Used %",
-    "status": "Status",
+    "status": {
+      "onTrack": "On Track",
+      "atRisk": "At Risk",
+      "overBudget": "Over Budget",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
     "actions": "Actions",
     "categories": {
       "operations": "Operations",
@@ -19767,14 +21293,6 @@
       "status": "Status",
       "actions": "Actions"
     },
-    "status": {
-      "onTrack": "On Track",
-      "atRisk": "At Risk",
-      "overBudget": "Over Budget",
-      "pending": "Pending",
-      "approved": "Approved",
-      "rejected": "Rejected"
-    },
     "requests": {
       "title": "Budget Requests",
       "description": "Pending and recent budget requests",
@@ -19872,7 +21390,12 @@
     "overviewDesc": "Tax summary",
     "taxReports": "Tax Reports",
     "taxReportsDesc": "Generate tax reports",
-    "compliance": "Compliance",
+    "compliance": {
+      "title": "Compliance Status",
+      "paymentProgress": "Payment Progress",
+      "filed": "Filed",
+      "pending": "Pending"
+    },
     "complianceDesc": "Tax compliance status",
     "settings": "Settings",
     "settingsDesc": "Tax settings",
@@ -19959,12 +21482,6 @@
     "errorTitle": "Failed to Load Tax Data",
     "errorDescription": "Unable to load tax data. Please try again.",
     "newReport": "New Report",
-    "compliance": {
-      "title": "Compliance Status",
-      "paymentProgress": "Payment Progress",
-      "filed": "Filed",
-      "pending": "Pending"
-    },
     "deadlines": {
       "title": "Upcoming Deadlines"
     },
@@ -20135,8 +21652,20 @@
     "subject": "Subject",
     "requester": "Requester",
     "assignee": "Assignee",
-    "priority": "Priority",
-    "status": "Status",
+    "priority": {
+      "label": "Priority",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "waiting": "Waiting",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    },
     "createdAt": "Created",
     "updatedAt": "Updated",
     "actions": "Actions",
@@ -20155,25 +21684,11 @@
       "urgent": "Urgent",
       "critical": "Critical"
     },
-    "priority": {
-      "label": "Priority",
-      "low": "Low",
-      "medium": "Medium",
-      "high": "High",
-      "critical": "Critical"
-    },
     "statuses": {
       "open": "Open",
       "inProgress": "In Progress",
       "waitingOnCustomer": "Waiting on Customer",
       "waitingOnSupport": "Waiting on Support",
-      "resolved": "Resolved",
-      "closed": "Closed"
-    },
-    "status": {
-      "open": "Open",
-      "inProgress": "In Progress",
-      "waiting": "Waiting",
       "resolved": "Resolved",
       "closed": "Closed"
     },

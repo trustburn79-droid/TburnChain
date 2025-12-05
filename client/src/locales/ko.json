@@ -5052,7 +5052,8 @@
         "admin": "관리자",
         "system": "시스템",
         "api": "API"
-      }
+      },
+      "reason": "사유"
     },
     "reports": {
       "title": "규정 준수 보고서",
@@ -5114,7 +5115,39 @@
         "quarterlyValidatorReport": "분기별 검증자 보고서"
       },
       "complianceTab": "컴플라이언스",
-      "compliance": "규정 준수",
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "데이터 보호",
+          "financialReporting": "재무 보고",
+          "networkSecurity": "네트워크 보안",
+          "operational": "운영"
+        },
+        "requirements": {
+          "identityVerification": "모든 멤버는 30일 이내에 신원 확인을 완료해야 합니다",
+          "sarFiling": "의심 활동 보고서(SAR)는 72시간 이내에 제출됩니다",
+          "gdprCompliance": "EU 멤버 데이터 처리에 대한 GDPR 준수",
+          "encryptionAtRest": "모든 민감한 데이터에 대한 저장 시 암호화",
+          "quarterlyStatements": "분기별 재무제표 규제 기관 제출",
+          "annualAudit": "인증된 제3자에 의한 연간 감사",
+          "multiSig": "트레저리 거래에 다중 서명 필요",
+          "validatorKyc": "위원회 멤버십을 위한 검증자 KYC",
+          "disasterRecovery": "분기별 재해 복구 계획 테스트",
+          "incidentResponse": "1시간 이내 보안 사고 대응"
+        },
+        "notes": {
+          "complianceRate": "98.5% 규정 준수율",
+          "sarFiledOnTime": "모든 SAR이 제시간에 제출됨",
+          "annualAuditPassed": "연간 감사 통과",
+          "aesEncryption": "AES-256 암호화 확인됨",
+          "q4ReportPreparation": "2025년 4분기 보고서 준비 중",
+          "auditCleanOpinion": "2024년 감사 완료 - 적정 의견",
+          "multiSigActive": "3/5 다중서명 활성",
+          "validatorsVerified": "125명의 검증자 모두 확인됨",
+          "nextTestScheduled": "다음 테스트 12월 예정",
+          "monitoringActive": "24/7 모니터링 활성"
+        }
+      },
       "weeklyReports": "주간 보고서",
       "dailyReports": "일간 보고서",
       "automatedReportDesc": "자동화된 보고서 생성 일정",
@@ -6218,7 +6251,28 @@
           "단점 최소화",
           "명확한 기술적 이점"
         ]
-      }
+      },
+      "title": "제안",
+      "create": "제안 생성",
+      "filter": "필터",
+      "sort": "정렬",
+      "search": "제안 검색...",
+      "status": {
+        "all": "전체",
+        "active": "활성",
+        "passed": "통과",
+        "rejected": "거부",
+        "pending": "대기",
+        "executed": "실행됨"
+      },
+      "noProposals": "제안을 찾을 수 없습니다",
+      "votes": "투표",
+      "votesFor": "찬성",
+      "votesAgainst": "반대",
+      "votesAbstain": "기권",
+      "endDate": "종료일",
+      "startDate": "시작일",
+      "viewDetails": "상세 보기"
     },
     "voting": "투표",
     "treasury": "트레저리",
@@ -6346,6 +6400,58 @@
     "prediction": {
       "for": "찬성",
       "against": "반대"
+    },
+    "proposal": {
+      "title": "제안",
+      "description": "설명",
+      "proposer": "제안자",
+      "createdAt": "생성일",
+      "votingEnds": "투표 종료",
+      "currentStatus": "현재 상태",
+      "voteDistribution": "투표 분포",
+      "castVote": "투표하기",
+      "voteFor": "찬성 투표",
+      "voteAgainst": "반대 투표",
+      "abstain": "기권",
+      "yourVote": "내 투표",
+      "confirmVote": "투표 확인",
+      "voteSubmitted": "투표 제출됨",
+      "voteSubmittedDesc": "투표가 기록되었습니다",
+      "voteFailed": "투표 실패",
+      "voteFailedDesc": "투표 제출에 실패했습니다. 다시 시도해주세요.",
+      "discussionForum": "토론 포럼",
+      "technicalDetails": "기술적 세부사항",
+      "executionDetails": "실행 세부사항",
+      "timeline": "타임라인",
+      "quorumProgress": "정족수 진행",
+      "quorumReached": "정족수 달성",
+      "quorumNotReached": "정족수 미달"
+    },
+    "create": {
+      "title": "제안 생성",
+      "subtitle": "새 거버넌스 제안 제출",
+      "proposalTitle": "제안 제목",
+      "proposalTitlePlaceholder": "제안 제목을 입력하세요",
+      "description": "설명",
+      "descriptionPlaceholder": "제안을 상세히 설명해주세요",
+      "category": "카테고리",
+      "categories": {
+        "parameter": "파라미터 변경",
+        "upgrade": "프로토콜 업그레이드",
+        "treasury": "재무",
+        "community": "커뮤니티",
+        "other": "기타"
+      },
+      "votingDuration": "투표 기간",
+      "deposit": "예치금",
+      "depositDescription": "제안 제출에 필요한 최소 예치금",
+      "preview": "미리보기",
+      "submit": "제안 제출",
+      "submitting": "제출 중...",
+      "success": "제안 생성됨",
+      "successDesc": "제안이 투표를 위해 제출되었습니다",
+      "failed": "제안 실패",
+      "failedDesc": "제안 생성에 실패했습니다. 다시 시도해주세요."
     }
   },
   "burn": {
@@ -7153,7 +7259,13 @@
         "blocks": "블록",
         "validators": "검증자",
         "dailyTxs": "일일 트랜잭션",
-        "uptime": "가동률"
+        "uptime": "가동률",
+        "title": "네트워크 통계",
+        "subtitle": "실시간 네트워크 데이터",
+        "totalTransactions": "총 트랜잭션",
+        "activeValidators": "활성 검증자",
+        "totalStaked": "총 스테이킹",
+        "totalBurned": "총 소각량"
       },
       "solutions": {
         "title": "핵심 솔루션",
@@ -7188,10 +7300,50 @@
         "subtitle": "실시간 AI 오케스트레이션 모니터링"
       },
       "cta": {
-        "title": "신뢰를 구축할 준비가 되셨나요?",
-        "subtitle": "신뢰 기반 블록체인의 미래를 함께 만들어가는 수천 명의 개발자와 함께하세요",
+        "title": "시작할 준비가 되셨나요?",
+        "subtitle": "오늘 TBurn 생태계에 참여하세요.",
         "exploreEcosystem": "생태계 탐색",
-        "joinCommunity": "커뮤니티 참여"
+        "joinCommunity": "커뮤니티 참여",
+        "getStarted": "시작하기",
+        "learnMore": "자세히 알아보기"
+      },
+      "hero": {
+        "tag": "TBurn 체인",
+        "title": "블록체인의",
+        "titleHighlight": "미래",
+        "subtitle": "고성능, 지속 가능한 블록체인 플랫폼.",
+        "buttons": {
+          "explore": "탐색",
+          "getStarted": "시작하기"
+        }
+      },
+      "features": {
+        "title": "TBurn을 선택하는 이유",
+        "subtitle": "블록체인의 핵심 기능",
+        "performance": {
+          "title": "고성능",
+          "description": "저렴한 수수료의 빠른 트랜잭션"
+        },
+        "security": {
+          "title": "보안",
+          "description": "고급 보안 조치"
+        },
+        "sustainability": {
+          "title": "지속가능성",
+          "description": "친환경 합의"
+        },
+        "scalability": {
+          "title": "확장성",
+          "description": "확장을 위해 구축"
+        }
+      },
+      "ecosystem": {
+        "title": "생태계",
+        "subtitle": "TBurn 기반",
+        "defi": "DeFi",
+        "nft": "NFT",
+        "gaming": "게이밍",
+        "enterprise": "엔터프라이즈"
       }
     },
     "learn": {
@@ -8950,13 +9102,15 @@
         "subtitle": "블록체인, DeFi, AI 서비스를 위한 RESTful API 엔드포인트.",
         "hero": {
           "tag": "API 레퍼런스",
-          "title": "REST API",
-          "titleHighlight": "문서",
-          "subtitle": "TBurn 체인 데이터를 액세스하기 위한 완전한 RESTful API 레퍼런스."
+          "title": "REST",
+          "titleHighlight": "API",
+          "subtitle": "RESTful API를 통해 TBurn 체인 데이터와 기능에 접근하세요."
         },
         "buttons": {
           "viewSpec": "API 사양 보기",
-          "openPlayground": "플레이그라운드 열기"
+          "openPlayground": "플레이그라운드 열기",
+          "viewDocs": "문서 보기",
+          "tryIt": "시도하기"
         },
         "baseUrl": "기본 URL",
         "authentication": {
@@ -8965,7 +9119,12 @@
           "headerLabel": "인증 헤더",
           "getApiKey": "API 키 받기",
           "description": "모든 API 요청에는 API 키가 필요합니다. 무료 키는 다음에서 받으세요",
-          "dashboardLink": "개발자 대시보드"
+          "dashboardLink": "개발자 대시보드",
+          "subtitle": "API 요청 보안",
+          "apiKey": "API 키",
+          "apiKeyDesc": "인증된 요청에 API 키 사용",
+          "rateLimit": "속도 제한",
+          "rateLimitDesc": "기간당 요청 제한"
         },
         "endpoints": {
           "title": "API 엔드포인트",
@@ -9005,17 +9164,35 @@
             "endpoint3": "POST /v1/ai/sentiment"
           },
           "blocks": {
-            "description": "블록 번호 또는 해시로 블록 정보 가져오기",
-            "paramDesc": "블록 number or 'latest'"
+            "description": "블록 정보 및 이력 조회",
+            "paramDesc": "블록 number or 'latest'",
+            "title": "블록"
           },
           "transactions": {
-            "description": "트랜잭션 해시로 트랜잭션 상세 정보 가져오기"
+            "description": "트랜잭션 데이터 조회",
+            "title": "트랜잭션"
           },
           "sendTransaction": {
             "description": "제출 a signed transaction to the network"
           },
           "balance": {
             "description": "계정 잔액 및 논스 가져오기"
+          },
+          "accounts": {
+            "title": "계정",
+            "description": "계정 잔액 및 활동"
+          },
+          "contracts": {
+            "title": "컨트랙트",
+            "description": "스마트 컨트랙트 상호작용"
+          },
+          "staking": {
+            "title": "스테이킹",
+            "description": "스테이킹 풀 및 검증자"
+          },
+          "governance": {
+            "title": "거버넌스",
+            "description": "거버넌스 제안 및 투표"
           }
         },
         "responseFormats": {
@@ -9066,8 +9243,8 @@
           }
         },
         "cta": {
-          "title": "API로 빌드 시작하기",
-          "subtitle": "API 키를 받고 지금 TBurn 체인 데이터를 액세스하세요.",
+          "title": "API 사용 시작",
+          "subtitle": "API 키를 받고 빌드를 시작하세요.",
           "getApiKey": "API 키 받기",
           "viewDocs": "문서 보기"
         },
@@ -9129,6 +9306,10 @@
           "documentation": "전체 문서",
           "codeExamples": "Code 예제",
           "quickStart": "빠른 시작 가이드"
+        },
+        "overview": {
+          "title": "API 개요",
+          "subtitle": "API 엔드포인트 탐색"
         }
       },
       "cli": {
@@ -9322,13 +9503,20 @@
         "quickStart": {
           "title": "빠른 시작",
           "step1": {
-            "title": "SDK 설치"
+            "title": "SDK 설치",
+            "description": "패키지 관리자를 사용하여 SDK를 설치하세요"
           },
           "step2": {
-            "title": "클라이언트 초기화"
+            "title": "초기화",
+            "description": "네트워크 설정으로 SDK 구성"
           },
           "step3": {
-            "title": "API 호출"
+            "title": "연결",
+            "description": "TBurn 체인 네트워크에 연결"
+          },
+          "step4": {
+            "title": "빌드",
+            "description": "애플리케이션 빌드 시작"
           }
         },
         "developerResources": {
@@ -9352,10 +9540,11 @@
           }
         },
         "cta": {
-          "title": "SDK로 빌드 시작하기",
-          "subtitle": "공식 SDK로 TBurn 체인을 빠르게 통합하세요.",
+          "title": "빌드할 준비가 되셨나요?",
+          "subtitle": "SDK로 시작하여 첫 번째 애플리케이션을 만드세요.",
           "viewDocs": "문서 보기",
-          "joinDiscord": "Discord 참여"
+          "joinDiscord": "Discord 참여",
+          "getStarted": "시작하기"
         },
         "installation": "설치",
         "configuration": "구성",
@@ -9376,6 +9565,24 @@
           "realTimeStreams": {
             "title": "실시간 스트림",
             "description": "WebSocket 연결과 반응형 패턴으로 실시간 블록체인 이벤트 구독."
+          },
+          "title": "SDK 기능",
+          "subtitle": "개발자를 위한 강력한 기능",
+          "typeSupport": {
+            "title": "타입 지원",
+            "description": "완전한 TypeScript 및 타입 정의"
+          },
+          "errorHandling": {
+            "title": "오류 처리",
+            "description": "포괄적인 오류 처리 및 재시도 로직"
+          },
+          "rateLimit": {
+            "title": "속도 제한",
+            "description": "내장된 속도 제한 및 스로틀링"
+          },
+          "caching": {
+            "title": "캐싱",
+            "description": "자동 응답 캐싱"
           }
         },
         "examples": {
@@ -10008,6 +10215,64 @@
         "developmentApproach": {
           "title": "개발 접근 방식",
           "subtitle": "기존 dApp을 마이그레이션하려면 다음 단계를 따르세요"
+        }
+      },
+      "smartContracts": {
+        "hero": {
+          "tag": "스마트 컨트랙트",
+          "title": "스마트",
+          "titleHighlight": "컨트랙트",
+          "subtitle": "TBurn 체인에서 스마트 컨트랙트를 구축하고 배포하세요."
+        },
+        "buttons": {
+          "viewDocs": "문서 보기",
+          "examples": "예제"
+        },
+        "features": {
+          "title": "컨트랙트 기능",
+          "subtitle": "강력한 스마트 컨트랙트 기능",
+          "solidity": {
+            "title": "Solidity 지원",
+            "description": "완전한 Solidity 호환성"
+          },
+          "evm": {
+            "title": "EVM 호환",
+            "description": "이더리움 가상 머신 지원"
+          },
+          "security": {
+            "title": "보안 감사",
+            "description": "내장된 보안 분석"
+          },
+          "gas": {
+            "title": "가스 최적화",
+            "description": "최적화된 가스 수수료"
+          }
+        },
+        "templates": {
+          "title": "컨트랙트 템플릿",
+          "subtitle": "미리 만들어진 템플릿으로 시작",
+          "token": {
+            "title": "토큰",
+            "description": "TBC-20 토큰 템플릿"
+          },
+          "nft": {
+            "title": "NFT",
+            "description": "TBC-721 NFT 템플릿"
+          },
+          "multisig": {
+            "title": "멀티시그",
+            "description": "멀티시그 지갑"
+          },
+          "dao": {
+            "title": "DAO",
+            "description": "탈중앙화 거버넌스"
+          }
+        },
+        "cta": {
+          "title": "컨트랙트 배포",
+          "subtitle": "오늘 스마트 컨트랙트를 구축하고 배포하세요.",
+          "getStarted": "시작하기",
+          "viewDocs": "문서 보기"
         }
       }
     },
@@ -11993,6 +12258,23 @@
           "esports": {
             "title": "e스포츠",
             "desc": "전문 토너먼트, 리그 및 스폰서십 기회"
+          },
+          "title": "지원 게임 유형",
+          "rpg": {
+            "title": "RPG",
+            "description": "아이템 거래가 가능한 롤플레잉 게임"
+          },
+          "strategy": {
+            "title": "전략",
+            "description": "자원 관리 및 영토 제어"
+          },
+          "card": {
+            "title": "카드 게임",
+            "description": "NFT 카드를 활용한 수집형 카드 게임"
+          },
+          "casual": {
+            "title": "캐주얼",
+            "description": "소규모 보상을 제공하는 빠른 게임"
           }
         },
         "sections": {
@@ -12005,7 +12287,10 @@
           "title": "게임 개발을 시작할 준비가 되셨나요?",
           "desc": "TBURN GameFi 인프라로 수백만 플레이어와 함께하세요.",
           "quickStart": "빠른 시작",
-          "memberPortal": "멤버 포털"
+          "memberPortal": "멤버 포털",
+          "subtitle": "GameFi SDK 및 문서에 접근하세요",
+          "getStarted": "시작하기",
+          "viewDocs": "문서 보기"
         }
       },
       "tokenization": {
@@ -12317,7 +12602,9 @@
           "automation": {
             "title": "비즈니스 프로세스 자동화",
             "desc": "스마트 컨트랙트 기반 워크플로우. 승인, 지불 및 다자간 계약을 트러스트리스 실행으로 자동화."
-          }
+          },
+          "title": "엔터프라이즈 솔루션",
+          "subtitle": "현대 비즈니스 과제를 위한 블록체인 애플리케이션"
         },
         "metrics": {
           "enterpriseClients": "엔터프라이즈 고객",
@@ -12377,7 +12664,136 @@
         "cta": {
           "title": "엔터프라이즈 파트너십 논의",
           "desc": "저희 블록체인 전문가와 상담하여 비즈니스에 맞는 솔루션을 설계하세요.",
-          "scheduleConsultation": "상담 예약"
+          "scheduleConsultation": "상담 예약",
+          "subtitle": "엔터프라이즈 팀과 상담을 예약하세요. 조직의 요구 사항에 맞는 맞춤형 솔루션을 설계해 드립니다."
+        },
+        "contactEnterprise": "엔터프라이즈 문의",
+        "enterpriseDocs": "엔터프라이즈 문서",
+        "platformFeatures": {
+          "title": "플랫폼 기능",
+          "soc2": {
+            "title": "SOC 2 준수",
+            "description": "엔터프라이즈 보안 제어 및 연간 감사"
+          },
+          "privateSubnets": {
+            "title": "프라이빗 서브넷",
+            "description": "민감한 데이터를 위한 격리된 네트워크 환경"
+          },
+          "roleBasedAccess": {
+            "title": "역할 기반 접근",
+            "description": "세분화된 권한 및 멀티테넌트 격리"
+          },
+          "onPremise": {
+            "title": "온프레미스 옵션",
+            "description": "자체 데이터 센터 인프라에 배포"
+          }
+        },
+        "industryApplications": {
+          "title": "산업별 적용",
+          "healthcare": {
+            "title": "헬스케어",
+            "description": "HIPAA 준수 기록 관리"
+          },
+          "manufacturing": {
+            "title": "제조업",
+            "description": "공급망 및 품질 보증"
+          },
+          "legal": {
+            "title": "법률",
+            "description": "계약 관리 및 전자 서명"
+          },
+          "government": {
+            "title": "정부",
+            "description": "투명한 기록 보관 및 투표"
+          },
+          "insurance": {
+            "title": "보험",
+            "description": "청구 처리 및 사기 탐지"
+          },
+          "logistics": {
+            "title": "물류",
+            "description": "배송 추적 및 검증"
+          }
+        }
+      },
+      "defi": {
+        "hero": {
+          "tag": "DeFi 사용 사례",
+          "title": "DeFi",
+          "titleHighlight": "애플리케이션",
+          "subtitle": "TBurn 체인에서 탈중앙화 금융 애플리케이션을 구축하세요."
+        },
+        "buttons": {
+          "getStarted": "시작하기",
+          "viewDocs": "문서 보기"
+        },
+        "features": {
+          "title": "DeFi 기능",
+          "subtitle": "포괄적인 DeFi 기능",
+          "dex": {
+            "title": "DEX",
+            "description": "탈중앙화 거래소 지원"
+          },
+          "lending": {
+            "title": "대출",
+            "description": "대출 및 차입 프로토콜"
+          },
+          "staking": {
+            "title": "스테이킹",
+            "description": "스테이킹 및 이자 농사"
+          },
+          "bridge": {
+            "title": "브릿지",
+            "description": "크로스체인 자산 전송"
+          }
+        },
+        "protocols": {
+          "title": "지원 프로토콜",
+          "subtitle": "인기 DeFi 프로토콜과 통합"
+        },
+        "cta": {
+          "title": "TBurn에서 DeFi 구축",
+          "subtitle": "오늘 DeFi 애플리케이션을 구축하세요.",
+          "getStarted": "시작하기",
+          "viewDocs": "문서 보기"
+        }
+      },
+      "nft": {
+        "hero": {
+          "tag": "NFT 사용 사례",
+          "title": "NFT",
+          "titleHighlight": "생태계",
+          "subtitle": "TBurn 체인에서 NFT를 생성, 거래, 관리하세요."
+        },
+        "buttons": {
+          "getStarted": "시작하기",
+          "viewDocs": "문서 보기"
+        },
+        "features": {
+          "title": "NFT 기능",
+          "subtitle": "완전한 NFT 인프라",
+          "mint": {
+            "title": "민팅",
+            "description": "쉬운 NFT 생성 및 민팅"
+          },
+          "marketplace": {
+            "title": "마켓플레이스",
+            "description": "내장 마켓플레이스 지원"
+          },
+          "royalties": {
+            "title": "로열티",
+            "description": "자동 로열티 분배"
+          },
+          "collections": {
+            "title": "컬렉션",
+            "description": "NFT 컬렉션 관리"
+          }
+        },
+        "cta": {
+          "title": "NFT 만들기",
+          "subtitle": "TBurn 체인에서 NFT 프로젝트를 시작하세요.",
+          "getStarted": "시작하기",
+          "viewDocs": "문서 보기"
         }
       }
     },
@@ -13339,8 +13755,8 @@
       },
       "events": {
         "tag": "이벤트 & 활동",
-        "title": "이벤트 & 활동",
-        "subtitle": "TBurn 체인 커뮤니티 이벤트, 해커톤, 컨퍼런스에 참여하세요.",
+        "title": "다가오는 이벤트",
+        "subtitle": "이벤트에 참여하세요",
         "featuredTitle": "주요 이벤트",
         "upcomingTitle": "예정된 이벤트",
         "capacity": "정원",
@@ -13473,16 +13889,46 @@
                 "2": "참석자들은 개발자에게 직접 질문하고 TBURN v7.0 시작 방법을 배울 수 있는 기회를 갖게 됩니다."
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO & 창립자", "avatar": "AP" },
-                "1": { "name": "Dr. Sarah Chen", "role": "수석 AI 아키텍트", "avatar": "SC" },
-                "2": { "name": "Michael Rodriguez", "role": "DeFi 제품 리드", "avatar": "MR" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO & 창립자",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "Dr. Sarah Chen",
+                  "role": "수석 AI 아키텍트",
+                  "avatar": "SC"
+                },
+                "2": {
+                  "name": "Michael Rodriguez",
+                  "role": "DeFi 제품 리드",
+                  "avatar": "MR"
+                }
               },
               "agenda": {
-                "0": { "time": "14:00", "title": "환영사 & 소개", "speaker": "Alex Park" },
-                "1": { "time": "14:15", "title": "TBURN v7.0 기술 개요" },
-                "2": { "time": "14:45", "title": "AI 오케스트레이션 심층 분석", "speaker": "Dr. Sarah Chen" },
-                "3": { "time": "15:15", "title": "DeFi 생태계 데모", "speaker": "Michael Rodriguez" },
-                "4": { "time": "15:45", "title": "라이브 Q&A 세션" }
+                "0": {
+                  "time": "14:00",
+                  "title": "환영사 & 소개",
+                  "speaker": "Alex Park"
+                },
+                "1": {
+                  "time": "14:15",
+                  "title": "TBURN v7.0 기술 개요"
+                },
+                "2": {
+                  "time": "14:45",
+                  "title": "AI 오케스트레이션 심층 분석",
+                  "speaker": "Dr. Sarah Chen"
+                },
+                "3": {
+                  "time": "15:15",
+                  "title": "DeFi 생태계 데모",
+                  "speaker": "Michael Rodriguez"
+                },
+                "4": {
+                  "time": "15:45",
+                  "title": "라이브 Q&A 세션"
+                }
               },
               "requirements": {
                 "0": "안정적인 인터넷 연결",
@@ -13505,16 +13951,44 @@
                 "2": "워크숍이 끝나면 TBURN 테스트넷에 첫 스마트 컨트랙트를 배포하고 전체 개발 라이프사이클을 이해하게 됩니다."
               },
               "speakers": {
-                "0": { "name": "James Liu", "role": "리드 개발자", "avatar": "JL" },
-                "1": { "name": "Emma Wilson", "role": "개발자 관계", "avatar": "EW" }
+                "0": {
+                  "name": "James Liu",
+                  "role": "리드 개발자",
+                  "avatar": "JL"
+                },
+                "1": {
+                  "name": "Emma Wilson",
+                  "role": "개발자 관계",
+                  "avatar": "EW"
+                }
               },
               "agenda": {
-                "0": { "time": "10:00", "title": "환경 설정 & 사전 요구 사항" },
-                "1": { "time": "10:30", "title": "TBURN SDK 소개", "speaker": "James Liu" },
-                "2": { "time": "11:30", "title": "스마트 컨트랙트 개발" },
-                "3": { "time": "12:30", "title": "점심 휴식" },
-                "4": { "time": "13:00", "title": "테스트 & 배포", "speaker": "Emma Wilson" },
-                "5": { "time": "13:45", "title": "Q&A 및 마무리" }
+                "0": {
+                  "time": "10:00",
+                  "title": "환경 설정 & 사전 요구 사항"
+                },
+                "1": {
+                  "time": "10:30",
+                  "title": "TBURN SDK 소개",
+                  "speaker": "James Liu"
+                },
+                "2": {
+                  "time": "11:30",
+                  "title": "스마트 컨트랙트 개발"
+                },
+                "3": {
+                  "time": "12:30",
+                  "title": "점심 휴식"
+                },
+                "4": {
+                  "time": "13:00",
+                  "title": "테스트 & 배포",
+                  "speaker": "Emma Wilson"
+                },
+                "5": {
+                  "time": "13:45",
+                  "title": "Q&A 및 마무리"
+                }
               },
               "requirements": {
                 "0": "Node.js 18+ 설치",
@@ -13538,14 +14012,34 @@
                 "2": "질문은 Discord를 통해 미리 제출하거나 세션 중에 실시간으로 할 수 있습니다."
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO & 창립자", "avatar": "AP" },
-                "1": { "name": "커뮤니티 팀", "role": "모더레이터", "avatar": "CT" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO & 창립자",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "커뮤니티 팀",
+                  "role": "모더레이터",
+                  "avatar": "CT"
+                }
               },
               "agenda": {
-                "0": { "time": "18:00", "title": "환영 & 업데이트" },
-                "1": { "time": "18:15", "title": "사전 제출 질문" },
-                "2": { "time": "18:45", "title": "커뮤니티 실시간 질문" },
-                "3": { "time": "19:15", "title": "마무리 & 공지사항" }
+                "0": {
+                  "time": "18:00",
+                  "title": "환영 & 업데이트"
+                },
+                "1": {
+                  "time": "18:15",
+                  "title": "사전 제출 질문"
+                },
+                "2": {
+                  "time": "18:45",
+                  "title": "커뮤니티 실시간 질문"
+                },
+                "3": {
+                  "time": "19:15",
+                  "title": "마무리 & 공지사항"
+                }
               },
               "requirements": {
                 "0": "Discord 계정",
@@ -13567,14 +14061,36 @@
                 "2": "팀에서 3단계 검증자 시스템과 AI 트러스트 스코어가 보상에 미치는 영향도 설명합니다."
               },
               "speakers": {
-                "0": { "name": "David Kim", "role": "인프라 리드", "avatar": "DK" },
-                "1": { "name": "Lisa Zhang", "role": "검증자 관계", "avatar": "LZ" }
+                "0": {
+                  "name": "David Kim",
+                  "role": "인프라 리드",
+                  "avatar": "DK"
+                },
+                "1": {
+                  "name": "Lisa Zhang",
+                  "role": "검증자 관계",
+                  "avatar": "LZ"
+                }
               },
               "agenda": {
-                "0": { "time": "15:00", "title": "TBURN 검증 소개" },
-                "1": { "time": "15:30", "title": "기술 요구 사항 & 설정", "speaker": "David Kim" },
-                "2": { "time": "16:00", "title": "수익 & 보상", "speaker": "Lisa Zhang" },
-                "3": { "time": "16:30", "title": "라이브 데모 & Q&A" }
+                "0": {
+                  "time": "15:00",
+                  "title": "TBURN 검증 소개"
+                },
+                "1": {
+                  "time": "15:30",
+                  "title": "기술 요구 사항 & 설정",
+                  "speaker": "David Kim"
+                },
+                "2": {
+                  "time": "16:00",
+                  "title": "수익 & 보상",
+                  "speaker": "Lisa Zhang"
+                },
+                "3": {
+                  "time": "16:30",
+                  "title": "라이브 데모 & Q&A"
+                }
               },
               "requirements": {
                 "0": "블록체인 기본 이해",
@@ -13583,7 +14099,57 @@
               }
             }
           }
+        },
+        "online": "온라인",
+        "inPerson": "오프라인",
+        "register": "등록",
+        "viewAll": "모든 이벤트 보기"
+      },
+      "hero": {
+        "tag": "커뮤니티",
+        "title": "커뮤니티에",
+        "titleHighlight": "참여하세요",
+        "subtitle": "개발자, 검증자, 열정적인 사용자들과 연결하세요."
+      },
+      "buttons": {
+        "joinDiscord": "Discord 참여",
+        "followTwitter": "X 팔로우"
+      },
+      "channels": {
+        "title": "커뮤니티 채널",
+        "subtitle": "저희와 소통하세요",
+        "discord": {
+          "title": "Discord",
+          "description": "Discord 커뮤니티 참여",
+          "members": "멤버"
+        },
+        "twitter": {
+          "title": "X (Twitter)",
+          "description": "업데이트 받기",
+          "followers": "팔로워"
+        },
+        "telegram": {
+          "title": "Telegram",
+          "description": "Telegram 그룹 참여",
+          "members": "멤버"
+        },
+        "github": {
+          "title": "GitHub",
+          "description": "프로젝트에 기여",
+          "stars": "스타"
         }
+      },
+      "grants": {
+        "title": "커뮤니티 그랜트",
+        "subtitle": "프로젝트 자금 지원 받기",
+        "description": "TBurn 체인 빌드 자금 신청",
+        "applyNow": "지금 신청"
+      },
+      "ambassadors": {
+        "title": "앰배서더 프로그램",
+        "subtitle": "앰배서더 되기",
+        "description": "TBurn 생태계 성장에 기여",
+        "apply": "신청"
       }
     },
     "legal": {
@@ -14187,6 +14753,156 @@
           }
         }
       }
+    },
+    "about": {
+      "hero": {
+        "tag": "TBurn 소개",
+        "title": "미래를",
+        "titleHighlight": "구축하다",
+        "subtitle": "우리의 미션과 비전을 알아보세요."
+      },
+      "mission": {
+        "title": "우리의 미션",
+        "description": "지속 가능하고 확장 가능한 분산형 블록체인 생태계 구축."
+      },
+      "vision": {
+        "title": "우리의 비전",
+        "description": "블록체인 기술이 모든 사람에게 힘을 주는 세상."
+      },
+      "values": {
+        "title": "핵심 가치",
+        "subtitle": "우리를 이끄는 것",
+        "decentralization": {
+          "title": "탈중앙화",
+          "description": "진정한 분산 거버넌스"
+        },
+        "innovation": {
+          "title": "혁신",
+          "description": "기술적 경계 확장"
+        },
+        "sustainability": {
+          "title": "지속가능성",
+          "description": "장기적 관점으로 구축"
+        },
+        "community": {
+          "title": "커뮤니티",
+          "description": "함께 성장"
+        }
+      },
+      "team": {
+        "title": "팀 소개",
+        "subtitle": "TBurn을 만드는 사람들"
+      },
+      "roadmap": {
+        "title": "로드맵",
+        "subtitle": "앞으로의 여정",
+        "completed": "완료",
+        "inProgress": "진행 중",
+        "upcoming": "예정"
+      },
+      "partners": {
+        "title": "파트너",
+        "subtitle": "함께하는 조직들"
+      },
+      "cta": {
+        "title": "여정에 함께하세요",
+        "subtitle": "미래를 함께 만들어가세요.",
+        "getStarted": "시작하기",
+        "contactUs": "문의하기"
+      }
+    },
+    "contact": {
+      "hero": {
+        "title": "문의",
+        "titleHighlight": "하기",
+        "subtitle": "팀에 연락하세요."
+      },
+      "form": {
+        "title": "메시지 보내기",
+        "name": "이름",
+        "namePlaceholder": "이름을 입력하세요",
+        "email": "이메일",
+        "emailPlaceholder": "your@email.com",
+        "subject": "제목",
+        "subjectPlaceholder": "무엇을 도와드릴까요?",
+        "message": "메시지",
+        "messagePlaceholder": "메시지를 입력하세요...",
+        "submit": "메시지 보내기",
+        "sending": "전송 중...",
+        "success": "메시지 전송됨",
+        "successDesc": "곧 연락드리겠습니다.",
+        "error": "전송 실패",
+        "errorDesc": "다시 시도해주세요."
+      },
+      "offices": {
+        "title": "사무실",
+        "subtitle": "방문하세요"
+      },
+      "support": {
+        "title": "지원",
+        "subtitle": "도움 받기",
+        "general": "일반 문의",
+        "technical": "기술 지원",
+        "partnership": "파트너십",
+        "media": "미디어 문의"
+      }
+    },
+    "features": {
+      "hero": {
+        "tag": "기능",
+        "title": "강력한",
+        "titleHighlight": "기능",
+        "subtitle": "TBurn 구축에 필요한 모든 것."
+      },
+      "performance": {
+        "title": "성능",
+        "subtitle": "속도 최적화",
+        "tps": "초당 트랜잭션",
+        "blockTime": "블록 시간",
+        "finality": "최종성"
+      },
+      "security": {
+        "title": "보안",
+        "subtitle": "엔터프라이즈급 보안",
+        "audited": "감사 완료",
+        "encryption": "암호화",
+        "multiSig": "멀티시그"
+      },
+      "developer": {
+        "title": "개발자 경험",
+        "subtitle": "쉽게 빌드",
+        "sdks": "SDK",
+        "docs": "문서",
+        "support": "지원"
+      }
+    },
+    "economics": {
+      "hero": {
+        "tag": "이코노믹스",
+        "title": "토큰",
+        "titleHighlight": "이코노믹스",
+        "subtitle": "TBURN 토크노믹스 이해하기."
+      },
+      "supply": {
+        "title": "토큰 공급",
+        "subtitle": "분배 및 할당",
+        "total": "총 공급량",
+        "circulating": "유통 공급량",
+        "burned": "소각됨"
+      },
+      "burn": {
+        "title": "소각 메커니즘",
+        "subtitle": "디플레이션 모델",
+        "rate": "소각률",
+        "totalBurned": "총 소각량"
+      },
+      "staking": {
+        "title": "스테이킹 보상",
+        "subtitle": "스테이킹으로 수익",
+        "apy": "현재 APY",
+        "minStake": "최소 스테이킹",
+        "lockPeriod": "락업 기간"
+      }
     }
   },
   "search": {
@@ -14662,7 +15378,10 @@
     "totalLogs": "전체 로그",
     "errors": "오류",
     "warnings": "경고",
-    "error": "오류",
+    "error": {
+      "title": "로그 로드 실패",
+      "description": "로그를 가져올 수 없습니다. 다시 시도해 주세요."
+    },
     "warn": "경고",
     "info": "정보",
     "debug": "디버그",
@@ -14712,10 +15431,6 @@
     "refreshErrorDesc": "로그 데이터 새로고침에 실패했습니다",
     "exportSuccess": "내보내기 완료",
     "exportSuccessDesc": "로그 데이터가 성공적으로 내보내졌습니다",
-    "error": {
-      "title": "로그 로드 실패",
-      "description": "로그를 가져올 수 없습니다. 다시 시도해 주세요."
-    },
     "retry": "재시도"
   },
   "adminTokenIssuance": {
@@ -15164,7 +15879,8 @@
       "title": "전송 로드 실패",
       "description": "전송 데이터를 가져올 수 없습니다. 다시 시도해 주세요.",
       "label": "오류"
-    }
+    },
+    "transferHistory": "Transfer History"
   },
   "adminTraining": {
     "title": "학습 자료",
@@ -15214,7 +15930,32 @@
     "startCourse": "과정 시작",
     "startPath": "경로 시작",
     "modules": "모듈",
-    "courses": "과정",
+    "courses": {
+      "fundamentals": {
+        "title": "플랫폼 기초",
+        "desc": "TBURN 블록체인 관리의 기본을 배우세요"
+      },
+      "network": {
+        "title": "네트워크 관리",
+        "desc": "네트워크 구성 및 모니터링 마스터"
+      },
+      "security": {
+        "title": "보안 모범 사례",
+        "desc": "고급 보안 프로토콜 및 위협 예방 학습"
+      },
+      "ai": {
+        "title": "AI 시스템 관리",
+        "desc": "AI 기반 기능 구성 및 최적화"
+      },
+      "emergency": {
+        "title": "비상 대응",
+        "desc": "중요 상황 및 시스템 장애 처리"
+      },
+      "config": {
+        "title": "고급 구성",
+        "desc": "시스템 설정 및 최적화 심화 학습"
+      }
+    },
     "total": "총",
     "earned": "획득",
     "stats": {
@@ -15280,32 +16021,55 @@
         "desc": "사용 가능한 모든 과정을 완료하세요"
       }
     },
-    "courses": {
-      "fundamentals": {
-        "title": "플랫폼 기초",
-        "desc": "TBURN 블록체인 관리의 기본을 배우세요"
-      },
-      "network": {
-        "title": "네트워크 관리",
-        "desc": "네트워크 구성 및 모니터링 마스터"
-      },
-      "security": {
-        "title": "보안 모범 사례",
-        "desc": "고급 보안 프로토콜 및 위협 예방 학습"
-      },
-      "ai": {
-        "title": "AI 시스템 관리",
-        "desc": "AI 기반 기능 구성 및 최적화"
-      },
-      "emergency": {
-        "title": "비상 대응",
-        "desc": "중요 상황 및 시스템 장애 처리"
-      },
-      "config": {
-        "title": "고급 구성",
-        "desc": "시스템 설정 및 최적화 심화 학습"
-      }
-    }
+    "totalData": "총 데이터",
+    "records": "레코드",
+    "avgAccuracy": "평균 정확도",
+    "acrossAllModels": "모든 모델 기준",
+    "modelVersions": "모델 버전",
+    "inProduction": "운영 중",
+    "trainingJobs": "학습 작업",
+    "metrics": "메트릭",
+    "versions": "버전",
+    "activeRecentRuns": "활성 및 최근 학습 실행",
+    "jobName": "작업 이름",
+    "model": "모델",
+    "status": "상태",
+    "progress": "진행률",
+    "dataPoints": "데이터 포인트",
+    "actions": "작업",
+    "running_status": "실행 중",
+    "paused": "일시 중지됨",
+    "queued_status": "대기 중",
+    "trainingDatasets": "학습 데이터셋",
+    "availableDatasets": "모델 학습에 사용 가능한 데이터",
+    "datasetName": "데이터셋 이름",
+    "size": "크기",
+    "lastUpdated": "마지막 업데이트",
+    "qualityScore": "품질 점수",
+    "trainingMetrics": "학습 메트릭",
+    "accuracyLossDesc": "학습 에포크별 정확도 및 손실",
+    "deployedVersions": "배포된 모델 버전 및 이력",
+    "version": "버전",
+    "date": "날짜",
+    "deploy": "배포",
+    "production": "운영",
+    "backup": "백업",
+    "archived": "보관됨",
+    "startJob": "작업 시작",
+    "pauseJob": "작업 일시 중지",
+    "cancelJob": "작업 취소",
+    "jobStarted": "학습 작업 시작됨",
+    "jobStartedDesc": "{{name}}이(가) 시작되었습니다",
+    "jobPaused": "학습 작업 일시 중지됨",
+    "jobPausedDesc": "{{name}}이(가) 일시 중지되었습니다",
+    "jobCancelled": "학습 작업 취소됨",
+    "jobCancelledDesc": "{{name}}이(가) 취소되었습니다",
+    "refreshSuccess": "데이터 새로고침 완료",
+    "refreshSuccessDesc": "학습 데이터가 업데이트되었습니다",
+    "exportSuccess": "내보내기 완료",
+    "exportSuccessDesc": "학습 데이터가 성공적으로 내보내졌습니다",
+    "time": "Time",
+    "current": "Current"
   },
   "adminTreasury": {
     "title": "재무 대시보드",
@@ -16157,14 +16921,7 @@
     "reconnecting": "재연결 중...",
     "wsConnected": "실시간 보안 업데이트 활성화",
     "wsReconnecting": "재연결 시도 중...",
-    "securityScore": {
-      "overall": "전체",
-      "authentication": "인증",
-      "authorization": "권한 부여",
-      "encryption": "암호화",
-      "monitoring": "모니터링",
-      "compliance": "컴플라이언스"
-    },
+    "securityScore": "Security Score",
     "tabs": {
       "overview": "개요",
       "threats": "위협 이벤트",
@@ -16239,7 +16996,13 @@
       "title": "보안 데이터 로드 실패",
       "description": "보안 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "securityOverview": "Security Overview",
+    "activeThreats": "Active Threats",
+    "blockedAttacks": "Blocked Attacks",
+    "firewallRules": "Firewall Rules",
+    "accessLogs": "Access Logs",
+    "twoFactorAuth": "Two-Factor Auth"
   },
   "adminCompliance": {
     "title": "컴플라이언스",
@@ -16345,7 +17108,20 @@
       "title": "컴플라이언스 데이터 로드 실패",
       "description": "컴플라이언스 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "complianceStatus": "Compliance Status",
+    "kycStatus": "KYC Status",
+    "amlStatus": "AML Status",
+    "regulatoryReports": "Regulatory Reports",
+    "pendingReviews": "Pending Reviews",
+    "flaggedTransactions": "Flagged Transactions",
+    "riskScore": "Risk Score",
+    "lastAudit": "Last Audit",
+    "nextAudit": "Next Audit",
+    "generateReport": "Generate Report",
+    "reviewCase": "Review Case",
+    "approveKyc": "Approve KYC",
+    "rejectKyc": "Reject KYC"
   },
   "adminLiquidity": {
     "title": "유동성 관리",
@@ -16473,15 +17249,7 @@
       "bug": "버그",
       "complaint": "불만"
     },
-    "status": {
-      "new": "신규",
-      "reviewed": "검토됨",
-      "actioned": "조치됨",
-      "archived": "보관됨",
-      "inReview": "검토 중",
-      "resolved": "해결됨",
-      "closed": "종료됨"
-    },
+    "status": "Status",
     "ratings": {
       "5stars": "5점",
       "4stars": "4점",
@@ -16553,7 +17321,17 @@
       "responsePlaceholder": "여기에 응답을 입력하세요...",
       "cancel": "취소",
       "send": "응답 전송"
-    }
+    },
+    "userFeedback": "User Feedback",
+    "feedbackType": "Feedback Type",
+    "priority": "Priority",
+    "submittedBy": "Submitted By",
+    "submittedAt": "Submitted At",
+    "assignTo": "Assign To",
+    "resolve": "Resolve",
+    "reply": "Reply",
+    "pending": "Pending",
+    "inProgress": "In Progress"
   },
   "adminAudit": {
     "title": "감사 로그",
@@ -16618,7 +17396,9 @@
       "title": "감사 로그 로드 실패",
       "description": "감사 로그를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "auditLogs": "Audit Logs",
+    "eventType": "Event Type"
   },
   "adminChains": {
     "title": "체인 연결",
@@ -18950,7 +19730,21 @@
   "adminApiDocs": {
     "title": "API 문서",
     "subtitle": "API 엔드포인트 찾아보기 및 테스트",
-    "endpoints": "엔드포인트",
+    "endpoints": {
+      "getBlocks": "블록 조회",
+      "getBlockByHeight": "높이로 블록 조회",
+      "getTransactions": "트랜잭션 조회",
+      "getTransactionByHash": "해시로 트랜잭션 조회",
+      "submitTransaction": "트랜잭션 제출",
+      "getWalletInfo": "지갑 정보 조회",
+      "getWalletBalance": "지갑 잔액 조회",
+      "getValidators": "검증자 조회",
+      "delegateToValidator": "검증자에게 위임",
+      "undelegateFromValidator": "검증자로부터 위임 해제",
+      "getNodeList": "노드 목록 조회",
+      "restartNode": "노드 재시작",
+      "getAdminDashboard": "관리자 대시보드 조회"
+    },
     "endpointsDesc": "사용 가능한 API 엔드포인트",
     "authentication": "인증",
     "authenticationDesc": "API 인증 방법",
@@ -19032,21 +19826,6 @@
     "exportOpenApi": "OpenAPI 내보내기",
     "exportSuccess": "내보내기 성공",
     "exportSuccessDesc": "API 문서를 내보냈습니다",
-    "endpoints": {
-      "getBlocks": "블록 조회",
-      "getBlockByHeight": "높이로 블록 조회",
-      "getTransactions": "트랜잭션 조회",
-      "getTransactionByHash": "해시로 트랜잭션 조회",
-      "submitTransaction": "트랜잭션 제출",
-      "getWalletInfo": "지갑 정보 조회",
-      "getWalletBalance": "지갑 잔액 조회",
-      "getValidators": "검증자 조회",
-      "delegateToValidator": "검증자에게 위임",
-      "undelegateFromValidator": "검증자로부터 위임 해제",
-      "getNodeList": "노드 목록 조회",
-      "restartNode": "노드 재시작",
-      "getAdminDashboard": "관리자 대시보드 조회"
-    },
     "error": {
       "title": "문서 로드 오류",
       "description": "API 문서를 로드하지 못했습니다"
@@ -19166,7 +19945,10 @@
     "verifyError": "검증 실패",
     "verifyErrorDesc": "컨트랙트 검증에 실패했습니다",
     "loadError": "컨트랙트 로드 실패",
-    "error": "오류",
+    "error": {
+      "title": "컨트랙트 데이터 로드 오류",
+      "description": "컨트랙트 데이터를 로드하지 못했습니다. 다시 시도해 주세요."
+    },
     "retry": "재시도",
     "metrics": {
       "deployed": "배포됨",
@@ -19180,10 +19962,6 @@
     "refreshErrorDesc": "컨트랙트 데이터 새로고침에 실패했습니다",
     "exportSuccess": "데이터 내보내기 완료",
     "exportSuccessDesc": "컨트랙트 데이터를 성공적으로 내보냈습니다",
-    "error": {
-      "title": "컨트랙트 데이터 로드 오류",
-      "description": "컨트랙트 데이터를 로드하지 못했습니다. 다시 시도해 주세요."
-    },
     "totalContracts": "총 컨트랙트",
     "deployedOnMainnet": "메인넷에 배포됨",
     "sourceVerified": "소스 코드 검증됨",
@@ -19233,9 +20011,7 @@
     "name": "이름",
     "compiler": "컴파일러",
     "deployed": "배포됨",
-    "transactions": "트랜잭션",
-    "actions": "작업",
-    "interact": "상호작용"
+    "transactions": "트랜잭션"
   },
   "adminTestnet": {
     "title": "테스트넷 관리",
@@ -19248,7 +20024,14 @@
     "testAccountsDesc": "사전 충전된 테스트 계정",
     "networkInfo": "네트워크 정보",
     "networkInfoDesc": "테스트넷 구성",
-    "status": "상태",
+    "status": {
+      "running": "실행 중",
+      "stopped": "중지됨",
+      "syncing": "동기화 중",
+      "completed": "완료됨",
+      "pending": "대기 중",
+      "failed": "실패"
+    },
     "online": "온라인",
     "offline": "오프라인",
     "degraded": "저하됨",
@@ -19282,7 +20065,10 @@
     "refreshed": "데이터 새로고침 완료",
     "refreshedDesc": "테스트넷 데이터가 업데이트되었습니다",
     "loadError": "테스트넷 데이터 로드 실패",
-    "error": "오류",
+    "error": {
+      "title": "테스트넷 데이터 로드 오류",
+      "description": "테스트넷 데이터를 로드하지 못했습니다. 다시 시도해 주세요."
+    },
     "retry": "재시도",
     "metrics": {
       "blocks": "블록",
@@ -19306,10 +20092,6 @@
     "exportSuccessDesc": "테스트넷 데이터를 성공적으로 내보냈습니다",
     "copied": "복사됨",
     "copiedToClipboard": "클립보드에 복사됨",
-    "error": {
-      "title": "테스트넷 데이터 로드 오류",
-      "description": "테스트넷 데이터를 로드하지 못했습니다. 다시 시도해 주세요."
-    },
     "createTestnet": "테스트넷 생성",
     "activeTestnets": "활성 테스트넷",
     "of3Instances": "3개 인스턴스 중",
@@ -19323,14 +20105,6 @@
       "testnetInstances": "테스트넷 인스턴스",
       "faucet": "파우셋",
       "settings": "설정"
-    },
-    "status": {
-      "running": "실행 중",
-      "stopped": "중지됨",
-      "syncing": "동기화 중",
-      "completed": "완료됨",
-      "pending": "대기 중",
-      "failed": "실패"
     },
     "stop": "중지",
     "start": "시작",
@@ -19444,10 +20218,6 @@
     "logsClearedDesc": "디버그 로그가 삭제되었습니다",
     "copied": "복사됨",
     "copiedToClipboard": "클립보드에 복사됨",
-    "error": {
-      "title": "디버그 데이터 로드 오류",
-      "description": "디버그 데이터를 로드하지 못했습니다. 다시 시도해 주세요."
-    },
     "connected": "연결됨",
     "reconnecting": "재연결 중",
     "clearLogs": "로그 삭제",
@@ -19467,7 +20237,6 @@
     },
     "transactionTracer": "트랜잭션 트레이서",
     "traceAndDebug": "블록체인 트랜잭션 트레이스 및 디버그",
-    "enterTxHash": "트랜잭션 해시 입력...",
     "traceOptions": "트레이스 옵션",
     "traceOutput": "트레이스 출력",
     "copy": "복사",
@@ -19495,7 +20264,10 @@
     "nonce": "논스",
     "codeHash": "코드 해시",
     "storageRoot": "스토리지 루트",
-    "storageSlots": "스토리지 슬롯"
+    "storageSlots": "스토리지 슬롯",
+    "warning": "경고",
+    "info": "정보",
+    "debug": "디버그"
   },
   "adminRealtime": {
     "title": "실시간 모니터링",
@@ -19732,7 +20504,12 @@
     "ruleName": "규칙 이름",
     "condition": "조건",
     "threshold": "임계값",
-    "severity": "심각도",
+    "severity": {
+      "critical": "위험",
+      "high": "높음",
+      "low": "낮음",
+      "medium": "보통"
+    },
     "status": "상태",
     "actions": "작업",
     "enabled": "활성화됨",
@@ -19858,12 +20635,6 @@
       "validatorOffline": "검증자 오프라인"
     },
     "searchPlaceholder": "규칙 검색...",
-    "severity": {
-      "critical": "위험",
-      "high": "높음",
-      "low": "낮음",
-      "medium": "보통"
-    },
     "stats": {
       "activeRules": "활성 규칙",
       "criticalRules": "위험 규칙",
@@ -19888,10 +20659,32 @@
   "adminDashboardBuilder": {
     "title": "대시보드 빌더",
     "subtitle": "사용자 정의 대시보드 생성",
-    "dashboards": "대시보드",
+    "dashboards": {
+      "main": "메인 대시보드",
+      "mainDesc": "주요 네트워크 지표 개요",
+      "performance": "성능 대시보드",
+      "performanceDesc": "상세 성능 분석",
+      "security": "보안 대시보드",
+      "securityDesc": "보안 모니터링 및 알림",
+      "bridge": "브릿지 대시보드",
+      "bridgeDesc": "크로스체인 브릿지 지표"
+    },
     "dashboardsDesc": "저장된 대시보드",
     "createDashboard": "대시보드 생성",
-    "widgets": "위젯",
+    "widgets": {
+      "lineChart": "라인 차트",
+      "lineChartDesc": "시계열 데이터 시각화",
+      "barChart": "막대 차트",
+      "barChartDesc": "범주별 데이터 비교",
+      "pieChart": "파이 차트",
+      "pieChartDesc": "분포 시각화",
+      "gauge": "게이지",
+      "gaugeDesc": "목표 대비 단일 값",
+      "dataTable": "데이터 테이블",
+      "dataTableDesc": "표 형식 데이터 표시",
+      "alertList": "알림 목록",
+      "alertListDesc": "활성 알림 및 알림"
+    },
     "widgetsDesc": "사용 가능한 위젯",
     "layout": "레이아웃",
     "layoutDesc": "대시보드 레이아웃",
@@ -19905,7 +20698,17 @@
     "edit": "편집",
     "delete": "삭제",
     "duplicate": "복제",
-    "preview": "미리보기",
+    "preview": {
+      "title": "대시보드 미리보기",
+      "currentTps": "현재 TPS",
+      "blockHeight": "블록 높이",
+      "activeValidators": "활성 검증자",
+      "networkPeers": "네트워크 피어",
+      "tpsOverTime": "시간별 TPS",
+      "latencyDist": "지연 시간 분포",
+      "recentBlocks": "최근 블록",
+      "activeAlerts": "활성 알림"
+    },
     "setDefault": "기본값으로 설정",
     "widgetTypes": {
       "chart": "차트",
@@ -19944,7 +20747,13 @@
     "export": "내보내기",
     "exported": "대시보드 내보내기 완료",
     "exportedDesc": "대시보드를 성공적으로 내보냈습니다",
-    "import": "가져오기",
+    "import": {
+      "title": "대시보드 가져오기",
+      "description": "JSON 파일에서 대시보드 가져오기",
+      "dropzone": "JSON 파일을 여기에 놓거나 클릭하여 탐색",
+      "button": "가져오기",
+      "or": "또는"
+    },
     "imported": "대시보드 가져오기 완료",
     "importedDesc": "대시보드를 성공적으로 가져왔습니다",
     "loadError": "대시보드 로드 실패",
@@ -19970,41 +20779,6 @@
     "view": "보기",
     "clone": "복제",
     "share": "공유",
-    "dashboards": {
-      "main": "메인 대시보드",
-      "mainDesc": "주요 네트워크 지표 개요",
-      "performance": "성능 대시보드",
-      "performanceDesc": "상세 성능 분석",
-      "security": "보안 대시보드",
-      "securityDesc": "보안 모니터링 및 알림",
-      "bridge": "브릿지 대시보드",
-      "bridgeDesc": "크로스체인 브릿지 지표"
-    },
-    "widgets": {
-      "lineChart": "라인 차트",
-      "lineChartDesc": "시계열 데이터 시각화",
-      "barChart": "막대 차트",
-      "barChartDesc": "범주별 데이터 비교",
-      "pieChart": "파이 차트",
-      "pieChartDesc": "분포 시각화",
-      "gauge": "게이지",
-      "gaugeDesc": "목표 대비 단일 값",
-      "dataTable": "데이터 테이블",
-      "dataTableDesc": "표 형식 데이터 표시",
-      "alertList": "알림 목록",
-      "alertListDesc": "활성 알림 및 알림"
-    },
-    "preview": {
-      "title": "대시보드 미리보기",
-      "currentTps": "현재 TPS",
-      "blockHeight": "블록 높이",
-      "activeValidators": "활성 검증자",
-      "networkPeers": "네트워크 피어",
-      "tpsOverTime": "시간별 TPS",
-      "latencyDist": "지연 시간 분포",
-      "recentBlocks": "최근 블록",
-      "activeAlerts": "활성 알림"
-    },
     "dialog": {
       "createTitle": "새 대시보드 생성",
       "createDescription": "새 대시보드 설정 구성",
@@ -20023,13 +20797,6 @@
     "allDashboards": {
       "title": "모든 대시보드",
       "description": "사용 가능한 모든 대시보드 탐색 및 관리"
-    },
-    "import": {
-      "title": "대시보드 가져오기",
-      "description": "JSON 파일에서 대시보드 가져오기",
-      "dropzone": "JSON 파일을 여기에 놓거나 클릭하여 탐색",
-      "button": "가져오기",
-      "or": "또는"
     }
   },
   "adminSla": {
@@ -20207,7 +20974,14 @@
     "overviewDesc": "재무 요약",
     "transactions": "거래",
     "transactionsDesc": "거래 기록",
-    "reconciliation": "정산",
+    "reconciliation": {
+      "title": "계정 정산",
+      "description": "계정 잔액 확인",
+      "runFull": "전체 정산 실행",
+      "reconciled": "정산됨",
+      "pending": "대기 중",
+      "discrepancies": "불일치"
+    },
     "reconciliationDesc": "계정 정산",
     "reports": "보고서",
     "reportsDesc": "재무 보고서",
@@ -20337,14 +21111,6 @@
       "rewards": "보상",
       "burns": "소각"
     },
-    "reconciliation": {
-      "title": "계정 정산",
-      "description": "계정 잔액 확인",
-      "runFull": "전체 정산 실행",
-      "reconciled": "정산됨",
-      "pending": "대기 중",
-      "discrepancies": "불일치"
-    },
     "metrics": {
       "volume": "거래량",
       "transactions": "거래",
@@ -20376,7 +21142,14 @@
     "allocation": "배정",
     "usedAmount": "사용량",
     "usedPercent": "사용률 %",
-    "status": "상태",
+    "status": {
+      "onTrack": "정상 진행",
+      "atRisk": "위험",
+      "overBudget": "예산 초과",
+      "pending": "대기 중",
+      "approved": "승인됨",
+      "rejected": "거부됨"
+    },
     "actions": "작업",
     "categories": {
       "operations": "운영",
@@ -20520,14 +21293,6 @@
       "status": "상태",
       "actions": "작업"
     },
-    "status": {
-      "onTrack": "정상 진행",
-      "atRisk": "위험",
-      "overBudget": "예산 초과",
-      "pending": "대기 중",
-      "approved": "승인됨",
-      "rejected": "거부됨"
-    },
     "requests": {
       "title": "예산 요청",
       "description": "대기 중 및 최근 예산 요청",
@@ -20625,7 +21390,12 @@
     "overviewDesc": "세금 요약",
     "taxReports": "세금 보고서",
     "taxReportsDesc": "세금 보고서 생성",
-    "compliance": "컴플라이언스",
+    "compliance": {
+      "title": "컴플라이언스 상태",
+      "paymentProgress": "납부 진행률",
+      "filed": "신고됨",
+      "pending": "대기 중"
+    },
     "complianceDesc": "세금 컴플라이언스 상태",
     "settings": "설정",
     "settingsDesc": "세금 설정",
@@ -20712,12 +21482,6 @@
     "errorTitle": "세금 데이터 로드 실패",
     "errorDescription": "세금 데이터를 로드할 수 없습니다. 다시 시도해 주세요.",
     "newReport": "새 보고서",
-    "compliance": {
-      "title": "컴플라이언스 상태",
-      "paymentProgress": "납부 진행률",
-      "filed": "신고됨",
-      "pending": "대기 중"
-    },
     "deadlines": {
       "title": "다가오는 마감일"
     },
@@ -20888,8 +21652,20 @@
     "subject": "제목",
     "requester": "요청자",
     "assignee": "담당자",
-    "priority": "우선순위",
-    "status": "상태",
+    "priority": {
+      "label": "우선순위",
+      "low": "낮음",
+      "medium": "중간",
+      "high": "높음",
+      "critical": "긴급"
+    },
+    "status": {
+      "open": "열림",
+      "inProgress": "진행 중",
+      "waiting": "대기 중",
+      "resolved": "해결됨",
+      "closed": "닫힘"
+    },
     "createdAt": "생성일",
     "updatedAt": "업데이트일",
     "actions": "작업",
@@ -20908,25 +21684,11 @@
       "urgent": "긴급",
       "critical": "긴급"
     },
-    "priority": {
-      "label": "우선순위",
-      "low": "낮음",
-      "medium": "중간",
-      "high": "높음",
-      "critical": "긴급"
-    },
     "statuses": {
       "open": "열림",
       "inProgress": "진행 중",
       "waitingOnCustomer": "고객 응답 대기",
       "waitingOnSupport": "지원 대기",
-      "resolved": "해결됨",
-      "closed": "닫힘"
-    },
-    "status": {
-      "open": "열림",
-      "inProgress": "진행 중",
-      "waiting": "대기 중",
       "resolved": "해결됨",
       "closed": "닫힘"
     },
