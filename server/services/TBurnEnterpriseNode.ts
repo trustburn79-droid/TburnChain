@@ -50,6 +50,27 @@ export interface BlockProduction {
   validatorSignatures: number;
 }
 
+// Enterprise Shard Configuration Types
+export interface ShardConfigValidation {
+  valid: boolean;
+  errors: string[];
+  warnings: string[];
+  estimatedImpact: {
+    validatorChange: number;
+    tpsChange: number;
+    estimatedDowntime: number;
+    affectedShards: number[];
+  };
+}
+
+export interface ShardConfigUpdateResult {
+  success: boolean;
+  requestId: string;
+  validation: ShardConfigValidation;
+  rollbackVersion?: number;
+  message: string;
+}
+
 export class TBurnEnterpriseNode extends EventEmitter {
   private config: NodeConfig;
   private isRunning = false;
@@ -150,10 +171,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
   ];
 
   // ============================================
-  // DYNAMIC SHARD SCALING SYSTEM
+  // DYNAMIC SHARD SCALING SYSTEM (Enterprise Grade)
   // Supports 5-64 shards based on hardware capacity
-  // 8-core dev server: 5 shards (25 validators each)
-  // 32-core prod server: 64 shards (40+ validators each)
+  // Includes validation, rollback, audit logging, and health monitoring
   // ============================================
   private shardConfig = {
     currentShardCount: 5,           // Current active shards (5 for dev, 64 for prod)
@@ -164,8 +184,496 @@ export class TBurnEnterpriseNode extends EventEmitter {
     crossShardLatencyMs: 50,        // Cross-shard communication latency
     rebalanceThreshold: 0.3,        // Load imbalance threshold for rebalancing
     scalingMode: 'automatic' as 'automatic' | 'manual',
-    lastConfigUpdate: new Date().toISOString()
+    lastConfigUpdate: new Date().toISOString(),
+    version: 1,                     // Configuration version for rollback tracking
+    healthStatus: 'healthy' as 'healthy' | 'degraded' | 'critical',
+    lastHealthCheck: new Date().toISOString()
   };
+
+  // ============================================
+  // ENTERPRISE CONFIGURATION MANAGEMENT SYSTEM
+  // Provides rollback, validation, audit, and monitoring
+  // ============================================
+  private configHistory: Array<{
+    version: number;
+    config: {
+      currentShardCount: number;
+      minShards: number;
+      maxShards: number;
+      validatorsPerShard: number;
+      tpsPerShard: number;
+      crossShardLatencyMs: number;
+      rebalanceThreshold: number;
+      scalingMode: 'automatic' | 'manual';
+      lastConfigUpdate: string;
+      version: number;
+      healthStatus: 'healthy' | 'degraded' | 'critical';
+      lastHealthCheck: string;
+    };
+    timestamp: string;
+    changedBy: string;
+    reason: string;
+    rollbackable: boolean;
+  }> = [];
+
+  private auditLog: Array<{
+    id: string;
+    timestamp: string;
+    action: 'CONFIG_CHANGE' | 'ROLLBACK' | 'HEALTH_CHECK' | 'SCALING_EVENT' | 'ALERT';
+    actor: string;
+    details: Record<string, any>;
+    oldValue?: any;
+    newValue?: any;
+    status: 'success' | 'failed' | 'pending';
+    severity: 'info' | 'warning' | 'error' | 'critical';
+  }> = [];
+
+  private shardHealthMetrics: Map<number, {
+    shardId: number;
+    load: number;
+    latency: number;
+    transactionBacklog: number;
+    validatorUptime: number;
+    crossShardSuccess: number;
+    lastUpdate: string;
+    status: 'healthy' | 'degraded' | 'overloaded' | 'offline';
+  }> = new Map();
+
+  private scalingEvents: Array<{
+    id: string;
+    timestamp: string;
+    type: 'scale_up' | 'scale_down' | 'rebalance';
+    fromShards: number;
+    toShards: number;
+    triggerReason: string;
+    status: 'completed' | 'in_progress' | 'failed' | 'rolled_back';
+    duration?: number;
+    affectedValidators: number;
+  }> = [];
+
+  // Rate limiting for configuration changes
+  private lastConfigChangeTime = 0;
+  private readonly CONFIG_CHANGE_COOLDOWN_MS = 60000; // 1 minute cooldown between changes
+  private pendingConfigChange: { config: any; requestId: string; expiresAt: number } | null = null;
+
+  // ============================================
+  // CONFIGURATION VALIDATION METHODS
+  // ============================================
+  private validateShardConfig(newCount: number, _options: { actor?: string; reason?: string } = {}): ShardConfigValidation {
+    const errors: string[] = [];
+    const warnings: string[] = [];
+    const currentCount = this.shardConfig.currentShardCount;
+    
+    // Range validation
+    if (newCount < this.shardConfig.minShards) {
+      errors.push(`Shard count ${newCount} is below minimum ${this.shardConfig.minShards}`);
+    }
+    if (newCount > this.shardConfig.maxShards) {
+      errors.push(`Shard count ${newCount} exceeds maximum ${this.shardConfig.maxShards}`);
+    }
+    
+    // Quorum validation - ensure enough validators for BFT consensus
+    const newValidatorCount = newCount * this.shardConfig.validatorsPerShard;
+    const minValidatorsPerShard = 4; // Minimum for BFT (3f+1 where f=1)
+    if (this.shardConfig.validatorsPerShard < minValidatorsPerShard) {
+      errors.push(`Validators per shard (${this.shardConfig.validatorsPerShard}) below BFT minimum (${minValidatorsPerShard})`);
+    }
+    
+    // Hardware compatibility check
+    const requiredCores = Math.ceil(newCount * 0.5); // 0.5 cores per shard
+    const requiredRamGB = Math.ceil(newCount * 4); // 4GB per shard
+    const currentProfile = this.detectHardwareProfile();
+    
+    if (requiredCores > currentProfile.cores) {
+      warnings.push(`Shard count ${newCount} may exceed CPU capacity (${requiredCores} cores needed, ${currentProfile.cores} available)`);
+    }
+    if (requiredRamGB > currentProfile.ramGB) {
+      warnings.push(`Shard count ${newCount} may exceed RAM capacity (${requiredRamGB}GB needed, ${currentProfile.ramGB}GB available)`);
+    }
+    
+    // Large scaling warning
+    const shardDiff = Math.abs(newCount - currentCount);
+    if (shardDiff > 10) {
+      warnings.push(`Large scaling operation: ${shardDiff} shard change may cause temporary performance degradation`);
+    }
+    
+    // Rate limiting check
+    const timeSinceLastChange = Date.now() - this.lastConfigChangeTime;
+    if (timeSinceLastChange < this.CONFIG_CHANGE_COOLDOWN_MS && this.lastConfigChangeTime > 0) {
+      const remainingCooldown = Math.ceil((this.CONFIG_CHANGE_COOLDOWN_MS - timeSinceLastChange) / 1000);
+      warnings.push(`Configuration change cooldown: ${remainingCooldown} seconds remaining`);
+    }
+    
+    // Health check - don't scale during degraded state
+    if (this.shardConfig.healthStatus === 'critical') {
+      errors.push('Cannot modify configuration while system is in critical state');
+    }
+    
+    // Calculate impact
+    const validatorChange = newValidatorCount - (currentCount * this.shardConfig.validatorsPerShard);
+    const tpsChange = (newCount - currentCount) * this.shardConfig.tpsPerShard;
+    const estimatedDowntime = shardDiff > 0 ? shardDiff * 2 : 0; // ~2 seconds per shard
+    
+    // Affected shards
+    const affectedShards: number[] = [];
+    if (newCount > currentCount) {
+      for (let i = currentCount; i < newCount; i++) affectedShards.push(i);
+    } else {
+      for (let i = newCount; i < currentCount; i++) affectedShards.push(i);
+    }
+    
+    return {
+      valid: errors.length === 0,
+      errors,
+      warnings,
+      estimatedImpact: {
+        validatorChange,
+        tpsChange,
+        estimatedDowntime,
+        affectedShards
+      }
+    };
+  }
+
+  private detectHardwareProfile(): { name: string; cores: number; ramGB: number; maxShards: number; tpsCapacity: number } {
+    // In production, this would query actual system resources
+    // For now, detect based on environment
+    const nodeEnv = process.env.NODE_ENV || 'development';
+    if (nodeEnv === 'production') {
+      return { name: 'production', ...this.HARDWARE_PROFILES.production };
+    }
+    return { name: 'development', ...this.HARDWARE_PROFILES.development };
+  }
+
+  // ============================================
+  // TRANSACTIONAL CONFIG UPDATE WITH ROLLBACK
+  // ============================================
+  public async updateShardConfiguration(
+    newCount: number,
+    options: { actor?: string; reason?: string; force?: boolean; dryRun?: boolean } = {}
+  ): Promise<ShardConfigUpdateResult> {
+    const requestId = `cfg-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
+    const actor = options.actor || 'system';
+    const reason = options.reason || 'Manual configuration update';
+    
+    // Validate configuration
+    const validation = this.validateShardConfig(newCount, { actor, reason });
+    
+    if (options.dryRun) {
+      return {
+        success: validation.valid,
+        requestId,
+        validation,
+        message: options.dryRun ? 'Dry run completed' : 'Validation failed'
+      };
+    }
+    
+    if (!validation.valid && !options.force) {
+      this.addAuditLog({
+        action: 'CONFIG_CHANGE',
+        actor,
+        details: { newCount, reason, errors: validation.errors },
+        oldValue: this.shardConfig.currentShardCount,
+        newValue: newCount,
+        status: 'failed',
+        severity: 'warning'
+      });
+      
+      return {
+        success: false,
+        requestId,
+        validation,
+        message: `Validation failed: ${validation.errors.join(', ')}`
+      };
+    }
+    
+    // Save current config for rollback
+    const previousVersion = this.shardConfig.version;
+    const previousConfig = { ...this.shardConfig };
+    
+    this.configHistory.push({
+      version: previousVersion,
+      config: previousConfig,
+      timestamp: new Date().toISOString(),
+      changedBy: actor,
+      reason,
+      rollbackable: true
+    });
+    
+    // Keep only last 50 config versions
+    if (this.configHistory.length > 50) {
+      this.configHistory = this.configHistory.slice(-50);
+    }
+    
+    // Apply new configuration
+    const oldCount = this.shardConfig.currentShardCount;
+    this.shardConfig.currentShardCount = newCount;
+    this.shardConfig.version++;
+    this.shardConfig.lastConfigUpdate = new Date().toISOString();
+    this.lastConfigChangeTime = Date.now();
+    
+    // Initialize health metrics for new shards
+    this.initializeShardHealthMetrics();
+    
+    // Record scaling event
+    this.scalingEvents.push({
+      id: requestId,
+      timestamp: new Date().toISOString(),
+      type: newCount > oldCount ? 'scale_up' : 'scale_down',
+      fromShards: oldCount,
+      toShards: newCount,
+      triggerReason: reason,
+      status: 'completed',
+      duration: validation.estimatedImpact.estimatedDowntime * 1000,
+      affectedValidators: Math.abs(validation.estimatedImpact.validatorChange)
+    });
+    
+    // Add audit log
+    this.addAuditLog({
+      action: 'CONFIG_CHANGE',
+      actor,
+      details: {
+        requestId,
+        reason,
+        validation: { warnings: validation.warnings },
+        impact: validation.estimatedImpact
+      },
+      oldValue: oldCount,
+      newValue: newCount,
+      status: 'success',
+      severity: validation.warnings.length > 0 ? 'warning' : 'info'
+    });
+    
+    // Emit event for other components
+    this.emit('shardConfigChanged', {
+      oldCount,
+      newCount,
+      version: this.shardConfig.version,
+      timestamp: this.shardConfig.lastConfigUpdate
+    });
+    
+    // Broadcast to WebSocket clients
+    this.broadcastConfigChange({
+      type: 'shard_config_update',
+      data: {
+        previousCount: oldCount,
+        currentCount: newCount,
+        version: this.shardConfig.version,
+        totalValidators: newCount * this.shardConfig.validatorsPerShard,
+        estimatedTps: newCount * this.shardConfig.tpsPerShard
+      }
+    });
+    
+    console.log(`[Enterprise Node] ✅ Shard configuration updated: ${oldCount} → ${newCount} shards (v${this.shardConfig.version})`);
+    
+    return {
+      success: true,
+      requestId,
+      validation,
+      rollbackVersion: previousVersion,
+      message: `Configuration updated successfully: ${oldCount} → ${newCount} shards`
+    };
+  }
+
+  // Rollback to previous configuration
+  public async rollbackConfiguration(targetVersion?: number, actor: string = 'system'): Promise<{
+    success: boolean;
+    message: string;
+    previousVersion: number;
+    restoredVersion: number;
+  }> {
+    if (this.configHistory.length === 0) {
+      return {
+        success: false,
+        message: 'No configuration history available for rollback',
+        previousVersion: this.shardConfig.version,
+        restoredVersion: this.shardConfig.version
+      };
+    }
+    
+    // Find target version or use latest
+    let targetConfig;
+    if (targetVersion !== undefined) {
+      targetConfig = this.configHistory.find(h => h.version === targetVersion);
+      if (!targetConfig) {
+        return {
+          success: false,
+          message: `Version ${targetVersion} not found in history`,
+          previousVersion: this.shardConfig.version,
+          restoredVersion: this.shardConfig.version
+        };
+      }
+    } else {
+      targetConfig = this.configHistory[this.configHistory.length - 1];
+    }
+    
+    if (!targetConfig.rollbackable) {
+      return {
+        success: false,
+        message: `Version ${targetConfig.version} is not rollbackable`,
+        previousVersion: this.shardConfig.version,
+        restoredVersion: this.shardConfig.version
+      };
+    }
+    
+    const previousVersion = this.shardConfig.version;
+    const oldCount = this.shardConfig.currentShardCount;
+    
+    // Restore configuration
+    this.shardConfig = { ...targetConfig.config };
+    this.shardConfig.version = previousVersion + 1; // Increment version
+    this.shardConfig.lastConfigUpdate = new Date().toISOString();
+    
+    // Update health metrics
+    this.initializeShardHealthMetrics();
+    
+    // Add audit log
+    this.addAuditLog({
+      action: 'ROLLBACK',
+      actor,
+      details: {
+        targetVersion: targetConfig.version,
+        previousVersion,
+        restoredCount: this.shardConfig.currentShardCount
+      },
+      oldValue: oldCount,
+      newValue: this.shardConfig.currentShardCount,
+      status: 'success',
+      severity: 'warning'
+    });
+    
+    // Emit event
+    this.emit('shardConfigRolledBack', {
+      previousVersion,
+      restoredVersion: this.shardConfig.version,
+      restoredCount: this.shardConfig.currentShardCount
+    });
+    
+    console.log(`[Enterprise Node] ⏪ Configuration rolled back to v${targetConfig.version}: ${oldCount} → ${this.shardConfig.currentShardCount} shards`);
+    
+    return {
+      success: true,
+      message: `Rolled back from v${previousVersion} to v${targetConfig.version}`,
+      previousVersion,
+      restoredVersion: this.shardConfig.version
+    };
+  }
+
+  // Initialize health metrics for all shards
+  private initializeShardHealthMetrics(): void {
+    this.shardHealthMetrics.clear();
+    for (let i = 0; i < this.shardConfig.currentShardCount; i++) {
+      this.shardHealthMetrics.set(i, {
+        shardId: i,
+        load: 0.3 + Math.random() * 0.4, // 30-70% load
+        latency: 10 + Math.random() * 40, // 10-50ms
+        transactionBacklog: Math.floor(Math.random() * 100),
+        validatorUptime: 0.95 + Math.random() * 0.05, // 95-100%
+        crossShardSuccess: 0.98 + Math.random() * 0.02, // 98-100%
+        lastUpdate: new Date().toISOString(),
+        status: 'healthy'
+      });
+    }
+  }
+
+  // Add audit log entry
+  private addAuditLog(entry: Omit<typeof this.auditLog[0], 'id' | 'timestamp'>): void {
+    this.auditLog.push({
+      id: `audit-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`,
+      timestamp: new Date().toISOString(),
+      ...entry
+    });
+    
+    // Keep only last 1000 audit entries
+    if (this.auditLog.length > 1000) {
+      this.auditLog = this.auditLog.slice(-1000);
+    }
+  }
+
+  // Broadcast configuration change to WebSocket clients
+  private broadcastConfigChange(message: { type: string; data: any }): void {
+    const payload = JSON.stringify(message);
+    this.wsClients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(payload);
+      }
+    });
+  }
+
+  // Get shard health summary
+  public getShardHealthSummary(): {
+    overallStatus: 'healthy' | 'degraded' | 'critical';
+    shardCount: number;
+    healthyShards: number;
+    degradedShards: number;
+    criticalShards: number;
+    averageLoad: number;
+    averageLatency: number;
+    alerts: Array<{ shardId: number; type: string; message: string; severity: string }>;
+  } {
+    const alerts: Array<{ shardId: number; type: string; message: string; severity: string }> = [];
+    let healthyCount = 0;
+    let degradedCount = 0;
+    let criticalCount = 0;
+    let totalLoad = 0;
+    let totalLatency = 0;
+    
+    this.shardHealthMetrics.forEach((metrics, shardId) => {
+      totalLoad += metrics.load;
+      totalLatency += metrics.latency;
+      
+      if (metrics.load > 0.9) {
+        alerts.push({ shardId, type: 'high_load', message: `Shard ${shardId} load at ${(metrics.load * 100).toFixed(1)}%`, severity: 'warning' });
+        degradedCount++;
+      } else if (metrics.load > 0.95) {
+        alerts.push({ shardId, type: 'critical_load', message: `Shard ${shardId} load critical at ${(metrics.load * 100).toFixed(1)}%`, severity: 'critical' });
+        criticalCount++;
+      } else {
+        healthyCount++;
+      }
+      
+      if (metrics.latency > 100) {
+        alerts.push({ shardId, type: 'high_latency', message: `Shard ${shardId} latency at ${metrics.latency.toFixed(0)}ms`, severity: 'warning' });
+      }
+    });
+    
+    const shardCount = this.shardHealthMetrics.size || this.shardConfig.currentShardCount;
+    
+    return {
+      overallStatus: criticalCount > 0 ? 'critical' : degradedCount > 0 ? 'degraded' : 'healthy',
+      shardCount,
+      healthyShards: healthyCount,
+      degradedShards: degradedCount,
+      criticalShards: criticalCount,
+      averageLoad: shardCount > 0 ? totalLoad / shardCount : 0,
+      averageLatency: shardCount > 0 ? totalLatency / shardCount : 0,
+      alerts
+    };
+  }
+
+  // Get configuration history
+  public getConfigurationHistory(limit: number = 20): typeof this.configHistory {
+    return this.configHistory.slice(-limit);
+  }
+
+  // Get audit logs
+  public getAuditLogs(options: { limit?: number; action?: string; severity?: string } = {}): typeof this.auditLog {
+    let logs = [...this.auditLog];
+    
+    if (options.action) {
+      logs = logs.filter(l => l.action === options.action);
+    }
+    if (options.severity) {
+      logs = logs.filter(l => l.severity === options.severity);
+    }
+    
+    return logs.slice(-(options.limit || 50));
+  }
+
+  // Get scaling events
+  public getScalingEvents(limit: number = 20): typeof this.scalingEvents {
+    return this.scalingEvents.slice(-limit);
+  }
   
   // Shard name generator for 64 shards
   private readonly SHARD_NAMES = [
@@ -362,21 +870,45 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json(this.getShardConfig());
     });
     
-    // Update shard configuration
-    this.rpcApp.post('/api/admin/shards/config', (req: Request, res: Response) => {
-      const { shardCount, validatorsPerShard, scalingMode } = req.body;
+    // Update shard configuration (enterprise method with audit logging)
+    this.rpcApp.post('/api/admin/shards/config', async (req: Request, res: Response) => {
+      const { shardCount, validatorsPerShard, scalingMode, actor, reason, force } = req.body;
       
-      const updates: any = {};
-      if (shardCount !== undefined) updates.currentShardCount = parseInt(shardCount);
-      if (validatorsPerShard !== undefined) updates.validatorsPerShard = parseInt(validatorsPerShard);
-      if (scalingMode !== undefined) updates.scalingMode = scalingMode;
-      
-      const result = this.updateShardConfig(updates);
-      
-      if (result.success) {
-        res.json(result);
+      if (shardCount !== undefined) {
+        const newCount = parseInt(shardCount);
+        const result = await this.updateShardConfiguration(newCount, {
+          actor: actor || 'admin',
+          reason: reason || 'Manual shard configuration update',
+          force: force || false,
+          dryRun: false
+        });
+        
+        if (result.success) {
+          res.json({
+            success: true,
+            message: result.message,
+            requestId: result.requestId,
+            config: this.getShardConfig()
+          });
+        } else {
+          res.status(400).json({
+            success: false,
+            message: result.message,
+            validation: result.validation
+          });
+        }
       } else {
-        res.status(400).json(result);
+        const updates: any = {};
+        if (validatorsPerShard !== undefined) updates.validatorsPerShard = parseInt(validatorsPerShard);
+        if (scalingMode !== undefined) updates.scalingMode = scalingMode;
+        
+        const result = this.updateShardConfig(updates);
+        
+        if (result.success) {
+          res.json(result);
+        } else {
+          res.status(400).json(result);
+        }
       }
     });
     
@@ -421,6 +953,107 @@ export class TBurnEnterpriseNode extends EventEmitter {
         currentConfig: this.getShardConfig(),
         profiles: this.HARDWARE_PROFILES,
         analysis: this.getScalingAnalysis(),
+        timestamp: new Date().toISOString()
+      });
+    });
+
+    // ============================================
+    // ENTERPRISE SHARD MANAGEMENT ENDPOINTS
+    // ============================================
+
+    // Validate configuration (dry run)
+    this.rpcApp.post('/api/admin/shards/config/validate', async (req: Request, res: Response) => {
+      const { count, actor, reason } = req.body;
+      const newCount = parseInt(count) || this.shardConfig.currentShardCount;
+      
+      const result = await this.updateShardConfiguration(newCount, {
+        actor: actor || 'admin',
+        reason: reason || 'Configuration validation',
+        dryRun: true
+      });
+      
+      res.json({
+        valid: result.success,
+        validation: result.validation,
+        message: result.message,
+        currentConfig: this.getShardConfig()
+      });
+    });
+
+    // Rollback configuration
+    this.rpcApp.post('/api/admin/shards/config/rollback', async (req: Request, res: Response) => {
+      const { targetVersion, actor } = req.body;
+      
+      const result = await this.rollbackConfiguration(
+        targetVersion !== undefined ? parseInt(targetVersion) : undefined,
+        actor || 'admin'
+      );
+      
+      if (result.success) {
+        res.json({
+          success: true,
+          message: result.message,
+          previousVersion: result.previousVersion,
+          restoredVersion: result.restoredVersion,
+          currentConfig: this.getShardConfig()
+        });
+      } else {
+        res.status(400).json({
+          success: false,
+          message: result.message,
+          availableVersions: this.getConfigurationHistory().map(h => h.version)
+        });
+      }
+    });
+
+    // Get configuration history
+    this.rpcApp.get('/api/admin/shards/config/history', (req: Request, res: Response) => {
+      const limit = parseInt(req.query.limit as string) || 20;
+      const history = this.getConfigurationHistory(limit);
+      
+      res.json({
+        history,
+        currentVersion: this.shardConfig.version,
+        totalVersions: this.configHistory.length
+      });
+    });
+
+    // Get shard health metrics
+    this.rpcApp.get('/api/admin/shards/health', (_req: Request, res: Response) => {
+      const health = this.getShardHealthSummary();
+      const shardDetails = Array.from(this.shardHealthMetrics.values());
+      
+      res.json({
+        summary: health,
+        shards: shardDetails,
+        timestamp: new Date().toISOString()
+      });
+    });
+
+    // Get scaling events
+    this.rpcApp.get('/api/admin/shards/scaling-events', (req: Request, res: Response) => {
+      const limit = parseInt(req.query.limit as string) || 20;
+      const events = this.getScalingEvents(limit);
+      
+      res.json({
+        events,
+        totalEvents: this.scalingEvents.length,
+        timestamp: new Date().toISOString()
+      });
+    });
+
+    // Get audit logs
+    this.rpcApp.get('/api/admin/shards/audit-logs', (req: Request, res: Response) => {
+      const limit = parseInt(req.query.limit as string) || 50;
+      const action = req.query.action as string | undefined;
+      const severity = req.query.severity as string | undefined;
+      
+      const logs = this.getAuditLogs({ limit, action, severity });
+      
+      res.json({
+        logs,
+        totalLogs: this.auditLog.length,
+        filters: { action, severity },
         timestamp: new Date().toISOString()
       });
     });

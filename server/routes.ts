@@ -6165,6 +6165,103 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ============================================
+  // ENTERPRISE SHARD MANAGEMENT APIs
+  // ============================================
+
+  // Validate configuration (dry run)
+  app.post("/api/admin/shards/config/validate", async (req, res) => {
+    try {
+      const response = await fetch('http://localhost:8545/api/admin/shards/config/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(req.body)
+      });
+      const result = await response.json();
+      res.json(result);
+    } catch (error) {
+      console.error('Failed to validate shard config:', error);
+      res.status(500).json({ error: "Failed to validate configuration" });
+    }
+  });
+
+  // Rollback configuration
+  app.post("/api/admin/shards/config/rollback", async (req, res) => {
+    try {
+      const response = await fetch('http://localhost:8545/api/admin/shards/config/rollback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(req.body)
+      });
+      const result = await response.json();
+      
+      if (!response.ok) {
+        return res.status(response.status).json(result);
+      }
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Failed to rollback shard config:', error);
+      res.status(500).json({ error: "Failed to rollback configuration" });
+    }
+  });
+
+  // Get configuration history
+  app.get("/api/admin/shards/config/history", async (req, res) => {
+    try {
+      const limit = req.query.limit || 20;
+      const response = await fetch(`http://localhost:8545/api/admin/shards/config/history?limit=${limit}`);
+      const history = await response.json();
+      res.json(history);
+    } catch (error) {
+      console.error('Failed to fetch config history:', error);
+      res.status(500).json({ error: "Failed to fetch configuration history" });
+    }
+  });
+
+  // Get shard health metrics
+  app.get("/api/admin/shards/health", async (_req, res) => {
+    try {
+      const response = await fetch('http://localhost:8545/api/admin/shards/health');
+      const health = await response.json();
+      res.json(health);
+    } catch (error) {
+      console.error('Failed to fetch shard health:', error);
+      res.status(500).json({ error: "Failed to fetch shard health metrics" });
+    }
+  });
+
+  // Get scaling events
+  app.get("/api/admin/shards/scaling-events", async (req, res) => {
+    try {
+      const limit = req.query.limit || 20;
+      const response = await fetch(`http://localhost:8545/api/admin/shards/scaling-events?limit=${limit}`);
+      const events = await response.json();
+      res.json(events);
+    } catch (error) {
+      console.error('Failed to fetch scaling events:', error);
+      res.status(500).json({ error: "Failed to fetch scaling events" });
+    }
+  });
+
+  // Get audit logs for shard configuration
+  app.get("/api/admin/shards/audit-logs", async (req, res) => {
+    try {
+      const { limit, action, severity } = req.query;
+      let url = 'http://localhost:8545/api/admin/shards/audit-logs?';
+      if (limit) url += `limit=${limit}&`;
+      if (action) url += `action=${action}&`;
+      if (severity) url += `severity=${severity}&`;
+      
+      const response = await fetch(url);
+      const logs = await response.json();
+      res.json(logs);
+    } catch (error) {
+      console.error('Failed to fetch audit logs:', error);
+      res.status(500).json({ error: "Failed to fetch audit logs" });
+    }
+  });
+
   // Network Parameters
   app.get("/api/admin/network/params", async (_req, res) => {
     try {
