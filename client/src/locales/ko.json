@@ -16564,7 +16564,16 @@
     "configUpdateSuccess": "구성 업데이트됨",
     "configUpdateSuccessDesc": "샤드 구성이 성공적으로 업데이트되었습니다",
     "configUpdateError": "구성 업데이트 실패",
-    "configUpdateErrorDesc": "샤드 구성을 업데이트하지 못했습니다"
+    "configUpdateErrorDesc": "샤드 구성을 업데이트하지 못했습니다",
+    "overview": "개요",
+    "performance": "성능",
+    "network": "네트워크",
+    "shardId": "샤드 ID",
+    "shardName": "샤드 이름",
+    "pendingTx": "대기 중인 트랜잭션",
+    "crossShardTx": "크로스-샤드 트랜잭션",
+    "capacityUsage": "용량 사용률",
+    "triggerRebalance": "리밸런싱 실행"
   },
   "adminNetworkParams": {
     "title": "네트워크 파라미터",

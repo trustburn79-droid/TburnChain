@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, DetailSection } from "@/components/admin/detail-sheet";
 import {
   Grid3x3,
   Activity,
@@ -171,6 +172,8 @@ export default function AdminShards() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [selectedShardCount, setSelectedShardCount] = useState<number | null>(null);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
+  const [selectedShard, setSelectedShard] = useState<Shard | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const { data: shardingData, isLoading, error, refetch } = useQuery<ShardingResponse>({
     queryKey: ["/api/sharding"],
@@ -370,6 +373,42 @@ export default function AdminShards() {
     if (load >= 70) return "bg-yellow-500";
     return "bg-green-500";
   };
+
+  const handleViewShard = (shard: Shard) => {
+    setSelectedShard(shard);
+    setIsDetailOpen(true);
+  };
+
+  const getShardDetailSections = (shard: Shard): DetailSection[] => [
+    {
+      title: t("adminShards.overview"),
+      icon: <Grid3x3 className="h-4 w-4" />,
+      fields: [
+        { label: t("adminShards.shardId"), value: `#${shard.id}` },
+        { label: t("adminShards.shardName"), value: shard.name },
+        { label: t("common.status"), value: shard.status, type: "status" as const },
+        { label: t("adminShards.rebalanceScore"), value: `${shard.rebalanceScore}%`, type: "progress" as const },
+      ],
+    },
+    {
+      title: t("adminShards.performance"),
+      icon: <Zap className="h-4 w-4" />,
+      fields: [
+        { label: t("adminShards.tps"), value: shard.tps.toLocaleString() },
+        { label: t("adminShards.load"), value: `${shard.load}%`, type: "progress" as const },
+        { label: t("adminShards.pendingTx"), value: shard.pendingTx.toLocaleString() },
+        { label: t("adminShards.crossShardTx"), value: shard.crossShardTx.toLocaleString() },
+      ],
+    },
+    {
+      title: t("adminShards.network"),
+      icon: <Users className="h-4 w-4" />,
+      fields: [
+        { label: t("adminShards.validators"), value: shard.validators.toLocaleString() },
+        { label: t("adminShards.capacityUsage"), value: shard.load >= 80 ? t("adminShards.statusCritical") : shard.load >= 70 ? t("adminShards.statusWarning") : t("adminShards.statusHealthy"), type: "badge" as const, badgeVariant: shard.load >= 80 ? "destructive" as const : shard.load >= 70 ? "outline" as const : "secondary" as const },
+      ],
+    },
+  ];
 
   if (error) {
     return (
@@ -757,7 +796,7 @@ export default function AdminShards() {
                         <div className="flex items-center gap-1">
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <Button size="icon" variant="ghost" data-testid={`button-view-shard-${shard.id}`}>
+                              <Button size="icon" variant="ghost" onClick={() => handleViewShard(shard)} data-testid={`button-view-shard-${shard.id}`}>
                                 <Eye className="h-4 w-4" />
                               </Button>
                             </TooltipTrigger>
@@ -901,6 +940,26 @@ export default function AdminShards() {
           </Card>
         </div>
       </div>
+
+      <DetailSheet
+        open={isDetailOpen}
+        onOpenChange={setIsDetailOpen}
+        title={selectedShard?.name || ""}
+        subtitle={`Shard #${selectedShard?.id || 0}`}
+        icon={<Grid3x3 className="h-5 w-5" />}
+        sections={selectedShard ? getShardDetailSections(selectedShard) : []}
+        actions={selectedShard ? [
+          {
+            label: t("adminShards.triggerRebalance"),
+            icon: <RefreshCw className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              rebalanceMutation.mutate();
+            },
+            disabled: rebalanceMutation.isPending,
+          },
+        ] : []}
+      />
     </TooltipProvider>
   );
 }

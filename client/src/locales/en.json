@@ -16584,7 +16584,16 @@
     "configUpdateSuccess": "Configuration Updated",
     "configUpdateSuccessDesc": "Shard configuration has been updated successfully",
     "configUpdateError": "Configuration Update Failed",
-    "configUpdateErrorDesc": "Failed to update shard configuration"
+    "configUpdateErrorDesc": "Failed to update shard configuration",
+    "overview": "Overview",
+    "performance": "Performance",
+    "network": "Network",
+    "shardId": "Shard ID",
+    "shardName": "Shard Name",
+    "pendingTx": "Pending Transactions",
+    "crossShardTx": "Cross-Shard Transactions",
+    "capacityUsage": "Capacity Usage",
+    "triggerRebalance": "Trigger Rebalance"
   },
   "adminNetworkParams": {
     "title": "Network Parameters",
