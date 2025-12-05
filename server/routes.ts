@@ -7452,9 +7452,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/developer/contracts", async (_req, res) => {
     res.json({
       contracts: [
-        { address: '0x1234...', name: 'TBURN Token', verified: true, interactions: 1000000 },
-        { address: '0x5678...', name: 'Staking Contract', verified: true, interactions: 500000 }
-      ]
+        { address: "0x1234...5678", name: "TBURN Token", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 1248567 },
+        { address: "0xabcd...efgh", name: "Staking Pool", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 456789 },
+        { address: "0x9876...5432", name: "Bridge Contract", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-02-20", transactions: 234567 },
+        { address: "0xdead...beef", name: "DEX Router", verified: false, compiler: "unknown", deployedAt: "2024-03-10", transactions: 89012 },
+        { address: "0xface...cafe", name: "Lending Protocol", verified: true, compiler: "solidity 0.8.21", deployedAt: "2024-04-05", transactions: 178234 },
+        { address: "0xbeef...dead", name: "NFT Marketplace", verified: true, compiler: "solidity 0.8.21", deployedAt: "2024-05-12", transactions: 67890 }
+      ],
+      stats: {
+        totalContracts: 12847,
+        verified: 8234,
+        interactions24h: "2.4M",
+        gasUsed24h: "847M"
+      }
     });
   });
 
