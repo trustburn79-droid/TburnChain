@@ -16001,7 +16001,31 @@
       "title": "브릿지 데이터 로드 실패",
       "description": "브릿지 통계를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "detail": {
+      "title": "체인 상세정보",
+      "overview": "체인 개요",
+      "performance": "성능",
+      "configuration": "설정",
+      "chainName": "체인 이름",
+      "chainSymbol": "심볼",
+      "symbol": "심볼",
+      "status": "상태",
+      "bridgeStatus": "브릿지 상태",
+      "tvl": "TVL",
+      "volume24h": "24시간 거래량",
+      "pendingTx": "대기 TX",
+      "activeValidators": "활성 검증자",
+      "bridgeContract": "브릿지 컨트랙트",
+      "requiredConfirmations": "필수 확인",
+      "maxTransferLimit": "최대 전송 한도"
+    },
+    "confirm": {
+      "exportTitle": "브릿지 데이터 내보내기",
+      "exportDescription": "체인 통계와 최근 전송을 포함한 모든 브릿지 대시보드 데이터를 내보냅니다.",
+      "export": "내보내기",
+      "cancel": "취소"
+    }
   },
   "adminTransfers": {
     "title": "브릿지 전송",
@@ -16079,7 +16103,34 @@
       "bridgeOffline": "브릿지 오프라인",
       "unknown": "알 수 없는 오류"
     },
-    "transferHistory": "Transfer History"
+    "transferHistory": "전송 기록",
+    "detail": {
+      "summary": "전송 요약",
+      "routing": "라우팅 및 수수료",
+      "progress": "상태 기록",
+      "transactionId": "트랜잭션 ID",
+      "status": "상태",
+      "amount": "금액",
+      "fee": "수수료",
+      "fromChain": "출발 체인",
+      "fromAddress": "출발 주소",
+      "toChain": "도착 체인",
+      "toAddress": "도착 주소",
+      "confirmations": "확인",
+      "timestamp": "타임스탬프",
+      "duration": "소요 시간",
+      "error": "오류"
+    },
+    "confirm": {
+      "retryTitle": "전송 재시도",
+      "retryDescription": "전송 {{txId}}를 재시도하시겠습니까? 전송 완료를 위한 새로운 시도가 시작됩니다.",
+      "retry": "전송 재시도",
+      "cancelTitle": "전송 취소",
+      "cancelDescription": "전송 {{txId}}를 취소하시겠습니까? 이 작업은 되돌릴 수 없으며 수수료가 발생할 수 있습니다.",
+      "cancelTransfer": "전송 취소",
+      "cancel": "전송 유지",
+      "close": "닫기"
+    }
   },
   "adminTraining": {
     "title": "학습 자료",
@@ -17683,7 +17734,23 @@
       "title": "유동성 데이터 로드 실패",
       "description": "유동성 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "viewDetails": "상세정보 보기",
+    "detail": {
+      "overview": "개요",
+      "utilization": "활용률",
+      "chain": "체인",
+      "locked": "잠금량",
+      "available": "사용 가능",
+      "utilizationRate": "활용률",
+      "supportedTokens": "지원 토큰"
+    },
+    "confirm": {
+      "rebalanceTitle": "리밸런싱 실행",
+      "rebalanceDescription": "{{from}}에서 {{to}}로 {{amount}}을 리밸런싱하시겠습니까? 이 작업은 체인 간 유동성을 재분배합니다.",
+      "rebalance": "실행",
+      "cancel": "취소"
+    }
   },
   "adminFeedback": {
     "title": "피드백 관리",
@@ -18038,7 +18105,34 @@
       "title": "검증자 로드 실패",
       "description": "검증자 데이터를 가져올 수 없습니다. 다시 시도해 주세요."
     },
-    "retry": "다시 시도"
+    "retry": "다시 시도",
+    "activate": "활성화",
+    "deactivate": "비활성화",
+    "validatorDetails": "검증자 상세정보",
+    "detail": {
+      "basicInfo": "기본 정보",
+      "performance": "성능",
+      "staking": "스테이킹",
+      "name": "이름",
+      "address": "주소",
+      "status": "상태",
+      "uptime": "가동 시간",
+      "signatures": "서명 수",
+      "stakeAmount": "스테이킹 금액",
+      "supportedChains": "지원 체인"
+    },
+    "confirm": {
+      "activateTitle": "검증자 활성화",
+      "activateDescription": "{{name}} 검증자를 활성화하시겠습니까? 이 검증자가 브릿지 운영에 참여할 수 있게 됩니다.",
+      "activate": "활성화",
+      "deactivateTitle": "검증자 비활성화",
+      "deactivateDescription": "{{name}} 검증자를 비활성화하시겠습니까? 이 검증자는 새로운 전송에 서명할 수 없게 됩니다.",
+      "deactivate": "비활성화",
+      "slashTitle": "검증자 슬래시",
+      "slashDescription": "{{name}} 검증자를 슬래시하시겠습니까? 이 검증자에게 패널티가 부과되고 스테이킹 금액이 감소합니다.",
+      "slash": "슬래시",
+      "cancel": "취소"
+    }
   },
   "adminAIAnalytics": {
     "title": "AI 의사결정 분석",

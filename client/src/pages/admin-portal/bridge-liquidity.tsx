@@ -14,9 +14,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Droplets, TrendingUp, AlertTriangle, ArrowUpRight, 
-  ArrowDownRight, RefreshCw, Plus, Minus, Download, Clock, AlertCircle
+  ArrowDownRight, RefreshCw, Plus, Minus, Download, Clock, AlertCircle, Eye
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
@@ -100,6 +102,10 @@ export default function AdminBridgeLiquidity() {
   const [wsConnected, setWsConnected] = useState(false);
   const [addLiquidityAmount, setAddLiquidityAmount] = useState("");
   const [removeLiquidityAmount, setRemoveLiquidityAmount] = useState("");
+  const [selectedPool, setSelectedPool] = useState<LiquidityPool | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [rebalanceDialogOpen, setRebalanceDialogOpen] = useState(false);
+  const [selectedAlert, setSelectedAlert] = useState<RebalanceAlert | null>(null);
 
   const { data: statsData, isLoading: loadingStats, error, refetch: refetchStats } = useQuery<LiquidityStats>({
     queryKey: ["/api/admin/bridge/liquidity/stats"],
@@ -278,6 +284,43 @@ export default function AdminBridgeLiquidity() {
       description: t("adminLiquidity.exportSuccessDesc"),
     });
   }, [toast, t]);
+
+  const handleViewPool = (pool: LiquidityPool) => {
+    setSelectedPool(pool);
+    setDetailOpen(true);
+  };
+
+  const handleRebalanceClick = (alert: RebalanceAlert) => {
+    setSelectedAlert(alert);
+    setRebalanceDialogOpen(true);
+  };
+
+  const confirmRebalance = useCallback(() => {
+    if (selectedAlert) {
+      rebalanceMutation.mutate(selectedAlert.id);
+    }
+    setRebalanceDialogOpen(false);
+  }, [selectedAlert, rebalanceMutation]);
+
+  const getPoolDetailSections = (pool: LiquidityPool): DetailSection[] => {
+    return [
+      {
+        title: t("adminLiquidity.detail.overview"),
+        fields: [
+          { label: t("adminLiquidity.detail.chain"), value: pool.chain, type: "text" as const },
+          { label: t("adminLiquidity.detail.locked"), value: pool.locked, type: "text" as const },
+          { label: t("adminLiquidity.detail.available"), value: pool.available, type: "text" as const },
+        ],
+      },
+      {
+        title: t("adminLiquidity.detail.utilization"),
+        fields: [
+          { label: t("adminLiquidity.detail.utilizationRate"), value: `${pool.utilization}%`, type: "progress" as const },
+          { label: t("adminLiquidity.detail.supportedTokens"), value: pool.tokens.join(", "), type: "text" as const },
+        ],
+      },
+    ];
+  };
 
   const liquidityStats = useMemo(() => {
     if (statsData) return statsData;
@@ -475,7 +518,7 @@ export default function AdminBridgeLiquidity() {
                       </div>
                       <Button 
                         size="sm" 
-                        onClick={() => rebalanceMutation.mutate(alert.id)}
+                        onClick={() => handleRebalanceClick(alert)}
                         disabled={rebalanceMutation.isPending}
                         data-testid={`button-execute-rebalance-${alert.id}`}
                       >
@@ -552,6 +595,14 @@ export default function AdminBridgeLiquidity() {
                             </TableCell>
                             <TableCell>
                               <div className="flex gap-1">
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button size="sm" variant="ghost" data-testid={`button-view-${pool.chain}`} onClick={() => handleViewPool(pool)}>
+                                      <Eye className="w-4 h-4" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>{t("adminLiquidity.viewDetails")}</TooltipContent>
+                                </Tooltip>
                                 <Tooltip>
                                   <TooltipTrigger asChild>
                                     <Button size="sm" variant="ghost" data-testid={`button-add-${pool.chain}`}>
@@ -701,6 +752,33 @@ export default function AdminBridgeLiquidity() {
             </TabsContent>
           </Tabs>
         </div>
+
+        {selectedPool && (
+          <DetailSheet
+            open={detailOpen}
+            onOpenChange={setDetailOpen}
+            title={t("adminLiquidity.poolDetails")}
+            subtitle={selectedPool.chain}
+            sections={getPoolDetailSections(selectedPool)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={rebalanceDialogOpen}
+          onOpenChange={setRebalanceDialogOpen}
+          title={t("adminLiquidity.confirm.rebalanceTitle")}
+          description={t("adminLiquidity.confirm.rebalanceDescription", { 
+            from: selectedAlert?.from || "", 
+            to: selectedAlert?.to || "",
+            amount: selectedAlert?.amount || ""
+          })}
+          confirmText={t("adminLiquidity.confirm.rebalance")}
+          cancelText={t("adminLiquidity.confirm.cancel")}
+          actionType="custom"
+          destructive={false}
+          isLoading={rebalanceMutation.isPending}
+          onConfirm={confirmRebalance}
+        />
       </ScrollArea>
     </TooltipProvider>
   );

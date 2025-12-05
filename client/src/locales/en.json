@@ -17229,7 +17229,31 @@
       "title": "Failed to Load Bridge Data",
       "description": "Unable to fetch bridge statistics. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "detail": {
+      "title": "Chain Details",
+      "overview": "Chain Overview",
+      "performance": "Performance",
+      "configuration": "Configuration",
+      "chainName": "Chain Name",
+      "chainSymbol": "Symbol",
+      "symbol": "Symbol",
+      "status": "Status",
+      "bridgeStatus": "Bridge Status",
+      "tvl": "TVL",
+      "volume24h": "24h Volume",
+      "pendingTx": "Pending TX",
+      "activeValidators": "Active Validators",
+      "bridgeContract": "Bridge Contract",
+      "requiredConfirmations": "Required Confirmations",
+      "maxTransferLimit": "Max Transfer Limit"
+    },
+    "confirm": {
+      "exportTitle": "Export Bridge Data",
+      "exportDescription": "This will export all bridge dashboard data including chain statistics and recent transfers.",
+      "export": "Export",
+      "cancel": "Cancel"
+    }
   },
   "adminTransfers": {
     "title": "Bridge Transfers",
@@ -17307,7 +17331,34 @@
       "label": "Error"
     },
     "transferHistory": "Transfer History",
-    "time": "시간"
+    "time": "Time",
+    "detail": {
+      "summary": "Transfer Summary",
+      "routing": "Routing & Fees",
+      "progress": "Status History",
+      "transactionId": "Transaction ID",
+      "status": "Status",
+      "amount": "Amount",
+      "fee": "Fee",
+      "fromChain": "Source Chain",
+      "fromAddress": "Source Address",
+      "toChain": "Destination Chain",
+      "toAddress": "Destination Address",
+      "confirmations": "Confirmations",
+      "timestamp": "Timestamp",
+      "duration": "Duration",
+      "error": "Error"
+    },
+    "confirm": {
+      "retryTitle": "Retry Transfer",
+      "retryDescription": "Are you sure you want to retry transfer {{txId}}? This will initiate a new attempt to complete the transfer.",
+      "retry": "Retry Transfer",
+      "cancelTitle": "Cancel Transfer",
+      "cancelDescription": "Are you sure you want to cancel transfer {{txId}}? This action cannot be undone and may incur fees.",
+      "cancelTransfer": "Cancel Transfer",
+      "cancel": "Keep Transfer",
+      "close": "Close"
+    }
   },
   "adminBridgeValidators": {
     "title": "Bridge Validators",
@@ -17370,7 +17421,34 @@
     "address": "Address",
     "validations": "Validations",
     "online": "Online",
-    "offline": "Offline"
+    "offline": "Offline",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "validatorDetails": "Validator Details",
+    "detail": {
+      "basicInfo": "Basic Information",
+      "performance": "Performance",
+      "staking": "Staking",
+      "name": "Name",
+      "address": "Address",
+      "status": "Status",
+      "uptime": "Uptime",
+      "signatures": "Signatures",
+      "stakeAmount": "Stake Amount",
+      "supportedChains": "Supported Chains"
+    },
+    "confirm": {
+      "activateTitle": "Activate Validator",
+      "activateDescription": "Are you sure you want to activate validator {{name}}? This will enable the validator to participate in bridge operations.",
+      "activate": "Activate",
+      "deactivateTitle": "Deactivate Validator",
+      "deactivateDescription": "Are you sure you want to deactivate validator {{name}}? This will prevent the validator from signing new transfers.",
+      "deactivate": "Deactivate",
+      "slashTitle": "Slash Validator",
+      "slashDescription": "Are you sure you want to slash validator {{name}}? This will penalize the validator and reduce their stake.",
+      "slash": "Slash",
+      "cancel": "Cancel"
+    }
   },
   "adminChains": {
     "title": "Chain Connections",
@@ -17528,12 +17606,28 @@
     "retry": "Retry",
     "totalLiquidity": "Total Liquidity",
     "fees24h": "Fees 24h",
-    "pools": "풀",
-    "poolDetails": "풀 상세",
+    "pools": "Pools",
+    "poolDetails": "Pool Details",
     "apy": "APY",
     "tvl": "TVL",
-    "slippage": "슬리피지",
-    "liquidityProviders": "유동성 공급자"
+    "slippage": "Slippage",
+    "liquidityProviders": "Liquidity Providers",
+    "viewDetails": "View Details",
+    "detail": {
+      "overview": "Overview",
+      "utilization": "Utilization",
+      "chain": "Chain",
+      "locked": "Locked",
+      "available": "Available",
+      "utilizationRate": "Utilization Rate",
+      "supportedTokens": "Supported Tokens"
+    },
+    "confirm": {
+      "rebalanceTitle": "Execute Rebalance",
+      "rebalanceDescription": "Are you sure you want to rebalance {{amount}} from {{from}} to {{to}}? This operation will redistribute liquidity across chains.",
+      "rebalance": "Execute",
+      "cancel": "Cancel"
+    }
   },
   "adminSecurity": {
     "title": "Security Dashboard",

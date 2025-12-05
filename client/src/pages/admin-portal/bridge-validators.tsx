@@ -10,12 +10,13 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Shield, Users, CheckCircle, AlertTriangle, Clock, 
-  Activity, TrendingUp, Key, RefreshCw, Download, AlertCircle, Plus
+  Activity, TrendingUp, Key, RefreshCw, Download, AlertCircle, Plus, Eye
 } from "lucide-react";
 
 interface ValidatorStats {
@@ -88,6 +89,10 @@ export default function AdminBridgeValidators() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [addValidatorOpen, setAddValidatorOpen] = useState(false);
+  const [selectedValidator, setSelectedValidator] = useState<Validator | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [actionDialogOpen, setActionDialogOpen] = useState(false);
+  const [actionType, setActionType] = useState<"activate" | "deactivate" | "slash" | null>(null);
 
   const { data: statsData, isLoading: loadingStats, error, refetch: refetchStats } = useQuery<ValidatorStats>({
     queryKey: ["/api/admin/bridge/validators/stats"],
@@ -213,6 +218,74 @@ export default function AdminBridgeValidators() {
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
+  };
+
+  const handleViewValidator = (validator: Validator) => {
+    setSelectedValidator(validator);
+    setDetailOpen(true);
+  };
+
+  const handleActionClick = (validator: Validator, action: "activate" | "deactivate" | "slash") => {
+    setSelectedValidator(validator);
+    setActionType(action);
+    setActionDialogOpen(true);
+  };
+
+  const confirmAction = useCallback(() => {
+    if (selectedValidator && actionType) {
+      manageValidatorMutation.mutate({ id: selectedValidator.id, action: actionType });
+    }
+    setActionDialogOpen(false);
+  }, [selectedValidator, actionType, manageValidatorMutation]);
+
+  const getValidatorDetailSections = (validator: Validator): DetailSection[] => {
+    return [
+      {
+        title: t("adminBridgeValidators.detail.basicInfo"),
+        fields: [
+          { label: t("adminBridgeValidators.detail.name"), value: validator.name, type: "text" as const },
+          { label: t("adminBridgeValidators.detail.address"), value: validator.address, type: "code" as const, copyable: true },
+          { label: t("adminBridgeValidators.detail.status"), value: validator.status, type: "status" as const },
+        ],
+      },
+      {
+        title: t("adminBridgeValidators.detail.performance"),
+        fields: [
+          { label: t("adminBridgeValidators.detail.uptime"), value: `${validator.uptime}%`, type: "progress" as const },
+          { label: t("adminBridgeValidators.detail.signatures"), value: validator.signatures.toLocaleString(), type: "text" as const },
+        ],
+      },
+      {
+        title: t("adminBridgeValidators.detail.staking"),
+        fields: [
+          { label: t("adminBridgeValidators.detail.stakeAmount"), value: validator.stake, type: "text" as const },
+          { label: t("adminBridgeValidators.detail.supportedChains"), value: validator.chains.join(", "), type: "badge" as const },
+        ],
+      },
+    ];
+  };
+
+  const getActionDialogConfig = () => {
+    if (!actionType) return { title: "", description: "", destructive: false };
+    
+    const configs = {
+      activate: {
+        title: t("adminBridgeValidators.confirm.activateTitle"),
+        description: t("adminBridgeValidators.confirm.activateDescription", { name: selectedValidator?.name || "" }),
+        destructive: false,
+      },
+      deactivate: {
+        title: t("adminBridgeValidators.confirm.deactivateTitle"),
+        description: t("adminBridgeValidators.confirm.deactivateDescription", { name: selectedValidator?.name || "" }),
+        destructive: true,
+      },
+      slash: {
+        title: t("adminBridgeValidators.confirm.slashTitle"),
+        description: t("adminBridgeValidators.confirm.slashDescription", { name: selectedValidator?.name || "" }),
+        destructive: true,
+      },
+    };
+    return configs[actionType];
   };
 
   if (error) {
@@ -398,15 +471,37 @@ export default function AdminBridgeValidators() {
                               </div>
                             </TableCell>
                             <TableCell>
-                              <Button 
-                                size="sm" 
-                                variant="ghost" 
-                                data-testid={`button-manage-${validator.id}`}
-                                onClick={() => manageValidatorMutation.mutate({ id: validator.id, action: validator.status === "active" ? "deactivate" : "activate" })}
-                                disabled={manageValidatorMutation.isPending}
-                              >
-                                {t("adminBridgeValidators.manage")}
-                              </Button>
+                              <div className="flex gap-1">
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  data-testid={`button-view-${validator.id}`}
+                                  onClick={() => handleViewValidator(validator)}
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </Button>
+                                {validator.status === "active" ? (
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    data-testid={`button-deactivate-${validator.id}`}
+                                    onClick={() => handleActionClick(validator, "deactivate")}
+                                    disabled={manageValidatorMutation.isPending}
+                                  >
+                                    {t("adminBridgeValidators.deactivate")}
+                                  </Button>
+                                ) : validator.status === "inactive" ? (
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    data-testid={`button-activate-${validator.id}`}
+                                    onClick={() => handleActionClick(validator, "activate")}
+                                    disabled={manageValidatorMutation.isPending}
+                                  >
+                                    {t("adminBridgeValidators.activate")}
+                                  </Button>
+                                ) : null}
+                              </div>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -530,6 +625,29 @@ export default function AdminBridgeValidators() {
             </TabsContent>
           </Tabs>
         </div>
+
+        {selectedValidator && (
+          <DetailSheet
+            open={detailOpen}
+            onOpenChange={setDetailOpen}
+            title={t("adminBridgeValidators.validatorDetails")}
+            subtitle={selectedValidator.name}
+            sections={getValidatorDetailSections(selectedValidator)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={actionDialogOpen}
+          onOpenChange={setActionDialogOpen}
+          title={getActionDialogConfig().title}
+          description={getActionDialogConfig().description}
+          confirmText={actionType ? t(`adminBridgeValidators.confirm.${actionType}`) : ""}
+          cancelText={t("adminBridgeValidators.confirm.cancel")}
+          actionType={actionType === "slash" ? "terminate" : actionType === "deactivate" ? "disable" : "restart"}
+          destructive={getActionDialogConfig().destructive}
+          isLoading={manageValidatorMutation.isPending}
+          onConfirm={confirmAction}
+        />
       </ScrollArea>
     </TooltipProvider>
   );

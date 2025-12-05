@@ -10,10 +10,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   ArrowLeftRight, Search, Filter, CheckCircle, Clock, 
   AlertTriangle, XCircle, Eye, RefreshCw, Download, AlertCircle
@@ -65,6 +66,10 @@ export default function AdminBridgeTransfers() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [retryDialogOpen, setRetryDialogOpen] = useState(false);
+  const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
+  const [actionTransfer, setActionTransfer] = useState<Transfer | null>(null);
 
   const { data: transfersData, isLoading, error, refetch } = useQuery<{ transfers: Transfer[]; total: number }>({
     queryKey: ["/api/admin/bridge/transfers"],
@@ -301,6 +306,67 @@ export default function AdminBridgeTransfers() {
     return key ? t(`adminTransfers.errorTypes.${key}`) : error;
   };
 
+  const handleViewTransfer = (transfer: Transfer) => {
+    setSelectedTransfer(transfer);
+    setDetailOpen(true);
+  };
+
+  const handleRetryClick = (transfer: Transfer) => {
+    setActionTransfer(transfer);
+    setRetryDialogOpen(true);
+  };
+
+  const handleCancelClick = (transfer: Transfer) => {
+    setActionTransfer(transfer);
+    setCancelDialogOpen(true);
+  };
+
+  const confirmRetry = useCallback(() => {
+    if (actionTransfer) {
+      retryMutation.mutate(actionTransfer.id);
+    }
+    setRetryDialogOpen(false);
+  }, [actionTransfer, retryMutation]);
+
+  const confirmCancel = useCallback(() => {
+    if (actionTransfer) {
+      cancelMutation.mutate(actionTransfer.id);
+    }
+    setCancelDialogOpen(false);
+  }, [actionTransfer, cancelMutation]);
+
+  const getTransferDetailSections = (transfer: Transfer): DetailSection[] => {
+    return [
+      {
+        title: t("adminTransfers.detail.summary"),
+        fields: [
+          { label: t("adminTransfers.detail.transactionId"), value: transfer.id, type: "code" as const, copyable: true },
+          { label: t("adminTransfers.detail.status"), value: transfer.status, type: "status" as const },
+          { label: t("adminTransfers.detail.amount"), value: transfer.amount, type: "text" as const },
+          { label: t("adminTransfers.detail.fee"), value: transfer.fee, type: "text" as const },
+        ],
+      },
+      {
+        title: t("adminTransfers.detail.routing"),
+        fields: [
+          { label: t("adminTransfers.detail.fromChain"), value: transfer.from.chain, type: "text" as const },
+          { label: t("adminTransfers.detail.fromAddress"), value: transfer.from.address, type: "code" as const, copyable: true },
+          { label: t("adminTransfers.detail.toChain"), value: transfer.to.chain, type: "text" as const },
+          { label: t("adminTransfers.detail.toAddress"), value: transfer.to.address, type: "code" as const, copyable: true },
+        ],
+      },
+      {
+        title: t("adminTransfers.detail.progress"),
+        fields: [
+          { label: t("adminTransfers.detail.confirmations"), value: transfer.confirmations, type: "text" as const },
+          { label: t("adminTransfers.detail.timestamp"), value: transfer.timestamp, type: "text" as const },
+          { label: t("adminTransfers.detail.duration"), value: transfer.duration, type: "text" as const },
+          ...(transfer.error ? [{ label: t("adminTransfers.detail.error"), value: translateError(transfer.error), type: "text" as const }] : []),
+        ],
+      },
+    ];
+  };
+
   if (error) {
     return (
       <div className="flex-1 flex items-center justify-center" data-testid="transfers-error">
@@ -459,88 +525,36 @@ export default function AdminBridgeTransfers() {
                             <TableCell data-testid={`text-confirmations-${tx.id}`}>{tx.confirmations}</TableCell>
                             <TableCell className="text-muted-foreground" data-testid={`text-duration-${tx.id}`}>{tx.duration}</TableCell>
                             <TableCell>
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button size="sm" variant="ghost" onClick={() => setSelectedTransfer(tx)} data-testid={`button-view-${tx.id}`}>
-                                    <Eye className="w-4 h-4" />
+                              <div className="flex gap-1">
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  onClick={() => handleViewTransfer(tx)} 
+                                  data-testid={`button-view-${tx.id}`}
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </Button>
+                                {tx.status === "failed" && (
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost"
+                                    onClick={() => handleRetryClick(tx)}
+                                    data-testid={`button-retry-${tx.id}`}
+                                  >
+                                    <RefreshCw className="w-4 h-4" />
                                   </Button>
-                                </DialogTrigger>
-                                <DialogContent className="max-w-2xl" data-testid="dialog-transfer-details">
-                                  <DialogHeader>
-                                    <DialogTitle>{t("adminTransfers.transferDetails")}</DialogTitle>
-                                    <DialogDescription>{t("adminTransfers.transferDetailsDesc")}</DialogDescription>
-                                  </DialogHeader>
-                                  {selectedTransfer && (
-                                    <div className="space-y-4">
-                                      <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.transactionId")}</p>
-                                          <p className="font-mono" data-testid="dialog-tx-id">{selectedTransfer.id}</p>
-                                        </div>
-                                        <div>
-                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.status")}</p>
-                                          {getStatusBadge(selectedTransfer.status)}
-                                        </div>
-                                        <div>
-                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.from")}</p>
-                                          <p className="font-medium">{selectedTransfer.from.chain}</p>
-                                          <p className="font-mono text-sm">{selectedTransfer.from.address}</p>
-                                        </div>
-                                        <div>
-                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.to")}</p>
-                                          <p className="font-medium">{selectedTransfer.to.chain}</p>
-                                          <p className="font-mono text-sm">{selectedTransfer.to.address}</p>
-                                        </div>
-                                        <div>
-                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.amount")}</p>
-                                          <p className="font-medium">{selectedTransfer.amount}</p>
-                                        </div>
-                                        <div>
-                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.fee")}</p>
-                                          <p>{selectedTransfer.fee}</p>
-                                        </div>
-                                        <div>
-                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.timestamp")}</p>
-                                          <p>{selectedTransfer.timestamp}</p>
-                                        </div>
-                                        <div>
-                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.confirmations")}</p>
-                                          <p>{selectedTransfer.confirmations}</p>
-                                        </div>
-                                      </div>
-                                      {selectedTransfer.error && (
-                                        <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg" data-testid="dialog-error">
-                                          <p className="text-red-500 font-medium">{t("adminTransfers.error.label")}</p>
-                                          <p className="text-sm">{translateError(selectedTransfer.error)}</p>
-                                        </div>
-                                      )}
-                                      <div className="flex gap-2">
-                                        {selectedTransfer.status === "failed" && (
-                                          <Button 
-                                            onClick={() => retryMutation.mutate(selectedTransfer.id)}
-                                            disabled={retryMutation.isPending}
-                                            data-testid="button-retry-transfer"
-                                          >
-                                            {retryMutation.isPending ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : null}
-                                            {t("adminTransfers.retryTransfer")}
-                                          </Button>
-                                        )}
-                                        {selectedTransfer.status === "pending" && (
-                                          <Button 
-                                            variant="destructive"
-                                            onClick={() => cancelMutation.mutate(selectedTransfer.id)}
-                                            disabled={cancelMutation.isPending}
-                                            data-testid="button-cancel-transfer"
-                                          >
-                                            {cancelMutation.isPending ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : null}
-                                            {t("adminTransfers.cancelTransfer")}
-                                          </Button>
-                                        )}
-                                      </div>
-                                    </div>
-                                  )}
-                                </DialogContent>
-                              </Dialog>
+                                )}
+                                {tx.status === "pending" && (
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost"
+                                    onClick={() => handleCancelClick(tx)}
+                                    data-testid={`button-cancel-${tx.id}`}
+                                  >
+                                    <XCircle className="w-4 h-4" />
+                                  </Button>
+                                )}
+                              </div>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -606,9 +620,9 @@ export default function AdminBridgeTransfers() {
                             <TableCell>
                               <Button 
                                 size="sm" 
-                                onClick={() => retryMutation.mutate(tx.id)}
+                                onClick={() => handleRetryClick(tx)}
                                 disabled={retryMutation.isPending}
-                                data-testid={`button-retry-${tx.id}`}
+                                data-testid={`button-retry-failed-${tx.id}`}
                               >
                                 {t("adminTransfers.retry")}
                               </Button>
@@ -623,6 +637,42 @@ export default function AdminBridgeTransfers() {
             </TabsContent>
           </Tabs>
         </div>
+
+        {selectedTransfer && (
+          <DetailSheet
+            open={detailOpen}
+            onOpenChange={setDetailOpen}
+            title={t("adminTransfers.transferDetails")}
+            subtitle={selectedTransfer.id}
+            sections={getTransferDetailSections(selectedTransfer)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={retryDialogOpen}
+          onOpenChange={setRetryDialogOpen}
+          title={t("adminTransfers.confirm.retryTitle")}
+          description={t("adminTransfers.confirm.retryDescription", { txId: actionTransfer?.id || "" })}
+          confirmText={t("adminTransfers.confirm.retry")}
+          cancelText={t("adminTransfers.confirm.cancel")}
+          actionType="restart"
+          destructive={false}
+          isLoading={retryMutation.isPending}
+          onConfirm={confirmRetry}
+        />
+
+        <ConfirmationDialog
+          open={cancelDialogOpen}
+          onOpenChange={setCancelDialogOpen}
+          title={t("adminTransfers.confirm.cancelTitle")}
+          description={t("adminTransfers.confirm.cancelDescription", { txId: actionTransfer?.id || "" })}
+          confirmText={t("adminTransfers.confirm.cancelTransfer")}
+          cancelText={t("adminTransfers.confirm.close")}
+          actionType="terminate"
+          destructive={true}
+          isLoading={cancelMutation.isPending}
+          onConfirm={confirmCancel}
+        />
       </ScrollArea>
     </TooltipProvider>
   );

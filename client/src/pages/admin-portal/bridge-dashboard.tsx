@@ -11,10 +11,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Link2, ArrowLeftRight, Activity, Shield, Clock, 
   CheckCircle, AlertTriangle, TrendingUp, Wallet,
-  RefreshCw, Download, AlertCircle, XCircle
+  RefreshCw, Download, AlertCircle, XCircle, Eye
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
@@ -94,6 +96,9 @@ export default function AdminBridgeDashboard() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
+  const [selectedChain, setSelectedChain] = useState<Chain | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [exportDialogOpen, setExportDialogOpen] = useState(false);
 
   const { data: bridgeStatsData, isLoading: loadingStats, error: statsError, refetch: refetchStats } = useQuery<BridgeStats>({
     queryKey: ["/api/admin/bridge/stats"],
@@ -190,25 +195,43 @@ export default function AdminBridgeDashboard() {
   }, [refetchStats, refetchChains, refetchTransfers, toast, t]);
 
   const handleExport = useCallback(() => {
-    const exportData = {
-      exportedAt: new Date().toISOString(),
-      bridgeStats: bridgeStats,
-      chains: chains,
-      recentTransfers: recentTransfers,
-    };
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `bridge-dashboard-${new Date().toISOString().split("T")[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    toast({
-      title: t("adminBridge.exportSuccess"),
-      description: t("adminBridge.exportSuccessDesc"),
-    });
-  }, [toast, t]);
+    setExportDialogOpen(true);
+  }, []);
+
+  const handleViewChain = (chain: Chain) => {
+    setSelectedChain(chain);
+    setDetailOpen(true);
+  };
+
+  const getChainDetailSections = (chain: Chain): DetailSection[] => {
+    return [
+      {
+        title: t("adminBridge.detail.overview"),
+        fields: [
+          { label: t("adminBridge.detail.chainName"), value: chain.name, type: "text" as const },
+          { label: t("adminBridge.detail.symbol"), value: chain.symbol, type: "badge" as const },
+          { label: t("adminBridge.detail.status"), value: chain.status, type: "status" as const },
+          { label: t("adminBridge.detail.tvl"), value: chain.tvl, type: "text" as const },
+        ],
+      },
+      {
+        title: t("adminBridge.detail.performance"),
+        fields: [
+          { label: t("adminBridge.detail.volume24h"), value: chain.volume24h, type: "text" as const },
+          { label: t("adminBridge.detail.pendingTx"), value: chain.pending.toString(), type: "badge" as const },
+          { label: t("adminBridge.detail.activeValidators"), value: `${chain.validators}/8`, type: "text" as const },
+        ],
+      },
+      {
+        title: t("adminBridge.detail.configuration"),
+        fields: [
+          { label: t("adminBridge.detail.bridgeContract"), value: `0x${chain.symbol.toLowerCase()}bridge...`, type: "code" as const, copyable: true },
+          { label: t("adminBridge.detail.requiredConfirmations"), value: "12", type: "text" as const },
+          { label: t("adminBridge.detail.maxTransferLimit"), value: "$1,000,000", type: "text" as const },
+        ],
+      },
+    ];
+  };
 
   const bridgeStats = useMemo(() => {
     if (bridgeStatsData) return bridgeStatsData;
@@ -253,6 +276,28 @@ export default function AdminBridgeDashboard() {
       { time: "20:00", eth: 1400, bsc: 900, polygon: 450 },
     ];
   }, [volumeData]);
+
+  const confirmExport = useCallback(() => {
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      bridgeStats: bridgeStats,
+      chains: chains,
+      recentTransfers: recentTransfers,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `bridge-dashboard-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    setExportDialogOpen(false);
+    toast({
+      title: t("adminBridge.exportSuccess"),
+      description: t("adminBridge.exportSuccessDesc"),
+    });
+  }, [bridgeStats, chains, recentTransfers, toast, t]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -435,6 +480,7 @@ export default function AdminBridgeDashboard() {
                           <TableHead>{t("adminBridge.volume24h")}</TableHead>
                           <TableHead>{t("adminBridge.pendingTx")}</TableHead>
                           <TableHead>{t("adminBridge.validators")}</TableHead>
+                          <TableHead>{t("adminBridge.actions")}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -455,6 +501,16 @@ export default function AdminBridgeDashboard() {
                               <Badge variant="outline" data-testid={`badge-pending-${chain.symbol}`}>{chain.pending}</Badge>
                             </TableCell>
                             <TableCell data-testid={`text-validators-${chain.symbol}`}>{chain.validators}/8</TableCell>
+                            <TableCell>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleViewChain(chain)}
+                                data-testid={`button-view-chain-${chain.symbol}`}
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -533,6 +589,28 @@ export default function AdminBridgeDashboard() {
             </TabsContent>
           </Tabs>
         </div>
+
+        {selectedChain && (
+          <DetailSheet
+            open={detailOpen}
+            onOpenChange={setDetailOpen}
+            title={t("adminBridge.detail.title")}
+            subtitle={selectedChain.name}
+            icon={<Link2 className="w-5 h-5" />}
+            sections={getChainDetailSections(selectedChain)}
+          />
+        )}
+
+        <ConfirmationDialog
+          open={exportDialogOpen}
+          onOpenChange={setExportDialogOpen}
+          title={t("adminBridge.confirm.exportTitle")}
+          description={t("adminBridge.confirm.exportDescription")}
+          confirmText={t("adminBridge.confirm.export")}
+          cancelText={t("adminBridge.confirm.cancel")}
+          destructive={false}
+          onConfirm={confirmExport}
+        />
       </ScrollArea>
     </TooltipProvider>
   );
