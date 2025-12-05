@@ -176,19 +176,19 @@ export default function SdkManagement() {
           <TabsList data-testid="tabs-sdk">
             <TabsTrigger value="typescript" className="flex items-center gap-2" data-testid="tab-typescript">
               <SiTypescript className="h-4 w-4" />
-              TypeScript
+              {t("adminSdk.tabs.typescript")}
             </TabsTrigger>
             <TabsTrigger value="python" className="flex items-center gap-2" data-testid="tab-python">
               <SiPython className="h-4 w-4" />
-              Python
+              {t("adminSdk.tabs.python")}
             </TabsTrigger>
             <TabsTrigger value="rust" className="flex items-center gap-2" data-testid="tab-rust">
               <SiRust className="h-4 w-4" />
-              Rust
+              {t("adminSdk.tabs.rust")}
             </TabsTrigger>
             <TabsTrigger value="go" className="flex items-center gap-2" data-testid="tab-go">
               <SiGo className="h-4 w-4" />
-              Go
+              {t("adminSdk.tabs.go")}
             </TabsTrigger>
           </TabsList>
 
@@ -259,10 +259,10 @@ console.log('Transaction hash:', tx.hash);`}</pre>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {["Blocks", "Transactions", "Wallets", "Staking", "Bridge", "DeFi", "Contracts", "Utils"].map((module, i) => (
+                  {["blocks", "transactions", "wallets", "staking", "bridge", "defi", "contracts", "utils"].map((module, i) => (
                     <div key={module} className="p-4 border rounded-lg" data-testid={`module-${i}`}>
-                      <h4 className="font-medium">{module}</h4>
-                      <p className="text-sm text-muted-foreground">{t(`adminSdk.modules.${module.toLowerCase()}`)}</p>
+                      <h4 className="font-medium">{t(`adminSdk.moduleNames.${module}`)}</h4>
+                      <p className="text-sm text-muted-foreground">{t(`adminSdk.modules.${module}`)}</p>
                     </div>
                   ))}
                 </div>
@@ -446,7 +446,7 @@ func main() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <GitBranch className="h-5 w-5" />
-              {t("adminSdk.changelog")}
+              {t("adminSdk.changelog.title")}
             </CardTitle>
             <CardDescription>{t("adminSdk.recentSdkUpdates")}</CardDescription>
           </CardHeader>

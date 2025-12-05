@@ -20024,6 +20024,61 @@
       "go": "Go",
       "java": "Java"
     },
+    "tabs": {
+      "typescript": "TypeScript",
+      "python": "Python",
+      "rust": "Rust",
+      "go": "Go"
+    },
+    "modules": {
+      "blocks": "Query and manage blocks",
+      "transactions": "Create and query transactions",
+      "wallets": "Manage wallets and check balances",
+      "staking": "Staking and delegation",
+      "bridge": "Cross-chain bridge",
+      "defi": "DeFi protocol integration",
+      "contracts": "Smart contract interaction",
+      "utils": "Utility functions"
+    },
+    "moduleNames": {
+      "blocks": "Blocks",
+      "transactions": "Transactions",
+      "wallets": "Wallets",
+      "staking": "Staking",
+      "bridge": "Bridge",
+      "defi": "DeFi",
+      "contracts": "Contracts",
+      "utils": "Utils"
+    },
+    "installation": "Installation",
+    "quickStart": "Quick Start",
+    "availableModules": "Available Modules",
+    "orUsingYarn": "Or using yarn",
+    "addToCargoToml": "Add to Cargo.toml",
+    "fullDocumentation": "Full Documentation",
+    "github": "GitHub",
+    "copied": "Copied",
+    "copiedToClipboard": "Copied to clipboard",
+    "changelog": {
+      "title": "Changelog",
+      "v402": "Improved WebSocket subscription performance and bug fixes",
+      "v401": "Added async client support",
+      "v400": "Major release with bridge and DeFi modules"
+    },
+    "recentSdkUpdates": "Recent SDK Updates",
+    "typescriptSdk": "TypeScript SDK",
+    "pythonSdk": "Python SDK",
+    "allSdks": "All SDKs",
+    "install": "Install",
+    "downloadsPerMonth": "downloads/month",
+    "refreshSuccess": "Refresh Complete",
+    "dataUpdated": "Data has been updated",
+    "refreshError": "Refresh Failed",
+    "refreshErrorDesc": "Unable to refresh data",
+    "error": {
+      "title": "Failed to load SDK data",
+      "description": "Unable to fetch SDK data. Please try again."
+    },
     "refresh": "Refresh",
     "refreshed": "Data Refreshed",
     "refreshedDesc": "SDK data has been updated",
