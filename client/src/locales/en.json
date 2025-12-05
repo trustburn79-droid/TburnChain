@@ -15370,7 +15370,17 @@
       "title": "Failed to Load Alerts",
       "description": "Unable to fetch alerts. Please try again."
     },
-    "retry": "Retry"
+    "retry": "Retry",
+    "sources": {
+      "validatorMonitor": "Validator Monitor",
+      "resourceMonitor": "Resource Monitor",
+      "bridgeMonitor": "Bridge Monitor",
+      "securityMonitor": "Security Monitor",
+      "system": "System",
+      "consensusEngine": "Consensus Engine",
+      "databaseMonitor": "Database Monitor",
+      "aiMonitor": "AI Monitor"
+    }
   },
   "adminLogs": {
     "title": "Log Viewer",
