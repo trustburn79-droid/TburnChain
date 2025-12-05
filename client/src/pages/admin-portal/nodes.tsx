@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +10,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { queryClient, apiRequest } from "@/lib/queryClient";
+import {
+  ConfirmationDialog,
+  useConfirmation,
+  DetailSheet,
+  AdminFormDialog,
+  ActionMenu,
+  StatusBadge,
+  TypeBadge,
+} from "@/components/admin";
+import type { FormField } from "@/components/admin";
+import type { DetailSection } from "@/components/admin";
 import {
   Server,
   Activity,
@@ -30,6 +42,15 @@ import {
   Eye,
   Power,
   Settings,
+  Play,
+  Square,
+  RotateCcw,
+  Trash2,
+  Edit,
+  MoreHorizontal,
+  Zap,
+  Shield,
+  Database,
 } from "lucide-react";
 
 interface Node {
@@ -93,6 +114,25 @@ function TableRowSkeleton() {
   );
 }
 
+const NODE_TYPE_OPTIONS = [
+  { label: "Validator", value: "validator" },
+  { label: "Full Node", value: "full" },
+  { label: "Archive Node", value: "archive" },
+  { label: "Light Node", value: "light" },
+];
+
+const REGION_OPTIONS = [
+  { label: "US-East", value: "US-East" },
+  { label: "US-West", value: "US-West" },
+  { label: "US-Central", value: "US-Central" },
+  { label: "EU-West", value: "EU-West" },
+  { label: "EU-Central", value: "EU-Central" },
+  { label: "EU-North", value: "EU-North" },
+  { label: "AP-East", value: "AP-East" },
+  { label: "AP-South", value: "AP-South" },
+  { label: "AP-Southeast", value: "AP-Southeast" },
+];
+
 export default function AdminNodes() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -101,10 +141,111 @@ export default function AdminNodes() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  
+  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingNode, setEditingNode] = useState<Node | null>(null);
+  
+  const confirmation = useConfirmation();
 
   const { data: nodesData, isLoading, error, refetch } = useQuery<NodesResponse>({
     queryKey: ["/api/admin/nodes"],
     refetchInterval: 10000,
+  });
+
+  const restartNodeMutation = useMutation({
+    mutationFn: async (nodeId: string) => {
+      return apiRequest(`/api/admin/nodes/${nodeId}/restart`, { method: "POST" });
+    },
+    onSuccess: (_, nodeId) => {
+      toast({
+        title: t("adminNodes.restartSuccess"),
+        description: t("adminNodes.restartSuccessDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/nodes"] });
+    },
+    onError: () => {
+      toast({
+        title: t("adminNodes.restartError"),
+        description: t("adminNodes.restartErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const stopNodeMutation = useMutation({
+    mutationFn: async (nodeId: string) => {
+      return apiRequest(`/api/admin/nodes/${nodeId}/stop`, { method: "POST" });
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminNodes.stopSuccess"),
+        description: t("adminNodes.stopSuccessDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/nodes"] });
+    },
+    onError: () => {
+      toast({
+        title: t("adminNodes.stopError"),
+        description: t("adminNodes.stopErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteNodeMutation = useMutation({
+    mutationFn: async (nodeId: string) => {
+      return apiRequest(`/api/admin/nodes/${nodeId}`, { method: "DELETE" });
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminNodes.deleteSuccess"),
+        description: t("adminNodes.deleteSuccessDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/nodes"] });
+    },
+    onError: () => {
+      toast({
+        title: t("adminNodes.deleteError"),
+        description: t("adminNodes.deleteErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const saveNodeMutation = useMutation({
+    mutationFn: async (data: Record<string, any>) => {
+      if (editingNode) {
+        return apiRequest(`/api/admin/nodes/${editingNode.id}`, { 
+          method: "PUT", 
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" }
+        });
+      } else {
+        return apiRequest("/api/admin/nodes", { 
+          method: "POST", 
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+    },
+    onSuccess: () => {
+      toast({
+        title: editingNode ? t("adminNodes.updateSuccess") : t("adminNodes.createSuccess"),
+        description: editingNode ? t("adminNodes.updateSuccessDesc") : t("adminNodes.createSuccessDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/nodes"] });
+      setIsFormOpen(false);
+      setEditingNode(null);
+    },
+    onError: () => {
+      toast({
+        title: editingNode ? t("adminNodes.updateError") : t("adminNodes.createError"),
+        description: editingNode ? t("adminNodes.updateErrorDesc") : t("adminNodes.createErrorDesc"),
+        variant: "destructive",
+      });
+    },
   });
 
   const nodes: Node[] = useMemo(() => nodesData?.nodes || [
@@ -206,6 +347,176 @@ export default function AdminNodes() {
       description: t("adminNodes.exportSuccessDesc"),
     });
   }, [nodes, toast, t]);
+
+  const handleViewNode = (node: Node) => {
+    setSelectedNode(node);
+    setIsDetailOpen(true);
+  };
+
+  const handleEditNode = (node: Node) => {
+    setEditingNode(node);
+    setIsFormOpen(true);
+  };
+
+  const handleAddNode = () => {
+    setEditingNode(null);
+    setIsFormOpen(true);
+  };
+
+  const handleRestartNode = async (node: Node) => {
+    const confirmed = await confirmation.confirm({
+      title: t("adminNodes.confirmRestart"),
+      description: t("adminNodes.confirmRestartDesc", { name: node.name }),
+      variant: "default",
+    });
+    if (confirmed) {
+      restartNodeMutation.mutate(node.id);
+    }
+  };
+
+  const handleStopNode = async (node: Node) => {
+    const confirmed = await confirmation.confirm({
+      title: t("adminNodes.confirmStop"),
+      description: t("adminNodes.confirmStopDesc", { name: node.name }),
+      variant: "warning",
+    });
+    if (confirmed) {
+      stopNodeMutation.mutate(node.id);
+    }
+  };
+
+  const handleDeleteNode = async (node: Node) => {
+    const confirmed = await confirmation.confirm({
+      title: t("adminNodes.confirmDelete"),
+      description: t("adminNodes.confirmDeleteDesc", { name: node.name }),
+      variant: "destructive",
+      confirmText: node.name,
+    });
+    if (confirmed) {
+      deleteNodeMutation.mutate(node.id);
+    }
+  };
+
+  const getNodeActions = (node: Node) => [
+    {
+      label: t("common.view"),
+      icon: <Eye className="h-4 w-4" />,
+      onClick: () => handleViewNode(node),
+    },
+    {
+      label: t("common.edit"),
+      icon: <Edit className="h-4 w-4" />,
+      onClick: () => handleEditNode(node),
+    },
+    { separator: true },
+    ...(node.status === "online" ? [
+      {
+        label: t("common.stop"),
+        icon: <Square className="h-4 w-4" />,
+        onClick: () => handleStopNode(node),
+        variant: "warning" as const,
+      },
+    ] : []),
+    ...(node.status === "offline" ? [
+      {
+        label: t("common.start"),
+        icon: <Play className="h-4 w-4" />,
+        onClick: () => handleRestartNode(node),
+      },
+    ] : []),
+    {
+      label: t("common.restart"),
+      icon: <RotateCcw className="h-4 w-4" />,
+      onClick: () => handleRestartNode(node),
+    },
+    { separator: true },
+    {
+      label: t("common.delete"),
+      icon: <Trash2 className="h-4 w-4" />,
+      onClick: () => handleDeleteNode(node),
+      variant: "destructive" as const,
+    },
+  ];
+
+  const getNodeFormFields = (): FormField[] => [
+    {
+      name: "name",
+      label: t("adminNodes.nodeName"),
+      type: "text",
+      required: true,
+      placeholder: t("adminNodes.nodeNamePlaceholder"),
+    },
+    {
+      name: "type",
+      label: t("adminNodes.type"),
+      type: "select",
+      required: true,
+      options: NODE_TYPE_OPTIONS,
+    },
+    {
+      name: "ip",
+      label: t("adminNodes.ipAddress"),
+      type: "text",
+      required: true,
+      placeholder: "10.0.x.x",
+    },
+    {
+      name: "region",
+      label: t("adminNodes.region"),
+      type: "select",
+      required: true,
+      options: REGION_OPTIONS,
+    },
+    {
+      name: "version",
+      label: t("adminNodes.version"),
+      type: "text",
+      required: true,
+      placeholder: "v2.1.0",
+    },
+  ];
+
+  const getNodeDetailSections = (node: Node): DetailSection[] => [
+    {
+      title: t("adminNodes.basicInfo"),
+      icon: <Server className="h-4 w-4" />,
+      fields: [
+        { label: t("common.id"), value: node.id, type: "code" },
+        { label: t("common.name"), value: node.name },
+        { label: t("adminNodes.type"), value: node.type, type: "badge" },
+        { label: t("common.status"), value: node.status, type: "status" },
+        { label: t("adminNodes.version"), value: node.version, type: "badge" },
+      ],
+    },
+    {
+      title: t("adminNodes.network"),
+      icon: <Network className="h-4 w-4" />,
+      fields: [
+        { label: t("adminNodes.ipAddress"), value: node.ip, type: "code" },
+        { label: t("adminNodes.region"), value: node.region },
+        { label: t("adminNodes.peers"), value: node.peers.toString() },
+        { label: t("adminNodes.latency"), value: `${node.latency}ms` },
+      ],
+    },
+    {
+      title: t("adminNodes.blockchain"),
+      icon: <Database className="h-4 w-4" />,
+      fields: [
+        { label: t("adminNodes.blockHeight"), value: node.blockHeight.toLocaleString(), type: "code" },
+        { label: t("adminNodes.uptime"), value: node.uptime, type: "progress" },
+        { label: t("adminNodes.lastSeen"), value: node.lastSeen, type: "date" },
+      ],
+    },
+    {
+      title: t("adminNodes.resources"),
+      icon: <Cpu className="h-4 w-4" />,
+      fields: [
+        { label: "CPU", value: node.cpu, type: "progress" },
+        { label: t("adminNodes.memory"), value: node.memory, type: "progress" },
+        { label: t("adminNodes.disk"), value: node.disk, type: "progress" },
+      ],
+    },
+  ];
 
   const filteredNodes = useMemo(() => {
     return nodes.filter(node => {
@@ -330,7 +641,7 @@ export default function AdminNodes() {
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button data-testid="button-add-node">
+                    <Button onClick={handleAddNode} data-testid="button-add-node">
                       <Plus className="h-4 w-4 mr-2" />
                       {t("adminNodes.addNode")}
                     </Button>
@@ -448,7 +759,12 @@ export default function AdminNodes() {
                       </>
                     ) : (
                       filteredNodes.map((node) => (
-                        <tr key={node.id} className="border-b hover-elevate cursor-pointer" data-testid={`row-node-${node.id}`}>
+                        <tr 
+                          key={node.id} 
+                          className="border-b hover-elevate cursor-pointer" 
+                          data-testid={`row-node-${node.id}`}
+                          onClick={() => handleViewNode(node)}
+                        >
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-2">
                               {getStatusIcon(node.status)}
@@ -508,34 +824,12 @@ export default function AdminNodes() {
                               {node.uptime}%
                             </Badge>
                           </td>
-                          <td className="py-3 px-4">
-                            <div className="flex items-center justify-center gap-1">
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Button size="icon" variant="ghost" data-testid={`button-view-node-${node.id}`}>
-                                    <Eye className="h-4 w-4" />
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>{t("common.view")}</TooltipContent>
-                              </Tooltip>
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Button size="icon" variant="ghost" data-testid={`button-settings-node-${node.id}`}>
-                                    <Settings className="h-4 w-4" />
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>{t("common.settings")}</TooltipContent>
-                              </Tooltip>
-                              {node.status === "offline" && (
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button size="icon" variant="ghost" className="text-green-500" data-testid={`button-restart-node-${node.id}`}>
-                                      <Power className="h-4 w-4" />
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent>{t("adminNodes.restart")}</TooltipContent>
-                                </Tooltip>
-                              )}
+                          <td className="py-3 px-4" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center justify-center">
+                              <ActionMenu 
+                                actions={getNodeActions(node)} 
+                                data-testid={`menu-node-actions-${node.id}`}
+                              />
                             </div>
                           </td>
                         </tr>
@@ -553,6 +847,73 @@ export default function AdminNodes() {
           </Card>
         </div>
       </div>
+
+      <DetailSheet
+        open={isDetailOpen}
+        onOpenChange={setIsDetailOpen}
+        title={selectedNode?.name || ""}
+        subtitle={selectedNode?.id}
+        sections={selectedNode ? getNodeDetailSections(selectedNode) : []}
+        actions={selectedNode ? [
+          {
+            label: t("common.edit"),
+            icon: <Edit className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleEditNode(selectedNode);
+            },
+          },
+          {
+            label: t("common.restart"),
+            icon: <RotateCcw className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleRestartNode(selectedNode);
+            },
+          },
+          ...(selectedNode.status === "online" ? [{
+            label: t("common.stop"),
+            icon: <Square className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleStopNode(selectedNode);
+            },
+            variant: "warning" as const,
+          }] : [{
+            label: t("common.start"),
+            icon: <Play className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleRestartNode(selectedNode);
+            },
+          }]),
+        ] : []}
+      />
+
+      <AdminFormDialog
+        open={isFormOpen}
+        onOpenChange={setIsFormOpen}
+        title={editingNode ? t("adminNodes.editNode") : t("adminNodes.addNode")}
+        description={editingNode ? t("adminNodes.editNodeDesc") : t("adminNodes.addNodeDesc")}
+        fields={getNodeFormFields()}
+        initialData={editingNode ? {
+          name: editingNode.name,
+          type: editingNode.type,
+          ip: editingNode.ip,
+          region: editingNode.region,
+          version: editingNode.version,
+        } : {
+          name: "",
+          type: "full",
+          ip: "",
+          region: "US-East",
+          version: "v2.1.0",
+        }}
+        onSubmit={(data) => saveNodeMutation.mutate(data)}
+        isLoading={saveNodeMutation.isPending}
+      />
+
+      <ConfirmationDialog {...confirmation.dialogProps} />
     </TooltipProvider>
   );
 }
