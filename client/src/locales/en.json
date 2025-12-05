@@ -16312,7 +16312,15 @@
     "error": {
       "title": "Failed to Load Consensus",
       "description": "Unable to fetch consensus data. Please try again."
-    }
+    },
+    "phasePropose": "Propose",
+    "phasePrevote": "Prevote",
+    "phasePrecommit": "Preconfirm",
+    "phaseCommit": "Commit",
+    "proposeDesc": "Block proposer creates and broadcasts a new block",
+    "prevoteDesc": "Validators vote on the proposed block",
+    "precommitDesc": "Pre-confirmation stage before final commit",
+    "commitDesc": "Block is finalized and added to the chain"
   },
   "adminShards": {
     "title": "Shard Management",
