@@ -12,10 +12,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Shield, Users, Key, Lock, Plus, 
   CheckCircle, XCircle, AlertTriangle, Settings,
-  RefreshCw
+  RefreshCw, Eye, Trash2, Edit
 } from "lucide-react";
 
 interface Policy {
@@ -69,6 +71,10 @@ export default function AdminAccessControl() {
   const [activeTab, setActiveTab] = useState("policies");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedRole, setSelectedRole] = useState("operator");
+  const [selectedPolicy, setSelectedPolicy] = useState<Policy | null>(null);
+  const [selectedIp, setSelectedIp] = useState<IpWhitelistEntry | null>(null);
+  const [policyToDelete, setPolicyToDelete] = useState<Policy | null>(null);
+  const [ipToRemove, setIpToRemove] = useState<IpWhitelistEntry | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<AccessData>({
     queryKey: ["/api/admin/access/policies"],
@@ -114,12 +120,39 @@ export default function AdminAccessControl() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
+      setPolicyToDelete(null);
       toast({
         title: t("adminAccess.deleteSuccess"),
         description: t("adminAccess.deleteSuccessDesc"),
       });
     },
   });
+
+  const removeIpMutation = useMutation({
+    mutationFn: async (ip: string) => {
+      return apiRequest("DELETE", `/api/admin/access/ip-whitelist/${encodeURIComponent(ip)}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
+      setIpToRemove(null);
+      toast({
+        title: t("adminAccess.ipRemoveSuccess"),
+        description: t("adminAccess.ipRemoveSuccessDesc"),
+      });
+    },
+  });
+
+  const confirmDeletePolicy = () => {
+    if (policyToDelete) {
+      deletePolicyMutation.mutate(policyToDelete.id);
+    }
+  };
+
+  const confirmRemoveIp = () => {
+    if (ipToRemove) {
+      removeIpMutation.mutate(ipToRemove.ip);
+    }
+  };
 
   const policies = data?.policies ?? [
     { id: 1, nameKey: "adminAccess", descKey: "adminAccessDesc", roles: ["admin", "super_admin"], resources: "/admin/*", status: "active" },
@@ -340,14 +373,34 @@ export default function AdminAccessControl() {
                             </Badge>
                           </TableCell>
                           <TableCell>
-                            <Button 
-                              size="sm" 
-                              variant="ghost" 
-                              data-testid={`button-settings-${policy.id}`}
-                              disabled={updatePolicyMutation.isPending}
-                            >
-                              <Settings className="w-4 h-4" />
-                            </Button>
+                            <div className="flex items-center gap-1">
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                data-testid={`button-view-policy-${policy.id}`}
+                                onClick={() => setSelectedPolicy(policy)}
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                data-testid={`button-edit-${policy.id}`}
+                                disabled={updatePolicyMutation.isPending}
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                className="text-red-500"
+                                data-testid={`button-delete-${policy.id}`}
+                                onClick={() => setPolicyToDelete(policy)}
+                                disabled={deletePolicyMutation.isPending}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -455,9 +508,26 @@ export default function AdminAccessControl() {
                           <TableCell>{entry.addedBy}</TableCell>
                           <TableCell className="text-muted-foreground">{entry.addedAt}</TableCell>
                           <TableCell>
-                            <Button size="sm" variant="ghost" className="text-red-500" data-testid={`button-remove-ip-${index}`}>
-                              {t("adminAccess.ipWhitelist.remove")}
-                            </Button>
+                            <div className="flex items-center gap-1">
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                data-testid={`button-view-ip-${index}`}
+                                onClick={() => setSelectedIp(entry)}
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                className="text-red-500" 
+                                data-testid={`button-remove-ip-${index}`}
+                                onClick={() => setIpToRemove(entry)}
+                                disabled={removeIpMutation.isPending}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -560,6 +630,76 @@ export default function AdminAccessControl() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <DetailSheet
+        open={!!selectedPolicy}
+        onOpenChange={(open) => !open && setSelectedPolicy(null)}
+        title={t("adminAccess.detail.policyTitle")}
+        sections={selectedPolicy ? [
+          {
+            title: t("adminAccess.detail.overview"),
+            fields: [
+              { label: t("adminAccess.detail.policyId"), value: selectedPolicy.id.toString(), copyable: true },
+              { label: t("adminAccess.detail.name"), value: t(`adminAccess.policies.items.${selectedPolicy.nameKey}`) },
+              { label: t("adminAccess.detail.description"), value: t(`adminAccess.policies.items.${selectedPolicy.descKey}`) },
+            ],
+          },
+          {
+            title: t("adminAccess.detail.accessControl"),
+            fields: [
+              { label: t("adminAccess.detail.roles"), value: selectedPolicy.roles.join(", ") },
+              { label: t("adminAccess.detail.resources"), value: selectedPolicy.resources, type: "code" as const },
+              { label: t("adminAccess.detail.status"), value: t("adminAccess.policies.active"), type: "status" as const, statusVariant: "success" as const },
+            ],
+          },
+        ] : []}
+      />
+
+      <DetailSheet
+        open={!!selectedIp}
+        onOpenChange={(open) => !open && setSelectedIp(null)}
+        title={t("adminAccess.detail.ipTitle")}
+        sections={selectedIp ? [
+          {
+            title: t("adminAccess.detail.overview"),
+            fields: [
+              { label: t("adminAccess.detail.ipAddress"), value: selectedIp.ip, copyable: true },
+              { label: t("adminAccess.detail.description"), value: selectedIp.description },
+            ],
+          },
+          {
+            title: t("adminAccess.detail.metadata"),
+            fields: [
+              { label: t("adminAccess.detail.addedBy"), value: selectedIp.addedBy },
+              { label: t("adminAccess.detail.addedAt"), value: selectedIp.addedAt },
+            ],
+          },
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={!!policyToDelete}
+        onOpenChange={(open) => !open && setPolicyToDelete(null)}
+        title={t("adminAccess.confirmDelete.title")}
+        description={t("adminAccess.confirmDelete.description", { 
+          name: policyToDelete ? t(`adminAccess.policies.items.${policyToDelete.nameKey}`) : ""
+        })}
+        confirmText={t("adminAccess.confirmDelete.confirm")}
+        onConfirm={confirmDeletePolicy}
+        destructive={true}
+        isLoading={deletePolicyMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={!!ipToRemove}
+        onOpenChange={(open) => !open && setIpToRemove(null)}
+        title={t("adminAccess.confirmRemoveIp.title")}
+        description={t("adminAccess.confirmRemoveIp.description", { ip: ipToRemove?.ip })}
+        confirmText={t("adminAccess.confirmRemoveIp.confirm")}
+        onConfirm={confirmRemoveIp}
+        destructive={true}
+        isLoading={removeIpMutation.isPending}
+      />
     </ScrollArea>
   );
 }

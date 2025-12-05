@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +9,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { queryClient } from "@/lib/queryClient";
+import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   Shield,
   ShieldAlert,
@@ -23,6 +25,8 @@ import {
   Download,
   Wifi,
   WifiOff,
+  Eye,
+  XCircle,
 } from "lucide-react";
 
 interface SecurityScore {
@@ -68,6 +72,9 @@ export default function AdminSecurity() {
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [selectedThreat, setSelectedThreat] = useState<ThreatEvent | null>(null);
+  const [selectedSession, setSelectedSession] = useState<ActiveSession | null>(null);
+  const [sessionToTerminate, setSessionToTerminate] = useState<ActiveSession | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<SecurityData>({
     queryKey: ["/api/admin/security"],
@@ -97,6 +104,33 @@ export default function AdminSecurity() {
     { id: 3, user: "security@tburn.io", role: "Security", ip: "10.0.3.25", location: "AP-East", device: "Safari/macOS", lastActivity: new Date(Date.now() - 900000).toISOString() },
     { id: 4, user: "dev@tburn.io", role: "Developer", ip: "10.0.4.35", location: "US-West", device: "Chrome/Linux", lastActivity: new Date(Date.now() - 1800000).toISOString() },
   ];
+
+  const terminateSessionMutation = useMutation({
+    mutationFn: async (sessionId: number) => {
+      return apiRequest("POST", `/api/admin/security/sessions/${sessionId}/terminate`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/security"] });
+      setSessionToTerminate(null);
+      toast({
+        title: t("adminSecurity.terminateSuccess"),
+        description: t("adminSecurity.terminateSuccessDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminSecurity.terminateError"),
+        description: t("adminSecurity.terminateErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const confirmTerminateSession = () => {
+    if (sessionToTerminate) {
+      terminateSessionMutation.mutate(sessionToTerminate.id);
+    }
+  };
 
   useEffect(() => {
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
@@ -472,6 +506,7 @@ export default function AdminSecurity() {
                           <th className="text-right py-3 px-4 font-medium">{t("adminSecurity.columns.attempts")}</th>
                           <th className="text-center py-3 px-4 font-medium">{t("adminSecurity.columns.status")}</th>
                           <th className="text-right py-3 px-4 font-medium">{t("adminSecurity.columns.time")}</th>
+                          <th className="text-center py-3 px-4 font-medium">{t("adminSecurity.columns.actions")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -484,6 +519,11 @@ export default function AdminSecurity() {
                             <td className="py-3 px-4 text-right">{event.attempts}</td>
                             <td className="py-3 px-4 text-center">{getStatusBadge(event.status)}</td>
                             <td className="py-3 px-4 text-right text-muted-foreground">{formatTimeAgo(event.time)}</td>
+                            <td className="py-3 px-4 text-center">
+                              <Button size="icon" variant="ghost" onClick={() => setSelectedThreat(event)} data-testid={`button-view-threat-${event.id}`}>
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -534,7 +574,26 @@ export default function AdminSecurity() {
                             <td className="py-3 px-4 text-xs">{session.device}</td>
                             <td className="py-3 px-4 text-right text-muted-foreground">{formatTimeAgo(session.lastActivity)}</td>
                             <td className="py-3 px-4 text-center">
-                              <Button size="sm" variant="ghost" className="text-red-500" data-testid={`button-terminate-${session.id}`}>{t("adminSecurity.terminate")}</Button>
+                              <div className="flex items-center justify-center gap-1">
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  onClick={() => setSelectedSession(session)} 
+                                  data-testid={`button-view-session-${session.id}`}
+                                >
+                                  <Eye className="h-4 w-4" />
+                                </Button>
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  className="text-red-500"
+                                  onClick={() => setSessionToTerminate(session)}
+                                  disabled={terminateSessionMutation.isPending}
+                                  data-testid={`button-terminate-${session.id}`}
+                                >
+                                  <XCircle className="h-4 w-4" />
+                                </Button>
+                              </div>
                             </td>
                           </tr>
                         ))}
@@ -618,6 +677,76 @@ export default function AdminSecurity() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <DetailSheet
+        open={!!selectedThreat}
+        onOpenChange={(open) => !open && setSelectedThreat(null)}
+        title={t("adminSecurity.detail.threatTitle")}
+        sections={selectedThreat ? [
+          {
+            title: t("adminSecurity.detail.overview"),
+            fields: [
+              { label: t("adminSecurity.detail.threatType"), value: selectedThreat.type },
+              { label: t("adminSecurity.detail.severity"), value: selectedThreat.severity, type: "badge" as const, badgeVariant: selectedThreat.severity === "critical" ? "destructive" as const : "default" as const },
+              { label: t("adminSecurity.detail.status"), value: selectedThreat.status, type: "status" as const, statusVariant: selectedThreat.status === "blocked" ? "success" as const : "warning" as const },
+            ],
+          },
+          {
+            title: t("adminSecurity.detail.source"),
+            fields: [
+              { label: t("adminSecurity.detail.sourceIp"), value: selectedThreat.source, copyable: true },
+              { label: t("adminSecurity.detail.target"), value: selectedThreat.target, type: "code" as const },
+              { label: t("adminSecurity.detail.attempts"), value: selectedThreat.attempts.toString() },
+            ],
+          },
+          {
+            title: t("adminSecurity.detail.time"),
+            fields: [
+              { label: t("adminSecurity.detail.detectedAt"), value: formatTimeAgo(selectedThreat.time) },
+            ],
+          },
+        ] : []}
+      />
+
+      <DetailSheet
+        open={!!selectedSession}
+        onOpenChange={(open) => !open && setSelectedSession(null)}
+        title={t("adminSecurity.detail.sessionTitle")}
+        sections={selectedSession ? [
+          {
+            title: t("adminSecurity.detail.userInfo"),
+            fields: [
+              { label: t("adminSecurity.detail.user"), value: selectedSession.user },
+              { label: t("adminSecurity.detail.role"), value: selectedSession.role, type: "badge" as const },
+            ],
+          },
+          {
+            title: t("adminSecurity.detail.connectionInfo"),
+            fields: [
+              { label: t("adminSecurity.detail.ipAddress"), value: selectedSession.ip, copyable: true },
+              { label: t("adminSecurity.detail.location"), value: selectedSession.location },
+              { label: t("adminSecurity.detail.device"), value: selectedSession.device },
+            ],
+          },
+          {
+            title: t("adminSecurity.detail.activity"),
+            fields: [
+              { label: t("adminSecurity.detail.lastActivity"), value: formatTimeAgo(selectedSession.lastActivity) },
+            ],
+          },
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={!!sessionToTerminate}
+        onOpenChange={(open) => !open && setSessionToTerminate(null)}
+        title={t("adminSecurity.confirmTerminate.title")}
+        description={t("adminSecurity.confirmTerminate.description", { user: sessionToTerminate?.user })}
+        confirmText={t("adminSecurity.terminate")}
+        onConfirm={confirmTerminateSession}
+        destructive={true}
+        isLoading={terminateSessionMutation.isPending}
+      />
     </div>
   );
 }

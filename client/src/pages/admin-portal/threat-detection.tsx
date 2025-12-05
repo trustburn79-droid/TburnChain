@@ -11,10 +11,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
+import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   Shield, AlertTriangle, Activity, Brain, Eye, 
-  Ban, CheckCircle, Clock, TrendingUp,
-  RefreshCw, Download, Wifi, WifiOff
+  Ban, CheckCircle, Clock, TrendingUp, Target, MapPin,
+  RefreshCw, Download, Wifi, WifiOff, Search
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -64,6 +66,10 @@ export default function AdminThreatDetection() {
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [selectedThreat, setSelectedThreat] = useState<Threat | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [threatToBlock, setThreatToBlock] = useState<Threat | null>(null);
+  const [threatToUnblock, setThreatToUnblock] = useState<Threat | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<ThreatData>({
     queryKey: ["/api/admin/security/threats"],
@@ -72,9 +78,7 @@ export default function AdminThreatDetection() {
 
   const blockMutation = useMutation({
     mutationFn: async (threatId: number) => {
-      return apiRequest(`/api/admin/security/threats/${threatId}/block`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/security/threats/${threatId}/block`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/security/threats"] });
@@ -87,9 +91,7 @@ export default function AdminThreatDetection() {
 
   const unblockMutation = useMutation({
     mutationFn: async (threatId: number) => {
-      return apiRequest(`/api/admin/security/threats/${threatId}/unblock`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/security/threats/${threatId}/unblock`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/security/threats"] });
@@ -102,9 +104,7 @@ export default function AdminThreatDetection() {
 
   const investigateMutation = useMutation({
     mutationFn: async (threatId: number) => {
-      return apiRequest(`/api/admin/security/threats/${threatId}/investigate`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/security/threats/${threatId}/investigate`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/security/threats"] });
@@ -245,6 +245,76 @@ export default function AdminThreatDetection() {
       description: t("adminThreats.scanSuccessDesc"),
     });
   }, [toast, t]);
+
+  const handleViewThreat = (threat: Threat) => {
+    setSelectedThreat(threat);
+    setIsDetailOpen(true);
+  };
+
+  const handleBlockThreat = (threat: Threat) => {
+    setThreatToBlock(threat);
+  };
+
+  const handleUnblockThreat = (threat: Threat) => {
+    setThreatToUnblock(threat);
+  };
+
+  const confirmBlockThreat = () => {
+    if (threatToBlock) {
+      blockMutation.mutate(threatToBlock.id);
+      setThreatToBlock(null);
+    }
+  };
+
+  const confirmUnblockThreat = () => {
+    if (threatToUnblock) {
+      unblockMutation.mutate(threatToUnblock.id);
+      setThreatToUnblock(null);
+    }
+  };
+
+  const getThreatDetailSections = (threat: Threat): DetailSection[] => [
+    {
+      title: t("adminThreats.detail.overview"),
+      icon: <Shield className="h-4 w-4" />,
+      fields: [
+        { label: t("adminThreats.detail.threatId"), value: `#${threat.id}` },
+        { label: t("adminThreats.detail.type"), value: threat.type },
+        { 
+          label: t("adminThreats.detail.severity"), 
+          value: threat.severity, 
+          type: "badge" as const,
+          badgeVariant: threat.severity === "critical" ? "destructive" as const : threat.severity === "high" ? "default" as const : "secondary" as const
+        },
+        { 
+          label: t("common.status"), 
+          value: threat.status, 
+          type: "status" as const 
+        },
+      ],
+    },
+    {
+      title: t("adminThreats.detail.source"),
+      icon: <MapPin className="h-4 w-4" />,
+      fields: [
+        { label: t("adminThreats.detail.sourceIp"), value: threat.source, copyable: true },
+        { label: t("adminThreats.detail.target"), value: threat.target },
+        { label: t("adminThreats.detail.timestamp"), value: threat.timestamp },
+      ],
+    },
+    {
+      title: t("adminThreats.detail.response"),
+      icon: <Target className="h-4 w-4" />,
+      fields: [
+        { 
+          label: t("adminThreats.detail.actionTaken"), 
+          value: threat.status === "blocked" ? t("adminThreats.recentActivity.blocked") : t("adminThreats.recentActivity.investigating"),
+          type: "badge" as const,
+          badgeVariant: threat.status === "blocked" ? "secondary" as const : "outline" as const
+        },
+      ],
+    },
+  ];
 
   const getRiskLevelBadge = (score: number) => {
     if (score <= 25) return <Badge className="bg-green-500" data-testid="badge-risk-low">{t("adminThreats.riskLevel.low")}</Badge>;
@@ -462,14 +532,46 @@ export default function AdminThreatDetection() {
                           </TableCell>
                           <TableCell className="text-muted-foreground">{threat.timestamp}</TableCell>
                           <TableCell>
-                            <Button 
-                              size="sm" 
-                              variant="ghost" 
-                              data-testid={`button-details-${threat.id}`}
-                              disabled={investigateMutation.isPending}
-                            >
-                              {t("adminThreats.recentActivity.details")}
-                            </Button>
+                            <div className="flex items-center gap-1">
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                onClick={() => handleViewThreat(threat)}
+                                data-testid={`button-view-${threat.id}`}
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                              {threat.status === "blocked" ? (
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost"
+                                  onClick={() => handleUnblockThreat(threat)}
+                                  disabled={unblockMutation.isPending}
+                                  data-testid={`button-unblock-${threat.id}`}
+                                >
+                                  <CheckCircle className="h-4 w-4 text-green-500" />
+                                </Button>
+                              ) : (
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost"
+                                  onClick={() => handleBlockThreat(threat)}
+                                  disabled={blockMutation.isPending}
+                                  data-testid={`button-block-${threat.id}`}
+                                >
+                                  <Ban className="h-4 w-4 text-red-500" />
+                                </Button>
+                              )}
+                              <Button 
+                                size="icon" 
+                                variant="ghost"
+                                onClick={() => investigateMutation.mutate(threat.id)}
+                                disabled={investigateMutation.isPending}
+                                data-testid={`button-investigate-${threat.id}`}
+                              >
+                                <Search className="h-4 w-4" />
+                              </Button>
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -587,6 +689,71 @@ export default function AdminThreatDetection() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <DetailSheet
+        open={isDetailOpen}
+        onOpenChange={setIsDetailOpen}
+        title={selectedThreat?.type || ""}
+        subtitle={`${t("adminThreats.detail.threatId")} #${selectedThreat?.id || 0}`}
+        icon={<AlertTriangle className="h-5 w-5" />}
+        sections={selectedThreat ? getThreatDetailSections(selectedThreat) : []}
+        actions={selectedThreat ? [
+          selectedThreat.status === "blocked" ? {
+            label: t("adminThreats.actions.unblock"),
+            icon: <CheckCircle className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleUnblockThreat(selectedThreat);
+            },
+            variant: "outline" as const,
+          } : {
+            label: t("adminThreats.actions.block"),
+            icon: <Ban className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              handleBlockThreat(selectedThreat);
+            },
+            variant: "destructive" as const,
+          },
+          {
+            label: t("adminThreats.actions.investigate"),
+            icon: <Search className="h-4 w-4" />,
+            onClick: () => {
+              setIsDetailOpen(false);
+              investigateMutation.mutate(selectedThreat.id);
+            },
+            disabled: investigateMutation.isPending,
+          },
+        ] : []}
+      />
+
+      <ConfirmationDialog
+        open={!!threatToBlock}
+        onOpenChange={(open) => !open && setThreatToBlock(null)}
+        title={t("adminThreats.confirmBlock.title")}
+        description={t("adminThreats.confirmBlock.description", { 
+          type: threatToBlock?.type, 
+          source: threatToBlock?.source 
+        })}
+        confirmText={t("adminThreats.actions.block")}
+        onConfirm={confirmBlockThreat}
+        destructive={true}
+        isLoading={blockMutation.isPending}
+      />
+
+      <ConfirmationDialog
+        open={!!threatToUnblock}
+        onOpenChange={(open) => !open && setThreatToUnblock(null)}
+        title={t("adminThreats.confirmUnblock.title")}
+        description={t("adminThreats.confirmUnblock.description", { 
+          type: threatToUnblock?.type, 
+          source: threatToUnblock?.source 
+        })}
+        confirmText={t("adminThreats.actions.unblock")}
+        onConfirm={confirmUnblockThreat}
+        destructive={false}
+        isLoading={unblockMutation.isPending}
+      />
     </ScrollArea>
   );
 }

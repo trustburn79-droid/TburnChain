@@ -17456,6 +17456,37 @@
       "description": "Unable to fetch security data. Please try again."
     },
     "retry": "Retry",
+    "terminateSuccess": "Session Terminated",
+    "terminateSuccessDesc": "Session has been terminated successfully",
+    "terminateError": "Failed to Terminate Session",
+    "terminateErrorDesc": "Unable to terminate session. Please try again.",
+    "detail": {
+      "threatTitle": "Threat Details",
+      "sessionTitle": "Session Details",
+      "overview": "Overview",
+      "threatType": "Threat Type",
+      "severity": "Severity",
+      "status": "Status",
+      "source": "Source Information",
+      "sourceIp": "Source IP",
+      "target": "Target",
+      "attempts": "Attempts",
+      "time": "Time",
+      "detectedAt": "Detected At",
+      "userInfo": "User Information",
+      "user": "User",
+      "role": "Role",
+      "connectionInfo": "Connection Information",
+      "ipAddress": "IP Address",
+      "location": "Location",
+      "device": "Device",
+      "activity": "Activity",
+      "lastActivity": "Last Activity"
+    },
+    "confirmTerminate": {
+      "title": "Confirm Terminate Session",
+      "description": "Are you sure you want to terminate the session for {{user}}? This user will be logged out."
+    },
     "vulnerabilities": "Vulnerabilities",
     "securityOverview": "Security Overview",
     "activeThreats": "Active Threats",
@@ -17576,6 +17607,34 @@
     "updateSuccessDesc": "Access policy has been updated",
     "deleteSuccess": "Policy Deleted",
     "deleteSuccessDesc": "Access policy has been deleted",
+    "ipRemoveSuccess": "IP Address Removed",
+    "ipRemoveSuccessDesc": "IP address has been removed from the whitelist",
+    "detail": {
+      "policyTitle": "Policy Details",
+      "ipTitle": "IP Whitelist Details",
+      "overview": "Overview",
+      "policyId": "Policy ID",
+      "name": "Name",
+      "description": "Description",
+      "accessControl": "Access Control",
+      "roles": "Roles",
+      "resources": "Resources",
+      "status": "Status",
+      "ipAddress": "IP Address",
+      "metadata": "Metadata",
+      "addedBy": "Added By",
+      "addedAt": "Added At"
+    },
+    "confirmDelete": {
+      "title": "Confirm Delete Policy",
+      "description": "Are you sure you want to delete the {{name}} policy? This action cannot be undone.",
+      "confirm": "Delete"
+    },
+    "confirmRemoveIp": {
+      "title": "Confirm Remove IP",
+      "description": "Are you sure you want to remove {{ip}} from the whitelist? Access from this IP may be blocked.",
+      "confirm": "Remove"
+    },
     "error": {
       "title": "Failed to Load Access Data",
       "description": "Unable to fetch access control data. Please try again."
@@ -17748,7 +17807,27 @@
     "critical": "Critical",
     "blocked": "Blocked",
     "investigating": "Investigating",
-    "resolved": "Resolved"
+    "resolved": "Resolved",
+    "detail": {
+      "overview": "Overview",
+      "threatId": "Threat ID",
+      "type": "Type",
+      "severity": "Severity",
+      "source": "Source Information",
+      "sourceIp": "Source IP",
+      "target": "Target",
+      "timestamp": "Timestamp",
+      "response": "Response",
+      "actionTaken": "Action Taken"
+    },
+    "confirmBlock": {
+      "title": "Confirm Threat Block",
+      "description": "Are you sure you want to block the {{type}} threat from {{source}}? All traffic from this IP will be blocked."
+    },
+    "confirmUnblock": {
+      "title": "Confirm Unblock",
+      "description": "Are you sure you want to unblock the {{type}} threat from {{source}}? Traffic from this IP will be allowed again."
+    }
   },
   "adminCompliance": {
     "title": "Compliance",
