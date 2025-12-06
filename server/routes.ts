@@ -1956,6 +1956,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const deployerAddress = req.query.deployer as string;
       
       // Return comprehensive mock deployed tokens for enterprise demo
+      // totalSupply in human-readable format (actual token count, not wei)
       const deployedTokens = [
         {
           id: "tbc20-enterprise-001",
@@ -1963,7 +1964,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           symbol: "EGT",
           contractAddress: "0xa5a34b9ca789012345678901234567890867de020",
           standard: "TBC-20",
-          totalSupply: "100000000000000000000000000",
+          totalSupply: "100000000", // 100M tokens
           decimals: 18,
           mintable: false,
           burnable: true,
@@ -1975,7 +1976,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           deployedAt: new Date(Date.now() - 86400000 * 30).toISOString(),
           holders: 15847,
           transactionCount: 289456,
-          volume24h: "5420000000000000000000000",
+          volume24h: "5420000", // 5.42M tokens
           stakingEnabled: true,
           stakingAPY: 12.5,
           securityScore: 98,
@@ -1988,7 +1989,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           symbol: "DUT",
           contractAddress: "0xb6b45c0db890123456789012345678901234567890",
           standard: "TBC-20",
-          totalSupply: "500000000000000000000000000",
+          totalSupply: "500000000", // 500M tokens
           decimals: 18,
           mintable: true,
           burnable: true,
@@ -2000,7 +2001,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           deployedAt: new Date(Date.now() - 86400000 * 15).toISOString(),
           holders: 8932,
           transactionCount: 156234,
-          volume24h: "2180000000000000000000000",
+          volume24h: "2180000", // 2.18M tokens
           stakingEnabled: false,
           securityScore: 95,
           auditStatus: "verified",
@@ -2012,7 +2013,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           symbol: "PNFT",
           contractAddress: "0xc7c56d1ec901234567890123456789012345678901",
           standard: "TBC-721",
-          totalSupply: "10000",
+          totalSupply: "10000", // 10K NFTs
           decimals: 0,
           mintable: true,
           burnable: false,
@@ -2024,7 +2025,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           deployedAt: new Date(Date.now() - 86400000 * 7).toISOString(),
           holders: 2345,
           transactionCount: 45678,
-          volume24h: "890000000000000000000000",
+          volume24h: "890000", // 890K volume
           royaltyPercentage: 5,
           securityScore: 92,
           auditStatus: "verified",
@@ -2036,7 +2037,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           symbol: "GFA",
           contractAddress: "0xd8d67e2fd012345678901234567890123456789012",
           standard: "TBC-1155",
-          totalSupply: "1000000",
+          totalSupply: "1000000", // 1M items
           decimals: 0,
           mintable: true,
           burnable: true,
@@ -2048,7 +2049,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           deployedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
           holders: 12456,
           transactionCount: 234567,
-          volume24h: "1560000000000000000000000",
+          volume24h: "1560000", // 1.56M volume
           tokenTypes: 50,
           securityScore: 97,
           auditStatus: "verified",
