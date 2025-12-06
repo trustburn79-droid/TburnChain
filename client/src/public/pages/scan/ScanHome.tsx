@@ -512,7 +512,7 @@ export default function ScanHome() {
                     </div>
                     <div className="text-right">
                       <div className="text-sm font-medium text-white">
-                        {parseFloat(tx.value).toFixed(4)} TBURN
+                        {formatLargeNumber(tx.value)} TBURN
                       </div>
                       <div className="text-xs text-gray-500">
                         {formatAddress(tx.from)} → {formatAddress(tx.to)}
@@ -602,15 +602,15 @@ export default function ScanHome() {
                 </div>
                 <div className="grid grid-cols-3 gap-6 text-center">
                   <div>
-                    <div className="text-xl font-bold text-white">{stats?.dexTvl || "$124M"}</div>
+                    <div className="text-xl font-bold text-white">{formatLargeNumber(stats?.dexTvl)} TBURN</div>
                     <div className="text-xs text-gray-400">DEX TVL</div>
                   </div>
                   <div>
-                    <div className="text-xl font-bold text-white">{stats?.lendingTvl || "$312M"}</div>
+                    <div className="text-xl font-bold text-white">{formatLargeNumber(stats?.lendingTvl)} TBURN</div>
                     <div className="text-xs text-gray-400">Lending TVL</div>
                   </div>
                   <div>
-                    <div className="text-xl font-bold text-white">{stats?.stakingTvl || "$847M"}</div>
+                    <div className="text-xl font-bold text-white">{formatLargeNumber(stats?.stakingTvl)} TBURN</div>
                     <div className="text-xs text-gray-400">Staking TVL</div>
                   </div>
                 </div>

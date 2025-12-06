@@ -63,6 +63,21 @@ export default function TransactionDetail() {
     return `${addr.slice(0, 16)}...${addr.slice(-12)}`;
   };
 
+  const formatLargeNumber = (value: string | number | undefined) => {
+    if (!value) return "0";
+    const numStr = typeof value === 'string' ? value : value.toString();
+    const num = parseFloat(numStr);
+    if (isNaN(num)) return "0";
+    
+    const tokenValue = num / 1e18;
+    
+    if (tokenValue >= 1e12) return `${(tokenValue / 1e12).toFixed(2)}T`;
+    if (tokenValue >= 1e9) return `${(tokenValue / 1e9).toFixed(2)}B`;
+    if (tokenValue >= 1e6) return `${(tokenValue / 1e6).toFixed(2)}M`;
+    if (tokenValue >= 1e3) return `${(tokenValue / 1e3).toFixed(2)}K`;
+    return tokenValue.toFixed(6);
+  };
+
   if (isLoading) {
     return (
       <ScanLayout>
@@ -210,7 +225,7 @@ export default function TransactionDetail() {
               <div>
                 <div className="text-gray-400 text-sm mb-2">{t("scan.value", "Value")}</div>
                 <div className="text-2xl font-bold text-white" data-testid="text-value">
-                  {parseFloat(tx.value).toFixed(6)} <span className="text-gray-400 text-lg">TBURN</span>
+                  {formatLargeNumber(tx.value)} <span className="text-gray-400 text-lg">TBURN</span>
                 </div>
               </div>
 

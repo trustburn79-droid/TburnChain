@@ -80,6 +80,21 @@ export default function BlockDetail() {
     return `${addr.slice(0, 10)}...${addr.slice(-8)}`;
   };
 
+  const formatLargeNumber = (value: string | number | undefined) => {
+    if (!value) return "0";
+    const numStr = typeof value === 'string' ? value : value.toString();
+    const num = parseFloat(numStr);
+    if (isNaN(num)) return "0";
+    
+    const tokenValue = num / 1e18;
+    
+    if (tokenValue >= 1e12) return `${(tokenValue / 1e12).toFixed(2)}T`;
+    if (tokenValue >= 1e9) return `${(tokenValue / 1e9).toFixed(2)}B`;
+    if (tokenValue >= 1e6) return `${(tokenValue / 1e6).toFixed(2)}M`;
+    if (tokenValue >= 1e3) return `${(tokenValue / 1e3).toFixed(2)}K`;
+    return tokenValue.toFixed(4);
+  };
+
   if (isLoading) {
     return (
       <ScanLayout>
@@ -294,7 +309,7 @@ export default function BlockDetail() {
                         </Link>
                       </TableCell>
                       <TableCell className="text-white">
-                        {parseFloat(tx.value).toFixed(4)} TBURN
+                        {formatLargeNumber(tx.value)} TBURN
                       </TableCell>
                       <TableCell>
                         <Badge className={tx.status === "confirmed" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"}>

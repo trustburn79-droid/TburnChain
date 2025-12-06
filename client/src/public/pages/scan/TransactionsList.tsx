@@ -78,6 +78,22 @@ export default function TransactionsList() {
     return `${Math.floor(seconds / 86400)}d ago`;
   };
 
+  const formatLargeNumber = (value: string | number | undefined) => {
+    if (!value) return "0";
+    const numStr = typeof value === 'string' ? value : value.toString();
+    const num = parseFloat(numStr);
+    if (isNaN(num)) return "0";
+    
+    // Convert from Wei (18 decimals) to token units
+    const tokenValue = num / 1e18;
+    
+    if (tokenValue >= 1e12) return `${(tokenValue / 1e12).toFixed(2)}T`;
+    if (tokenValue >= 1e9) return `${(tokenValue / 1e9).toFixed(2)}B`;
+    if (tokenValue >= 1e6) return `${(tokenValue / 1e6).toFixed(2)}M`;
+    if (tokenValue >= 1e3) return `${(tokenValue / 1e3).toFixed(2)}K`;
+    return tokenValue.toFixed(4);
+  };
+
   const handleSearchTx = () => {
     if (searchTx.trim() && searchTx.startsWith("0x")) {
       window.location.href = `/scan/tx/${searchTx.trim()}`;
@@ -167,7 +183,7 @@ export default function TransactionsList() {
               </div>
               <div className="text-xl font-bold text-white">
                 {transactions.length > 0 
-                  ? (transactions.reduce((sum, tx) => sum + parseFloat(tx.value || "0"), 0) / transactions.length).toFixed(4)
+                  ? formatLargeNumber(String(transactions.reduce((sum, tx) => sum + parseFloat(tx.value || "0"), 0) / transactions.length))
                   : "0"} TBURN
               </div>
             </CardContent>
@@ -274,7 +290,7 @@ export default function TransactionsList() {
                           </Link>
                         </TableCell>
                         <TableCell className="text-white font-medium">
-                          {parseFloat(tx.value).toFixed(4)} TBURN
+                          {formatLargeNumber(tx.value)} TBURN
                         </TableCell>
                         <TableCell>
                           {tx.status === 'confirmed' || tx.status === 'success' ? (
