@@ -10,6 +10,7 @@ import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } f
 import { Validators, RpcProviders, NetworkStatus, Ramp } from "./pages/network";
 import { NewsBlog, NewsDetail, Events, EventDetail, CommunityHub } from "./pages/community";
 import { TermsOfService, PrivacyPolicy, Disclaimer } from "./pages/legal";
+import { ScanHome, BlocksList, BlockDetail, TransactionsList, TransactionDetail, AddressDetail, ValidatorsList, ScanSearchResults } from "./pages/scan";
 
 export function PublicRouter() {
   return (
@@ -85,6 +86,16 @@ export function PublicRouter() {
         <Route path="/legal/terms-of-service" component={TermsOfService} />
         <Route path="/legal/privacy-policy" component={PrivacyPolicy} />
         <Route path="/legal/disclaimer" component={Disclaimer} />
+        
+        {/* TBURNScan Explorer Routes */}
+        <Route path="/scan" component={ScanHome} />
+        <Route path="/scan/blocks" component={BlocksList} />
+        <Route path="/scan/block/:blockNumber" component={BlockDetail} />
+        <Route path="/scan/txs" component={TransactionsList} />
+        <Route path="/scan/tx/:hash" component={TransactionDetail} />
+        <Route path="/scan/address/:address" component={AddressDetail} />
+        <Route path="/scan/validators" component={ValidatorsList} />
+        <Route path="/scan/search" component={ScanSearchResults} />
         
         {/* Fallback - redirect to home */}
         <Route>
