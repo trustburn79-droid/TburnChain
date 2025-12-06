@@ -1016,11 +1016,11 @@ export class MemStorage implements IStorage {
       circulatingSupply: "500000000",
       successRate: 9970, // 99.70% success rate (basis points)
       updatedAt: new Date(),
-      // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms)
-      trendAnalysisScore: 8500, // 85.00%
-      anomalyDetectionScore: 9200, // 92.00%
-      patternMatchingScore: 8800, // 88.00%
-      timeseriesScore: 9000, // 90.00%
+      // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms) - Enterprise Grade 99%+
+      trendAnalysisScore: 9920, // 99.20%
+      anomalyDetectionScore: 9945, // 99.45%
+      patternMatchingScore: 9935, // 99.35%
+      timeseriesScore: 9950, // 99.50%
       healingEventsCount: 142,
       anomaliesDetected: 23,
       predictedFailureRisk: 300, // 3.00%
@@ -2265,11 +2265,11 @@ export class DbStorage implements IStorage {
         circulatingSupply: "500000000",
         successRate: 9970,
         updatedAt: new Date(),
-        // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms)
-        trendAnalysisScore: 8500,
-        anomalyDetectionScore: 9200,
-        patternMatchingScore: 8800,
-        timeseriesScore: 9000,
+        // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms) - Enterprise Grade 99%+
+        trendAnalysisScore: 9920,
+        anomalyDetectionScore: 9945,
+        patternMatchingScore: 9935,
+        timeseriesScore: 9950,
         healingEventsCount: 142,
         anomaliesDetected: 23,
         predictedFailureRisk: 300,
