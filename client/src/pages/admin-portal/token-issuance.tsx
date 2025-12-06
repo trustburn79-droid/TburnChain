@@ -73,17 +73,18 @@ export default function AdminTokenIssuance() {
   });
 
   const tokens = data?.tokens || [
-    { id: 1, name: "TBURN", symbol: "TBURN", standard: "TBC-20", totalSupply: "1,000,000,000", circulatingSupply: "750,000,000", holders: 125000, status: "active", aiEnabled: true },
-    { id: 2, name: "Wrapped TBURN", symbol: "wTBURN", standard: "TBC-20", totalSupply: "50,000,000", circulatingSupply: "45,000,000", holders: 8500, status: "active", aiEnabled: false },
-    { id: 3, name: "TBURN NFT Collection", symbol: "TBNFT", standard: "TBC-721", totalSupply: "10,000", circulatingSupply: "8,500", holders: 3200, status: "active", aiEnabled: false },
-    { id: 4, name: "TBURN Rewards", symbol: "TBRW", standard: "TBC-1155", totalSupply: "100,000,000", circulatingSupply: "25,000,000", holders: 45000, status: "paused", aiEnabled: true },
+    { id: 1, name: "TBURN Token", symbol: "TBURN", standard: "TBC-20", totalSupply: "1.24B", circulatingSupply: "850M", holders: 125847, status: "active", aiEnabled: true },
+    { id: 2, name: "Staked TBURN", symbol: "stTBURN", standard: "TBC-20", totalSupply: "425M", circulatingSupply: "425M", holders: 45892, status: "active", aiEnabled: true },
+    { id: 3, name: "Wrapped Ethereum", symbol: "WETH", standard: "TBC-20", totalSupply: "15,000", circulatingSupply: "15,000", holders: 8542, status: "active", aiEnabled: false },
+    { id: 4, name: "USD Coin", symbol: "USDC", standard: "TBC-20", totalSupply: "50M", circulatingSupply: "50M", holders: 32156, status: "active", aiEnabled: false },
+    { id: 5, name: "TBURN Genesis NFT", symbol: "TGEN", standard: "TBC-721", totalSupply: "10,000", circulatingSupply: "10,000", holders: 5847, status: "active", aiEnabled: false },
   ];
 
   const supplyStats = data?.supplyStats || [
-    { label: t("adminTokenIssuance.totalSupply"), value: "1,000,000,000", unit: "TBURN" },
-    { label: t("adminTokenIssuance.circulatingSupply"), value: "750,000,000", unit: "TBURN" },
-    { label: t("adminTokenIssuance.lockedSupply"), value: "150,000,000", unit: "TBURN" },
-    { label: t("adminTokenIssuance.burnedSupply"), value: "100,000,000", unit: "TBURN" },
+    { label: t("adminTokenIssuance.totalSupply"), value: "10,000,000,000", unit: "TBURN" },
+    { label: t("adminTokenIssuance.circulatingSupply"), value: "7,000,000,000", unit: "TBURN" },
+    { label: t("adminTokenIssuance.lockedSupply"), value: "3,200,000,000", unit: "TBURN" },
+    { label: t("adminTokenIssuance.burnedSupply"), value: "800,000,000", unit: "TBURN" },
   ];
 
   const recentActions = data?.recentActions || [
