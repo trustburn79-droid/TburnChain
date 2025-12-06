@@ -8490,16 +8490,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       let wallets: WalletBalance[];
       
-      if (isProductionMode()) {
-        try {
-          const client = getTBurnClient();
-          wallets = await client.getWalletBalances(1000);
-        } catch (clientError) {
-          // Fallback to database when TBURN client fails
-          console.log('[API] TBURN client error for wallets, using database fallback');
-          wallets = await storage.getAllWalletBalances(1000);
+      // Always fetch from TBurnEnterpriseNode for dynamic wallet data
+      try {
+        const response = await fetch('http://localhost:8545/api/wallets?limit=1000');
+        if (!response.ok) {
+          throw new Error(`Enterprise node returned status: ${response.status}`);
         }
-      } else {
+        wallets = await response.json();
+      } catch (fetchError) {
+        console.log('[API] Enterprise node error for wallets, using database fallback');
         wallets = await storage.getAllWalletBalances(1000);
       }
 
