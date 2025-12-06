@@ -29,6 +29,13 @@ Key architectural decisions include:
   - `StatusBadge`: Status indicator component for node/validator states
 
 ## Recent Changes (December 2024)
+- **Web3 Wallet Transaction Integration (December 6, 2024)**: Enhanced wallet integration with comprehensive transaction flow support
+  - Added 40+ transaction-related translation keys in both English and Korean
+  - Transaction states: confirming, pending, success, failed, rejected
+  - Transaction actions: stake, swap, transfer, mint, supply, borrow, withdraw, deposit, claim, approve
+  - Balance validation: insufficientBalance warnings with specific amounts needed
+  - Connection health: connectionUnstable, sessionExpired warnings
+  - Gas estimation and transaction preview support
 - **Timezone Standardization (December 6, 2024)**: All date/time displays across the application now use New York timezone (America/New_York) instead of local browser timezone
   - Central formatting utilities updated in `client/src/lib/format.ts` and `client/src/lib/formatters.ts`
   - Added `DEFAULT_TIMEZONE = 'America/New_York'` constant for consistent timezone usage
