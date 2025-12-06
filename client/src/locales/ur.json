@@ -5094,7 +5094,7 @@
             "options": {
               "network": "ٹارگٹ نیٹ ورک (mainnet, testnet)",
               "verify": "ایکسپلورر پر کنٹریکٹ کی تصدیق کریں",
-              "gasPrice": "gwei میں گیس کی قیمت"
+              "gasPrice": "nTBURN میں گیس کی قیمت"
             }
           },
           "wallet": {

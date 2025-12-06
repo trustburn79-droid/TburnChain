@@ -9278,7 +9278,7 @@
             "options": {
               "network": "ターゲットネットワーク（メインネット、テストネット）",
               "verify": "エクスプローラーでコントラクトを検証",
-              "gasPrice": "ガス価格（gwei単位）"
+              "gasPrice": "ガス価格（nTBURN単位）"
             }
           },
           "wallet": {

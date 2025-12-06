@@ -6625,7 +6625,7 @@
             "options": {
               "network": "الشبكة المستهدفة (mainnet, testnet)",
               "verify": "التحقق من العقد في المستكشف",
-              "gasPrice": "سعر الغاز بـ gwei"
+              "gasPrice": "سعر الغاز بـ nTBURN"
             }
           },
           "wallet": {

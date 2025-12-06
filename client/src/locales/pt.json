@@ -6017,7 +6017,7 @@
             "options": {
               "network": "Target network (mainnet, testnet)",
               "verify": "Verify contract on explorer",
-              "gasPrice": "Gas price in gwei"
+              "gasPrice": "Gas price in nTBURN"
             }
           },
           "wallet": {

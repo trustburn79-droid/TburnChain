@@ -7641,7 +7641,7 @@
             "options": {
               "network": "Red objetivo (mainnet, testnet)",
               "verify": "Verificar contrato en explorador",
-              "gasPrice": "Precio del gas en gwei"
+              "gasPrice": "Precio del gas en nTBURN"
             }
           },
           "wallet": {
