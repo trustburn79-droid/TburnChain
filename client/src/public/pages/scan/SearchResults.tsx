@@ -199,19 +199,21 @@ export default function SearchResults() {
         <Card className="bg-gray-900/50 border-gray-800 mb-6" data-testid="card-search">
           <CardContent className="p-4">
             <form onSubmit={handleSearch}>
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                <Input
-                  type="text"
-                  placeholder={t("scan.searchPlaceholder", "Search by Address / Txn Hash / Block / Token")}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-24 h-12 bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg focus:ring-orange-500/50 focus:border-orange-500/50"
-                  data-testid="input-search"
-                />
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                  <Input
+                    type="text"
+                    placeholder={t("scan.searchPlaceholder", "Search by Address / Txn Hash / Block / Token")}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-12 h-12 bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg focus:ring-orange-500/50 focus:border-orange-500/50"
+                    data-testid="input-search"
+                  />
+                </div>
                 <Button 
                   type="submit"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700"
+                  className="h-12 px-6 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 flex-shrink-0"
                   data-testid="button-search"
                 >
                   {t("scan.search", "Search")}
