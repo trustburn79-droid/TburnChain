@@ -683,7 +683,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             totalAccounts: dbStats?.totalAccounts || mainnetStats.totalAccounts || 0,
             tps: dbStats?.tps || mainnetStats.tps || 0,
             peakTps: dbStats?.peakTps || mainnetStats.peakTps || 0,
-            avgBlockTime: dbStats?.avgBlockTime || mainnetStats.avgBlockTime || 1000,
+            avgBlockTime: dbStats?.avgBlockTime || mainnetStats.avgBlockTime || 100,
             blockTimeP99: dbStats?.blockTimeP99 || mainnetStats.blockTimeP99 || 1200,
             slaUptime: dbStats?.slaUptime || mainnetStats.slaUptime || 9999,
             latency: dbStats?.latency || mainnetStats.latency || 12,
@@ -704,7 +704,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               currentBlockHeight: 21200000 + Math.floor(Date.now() / 1000),
               tps: 45000 + Math.floor(Math.random() * 10000),
               peakTps: 485000,
-              avgBlockTime: 1000, // 1 second block time
+              avgBlockTime: 100, // 100ms enterprise block time (10 blocks/second)
               blockTimeP99: 1200,
               slaUptime: 9999, // 99.99% enterprise SLA
               latency: 8 + Math.floor(Math.random() * 7), // 8-15ms
@@ -729,8 +729,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             currentBlockHeight: 21200000 + Math.floor(Date.now() / 1000),
             tps: 45000 + Math.floor(Math.random() * 10000),
             peakTps: 485000,
-            avgBlockTime: 1000, // 1 second block time
-            blockTimeP99: 1200,
+            avgBlockTime: 100, // 100ms enterprise block time (10 blocks/second)
+            blockTimeP99: 120,
             slaUptime: 9999, // 99.99% enterprise SLA
             latency: 8 + Math.floor(Math.random() * 7), // 8-15ms
             latencyP99: 25,
