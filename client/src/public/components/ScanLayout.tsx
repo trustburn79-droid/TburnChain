@@ -157,24 +157,24 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 py-3 border-t border-gray-800/50">
-            <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
+          <div className="flex items-center gap-4 py-3 border-t border-gray-800/50 relative z-[60]">
+            <form onSubmit={handleSearch} className="flex-1 max-w-2xl relative z-[70]">
               <div className="flex gap-2">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 z-10" />
                   <Input
                     type="text"
                     placeholder={t("scan.searchPlaceholder", "Search by Address / Txn Hash / Block / Token")}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 h-10 bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg"
+                    className="pl-10 h-10 bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg relative z-[70]"
                     data-testid="input-header-search"
                   />
                 </div>
                 <Button 
                   type="submit"
                   size="sm"
-                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 h-10 px-4 shrink-0"
+                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 h-10 px-4 shrink-0 relative z-[70]"
                   data-testid="button-header-search"
                 >
                   {t("scan.search", "Search")}
