@@ -491,6 +491,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/search")) {
       return next();
     }
+    // Skip auth check for shards and cross-shard (public blockchain data)
+    if (req.path.startsWith("/shards") || req.path === "/shards") {
+      return next();
+    }
+    if (req.path.startsWith("/cross-shard")) {
+      return next();
+    }
+    // Skip auth check for consensus (public blockchain data)
+    if (req.path.startsWith("/consensus")) {
+      return next();
+    }
     // Skip auth check for enterprise read-only endpoints (public data)
     if (req.path.startsWith("/enterprise/snapshot") || 
         req.path.startsWith("/enterprise/health") ||
@@ -5375,22 +5386,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Cross-Shard Messages endpoint
+  // Cross-Shard Messages endpoint - uses TBurnEnterpriseNode for dynamic generation
   app.get("/api/cross-shard/messages", async (req, res) => {
     try {
-      const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const messages = await client.getCrossShardMessages(limit);
-        res.json(messages);
-      } else {
-        // Fetch from local database (demo mode)
-        const messages = await storage.getAllCrossShardMessages(limit);
-        res.json(messages);
+      // Always fetch from TBurnEnterpriseNode which generates dynamic cross-shard data
+      const response = await fetch('http://localhost:8545/api/cross-shard/messages');
+      
+      if (!response.ok) {
+        throw new Error(`Enterprise node returned status: ${response.status}`);
       }
+      
+      const messages = await response.json();
+      res.json(messages);
     } catch (error: unknown) {
-      console.error('Error fetching cross-shard messages:', error);
+      console.error('Error fetching cross-shard messages from enterprise node:', error);
       res.status(500).json({ error: "Failed to fetch cross-shard messages" });
     }
   });
@@ -5452,24 +5461,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // ============================================
   // Cross-Shard Messages (Two-Phase Commit)
+  // Note: Main /api/cross-shard/messages endpoint is defined above using Enterprise Node
   // ============================================
-  app.get("/api/cross-shard/messages", async (req, res) => {
-    try {
-      const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const messages = await client.getCrossShardMessages(limit);
-        res.json(messages);
-      } else {
-        // Fetch from local database (demo mode)
-        const messages = await storage.getAllCrossShardMessages(limit);
-        res.json(messages);
-      }
-    } catch (error: unknown) {
-      res.status(500).json({ error: "Failed to fetch cross-shard messages" });
-    }
-  });
 
   app.get("/api/cross-shard/messages/:id", async (req, res) => {
     try {
@@ -8849,23 +8842,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Cross-shard messages endpoint
-  app.get("/api/cross-shard/messages", async (_req, res) => {
-    try {
-      const enterpriseNode = getEnterpriseNode();
-      const response = await fetch('http://localhost:8545/api/cross-shard/messages');
-      
-      if (!response.ok) {
-        throw new Error(`Enterprise node returned status: ${response.status}`);
-      }
-      
-      const messages = await response.json();
-      res.json(messages);
-    } catch (error: any) {
-      console.error('Error fetching cross-shard messages from enterprise node:', error);
-      res.status(500).json({ error: "Failed to fetch cross-shard messages" });
-    }
-  });
+  // Note: Cross-shard messages endpoint is defined earlier using Enterprise Node
 
   // Consensus current state endpoint - uses TBurnEnterpriseNode for dynamic shard configuration
   app.get("/api/consensus/current", async (_req, res) => {
