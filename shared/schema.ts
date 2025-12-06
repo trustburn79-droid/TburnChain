@@ -2156,9 +2156,13 @@ export interface ConsensusState {
   prevoteCount: number;
   precommitCount: number;
   totalValidators: number;
+  participatingValidators?: number; // Validators actively participating (85%~100% due to AI Pre-Validation)
+  participationRate?: number; // Participation rate percentage (85.00~100.00)
   requiredQuorum: number;
   avgBlockTimeMs: number;
   startTime: number;
+  consensusType?: string; // 'AI-BFT'
+  consensusDescription?: string; // Description of consensus mechanism
 }
 
 // Zod schemas for WebSocket validation
@@ -2177,9 +2181,13 @@ export const consensusStateSchema = z.object({
   prevoteCount: z.number(),
   precommitCount: z.number(),
   totalValidators: z.number(),
+  participatingValidators: z.number().optional(), // Validators actively participating (85%~100% due to AI Pre-Validation)
+  participationRate: z.number().optional(), // Participation rate percentage (85.00~100.00)
   requiredQuorum: z.number(),
   avgBlockTimeMs: z.number(),
   startTime: z.number(),
+  consensusType: z.string().optional(),
+  consensusDescription: z.string().optional(),
 });
 
 // ============================================
