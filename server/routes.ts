@@ -8498,8 +8498,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let wallets: WalletBalance[];
       
       if (isProductionMode()) {
-        const client = getTBurnClient();
-        wallets = await client.getWalletBalances(1000);
+        try {
+          const client = getTBurnClient();
+          wallets = await client.getWalletBalances(1000);
+        } catch (clientError) {
+          // Fallback to database when TBURN client fails
+          console.log('[API] TBURN client error for wallets, using database fallback');
+          wallets = await storage.getAllWalletBalances(1000);
+        }
       } else {
         wallets = await storage.getAllWalletBalances(1000);
       }
