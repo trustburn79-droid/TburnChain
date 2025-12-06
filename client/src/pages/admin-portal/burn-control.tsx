@@ -84,13 +84,13 @@ export default function AdminBurnControl() {
   });
 
   const burnStats = data?.stats || {
-    totalBurned: "100,000,000",
-    burnPercentage: "10.0",
-    dailyBurn: "150,000",
-    weeklyBurn: "1,050,000",
-    targetSupply: "500,000,000",
-    currentSupply: "900,000,000",
-    burnVelocity: "6,250",
+    totalBurned: "800,000,000",
+    burnPercentage: "8.0",
+    dailyBurn: "350,000",
+    weeklyBurn: "2,450,000",
+    targetSupply: "6,940,000,000",
+    currentSupply: "10,000,000,000",
+    burnVelocity: "14,583",
   };
 
   const burnHistory = data?.history || [

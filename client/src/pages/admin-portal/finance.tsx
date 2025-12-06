@@ -153,10 +153,10 @@ export default function FinanceOverview() {
   ];
 
   const financialMetrics: FinancialMetric[] = financeData?.metrics || [
-    { label: t("adminFinance.metrics.marketCap"), value: "$2.47B", change: 5.2, trend: "up", icon: CircleDollarSign },
-    { label: t("adminFinance.metrics.circulatingSupply"), value: "847.5M TBURN", change: -0.02, trend: "down", icon: Coins },
-    { label: t("adminFinance.metrics.totalBurned"), value: "152.5M TBURN", change: 2.3, trend: "up", icon: Flame },
-    { label: t("adminFinance.metrics.treasuryBalance"), value: "$89.4M", change: 1.8, trend: "up", icon: Building2 },
+    { label: t("adminFinance.metrics.marketCap"), value: "$24.7B", change: 5.2, trend: "up", icon: CircleDollarSign },
+    { label: t("adminFinance.metrics.circulatingSupply"), value: "7.0B TBURN", change: -0.02, trend: "down", icon: Coins },
+    { label: t("adminFinance.metrics.totalBurned"), value: "800M TBURN", change: 2.3, trend: "up", icon: Flame },
+    { label: t("adminFinance.metrics.treasuryBalance"), value: "$894M", change: 1.8, trend: "up", icon: Building2 },
   ];
 
   const revenueData = financeData?.revenueData || [

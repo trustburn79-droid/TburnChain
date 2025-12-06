@@ -38,11 +38,11 @@ interface Token {
 }
 
 const mockTokens: Token[] = [
-  { address: '0x1234...abcd', name: 'TBURN Token', symbol: 'TBURN', decimals: 18, totalSupply: '1,000,000,000', holders: 125678, price: '$2.45', change24h: '+5.2%', volume24h: '$45.2M', type: 'TBC-20' },
-  { address: '0x2345...bcde', name: 'Wrapped TBURN', symbol: 'wTBURN', decimals: 18, totalSupply: '500,000,000', holders: 45678, price: '$2.44', change24h: '+5.1%', volume24h: '$12.5M', type: 'TBC-20' },
-  { address: '0x3456...cdef', name: 'TBURN Governance', symbol: 'gTBURN', decimals: 18, totalSupply: '100,000,000', holders: 12345, price: '$8.75', change24h: '+2.3%', volume24h: '$3.2M', type: 'TBC-20' },
-  { address: '0x4567...defg', name: 'TBURN LP Token', symbol: 'TBURN-LP', decimals: 18, totalSupply: '50,000,000', holders: 8945, price: '$15.20', change24h: '-1.2%', volume24h: '$1.8M', type: 'TBC-20' },
-  { address: '0x5678...efgh', name: 'TBURN Staking', symbol: 'sTBURN', decimals: 18, totalSupply: '200,000,000', holders: 34567, price: '$3.10', change24h: '+8.5%', volume24h: '$8.9M', type: 'TBC-20' },
+  { address: '0x1234...abcd', name: 'TBURN Token', symbol: 'TBURN', decimals: 18, totalSupply: '10,000,000,000', holders: 1256780, price: '$2.47', change24h: '+5.2%', volume24h: '$452M', type: 'TBC-20' },
+  { address: '0x2345...bcde', name: 'Staked TBURN', symbol: 'stTBURN', decimals: 18, totalSupply: '3,200,000,000', holders: 456780, price: '$2.47', change24h: '+5.1%', volume24h: '$125M', type: 'TBC-20' },
+  { address: '0x3456...cdef', name: 'TBURN Governance', symbol: 'gTBURN', decimals: 18, totalSupply: '500,000,000', holders: 123450, price: '$8.75', change24h: '+2.3%', volume24h: '$32M', type: 'TBC-20' },
+  { address: '0x4567...defg', name: 'TBURN LP Token', symbol: 'TBURN-LP', decimals: 18, totalSupply: '250,000,000', holders: 89450, price: '$15.20', change24h: '-1.2%', volume24h: '$18M', type: 'TBC-20' },
+  { address: '0x5678...efgh', name: 'Wrapped Ethereum', symbol: 'WETH', decimals: 18, totalSupply: '50,000', holders: 34567, price: '$2,450', change24h: '+3.5%', volume24h: '$89M', type: 'TBC-20' },
 ];
 
 const mockNFTs: Token[] = [

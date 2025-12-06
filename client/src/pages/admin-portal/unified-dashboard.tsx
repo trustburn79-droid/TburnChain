@@ -509,17 +509,17 @@ export default function UnifiedDashboard() {
   }), []);
 
   const stakingMetrics: StakingMetrics = useMemo(() => ({
-    totalStaked: "850000000",
-    stakingRatio: 68.5,
-    avgApy: 12.4,
-    rewardsDistributed: "12500000",
+    totalStaked: "3200000000",
+    stakingRatio: 45.7,
+    avgApy: 8.0,
+    rewardsDistributed: "125000000",
   }), []);
 
   const tokenEconomics: TokenEconomics = useMemo(() => ({
-    circulatingSupply: "1240000000",
-    totalBurned: "156000000",
-    inflationRate: 2.1,
-    deflationaryRate: 3.8,
+    circulatingSupply: "7000000000",
+    totalBurned: "800000000",
+    inflationRate: -1.53,
+    deflationaryRate: 1.53,
   }), []);
 
   const alerts: SecurityAlert[] = useMemo(() => {

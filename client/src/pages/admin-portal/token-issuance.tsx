@@ -73,8 +73,8 @@ export default function AdminTokenIssuance() {
   });
 
   const tokens = data?.tokens || [
-    { id: 1, name: "TBURN Token", symbol: "TBURN", standard: "TBC-20", totalSupply: "1.24B", circulatingSupply: "850M", holders: 125847, status: "active", aiEnabled: true },
-    { id: 2, name: "Staked TBURN", symbol: "stTBURN", standard: "TBC-20", totalSupply: "425M", circulatingSupply: "425M", holders: 45892, status: "active", aiEnabled: true },
+    { id: 1, name: "TBURN Token", symbol: "TBURN", standard: "TBC-20", totalSupply: "10B", circulatingSupply: "7B", holders: 1258470, status: "active", aiEnabled: true },
+    { id: 2, name: "Staked TBURN", symbol: "stTBURN", standard: "TBC-20", totalSupply: "3.2B", circulatingSupply: "3.2B", holders: 458920, status: "active", aiEnabled: true },
     { id: 3, name: "Wrapped Ethereum", symbol: "WETH", standard: "TBC-20", totalSupply: "15,000", circulatingSupply: "15,000", holders: 8542, status: "active", aiEnabled: false },
     { id: 4, name: "USD Coin", symbol: "USDC", standard: "TBC-20", totalSupply: "50M", circulatingSupply: "50M", holders: 32156, status: "active", aiEnabled: false },
     { id: 5, name: "TBURN Genesis NFT", symbol: "TGEN", standard: "TBC-721", totalSupply: "10,000", circulatingSupply: "10,000", holders: 5847, status: "active", aiEnabled: false },

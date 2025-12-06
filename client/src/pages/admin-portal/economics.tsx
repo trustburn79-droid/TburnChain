@@ -90,20 +90,20 @@ export default function AdminEconomics() {
   ];
 
   const inflationSchedule = data?.inflationSchedule || [
-    { year: "Year 1", rate: "5.0%", blockReward: "50 TBURN" },
-    { year: "Year 2", rate: "4.0%", blockReward: "40 TBURN" },
-    { year: "Year 3", rate: "3.0%", blockReward: "30 TBURN" },
-    { year: "Year 4", rate: "2.0%", blockReward: "20 TBURN" },
-    { year: "Year 5+", rate: "1.0%", blockReward: "10 TBURN" },
+    { year: "Year 1", rate: "-1.80%", blockReward: "500,000 TBURN/day" },
+    { year: "Year 2-5", rate: "-2.00%", blockReward: "425,000 TBURN/day" },
+    { year: "Year 6-10", rate: "-1.50%", blockReward: "350,000 TBURN/day" },
+    { year: "Year 11-15", rate: "-1.20%", blockReward: "275,000 TBURN/day" },
+    { year: "Year 16-20", rate: "-1.00%", blockReward: "200,000 TBURN/day" },
   ];
 
   const supplyProjection = data?.supplyProjection || [
-    { month: "Jan", supply: 900, target: 850 },
-    { month: "Feb", supply: 895, target: 840 },
-    { month: "Mar", supply: 888, target: 830 },
-    { month: "Apr", supply: 880, target: 820 },
-    { month: "May", supply: 872, target: 810 },
-    { month: "Jun", supply: 864, target: 800 },
+    { month: "Jan", supply: 9850, target: 9500 },
+    { month: "Feb", supply: 9780, target: 9400 },
+    { month: "Mar", supply: 9710, target: 9300 },
+    { month: "Apr", supply: 9640, target: 9200 },
+    { month: "May", supply: 9570, target: 9100 },
+    { month: "Jun", supply: 9500, target: 9000 },
   ];
 
   useEffect(() => {

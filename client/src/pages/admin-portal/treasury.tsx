@@ -86,19 +86,19 @@ export default function AdminTreasury() {
   });
 
   const treasuryStats = data?.stats || {
-    totalBalance: "250,000,000",
-    usdValue: "$125,000,000",
-    monthlyIncome: "5,000,000",
-    monthlyExpense: "3,500,000",
-    netChange: "+1,500,000",
+    totalBalance: "2,500,000,000",
+    usdValue: "$1,250,000,000",
+    monthlyIncome: "50,000,000",
+    monthlyExpense: "35,000,000",
+    netChange: "+15,000,000",
   };
 
   const poolBalances = data?.pools || [
-    { name: "Main Treasury", balance: "150,000,000", percentage: 60, color: "bg-blue-500" },
-    { name: "Development Fund", balance: "50,000,000", percentage: 20, color: "bg-purple-500" },
-    { name: "Marketing Fund", balance: "25,000,000", percentage: 10, color: "bg-orange-500" },
-    { name: "Community Fund", balance: "15,000,000", percentage: 6, color: "bg-green-500" },
-    { name: "Reserve Fund", balance: "10,000,000", percentage: 4, color: "bg-gray-500" },
+    { name: "Main Treasury", balance: "1,500,000,000", percentage: 60, color: "bg-blue-500" },
+    { name: "Development Fund", balance: "500,000,000", percentage: 20, color: "bg-purple-500" },
+    { name: "Marketing Fund", balance: "250,000,000", percentage: 10, color: "bg-orange-500" },
+    { name: "Community Fund", balance: "150,000,000", percentage: 6, color: "bg-green-500" },
+    { name: "Reserve Fund", balance: "100,000,000", percentage: 4, color: "bg-gray-500" },
   ];
 
   const transactions = data?.transactions || [

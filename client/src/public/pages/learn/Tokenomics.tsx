@@ -13,10 +13,10 @@ export default function Tokenomics() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const marketStats = [
-    { value: "$2.4B", label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
-    { value: "67.4M", label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
-    { value: "12.8M", label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
-    { value: "42.1M", label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
+    { value: "$24.7B", label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
+    { value: "7.0B", label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
+    { value: "800M", label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
+    { value: "3.2B", label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
   ];
 
   const tokenDistribution = [
@@ -124,7 +124,7 @@ export default function Tokenomics() {
               <div className="space-y-4">
                 <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
                   <span className="text-gray-400">{t('publicPages.learn.tokenomics.tburn.totalSupply')}</span>
-                  <span className="text-white font-mono">100,000,000</span>
+                  <span className="text-white font-mono">10,000,000,000</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
                   <span className="text-gray-400">{t('publicPages.learn.tokenomics.tburn.decimals')}</span>
