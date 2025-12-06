@@ -1996,29 +1996,37 @@ export class MemStorage implements IStorage {
     const activeValidators = validators.filter(v => v.status === "active");
     
     const now = Date.now();
-    const blockStartTime = now - 800;
+    const blockStartTime = now - 100; // 100ms block time
     const elapsed = now - blockStartTime;
     
+    // 4-phase cycle: Propose (20ms), Prevote (25ms), Precommit (25ms), Commit (30ms) = 100ms total
     let currentPhase = 1;
-    if (elapsed >= 700) currentPhase = 5;
-    else if (elapsed >= 500) currentPhase = 4;
-    else if (elapsed >= 300) currentPhase = 3;
-    else if (elapsed >= 150) currentPhase = 2;
+    if (elapsed >= 70) currentPhase = 4;      // Commit phase: 70-100ms
+    else if (elapsed >= 45) currentPhase = 3; // Precommit phase: 45-70ms
+    else if (elapsed >= 20) currentPhase = 2; // Prevote phase: 20-45ms
+    // else: Propose phase: 0-20ms
     
     const proposer = activeValidators[0]?.address || "0x0000...0000";
-    const prevoteCount = activeValidators.filter(v => v.uptime >= 9500).length;
-    const precommitCount = activeValidators.filter(v => v.uptime >= 9700).length;
+    // Use configured values: 110 active validators, 90-95% prevote, 85-92% precommit
+    const totalValidators = 110;
+    const prevoteCount = Math.floor(totalValidators * (0.90 + Math.random() * 0.05));
+    const precommitCount = Math.floor(totalValidators * (0.85 + Math.random() * 0.07));
+    const requiredQuorum = Math.ceil(totalValidators * 0.67); // 67% quorum
     
-    const phases: import("@shared/schema").ConsensusPhase[] = [
-      { number: 1, label: "NewHeight", time: elapsed >= 0 ? "0ms" : "Pending", status: elapsed >= 0 ? "completed" : "pending" },
-      { number: 2, label: "Propose", time: elapsed >= 150 ? "150ms" : currentPhase === 2 ? `${elapsed}ms` : "Pending", status: currentPhase > 2 ? "completed" : currentPhase === 2 ? "active" : "pending" },
-      { number: 3, label: "Prevote", time: elapsed >= 300 ? "300ms" : currentPhase === 3 ? `${elapsed}ms` : "Pending", status: currentPhase > 3 ? "completed" : currentPhase === 3 ? "active" : "pending" },
-      { number: 4, label: "Precommit", time: elapsed >= 500 ? "500ms" : currentPhase === 4 ? `${elapsed}ms` : "Pending", status: currentPhase > 4 ? "completed" : currentPhase === 4 ? "active" : "pending" },
-      { number: 5, label: "Finalize", time: elapsed >= 700 ? "700ms" : "Pending", status: currentPhase === 5 ? "active" : "pending" },
+    // Generate realistic per-phase timings (18-32ms per phase)
+    const phaseTimings = [
+      18 + Math.floor(Math.random() * 8),  // Propose: 18-25ms
+      22 + Math.floor(Math.random() * 10), // Prevote: 22-31ms
+      20 + Math.floor(Math.random() * 12), // Precommit: 20-31ms
+      25 + Math.floor(Math.random() * 10), // Commit: 25-34ms
     ];
     
-    const totalValidators = activeValidators.length;
-    const requiredQuorum = Math.ceil((totalValidators * 2) / 3);
+    const phases: import("@shared/schema").ConsensusPhase[] = [
+      { number: 1, label: "Propose", time: `${phaseTimings[0]}ms`, status: currentPhase === 1 ? "active" : "completed" },
+      { number: 2, label: "Prevote", time: `${phaseTimings[1]}ms`, status: currentPhase === 2 ? "active" : currentPhase > 2 ? "completed" : "pending" },
+      { number: 3, label: "Precommit", time: `${phaseTimings[2]}ms`, status: currentPhase === 3 ? "active" : currentPhase > 3 ? "completed" : "pending" },
+      { number: 4, label: "Commit", time: `${phaseTimings[3]}ms`, status: currentPhase === 4 ? "active" : "pending" },
+    ];
     
     return {
       currentPhase,
@@ -2029,7 +2037,7 @@ export class MemStorage implements IStorage {
       precommitCount,
       totalValidators,
       requiredQuorum,
-      avgBlockTimeMs: Number(stats.avgBlockTime),
+      avgBlockTimeMs: 100, // 100ms average block time
       startTime: blockStartTime,
     };
   }
@@ -2647,26 +2655,34 @@ export class DbStorage implements IStorage {
       const stats = await this.getNetworkStats();
       const validators = await this.getAllValidators();
       const activeValidators = validators.filter(v => v.status === "active");
-      const totalValidators = activeValidators.length;
-      const requiredQuorum = Math.ceil((totalValidators * 2) / 3);
+      // Use 110 active validators as configured
+      const totalValidators = 110;
+      const requiredQuorum = Math.ceil(totalValidators * 0.67);
+      
+      // Generate realistic per-phase timings
+      const phaseTimings = [
+        18 + Math.floor(Math.random() * 8),  // Propose: 18-25ms
+        22 + Math.floor(Math.random() * 10), // Prevote: 22-31ms
+        20 + Math.floor(Math.random() * 12), // Precommit: 20-31ms
+        25 + Math.floor(Math.random() * 10), // Commit: 25-34ms
+      ];
       
       return {
         currentPhase: 1,
         phases: [
-          { number: 1, label: "NewHeight", time: "Pending", status: "pending" },
-          { number: 2, label: "Propose", time: "Pending", status: "pending" },
-          { number: 3, label: "Prevote", time: "Pending", status: "pending" },
-          { number: 4, label: "Precommit", time: "Pending", status: "pending" },
-          { number: 5, label: "Finalize", time: "Pending", status: "pending" },
+          { number: 1, label: "Propose", time: `${phaseTimings[0]}ms`, status: "active" },
+          { number: 2, label: "Prevote", time: `${phaseTimings[1]}ms`, status: "pending" },
+          { number: 3, label: "Precommit", time: `${phaseTimings[2]}ms`, status: "pending" },
+          { number: 4, label: "Commit", time: `${phaseTimings[3]}ms`, status: "pending" },
         ],
         proposer: activeValidators[0]?.address || "0x0000...0000",
         blockHeight: Number(stats.currentBlockHeight),
-        prevoteCount: 0,
-        precommitCount: 0,
+        prevoteCount: Math.floor(totalValidators * 0.92),
+        precommitCount: Math.floor(totalValidators * 0.88),
         totalValidators,
         requiredQuorum,
-        avgBlockTimeMs: Number(stats.avgBlockTime),
-        startTime: 0,
+        avgBlockTimeMs: 100,
+        startTime: Date.now() - 20, // 20ms into Propose phase
       };
     }
 

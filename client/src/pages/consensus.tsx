@@ -741,7 +741,7 @@ function ConsensusRoundDetailDialog({
                 <CardTitle className="text-sm">{t('consensus.phaseBreakdown')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-4 gap-2">
                   {phases.map((phase: { number: number; label: string; status: string; time: string }) => (
                     <div 
                       key={phase.number}
@@ -865,7 +865,7 @@ export default function Consensus() {
   const currentRound = consensusState?.blockHeight || 0;
   const activePhase = phases.find(p => p.status === "active");
   const completedPhases = phases.filter(p => p.status === "completed").length;
-  const progress = Math.floor((completedPhases / 5) * 100);
+  const progress = Math.floor((completedPhases / 4) * 100);
   const proposerAddress = consensusState?.proposer || "N/A";
   const avgBlockTime = consensusState?.avgBlockTimeMs || 0;
   
@@ -893,14 +893,14 @@ export default function Consensus() {
     return (
       <div className="flex flex-col gap-6 p-6">
         <Skeleton className="h-16 w-full" />
-        <div className="grid grid-cols-5 gap-4">
-          {Array.from({ length: 5 }).map((_, i) => (
+        <div className="grid grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} className="h-32" />
           ))}
         </div>
         <Skeleton className="h-24 w-full" />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {Array.from({ length: 5 }).map((_, i) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} className="h-32" />
           ))}
         </div>
@@ -1042,13 +1042,13 @@ export default function Consensus() {
             {t('consensus.currentRound')} #{currentRound.toLocaleString()} {t('consensus.inProgress')}
           </div>
           <div className="text-sm mt-1">
-            {t('consensus.phase')}: {activePhase?.label || t('consensus.initializing')} | {completedPhases} {t('consensus.ofPhasesCompleted', { total: 5 })} | {t('consensus.target')}: {avgBlockTime}ms
+            {t('consensus.phase')}: {activePhase?.label || t('consensus.initializing')} | {completedPhases} {t('consensus.ofPhasesCompleted', { total: 4 })} | {t('consensus.target')}: {avgBlockTime}ms
           </div>
         </AlertDescription>
       </Alert>
 
       {/* Phase Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {phases.map((phase) => (
           <PhaseCard key={phase.number} phase={phase} t={t} />
         ))}
