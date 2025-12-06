@@ -19,6 +19,7 @@ import {
   User
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ScanLayout from "../../components/ScanLayout";
 
 interface Transaction {
   hash: string;
@@ -64,32 +65,32 @@ export default function TransactionDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#030407] to-[#0a0d14]">
+      <ScanLayout>
         <div className="container mx-auto px-4 py-8">
           <Skeleton className="h-8 w-64 mb-6" />
           <Skeleton className="h-96 w-full" />
         </div>
-      </div>
+      </ScanLayout>
     );
   }
 
   if (!tx) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#030407] to-[#0a0d14]">
+      <ScanLayout>
         <div className="container mx-auto px-4 py-8 text-center">
           <h1 className="text-2xl font-bold text-white mb-4">{t("scan.txNotFound", "Transaction Not Found")}</h1>
           <Link href="/scan/txs">
             <Button>{t("scan.backToTransactions", "Back to Transactions")}</Button>
           </Link>
         </div>
-      </div>
+      </ScanLayout>
     );
   }
 
   const txFee = (parseFloat(tx.gasUsed) * parseFloat(tx.gasPrice) / 1e18).toFixed(8);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#030407] to-[#0a0d14]">
+    <ScanLayout>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center gap-3 mb-6">
           <Link href="/scan/txs">
@@ -245,6 +246,6 @@ export default function TransactionDetail() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </ScanLayout>
   );
 }

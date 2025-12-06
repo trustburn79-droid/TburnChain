@@ -149,6 +149,22 @@ export default function ScanHome() {
     return num.toLocaleString();
   };
 
+  const formatLargeNumber = (value: string | number | undefined) => {
+    if (!value) return "0";
+    const numStr = typeof value === 'string' ? value : value.toString();
+    const num = parseFloat(numStr);
+    if (isNaN(num)) return "0";
+    
+    // Convert from Wei (18 decimals) to token units
+    const tokenValue = num / 1e18;
+    
+    if (tokenValue >= 1e12) return `${(tokenValue / 1e12).toFixed(2)}T`;
+    if (tokenValue >= 1e9) return `${(tokenValue / 1e9).toFixed(2)}B`;
+    if (tokenValue >= 1e6) return `${(tokenValue / 1e6).toFixed(2)}M`;
+    if (tokenValue >= 1e3) return `${(tokenValue / 1e3).toFixed(2)}K`;
+    return tokenValue.toFixed(2);
+  };
+
   return (
     <ScanLayout>
       <div className="container mx-auto px-4 py-6">
@@ -254,8 +270,8 @@ export default function ScanHome() {
                     <Flame className="w-3.5 h-3.5" />
                     {t("scan.totalBurned", "Total Burned")}
                   </div>
-                  <div className="text-2xl font-bold text-orange-400">
-                    {stats?.totalBurned || "0"}
+                  <div className="text-xl font-bold text-orange-400 truncate">
+                    {formatLargeNumber(stats?.totalBurned)}
                   </div>
                   <div className="text-xs text-gray-500 mt-1">TBURN</div>
                 </CardContent>
@@ -267,8 +283,8 @@ export default function ScanHome() {
                     <Coins className="w-3.5 h-3.5" />
                     {t("scan.totalStaked", "Total Staked")}
                   </div>
-                  <div className="text-2xl font-bold text-cyan-400">
-                    {stats?.totalStaked || "0"}
+                  <div className="text-xl font-bold text-cyan-400 truncate">
+                    {formatLargeNumber(stats?.totalStaked)}
                   </div>
                   <div className="text-xs text-gray-500 mt-1">TBURN</div>
                 </CardContent>

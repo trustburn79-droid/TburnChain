@@ -159,20 +159,22 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
 
           <div className="flex items-center gap-4 py-3 border-t border-gray-800/50">
             <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <Input
-                  type="text"
-                  placeholder={t("scan.searchPlaceholder", "Search by Address / Txn Hash / Block / Token")}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-20 h-10 bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg"
-                  data-testid="input-header-search"
-                />
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <Input
+                    type="text"
+                    placeholder={t("scan.searchPlaceholder", "Search by Address / Txn Hash / Block / Token")}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 h-10 bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg"
+                    data-testid="input-header-search"
+                  />
+                </div>
                 <Button 
                   type="submit"
                   size="sm"
-                  className="absolute right-1 top-1/2 -translate-y-1/2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 h-8"
+                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 h-10 px-4 shrink-0"
                   data-testid="button-header-search"
                 >
                   {t("scan.search", "Search")}
