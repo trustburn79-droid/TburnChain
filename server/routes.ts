@@ -6909,7 +6909,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       res.json({
         rules: [
-          { id: 'rule-1', name: 'High Gas Price', condition: 'gasPrice > 100 gwei', severity: 'warning', enabled: true, notifications: ['email', 'slack'] },
+          { id: 'rule-1', name: 'High Gas Price', condition: 'gasPrice > 100 EMB', severity: 'warning', enabled: true, notifications: ['email', 'slack'] },
           { id: 'rule-2', name: 'Validator Offline', condition: 'validator.status == offline', severity: 'critical', enabled: true, notifications: ['email', 'sms', 'slack'] },
           { id: 'rule-3', name: 'Large Transfer', condition: 'transfer.amount > 1000000', severity: 'info', enabled: true, notifications: ['email'] },
           { id: 'rule-4', name: 'Bridge Delay', condition: 'bridge.delay > 30m', severity: 'warning', enabled: true, notifications: ['slack'] }

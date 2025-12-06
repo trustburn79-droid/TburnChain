@@ -273,7 +273,7 @@ export default function NetworkStats() {
                     <Tooltip 
                       contentStyle={{ background: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
                       labelStyle={{ color: '#9ca3af' }}
-                      formatter={(value: number) => [`${value} TBURN`, 'Gas Price']}
+                      formatter={(value: number) => [`${value} EMB`, 'Gas Price']}
                     />
                     <Line 
                       type="monotone" 
