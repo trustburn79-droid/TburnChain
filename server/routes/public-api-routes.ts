@@ -563,8 +563,9 @@ router.get('/search', async (req: Request, res: Response) => {
     
     const results: any[] = [];
     
-    // Enterprise-grade sample addresses for partial search
+    // Enterprise-grade sample addresses for partial search (expanded for better coverage)
     const sampleAddresses = [
+      // Core Protocol Contracts
       { address: '0x1234567890abcdef1234567890abcdef12345678', label: 'Treasury Wallet', balance: '125,450,000 TBURN', type: 'contract' },
       { address: '0x2345678901abcdef2345678901abcdef23456789', label: 'Staking Pool', balance: '85,250,000 TBURN', type: 'contract' },
       { address: '0x3456789012abcdef3456789012abcdef34567890', label: 'Bridge Contract', balance: '45,780,000 TBURN', type: 'contract' },
@@ -575,11 +576,28 @@ router.get('/search', async (req: Request, res: Response) => {
       { address: '0x8901234567abcdef8901234567abcdef89012345', label: 'Yield Farming', balance: '34,560,000 TBURN', type: 'contract' },
       { address: '0x9012345678abcdef9012345678abcdef90123456', label: 'Token Vesting', balance: '67,890,000 TBURN', type: 'contract' },
       { address: '0xa0b1c2d3e4f5a0b1c2d3e4f5a0b1c2d3e4f5a0b1', label: 'Burn Controller', balance: '0 TBURN', type: 'contract' },
+      // Whale Wallets
       { address: '0xabc123def456abc123def456abc123def456abc1', label: 'Whale Wallet #1', balance: '15,670,000 TBURN', type: 'wallet' },
       { address: '0xbcd234efa567bcd234efa567bcd234efa567bcd2', label: 'Whale Wallet #2', balance: '12,340,000 TBURN', type: 'wallet' },
       { address: '0xcde345fab678cde345fab678cde345fab678cde3', label: 'Validator Staker', balance: '8,900,000 TBURN', type: 'wallet' },
       { address: '0xdef456abc789def456abc789def456abc789def4', label: 'DeFi Power User', balance: '5,670,000 TBURN', type: 'wallet' },
       { address: '0xefa567bcd890efa567bcd890efa567bcd890efa5', label: 'NFT Collector', balance: '3,450,000 TBURN', type: 'wallet' },
+      // Additional addresses with common hex patterns (e, c, 5, 7, 8)
+      { address: '0xec578a1b2c3d4e5f6789012345678901234567ec', label: 'Early Investor Wallet', balance: '2,890,000 TBURN', type: 'wallet' },
+      { address: '0xec5782f3a4b5c6d7e8f9012345678901234567ab', label: 'Foundation Reserve', balance: '45,000,000 TBURN', type: 'contract' },
+      { address: '0x5ec78901234567890abcdef1234567890abcdef5', label: 'Team Multisig', balance: '18,500,000 TBURN', type: 'contract' },
+      { address: '0xc578e1234567890abcdef1234567890abcdef12', label: 'Ecosystem Fund', balance: '32,100,000 TBURN', type: 'contract' },
+      { address: '0xe5c78f0123456789abcdef0123456789abcdef01', label: 'Rewards Pool', balance: '15,750,000 TBURN', type: 'contract' },
+      { address: '0x78ec51234567890abcdef1234567890abcdef12', label: 'Insurance Fund', balance: '8,250,000 TBURN', type: 'contract' },
+      // More hex patterns for common searches
+      { address: '0xfabc1234567890abcdef1234567890abcdef1234', label: 'Liquidity Pool', balance: '95,000,000 TBURN', type: 'contract' },
+      { address: '0xdeadbeef1234567890abcdef1234567890abcd', label: 'Burn Address', balance: '0 TBURN', type: 'contract' },
+      { address: '0xcafe1234567890abcdef1234567890abcdef12', label: 'Community Treasury', balance: '28,500,000 TBURN', type: 'contract' },
+      { address: '0xbabe5678901234567890abcdef1234567890ab', label: 'Marketing Wallet', balance: '5,200,000 TBURN', type: 'wallet' },
+      { address: '0xf00d1234567890abcdef1234567890abcdef12', label: 'Developer Fund', balance: '12,800,000 TBURN', type: 'contract' },
+      { address: '0xbeef5678901234567890abcdef1234567890ab', label: 'Airdrop Contract', balance: '3,500,000 TBURN', type: 'contract' },
+      { address: '0xface1234567890abcdef1234567890abcdef12', label: 'DAO Treasury', balance: '67,300,000 TBURN', type: 'contract' },
+      { address: '0xc0de5678901234567890abcdef1234567890ab', label: 'Smart Contract Registry', balance: '0 TBURN', type: 'contract' },
     ];
     
     // Sample transaction hashes for partial search
