@@ -11605,12 +11605,12 @@ Provide JSON portfolio analysis:
     broadcastUpdate(type, data, schema, true);
   });
   
-  // Validator Voting Activity snapshot every 3 seconds  
+  // Validator Voting Activity snapshot every 1 second (enterprise-grade real-time updates)
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
       // Get recent consensus rounds to show voting activity
-      const recentRounds = await storage.getAllConsensusRounds(5);
+      const recentRounds = await storage.getAllConsensusRounds(10);
       const votingActivity = recentRounds.map(round => ({
         blockHeight: round.blockHeight,
         proposer: round.proposerAddress,
@@ -11633,7 +11633,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error('Error broadcasting voting activity:', error);
     }
-  }, 3000, 'voting_activity');
+  }, 1000, 'voting_activity');
 
   // ============================================
   // STAKING REAL-TIME BROADCASTS

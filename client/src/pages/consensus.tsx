@@ -815,7 +815,8 @@ export default function Consensus() {
 
   const { data: consensusRoundsData } = useQuery<ConsensusRound[]>({
     queryKey: ["/api/consensus/rounds"],
-    refetchInterval: 5000,
+    staleTime: 10000,
+    gcTime: 30000,
   });
 
   useWebSocketChannel({
@@ -837,7 +838,8 @@ export default function Consensus() {
 
   const { data: votingActivityData } = useQuery<z.infer<typeof votingActivitySchema>>({
     queryKey: ["/api/consensus/voting-activity"],
-    refetchInterval: 3000,
+    staleTime: 5000,
+    gcTime: 15000,
     initialData: [],
   });
 
