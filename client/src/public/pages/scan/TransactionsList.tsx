@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -42,6 +42,7 @@ export default function TransactionsList() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const { isConnected } = useScanWebSocket();
+  
   const [page, setPage] = useState(1);
   const [searchTx, setSearchTx] = useState("");
   const pageSize = 25;
@@ -70,7 +71,6 @@ export default function TransactionsList() {
   };
 
   const formatTime = (timestamp: number) => {
-    // Handle both seconds and milliseconds timestamps
     const timestampMs = timestamp < 10000000000 ? timestamp * 1000 : timestamp;
     const seconds = Math.floor((Date.now() - timestampMs) / 1000);
     if (seconds < 0) return "just now";
@@ -85,10 +85,7 @@ export default function TransactionsList() {
     const numStr = typeof value === 'string' ? value : value.toString();
     const num = parseFloat(numStr);
     if (isNaN(num)) return "0";
-    
-    // Convert from Wei (18 decimals) to token units
     const tokenValue = num / 1e18;
-    
     if (tokenValue >= 1e12) return `${(tokenValue / 1e12).toFixed(2)}T`;
     if (tokenValue >= 1e9) return `${(tokenValue / 1e9).toFixed(2)}B`;
     if (tokenValue >= 1e6) return `${(tokenValue / 1e6).toFixed(2)}M`;
@@ -262,7 +259,7 @@ export default function TransactionsList() {
                         <TableCell>
                           <Link href={`/scan/block/${tx.blockNumber}`}>
                             <span className="text-blue-400 hover:text-blue-300 cursor-pointer">
-                              {tx.blockNumber.toLocaleString()}
+                              {tx.blockNumber?.toLocaleString() || "-"}
                             </span>
                           </Link>
                         </TableCell>
@@ -307,7 +304,7 @@ export default function TransactionsList() {
                             </Badge>
                           ) : (
                             <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
-                              {tx.status}
+                              {tx.status || "pending"}
                             </Badge>
                           )}
                         </TableCell>
@@ -322,7 +319,7 @@ export default function TransactionsList() {
           {totalPages > 1 && (
             <div className="flex items-center justify-between p-4 border-t border-gray-800">
               <div className="text-sm text-gray-400">
-                {t("scan.showingTxs", { from: (page - 1) * pageSize + 1, to: Math.min(page * pageSize, totalTxs), total: totalTxs })}
+                {t("scan.showingTxs", `Showing ${(page - 1) * pageSize + 1} - ${Math.min(page * pageSize, totalTxs)} of ${totalTxs}`)}
               </div>
               <div className="flex items-center gap-2">
                 <Button
