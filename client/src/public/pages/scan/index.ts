@@ -6,3 +6,5 @@ export { default as TransactionDetail } from './TransactionDetail';
 export { default as AddressDetail } from './AddressDetail';
 export { default as ValidatorsList } from './ValidatorsList';
 export { default as ScanSearchResults } from './SearchResults';
+export { default as NetworkStats } from './NetworkStats';
+export { default as TokensList } from './TokensList';
