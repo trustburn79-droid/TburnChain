@@ -699,7 +699,7 @@ web3.eth.getBlockNumber().then(console.log)`}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 border rounded-lg" data-testid="state-balance">
                       <p className="text-sm text-muted-foreground">{t("adminDebug.balance")}</p>
-                      <p className="font-mono">1,000,000 TBURN</p>
+                      <p className="font-mono">100,000,000 TBURN</p>
                     </div>
                     <div className="p-4 border rounded-lg" data-testid="state-nonce">
                       <p className="text-sm text-muted-foreground">{t("adminDebug.nonce")}</p>

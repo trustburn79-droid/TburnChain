@@ -363,7 +363,7 @@ export default function VotingMonitor() {
                     <span className="font-medium">{t("adminVoting.for")}</span>
                   </div>
                   <p className="text-2xl font-bold mt-2" data-testid="text-for-percentage">77.3%</p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-for-amount">8.5M TBURN</p>
+                  <p className="text-sm text-muted-foreground" data-testid="text-for-amount">850M TBURN</p>
                 </div>
                 <div className="p-4 border rounded-lg" data-testid="card-votes-against">
                   <div className="flex items-center gap-2 text-red-500">
@@ -371,7 +371,7 @@ export default function VotingMonitor() {
                     <span className="font-medium">{t("adminVoting.against")}</span>
                   </div>
                   <p className="text-2xl font-bold mt-2" data-testid="text-against-percentage">19.1%</p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-against-amount">2.1M TBURN</p>
+                  <p className="text-sm text-muted-foreground" data-testid="text-against-amount">210M TBURN</p>
                 </div>
                 <div className="p-4 border rounded-lg" data-testid="card-votes-abstain">
                   <div className="flex items-center gap-2 text-muted-foreground">
@@ -379,7 +379,7 @@ export default function VotingMonitor() {
                     <span className="font-medium">{t("adminVoting.abstain")}</span>
                   </div>
                   <p className="text-2xl font-bold mt-2" data-testid="text-abstain-percentage">3.6%</p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-abstain-amount">0.4M TBURN</p>
+                  <p className="text-sm text-muted-foreground" data-testid="text-abstain-amount">40M TBURN</p>
                 </div>
                 <div className="p-4 border rounded-lg" data-testid="card-quorum">
                   <div className="flex items-center gap-2">
@@ -389,7 +389,7 @@ export default function VotingMonitor() {
                   <p className={`text-2xl font-bold mt-2 ${quorumPercentage >= 100 ? "text-green-500" : "text-yellow-500"}`} data-testid="text-quorum-percentage">
                     {quorumPercentage.toFixed(1)}%
                   </p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-quorum-amount">{(totalVotes / 1000000).toFixed(1)}M / 10M</p>
+                  <p className="text-sm text-muted-foreground" data-testid="text-quorum-amount">{(totalVotes / 1000000).toFixed(1)}M / 1B</p>
                 </div>
               </div>
             )}

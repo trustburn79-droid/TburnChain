@@ -434,7 +434,7 @@ export default function AdminBurnControl() {
                   </div>
                   <div className="p-3 bg-muted/50 rounded-lg">
                     <div className="text-sm text-muted-foreground">{t("adminBurnControl.estimated24hBurn")}</div>
-                    <div className="text-lg font-semibold">~45,000 TBURN</div>
+                    <div className="text-lg font-semibold">~4,500,000 TBURN</div>
                   </div>
                 </CardContent>
               </Card>
@@ -465,7 +465,7 @@ export default function AdminBurnControl() {
                   </div>
                   <div className="p-3 bg-muted/50 rounded-lg">
                     <div className="text-sm text-muted-foreground">{t("adminBurnControl.nextScheduledBurn")}</div>
-                    <div className="text-lg font-semibold">30,000 TBURN at 00:00 UTC</div>
+                    <div className="text-lg font-semibold">350,000 TBURN at 00:00 UTC</div>
                   </div>
                 </CardContent>
               </Card>

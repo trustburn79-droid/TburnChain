@@ -640,21 +640,21 @@ export default function AdminTokenIssuance() {
                     <TableRow data-testid="row-holder-1">
                       <TableCell>1</TableCell>
                       <TableCell className="font-mono">0x1234...5678</TableCell>
-                      <TableCell>50,000,000 TBURN</TableCell>
+                      <TableCell>500,000,000 TBURN</TableCell>
                       <TableCell>5.00%</TableCell>
                       <TableCell><Badge>{t("adminTokenIssuance.whale")}</Badge></TableCell>
                     </TableRow>
                     <TableRow data-testid="row-holder-2">
                       <TableCell>2</TableCell>
                       <TableCell className="font-mono">0x2345...6789</TableCell>
-                      <TableCell>35,000,000 TBURN</TableCell>
+                      <TableCell>350,000,000 TBURN</TableCell>
                       <TableCell>3.50%</TableCell>
                       <TableCell><Badge>{t("adminTokenIssuance.whale")}</Badge></TableCell>
                     </TableRow>
                     <TableRow data-testid="row-holder-3">
                       <TableCell>3</TableCell>
                       <TableCell className="font-mono">0x3456...7890</TableCell>
-                      <TableCell>28,000,000 TBURN</TableCell>
+                      <TableCell>280,000,000 TBURN</TableCell>
                       <TableCell>2.80%</TableCell>
                       <TableCell><Badge>{t("adminTokenIssuance.whale")}</Badge></TableCell>
                     </TableRow>

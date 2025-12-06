@@ -687,7 +687,7 @@ export default function AdminTreasury() {
                     <div className="mt-4 p-4 bg-muted/50 rounded-lg" data-testid="pending-transactions-info">
                       <h4 className="font-medium mb-2">{t("adminTreasury.pendingTransactions")}</h4>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm">Transfer 75,000 TBURN to Development Fund</span>
+                        <span className="text-sm">Transfer 7,500,000 TBURN to Development Fund</span>
                         <Badge variant="outline">2/3 {t("adminTreasury.signatures")}</Badge>
                       </div>
                     </div>
