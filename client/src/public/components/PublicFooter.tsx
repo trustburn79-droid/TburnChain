@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { SiX, SiGithub, SiDiscord, SiTelegram, SiMedium } from "react-icons/si";
 import { Mail, Globe, Shield, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import "../styles/public.css";
 
 const socialLinks = [
@@ -10,13 +11,6 @@ const socialLinks = [
   { icon: SiDiscord, href: "https://discord.gg/tburnchain", label: "Discord" },
   { icon: SiTelegram, href: "https://t.me/tburnchain", label: "Telegram" },
   { icon: SiMedium, href: "https://medium.com/@tburnchain", label: "Medium" },
-];
-
-const stats = [
-  { value: "14M+", labelKey: "blocks" },
-  { value: "125", labelKey: "validators" },
-  { value: "50K+", labelKey: "dailyTxs" },
-  { value: "99.9%", labelKey: "uptime" },
 ];
 
 const ecosystemLinks = [
@@ -79,6 +73,33 @@ const legalLinks = [
 
 export function PublicFooter() {
   const { t } = useTranslation();
+
+  const { data: networkStats } = useQuery<{ success: boolean; data: any }>({
+    queryKey: ['/api/public/v1/network/stats'],
+    refetchInterval: 30000,
+  });
+
+  const stats = networkStats?.data ? [
+    { 
+      value: networkStats.data.blockHeight >= 1000000 
+        ? Math.floor(networkStats.data.blockHeight / 1000000) + "M+" 
+        : networkStats.data.blockHeight?.toLocaleString() || "20M+", 
+      labelKey: "blocks" 
+    },
+    { value: String(networkStats.data.activeValidators || 125), labelKey: "validators" },
+    { 
+      value: networkStats.data.totalTransactions >= 1000 
+        ? Math.floor(networkStats.data.totalTransactions / 1000) + "K+" 
+        : networkStats.data.totalTransactions?.toLocaleString() || "50K+", 
+      labelKey: "dailyTxs" 
+    },
+    { value: networkStats.data.uptime || "99.99%", labelKey: "uptime" },
+  ] : [
+    { value: "20M+", labelKey: "blocks" },
+    { value: "125", labelKey: "validators" },
+    { value: "67K+", labelKey: "dailyTxs" },
+    { value: "99.99%", labelKey: "uptime" },
+  ];
 
   return (
     <footer className="border-t border-white/5 bg-black/80 backdrop-blur-xl relative">
