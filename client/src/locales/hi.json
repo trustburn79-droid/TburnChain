@@ -7248,7 +7248,7 @@
             "options": {
               "network": "लक्ष्य नेटवर्क (mainnet, testnet)",
               "verify": "एक्सप्लोरर पर कॉन्ट्रैक्ट सत्यापित करें",
-              "gasPrice": "nTBURN में गैस मूल्य"
+              "gasPrice": "EMB में गैस मूल्य"
             }
           },
           "wallet": {

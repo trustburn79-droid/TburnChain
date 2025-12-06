@@ -5094,7 +5094,7 @@
             "options": {
               "network": "টার্গেট নেটওয়ার্ক (mainnet, testnet)",
               "verify": "এক্সপ্লোরারে কন্ট্রাক্ট যাচাই করুন",
-              "gasPrice": "nTBURN-তে গ্যাস প্রাইস"
+              "gasPrice": "EMB-তে গ্যাস প্রাইস"
             }
           },
           "wallet": {

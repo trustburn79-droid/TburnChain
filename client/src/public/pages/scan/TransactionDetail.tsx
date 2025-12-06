@@ -377,7 +377,7 @@ export default function TransactionDetail() {
                   <div className="bg-gray-800/30 rounded-lg p-4">
                     <div className="text-gray-400 text-sm mb-1">{t("scan.gasPrice", "Gas Price")}</div>
                     <div className="text-xl font-bold text-white" data-testid="text-gas-price">
-                      {(parseFloat(tx.gasPrice) / 1e9).toFixed(2)} <span className="text-sm text-gray-400">nTBURN</span>
+                      {(parseFloat(tx.gasPrice) / 1e9).toFixed(2)} <span className="text-sm text-gray-400">EMB</span>
                     </div>
                   </div>
 

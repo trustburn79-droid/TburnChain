@@ -6552,7 +6552,7 @@
             "options": {
               "network": "Réseau cible (mainnet, testnet)",
               "verify": "Vérifier le contrat sur l'explorateur",
-              "gasPrice": "Prix du gas en nTBURN"
+              "gasPrice": "Prix du gas en EMB"
             }
           },
           "wallet": {

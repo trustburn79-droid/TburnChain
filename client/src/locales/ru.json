@@ -5974,7 +5974,7 @@
             "options": {
               "network": "Target network (mainnet, testnet)",
               "verify": "Verify contract on explorer",
-              "gasPrice": "Gas price in nTBURN"
+              "gasPrice": "Gas price in EMB"
             }
           },
           "wallet": {

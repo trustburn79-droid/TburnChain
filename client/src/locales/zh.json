@@ -8675,7 +8675,7 @@
             "options": {
               "network": "目标网络 (mainnet, testnet)",
               "verify": "在浏览器上验证合约",
-              "gasPrice": "Gas 价格（nTBURN）"
+              "gasPrice": "Gas 价格（EMB）"
             }
           },
           "wallet": {

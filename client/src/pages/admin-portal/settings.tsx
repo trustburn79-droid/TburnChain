@@ -316,7 +316,7 @@ export default function AdminSettings() {
             { label: t("adminSettings.network.blockTime"), value: `${currentSettings.network.blockTime}s`, type: "text" as const },
             { label: t("adminSettings.network.maxBlockSize"), value: `${currentSettings.network.maxBlockSize} MB`, type: "text" as const },
             { label: t("adminSettings.network.gasLimit"), value: currentSettings.network.gasLimit, type: "text" as const },
-            { label: t("adminSettings.network.minGasPrice"), value: `${currentSettings.network.minGasPrice} nTBURN`, type: "text" as const },
+            { label: t("adminSettings.network.minGasPrice"), value: `${currentSettings.network.minGasPrice} EMB`, type: "text" as const },
           ],
         },
         {

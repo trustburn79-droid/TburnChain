@@ -9454,7 +9454,7 @@
             "options": {
               "network": "대상 네트워크 (mainnet, testnet)",
               "verify": "익스플로러에서 컨트랙트 검증",
-              "gasPrice": "가스 price in nTBURN"
+              "gasPrice": "가스 price in EMB"
             }
           },
           "dev": {
