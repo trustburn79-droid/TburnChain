@@ -1,5 +1,5 @@
 import { IStorage } from "./storage";
-import { Validator, NetworkStats, InsertConsensusRound, InsertBlock } from "@shared/schema";
+import { Validator, NetworkStats, InsertConsensusRound, InsertBlock, InsertCrossShardMessage } from "@shared/schema";
 import * as crypto from 'crypto';
 
 // TBURN v7.0 Enterprise Validator Configuration
@@ -98,6 +98,7 @@ export class ValidatorSimulationService {
   private isRunning: boolean = false;
   private epochInterval: NodeJS.Timeout | null = null;
   private blockInterval: NodeJS.Timeout | null = null;
+  private crossShardInterval: NodeJS.Timeout | null = null;
 
   constructor(storage: IStorage) {
     this.storage = storage;
@@ -299,15 +300,25 @@ export class ValidatorSimulationService {
       return sum + BigInt(this.calculateVotingPower(v.stake, "0"));
     }, BigInt(0));
     
-    // Create consensus round data for database
+    // Get total active validators (all 125 that are active, not just committee)
+    const activeValidators = this.validators.filter(v => v.status === "active");
+    const totalActiveValidators = activeValidators.length;
+    const requiredQuorum = Math.ceil(totalActiveValidators * ENTERPRISE_VALIDATORS_CONFIG.QUORUM_THRESHOLD / 10000);
+    
+    // 90-95% of active validators participate in prevote
+    const prevoteCount = Math.floor(totalActiveValidators * (0.90 + Math.random() * 0.05));
+    // 85-92% participate in precommit
+    const precommitCount = Math.floor(totalActiveValidators * (0.85 + Math.random() * 0.07));
+    
+    // Create consensus round data for database with actual validator counts
     const consensusData: InsertConsensusRound = {
       blockHeight: this.currentBlockHeight,
       proposerAddress: proposer.address,
       currentPhase: PHASE_MAPPING['commit'] || 4, // Map phase string to integer
-      prevoteCount: Math.floor(committeeValidators.length * 0.9), // 90% prevotes
-      precommitCount: Math.floor(committeeValidators.length * 0.85), // 85% precommits
-      totalValidators: committeeValidators.length,
-      requiredQuorum: Math.ceil(committeeValidators.length * ENTERPRISE_VALIDATORS_CONFIG.QUORUM_THRESHOLD / 10000),
+      prevoteCount: prevoteCount,
+      precommitCount: precommitCount,
+      totalValidators: totalActiveValidators, // Use total active validators (125)
+      requiredQuorum: requiredQuorum, // 67% of total active validators
       avgBlockTimeMs: ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME,
       status: "completed",
       startTime: Date.now(), // Unix timestamp in milliseconds
@@ -423,6 +434,72 @@ export class ValidatorSimulationService {
     }
   }
 
+  // Simulate cross-shard messages between shards
+  private crossShardMessageCounter: number = 0;
+  
+  private async simulateCrossShardMessages(): Promise<void> {
+    // Get shards from storage
+    const shards = await this.storage.getAllShards();
+    if (shards.length < 2) {
+      // Create some default shards if none exist
+      return;
+    }
+    
+    // Generate 1-3 cross-shard messages per simulation
+    const messageCount = 1 + Math.floor(Math.random() * 3);
+    
+    const messageTypes = ['transfer', 'contract_call', 'state_sync'];
+    const routeOptimizations = ['speed', 'reputation', 'cost', 'balanced'];
+    const statuses = ['pending', 'confirmed', 'confirmed', 'confirmed']; // 75% confirmed
+    
+    for (let i = 0; i < messageCount; i++) {
+      const fromShard = shards[Math.floor(Math.random() * shards.length)];
+      let toShard = shards[Math.floor(Math.random() * shards.length)];
+      
+      // Ensure different source and destination shards
+      while (toShard.shardId === fromShard.shardId && shards.length > 1) {
+        toShard = shards[Math.floor(Math.random() * shards.length)];
+      }
+      
+      this.crossShardMessageCounter++;
+      const messageType = messageTypes[Math.floor(Math.random() * messageTypes.length)];
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+      
+      const messageData: InsertCrossShardMessage = {
+        messageId: `csm-${Date.now()}-${this.crossShardMessageCounter.toString().padStart(6, '0')}`,
+        fromShardId: fromShard.shardId,
+        toShardId: toShard.shardId,
+        transactionHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+        status: status,
+        messageType: messageType,
+        payload: {
+          blockHeight: this.currentBlockHeight,
+          sender: this.validators[Math.floor(Math.random() * this.validators.length)].address,
+          amount: (BigInt(1e18) * BigInt(1 + Math.floor(Math.random() * 1000))).toString(),
+          data: messageType === 'contract_call' ? `0x${crypto.randomBytes(32).toString('hex')}` : null,
+          nonce: Math.floor(Math.random() * 1000000),
+          timestamp: Date.now(),
+        },
+        retryCount: status === 'failed' ? Math.floor(Math.random() * 3) + 1 : 0,
+        gasUsed: 21000 + Math.floor(Math.random() * 150000), // 21k - 171k gas
+        routingPriority: 1 + Math.floor(Math.random() * 10), // 1-10
+        peerReputation: 7500 + Math.floor(Math.random() * 2500), // 7500-10000
+        networkQuality: 8000 + Math.floor(Math.random() * 2000), // 8000-10000
+        routeOptimization: routeOptimizations[Math.floor(Math.random() * routeOptimizations.length)],
+      };
+      
+      try {
+        await this.storage.createCrossShardMessage(messageData);
+      } catch (error: any) {
+        if (error?.code === '23505') {
+          // Duplicate key - skip
+        } else {
+          console.error("Error creating cross-shard message:", error);
+        }
+      }
+    }
+  }
+
   // Update network stats based on validator activity
   private async updateNetworkStats(): Promise<void> {
     // Use total validators count (all 125 are operational)
@@ -492,7 +569,16 @@ export class ValidatorSimulationService {
       }
     }, ENTERPRISE_VALIDATORS_CONFIG.EPOCH_DURATION);
     
-    console.log("✅ Validator simulation started");
+    // Cross-shard message simulation every 2 seconds
+    this.crossShardInterval = setInterval(async () => {
+      try {
+        await this.simulateCrossShardMessages();
+      } catch (error) {
+        console.error("Error in cross-shard simulation:", error);
+      }
+    }, 2000);
+    
+    console.log("✅ Validator simulation started (with cross-shard messaging)");
   }
 
   // Rotate epoch and update committee
@@ -543,6 +629,11 @@ export class ValidatorSimulationService {
     if (this.epochInterval) {
       clearInterval(this.epochInterval);
       this.epochInterval = null;
+    }
+    
+    if (this.crossShardInterval) {
+      clearInterval(this.crossShardInterval);
+      this.crossShardInterval = null;
     }
     
     console.log("⏹️ Validator simulation stopped");
