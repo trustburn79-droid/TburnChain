@@ -218,7 +218,10 @@ export default function ScanHome() {
   };
 
   const formatTime = (timestamp: number) => {
-    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    // Handle both seconds and milliseconds timestamps
+    // If timestamp is in seconds (< year 2100), convert to milliseconds
+    const timestampMs = timestamp < 10000000000 ? timestamp * 1000 : timestamp;
+    const seconds = Math.floor((Date.now() - timestampMs) / 1000);
     if (seconds < 0) return "just now";
     if (seconds < 60) return `${seconds}s ago`;
     if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
