@@ -160,45 +160,60 @@ export function WalletButton() {
 
   return (
     <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="gap-2 relative" data-testid="button-wallet-menu">
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded-full bg-muted flex items-center justify-center relative">
-                {getWalletIcon()}
-                <div className="absolute -bottom-0.5 -right-0.5">
-                  {getConnectionStatusIcon()}
+      <div className="flex items-center gap-3">
+        {/* Balance display - separate from button */}
+        {balance && (
+          <div 
+            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-md bg-primary/10 border border-primary/20"
+            data-testid="display-wallet-balance"
+          >
+            <Wallet className="h-4 w-4 text-primary" />
+            <span className="text-sm font-semibold text-primary">
+              {parseFloat(balance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })} TBURN
+            </span>
+          </div>
+        )}
+        
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="gap-2 relative" data-testid="button-wallet-menu">
+              <div className="flex items-center gap-2">
+                <div className="h-6 w-6 rounded-full bg-muted flex items-center justify-center relative">
+                  {getWalletIcon()}
+                  <div className="absolute -bottom-0.5 -right-0.5">
+                    {getConnectionStatusIcon()}
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col items-start text-left">
-                <span className="text-xs font-medium">
-                  {address ? formatAddress(address) : ""}
-                </span>
-                {balance && (
-                  <span className="text-[10px] text-muted-foreground">
-                    {parseFloat(balance).toFixed(4)} TBURN
+                <div className="flex flex-col items-start text-left">
+                  <span className="text-xs font-medium">
+                    {address ? formatAddress(address) : ""}
                   </span>
+                  {/* Show balance in button on mobile only */}
+                  {balance && (
+                    <span className="text-[10px] text-muted-foreground sm:hidden">
+                      {parseFloat(balance).toFixed(4)} TBURN
+                    </span>
+                  )}
+                </div>
+                {!isCorrectNetwork && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <AlertTriangle className="h-4 w-4 text-yellow-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {t("wallet.wrongNetwork")}
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {pendingCount > 0 && (
+                  <Badge variant="secondary" className="h-5 px-1.5 text-xs">
+                    {pendingCount}
+                  </Badge>
                 )}
               </div>
-              {!isCorrectNetwork && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <AlertTriangle className="h-4 w-4 text-yellow-500" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {t("wallet.wrongNetwork")}
-                  </TooltipContent>
-                </Tooltip>
-              )}
-              {pendingCount > 0 && (
-                <Badge variant="secondary" className="h-5 px-1.5 text-xs">
-                  {pendingCount}
-                </Badge>
-              )}
-            </div>
-            <ChevronDown className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
+              <ChevronDown className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-64" data-testid="menu-wallet-options">
           <div className="px-3 py-2">
             <div className="flex items-center justify-between mb-1">
@@ -293,7 +308,8 @@ export function WalletButton() {
             {t("wallet.disconnect")}
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+        </DropdownMenu>
+      </div>
       <WalletConnectModal open={modalOpen} onOpenChange={setModalOpen} />
     </>
   );
