@@ -23491,6 +23491,21 @@
     "collection": "컬렉션",
     "type": "유형",
     "items": "항목",
-    "contract": "계약"
+    "contract": "계약",
+    "enterSearchTerm": "검색어를 입력해 주세요",
+    "invalidSearch": "잘못된 검색입니다. 유효한 블록 번호, 트랜잭션 해시 또는 주소를 입력하세요.",
+    "txHash": "Tx 해시",
+    "gasDetails": "가스 세부정보",
+    "txInfo": "트랜잭션 정보",
+    "position": "위치",
+    "burned": "소각됨",
+    "validatorReward": "검증인 보상",
+    "inputData": "입력 데이터",
+    "confirmations": "컨펌",
+    "nonce": "논스",
+    "txNotFoundDesc": "입력한 트랜잭션 해시를 찾을 수 없습니다.",
+    "searchedFor": "검색어",
+    "connected": "연결됨",
+    "disconnected": "연결 끊김"
   }
 }

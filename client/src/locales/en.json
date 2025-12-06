@@ -23491,6 +23491,21 @@
     "collection": "Collection",
     "type": "Type",
     "items": "Items",
-    "contract": "Contract"
+    "contract": "Contract",
+    "enterSearchTerm": "Please enter a search term",
+    "invalidSearch": "Invalid search. Enter a valid block number, transaction hash, or address.",
+    "txHash": "Tx Hash",
+    "gasDetails": "Gas Details",
+    "txInfo": "Transaction Info",
+    "position": "Position",
+    "burned": "Burned",
+    "validatorReward": "Validator Reward",
+    "inputData": "Input Data",
+    "confirmations": "Confirmations",
+    "nonce": "Nonce",
+    "txNotFoundDesc": "The transaction hash you entered could not be found.",
+    "searchedFor": "Searched for",
+    "connected": "Connected",
+    "disconnected": "Disconnected"
   }
 }

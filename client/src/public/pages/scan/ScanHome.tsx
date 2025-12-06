@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 import { 
@@ -27,7 +28,10 @@ import {
   Globe,
   BarChart3,
   Layers,
-  Users
+  Users,
+  Search,
+  AlertCircle,
+  Loader2
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "wouter";
@@ -88,6 +92,40 @@ function generateTpsHistory() {
   return data;
 }
 
+type SearchType = 'address' | 'transaction' | 'block' | 'unknown';
+
+function detectSearchType(query: string): { type: SearchType; value: string } {
+  const trimmed = query.trim();
+  
+  // Check if it's a block number (all digits)
+  if (/^\d+$/.test(trimmed)) {
+    return { type: 'block', value: trimmed };
+  }
+  
+  // Check if it's a block number with # prefix
+  if (/^#\d+$/.test(trimmed)) {
+    return { type: 'block', value: trimmed.slice(1) };
+  }
+  
+  // Check if it's a transaction hash (0x + 64 hex chars)
+  if (/^0x[a-fA-F0-9]{64}$/.test(trimmed)) {
+    return { type: 'transaction', value: trimmed };
+  }
+  
+  // Check if it's an address (0x + 40 hex chars)
+  if (/^0x[a-fA-F0-9]{40}$/.test(trimmed)) {
+    return { type: 'address', value: trimmed };
+  }
+  
+  // Any 0x starting value - try to determine by length
+  if (/^0x[a-fA-F0-9]+$/.test(trimmed)) {
+    if (trimmed.length === 66) return { type: 'transaction', value: trimmed };
+    if (trimmed.length === 42) return { type: 'address', value: trimmed };
+  }
+  
+  return { type: 'unknown', value: trimmed };
+}
+
 export default function ScanHome() {
   const { t } = useTranslation();
   const [, setLocation] = useLocation();
@@ -95,6 +133,9 @@ export default function ScanHome() {
   const { isConnected, latestBlock, lastUpdate } = useScanWebSocket();
   const [tpsHistory] = useState(generateTpsHistory);
   const [copiedHash, setCopiedHash] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState("");
 
   const { data: statsData, isLoading: statsLoading, error: statsError } = useQuery<{ success: boolean; data: NetworkStats }>({
     queryKey: ["/api/public/v1/network/stats"],
@@ -115,6 +156,48 @@ export default function ScanHome() {
   const stats = statsData?.data;
   const blocks = blocksData?.data || [];
   const transactions = txsData?.data || [];
+
+  const handleSearch = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    setSearchError("");
+    
+    if (!searchQuery.trim()) {
+      setSearchError(t("scan.enterSearchTerm", "Please enter a search term"));
+      return;
+    }
+    
+    setIsSearching(true);
+    
+    const { type, value } = detectSearchType(searchQuery);
+    
+    setTimeout(() => {
+      setIsSearching(false);
+      setSearchQuery("");
+      
+      switch (type) {
+        case 'block':
+          setLocation(`/scan/block/${value}`);
+          break;
+        case 'transaction':
+          setLocation(`/scan/tx/${value}`);
+          break;
+        case 'address':
+          setLocation(`/scan/address/${value}`);
+          break;
+        default:
+          // Use pattern matching only - don't rely on local cache
+          if (value.startsWith('0x') && value.length === 66) {
+            setLocation(`/scan/tx/${value}`);
+          } else if (value.startsWith('0x') && value.length === 42) {
+            setLocation(`/scan/address/${value}`);
+          } else if (/^\d+$/.test(value)) {
+            setLocation(`/scan/block/${value}`);
+          } else {
+            setSearchError(t("scan.invalidSearch", "Invalid search. Enter a valid block number, transaction hash, or address."));
+          }
+      }
+    }, 300);
+  }, [searchQuery, setLocation, t]);
 
   const copyToClipboard = useCallback((text: string) => {
     navigator.clipboard.writeText(text);
@@ -168,28 +251,92 @@ export default function ScanHome() {
   return (
     <ScanLayout>
       <div className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl font-bold text-white mb-1" data-testid="text-scan-title">
-              {t("scan.subtitle", "TBURN Mainnet Blockchain Explorer")}
-            </h1>
-            <div className="flex items-center gap-4 text-sm text-gray-400">
-              {isConnected && (
-                <div className="flex items-center gap-1.5">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  <span className="text-green-400">{t("scan.live", "Live")}</span>
+        {/* Hero Search Section */}
+        <div className="relative mb-8">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-red-500/10 to-purple-500/10 rounded-2xl blur-xl"></div>
+          <div className="relative bg-gradient-to-b from-gray-900/80 to-gray-900/40 border border-gray-800/50 rounded-2xl p-8 backdrop-blur-sm">
+            <div className="text-center mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-400 via-red-400 to-purple-400 bg-clip-text text-transparent mb-2" data-testid="text-scan-title">
+                {t("scan.subtitle", "TBURN Mainnet Blockchain Explorer")}
+              </h1>
+              <div className="flex items-center justify-center gap-4 text-sm text-gray-400">
+                {isConnected && (
+                  <div className="flex items-center gap-1.5">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span className="text-green-400">{t("scan.live", "Live")}</span>
+                  </div>
+                )}
+                {lastUpdate && (
+                  <span>{t("scan.lastUpdate", "Last update")}: {formatTime(lastUpdate)}</span>
+                )}
+              </div>
+            </div>
+
+            {/* Central Search Bar */}
+            <form onSubmit={handleSearch} className="max-w-3xl mx-auto">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-red-500/20 to-purple-500/20 rounded-xl blur-md"></div>
+                <div className="relative flex gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                    <Input
+                      type="text"
+                      placeholder={t("scan.searchPlaceholder", "Search by Address / Txn Hash / Block / Token")}
+                      value={searchQuery}
+                      onChange={(e) => {
+                        setSearchQuery(e.target.value);
+                        setSearchError("");
+                      }}
+                      className="pl-12 pr-4 h-14 bg-gray-950/90 border-gray-700/50 text-white text-lg placeholder:text-gray-500 rounded-xl focus:border-orange-500/50 focus:ring-orange-500/20"
+                      data-testid="input-hero-search"
+                    />
+                  </div>
+                  <Button 
+                    type="submit"
+                    disabled={isSearching}
+                    className="h-14 px-8 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 rounded-xl text-lg font-medium shrink-0"
+                    data-testid="button-hero-search"
+                  >
+                    {isSearching ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      t("scan.search", "Search")
+                    )}
+                  </Button>
+                </div>
+              </div>
+              
+              {searchError && (
+                <div className="flex items-center justify-center gap-2 mt-3 text-red-400 text-sm">
+                  <AlertCircle className="w-4 h-4" />
+                  {searchError}
                 </div>
               )}
-              {lastUpdate && (
-                <span>{t("scan.lastUpdate", "Last update")}: {formatTime(lastUpdate)}</span>
-              )}
-            </div>
+              
+              <div className="flex items-center justify-center gap-4 mt-4 text-sm text-gray-500">
+                <span className="flex items-center gap-1">
+                  <Blocks className="w-3.5 h-3.5" />
+                  {t("scan.block", "Block")}
+                </span>
+                <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
+                <span className="flex items-center gap-1">
+                  <ArrowRightLeft className="w-3.5 h-3.5" />
+                  {t("scan.txHash", "Tx Hash")}
+                </span>
+                <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
+                <span className="flex items-center gap-1">
+                  <Users className="w-3.5 h-3.5" />
+                  {t("scan.address", "Address")}
+                </span>
+              </div>
+            </form>
           </div>
         </div>
 
+        {/* Network Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
           {statsLoading ? (
             Array.from({ length: 6 }).map((_, i) => (
@@ -293,6 +440,7 @@ export default function ScanHome() {
           )}
         </div>
 
+        {/* Network Activity Charts */}
         <div className="grid lg:grid-cols-3 gap-4 mb-6">
           <Card className="bg-gray-900/50 border-gray-800 lg:col-span-2">
             <CardHeader className="pb-2">
@@ -376,6 +524,7 @@ export default function ScanHome() {
           </Card>
         </div>
 
+        {/* Latest Blocks and Transactions */}
         <div className="grid lg:grid-cols-2 gap-6">
           <Card className="bg-gray-900/50 border-gray-800" data-testid="card-latest-blocks">
             <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3">
@@ -408,42 +557,45 @@ export default function ScanHome() {
                 </div>
               ) : (
                 blocks.slice(0, 6).map((block, index) => (
-                  <div 
-                    key={block.number} 
-                    className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg hover:bg-gray-800/50 transition-all group"
-                    data-testid={`block-row-${index}`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
-                        <Blocks className="w-5 h-5 text-blue-400" />
-                      </div>
-                      <div>
-                        <Link href={`/scan/block/${block.number}`}>
-                          <span className="text-blue-400 hover:text-blue-300 font-medium cursor-pointer flex items-center gap-1" data-testid={`link-block-${block.number}`}>
+                  <Link key={block.number} href={`/scan/block/${block.number}`}>
+                    <div 
+                      className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg hover:bg-gray-800/50 transition-all group cursor-pointer"
+                      data-testid={`block-row-${index}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                          <Blocks className="w-5 h-5 text-blue-400" />
+                        </div>
+                        <div>
+                          <span className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1" data-testid={`link-block-${block.number}`}>
                             #{block.number.toLocaleString()}
                             <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </span>
-                        </Link>
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
-                          <Clock className="w-3 h-3" />
-                          {formatTime(block.timestamp)}
+                          <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <Clock className="w-3 h-3" />
+                            {formatTime(block.timestamp)}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-gray-300 flex items-center gap-1 justify-end">
+                          <ArrowRightLeft className="w-3 h-3 text-gray-500" />
+                          {block.transactions} txns
+                        </div>
+                        <div 
+                          className="text-xs text-gray-500 flex items-center gap-1 justify-end"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            copyToClipboard(block.validator);
+                          }}
+                        >
+                          {formatAddress(block.validator)}
+                          <Copy className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-gray-400" />
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-sm text-gray-300 flex items-center gap-1 justify-end">
-                        <ArrowRightLeft className="w-3 h-3 text-gray-500" />
-                        {block.transactions} txns
-                      </div>
-                      <div 
-                        className="text-xs text-gray-500 cursor-pointer hover:text-gray-400 flex items-center gap-1 justify-end"
-                        onClick={() => copyToClipboard(block.validator)}
-                      >
-                        {formatAddress(block.validator)}
-                        <Copy className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </div>
-                    </div>
-                  </div>
+                  </Link>
                 ))
               )}
             </CardContent>
@@ -480,141 +632,46 @@ export default function ScanHome() {
                 </div>
               ) : (
                 transactions.slice(0, 6).map((tx, index) => (
-                  <div 
-                    key={tx.hash} 
-                    className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg hover:bg-gray-800/50 transition-all group"
-                    data-testid={`tx-row-${index}`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
-                        tx.status === 'confirmed' || tx.status === 'success'
-                          ? 'bg-green-500/20 group-hover:bg-green-500/30' 
-                          : 'bg-red-500/20 group-hover:bg-red-500/30'
-                      }`}>
-                        {tx.status === 'confirmed' || tx.status === 'success' ? (
-                          <CheckCircle2 className="w-5 h-5 text-green-400" />
-                        ) : (
-                          <XCircle className="w-5 h-5 text-red-400" />
-                        )}
-                      </div>
-                      <div>
-                        <Link href={`/scan/tx/${tx.hash}`}>
-                          <span className="text-blue-400 hover:text-blue-300 font-medium cursor-pointer flex items-center gap-1" data-testid={`link-tx-${index}`}>
+                  <Link key={tx.hash} href={`/scan/tx/${tx.hash}`}>
+                    <div 
+                      className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg hover:bg-gray-800/50 transition-all group cursor-pointer"
+                      data-testid={`tx-row-${index}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
+                          tx.status === 'confirmed' || tx.status === 'success'
+                            ? 'bg-green-500/20 group-hover:bg-green-500/30' 
+                            : 'bg-red-500/20 group-hover:bg-red-500/30'
+                        }`}>
+                          {tx.status === 'confirmed' || tx.status === 'success' ? (
+                            <CheckCircle2 className="w-5 h-5 text-green-400" />
+                          ) : (
+                            <XCircle className="w-5 h-5 text-red-400" />
+                          )}
+                        </div>
+                        <div>
+                          <span className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1" data-testid={`link-tx-${index}`}>
                             {formatAddress(tx.hash)}
                             <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </span>
-                        </Link>
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
-                          <Clock className="w-3 h-3" />
-                          {formatTime(tx.timestamp)}
+                          <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <Clock className="w-3 h-3" />
+                            {formatTime(tx.timestamp)}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-medium text-white">
+                          {formatLargeNumber(tx.value)} TBURN
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {formatAddress(tx.from)} → {formatAddress(tx.to)}
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-sm font-medium text-white">
-                        {formatLargeNumber(tx.value)} TBURN
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {formatAddress(tx.from)} → {formatAddress(tx.to)}
-                      </div>
-                    </div>
-                  </div>
+                  </Link>
                 ))
               )}
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="mt-6 grid md:grid-cols-4 gap-4">
-          <Link href="/scan/blocks">
-            <Card className="bg-gray-900/50 border-gray-800 hover-elevate cursor-pointer group" data-testid="nav-blocks">
-              <CardContent className="p-5 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
-                  <Blocks className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">{t("scan.blockExplorer", "Block Explorer")}</h3>
-                  <p className="text-sm text-gray-400">{t("scan.viewBlocks", "View all blocks")}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-
-          <Link href="/scan/txs">
-            <Card className="bg-gray-900/50 border-gray-800 hover-elevate cursor-pointer group" data-testid="nav-transactions">
-              <CardContent className="p-5 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
-                  <ArrowRightLeft className="w-6 h-6 text-green-400" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">{t("scan.txExplorer", "Transaction Explorer")}</h3>
-                  <p className="text-sm text-gray-400">{t("scan.viewTransactions", "View all transactions")}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-
-          <Link href="/scan/validators">
-            <Card className="bg-gray-900/50 border-gray-800 hover-elevate cursor-pointer group" data-testid="nav-validators">
-              <CardContent className="p-5 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
-                  <Shield className="w-6 h-6 text-purple-400" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">{t("scan.validatorExplorer", "Validator Explorer")}</h3>
-                  <p className="text-sm text-gray-400">{t("scan.viewValidators", "View all validators")}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-
-          <Link href="/scan/tokens">
-            <Card className="bg-gray-900/50 border-gray-800 hover-elevate cursor-pointer group" data-testid="nav-tokens">
-              <CardContent className="p-5 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center group-hover:bg-yellow-500/30 transition-colors">
-                  <Coins className="w-6 h-6 text-yellow-400" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">{t("scan.tokenExplorer", "Token Explorer")}</h3>
-                  <p className="text-sm text-gray-400">{t("scan.viewTokens", "View all tokens")}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        </div>
-
-        <div className="mt-6">
-          <Card className="bg-gradient-to-r from-gray-900/80 to-gray-800/50 border-gray-700">
-            <CardContent className="p-6">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-600/20 flex items-center justify-center">
-                    <Flame className="w-8 h-8 text-orange-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-1">
-                      {t("scan.defiHub", "TBURN DeFi Ecosystem")}
-                    </h3>
-                    <p className="text-gray-400">
-                      {t("scan.defiDescription", "Explore DEX, Lending, Staking, and Bridge services")}
-                    </p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-6 text-center">
-                  <div>
-                    <div className="text-xl font-bold text-white">{formatLargeNumber(stats?.dexTvl)} TBURN</div>
-                    <div className="text-xs text-gray-400">DEX TVL</div>
-                  </div>
-                  <div>
-                    <div className="text-xl font-bold text-white">{formatLargeNumber(stats?.lendingTvl)} TBURN</div>
-                    <div className="text-xs text-gray-400">Lending TVL</div>
-                  </div>
-                  <div>
-                    <div className="text-xl font-bold text-white">{formatLargeNumber(stats?.stakingTvl)} TBURN</div>
-                    <div className="text-xs text-gray-400">Staking TVL</div>
-                  </div>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </div>
