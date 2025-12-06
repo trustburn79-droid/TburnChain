@@ -23562,6 +23562,21 @@
     "secure": "Secure",
     "nonCustodial": "Non-Custodial",
     "yourKeys": "Your Keys",
-    "supportedWallets": "Supports MetaMask, Rabby, Trust Wallet, Coinbase Wallet, and Ledger"
+    "supportedWallets": "Supports MetaMask, Rabby, Trust Wallet, Coinbase Wallet, and Ledger",
+    "reconnecting": "Reconnecting...",
+    "reconnectingDesc": "Attempting to reconnect to your wallet. Please wait...",
+    "error": "Wallet Error",
+    "copyFailed": "Failed to copy address",
+    "balanceRefreshed": "Balance Refreshed",
+    "refreshBalance": "Refresh Balance",
+    "status": "Status",
+    "healthy": "Healthy",
+    "unstable": "Unstable",
+    "pendingTransactions": "{{count}} pending transaction(s)",
+    "wrongNetworkBanner": "You are connected to an unsupported network. Please switch to TBURN Mainnet.",
+    "switchingNetwork": "Switching Network...",
+    "requiredNetwork": "Required Network",
+    "securityTip": "Security Tip",
+    "securityTipDesc": "Always verify you are on the correct website before connecting your wallet."
   }
 }

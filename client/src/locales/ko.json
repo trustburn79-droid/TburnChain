@@ -23562,6 +23562,21 @@
     "secure": "안전함",
     "nonCustodial": "비수탁형",
     "yourKeys": "내 키",
-    "supportedWallets": "MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger 지원"
+    "supportedWallets": "MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger 지원",
+    "reconnecting": "재연결 중...",
+    "reconnectingDesc": "지갑에 다시 연결을 시도하고 있습니다. 잠시만 기다려주세요...",
+    "error": "지갑 오류",
+    "copyFailed": "주소 복사 실패",
+    "balanceRefreshed": "잔액 새로고침 완료",
+    "refreshBalance": "잔액 새로고침",
+    "status": "상태",
+    "healthy": "정상",
+    "unstable": "불안정",
+    "pendingTransactions": "{{count}}개의 대기 중인 트랜잭션",
+    "wrongNetworkBanner": "지원되지 않는 네트워크에 연결되어 있습니다. TBURN 메인넷으로 전환해주세요.",
+    "switchingNetwork": "네트워크 전환 중...",
+    "requiredNetwork": "필요한 네트워크",
+    "securityTip": "보안 팁",
+    "securityTipDesc": "지갑을 연결하기 전에 항상 올바른 웹사이트인지 확인하세요."
   }
 }
