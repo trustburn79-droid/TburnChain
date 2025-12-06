@@ -8016,7 +8016,7 @@
             }
           },
           "badge": "솔루션 아키텍처",
-          "description": "TBurn 체인은 단순한 신뢰 점수 시스템이 아닙니다. Arbitrum 기술을 기반으로 구축된 고성능 Layer 2 스케일링 솔루션으로, 엔터프라이즈급 처리량을 위해 설계되었습니다.",
+          "description": "TBurn 체인은 단순한 신뢰 점수 시스템이 아닙니다. 자체 AI-BFT 합의 메커니즘으로 구축된 고성능 Layer 1 스케일링 솔루션으로, 엔터프라이즈급 처리량을 위해 설계되었습니다.",
           "features": {
             "hybridConsensus": "하이브리드 합의 (DPoS + BFT)",
             "evmCompatibility": "EVM 호환성",
@@ -8110,7 +8110,7 @@
         "downloadPdf": "PDF 다운로드",
         "viewGithub": "GitHub에서 보기",
         "heroDescription": "블록체인 프로젝트를 위한 탈중앙화 신뢰 인프라.",
-        "heroSubDescription": "100% 온체인 투명성으로 신뢰성을 검증하는 Arbitrum 기반 Layer 2 솔루션.",
+        "heroSubDescription": "100% 온체인 투명성으로 신뢰성을 검증하는 독립 Layer 1 솔루션.",
         "viewSource": "소스 보기"
       },
       "tokenomics": {
@@ -8298,10 +8298,10 @@
             "status": "upcoming",
             "items": {
               "dao": "완전 DAO 거버넌스",
-              "l2": "레이어 2 솔루션",
+              "l2": "레이어 1 솔루션",
               "enterprise": "엔터프라이즈 채택",
               "global": "글로벌 확장",
-              "item1": "Layer 2 스케일링 솔루션",
+              "item1": "Layer 1 스케일링 솔루션",
               "item2": "DAO 거버넌스 출시",
               "item3": "크로스체인 확장 (7+ 체인)",
               "item4": "AI 트레이딩 봇 통합",

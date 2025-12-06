@@ -7387,7 +7387,7 @@
             }
           },
           "badge": "解决方案架构",
-          "description": "TBurn Chain不仅仅是信任评分系统；它是一个基于Arbitrum技术构建的高性能Layer 2扩展解决方案，专为企业级吞吐量设计。",
+          "description": "TBurn Chain不仅仅是信任评分系统；它是一个采用原生共识机制的高性能Layer 1扩展解决方案，专为企业级吞吐量设计。",
           "features": {
             "hybridConsensus": "混合共识 (DPoS + BFT)",
             "evmCompatibility": "EVM 兼容性",
@@ -7481,7 +7481,7 @@
         "downloadPdf": "下载PDF",
         "viewGithub": "在GitHub上查看",
         "heroDescription": "面向区块链项目的去中心化信任基础设施。",
-        "heroSubDescription": "基于Arbitrum的Layer 2解决方案，以100%链上透明度验证可靠性。",
+        "heroSubDescription": "独立的Layer 1解决方案，以100%链上透明度验证可靠性。",
         "viewSource": "查看源码"
       },
       "tokenomics": {
@@ -7669,10 +7669,10 @@
             "status": "upcoming",
             "items": {
               "dao": "完整DAO治理",
-              "l2": "Layer 2解决方案",
+              "l2": "Layer 1解决方案",
               "enterprise": "企业采用",
               "global": "全球扩展",
-              "item1": "Layer 2扩展解决方案",
+              "item1": "Layer 1扩展解决方案",
               "item2": "DAO治理上线",
               "item3": "跨链扩展（7+条链）",
               "item4": "AI交易机器人集成",

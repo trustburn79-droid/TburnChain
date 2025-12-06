@@ -8059,7 +8059,7 @@
             }
           },
           "badge": "ソリューションアーキテクチャ",
-          "description": "TBurn Chainはトラストスコアリングだけではありません。Arbitrum技術を基盤とした高性能Layer 2スケーリングソリューションであり、エンタープライズグレードのスループット向けに設計されています。",
+          "description": "TBurn Chainはトラストスコアリングだけではありません。ネイティブコンセンサスを採用した高性能Layer 1スケーリングソリューションであり、エンタープライズグレードのスループット向けに設計されています。",
           "features": {
             "hybridConsensus": "ハイブリッドコンセンサス (DPoS + BFT)",
             "evmCompatibility": "EVM互換性",
@@ -8153,7 +8153,7 @@
         "downloadPdf": "PDFをダウンロード",
         "viewGithub": "GitHubで表示",
         "heroDescription": "ブロックチェーンプロジェクト向け分散型信頼インフラストラクチャ。",
-        "heroSubDescription": "100%オンチェーン透明性で信頼性を検証するArbitrum基盤のLayer 2ソリューション。",
+        "heroSubDescription": "100%オンチェーン透明性で信頼性を検証する独立したLayer 1ソリューション。",
         "viewSource": "ソースを見る"
       },
       "tokenomics": {
@@ -8344,7 +8344,7 @@
               "l2": "レイヤー2ソリューション",
               "enterprise": "エンタープライズ採用",
               "global": "グローバル展開",
-              "item1": "Layer 2スケーリングソリューション",
+              "item1": "Layer 1スケーリングソリューション",
               "item2": "DAOガバナンスローンチ",
               "item3": "クロスチェーン拡張 (7+チェーン)",
               "item4": "AIトレーディングボット統合",

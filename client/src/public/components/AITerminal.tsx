@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 const logMessages = [
   "Initializing neural handshake...",
   "Validating shard #89X blocks...",
-  "Optimizing gas routes (Layer 2)...",
+  "Optimizing gas routes (Layer 1)...",
   "AI Trust Score updated: 99.2%",
   "Burn protocol executing...",
   "Wallet signature verified.",

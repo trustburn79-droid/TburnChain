@@ -7952,7 +7952,7 @@
         "title": "Whitepaper",
         "subtitle": "Complete technical documentation of TBurn Chain architecture, consensus, and tokenomics.",
         "heroDescription": "Decentralized Trust Infrastructure for Blockchain Projects.",
-        "heroSubDescription": "Arbitrum-based Layer 2 solution verifying reliability with 100% on-chain transparency.",
+        "heroSubDescription": "independent Layer 1 solution verifying reliability with 100% on-chain transparency.",
         "downloadPdf": "Download PDF",
         "viewSource": "View Source",
         "trustCrisis": {
@@ -7994,7 +7994,7 @@
         "performance": {
           "badge": "SOLUTION ARCHITECTURE",
           "title": "V4 Enterprise Performance",
-          "description": "TBurn Chain isn't just about trust scoring; it's a high-performance Layer 2 scaling solution built on Arbitrum technology, designed for enterprise-grade throughput.",
+          "description": "TBurn Chain isn't just about trust scoring; it's a high-performance Layer 1 scaling solution with native consensus, designed for enterprise-grade throughput.",
           "features": {
             "hybridConsensus": "Hybrid Consensus (DPoS + BFT)",
             "evmCompatibility": "EVM Compatibility",
@@ -8297,13 +8297,13 @@
             "title": "Phase 3: Ecosystem",
             "status": "PLANNED",
             "items": {
-              "item1": "Layer 2 Scaling Solution",
+              "item1": "Layer 1 Scaling Solution",
               "item2": "DAO Governance Launch",
               "item3": "Cross-Chain Expansion (7+ chains)",
               "item4": "AI Trading Bot Integration",
               "item5": "Enterprise Partnership Program",
               "dao": "완전 DAO Governance",
-              "l2": "레이어 2 솔루션",
+              "l2": "레이어 1 솔루션",
               "enterprise": "엔터프라이즈 채택",
               "global": "글로벌 확장"
             },

@@ -4686,7 +4686,7 @@
             }
           },
           "badge": "ARQUITETURA DA SOLUÇÃO",
-          "description": "TBurn Chain não é apenas sobre pontuação de confiança; é uma solução de escalonamento Layer 2 de alto desempenho construída sobre tecnologia Arbitrum, projetada para throughput de nível empresarial.",
+          "description": "TBurn Chain não é apenas sobre pontuação de confiança; é uma solução de escalonamento Layer 1 de alto desempenho com consenso nativo, projetada para throughput de nível empresarial.",
           "features": {
             "hybridConsensus": "Consenso Híbrido (DPoS + BFT)",
             "evmCompatibility": "Compatibilidade EVM",
@@ -4780,7 +4780,7 @@
         "downloadPdf": "Baixar PDF",
         "viewGithub": "Ver no GitHub",
         "heroDescription": "Infraestrutura de Confiança Descentralizada para Projetos Blockchain.",
-        "heroSubDescription": "Solução Layer 2 baseada em Arbitrum verificando confiabilidade com 100% de transparência on-chain.",
+        "heroSubDescription": "Solução Layer 1 independente verificando confiabilidade com 100% de transparência on-chain.",
         "viewSource": "Ver Código Fonte"
       },
       "tokenomics": {
@@ -4968,10 +4968,10 @@
             "status": "upcoming",
             "items": {
               "dao": "Governança DAO Completa",
-              "l2": "Soluções Layer 2",
+              "l2": "Soluções Layer 1",
               "enterprise": "Adoção Empresarial",
               "global": "Expansão Global",
-              "item1": "Solução de Escalonamento Layer 2",
+              "item1": "Solução de Escalonamento Layer 1",
               "item2": "Lançamento de Governança DAO",
               "item3": "Expansão Cross-Chain (7+ chains)",
               "item4": "Integração de Bot de Trading com IA",
