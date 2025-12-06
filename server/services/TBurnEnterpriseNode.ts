@@ -2297,9 +2297,28 @@ export class TBurnEnterpriseNode extends EventEmitter {
         data: metrics
       });
       
+      // Broadcast real-time price update to all clients
+      const priceUpdate = JSON.stringify({
+        type: 'price_update',
+        data: {
+          tokenPrice: this.tokenPrice,
+          priceChangePercent: this.priceChangePercent,
+          marketCap: this.calculateMarketCap(),
+          demandIndex: Math.round(this.demandIndex * 1000) / 1000,
+          supplyPressure: Math.round(this.supplyPressure * 1000) / 1000,
+          priceDriver: this.demandIndex > Math.abs(this.supplyPressure) ? 'demand' : 'supply',
+          tpsUtilization: Math.round((this.emaTps / this.TPS_MAX) * 10000) / 100,
+          activityIndex: Math.round(this.emaActivityIndex * 100) / 100,
+          stakedAmount: this.stakedAmount,
+          circulatingSupply: this.circulatingSupply,
+          timestamp: Date.now()
+        }
+      });
+      
       this.wsClients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
           client.send(message);
+          client.send(priceUpdate);
         }
       });
     }, 5000); // Collect metrics every 5 seconds
