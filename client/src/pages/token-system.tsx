@@ -3213,7 +3213,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                         <Separator />
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">{t('tokenSystem.deployed')}</span>
-                          <span className="font-medium">{new Date(tokenDetail.deployedAt).toLocaleDateString()}</span>
+                          <span className="font-medium">{new Date(tokenDetail.deployedAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}</span>
                         </div>
                       </CardContent>
                     </Card>
@@ -3248,7 +3248,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                         <Separator />
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">{t('tokenSystem.lastAudit')}</span>
-                          <span className="font-medium">{new Date(tokenDetail.lastAuditDate).toLocaleDateString()}</span>
+                          <span className="font-medium">{new Date(tokenDetail.lastAuditDate).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}</span>
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
@@ -3355,7 +3355,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                     <Card>
                       <CardContent className="pt-6">
                         <p className="text-xs text-muted-foreground">{t('tokenSystem.lastActivity')}</p>
-                        <p className="text-lg font-bold">{new Date(tokenDetail.lastActivity).toLocaleTimeString()}</p>
+                        <p className="text-lg font-bold">{new Date(tokenDetail.lastActivity).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -3397,7 +3397,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                               {tokenDetail.securityScore >= 90 ? t('tokenSystem.excellent') : tokenDetail.securityScore >= 70 ? t('tokenSystem.good') : t('tokenSystem.needsReview')}
                             </p>
                             <p className="text-sm text-muted-foreground">
-                              {t('tokenSystem.auditedBy', { auditor: tokenDetail.auditor, date: new Date(tokenDetail.lastAuditDate).toLocaleDateString() })}
+                              {t('tokenSystem.auditedBy', { auditor: tokenDetail.auditor, date: new Date(tokenDetail.lastAuditDate).toLocaleDateString('en-US', { timeZone: 'America/New_York' }) })}
                             </p>
                             <p className="text-sm">
                               {tokenDetail.vulnerabilities} {t('tokenSystem.vulnerabilitiesFound')}
@@ -3444,7 +3444,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                         {t('tokenSystem.aiAnalysisByTripleBand')}
                       </CardTitle>
                       <CardDescription>
-                        {t('tokenSystem.lastAnalyzed')}: {new Date(tokenDetail.aiAnalysis.lastAnalyzed).toLocaleString()}
+                        {t('tokenSystem.lastAnalyzed')}: {new Date(tokenDetail.aiAnalysis.lastAnalyzed).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">

@@ -428,7 +428,7 @@ function ProjectDetailDialog({
                   <Card>
                     <CardContent className="p-4 text-center">
                       <div className="text-sm text-muted-foreground">{t("nftLaunchpad.launchDate")}</div>
-                      <div className="text-sm font-bold">{new Date(project.launchDate).toLocaleDateString()}</div>
+                      <div className="text-sm font-bold">{new Date(project.launchDate).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}</div>
                     </CardContent>
                   </Card>
                 )}
@@ -466,11 +466,11 @@ function ProjectDetailDialog({
                           </div>
                           <div>
                             <div className="text-muted-foreground">{t("nftLaunchpad.startTime")}</div>
-                            <div className="font-medium">{new Date(round.startTime).toLocaleString()}</div>
+                            <div className="font-medium">{new Date(round.startTime).toLocaleString('en-US', { timeZone: 'America/New_York' })}</div>
                           </div>
                           <div>
                             <div className="text-muted-foreground">{t("nftLaunchpad.endTime")}</div>
-                            <div className="font-medium">{new Date(round.endTime).toLocaleString()}</div>
+                            <div className="font-medium">{new Date(round.endTime).toLocaleString('en-US', { timeZone: 'America/New_York' })}</div>
                           </div>
                         </div>
                         <div className="space-y-2">
@@ -634,7 +634,7 @@ function ProjectDetailDialog({
                         <div className="text-right">
                           <div className="font-medium">{formatAmount(act.amount)} TBURN</div>
                           <div className="text-xs text-muted-foreground">
-                            {new Date(act.createdAt).toLocaleTimeString()}
+                            {new Date(act.createdAt).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                           </div>
                         </div>
                       )}
@@ -1059,7 +1059,7 @@ function ActivityRow({
             <span>{t("nftLaunchpad.activity.quantity")} {activity.quantity}</span>
           )}
           <span className="text-xs">
-            {new Date(activity.createdAt).toLocaleTimeString()}
+            {new Date(activity.createdAt).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
           </span>
         </div>
       </div>

@@ -145,7 +145,7 @@ export function MainnetRestartOverlay() {
 
           {status?.restartInitiatedAt && (
             <div className="text-xs text-center text-muted-foreground">
-              Restart initiated at {new Date(status.restartInitiatedAt).toLocaleTimeString()}
+              Restart initiated at {new Date(status.restartInitiatedAt).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
             </div>
           )}
         </CardContent>

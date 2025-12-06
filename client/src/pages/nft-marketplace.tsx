@@ -179,7 +179,8 @@ function shortenAddress(address: string): string {
 
 function formatDate(dateStr: string): string {
   try {
-    return new Date(dateStr).toLocaleDateString(undefined, { 
+    return new Date(dateStr).toLocaleDateString('en-US', { 
+      timeZone: 'America/New_York',
       month: 'short', 
       day: 'numeric', 
       hour: '2-digit', 

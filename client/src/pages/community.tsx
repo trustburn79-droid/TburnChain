@@ -183,7 +183,7 @@ const formatTimeAgo = (timestamp: number): string => {
   if (minutes < 60) return i18n.t('community.time.minutesAgo', '{{count}}m ago', { count: minutes });
   if (hours < 24) return i18n.t('community.time.hoursAgo', '{{count}}h ago', { count: hours });
   if (days < 7) return i18n.t('community.time.daysAgo', '{{count}}d ago', { count: days });
-  return new Date(timestamp * 1000).toLocaleDateString(i18n.language);
+  return new Date(timestamp * 1000).toLocaleDateString('en-US', { timeZone: 'America/New_York' });
 };
 
 const categoryColors: Record<string, string> = {
@@ -999,7 +999,7 @@ export default function Community() {
                     <div key={event.id} className="space-y-1">
                       <p className="text-sm font-medium truncate">{event.translationKey ? t(`community.events.${event.translationKey}.title`, event.title) : event.title}</p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(event.startDate * 1000).toLocaleDateString()}
+                        {new Date(event.startDate * 1000).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                       </p>
                     </div>
                   ))}
@@ -1327,7 +1327,7 @@ export default function Community() {
                 <CardContent className="space-y-3">
                   <div className="flex items-center gap-2 text-sm">
                     <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span>{new Date(event.startDate * 1000).toLocaleDateString()} - {new Date(event.endDate * 1000).toLocaleDateString()}</span>
+                    <span>{new Date(event.startDate * 1000).toLocaleDateString('en-US', { timeZone: 'America/New_York' })} - {new Date(event.endDate * 1000).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     {event.isOnline ? (
@@ -1435,7 +1435,7 @@ export default function Community() {
                       {badge.earnedAt ? (
                         <div className="flex items-center gap-1 mt-2 text-xs text-green-400">
                           <CheckCircle className="h-3 w-3" />
-                          {t('community.earnedOn', 'Earned')} {new Date(badge.earnedAt * 1000).toLocaleDateString()}
+                          {t('community.earnedOn', 'Earned')} {new Date(badge.earnedAt * 1000).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                         </div>
                       ) : badge.progress !== undefined ? (
                         <div className="mt-2">
@@ -1485,7 +1485,7 @@ export default function Community() {
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    {new Date(selectedEvent.startDate * 1000).toLocaleDateString()}
+                    {new Date(selectedEvent.startDate * 1000).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                   </span>
                   <span className="flex items-center gap-1">
                     <Users className="h-3 w-3" />

@@ -1177,7 +1177,7 @@ export default function Bridge() {
                       <Calendar className="w-3 h-3" />
                       {t("bridge.createdAt")}
                     </span>
-                    <span className="text-xs">{new Date(selectedTransfer.createdAt).toLocaleString(currentLocale)}</span>
+                    <span className="text-xs">{new Date(selectedTransfer.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })}</span>
                   </div>
                 </div>
 
@@ -1256,7 +1256,7 @@ export default function Bridge() {
                       <Calendar className="w-3 h-3" />
                       {t("bridge.timestamp")}
                     </span>
-                    <span className="text-xs">{new Date(selectedActivity.createdAt).toLocaleString(currentLocale)}</span>
+                    <span className="text-xs">{new Date(selectedActivity.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })}</span>
                   </div>
                 </div>
               </div>

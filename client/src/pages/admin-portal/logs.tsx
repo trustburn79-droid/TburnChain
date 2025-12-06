@@ -215,7 +215,7 @@ export default function AdminLogs() {
           },
           {
             label: t("dashboard.timestamp"),
-            value: new Date(log.timestamp).toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US'),
+            value: new Date(log.timestamp).toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' }),
             type: "text" as const,
           },
           {
@@ -355,6 +355,7 @@ export default function AdminLogs() {
       minute: '2-digit',
       second: '2-digit',
       fractionalSecondDigits: 3,
+      timeZone: 'America/New_York',
     });
   };
 

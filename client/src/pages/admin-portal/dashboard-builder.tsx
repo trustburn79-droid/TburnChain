@@ -482,7 +482,7 @@ export default function DashboardBuilder() {
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Clock className="h-4 w-4" />
-                  {t("adminDashboardBuilder.updated")} {new Date(currentDashboard.updatedAt).toLocaleDateString()}
+                  {t("adminDashboardBuilder.updated")} {new Date(currentDashboard.updatedAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                 </div>
               </div>
             </CardHeader>
@@ -630,7 +630,7 @@ export default function DashboardBuilder() {
                   <p className="text-sm text-muted-foreground mb-3">{dashboard.description}</p>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span>{t("adminDashboardBuilder.owner")}: {dashboard.owner}</span>
-                    <span>{new Date(dashboard.updatedAt).toLocaleDateString()}</span>
+                    <span>{new Date(dashboard.updatedAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}</span>
                   </div>
                   <div className="flex gap-1 mt-3">
                     <Button 

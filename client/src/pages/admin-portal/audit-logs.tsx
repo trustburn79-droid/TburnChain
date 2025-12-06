@@ -220,7 +220,7 @@ export default function AdminAuditLogs() {
   };
 
   const formatTimestamp = (dateStr: string) => {
-    return new Date(dateStr).toLocaleString();
+    return new Date(dateStr).toLocaleString('en-US', { timeZone: 'America/New_York' });
   };
 
   const getLogDetailSections = (log: AuditLog): DetailSection[] => {

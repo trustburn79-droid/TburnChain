@@ -352,7 +352,7 @@ export default function OperatorStaking() {
                             </Badge>
                           </h3>
                           <p className="text-sm text-muted-foreground">
-                            ID: {pool.id.slice(0, 8)}... | Created: {new Date(pool.createdAt!).toLocaleDateString()}
+                            ID: {pool.id.slice(0, 8)}... | Created: {new Date(pool.createdAt!).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                           </p>
                         </div>
                       </div>
@@ -612,8 +612,8 @@ export default function OperatorStaking() {
                                 </Badge>
                               </p>
                               <p className="text-sm text-muted-foreground">
-                                {cycle.startTime ? new Date(cycle.startTime).toLocaleString() : t('operator.members.pending')} 
-                                {cycle.endTime ? ` - ${new Date(cycle.endTime).toLocaleString()}` : ""}
+                                {cycle.startTime ? new Date(cycle.startTime).toLocaleString('en-US', { timeZone: 'America/New_York' }) : t('operator.members.pending')} 
+                                {cycle.endTime ? ` - ${new Date(cycle.endTime).toLocaleString('en-US', { timeZone: 'America/New_York' })}` : ""}
                               </p>
                             </div>
                           </div>

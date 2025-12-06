@@ -449,7 +449,7 @@ export default function TxAccounting() {
                         </TableCell>
                         <TableCell className="text-sm text-muted-foreground">{entry.reference}</TableCell>
                         <TableCell className="text-sm">
-                          {new Date(entry.timestamp).toLocaleString()}
+                          {new Date(entry.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                         </TableCell>
                         <TableCell>{getStatusBadge(entry.status)}</TableCell>
                         <TableCell>

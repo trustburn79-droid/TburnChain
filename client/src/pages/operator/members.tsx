@@ -738,11 +738,11 @@ export default function OperatorMembers() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{t('operator.members.created')}</p>
-                    <p className="font-medium">{new Date(memberDetail.member.created_at).toLocaleDateString()}</p>
+                    <p className="font-medium">{new Date(memberDetail.member.created_at).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{t('operator.members.lastUpdated')}</p>
-                    <p className="font-medium">{new Date(memberDetail.member.updated_at).toLocaleDateString()}</p>
+                    <p className="font-medium">{new Date(memberDetail.member.updated_at).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}</p>
                   </div>
                 </div>
 
@@ -895,7 +895,7 @@ export default function OperatorMembers() {
                           <CardContent className="py-2">
                             <p className="text-sm text-muted-foreground">{note.content}</p>
                             <p className="text-xs text-muted-foreground mt-2">
-                              {new Date(note.created_at).toLocaleString()}
+                              {new Date(note.created_at).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                             </p>
                           </CardContent>
                         </Card>
@@ -929,7 +929,7 @@ export default function OperatorMembers() {
                             )}
                           </div>
                           <div className="text-xs text-muted-foreground whitespace-nowrap">
-                            {new Date(log.created_at).toLocaleString()}
+                            {new Date(log.created_at).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                           </div>
                         </div>
                       ))}

@@ -715,9 +715,9 @@ export default function AnnouncementsManagement() {
                     <TableCell>{getStatusBadge(ann.status)}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {ann.status === "scheduled" && ann.scheduledFor
-                        ? new Date(ann.scheduledFor).toLocaleDateString()
+                        ? new Date(ann.scheduledFor).toLocaleDateString('en-US', { timeZone: 'America/New_York' })
                         : ann.publishedAt
-                        ? new Date(ann.publishedAt).toLocaleDateString()
+                        ? new Date(ann.publishedAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })
                         : "-"}
                     </TableCell>
                     <TableCell>{ann.views}</TableCell>
@@ -828,7 +828,7 @@ export default function AnnouncementsManagement() {
                           <span className="font-medium">{ann.title}</span>
                         </div>
                         <p className="text-sm text-muted-foreground mt-1">
-                          {t("adminAnnouncements.scheduledFor")}: {ann.scheduledFor && new Date(ann.scheduledFor).toLocaleString()}
+                          {t("adminAnnouncements.scheduledFor")}: {ann.scheduledFor && new Date(ann.scheduledFor).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                         </p>
                       </div>
                       <Button 

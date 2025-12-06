@@ -88,7 +88,7 @@ function generateTpsHistory() {
   const now = Date.now();
   for (let i = 24; i >= 0; i--) {
     data.push({
-      time: new Date(now - i * 3600000).toLocaleTimeString([], { hour: '2-digit' }),
+      time: new Date(now - i * 3600000).toLocaleTimeString('en-US', { hour: '2-digit', timeZone: 'America/New_York' }),
       tps: Math.floor(Math.random() * 500) + 3000,
     });
   }

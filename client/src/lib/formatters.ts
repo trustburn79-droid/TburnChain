@@ -1,5 +1,8 @@
 // Common formatting functions with null/undefined safety
 
+// Default timezone for all date/time formatting (New York / Eastern Time)
+export const DEFAULT_TIMEZONE = 'America/New_York';
+
 export const formatAddress = (address: string | undefined | null) => {
   if (!address) return "0x0000...0000";
   if (address.length < 10) return address;
@@ -37,7 +40,25 @@ export const formatSize = (bytes: number | undefined | null) => {
 
 export const formatTimestamp = (timestamp: number | undefined | null) => {
   if (!timestamp) return "Unknown";
-  return new Date(timestamp * 1000).toLocaleString();
+  return new Date(timestamp * 1000).toLocaleString('en-US', { timeZone: DEFAULT_TIMEZONE });
+};
+
+export const formatDateTime = (date: Date | number | string | undefined | null) => {
+  if (!date) return "Unknown";
+  const d = date instanceof Date ? date : new Date(typeof date === 'number' ? date : Date.parse(date as string));
+  return d.toLocaleString('en-US', { timeZone: DEFAULT_TIMEZONE });
+};
+
+export const formatDateOnly = (date: Date | number | string | undefined | null) => {
+  if (!date) return "Unknown";
+  const d = date instanceof Date ? date : new Date(typeof date === 'number' ? date : Date.parse(date as string));
+  return d.toLocaleDateString('en-US', { timeZone: DEFAULT_TIMEZONE });
+};
+
+export const formatTimeOnly = (date: Date | number | string | undefined | null) => {
+  if (!date) return "Unknown";
+  const d = date instanceof Date ? date : new Date(typeof date === 'number' ? date : Date.parse(date as string));
+  return d.toLocaleTimeString('en-US', { timeZone: DEFAULT_TIMEZONE });
 };
 
 export const formatPercentage = (value: number | undefined | null) => {

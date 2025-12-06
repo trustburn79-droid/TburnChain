@@ -180,7 +180,7 @@ export default function NodeHealth() {
   };
 
   const formatTimestamp = (ts: number) => {
-    return new Date(ts).toLocaleTimeString();
+    return new Date(ts).toLocaleTimeString('en-US', { timeZone: 'America/New_York' });
   };
 
   const handleRefresh = () => {
@@ -611,12 +611,12 @@ export default function NodeHealth() {
                       <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                       <XAxis 
                         dataKey="timestamp" 
-                        tickFormatter={(ts) => new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        tickFormatter={(ts) => new Date(ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' })}
                         className="text-xs"
                       />
                       <YAxis domain={[0, 100]} className="text-xs" />
                       <Tooltip 
-                        labelFormatter={(ts) => new Date(ts).toLocaleTimeString()}
+                        labelFormatter={(ts) => new Date(ts).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                         formatter={(value: number) => [`${value.toFixed(1)}%`, ""]}
                       />
                       <Legend />
@@ -643,12 +643,12 @@ export default function NodeHealth() {
                       <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                       <XAxis 
                         dataKey="timestamp" 
-                        tickFormatter={(ts) => new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        tickFormatter={(ts) => new Date(ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' })}
                         className="text-xs"
                       />
                       <YAxis className="text-xs" />
                       <Tooltip 
-                        labelFormatter={(ts) => new Date(ts).toLocaleTimeString()}
+                        labelFormatter={(ts) => new Date(ts).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                         formatter={(value: number) => [value.toLocaleString(), ""]}
                       />
                       <Legend />
@@ -900,7 +900,7 @@ export default function NodeHealth() {
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-sm">{alert.message}</div>
                         <div className="text-xs text-muted-foreground mt-1">
-                          {alert.source} • {new Date(alert.timestamp).toLocaleString()}
+                          {alert.source} • {new Date(alert.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                         </div>
                       </div>
                       {alert.acknowledged && (

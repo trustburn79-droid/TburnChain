@@ -425,7 +425,7 @@ export default function StakingPoolDetail() {
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-muted-foreground">{t('common.date')}</span>
                   <span className="font-medium">
-                    {new Date(pool.createdAt).toLocaleDateString()}
+                    {new Date(pool.createdAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                   </span>
                 </div>
                 <div className="flex justify-between py-2 border-b">

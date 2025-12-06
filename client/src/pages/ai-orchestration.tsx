@@ -1216,7 +1216,7 @@ export default function AIOrchestration() {
                       </div>
                       
                       <div className="pt-3 border-t text-xs text-muted-foreground">
-                        <strong>{t('aiOrchestration.lastUsed')}:</strong> {model.lastUsed ? new Date(model.lastUsed).toLocaleTimeString() : t('common.active')}
+                        <strong>{t('aiOrchestration.lastUsed')}:</strong> {model.lastUsed ? new Date(model.lastUsed).toLocaleTimeString('en-US', { timeZone: 'America/New_York' }) : t('common.active')}
                       </div>
                     </CardContent>
                   </Card>

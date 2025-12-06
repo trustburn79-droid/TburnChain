@@ -460,7 +460,7 @@ export default function RealtimeMonitor() {
             </div>
             <Badge variant={isLive ? "default" : "secondary"} className="gap-1" data-testid="badge-last-update">
               <Clock className="h-3 w-3" />
-              {new Date(lastUpdate).toLocaleTimeString()}
+              {new Date(lastUpdate).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
             </Badge>
             <Button variant="outline" onClick={handleRefresh} data-testid="button-refresh-realtime">
               <RefreshCw className="h-4 w-4 mr-2" />
@@ -517,13 +517,13 @@ export default function RealtimeMonitor() {
                         <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                         <XAxis 
                           dataKey="timestamp" 
-                          tickFormatter={(v) => new Date(v).toLocaleTimeString()}
+                          tickFormatter={(v) => new Date(v).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                           className="text-xs"
                         />
                         <YAxis className="text-xs" />
                         <Tooltip 
                           contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
-                          labelFormatter={(v) => new Date(v).toLocaleTimeString()}
+                          labelFormatter={(v) => new Date(v).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                         />
                         <Area 
                           type="monotone" 
@@ -551,13 +551,13 @@ export default function RealtimeMonitor() {
                         <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                         <XAxis 
                           dataKey="timestamp" 
-                          tickFormatter={(v) => new Date(v).toLocaleTimeString()}
+                          tickFormatter={(v) => new Date(v).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                           className="text-xs"
                         />
                         <YAxis className="text-xs" />
                         <Tooltip 
                           contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
-                          labelFormatter={(v) => new Date(v).toLocaleTimeString()}
+                          labelFormatter={(v) => new Date(v).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                         />
                         <Line 
                           type="monotone" 
@@ -736,7 +736,7 @@ export default function RealtimeMonitor() {
                               {event.source}
                             </Badge>
                             <span className="text-xs text-muted-foreground">
-                              {new Date(event.timestamp).toLocaleTimeString()}
+                              {new Date(event.timestamp).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                             </span>
                           </div>
                         </div>

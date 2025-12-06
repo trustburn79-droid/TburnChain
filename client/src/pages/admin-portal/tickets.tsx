@@ -568,7 +568,7 @@ export default function SupportTickets() {
                       <TableCell>{getStatusBadge(ticket.status)}</TableCell>
                       <TableCell className="text-sm">{ticket.requester}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">
-                        {new Date(ticket.updatedAt).toLocaleString()}
+                        {new Date(ticket.updatedAt).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                       </TableCell>
                       <TableCell>
                         <Button
@@ -623,7 +623,7 @@ export default function SupportTickets() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">{t("adminTickets.details.created")}</span>
-                      <span>{new Date(selectedTicket.createdAt).toLocaleString()}</span>
+                      <span>{new Date(selectedTicket.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })}</span>
                     </div>
                   </div>
                   
@@ -643,7 +643,7 @@ export default function SupportTickets() {
                             }`}>
                               <p className="text-sm">{msg.message}</p>
                               <p className="text-xs text-muted-foreground mt-1">
-                                {new Date(msg.timestamp).toLocaleTimeString()}
+                                {new Date(msg.timestamp).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
                               </p>
                             </div>
                           </div>

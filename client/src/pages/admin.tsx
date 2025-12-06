@@ -1227,7 +1227,7 @@ function AnalyticsCharts() {
 
   const uptimeData = useMemo(() => {
     return Array.from({ length: 30 }, (_, i) => ({
-      date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' }),
       uptime: 99.5 + Math.random() * 0.5
     }));
   }, []);
@@ -1242,7 +1242,7 @@ function AnalyticsCharts() {
 
   const incidentData = useMemo(() => {
     return Array.from({ length: 12 }, (_, i) => ({
-      month: new Date(Date.now() - (11 - i) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short' }),
+      month: new Date(Date.now() - (11 - i) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', timeZone: 'America/New_York' }),
       incidents: Math.floor(Math.random() * 5),
       resolved: Math.floor(Math.random() * 5)
     }));
@@ -1944,7 +1944,7 @@ export default function AdminPage() {
                       return (
                         <div key={idx} className="text-xs flex items-center justify-between py-1 border-b last:border-0">
                           <span className="text-muted-foreground">
-                            {new Date(failure.timestamp).toLocaleTimeString()} 
+                            {new Date(failure.timestamp).toLocaleTimeString('en-US', { timeZone: 'America/New_York' })} 
                             <span className="text-orange-500 ml-1">({ageText})</span>
                           </span>
                           <span className={`font-mono ${
@@ -2058,7 +2058,7 @@ export default function AdminPage() {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={Array.from({ length: 30 }, (_, i) => ({
-                date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' }),
                 uptime: 99.5 + Math.random() * 0.5
               }))}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -2081,7 +2081,7 @@ export default function AdminPage() {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={Array.from({ length: 12 }, (_, i) => ({
-                month: new Date(Date.now() - (11 - i) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short' }),
+                month: new Date(Date.now() - (11 - i) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', timeZone: 'America/New_York' }),
                 incidents: Math.floor(Math.random() * 5),
                 resolved: Math.floor(Math.random() * 5)
               }))}>

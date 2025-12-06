@@ -505,7 +505,7 @@ export default function StakingRewards() {
                       </Badge>
                     </div>
                     <CardDescription>
-                      {new Date(cycle.startTimestamp).toLocaleDateString()} - {cycle.endTimestamp ? new Date(cycle.endTimestamp).toLocaleDateString() : t('stakingRewards.ongoing')}
+                      {new Date(cycle.startTimestamp).toLocaleDateString('en-US', { timeZone: 'America/New_York' })} - {cycle.endTimestamp ? new Date(cycle.endTimestamp).toLocaleDateString('en-US', { timeZone: 'America/New_York' }) : t('stakingRewards.ongoing')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
@@ -571,7 +571,7 @@ export default function StakingRewards() {
                           <div>
                             <p className="font-medium">{formatWeiToTBURN(request.amount)} TBURN</p>
                             <p className="text-xs text-muted-foreground">
-                              {t('stakingRewards.requested')}: {new Date(request.requestedAt).toLocaleDateString()}
+                              {t('stakingRewards.requested')}: {new Date(request.requestedAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                             </p>
                           </div>
                         </div>

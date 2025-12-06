@@ -132,6 +132,9 @@ export function formatTokenAmount(amount: string | number, decimals = 18, symbol
   }
 }
 
+// Default timezone for all date/time formatting (New York / Eastern Time)
+export const DEFAULT_TIMEZONE = 'America/New_York';
+
 export function formatTimeAgo(timestamp: number): string {
   const now = Date.now();
   const diff = now - timestamp * 1000;
@@ -147,7 +150,22 @@ export function formatTimeAgo(timestamp: number): string {
 }
 
 export function formatTimestamp(timestamp: number): string {
-  return new Date(timestamp * 1000).toLocaleString();
+  return new Date(timestamp * 1000).toLocaleString('en-US', { timeZone: DEFAULT_TIMEZONE });
+}
+
+export function formatDate(date: Date | number | string): string {
+  const d = date instanceof Date ? date : new Date(typeof date === 'number' ? date : Date.parse(date));
+  return d.toLocaleString('en-US', { timeZone: DEFAULT_TIMEZONE });
+}
+
+export function formatDateShort(date: Date | number | string): string {
+  const d = date instanceof Date ? date : new Date(typeof date === 'number' ? date : Date.parse(date));
+  return d.toLocaleDateString('en-US', { timeZone: DEFAULT_TIMEZONE });
+}
+
+export function formatTime(date: Date | number | string): string {
+  const d = date instanceof Date ? date : new Date(typeof date === 'number' ? date : Date.parse(date));
+  return d.toLocaleTimeString('en-US', { timeZone: DEFAULT_TIMEZONE });
 }
 
 export function formatGas(gas: number | string): string {

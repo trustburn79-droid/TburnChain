@@ -1095,7 +1095,7 @@ export default function YieldFarming() {
                               {isDeposit ? "+" : isWithdraw ? "-" : ""}{formatWeiToToken(tx.amount)}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              {new Date(tx.timestamp).toLocaleString()}
+                              {new Date(tx.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                             </p>
                           </div>
                           <div className="flex items-center gap-2">
@@ -1188,7 +1188,7 @@ export default function YieldFarming() {
                                 {t(`yieldFarming.harvestStatus.${harvest.status}`) || harvest.status}
                               </Badge>
                               <p className="text-xs text-muted-foreground mt-1">
-                                {new Date(harvest.timestamp).toLocaleString()}
+                                {new Date(harvest.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                               </p>
                             </div>
                           </div>
@@ -1441,7 +1441,7 @@ export default function YieldFarming() {
                           <span className="text-sm font-medium">{t("yieldFarming.positionLocked")}</span>
                         </div>
                         <p className="mt-1 text-sm text-muted-foreground">
-                          {t("yieldFarming.positionLockedUntil", { date: selectedPosition.lockEndTime ? new Date(selectedPosition.lockEndTime).toLocaleDateString() : t("yieldFarming.unknown") })}
+                          {t("yieldFarming.positionLockedUntil", { date: selectedPosition.lockEndTime ? new Date(selectedPosition.lockEndTime).toLocaleDateString('en-US', { timeZone: 'America/New_York' }) : t("yieldFarming.unknown") })}
                         </p>
                       </div>
                     )}

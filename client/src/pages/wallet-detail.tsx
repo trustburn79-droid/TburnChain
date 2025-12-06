@@ -204,7 +204,7 @@ export default function WalletDetail() {
                 </div>
                 <p className="text-sm mt-1" data-testid="text-last-activity">
                   {wallet.lastTransactionAt 
-                    ? new Date(wallet.lastTransactionAt).toLocaleString() 
+                    ? new Date(wallet.lastTransactionAt).toLocaleString('en-US', { timeZone: 'America/New_York' }) 
                     : t('wallets.never', 'Never')}
                 </p>
               </div>

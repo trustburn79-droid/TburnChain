@@ -522,7 +522,7 @@ export default function BurnDashboard() {
                     <Calendar className="w-3 h-3" />
                     {t("burn.eventDetails.timestamp")}
                   </span>
-                  <span className="text-xs">{new Date(selectedBurnEvent.timestamp).toLocaleString(getDateLocale())}</span>
+                  <span className="text-xs">{new Date(selectedBurnEvent.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}</span>
                 </div>
               </div>
 
@@ -609,7 +609,7 @@ function BurnEventList({ events, isLoading, onEventClick }: { events: BurnEvent[
               </div>
               <div className="text-right">
                 <p className="text-sm text-muted-foreground">
-                  {new Date(event.timestamp).toLocaleString(getDateLocale())}
+                  {new Date(event.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                 </p>
                 {event.txHash && (
                   <p className="text-xs font-mono text-muted-foreground">

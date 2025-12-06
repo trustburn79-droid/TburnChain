@@ -467,7 +467,7 @@ export default function Dashboard() {
     if (networkStats?.tps) {
       setTpsHistory(prev => {
         const newPoint: TpsDataPoint = {
-          time: new Date().toLocaleTimeString(),
+          time: new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York' }),
           tps: networkStats.tps,
           timestamp: Date.now(),
         };
@@ -1263,7 +1263,7 @@ export default function Dashboard() {
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <Clock className="h-3 w-3" /> {t("dashboard.timestamp")}
                   </p>
-                  <p className="font-mono text-sm">{new Date(selectedBlock.timestamp * 1000).toLocaleString()}</p>
+                  <p className="font-mono text-sm">{new Date(selectedBlock.timestamp * 1000).toLocaleString('en-US', { timeZone: 'America/New_York' })}</p>
                 </div>
               </div>
               

@@ -257,7 +257,8 @@ const WalletRow = forwardRef<HTMLTableRowElement, {
               day: 'numeric',
               hour: '2-digit',
               minute: '2-digit',
-              hour12: true
+              hour12: true,
+              timeZone: 'America/New_York'
             })
           : t('wallets.never')}
       </TableCell>
@@ -393,7 +394,8 @@ function WalletDetailDialog({
                       year: 'numeric',
                       hour: '2-digit',
                       minute: '2-digit',
-                      hour12: true
+                      hour12: true,
+                      timeZone: 'America/New_York'
                     })
                   : t('wallets.never')}
               </span>
@@ -405,7 +407,8 @@ function WalletDetailDialog({
                   ? new Date(wallet.firstSeenAt).toLocaleString('en-US', {
                       month: 'short',
                       day: 'numeric',
-                      year: 'numeric'
+                      year: 'numeric',
+                      timeZone: 'America/New_York'
                     })
                   : t('common.unknown')}
               </span>

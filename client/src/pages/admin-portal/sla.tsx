@@ -601,7 +601,7 @@ export default function SLAMonitoring() {
                         <TableCell className="font-mono">{incident.id}</TableCell>
                         <TableCell>{incident.type}</TableCell>
                         <TableCell>
-                          {new Date(incident.startTime).toLocaleString()}
+                          {new Date(incident.startTime).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                         </TableCell>
                         <TableCell>{incident.duration} {t("adminSla.incidents.minutes")}</TableCell>
                         <TableCell>{getImpactBadge(incident.impact)}</TableCell>

@@ -29,6 +29,12 @@ Key architectural decisions include:
   - `StatusBadge`: Status indicator component for node/validator states
 
 ## Recent Changes (December 2024)
+- **Timezone Standardization (December 6, 2024)**: All date/time displays across the application now use New York timezone (America/New_York) instead of local browser timezone
+  - Central formatting utilities updated in `client/src/lib/format.ts` and `client/src/lib/formatters.ts`
+  - Added `DEFAULT_TIMEZONE = 'America/New_York'` constant for consistent timezone usage
+  - Updated 40+ files with date/time formatting to use the new timezone standard
+  - Includes admin portal, public pages, operator pages, and all DeFi components
+- **Authentication Fix (December 6, 2024)**: Fixed admin login password (admin7979) and resolved Korean input mode issues
 - **AI Pages Enhancement (Phase 5)**: All 4 AI pages fully enhanced with production-level features
   - `ai-orchestration.tsx`: DetailSheet (3 sections: Overview, Performance, Configuration), ConfirmationDialog (sync models), View/Sync buttons
   - `ai-analytics.tsx`: DetailSheet (2 sections: Overview, Analysis), ConfirmationDialog (export report), View buttons for outcomes

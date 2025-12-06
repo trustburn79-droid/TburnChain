@@ -900,7 +900,7 @@ export default function DexPage() {
                               {swap.status}
                             </Badge>
                             <div className="text-xs text-muted-foreground mt-1">
-                              {swap.executedAt ? new Date(swap.executedAt).toLocaleTimeString() : t('dex.pending')}
+                              {swap.executedAt ? new Date(swap.executedAt).toLocaleTimeString('en-US', { timeZone: 'America/New_York' }) : t('dex.pending')}
                             </div>
                           </div>
                         </div>
@@ -1190,7 +1190,7 @@ export default function DexPage() {
                           </Badge>
                         </div>
                         <div className="text-sm text-muted-foreground">
-                          {swap.executedAt ? new Date(swap.executedAt).toLocaleString() : t('dex.pending')}
+                          {swap.executedAt ? new Date(swap.executedAt).toLocaleString('en-US', { timeZone: 'America/New_York' }) : t('dex.pending')}
                         </div>
                       </div>
                     ))}

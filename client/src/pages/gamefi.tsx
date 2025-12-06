@@ -1206,13 +1206,13 @@ function TournamentDetailDialog({
                 {tournament.startTime && (
                   <div>
                     <div className="text-sm text-muted-foreground">{t("gamefi.startTime")}</div>
-                    <div className="font-medium">{new Date(tournament.startTime).toLocaleString()}</div>
+                    <div className="font-medium">{new Date(tournament.startTime).toLocaleString('en-US', { timeZone: 'America/New_York' })}</div>
                   </div>
                 )}
                 {tournament.endTime && (
                   <div>
                     <div className="text-sm text-muted-foreground">{t("gamefi.endTime")}</div>
-                    <div className="font-medium">{new Date(tournament.endTime).toLocaleString()}</div>
+                    <div className="font-medium">{new Date(tournament.endTime).toLocaleString('en-US', { timeZone: 'America/New_York' })}</div>
                   </div>
                 )}
               </div>
@@ -1263,7 +1263,7 @@ function TournamentDetailDialog({
                         <div>
                           <div className="font-medium">{participant.playerName || shortenAddress(participant.walletAddress)}</div>
                           <div className="text-xs text-muted-foreground">
-                            {new Date(participant.joinedAt).toLocaleDateString()}
+                            {new Date(participant.joinedAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                           </div>
                         </div>
                       </div>

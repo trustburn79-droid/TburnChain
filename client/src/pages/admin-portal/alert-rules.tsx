@@ -734,7 +734,7 @@ export default function AlertRules() {
                     <TableCell>
                       {rule.lastTriggered ? (
                         <span className="text-sm">
-                          {new Date(rule.lastTriggered).toLocaleString()}
+                          {new Date(rule.lastTriggered).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                         </span>
                       ) : (
                         <span className="text-sm text-muted-foreground">{t("adminAlertRules.never")}</span>

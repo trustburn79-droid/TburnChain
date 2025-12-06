@@ -640,7 +640,7 @@ export default function ValidatorDetail() {
                         <TableCell className="font-mono">{formatAddress(delegator.address)}</TableCell>
                         <TableCell className="text-right">{formatTokenAmount(delegator.amount)}</TableCell>
                         <TableCell className="text-right">
-                          {new Date(delegator.timestamp * 1000).toLocaleString()}
+                          {new Date(delegator.timestamp * 1000).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                         </TableCell>
                         <TableCell className="text-center">
                           <Button variant="outline" size="sm">{t('validators.undelegate')}</Button>
@@ -670,12 +670,12 @@ export default function ValidatorDetail() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="timestamp" 
-                    tickFormatter={(t) => new Date(t * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    tickFormatter={(t) => new Date(t * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' })}
                   />
                   <YAxis yAxisId="left" />
                   <YAxis yAxisId="right" orientation="right" />
                   <Tooltip 
-                    labelFormatter={(t) => new Date(t * 1000).toLocaleString()}
+                    labelFormatter={(t) => new Date(t * 1000).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                   />
                   <Legend />
                   <Line 
@@ -725,11 +725,11 @@ export default function ValidatorDetail() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="timestamp" 
-                    tickFormatter={(t) => new Date(t * 1000).toLocaleDateString()}
+                    tickFormatter={(t) => new Date(t * 1000).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                   />
                   <YAxis />
                   <Tooltip 
-                    labelFormatter={(t) => new Date(t * 1000).toLocaleDateString()}
+                    labelFormatter={(t) => new Date(t * 1000).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                     formatter={(value: any) => formatTokenAmount(value.toString())}
                   />
                   <Area 
@@ -756,7 +756,7 @@ export default function ValidatorDetail() {
                   <TableBody>
                     {validator.rewardHistory?.slice(0, 5).map((reward, idx) => (
                       <TableRow key={idx}>
-                        <TableCell>{new Date(reward.timestamp * 1000).toLocaleString()}</TableCell>
+                        <TableCell>{new Date(reward.timestamp * 1000).toLocaleString('en-US', { timeZone: 'America/New_York' })}</TableCell>
                         <TableCell>
                           <Badge variant="outline">{reward.type}</Badge>
                         </TableCell>
@@ -798,7 +798,7 @@ export default function ValidatorDetail() {
                   {validator.events?.map((event) => (
                     <TableRow key={event.id}>
                       <TableCell className="text-sm">
-                        {new Date(event.timestamp * 1000).toLocaleString()}
+                        {new Date(event.timestamp * 1000).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                       </TableCell>
                       <TableCell>
                         <Badge 

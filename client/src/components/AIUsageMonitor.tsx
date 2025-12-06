@@ -312,7 +312,7 @@ export function AIUsageMonitor() {
                   {/* Rate Limit Reset Time */}
                   {provider.isRateLimited && provider.rateLimitResetTime && (
                     <div className="text-xs text-center text-muted-foreground">
-                      {t('admin.ai.resetsAt', { time: new Date(provider.rateLimitResetTime).toLocaleTimeString() })}
+                      {t('admin.ai.resetsAt', { time: new Date(provider.rateLimitResetTime).toLocaleTimeString('en-US', { timeZone: 'America/New_York' }) })}
                     </div>
                   )}
                 </CardContent>

@@ -432,7 +432,7 @@ export default function OperatorValidators() {
                   <TableCell>{app.proposed_commission / 100}%</TableCell>
                   <TableCell>{getStatusBadge(app.status)}</TableCell>
                   <TableCell className="text-sm">
-                    {new Date(app.submitted_at).toLocaleDateString()}
+                    {new Date(app.submitted_at).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-1">
@@ -690,7 +690,7 @@ export default function OperatorValidators() {
                   {slashingHistory?.map((slash) => (
                     <TableRow key={slash.id} data-testid={`row-slash-${slash.id}`}>
                       <TableCell className="text-sm">
-                        {new Date(slash.executed_at).toLocaleDateString()}
+                        {new Date(slash.executed_at).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
                       </TableCell>
                       <TableCell className="font-mono text-sm">
                         {slash.validator_address.slice(0, 8)}...{slash.validator_address.slice(-6)}

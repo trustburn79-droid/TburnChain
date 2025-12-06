@@ -155,7 +155,8 @@ function ResultCard({ result, index }: { result: SearchResult; index: number }) 
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: true
+      hour12: true,
+      timeZone: 'America/New_York'
     });
   };
 
