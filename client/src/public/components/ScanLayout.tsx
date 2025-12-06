@@ -113,7 +113,7 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                 
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50">
                   <span className="text-gray-400">Gas</span>
-                  <span className="text-white font-medium">0.0001 TBURN</span>
+                  <span className="text-white font-medium">100 EMB</span>
                 </div>
               </div>
 
