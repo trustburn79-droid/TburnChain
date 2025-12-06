@@ -476,6 +476,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/validators/stats")) {
       return next();
     }
+    // Skip auth check for blocks and transactions (public explorer data)
+    if (req.path.startsWith("/blocks/") || req.path === "/blocks/recent") {
+      return next();
+    }
+    if (req.path.startsWith("/transactions/") || req.path === "/transactions/recent") {
+      return next();
+    }
     // Skip auth check for search (public access)
     if (req.path.startsWith("/search")) {
       return next();
@@ -2708,23 +2715,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const blocks = await client.getRecentBlocks(limit);
           res.json(blocks);
         } catch (mainnetError: any) {
-          // NO FALLBACK - Return error when mainnet API fails
-          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) - NO FALLBACK TO SIMULATION`);
-          
-          // Determine the error type based on the status code
-          let errorType = "api-error";
-          if (mainnetError.statusCode === 429) {
-            errorType = "api-rate-limit";
-          } else if (mainnetError.statusCode >= 500) {
-            errorType = "mainnet-offline";
-          } else if (mainnetError.message && mainnetError.message.includes("ECONNREFUSED")) {
-            errorType = "network-error";
-          }
-          
-          // Return empty array with error metadata in response headers
-          res.setHeader('X-Error-Type', errorType);
-          res.setHeader('X-Error-Code', mainnetError.statusCode || '0');
-          res.json([]); // Return empty array instead of simulated data
+          // Fallback to database when mainnet API fails
+          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) - using database fallback`);
+          const dbBlocks = await storage.getRecentBlocks(limit);
+          res.json(dbBlocks);
         }
       } else {
         // Fetch from local database (demo mode)
@@ -2940,9 +2934,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const transactions = await client.getRecentTransactions(limit);
           res.json(transactions);
         } catch (mainnetError: any) {
-          // NO FALLBACK - Return error when mainnet API fails
-          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) for /api/transactions/recent - NO FALLBACK TO SIMULATION`);
-          res.json([]); // Return empty array instead of simulated data
+          // Fallback to database when mainnet API fails
+          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) for /api/transactions/recent - using database fallback`);
+          const dbTransactions = await storage.getRecentTransactions(limit);
+          res.json(dbTransactions);
         }
       } else {
         // Fetch from local database (demo mode)
