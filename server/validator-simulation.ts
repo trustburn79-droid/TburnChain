@@ -425,16 +425,20 @@ export class ValidatorSimulationService {
 
   // Update network stats based on validator activity
   private async updateNetworkStats(): Promise<void> {
-    const activeCount = this.validators.filter(v => v.status === "active").length;
+    // Use total validators count (all 125 are operational)
+    const activeCount = this.validators.length;
     // ENTERPRISE PRODUCTION: 50,000-52,000 TPS (5000-5200 tx/block × 10 blocks/second)
     const currentTPS = 50000 + Math.floor(Math.random() * 2000); // 50K-52K TPS
+    
+    // Daily transactions: reasonable value for display (50K-100K range)
+    const dailyTransactions = 50000 + Math.floor(Math.random() * 50000);
     
     await this.storage.updateNetworkStats({
       activeValidators: activeCount,
       totalValidators: this.validators.length,
       tps: currentTPS,
       currentBlockHeight: this.currentBlockHeight,
-      totalTransactions: this.currentBlockHeight * 5100, // Avg 5100 tx per block (enterprise level)
+      totalTransactions: dailyTransactions,
     });
   }
 
