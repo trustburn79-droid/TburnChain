@@ -66,6 +66,7 @@ import NftLaunchpadPage from "@/pages/nft-launchpad";
 import GameFiPage from "@/pages/gamefi";
 import CommunityPage from "@/pages/community";
 import SearchResults from "@/pages/search-results";
+import TokenomicsSimulation from "@/pages/tokenomics-simulation";
 
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -129,6 +130,7 @@ function AppRouter() {
       <Route path="/app/nft-launchpad" component={NftLaunchpadPage} />
       <Route path="/app/gamefi" component={GameFiPage} />
       <Route path="/app/community" component={CommunityPage} />
+      <Route path="/app/tokenomics" component={TokenomicsSimulation} />
       <Route path="/app/search" component={SearchResults} />
       <Route path="/app/address/:address" component={WalletDetail} />
       <Route path="/app/contracts" component={SmartContracts} />

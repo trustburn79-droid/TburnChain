@@ -23621,5 +23621,118 @@
       "claim": "Claim",
       "approve": "Approve"
     }
+  },
+  "tokenomics": {
+    "title": "TBURN 20-Year Tokenomics Simulation",
+    "subtitle": "Complete simulation based on v2.1 specification - Target Y20: 69.40B TBURN",
+    "genesisSupply": "Genesis Supply",
+    "finalSupply": "Final Supply (Y20)",
+    "totalDeflation": "Total Deflation",
+    "avgAnnualRate": "Avg. Annual Rate",
+    "sustainableDeflation": "Sustainable deflation",
+    "overYears": "over 20 years",
+    "visionComplete": "Vision Complete",
+    "cumulativeEmission": "Cumulative Block Emission",
+    "cumulativeBurn": "Cumulative AI Burn",
+    "blockRewards": "Block rewards distributed to validators",
+    "aiBurnMechanism": "AI-driven burn mechanism",
+    "phaseSummary": "Phase Summary",
+    "fourPhaseStrategy": "4-Phase tokenomics strategy over 20 years",
+    "start": "Start",
+    "end": "End",
+    "netChange": "Net",
+    "supply": "Supply",
+    "emission": "Emission",
+    "burn": "Burn",
+    "rate": "Rate",
+    "changeRate": "Change Rate",
+    "completeSimulation": "Complete Simulation Table",
+    "finalAdjustment": "Final Adjustment - Y20 Target: 69.40B",
+    "filterByPhase": "Filter by Phase",
+    "allPhases": "All Phases",
+    "supplyOverTime": "Supply Over Time",
+    "supplyTrend": "20-year supply trajectory",
+    "emissionVsBurn": "Emission vs Burn",
+    "tokenFlow": "Token flow per period",
+    "deflationRate": "Deflation Rate by Period",
+    "rateAnalysis": "Analysis of deflation intensity across phases",
+    "priceForecast": "20-Year Price Forecast",
+    "startingPrice": "Starting price: $0.50",
+    "marketCap": "Market Cap (Neutral)",
+    "y1Details": "Year 1 Quarterly Breakdown",
+    "y1Strategy": "Detailed strategy for the first year with quarterly milestones",
+    "totalBlockEmission": "Total Block Emission",
+    "totalAiBurn": "Total AI Burn",
+    "netDeflation": "Net Deflation",
+    "validators": "Validators",
+    "wallets": "Wallets",
+    "y1PriceForecast": "Y1 Price Forecast",
+    "disclaimer": "Price forecasts are based on tokenomics model assumptions and do not constitute financial advice. Actual prices may vary significantly based on market conditions, adoption, and other factors.",
+    "phases": {
+      "growth": "Growth",
+      "deflation": "Deflation",
+      "equilibrium": "Equilibrium",
+      "optimization": "Optimization"
+    },
+    "scenarios": {
+      "conservative": "Conservative",
+      "neutral": "Neutral",
+      "optimistic": "Optimistic"
+    },
+    "tabs": {
+      "simulation": "Simulation Table",
+      "charts": "Charts",
+      "price": "Price Forecast",
+      "y1": "Y1 Details"
+    },
+    "table": {
+      "period": "Period",
+      "phase": "Phase",
+      "startSupply": "Start Supply",
+      "blockEmission": "Block Emission",
+      "aiBurn": "AI Burn",
+      "netChange": "Net Change",
+      "endSupply": "End Supply",
+      "changeRate": "Rate",
+      "note": "Note",
+      "year": "Year",
+      "supply": "Supply"
+    },
+    "notes": {
+      "genesis": "Genesis",
+      "y1q1": "Early User Acquisition",
+      "y1q2": "Growth Acceleration",
+      "y1h2": "Ecosystem Expansion",
+      "y2": "Sustained Growth",
+      "y3": "Mass Adoption",
+      "y4": "Enterprise Integration",
+      "y5": "Platform Maturity",
+      "y6": "First Halving",
+      "y7": "Stabilization",
+      "y8": "Institutional Grade",
+      "y9": "Second Halving",
+      "y10": "10-Year Milestone",
+      "y11": "Equilibrium Start",
+      "y12": "Complete Equilibrium",
+      "y13": "Stable State",
+      "y14": "Predictable",
+      "y15": "Equilibrium End",
+      "y16": "Fine Tuning",
+      "y17": "Precision Management",
+      "y18": "Mature Phase",
+      "y19": "Excellence",
+      "y20": "Vision Complete"
+    },
+    "y1": {
+      "q1": {
+        "description": "Early Validator & User Acquisition"
+      },
+      "q2": {
+        "description": "DeFi Ecosystem Foundation"
+      },
+      "h2": {
+        "description": "Complete DeFi + NFT + GameFi Ecosystem"
+      }
+    }
   }
 }

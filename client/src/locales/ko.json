@@ -23621,5 +23621,118 @@
       "claim": "청구",
       "approve": "승인"
     }
+  },
+  "tokenomics": {
+    "title": "TBURN 20년 토크노믹스 시뮬레이션",
+    "subtitle": "v2.1 사양 기반 완전 시뮬레이션 - Y20 목표: 69.40억 TBURN",
+    "genesisSupply": "제네시스 공급량",
+    "finalSupply": "최종 공급량 (Y20)",
+    "totalDeflation": "총 디플레이션",
+    "avgAnnualRate": "평균 연간 감소율",
+    "sustainableDeflation": "지속 가능한 디플레이션",
+    "overYears": "20년간",
+    "visionComplete": "비전 완성",
+    "cumulativeEmission": "누적 블록 발행량",
+    "cumulativeBurn": "누적 AI 소각량",
+    "blockRewards": "검증자에게 분배된 블록 보상",
+    "aiBurnMechanism": "AI 기반 소각 메커니즘",
+    "phaseSummary": "단계별 요약",
+    "fourPhaseStrategy": "20년간 4단계 토크노믹스 전략",
+    "start": "시작",
+    "end": "종료",
+    "netChange": "순변화",
+    "supply": "공급량",
+    "emission": "발행",
+    "burn": "소각",
+    "rate": "비율",
+    "changeRate": "변화율",
+    "completeSimulation": "완전 시뮬레이션 표",
+    "finalAdjustment": "최종 조정 - Y20 목표: 69.40억",
+    "filterByPhase": "단계별 필터",
+    "allPhases": "전체 단계",
+    "supplyOverTime": "시간별 공급량",
+    "supplyTrend": "20년 공급량 추이",
+    "emissionVsBurn": "발행 vs 소각",
+    "tokenFlow": "기간별 토큰 흐름",
+    "deflationRate": "기간별 디플레이션율",
+    "rateAnalysis": "단계별 디플레이션 강도 분석",
+    "priceForecast": "20년 가격 예측",
+    "startingPrice": "시작 가격: $0.50",
+    "marketCap": "시가총액 (중립)",
+    "y1Details": "1년차 분기별 분석",
+    "y1Strategy": "분기별 마일스톤이 포함된 첫 해 상세 전략",
+    "totalBlockEmission": "총 블록 발행",
+    "totalAiBurn": "총 AI 소각",
+    "netDeflation": "순 디플레이션",
+    "validators": "검증자",
+    "wallets": "지갑",
+    "y1PriceForecast": "Y1 가격 예측",
+    "disclaimer": "가격 예측은 토크노믹스 모델 가정을 기반으로 하며 재정 조언을 구성하지 않습니다. 실제 가격은 시장 상황, 채택률 및 기타 요인에 따라 크게 달라질 수 있습니다.",
+    "phases": {
+      "growth": "성장",
+      "deflation": "디플레이션",
+      "equilibrium": "균형",
+      "optimization": "최적화"
+    },
+    "scenarios": {
+      "conservative": "보수적",
+      "neutral": "중립적",
+      "optimistic": "낙관적"
+    },
+    "tabs": {
+      "simulation": "시뮬레이션 표",
+      "charts": "차트",
+      "price": "가격 예측",
+      "y1": "Y1 상세"
+    },
+    "table": {
+      "period": "연도/기간",
+      "phase": "단계",
+      "startSupply": "시작 공급",
+      "blockEmission": "블록 발행",
+      "aiBurn": "AI 소각",
+      "netChange": "순변화",
+      "endSupply": "총 공급",
+      "changeRate": "감소율",
+      "note": "비고",
+      "year": "연도",
+      "supply": "공급량"
+    },
+    "notes": {
+      "genesis": "제네시스",
+      "y1q1": "초기 유저 유치",
+      "y1q2": "성장 가속",
+      "y1h2": "생태계 확장",
+      "y2": "지속 성장",
+      "y3": "대량 채택",
+      "y4": "기업 통합",
+      "y5": "플랫폼 성숙",
+      "y6": "첫 반감기",
+      "y7": "안정화",
+      "y8": "기관급",
+      "y9": "두 번째 반감",
+      "y10": "10년 달성",
+      "y11": "균형 시작",
+      "y12": "완전 균형",
+      "y13": "안정 상태",
+      "y14": "예측 가능",
+      "y15": "균형 종료",
+      "y16": "미세 조정",
+      "y17": "정밀 관리",
+      "y18": "성숙 단계",
+      "y19": "탁월함",
+      "y20": "비전 완성"
+    },
+    "y1": {
+      "q1": {
+        "description": "초기 검증자 및 사용자 유치"
+      },
+      "q2": {
+        "description": "DeFi 생태계 기반 구축"
+      },
+      "h2": {
+        "description": "완전한 DeFi + NFT + GameFi 생태계"
+      }
+    }
   }
 }
