@@ -60,69 +60,27 @@ interface NetworkStats {
 }
 
 interface Block {
-  id: string;
-  blockNumber: number;
+  number: number;
   hash: string;
   parentHash: string;
   timestamp: number;
-  transactionCount: number;
-  validatorAddress: string;
-  validatorName?: string;
+  transactions: number;
   gasUsed: number;
   gasLimit: number;
+  validator: string;
   size: number;
-  shardId: number;
-  crossShardRefs?: string[];
-  stateRoot: string;
-  receiptsRoot: string;
-  miner?: string;
-  nonce?: string;
-  hashAlgorithm: string;
-  executionClass?: string;
-  latencyNs?: number;
 }
 
 interface Transaction {
-  id: number;
   hash: string;
   blockNumber: number;
   from: string;
   to: string;
   value: string;
   gasPrice: string;
-  gasLimit: number;
-  gasUsed: number;
-  nonce: number;
-  status: string;
-  type: string;
+  gasUsed: number | null;
   timestamp: number;
-  shardId?: number;
-  inputData?: string;
-  executionTimeNs?: number;
-}
-
-interface BlocksResponse {
-  blocks: Block[];
-  pagination: {
-    page: number;
-    limit: number;
-    totalPages: number;
-    totalItems: number;
-    hasNext: boolean;
-    hasPrev: boolean;
-  };
-}
-
-interface TransactionsResponse {
-  transactions: Transaction[];
-  pagination: {
-    page: number;
-    limit: number;
-    totalPages: number;
-    totalItems: number;
-    hasNext: boolean;
-    hasPrev: boolean;
-  };
+  status: string;
 }
 
 function generateTpsHistory() {
@@ -188,19 +146,19 @@ export default function ScanHome() {
     retry: 3,
   });
 
-  const { data: blocksData, isLoading: blocksLoading } = useQuery<BlocksResponse>({
-    queryKey: ["/api/blocks", { limit: 10, sortBy: "blockNumber", sortOrder: "desc" }],
+  const { data: blocksData, isLoading: blocksLoading } = useQuery<{ success: boolean; data: Block[] }>({
+    queryKey: ["/api/public/v1/network/blocks/recent"],
     refetchInterval: 3000,
   });
 
-  const { data: txsData, isLoading: txsLoading } = useQuery<TransactionsResponse>({
-    queryKey: ["/api/transactions", { limit: 10, sortBy: "timestamp", sortOrder: "desc" }],
+  const { data: txsData, isLoading: txsLoading } = useQuery<{ success: boolean; data: Transaction[] }>({
+    queryKey: ["/api/public/v1/network/transactions/recent"],
     refetchInterval: 3000,
   });
 
   const stats = statsData?.data;
-  const blocks = blocksData?.blocks || [];
-  const transactions = txsData?.transactions || [];
+  const blocks = blocksData?.data || [];
+  const transactions = txsData?.data || [];
 
   const handleSearch = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -602,7 +560,7 @@ export default function ScanHome() {
                 </div>
               ) : (
                 blocks.slice(0, 6).map((block, index) => (
-                  <Link key={block.blockNumber} href={`/scan/block/${block.blockNumber}`}>
+                  <Link key={block.number} href={`/scan/block/${block.number}`}>
                     <div 
                       className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg hover:bg-gray-800/50 transition-all group cursor-pointer"
                       data-testid={`block-row-${index}`}
@@ -612,8 +570,8 @@ export default function ScanHome() {
                           <Blocks className="w-5 h-5 text-blue-400" />
                         </div>
                         <div>
-                          <span className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1" data-testid={`link-block-${block.blockNumber}`}>
-                            #{block.blockNumber.toLocaleString()}
+                          <span className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1" data-testid={`link-block-${block.number}`}>
+                            #{block.number.toLocaleString()}
                             <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </span>
                           <div className="flex items-center gap-2 text-xs text-gray-500">
@@ -625,17 +583,17 @@ export default function ScanHome() {
                       <div className="text-right">
                         <div className="text-sm text-gray-300 flex items-center gap-1 justify-end">
                           <ArrowRightLeft className="w-3 h-3 text-gray-500" />
-                          {block.transactionCount} txns
+                          {block.transactions} txns
                         </div>
                         <div 
                           className="text-xs text-gray-500 flex items-center gap-1 justify-end"
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            copyToClipboard(block.validatorAddress);
+                            copyToClipboard(block.validator);
                           }}
                         >
-                          {formatAddress(block.validatorAddress)}
+                          {formatAddress(block.validator)}
                           <Copy className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-gray-400" />
                         </div>
                       </div>
