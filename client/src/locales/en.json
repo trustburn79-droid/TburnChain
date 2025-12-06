@@ -304,7 +304,20 @@
     "txError": "Transaction Loading Error",
     "failedToLoadTxs": "Failed to load recent transactions. Please try again.",
     "viewAllBlocks": "View All Blocks",
-    "viewAllTransactions": "View All Transactions"
+    "viewAllTransactions": "View All Transactions",
+    "realtime": "Real-time",
+    "offline": "Offline",
+    "websocketConnected": "WebSocket connected - receiving live data",
+    "websocketDisconnected": "WebSocket disconnected - using cached data",
+    "alerts": {
+      "dataWarning": "Data Integrity Warning",
+      "noData": "Unable to load network data",
+      "blockHeightZero": "Block height is showing zero - data may not be current",
+      "noValidators": "No active validators detected - network may be offline",
+      "rateLimited": "API rate limit exceeded - some data may be delayed",
+      "mainnetOffline": "Mainnet API is offline - using fallback data",
+      "connectionError": "Network connection error - please check your connection"
+    }
   },
   "blocks": {
     "title": "Blocks",

@@ -325,6 +325,124 @@ function ErrorCard({ title, message, onRetry }: { title: string; message: string
   );
 }
 
+function WarningBanner({ type, message, onDismiss }: { type: 'warning' | 'info'; message: string; onDismiss?: () => void }) {
+  return (
+    <Card className={`${type === 'warning' ? 'border-yellow-500/50 bg-yellow-500/5' : 'border-blue-500/50 bg-blue-500/5'}`}>
+      <CardContent className="flex items-center gap-4 p-4">
+        <AlertCircle className={`h-6 w-6 ${type === 'warning' ? 'text-yellow-500' : 'text-blue-500'}`} />
+        <div className="flex-1">
+          <p className={`text-sm ${type === 'warning' ? 'text-yellow-600 dark:text-yellow-400' : 'text-blue-600 dark:text-blue-400'}`}>
+            {message}
+          </p>
+        </div>
+        {onDismiss && (
+          <Button variant="ghost" size="sm" onClick={onDismiss}>
+            Dismiss
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+function DataIntegrityAlert({ stats, onRefresh }: { stats: NetworkStats | undefined; onRefresh: () => void }) {
+  const { t } = useTranslation();
+  
+  const issues = useMemo(() => {
+    const problems: string[] = [];
+    if (!stats) {
+      problems.push(t("dashboard.alerts.noData"));
+      return problems;
+    }
+    
+    if (stats.currentBlockHeight === 0) {
+      problems.push(t("dashboard.alerts.blockHeightZero"));
+    }
+    if (stats.activeValidators === 0) {
+      problems.push(t("dashboard.alerts.noValidators"));
+    }
+    if ((stats as any)._errorType) {
+      const errorType = (stats as any)._errorType;
+      if (errorType === 'api-rate-limit') {
+        problems.push(t("dashboard.alerts.rateLimited"));
+      } else if (errorType === 'mainnet-offline') {
+        problems.push(t("dashboard.alerts.mainnetOffline"));
+      } else if (errorType === 'network-error') {
+        problems.push(t("dashboard.alerts.connectionError"));
+      }
+    }
+    return problems;
+  }, [stats, t]);
+
+  if (issues.length === 0) return null;
+
+  return (
+    <Card className="border-yellow-500/50 bg-yellow-500/5 mb-4">
+      <CardContent className="flex items-start gap-4 p-4">
+        <AlertCircle className="h-6 w-6 text-yellow-500 flex-shrink-0 mt-0.5" />
+        <div className="flex-1">
+          <h4 className="font-medium text-yellow-600 dark:text-yellow-400 mb-1">
+            {t("dashboard.alerts.dataWarning")}
+          </h4>
+          <ul className="text-sm text-muted-foreground space-y-1">
+            {issues.map((issue, idx) => (
+              <li key={idx} className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
+                {issue}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Button variant="outline" size="sm" onClick={onRefresh} data-testid="button-refresh-data">
+          <RefreshCw className="h-4 w-4 mr-1" />
+          {t("dashboard.refresh")}
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+function LiveDataStatus({ wsConnected, lastUpdate }: { wsConnected: boolean; lastUpdate: Date | null }) {
+  const { t } = useTranslation();
+  const [timeSinceUpdate, setTimeSinceUpdate] = useState<string>("");
+
+  useEffect(() => {
+    const updateTimer = () => {
+      if (lastUpdate) {
+        const seconds = Math.floor((Date.now() - lastUpdate.getTime()) / 1000);
+        if (seconds < 60) {
+          setTimeSinceUpdate(`${seconds}s ago`);
+        } else {
+          setTimeSinceUpdate(`${Math.floor(seconds / 60)}m ago`);
+        }
+      }
+    };
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [lastUpdate]);
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 cursor-pointer" data-testid="live-data-status">
+          <div className={`h-2 w-2 rounded-full ${wsConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+          <span className="text-xs font-medium">
+            {wsConnected ? t("dashboard.realtime") : t("dashboard.offline")}
+          </span>
+          {lastUpdate && (
+            <span className="text-xs text-muted-foreground">{timeSinceUpdate}</span>
+          )}
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{wsConnected ? t("dashboard.websocketConnected") : t("dashboard.websocketDisconnected")}</p>
+        {lastUpdate && <p className="text-xs text-muted-foreground">Last update: {timeSinceUpdate}</p>}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 function DeFiStatCard({ 
   href, 
   icon: Icon, 
@@ -385,6 +503,7 @@ export default function Dashboard() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [tpsHistory, setTpsHistory] = useState<TpsDataPoint[]>([]);
   const [wsConnected, setWsConnected] = useState(false);
+  const [lastDataUpdate, setLastDataUpdate] = useState<Date | null>(null);
 
   const { 
     totalShards, 
@@ -474,6 +593,7 @@ export default function Dashboard() {
         const updated = [...prev, newPoint].slice(-30);
         return updated;
       });
+      setLastDataUpdate(new Date());
     }
   }, [networkStats?.tps]);
 
@@ -570,6 +690,7 @@ export default function Dashboard() {
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <NetworkHealthIndicator stats={networkStats} />
+          <LiveDataStatus wsConnected={wsConnected} lastUpdate={lastDataUpdate} />
           <DataSourceBadge />
           <LiveIndicator />
           <RefreshButton onRefresh={handleRefresh} isRefreshing={isRefreshing} />
@@ -579,6 +700,9 @@ export default function Dashboard() {
       <div className="flex justify-center">
         <SearchBar />
       </div>
+
+      {/* Data Integrity Warning Alert */}
+      <DataIntegrityAlert stats={networkStats} onRefresh={handleRefresh} />
 
       {statsError && (
         <ErrorCard 
