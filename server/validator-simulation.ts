@@ -310,23 +310,23 @@ export class ValidatorSimulationService {
     // 85-92% participate in precommit
     const precommitCount = Math.floor(totalActiveValidators * (0.85 + Math.random() * 0.07));
     
-    // Generate realistic per-phase timings (18-35ms per phase)
-    // 5-phase: Propose, Prevote, Precommit, Finalize, Commit
+    // AI-BFT Consensus: AI Pre-Validation makes validator confirmation faster
+    // 5-phase: AI Pre-Validation(5-9ms), Propose(15-19ms), Prevote(18-21ms), Precommit(15-19ms), Commit(20-24ms)
     const phaseTimings = [
-      18 + Math.floor(Math.random() * 8),  // Propose: 18-25ms
-      22 + Math.floor(Math.random() * 10), // Prevote: 22-31ms
-      20 + Math.floor(Math.random() * 12), // Precommit: 20-31ms
-      18 + Math.floor(Math.random() * 7),  // Finalize: 18-24ms
-      25 + Math.floor(Math.random() * 10), // Commit: 25-34ms
+      5 + Math.floor(Math.random() * 5),   // AI Pre-Validation: 5-9ms (AI handles heavy lifting)
+      15 + Math.floor(Math.random() * 5),  // Propose: 15-19ms (validators confirm only)
+      18 + Math.floor(Math.random() * 4),  // Prevote: 18-21ms (quick confirmation)
+      15 + Math.floor(Math.random() * 5),  // Precommit: 15-19ms (quick confirmation)
+      20 + Math.floor(Math.random() * 5),  // Commit: 20-24ms (finalization)
     ];
     
     // Determine current active phase (cycle through 5 phases)
     const phaseIndex = (this.currentRound % 5);
     const phases = [
-      { number: 1, label: "Propose", time: `${phaseTimings[0]}ms`, status: phaseIndex === 0 ? "active" : "completed" },
-      { number: 2, label: "Prevote", time: `${phaseTimings[1]}ms`, status: phaseIndex === 1 ? "active" : phaseIndex > 1 ? "completed" : "pending" },
-      { number: 3, label: "Precommit", time: `${phaseTimings[2]}ms`, status: phaseIndex === 2 ? "active" : phaseIndex > 2 ? "completed" : "pending" },
-      { number: 4, label: "Finalize", time: `${phaseTimings[3]}ms`, status: phaseIndex === 3 ? "active" : phaseIndex > 3 ? "completed" : "pending" },
+      { number: 1, label: "AI Pre-Validation", time: `${phaseTimings[0]}ms`, status: phaseIndex === 0 ? "active" : "completed" },
+      { number: 2, label: "Propose", time: `${phaseTimings[1]}ms`, status: phaseIndex === 1 ? "active" : phaseIndex > 1 ? "completed" : "pending" },
+      { number: 3, label: "Prevote", time: `${phaseTimings[2]}ms`, status: phaseIndex === 2 ? "active" : phaseIndex > 2 ? "completed" : "pending" },
+      { number: 4, label: "Precommit", time: `${phaseTimings[3]}ms`, status: phaseIndex === 3 ? "active" : phaseIndex > 3 ? "completed" : "pending" },
       { number: 5, label: "Commit", time: `${phaseTimings[4]}ms`, status: phaseIndex === 4 ? "active" : "pending" },
     ];
     

@@ -1999,13 +1999,14 @@ export class MemStorage implements IStorage {
     const blockStartTime = now - 100; // 100ms block cycle
     const elapsed = now - blockStartTime;
     
-    // 5-phase BFT: Propose(20ms), Prevote(25ms), Precommit(25ms), Finalize(20ms), Commit(30ms) = 120ms
+    // AI-BFT Consensus: AI Pre-Validation makes validator phases faster
+    // 5-phase: AI Pre-Validation(5-10ms), Propose(15-20ms), Prevote(18-22ms), Precommit(15-20ms), Commit(20-25ms)
     let currentPhase = 1;
-    if (elapsed >= 90) currentPhase = 5;      // Commit: 90-120ms
-    else if (elapsed >= 70) currentPhase = 4; // Finalize: 70-90ms
-    else if (elapsed >= 45) currentPhase = 3; // Precommit: 45-70ms
-    else if (elapsed >= 20) currentPhase = 2; // Prevote: 20-45ms
-    // else: Propose: 0-20ms
+    if (elapsed >= 75) currentPhase = 5;      // Commit: 75-100ms
+    else if (elapsed >= 55) currentPhase = 4; // Precommit: 55-75ms
+    else if (elapsed >= 35) currentPhase = 3; // Prevote: 35-55ms
+    else if (elapsed >= 10) currentPhase = 2; // Propose: 10-35ms
+    // else: AI Pre-Validation: 0-10ms
     
     const proposer = activeValidators[0]?.address || "0x0000...0000";
     
@@ -2015,20 +2016,20 @@ export class MemStorage implements IStorage {
     const prevoteCount = Math.floor(totalValidators * (0.85 + Math.random() * 0.05));  // 85-90%
     const precommitCount = Math.floor(totalValidators * (0.78 + Math.random() * 0.05)); // 78-83%
     
-    // Individual phase times (18-35ms range)
+    // AI Pre-Validation is ultra-fast (5-10ms), validator phases are faster due to AI pre-check
     const phaseTimes = [
-      18 + Math.floor(Math.random() * 7),   // Propose: 18-24ms
-      22 + Math.floor(Math.random() * 8),   // Prevote: 22-29ms
-      20 + Math.floor(Math.random() * 10),  // Precommit: 20-29ms
-      18 + Math.floor(Math.random() * 7),   // Finalize: 18-24ms
-      25 + Math.floor(Math.random() * 10),  // Commit: 25-34ms
+      5 + Math.floor(Math.random() * 5),    // AI Pre-Validation: 5-9ms (AI handles heavy lifting)
+      15 + Math.floor(Math.random() * 5),   // Propose: 15-19ms (validators confirm only)
+      18 + Math.floor(Math.random() * 4),   // Prevote: 18-21ms (quick confirmation)
+      15 + Math.floor(Math.random() * 5),   // Precommit: 15-19ms (quick confirmation)
+      20 + Math.floor(Math.random() * 5),   // Commit: 20-24ms (finalization)
     ];
     
     const phases: import("@shared/schema").ConsensusPhase[] = [
-      { number: 1, label: "Propose", time: `${phaseTimes[0]}ms`, status: currentPhase === 1 ? "active" : "completed" },
-      { number: 2, label: "Prevote", time: `${phaseTimes[1]}ms`, status: currentPhase === 2 ? "active" : currentPhase > 2 ? "completed" : "pending" },
-      { number: 3, label: "Precommit", time: `${phaseTimes[2]}ms`, status: currentPhase === 3 ? "active" : currentPhase > 3 ? "completed" : "pending" },
-      { number: 4, label: "Finalize", time: `${phaseTimes[3]}ms`, status: currentPhase === 4 ? "active" : currentPhase > 4 ? "completed" : "pending" },
+      { number: 1, label: "AI Pre-Validation", time: `${phaseTimes[0]}ms`, status: currentPhase === 1 ? "active" : "completed" },
+      { number: 2, label: "Propose", time: `${phaseTimes[1]}ms`, status: currentPhase === 2 ? "active" : currentPhase > 2 ? "completed" : "pending" },
+      { number: 3, label: "Prevote", time: `${phaseTimes[2]}ms`, status: currentPhase === 3 ? "active" : currentPhase > 3 ? "completed" : "pending" },
+      { number: 4, label: "Precommit", time: `${phaseTimes[3]}ms`, status: currentPhase === 4 ? "active" : currentPhase > 4 ? "completed" : "pending" },
       { number: 5, label: "Commit", time: `${phaseTimes[4]}ms`, status: currentPhase === 5 ? "active" : "pending" },
     ];
     
@@ -2664,22 +2665,22 @@ export class DbStorage implements IStorage {
       const totalValidators = 110;
       const requiredQuorum = 84; // 2f+1 where f=41
       
-      // Individual phase times (18-35ms range)
+      // AI Pre-Validation is ultra-fast, validator phases are faster due to AI pre-check
       const phaseTimes = [
-        18 + Math.floor(Math.random() * 7),
-        22 + Math.floor(Math.random() * 8),
-        20 + Math.floor(Math.random() * 10),
-        18 + Math.floor(Math.random() * 7),
-        25 + Math.floor(Math.random() * 10),
+        5 + Math.floor(Math.random() * 5),    // AI Pre-Validation: 5-9ms
+        15 + Math.floor(Math.random() * 5),   // Propose: 15-19ms
+        18 + Math.floor(Math.random() * 4),   // Prevote: 18-21ms
+        15 + Math.floor(Math.random() * 5),   // Precommit: 15-19ms
+        20 + Math.floor(Math.random() * 5),   // Commit: 20-24ms
       ];
       
       return {
         currentPhase: 1,
         phases: [
-          { number: 1, label: "Propose", time: `${phaseTimes[0]}ms`, status: "active" },
-          { number: 2, label: "Prevote", time: `${phaseTimes[1]}ms`, status: "pending" },
-          { number: 3, label: "Precommit", time: `${phaseTimes[2]}ms`, status: "pending" },
-          { number: 4, label: "Finalize", time: `${phaseTimes[3]}ms`, status: "pending" },
+          { number: 1, label: "AI Pre-Validation", time: `${phaseTimes[0]}ms`, status: "active" },
+          { number: 2, label: "Propose", time: `${phaseTimes[1]}ms`, status: "pending" },
+          { number: 3, label: "Prevote", time: `${phaseTimes[2]}ms`, status: "pending" },
+          { number: 4, label: "Precommit", time: `${phaseTimes[3]}ms`, status: "pending" },
           { number: 5, label: "Commit", time: `${phaseTimes[4]}ms`, status: "pending" },
         ],
         proposer: activeValidators[0]?.address || "0x0000...0000",
@@ -2693,22 +2694,22 @@ export class DbStorage implements IStorage {
       };
     }
 
-    // Always generate fresh 5-phase format regardless of database data
-    // 1. Propose, 2. Prevote, 3. Precommit, 4. Finalize, 5. Commit
+    // AI-BFT Consensus: AI Pre-Validation + 4 validator confirmation phases
+    // 1. AI Pre-Validation, 2. Propose, 3. Prevote, 4. Precommit, 5. Commit
     const currentPhase = Math.min(latestRound.currentPhase, 5);
     const phaseTimes = [
-      18 + Math.floor(Math.random() * 7),   // Propose: 18-24ms
-      22 + Math.floor(Math.random() * 8),   // Prevote: 22-29ms
-      20 + Math.floor(Math.random() * 10),  // Precommit: 20-29ms
-      18 + Math.floor(Math.random() * 7),   // Finalize: 18-24ms
-      25 + Math.floor(Math.random() * 10),  // Commit: 25-34ms
+      5 + Math.floor(Math.random() * 5),    // AI Pre-Validation: 5-9ms
+      15 + Math.floor(Math.random() * 5),   // Propose: 15-19ms
+      18 + Math.floor(Math.random() * 4),   // Prevote: 18-21ms
+      15 + Math.floor(Math.random() * 5),   // Precommit: 15-19ms
+      20 + Math.floor(Math.random() * 5),   // Commit: 20-24ms
     ];
     
     const phases: import("@shared/schema").ConsensusPhase[] = [
-      { number: 1, label: "Propose", time: `${phaseTimes[0]}ms`, status: currentPhase === 1 ? "active" : "completed" },
-      { number: 2, label: "Prevote", time: `${phaseTimes[1]}ms`, status: currentPhase === 2 ? "active" : currentPhase > 2 ? "completed" : "pending" },
-      { number: 3, label: "Precommit", time: `${phaseTimes[2]}ms`, status: currentPhase === 3 ? "active" : currentPhase > 3 ? "completed" : "pending" },
-      { number: 4, label: "Finalize", time: `${phaseTimes[3]}ms`, status: currentPhase === 4 ? "active" : currentPhase > 4 ? "completed" : "pending" },
+      { number: 1, label: "AI Pre-Validation", time: `${phaseTimes[0]}ms`, status: currentPhase === 1 ? "active" : "completed" },
+      { number: 2, label: "Propose", time: `${phaseTimes[1]}ms`, status: currentPhase === 2 ? "active" : currentPhase > 2 ? "completed" : "pending" },
+      { number: 3, label: "Prevote", time: `${phaseTimes[2]}ms`, status: currentPhase === 3 ? "active" : currentPhase > 3 ? "completed" : "pending" },
+      { number: 4, label: "Precommit", time: `${phaseTimes[3]}ms`, status: currentPhase === 4 ? "active" : currentPhase > 4 ? "completed" : "pending" },
       { number: 5, label: "Commit", time: `${phaseTimes[4]}ms`, status: currentPhase === 5 ? "active" : "pending" },
     ];
     
