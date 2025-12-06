@@ -8604,13 +8604,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/wallets/:address", async (req, res) => {
     try {
       const address = req.params.address;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const wallet = await client.getWalletBalance(address);
+      
+      // Fetch from TBurnEnterpriseNode for dynamic wallet data
+      try {
+        const response = await fetch(`http://localhost:8545/api/wallets/${encodeURIComponent(address)}`);
+        
+        if (response.status === 404) {
+          return res.status(404).json({ error: "Wallet not found" });
+        }
+        
+        if (!response.ok) {
+          throw new Error(`Enterprise node returned status: ${response.status}`);
+        }
+        
+        const wallet = await response.json();
         res.json(wallet);
-      } else {
-        // Fetch from local database (demo mode)
+      } catch (fetchError: any) {
+        // Fallback to database
         const wallet = await storage.getWalletBalanceByAddress(address);
         if (!wallet) {
           return res.status(404).json({ error: "Wallet not found" });
@@ -8618,8 +8628,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.json(wallet);
       }
     } catch (error: any) {
-      // Propagate 404 from TBURN client if wallet not found
-      // TBurnClient attaches statusCode to error object for reliable error handling
       if (error.statusCode === 404) {
         return res.status(404).json({ error: "Wallet not found" });
       }
