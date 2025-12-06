@@ -10,10 +10,12 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DemoBanner } from "@/components/DemoBanner";
 import { WebSocketProvider } from "@/lib/websocket-context";
+import { Web3Provider } from "@/lib/web3-context";
 import { MainnetRestartOverlay } from "@/components/mainnet-restart-overlay";
 import { AdminPasswordProvider } from "@/hooks/use-admin-password";
 import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
+import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import '@/lib/i18n';
@@ -208,6 +210,7 @@ function AuthenticatedApp() {
               <header className="flex items-center justify-between p-4 border-b">
                 <SidebarTrigger data-testid="button-sidebar-toggle" />
                 <div className="flex items-center gap-2">
+                  <WalletButton />
                   <LanguageSelector />
                   <ThemeToggle />
                   <Tooltip>
@@ -262,10 +265,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark">
-        <AdminPasswordProvider>
-          <RootRouter />
-          <Toaster />
-        </AdminPasswordProvider>
+        <Web3Provider>
+          <AdminPasswordProvider>
+            <RootRouter />
+            <Toaster />
+          </AdminPasswordProvider>
+        </Web3Provider>
       </ThemeProvider>
     </QueryClientProvider>
   );
