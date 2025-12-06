@@ -5058,13 +5058,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Core metrics
         tps: stats.tps || Math.floor(Math.random() * 5000 + 45000),
         blockHeight: Number(stats.current_block_height) || Math.floor(Date.now() / 100),
-        avgBlockTime: stats.avg_block_time || 100,
-        latency: stats.latency || Math.floor(Math.random() * 10 + 5),
+        avgBlockTime: stats.avg_block_time || 1000, // 1 second block time for TBURN Mainnet
+        latency: stats.latency || Math.floor(Math.random() * 4 + 8), // 8-12ms enterprise latency
 
         // Validator metrics
         activeValidators: Number(validators.active_validators) || 256,
         totalValidators: Number(validators.total_validators) || 512,
-        validatorUptime: Number(validators.avg_uptime) || 9950,
+        validatorUptime: Number(validators.avg_uptime) || 99.5,
 
         // System resources
         cpuUsage: Math.floor(Math.random() * 20 + 25),
@@ -5077,18 +5077,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         pendingTxCount: Math.floor(Math.random() * 100 + 50),
         mempoolSize: Math.floor(Math.random() * 1000000 + 500000),
 
-        // Health scores
-        overallHealthScore: 9850,
-        networkHealthScore: 9920,
-        consensusHealthScore: 9890,
-        storageHealthScore: 9780,
+        // Health scores (percentage: 0-100)
+        overallHealthScore: 98.5,
+        networkHealthScore: 99.2,
+        consensusHealthScore: 98.9,
+        storageHealthScore: 97.8,
 
         // Status
         status: 'healthy',
         lastUpdated: new Date().toISOString()
       };
 
-      // Save snapshot
+      // Save snapshot (convert percentages to integers for DB storage)
       await pool.query(`
         INSERT INTO system_health_snapshots 
         (tps, block_height, avg_block_time, latency, active_validators, total_validators,
@@ -5100,8 +5100,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         systemHealth.activeValidators, systemHealth.totalValidators,
         systemHealth.cpuUsage, systemHealth.memoryUsage, systemHealth.diskUsage, systemHealth.networkBandwidth,
         systemHealth.peerCount, systemHealth.pendingTxCount,
-        systemHealth.overallHealthScore, systemHealth.networkHealthScore, 
-        systemHealth.consensusHealthScore, systemHealth.storageHealthScore, systemHealth.status
+        Math.round(systemHealth.overallHealthScore * 100), Math.round(systemHealth.networkHealthScore * 100), 
+        Math.round(systemHealth.consensusHealthScore * 100), Math.round(systemHealth.storageHealthScore * 100), systemHealth.status
       ]);
 
       await pool.end();
