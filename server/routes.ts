@@ -491,8 +491,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/network/")) {
       return next();
     }
-    // Skip auth check for validators stats (public data)
-    if (req.path.startsWith("/validators/stats")) {
+    // Skip auth check for validators (public blockchain data)
+    if (req.path.startsWith("/validators")) {
+      return next();
+    }
+    // Skip auth check for members (public blockchain data)
+    if (req.path.startsWith("/members")) {
       return next();
     }
     // Skip auth check for blocks and transactions (public explorer data)

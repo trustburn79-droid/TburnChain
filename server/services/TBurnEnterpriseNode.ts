@@ -1381,8 +1381,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         { 
           id: 'ai-model-gemini',
           name: 'Gemini 3 Pro',
+          type: 'strategic',
           band: 'strategic',
           status: 'active',
+          provider: 'Google',
           requestCount: Math.floor(Math.random() * 50000) + 100000,
           successCount: Math.floor(Math.random() * 50000) + 95000,
           failureCount: Math.floor(Math.random() * 500) + 100,
@@ -1403,8 +1405,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         {
           id: 'ai-model-claude',
           name: 'Claude Sonnet 4.5',
+          type: 'tactical',
           band: 'tactical',
           status: 'active',
+          provider: 'Anthropic',
           requestCount: Math.floor(Math.random() * 40000) + 80000,
           successCount: Math.floor(Math.random() * 40000) + 79000,
           failureCount: Math.floor(Math.random() * 300) + 50,
@@ -1425,8 +1429,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         {
           id: 'ai-model-openai',
           name: 'GPT-4o',
+          type: 'operational',
           band: 'operational',
           status: 'active',
+          provider: 'OpenAI',
           requestCount: Math.floor(Math.random() * 30000) + 60000,
           successCount: Math.floor(Math.random() * 30000) + 58000,
           failureCount: Math.floor(Math.random() * 400) + 150,
@@ -1447,8 +1453,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         {
           id: 'ai-model-grok',
           name: 'Grok 3',
+          type: 'fallback',
           band: 'fallback',
           status: 'standby',
+          provider: 'xAI',
           requestCount: 0,
           successCount: 0,
           failureCount: 0,
@@ -1722,61 +1730,85 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json(rounds);
     });
 
-    // Consensus state endpoint - matches consensusStateSchema
+    // Consensus state endpoint - 5-phase AI-BFT consensus (AI Pre-Validation + 4 validator phases)
     this.rpcApp.get('/api/consensus/current', (_req: Request, res: Response) => {
       // Dynamic validator count based on shard configuration
       const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
       const requiredQuorum = Math.ceil(totalValidators * 2 / 3); // 2/3 majority for consensus
-      const currentPhase = Math.floor(Math.random() * 4); // 0=propose, 1=prevote, 2=precommit, 3=commit
+      const currentPhase = Math.floor(Math.random() * 5); // 0=ai-prevalidation, 1=propose, 2=prevote, 3=precommit, 4=commit
       const startTime = Date.now() - Math.floor(Math.random() * 50); // Started 0-50ms ago
       
+      // AI Pre-Validation metrics (Quad-Band AI System)
+      const aiModels = ['Gemini 3 Pro', 'Claude Sonnet 4.5', 'GPT-4o', 'Grok 3'];
+      const aiValidationResults = aiModels.map(model => ({
+        model,
+        confidence: model === 'Grok 3' ? 0 : 0.92 + Math.random() * 0.08,
+        validationTime: Math.floor(Math.random() * 5) + 3, // 3-8ms
+        status: model === 'Grok 3' ? 'standby' : 'validated'
+      }));
+      
+      // 5-phase AI-BFT consensus phases
       const phases = [
         {
-          name: 'propose',
+          name: 'ai-prevalidation',
           index: 0,
+          number: 0,
+          label: 'AI Pre-Validation',
+          time: '15ms',
+          status: currentPhase > 0 ? 'completed' as const : (currentPhase === 0 ? 'active' as const : 'pending' as const),
+          quorumProgress: currentPhase > 0 ? 1.0 : Math.random() * 0.3 + 0.7,
+          leaderAddress: 'ai-orchestrator',
+          startTime,
+          endTime: currentPhase > 0 ? startTime + 15 : null,
+          aiValidation: aiValidationResults,
+          consensusScore: currentPhase > 0 ? 0.96 : Math.random() * 0.1 + 0.88
+        },
+        {
+          name: 'propose',
+          index: 1,
           number: 1,
           label: 'Propose',
           time: '20ms',
-          status: currentPhase > 0 ? 'completed' as const : (currentPhase === 0 ? 'active' as const : 'pending' as const),
-          quorumProgress: currentPhase > 0 ? 1.0 : Math.random() * 0.5 + 0.5,
-          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
-          startTime,
-          endTime: currentPhase > 0 ? startTime + 20 : null
+          status: currentPhase > 1 ? 'completed' as const : (currentPhase === 1 ? 'active' as const : 'pending' as const),
+          quorumProgress: currentPhase > 1 ? 1.0 : (currentPhase === 1 ? Math.random() * 0.5 + 0.5 : 0),
+          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 14)}`,
+          startTime: startTime + 15,
+          endTime: currentPhase > 1 ? startTime + 35 : null
         },
         {
           name: 'prevote',
-          index: 1,
+          index: 2,
           number: 2,
           label: 'Prevote',
           time: '25ms',
-          status: currentPhase > 1 ? 'completed' as const : (currentPhase === 1 ? 'active' as const : 'pending' as const),
-          quorumProgress: currentPhase > 1 ? 1.0 : (currentPhase === 1 ? Math.random() * 0.5 + 0.5 : 0),
-          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
-          startTime: startTime + 20,
-          endTime: currentPhase > 1 ? startTime + 45 : null
+          status: currentPhase > 2 ? 'completed' as const : (currentPhase === 2 ? 'active' as const : 'pending' as const),
+          quorumProgress: currentPhase > 2 ? 1.0 : (currentPhase === 2 ? Math.random() * 0.5 + 0.5 : 0),
+          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 14)}`,
+          startTime: startTime + 35,
+          endTime: currentPhase > 2 ? startTime + 60 : null
         },
         {
           name: 'precommit',
-          index: 2,
+          index: 3,
           number: 3,
           label: 'Precommit',
           time: '25ms',
-          status: currentPhase > 2 ? 'completed' as const : (currentPhase === 2 ? 'active' as const : 'pending' as const),
-          quorumProgress: currentPhase > 2 ? 1.0 : (currentPhase === 2 ? Math.random() * 0.5 + 0.5 : 0),
-          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
-          startTime: startTime + 45,
-          endTime: currentPhase > 2 ? startTime + 70 : null
+          status: currentPhase > 3 ? 'completed' as const : (currentPhase === 3 ? 'active' as const : 'pending' as const),
+          quorumProgress: currentPhase > 3 ? 1.0 : (currentPhase === 3 ? Math.random() * 0.5 + 0.5 : 0),
+          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 14)}`,
+          startTime: startTime + 60,
+          endTime: currentPhase > 3 ? startTime + 85 : null
         },
         {
           name: 'commit',
-          index: 3,
+          index: 4,
           number: 4,
           label: 'Commit',
-          time: '30ms',
-          status: currentPhase === 3 ? 'active' as const : 'pending' as const,
-          quorumProgress: currentPhase === 3 ? Math.random() * 0.5 + 0.5 : 0,
-          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
-          startTime: startTime + 70,
+          time: '15ms',
+          status: currentPhase === 4 ? 'active' as const : 'pending' as const,
+          quorumProgress: currentPhase === 4 ? Math.random() * 0.5 + 0.5 : 0,
+          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 14)}`,
+          startTime: startTime + 85,
           endTime: null
         }
       ];
@@ -1786,13 +1818,17 @@ export class TBurnEnterpriseNode extends EventEmitter {
         currentPhase,
         phases,
         blockHeight: this.currentBlockHeight,
-        prevoteCount: currentPhase >= 1 ? Math.floor(Math.random() * 41) + 84 : 0,
-        precommitCount: currentPhase >= 2 ? Math.floor(Math.random() * 41) + 84 : 0,
+        prevoteCount: currentPhase >= 2 ? Math.floor(Math.random() * 21) + (totalValidators - 20) : 0,
+        precommitCount: currentPhase >= 3 ? Math.floor(Math.random() * 21) + (totalValidators - 20) : 0,
         totalValidators,
+        validatorCount: totalValidators,
         requiredQuorum,
         avgBlockTimeMs: 100,
         startTime,
-        proposer: proposerAddress
+        proposer: proposerAddress,
+        aiPreValidationComplete: currentPhase > 0,
+        aiConsensusScore: currentPhase > 0 ? 0.96 : Math.random() * 0.1 + 0.88,
+        consensusType: 'AI-BFT'
       };
       
       res.json(state);
