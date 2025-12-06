@@ -195,8 +195,11 @@ export default function ScanHome() {
             setLocation(`/scan/address/${value}`);
           } else if (/^\d+$/.test(value)) {
             setLocation(`/scan/block/${value}`);
+          } else if (value.length >= 4) {
+            // Partial search - 4+ characters goes to search results page
+            setLocation(`/scan/search?q=${encodeURIComponent(value)}`);
           } else {
-            setSearchError(t("scan.invalidSearch", "Invalid search. Enter a valid block number, transaction hash, or address."));
+            setSearchError(t("scan.invalidSearch", "Invalid search. Enter a valid block number, transaction hash, or address (min 4 characters)."));
           }
       }
     }, 300);
