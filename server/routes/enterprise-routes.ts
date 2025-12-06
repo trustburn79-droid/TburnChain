@@ -1492,8 +1492,8 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
             name: 'TBURN', 
             symbol: 'TBURN', 
             standard: 'TBC-20', 
-            totalSupply: '1000000000', 
-            circulatingSupply: '750000000', 
+            totalSupply: '10000000000', 
+            circulatingSupply: '7000000000', 
             holders: 125000, 
             status: 'active', 
             aiEnabled: true,
@@ -1541,10 +1541,10 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
           }
         ],
         supplyStats: {
-          totalSupply: '1000000000',
-          circulatingSupply: '750000000',
-          lockedSupply: '150000000',
-          burnedSupply: burnMetrics.totalBurned || '100000000'
+          totalSupply: '10000000000',
+          circulatingSupply: '7000000000',
+          lockedSupply: '1500000000',
+          burnedSupply: burnMetrics.totalBurned || '1000000000'
         },
         recentActions: [
           { id: 1, action: 'Mint', token: 'TBURN', amount: '1000000', to: '0x7890...cdef', by: 'Admin', timestamp: new Date(Date.now() - 3600000).toISOString(), txHash: '0xabc123...' },

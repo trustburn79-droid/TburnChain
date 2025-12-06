@@ -6,19 +6,29 @@
  */
 
 // ============================================
-// Core Token Constants
+// Core Token Constants (20-Year Tokenomics Model)
 // ============================================
+export const BILLION = 1_000_000_000;
+export const MILLION = 1_000_000;
+
 export const TOKEN_CONSTANTS = {
-  TOTAL_SUPPLY: 100_000_000,           // 100M TBURN total supply
-  CIRCULATING_SUPPLY: 70_000_000,      // 70M TBURN in circulation
-  TARGET_STAKED_SUPPLY: 32_000_000,    // 32M TBURN target staking
+  // 20-Year Tokenomics: Genesis 100억 → Y20 69.40억 (30.60% deflation)
+  GENESIS_SUPPLY: 10 * BILLION,         // 10B (100억) TBURN genesis supply
+  TOTAL_SUPPLY: 10 * BILLION,           // 10B (100억) TBURN total supply at genesis
+  Y20_TARGET_SUPPLY: 6.94 * BILLION,    // 6.94B (69.40억) TBURN target at Year 20
+  CIRCULATING_SUPPLY: 7 * BILLION,      // 7B (70억) TBURN in circulation
+  TARGET_STAKED_SUPPLY: 3.2 * BILLION,  // 3.2B (32억) TBURN target staking (32%)
+  
+  // Deflation targets
+  TOTAL_DEFLATION_PERCENT: 30.60,       // Total deflation over 20 years
+  AVG_ANNUAL_DEFLATION: 1.53,           // Average annual deflation rate
   
   DECIMALS: 18,
   WEI_PER_TBURN: BigInt(10 ** 18),
   
   // Ember (EMB) - TBURN Gas Unit
   EMB_PER_TBURN: 1_000_000,
-  STANDARD_GAS_PRICE_EMB: 10,          // 10 EMB standard gas price
+  STANDARD_GAS_PRICE_EMB: 10,           // 10 EMB standard gas price
 };
 
 // ============================================
@@ -50,9 +60,9 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     name: 'tier_1_committee',
     displayName: 'Active Committee',
     maxParticipants: 512,
-    minStakeTBURN: 200_000,
-    minStakeWei: (BigInt(200_000) * BigInt(10 ** 18)).toString(),
-    rewardPoolShare: 0.50,           // 50% of daily emission (2,500 TBURN/day)
+    minStakeTBURN: 20_000_000,       // 20M TBURN (scaled 100x for 10B supply)
+    minStakeWei: (BigInt(20_000_000) * BigInt(10 ** 18)).toString(),
+    rewardPoolShare: 0.50,           // 50% of daily emission (250,000 TBURN/day)
     targetAPY: 8.0,
     apyRange: { min: 6.0, max: 10.0 },
     description: 'Elite validators participating in block production and consensus',
@@ -68,9 +78,9 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     name: 'tier_2_standby',
     displayName: 'Standby Validator',
     maxParticipants: 4_488,
-    minStakeTBURN: 50_000,
-    minStakeWei: (BigInt(50_000) * BigInt(10 ** 18)).toString(),
-    rewardPoolShare: 0.30,           // 30% of daily emission (1,500 TBURN/day)
+    minStakeTBURN: 5_000_000,        // 5M TBURN (scaled 100x for 10B supply)
+    minStakeWei: (BigInt(5_000_000) * BigInt(10 ** 18)).toString(),
+    rewardPoolShare: 0.30,           // 30% of daily emission (150,000 TBURN/day)
     targetAPY: 4.0,
     apyRange: { min: 3.0, max: 5.0 },
     description: 'Backup validators ready for committee rotation',
@@ -86,9 +96,9 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     name: 'tier_3_delegator',
     displayName: 'Delegator',
     maxParticipants: -1,             // Unlimited
-    minStakeTBURN: 100,
-    minStakeWei: (BigInt(100) * BigInt(10 ** 18)).toString(),
-    rewardPoolShare: 0.20,           // 20% of daily emission (1,000 TBURN/day)
+    minStakeTBURN: 10_000,           // 10K TBURN (scaled 100x for 10B supply)
+    minStakeWei: (BigInt(10_000) * BigInt(10 ** 18)).toString(),
+    rewardPoolShare: 0.20,           // 20% of daily emission (100,000 TBURN/day)
     targetAPY: 5.0,
     apyRange: { min: 4.0, max: 6.0 },
     description: 'Token holders delegating stake to validators',
@@ -120,16 +130,17 @@ export interface EmissionConfig {
 }
 
 export const EMISSION_CONFIG: EmissionConfig = {
-  baseEmissionDaily: 5_000,          // 5,000 TBURN/day base emission
-  burnRate: 0.20,                    // 20% of fees burned
+  // Scaled for 10B supply (100x from original 100M model)
+  baseEmissionDaily: 500_000,        // 500,000 TBURN/day base emission (scaled 100x)
+  burnRate: 0.70,                    // 70% of fees burned (AI burn mechanism)
   treasuryRate: 0.00,                // 0% to treasury (included in emission distribution)
   
   targetStakeRatio: 0.32,            // 32% target staking
   maxEmissionMultiplier: 1.15,       // Max 15% increase
   minEmissionMultiplier: 0.85,       // Max 15% decrease
   
-  targetNetInflation: 0.015,         // 1.5% annual net inflation
-  inflationBandWidth: 0.002,         // ±0.2% allowed deviation
+  targetNetInflation: -0.0153,       // -1.53% annual net deflation (20-year target)
+  inflationBandWidth: 0.005,         // ±0.5% allowed deviation
 };
 
 // ============================================
@@ -143,9 +154,10 @@ export interface RewardDistribution {
 }
 
 export const REWARD_DISTRIBUTION: RewardDistribution = {
-  tier1ValidatorShare: 0.50,         // 50% to Tier 1 (2,500 TBURN/day)
-  tier2StandbyShare: 0.30,           // 30% to Tier 2 (1,500 TBURN/day)
-  tier3DelegatorShare: 0.20,         // 20% to Tier 3 (1,000 TBURN/day)
+  // Scaled for 10B supply with 500K daily emission
+  tier1ValidatorShare: 0.50,         // 50% to Tier 1 (250,000 TBURN/day)
+  tier2StandbyShare: 0.30,           // 30% to Tier 2 (150,000 TBURN/day)
+  tier3DelegatorShare: 0.20,         // 20% to Tier 3 (100,000 TBURN/day)
   securityReserveShare: 0.00,        // Included in above distributions
 };
 

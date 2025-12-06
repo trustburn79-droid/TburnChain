@@ -116,30 +116,30 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private lastPriceUpdate = Date.now();
   private priceHistory: number[] = [28.91]; // Track price history for volatility
   
-  // Supply Dynamics (Updated for 100M Total Supply)
-  private readonly TOTAL_SUPPLY = 100_000_000; // 100M TBURN total supply
-  private stakedAmount = 32_000_000; // 32M staked (32% target ratio)
-  private circulatingSupply = 70_000_000; // 70M circulating
+  // Supply Dynamics (20-Year Tokenomics: Genesis 100억 → Y20 69.40억)
+  private readonly TOTAL_SUPPLY = 10_000_000_000; // 10B (100억) TBURN total supply
+  private stakedAmount = 3_200_000_000; // 3.2B (32억) staked (32% target ratio)
+  private circulatingSupply = 7_000_000_000; // 7B (70억) circulating
   private burnedTokens = 0; // Burned tokens from transaction fees
   
-  // Tiered Validator System Parameters
+  // Tiered Validator System Parameters (scaled for 10B supply)
   private readonly TIER_1_MAX_VALIDATORS = 512;
   private readonly TIER_2_MAX_VALIDATORS = 4488;
-  private readonly TIER_1_MIN_STAKE = 200_000; // 200K TBURN
-  private readonly TIER_2_MIN_STAKE = 50_000; // 50K TBURN
-  private readonly TIER_3_MIN_STAKE = 100; // 100 TBURN (delegators)
+  private readonly TIER_1_MIN_STAKE = 20_000_000; // 20M TBURN (scaled 100x)
+  private readonly TIER_2_MIN_STAKE = 5_000_000; // 5M TBURN (scaled 100x)
+  private readonly TIER_3_MIN_STAKE = 10_000; // 10K TBURN (delegators, scaled 100x)
   
-  // Daily Emission Configuration
-  private readonly BASE_DAILY_EMISSION = 5_000; // 5,000 TBURN/day
-  private readonly BURN_RATE = 0.20; // 20% burn rate
-  private readonly TIER_1_REWARD_SHARE = 0.50; // 50% to Tier 1 (2,500 TBURN/day)
-  private readonly TIER_2_REWARD_SHARE = 0.30; // 30% to Tier 2 (1,500 TBURN/day)
-  private readonly TIER_3_REWARD_SHARE = 0.20; // 20% to Tier 3 (1,000 TBURN/day)
+  // Daily Emission Configuration (scaled for 10B supply)
+  private readonly BASE_DAILY_EMISSION = 500_000; // 500,000 TBURN/day (scaled 100x)
+  private readonly BURN_RATE = 0.70; // 70% burn rate (AI burn mechanism)
+  private readonly TIER_1_REWARD_SHARE = 0.50; // 50% to Tier 1 (250,000 TBURN/day)
+  private readonly TIER_2_REWARD_SHARE = 0.30; // 30% to Tier 2 (150,000 TBURN/day)
+  private readonly TIER_3_REWARD_SHARE = 0.20; // 20% to Tier 3 (100,000 TBURN/day)
   
-  // Dynamic Emission State
-  private currentDailyEmission = 5_000;
-  private dailyBurnAmount = 1_000;
-  private netDailyEmission = 4_000;
+  // Dynamic Emission State (scaled for 10B supply)
+  private currentDailyEmission = 500_000;
+  private dailyBurnAmount = 350_000; // 70% of emission burned
+  private netDailyEmission = 150_000; // Net positive initially, becomes negative over time
   
   // Advanced Tokenomics Parameters (Demand-Supply Formula)
   private readonly BASE_PRICE = 25.00; // Base equilibrium price (adjusted for 100M supply)

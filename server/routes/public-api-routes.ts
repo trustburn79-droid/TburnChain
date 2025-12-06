@@ -542,19 +542,19 @@ router.get('/tokenomics/burn', async (req: Request, res: Response) => {
     res.json({
       success: true,
       data: {
-        totalBurned: burnMetrics?.totalBurned || "23,450,000",
-        burned24h: burnMetrics?.burnRate24h || "45,678",
-        burnRate: `${burnMetrics?.deflationRate || 0.0023}%`,
+        totalBurned: burnMetrics?.totalBurned || "2,345,000,000",
+        burned24h: burnMetrics?.burnRate24h || "350,000",
+        burnRate: `${burnMetrics?.deflationRate || 1.53}%`,
         nextBurnBlock: 14035500,
         burnTypes: {
-          transaction: { amount: "12,340,000", percentage: "52.6%" },
-          timeBased: { amount: "8,450,000", percentage: "36.0%" },
-          aiOptimized: { amount: "2,660,000", percentage: "11.4%" }
+          transaction: { amount: "1,234,000,000", percentage: "52.6%" },
+          timeBased: { amount: "845,000,000", percentage: "36.0%" },
+          aiOptimized: { amount: "266,000,000", percentage: "11.4%" }
         },
-        totalSupply: "1,000,000,000",
-        circulatingSupply: burnMetrics?.circulatingSupply || "500,000,000",
-        deflationRate: `${burnMetrics?.deflationRate || 2.35}%`,
-        projectedAnnualBurn: "28,500,000"
+        totalSupply: "10,000,000,000",
+        circulatingSupply: burnMetrics?.circulatingSupply || "7,000,000,000",
+        deflationRate: `${burnMetrics?.deflationRate || 1.53}%`,
+        projectedAnnualBurn: "153,000,000"
       },
       lastUpdated: Date.now()
     });

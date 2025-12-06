@@ -29,6 +29,13 @@ Key architectural decisions include:
   - `StatusBadge`: Status indicator component for node/validator states
 
 ## Recent Changes (December 2024)
+- **20-Year Tokenomics Migration to 10B Supply (December 6, 2024)**: Complete migration from 100M to 10B (100억) TBURN total supply
+  - Updated `shared/tokenomics-config.ts`: Genesis 100억 → Y20 69.40억 (30.60% total deflation)
+  - Updated `server/services/TBurnEnterpriseNode.ts`: 10B supply with scaled emission/burn rates
+  - Validator tiers scaled 100x: Tier 1 (20M min), Tier 2 (5M min), Tier 3 (10K min)
+  - Daily emission: 500,000 TBURN/day (scaled from 5,000)
+  - AI burn rate: 70% (targeting Y20 69.40억 supply)
+  - Updated API endpoints in `public-api-routes.ts` and `enterprise-routes.ts`
 - **Web3 Wallet Transaction Integration (December 6, 2024)**: Enhanced wallet integration with comprehensive transaction flow support
   - Added 40+ transaction-related translation keys in both English and Korean
   - Transaction states: confirming, pending, success, failed, rejected
