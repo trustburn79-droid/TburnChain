@@ -52,6 +52,7 @@ import {
   Hash,
   Wallet,
 } from "lucide-react";
+import { WalletRequiredBanner } from "@/components/require-wallet";
 
 interface BridgeChain {
   id: string;
@@ -593,6 +594,7 @@ export default function Bridge() {
 
   return (
     <div className="p-6 space-y-6">
+      <WalletRequiredBanner />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-bridge-title">

@@ -15,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { WalletRequiredBanner } from "@/components/require-wallet";
 import { 
   Rocket, 
   Clock, 
@@ -1328,6 +1329,7 @@ export default function NftLaunchpadPage() {
 
   return (
     <div className="p-6 space-y-6">
+      <WalletRequiredBanner />
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("nftLaunchpad.title")}</h1>

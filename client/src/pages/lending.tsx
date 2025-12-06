@@ -52,6 +52,7 @@ import {
 } from "lucide-react";
 import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
+import { WalletRequiredBanner } from "@/components/require-wallet";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   Tooltip,
@@ -705,6 +706,7 @@ export default function LendingPage() {
   return (
     <TooltipProvider>
       <div className="p-6 space-y-6" data-testid="lending-page">
+        <WalletRequiredBanner />
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold flex items-center gap-3">

@@ -63,6 +63,7 @@ import {
 } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { WalletRequiredBanner } from "@/components/require-wallet";
 
 const ENTERPRISE_WALLET = "0xTBURNEnterprise7a3b4c5d6e7f8901234567890abcdef";
 
@@ -1681,6 +1682,7 @@ export default function NftMarketplacePage() {
 
   return (
     <div className="p-6 space-y-6">
+      <WalletRequiredBanner />
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("nftMarketplace.title")}</h1>

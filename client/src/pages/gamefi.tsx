@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { WalletRequiredBanner } from "@/components/require-wallet";
 import { 
   Gamepad2, 
   Trophy, 
@@ -1509,6 +1510,7 @@ export default function GameFiPage() {
 
   return (
     <div className="p-6 space-y-6">
+      <WalletRequiredBanner />
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("gamefi.title")}</h1>

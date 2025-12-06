@@ -42,6 +42,7 @@ import {
 } from "lucide-react";
 import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
+import { WalletRequiredBanner } from "@/components/require-wallet";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   Tooltip,
@@ -278,6 +279,7 @@ export default function LiquidStaking() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
+      <WalletRequiredBanner />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-lst-title">
