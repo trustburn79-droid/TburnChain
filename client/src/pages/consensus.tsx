@@ -69,6 +69,30 @@ type StatType = 'successRate' | 'blockTime' | 'participation' | 'finality' | 'qu
 const CHART_COLORS = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'];
 
 function PhaseCard({ phase, t }: { phase: import("@shared/schema").ConsensusPhase; t: (key: string) => string }) {
+  const [progress, setProgress] = useState(0);
+  const phaseTimeMs = parseInt(phase.time.replace('ms', '')) || 20;
+  
+  // Animate progress bar when phase is active
+  useEffect(() => {
+    if (phase.status === "active") {
+      setProgress(0);
+      const startTime = Date.now();
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const newProgress = Math.min((elapsed / phaseTimeMs) * 100, 100);
+        setProgress(newProgress);
+        if (newProgress >= 100) {
+          clearInterval(interval);
+        }
+      }, 10); // Update every 10ms for smooth animation
+      return () => clearInterval(interval);
+    } else if (phase.status === "completed") {
+      setProgress(100);
+    } else {
+      setProgress(0);
+    }
+  }, [phase.status, phaseTimeMs]);
+
   const getIcon = () => {
     if (phase.status === "completed") return <Check className="h-6 w-6" />;
     if (phase.status === "active") return <Clock className="h-6 w-6 animate-pulse" />;
@@ -86,7 +110,14 @@ function PhaseCard({ phase, t }: { phase: import("@shared/schema").ConsensusPhas
   };
 
   return (
-    <Card className={`text-center ${getStyles()} hover-elevate transition-all`} data-testid={`card-phase-${phase.number}`}>
+    <Card className={`text-center ${getStyles()} hover-elevate transition-all relative overflow-hidden`} data-testid={`card-phase-${phase.number}`}>
+      {/* Progress bar for active phase */}
+      {phase.status === "active" && (
+        <div 
+          className="absolute bottom-0 left-0 h-1 bg-white/30 transition-all duration-[10ms]"
+          style={{ width: `${progress}%` }}
+        />
+      )}
       <CardContent className="pt-4 pb-4">
         <div className="flex justify-center mb-2">{getIcon()}</div>
         <div className="font-semibold text-sm mb-1">
@@ -787,6 +818,7 @@ export default function Consensus() {
 
   const { data: consensusState, isLoading } = useQuery<ConsensusState>({
     queryKey: ["/api/consensus/current"],
+    refetchInterval: 50, // Fast polling for real-time phase progression (50ms)
   });
 
   useWebSocketChannel({
