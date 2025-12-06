@@ -64,6 +64,8 @@ import {
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 
 const ENTERPRISE_WALLET = "0xTBURNEnterprise7a3b4c5d6e7f8901234567890abcdef";
 
@@ -1451,11 +1453,13 @@ function CancelListingDialog({ open, onOpenChange, listing, items, collections, 
 export default function NftMarketplacePage() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { isConnected, isCorrectNetwork } = useWeb3();
   const [activeTab, setActiveTab] = useState("overview");
   const [searchQuery, setSearchQuery] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [listingFilter, setListingFilter] = useState("all");
   const [sortBy, setSortBy] = useState("recent");
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   
   const [listDialogOpen, setListDialogOpen] = useState(false);
   const [buyDialogOpen, setBuyDialogOpen] = useState(false);
@@ -1640,16 +1644,39 @@ export default function NftMarketplacePage() {
   });
 
   const handleBuyNow = (listing: MarketplaceListing) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     setSelectedListing(listing);
     setBuyDialogOpen(true);
   };
 
   const handlePlaceBid = (listing: MarketplaceListing) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     setSelectedListing(listing);
     setBidDialogOpen(true);
   };
 
   const handleCancelListing = (listing: MarketplaceListing) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
     setSelectedListing(listing);
     setCancelDialogOpen(true);
   };
@@ -2134,6 +2161,7 @@ export default function NftMarketplacePage() {
         onBuyNow={handleBuyNow}
         onPlaceBid={handlePlaceBid}
       />
+      <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
     </div>
   );
 }

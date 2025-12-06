@@ -44,6 +44,8 @@ import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import {
   Tooltip,
   TooltipContent,
@@ -219,6 +221,8 @@ function toWei(amount: string, decimals: number = 18): string {
 export default function DexPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { isConnected, isCorrectNetwork, balance } = useWeb3();
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   
   // Read initial tab from URL hash
   const getInitialTab = () => {
@@ -478,6 +482,23 @@ export default function DexPage() {
   }, [pools]);
 
   const handleSwap = () => {
+    if (!isConnected) {
+      toast({ 
+        title: t('wallet.walletRequired'), 
+        description: t('wallet.connectRequiredDesc'), 
+        variant: "destructive" 
+      });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ 
+        title: t('wallet.wrongNetworkTitle'), 
+        description: t('wallet.wrongNetworkDesc'), 
+        variant: "destructive" 
+      });
+      return;
+    }
     if (!quote) {
       toast({ 
         title: t('dex.swapFailed'), 
@@ -501,6 +522,17 @@ export default function DexPage() {
         title: t('dex.validationError'), 
         description: t('dex.enterValidAmount'), 
         variant: "destructive" 
+      });
+      return;
+    }
+    
+    const swapAmountFloat = parseFloat(swapInput.amountIn);
+    const balanceFloat = parseFloat(balance || "0");
+    if (swapAmountFloat > balanceFloat) {
+      toast({
+        title: t('dex.insufficientBalance'),
+        description: t('dex.insufficientBalanceDesc', { balance: balanceFloat.toFixed(4), required: swapAmountFloat.toFixed(4) }),
+        variant: "destructive"
       });
       return;
     }
@@ -533,6 +565,15 @@ export default function DexPage() {
   };
 
   const handleCreatePool = () => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     if (!createPoolForm.name || !createPoolForm.symbol || !createPoolForm.token0Address || !createPoolForm.token1Address) {
       toast({ title: t('dex.validationError'), description: t('dex.fillAllRequiredFields'), variant: "destructive" });
       return;
@@ -541,6 +582,15 @@ export default function DexPage() {
   };
 
   const handleAddLiquidity = () => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     if (!addLiquidityPool) return;
     if (!addLiquidityForm.token0Amount || !addLiquidityForm.token1Amount) {
       toast({ title: t('dex.validationError'), description: t('dex.enterAmountsForBothTokens'), variant: "destructive" });
@@ -1554,6 +1604,7 @@ export default function DexPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
     </div>
   );
 }

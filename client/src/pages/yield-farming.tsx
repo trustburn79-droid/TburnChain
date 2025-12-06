@@ -55,6 +55,8 @@ import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import {
   Tooltip,
   TooltipContent,
@@ -214,6 +216,8 @@ const getVaultTypeLabel = (t: (key: string) => string, vaultType: string): strin
 export default function YieldFarming() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { isConnected, isCorrectNetwork, balance } = useWeb3();
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedVault, setSelectedVault] = useState<YieldVault | null>(null);
   const [depositAmount, setDepositAmount] = useState("");
@@ -404,6 +408,15 @@ export default function YieldFarming() {
   });
 
   const openDepositDialog = (vault: YieldVault) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     setSelectedVault(vault);
     setDepositAmount("");
     setLockDays("0");
@@ -411,6 +424,15 @@ export default function YieldFarming() {
   };
 
   const openWithdrawDialog = (position: YieldPosition) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     setSelectedPosition(position);
     setWithdrawShares(position.shares);
     setWithdrawDialogOpen(true);
@@ -1489,6 +1511,7 @@ export default function YieldFarming() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
     </div>
   );
 }

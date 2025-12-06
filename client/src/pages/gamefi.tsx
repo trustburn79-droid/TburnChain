@@ -14,6 +14,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { WalletRequiredBanner } from "@/components/require-wallet";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import { 
   Gamepad2, 
   Trophy, 
@@ -1286,6 +1288,8 @@ function TournamentDetailDialog({
 
 export default function GameFiPage() {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const { isConnected, isCorrectNetwork } = useWeb3();
   const [activeTab, setActiveTab] = useState("overview");
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -1294,7 +1298,7 @@ export default function GameFiPage() {
   const [selectedTournament, setSelectedTournament] = useState<GameTournament | null>(null);
   const [joiningTournamentId, setJoiningTournamentId] = useState<string | null>(null);
   const [equippingAssetId, setEquippingAssetId] = useState<string | null>(null);
-  const { toast } = useToast();
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
 
   const { data: overview, isLoading: overviewLoading, refetch: refetchOverview } = useQuery<GamefiOverview>({
     queryKey: ["/api/gamefi/stats"],
@@ -1457,14 +1461,33 @@ export default function GameFiPage() {
   });
 
   const handleJoinTournament = (tournamentId: string) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     joinTournamentMutation.mutate(tournamentId);
   };
 
   const handleClaimRewards = () => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
     claimRewardsMutation.mutate();
   };
 
   const handleEquipAsset = (assetId: string) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
     equipAssetMutation.mutate(assetId);
   };
 
@@ -2038,6 +2061,7 @@ export default function GameFiPage() {
         onJoin={handleJoinTournament}
         isJoining={joiningTournamentId === selectedTournament?.id}
       />
+      <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
     </div>
   );
 }

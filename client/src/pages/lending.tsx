@@ -54,6 +54,8 @@ import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import {
   Tooltip,
   TooltipContent,
@@ -286,6 +288,8 @@ function toWei(amount: string, decimals: number = 18): string {
 export default function LendingPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { isConnected, isCorrectNetwork, balance } = useWeb3();
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState("overview");
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
   const [actionTab, setActionTab] = useState<"supply" | "borrow">("supply");
@@ -562,6 +566,15 @@ export default function LendingPage() {
   });
 
   const openDialog = (action: DialogAction, market: LendingMarket) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     setDialogAction(action);
     setDialogMarket(market);
     setDialogAmount("");
@@ -1914,6 +1927,7 @@ export default function LendingPage() {
           </DialogContent>
         </Dialog>
       </div>
+      <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
     </TooltipProvider>
   );
 }

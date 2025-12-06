@@ -16,6 +16,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { WalletRequiredBanner } from "@/components/require-wallet";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import { 
   Rocket, 
   Clock, 
@@ -1137,6 +1139,8 @@ function MyAllocationsCard({ allocations }: { allocations: UserAllocation[] }) {
 
 export default function NftLaunchpadPage() {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const { isConnected, isCorrectNetwork } = useWeb3();
   const [activeTab, setActiveTab] = useState("overview");
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -1144,7 +1148,7 @@ export default function NftLaunchpadPage() {
   const [projectDialogOpen, setProjectDialogOpen] = useState(false);
   const [mintDialogProject, setMintDialogProject] = useState<LaunchpadProject | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { toast } = useToast();
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
 
   const { data: overview, isLoading: overviewLoading } = useQuery<LaunchpadOverview>({
     queryKey: ["/api/launchpad/stats"],
@@ -1290,6 +1294,15 @@ export default function NftLaunchpadPage() {
   };
 
   const handleOpenMintDialog = (projectId: string) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     const project = projects?.find(p => p.id === projectId);
     if (project) {
       setMintDialogProject(project);
@@ -1297,10 +1310,20 @@ export default function NftLaunchpadPage() {
   };
 
   const handleMint = (projectId: string, quantity: number) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
     mintMutation.mutate({ projectId, quantity });
   };
 
   const handleWhitelist = (projectId: string) => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
     whitelistMutation.mutate(projectId);
   };
 
@@ -1733,6 +1756,7 @@ export default function NftLaunchpadPage() {
         onConfirm={(quantity) => mintDialogProject && handleMint(mintDialogProject.id, quantity)}
         isLoading={mintMutation.isPending}
       />
+      <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
     </div>
   );
 }

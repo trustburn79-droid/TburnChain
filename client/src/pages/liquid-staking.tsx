@@ -44,6 +44,8 @@ import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import {
   Tooltip,
   TooltipContent,
@@ -154,6 +156,8 @@ function formatExchangeRate(rate: string): string {
 export default function LiquidStaking() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { isConnected, isCorrectNetwork, balance } = useWeb3();
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedPool, setSelectedPool] = useState<LiquidStakingPool | null>(null);
   const [mintAmount, setMintAmount] = useState("");
@@ -260,6 +264,21 @@ export default function LiquidStaking() {
   };
 
   const handleMintSubmit = () => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
+    const mintAmountFloat = parseFloat(mintAmount || "0");
+    const balanceFloat = parseFloat(balance || "0");
+    if (mintAmountFloat > balanceFloat) {
+      toast({ title: t('liquidStaking.insufficientBalance'), description: t('liquidStaking.insufficientBalanceDesc', { balance: balanceFloat.toFixed(4) }), variant: "destructive" });
+      return;
+    }
     if (dialogPool && mintAmount) {
       mintMutation.mutate({
         poolId: dialogPool.id,
@@ -269,6 +288,15 @@ export default function LiquidStaking() {
   };
 
   const handleRedeemSubmit = () => {
+    if (!isConnected) {
+      toast({ title: t('wallet.walletRequired'), description: t('wallet.connectRequiredDesc'), variant: "destructive" });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({ title: t('wallet.wrongNetworkTitle'), description: t('wallet.wrongNetworkDesc'), variant: "destructive" });
+      return;
+    }
     if (dialogPool && redeemAmount) {
       redeemMutation.mutate({
         poolId: dialogPool.id,
@@ -1043,6 +1071,7 @@ export default function LiquidStaking() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
     </div>
   );
 }

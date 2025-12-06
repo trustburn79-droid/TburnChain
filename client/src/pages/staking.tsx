@@ -116,6 +116,8 @@ import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { Link } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 
 interface StakingStatsResponse {
   totalValueLocked: string;
@@ -228,6 +230,8 @@ interface CalculatorResults {
 export default function StakingDashboard() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { isConnected, isCorrectNetwork, balance, address } = useWeb3();
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
   const [stakeDialogOpen, setStakeDialogOpen] = useState(false);
   const [selectedPool, setSelectedPool] = useState<PoolResponse | null>(null);
@@ -346,15 +350,50 @@ export default function StakingDashboard() {
   });
 
   const handleStake = (pool: PoolResponse) => {
+    if (!isConnected) {
+      toast({
+        title: t('wallet.walletRequired'),
+        description: t('wallet.connectRequiredDesc'),
+        variant: "destructive"
+      });
+      setWalletModalOpen(true);
+      return;
+    }
+    if (!isCorrectNetwork) {
+      toast({
+        title: t('wallet.wrongNetworkTitle'),
+        description: t('wallet.wrongNetworkDesc'),
+        variant: "destructive"
+      });
+      return;
+    }
     setSelectedPool(pool);
     setStakeDialogOpen(true);
   };
 
   const submitStake = () => {
+    if (!isConnected || !isCorrectNetwork) {
+      toast({
+        title: t('wallet.walletRequired'),
+        description: t('wallet.connectRequiredDesc'),
+        variant: "destructive"
+      });
+      return;
+    }
     if (!selectedPool || !stakeAmount || parseFloat(stakeAmount) <= 0) {
       toast({
         title: t('staking.invalidAmount'),
         description: t('staking.invalidAmountDesc'),
+        variant: "destructive"
+      });
+      return;
+    }
+    const stakeAmountFloat = parseFloat(stakeAmount);
+    const balanceFloat = parseFloat(balance || "0");
+    if (stakeAmountFloat > balanceFloat) {
+      toast({
+        title: t('staking.insufficientBalance'),
+        description: t('staking.insufficientBalanceDesc', { balance: balanceFloat.toFixed(4), required: stakeAmountFloat.toFixed(4) }),
         variant: "destructive"
       });
       return;
@@ -1266,6 +1305,7 @@ export default function StakingDashboard() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
     </div>
   );
 }
