@@ -502,6 +502,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/consensus")) {
       return next();
     }
+    // Skip auth check for AI orchestration (public data)
+    if (req.path.startsWith("/ai/")) {
+      return next();
+    }
     // Skip auth check for enterprise read-only endpoints (public data)
     if (req.path.startsWith("/enterprise/snapshot") || 
         req.path.startsWith("/enterprise/health") ||
