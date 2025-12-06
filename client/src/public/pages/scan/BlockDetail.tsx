@@ -52,11 +52,11 @@ export default function BlockDetail() {
   const blockNumber = parseInt(params.blockNumber || "0");
 
   const { data: blocksData, isLoading } = useQuery<{ success: boolean; data: Block[] }>({
-    queryKey: ["/api/public/v1/network/blocks/recent", { limit: 500 }],
+    queryKey: ["/api/public/v1/network/blocks/recent?limit=500"],
   });
 
   const { data: txsData } = useQuery<{ success: boolean; data: Transaction[] }>({
-    queryKey: ["/api/public/v1/network/transactions/recent", { limit: 500 }],
+    queryKey: ["/api/public/v1/network/transactions/recent?limit=500"],
   });
 
   const blocks = blocksData?.data || [];

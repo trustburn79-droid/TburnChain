@@ -40,7 +40,7 @@ export default function TransactionDetail() {
   const txHash = params.hash || "";
 
   const { data: txsData, isLoading } = useQuery<{ success: boolean; data: Transaction[] }>({
-    queryKey: ["/api/public/v1/network/transactions/recent", { limit: 500 }],
+    queryKey: ["/api/public/v1/network/transactions/recent?limit=500"],
   });
 
   const transactions = txsData?.data || [];

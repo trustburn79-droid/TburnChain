@@ -46,7 +46,7 @@ export default function AddressDetail() {
   const address = params.address || "";
 
   const { data: txsData, isLoading: txsLoading } = useQuery<{ success: boolean; data: Transaction[] }>({
-    queryKey: ["/api/public/v1/network/transactions/recent", { limit: 50 }],
+    queryKey: ["/api/public/v1/network/transactions/recent?limit=50"],
   });
 
   const { data: validatorsData } = useQuery<{ success: boolean; data: { validators: Validator[] } }>({
