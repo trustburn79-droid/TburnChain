@@ -310,36 +310,39 @@ export class ValidatorSimulationService {
     // 85-92% participate in precommit
     const precommitCount = Math.floor(totalActiveValidators * (0.85 + Math.random() * 0.07));
     
-    // Generate realistic per-phase timings (18-32ms per phase)
+    // Generate realistic per-phase timings (18-35ms per phase)
+    // 5-phase: Propose, Prevote, Precommit, Finalize, Commit
     const phaseTimings = [
       18 + Math.floor(Math.random() * 8),  // Propose: 18-25ms
       22 + Math.floor(Math.random() * 10), // Prevote: 22-31ms
       20 + Math.floor(Math.random() * 12), // Precommit: 20-31ms
+      18 + Math.floor(Math.random() * 7),  // Finalize: 18-24ms
       25 + Math.floor(Math.random() * 10), // Commit: 25-34ms
     ];
     
-    // Determine current active phase (cycle through phases)
-    const phaseIndex = (this.currentRound % 4);
+    // Determine current active phase (cycle through 5 phases)
+    const phaseIndex = (this.currentRound % 5);
     const phases = [
       { number: 1, label: "Propose", time: `${phaseTimings[0]}ms`, status: phaseIndex === 0 ? "active" : "completed" },
       { number: 2, label: "Prevote", time: `${phaseTimings[1]}ms`, status: phaseIndex === 1 ? "active" : phaseIndex > 1 ? "completed" : "pending" },
       { number: 3, label: "Precommit", time: `${phaseTimings[2]}ms`, status: phaseIndex === 2 ? "active" : phaseIndex > 2 ? "completed" : "pending" },
-      { number: 4, label: "Commit", time: `${phaseTimings[3]}ms`, status: phaseIndex === 3 ? "active" : "pending" },
+      { number: 4, label: "Finalize", time: `${phaseTimings[3]}ms`, status: phaseIndex === 3 ? "active" : phaseIndex > 3 ? "completed" : "pending" },
+      { number: 5, label: "Commit", time: `${phaseTimings[4]}ms`, status: phaseIndex === 4 ? "active" : "pending" },
     ];
     
     // Create consensus round data for database with actual validator counts
     const consensusData: InsertConsensusRound = {
       blockHeight: this.currentBlockHeight,
       proposerAddress: proposer.address,
-      currentPhase: phaseIndex + 1, // Current active phase (1-4)
+      currentPhase: phaseIndex + 1, // Current active phase (1-5)
       prevoteCount: prevoteCount,
       precommitCount: precommitCount,
       totalValidators: ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS, // Use configured active validators (110)
       requiredQuorum: requiredQuorum, // 67% of total active validators
       avgBlockTimeMs: ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME,
-      status: phaseIndex === 3 ? "completed" : "in_progress",
+      status: phaseIndex === 4 ? "completed" : "in_progress",
       startTime: Date.now(), // Unix timestamp in milliseconds
-      completedTime: phaseIndex === 3 ? Date.now() + phaseTimings[3] : null, // Complete only at phase 4
+      completedTime: phaseIndex === 4 ? Date.now() + phaseTimings[4] : null, // Complete only at phase 5
       phasesJson: JSON.stringify(phases),
     };
     

@@ -1999,9 +1999,10 @@ export class MemStorage implements IStorage {
     const blockStartTime = now - 100; // 100ms block cycle
     const elapsed = now - blockStartTime;
     
-    // 4-phase BFT: Propose(20ms), Prevote(25ms), Precommit(25ms), Commit(30ms) = 100ms
+    // 5-phase BFT: Propose(20ms), Prevote(25ms), Precommit(25ms), Finalize(20ms), Commit(30ms) = 120ms
     let currentPhase = 1;
-    if (elapsed >= 70) currentPhase = 4;      // Commit: 70-100ms
+    if (elapsed >= 90) currentPhase = 5;      // Commit: 90-120ms
+    else if (elapsed >= 70) currentPhase = 4; // Finalize: 70-90ms
     else if (elapsed >= 45) currentPhase = 3; // Precommit: 45-70ms
     else if (elapsed >= 20) currentPhase = 2; // Prevote: 20-45ms
     // else: Propose: 0-20ms
@@ -2019,6 +2020,7 @@ export class MemStorage implements IStorage {
       18 + Math.floor(Math.random() * 7),   // Propose: 18-24ms
       22 + Math.floor(Math.random() * 8),   // Prevote: 22-29ms
       20 + Math.floor(Math.random() * 10),  // Precommit: 20-29ms
+      18 + Math.floor(Math.random() * 7),   // Finalize: 18-24ms
       25 + Math.floor(Math.random() * 10),  // Commit: 25-34ms
     ];
     
@@ -2026,7 +2028,8 @@ export class MemStorage implements IStorage {
       { number: 1, label: "Propose", time: `${phaseTimes[0]}ms`, status: currentPhase === 1 ? "active" : "completed" },
       { number: 2, label: "Prevote", time: `${phaseTimes[1]}ms`, status: currentPhase === 2 ? "active" : currentPhase > 2 ? "completed" : "pending" },
       { number: 3, label: "Precommit", time: `${phaseTimes[2]}ms`, status: currentPhase === 3 ? "active" : currentPhase > 3 ? "completed" : "pending" },
-      { number: 4, label: "Commit", time: `${phaseTimes[3]}ms`, status: currentPhase === 4 ? "active" : "pending" },
+      { number: 4, label: "Finalize", time: `${phaseTimes[3]}ms`, status: currentPhase === 4 ? "active" : currentPhase > 4 ? "completed" : "pending" },
+      { number: 5, label: "Commit", time: `${phaseTimes[4]}ms`, status: currentPhase === 5 ? "active" : "pending" },
     ];
     
     return {
@@ -2666,6 +2669,7 @@ export class DbStorage implements IStorage {
         18 + Math.floor(Math.random() * 7),
         22 + Math.floor(Math.random() * 8),
         20 + Math.floor(Math.random() * 10),
+        18 + Math.floor(Math.random() * 7),
         25 + Math.floor(Math.random() * 10),
       ];
       
@@ -2675,7 +2679,8 @@ export class DbStorage implements IStorage {
           { number: 1, label: "Propose", time: `${phaseTimes[0]}ms`, status: "active" },
           { number: 2, label: "Prevote", time: `${phaseTimes[1]}ms`, status: "pending" },
           { number: 3, label: "Precommit", time: `${phaseTimes[2]}ms`, status: "pending" },
-          { number: 4, label: "Commit", time: `${phaseTimes[3]}ms`, status: "pending" },
+          { number: 4, label: "Finalize", time: `${phaseTimes[3]}ms`, status: "pending" },
+          { number: 5, label: "Commit", time: `${phaseTimes[4]}ms`, status: "pending" },
         ],
         proposer: activeValidators[0]?.address || "0x0000...0000",
         blockHeight: Number(stats.currentBlockHeight),
@@ -2688,13 +2693,14 @@ export class DbStorage implements IStorage {
       };
     }
 
-    // Always generate fresh 4-phase format regardless of database data
-    // to ensure consistent display (no NewHeight/Finalize, no cumulative times)
-    const currentPhase = Math.min(latestRound.currentPhase, 4);
+    // Always generate fresh 5-phase format regardless of database data
+    // 1. Propose, 2. Prevote, 3. Precommit, 4. Finalize, 5. Commit
+    const currentPhase = Math.min(latestRound.currentPhase, 5);
     const phaseTimes = [
       18 + Math.floor(Math.random() * 7),   // Propose: 18-24ms
       22 + Math.floor(Math.random() * 8),   // Prevote: 22-29ms
       20 + Math.floor(Math.random() * 10),  // Precommit: 20-29ms
+      18 + Math.floor(Math.random() * 7),   // Finalize: 18-24ms
       25 + Math.floor(Math.random() * 10),  // Commit: 25-34ms
     ];
     
@@ -2702,7 +2708,8 @@ export class DbStorage implements IStorage {
       { number: 1, label: "Propose", time: `${phaseTimes[0]}ms`, status: currentPhase === 1 ? "active" : "completed" },
       { number: 2, label: "Prevote", time: `${phaseTimes[1]}ms`, status: currentPhase === 2 ? "active" : currentPhase > 2 ? "completed" : "pending" },
       { number: 3, label: "Precommit", time: `${phaseTimes[2]}ms`, status: currentPhase === 3 ? "active" : currentPhase > 3 ? "completed" : "pending" },
-      { number: 4, label: "Commit", time: `${phaseTimes[3]}ms`, status: currentPhase === 4 ? "active" : "pending" },
+      { number: 4, label: "Finalize", time: `${phaseTimes[3]}ms`, status: currentPhase === 4 ? "active" : currentPhase > 4 ? "completed" : "pending" },
+      { number: 5, label: "Commit", time: `${phaseTimes[4]}ms`, status: currentPhase === 5 ? "active" : "pending" },
     ];
     
     return {
