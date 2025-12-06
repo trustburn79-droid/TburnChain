@@ -38,6 +38,7 @@ import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
 import { bridgeService } from "./services/BridgeService";
+import { getSelfHealingEngine } from "./services/SelfHealingEngine";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 const SITE_PASSWORD = ADMIN_PASSWORD || "admin7979";
@@ -447,6 +448,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Apply API performance tracking middleware for self-healing telemetry
+  app.use("/api", (req, res, next) => {
+    const startTime = Date.now();
+    
+    // Track response for performance monitoring
+    res.on('finish', () => {
+      try {
+        const responseTime = Date.now() - startTime;
+        const selfHealingEngine = getSelfHealingEngine();
+        selfHealingEngine.recordApiRequest(req.path, responseTime, res.statusCode);
+      } catch (e) {
+        // Silently ignore if engine not available
+      }
+    });
+    
+    next();
+  });
+
   // Apply rate limiting to all API routes
   app.use("/api", apiLimiter);
 
@@ -583,8 +602,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/network/stats", async (_req, res) => {
     try {
+      // Get real-time self-healing scores from the engine
+      const selfHealingEngine = getSelfHealingEngine();
+      const healingScores = selfHealingEngine.getHealthScores();
+      
       // Always fetch from database first as the primary source
       const dbStats = await storage.getNetworkStats();
+      
+      // Merge database stats with real-time self-healing scores
+      const mergeWithHealingScores = (baseStats: any) => ({
+        ...baseStats,
+        trendAnalysisScore: healingScores.trendAnalysisScore,
+        anomalyDetectionScore: healingScores.anomalyDetectionScore,
+        patternMatchingScore: healingScores.patternMatchingScore,
+        timeseriesScore: healingScores.timeseriesScore,
+        healingEventsCount: healingScores.healingEventsCount,
+        anomaliesDetected: healingScores.anomaliesDetected,
+        predictedFailureRisk: healingScores.predictedFailureRisk,
+        selfHealingStatus: healingScores.selfHealingStatus,
+      });
       
       if (isProductionMode()) {
         try {
@@ -592,8 +628,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const client = getTBurnClient();
           const mainnetStats = await client.getNetworkStats();
           
-          // Merge with database values (database takes precedence for key metrics)
-          const mergedStats = {
+          // Merge with database values and real-time healing scores
+          const mergedStats = mergeWithHealingScores({
             ...mainnetStats,
             currentBlockHeight: dbStats?.currentBlockHeight || mainnetStats.currentBlockHeight || 0,
             activeValidators: dbStats?.activeValidators || mainnetStats.activeValidators || 125,
@@ -604,17 +640,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
             peakTps: dbStats?.peakTps || mainnetStats.peakTps || 0,
             avgBlockTime: dbStats?.avgBlockTime || mainnetStats.avgBlockTime || 100,
             slaUptime: dbStats?.slaUptime || mainnetStats.slaUptime || 9990,
-          };
+          });
           res.json(mergedStats);
         } catch (mainnetError: any) {
           // Fallback to database values when mainnet API fails
           console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) for /api/network/stats - using database fallback`);
           
           if (dbStats) {
-            res.json(dbStats);
+            res.json(mergeWithHealingScores(dbStats));
           } else {
-            // If no database stats, return production defaults
-            const defaultStats: NetworkStats = {
+            // If no database stats, return production defaults with real-time healing scores
+            const defaultStats: NetworkStats = mergeWithHealingScores({
               id: "singleton",
               currentBlockHeight: 20750000,
               tps: 8500,
@@ -632,32 +668,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
               circulatingSupply: "0",
               successRate: 9970,
               updatedAt: new Date(),
-              trendAnalysisScore: 9850,
-              anomalyDetectionScore: 9920,
-              patternMatchingScore: 9880,
-              timeseriesScore: 9900,
-              healingEventsCount: 0,
-              anomaliesDetected: 0,
-              predictedFailureRisk: 50,
-              selfHealingStatus: "healthy",
-            };
+            });
             res.json(defaultStats);
           }
         }
       } else {
-        // Fetch from local database (demo mode)
-        const stats = dbStats;
-        
-        // If no stats available (e.g., in production with empty database), return default values
-        if (!stats) {
-          const defaultStats: NetworkStats = {
+        // Fetch from local database (demo mode) with real-time healing scores
+        if (!dbStats) {
+          const defaultStats: NetworkStats = mergeWithHealingScores({
             id: "singleton",
             currentBlockHeight: 0,
             tps: 0,
             peakTps: 0,
-            avgBlockTime: 100, // Default to optimal 100ms
+            avgBlockTime: 100,
             blockTimeP99: 125,
-            slaUptime: 9990, // 99.90% in basis points
+            slaUptime: 9990,
             latency: 12,
             latencyP99: 45,
             activeValidators: 0,
@@ -666,22 +691,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
             totalAccounts: 0,
             marketCap: "0",
             circulatingSupply: "0",
-            successRate: 9970, // 99.70% in basis points
+            successRate: 9970,
             updatedAt: new Date(),
-            // TBURN v7.0: Predictive Self-Healing System - Enterprise Grade (98%+)
-            trendAnalysisScore: 9850, // 98.50% in basis points (enterprise optimized)
-            anomalyDetectionScore: 9920, // 99.20% in basis points (production-ready)
-            patternMatchingScore: 9880, // 98.80% in basis points (high accuracy)
-            timeseriesScore: 9900, // 99.00% in basis points (excellent forecast)
-            healingEventsCount: 0,
-            anomaliesDetected: 0,
-            predictedFailureRisk: 50, // 0.5% in basis points (minimal risk)
-            selfHealingStatus: "healthy",
-          };
-          console.log("[API] No network stats available, returning defaults");
+          });
+          console.log("[API] No network stats available, returning defaults with real-time healing scores");
           res.json(defaultStats);
         } else {
-          res.json(stats);
+          res.json(mergeWithHealingScores(dbStats));
         }
       }
     } catch (error) {
