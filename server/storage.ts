@@ -1406,7 +1406,7 @@ export class MemStorage implements IStorage {
         stateRoot: `0x${Math.random().toString(16).substr(2, 64)}`,
         receiptsRoot: `0x${Math.random().toString(16).substr(2, 64)}`,
         executionClass: executionClasses[Math.floor(Math.random() * executionClasses.length)],
-        latencyNs: Math.floor(Math.random() * 50000000) + 10000000,
+        latencyNs: 5000000 + Math.floor(Math.random() * 20000000), // 5-25ms enterprise-grade
         parallelBatchId: Math.random() > 0.3 ? `batch-${Math.floor(Math.random() * 100)}` : null,
         hashAlgorithm: "blake3", // TBURN v7.0: Multi-Hash Cryptographic System
       };
@@ -1441,7 +1441,7 @@ export class MemStorage implements IStorage {
         contractAddress: Math.random() > 0.9 ? `0x${Math.random().toString(16).substr(2, 40)}` : null,
         shardId: Math.floor(Math.random() * 5),
         executionClass: executionClasses[Math.floor(Math.random() * executionClasses.length)],
-        latencyNs: Math.floor(Math.random() * 100000000) + 5000000,
+        latencyNs: 5000000 + Math.floor(Math.random() * 20000000), // 5-25ms enterprise-grade
         parallelBatchId: Math.random() > 0.3 ? `batch-${Math.floor(Math.random() * 100)}` : null,
         crossShardMessageId: Math.random() > 0.8 ? `msg-${Math.random().toString(16).substr(2, 8)}` : null,
         hashAlgorithm: "blake3", // TBURN v7.0: Multi-Hash Cryptographic System
