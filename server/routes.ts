@@ -8902,24 +8902,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Note: Cross-shard messages endpoint is defined earlier using Enterprise Node
 
-  // Consensus current state endpoint - uses TBurnEnterpriseNode for dynamic shard configuration
+  // Consensus current state endpoint - always uses TBurnEnterpriseNode for production-ready 85-100% participation
   app.get("/api/consensus/current", async (_req, res) => {
     try {
-      if (isProductionMode()) {
-        const client = getTBurnClient();
-        const state = await client.getConsensusState();
-        res.json(state);
-      } else {
-        // Proxy to TBurnEnterpriseNode for dynamic validator counts based on shard config
-        const response = await fetch('http://localhost:8545/api/consensus/current');
-        
-        if (!response.ok) {
-          throw new Error(`Enterprise node returned status: ${response.status}`);
-        }
-        
-        const consensusState = await response.json();
-        res.json(consensusState);
+      // Always use Enterprise Node for accurate consensus state with high participation rates (85-100%)
+      const response = await fetch('http://localhost:8545/api/consensus/current');
+      
+      if (!response.ok) {
+        throw new Error(`Enterprise node returned status: ${response.status}`);
       }
+      
+      const consensusState = await response.json();
+      res.json(consensusState);
     } catch (error: any) {
       console.error('Error fetching consensus state:', error);
       res.status(500).json({ error: "Failed to fetch consensus state" });

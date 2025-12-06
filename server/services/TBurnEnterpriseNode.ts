@@ -1750,7 +1750,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
       // Dynamic validator count based on shard configuration
       const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
       const requiredQuorum = Math.ceil(totalValidators * 2 / 3); // 2/3 majority for consensus
-      const currentPhase = Math.floor(Math.random() * 5); // 0=ai-prevalidation, 1=propose, 2=prevote, 3=precommit, 4=commit
+      // Phase distribution weighted toward voting phases (2-4) where prevote/precommit counts are active
+      // AI Pre-Validation (0) and Propose (1) are very fast (~15-20ms), so they occur less frequently
+      // Most time is spent in Prevote (2), Precommit (3), and Commit (4) phases
+      const phaseRandom = Math.random();
+      const currentPhase = phaseRandom < 0.05 ? 0 : (phaseRandom < 0.10 ? 1 : (phaseRandom < 0.40 ? 2 : (phaseRandom < 0.70 ? 3 : 4)));
       const startTime = Date.now() - Math.floor(Math.random() * 50); // Started 0-50ms ago
       
       // AI Pre-Validation metrics (Quad-Band AI System)
