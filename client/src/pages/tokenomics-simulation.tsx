@@ -37,11 +37,54 @@ import {
 
 type ScenarioType = 'conservative' | 'neutral' | 'optimistic';
 
+function downloadFile(content: string, filename: string, mimeType: string) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
 export default function TokenomicsSimulation() {
   const { t, i18n } = useTranslation();
   const [selectedPhase, setSelectedPhase] = useState<Phase | 'all'>('all');
   const [selectedScenario, setSelectedScenario] = useState<ScenarioType>('neutral');
   const locale = i18n.language;
+
+  const handleExportCSV = () => {
+    const headers = ['Period', 'Phase', 'Start Supply', 'Block Emission', 'AI Burn', 'Net Change', 'End Supply', 'Change Rate', 'Note'];
+    const rows = TOKENOMICS_DATA.map(p => [
+      p.id,
+      p.phase,
+      p.startSupply.toString(),
+      p.blockEmission.toString(),
+      p.aiBurn.toString(),
+      p.netChange.toString(),
+      p.endSupply.toString(),
+      p.changeRate.toFixed(2) + '%',
+      p.note
+    ]);
+    const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const date = new Date().toISOString().split('T')[0];
+    downloadFile(csvContent, `tburn-tokenomics-simulation-${date}.csv`, 'text/csv');
+  };
+
+  const handleExportJSON = () => {
+    const exportData = {
+      exportDate: new Date().toISOString(),
+      summary: TOKENOMICS_SUMMARY,
+      periods: TOKENOMICS_DATA,
+      priceForecast: PRICE_FORECAST_DATA,
+      y1Milestones: Y1_MILESTONES
+    };
+    const jsonContent = JSON.stringify(exportData, null, 2);
+    const date = new Date().toISOString().split('T')[0];
+    downloadFile(jsonContent, `tburn-tokenomics-simulation-${date}.json`, 'application/json');
+  };
 
   const supplyChartData = getSupplyChartData();
   const priceChartData = getPriceChartData();
@@ -89,11 +132,11 @@ export default function TokenomicsSimulation() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" data-testid="button-export-csv">
+          <Button variant="outline" size="sm" data-testid="button-export-csv" onClick={handleExportCSV}>
             <Download className="h-4 w-4 mr-2" />
             {t('common.exportCSV', 'Export CSV')}
           </Button>
-          <Button variant="outline" size="sm" data-testid="button-export-json">
+          <Button variant="outline" size="sm" data-testid="button-export-json" onClick={handleExportJSON}>
             <Download className="h-4 w-4 mr-2" />
             {t('common.exportJSON', 'Export JSON')}
           </Button>
