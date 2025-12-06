@@ -17,6 +17,54 @@ const CACHE_SHORT = 5; // 5 seconds for real-time data
 const CACHE_MEDIUM = 30; // 30 seconds for summary data
 const CACHE_LONG = 300; // 5 minutes for static-ish data
 
+// ============================================
+// Consistent Hash Generation (for matching search results)
+// ============================================
+
+/**
+ * Generates a consistent hash based on block number
+ * This ensures the same block always has the same hash
+ */
+function generateConsistentBlockHash(blockNumber: number): string {
+  const hexParts = [
+    ((blockNumber * 7919) % 256).toString(16).padStart(2, '0'),
+    ((blockNumber * 6271) % 256).toString(16).padStart(2, '0'),
+    ((blockNumber * 4139) % 256).toString(16).padStart(2, '0'),
+    ((blockNumber * 2963) % 256).toString(16).padStart(2, '0'),
+    blockNumber.toString(16).padStart(8, '0'),
+  ];
+  return `0x${hexParts.join('')}${'0'.repeat(64 - hexParts.join('').length - 2)}`.slice(0, 66);
+}
+
+/**
+ * Generates a consistent transaction hash based on block number and index
+ */
+function generateConsistentTxHash(blockNumber: number, index: number): string {
+  const seed = blockNumber * 1000 + index;
+  const hexParts = [
+    ((seed * 9311) % 256).toString(16).padStart(2, '0'),
+    ((seed * 7127) % 256).toString(16).padStart(2, '0'),
+    ((seed * 5431) % 256).toString(16).padStart(2, '0'),
+    ((seed * 3257) % 256).toString(16).padStart(2, '0'),
+    blockNumber.toString(16).padStart(8, '0'),
+    index.toString(16).padStart(4, '0'),
+  ];
+  return `0x${hexParts.join('')}${'0'.repeat(64 - hexParts.join('').length - 2)}`.slice(0, 66);
+}
+
+/**
+ * Generates consistent address based on seed
+ */
+function generateConsistentAddress(seed: number): string {
+  const hexParts = [
+    ((seed * 8243) % 256).toString(16).padStart(2, '0'),
+    ((seed * 6571) % 256).toString(16).padStart(2, '0'),
+    ((seed * 4219) % 256).toString(16).padStart(2, '0'),
+    ((seed * 2137) % 256).toString(16).padStart(2, '0'),
+  ];
+  return `0x${hexParts.join('')}${'0'.repeat(40 - hexParts.join('').length)}`;
+}
+
 function setCacheHeaders(res: Response, maxAge: number) {
   res.set('Cache-Control', `public, max-age=${maxAge}`);
   res.set('X-Response-Time', `${Date.now()}`);
@@ -111,25 +159,55 @@ router.get('/network/blocks/recent', async (req: Request, res: Response) => {
       }
     }
     
-    // Fallback to storage
+    // Fallback to storage, then generate consistent blocks if empty
     const blocks = await storage.getRecentBlocks(limit);
     
-    res.json({
-      success: true,
-      data: blocks.map((block: Block) => ({
-        number: block.blockNumber,
-        hash: block.hash,
-        parentHash: block.parentHash,
-        timestamp: block.timestamp,
-        transactions: block.transactionCount,
-        gasUsed: block.gasUsed,
-        gasLimit: block.gasLimit,
-        validator: block.validatorAddress,
-        size: block.size
-      })),
-      total: blocks.length,
-      lastUpdated: Date.now()
-    });
+    if (blocks.length > 0) {
+      res.json({
+        success: true,
+        data: blocks.map((block: Block) => ({
+          number: block.blockNumber,
+          hash: block.hash,
+          parentHash: block.parentHash,
+          timestamp: block.timestamp,
+          transactions: block.transactionCount,
+          gasUsed: block.gasUsed,
+          gasLimit: block.gasLimit,
+          validator: block.validatorAddress,
+          size: block.size
+        })),
+        total: blocks.length,
+        lastUpdated: Date.now()
+      });
+    } else {
+      // Generate consistent blocks for demo mode
+      const networkStats = await storage.getNetworkStats();
+      const currentBlockHeight = networkStats?.currentBlockHeight || 20818000;
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+      
+      const generatedBlocks = [];
+      for (let i = 0; i < limit; i++) {
+        const blockNumber = currentBlockHeight - i;
+        generatedBlocks.push({
+          number: blockNumber,
+          hash: generateConsistentBlockHash(blockNumber),
+          parentHash: generateConsistentBlockHash(blockNumber - 1),
+          timestamp: currentTimestamp - i * 3,
+          transactions: 100 + (blockNumber % 300),
+          gasUsed: 25000000 + (blockNumber % 5000000),
+          gasLimit: 30000000,
+          validator: generateConsistentAddress(blockNumber % 125),
+          size: 40000 + (blockNumber % 20000)
+        });
+      }
+      
+      res.json({
+        success: true,
+        data: generatedBlocks,
+        total: generatedBlocks.length,
+        lastUpdated: Date.now()
+      });
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -186,15 +264,15 @@ router.get('/network/transactions/recent', async (req: Request, res: Response) =
           const txTimestamp = currentTimestamp - (i * 2);
           const txBlockNumber = currentBlockHeight - Math.floor(i / 5);
           realtimeTransactions.push({
-            hash: `0x${Math.random().toString(16).substring(2, 10)}${txBlockNumber.toString(16)}${i.toString(16).padStart(4, '0')}`,
+            hash: generateConsistentTxHash(txBlockNumber, i % 5),
             blockNumber: txBlockNumber,
-            from: `0x${Math.random().toString(16).substring(2, 42).padEnd(40, '0')}`,
-            to: `0x${Math.random().toString(16).substring(2, 42).padEnd(40, '0')}`,
-            value: (Math.random() * 100 * 1e18).toFixed(0),
-            gasUsed: 21000 + Math.floor(Math.random() * 50000),
-            gasPrice: (20 + Math.random() * 30).toFixed(0) + '000000000',
+            from: generateConsistentAddress(txBlockNumber * 100 + i),
+            to: generateConsistentAddress(txBlockNumber * 100 + i + 50),
+            value: ((1000 + (i * 123) % 10000) * 1e18).toFixed(0),
+            gasUsed: 21000 + (i * 731) % 50000,
+            gasPrice: (20 + (i * 17) % 30).toFixed(0) + '000000000',
             timestamp: txTimestamp,
-            status: statusOptions[Math.floor(Math.random() * statusOptions.length)]
+            status: statusOptions[i % 5]
           });
         }
         
@@ -208,7 +286,7 @@ router.get('/network/transactions/recent', async (req: Request, res: Response) =
       }
     }
     
-    // Fallback for demo mode - generate real-time data
+    // Fallback for demo mode - generate real-time data with consistent hashes
     const networkStats = await storage.getNetworkStats();
     const currentBlockHeight = networkStats?.currentBlockHeight || 20818000;
     const currentTimestamp = Math.floor(Date.now() / 1000);
@@ -220,15 +298,15 @@ router.get('/network/transactions/recent', async (req: Request, res: Response) =
       const txTimestamp = currentTimestamp - (i * 2);
       const txBlockNumber = currentBlockHeight - Math.floor(i / 5);
       realtimeTransactions.push({
-        hash: `0x${Math.random().toString(16).substring(2, 10)}${txBlockNumber.toString(16)}${i.toString(16).padStart(4, '0')}`,
+        hash: generateConsistentTxHash(txBlockNumber, i % 5),
         blockNumber: txBlockNumber,
-        from: `0x${Math.random().toString(16).substring(2, 42).padEnd(40, '0')}`,
-        to: `0x${Math.random().toString(16).substring(2, 42).padEnd(40, '0')}`,
-        value: (Math.random() * 100 * 1e18).toFixed(0),
-        gasUsed: 21000 + Math.floor(Math.random() * 50000),
-        gasPrice: (20 + Math.random() * 30).toFixed(0) + '000000000',
+        from: generateConsistentAddress(txBlockNumber * 100 + i),
+        to: generateConsistentAddress(txBlockNumber * 100 + i + 50),
+        value: ((1000 + (i * 123) % 10000) * 1e18).toFixed(0),
+        gasUsed: 21000 + (i * 731) % 50000,
+        gasPrice: (20 + (i * 17) % 30).toFixed(0) + '000000000',
         timestamp: txTimestamp,
-        status: statusOptions[Math.floor(Math.random() * statusOptions.length)]
+        status: statusOptions[i % 5]
       });
     }
     
@@ -612,17 +690,59 @@ router.get('/search', async (req: Request, res: Response) => {
       { hash: '0x87dc4a1234567890abcdef1234567890abcdef1234567890abcdef1234567890', status: 'success', block: 21329146, value: '15,800 TBURN' },
     ];
     
-    // Sample block hashes for partial search
-    const sampleBlockHashes = [
-      { hash: '0xc4a87d5e6f7890abcdef1234567890abcdef1234567890abcdef123456789012', blockNumber: 21329148, txCount: 245 },
-      { hash: '0xa87dc4f1234567890abcdef1234567890abcdef1234567890abcdef1234567890', blockNumber: 21329147, txCount: 312 },
-      { hash: '0x87dc4a1234567890abcdef1234567890abcdef1234567890abcdef1234567890', blockNumber: 21329146, txCount: 189 },
-      { hash: '0xdc4a87e1234567890abcdef1234567890abcdef1234567890abcdef1234567890', blockNumber: 21329145, txCount: 278 },
-      { hash: '0x4a87dc1234567890abcdef1234567890abcdef1234567890abcdef1234567890', blockNumber: 21329144, txCount: 356 },
-      { hash: '0xabc123de4567890abcdef1234567890abcdef1234567890abcdef1234567890', blockNumber: 21329143, txCount: 201 },
-      { hash: '0xdef456ab7890cdef1234567890abcdef1234567890abcdef1234567890abcd', blockNumber: 21329142, txCount: 167 },
-      { hash: '0xfabc12345678def90abcdef1234567890abcdef1234567890abcdef12345678', blockNumber: 21329141, txCount: 423 },
-    ];
+    // Fetch live blocks directly from the block list API endpoint (internal call)
+    let liveBlocks: any[] = [];
+    let liveTransactions: any[] = [];
+    
+    try {
+      // Fetch blocks from the same internal API that the frontend uses (get more to handle timing differences)
+      const blocksResponse = await fetch('http://localhost:5000/api/public/v1/network/blocks/recent?limit=200');
+      const blocksData = await blocksResponse.json();
+      if (blocksData.success && blocksData.data) {
+        liveBlocks = blocksData.data.map((b: any) => ({
+          hash: b.hash,
+          blockNumber: b.number,
+          txCount: b.transactions
+        }));
+      }
+      
+      // Fetch transactions from the same internal API (get more to handle timing differences)
+      const txResponse = await fetch('http://localhost:5000/api/public/v1/network/transactions/recent?limit=200');
+      const txData = await txResponse.json();
+      if (txData.success && txData.data) {
+        liveTransactions = txData.data.map((tx: any) => ({
+          hash: tx.hash,
+          status: tx.status,
+          block: tx.blockNumber,
+          value: `${(parseFloat(tx.value || '0') / 1e18).toFixed(2)} TBURN`
+        }));
+      }
+    } catch (e) {
+      // Fallback to storage-based generation
+      const networkStats = await storage.getNetworkStats();
+      const currentBlockHeight = networkStats?.currentBlockHeight || 20818000;
+      for (let i = 0; i < 50; i++) {
+        const blockNumber = currentBlockHeight - i;
+        liveBlocks.push({
+          hash: generateConsistentBlockHash(blockNumber),
+          blockNumber: blockNumber,
+          txCount: 100 + (blockNumber % 300)
+        });
+      }
+      for (let i = 0; i < 50; i++) {
+        const blockNumber = currentBlockHeight - Math.floor(i / 5);
+        liveTransactions.push({
+          hash: generateConsistentTxHash(blockNumber, i % 5),
+          status: i % 10 === 0 ? 'pending' : 'success',
+          block: blockNumber,
+          value: `${(1000 + (i * 123) % 10000).toLocaleString()} TBURN`
+        });
+      }
+    }
+    
+    // Use live data for search
+    const sampleBlockHashes = liveBlocks;
+    const dynamicTransactions = liveTransactions;
     
     // Search blocks by number
     if (/^\d+$/.test(query)) {
@@ -754,24 +874,39 @@ router.get('/search', async (req: Request, res: Response) => {
         }
       });
       
-      // Search sample transactions by partial match (if not starting with 0x)
-      if (!query.startsWith('0x')) {
-        const matchingTxs = sampleTransactions.filter(tx => 
-          tx.hash.toLowerCase().includes(query)
-        ).slice(0, 5);
-        
-        matchingTxs.forEach(tx => {
-          if (!results.find(r => r.value === tx.hash)) {
-            results.push({
-              type: 'transaction',
-              title: `Transaction ${tx.hash.slice(0, 10)}...${tx.hash.slice(-8)}`,
-              subtitle: `${tx.status} • Block #${tx.block} • ${tx.value}`,
-              value: tx.hash,
-              link: `/scan/tx/${tx.hash}`
-            });
-          }
-        });
-      }
+      // Search live transactions by partial match
+      const matchingLiveTxs = dynamicTransactions.filter(tx => 
+        tx.hash.toLowerCase().includes(query.toLowerCase())
+      ).slice(0, 5);
+      
+      matchingLiveTxs.forEach(tx => {
+        if (!results.find(r => r.value === tx.hash)) {
+          results.push({
+            type: 'transaction',
+            title: `Transaction ${tx.hash.slice(0, 10)}...${tx.hash.slice(-8)}`,
+            subtitle: `${tx.status} • Block #${tx.block} • ${tx.value}`,
+            value: tx.hash,
+            link: `/scan/tx/${tx.hash}`
+          });
+        }
+      });
+      
+      // Also search static sample transactions
+      const matchingStaticTxs = sampleTransactions.filter(tx => 
+        tx.hash.toLowerCase().includes(query.toLowerCase())
+      ).slice(0, 5);
+      
+      matchingStaticTxs.forEach(tx => {
+        if (!results.find(r => r.value === tx.hash)) {
+          results.push({
+            type: 'transaction',
+            title: `Transaction ${tx.hash.slice(0, 10)}...${tx.hash.slice(-8)}`,
+            subtitle: `${tx.status} • Block #${tx.block} • ${tx.value}`,
+            value: tx.hash,
+            link: `/scan/tx/${tx.hash}`
+          });
+        }
+      });
       
       // Search sample addresses by partial match
       const matchingAddresses = sampleAddresses.filter(a => 
