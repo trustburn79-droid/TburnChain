@@ -506,6 +506,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/ai/")) {
       return next();
     }
+    // Skip auth check for smart contracts (public data)
+    if (req.path.startsWith("/contracts")) {
+      return next();
+    }
     // Skip auth check for enterprise read-only endpoints (public data)
     if (req.path.startsWith("/enterprise/snapshot") || 
         req.path.startsWith("/enterprise/health") ||
@@ -5238,33 +5242,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Smart Contracts
   // ============================================
-  app.get("/api/contracts", async (_req, res) => {
+  app.get("/api/contracts", async (req, res) => {
     try {
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const contracts = await client.getContracts();
-        res.json(contracts);
-      } else {
-        // Fetch from local database (demo mode)
-        const contracts = await storage.getAllContracts();
-        res.json(contracts);
+      // Fetch from TBurnEnterpriseNode for dynamic contract data
+      const limit = req.query.limit || 20;
+      const response = await fetch(`http://localhost:8545/api/contracts?limit=${limit}`);
+      
+      if (!response.ok) {
+        throw new Error(`Enterprise node returned status: ${response.status}`);
       }
+      
+      const contracts = await response.json();
+      res.json(contracts);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch contracts" });
+      // Fallback to database
+      const contracts = await storage.getAllContracts();
+      res.json(contracts);
     }
   });
 
   app.get("/api/contracts/:address", async (req, res) => {
     try {
       const address = req.params.address;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const contract = await client.getContract(address);
+      
+      // Fetch from TBurnEnterpriseNode for dynamic contract data
+      try {
+        const response = await fetch(`http://localhost:8545/api/contracts/${encodeURIComponent(address)}`);
+        
+        if (response.status === 404) {
+          return res.status(404).json({ error: "Contract not found" });
+        }
+        
+        if (!response.ok) {
+          throw new Error(`Enterprise node returned status: ${response.status}`);
+        }
+        
+        const contract = await response.json();
         res.json(contract);
-      } else {
-        // Fetch from local database (demo mode)
+      } catch (fetchError) {
+        // Fallback to database
         const contract = await storage.getContractByAddress(address);
         if (!contract) {
           return res.status(404).json({ error: "Contract not found" });

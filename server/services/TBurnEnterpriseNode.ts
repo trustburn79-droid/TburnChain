@@ -1843,13 +1843,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
           name: `${type}Contract${i}`,
           type,
           creator: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-          createdAt: new Date(Date.now() - Math.floor(Math.random() * 86400000 * 30)).toISOString(),
+          deployedAt: new Date(Date.now() - Math.floor(Math.random() * 86400000 * 30)).toISOString(),
           transactionCount: Math.floor(Math.random() * 100000) + 1000,
           balance: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
+          verified: status === 'verified',
           verificationStatus: status,
           lastActivity: new Date(Date.now() - Math.floor(Math.random() * 3600000)).toISOString(),
           gasUsed: (BigInt(Math.floor(Math.random() * 1000000000))).toString(),
-          byteCode: `0x${crypto.randomBytes(32).toString('hex')}...`
+          bytecode: `0x${crypto.randomBytes(32).toString('hex')}...`,
+          abi: null,
+          sourceCode: null
         });
       }
       
@@ -1867,13 +1870,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
         name: `${type}Contract`,
         type,
         creator: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-        createdAt: new Date(Date.now() - Math.floor(Math.random() * 86400000 * 30)).toISOString(),
+        deployedAt: new Date(Date.now() - Math.floor(Math.random() * 86400000 * 30)).toISOString(),
         transactionCount: Math.floor(Math.random() * 100000) + 1000,
         balance: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
+        verified: true,
         verificationStatus: 'verified',
         lastActivity: new Date(Date.now() - Math.floor(Math.random() * 3600000)).toISOString(),
         gasUsed: (BigInt(Math.floor(Math.random() * 1000000000))).toString(),
-        byteCode: `0x${crypto.randomBytes(64).toString('hex')}`,
+        bytecode: `0x${crypto.randomBytes(64).toString('hex')}`,
+        sourceCode: null,
         abi: [
           { type: 'function', name: 'transfer', inputs: [{ name: 'to', type: 'address' }, { name: 'amount', type: 'uint256' }] },
           { type: 'function', name: 'balanceOf', inputs: [{ name: 'account', type: 'address' }], outputs: [{ name: '', type: 'uint256' }] }
