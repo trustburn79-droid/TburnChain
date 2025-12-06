@@ -39,7 +39,7 @@ import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
 import { bridgeService } from "./services/BridgeService";
 
-const SITE_PASSWORD = "tburn7979";
+const SITE_PASSWORD = process.env.TBURN_API_KEY || "admin7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
 // ============================================
