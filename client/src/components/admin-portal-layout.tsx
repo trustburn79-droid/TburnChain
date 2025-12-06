@@ -24,12 +24,13 @@ import AdminConsensus from "@/pages/admin-portal/consensus";
 import AdminShards from "@/pages/admin-portal/shards";
 import AdminNetworkParams from "@/pages/admin-portal/network-params";
 
-// Group 3: Token & Economy (5 pages)
+// Group 3: Token & Economy (6 pages)
 import AdminTokenIssuance from "@/pages/admin-portal/token-issuance";
 import AdminBurnControl from "@/pages/admin-portal/burn-control";
 import AdminTreasury from "@/pages/admin-portal/treasury";
 import AdminEconomics from "@/pages/admin-portal/economics";
 import AdminCommunity from "@/pages/admin-portal/community";
+import TokenomicsSimulation from "@/pages/tokenomics-simulation";
 
 // Group 4: AI Systems (4 pages)
 import AdminAIOrchestration from "@/pages/admin-portal/ai-orchestration";
@@ -134,6 +135,7 @@ function AdminRouter() {
       <Route path="/admin/burn-control" component={AdminBurnControl} />
       <Route path="/admin/treasury" component={AdminTreasury} />
       <Route path="/admin/economics" component={AdminEconomics} />
+      <Route path="/admin/tokenomics" component={TokenomicsSimulation} />
 
       {/* Group 4: AI Systems */}
       <Route path="/admin/ai" component={AdminAIOrchestration} />
