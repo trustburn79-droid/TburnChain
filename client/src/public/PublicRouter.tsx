@@ -87,8 +87,7 @@ export function PublicRouter() {
         <Route path="/legal/privacy-policy" component={PrivacyPolicy} />
         <Route path="/legal/disclaimer" component={Disclaimer} />
         
-        {/* TBURNScan Explorer Routes */}
-        <Route path="/scan" component={ScanHome} />
+        {/* TBURNScan Explorer Routes - specific paths BEFORE base /scan */}
         <Route path="/scan/blocks" component={BlocksList} />
         <Route path="/scan/block/:blockNumber" component={BlockDetail} />
         <Route path="/scan/txs" component={TransactionsList} />
@@ -98,6 +97,7 @@ export function PublicRouter() {
         <Route path="/scan/tokens" component={TokensList} />
         <Route path="/scan/stats" component={NetworkStats} />
         <Route path="/scan/search" component={ScanSearchResults} />
+        <Route path="/scan" component={ScanHome} />
         
         {/* Fallback - redirect to home */}
         <Route>
