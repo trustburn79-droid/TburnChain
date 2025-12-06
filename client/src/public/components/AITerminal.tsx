@@ -19,7 +19,7 @@ const logMessages = [
 
 function getCurrentTime(): string {
   const now = new Date();
-  return now.toLocaleTimeString("en-US", { hour12: false });
+  return now.toLocaleTimeString("en-US", { hour12: false, timeZone: 'America/New_York' });
 }
 
 interface LogEntry {
