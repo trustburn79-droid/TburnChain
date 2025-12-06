@@ -483,6 +483,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/transactions") || req.path === "/transactions") {
       return next();
     }
+    // Skip auth check for wallets (public access)
+    if (req.path.startsWith("/wallets") || req.path === "/wallets") {
+      return next();
+    }
     // Skip auth check for search (public access)
     if (req.path.startsWith("/search")) {
       return next();
