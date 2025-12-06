@@ -89,7 +89,9 @@ export default function BlockDetail() {
   };
 
   const formatTime = (timestamp: number) => {
-    return new Date(timestamp).toLocaleString();
+    // Handle both seconds and milliseconds timestamps
+    const timestampMs = timestamp < 10000000000 ? timestamp * 1000 : timestamp;
+    return new Date(timestampMs).toLocaleString();
   };
 
   const formatAddress = (addr: string) => {
