@@ -305,10 +305,10 @@ export class ValidatorSimulationService {
     const totalActiveValidators = activeValidators.length;
     const requiredQuorum = Math.ceil(totalActiveValidators * ENTERPRISE_VALIDATORS_CONFIG.QUORUM_THRESHOLD / 10000);
     
-    // 90-95% of active validators participate in prevote
-    const prevoteCount = Math.floor(totalActiveValidators * (0.90 + Math.random() * 0.05));
-    // 85-92% participate in precommit
-    const precommitCount = Math.floor(totalActiveValidators * (0.85 + Math.random() * 0.07));
+    // 88-95% of active validators participate in prevote (high consensus rate)
+    const prevoteCount = Math.floor(totalActiveValidators * (0.88 + Math.random() * 0.07));
+    // 85-95% participate in precommit (high consensus rate)
+    const precommitCount = Math.floor(totalActiveValidators * (0.85 + Math.random() * 0.10));
     
     // AI-BFT Consensus: AI Pre-Validation makes validator confirmation faster
     // 5-phase: AI Pre-Validation(5-9ms), Propose(15-19ms), Prevote(18-21ms), Precommit(15-19ms), Commit(20-24ms)

@@ -2013,8 +2013,8 @@ export class MemStorage implements IStorage {
     // Network: 125 total, 110 active validators
     const totalValidators = 110;
     const requiredQuorum = 84; // 2f+1 where f=41
-    const prevoteCount = Math.floor(totalValidators * (0.85 + Math.random() * 0.05));  // 85-90%
-    const precommitCount = Math.floor(totalValidators * (0.78 + Math.random() * 0.05)); // 78-83%
+    const prevoteCount = Math.floor(totalValidators * (0.88 + Math.random() * 0.07));  // 88-95% (high consensus rate)
+    const precommitCount = Math.floor(totalValidators * (0.85 + Math.random() * 0.10)); // 85-95% (high consensus rate)
     
     // AI Pre-Validation is ultra-fast (5-10ms), validator phases are faster due to AI pre-check
     const phaseTimes = [
