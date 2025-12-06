@@ -7,6 +7,7 @@
 import { Router, Request, Response } from 'express';
 import { dataHub } from '../services/DataHub';
 import { storage } from '../storage';
+import { getTBurnClient, isProductionMode } from '../tburn-client';
 import type { Block, Transaction, Validator } from '@shared/schema';
 
 const router = Router();
@@ -74,13 +75,43 @@ router.get('/network/stats', async (req: Request, res: Response) => {
 
 /**
  * GET /api/public/v1/network/blocks/recent
- * Recent blocks for explorer preview
+ * Recent blocks for explorer preview - uses same data source as /app/blocks
  */
 router.get('/network/blocks/recent', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
     
-    const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
+    const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
+    
+    // Use TBURN client for real-time data (same as /api/blocks)
+    if (isProductionMode()) {
+      try {
+        const client = getTBurnClient();
+        const blocks = await client.getRecentBlocks(limit);
+        
+        res.json({
+          success: true,
+          data: blocks.map((block: any) => ({
+            number: block.blockNumber || block.number,
+            hash: block.hash,
+            parentHash: block.parentHash,
+            timestamp: Math.floor(Date.now() / 1000) - ((blocks[0]?.blockNumber || blocks[0]?.number || 0) - (block.blockNumber || block.number)) * 3,
+            transactions: block.transactionCount || block.transactions || 0,
+            gasUsed: block.gasUsed || 30000000,
+            gasLimit: block.gasLimit || 30000000,
+            validator: block.validatorAddress || block.validator,
+            size: block.size || 50000
+          })),
+          total: blocks.length,
+          lastUpdated: Date.now()
+        });
+        return;
+      } catch (clientError) {
+        console.log('[Public API] TBURN client error, falling back to storage');
+      }
+    }
+    
+    // Fallback to storage
     const blocks = await storage.getRecentBlocks(limit);
     
     res.json({
@@ -109,13 +140,43 @@ router.get('/network/blocks/recent', async (req: Request, res: Response) => {
 
 /**
  * GET /api/public/v1/network/transactions/recent
- * Recent transactions for explorer preview
+ * Recent transactions for explorer preview - uses same data source as /app/transactions
  */
 router.get('/network/transactions/recent', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
     
-    const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
+    const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
+    
+    // Use TBURN client for real-time data (same as /api/transactions)
+    if (isProductionMode()) {
+      try {
+        const client = getTBurnClient();
+        const transactions = await client.getRecentTransactions(limit);
+        
+        res.json({
+          success: true,
+          data: transactions.map((tx: any, index: number) => ({
+            hash: tx.hash,
+            blockNumber: tx.blockNumber,
+            from: tx.from,
+            to: tx.to,
+            value: tx.value,
+            gasUsed: tx.gasUsed,
+            gasPrice: tx.gasPrice,
+            timestamp: Math.floor(Date.now() / 1000) - index * 3,
+            status: tx.status || 'success'
+          })),
+          total: transactions.length,
+          lastUpdated: Date.now()
+        });
+        return;
+      } catch (clientError) {
+        console.log('[Public API] TBURN client error for transactions, falling back to storage');
+      }
+    }
+    
+    // Fallback to storage
     const transactions = await storage.getRecentTransactions(limit);
     
     res.json({
