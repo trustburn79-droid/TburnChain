@@ -39,8 +39,8 @@ import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
 import { bridgeService } from "./services/BridgeService";
 
-const SITE_PASSWORD = process.env.TBURN_API_KEY || "admin7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
+const SITE_PASSWORD = ADMIN_PASSWORD || "admin7979";
 
 // ============================================
 // ENTERPRISE STABILITY: Interval Tracking for Graceful Shutdown
