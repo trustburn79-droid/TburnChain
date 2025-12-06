@@ -8706,16 +8706,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Clamp limit to maximum 500 to prevent high-load queries
       limit = Math.min(limit, 500);
       
+      let rounds;
       if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const rounds = await client.getConsensusRounds(limit);
-        res.json(rounds);
+        try {
+          // Fetch from TBURN mainnet node
+          const client = getTBurnClient();
+          rounds = await client.getConsensusRounds(limit);
+        } catch (clientError) {
+          // Fallback to database when TBURN client fails
+          console.log('[API] TBURN client error for consensus/rounds, using database fallback');
+          rounds = await storage.getAllConsensusRounds(limit);
+        }
       } else {
         // Fetch from local database (demo mode)
-        const rounds = await storage.getAllConsensusRounds(limit);
-        res.json(rounds);
+        rounds = await storage.getAllConsensusRounds(limit);
       }
+      res.json(rounds);
     } catch (error: unknown) {
       res.status(500).json({ error: "Failed to fetch consensus rounds" });
     }
