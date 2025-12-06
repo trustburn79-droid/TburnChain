@@ -1964,6 +1964,20 @@ export class TBurnEnterpriseNode extends EventEmitter {
     });
 
     // ============================================
+    // SINGLE TRANSACTION ENDPOINT
+    // ============================================
+    this.rpcApp.get('/api/transactions/:hash', async (req: Request, res: Response) => {
+      const hash = req.params.hash;
+      
+      try {
+        const transaction = await this.getTransaction(hash);
+        res.json(transaction);
+      } catch (error) {
+        res.status(404).json({ error: 'Transaction not found' });
+      }
+    });
+
+    // ============================================
     // SINGLE CONSENSUS ROUND ENDPOINT
     // ============================================
     this.rpcApp.get('/api/consensus/rounds/:blockHeight', (req: Request, res: Response) => {

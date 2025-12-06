@@ -3044,13 +3044,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/transactions/:hash", async (req, res) => {
     try {
       const hash = req.params.hash;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const transaction = await client.getTransaction(hash);
+      
+      // Fetch from TBurnEnterpriseNode for dynamic transaction data
+      try {
+        const response = await fetch(`http://localhost:8545/api/transactions/${encodeURIComponent(hash)}`);
+        
+        if (response.status === 404) {
+          return res.status(404).json({ error: "Transaction not found" });
+        }
+        
+        if (!response.ok) {
+          throw new Error(`Enterprise node returned status: ${response.status}`);
+        }
+        
+        const transaction = await response.json();
         res.json(transaction);
-      } else {
-        // Fetch from local database (demo mode)
+      } catch (fetchError) {
+        // Fallback to database
         const transaction = await storage.getTransactionByHash(hash);
         if (!transaction) {
           return res.status(404).json({ error: "Transaction not found" });
