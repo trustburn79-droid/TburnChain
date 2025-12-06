@@ -1996,17 +1996,19 @@ export class MemStorage implements IStorage {
     const activeValidators = validators.filter(v => v.status === "active");
     
     const now = Date.now();
-    const blockStartTime = now - 100; // 100ms block cycle
-    const elapsed = now - blockStartTime;
+    // 100ms block cycle - calculate position within current block
+    const blockCycleMs = 100;
+    const elapsed = now % blockCycleMs; // Position within current 100ms block cycle
+    const blockStartTime = now - elapsed;
     
     // AI-BFT Consensus: AI Pre-Validation makes validator phases faster
-    // 5-phase: AI Pre-Validation(5-10ms), Propose(15-20ms), Prevote(18-22ms), Precommit(15-20ms), Commit(20-25ms)
+    // 5-phase: AI Pre-Validation(0-8ms), Propose(8-28ms), Prevote(28-48ms), Precommit(48-70ms), Commit(70-100ms)
     let currentPhase = 1;
-    if (elapsed >= 75) currentPhase = 5;      // Commit: 75-100ms
-    else if (elapsed >= 55) currentPhase = 4; // Precommit: 55-75ms
-    else if (elapsed >= 35) currentPhase = 3; // Prevote: 35-55ms
-    else if (elapsed >= 10) currentPhase = 2; // Propose: 10-35ms
-    // else: AI Pre-Validation: 0-10ms
+    if (elapsed >= 70) currentPhase = 5;      // Commit: 70-100ms
+    else if (elapsed >= 48) currentPhase = 4; // Precommit: 48-70ms
+    else if (elapsed >= 28) currentPhase = 3; // Prevote: 28-48ms
+    else if (elapsed >= 8) currentPhase = 2;  // Propose: 8-28ms
+    // else: AI Pre-Validation: 0-8ms
     
     const proposer = activeValidators[0]?.address || "0x0000...0000";
     
