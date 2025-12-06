@@ -303,7 +303,7 @@ export function AdminPortalLayout() {
                 </Tooltip>
               </div>
             </header>
-            <main className="flex-1 overflow-hidden">
+            <main className="flex-1 overflow-auto">
               <AdminRouter />
             </main>
           </div>
