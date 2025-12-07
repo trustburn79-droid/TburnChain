@@ -141,48 +141,48 @@ export default function AdminNetworkParams() {
 
   const defaultBlockchain = useMemo(() => paramsData?.blockchain || {
     blockTime: 500,
-    maxBlockSize: 5,
-    maxTxPerBlock: 10000,
+    maxBlockSize: 8,
+    maxTxPerBlock: 25000,
   }, [paramsData]);
 
   const defaultCommittee = useMemo(() => paramsData?.committee || {
-    defaultSize: 100,
+    defaultSize: 110,
     minSize: 21,
-    maxSize: 200,
+    maxSize: 125,
     rotationPeriod: 100,
     aiSelection: true,
     dynamicSizing: true,
   }, [paramsData]);
 
   const defaultGas = useMemo(() => paramsData?.gas || {
-    baseGas: 100,
-    minGas: 50,
-    maxGas: 500,
-    congestionMultiplier: 1.5,
+    baseGas: 10,
+    minGas: 5,
+    maxGas: 100,
+    congestionMultiplier: 1.2,
     eip1559: true,
     aiOptimization: true,
   }, [paramsData]);
 
   const defaultBurn = useMemo(() => paramsData?.burn || {
-    txBurnRate: 1.0,
-    timeBurnRate: 0.1,
-    volumeBurnRate: 0.5,
+    txBurnRate: 0.7,
+    timeBurnRate: 0.05,
+    volumeBurnRate: 0.3,
     aiOptimized: true,
   }, [paramsData]);
 
   const defaultGovernance = useMemo(() => paramsData?.governance || {
     minStake: 10000,
-    quorum: 10,
-    approvalThreshold: 66,
+    quorum: 15,
+    approvalThreshold: 67,
     votingPeriod: 7,
     executionDelay: 2,
   }, [paramsData]);
 
   const changeHistory = useMemo(() => paramsData?.changeHistory || [
-    { id: 1, param: "Block Time", oldValue: "600ms", newValue: "500ms", changedBy: "Admin", date: "2024-12-03", reason: "Performance optimization" },
-    { id: 2, param: "Committee Size", oldValue: "80", newValue: "100", changedBy: "Governance", date: "2024-12-01", reason: "Security enhancement" },
-    { id: 3, param: "Gas Price", oldValue: "80 Ember", newValue: "100 Ember", changedBy: "AI System", date: "2024-11-28", reason: "Network congestion" },
-    { id: 4, param: "Burn Rate", oldValue: "0.8%", newValue: "1.0%", changedBy: "Governance", date: "2024-11-25", reason: "Deflation target" },
+    { id: 1, param: "Committee Size", oldValue: "100", newValue: "110", changedBy: "Governance", date: "2024-12-07", reason: "Mainnet launch preparation" },
+    { id: 2, param: "Gas Base Price", oldValue: "15 EMB", newValue: "10 EMB", changedBy: "AI System", date: "2024-12-06", reason: "Cost optimization" },
+    { id: 3, param: "Burn Rate", oldValue: "0.6%", newValue: "0.7%", changedBy: "Governance", date: "2024-12-05", reason: "Y20 deflation target 30.6%" },
+    { id: 4, param: "Max TPS per Shard", oldValue: "8000", newValue: "10000", changedBy: "Admin", date: "2024-12-03", reason: "Performance upgrade" },
   ], [paramsData]);
 
   const [blockchainParams, setBlockchainParams] = useState(defaultBlockchain);

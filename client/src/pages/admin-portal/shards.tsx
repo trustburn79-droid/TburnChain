@@ -238,14 +238,11 @@ export default function AdminShards() {
   });
 
   const shards: Shard[] = useMemo(() => shardingData?.shards || [
-    { id: 0, name: "Beacon Shard", validators: 24, tps: 425, load: 68, pendingTx: 145, crossShardTx: 23, status: "healthy", rebalanceScore: 92 },
-    { id: 1, name: "Shard Alpha", validators: 20, tps: 398, load: 72, pendingTx: 189, crossShardTx: 45, status: "healthy", rebalanceScore: 88 },
-    { id: 2, name: "Shard Beta", validators: 19, tps: 412, load: 65, pendingTx: 134, crossShardTx: 31, status: "healthy", rebalanceScore: 94 },
-    { id: 3, name: "Shard Gamma", validators: 21, tps: 389, load: 78, pendingTx: 256, crossShardTx: 67, status: "warning", rebalanceScore: 75 },
-    { id: 4, name: "Shard Delta", validators: 18, tps: 435, load: 62, pendingTx: 98, crossShardTx: 28, status: "healthy", rebalanceScore: 96 },
-    { id: 5, name: "Shard Epsilon", validators: 20, tps: 401, load: 70, pendingTx: 167, crossShardTx: 42, status: "healthy", rebalanceScore: 89 },
-    { id: 6, name: "Shard Zeta", validators: 17, tps: 378, load: 82, pendingTx: 312, crossShardTx: 89, status: "warning", rebalanceScore: 68 },
-    { id: 7, name: "Shard Eta", validators: 17, tps: 418, load: 66, pendingTx: 123, crossShardTx: 35, status: "healthy", rebalanceScore: 91 },
+    { id: 0, name: "Beacon Shard", validators: 25, tps: 10245, load: 68, pendingTx: 2145, crossShardTx: 523, status: "healthy", rebalanceScore: 95 },
+    { id: 1, name: "Shard Alpha", validators: 22, tps: 10128, load: 72, pendingTx: 2389, crossShardTx: 645, status: "healthy", rebalanceScore: 92 },
+    { id: 2, name: "Shard Beta", validators: 21, tps: 10312, load: 65, pendingTx: 1934, crossShardTx: 531, status: "healthy", rebalanceScore: 96 },
+    { id: 3, name: "Shard Gamma", validators: 22, tps: 9876, load: 78, pendingTx: 3256, crossShardTx: 867, status: "warning", rebalanceScore: 78 },
+    { id: 4, name: "Shard Delta", validators: 20, tps: 10456, load: 62, pendingTx: 1698, crossShardTx: 428, status: "healthy", rebalanceScore: 97 },
   ], [shardingData]);
 
   const stats: ShardingStats = useMemo(() => shardingData?.stats || {
@@ -259,10 +256,10 @@ export default function AdminShards() {
 
   const loadHistory: LoadHistory[] = useMemo(() => shardingData?.loadHistory || Array.from({ length: 24 }, (_, i) => ({
     time: `${23 - i}h`,
-    shard0: Math.floor(Math.random() * 30) + 55,
-    shard1: Math.floor(Math.random() * 30) + 60,
-    shard2: Math.floor(Math.random() * 30) + 50,
-    shard3: Math.floor(Math.random() * 35) + 65,
+    shard0: Math.floor(Math.random() * 20) + 58,
+    shard1: Math.floor(Math.random() * 20) + 62,
+    shard2: Math.floor(Math.random() * 20) + 55,
+    shard3: Math.floor(Math.random() * 25) + 68,
   })).reverse(), [shardingData]);
 
   const filteredShards = useMemo(() => {
