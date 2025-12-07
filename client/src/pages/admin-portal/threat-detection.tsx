@@ -116,34 +116,37 @@ export default function AdminThreatDetection() {
   });
 
   const threatStats = data?.stats ?? {
-    threatsDetected: 23,
-    threatsBlocked: 21,
-    activeIncidents: 2,
-    riskScore: 15,
+    threatsDetected: 1847,
+    threatsBlocked: 1845,
+    activeIncidents: 0,
+    riskScore: 8,
   };
 
   const recentThreats = data?.recentThreats ?? [
-    { id: 1, type: "DDoS Attack", severity: "critical", source: "45.33.32.156", target: "API Gateway", status: "blocked", timestamp: "2024-12-03 14:30" },
-    { id: 2, type: "SQL Injection", severity: "high", source: "198.51.100.23", target: "Database", status: "blocked", timestamp: "2024-12-03 14:15" },
-    { id: 3, type: "Suspicious Login", severity: "medium", source: "203.0.113.50", target: "Admin Portal", status: "investigating", timestamp: "2024-12-03 14:00" },
-    { id: 4, type: "Port Scan", severity: "low", source: "192.0.2.1", target: "Network", status: "blocked", timestamp: "2024-12-03 13:45" },
-    { id: 5, type: "Brute Force", severity: "high", source: "100.64.0.1", target: "SSH", status: "blocked", timestamp: "2024-12-03 13:30" },
+    { id: 1, type: "Rate Limit Exceeded", severity: "low", source: "203.0.113.45", target: "Bridge API", status: "blocked", timestamp: "2024-12-07 18:30" },
+    { id: 2, type: "Invalid Signature", severity: "medium", source: "198.51.100.78", target: "Validator Vote", status: "blocked", timestamp: "2024-12-07 18:15" },
+    { id: 3, type: "Geo-Blocked Access", severity: "low", source: "OFAC Region", target: "All Endpoints", status: "blocked", timestamp: "2024-12-07 18:00" },
+    { id: 4, type: "Anomalous Pattern", severity: "low", source: "AI Detection", target: "Swap Router", status: "monitored", timestamp: "2024-12-07 17:45" },
+    { id: 5, type: "Expired Token", severity: "low", source: "Session Timeout", target: "User Session", status: "blocked", timestamp: "2024-12-07 17:30" },
+    { id: 6, type: "IP Reputation Block", severity: "low", source: "Known Malicious", target: "API Gateway", status: "blocked", timestamp: "2024-12-07 17:15" },
   ];
 
   const threatTrend = data?.threatTrend ?? [
-    { date: "Nov 27", critical: 1, high: 3, medium: 5, low: 8 },
-    { date: "Nov 28", critical: 0, high: 2, medium: 4, low: 6 },
-    { date: "Nov 29", critical: 2, high: 4, medium: 6, low: 10 },
-    { date: "Nov 30", critical: 0, high: 1, medium: 3, low: 5 },
-    { date: "Dec 1", critical: 1, high: 2, medium: 4, low: 7 },
-    { date: "Dec 2", critical: 0, high: 3, medium: 5, low: 8 },
-    { date: "Dec 3", critical: 1, high: 2, medium: 3, low: 4 },
+    { date: "Dec 1", critical: 0, high: 0, medium: 2, low: 45 },
+    { date: "Dec 2", critical: 0, high: 0, medium: 1, low: 38 },
+    { date: "Dec 3", critical: 0, high: 1, medium: 3, low: 52 },
+    { date: "Dec 4", critical: 0, high: 0, medium: 2, low: 41 },
+    { date: "Dec 5", critical: 0, high: 0, medium: 1, low: 35 },
+    { date: "Dec 6", critical: 0, high: 0, medium: 2, low: 48 },
+    { date: "Dec 7", critical: 0, high: 0, medium: 1, low: 32 },
   ];
 
   const aiDetections = data?.aiDetections ?? [
-    { pattern: "Unusual transaction volume", confidence: 92, risk: "high", recommendation: "Monitor closely" },
-    { pattern: "New validator behavior anomaly", confidence: 78, risk: "medium", recommendation: "Investigate" },
-    { pattern: "Bridge transfer spike", confidence: 85, risk: "medium", recommendation: "Review transfers" },
+    { pattern: "Normal transaction volume - within 2σ", confidence: 99.2, risk: "low", recommendation: "No action required" },
+    { pattern: "Validator performance optimal", confidence: 98.7, risk: "low", recommendation: "Continue monitoring" },
+    { pattern: "Bridge utilization healthy (78%)", confidence: 97.5, risk: "low", recommendation: "Optimal range maintained" },
+    { pattern: "Network latency stable (42ms avg)", confidence: 99.1, risk: "low", recommendation: "Performance excellent" },
+    { pattern: "Smart contract interactions normal", confidence: 98.8, risk: "low", recommendation: "All patterns verified" },
   ];
 
   useEffect(() => {

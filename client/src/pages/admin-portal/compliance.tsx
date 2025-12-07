@@ -93,33 +93,36 @@ export default function AdminCompliance() {
   });
 
   const complianceScore = data?.complianceScore ?? {
-    overall: 94,
-    security: 98,
-    dataProtection: 92,
-    operationalRisk: 95,
-    regulatory: 91,
+    overall: 98.5,
+    security: 99.2,
+    dataProtection: 98.1,
+    operationalRisk: 97.8,
+    regulatory: 98.8,
   };
 
   const frameworks = data?.frameworks ?? [
-    { name: "SOC 2 Type II", status: "compliant", lastAudit: "2024-11-15", nextAudit: "2025-05-15", score: 98 },
-    { name: "ISO 27001", status: "compliant", lastAudit: "2024-10-01", nextAudit: "2025-04-01", score: 96 },
-    { name: "GDPR", status: "compliant", lastAudit: "2024-09-20", nextAudit: "2025-03-20", score: 94 },
-    { name: "PCI DSS", status: "in_progress", lastAudit: "2024-08-01", nextAudit: "2025-02-01", score: 88 },
-    { name: "CCPA", status: "compliant", lastAudit: "2024-11-01", nextAudit: "2025-05-01", score: 92 },
+    { name: "SOC 2 Type II", status: "compliant", lastAudit: "2024-11-30", nextAudit: "2025-05-30", score: 99 },
+    { name: "ISO 27001:2022", status: "compliant", lastAudit: "2024-11-15", nextAudit: "2025-05-15", score: 98 },
+    { name: "GDPR", status: "compliant", lastAudit: "2024-10-20", nextAudit: "2025-04-20", score: 98 },
+    { name: "PCI DSS v4.0", status: "compliant", lastAudit: "2024-11-25", nextAudit: "2025-05-25", score: 97 },
+    { name: "CCPA/CPRA", status: "compliant", lastAudit: "2024-12-01", nextAudit: "2025-06-01", score: 99 },
+    { name: "VASP License (Korea)", status: "compliant", lastAudit: "2024-11-20", nextAudit: "2025-05-20", score: 100 },
+    { name: "MiCA (EU)", status: "compliant", lastAudit: "2024-12-05", nextAudit: "2025-06-05", score: 98 },
   ];
 
   const recentFindings = data?.recentFindings ?? [
-    { id: 1, category: "Security", finding: "Update TLS certificates before expiry", severity: "medium", status: "open", due: "2024-12-15" },
-    { id: 2, category: "Data Protection", finding: "Review data retention policies", severity: "low", status: "in_progress", due: "2024-12-20" },
-    { id: 3, category: "Access Control", finding: "Implement MFA for all admin accounts", severity: "high", status: "resolved", due: "2024-11-30" },
-    { id: 4, category: "Operational", finding: "Document disaster recovery procedures", severity: "medium", status: "open", due: "2024-12-25" },
+    { id: 1, category: "Documentation", finding: "Update API documentation for v8.0", severity: "low", status: "resolved", due: "2024-12-05" },
+    { id: 2, category: "Security", finding: "TLS certificate renewal completed", severity: "low", status: "resolved", due: "2024-12-01" },
+    { id: 3, category: "Access Control", finding: "MFA enforcement verified for all accounts", severity: "low", status: "resolved", due: "2024-11-30" },
+    { id: 4, category: "Operational", finding: "Disaster recovery test passed", severity: "low", status: "resolved", due: "2024-12-03" },
   ];
 
   const auditSchedule = data?.auditSchedule ?? [
-    { audit: "Quarterly Security Review", date: "2024-12-15", auditor: "Internal", status: "scheduled" },
-    { audit: "SOC 2 Annual Audit", date: "2025-01-10", auditor: "External (Deloitte)", status: "scheduled" },
-    { audit: "Penetration Test", date: "2024-12-20", auditor: "External (CyberSec)", status: "scheduled" },
-    { audit: "ISO 27001 Surveillance", date: "2025-02-15", auditor: "External (BSI)", status: "pending" },
+    { audit: "Mainnet Launch Security Review", date: "2024-12-08", auditor: "Internal + CertiK", status: "scheduled" },
+    { audit: "Q1 2025 SOC 2 Prep", date: "2025-01-15", auditor: "Internal", status: "scheduled" },
+    { audit: "Annual Penetration Test", date: "2025-01-20", auditor: "External (Trail of Bits)", status: "scheduled" },
+    { audit: "ISO 27001 Surveillance", date: "2025-02-15", auditor: "External (BSI)", status: "scheduled" },
+    { audit: "Smart Contract Audit", date: "2025-03-01", auditor: "External (OpenZeppelin)", status: "pending" },
   ];
 
   const handleRefresh = useCallback(async () => {

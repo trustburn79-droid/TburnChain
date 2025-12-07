@@ -155,39 +155,49 @@ export default function AdminAccessControl() {
   };
 
   const policies = data?.policies ?? [
-    { id: 1, nameKey: "adminAccess", descKey: "adminAccessDesc", roles: ["admin", "super_admin"], resources: "/admin/*", status: "active" },
-    { id: 2, nameKey: "operatorAccess", descKey: "operatorAccessDesc", roles: ["operator"], resources: "/operator/*", status: "active" },
-    { id: 3, nameKey: "readOnly", descKey: "readOnlyDesc", roles: ["auditor", "viewer"], resources: "/api/read/*", status: "active" },
-    { id: 4, nameKey: "developerAccess", descKey: "developerAccessDesc", roles: ["developer"], resources: "/dev/*", status: "active" },
-    { id: 5, nameKey: "bridgeControl", descKey: "bridgeControlDesc", roles: ["bridge_operator"], resources: "/api/bridge/*", status: "active" },
+    { id: 1, nameKey: "superAdminAccess", descKey: "superAdminAccessDesc", roles: ["super_admin"], resources: "/admin/*, /api/admin/*", status: "active" },
+    { id: 2, nameKey: "adminAccess", descKey: "adminAccessDesc", roles: ["admin"], resources: "/admin/dashboard, /admin/network, /admin/validators", status: "active" },
+    { id: 3, nameKey: "operatorAccess", descKey: "operatorAccessDesc", roles: ["operator", "senior_operator"], resources: "/operator/*, /api/operator/*", status: "active" },
+    { id: 4, nameKey: "bridgeControl", descKey: "bridgeControlDesc", roles: ["bridge_operator", "bridge_admin"], resources: "/api/bridge/*, /admin/bridge/*", status: "active" },
+    { id: 5, nameKey: "validatorManagement", descKey: "validatorManagementDesc", roles: ["validator_admin"], resources: "/api/validators/*, /admin/validators/*", status: "active" },
+    { id: 6, nameKey: "treasuryAccess", descKey: "treasuryAccessDesc", roles: ["treasury_admin", "treasury_operator"], resources: "/api/treasury/*, /admin/treasury/*", status: "active" },
+    { id: 7, nameKey: "auditReadOnly", descKey: "auditReadOnlyDesc", roles: ["auditor", "compliance_officer"], resources: "/api/audit/*, /api/logs/*", status: "active" },
+    { id: 8, nameKey: "securityControl", descKey: "securityControlDesc", roles: ["security_admin", "security_analyst"], resources: "/api/security/*, /admin/security/*", status: "active" },
   ];
 
   const ipWhitelist = data?.ipWhitelist ?? [
-    { ip: "192.168.1.0/24", description: "Office Network", addedBy: "Admin", addedAt: "2024-11-15" },
-    { ip: "10.0.0.0/8", description: "VPN Network", addedBy: "Admin", addedAt: "2024-11-10" },
-    { ip: "203.0.113.50", description: "Remote Admin", addedBy: "Super Admin", addedAt: "2024-12-01" },
+    { ip: "10.0.0.0/8", description: "TBURN Enterprise VPN", addedBy: "Security Admin", addedAt: "2024-11-01" },
+    { ip: "172.16.0.0/12", description: "Data Center Network", addedBy: "Infrastructure", addedAt: "2024-11-05" },
+    { ip: "192.168.100.0/24", description: "HQ Office Network - Seoul", addedBy: "Admin", addedAt: "2024-11-10" },
+    { ip: "192.168.101.0/24", description: "Regional Office - Singapore", addedBy: "Admin", addedAt: "2024-11-15" },
+    { ip: "192.168.102.0/24", description: "Regional Office - Frankfurt", addedBy: "Admin", addedAt: "2024-11-20" },
+    { ip: "52.78.0.0/16", description: "AWS Korea Region", addedBy: "Infrastructure", addedAt: "2024-12-01" },
   ];
 
   const recentAccess = data?.recentAccess ?? [
-    { user: "admin@tburn.io", action: "Login", ip: "192.168.1.105", time: "2 min ago", status: "success" },
-    { user: "operator@tburn.io", action: "View Dashboard", ip: "10.0.0.25", time: "5 min ago", status: "success" },
-    { user: "unknown@test.com", action: "Login Attempt", ip: "45.33.32.156", time: "15 min ago", status: "blocked" },
-    { user: "analyst@tburn.io", action: "Export Report", ip: "192.168.1.200", time: "30 min ago", status: "success" },
+    { user: "admin@tburn.io", action: "Bridge Configuration Update", ip: "192.168.100.15", time: "1 min ago", status: "success" },
+    { user: "ops-lead@tburn.io", action: "Validator Status Check", ip: "10.0.2.15", time: "3 min ago", status: "success" },
+    { user: "security-chief@tburn.io", action: "Security Scan Initiated", ip: "10.0.3.25", time: "8 min ago", status: "success" },
+    { user: "treasury-ops@tburn.io", action: "Treasury Report Export", ip: "192.168.101.45", time: "12 min ago", status: "success" },
+    { user: "unknown@external.com", action: "Login Attempt", ip: "45.33.32.156", time: "25 min ago", status: "blocked" },
+    { user: "bridge-ops@tburn.io", action: "Liquidity Rebalance", ip: "10.0.4.35", time: "35 min ago", status: "success" },
   ];
 
   const permissions = data?.permissions ?? [
     { resource: "Dashboard", view: true, create: false, edit: false, delete: false },
-    { resource: "Network", view: true, create: true, edit: true, delete: false },
+    { resource: "Network Analytics", view: true, create: true, edit: true, delete: false },
     { resource: "Validators", view: true, create: true, edit: true, delete: true },
-    { resource: "Bridge", view: true, create: false, edit: false, delete: false },
-    { resource: "Settings", view: true, create: false, edit: true, delete: false },
+    { resource: "Bridge Operations", view: true, create: true, edit: true, delete: false },
+    { resource: "Treasury", view: true, create: false, edit: false, delete: false },
+    { resource: "Security Settings", view: true, create: false, edit: true, delete: false },
+    { resource: "AI Orchestration", view: true, create: true, edit: true, delete: false },
   ];
 
   const stats = data?.stats ?? {
-    activePolicies: 4,
-    activeSessions: 12,
-    ipWhitelistCount: 3,
-    blockedToday: 5,
+    activePolicies: 8,
+    activeSessions: 47,
+    ipWhitelistCount: 6,
+    blockedToday: 12,
   };
 
   const handleRefresh = useCallback(async () => {
