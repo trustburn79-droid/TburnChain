@@ -134,18 +134,23 @@ export default function AdminMaintenance() {
   const maintenanceWindows = useMemo(() => {
     if (maintenanceData?.windows) return maintenanceData.windows;
     return [
-      { id: 1, name: t("adminMaintenance.scheduledUpdateV41"), start: "2024-12-10 02:00 UTC", end: "2024-12-10 04:00 UTC", status: "scheduled" as const, type: "update" as const },
-      { id: 2, name: t("adminMaintenance.databaseOptimization"), start: "2024-12-15 00:00 UTC", end: "2024-12-15 02:00 UTC", status: "scheduled" as const, type: "maintenance" as const },
-      { id: 3, name: t("adminMaintenance.securityPatch"), start: "2024-12-08 03:00 UTC", end: "2024-12-08 03:30 UTC", status: "scheduled" as const, type: "security" as const },
+      { id: 1, name: "v8.0 Mainnet Launch Preparation", start: "2024-12-08 00:00 UTC", end: "2024-12-08 02:00 UTC", status: "scheduled" as const, type: "update" as const },
+      { id: 2, name: "Post-Launch Health Check", start: "2024-12-08 12:00 UTC", end: "2024-12-08 12:30 UTC", status: "scheduled" as const, type: "maintenance" as const },
+      { id: 3, name: "Security Audit Post-Launch", start: "2024-12-09 00:00 UTC", end: "2024-12-09 01:00 UTC", status: "scheduled" as const, type: "security" as const },
+      { id: 4, name: "Bridge Performance Optimization", start: "2024-12-10 02:00 UTC", end: "2024-12-10 04:00 UTC", status: "scheduled" as const, type: "maintenance" as const },
+      { id: 5, name: t("adminMaintenance.databaseOptimization"), start: "2024-12-15 00:00 UTC", end: "2024-12-15 02:00 UTC", status: "scheduled" as const, type: "maintenance" as const },
     ];
   }, [maintenanceData, t]);
 
   const pastMaintenance = useMemo(() => {
     if (maintenanceData?.pastMaintenance) return maintenanceData.pastMaintenance;
     return [
-      { id: 1, name: t("adminMaintenance.v40Release"), date: "2024-12-01", duration: "3h 45m", status: "completed" as const, impact: t("adminMaintenance.minimal") },
-      { id: 2, name: t("adminMaintenance.networkUpgrade"), date: "2024-11-25", duration: "2h 15m", status: "completed" as const, impact: t("adminMaintenance.none") },
-      { id: 3, name: t("adminMaintenance.bridgeMaintenanceName"), date: "2024-11-20", duration: "1h 30m", status: "completed" as const, impact: t("adminMaintenance.bridgeOnly") },
+      { id: 1, name: "v8.0 Final Testnet Validation", date: "2024-12-07", duration: "2h 30m", status: "completed" as const, impact: t("adminMaintenance.none") },
+      { id: 2, name: "AI Orchestration System Upgrade", date: "2024-12-06", duration: "45m", status: "completed" as const, impact: t("adminMaintenance.minimal") },
+      { id: 3, name: "Cross-chain Bridge Sync", date: "2024-12-05", duration: "1h 15m", status: "completed" as const, impact: t("adminMaintenance.bridgeOnly") },
+      { id: 4, name: "Validator Set Expansion", date: "2024-12-03", duration: "30m", status: "completed" as const, impact: t("adminMaintenance.none") },
+      { id: 5, name: t("adminMaintenance.v40Release"), date: "2024-12-01", duration: "3h 45m", status: "completed" as const, impact: t("adminMaintenance.minimal") },
+      { id: 6, name: "Security Hardening Phase 2", date: "2024-11-28", duration: "2h 00m", status: "completed" as const, impact: t("adminMaintenance.none") },
     ];
   }, [maintenanceData, t]);
 

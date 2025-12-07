@@ -148,8 +148,8 @@ export default function AdminUpdates() {
   const currentVersion = useMemo(() => {
     if (updateData?.currentVersion) return updateData.currentVersion;
     return {
-      version: "4.0.0",
-      released: "2024-12-01",
+      version: "8.0.0",
+      released: "2024-12-08",
       status: "up-to-date",
     };
   }, [updateData]);
@@ -157,30 +157,36 @@ export default function AdminUpdates() {
   const availableUpdates = useMemo(() => {
     if (updateData?.availableUpdates) return updateData.availableUpdates;
     return [
-      { version: "4.0.1", type: "patch", releaseDate: "2024-12-05", status: "available", changes: t("adminUpdates.bugFixesAndSecurity") },
-      { version: "4.1.0", type: "minor", releaseDate: "2024-12-15", status: "scheduled", changes: t("adminUpdates.newFeaturesAndImprovements") },
+      { version: "8.0.1", type: "patch", releaseDate: "2024-12-15", status: "scheduled", changes: "Post-launch optimizations and minor fixes" },
+      { version: "8.1.0", type: "minor", releaseDate: "2025-01-15", status: "scheduled", changes: "GameFi integration enhancements, AI model updates" },
     ];
   }, [updateData, t]);
 
   const updateHistory = useMemo(() => {
     if (updateData?.updateHistory) return updateData.updateHistory;
     return [
-      { version: "4.0.0", date: "2024-12-01", status: "success", duration: "45m", rollback: false },
-      { version: "3.9.5", date: "2024-11-15", status: "success", duration: "30m", rollback: false },
-      { version: "3.9.4", date: "2024-11-01", status: "success", duration: "25m", rollback: false },
-      { version: "3.9.3", date: "2024-10-20", status: "rolled_back", duration: "20m", rollback: true },
-      { version: "3.9.2", date: "2024-10-15", status: "success", duration: "35m", rollback: false },
+      { version: "8.0.0", date: "2024-12-08", status: "success", duration: "2h 15m", rollback: false },
+      { version: "7.5.2", date: "2024-12-01", status: "success", duration: "45m", rollback: false },
+      { version: "7.5.1", date: "2024-11-25", status: "success", duration: "30m", rollback: false },
+      { version: "7.5.0", date: "2024-11-15", status: "success", duration: "1h 30m", rollback: false },
+      { version: "7.4.5", date: "2024-11-01", status: "success", duration: "35m", rollback: false },
+      { version: "7.4.4", date: "2024-10-20", status: "success", duration: "25m", rollback: false },
     ];
   }, [updateData]);
 
   const nodes = useMemo(() => {
     if (updateData?.nodes) return updateData.nodes;
     return [
-      { name: "Node 1", version: "4.0.0", status: "up-to-date" },
-      { name: "Node 2", version: "4.0.0", status: "up-to-date" },
-      { name: "Node 3", version: "3.9.5", status: "pending" },
-      { name: "Node 4", version: "4.0.0", status: "up-to-date" },
-      { name: "Node 5", version: "4.0.0", status: "up-to-date" },
+      { name: "MainHub-Primary", version: "8.0.0", status: "up-to-date" },
+      { name: "MainHub-Secondary", version: "8.0.0", status: "up-to-date" },
+      { name: "DeFi-Core-1", version: "8.0.0", status: "up-to-date" },
+      { name: "DeFi-Core-2", version: "8.0.0", status: "up-to-date" },
+      { name: "Bridge-Hub-1", version: "8.0.0", status: "up-to-date" },
+      { name: "Bridge-Hub-2", version: "8.0.0", status: "up-to-date" },
+      { name: "NFT-Market-1", version: "8.0.0", status: "up-to-date" },
+      { name: "Enterprise-1", version: "8.0.0", status: "up-to-date" },
+      { name: "GameFi-Hub-1", version: "8.0.0", status: "up-to-date" },
+      { name: "Validator-Pool-1", version: "8.0.0", status: "up-to-date" },
     ];
   }, [updateData]);
 

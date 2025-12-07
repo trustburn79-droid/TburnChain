@@ -147,32 +147,36 @@ export default function AdminBackup() {
   const backupStats = useMemo(() => {
     if (backupData?.stats) return backupData.stats;
     return {
-      lastBackup: "2024-12-03 00:00 UTC",
-      nextScheduled: "2024-12-04 00:00 UTC",
-      totalSize: "1.2 TB",
-      backupCount: 45,
+      lastBackup: "2024-12-07 00:00 UTC",
+      nextScheduled: "2024-12-08 00:00 UTC",
+      totalSize: "4.8 TB",
+      backupCount: 156,
       autoBackup: true,
-      retentionDays: 30,
+      retentionDays: 90,
     };
   }, [backupData]);
 
   const recentBackups = useMemo(() => {
     if (backupData?.backups) return backupData.backups;
     return [
-      { id: 1, name: t("adminBackup.fullBackupName"), type: "full", size: "245 GB", created: "2024-12-03 00:00", status: "completed", retention: "30 days" },
-      { id: 2, name: t("adminBackup.incrementalName"), type: "incremental", size: "12 GB", created: "2024-12-02 12:00", status: "completed", retention: "7 days" },
-      { id: 3, name: t("adminBackup.incrementalName"), type: "incremental", size: "8 GB", created: "2024-12-02 00:00", status: "completed", retention: "7 days" },
-      { id: 4, name: t("adminBackup.fullBackupName"), type: "full", size: "240 GB", created: "2024-12-01 00:00", status: "completed", retention: "30 days" },
-      { id: 5, name: t("adminBackup.incrementalName"), type: "incremental", size: "15 GB", created: "2024-11-30 12:00", status: "completed", retention: "7 days" },
+      { id: 1, name: "Pre-Launch Full Backup", type: "full", size: "485 GB", created: "2024-12-07 00:00", status: "completed", retention: "365 days" },
+      { id: 2, name: t("adminBackup.incrementalName"), type: "incremental", size: "28 GB", created: "2024-12-06 12:00", status: "completed", retention: "30 days" },
+      { id: 3, name: t("adminBackup.incrementalName"), type: "incremental", size: "24 GB", created: "2024-12-06 00:00", status: "completed", retention: "30 days" },
+      { id: 4, name: t("adminBackup.fullBackupName"), type: "full", size: "478 GB", created: "2024-12-05 00:00", status: "completed", retention: "90 days" },
+      { id: 5, name: t("adminBackup.incrementalName"), type: "incremental", size: "32 GB", created: "2024-12-04 12:00", status: "completed", retention: "30 days" },
+      { id: 6, name: "Bridge State Snapshot", type: "snapshot", size: "85 GB", created: "2024-12-04 00:00", status: "completed", retention: "90 days" },
+      { id: 7, name: "Validator Registry Backup", type: "incremental", size: "12 GB", created: "2024-12-03 12:00", status: "completed", retention: "30 days" },
     ];
   }, [backupData, t]);
 
   const backupJobs = useMemo(() => {
     if (backupData?.jobs) return backupData.jobs;
     return [
-      { name: t("adminBackup.dailyFullBackup"), schedule: t("adminBackup.dailyAt0000"), lastRun: t("adminBackup.success"), nextRun: "2024-12-04 00:00", enabled: true },
-      { name: t("adminBackup.hourlyIncremental"), schedule: t("adminBackup.every12Hours"), lastRun: t("adminBackup.success"), nextRun: "2024-12-03 12:00", enabled: true },
+      { name: t("adminBackup.dailyFullBackup"), schedule: t("adminBackup.dailyAt0000"), lastRun: t("adminBackup.success"), nextRun: "2024-12-08 00:00", enabled: true },
+      { name: t("adminBackup.hourlyIncremental"), schedule: t("adminBackup.every12Hours"), lastRun: t("adminBackup.success"), nextRun: "2024-12-07 12:00", enabled: true },
       { name: t("adminBackup.weeklyArchive"), schedule: t("adminBackup.sundayAt0200"), lastRun: t("adminBackup.success"), nextRun: "2024-12-08 02:00", enabled: true },
+      { name: "Bridge State Snapshot", schedule: "Every 6 hours", lastRun: t("adminBackup.success"), nextRun: "2024-12-07 06:00", enabled: true },
+      { name: "Validator Registry Sync", schedule: "Every 4 hours", lastRun: t("adminBackup.success"), nextRun: "2024-12-07 04:00", enabled: true },
     ];
   }, [backupData, t]);
 

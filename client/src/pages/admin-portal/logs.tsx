@@ -116,18 +116,21 @@ export default function AdminLogs() {
   const logs: LogEntry[] = useMemo(() => {
     if (logsData?.logs) return logsData.logs;
     return [
-      { id: "1", timestamp: new Date(Date.now() - 1000), level: "error", source: "Consensus", message: t("adminLogs.blockValidationFailed"), metadata: { blockNumber: 18750234 } },
-      { id: "2", timestamp: new Date(Date.now() - 2000), level: "warn", source: "Bridge", message: t("adminLogs.highLatencyDetected"), metadata: { latency: 285 } },
-      { id: "3", timestamp: new Date(Date.now() - 3000), level: "info", source: "AI", message: t("adminLogs.strategicDecisionMade"), metadata: { decision: "increase_committee" } },
-      { id: "4", timestamp: new Date(Date.now() - 4000), level: "info", source: "Network", message: t("adminLogs.newValidatorConnected"), metadata: { validator: "0x1234...5678" } },
-      { id: "5", timestamp: new Date(Date.now() - 5000), level: "debug", source: "Storage", message: t("adminLogs.blockStored"), metadata: { blockNumber: 18750233 } },
-      { id: "6", timestamp: new Date(Date.now() - 6000), level: "info", source: "Mempool", message: t("adminLogs.txPoolSize"), metadata: { size: 1234 } },
-      { id: "7", timestamp: new Date(Date.now() - 7000), level: "warn", source: "Security", message: t("adminLogs.suspiciousActivity"), metadata: { ip: "45.33.32.156" } },
-      { id: "8", timestamp: new Date(Date.now() - 8000), level: "error", source: "Database", message: t("adminLogs.connectionTimeout"), metadata: { retryCount: 3 } },
-      { id: "9", timestamp: new Date(Date.now() - 9000), level: "info", source: "Consensus", message: t("adminLogs.roundCompleted"), metadata: { round: 145872 } },
-      { id: "10", timestamp: new Date(Date.now() - 10000), level: "debug", source: "Network", message: t("adminLogs.peerDiscovery"), metadata: { peers: 45 } },
-      { id: "11", timestamp: new Date(Date.now() - 11000), level: "info", source: "Bridge", message: t("adminLogs.transactionRelayed"), metadata: { chain: "Ethereum" } },
-      { id: "12", timestamp: new Date(Date.now() - 12000), level: "warn", source: "AI", message: t("adminLogs.modelRetrainingRequired"), metadata: { accuracy: 94.5 } },
+      { id: "1", timestamp: new Date(Date.now() - 500), level: "info", source: "Consensus", message: "Block #18,750,523 finalized successfully", metadata: { blockNumber: 18750523, validators: 84, attestations: 82 } },
+      { id: "2", timestamp: new Date(Date.now() - 1200), level: "info", source: "Bridge", message: "Cross-chain transfer completed: ETH → TBURN", metadata: { amount: "125,000 TBURN", chain: "Ethereum", txHash: "0x8f2a...4e1b" } },
+      { id: "3", timestamp: new Date(Date.now() - 2500), level: "info", source: "AI", message: "Triple-Band AI consensus reached: Gas optimization applied", metadata: { gemini: "agree", claude: "agree", gpt4: "agree", decision: "reduce_gas_5%" } },
+      { id: "4", timestamp: new Date(Date.now() - 3800), level: "debug", source: "Network", message: "Peer discovery completed: 512 active nodes", metadata: { nodes: 512, latency: "42ms", uptime: "99.99%" } },
+      { id: "5", timestamp: new Date(Date.now() - 5100), level: "info", source: "Storage", message: "State snapshot saved: Shard MainHub", metadata: { shardId: "MainHub", size: "2.4GB", duration: "1.2s" } },
+      { id: "6", timestamp: new Date(Date.now() - 6400), level: "info", source: "Mempool", message: "Transaction pool optimized", metadata: { pending: 4523, processed: 125000, tps: 90.8 } },
+      { id: "7", timestamp: new Date(Date.now() - 7700), level: "info", source: "Security", message: "Rate limiter adjusted for peak traffic", metadata: { threshold: "100k TPS", current: "88.5k TPS" } },
+      { id: "8", timestamp: new Date(Date.now() - 9000), level: "debug", source: "Database", message: "Connection pool health check passed", metadata: { activeConnections: 245, maxConnections: 500, latency: "2ms" } },
+      { id: "9", timestamp: new Date(Date.now() - 10300), level: "info", source: "Consensus", message: "Validator committee rotation completed", metadata: { round: 18750522, newValidators: 3, removedValidators: 1 } },
+      { id: "10", timestamp: new Date(Date.now() - 11600), level: "info", source: "Bridge", message: "Multi-chain liquidity rebalanced", metadata: { totalTVL: "$764.2M", chains: 7 } },
+      { id: "11", timestamp: new Date(Date.now() - 12900), level: "debug", source: "AI", message: "Model performance metrics collected", metadata: { geminiLatency: "85ms", claudeLatency: "92ms", grokLatency: "78ms" } },
+      { id: "12", timestamp: new Date(Date.now() - 14200), level: "info", source: "Network", message: "Shard synchronization completed across all 8 shards", metadata: { shards: 8, syncTime: "245ms", blockHeight: 18750523 } },
+      { id: "13", timestamp: new Date(Date.now() - 15500), level: "info", source: "Consensus", message: "BFT consensus achieved in 1.0s block time", metadata: { blockTime: "1.0s", participation: "97.6%" } },
+      { id: "14", timestamp: new Date(Date.now() - 16800), level: "debug", source: "Storage", message: "Archive node sync: 99.98% complete", metadata: { blocksRemaining: 42, estimatedTime: "2m" } },
+      { id: "15", timestamp: new Date(Date.now() - 18100), level: "info", source: "Security", message: "TLS certificate renewed successfully", metadata: { expiresIn: "365 days", algorithm: "Ed25519" } },
     ];
   }, [logsData, t]);
 

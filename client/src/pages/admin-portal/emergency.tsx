@@ -190,6 +190,8 @@ export default function AdminEmergency() {
       { id: "pause_bridge", name: t("adminEmergency.pauseBridge"), description: t("adminEmergency.pauseBridgeDesc"), status: "ready" as const, severity: "high" as const },
       { id: "pause_consensus", name: t("adminEmergency.pauseConsensus"), description: t("adminEmergency.pauseConsensusDesc"), status: "ready" as const, severity: "critical" as const },
       { id: "disable_ai", name: t("adminEmergency.disableAI"), description: t("adminEmergency.disableAIDesc"), status: "ready" as const, severity: "medium" as const },
+      { id: "pause_staking", name: "Pause Staking", description: "Temporarily halt all staking operations", status: "ready" as const, severity: "high" as const },
+      { id: "pause_defi", name: "Pause DeFi Operations", description: "Halt DEX, lending, and yield farming", status: "ready" as const, severity: "high" as const },
       { id: "maintenance_mode", name: t("adminEmergency.maintenanceMode"), description: t("adminEmergency.maintenanceModeDesc"), status: "ready" as const, severity: "medium" as const },
     ];
   }, [emergencyData, t]);
@@ -197,19 +199,23 @@ export default function AdminEmergency() {
   const recentActions = useMemo(() => {
     if (emergencyData?.recentActions) return emergencyData.recentActions;
     return [
-      { id: 1, action: t("adminEmergency.bridgePause"), by: "Admin", reason: t("adminEmergency.securityInvestigation"), timestamp: "2024-12-01 14:30", duration: "2h 15m", status: "resolved" as const },
-      { id: 2, action: t("adminEmergency.aiDisable"), by: "System", reason: t("adminEmergency.highErrorRate"), timestamp: "2024-11-28 09:00", duration: "45m", status: "resolved" as const },
-      { id: 3, action: t("adminEmergency.maintenanceActivated"), by: "Admin", reason: t("adminEmergency.plannedUpgrade"), timestamp: "2024-11-25 22:00", duration: "4h", status: "resolved" as const },
+      { id: 1, action: "Bridge Rate Limit Triggered", by: "System", reason: "Unusual volume spike detected", timestamp: "2024-12-06 18:45", duration: "15m", status: "resolved" as const },
+      { id: 2, action: t("adminEmergency.bridgePause"), by: "Admin", reason: "Cross-chain sync verification", timestamp: "2024-12-05 14:30", duration: "25m", status: "resolved" as const },
+      { id: 3, action: "AI Model Fallback Activated", by: "System", reason: "Primary model latency exceeded threshold", timestamp: "2024-12-04 09:15", duration: "8m", status: "resolved" as const },
+      { id: 4, action: "Validator Set Rotation", by: "Consensus", reason: "Scheduled committee rotation", timestamp: "2024-12-03 00:00", duration: "2m", status: "resolved" as const },
+      { id: 5, action: t("adminEmergency.maintenanceActivated"), by: "Admin", reason: "v8.0 Mainnet final preparation", timestamp: "2024-12-01 22:00", duration: "4h", status: "resolved" as const },
     ];
   }, [emergencyData, t]);
 
   const circuitBreakers = useMemo(() => {
     if (emergencyData?.circuitBreakers) return emergencyData.circuitBreakers;
     return [
-      { name: t("adminEmergency.transactionRate"), threshold: "100k TPS", current: "52k TPS", status: "normal" as const, enabled: true },
-      { name: t("adminEmergency.gasPrice"), threshold: "500 Ember", current: "125 Ember", status: "normal" as const, enabled: true },
-      { name: t("adminEmergency.bridgeVolume"), threshold: "$50M/day", current: "$12.5M", status: "normal" as const, enabled: true },
-      { name: t("adminEmergency.errorRate"), threshold: "1%", current: "0.13%", status: "normal" as const, enabled: true },
+      { name: t("adminEmergency.transactionRate"), threshold: "100k TPS", current: "88.5k TPS", status: "normal" as const, enabled: true },
+      { name: t("adminEmergency.gasPrice"), threshold: "100 Ember", current: "42 Ember", status: "normal" as const, enabled: true },
+      { name: t("adminEmergency.bridgeVolume"), threshold: "$100M/day", current: "$87.5M", status: "normal" as const, enabled: true },
+      { name: t("adminEmergency.errorRate"), threshold: "0.5%", current: "0.03%", status: "normal" as const, enabled: true },
+      { name: "Validator Latency", threshold: "100ms", current: "42ms", status: "normal" as const, enabled: true },
+      { name: "Memory Usage", threshold: "85%", current: "62%", status: "normal" as const, enabled: true },
     ];
   }, [emergencyData, t]);
 
