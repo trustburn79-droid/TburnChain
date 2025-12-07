@@ -249,14 +249,14 @@ export default function AdminNodes() {
   });
 
   const nodes: Node[] = useMemo(() => nodesData?.nodes || [
-    { id: "node-01", name: "TBURN Genesis Node", type: "validator", status: "online", ip: "10.0.1.1", region: "US-East", version: "v2.1.0", blockHeight: 12847562, peers: 156, uptime: 99.99, cpu: 45, memory: 62, disk: 48, latency: 12, lastSeen: new Date() },
-    { id: "node-02", name: "EU Primary", type: "validator", status: "online", ip: "10.0.2.1", region: "EU-West", version: "v2.1.0", blockHeight: 12847562, peers: 142, uptime: 99.95, cpu: 52, memory: 58, disk: 52, latency: 18, lastSeen: new Date() },
-    { id: "node-03", name: "APAC Primary", type: "validator", status: "online", ip: "10.0.3.1", region: "AP-East", version: "v2.1.0", blockHeight: 12847560, peers: 128, uptime: 99.92, cpu: 48, memory: 65, disk: 55, latency: 45, lastSeen: new Date() },
-    { id: "node-04", name: "Archive Node 1", type: "archive", status: "syncing", ip: "10.0.4.1", region: "US-West", version: "v2.1.0", blockHeight: 12847550, peers: 85, uptime: 98.5, cpu: 78, memory: 82, disk: 85, latency: 25, lastSeen: new Date() },
-    { id: "node-05", name: "Full Node EU", type: "full", status: "online", ip: "10.0.5.1", region: "EU-Central", version: "v2.1.0", blockHeight: 12847562, peers: 95, uptime: 99.88, cpu: 35, memory: 48, disk: 42, latency: 22, lastSeen: new Date() },
-    { id: "node-06", name: "Light Node 1", type: "light", status: "online", ip: "10.0.6.1", region: "US-Central", version: "v2.1.0", blockHeight: 12847562, peers: 32, uptime: 99.75, cpu: 15, memory: 25, disk: 12, latency: 8, lastSeen: new Date() },
-    { id: "node-07", name: "Backup Validator", type: "validator", status: "offline", ip: "10.0.7.1", region: "EU-North", version: "v2.0.9", blockHeight: 12847100, peers: 0, uptime: 95.2, cpu: 0, memory: 0, disk: 65, latency: 0, lastSeen: new Date(Date.now() - 3600000) },
-    { id: "node-08", name: "Full Node APAC", type: "full", status: "online", ip: "10.0.8.1", region: "AP-South", version: "v2.1.0", blockHeight: 12847561, peers: 78, uptime: 99.82, cpu: 42, memory: 55, disk: 48, latency: 55, lastSeen: new Date() },
+    { id: "node-01", name: "TBURN Genesis Node", type: "validator", status: "online", ip: "10.0.1.1", region: "US-East", version: "v3.0.0", blockHeight: 22156842, peers: 145, uptime: 99.99, cpu: 42, memory: 58, disk: 52, latency: 12, lastSeen: new Date() },
+    { id: "node-02", name: "BlockForge Validator", type: "validator", status: "online", ip: "10.0.2.1", region: "EU-West", version: "v3.0.0", blockHeight: 22156842, peers: 138, uptime: 99.97, cpu: 48, memory: 55, disk: 45, latency: 18, lastSeen: new Date() },
+    { id: "node-03", name: "CryptoStake Pro", type: "validator", status: "online", ip: "10.0.3.1", region: "AP-East", version: "v3.0.0", blockHeight: 22156841, peers: 132, uptime: 99.95, cpu: 45, memory: 52, disk: 48, latency: 45, lastSeen: new Date() },
+    { id: "node-04", name: "NodeMaster Elite", type: "validator", status: "online", ip: "10.0.4.1", region: "US-West", version: "v3.0.0", blockHeight: 22156842, peers: 128, uptime: 99.92, cpu: 52, memory: 58, disk: 55, latency: 15, lastSeen: new Date() },
+    { id: "node-05", name: "Archive Node EU", type: "archive", status: "syncing", ip: "10.0.5.1", region: "EU-Central", version: "v3.0.0", blockHeight: 22156830, peers: 85, uptime: 98.5, cpu: 78, memory: 82, disk: 88, latency: 25, lastSeen: new Date() },
+    { id: "node-06", name: "Full Node Alpha", type: "full", status: "online", ip: "10.0.6.1", region: "US-Central", version: "v3.0.0", blockHeight: 22156842, peers: 95, uptime: 99.88, cpu: 35, memory: 48, disk: 42, latency: 8, lastSeen: new Date() },
+    { id: "node-07", name: "Light Node APAC", type: "light", status: "online", ip: "10.0.7.1", region: "AP-South", version: "v3.0.0", blockHeight: 22156842, peers: 42, uptime: 99.75, cpu: 18, memory: 28, disk: 15, latency: 55, lastSeen: new Date() },
+    { id: "node-08", name: "Standby Validator", type: "validator", status: "offline", ip: "10.0.8.1", region: "EU-North", version: "v2.9.5", blockHeight: 22156500, peers: 0, uptime: 95.2, cpu: 0, memory: 0, disk: 65, latency: 0, lastSeen: new Date(Date.now() - 3600000) },
   ], [nodesData]);
 
   useEffect(() => {

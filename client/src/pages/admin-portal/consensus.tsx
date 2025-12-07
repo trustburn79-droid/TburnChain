@@ -110,33 +110,33 @@ export default function AdminConsensus() {
   });
 
   const currentRound = useMemo(() => consensusData?.currentRound || {
-    roundNumber: 12847562,
+    roundNumber: 22156842,
     phase: "commit" as const,
     proposer: "0x1234...5678",
-    votesReceived: 142,
-    votesRequired: 104,
-    startTime: new Date(Date.now() - 2500),
-    committee: Array.from({ length: 156 }, (_, i) => ({
+    votesReceived: 98,
+    votesRequired: 74,
+    startTime: new Date(Date.now() - 189),
+    committee: Array.from({ length: 110 }, (_, i) => ({
       address: `0x${i.toString(16).padStart(4, '0')}...${(i + 1).toString(16).padStart(4, '0')}`,
-      votingPower: Math.floor(Math.random() * 1000000) + 500000,
-      voted: Math.random() > 0.1,
-      vote: (Math.random() > 0.05 ? "approve" : "reject") as "approve" | "reject",
+      votingPower: Math.floor(Math.random() * 2000000) + 20000000,
+      voted: Math.random() > 0.08,
+      vote: (Math.random() > 0.02 ? "approve" : "reject") as "approve" | "reject",
     })),
   }, [consensusData]);
 
   const consensusHistory = useMemo(() => consensusData?.history || Array.from({ length: 30 }, (_, i) => ({
-    round: 12847532 + i,
-    blockTime: Math.floor(Math.random() * 200) + 1800,
-    votes: Math.floor(Math.random() * 20) + 136,
-    finality: Math.floor(Math.random() * 100) + 1900,
+    round: 22156812 + i,
+    blockTime: Math.floor(Math.random() * 50) + 475,
+    votes: Math.floor(Math.random() * 15) + 95,
+    finality: Math.floor(Math.random() * 200) + 1800,
   })), [consensusData]);
 
   const stats = useMemo(() => consensusData?.stats || {
-    avgBlockTime: 1.95,
-    avgFinality: 2.1,
-    consensusRate: 99.8,
-    participationRate: 91.2,
-    committeeSize: 156,
+    avgBlockTime: 0.5,
+    avgFinality: 1.8,
+    consensusRate: 99.95,
+    participationRate: 94.2,
+    committeeSize: 110,
     aiOptimization: "active",
   }, [consensusData]);
 
