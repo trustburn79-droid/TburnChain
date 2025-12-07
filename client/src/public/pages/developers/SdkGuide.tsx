@@ -95,10 +95,10 @@ export default function SdkGuide() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const languages = [
-    { name: "JavaScript", icon: SiJavascript, color: "#ffd700", version: "v4.2.1", active: true },
-    { name: "Python", icon: SiPython, color: "#3b82f6", version: "v4.1.0", active: false },
-    { name: "Rust", icon: SiRust, color: "#f97316", version: "v4.0.3", active: false },
-    { name: "Go", icon: SiGo, color: "#00f0ff", version: "v4.0.2", active: false },
+    { name: "TypeScript", icon: SiJavascript, color: "#ffd700", version: "v2.1.0", active: true },
+    { name: "Python", icon: SiPython, color: "#3b82f6", version: "v2.1.0", active: true },
+    { name: "Go", icon: SiGo, color: "#00f0ff", version: "v2.1.0", active: true },
+    { name: "Rust", icon: SiRust, color: "#f97316", version: "v2.1.0", active: true },
   ];
 
   const features = [

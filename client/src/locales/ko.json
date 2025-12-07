@@ -9550,9 +9550,9 @@
         }
       },
       "sdk": {
-        "tag": "SDK 가이드",
-        "title": "SDK 가이드",
-        "subtitle": "다국어 SDK 통합 가이드 및 모범 사례.",
+        "tag": "엔터프라이즈 SDK v2.1.0",
+        "title": "엔터프라이즈 SDK",
+        "subtitle": "5개 언어에서 Fluent API, 자동 재시도, 타입 안전성, 이벤트 기반 아키텍처를 제공하는 프로덕션 준비 SDK.",
         "hero": {
           "tag": "SDK 가이드",
           "title": "SDK",
@@ -12900,51 +12900,58 @@
     },
     "network": {
       "validators": {
-        "tag": "네트워크 검증자",
+        "tag": "AI 강화 위원회 BFT",
         "title": "검증자",
-        "subtitle": "TBurn 검증자 네트워크에 참여하고 블록체인을 보호하면서 보상을 획득하세요.",
+        "subtitle": "189ms 합의와 99.95% 가동률로 TBURN 체인을 보호하는 110/125 활성 검증자.",
         "becomeValidator": "검증자 되기",
         "validatorDocs": "검증자 문서 보기",
         "stats": {
           "activeValidators": "활성 검증자",
           "totalStaked": "총 스테이킹",
           "averageUptime": "평균 가동 시간",
-          "operatingCountries": "운영 국가"
+          "operatingCountries": "운영 국가",
+          "consensusTime": "합의 시간",
+          "txSuccessRate": "TX 성공률"
         },
         "applyNow": "지금 지원하기",
         "consensus": {
-          "title": "합의 메커니즘",
-          "subtitle": "AI 기반 검증을 통한 신뢰 증명"
+          "title": "AI 강화 위원회 BFT",
+          "subtitle": "33% BFT 허용 오차와 AI 최적화 평판 점수를 통한 동적 검증자 선택"
         },
         "consensusSpecs": {
           "title": "합의 사양",
           "blockTime": {
-            "label": "블록 시간",
-            "value": "1초",
-            "description": "새 블록 생성 평균 시간"
+            "label": "합의 시간",
+            "value": "189ms",
+            "description": "AI 최적화 합의 지연 시간"
           },
           "finality": {
             "label": "완결성",
-            "value": "6초",
+            "value": "<2초",
             "description": "트랜잭션이 되돌릴 수 없게 되는 시간"
           },
           "validatorSet": {
             "label": "검증자 세트",
-            "value": "100 활성"
+            "value": "110/125 활성"
           },
           "epochLength": {
-            "label": "에포크 길이",
-            "value": "6시간"
+            "label": "위원회 규모",
+            "value": "51-201"
           },
           "tps": {
-            "label": "TPS",
-            "value": "50,000+",
-            "description": "초당 최대 트랜잭션 처리량"
+            "label": "피크 TPS",
+            "value": "520,000",
+            "description": "AI 최적화 처리량"
           },
           "uptime": {
             "label": "가동 시간",
-            "value": "99.99%",
-            "description": "네트워크 가용성 보장"
+            "value": "99.95%",
+            "description": "자가 치유 기능을 갖춘 네트워크 가용성"
+          },
+          "txLatency": {
+            "label": "TX 지연 시간",
+            "value": "2.86ms",
+            "description": "평균 트랜잭션 처리 시간"
           }
         },
         "cta": {

@@ -9550,9 +9550,9 @@
         }
       },
       "sdk": {
-        "tag": "SDK GUIDE",
-        "title": "SDK Guide",
-        "subtitle": "Multi-language SDK integration guides and best practices.",
+        "tag": "ENTERPRISE SDK v2.1.0",
+        "title": "Enterprise SDK",
+        "subtitle": "Production-ready SDK with Fluent API, Auto-retry, Type Safety, and Event-driven architecture across 5 languages.",
         "installation": "Installation",
         "configuration": "Configuration",
         "quickExamples": "Quick Examples",
@@ -12900,51 +12900,58 @@
     },
     "network": {
       "validators": {
-        "tag": "NETWORK VALIDATORS",
+        "tag": "AI-ENHANCED COMMITTEE BFT",
         "title": "Validators",
-        "subtitle": "Join the TBurn validator network and earn rewards while securing the blockchain.",
+        "subtitle": "110/125 active validators securing TBURN Chain with 189ms consensus and 99.95% uptime.",
         "becomeValidator": "Become Validator",
         "validatorDocs": "View Validator Documentation",
         "stats": {
           "activeValidators": "Active Validators",
           "totalStaked": "Total Staked",
           "averageUptime": "Average Uptime",
-          "operatingCountries": "Operating Countries"
+          "operatingCountries": "Operating Countries",
+          "consensusTime": "Consensus Time",
+          "txSuccessRate": "TX Success Rate"
         },
         "applyNow": "Apply Now",
         "consensus": {
-          "title": "Consensus Mechanism",
-          "subtitle": "Proof of Trust with AI-powered validation"
+          "title": "AI-Enhanced Committee BFT",
+          "subtitle": "Dynamic validator selection with 33% BFT tolerance and AI-optimized reputation scoring"
         },
         "consensusSpecs": {
           "title": "Consensus Specifications",
           "blockTime": {
-            "label": "Block Time",
-            "value": "1 second",
-            "description": "Average time to produce a new block"
+            "label": "Consensus Time",
+            "value": "189ms",
+            "description": "AI-optimized consensus latency"
           },
           "finality": {
             "label": "Finality",
-            "value": "6 seconds",
+            "value": "<2 seconds",
             "description": "Time until transactions are irreversible"
           },
           "validatorSet": {
             "label": "Validator Set",
-            "value": "100 active"
+            "value": "110/125 active"
           },
           "epochLength": {
-            "label": "Epoch Length",
-            "value": "6 hours"
+            "label": "Committee Size",
+            "value": "51-201"
           },
           "tps": {
-            "label": "TPS",
-            "value": "50,000+",
-            "description": "Maximum transactions per second"
+            "label": "Peak TPS",
+            "value": "520,000",
+            "description": "AI-optimized throughput"
           },
           "uptime": {
             "label": "Uptime",
-            "value": "99.99%",
-            "description": "Network availability guarantee"
+            "value": "99.95%",
+            "description": "Network availability with self-healing"
+          },
+          "txLatency": {
+            "label": "TX Latency",
+            "value": "2.86ms",
+            "description": "Average transaction processing time"
           }
         },
         "cta": {
@@ -12954,44 +12961,50 @@
           "readDocs": "Read Documentation"
         },
         "tierSystem": {
-          "title": "Validator Tier System",
+          "title": "3-Tier Validator System",
           "stake": "Minimum Stake",
-          "apy": "APY",
-          "slots": "Available Slots",
-          "elite": {
-            "name": "Elite Validator",
-            "badge": "Elite",
-            "stakeAmount": "1,000,000 TBURN",
-            "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
+          "apy": "Target APY",
+          "slots": "Max Participants",
+          "tier1": {
+            "name": "Tier 1: Active Committee",
+            "badge": "Committee",
+            "stakeAmount": "20,000,000 TBURN",
+            "apyAmount": "6-10%",
+            "slotsAmount": "512 slots",
+            "rewardShare": "50% daily emission (250K TBURN/day)",
             "benefits": {
-              "blockPriority": "Block production priority",
-              "revenueShare": "Additional revenue share",
-              "aiDecision": "AI decision participation"
+              "blockProduction": "Block production rights",
+              "consensus": "Consensus participation",
+              "governance": "Governance voting power",
+              "highest": "Highest reward tier"
             }
           },
-          "standard": {
-            "name": "Standard Validator",
-            "badge": "Standard",
-            "stakeAmount": "500,000 TBURN",
-            "apyAmount": "12-18%",
-            "slotsAmount": "50 slots",
+          "tier2": {
+            "name": "Tier 2: Standby Validator",
+            "badge": "Standby",
+            "stakeAmount": "5,000,000 TBURN",
+            "apyAmount": "3-5%",
+            "slotsAmount": "4,488 slots",
+            "rewardShare": "30% daily emission (150K TBURN/day)",
             "benefits": {
-              "blockValidation": "Block validation rights",
-              "feeDistribution": "Transaction fee distribution",
-              "votingRights": "Governance voting rights"
+              "rotation": "Committee rotation eligibility",
+              "partial": "Partial consensus participation",
+              "governance": "Governance voting power",
+              "stable": "Stable reward stream"
             }
           },
-          "starter": {
-            "name": "Starter Validator",
-            "badge": "Starter",
-            "stakeAmount": "100,000 TBURN",
-            "apyAmount": "8-12%",
+          "tier3": {
+            "name": "Tier 3: Delegator",
+            "badge": "Delegator",
+            "stakeAmount": "10,000 TBURN",
+            "apyAmount": "4-6%",
             "slotsAmount": "Unlimited",
+            "rewardShare": "20% daily emission (100K TBURN/day)",
             "benefits": {
-              "delegate": "Delegate to larger validators",
-              "autoRewards": "Automatic reward distribution",
-              "unstakePeriod": "21-day unstaking period"
+              "lowEntry": "Low entry barrier",
+              "passive": "Passive income",
+              "governance": "Governance participation",
+              "flexible": "Flexible staking"
             }
           }
         },
