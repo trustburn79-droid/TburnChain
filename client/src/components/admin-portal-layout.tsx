@@ -30,6 +30,7 @@ import AdminBurnControl from "@/pages/admin-portal/burn-control";
 import AdminTreasury from "@/pages/admin-portal/treasury";
 import AdminEconomics from "@/pages/admin-portal/economics";
 import AdminCommunity from "@/pages/admin-portal/community";
+import AdminCommunityContent from "@/pages/admin/community-content";
 import TokenomicsSimulation from "@/pages/tokenomics-simulation";
 
 // Group 4: AI Systems (4 pages)
@@ -199,6 +200,7 @@ function AdminRouter() {
       <Route path="/admin/gov-params" component={AdminGovParams} />
       <Route path="/admin/community-feedback" component={AdminFeedback} />
       <Route path="/admin/community" component={AdminCommunity} />
+      <Route path="/admin/community-content" component={AdminCommunityContent} />
 
       {/* Group 12: Developer Tools */}
       <Route path="/admin/api-docs" component={AdminAPIDocs} />

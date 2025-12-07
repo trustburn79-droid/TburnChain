@@ -147,6 +147,7 @@ const adminMenuItems = [
   { titleKey: "adminNav.executionMonitor", url: "/admin/execution", icon: Play, groupKey: "adminNav.governance", badge: null },
   { titleKey: "adminNav.govParams", url: "/admin/gov-params", icon: Settings, groupKey: "adminNav.governance", badge: null },
   { titleKey: "adminNav.communityFeedback", url: "/admin/community-feedback", icon: MessageSquare, groupKey: "adminNav.governance", badge: null },
+  { titleKey: "adminNav.communityContent", url: "/admin/community-content", icon: FileText, groupKey: "adminNav.governance", badge: null },
   
   // Group 12: Developer Tools
   { titleKey: "adminNav.apiDocs", url: "/admin/api-docs", icon: FileCode, groupKey: "adminNav.developerTools", badge: null },

@@ -7770,6 +7770,183 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Community Content Management - Enterprise-grade CRUD
+  app.get("/api/admin/community/content", async (_req, res) => {
+    try {
+      const posts = await storage.getAllCommunityPosts();
+      const events = await storage.getAllCommunityEvents();
+      const announcements = await storage.getAllCommunityAnnouncements();
+      
+      const stats = {
+        totalNews: announcements.length,
+        activeNews: announcements.filter((a: any) => a.status !== 'archived').length,
+        totalEvents: events.length,
+        upcomingEvents: events.filter((e: any) => e.status === 'upcoming').length,
+        totalPosts: posts.length,
+        activePosts: posts.filter((p: any) => p.status === 'active').length,
+        pinnedItems: [...announcements.filter((a: any) => a.isPinned), ...posts.filter((p: any) => p.isPinned)].length,
+        flaggedItems: posts.filter((p: any) => p.status === 'flagged').length,
+      };
+      
+      res.json({
+        news: announcements,
+        events: events,
+        hubPosts: posts,
+        stats,
+      });
+    } catch (error) {
+      console.error("[Admin Community] Error fetching content:", error);
+      res.status(500).json({ error: "Failed to fetch community content" });
+    }
+  });
+
+  // News/Announcements CRUD
+  app.post("/api/admin/community/news", async (req, res) => {
+    try {
+      const data = req.body;
+      const announcement = await storage.createCommunityAnnouncement({
+        title: data.title,
+        content: data.content,
+        announcementType: data.announcementType || 'news',
+        isImportant: data.isImportant || false,
+        isPinned: data.isPinned || false,
+        authorId: null,
+      });
+      res.json(announcement);
+    } catch (error) {
+      console.error("[Admin Community] Error creating news:", error);
+      res.status(500).json({ error: "Failed to create news" });
+    }
+  });
+
+  app.patch("/api/admin/community/news/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+      await storage.updateCommunityAnnouncement(id, {
+        ...data,
+        updatedAt: new Date(),
+      });
+      res.json({ success: true, id });
+    } catch (error) {
+      console.error("[Admin Community] Error updating news:", error);
+      res.status(500).json({ error: "Failed to update news" });
+    }
+  });
+
+  app.delete("/api/admin/community/news/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteCommunityAnnouncement(id);
+      res.json({ success: true, id });
+    } catch (error) {
+      console.error("[Admin Community] Error deleting news:", error);
+      res.status(500).json({ error: "Failed to delete news" });
+    }
+  });
+
+  // Events CRUD
+  app.post("/api/admin/community/events", async (req, res) => {
+    try {
+      const data = req.body;
+      const event = await storage.createCommunityEvent({
+        title: data.title,
+        description: data.description,
+        eventType: data.eventType || 'meetup',
+        startDate: new Date(data.startDate),
+        endDate: new Date(data.endDate),
+        location: data.location || null,
+        isOnline: data.isOnline ?? true,
+        meetingUrl: data.meetingUrl || null,
+        maxParticipants: data.maxParticipants || null,
+        rewards: data.rewards || null,
+        status: data.status || 'upcoming',
+        organizerId: null,
+        coverImage: data.coverImage || null,
+      });
+      res.json(event);
+    } catch (error) {
+      console.error("[Admin Community] Error creating event:", error);
+      res.status(500).json({ error: "Failed to create event" });
+    }
+  });
+
+  app.patch("/api/admin/community/events/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+      const updateData: any = { ...data, updatedAt: new Date() };
+      if (data.startDate) updateData.startDate = new Date(data.startDate);
+      if (data.endDate) updateData.endDate = new Date(data.endDate);
+      await storage.updateCommunityEvent(id, updateData);
+      res.json({ success: true, id });
+    } catch (error) {
+      console.error("[Admin Community] Error updating event:", error);
+      res.status(500).json({ error: "Failed to update event" });
+    }
+  });
+
+  app.delete("/api/admin/community/events/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteCommunityEvent(id);
+      res.json({ success: true, id });
+    } catch (error) {
+      console.error("[Admin Community] Error deleting event:", error);
+      res.status(500).json({ error: "Failed to delete event" });
+    }
+  });
+
+  // Hub Posts CRUD
+  app.post("/api/admin/community/hub", async (req, res) => {
+    try {
+      const data = req.body;
+      const post = await storage.createCommunityPost({
+        authorId: 0,
+        authorAddress: '0x0000000000000000000000000000000000000000',
+        authorUsername: 'Admin',
+        title: data.title,
+        content: data.content,
+        category: data.category || 'general',
+        tags: data.tags || [],
+        status: data.status || 'active',
+        isPinned: data.isPinned || false,
+        isHot: data.isHot || false,
+        isLocked: data.isLocked || false,
+      });
+      res.json(post);
+    } catch (error) {
+      console.error("[Admin Community] Error creating hub post:", error);
+      res.status(500).json({ error: "Failed to create hub post" });
+    }
+  });
+
+  app.patch("/api/admin/community/hub/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+      await storage.updateCommunityPost(id, {
+        ...data,
+        updatedAt: new Date(),
+      });
+      res.json({ success: true, id });
+    } catch (error) {
+      console.error("[Admin Community] Error updating hub post:", error);
+      res.status(500).json({ error: "Failed to update hub post" });
+    }
+  });
+
+  app.delete("/api/admin/community/hub/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteCommunityPost(id);
+      res.json({ success: true, id });
+    } catch (error) {
+      console.error("[Admin Community] Error deleting hub post:", error);
+      res.status(500).json({ error: "Failed to delete hub post" });
+    }
+  });
+
   // User Management
   app.get("/api/admin/accounts", async (_req, res) => {
     const roles = ['Super Admin', 'Admin', 'Operator', 'Security', 'Developer', 'Viewer'];
