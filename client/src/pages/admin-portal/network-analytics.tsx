@@ -157,55 +157,58 @@ export default function AdminNetworkAnalytics() {
   const networkStats = useMemo(() => {
     if (networkData?.stats) return networkData.stats;
     return {
-      tps: "52,478",
-      blockTime: "498ms",
-      nodeCount: 892,
-      avgLatency: "124ms",
+      tps: "100,000+",
+      blockTime: "1.0s",
+      nodeCount: 512,
+      avgLatency: "42ms",
     };
   }, [networkData]);
 
   const tpsHistory = useMemo(() => {
     if (networkData?.tpsHistory) return networkData.tpsHistory;
     return [
-      { time: "00:00", tps: 45000 },
-      { time: "04:00", tps: 38000 },
-      { time: "08:00", tps: 52000 },
-      { time: "12:00", tps: 58000 },
-      { time: "16:00", tps: 55000 },
-      { time: "20:00", tps: 48000 },
+      { time: "00:00", tps: 85000 },
+      { time: "04:00", tps: 72000 },
+      { time: "08:00", tps: 95000 },
+      { time: "12:00", tps: 105000 },
+      { time: "16:00", tps: 98000 },
+      { time: "20:00", tps: 88000 },
     ];
   }, [networkData]);
 
   const latencyHistory = useMemo(() => {
     if (networkData?.latencyHistory) return networkData.latencyHistory;
     return [
-      { time: "00:00", p50: 110, p95: 145, p99: 180 },
-      { time: "04:00", p50: 105, p95: 140, p99: 175 },
-      { time: "08:00", p50: 120, p95: 155, p99: 195 },
-      { time: "12:00", p50: 130, p95: 165, p99: 210 },
-      { time: "16:00", p50: 125, p95: 160, p99: 200 },
-      { time: "20:00", p50: 115, p95: 150, p99: 185 },
+      { time: "00:00", p50: 38, p95: 52, p99: 68 },
+      { time: "04:00", p50: 35, p95: 48, p99: 62 },
+      { time: "08:00", p50: 42, p95: 58, p99: 75 },
+      { time: "12:00", p50: 48, p95: 65, p99: 85 },
+      { time: "16:00", p50: 45, p95: 62, p99: 78 },
+      { time: "20:00", p50: 40, p95: 55, p99: 70 },
     ];
   }, [networkData]);
 
   const shardPerformance = useMemo(() => {
     if (networkData?.shardPerformance) return networkData.shardPerformance;
     return [
-      { shard: "MainHub", tps: 8500, load: 72, nodes: 156 },
-      { shard: "DeFi-1", tps: 6200, load: 65, nodes: 45 },
-      { shard: "DeFi-2", tps: 5800, load: 58, nodes: 42 },
-      { shard: "NFT-1", tps: 4500, load: 48, nodes: 35 },
-      { shard: "Enterprise-1", tps: 7200, load: 68, nodes: 52 },
+      { shard: "MainHub", tps: 12500, load: 68, nodes: 64 },
+      { shard: "DeFi-Core", tps: 18500, load: 72, nodes: 64 },
+      { shard: "DeFi-Swap", tps: 15800, load: 65, nodes: 64 },
+      { shard: "Bridge-Hub", tps: 8500, load: 58, nodes: 48 },
+      { shard: "NFT-Market", tps: 6200, load: 52, nodes: 48 },
+      { shard: "Enterprise-1", tps: 14500, load: 62, nodes: 64 },
+      { shard: "Enterprise-2", tps: 12800, load: 58, nodes: 64 },
+      { shard: "GameFi-Hub", tps: 11200, load: 55, nodes: 48 },
     ];
   }, [networkData]);
 
   const resourceUsage = useMemo(() => {
     if (networkData?.resourceUsage) return networkData.resourceUsage;
     return [
-      { resource: t("adminNetworkAnalytics.cpu"), usage: 68, trend: "stable" as const },
-      { resource: t("adminNetworkAnalytics.memory"), usage: 72, trend: "up" as const },
-      { resource: t("adminNetworkAnalytics.diskIO"), usage: 45, trend: "stable" as const },
-      { resource: t("adminNetworkAnalytics.network"), usage: 58, trend: "down" as const },
+      { resource: t("adminNetworkAnalytics.cpu"), usage: 58, trend: "stable" as const },
+      { resource: t("adminNetworkAnalytics.memory"), usage: 62, trend: "stable" as const },
+      { resource: t("adminNetworkAnalytics.diskIO"), usage: 35, trend: "stable" as const },
+      { resource: t("adminNetworkAnalytics.network"), usage: 48, trend: "stable" as const },
     ];
   }, [networkData, t]);
 

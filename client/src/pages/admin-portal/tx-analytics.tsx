@@ -149,45 +149,46 @@ export default function AdminTxAnalytics() {
   const txStats = useMemo(() => {
     if (txData?.stats) return txData.stats;
     return {
-      total24h: "2,847,234",
-      avgPerSecond: "32.9",
-      successRate: "99.87%",
-      avgGas: "125 Ember",
+      total24h: "7,847,523",
+      avgPerSecond: "90.8",
+      successRate: "99.97%",
+      avgGas: "42 Ember",
     };
   }, [txData]);
 
   const txVolume = useMemo(() => {
     if (txData?.volume) return txData.volume;
     return [
-      { hour: "00:00", count: 95000 },
-      { hour: "04:00", count: 72000 },
-      { hour: "08:00", count: 125000 },
-      { hour: "12:00", count: 185000 },
-      { hour: "16:00", count: 165000 },
-      { hour: "20:00", count: 142000 },
+      { hour: "00:00", count: 285000 },
+      { hour: "04:00", count: 218000 },
+      { hour: "08:00", count: 365000 },
+      { hour: "12:00", count: 485000 },
+      { hour: "16:00", count: 425000 },
+      { hour: "20:00", count: 348000 },
     ];
   }, [txData]);
 
   const txTypes = useMemo(() => {
     if (txData?.types) return txData.types;
     return [
-      { type: t("adminTxAnalytics.transfer"), count: "1,245,678", percentage: 43.8, avgGas: "85 Ember" },
-      { type: t("adminTxAnalytics.swap"), count: "856,234", percentage: 30.1, avgGas: "150 Ember" },
-      { type: t("adminTxAnalytics.stake"), count: "342,123", percentage: 12.0, avgGas: "120 Ember" },
-      { type: t("adminTxAnalytics.bridge"), count: "234,567", percentage: 8.2, avgGas: "200 Ember" },
-      { type: t("adminTxAnalytics.contractCall"), count: "168,632", percentage: 5.9, avgGas: "180 Ember" },
+      { type: t("adminTxAnalytics.transfer"), count: "2,847,523", percentage: 36.3, avgGas: "28 Ember" },
+      { type: t("adminTxAnalytics.swap"), count: "2,156,234", percentage: 27.5, avgGas: "52 Ember" },
+      { type: t("adminTxAnalytics.stake"), count: "1,245,678", percentage: 15.9, avgGas: "45 Ember" },
+      { type: t("adminTxAnalytics.bridge"), count: "856,234", percentage: 10.9, avgGas: "68 Ember" },
+      { type: t("adminTxAnalytics.contractCall"), count: "542,123", percentage: 6.9, avgGas: "85 Ember" },
+      { type: t("adminTxAnalytics.governance"), count: "199,731", percentage: 2.5, avgGas: "55 Ember" },
     ];
   }, [txData, t]);
 
   const gasHistory = useMemo(() => {
     if (txData?.gasHistory) return txData.gasHistory;
     return [
-      { hour: "00:00", avg: 100, min: 50, max: 180 },
-      { hour: "04:00", avg: 85, min: 45, max: 150 },
-      { hour: "08:00", avg: 120, min: 60, max: 220 },
-      { hour: "12:00", avg: 145, min: 75, max: 280 },
-      { hour: "16:00", avg: 135, min: 70, max: 250 },
-      { hour: "20:00", avg: 115, min: 55, max: 200 },
+      { hour: "00:00", avg: 38, min: 18, max: 65 },
+      { hour: "04:00", avg: 32, min: 15, max: 55 },
+      { hour: "08:00", avg: 45, min: 22, max: 78 },
+      { hour: "12:00", avg: 52, min: 28, max: 95 },
+      { hour: "16:00", avg: 48, min: 25, max: 85 },
+      { hour: "20:00", avg: 42, min: 20, max: 72 },
     ];
   }, [txData]);
 

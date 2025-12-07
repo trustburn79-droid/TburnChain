@@ -157,52 +157,53 @@ export default function AdminBIDashboard() {
   const kpiMetrics = useMemo(() => {
     if (biData?.kpiMetrics) return biData.kpiMetrics;
     return [
-      { name: t("adminBI.dailyActiveUsers"), value: "125,234", change: "+12.5%", trend: "up" as const },
-      { name: t("adminBI.transactionVolume"), value: "$45.2M", change: "+8.3%", trend: "up" as const },
-      { name: t("adminBI.networkUtilization"), value: "68%", change: "+2.1%", trend: "up" as const },
-      { name: t("adminBI.avgTxPerUser"), value: "3.2", change: "-0.5%", trend: "down" as const },
+      { name: t("adminBI.dailyActiveUsers"), value: "847,523", change: "+24.8%", trend: "up" as const },
+      { name: t("adminBI.transactionVolume"), value: "$127.5M", change: "+18.7%", trend: "up" as const },
+      { name: t("adminBI.networkUtilization"), value: "78%", change: "+5.2%", trend: "up" as const },
+      { name: t("adminBI.avgTxPerUser"), value: "8.7", change: "+12.3%", trend: "up" as const },
     ];
   }, [biData, t]);
 
   const revenueData = useMemo(() => {
     if (biData?.revenueData) return biData.revenueData;
     return [
-      { month: "Jul", revenue: 1200, fees: 350, burn: 150 },
-      { month: "Aug", revenue: 1400, fees: 420, burn: 180 },
-      { month: "Sep", revenue: 1350, fees: 390, burn: 170 },
-      { month: "Oct", revenue: 1600, fees: 480, burn: 200 },
-      { month: "Nov", revenue: 1800, fees: 540, burn: 220 },
-      { month: "Dec", revenue: 2100, fees: 630, burn: 260 },
+      { month: "Jul", revenue: 4850, fees: 1250, burn: 580 },
+      { month: "Aug", revenue: 5620, fees: 1480, burn: 720 },
+      { month: "Sep", revenue: 6340, fees: 1680, burn: 850 },
+      { month: "Oct", revenue: 7850, fees: 2050, burn: 1020 },
+      { month: "Nov", revenue: 9420, fees: 2480, burn: 1280 },
+      { month: "Dec", revenue: 12750, fees: 3350, burn: 1750 },
     ];
   }, [biData]);
 
   const userGrowth = useMemo(() => {
     if (biData?.userGrowth) return biData.userGrowth;
     return [
-      { month: "Jul", users: 85000 },
-      { month: "Aug", users: 92000 },
-      { month: "Sep", users: 98000 },
-      { month: "Oct", users: 108000 },
-      { month: "Nov", users: 118000 },
-      { month: "Dec", users: 125234 },
+      { month: "Jul", users: 385000 },
+      { month: "Aug", users: 458000 },
+      { month: "Sep", users: 542000 },
+      { month: "Oct", users: 648000 },
+      { month: "Nov", users: 756000 },
+      { month: "Dec", users: 847523 },
     ];
   }, [biData]);
 
   const chainDistribution = useMemo(() => {
     if (biData?.chainDistribution) return biData.chainDistribution;
     return [
-      { name: "TBURN Native", value: 45, color: "#f97316" },
-      { name: "Ethereum", value: 25, color: "#3b82f6" },
-      { name: "BSC", value: 15, color: "#eab308" },
-      { name: "Polygon", value: 10, color: "#8b5cf6" },
-      { name: "Others", value: 5, color: "#22c55e" },
+      { name: "TBURN Native", value: 52, color: "#f97316" },
+      { name: "Ethereum", value: 22, color: "#3b82f6" },
+      { name: "BSC", value: 12, color: "#eab308" },
+      { name: "Polygon", value: 7, color: "#8b5cf6" },
+      { name: "Arbitrum", value: 4, color: "#22c55e" },
+      { name: "Others", value: 3, color: "#6b7280" },
     ];
   }, [biData]);
 
   const summaryMetrics = useMemo(() => ({
-    totalVolume30d: biData?.totalVolume30d || "$145.2M",
-    newUsers30d: biData?.newUsers30d || 45234,
-    transactions30d: biData?.transactions30d || 2800000,
+    totalVolume30d: biData?.totalVolume30d || "$3.82B",
+    newUsers30d: biData?.newUsers30d || 91523,
+    transactions30d: biData?.transactions30d || 85420000,
   }), [biData]);
 
   const handleRefresh = useCallback(async () => {

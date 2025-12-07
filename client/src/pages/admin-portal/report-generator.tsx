@@ -126,28 +126,35 @@ export default function AdminReportGenerator() {
     if (reportData?.templates) return reportData.templates;
     return [
       { id: 1, name: t("adminReports.networkPerformance"), type: "system", frequency: t("adminReports.daily"), format: "PDF" },
-      { id: 2, name: t("adminReports.transactionSummary"), type: "analytics", frequency: t("adminReports.weekly"), format: "Excel" },
-      { id: 3, name: t("adminReports.userActivity"), type: "analytics", frequency: t("adminReports.monthly"), format: "PDF" },
-      { id: 4, name: t("adminReports.securityAudit"), type: "security", frequency: t("adminReports.weekly"), format: "PDF" },
-      { id: 5, name: t("adminReports.financialStatement"), type: "finance", frequency: t("adminReports.monthly"), format: "Excel" },
+      { id: 2, name: t("adminReports.transactionSummary"), type: "analytics", frequency: t("adminReports.daily"), format: "Excel" },
+      { id: 3, name: t("adminReports.userActivity"), type: "analytics", frequency: t("adminReports.weekly"), format: "PDF" },
+      { id: 4, name: t("adminReports.securityAudit"), type: "security", frequency: t("adminReports.daily"), format: "PDF" },
+      { id: 5, name: t("adminReports.financialStatement"), type: "finance", frequency: t("adminReports.weekly"), format: "Excel" },
+      { id: 6, name: "Bridge Operations Summary", type: "operations", frequency: t("adminReports.daily"), format: "PDF" },
+      { id: 7, name: "Validator Performance Report", type: "system", frequency: t("adminReports.daily"), format: "PDF" },
+      { id: 8, name: "Compliance Status Report", type: "compliance", frequency: t("adminReports.weekly"), format: "PDF" },
     ];
   }, [reportData, t]);
 
   const scheduledReports = useMemo(() => {
     if (reportData?.scheduledReports) return reportData.scheduledReports;
     return [
-      { id: 1, name: t("adminReports.dailyNetworkReport"), nextRun: "2024-12-04 00:00", recipients: 3, status: "active" as const },
-      { id: 2, name: t("adminReports.weeklyTxSummary"), nextRun: "2024-12-08 06:00", recipients: 5, status: "active" as const },
-      { id: 3, name: t("adminReports.monthlyUserReport"), nextRun: "2025-01-01 00:00", recipients: 8, status: "paused" as const },
+      { id: 1, name: t("adminReports.dailyNetworkReport"), nextRun: "2024-12-08 00:00", recipients: 12, status: "active" as const },
+      { id: 2, name: "Bridge Operations Daily", nextRun: "2024-12-08 06:00", recipients: 8, status: "active" as const },
+      { id: 3, name: "Validator Health Report", nextRun: "2024-12-08 00:00", recipients: 6, status: "active" as const },
+      { id: 4, name: t("adminReports.weeklyTxSummary"), nextRun: "2024-12-15 06:00", recipients: 15, status: "active" as const },
+      { id: 5, name: "Security & Compliance Weekly", nextRun: "2024-12-15 00:00", recipients: 10, status: "active" as const },
     ];
   }, [reportData, t]);
 
   const recentReports = useMemo(() => {
     if (reportData?.recentReports) return reportData.recentReports;
     return [
-      { id: 1, name: "Network Performance - Dec 2", generated: "2024-12-03 00:15", size: "2.4 MB", format: "PDF" },
-      { id: 2, name: "Transaction Summary - Week 48", generated: "2024-12-01 06:00", size: "5.2 MB", format: "Excel" },
-      { id: 3, name: "Security Audit - Nov", generated: "2024-11-30 00:00", size: "1.8 MB", format: "PDF" },
+      { id: 1, name: "Network Performance - Dec 7", generated: "2024-12-07 00:15", size: "4.8 MB", format: "PDF" },
+      { id: 2, name: "Bridge Operations - Dec 7", generated: "2024-12-07 06:00", size: "3.2 MB", format: "PDF" },
+      { id: 3, name: "Transaction Summary - Dec 7", generated: "2024-12-07 00:00", size: "8.5 MB", format: "Excel" },
+      { id: 4, name: "Security Audit - Week 49", generated: "2024-12-06 00:00", size: "2.4 MB", format: "PDF" },
+      { id: 5, name: "Validator Performance - Dec 6", generated: "2024-12-06 00:15", size: "3.8 MB", format: "PDF" },
     ];
   }, [reportData]);
 

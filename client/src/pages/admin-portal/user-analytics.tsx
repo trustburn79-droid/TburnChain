@@ -163,63 +163,63 @@ export default function AdminUserAnalytics() {
   const userStats = useMemo(() => {
     if (userData?.stats) return userData.stats;
     return {
-      totalUsers: "125,234",
-      activeToday: "45,678",
-      newToday: "1,234",
-      retention: "68.5%",
+      totalUsers: "847,523",
+      activeToday: "285,467",
+      newToday: "4,856",
+      retention: "78.5%",
     };
   }, [userData]);
 
   const userGrowth = useMemo(() => {
     if (userData?.growth) return userData.growth;
     return [
-      { date: "Nov 27", new: 980, total: 120500 },
-      { date: "Nov 28", new: 1050, total: 121550 },
-      { date: "Nov 29", new: 1120, total: 122670 },
-      { date: "Nov 30", new: 1080, total: 123750 },
-      { date: "Dec 1", new: 1150, total: 124900 },
-      { date: "Dec 2", new: 1200, total: 126100 },
-      { date: "Dec 3", new: 1234, total: 127334 },
+      { date: "Dec 1", new: 4120, total: 828500 },
+      { date: "Dec 2", new: 4350, total: 832850 },
+      { date: "Dec 3", new: 4580, total: 837430 },
+      { date: "Dec 4", new: 4420, total: 841850 },
+      { date: "Dec 5", new: 4650, total: 846500 },
+      { date: "Dec 6", new: 4780, total: 851280 },
+      { date: "Dec 7", new: 4856, total: 847523 },
     ];
   }, [userData]);
 
   const userTiers = useMemo(() => {
     if (userData?.tiers) return userData.tiers;
     return [
-      { tier: t("adminUserAnalytics.whale"), count: 156, percentage: 0.12 },
-      { tier: t("adminUserAnalytics.large"), count: 2340, percentage: 1.87 },
-      { tier: t("adminUserAnalytics.medium"), count: 18500, percentage: 14.78 },
-      { tier: t("adminUserAnalytics.small"), count: 104238, percentage: 83.23 },
+      { tier: t("adminUserAnalytics.whale"), count: 847, percentage: 0.10 },
+      { tier: t("adminUserAnalytics.large"), count: 12523, percentage: 1.48 },
+      { tier: t("adminUserAnalytics.medium"), count: 84752, percentage: 10.00 },
+      { tier: t("adminUserAnalytics.small"), count: 749401, percentage: 88.42 },
     ];
   }, [userData, t]);
 
   const geoDistribution = useMemo(() => {
     if (userData?.geoDistribution) return userData.geoDistribution;
     return [
-      { region: t("adminUserAnalytics.northAmerica"), users: 35000, percentage: 28 },
-      { region: t("adminUserAnalytics.europe"), users: 30000, percentage: 24 },
-      { region: t("adminUserAnalytics.asiaPacific"), users: 40000, percentage: 32 },
-      { region: t("adminUserAnalytics.others"), users: 20234, percentage: 16 },
+      { region: t("adminUserAnalytics.asiaPacific"), users: 322058, percentage: 38 },
+      { region: t("adminUserAnalytics.northAmerica"), users: 237706, percentage: 28 },
+      { region: t("adminUserAnalytics.europe"), users: 186455, percentage: 22 },
+      { region: t("adminUserAnalytics.others"), users: 101304, percentage: 12 },
     ];
   }, [userData, t]);
 
   const activityDistribution = useMemo(() => {
     if (userData?.activityDistribution) return userData.activityDistribution;
     return [
-      { name: t("adminUserAnalytics.dailyActive"), value: 45, color: "#22c55e" },
-      { name: t("adminUserAnalytics.weeklyActive"), value: 30, color: "#3b82f6" },
-      { name: t("adminUserAnalytics.monthlyActive"), value: 15, color: "#f97316" },
-      { name: t("adminUserAnalytics.inactive"), value: 10, color: "#6b7280" },
+      { name: t("adminUserAnalytics.dailyActive"), value: 52, color: "#22c55e" },
+      { name: t("adminUserAnalytics.weeklyActive"), value: 28, color: "#3b82f6" },
+      { name: t("adminUserAnalytics.monthlyActive"), value: 14, color: "#f97316" },
+      { name: t("adminUserAnalytics.inactive"), value: 6, color: "#6b7280" },
     ];
   }, [userData, t]);
 
   const sessionMetrics = useMemo(() => {
     if (userData?.sessionMetrics) return userData.sessionMetrics;
     return {
-      avgDuration: "12m 34s",
-      pagesPerSession: "4.2",
-      bounceRate: "24.5%",
-      returnRate: "68.5%",
+      avgDuration: "18m 42s",
+      pagesPerSession: "7.8",
+      bounceRate: "12.3%",
+      returnRate: "78.5%",
     };
   }, [userData]);
 
