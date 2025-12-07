@@ -15,8 +15,8 @@ export default function Ramp() {
   const [currency, setCurrency] = useState("USD");
   const { toast } = useToast();
 
-  const estimatedTburn = buyAmount ? (parseFloat(buyAmount) / 2.5).toFixed(2) : "0.00";
-  const estimatedUsd = sellAmount ? (parseFloat(sellAmount) * 2.5).toFixed(2) : "0.00";
+  const estimatedTburn = buyAmount ? (parseFloat(buyAmount) / 0.50).toFixed(2) : "0.00";
+  const estimatedUsd = sellAmount ? (parseFloat(sellAmount) * 0.50).toFixed(2) : "0.00";
   
   const handleBuy = () => {
     if (!buyAmount || parseFloat(buyAmount) <= 0) {

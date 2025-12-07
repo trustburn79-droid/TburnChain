@@ -64,14 +64,14 @@ export default function Validators() {
                   ? validators.summary.active.toLocaleString() 
                   : stats?.activeValidators != null 
                     ? stats.activeValidators.toLocaleString() 
-                    : "125"}
+                    : "156"}
               </div>
               <div className="text-xs text-gray-400">{t('publicPages.network.validators.stats.activeValidators')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-total-staked">
               <Database className="w-8 h-8 text-[#ffd700] mx-auto mb-4" />
               <div className="text-3xl font-bold text-white mb-1 font-mono">
-                {stats?.totalStaked ?? validators?.summary?.totalStaked ?? "$847M"}
+                {stats?.totalStaked ?? validators?.summary?.totalStaked ?? "$1.2B"}
               </div>
               <div className="text-xs text-gray-400">{t('publicPages.network.validators.stats.totalStaked')}</div>
             </div>
@@ -80,13 +80,13 @@ export default function Validators() {
               <div className="text-3xl font-bold text-white mb-1 font-mono">
                 {validators?.summary?.avgUptime != null 
                   ? `${parseFloat(validators.summary.avgUptime).toFixed(2)}%` 
-                  : stats?.uptime ?? "99.99%"}
+                  : stats?.uptime ?? "99.97%"}
               </div>
               <div className="text-xs text-gray-400">{t('publicPages.network.validators.stats.averageUptime')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-countries">
               <Globe className="w-8 h-8 text-[#00f0ff] mx-auto mb-4" />
-              <div className="text-3xl font-bold text-white mb-1 font-mono">147</div>
+              <div className="text-3xl font-bold text-white mb-1 font-mono">160</div>
               <div className="text-xs text-gray-400">{t('publicPages.network.validators.stats.operatingCountries')}</div>
             </div>
           </div>

@@ -208,7 +208,7 @@ class TBurnEnterpriseClient {
   constructor(config: EnterpriseConfig) {
     this.sdk = new TBurnSDK({
       apiKey: config.apiKey,
-      baseUrl: 'https://api.tburn.io/v1',
+      baseUrl: 'https://api.tburn.io/v8',
       timeout: 30000,
       retries: 3
     });

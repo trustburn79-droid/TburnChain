@@ -86,9 +86,9 @@ export default function NetworkStatus() {
                 <span className="font-bold">{t('publicPages.network.status.metrics.tps')}</span>
               </div>
               <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-tps">
-                {stats?.tps != null ? stats.tps.toLocaleString() : "51,000"}
+                {stats?.tps != null ? stats.tps.toLocaleString() : "100,000+"}
               </div>
-              <div className="text-xs text-gray-400">{t('publicPages.network.status.metrics.peak')}: 500,000+</div>
+              <div className="text-xs text-gray-400">{t('publicPages.network.status.metrics.peak')}: 520,000+</div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 border border-[#00f0ff]/20 bg-[#00f0ff]/5">
@@ -110,7 +110,7 @@ export default function NetworkStatus() {
               <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-block-height">
                 {stats?.blockHeight != null ? stats.blockHeight.toLocaleString() : "14,035,000"}
               </div>
-              <div className="text-xs text-gray-400">{t('publicPages.network.status.metrics.shards')}: {stats?.shardCount ?? 16}</div>
+              <div className="text-xs text-gray-400">{t('publicPages.network.status.metrics.shards')}: {stats?.shardCount ?? 8}</div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 border border-[#ffd700]/20 bg-[#ffd700]/5">
@@ -142,21 +142,21 @@ export default function NetworkStatus() {
                   ? validatorData.summary.active.toLocaleString() 
                   : stats?.activeValidators != null 
                     ? stats.activeValidators.toLocaleString() 
-                    : "125"}
+                    : "156"}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.active')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Crown className="w-6 h-6 text-[#ffd700] mx-auto mb-2" />
               <div className="text-2xl font-bold text-white font-mono">
-                {Math.floor((validatorData?.summary?.active ?? stats?.activeValidators ?? 125) * 0.1)}
+                {Math.floor((validatorData?.summary?.active ?? stats?.activeValidators ?? 156) * 0.1)}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.superNodes')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Server className="w-6 h-6 text-[#00f0ff] mx-auto mb-2" />
               <div className="text-2xl font-bold text-white font-mono" data-testid="stat-nodes">
-                {stats?.nodeCount != null ? stats.nodeCount.toLocaleString() : "1,247"}
+                {stats?.nodeCount != null ? stats.nodeCount.toLocaleString() : "2,450"}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.nodeCount')}</div>
             </div>
@@ -165,20 +165,20 @@ export default function NetworkStatus() {
               <div className="text-2xl font-bold text-white font-mono text-[#00ff9d]" data-testid="stat-uptime">
                 {validatorData?.summary?.avgUptime != null 
                   ? `${parseFloat(validatorData.summary.avgUptime).toFixed(2)}%` 
-                  : stats?.uptime ?? "99.99%"}
+                  : stats?.uptime ?? "99.97%"}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.avgUptime')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Coins className="w-6 h-6 text-[#ffd700] mx-auto mb-2" />
               <div className="text-2xl font-bold text-white font-mono" data-testid="stat-staked">
-                {stats?.totalStaked ?? "$847M"}
+                {stats?.totalStaked ?? "$1.2B"}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.totalStaked')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Globe className="w-6 h-6 text-white mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono">147</div>
+              <div className="text-2xl font-bold text-white font-mono">160</div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.regions')}</div>
             </div>
           </div>
