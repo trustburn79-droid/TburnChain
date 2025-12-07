@@ -8156,12 +8156,13 @@
           "decimals": "18"
         },
         "ember": {
-          "type": "Gas Token",
+          "type": "EMB Gas Token",
           "role": "Role",
-          "roleValue": "Native gas token for transaction fees and smart contract execution",
-          "baseFee": "Base Fee",
-          "baseFeeValue": "0.001 EMBER",
-          "exchangeRatio": "1 TBURN staked = 100 EMBER/day"
+          "roleValue": "Native gas token for transaction fees and smart contract execution (10 EMB standard gas)",
+          "baseFee": "Standard Gas",
+          "baseFeeValue": "10 EMB (~$0.000105)",
+          "exchangeRatio": "1 TBURN = 1,000,000 EMB",
+          "basicTransfer": "Basic Transfer: 0.00021 TBURN ($0.000105)"
         },
         "distribution": {
           "title": "Token Distribution",

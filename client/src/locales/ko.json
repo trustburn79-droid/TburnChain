@@ -8156,12 +8156,13 @@
           "roleValue": "네트워크 보안을 위한 투표 및 스테이킹용 주요 거버넌스 토큰"
         },
         "ember": {
-          "type": "가스 토큰",
+          "type": "EMB 가스 토큰",
           "exchangeRatio": "교환 비율",
-          "baseFee": "기본 수수료",
-          "baseFeeValue": "0.001 EMBER",
+          "baseFee": "표준 가스",
+          "baseFeeValue": "10 EMB (~$0.000105)",
           "role": "역할",
-          "roleValue": "트랜잭션 수수료 및 스마트 컨트랙트 실행을 위한 네이티브 가스 토큰"
+          "roleValue": "트랜잭션 수수료 및 스마트 컨트랙트 실행을 위한 네이티브 가스 토큰 (10 EMB 표준 가스)",
+          "basicTransfer": "기본 전송: 0.00021 TBURN ($0.000105)"
         },
         "distribution": {
           "title": "토큰 분배",
