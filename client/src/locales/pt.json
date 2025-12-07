@@ -11253,8 +11253,8 @@
       },
       "time": {
         "justNow": "Agora mesmo",
-        "hoursAgo": "{{count}}h atrás",
-        "daysAgo": "{{count}}d atrás"
+        "hoursAgo": "há {{count}}h",
+        "daysAgo": "há {{count}}d"
       },
       "announcements": {
         "mainnetLaunch": {
@@ -11314,7 +11314,29 @@
         "nodeSetup": {
           "title": "Guia de Configuração de Nó para Iniciantes",
           "content": "Guia passo a passo para configurar seu nó TBURN com dicas de solução de problemas."
+        },
+        "detail": {
+          "notFound": "Publicação não encontrada",
+          "notFoundDesc": "A publicação que você está procurando não existe ou foi excluída.",
+          "backToHub": "Voltar ao Hub da Comunidade",
+          "linkCopied": "Link copiado!",
+          "linkCopiedDesc": "Link da publicação copiado para a área de transferência",
+          "bookmarked": "Salvo!",
+          "bookmarkedDesc": "Publicação salva nos favoritos",
+          "liked": "Curtido!",
+          "likedDesc": "Você curtiu esta publicação",
+          "relatedPosts": "Publicações relacionadas"
         }
+      },
+      "pinned": "Fixado",
+      "hot": "Popular",
+      "categories": {
+        "announcements": "Anúncios",
+        "trading": "Negociação",
+        "technical": "Técnico",
+        "governance": "Governança",
+        "general": "Geral",
+        "support": "Suporte"
       }
     },
     "legal": {

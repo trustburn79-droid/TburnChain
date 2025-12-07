@@ -11475,7 +11475,29 @@
         "nodeSetup": {
           "title": "دليل إعداد العقدة للمبتدئين",
           "content": "دليل خطوة بخطوة لإعداد عقدة TBURN مع نصائح استكشاف الأخطاء."
+        },
+        "detail": {
+          "notFound": "المنشور غير موجود",
+          "notFoundDesc": "المنشور الذي تبحث عنه غير موجود أو تم حذفه.",
+          "backToHub": "العودة إلى مركز المجتمع",
+          "linkCopied": "تم نسخ الرابط!",
+          "linkCopiedDesc": "تم نسخ رابط المنشور إلى الحافظة",
+          "bookmarked": "تمت الإضافة للمفضلة!",
+          "bookmarkedDesc": "تم حفظ المنشور في المفضلة",
+          "liked": "أعجبني!",
+          "likedDesc": "لقد أعجبك هذا المنشور",
+          "relatedPosts": "منشورات ذات صلة"
         }
+      },
+      "pinned": "مثبت",
+      "hot": "رائج",
+      "categories": {
+        "announcements": "إعلانات",
+        "trading": "تداول",
+        "technical": "تقني",
+        "governance": "حوكمة",
+        "general": "عام",
+        "support": "دعم"
       }
     },
     "legal": {

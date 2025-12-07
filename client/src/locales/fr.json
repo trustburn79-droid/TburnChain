@@ -11446,8 +11446,8 @@
       },
       "time": {
         "justNow": "À l'instant",
-        "hoursAgo": "Il y a {{count}}h",
-        "daysAgo": "Il y a {{count}}j"
+        "hoursAgo": "il y a {{count}}h",
+        "daysAgo": "il y a {{count}}j"
       },
       "announcements": {
         "mainnetLaunch": {
@@ -11507,7 +11507,29 @@
         "nodeSetup": {
           "title": "Guide de Configuration de Nœud pour Débutants",
           "content": "Guide étape par étape pour configurer votre nœud TBURN avec des conseils de dépannage."
+        },
+        "detail": {
+          "notFound": "Publication introuvable",
+          "notFoundDesc": "La publication que vous recherchez n'existe pas ou a été supprimée.",
+          "backToHub": "Retour au Hub Communautaire",
+          "linkCopied": "Lien copié !",
+          "linkCopiedDesc": "Le lien de la publication a été copié",
+          "bookmarked": "Ajouté aux favoris !",
+          "bookmarkedDesc": "Publication enregistrée dans les favoris",
+          "liked": "Aimé !",
+          "likedDesc": "Vous avez aimé cette publication",
+          "relatedPosts": "Publications connexes"
         }
+      },
+      "pinned": "Épinglé",
+      "hot": "Populaire",
+      "categories": {
+        "announcements": "Annonces",
+        "trading": "Trading",
+        "technical": "Technique",
+        "governance": "Gouvernance",
+        "general": "Général",
+        "support": "Support"
       }
     },
     "legal": {

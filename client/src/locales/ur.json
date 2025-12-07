@@ -9946,7 +9946,29 @@
         "nodeSetup": {
           "title": "نئے لوگوں کے لیے نوڈ سیٹ اپ گائیڈ",
           "content": "TBURN نوڈ سیٹ اپ کے لیے مرحلہ وار گائیڈ اور ٹربل شوٹنگ ٹپس۔"
+        },
+        "detail": {
+          "notFound": "پوسٹ نہیں ملی",
+          "notFoundDesc": "جو پوسٹ آپ تلاش کر رہے ہیں وہ موجود نہیں ہے یا حذف کر دی گئی ہے۔",
+          "backToHub": "کمیونٹی ہب پر واپس جائیں",
+          "linkCopied": "لنک کاپی ہو گیا!",
+          "linkCopiedDesc": "پوسٹ کا لنک کلپ بورڈ پر کاپی ہو گیا",
+          "bookmarked": "بک مارک ہو گیا!",
+          "bookmarkedDesc": "پوسٹ بک مارکس میں محفوظ ہو گئی",
+          "liked": "پسند!",
+          "likedDesc": "آپ نے یہ پوسٹ پسند کی",
+          "relatedPosts": "متعلقہ پوسٹس"
         }
+      },
+      "pinned": "پن کیا گیا",
+      "hot": "مقبول",
+      "categories": {
+        "announcements": "اعلانات",
+        "trading": "ٹریڈنگ",
+        "technical": "تکنیکی",
+        "governance": "گورننس",
+        "general": "عام",
+        "support": "سپورٹ"
       }
     },
     "legal": {

@@ -20,6 +20,7 @@ interface PostData {
   views: number;
   isPinned: boolean;
   createdAt: number;
+  translationKey?: string;
 }
 
 const categoryGradients: Record<string, string> = {
@@ -45,7 +46,7 @@ export default function PostDetail() {
   const { toast } = useToast();
   const [, params] = useRoute("/community/hub/post/:id");
   const postId = params?.id || "";
-  const isKorean = i18n.language === 'ko';
+  const currentLang = i18n.language;
 
   const { data: posts, isLoading } = useQuery<PostData[]>({
     queryKey: ['/api/community/posts'],
@@ -53,25 +54,45 @@ export default function PostDetail() {
 
   const post = posts?.find(p => p.id === postId);
 
+  const getLocalizedContent = (item: PostData, field: 'title' | 'content') => {
+    if (item.translationKey) {
+      const translationPath = `publicPages.community.posts.${item.translationKey}.${field}`;
+      const translated = t(translationPath);
+      if (translated !== translationPath) {
+        return translated;
+      }
+    }
+    return field === 'title' ? item.title : item.content;
+  };
+
+  const getLocaleForDate = () => {
+    const localeMap: Record<string, string> = {
+      en: 'en-US', ko: 'ko-KR', zh: 'zh-CN', ja: 'ja-JP',
+      es: 'es-ES', fr: 'fr-FR', ru: 'ru-RU', ar: 'ar-SA',
+      hi: 'hi-IN', bn: 'bn-BD', pt: 'pt-BR', ur: 'ur-PK'
+    };
+    return localeMap[currentLang] || 'en-US';
+  };
+
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     toast({
-      title: isKorean ? "링크 복사됨!" : "Link Copied!",
-      description: isKorean ? "게시물 링크가 클립보드에 복사되었습니다" : "Post link copied to clipboard",
+      title: t('publicPages.community.posts.detail.linkCopied'),
+      description: t('publicPages.community.posts.detail.linkCopiedDesc'),
     });
   };
 
   const handleBookmark = () => {
     toast({
-      title: isKorean ? "북마크됨!" : "Bookmarked!",
-      description: isKorean ? "게시물이 북마크에 저장되었습니다" : "Post saved to bookmarks",
+      title: t('publicPages.community.posts.detail.bookmarked'),
+      description: t('publicPages.community.posts.detail.bookmarkedDesc'),
     });
   };
 
   const handleLike = () => {
     toast({
-      title: isKorean ? "좋아요!" : "Liked!",
-      description: isKorean ? "게시물에 좋아요를 눌렀습니다" : "You liked this post",
+      title: t('publicPages.community.posts.detail.liked'),
+      description: t('publicPages.community.posts.detail.likedDesc'),
     });
   };
 
@@ -91,15 +112,15 @@ export default function PostDetail() {
       <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            {isKorean ? "게시물을 찾을 수 없습니다" : "Post Not Found"}
+            {t('publicPages.community.posts.detail.notFound')}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-8">
-            {isKorean ? "찾으시는 게시물이 존재하지 않거나 삭제되었습니다." : "The post you are looking for does not exist or has been deleted."}
+            {t('publicPages.community.posts.detail.notFoundDesc')}
           </p>
           <Link href="/community/hub">
             <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              {isKorean ? "커뮤니티 허브로 돌아가기" : "Back to Community Hub"}
+              {t('publicPages.community.posts.detail.backToHub')}
             </Button>
           </Link>
         </div>
@@ -107,29 +128,21 @@ export default function PostDetail() {
     );
   }
 
-  const title = isKorean ? (post.titleKo || post.title) : post.title;
-  const content = isKorean ? (post.contentKo || post.content) : post.content;
+  const title = getLocalizedContent(post, 'title');
+  const content = getLocalizedContent(post, 'content');
   const gradient = categoryGradients[post.category] || "from-purple-600 to-blue-600";
   const categoryColor = categoryColors[post.category] || "bg-purple-500/20 text-purple-400";
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', { 
+    return date.toLocaleDateString(getLocaleForDate(), { 
       year: 'numeric', 
       month: 'long', 
       day: 'numeric' 
     });
   };
 
-  const categoryLabels: Record<string, { en: string; ko: string }> = {
-    announcements: { en: 'Announcements', ko: '공지사항' },
-    governance: { en: 'Governance', ko: '거버넌스' },
-    general: { en: 'General', ko: '일반' },
-    trading: { en: 'Trading', ko: '트레이딩' },
-    technical: { en: 'Technical', ko: '기술' },
-    defi: { en: 'DeFi', ko: 'DeFi' }
-  };
-  const categoryLabel = isKorean ? (categoryLabels[post.category]?.ko || post.category) : (categoryLabels[post.category]?.en || post.category);
+  const categoryLabel = t(`publicPages.community.categories.${post.category}`);
 
   const relatedPosts = posts?.filter(p => p.id !== postId && p.category === post.category).slice(0, 3) || [];
 
@@ -140,12 +153,12 @@ export default function PostDetail() {
         <div className="container mx-auto max-w-4xl px-6 h-full flex flex-col justify-end pb-6 relative z-10">
           <Link href="/community/hub" className="text-white/80 hover:text-white flex items-center gap-1 text-sm mb-4 transition">
             <ArrowLeft className="w-4 h-4" />
-            {isKorean ? "커뮤니티 허브로 돌아가기" : "Back to Community Hub"}
+            {t('publicPages.community.posts.detail.backToHub')}
           </Link>
           <div className="flex flex-wrap gap-2 mb-3">
             <Badge className={categoryColor}>{categoryLabel}</Badge>
             {post.isPinned && (
-              <Badge className="bg-yellow-500/90 text-black">{isKorean ? '고정됨' : 'Pinned'}</Badge>
+              <Badge className="bg-yellow-500/90 text-black">{t('publicPages.community.pinned')}</Badge>
             )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold text-white">{title}</h1>
@@ -204,17 +217,17 @@ export default function PostDetail() {
 
         {relatedPosts.length > 0 && (
           <section>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{isKorean ? '관련 게시물' : 'Related Posts'}</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.community.posts.detail.relatedPosts')}</h2>
             <div className="grid md:grid-cols-3 gap-4">
               {relatedPosts.map(related => (
                 <Link key={related.id} href={`/community/hub/post/${related.id}`}>
                   <Card className="bg-white dark:bg-white/5 border-gray-300 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/30 transition cursor-pointer h-full shadow-sm">
                     <CardContent className="p-4">
                       <Badge className={`mb-2 text-xs ${categoryColors[related.category] || 'bg-purple-500/20 text-purple-400'}`}>
-                        {isKorean ? (categoryLabels[related.category]?.ko || related.category) : (categoryLabels[related.category]?.en || related.category)}
+                        {t(`publicPages.community.categories.${related.category}`)}
                       </Badge>
                       <h3 className="text-gray-900 dark:text-white font-medium mb-2 line-clamp-2">
-                        {isKorean ? (related.titleKo || related.title) : related.title}
+                        {getLocalizedContent(related, 'title')}
                       </h3>
                       <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
                         <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {related.likes}</span>

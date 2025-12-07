@@ -277,7 +277,7 @@ export default function CommunityHub() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
                               <span className={`text-xs px-2 py-0.5 rounded ${categoryColors[post.category] || categoryColors.general}`}>
-                                {post.category}
+                                {t(`publicPages.community.categories.${post.category}`)}
                               </span>
                               <span className="text-xs text-gray-500">{post.author}</span>
                             </div>
@@ -310,7 +310,7 @@ export default function CommunityHub() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
                               <span className={`text-xs px-2 py-0.5 rounded ${categoryColors[post.category] || categoryColors.general}`}>
-                                {post.category}
+                                {t(`publicPages.community.categories.${post.category}`)}
                               </span>
                               <span className="text-xs text-gray-500">{post.author}</span>
                             </div>
@@ -340,7 +340,7 @@ export default function CommunityHub() {
                         <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-lg p-4 hover:border-gray-400 dark:hover:border-white/30 transition cursor-pointer h-full">
                           <div className="flex items-center gap-2 mb-2">
                             <span className={`text-xs px-2 py-0.5 rounded ${categoryColors[post.category] || categoryColors.general}`}>
-                              {post.category}
+                              {t(`publicPages.community.categories.${post.category}`)}
                             </span>
                             <span className="text-xs text-gray-500">{post.author}</span>
                           </div>

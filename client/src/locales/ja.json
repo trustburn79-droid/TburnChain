@@ -14408,7 +14408,29 @@
         "nodeSetup": {
           "title": "初心者向けノードセットアップガイド",
           "content": "TBURNノードのセットアップに関するステップバイステップガイドとトラブルシューティングのヒント。"
+        },
+        "detail": {
+          "notFound": "投稿が見つかりません",
+          "notFoundDesc": "お探しの投稿は存在しないか、削除されています。",
+          "backToHub": "コミュニティハブに戻る",
+          "linkCopied": "リンクをコピーしました！",
+          "linkCopiedDesc": "投稿リンクがクリップボードにコピーされました",
+          "bookmarked": "ブックマークしました！",
+          "bookmarkedDesc": "投稿をブックマークに保存しました",
+          "liked": "いいね！",
+          "likedDesc": "この投稿にいいねしました",
+          "relatedPosts": "関連投稿"
         }
+      },
+      "pinned": "ピン留め",
+      "hot": "ホット",
+      "categories": {
+        "announcements": "お知らせ",
+        "trading": "トレーディング",
+        "technical": "技術",
+        "governance": "ガバナンス",
+        "general": "一般",
+        "support": "サポート"
       }
     },
     "legal": {

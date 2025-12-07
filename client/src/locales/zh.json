@@ -13545,7 +13545,29 @@
         "nodeSetup": {
           "title": "初学者节点设置指南",
           "content": "TBURN节点设置的分步指南和故障排除技巧。"
+        },
+        "detail": {
+          "notFound": "未找到帖子",
+          "notFoundDesc": "您查找的帖子不存在或已被删除。",
+          "backToHub": "返回社区中心",
+          "linkCopied": "链接已复制！",
+          "linkCopiedDesc": "帖子链接已复制到剪贴板",
+          "bookmarked": "已收藏！",
+          "bookmarkedDesc": "帖子已保存到收藏夹",
+          "liked": "已点赞！",
+          "likedDesc": "您已点赞此帖子",
+          "relatedPosts": "相关帖子"
         }
+      },
+      "pinned": "置顶",
+      "hot": "热门",
+      "categories": {
+        "announcements": "公告",
+        "trading": "交易",
+        "technical": "技术",
+        "governance": "治理",
+        "general": "一般",
+        "support": "支持"
       }
     },
     "legal": {

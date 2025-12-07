@@ -13084,9 +13084,9 @@
         }
       },
       "time": {
-        "justNow": "Ahora mismo",
-        "hoursAgo": "Hace {{count}}h",
-        "daysAgo": "Hace {{count}}d"
+        "justNow": "Justo ahora",
+        "hoursAgo": "hace {{count}}h",
+        "daysAgo": "hace {{count}}d"
       },
       "announcements": {
         "mainnetLaunch": {
@@ -13146,7 +13146,29 @@
         "nodeSetup": {
           "title": "Guía de Configuración de Nodos para Principiantes",
           "content": "Guía paso a paso para configurar tu nodo TBURN con consejos de solución de problemas."
+        },
+        "detail": {
+          "notFound": "Publicación no encontrada",
+          "notFoundDesc": "La publicación que buscas no existe o ha sido eliminada.",
+          "backToHub": "Volver al Centro Comunitario",
+          "linkCopied": "¡Enlace copiado!",
+          "linkCopiedDesc": "Enlace de la publicación copiado al portapapeles",
+          "bookmarked": "¡Guardado!",
+          "bookmarkedDesc": "Publicación guardada en marcadores",
+          "liked": "¡Me gusta!",
+          "likedDesc": "Te gustó esta publicación",
+          "relatedPosts": "Publicaciones relacionadas"
         }
+      },
+      "pinned": "Fijado",
+      "hot": "Popular",
+      "categories": {
+        "announcements": "Anuncios",
+        "trading": "Comercio",
+        "technical": "Técnico",
+        "governance": "Gobernanza",
+        "general": "General",
+        "support": "Soporte"
       }
     },
     "legal": {

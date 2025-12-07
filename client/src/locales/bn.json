@@ -9643,8 +9643,8 @@
         }
       },
       "time": {
-        "justNow": "এখনই",
-        "hoursAgo": "{{count}} ঘন্টা আগে",
+        "justNow": "এইমাত্র",
+        "hoursAgo": "{{count}} ঘণ্টা আগে",
         "daysAgo": "{{count}} দিন আগে"
       },
       "announcements": {
@@ -9705,7 +9705,29 @@
         "nodeSetup": {
           "title": "নতুনদের জন্য নোড সেটআপ গাইড",
           "content": "TBURN নোড সেটআপের জন্য ধাপে ধাপে গাইড এবং সমস্যা সমাধানের টিপস।"
+        },
+        "detail": {
+          "notFound": "পোস্ট পাওয়া যায়নি",
+          "notFoundDesc": "আপনি যে পোস্টটি খুঁজছেন তা বিদ্যমান নেই বা মুছে ফেলা হয়েছে।",
+          "backToHub": "কমিউনিটি হাবে ফিরে যান",
+          "linkCopied": "লিংক কপি হয়েছে!",
+          "linkCopiedDesc": "পোস্ট লিংক ক্লিপবোর্ডে কপি হয়েছে",
+          "bookmarked": "বুকমার্ক হয়েছে!",
+          "bookmarkedDesc": "পোস্ট বুকমার্কে সংরক্ষিত হয়েছে",
+          "liked": "পছন্দ!",
+          "likedDesc": "আপনি এই পোস্টটি পছন্দ করেছেন",
+          "relatedPosts": "সম্পর্কিত পোস্ট"
         }
+      },
+      "pinned": "পিন করা",
+      "hot": "জনপ্রিয়",
+      "categories": {
+        "announcements": "ঘোষণা",
+        "trading": "ট্রেডিং",
+        "technical": "প্রযুক্তিগত",
+        "governance": "গভার্নেন্স",
+        "general": "সাধারণ",
+        "support": "সহায়তা"
       }
     },
     "legal": {

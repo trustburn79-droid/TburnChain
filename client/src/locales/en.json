@@ -14515,7 +14515,29 @@
         "nodeSetup": {
           "title": "Node Setup Guide for Beginners",
           "content": "Step-by-step guide on setting up your TBURN node with troubleshooting tips."
+        },
+        "detail": {
+          "notFound": "Post Not Found",
+          "notFoundDesc": "The post you are looking for does not exist or has been deleted.",
+          "backToHub": "Back to Community Hub",
+          "linkCopied": "Link Copied!",
+          "linkCopiedDesc": "Post link copied to clipboard",
+          "bookmarked": "Bookmarked!",
+          "bookmarkedDesc": "Post saved to bookmarks",
+          "liked": "Liked!",
+          "likedDesc": "You liked this post",
+          "relatedPosts": "Related Posts"
         }
+      },
+      "pinned": "Pinned",
+      "hot": "Hot",
+      "categories": {
+        "announcements": "Announcements",
+        "trading": "Trading",
+        "technical": "Technical",
+        "governance": "Governance",
+        "general": "General",
+        "support": "Support"
       }
     },
     "legal": {
