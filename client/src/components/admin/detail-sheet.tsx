@@ -21,6 +21,7 @@ export interface DetailField {
   badgeVariant?: "default" | "destructive" | "outline" | "secondary";
   badgeColor?: string;
   copyable?: boolean;
+  copyValue?: string;
   linkHref?: string;
 }
 
@@ -221,7 +222,7 @@ export function DetailSheet({
                               variant="ghost"
                               size="icon"
                               className="h-6 w-6 shrink-0"
-                              onClick={() => handleCopy(String(field.value))}
+                              onClick={() => handleCopy(field.copyValue || String(field.value))}
                               data-testid={`copy-${fieldIndex}`}
                             >
                               <Copy className="h-3 w-3" />

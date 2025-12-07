@@ -12,6 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { formatAddress } from "@/lib/format";
 import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
@@ -190,11 +191,11 @@ export default function AdminBridgeValidators() {
   const validators = useMemo(() => {
     if (validatorsData?.validators) return validatorsData.validators;
     return [
-      { id: 1, name: "Bridge Validator 1", address: "0x1234...5678", stake: "50,000,000 TBURN", status: "active" as const, uptime: 99.98, signatures: 124500, chains: ["ETH", "BSC", "MATIC"] },
-      { id: 2, name: "Bridge Validator 2", address: "0x2345...6789", stake: "45,000,000 TBURN", status: "active" as const, uptime: 99.95, signatures: 123800, chains: ["ETH", "AVAX", "ARB"] },
-      { id: 3, name: "Bridge Validator 3", address: "0x3456...7890", stake: "42,000,000 TBURN", status: "active" as const, uptime: 99.92, signatures: 122900, chains: ["BSC", "OP", "BASE"] },
-      { id: 4, name: "Bridge Validator 4", address: "0x4567...8901", stake: "40,000,000 TBURN", status: "inactive" as const, uptime: 85.50, signatures: 105000, chains: ["ETH", "MATIC"] },
-      { id: 5, name: "Bridge Validator 5", address: "0x5678...9012", stake: "38,000,000 TBURN", status: "slashed" as const, uptime: 70.20, signatures: 89000, chains: ["BSC"] },
+      { id: 1, name: "Bridge Validator 1", address: "0x1234567890abcdef1234567890abcdef12345678", stake: "50,000,000 TBURN", status: "active" as const, uptime: 99.98, signatures: 124500, chains: ["ETH", "BSC", "MATIC"] },
+      { id: 2, name: "Bridge Validator 2", address: "0x2345678901bcdef02345678901bcdef023456789", stake: "45,000,000 TBURN", status: "active" as const, uptime: 99.95, signatures: 123800, chains: ["ETH", "AVAX", "ARB"] },
+      { id: 3, name: "Bridge Validator 3", address: "0x3456789012cdef013456789012cdef0134567890", stake: "42,000,000 TBURN", status: "active" as const, uptime: 99.92, signatures: 122900, chains: ["BSC", "OP", "BASE"] },
+      { id: 4, name: "Bridge Validator 4", address: "0x4567890123def0124567890123def01245678901", stake: "40,000,000 TBURN", status: "inactive" as const, uptime: 85.50, signatures: 105000, chains: ["ETH", "MATIC"] },
+      { id: 5, name: "Bridge Validator 5", address: "0x5678901234ef01235678901234ef0123567890ab", stake: "38,000,000 TBURN", status: "slashed" as const, uptime: 70.20, signatures: 89000, chains: ["BSC"] },
     ];
   }, [validatorsData]);
 
@@ -244,7 +245,7 @@ export default function AdminBridgeValidators() {
         title: t("adminBridgeValidators.detail.basicInfo"),
         fields: [
           { label: t("adminBridgeValidators.detail.name"), value: validator.name, type: "text" as const },
-          { label: t("adminBridgeValidators.detail.address"), value: validator.address, type: "code" as const, copyable: true },
+          { label: t("adminBridgeValidators.detail.address"), value: formatAddress(validator.address), type: "code" as const, copyable: true, copyValue: validator.address },
           { label: t("adminBridgeValidators.detail.status"), value: validator.status, type: "status" as const },
         ],
       },

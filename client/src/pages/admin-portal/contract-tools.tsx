@@ -15,6 +15,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { formatAddress } from "@/lib/format";
 import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
@@ -109,10 +110,10 @@ export default function ContractTools() {
   });
 
   const defaultContracts: Contract[] = [
-    { address: "0x1234...5678", name: "TBURN Token", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 1248567 },
-    { address: "0xabcd...efgh", name: "Staking Pool", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 456789 },
-    { address: "0x9876...5432", name: "Bridge Contract", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-02-20", transactions: 234567 },
-    { address: "0xdead...beef", name: "DEX Router", verified: false, compiler: "unknown", deployedAt: "2024-03-10", transactions: 89012 },
+    { address: "0x1234567890abcdef1234567890abcdef12345678", name: "TBURN Token", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 1248567 },
+    { address: "0xabcdef0123456789abcdef0123456789abcdef01", name: "Staking Pool", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 456789 },
+    { address: "0x9876543210fedcba9876543210fedcba98765432", name: "Bridge Contract", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-02-20", transactions: 234567 },
+    { address: "0xdeadbeef0123456789deadbeef0123456789dead", name: "DEX Router", verified: false, compiler: "unknown", deployedAt: "2024-03-10", transactions: 89012 },
   ];
 
   const contracts = contractsData?.contracts || defaultContracts;
@@ -183,7 +184,7 @@ export default function ContractTools() {
     {
       title: t("adminContracts.detail.contractInfo"),
       fields: [
-        { label: t("adminContracts.address"), value: contract.address, type: "code", copyable: true },
+        { label: t("adminContracts.address"), value: formatAddress(contract.address), type: "code", copyable: true, copyValue: contract.address },
         { label: t("adminContracts.name"), value: contract.name },
         { 
           label: t("adminContracts.verified"), 

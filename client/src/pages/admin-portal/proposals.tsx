@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { formatAddress } from "@/lib/format";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -273,7 +274,7 @@ export default function Proposals() {
       title: "Increase Block Gas Limit to 30M",
       description: "Proposal to increase the block gas limit from 20M to 30M to accommodate higher transaction throughput",
       category: "Network",
-      proposer: "0x1234...5678",
+      proposer: "0x1234567890abcdef1234567890abcdef12345678",
       status: "active",
       votesFor: 8500000,
       votesAgainst: 2100000,
@@ -289,7 +290,7 @@ export default function Proposals() {
       title: "Reduce Transaction Fee Base Rate",
       description: "Lower the base transaction fee from 0.001 TBURN to 0.0005 TBURN to improve network accessibility",
       category: "Economics",
-      proposer: "0xabcd...efgh",
+      proposer: "0xabcdef0123456789abcdef0123456789abcdef01",
       status: "passed",
       votesFor: 12000000,
       votesAgainst: 3000000,
@@ -305,7 +306,7 @@ export default function Proposals() {
       title: "Add New Bridge Chain: Solana",
       description: "Integrate Solana blockchain into the TBURN cross-chain bridge infrastructure",
       category: "Bridge",
-      proposer: "0x9876...5432",
+      proposer: "0x9876543210fedcba9876543210fedcba98765432",
       status: "active",
       votesFor: 5000000,
       votesAgainst: 4500000,
@@ -321,7 +322,7 @@ export default function Proposals() {
       title: "Implement Auto-Compounding Rewards",
       description: "Enable automatic reward compounding for stakers to improve DeFi experience",
       category: "Staking",
-      proposer: "0xdead...beef",
+      proposer: "0xdeadbeef0123456789deadbeef0123456789dead",
       status: "rejected",
       votesFor: 4000000,
       votesAgainst: 8000000,
@@ -337,7 +338,7 @@ export default function Proposals() {
       title: "Upgrade AI Orchestration to v2.0",
       description: "Major upgrade to AI systems including improved consensus optimization and security features",
       category: "AI",
-      proposer: "0xface...cafe",
+      proposer: "0xfacecafe0123456789facecafe0123456789face",
       status: "executed",
       votesFor: 15000000,
       votesAgainst: 1500000,
@@ -731,7 +732,7 @@ export default function Proposals() {
             fields: [
               { label: t("adminProposals.detail.startDate"), value: selectedProposal.startDate },
               { label: t("adminProposals.detail.endDate"), value: selectedProposal.endDate },
-              { label: t("adminProposals.detail.proposer"), value: selectedProposal.proposer, copyable: true },
+              { label: t("adminProposals.detail.proposer"), value: formatAddress(selectedProposal.proposer), copyable: true, copyValue: selectedProposal.proposer },
             ],
           },
           {

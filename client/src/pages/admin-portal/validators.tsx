@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { formatAddress } from "@/lib/format";
 import {
   ConfirmationDialog,
   useConfirmation,
@@ -171,14 +172,14 @@ export default function AdminValidators() {
   });
 
   const validators: Validator[] = useMemo(() => validatorsData?.validators || [
-    { address: "0x1234...5678", name: "TBURN Genesis", status: "active", stake: "150000000", delegators: 12450, commission: 5, uptime: 99.99, blocksProduced: 456780, blocksProposed: 456800, rewards: "12500000", aiTrustScore: 9850, jailedUntil: null, votingPower: 15.2, selfDelegation: "25000000", minDelegation: "10000", slashingEvents: 0, missedBlocks: 2, signatureRate: 99.99, description: "Official TBURN Genesis validator", website: "https://tburn.network" },
-    { address: "0x2345...6789", name: "BlockForge", status: "active", stake: "125000000", delegators: 9870, commission: 7, uptime: 99.95, blocksProduced: 384560, blocksProposed: 384600, rewards: "9800000", aiTrustScore: 9720, jailedUntil: null, votingPower: 12.8, selfDelegation: "22000000", minDelegation: "5000", slashingEvents: 0, missedBlocks: 18, signatureRate: 99.95 },
-    { address: "0x3456...789a", name: "CryptoStake", status: "active", stake: "108000000", delegators: 7560, commission: 6, uptime: 99.92, blocksProduced: 321450, blocksProposed: 321500, rewards: "8500000", aiTrustScore: 9680, jailedUntil: null, votingPower: 11.0, selfDelegation: "20500000", minDelegation: "10000", slashingEvents: 0, missedBlocks: 26, signatureRate: 99.92 },
-    { address: "0x4567...89ab", name: "NodeMaster", status: "active", stake: "92000000", delegators: 6450, commission: 8, uptime: 99.88, blocksProduced: 287650, blocksProposed: 287700, rewards: "7200000", aiTrustScore: 9540, jailedUntil: null, votingPower: 9.4, selfDelegation: "20000000", minDelegation: "20000", slashingEvents: 0, missedBlocks: 35, signatureRate: 99.88 },
-    { address: "0x5678...9abc", name: "ValidateX", status: "active", stake: "81000000", delegators: 5340, commission: 5, uptime: 99.85, blocksProduced: 254320, blocksProposed: 254400, rewards: "6500000", aiTrustScore: 9480, jailedUntil: null, votingPower: 8.3, selfDelegation: "21000000", minDelegation: "10000", slashingEvents: 0, missedBlocks: 44, signatureRate: 99.85 },
-    { address: "0x6789...abcd", name: "StakePool Pro", status: "inactive", stake: "75000000", delegators: 4230, commission: 6, uptime: 98.5, blocksProduced: 215670, blocksProposed: 216000, rewards: "5800000", aiTrustScore: 9120, jailedUntil: null, votingPower: 7.7, selfDelegation: "20000000", minDelegation: "15000", slashingEvents: 1, missedBlocks: 465, signatureRate: 98.5 },
-    { address: "0x789a...bcde", name: "CryptoValidate", status: "jailed", stake: "68000000", delegators: 3120, commission: 10, uptime: 95.2, blocksProduced: 182340, blocksProposed: 185000, rewards: "4500000", aiTrustScore: 7850, jailedUntil: new Date(Date.now() + 86400000), votingPower: 0, selfDelegation: "18000000", minDelegation: "10000", slashingEvents: 3, missedBlocks: 1520, signatureRate: 95.2 },
-    { address: "0x89ab...cdef", name: "BlockNode", status: "active", stake: "62000000", delegators: 2890, commission: 7, uptime: 99.82, blocksProduced: 156780, blocksProposed: 156800, rewards: "4200000", aiTrustScore: 9380, jailedUntil: null, votingPower: 6.3, selfDelegation: "20000000", minDelegation: "10000", slashingEvents: 0, missedBlocks: 56, signatureRate: 99.82 },
+    { address: "0x1234567890abcdef1234567890abcdef12345678", name: "TBURN Genesis", status: "active", stake: "150000000", delegators: 12450, commission: 5, uptime: 99.99, blocksProduced: 456780, blocksProposed: 456800, rewards: "12500000", aiTrustScore: 9850, jailedUntil: null, votingPower: 15.2, selfDelegation: "25000000", minDelegation: "10000", slashingEvents: 0, missedBlocks: 2, signatureRate: 99.99, description: "Official TBURN Genesis validator", website: "https://tburn.network" },
+    { address: "0x2345678901bcdef02345678901bcdef023456789", name: "BlockForge", status: "active", stake: "125000000", delegators: 9870, commission: 7, uptime: 99.95, blocksProduced: 384560, blocksProposed: 384600, rewards: "9800000", aiTrustScore: 9720, jailedUntil: null, votingPower: 12.8, selfDelegation: "22000000", minDelegation: "5000", slashingEvents: 0, missedBlocks: 18, signatureRate: 99.95 },
+    { address: "0x3456789012cdef013456789012cdef0134567890", name: "CryptoStake", status: "active", stake: "108000000", delegators: 7560, commission: 6, uptime: 99.92, blocksProduced: 321450, blocksProposed: 321500, rewards: "8500000", aiTrustScore: 9680, jailedUntil: null, votingPower: 11.0, selfDelegation: "20500000", minDelegation: "10000", slashingEvents: 0, missedBlocks: 26, signatureRate: 99.92 },
+    { address: "0x4567890123def0124567890123def01245678901", name: "NodeMaster", status: "active", stake: "92000000", delegators: 6450, commission: 8, uptime: 99.88, blocksProduced: 287650, blocksProposed: 287700, rewards: "7200000", aiTrustScore: 9540, jailedUntil: null, votingPower: 9.4, selfDelegation: "20000000", minDelegation: "20000", slashingEvents: 0, missedBlocks: 35, signatureRate: 99.88 },
+    { address: "0x5678901234ef01235678901234ef0123567890ab", name: "ValidateX", status: "active", stake: "81000000", delegators: 5340, commission: 5, uptime: 99.85, blocksProduced: 254320, blocksProposed: 254400, rewards: "6500000", aiTrustScore: 9480, jailedUntil: null, votingPower: 8.3, selfDelegation: "21000000", minDelegation: "10000", slashingEvents: 0, missedBlocks: 44, signatureRate: 99.85 },
+    { address: "0x6789012345f0123467890123450123abcdef0123", name: "StakePool Pro", status: "inactive", stake: "75000000", delegators: 4230, commission: 6, uptime: 98.5, blocksProduced: 215670, blocksProposed: 216000, rewards: "5800000", aiTrustScore: 9120, jailedUntil: null, votingPower: 7.7, selfDelegation: "20000000", minDelegation: "15000", slashingEvents: 1, missedBlocks: 465, signatureRate: 98.5 },
+    { address: "0x789a0123456012347890123456012bcdef0123ab", name: "CryptoValidate", status: "jailed", stake: "68000000", delegators: 3120, commission: 10, uptime: 95.2, blocksProduced: 182340, blocksProposed: 185000, rewards: "4500000", aiTrustScore: 7850, jailedUntil: new Date(Date.now() + 86400000), votingPower: 0, selfDelegation: "18000000", minDelegation: "10000", slashingEvents: 3, missedBlocks: 1520, signatureRate: 95.2 },
+    { address: "0x89ab012345670123890123456701cdef012345ab", name: "BlockNode", status: "active", stake: "62000000", delegators: 2890, commission: 7, uptime: 99.82, blocksProduced: 156780, blocksProposed: 156800, rewards: "4200000", aiTrustScore: 9380, jailedUntil: null, votingPower: 6.3, selfDelegation: "20000000", minDelegation: "10000", slashingEvents: 0, missedBlocks: 56, signatureRate: 99.82 },
   ], [validatorsData]);
 
   const addValidatorMutation = useMutation({
@@ -508,7 +509,7 @@ export default function AdminValidators() {
       title: t("adminValidators.basicInfo"),
       icon: <ShieldCheck className="h-4 w-4" />,
       fields: [
-        { label: t("adminValidators.address"), value: validator.address, copyable: true },
+        { label: t("adminValidators.address"), value: formatAddress(validator.address), copyable: true, copyValue: validator.address },
         { label: t("common.status"), value: validator.status, type: "badge" as const, badgeVariant: validator.status === "active" ? "secondary" as const : "destructive" as const },
         { label: t("adminValidators.commission"), value: `${validator.commission}%` },
         { label: t("adminValidators.website"), value: validator.website || "-" },

@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { formatAddress } from "@/lib/format";
 import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
@@ -208,9 +209,9 @@ export default function AdminBridgeTransfers() {
     if (transfersData?.transfers) return transfersData.transfers;
     return [
       { 
-        id: "0xabc123def456", 
-        from: { chain: "Ethereum", address: "0x1234...5678" }, 
-        to: { chain: "TBURN", address: "tburn1...xyz" }, 
+        id: "0xabc123def456789012345678901234567890abcd", 
+        from: { chain: "Ethereum", address: "0x1234567890abcdef1234567890abcdef12345678" }, 
+        to: { chain: "TBURN", address: "tburn1qwertyuiopasdfghjklzxcvbnm12345678xyz" }, 
         amount: "50,000 USDT", 
         fee: "25 USDT",
         status: "completed" as const, 
@@ -219,9 +220,9 @@ export default function AdminBridgeTransfers() {
         duration: "3m 24s"
       },
       { 
-        id: "0xdef456ghi789", 
-        from: { chain: "TBURN", address: "tburn1...abc" }, 
-        to: { chain: "BSC", address: "0x2345...6789" }, 
+        id: "0xdef456ghi789012345678901234567890bcdef01", 
+        from: { chain: "TBURN", address: "tburn1asdfghjklqwertyuiopzxcvbnm987654321abc" }, 
+        to: { chain: "BSC", address: "0x2345678901bcdef02345678901bcdef023456789" }, 
         amount: "100,000 TBURN", 
         fee: "100 TBURN",
         status: "pending" as const, 
@@ -230,9 +231,9 @@ export default function AdminBridgeTransfers() {
         duration: "-"
       },
       { 
-        id: "0xghi789jkl012", 
-        from: { chain: "Polygon", address: "0x3456...7890" }, 
-        to: { chain: "TBURN", address: "tburn1...def" }, 
+        id: "0xghi789jkl012345678901234567890cdef012345", 
+        from: { chain: "Polygon", address: "0x3456789012cdef013456789012cdef0134567890" }, 
+        to: { chain: "TBURN", address: "tburn1zxcvbnmasdfghjklqwertyuiop1234567890def" }, 
         amount: "25,000 USDC", 
         fee: "12.5 USDC",
         status: "validating" as const, 
@@ -241,9 +242,9 @@ export default function AdminBridgeTransfers() {
         duration: "-"
       },
       { 
-        id: "0xjkl012mno345", 
-        from: { chain: "Avalanche", address: "0x4567...8901" }, 
-        to: { chain: "TBURN", address: "tburn1...ghi" }, 
+        id: "0xjkl012mno345678901234567890def0123456789", 
+        from: { chain: "Avalanche", address: "0x4567890123def0124567890123def01245678901" }, 
+        to: { chain: "TBURN", address: "tburn1poiuytrewqlkjhgfdsamnbvcxz987654321ghi" }, 
         amount: "10,000 AVAX", 
         fee: "5 AVAX",
         status: "failed" as const, 
@@ -350,9 +351,9 @@ export default function AdminBridgeTransfers() {
         title: t("adminTransfers.detail.routing"),
         fields: [
           { label: t("adminTransfers.detail.fromChain"), value: transfer.from.chain, type: "text" as const },
-          { label: t("adminTransfers.detail.fromAddress"), value: transfer.from.address, type: "code" as const, copyable: true },
+          { label: t("adminTransfers.detail.fromAddress"), value: formatAddress(transfer.from.address), type: "code" as const, copyable: true, copyValue: transfer.from.address },
           { label: t("adminTransfers.detail.toChain"), value: transfer.to.chain, type: "text" as const },
-          { label: t("adminTransfers.detail.toAddress"), value: transfer.to.address, type: "code" as const, copyable: true },
+          { label: t("adminTransfers.detail.toAddress"), value: formatAddress(transfer.to.address), type: "code" as const, copyable: true, copyValue: transfer.to.address },
         ],
       },
       {

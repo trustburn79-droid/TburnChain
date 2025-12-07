@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { formatAddress } from "@/lib/format";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -234,13 +235,13 @@ export default function VotingMonitor() {
   ];
 
   const recentVoters: VoterRecord[] = [
-    { address: "0x1234...5678", vote: "for", power: 150000, timestamp: "2024-12-04 14:45:00" },
-    { address: "0xabcd...efgh", vote: "against", power: 85000, timestamp: "2024-12-04 14:42:00" },
-    { address: "0x9876...5432", vote: "for", power: 320000, timestamp: "2024-12-04 14:38:00" },
-    { address: "0xdead...beef", vote: "abstain", power: 45000, timestamp: "2024-12-04 14:35:00" },
-    { address: "0xface...cafe", vote: "for", power: 210000, timestamp: "2024-12-04 14:30:00" },
-    { address: "0x5555...6666", vote: "for", power: 175000, timestamp: "2024-12-04 14:25:00" },
-    { address: "0x7777...8888", vote: "against", power: 95000, timestamp: "2024-12-04 14:20:00" },
+    { address: "0x1234567890abcdef1234567890abcdef12345678", vote: "for", power: 150000, timestamp: "2024-12-04 14:45:00" },
+    { address: "0xabcdef0123456789abcdef0123456789abcdef01", vote: "against", power: 85000, timestamp: "2024-12-04 14:42:00" },
+    { address: "0x9876543210fedcba9876543210fedcba98765432", vote: "for", power: 320000, timestamp: "2024-12-04 14:38:00" },
+    { address: "0xdeadbeef0123456789deadbeef0123456789dead", vote: "abstain", power: 45000, timestamp: "2024-12-04 14:35:00" },
+    { address: "0xfacecafe0123456789facecafe0123456789face", vote: "for", power: 210000, timestamp: "2024-12-04 14:30:00" },
+    { address: "0x555566667777888899990000aaaabbbbccccdddd", vote: "for", power: 175000, timestamp: "2024-12-04 14:25:00" },
+    { address: "0x77778888999900001111222233334444555566667", vote: "against", power: 95000, timestamp: "2024-12-04 14:20:00" },
   ];
 
   const getVoteIcon = (vote: string) => {
@@ -605,7 +606,7 @@ export default function VotingMonitor() {
           {
             title: t("adminVoting.detail.voterInfo"),
             fields: [
-              { label: t("adminVoting.detail.address"), value: selectedVoter.address, copyable: true },
+              { label: t("adminVoting.detail.address"), value: formatAddress(selectedVoter.address), copyable: true, copyValue: selectedVoter.address },
               { label: t("adminVoting.detail.vote"), value: selectedVoter.vote, type: "badge" as const, badgeVariant: selectedVoter.vote === "for" ? "default" as const : selectedVoter.vote === "against" ? "destructive" as const : "secondary" as const },
             ],
           },
