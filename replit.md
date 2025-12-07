@@ -29,6 +29,11 @@ Key architectural decisions include:
   - `StatusBadge`: Status indicator component for node/validator states
 
 ## Recent Changes (December 2024)
+- **External Exchange Integration for Ramp (December 7, 2024)**: Implemented external exchange partner dialogs for TBURN buy/sell operations
+  - Added exchange selection dialog with Binance, Coinbase, Kraken, Bybit, and OKX partners
+  - Buy/Sell flows redirect users to external exchanges with toast notifications
+  - Complete bilingual support (English/Korean) for dialog text and toast messages
+  - Fixed Community Hub governance link from `/governance` to `/app/governance`
 - **20-Year Tokenomics Migration to 10B Supply (December 6, 2024)**: Complete migration from 100M to 10B (100억) TBURN total supply
   - Updated `shared/tokenomics-config.ts`: Genesis 100억 → Y20 69.40억 (30.60% total deflation)
   - Updated `server/services/TBurnEnterpriseNode.ts`: 10B supply with scaled emission/burn rates
