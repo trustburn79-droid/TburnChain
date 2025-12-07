@@ -6265,7 +6265,7 @@
       "network": "네트워크"
     },
     "footer": {
-      "copyright": "© 2025 TBurn Chain Foundation.",
+      "copyright": "© 2025 TBurn Lab Foundation.",
       "allSystemsOperational": "모든 시스템 정상 작동 중.",
       "privacy": "개인정보",
       "terms": "이용약관",
@@ -9154,7 +9154,7 @@
         "tag": "문서",
         "title": "문서",
         "subtitle": "TBurn 체인 개발을 위한 종합 가이드 및 레퍼런스.",
-        "heroDescription": "TBurn Chain에서 구축하는 데 필요한 모든 것. API에서 스마트 컨트랙트까지, 프로덕션 지원 dApp을 구축하세요.",
+        "heroDescription": "TBurn Lab에서 구축하는 데 필요한 모든 것. API에서 스마트 컨트랙트까지, 프로덕션 지원 dApp을 구축하세요.",
         "searchPlaceholder": "문서 검색...",
         "categoriesTitle": "문서 카테고리",
         "resourcesTitle": "개발자 리소스",
@@ -9164,7 +9164,7 @@
         },
         "architecture": {
           "title": "네트워크 아키텍처",
-          "subtitle": "TBurn Chain 다층 아키텍처 이해",
+          "subtitle": "TBurn Lab 다층 아키텍처 이해",
           "layers": {
             "consensus": {
               "title": "합의 레이어",
@@ -14070,7 +14070,7 @@
         },
         "hostCta": {
           "title": "이벤트를 주최하고 싶으신가요?",
-          "description": "TBurn Chain 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 승인된 호스트에게 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
+          "description": "TBurn Lab 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 승인된 호스트에게 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
           "button": "호스트 신청"
         },
         "toast": {

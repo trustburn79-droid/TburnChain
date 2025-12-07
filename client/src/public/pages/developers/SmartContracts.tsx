@@ -15,7 +15,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title TBurn Basic Token
- * @notice ERC20 token with TBurn Chain integration
+ * @notice ERC20 token with TBurn Lab integration
  */
 contract TBurnToken is ERC20, Ownable {
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * 10**18;

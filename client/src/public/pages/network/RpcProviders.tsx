@@ -251,7 +251,7 @@ class TBurnEnterpriseClient {
 from tburn import AsyncTBurnClient, TrustScore
 
 class TBurnEnterpriseClient:
-    """Enterprise-grade TBurn Chain API client with advanced features."""
+    """Enterprise-grade TBurn Lab API client with advanced features."""
     
     def __init__(self, api_key: str):
         self._client = AsyncTBurnClient(
@@ -292,7 +292,7 @@ if __name__ == "__main__":
               </div>
               <div className="bg-[#0d0d12] p-4 overflow-x-auto">
                 <pre className="text-gray-300 text-sm font-mono leading-relaxed">{`#!/bin/bash
-# Enterprise-grade TBurn Chain API wrapper with retry logic
+# Enterprise-grade TBurn Lab API wrapper with retry logic
 
 TBURN_API_KEY="\${TBURN_API_KEY:?API key required}"
 TBURN_BASE_URL="https://api.tburn.io/v1"

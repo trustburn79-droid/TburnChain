@@ -124,7 +124,7 @@ export function PublicFooter() {
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-cyan-400 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">B</span>
               </div>
-              <span className="text-xl font-bold text-white">TBurn Chain</span>
+              <span className="text-xl font-bold text-white">TBurn Lab</span>
             </Link>
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
               {t('publicPages.footer.brandDescription')}

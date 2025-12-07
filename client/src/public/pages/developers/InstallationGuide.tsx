@@ -25,7 +25,7 @@ const linuxSteps = [
       "sudo mv tburn /usr/local/bin/",
       "tburn version"
     ],
-    comment: "# Output: TBurn Chain Core v8.0.0-mainnet (100K+ TPS, AI-BFT Consensus)"
+    comment: "# Output: TBurn Lab Core v8.0.0-mainnet (100K+ TPS, AI-BFT Consensus)"
   },
   {
     titleKey: "initializeNode",
