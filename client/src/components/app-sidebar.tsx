@@ -117,6 +117,7 @@ const menuItems = [
   { titleKey: "nav.reports", url: "/app/operator/reports", icon: FileText, groupKey: "nav.operator" },
 ];
 
+// Public groups visible to all users
 const groupOrder = [
   "nav.explorer",
   "nav.tokenV4",
@@ -125,10 +126,11 @@ const groupOrder = [
   "nav.community",
   "nav.network",
   "nav.developer",
-  "nav.admin",
-  "nav.security",
-  "nav.operator",
 ];
+
+// Admin/Operator groups are intentionally excluded from public sidebar
+// Access via: /admin (Admin Portal) or /app/operator (with authentication)
+// Excluded groups: nav.admin, nav.security, nav.operator
 
 export function AppSidebar() {
   const { t } = useTranslation();

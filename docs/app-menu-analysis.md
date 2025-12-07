@@ -228,3 +228,18 @@ const visibleGroups = isAdmin
 
 *문서 작성일: 2024년 12월 7일*
 *분석 대상: TBURN Lab Mainnet Explorer v8.0*
+
+---
+
+## 적용 완료 (2024년 12월 7일)
+
+### 변경 사항
+`client/src/components/app-sidebar.tsx` 파일에서 다음 메뉴 그룹을 사이드바에서 제거했습니다:
+
+- ❌ `nav.admin` (관리자 패널, 노드 상태, 성능)
+- ❌ `nav.security` (API 키)
+- ❌ `nav.operator` (운영자 포털, 멤버 관리, 검증자 운영, 보안 감사, 리포트)
+
+### 접근 방법
+- **Admin Portal**: `/admin` URL로 직접 접근 (별도 인증 필요)
+- **Operator Portal**: `/app/operator` URL로 직접 접근 (`OperatorAuthGuard`로 보호됨)
