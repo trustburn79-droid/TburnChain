@@ -245,44 +245,48 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030407] text-white antialiased selection:bg-cyan-500/30 selection:text-white">
-      <NeuralCanvas />
+    <div className="min-h-screen bg-gray-50 dark:bg-[#030407] text-gray-900 dark:text-white antialiased selection:bg-cyan-500/30 selection:text-white transition-colors duration-300">
+      <div className="dark:block hidden"><NeuralCanvas /></div>
 
       <main className="relative pt-32 pb-20" style={{ position: "relative", zIndex: 1 }}>
         {/* Hero Section */}
         <section className="relative overflow-hidden mb-24">
-          {/* Floating Orbs */}
-          <div className="hero-orb hero-orb-purple w-[500px] h-[500px] top-0 left-[10%]" style={{ animationDelay: "0s" }}></div>
-          <div className="hero-orb hero-orb-cyan w-[400px] h-[400px] bottom-0 right-[15%]" style={{ animationDelay: "2s" }}></div>
-          <div className="hero-orb hero-orb-purple w-[300px] h-[300px] top-[50%] right-[5%]" style={{ animationDelay: "4s" }}></div>
+          {/* Floating Orbs - only in dark mode */}
+          <div className="hidden dark:block">
+            <div className="hero-orb hero-orb-purple w-[500px] h-[500px] top-0 left-[10%]" style={{ animationDelay: "0s" }}></div>
+            <div className="hero-orb hero-orb-cyan w-[400px] h-[400px] bottom-0 right-[15%]" style={{ animationDelay: "2s" }}></div>
+            <div className="hero-orb hero-orb-purple w-[300px] h-[300px] top-[50%] right-[5%]" style={{ animationDelay: "4s" }}></div>
+          </div>
+          {/* Light mode gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-purple-50/50 to-transparent dark:hidden pointer-events-none"></div>
 
           <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
             {/* Live Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-400/5 text-cyan-400 text-xs font-mono mb-8 backdrop-blur-sm animate-glow-pulse">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-600/30 dark:border-cyan-400/30 bg-cyan-500/10 dark:bg-cyan-400/5 text-cyan-600 dark:text-cyan-400 text-xs font-mono mb-8 backdrop-blur-sm animate-glow-pulse">
               <span className="relative w-2 h-2">
-                <span className="absolute inset-0 rounded-full bg-cyan-400 animate-ping opacity-75"></span>
-                <span className="relative rounded-full w-2 h-2 bg-cyan-400 block"></span>
+                <span className="absolute inset-0 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-ping opacity-75"></span>
+                <span className="relative rounded-full w-2 h-2 bg-cyan-500 dark:bg-cyan-400 block"></span>
               </span>
               {t('publicPages.home.heroTag')}
             </div>
 
             {/* Hero Title with Scramble Effect */}
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-white leading-tight">
-              <span className="text-white">{t('publicPages.home.heroTitle')} </span>
+            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white leading-tight">
+              <span className="text-gray-900 dark:text-white">{t('publicPages.home.heroTitle')} </span>
               <RotatingTitle keywords={keywords} />
               <span data-testid="text-hero-title" className="sr-only">{keywords[0]}</span>
               <br />
-              <span className="text-white">{t('publicPages.home.heroSubtitle')}</span>
+              <span className="text-gray-900 dark:text-white">{t('publicPages.home.heroSubtitle')}</span>
             </h1>
 
-            <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed" data-testid="text-hero-description">
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed" data-testid="text-hero-description">
               {t('publicPages.home.heroDescription')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/developers/quickstart">
                 <button 
-                  className="bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 glow-white"
+                  className="bg-gray-900 dark:bg-white text-white dark:text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-lg dark:glow-white"
                   data-testid="button-launch-explorer"
                 >
                   {t('publicPages.home.launchExplorer')} <ArrowRight className="w-5 h-5" />
@@ -290,7 +294,7 @@ export default function Home() {
               </Link>
               <Link href="/learn/whitepaper">
                 <button 
-                  className="glass-panel text-white border border-white/10 px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/5 transition-all flex items-center justify-center gap-2"
+                  className="bg-white dark:bg-transparent dark:glass-panel text-gray-900 dark:text-white border border-gray-300 dark:border-white/10 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-all flex items-center justify-center gap-2 shadow-sm"
                   data-testid="button-read-whitepaper"
                 >
                   <Book className="w-5 h-5" /> {t('publicPages.home.readWhitepaper')}
@@ -303,30 +307,30 @@ export default function Home() {
         {/* Stats Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-32">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-blocks">
-              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
+            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-blocks">
+              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                 {stats?.blockHeight != null 
                   ? (stats.blockHeight >= 1000000 ? Math.floor(stats.blockHeight / 1000000) + "M+" : stats.blockHeight.toLocaleString()) 
                   : "2.1M+"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.blocks')}</div>
             </div>
-            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-validators">
-              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
+            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-validators">
+              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                 {stats?.activeValidators != null ? stats.activeValidators.toLocaleString() : "125"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.validators')}</div>
             </div>
-            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-daily-txs">
-              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
+            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-daily-txs">
+              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                 {stats?.totalTransactions != null 
                   ? (stats.totalTransactions >= 1000 ? Math.floor(stats.totalTransactions / 1000) + "K+" : stats.totalTransactions.toLocaleString()) 
                   : "51K+"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.dailyTxs')}</div>
             </div>
-            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-uptime">
-              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
+            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-uptime">
+              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                 99.99%
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.uptime')}</div>
@@ -337,8 +341,8 @@ export default function Home() {
         {/* Solutions Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-4" data-testid="text-solutions-title">{t('publicPages.home.solutions.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.home.solutions.subtitle')}</p>
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4" data-testid="text-solutions-title">{t('publicPages.home.solutions.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.home.solutions.subtitle')}</p>
           </div>
 
           <div 
@@ -351,14 +355,14 @@ export default function Home() {
               return (
                 <Link key={index} href={solution.href}>
                   <div
-                    className="spotlight-card rounded-2xl p-8 group cursor-pointer h-full"
+                    className="bg-white dark:bg-transparent dark:spotlight-card border border-gray-200 dark:border-white/10 rounded-2xl p-8 group cursor-pointer h-full shadow-sm hover:shadow-md dark:hover:border-white/20 transition-all"
                     data-testid={`card-solution-${index}`}
                   >
                     <div className={`w-11 h-11 rounded-xl ${iconStyle.bg} ${iconStyle.shadow} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                       <Icon className={`w-5 h-5 ${iconStyle.iconColor}`} strokeWidth={2.5} />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{solution.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">{solution.description}</p>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">{solution.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{solution.description}</p>
                   </div>
                 </Link>
               );
@@ -368,13 +372,13 @@ export default function Home() {
 
         {/* CTA Section */}
         <section className="max-w-4xl mx-auto px-6 mb-24">
-          <div className="glass-panel rounded-2xl p-12 text-center relative overflow-hidden">
+          <div className="bg-white dark:bg-transparent dark:glass-panel border border-gray-200 dark:border-white/10 rounded-2xl p-12 text-center relative overflow-hidden shadow-lg">
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 pointer-events-none"></div>
-            <h2 className="text-3xl font-bold text-white mb-6" data-testid="text-cta-title">{t('publicPages.home.cta.title')}</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-cta-title">{t('publicPages.home.cta.title')}</h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
               <Link href="/learn">
                 <button 
-                  className="bg-cyan-400 text-black px-8 py-3 rounded-lg font-bold hover:bg-cyan-300 transition glow-cyan"
+                  className="bg-cyan-500 dark:bg-cyan-400 text-white dark:text-black px-8 py-3 rounded-lg font-bold hover:bg-cyan-400 dark:hover:bg-cyan-300 transition dark:glow-cyan"
                   data-testid="button-explore-ecosystem"
                 >
                   {t('publicPages.home.cta.exploreEcosystem')}
@@ -382,7 +386,7 @@ export default function Home() {
               </Link>
               <Link href="/community/hub">
                 <button 
-                  className="text-white border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition"
+                  className="text-gray-900 dark:text-white border border-gray-300 dark:border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 dark:hover:bg-white/5 transition"
                   data-testid="button-join-community"
                 >
                   {t('publicPages.home.cta.joinCommunity')}
