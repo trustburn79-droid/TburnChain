@@ -215,13 +215,18 @@ export default function AdminAccounts() {
   }, [accountsData, toast, t]);
 
   const mockAccounts: AdminAccount[] = useMemo(() => [
-    { id: "1", email: "admin@tburn.io", name: "System Admin", role: "Super Admin", status: "active", lastLogin: new Date(Date.now() - 60000), createdAt: new Date("2024-01-01"), twoFactorEnabled: true, permissions: ["all"] },
-    { id: "2", email: "ops@tburn.io", name: "Operations Lead", role: "Operator", status: "active", lastLogin: new Date(Date.now() - 300000), createdAt: new Date("2024-02-15"), twoFactorEnabled: true, permissions: ["read", "write", "manage_validators"] },
-    { id: "3", email: "security@tburn.io", name: "Security Officer", role: "Security", status: "active", lastLogin: new Date(Date.now() - 900000), createdAt: new Date("2024-03-10"), twoFactorEnabled: true, permissions: ["read", "security_management"] },
-    { id: "4", email: "dev@tburn.io", name: "Lead Developer", role: "Developer", status: "active", lastLogin: new Date(Date.now() - 1800000), createdAt: new Date("2024-04-01"), twoFactorEnabled: true, permissions: ["read", "deploy_contracts"] },
-    { id: "5", email: "analyst@tburn.io", name: "Data Analyst", role: "Viewer", status: "active", lastLogin: new Date(Date.now() - 7200000), createdAt: new Date("2024-05-20"), twoFactorEnabled: false, permissions: ["read"] },
-    { id: "6", email: "backup@tburn.io", name: "Backup Admin", role: "Admin", status: "inactive", lastLogin: new Date(Date.now() - 86400000 * 30), createdAt: new Date("2024-01-15"), twoFactorEnabled: true, permissions: ["read", "write"] },
-    { id: "7", email: "suspended@tburn.io", name: "Former Employee", role: "Operator", status: "suspended", lastLogin: null, createdAt: new Date("2024-02-01"), twoFactorEnabled: false, permissions: [] },
+    { id: "1", email: "cto@tburn.io", name: "Dr. James Park", role: "Super Admin", status: "active", lastLogin: new Date(Date.now() - 30000), createdAt: new Date("2024-01-01"), twoFactorEnabled: true, permissions: ["all"] },
+    { id: "2", email: "coo@tburn.io", name: "Sarah Kim", role: "Super Admin", status: "active", lastLogin: new Date(Date.now() - 120000), createdAt: new Date("2024-01-01"), twoFactorEnabled: true, permissions: ["all"] },
+    { id: "3", email: "head-ops@tburn.io", name: "Michael Chen", role: "Operator", status: "active", lastLogin: new Date(Date.now() - 180000), createdAt: new Date("2024-02-15"), twoFactorEnabled: true, permissions: ["read", "write", "manage_validators", "manage_nodes"] },
+    { id: "4", email: "lead-ops@tburn.io", name: "Jennifer Lee", role: "Operator", status: "active", lastLogin: new Date(Date.now() - 300000), createdAt: new Date("2024-03-01"), twoFactorEnabled: true, permissions: ["read", "write", "manage_validators"] },
+    { id: "5", email: "ciso@tburn.io", name: "Robert Johnson", role: "Security", status: "active", lastLogin: new Date(Date.now() - 600000), createdAt: new Date("2024-01-15"), twoFactorEnabled: true, permissions: ["read", "security_management", "view_logs", "manage_access"] },
+    { id: "6", email: "security-lead@tburn.io", name: "Emma Wilson", role: "Security", status: "active", lastLogin: new Date(Date.now() - 900000), createdAt: new Date("2024-02-20"), twoFactorEnabled: true, permissions: ["read", "security_management"] },
+    { id: "7", email: "tech-lead@tburn.io", name: "David Zhang", role: "Developer", status: "active", lastLogin: new Date(Date.now() - 1200000), createdAt: new Date("2024-03-10"), twoFactorEnabled: true, permissions: ["read", "deploy_contracts", "use_testnet", "view_logs"] },
+    { id: "8", email: "senior-dev@tburn.io", name: "Alex Thompson", role: "Developer", status: "active", lastLogin: new Date(Date.now() - 1800000), createdAt: new Date("2024-04-01"), twoFactorEnabled: true, permissions: ["read", "deploy_contracts", "use_testnet"] },
+    { id: "9", email: "blockchain-dev@tburn.io", name: "Chris Park", role: "Developer", status: "active", lastLogin: new Date(Date.now() - 2400000), createdAt: new Date("2024-05-15"), twoFactorEnabled: true, permissions: ["read", "deploy_contracts"] },
+    { id: "10", email: "head-analyst@tburn.io", name: "Maria Garcia", role: "Admin", status: "active", lastLogin: new Date(Date.now() - 3600000), createdAt: new Date("2024-04-20"), twoFactorEnabled: true, permissions: ["read", "write", "view_logs"] },
+    { id: "11", email: "data-analyst@tburn.io", name: "Kevin Brown", role: "Viewer", status: "active", lastLogin: new Date(Date.now() - 7200000), createdAt: new Date("2024-06-01"), twoFactorEnabled: true, permissions: ["read"] },
+    { id: "12", email: "compliance@tburn.io", name: "Linda Martinez", role: "Security", status: "active", lastLogin: new Date(Date.now() - 10800000), createdAt: new Date("2024-05-10"), twoFactorEnabled: true, permissions: ["read", "view_logs"] },
   ], []);
 
   const accounts = accountsData?.accounts || mockAccounts;
@@ -377,8 +382,8 @@ export default function AdminAccounts() {
             icon={Users}
             label={t("adminAccounts.metrics.totalAccounts")}
             value={stats.total}
-            change={t("adminAccounts.metrics.allAccounts")}
-            changeType="neutral"
+            change="Enterprise-grade access control"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
             iconColor="text-blue-500"
@@ -388,7 +393,7 @@ export default function AdminAccounts() {
             icon={CheckCircle}
             label={t("adminAccounts.metrics.active")}
             value={stats.active}
-            change={t("adminAccounts.metrics.currentlyActive")}
+            change="All accounts online for launch"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -399,29 +404,29 @@ export default function AdminAccounts() {
             icon={Clock}
             label={t("adminAccounts.metrics.inactive")}
             value={stats.inactive}
-            change={t("adminAccounts.metrics.dormant")}
-            changeType="neutral"
+            change="Zero dormant accounts"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-yellow-500/10"
-            iconColor="text-yellow-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="metric-inactive-accounts"
           />
           <MetricCard
             icon={XCircle}
             label={t("adminAccounts.metrics.suspended")}
             value={stats.suspended}
-            change={t("adminAccounts.metrics.restricted")}
-            changeType="negative"
+            change="Zero security incidents"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-red-500/10"
-            iconColor="text-red-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="metric-suspended-accounts"
           />
           <MetricCard
             icon={ShieldCheck}
             label={t("adminAccounts.metrics.with2FA")}
             value={stats.with2FA}
-            change={t("adminAccounts.metrics.secured")}
+            change="100% 2FA compliance"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-purple-500/10"

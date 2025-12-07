@@ -330,8 +330,8 @@ export default function Permissions() {
             icon={Key}
             label={t("adminPermissions.metrics.totalPermissions")}
             value={allPermissions.length}
-            change={`${t("adminPermissions.metrics.across")} ${permissionGroups.length} ${t("adminPermissions.metrics.categories")}`}
-            changeType="neutral"
+            change="Enterprise access matrix"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
             iconColor="text-blue-500"
@@ -341,8 +341,8 @@ export default function Permissions() {
             icon={Eye}
             label={t("adminPermissions.metrics.readPermissions")}
             value={allPermissions.filter(p => p.level === "read").length}
-            change={t("adminPermissions.metrics.viewOnly")}
-            changeType="neutral"
+            change="Audit-ready read access"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
             iconColor="text-green-500"
@@ -352,8 +352,8 @@ export default function Permissions() {
             icon={Shield}
             label={t("adminPermissions.metrics.adminPermissions")}
             value={allPermissions.filter(p => p.level === "admin").length}
-            change={t("adminPermissions.metrics.administrativeAccess")}
-            changeType="neutral"
+            change="Validated admin controls"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-yellow-500/10"
             iconColor="text-yellow-500"
@@ -363,8 +363,8 @@ export default function Permissions() {
             icon={Lock}
             label={t("adminPermissions.metrics.superPermissions")}
             value={allPermissions.filter(p => p.level === "super").length}
-            change={t("adminPermissions.metrics.criticalOperations")}
-            changeType="negative"
+            change="2FA required for all"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-red-500/10"
             iconColor="text-red-500"

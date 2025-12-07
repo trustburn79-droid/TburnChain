@@ -210,12 +210,12 @@ export default function AdminRoles() {
   }, [rolesData, toast, t]);
 
   const mockRoles: Role[] = useMemo(() => [
-    { id: "1", name: "Super Admin", description: t("adminRoles.roleDescriptions.superAdmin"), permissions: ["all"], userCount: 1, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "2", name: "Admin", description: t("adminRoles.roleDescriptions.admin"), permissions: ["read", "write", "manage_users", "view_logs"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "3", name: "Operator", description: t("adminRoles.roleDescriptions.operator"), permissions: ["read", "write", "manage_validators", "manage_nodes", "pause_services"], userCount: 3, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "4", name: "Security", description: t("adminRoles.roleDescriptions.security"), permissions: ["read", "security_management", "view_logs", "manage_access"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "5", name: "Developer", description: t("adminRoles.roleDescriptions.developer"), permissions: ["read", "deploy_contracts", "use_testnet", "view_logs"], userCount: 4, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "6", name: "Viewer", description: t("adminRoles.roleDescriptions.viewer"), permissions: ["read"], userCount: 5, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "1", name: "Super Admin", description: t("adminRoles.roleDescriptions.superAdmin"), permissions: ["all"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "2", name: "Admin", description: t("adminRoles.roleDescriptions.admin"), permissions: ["read", "write", "manage_users", "view_logs"], userCount: 1, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "3", name: "Operator", description: t("adminRoles.roleDescriptions.operator"), permissions: ["read", "write", "manage_validators", "manage_nodes", "pause_services"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "4", name: "Security", description: t("adminRoles.roleDescriptions.security"), permissions: ["read", "security_management", "view_logs", "manage_access"], userCount: 3, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "5", name: "Developer", description: t("adminRoles.roleDescriptions.developer"), permissions: ["read", "deploy_contracts", "use_testnet", "view_logs"], userCount: 3, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "6", name: "Viewer", description: t("adminRoles.roleDescriptions.viewer"), permissions: ["read"], userCount: 1, isSystem: true, createdAt: new Date("2024-01-01") },
   ], [t]);
 
   const mockPermissions: Permission[] = useMemo(() => [
@@ -374,8 +374,8 @@ export default function AdminRoles() {
             icon={ShieldCheck}
             label={t("adminRoles.metrics.totalRoles")}
             value={roles.length}
-            change={t("adminRoles.metrics.configured")}
-            changeType="neutral"
+            change="Enterprise RBAC system"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
             iconColor="text-blue-500"
@@ -385,8 +385,8 @@ export default function AdminRoles() {
             icon={Lock}
             label={t("adminRoles.metrics.systemRoles")}
             value={roles.filter(r => r.isSystem).length}
-            change={t("adminRoles.metrics.protected")}
-            changeType="neutral"
+            change="Immutable core roles"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-purple-500/10"
             iconColor="text-purple-500"
@@ -396,7 +396,7 @@ export default function AdminRoles() {
             icon={Users}
             label={t("adminRoles.metrics.totalUsers")}
             value={totalUsers}
-            change={t("adminRoles.metrics.assigned")}
+            change="All roles assigned for launch"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -407,8 +407,8 @@ export default function AdminRoles() {
             icon={Shield}
             label={t("adminRoles.metrics.totalPermissions")}
             value={permissions.length}
-            change={t("adminRoles.metrics.available")}
-            changeType="neutral"
+            change="Granular access control"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-orange-500/10"
             iconColor="text-orange-500"

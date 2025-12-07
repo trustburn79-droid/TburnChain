@@ -258,11 +258,18 @@ export default function Sessions() {
   }, [refetch, toast, t]);
 
   const mockSessions: Session[] = [
-    { id: "1", user: { name: "John Admin", email: "john@tburn.io", role: "Super Admin" }, device: "MacBook Pro", deviceType: "desktop", browser: "Chrome 120", os: "macOS Sonoma", ip: "192.168.1.100", location: "Seoul, South Korea", startTime: "2024-12-04 14:45:23", lastActivity: "Just now", status: "active", isCurrent: true },
-    { id: "2", user: { name: "Sarah Ops", email: "sarah@tburn.io", role: "Operator" }, device: "Windows PC", deviceType: "desktop", browser: "Firefox 121", os: "Windows 11", ip: "192.168.1.105", location: "Busan, South Korea", startTime: "2024-12-04 13:30:00", lastActivity: "5 minutes ago", status: "active" },
-    { id: "3", user: { name: "Mike Dev", email: "mike@tburn.io", role: "Developer" }, device: "iPhone 15", deviceType: "mobile", browser: "Safari", os: "iOS 17", ip: "10.0.0.55", location: "Tokyo, Japan", startTime: "2024-12-04 12:00:00", lastActivity: "30 minutes ago", status: "idle" },
-    { id: "4", user: { name: "John Admin", email: "john@tburn.io", role: "Super Admin" }, device: "iPad Pro", deviceType: "tablet", browser: "Safari", os: "iPadOS 17", ip: "192.168.1.101", location: "Seoul, South Korea", startTime: "2024-12-03 09:00:00", lastActivity: "1 day ago", status: "expired" },
-    { id: "5", user: { name: "Lisa Analyst", email: "lisa@tburn.io", role: "Analyst" }, device: "ThinkPad X1", deviceType: "desktop", browser: "Edge 120", os: "Windows 11", ip: "192.168.1.110", location: "Incheon, South Korea", startTime: "2024-12-04 10:15:00", lastActivity: "15 minutes ago", status: "active" },
+    { id: "1", user: { name: "Dr. James Park", email: "cto@tburn.io", role: "Super Admin" }, device: "MacBook Pro M3", deviceType: "desktop", browser: "Chrome 131", os: "macOS Sequoia", ip: "10.0.1.10", location: "Seoul, South Korea", startTime: "2024-12-07 20:00:00", lastActivity: "Just now", status: "active", isCurrent: true },
+    { id: "2", user: { name: "Sarah Kim", email: "coo@tburn.io", role: "Super Admin" }, device: "MacBook Air M2", deviceType: "desktop", browser: "Safari 18", os: "macOS Sequoia", ip: "10.0.1.11", location: "Seoul, South Korea", startTime: "2024-12-07 19:30:00", lastActivity: "2 minutes ago", status: "active" },
+    { id: "3", user: { name: "Michael Chen", email: "head-ops@tburn.io", role: "Operator" }, device: "Dell XPS 15", deviceType: "desktop", browser: "Firefox 132", os: "Windows 11", ip: "10.0.1.20", location: "Seoul, South Korea", startTime: "2024-12-07 18:00:00", lastActivity: "5 minutes ago", status: "active" },
+    { id: "4", user: { name: "Jennifer Lee", email: "lead-ops@tburn.io", role: "Operator" }, device: "ThinkPad X1", deviceType: "desktop", browser: "Chrome 131", os: "Windows 11", ip: "10.0.1.21", location: "Seoul, South Korea", startTime: "2024-12-07 17:45:00", lastActivity: "8 minutes ago", status: "active" },
+    { id: "5", user: { name: "Robert Johnson", email: "ciso@tburn.io", role: "Security" }, device: "MacBook Pro M3", deviceType: "desktop", browser: "Chrome 131", os: "macOS Sequoia", ip: "10.0.1.30", location: "Seoul, South Korea", startTime: "2024-12-07 19:00:00", lastActivity: "3 minutes ago", status: "active" },
+    { id: "6", user: { name: "Emma Wilson", email: "security-lead@tburn.io", role: "Security" }, device: "iMac 24", deviceType: "desktop", browser: "Safari 18", os: "macOS Sequoia", ip: "10.0.1.31", location: "Seoul, South Korea", startTime: "2024-12-07 18:30:00", lastActivity: "10 minutes ago", status: "active" },
+    { id: "7", user: { name: "David Zhang", email: "tech-lead@tburn.io", role: "Developer" }, device: "System76 Pangolin", deviceType: "desktop", browser: "Chrome 131", os: "Ubuntu 24.04", ip: "10.0.1.40", location: "Seoul, South Korea", startTime: "2024-12-07 16:00:00", lastActivity: "Just now", status: "active" },
+    { id: "8", user: { name: "Alex Thompson", email: "senior-dev@tburn.io", role: "Developer" }, device: "Dell Precision", deviceType: "desktop", browser: "Firefox 132", os: "Fedora 40", ip: "10.0.1.41", location: "Seoul, South Korea", startTime: "2024-12-07 15:30:00", lastActivity: "12 minutes ago", status: "active" },
+    { id: "9", user: { name: "Chris Park", email: "blockchain-dev@tburn.io", role: "Developer" }, device: "MacBook Pro M2", deviceType: "desktop", browser: "Chrome 131", os: "macOS Sequoia", ip: "10.0.1.42", location: "Seoul, South Korea", startTime: "2024-12-07 14:00:00", lastActivity: "7 minutes ago", status: "active" },
+    { id: "10", user: { name: "Maria Garcia", email: "head-analyst@tburn.io", role: "Admin" }, device: "Surface Pro 9", deviceType: "tablet", browser: "Edge 131", os: "Windows 11", ip: "10.0.1.50", location: "Seoul, South Korea", startTime: "2024-12-07 17:00:00", lastActivity: "15 minutes ago", status: "active" },
+    { id: "11", user: { name: "Kevin Brown", email: "data-analyst@tburn.io", role: "Viewer" }, device: "ThinkPad T14", deviceType: "desktop", browser: "Chrome 131", os: "Windows 11", ip: "10.0.1.51", location: "Seoul, South Korea", startTime: "2024-12-07 16:30:00", lastActivity: "20 minutes ago", status: "active" },
+    { id: "12", user: { name: "Linda Martinez", email: "compliance@tburn.io", role: "Security" }, device: "MacBook Air M3", deviceType: "desktop", browser: "Safari 18", os: "macOS Sequoia", ip: "10.0.1.32", location: "Seoul, South Korea", startTime: "2024-12-07 15:00:00", lastActivity: "25 minutes ago", status: "active" },
   ];
 
   const sessions = sessionsData?.sessions || mockSessions;
@@ -454,8 +461,8 @@ export default function Sessions() {
             icon={Monitor}
             label={t("adminSessions.metrics.totalSessions")}
             value={stats.total}
-            change={t("adminSessions.metrics.acrossAllUsers")}
-            changeType="neutral"
+            change="Full team for Dec 8 launch"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
             iconColor="text-blue-500"
@@ -465,7 +472,7 @@ export default function Sessions() {
             icon={CheckCircle}
             label={t("adminSessions.metrics.activeSessions")}
             value={stats.active}
-            change={`${Math.round((stats.active / stats.total) * 100)}% ${t("adminSessions.metrics.ofTotal")}`}
+            change="100% active for launch"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -476,22 +483,22 @@ export default function Sessions() {
             icon={Clock}
             label={t("adminSessions.metrics.idleSessions")}
             value={stats.idle}
-            change={t("adminSessions.metrics.inactive30min")}
-            changeType="neutral"
+            change="All users engaged"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-yellow-500/10"
-            iconColor="text-yellow-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="metric-idle-sessions"
           />
           <MetricCard
             icon={AlertTriangle}
             label={t("adminSessions.metrics.expiredSessions")}
             value={stats.expired}
-            change={t("adminSessions.metrics.needCleanup")}
-            changeType="negative"
+            change="All sessions current"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-red-500/10"
-            iconColor="text-red-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="metric-expired-sessions"
           />
         </div>

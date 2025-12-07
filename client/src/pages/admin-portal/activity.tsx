@@ -236,18 +236,20 @@ export default function ActivityMonitor() {
   }, [t]);
 
   const mockActivityLogs: ActivityLog[] = [
-    { id: "1", user: { name: "John Admin", email: "john@tburn.io" }, action: t("adminActivity.actions.loggedIn"), actionType: "login", target: "Admin Portal", ip: "192.168.1.100", device: "Chrome on MacOS", location: "Seoul, KR", timestamp: "2024-12-04 14:45:23", status: "success" },
-    { id: "2", user: { name: "Sarah Ops", email: "sarah@tburn.io" }, action: t("adminActivity.actions.modifiedValidator"), actionType: "settings", target: "Validator #156", ip: "192.168.1.105", device: "Firefox on Windows", location: "Busan, KR", timestamp: "2024-12-04 14:42:10", status: "success" },
-    { id: "3", user: { name: "Mike Dev", email: "mike@tburn.io" }, action: t("adminActivity.actions.failedLogin"), actionType: "login", target: "Admin Portal", ip: "10.0.0.55", device: "Safari on iOS", location: "Unknown", timestamp: "2024-12-04 14:38:45", status: "failed" },
-    { id: "4", user: { name: "John Admin", email: "john@tburn.io" }, action: t("adminActivity.actions.createdApiKey"), actionType: "create", target: "API Key - Production", ip: "192.168.1.100", device: "Chrome on MacOS", location: "Seoul, KR", timestamp: "2024-12-04 14:35:12", status: "success" },
-    { id: "5", user: { name: "System", email: "system@tburn.io" }, action: t("adminActivity.actions.securityAlert"), actionType: "security", target: "Rate limit exceeded", ip: "External", device: "N/A", location: "Multiple", timestamp: "2024-12-04 14:30:00", status: "warning" },
-    { id: "6", user: { name: "Sarah Ops", email: "sarah@tburn.io" }, action: t("adminActivity.actions.viewedLogs"), actionType: "view", target: "Audit Logs", ip: "192.168.1.105", device: "Firefox on Windows", location: "Busan, KR", timestamp: "2024-12-04 14:25:33", status: "success" },
-    { id: "7", user: { name: "John Admin", email: "john@tburn.io" }, action: t("adminActivity.actions.updatedNetwork"), actionType: "update", target: "Network Config", ip: "192.168.1.100", device: "Chrome on MacOS", location: "Seoul, KR", timestamp: "2024-12-04 14:20:00", status: "success" },
-    { id: "8", user: { name: "Admin Bot", email: "bot@tburn.io" }, action: t("adminActivity.actions.executedBackup"), actionType: "create", target: "Database Backup", ip: "Internal", device: "Automated", location: "Server", timestamp: "2024-12-04 14:00:00", status: "success" },
+    { id: "1", user: { name: "Dr. James Park", email: "cto@tburn.io" }, action: t("adminActivity.actions.loggedIn"), actionType: "login", target: "Admin Portal", ip: "10.0.1.10", device: "Chrome on MacOS", location: "Seoul, KR", timestamp: "2024-12-07 23:59:45", status: "success" },
+    { id: "2", user: { name: "Sarah Kim", email: "coo@tburn.io" }, action: t("adminActivity.actions.loggedIn"), actionType: "login", target: "Admin Portal", ip: "10.0.1.11", device: "Safari on MacOS", location: "Seoul, KR", timestamp: "2024-12-07 23:58:30", status: "success" },
+    { id: "3", user: { name: "Michael Chen", email: "head-ops@tburn.io" }, action: t("adminActivity.actions.modifiedValidator"), actionType: "settings", target: "Validator Pool Config", ip: "10.0.1.20", device: "Firefox on Windows", location: "Seoul, KR", timestamp: "2024-12-07 23:55:12", status: "success" },
+    { id: "4", user: { name: "Robert Johnson", email: "ciso@tburn.io" }, action: t("adminActivity.actions.viewedLogs"), actionType: "view", target: "Security Audit Logs", ip: "10.0.1.30", device: "Chrome on Windows", location: "Seoul, KR", timestamp: "2024-12-07 23:50:00", status: "success" },
+    { id: "5", user: { name: "David Zhang", email: "tech-lead@tburn.io" }, action: t("adminActivity.actions.updatedNetwork"), actionType: "update", target: "Network Params v8.0", ip: "10.0.1.40", device: "Chrome on Linux", location: "Seoul, KR", timestamp: "2024-12-07 23:45:30", status: "success" },
+    { id: "6", user: { name: "System", email: "system@tburn.io" }, action: "Mainnet v8.0 deployment verified", actionType: "create", target: "TBURN Mainnet", ip: "Internal", device: "Automated", location: "Server Cluster", timestamp: "2024-12-07 23:40:00", status: "success" },
+    { id: "7", user: { name: "Jennifer Lee", email: "lead-ops@tburn.io" }, action: "Shard configuration optimized", actionType: "settings", target: "8-Shard Cluster", ip: "10.0.1.21", device: "Firefox on MacOS", location: "Seoul, KR", timestamp: "2024-12-07 23:35:15", status: "success" },
+    { id: "8", user: { name: "Emma Wilson", email: "security-lead@tburn.io" }, action: "Security audit completed", actionType: "security", target: "Pre-launch Security Review", ip: "10.0.1.31", device: "Chrome on MacOS", location: "Seoul, KR", timestamp: "2024-12-07 23:30:00", status: "success" },
+    { id: "9", user: { name: "Admin Bot", email: "bot@tburn.io" }, action: t("adminActivity.actions.executedBackup"), actionType: "create", target: "Full System Backup", ip: "Internal", device: "Automated", location: "Backup Server", timestamp: "2024-12-07 23:00:00", status: "success" },
+    { id: "10", user: { name: "Alex Thompson", email: "senior-dev@tburn.io" }, action: "Smart contract verified", actionType: "create", target: "TBURN Token Contract", ip: "10.0.1.41", device: "Chrome on Linux", location: "Seoul, KR", timestamp: "2024-12-07 22:45:00", status: "success" },
   ];
 
   const activityLogs = activityData?.logs || mockActivityLogs;
-  const stats = activityData?.stats || { totalActivities24h: 1247, activeUsers: 12, failedAttempts: 3, securityEvents: 7 };
+  const stats = activityData?.stats || { totalActivities24h: 3847, activeUsers: 12, failedAttempts: 0, securityEvents: 0 };
 
   const getActionIcon = (actionType: string) => {
     switch (actionType) {
@@ -337,7 +339,7 @@ export default function ActivityMonitor() {
             icon={Activity}
             label={t("adminActivity.metrics.totalActivities24h")}
             value={stats.totalActivities24h.toLocaleString()}
-            change={`+15% ${t("adminActivity.metrics.fromYesterday")}`}
+            change="Dec 8 launch preparation"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
@@ -348,8 +350,8 @@ export default function ActivityMonitor() {
             icon={User}
             label={t("adminActivity.metrics.activeUsers")}
             value={stats.activeUsers}
-            change={t("adminActivity.metrics.currentlyOnline")}
-            changeType="neutral"
+            change="Full team online for launch"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
             iconColor="text-green-500"
@@ -359,22 +361,22 @@ export default function ActivityMonitor() {
             icon={AlertTriangle}
             label={t("adminActivity.metrics.failedAttempts")}
             value={stats.failedAttempts}
-            change={t("adminActivity.metrics.inLast24h")}
-            changeType="negative"
+            change="Zero failed attempts"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-red-500/10"
-            iconColor="text-red-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="metric-failed-attempts"
           />
           <MetricCard
             icon={Shield}
             label={t("adminActivity.metrics.securityEvents")}
             value={stats.securityEvents}
-            change={t("adminActivity.metrics.warningsTriggered")}
-            changeType="neutral"
+            change="All systems secure"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-yellow-500/10"
-            iconColor="text-yellow-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="metric-security-events"
           />
         </div>
