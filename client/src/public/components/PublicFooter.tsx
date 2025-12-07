@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { SiX, SiGithub, SiDiscord, SiTelegram, SiMedium } from "react-icons/si";
-import { Mail, Globe, Shield, Zap } from "lucide-react";
+import { Mail, Globe, Shield, Zap, Flame } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import "../styles/public.css";
@@ -126,8 +126,8 @@ export function PublicFooter() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-cyan-400 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">B</span>
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+                <Flame className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-white">TBurn Lab</span>
             </Link>
