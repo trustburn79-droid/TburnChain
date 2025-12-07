@@ -102,24 +102,26 @@ export default function NewsDetail() {
   const title = getLocalizedContent(announcement, 'title');
   const content = getLocalizedContent(announcement, 'content');
   const gradient = typeGradients[announcement.type] || "from-purple-600 to-blue-600";
-  const isKorean = currentLang === 'ko';
+
+  const getLocaleForDate = () => {
+    const localeMap: Record<string, string> = {
+      en: 'en-US', ko: 'ko-KR', zh: 'zh-CN', ja: 'ja-JP',
+      es: 'es-ES', fr: 'fr-FR', ru: 'ru-RU', ar: 'ar-SA',
+      hi: 'hi-IN', bn: 'bn-BD', pt: 'pt-BR', ur: 'ur-PK'
+    };
+    return localeMap[currentLang] || 'en-US';
+  };
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', { 
+    return date.toLocaleDateString(getLocaleForDate(), { 
       year: 'numeric', 
       month: 'long', 
       day: 'numeric' 
     });
   };
 
-  const typeLabels: Record<string, { en: string; ko: string }> = {
-    news: { en: 'News', ko: '뉴스' },
-    feature: { en: 'Feature', ko: '기능' },
-    update: { en: 'Update', ko: '업데이트' },
-    alert: { en: 'Alert', ko: '알림' }
-  };
-  const category = isKorean ? (typeLabels[announcement.type]?.ko || announcement.type) : (typeLabels[announcement.type]?.en || announcement.type);
+  const category = t(`publicPages.community.news.types.${announcement.type}`);
 
   const relatedAnnouncements = announcements?.filter(a => a.id !== slug).slice(0, 3) || [];
 
@@ -135,13 +137,13 @@ export default function NewsDetail() {
           <div className="flex flex-wrap gap-2 mb-3">
             <Badge className="bg-white/90 text-black">{category}</Badge>
             {announcement.isImportant && (
-              <Badge className="bg-red-500/90 text-white">{isKorean ? '중요' : 'Important'}</Badge>
+              <Badge className="bg-red-500/90 text-white">{t('publicPages.community.news.detail.important')}</Badge>
             )}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-sm text-white/80 font-mono">
             <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {formatDate(announcement.createdAt)}</span>
-            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {isKorean ? '3분 읽기' : '3 min read'}</span>
+            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {t('publicPages.community.news.detail.readTime')}</span>
             <span className="flex items-center gap-1"><Eye className="w-4 h-4" /> {(announcement.views || 1250).toLocaleString()}</span>
           </div>
         </div>
@@ -154,8 +156,8 @@ export default function NewsDetail() {
               TB
             </div>
             <div>
-              <p className="text-gray-900 dark:text-white font-medium">{isKorean ? 'TBURN 팀' : 'TBURN Team'}</p>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">{isKorean ? '공식 발표' : 'Official Announcement'}</p>
+              <p className="text-gray-900 dark:text-white font-medium">{t('publicPages.community.news.detail.tburnTeam')}</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">{t('publicPages.community.news.detail.officialAnnouncement')}</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -181,17 +183,17 @@ export default function NewsDetail() {
 
         {relatedAnnouncements.length > 0 && (
           <section>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{isKorean ? '관련 기사' : 'Related Articles'}</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.community.news.detail.relatedArticles')}</h2>
             <div className="grid md:grid-cols-3 gap-4">
               {relatedAnnouncements.map(related => (
                 <Link key={related.id} href={`/community/news/${related.id}`}>
                   <Card className="bg-white dark:bg-white/5 border-gray-300 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/30 transition cursor-pointer h-full shadow-sm">
                     <CardContent className="p-4">
                       <Badge className="mb-2 text-xs" variant="outline">
-                        {isKorean ? (typeLabels[related.type]?.ko || related.type) : (typeLabels[related.type]?.en || related.type)}
+                        {t(`publicPages.community.news.types.${related.type}`)}
                       </Badge>
                       <h3 className="text-gray-900 dark:text-white font-medium mb-2 line-clamp-2">
-                        {isKorean ? (related.titleKo || related.title) : related.title}
+                        {getLocalizedContent(related, 'title')}
                       </h3>
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{formatDate(related.createdAt)}</p>
                     </CardContent>

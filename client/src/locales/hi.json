@@ -11640,7 +11640,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "महत्वपूर्ण",
+          "readTime": "3 मिनट पढ़ें",
+          "tburnTeam": "TBURN टीम",
+          "officialAnnouncement": "आधिकारिक घोषणा"
+        },
+        "types": {
+          "news": "समाचार",
+          "feature": "सुविधा",
+          "update": "अपडेट",
+          "alert": "अलर्ट"
         }
       },
       "events": {

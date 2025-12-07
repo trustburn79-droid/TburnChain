@@ -9464,7 +9464,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "اہم",
+          "readTime": "3 منٹ پڑھیں",
+          "tburnTeam": "TBURN ٹیم",
+          "officialAnnouncement": "سرکاری اعلان"
+        },
+        "types": {
+          "news": "خبریں",
+          "feature": "فیچر",
+          "update": "اپڈیٹ",
+          "alert": "الرٹ"
         }
       },
       "events": {

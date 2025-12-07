@@ -14493,7 +14493,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "중요",
+          "readTime": "3분 읽기",
+          "tburnTeam": "TBURN 팀",
+          "officialAnnouncement": "공식 발표"
+        },
+        "types": {
+          "news": "뉴스",
+          "feature": "기능",
+          "update": "업데이트",
+          "alert": "알림"
         }
       },
       "events": {

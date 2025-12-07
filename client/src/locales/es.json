@@ -12422,7 +12422,7 @@
           "bookmarkSuccess": "Artículo guardado en marcadores",
           "helpful": "Útil",
           "discuss": "Discutir",
-          "relatedArticles": "Artículos Relacionados",
+          "relatedArticles": "Artículos relacionados",
           "articles": {
             "v4-mainnet-launch": {
               "title": "Lanzamiento de TBURN v7.0 Mainnet: Una Nueva Era de Innovación Blockchain",
@@ -12638,7 +12638,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "Importante",
+          "readTime": "3 min de lectura",
+          "tburnTeam": "Equipo TBURN",
+          "officialAnnouncement": "Anuncio oficial"
+        },
+        "types": {
+          "news": "Noticias",
+          "feature": "Característica",
+          "update": "Actualización",
+          "alert": "Alerta"
         }
       },
       "events": {

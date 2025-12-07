@@ -13063,7 +13063,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "重要",
+          "readTime": "3分钟阅读",
+          "tburnTeam": "TBURN团队",
+          "officialAnnouncement": "官方公告"
+        },
+        "types": {
+          "news": "新闻",
+          "feature": "功能",
+          "update": "更新",
+          "alert": "警报"
         }
       },
       "events": {

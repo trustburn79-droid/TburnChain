@@ -9469,7 +9469,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "গুরুত্বপূর্ণ",
+          "readTime": "3 মিনিট পড়ুন",
+          "tburnTeam": "TBURN টিম",
+          "officialAnnouncement": "অফিসিয়াল ঘোষণা"
+        },
+        "types": {
+          "news": "সংবাদ",
+          "feature": "বৈশিষ্ট্য",
+          "update": "আপডেট",
+          "alert": "সতর্কতা"
         }
       },
       "events": {

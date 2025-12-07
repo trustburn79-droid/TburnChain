@@ -10993,7 +10993,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "مهم",
+          "readTime": "3 دقائق للقراءة",
+          "tburnTeam": "فريق TBURN",
+          "officialAnnouncement": "إعلان رسمي"
+        },
+        "types": {
+          "news": "أخبار",
+          "feature": "ميزة",
+          "update": "تحديث",
+          "alert": "تنبيه"
         }
       },
       "events": {

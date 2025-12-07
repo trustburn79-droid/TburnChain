@@ -10344,7 +10344,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "Важно",
+          "readTime": "3 мин чтения",
+          "tburnTeam": "Команда TBURN",
+          "officialAnnouncement": "Официальное объявление"
+        },
+        "types": {
+          "news": "Новости",
+          "feature": "Функция",
+          "update": "Обновление",
+          "alert": "Оповещение"
         }
       },
       "events": {

@@ -13926,7 +13926,17 @@
                 "3": "AMM"
               }
             }
-          }
+          },
+          "important": "重要",
+          "readTime": "3分で読める",
+          "tburnTeam": "TBURNチーム",
+          "officialAnnouncement": "公式発表"
+        },
+        "types": {
+          "news": "ニュース",
+          "feature": "機能",
+          "update": "アップデート",
+          "alert": "アラート"
         }
       },
       "events": {
