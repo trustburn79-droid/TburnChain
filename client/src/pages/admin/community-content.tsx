@@ -721,7 +721,8 @@ export default function CommunityContentManagement() {
     setDeleteTarget(null);
   };
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status: string | undefined | null) => {
+    const safeStatus = status || "unknown";
     const statusConfig: Record<string, { variant: "default" | "secondary" | "destructive" | "outline"; color: string }> = {
       active: { variant: "default", color: "bg-green-500/20 text-green-400" },
       upcoming: { variant: "default", color: "bg-blue-500/20 text-blue-400" },
@@ -732,12 +733,14 @@ export default function CommunityContentManagement() {
       flagged: { variant: "destructive", color: "" },
       removed: { variant: "destructive", color: "" },
       cancelled: { variant: "destructive", color: "" },
+      unknown: { variant: "outline", color: "" },
     };
-    const config = statusConfig[status] || { variant: "outline", color: "" };
-    return <Badge variant={config.variant} className={config.color}>{t(`adminCommunityContent.status${status.charAt(0).toUpperCase() + status.slice(1)}`)}</Badge>;
+    const config = statusConfig[safeStatus] || { variant: "outline", color: "" };
+    return <Badge variant={config.variant} className={config.color}>{t(`adminCommunityContent.status${safeStatus.charAt(0).toUpperCase() + safeStatus.slice(1)}`)}</Badge>;
   };
 
-  const getTypeBadge = (type: string) => {
+  const getTypeBadge = (type: string | undefined | null) => {
+    const safeType = type || "unknown";
     const typeColors: Record<string, string> = {
       news: "bg-blue-500/20 text-blue-400",
       update: "bg-green-500/20 text-green-400",
@@ -750,7 +753,7 @@ export default function CommunityContentManagement() {
       airdrop: "bg-pink-500/20 text-pink-400",
       competition: "bg-orange-500/20 text-orange-400",
     };
-    return <Badge className={typeColors[type] || ""}>{type.toUpperCase()}</Badge>;
+    return <Badge className={typeColors[safeType] || ""}>{safeType.toUpperCase()}</Badge>;
   };
 
   const filteredNews = data?.news?.filter((n) => 

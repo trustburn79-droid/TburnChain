@@ -21093,6 +21093,7 @@
     "statusCancelled": "Cancelled",
     "statusFlagged": "Flagged",
     "statusRemoved": "Removed",
+    "statusUnknown": "Unknown",
     "important": "Important",
     "pinned": "Pinned",
     "hot": "Hot",
