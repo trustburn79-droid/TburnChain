@@ -13657,10 +13657,23 @@
         },
         "governance": {
           "title": "Governance",
+          "subtitle": "Participate in decentralized protocol governance through TBURN DAO",
           "tag": "TBURN DAO",
           "description": "Stake TBURN tokens to participate in protocol decisions. Create proposals, vote on upgrades, and manage the community treasury.",
           "goToPortal": "Go to Governance Portal",
           "button": "Go to Governance Portal",
+          "voting": {
+            "title": "Voting System",
+            "description": "Vote on proposals by staking TBURN and participate in protocol decisions"
+          },
+          "security": {
+            "title": "Security Governance",
+            "description": "Participate in voting on security upgrades and protocol changes"
+          },
+          "treasury": {
+            "title": "Treasury Management",
+            "description": "Decision-making on allocation and use of community treasury funds"
+          },
           "stats": {
             "proposals": "Proposals",
             "votesCast": "Votes Cast",

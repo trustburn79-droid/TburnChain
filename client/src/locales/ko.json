@@ -13651,10 +13651,23 @@
         },
         "governance": {
           "title": "거버넌스",
+          "subtitle": "TBURN DAO를 통해 탈중앙화 프로토콜 거버넌스에 참여하세요",
           "tag": "TBURN DAO",
           "description": "TBURN 토큰을 스테이킹하여 프로토콜 결정에 참여하세요. 제안서 생성, 업그레이드 투표, 커뮤니티 재무 관리에 참여할 수 있습니다.",
           "button": "거버넌스 포털 이동",
           "goToPortal": "거버넌스 포털로 이동",
+          "voting": {
+            "title": "투표 시스템",
+            "description": "TBURN 스테이킹으로 제안에 투표하고 프로토콜 결정에 참여하세요"
+          },
+          "security": {
+            "title": "보안 거버넌스",
+            "description": "보안 업그레이드와 프로토콜 변경사항에 대한 투표 참여"
+          },
+          "treasury": {
+            "title": "재무 관리",
+            "description": "커뮨티 재무 자금의 할당 및 사용에 대한 의사결정"
+          },
           "stats": {
             "proposals": "제안",
             "votesCast": "투표 수",
