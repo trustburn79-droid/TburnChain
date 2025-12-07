@@ -157,22 +157,22 @@ export default function DebugTools() {
   }, []);
 
   const defaultDebugLogs: DebugLog[] = [
-    { id: "1", level: "info", timestamp: "14:45:23.456", source: "consensus", message: "Block 12847562 finalized in 124ms" },
-    { id: "2", level: "debug", timestamp: "14:45:23.458", source: "mempool", message: "Added 847 transactions to mempool" },
-    { id: "3", level: "warn", timestamp: "14:45:23.460", source: "p2p", message: "Peer 0x1234...5678 slow response (>500ms)" },
-    { id: "4", level: "error", timestamp: "14:45:23.465", source: "bridge", message: "Failed to verify signature from chain ETH" },
-    { id: "5", level: "info", timestamp: "14:45:23.470", source: "ai", message: "AI optimization decision: increase shard count to 48" },
-    { id: "6", level: "debug", timestamp: "14:45:23.475", source: "storage", message: "State root updated: 0xabcd...efgh" },
-    { id: "7", level: "info", timestamp: "14:45:23.480", source: "validator", message: "156 validators participating in round 892345" },
-    { id: "8", level: "warn", timestamp: "14:45:23.485", source: "network", message: "High latency detected: P99 > 200ms" },
+    { id: "1", level: "info", timestamp: "23:59:59.999", source: "genesis", message: "TBURN Mainnet v8.0 genesis block initialized - Dec 8, 2024" },
+    { id: "2", level: "info", timestamp: "23:59:59.998", source: "consensus", message: "BFT consensus engine started - 156 validators online" },
+    { id: "3", level: "info", timestamp: "23:59:59.997", source: "ai", message: "Triple-Band AI Orchestration active - Gemini 3 Pro primary" },
+    { id: "4", level: "info", timestamp: "23:59:59.996", source: "shards", message: "8 shards operational - 100K+ TPS capacity confirmed" },
+    { id: "5", level: "info", timestamp: "23:59:59.995", source: "network", message: "Network latency: 42ms P99 - within target threshold" },
+    { id: "6", level: "info", timestamp: "23:59:59.994", source: "security", message: "Quantum-resistant signatures enabled - 99.7% security score" },
+    { id: "7", level: "info", timestamp: "23:59:59.993", source: "bridge", message: "Multi-chain bridge v2.0 connected - ETH, BSC, Polygon, Arbitrum" },
+    { id: "8", level: "info", timestamp: "23:59:59.992", source: "tokenomics", message: "10B TBURN supply initialized - AI burn rate: 70%" },
   ];
 
   const debugLogs = realtimeLogs.length > 0 ? realtimeLogs : (debugData?.logs || defaultDebugLogs);
   const stats = debugData?.stats || {
-    debugSessions: 24,
-    tracedTransactions: 1247,
-    errorRate: "0.12%",
-    avgGasUsed: 45230,
+    debugSessions: 847,
+    tracedTransactions: 98456,
+    errorRate: "0.003%",
+    avgGasUsed: 21000,
   };
 
   const getLevelColor = (level: string) => {
@@ -196,30 +196,47 @@ export default function DebugTools() {
   };
 
   const generateMockTraceOutput = (hash: string) => {
-    return `Tracing transaction: ${hash}
+    return `TBURN Mainnet v8.0 Transaction Trace
+=====================================
+Transaction Hash: ${hash}
+Network: mainnet-v8.0 (Dec 8, 2024 Launch)
 
-Gas Used: 21000
-Status: Success
+Performance Metrics:
+  Block Time: 1.0s
+  Network TPS: 100,000+
+  Shard ID: 3
+  Latency: 42ms
 
-Execution Trace:
+Gas Analysis:
+  Gas Used: 21,000
+  Gas Price: 0.0001 TBURN
+  Total Cost: 2.1 TBURN
+  Status: SUCCESS
+
+AI Optimization:
+  Model: Triple-Band (Gemini 3 Pro)
+  Optimization Score: 98.7%
+  Quantum Signature: VERIFIED
+
+Execution Trace (EVM-Compatible):
   [0] PUSH1 0x80
   [2] PUSH1 0x40
   [4] MSTORE
-  [5] CALLVALUE
+  [5] CALLVALUE - 0 wei
   [6] DUP1
-  [7] ISZERO
+  [7] ISZERO - true
   [8] PUSH2 0x0010
   ...
 
-Stack:
-  0x0000...0000
-  0x0000...0001
+State Changes:
+  From: 0x...sender
+  To: 0x...recipient
+  Value: 1,000 TBURN
 
-Memory:
-  0x00: 0x0000000000000000000000000000000000000000000000000000000000000000
-
-Storage:
-  slot[0]: 0x0000000000000000000000000000000000000000000000000000000000000001`;
+Validator Signature Pool:
+  Required: 104/156 (66.67%)
+  Collected: 156/156 (100%)
+  Consensus: BFT FINALIZED`;
   };
 
   const handleTrace = useCallback(() => {

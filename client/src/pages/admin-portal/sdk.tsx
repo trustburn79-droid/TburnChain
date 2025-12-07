@@ -56,10 +56,10 @@ export default function SdkManagement() {
   });
 
   const defaultSdkVersions: SdkVersion[] = [
-    { lang: "TypeScript/JavaScript", version: "4.0.2", downloads: "45K", icon: SiTypescript },
-    { lang: "Python", version: "4.0.1", downloads: "32K", icon: SiPython },
-    { lang: "Rust", version: "4.0.0", downloads: "18K", icon: SiRust },
-    { lang: "Go", version: "4.0.0", downloads: "12K", icon: SiGo },
+    { lang: "TypeScript/JavaScript", version: "8.0.0", downloads: "156K", icon: SiTypescript },
+    { lang: "Python", version: "8.0.0", downloads: "98K", icon: SiPython },
+    { lang: "Rust", version: "8.0.0", downloads: "67K", icon: SiRust },
+    { lang: "Go", version: "8.0.0", downloads: "54K", icon: SiGo },
   ];
 
   const sdkVersions = sdkData?.versions?.map((v, i) => ({
@@ -293,31 +293,37 @@ export default function SdkManagement() {
                 <div className="bg-muted rounded-lg p-4 font-mono text-sm overflow-x-auto">
                   <pre>{`import { TBurnClient } from '@tburn/sdk';
 
-// Initialize client
+// Initialize TBURN Mainnet v8.0 Client
 const client = new TBurnClient({
-  network: 'mainnet',
-  apiKey: 'your-api-key'
+  network: 'mainnet-v8.0',  // December 8, 2024 Launch
+  apiKey: 'your-api-key',
+  config: {
+    tps: 100000,        // 100K+ TPS capacity
+    blockTime: 1000,    // 1.0s block time
+    shards: 8           // 8 shards operational
+  }
 });
 
-// Get latest block
+// Get genesis block (Dec 8, 2024)
 const block = await client.blocks.getLatest();
-console.log('Latest block:', block.height);
+console.log('Block height:', block.height);
+console.log('Network TPS:', block.tps);
 
-// Get wallet balance
-const balance = await client.wallets.getBalance('0x1234...5678');
-console.log('Balance:', balance.tburn);
+// Get wallet balance (10B total supply)
+const balance = await client.wallets.getBalance('0x...');
+console.log('Balance:', balance.tburn, 'TBURN');
 
-// Subscribe to real-time events
+// Real-time 42ms latency WebSocket
 client.subscribe('blocks', (block) => {
-  console.log('New block:', block.height);
+  console.log('New block:', block.height, 'Latency:', block.latency);
 });
 
-// Stake tokens
+// Stake with 3-tier validator system
 const tx = await client.staking.delegate({
-  validator: '0xabcd...efgh',
-  amount: '1000000000000000000' // 1 TBURN
+  validator: '0xValidator_Tier1...',  // Min 20M TBURN
+  amount: '20000000000000000000000000' // 20M TBURN
 });
-console.log('Transaction hash:', tx.hash);`}</pre>
+console.log('Tx hash:', tx.hash);`}</pre>
                 </div>
               </CardContent>
             </Card>
@@ -534,35 +540,35 @@ func main() {
             ) : (
               <>
                 <div className="flex items-start gap-4" data-testid="changelog-item-0">
-                  <Badge>v4.0.2</Badge>
+                  <Badge className="bg-green-500">v8.0.0</Badge>
                   <div>
-                    <p className="font-medium">{t("adminSdk.typescriptSdk")}</p>
+                    <p className="font-medium">TBURN Mainnet v8.0 Launch - All SDKs</p>
                     <p className="text-sm text-muted-foreground">
-                      {t("adminSdk.changelog.v402")}
+                      Production release for December 8th mainnet launch. 100K+ TPS support, 1.0s block time, 8-shard architecture, Triple-Band AI integration.
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">December 1, 2024</p>
+                    <p className="text-xs text-muted-foreground mt-1">December 8, 2024</p>
                   </div>
                 </div>
                 <Separator />
                 <div className="flex items-start gap-4" data-testid="changelog-item-1">
-                  <Badge>v4.0.1</Badge>
+                  <Badge>v7.5.0</Badge>
                   <div>
-                    <p className="font-medium">{t("adminSdk.pythonSdk")}</p>
+                    <p className="font-medium">Pre-Launch Optimization - TypeScript/Python</p>
                     <p className="text-sm text-muted-foreground">
-                      {t("adminSdk.changelog.v401")}
+                      Final optimizations for mainnet launch. Enhanced WebSocket performance (42ms latency), quantum-resistant signature support.
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">November 28, 2024</p>
+                    <p className="text-xs text-muted-foreground mt-1">December 5, 2024</p>
                   </div>
                 </div>
                 <Separator />
                 <div className="flex items-start gap-4" data-testid="changelog-item-2">
-                  <Badge>v4.0.0</Badge>
+                  <Badge>v7.0.0</Badge>
                   <div>
-                    <p className="font-medium">{t("adminSdk.allSdks")}</p>
+                    <p className="font-medium">10B Supply Migration - All SDKs</p>
                     <p className="text-sm text-muted-foreground">
-                      {t("adminSdk.changelog.v400")}
+                      Updated for 10B TBURN total supply. 3-tier validator system integration, AI-driven burn rate API endpoints.
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">November 15, 2024</p>
+                    <p className="text-xs text-muted-foreground mt-1">December 1, 2024</p>
                   </div>
                 </div>
               </>

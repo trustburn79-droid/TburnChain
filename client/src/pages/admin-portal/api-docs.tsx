@@ -83,10 +83,10 @@ export default function ApiDocs() {
 
   const endpoints = apiDocsData?.endpoints || defaultEndpoints;
   const stats = apiDocsData?.stats || {
-    totalEndpoints: 340,
-    publicApis: 180,
-    protectedApis: 160,
-    apiVersion: "v4.0",
+    totalEndpoints: 847,
+    publicApis: 412,
+    protectedApis: 435,
+    apiVersion: "v8.0",
   };
 
   const categories = ["all", ...Array.from(new Set(endpoints.map(e => e.category)))];
@@ -362,11 +362,15 @@ export default function ApiDocs() {
                   <h3 className="font-medium mb-2">{t("adminApiDocs.exampleResponse")}</h3>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
                     <pre>{`{
-  "height": 12847562,
-  "hash": "0x1234...5678",
-  "timestamp": 1701689123,
-  "transactions": 847,
-  "validator": "0xabcd...efgh"
+  "height": 1,
+  "hash": "0xTBURN_Genesis_Block_v8_Mainnet_Dec8_2024",
+  "timestamp": 1733644800,
+  "transactions": 0,
+  "validator": "0xTBURN_Genesis_Validator_Pool",
+  "network": "mainnet-v8.0",
+  "tps_capacity": 100000,
+  "block_time_ms": 1000,
+  "shards": 8
 }`}</pre>
                   </div>
                 </div>

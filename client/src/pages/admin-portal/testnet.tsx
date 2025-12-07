@@ -146,25 +146,26 @@ export default function TestnetManagement() {
   });
 
   const defaultInstances: TestnetInstance[] = [
-    { id: "1", name: "Dev Testnet", chainId: 8889, status: "running", nodes: 4, blockHeight: 1284567, tps: 1247, uptime: "99.9%", createdAt: "2024-11-01" },
-    { id: "2", name: "Staging Testnet", chainId: 8890, status: "running", nodes: 8, blockHeight: 987654, tps: 2456, uptime: "99.8%", createdAt: "2024-10-15" },
-    { id: "3", name: "QA Testnet", chainId: 8891, status: "stopped", nodes: 4, blockHeight: 456789, tps: 0, uptime: "95.2%", createdAt: "2024-09-01" },
+    { id: "1", name: "TBURN v8.0 Mainnet Mirror", chainId: 8888, status: "running", nodes: 156, blockHeight: 2847562, tps: 98456, uptime: "99.99%", createdAt: "2024-12-01" },
+    { id: "2", name: "Enterprise Integration Testnet", chainId: 8889, status: "running", nodes: 48, blockHeight: 1456789, tps: 75000, uptime: "99.97%", createdAt: "2024-11-15" },
+    { id: "3", name: "DeFi Protocol Testing", chainId: 8890, status: "running", nodes: 32, blockHeight: 987654, tps: 50000, uptime: "99.95%", createdAt: "2024-11-01" },
+    { id: "4", name: "Bridge Validation Network", chainId: 8891, status: "running", nodes: 24, blockHeight: 654321, tps: 42000, uptime: "99.98%", createdAt: "2024-10-20" },
   ];
 
   const defaultFaucetRequests: FaucetRequest[] = [
-    { id: "1", address: "0x1234...5678", amount: 100, status: "completed", timestamp: "2024-12-04 14:45:00" },
-    { id: "2", address: "0xabcd...efgh", amount: 50, status: "pending", timestamp: "2024-12-04 14:42:00" },
-    { id: "3", address: "0x9876...5432", amount: 100, status: "completed", timestamp: "2024-12-04 14:38:00" },
-    { id: "4", address: "0xdead...beef", amount: 100, status: "failed", timestamp: "2024-12-04 14:35:00" },
+    { id: "1", address: "0xEnterprise_Partner_Test_01", amount: 10000, status: "completed", timestamp: "2024-12-07 23:55:00" },
+    { id: "2", address: "0xValidator_Pool_Integration", amount: 50000, status: "completed", timestamp: "2024-12-07 23:50:00" },
+    { id: "3", address: "0xDeFi_Protocol_Testing_A", amount: 25000, status: "completed", timestamp: "2024-12-07 23:45:00" },
+    { id: "4", address: "0xBridge_Validator_Test_B", amount: 15000, status: "completed", timestamp: "2024-12-07 23:40:00" },
   ];
 
   const instances = testnetData?.instances || defaultInstances;
   const faucetRequests = testnetData?.faucetRequests || defaultFaucetRequests;
   const stats = testnetData?.stats || {
-    activeTestnets: 2,
-    totalNodes: 16,
-    faucetBalance: "10M",
-    faucetRequests24h: 247,
+    activeTestnets: 4,
+    totalNodes: 260,
+    faucetBalance: "500M",
+    faucetRequests24h: 1247,
   };
 
   const getStatusColor = (status: string) => {

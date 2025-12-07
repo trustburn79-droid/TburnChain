@@ -110,18 +110,20 @@ export default function ContractTools() {
   });
 
   const defaultContracts: Contract[] = [
-    { address: "0x1234567890abcdef1234567890abcdef12345678", name: "TBURN Token", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 1248567 },
-    { address: "0xabcdef0123456789abcdef0123456789abcdef01", name: "Staking Pool", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 456789 },
-    { address: "0x9876543210fedcba9876543210fedcba98765432", name: "Bridge Contract", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-02-20", transactions: 234567 },
-    { address: "0xdeadbeef0123456789deadbeef0123456789dead", name: "DEX Router", verified: false, compiler: "unknown", deployedAt: "2024-03-10", transactions: 89012 },
+    { address: "0xTBURN_Token_Genesis_Mainnet_v8_2024", name: "TBURN Token (TBC-20)", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "0xTBURN_Staking_Pool_3Tier_System", name: "3-Tier Validator Staking", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "0xTBURN_Bridge_MultiChain_v2", name: "Multi-Chain Bridge v2.0", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "0xTBURN_DEX_Router_AI_Optimized", name: "AI-Optimized DEX Router", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "0xTBURN_Governance_MultiSig", name: "Governance Multi-Sig", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "0xTBURN_Treasury_Reserve", name: "Treasury Reserve Contract", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
   ];
 
   const contracts = contractsData?.contracts || defaultContracts;
   const stats = contractsData?.stats || {
-    totalContracts: 12847,
-    verified: 8234,
-    interactions24h: "2.4M",
-    gasUsed24h: "847M",
+    totalContracts: 24,
+    verified: 24,
+    interactions24h: "0",
+    gasUsed24h: "0",
   };
 
   const abiExample = `[
