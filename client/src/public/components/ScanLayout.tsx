@@ -134,15 +134,25 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                 )}
               </div>
 
-              {/* Language Selector */}
+              {/* Language Selector - 12 Languages */}
               <Select value={language} onValueChange={handleLanguageChange}>
-                <SelectTrigger className="w-20 h-8 bg-gray-800/50 border-gray-700 text-gray-300">
+                <SelectTrigger className="w-24 h-8 bg-gray-800/50 border-gray-700 text-gray-300">
                   <Globe className="w-4 h-4 mr-1" />
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-gray-700">
-                  <SelectItem value="en">EN</SelectItem>
+                <SelectContent className="bg-gray-900 border-gray-700 max-h-80">
+                  <SelectItem value="en">English</SelectItem>
                   <SelectItem value="ko">한국어</SelectItem>
+                  <SelectItem value="zh">中文</SelectItem>
+                  <SelectItem value="ja">日本語</SelectItem>
+                  <SelectItem value="es">Español</SelectItem>
+                  <SelectItem value="fr">Français</SelectItem>
+                  <SelectItem value="ru">Русский</SelectItem>
+                  <SelectItem value="ar">العربية</SelectItem>
+                  <SelectItem value="hi">हिन्दी</SelectItem>
+                  <SelectItem value="bn">বাংলা</SelectItem>
+                  <SelectItem value="pt">Português</SelectItem>
+                  <SelectItem value="ur">اردو</SelectItem>
                 </SelectContent>
               </Select>
 
