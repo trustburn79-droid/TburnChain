@@ -12055,5 +12055,88 @@
     "disconnected": "Desconectado",
     "address": "Endereço",
     "tokens": "Tokens"
+  },
+  "apiDocs": {
+    "title": "Documentação da API",
+    "subtitle": "API REST de nível empresarial e endpoints WebSocket para construir no TBURN Lab.",
+    "apiReference": "Referência da API v8.0",
+    "baseUrl": "URL Base",
+    "sidebar": {
+      "overview": "Visão Geral",
+      "authentication": "Autenticação",
+      "rateLimits": "Limites de Taxa",
+      "endpoints": "ENDPOINTS",
+      "block": "Bloco",
+      "transaction": "Transação",
+      "account": "Conta",
+      "smartContract": "Contrato Inteligente",
+      "websocket": "WEBSOCKET",
+      "realtimeEvents": "Eventos em Tempo Real",
+      "related": "RELACIONADO",
+      "developerHub": "Hub de Desenvolvedores",
+      "fullDocumentation": "Documentação Completa",
+      "codeExamples": "Exemplos de Código",
+      "quickStartGuide": "Guia de Início Rápido"
+    },
+    "overview": {
+      "title": "Visão Geral da API",
+      "restfulApi": "API RESTful",
+      "restfulApiDesc": "Endpoints REST baseados em JSON com parâmetros de consulta e filtragem abrangentes.",
+      "websocket": "WebSocket",
+      "websocketDesc": "Streaming em tempo real para blocos, transações e eventos de contratos inteligentes.",
+      "enterpriseReady": "Pronto para Empresas",
+      "enterpriseReadyDesc": "SLA de 99.99% de uptime, suporte dedicado e limites personalizados.",
+      "quickStart": "Início Rápido"
+    },
+    "authentication": {
+      "title": "Autenticação",
+      "apiKeyAuth": "Autenticação por Chave API",
+      "gettingApiKey": "Obtendo uma Chave API",
+      "apiKeyTiers": "Níveis de Chave API",
+      "tier": "Nível",
+      "rateLimit": "Limite de Taxa",
+      "support": "Suporte",
+      "free": "Grátis",
+      "pro": "Pro",
+      "enterprise": "Empresarial"
+    },
+    "rateLimits": {
+      "title": "Limites de Taxa",
+      "rateLimitHeaders": "Cabeçalhos de Limite de Taxa",
+      "tooManyRequests": "429 Muitas Requisições"
+    },
+    "block": {
+      "title": "Endpoints de Bloco",
+      "pathParameters": "Parâmetros de Caminho",
+      "queryParameters": "Parâmetros de Consulta",
+      "response": "Resposta"
+    },
+    "transaction": {
+      "title": "Endpoints de Transação",
+      "requestBody": "Corpo da Requisição",
+      "requestExample": "Exemplo de Requisição"
+    },
+    "account": {
+      "title": "Endpoints de Conta"
+    },
+    "smartContract": {
+      "title": "Endpoints de Contrato Inteligente"
+    },
+    "websocketEvents": {
+      "title": "Eventos em Tempo Real",
+      "connectionExample": "Exemplo de Conexão"
+    },
+    "sdks": {
+      "title": "SDKs Oficiais",
+      "description": "Use nossos SDKs oficiais para integração perfeita:"
+    },
+    "table": {
+      "parameter": "Parâmetro",
+      "type": "Tipo",
+      "required": "Obrigatório",
+      "optional": "Opcional",
+      "description": "Descrição",
+      "unlimited": "Ilimitado"
+    }
   }
 }

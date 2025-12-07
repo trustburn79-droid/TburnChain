@@ -12863,5 +12863,91 @@
     "disconnected": "डिस्कनेक्टेड",
     "address": "पता",
     "tokens": "टोकन"
+  },
+  "apiDocs": {
+    "title": "API दस्तावेज़ीकरण",
+    "subtitle": "TBURN Lab पर निर्माण के लिए एंटरप्राइज़-ग्रेड REST API और WebSocket एंडपॉइंट। ब्लॉकचेन डेटा, स्मार्ट कॉन्ट्रैक्ट और रीयल-टाइम इवेंट्स तक पूर्ण पहुंच।",
+    "apiReference": "API संदर्भ v8.0",
+    "baseUrl": "बेस URL",
+    "sidebar": {
+      "overview": "अवलोकन",
+      "authentication": "प्रमाणीकरण",
+      "rateLimits": "दर सीमाएं",
+      "endpoints": "एंडपॉइंट्स",
+      "block": "ब्लॉक",
+      "transaction": "ट्रांजैक्शन",
+      "account": "खाता",
+      "smartContract": "स्मार्ट कॉन्ट्रैक्ट",
+      "websocket": "वेबसॉकेट",
+      "realtimeEvents": "रीयल-टाइम इवेंट्स",
+      "related": "संबंधित",
+      "developerHub": "डेवलपर हब",
+      "fullDocumentation": "पूर्ण दस्तावेज़",
+      "codeExamples": "कोड उदाहरण",
+      "quickStartGuide": "त्वरित प्रारंभ गाइड"
+    },
+    "overview": {
+      "title": "API अवलोकन",
+      "restfulApi": "RESTful API",
+      "restfulApiDesc": "व्यापक क्वेरी पैरामीटर और फ़िल्टरिंग के साथ JSON-आधारित REST एंडपॉइंट।",
+      "websocket": "WebSocket",
+      "websocketDesc": "ब्लॉक, ट्रांजैक्शन और स्मार्ट कॉन्ट्रैक्ट इवेंट्स के लिए रीयल-टाइम स्ट्रीमिंग।",
+      "enterpriseReady": "एंटरप्राइज़ तैयार",
+      "enterpriseReadyDesc": "99.99% अपटाइम SLA, समर्पित सहायता और कस्टम दर सीमाएं।",
+      "quickStart": "त्वरित प्रारंभ"
+    },
+    "authentication": {
+      "title": "प्रमाणीकरण",
+      "apiKeyAuth": "API कुंजी प्रमाणीकरण",
+      "apiKeyAuthDesc": "सभी API अनुरोधों के लिए API कुंजी प्रमाणीकरण आवश्यक है।",
+      "securityWarning": "क्लाइंट-साइड कोड में कभी भी अपनी API कुंजी को उजागर न करें।",
+      "gettingApiKey": "API कुंजी प्राप्त करना",
+      "apiKeyTiers": "API कुंजी स्तर",
+      "tier": "स्तर",
+      "rateLimit": "दर सीमा",
+      "support": "सहायता",
+      "free": "मुफ्त",
+      "pro": "प्रो",
+      "enterprise": "एंटरप्राइज़"
+    },
+    "rateLimits": {
+      "title": "दर सीमाएं",
+      "rateLimitHeaders": "दर सीमा हेडर",
+      "endpointSpecificLimits": "एंडपॉइंट-विशिष्ट सीमाएं",
+      "tooManyRequests": "429 बहुत अधिक अनुरोध"
+    },
+    "block": {
+      "title": "ब्लॉक एंडपॉइंट्स",
+      "pathParameters": "पथ पैरामीटर",
+      "queryParameters": "क्वेरी पैरामीटर",
+      "response": "प्रतिक्रिया"
+    },
+    "transaction": {
+      "title": "ट्रांजैक्शन एंडपॉइंट्स",
+      "requestBody": "अनुरोध बॉडी",
+      "requestExample": "अनुरोध उदाहरण"
+    },
+    "account": {
+      "title": "खाता एंडपॉइंट्स"
+    },
+    "smartContract": {
+      "title": "स्मार्ट कॉन्ट्रैक्ट एंडपॉइंट्स"
+    },
+    "websocketEvents": {
+      "title": "रीयल-टाइम इवेंट्स",
+      "connectionExample": "कनेक्शन उदाहरण"
+    },
+    "sdks": {
+      "title": "आधिकारिक SDKs",
+      "description": "निर्बाध एकीकरण के लिए हमारे आधिकारिक SDKs का उपयोग करें:"
+    },
+    "table": {
+      "parameter": "पैरामीटर",
+      "type": "प्रकार",
+      "required": "आवश्यक",
+      "optional": "वैकल्पिक",
+      "description": "विवरण",
+      "unlimited": "असीमित"
+    }
   }
 }

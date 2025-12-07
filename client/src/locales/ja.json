@@ -15174,5 +15174,124 @@
     "disconnected": "切断",
     "address": "アドレス",
     "tokens": "トークン"
+  },
+  "apiDocs": {
+    "title": "APIドキュメント",
+    "subtitle": "TBURN Labでの構築のためのエンタープライズグレードのREST APIとWebSocketエンドポイント。ブロックチェーンデータ、スマートコントラクト、リアルタイムイベントへの完全なアクセス。",
+    "apiReference": "APIリファレンス v8.0",
+    "baseUrl": "ベースURL",
+    "sidebar": {
+      "overview": "概要",
+      "authentication": "認証",
+      "rateLimits": "レート制限",
+      "endpoints": "エンドポイント",
+      "block": "ブロック",
+      "transaction": "トランザクション",
+      "account": "アカウント",
+      "smartContract": "スマートコントラクト",
+      "websocket": "WebSocket",
+      "realtimeEvents": "リアルタイムイベント",
+      "related": "関連",
+      "developerHub": "開発者ハブ",
+      "fullDocumentation": "完全ドキュメント",
+      "codeExamples": "コード例",
+      "quickStartGuide": "クイックスタートガイド"
+    },
+    "overview": {
+      "title": "API概要",
+      "restfulApi": "RESTful API",
+      "restfulApiDesc": "包括的なクエリパラメータとフィルタリングを備えたJSONベースのRESTエンドポイント。",
+      "websocket": "WebSocket",
+      "websocketDesc": "ブロック、トランザクション、スマートコントラクトイベントのリアルタイムストリーミング。",
+      "enterpriseReady": "エンタープライズ対応",
+      "enterpriseReadyDesc": "99.99%の稼働時間SLA、専用サポート、カスタムレート制限。",
+      "quickStart": "クイックスタート"
+    },
+    "authentication": {
+      "title": "認証",
+      "apiKeyAuth": "APIキー認証",
+      "apiKeyAuthDesc": "すべてのAPIリクエストにはAPIキーによる認証が必要です。リクエストヘッダーにキーを含めてください：",
+      "securityWarning": "クライアント側のコードでAPIキーを公開しないでください。サーバー側リクエストまたは環境変数を使用してください。",
+      "gettingApiKey": "APIキーの取得",
+      "step1": "アカウントを作成",
+      "step2": "ダッシュボードのAPIキーセクションに移動",
+      "step3": "新しいAPIキーを生成して安全に保管",
+      "apiKeyTiers": "APIキーティア",
+      "tier": "ティア",
+      "rateLimit": "レート制限",
+      "websocketCol": "WebSocket",
+      "support": "サポート",
+      "free": "無料",
+      "pro": "プロ",
+      "enterprise": "エンタープライズ",
+      "community": "コミュニティ",
+      "dedicated": "専用"
+    },
+    "rateLimits": {
+      "title": "レート制限",
+      "rateLimitHeaders": "レート制限ヘッダー",
+      "rateLimitHeadersDesc": "すべてのAPIレスポンスにはヘッダーにレート制限情報が含まれます：",
+      "endpointSpecificLimits": "エンドポイント固有の制限",
+      "endpointCategory": "エンドポイントカテゴリ",
+      "freeTier": "無料ティア",
+      "proTier": "プロティア",
+      "blockTransaction": "ブロック/トランザクション",
+      "accountBalance": "アカウント残高",
+      "smartContractCalls": "スマートコントラクト呼び出し",
+      "historicalData": "履歴データ",
+      "tooManyRequests": "429 リクエスト過多",
+      "tooManyRequestsDesc": "レート制限時、APIは再試行情報付きの429ステータスを返します："
+    },
+    "block": {
+      "title": "ブロックエンドポイント",
+      "getBlockByNumber": "ブロック番号で特定のブロックの詳細情報を取得、または'latest'で最新ブロックを取得。",
+      "pathParameters": "パスパラメータ",
+      "queryParameters": "クエリパラメータ",
+      "response": "レスポンス",
+      "getLatestBlocks": "オプションのフィルタリング付きで最近のブロックのページネーションリストを取得。",
+      "getBlockTransactions": "特定のブロック内のすべてのトランザクションをページネーション付きで取得。"
+    },
+    "transaction": {
+      "title": "トランザクションエンドポイント",
+      "getTransaction": "トランザクションハッシュでトランザクションの詳細情報を取得。",
+      "sendTransaction": "署名済みトランザクションをネットワークにブロードキャスト。",
+      "requestBody": "リクエストボディ",
+      "requestExample": "リクエスト例",
+      "getReceipt": "ログとステータスを含むマイニング済みトランザクションのレシートを取得。"
+    },
+    "account": {
+      "title": "アカウントエンドポイント",
+      "getBalance": "アドレスのネイティブTBURN残高を取得。",
+      "getTokenBalances": "アドレスのすべてのTBC-20トークン残高を取得。",
+      "getTransactionHistory": "アドレスのページネーション付きトランザクション履歴を取得。"
+    },
+    "smartContract": {
+      "title": "スマートコントラクトエンドポイント",
+      "getContractInfo": "ABIとソースコードを含む検証済みコントラクト情報を取得。",
+      "callContract": "読み取り専用のコントラクト関数呼び出しを実行。",
+      "getContractEvents": "コントラクトが発行したイベントログを取得。"
+    },
+    "websocketEvents": {
+      "title": "リアルタイムイベント",
+      "description": "WebSocket接続でリアルタイムブロックチェーンイベントを購読。",
+      "connectionExample": "接続例",
+      "subscribeNewBlocks": "新しいブロックを購読",
+      "subscribePendingTxs": "保留中トランザクションを購読",
+      "subscribeContractEvents": "コントラクトイベントを購読",
+      "eventMessage": "イベントメッセージ"
+    },
+    "sdks": {
+      "title": "公式SDK",
+      "description": "シームレスな統合のために公式SDKを使用してください："
+    },
+    "table": {
+      "parameter": "パラメータ",
+      "type": "タイプ",
+      "required": "必須",
+      "optional": "オプション",
+      "description": "説明",
+      "unlimited": "無制限",
+      "connections": "接続"
+    }
   }
 }

@@ -14289,5 +14289,124 @@
     "disconnected": "已断开",
     "address": "地址",
     "tokens": "代币"
+  },
+  "apiDocs": {
+    "title": "API 文档",
+    "subtitle": "用于在TBURN Lab上构建的企业级REST API和WebSocket端点。完全访问区块链数据、智能合约和实时事件。",
+    "apiReference": "API 参考 v8.0",
+    "baseUrl": "基础URL",
+    "sidebar": {
+      "overview": "概述",
+      "authentication": "认证",
+      "rateLimits": "速率限制",
+      "endpoints": "端点",
+      "block": "区块",
+      "transaction": "交易",
+      "account": "账户",
+      "smartContract": "智能合约",
+      "websocket": "WebSocket",
+      "realtimeEvents": "实时事件",
+      "related": "相关",
+      "developerHub": "开发者中心",
+      "fullDocumentation": "完整文档",
+      "codeExamples": "代码示例",
+      "quickStartGuide": "快速入门指南"
+    },
+    "overview": {
+      "title": "API 概述",
+      "restfulApi": "RESTful API",
+      "restfulApiDesc": "具有全面查询参数和过滤功能的JSON REST端点。",
+      "websocket": "WebSocket",
+      "websocketDesc": "区块、交易和智能合约事件的实时流。",
+      "enterpriseReady": "企业就绪",
+      "enterpriseReadyDesc": "99.99%正常运行时间SLA、专用支持和自定义速率限制。",
+      "quickStart": "快速开始"
+    },
+    "authentication": {
+      "title": "认证",
+      "apiKeyAuth": "API密钥认证",
+      "apiKeyAuthDesc": "所有API请求都需要使用API密钥进行认证。在请求头中包含您的密钥：",
+      "securityWarning": "切勿在客户端代码中暴露您的API密钥。使用服务器端请求或环境变量。",
+      "gettingApiKey": "获取API密钥",
+      "step1": "创建账户",
+      "step2": "导航到仪表板中的API密钥部分",
+      "step3": "生成新的API密钥并安全存储",
+      "apiKeyTiers": "API密钥等级",
+      "tier": "等级",
+      "rateLimit": "速率限制",
+      "websocketCol": "WebSocket",
+      "support": "支持",
+      "free": "免费",
+      "pro": "专业版",
+      "enterprise": "企业版",
+      "community": "社区",
+      "dedicated": "专用"
+    },
+    "rateLimits": {
+      "title": "速率限制",
+      "rateLimitHeaders": "速率限制头",
+      "rateLimitHeadersDesc": "每个API响应都在头部包含速率限制信息：",
+      "endpointSpecificLimits": "端点特定限制",
+      "endpointCategory": "端点类别",
+      "freeTier": "免费等级",
+      "proTier": "专业等级",
+      "blockTransaction": "区块/交易",
+      "accountBalance": "账户余额",
+      "smartContractCalls": "智能合约调用",
+      "historicalData": "历史数据",
+      "tooManyRequests": "429 请求过多",
+      "tooManyRequestsDesc": "当速率受限时，API返回429状态并附带重试信息："
+    },
+    "block": {
+      "title": "区块端点",
+      "getBlockByNumber": "通过区块号检索特定区块的详细信息，或使用'latest'获取最新区块。",
+      "pathParameters": "路径参数",
+      "queryParameters": "查询参数",
+      "response": "响应",
+      "getLatestBlocks": "检索带有可选过滤的最近区块分页列表。",
+      "getBlockTransactions": "获取特定区块中所有交易，支持分页。"
+    },
+    "transaction": {
+      "title": "交易端点",
+      "getTransaction": "通过交易哈希检索交易详细信息。",
+      "sendTransaction": "将已签名的交易广播到网络。",
+      "requestBody": "请求体",
+      "requestExample": "请求示例",
+      "getReceipt": "获取已挖掘交易的收据，包括日志和状态。"
+    },
+    "account": {
+      "title": "账户端点",
+      "getBalance": "获取地址的原生TBURN余额。",
+      "getTokenBalances": "获取地址的所有TBC-20代币余额。",
+      "getTransactionHistory": "获取地址的分页交易历史。"
+    },
+    "smartContract": {
+      "title": "智能合约端点",
+      "getContractInfo": "获取已验证合约信息，包括ABI和源代码。",
+      "callContract": "执行只读合约函数调用。",
+      "getContractEvents": "获取合约发出的事件日志。"
+    },
+    "websocketEvents": {
+      "title": "实时事件",
+      "description": "通过WebSocket连接订阅实时区块链事件。",
+      "connectionExample": "连接示例",
+      "subscribeNewBlocks": "订阅新区块",
+      "subscribePendingTxs": "订阅待处理交易",
+      "subscribeContractEvents": "订阅合约事件",
+      "eventMessage": "事件消息"
+    },
+    "sdks": {
+      "title": "官方SDK",
+      "description": "使用我们的官方SDK进行无缝集成："
+    },
+    "table": {
+      "parameter": "参数",
+      "type": "类型",
+      "required": "必需",
+      "optional": "可选",
+      "description": "描述",
+      "unlimited": "无限",
+      "connections": "连接"
+    }
   }
 }

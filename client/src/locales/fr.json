@@ -12251,5 +12251,124 @@
     "disconnected": "Déconnecté",
     "address": "Adresse",
     "tokens": "Tokens"
+  },
+  "apiDocs": {
+    "title": "Documentation API",
+    "subtitle": "API REST de niveau entreprise et points de terminaison WebSocket pour construire sur TBURN Lab. Accès complet aux données blockchain, contrats intelligents et événements en temps réel.",
+    "apiReference": "Référence API v8.0",
+    "baseUrl": "URL de Base",
+    "sidebar": {
+      "overview": "Aperçu",
+      "authentication": "Authentification",
+      "rateLimits": "Limites de Débit",
+      "endpoints": "POINTS DE TERMINAISON",
+      "block": "Bloc",
+      "transaction": "Transaction",
+      "account": "Compte",
+      "smartContract": "Contrat Intelligent",
+      "websocket": "WEBSOCKET",
+      "realtimeEvents": "Événements Temps Réel",
+      "related": "CONNEXE",
+      "developerHub": "Hub Développeurs",
+      "fullDocumentation": "Documentation Complète",
+      "codeExamples": "Exemples de Code",
+      "quickStartGuide": "Guide de Démarrage Rapide"
+    },
+    "overview": {
+      "title": "Aperçu de l'API",
+      "restfulApi": "API RESTful",
+      "restfulApiDesc": "Points de terminaison REST basés sur JSON avec paramètres de requête et filtrage complets.",
+      "websocket": "WebSocket",
+      "websocketDesc": "Streaming en temps réel pour blocs, transactions et événements de contrats intelligents.",
+      "enterpriseReady": "Prêt pour l'Entreprise",
+      "enterpriseReadyDesc": "SLA de disponibilité 99.99%, support dédié et limites personnalisées.",
+      "quickStart": "Démarrage Rapide"
+    },
+    "authentication": {
+      "title": "Authentification",
+      "apiKeyAuth": "Authentification par Clé API",
+      "apiKeyAuthDesc": "Toutes les requêtes API nécessitent une authentification par clé API. Incluez votre clé dans l'en-tête:",
+      "securityWarning": "N'exposez jamais votre clé API dans le code côté client. Utilisez des requêtes côté serveur ou des variables d'environnement.",
+      "gettingApiKey": "Obtenir une Clé API",
+      "step1": "Créer un compte sur",
+      "step2": "Naviguer vers la section Clés API dans le tableau de bord",
+      "step3": "Générer une nouvelle clé API et la stocker en sécurité",
+      "apiKeyTiers": "Niveaux de Clé API",
+      "tier": "Niveau",
+      "rateLimit": "Limite de Débit",
+      "websocketCol": "WebSocket",
+      "support": "Support",
+      "free": "Gratuit",
+      "pro": "Pro",
+      "enterprise": "Entreprise",
+      "community": "Communauté",
+      "dedicated": "Dédié"
+    },
+    "rateLimits": {
+      "title": "Limites de Débit",
+      "rateLimitHeaders": "En-têtes de Limite de Débit",
+      "rateLimitHeadersDesc": "Chaque réponse API inclut des informations de limite de débit dans les en-têtes:",
+      "endpointSpecificLimits": "Limites par Point de Terminaison",
+      "endpointCategory": "Catégorie de Point de Terminaison",
+      "freeTier": "Niveau Gratuit",
+      "proTier": "Niveau Pro",
+      "blockTransaction": "Bloc / Transaction",
+      "accountBalance": "Solde du Compte",
+      "smartContractCalls": "Appels de Contrats Intelligents",
+      "historicalData": "Données Historiques",
+      "tooManyRequests": "429 Trop de Requêtes",
+      "tooManyRequestsDesc": "En cas de limite, l'API renvoie un statut 429 avec informations de réessai:"
+    },
+    "block": {
+      "title": "Points de Terminaison Bloc",
+      "getBlockByNumber": "Récupérer les informations détaillées d'un bloc par son numéro ou utiliser 'latest' pour le bloc le plus récent.",
+      "pathParameters": "Paramètres de Chemin",
+      "queryParameters": "Paramètres de Requête",
+      "response": "Réponse",
+      "getLatestBlocks": "Récupérer une liste paginée des blocs récents avec filtrage optionnel.",
+      "getBlockTransactions": "Obtenir toutes les transactions d'un bloc avec support de pagination."
+    },
+    "transaction": {
+      "title": "Points de Terminaison Transaction",
+      "getTransaction": "Récupérer les informations détaillées d'une transaction par son hash.",
+      "sendTransaction": "Diffuser une transaction signée sur le réseau.",
+      "requestBody": "Corps de Requête",
+      "requestExample": "Exemple de Requête",
+      "getReceipt": "Obtenir le reçu d'une transaction minée avec logs et statut."
+    },
+    "account": {
+      "title": "Points de Terminaison Compte",
+      "getBalance": "Obtenir le solde natif TBURN d'une adresse.",
+      "getTokenBalances": "Obtenir tous les soldes de jetons TBC-20 d'une adresse.",
+      "getTransactionHistory": "Obtenir l'historique paginé des transactions d'une adresse."
+    },
+    "smartContract": {
+      "title": "Points de Terminaison Contrat Intelligent",
+      "getContractInfo": "Obtenir les informations de contrat vérifié incluant ABI et code source.",
+      "callContract": "Exécuter un appel de fonction de contrat en lecture seule.",
+      "getContractEvents": "Obtenir les logs d'événements émis par un contrat."
+    },
+    "websocketEvents": {
+      "title": "Événements Temps Réel",
+      "description": "S'abonner aux événements blockchain en temps réel via connexion WebSocket.",
+      "connectionExample": "Exemple de Connexion",
+      "subscribeNewBlocks": "S'abonner aux Nouveaux Blocs",
+      "subscribePendingTxs": "S'abonner aux Transactions en Attente",
+      "subscribeContractEvents": "S'abonner aux Événements de Contrat",
+      "eventMessage": "Message d'Événement"
+    },
+    "sdks": {
+      "title": "SDKs Officiels",
+      "description": "Utilisez nos SDKs officiels pour une intégration transparente:"
+    },
+    "table": {
+      "parameter": "Paramètre",
+      "type": "Type",
+      "required": "Requis",
+      "optional": "Optionnel",
+      "description": "Description",
+      "unlimited": "Illimité",
+      "connections": "connexions"
+    }
   }
 }

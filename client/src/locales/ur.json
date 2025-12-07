@@ -10690,5 +10690,88 @@
     "disconnected": "منقطع",
     "address": "ایڈریس",
     "tokens": "ٹوکن"
+  },
+  "apiDocs": {
+    "title": "API دستاویزات",
+    "subtitle": "TBURN Lab پر تعمیر کے لیے انٹرپرائز گریڈ REST API اور WebSocket اینڈ پوائنٹس۔",
+    "apiReference": "API حوالہ v8.0",
+    "baseUrl": "بیس URL",
+    "sidebar": {
+      "overview": "جائزہ",
+      "authentication": "تصدیق",
+      "rateLimits": "شرح کی حدود",
+      "endpoints": "اینڈ پوائنٹس",
+      "block": "بلاک",
+      "transaction": "لین دین",
+      "account": "اکاؤنٹ",
+      "smartContract": "سمارٹ کنٹریکٹ",
+      "websocket": "ویب ساکٹ",
+      "realtimeEvents": "ریئل ٹائم ایونٹس",
+      "related": "متعلقہ",
+      "developerHub": "ڈویلپر ہب",
+      "fullDocumentation": "مکمل دستاویزات",
+      "codeExamples": "کوڈ مثالیں",
+      "quickStartGuide": "فوری آغاز گائیڈ"
+    },
+    "overview": {
+      "title": "API جائزہ",
+      "restfulApi": "RESTful API",
+      "restfulApiDesc": "جامع کوئری پیرامیٹرز اور فلٹرنگ کے ساتھ JSON پر مبنی REST اینڈ پوائنٹس۔",
+      "websocket": "WebSocket",
+      "websocketDesc": "بلاکس، لین دین اور سمارٹ کنٹریکٹ ایونٹس کے لیے ریئل ٹائم سٹریمنگ۔",
+      "enterpriseReady": "انٹرپرائز کے لیے تیار",
+      "enterpriseReadyDesc": "99.99% اپ ٹائم SLA، مخصوص معاونت اور حسب ضرورت شرح کی حدود۔",
+      "quickStart": "فوری آغاز"
+    },
+    "authentication": {
+      "title": "تصدیق",
+      "apiKeyAuth": "API کلید کی تصدیق",
+      "gettingApiKey": "API کلید حاصل کرنا",
+      "apiKeyTiers": "API کلید درجات",
+      "tier": "درجہ",
+      "rateLimit": "شرح کی حد",
+      "support": "معاونت",
+      "free": "مفت",
+      "pro": "پرو",
+      "enterprise": "انٹرپرائز"
+    },
+    "rateLimits": {
+      "title": "شرح کی حدود",
+      "rateLimitHeaders": "شرح کی حد ہیڈرز",
+      "tooManyRequests": "429 بہت زیادہ درخواستیں"
+    },
+    "block": {
+      "title": "بلاک اینڈ پوائنٹس",
+      "pathParameters": "پاتھ پیرامیٹرز",
+      "queryParameters": "کوئری پیرامیٹرز",
+      "response": "جواب"
+    },
+    "transaction": {
+      "title": "لین دین اینڈ پوائنٹس",
+      "requestBody": "درخواست باڈی",
+      "requestExample": "درخواست کی مثال"
+    },
+    "account": {
+      "title": "اکاؤنٹ اینڈ پوائنٹس"
+    },
+    "smartContract": {
+      "title": "سمارٹ کنٹریکٹ اینڈ پوائنٹس"
+    },
+    "websocketEvents": {
+      "title": "ریئل ٹائم ایونٹس",
+      "connectionExample": "کنکشن کی مثال"
+    },
+    "sdks": {
+      "title": "سرکاری SDKs",
+      "description": "ہموار انضمام کے لیے ہمارے سرکاری SDKs استعمال کریں:"
+    },
+    "table": {
+      "parameter": "پیرامیٹر",
+      "type": "قسم",
+      "required": "ضروری",
+      "optional": "اختیاری",
+      "description": "تفصیل",
+      "unlimited": "لامحدود"
+    }
   }
 }

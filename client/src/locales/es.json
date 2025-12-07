@@ -14275,5 +14275,124 @@
     "disconnected": "Desconectado",
     "address": "Dirección",
     "tokens": "Tokens"
+  },
+  "apiDocs": {
+    "title": "Documentación de API",
+    "subtitle": "API REST de nivel empresarial y endpoints WebSocket para construir en TBURN Lab. Acceso completo a datos de blockchain, contratos inteligentes y eventos en tiempo real.",
+    "apiReference": "Referencia de API v8.0",
+    "baseUrl": "URL Base",
+    "sidebar": {
+      "overview": "Descripción General",
+      "authentication": "Autenticación",
+      "rateLimits": "Límites de Tasa",
+      "endpoints": "ENDPOINTS",
+      "block": "Bloque",
+      "transaction": "Transacción",
+      "account": "Cuenta",
+      "smartContract": "Contrato Inteligente",
+      "websocket": "WEBSOCKET",
+      "realtimeEvents": "Eventos en Tiempo Real",
+      "related": "RELACIONADO",
+      "developerHub": "Hub de Desarrolladores",
+      "fullDocumentation": "Documentación Completa",
+      "codeExamples": "Ejemplos de Código",
+      "quickStartGuide": "Guía de Inicio Rápido"
+    },
+    "overview": {
+      "title": "Descripción General de API",
+      "restfulApi": "API RESTful",
+      "restfulApiDesc": "Endpoints REST basados en JSON con parámetros de consulta y filtrado completos.",
+      "websocket": "WebSocket",
+      "websocketDesc": "Transmisión en tiempo real para bloques, transacciones y eventos de contratos inteligentes.",
+      "enterpriseReady": "Preparado para Empresas",
+      "enterpriseReadyDesc": "SLA de 99.99% de tiempo de actividad, soporte dedicado y límites personalizados.",
+      "quickStart": "Inicio Rápido"
+    },
+    "authentication": {
+      "title": "Autenticación",
+      "apiKeyAuth": "Autenticación con Clave API",
+      "apiKeyAuthDesc": "Todas las solicitudes API requieren autenticación con clave API. Incluya su clave en el encabezado:",
+      "securityWarning": "Nunca exponga su clave API en código del lado del cliente. Use solicitudes del lado del servidor o variables de entorno.",
+      "gettingApiKey": "Obtener una Clave API",
+      "step1": "Crear una cuenta en",
+      "step2": "Navegar a la sección de Claves API en el panel",
+      "step3": "Generar una nueva clave API y almacenarla de forma segura",
+      "apiKeyTiers": "Niveles de Clave API",
+      "tier": "Nivel",
+      "rateLimit": "Límite de Tasa",
+      "websocketCol": "WebSocket",
+      "support": "Soporte",
+      "free": "Gratis",
+      "pro": "Pro",
+      "enterprise": "Empresarial",
+      "community": "Comunidad",
+      "dedicated": "Dedicado"
+    },
+    "rateLimits": {
+      "title": "Límites de Tasa",
+      "rateLimitHeaders": "Encabezados de Límite de Tasa",
+      "rateLimitHeadersDesc": "Cada respuesta API incluye información de límite de tasa en los encabezados:",
+      "endpointSpecificLimits": "Límites por Endpoint",
+      "endpointCategory": "Categoría de Endpoint",
+      "freeTier": "Nivel Gratis",
+      "proTier": "Nivel Pro",
+      "blockTransaction": "Bloque / Transacción",
+      "accountBalance": "Balance de Cuenta",
+      "smartContractCalls": "Llamadas a Contratos Inteligentes",
+      "historicalData": "Datos Históricos",
+      "tooManyRequests": "429 Demasiadas Solicitudes",
+      "tooManyRequestsDesc": "Cuando está limitado, la API devuelve un estado 429 con información de reintento:"
+    },
+    "block": {
+      "title": "Endpoints de Bloque",
+      "getBlockByNumber": "Obtener información detallada de un bloque por su número o usar 'latest' para el bloque más reciente.",
+      "pathParameters": "Parámetros de Ruta",
+      "queryParameters": "Parámetros de Consulta",
+      "response": "Respuesta",
+      "getLatestBlocks": "Obtener lista paginada de bloques recientes con filtrado opcional.",
+      "getBlockTransactions": "Obtener todas las transacciones de un bloque con soporte de paginación."
+    },
+    "transaction": {
+      "title": "Endpoints de Transacción",
+      "getTransaction": "Obtener información detallada de una transacción por su hash.",
+      "sendTransaction": "Transmitir una transacción firmada a la red.",
+      "requestBody": "Cuerpo de Solicitud",
+      "requestExample": "Ejemplo de Solicitud",
+      "getReceipt": "Obtener el recibo de una transacción minada con logs y estado."
+    },
+    "account": {
+      "title": "Endpoints de Cuenta",
+      "getBalance": "Obtener el balance nativo de TBURN de una dirección.",
+      "getTokenBalances": "Obtener todos los balances de tokens TBC-20 de una dirección.",
+      "getTransactionHistory": "Obtener historial de transacciones paginado de una dirección."
+    },
+    "smartContract": {
+      "title": "Endpoints de Contrato Inteligente",
+      "getContractInfo": "Obtener información de contrato verificado incluyendo ABI y código fuente.",
+      "callContract": "Ejecutar una llamada de función de contrato de solo lectura.",
+      "getContractEvents": "Obtener logs de eventos emitidos por un contrato."
+    },
+    "websocketEvents": {
+      "title": "Eventos en Tiempo Real",
+      "description": "Suscribirse a eventos blockchain en tiempo real via conexión WebSocket.",
+      "connectionExample": "Ejemplo de Conexión",
+      "subscribeNewBlocks": "Suscribirse a Nuevos Bloques",
+      "subscribePendingTxs": "Suscribirse a Transacciones Pendientes",
+      "subscribeContractEvents": "Suscribirse a Eventos de Contrato",
+      "eventMessage": "Mensaje de Evento"
+    },
+    "sdks": {
+      "title": "SDKs Oficiales",
+      "description": "Use nuestros SDKs oficiales para integración sin problemas:"
+    },
+    "table": {
+      "parameter": "Parámetro",
+      "type": "Tipo",
+      "required": "Requerido",
+      "optional": "Opcional",
+      "description": "Descripción",
+      "unlimited": "Ilimitado",
+      "connections": "conexiones"
+    }
   }
 }

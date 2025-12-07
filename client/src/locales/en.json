@@ -24159,5 +24159,124 @@
         "description": "Complete DeFi + NFT + GameFi Ecosystem"
       }
     }
+  },
+  "apiDocs": {
+    "title": "API Documentation",
+    "subtitle": "Enterprise-grade REST API and WebSocket endpoints for building on TBURN Lab. Complete access to blockchain data, smart contracts, and real-time events.",
+    "apiReference": "API Reference v8.0",
+    "baseUrl": "Base URL",
+    "sidebar": {
+      "overview": "Overview",
+      "authentication": "Authentication",
+      "rateLimits": "Rate Limits",
+      "endpoints": "ENDPOINTS",
+      "block": "Block",
+      "transaction": "Transaction",
+      "account": "Account",
+      "smartContract": "Smart Contract",
+      "websocket": "WEBSOCKET",
+      "realtimeEvents": "Real-time Events",
+      "related": "RELATED",
+      "developerHub": "Developer Hub",
+      "fullDocumentation": "Full Documentation",
+      "codeExamples": "Code Examples",
+      "quickStartGuide": "Quick Start Guide"
+    },
+    "overview": {
+      "title": "API Overview",
+      "restfulApi": "RESTful API",
+      "restfulApiDesc": "JSON-based REST endpoints with comprehensive query parameters and filtering.",
+      "websocket": "WebSocket",
+      "websocketDesc": "Real-time streaming for blocks, transactions, and smart contract events.",
+      "enterpriseReady": "Enterprise Ready",
+      "enterpriseReadyDesc": "99.99% uptime SLA, dedicated support, and custom rate limits.",
+      "quickStart": "Quick Start"
+    },
+    "authentication": {
+      "title": "Authentication",
+      "apiKeyAuth": "API Key Authentication",
+      "apiKeyAuthDesc": "All API requests require authentication using an API key. Include your key in the request header:",
+      "securityWarning": "Never expose your API key in client-side code. Use server-side requests or environment variables.",
+      "gettingApiKey": "Getting an API Key",
+      "step1": "Create an account at",
+      "step2": "Navigate to API Keys section in your dashboard",
+      "step3": "Generate a new API key and securely store it",
+      "apiKeyTiers": "API Key Tiers",
+      "tier": "Tier",
+      "rateLimit": "Rate Limit",
+      "websocketCol": "WebSocket",
+      "support": "Support",
+      "free": "Free",
+      "pro": "Pro",
+      "enterprise": "Enterprise",
+      "community": "Community",
+      "dedicated": "Dedicated"
+    },
+    "rateLimits": {
+      "title": "Rate Limits",
+      "rateLimitHeaders": "Rate Limit Headers",
+      "rateLimitHeadersDesc": "Every API response includes rate limit information in the headers:",
+      "endpointSpecificLimits": "Endpoint-Specific Limits",
+      "endpointCategory": "Endpoint Category",
+      "freeTier": "Free Tier",
+      "proTier": "Pro Tier",
+      "blockTransaction": "Block / Transaction",
+      "accountBalance": "Account Balance",
+      "smartContractCalls": "Smart Contract Calls",
+      "historicalData": "Historical Data",
+      "tooManyRequests": "429 Too Many Requests",
+      "tooManyRequestsDesc": "When rate limited, the API returns a 429 status with retry information:"
+    },
+    "block": {
+      "title": "Block Endpoints",
+      "getBlockByNumber": "Retrieve detailed information about a specific block by its number or use 'latest' for the most recent block.",
+      "pathParameters": "Path Parameters",
+      "queryParameters": "Query Parameters",
+      "response": "Response",
+      "getLatestBlocks": "Retrieve a paginated list of recent blocks with optional filtering.",
+      "getBlockTransactions": "Get all transactions in a specific block with pagination support."
+    },
+    "transaction": {
+      "title": "Transaction Endpoints",
+      "getTransaction": "Retrieve detailed information about a transaction by its hash.",
+      "sendTransaction": "Broadcast a signed transaction to the network.",
+      "requestBody": "Request Body",
+      "requestExample": "Request Example",
+      "getReceipt": "Get the receipt of a mined transaction including logs and status."
+    },
+    "account": {
+      "title": "Account Endpoints",
+      "getBalance": "Get the native TBURN balance of an address.",
+      "getTokenBalances": "Get all TBC-20 token balances for an address.",
+      "getTransactionHistory": "Get paginated transaction history for an address."
+    },
+    "smartContract": {
+      "title": "Smart Contract Endpoints",
+      "getContractInfo": "Get verified contract information including ABI and source code.",
+      "callContract": "Execute a read-only contract function call.",
+      "getContractEvents": "Get event logs emitted by a contract."
+    },
+    "websocketEvents": {
+      "title": "Real-time Events",
+      "description": "Subscribe to real-time blockchain events via WebSocket connection.",
+      "connectionExample": "Connection Example",
+      "subscribeNewBlocks": "Subscribe to New Blocks",
+      "subscribePendingTxs": "Subscribe to Pending Transactions",
+      "subscribeContractEvents": "Subscribe to Contract Events",
+      "eventMessage": "Event Message"
+    },
+    "sdks": {
+      "title": "Official SDKs",
+      "description": "Use our official SDKs for seamless integration:"
+    },
+    "table": {
+      "parameter": "Parameter",
+      "type": "Type",
+      "required": "Required",
+      "optional": "Optional",
+      "description": "Description",
+      "unlimited": "Unlimited",
+      "connections": "connections"
+    }
   }
 }

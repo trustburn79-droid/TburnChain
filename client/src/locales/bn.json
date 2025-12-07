@@ -10446,5 +10446,88 @@
     "disconnected": "সংযোগ বিচ্ছিন্ন",
     "address": "ঠিকানা",
     "tokens": "টোকেন"
+  },
+  "apiDocs": {
+    "title": "API ডকুমেন্টেশন",
+    "subtitle": "TBURN Lab-এ নির্মাণের জন্য এন্টারপ্রাইজ-গ্রেড REST API এবং WebSocket এন্ডপয়েন্ট।",
+    "apiReference": "API রেফারেন্স v8.0",
+    "baseUrl": "বেস URL",
+    "sidebar": {
+      "overview": "সংক্ষিপ্ত বিবরণ",
+      "authentication": "প্রমাণীকরণ",
+      "rateLimits": "রেট সীমা",
+      "endpoints": "এন্ডপয়েন্ট",
+      "block": "ব্লক",
+      "transaction": "লেনদেন",
+      "account": "অ্যাকাউন্ট",
+      "smartContract": "স্মার্ট কন্ট্রাক্ট",
+      "websocket": "ওয়েবসকেট",
+      "realtimeEvents": "রিয়েল-টাইম ইভেন্ট",
+      "related": "সম্পর্কিত",
+      "developerHub": "ডেভেলপার হাব",
+      "fullDocumentation": "সম্পূর্ণ ডকুমেন্টেশন",
+      "codeExamples": "কোড উদাহরণ",
+      "quickStartGuide": "দ্রুত শুরু গাইড"
+    },
+    "overview": {
+      "title": "API সংক্ষিপ্ত বিবরণ",
+      "restfulApi": "RESTful API",
+      "restfulApiDesc": "ব্যাপক কোয়েরি প্যারামিটার এবং ফিল্টারিং সহ JSON-ভিত্তিক REST এন্ডপয়েন্ট।",
+      "websocket": "WebSocket",
+      "websocketDesc": "ব্লক, লেনদেন এবং স্মার্ট কন্ট্রাক্ট ইভেন্টের জন্য রিয়েল-টাইম স্ট্রিমিং।",
+      "enterpriseReady": "এন্টারপ্রাইজ প্রস্তুত",
+      "enterpriseReadyDesc": "99.99% আপটাইম SLA, নিবেদিত সহায়তা এবং কাস্টম রেট সীমা।",
+      "quickStart": "দ্রুত শুরু"
+    },
+    "authentication": {
+      "title": "প্রমাণীকরণ",
+      "apiKeyAuth": "API কী প্রমাণীকরণ",
+      "gettingApiKey": "API কী পাওয়া",
+      "apiKeyTiers": "API কী স্তর",
+      "tier": "স্তর",
+      "rateLimit": "রেট সীমা",
+      "support": "সহায়তা",
+      "free": "বিনামূল্যে",
+      "pro": "প্রো",
+      "enterprise": "এন্টারপ্রাইজ"
+    },
+    "rateLimits": {
+      "title": "রেট সীমা",
+      "rateLimitHeaders": "রেট সীমা হেডার",
+      "tooManyRequests": "429 অনেক বেশি অনুরোধ"
+    },
+    "block": {
+      "title": "ব্লক এন্ডপয়েন্ট",
+      "pathParameters": "পাথ প্যারামিটার",
+      "queryParameters": "কোয়েরি প্যারামিটার",
+      "response": "প্রতিক্রিয়া"
+    },
+    "transaction": {
+      "title": "লেনদেন এন্ডপয়েন্ট",
+      "requestBody": "অনুরোধ বডি",
+      "requestExample": "অনুরোধ উদাহরণ"
+    },
+    "account": {
+      "title": "অ্যাকাউন্ট এন্ডপয়েন্ট"
+    },
+    "smartContract": {
+      "title": "স্মার্ট কন্ট্রাক্ট এন্ডপয়েন্ট"
+    },
+    "websocketEvents": {
+      "title": "রিয়েল-টাইম ইভেন্ট",
+      "connectionExample": "সংযোগ উদাহরণ"
+    },
+    "sdks": {
+      "title": "অফিসিয়াল SDKs",
+      "description": "নির্বিঘ্ন ইন্টিগ্রেশনের জন্য আমাদের অফিসিয়াল SDKs ব্যবহার করুন:"
+    },
+    "table": {
+      "parameter": "প্যারামিটার",
+      "type": "টাইপ",
+      "required": "প্রয়োজনীয়",
+      "optional": "ঐচ্ছিক",
+      "description": "বিবরণ",
+      "unlimited": "সীমাহীন"
+    }
   }
 }

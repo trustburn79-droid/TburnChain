@@ -12215,5 +12215,91 @@
     "disconnected": "غير متصل",
     "address": "العنوان",
     "tokens": "الرموز"
+  },
+  "apiDocs": {
+    "title": "وثائق API",
+    "subtitle": "واجهة REST API ونقاط WebSocket بمستوى المؤسسات للبناء على TBURN Lab. وصول كامل لبيانات البلوكتشين والعقود الذكية والأحداث في الوقت الفعلي.",
+    "apiReference": "مرجع API v8.0",
+    "baseUrl": "الرابط الأساسي",
+    "sidebar": {
+      "overview": "نظرة عامة",
+      "authentication": "المصادقة",
+      "rateLimits": "حدود المعدل",
+      "endpoints": "نقاط النهاية",
+      "block": "الكتلة",
+      "transaction": "المعاملة",
+      "account": "الحساب",
+      "smartContract": "العقد الذكي",
+      "websocket": "ويب سوكت",
+      "realtimeEvents": "أحداث الوقت الفعلي",
+      "related": "ذو صلة",
+      "developerHub": "مركز المطورين",
+      "fullDocumentation": "الوثائق الكاملة",
+      "codeExamples": "أمثلة الكود",
+      "quickStartGuide": "دليل البدء السريع"
+    },
+    "overview": {
+      "title": "نظرة عامة على API",
+      "restfulApi": "RESTful API",
+      "restfulApiDesc": "نقاط نهاية REST قائمة على JSON مع معاملات استعلام وتصفية شاملة.",
+      "websocket": "WebSocket",
+      "websocketDesc": "بث في الوقت الفعلي للكتل والمعاملات وأحداث العقود الذكية.",
+      "enterpriseReady": "جاهز للمؤسسات",
+      "enterpriseReadyDesc": "اتفاقية مستوى خدمة بوقت تشغيل 99.99%، دعم مخصص، وحدود مخصصة.",
+      "quickStart": "بدء سريع"
+    },
+    "authentication": {
+      "title": "المصادقة",
+      "apiKeyAuth": "مصادقة مفتاح API",
+      "apiKeyAuthDesc": "تتطلب جميع طلبات API المصادقة باستخدام مفتاح API. أدرج مفتاحك في رأس الطلب:",
+      "securityWarning": "لا تكشف أبداً مفتاح API في كود العميل. استخدم طلبات الخادم أو متغيرات البيئة.",
+      "gettingApiKey": "الحصول على مفتاح API",
+      "apiKeyTiers": "مستويات مفتاح API",
+      "tier": "المستوى",
+      "rateLimit": "حد المعدل",
+      "support": "الدعم",
+      "free": "مجاني",
+      "pro": "احترافي",
+      "enterprise": "مؤسسي"
+    },
+    "rateLimits": {
+      "title": "حدود المعدل",
+      "rateLimitHeaders": "رؤوس حد المعدل",
+      "endpointSpecificLimits": "حدود خاصة بنقطة النهاية",
+      "tooManyRequests": "429 طلبات كثيرة جداً"
+    },
+    "block": {
+      "title": "نقاط نهاية الكتلة",
+      "pathParameters": "معاملات المسار",
+      "queryParameters": "معاملات الاستعلام",
+      "response": "الاستجابة"
+    },
+    "transaction": {
+      "title": "نقاط نهاية المعاملة",
+      "requestBody": "نص الطلب",
+      "requestExample": "مثال الطلب"
+    },
+    "account": {
+      "title": "نقاط نهاية الحساب"
+    },
+    "smartContract": {
+      "title": "نقاط نهاية العقد الذكي"
+    },
+    "websocketEvents": {
+      "title": "أحداث الوقت الفعلي",
+      "connectionExample": "مثال الاتصال"
+    },
+    "sdks": {
+      "title": "حزم SDK الرسمية",
+      "description": "استخدم حزم SDK الرسمية لدينا للتكامل السلس:"
+    },
+    "table": {
+      "parameter": "المعامل",
+      "type": "النوع",
+      "required": "مطلوب",
+      "optional": "اختياري",
+      "description": "الوصف",
+      "unlimited": "غير محدود"
+    }
   }
 }

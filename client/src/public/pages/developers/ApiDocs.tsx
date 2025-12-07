@@ -89,16 +89,16 @@ export default function ApiDocs() {
   const [activeSection, setActiveSection] = useState("overview");
 
   const sidebarLinks = [
-    { id: "overview", label: "Overview", icon: Globe },
-    { id: "authentication", label: "Authentication", icon: Key },
-    { id: "rate-limits", label: "Rate Limits", icon: Clock },
-    { section: "ENDPOINTS" },
-    { id: "block", label: "Block", icon: Box },
-    { id: "transaction", label: "Transaction", icon: Activity },
-    { id: "account", label: "Account", icon: Wallet },
-    { id: "smart-contract", label: "Smart Contract", icon: FileCode },
-    { section: "WEBSOCKET" },
-    { id: "realtime-events", label: "Real-time Events", icon: Zap },
+    { id: "overview", label: t("apiDocs.sidebar.overview", "Overview"), icon: Globe },
+    { id: "authentication", label: t("apiDocs.sidebar.authentication", "Authentication"), icon: Key },
+    { id: "rate-limits", label: t("apiDocs.sidebar.rateLimits", "Rate Limits"), icon: Clock },
+    { section: t("apiDocs.sidebar.endpoints", "ENDPOINTS") },
+    { id: "block", label: t("apiDocs.sidebar.block", "Block"), icon: Box },
+    { id: "transaction", label: t("apiDocs.sidebar.transaction", "Transaction"), icon: Activity },
+    { id: "account", label: t("apiDocs.sidebar.account", "Account"), icon: Wallet },
+    { id: "smart-contract", label: t("apiDocs.sidebar.smartContract", "Smart Contract"), icon: FileCode },
+    { section: t("apiDocs.sidebar.websocket", "WEBSOCKET") },
+    { id: "realtime-events", label: t("apiDocs.sidebar.realtimeEvents", "Real-time Events"), icon: Zap },
   ];
 
   const handleCopyUrl = () => {
@@ -128,14 +128,13 @@ export default function ApiDocs() {
         
         <div className="container mx-auto max-w-6xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Code className="w-3 h-3" /> API Reference v8.0
+            <Code className="w-3 h-3" /> {t("apiDocs.apiReference", "API Reference v8.0")}
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            TBURN Lab <span className="text-gradient">API Documentation</span>
+            TBURN Lab <span className="text-gradient">{t("apiDocs.title", "API Documentation")}</span>
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mb-8">
-            Enterprise-grade REST API and WebSocket endpoints for building on TBURN Lab. 
-            Complete access to blockchain data, smart contracts, and real-time events.
+            {t("apiDocs.subtitle", "Enterprise-grade REST API and WebSocket endpoints for building on TBURN Lab. Complete access to blockchain data, smart contracts, and real-time events.")}
           </p>
           <div className="flex flex-wrap gap-4 items-center">
             <button 
@@ -143,7 +142,7 @@ export default function ApiDocs() {
               className="px-4 py-2 rounded bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 font-mono text-sm text-gray-700 dark:text-gray-300 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-white/10 transition"
               data-testid="button-copy-base-url"
             >
-              <span className="text-[#7000ff]">Base URL:</span> https://api.tburn.io/v8
+              <span className="text-[#7000ff]">{t("apiDocs.baseUrl", "Base URL")}:</span> https://api.tburn.io/v8
               {copiedUrl ? <Check className="w-4 h-4 text-[#00ff9d]" /> : <Copy className="w-4 h-4" />}
             </button>
             <span className="text-gray-500">|</span>
@@ -182,19 +181,19 @@ export default function ApiDocs() {
                 ))}
 
                 <div className="pt-8 pb-2 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
-                  RELATED
+                  {t("apiDocs.sidebar.related", "RELATED")}
                 </div>
                 <Link href="/developers" className="block px-4 py-2 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition flex items-center gap-2">
-                  <Layers className="w-4 h-4" /> Developer Hub
+                  <Layers className="w-4 h-4" /> {t("apiDocs.sidebar.developerHub", "Developer Hub")}
                 </Link>
                 <Link href="/developers/docs" className="block px-4 py-2 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition flex items-center gap-2">
-                  <FileText className="w-4 h-4" /> Full Documentation
+                  <FileText className="w-4 h-4" /> {t("apiDocs.sidebar.fullDocumentation", "Full Documentation")}
                 </Link>
                 <Link href="/developers/examples" className="block px-4 py-2 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition flex items-center gap-2">
-                  <Code className="w-4 h-4" /> Code Examples
+                  <Code className="w-4 h-4" /> {t("apiDocs.sidebar.codeExamples", "Code Examples")}
                 </Link>
                 <Link href="/developers/quickstart" className="block px-4 py-2 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition flex items-center gap-2">
-                  <Terminal className="w-4 h-4" /> Quick Start Guide
+                  <Terminal className="w-4 h-4" /> {t("apiDocs.sidebar.quickStartGuide", "Quick Start Guide")}
                 </Link>
               </div>
             </div>
@@ -204,29 +203,29 @@ export default function ApiDocs() {
               {/* Overview Section */}
               <section id="overview" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <Globe className="w-8 h-8 text-[#00f0ff]" /> API Overview
+                  <Globe className="w-8 h-8 text-[#00f0ff]" /> {t("apiDocs.overview.title", "API Overview")}
                 </h2>
                 
                 <div className="grid md:grid-cols-3 gap-4 mb-8">
                   <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <Server className="w-8 h-8 text-[#00ff9d] mb-3" />
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">RESTful API</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">JSON-based REST endpoints with comprehensive query parameters and filtering.</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t("apiDocs.overview.restfulApi", "RESTful API")}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{t("apiDocs.overview.restfulApiDesc", "JSON-based REST endpoints with comprehensive query parameters and filtering.")}</p>
                   </div>
                   <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <Zap className="w-8 h-8 text-[#7000ff] mb-3" />
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">WebSocket</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Real-time streaming for blocks, transactions, and smart contract events.</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t("apiDocs.overview.websocket", "WebSocket")}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{t("apiDocs.overview.websocketDesc", "Real-time streaming for blocks, transactions, and smart contract events.")}</p>
                   </div>
                   <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <Shield className="w-8 h-8 text-[#ffd700] mb-3" />
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Enterprise Ready</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">99.99% uptime SLA, dedicated support, and custom rate limits.</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t("apiDocs.overview.enterpriseReady", "Enterprise Ready")}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{t("apiDocs.overview.enterpriseReadyDesc", "99.99% uptime SLA, dedicated support, and custom rate limits.")}</p>
                   </div>
                 </div>
 
                 <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Quick Start</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t("apiDocs.overview.quickStart", "Quick Start")}</h3>
                   <CodeBlock code={`# Get the latest block
 curl https://api.tburn.io/v8/blocks/latest \\
   -H "X-API-Key: YOUR_API_KEY"
@@ -249,7 +248,7 @@ curl https://api.tburn.io/v8/blocks/latest \\
               {/* Authentication Section */}
               <section id="authentication" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <Key className="w-8 h-8 text-[#ffd700]" /> Authentication
+                  <Key className="w-8 h-8 text-[#ffd700]" /> {t("apiDocs.authentication.title", "Authentication")}
                 </h2>
                 
                 <div className="space-y-6">
@@ -328,7 +327,7 @@ curl https://api.tburn.io/v8/blocks/latest \\
               {/* Rate Limits Section */}
               <section id="rate-limits" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <Clock className="w-8 h-8 text-[#ff6b35]" /> Rate Limits
+                  <Clock className="w-8 h-8 text-[#ff6b35]" /> {t("apiDocs.rateLimits.title", "Rate Limits")}
                 </h2>
                 
                 <div className="space-y-6">
@@ -412,7 +411,7 @@ X-RateLimit-Window: 60`} />
               {/* Block Endpoints Section */}
               <section id="block" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <Box className="w-8 h-8 text-[#00ff9d]" /> Block Endpoints
+                  <Box className="w-8 h-8 text-[#00ff9d]" /> {t("apiDocs.block.title", "Block Endpoints")}
                 </h2>
                 
                 <div className="space-y-6">
@@ -523,7 +522,7 @@ X-RateLimit-Window: 60`} />
               {/* Transaction Endpoints Section */}
               <section id="transaction" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <Activity className="w-8 h-8 text-[#00f0ff]" /> Transaction Endpoints
+                  <Activity className="w-8 h-8 text-[#00f0ff]" /> {t("apiDocs.transaction.title", "Transaction Endpoints")}
                 </h2>
                 
                 <div className="space-y-6">
@@ -659,7 +658,7 @@ X-RateLimit-Window: 60`} />
               {/* Account Endpoints Section */}
               <section id="account" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <Wallet className="w-8 h-8 text-[#7000ff]" /> Account Endpoints
+                  <Wallet className="w-8 h-8 text-[#7000ff]" /> {t("apiDocs.account.title", "Account Endpoints")}
                 </h2>
                 
                 <div className="space-y-6">
@@ -787,7 +786,7 @@ X-RateLimit-Window: 60`} />
               {/* Smart Contract Endpoints Section */}
               <section id="smart-contract" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <FileCode className="w-8 h-8 text-[#ffd700]" /> Smart Contract Endpoints
+                  <FileCode className="w-8 h-8 text-[#ffd700]" /> {t("apiDocs.smartContract.title", "Smart Contract Endpoints")}
                 </h2>
                 
                 <div className="space-y-6">
@@ -927,7 +926,7 @@ X-RateLimit-Window: 60`} />
               {/* WebSocket Real-time Events Section */}
               <section id="realtime-events" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <Zap className="w-8 h-8 text-purple-400" /> Real-time Events (WebSocket)
+                  <Zap className="w-8 h-8 text-purple-400" /> {t("apiDocs.websocketEvents.title", "Real-time Events")} (WebSocket)
                 </h2>
                 
                 <div className="space-y-6">
@@ -1163,9 +1162,9 @@ ws.send(JSON.stringify({
       {/* Official SDKs */}
       <section className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-t border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl text-center">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Official SDKs</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t("apiDocs.sdks.title", "Official SDKs")}</h2>
           <p className="text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-            Use our official SDKs for a better developer experience with type safety, error handling, and automatic retries.
+            {t("apiDocs.sdks.description", "Use our official SDKs for seamless integration:")}
           </p>
           <div className="grid md:grid-cols-5 gap-4">
             {sdks.map((sdk, index) => (
