@@ -297,7 +297,7 @@ export default function CommunityHub() {
             <p className="text-gray-400 mb-6 leading-relaxed">
               {t('publicPages.community.hub.governance.description')}
             </p>
-            <Link href="/governance">
+            <Link href="/app/governance">
               <button 
                 className="px-6 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition flex items-center gap-2"
                 data-testid="button-governance-portal"
