@@ -5606,7 +5606,9 @@ export const communityComments = pgTable("community_comments", {
 export const communityEvents = pgTable("community_events", {
   id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
   title: varchar("title", { length: 256 }).notNull(),
+  titleKo: varchar("title_ko", { length: 256 }),
   description: text("description").notNull(),
+  descriptionKo: text("description_ko"),
   eventType: varchar("event_type", { length: 30 }).notNull().default("meetup"),
   startDate: timestamp("start_date").notNull(),
   endDate: timestamp("end_date").notNull(),
@@ -5627,7 +5629,9 @@ export const communityEvents = pgTable("community_events", {
 export const communityAnnouncements = pgTable("community_announcements", {
   id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
   title: varchar("title", { length: 256 }).notNull(),
+  titleKo: varchar("title_ko", { length: 256 }),
   content: text("content").notNull(),
+  contentKo: text("content_ko"),
   announcementType: varchar("announcement_type", { length: 30 }).notNull().default("news"),
   isImportant: boolean("is_important").default(false),
   isPinned: boolean("is_pinned").default(false),

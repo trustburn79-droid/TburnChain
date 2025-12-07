@@ -1,19 +1,84 @@
 import { 
   Users, TrendingUp, Crown, GitBranch, ArrowRight, Trophy, Medal,
-  CheckCircle, Code, Book, Shield, Megaphone, Vote
+  CheckCircle, Code, Book, Shield, Megaphone, Vote, MessageSquare,
+  Eye, Heart, Pin, Flame, Loader2, AlertTriangle
 } from "lucide-react";
 import { SiDiscord, SiTelegram, SiX, SiGithub } from "react-icons/si";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+
+interface PostData {
+  id: string;
+  title: string;
+  titleKo?: string;
+  author: string;
+  category: string;
+  content: string;
+  contentKo?: string;
+  likes: number;
+  comments: number;
+  views: number;
+  isPinned: boolean;
+  isHot: boolean;
+  createdAt: number;
+  tags: string[];
+}
+
+interface CommunityStats {
+  totalMembers: number;
+  activeMembers: number;
+  totalPosts: number;
+  totalComments: number;
+  weeklyGrowth: number;
+}
+
+const categoryColors: Record<string, string> = {
+  announcements: "text-[#7000ff] bg-[#7000ff]/10",
+  trading: "text-[#ffd700] bg-[#ffd700]/10",
+  technical: "text-[#00f0ff] bg-[#00f0ff]/10",
+  governance: "text-[#00ff9d] bg-[#00ff9d]/10",
+  general: "text-gray-400 bg-gray-400/10",
+  support: "text-[#ff0055] bg-[#ff0055]/10",
+};
 
 export default function CommunityHub() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const isKorean = i18n.language === 'ko';
+
+  const { data: posts, isLoading: postsLoading } = useQuery<PostData[]>({
+    queryKey: ['/api/community/posts'],
+    refetchInterval: 30000,
+  });
+
+  const { data: stats } = useQuery<CommunityStats>({
+    queryKey: ['/api/community/stats'],
+    refetchInterval: 60000,
+  });
+
+  const pinnedPosts = posts?.filter(p => p.isPinned).slice(0, 3) || [];
+  const hotPosts = posts?.filter(p => p.isHot && !p.isPinned).slice(0, 3) || [];
+  const recentPosts = posts?.filter(p => !p.isPinned && !p.isHot).slice(0, 6) || [];
+
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffHours < 1) return isKorean ? '방금 전' : 'Just now';
+    if (diffHours < 24) return isKorean ? `${diffHours}시간 전` : `${diffHours}h ago`;
+    if (diffDays < 7) return isKorean ? `${diffDays}일 전` : `${diffDays}d ago`;
+    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US');
+  };
 
   const communityStats = [
     {
       id: 1,
       icon: Users,
-      value: "425,680",
+      value: stats?.totalMembers?.toLocaleString() || "425,680",
       label: t('publicPages.community.hub.stats.totalMembers'),
       change: "+18.7%",
       iconColor: "text-[#7000ff]",
@@ -22,18 +87,18 @@ export default function CommunityHub() {
     {
       id: 2,
       icon: TrendingUp,
-      value: "156,340",
+      value: stats?.activeMembers?.toLocaleString() || "156,340",
       label: t('publicPages.community.hub.stats.monthlyActive'),
-      change: "+24.5%",
+      change: `+${stats?.weeklyGrowth?.toFixed(1) || "24.5"}%`,
       iconColor: "text-[#00f0ff]",
       bgColor: "bg-[#00f0ff]/10",
     },
     {
       id: 3,
-      icon: Crown,
-      value: "1,850",
-      label: t('publicPages.community.hub.stats.ambassadors'),
-      change: "+320",
+      icon: MessageSquare,
+      value: stats?.totalPosts?.toLocaleString() ?? String(posts?.length ?? 0),
+      label: t('publicPages.community.hub.stats.totalPosts'),
+      change: `+${stats?.weeklyGrowth?.toFixed(1) || "8.5"}%`,
       iconColor: "text-[#ffd700]",
       bgColor: "bg-[#ffd700]/10",
     },
@@ -154,8 +219,140 @@ export default function CommunityHub() {
         </div>
       </section>
 
+      {/* Forum Posts Section */}
+      <section className="py-16 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <MessageSquare className="w-6 h-6 text-[#7000ff]" />
+              {isKorean ? '커뮤니티 포럼' : 'Community Forum'}
+            </h2>
+            <Link href="/app/community">
+              <button className="text-sm text-[#00f0ff] hover:underline flex items-center gap-1">
+                {isKorean ? '전체 보기' : 'View All'} <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </div>
+
+          {postsLoading && (
+            <div className="flex items-center justify-center gap-3 py-12">
+              <Loader2 className="w-6 h-6 animate-spin text-[#7000ff]" />
+              <span className="text-gray-400">{t('common.loading')}</span>
+            </div>
+          )}
+
+          {!postsLoading && posts && posts.length > 0 && (
+            <div className="space-y-6">
+              {/* Pinned Posts */}
+              {pinnedPosts.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
+                    <Pin className="w-4 h-4" /> {isKorean ? '고정 게시물' : 'Pinned'}
+                  </h3>
+                  {pinnedPosts.map(post => (
+                    <Link key={post.id} href={`/app/community/post/${post.id}`}>
+                      <div className="spotlight-card rounded-lg p-4 border border-[#7000ff]/30 hover:border-[#7000ff] transition cursor-pointer">
+                        <div className="flex items-start gap-4">
+                          <Pin className="w-4 h-4 text-[#7000ff] mt-1 flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className={`text-xs px-2 py-0.5 rounded ${categoryColors[post.category] || categoryColors.general}`}>
+                                {post.category}
+                              </span>
+                              <span className="text-xs text-gray-500">{post.author}</span>
+                            </div>
+                            <h4 className="font-bold text-white truncate">{isKorean ? (post.titleKo || post.title) : post.title}</h4>
+                            <p className="text-sm text-gray-400 line-clamp-1 mt-1">{isKorean ? (post.contentKo || post.content) : post.content}</p>
+                            <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                              <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {post.likes}</span>
+                              <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" /> {post.comments}</span>
+                              <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {post.views}</span>
+                              <span>{formatDate(post.createdAt)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              {/* Hot Posts */}
+              {hotPosts.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
+                    <Flame className="w-4 h-4 text-orange-500" /> {isKorean ? '인기 게시물' : 'Hot'}
+                  </h3>
+                  {hotPosts.map(post => (
+                    <Link key={post.id} href={`/app/community/post/${post.id}`}>
+                      <div className="spotlight-card rounded-lg p-4 border border-orange-500/30 hover:border-orange-500 transition cursor-pointer">
+                        <div className="flex items-start gap-4">
+                          <Flame className="w-4 h-4 text-orange-500 mt-1 flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className={`text-xs px-2 py-0.5 rounded ${categoryColors[post.category] || categoryColors.general}`}>
+                                {post.category}
+                              </span>
+                              <span className="text-xs text-gray-500">{post.author}</span>
+                            </div>
+                            <h4 className="font-bold text-white truncate">{isKorean ? (post.titleKo || post.title) : post.title}</h4>
+                            <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                              <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {post.likes}</span>
+                              <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" /> {post.comments}</span>
+                              <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {post.views}</span>
+                              <span>{formatDate(post.createdAt)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              {/* Recent Posts */}
+              {recentPosts.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="text-sm font-bold text-gray-400">
+                    {isKorean ? '최근 게시물' : 'Recent Posts'}
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {recentPosts.map(post => (
+                      <Link key={post.id} href={`/app/community/post/${post.id}`}>
+                        <div className="spotlight-card rounded-lg p-4 border border-white/10 hover:border-white/30 transition cursor-pointer h-full">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className={`text-xs px-2 py-0.5 rounded ${categoryColors[post.category] || categoryColors.general}`}>
+                              {post.category}
+                            </span>
+                            <span className="text-xs text-gray-500">{post.author}</span>
+                          </div>
+                          <h4 className="font-bold text-white text-sm truncate mb-1">{isKorean ? (post.titleKo || post.title) : post.title}</h4>
+                          <p className="text-xs text-gray-400 line-clamp-2">{isKorean ? (post.contentKo || post.content) : post.content}</p>
+                          <div className="flex items-center gap-3 mt-3 text-xs text-gray-500">
+                            <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {post.likes}</span>
+                            <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" /> {post.comments}</span>
+                            <span>{formatDate(post.createdAt)}</span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {!postsLoading && (!posts || posts.length === 0) && (
+            <div className="text-center py-12">
+              <MessageSquare className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+              <p className="text-gray-400">{t('adminCommunityContent.noPostsFound')}</p>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Community Channels */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.community.hub.channelsTitle')}</h2>
           

@@ -13485,6 +13485,7 @@
         "stats": {
           "totalMembers": "총 멤버",
           "monthlyActive": "월간 활성",
+          "totalPosts": "포럼 게시물",
           "ambassadors": "앰배서더",
           "contributors": "기여자"
         },

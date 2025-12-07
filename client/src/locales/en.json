@@ -13491,6 +13491,7 @@
         "stats": {
           "totalMembers": "Total Members",
           "monthlyActive": "Monthly Active",
+          "totalPosts": "Forum Posts",
           "ambassadors": "Ambassadors",
           "contributors": "Contributors"
         },

@@ -1,136 +1,116 @@
 import { 
   Newspaper, Search, Star, Calendar, Clock, Eye, ArrowRight,
-  Megaphone, Cpu, Handshake, Coins, Shield, Code, Lock, LineChart, Mail
+  Megaphone, Cpu, Handshake, Coins, Shield, Code, Lock, LineChart, Mail, Loader2, AlertTriangle
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/components/ui/skeleton";
+
+interface AnnouncementData {
+  id: string;
+  title: string;
+  titleKo?: string;
+  content: string;
+  contentKo?: string;
+  type: 'update' | 'news' | 'alert' | 'feature';
+  createdAt: number;
+  isImportant: boolean;
+  views?: number;
+  isPinned?: boolean;
+}
+
+const categoryIcons: Record<string, any> = {
+  news: Megaphone,
+  update: Cpu,
+  alert: Shield,
+  feature: Code,
+  announcement: Megaphone,
+  technology: Cpu,
+  security: Shield,
+  tokenomics: Coins,
+  partnership: Handshake,
+  defi: LineChart,
+};
+
+const categoryGradients: Record<string, string> = {
+  news: "from-[#7000ff] to-blue-600",
+  update: "from-cyan-500 to-blue-500",
+  alert: "from-red-500 to-orange-600",
+  feature: "from-green-500 to-emerald-600",
+  announcement: "from-[#7000ff] to-blue-600",
+  technology: "from-cyan-500 to-blue-500",
+  security: "from-green-500 to-emerald-600",
+  tokenomics: "from-amber-500 to-orange-600",
+  partnership: "from-indigo-500 to-violet-600",
+  defi: "from-rose-500 to-pink-600",
+};
+
+const categoryColors: Record<string, string> = {
+  news: "text-[#7000ff]",
+  update: "text-[#00f0ff]",
+  alert: "text-red-500",
+  feature: "text-[#00ff9d]",
+  announcement: "text-[#7000ff]",
+  technology: "text-[#00f0ff]",
+  security: "text-[#00ff9d]",
+  tokenomics: "text-[#ffd700]",
+  partnership: "text-violet-400",
+  defi: "text-[#ff0055]",
+};
 
 export default function NewsBlog() {
-  const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState("All");
+  const { t, i18n } = useTranslation();
+  const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [email, setEmail] = useState("");
   const { toast } = useToast();
 
+  const isKorean = i18n.language === 'ko';
+
+  const { data: announcements, isLoading, error } = useQuery<AnnouncementData[]>({
+    queryKey: ['/api/community/announcements'],
+    refetchInterval: 30000,
+  });
+
   const categories = [
-    t('publicPages.community.news.categories.all'),
-    t('publicPages.community.news.categories.announcement'),
-    t('publicPages.community.news.categories.technology'),
-    t('publicPages.community.news.categories.security'),
-    t('publicPages.community.news.categories.tokenomics'),
-    t('publicPages.community.news.categories.partnership'),
-    t('publicPages.community.news.categories.defi')
+    { key: "all", label: t('publicPages.community.news.categories.all') },
+    { key: "news", label: t('publicPages.community.news.categories.announcement') },
+    { key: "update", label: t('publicPages.community.news.categories.technology') },
+    { key: "alert", label: t('publicPages.community.news.categories.security') },
+    { key: "feature", label: t('publicPages.community.news.categories.defi') },
   ];
 
-  const featuredNews = [
-    {
-      id: 1,
-      slug: "v8-mainnet-launch",
-      category: t('publicPages.community.news.categories.announcement'),
-      categoryIcon: Megaphone,
-      title: t('publicPages.community.news.featured.mainnetLaunch.title'),
-      description: t('publicPages.community.news.featured.mainnetLaunch.description'),
-      date: "12/05/2024",
-      readTime: t('publicPages.community.news.readTime', { minutes: 5 }),
-      views: "245.8K",
-      author: t('publicPages.community.news.featured.mainnetLaunch.author'),
-      gradient: "from-[#7000ff] to-blue-600",
-      featuredColor: "bg-[#7000ff]",
-    },
-    {
-      id: 2,
-      slug: "triple-band-ai-revealed",
-      category: t('publicPages.community.news.categories.technology'),
-      categoryIcon: Cpu,
-      title: t('publicPages.community.news.featured.tripleBandAi.title'),
-      description: t('publicPages.community.news.featured.tripleBandAi.description'),
-      date: "12/01/2024",
-      readTime: t('publicPages.community.news.readTime', { minutes: 8 }),
-      views: "156.4K",
-      author: t('publicPages.community.news.featured.tripleBandAi.author'),
-      gradient: "from-cyan-500 to-blue-500",
-      featuredColor: "bg-[#00f0ff] text-black",
-    },
-    {
-      id: 3,
-      slug: "global-partnership-expansion",
-      category: t('publicPages.community.news.categories.partnership'),
-      categoryIcon: Handshake,
-      title: t('publicPages.community.news.featured.partnership.title'),
-      description: t('publicPages.community.news.featured.partnership.description'),
-      date: "11/28/2024",
-      readTime: t('publicPages.community.news.readTime', { minutes: 4 }),
-      views: "187.3K",
-      author: t('publicPages.community.news.featured.partnership.author'),
-      gradient: "from-indigo-500 to-violet-600",
-      featuredColor: "bg-[#7000ff]",
-    },
-  ];
+  const filteredAnnouncements = announcements?.filter(ann => {
+    const matchesCategory = activeCategory === "all" || ann.type === activeCategory;
+    const title = isKorean && ann.titleKo ? ann.titleKo : ann.title;
+    const content = isKorean && ann.contentKo ? ann.contentKo : ann.content;
+    const matchesSearch = !searchQuery || 
+      title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      content.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  }) || [];
 
-  const latestArticles = [
-    {
-      id: 4,
-      slug: "staking-program-details",
-      category: t('publicPages.community.news.categories.tokenomics'),
-      categoryIcon: Coins,
-      title: t('publicPages.community.news.articles.staking.title'),
-      description: t('publicPages.community.news.articles.staking.description'),
-      date: "11/25/2024",
-      views: "124.6K",
-      gradient: "from-amber-500 to-orange-600",
-      color: "text-[#ffd700]",
-    },
-    {
-      id: 5,
-      slug: "trust-score-deep-dive",
-      category: t('publicPages.community.news.categories.security'),
-      categoryIcon: Shield,
-      title: t('publicPages.community.news.articles.trustScore.title'),
-      description: t('publicPages.community.news.articles.trustScore.description'),
-      date: "11/22/2024",
-      views: "98.7K",
-      gradient: "from-green-500 to-emerald-600",
-      color: "text-[#00ff9d]",
-    },
-    {
-      id: 6,
-      slug: "sdk-v8-released",
-      category: t('publicPages.community.news.categories.development'),
-      categoryIcon: Code,
-      title: t('publicPages.community.news.articles.sdk.title'),
-      description: t('publicPages.community.news.articles.sdk.description'),
-      date: "11/20/2024",
-      views: "76.4K",
-      gradient: "from-purple-500 to-pink-600",
-      color: "text-[#7000ff]",
-    },
-    {
-      id: 7,
-      slug: "quantum-resistant-cryptography",
-      category: t('publicPages.community.news.categories.security'),
-      categoryIcon: Lock,
-      title: t('publicPages.community.news.articles.quantum.title'),
-      description: t('publicPages.community.news.articles.quantum.description'),
-      date: "11/18/2024",
-      views: "67.8K",
-      gradient: "from-teal-500 to-cyan-600",
-      color: "text-[#00f0ff]",
-    },
-    {
-      id: 8,
-      slug: "tburn-dex-launch",
-      category: t('publicPages.community.news.categories.defi'),
-      categoryIcon: LineChart,
-      title: t('publicPages.community.news.articles.dex.title'),
-      description: t('publicPages.community.news.articles.dex.description'),
-      date: "11/15/2024",
-      views: "89.2K",
-      gradient: "from-rose-500 to-pink-600",
-      color: "text-[#ff0055]",
-    },
-  ];
+  const featuredNews = filteredAnnouncements.filter(ann => ann.isImportant || ann.isPinned).slice(0, 3);
+  const latestArticles = filteredAnnouncements.filter(ann => !ann.isImportant && !ann.isPinned).slice(0, 6);
+
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit' 
+    });
+  };
+
+  const formatViews = (views: number = 0) => {
+    if (views >= 1000) {
+      return `${(views / 1000).toFixed(1)}K`;
+    }
+    return views.toString();
+  };
   
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -141,6 +121,9 @@ export default function NewsBlog() {
     toast({ title: t('publicPages.community.news.newsletter.success'), description: t('publicPages.community.news.newsletter.subscribed') });
     setEmail("");
   };
+
+  const getTitle = (ann: AnnouncementData) => isKorean && ann.titleKo ? ann.titleKo : ann.title;
+  const getContent = (ann: AnnouncementData) => isKorean && ann.contentKo ? ann.contentKo : ann.content;
 
   return (
     <main className="flex-grow relative z-10">
@@ -179,107 +162,156 @@ export default function NewsBlog() {
           <div className="flex flex-wrap gap-2 justify-center lg:justify-end">
             {categories.map((cat) => (
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
                 className={`px-3 py-1 rounded-full text-xs font-mono transition ${
-                  activeCategory === cat
+                  activeCategory === cat.key
                     ? "bg-[#7000ff] text-white border border-[#7000ff]"
                     : "bg-[#7000ff]/10 border border-[#7000ff]/20 text-purple-300 hover:bg-[#7000ff]/20 hover:border-[#7000ff]/40 hover:text-white"
                 }`}
-                data-testid={`button-category-${cat.toLowerCase()}`}
+                data-testid={`button-category-${cat.key}`}
               >
-                {cat}
+                {cat.label}
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured News */}
-      <section className="py-12 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
-            <Star className="w-5 h-5 text-[#ffd700]" /> {t('publicPages.community.news.featuredTitle')}
-          </h2>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
-            {featuredNews.map((article) => (
-              <Link 
-                key={article.id} 
-                href={`/community/news/${article.slug}`}
-                className="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block h-full"
-                data-testid={`link-article-${article.slug}`}
-              >
-                <div className={`h-48 bg-gradient-to-br ${article.gradient} relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                  <div className="absolute top-4 left-4 bg-white/90 text-black text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
-                    <article.categoryIcon className="w-3 h-3" /> {article.category}
-                  </div>
-                  <div className={`absolute top-4 right-4 ${article.featuredColor} text-white text-xs font-bold px-2 py-1 rounded`}>
-                    {t('publicPages.community.news.featuredBadge')}
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-4 text-xs text-gray-500 mb-3 font-mono">
-                    <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {article.date}</span>
-                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {article.readTime}</span>
-                    <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {article.views}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#00f0ff] transition-colors">{article.title}</h3>
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-3">{article.description}</p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-xs text-gray-500">{article.author}</span>
-                    <span className="text-[#00f0ff] text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
-                      {t('publicPages.community.news.readMore')} <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+      {/* Loading State */}
+      {isLoading && (
+        <section className="py-12 px-6">
+          <div className="container mx-auto max-w-7xl">
+            <div className="flex items-center justify-center gap-3 py-20">
+              <Loader2 className="w-6 h-6 animate-spin text-[#7000ff]" />
+              <span className="text-gray-400">{t('common.loading')}</span>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <section className="py-12 px-6">
+          <div className="container mx-auto max-w-7xl">
+            <div className="flex flex-col items-center justify-center gap-3 py-20">
+              <AlertTriangle className="w-10 h-10 text-red-500" />
+              <span className="text-gray-400">{t('common.error')}</span>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Featured News */}
+      {!isLoading && !error && featuredNews.length > 0 && (
+        <section className="py-12 px-6">
+          <div className="container mx-auto max-w-7xl">
+            <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+              <Star className="w-5 h-5 text-[#ffd700]" /> {t('publicPages.community.news.featuredTitle')}
+            </h2>
+            
+            <div className="grid lg:grid-cols-3 gap-8">
+              {featuredNews.map((article) => {
+                const Icon = categoryIcons[article.type] || Megaphone;
+                const gradient = categoryGradients[article.type] || "from-[#7000ff] to-blue-600";
+                
+                return (
+                  <Link 
+                    key={article.id} 
+                    href={`/community/news/${article.id}`}
+                    className="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block h-full"
+                    data-testid={`link-article-${article.id}`}
+                  >
+                    <div className={`h-48 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                      <div className="absolute top-4 left-4 bg-white/90 text-black text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
+                        <Icon className="w-3 h-3" /> {article.type.toUpperCase()}
+                      </div>
+                      <div className="absolute top-4 right-4 bg-[#7000ff] text-white text-xs font-bold px-2 py-1 rounded">
+                        {t('publicPages.community.news.featuredBadge')}
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-4 text-xs text-gray-500 mb-3 font-mono">
+                        <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {formatDate(article.createdAt)}</span>
+                        <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {formatViews(article.views)}</span>
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#00f0ff] transition-colors">{getTitle(article)}</h3>
+                      <p className="text-gray-400 text-sm mb-4 line-clamp-3">{getContent(article)}</p>
+                      <div className="flex items-center justify-end mt-auto">
+                        <span className="text-[#00f0ff] text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                          {t('publicPages.community.news.readMore')} <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Latest Articles */}
-      <section className="py-12 px-6 bg-white/5">
-        <div className="container mx-auto max-w-7xl">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Newspaper className="w-5 h-5 text-gray-400" /> {t('publicPages.community.news.latestTitle')}
-            </h2>
-            <span className="text-xs text-gray-500 font-mono">{t('publicPages.community.news.showingCount', { current: latestArticles.length, total: latestArticles.length })}</span>
-          </div>
+      {!isLoading && !error && latestArticles.length > 0 && (
+        <section className="py-12 px-6 bg-white/5">
+          <div className="container mx-auto max-w-7xl">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <Newspaper className="w-5 h-5 text-gray-400" /> {t('publicPages.community.news.latestTitle')}
+              </h2>
+              <span className="text-xs text-gray-500 font-mono">{t('publicPages.community.news.showingCount', { current: latestArticles.length, total: filteredAnnouncements.length })}</span>
+            </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestArticles.map((article) => (
-              <Link 
-                key={article.id} 
-                href={`/community/news/${article.slug}`}
-                className="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block"
-                data-testid={`link-article-${article.slug}`}
-              >
-                <div className={`h-40 bg-gradient-to-br ${article.gradient} relative`}>
-                  <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 border border-white/20">
-                    <article.categoryIcon className={`w-3 h-3 ${article.color}`} /> {article.category}
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center gap-3 mb-2 text-xs text-gray-500 font-mono">
-                    <span>{article.date}</span>
-                    <span>•</span>
-                    <span>{article.views} {t('publicPages.community.news.views')}</span>
-                  </div>
-                  <h3 className={`font-bold text-white mb-2 group-hover:${article.color} transition-colors`}>{article.title}</h3>
-                  <p className="text-gray-400 text-sm line-clamp-2 mb-4">{article.description}</p>
-                  <span className={`${article.color} text-xs font-bold flex items-center gap-1`}>
-                    {t('publicPages.community.news.readMore')} <ArrowRight className="w-3 h-3" />
-                  </span>
-                </div>
-              </Link>
-            ))}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {latestArticles.map((article) => {
+                const Icon = categoryIcons[article.type] || Megaphone;
+                const gradient = categoryGradients[article.type] || "from-[#7000ff] to-blue-600";
+                const color = categoryColors[article.type] || "text-[#7000ff]";
+                
+                return (
+                  <Link 
+                    key={article.id} 
+                    href={`/community/news/${article.id}`}
+                    className="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block"
+                    data-testid={`link-article-${article.id}`}
+                  >
+                    <div className={`h-40 bg-gradient-to-br ${gradient} relative`}>
+                      <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 border border-white/20">
+                        <Icon className={`w-3 h-3 ${color}`} /> {article.type.toUpperCase()}
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <div className="flex items-center gap-3 mb-2 text-xs text-gray-500 font-mono">
+                        <span>{formatDate(article.createdAt)}</span>
+                        <span>•</span>
+                        <span>{formatViews(article.views)} {t('publicPages.community.news.views')}</span>
+                      </div>
+                      <h3 className={`font-bold text-white mb-2 group-hover:${color} transition-colors`}>{getTitle(article)}</h3>
+                      <p className="text-gray-400 text-sm line-clamp-2 mb-4">{getContent(article)}</p>
+                      <span className={`${color} text-xs font-bold flex items-center gap-1`}>
+                        {t('publicPages.community.news.readMore')} <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Empty State */}
+      {!isLoading && !error && filteredAnnouncements.length === 0 && (
+        <section className="py-12 px-6">
+          <div className="container mx-auto max-w-7xl">
+            <div className="flex flex-col items-center justify-center gap-3 py-20">
+              <Newspaper className="w-10 h-10 text-gray-500" />
+              <span className="text-gray-400">{t('adminCommunityContent.noNewsFound')}</span>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Newsletter Subscription */}
       <section className="py-20 px-6">

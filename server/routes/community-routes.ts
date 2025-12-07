@@ -685,7 +685,9 @@ router.get("/events", async (req: Request, res: Response) => {
         return {
           id: event.id,
           title: event.title,
+          titleKo: event.titleKo || event.title,
           description: event.description,
+          descriptionKo: event.descriptionKo || event.description,
           type: event.eventType as any,
           startDate: Math.floor(new Date(event.startDate).getTime() / 1000),
           endDate: Math.floor(new Date(event.endDate).getTime() / 1000),
@@ -830,10 +832,14 @@ router.get("/announcements", async (req: Request, res: Response) => {
       announcements = dbAnnouncements.map(ann => ({
         id: ann.id,
         title: ann.title,
+        titleKo: ann.titleKo || ann.title,
         content: ann.content,
+        contentKo: ann.contentKo || ann.content,
         type: ann.announcementType as any,
         createdAt: Math.floor(new Date(ann.createdAt).getTime() / 1000),
         isImportant: ann.isImportant || false,
+        isPinned: ann.isPinned || false,
+        views: ann.views || 0,
       }));
     } else {
       // Only use sample announcements if database is empty
