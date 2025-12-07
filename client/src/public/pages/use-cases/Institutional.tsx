@@ -49,12 +49,12 @@ export default function Institutional() {
 
   const metrics = [
     {
-      value: "$12B+",
+      value: "$25B+",
       label: t('publicPages.useCases.institutional.metrics.dailyVolume'),
       iconColor: "#ffd700"
     },
     {
-      value: "0.02%",
+      value: "0.01%",
       label: t('publicPages.useCases.institutional.metrics.transactionFee'),
       iconColor: "#00f0ff"
     },

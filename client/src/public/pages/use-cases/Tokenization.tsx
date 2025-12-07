@@ -50,19 +50,19 @@ export default function Tokenization() {
     {
       icon: Users,
       iconColor: "#7000ff",
-      value: "100M+",
+      value: "250M+",
       label: t('publicPages.useCases.tokenization.metrics.newInvestors')
     },
     {
       icon: TrendingUp,
       iconColor: "#00f0ff",
-      value: "$50T",
+      value: "$80T",
       label: t('publicPages.useCases.tokenization.metrics.unlockedAssetValue')
     },
     {
       icon: Lock,
       iconColor: "#00ff9d",
-      value: "99.9%",
+      value: "99.99%",
       label: t('publicPages.useCases.tokenization.metrics.settlementReliability')
     }
   ];

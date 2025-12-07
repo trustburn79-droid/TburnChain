@@ -49,12 +49,12 @@ export default function Enterprise() {
 
   const metrics = [
     {
-      value: "500+",
+      value: "850+",
       label: t('publicPages.useCases.enterprise.metrics.enterpriseClients'),
       iconColor: "#7000ff"
     },
     {
-      value: "99.95%",
+      value: "99.97%",
       label: t('publicPages.useCases.enterprise.metrics.uptimeGuarantee'),
       iconColor: "#00f0ff"
     },

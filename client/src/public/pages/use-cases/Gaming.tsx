@@ -49,17 +49,17 @@ export default function Gaming() {
 
   const metrics = [
     {
-      value: "50K+",
+      value: "150K+",
       label: t('publicPages.useCases.gaming.metrics.dailyActivePlayers'),
       iconColor: "#ff0055"
     },
     {
-      value: "$45M",
+      value: "$120M",
       label: t('publicPages.useCases.gaming.metrics.nftVolume'),
       iconColor: "#7000ff"
     },
     {
-      value: "200+",
+      value: "450+",
       label: t('publicPages.useCases.gaming.metrics.gamesApps'),
       iconColor: "#00f0ff"
     }

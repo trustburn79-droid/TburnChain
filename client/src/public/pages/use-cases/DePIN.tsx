@@ -49,17 +49,17 @@ export default function DePIN() {
 
   const metrics = [
     {
-      value: "2.5M+",
+      value: "5.2M+",
       label: t('publicPages.useCases.depin.metrics.activeNodes'),
       iconColor: "#00f0ff"
     },
     {
-      value: "$850M",
+      value: "$1.5B",
       label: t('publicPages.useCases.depin.metrics.protocolRevenue'),
       iconColor: "#7000ff"
     },
     {
-      value: "150+",
+      value: "180+",
       label: t('publicPages.useCases.depin.metrics.countriesCovered'),
       iconColor: "#00ff9d"
     }

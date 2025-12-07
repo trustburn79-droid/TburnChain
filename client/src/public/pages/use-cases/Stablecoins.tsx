@@ -48,17 +48,17 @@ export default function Stablecoins() {
 
   const metrics = [
     {
-      value: "$2.8B",
+      value: "$5.0B",
       label: t('publicPages.useCases.stablecoins.metrics.totalSupply'),
       iconColor: "#00ff9d"
     },
     {
-      value: "15M+",
+      value: "28M+",
       label: t('publicPages.useCases.stablecoins.metrics.dailyTransactions'),
       iconColor: "#7000ff"
     },
     {
-      value: "0.001%",
+      value: "0.0005%",
       label: t('publicPages.useCases.stablecoins.metrics.pegDeviation'),
       iconColor: "#00f0ff"
     }
