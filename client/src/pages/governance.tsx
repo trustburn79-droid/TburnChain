@@ -187,44 +187,44 @@ export default function Governance() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="hover-elevate">
+        <Card className="hover-elevate" data-testid="card-ai-gemini">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-blue-500" />
-              {t("governance.gemini3ProAnalysis")}
+              {t("governance.geminiAnalysis")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {t("governance.gemini3ProDesc")}
+              {t("governance.geminiAnalysisDesc")}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="hover-elevate">
+        <Card className="hover-elevate" data-testid="card-ai-claude">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <Brain className="h-4 w-4 text-purple-500" />
-              {t("governance.claudeSonnetPrediction")}
+              {t("governance.claudePrediction")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {t("governance.claudeSonnetDesc")}
+              {t("governance.claudePredictionDesc")}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="hover-elevate">
+        <Card className="hover-elevate" data-testid="card-ai-gpt">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <Lightbulb className="h-4 w-4 text-amber-500" />
-              {t("governance.gpt4oRecommendations")}
+              {t("governance.gptRecommendations")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {t("governance.gpt4oDesc")}
+              {t("governance.gptRecommendationsDesc")}
             </p>
           </CardContent>
         </Card>
