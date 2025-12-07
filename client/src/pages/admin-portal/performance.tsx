@@ -160,30 +160,27 @@ export default function AdminPerformance() {
   const performanceHistory = useMemo(() => {
     return Array.from({ length: 48 }, (_, i) => ({
       time: `${(47 - i) * 30}m`,
-      tps: Math.floor(Math.random() * 800) + 2200,
-      latency: Math.floor(Math.random() * 50) + 120,
-      cpu: Math.floor(Math.random() * 30) + 35,
-      memory: Math.floor(Math.random() * 20) + 55,
+      tps: Math.floor(Math.random() * 8000) + 48000,
+      latency: Math.floor(Math.random() * 30) + 175,
+      cpu: Math.floor(Math.random() * 25) + 38,
+      memory: Math.floor(Math.random() * 15) + 58,
     })).reverse();
   }, []);
 
   const shardPerformance: ShardPerformance[] = useMemo(() => [
-    { shardId: 0, tps: 425, latency: 145, load: 68, status: "healthy" },
-    { shardId: 1, tps: 398, latency: 152, load: 72, status: "healthy" },
-    { shardId: 2, tps: 412, latency: 148, load: 65, status: "healthy" },
-    { shardId: 3, tps: 389, latency: 158, load: 78, status: "warning" },
-    { shardId: 4, tps: 435, latency: 142, load: 62, status: "healthy" },
-    { shardId: 5, tps: 401, latency: 155, load: 70, status: "healthy" },
-    { shardId: 6, tps: 378, latency: 165, load: 82, status: "warning" },
-    { shardId: 7, tps: 418, latency: 146, load: 66, status: "healthy" },
+    { shardId: 0, tps: 10245, latency: 185, load: 68, status: "healthy" },
+    { shardId: 1, tps: 10128, latency: 188, load: 72, status: "healthy" },
+    { shardId: 2, tps: 10312, latency: 182, load: 65, status: "healthy" },
+    { shardId: 3, tps: 9876, latency: 195, load: 78, status: "warning" },
+    { shardId: 4, tps: 10456, latency: 178, load: 62, status: "healthy" },
   ], []);
 
   const latencyBreakdown = useMemo(() => ({
-    p50: 125,
-    p90: 168,
-    p95: 195,
-    p99: 248,
-    max: 312,
+    p50: 145,
+    p90: 189,
+    p95: 225,
+    p99: 285,
+    max: 380,
   }), []);
 
   useEffect(() => {

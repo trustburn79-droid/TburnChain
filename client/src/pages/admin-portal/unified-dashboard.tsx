@@ -442,12 +442,12 @@ export default function UnifiedDashboard() {
 
   const defaultAIStatus: AISystemStatus = {
     models: [
-      { name: "Claude 4.5 Sonnet", status: "operational", accuracy: 97.8, decisionsToday: 1247, avgConfidence: 94.2, latency: 145 },
-      { name: "GPT-4o", status: "operational", accuracy: 96.5, decisionsToday: 892, avgConfidence: 92.8, latency: 178 },
-      { name: "Gemini Pro", status: "operational", accuracy: 95.2, decisionsToday: 634, avgConfidence: 91.5, latency: 156 },
+      { name: "Strategic AI (Transformer+LSTM)", status: "operational", accuracy: 92.1, decisionsToday: 847, avgConfidence: 91.8, latency: 1200 },
+      { name: "Tactical AI (XGBoost+LightGBM)", status: "operational", accuracy: 95.8, decisionsToday: 12456, avgConfidence: 94.7, latency: 85 },
+      { name: "Operational AI (Online Learning)", status: "operational", accuracy: 94.7, decisionsToday: 2847123, avgConfidence: 93.2, latency: 12 },
     ],
-    totalDecisionsToday: 2773,
-    avgConfidence: 92.8,
+    totalDecisionsToday: 2860426,
+    avgConfidence: 94.2,
   };
 
   const aiStatus: AISystemStatus = useMemo(() => {
@@ -463,11 +463,11 @@ export default function UnifiedDashboard() {
   }, [resourcesData]);
 
   const defaultTopValidators = [
-    { address: "0x1234...5678", name: "TBURN Genesis", stake: "15000000", uptime: 99.99, commission: 5 },
-    { address: "0x2345...6789", name: "BlockForge", stake: "12500000", uptime: 99.95, commission: 7 },
-    { address: "0x3456...789a", name: "CryptoStake", stake: "10800000", uptime: 99.92, commission: 6 },
-    { address: "0x4567...89ab", name: "NodeMaster", stake: "9200000", uptime: 99.88, commission: 8 },
-    { address: "0x5678...9abc", name: "ValidateX", stake: "8100000", uptime: 99.85, commission: 5 },
+    { address: "0x1234...5678", name: "TBURN Genesis Node", stake: "45000000", uptime: 99.99, commission: 5 },
+    { address: "0x2345...6789", name: "BlockForge Validator", stake: "38500000", uptime: 99.97, commission: 6 },
+    { address: "0x3456...789a", name: "CryptoStake Pro", stake: "32800000", uptime: 99.95, commission: 5 },
+    { address: "0x4567...89ab", name: "NodeMaster Elite", stake: "28200000", uptime: 99.92, commission: 7 },
+    { address: "0x5678...9abc", name: "ValidateX Prime", stake: "24100000", uptime: 99.88, commission: 6 },
   ];
 
   const validatorSummary: ValidatorSummary = useMemo(() => {
@@ -485,9 +485,9 @@ export default function UnifiedDashboard() {
     }));
 
     return {
-      online: active || 142,
-      offline: inactive || 8,
-      jailed: jailed || 6,
+      online: active || 110,
+      offline: inactive || 10,
+      jailed: jailed || 5,
       topValidators: mappedValidators.length > 0 ? mappedValidators : defaultTopValidators,
     };
   }, [validatorsData]);
@@ -509,15 +509,15 @@ export default function UnifiedDashboard() {
   }), []);
 
   const stakingMetrics: StakingMetrics = useMemo(() => ({
-    totalStaked: "3200000000",
-    stakingRatio: 45.7,
+    totalStaked: "4500000000",
+    stakingRatio: 45.0,
     avgApy: 8.0,
-    rewardsDistributed: "125000000",
+    rewardsDistributed: "285000000",
   }), []);
 
   const tokenEconomics: TokenEconomics = useMemo(() => ({
-    circulatingSupply: "7000000000",
-    totalBurned: "800000000",
+    circulatingSupply: "9650000000",
+    totalBurned: "350000000",
     inflationRate: -1.53,
     deflationaryRate: 1.53,
   }), []);

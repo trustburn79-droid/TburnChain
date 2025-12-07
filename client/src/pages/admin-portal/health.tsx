@@ -124,27 +124,27 @@ export default function AdminHealth() {
   const services: ServiceHealth[] = useMemo(() => {
     if (servicesData?.services) return servicesData.services;
     return [
-      { name: t("adminHealth.consensusEngine"), status: "healthy", latency: 12, uptime: 99.99, lastCheck: new Date(), details: t("adminHealth.consensusEngineDetails") },
-      { name: t("adminHealth.blockProducer"), status: "healthy", latency: 8, uptime: 99.98, lastCheck: new Date(), details: t("adminHealth.blockProducerDetails") },
-      { name: t("adminHealth.transactionPool"), status: "healthy", latency: 5, uptime: 99.99, lastCheck: new Date(), details: t("adminHealth.transactionPoolDetails") },
-      { name: t("adminHealth.validatorNetwork"), status: "healthy", latency: 145, uptime: 99.95, lastCheck: new Date(), details: t("adminHealth.validatorNetworkDetails") },
-      { name: t("adminHealth.shardManager"), status: "healthy", latency: 18, uptime: 99.97, lastCheck: new Date(), details: t("adminHealth.shardManagerDetails") },
-      { name: t("adminHealth.crossShardRouter"), status: "healthy", latency: 35, uptime: 99.92, lastCheck: new Date(), details: t("adminHealth.crossShardRouterDetails") },
-      { name: t("adminHealth.bridgeRelayer"), status: "degraded", latency: 285, uptime: 98.5, lastCheck: new Date(), details: t("adminHealth.bridgeRelayerDetails") },
-      { name: t("adminHealth.aiOrchestrator"), status: "healthy", latency: 156, uptime: 99.88, lastCheck: new Date(), details: t("adminHealth.aiOrchestratorDetails") },
-      { name: t("adminHealth.databaseCluster"), status: "healthy", latency: 3, uptime: 99.99, lastCheck: new Date(), details: t("adminHealth.databaseClusterDetails") },
-      { name: t("adminHealth.cacheLayer"), status: "healthy", latency: 1, uptime: 99.99, lastCheck: new Date(), details: t("adminHealth.cacheLayerDetails") },
-      { name: t("adminHealth.apiGateway"), status: "healthy", latency: 15, uptime: 99.97, lastCheck: new Date(), details: t("adminHealth.apiGatewayDetails") },
-      { name: t("adminHealth.websocketServer"), status: "healthy", latency: 8, uptime: 99.95, lastCheck: new Date(), details: t("adminHealth.websocketServerDetails") },
+      { name: t("adminHealth.consensusEngine"), status: "healthy", latency: 189, uptime: 99.99, lastCheck: new Date(), details: "Committee BFT - 110/125 validators active" },
+      { name: t("adminHealth.blockProducer"), status: "healthy", latency: 500, uptime: 99.98, lastCheck: new Date(), details: "Block time: 500ms, Height: 22M+" },
+      { name: t("adminHealth.transactionPool"), status: "healthy", latency: 12, uptime: 99.99, lastCheck: new Date(), details: "50,908 current TPS, 520K peak capacity" },
+      { name: t("adminHealth.validatorNetwork"), status: "healthy", latency: 145, uptime: 99.95, lastCheck: new Date(), details: "110 active / 125 total validators" },
+      { name: t("adminHealth.shardManager"), status: "healthy", latency: 18, uptime: 99.97, lastCheck: new Date(), details: "5 shards active, AI-optimized distribution" },
+      { name: t("adminHealth.crossShardRouter"), status: "healthy", latency: 35, uptime: 99.92, lastCheck: new Date(), details: "Cross-shard finality < 2 seconds" },
+      { name: t("adminHealth.bridgeRelayer"), status: "healthy", latency: 185, uptime: 99.85, lastCheck: new Date(), details: "7 chains connected, quantum-resistant" },
+      { name: t("adminHealth.aiOrchestrator"), status: "healthy", latency: 85, uptime: 99.95, lastCheck: new Date(), details: "Triple-Band AI: 94.2% combined accuracy" },
+      { name: t("adminHealth.databaseCluster"), status: "healthy", latency: 3, uptime: 99.99, lastCheck: new Date(), details: "PostgreSQL cluster, auto-failover enabled" },
+      { name: t("adminHealth.cacheLayer"), status: "healthy", latency: 1, uptime: 99.99, lastCheck: new Date(), details: "Redis cluster, 99.8% hit rate" },
+      { name: t("adminHealth.apiGateway"), status: "healthy", latency: 15, uptime: 99.97, lastCheck: new Date(), details: "Rate limiting active, DDoS protection" },
+      { name: t("adminHealth.websocketServer"), status: "healthy", latency: 8, uptime: 99.95, lastCheck: new Date(), details: "Real-time sync, 51 event channels" },
     ];
   }, [servicesData, t]);
 
   const healthMetrics: HealthMetrics = useMemo(() => ({
-    overallHealth: 98.5,
-    networkHealth: 99.2,
-    consensusHealth: 99.8,
-    storageHealth: 97.5,
-    aiHealth: 99.1,
+    overallHealth: 99.95,
+    networkHealth: 99.97,
+    consensusHealth: 99.99,
+    storageHealth: 99.92,
+    aiHealth: 94.2,
   }), []);
 
   const healthEvents: HealthEvent[] = useMemo(() => [
