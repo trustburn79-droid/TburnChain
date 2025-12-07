@@ -23,10 +23,12 @@ const router = Router();
 interface ForumPostResponse {
   id: string;
   title: string;
+  titleKo?: string;
   author: string;
   authorAvatar?: string;
   category: string;
   content: string;
+  contentKo?: string;
   likes: number;
   dislikes?: number;
   comments: number;
@@ -267,11 +269,13 @@ router.get("/posts", async (req: Request, res: Response) => {
     const formattedDbPosts: ForumPostResponse[] = dbPosts.map(post => ({
       id: post.id,
       title: post.title,
+      titleKo: post.titleKo || undefined,
       author: post.authorUsername || `User${post.authorId}`,
       category: post.category,
       content: post.content,
+      contentKo: post.contentKo || undefined,
       likes: post.likes || 0,
-      dislikes: post.dislikes || 0,
+      dislikes: 0,
       comments: post.commentCount || 0,
       views: post.views || 0,
       isPinned: post.isPinned || false,
@@ -865,7 +869,7 @@ router.get("/activity", async (req: Request, res: Response) => {
       type: act.activityType as any,
       user: act.username || `User${act.userId}`,
       action: act.action,
-      target: act.targetTitle,
+      target: act.targetTitle || undefined,
       amount: act.amount || undefined,
       timestamp: Math.floor(new Date(act.createdAt).getTime() / 1000),
     }));
