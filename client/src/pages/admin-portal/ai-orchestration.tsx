@@ -69,65 +69,66 @@ const mockData: AIOrchestrationData = {
       name: "Gemini 3 Pro", 
       layer: "Strategic", 
       status: "online", 
-      latency: 450, 
-      tokenRate: 150,
-      accuracy: 98.7,
-      requests24h: 12500,
-      cost24h: 125.50
+      latency: 380, 
+      tokenRate: 185,
+      accuracy: 99.2,
+      requests24h: 28450,
+      cost24h: 285.50
     },
     { 
       id: 2, 
       name: "Claude Sonnet 4.5", 
       layer: "Tactical", 
       status: "online", 
-      latency: 180, 
-      tokenRate: 2100,
-      accuracy: 97.2,
-      requests24h: 45000,
-      cost24h: 89.25
+      latency: 145, 
+      tokenRate: 2850,
+      accuracy: 98.5,
+      requests24h: 124500,
+      cost24h: 198.75
     },
     { 
       id: 3, 
       name: "GPT-4o", 
       layer: "Operational", 
       status: "online", 
-      latency: 45, 
-      tokenRate: 890,
-      accuracy: 95.8,
-      requests24h: 180000,
-      cost24h: 45.00
+      latency: 38, 
+      tokenRate: 1250,
+      accuracy: 97.8,
+      requests24h: 485000,
+      cost24h: 125.00
     },
     { 
       id: 4, 
       name: "Grok 3", 
       layer: "Fallback", 
       status: "standby", 
-      latency: 120, 
-      tokenRate: 750,
-      accuracy: 94.5,
+      latency: 95, 
+      tokenRate: 980,
+      accuracy: 96.2,
       requests24h: 0,
       cost24h: 0
     },
   ],
   decisions: [
-    { id: 1, type: "Strategic", content: "Increase validator committee to 120", confidence: 92, executed: true, timestamp: "2024-12-03 14:30" },
-    { id: 2, type: "Tactical", content: "Rebalance shard 5 load to shard 8", confidence: 88, executed: true, timestamp: "2024-12-03 14:25" },
-    { id: 3, type: "Operational", content: "Adjust gas price to 115 Ember", confidence: 95, executed: true, timestamp: "2024-12-03 14:20" },
-    { id: 4, type: "Strategic", content: "Activate bridge circuit breaker", confidence: 65, executed: false, timestamp: "2024-12-03 14:15" },
+    { id: 1, type: "Strategic", content: "Scale validator committee to 512 for mainnet launch", confidence: 98, executed: true, timestamp: "2024-12-07 18:30" },
+    { id: 2, type: "Tactical", content: "Optimize shard distribution across 16 active shards", confidence: 95, executed: true, timestamp: "2024-12-07 18:15" },
+    { id: 3, type: "Operational", content: "Adjust burn rate to 70% for Y20 target alignment", confidence: 97, executed: true, timestamp: "2024-12-07 18:00" },
+    { id: 4, type: "Strategic", content: "Enable quantum-resistant signature verification", confidence: 94, executed: true, timestamp: "2024-12-07 17:45" },
+    { id: 5, type: "Tactical", content: "Rebalance treasury pools for optimal liquidity", confidence: 92, executed: true, timestamp: "2024-12-07 17:30" },
   ],
   performance: [
-    { time: "00:00", gemini: 42, claude: 180, openai: 450, grok: 0 },
-    { time: "04:00", gemini: 45, claude: 175, openai: 460, grok: 0 },
-    { time: "08:00", gemini: 48, claude: 190, openai: 480, grok: 0 },
-    { time: "12:00", gemini: 44, claude: 185, openai: 445, grok: 0 },
-    { time: "16:00", gemini: 46, claude: 178, openai: 455, grok: 0 },
-    { time: "20:00", gemini: 47, claude: 182, openai: 448, grok: 0 },
+    { time: "00:00", gemini: 35, claude: 142, openai: 380, grok: 0 },
+    { time: "04:00", gemini: 38, claude: 145, openai: 385, grok: 0 },
+    { time: "08:00", gemini: 42, claude: 148, openai: 392, grok: 0 },
+    { time: "12:00", gemini: 36, claude: 144, openai: 378, grok: 0 },
+    { time: "16:00", gemini: 39, claude: 146, openai: 382, grok: 0 },
+    { time: "20:00", gemini: 38, claude: 145, openai: 380, grok: 0 },
   ],
   stats: {
-    overallAccuracy: 98.2,
-    totalRequests24h: "237.5k",
-    totalCost24h: 214.75,
-    uptime: 99.9
+    overallAccuracy: 98.7,
+    totalRequests24h: "637.9k",
+    totalCost24h: 609.25,
+    uptime: 99.97
   }
 };
 

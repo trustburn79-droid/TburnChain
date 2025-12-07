@@ -64,38 +64,40 @@ interface AnalyticsData {
 
 const mockData: AnalyticsData = {
   overallMetrics: {
-    totalDecisions: "1,234,567",
-    successRate: "98.7%",
-    avgConfidence: "92.4%",
-    costSavings: "$125,000",
+    totalDecisions: "8,547,892",
+    successRate: "99.2%",
+    avgConfidence: "96.8%",
+    costSavings: "$2,450,000",
   },
   decisionsByType: [
-    { name: "Operational", value: 65, color: "#22c55e" },
-    { name: "Tactical", value: 25, color: "#a855f7" },
-    { name: "Strategic", value: 10, color: "#3b82f6" },
+    { name: "Operational", value: 72, color: "#22c55e" },
+    { name: "Tactical", value: 20, color: "#a855f7" },
+    { name: "Strategic", value: 8, color: "#3b82f6" },
   ],
   impactMetrics: [
-    { metric: "TPS Improvement", before: 45000, after: 52000, improvement: "+15.6%" },
-    { metric: "Latency Reduction", before: 180, after: 124, improvement: "-31.1%" },
-    { metric: "Gas Efficiency", before: 85, after: 94, improvement: "+10.6%" },
-    { metric: "Validator Uptime", before: 98.5, after: 99.9, improvement: "+1.4%" },
+    { metric: "TPS Improvement", before: 85000, after: 125000, improvement: "+47.1%" },
+    { metric: "Latency Reduction", before: 250, after: 85, improvement: "-66.0%" },
+    { metric: "Gas Efficiency", before: 78, after: 96, improvement: "+23.1%" },
+    { metric: "Validator Uptime", before: 99.2, after: 99.97, improvement: "+0.77%" },
+    { metric: "Burn Rate Accuracy", before: 65, after: 98, improvement: "+50.8%" },
   ],
   accuracyTrend: [
-    { month: "Jul", strategic: 95, tactical: 92, operational: 88 },
-    { month: "Aug", strategic: 96, tactical: 93, operational: 90 },
-    { month: "Sep", strategic: 97, tactical: 94, operational: 92 },
-    { month: "Oct", strategic: 97, tactical: 95, operational: 94 },
-    { month: "Nov", strategic: 98, tactical: 96, operational: 95 },
-    { month: "Dec", strategic: 99, tactical: 97, operational: 96 },
+    { month: "Jul", strategic: 96, tactical: 94, operational: 92 },
+    { month: "Aug", strategic: 97, tactical: 95, operational: 94 },
+    { month: "Sep", strategic: 98, tactical: 96, operational: 95 },
+    { month: "Oct", strategic: 98, tactical: 97, operational: 96 },
+    { month: "Nov", strategic: 99, tactical: 98, operational: 97 },
+    { month: "Dec", strategic: 99, tactical: 99, operational: 98 },
   ],
   recentOutcomes: [
-    { decision: "Increase committee size to 120", type: "Strategic", confidence: 92, outcome: "success", impact: "+2.3% TPS" },
-    { decision: "Rebalance shard 5 to shard 8", type: "Tactical", confidence: 88, outcome: "success", impact: "-15ms latency" },
-    { decision: "Adjust gas to 115 Ember", type: "Operational", confidence: 95, outcome: "success", impact: "+5% efficiency" },
-    { decision: "Pause bridge temporarily", type: "Strategic", confidence: 65, outcome: "rejected", impact: "Manual review" },
+    { decision: "Scale committee to 512 validators", type: "Strategic", confidence: 98, outcome: "success", impact: "+47% TPS" },
+    { decision: "Optimize 16-shard distribution", type: "Tactical", confidence: 95, outcome: "success", impact: "-66ms latency" },
+    { decision: "Align burn rate to Y20 target", type: "Operational", confidence: 97, outcome: "success", impact: "6.94B target on track" },
+    { decision: "Enable quantum signatures", type: "Strategic", confidence: 94, outcome: "success", impact: "+Security Level 5" },
+    { decision: "Rebalance treasury pools", type: "Tactical", confidence: 92, outcome: "success", impact: "+$37.3M monthly" },
   ],
-  networkEfficiency: "+23.4%",
-  incidentReduction: "-67%"
+  networkEfficiency: "+47.1%",
+  incidentReduction: "-89%"
 };
 
 export default function AdminAIAnalytics() {

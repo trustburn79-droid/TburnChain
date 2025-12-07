@@ -68,37 +68,40 @@ interface TrainingData {
 
 const mockData: TrainingData = {
   jobs: [
-    { id: 1, name: "Consensus Optimizer v2.1", model: "Llama 3.3", status: "running", progress: 67, eta: "2h 15m", dataPoints: "1.2M" },
-    { id: 2, name: "Shard Balancer v1.8", model: "Custom", status: "completed", progress: 100, eta: "-", dataPoints: "850K" },
-    { id: 3, name: "Gas Predictor v3.0", model: "Claude FT", status: "queued", progress: 0, eta: "~4h", dataPoints: "2.1M" },
-    { id: 4, name: "Anomaly Detector v2.5", model: "Llama 3.3", status: "paused", progress: 45, eta: "-", dataPoints: "500K" },
+    { id: 1, name: "Mainnet Consensus Optimizer v8.0", model: "Gemini 3 Pro FT", status: "running", progress: 94, eta: "25m", dataPoints: "18.5M" },
+    { id: 2, name: "Quantum Shard Balancer v4.2", model: "Claude Sonnet 4.5 FT", status: "completed", progress: 100, eta: "-", dataPoints: "12.8M" },
+    { id: 3, name: "Burn Rate Predictor v5.0", model: "GPT-4o FT", status: "completed", progress: 100, eta: "-", dataPoints: "8.4M" },
+    { id: 4, name: "Bridge Risk Analyzer v3.5", model: "Custom Ensemble", status: "running", progress: 78, eta: "1h 45m", dataPoints: "6.2M" },
+    { id: 5, name: "Validator Selection AI v6.0", model: "Llama 3.3 FT", status: "queued", progress: 0, eta: "~3h", dataPoints: "15.2M" },
   ],
   datasets: [
-    { name: "Transaction Patterns", records: "15.2M", size: "8.5 GB", lastUpdated: "2024-12-03", quality: 98 },
-    { name: "Validator Performance", records: "2.8M", size: "1.2 GB", lastUpdated: "2024-12-03", quality: 99 },
-    { name: "Network Metrics", records: "45.6M", size: "12.3 GB", lastUpdated: "2024-12-02", quality: 97 },
-    { name: "Security Events", records: "890K", size: "450 MB", lastUpdated: "2024-12-03", quality: 95 },
+    { name: "TBURN Transaction Patterns", records: "245.8M", size: "128.5 GB", lastUpdated: "2024-12-07", quality: 99 },
+    { name: "Validator Performance Metrics", records: "48.5M", size: "24.2 GB", lastUpdated: "2024-12-07", quality: 99 },
+    { name: "Network Consensus Logs", records: "185.2M", size: "96.8 GB", lastUpdated: "2024-12-07", quality: 98 },
+    { name: "Burn Event History", records: "12.4M", size: "6.8 GB", lastUpdated: "2024-12-07", quality: 99 },
+    { name: "Bridge Transaction Records", records: "8.9M", size: "4.5 GB", lastUpdated: "2024-12-07", quality: 97 },
   ],
   accuracyData: [
-    { epoch: 1, accuracy: 75, loss: 0.45 },
-    { epoch: 2, accuracy: 82, loss: 0.32 },
-    { epoch: 3, accuracy: 88, loss: 0.24 },
-    { epoch: 4, accuracy: 92, loss: 0.18 },
-    { epoch: 5, accuracy: 95, loss: 0.12 },
-    { epoch: 6, accuracy: 97, loss: 0.08 },
+    { epoch: 1, accuracy: 82, loss: 0.38 },
+    { epoch: 2, accuracy: 88, loss: 0.25 },
+    { epoch: 3, accuracy: 93, loss: 0.15 },
+    { epoch: 4, accuracy: 96, loss: 0.09 },
+    { epoch: 5, accuracy: 98, loss: 0.05 },
+    { epoch: 6, accuracy: 99, loss: 0.02 },
   ],
   modelVersions: [
-    { version: "v2.1.0", date: "2024-12-03", accuracy: 98.7, status: "production" },
-    { version: "v2.0.5", date: "2024-11-28", accuracy: 97.2, status: "backup" },
-    { version: "v2.0.0", date: "2024-11-15", accuracy: 96.5, status: "archived" },
+    { version: "v8.0.0", date: "2024-12-07", accuracy: 99.2, status: "production" },
+    { version: "v7.5.2", date: "2024-12-01", accuracy: 98.7, status: "backup" },
+    { version: "v7.0.0", date: "2024-11-15", accuracy: 97.8, status: "archived" },
+    { version: "v6.5.0", date: "2024-10-28", accuracy: 96.5, status: "archived" },
   ],
   stats: {
-    activeJobs: 2,
-    runningJobs: 1,
+    activeJobs: 3,
+    runningJobs: 2,
     queuedJobs: 1,
-    totalData: "64.5M",
-    avgAccuracy: 97.4,
-    modelVersions: 12
+    totalData: "500.8M",
+    avgAccuracy: 99.2,
+    modelVersions: 24
   }
 };
 

@@ -71,72 +71,74 @@ const mockData: AITuningData = {
     { 
       name: "Gemini 3 Pro", 
       layer: "Strategic",
-      temperature: 0.7,
-      maxTokens: 4096,
-      topP: 0.9,
-      frequencyPenalty: 0.3,
-      presencePenalty: 0.3
+      temperature: 0.65,
+      maxTokens: 8192,
+      topP: 0.92,
+      frequencyPenalty: 0.25,
+      presencePenalty: 0.25
     },
     { 
       name: "Claude Sonnet 4.5", 
       layer: "Tactical",
-      temperature: 0.5,
-      maxTokens: 8192,
-      topP: 0.95,
-      frequencyPenalty: 0.2,
-      presencePenalty: 0.2
+      temperature: 0.45,
+      maxTokens: 16384,
+      topP: 0.96,
+      frequencyPenalty: 0.15,
+      presencePenalty: 0.15
     },
     { 
       name: "GPT-4o", 
       layer: "Operational",
-      temperature: 0.3,
-      maxTokens: 2048,
-      topP: 0.8,
-      frequencyPenalty: 0.1,
-      presencePenalty: 0.1
+      temperature: 0.25,
+      maxTokens: 4096,
+      topP: 0.85,
+      frequencyPenalty: 0.08,
+      presencePenalty: 0.08
     },
     { 
       name: "Grok 3", 
       layer: "Fallback",
-      temperature: 0.4,
-      maxTokens: 4096,
-      topP: 0.85,
-      frequencyPenalty: 0.15,
-      presencePenalty: 0.15
+      temperature: 0.35,
+      maxTokens: 8192,
+      topP: 0.88,
+      frequencyPenalty: 0.12,
+      presencePenalty: 0.12
     },
   ],
   decisionParams: [
-    { name: "Consensus Optimization", weight: 0.85, enabled: true },
-    { name: "Shard Rebalancing", weight: 0.75, enabled: true },
-    { name: "Gas Price Adjustment", weight: 0.90, enabled: true },
-    { name: "Validator Selection", weight: 0.80, enabled: true },
-    { name: "Bridge Risk Assessment", weight: 0.70, enabled: true },
-    { name: "Burn Rate Optimization", weight: 0.65, enabled: false },
+    { name: "Consensus Optimization", weight: 0.95, enabled: true },
+    { name: "Shard Rebalancing", weight: 0.92, enabled: true },
+    { name: "Gas Price Adjustment", weight: 0.98, enabled: true },
+    { name: "Validator Selection", weight: 0.94, enabled: true },
+    { name: "Bridge Risk Assessment", weight: 0.90, enabled: true },
+    { name: "Burn Rate Optimization", weight: 0.96, enabled: true },
+    { name: "Treasury Management", weight: 0.88, enabled: true },
+    { name: "Quantum Security Check", weight: 0.85, enabled: true },
   ],
   layerWeights: {
-    strategic: 50,
-    tactical: 30,
+    strategic: 45,
+    tactical: 35,
     operational: 20
   },
   thresholds: {
-    autoExecute: 70,
-    humanReview: 50,
-    rejection: 30
+    autoExecute: 85,
+    humanReview: 65,
+    rejection: 40
   },
   rateLimits: {
-    strategicPerHour: 10,
-    tacticalPerMinute: 100,
-    operationalPerSecond: 1000
+    strategicPerHour: 25,
+    tacticalPerMinute: 250,
+    operationalPerSecond: 2500
   },
   emergencySettings: {
     allowEmergencyActions: true,
     circuitBreaker: true
   },
   advancedConfig: {
-    consensusTimeout: 5000,
-    retryAttempts: 3,
-    backoffMultiplier: 1.5,
-    cacheTTL: 300
+    consensusTimeout: 3000,
+    retryAttempts: 5,
+    backoffMultiplier: 1.25,
+    cacheTTL: 180
   }
 };
 
