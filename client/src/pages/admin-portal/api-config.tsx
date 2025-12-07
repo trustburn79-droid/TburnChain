@@ -265,45 +265,70 @@ export default function ApiConfig() {
   const mockApiKeys: ApiKey[] = [
     {
       id: "1",
-      name: "Production API Key",
-      key: "sk-live-xxxxxxxxxxxxxxxxxxxx",
-      createdAt: "2024-01-15",
-      lastUsed: "2024-12-04 14:23:45",
+      name: "Mainnet Production API",
+      key: "sk-mainnet-prod-xxxxxxxxxxxxxxxx",
+      createdAt: "2024-12-01",
+      lastUsed: "2024-12-07 23:59:45",
       status: "active",
       permissions: ["read", "write", "admin"],
-      rateLimit: 10000,
-      usageCount: 847293,
+      rateLimit: 100000,
+      usageCount: 18472935,
     },
     {
       id: "2",
-      name: "Development API Key",
-      key: "sk-dev-yyyyyyyyyyyyyyyyyyyy",
-      createdAt: "2024-02-20",
-      lastUsed: "2024-12-04 13:15:22",
+      name: "Bridge Integration API",
+      key: "sk-bridge-int-yyyyyyyyyyyyyyyyy",
+      createdAt: "2024-11-15",
+      lastUsed: "2024-12-07 23:58:22",
       status: "active",
       permissions: ["read", "write"],
-      rateLimit: 1000,
-      usageCount: 12847,
+      rateLimit: 50000,
+      usageCount: 8234567,
     },
     {
       id: "3",
-      name: "Analytics API Key",
-      key: "sk-analytics-zzzzzzzzzzzzzz",
-      createdAt: "2024-03-10",
-      lastUsed: "2024-12-03 22:45:00",
-      status: "inactive",
+      name: "DeFi Services API",
+      key: "sk-defi-svc-zzzzzzzzzzzzzzzz",
+      createdAt: "2024-11-20",
+      lastUsed: "2024-12-07 23:55:00",
+      status: "active",
+      permissions: ["read", "write"],
+      rateLimit: 75000,
+      usageCount: 5678234,
+    },
+    {
+      id: "4",
+      name: "AI Orchestration API",
+      key: "sk-ai-orch-aaaaaaaaaaaaaaaa",
+      createdAt: "2024-11-25",
+      lastUsed: "2024-12-07 23:59:30",
+      status: "active",
+      permissions: ["read", "write", "admin"],
+      rateLimit: 25000,
+      usageCount: 2345678,
+    },
+    {
+      id: "5",
+      name: "Analytics Dashboard API",
+      key: "sk-analytics-bbbbbbbbbbbbbbbb",
+      createdAt: "2024-12-05",
+      lastUsed: "2024-12-07 23:45:00",
+      status: "active",
       permissions: ["read"],
-      rateLimit: 5000,
-      usageCount: 234567,
+      rateLimit: 10000,
+      usageCount: 456789,
     },
   ];
 
   const mockRateLimits: RateLimitConfig[] = [
-    { endpoint: "/api/blocks", limit: 100, window: "1m", currentUsage: 45 },
-    { endpoint: "/api/transactions", limit: 200, window: "1m", currentUsage: 123 },
-    { endpoint: "/api/wallets", limit: 50, window: "1m", currentUsage: 12 },
-    { endpoint: "/api/validators", limit: 30, window: "1m", currentUsage: 8 },
-    { endpoint: "/api/admin/*", limit: 20, window: "1m", currentUsage: 5 },
+    { endpoint: "/api/blocks", limit: 10000, window: "1m", currentUsage: 4523 },
+    { endpoint: "/api/transactions", limit: 50000, window: "1m", currentUsage: 28456 },
+    { endpoint: "/api/wallets", limit: 5000, window: "1m", currentUsage: 1234 },
+    { endpoint: "/api/validators", limit: 3000, window: "1m", currentUsage: 856 },
+    { endpoint: "/api/bridge/*", limit: 25000, window: "1m", currentUsage: 12345 },
+    { endpoint: "/api/defi/*", limit: 20000, window: "1m", currentUsage: 8765 },
+    { endpoint: "/api/ai/*", limit: 5000, window: "1m", currentUsage: 2345 },
+    { endpoint: "/api/admin/*", limit: 2000, window: "1m", currentUsage: 523 },
   ];
 
   const apiKeys = apiConfig?.apiKeys || mockApiKeys;
@@ -365,8 +390,8 @@ export default function ApiConfig() {
             icon={Key}
             label={t("adminApiConfig.metrics.activeKeys")}
             value={apiKeys.filter(k => k.status === 'active').length}
-            change={`${apiKeys.filter(k => k.status === 'inactive').length} ${t("adminApiConfig.metrics.inactive")}`}
-            changeType="neutral"
+            change="Enterprise-grade key management"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
             iconColor="text-blue-500"
@@ -375,8 +400,8 @@ export default function ApiConfig() {
           <MetricCard
             icon={Activity}
             label={t("adminApiConfig.metrics.totalCalls24h")}
-            value="1,094,707"
-            change={`+12.3% ${t("adminApiConfig.metrics.fromYesterday")}`}
+            value="35,187,203"
+            change="+18.7% (Dec 8 launch traffic)"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -387,7 +412,7 @@ export default function ApiConfig() {
             icon={Shield}
             label={t("adminApiConfig.metrics.rateLimitStatus")}
             value={t("adminApiConfig.metrics.healthy")}
-            change={t("adminApiConfig.metrics.allWithinLimits")}
+            change="100K TPS capacity ready"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-purple-500/10"
@@ -397,9 +422,9 @@ export default function ApiConfig() {
           <MetricCard
             icon={Clock}
             label={t("adminApiConfig.metrics.avgResponseTime")}
-            value="45ms"
-            change="P99: 124ms"
-            changeType="neutral"
+            value="12ms"
+            change="P99: 42ms | P95: 28ms"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-orange-500/10"
             iconColor="text-orange-500"
@@ -797,7 +822,7 @@ export default function ApiConfig() {
           onOpenChange={setShowApiKeyDetail}
           title={selectedApiKey.name}
           description={t("adminApiConfig.detail.description")}
-          icon={Key}
+          icon={<Key className="h-5 w-5" />}
           sections={getApiKeyDetailSections(selectedApiKey)}
         />
       )}

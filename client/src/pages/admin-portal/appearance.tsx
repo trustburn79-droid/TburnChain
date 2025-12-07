@@ -294,8 +294,8 @@ export default function Appearance() {
             icon={Palette}
             label={t("adminAppearance.metrics.currentTheme")}
             value={t(`adminAppearance.themes.${theme}`)}
-            change={t("adminAppearance.metrics.themeActive")}
-            changeType="neutral"
+            change="Dark/Light auto-detection"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-purple-500/10"
             iconColor="text-purple-500"
@@ -305,8 +305,8 @@ export default function Appearance() {
             icon={Sparkles}
             label={t("adminAppearance.metrics.accentColor")}
             value={accentColor.charAt(0).toUpperCase() + accentColor.slice(1)}
-            change={t("adminAppearance.metrics.primaryColor")}
-            changeType="neutral"
+            change="TBURN Brand Identity"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-orange-500/10"
             iconColor="text-orange-500"
@@ -316,7 +316,7 @@ export default function Appearance() {
             icon={Type}
             label={t("adminAppearance.metrics.fontSize")}
             value={`${fontSize[0]}px`}
-            change={t("adminAppearance.metrics.baseFontSize")}
+            change="Space Grotesk / JetBrains Mono"
             changeType="neutral"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
@@ -327,8 +327,8 @@ export default function Appearance() {
             icon={Languages}
             label={t("adminAppearance.metrics.language")}
             value={language === 'ko' ? '한국어' : 'English'}
-            change={t("adminAppearance.metrics.currentLanguage")}
-            changeType="neutral"
+            change="12 languages / RTL support"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
             iconColor="text-green-500"

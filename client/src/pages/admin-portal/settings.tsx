@@ -245,42 +245,42 @@ export default function AdminSettings() {
 
   const mockSettings: SystemSettings = {
     general: {
-      chainName: "TBURN Mainnet",
+      chainName: "TBURN Mainnet v8.0",
       chainId: "8888",
-      rpcEndpoint: "https://rpc.tburn.io",
-      wsEndpoint: "wss://ws.tburn.io",
+      rpcEndpoint: "https://mainnet-rpc.tburn.io",
+      wsEndpoint: "wss://mainnet-ws.tburn.io",
       explorerUrl: "https://explorer.tburn.io",
-      timezone: "utc",
+      timezone: "America/New_York",
     },
     database: {
       autoBackup: true,
-      dataRetention: "90",
+      dataRetention: "365",
     },
     network: {
-      blockTime: 2,
-      maxBlockSize: 2,
-      gasLimit: "30000000",
+      blockTime: 1,
+      maxBlockSize: 4,
+      gasLimit: "100000000",
       minGasPrice: "1",
-      maxValidators: 200,
-      minStake: "1000000",
+      maxValidators: 256,
+      minStake: "20000000",
       aiEnhancedBft: true,
       dynamicSharding: true,
     },
     security: {
       twoFactorAuth: true,
-      sessionTimeout: "30",
-      ipWhitelist: false,
+      sessionTimeout: "15",
+      ipWhitelist: true,
       rateLimiting: true,
-      autoKeyRotation: "90",
+      autoKeyRotation: "30",
     },
     notifications: {
       criticalAlerts: true,
       securityEvents: true,
       validatorStatus: true,
-      bridgeAlerts: false,
-      aiSystemAlerts: false,
-      maintenanceReminders: false,
-      alertEmail: "alerts@tburn.io",
+      bridgeAlerts: true,
+      aiSystemAlerts: true,
+      maintenanceReminders: true,
+      alertEmail: "ops-critical@tburn.io",
       smtpServer: "smtp.tburn.io",
     },
     appearance: {
@@ -442,7 +442,7 @@ export default function AdminSettings() {
             icon={Server}
             label={t("adminSettings.metrics.systemStatus")}
             value={t("adminSettings.metrics.online")}
-            change={t("adminSettings.metrics.uptime")}
+            change="99.99% uptime (Dec 8 Launch Ready)"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -452,8 +452,8 @@ export default function AdminSettings() {
           <MetricCard
             icon={Database}
             label={t("adminSettings.metrics.databaseHealth")}
-            value="98.5%"
-            change={t("adminSettings.metrics.healthy")}
+            value="99.97%"
+            change="Enterprise-grade PostgreSQL"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
@@ -463,8 +463,8 @@ export default function AdminSettings() {
           <MetricCard
             icon={Activity}
             label={t("adminSettings.metrics.activeConnections")}
-            value="1,247"
-            change={`+12% ${t("adminSettings.metrics.fromLastHour")}`}
+            value="4,523"
+            change="512 nodes, 8 shards active"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-purple-500/10"
@@ -474,8 +474,8 @@ export default function AdminSettings() {
           <MetricCard
             icon={Clock}
             label={t("adminSettings.metrics.lastBackup")}
-            value="2h ago"
-            change={t("adminSettings.metrics.autoBackupEnabled")}
+            value="12m ago"
+            change="4.8 TB / 156 backups / 90-day retention"
             changeType="neutral"
             isLoading={isLoading}
             bgColor="bg-orange-500/10"

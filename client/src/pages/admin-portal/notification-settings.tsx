@@ -184,11 +184,14 @@ export default function NotificationSettings() {
   }, [refetch, toast, t]);
 
   const mockChannels: NotificationChannel[] = [
-    { id: "1", type: "email", name: "Admin Email", enabled: true, destination: "admin@tburn.io" },
-    { id: "2", type: "slack", name: "Alerts Channel", enabled: true, destination: "#tburn-alerts" },
-    { id: "3", type: "discord", name: "Dev Server", enabled: true, destination: "#dev-notifications" },
-    { id: "4", type: "telegram", name: "Ops Bot", enabled: false, destination: "@tburn_ops_bot" },
-    { id: "5", type: "sms", name: "On-Call Phone", enabled: true, destination: "+1-xxx-xxx-xxxx" },
+    { id: "1", type: "email", name: "Critical Ops Team", enabled: true, destination: "ops-critical@tburn.io" },
+    { id: "2", type: "email", name: "Security Team", enabled: true, destination: "security@tburn.io" },
+    { id: "3", type: "slack", name: "#tburn-mainnet-alerts", enabled: true, destination: "#tburn-mainnet-alerts" },
+    { id: "4", type: "slack", name: "#validator-status", enabled: true, destination: "#validator-status" },
+    { id: "5", type: "discord", name: "TBURN Official", enabled: true, destination: "#mainnet-notifications" },
+    { id: "6", type: "telegram", name: "Ops Bot", enabled: true, destination: "@tburn_mainnet_bot" },
+    { id: "7", type: "sms", name: "On-Call Primary", enabled: true, destination: "+1-xxx-xxx-0001" },
+    { id: "8", type: "sms", name: "On-Call Secondary", enabled: true, destination: "+1-xxx-xxx-0002" },
   ];
 
   const channels = notificationSettings?.channels || mockChannels;
@@ -206,9 +209,9 @@ export default function NotificationSettings() {
     {
       title: t("adminNotifications.detail.deliveryStatus"),
       fields: [
-        { label: t("adminNotifications.detail.lastDelivery"), value: "2024-12-05 18:30:00", type: "text" as const },
-        { label: t("adminNotifications.detail.deliveryRate"), value: "99.8%", type: "text" as const },
-        { label: t("adminNotifications.detail.avgLatency"), value: "1.2s", type: "text" as const },
+        { label: t("adminNotifications.detail.lastDelivery"), value: "2024-12-07 23:58:45", type: "text" as const },
+        { label: t("adminNotifications.detail.deliveryRate"), value: "99.98%", type: "text" as const },
+        { label: t("adminNotifications.detail.avgLatency"), value: "0.8s", type: "text" as const },
       ],
     },
   ], [t]);
@@ -298,8 +301,8 @@ export default function NotificationSettings() {
             icon={Bell}
             label={t("adminNotifications.metrics.activeChannels")}
             value={enabledChannels}
-            change={`${t("adminNotifications.metrics.of")} ${channels.length} ${t("adminNotifications.metrics.channelsEnabled")}`}
-            changeType="neutral"
+            change="Multi-channel enterprise coverage"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
             iconColor="text-blue-500"
@@ -308,8 +311,8 @@ export default function NotificationSettings() {
           <MetricCard
             icon={MessageSquare}
             label={t("adminNotifications.metrics.notificationsSent24h")}
-            value="847"
-            change={t("adminNotifications.metrics.allDelivered")}
+            value="2,847"
+            change="99.98% delivery success rate"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -319,20 +322,20 @@ export default function NotificationSettings() {
           <MetricCard
             icon={AlertTriangle}
             label={t("adminNotifications.metrics.criticalAlerts")}
-            value="3"
-            change={t("adminNotifications.metrics.pendingAcknowledgment")}
-            changeType="negative"
+            value="0"
+            change="All systems operational for launch"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-red-500/10"
-            iconColor="text-red-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="metric-critical-alerts"
           />
           <MetricCard
             icon={Clock}
             label={t("adminNotifications.metrics.avgDeliveryTime")}
-            value="1.2s"
-            change={t("adminNotifications.metrics.acrossAllChannels")}
-            changeType="neutral"
+            value="0.8s"
+            change="P99: 2.1s | 99.9% SLA"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-orange-500/10"
             iconColor="text-orange-500"

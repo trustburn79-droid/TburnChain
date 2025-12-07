@@ -198,7 +198,7 @@ export default function Integrations() {
       description: t("adminIntegrations.integrations.slackDesc"),
       category: "messaging",
       status: "connected",
-      lastSync: "2024-12-04 14:30:00",
+      lastSync: "2024-12-07 23:58:00",
       icon: SiSlack,
     },
     {
@@ -207,7 +207,7 @@ export default function Integrations() {
       description: t("adminIntegrations.integrations.discordDesc"),
       category: "messaging",
       status: "connected",
-      lastSync: "2024-12-04 14:25:00",
+      lastSync: "2024-12-07 23:55:00",
       icon: SiDiscord,
     },
     {
@@ -215,7 +215,8 @@ export default function Integrations() {
       name: "Telegram",
       description: t("adminIntegrations.integrations.telegramDesc"),
       category: "messaging",
-      status: "disconnected",
+      status: "connected",
+      lastSync: "2024-12-07 23:50:00",
       icon: SiTelegram,
     },
     {
@@ -224,7 +225,7 @@ export default function Integrations() {
       description: t("adminIntegrations.integrations.githubDesc"),
       category: "development",
       status: "connected",
-      lastSync: "2024-12-04 10:00:00",
+      lastSync: "2024-12-07 22:00:00",
       icon: SiGithub,
     },
     {
@@ -233,7 +234,7 @@ export default function Integrations() {
       description: t("adminIntegrations.integrations.awsDesc"),
       category: "cloud",
       status: "connected",
-      lastSync: "2024-12-04 14:00:00",
+      lastSync: "2024-12-07 23:59:00",
       icon: SiAmazon,
     },
     {
@@ -241,8 +242,8 @@ export default function Integrations() {
       name: "Google Cloud",
       description: t("adminIntegrations.integrations.gcpDesc"),
       category: "cloud",
-      status: "error",
-      lastSync: "2024-12-03 18:00:00",
+      status: "connected",
+      lastSync: "2024-12-07 23:45:00",
       icon: SiGooglecloud,
     },
     {
@@ -250,7 +251,8 @@ export default function Integrations() {
       name: "Azure",
       description: t("adminIntegrations.integrations.azureDesc"),
       category: "cloud",
-      status: "disconnected",
+      status: "connected",
+      lastSync: "2024-12-07 23:30:00",
       icon: Cloud,
     },
   ];
