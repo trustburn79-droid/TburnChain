@@ -126,9 +126,7 @@ export function PublicFooter() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                <Flame className="w-5 h-5 text-white" />
-              </div>
+              <Flame className="w-7 h-7 text-orange-500" />
               <span className="text-xl font-bold text-white">TBurn Lab</span>
             </Link>
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
