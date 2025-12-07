@@ -13457,7 +13457,22 @@
           "initiatingPurchase": "TBURN 구매 시작 중...",
           "initiatingSale": "TBURN 판매 시작 중...",
           "enterValidAmount": "유효한 금액을 입력해주세요",
-          "error": "거래에 실패했습니다. 다시 시도해주세요."
+          "error": "거래에 실패했습니다. 다시 시도해주세요.",
+          "redirectingBuy": "거래소로 이동 중",
+          "redirectingSell": "거래소로 이동 중",
+          "openingExchange": "새 탭에서 거래소를 열고 있습니다..."
+        },
+        "dialog": {
+          "buyTitle": "TBURN 구매",
+          "buyDesc": "구매를 완료하려면 거래소 파트너를 선택하세요",
+          "sellTitle": "TBURN 판매",
+          "sellDesc": "TBURN을 판매하려면 거래소 파트너를 선택하세요",
+          "amount": "금액",
+          "receive": "받게 될 금액",
+          "selling": "판매 금액",
+          "receiveUsd": "받게 될 금액",
+          "selectExchange": "거래소 파트너 선택:",
+          "recommended": "추천"
         }
       }
     },

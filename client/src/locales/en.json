@@ -13463,7 +13463,22 @@
           "initiatingPurchase": "Initiating TBURN purchase...",
           "initiatingSale": "Initiating TBURN sale...",
           "enterValidAmount": "Please enter a valid amount",
-          "error": "Transaction failed. Please try again."
+          "error": "Transaction failed. Please try again.",
+          "redirectingBuy": "Redirecting to Exchange",
+          "redirectingSell": "Redirecting to Exchange",
+          "openingExchange": "Opening exchange in a new tab..."
+        },
+        "dialog": {
+          "buyTitle": "Buy TBURN",
+          "buyDesc": "Select an exchange partner to complete your purchase",
+          "sellTitle": "Sell TBURN",
+          "sellDesc": "Select an exchange partner to sell your TBURN",
+          "amount": "Amount",
+          "receive": "You will receive",
+          "selling": "You are selling",
+          "receiveUsd": "You will receive",
+          "selectExchange": "Select an exchange partner:",
+          "recommended": "Recommended"
         }
       }
     },

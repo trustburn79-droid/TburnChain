@@ -1,29 +1,44 @@
 import { 
   ArrowLeftRight, CreditCard, Wallet, Zap, Shield, Percent,
-  ArrowDown, ArrowUp, Landmark, FileText, ArrowRight
+  ArrowDown, ArrowUp, Landmark, FileText, ArrowRight, ExternalLink, CheckCircle
 } from "lucide-react";
 import { SiVisa, SiMastercard, SiPaypal, SiApplepay } from "react-icons/si";
 import { useState } from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function Ramp() {
   const { t } = useTranslation();
   const [buyAmount, setBuyAmount] = useState("");
   const [sellAmount, setSellAmount] = useState("");
   const [currency, setCurrency] = useState("USD");
+  const [showBuyDialog, setShowBuyDialog] = useState(false);
+  const [showSellDialog, setShowSellDialog] = useState(false);
   const { toast } = useToast();
 
   const estimatedTburn = buyAmount ? (parseFloat(buyAmount) / 0.50).toFixed(2) : "0.00";
   const estimatedUsd = sellAmount ? (parseFloat(sellAmount) * 0.50).toFixed(2) : "0.00";
+
+  const exchangePartners = [
+    { name: "TBURN DEX", url: "https://dex.tburn.io", type: "DEX", recommended: true },
+    { name: "TBURN Exchange", url: "https://exchange.tburn.io", type: "CEX", recommended: false },
+    { name: "UniSwap (TBURN/ETH)", url: "https://app.uniswap.org", type: "DEX", recommended: false },
+  ];
   
   const handleBuy = () => {
     if (!buyAmount || parseFloat(buyAmount) <= 0) {
       toast({ title: t('publicPages.network.ramp.toast.error'), description: t('publicPages.network.ramp.toast.enterValidAmount'), variant: "destructive" });
       return;
     }
-    toast({ title: t('publicPages.network.ramp.toast.processing'), description: `${t('publicPages.network.ramp.toast.initiatingPurchase')} ${estimatedTburn} TBURN...` });
+    setShowBuyDialog(true);
   };
   
   const handleSell = () => {
@@ -31,7 +46,20 @@ export default function Ramp() {
       toast({ title: t('publicPages.network.ramp.toast.error'), description: t('publicPages.network.ramp.toast.enterValidAmount'), variant: "destructive" });
       return;
     }
-    toast({ title: t('publicPages.network.ramp.toast.processing'), description: `${t('publicPages.network.ramp.toast.initiatingSale')} ${sellAmount} TBURN...` });
+    setShowSellDialog(true);
+  };
+
+  const handleExchangeClick = (url: string, action: 'buy' | 'sell') => {
+    toast({ 
+      title: action === 'buy' ? t('publicPages.network.ramp.toast.redirectingBuy') : t('publicPages.network.ramp.toast.redirectingSell'),
+      description: t('publicPages.network.ramp.toast.openingExchange')
+    });
+    window.open(url, '_blank', 'noopener,noreferrer');
+    if (action === 'buy') {
+      setShowBuyDialog(false);
+    } else {
+      setShowSellDialog(false);
+    }
   };
 
   return (
@@ -363,6 +391,112 @@ export default function Ramp() {
           </div>
         </div>
       </section>
+
+      {/* Buy TBURN Dialog */}
+      <Dialog open={showBuyDialog} onOpenChange={setShowBuyDialog}>
+        <DialogContent className="bg-[#0a0a0f] border border-white/10 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold flex items-center gap-2">
+              <CreditCard className="w-5 h-5 text-[#7000ff]" />
+              {t('publicPages.network.ramp.dialog.buyTitle')}
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              {t('publicPages.network.ramp.dialog.buyDesc')}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="py-4 border-y border-white/10">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.dialog.amount')}</span>
+              <span className="text-white font-bold">{currency} {buyAmount}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.dialog.receive')}</span>
+              <span className="text-[#00f0ff] font-bold font-mono">{estimatedTburn} TBURN</span>
+            </div>
+          </div>
+
+          <div className="space-y-3 mt-2">
+            <p className="text-xs text-gray-500 mb-3">{t('publicPages.network.ramp.dialog.selectExchange')}</p>
+            {exchangePartners.map((exchange) => (
+              <button
+                key={exchange.name}
+                onClick={() => handleExchangeClick(exchange.url, 'buy')}
+                className={`w-full p-4 rounded-lg border text-left flex items-center justify-between group transition-all ${
+                  exchange.recommended 
+                    ? 'border-[#7000ff]/50 bg-[#7000ff]/10 hover:bg-[#7000ff]/20' 
+                    : 'border-white/10 hover:border-white/30 hover:bg-white/5'
+                }`}
+                data-testid={`button-exchange-${exchange.name.toLowerCase().replace(/\s+/g, '-')}`}
+              >
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-white">{exchange.name}</span>
+                    {exchange.recommended && (
+                      <span className="text-xs bg-[#7000ff] text-white px-2 py-0.5 rounded">{t('publicPages.network.ramp.dialog.recommended')}</span>
+                    )}
+                  </div>
+                  <span className="text-xs text-gray-500">{exchange.type}</span>
+                </div>
+                <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
+              </button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Sell TBURN Dialog */}
+      <Dialog open={showSellDialog} onOpenChange={setShowSellDialog}>
+        <DialogContent className="bg-[#0a0a0f] border border-white/10 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold flex items-center gap-2">
+              <Wallet className="w-5 h-5 text-[#00f0ff]" />
+              {t('publicPages.network.ramp.dialog.sellTitle')}
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              {t('publicPages.network.ramp.dialog.sellDesc')}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="py-4 border-y border-white/10">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.dialog.selling')}</span>
+              <span className="text-white font-bold font-mono">{sellAmount} TBURN</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.dialog.receiveUsd')}</span>
+              <span className="text-[#00ff9d] font-bold">~${estimatedUsd}</span>
+            </div>
+          </div>
+
+          <div className="space-y-3 mt-2">
+            <p className="text-xs text-gray-500 mb-3">{t('publicPages.network.ramp.dialog.selectExchange')}</p>
+            {exchangePartners.map((exchange) => (
+              <button
+                key={exchange.name}
+                onClick={() => handleExchangeClick(exchange.url, 'sell')}
+                className={`w-full p-4 rounded-lg border text-left flex items-center justify-between group transition-all ${
+                  exchange.recommended 
+                    ? 'border-[#00f0ff]/50 bg-[#00f0ff]/10 hover:bg-[#00f0ff]/20' 
+                    : 'border-white/10 hover:border-white/30 hover:bg-white/5'
+                }`}
+                data-testid={`button-sell-exchange-${exchange.name.toLowerCase().replace(/\s+/g, '-')}`}
+              >
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-white">{exchange.name}</span>
+                    {exchange.recommended && (
+                      <span className="text-xs bg-[#00f0ff] text-black px-2 py-0.5 rounded">{t('publicPages.network.ramp.dialog.recommended')}</span>
+                    )}
+                  </div>
+                  <span className="text-xs text-gray-500">{exchange.type}</span>
+                </div>
+                <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
+              </button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
