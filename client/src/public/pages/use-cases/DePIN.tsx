@@ -123,7 +123,7 @@ export default function DePIN() {
             {t('publicPages.useCases.depin.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/developers/quickstart">
+            <Link href="/app/staking">
               <button 
                 className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
                 style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
@@ -132,7 +132,7 @@ export default function DePIN() {
                 {t('publicPages.useCases.depin.buttons.deployInfrastructure')}
               </button>
             </Link>
-            <Link href="/developers/docs">
+            <Link href="/developers/documentation">
               <button 
                 className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition"
                 data-testid="button-docs"
@@ -263,7 +263,7 @@ export default function DePIN() {
             <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
               {t('publicPages.useCases.depin.cta.desc')}
             </p>
-            <Link href="/app">
+            <Link href="/app/staking">
               <button 
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
                 style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}

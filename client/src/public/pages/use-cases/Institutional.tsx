@@ -139,7 +139,7 @@ export default function Institutional() {
                 {t('publicPages.useCases.institutional.buttons.contactSales')}
               </button>
             </Link>
-            <Link href="/developers/docs">
+            <Link href="/developers/api-docs">
               <button 
                 className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition"
                 data-testid="button-api"
@@ -260,7 +260,7 @@ export default function Institutional() {
             <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
               {t('publicPages.useCases.institutional.cta.desc')}
             </p>
-            <Link href="/app">
+            <Link href="/community/hub">
               <button 
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-[#ffd700] text-black font-bold hover:bg-yellow-400 transition"
                 style={{ boxShadow: "0 0 20px rgba(255,215,0,0.3)" }}

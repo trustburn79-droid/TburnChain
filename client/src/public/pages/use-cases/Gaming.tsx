@@ -133,7 +133,7 @@ export default function Gaming() {
             {t('publicPages.useCases.gaming.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/developers/quickstart">
+            <Link href="/app/gamefi">
               <button 
                 className="px-8 py-3 rounded-lg bg-[#ff0055] text-white font-bold hover:bg-pink-600 transition"
                 style={{ boxShadow: "0 0 20px rgba(255,0,85,0.3)" }}
@@ -271,7 +271,7 @@ export default function Gaming() {
                   {t('publicPages.useCases.gaming.cta.quickStart')} <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
-              <Link href="/app">
+              <Link href="/app/gamefi">
                 <button 
                   className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition"
                   data-testid="button-login"

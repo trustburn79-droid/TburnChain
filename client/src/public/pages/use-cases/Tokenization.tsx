@@ -125,7 +125,7 @@ export default function Tokenization() {
             {t('publicPages.useCases.tokenization.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/developers/quickstart">
+            <Link href="/app/token-system">
               <button 
                 className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
                 style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
@@ -134,7 +134,7 @@ export default function Tokenization() {
                 {t('publicPages.useCases.tokenization.buttons.startTokenizing')}
               </button>
             </Link>
-            <Link href="/developers/docs">
+            <Link href="/developers/documentation">
               <button 
                 className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition"
                 data-testid="button-docs"
@@ -235,7 +235,7 @@ export default function Tokenization() {
             <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
               {t('publicPages.useCases.tokenization.cta.desc')}
             </p>
-            <Link href="/app">
+            <Link href="/app/token-system">
               <button 
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
                 style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
