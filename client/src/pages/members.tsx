@@ -120,6 +120,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { TestBadge } from "@/components/TestBadge";
 
 interface Member {
   id: string;
@@ -1708,7 +1709,10 @@ export default function MembersPage() {
   return (
     <div className="container mx-auto p-8">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2" data-testid="text-members-title">{t('members.title')}</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-4xl font-bold" data-testid="text-members-title">{t('members.title')}</h1>
+          <TestBadge />
+        </div>
         <p className="text-muted-foreground">
           {t('members.subtitle')}
         </p>

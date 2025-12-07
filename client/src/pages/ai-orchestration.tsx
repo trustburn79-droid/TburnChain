@@ -59,6 +59,7 @@ import {
   Legend,
 } from 'recharts';
 import { z } from "zod";
+import { TestBadge } from "@/components/TestBadge";
 
 const localeMap: Record<string, string> = {
   en: 'en-US',
@@ -888,10 +889,13 @@ export default function AIOrchestration() {
     <div className="flex flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold flex items-center gap-2">
-            <Bot className="h-8 w-8" />
-            {t('aiOrchestration.title')}
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-ai-orchestration-title">
+              <Bot className="h-8 w-8" />
+              {t('aiOrchestration.title')}
+            </h1>
+            <TestBadge />
+          </div>
           <p className="text-sm text-muted-foreground mt-1">
             {t('aiOrchestration.subtitle')}
           </p>

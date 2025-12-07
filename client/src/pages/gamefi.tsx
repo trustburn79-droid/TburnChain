@@ -16,6 +16,7 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
+import { TestBadge } from "@/components/TestBadge";
 import { 
   Gamepad2, 
   Trophy, 
@@ -1536,7 +1537,10 @@ export default function GameFiPage() {
       <WalletRequiredBanner />
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("gamefi.title")}</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("gamefi.title")}</h1>
+            <TestBadge />
+          </div>
           <p className="text-muted-foreground">
             {t("gamefi.pageDescription")}
           </p>

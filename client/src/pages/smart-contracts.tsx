@@ -42,6 +42,7 @@ import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount, formatGa
 import { SmartContractEditor } from "@/components/SmartContractEditor";
 import { useToast } from "@/hooks/use-toast";
 import type { SmartContract } from "@shared/schema";
+import { TestBadge } from "@/components/TestBadge";
 import {
   PieChart,
   Pie,
@@ -978,10 +979,13 @@ export default function SmartContracts() {
     <div className="flex flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-contracts-title">
-            <FileCode className="h-8 w-8" />
-            {t('smartContracts.title')}
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-contracts-title">
+              <FileCode className="h-8 w-8" />
+              {t('smartContracts.title')}
+            </h1>
+            <TestBadge />
+          </div>
           <p className="text-sm text-muted-foreground mt-1">
             {t('smartContracts.subtitle')}
           </p>

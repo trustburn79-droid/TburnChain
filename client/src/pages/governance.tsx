@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { formatNumber, formatTokenAmount } from "@/lib/formatters";
 import { WalletRequiredBanner } from "@/components/require-wallet";
+import { TestBadge } from "@/components/TestBadge";
 
 interface Proposal {
   id: string;
@@ -87,9 +88,12 @@ export default function Governance() {
       <WalletRequiredBanner />
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-governance-title">
-            {t("governance.title")}
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold" data-testid="text-governance-title">
+              {t("governance.title")}
+            </h1>
+            <TestBadge />
+          </div>
           <p className="text-muted-foreground">
             {t("governance.subtitle")}
           </p>

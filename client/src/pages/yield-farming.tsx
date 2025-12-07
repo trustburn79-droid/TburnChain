@@ -63,6 +63,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { TestBadge } from "@/components/TestBadge";
 
 interface YieldVault {
   id: string;
@@ -453,10 +454,13 @@ export default function YieldFarming() {
       <WalletRequiredBanner />
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-yield-title">
-            <Sprout className="h-8 w-8 text-green-500" />
-            {t("yieldFarming.title")}
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-yield-title">
+              <Sprout className="h-8 w-8 text-green-500" />
+              {t("yieldFarming.title")}
+            </h1>
+            <TestBadge />
+          </div>
           <p className="text-muted-foreground mt-1">
             {t("yieldFarming.subtitle")}
           </p>

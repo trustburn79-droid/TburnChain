@@ -46,6 +46,7 @@ import { WalletRequiredBanner } from "@/components/require-wallet";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
+import { TestBadge } from "@/components/TestBadge";
 import {
   Tooltip,
   TooltipContent,
@@ -631,7 +632,10 @@ export default function DexPage() {
       <WalletRequiredBanner />
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-dex-title">{t('dex.title')}</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold" data-testid="text-dex-title">{t('dex.title')}</h1>
+            <TestBadge />
+          </div>
           <p className="text-muted-foreground mt-1">
             {t('dex.subtitle')}
           </p>

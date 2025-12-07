@@ -38,6 +38,7 @@ import {
 import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
+import { TestBadge } from "@/components/TestBadge";
 
 interface RewardCycle {
   id: string;
@@ -215,7 +216,10 @@ export default function StakingRewards() {
       <WalletRequiredBanner />
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-rewards-title">{t('stakingRewards.title')}</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold" data-testid="text-rewards-title">{t('stakingRewards.title')}</h1>
+            <TestBadge />
+          </div>
           <p className="text-muted-foreground mt-1">
             {t('stakingRewards.subtitle')}
           </p>

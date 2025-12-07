@@ -63,6 +63,7 @@ import {
   Legend,
 } from 'recharts';
 import { z } from "zod";
+import { TestBadge } from "@/components/TestBadge";
 
 type StatType = 'successRate' | 'blockTime' | 'participation' | 'finality' | 'quorum';
 
@@ -950,10 +951,13 @@ export default function Consensus() {
   return (
     <div className="flex flex-col gap-6 p-6">
       <div>
-        <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-consensus-title">
-          <Vote className="h-8 w-8" />
-          {t('consensus.title')}
-        </h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-consensus-title">
+            <Vote className="h-8 w-8" />
+            {t('consensus.title')}
+          </h1>
+          <TestBadge />
+        </div>
         <p className="text-sm text-muted-foreground mt-1">
           {t('consensus.subtitle')} | {t('consensus.currentRound')} #{currentRound.toLocaleString()} | {progress}% {t('common.completed')}
         </p>

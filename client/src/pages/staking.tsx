@@ -118,6 +118,7 @@ import { Link } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
+import { TestBadge } from "@/components/TestBadge";
 
 interface StakingStatsResponse {
   totalValueLocked: string;
@@ -441,7 +442,10 @@ export default function StakingDashboard() {
       <WalletRequiredBanner />
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-staking-title">{t('staking.title')}</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold" data-testid="text-staking-title">{t('staking.title')}</h1>
+            <TestBadge />
+          </div>
           <p className="text-muted-foreground mt-1">
             {t('staking.subtitle')}
           </p>

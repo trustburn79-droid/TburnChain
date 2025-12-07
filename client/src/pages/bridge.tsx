@@ -53,6 +53,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { WalletRequiredBanner } from "@/components/require-wallet";
+import { TestBadge } from "@/components/TestBadge";
 
 interface BridgeChain {
   id: string;
@@ -597,9 +598,12 @@ export default function Bridge() {
       <WalletRequiredBanner />
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-bridge-title">
-            {t("bridge.title")}
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold" data-testid="text-bridge-title">
+              {t("bridge.title")}
+            </h1>
+            <TestBadge />
+          </div>
           <p className="text-muted-foreground">
             {t("bridge.subtitle")}
           </p>

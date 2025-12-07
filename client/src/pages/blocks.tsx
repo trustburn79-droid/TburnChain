@@ -93,6 +93,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { TestBadge } from "@/components/TestBadge";
 
 interface Block {
   id: string;
@@ -756,9 +757,12 @@ export default function Blocks() {
             <Box className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold" data-testid="text-blocks-title">
-              {t('blocks.title', 'Block Explorer')}
-            </h1>
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl md:text-3xl font-bold" data-testid="text-blocks-title">
+                {t('blocks.title', 'Block Explorer')}
+              </h1>
+              <TestBadge />
+            </div>
             <div className="flex items-center gap-2 mt-1">
               <LiveIndicator isLive={isAutoRefresh && isConnected} lastUpdate={lastUpdate} />
             </div>
