@@ -13530,6 +13530,8 @@
         },
         "cta": {
           "title": "Ready to Get Started?",
+          "startNow": "Start Now",
+          "learnMore": "Learn More",
           "createAccount": "Create Account",
           "contactSupport": "Contact Support"
         },
