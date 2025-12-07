@@ -7711,7 +7711,7 @@
             },
             "highPerformance": {
               "title": "고성능",
-              "description": "1초 블록 시간과 6초 완결성으로 50,000+ TPS"
+              "description": "1초 블록 시간과 6초 완결성으로 50,000+ TPS (피크 520,000+ TPS)"
             },
             "autoBurn": {
               "title": "자동 소각",
@@ -9186,7 +9186,7 @@
           "stats": {
             "throughput": {
               "label": "처리량",
-              "sublabel": "50,000+ TPS"
+              "sublabel": "50,000+ TPS (피크 520,000+)"
             },
             "latency": {
               "label": "지연 시간",
@@ -10295,7 +10295,7 @@
           "performance": {
             "title": "성능",
             "evmDesc": "~15 TPS 일반 처리량",
-            "tburnDesc": "병렬 실행으로 50,000+ TPS"
+            "tburnDesc": "병렬 실행으로 50,000+ TPS (피크 520,000+ TPS)"
           },
           "safety": {
             "title": "트랜잭션 안전성",
@@ -11238,7 +11238,7 @@
           "subtitle": "고속 게임 및 안전한 자산 거래에 최적화되었습니다.",
           "ultraFastProcessing": {
             "title": "초고속 처리",
-            "description": "50,000+ TPS 처리량으로 실시간 게임 내 아이템 거래가 가능합니다. 평균 1초 블록 시간으로 플레이어는 지연 없이 즉각적인 확인을 경험합니다."
+            "description": "50,000+ TPS (피크 520,000+ TPS) 처리량으로 실시간 게임 내 아이템 거래가 가능합니다. 평균 1초 블록 시간으로 플레이어는 지연 없이 즉각적인 확인을 경험합니다."
           },
           "nftVerification": {
             "title": "NFT 프로젝트 검증",
@@ -11389,7 +11389,7 @@
         "features": {
           "ultraFastProcessing": {
             "title": "초고속 처리",
-            "desc": "50,000+ TPS로 1초 블록 시간으로 실시간 게임 내 거래가 가능합니다."
+            "desc": "50,000+ TPS (피크 520,000+ TPS)로 1초 블록 시간으로 실시간 게임 내 거래가 가능합니다."
           },
           "nftVerification": {
             "title": "NFT 프로젝트 검증",
@@ -11405,7 +11405,7 @@
           },
           "ultraFast": {
             "title": "초고속 처리",
-            "desc": "50,000+ TPS로 1초 블록 시간으로 실시간 게임 내 거래가 가능합니다."
+            "desc": "50,000+ TPS (피크 520,000+ TPS)로 1초 블록 시간으로 실시간 게임 내 거래가 가능합니다."
           },
           "verification": {
             "title": "NFT 프로젝트 검증",
@@ -11451,7 +11451,7 @@
           "subtitle": "글로벌 커머스에 최적화된 인프라.",
           "instantSettlement": {
             "title": "즉시 정산",
-            "description": "평균 1초 블록 시간과 6초 완결성. 50,000+ TPS 용량으로 기존 신용카드보다 빠른 결제 속도를 경험하세요."
+            "description": "평균 1초 블록 시간과 6초 완결성. 50,000+ TPS (피크 520,000+ TPS) 용량으로 기존 신용카드보다 빠른 결제 속도를 경험하세요."
           },
           "ultraLowFees": {
             "title": "초저 수수료",
@@ -11950,7 +11950,7 @@
         "features": {
           "lightningPerformance": {
             "title": "초고속 발행",
-            "description": "50,000+ TPS 용량으로 몇 초 만에 NFT를 발행하세요. 최소한의 가스 수수료로 대규모 컬렉션을 일괄 민팅합니다."
+            "description": "50,000+ TPS (피크 520,000+ TPS) 용량으로 몇 초 만에 NFT를 발행하세요. 최소한의 가스 수수료로 대규모 컬렉션을 일괄 민팅합니다."
           },
           "trustVerification": {
             "title": "신뢰 검증",
@@ -12646,7 +12646,7 @@
           },
           "instantSettlement": {
             "title": "즉시 정산",
-            "desc": "50,000+ TPS의 서브초 거래 최종성. 은행 이체나 청산소 대기 없음."
+            "desc": "50,000+ TPS (피크 520,000+ TPS)의 서브초 거래 최종성. 은행 이체나 청산소 대기 없음."
           },
           "programmableCompliance": {
             "title": "프로그래머블 규제 준수",

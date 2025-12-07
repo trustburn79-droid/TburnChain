@@ -7712,7 +7712,7 @@
             },
             "highPerformance": {
               "title": "High Performance",
-              "description": "50,000+ TPS with 1-second block time and 6-second finality"
+              "description": "50,000+ TPS (Peak 520,000+ TPS) with 1-second block time and 6-second finality"
             },
             "autoBurn": {
               "title": "Auto Burn",
@@ -9186,7 +9186,7 @@
           "stats": {
             "throughput": {
               "label": "Throughput",
-              "sublabel": "50,000+ TPS"
+              "sublabel": "50,000+ TPS (Peak 520,000+)"
             },
             "latency": {
               "label": "Latency",
@@ -10295,7 +10295,7 @@
           "performance": {
             "title": "Performance",
             "evmDesc": "~15 TPS typical throughput",
-            "tburnDesc": "50,000+ TPS with parallel execution"
+            "tburnDesc": "50,000+ TPS (Peak 520,000+ TPS) with parallel execution"
           },
           "safety": {
             "title": "Transaction Safety",
@@ -11297,7 +11297,7 @@
         "features": {
           "ultraFastProcessing": {
             "title": "Ultra-Fast Processing",
-            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+            "desc": "50,000+ TPS (Peak 520,000+ TPS) enables real-time in-game trading with 1-second block times."
           },
           "nftVerification": {
             "title": "NFT Project Verification",
@@ -11313,7 +11313,7 @@
           },
           "ultraFast": {
             "title": "Ultra-Fast Processing",
-            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+            "desc": "50,000+ TPS (Peak 520,000+ TPS) enables real-time in-game trading with 1-second block times."
           },
           "verification": {
             "title": "NFT Project Verification",
@@ -11352,7 +11352,7 @@
           "subtitle": "Optimized for high-speed gaming and secure asset trading.",
           "ultraFastProcessing": {
             "title": "Ultra-Fast Processing",
-            "description": "50,000+ TPS throughput enables real-time in-game item trading. With an average 1-second block time, players experience instant confirmation without lag."
+            "description": "50,000+ TPS (Peak 520,000+ TPS) throughput enables real-time in-game item trading. With an average 1-second block time, players experience instant confirmation without lag."
           },
           "nftVerification": {
             "title": "NFT Project Verification",
@@ -11455,7 +11455,7 @@
           "subtitle": "Optimized infrastructure for global commerce.",
           "instantSettlement": {
             "title": "Instant Settlement",
-            "description": "Average 1-second block time and 6-second finality. Experience payment speeds faster than traditional credit cards with 50,000+ TPS capacity."
+            "description": "Average 1-second block time and 6-second finality. Experience payment speeds faster than traditional credit cards with 50,000+ TPS (Peak 520,000+ TPS) capacity."
           },
           "ultraLowFees": {
             "title": "Ultra-Low Fees",
@@ -11950,7 +11950,7 @@
         "features": {
           "lightningPerformance": {
             "title": "Lightning-Fast Minting",
-            "description": "Mint NFTs in seconds with 50,000+ TPS capacity. Batch minting for large collections with minimal gas fees."
+            "description": "Mint NFTs in seconds with 50,000+ TPS (Peak 520,000+ TPS) capacity. Batch minting for large collections with minimal gas fees."
           },
           "trustVerification": {
             "title": "Trust Verification",
@@ -12646,7 +12646,7 @@
           },
           "instantSettlement": {
             "title": "Instant Settlement",
-            "desc": "Sub-second transaction finality with 50,000+ TPS. No waiting for bank transfers or clearing houses."
+            "desc": "Sub-second transaction finality with 50,000+ TPS (Peak 520,000+ TPS). No waiting for bank transfers or clearing houses."
           },
           "programmableCompliance": {
             "title": "Programmable Compliance",

@@ -9422,7 +9422,7 @@
           },
           "instantSettlement": {
             "title": "Règlement Instantané",
-            "desc": "Finalité de transaction sub-seconde avec 50,000+ TPS. Pas dattente pour virements bancaires ou chambres de compensation."
+            "desc": "Finalité de transaction sub-seconde avec 50,000+ TPS (Pic 520,000+ TPS). Pas dattente pour virements bancaires ou chambres de compensation."
           },
           "programmableCompliance": {
             "title": "Conformité Programmable",

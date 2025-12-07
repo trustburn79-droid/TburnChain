@@ -7491,7 +7491,7 @@
           "stats": {
             "throughput": {
               "label": "Rendimiento",
-              "sublabel": "50,000+ TPS"
+              "sublabel": "50,000+ TPS (Pico 520,000+)"
             },
             "latency": {
               "label": "Latencia",
@@ -8365,7 +8365,7 @@
           "performance": {
             "title": "Performance",
             "evmDesc": "~15 TPS typical throughput",
-            "tburnDesc": "50,000+ TPS with parallel execution"
+            "tburnDesc": "50,000+ TPS (Pico 520,000+ TPS) con ejecución paralela"
           },
           "safety": {
             "title": "Transaction Safety",
@@ -9591,7 +9591,7 @@
           },
           "ultraFastProcessing": {
             "title": "Procesamiento Ultra Rápido",
-            "desc": "50,000+ TPS permite trading en tiempo real en el juego con tiempos de bloque de 1 segundo."
+            "desc": "50,000+ TPS (Pico 520,000+ TPS) permite trading en tiempo real en el juego con tiempos de bloque de 1 segundo."
           },
           "nftVerification": {
             "title": "Verificación de Proyectos NFT",
@@ -9607,7 +9607,7 @@
           },
           "ultraFast": {
             "title": "Procesamiento Ultra Rápido",
-            "desc": "50,000+ TPS permite trading en tiempo real en el juego con tiempos de bloque de 1 segundo."
+            "desc": "50,000+ TPS (Pico 520,000+ TPS) permite trading en tiempo real en el juego con tiempos de bloque de 1 segundo."
           },
           "verification": {
             "title": "Verificación de Proyectos NFT",
@@ -11012,7 +11012,7 @@
           },
           "instantSettlement": {
             "title": "Liquidación Instantánea",
-            "desc": "Finalidad de transacciones sub-segundo con 50,000+ TPS. Sin esperar transferencias bancarias o cámaras de compensación."
+            "desc": "Finalidad de transacciones sub-segundo con 50,000+ TPS (Pico 520,000+ TPS). Sin esperar transferencias bancarias o cámaras de compensación."
           },
           "programmableCompliance": {
             "title": "Cumplimiento Programable",

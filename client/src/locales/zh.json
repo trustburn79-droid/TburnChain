@@ -7081,7 +7081,7 @@
             },
             "highPerformance": {
               "title": "高性能",
-              "description": "50,000+ TPS，1秒出块时间，6秒最终确认"
+              "description": "50,000+ TPS（峰值520,000+ TPS），1秒出块时间，6秒最终确认"
             },
             "autoBurn": {
               "title": "自动销毁",
@@ -8525,7 +8525,7 @@
           "stats": {
             "throughput": {
               "label": "吞吐量",
-              "sublabel": "50,000+ TPS"
+              "sublabel": "50,000+ TPS（峰值520,000+）"
             },
             "latency": {
               "label": "延迟",
@@ -9339,7 +9339,7 @@
           "performance": {
             "title": "性能",
             "evmDesc": "~15 TPS 典型吞吐量",
-            "tburnDesc": "50,000+ TPS 并行执行"
+            "tburnDesc": "50,000+ TPS（峰值520,000+ TPS）并行执行"
           },
           "safety": {
             "title": "交易安全",
@@ -10160,7 +10160,7 @@
           "subtitle": "为高速游戏和安全资产交易优化。",
           "ultraFastProcessing": {
             "title": "超快处理",
-            "description": "50,000+ TPS吞吐量实现实时游戏内道具交易。平均1秒出块时间，玩家体验即时确认无延迟。"
+            "description": "50,000+ TPS（峰值520,000+ TPS）吞吐量实现实时游戏内道具交易。平均1秒出块时间，玩家体验即时确认无延迟。"
           },
           "nftVerification": {
             "title": "NFT项目验证",
@@ -10311,7 +10311,7 @@
         "features": {
           "ultraFastProcessing": {
             "title": "超快处理",
-            "desc": "50,000+ TPS 支持 1 秒区块时间的实时游戏内交易。"
+            "desc": "50,000+ TPS（峰值520,000+ TPS）支持 1 秒区块时间的实时游戏内交易。"
           },
           "nftVerification": {
             "title": "NFT 项目验证",
@@ -10327,7 +10327,7 @@
           },
           "ultraFast": {
             "title": "超快处理",
-            "desc": "50,000+ TPS 支持 1 秒区块时间的实时游戏内交易。"
+            "desc": "50,000+ TPS（峰值520,000+ TPS）支持 1 秒区块时间的实时游戏内交易。"
           },
           "verification": {
             "title": "NFT 项目验证",
@@ -10373,7 +10373,7 @@
           "subtitle": "为全球商务优化的基础设施。",
           "instantSettlement": {
             "title": "即时结算",
-            "description": "平均1秒出块时间和6秒最终确认。体验比传统信用卡更快的支付速度，50,000+ TPS容量。"
+            "description": "平均1秒出块时间和6秒最终确认。体验比传统信用卡更快的支付速度，50,000+ TPS（峰值520,000+ TPS）容量。"
           },
           "ultraLowFees": {
             "title": "超低费用",
@@ -10790,7 +10790,7 @@
         "features": {
           "lightningPerformance": {
             "title": "闪电般快速铸造",
-            "description": "以 50,000+ TPS 容量在几秒内铸造 NFT。大型收藏品批量铸造，gas 费用极低。"
+            "description": "以 50,000+ TPS（峰值520,000+ TPS）容量在几秒内铸造 NFT。大型收藏品批量铸造，gas 费用极低。"
           },
           "trustVerification": {
             "title": "信任验证",
@@ -11466,7 +11466,7 @@
           },
           "instantSettlement": {
             "title": "即时结算",
-            "desc": "50,000+ TPS的亚秒级交易最终性。无需等待银行转账或清算。"
+            "desc": "50,000+ TPS（峰值520,000+ TPS）的亚秒级交易最终性。无需等待银行转账或清算。"
           },
           "programmableCompliance": {
             "title": "可编程合规",

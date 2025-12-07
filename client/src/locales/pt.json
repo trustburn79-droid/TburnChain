@@ -6681,7 +6681,7 @@
           "performance": {
             "title": "Desempenho",
             "evmDesc": "~15 TPS typical throughput",
-            "tburnDesc": "50,000+ TPS with parallel execution"
+            "tburnDesc": "50,000+ TPS (Pico 520,000+ TPS) com execução paralela"
           },
           "safety": {
             "title": "Transação Seguroty",

@@ -579,7 +579,7 @@ export default function VCTestMode() {
                       <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.stack.blockchain', 'Independent Blockchain')}</div>
                     </div>
                     <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-lg text-center">
-                      <div className="font-bold text-gray-900 dark:text-white">50,000+ TPS</div>
+                      <div className="font-bold text-gray-900 dark:text-white">50,000+ TPS (Peak 520,000+)</div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.stack.throughput', 'Transaction Throughput')}</div>
                     </div>
                     <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-lg text-center">
