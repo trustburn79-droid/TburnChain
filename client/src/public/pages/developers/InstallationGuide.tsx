@@ -20,12 +20,12 @@ const linuxSteps = [
   {
     titleKey: "downloadBinary",
     commands: [
-      "curl -L https://github.com/burnchain/core/releases/download/v4.0.0/tburn-linux-amd64.tar.gz -o tburn.tar.gz",
+      "curl -L https://github.com/burnchain/core/releases/download/v8.0.0/tburn-linux-amd64.tar.gz -o tburn.tar.gz",
       "tar -xvf tburn.tar.gz",
       "sudo mv tburn /usr/local/bin/",
       "tburn version"
     ],
-    comment: "# Output: TBurn Chain Core v4.0.0-stable"
+    comment: "# Output: TBurn Chain Core v8.0.0-mainnet (100K+ TPS, AI-BFT Consensus)"
   },
   {
     titleKey: "initializeNode",
