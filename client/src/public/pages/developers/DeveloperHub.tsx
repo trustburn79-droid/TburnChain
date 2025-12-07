@@ -30,24 +30,30 @@ const devToolIcons = [
 ];
 
 const blockchainApiEndpoints = [
-  { method: "GET", path: "/v4/blocks/{hash}", color: "#22c55e" },
-  { method: "GET", path: "/v4/transactions/{txId}", color: "#22c55e" },
-  { method: "POST", path: "/v4/transactions/submit", color: "#3b82f6" },
-  { method: "GET", path: "/v4/accounts/{address}", color: "#22c55e" },
+  { method: "GET", path: "/v8/blocks/{hash}", color: "#22c55e" },
+  { method: "GET", path: "/v8/transactions/{txId}", color: "#22c55e" },
+  { method: "POST", path: "/v8/transactions/submit", color: "#3b82f6" },
+  { method: "GET", path: "/v8/accounts/{address}", color: "#22c55e" },
+  { method: "GET", path: "/v8/shards/status", color: "#22c55e" },
+  { method: "GET", path: "/v8/validators/active", color: "#22c55e" },
 ];
 
 const defiApiEndpoints = [
-  { method: "GET", path: "/v4/defi/pools", color: "#22c55e" },
-  { method: "POST", path: "/v4/defi/swap", color: "#3b82f6" },
-  { method: "GET", path: "/v4/defi/lending/markets", color: "#22c55e" },
-  { method: "POST", path: "/v4/defi/staking/stake", color: "#3b82f6" },
+  { method: "GET", path: "/v8/defi/pools", color: "#22c55e" },
+  { method: "POST", path: "/v8/defi/swap", color: "#3b82f6" },
+  { method: "GET", path: "/v8/defi/lending/markets", color: "#22c55e" },
+  { method: "POST", path: "/v8/defi/staking/stake", color: "#3b82f6" },
+  { method: "GET", path: "/v8/bridge/status", color: "#22c55e" },
+  { method: "POST", path: "/v8/bridge/transfer", color: "#3b82f6" },
 ];
 
 const aiApiEndpoints = [
-  { method: "GET", path: "/v4/ai/trust-score/{id}", color: "#22c55e" },
-  { method: "POST", path: "/v4/ai/analyze", color: "#3b82f6" },
-  { method: "GET", path: "/v4/ai/predictions", color: "#22c55e" },
-  { method: "WS", path: "/v4/ai/stream", color: "#a855f7" },
+  { method: "GET", path: "/v8/ai/trust-score/{id}", color: "#22c55e" },
+  { method: "POST", path: "/v8/ai/analyze", color: "#3b82f6" },
+  { method: "GET", path: "/v8/ai/predictions", color: "#22c55e" },
+  { method: "WS", path: "/v8/ai/stream", color: "#a855f7" },
+  { method: "GET", path: "/v8/ai/orchestration/status", color: "#22c55e" },
+  { method: "POST", path: "/v8/ai/burn-optimize", color: "#3b82f6" },
 ];
 
 const grantTierKeys = ["seed", "build", "scale", "enterprise"];

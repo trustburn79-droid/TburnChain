@@ -6,7 +6,7 @@ import {
   RefreshCw, Download, Server, Book, Copy, ExternalLink
 } from "lucide-react";
 
-const authCode = `const ws = new WebSocket('wss://ws.tburn.io/v4');
+const authCode = `const ws = new WebSocket('wss://ws.tburn.io/v8');
 
 ws.onopen = () => {
   // Authenticate instantly
@@ -33,7 +33,7 @@ const implementationCode = `class TBurnWebSocket {
   }
 
   connect() {
-    this.ws = new WebSocket('wss://ws.tburn.io/v4');
+    this.ws = new WebSocket('wss://ws.tburn.io/v8');
     
     this.ws.onopen = () => {
       console.log('Connected to Trust Network');
@@ -71,7 +71,7 @@ export default function WebSocketApi() {
     { 
       type: t('publicPages.developers.websocket.endpoints.mainnet.type'), 
       desc: t('publicPages.developers.websocket.endpoints.mainnet.desc'), 
-      url: "wss://ws.tburn.io/v4",
+      url: "wss://ws.tburn.io/v8",
       color: "#00ff9d",
       bgColor: "bg-[#00ff9d]/10",
       borderColor: "border-[#00ff9d]/20"
@@ -79,7 +79,7 @@ export default function WebSocketApi() {
     { 
       type: t('publicPages.developers.websocket.endpoints.testnet.type'), 
       desc: t('publicPages.developers.websocket.endpoints.testnet.desc'), 
-      url: "wss://ws-testnet.tburn.io/v4",
+      url: "wss://ws-testnet.tburn.io/v8",
       color: "#ffd700",
       bgColor: "bg-yellow-500/10",
       borderColor: "border-yellow-500/20"

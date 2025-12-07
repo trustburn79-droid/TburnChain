@@ -56,7 +56,7 @@ export default function Documentation() {
       title: t('publicPages.developers.docs.categories.apiReference.title'), 
       description: t('publicPages.developers.docs.categories.apiReference.description'),
       icon: Server,
-      badge: "v4.2.1",
+      badge: "v8.0.0",
       gradient: "from-blue-500 to-cyan-500"
     },
     { 
