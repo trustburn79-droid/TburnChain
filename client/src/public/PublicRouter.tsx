@@ -8,7 +8,7 @@ import { DeveloperHub, Documentation, ApiDocs, CliReference, SdkGuide, SmartCont
 import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Payments, Commerce, Financial, AiFeatures, ArtistsCreators, Btcfi, CrossChainBridge, DefiHub } from "./pages/solutions";
 import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } from "./pages/use-cases";
 import { Validators, RpcProviders, NetworkStatus, Ramp } from "./pages/network";
-import { NewsBlog, NewsDetail, Events, EventDetail, CommunityHub } from "./pages/community";
+import { NewsBlog, NewsDetail, Events, EventDetail, CommunityHub, PostDetail } from "./pages/community";
 import { TermsOfService, PrivacyPolicy, Disclaimer } from "./pages/legal";
 import { ScanHome, BlocksList, BlockDetail, TransactionsList, TransactionDetail, AddressDetail, ValidatorsList, ScanSearchResults, NetworkStats, TokensList } from "./pages/scan";
 
@@ -80,6 +80,7 @@ export function PublicRouter() {
         <Route path="/community/news" component={NewsBlog} />
         <Route path="/community/events/:id" component={EventDetail} />
         <Route path="/community/events" component={Events} />
+        <Route path="/community/hub/post/:id" component={PostDetail} />
         <Route path="/community/hub" component={CommunityHub} />
         
         {/* Legal Routes */}

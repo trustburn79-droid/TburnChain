@@ -250,7 +250,7 @@ export default function CommunityHub() {
                     <Pin className="w-4 h-4" /> {isKorean ? '고정 게시물' : 'Pinned'}
                   </h3>
                   {pinnedPosts.map(post => (
-                    <Link key={post.id} href={`/app/community/post/${post.id}`}>
+                    <Link key={post.id} href={`/community/hub/post/${post.id}`}>
                       <div className="spotlight-card rounded-lg p-4 border border-[#7000ff]/30 hover:border-[#7000ff] transition cursor-pointer">
                         <div className="flex items-start gap-4">
                           <Pin className="w-4 h-4 text-[#7000ff] mt-1 flex-shrink-0" />
@@ -284,7 +284,7 @@ export default function CommunityHub() {
                     <Flame className="w-4 h-4 text-orange-500" /> {isKorean ? '인기 게시물' : 'Hot'}
                   </h3>
                   {hotPosts.map(post => (
-                    <Link key={post.id} href={`/app/community/post/${post.id}`}>
+                    <Link key={post.id} href={`/community/hub/post/${post.id}`}>
                       <div className="spotlight-card rounded-lg p-4 border border-orange-500/30 hover:border-orange-500 transition cursor-pointer">
                         <div className="flex items-start gap-4">
                           <Flame className="w-4 h-4 text-orange-500 mt-1 flex-shrink-0" />
@@ -318,7 +318,7 @@ export default function CommunityHub() {
                   </h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     {recentPosts.map(post => (
-                      <Link key={post.id} href={`/app/community/post/${post.id}`}>
+                      <Link key={post.id} href={`/community/hub/post/${post.id}`}>
                         <div className="spotlight-card rounded-lg p-4 border border-white/10 hover:border-white/30 transition cursor-pointer h-full">
                           <div className="flex items-center gap-2 mb-2">
                             <span className={`text-xs px-2 py-0.5 rounded ${categoryColors[post.category] || categoryColors.general}`}>
