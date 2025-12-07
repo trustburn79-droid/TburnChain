@@ -14970,6 +14970,40 @@
           "title": "AI 오케스트레이션 시스템 가동",
           "content": "Quad-Band AI 오케스트레이션 시스템이 Gemini 3 Pro를 기본으로 Claude Sonnet 4.5, GPT-4o, Grok 3를 폴백으로 완전히 가동되었습니다."
         }
+      },
+      "posts": {
+        "mainnetLaunch": {
+          "title": "TBURN v7.0 메인넷 출시 논의",
+          "content": "흥미진진한 시간이 다가옵니다! 다가오는 메인넷 출시에 대해 논의하고 새로운 기능에 대한 의견을 공유해 주세요."
+        },
+        "stakingStrategies": {
+          "title": "최대 APY를 위한 최고의 스테이킹 전략",
+          "content": "스테이킹 보상을 극대화하기 위한 최고의 전략을 공유합니다. 다양한 접근 방식을 테스트해왔습니다..."
+        },
+        "aiOrchestration": {
+          "title": "기술 심층 분석: AI 오케스트레이션 시스템",
+          "content": "Triple-Band AI 시스템이 어떻게 작동하는지 살펴보겠습니다. 아키텍처는..."
+        },
+        "treasuryProposal": {
+          "title": "거버넌스 제안 #42: 재무 할당",
+          "content": "생태계 개발을 위해 재무의 5%를 할당하는 제안입니다. 여기에는..."
+        },
+        "welcomeGuide": {
+          "title": "TBURN이 처음이신가요? 여기서 시작하세요!",
+          "content": "TBURN 커뮤니티에 오신 것을 환영합니다! 이 종합 가이드가 시작하는 데 도움이 될 것입니다..."
+        },
+        "bridgeSecurity": {
+          "title": "크로스체인 브릿지 보안 분석",
+          "content": "브릿지 보안 메커니즘과 사용자에 대한 영향에 대한 심층 분석."
+        },
+        "weeklyTrading": {
+          "title": "주간 트레이딩 토론 스레드",
+          "content": "이번 주 시장 동향과 거래 기회에 대해 논의해 봅시다."
+        },
+        "nodeSetup": {
+          "title": "초보자를 위한 노드 설정 가이드",
+          "content": "TBURN 노드 설정에 대한 단계별 가이드와 문제 해결 팁."
+        }
       }
     },
     "legal": {

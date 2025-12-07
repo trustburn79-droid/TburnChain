@@ -100,15 +100,19 @@ interface CommentResponse {
   isEdited: boolean;
 }
 
-const getSamplePosts = (now: number): ForumPostResponse[] => [
-  { id: "sample-1", title: "TBURN v7.0 Mainnet Launch Discussion", author: "CryptoWhale", category: "announcements", content: "Exciting times ahead! Let's discuss the upcoming mainnet launch and share your thoughts on the new features.", likes: 456, comments: 89, views: 2450, isPinned: true, isHot: true, createdAt: now - 3600, tags: ["mainnet", "v7.0", "launch"] },
-  { id: "sample-2", title: "Best Staking Strategies for Maximum APY", author: "StakingPro", category: "trading", content: "Here are my top strategies for maximizing your staking rewards. I've been testing different approaches...", likes: 234, comments: 56, views: 1890, isPinned: false, isHot: true, createdAt: now - 7200, tags: ["staking", "apy", "rewards"] },
-  { id: "sample-3", title: "Technical Deep Dive: AI Orchestration System", author: "BlockchainDev", category: "technical", content: "Let's explore how the Triple-Band AI system works under the hood. The architecture consists of...", likes: 189, comments: 42, views: 1567, isPinned: false, isHot: false, createdAt: now - 14400, tags: ["ai", "technical", "orchestration"] },
-  { id: "sample-4", title: "Governance Proposal #42: Treasury Allocation", author: "GovernanceGuru", category: "governance", content: "Proposal to allocate 5% of treasury for ecosystem development. This includes funding for...", likes: 312, comments: 78, views: 2100, isPinned: true, isHot: false, createdAt: now - 28800, tags: ["governance", "proposal", "treasury"] },
-  { id: "sample-5", title: "New to TBURN? Start Here!", author: "CommunityBuilder", category: "general", content: "Welcome to the TBURN community! This comprehensive guide will help you get started with...", likes: 567, comments: 123, views: 4500, isPinned: true, isHot: false, createdAt: now - 86400, tags: ["beginner", "guide", "welcome"] },
-  { id: "sample-6", title: "Cross-Chain Bridge Security Analysis", author: "SecurityExpert", category: "technical", content: "An in-depth analysis of the bridge security mechanisms and their implications for users.", likes: 145, comments: 34, views: 980, isPinned: false, isHot: false, createdAt: now - 43200, tags: ["bridge", "security", "analysis"] },
-  { id: "sample-7", title: "Weekly Trading Discussion Thread", author: "TraderJoe", category: "trading", content: "Let's discuss this week's market movements and trading opportunities.", likes: 89, comments: 156, views: 2340, isPinned: false, isHot: true, createdAt: now - 21600, tags: ["trading", "weekly", "discussion"] },
-  { id: "sample-8", title: "Node Setup Guide for Beginners", author: "TechSupport", category: "support", content: "Step-by-step guide on setting up your TBURN node with troubleshooting tips.", likes: 234, comments: 45, views: 1560, isPinned: false, isHot: false, createdAt: now - 172800, tags: ["node", "guide", "setup"] },
+interface ForumPostResponseWithKey extends ForumPostResponse {
+  translationKey?: string;
+}
+
+const getSamplePosts = (now: number): ForumPostResponseWithKey[] => [
+  { id: "sample-1", title: "TBURN v7.0 Mainnet Launch Discussion", author: "CryptoWhale", category: "announcements", content: "Exciting times ahead! Let's discuss the upcoming mainnet launch and share your thoughts on the new features.", likes: 456, comments: 89, views: 2450, isPinned: true, isHot: true, createdAt: now - 3600, tags: ["mainnet", "v7.0", "launch"], translationKey: "mainnetLaunch" },
+  { id: "sample-2", title: "Best Staking Strategies for Maximum APY", author: "StakingPro", category: "trading", content: "Here are my top strategies for maximizing your staking rewards. I've been testing different approaches...", likes: 234, comments: 56, views: 1890, isPinned: false, isHot: true, createdAt: now - 7200, tags: ["staking", "apy", "rewards"], translationKey: "stakingStrategies" },
+  { id: "sample-3", title: "Technical Deep Dive: AI Orchestration System", author: "BlockchainDev", category: "technical", content: "Let's explore how the Triple-Band AI system works under the hood. The architecture consists of...", likes: 189, comments: 42, views: 1567, isPinned: false, isHot: false, createdAt: now - 14400, tags: ["ai", "technical", "orchestration"], translationKey: "aiOrchestration" },
+  { id: "sample-4", title: "Governance Proposal #42: Treasury Allocation", author: "GovernanceGuru", category: "governance", content: "Proposal to allocate 5% of treasury for ecosystem development. This includes funding for...", likes: 312, comments: 78, views: 2100, isPinned: true, isHot: false, createdAt: now - 28800, tags: ["governance", "proposal", "treasury"], translationKey: "treasuryProposal" },
+  { id: "sample-5", title: "New to TBURN? Start Here!", author: "CommunityBuilder", category: "general", content: "Welcome to the TBURN community! This comprehensive guide will help you get started with...", likes: 567, comments: 123, views: 4500, isPinned: true, isHot: false, createdAt: now - 86400, tags: ["beginner", "guide", "welcome"], translationKey: "welcomeGuide" },
+  { id: "sample-6", title: "Cross-Chain Bridge Security Analysis", author: "SecurityExpert", category: "technical", content: "An in-depth analysis of the bridge security mechanisms and their implications for users.", likes: 145, comments: 34, views: 980, isPinned: false, isHot: false, createdAt: now - 43200, tags: ["bridge", "security", "analysis"], translationKey: "bridgeSecurity" },
+  { id: "sample-7", title: "Weekly Trading Discussion Thread", author: "TraderJoe", category: "trading", content: "Let's discuss this week's market movements and trading opportunities.", likes: 89, comments: 156, views: 2340, isPinned: false, isHot: true, createdAt: now - 21600, tags: ["trading", "weekly", "discussion"], translationKey: "weeklyTrading" },
+  { id: "sample-8", title: "Node Setup Guide for Beginners", author: "TechSupport", category: "support", content: "Step-by-step guide on setting up your TBURN node with troubleshooting tips.", likes: 234, comments: 45, views: 1560, isPinned: false, isHot: false, createdAt: now - 172800, tags: ["node", "guide", "setup"], translationKey: "nodeSetup" },
 ];
 
 const getSampleEvents = (now: number): EventResponse[] => [
@@ -123,11 +127,12 @@ const getSampleEvents = (now: number): EventResponse[] => [
 ];
 
 const getSampleAnnouncements = (now: number): AnnouncementResponse[] => [
-  { id: "ann-1", title: "Mainnet Launch Date Confirmed: December 1st", content: "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 1st, 2025. All systems are go for the biggest upgrade in our history!", type: "news", createdAt: now - 3600, isImportant: true, translationKey: "mainnetLaunch" },
+  { id: "ann-1", title: "Mainnet Launch Date Confirmed: December 8th", content: "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 8th, 2024. All systems are go for the biggest upgrade in our history!", type: "news", createdAt: now - 3600, isImportant: true, translationKey: "mainnetLaunch" },
   { id: "ann-2", title: "New Staking Tiers Available", content: "Diamond tier staking is now available with up to 25% APY boost. Check out the new staking dashboard for more details.", type: "feature", createdAt: now - 86400, isImportant: false, translationKey: "stakingTiers" },
   { id: "ann-3", title: "Security Audit Completed", content: "Our smart contracts have passed comprehensive security audits by CertiK and Trail of Bits. Full reports available on GitHub.", type: "update", createdAt: now - 172800, isImportant: true, translationKey: "securityAudit" },
-  { id: "ann-4", title: "Bridge Integration: Ethereum & BSC Live", content: "Cross-chain bridge is now live for Ethereum and Binance Smart Chain. Transfer your assets seamlessly!", type: "feature", createdAt: now - 259200, isImportant: false, translationKey: "bridgeIntegration" },
-  { id: "ann-5", title: "Scheduled Maintenance: Node Upgrade", content: "Brief maintenance window scheduled for December 3rd, 2:00 AM UTC. Expected downtime: 15 minutes.", type: "alert", createdAt: now - 14400, isImportant: true, translationKey: "maintenance" },
+  { id: "ann-4", title: "Cross-Chain Bridge Now Live", content: "The TBURN bridge is now live, supporting transfers between Ethereum, BSC, and Polygon networks.", type: "feature", createdAt: now - 259200, isImportant: false, translationKey: "bridgeIntegration" },
+  { id: "ann-5", title: "Scheduled Maintenance: Node Upgrade", content: "Brief maintenance window scheduled for December 10th, 2:00 AM UTC. Expected downtime: 15 minutes.", type: "alert", createdAt: now - 14400, isImportant: true, translationKey: "maintenance" },
+  { id: "ann-6", title: "AI Orchestration System Goes Live", content: "The Quad-Band AI Orchestration System is now fully operational with Gemini 3 Pro as primary, Claude Sonnet 4.5, GPT-4o, and Grok 3 as fallback.", type: "feature", createdAt: now - 7200, isImportant: true, translationKey: "aiOrchestration" },
 ];
 
 const getSampleBadges = (): UserBadgeResponse[] => [
@@ -257,6 +262,37 @@ router.get("/leaderboard", async (req: Request, res: Response) => {
   }
 });
 
+const postTranslationKeyMap: Record<string, string> = {
+  "sample-1": "mainnetLaunch",
+  "sample-2": "stakingStrategies",
+  "sample-3": "aiOrchestration",
+  "sample-4": "treasuryProposal",
+  "sample-5": "welcomeGuide",
+  "sample-6": "bridgeSecurity",
+  "sample-7": "weeklyTrading",
+  "sample-8": "nodeSetup",
+};
+
+const announcementTranslationKeyMap: Record<string, string> = {
+  "ann-1": "mainnetLaunch",
+  "ann-2": "stakingTiers",
+  "ann-3": "securityAudit",
+  "ann-4": "bridgeIntegration",
+  "ann-5": "maintenance",
+  "ann-6": "aiOrchestration",
+};
+
+const eventTranslationKeyMap: Record<string, string> = {
+  "event-1": "launchAma",
+  "event-2": "defiWorkshop",
+  "event-3": "hackathon",
+  "event-4": "tokyoMeetup",
+  "event-5": "stakingCompetition",
+  "event-6": "nftContest",
+  "event-7": "validatorTraining",
+  "event-8": "airdropEvent",
+};
+
 router.get("/posts", async (req: Request, res: Response) => {
   try {
     const category = req.query.category as string || "all";
@@ -266,7 +302,7 @@ router.get("/posts", async (req: Request, res: Response) => {
     
     const dbPosts = await storage.getAllCommunityPosts(limit, offset, category === "all" ? undefined : category);
     
-    const formattedDbPosts: ForumPostResponse[] = dbPosts.map(post => ({
+    const formattedDbPosts: ForumPostResponseWithKey[] = dbPosts.map(post => ({
       id: post.id,
       title: post.title,
       titleKo: post.titleKo || undefined,
@@ -282,10 +318,11 @@ router.get("/posts", async (req: Request, res: Response) => {
       isHot: post.isHot || false,
       createdAt: Math.floor(new Date(post.createdAt).getTime() / 1000),
       tags: post.tags || [],
+      translationKey: postTranslationKeyMap[post.id] || undefined,
     }));
     
     // Only use sample data if database is empty
-    let allPosts: ForumPostResponse[];
+    let allPosts: ForumPostResponseWithKey[];
     if (formattedDbPosts.length === 0) {
       const samplePosts = getSamplePosts(now);
       allPosts = category === "all" 
@@ -702,6 +739,7 @@ router.get("/events", async (req: Request, res: Response) => {
           location: event.location || undefined,
           isOnline: event.isOnline || true,
           isRegistered: !!userRegistration,
+          translationKey: eventTranslationKeyMap[event.id] || undefined,
         };
       }));
     } else {
@@ -844,6 +882,7 @@ router.get("/announcements", async (req: Request, res: Response) => {
         isImportant: ann.isImportant || false,
         isPinned: ann.isPinned || false,
         views: ann.views || 0,
+        translationKey: announcementTranslationKeyMap[ann.id] || undefined,
       }));
     } else {
       // Only use sample announcements if database is empty

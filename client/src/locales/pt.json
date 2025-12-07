@@ -11250,6 +11250,40 @@
           "title": "Sistema de orquestração de IA ativo",
           "content": "O sistema de orquestração Quad-Band AI agora está totalmente operacional com Gemini 3 Pro como primário, Claude Sonnet 4.5, GPT-4o e Grok 3 como fallback."
         }
+      },
+      "posts": {
+        "mainnetLaunch": {
+          "title": "Discussão do Lançamento da Mainnet TBURN v7.0",
+          "content": "Tempos emocionantes estão chegando! Vamos discutir o próximo lançamento da mainnet e compartilhar suas opiniões sobre os novos recursos."
+        },
+        "stakingStrategies": {
+          "title": "Melhores Estratégias de Staking para APY Máximo",
+          "content": "Aqui estão minhas principais estratégias para maximizar suas recompensas de staking. Tenho testado diferentes abordagens..."
+        },
+        "aiOrchestration": {
+          "title": "Análise Técnica Profunda: Sistema de Orquestração de IA",
+          "content": "Vamos explorar como o sistema Triple-Band AI funciona por baixo do capô. A arquitetura consiste em..."
+        },
+        "treasuryProposal": {
+          "title": "Proposta de Governança #42: Alocação do Tesouro",
+          "content": "Proposta para alocar 5% do tesouro para desenvolvimento do ecossistema. Isso inclui financiamento para..."
+        },
+        "welcomeGuide": {
+          "title": "Novo no TBURN? Comece Aqui!",
+          "content": "Bem-vindo à comunidade TBURN! Este guia abrangente ajudará você a começar com..."
+        },
+        "bridgeSecurity": {
+          "title": "Análise de Segurança da Ponte Cross-Chain",
+          "content": "Uma análise aprofundada dos mecanismos de segurança da ponte e suas implicações para os usuários."
+        },
+        "weeklyTrading": {
+          "title": "Thread de Discussão de Trading Semanal",
+          "content": "Vamos discutir os movimentos do mercado e as oportunidades de trading desta semana."
+        },
+        "nodeSetup": {
+          "title": "Guia de Configuração de Nó para Iniciantes",
+          "content": "Guia passo a passo para configurar seu nó TBURN com dicas de solução de problemas."
+        }
       }
     },
     "legal": {

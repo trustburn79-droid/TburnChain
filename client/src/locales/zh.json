@@ -13481,6 +13481,40 @@
           "title": "AI编排系统上线",
           "content": "Quad-Band AI编排系统现已全面运行，Gemini 3 Pro为主，Claude Sonnet 4.5、GPT-4o和Grok 3为备用。"
         }
+      },
+      "posts": {
+        "mainnetLaunch": {
+          "title": "TBURN v7.0 主网发布讨论",
+          "content": "令人兴奋的时刻即将到来！让我们讨论即将到来的主网发布，分享您对新功能的想法。"
+        },
+        "stakingStrategies": {
+          "title": "最大化APY的最佳质押策略",
+          "content": "这是我最大化质押奖励的顶级策略。我一直在测试不同的方法..."
+        },
+        "aiOrchestration": {
+          "title": "技术深度解析：AI编排系统",
+          "content": "让我们探索Triple-Band AI系统的底层工作原理。架构包括..."
+        },
+        "treasuryProposal": {
+          "title": "治理提案 #42：国库分配",
+          "content": "建议将国库的5%分配给生态系统开发。这包括..."
+        },
+        "welcomeGuide": {
+          "title": "TBURN新手？从这里开始！",
+          "content": "欢迎来到TBURN社区！这份综合指南将帮助您入门..."
+        },
+        "bridgeSecurity": {
+          "title": "跨链桥安全分析",
+          "content": "对桥梁安全机制及其对用户影响的深入分析。"
+        },
+        "weeklyTrading": {
+          "title": "每周交易讨论帖",
+          "content": "让我们讨论本周的市场动态和交易机会。"
+        },
+        "nodeSetup": {
+          "title": "初学者节点设置指南",
+          "content": "TBURN节点设置的分步指南和故障排除技巧。"
+        }
       }
     },
     "legal": {

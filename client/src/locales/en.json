@@ -14451,6 +14451,40 @@
           "title": "AI Orchestration System Goes Live",
           "content": "The Quad-Band AI Orchestration System is now fully operational with Gemini 3 Pro as primary, Claude Sonnet 4.5, GPT-4o, and Grok 3 as fallback."
         }
+      },
+      "posts": {
+        "mainnetLaunch": {
+          "title": "TBURN v7.0 Mainnet Launch Discussion",
+          "content": "Exciting times ahead! Let's discuss the upcoming mainnet launch and share your thoughts on the new features."
+        },
+        "stakingStrategies": {
+          "title": "Best Staking Strategies for Maximum APY",
+          "content": "Here are my top strategies for maximizing your staking rewards. I've been testing different approaches..."
+        },
+        "aiOrchestration": {
+          "title": "Technical Deep Dive: AI Orchestration System",
+          "content": "Let's explore how the Triple-Band AI system works under the hood. The architecture consists of..."
+        },
+        "treasuryProposal": {
+          "title": "Governance Proposal #42: Treasury Allocation",
+          "content": "Proposal to allocate 5% of treasury for ecosystem development. This includes funding for..."
+        },
+        "welcomeGuide": {
+          "title": "New to TBURN? Start Here!",
+          "content": "Welcome to the TBURN community! This comprehensive guide will help you get started with..."
+        },
+        "bridgeSecurity": {
+          "title": "Cross-Chain Bridge Security Analysis",
+          "content": "An in-depth analysis of the bridge security mechanisms and their implications for users."
+        },
+        "weeklyTrading": {
+          "title": "Weekly Trading Discussion Thread",
+          "content": "Let's discuss this week's market movements and trading opportunities."
+        },
+        "nodeSetup": {
+          "title": "Node Setup Guide for Beginners",
+          "content": "Step-by-step guide on setting up your TBURN node with troubleshooting tips."
+        }
       }
     },
     "legal": {

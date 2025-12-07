@@ -11443,6 +11443,40 @@
           "title": "Système d'orchestration IA en ligne",
           "content": "Le système d'orchestration Quad-Band AI est maintenant pleinement opérationnel avec Gemini 3 Pro en principal, Claude Sonnet 4.5, GPT-4o et Grok 3 en secours."
         }
+      },
+      "posts": {
+        "mainnetLaunch": {
+          "title": "Discussion sur le Lancement du Mainnet TBURN v7.0",
+          "content": "Des moments passionnants approchent ! Discutons du prochain lancement du mainnet et partagez vos réflexions sur les nouvelles fonctionnalités."
+        },
+        "stakingStrategies": {
+          "title": "Meilleures Stratégies de Staking pour un APY Maximum",
+          "content": "Voici mes meilleures stratégies pour maximiser vos récompenses de staking. J'ai testé différentes approches..."
+        },
+        "aiOrchestration": {
+          "title": "Analyse Technique Approfondie : Système d'Orchestration IA",
+          "content": "Explorons le fonctionnement du système Triple-Band AI sous le capot. L'architecture comprend..."
+        },
+        "treasuryProposal": {
+          "title": "Proposition de Gouvernance #42 : Allocation du Trésor",
+          "content": "Proposition d'allouer 5% du trésor au développement de l'écosystème. Cela comprend le financement pour..."
+        },
+        "welcomeGuide": {
+          "title": "Nouveau sur TBURN ? Commencez Ici !",
+          "content": "Bienvenue dans la communauté TBURN ! Ce guide complet vous aidera à démarrer avec..."
+        },
+        "bridgeSecurity": {
+          "title": "Analyse de Sécurité du Pont Cross-Chain",
+          "content": "Une analyse approfondie des mécanismes de sécurité du pont et leurs implications pour les utilisateurs."
+        },
+        "weeklyTrading": {
+          "title": "Fil de Discussion Trading Hebdomadaire",
+          "content": "Discutons des mouvements du marché et des opportunités de trading de cette semaine."
+        },
+        "nodeSetup": {
+          "title": "Guide de Configuration de Nœud pour Débutants",
+          "content": "Guide étape par étape pour configurer votre nœud TBURN avec des conseils de dépannage."
+        }
       }
     },
     "legal": {
