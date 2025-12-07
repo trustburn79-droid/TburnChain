@@ -1,47 +1,65 @@
 import { Link, useRoute } from "wouter";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Calendar, Clock, MapPin, Users, Share2, Bell, ExternalLink, CheckCircle, Video, Globe } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, MapPin, Users, Share2, Bell, Video, Globe, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-const eventIds = ["1", "2", "3", "4"];
+interface EventData {
+  id: string;
+  title: string;
+  titleKo?: string;
+  description: string;
+  descriptionKo?: string;
+  type: string;
+  startDate: number;
+  endDate: number;
+  participants: number;
+  maxParticipants?: number;
+  rewards?: string;
+  status: string;
+  location?: string;
+  isOnline: boolean;
+  isRegistered?: boolean;
+}
 
 const eventGradients: Record<string, string> = {
-  "1": "from-purple-600 to-blue-600",
-  "2": "from-green-600 to-cyan-600",
-  "3": "from-orange-600 to-red-600",
-  "4": "from-blue-600 to-indigo-600"
+  "ama": "from-purple-600 to-blue-600",
+  "workshop": "from-green-600 to-cyan-600",
+  "hackathon": "from-orange-600 to-red-600",
+  "meetup": "from-blue-600 to-indigo-600",
+  "conference": "from-pink-600 to-purple-600",
+  "airdrop": "from-yellow-600 to-orange-600",
+  "competition": "from-red-600 to-pink-600"
 };
 
 const eventButtonColors: Record<string, string> = {
-  "1": "bg-purple-600 hover:bg-purple-700",
-  "2": "bg-green-600 hover:bg-green-700",
-  "3": "bg-orange-600 hover:bg-orange-700",
-  "4": "bg-blue-600 hover:bg-blue-700"
-};
-
-const eventCapacities: Record<string, { current: number; max: number }> = {
-  "1": { current: 2847, max: 5000 },
-  "2": { current: 189, max: 500 },
-  "3": { current: 456, max: 1000 },
-  "4": { current: 78, max: 200 }
+  "ama": "bg-purple-600 hover:bg-purple-700",
+  "workshop": "bg-green-600 hover:bg-green-700",
+  "hackathon": "bg-orange-600 hover:bg-orange-700",
+  "meetup": "bg-blue-600 hover:bg-blue-700",
+  "conference": "bg-pink-600 hover:bg-pink-700",
+  "airdrop": "bg-yellow-600 hover:bg-yellow-700",
+  "competition": "bg-red-600 hover:bg-red-700"
 };
 
 export default function EventDetail() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const [, params] = useRoute("/community/events/:id");
   const eventId = params?.id || "";
   const [isRegistered, setIsRegistered] = useState(false);
+  const isKorean = i18n.language === 'ko';
 
-  const isValidEvent = eventIds.includes(eventId);
-  const gradient = eventGradients[eventId] || "from-purple-600 to-blue-600";
-  const buttonColor = eventButtonColors[eventId] || "bg-purple-600 hover:bg-purple-700";
-  const capacity = eventCapacities[eventId] || { current: 0, max: 100 };
+  const { data: events, isLoading } = useQuery<EventData[]>({
+    queryKey: ['/api/community/events'],
+  });
+
+  const event = events?.find(e => e.id === eventId);
 
   const handleRegister = () => {
     setIsRegistered(true);
@@ -66,7 +84,18 @@ export default function EventDetail() {
     });
   };
 
-  if (!isValidEvent) {
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-[#0a0a0f] pt-24 px-6">
+        <div className="container mx-auto max-w-4xl text-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-purple-500 mx-auto mb-4" />
+          <p className="text-gray-400">{t('common.loading')}</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (!event) {
     return (
       <main className="min-h-screen bg-[#0a0a0f] pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
@@ -87,59 +116,45 @@ export default function EventDetail() {
     );
   }
 
-  const eventKey = `publicPages.community.events.detail.events.${eventId}`;
-  const title = t(`${eventKey}.title`);
-  const description = t(`${eventKey}.description`);
-  const date = t(`${eventKey}.date`);
-  const time = t(`${eventKey}.time`);
-  const timezone = t(`${eventKey}.timezone`);
-  const location = t(`${eventKey}.location`);
-  const locationType = t(`${eventKey}.locationType`);
-  const type = t(`${eventKey}.type`);
-
-  const fullDescriptionArray: string[] = [];
-  for (let i = 0; i < 5; i++) {
-    const desc = t(`${eventKey}.fullDescription.${i}`, { defaultValue: '' });
-    if (desc && desc !== `${eventKey}.fullDescription.${i}`) {
-      fullDescriptionArray.push(desc);
-    }
-  }
-
-  const speakersArray: { name: string; role: string; avatar: string }[] = [];
-  for (let i = 0; i < 5; i++) {
-    const name = t(`${eventKey}.speakers.${i}.name`, { defaultValue: '' });
-    if (name && name !== `${eventKey}.speakers.${i}.name`) {
-      speakersArray.push({
-        name,
-        role: t(`${eventKey}.speakers.${i}.role`),
-        avatar: t(`${eventKey}.speakers.${i}.avatar`)
-      });
-    }
-  }
-
-  const agendaArray: { time: string; title: string; speaker?: string }[] = [];
-  for (let i = 0; i < 10; i++) {
-    const agendaTime = t(`${eventKey}.agenda.${i}.time`, { defaultValue: '' });
-    if (agendaTime && agendaTime !== `${eventKey}.agenda.${i}.time`) {
-      const speaker = t(`${eventKey}.agenda.${i}.speaker`, { defaultValue: '' });
-      agendaArray.push({
-        time: agendaTime,
-        title: t(`${eventKey}.agenda.${i}.title`),
-        speaker: speaker && speaker !== `${eventKey}.agenda.${i}.speaker` ? speaker : undefined
-      });
-    }
-  }
-
-  const requirementsArray: string[] = [];
-  for (let i = 0; i < 6; i++) {
-    const req = t(`${eventKey}.requirements.${i}`, { defaultValue: '' });
-    if (req && req !== `${eventKey}.requirements.${i}`) {
-      requirementsArray.push(req);
-    }
-  }
-
-  const LocationIcon = locationType === "virtual" ? Video : locationType === "hybrid" ? Globe : MapPin;
+  const title = isKorean ? (event.titleKo || event.title) : event.title;
+  const description = isKorean ? (event.descriptionKo || event.description) : event.description;
+  const gradient = eventGradients[event.type] || "from-purple-600 to-blue-600";
+  const buttonColor = eventButtonColors[event.type] || "bg-purple-600 hover:bg-purple-700";
+  const capacity = { current: event.participants, max: event.maxParticipants || 1000 };
   const capacityPercentage = (capacity.current / capacity.max) * 100;
+
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  };
+
+  const formatTime = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleTimeString(isKorean ? 'ko-KR' : 'en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      timeZoneName: 'short'
+    });
+  };
+
+  const LocationIcon = event.isOnline ? Video : MapPin;
+  const locationType = event.isOnline ? (isKorean ? '온라인' : 'Online') : (isKorean ? '오프라인' : 'In-Person');
+  const location = event.location || (event.isOnline ? (isKorean ? '온라인 (Zoom/Discord)' : 'Online (Zoom/Discord)') : '');
+
+  const typeLabels: Record<string, { en: string; ko: string }> = {
+    ama: { en: 'AMA', ko: 'AMA' },
+    workshop: { en: 'Workshop', ko: '워크숍' },
+    hackathon: { en: 'Hackathon', ko: '해커톤' },
+    meetup: { en: 'Meetup', ko: '밋업' },
+    conference: { en: 'Conference', ko: '컨퍼런스' },
+    airdrop: { en: 'Airdrop', ko: '에어드롭' },
+    competition: { en: 'Competition', ko: '경쟁' }
+  };
+  const typeLabel = isKorean ? (typeLabels[event.type]?.ko || event.type) : (typeLabels[event.type]?.en || event.type);
 
   return (
     <main className="min-h-screen bg-[#0a0a0f]">
@@ -151,13 +166,16 @@ export default function EventDetail() {
             {t('publicPages.community.events.detail.backToEvents')}
           </Link>
           <div className="flex flex-wrap gap-2 mb-3">
-            <Badge className="bg-white/90 text-black">{type}</Badge>
+            <Badge className="bg-white/90 text-black">{typeLabel}</Badge>
             <Badge className="bg-green-500/90 text-white capitalize">{locationType}</Badge>
+            {event.status === 'upcoming' && (
+              <Badge className="bg-blue-500/90 text-white">{isKorean ? '예정' : 'Upcoming'}</Badge>
+            )}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-sm text-white/80 font-mono">
-            <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {date}</span>
-            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {time} {timezone}</span>
+            <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {formatDate(event.startDate)}</span>
+            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {formatTime(event.startDate)}</span>
             <span className="flex items-center gap-1"><LocationIcon className="w-4 h-4" /> {location}</span>
           </div>
         </div>
@@ -172,128 +190,102 @@ export default function EventDetail() {
               </h2>
               <div className="prose prose-invert max-w-none">
                 <p className="text-lg text-gray-300 leading-relaxed mb-4">{description}</p>
-                {fullDescriptionArray.map((paragraph, index) => (
-                  <p key={index} className="text-gray-400 leading-relaxed mb-3">
-                    {paragraph}
-                  </p>
-                ))}
               </div>
             </section>
 
-            <section>
-              <h2 className="text-xl font-bold text-white mb-4">
-                {t('publicPages.community.events.detail.agenda')}
-              </h2>
-              <div className="space-y-3">
-                {agendaArray.map((item, index) => (
-                  <div key={index} className="flex gap-4 p-4 rounded-lg bg-white/5 border border-white/10">
-                    <span className="text-purple-400 font-mono text-sm whitespace-nowrap">{item.time}</span>
-                    <div>
-                      <p className="text-white font-medium">{item.title}</p>
-                      {item.speaker && <p className="text-sm text-gray-400">{item.speaker}</p>}
+            {event.rewards && (
+              <section>
+                <h2 className="text-xl font-bold text-white mb-4">
+                  {isKorean ? '보상' : 'Rewards'}
+                </h2>
+                <Card className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border-yellow-500/30">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center">
+                        <span className="text-2xl">🏆</span>
+                      </div>
+                      <div>
+                        <p className="text-yellow-400 font-bold text-xl">{event.rewards}</p>
+                        <p className="text-gray-400 text-sm">{isKorean ? '참가자 보상' : 'Participant Rewards'}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-bold text-white mb-4">
-                {t('publicPages.community.events.detail.speakers')}
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {speakersArray.map((speaker, index) => (
-                  <div key={index} className="flex items-center gap-4 p-4 rounded-lg bg-white/5 border border-white/10">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
-                      {speaker.avatar}
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">{speaker.name}</p>
-                      <p className="text-sm text-gray-400">{speaker.role}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-bold text-white mb-4">
-                {t('publicPages.community.events.detail.requirements')}
-              </h2>
-              <ul className="space-y-2">
-                {requirementsArray.map((req, index) => (
-                  <li key={index} className="flex items-center gap-2 text-gray-400">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    {req}
-                  </li>
-                ))}
-              </ul>
-            </section>
+                  </CardContent>
+                </Card>
+              </section>
+            )}
           </div>
 
-          <div className="lg:col-span-1">
-            <Card className="bg-white/5 border-white/10 sticky top-24">
+          <div className="space-y-6">
+            <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Users className="w-5 h-5" />
+                <CardTitle className="text-white text-lg">
                   {t('publicPages.community.events.detail.registration')}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-400">{t('publicPages.community.events.detail.spotsFilled')}</span>
-                    <span className="text-white font-mono">{capacity.current.toLocaleString()} / {capacity.max.toLocaleString()}</span>
-                  </div>
-                  <Progress value={capacityPercentage} className="h-2" />
-                  <p className="text-xs text-gray-500 mt-1">{Math.round(capacityPercentage)}% {t('publicPages.community.events.detail.full')}</p>
+              <CardContent className="space-y-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">{isKorean ? '참가자' : 'Registered'}</span>
+                  <span className="text-white font-mono">{capacity.current.toLocaleString()} / {capacity.max.toLocaleString()}</span>
                 </div>
+                <Progress value={capacityPercentage} className="h-2" />
+                <p className="text-xs text-gray-500">
+                  {Math.round(100 - capacityPercentage)}% {isKorean ? '남은 자리' : 'spots remaining'}
+                </p>
 
-                {isRegistered ? (
-                  <div className="p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-center">
-                    <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                    <p className="text-green-400 font-medium">{t('publicPages.community.events.detail.youAreRegistered')}</p>
-                  </div>
+                {isRegistered || event.isRegistered ? (
+                  <Button disabled className="w-full bg-green-600">
+                    <Users className="w-4 h-4 mr-2" />
+                    {t('publicPages.community.events.detail.registered')}
+                  </Button>
                 ) : (
-                  <Button className={`w-full ${buttonColor} text-white`} onClick={handleRegister} data-testid="button-register">
-                    {t('publicPages.community.events.detail.registerNow')}
+                  <Button onClick={handleRegister} className={`w-full ${buttonColor}`} data-testid="button-register-event">
+                    <Users className="w-4 h-4 mr-2" />
+                    {t('publicPages.community.events.detail.register')}
                   </Button>
                 )}
 
                 <div className="flex gap-2">
-                  <Button variant="outline" className="flex-1 border-white/20 text-white hover:bg-white/10" onClick={handleNotification} data-testid="button-remind">
-                    <Bell className="w-4 h-4 mr-2" />
-                    {t('publicPages.community.events.detail.remindMe')}
+                  <Button variant="outline" className="flex-1 border-white/20 text-white hover:bg-white/10" onClick={handleNotification}>
+                    <Bell className="w-4 h-4 mr-1" />
+                    {isKorean ? '알림' : 'Notify'}
                   </Button>
-                  <Button variant="outline" size="icon" className="border-white/20 text-white hover:bg-white/10" onClick={handleShare} data-testid="button-share">
-                    <Share2 className="w-4 h-4" />
+                  <Button variant="outline" className="flex-1 border-white/20 text-white hover:bg-white/10" onClick={handleShare}>
+                    <Share2 className="w-4 h-4 mr-1" />
+                    {isKorean ? '공유' : 'Share'}
                   </Button>
                 </div>
+              </CardContent>
+            </Card>
 
-                <div className="pt-4 border-t border-white/10">
-                  <h4 className="text-white font-medium mb-3">{t('publicPages.community.events.detail.eventDetails')}</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <Calendar className="w-4 h-4" />
-                      <span>{date}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <Clock className="w-4 h-4" />
-                      <span>{time} {timezone}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <LocationIcon className="w-4 h-4" />
-                      <span>{location}</span>
-                    </div>
+            <Card className="bg-white/5 border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white text-lg">
+                  {isKorean ? '이벤트 정보' : 'Event Details'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-400">{isKorean ? '유형' : 'Type'}</span>
+                  <span className="text-white">{typeLabel}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">{isKorean ? '날짜' : 'Date'}</span>
+                  <span className="text-white">{formatDate(event.startDate)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">{isKorean ? '시간' : 'Time'}</span>
+                  <span className="text-white">{formatTime(event.startDate)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">{isKorean ? '장소' : 'Location'}</span>
+                  <span className="text-white">{locationType}</span>
+                </div>
+                {event.rewards && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">{isKorean ? '보상' : 'Rewards'}</span>
+                    <span className="text-yellow-400">{event.rewards}</span>
                   </div>
-                </div>
-
-                <Link href="/community/events" className="block">
-                  <Button variant="ghost" className="w-full text-purple-400 hover:text-purple-300">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    {t('publicPages.community.events.detail.wantToHost')}
-                  </Button>
-                </Link>
+                )}
               </CardContent>
             </Card>
           </div>

@@ -1,41 +1,44 @@
 import { Link, useRoute } from "wouter";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Calendar, Clock, Eye, User, Share2, Bookmark, MessageCircle, ThumbsUp, Tag, ChevronRight } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Eye, User, Share2, Bookmark, Tag, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
 
-const articleSlugs = [
-  "v4-mainnet-launch",
-  "triple-band-ai-revealed", 
-  "global-partnership-expansion",
-  "staking-program-details",
-  "trust-score-deep-dive",
-  "sdk-2-released",
-  "quantum-resistant-cryptography",
-  "tburn-dex-beta"
-];
+interface AnnouncementData {
+  id: string;
+  title: string;
+  titleKo?: string;
+  content: string;
+  contentKo?: string;
+  type: string;
+  createdAt: number;
+  isImportant: boolean;
+  isPinned?: boolean;
+  views?: number;
+}
 
-const articleGradients: Record<string, string> = {
-  "v4-mainnet-launch": "from-purple-600 to-blue-600",
-  "triple-band-ai-revealed": "from-cyan-600 to-purple-600",
-  "global-partnership-expansion": "from-indigo-600 to-violet-600",
-  "staking-program-details": "from-orange-600 to-red-600",
-  "trust-score-deep-dive": "from-green-600 to-emerald-600",
-  "sdk-2-released": "from-purple-600 to-pink-600",
-  "quantum-resistant-cryptography": "from-teal-600 to-cyan-600",
-  "tburn-dex-beta": "from-rose-600 to-pink-600"
+const typeGradients: Record<string, string> = {
+  "news": "from-purple-600 to-blue-600",
+  "feature": "from-cyan-600 to-purple-600",
+  "update": "from-green-600 to-emerald-600",
+  "alert": "from-orange-600 to-red-600"
 };
 
 export default function NewsDetail() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const [, params] = useRoute("/community/news/:slug");
   const slug = params?.slug || "";
-  
-  const isValidSlug = articleSlugs.includes(slug);
-  const gradient = articleGradients[slug] || "from-purple-600 to-blue-600";
+  const isKorean = i18n.language === 'ko';
+
+  const { data: announcements, isLoading } = useQuery<AnnouncementData[]>({
+    queryKey: ['/api/community/announcements'],
+  });
+
+  const announcement = announcements?.find(a => a.id === slug);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -52,7 +55,18 @@ export default function NewsDetail() {
     });
   };
 
-  if (!isValidSlug) {
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-[#0a0a0f] pt-24 px-6">
+        <div className="container mx-auto max-w-4xl text-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-purple-500 mx-auto mb-4" />
+          <p className="text-gray-400">{t('common.loading')}</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (!announcement) {
     return (
       <main className="min-h-screen bg-[#0a0a0f] pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
@@ -73,33 +87,28 @@ export default function NewsDetail() {
     );
   }
 
-  const articleKey = `publicPages.community.news.detail.articles.${slug}`;
-  const title = t(`${articleKey}.title`);
-  const description = t(`${articleKey}.description`);
-  const author = t(`${articleKey}.author`);
-  const authorRole = t(`${articleKey}.authorRole`);
-  const date = t(`${articleKey}.date`);
-  const readTime = t(`${articleKey}.readTime`);
-  const views = t(`${articleKey}.views`);
-  const category = t(`${articleKey}.category`);
-  
-  const contentArray: string[] = [];
-  for (let i = 0; i < 10; i++) {
-    const content = t(`${articleKey}.content.${i}`, { defaultValue: '' });
-    if (content && content !== `${articleKey}.content.${i}`) {
-      contentArray.push(content);
-    }
-  }
+  const title = isKorean ? (announcement.titleKo || announcement.title) : announcement.title;
+  const content = isKorean ? (announcement.contentKo || announcement.content) : announcement.content;
+  const gradient = typeGradients[announcement.type] || "from-purple-600 to-blue-600";
 
-  const tagsArray: string[] = [];
-  for (let i = 0; i < 6; i++) {
-    const tag = t(`${articleKey}.tags.${i}`, { defaultValue: '' });
-    if (tag && tag !== `${articleKey}.tags.${i}`) {
-      tagsArray.push(tag);
-    }
-  }
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  };
 
-  const relatedSlugs = articleSlugs.filter(s => s !== slug).slice(0, 3);
+  const typeLabels: Record<string, { en: string; ko: string }> = {
+    news: { en: 'News', ko: '뉴스' },
+    feature: { en: 'Feature', ko: '기능' },
+    update: { en: 'Update', ko: '업데이트' },
+    alert: { en: 'Alert', ko: '알림' }
+  };
+  const category = isKorean ? (typeLabels[announcement.type]?.ko || announcement.type) : (typeLabels[announcement.type]?.en || announcement.type);
+
+  const relatedAnnouncements = announcements?.filter(a => a.id !== slug).slice(0, 3) || [];
 
   return (
     <main className="min-h-screen bg-[#0a0a0f]">
@@ -110,12 +119,17 @@ export default function NewsDetail() {
             <ArrowLeft className="w-4 h-4" />
             {t('publicPages.community.news.detail.backToNews')}
           </Link>
-          <Badge className="bg-white/90 text-black mb-3 w-fit">{category}</Badge>
+          <div className="flex flex-wrap gap-2 mb-3">
+            <Badge className="bg-white/90 text-black">{category}</Badge>
+            {announcement.isImportant && (
+              <Badge className="bg-red-500/90 text-white">{isKorean ? '중요' : 'Important'}</Badge>
+            )}
+          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-sm text-white/80 font-mono">
-            <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {date}</span>
-            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {readTime}</span>
-            <span className="flex items-center gap-1"><Eye className="w-4 h-4" /> {views}</span>
+            <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {formatDate(announcement.createdAt)}</span>
+            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {isKorean ? '3분 읽기' : '3 min read'}</span>
+            <span className="flex items-center gap-1"><Eye className="w-4 h-4" /> {(announcement.views || 1250).toLocaleString()}</span>
           </div>
         </div>
       </div>
@@ -123,89 +137,57 @@ export default function NewsDetail() {
       <div className="container mx-auto max-w-4xl px-6 py-12">
         <div className="flex items-center justify-between mb-8 pb-8 border-b border-white/10">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-              <User className="w-6 h-6 text-white" />
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
+              TB
             </div>
             <div>
-              <p className="font-bold text-white">{author}</p>
-              <p className="text-sm text-gray-400">{authorRole}</p>
+              <p className="text-white font-medium">{isKorean ? 'TBURN 팀' : 'TBURN Team'}</p>
+              <p className="text-gray-400 text-sm">{isKorean ? '공식 발표' : 'Official Announcement'}</p>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className="border-white/20 text-white hover:bg-white/10"
-              onClick={handleShare}
-              data-testid="button-share"
-            >
-              <Share2 className="w-4 h-4" />
-            </Button>
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className="border-white/20 text-white hover:bg-white/10"
-              onClick={handleBookmark}
-              data-testid="button-bookmark"
-            >
+            <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10" onClick={handleBookmark}>
               <Bookmark className="w-4 h-4" />
             </Button>
+            <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10" onClick={handleShare}>
+              <Share2 className="w-4 h-4" />
+            </Button>
           </div>
         </div>
 
-        <article className="prose prose-invert max-w-none mb-12">
-          <p className="text-lg text-gray-300 leading-relaxed mb-6">{description}</p>
-          {contentArray.map((paragraph, index) => (
-            <p key={index} className="text-gray-400 leading-relaxed mb-4 whitespace-pre-line">
-              {paragraph}
-            </p>
-          ))}
+        <article className="prose prose-invert prose-lg max-w-none mb-12">
+          <p className="text-gray-300 leading-relaxed text-lg whitespace-pre-line">{content}</p>
         </article>
 
-        <div className="flex flex-wrap gap-2 mb-12">
-          <Tag className="w-4 h-4 text-gray-500" />
-          {tagsArray.map((tag) => (
-            <Badge key={tag} variant="outline" className="border-white/20 text-gray-400">
-              {tag}
-            </Badge>
-          ))}
+        <div className="flex flex-wrap gap-2 mb-12 pb-8 border-b border-white/10">
+          <Tag className="w-4 h-4 text-gray-400" />
+          <Badge variant="outline" className="border-white/20 text-gray-400">{category}</Badge>
+          <Badge variant="outline" className="border-white/20 text-gray-400">TBURN</Badge>
+          <Badge variant="outline" className="border-white/20 text-gray-400">Blockchain</Badge>
         </div>
 
-        <div className="flex items-center justify-between py-6 border-t border-b border-white/10 mb-12">
-          <div className="flex gap-4">
-            <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" data-testid="button-like">
-              <ThumbsUp className="w-4 h-4 mr-2" />
-              {t('publicPages.community.news.detail.helpful')}
-            </Button>
-            <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" data-testid="button-comment">
-              <MessageCircle className="w-4 h-4 mr-2" />
-              {t('publicPages.community.news.detail.discuss')}
-            </Button>
-          </div>
-        </div>
-
-        <section>
-          <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <ChevronRight className="w-5 h-5 text-purple-500" />
-            {t('publicPages.community.news.detail.relatedArticles')}
-          </h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {relatedSlugs.map((relatedSlug) => (
-              <Link key={relatedSlug} href={`/community/news/${relatedSlug}`}>
-                <Card className="bg-white/5 border-white/10 hover:border-white/20 transition cursor-pointer h-full">
-                  <CardContent className="p-4">
-                    <Badge variant="outline" className="border-white/20 text-gray-400 mb-2 text-xs">
-                      {t(`publicPages.community.news.detail.articles.${relatedSlug}.category`)}
-                    </Badge>
-                    <h3 className="text-white font-medium text-sm line-clamp-2">
-                      {t(`publicPages.community.news.detail.articles.${relatedSlug}.title`)}
-                    </h3>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
+        {relatedAnnouncements.length > 0 && (
+          <section>
+            <h2 className="text-xl font-bold text-white mb-6">{isKorean ? '관련 기사' : 'Related Articles'}</h2>
+            <div className="grid md:grid-cols-3 gap-4">
+              {relatedAnnouncements.map(related => (
+                <Link key={related.id} href={`/community/news/${related.id}`}>
+                  <Card className="bg-white/5 border-white/10 hover:border-white/30 transition cursor-pointer h-full">
+                    <CardContent className="p-4">
+                      <Badge className="mb-2 text-xs" variant="outline">
+                        {isKorean ? (typeLabels[related.type]?.ko || related.type) : (typeLabels[related.type]?.en || related.type)}
+                      </Badge>
+                      <h3 className="text-white font-medium mb-2 line-clamp-2">
+                        {isKorean ? (related.titleKo || related.title) : related.title}
+                      </h3>
+                      <p className="text-gray-400 text-sm">{formatDate(related.createdAt)}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );
