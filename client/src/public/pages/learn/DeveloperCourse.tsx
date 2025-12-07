@@ -25,17 +25,18 @@ interface Resource {
   href: string;
 }
 
-const codeExample = `// Trust Score 조회 - Production Example
+const codeExample = `// Trust Score 조회 - Production v8 Example
 import { TBurnSDK, NetworkConfig } from '@tburn/sdk';
 
 const config: NetworkConfig = {
   network: 'mainnet',
-  rpcUrl: process.env.TBURN_RPC_URL,
+  rpcUrl: 'https://rpc.tburn.io/v8',
   apiKey: process.env.TBURN_API_KEY,
   options: {
     timeout: 30000,
     retryAttempts: 3,
-    cacheEnabled: true
+    cacheEnabled: true,
+    wsUrl: 'wss://ws.tburn.io/v8'  // Real-time updates
   }
 };
 
@@ -47,7 +48,8 @@ async function getTrustScore(projectAddress: string) {
   return {
     score: result.score,           // 0-100
     grade: result.grade,           // S, A, B, C, D, F
-    lastUpdated: result.timestamp
+    lastUpdated: result.timestamp,
+    aiConfidence: result.confidence  // AI 분석 신뢰도
   };
 }`;
 

@@ -164,10 +164,10 @@ export default function EducationPrograms() {
   ];
 
   const stats = [
-    { value: "10,000+", label: t('publicPages.learn.educationPrograms.stats.students') },
-    { value: "25+", label: t('publicPages.learn.educationPrograms.stats.courses') },
-    { value: "500+", label: t('publicPages.learn.educationPrograms.stats.certified') },
-    { value: "98%", label: t('publicPages.learn.educationPrograms.stats.satisfaction') }
+    { value: "25,000+", label: t('publicPages.learn.educationPrograms.stats.students') },
+    { value: "35+", label: t('publicPages.learn.educationPrograms.stats.courses') },
+    { value: "850+", label: t('publicPages.learn.educationPrograms.stats.certified') },
+    { value: "99%", label: t('publicPages.learn.educationPrograms.stats.satisfaction') }
   ];
 
   return (

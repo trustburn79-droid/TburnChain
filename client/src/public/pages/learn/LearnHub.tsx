@@ -24,10 +24,10 @@ export default function LearnHub() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const stats = [
-    { value: "25+", label: t('publicPages.learn.hub.stats.courses'), color: "text-[#7000ff]" },
-    { value: "48K+", label: t('publicPages.learn.hub.stats.learners'), color: "text-[#00f0ff]" },
-    { value: "120+", label: t('publicPages.learn.hub.stats.hoursContent'), color: "text-[#00ff9d]" },
-    { value: "94%", label: t('publicPages.learn.hub.stats.completionRate'), color: "text-[#ffb800]" },
+    { value: "35+", label: t('publicPages.learn.hub.stats.courses'), color: "text-[#7000ff]" },
+    { value: "68K+", label: t('publicPages.learn.hub.stats.learners'), color: "text-[#00f0ff]" },
+    { value: "180+", label: t('publicPages.learn.hub.stats.hoursContent'), color: "text-[#00ff9d]" },
+    { value: "96%", label: t('publicPages.learn.hub.stats.completionRate'), color: "text-[#ffb800]" },
   ];
 
   const learningPaths = [

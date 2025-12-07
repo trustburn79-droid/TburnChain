@@ -13,10 +13,10 @@ export default function Tokenomics() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const marketStats = [
-    { value: "$24.7B", label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
-    { value: "7.0B", label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
-    { value: "800M", label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
-    { value: "3.2B", label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
+    { value: "$5.0B", label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
+    { value: "8.5B", label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
+    { value: "1.2B", label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
+    { value: "2.8B", label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
   ];
 
   const tokenDistribution = [
