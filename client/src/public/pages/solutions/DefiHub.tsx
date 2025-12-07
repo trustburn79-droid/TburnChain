@@ -142,20 +142,20 @@ export default function DefiHub() {
                   <div className="w-8 h-8 rounded-full bg-[#7000ff]" />
                   <span className="font-bold text-white">TBURN / USDT</span>
                 </div>
-                <span className="text-green-400">+5.2%</span>
+                <span className="text-green-400">+2.8%</span>
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">{t('publicPages.solutions.defiHub.dex.price')}</span>
-                  <span className="text-white font-mono">$12.45</span>
+                  <span className="text-white font-mono">$0.50</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">{t('publicPages.solutions.defiHub.dex.liquidity')}</span>
-                  <span className="text-white font-mono">$128.5M</span>
+                  <span className="text-white font-mono">$250M</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">{t('publicPages.solutions.defiHub.dex.volume24h')}</span>
-                  <span className="text-white font-mono">$45.2M</span>
+                  <span className="text-white font-mono">$85.5M</span>
                 </div>
               </div>
             </div>

@@ -47,19 +47,19 @@ export default function Financial() {
     {
       icon: Zap,
       iconColor: "#ffd700",
-      value: "$2.5B+",
+      value: "$5.0B+",
       label: t('publicPages.solutions.financial.stats.tvl')
     },
     {
       icon: Percent,
       iconColor: "#00f0ff",
-      value: "8.5%",
+      value: "12.5%",
       label: t('publicPages.solutions.financial.stats.apy')
     },
     {
       icon: Users,
       iconColor: "#7000ff",
-      value: "250K+",
+      value: "450K+",
       label: t('publicPages.solutions.financial.stats.dau')
     }
   ];

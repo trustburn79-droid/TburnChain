@@ -71,7 +71,7 @@ export default function Wallets() {
       iconColor: "#00f0ff",
       title: t('publicPages.solutions.wallets.forDevelopers.trustScoreApi.title'),
       desc: t('publicPages.solutions.wallets.forDevelopers.trustScoreApi.description'),
-      code: "GET /api/v1/trust-score/:address"
+      code: "GET /api/v8/trust-score/:address"
     },
     {
       icon: AlertTriangle,

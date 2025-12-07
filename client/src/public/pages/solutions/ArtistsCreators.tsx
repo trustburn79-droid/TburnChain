@@ -47,9 +47,9 @@ export default function ArtistsCreators() {
   ];
 
   const stats = [
-    { value: "2.5M+", label: t('publicPages.solutions.artistsCreators.stats.nftsMinted'), color: "#d946ef" },
-    { value: "$120M+", label: t('publicPages.solutions.artistsCreators.stats.creatorEarnings'), color: "#8b5cf6" },
-    { value: "15k+", label: t('publicPages.solutions.artistsCreators.stats.verifiedArtists'), color: "#00f0ff" }
+    { value: "4.8M+", label: t('publicPages.solutions.artistsCreators.stats.nftsMinted'), color: "#d946ef" },
+    { value: "$280M+", label: t('publicPages.solutions.artistsCreators.stats.creatorEarnings'), color: "#8b5cf6" },
+    { value: "28k+", label: t('publicPages.solutions.artistsCreators.stats.verifiedArtists'), color: "#00f0ff" }
   ];
 
   useEffect(() => {

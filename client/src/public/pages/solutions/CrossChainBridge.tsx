@@ -13,10 +13,10 @@ export default function CrossChainBridge() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const heroStats = [
-    { value: "7+", label: t('publicPages.solutions.crossChainBridge.heroStats.chains'), color: "#00f0ff" },
-    { value: "$1.8B+", label: t('publicPages.solutions.crossChainBridge.heroStats.volume'), color: "#ffffff" },
-    { value: "2.5M+", label: t('publicPages.solutions.crossChainBridge.heroStats.txns'), color: "#00f0ff" },
-    { value: "~2 min", label: t('publicPages.solutions.crossChainBridge.heroStats.avgTime'), color: "#ffffff" }
+    { value: "8+", label: t('publicPages.solutions.crossChainBridge.heroStats.chains'), color: "#00f0ff" },
+    { value: "$2.5B+", label: t('publicPages.solutions.crossChainBridge.heroStats.volume'), color: "#ffffff" },
+    { value: "4.2M+", label: t('publicPages.solutions.crossChainBridge.heroStats.txns'), color: "#00f0ff" },
+    { value: "~45s", label: t('publicPages.solutions.crossChainBridge.heroStats.avgTime'), color: "#ffffff" }
   ];
 
   const supportedNetworks = [

@@ -48,8 +48,8 @@ export default function Btcfi() {
   ];
 
   const stats = [
-    { value: "15,000+", label: t('publicPages.solutions.btcfi.stats.btcBridged'), color: "#f7931a" },
-    { value: "$450M+", label: t('publicPages.solutions.btcfi.stats.tvl'), color: "#ffd700" },
+    { value: "25,000+", label: t('publicPages.solutions.btcfi.stats.btcBridged'), color: "#f7931a" },
+    { value: "$850M+", label: t('publicPages.solutions.btcfi.stats.tvl'), color: "#ffd700" },
     { value: t('publicPages.solutions.btcfi.stats.zeroValue'), label: t('publicPages.solutions.btcfi.stats.securityIncidents'), color: "#94a3b8" }
   ];
 
