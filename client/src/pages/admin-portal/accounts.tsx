@@ -299,7 +299,7 @@ export default function AdminAccounts() {
           { label: t("common.name"), value: account.name, type: "text" },
           { label: t("adminAccounts.createDialog.email"), value: account.email, type: "text", copyable: true },
           { label: t("adminAccounts.role"), value: account.role, type: "badge", badgeVariant: "secondary" },
-          { label: t("common.status"), value: t(`adminAccounts.status.${account.status}`), type: "badge", badgeColor: statusColors[account.status] },
+          { label: t("common.status"), value: t(`adminAccounts.status.${account.status || "unknown"}`), type: "badge", badgeColor: statusColors[account.status || "unknown"] },
         ],
       },
       {
@@ -490,7 +490,7 @@ export default function AdminAccounts() {
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-3">
                             <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center">
-                              <span className="text-sm font-medium">{account.name.charAt(0)}</span>
+                              <span className="text-sm font-medium">{(account.name || "A").charAt(0)}</span>
                             </div>
                             <div>
                               <p className="font-medium">{account.name}</p>

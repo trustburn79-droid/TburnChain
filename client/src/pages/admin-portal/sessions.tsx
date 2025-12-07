@@ -563,7 +563,7 @@ export default function Sessions() {
                         <div className="flex items-center gap-3">
                           <Avatar className="h-10 w-10">
                             <AvatarImage src={session.user.avatar} />
-                            <AvatarFallback>{session.user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                            <AvatarFallback>{(session.user?.name || "AA").substring(0, 2).toUpperCase()}</AvatarFallback>
                           </Avatar>
                           <div>
                             <div className="flex items-center gap-2">

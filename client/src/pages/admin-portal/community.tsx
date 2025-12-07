@@ -589,7 +589,7 @@ export default function CommunityManagement() {
                             <div className="flex items-start gap-3">
                               <Avatar className="h-10 w-10">
                                 <AvatarImage src={post.author.avatar} />
-                                <AvatarFallback>{post.author.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                <AvatarFallback>{(post.author?.name || "AA").substring(0, 2).toUpperCase()}</AvatarFallback>
                               </Avatar>
                               <div>
                                 <div className="flex items-center gap-2 flex-wrap">
@@ -684,7 +684,7 @@ export default function CommunityManagement() {
                           <TableCell>
                             <div className="flex items-center gap-2">
                               <Avatar className="h-8 w-8">
-                                <AvatarFallback>{member.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                <AvatarFallback>{(member.name || "AA").substring(0, 2).toUpperCase()}</AvatarFallback>
                               </Avatar>
                               <div>
                                 <p className="font-medium" data-testid={`text-member-name-${member.id}`}>{member.name}</p>
@@ -844,7 +844,7 @@ export default function CommunityManagement() {
                             <TableCell>
                               <div className="flex items-center gap-2">
                                 <Avatar className="h-8 w-8">
-                                  <AvatarFallback>{member.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                  <AvatarFallback>{(member.name || "AA").substring(0, 2).toUpperCase()}</AvatarFallback>
                                 </Avatar>
                                 <span className="font-medium">{member.name}</span>
                               </div>

@@ -19955,7 +19955,8 @@
     "status": {
       "active": "Active",
       "inactive": "Inactive",
-      "suspended": "Suspended"
+      "suspended": "Suspended",
+      "unknown": "Unknown"
     },
     "metrics": {
       "totalAccounts": "Total Accounts",
@@ -20282,7 +20283,8 @@
       "failed": "Failed",
       "warning": "Warning",
       "info": "Info",
-      "critical": "Critical"
+      "critical": "Critical",
+      "unknown": "Unknown"
     },
     "activityTypes": {
       "login": "Login",

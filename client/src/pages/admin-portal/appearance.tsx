@@ -200,7 +200,7 @@ export default function Appearance() {
       title: t("adminAppearance.detail.themeSettings"),
       fields: [
         { label: t("adminAppearance.theme.title"), value: t(`adminAppearance.themes.${theme}`), type: "text" as const },
-        { label: t("adminAppearance.accentColor.title"), value: accentColor.charAt(0).toUpperCase() + accentColor.slice(1), type: "badge" as const },
+        { label: t("adminAppearance.accentColor.title"), value: (accentColor || "orange").charAt(0).toUpperCase() + (accentColor || "orange").slice(1), type: "badge" as const },
         { label: t("adminAppearance.typography.baseFontSize"), value: `${fontSize[0]}px`, type: "text" as const },
       ],
     },
@@ -304,7 +304,7 @@ export default function Appearance() {
           <MetricCard
             icon={Sparkles}
             label={t("adminAppearance.metrics.accentColor")}
-            value={accentColor.charAt(0).toUpperCase() + accentColor.slice(1)}
+            value={(accentColor || "orange").charAt(0).toUpperCase() + (accentColor || "orange").slice(1)}
             change="TBURN Brand Identity"
             changeType="positive"
             isLoading={isLoading}

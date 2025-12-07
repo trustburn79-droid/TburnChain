@@ -218,7 +218,7 @@ export default function ActivityMonitor() {
           { label: t("adminActivity.action"), value: activity.action, type: "text" },
           { label: t("common.type"), value: activity.actionType, type: "badge", badgeVariant: "outline" },
           { label: t("adminActivity.resource"), value: activity.target, type: "text" },
-          { label: t("common.status"), value: t(`adminActivity.status.${activity.status}`), type: "badge", badgeColor: getStatusBadgeColor(activity.status) },
+          { label: t("common.status"), value: t(`adminActivity.status.${activity.status || "unknown"}`), type: "badge", badgeColor: getStatusBadgeColor(activity.status || "unknown") },
           { label: t("adminActivity.timestamp"), value: activity.timestamp, type: "date" },
         ],
       },
@@ -443,7 +443,7 @@ export default function ActivityMonitor() {
                     <div key={log.id} className="flex items-start gap-4 p-4 border rounded-lg hover:bg-muted/50 transition-colors" data-testid={`activity-log-${log.id}`}>
                       <Avatar className="h-10 w-10">
                         <AvatarImage src={log.user.avatar} />
-                        <AvatarFallback>{log.user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                        <AvatarFallback>{(log.user?.name || "AA").substring(0, 2).toUpperCase()}</AvatarFallback>
                       </Avatar>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
@@ -459,7 +459,7 @@ export default function ActivityMonitor() {
                           <Badge className={`text-xs ${getStatusColor(log.status)}`}>
                             {log.status === "success" && <CheckCircle className="h-3 w-3 mr-1" />}
                             {log.status === "failed" && <AlertTriangle className="h-3 w-3 mr-1" />}
-                            {t(`adminActivity.status.${log.status}`)}
+                            {t(`adminActivity.status.${log.status || "unknown"}`)}
                           </Badge>
                         </div>
                         <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground flex-wrap">
