@@ -191,12 +191,12 @@ export default function Governance() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-blue-500" />
-              {t("governance.gpt5TurboAnalysis")}
+              {t("governance.gemini3ProAnalysis")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {t("governance.gpt5TurboDesc")}
+              {t("governance.gemini3ProDesc")}
             </p>
           </CardContent>
         </Card>
@@ -219,12 +219,12 @@ export default function Governance() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <Lightbulb className="h-4 w-4 text-amber-500" />
-              {t("governance.llamaRecommendations")}
+              {t("governance.gpt4oRecommendations")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {t("governance.llamaDesc")}
+              {t("governance.gpt4oDesc")}
             </p>
           </CardContent>
         </Card>
