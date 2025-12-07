@@ -11459,7 +11459,7 @@
           },
           "ultraLowFees": {
             "title": "Ultra-Low Fees",
-            "description": "$0.001 per transaction. Save up to 99% compared to traditional payment gateways. Economically viable for everything from micropayments to large transfers."
+            "description": "$0.00026 per transaction. Save up to 99% compared to traditional payment gateways. Economically viable for everything from micropayments to large transfers."
           },
           "verifiedTokensOnly": {
             "title": "Verified Tokens Only",
@@ -11557,7 +11557,7 @@
           },
           "lowFees": {
             "title": "저렴한 수수료",
-            "description": "트랜잭션당 $0.001 미만"
+            "description": "트랜잭션당 $0.00026 미만"
           },
           "trustVerified": {
             "title": "신뢰 검증",

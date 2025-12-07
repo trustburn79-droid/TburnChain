@@ -6139,7 +6139,7 @@
               "label": "Finalidad de transacción"
             },
             "gasCost": {
-              "value": "$0.001",
+              "value": "$0.00026",
               "label": "Costo promedio de gas"
             },
             "latency": {
@@ -9729,7 +9729,7 @@
           },
           "ultraLowFees": {
             "title": "Tarifas ultra bajas",
-            "description": "$0.001 por transacción. Ahorra hasta 99% comparado con pasarelas de pago tradicionales. Económicamente viable para todo, desde micropagos hasta transferencias grandes."
+            "description": "$0.00026 por transacción. Ahorra hasta 99% comparado con pasarelas de pago tradicionales. Económicamente viable para todo, desde micropagos hasta transferencias grandes."
           },
           "verifiedTokensOnly": {
             "title": "Solo tokens verificados",
