@@ -587,7 +587,7 @@ export default function VCTestMode() {
                       <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.stack.finality', 'Block Finality')}</div>
                     </div>
                     <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-lg text-center">
-                      <div className="font-bold text-gray-900 dark:text-white">$0.001</div>
+                      <div className="font-bold text-gray-900 dark:text-white">$0.00026</div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.stack.gasFee', 'Average Gas Fee')}</div>
                     </div>
                   </div>
