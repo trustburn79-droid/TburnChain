@@ -153,44 +153,44 @@ export default function FinanceOverview() {
   ];
 
   const financialMetrics: FinancialMetric[] = financeData?.metrics || [
-    { label: t("adminFinance.metrics.marketCap"), value: "$24.7B", change: 5.2, trend: "up", icon: CircleDollarSign },
-    { label: t("adminFinance.metrics.circulatingSupply"), value: "7.0B TBURN", change: -0.02, trend: "down", icon: Coins },
-    { label: t("adminFinance.metrics.totalBurned"), value: "800M TBURN", change: 2.3, trend: "up", icon: Flame },
-    { label: t("adminFinance.metrics.treasuryBalance"), value: "$894M", change: 1.8, trend: "up", icon: Building2 },
+    { label: t("adminFinance.metrics.marketCap"), value: "$5.0B", change: 0, trend: "stable", icon: CircleDollarSign },
+    { label: t("adminFinance.metrics.circulatingSupply"), value: "10B TBURN", change: 0, trend: "stable", icon: Coins },
+    { label: t("adminFinance.metrics.totalBurned"), value: "0 TBURN", change: 0, trend: "stable", icon: Flame },
+    { label: t("adminFinance.metrics.treasuryBalance"), value: "$1.5B", change: 0, trend: "stable", icon: Building2 },
   ];
 
   const revenueData = financeData?.revenueData || [
-    { month: t("adminFinance.months.jul"), revenue: 12500000, expenses: 8200000, profit: 4300000 },
-    { month: t("adminFinance.months.aug"), revenue: 14200000, expenses: 8800000, profit: 5400000 },
-    { month: t("adminFinance.months.sep"), revenue: 13800000, expenses: 9100000, profit: 4700000 },
-    { month: t("adminFinance.months.oct"), revenue: 16500000, expenses: 9500000, profit: 7000000 },
-    { month: t("adminFinance.months.nov"), revenue: 18200000, expenses: 10200000, profit: 8000000 },
-    { month: t("adminFinance.months.dec"), revenue: 15800000, expenses: 9800000, profit: 6000000 },
+    { month: t("adminFinance.months.jul"), revenue: 0, expenses: 0, profit: 0 },
+    { month: t("adminFinance.months.aug"), revenue: 0, expenses: 0, profit: 0 },
+    { month: t("adminFinance.months.sep"), revenue: 0, expenses: 0, profit: 0 },
+    { month: t("adminFinance.months.oct"), revenue: 0, expenses: 0, profit: 0 },
+    { month: t("adminFinance.months.nov"), revenue: 0, expenses: 0, profit: 0 },
+    { month: "Dec 8", revenue: 0, expenses: 0, profit: 0 },
   ];
 
   const revenueBreakdown = financeData?.revenueBreakdown || [
-    { name: t("adminFinance.breakdown.txFees"), value: 45, color: "hsl(var(--chart-1))" },
-    { name: t("adminFinance.breakdown.bridgeFees"), value: 25, color: "hsl(var(--chart-2))" },
-    { name: t("adminFinance.breakdown.stakingRewards"), value: 15, color: "hsl(var(--chart-3))" },
-    { name: t("adminFinance.breakdown.dexFees"), value: 10, color: "hsl(var(--chart-4))" },
-    { name: t("adminFinance.breakdown.other"), value: 5, color: "hsl(var(--chart-5))" },
+    { name: "Transaction Fees (0.001 TBURN)", value: 40, color: "hsl(var(--chart-1))" },
+    { name: "Bridge Fees (0.1%)", value: 25, color: "hsl(var(--chart-2))" },
+    { name: "Staking Rewards (8-15% APY)", value: 20, color: "hsl(var(--chart-3))" },
+    { name: "DEX Fees (0.3%)", value: 10, color: "hsl(var(--chart-4))" },
+    { name: "Other Protocol Fees", value: 5, color: "hsl(var(--chart-5))" },
   ];
 
   const recentTransactions: Transaction[] = financeData?.recentTransactions || [
-    { id: "TXN-001", type: "inflow", category: t("adminFinance.categories.txFees"), amount: 2450000, date: "2024-12-03", description: t("adminFinance.txDescriptions.dailyFees"), status: "completed" },
-    { id: "TXN-002", type: "outflow", category: t("adminFinance.categories.validatorRewards"), amount: 1850000, date: "2024-12-03", description: t("adminFinance.txDescriptions.validatorRewards"), status: "completed" },
-    { id: "TXN-003", type: "inflow", category: t("adminFinance.categories.bridgeFees"), amount: 890000, date: "2024-12-03", description: t("adminFinance.txDescriptions.bridgeFees"), status: "completed" },
-    { id: "TXN-004", type: "outflow", category: t("adminFinance.categories.operations"), amount: 450000, date: "2024-12-02", description: t("adminFinance.txDescriptions.infraCosts"), status: "completed" },
-    { id: "TXN-005", type: "inflow", category: t("adminFinance.categories.staking"), amount: 1200000, date: "2024-12-02", description: t("adminFinance.txDescriptions.stakingFees"), status: "pending" },
-    { id: "TXN-006", type: "outflow", category: t("adminFinance.categories.development"), amount: 750000, date: "2024-12-01", description: t("adminFinance.txDescriptions.devPayroll"), status: "completed" },
+    { id: "GENESIS-001", type: "inflow", category: "Genesis Block", amount: 5000000000, date: "2024-12-08", description: "TBURN Mainnet v8.0 Genesis - 10B Total Supply @ $0.50", status: "completed" },
+    { id: "TREASURY-001", type: "inflow", category: "Treasury Allocation", amount: 1500000000, date: "2024-12-08", description: "Foundation Treasury - 15% of Genesis Supply (1.5B TBURN)", status: "completed" },
+    { id: "VALIDATOR-001", type: "outflow", category: "Validator Staking", amount: 312000000, date: "2024-12-08", description: "156 Validators Bonded - 3-Tier Structure Active", status: "completed" },
+    { id: "BRIDGE-001", type: "inflow", category: "Bridge Liquidity", amount: 250000000, date: "2024-12-08", description: "Multi-Chain Bridge v2.0 - ETH/BSC/Polygon/Arbitrum", status: "completed" },
+    { id: "AI-001", type: "outflow", category: "AI Infrastructure", amount: 50000000, date: "2024-12-08", description: "Triple-Band AI Orchestration - Gemini 3 Pro Primary", status: "completed" },
+    { id: "DEX-001", type: "inflow", category: "DEX Liquidity", amount: 200000000, date: "2024-12-08", description: "TBURN-USDT/ETH/BTC Initial Liquidity Pools", status: "pending" },
   ];
 
   const treasuryAllocation = financeData?.treasuryAllocation || [
-    { category: t("adminFinance.treasury.reserveFund"), amount: 45000000, percentage: 50.3 },
-    { category: t("adminFinance.treasury.developmentFund"), amount: 22000000, percentage: 24.6 },
-    { category: t("adminFinance.treasury.marketing"), amount: 12000000, percentage: 13.4 },
-    { category: t("adminFinance.treasury.operations"), amount: 7400000, percentage: 8.3 },
-    { category: t("adminFinance.treasury.emergencyFund"), amount: 3000000, percentage: 3.4 },
+    { category: "Foundation Reserve (30.60% Y20 Deflation Target)", amount: 750000000, percentage: 50.0 },
+    { category: "Ecosystem Development Fund", amount: 375000000, percentage: 25.0 },
+    { category: "Marketing & Community Growth", amount: 150000000, percentage: 10.0 },
+    { category: "Infrastructure & Operations", amount: 150000000, percentage: 10.0 },
+    { category: "Emergency Reserve Fund", amount: 75000000, percentage: 5.0 },
   ];
 
   if (error) {

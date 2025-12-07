@@ -140,38 +140,38 @@ export default function CostAnalysis() {
   ];
 
   const costItems: CostItem[] = costData?.costItems || [
-    { category: t("adminCosts.categories.infrastructure"), subcategory: t("adminCosts.subcategories.cloudCompute"), current: 2450000, previous: 2200000, budget: 2500000, change: 11.4, icon: Cloud },
-    { category: t("adminCosts.categories.infrastructure"), subcategory: t("adminCosts.subcategories.storage"), current: 890000, previous: 820000, budget: 1000000, change: 8.5, icon: Database },
-    { category: t("adminCosts.categories.infrastructure"), subcategory: t("adminCosts.subcategories.networkCdn"), current: 650000, previous: 600000, budget: 700000, change: 8.3, icon: Network },
-    { category: t("adminCosts.categories.aiServices"), subcategory: t("adminCosts.subcategories.openaiApi"), current: 1200000, previous: 1100000, budget: 1500000, change: 9.1, icon: Bot },
-    { category: t("adminCosts.categories.aiServices"), subcategory: t("adminCosts.subcategories.anthropicApi"), current: 850000, previous: 780000, budget: 1000000, change: 9.0, icon: Bot },
-    { category: t("adminCosts.categories.aiServices"), subcategory: t("adminCosts.subcategories.localGpu"), current: 450000, previous: 450000, budget: 500000, change: 0, icon: Cpu },
-    { category: t("adminCosts.categories.security"), subcategory: t("adminCosts.subcategories.securityTools"), current: 320000, previous: 300000, budget: 400000, change: 6.7, icon: Shield },
-    { category: t("adminCosts.categories.operations"), subcategory: t("adminCosts.subcategories.monitoring"), current: 180000, previous: 165000, budget: 200000, change: 9.1, icon: Server },
+    { category: "Blockchain Infrastructure", subcategory: "100K TPS Node Cluster (8 Shards)", current: 45000000, previous: 42000000, budget: 50000000, change: 7.1, icon: Cloud },
+    { category: "Blockchain Infrastructure", subcategory: "NVMe Storage Array (Petabyte-Scale)", current: 15000000, previous: 14000000, budget: 18000000, change: 7.1, icon: Database },
+    { category: "Blockchain Infrastructure", subcategory: "Global CDN & Network (P99 <50ms)", current: 12000000, previous: 11000000, budget: 15000000, change: 9.1, icon: Network },
+    { category: "AI Services", subcategory: "Gemini 3 Pro API (Primary)", current: 8000000, previous: 7500000, budget: 10000000, change: 6.7, icon: Bot },
+    { category: "AI Services", subcategory: "Claude Sonnet 4.5 API (Secondary)", current: 5000000, previous: 4800000, budget: 6000000, change: 4.2, icon: Bot },
+    { category: "AI Services", subcategory: "GPT-4o + Grok 3 Fallback", current: 3500000, previous: 3200000, budget: 4000000, change: 9.4, icon: Cpu },
+    { category: "Security", subcategory: "Quantum-Resistant Signatures", current: 8000000, previous: 7500000, budget: 10000000, change: 6.7, icon: Shield },
+    { category: "Operations", subcategory: "156 Validator Infrastructure", current: 6000000, previous: 5500000, budget: 7000000, change: 9.1, icon: Server },
   ];
 
   const costTrend = costData?.costTrend || Array.from({ length: 12 }, (_, i) => ({
-    month: [t("adminCosts.months.jan"), t("adminCosts.months.feb"), t("adminCosts.months.mar"), t("adminCosts.months.apr"), t("adminCosts.months.may"), t("adminCosts.months.jun"), t("adminCosts.months.jul"), t("adminCosts.months.aug"), t("adminCosts.months.sep"), t("adminCosts.months.oct"), t("adminCosts.months.nov"), t("adminCosts.months.dec")][i],
-    infrastructure: Math.floor(Math.random() * 500000) + 3500000,
-    ai: Math.floor(Math.random() * 400000) + 2200000,
-    security: Math.floor(Math.random() * 100000) + 300000,
-    operations: Math.floor(Math.random() * 50000) + 150000,
+    month: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i],
+    infrastructure: 60000000 + Math.floor(i * 2000000),
+    ai: 12000000 + Math.floor(i * 500000),
+    security: 6000000 + Math.floor(i * 300000),
+    operations: 5000000 + Math.floor(i * 200000),
   }));
 
   const categoryBreakdown: CostBreakdown[] = costData?.categoryBreakdown || [
-    { name: t("adminCosts.categories.infrastructure"), value: 45, color: "hsl(var(--chart-1))" },
-    { name: t("adminCosts.categories.aiServices"), value: 30, color: "hsl(var(--chart-2))" },
-    { name: t("adminCosts.categories.security"), value: 12, color: "hsl(var(--chart-3))" },
-    { name: t("adminCosts.categories.operations"), value: 8, color: "hsl(var(--chart-4))" },
-    { name: t("adminCosts.other"), value: 5, color: "hsl(var(--chart-5))" },
+    { name: "Blockchain Infrastructure (100K TPS)", value: 55, color: "hsl(var(--chart-1))" },
+    { name: "Triple-Band AI Services", value: 20, color: "hsl(var(--chart-2))" },
+    { name: "Security (Quantum-Resistant)", value: 12, color: "hsl(var(--chart-3))" },
+    { name: "Validator Operations", value: 8, color: "hsl(var(--chart-4))" },
+    { name: "Other Infrastructure", value: 5, color: "hsl(var(--chart-5))" },
   ];
 
   const optimizationOpportunities: OptimizationOpportunity[] = costData?.optimizationOpportunities || [
-    { area: t("adminCosts.optimizations.idleCompute"), potential: 320000, effort: t("adminCosts.effort.low"), priority: t("adminCosts.priority.high") },
-    { area: t("adminCosts.optimizations.oversizedDb"), potential: 180000, effort: t("adminCosts.effort.medium"), priority: t("adminCosts.priority.medium") },
-    { area: t("adminCosts.optimizations.unusedStorage"), potential: 95000, effort: t("adminCosts.effort.low"), priority: t("adminCosts.priority.high") },
-    { area: t("adminCosts.optimizations.aiCaching"), potential: 250000, effort: t("adminCosts.effort.medium"), priority: t("adminCosts.priority.high") },
-    { area: t("adminCosts.optimizations.reservedInstances"), potential: 450000, effort: t("adminCosts.effort.high"), priority: t("adminCosts.priority.medium") },
+    { area: "AI Response Caching (Triple-Band)", potential: 2500000, effort: "Medium", priority: "High" },
+    { area: "Shard Auto-Scaling (8→64)", potential: 5000000, effort: "Low", priority: "High" },
+    { area: "Cross-Shard Query Optimization", potential: 1500000, effort: "Medium", priority: "Medium" },
+    { area: "Validator Stake Consolidation", potential: 800000, effort: "Low", priority: "Medium" },
+    { area: "Bridge Fee Revenue Sharing", potential: 3000000, effort: "High", priority: "High" },
   ];
 
   const totalCurrent = costItems.reduce((sum, item) => sum + item.current, 0);

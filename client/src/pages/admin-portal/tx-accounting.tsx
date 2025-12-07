@@ -153,31 +153,31 @@ export default function TxAccounting() {
   };
 
   const accountingEntries: AccountingEntry[] = accountingData?.entries || [
-    { id: "ACC-001", txHash: "0x1a2b3c...", type: "fee", debit: 0, credit: 125000, account: t("adminTxAccounting.accounts.txFees"), category: t("adminTxAccounting.categories.revenue"), timestamp: "2024-12-03T14:30:00Z", status: "posted", reference: "Block #12847563" },
-    { id: "ACC-002", txHash: "0x4d5e6f...", type: "reward", debit: 85000, credit: 0, account: t("adminTxAccounting.accounts.validatorRewards"), category: t("adminTxAccounting.categories.expense"), timestamp: "2024-12-03T14:25:00Z", status: "posted", reference: "Epoch 45678" },
-    { id: "ACC-003", txHash: "0x7g8h9i...", type: "burn", debit: 50000, credit: 0, account: t("adminTxAccounting.accounts.tokenBurn"), category: t("adminTxAccounting.categories.deflationary"), timestamp: "2024-12-03T14:20:00Z", status: "reconciled", reference: "Auto-burn" },
-    { id: "ACC-004", txHash: "0xj0k1l2...", type: "bridge", debit: 0, credit: 35000, account: t("adminTxAccounting.accounts.bridgeFees"), category: t("adminTxAccounting.categories.revenue"), timestamp: "2024-12-03T14:15:00Z", status: "posted", reference: "ETH→TBURN" },
-    { id: "ACC-005", txHash: "0xm3n4o5...", type: "fee", debit: 0, credit: 98000, account: t("adminTxAccounting.accounts.txFees"), category: t("adminTxAccounting.categories.revenue"), timestamp: "2024-12-03T14:10:00Z", status: "pending", reference: "Block #12847562" },
-    { id: "ACC-006", txHash: "0xp6q7r8...", type: "reward", debit: 92000, credit: 0, account: t("adminTxAccounting.accounts.stakingRewards"), category: t("adminTxAccounting.categories.expense"), timestamp: "2024-12-03T14:05:00Z", status: "posted", reference: "Pool rewards" },
-    { id: "ACC-007", txHash: "0xs9t0u1...", type: "transfer", debit: 0, credit: 15000, account: t("adminTxAccounting.accounts.dexFees"), category: t("adminTxAccounting.categories.revenue"), timestamp: "2024-12-03T14:00:00Z", status: "reconciled", reference: "Swap fees" },
-    { id: "ACC-008", txHash: "0xv2w3x4...", type: "burn", debit: 45000, credit: 0, account: t("adminTxAccounting.accounts.tokenBurn"), category: t("adminTxAccounting.categories.deflationary"), timestamp: "2024-12-03T13:55:00Z", status: "posted", reference: "Manual burn" },
+    { id: "GEN-001", txHash: "0x0000...0001", type: "transfer", debit: 0, credit: 5000000000, account: "Genesis Supply Account", category: "Genesis", timestamp: "2024-12-08T00:00:00Z", status: "reconciled", reference: "Block #1 - TBURN Mainnet v8.0" },
+    { id: "TRS-001", txHash: "0x0000...0002", type: "transfer", debit: 0, credit: 1500000000, account: "Foundation Treasury", category: "Treasury Allocation", timestamp: "2024-12-08T00:00:01Z", status: "reconciled", reference: "15% Treasury Reserve" },
+    { id: "VAL-001", txHash: "0x0000...0003", type: "reward", debit: 312000000, credit: 0, account: "Validator Staking Pool", category: "Staking", timestamp: "2024-12-08T00:00:02Z", status: "posted", reference: "156 Validators Bonded" },
+    { id: "BRG-001", txHash: "0x0000...0004", type: "bridge", debit: 0, credit: 250000000, account: "Bridge Liquidity Reserve", category: "Bridge", timestamp: "2024-12-08T00:00:03Z", status: "posted", reference: "Multi-Chain Bridge v2.0" },
+    { id: "DEX-001", txHash: "0x0000...0005", type: "transfer", debit: 0, credit: 200000000, account: "DEX Liquidity Pools", category: "DeFi", timestamp: "2024-12-08T00:00:04Z", status: "pending", reference: "Initial AMM Liquidity" },
+    { id: "AI-001", txHash: "0x0000...0006", type: "fee", debit: 50000000, credit: 0, account: "AI Infrastructure Fund", category: "Operations", timestamp: "2024-12-08T00:00:05Z", status: "posted", reference: "Triple-Band AI Setup" },
+    { id: "ECO-001", txHash: "0x0000...0007", type: "transfer", debit: 0, credit: 375000000, account: "Ecosystem Development", category: "Development", timestamp: "2024-12-08T00:00:06Z", status: "reconciled", reference: "25% Ecosystem Fund" },
+    { id: "MKT-001", txHash: "0x0000...0008", type: "transfer", debit: 0, credit: 150000000, account: "Marketing Reserve", category: "Marketing", timestamp: "2024-12-08T00:00:07Z", status: "posted", reference: "10% Marketing Allocation" },
   ];
 
   const dailyVolumes = accountingData?.dailyVolumes || Array.from({ length: 30 }, (_, i) => ({
-    date: `${t("adminTxAccounting.day")} ${i + 1}`,
-    fees: Math.floor(Math.random() * 500000) + 200000,
-    rewards: Math.floor(Math.random() * 400000) + 150000,
-    burns: Math.floor(Math.random() * 100000) + 50000,
+    date: i === 29 ? "Dec 8" : `Day ${i + 1}`,
+    fees: i === 29 ? 0 : 0,
+    rewards: i === 29 ? 0 : 0,
+    burns: i === 29 ? 0 : 0,
   }));
 
   const accountSummary: AccountSummary[] = accountingData?.accountSummary || [
-    { account: t("adminTxAccounting.accounts.txFees"), debit: 0, credit: 4250000, balance: 4250000, type: t("adminTxAccounting.types.asset") },
-    { account: t("adminTxAccounting.accounts.bridgeFees"), debit: 0, credit: 1580000, balance: 1580000, type: t("adminTxAccounting.types.asset") },
-    { account: t("adminTxAccounting.accounts.dexFees"), debit: 0, credit: 890000, balance: 890000, type: t("adminTxAccounting.types.asset") },
-    { account: t("adminTxAccounting.accounts.validatorRewards"), debit: 2850000, credit: 0, balance: -2850000, type: t("adminTxAccounting.types.liability") },
-    { account: t("adminTxAccounting.accounts.stakingRewards"), debit: 1920000, credit: 0, balance: -1920000, type: t("adminTxAccounting.types.liability") },
-    { account: t("adminTxAccounting.accounts.tokenBurn"), debit: 1520000, credit: 0, balance: -1520000, type: t("adminTxAccounting.types.equity") },
-    { account: t("adminTxAccounting.accounts.operations"), debit: 750000, credit: 0, balance: -750000, type: t("adminTxAccounting.types.expense") },
+    { account: "Genesis Supply (10B TBURN @ $0.50)", debit: 0, credit: 5000000000, balance: 5000000000, type: "Asset" },
+    { account: "Foundation Treasury (15%)", debit: 0, credit: 1500000000, balance: 1500000000, type: "Asset" },
+    { account: "Ecosystem Development (25%)", debit: 0, credit: 375000000, balance: 375000000, type: "Asset" },
+    { account: "Validator Staking Pool", debit: 312000000, credit: 0, balance: -312000000, type: "Liability" },
+    { account: "Bridge Liquidity Reserve", debit: 0, credit: 250000000, balance: 250000000, type: "Asset" },
+    { account: "DEX Liquidity Pools", debit: 0, credit: 200000000, balance: 200000000, type: "Asset" },
+    { account: "AI Infrastructure Fund", debit: 50000000, credit: 0, balance: -50000000, type: "Expense" },
   ];
 
   const getTypeColor = (type: string) => {

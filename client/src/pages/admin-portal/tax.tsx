@@ -128,29 +128,29 @@ export default function TaxReporting() {
   }, [selectedYear, toast, t]);
 
   const taxReports: TaxReport[] = taxData?.reports || [
-    { id: "TAX-001", type: t("adminTax.reportTypes.corporateIncome"), period: "Q4 2024", jurisdiction: t("adminTax.jurisdictions.us"), status: "pending", dueDate: "2025-01-15", amount: 4500000, filedDate: null },
-    { id: "TAX-002", type: t("adminTax.reportTypes.salesTax"), period: t("adminTax.periods.nov2024"), jurisdiction: t("adminTax.jurisdictions.us"), status: "filed", dueDate: "2024-12-20", amount: 890000, filedDate: "2024-12-15" },
-    { id: "TAX-003", type: t("adminTax.reportTypes.corporateTax"), period: "Q3 2024", jurisdiction: t("adminTax.jurisdictions.eu"), status: "filed", dueDate: "2024-10-31", amount: 2100000, filedDate: "2024-10-28" },
-    { id: "TAX-004", type: t("adminTax.reportTypes.vat"), period: "Q4 2024", jurisdiction: t("adminTax.jurisdictions.eu"), status: "draft", dueDate: "2025-01-31", amount: 1500000, filedDate: null },
-    { id: "TAX-005", type: t("adminTax.reportTypes.corporateTax"), period: "FY 2024", jurisdiction: t("adminTax.jurisdictions.singapore"), status: "pending", dueDate: "2025-03-15", amount: 780000, filedDate: null },
-    { id: "TAX-006", type: t("adminTax.reportTypes.withholding"), period: "Q4 2024", jurisdiction: t("adminTax.jurisdictions.korea"), status: "overdue", dueDate: "2024-12-10", amount: 320000, filedDate: null },
+    { id: "TAX-001", type: "Corporate Income Tax", period: "FY 2024", jurisdiction: "United States (Delaware)", status: "pending", dueDate: "2025-04-15", amount: 25000000, filedDate: null },
+    { id: "TAX-002", type: "Digital Asset Transaction Tax", period: "Q4 2024", jurisdiction: "United States (Federal)", status: "pending", dueDate: "2025-01-31", amount: 8500000, filedDate: null },
+    { id: "TAX-003", type: "Corporate Tax", period: "FY 2024", jurisdiction: "European Union (Ireland)", status: "draft", dueDate: "2025-03-31", amount: 12000000, filedDate: null },
+    { id: "TAX-004", type: "VAT on Services", period: "FY 2024", jurisdiction: "European Union (Ireland)", status: "draft", dueDate: "2025-01-31", amount: 3500000, filedDate: null },
+    { id: "TAX-005", type: "Corporate Tax", period: "FY 2024", jurisdiction: "Singapore (Foundation)", status: "pending", dueDate: "2025-11-30", amount: 2800000, filedDate: null },
+    { id: "TAX-006", type: "Withholding Tax", period: "FY 2024", jurisdiction: "Korea (Technology Hub)", status: "filed", dueDate: "2024-12-31", amount: 1500000, filedDate: "2024-12-05" },
   ];
 
   const taxLiabilities: TaxLiability[] = taxData?.liabilities || [
-    { jurisdiction: t("adminTax.jurisdictions.us"), taxType: t("adminTax.reportTypes.corporateIncome"), liability: 12500000, paid: 8000000, remaining: 4500000, dueDate: "2025-04-15" },
-    { jurisdiction: t("adminTax.jurisdictions.eu"), taxType: t("adminTax.reportTypes.corporateTax"), liability: 6800000, paid: 4700000, remaining: 2100000, dueDate: "2025-01-31" },
-    { jurisdiction: t("adminTax.jurisdictions.singapore"), taxType: t("adminTax.reportTypes.corporateTax"), liability: 780000, paid: 0, remaining: 780000, dueDate: "2025-03-15" },
-    { jurisdiction: t("adminTax.jurisdictions.korea"), taxType: t("adminTax.liabilityTypes.various"), liability: 1200000, paid: 880000, remaining: 320000, dueDate: "2024-12-31" },
-    { jurisdiction: t("adminTax.jurisdictions.japan"), taxType: t("adminTax.reportTypes.corporateTax"), liability: 950000, paid: 950000, remaining: 0, dueDate: "2024-11-30" },
+    { jurisdiction: "United States (Delaware)", taxType: "Corporate & Digital Asset Tax", liability: 33500000, paid: 0, remaining: 33500000, dueDate: "2025-04-15" },
+    { jurisdiction: "European Union (Ireland)", taxType: "Corporate Tax & VAT", liability: 15500000, paid: 0, remaining: 15500000, dueDate: "2025-03-31" },
+    { jurisdiction: "Singapore (Foundation)", taxType: "Corporate Tax", liability: 2800000, paid: 0, remaining: 2800000, dueDate: "2025-11-30" },
+    { jurisdiction: "Korea (Technology Hub)", taxType: "Withholding Tax", liability: 1500000, paid: 1500000, remaining: 0, dueDate: "2024-12-31" },
+    { jurisdiction: "Cayman Islands (Holding)", taxType: "No Corporate Tax", liability: 0, paid: 0, remaining: 0, dueDate: "N/A" },
   ];
 
   const taxCalendar: TaxCalendarEvent[] = taxData?.calendar || [
-    { date: "2024-12-20", event: t("adminTax.events.usSalesTax"), status: "completed" },
-    { date: "2024-12-31", event: t("adminTax.events.koreaQ4"), status: "upcoming" },
-    { date: "2025-01-15", event: t("adminTax.events.usQ4Estimated"), status: "upcoming" },
-    { date: "2025-01-31", event: t("adminTax.events.euVatQ4"), status: "upcoming" },
-    { date: "2025-03-15", event: t("adminTax.events.singaporeAnnual"), status: "upcoming" },
-    { date: "2025-04-15", event: t("adminTax.events.usAnnual"), status: "upcoming" },
+    { date: "2024-12-08", event: "TBURN Mainnet v8.0 Launch - Tax Year Start", status: "completed" },
+    { date: "2024-12-31", event: "Korea FY2024 Withholding Tax Filing", status: "completed" },
+    { date: "2025-01-31", event: "US Q4 2024 Digital Asset Tax Deadline", status: "upcoming" },
+    { date: "2025-01-31", event: "EU VAT Q4 2024 Filing Deadline", status: "upcoming" },
+    { date: "2025-03-31", event: "EU Ireland Corporate Tax FY2024", status: "upcoming" },
+    { date: "2025-04-15", event: "US Federal Corporate Tax FY2024", status: "upcoming" },
   ];
 
   const totalLiability = taxLiabilities.reduce((sum, t) => sum + t.liability, 0);

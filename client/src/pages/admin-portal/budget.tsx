@@ -220,36 +220,36 @@ export default function BudgetManagement() {
   }, [selectedPeriod, toast, t]);
 
   const budgetItems: BudgetItem[] = budgetData?.budgetItems || [
-    { id: "BUD-001", category: t("adminBudget.categories.infrastructure"), department: t("adminBudget.departments.engineering"), allocated: 5000000, spent: 3200000, remaining: 1800000, status: "on-track", forecast: 4500000 },
-    { id: "BUD-002", category: t("adminBudget.categories.development"), department: t("adminBudget.departments.engineering"), allocated: 8000000, spent: 6500000, remaining: 1500000, status: "at-risk", forecast: 8200000 },
-    { id: "BUD-003", category: t("adminBudget.categories.marketing"), department: t("adminBudget.departments.marketing"), allocated: 3000000, spent: 1800000, remaining: 1200000, status: "on-track", forecast: 2700000 },
-    { id: "BUD-004", category: t("adminBudget.categories.security"), department: t("adminBudget.departments.security"), allocated: 4000000, spent: 2100000, remaining: 1900000, status: "on-track", forecast: 3500000 },
-    { id: "BUD-005", category: t("adminBudget.categories.operations"), department: t("adminBudget.departments.operations"), allocated: 2500000, spent: 2800000, remaining: -300000, status: "over-budget", forecast: 3200000 },
-    { id: "BUD-006", category: t("adminBudget.categories.research"), department: t("adminBudget.departments.rd"), allocated: 3500000, spent: 1900000, remaining: 1600000, status: "on-track", forecast: 3200000 },
-    { id: "BUD-007", category: t("adminBudget.categories.legal"), department: t("adminBudget.departments.legal"), allocated: 1500000, spent: 1100000, remaining: 400000, status: "at-risk", forecast: 1600000 },
-    { id: "BUD-008", category: t("adminBudget.categories.hr"), department: t("adminBudget.departments.hr"), allocated: 1000000, spent: 650000, remaining: 350000, status: "on-track", forecast: 900000 },
+    { id: "BUD-001", category: "Blockchain Infrastructure (100K TPS)", department: "Core Engineering", allocated: 150000000, spent: 148500000, remaining: 1500000, status: "on-track", forecast: 150000000 },
+    { id: "BUD-002", category: "Triple-Band AI System", department: "AI Engineering", allocated: 50000000, spent: 48000000, remaining: 2000000, status: "on-track", forecast: 50000000 },
+    { id: "BUD-003", category: "Multi-Chain Bridge v2.0", department: "Bridge Team", allocated: 25000000, spent: 24500000, remaining: 500000, status: "on-track", forecast: 25000000 },
+    { id: "BUD-004", category: "Security & Audit (Quantum-Resistant)", department: "Security", allocated: 35000000, spent: 34000000, remaining: 1000000, status: "on-track", forecast: 35000000 },
+    { id: "BUD-005", category: "Validator Network (156 Nodes)", department: "Network Ops", allocated: 20000000, spent: 19500000, remaining: 500000, status: "on-track", forecast: 20000000 },
+    { id: "BUD-006", category: "DeFi Protocol Development", department: "DeFi Team", allocated: 30000000, spent: 28000000, remaining: 2000000, status: "on-track", forecast: 30000000 },
+    { id: "BUD-007", category: "Legal & Compliance", department: "Legal", allocated: 15000000, spent: 14500000, remaining: 500000, status: "on-track", forecast: 15000000 },
+    { id: "BUD-008", category: "Marketing & Community", department: "Marketing", allocated: 25000000, spent: 23000000, remaining: 2000000, status: "on-track", forecast: 25000000 },
   ];
 
   const budgetRequests: BudgetRequest[] = budgetData?.budgetRequests || [
-    { id: "REQ-001", title: t("adminBudget.requestTitles.cloudInfra"), department: t("adminBudget.departments.engineering"), amount: 500000, status: "pending", requestDate: "2024-12-02", requester: "John Smith" },
-    { id: "REQ-002", title: t("adminBudget.requestTitles.securityAudit"), department: t("adminBudget.departments.security"), amount: 150000, status: "approved", requestDate: "2024-11-28", requester: "Jane Doe" },
-    { id: "REQ-003", title: t("adminBudget.requestTitles.marketingQ1"), department: t("adminBudget.departments.marketing"), amount: 300000, status: "pending", requestDate: "2024-12-01", requester: "Mike Johnson" },
-    { id: "REQ-004", title: t("adminBudget.requestTitles.aiTraining"), department: t("adminBudget.departments.rd"), amount: 400000, status: "rejected", requestDate: "2024-11-25", requester: "Sarah Williams" },
+    { id: "REQ-001", title: "Mainnet v8.0 Launch Infrastructure", department: "Core Engineering", amount: 5000000, status: "approved", requestDate: "2024-12-01", requester: "CTO Office" },
+    { id: "REQ-002", title: "Security Audit - CertiK Final Review", department: "Security", amount: 2500000, status: "approved", requestDate: "2024-12-05", requester: "CISO" },
+    { id: "REQ-003", title: "Q1 2025 Marketing Campaign", department: "Marketing", amount: 10000000, status: "pending", requestDate: "2024-12-07", requester: "CMO" },
+    { id: "REQ-004", title: "AI Model Training - Grok 3 Fallback", department: "AI Engineering", amount: 3000000, status: "approved", requestDate: "2024-12-03", requester: "AI Director" },
   ];
 
   const monthlyBudgetData = budgetData?.monthlyBudgetData || [
-    { month: t("adminBudget.months.oct"), budget: 28500000, actual: 26000000 },
-    { month: t("adminBudget.months.nov"), budget: 28500000, actual: 27500000 },
-    { month: t("adminBudget.months.dec"), budget: 28500000, actual: 20050000 },
+    { month: "Oct 2024", budget: 100000000, actual: 95000000 },
+    { month: "Nov 2024", budget: 120000000, actual: 115000000 },
+    { month: "Dec 2024", budget: 130000000, actual: 128000000 },
   ];
 
   const departmentAllocation = budgetData?.departmentAllocation || [
-    { name: t("adminBudget.departments.engineering"), value: 46, color: "hsl(var(--chart-1))" },
-    { name: t("adminBudget.departments.security"), value: 14, color: "hsl(var(--chart-2))" },
-    { name: t("adminBudget.departments.marketing"), value: 11, color: "hsl(var(--chart-3))" },
-    { name: t("adminBudget.departments.rd"), value: 12, color: "hsl(var(--chart-4))" },
-    { name: t("adminBudget.departments.operations"), value: 9, color: "hsl(var(--chart-5))" },
-    { name: t("adminBudget.other"), value: 8, color: "hsl(var(--muted))" },
+    { name: "Core Engineering (100K TPS)", value: 43, color: "hsl(var(--chart-1))" },
+    { name: "AI Systems (Triple-Band)", value: 14, color: "hsl(var(--chart-2))" },
+    { name: "Security (Quantum-Resistant)", value: 10, color: "hsl(var(--chart-3))" },
+    { name: "DeFi & Bridge", value: 16, color: "hsl(var(--chart-4))" },
+    { name: "Network Ops (156 Validators)", value: 6, color: "hsl(var(--chart-5))" },
+    { name: "Other (Legal, Marketing)", value: 11, color: "hsl(var(--muted))" },
   ];
 
   const totalAllocated = budgetItems.reduce((sum, item) => sum + item.allocated, 0);
