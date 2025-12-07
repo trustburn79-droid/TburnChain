@@ -243,23 +243,23 @@ export default function AdminChainConnections() {
     if (statsData) return statsData;
     return {
       totalChains: 7,
-      activeChains: 5,
-      degradedChains: 1,
-      offlineChains: 1,
-      totalTvl: "$120.1M",
+      activeChains: 7,
+      degradedChains: 0,
+      offlineChains: 0,
+      totalTvl: "$764.2M",
     };
   }, [statsData]);
 
   const chains = useMemo(() => {
     if (chainsData?.chains) return chainsData.chains;
     return [
-      { id: 1, name: "Ethereum", symbol: "ETH", chainId: 1, status: "active" as const, tvl: "$45.2M", volume24h: "$5.2M", pendingTx: 42, validators: 8, maxValidators: 8, rpcEndpoint: "https://eth.tburn.io", explorerUrl: "https://etherscan.io", bridgeContract: "0x1234...5678", confirmations: 12, enabled: true, lastBlock: 18542367, blockTime: "12s", latency: 85 },
-      { id: 2, name: "BSC", symbol: "BNB", chainId: 56, status: "active" as const, tvl: "$28.7M", volume24h: "$3.1M", pendingTx: 28, validators: 8, maxValidators: 8, rpcEndpoint: "https://bsc.tburn.io", explorerUrl: "https://bscscan.com", bridgeContract: "0x2345...6789", confirmations: 15, enabled: true, lastBlock: 32456789, blockTime: "3s", latency: 42 },
-      { id: 3, name: "Polygon", symbol: "MATIC", chainId: 137, status: "active" as const, tvl: "$15.3M", volume24h: "$1.8M", pendingTx: 15, validators: 8, maxValidators: 8, rpcEndpoint: "https://matic.tburn.io", explorerUrl: "https://polygonscan.com", bridgeContract: "0x3456...7890", confirmations: 256, enabled: true, lastBlock: 51234567, blockTime: "2s", latency: 65 },
-      { id: 4, name: "Avalanche", symbol: "AVAX", chainId: 43114, status: "active" as const, tvl: "$12.1M", volume24h: "$1.2M", pendingTx: 12, validators: 8, maxValidators: 8, rpcEndpoint: "https://avax.tburn.io", explorerUrl: "https://snowtrace.io", bridgeContract: "0x4567...8901", confirmations: 12, enabled: true, lastBlock: 38765432, blockTime: "2s", latency: 120 },
-      { id: 5, name: "Arbitrum", symbol: "ARB", chainId: 42161, status: "active" as const, tvl: "$8.5M", volume24h: "$0.8M", pendingTx: 8, validators: 8, maxValidators: 8, rpcEndpoint: "https://arb.tburn.io", explorerUrl: "https://arbiscan.io", bridgeContract: "0x5678...9012", confirmations: 12, enabled: true, lastBlock: 156789012, blockTime: "250ms", latency: 55 },
-      { id: 6, name: "Optimism", symbol: "OP", chainId: 10, status: "degraded" as const, tvl: "$6.2M", volume24h: "$0.3M", pendingTx: 35, validators: 6, maxValidators: 8, rpcEndpoint: "https://op.tburn.io", explorerUrl: "https://optimistic.etherscan.io", bridgeContract: "0x6789...0123", confirmations: 50, enabled: true, lastBlock: 112345678, blockTime: "2s", latency: 250 },
-      { id: 7, name: "Base", symbol: "BASE", chainId: 8453, status: "offline" as const, tvl: "$4.1M", volume24h: "$0", pendingTx: 0, validators: 0, maxValidators: 8, rpcEndpoint: "https://base.tburn.io", explorerUrl: "https://basescan.org", bridgeContract: "0x7890...1234", confirmations: 12, enabled: false, lastBlock: 0, blockTime: "-", latency: 0 },
+      { id: 1, name: "Ethereum", symbol: "ETH", chainId: 1, status: "active" as const, tvl: "$285.5M", volume24h: "$32.8M", pendingTx: 156, validators: 12, maxValidators: 12, rpcEndpoint: "https://eth.tburn.io", explorerUrl: "https://etherscan.io", bridgeContract: "0x1234...5678", confirmations: 12, enabled: true, lastBlock: 21285467, blockTime: "12s", latency: 42 },
+      { id: 2, name: "BSC", symbol: "BNB", chainId: 56, status: "active" as const, tvl: "$168.2M", volume24h: "$18.5M", pendingTx: 89, validators: 12, maxValidators: 12, rpcEndpoint: "https://bsc.tburn.io", explorerUrl: "https://bscscan.com", bridgeContract: "0x2345...6789", confirmations: 15, enabled: true, lastBlock: 44567890, blockTime: "3s", latency: 28 },
+      { id: 3, name: "Polygon", symbol: "MATIC", chainId: 137, status: "active" as const, tvl: "$95.8M", volume24h: "$12.4M", pendingTx: 45, validators: 12, maxValidators: 12, rpcEndpoint: "https://matic.tburn.io", explorerUrl: "https://polygonscan.com", bridgeContract: "0x3456...7890", confirmations: 256, enabled: true, lastBlock: 65789012, blockTime: "2s", latency: 35 },
+      { id: 4, name: "Avalanche", symbol: "AVAX", chainId: 43114, status: "active" as const, tvl: "$72.4M", volume24h: "$8.2M", pendingTx: 32, validators: 12, maxValidators: 12, rpcEndpoint: "https://avax.tburn.io", explorerUrl: "https://snowtrace.io", bridgeContract: "0x4567...8901", confirmations: 12, enabled: true, lastBlock: 52345678, blockTime: "2s", latency: 55 },
+      { id: 5, name: "Arbitrum", symbol: "ARB", chainId: 42161, status: "active" as const, tvl: "$58.5M", volume24h: "$6.8M", pendingTx: 28, validators: 12, maxValidators: 12, rpcEndpoint: "https://arb.tburn.io", explorerUrl: "https://arbiscan.io", bridgeContract: "0x5678...9012", confirmations: 12, enabled: true, lastBlock: 178901234, blockTime: "250ms", latency: 32 },
+      { id: 6, name: "Optimism", symbol: "OP", chainId: 10, status: "active" as const, tvl: "$45.2M", volume24h: "$5.2M", pendingTx: 18, validators: 12, maxValidators: 12, rpcEndpoint: "https://op.tburn.io", explorerUrl: "https://optimistic.etherscan.io", bridgeContract: "0x6789...0123", confirmations: 50, enabled: true, lastBlock: 128456789, blockTime: "2s", latency: 48 },
+      { id: 7, name: "Base", symbol: "BASE", chainId: 8453, status: "active" as const, tvl: "$38.6M", volume24h: "$3.6M", pendingTx: 12, validators: 12, maxValidators: 12, rpcEndpoint: "https://base.tburn.io", explorerUrl: "https://basescan.org", bridgeContract: "0x7890...1234", confirmations: 12, enabled: true, lastBlock: 23456789, blockTime: "2s", latency: 38 },
     ];
   }, [chainsData]);
 

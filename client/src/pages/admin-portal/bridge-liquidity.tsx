@@ -325,52 +325,50 @@ export default function AdminBridgeLiquidity() {
   const liquidityStats = useMemo(() => {
     if (statsData) return statsData;
     return {
-      totalLocked: "$120.5M",
-      utilizationRate: "68%",
-      dailyVolume: "$12.5M",
-      rebalanceNeeded: 2,
+      totalLocked: "$764.2M",
+      utilizationRate: "78%",
+      dailyVolume: "$87.5M",
+      rebalanceNeeded: 0,
     };
   }, [statsData]);
 
   const poolsByChain = useMemo(() => {
     if (poolsData?.pools) return poolsData.pools;
     return [
-      { chain: "Ethereum", locked: "$45.2M", available: "$32.5M", utilization: 72, tokens: ["USDT", "USDC", "wTBURN"] },
-      { chain: "BSC", locked: "$28.7M", available: "$22.1M", utilization: 65, tokens: ["USDT", "BUSD", "wTBURN"] },
-      { chain: "Polygon", locked: "$15.3M", available: "$12.8M", utilization: 58, tokens: ["USDT", "USDC"] },
-      { chain: "Avalanche", locked: "$12.1M", available: "$9.2M", utilization: 45, tokens: ["USDT", "AVAX"] },
-      { chain: "Arbitrum", locked: "$8.5M", available: "$6.1M", utilization: 40, tokens: ["USDT", "ARB"] },
-      { chain: "Optimism", locked: "$6.2M", available: "$2.8M", utilization: 88, tokens: ["USDT", "OP"] },
-      { chain: "Base", locked: "$4.1M", available: "$3.5M", utilization: 35, tokens: ["USDT", "USDC"] },
+      { chain: "Ethereum", locked: "$285.5M", available: "$185.2M", utilization: 82, tokens: ["USDT", "USDC", "WETH", "wTBURN", "DAI"] },
+      { chain: "BSC", locked: "$168.2M", available: "$118.5M", utilization: 78, tokens: ["USDT", "BUSD", "WBNB", "wTBURN", "USDC"] },
+      { chain: "Polygon", locked: "$95.8M", available: "$72.4M", utilization: 75, tokens: ["USDT", "USDC", "WMATIC", "wTBURN"] },
+      { chain: "Avalanche", locked: "$72.4M", available: "$55.8M", utilization: 72, tokens: ["USDT", "USDC", "WAVAX", "wTBURN"] },
+      { chain: "Arbitrum", locked: "$58.5M", available: "$45.2M", utilization: 68, tokens: ["USDT", "USDC", "WETH", "ARB"] },
+      { chain: "Optimism", locked: "$45.2M", available: "$35.8M", utilization: 65, tokens: ["USDT", "USDC", "WETH", "OP"] },
+      { chain: "Base", locked: "$38.6M", available: "$28.5M", utilization: 62, tokens: ["USDT", "USDC", "WETH", "wTBURN"] },
     ];
   }, [poolsData]);
 
   const liquidityHistory = useMemo(() => {
     if (historyData?.history) return historyData.history;
     return [
-      { date: "Nov 27", total: 105 },
-      { date: "Nov 28", total: 108 },
-      { date: "Nov 29", total: 112 },
-      { date: "Nov 30", total: 115 },
-      { date: "Dec 1", total: 118 },
-      { date: "Dec 2", total: 120 },
-      { date: "Dec 3", total: 120.5 },
+      { date: "Dec 1", total: 685 },
+      { date: "Dec 2", total: 702 },
+      { date: "Dec 3", total: 718 },
+      { date: "Dec 4", total: 735 },
+      { date: "Dec 5", total: 748 },
+      { date: "Dec 6", total: 758 },
+      { date: "Dec 7", total: 764.2 },
     ];
   }, [historyData]);
 
   const tokenDistribution: TokenDistribution[] = [
-    { name: "USDT", value: 45, color: "#22c55e" },
-    { name: "USDC", value: 30, color: "#3b82f6" },
-    { name: "wTBURN", value: 20, color: "#f97316" },
-    { name: "Other", value: 5, color: "#a855f7" },
+    { name: "USDT", value: 38, color: "#22c55e" },
+    { name: "USDC", value: 28, color: "#3b82f6" },
+    { name: "wTBURN", value: 22, color: "#f97316" },
+    { name: "WETH", value: 8, color: "#a855f7" },
+    { name: "Other", value: 4, color: "#64748b" },
   ];
 
   const rebalanceAlerts = useMemo(() => {
     if (alertsData?.alerts) return alertsData.alerts;
-    return [
-      { id: 1, from: "Optimism", to: "Ethereum", amount: "$2.5M", reason: t("adminLiquidity.highUtilization", { chain: "Optimism", percent: 88 }), priority: "high" as const },
-      { id: 2, from: "Polygon", to: "BSC", amount: "$1.2M", reason: t("adminLiquidity.lowUtilization", { chain: "Polygon", percent: 58 }), priority: "medium" as const },
-    ];
+    return [];
   }, [alertsData, t]);
 
   if (error) {

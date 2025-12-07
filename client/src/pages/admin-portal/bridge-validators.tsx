@@ -180,31 +180,36 @@ export default function AdminBridgeValidators() {
   const validatorStats = useMemo(() => {
     if (statsData) return statsData;
     return {
-      total: 56,
-      active: 48,
-      inactive: 5,
-      slashed: 3,
-      quorum: "8/8",
+      total: 84,
+      active: 78,
+      inactive: 4,
+      slashed: 2,
+      quorum: "12/12",
     };
   }, [statsData]);
 
   const validators = useMemo(() => {
     if (validatorsData?.validators) return validatorsData.validators;
     return [
-      { id: 1, name: "Bridge Validator 1", address: "0x1234567890abcdef1234567890abcdef12345678", stake: "50,000,000 TBURN", status: "active" as const, uptime: 99.98, signatures: 124500, chains: ["ETH", "BSC", "MATIC"] },
-      { id: 2, name: "Bridge Validator 2", address: "0x2345678901bcdef02345678901bcdef023456789", stake: "45,000,000 TBURN", status: "active" as const, uptime: 99.95, signatures: 123800, chains: ["ETH", "AVAX", "ARB"] },
-      { id: 3, name: "Bridge Validator 3", address: "0x3456789012cdef013456789012cdef0134567890", stake: "42,000,000 TBURN", status: "active" as const, uptime: 99.92, signatures: 122900, chains: ["BSC", "OP", "BASE"] },
-      { id: 4, name: "Bridge Validator 4", address: "0x4567890123def0124567890123def01245678901", stake: "40,000,000 TBURN", status: "inactive" as const, uptime: 85.50, signatures: 105000, chains: ["ETH", "MATIC"] },
-      { id: 5, name: "Bridge Validator 5", address: "0x5678901234ef01235678901234ef0123567890ab", stake: "38,000,000 TBURN", status: "slashed" as const, uptime: 70.20, signatures: 89000, chains: ["BSC"] },
+      { id: 1, name: "TBURN Bridge Guardian 1", address: "0x1234567890abcdef1234567890abcdef12345678", stake: "85,000,000 TBURN", status: "active" as const, uptime: 99.99, signatures: 1847500, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 2, name: "TBURN Bridge Guardian 2", address: "0x2345678901bcdef02345678901bcdef023456789", stake: "78,500,000 TBURN", status: "active" as const, uptime: 99.98, signatures: 1842800, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 3, name: "TBURN Bridge Guardian 3", address: "0x3456789012cdef013456789012cdef0134567890", stake: "72,000,000 TBURN", status: "active" as const, uptime: 99.97, signatures: 1838900, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 4, name: "TBURN Bridge Guardian 4", address: "0x4567890123def0124567890123def01245678901", stake: "68,500,000 TBURN", status: "active" as const, uptime: 99.96, signatures: 1835200, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 5, name: "TBURN Bridge Guardian 5", address: "0x5678901234ef01235678901234ef0123567890ab", stake: "65,200,000 TBURN", status: "active" as const, uptime: 99.95, signatures: 1832500, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 6, name: "TBURN Bridge Guardian 6", address: "0x6789012345f012346789012345f01234678901bc", stake: "62,800,000 TBURN", status: "active" as const, uptime: 99.94, signatures: 1828700, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 7, name: "TBURN Bridge Guardian 7", address: "0x789012345601234578901234560123457890abcd", stake: "58,500,000 TBURN", status: "inactive" as const, uptime: 92.50, signatures: 1685000, chains: ["ETH", "BSC", "MATIC"] },
+      { id: 8, name: "TBURN Bridge Guardian 8", address: "0x890123456712345689012345671234568901bcde", stake: "55,200,000 TBURN", status: "slashed" as const, uptime: 78.20, signatures: 1420000, chains: ["ETH", "BSC"] },
     ];
   }, [validatorsData]);
 
   const signatureHistory = useMemo(() => {
     if (signaturesData?.signatures) return signaturesData.signatures;
     return [
-      { id: 1, transfer: "0xabc...123", validators: 8, required: 8, time: "2 min ago" },
-      { id: 2, transfer: "0xdef...456", validators: 8, required: 8, time: "5 min ago" },
-      { id: 3, transfer: "0xghi...789", validators: 6, required: 8, time: "8 min ago" },
+      { id: 1, transfer: "0xabc...123", validators: 12, required: 12, time: "15 sec ago" },
+      { id: 2, transfer: "0xdef...456", validators: 12, required: 12, time: "45 sec ago" },
+      { id: 3, transfer: "0xghi...789", validators: 12, required: 12, time: "1 min ago" },
+      { id: 4, transfer: "0xjkl...012", validators: 12, required: 12, time: "2 min ago" },
+      { id: 5, transfer: "0xmno...345", validators: 11, required: 12, time: "3 min ago" },
     ];
   }, [signaturesData]);
 

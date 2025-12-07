@@ -236,44 +236,46 @@ export default function AdminBridgeDashboard() {
   const bridgeStats = useMemo(() => {
     if (bridgeStatsData) return bridgeStatsData;
     return {
-      totalVolume24h: "$12.5M",
-      activeTransfers: 156,
-      completedToday: 2847,
-      avgTransferTime: "3.2 min",
+      totalVolume24h: "$87.5M",
+      activeTransfers: 1247,
+      completedToday: 28475,
+      avgTransferTime: "1.8 min",
     };
   }, [bridgeStatsData]);
 
   const chains = useMemo(() => {
     if (chainsData?.chains) return chainsData.chains;
     return [
-      { name: "Ethereum", symbol: "ETH", status: "active" as const, tvl: "$45.2M", volume24h: "$5.2M", pending: 42, validators: 8 },
-      { name: "BSC", symbol: "BNB", status: "active" as const, tvl: "$28.7M", volume24h: "$3.1M", pending: 28, validators: 8 },
-      { name: "Polygon", symbol: "MATIC", status: "active" as const, tvl: "$15.3M", volume24h: "$1.8M", pending: 15, validators: 8 },
-      { name: "Avalanche", symbol: "AVAX", status: "active" as const, tvl: "$12.1M", volume24h: "$1.2M", pending: 12, validators: 8 },
-      { name: "Arbitrum", symbol: "ARB", status: "active" as const, tvl: "$8.5M", volume24h: "$0.8M", pending: 8, validators: 8 },
-      { name: "Optimism", symbol: "OP", status: "degraded" as const, tvl: "$6.2M", volume24h: "$0.3M", pending: 35, validators: 6 },
-      { name: "Base", symbol: "BASE", status: "active" as const, tvl: "$4.1M", volume24h: "$0.1M", pending: 3, validators: 8 },
+      { name: "Ethereum", symbol: "ETH", status: "active" as const, tvl: "$285.5M", volume24h: "$32.8M", pending: 156, validators: 12 },
+      { name: "BSC", symbol: "BNB", status: "active" as const, tvl: "$168.2M", volume24h: "$18.5M", pending: 89, validators: 12 },
+      { name: "Polygon", symbol: "MATIC", status: "active" as const, tvl: "$95.8M", volume24h: "$12.4M", pending: 45, validators: 12 },
+      { name: "Avalanche", symbol: "AVAX", status: "active" as const, tvl: "$72.4M", volume24h: "$8.2M", pending: 32, validators: 12 },
+      { name: "Arbitrum", symbol: "ARB", status: "active" as const, tvl: "$58.5M", volume24h: "$6.8M", pending: 28, validators: 12 },
+      { name: "Optimism", symbol: "OP", status: "active" as const, tvl: "$45.2M", volume24h: "$5.2M", pending: 18, validators: 12 },
+      { name: "Base", symbol: "BASE", status: "active" as const, tvl: "$38.6M", volume24h: "$3.6M", pending: 12, validators: 12 },
     ];
   }, [chainsData]);
 
   const recentTransfers = useMemo(() => {
     if (transfersData?.transfers) return transfersData.transfers;
     return [
-      { id: "0xabc...123", from: "Ethereum", to: "TBURN", amount: "50,000 USDT", status: "completed" as const, time: "2 min ago" },
-      { id: "0xdef...456", from: "TBURN", to: "BSC", amount: "100,000 TBURN", status: "pending" as const, time: "5 min ago" },
-      { id: "0xghi...789", from: "Polygon", to: "TBURN", amount: "25,000 USDC", status: "validating" as const, time: "8 min ago" },
+      { id: "0xabc...123", from: "Ethereum", to: "TBURN", amount: "2,500,000 USDT", status: "completed" as const, time: "45 sec ago" },
+      { id: "0xdef...456", from: "TBURN", to: "BSC", amount: "1,850,000 TBURN", status: "completed" as const, time: "1 min ago" },
+      { id: "0xghi...789", from: "Polygon", to: "TBURN", amount: "850,000 USDC", status: "validating" as const, time: "2 min ago" },
+      { id: "0xjkl...012", from: "Avalanche", to: "TBURN", amount: "425,000 AVAX", status: "pending" as const, time: "3 min ago" },
+      { id: "0xmno...345", from: "TBURN", to: "Arbitrum", amount: "1,200,000 TBURN", status: "completed" as const, time: "4 min ago" },
     ];
   }, [transfersData]);
 
   const volumeHistory = useMemo(() => {
     if (volumeData?.history) return volumeData.history;
     return [
-      { time: "00:00", eth: 1200, bsc: 800, polygon: 400 },
-      { time: "04:00", eth: 900, bsc: 700, polygon: 350 },
-      { time: "08:00", eth: 1500, bsc: 1000, polygon: 500 },
-      { time: "12:00", eth: 2000, bsc: 1200, polygon: 600 },
-      { time: "16:00", eth: 1800, bsc: 1100, polygon: 550 },
-      { time: "20:00", eth: 1400, bsc: 900, polygon: 450 },
+      { time: "00:00", eth: 8500, bsc: 4800, polygon: 3200 },
+      { time: "04:00", eth: 6200, bsc: 3500, polygon: 2400 },
+      { time: "08:00", eth: 12500, bsc: 7200, polygon: 4800 },
+      { time: "12:00", eth: 18500, bsc: 10500, polygon: 6800 },
+      { time: "16:00", eth: 15200, bsc: 8800, polygon: 5500 },
+      { time: "20:00", eth: 11500, bsc: 6500, polygon: 4200 },
     ];
   }, [volumeData]);
 

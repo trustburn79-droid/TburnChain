@@ -212,46 +212,67 @@ export default function AdminBridgeTransfers() {
         id: "0xabc123def456789012345678901234567890abcd", 
         from: { chain: "Ethereum", address: "0x1234567890abcdef1234567890abcdef12345678" }, 
         to: { chain: "TBURN", address: "tburn1qwertyuiopasdfghjklzxcvbnm12345678xyz" }, 
-        amount: "50,000 USDT", 
-        fee: "25 USDT",
+        amount: "2,500,000 USDT", 
+        fee: "125 USDT",
         status: "completed" as const, 
         confirmations: "12/12",
-        timestamp: "2024-12-03 14:30:25",
-        duration: "3m 24s"
+        timestamp: "2024-12-07 18:30:25",
+        duration: "1m 45s"
       },
       { 
         id: "0xdef456ghi789012345678901234567890bcdef01", 
         from: { chain: "TBURN", address: "tburn1asdfghjklqwertyuiopzxcvbnm987654321abc" }, 
         to: { chain: "BSC", address: "0x2345678901bcdef02345678901bcdef023456789" }, 
-        amount: "100,000 TBURN", 
-        fee: "100 TBURN",
-        status: "pending" as const, 
-        confirmations: "8/12",
-        timestamp: "2024-12-03 14:25:00",
-        duration: "-"
+        amount: "1,850,000 TBURN", 
+        fee: "925 TBURN",
+        status: "completed" as const, 
+        confirmations: "15/15",
+        timestamp: "2024-12-07 18:28:00",
+        duration: "1m 52s"
       },
       { 
         id: "0xghi789jkl012345678901234567890cdef012345", 
         from: { chain: "Polygon", address: "0x3456789012cdef013456789012cdef0134567890" }, 
         to: { chain: "TBURN", address: "tburn1zxcvbnmasdfghjklqwertyuiop1234567890def" }, 
-        amount: "25,000 USDC", 
-        fee: "12.5 USDC",
+        amount: "850,000 USDC", 
+        fee: "42.5 USDC",
         status: "validating" as const, 
-        confirmations: "4/12",
-        timestamp: "2024-12-03 14:20:00",
+        confirmations: "186/256",
+        timestamp: "2024-12-07 18:26:00",
         duration: "-"
       },
       { 
         id: "0xjkl012mno345678901234567890def0123456789", 
         from: { chain: "Avalanche", address: "0x4567890123def0124567890123def01245678901" }, 
         to: { chain: "TBURN", address: "tburn1poiuytrewqlkjhgfdsamnbvcxz987654321ghi" }, 
-        amount: "10,000 AVAX", 
-        fee: "5 AVAX",
-        status: "failed" as const, 
-        confirmations: "0/12",
-        timestamp: "2024-12-03 14:15:00",
-        duration: "-",
-        error: "Insufficient liquidity"
+        amount: "425,000 AVAX", 
+        fee: "21.25 AVAX",
+        status: "pending" as const, 
+        confirmations: "8/12",
+        timestamp: "2024-12-07 18:24:00",
+        duration: "-"
+      },
+      { 
+        id: "0xmno345pqr678901234567890ef01234567890abc", 
+        from: { chain: "TBURN", address: "tburn1mnbvcxzlkjhgfdsapoiuytrewq9876543210jkl" }, 
+        to: { chain: "Arbitrum", address: "0x5678901234ef01235678901234ef0123567890ab" }, 
+        amount: "1,200,000 TBURN", 
+        fee: "600 TBURN",
+        status: "completed" as const, 
+        confirmations: "12/12",
+        timestamp: "2024-12-07 18:22:00",
+        duration: "1m 38s"
+      },
+      { 
+        id: "0xpqr678stu901234567890123456789012345cdef", 
+        from: { chain: "Optimism", address: "0x6789012345f012346789012345f01234678901bc" }, 
+        to: { chain: "TBURN", address: "tburn1qazwsxedcrfvtgbyhnujmikolp0987654321mno" }, 
+        amount: "680,000 USDT", 
+        fee: "34 USDT",
+        status: "completed" as const, 
+        confirmations: "50/50",
+        timestamp: "2024-12-07 18:20:00",
+        duration: "2m 12s"
       },
     ];
   }, [transfersData]);
