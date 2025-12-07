@@ -4454,6 +4454,80 @@
       "active": "نشط"
     }
   },
+  "vcTestMode": {
+    "badge": "وضع اختبار VC",
+    "title": "منصة TBURN",
+    "subtitle": "بيئة اختبار الاستثمار",
+    "description": "اختبر جميع إمكانيات TBURN Mainnet باستخدام محفظة تجريبية ممولة مسبقًا. اختبر جميع ميزات DeFi واستكشف تنسيق الذكاء الاصطناعي وقيّم تقنيتنا.",
+    "startTour": "بدء الجولة الإرشادية",
+    "explorePlatform": "استكشف المنصة",
+    "demoWallet": "محفظة تجريبية",
+    "testFunds": "أموال اختبارية لتقييم المنصة. بدون قيمة حقيقية.",
+    "walletCopied": "تم نسخ عنوان المحفظة",
+    "walletReset": "تم إعادة تعيين المحفظة التجريبية",
+    "walletResetDesc": "تم إعادة تعيين محفظتك التجريبية إلى الرصيد الأولي",
+    "quickStats": "إحصائيات سريعة",
+    "tokenomics": "اقتصاديات الرمز",
+    "networkStatus": "حالة الشبكة",
+    "quickAccess": "وصول سريع",
+    "growthMetrics": "مقاييس النمو",
+    "competitiveEdge": "الميزة التنافسية",
+    "aiSystem": "نظام الذكاء الاصطناعي رباعي النطاق",
+    "security": "هندسة الأمان",
+    "techStack": "المكدس التقني",
+    "tabs": {
+      "overview": "نظرة عامة",
+      "features": "الميزات",
+      "metrics": "المقاييس",
+      "tech": "التقنية"
+    },
+    "stats": {
+      "marketCap": "القيمة السوقية",
+      "tvl": "إجمالي القيمة المقفلة",
+      "dailyVolume": "الحجم اليومي",
+      "activeWallets": "المحافظ النشطة",
+      "totalSupply": "إجمالي العرض",
+      "circulating": "المتداول",
+      "burned": "المحروق",
+      "status": "الحالة",
+      "operational": "تعمل",
+      "validators": "المدققون",
+      "shards": "الشظايا النشطة",
+      "tps": "TPS",
+      "blockTime": "وقت الكتلة"
+    },
+    "metrics": {
+      "userGrowth": "نمو المستخدمين السنوي",
+      "tvl": "إجمالي القيمة المقفلة",
+      "activeUsers": "المستخدمون النشطون شهريًا",
+      "validators": "المدققون النشطون"
+    },
+    "edge": {
+      "aiOrchestration": "تنسيق الذكاء الاصطناعي رباعي النطاق",
+      "dynamicSharding": "التقسيم الديناميكي بالذكاء الاصطناعي",
+      "quantumResistant": "توقيعات مقاومة للكم",
+      "deflationary": "انكماش مدفوع بالذكاء الاصطناعي (70٪)",
+      "crossChain": "جسر عبر السلاسل"
+    },
+    "ai": {
+      "primary": "الأساسي - تحسين الشبكة",
+      "analysis": "التحليل - تدقيق العقود الذكية",
+      "prediction": "التنبؤ - تحليلات السوق",
+      "fallback": "الاحتياطي - طبقة التكرار"
+    },
+    "sec": {
+      "consensus": "الإجماع",
+      "signatures": "التوقيعات",
+      "audit": "حالة التدقيق",
+      "insurance": "صندوق التأمين"
+    },
+    "stack": {
+      "blockchain": "بلوكتشين مستقل",
+      "throughput": "معدل نقل المعاملات",
+      "finality": "نهائية الكتلة",
+      "gasFee": "رسوم الغاز المتوسطة"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "ابدأ الآن",

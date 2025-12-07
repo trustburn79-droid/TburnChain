@@ -7027,6 +7027,80 @@
       }
     }
   },
+  "vcTestMode": {
+    "badge": "VCテストモード",
+    "title": "TBURNプラットフォーム",
+    "subtitle": "投資テスト環境",
+    "description": "事前にチャージされたデモウォレットでTBURNメインネットの全機能を体験できます。すべてのDeFi機能をテストし、AIオーケストレーションを探索し、技術を評価してください。",
+    "startTour": "ガイドツアー開始",
+    "explorePlatform": "プラットフォームを探索",
+    "demoWallet": "デモウォレット",
+    "testFunds": "プラットフォーム評価用のテスト資金です。実際の価値はありません。",
+    "walletCopied": "ウォレットアドレスをコピーしました",
+    "walletReset": "デモウォレットをリセット",
+    "walletResetDesc": "デモウォレットが初期残高にリセットされました",
+    "quickStats": "クイック統計",
+    "tokenomics": "トークノミクス",
+    "networkStatus": "ネットワーク状態",
+    "quickAccess": "クイックアクセス",
+    "growthMetrics": "成長指標",
+    "competitiveEdge": "競争優位性",
+    "aiSystem": "クアッドバンドAIシステム",
+    "security": "セキュリティアーキテクチャ",
+    "techStack": "技術スタック",
+    "tabs": {
+      "overview": "概要",
+      "features": "機能",
+      "metrics": "指標",
+      "tech": "技術"
+    },
+    "stats": {
+      "marketCap": "時価総額",
+      "tvl": "総ロック価値",
+      "dailyVolume": "日次取引量",
+      "activeWallets": "アクティブウォレット",
+      "totalSupply": "総供給量",
+      "circulating": "流通量",
+      "burned": "バーン量",
+      "status": "ステータス",
+      "operational": "稼働中",
+      "validators": "バリデーター",
+      "shards": "アクティブシャード",
+      "tps": "TPS",
+      "blockTime": "ブロック時間"
+    },
+    "metrics": {
+      "userGrowth": "前年比ユーザー成長率",
+      "tvl": "総ロック価値",
+      "activeUsers": "月間アクティブユーザー",
+      "validators": "アクティブバリデーター"
+    },
+    "edge": {
+      "aiOrchestration": "クアッドバンドAIオーケストレーション",
+      "dynamicSharding": "ダイナミックAIシャーディング",
+      "quantumResistant": "量子耐性署名",
+      "deflationary": "AI駆動デフレーション (70%)",
+      "crossChain": "クロスチェーンブリッジ"
+    },
+    "ai": {
+      "primary": "プライマリ - ネットワーク最適化",
+      "analysis": "分析 - スマートコントラクト監査",
+      "prediction": "予測 - 市場分析",
+      "fallback": "フォールバック - 冗長性レイヤー"
+    },
+    "sec": {
+      "consensus": "コンセンサス",
+      "signatures": "署名",
+      "audit": "監査状況",
+      "insurance": "保険ファンド"
+    },
+    "stack": {
+      "blockchain": "独立ブロックチェーン",
+      "throughput": "トランザクションスループット",
+      "finality": "ブロックファイナリティ",
+      "gasFee": "平均ガス料金"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "始める",

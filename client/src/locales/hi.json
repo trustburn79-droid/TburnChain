@@ -4933,6 +4933,80 @@
       }
     }
   },
+  "vcTestMode": {
+    "badge": "VC टेस्ट मोड",
+    "title": "TBURN प्लेटफॉर्म",
+    "subtitle": "निवेश परीक्षण वातावरण",
+    "description": "पूर्व-वित्त पोषित डेमो वॉलेट के साथ TBURN मेननेट की पूर्ण क्षमताओं का अनुभव करें। सभी DeFi सुविधाओं का परीक्षण करें, हमारे AI ऑर्केस्ट्रेशन का अन्वेषण करें, और हमारी तकनीक का मूल्यांकन करें।",
+    "startTour": "गाइडेड टूर शुरू करें",
+    "explorePlatform": "प्लेटफॉर्म एक्सप्लोर करें",
+    "demoWallet": "डेमो वॉलेट",
+    "testFunds": "प्लेटफॉर्म मूल्यांकन के लिए टेस्ट फंड। कोई वास्तविक मूल्य नहीं।",
+    "walletCopied": "वॉलेट पता कॉपी हुआ",
+    "walletReset": "डेमो वॉलेट रीसेट",
+    "walletResetDesc": "आपका डेमो वॉलेट प्रारंभिक बैलेंस पर रीसेट हो गया है",
+    "quickStats": "त्वरित आंकड़े",
+    "tokenomics": "टोकनोमिक्स",
+    "networkStatus": "नेटवर्क स्थिति",
+    "quickAccess": "त्वरित पहुंच",
+    "growthMetrics": "वृद्धि मेट्रिक्स",
+    "competitiveEdge": "प्रतिस्पर्धी लाभ",
+    "aiSystem": "क्वाड-बैंड AI सिस्टम",
+    "security": "सुरक्षा आर्किटेक्चर",
+    "techStack": "टेक्नोलॉजी स्टैक",
+    "tabs": {
+      "overview": "अवलोकन",
+      "features": "सुविधाएं",
+      "metrics": "मेट्रिक्स",
+      "tech": "तकनीक"
+    },
+    "stats": {
+      "marketCap": "मार्केट कैप",
+      "tvl": "कुल लॉक मूल्य",
+      "dailyVolume": "दैनिक वॉल्यूम",
+      "activeWallets": "सक्रिय वॉलेट",
+      "totalSupply": "कुल आपूर्ति",
+      "circulating": "परिचालित",
+      "burned": "बर्न",
+      "status": "स्थिति",
+      "operational": "संचालनशील",
+      "validators": "वैलिडेटर",
+      "shards": "सक्रिय शार्ड",
+      "tps": "TPS",
+      "blockTime": "ब्लॉक समय"
+    },
+    "metrics": {
+      "userGrowth": "वार्षिक उपयोगकर्ता वृद्धि",
+      "tvl": "कुल लॉक मूल्य",
+      "activeUsers": "मासिक सक्रिय उपयोगकर्ता",
+      "validators": "सक्रिय वैलिडेटर"
+    },
+    "edge": {
+      "aiOrchestration": "क्वाड-बैंड AI ऑर्केस्ट्रेशन",
+      "dynamicSharding": "डायनामिक AI शार्डिंग",
+      "quantumResistant": "क्वांटम-प्रतिरोधी हस्ताक्षर",
+      "deflationary": "AI-चालित डिफ्लेशन (70%)",
+      "crossChain": "क्रॉस-चेन ब्रिज"
+    },
+    "ai": {
+      "primary": "प्राइमरी - नेटवर्क ऑप्टिमाइज़ेशन",
+      "analysis": "विश्लेषण - स्मार्ट कॉन्ट्रैक्ट ऑडिट",
+      "prediction": "भविष्यवाणी - मार्केट एनालिटिक्स",
+      "fallback": "फॉलबैक - रिडंडेंसी लेयर"
+    },
+    "sec": {
+      "consensus": "कंसेंसस",
+      "signatures": "हस्ताक्षर",
+      "audit": "ऑडिट स्थिति",
+      "insurance": "बीमा फंड"
+    },
+    "stack": {
+      "blockchain": "स्वतंत्र ब्लॉकचेन",
+      "throughput": "ट्रांज़ैक्शन थ्रूपुट",
+      "finality": "ब्लॉक फाइनलिटी",
+      "gasFee": "औसत गैस फीस"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "शुरू करें",

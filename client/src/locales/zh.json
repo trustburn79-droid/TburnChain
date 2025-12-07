@@ -6355,6 +6355,80 @@
       }
     }
   },
+  "vcTestMode": {
+    "badge": "VC测试模式",
+    "title": "TBURN平台",
+    "subtitle": "投资测试环境",
+    "description": "使用预充值的演示钱包体验TBURN主网的全部功能。测试所有DeFi功能，探索我们的AI编排系统，评估我们的技术。",
+    "startTour": "开始引导游览",
+    "explorePlatform": "探索平台",
+    "demoWallet": "演示钱包",
+    "testFunds": "用于平台评估的测试资金。无实际价值。",
+    "walletCopied": "钱包地址已复制",
+    "walletReset": "演示钱包已重置",
+    "walletResetDesc": "您的演示钱包已重置为初始余额",
+    "quickStats": "快速统计",
+    "tokenomics": "代币经济学",
+    "networkStatus": "网络状态",
+    "quickAccess": "快速访问",
+    "growthMetrics": "增长指标",
+    "competitiveEdge": "竞争优势",
+    "aiSystem": "四频AI系统",
+    "security": "安全架构",
+    "techStack": "技术栈",
+    "tabs": {
+      "overview": "概览",
+      "features": "功能",
+      "metrics": "指标",
+      "tech": "技术"
+    },
+    "stats": {
+      "marketCap": "市值",
+      "tvl": "总锁仓价值",
+      "dailyVolume": "日交易量",
+      "activeWallets": "活跃钱包",
+      "totalSupply": "总供应量",
+      "circulating": "流通量",
+      "burned": "销毁量",
+      "status": "状态",
+      "operational": "运行中",
+      "validators": "验证者",
+      "shards": "活跃分片",
+      "tps": "TPS",
+      "blockTime": "出块时间"
+    },
+    "metrics": {
+      "userGrowth": "同比用户增长",
+      "tvl": "总锁仓价值",
+      "activeUsers": "月活跃用户",
+      "validators": "活跃验证者"
+    },
+    "edge": {
+      "aiOrchestration": "四频AI编排",
+      "dynamicSharding": "动态AI分片",
+      "quantumResistant": "抗量子签名",
+      "deflationary": "AI驱动通缩 (70%)",
+      "crossChain": "跨链桥接"
+    },
+    "ai": {
+      "primary": "主要 - 网络优化",
+      "analysis": "分析 - 智能合约审计",
+      "prediction": "预测 - 市场分析",
+      "fallback": "备用 - 冗余层"
+    },
+    "sec": {
+      "consensus": "共识机制",
+      "signatures": "签名",
+      "audit": "审计状态",
+      "insurance": "保险基金"
+    },
+    "stack": {
+      "blockchain": "独立区块链",
+      "throughput": "交易吞吐量",
+      "finality": "区块最终性",
+      "gasFee": "平均Gas费"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "开始使用",

@@ -4966,6 +4966,80 @@
     "requestsPerSecond": "Solicitudes/Segundo",
     "activeConnections": "Conexiones Activas"
   },
+  "vcTestMode": {
+    "badge": "Modo de Prueba VC",
+    "title": "Plataforma TBURN",
+    "subtitle": "Entorno de Prueba de Inversión",
+    "description": "Experimente todas las capacidades de TBURN Mainnet con una billetera demo pre-financiada. Pruebe todas las funciones DeFi, explore nuestra orquestación de IA y evalúe nuestra tecnología.",
+    "startTour": "Iniciar Tour Guiado",
+    "explorePlatform": "Explorar Plataforma",
+    "demoWallet": "Billetera Demo",
+    "testFunds": "Fondos de prueba para evaluación de plataforma. Sin valor real.",
+    "walletCopied": "Dirección de billetera copiada",
+    "walletReset": "Billetera demo reiniciada",
+    "walletResetDesc": "Su billetera demo ha sido reiniciada al saldo inicial",
+    "quickStats": "Estadísticas Rápidas",
+    "tokenomics": "Tokenomics",
+    "networkStatus": "Estado de la Red",
+    "quickAccess": "Acceso Rápido",
+    "growthMetrics": "Métricas de Crecimiento",
+    "competitiveEdge": "Ventaja Competitiva",
+    "aiSystem": "Sistema de IA Quad-Band",
+    "security": "Arquitectura de Seguridad",
+    "techStack": "Stack Tecnológico",
+    "tabs": {
+      "overview": "Resumen",
+      "features": "Características",
+      "metrics": "Métricas",
+      "tech": "Tecnología"
+    },
+    "stats": {
+      "marketCap": "Cap. de Mercado",
+      "tvl": "Valor Total Bloqueado",
+      "dailyVolume": "Volumen Diario",
+      "activeWallets": "Billeteras Activas",
+      "totalSupply": "Suministro Total",
+      "circulating": "Circulante",
+      "burned": "Quemado",
+      "status": "Estado",
+      "operational": "Operativo",
+      "validators": "Validadores",
+      "shards": "Shards Activos",
+      "tps": "TPS",
+      "blockTime": "Tiempo de Bloque"
+    },
+    "metrics": {
+      "userGrowth": "Crecimiento Anual de Usuarios",
+      "tvl": "Valor Total Bloqueado",
+      "activeUsers": "Usuarios Activos Mensuales",
+      "validators": "Validadores Activos"
+    },
+    "edge": {
+      "aiOrchestration": "Orquestación de IA Quad-Band",
+      "dynamicSharding": "Sharding Dinámico con IA",
+      "quantumResistant": "Firmas Resistentes a Cuántica",
+      "deflationary": "Deflación Impulsada por IA (70%)",
+      "crossChain": "Puente Cross-Chain"
+    },
+    "ai": {
+      "primary": "Primario - Optimización de red",
+      "analysis": "Análisis - Auditoría de contratos",
+      "prediction": "Predicción - Análisis de mercado",
+      "fallback": "Respaldo - Capa de redundancia"
+    },
+    "sec": {
+      "consensus": "Consenso",
+      "signatures": "Firmas",
+      "audit": "Estado de Auditoría",
+      "insurance": "Fondo de Seguro"
+    },
+    "stack": {
+      "blockchain": "Blockchain Independiente",
+      "throughput": "Rendimiento de Transacciones",
+      "finality": "Finalidad del Bloque",
+      "gasFee": "Comisión de Gas Promedio"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "Comenzar",

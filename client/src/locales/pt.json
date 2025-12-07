@@ -3654,6 +3654,80 @@
       }
     }
   },
+  "vcTestMode": {
+    "badge": "Modo de Teste VC",
+    "title": "Plataforma TBURN",
+    "subtitle": "Ambiente de Teste de Investimento",
+    "description": "Experimente todas as capacidades do TBURN Mainnet com uma carteira demo pré-financiada. Teste todas as funcionalidades DeFi, explore nossa orquestração de IA e avalie nossa tecnologia.",
+    "startTour": "Iniciar Tour Guiado",
+    "explorePlatform": "Explorar Plataforma",
+    "demoWallet": "Carteira Demo",
+    "testFunds": "Fundos de teste para avaliação da plataforma. Sem valor real.",
+    "walletCopied": "Endereço da carteira copiado",
+    "walletReset": "Carteira demo reiniciada",
+    "walletResetDesc": "Sua carteira demo foi reiniciada para o saldo inicial",
+    "quickStats": "Estatísticas Rápidas",
+    "tokenomics": "Tokenomics",
+    "networkStatus": "Status da Rede",
+    "quickAccess": "Acesso Rápido",
+    "growthMetrics": "Métricas de Crescimento",
+    "competitiveEdge": "Vantagem Competitiva",
+    "aiSystem": "Sistema de IA Quad-Band",
+    "security": "Arquitetura de Segurança",
+    "techStack": "Stack Tecnológica",
+    "tabs": {
+      "overview": "Visão Geral",
+      "features": "Recursos",
+      "metrics": "Métricas",
+      "tech": "Tecnologia"
+    },
+    "stats": {
+      "marketCap": "Cap. de Mercado",
+      "tvl": "Valor Total Bloqueado",
+      "dailyVolume": "Volume Diário",
+      "activeWallets": "Carteiras Ativas",
+      "totalSupply": "Fornecimento Total",
+      "circulating": "Circulante",
+      "burned": "Queimado",
+      "status": "Status",
+      "operational": "Operacional",
+      "validators": "Validadores",
+      "shards": "Shards Ativos",
+      "tps": "TPS",
+      "blockTime": "Tempo de Bloco"
+    },
+    "metrics": {
+      "userGrowth": "Crescimento Anual de Usuários",
+      "tvl": "Valor Total Bloqueado",
+      "activeUsers": "Usuários Ativos Mensais",
+      "validators": "Validadores Ativos"
+    },
+    "edge": {
+      "aiOrchestration": "Orquestração de IA Quad-Band",
+      "dynamicSharding": "Sharding Dinâmico com IA",
+      "quantumResistant": "Assinaturas Resistentes a Quântica",
+      "deflationary": "Deflação Impulsionada por IA (70%)",
+      "crossChain": "Ponte Cross-Chain"
+    },
+    "ai": {
+      "primary": "Primário - Otimização de rede",
+      "analysis": "Análise - Auditoria de contratos",
+      "prediction": "Previsão - Análise de mercado",
+      "fallback": "Backup - Camada de redundância"
+    },
+    "sec": {
+      "consensus": "Consenso",
+      "signatures": "Assinaturas",
+      "audit": "Status de Auditoria",
+      "insurance": "Fundo de Seguro"
+    },
+    "stack": {
+      "blockchain": "Blockchain Independente",
+      "throughput": "Throughput de Transações",
+      "finality": "Finalidade do Bloco",
+      "gasFee": "Taxa de Gas Média"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "Começar",

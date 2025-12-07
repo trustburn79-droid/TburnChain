@@ -2779,6 +2779,80 @@
       }
     }
   },
+  "vcTestMode": {
+    "badge": "VC ٹیسٹ موڈ",
+    "title": "TBURN پلیٹ فارم",
+    "subtitle": "سرمایہ کاری ٹیسٹ ماحول",
+    "description": "پہلے سے فنڈڈ ڈیمو والیٹ کے ساتھ TBURN مین نیٹ کی مکمل صلاحیتوں کا تجربہ کریں۔ تمام DeFi خصوصیات کی جانچ کریں، ہماری AI آرکیسٹریشن کا جائزہ لیں، اور ہماری ٹیکنالوجی کا اندازہ لگائیں۔",
+    "startTour": "گائیڈڈ ٹور شروع کریں",
+    "explorePlatform": "پلیٹ فارم دریافت کریں",
+    "demoWallet": "ڈیمو والیٹ",
+    "testFunds": "پلیٹ فارم تشخیص کے لیے ٹیسٹ فنڈز۔ کوئی حقیقی قدر نہیں۔",
+    "walletCopied": "والیٹ پتہ کاپی ہوگیا",
+    "walletReset": "ڈیمو والیٹ ری سیٹ",
+    "walletResetDesc": "آپ کا ڈیمو والیٹ ابتدائی بیلنس پر ری سیٹ ہو گیا ہے",
+    "quickStats": "فوری اعداد و شمار",
+    "tokenomics": "ٹوکنومکس",
+    "networkStatus": "نیٹ ورک کی حیثیت",
+    "quickAccess": "فوری رسائی",
+    "growthMetrics": "ترقی کے میٹرکس",
+    "competitiveEdge": "مسابقتی فائدہ",
+    "aiSystem": "کواڈ بینڈ AI سسٹم",
+    "security": "سیکیورٹی آرکیٹیکچر",
+    "techStack": "ٹیکنالوجی اسٹیک",
+    "tabs": {
+      "overview": "جائزہ",
+      "features": "خصوصیات",
+      "metrics": "میٹرکس",
+      "tech": "ٹیکنالوجی"
+    },
+    "stats": {
+      "marketCap": "مارکیٹ کیپ",
+      "tvl": "کل لاک ویلیو",
+      "dailyVolume": "روزانہ حجم",
+      "activeWallets": "فعال والیٹس",
+      "totalSupply": "کل سپلائی",
+      "circulating": "گردش میں",
+      "burned": "جلا دیا گیا",
+      "status": "حیثیت",
+      "operational": "فعال",
+      "validators": "توثیق کار",
+      "shards": "فعال شارڈز",
+      "tps": "TPS",
+      "blockTime": "بلاک ٹائم"
+    },
+    "metrics": {
+      "userGrowth": "سالانہ صارف ترقی",
+      "tvl": "کل لاک ویلیو",
+      "activeUsers": "ماہانہ فعال صارفین",
+      "validators": "فعال توثیق کار"
+    },
+    "edge": {
+      "aiOrchestration": "کواڈ بینڈ AI آرکیسٹریشن",
+      "dynamicSharding": "ڈائنامک AI شارڈنگ",
+      "quantumResistant": "کوانٹم مزاحم دستخط",
+      "deflationary": "AI سے چلنے والی افراط زر (70%)",
+      "crossChain": "کراس چین برج"
+    },
+    "ai": {
+      "primary": "پرائمری - نیٹ ورک آپٹیمائزیشن",
+      "analysis": "تجزیہ - سمارٹ کنٹریکٹ آڈٹ",
+      "prediction": "پیشگوئی - مارکیٹ تجزیات",
+      "fallback": "فال بیک - ریڈنڈنسی لیئر"
+    },
+    "sec": {
+      "consensus": "اتفاق رائے",
+      "signatures": "دستخط",
+      "audit": "آڈٹ کی حیثیت",
+      "insurance": "انشورنس فنڈ"
+    },
+    "stack": {
+      "blockchain": "آزاد بلاکچین",
+      "throughput": "لین دین تھروپٹ",
+      "finality": "بلاک فائنلٹی",
+      "gasFee": "اوسط گیس فیس"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "شروع کریں",
