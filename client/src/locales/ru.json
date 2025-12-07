@@ -10418,7 +10418,14 @@
           "launchEvent": "Запуск",
           "amaSession": "AMA сессия",
           "seminar": "Технический семинар",
-          "training": "Обучающий воркшоп"
+          "training": "Обучающий воркшоп",
+          "ama": "AMA",
+          "workshop": "Воркшоп",
+          "hackathon": "Хакатон",
+          "meetup": "Встреча",
+          "conference": "Конференция",
+          "airdrop": "Аирдроп",
+          "competition": "Соревнование"
         },
         "buttons": {
           "registerNow": "Зарегистрироваться",
@@ -10695,7 +10702,21 @@
                 "2": "Минимальный стейк: 100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "Онлайн",
+          "inPerson": "Очно",
+          "onlineLocation": "Онлайн (Zoom/Discord)",
+          "upcoming": "Предстоящее",
+          "rewards": "Награды",
+          "participantRewards": "Награды участников",
+          "registeredCount": "Зарегистрировано",
+          "spotsRemaining": "мест осталось",
+          "notify": "Уведомить",
+          "share": "Поделиться",
+          "type": "Тип",
+          "date": "Дата",
+          "time": "Время",
+          "location": "Место"
         },
         "items": {
           "launchAma": {

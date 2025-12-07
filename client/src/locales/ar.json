@@ -11018,7 +11018,14 @@
           "launchEvent": "حدث الإطلاق",
           "amaSession": "جلسة AMA",
           "seminar": "ندوة تقنية",
-          "training": "ورشة تدريبية"
+          "training": "ورشة تدريبية",
+          "ama": "AMA",
+          "workshop": "ورشة عمل",
+          "hackathon": "هاكاثون",
+          "meetup": "لقاء",
+          "conference": "مؤتمر",
+          "airdrop": "إيردروب",
+          "competition": "مسابقة"
         },
         "locations": {
           "online": "عبر الإنترنت",
@@ -11111,7 +11118,7 @@
           "youAreRegistered": "أنت مسجل!",
           "registerNow": "سجل الآن",
           "remindMe": "ذكرني",
-          "eventDetails": "تفاصيل الفعالية",
+          "eventDetails": "تفاصيل الحدث",
           "wantToHost": "تريد استضافة فعالية؟",
           "registered": "تم التسجيل بنجاح!",
           "registeredDesc": "تم تسجيلك في هذه الفعالية. تحقق من بريدك الإلكتروني للتفاصيل.",
@@ -11344,7 +11351,21 @@
                 "2": "الحد الأدنى للتخزين: 100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "عبر الإنترنت",
+          "inPerson": "حضوري",
+          "onlineLocation": "عبر الإنترنت (Zoom/Discord)",
+          "upcoming": "قادم",
+          "rewards": "المكافآت",
+          "participantRewards": "مكافآت المشاركين",
+          "registeredCount": "مسجل",
+          "spotsRemaining": "أماكن متبقية",
+          "notify": "إشعار",
+          "share": "مشاركة",
+          "type": "النوع",
+          "date": "التاريخ",
+          "time": "الوقت",
+          "location": "الموقع"
         },
         "items": {
           "launchAma": {

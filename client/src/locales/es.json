@@ -12663,7 +12663,14 @@
           "launchEvent": "Evento de Lanzamiento",
           "amaSession": "Sesión AMA",
           "seminar": "Seminario Técnico",
-          "training": "Taller de Capacitación"
+          "training": "Taller de Capacitación",
+          "ama": "AMA",
+          "workshop": "Taller",
+          "hackathon": "Hackathon",
+          "meetup": "Encuentro",
+          "conference": "Conferencia",
+          "airdrop": "Airdrop",
+          "competition": "Competición"
         },
         "locations": {
           "online": "En Línea",
@@ -12752,7 +12759,7 @@
           "youAreRegistered": "¡Estás Registrado!",
           "registerNow": "Registrarse Ahora",
           "remindMe": "Recordarme",
-          "eventDetails": "Detalles del Evento",
+          "eventDetails": "Detalles del evento",
           "wantToHost": "¿Quieres organizar un evento?",
           "registered": "¡Registro Exitoso!",
           "registeredDesc": "Se ha registrado para este evento. Revise su email para más detalles.",
@@ -12985,7 +12992,21 @@
                 "2": "Requisito mínimo de stake: 100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "En línea",
+          "inPerson": "Presencial",
+          "onlineLocation": "En línea (Zoom/Discord)",
+          "upcoming": "Próximo",
+          "rewards": "Recompensas",
+          "participantRewards": "Recompensas para participantes",
+          "registeredCount": "Registrados",
+          "spotsRemaining": "lugares disponibles",
+          "notify": "Notificar",
+          "share": "Compartir",
+          "type": "Tipo",
+          "date": "Fecha",
+          "time": "Hora",
+          "location": "Ubicación"
         },
         "past": "Eventos Pasados",
         "noEvents": "No hay eventos próximos programados",

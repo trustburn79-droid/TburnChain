@@ -136,9 +136,18 @@ export default function EventDetail() {
   const capacity = { current: event.participants, max: event.maxParticipants || 1000 };
   const capacityPercentage = (capacity.current / capacity.max) * 100;
 
+  const getLocaleForDate = () => {
+    const localeMap: Record<string, string> = {
+      en: 'en-US', ko: 'ko-KR', zh: 'zh-CN', ja: 'ja-JP',
+      es: 'es-ES', fr: 'fr-FR', ru: 'ru-RU', ar: 'ar-SA',
+      hi: 'hi-IN', bn: 'bn-BD', pt: 'pt-BR', ur: 'ur-PK'
+    };
+    return localeMap[currentLang] || 'en-US';
+  };
+
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', { 
+    return date.toLocaleDateString(getLocaleForDate(), { 
       year: 'numeric', 
       month: 'long', 
       day: 'numeric' 
@@ -147,7 +156,7 @@ export default function EventDetail() {
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleTimeString(isKorean ? 'ko-KR' : 'en-US', { 
+    return date.toLocaleTimeString(getLocaleForDate(), { 
       hour: '2-digit', 
       minute: '2-digit',
       timeZoneName: 'short'
@@ -155,19 +164,10 @@ export default function EventDetail() {
   };
 
   const LocationIcon = event.isOnline ? Video : MapPin;
-  const locationType = event.isOnline ? (isKorean ? '온라인' : 'Online') : (isKorean ? '오프라인' : 'In-Person');
-  const location = event.location || (event.isOnline ? (isKorean ? '온라인 (Zoom/Discord)' : 'Online (Zoom/Discord)') : '');
+  const locationType = event.isOnline ? t('publicPages.community.events.detail.online') : t('publicPages.community.events.detail.inPerson');
+  const location = event.location || (event.isOnline ? t('publicPages.community.events.detail.onlineLocation') : '');
 
-  const typeLabels: Record<string, { en: string; ko: string }> = {
-    ama: { en: 'AMA', ko: 'AMA' },
-    workshop: { en: 'Workshop', ko: '워크숍' },
-    hackathon: { en: 'Hackathon', ko: '해커톤' },
-    meetup: { en: 'Meetup', ko: '밋업' },
-    conference: { en: 'Conference', ko: '컨퍼런스' },
-    airdrop: { en: 'Airdrop', ko: '에어드롭' },
-    competition: { en: 'Competition', ko: '경쟁' }
-  };
-  const typeLabel = isKorean ? (typeLabels[event.type]?.ko || event.type) : (typeLabels[event.type]?.en || event.type);
+  const typeLabel = t(`publicPages.community.events.types.${event.type}`);
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors">
@@ -182,7 +182,7 @@ export default function EventDetail() {
             <Badge className="bg-white/90 text-black">{typeLabel}</Badge>
             <Badge className="bg-green-500/90 text-white capitalize">{locationType}</Badge>
             {event.status === 'upcoming' && (
-              <Badge className="bg-blue-500/90 text-white">{isKorean ? '예정' : 'Upcoming'}</Badge>
+              <Badge className="bg-blue-500/90 text-white">{t('publicPages.community.events.detail.upcoming')}</Badge>
             )}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>
@@ -209,7 +209,7 @@ export default function EventDetail() {
             {event.rewards && (
               <section>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  {isKorean ? '보상' : 'Rewards'}
+                  {t('publicPages.community.events.detail.rewards')}
                 </h2>
                 <Card className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border-yellow-500/30">
                   <CardContent className="p-6">
@@ -219,7 +219,7 @@ export default function EventDetail() {
                       </div>
                       <div>
                         <p className="text-yellow-400 font-bold text-xl">{event.rewards}</p>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">{isKorean ? '참가자 보상' : 'Participant Rewards'}</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{t('publicPages.community.events.detail.participantRewards')}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -237,12 +237,12 @@ export default function EventDetail() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '참가자' : 'Registered'}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.community.events.detail.registeredCount')}</span>
                   <span className="text-gray-900 dark:text-white font-mono">{capacity.current.toLocaleString()} / {capacity.max.toLocaleString()}</span>
                 </div>
                 <Progress value={capacityPercentage} className="h-2" />
                 <p className="text-xs text-gray-500">
-                  {Math.round(100 - capacityPercentage)}% {isKorean ? '남은 자리' : 'spots remaining'}
+                  {Math.round(100 - capacityPercentage)}% {t('publicPages.community.events.detail.spotsRemaining')}
                 </p>
 
                 {isRegistered || event.isRegistered ? (
@@ -260,11 +260,11 @@ export default function EventDetail() {
                 <div className="flex gap-2">
                   <Button variant="outline" className="flex-1 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={handleNotification}>
                     <Bell className="w-4 h-4 mr-1" />
-                    {isKorean ? '알림' : 'Notify'}
+                    {t('publicPages.community.events.detail.notify')}
                   </Button>
                   <Button variant="outline" className="flex-1 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={handleShare}>
                     <Share2 className="w-4 h-4 mr-1" />
-                    {isKorean ? '공유' : 'Share'}
+                    {t('publicPages.community.events.detail.share')}
                   </Button>
                 </div>
               </CardContent>
@@ -273,29 +273,29 @@ export default function EventDetail() {
             <Card className="bg-white dark:bg-white/5 border-gray-300 dark:border-white/10 shadow-sm">
               <CardHeader>
                 <CardTitle className="text-gray-900 dark:text-white text-lg">
-                  {isKorean ? '이벤트 정보' : 'Event Details'}
+                  {t('publicPages.community.events.detail.eventDetails')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '유형' : 'Type'}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.community.events.detail.type')}</span>
                   <span className="text-gray-900 dark:text-white">{typeLabel}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '날짜' : 'Date'}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.community.events.detail.date')}</span>
                   <span className="text-gray-900 dark:text-white">{formatDate(event.startDate)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '시간' : 'Time'}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.community.events.detail.time')}</span>
                   <span className="text-gray-900 dark:text-white">{formatTime(event.startDate)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '장소' : 'Location'}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.community.events.detail.location')}</span>
                   <span className="text-gray-900 dark:text-white">{locationType}</span>
                 </div>
                 {event.rewards && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">{isKorean ? '보상' : 'Rewards'}</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('publicPages.community.events.detail.rewards')}</span>
                     <span className="text-yellow-400">{event.rewards}</span>
                   </div>
                 )}

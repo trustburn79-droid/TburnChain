@@ -11665,7 +11665,14 @@
           "launchEvent": "लॉन्च इवेंट",
           "amaSession": "AMA सेशन",
           "seminar": "तकनीकी सेमिनार",
-          "training": "ट्रेनिंग वर्कशॉप"
+          "training": "ट्रेनिंग वर्कशॉप",
+          "ama": "AMA",
+          "workshop": "कार्यशाला",
+          "hackathon": "हैकाथॉन",
+          "meetup": "मीटअप",
+          "conference": "सम्मेलन",
+          "airdrop": "एयरड्रॉप",
+          "competition": "प्रतियोगिता"
         },
         "locations": {
           "online": "ऑनलाइन",
@@ -11991,7 +11998,21 @@
                 "2": "न्यूनतम स्टेक आवश्यकता: 100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "ऑनलाइन",
+          "inPerson": "व्यक्तिगत",
+          "onlineLocation": "ऑनलाइन (Zoom/Discord)",
+          "upcoming": "आगामी",
+          "rewards": "पुरस्कार",
+          "participantRewards": "प्रतिभागी पुरस्कार",
+          "registeredCount": "पंजीकृत",
+          "spotsRemaining": "स्थान शेष",
+          "notify": "सूचित करें",
+          "share": "साझा करें",
+          "type": "प्रकार",
+          "date": "तारीख",
+          "time": "समय",
+          "location": "स्थान"
         },
         "items": {
           "launchAma": {

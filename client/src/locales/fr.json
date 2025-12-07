@@ -11124,7 +11124,7 @@
           "youAreRegistered": "Vous Êtes Inscrit !",
           "registerNow": "S'inscrire Maintenant",
           "remindMe": "Me Rappeler",
-          "eventDetails": "Détails de l'Événement",
+          "eventDetails": "Détails de l'événement",
           "wantToHost": "Vous voulez organiser un événement ?",
           "registered": "Inscription Réussie !",
           "registeredDesc": "Vous êtes inscrit à cet événement. Consultez votre email pour les détails.",
@@ -11357,7 +11357,21 @@
                 "2": "Exigence minimale de stake : 100 000 TBURN"
               }
             }
-          }
+          },
+          "online": "En ligne",
+          "inPerson": "En personne",
+          "onlineLocation": "En ligne (Zoom/Discord)",
+          "upcoming": "À venir",
+          "rewards": "Récompenses",
+          "participantRewards": "Récompenses des participants",
+          "registeredCount": "Inscrits",
+          "spotsRemaining": "places restantes",
+          "notify": "Notifier",
+          "share": "Partager",
+          "type": "Type",
+          "date": "Date",
+          "time": "Heure",
+          "location": "Lieu"
         },
         "featuredTitle": "Événements à la Une",
         "upcomingTitle": "Événements à Venir",
@@ -11366,7 +11380,14 @@
           "launchEvent": "Événement de Lancement",
           "amaSession": "Session AMA",
           "seminar": "Séminaire Technique",
-          "training": "Atelier de Formation"
+          "training": "Atelier de Formation",
+          "ama": "AMA",
+          "workshop": "Atelier",
+          "hackathon": "Hackathon",
+          "meetup": "Rencontre",
+          "conference": "Conférence",
+          "airdrop": "Airdrop",
+          "competition": "Compétition"
         },
         "locations": {
           "online": "En Ligne",

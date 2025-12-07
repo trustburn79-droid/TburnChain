@@ -14518,7 +14518,14 @@
           "launchEvent": "런칭 이벤트",
           "amaSession": "AMA 세션",
           "seminar": "기술 세미나",
-          "training": "트레이닝 워크숍"
+          "training": "트레이닝 워크숍",
+          "ama": "AMA",
+          "workshop": "워크숍",
+          "hackathon": "해커톤",
+          "meetup": "밋업",
+          "conference": "컨퍼런스",
+          "airdrop": "에어드롭",
+          "competition": "경쟁"
         },
         "locations": {
           "online": "온라인",
@@ -14612,7 +14619,7 @@
           "youAreRegistered": "등록 완료!",
           "registerNow": "지금 등록",
           "remindMe": "알림 받기",
-          "eventDetails": "이벤트 상세",
+          "eventDetails": "이벤트 정보",
           "wantToHost": "이벤트를 주최하고 싶으신가요?",
           "registered": "등록 성공!",
           "registeredDesc": "이벤트에 등록되었습니다. 세부 정보는 이메일을 확인해 주세요.",
@@ -14845,7 +14852,21 @@
                 "2": "최소 스테이킹 요구 사항: 100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "온라인",
+          "inPerson": "오프라인",
+          "onlineLocation": "온라인 (Zoom/Discord)",
+          "upcoming": "예정",
+          "rewards": "보상",
+          "participantRewards": "참가자 보상",
+          "registeredCount": "참가자",
+          "spotsRemaining": "남은 자리",
+          "notify": "알림",
+          "share": "공유",
+          "type": "유형",
+          "date": "날짜",
+          "time": "시간",
+          "location": "장소"
         },
         "online": "온라인",
         "inPerson": "오프라인",

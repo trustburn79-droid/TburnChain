@@ -9494,7 +9494,14 @@
           "launchEvent": "লঞ্চ ইভেন্ট",
           "amaSession": "AMA সেশন",
           "seminar": "টেকনিক্যাল সেমিনার",
-          "training": "ট্রেনিং ওয়ার্কশপ"
+          "training": "ট্রেনিং ওয়ার্কশপ",
+          "ama": "AMA",
+          "workshop": "কর্মশালা",
+          "hackathon": "হ্যাকাথন",
+          "meetup": "মিটআপ",
+          "conference": "সম্মেলন",
+          "airdrop": "এয়ারড্রপ",
+          "competition": "প্রতিযোগিতা"
         },
         "locations": {
           "online": "অনলাইন",
@@ -9606,6 +9613,23 @@
             "title": "কমিউনিটি এয়ারড্রপ ইভেন্ট",
             "description": "সক্রিয় কমিউনিটি সদস্যদের জন্য একচেটিয়া এয়ারড্রপ। পুরস্কার অর্জন করতে টাস্ক সম্পূর্ণ করুন!"
           }
+        },
+        "detail": {
+          "online": "অনলাইন",
+          "inPerson": "সরাসরি",
+          "onlineLocation": "অনলাইন (Zoom/Discord)",
+          "upcoming": "আসন্ন",
+          "rewards": "পুরস্কার",
+          "participantRewards": "অংশগ্রহণকারী পুরস্কার",
+          "registeredCount": "নিবন্ধিত",
+          "spotsRemaining": "স্থান বাকি",
+          "notify": "জানান",
+          "share": "শেয়ার",
+          "eventDetails": "ইভেন্ট বিবরণ",
+          "type": "ধরন",
+          "date": "তারিখ",
+          "time": "সময়",
+          "location": "অবস্থান"
         }
       },
       "time": {

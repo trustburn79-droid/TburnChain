@@ -14007,7 +14007,14 @@
           "launchEvent": "Launch Event",
           "amaSession": "AMA Session",
           "seminar": "Technical Seminar",
-          "training": "Training Workshop"
+          "training": "Training Workshop",
+          "ama": "AMA",
+          "workshop": "Workshop",
+          "hackathon": "Hackathon",
+          "meetup": "Meetup",
+          "conference": "Conference",
+          "airdrop": "Airdrop",
+          "competition": "Competition"
         },
         "locations": {
           "online": "Online",
@@ -14334,7 +14341,21 @@
                 "2": "Minimum stake requirement: 100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "Online",
+          "inPerson": "In-Person",
+          "onlineLocation": "Online (Zoom/Discord)",
+          "upcoming": "Upcoming",
+          "rewards": "Rewards",
+          "participantRewards": "Participant Rewards",
+          "registeredCount": "Registered",
+          "spotsRemaining": "spots remaining",
+          "notify": "Notify",
+          "share": "Share",
+          "type": "Type",
+          "date": "Date",
+          "time": "Time",
+          "location": "Location"
         },
         "online": "Online",
         "inPerson": "In Person",

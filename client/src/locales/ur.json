@@ -9563,7 +9563,7 @@
           "youAreRegistered": "آپ رجسٹرڈ ہیں!",
           "registerNow": "ابھی رجسٹر کریں",
           "remindMe": "مجھے یاد دلائیں",
-          "eventDetails": "تقریب کی تفصیلات",
+          "eventDetails": "ایونٹ کی تفصیلات",
           "wantToHost": "تقریب کی میزبانی کرنا چاہتے ہیں؟",
           "registered": "رجسٹریشن کامیاب!",
           "registeredDesc": "آپ اس تقریب کے لیے رجسٹرڈ ہو گئے ہیں۔ تفصیلات کے لیے اپنا ای میل چیک کریں۔",
@@ -9796,7 +9796,21 @@
                 "2": "کم از کم سٹیک ضرورت: 100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "آن لائن",
+          "inPerson": "ذاتی طور پر",
+          "onlineLocation": "آن لائن (Zoom/Discord)",
+          "upcoming": "آنے والا",
+          "rewards": "انعامات",
+          "participantRewards": "شرکاء کے انعامات",
+          "registeredCount": "رجسٹرڈ",
+          "spotsRemaining": "جگہیں باقی",
+          "notify": "مطلع کریں",
+          "share": "شیئر کریں",
+          "type": "قسم",
+          "date": "تاریخ",
+          "time": "وقت",
+          "location": "مقام"
         },
         "featuredTitle": "نمایاں ایونٹس",
         "upcomingTitle": "آنے والے ایونٹس",
@@ -9805,7 +9819,14 @@
           "launchEvent": "لانچ ایونٹ",
           "amaSession": "AMA سیشن",
           "seminar": "تکنیکی سیمینار",
-          "training": "ٹریننگ ورکشاپ"
+          "training": "ٹریننگ ورکشاپ",
+          "ama": "AMA",
+          "workshop": "ورکشاپ",
+          "hackathon": "ہیکاتھون",
+          "meetup": "ملاقات",
+          "conference": "کانفرنس",
+          "airdrop": "ایئرڈراپ",
+          "competition": "مقابلہ"
         },
         "locations": {
           "online": "آن لائن",

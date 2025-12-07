@@ -13951,7 +13951,14 @@
           "launchEvent": "ローンチイベント",
           "amaSession": "AMAセッション",
           "seminar": "技術セミナー",
-          "training": "トレーニングワークショップ"
+          "training": "トレーニングワークショップ",
+          "ama": "AMA",
+          "workshop": "ワークショップ",
+          "hackathon": "ハッカソン",
+          "meetup": "ミートアップ",
+          "conference": "カンファレンス",
+          "airdrop": "エアドロップ",
+          "competition": "コンペティション"
         },
         "locations": {
           "online": "オンライン",
@@ -14277,7 +14284,21 @@
                 "2": "最低ステーキング要件：100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "オンライン",
+          "inPerson": "対面",
+          "onlineLocation": "オンライン (Zoom/Discord)",
+          "upcoming": "予定",
+          "rewards": "報酬",
+          "participantRewards": "参加者報酬",
+          "registeredCount": "登録済み",
+          "spotsRemaining": "残り枠",
+          "notify": "通知",
+          "share": "共有",
+          "type": "タイプ",
+          "date": "日付",
+          "time": "時間",
+          "location": "場所"
         },
         "items": {
           "launchAma": {

@@ -13088,7 +13088,14 @@
           "launchEvent": "发布活动",
           "amaSession": "AMA会议",
           "seminar": "技术研讨会",
-          "training": "培训工作坊"
+          "training": "培训工作坊",
+          "ama": "AMA",
+          "workshop": "工作坊",
+          "hackathon": "黑客松",
+          "meetup": "聚会",
+          "conference": "会议",
+          "airdrop": "空投",
+          "competition": "竞赛"
         },
         "eventTypes": {
           "launchEvent": "发布活动",
@@ -13414,7 +13421,21 @@
                 "2": "最低质押要求：100,000 TBURN"
               }
             }
-          }
+          },
+          "online": "线上",
+          "inPerson": "线下",
+          "onlineLocation": "线上 (Zoom/Discord)",
+          "upcoming": "即将举行",
+          "rewards": "奖励",
+          "participantRewards": "参与者奖励",
+          "registeredCount": "已注册",
+          "spotsRemaining": "剩余名额",
+          "notify": "通知",
+          "share": "分享",
+          "type": "类型",
+          "date": "日期",
+          "time": "时间",
+          "location": "地点"
         },
         "items": {
           "launchAma": {
