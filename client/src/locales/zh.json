@@ -1,5 +1,7 @@
 {
   "common": {
+    "testLabel": "测试",
+    "testnetMessage": "此页面显示测试数据",
     "id": "ID",
     "loading": "加载中...",
     "error": "错误",
@@ -6570,6 +6572,8 @@
   },
   "publicPages": {
     "common": {
+    "testLabel": "测试",
+    "testnetMessage": "此页面显示测试数据",
       "getStarted": "开始使用",
       "learnMore": "了解更多",
       "viewDocs": "查看文档",
@@ -14124,6 +14128,8 @@
         }
       },
       "common": {
+    "testLabel": "测试",
+    "testnetMessage": "此页面显示测试数据",
         "backToHome": "返回 to 首页",
         "learnMore": "了解更多",
         "relatedDocs": "相关 文档",

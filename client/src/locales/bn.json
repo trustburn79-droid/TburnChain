@@ -1,5 +1,7 @@
 {
   "common": {
+    "testLabel": "পরীক্ষা",
+    "testnetMessage": "এই পৃষ্ঠাটি পরীক্ষামূলক ডেটা প্রদর্শন করে",
     "loading": "লোড হচ্ছে...",
     "error": "ত্রুটি",
     "success": "সফল",
@@ -2983,6 +2985,8 @@
   },
   "publicPages": {
     "common": {
+    "testLabel": "পরীক্ষা",
+    "testnetMessage": "এই পৃষ্ঠাটি পরীক্ষামূলক ডেটা প্রদর্শন করে",
       "getStarted": "শুরু করুন",
       "learnMore": "আরও জানুন",
       "viewDocs": "ডক্স দেখুন",
@@ -10284,6 +10288,8 @@
         }
       },
       "common": {
+    "testLabel": "পরীক্ষা",
+    "testnetMessage": "এই পৃষ্ঠাটি পরীক্ষামূলক ডেটা প্রদর্শন করে",
         "backToHome": "ফিরে যান Home",
         "learnMore": "আরও জানুন",
         "relatedDocs": "সম্পর্কিত নথি",
