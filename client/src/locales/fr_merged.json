@@ -78,7 +78,7 @@
     "page": "Page"
   },
   "nav": {
-    "brand": "TBURN Chain Mainnet",
+    "brand": "TBURN Lab Mainnet",
     "explorer": "Explorateur",
     "dashboard": "Tableau de bord",
     "blocks": "Blocs",
@@ -891,7 +891,7 @@
     "deploying": "Deploying...",
     "deploymentSuccess": "Deployment Successful",
     "tokenDeployed": "Token Deployed Successfully",
-    "tokenDeployedDesc": "{{name}} ({{symbol}}) has been deployed to TBURN Chain.",
+    "tokenDeployedDesc": "{{name}} ({{symbol}}) has been deployed to TBURN Lab.",
     "deploymentFailed": "Deployment Failed",
     "contractAddress": "Contract Address",
     "transactionHash": "Transaction Hash",
@@ -902,7 +902,7 @@
     "viewContract": "View Contract",
     "createAnother": "Create Another Token",
     "searchTracking": "Enterprise Token Search & Tracking",
-    "searchTrackingDesc": "Search, filter, and track tokens deployed on TBURN Chain with real-time analytics",
+    "searchTrackingDesc": "Search, filter, and track tokens deployed on TBURN Lab with real-time analytics",
     "searchPlaceholder": "Rechercher par nom, symbole ou adresse...",
     "allStandards": "Tous les standards",
     "holders": "Détenteurs",
@@ -927,7 +927,7 @@
     "securityTitle": "Security",
     "aiAnalysis": "AI Analysis",
     "enterpriseTokenSearch": "Enterprise Token Search & Tracking",
-    "searchDescription": "Search, filter, and track tokens deployed on TBURN Chain with real-time analytics",
+    "searchDescription": "Search, filter, and track tokens deployed on TBURN Lab with real-time analytics",
     "pageOf": "Page {{page}} of {{total}}",
     "name": "Name",
     "tbc20Description": "Enhanced fungible token standard with AI optimization",
@@ -3320,7 +3320,7 @@
     "network": "Réseau"
   },
   "login": {
-    "title": "TBURN Chain",
+    "title": "TBURN Lab",
     "subtitle": "Explorateur blockchain Mainnet",
     "password": "Mot de passe",
     "enterPassword": "Entrer le mot de passe",

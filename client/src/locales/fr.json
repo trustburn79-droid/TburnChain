@@ -107,7 +107,7 @@
     "clickForDetails": "Cliquer pour Détails"
   },
   "nav": {
-    "brand": "TBURN Chain Mainnet",
+    "brand": "TBURN Lab Mainnet",
     "explorer": "Explorateur",
     "dashboard": "Tableau de bord",
     "blocks": "Blocs",
@@ -3628,7 +3628,7 @@
     "network": "Réseau"
   },
   "login": {
-    "title": "TBURN Chain",
+    "title": "TBURN Lab",
     "subtitle": "Explorateur Blockchain Mainnet",
     "password": "Mot de passe",
     "enterPassword": "Entrer le mot de passe",
@@ -10310,7 +10310,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "TBURN V4 Mainnet Officiellement Lancé",
-            "description": "Après 18 mois de développement, TBURN Chain V4 Mainnet est maintenant en ligne avec 500K+ TPS, Triple-Band AI et sécurité résistante aux attaques quantiques.",
+            "description": "Après 18 mois de développement, TBURN Lab V4 Mainnet est maintenant en ligne avec 500K+ TPS, Triple-Band AI et sécurité résistante aux attaques quantiques.",
             "author": "Fondation TBURN"
           },
           "tripleBandAi": {
@@ -10320,7 +10320,7 @@
           },
           "partnership": {
             "title": "Expansion Mondiale des Partenariats : 12 Nouvelles Intégrations",
-            "description": "TBURN Chain annonce des partenariats stratégiques avec des protocoles DeFi leaders, des exchanges et des clients entreprise en Asie, Europe et Amériques.",
+            "description": "TBURN Lab annonce des partenariats stratégiques avec des protocoles DeFi leaders, des exchanges et des clients entreprise en Asie, Europe et Amériques.",
             "author": "Développement Commercial"
           }
         },
@@ -10339,7 +10339,7 @@
           },
           "quantum": {
             "title": "Cryptographie Résistante aux Quantiques : Préparer TBURN pour l'Avenir",
-            "description": "Comment les signatures hybrides CRYSTALS-Dilithium et ED25519 protègent TBURN Chain contre les menaces émergentes de l'informatique quantique."
+            "description": "Comment les signatures hybrides CRYSTALS-Dilithium et ED25519 protègent TBURN Lab contre les menaces émergentes de l'informatique quantique."
           },
           "dex": {
             "title": "TBURN DEX Beta Lancé : Tradez avec Trust Scores",
@@ -10564,7 +10564,7 @@
           },
           "defiChallenge": {
             "title": "TBURN DeFi Challenge Hackathon",
-            "description": "Hackathon mondial de 48 heures avec 500K$ de prix. Construisez des solutions DeFi innovantes sur TBURN Chain et concourez pour des subventions et opportunités d'incubation."
+            "description": "Hackathon mondial de 48 heures avec 500K$ de prix. Construisez des solutions DeFi innovantes sur TBURN Lab et concourez pour des subventions et opportunités d'incubation."
           }
         },
         "upcoming": {

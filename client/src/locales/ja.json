@@ -6024,7 +6024,7 @@
     "failedToDeleteKey": "APIキーの削除に失敗しました"
   },
   "login": {
-    "title": "TBURN Chain",
+    "title": "TBURN Lab",
     "subtitle": "メインネットブロックチェーンエクスプローラー",
     "password": "パスワード",
     "enterPassword": "パスワードを入力",
@@ -13205,7 +13205,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "TBURN V4メインネット正式ローンチ",
-            "description": "18ヶ月の開発を経て、TBURN Chain V4メインネットが500K+ TPS、Triple-Band AI、量子耐性セキュリティと共にライブ。",
+            "description": "18ヶ月の開発を経て、TBURN Lab V4メインネットが500K+ TPS、Triple-Band AI、量子耐性セキュリティと共にライブ。",
             "author": "TBURN財団"
           },
           "tripleBandAi": {
@@ -13215,7 +13215,7 @@
           },
           "partnership": {
             "title": "グローバルパートナーシップ拡大：12の新統合",
-            "description": "TBURN Chainがアジア、ヨーロッパ、南北アメリカの主要DeFiプロトコル、取引所、企業クライアントとの戦略的パートナーシップを発表。",
+            "description": "TBURN Labがアジア、ヨーロッパ、南北アメリカの主要DeFiプロトコル、取引所、企業クライアントとの戦略的パートナーシップを発表。",
             "author": "事業開発部"
           }
         },
@@ -13234,7 +13234,7 @@
           },
           "quantum": {
             "title": "量子耐性暗号化：TBURNの将来への備え",
-            "description": "CRYSTALS-DilithiumとED25519ハイブリッド署名がTBURN Chainを新興量子コンピューティング脅威からどのように保護するかをご覧ください。"
+            "description": "CRYSTALS-DilithiumとED25519ハイブリッド署名がTBURN Labを新興量子コンピューティング脅威からどのように保護するかをご覧ください。"
           },
           "dex": {
             "title": "TBURN DEXベータローンチ：トラストスコアで取引",
@@ -13475,7 +13475,7 @@
           },
           "defiChallenge": {
             "title": "TBURN DeFiチャレンジハッカソン",
-            "description": "賞金50万ドルの48時間グローバルハッカソン。TBURN Chain上で革新的なDeFiソリューションを構築し、グラントとインキュベーション機会を競いましょう。"
+            "description": "賞金50万ドルの48時間グローバルハッカソン。TBURN Lab上で革新的なDeFiソリューションを構築し、グラントとインキュベーション機会を競いましょう。"
           }
         },
         "upcoming": {

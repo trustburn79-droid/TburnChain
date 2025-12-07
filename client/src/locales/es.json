@@ -107,7 +107,7 @@
     "clickForDetails": "Clic para Detalles"
   },
   "nav": {
-    "brand": "TBURN Chain Mainnet",
+    "brand": "TBURN Lab Mainnet",
     "explorer": "Explorador",
     "dashboard": "Panel de Control",
     "blocks": "Bloques",
@@ -1027,8 +1027,8 @@
     "securityImprovements": "Mejoras de seguridad recomendadas antes del despliegue.",
     "estimatedGas": "Gas Estimado",
     "findings": "Hallazgos",
-    "deployToTburn": "Desplegar en TBURN Chain",
-    "tokenDeployedDescStandard": "Tu token {{standard}} está ahora activo en TBURN Chain",
+    "deployToTburn": "Desplegar en TBURN Lab",
+    "tokenDeployedDescStandard": "Tu token {{standard}} está ahora activo en TBURN Lab",
     "contract": "Contrato",
     "transactionDetails": "Detalles de Transacción",
     "block": "Bloque",
@@ -4530,7 +4530,7 @@
     "disk": "Disco"
   },
   "login": {
-    "title": "TBURN Chain",
+    "title": "TBURN Lab",
     "subtitle": "Explorador de Blockchain Mainnet",
     "password": "Contraseña",
     "enterPassword": "Ingresa contraseña",
@@ -11913,7 +11913,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "TBURN V4 Mainnet Lanzado Oficialmente",
-            "description": "Después de 18 meses de desarrollo, TBURN Chain V4 Mainnet está activo con 500K+ TPS, Triple-Band AI y seguridad resistente a ataques cuánticos.",
+            "description": "Después de 18 meses de desarrollo, TBURN Lab V4 Mainnet está activo con 500K+ TPS, Triple-Band AI y seguridad resistente a ataques cuánticos.",
             "author": "Fundación TBURN"
           },
           "tripleBandAi": {
@@ -11923,7 +11923,7 @@
           },
           "partnership": {
             "title": "Expansión Global de Alianzas: 12 Nuevas Integraciones",
-            "description": "TBURN Chain anuncia alianzas estratégicas con protocolos DeFi líderes, exchanges y clientes empresariales en Asia, Europa y América.",
+            "description": "TBURN Lab anuncia alianzas estratégicas con protocolos DeFi líderes, exchanges y clientes empresariales en Asia, Europa y América.",
             "author": "Desarrollo de Negocios"
           }
         },
@@ -11942,7 +11942,7 @@
           },
           "quantum": {
             "title": "Criptografía Resistente a Cuánticos: Preparando TBURN para el Futuro",
-            "description": "Cómo las firmas híbridas CRYSTALS-Dilithium y ED25519 protegen a TBURN Chain contra amenazas emergentes de computación cuántica."
+            "description": "Cómo las firmas híbridas CRYSTALS-Dilithium y ED25519 protegen a TBURN Lab contra amenazas emergentes de computación cuántica."
           },
           "dex": {
             "title": "TBURN DEX Beta Lanzado: Opera con Trust Scores",
@@ -12183,7 +12183,7 @@
           },
           "defiChallenge": {
             "title": "TBURN DeFi Challenge Hackathon",
-            "description": "Hackathon global de 48 horas con $500K en premios. Construye soluciones DeFi innovadoras en TBURN Chain y compite por grants y oportunidades de incubación."
+            "description": "Hackathon global de 48 horas con $500K en premios. Construye soluciones DeFi innovadoras en TBURN Lab y compite por grants y oportunidades de incubación."
           }
         },
         "upcoming": {

@@ -1,5 +1,5 @@
 /**
- * TBURN Chain 20-Year Tokenomics Simulation Engine v2.1
+ * TBURN Lab 20-Year Tokenomics Simulation Engine v2.1
  * Enterprise-grade calculation engine for tokenomics simulation
  * 
  * Based on "완전 시뮬레이션 표 (최종 조정)" specification

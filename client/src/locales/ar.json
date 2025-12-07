@@ -107,7 +107,7 @@
     "clickForDetails": "انقر للتفاصيل"
   },
   "nav": {
-    "brand": "TBURN Chain الشبكة الرئيسية",
+    "brand": "TBURN Lab الشبكة الرئيسية",
     "explorer": "المستكشف",
     "dashboard": "لوحة التحكم",
     "blocks": "الكتل",
@@ -854,7 +854,7 @@
     "nftCollection": "مجموعة NFT",
     "select": "اختر",
     "createEnterpriseToken": "إنشاء رمز مؤسسي",
-    "deployProductionGrade": "انشر رمزاً جاهزاً للإنتاج على TBURN Chain",
+    "deployProductionGrade": "انشر رمزاً جاهزاً للإنتاج على TBURN Lab",
     "templateStep": "القالب",
     "basicInfo": "المعلومات الأساسية",
     "features": "الميزات",
@@ -954,7 +954,7 @@
     "deploying": "جاري النشر...",
     "deploymentSuccess": "تم النشر بنجاح",
     "tokenDeployed": "تم نشر الرمز بنجاح",
-    "tokenDeployedDesc": "تم نشر {{name}} ({{symbol}}) على TBURN Chain.",
+    "tokenDeployedDesc": "تم نشر {{name}} ({{symbol}}) على TBURN Lab.",
     "deploymentFailed": "فشل النشر",
     "contractAddress": "عنوان العقد",
     "transactionHash": "هاش المعاملة",
@@ -965,7 +965,7 @@
     "viewContract": "عرض العقد",
     "createAnother": "إنشاء رمز آخر",
     "searchTracking": "بحث وتتبع رموز المؤسسات",
-    "searchTrackingDesc": "ابحث وصفي وتتبع الرموز المنشورة على TBURN Chain مع تحليلات في الوقت الفعلي",
+    "searchTrackingDesc": "ابحث وصفي وتتبع الرموز المنشورة على TBURN Lab مع تحليلات في الوقت الفعلي",
     "searchPlaceholder": "البحث بالاسم أو الرمز أو عنوان العقد...",
     "allStandards": "جميع المعايير",
     "holders": "الحاملون",
@@ -990,7 +990,7 @@
     "securityTitle": "الأمان",
     "aiAnalysis": "تحليل الذكاء الاصطناعي",
     "enterpriseTokenSearch": "بحث وتتبع رموز المؤسسات",
-    "searchDescription": "ابحث وصفي وتتبع الرموز المنشورة على TBURN Chain مع تحليلات في الوقت الفعلي",
+    "searchDescription": "ابحث وصفي وتتبع الرموز المنشورة على TBURN Lab مع تحليلات في الوقت الفعلي",
     "pageOf": "صفحة {{page}} من {{total}}",
     "name": "الاسم",
     "tbc20Description": "معيار رمز قابل للاستبدال محسن مع تحسين الذكاء الاصطناعي",
@@ -3066,7 +3066,7 @@
     "disconnected": "تم قطع الاتصال بنجاح."
   },
   "login": {
-    "title": "TBURN Chain",
+    "title": "TBURN Lab",
     "subtitle": "مستكشف بلوكتشين الشبكة الرئيسية",
     "password": "كلمة المرور",
     "enterPassword": "أدخل كلمة المرور",
@@ -10286,7 +10286,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "إطلاق الشبكة الرئيسية TBURN V4 رسمياً",
-            "description": "بعد 18 شهراً من التطوير، أصبحت الشبكة الرئيسية TBURN Chain V4 متاحة الآن مع +500 ألف TPS والذكاء الاصطناعي ثلاثي النطاق والأمان المقاوم للكم.",
+            "description": "بعد 18 شهراً من التطوير، أصبحت الشبكة الرئيسية TBURN Lab V4 متاحة الآن مع +500 ألف TPS والذكاء الاصطناعي ثلاثي النطاق والأمان المقاوم للكم.",
             "author": "مؤسسة TBURN"
           },
           "tripleBandAi": {
@@ -10296,7 +10296,7 @@
           },
           "partnership": {
             "title": "توسيع الشراكات العالمية: 12 تكاملاً جديداً",
-            "description": "تعلن TBURN Chain عن شراكات استراتيجية مع بروتوكولات DeFi الرائدة والبورصات وعملاء المؤسسات عبر آسيا وأوروبا والأمريكتين.",
+            "description": "تعلن TBURN Lab عن شراكات استراتيجية مع بروتوكولات DeFi الرائدة والبورصات وعملاء المؤسسات عبر آسيا وأوروبا والأمريكتين.",
             "author": "تطوير الأعمال"
           }
         },
@@ -10315,7 +10315,7 @@
           },
           "quantum": {
             "title": "التشفير المقاوم للكم: تأمين مستقبل TBURN",
-            "description": "كيف تحمي توقيعات CRYSTALS-Dilithium و ED25519 الهجينة TBURN Chain من تهديدات الحوسبة الكمية الناشئة."
+            "description": "كيف تحمي توقيعات CRYSTALS-Dilithium و ED25519 الهجينة TBURN Lab من تهديدات الحوسبة الكمية الناشئة."
           },
           "dex": {
             "title": "إطلاق TBURN DEX التجريبي: تداول مع درجات الثقة",
@@ -10556,7 +10556,7 @@
           },
           "defiChallenge": {
             "title": "هاكاثون تحدي TBURN DeFi",
-            "description": "هاكاثون عالمي لمدة 48 ساعة بجوائز قيمتها 500 ألف دولار. ابنِ حلول DeFi مبتكرة على TBURN Chain وتنافس على المنح وفرص الحضانة."
+            "description": "هاكاثون عالمي لمدة 48 ساعة بجوائز قيمتها 500 ألف دولار. ابنِ حلول DeFi مبتكرة على TBURN Lab وتنافس على المنح وفرص الحضانة."
           }
         },
         "upcoming": {

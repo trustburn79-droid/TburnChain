@@ -107,7 +107,7 @@
     "clickForDetails": "Нажмите для Деталей"
   },
   "nav": {
-    "brand": "TBURN Chain Mainnet",
+    "brand": "TBURN Lab Mainnet",
     "explorer": "Обозреватель",
     "dashboard": "Панель управления",
     "blocks": "Блоки",
@@ -3108,7 +3108,7 @@
     }
   },
   "login": {
-    "title": "TBURN Chain",
+    "title": "TBURN Lab",
     "subtitle": "Обозреватель блокчейна Mainnet",
     "password": "Пароль",
     "enterPassword": "Введите пароль",
@@ -9646,7 +9646,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "Официальный запуск TBURN V4 Mainnet",
-            "description": "После 18 месяцев разработки TBURN Chain V4 Mainnet теперь в работе с 500K+ TPS, Triple-Band AI и квантово-устойчивой безопасностью.",
+            "description": "После 18 месяцев разработки TBURN Lab V4 Mainnet теперь в работе с 500K+ TPS, Triple-Band AI и квантово-устойчивой безопасностью.",
             "author": "TBURN Foundation"
           },
           "tripleBandAi": {
@@ -9656,7 +9656,7 @@
           },
           "partnership": {
             "title": "Глобальное расширение партнёрств: 12 новых интеграций",
-            "description": "TBURN Chain объявляет о стратегических партнёрствах с ведущими DeFi протоколами, биржами и корпоративными клиентами в Азии, Европе и Америке.",
+            "description": "TBURN Lab объявляет о стратегических партнёрствах с ведущими DeFi протоколами, биржами и корпоративными клиентами в Азии, Европе и Америке.",
             "author": "Business Development"
           }
         },
@@ -9675,7 +9675,7 @@
           },
           "quantum": {
             "title": "Квантово-устойчивая криптография: защита TBURN на будущее",
-            "description": "Как гибридные подписи CRYSTALS-Dilithium и ED25519 защищают TBURN Chain от угроз квантовых вычислений."
+            "description": "Как гибридные подписи CRYSTALS-Dilithium и ED25519 защищают TBURN Lab от угроз квантовых вычислений."
           },
           "dex": {
             "title": "Запуск бета-версии TBURN DEX: торгуйте с Trust Scores",
@@ -9905,7 +9905,7 @@
           },
           "defiChallenge": {
             "title": "Хакатон TBURN DeFi Challenge",
-            "description": "48-часовой глобальный хакатон с призами $500K. Создавайте инновационные DeFi решения на TBURN Chain и соревнуйтесь за гранты и возможности инкубации."
+            "description": "48-часовой глобальный хакатон с призами $500K. Создавайте инновационные DeFi решения на TBURN Lab и соревнуйтесь за гранты и возможности инкубации."
           }
         },
         "upcoming": {

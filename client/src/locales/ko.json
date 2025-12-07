@@ -13703,7 +13703,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "TBURN V4 메인넷 공식 출시",
-            "description": "18개월의 개발 끝에 TBURN Chain V4 메인넷이 500K+ TPS, Triple-Band AI, 양자 저항 보안으로 출시되었습니다.",
+            "description": "18개월의 개발 끝에 TBURN Lab V4 메인넷이 500K+ TPS, Triple-Band AI, 양자 저항 보안으로 출시되었습니다.",
             "author": "TBURN 재단"
           },
           "tripleBandAi": {
@@ -13713,7 +13713,7 @@
           },
           "partnership": {
             "title": "글로벌 파트너십 확장: 12개 신규 통합",
-            "description": "TBURN Chain이 아시아, 유럽, 미주 전역의 주요 DeFi 프로토콜, 거래소, 기업 고객과의 전략적 파트너십을 발표합니다.",
+            "description": "TBURN Lab이 아시아, 유럽, 미주 전역의 주요 DeFi 프로토콜, 거래소, 기업 고객과의 전략적 파트너십을 발표합니다.",
             "author": "비즈니스 개발팀"
           }
         },
@@ -13732,7 +13732,7 @@
           },
           "quantum": {
             "title": "양자 저항 암호화: TBURN의 미래 대비",
-            "description": "CRYSTALS-Dilithium 및 ED25519 하이브리드 서명이 TBURN Chain을 신흥 양자 컴퓨팅 위협으로부터 어떻게 보호하는지 알아보세요."
+            "description": "CRYSTALS-Dilithium 및 ED25519 하이브리드 서명이 TBURN Lab을 신흥 양자 컴퓨팅 위협으로부터 어떻게 보호하는지 알아보세요."
           },
           "dex": {
             "title": "TBURN DEX 베타 출시: 트러스트 스코어로 거래하기",
@@ -14014,7 +14014,7 @@
           },
           "defiChallenge": {
             "title": "TBURN DeFi 챌린지 해커톤",
-            "description": "50만 달러 상금 규모의 48시간 글로벌 해커톤. TBURN Chain에서 혁신적인 DeFi 솔루션을 구축하고 그랜트 및 인큐베이션 기회를 놓고 경쟁하세요."
+            "description": "50만 달러 상금 규모의 48시간 글로벌 해커톤. TBURN Lab에서 혁신적인 DeFi 솔루션을 구축하고 그랜트 및 인큐베이션 기회를 놓고 경쟁하세요."
           }
         },
         "upcoming": {

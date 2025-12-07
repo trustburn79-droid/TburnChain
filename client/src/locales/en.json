@@ -116,7 +116,7 @@
     "clickForDetails": "Click for details"
   },
   "nav": {
-    "brand": "TBURN Chain Mainnet",
+    "brand": "TBURN Lab Mainnet",
     "explorer": "Explorer",
     "dashboard": "Dashboard",
     "blocks": "Blocks",
@@ -1387,7 +1387,7 @@
     "nftCollection": "NFT Collection",
     "select": "Select",
     "createEnterpriseToken": "Create Enterprise Token",
-    "deployProductionGrade": "Deploy a production-grade token on TBURN Chain",
+    "deployProductionGrade": "Deploy a production-grade token on TBURN Lab",
     "templateStep": "Template",
     "basicInfo": "Basic Info",
     "features": "Features",
@@ -1486,7 +1486,7 @@
     "deploying": "Deploying...",
     "deploymentSuccess": "Deployment Successful",
     "tokenDeployed": "Token Deployed Successfully",
-    "tokenDeployedDesc": "{{name}} ({{symbol}}) has been deployed to TBURN Chain.",
+    "tokenDeployedDesc": "{{name}} ({{symbol}}) has been deployed to TBURN Lab.",
     "deploymentFailed": "Deployment Failed",
     "contractAddress": "Contract Address",
     "transactionHash": "Transaction Hash",
@@ -1497,7 +1497,7 @@
     "viewContract": "View Contract",
     "createAnother": "Create Another Token",
     "searchTracking": "Enterprise Token Search & Tracking",
-    "searchTrackingDesc": "Search, filter, and track tokens deployed on TBURN Chain with real-time analytics",
+    "searchTrackingDesc": "Search, filter, and track tokens deployed on TBURN Lab with real-time analytics",
     "searchPlaceholder": "Search by name, symbol, or contract address...",
     "allStandards": "All Standards",
     "holders": "Holders",
@@ -1522,7 +1522,7 @@
     "securityTitle": "Security",
     "aiAnalysis": "AI Analysis",
     "enterpriseTokenSearch": "Enterprise Token Search & Tracking",
-    "searchDescription": "Search, filter, and track tokens deployed on TBURN Chain with real-time analytics",
+    "searchDescription": "Search, filter, and track tokens deployed on TBURN Lab with real-time analytics",
     "pageOf": "Page {{page}} of {{total}}",
     "name": "Name",
     "tbc20Description": "Enhanced fungible token standard with AI optimization",
@@ -1622,8 +1622,8 @@
     "securityImprovements": "Security improvements recommended before deployment.",
     "estimatedGas": "Estimated Gas",
     "findings": "Findings",
-    "deployToTburn": "Deploy to TBURN Chain",
-    "tokenDeployedDescStandard": "Your {{standard}} token is now live on TBURN Chain",
+    "deployToTburn": "Deploy to TBURN Lab",
+    "tokenDeployedDescStandard": "Your {{standard}} token is now live on TBURN Lab",
     "contract": "Contract",
     "transactionDetails": "Transaction Details",
     "block": "Block",
@@ -6216,7 +6216,7 @@
     }
   },
   "login": {
-    "title": "TBURN Chain",
+    "title": "TBURN Lab",
     "subtitle": "Mainnet Blockchain Explorer",
     "password": "Password",
     "enterPassword": "Enter password",
@@ -8069,7 +8069,7 @@
         "performance": {
           "badge": "v8.0 PRODUCTION READY",
           "title": "Enterprise Performance",
-          "description": "TBURN Chain is a production-ready Layer 1 blockchain with AI-Enhanced Committee BFT consensus, delivering enterprise-grade throughput with 21M+ blocks processed.",
+          "description": "TBURN Lab is a production-ready Layer 1 blockchain with AI-Enhanced Committee BFT consensus, delivering enterprise-grade throughput with 21M+ blocks processed.",
           "features": {
             "hybridConsensus": "AI-Enhanced Committee BFT Consensus",
             "evmCompatibility": "100% EVM Compatibility",
@@ -12989,7 +12989,7 @@
       "validators": {
         "tag": "AI-ENHANCED COMMITTEE BFT",
         "title": "Validators",
-        "subtitle": "110/125 active validators securing TBURN Chain with 189ms consensus and 99.95% uptime.",
+        "subtitle": "110/125 active validators securing TBURN Lab with 189ms consensus and 99.95% uptime.",
         "becomeValidator": "Become Validator",
         "validatorDocs": "View Validator Documentation",
         "stats": {
@@ -13709,7 +13709,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "TBURN V4 Mainnet Officially Launches",
-            "description": "After 18 months of development, TBURN Chain V4 Mainnet is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant security.",
+            "description": "After 18 months of development, TBURN Lab V4 Mainnet is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant security.",
             "author": "TBURN Foundation"
           },
           "tripleBandAi": {
@@ -13719,7 +13719,7 @@
           },
           "partnership": {
             "title": "Global Partnership Expansion: 12 New Integrations",
-            "description": "TBURN Chain announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
+            "description": "TBURN Lab announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
             "author": "Business Development"
           }
         },
@@ -13738,7 +13738,7 @@
           },
           "quantum": {
             "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
-            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN Chain against emerging quantum computing threats."
+            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN Lab against emerging quantum computing threats."
           },
           "dex": {
             "title": "TBURN DEX Beta Launch: Trade with Trust Scores",
@@ -14020,7 +14020,7 @@
           },
           "defiChallenge": {
             "title": "TBURN DeFi Challenge Hackathon",
-            "description": "48-hour global hackathon with $500K in prizes. Build innovative DeFi solutions on TBURN Chain and compete for grants and incubation opportunities."
+            "description": "48-hour global hackathon with $500K in prizes. Build innovative DeFi solutions on TBURN Lab and compete for grants and incubation opportunities."
           }
         },
         "upcoming": {

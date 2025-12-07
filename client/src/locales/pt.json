@@ -107,7 +107,7 @@
     "clickForDetails": "Clique para Detalhes"
   },
   "nav": {
-    "brand": "TBURN Chain Mainnet",
+    "brand": "TBURN Lab Mainnet",
     "explorer": "Explorador",
     "dashboard": "Painel",
     "blocks": "Blocos",
@@ -3108,7 +3108,7 @@
     }
   },
   "login": {
-    "title": "TBURN Chain",
+    "title": "TBURN Lab",
     "subtitle": "Explorador Blockchain Mainnet",
     "password": "Senha",
     "enterPassword": "Digite a senha",
@@ -10098,7 +10098,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "TBURN V4 Mainnet Lança Oficialmente",
-            "description": "Após 18 meses de desenvolvimento, TBURN Chain V4 Mainnet está agora ao vivo com mais de 500K TPS, IA Triple-Band e segurança resistente a quântica.",
+            "description": "Após 18 meses de desenvolvimento, TBURN Lab V4 Mainnet está agora ao vivo com mais de 500K TPS, IA Triple-Band e segurança resistente a quântica.",
             "author": "Fundação TBURN"
           },
           "tripleBandAi": {
@@ -10108,7 +10108,7 @@
           },
           "partnership": {
             "title": "Expansão de Parcerias Globais: 12 Novas Integrações",
-            "description": "TBURN Chain anuncia parcerias estratégicas com protocolos DeFi líderes, exchanges e clientes empresariais na Ásia, Europa e Américas.",
+            "description": "TBURN Lab anuncia parcerias estratégicas com protocolos DeFi líderes, exchanges e clientes empresariais na Ásia, Europa e Américas.",
             "author": "Desenvolvimento de Negócios"
           }
         },
@@ -10127,7 +10127,7 @@
           },
           "quantum": {
             "title": "Criptografia Resistente a Quântica: Preparando TBURN para o Futuro",
-            "description": "Como as assinaturas híbridas CRYSTALS-Dilithium e ED25519 protegem TBURN Chain contra ameaças emergentes de computação quântica."
+            "description": "Como as assinaturas híbridas CRYSTALS-Dilithium e ED25519 protegem TBURN Lab contra ameaças emergentes de computação quântica."
           },
           "dex": {
             "title": "Lançamento Beta do TBURN DEX: Negocie com Trust Scores",
@@ -10354,7 +10354,7 @@
           },
           "defiChallenge": {
             "title": "Hackathon TBURN DeFi Challenge",
-            "description": "Hackathon global de 48 horas com $500K em prêmios. Construa soluções DeFi inovadoras na TBURN Chain e compita por subsídios e oportunidades de incubação."
+            "description": "Hackathon global de 48 horas com $500K em prêmios. Construa soluções DeFi inovadoras na TBURN Lab e compita por subsídios e oportunidades de incubação."
           }
         },
         "upcoming": {

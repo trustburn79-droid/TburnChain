@@ -12354,7 +12354,7 @@
         "featured": {
           "mainnetLaunch": {
             "title": "TBURN V4主网正式上线",
-            "description": "经过18个月的开发，TBURN Chain V4主网现已上线，具备500K+ TPS、Triple-Band AI和量子抗性安全。",
+            "description": "经过18个月的开发，TBURN Lab V4主网现已上线，具备500K+ TPS、Triple-Band AI和量子抗性安全。",
             "author": "TBURN基金会"
           },
           "tripleBandAi": {
@@ -12364,7 +12364,7 @@
           },
           "partnership": {
             "title": "全球合作扩展：12个新集成",
-            "description": "TBURN Chain宣布与亚洲、欧洲和美洲的领先DeFi协议、交易所和企业客户建立战略合作。",
+            "description": "TBURN Lab宣布与亚洲、欧洲和美洲的领先DeFi协议、交易所和企业客户建立战略合作。",
             "author": "商业发展部"
           }
         },
@@ -12383,7 +12383,7 @@
           },
           "quantum": {
             "title": "量子抗性加密：为TBURN的未来做好准备",
-            "description": "了解CRYSTALS-Dilithium和ED25519混合签名如何保护TBURN Chain免受新兴量子计算威胁。"
+            "description": "了解CRYSTALS-Dilithium和ED25519混合签名如何保护TBURN Lab免受新兴量子计算威胁。"
           },
           "dex": {
             "title": "TBURN DEX测试版上线：使用信任评分交易",
@@ -12634,7 +12634,7 @@
           },
           "defiChallenge": {
             "title": "TBURN DeFi挑战黑客松",
-            "description": "48小时全球黑客松，奖金50万美元。在TBURN Chain上构建创新DeFi解决方案，争夺资助和孵化机会。"
+            "description": "48小时全球黑客松，奖金50万美元。在TBURN Lab上构建创新DeFi解决方案，争夺资助和孵化机会。"
           }
         },
         "upcoming": {
