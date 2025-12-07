@@ -188,9 +188,14 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
       <footer className="border-t border-gray-800/50 bg-[#030407]/95 py-6">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <Flame className="w-4 h-4 text-orange-500" />
-              <span>TBURNScan © 2024 TBURN Foundation</span>
+            <div className="flex items-center gap-4 text-gray-400 text-sm">
+              <div className="flex items-center gap-2">
+                <Flame className="w-4 h-4 text-orange-500" />
+                <span>TBURNScan © 2024 TBURN Foundation</span>
+              </div>
+              <Link href="/" className="text-[#00f0ff] hover:text-white transition font-bold" data-testid="link-scan-tburn-lab">
+                TBURN LAB
+              </Link>
             </div>
             <div className="flex items-center gap-6 text-sm text-gray-400">
               <Link href="/scan/api">
