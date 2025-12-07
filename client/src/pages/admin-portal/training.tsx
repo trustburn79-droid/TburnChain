@@ -132,28 +132,28 @@ export default function TrainingMaterials() {
   }, [refetch, toast, t]);
 
   const courses: Course[] = trainingData?.courses || [
-    { id: "1", title: t("adminTraining.courses.fundamentals.title"), description: t("adminTraining.courses.fundamentals.desc"), category: t("adminTraining.categories.gettingStarted"), duration: "2h 30m", modules: 8, completedModules: 8, level: "beginner", enrolled: 245, rating: 4.8, iconName: "BookOpen" },
-    { id: "2", title: t("adminTraining.courses.network.title"), description: t("adminTraining.courses.network.desc"), category: t("adminTraining.categories.network"), duration: "4h 15m", modules: 12, completedModules: 7, level: "intermediate", enrolled: 189, rating: 4.9, iconName: "Network" },
-    { id: "3", title: t("adminTraining.courses.security.title"), description: t("adminTraining.courses.security.desc"), category: t("adminTraining.categories.security"), duration: "3h 45m", modules: 10, completedModules: 3, level: "advanced", enrolled: 156, rating: 4.7, iconName: "Shield" },
-    { id: "4", title: t("adminTraining.courses.ai.title"), description: t("adminTraining.courses.ai.desc"), category: t("adminTraining.categories.ai"), duration: "3h 00m", modules: 8, completedModules: 0, level: "intermediate", enrolled: 134, rating: 4.6, iconName: "Bot" },
-    { id: "5", title: t("adminTraining.courses.emergency.title"), description: t("adminTraining.courses.emergency.desc"), category: t("adminTraining.categories.operations"), duration: "2h 00m", modules: 6, completedModules: 0, level: "advanced", enrolled: 98, rating: 4.9, iconName: "Zap" },
-    { id: "6", title: t("adminTraining.courses.config.title"), description: t("adminTraining.courses.config.desc"), category: t("adminTraining.categories.settings"), duration: "2h 45m", modules: 7, completedModules: 4, level: "intermediate", enrolled: 112, rating: 4.5, iconName: "Settings" },
+    { id: "1", title: "TBURN Mainnet v8.0 Fundamentals", description: "Complete introduction to TBURN blockchain: 10B supply, $0.50 initial price, 100K TPS architecture", category: "Mainnet Launch", duration: "3h 30m", modules: 12, completedModules: 12, level: "beginner", enrolled: 847, rating: 4.9, iconName: "BookOpen" },
+    { id: "2", title: "100K TPS Network Operations", description: "Master 8-shard dynamic architecture, 156 validator management, and P99 latency optimization", category: "Network Operations", duration: "6h 15m", modules: 18, completedModules: 14, level: "intermediate", enrolled: 623, rating: 4.9, iconName: "Network" },
+    { id: "3", title: "Quantum-Resistant Security Certification", description: "Implement CRYSTALS-Dilithium signatures, 2FA enforcement, 99.7% security score protocols", category: "Security", duration: "5h 45m", modules: 15, completedModules: 8, level: "advanced", enrolled: 456, rating: 4.8, iconName: "Shield" },
+    { id: "4", title: "Triple-Band AI Orchestration Mastery", description: "Configure Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, Grok 3 fallback system for optimal consensus", category: "AI Systems", duration: "4h 30m", modules: 12, completedModules: 6, level: "intermediate", enrolled: 534, rating: 4.7, iconName: "Bot" },
+    { id: "5", title: "Emergency Response & Incident Management", description: "24/7 incident protocols, validator failover, bridge emergency procedures, AI fallback activation", category: "Operations", duration: "3h 00m", modules: 8, completedModules: 4, level: "advanced", enrolled: 298, rating: 4.9, iconName: "Zap" },
+    { id: "6", title: "Admin Portal Complete Configuration", description: "Master all 33 admin portal pages: monitoring, finance, security, AI, governance settings", category: "Administration", duration: "4h 45m", modules: 10, completedModules: 7, level: "intermediate", enrolled: 412, rating: 4.6, iconName: "Settings" },
   ];
 
   const achievements: Achievement[] = trainingData?.achievements || [
-    { id: "1", title: t("adminTraining.achievements.firstSteps.title"), description: t("adminTraining.achievements.firstSteps.desc"), earnedDate: "2024-11-15", iconName: "Star" },
-    { id: "2", title: t("adminTraining.achievements.quickLearner.title"), description: t("adminTraining.achievements.quickLearner.desc"), earnedDate: "2024-11-28", iconName: "Zap" },
-    { id: "3", title: t("adminTraining.achievements.securityExpert.title"), description: t("adminTraining.achievements.securityExpert.desc"), earnedDate: null, iconName: "Shield" },
-    { id: "4", title: t("adminTraining.achievements.networkMaster.title"), description: t("adminTraining.achievements.networkMaster.desc"), earnedDate: null, iconName: "Network" },
-    { id: "5", title: t("adminTraining.achievements.aiSpecialist.title"), description: t("adminTraining.achievements.aiSpecialist.desc"), earnedDate: null, iconName: "Bot" },
-    { id: "6", title: t("adminTraining.achievements.completionist.title"), description: t("adminTraining.achievements.completionist.desc"), earnedDate: null, iconName: "Award" },
+    { id: "1", title: "Mainnet Launch Pioneer", description: "Completed all December 8th launch preparation courses", earnedDate: "2024-12-07", iconName: "Star" },
+    { id: "2", title: "100K TPS Certified", description: "Mastered high-performance network operations and shard management", earnedDate: "2024-12-05", iconName: "Zap" },
+    { id: "3", title: "Quantum Security Expert", description: "Completed quantum-resistant security certification program", earnedDate: "2024-12-03", iconName: "Shield" },
+    { id: "4", title: "Network Master", description: "Achieved mastery in 156 validator and 8-shard network operations", earnedDate: null, iconName: "Network" },
+    { id: "5", title: "Triple-Band AI Specialist", description: "Expert-level configuration of Quad-Band AI orchestration system", earnedDate: null, iconName: "Bot" },
+    { id: "6", title: "Admin Portal Champion", description: "Completed all 33 admin portal training modules with perfect scores", earnedDate: null, iconName: "Award" },
   ];
 
   const learningPaths: LearningPath[] = trainingData?.learningPaths || [
-    { name: t("adminTraining.paths.newAdmin"), courses: 3, duration: "8h", progress: 100 },
-    { name: t("adminTraining.paths.security"), courses: 4, duration: "12h", progress: 45 },
-    { name: t("adminTraining.paths.network"), courses: 5, duration: "15h", progress: 30 },
-    { name: t("adminTraining.paths.ai"), courses: 3, duration: "9h", progress: 0 },
+    { name: "Mainnet v8.0 Launch Certification", courses: 4, duration: "12h", progress: 100 },
+    { name: "Quantum Security Administrator", courses: 5, duration: "16h", progress: 75 },
+    { name: "100K TPS Network Engineer", courses: 6, duration: "20h", progress: 60 },
+    { name: "Triple-Band AI Operations", courses: 4, duration: "14h", progress: 45 },
   ];
 
   const getLevelBadge = (level: string) => {

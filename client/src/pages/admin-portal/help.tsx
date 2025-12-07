@@ -93,43 +93,43 @@ export default function HelpCenter() {
   }, [refetch, toast, t]);
 
   const categories: HelpCategory[] = helpData?.categories || [
-    { name: t("adminHelp.categories.gettingStarted.name"), icon: BookOpen, articleCount: 12, description: t("adminHelp.categories.gettingStarted.desc") },
-    { name: t("adminHelp.categories.network.name"), icon: Network, articleCount: 18, description: t("adminHelp.categories.network.desc") },
-    { name: t("adminHelp.categories.security.name"), icon: Shield, articleCount: 15, description: t("adminHelp.categories.security.desc") },
-    { name: t("adminHelp.categories.ai.name"), icon: Bot, articleCount: 10, description: t("adminHelp.categories.ai.desc") },
-    { name: t("adminHelp.categories.token.name"), icon: Wallet, articleCount: 14, description: t("adminHelp.categories.token.desc") },
-    { name: t("adminHelp.categories.settings.name"), icon: Settings, articleCount: 8, description: t("adminHelp.categories.settings.desc") },
+    { name: "Mainnet v8.0 Launch Guide", icon: BookOpen, articleCount: 24, description: "Complete guide for December 8th TBURN Mainnet deployment and operations" },
+    { name: "100K TPS Network Ops", icon: Network, articleCount: 32, description: "High-performance network operations with 8 dynamic shards and 156 validators" },
+    { name: "Quantum-Resistant Security", icon: Shield, articleCount: 28, description: "Advanced security protocols including quantum-resistant signatures and 2FA" },
+    { name: "Triple-Band AI System", icon: Bot, articleCount: 18, description: "Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, Grok 3 orchestration guide" },
+    { name: "10B TBURN Tokenomics", icon: Wallet, articleCount: 22, description: "20-year deflationary model, AI-driven burns, 30.60% target deflation" },
+    { name: "Admin Portal Config", icon: Settings, articleCount: 16, description: "33 admin portal pages configuration and customization" },
   ];
 
   const featuredArticles: HelpArticle[] = helpData?.featuredArticles || [
-    { id: "1", title: t("adminHelp.articles.addValidator.title"), description: t("adminHelp.articles.addValidator.desc"), category: t("adminHelp.categories.network.name"), views: 2847, lastUpdated: "2024-12-01", featured: true },
-    { id: "2", title: t("adminHelp.articles.aiDecision.title"), description: t("adminHelp.articles.aiDecision.desc"), category: t("adminHelp.categories.ai.name"), views: 1956, lastUpdated: "2024-11-28", featured: true },
-    { id: "3", title: t("adminHelp.articles.securityBest.title"), description: t("adminHelp.articles.securityBest.desc"), category: t("adminHelp.categories.security.name"), views: 3421, lastUpdated: "2024-11-25", featured: true },
-    { id: "4", title: t("adminHelp.articles.tokenBurn.title"), description: t("adminHelp.articles.tokenBurn.desc"), category: t("adminHelp.categories.token.name"), views: 1432, lastUpdated: "2024-11-20", featured: true },
+    { id: "1", title: "TBURN Mainnet v8.0 Launch Checklist", description: "Complete pre-launch verification for December 8th, 2024 mainnet deployment with 100K TPS capacity", category: "Mainnet v8.0 Launch Guide", views: 4521, lastUpdated: "2024-12-07", featured: true },
+    { id: "2", title: "156 Validator Node Setup & 3-Tier Structure", description: "Configure validator nodes across Tier 1 (20M), Tier 2 (5M), Tier 3 (10K) minimum stake requirements", category: "100K TPS Network Ops", views: 3847, lastUpdated: "2024-12-06", featured: true },
+    { id: "3", title: "Triple-Band AI Orchestration Configuration", description: "Set up Gemini 3 Pro (primary), Claude Sonnet 4.5 (secondary), GPT-4o + Grok 3 fallback system", category: "Triple-Band AI System", views: 3256, lastUpdated: "2024-12-05", featured: true },
+    { id: "4", title: "Quantum-Resistant Security Implementation", description: "Deploy quantum-resistant signatures, 2FA enforcement, and achieve 99.7% security score", category: "Quantum-Resistant Security", views: 2987, lastUpdated: "2024-12-04", featured: true },
   ];
 
   const recentArticles: HelpArticle[] = helpData?.recentArticles || [
-    { id: "5", title: t("adminHelp.articles.alertRules.title"), description: t("adminHelp.articles.alertRules.desc"), category: t("adminHelp.categories.gettingStarted.name"), views: 892, lastUpdated: "2024-12-03", featured: false },
-    { id: "6", title: t("adminHelp.articles.bridgeOps.title"), description: t("adminHelp.articles.bridgeOps.desc"), category: t("adminHelp.categories.network.name"), views: 654, lastUpdated: "2024-12-02", featured: false },
-    { id: "7", title: t("adminHelp.articles.rateLimit.title"), description: t("adminHelp.articles.rateLimit.desc"), category: t("adminHelp.categories.settings.name"), views: 432, lastUpdated: "2024-12-01", featured: false },
-    { id: "8", title: t("adminHelp.articles.backup.title"), description: t("adminHelp.articles.backup.desc"), category: t("adminHelp.categories.security.name"), views: 876, lastUpdated: "2024-11-30", featured: false },
+    { id: "5", title: "Multi-Chain Bridge v2.0 Operations", description: "ETH/BSC/Polygon/Arbitrum bridge setup with AI risk assessment and 0.1% fee structure", category: "100K TPS Network Ops", views: 1892, lastUpdated: "2024-12-07", featured: false },
+    { id: "6", title: "8-Shard Dynamic Scaling Guide", description: "Configure AI-driven sharding from 8 to 64 shards with automatic load balancing", category: "100K TPS Network Ops", views: 1654, lastUpdated: "2024-12-06", featured: false },
+    { id: "7", title: "10B TBURN Token Distribution", description: "Genesis supply allocation: 15% treasury, 25% ecosystem, validator staking pools", category: "10B TBURN Tokenomics", views: 1432, lastUpdated: "2024-12-05", featured: false },
+    { id: "8", title: "Real-time Monitoring & SLA Setup", description: "Configure 99.97% uptime monitoring with WebSocket updates and alert rules", category: "Admin Portal Config", views: 1276, lastUpdated: "2024-12-04", featured: false },
   ];
 
   const faqs: FAQ[] = helpData?.faqs || [
-    { question: t("adminHelp.faqs.resetPassword.q"), answer: t("adminHelp.faqs.resetPassword.a") },
-    { question: t("adminHelp.faqs.validatorPermission.q"), answer: t("adminHelp.faqs.validatorPermission.a") },
-    { question: t("adminHelp.faqs.exportLogs.q"), answer: t("adminHelp.faqs.exportLogs.a") },
-    { question: t("adminHelp.faqs.aiLayers.q"), answer: t("adminHelp.faqs.aiLayers.a") },
-    { question: t("adminHelp.faqs.addBridge.q"), answer: t("adminHelp.faqs.addBridge.a") },
-    { question: t("adminHelp.faqs.emergency.q"), answer: t("adminHelp.faqs.emergency.a") },
+    { question: "What is the total supply of TBURN and initial price?", answer: "TBURN Mainnet v8.0 launches with 10B (10 billion) total supply at $0.50 initial price, targeting 6.94B at Y20 through 30.60% deflationary mechanism." },
+    { question: "How does the Triple-Band AI Orchestration work?", answer: "The system uses Gemini 3 Pro as primary AI, Claude Sonnet 4.5 as secondary, with GPT-4o and Grok 3 as fallback. Automatic failover ensures 99.99% AI availability for consensus optimization." },
+    { question: "What are the validator tier requirements?", answer: "Tier 1: 20M TBURN minimum stake (enterprise), Tier 2: 5M TBURN (professional), Tier 3: 10K TBURN (community). All 156 validators earn 8-15% APY based on tier and performance." },
+    { question: "How does the quantum-resistant security work?", answer: "TBURN implements post-quantum cryptographic signatures using CRYSTALS-Dilithium, combined with mandatory 2FA and real-time threat detection achieving 99.7% security score." },
+    { question: "What chains does the Multi-Chain Bridge support?", answer: "Bridge v2.0 supports Ethereum, BSC, Polygon, and Arbitrum with 0.1% fees, AI-driven risk assessment, and sub-minute confirmation times." },
+    { question: "How does the AI-driven burn mechanism work?", answer: "70% of transaction fees are automatically burned through AI analysis, targeting 30.60% total supply reduction by Year 20 (from 10B to 6.94B TBURN)." },
   ];
 
   const videos: VideoTutorial[] = helpData?.videos || [
-    { title: t("adminHelp.videos.overview"), duration: "12:45", views: 4521 },
-    { title: t("adminHelp.videos.validators"), duration: "18:32", views: 3287 },
-    { title: t("adminHelp.videos.aiConfig"), duration: "15:20", views: 2654 },
-    { title: t("adminHelp.videos.security"), duration: "22:15", views: 2198 },
-    { title: t("adminHelp.videos.bridge"), duration: "14:08", views: 1876 },
+    { title: "TBURN Mainnet v8.0 Complete Overview", duration: "24:30", views: 8521 },
+    { title: "156 Validator Network Setup Guide", duration: "32:15", views: 6287 },
+    { title: "Triple-Band AI Configuration Tutorial", duration: "28:45", views: 5654 },
+    { title: "Quantum-Resistant Security Deep Dive", duration: "35:20", views: 4198 },
+    { title: "Multi-Chain Bridge v2.0 Operations", duration: "22:18", views: 3876 },
   ];
 
   const filteredArticles = [...featuredArticles, ...recentArticles].filter(

@@ -147,27 +147,27 @@ export default function FeedbackSystem() {
   }, [toast, t]);
 
   const feedbackItems: FeedbackItem[] = feedbackData?.items || [
-    { id: "FB-001", type: "praise", category: "Network Performance", message: "100K+ TPS capacity is impressive - far exceeds our enterprise requirements. Ready for Dec 8 launch!", rating: 5, user: "enterprise@partner.com", createdAt: "2024-12-07T18:00:00Z", status: "reviewed", response: "Thank you for your confidence in TBURN Mainnet v8.0!" },
-    { id: "FB-002", type: "praise", category: "AI Orchestration", message: "Triple-Band AI system provides exceptional consensus optimization. Latency under 50ms consistently.", rating: 5, user: "validator@node.io", createdAt: "2024-12-07T15:30:00Z", status: "reviewed", response: "Our Quad-Band AI ensures optimal performance across all network conditions." },
-    { id: "FB-003", type: "praise", category: "Security Framework", message: "Quantum-resistant signatures and 2FA enforcement give us confidence for institutional adoption.", rating: 5, user: "security@institution.com", createdAt: "2024-12-06T12:00:00Z", status: "reviewed", response: "Security is our top priority - 99.7% security score maintained." },
-    { id: "FB-004", type: "suggestion", category: "Bridge Infrastructure", message: "Consider adding Cosmos IBC support in future updates for cross-chain interoperability.", rating: 4, user: "defi@protocol.io", createdAt: "2024-12-05T09:15:00Z", status: "reviewed", response: "Added to Q1 2025 roadmap - TIP-007 draft in progress." },
-    { id: "FB-005", type: "praise", category: "Tokenomics", message: "20-year deflationary model with AI-driven burns is well-designed. 30.60% target deflation is sustainable.", rating: 5, user: "economist@research.org", createdAt: "2024-12-04T14:45:00Z", status: "actioned", response: "Our tokenomics ensures long-term value while maintaining network utility." },
-    { id: "FB-006", type: "praise", category: "Validator System", message: "3-tier validator structure with dynamic emissions provides fair incentives for all participants.", rating: 5, user: "staker@community.io", createdAt: "2024-12-03T11:20:00Z", status: "actioned", response: "Community-first approach to validator rewards and governance." },
+    { id: "FB-001", type: "praise", category: "Mainnet v8.0 Launch", message: "Exceptional preparation for December 8th launch! 100K TPS verified, all 156 validators ready. TBURN is set to revolutionize DeFi.", rating: 5, user: "enterprise@partner.com", createdAt: "2024-12-07T18:00:00Z", status: "reviewed", response: "Thank you for your confidence! We're excited for the TBURN Mainnet v8.0 launch." },
+    { id: "FB-002", type: "praise", category: "Triple-Band AI", message: "The Gemini 3 Pro + Claude Sonnet 4.5 + GPT-4o orchestration is brilliant. Sub-50ms latency with automatic failover is enterprise-grade.", rating: 5, user: "validator@tier1.io", createdAt: "2024-12-07T15:30:00Z", status: "reviewed", response: "Our Quad-Band AI system ensures 99.99% availability with intelligent fallback to Grok 3." },
+    { id: "FB-003", type: "praise", category: "Quantum Security", message: "CRYSTALS-Dilithium signatures and 99.7% CertiK score give institutional investors confidence. Ready for post-quantum era.", rating: 5, user: "ciso@institution.com", createdAt: "2024-12-06T12:00:00Z", status: "reviewed", response: "Security-first approach with quantum-resistant cryptography and mandatory 2FA." },
+    { id: "FB-004", type: "suggestion", category: "Multi-Chain Bridge", message: "Bridge v2.0 with ETH/BSC/Polygon/Arbitrum is great. Consider adding Solana and Cosmos IBC in Q1 2025.", rating: 5, user: "defi@protocol.io", createdAt: "2024-12-05T09:15:00Z", status: "actioned", response: "Solana bridge (TIP-008) and Cosmos IBC (TIP-009) are planned for Q1 2025 roadmap." },
+    { id: "FB-005", type: "praise", category: "10B Tokenomics", message: "20-year deflationary model from 10B to 6.94B TBURN is sustainable. AI-driven 70% burn mechanism is innovative.", rating: 5, user: "economist@research.org", createdAt: "2024-12-04T14:45:00Z", status: "actioned", response: "Our tokenomics ensures long-term value with 30.60% target deflation by Year 20." },
+    { id: "FB-006", type: "praise", category: "Validator Network", message: "3-tier validator structure (20M/5M/10K stake) with 8-15% APY provides fair rewards. 156 validators ensure decentralization.", rating: 5, user: "staker@community.io", createdAt: "2024-12-03T11:20:00Z", status: "actioned", response: "Community-centric validator economics with transparent emission schedules." },
   ];
 
   const ratingData = feedbackData?.ratingData || [
-    { rating: t("adminFeedback.ratings.5stars"), count: 847, percentage: 78 },
-    { rating: t("adminFeedback.ratings.4stars"), count: 186, percentage: 17 },
-    { rating: t("adminFeedback.ratings.3stars"), count: 42, percentage: 4 },
-    { rating: t("adminFeedback.ratings.2stars"), count: 8, percentage: 1 },
-    { rating: t("adminFeedback.ratings.1star"), count: 2, percentage: 0 },
+    { rating: "5 Stars (Excellent)", count: 1247, percentage: 82 },
+    { rating: "4 Stars (Very Good)", count: 198, percentage: 13 },
+    { rating: "3 Stars (Good)", count: 56, percentage: 4 },
+    { rating: "2 Stars (Fair)", count: 12, percentage: 1 },
+    { rating: "1 Star (Poor)", count: 4, percentage: 0 },
   ];
 
   const typeDistribution = feedbackData?.typeDistribution || [
-    { name: t("adminFeedback.types.praise"), value: 72, color: "hsl(var(--chart-2))" },
-    { name: t("adminFeedback.types.suggestions"), value: 23, color: "hsl(var(--chart-1))" },
-    { name: t("adminFeedback.types.bugs"), value: 4, color: "hsl(var(--chart-3))" },
-    { name: t("adminFeedback.types.complaints"), value: 1, color: "hsl(var(--chart-5))" },
+    { name: "Praise (Mainnet Launch)", value: 78, color: "hsl(var(--chart-2))" },
+    { name: "Suggestions (Roadmap)", value: 18, color: "hsl(var(--chart-1))" },
+    { name: "Questions (Technical)", value: 3, color: "hsl(var(--chart-3))" },
+    { name: "Issues (Resolved)", value: 1, color: "hsl(var(--chart-5))" },
   ];
 
   const trendData = feedbackData?.trendData || Array.from({ length: 30 }, (_, i) => ({
