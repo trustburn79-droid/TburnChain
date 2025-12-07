@@ -25,6 +25,7 @@ interface EventData {
   location?: string;
   isOnline: boolean;
   isRegistered?: boolean;
+  translationKey?: string;
 }
 
 const eventGradients: Record<string, string> = {
@@ -53,13 +54,24 @@ export default function EventDetail() {
   const [, params] = useRoute("/community/events/:id");
   const eventId = params?.id || "";
   const [isRegistered, setIsRegistered] = useState(false);
-  const isKorean = i18n.language === 'ko';
+  const currentLang = i18n.language;
 
   const { data: events, isLoading } = useQuery<EventData[]>({
     queryKey: ['/api/community/events'],
   });
 
   const event = events?.find(e => e.id === eventId);
+
+  const getLocalizedContent = (evt: EventData, field: 'title' | 'description') => {
+    if (evt.translationKey) {
+      const translationPath = `publicPages.community.events.items.${evt.translationKey}.${field}`;
+      const translated = t(translationPath);
+      if (translated !== translationPath) {
+        return translated;
+      }
+    }
+    return field === 'title' ? evt.title : evt.description;
+  };
 
   const handleRegister = () => {
     setIsRegistered(true);
@@ -116,10 +128,11 @@ export default function EventDetail() {
     );
   }
 
-  const title = isKorean ? (event.titleKo || event.title) : event.title;
-  const description = isKorean ? (event.descriptionKo || event.description) : event.description;
+  const title = getLocalizedContent(event, 'title');
+  const description = getLocalizedContent(event, 'description');
   const gradient = eventGradients[event.type] || "from-purple-600 to-blue-600";
   const buttonColor = eventButtonColors[event.type] || "bg-purple-600 hover:bg-purple-700";
+  const isKorean = currentLang === 'ko';
   const capacity = { current: event.participants, max: event.maxParticipants || 1000 };
   const capacityPercentage = (capacity.current / capacity.max) * 100;
 

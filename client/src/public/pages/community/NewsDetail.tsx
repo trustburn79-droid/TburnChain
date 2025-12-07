@@ -18,6 +18,7 @@ interface AnnouncementData {
   isImportant: boolean;
   isPinned?: boolean;
   views?: number;
+  translationKey?: string;
 }
 
 const typeGradients: Record<string, string> = {
@@ -32,13 +33,24 @@ export default function NewsDetail() {
   const { toast } = useToast();
   const [, params] = useRoute("/community/news/:slug");
   const slug = params?.slug || "";
-  const isKorean = i18n.language === 'ko';
+  const currentLang = i18n.language;
 
   const { data: announcements, isLoading } = useQuery<AnnouncementData[]>({
     queryKey: ['/api/community/announcements'],
   });
 
   const announcement = announcements?.find(a => a.id === slug);
+
+  const getLocalizedContent = (ann: AnnouncementData, field: 'title' | 'content') => {
+    if (ann.translationKey) {
+      const translationPath = `publicPages.community.announcements.${ann.translationKey}.${field}`;
+      const translated = t(translationPath);
+      if (translated !== translationPath) {
+        return translated;
+      }
+    }
+    return field === 'title' ? ann.title : ann.content;
+  };
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -87,9 +99,10 @@ export default function NewsDetail() {
     );
   }
 
-  const title = isKorean ? (announcement.titleKo || announcement.title) : announcement.title;
-  const content = isKorean ? (announcement.contentKo || announcement.content) : announcement.content;
+  const title = getLocalizedContent(announcement, 'title');
+  const content = getLocalizedContent(announcement, 'content');
   const gradient = typeGradients[announcement.type] || "from-purple-600 to-blue-600";
+  const isKorean = currentLang === 'ko';
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
