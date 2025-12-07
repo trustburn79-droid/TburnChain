@@ -7992,75 +7992,87 @@
           }
         },
         "performance": {
-          "badge": "SOLUTION ARCHITECTURE",
-          "title": "V4 Enterprise Performance",
-          "description": "TBurn Chain isn't just about trust scoring; it's a high-performance Layer 1 scaling solution with native consensus, designed for enterprise-grade throughput.",
+          "badge": "v8.0 PRODUCTION READY",
+          "title": "Enterprise Performance",
+          "description": "TBURN Chain is a production-ready Layer 1 blockchain with AI-Enhanced Committee BFT consensus, delivering enterprise-grade throughput with 21M+ blocks processed.",
           "features": {
-            "hybridConsensus": "Hybrid Consensus (DPoS + BFT)",
-            "evmCompatibility": "EVM Compatibility",
-            "dynamicSharding": "Dynamic Sharding Support"
+            "hybridConsensus": "AI-Enhanced Committee BFT Consensus",
+            "evmCompatibility": "100% EVM Compatibility",
+            "dynamicSharding": "AI-Driven Dynamic Sharding (64-128 shards)"
           },
           "metrics": {
             "tps": {
-              "value": "500k+",
-              "label": "TPS"
+              "value": "520,000",
+              "label": "Peak TPS"
             },
             "latency": {
-              "value": "1.84ms",
-              "label": "Latency"
+              "value": "2.86ms",
+              "label": "TX Latency"
             },
             "blockTime": {
-              "value": "1s",
-              "label": "Block Time"
+              "value": "189ms",
+              "label": "Consensus Time"
             },
             "nodes": {
-              "value": "30,000",
-              "label": "Nodes"
+              "value": "110/125",
+              "label": "Active Validators"
             },
             "finality": {
-              "value": "6초",
-              "label": "Transaction 완결성"
+              "value": "<2s",
+              "label": "Transaction Finality"
             },
             "gasCost": {
-              "value": "$0.001",
-              "label": "평균 가스 비용"
+              "value": "$0.0001",
+              "label": "Avg Gas Cost"
+            },
+            "uptime": {
+              "value": "99.95%",
+              "label": "Network Uptime"
+            },
+            "blocks": {
+              "value": "21.3M+",
+              "label": "Blocks Produced"
             }
           }
         },
         "aiLayers": {
           "title": "Triple-Band AI Orchestration",
-          "subtitle": "Intelligent decision-making using three distinct AI models.",
+          "subtitle": "94.2% overall accuracy with three specialized AI bands for optimal blockchain operations.",
+          "overallAccuracy": "94.2%",
           "items": {
             "strategic": {
-              "title": "Strategic Layer",
-              "model": ":: ChatGPT Latest",
-              "latency": "450ms",
-              "description": "Handles complex market analysis, governance proposal evaluation, and long-term strategy formulation."
+              "title": "Strategic AI",
+              "model": "Transformer + LSTM",
+              "accuracy": "92.1%",
+              "latency": "Daily/Weekly",
+              "description": "Tokenomics adjustment, shard strategy planning, validator policy optimization, and long-term economic model evolution."
             },
             "tactical": {
-              "title": "Tactical Layer",
-              "model": ":: Claude Latest",
-              "latency": "180ms",
-              "description": "Processes trust assessment, transaction verification, and smart contract auditing."
+              "title": "Tactical AI",
+              "model": "XGBoost + LightGBM",
+              "accuracy": "95.8%",
+              "latency": "Hourly",
+              "description": "Validator selection (Reputation + Stake + Performance), shard rebalancing, and resource management optimization."
             },
             "operational": {
-              "title": "Operational Layer",
-              "model": ":: Gemini Latest",
-              "latency": "45ms",
-              "description": "Executes real-time monitoring, emergency response (Auto-Burn), and automated actions."
+              "title": "Operational AI",
+              "model": "Online Learning",
+              "accuracy": "94.7%",
+              "latency": "<100ms",
+              "description": "TX routing, anomaly detection, emergency action triggers, and real-time self-healing operations."
             }
           },
           "strategic": {
-            "title": "전략적 AI",
-            "description": "장기 패턴 Analysis 및 위험 평가"
+            "title": "Strategic AI",
+            "description": "Long-term pattern analysis and risk assessment"
           },
           "tactical": {
-            "title": "전술적 AI",
-            "description": "실Time Transaction 모니터링"
+            "title": "Tactical AI",
+            "description": "Real-time transaction monitoring and optimization"
           },
           "operational": {
-            "title": "운영 AI",
-            "description": "즉각적인 사기 탐지 및 방지"
+            "title": "Operational AI",
+            "description": "Instant fraud detection and prevention"
           }
         },
         "quantumSecurity": {
@@ -8114,13 +8126,14 @@
         "viewGithub": "GitHub에서 보기"
       },
       "tokenomics": {
-        "tag": "ECONOMICS",
+        "tag": "v8.0 ECONOMICS",
         "title": "Tokenomics",
-        "subtitle": "Understand TBURN token distribution, emission schedule, and deflationary mechanisms.",
+        "subtitle": "10B TBURN total supply with 4-Phase deflation model targeting 30.60% deflation over 20 years.",
         "distributionSection": {
           "title": "Token Distribution",
-          "subtitle": "Strategic allocation designed for long-term ecosystem growth and sustainability",
-          "totalSupply": "1,000,000,000 TBURN"
+          "subtitle": "Strategic allocation designed for 20-year sustainable ecosystem growth",
+          "totalSupply": "10,000,000,000 TBURN",
+          "y20Target": "6,940,000,000 TBURN (30.60% deflation)"
         },
         "burnSection": {
           "title": "Burn Mechanisms",

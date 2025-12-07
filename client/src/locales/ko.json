@@ -7988,74 +7988,86 @@
           }
         },
         "performance": {
-          "title": "성능 사양",
+          "badge": "v8.0 프로덕션 준비 완료",
+          "title": "엔터프라이즈 성능",
+          "description": "TBURN 체인은 AI 강화 위원회 BFT 합의로 프로덕션 준비가 완료된 Layer 1 블록체인으로, 2,130만 개 이상의 블록을 처리하는 엔터프라이즈급 처리량을 제공합니다.",
+          "features": {
+            "hybridConsensus": "AI 강화 위원회 BFT 합의",
+            "evmCompatibility": "100% EVM 호환성",
+            "dynamicSharding": "AI 기반 동적 샤딩 (64-128 샤드)"
+          },
           "metrics": {
             "tps": {
-              "value": "50,000+",
-              "label": "초당 트랜잭션"
+              "value": "520,000",
+              "label": "피크 TPS"
+            },
+            "latency": {
+              "value": "2.86ms",
+              "label": "TX 지연 시간"
             },
             "blockTime": {
-              "value": "1초",
-              "label": "평균 블록 시간"
+              "value": "189ms",
+              "label": "합의 시간"
+            },
+            "nodes": {
+              "value": "110/125",
+              "label": "활성 검증자"
             },
             "finality": {
-              "value": "6초",
+              "value": "<2초",
               "label": "트랜잭션 완결성"
             },
             "gasCost": {
-              "value": "$0.001",
+              "value": "$0.0001",
               "label": "평균 가스 비용"
             },
-            "latency": {
-              "value": "1.84ms",
-              "label": "지연 시간"
+            "uptime": {
+              "value": "99.95%",
+              "label": "네트워크 가동률"
             },
-            "nodes": {
-              "value": "30,000",
-              "label": "노드"
+            "blocks": {
+              "value": "2,130만+",
+              "label": "생성된 블록"
             }
-          },
-          "badge": "솔루션 아키텍처",
-          "description": "TBurn 체인은 단순한 신뢰 점수 시스템이 아닙니다. 자체 AI-BFT 합의 메커니즘으로 구축된 고성능 Layer 1 스케일링 솔루션으로, 엔터프라이즈급 처리량을 위해 설계되었습니다.",
-          "features": {
-            "hybridConsensus": "하이브리드 합의 (DPoS + BFT)",
-            "evmCompatibility": "EVM 호환성",
-            "dynamicSharding": "동적 샤딩 지원"
           }
         },
         "aiLayers": {
-          "title": "트리플 밴드 AI 아키텍처",
+          "title": "트리플 밴드 AI 오케스트레이션",
+          "subtitle": "최적의 블록체인 운영을 위한 세 가지 전문 AI 밴드로 94.2% 전체 정확도 달성.",
+          "overallAccuracy": "94.2%",
           "strategic": {
             "title": "전략적 AI",
             "description": "장기 패턴 분석 및 위험 평가"
           },
           "tactical": {
             "title": "전술적 AI",
-            "description": "실시간 트랜잭션 모니터링"
+            "description": "실시간 트랜잭션 모니터링 및 최적화"
           },
           "operational": {
             "title": "운영 AI",
             "description": "즉각적인 사기 탐지 및 방지"
           },
-          "subtitle": "세 가지 고유한 AI 모델을 활용한 지능적 의사결정.",
           "items": {
             "strategic": {
-              "title": "전략 레이어",
-              "model": ":: ChatGPT 최신",
-              "latency": "450ms",
-              "description": "복잡한 시장 분석, 거버넌스 제안 평가, 장기 전략 수립을 처리합니다."
+              "title": "전략적 AI",
+              "model": "Transformer + LSTM",
+              "accuracy": "92.1%",
+              "latency": "일간/주간",
+              "description": "토큰노믹스 조정, 샤드 전략 계획, 검증자 정책 최적화, 장기 경제 모델 진화를 담당합니다."
             },
             "tactical": {
-              "title": "전술 레이어",
-              "model": ":: Claude 최신",
-              "latency": "180ms",
-              "description": "신뢰 평가, 트랜잭션 검증, 스마트 컨트랙트 감사를 처리합니다."
+              "title": "전술적 AI",
+              "model": "XGBoost + LightGBM",
+              "accuracy": "95.8%",
+              "latency": "시간별",
+              "description": "검증자 선정(평판 + 스테이크 + 성능), 샤드 재조정, 리소스 관리 최적화를 처리합니다."
             },
             "operational": {
-              "title": "운영 레이어",
-              "model": ":: Gemini 최신",
-              "latency": "45ms",
-              "description": "실시간 모니터링, 긴급 대응(자동 소각), 자동화 작업을 실행합니다."
+              "title": "운영 AI",
+              "model": "온라인 학습",
+              "accuracy": "94.7%",
+              "latency": "<100ms",
+              "description": "TX 라우팅, 이상 탐지, 긴급 조치 트리거, 실시간 자가 치유 작업을 실행합니다."
             }
           }
         },
@@ -8114,13 +8126,14 @@
         "viewSource": "소스 보기"
       },
       "tokenomics": {
-        "tag": "경제학",
+        "tag": "v8.0 경제학",
         "title": "토큰노믹스",
-        "subtitle": "TBURN 토큰 분배, 발행 일정 및 디플레이션 메커니즘을 이해하세요.",
+        "subtitle": "100억 TBURN 총 공급량과 20년에 걸친 30.60% 디플레이션을 목표로 하는 4단계 디플레이션 모델.",
         "distributionSection": {
           "title": "토큰 분배",
-          "subtitle": "장기 생태계 성장과 지속가능성을 위한 전략적 배분",
-          "totalSupply": "1,000,000,000 TBURN"
+          "subtitle": "20년 지속 가능한 생태계 성장을 위한 전략적 배분",
+          "totalSupply": "10,000,000,000 TBURN",
+          "y20Target": "6,940,000,000 TBURN (30.60% 디플레이션)"
         },
         "burnSection": {
           "title": "소각 메커니즘",
