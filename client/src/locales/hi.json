@@ -162,6 +162,9 @@
     "technicalDetails": "Technical Details",
     "title": "डैशबोर्ड",
     "subtitle": "रियल-टाइम ब्लॉकचेन नेटवर्क अवलोकन",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "explorerTitle": "TBURN एक्सप्लोरर",
     "explorerSubtitle": "रियल-टाइम ब्लॉकचेन डेटा और नेटवर्क स्टैटिस्टिक्स",
     "networkStats": "नेटवर्क आंकड़े",
@@ -175,7 +178,6 @@
     "gasUsed": "गैस उपयोग",
     "txCount": "TX गणना",
     "timestamp": "टाइमस्टैम्प",
-    "viewAll": "सभी देखें",
     "networkHealth": "नेटवर्क स्वास्थ्य",
     "healthy": "स्वस्थ",
     "degraded": "कमजोर",
@@ -284,6 +286,9 @@
   "blocks": {
     "title": "ब्लॉक्स",
     "subtitle": "TBURN ब्लॉकचेन पर सभी ब्लॉक्स ब्राउज़ करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "totalBlocks": "कुल ब्लॉक्स",
     "blocks": "ब्लॉक्स",
     "blockNumber": "ब्लॉक नंबर",
@@ -364,6 +369,9 @@
   "transactions": {
     "title": "लेनदेन एक्सप्लोरर",
     "subtitle": "TBURN ब्लॉकचेन पर सभी लेनदेन ब्राउज़ करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "txHash": "लेनदेन हैश",
     "blockNumber": "ब्लॉक नंबर",
     "from": "से",
@@ -408,6 +416,9 @@
   "wallets": {
     "title": "वॉलेट एक्सप्लोरर",
     "subtitle": "वॉलेट बैलेंस, स्टेक और रिवॉर्ड्स ट्रैक करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "totalWallets": "कुल वॉलेट्स",
     "registeredAddresses": "पंजीकृत पते",
     "totalBalance": "कुल बैलेंस",
@@ -452,6 +463,9 @@
   "validators": {
     "title": "वैलिडेटर्स",
     "subtitle": "AI-एन्हांस्ड कमिटी BFT के साथ टियर्ड वैलिडेटर सिस्टम",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "validatorAddress": "वैलिडेटर पता",
     "validatorName": "वैलिडेटर नाम",
     "validator": "वैलिडेटर",
@@ -567,6 +581,9 @@
     "details": "Details",
     "title": "स्टेकिंग डैशबोर्ड",
     "subtitle": "रिवॉर्ड्स कमाने और नेटवर्क गवर्नेंस में भाग लेने के लिए TBURN स्टेक करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "stakingPools": "स्टेकिंग पूल्स",
     "pools": "स्टेकिंग पूल्स",
     "tierSystem": "टियर सिस्टम",
@@ -757,6 +774,9 @@
   "tokenSystem": {
     "title": "टोकन सिस्टम v4.0",
     "subtitle": "क्वांटम-रेजिस्टेंस और AI ऑप्टिमाइज़ेशन के साथ AI-एन्हांस्ड एंटरप्राइज़ टोकन स्टैंडर्ड्स",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "tripleBandAi": "ट्रिपल-बैंड AI",
     "quantumResistant": "क्वांटम-रेजिस्टेंट",
     "audited": "ऑडिटेड",
@@ -1005,6 +1025,9 @@
   "dex": {
     "title": "विकेंद्रीकृत एक्सचेंज",
     "subtitle": "एंटरप्राइज़-ग्रेड लिक्विडिटी के साथ टोकन ट्रेड करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "swap": "स्वैप",
     "swapTokens": "टोकन स्वैप करें",
     "liquidityPools": "लिक्विडिटी पूल्स",
@@ -1047,6 +1070,9 @@
   "bridge": {
     "title": "क्रॉस-चेन ब्रिज",
     "subtitle": "ब्लॉकचेन के बीच सुरक्षित रूप से एसेट्स ट्रांसफर करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "transfer": "ट्रांसफर",
     "history": "इतिहास",
     "fromChain": "से चेन",
@@ -1114,6 +1140,9 @@
   "lending": {
     "title": "लेंडिंग प्रोटोकॉल",
     "subtitle": "विकेंद्रीकृत लेंडिंग के साथ सप्लाई, बॉरो और कमाई करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "markets": "मार्केट्स",
     "marketsOverview": "मार्केट्स अवलोकन",
     "supply": "सप्लाई",
@@ -1289,6 +1318,9 @@
   "yieldFarming": {
     "title": "यील्ड फार्मिंग",
     "subtitle": "AI-ऑप्टिमाइज़्ड फार्मिंग स्ट्रैटेजीज के साथ अपनी यील्ड को अधिकतम करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "aiEnhanced": "AI-एन्हांस्ड",
     "totalValueLocked": "कुल लॉक्ड वैल्यू",
     "activeVaults": "सक्रिय वॉल्ट्स",
@@ -1402,6 +1434,9 @@
   "liquidStaking": {
     "title": "लिक्विड स्टेकिंग",
     "subtitle": "एसेट्स स्टेक करें और ऑटोमैटिक यील्ड के साथ लिक्विड स्टेकिंग टोकन प्राप्त करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "aiOptimized": "AI-ऑप्टिमाइज़्ड",
     "aiOptimizedValidatorSelection": "AI-ऑप्टिमाइज़्ड वैलिडेटर चयन",
     "totalValueStaked": "कुल स्टेक्ड वैल्यू",
@@ -1496,6 +1531,9 @@
   "nft": {
     "title": "NFT मार्केटप्लेस",
     "subtitle": "अद्वितीय डिजिटल एसेट्स खोजें, संग्रहित करें और ट्रेड करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "collections": "संग्रह",
     "explore": "खोजें",
     "myNfts": "मेरे NFTs",
@@ -1534,6 +1572,9 @@
   "launchpad": {
     "title": "NFT लॉन्चपैड",
     "subtitle": "विशेष NFT लॉन्च में खोजें और भाग लें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "upcomingLaunches": "आगामी लॉन्च",
     "activeLaunches": "सक्रिय लॉन्च",
     "pastLaunches": "पिछले लॉन्च",
@@ -1559,6 +1600,9 @@
   "gamefi": {
     "title": "GameFi हब",
     "subtitle": "ब्लॉकचेन गेमिंग और Play-to-Earn",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "games": "गेम्स",
     "myGames": "मेरे गेम्स",
     "tournaments": "टूर्नामेंट्स",
@@ -1629,6 +1673,9 @@
   "consensus": {
     "title": "सहमति एक्सप्लोरर",
     "subtitle": "नेटवर्क सहमति मैकेनिज़्म और वोटिंग पावर विश्लेषण",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "consensusType": "सहमति प्रकार",
     "blockFinality": "ब्लॉक फाइनलिटी",
     "epochNumber": "एपॉक नंबर",
@@ -1758,6 +1805,9 @@
   "sharding": {
     "title": "शार्ड मैनेजमेंट",
     "subtitle": "ML-ऑप्टिमाइज़्ड शार्ड लोड बैलेंसिंग और परफॉर्मेंस मेट्रिक्स",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "aiOptimized": "AI-ऑप्टिमाइज़्ड",
     "shardCount": "शार्ड गणना",
     "totalShards": "कुल शार्ड्स",
@@ -1847,6 +1897,9 @@
   "crossShard": {
     "title": "क्रॉस-शार्ड कम्युनिकेशन",
     "subtitle": "इंटर-शार्ड मैसेज रूटिंग और डिलीवरी की निगरानी करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "pendingMessages": "लंबित मैसेज",
     "awaitingConfirmation": "पुष्टि की प्रतीक्षा",
     "confirmed": "पुष्टि हो गई",
@@ -1955,6 +2008,9 @@
   "aiOrchestration": {
     "title": "AI ऑर्केस्ट्रेशन",
     "subtitle": "इंटेलिजेंट मॉडल रूटिंग और ऑप्टिमाइज़ेशन के साथ ट्रिपल-बैंड AI इंजन",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "tripleBandEngine": "ट्रिपल-बैंड इंजन",
     "strategicLayer": "स्ट्रैटेजिक लेयर",
     "tacticalLayer": "टैक्टिकल लेयर",
@@ -2100,6 +2156,9 @@
   "smartContracts": {
     "title": "स्मार्ट कॉन्ट्रैक्ट्स",
     "subtitle": "स्मार्ट कॉन्ट्रैक्ट्स बिल्ड, डिप्लॉय और इंटरैक्ट करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "deployedContracts": "डिप्लॉयड कॉन्ट्रैक्ट्स",
     "contractAddress": "कॉन्ट्रैक्ट एड्रेस",
     "contractName": "कॉन्ट्रैक्ट नाम",
@@ -2248,6 +2307,9 @@
   "nodeHealth": {
     "title": "नोड हेल्थ",
     "subtitle": "प्रेडिक्टिव सेल्फ-हीलिंग सिस्टम मॉनिटरिंग",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "systemMetrics": "सिस्टम मेट्रिक्स",
     "cpu": "CPU",
     "memory": "मेमोरी",
@@ -2338,6 +2400,9 @@
   "admin": {
     "title": "मेननेट प्रशासन",
     "subtitle": "TBURN मेननेट इंफ्रास्ट्रक्चर को नियंत्रित और मॉनिटर करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "systemStatus": "सिस्टम स्थिति",
     "mainnetStatus": "मेननेट स्थिति",
     "running": "चल रहा है",
@@ -2586,6 +2651,9 @@
   "operator": {
     "title": "ऑपरेटर पोर्टल",
     "subtitle": "व्यापक नेटवर्क ऑपरेशंस मैनेजमेंट",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "enterpriseBackoffice": "TBURN नेटवर्क मैनेजमेंट के लिए एंटरप्राइज़ बैक-ऑफिस",
     "adminAccess": "एडमिन एक्सेस",
     "logout": "लॉग आउट",
@@ -2623,6 +2691,9 @@
       "technicalDetails": "Technical Details",
       "title": "ऑपरेटर पोर्टल",
       "subtitle": "TBURN नेटवर्क मैनेजमेंट के लिए एंटरप्राइज़ बैक-ऑफिस",
+      "forumTitle": "समुदाय मंच",
+      "viewAll": "सभी देखें",
+      "recentPosts": "हाल की पोस्ट",
       "autoRefresh": "ऑटो",
       "paused": "रोका गया",
       "accessDenied": "एक्सेस अस्वीकृत",
@@ -2743,6 +2814,9 @@
     "members": {
       "title": "सदस्य प्रबंधन",
       "subtitle": "नेटवर्क सदस्यों, KYC/AML स्थिति और टियर असाइनमेंट प्रबंधित करें",
+      "forumTitle": "समुदाय मंच",
+      "viewAll": "सभी देखें",
+      "recentPosts": "हाल की पोस्ट",
       "exportCsv": "CSV एक्सपोर्ट करें",
       "totalMembers": "कुल सदस्य",
       "membersSelected": "सदस्य चुने गए",
@@ -2854,6 +2928,9 @@
     "validators": {
       "title": "वैलिडेटर ऑपरेशंस",
       "subtitle": "आवेदनों की समीक्षा करें, वैलिडेटर्स प्रबंधित करें और स्लैशिंग लागू करें",
+      "forumTitle": "समुदाय मंच",
+      "viewAll": "सभी देखें",
+      "recentPosts": "हाल की पोस्ट",
       "slashValidator": "वैलिडेटर स्लैश करें",
       "applications": "आवेदन",
       "performance": "प्रदर्शन",
@@ -3040,6 +3117,9 @@
     "security": {
       "title": "सुरक्षा ऑडिट",
       "subtitle": "सुरक्षा इवेंट्स मॉनिटर करें, ऑडिट लॉग्स समीक्षा करें और कम्प्लायंस प्रबंधित करें",
+      "forumTitle": "समुदाय मंच",
+      "viewAll": "सभी देखें",
+      "recentPosts": "हाल की पोस्ट",
       "logSecurityEvent": "सुरक्षा इवेंट लॉग करें",
       "criticalEvents": "गंभीर इवेंट्स",
       "highPriority": "उच्च प्राथमिकता",
@@ -3295,6 +3375,9 @@
     "reports": {
       "title": "कम्प्लायंस रिपोर्ट्स",
       "subtitle": "रेगुलेटरी कम्प्लायंस रिपोर्ट्स और एनालिटिक्स जनरेट करें",
+      "forumTitle": "समुदाय मंच",
+      "viewAll": "सभी देखें",
+      "recentPosts": "हाल की पोस्ट",
       "generateReport": "रिपोर्ट जनरेट करें",
       "reportType": "रिपोर्ट प्रकार",
       "dateRange": "तिथि रेंज",
@@ -3413,6 +3496,9 @@
       "details": "Details",
       "title": "स्टेकिंग मैनेजमेंट",
       "subtitle": "नेटवर्क स्टेकिंग पूल्स और डेलीगेशंस प्रबंधित करें",
+      "forumTitle": "समुदाय मंच",
+      "viewAll": "सभी देखें",
+      "recentPosts": "हाल की पोस्ट",
       "totalStaked": "कुल स्टेक्ड",
       "activePools": "सक्रिय पूल्स",
       "totalDelegators": "कुल डेलीगेटर्स",
@@ -3437,6 +3523,9 @@
   "members": {
     "title": "सदस्य प्रबंधन",
     "subtitle": "व्यापक सदस्य, स्टेकर और वैलिडेटर प्रबंधन प्रणाली",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "totalMembers": "कुल सदस्य",
     "activeMembers": "सक्रिय सदस्य",
     "totalValidators": "कुल वैलिडेटर्स",
@@ -3729,6 +3818,9 @@
   "stakingRewards": {
     "title": "रिवॉर्ड सेंटर",
     "subtitle": "अपने स्टेकिंग रिवॉर्ड्स को ट्रैक और क्लेम करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "cycle": "साइकल",
     "pendingRewards": "लंबित रिवॉर्ड्स",
     "readyToClaim": "क्लेम के लिए तैयार",
@@ -3758,6 +3850,9 @@
   "stakingSdk": {
     "title": "वॉलेट SDK और डेवलपमेंट टूल्स",
     "subtitle": "व्यापक API और SDK के साथ TBURN स्टेकिंग को अपने एप्लिकेशन में इंटीग्रेट करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "quickStart": "क्विक स्टार्ट",
     "quickStartDesc": "स्टेप-बाय-स्टेप गाइड के साथ मिनटों में शुरू करें",
     "apiReference": "API रेफरेंस",
@@ -3797,6 +3892,9 @@
   "txSimulator": {
     "title": "ट्रांजैक्शन सिम्युलेटर",
     "subtitle": "नेटवर्क पर टेस्ट ट्रांजैक्शन बनाएं और प्रसारित करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "simulate": "सिम्युलेट करें",
     "simulationResult": "सिम्युलेशन परिणाम",
     "gasEstimate": "गैस अनुमान",
@@ -3944,6 +4042,9 @@
   "security": {
     "title": "सुरक्षा",
     "subtitle": "नेटवर्क सुरक्षा मॉनिटरिंग और अलर्ट्स",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "securityScore": "सुरक्षा स्कोर",
     "threats": "खतरे",
     "vulnerabilities": "कमजोरियां",
@@ -3960,6 +4061,9 @@
   "performance": {
     "title": "प्रदर्शन",
     "subtitle": "सिस्टम प्रदर्शन मेट्रिक्स और ऑप्टिमाइज़ेशन",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "cpuUsage": "CPU उपयोग",
     "memoryUsage": "मेमोरी उपयोग",
     "diskUsage": "डिस्क उपयोग",
@@ -3974,6 +4078,9 @@
   "apiKeys": {
     "title": "API कीज़",
     "subtitle": "TBURN ब्लॉकचेन डेटा तक सुरक्षित एक्सेस के लिए API कीज़ प्रबंधित करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "createNewKey": "नई API की बनाएं",
     "createDescription": "प्रोग्रामेटिक एक्सेस के लिए नई API की जनरेट करें। की केवल एक बार दिखाई जाएगी।",
     "keyLabel": "API की लेबल",
@@ -4007,6 +4114,9 @@
   "performanceMetrics": {
     "title": "प्रदर्शन मेट्रिक्स",
     "subtitle": "रियल-टाइम नेटवर्क प्रदर्शन एनालिटिक्स और SLA मॉनिटरिंग",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "currentTps": "वर्तमान TPS",
     "peakTps": "पीक TPS",
     "ofPeak": "पीक का",
@@ -4036,6 +4146,9 @@
   "metrics": {
     "title": "प्रदर्शन मेट्रिक्स",
     "subtitle": "एंटरप्राइज-ग्रेड नेटवर्क प्रदर्शन एनालिटिक्स और SLA मॉनिटरिंग",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "live": "लाइव",
     "polling": "पोलिंग",
     "export": "एक्सपोर्ट",
@@ -4165,6 +4278,9 @@
   "login": {
     "title": "TBURN चेन",
     "subtitle": "मेननेट ब्लॉकचेन एक्सप्लोरर",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "password": "पासवर्ड",
     "enterPassword": "पासवर्ड दर्ज करें",
     "loggingIn": "लॉग इन हो रहा है...",
@@ -4226,6 +4342,9 @@
   "governance": {
     "title": "AI गवर्नेंस",
     "subtitle": "प्रस्ताव विश्लेषण और परिणाम भविष्यवाणी के साथ AI-एन्हांस्ड DAO",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "aiPowered": "AI-संचालित",
     "totalProposals": "कुल प्रस्ताव",
     "activeCount": "{{count}} सक्रिय",
@@ -4337,6 +4456,9 @@
   "burn": {
     "title": "ऑटो-बर्न डैशबोर्ड",
     "subtitle": "मल्टी-ट्रिगर मैकेनिज़्म के साथ AI-एन्हांस्ड ऑटोनॉमस बर्न सिस्टम",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "deflationary": "डिफ्लेशनरी",
     "totalBurned": "कुल बर्न",
     "tburnPermanentlyRemoved": "TBURN स्थायी रूप से हटाया गया",
@@ -4455,6 +4577,9 @@
   "yield": {
     "title": "यील्ड फार्मिंग",
     "subtitle": "यील्ड स्ट्रैटेजीज के साथ अपने रिटर्न को अधिकतम करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "vaults": "वॉल्ट्स",
     "myVaults": "मेरे वॉल्ट्स",
     "deposit": "जमा",
@@ -4484,6 +4609,9 @@
   "token": {
     "title": "टोकन सिस्टम v4.0",
     "subtitle": "AI-एन्हांस्ड एंटरप्राइज़ टोकन स्टैंडर्ड्स",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "tbc20": "TBC-20",
     "tbc721": "TBC-721",
     "tbc1155": "TBC-1155",
@@ -4515,6 +4643,9 @@
   "walletSdk": {
     "title": "वॉलेट SDK",
     "subtitle": "एंटरप्राइज़ वॉलेट इंटीग्रेशन टूलकिट",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "walletConnect": "वॉलेट कनेक्ट करें",
     "walletDisconnect": "वॉलेट डिस्कनेक्ट करें",
     "walletAddress": "वॉलेट एड्रेस",
@@ -4531,6 +4662,9 @@
   "nftMarketplace": {
     "title": "NFT मार्केटप्लेस",
     "subtitle": "TBURN ब्लॉकचेन पर अद्वितीय डिजिटल एसेट्स खोजें, संग्रहित करें और ट्रेड करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "searchCollections": "कलेक्शंस खोजें...",
     "listNft": "NFT लिस्ट करें",
     "volume24h": "24घं वॉल्यूम",
@@ -4596,6 +4730,9 @@
   "nftLaunchpad": {
     "title": "NFT लॉन्चपैड",
     "subtitle": "TBURN ब्लॉकचेन पर नवीनतम NFT लॉन्च में खोजें और भाग लें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "stats": {
       "totalProjects": "कुल प्रोजेक्ट्स",
       "active": "सक्रिय",
@@ -4658,6 +4795,9 @@
   "community": {
     "title": "शीर्षक",
     "subtitle": "TBURN इकोसिस्टम के साथ जुड़ें, सहयोग करें और विकास करें",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "online": "ऑनलाइन",
     "totalMembers": "कुल सदस्य",
     "thisWeek": "इस सप्ताह",
@@ -4937,6 +5077,9 @@
     "badge": "VC टेस्ट मोड",
     "title": "TBURN प्लेटफॉर्म",
     "subtitle": "निवेश परीक्षण वातावरण",
+    "forumTitle": "समुदाय मंच",
+    "viewAll": "सभी देखें",
+    "recentPosts": "हाल की पोस्ट",
     "description": "पूर्व-वित्त पोषित डेमो वॉलेट के साथ TBURN मेननेट की पूर्ण क्षमताओं का अनुभव करें। सभी DeFi सुविधाओं का परीक्षण करें, हमारे AI ऑर्केस्ट्रेशन का अन्वेषण करें, और हमारी तकनीक का मूल्यांकन करें।",
     "startTour": "गाइडेड टूर शुरू करें",
     "explorePlatform": "प्लेटफॉर्म एक्सप्लोर करें",
@@ -5040,6 +5183,9 @@
       "gatewayRegister": "गेटवे_पंजीकरण",
       "title": "प्रारंभ करें",
       "subtitle": "न्यूरल लेयर पर नई पहचान बनाएं",
+      "forumTitle": "समुदाय मंच",
+      "viewAll": "सभी देखें",
+      "recentPosts": "हाल की पोस्ट",
       "nodeAlias": "नोड उपनाम",
       "usernamePlaceholder": "उपयोगकर्ता नाम दर्ज करें",
       "signalFrequency": "सिग्नल फ्रीक्वेंसी (ईमेल)",
@@ -5421,6 +5567,9 @@
       "solutions": {
         "title": "मुख्य समाधान",
         "subtitle": "एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "tripleBandAi": {
           "title": "ट्रिपल-बैंड AI",
           "description": "रणनीतिक, सामरिक और परिचालन स्तरों पर अनुकूलित निर्णय लेने का उपयोग करते हुए तीन-स्तरीय AI ऑर्केस्ट्रेशन।"
@@ -5453,6 +5602,9 @@
       "cta": {
         "title": "विश्वास बनाने के लिए तैयार हैं?",
         "subtitle": "ट्रस्ट-आधारित ब्लॉकचेन का भविष्य बनाने वाले हजारों डेवलपर्स से जुड़ें",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "exploreEcosystem": "इकोसिस्टम एक्सप्लोर करें",
         "joinCommunity": "कम्युनिटी में शामिल हों"
       }
@@ -5462,6 +5614,9 @@
         "tag": "V4 लर्निंग सेंटर",
         "title": "शिक्षा हब",
         "subtitle": "TBurn Lab V4 इकोसिस्टम में महारत हासिल करें। ट्रस्ट-आधारित सहमति एल्गोरिदम से लेकर हाई-स्पीड dApps बनाने तक, यहां से अपनी यात्रा शुरू करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "stats": {
           "courses": "कोर्सेज",
           "learners": "लर्नर्स",
@@ -5646,6 +5801,9 @@
         "tag": "परिचय",
         "title": "TBurn Lab क्या है?",
         "subtitle": "AI सत्यापन और क्वांटम-प्रतिरोधी सुरक्षा के साथ दुनिया के पहले ट्रस्ट-आधारित ब्लॉकचेन की खोज करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "coreFeatures": {
           "title": "मुख्य विशेषताएं",
           "items": {
@@ -5671,6 +5829,9 @@
         "consensus": {
           "title": "सहमति तंत्र",
           "subtitle": "प्रूफ ऑफ ट्रस्ट (PoT) सत्यापन को विश्वास स्कोरिंग के साथ जोड़ता है",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "specs": {
             "blockTime": "ब्लॉक टाइम",
             "finality": "फाइनलिटी",
@@ -5726,6 +5887,9 @@
         "tag": "मुख्य विशेषता",
         "title": "विश्वास स्कोर सिस्टम",
         "subtitle": "3-चरण सत्यापन प्रणाली, AI विश्लेषण और गतिशील स्कोरिंग एल्गोरिदम में गहराई से जानें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "philosophy": {
           "title": "मूल्यांकन दर्शन",
           "description": "विश्वास स्कोर कई आयामों के माध्यम से प्रोजेक्ट विश्वसनीयता का मूल्यांकन करके निवेशकों की सुरक्षा के लिए डिज़ाइन किए गए हैं",
@@ -5901,6 +6065,9 @@
         "tag": "शुरुआत करना",
         "title": "वॉलेट क्या है?",
         "subtitle": "क्रिप्टोकरेंसी वॉलेट, सुरक्षा सर्वोत्तम अभ्यास और अपना TBurn वॉलेट कैसे सेट करें, यह जानें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "types": {
           "title": "वॉलेट प्रकार",
           "hot": {
@@ -5974,9 +6141,15 @@
         "tag": "तकनीकी पेपर",
         "title": "व्हाइटपेपर",
         "subtitle": "TBurn Lab आर्किटेक्चर, सहमति और टोकनोमिक्स का संपूर्ण तकनीकी दस्तावेज़।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "trustCrisis": {
           "title": "विश्वास संकट",
           "subtitle": "हम जिस समस्या को हल करते हैं उसे समझें",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "stats": {
             "rugPulls": {
               "value": "$2.8B",
@@ -6061,6 +6234,9 @@
             "description": "तत्काल धोखाधड़ी पहचान और रोकथाम"
           },
           "subtitle": "तीन अलग-अलग AI मॉडलों का उपयोग करके बुद्धिमान निर्णय-निर्माण।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "items": {
             "strategic": {
               "title": "रणनीतिक परत",
@@ -6140,6 +6316,9 @@
         "tag": "अर्थशास्त्र",
         "title": "टोकनोमिक्स",
         "subtitle": "TBURN टोकन वितरण, उत्सर्जन शेड्यूल और अपस्फीतिकारी तंत्र को समझें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "marketStats": {
           "title": "बाजार आंकड़े",
           "totalSupply": "कुल आपूर्ति",
@@ -6236,6 +6415,9 @@
         "distributionSection": {
           "title": "टोकन वितरण",
           "subtitle": "दीर्घकालिक पारिस्थितिकी तंत्र विकास और स्थिरता के लिए रणनीतिक आवंटन",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
@@ -6280,6 +6462,9 @@
         "tag": "विकास",
         "title": "रोडमैप",
         "subtitle": "मुख्यधारा अपनाने की यात्रा पर हमारी प्रगति और आगामी मील के पत्थर ट्रैक करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "phases": {
           "phase1": {
             "title": "फेज 1: नींव",
@@ -6393,6 +6578,9 @@
         "tag": "शुरुआती",
         "title": "ब्लॉकचेन बेसिक्स",
         "subtitle": "ब्लॉकचेन तकनीक और वितरित सिस्टम की मूल अवधारणाएं।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "duration": "4 घंटे",
         "backToEducation": "शिक्षा कार्यक्रमों पर वापस जाएं",
         "courseOverview": {
@@ -6407,21 +6595,33 @@
           "module1": {
             "title": "ब्लॉकचेन क्या है?",
             "subtitle": "वितरित लेजर तकनीक को समझना",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "45 min"
           },
           "module2": {
             "title": "क्रिप्टोग्राफी मूल बातें",
             "subtitle": "हैश फंक्शन, हस्ताक्षर और एन्क्रिप्शन",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "60 min"
           },
           "module3": {
             "title": "सहमति तंत्र",
             "subtitle": "PoW, PoS, और TBurn का प्रूफ ऑफ ट्रस्ट",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "75 min"
           },
           "module4": {
             "title": "TBurn Lab आर्किटेक्चर",
             "subtitle": "हमारे ट्रस्ट-आधारित सिस्टम में गहराई से",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "60 min"
           }
         },
@@ -6466,6 +6666,9 @@
         "tag": "मध्यवर्ती",
         "title": "DeFi मास्टरी",
         "subtitle": "DEX, लेंडिंग और यील्ड रणनीतियों सहित विकेंद्रीकृत वित्त अवधारणाओं में महारत हासिल करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "duration": "8 घंटे",
         "backToEducation": "शिक्षा कार्यक्रमों पर वापस जाएं",
         "stats": {
@@ -6494,21 +6697,33 @@
           "module1": {
             "title": "DEX और AMM मैकेनिक्स",
             "subtitle": "स्वचालित बाजार निर्माताओं को समझना",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "90 min"
           },
           "module2": {
             "title": "लेंडिंग प्रोटोकॉल",
             "subtitle": "संपार्श्विक उधार और उधारी",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "120 min"
           },
           "module3": {
             "title": "लिक्विडिटी प्रोविजन",
             "subtitle": "LP टोकन, अस्थायी नुकसान और पुरस्कार",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "90 min"
           },
           "module4": {
             "title": "यील्ड रणनीतियां",
             "subtitle": "ट्रस्ट-बूस्टेड यील्ड के साथ रिटर्न ऑप्टिमाइज़ करना",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "120 min"
           }
         },
@@ -6561,6 +6776,9 @@
         "tag": "उन्नत",
         "title": "डेवलपर कोर्स",
         "subtitle": "TBurn Lab पर dApps बनाने और तैनात करने की पूर्ण गाइड।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "duration": "20 घंटे",
         "backToEducation": "शिक्षा कार्यक्रमों पर वापस जाएं",
         "courseOverview": {
@@ -6572,21 +6790,33 @@
           "module1": {
             "title": "SDK सेटअप और कॉन्फ़िगरेशन",
             "subtitle": "वातावरण सेटअप और प्रोजेक्ट इनिशियलाइजेशन",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "2 घंटे"
           },
           "module2": {
             "title": "स्मार्ट कॉन्ट्रैक्ट विकास",
             "subtitle": "सुरक्षित, ऑप्टिमाइज्ड कॉन्ट्रैक्ट्स लिखना",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "6 घंटे"
           },
           "module3": {
             "title": "API एकीकरण",
             "subtitle": "REST, GraphQL, और WebSocket APIs",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "4 घंटे"
           },
           "module4": {
             "title": "परिनियोजन और DevOps",
             "subtitle": "मेननेट परिनियोजन और मॉनिटरिंग",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "4 घंटे"
           }
         },
@@ -6645,6 +6875,9 @@
         "tag": "शुरुआती",
         "title": "DeFi का परिचय",
         "subtitle": "TBurn Lab पर विकेंद्रीकृत वित्त में आपके पहले कदम।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "duration": "2 घंटे",
         "backToEducation": "शिक्षा कार्यक्रमों पर वापस जाएं",
         "scoreFormula": {
@@ -6768,6 +7001,9 @@
         "tag": "प्रोग्राम्स",
         "title": "शिक्षा कार्यक्रम",
         "subtitle": "ब्लॉकचेन शिक्षा के लिए संरचित शिक्षण पथ और प्रमाणन कार्यक्रम।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "backToLearn": "सीखने पर वापस जाएं",
         "pathsTitle": "शिक्षण पथ",
         "pathsSubtitle": "अपने लक्ष्यों और अनुभव स्तर के आधार पर एक संरचित पथ चुनें।",
@@ -6796,24 +7032,36 @@
           "beginner": {
             "title": "ब्लॉकचेन मूल बातें",
             "subtitle": "मुख्य अवधारणाओं और शब्दावली के साथ अपनी ब्लॉकचेन यात्रा शुरू करें।",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "6 घंटे",
             "level": "शुरुआती"
           },
           "defi": {
             "title": "DeFi विशेषज्ञ",
             "subtitle": "विकेंद्रीकृत वित्त प्रोटोकॉल और रणनीतियों में महारत हासिल करें।",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "12 घंटे",
             "level": "मध्यवर्ती"
           },
           "developer": {
             "title": "स्मार्ट कॉन्ट्रैक्ट डेवलपर",
             "subtitle": "TBurn Lab पर प्रोडक्शन-रेडी dApps बनाएं।",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "20 घंटे",
             "level": "उन्नत"
           },
           "security": {
             "title": "सुरक्षा और विश्वास",
             "subtitle": "Trust Score, सुरक्षा ऑडिट और सर्वोत्तम प्रथाओं के बारे में जानें।",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "duration": "10 घंटे",
             "level": "मध्यवर्ती"
           }
@@ -6884,6 +7132,9 @@
         "tag": "V4 SDK और API तैयार",
         "title": "डेवलपर हब",
         "subtitle": "अगली पीढ़ी के ट्रस्ट-आधारित एप्लिकेशन बनाएं। TBurn Lab V4 इकोसिस्टम के लिए व्यापक विकास उपकरण, SDKs और APIs एक्सेस करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "getStarted": "शुरू करें",
         "viewDocs": "दस्तावेज़ देखें",
         "quickStart": {
@@ -6897,6 +7148,9 @@
         "apiReference": {
           "title": "API संदर्भ",
           "subtitle": "RESTful API और WebSocket स्ट्रीमिंग",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "blockchainApi": "ब्लॉकचेन API",
           "defiApi": "DeFi API",
           "aiApi": "AI API"
@@ -6918,6 +7172,9 @@
         "grants": {
           "title": "डेवलपर अनुदान कार्यक्रम",
           "subtitle": "हम उन प्रोजेक्ट्स का समर्थन करते हैं जो TBurn Lab इकोसिस्टम का विस्तार करते हैं।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "totalFund": "$50M कुल अनुदान फंड"
         },
         "quickStartSteps": {
@@ -7066,6 +7323,9 @@
         "tag": "दस्तावेज़ीकरण",
         "title": "दस्तावेज़ीकरण",
         "subtitle": "TBurn Lab विकास के लिए व्यापक गाइड और संदर्भ।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "heroDescription": "TBurn Lab पर निर्माण के लिए आवश्यक सब कुछ। क्विक स्टार्ट्स से लेकर उन्नत API संदर्भों तक।",
         "searchPlaceholder": "दस्तावेज़ीकरण खोजें...",
         "categoriesTitle": "दस्तावेज़ीकरण श्रेणियां",
@@ -7077,6 +7337,9 @@
         "architecture": {
           "title": "नेटवर्क आर्किटेक्चर",
           "subtitle": "TBurn Lab मल्टी-लेयर आर्किटेक्चर को समझना",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "layers": {
             "consensus": {
               "title": "सहमति परत",
@@ -7189,6 +7452,9 @@
         "tag": "API संदर्भ",
         "title": "API दस्तावेज़ीकरण",
         "subtitle": "ब्लॉकचेन, DeFi और AI सेवाओं के लिए RESTful API एंडपॉइंट्स।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "baseUrl": "बेस URL",
         "coreEndpoints": "कोर एंडपॉइंट्स",
         "parameters": "पैरामीटर्स",
@@ -7274,6 +7540,9 @@
         "tag": "CLI टूल्स",
         "title": "CLI संदर्भ",
         "subtitle": "प्रोजेक्ट प्रबंधन और तैनाती के लिए कमांड लाइन इंटरफ़ेस।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "currentVersion": "वर्तमान संस्करण",
         "usage": "उपयोग",
         "options": "विकल्प",
@@ -7358,6 +7627,9 @@
         "tag": "SDK गाइड",
         "title": "SDK गाइड",
         "subtitle": "मल्टी-लैंग्वेज SDK एकीकरण गाइड और सर्वोत्तम अभ्यास।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "installation": "इंस्टॉलेशन",
         "configuration": "कॉन्फ़िगरेशन",
         "quickExamples": "त्वरित उदाहरण",
@@ -7396,6 +7668,9 @@
         "tag": "स्मार्ट कॉन्ट्रैक्ट्स",
         "title": "स्मार्ट कॉन्ट्रैक्ट्स",
         "subtitle": "TBurn Lab पर सुरक्षित स्मार्ट कॉन्ट्रैक्ट्स लिखें, टेस्ट करें और तैनात करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "contractTemplates": "कॉन्ट्रैक्ट Templates",
         "copy": "Copy",
         "copied": "Copied!",
@@ -7482,6 +7757,9 @@
         "gasOptimization": {
           "title": "गैस Optimization",
           "subtitle": "Tips for reducing transaction costs",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "tip1": "Pack multiple small variables into single storage slots",
           "tip2": "Use calldata instead of memory for read-only फंक्शन पैरामीटर्स",
           "tip3": "Cache storage variables in memory when accessed multiple times",
@@ -7539,6 +7817,9 @@
         "tag": "रियल-टाइम",
         "title": "WebSocket API",
         "subtitle": "रियल-टाइम डेटा स्ट्रीमिंग और इवेंट सब्सक्रिप्शन।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "connectionEndpoints": "Connection Endpoints",
         "subscriptionChannels": "Subscription Channels",
         "fullReference": "Full संदर्भ",
@@ -7587,6 +7868,9 @@
         "tag": "कोड उदाहरण",
         "title": "कोड उदाहरण",
         "subtitle": "उपयोग के लिए तैयार कोड स्निपेट्स और सैंपल प्रोजेक्ट्स।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "commonRecipes": "Common Recipes",
         "categories": {
           "allRecipes": "All Recipes",
@@ -7651,6 +7935,9 @@
         "tag": "शुरुआत करना",
         "title": "क्विक स्टार्ट",
         "subtitle": "TBurn Lab के साथ मिनटों में शुरू करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "whatsNext": "What's अगला?",
         "prerequisites": {
           "title": "Prerequisites",
@@ -7714,6 +8001,9 @@
         "tag": "सेटअप",
         "title": "इंस्टॉलेशन गाइड",
         "subtitle": "चरण-दर-चरण इंस्टॉलेशन और कॉन्फ़िगरेशन निर्देश।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "startBuilding": "शुरू करें Building",
         "viewQuickStart": "व्यू Quick शुरू करें",
         "systemRequirements": "सिस्टम Requirements",
@@ -7738,6 +8028,9 @@
           "minimum": {
             "title": "न्यूनतम Requirements",
             "subtitle": "For विकास and परीक्षण",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "cpu": "4 cores / 8 threads",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
@@ -7746,6 +8039,9 @@
           "recommended": {
             "title": "Recommended Requirements",
             "subtitle": "For उत्पादन validators",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "cpu": "8+ cores / 16 threads",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
@@ -7760,6 +8056,9 @@
           "ports": {
             "title": "Network Ports",
             "subtitle": "Required ports for नोड operation",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
@@ -7873,6 +8172,9 @@
         "tag": "माइग्रेशन",
         "title": "EVM माइग्रेशन",
         "subtitle": "अपने Ethereum dApps को TBurn Lab पर माइग्रेट करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "startMigration": "शुरू करें माइग्रेशन",
         "viewGuide": "व्यू Full गाइड",
         "overview": {
@@ -7928,6 +8230,9 @@
         "keyDifferences": {
           "title": "की Technical Differences",
           "subtitle": "What sets TBurn चेन apart from traditional EVM chains",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "existingEvmChains": "Existing EVM Chains",
           "tburnChain": "TBurn चेन",
           "upgrade": "अपग्रेड"
@@ -8018,6 +8323,9 @@
         "title": "DeFi हब",
         "titleHighlight": "इकोसिस्टम",
         "subtitle": "DEX, लेंडिंग, स्टेकिंग और यील्ड फार्मिंग के साथ संपूर्ण विकेंद्रीकृत वित्त इंफ्रास्ट्रक्चर।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "features": {
           "dex": "DEX/AMM",
           "lending": "लेंडिंग प्रोटोकॉल",
@@ -8067,6 +8375,9 @@
         "cta": {
           "title": "TBurn DeFi पर ट्रेडिंग शुरू करें",
           "subtitle": "सबसे विश्वसनीय विकेंद्रीकृत वित्त इकोसिस्टम एक्सेस करें",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "launchApp": "ऐप लॉन्च करें",
           "viewDocs": "दस्तावेज़ देखें"
         },
@@ -8189,6 +8500,9 @@
         "title": "टोकन",
         "titleHighlight": "एक्सटेंशंस",
         "subtitle": "बिल्ट-इन विश्वास सत्यापन और स्वचालित बर्न मैकेनिक्स के साथ उन्नत TBC-20 टोकन मानक।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "exploreBrc20": "TBC-20 खोजें",
         "readSpecs": "स्पेक्स पढ़ें",
         "features": {
@@ -8233,6 +8547,9 @@
         "brc20Standard": {
           "title": "TBC-20 टोकन मानक",
           "subtitle": "Trust & Burn कार्यक्षमता के लिए कोर इंटरफेस।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "trustScoreFunctions": "विश्वास स्कोर फंक्शन्स",
           "autoBurnFunctions": "ऑटो बर्न फंक्शन्स"
         },
@@ -8281,6 +8598,9 @@
         "cta": {
           "title": "TBC-20 टोकन जारी करना शुरू करें",
           "subtitle": "5 मिनट से कम में बिल्ट-इन विश्वास रेटिंग सुविधाओं के साथ टोकन जारी करें।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "openConsole": "डेवलपर कंसोल खोलें",
           "viewApiDocs": "API दस्तावेज़ देखें"
         },
@@ -8293,6 +8613,9 @@
         "brc20": {
           "title": "TBC-20 टोकन मानक",
           "subtitle": "Trust & Burn कार्यक्षमता के लिए कोर इंटरफेस।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "trustScoreFunctions": "विश्वास स्कोर फंक्शन्स",
           "autoBurnFunctions": "ऑटो बर्न फंक्शन्स"
         },
@@ -8328,10 +8651,16 @@
         "title": "एक्शंस और",
         "titleHighlight": "ब्लिंक्स",
         "subtitle": "सरल URL लिंक्स के माध्यम से ब्लॉकचेन लेनदेन निष्पादित करें। सोशल मीडिया पर स्वैप्स, मिंटिंग और वोट्स साझा करें। विश्वास स्कोर सत्यापन शामिल।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "createAction": "एक्शन बनाएं",
         "coreCapabilities": {
           "title": "मुख्य क्षमताएं",
           "subtitle": "ब्लॉकचेन इंटरैक्शन को मानकीकृत करने वाला अगली पीढ़ी का प्रोटोकॉल",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "urlExecution": {
             "title": "URL निष्पादन",
             "description": "डीप लिंक्स के माध्यम से स्वैप्स, मिंटिंग और वोटिंग तुरंत करें।"
@@ -8474,6 +8803,9 @@
         "title": "वॉलेट्स और",
         "titleHighlight": "सुरक्षा",
         "subtitle": "विश्वसनीय वॉलेट्स का उपयोग करके TBurn Lab से कनेक्ट करें। सभी वॉलेट्स लेनदेन से पहले रियल-टाइम विश्वास स्कोर प्रदर्शित करते हैं।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "recommended": "अनुशंसित",
         "walletList": {
           "tburn": {
@@ -8552,11 +8884,17 @@
         "title": "परमिशंड",
         "titleHighlight": "नेटवर्क्स",
         "subtitle": "TBurn Lab के विश्वास सत्यापन के साथ प्राइवेट ब्लॉकचेन नेटवर्क तैनात करें। पब्लिक चेन एंकरिंग के साथ एंटरप्राइज-ग्रेड सुरक्षा।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "contactSales": "सेल्स से संपर्क करें",
         "viewWhitepaper": "व्हाइटपेपर देखें",
         "enterpriseFeatures": {
           "title": "एंटरप्राइज-ग्रेड परमिशंड चेन",
           "subtitle": "व्यवसायों के लिए उन्नत नियंत्रण और अनुपालन सुविधाएं।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "rbac": {
             "title": "रोल-बेस्ड एक्सेस कंट्रोल (RBAC)",
             "description": "एडमिन, वैलिडेटर्स और उपयोगकर्ताओं के लिए ग्रैन्युलर अनुमति सेटिंग्स। भूमिकाओं के आधार पर स्मार्ट कॉन्ट्रैक्ट तैनाती, लेनदेन अनुमोदन और डेटा क्वेरीज के लिए अलग अनुमतियां।"
@@ -8577,6 +8915,9 @@
         "hybridArchitecture": {
           "title": "हाइब्रिड आर्किटेक्चर",
           "subtitle": "प्राइवेट चेन की गोपनीयता को पब्लिक ब्लॉकचेन की सुरक्षा के साथ मिलाएं।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "privateChainAnchor": {
             "title": "प्राइवेट चेन + पब्लिक एंकर",
             "description": "आंतरिक लेनदेन हाई-स्पीड प्राइवेट चेन पर चलते हैं, अपरिवर्तनीयता के लिए TBurn पब्लिक मेननेट पर समय-समय पर स्टेट हैश एंकर किए जाते हैं।"
@@ -8727,10 +9068,16 @@
         "title": "गेम",
         "titleHighlight": "टूलिंग",
         "subtitle": "NFT सत्यापन, P2E मैकेनिक्स और क्रॉस-गेम एसेट ट्रेडिंग के साथ पूर्ण GameFi SDK। विश्वास स्कोर धोखाधड़ी वाले गेम प्रोजेक्ट्स को रोकता है।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "getUnitySdk": "Unity SDK प्राप्त करें",
         "whyBuild": {
           "title": "TBurn पर क्यों बनाएं?",
           "subtitle": "हाई-स्पीड गेमिंग और सुरक्षित एसेट ट्रेडिंग के लिए अनुकूलित।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "ultraFastProcessing": {
             "title": "अल्ट्रा-फास्ट प्रोसेसिंग",
             "description": "50,000+ TPS (पीक 520,000+ TPS) थ्रूपुट रियल-टाइम इन-गेम आइटम ट्रेडिंग सक्षम करता है। औसत 1-सेकंड ब्लॉक टाइम के साथ, खिलाड़ी बिना लैग के तत्काल पुष्टि का अनुभव करते हैं।"
@@ -8787,6 +9134,9 @@
             "desc": "सत्यापित डिजिटल एसेट स्वामित्व के साथ इमर्सिव वर्चुअल वातावरण।"
           },
           "subtitle": "हमारे व्यापक टूलिंग के साथ किसी भी प्रकार का ब्लॉकचेन गेम बनाएं",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "marketplace": {
             "title": "NFT मार्केटप्लेस",
             "desc": "विश्वास सत्यापन के साथ इन-गेम आइटम्स के लिए सुरक्षित ट्रेडिंग प्लेटफॉर्म।",
@@ -8843,6 +9193,9 @@
         "trustScore": {
           "title": "NFT प्रोजेक्ट विश्वास स्कोर",
           "subtitle": "गेम प्रोजेक्ट्स के लिए व्यापक सत्यापन सिस्टम",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "teamScore": "टीम पहचान स्कोर",
           "contractScore": "कॉन्ट्रैक्ट सुरक्षा स्कोर",
           "utilityScore": "उपयोगिता और रोडमैप स्कोर",
@@ -8940,10 +9293,16 @@
         "title": "ग्लोबल",
         "titleHighlight": "पेमेंट्स",
         "subtitle": "विश्वव्यापी सत्यापित क्रिप्टो पेमेंट्स स्वीकार करें। तत्काल सेटलमेंट, अल्ट्रा-लो फीस और मर्चेंट सुरक्षा के लिए विश्वास स्कोर फिल्टरिंग।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "getApiKey": "API Key प्राप्त करें",
         "whyChoose": {
           "title": "TBurn क्यों चुनें?",
           "subtitle": "ग्लोबल कॉमर्स के लिए अनुकूलित इंफ्रास्ट्रक्चर।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "instantSettlement": {
             "title": "तत्काल सेटलमेंट",
             "description": "औसत 1-सेकंड ब्लॉक टाइम और 6-सेकंड फाइनलिटी। 50,000+ TPS (पीक 520,000+ TPS) क्षमता के साथ पारंपरिक क्रेडिट कार्ड से तेज पेमेंट स्पीड का अनुभव करें।"
@@ -9038,6 +9397,9 @@
         "tag": "कॉमर्स",
         "title": "कॉमर्स",
         "subtitle": "ई-कॉमर्स एकीकरण और मर्चेंट समाधान।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "titleHighlight": "समाधान",
         "buttons": {
           "installPlugin": "प्लगइन इंस्टॉल करें",
@@ -9131,6 +9493,9 @@
         "tag": "वित्त",
         "title": "वित्तीय सेवाएं",
         "subtitle": "ब्लॉकचेन पर एंटरप्राइज वित्तीय इंफ्रास्ट्रक्चर।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "titleHighlight": "सेवाएं",
         "buttons": {
           "startBuilding": "निर्माण शुरू करें",
@@ -9214,6 +9579,9 @@
         "tag": "AI संचालित",
         "title": "AI विशेषताएं",
         "subtitle": "बुद्धिमान ब्लॉकचेन संचालन के लिए ट्रिपल-बैंड AI ऑर्केस्ट्रेशन।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "titleHighlight": "ट्रिपल-बैंड ऑर्केस्ट्रेशन",
         "tiers": {
           "strategic": {
@@ -9355,6 +9723,9 @@
         "tag": "क्रिएटिव",
         "title": "कलाकार और क्रिएटर्स",
         "subtitle": "NFT मिंटिंग, रॉयल्टी और क्रिएटर इकॉनमी टूल्स।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "titleHighlight": "क्रिएटर्स",
         "buttons": {
           "startCreating": "बनाना शुरू करें",
@@ -9469,6 +9840,9 @@
         "tag": "बिटकॉइन DEFI",
         "title": "BTCfi",
         "subtitle": "रैप्ड BTC और क्रॉस-चेन यील्ड्स के साथ Bitcoin DeFi एकीकरण।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "titleHighlight": "Bitcoin DeFi",
         "buttons": {
           "bridgeBtc": "BTC ब्रिज करें",
@@ -9610,6 +9984,9 @@
         "tag": "ब्रिज",
         "title": "क्रॉस-चेन ब्रिज",
         "subtitle": "7+ ब्लॉकचेन नेटवर्क्स में सुरक्षित एसेट ट्रांसफर।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "titleHighlight": "ब्रिज",
         "buttons": {
           "launchBridge": "ब्रिज लॉन्च करें",
@@ -9629,6 +10006,9 @@
           "mpcSecurity": {
             "title": "MPC सुरक्षा",
             "subtitle": "ट्रस्टलेस ब्रिजिंग के लिए मल्टी-पार्टी कंप्यूटेशन",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "items": {
               "distributedKeyGen": "वितरित की जनरेशन",
               "thresholdSignatures": "थ्रेशोल्ड सिग्नेचर्स",
@@ -9638,6 +10018,9 @@
           "atomicSwaps": {
             "title": "एटॉमिक स्वैप्स",
             "subtitle": "ऑल-ऑर-नथिंग लेनदेन गारंटी",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "items": {
               "htlcContracts": "HTLC स्मार्ट कॉन्ट्रैक्ट्स",
               "zeroSlippage": "ज़ीरो स्लिपेज स्वैप्स",
@@ -9647,6 +10030,9 @@
           "unifiedLiquidity": {
             "title": "यूनिफाइड लिक्विडिटी",
             "subtitle": "गहरे क्रॉस-चेन लिक्विडिटी पूल्स",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "items": {
               "crossChainPools": "क्रॉस-चेन लिक्विडिटी पूल्स",
               "dynamicRebalancing": "डायनेमिक पूल रीबैलेंसिंग",
@@ -9769,6 +10155,9 @@
         "tag": "गेमिंग और मेटावर्स",
         "title": "गेमिंग और मेटावर्स",
         "subtitle": "TBURN के उच्च-प्रदर्शन GameFi इंफ्रास्ट्रक्चर के साथ अगली पीढ़ी के ब्लॉकचेन गेम बनाएं। सहज P2E एकीकरण, NFT संपत्तियां और क्रॉस-गेम अर्थव्यवस्थाएं।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "buttons": {
           "startBuilding": "निर्माण शुरू करें",
           "gameTooling": "गेम टूलिंग"
@@ -9878,6 +10267,9 @@
         "tag": "एसेट टोकनाइजेशन",
         "title": "एसेट टोकनाइजेशन",
         "subtitle": "वास्तविक दुनिया की संपत्तियों को ब्लॉकचेन टोकन में बदलें। तरलता अनलॉक करें, आंशिक स्वामित्व सक्षम करें, और नियामक-अनुपालक टोकनाइजेशन के साथ वैश्विक बाजारों तक पहुंचें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "buttons": {
           "startTokenizing": "टोकनाइजिंग शुरू करें",
           "viewDocumentation": "दस्तावेज़ देखें"
@@ -9938,6 +10330,9 @@
         "tag": "विकेंद्रीकृत इंफ्रास्ट्रक्चर",
         "title": "DePIN नेटवर्क",
         "subtitle": "विकेंद्रीकृत भौतिक इंफ्रास्ट्रक्चर नेटवर्क बनाएं और संचालित करें। कंप्यूटिंग, स्टोरेज, वायरलेस और सेंसिंग संसाधनों का योगदान करके पुरस्कार अर्जित करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "buttons": {
           "deployInfrastructure": "इंफ्रास्ट्रक्चर डिप्लॉय करें",
           "protocolDocs": "प्रोटोकॉल दस्तावेज़"
@@ -10005,6 +10400,9 @@
         "tag": "स्टेबलकॉइन इंफ्रास्ट्रक्चर",
         "title": "स्टेबलकॉइन समाधान",
         "subtitle": "एंटरप्राइज-ग्रेड स्टेबलकॉइन जारी और प्रबंधन। फिएट-समर्थित, क्रिप्टो-कोलैटरलाइज़्ड और एल्गोरिथमिक विकल्प पूर्ण नियामक अनुपालन के साथ।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "buttons": {
           "issueStablecoin": "स्टेबलकॉइन जारी करें",
           "technicalDocs": "तकनीकी दस्तावेज़"
@@ -10084,6 +10482,9 @@
         "tag": "संस्थागत भुगतान",
         "title": "संस्थागत भुगतान समाधान",
         "subtitle": "वित्तीय संस्थानों के लिए बैंक-ग्रेड भुगतान इंफ्रास्ट्रक्चर। रियल-टाइम सेटलमेंट, क्रॉस-बॉर्डर भुगतान और पूर्ण नियामक अनुपालन।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "buttons": {
           "contactSales": "बिक्री से संपर्क करें",
           "apiReference": "API संदर्भ"
@@ -10163,6 +10564,9 @@
         "tag": "एंटरप्राइज ब्लॉकचेन",
         "title": "एंटरप्राइज समाधान",
         "subtitle": "आधुनिक व्यवसायों के लिए व्यापक ब्लॉकचेन समाधान। प्राइवेट नेटवर्क, अनुपालन सुविधाएं और 24/7 एंटरप्राइज समर्थन।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "buttons": {
           "contactEnterprise": "एंटरप्राइज से संपर्क करें",
           "enterpriseDocs": "एंटरप्राइज दस्तावेज़"
@@ -10252,6 +10656,9 @@
         "tag": "नेटवर्क वैलिडेटर्स",
         "title": "वैलिडेटर्स",
         "subtitle": "TBurn वैलिडेटर नेटवर्क में शामिल हों और ब्लॉकचेन को सुरक्षित करते हुए पुरस्कार अर्जित करें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "becomeValidator": "वैलिडेटर बनें",
         "validatorDocs": "वैलिडेटर दस्तावेज़ीकरण देखें",
         "stats": {
@@ -10299,6 +10706,9 @@
         "cta": {
           "title": "वैलिडेटर बनने के लिए तैयार हैं?",
           "subtitle": "नेटवर्क में शामिल हों और TBurn चेन को सुरक्षित करते हुए पुरस्कार अर्जित करें।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "startValidating": "सत्यापन शुरू करें",
           "readDocs": "दस्तावेज़ीकरण पढ़ें"
         },
@@ -10393,6 +10803,9 @@
         "slashing": {
           "title": "स्लैशिंग शर्तें",
           "subtitle": "वैलिडेटर्स को उच्च मानकों का पालन करना चाहिए। उल्लंघन के परिणामस्वरूप स्टेक दंड लगता है।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "minor": {
             "title": "मामूली उल्लंघन",
             "badge": "चेतावनी",
@@ -10446,6 +10859,9 @@
         "tag": "RPC इंफ्रास्ट्रक्चर",
         "title": "RPC प्रोवाइडर्स",
         "subtitle": "एंटरप्राइज-ग्रेड विश्वसनीयता के साथ उच्च-प्रदर्शन RPC एंडपॉइंट्स। WebSocket और HTTP कनेक्शन के लिए समर्थन।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "getApiKey": "API कुंजी प्राप्त करें",
         "buttons": {
           "getApiKey": "API कुंजी प्राप्त करें",
@@ -10505,6 +10921,9 @@
         "cta": {
           "title": "निर्माण के लिए तैयार हैं?",
           "subtitle": "आज ही TBurn Lab API के साथ निर्माण शुरू करें। अपनी निःशुल्क API कुंजी प्राप्त करें और एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर एक्सेस करें।",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "desc": "आज ही TBurn Lab API के साथ निर्माण शुरू करें। अपनी निःशुल्क API कुंजी प्राप्त करें और एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर एक्सेस करें।",
           "getStartedFree": "निःशुल्क शुरू करें",
           "contactSales": "बिक्री से संपर्क करें"
@@ -10598,6 +11017,9 @@
         "tag": "स्थिति",
         "title": "नेटवर्क स्थिति",
         "subtitle": "रियल-टाइम नेटवर्क स्वास्थ्य और प्रदर्शन मेट्रिक्स।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "operational": "परिचालित",
         "lastUpdated": "अंतिम अपडेट",
         "daysAgo": "दिन पहले",
@@ -10694,6 +11116,9 @@
         "tag": "फिएट गेटवे",
         "title": "फिएट जमा/निकासी",
         "subtitle": "फिएट मुद्रा से TBURN खरीदें और बेचें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "fee": "शुल्क",
         "sections": {
           "howItWorks": "यह कैसे काम करता है",
@@ -10796,6 +11221,9 @@
         "tag": "समुदाय",
         "title": "कम्युनिटी हब",
         "subtitle": "डेवलपर्स, वैलिडेटर और उत्साही लोगों से जुड़ें",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "stats": {
           "totalMembers": "कुल Members",
           "monthlyActive": "Monthly सक्रिय",
@@ -10832,6 +11260,9 @@
         "leaderboard": {
           "title": "योगदानकर्ता लीडरबोर्ड",
           "subtitle": "इस महीने के शीर्ष योगदानकर्ता",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "points": "{{count}} पॉइंट्स",
           "tiers": {
             "diamond": "डायमंड",
@@ -10844,6 +11275,9 @@
         "ambassadorProgram": {
           "title": "एंबेसडर प्रोग्राम",
           "subtitle": "वैश्विक समुदाय का नेतृत्व करें",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "benefits": {
             "tokenRewards": "मासिक TBURN टोकन पुरस्कार",
             "earlyAccess": "नई सुविधाओं तक जल्दी पहुंच",
@@ -10892,6 +11326,9 @@
         "ambassador": {
           "title": "एम्बेसडर प्रोग्राम",
           "subtitle": "ग्लोबल TBurn कम्युनिटी का नेतृत्व करें",
+          "forumTitle": "समुदाय मंच",
+          "viewAll": "सभी देखें",
+          "recentPosts": "हाल की पोस्ट",
           "applyButton": "एम्बेसडर के रूप में आवेदन करें",
           "benefits": {
             "rewards": "मासिक TBURN टोकन पुरस्कार",
@@ -10906,6 +11343,9 @@
         "tag": "समाचार और ब्लॉग",
         "title": "समाचार और ब्लॉग",
         "subtitle": "नवीनतम अपडेट, घोषणाएं और अंतर्दृष्टि।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "searchPlaceholder": "आर्टिकल्स खोजें...",
         "featuredTitle": "फीचर्ड स्टोरीज़",
         "featuredBadge": "फीचर्ड",
@@ -11005,7 +11445,13 @@
                 "6": "मेननेट लॉन्च में DEX/AMM, लेंडिंग प्रोटोकॉल, लिक्विड स्टेकिंग, NFT मार्केटप्लेस और क्रॉस-चेन ब्रिज के साथ एक व्यापक DeFi इकोसिस्टम शामिल है।",
                 "7": "हम डेवलपर्स, वैलिडेटर्स और उपयोगकर्ताओं को TBURN v7.0 पर विकेंद्रीकृत वित्त का भविष्य बनाने के लिए आमंत्रित करते हैं।"
               },
-              "tags": { "0": "मेननेट", "1": "लॉन्च", "2": "v7.0", "3": "AI", "4": "DeFi" }
+              "tags": {
+                "0": "मेननेट",
+                "1": "लॉन्च",
+                "2": "v7.0",
+                "3": "AI",
+                "4": "DeFi"
+              }
             },
             "triple-band-ai-revealed": {
               "title": "ट्रिपल-बैंड AI आर्किटेक्चर का खुलासा: ब्लॉकचेन इंटेलिजेंस का भविष्य",
@@ -11026,7 +11472,12 @@
                 "6": "फीडबैक लर्निंग सिस्टम: सभी AI निर्णयों को ट्रैक और मूल्यांकित किया जाता है। सटीकता 99.7% से अधिक है।",
                 "7": "परिणाम एक स्व-सुधारात्मक, फॉल्ट-टॉलरेंट AI परत है।"
               },
-              "tags": { "0": "AI", "1": "प्रौद्योगिकी", "2": "गहन विश्लेषण", "3": "आर्किटेक्चर" }
+              "tags": {
+                "0": "AI",
+                "1": "प्रौद्योगिकी",
+                "2": "गहन विश्लेषण",
+                "3": "आर्किटेक्चर"
+              }
             },
             "global-partnership-expansion": {
               "title": "वैश्विक साझेदारी विस्तार: TBURN उद्योग नेताओं के साथ जुड़ा",
@@ -11047,7 +11498,12 @@
                 "6": "डेवलपर संसाधन: हमारे भागीदार SDKs और दस्तावेज़ीकरण सहित व्यापक संसाधनों में योगदान कर रहे हैं।",
                 "7": "हम इन साझेदारियों से उत्पन्न अवसरों को लेकर उत्साहित हैं।"
               },
-              "tags": { "0": "साझेदारी", "1": "विस्तार", "2": "एंटरप्राइज़", "3": "वैश्विक" }
+              "tags": {
+                "0": "साझेदारी",
+                "1": "विस्तार",
+                "2": "एंटरप्राइज़",
+                "3": "वैश्विक"
+              }
             },
             "staking-program-details": {
               "title": "स्टेकिंग प्रोग्राम विवरण: अपने TBURN रिवार्ड्स को अधिकतम करें",
@@ -11069,7 +11525,12 @@
                 "7": "ऑटो-कंपाउंडिंग: अपने रिवार्ड्स को स्वचालित रूप से पुनर्निवेश करने के लिए ऑटो-कंपाउंडिंग सक्षम करें।",
                 "8": "शुरू करें: आज TBURN स्टेकिंग डैशबोर्ड पर जाएं।"
               },
-              "tags": { "0": "स्टेकिंग", "1": "रिवार्ड्स", "2": "टोकनोमिक्स", "3": "APY" }
+              "tags": {
+                "0": "स्टेकिंग",
+                "1": "रिवार्ड्स",
+                "2": "टोकनोमिक्स",
+                "3": "APY"
+              }
             },
             "trust-score-deep-dive": {
               "title": "ट्रस्ट स्कोर गहन विश्लेषण: TBURN का AI नेटवर्क सुरक्षा का मूल्यांकन कैसे करता है",
@@ -11090,7 +11551,12 @@
                 "6": "उच्च स्कोर बनाए रखना: निरंतर अपटाइम और सक्रिय भागीदारी प्रमुख कारक हैं।",
                 "7": "सिस्टम सुनिश्चित करता है कि सबसे विश्वसनीय प्रतिभागियों को पुरस्कृत किया जाए।"
               },
-              "tags": { "0": "सुरक्षा", "1": "ट्रस्ट स्कोर", "2": "AI", "3": "वैलिडेटर्स" }
+              "tags": {
+                "0": "सुरक्षा",
+                "1": "ट्रस्ट स्कोर",
+                "2": "AI",
+                "3": "वैलिडेटर्स"
+              }
             },
             "sdk-2-released": {
               "title": "TBURN SDK 2.0 रिलीज़: नए डेवलपर टूल्स के साथ तेज़ी से बनाएं",
@@ -11112,7 +11578,12 @@
                 "7": "दस्तावेज़ीकरण: व्यापक गाइड के लिए हमारे डेवलपर पोर्टल पर जाएं।",
                 "8": "SDK 2.0 TBURN डेवलपमेंट को सुलभ बनाने की हमारी प्रतिबद्धता का प्रतिनिधित्व करता है।"
               },
-              "tags": { "0": "SDK", "1": "डेवलपमेंट", "2": "TypeScript", "3": "टूल्स" }
+              "tags": {
+                "0": "SDK",
+                "1": "डेवलपमेंट",
+                "2": "TypeScript",
+                "3": "टूल्स"
+              }
             },
             "quantum-resistant-cryptography": {
               "title": "क्वांटम-प्रतिरोधी क्रिप्टोग्राफी: TBURN के भविष्य की सुरक्षा",
@@ -11135,7 +11606,12 @@
                 "8": "हैश फंक्शंस: प्रतिरोधी विकल्पों के साथ मल्टी-हैश सिस्टम।",
                 "9": "यह सक्रिय दृष्टिकोण सुनिश्चित करता है कि TBURN सुरक्षित बना रहे।"
               },
-              "tags": { "0": "क्वांटम", "1": "क्रिप्टोग्राफी", "2": "सुरक्षा", "3": "अनुसंधान" }
+              "tags": {
+                "0": "क्वांटम",
+                "1": "क्रिप्टोग्राफी",
+                "2": "सुरक्षा",
+                "3": "अनुसंधान"
+              }
             },
             "tburn-dex-beta": {
               "title": "TBURN DEX बीटा लॉन्च: विकेंद्रीकृत ट्रेडिंग यहां है",
@@ -11157,7 +11633,12 @@
                 "7": "शुरू करें: अपना वॉलेट कनेक्ट करें और आज ही ट्रेडिंग शुरू करें।",
                 "8": "फीडबैक देने के लिए हमारे कम्युनिटी चैनल्स में शामिल हों।"
               },
-              "tags": { "0": "DEX", "1": "DeFi", "2": "ट्रेडिंग", "3": "AMM" }
+              "tags": {
+                "0": "DEX",
+                "1": "DeFi",
+                "2": "ट्रेडिंग",
+                "3": "AMM"
+              }
             }
           }
         }
@@ -11166,6 +11647,9 @@
         "tag": "इवेंट्स और गतिविधियां",
         "title": "इवेंट्स और गतिविधियां",
         "subtitle": "TBurn Lab कम्युनिटी इवेंट्स, हैकाथॉन और कॉन्फ्रेंस में शामिल हों।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "featuredTitle": "फीचर्ड इवेंट्स",
         "upcomingTitle": "आगामी इवेंट्स",
         "capacity": "क्षमता",
@@ -11298,16 +11782,46 @@
                 "2": "प्रतिभागियों को सीधे डेवलपर्स से सवाल पूछने का मौका मिलेगा।"
               },
               "speakers": {
-                "0": { "name": "एलेक्स पार्क", "role": "CEO और संस्थापक", "avatar": "AP" },
-                "1": { "name": "डॉ. सारा चेन", "role": "मुख्य AI आर्किटेक्ट", "avatar": "SC" },
-                "2": { "name": "माइकल रोड्रिगेज", "role": "DeFi प्रोडक्ट लीड", "avatar": "MR" }
+                "0": {
+                  "name": "एलेक्स पार्क",
+                  "role": "CEO और संस्थापक",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "डॉ. सारा चेन",
+                  "role": "मुख्य AI आर्किटेक्ट",
+                  "avatar": "SC"
+                },
+                "2": {
+                  "name": "माइकल रोड्रिगेज",
+                  "role": "DeFi प्रोडक्ट लीड",
+                  "avatar": "MR"
+                }
               },
               "agenda": {
-                "0": { "time": "14:00", "title": "स्वागत और परिचय", "speaker": "एलेक्स पार्क" },
-                "1": { "time": "14:15", "title": "TBURN v7.0 तकनीकी अवलोकन" },
-                "2": { "time": "14:45", "title": "AI ऑर्केस्ट्रेशन गहन विश्लेषण", "speaker": "डॉ. सारा चेन" },
-                "3": { "time": "15:15", "title": "DeFi इकोसिस्टम डेमो", "speaker": "माइकल रोड्रिगेज" },
-                "4": { "time": "15:45", "title": "लाइव Q&A सेशन" }
+                "0": {
+                  "time": "14:00",
+                  "title": "स्वागत और परिचय",
+                  "speaker": "एलेक्स पार्क"
+                },
+                "1": {
+                  "time": "14:15",
+                  "title": "TBURN v7.0 तकनीकी अवलोकन"
+                },
+                "2": {
+                  "time": "14:45",
+                  "title": "AI ऑर्केस्ट्रेशन गहन विश्लेषण",
+                  "speaker": "डॉ. सारा चेन"
+                },
+                "3": {
+                  "time": "15:15",
+                  "title": "DeFi इकोसिस्टम डेमो",
+                  "speaker": "माइकल रोड्रिगेज"
+                },
+                "4": {
+                  "time": "15:45",
+                  "title": "लाइव Q&A सेशन"
+                }
               },
               "requirements": {
                 "0": "स्थिर इंटरनेट कनेक्शन",
@@ -11330,16 +11844,44 @@
                 "2": "वर्कशॉप के अंत में, आप TBURN टेस्टनेट पर अपना पहला स्मार्ट कॉन्ट्रैक्ट डिप्लॉय कर चुके होंगे।"
               },
               "speakers": {
-                "0": { "name": "जेम्स लियू", "role": "लीड डेवलपर", "avatar": "JL" },
-                "1": { "name": "एम्मा विल्सन", "role": "डेवलपर रिलेशंस", "avatar": "EW" }
+                "0": {
+                  "name": "जेम्स लियू",
+                  "role": "लीड डेवलपर",
+                  "avatar": "JL"
+                },
+                "1": {
+                  "name": "एम्मा विल्सन",
+                  "role": "डेवलपर रिलेशंस",
+                  "avatar": "EW"
+                }
               },
               "agenda": {
-                "0": { "time": "10:00", "title": "एनवायरनमेंट सेटअप और प्रीरेक्विजिट्स" },
-                "1": { "time": "10:30", "title": "TBURN SDK परिचय", "speaker": "जेम्स लियू" },
-                "2": { "time": "11:30", "title": "स्मार्ट कॉन्ट्रैक्ट डेवलपमेंट" },
-                "3": { "time": "12:30", "title": "लंच ब्रेक" },
-                "4": { "time": "13:00", "title": "टेस्टिंग और डिप्लॉयमेंट", "speaker": "एम्मा विल्सन" },
-                "5": { "time": "13:45", "title": "Q&A और रैप-अप" }
+                "0": {
+                  "time": "10:00",
+                  "title": "एनवायरनमेंट सेटअप और प्रीरेक्विजिट्स"
+                },
+                "1": {
+                  "time": "10:30",
+                  "title": "TBURN SDK परिचय",
+                  "speaker": "जेम्स लियू"
+                },
+                "2": {
+                  "time": "11:30",
+                  "title": "स्मार्ट कॉन्ट्रैक्ट डेवलपमेंट"
+                },
+                "3": {
+                  "time": "12:30",
+                  "title": "लंच ब्रेक"
+                },
+                "4": {
+                  "time": "13:00",
+                  "title": "टेस्टिंग और डिप्लॉयमेंट",
+                  "speaker": "एम्मा विल्सन"
+                },
+                "5": {
+                  "time": "13:45",
+                  "title": "Q&A और रैप-अप"
+                }
               },
               "requirements": {
                 "0": "Node.js 18+ इंस्टॉल",
@@ -11363,14 +11905,34 @@
                 "2": "सवाल Discord के माध्यम से पहले से या सेशन के दौरान लाइव पूछे जा सकते हैं।"
               },
               "speakers": {
-                "0": { "name": "एलेक्स पार्क", "role": "CEO और संस्थापक", "avatar": "AP" },
-                "1": { "name": "कम्युनिटी टीम", "role": "मॉडरेटर्स", "avatar": "CT" }
+                "0": {
+                  "name": "एलेक्स पार्क",
+                  "role": "CEO और संस्थापक",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "कम्युनिटी टीम",
+                  "role": "मॉडरेटर्स",
+                  "avatar": "CT"
+                }
               },
               "agenda": {
-                "0": { "time": "18:00", "title": "स्वागत और अपडेट्स" },
-                "1": { "time": "18:15", "title": "पहले से सबमिट किए गए सवाल" },
-                "2": { "time": "18:45", "title": "कम्युनिटी से लाइव सवाल" },
-                "3": { "time": "19:15", "title": "समापन टिप्पणियां और घोषणाएं" }
+                "0": {
+                  "time": "18:00",
+                  "title": "स्वागत और अपडेट्स"
+                },
+                "1": {
+                  "time": "18:15",
+                  "title": "पहले से सबमिट किए गए सवाल"
+                },
+                "2": {
+                  "time": "18:45",
+                  "title": "कम्युनिटी से लाइव सवाल"
+                },
+                "3": {
+                  "time": "19:15",
+                  "title": "समापन टिप्पणियां और घोषणाएं"
+                }
               },
               "requirements": {
                 "0": "Discord अकाउंट",
@@ -11392,14 +11954,36 @@
                 "2": "हमारी टीम 3-टियर वैलिडेटर सिस्टम और AI ट्रस्ट स्कोर्स के प्रभाव को भी समझाएगी।"
               },
               "speakers": {
-                "0": { "name": "डेविड किम", "role": "इंफ्रास्ट्रक्चर लीड", "avatar": "DK" },
-                "1": { "name": "लिसा झांग", "role": "वैलिडेटर रिलेशंस", "avatar": "LZ" }
+                "0": {
+                  "name": "डेविड किम",
+                  "role": "इंफ्रास्ट्रक्चर लीड",
+                  "avatar": "DK"
+                },
+                "1": {
+                  "name": "लिसा झांग",
+                  "role": "वैलिडेटर रिलेशंस",
+                  "avatar": "LZ"
+                }
               },
               "agenda": {
-                "0": { "time": "15:00", "title": "TBURN वैलिडेशन परिचय" },
-                "1": { "time": "15:30", "title": "तकनीकी आवश्यकताएं और सेटअप", "speaker": "डेविड किम" },
-                "2": { "time": "16:00", "title": "अर्थशास्त्र और रिवार्ड्स", "speaker": "लिसा झांग" },
-                "3": { "time": "16:30", "title": "लाइव डेमो और Q&A" }
+                "0": {
+                  "time": "15:00",
+                  "title": "TBURN वैलिडेशन परिचय"
+                },
+                "1": {
+                  "time": "15:30",
+                  "title": "तकनीकी आवश्यकताएं और सेटअप",
+                  "speaker": "डेविड किम"
+                },
+                "2": {
+                  "time": "16:00",
+                  "title": "अर्थशास्त्र और रिवार्ड्स",
+                  "speaker": "लिसा झांग"
+                },
+                "3": {
+                  "time": "16:30",
+                  "title": "लाइव डेमो और Q&A"
+                }
               },
               "requirements": {
                 "0": "ब्लॉकचेन की बुनियादी समझ",
@@ -11408,6 +11992,71 @@
               }
             }
           }
+        },
+        "items": {
+          "launchAma": {
+            "title": "TBURN v7.0 लॉन्च AMA",
+            "description": "मेननेट लॉन्च और आगामी सुविधाओं के बारे में लाइव Q&A सत्र के लिए कोर टीम से जुड़ें"
+          },
+          "defiWorkshop": {
+            "title": "DeFi वर्कशॉप: लिक्विडिटी माइनिंग",
+            "description": "प्रैक्टिकल अभ्यास और विशेषज्ञ मार्गदर्शन के साथ उन्नत लिक्विडिटी माइनिंग रणनीतियां सीखें"
+          },
+          "hackathon": {
+            "title": "TBURN हैकाथॉन 2025",
+            "description": "$500K पुरस्कारों के साथ 48-घंटे का वैश्विक हैकाथॉन। TBURN Lab पर अभिनव DeFi समाधान बनाएं और ग्रांट और इनक्यूबेशन अवसरों के लिए प्रतिस्पर्धा करें।"
+          },
+          "tokyoMeetup": {
+            "title": "कम्युनिटी मीटअप - टोक्यो",
+            "description": "टोक्यो में TBURN उत्साही लोगों के साथ नेटवर्क करें। खाना और पेय पदार्थ प्रदान किए जाते हैं!"
+          },
+          "stakingCompetition": {
+            "title": "स्टेकिंग प्रतियोगिता",
+            "description": "इस महीने सबसे अधिक स्टेकिंग पुरस्कारों के लिए प्रतिस्पर्धा करें। शीर्ष स्टेकर्स बोनस पुरस्कार जीतते हैं!"
+          },
+          "nftContest": {
+            "title": "NFT आर्ट कॉन्टेस्ट",
+            "description": "TBURN थीम वाली NFT कलाकृति बनाएं और पुरस्कार जीतें। सबमिशन अभी खुले हैं!"
+          },
+          "validatorTraining": {
+            "title": "वैलिडेटर प्रशिक्षण सत्र",
+            "description": "इस व्यापक प्रशिक्षण सत्र के साथ TBURN वैलिडेटर बनना सीखें"
+          },
+          "airdropEvent": {
+            "title": "कम्युनिटी एयरड्रॉप इवेंट",
+            "description": "सक्रिय समुदाय सदस्यों के लिए विशेष एयरड्रॉप। पुरस्कार अर्जित करने के लिए कार्य पूरे करें!"
+          }
+        }
+      },
+      "time": {
+        "justNow": "अभी",
+        "hoursAgo": "{{count}} घंटे पहले",
+        "daysAgo": "{{count}} दिन पहले"
+      },
+      "announcements": {
+        "mainnetLaunch": {
+          "title": "मेननेट लॉन्च तिथि पुष्टि: 8 दिसंबर",
+          "content": "हम यह घोषणा करते हुए खुश हैं कि TBURN v7.0 मेननेट आधिकारिक रूप से 8 दिसंबर 2024 को लॉन्च होगा। हमारे इतिहास के सबसे बड़े अपग्रेड के लिए सभी सिस्टम तैयार हैं!"
+        },
+        "stakingTiers": {
+          "title": "नई स्टेकिंग श्रेणियां उपलब्ध",
+          "content": "डायमंड टियर स्टेकिंग अब 25% तक APY बूस्ट के साथ उपलब्ध है। अधिक जानकारी के लिए नया स्टेकिंग डैशबोर्ड देखें।"
+        },
+        "securityAudit": {
+          "title": "सुरक्षा ऑडिट पूर्ण",
+          "content": "हमारे स्मार्ट कॉन्ट्रैक्ट्स ने CertiK और Trail of Bits द्वारा व्यापक सुरक्षा ऑडिट पास किया है। पूर्ण रिपोर्ट GitHub पर उपलब्ध हैं।"
+        },
+        "bridgeIntegration": {
+          "title": "क्रॉस-चेन ब्रिज अब लाइव",
+          "content": "TBURN ब्रिज अब लाइव है, Ethereum, BSC और Polygon नेटवर्क के बीच ट्रांसफर का समर्थन करता है।"
+        },
+        "maintenance": {
+          "title": "निर्धारित रखरखाव: नोड अपग्रेड",
+          "content": "10 दिसंबर, 2:00 AM UTC को संक्षिप्त रखरखाव अवधि निर्धारित है। अपेक्षित डाउनटाइम: 15 मिनट।"
+        },
+        "aiOrchestration": {
+          "title": "AI ऑर्केस्ट्रेशन सिस्टम लाइव",
+          "content": "Quad-Band AI ऑर्केस्ट्रेशन सिस्टम अब Gemini 3 Pro के साथ प्राथमिक के रूप में, Claude Sonnet 4.5, GPT-4o और Grok 3 फॉलबैक के रूप में पूरी तरह से चालू है।"
         }
       }
     },
@@ -11415,6 +12064,9 @@
       "terms": {
         "title": "सेवा की शर्तें",
         "subtitle": "TBurn Lab सेवाओं के उपयोग के लिए नियम और शर्तें।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "backToHome": "होम पर वापस",
         "sections": {
           "acceptance": {
@@ -11610,6 +12262,9 @@
       "privacy": {
         "title": "गोपनीयता नीति",
         "subtitle": "हम आपका डेटा कैसे एकत्र, उपयोग और सुरक्षित करते हैं।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "backToHome": "होम पर वापस",
         "sections": {
           "introduction": {
@@ -11822,6 +12477,9 @@
       "disclaimer": {
         "title": "अस्वीकरण",
         "subtitle": "महत्वपूर्ण कानूनी नोटिस और जोखिम प्रकटीकरण।",
+        "forumTitle": "समुदाय मंच",
+        "viewAll": "सभी देखें",
+        "recentPosts": "हाल की पोस्ट",
         "backToHome": "होम पर वापस",
         "importantNotice": {
           "title": "महत्वपूर्ण नोटिस",
@@ -11964,6 +12622,9 @@
           "privacy": {
             "title": "गोपनीयता नीति",
             "subtitle": "How we handle your डेटा",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "subtitleData": "Your डेटा protection rights"
           },
           "terms": {
@@ -11973,6 +12634,9 @@
           "disclaimer": {
             "title": "Disclaimer",
             "subtitle": "Legal notices",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "subtitleRisk": "जोखिम disclosures"
           }
         },
@@ -11980,12 +12644,18 @@
           "trustScore": {
             "title": "ट्रस्ट स्कोर सिस्टम",
             "subtitle": "3-चरण सत्यापन प्रक्रिया",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "subtitleHow": "How Trust Scores work",
             "subtitleVerification": "सत्यापन methodology"
           },
           "wallet": {
             "title": "What is a Wallet?",
             "subtitle": "Wallet basics",
+            "forumTitle": "समुदाय मंच",
+            "viewAll": "सभी देखें",
+            "recentPosts": "हाल की पोस्ट",
             "subtitleSecurity": "Securing your assets"
           },
           "blockchain": {

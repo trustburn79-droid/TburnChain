@@ -23,6 +23,7 @@ interface PostData {
   isHot: boolean;
   createdAt: number;
   tags: string[];
+  translationKey?: string;
 }
 
 interface CommunityStats {
@@ -45,7 +46,7 @@ const categoryColors: Record<string, string> = {
 export default function CommunityHub() {
   const { t, i18n } = useTranslation();
 
-  const isKorean = i18n.language === 'ko';
+  const currentLang = i18n.language;
 
   const { data: posts, isLoading: postsLoading } = useQuery<PostData[]>({
     queryKey: ['/api/community/posts'],
@@ -56,6 +57,26 @@ export default function CommunityHub() {
     queryKey: ['/api/community/stats'],
     refetchInterval: 60000,
   });
+
+  const getLocalizedContent = (post: PostData, field: 'title' | 'content') => {
+    if (post.translationKey) {
+      const translationPath = `publicPages.community.posts.${post.translationKey}.${field}`;
+      const translated = t(translationPath);
+      if (translated !== translationPath) {
+        return translated;
+      }
+    }
+    return field === 'title' ? post.title : post.content;
+  };
+
+  const getLocaleForDate = () => {
+    const localeMap: Record<string, string> = {
+      en: 'en-US', ko: 'ko-KR', zh: 'zh-CN', ja: 'ja-JP',
+      es: 'es-ES', fr: 'fr-FR', ru: 'ru-RU', ar: 'ar-SA',
+      hi: 'hi-IN', bn: 'bn-BD', pt: 'pt-BR', ur: 'ur-PK'
+    };
+    return localeMap[currentLang] || 'en-US';
+  };
 
   const pinnedPosts = posts?.filter(p => p.isPinned).slice(0, 3) || [];
   const hotPosts = posts?.filter(p => p.isHot && !p.isPinned).slice(0, 3) || [];
@@ -68,11 +89,14 @@ export default function CommunityHub() {
     const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffHours < 1) return isKorean ? '방금 전' : 'Just now';
-    if (diffHours < 24) return isKorean ? `${diffHours}시간 전` : `${diffHours}h ago`;
-    if (diffDays < 7) return isKorean ? `${diffDays}일 전` : `${diffDays}d ago`;
-    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US');
+    if (diffHours < 1) return t('publicPages.community.time.justNow');
+    if (diffHours < 24) return t('publicPages.community.time.hoursAgo', { count: diffHours });
+    if (diffDays < 7) return t('publicPages.community.time.daysAgo', { count: diffDays });
+    return date.toLocaleDateString(getLocaleForDate());
   };
+
+  const getTitle = (post: PostData) => getLocalizedContent(post, 'title');
+  const getContent = (post: PostData) => getLocalizedContent(post, 'content');
 
   const communityStats = [
     {
@@ -222,11 +246,11 @@ export default function CommunityHub() {
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
               <MessageSquare className="w-6 h-6 text-[#7000ff]" />
-              {isKorean ? '커뮤니티 포럼' : 'Community Forum'}
+              {t('publicPages.community.hub.forumTitle')}
             </h2>
             <Link href="/app/community">
               <button className="text-sm text-[#00f0ff] hover:underline flex items-center gap-1">
-                {isKorean ? '전체 보기' : 'View All'} <ArrowRight className="w-4 h-4" />
+                {t('publicPages.community.hub.viewAll')} <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </div>
@@ -243,7 +267,7 @@ export default function CommunityHub() {
               {pinnedPosts.length > 0 && (
                 <div className="space-y-3">
                   <h3 className="text-sm font-bold text-gray-600 dark:text-gray-400 flex items-center gap-2">
-                    <Pin className="w-4 h-4" /> {isKorean ? '고정 게시물' : 'Pinned'}
+                    <Pin className="w-4 h-4" /> {t('publicPages.community.pinned')}
                   </h3>
                   {pinnedPosts.map(post => (
                     <Link key={post.id} href={`/community/hub/post/${post.id}`}>
@@ -257,8 +281,8 @@ export default function CommunityHub() {
                               </span>
                               <span className="text-xs text-gray-500">{post.author}</span>
                             </div>
-                            <h4 className="font-bold text-gray-900 dark:text-white truncate">{isKorean ? (post.titleKo || post.title) : post.title}</h4>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-1 mt-1">{isKorean ? (post.contentKo || post.content) : post.content}</p>
+                            <h4 className="font-bold text-gray-900 dark:text-white truncate">{getTitle(post)}</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-1 mt-1">{getContent(post)}</p>
                             <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
                               <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {post.likes}</span>
                               <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" /> {post.comments}</span>
@@ -276,7 +300,7 @@ export default function CommunityHub() {
               {hotPosts.length > 0 && (
                 <div className="space-y-3">
                   <h3 className="text-sm font-bold text-gray-600 dark:text-gray-400 flex items-center gap-2">
-                    <Flame className="w-4 h-4 text-orange-500" /> {isKorean ? '인기 게시물' : 'Hot'}
+                    <Flame className="w-4 h-4 text-orange-500" /> {t('publicPages.community.hot')}
                   </h3>
                   {hotPosts.map(post => (
                     <Link key={post.id} href={`/community/hub/post/${post.id}`}>
@@ -290,7 +314,7 @@ export default function CommunityHub() {
                               </span>
                               <span className="text-xs text-gray-500">{post.author}</span>
                             </div>
-                            <h4 className="font-bold text-gray-900 dark:text-white truncate">{isKorean ? (post.titleKo || post.title) : post.title}</h4>
+                            <h4 className="font-bold text-gray-900 dark:text-white truncate">{getTitle(post)}</h4>
                             <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
                               <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {post.likes}</span>
                               <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" /> {post.comments}</span>
@@ -308,7 +332,7 @@ export default function CommunityHub() {
               {recentPosts.length > 0 && (
                 <div className="space-y-3">
                   <h3 className="text-sm font-bold text-gray-600 dark:text-gray-400">
-                    {isKorean ? '최근 게시물' : 'Recent Posts'}
+                    {t('publicPages.community.hub.recentPosts')}
                   </h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     {recentPosts.map(post => (
@@ -320,8 +344,8 @@ export default function CommunityHub() {
                             </span>
                             <span className="text-xs text-gray-500">{post.author}</span>
                           </div>
-                          <h4 className="font-bold text-gray-900 dark:text-white text-sm truncate mb-1">{isKorean ? (post.titleKo || post.title) : post.title}</h4>
-                          <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">{isKorean ? (post.contentKo || post.content) : post.content}</p>
+                          <h4 className="font-bold text-gray-900 dark:text-white text-sm truncate mb-1">{getTitle(post)}</h4>
+                          <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">{getContent(post)}</p>
                           <div className="flex items-center gap-3 mt-3 text-xs text-gray-500">
                             <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {post.likes}</span>
                             <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" /> {post.comments}</span>

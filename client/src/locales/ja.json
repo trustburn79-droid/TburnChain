@@ -163,6 +163,9 @@
     "technicalDetails": "Technical Details",
     "title": "ダッシュボード",
     "subtitle": "リアルタイムブロックチェーンネットワーク概要",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "explorerTitle": "TBURNエクスプローラー",
     "explorerSubtitle": "リアルタイムブロックチェーンデータとネットワーク統計",
     "networkStats": "ネットワーク統計",
@@ -176,7 +179,6 @@
     "gasUsed": "使用ガス",
     "txCount": "TX数",
     "timestamp": "タイムスタンプ",
-    "viewAll": "すべて表示",
     "networkHealth": "ネットワーク健全性",
     "healthy": "正常",
     "degraded": "低下",
@@ -299,6 +301,9 @@
   "blocks": {
     "title": "ブロック",
     "subtitle": "TBURNブロックチェーン上のすべてのブロックを閲覧",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "totalBlocks": "総ブロック数",
     "blocks": "ブロック",
     "blockNumber": "ブロック番号",
@@ -406,6 +411,9 @@
   "transactions": {
     "title": "トランザクションエクスプローラー",
     "subtitle": "TBURNブロックチェーン上のすべてのトランザクションを閲覧",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "txHash": "トランザクションハッシュ",
     "blockNumber": "ブロック番号",
     "from": "送信元",
@@ -506,6 +514,9 @@
   "wallets": {
     "title": "ウォレットエクスプローラー",
     "subtitle": "ウォレット残高、ステーキング、報酬を追跡",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "totalWallets": "総ウォレット数",
     "registeredAddresses": "登録済みアドレス",
     "totalBalance": "総残高",
@@ -588,6 +599,9 @@
   "validators": {
     "title": "バリデーター",
     "subtitle": "AI強化委員会BFTを備えた階層型バリデーターシステム",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "validatorAddress": "バリデーターアドレス",
     "validatorName": "バリデーター名",
     "validator": "バリデーター",
@@ -775,6 +789,9 @@
     "details": "Details",
     "title": "ステーキングダッシュボード",
     "subtitle": "TBURNをステークして報酬を獲得し、ネットワークガバナンスに参加",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "stakingPools": "ステーキングプール",
     "pools": "ステーキングプール",
     "tierSystem": "ティアシステム",
@@ -981,6 +998,9 @@
   "stakingRewards": {
     "title": "リワードセンター",
     "subtitle": "ステーキングリワードの追跡と請求、アンボンディングリクエストの管理",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "cycle": "サイクル",
     "pendingRewards": "保留中のリワード",
     "readyToClaim": "請求可能",
@@ -1057,6 +1077,9 @@
   "stakingSdk": {
     "title": "ウォレットSDK",
     "subtitle": "TBURNブロックチェーンと対話するためのSDKドキュメント",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "quickStart": "クイックスタート",
     "quickStartDesc": "ステップバイステップガイドで数分で開始",
     "apiReference": "APIリファレンス",
@@ -1764,6 +1787,9 @@
   "tokenSystem": {
     "title": "TBURN トークンシステム v4.0",
     "subtitle": "トリプルバンドAI最適化によるエンタープライズグレードトークン標準",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "tripleBandAi": "トリプルバンドAI",
     "tokenStandards": "トークン標準",
     "tbc20": "TBC-20",
@@ -2191,6 +2217,9 @@
   "dex": {
     "title": "分散型取引所",
     "subtitle": "エンタープライズグレードの流動性でトークンを取引",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "swap": "スワップ",
     "swapTokens": "トークンをスワップ",
     "liquidityPools": "流動性プール",
@@ -2365,6 +2394,9 @@
   "lending": {
     "title": "レンディングプロトコル",
     "subtitle": "分散型レンディングで供給、借入、収益獲得",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "markets": "マーケット",
     "marketsOverview": "マーケット概要",
     "supply": "供給",
@@ -2549,6 +2581,9 @@
   "yieldFarming": {
     "title": "イールドファーミング",
     "subtitle": "AI最適化ファーミング戦略で利回りを最大化",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "aiEnhanced": "AI強化",
     "totalValueLocked": "総ロック価値",
     "activeVaults": "アクティブボールト",
@@ -2717,6 +2752,9 @@
   "liquidStaking": {
     "title": "リキッドステーキング",
     "subtitle": "資産をステークしてリキッドステーキングトークンを受取り、自動利回りを獲得",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "aiOptimized": "AI最適化",
     "aiOptimizedValidatorSelection": "AI最適化バリデーター選択",
     "totalValueStaked": "総ステーク価値",
@@ -2811,6 +2849,9 @@
   "nft": {
     "title": "NFTマーケットプレイス",
     "subtitle": "ユニークなデジタル資産を発見、収集、取引",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "collections": "コレクション",
     "explore": "探索",
     "myNfts": "マイNFT",
@@ -2849,6 +2890,9 @@
   "launchpad": {
     "title": "NFTローンチパッド",
     "subtitle": "限定NFTローンチを発見して参加",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "upcomingLaunches": "今後のローンチ",
     "activeLaunches": "アクティブローンチ",
     "pastLaunches": "過去のローンチ",
@@ -2874,6 +2918,9 @@
   "gamefi": {
     "title": "GameFiハブ",
     "subtitle": "プレイ・トゥ・アーンゲーミングエコシステム",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "pageDescription": "TBURNブロックチェーン上のプレイ・トゥ・アーンゲーム、トーナメント、実績",
     "games": "ゲーム",
     "tournaments": "トーナメント",
@@ -3110,6 +3157,9 @@
   "bridge": {
     "title": "クロスチェーンブリッジ",
     "subtitle": "エンタープライズセキュリティを備えたAI駆動マルチチェーン資産転送",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "subtitleAlt": "安全にブロックチェーン間で資産を転送",
     "transfer": "転送",
     "history": "履歴",
@@ -3247,6 +3297,9 @@
   "aiOrchestration": {
     "title": "AIオーケストレーション",
     "subtitle": "トリプルバンドAIシステムの監視と管理",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "tripleBandAi": "トリプルバンドAI",
     "gpt5": "GPT-5",
     "claudeSonnet": "Claude Sonnet 4.5",
@@ -3416,6 +3469,9 @@
   "crossShard": {
     "title": "クロスシャード通信",
     "subtitle": "シャード間メッセージルーティングと配信の監視",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "pendingMessages": "保留中のメッセージ",
     "awaitingConfirmation": "確認待ち",
     "confirmed": "確認済み",
@@ -3526,6 +3582,9 @@
   "consensus": {
     "title": "コンセンサス",
     "subtitle": "AI強化委員会BFTコンセンサス監視",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "currentRound": "現在のラウンド",
     "proposer": "提案者",
     "preVotes": "プレ投票",
@@ -3642,6 +3701,9 @@
   "sharding": {
     "title": "シャーディング",
     "subtitle": "動的AI駆動シャーディングシステム",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "shards": "シャード",
     "shardId": "シャードID",
     "tps": "TPS",
@@ -3727,6 +3789,9 @@
   "smartContracts": {
     "title": "スマートコントラクト",
     "subtitle": "スマートコントラクトの構築、デプロイ、対話",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "deployedContracts": "デプロイ済みコントラクト",
     "contractAddress": "コントラクトアドレス",
     "contractName": "コントラクト名",
@@ -3875,6 +3940,9 @@
   "nodeHealth": {
     "title": "ノードヘルス",
     "subtitle": "予測的自己修復システム監視",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "systemMetrics": "システムメトリクス",
     "cpu": "CPU",
     "memory": "メモリ",
@@ -3965,6 +4033,9 @@
   "admin": {
     "title": "メインネット管理",
     "subtitle": "TBURNメインネットインフラストラクチャの制御と監視",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "systemStatus": "システムステータス",
     "mainnetStatus": "メインネットステータス",
     "running": "実行中",
@@ -4242,6 +4313,9 @@
   "operator": {
     "title": "オペレーターポータル",
     "subtitle": "包括的なネットワーク運用管理",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "enterpriseBackoffice": "TBURNネットワーク管理のためのエンタープライズバックオフィス",
     "adminAccess": "管理者アクセス",
     "logout": "ログアウト",
@@ -4279,6 +4353,9 @@
       "technicalDetails": "Technical Details",
       "title": "オペレーターポータル",
       "subtitle": "TBURNネットワーク管理のためのエンタープライズバックオフィス",
+      "forumTitle": "コミュニティフォーラム",
+      "viewAll": "すべて表示",
+      "recentPosts": "最近の投稿",
       "autoRefresh": "自動",
       "paused": "一時停止",
       "accessDenied": "アクセス拒否",
@@ -4463,6 +4540,9 @@
     "members": {
       "title": "メンバー管理",
       "subtitle": "ネットワークメンバー、KYC/AMLステータス、ティア割り当てを管理",
+      "forumTitle": "コミュニティフォーラム",
+      "viewAll": "すべて表示",
+      "recentPosts": "最近の投稿",
       "exportCsv": "CSVエクスポート",
       "totalMembers": "総メンバー",
       "membersSelected": "メンバー選択中",
@@ -4632,6 +4712,9 @@
     "validators": {
       "title": "バリデーター運用",
       "subtitle": "バリデーターの管理と監視",
+      "forumTitle": "コミュニティフォーラム",
+      "viewAll": "すべて表示",
+      "recentPosts": "最近の投稿",
       "activeValidators": "アクティブなバリデーター",
       "pendingValidators": "保留中のバリデーター",
       "slashedValidators": "スラッシュされたバリデーター",
@@ -4835,6 +4918,9 @@
     "security": {
       "title": "セキュリティ監査",
       "subtitle": "セキュリティイベントと脅威の監視",
+      "forumTitle": "コミュニティフォーラム",
+      "viewAll": "すべて表示",
+      "recentPosts": "最近の投稿",
       "all": "すべて",
       "actions": "アクション",
       "pageOf": "ページ",
@@ -5090,6 +5176,9 @@
     "reports": {
       "title": "コンプライアンスレポート",
       "subtitle": "規制コンプライアンスレポートの生成、スケジュール、管理",
+      "forumTitle": "コミュニティフォーラム",
+      "viewAll": "すべて表示",
+      "recentPosts": "最近の投稿",
       "exportCsv": "CSVエクスポート",
       "newSchedule": "新規スケジュール",
       "generateReport": "レポートを生成",
@@ -5324,6 +5413,9 @@
       "details": "Details",
       "title": "ステーキング運用",
       "subtitle": "ステーキングプール、ティア、報酬配布の管理",
+      "forumTitle": "コミュニティフォーラム",
+      "viewAll": "すべて表示",
+      "recentPosts": "最近の投稿",
       "refresh": "更新",
       "createPool": "プールを作成",
       "totalStaked": "総ステーク",
@@ -5445,6 +5537,9 @@
   "token": {
     "title": "トークンシステム v4.0",
     "subtitle": "AI強化エンタープライズトークン標準",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "tbc20": "TBC-20",
     "tbc721": "TBC-721",
     "tbc1155": "TBC-1155",
@@ -5476,6 +5571,9 @@
   "walletSdk": {
     "title": "ウォレットSDK",
     "subtitle": "エンタープライズウォレット統合ツールキット",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "walletConnect": "ウォレットを接続",
     "walletDisconnect": "ウォレットを切断",
     "walletAddress": "ウォレットアドレス",
@@ -5492,6 +5590,9 @@
   "txSimulator": {
     "title": "トランザクションシミュレーター",
     "subtitle": "テストトランザクションを作成してネットワークにブロードキャスト",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "simulate": "シミュレート",
     "simulationResult": "シミュレーション結果",
     "gasEstimate": "ガス見積もり",
@@ -5639,6 +5740,9 @@
   "security": {
     "title": "セキュリティ",
     "subtitle": "ネットワークセキュリティ監視とアラート",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "securityScore": "セキュリティスコア",
     "threats": "脅威",
     "vulnerabilities": "脆弱性",
@@ -5655,6 +5759,9 @@
   "performance": {
     "title": "パフォーマンス",
     "subtitle": "システムパフォーマンスメトリクスと最適化",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "cpuUsage": "CPU使用率",
     "memoryUsage": "メモリ使用率",
     "diskUsage": "ディスク使用率",
@@ -5690,6 +5797,9 @@
   "members": {
     "title": "メンバー管理",
     "subtitle": "総合メンバー、ステーカー、バリデーター管理システム",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "totalMembers": "総メンバー",
     "activeMembers": "アクティブメンバー",
     "totalValidators": "総バリデーター",
@@ -5966,6 +6076,9 @@
   "apiKeys": {
     "title": "APIキー",
     "subtitle": "TBURNブロックチェーンデータへの安全なアクセスのためのAPIキーを管理",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "createNewKey": "新しいAPIキーを作成",
     "createDescription": "プログラムによるアクセス用の新しいAPIキーを生成します。キーは一度だけ表示されます。",
     "keyLabel": "APIキーラベル",
@@ -6026,6 +6139,9 @@
   "login": {
     "title": "TBURN Lab",
     "subtitle": "メインネットブロックチェーンエクスプローラー",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "password": "パスワード",
     "enterPassword": "パスワードを入力",
     "loggingIn": "ログイン中...",
@@ -6087,6 +6203,9 @@
   "governance": {
     "title": "AIガバナンス",
     "subtitle": "提案分析と結果予測を備えたAI強化DAO",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "aiPowered": "AI駆動",
     "totalProposals": "総提案数",
     "activeCount": "{{count}}件アクティブ",
@@ -6198,6 +6317,9 @@
   "burn": {
     "title": "自動バーンダッシュボード",
     "subtitle": "マルチトリガーメカニズムを備えたAI強化自律バーンシステム",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "deflationary": "デフレーショナリー",
     "totalBurned": "総バーン量",
     "tburnPermanentlyRemoved": "永久に削除されたTBURN",
@@ -6295,6 +6417,9 @@
   "nftMarketplace": {
     "title": "NFTマーケットプレイス",
     "subtitle": "TBURNブロックチェーン上でユニークなデジタル資産を発見、収集、取引",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "searchCollections": "コレクションを検索...",
     "listNft": "NFTを出品",
     "volume24h": "24時間取引量",
@@ -6394,7 +6519,6 @@
       "burn": "バーン"
     },
     "verifiedCollection": "検証済みコレクション",
-    "viewAll": "すべて表示",
     "by": "作成者",
     "share": "共有",
     "viewOnExplorer": "エクスプローラーで表示",
@@ -6444,6 +6568,9 @@
   "nftLaunchpad": {
     "title": "NFTローンチパッド",
     "subtitle": "TBURNブロックチェーン上の最新NFTローンチを発見して参加",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "stats": {
       "totalProjects": "総プロジェクト",
       "active": "アクティブ",
@@ -6594,6 +6721,9 @@
   "performanceMetrics": {
     "title": "パフォーマンスメトリクス",
     "subtitle": "リアルタイムネットワークパフォーマンス分析とSLA監視",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "currentTps": "現在のTPS",
     "peakTps": "ピークTPS",
     "ofPeak": "ピークの",
@@ -6623,6 +6753,9 @@
   "metrics": {
     "title": "パフォーマンスメトリクス",
     "subtitle": "エンタープライズグレードのネットワークパフォーマンス分析とSLA監視",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "live": "ライブ",
     "polling": "ポーリング",
     "export": "エクスポート",
@@ -6752,6 +6885,9 @@
   "community": {
     "title": "タイトル",
     "subtitle": "TBURNエコシステムでつながり、協力し、成長しましょう",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "online": "オンライン",
     "totalMembers": "メンバー総数",
     "thisWeek": "今週",
@@ -7031,6 +7167,9 @@
     "badge": "VCテストモード",
     "title": "TBURNプラットフォーム",
     "subtitle": "投資テスト環境",
+    "forumTitle": "コミュニティフォーラム",
+    "viewAll": "すべて表示",
+    "recentPosts": "最近の投稿",
     "description": "事前にチャージされたデモウォレットでTBURNメインネットの全機能を体験できます。すべてのDeFi機能をテストし、AIオーケストレーションを探索し、技術を評価してください。",
     "startTour": "ガイドツアー開始",
     "explorePlatform": "プラットフォームを探索",
@@ -7134,6 +7273,9 @@
       "gatewayRegister": "ゲートウェイ登録",
       "title": "初期化",
       "subtitle": "ニューラルレイヤーで新しいIDを作成",
+      "forumTitle": "コミュニティフォーラム",
+      "viewAll": "すべて表示",
+      "recentPosts": "最近の投稿",
       "nodeAlias": "ノードエイリアス",
       "usernamePlaceholder": "ユーザー名を入力",
       "signalFrequency": "信号周波数（メール）",
@@ -7515,6 +7657,9 @@
       "solutions": {
         "title": "コアソリューション",
         "subtitle": "エンタープライズグレードのブロックチェーンインフラ",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "tripleBandAi": {
           "title": "トリプルバンドAI",
           "description": "戦略、戦術、運用レベルで最適化された意思決定を行う3層AIオーケストレーション。"
@@ -7547,6 +7692,9 @@
       "cta": {
         "title": "信頼を構築する準備はできていますか？",
         "subtitle": "信頼ベースブロックチェーンの未来を構築する何千人もの開発者に参加しましょう",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "exploreEcosystem": "エコシステムを探索",
         "joinCommunity": "コミュニティに参加"
       }
@@ -7556,6 +7704,9 @@
         "tag": "V4ラーニングセンター",
         "title": "教育ハブ",
         "subtitle": "TBurn Lab V4エコシステムをマスター。信頼ベースのコンセンサスアルゴリズムから高速dAppの構築まで、ここから始めましょう。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "stats": {
           "courses": "コース",
           "learners": "学習者",
@@ -7740,6 +7891,9 @@
         "tag": "紹介",
         "title": "TBurn Labとは？",
         "subtitle": "AI検証と量子耐性セキュリティを備えた世界初の信頼ベースブロックチェーンを発見。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "coreFeatures": {
           "title": "コア機能",
           "items": {
@@ -7765,6 +7919,9 @@
         "consensus": {
           "title": "コンセンサスメカニズム",
           "subtitle": "Proof of Trust（PoT）は検証とトラストスコアリングを組み合わせます",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "specs": {
             "blockTime": "ブロック時間",
             "finality": "ファイナリティ",
@@ -7820,6 +7977,9 @@
         "tag": "コア機能",
         "title": "トラストスコアシステム",
         "subtitle": "3段階検証システム、AI分析、動的スコアリングアルゴリズムの詳細。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "philosophy": {
           "title": "評価哲学",
           "description": "トラストスコアは、複数の次元でプロジェクトの信頼性を評価することで投資家を保護するように設計されています",
@@ -7995,6 +8155,9 @@
         "tag": "はじめに",
         "title": "ウォレットとは？",
         "subtitle": "暗号通貨ウォレット、セキュリティのベストプラクティス、TBurnウォレットの設定方法について学びます。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "types": {
           "title": "ウォレットタイプ",
           "hot": {
@@ -8068,9 +8231,15 @@
         "tag": "技術文書",
         "title": "ホワイトペーパー",
         "subtitle": "TBurn Labアーキテクチャ、コンセンサス、トークノミクスの完全な技術文書。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "trustCrisis": {
           "title": "信頼の危機",
           "subtitle": "私たちが解決する問題の理解",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "stats": {
             "rugPulls": {
               "value": "$2.8B",
@@ -8155,6 +8324,9 @@
             "description": "即時詐欺検出と防止"
           },
           "subtitle": "3つの異なるAIモデルを使用したインテリジェントな意思決定。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "items": {
             "strategic": {
               "title": "戦略レイヤー",
@@ -8234,6 +8406,9 @@
         "tag": "エコノミクス",
         "title": "トークノミクス",
         "subtitle": "TBURNトークンの分配、発行スケジュール、デフレメカニズムを理解しましょう。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "marketStats": {
           "title": "市場統計",
           "totalSupply": "総供給量",
@@ -8330,6 +8505,9 @@
         "distributionSection": {
           "title": "トークン分配",
           "subtitle": "長期的なエコシステム成長と持続可能性のための戦略的配分",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
@@ -8374,6 +8552,9 @@
         "tag": "開発",
         "title": "ロードマップ",
         "subtitle": "メインストリーム採用への進捗と今後のマイルストーンを追跡。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "phases": {
           "phase1": {
             "title": "フェーズ1：基盤",
@@ -8487,6 +8668,9 @@
         "tag": "初級",
         "title": "ブロックチェーン基礎",
         "subtitle": "ブロックチェーン技術と分散システムの基本概念。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "duration": "4時間",
         "backToEducation": "教育プログラムに戻る",
         "courseOverview": {
@@ -8501,21 +8685,33 @@
           "module1": {
             "title": "ブロックチェーンとは？",
             "subtitle": "分散型台帳技術の理解",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "45 min"
           },
           "module2": {
             "title": "暗号技術の基礎",
             "subtitle": "ハッシュ関数、署名、暗号化",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "60 min"
           },
           "module3": {
             "title": "コンセンサスメカニズム",
             "subtitle": "PoW、PoS、TBurnのProof of Trust",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "75 min"
           },
           "module4": {
             "title": "TBurn Labアーキテクチャ",
             "subtitle": "信頼ベースシステムの詳細解説",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "60 min"
           }
         },
@@ -8560,6 +8756,9 @@
         "tag": "中級",
         "title": "DeFiマスタリー",
         "subtitle": "DEX、レンディング、イールド戦略を含む分散型金融概念をマスター。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "duration": "8時間",
         "backToEducation": "教育プログラムに戻る",
         "stats": {
@@ -8588,21 +8787,33 @@
           "module1": {
             "title": "DEX＆AMMメカニズム",
             "subtitle": "自動マーケットメーカーの理解",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "90 min"
           },
           "module2": {
             "title": "レンディングプロトコル",
             "subtitle": "担保付き借入と貸付",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "120 min"
           },
           "module3": {
             "title": "流動性提供",
             "subtitle": "LPトークン、インパーマネントロス、報酬",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "90 min"
           },
           "module4": {
             "title": "イールド戦略",
             "subtitle": "信頼ブースト利回りによるリターン最適化",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "120 min"
           }
         },
@@ -8655,6 +8866,9 @@
         "tag": "上級",
         "title": "開発者コース",
         "subtitle": "TBurn LabでdAppを構築・デプロイする完全ガイド。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "duration": "20時間",
         "backToEducation": "教育プログラムに戻る",
         "courseOverview": {
@@ -8666,21 +8880,33 @@
           "module1": {
             "title": "SDKセットアップ＆設定",
             "subtitle": "環境セットアップとプロジェクト初期化",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "2時間"
           },
           "module2": {
             "title": "スマートコントラクト開発",
             "subtitle": "安全で最適化されたコントラクトの作成",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "6時間"
           },
           "module3": {
             "title": "API統合",
             "subtitle": "REST、GraphQL、WebSocket API",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "4時間"
           },
           "module4": {
             "title": "デプロイ＆DevOps",
             "subtitle": "メインネットデプロイと監視",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "4時間"
           }
         },
@@ -8739,6 +8965,9 @@
         "tag": "初級",
         "title": "DeFi入門",
         "subtitle": "TBurn Labでの分散型金融への第一歩。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "duration": "2時間",
         "backToEducation": "教育プログラムに戻る",
         "scoreFormula": {
@@ -8862,6 +9091,9 @@
         "tag": "プログラム",
         "title": "教育プログラム",
         "subtitle": "ブロックチェーン教育のための体系的な学習パスと認定プログラム。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "backToLearn": "学習に戻る",
         "pathsTitle": "学習パス",
         "pathsSubtitle": "目標と経験レベルに基づいて体系的なパスを選択してください。",
@@ -8890,24 +9122,36 @@
           "beginner": {
             "title": "ブロックチェーン基礎",
             "subtitle": "コア概念と用語でブロックチェーンの旅を始めましょう。",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "6時間",
             "level": "初級"
           },
           "defi": {
             "title": "DeFiスペシャリスト",
             "subtitle": "分散型金融プロトコルと戦略をマスターしましょう。",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "12時間",
             "level": "中級"
           },
           "developer": {
             "title": "スマートコントラクト開発者",
             "subtitle": "TBurnチェーン上でプロダクションレディなdAppを構築しましょう。",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "20時間",
             "level": "上級"
           },
           "security": {
             "title": "セキュリティ＆トラスト",
             "subtitle": "Trust Score、セキュリティ監査、ベストプラクティスを学びましょう。",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "duration": "10時間",
             "level": "中級"
           }
@@ -8978,6 +9222,9 @@
         "tag": "V4 SDK & API 準備完了",
         "title": "開発者ハブ",
         "subtitle": "次世代の信頼ベースアプリケーションを構築。TBurn Lab V4エコシステム向けの包括的な開発ツール、SDK、APIにアクセス。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "getStarted": "始める",
         "viewDocs": "ドキュメントを見る",
         "quickStart": {
@@ -8991,6 +9238,9 @@
         "apiReference": {
           "title": "APIリファレンス",
           "subtitle": "RESTful API＆WebSocketストリーミング",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "blockchainApi": "ブロックチェーンAPI",
           "defiApi": "DeFi API",
           "aiApi": "AI API"
@@ -9012,6 +9262,9 @@
         "grants": {
           "title": "開発者グラントプログラム",
           "subtitle": "TBurn Labエコシステムを拡大するプロジェクトをサポートします。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "totalFund": "$50M 総グラントファンド"
         },
         "devToolsSection": {
@@ -9096,6 +9349,9 @@
         "tag": "ドキュメント",
         "title": "ドキュメント",
         "subtitle": "TBurn Lab開発のための包括的なガイドとリファレンス。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "heroDescription": "TBurn Labで構築するために必要なすべて。APIからスマートコントラクトまで、本番対応のdAppを構築。",
         "searchPlaceholder": "ドキュメントを検索...",
         "categoriesTitle": "ドキュメントカテゴリ",
@@ -9107,6 +9363,9 @@
         "architecture": {
           "title": "ネットワークアーキテクチャ",
           "subtitle": "TBurn Labマルチレイヤーアーキテクチャの理解",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "layers": {
             "consensus": {
               "title": "コンセンサスレイヤー",
@@ -9219,6 +9478,9 @@
         "tag": "APIリファレンス",
         "title": "APIドキュメント",
         "subtitle": "ブロックチェーン、DeFi、AIサービス向けのRESTful APIエンドポイント。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "baseUrl": "ベースURL",
         "coreEndpoints": "コアエンドポイント",
         "parameters": "パラメータ",
@@ -9304,6 +9566,9 @@
         "tag": "CLIツール",
         "title": "CLIリファレンス",
         "subtitle": "プロジェクト管理とデプロイのためのコマンドラインインターフェース。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "currentVersion": "現在のバージョン",
         "usage": "使用法",
         "options": "オプション",
@@ -9388,6 +9653,9 @@
         "tag": "SDKガイド",
         "title": "SDKガイド",
         "subtitle": "多言語SDK統合ガイドとベストプラクティス。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "installation": "インストール",
         "configuration": "設定",
         "quickExamples": "クイック例",
@@ -9426,6 +9694,9 @@
         "tag": "スマートコントラクト",
         "title": "スマートコントラクト",
         "subtitle": "TBurn Labで安全なスマートコントラクトを作成、テスト、デプロイ。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "contractTemplates": "コントラクトテンプレート",
         "copy": "コピー",
         "copied": "コピー済み!",
@@ -9512,6 +9783,9 @@
         "gasOptimization": {
           "title": "ガス最適化",
           "subtitle": "トランザクションコスト削減のヒント",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "tip1": "複数の小さな変数を単一のストレージスロットにパック",
           "tip2": "読み取り専用関数パラメータにはmemoryではなくcalldataを使用",
           "tip3": "複数回アクセスされるストレージ変数をメモリにキャッシュ",
@@ -9569,6 +9843,9 @@
         "tag": "リアルタイム",
         "title": "WebSocket API",
         "subtitle": "リアルタイムデータストリーミングとイベントサブスクリプション。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "connectionEndpoints": "接続エンドポイント",
         "subscriptionChannels": "サブスクリプションチャンネル",
         "fullReference": "完全なリファレンス",
@@ -9617,6 +9894,9 @@
         "tag": "コード例",
         "title": "コード例",
         "subtitle": "すぐに使えるコードスニペットとサンプルプロジェクト。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "commonRecipes": "一般的なレシピ",
         "categories": {
           "allRecipes": "すべてのレシピ",
@@ -9681,6 +9961,9 @@
         "tag": "はじめに",
         "title": "クイックスタート",
         "subtitle": "数分でTBurn Labを始める。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "whatsNext": "次は何ですか？",
         "prerequisites": {
           "title": "前提条件",
@@ -9744,6 +10027,9 @@
         "tag": "セットアップ",
         "title": "インストールガイド",
         "subtitle": "ステップバイステップのインストールと設定手順。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "startBuilding": "構築を開始",
         "viewQuickStart": "クイックスタートを見る",
         "requirements": {
@@ -9763,6 +10049,9 @@
           "minimum": {
             "title": "最小要件",
             "subtitle": "開発とテスト用",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "cpu": "4コア / 8スレッド",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
@@ -9771,6 +10060,9 @@
           "recommended": {
             "title": "推奨要件",
             "subtitle": "本番バリデーター用",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "cpu": "8+コア / 16スレッド",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
@@ -9785,6 +10077,9 @@
           "ports": {
             "title": "ネットワークポート",
             "subtitle": "ノード運用に必要なポート",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
@@ -9903,6 +10198,9 @@
         "tag": "マイグレーション",
         "title": "EVMマイグレーション",
         "subtitle": "EthereumのdAppをTBurn Labに移行。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "startMigration": "マイグレーションを開始",
         "viewGuide": "完全なガイドを見る",
         "overview": {
@@ -10032,6 +10330,9 @@
         "keyDifferences": {
           "title": "主要な技術的違い",
           "subtitle": "従来のEVMチェーンとTBurn Labの違い",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "existingEvmChains": "既存のEVMチェーン",
           "tburnChain": "TBurn Lab",
           "upgrade": "アップグレード"
@@ -10047,6 +10348,9 @@
         "tag": "DeFiエコシステム",
         "title": "DeFiハブ",
         "subtitle": "DEX、レンディング、ステーキング、イールドファーミングを備えた完全な分散型金融インフラ。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "features": {
           "dex": "DEX/AMM",
           "lending": "レンディングプロトコル",
@@ -10201,6 +10505,9 @@
         "cta": {
           "title": "TBurn DeFiで取引する準備はできましたか？",
           "subtitle": "組み込みのトラスト検証を備えた最も信頼性の高い分散型金融エコシステムにアクセス",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "launchApp": "DeFiアプリを起動",
           "viewDocs": "ドキュメントを見る"
         }
@@ -10209,6 +10516,9 @@
         "tag": "トークン規格",
         "title": "トークン拡張",
         "subtitle": "AI強化機能を備えた高度なTBC-20、TBC-721、TBC-1155トークン規格。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "titleHighlight": "拡張機能",
         "exploreBrc20": "TBC-20を探索",
         "readSpecs": "仕様を読む",
@@ -10326,12 +10636,18 @@
         "brc20": {
           "title": "TBC-20トークン標準",
           "subtitle": "トラスト＆バーン機能のコアインターフェース。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "trustScoreFunctions": "トラストスコア関数",
           "autoBurnFunctions": "自動バーン関数"
         },
         "brc20Standard": {
           "title": "TBC-20トークン標準",
           "subtitle": "トラスト＆バーン機能のコアインターフェース。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "trustScoreFunctions": "トラストスコア関数",
           "autoBurnFunctions": "自動バーン関数"
         },
@@ -10406,6 +10722,9 @@
         "cta": {
           "title": "TBC-20トークンの発行を開始",
           "subtitle": "5分以内に組み込みトラスト評価機能を持つトークンを発行。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "openConsole": "開発者コンソールを開く",
           "viewApiDocs": "APIドキュメントを見る"
         }
@@ -10414,9 +10733,15 @@
         "tag": "自動化",
         "title": "アクション＆ブリンクス",
         "subtitle": "自動化されたブロックチェーンインタラクションと即時トランザクションリンク。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "whatAreBlinks": {
           "title": "ブリンクスとは？",
           "subtitle": "Blinks（ブロックチェーンリンクス）は、任意のURLをワンクリックトランザクションに変換します。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "items": {
             "instantTx": {
               "title": "即時トランザクション",
@@ -10559,6 +10884,9 @@
         "coreCapabilities": {
           "title": "コア機能",
           "subtitle": "ブロックチェーンインタラクションを標準化する次世代プロトコル",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "urlExecution": {
             "title": "URL実行",
             "description": "ディープリンクを通じてスワップ、ミント、投票を即座に実行。"
@@ -10597,6 +10925,9 @@
         "title": "ウォレット＆",
         "titleHighlight": "セキュリティ",
         "subtitle": "信頼できるウォレットでTBurn Labに接続。すべてのウォレットはトランザクション前にリアルタイムトラストスコアを表示します。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "recommended": "推奨",
         "walletList": {
           "tburn": {
@@ -10675,11 +11006,17 @@
         "title": "パーミッションド",
         "titleHighlight": "ネットワーク",
         "subtitle": "TBurn Labのトラスト検証でプライベートブロックチェーンネットワークをデプロイ。パブリックチェーンアンカリングによるエンタープライズグレードのセキュリティ。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "contactSales": "営業に連絡",
         "viewWhitepaper": "ホワイトペーパーを見る",
         "enterpriseFeatures": {
           "title": "エンタープライズグレードのパーミッションドチェーン",
           "subtitle": "ビジネス向けの高度なコントロールとコンプライアンス機能。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "rbac": {
             "title": "ロールベースアクセス制御（RBAC）",
             "description": "管理者、バリデーター、ユーザー向けの詳細な権限設定。スマートコントラクトデプロイ、トランザクション承認、データクエリの権限をロールに基づいて分離。"
@@ -10700,6 +11037,9 @@
         "hybridArchitecture": {
           "title": "ハイブリッドアーキテクチャ",
           "subtitle": "プライベートチェーンのプライバシーとパブリックブロックチェーンのセキュリティを組み合わせ。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "privateChainAnchor": {
             "title": "プライベートチェーン + パブリックアンカー",
             "description": "内部トランザクションは高速プライベートチェーンで実行し、定期的にステートハッシュをTBurnパブリックメインネットにアンカリングして不変性を確保。"
@@ -10850,10 +11190,16 @@
         "title": "ゲーム",
         "titleHighlight": "ツール",
         "subtitle": "NFT検証、P2Eメカニクス、クロスゲーム資産取引を備えた完全なGameFi SDK。トラストスコアが詐欺的なゲームプロジェクトを防止。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "getUnitySdk": "Unity SDKを取得",
         "whyBuild": {
           "title": "なぜTBurnで構築するのか？",
           "subtitle": "高速ゲーミングと安全な資産取引に最適化。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "ultraFastProcessing": {
             "title": "超高速処理",
             "description": "50,000+ TPS（ピーク520,000+ TPS）スループットでリアルタイムゲーム内アイテム取引を可能に。平均1秒のブロック時間で、プレイヤーはラグなしで即時確認を体験。"
@@ -10910,6 +11256,9 @@
             "desc": "検証済みデジタル資産所有権を持つ没入型仮想環境。"
           },
           "subtitle": "包括的なツールであらゆるタイプのブロックチェーンゲームを構築",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "marketplace": {
             "title": "NFTマーケットプレイス",
             "desc": "トラスト検証によるゲーム内アイテムの安全な取引プラットフォーム。",
@@ -10966,6 +11315,9 @@
         "trustScore": {
           "title": "NFTプロジェクトトラストスコア",
           "subtitle": "ゲームプロジェクト向け包括的検証システム",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "teamScore": "チームアイデンティティスコア",
           "contractScore": "コントラクトセキュリティスコア",
           "utilityScore": "ユーティリティ＆ロードマップスコア",
@@ -11063,10 +11415,16 @@
         "title": "グローバル",
         "titleHighlight": "インフラ",
         "subtitle": "世界中で検証済み暗号決済を受け入れ。即時決済、超低手数料、マーチャント保護のためのトラストスコアフィルタリング。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "getApiKey": "APIキーを取得",
         "whyChoose": {
           "title": "なぜTBurnを選ぶのか？",
           "subtitle": "グローバルコマース向けに最適化されたインフラ。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "instantSettlement": {
             "title": "即時決済",
             "description": "平均1秒のブロック時間と6秒のファイナリティ。50,000+ TPS（ピーク520,000+ TPS）容量で従来のクレジットカードより速い決済スピードを体験。"
@@ -11168,6 +11526,9 @@
         "merchantFeatures": {
           "title": "マーチャント機能",
           "subtitle": "あらゆる規模のビジネス向けエンタープライズグレードツール",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "invoicing": {
             "title": "請求書発行",
             "description": "自動変換とフィアット決済オプション付きの暗号請求書を生成"
@@ -11196,6 +11557,9 @@
         "cta": {
           "title": "今すぐ支払いの受け付けを開始",
           "subtitle": "数分でTBurn決済をビジネスに統合",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "createMerchantAccount": "マーチャントアカウントを作成"
         },
         "developerResources": {
@@ -11251,6 +11615,9 @@
         "tag": "コマース",
         "title": "コマース",
         "subtitle": "Eコマース統合とマーチャントソリューション。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "titleHighlight": "ソリューション",
         "getStarted": "始める",
         "viewDocs": "ドキュメントを見る",
@@ -11293,6 +11660,9 @@
         "cta": {
           "title": "コマースソリューションを始める",
           "subtitle": "暗号を使用したビジネス決済の受け付け開始",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "createAccount": "マーチャントアカウントを作成"
         },
         "developerResources": {
@@ -11409,6 +11779,9 @@
         "tag": "金融",
         "title": "金融サービス",
         "subtitle": "ブロックチェーンベースのエンタープライズ金融インフラ。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "titleHighlight": "サービス",
         "buttons": {
           "startBuilding": "構築を開始",
@@ -11492,6 +11865,9 @@
         "tag": "AI駆動",
         "title": "AI機能",
         "subtitle": "インテリジェントなブロックチェーン運用のためのトリプルバンドAIオーケストレーション。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "titleHighlight": "トリプルバンドオーケストレーション",
         "tiers": {
           "strategic": {
@@ -11633,6 +12009,9 @@
         "tag": "クリエイティブ",
         "title": "アーティスト＆クリエイター",
         "subtitle": "NFTミント、ロイヤリティ、クリエイターエコノミーツール。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "titleHighlight": "クリエイター",
         "buttons": {
           "startCreating": "作成を開始",
@@ -11747,6 +12126,9 @@
         "tag": "ビットコインDeFi",
         "title": "BTCfi",
         "subtitle": "ラップドBTCとクロスチェーンイールドを含むビットコインDeFi統合。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "titleHighlight": "ビットコインDeFi",
         "buttons": {
           "bridgeBtc": "BTCをブリッジ",
@@ -11888,6 +12270,9 @@
         "tag": "ブリッジ",
         "title": "クロスチェーンブリッジ",
         "subtitle": "7以上のブロックチェーンネットワーク間の安全な資産転送。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "titleHighlight": "ブリッジ",
         "buttons": {
           "launchBridge": "ブリッジを開始",
@@ -11907,6 +12292,9 @@
           "mpcSecurity": {
             "title": "MPCセキュリティ",
             "subtitle": "トラストレスブリッジングのためのマルチパーティ計算",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "items": {
               "distributedKeyGen": "分散鍵生成",
               "thresholdSignatures": "閾値署名",
@@ -11916,6 +12304,9 @@
           "atomicSwaps": {
             "title": "アトミックスワップ",
             "subtitle": "オールオアナッシングのトランザクション保証",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "items": {
               "htlcContracts": "HTLCスマートコントラクト",
               "zeroSlippage": "ゼロスリッページスワップ",
@@ -11925,6 +12316,9 @@
           "unifiedLiquidity": {
             "title": "統一流動性",
             "subtitle": "深いクロスチェーン流動性プール",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "items": {
               "crossChainPools": "クロスチェーン流動性プール",
               "dynamicRebalancing": "動的プールリバランシング",
@@ -12047,6 +12441,9 @@
         "tag": "ゲーム＆メタバース",
         "title": "ゲーム＆メタバース",
         "subtitle": "TBURNの高性能GameFiインフラで次世代ブロックチェーンゲームを構築。シームレスなP2E統合、NFTアセット、クロスゲーム経済。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "buttons": {
           "startBuilding": "開発を始める",
           "gameTooling": "ゲームツール"
@@ -12156,6 +12553,9 @@
         "tag": "資産トークン化",
         "title": "資産トークン化",
         "subtitle": "現実世界の資産をブロックチェーントークンに変換。流動性を解放し、分割所有を可能にし、規制準拠トークン化でグローバル市場にアクセス。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "buttons": {
           "startTokenizing": "トークン化を開始",
           "viewDocumentation": "ドキュメントを見る"
@@ -12216,6 +12616,9 @@
         "tag": "分散型インフラストラクチャ",
         "title": "DePINネットワーク",
         "subtitle": "分散型物理インフラストラクチャネットワークを構築・運営。コンピューティング、ストレージ、無線、センシングリソースを提供して報酬を獲得。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "buttons": {
           "deployInfrastructure": "インフラを展開",
           "protocolDocs": "プロトコル文書"
@@ -12283,6 +12686,9 @@
         "tag": "ステーブルコインインフラ",
         "title": "ステーブルコインソリューション",
         "subtitle": "エンタープライズグレードのステーブルコイン発行と管理。法定通貨担保、暗号担保、アルゴリズムオプションで完全な規制準拠。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "buttons": {
           "issueStablecoin": "ステーブルコイン発行",
           "technicalDocs": "技術ドキュメント"
@@ -12362,6 +12768,9 @@
         "tag": "機関決済",
         "title": "機関決済",
         "subtitle": "銀行と金融機関のための大容量決済インフラ。リアルタイムグロス決済、クロスボーダー決済、規制準拠。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "buttons": {
           "contactSales": "営業に連絡",
           "apiReference": "APIリファレンス"
@@ -12441,6 +12850,9 @@
         "tag": "エンタープライズブロックチェーン",
         "title": "エンタープライズソリューション",
         "subtitle": "現代ビジネスのための包括的ブロックチェーンソリューション。プライベートネットワーク、コンプライアンス機能、24/7エンタープライズサポート。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "buttons": {
           "contactEnterprise": "エンタープライズに連絡",
           "enterpriseDocs": "エンタープライズドキュメント"
@@ -12530,6 +12942,9 @@
         "tag": "ネットワークバリデーター",
         "title": "バリデーター",
         "subtitle": "TBurnバリデーターネットワークに参加してブロックチェーンを保護しながら報酬を獲得しましょう。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "becomeValidator": "バリデーターになる",
         "validatorDocs": "バリデータードキュメントを見る",
         "stats": {
@@ -12577,6 +12992,9 @@
         "cta": {
           "title": "バリデーターになる準備はできましたか？",
           "subtitle": "ネットワークに参加してTBurn Labを保護しながら報酬を獲得しましょう。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "startValidating": "バリデーションを開始",
           "readDocs": "ドキュメントを読む"
         },
@@ -12671,6 +13089,9 @@
         "slashing": {
           "title": "スラッシング条件",
           "subtitle": "バリデーターは高い基準を維持する必要があります。違反はステークペナルティにつながります。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "minor": {
             "title": "軽微な違反",
             "badge": "警告",
@@ -12724,6 +13145,9 @@
         "tag": "RPCインフラストラクチャ",
         "title": "RPCプロバイダー",
         "subtitle": "エンタープライズグレードの信頼性を持つ高性能RPCエンドポイント。WebSocketとHTTP接続をサポート。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "getApiKey": "APIキーを取得",
         "buttons": {
           "getApiKey": "APIキーを取得",
@@ -12783,6 +13207,9 @@
         "cta": {
           "title": "構築する準備はできましたか？",
           "subtitle": "今日からTBurn Lab APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "desc": "今日からTBurn Lab APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
           "getStartedFree": "無料で始める",
           "contactSales": "営業に連絡"
@@ -12876,6 +13303,9 @@
         "tag": "ステータス",
         "title": "ネットワークステータス",
         "subtitle": "リアルタイムのネットワーク健全性とパフォーマンス指標。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "operational": "稼働中",
         "lastUpdated": "最終更新",
         "daysAgo": "日前",
@@ -12972,6 +13402,9 @@
         "tag": "法定通貨ゲートウェイ",
         "title": "法定通貨入出金",
         "subtitle": "法定通貨でTBURNを売買できます。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "fee": "手数料",
         "sections": {
           "howItWorks": "利用方法",
@@ -13074,6 +13507,9 @@
         "tag": "コミュニティ",
         "title": "コミュニティハブ",
         "subtitle": "ビルダー、バリデーター、愛好家とつながる。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "stats": {
           "totalMembers": "総メンバー数",
           "monthlyActive": "月間アクティブ",
@@ -13111,6 +13547,9 @@
         "leaderboard": {
           "title": "コントリビューターリーダーボード",
           "subtitle": "今月のトップコミュニティコントリビューター",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "points": "{{count}} ポイント",
           "tiers": {
             "diamond": "ダイヤモンド",
@@ -13123,6 +13562,9 @@
         "ambassadorProgram": {
           "title": "アンバサダープログラム",
           "subtitle": "グローバルコミュニティをリード",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "benefits": {
             "tokenRewards": "毎月のTBURNトークン報酬",
             "earlyAccess": "新機能への早期アクセス",
@@ -13134,6 +13576,9 @@
         "ambassador": {
           "title": "アンバサダープログラム",
           "subtitle": "グローバルTBurnコミュニティをリード",
+          "forumTitle": "コミュニティフォーラム",
+          "viewAll": "すべて表示",
+          "recentPosts": "最近の投稿",
           "applyButton": "アンバサダー申請",
           "benefits": {
             "rewards": "月間TBURNトークン報酬",
@@ -13184,6 +13629,9 @@
         "tag": "ニュース＆ブログ",
         "title": "ニュース＆ブログ",
         "subtitle": "最新のアップデート、お知らせ、インサイト。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "searchPlaceholder": "記事を検索...",
         "featuredTitle": "注目記事",
         "featuredBadge": "注目",
@@ -13283,7 +13731,13 @@
                 "6": "メインネットローンチには、DEX/AMM、レンディングプロトコル、リキッドステーキング、NFTマーケットプレイス、クロスチェーンブリッジを含む包括的なDeFiエコシステムが含まれます。",
                 "7": "開発者、バリデーター、ユーザーの皆様をTBURN v7.0で分散型金融の未来を共に築くことにご招待します。"
               },
-              "tags": { "0": "メインネット", "1": "ローンチ", "2": "v7.0", "3": "AI", "4": "DeFi" }
+              "tags": {
+                "0": "メインネット",
+                "1": "ローンチ",
+                "2": "v7.0",
+                "3": "AI",
+                "4": "DeFi"
+              }
             },
             "triple-band-ai-revealed": {
               "title": "Triple-Band AIアーキテクチャ公開：ブロックチェーンインテリジェンスの未来",
@@ -13304,7 +13758,12 @@
                 "6": "フィードバック学習システム：すべてのAI決定は追跡され、実際の結果と比較評価されます。この継続的なフィードバックループにより、バリデーター選択決定で99.7%を超える精度を達成。",
                 "7": "結果として、ブロックチェーン運用のあらゆる側面を向上させる自己改善型、フォールトトレラントなAI層が完成します。"
               },
-              "tags": { "0": "AI", "1": "テクノロジー", "2": "ディープダイブ", "3": "アーキテクチャ" }
+              "tags": {
+                "0": "AI",
+                "1": "テクノロジー",
+                "2": "ディープダイブ",
+                "3": "アーキテクチャ"
+              }
             },
             "global-partnership-expansion": {
               "title": "グローバルパートナーシップ拡大：TBURNが業界リーダーと提携",
@@ -13325,7 +13784,12 @@
                 "6": "開発者リソース：パートナーがSDK、ドキュメント、トレーニングプログラムを含む包括的な開発者リソースに貢献。",
                 "7": "コミュニティとより広いブロックチェーンエコシステムにこれらのパートナーシップがもたらす機会に期待しています。"
               },
-              "tags": { "0": "パートナーシップ", "1": "拡大", "2": "エンタープライズ", "3": "グローバル" }
+              "tags": {
+                "0": "パートナーシップ",
+                "1": "拡大",
+                "2": "エンタープライズ",
+                "3": "グローバル"
+              }
             },
             "staking-program-details": {
               "title": "ステーキングプログラム詳細：TBURNリワードを最大化",
@@ -13347,7 +13811,12 @@
                 "7": "自動複利：自動複利を有効にしてリワードを自動再投資し、リターンを最大化。",
                 "8": "始め方：今日TBURNステーキングダッシュボードを訪問してリワード獲得を開始。"
               },
-              "tags": { "0": "ステーキング", "1": "リワード", "2": "トークノミクス", "3": "APY" }
+              "tags": {
+                "0": "ステーキング",
+                "1": "リワード",
+                "2": "トークノミクス",
+                "3": "APY"
+              }
             },
             "trust-score-deep-dive": {
               "title": "トラストスコアディープダイブ：TBURNのAIがネットワークセキュリティを評価する方法",
@@ -13368,7 +13837,12 @@
                 "6": "高スコアの維持：一貫した稼働時間、タイムリーなブロック生産、積極的なガバナンス参加が高いトラストスコア維持の重要な要素。",
                 "7": "トラストスコアシステムは最も信頼性の高い参加者が報われることを保証し、自己強化型のセキュリティメカニズムを作成。"
               },
-              "tags": { "0": "セキュリティ", "1": "トラストスコア", "2": "AI", "3": "バリデーター" }
+              "tags": {
+                "0": "セキュリティ",
+                "1": "トラストスコア",
+                "2": "AI",
+                "3": "バリデーター"
+              }
             },
             "sdk-2-released": {
               "title": "TBURN SDK 2.0リリース：新しい開発者ツールでより速く構築",
@@ -13390,7 +13864,12 @@
                 "7": "ドキュメント：包括的なガイド、APIリファレンス、サンプルプロジェクトについては開発者ポータルをご覧ください。",
                 "8": "SDK 2.0はTBURN開発をアクセスしやすく楽しくするという私たちのコミットメントを表しています。"
               },
-              "tags": { "0": "SDK", "1": "開発", "2": "TypeScript", "3": "ツール" }
+              "tags": {
+                "0": "SDK",
+                "1": "開発",
+                "2": "TypeScript",
+                "3": "ツール"
+              }
             },
             "quantum-resistant-cryptography": {
               "title": "量子耐性暗号：TBURNの未来を守る",
@@ -13413,7 +13892,12 @@
                 "8": "ハッシュ関数：量子耐性オプションを備えたマルチハッシュシステム。",
                 "9": "この積極的なアプローチにより、量子コンピューティング能力が進化してもTBURNは安全に保たれます。"
               },
-              "tags": { "0": "量子", "1": "暗号", "2": "セキュリティ", "3": "研究" }
+              "tags": {
+                "0": "量子",
+                "1": "暗号",
+                "2": "セキュリティ",
+                "3": "研究"
+              }
             },
             "tburn-dex-beta": {
               "title": "TBURN DEXベータローンチ：分散型取引が始まる",
@@ -13435,7 +13919,12 @@
                 "7": "始め方：今日ウォレットを接続してTBURN DEXで取引を開始。完全なドキュメントは開発者ポータルで利用可能。",
                 "8": "コミュニティチャンネルに参加してフィードバックを提供し、TBURNでの分散型取引の未来を一緒に形作りましょう。"
               },
-              "tags": { "0": "DEX", "1": "DeFi", "2": "取引", "3": "AMM" }
+              "tags": {
+                "0": "DEX",
+                "1": "DeFi",
+                "2": "取引",
+                "3": "AMM"
+              }
             }
           }
         }
@@ -13444,6 +13933,9 @@
         "tag": "イベント＆アクティビティ",
         "title": "イベント＆アクティビティ",
         "subtitle": "TBurn Labコミュニティイベント、ハッカソン、カンファレンスに参加。",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "featuredTitle": "注目イベント",
         "upcomingTitle": "今後のイベント",
         "capacity": "定員",
@@ -13576,16 +14068,46 @@
                 "2": "参加者は開発者に直接質問し、TBURN v7.0の始め方を学ぶ機会があります。"
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO & 創設者", "avatar": "AP" },
-                "1": { "name": "Dr. Sarah Chen", "role": "チーフAIアーキテクト", "avatar": "SC" },
-                "2": { "name": "Michael Rodriguez", "role": "DeFiプロダクトリード", "avatar": "MR" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO & 創設者",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "Dr. Sarah Chen",
+                  "role": "チーフAIアーキテクト",
+                  "avatar": "SC"
+                },
+                "2": {
+                  "name": "Michael Rodriguez",
+                  "role": "DeFiプロダクトリード",
+                  "avatar": "MR"
+                }
               },
               "agenda": {
-                "0": { "time": "14:00", "title": "ウェルカム & イントロダクション", "speaker": "Alex Park" },
-                "1": { "time": "14:15", "title": "TBURN v7.0技術概要" },
-                "2": { "time": "14:45", "title": "AIオーケストレーションディープダイブ", "speaker": "Dr. Sarah Chen" },
-                "3": { "time": "15:15", "title": "DeFiエコシステムデモ", "speaker": "Michael Rodriguez" },
-                "4": { "time": "15:45", "title": "ライブQ&Aセッション" }
+                "0": {
+                  "time": "14:00",
+                  "title": "ウェルカム & イントロダクション",
+                  "speaker": "Alex Park"
+                },
+                "1": {
+                  "time": "14:15",
+                  "title": "TBURN v7.0技術概要"
+                },
+                "2": {
+                  "time": "14:45",
+                  "title": "AIオーケストレーションディープダイブ",
+                  "speaker": "Dr. Sarah Chen"
+                },
+                "3": {
+                  "time": "15:15",
+                  "title": "DeFiエコシステムデモ",
+                  "speaker": "Michael Rodriguez"
+                },
+                "4": {
+                  "time": "15:45",
+                  "title": "ライブQ&Aセッション"
+                }
               },
               "requirements": {
                 "0": "安定したインターネット接続",
@@ -13608,16 +14130,44 @@
                 "2": "ワークショップ終了時には、TBURNテストネットに最初のスマートコントラクトをデプロイし、開発ライフサイクル全体を理解できます。"
               },
               "speakers": {
-                "0": { "name": "James Liu", "role": "リード開発者", "avatar": "JL" },
-                "1": { "name": "Emma Wilson", "role": "デベロッパーリレーションズ", "avatar": "EW" }
+                "0": {
+                  "name": "James Liu",
+                  "role": "リード開発者",
+                  "avatar": "JL"
+                },
+                "1": {
+                  "name": "Emma Wilson",
+                  "role": "デベロッパーリレーションズ",
+                  "avatar": "EW"
+                }
               },
               "agenda": {
-                "0": { "time": "10:00", "title": "環境セットアップ & 前提条件" },
-                "1": { "time": "10:30", "title": "TBURN SDK入門", "speaker": "James Liu" },
-                "2": { "time": "11:30", "title": "スマートコントラクト開発" },
-                "3": { "time": "12:30", "title": "昼食休憩" },
-                "4": { "time": "13:00", "title": "テスト & デプロイ", "speaker": "Emma Wilson" },
-                "5": { "time": "13:45", "title": "Q&A & まとめ" }
+                "0": {
+                  "time": "10:00",
+                  "title": "環境セットアップ & 前提条件"
+                },
+                "1": {
+                  "time": "10:30",
+                  "title": "TBURN SDK入門",
+                  "speaker": "James Liu"
+                },
+                "2": {
+                  "time": "11:30",
+                  "title": "スマートコントラクト開発"
+                },
+                "3": {
+                  "time": "12:30",
+                  "title": "昼食休憩"
+                },
+                "4": {
+                  "time": "13:00",
+                  "title": "テスト & デプロイ",
+                  "speaker": "Emma Wilson"
+                },
+                "5": {
+                  "time": "13:45",
+                  "title": "Q&A & まとめ"
+                }
               },
               "requirements": {
                 "0": "Node.js 18+がインストール済み",
@@ -13641,14 +14191,34 @@
                 "2": "質問はDiscord経由で事前に提出するか、セッション中にライブで質問できます。"
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO & 創設者", "avatar": "AP" },
-                "1": { "name": "コミュニティチーム", "role": "モデレーター", "avatar": "CT" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO & 創設者",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "コミュニティチーム",
+                  "role": "モデレーター",
+                  "avatar": "CT"
+                }
               },
               "agenda": {
-                "0": { "time": "18:00", "title": "ウェルカム & アップデート" },
-                "1": { "time": "18:15", "title": "事前提出された質問" },
-                "2": { "time": "18:45", "title": "コミュニティからのライブ質問" },
-                "3": { "time": "19:15", "title": "クロージング & お知らせ" }
+                "0": {
+                  "time": "18:00",
+                  "title": "ウェルカム & アップデート"
+                },
+                "1": {
+                  "time": "18:15",
+                  "title": "事前提出された質問"
+                },
+                "2": {
+                  "time": "18:45",
+                  "title": "コミュニティからのライブ質問"
+                },
+                "3": {
+                  "time": "19:15",
+                  "title": "クロージング & お知らせ"
+                }
               },
               "requirements": {
                 "0": "Discordアカウント",
@@ -13670,14 +14240,36 @@
                 "2": "チームは3層バリデーターシステムとAIトラストスコアがリワードにどう影響するかも説明します。"
               },
               "speakers": {
-                "0": { "name": "David Kim", "role": "インフラリード", "avatar": "DK" },
-                "1": { "name": "Lisa Zhang", "role": "バリデーターリレーションズ", "avatar": "LZ" }
+                "0": {
+                  "name": "David Kim",
+                  "role": "インフラリード",
+                  "avatar": "DK"
+                },
+                "1": {
+                  "name": "Lisa Zhang",
+                  "role": "バリデーターリレーションズ",
+                  "avatar": "LZ"
+                }
               },
               "agenda": {
-                "0": { "time": "15:00", "title": "TBURNバリデーション入門" },
-                "1": { "time": "15:30", "title": "技術要件 & セットアップ", "speaker": "David Kim" },
-                "2": { "time": "16:00", "title": "収益 & リワード", "speaker": "Lisa Zhang" },
-                "3": { "time": "16:30", "title": "ライブデモ & Q&A" }
+                "0": {
+                  "time": "15:00",
+                  "title": "TBURNバリデーション入門"
+                },
+                "1": {
+                  "time": "15:30",
+                  "title": "技術要件 & セットアップ",
+                  "speaker": "David Kim"
+                },
+                "2": {
+                  "time": "16:00",
+                  "title": "収益 & リワード",
+                  "speaker": "Lisa Zhang"
+                },
+                "3": {
+                  "time": "16:30",
+                  "title": "ライブデモ & Q&A"
+                }
               },
               "requirements": {
                 "0": "ブロックチェーンの基本理解",
@@ -13686,6 +14278,71 @@
               }
             }
           }
+        },
+        "items": {
+          "launchAma": {
+            "title": "TBURN v7.0 ローンチAMA",
+            "description": "メインネットローンチと今後の機能についてのライブQ&Aセッションにコアチームと一緒に参加しましょう"
+          },
+          "defiWorkshop": {
+            "title": "DeFiワークショップ：流動性マイニング",
+            "description": "実践的な演習と専門家のガイダンスで高度な流動性マイニング戦略を学びましょう"
+          },
+          "hackathon": {
+            "title": "TBURNハッカソン2025",
+            "description": "賞金50万ドルの48時間グローバルハッカソン。TBURN Lab上で革新的なDeFiソリューションを構築し、グラントとインキュベーション機会を競いましょう。"
+          },
+          "tokyoMeetup": {
+            "title": "コミュニティミートアップ - 東京",
+            "description": "東京でTBURN愛好家とネットワーキング。飲食物をご用意しています！"
+          },
+          "stakingCompetition": {
+            "title": "ステーキングコンペティション",
+            "description": "今月の最高ステーキング報酬を競いましょう。トップステーカーにボーナス報酬！"
+          },
+          "nftContest": {
+            "title": "NFTアートコンテスト",
+            "description": "TBURNテーマのNFTアートワークを作成して賞品を獲得しましょう。応募受付中！"
+          },
+          "validatorTraining": {
+            "title": "バリデーター研修セッション",
+            "description": "この包括的な研修セッションでTBURNバリデーターになる方法を学びましょう"
+          },
+          "airdropEvent": {
+            "title": "コミュニティエアドロップイベント",
+            "description": "アクティブなコミュニティメンバー向けの限定エアドロップ。タスクを完了して報酬を獲得！"
+          }
+        }
+      },
+      "time": {
+        "justNow": "たった今",
+        "hoursAgo": "{{count}}時間前",
+        "daysAgo": "{{count}}日前"
+      },
+      "announcements": {
+        "mainnetLaunch": {
+          "title": "メインネット開始日確定：12月8日",
+          "content": "TBURN v7.0メインネットが2024年12月8日に正式にローンチされることを発表いたします。史上最大のアップグレードに向けて、すべてのシステムが準備完了です！"
+        },
+        "stakingTiers": {
+          "title": "新しいステーキングティア開始",
+          "content": "ダイヤモンドティアステーキングが最大25%のAPYブーストで利用可能になりました。新しいステーキングダッシュボードで詳細をご確認ください。"
+        },
+        "securityAudit": {
+          "title": "セキュリティ監査完了",
+          "content": "スマートコントラクトがCertiKとTrail of Bitsの包括的なセキュリティ監査に合格しました。完全なレポートはGitHubで確認できます。"
+        },
+        "bridgeIntegration": {
+          "title": "クロスチェーンブリッジ開始",
+          "content": "TBURNブリッジが稼働開始し、イーサリアム、BSC、Polygonネットワーク間の転送をサポートします。"
+        },
+        "maintenance": {
+          "title": "定期メンテナンス：ノードアップグレード",
+          "content": "12月10日午前2時（UTC）に短時間のメンテナンスが予定されています。予想ダウンタイム：15分。"
+        },
+        "aiOrchestration": {
+          "title": "AIオーケストレーションシステム稼働開始",
+          "content": "Quad-Band AIオーケストレーションシステムがGemini 3 Proをプライマリとし、Claude Sonnet 4.5、GPT-4o、Grok 3をフォールバックとして完全稼働しています。"
         }
       }
     },
@@ -13693,6 +14350,9 @@
       "terms": {
         "title": "利用規約",
         "subtitle": "TBurn Labサービスの利用条件",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "backToHome": "ホームに戻る",
         "sections": {
           "acceptance": {
@@ -13889,6 +14549,9 @@
       "privacy": {
         "title": "プライバシーポリシー",
         "subtitle": "お客様のデータの保護について",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "backToHome": "ホームに戻る",
         "sections": {
           "introduction": {
@@ -14121,6 +14784,9 @@
       "disclaimer": {
         "title": "免責事項",
         "subtitle": "重要な法的開示",
+        "forumTitle": "コミュニティフォーラム",
+        "viewAll": "すべて表示",
+        "recentPosts": "最近の投稿",
         "backToHome": "ホームに戻る",
         "importantNotice": {
           "title": "重要なお知らせ",
@@ -14264,6 +14930,9 @@
           "privacy": {
             "title": "プライバシーポリシー",
             "subtitle": "How we handle your data",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "subtitleData": "Your data protection rights"
           },
           "terms": {
@@ -14273,6 +14942,9 @@
           "disclaimer": {
             "title": "免責事項",
             "subtitle": "法的情報 notices",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "subtitleRisk": "リスク開示s"
           }
         },
@@ -14280,12 +14952,18 @@
           "trustScore": {
             "title": "トラストスコア System",
             "subtitle": "3-stage 検証 process",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "subtitleHow": "How トラストスコアs work",
             "subtitleVerification": "検証 methodology"
           },
           "wallet": {
             "title": "What is a ウォレット?",
             "subtitle": "ウォレット ベーシックs",
+            "forumTitle": "コミュニティフォーラム",
+            "viewAll": "すべて表示",
+            "recentPosts": "最近の投稿",
             "subtitleSecurity": "Securing your assets"
           },
           "blockchain": {

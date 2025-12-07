@@ -162,6 +162,9 @@
     "technicalDetails": "Technical Details",
     "title": "Panel de Control",
     "subtitle": "Vista general de la red blockchain en tiempo real",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "explorerTitle": "Explorador TBURN",
     "explorerSubtitle": "Datos de blockchain en tiempo real y estadísticas de red",
     "networkStats": "Estadísticas de Red",
@@ -175,7 +178,6 @@
     "gasUsed": "Gas Usado",
     "txCount": "Cuenta TX",
     "timestamp": "Marca de Tiempo",
-    "viewAll": "Ver Todo",
     "networkHealth": "Salud de la Red",
     "healthy": "Saludable",
     "degraded": "Degradado",
@@ -284,6 +286,9 @@
   "blocks": {
     "title": "Bloques",
     "subtitle": "Explora todos los bloques en la blockchain TBURN",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "totalBlocks": "bloques totales",
     "blocks": "bloques",
     "blockNumber": "Número de Bloque",
@@ -364,6 +369,9 @@
   "transactions": {
     "title": "Explorador de Transacciones",
     "subtitle": "Explora todas las transacciones en la blockchain TBURN",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "txHash": "Hash de Transacción",
     "blockNumber": "Número de Bloque",
     "from": "Desde",
@@ -408,6 +416,9 @@
   "wallets": {
     "title": "Explorador de Carteras",
     "subtitle": "Rastrea saldos de carteras, stakes y recompensas",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "totalWallets": "Carteras Totales",
     "registeredAddresses": "direcciones registradas",
     "totalBalance": "Saldo Total",
@@ -450,6 +461,9 @@
   "validators": {
     "title": "Validadores",
     "subtitle": "Sistema de Validadores por Niveles con BFT de Comité Mejorado por AI",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "validatorAddress": "Dirección del Validador",
     "validatorName": "Nombre del Validador",
     "validator": "Validador",
@@ -565,6 +579,9 @@
     "details": "Details",
     "title": "Panel de Staking",
     "subtitle": "Stakea TBURN para ganar recompensas y participar en la gobernanza de la red",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "stakingPools": "Pools de Staking",
     "pools": "Pools de Staking",
     "tierSystem": "Sistema de Niveles",
@@ -771,6 +788,9 @@
   "stakingRewards": {
     "title": "Centro de Recompensas",
     "subtitle": "Rastrea y reclama tus recompensas de staking",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "cycle": "Ciclo",
     "pendingRewards": "Recompensas Pendientes",
     "readyToClaim": "Listo para Reclamar",
@@ -843,6 +863,9 @@
   "stakingSdk": {
     "title": "SDK de Cartera y Herramientas de Desarrollo",
     "subtitle": "Integra staking TBURN en tu aplicación con APIs y SDKs completos",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "quickStart": "Inicio Rápido",
     "quickStartDesc": "Comienza en minutos con guía paso a paso",
     "apiReference": "Referencia API",
@@ -907,6 +930,9 @@
   "tokenSystem": {
     "title": "Sistema de Tokens v4.0",
     "subtitle": "Estándares de tokens empresariales mejorados con IA con resistencia cuántica y optimización IA",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "tripleBandAi": "IA Triple Banda",
     "quantumResistant": "Resistente a Cuántica",
     "audited": "Auditado",
@@ -1320,6 +1346,9 @@
   "dex": {
     "title": "Exchange Descentralizado",
     "subtitle": "Opera tokens con liquidez de grado empresarial",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "swap": "Intercambio",
     "swapTokens": "Intercambiar Tokens",
     "liquidityPools": "Pools de Liquidez",
@@ -1362,6 +1391,9 @@
   "lending": {
     "title": "Protocolo de Préstamos",
     "subtitle": "Suministra, pide prestado y gana con préstamos descentralizados",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "markets": "Mercados",
     "marketsOverview": "Resumen de Mercados",
     "supply": "Suministrar",
@@ -1537,6 +1569,9 @@
   "bridge": {
     "title": "Puente Cross-Chain",
     "subtitle": "Transfiere activos entre blockchains de forma segura",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "transfer": "Transferir",
     "history": "Historial",
     "fromChain": "Desde Cadena",
@@ -1674,6 +1709,9 @@
   "yieldFarming": {
     "title": "Yield Farming",
     "subtitle": "Maximiza tus rendimientos con estrategias de farming optimizadas por AI",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "aiEnhanced": "Mejorado por AI",
     "totalValueLocked": "Valor Total Bloqueado",
     "activeVaults": "Bóvedas Activas",
@@ -1787,6 +1825,9 @@
   "liquidStaking": {
     "title": "Staking Líquido",
     "subtitle": "Stakea activos y recibe tokens de staking líquido con rendimiento automático",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "aiOptimized": "Optimizado por AI",
     "aiOptimizedValidatorSelection": "Selección de Validadores Optimizada por AI",
     "totalValueStaked": "Valor Total Stakeado",
@@ -1881,6 +1922,9 @@
   "nft": {
     "title": "Mercado NFT",
     "subtitle": "Descubre, colecciona e intercambia activos digitales únicos",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "collections": "Colecciones",
     "explore": "Explorar",
     "myNfts": "Mis NFTs",
@@ -1919,6 +1963,9 @@
   "nftMarketplace": {
     "title": "Mercado NFT",
     "subtitle": "Descubre, colecciona e intercambia activos digitales únicos en la blockchain TBURN",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "searchCollections": "Buscar colecciones...",
     "listNft": "Listar NFT",
     "volume24h": "Volumen 24h",
@@ -2021,6 +2068,9 @@
   "nftLaunchpad": {
     "title": "Launchpad NFT",
     "subtitle": "Descubre y participa en los últimos lanzamientos NFT en la blockchain TBURN",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "stats": {
       "totalProjects": "Proyectos Totales",
       "active": "Activos",
@@ -2121,6 +2171,9 @@
   "launchpad": {
     "title": "Launchpad NFT",
     "subtitle": "Descubre y participa en lanzamientos NFT exclusivos",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "upcomingLaunches": "Próximos Lanzamientos",
     "activeLaunches": "Lanzamientos Activos",
     "pastLaunches": "Lanzamientos Pasados",
@@ -2146,6 +2199,9 @@
   "community": {
     "title": "Título",
     "subtitle": "Conecta, colabora y crece con el ecosistema TBURN",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "online": "En línea",
     "totalMembers": "Miembros totales",
     "thisWeek": "esta semana",
@@ -2424,6 +2480,9 @@
   "gamefi": {
     "title": "Hub GameFi",
     "subtitle": "Ecosistema de juegos play-to-earn",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "games": "Juegos",
     "tournaments": "Torneos",
     "assets": "Activos",
@@ -2614,6 +2673,9 @@
   "aiOrchestration": {
     "title": "Orquestación AI",
     "subtitle": "Monitoreo y gestión del sistema Triple-Band AI",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "tripleBandAi": "Triple-Band AI",
     "gpt5": "GPT-5",
     "claudeSonnet": "Claude Sonnet 4.5",
@@ -2737,6 +2799,9 @@
   "consensus": {
     "title": "Mecanismo de Consenso",
     "subtitle": "Estado de consenso de red en tiempo real y selección de validadores",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "consensusHealth": "Salud del Consenso",
     "consensusRound": "Ronda de Consenso",
     "finalizedBlocks": "Bloques Finalizados",
@@ -2782,6 +2847,9 @@
   "sharding": {
     "title": "Gestión de Shards",
     "subtitle": "Monitoreo de fragmentación de red y optimización de carga",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "totalShards": "Shards Totales",
     "activeShards": "Shards Activos",
     "shardHealth": "Salud del Shard",
@@ -2819,6 +2887,9 @@
   "crossShard": {
     "title": "Comunicación Cross-Shard",
     "subtitle": "Monitorear enrutamiento y entrega de mensajes inter-shard",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "pendingMessages": "Mensajes Pendientes",
     "awaitingConfirmation": "Esperando Confirmación",
     "confirmed": "Confirmado",
@@ -2847,6 +2918,9 @@
   "smartContracts": {
     "title": "Contratos Inteligentes",
     "subtitle": "Construye, despliega e interactúa con contratos inteligentes",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "deployedContracts": "Contratos Desplegados",
     "contractAddress": "Dirección del Contrato",
     "contractName": "Nombre del Contrato",
@@ -2914,6 +2988,9 @@
   "nodeHealth": {
     "title": "Salud del Nodo",
     "subtitle": "Sistema de monitoreo predictivo de auto-reparación",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "systemMetrics": "Métricas del Sistema",
     "cpu": "CPU",
     "memory": "Memoria",
@@ -2967,6 +3044,9 @@
   "admin": {
     "title": "Administración de Mainnet",
     "subtitle": "Controla y monitorea la infraestructura de TBURN mainnet",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "systemStatus": "Estado del Sistema",
     "mainnetStatus": "Estado de Mainnet",
     "running": "Ejecutando",
@@ -3091,6 +3171,9 @@
   "operator": {
     "title": "Portal del Operador",
     "subtitle": "Gestión integral de operaciones de red",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "enterpriseBackoffice": "Back-office empresarial para gestión de red TBURN",
     "adminAccess": "Acceso de Admin",
     "logout": "Cerrar Sesión",
@@ -3113,6 +3196,9 @@
     "members": {
       "title": "Gestión de Miembros",
       "subtitle": "Gestionar miembros de red, estado KYC/AML y asignaciones de nivel",
+      "forumTitle": "Foro de la Comunidad",
+      "viewAll": "Ver Todo",
+      "recentPosts": "Publicaciones Recientes",
       "exportCsv": "Exportar CSV",
       "totalMembers": "Miembros Totales",
       "membersSelected": "miembros seleccionados",
@@ -3239,6 +3325,9 @@
       "technicalDetails": "Technical Details",
       "title": "Portal del Operador",
       "subtitle": "Back-office empresarial para gestión de red TBURN",
+      "forumTitle": "Foro de la Comunidad",
+      "viewAll": "Ver Todo",
+      "recentPosts": "Publicaciones Recientes",
       "autoRefresh": "Auto",
       "paused": "Pausado",
       "accessDenied": "Acceso Denegado",
@@ -3359,6 +3448,9 @@
     "validators": {
       "title": "Operaciones de Validadores",
       "subtitle": "Revisar aplicaciones, gestionar validadores y aplicar slashing",
+      "forumTitle": "Foro de la Comunidad",
+      "viewAll": "Ver Todo",
+      "recentPosts": "Publicaciones Recientes",
       "slashValidator": "Penalizar Validador",
       "applications": "Aplicaciones",
       "performance": "Rendimiento",
@@ -3545,6 +3637,9 @@
     "security": {
       "title": "Auditoría de Seguridad",
       "subtitle": "Monitorear eventos de seguridad, revisar logs de auditoría y gestionar cumplimiento",
+      "forumTitle": "Foro de la Comunidad",
+      "viewAll": "Ver Todo",
+      "recentPosts": "Publicaciones Recientes",
       "logSecurityEvent": "Registrar Evento de Seguridad",
       "criticalEvents": "Eventos Críticos",
       "highPriority": "Alta Prioridad",
@@ -3800,6 +3895,9 @@
     "reports": {
       "title": "Informes de Cumplimiento",
       "subtitle": "Generar y gestionar informes regulatorios y de cumplimiento",
+      "forumTitle": "Foro de la Comunidad",
+      "viewAll": "Ver Todo",
+      "recentPosts": "Publicaciones Recientes",
       "exportCsv": "Exportar CSV",
       "newSchedule": "Nuevo Programar",
       "generateReport": "Generate Informe",
@@ -4027,6 +4125,9 @@
       "details": "Details",
       "title": "Gestión de Staking",
       "subtitle": "Supervisar y gestionar operaciones de staking de la red",
+      "forumTitle": "Foro de la Comunidad",
+      "viewAll": "Ver Todo",
+      "recentPosts": "Publicaciones Recientes",
       "refresh": "Actualizar",
       "createPool": "Crear Pool",
       "totalStaked": "Total Staked",
@@ -4148,6 +4249,9 @@
   "members": {
     "title": "Gestión de Miembros",
     "subtitle": "Sistema integral de gestión de miembros, stakers y validadores",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "totalMembers": "Total de Miembros",
     "activeMembers": "Miembros Activos",
     "totalValidators": "Total de Validadores",
@@ -4440,6 +4544,9 @@
   "apiKeys": {
     "title": "Claves API",
     "subtitle": "Gestionar claves API para acceso seguro a la API de blockchain TBURN",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "createNewKey": "Crear Nueva Clave API",
     "createDescription": "Generar nueva clave API para acceso programático. La clave solo se mostrará una vez.",
     "keyLabel": "Etiqueta de Clave API",
@@ -4490,6 +4597,9 @@
   "performanceMetrics": {
     "title": "Métricas de Rendimiento",
     "subtitle": "Análisis de rendimiento de red en tiempo real y monitoreo de SLA",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "currentTps": "TPS Actual",
     "peakTps": "TPS Pico",
     "ofPeak": "del pico",
@@ -4532,6 +4642,9 @@
   "login": {
     "title": "TBURN Lab",
     "subtitle": "Explorador de Blockchain Mainnet",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "password": "Contraseña",
     "enterPassword": "Ingresa contraseña",
     "loggingIn": "Iniciando sesión...",
@@ -4614,6 +4727,9 @@
   "governance": {
     "title": "Gobernanza AI",
     "subtitle": "DAO mejorada con AI - Análisis de propuestas y predicción de resultados",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "aiPowered": "Impulsado por AI",
     "totalProposals": "Total de Propuestas",
     "activeCount": "{{count}} activas",
@@ -4725,6 +4841,9 @@
   "burn": {
     "title": "Panel de Auto-Quema",
     "subtitle": "Sistema de Quema Autónomo Mejorado con AI con Mecanismos Multi-Activación",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "deflationary": "Deflacionario",
     "totalBurned": "Total Quemado",
     "tburnPermanentlyRemoved": "TBURN removido permanentemente",
@@ -4833,6 +4952,9 @@
   "token": {
     "title": "Sistema de Tokens v4.0",
     "subtitle": "Estándares de Tokens Empresariales con AI",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "tbc20": "TBC-20",
     "tbc721": "TBC-721",
     "tbc1155": "TBC-1155",
@@ -4864,6 +4986,9 @@
   "walletSdk": {
     "title": "SDK de Cartera",
     "subtitle": "Kit de herramientas de integración de cartera empresarial",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "walletConnect": "Conectar Cartera",
     "walletDisconnect": "Desconectar Cartera",
     "walletAddress": "Dirección de Cartera",
@@ -4880,6 +5005,9 @@
   "txSimulator": {
     "title": "Simulador de Transacciones",
     "subtitle": "Crea y transmite transacciones de prueba a la red",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "simulate": "Simular",
     "simulationResult": "Resultado de Simulación",
     "gasEstimate": "Estimación de Gas",
@@ -4939,6 +5067,9 @@
   "security": {
     "title": "Seguridad",
     "subtitle": "Monitoreo de seguridad de red y alertas",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "securityScore": "Puntuación de Seguridad",
     "threats": "Amenazas",
     "vulnerabilities": "Vulnerabilidades",
@@ -4955,6 +5086,9 @@
   "performance": {
     "title": "Rendimiento",
     "subtitle": "Métricas de rendimiento del sistema y optimización",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "cpuUsage": "Uso de CPU",
     "memoryUsage": "Uso de Memoria",
     "diskUsage": "Uso de Disco",
@@ -4970,6 +5104,9 @@
     "badge": "Modo de Prueba VC",
     "title": "Plataforma TBURN",
     "subtitle": "Entorno de Prueba de Inversión",
+    "forumTitle": "Foro de la Comunidad",
+    "viewAll": "Ver Todo",
+    "recentPosts": "Publicaciones Recientes",
     "description": "Experimente todas las capacidades de TBURN Mainnet con una billetera demo pre-financiada. Pruebe todas las funciones DeFi, explore nuestra orquestación de IA y evalúe nuestra tecnología.",
     "startTour": "Iniciar Tour Guiado",
     "explorePlatform": "Explorar Plataforma",
@@ -5103,6 +5240,9 @@
       "gatewayRegister": "REGISTRO_GATEWAY",
       "title": "Inicializar",
       "subtitle": "Crea una nueva identidad en la Capa Neural",
+      "forumTitle": "Foro de la Comunidad",
+      "viewAll": "Ver Todo",
+      "recentPosts": "Publicaciones Recientes",
       "nodeAlias": "ALIAS DE NODO",
       "usernamePlaceholder": "Introduce nombre de usuario",
       "signalFrequency": "FRECUENCIA DE SEÑAL (EMAIL)",
@@ -5502,6 +5642,9 @@
       "solutions": {
         "title": "Soluciones principales",
         "subtitle": "Infraestructura blockchain de nivel empresarial",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "tripleBandAi": {
           "title": "IA Triple-Banda",
           "description": "Orquestación de IA de tres niveles utilizando toma de decisiones optimizada a niveles estratégico, táctico y operativo."
@@ -5534,12 +5677,18 @@
       "cta": {
         "title": "¿Listo para Construir Confianza?",
         "subtitle": "Únete a miles de desarrolladores construyendo el futuro del blockchain basado en confianza",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "exploreEcosystem": "Explorar Ecosistema",
         "joinCommunity": "Unirse a la Comunidad"
       },
       "hero": {
         "title": "La Blockchain de Próxima Generación para Confianza y Transparencia",
         "subtitle": "TBurn Lab combina verificación AI, tecnología de auto-quema y consenso de grado empresarial para crear el ecosistema blockchain más confiable.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "getStarted": "Comenzar",
         "learnMore": "Más Información",
         "viewExplorer": "Ver Explorador",
@@ -5552,6 +5701,9 @@
       "features": {
         "title": "Características Principales",
         "subtitle": "Infraestructura blockchain de grado empresarial construida para el futuro",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "trustScore": {
           "title": "Sistema de Puntuación de Confianza",
           "description": "Verificación de proyectos impulsada por AI con calificaciones transparentes y auditoría en tiempo real"
@@ -5575,6 +5727,9 @@
         "tag": "Centro de aprendizaje V4",
         "title": "Hub educativo",
         "subtitle": "Domina el ecosistema TBurn Lab V4. Desde algoritmos de consenso basados en confianza hasta la construcción de dApps de alta velocidad, comienza tu viaje aquí.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "stats": {
           "courses": "CURSOS",
           "learners": "ESTUDIANTES",
@@ -5759,6 +5914,9 @@
         "tag": "INTRODUCCIÓN",
         "title": "¿Qué es TBurn Lab?",
         "subtitle": "Descubre la primera blockchain basada en confianza del mundo con verificación de IA y seguridad resistente a cuántica.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "coreFeatures": {
           "title": "Características principales",
           "items": {
@@ -5784,6 +5942,9 @@
         "consensus": {
           "title": "Mecanismo de consenso",
           "subtitle": "Prueba de confianza (PoT) combina validación con puntuación de confianza",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "specs": {
             "blockTime": "Tiempo de bloque",
             "finality": "Finalidad",
@@ -5839,6 +6000,9 @@
         "tag": "CARACTERÍSTICA PRINCIPAL",
         "title": "Sistema de puntuación de confianza",
         "subtitle": "Profundiza en el sistema de verificación de 3 etapas, análisis de IA y algoritmo de puntuación dinámica.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "philosophy": {
           "title": "Filosofía de evaluación",
           "description": "Las puntuaciones de confianza están diseñadas para proteger a los inversores evaluando la fiabilidad del proyecto a través de múltiples dimensiones",
@@ -6014,6 +6178,9 @@
         "tag": "PRIMEROS PASOS",
         "title": "¿Qué es una billetera?",
         "subtitle": "Aprende sobre billeteras de criptomonedas, mejores prácticas de seguridad y cómo configurar tu billetera TBurn.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "types": {
           "title": "Tipos de billeteras",
           "hot": {
@@ -6087,9 +6254,15 @@
         "tag": "DOCUMENTO TÉCNICO",
         "title": "Whitepaper",
         "subtitle": "Documentación técnica y especificaciones de TBurn Lab",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "trustCrisis": {
           "title": "La crisis de confianza",
           "subtitle": "Comprendiendo el problema que resolvemos",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "stats": {
             "rugPulls": {
               "value": "$2.8B",
@@ -6174,6 +6347,9 @@
             "description": "Detección y prevención instantánea de fraudes"
           },
           "subtitle": "Toma de decisiones inteligente utilizando tres modelos de IA distintos.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "items": {
             "strategic": {
               "title": "Capa Estratégica",
@@ -6281,6 +6457,9 @@
         "tag": "ECONOMÍA",
         "title": "Tokenomics",
         "subtitle": "Comprende la distribución del token TBURN, el calendario de emisión y los mecanismos deflacionarios.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "marketStats": {
           "title": "Estadísticas del mercado",
           "totalSupply": "Suministro total",
@@ -6377,6 +6556,9 @@
         "distributionSection": {
           "title": "Distribución de Tokens",
           "subtitle": "Asignación estratégica diseñada para el crecimiento y sostenibilidad del ecosistema a largo plazo",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
@@ -6421,6 +6603,9 @@
         "tag": "DESARROLLO",
         "title": "Hoja de Ruta",
         "subtitle": "Plan de desarrollo e hitos de TBurn Lab",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "phases": {
           "phase1": {
             "title": "Fase 1: Fundación",
@@ -6563,6 +6748,9 @@
         "tag": "PRINCIPIANTE",
         "title": "Fundamentos de Blockchain",
         "subtitle": "Entendiendo los fundamentos de la tecnología blockchain",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "duration": "4 horas",
         "backToEducation": "Volver a Programas Educativos",
         "courseOverview": {
@@ -6577,21 +6765,33 @@
           "module1": {
             "title": "¿Qué es Blockchain?",
             "subtitle": "Entendiendo la tecnología de libro distribuido",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "45 min"
           },
           "module2": {
             "title": "Fundamentos de Criptografía",
             "subtitle": "Funciones hash, firmas y cifrado",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "60 min"
           },
           "module3": {
             "title": "Mecanismos de Consenso",
             "subtitle": "PoW, PoS y Prueba de Confianza de TBurn",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "75 min"
           },
           "module4": {
             "title": "Arquitectura de TBurn Lab",
             "subtitle": "Inmersión profunda en nuestro sistema basado en confianza",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "60 min"
           }
         },
@@ -6658,6 +6858,9 @@
         "tag": "INTERMEDIO",
         "title": "Maestría en DeFi",
         "subtitle": "Estrategias avanzadas para finanzas descentralizadas",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "duration": "8 horas",
         "backToEducation": "Volver a Programas Educativos",
         "stats": {
@@ -6689,21 +6892,33 @@
           "module1": {
             "title": "Mecánica de DEX y AMM",
             "subtitle": "Entendiendo los creadores de mercado automatizados",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "90 min"
           },
           "module2": {
             "title": "Protocolos de Préstamos",
             "subtitle": "Préstamos y créditos colateralizados",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "120 min"
           },
           "module3": {
             "title": "Provisión de Liquidez",
             "subtitle": "Tokens LP, pérdida impermanente y recompensas",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "90 min"
           },
           "module4": {
             "title": "Estrategias de Rendimiento",
             "subtitle": "Optimización de retornos con rendimientos potenciados por confianza",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "120 min"
           }
         },
@@ -6778,6 +6993,9 @@
         "tag": "AVANZADO",
         "title": "Curso para Desarrolladores",
         "subtitle": "Construye aplicaciones blockchain desde cero",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "duration": "20 horas",
         "backToEducation": "Volver a Programas Educativos",
         "courseOverview": {
@@ -6789,21 +7007,33 @@
           "module1": {
             "title": "Configuración del SDK",
             "subtitle": "Configuración del entorno e inicialización del proyecto",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "2 horas"
           },
           "module2": {
             "title": "Desarrollo de Contratos Inteligentes",
             "subtitle": "Escribiendo contratos seguros y optimizados",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "6 horas"
           },
           "module3": {
             "title": "Integración de API",
             "subtitle": "APIs REST, GraphQL y WebSocket",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "4 horas"
           },
           "module4": {
             "title": "Despliegue y DevOps",
             "subtitle": "Despliegue en Mainnet y monitoreo",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "4 horas"
           }
         },
@@ -6888,6 +7118,9 @@
         "tag": "PRINCIPIANTE",
         "title": "Introducción a DeFi",
         "subtitle": "Tu primer paso hacia las finanzas descentralizadas",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "duration": "2 horas",
         "backToEducation": "Volver a Programas Educativos",
         "scoreFormula": {
@@ -7033,6 +7266,9 @@
         "tag": "PROGRAMAS",
         "title": "Programas Educativos",
         "subtitle": "Rutas de aprendizaje estructuradas para todos los niveles",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "backToLearn": "Volver a Aprender",
         "pathsTitle": "Rutas de Aprendizaje",
         "pathsSubtitle": "Elige una ruta estructurada según tus objetivos y nivel de experiencia.",
@@ -7061,24 +7297,36 @@
           "beginner": {
             "title": "Fundamentos de Blockchain",
             "subtitle": "Comienza tu viaje blockchain con conceptos y terminología básica.",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "6 horas",
             "level": "Principiante"
           },
           "defi": {
             "title": "Especialista DeFi",
             "subtitle": "Domina los protocolos y estrategias de finanzas descentralizadas.",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "12 horas",
             "level": "Intermedio"
           },
           "developer": {
             "title": "Desarrollador de Smart Contracts",
             "subtitle": "Construye dApps listas para producción en TBurn Lab.",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "20 horas",
             "level": "Avanzado"
           },
           "security": {
             "title": "Seguridad y Confianza",
             "subtitle": "Aprende sobre Trust Score, auditorías de seguridad y mejores prácticas.",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "duration": "10 horas",
             "level": "Intermedio"
           }
@@ -7167,6 +7415,9 @@
         "tag": "ACADEMIA",
         "title": "Programa Universitario",
         "subtitle": "Asociaciones educativas y recursos académicos",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "programs": {
           "research": {
             "title": "Asociaciones de Investigación",
@@ -7200,6 +7451,9 @@
         "tag": "SDK Y API V4 LISTOS",
         "title": "Hub de desarrolladores",
         "subtitle": "Construye aplicaciones de próxima generación basadas en confianza. Accede a herramientas de desarrollo completas, SDKs y APIs para el ecosistema TBurn Lab V4.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "getStarted": "Comenzar",
         "viewDocs": "Ver documentación",
         "quickStart": {
@@ -7216,6 +7470,9 @@
           "_text": "Referencia de API",
           "title": "Referencia de API",
           "subtitle": "API RESTful y Streaming WebSocket",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "blockchainApi": "API de Blockchain",
           "defiApi": "API de DeFi",
           "aiApi": "API de IA"
@@ -7239,6 +7496,9 @@
           "_text": "Subvenciones para desarrolladores",
           "title": "Programa de Subvenciones para Desarrolladores",
           "subtitle": "Apoyamos proyectos que expanden el ecosistema TBurn Lab.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "totalFund": "$50M Fondo Total de Subvenciones"
         },
         "quickStartSteps": {
@@ -7459,6 +7719,9 @@
         "tag": "DOCUMENTACIÓN",
         "title": "Documentación",
         "subtitle": "Guías completas y referencias para el desarrollo en TBurn Lab.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "heroDescription": "Todo lo que necesitas para construir en TBurn Lab. Desde APIs hasta contratos inteligentes.",
         "searchPlaceholder": "Buscar documentación...",
         "categoriesTitle": "Categorías de Documentación",
@@ -7470,6 +7733,9 @@
         "architecture": {
           "title": "Arquitectura de Red",
           "subtitle": "Entendiendo la arquitectura multicapa de TBurn Lab",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "layers": {
             "consensus": {
               "title": "Capa de Consenso",
@@ -7582,6 +7848,9 @@
         "tag": "REFERENCIA API",
         "title": "Documentación de API",
         "subtitle": "Endpoints de API RESTful para blockchain, DeFi y servicios de IA.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "baseUrl": "URL Base",
         "coreEndpoints": "Endpoints Principales",
         "parameters": "Parámetros",
@@ -7667,6 +7936,9 @@
         "tag": "HERRAMIENTAS CLI",
         "title": "Referencia CLI",
         "subtitle": "Interfaz de línea de comandos para gestión de proyectos y despliegue.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "currentVersion": "Versión Actual",
         "usage": "Uso",
         "options": "Opciones",
@@ -7751,6 +8023,9 @@
         "tag": "GUÍA SDK",
         "title": "Guía SDK",
         "subtitle": "Guías de integración SDK multi-lenguaje y mejores prácticas.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "installation": "Instalación",
         "configuration": "Configuración",
         "quickExamples": "Ejemplos Rápidos",
@@ -7789,6 +8064,9 @@
         "tag": "CONTRATOS INTELIGENTES",
         "title": "Contratos inteligentes",
         "subtitle": "Escribe, prueba y despliega contratos inteligentes seguros en TBurn Lab.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "contractTemplates": "Plantillas de Contratos",
         "copy": "Copiar",
         "copied": "¡Copiado!",
@@ -7879,6 +8157,9 @@
         "gasOptimization": {
           "title": "Optimización de Gas",
           "subtitle": "Consejos para reducir costos de transacción",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "tip1": "Empaqueta múltiples variables pequeñas en slots de almacenamiento únicos",
           "tip2": "Usa calldata en lugar de memory para parámetros de función de solo lectura",
           "tip3": "Almacena en caché las variables de storage en memory cuando se acceden múltiples veces",
@@ -7936,6 +8217,9 @@
         "tag": "TIEMPO REAL",
         "title": "API WebSocket",
         "subtitle": "Transmisión de datos en tiempo real y suscripciones a eventos.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "pageTitle": "API WebSocket",
         "pageSubtitle": "API de eventos blockchain en tiempo real para subscripciones en vivo y streaming de datos",
         "connectionUrl": "URL de Conexión",
@@ -8022,6 +8306,9 @@
         "tag": "EJEMPLOS DE CÓDIGO",
         "title": "Ejemplos de código",
         "subtitle": "Fragmentos de código listos para usar y proyectos de muestra.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "commonRecipes": "Recetas Comunes",
         "categories": {
           "allRecipes": "Todas las Recetas",
@@ -8086,6 +8373,9 @@
         "tag": "PRIMEROS PASOS",
         "title": "Inicio rápido",
         "subtitle": "Comienza con TBurn Lab en minutos.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "whatsNext": "¿Qué Sigue?",
         "prerequisites": {
           "title": "Prerrequisitos",
@@ -8149,6 +8439,9 @@
         "tag": "CONFIGURACIÓN",
         "title": "Guía de instalación",
         "subtitle": "Instrucciones de instalación y configuración paso a paso.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "pageTitle": "Guía de Instalación",
         "pageSubtitle": "Configura tu entorno de desarrollo para TBurn Lab",
         "requirements": {
@@ -8174,6 +8467,9 @@
           "minimum": {
             "title": "Requisitos Mínimos",
             "subtitle": "Para desarrollo y pruebas",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "cpu": "4 núcleos / 8 hilos",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
@@ -8182,6 +8478,9 @@
           "recommended": {
             "title": "Requisitos Recomendados",
             "subtitle": "Para validadores de producción",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "cpu": "8+ núcleos / 16 hilos",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
@@ -8196,6 +8495,9 @@
           "ports": {
             "title": "Puertos de Red",
             "subtitle": "Puertos requeridos para operación del nodo",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
@@ -8316,6 +8618,9 @@
         "tag": "MIGRACIÓN",
         "title": "Migración EVM",
         "subtitle": "Migra tus dApps de Ethereum a TBurn Lab.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "startMigration": "Inicio Migration",
         "viewGuide": "Ver Guía Completa",
         "overview": {
@@ -8477,6 +8782,9 @@
         "keyDifferences": {
           "title": "Key Technical Differences",
           "subtitle": "What sets TBurn Lab apart from traditional EVM chains",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "existingEvmChains": "Existing EVM Chains",
           "tburnChain": "TBurn Lab",
           "upgrade": "Upgrade"
@@ -8638,6 +8946,9 @@
       "playground": {
         "title": "Playground",
         "subtitle": "Experimenta con el SDK y API de TBurn Lab en tu navegador",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "run": "Ejecutar Código",
         "clear": "Limpiar Salida",
         "reset": "Restablecer",
@@ -8646,6 +8957,9 @@
       "faucet": {
         "title": "Faucet Testnet",
         "subtitle": "Obtén tokens de prueba para desarrollo",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "requestTokens": "Solicitar Tokens",
         "enterAddress": "Ingresa tu dirección de cartera",
         "dailyLimit": "Límite diario: 100 TBURN de prueba",
@@ -8659,6 +8973,9 @@
         "title": "Hub DeFi",
         "titleHighlight": "Ecosistema",
         "subtitle": "Infraestructura integral de finanzas descentralizadas en TBurn Lab",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "features": {
           "dex": "DEX/AMM",
           "lending": "Protocolo de préstamos",
@@ -8708,6 +9025,9 @@
         "cta": {
           "title": "Construye tu Protocolo DeFi",
           "subtitle": "Accede al ecosistema de finanzas descentralizadas más confiable",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "launchApp": "Lanzar App",
           "viewDocs": "Ver documentación",
           "description": "Lanza tu aplicación DeFi en la infraestructura más confiable",
@@ -8834,6 +9154,9 @@
         "title": "Extensiones de Token",
         "titleHighlight": "Extensiones",
         "subtitle": "Características avanzadas de token para funcionalidad empresarial",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "exploreBrc20": "Explorar TBC-20",
         "readSpecs": "Leer especificaciones",
         "features": {
@@ -8894,6 +9217,9 @@
         "brc20Standard": {
           "title": "Estándar de token TBC-20",
           "subtitle": "Interfaces principales para funcionalidad de Confianza y Quema.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "trustScoreFunctions": "Funciones de puntuación de confianza",
           "autoBurnFunctions": "Funciones de auto quema"
         },
@@ -8942,6 +9268,9 @@
         "cta": {
           "title": "Crea tu Token Personalizado",
           "subtitle": "Emite tokens con funciones de calificación de confianza integradas en menos de 5 minutos.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "openConsole": "Abrir consola de desarrollador",
           "viewApiDocs": "Ver documentación de API",
           "description": "Lanza tokens con capacidades avanzadas",
@@ -8962,6 +9291,9 @@
         "brc20": {
           "title": "Estándar de Token TBC-20",
           "subtitle": "Interfaces principales para funcionalidad de Confianza y Quema.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "trustScoreFunctions": "Funciones de Puntuación de Confianza",
           "autoBurnFunctions": "Funciones de Auto Quema"
         },
@@ -8997,10 +9329,16 @@
         "title": "Actions y Blinks",
         "titleHighlight": "Blinks",
         "subtitle": "Enlaces compartibles para interacciones blockchain simplificadas",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "createAction": "Crear acción",
         "coreCapabilities": {
           "title": "Capacidades principales",
           "subtitle": "Protocolo de próxima generación que estandariza las interacciones blockchain",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "urlExecution": {
             "title": "Ejecución por URL",
             "description": "Realiza intercambios, acuñaciones y votaciones instantáneamente mediante enlaces profundos."
@@ -9173,6 +9511,9 @@
         "title": "Soluciones de Cartera",
         "titleHighlight": "Seguridad",
         "subtitle": "Opciones de cartera seguras y fáciles de usar para cada necesidad",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "recommended": "RECOMENDADO",
         "walletList": {
           "tburn": {
@@ -9281,11 +9622,17 @@
         "title": "Entornos Permisionados",
         "titleHighlight": "Permisionadas",
         "subtitle": "Soluciones blockchain privadas y con permisos para empresas",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "contactSales": "Contactar ventas",
         "viewWhitepaper": "Ver whitepaper",
         "enterpriseFeatures": {
           "title": "Cadena permisionada de nivel empresarial",
           "subtitle": "Funciones avanzadas de control y cumplimiento para empresas.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "rbac": {
             "title": "Control de acceso basado en roles (RBAC)",
             "description": "Configuración granular de permisos para administradores, validadores y usuarios. Permisos separados para despliegue de contratos inteligentes, aprobación de transacciones y consultas de datos basados en roles."
@@ -9306,6 +9653,9 @@
         "hybridArchitecture": {
           "title": "Arquitectura híbrida",
           "subtitle": "Combina la privacidad de una cadena privada con la seguridad de una blockchain pública.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "privateChainAnchor": {
             "title": "Cadena privada + Anclaje público",
             "description": "Las transacciones internas se ejecutan en una cadena privada de alta velocidad, con hashes de estado periódicos anclados al Mainnet público de TBurn para inmutabilidad."
@@ -9479,10 +9829,16 @@
         "title": "Herramientas de Juegos",
         "titleHighlight": "Juegos",
         "subtitle": "Kit de herramientas completo para desarrollo de juegos blockchain",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "getUnitySdk": "Obtener SDK de Unity",
         "whyBuild": {
           "title": "¿Por qué construir en TBurn?",
           "subtitle": "Optimizado para juegos de alta velocidad e intercambio seguro de activos.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "ultraFastProcessing": {
             "title": "Procesamiento ultra rápido",
             "description": "Rendimiento de más de 50,000 TPS permite el intercambio de artículos en tiempo real. Con un tiempo de bloque promedio de 1 segundo, los jugadores experimentan confirmación instantánea sin retrasos."
@@ -9539,6 +9895,9 @@
             "desc": "Entornos virtuales inmersivos con propiedad de activos digitales verificada."
           },
           "subtitle": "Construye cualquier tipo de juego blockchain con nuestras herramientas completas",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "marketplace": {
             "title": "Mercados NFT",
             "desc": "Plataformas de trading seguras para artículos del juego con verificación de confianza.",
@@ -9656,6 +10015,9 @@
         "trustScore": {
           "title": "Puntuación de Confianza de Proyectos NFT",
           "subtitle": "Sistema de verificación integral para proyectos de juegos",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "teamScore": "Puntuación de Identidad del Equipo",
           "contractScore": "Puntuación de Seguridad del Contrato",
           "utilityScore": "Puntuación de Utilidad y Hoja de Ruta",
@@ -9719,10 +10081,16 @@
         "title": "Soluciones de Pago",
         "titleHighlight": "Globales",
         "subtitle": "Infraestructura de pagos de grado empresarial para comerciantes y negocios",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "getApiKey": "Obtener clave API",
         "whyChoose": {
           "title": "¿Por qué elegir TBurn?",
           "subtitle": "Infraestructura optimizada para comercio global.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "instantSettlement": {
             "title": "Liquidación instantánea",
             "description": "Tiempo de bloque promedio de 1 segundo y finalidad de 6 segundos. Experimenta velocidades de pago más rápidas que tarjetas de crédito tradicionales con capacidad de más de 50,000 TPS."
@@ -9847,6 +10215,9 @@
         "tag": "COMERCIO",
         "title": "Comercio y Retail",
         "subtitle": "Soluciones blockchain para negocios de retail y e-commerce",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "features": {
           "loyalty": {
             "title": "Programas de Fidelidad Basados en Tokens",
@@ -9964,6 +10335,9 @@
         "tag": "FINANZAS",
         "title": "Servicios Financieros",
         "subtitle": "Infraestructura blockchain para instituciones financieras",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "features": {
           "settlement": {
             "title": "Liquidación Instantánea",
@@ -10077,6 +10451,9 @@
         "tag": "IMPULSADO POR IA",
         "title": "Características AI",
         "subtitle": "Inteligencia artificial avanzada potenciando cada aspecto de TBurn Lab",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "features": {
           "tripleband": {
             "title": "Orquestación AI Triple-Banda",
@@ -10247,6 +10624,9 @@
         "tag": "CREATIVOS",
         "title": "Artistas y Creadores",
         "subtitle": "Potencia tu trabajo creativo con tecnología blockchain",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "features": {
           "nft": {
             "title": "Creación de NFT",
@@ -10381,6 +10761,9 @@
         "tag": "BITCOIN DEFI",
         "title": "BTCFi",
         "subtitle": "Finanzas descentralizadas impulsadas por Bitcoin",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "features": {
           "wrapped": {
             "title": "Bitcoin Envuelto",
@@ -10542,6 +10925,9 @@
         "tag": "PUENTE",
         "title": "Puente Cross-Chain",
         "subtitle": "Transferencias de activos seguras a través de múltiples blockchains",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "features": {
           "secure": {
             "title": "Transferencias Seguras",
@@ -10615,6 +11001,9 @@
           "mpcSecurity": {
             "title": "Seguridad MPC",
             "subtitle": "Computación Multi-Parte para puentes sin confianza",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "items": {
               "distributedKeyGen": "Generación de Claves Distribuida",
               "thresholdSignatures": "Firmas de Umbral",
@@ -10624,6 +11013,9 @@
           "atomicSwaps": {
             "title": "Intercambios Atómicos",
             "subtitle": "Garantías de transacción todo-o-nada",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "items": {
               "htlcContracts": "Contratos Inteligentes HTLC",
               "zeroSlippage": "Intercambios Sin Deslizamiento",
@@ -10633,6 +11025,9 @@
           "unifiedLiquidity": {
             "title": "Liquidez Unificada",
             "subtitle": "Pools de liquidez cross-chain profundos",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "items": {
               "crossChainPools": "Pools de Liquidez Cross-Chain",
               "dynamicRebalancing": "Rebalanceo Dinámico de Pools",
@@ -10729,6 +11124,9 @@
       "hub": {
         "title": "Hub de Soluciones",
         "subtitle": "Explora nuestro conjunto completo de soluciones blockchain",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "categories": {
           "defi": "DeFi y Finanzas",
           "enterprise": "Empresarial",
@@ -10742,6 +11140,9 @@
         "tag": "JUEGOS Y METAVERSO",
         "title": "Juegos y Metaverso",
         "subtitle": "Construye la próxima generación de juegos blockchain con la infraestructura GameFi de alto rendimiento de TBURN. Integración P2E sin problemas, activos NFT y economías entre juegos.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "buttons": {
           "startBuilding": "Empezar a Construir",
           "gameTooling": "Herramientas de Juegos"
@@ -10851,6 +11252,9 @@
         "tag": "TOKENIZACIÓN DE ACTIVOS",
         "title": "Tokenización de Activos",
         "subtitle": "Transforma activos del mundo real en tokens blockchain. Desbloquea liquidez, habilita propiedad fraccionada y accede a mercados globales con tokenización regulada.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "buttons": {
           "startTokenizing": "Empezar a Tokenizar",
           "viewDocumentation": "Ver Documentación"
@@ -10911,6 +11315,9 @@
         "tag": "INFRAESTRUCTURA DESCENTRALIZADA",
         "title": "Redes DePIN",
         "subtitle": "Construye y opera redes de infraestructura física descentralizada. Gana recompensas contribuyendo recursos de computación, almacenamiento, inalámbricos y sensores.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "buttons": {
           "deployInfrastructure": "Desplegar Infraestructura",
           "protocolDocs": "Docs del Protocolo"
@@ -10978,6 +11385,9 @@
         "tag": "INFRAESTRUCTURA DE STABLECOINS",
         "title": "Soluciones de Stablecoins",
         "subtitle": "Emisión y gestión de stablecoins de grado empresarial. Opciones respaldadas por fiat, cripto y algorítmicas con cumplimiento regulatorio completo.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "buttons": {
           "issueStablecoin": "Emitir Stablecoin",
           "technicalDocs": "Documentación Técnica"
@@ -11057,6 +11467,9 @@
         "tag": "PAGOS INSTITUCIONALES",
         "title": "Pagos Institucionales",
         "subtitle": "Infraestructura de pagos de alto volumen para bancos e instituciones financieras. Liquidación bruta en tiempo real, pagos transfronterizos y cumplimiento regulatorio.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "buttons": {
           "contactSales": "Contactar Ventas",
           "apiReference": "Referencia API"
@@ -11136,6 +11549,9 @@
         "tag": "BLOCKCHAIN EMPRESARIAL",
         "title": "Soluciones Empresariales",
         "subtitle": "Soluciones blockchain completas para negocios modernos. Redes privadas, funciones de cumplimiento y soporte empresarial 24/7.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "buttons": {
           "contactEnterprise": "Contactar Empresarial",
           "enterpriseDocs": "Documentación Empresarial"
@@ -11225,6 +11641,9 @@
         "tag": "VALIDADORES DE RED",
         "title": "Validadores",
         "subtitle": "Únete a la red de validadores de TBurn y gana recompensas mientras aseguras la blockchain.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "becomeValidator": "Convertirse en Validador",
         "validatorDocs": "Ver Documentación de Validadores",
         "stats": {
@@ -11272,6 +11691,9 @@
         "cta": {
           "title": "¿Listo para Convertirte en Validador?",
           "subtitle": "Únete a la red y gana recompensas mientras aseguras TBurn Lab.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "startValidating": "Comenzar a Validar",
           "readDocs": "Leer Documentación"
         },
@@ -11366,6 +11788,9 @@
         "slashing": {
           "title": "Condiciones de Penalización",
           "subtitle": "Los validadores deben mantener altos estándares. Las violaciones resultan en penalizaciones de stake.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "minor": {
             "title": "Violación Menor",
             "badge": "Advertencia",
@@ -11419,6 +11844,9 @@
         "tag": "INFRAESTRUCTURA RPC",
         "title": "Proveedores RPC",
         "subtitle": "Endpoints RPC de alto rendimiento con fiabilidad de nivel empresarial. Soporte para conexiones WebSocket y HTTP.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "getApiKey": "Obtener Clave API",
         "buttons": {
           "getApiKey": "Obtener Clave API",
@@ -11478,6 +11906,9 @@
         "cta": {
           "title": "¿Listo para Construir?",
           "subtitle": "Comienza a construir con la API de TBurn Lab hoy. Obtén tu clave API gratuita y accede a infraestructura blockchain de nivel empresarial.",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "desc": "Comienza a construir con la API de TBurn Lab hoy. Obtén tu clave API gratuita y accede a infraestructura blockchain de nivel empresarial.",
           "getStartedFree": "Comenzar Gratis",
           "contactSales": "Contactar Ventas"
@@ -11571,6 +12002,9 @@
         "tag": "ESTADO",
         "title": "Estado de la Red",
         "subtitle": "Métricas de salud y rendimiento de la red en tiempo real.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "operational": "Operativo",
         "lastUpdated": "Última actualización",
         "daysAgo": "días atrás",
@@ -11667,6 +12101,9 @@
         "tag": "PASARELA FIAT",
         "title": "Entrada/Salida Fiat",
         "subtitle": "Compra y vende TBURN con moneda fiduciaria.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "fee": "Comisión",
         "sections": {
           "howItWorks": "Cómo Funciona",
@@ -11769,6 +12206,9 @@
         "tag": "COMUNIDAD",
         "title": "Hub Comunitario",
         "subtitle": "Conecta con desarrolladores, validadores y entusiastas.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "stats": {
           "totalMembers": "Total de Miembros",
           "monthlyActive": "Activos Mensuales",
@@ -11816,6 +12256,9 @@
         "leaderboard": {
           "title": "Tabla de Líderes",
           "subtitle": "Los mejores contribuidores del mes",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "points": "{{count}} puntos",
           "tiers": {
             "diamond": "Diamante",
@@ -11828,6 +12271,9 @@
         "ambassadorProgram": {
           "title": "Programa de embajadores",
           "subtitle": "Lidera la comunidad global",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "benefits": {
             "tokenRewards": "Recompensas mensuales en tokens TBURN",
             "earlyAccess": "Acceso anticipado a nuevas funciones",
@@ -11878,6 +12324,9 @@
         "ambassador": {
           "title": "Programa de Embajadores",
           "subtitle": "Lidera la comunidad global de TBurn",
+          "forumTitle": "Foro de la Comunidad",
+          "viewAll": "Ver Todo",
+          "recentPosts": "Publicaciones Recientes",
           "applyButton": "Aplicar como Embajador",
           "benefits": {
             "rewards": "Recompensas mensuales en tokens TBURN",
@@ -11892,6 +12341,9 @@
         "tag": "NOTICIAS Y BLOG",
         "title": "Noticias y Blog",
         "subtitle": "Últimas actualizaciones, anuncios e insights.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "searchPlaceholder": "Buscar artículos...",
         "featuredTitle": "Historias Destacadas",
         "featuredBadge": "Destacado",
@@ -11991,7 +12443,13 @@
                 "6": "El lanzamiento de mainnet incluye un ecosistema DeFi completo con DEX/AMM, protocolos de préstamo, staking líquido, marketplace NFT y capacidades de puente cross-chain.",
                 "7": "Invitamos a desarrolladores, validadores y usuarios a unirse a nosotros para construir el futuro de las finanzas descentralizadas en TBURN v7.0."
               },
-              "tags": { "0": "Mainnet", "1": "Lanzamiento", "2": "v7.0", "3": "IA", "4": "DeFi" }
+              "tags": {
+                "0": "Mainnet",
+                "1": "Lanzamiento",
+                "2": "v7.0",
+                "3": "IA",
+                "4": "DeFi"
+              }
             },
             "triple-band-ai-revealed": {
               "title": "Arquitectura Triple-Band AI Revelada: El Futuro de la Inteligencia Blockchain",
@@ -12012,7 +12470,12 @@
                 "6": "Sistema de Aprendizaje por Retroalimentación: Todas las decisiones de IA son rastreadas y evaluadas contra resultados reales. Este bucle de retroalimentación continuo permite que el sistema mejore con el tiempo, con métricas de precisión que actualmente superan el 99.7%.",
                 "7": "El resultado es una capa de IA auto-mejorante y tolerante a fallos que mejora todos los aspectos de las operaciones blockchain."
               },
-              "tags": { "0": "IA", "1": "Tecnología", "2": "Análisis Profundo", "3": "Arquitectura" }
+              "tags": {
+                "0": "IA",
+                "1": "Tecnología",
+                "2": "Análisis Profundo",
+                "3": "Arquitectura"
+              }
             },
             "global-partnership-expansion": {
               "title": "Expansión Global de Asociaciones: TBURN Une Fuerzas con Líderes de la Industria",
@@ -12033,7 +12496,12 @@
                 "6": "Recursos para Desarrolladores: Nuestros socios contribuyen a recursos integrales para desarrolladores, incluyendo SDKs, documentación y programas de formación.",
                 "7": "Estamos emocionados por las oportunidades que estas asociaciones crean para nuestra comunidad y el ecosistema blockchain más amplio."
               },
-              "tags": { "0": "Asociación", "1": "Expansión", "2": "Empresarial", "3": "Global" }
+              "tags": {
+                "0": "Asociación",
+                "1": "Expansión",
+                "2": "Empresarial",
+                "3": "Global"
+              }
             },
             "staking-program-details": {
               "title": "Detalles del Programa de Staking: Maximice sus Recompensas TBURN",
@@ -12055,7 +12523,12 @@
                 "7": "Auto-composición: Habilite la auto-composición para reinvertir automáticamente sus recompensas y maximizar retornos.",
                 "8": "Comenzar: Visite el panel de staking de TBURN hoy para comenzar a ganar recompensas."
               },
-              "tags": { "0": "Staking", "1": "Recompensas", "2": "Tokenomics", "3": "APY" }
+              "tags": {
+                "0": "Staking",
+                "1": "Recompensas",
+                "2": "Tokenomics",
+                "3": "APY"
+              }
             },
             "trust-score-deep-dive": {
               "title": "Análisis Profundo del Trust Score: Cómo la IA de TBURN Evalúa la Seguridad de la Red",
@@ -12076,7 +12549,12 @@
                 "6": "Manteniendo Puntuaciones Altas: Tiempo de actividad consistente, producción de bloques oportuna y participación activa en gobernanza son factores clave.",
                 "7": "El sistema Trust Score asegura que los participantes más confiables sean recompensados, creando un mecanismo de seguridad auto-reforzante."
               },
-              "tags": { "0": "Seguridad", "1": "Trust Score", "2": "IA", "3": "Validadores" }
+              "tags": {
+                "0": "Seguridad",
+                "1": "Trust Score",
+                "2": "IA",
+                "3": "Validadores"
+              }
             },
             "sdk-2-released": {
               "title": "TBURN SDK 2.0 Lanzado: Construya Más Rápido con Nuevas Herramientas para Desarrolladores",
@@ -12098,7 +12576,12 @@
                 "7": "Documentación: Visite nuestro portal de desarrolladores para guías completas, referencias de API y proyectos de ejemplo.",
                 "8": "SDK 2.0 representa nuestro compromiso de hacer el desarrollo TBURN accesible y agradable."
               },
-              "tags": { "0": "SDK", "1": "Desarrollo", "2": "TypeScript", "3": "Herramientas" }
+              "tags": {
+                "0": "SDK",
+                "1": "Desarrollo",
+                "2": "TypeScript",
+                "3": "Herramientas"
+              }
             },
             "quantum-resistant-cryptography": {
               "title": "Criptografía Resistente a Quantum: Asegurando el Futuro de TBURN",
@@ -12121,7 +12604,12 @@
                 "8": "Funciones Hash: Sistema multi-hash con opciones resistentes a quantum.",
                 "9": "Este enfoque proactivo asegura que TBURN permanezca seguro incluso mientras evolucionan las capacidades de computación cuántica."
               },
-              "tags": { "0": "Quantum", "1": "Criptografía", "2": "Seguridad", "3": "Investigación" }
+              "tags": {
+                "0": "Quantum",
+                "1": "Criptografía",
+                "2": "Seguridad",
+                "3": "Investigación"
+              }
             },
             "tburn-dex-beta": {
               "title": "Lanzamiento Beta del DEX TBURN: El Trading Descentralizado Está Aquí",
@@ -12143,7 +12631,12 @@
                 "7": "Comenzar: Conecte su wallet y comience a operar en TBURN DEX hoy.",
                 "8": "Únase a nuestros canales de comunidad para proporcionar comentarios y ayudar a dar forma al futuro del trading descentralizado en TBURN."
               },
-              "tags": { "0": "DEX", "1": "DeFi", "2": "Trading", "3": "AMM" }
+              "tags": {
+                "0": "DEX",
+                "1": "DeFi",
+                "2": "Trading",
+                "3": "AMM"
+              }
             }
           }
         }
@@ -12152,6 +12645,9 @@
         "tag": "EVENTOS Y ACTIVIDADES",
         "title": "Eventos y Actividades",
         "subtitle": "Únete a eventos comunitarios TBurn Lab, hackatones y conferencias.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "featuredTitle": "Eventos Destacados",
         "upcomingTitle": "Próximos Eventos",
         "capacity": "Capacidad",
@@ -12280,16 +12776,46 @@
                 "2": "Los asistentes tendrán la oportunidad de hacer preguntas directamente a nuestros desarrolladores y aprender cómo comenzar con TBURN v7.0."
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO y Fundador", "avatar": "AP" },
-                "1": { "name": "Dr. Sarah Chen", "role": "Arquitecta Jefe de IA", "avatar": "SC" },
-                "2": { "name": "Michael Rodriguez", "role": "Líder de Producto DeFi", "avatar": "MR" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO y Fundador",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "Dr. Sarah Chen",
+                  "role": "Arquitecta Jefe de IA",
+                  "avatar": "SC"
+                },
+                "2": {
+                  "name": "Michael Rodriguez",
+                  "role": "Líder de Producto DeFi",
+                  "avatar": "MR"
+                }
               },
               "agenda": {
-                "0": { "time": "14:00", "title": "Bienvenida e Introducción", "speaker": "Alex Park" },
-                "1": { "time": "14:15", "title": "Visión General Técnica de TBURN v7.0" },
-                "2": { "time": "14:45", "title": "Análisis Profundo de Orquestación IA", "speaker": "Dr. Sarah Chen" },
-                "3": { "time": "15:15", "title": "Demo del Ecosistema DeFi", "speaker": "Michael Rodriguez" },
-                "4": { "time": "15:45", "title": "Sesión de Q&A en Vivo" }
+                "0": {
+                  "time": "14:00",
+                  "title": "Bienvenida e Introducción",
+                  "speaker": "Alex Park"
+                },
+                "1": {
+                  "time": "14:15",
+                  "title": "Visión General Técnica de TBURN v7.0"
+                },
+                "2": {
+                  "time": "14:45",
+                  "title": "Análisis Profundo de Orquestación IA",
+                  "speaker": "Dr. Sarah Chen"
+                },
+                "3": {
+                  "time": "15:15",
+                  "title": "Demo del Ecosistema DeFi",
+                  "speaker": "Michael Rodriguez"
+                },
+                "4": {
+                  "time": "15:45",
+                  "title": "Sesión de Q&A en Vivo"
+                }
               },
               "requirements": {
                 "0": "Conexión a internet estable",
@@ -12312,16 +12838,44 @@
                 "2": "Al final de este taller, habrá desplegado su primer contrato inteligente en testnet TBURN."
               },
               "speakers": {
-                "0": { "name": "James Liu", "role": "Desarrollador Principal", "avatar": "JL" },
-                "1": { "name": "Emma Wilson", "role": "Relaciones con Desarrolladores", "avatar": "EW" }
+                "0": {
+                  "name": "James Liu",
+                  "role": "Desarrollador Principal",
+                  "avatar": "JL"
+                },
+                "1": {
+                  "name": "Emma Wilson",
+                  "role": "Relaciones con Desarrolladores",
+                  "avatar": "EW"
+                }
               },
               "agenda": {
-                "0": { "time": "10:00", "title": "Configuración del Entorno y Prerrequisitos" },
-                "1": { "time": "10:30", "title": "Introducción al SDK TBURN", "speaker": "James Liu" },
-                "2": { "time": "11:30", "title": "Desarrollo de Contratos Inteligentes" },
-                "3": { "time": "12:30", "title": "Pausa para Almuerzo" },
-                "4": { "time": "13:00", "title": "Pruebas y Despliegue", "speaker": "Emma Wilson" },
-                "5": { "time": "13:45", "title": "Q&A y Cierre" }
+                "0": {
+                  "time": "10:00",
+                  "title": "Configuración del Entorno y Prerrequisitos"
+                },
+                "1": {
+                  "time": "10:30",
+                  "title": "Introducción al SDK TBURN",
+                  "speaker": "James Liu"
+                },
+                "2": {
+                  "time": "11:30",
+                  "title": "Desarrollo de Contratos Inteligentes"
+                },
+                "3": {
+                  "time": "12:30",
+                  "title": "Pausa para Almuerzo"
+                },
+                "4": {
+                  "time": "13:00",
+                  "title": "Pruebas y Despliegue",
+                  "speaker": "Emma Wilson"
+                },
+                "5": {
+                  "time": "13:45",
+                  "title": "Q&A y Cierre"
+                }
               },
               "requirements": {
                 "0": "Node.js 18+ instalado",
@@ -12345,14 +12899,34 @@
                 "2": "Las preguntas pueden enviarse con anticipación a través de Discord o hacerse en vivo durante la sesión."
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO y Fundador", "avatar": "AP" },
-                "1": { "name": "Equipo de Comunidad", "role": "Moderadores", "avatar": "CT" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO y Fundador",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "Equipo de Comunidad",
+                  "role": "Moderadores",
+                  "avatar": "CT"
+                }
               },
               "agenda": {
-                "0": { "time": "18:00", "title": "Bienvenida y Actualizaciones" },
-                "1": { "time": "18:15", "title": "Preguntas Pre-enviadas" },
-                "2": { "time": "18:45", "title": "Preguntas en Vivo de la Comunidad" },
-                "3": { "time": "19:15", "title": "Comentarios Finales y Anuncios" }
+                "0": {
+                  "time": "18:00",
+                  "title": "Bienvenida y Actualizaciones"
+                },
+                "1": {
+                  "time": "18:15",
+                  "title": "Preguntas Pre-enviadas"
+                },
+                "2": {
+                  "time": "18:45",
+                  "title": "Preguntas en Vivo de la Comunidad"
+                },
+                "3": {
+                  "time": "19:15",
+                  "title": "Comentarios Finales y Anuncios"
+                }
               },
               "requirements": {
                 "0": "Cuenta de Discord",
@@ -12374,14 +12948,36 @@
                 "2": "Nuestro equipo también explicará el sistema de validadores de 3 niveles y cómo los Trust Scores de IA afectan sus recompensas."
               },
               "speakers": {
-                "0": { "name": "David Kim", "role": "Líder de Infraestructura", "avatar": "DK" },
-                "1": { "name": "Lisa Zhang", "role": "Relaciones con Validadores", "avatar": "LZ" }
+                "0": {
+                  "name": "David Kim",
+                  "role": "Líder de Infraestructura",
+                  "avatar": "DK"
+                },
+                "1": {
+                  "name": "Lisa Zhang",
+                  "role": "Relaciones con Validadores",
+                  "avatar": "LZ"
+                }
               },
               "agenda": {
-                "0": { "time": "15:00", "title": "Introducción a la Validación TBURN" },
-                "1": { "time": "15:30", "title": "Requisitos Técnicos y Configuración", "speaker": "David Kim" },
-                "2": { "time": "16:00", "title": "Economía y Recompensas", "speaker": "Lisa Zhang" },
-                "3": { "time": "16:30", "title": "Demo en Vivo y Q&A" }
+                "0": {
+                  "time": "15:00",
+                  "title": "Introducción a la Validación TBURN"
+                },
+                "1": {
+                  "time": "15:30",
+                  "title": "Requisitos Técnicos y Configuración",
+                  "speaker": "David Kim"
+                },
+                "2": {
+                  "time": "16:00",
+                  "title": "Economía y Recompensas",
+                  "speaker": "Lisa Zhang"
+                },
+                "3": {
+                  "time": "16:30",
+                  "title": "Demo en Vivo y Q&A"
+                }
               },
               "requirements": {
                 "0": "Comprensión básica de blockchain",
@@ -12399,11 +12995,48 @@
           "title": "¿Quieres organizar un evento?",
           "description": "Organiza meetups, webinars o hackathons con la comunidad TBurn Lab. Proporcionamos financiamiento, merchandising y soporte de marketing para organizadores aprobados.",
           "button": "Aplicar para Organizar"
+        },
+        "items": {
+          "launchAma": {
+            "title": "TBURN v7.0 AMA de lanzamiento",
+            "description": "Únase al equipo principal para una sesión de preguntas y respuestas en vivo sobre el lanzamiento de mainnet y las próximas características"
+          },
+          "defiWorkshop": {
+            "title": "Taller DeFi: Minería de Liquidez",
+            "description": "Aprenda estrategias avanzadas de minería de liquidez con ejercicios prácticos y orientación experta"
+          },
+          "hackathon": {
+            "title": "TBURN Hackathon 2025",
+            "description": "Hackathon global de 48 horas con $500K en premios. Construya soluciones DeFi innovadoras en TBURN Lab y compita por grants y oportunidades de incubación."
+          },
+          "tokyoMeetup": {
+            "title": "Encuentro de la comunidad - Tokio",
+            "description": "Conecte con entusiastas de TBURN en Tokio. ¡Comida y bebidas proporcionadas!"
+          },
+          "stakingCompetition": {
+            "title": "Competencia de Staking",
+            "description": "Compita por las mayores recompensas de staking este mes. ¡Los mejores stakers ganan recompensas bonus!"
+          },
+          "nftContest": {
+            "title": "Concurso de Arte NFT",
+            "description": "Cree arte NFT temático de TBURN y gane premios. ¡Inscripciones abiertas ahora!"
+          },
+          "validatorTraining": {
+            "title": "Sesión de Entrenamiento de Validadores",
+            "description": "Aprenda cómo convertirse en un validador TBURN con esta sesión de entrenamiento integral"
+          },
+          "airdropEvent": {
+            "title": "Evento de Airdrop de la Comunidad",
+            "description": "Airdrop exclusivo para miembros activos de la comunidad. ¡Complete tareas para ganar recompensas!"
+          }
         }
       },
       "newsBlog": {
         "title": "Noticias y Blog",
         "subtitle": "Últimas actualizaciones, anuncios e insights del equipo TBurn Lab",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "categories": {
           "all": "Todo",
           "news": "Noticias",
@@ -12418,12 +13051,46 @@
           "placeholder": "Ingresa tu correo electrónico",
           "button": "Suscribirse"
         }
+      },
+      "time": {
+        "justNow": "Ahora mismo",
+        "hoursAgo": "Hace {{count}}h",
+        "daysAgo": "Hace {{count}}d"
+      },
+      "announcements": {
+        "mainnetLaunch": {
+          "title": "Fecha de lanzamiento de Mainnet confirmada: 8 de diciembre",
+          "content": "Nos complace anunciar que TBURN v7.0 Mainnet se lanzará oficialmente el 8 de diciembre de 2024. ¡Todos los sistemas están listos para la mayor actualización de nuestra historia!"
+        },
+        "stakingTiers": {
+          "title": "Nuevos niveles de staking disponibles",
+          "content": "El staking de nivel diamante ahora está disponible con hasta un 25% de aumento en APY. Consulta el nuevo panel de staking para más detalles."
+        },
+        "securityAudit": {
+          "title": "Auditoría de seguridad completada",
+          "content": "Nuestros contratos inteligentes han pasado auditorías de seguridad exhaustivas por CertiK y Trail of Bits. Los informes completos están disponibles en GitHub."
+        },
+        "bridgeIntegration": {
+          "title": "Puente de cadena cruzada ahora activo",
+          "content": "El puente TBURN ahora está activo, soportando transferencias entre redes Ethereum, BSC y Polygon."
+        },
+        "maintenance": {
+          "title": "Mantenimiento programado: Actualización de nodo",
+          "content": "Ventana de mantenimiento breve programada para el 10 de diciembre, 2:00 AM UTC. Tiempo de inactividad esperado: 15 minutos."
+        },
+        "aiOrchestration": {
+          "title": "Sistema de orquestación de IA en vivo",
+          "content": "El sistema de orquestación Quad-Band AI ahora está completamente operativo con Gemini 3 Pro como primario, Claude Sonnet 4.5, GPT-4o y Grok 3 como respaldo."
+        }
       }
     },
     "legal": {
       "terms": {
         "title": "Términos de servicio",
         "subtitle": "Términos y condiciones para el uso de los servicios de TBurn Lab.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "backToHome": "Volver al inicio",
         "sections": {
           "acceptance": {
@@ -12621,6 +13288,9 @@
       "privacy": {
         "title": "Política de privacidad",
         "subtitle": "Cómo recopilamos, usamos y protegemos sus datos.",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "backToHome": "Volver al inicio",
         "sections": {
           "introduction": {
@@ -12834,6 +13504,9 @@
       "disclaimer": {
         "title": "Descargo de Responsabilidad",
         "subtitle": "Avisos legales importantes y divulgaciones de riesgos",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "backToHome": "Volver al inicio",
         "importantNotice": {
           "title": "Aviso importante",
@@ -12970,6 +13643,9 @@
       "termsOfService": {
         "title": "Términos de Servicio",
         "subtitle": "Acuerdo de usuario para los servicios de TBurn Lab",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "lastUpdated": "Última Actualización",
         "sections": {
           "acceptance": {
@@ -13009,6 +13685,9 @@
       "privacyPolicy": {
         "title": "Política de Privacidad",
         "subtitle": "Cómo recopilamos, usamos y protegemos tus datos",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "lastUpdated": "Última Actualización",
         "sections": {
           "collection": {
@@ -13054,6 +13733,9 @@
           "privacy": {
             "title": "Política de Privacidad",
             "subtitle": "Cómo we handle your data",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "subtitleData": "Your data protection rights"
           },
           "terms": {
@@ -13063,6 +13745,9 @@
           "disclaimer": {
             "title": "Descargo de Responsabilidad",
             "subtitle": "Legal notices",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "subtitleRisk": "Risk disclosures"
           }
         },
@@ -13070,12 +13755,18 @@
           "trustScore": {
             "title": "Sistema de Trust Score",
             "subtitle": "3-stage verification process",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "subtitleHow": "Cómo Trust Scores work",
             "subtitleVerification": "Verificación methodology"
           },
           "wallet": {
             "title": "Qué is a Wallet?",
             "subtitle": "Wallet basics",
+            "forumTitle": "Foro de la Comunidad",
+            "viewAll": "Ver Todo",
+            "recentPosts": "Publicaciones Recientes",
             "subtitleSecurity": "Securing your assets"
           },
           "blockchain": {
@@ -13107,6 +13798,9 @@
       "team": {
         "title": "Equipo",
         "subtitle": "Conoce a las personas detrás de TBurn Lab",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "leadership": "Liderazgo",
         "engineering": "Ingeniería",
         "community": "Comunidad",
@@ -13115,6 +13809,9 @@
       "careers": {
         "title": "Carreras",
         "subtitle": "Únete a nuestro equipo y construye el futuro de blockchain",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "openPositions": "Posiciones Abiertas",
         "benefits": "Beneficios",
         "culture": "Cultura",
@@ -13123,6 +13820,9 @@
       "partners": {
         "title": "Socios",
         "subtitle": "Nuestro ecosistema de socios e integraciones",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "technology": "Socios Tecnológicos",
         "integration": "Socios de Integración",
         "validator": "Socios Validadores",
@@ -13131,6 +13831,9 @@
       "press": {
         "title": "Prensa",
         "subtitle": "Cobertura mediática y recursos para periodistas",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "releases": "Comunicados de Prensa",
         "mediaKit": "Kit de Medios",
         "contact": "Contacto de Prensa"
@@ -13138,6 +13841,9 @@
       "contact": {
         "title": "Contacto",
         "subtitle": "Ponte en contacto con nuestro equipo",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "general": "Consultas Generales",
         "support": "Soporte Técnico",
         "business": "Desarrollo de Negocios",
@@ -13203,6 +13909,9 @@
       "connect": {
         "title": "Conectar Cartera",
         "subtitle": "Conecta tu cartera para acceder a todas las funciones",
+        "forumTitle": "Foro de la Comunidad",
+        "viewAll": "Ver Todo",
+        "recentPosts": "Publicaciones Recientes",
         "metamask": "MetaMask",
         "walletconnect": "WalletConnect",
         "coinbase": "Coinbase Wallet",

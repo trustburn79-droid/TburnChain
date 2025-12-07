@@ -162,6 +162,9 @@
     "technicalDetails": "Technical Details",
     "title": "لوحة التحكم",
     "subtitle": "نظرة عامة على شبكة البلوكتشين في الوقت الفعلي",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "networkStats": "إحصائيات الشبكة",
     "totalBlocks": "إجمالي الكتل",
     "totalTransactions": "إجمالي المعاملات",
@@ -173,7 +176,6 @@
     "gasUsed": "الغاز المستخدم",
     "txCount": "عدد المعاملات",
     "timestamp": "الطابع الزمني",
-    "viewAll": "عرض الكل",
     "networkHealth": "صحة الشبكة",
     "healthy": "صحي",
     "degraded": "متدهور",
@@ -185,6 +187,9 @@
   "blocks": {
     "title": "الكتل",
     "subtitle": "تصفح جميع الكتل على بلوكتشين TBURN",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "totalBlocks": "إجمالي الكتل",
     "blocks": "كتل",
     "blockNumber": "رقم الكتلة",
@@ -265,6 +270,9 @@
   "transactions": {
     "title": "مستكشف المعاملات",
     "subtitle": "تصفح جميع المعاملات على بلوكتشين TBURN",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "txHash": "هاش المعاملة",
     "blockNumber": "رقم الكتلة",
     "from": "من",
@@ -309,6 +317,9 @@
   "wallets": {
     "title": "مستكشف المحافظ",
     "subtitle": "تتبع أرصدة المحافظ والستاكينغ والمكافآت",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "totalWallets": "إجمالي المحافظ",
     "registeredAddresses": "عناوين مسجلة",
     "totalBalance": "إجمالي الرصيد",
@@ -340,6 +351,9 @@
   "validators": {
     "title": "المدققون",
     "subtitle": "نظام المدققين المتدرج مع إجماع BFT المعزز بالذكاء الاصطناعي",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "validatorAddress": "عنوان المدقق",
     "validatorName": "اسم المدقق",
     "validator": "المدقق",
@@ -414,6 +428,9 @@
   "members": {
     "title": "إدارة الأعضاء",
     "subtitle": "نظام شامل لإدارة الأعضاء والمراهنين والمدققين",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "totalMembers": "إجمالي الأعضاء",
     "activeMembers": "الأعضاء النشطون",
     "totalValidators": "إجمالي المدققين",
@@ -535,6 +552,9 @@
     "details": "Details",
     "title": "لوحة الستاكينغ",
     "subtitle": "قم بالستاكينغ TBURN لكسب المكافآت والمشاركة في حوكمة الشبكة",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "stakingPools": "مجمعات الستاكينغ",
     "tierSystem": "نظام المستويات",
     "aiInsights": "رؤى الذكاء الاصطناعي",
@@ -652,6 +672,9 @@
   "stakingRewards": {
     "title": "مركز المكافآت",
     "subtitle": "تتبع والمطالبة بمكافآت الستاكينغ وإدارة طلبات فك الربط",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "cycle": "الدورة",
     "pendingRewards": "المكافآت المعلقة",
     "readyToClaim": "جاهزة للمطالبة",
@@ -711,6 +734,9 @@
   "stakingSdk": {
     "title": "SDK المحفظة وأدوات التطوير",
     "subtitle": "دمج ستاكينغ TBURN في تطبيقك باستخدام SDK الخاص بنا",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "quickStart": "بداية سريعة",
     "quickStartDesc": "ابدأ في دقائق مع دليلنا خطوة بخطوة",
     "apiReference": "مرجع API",
@@ -802,6 +828,9 @@
   "tokenSystem": {
     "title": "نظام الرموز v4.0",
     "subtitle": "معايير رموز المؤسسات المحسنة بالذكاء الاصطناعي مع الأمان الكمي",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "tripleBandAi": "الذكاء الاصطناعي الثلاثي النطاق",
     "quantumResistant": "مقاوم للكم",
     "audited": "مدقق",
@@ -1099,6 +1128,9 @@
   "dex": {
     "title": "البورصة اللامركزية",
     "subtitle": "تداول الرموز مع سيولة من الدرجة المؤسسية",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "swap": "تبديل",
     "swapTokens": "تبديل الرموز",
     "liquidityPools": "مجمعات السيولة",
@@ -1141,6 +1173,9 @@
   "lending": {
     "title": "بروتوكول الإقراض",
     "subtitle": "أودع واقترض واكسب مع الإقراض اللامركزي",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "markets": "الأسواق",
     "supply": "إيداع",
     "borrow": "اقتراض",
@@ -1177,6 +1212,9 @@
   "yield": {
     "title": "زراعة العائد",
     "subtitle": "حقق أقصى عوائد مع استراتيجيات العائد",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "vaults": "الخزائن",
     "myVaults": "خزائني",
     "deposit": "إيداع",
@@ -1206,6 +1244,9 @@
   "liquidStaking": {
     "title": "الستاكينغ السائل",
     "subtitle": "قم بالستاكينغ والحفاظ على السيولة مع رموز الستاكينغ السائل",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "stake": "ستاكينغ",
     "unstake": "إلغاء الستاكينغ",
     "mint": "سك",
@@ -1229,6 +1270,9 @@
   "nft": {
     "title": "سوق NFT",
     "subtitle": "اكتشف واجمع وتداول الأصول الرقمية الفريدة",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "collections": "المجموعات",
     "explore": "استكشاف",
     "myNfts": "NFTs الخاصة بي",
@@ -1267,6 +1311,9 @@
   "launchpad": {
     "title": "منصة إطلاق NFT",
     "subtitle": "اكتشف وشارك في إطلاقات NFT الحصرية",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "upcomingLaunches": "الإطلاقات القادمة",
     "activeLaunches": "الإطلاقات النشطة",
     "pastLaunches": "الإطلاقات السابقة",
@@ -1292,6 +1339,9 @@
   "community": {
     "title": "العنوان",
     "subtitle": "تواصل وتعاون ونمو مع نظام TBURN البيئي",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "online": "متصل",
     "totalMembers": "إجمالي الأعضاء",
     "thisWeek": "هذا الأسبوع",
@@ -1570,6 +1620,9 @@
   "gamefi": {
     "title": "مركز GameFi",
     "subtitle": "نظام ألعاب اللعب للكسب",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "games": "الألعاب",
     "tournaments": "البطولات",
     "assets": "الأصول",
@@ -1638,6 +1691,9 @@
   "bridge": {
     "title": "جسر السلاسل المتقاطعة",
     "subtitle": "انقل الأصول عبر البلوكتشين بأمان",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "transfer": "نقل",
     "history": "السجل",
     "fromChain": "من السلسلة",
@@ -1705,6 +1761,9 @@
   "consensus": {
     "title": "الإجماع",
     "subtitle": "مراقبة إجماع BFT المحسن بالذكاء الاصطناعي",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "currentRound": "الجولة الحالية",
     "proposer": "المقترح",
     "preVotes": "الأصوات المسبقة",
@@ -1821,6 +1880,9 @@
   "sharding": {
     "title": "التجزئة",
     "subtitle": "نظام التجزئة الديناميكي المدفوع بالذكاء الاصطناعي",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "shards": "الأجزاء",
     "shardId": "معرف الجزء",
     "tps": "TPS",
@@ -1906,6 +1968,9 @@
   "crossShard": {
     "title": "الاتصال عبر الأجزاء",
     "subtitle": "مراقبة توجيه وتسليم الرسائل بين الأجزاء",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "pendingMessages": "الرسائل المعلقة",
     "awaitingConfirmation": "في انتظار التأكيد",
     "confirmed": "مؤكد",
@@ -2014,6 +2079,9 @@
   "aiOrchestration": {
     "title": "تنسيق الذكاء الاصطناعي",
     "subtitle": "مراقبة وإدارة نظام الذكاء الاصطناعي الثلاثي النطاق",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "tripleBandAi": "الذكاء الاصطناعي الثلاثي النطاق",
     "gpt5": "GPT-5",
     "claudeSonnet": "Claude Sonnet 4.5",
@@ -2183,6 +2251,9 @@
   "smartContracts": {
     "title": "العقود الذكية",
     "subtitle": "بناء ونشر والتفاعل مع العقود الذكية",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "deployedContracts": "العقود المنشورة",
     "contractAddress": "عنوان العقد",
     "contractName": "اسم العقد",
@@ -2294,6 +2365,9 @@
   "nodeHealth": {
     "title": "صحة العقدة",
     "subtitle": "نظام الشفاء الذاتي التنبؤي للمراقبة",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "systemMetrics": "مقاييس النظام",
     "cpu": "المعالج",
     "memory": "الذاكرة",
@@ -2384,6 +2458,9 @@
   "admin": {
     "title": "إدارة الشبكة الرئيسية",
     "subtitle": "التحكم ومراقبة بنية TBURN الرئيسية",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "mainnetStatus": "حالة الشبكة الرئيسية",
     "rateLimitedMessage": "محدود المعدل بواسطة API لشبكة TBURN الرئيسية - إعادة محاولة الاتصالات",
     "apiConnectionFailed": "فشل اتصال API",
@@ -2632,6 +2709,9 @@
   "apiKeys": {
     "title": "مفاتيح API",
     "subtitle": "إدارة مفاتيح API للوصول الآمن إلى بيانات بلوكتشين TBURN",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "createNewKey": "إنشاء مفتاح API جديد",
     "createDescription": "إنشاء مفتاح API جديد للوصول البرمجي. سيتم عرض المفتاح مرة واحدة فقط.",
     "keyLabel": "تسمية مفتاح API",
@@ -2665,6 +2745,9 @@
   "performanceMetrics": {
     "title": "مقاييس الأداء",
     "subtitle": "تحليلات أداء الشبكة في الوقت الفعلي ومراقبة SLA",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "currentTps": "TPS الحالي",
     "peakTps": "ذروة TPS",
     "ofPeak": "من الذروة",
@@ -2694,6 +2777,9 @@
   "metrics": {
     "title": "مقاييس الأداء",
     "subtitle": "تحليلات أداء الشبكة على مستوى المؤسسات ومراقبة SLA",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "live": "مباشر",
     "polling": "استطلاع",
     "export": "تصدير",
@@ -2823,6 +2909,9 @@
   "security": {
     "title": "الأمان",
     "subtitle": "مراقبة أمان الشبكة والتنبيهات",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "securityScore": "درجة الأمان",
     "threats": "التهديدات",
     "vulnerabilities": "الثغرات",
@@ -2839,6 +2928,9 @@
   "performance": {
     "title": "الأداء",
     "subtitle": "مقاييس أداء النظام والتحسين",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "cpuUsage": "استخدام المعالج",
     "memoryUsage": "استخدام الذاكرة",
     "diskUsage": "استخدام القرص",
@@ -2853,6 +2945,9 @@
   "token": {
     "title": "نظام الرموز v4.0",
     "subtitle": "معايير رموز المؤسسات المحسنة بالذكاء الاصطناعي",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "tbc20": "TBC-20",
     "tbc721": "TBC-721",
     "tbc1155": "TBC-1155",
@@ -2884,6 +2979,9 @@
   "walletSdk": {
     "title": "SDK المحفظة",
     "subtitle": "مجموعة أدوات دمج المحفظة للمؤسسات",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "walletConnect": "اتصال المحفظة",
     "walletDisconnect": "قطع اتصال المحفظة",
     "walletAddress": "عنوان المحفظة",
@@ -2900,6 +2998,9 @@
   "txSimulator": {
     "title": "محاكي المعاملات",
     "subtitle": "إنشاء وبث معاملات اختبار إلى الشبكة",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "simulate": "محاكاة",
     "simulationResult": "نتيجة المحاكاة",
     "gasEstimate": "تقدير الغاز",
@@ -3068,6 +3169,9 @@
   "login": {
     "title": "TBURN Lab",
     "subtitle": "مستكشف بلوكتشين الشبكة الرئيسية",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "password": "كلمة المرور",
     "enterPassword": "أدخل كلمة المرور",
     "loggingIn": "جاري تسجيل الدخول...",
@@ -3129,6 +3233,9 @@
   "operator": {
     "title": "بوابة المشغل",
     "subtitle": "إدارة شاملة لعمليات الشبكة",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "enterpriseBackoffice": "المكتب الخلفي للمؤسسات لإدارة شبكة TBURN",
     "adminAccess": "الوصول الإداري",
     "logout": "تسجيل الخروج",
@@ -3166,6 +3273,9 @@
       "technicalDetails": "Technical Details",
       "title": "بوابة المشغل",
       "subtitle": "المكتب الخلفي للمؤسسات لإدارة شبكة TBURN",
+      "forumTitle": "منتدى المجتمع",
+      "viewAll": "عرض الكل",
+      "recentPosts": "المشاركات الأخيرة",
       "autoRefresh": "تلقائي",
       "paused": "متوقف مؤقتاً",
       "accessDenied": "تم رفض الوصول",
@@ -3286,6 +3396,9 @@
     "members": {
       "title": "إدارة الأعضاء",
       "subtitle": "إدارة أعضاء الشبكة وحالة KYC/AML وتعيينات المستويات",
+      "forumTitle": "منتدى المجتمع",
+      "viewAll": "عرض الكل",
+      "recentPosts": "المشاركات الأخيرة",
       "exportCsv": "تصدير CSV",
       "totalMembers": "إجمالي الأعضاء",
       "membersSelected": "أعضاء محددون",
@@ -3460,6 +3573,9 @@
     "validators": {
       "title": "عمليات المدققين",
       "subtitle": "مراجعة الطلبات وإدارة المدققين وتنفيذ العقوبات",
+      "forumTitle": "منتدى المجتمع",
+      "viewAll": "عرض الكل",
+      "recentPosts": "المشاركات الأخيرة",
       "slashValidator": "معاقبة المدقق",
       "applications": "الطلبات",
       "performance": "الأداء",
@@ -3646,6 +3762,9 @@
     "security": {
       "title": "تدقيق الأمان",
       "subtitle": "مراقبة أحداث الأمان ومراجعة سجلات التدقيق وإدارة الامتثال",
+      "forumTitle": "منتدى المجتمع",
+      "viewAll": "عرض الكل",
+      "recentPosts": "المشاركات الأخيرة",
       "logSecurityEvent": "تسجيل حدث أمان",
       "criticalEvents": "الأحداث الحرجة",
       "highPriority": "أولوية عالية",
@@ -3901,6 +4020,9 @@
     "reports": {
       "title": "تقارير الامتثال",
       "subtitle": "إنشاء وجدولة وإدارة تقارير الامتثال التنظيمي",
+      "forumTitle": "منتدى المجتمع",
+      "viewAll": "عرض الكل",
+      "recentPosts": "المشاركات الأخيرة",
       "exportCsv": "تصدير CSV",
       "newSchedule": "جدول جديد",
       "generateReport": "إنشاء تقرير",
@@ -4128,6 +4250,9 @@
       "details": "Details",
       "title": "عمليات الستاكينغ",
       "subtitle": "إدارة مجمعات الستاكينغ والمستويات وتوزيع المكافآت",
+      "forumTitle": "منتدى المجتمع",
+      "viewAll": "عرض الكل",
+      "recentPosts": "المشاركات الأخيرة",
       "refresh": "تحديث",
       "createPool": "إنشاء مجمع",
       "totalStaked": "إجمالي الستاكينغ",
@@ -4249,6 +4374,9 @@
   "governance": {
     "title": "حوكمة الذكاء الاصطناعي",
     "subtitle": "DAO معززة بالذكاء الاصطناعي - تحليل المقترحات والتنبؤ بالنتائج",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "aiPowered": "مدعوم بالذكاء الاصطناعي",
     "totalProposals": "إجمالي المقترحات",
     "activeCount": "{{count}} نشطة",
@@ -4360,6 +4488,9 @@
   "burn": {
     "title": "لوحة الحرق التلقائي",
     "subtitle": "نظام حرق ذاتي معزز بالذكاء الاصطناعي مع آليات إطلاق متعددة",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "deflationary": "انكماشي",
     "totalBurned": "إجمالي المحروق",
     "tburnPermanentlyRemoved": "TBURN تمت إزالته نهائياً",
@@ -4458,6 +4589,9 @@
     "badge": "وضع اختبار VC",
     "title": "منصة TBURN",
     "subtitle": "بيئة اختبار الاستثمار",
+    "forumTitle": "منتدى المجتمع",
+    "viewAll": "عرض الكل",
+    "recentPosts": "المشاركات الأخيرة",
     "description": "اختبر جميع إمكانيات TBURN Mainnet باستخدام محفظة تجريبية ممولة مسبقًا. اختبر جميع ميزات DeFi واستكشف تنسيق الذكاء الاصطناعي وقيّم تقنيتنا.",
     "startTour": "بدء الجولة الإرشادية",
     "explorePlatform": "استكشف المنصة",
@@ -4561,6 +4695,9 @@
       "gatewayRegister": "تسجيل_البوابة",
       "title": "تهيئة",
       "subtitle": "أنشئ هوية جديدة على الطبقة العصبية",
+      "forumTitle": "منتدى المجتمع",
+      "viewAll": "عرض الكل",
+      "recentPosts": "المشاركات الأخيرة",
       "nodeAlias": "اسم العقدة",
       "usernamePlaceholder": "أدخل اسم المستخدم",
       "signalFrequency": "تردد الإشارة (البريد الإلكتروني)",
@@ -4942,6 +5079,9 @@
       "solutions": {
         "title": "الحلول الأساسية",
         "subtitle": "بنية تحتية بلوكتشين على مستوى المؤسسات",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "tripleBandAi": {
           "title": "الذكاء الاصطناعي ثلاثي النطاق",
           "description": "Three-tier AI orchestration using optimized decision-making at strategic, tactical, and operational levels."
@@ -4974,6 +5114,9 @@
       "cta": {
         "title": "هل أنت مستعد لبناء الثقة؟",
         "subtitle": "انضم إلى آلاف المطورين الذين يبنون مستقبل البلوكتشين القائم على الثقة",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "exploreEcosystem": "استكشاف النظام البيئي",
         "joinCommunity": "الانضمام إلى المجتمع"
       }
@@ -4983,6 +5126,9 @@
         "tag": "V4 Learning Center",
         "title": "مركز التعليم",
         "subtitle": "Master the TBurn Lab V4 ecosystem. From trust-based consensus algorithms to building high-speed dApps, start your journey here.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "stats": {
           "courses": "COURSES",
           "learners": "LEARNERS",
@@ -5167,9 +5313,15 @@
         "tag": "INTRODUCTION",
         "title": "What is TBurn Lab?",
         "subtitle": "Discover the world's first trust-based blockchain with AI verification and quantum-resistant security.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "coreFeatures": {
           "title": "Core Features",
           "subtitle": "بنية تحتية بلوكتشين على مستوى المؤسسات مبنية للموثوقية والأداء",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "items": {
             "trustVerification": {
               "title": "Trust Verification",
@@ -5235,6 +5387,9 @@
         "consensus": {
           "title": "Consensus Mechanism",
           "subtitle": "Proof of Trust (PoT) combines validation with trust scoring",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "specs": {
             "blockTime": "وقت الكتلة",
             "finality": "النهائية",
@@ -5247,6 +5402,9 @@
         "tag": "ميزة أساسية",
         "title": "نظام درجة الثقة",
         "subtitle": "تعمق في نظام التحقق من 3 مراحل، وتحليل الذكاء الاصطناعي، وخوارزمية التقييم الديناميكية.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "evaluationPhilosophy": "تجمع منهجيتنا التقييمية بين التحليل الآلي والخبرة البشرية لتقديم تقييمات شاملة للمشاريع.",
         "gradeSystem": "تصنيف درجات الثقة",
         "scoreComponents": "مكونات الدرجة",
@@ -5422,6 +5580,9 @@
         "tag": "البدء",
         "title": "ما هي المحفظة؟",
         "subtitle": "تعرف على محافظ العملات المشفرة وأفضل ممارسات الأمان وكيفية إعداد محفظة TBurn الخاصة بك.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "understanding": {
           "title": "فهم محافظ العملات المشفرة",
           "description": "محفظة العملات المشفرة هي أداة رقمية تخزن مفاتيحك الخاصة وتتيح لك إرسال واستقبال وإدارة أصولك الرقمية بأمان."
@@ -5495,6 +5656,9 @@
         "tag": "TECHNICAL PAPER",
         "title": "Whitepaper",
         "subtitle": "Complete technical documentation of TBurn Lab architecture, consensus, and tokenomics.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "heroDescription": "Decentralized Trust Infrastructure for Blockchain Projects.",
         "heroSubDescription": "independent Layer 1 solution verifying reliability with 100% on-chain transparency.",
         "downloadPdf": "Download PDF",
@@ -5502,6 +5666,9 @@
         "trustCrisis": {
           "title": "The Trust Crisis",
           "subtitle": "Fundamental Issues in the Current Blockchain Industry",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "items": {
             "scams": {
               "title": "80%+ Scams",
@@ -5552,6 +5719,9 @@
         "aiLayers": {
           "title": "Triple-Band AI Orchestration",
           "subtitle": "Intelligent decision-making using three distinct AI models.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "items": {
             "strategic": {
               "title": "Strategic Layer",
@@ -5608,9 +5778,15 @@
         "tag": "الاقتصاد",
         "title": "اقتصاديات التوكن",
         "subtitle": "افهم توزيع توكن TBURN وجدول الإصدار وآليات الانكماش.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "distributionSection": {
           "title": "توزيع التوكنات",
           "subtitle": "تخصيص استراتيجي مصمم للنمو طويل المدى واستدامة النظام البيئي",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
@@ -5748,6 +5924,9 @@
         "tag": "DEVELOPMENT ROADMAP",
         "title": "Development Roadmap",
         "subtitle": "Track our progress and upcoming milestones on the journey to mainstream adoption.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "phases": {
           "phase1": {
             "quarter": "Q1-Q2 2024",
@@ -5834,6 +6013,9 @@
         "tag": "مبتدئ",
         "title": "أساسيات البلوكتشين",
         "subtitle": "ابنِ أساساً متيناً في تكنولوجيا البلوكتشين. تعلم كيف تعمل السجلات الموزعة وآليات الإجماع والتشفير معاً.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "duration": "4 ساعات",
         "backToEducation": "العودة إلى البرامج التعليمية",
         "courseOverview": {
@@ -5848,21 +6030,33 @@
           "module1": {
             "title": "ما هو البلوكتشين؟",
             "subtitle": "فهم تكنولوجيا السجل الموزع",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "45 دقيقة"
           },
           "module2": {
             "title": "أساسيات التشفير",
             "subtitle": "دوال التجزئة والتوقيعات والتشفير",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "60 دقيقة"
           },
           "module3": {
             "title": "آليات الإجماع",
             "subtitle": "PoW وPoS وProof of Trust من TBurn",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "75 دقيقة"
           },
           "module4": {
             "title": "بنية TBurn Lab",
             "subtitle": "تعمق في نظامنا القائم على الثقة",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "60 دقيقة"
           }
         },
@@ -5907,6 +6101,9 @@
         "tag": "متوسط",
         "title": "إتقان DeFi",
         "subtitle": "إتقان بروتوكولات التمويل اللامركزي. تعلم استراتيجيات العائد المتقدمة وتوفير السيولة وتقنيات إدارة المخاطر.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "duration": "٨ ساعات",
         "backToEducation": "العودة إلى برامج التعليم",
         "stats": {
@@ -5935,21 +6132,33 @@
           "module1": {
             "title": "آليات DEX و AMM",
             "subtitle": "فهم صانعي السوق الآليين",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "٩٠ دقيقة"
           },
           "module2": {
             "title": "بروتوكولات الإقراض",
             "subtitle": "الاقتراض والإقراض المضمون",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "١٢٠ دقيقة"
           },
           "module3": {
             "title": "توفير السيولة",
             "subtitle": "رموز LP والخسارة غير الدائمة والمكافآت",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "٩٠ دقيقة"
           },
           "module4": {
             "title": "استراتيجيات العائد",
             "subtitle": "تحسين العوائد مع العوائد المعززة بالثقة",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "١٢٠ دقيقة"
           }
         },
@@ -6002,6 +6211,9 @@
         "tag": "متقدم",
         "title": "دورة المطور",
         "subtitle": "بناء تطبيقات dApps جاهزة للإنتاج على TBurn Lab. إتقان العقود الذكية وتكامل SDK واستراتيجيات النشر.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "duration": "٢٠ ساعة",
         "backToEducation": "العودة إلى برامج التعليم",
         "courseOverview": {
@@ -6013,21 +6225,33 @@
           "module1": {
             "title": "إعداد وتكوين SDK",
             "subtitle": "إعداد البيئة وتهيئة المشروع",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "ساعتان"
           },
           "module2": {
             "title": "تطوير العقود الذكية",
             "subtitle": "كتابة عقود آمنة ومُحسّنة",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "٦ ساعات"
           },
           "module3": {
             "title": "تكامل API",
             "subtitle": "REST وGraphQL وWebSocket APIs",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "٤ ساعات"
           },
           "module4": {
             "title": "النشر وDevOps",
             "subtitle": "نشر الشبكة الرئيسية والمراقبة",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "٤ ساعات"
           }
         },
@@ -6086,6 +6310,9 @@
         "tag": "مناسب للمبتدئين",
         "title": "مقدمة في DeFi",
         "subtitle": "بوابتك إلى التمويل اللامركزي. تعلم المفاهيم الأساسية لدرجات الثقة وأنظمة التحقق وكيف تحمي TBurn Lab المستثمرين.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "duration": "ساعتان",
         "backToEducation": "العودة إلى برامج التعليم",
         "scoreFormula": {
@@ -6209,6 +6436,9 @@
         "tag": "البرامج",
         "title": "البرامج التعليمية",
         "subtitle": "مسارات تعلم منظمة وبرامج شهادات لتعليم البلوكتشين.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "backToLearn": "العودة إلى التعلم",
         "pathsTitle": "مسارات التعلم",
         "pathsSubtitle": "اختر مسارًا منظمًا بناءً على أهدافك ومستوى خبرتك.",
@@ -6237,24 +6467,36 @@
           "beginner": {
             "title": "أساسيات البلوكتشين",
             "subtitle": "ابدأ رحلتك في البلوكتشين بالمفاهيم والمصطلحات الأساسية.",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "٦ ساعات",
             "level": "مبتدئ"
           },
           "defi": {
             "title": "متخصص DeFi",
             "subtitle": "إتقان بروتوكولات واستراتيجيات التمويل اللامركزي.",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "١٢ ساعة",
             "level": "متوسط"
           },
           "developer": {
             "title": "مطور العقود الذكية",
             "subtitle": "بناء تطبيقات لامركزية جاهزة للإنتاج على سلسلة TBurn.",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "٢٠ ساعة",
             "level": "متقدم"
           },
           "security": {
             "title": "الأمان والثقة",
             "subtitle": "تعرف على Trust Score والتدقيق الأمني وأفضل الممارسات.",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "duration": "١٠ ساعات",
             "level": "متوسط"
           }
@@ -6325,6 +6567,9 @@
         "tag": "SDK & API V4 جاهز",
         "title": "مركز المطورين",
         "subtitle": "ابنِ تطبيقات الجيل القادم القائمة على الثقة. احصل على أدوات تطوير شاملة وSDK وAPI لنظام TBurn Lab V4.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "getStarted": "ابدأ الآن",
         "viewDocs": "عرض الوثائق",
         "quickStart": {
@@ -6338,6 +6583,9 @@
         "apiReference": {
           "title": "مرجع API",
           "subtitle": "RESTful API وبث WebSocket",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "blockchainApi": "API البلوكتشين",
           "defiApi": "API DeFi",
           "aiApi": "API الذكاء الاصطناعي"
@@ -6362,6 +6610,9 @@
         "grants": {
           "title": "برنامج منح المطورين",
           "subtitle": "ندعم المشاريع التي توسع نظام TBurn Lab البيئي.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "totalFund": "إجمالي صندوق المنح 50 مليون دولار"
         },
         "quickStartSteps": {
@@ -6443,6 +6694,9 @@
         "tag": "الوثائق",
         "title": "الوثائق",
         "subtitle": "أدلة ومراجع شاملة لتطوير TBurn Lab.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "heroDescription": "كل ما تحتاجه للبناء على TBurn Lab. من البدء السريع إلى مراجع API المتقدمة.",
         "searchPlaceholder": "البحث في الوثائق...",
         "categoriesTitle": "فئات الوثائق",
@@ -6454,6 +6708,9 @@
         "architecture": {
           "title": "هيكلة الشبكة",
           "subtitle": "فهم هيكلة TBurn Lab متعددة الطبقات",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "layers": {
             "consensus": {
               "title": "طبقة الإجماع",
@@ -6566,6 +6823,9 @@
         "tag": "مرجع API",
         "title": "وثائق API",
         "subtitle": "نقاط نهاية RESTful API للبلوكتشين وDeFi وخدمات الذكاء الاصطناعي.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "baseUrl": "الرابط الأساسي",
         "coreEndpoints": "نقاط النهاية الأساسية",
         "parameters": "المعلمات",
@@ -6651,6 +6911,9 @@
         "tag": "أدوات CLI",
         "title": "مرجع CLI",
         "subtitle": "واجهة سطر الأوامر لإدارة المشاريع والنشر.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "currentVersion": "الإصدار الحالي",
         "usage": "الاستخدام",
         "options": "الخيارات",
@@ -6735,6 +6998,9 @@
         "tag": "دليل SDK",
         "title": "دليل SDK",
         "subtitle": "أدلة تكامل SDK متعددة اللغات وأفضل الممارسات.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "installation": "التثبيت",
         "configuration": "التكوين",
         "quickExamples": "أمثلة سريعة",
@@ -6773,6 +7039,9 @@
         "tag": "العقود الذكية",
         "title": "العقود الذكية",
         "subtitle": "اكتب واختبر وانشر عقوداً ذكية آمنة على TBurn Lab.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "contractTemplates": "قوالب العقود",
         "copy": "نسخ",
         "copied": "تم النسخ!",
@@ -6859,6 +7128,9 @@
         "gasOptimization": {
           "title": "تحسين الغاز",
           "subtitle": "نصائح لتقليل تكاليف المعاملات",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "tip1": "حزم متغيرات صغيرة متعددة في فتحات تخزين واحدة",
           "tip2": "استخدم calldata بدلاً من memory لمعلمات الدوال للقراءة فقط",
           "tip3": "خزّن متغيرات التخزين في الذاكرة عند الوصول إليها عدة مرات",
@@ -6916,6 +7188,9 @@
         "tag": "REAL-TIME",
         "title": "WebSocket API",
         "subtitle": "Real-time data streaming and event subscriptions.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "connectionEndpoints": "Connection Endpoints",
         "subscriptionChannels": "Subscription Channels",
         "fullReference": "Full Reference",
@@ -6964,6 +7239,9 @@
         "tag": "CODE EXAMPLES",
         "title": "Code Examples",
         "subtitle": "Ready-to-use code snippets and sample projects.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "commonRecipes": "Common Recipes",
         "categories": {
           "allRecipes": "All Recipes",
@@ -7028,6 +7306,9 @@
         "tag": "GETTING STARTED",
         "title": "Quick Start",
         "subtitle": "Get up and running with TBurn Lab in minutes.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "whatsNext": "What's Next?",
         "prerequisites": {
           "title": "Prerequisites",
@@ -7091,6 +7372,9 @@
         "tag": "SETUP",
         "title": "Installation Guide",
         "subtitle": "Step-by-step installation and configuration instructions.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "startBuilding": "ابدأ البناء",
         "viewQuickStart": "View Quick Start",
         "systemRequirements": "System Requirements",
@@ -7115,6 +7399,9 @@
           "minimum": {
             "title": "Minimum Requirements",
             "subtitle": "For development and testing",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "cpu": "4 cores / 8 threads",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
@@ -7123,6 +7410,9 @@
           "recommended": {
             "title": "Recommended Requirements",
             "subtitle": "For production validators",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "cpu": "8+ cores / 16 threads",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
@@ -7137,6 +7427,9 @@
           "ports": {
             "title": "Network Ports",
             "subtitle": "Required ports for node operation",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
@@ -7250,6 +7543,9 @@
         "tag": "MIGRATION",
         "title": "EVM Migration",
         "subtitle": "Migrate your Ethereum dApps to TBurn Lab.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "startMigration": "Start Migration",
         "viewGuide": "View Full Guide",
         "overview": {
@@ -7305,6 +7601,9 @@
         "keyDifferences": {
           "title": "Key Technical Differences",
           "subtitle": "What sets TBurn Lab apart from traditional EVM chains",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "existingEvmChains": "Existing EVM Chains",
           "tburnChain": "TBurn Lab",
           "upgrade": "Upgrade"
@@ -7395,6 +7694,9 @@
         "title": "مركز DeFi",
         "titleHighlight": "النظام البيئي",
         "subtitle": "بنية تحتية كاملة للتمويل اللامركزي تتضمن DEX والإقراض والستاكينغ وزراعة العائد.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "stats": {
           "tvl": "إجمالي القيمة المقفلة",
           "volume24h": "حجم التداول 24 ساعة",
@@ -7548,6 +7850,9 @@
         "cta": {
           "title": "هل أنت مستعد للتداول على TBurn DeFi؟",
           "subtitle": "الوصول إلى أكثر أنظمة التمويل اللامركزي موثوقية مع التحقق المدمج من الثقة",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "launchApp": "تشغيل تطبيق DeFi",
           "viewDocs": "عرض الوثائق"
         }
@@ -7557,6 +7862,9 @@
         "title": "امتدادات",
         "titleHighlight": "الرموز",
         "subtitle": "معايير رموز TBC-20 المتقدمة مع التحقق المدمج من الثقة وآليات الحرق التلقائي.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "exploreBrc20": "استكشف TBC-20",
         "readSpecs": "اقرأ المواصفات",
         "buttons": {
@@ -7607,12 +7915,18 @@
         "brc20": {
           "title": "معيار رمز TBC-20",
           "subtitle": "الواجهات الأساسية لوظائف الثقة والحرق.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "trustScoreFunctions": "دوال درجة الثقة",
           "autoBurnFunctions": "دوال الحرق التلقائي"
         },
         "brc20Standard": {
           "title": "معيار رمز TBC-20",
           "subtitle": "الواجهات الأساسية لوظائف الثقة والحرق.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "trustScoreFunctions": "دوال درجة الثقة",
           "autoBurnFunctions": "دوال الحرق التلقائي"
         },
@@ -7687,6 +8001,9 @@
         "cta": {
           "title": "ابدأ بإصدار رموز TBC-20",
           "subtitle": "أصدر رموزاً مع ميزات تصنيف الثقة المدمجة في أقل من 5 دقائق.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "openConsole": "فتح وحدة تحكم المطور",
           "viewApiDocs": "عرض وثائق API"
         }
@@ -7696,10 +8013,16 @@
         "title": "الإجراءات",
         "titleHighlight": "والروابط",
         "subtitle": "نفّذ معاملات البلوكتشين عبر روابط URL بسيطة. شارك المبادلات والسك والتصويتات على وسائل التواصل الاجتماعي. يتضمن التحقق من درجة الثقة.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "createAction": "إنشاء إجراء",
         "coreCapabilities": {
           "title": "القدرات الأساسية",
           "subtitle": "بروتوكول الجيل التالي لتوحيد تفاعلات البلوكتشين",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "urlExecution": {
             "title": "تنفيذ URL",
             "description": "نفّذ المبادلات والسك والتصويت فوراً عبر الروابط العميقة."
@@ -7842,6 +8165,9 @@
         "title": "المحافظ",
         "titleHighlight": "والأمان",
         "subtitle": "اتصل بـ TBurn Lab باستخدام محافظ موثوقة. جميع المحافظ تعرض درجات الثقة في الوقت الفعلي قبل المعاملات.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "recommended": "موصى به",
         "walletList": {
           "tburn": {
@@ -7920,6 +8246,9 @@
         "title": "الشبكات",
         "titleHighlight": "المرخصة",
         "subtitle": "انشر شبكات بلوكتشين خاصة مع التحقق من الثقة من TBurn Lab. أمان على مستوى المؤسسات مع تثبيت السلسلة العامة.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "contactSales": "اتصل بالمبيعات",
         "viewWhitepaper": "عرض الورقة البيضاء",
         "buttons": {
@@ -7929,6 +8258,9 @@
         "enterpriseFeatures": {
           "title": "سلسلة مرخصة بمستوى المؤسسات",
           "subtitle": "ميزات تحكم وامتثال متقدمة للشركات.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "rbac": {
             "title": "التحكم في الوصول المستند إلى الأدوار (RBAC)",
             "description": "إعدادات أذونات دقيقة للمسؤولين والمدققين والمستخدمين. أذونات منفصلة لنشر العقود الذكية والموافقة على المعاملات واستعلامات البيانات بناءً على الأدوار."
@@ -7977,6 +8309,9 @@
         "hybridArchitecture": {
           "title": "البنية الهجينة",
           "subtitle": "اجمع بين خصوصية السلسلة الخاصة وأمان البلوكتشين العام.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "privateChainAnchor": {
             "title": "سلسلة خاصة + تثبيت عام",
             "description": "تعمل المعاملات الداخلية على سلسلة خاصة عالية السرعة، مع تثبيت دوري لتجزئات الحالة على الشبكة الرئيسية العامة لـ TBurn لضمان الثبات."
@@ -8095,6 +8430,9 @@
         "title": "أدوات",
         "titleHighlight": "الألعاب",
         "subtitle": "GameFi SDK متكامل مع التحقق من NFT وآليات P2E وتداول الأصول عبر الألعاب. درجة الثقة تمنع مشاريع الألعاب الاحتيالية.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "getUnitySdk": "احصل على Unity SDK",
         "buttons": {
           "getUnitySdk": "احصل على Unity SDK",
@@ -8119,6 +8457,9 @@
         "trustScore": {
           "title": "درجة ثقة مشروع NFT",
           "subtitle": "نظام تحقق شامل لمشاريع الألعاب",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "teamScore": "درجة هوية الفريق",
           "contractScore": "درجة أمان العقد",
           "utilityScore": "درجة المنفعة وخارطة الطريق",
@@ -8213,6 +8554,9 @@
         "whyBuild": {
           "title": "لماذا تبني على TBurn؟",
           "subtitle": "مُحسَّن للألعاب عالية السرعة وتداول الأصول الآمن.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "ultraFastProcessing": {
             "title": "معالجة فائقة السرعة",
             "description": "إنتاجية 50,000+ TPS (الذروة 520,000+ TPS) تتيح تداول عناصر اللعبة في الوقت الفعلي. مع متوسط وقت كتلة ثانية واحدة، يختبر اللاعبون تأكيداً فورياً بدون تأخير."
@@ -8251,6 +8595,9 @@
         "gameTypes": {
           "title": "أنواع الألعاب المدعومة",
           "subtitle": "ابنِ أي نوع من ألعاب البلوكتشين مع أدواتنا الشاملة",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "p2e": {
             "title": "ألعاب P2E",
             "desc": "كافئ اللاعبين برموز وNFT موثقة على إنجازات اللعب.",
@@ -8306,6 +8653,9 @@
         "title": "المدفوعات",
         "titleHighlight": "العالمية",
         "subtitle": "اقبل مدفوعات العملات المشفرة الموثقة في جميع أنحاء العالم. تسوية فورية ورسوم منخفضة للغاية وتصفية درجة الثقة لحماية التجار.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "getApiKey": "احصل على مفتاح API",
         "buttons": {
           "viewDocs": "عرض الوثائق"
@@ -8313,6 +8663,9 @@
         "whyChoose": {
           "title": "لماذا تختار TBurn؟",
           "subtitle": "بنية تحتية مُحسَّنة للتجارة العالمية.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "instantSettlement": {
             "title": "التسوية الفورية",
             "description": "متوسط وقت الكتلة ثانية واحدة ونهائية 6 ثوانٍ. اختبر سرعات دفع أسرع من بطاقات الائتمان التقليدية مع سعة 50,000+ TPS (الذروة 520,000+ TPS)."
@@ -8405,6 +8758,9 @@
         "title": "حلول",
         "titleHighlight": "التجارة",
         "subtitle": "تكامل التجارة الإلكترونية وحلول التجار. اقبل مدفوعات العملات المشفرة بسلاسة مع التحقق من درجة الثقة.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "installPlugin": "تثبيت الإضافة",
           "viewApiDocs": "عرض وثائق API",
@@ -8498,6 +8854,9 @@
         "title": "الخدمات",
         "titleHighlight": "المالية",
         "subtitle": "بنية مالية مؤسسية على البلوكتشين. أمان على مستوى البنوك مع ابتكار DeFi.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "startBuilding": "ابدأ البناء",
           "readWhitepaper": "قراءة الورقة البيضاء"
@@ -8581,6 +8940,9 @@
         "title": "ميزات الذكاء الاصطناعي",
         "titleHighlight": "التنسيق ثلاثي النطاق",
         "subtitle": "تنسيق الذكاء الاصطناعي ثلاثي النطاق لعمليات البلوكتشين الذكية. ثلاثة مستويات متخصصة من الذكاء الاصطناعي تعمل بتناغم لاتخاذ القرارات المثلى.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "tiers": {
           "strategic": {
             "title": "الذكاء الاصطناعي الاستراتيجي",
@@ -8722,6 +9084,9 @@
         "title": "الفنانون",
         "titleHighlight": "والمبدعون",
         "subtitle": "سك NFT والعائدات وأدوات اقتصاد المبدعين. ابنِ إمبراطوريتك الفنية الرقمية مع أصالة موثقة بدرجة الثقة.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "startCreating": "ابدأ الإبداع",
           "exploreCollections": "استكشف المجموعات"
@@ -8836,6 +9201,9 @@
         "title": "BTCfi",
         "titleHighlight": "Bitcoin DeFi",
         "subtitle": "تكامل Bitcoin DeFi مع BTC المغلف والعائدات عبر السلاسل. أطلق إمكانات كسب البيتكوين الخاصة بك.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "bridgeBtc": "جسر BTC",
           "viewYields": "عرض العائدات"
@@ -8977,6 +9345,9 @@
         "title": "الجسر",
         "titleHighlight": "عبر السلاسل",
         "subtitle": "نقل آمن للأصول عبر أكثر من 7 شبكات بلوكتشين. أمان MPC مع المبادلات الذرية والسيولة الموحدة.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "launchBridge": "إطلاق الجسر",
           "viewDocumentation": "عرض الوثائق"
@@ -8995,6 +9366,9 @@
           "mpcSecurity": {
             "title": "أمان MPC",
             "subtitle": "حساب متعدد الأطراف للجسر بدون ثقة",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "items": {
               "distributedKeyGen": "توليد المفاتيح الموزع",
               "thresholdSignatures": "التوقيعات العتبية",
@@ -9004,6 +9378,9 @@
           "atomicSwaps": {
             "title": "المبادلات الذرية",
             "subtitle": "ضمانات معاملات الكل أو لا شيء",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "items": {
               "htlcContracts": "عقود HTLC الذكية",
               "zeroSlippage": "مبادلات بدون انزلاق",
@@ -9013,6 +9390,9 @@
           "unifiedLiquidity": {
             "title": "السيولة الموحدة",
             "subtitle": "مجمعات سيولة عميقة عبر السلاسل",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "items": {
               "crossChainPools": "مجمعات السيولة عبر السلاسل",
               "dynamicRebalancing": "إعادة التوازن الديناميكي للمجمعات",
@@ -9135,6 +9515,9 @@
         "tag": "الألعاب والميتافيرس",
         "title": "الألعاب والميتافيرس",
         "subtitle": "قم ببناء الجيل القادم من ألعاب البلوكتشين مع البنية التحتية عالية الأداء لـ GameFi من TBURN. تكامل P2E سلس وأصول NFT واقتصادات عبر الألعاب.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "startBuilding": "ابدأ البناء",
           "gameTooling": "أدوات الألعاب"
@@ -9244,6 +9627,9 @@
         "tag": "ترميز الأصول",
         "title": "ترميز الأصول",
         "subtitle": "حول أصول العالم الحقيقي إلى رموز بلوكتشين. افتح السيولة ومكّن الملكية الجزئية والوصول إلى الأسواق العالمية مع ترميز متوافق مع اللوائح.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "startTokenizing": "ابدأ الترميز",
           "viewDocumentation": "عرض الوثائق"
@@ -9304,6 +9690,9 @@
         "tag": "البنية التحتية اللامركزية",
         "title": "شبكات DePIN",
         "subtitle": "قم ببناء وتشغيل شبكات البنية التحتية المادية اللامركزية. اكسب مكافآت من خلال المساهمة بموارد الحوسبة والتخزين واللاسلكي والاستشعار.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "deployNode": "نشر العقدة",
           "depinDocs": "وثائق DePIN"
@@ -9364,6 +9753,9 @@
         "tag": "البنية التحتية للعملات المستقرة",
         "title": "حلول العملات المستقرة",
         "subtitle": "إصدار وإدارة العملات المستقرة على مستوى المؤسسات. خيارات مدعومة بالعملات الورقية والمشفرة والخوارزمية مع امتثال تنظيمي كامل.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "issueStablecoin": "إصدار عملة مستقرة",
           "technicalDocs": "الوثائق التقنية"
@@ -9443,6 +9835,9 @@
         "tag": "مدفوعات المؤسسات",
         "title": "مدفوعات المؤسسات",
         "subtitle": "بنية تحتية للمدفوعات بحجم كبير للبنوك والمؤسسات المالية. تسوية إجمالية في الوقت الفعلي ومدفوعات عبر الحدود وامتثال تنظيمي.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "contactSales": "اتصل بالمبيعات",
           "apiReference": "مرجع API"
@@ -9522,6 +9917,9 @@
         "tag": "بلوكتشين المؤسسات",
         "title": "حلول المؤسسات",
         "subtitle": "حلول بلوكتشين شاملة للأعمال الحديثة. شبكات خاصة وميزات امتثال ودعم مؤسسي على مدار الساعة.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "buttons": {
           "contactEnterprise": "اتصل بالمؤسسات",
           "enterpriseDocs": "وثائق المؤسسات"
@@ -9611,6 +10009,9 @@
         "tag": "مدققو الشبكة",
         "title": "المدققون",
         "subtitle": "انضم إلى شبكة مدققي TBurn واكسب مكافآت أثناء تأمين البلوكتشين",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "becomeValidator": "كن مدققاً",
         "validatorDocs": "عرض وثائق المدقق",
         "stats": {
@@ -9658,6 +10059,9 @@
         "cta": {
           "title": "مستعد لتصبح مدققاً؟",
           "subtitle": "انضم إلى الشبكة واكسب مكافآت أثناء تأمين TBurn Lab.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "startValidating": "ابدأ التحقق",
           "readDocs": "اقرأ الوثائق"
         },
@@ -9752,6 +10156,9 @@
         "slashing": {
           "title": "شروط العقوبات",
           "subtitle": "يجب على المدققين الحفاظ على معايير عالية. تؤدي الانتهاكات إلى عقوبات على الحصة.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "minor": {
             "title": "انتهاك بسيط",
             "badge": "تحذير",
@@ -9805,6 +10212,9 @@
         "tag": "بنية RPC التحتية",
         "title": "نقاط نهاية RPC",
         "subtitle": "اتصل بعقد RPC الرسمية للوصول الموثوق للشبكة. دعم اتصالات WebSocket و HTTP.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "getApiKey": "احصل على مفتاح API",
         "buttons": {
           "getApiKey": "احصل على مفتاح API",
@@ -9864,6 +10274,9 @@
         "cta": {
           "title": "مستعد للبناء؟",
           "subtitle": "ابدأ البناء مع TBurn Lab API اليوم. احصل على مفتاح API مجاني واصل إلى بنية بلوكتشين على مستوى المؤسسات.",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "desc": "ابدأ البناء مع TBurn Lab API اليوم. احصل على مفتاح API مجاني واصل إلى بنية بلوكتشين على مستوى المؤسسات.",
           "getStartedFree": "ابدأ مجاناً",
           "contactSales": "تواصل مع المبيعات"
@@ -9957,6 +10370,9 @@
         "tag": "جميع الأنظمة تعمل",
         "title": "حالة الشبكة",
         "subtitle": "صحة الشبكة ومقاييس الأداء في الوقت الفعلي.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "operational": "تعمل",
         "lastUpdated": "آخر تحديث",
         "daysAgo": "منذ أيام",
@@ -10053,6 +10469,9 @@
         "tag": "بوابة العملات الورقية",
         "title": "إيداع/سحب العملات الورقية",
         "subtitle": "اشترِ وبع TBURN بالعملات الورقية.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "fee": "الرسوم",
         "sections": {
           "howItWorks": "كيف يعمل",
@@ -10155,6 +10574,9 @@
         "tag": "المجتمع",
         "title": "مركز المجتمع",
         "subtitle": "تواصل مع المطورين والمدققين والمتحمسين.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "stats": {
           "totalMembers": "إجمالي الأعضاء",
           "monthlyActive": "النشطون شهرياً",
@@ -10192,6 +10614,9 @@
         "leaderboard": {
           "title": "لوحة قيادة المساهمين",
           "subtitle": "أفضل المساهمين في المجتمع هذا الشهر",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "points": "{{count}} نقطة",
           "tiers": {
             "diamond": "ماسي",
@@ -10204,6 +10629,9 @@
         "ambassador": {
           "title": "برنامج السفراء",
           "subtitle": "قُد مجتمع TBurn العالمي",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "applyButton": "قدّم كسفير",
           "benefits": {
             "rewards": "مكافآت رموز TBURN شهرية",
@@ -10215,6 +10643,9 @@
         "ambassadorProgram": {
           "title": "برنامج السفراء",
           "subtitle": "قُد المجتمع العالمي",
+          "forumTitle": "منتدى المجتمع",
+          "viewAll": "عرض الكل",
+          "recentPosts": "المشاركات الأخيرة",
           "benefits": {
             "tokenRewards": "مكافآت رموز TBURN شهرية",
             "earlyAccess": "وصول مبكر للميزات الجديدة",
@@ -10265,6 +10696,9 @@
         "tag": "الأخبار والمدونة",
         "title": "الأخبار والمدونة",
         "subtitle": "أحدث التحديثات والإعلانات والرؤى.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "searchPlaceholder": "البحث في المقالات...",
         "featuredTitle": "القصص المميزة",
         "featuredBadge": "مميز",
@@ -10364,7 +10798,13 @@
                 "6": "يتضمن إطلاق الشبكة الرئيسية نظاماً بيئياً كاملاً للتمويل اللامركزي.",
                 "7": "ندعو المطورين والمدققين والمستخدمين للانضمام إلينا في بناء مستقبل التمويل اللامركزي."
               },
-              "tags": { "0": "الشبكة الرئيسية", "1": "إطلاق", "2": "v7.0", "3": "ذكاء اصطناعي", "4": "DeFi" }
+              "tags": {
+                "0": "الشبكة الرئيسية",
+                "1": "إطلاق",
+                "2": "v7.0",
+                "3": "ذكاء اصطناعي",
+                "4": "DeFi"
+              }
             },
             "triple-band-ai-revealed": {
               "title": "الكشف عن بنية الذكاء الاصطناعي ثلاثي النطاق: مستقبل ذكاء البلوكتشين",
@@ -10385,7 +10825,12 @@
                 "6": "نظام التعلم بالتغذية الراجعة: يتم تتبع جميع قرارات الذكاء الاصطناعي وتقييمها. تتجاوز الدقة حالياً 99.7%.",
                 "7": "النتيجة هي طبقة ذكاء اصطناعي ذاتية التحسين ومتسامحة مع الأخطاء."
               },
-              "tags": { "0": "ذكاء اصطناعي", "1": "تقنية", "2": "تحليل عميق", "3": "بنية" }
+              "tags": {
+                "0": "ذكاء اصطناعي",
+                "1": "تقنية",
+                "2": "تحليل عميق",
+                "3": "بنية"
+              }
             },
             "global-partnership-expansion": {
               "title": "التوسع العالمي للشراكات: TBURN تتحد مع رواد الصناعة",
@@ -10406,7 +10851,12 @@
                 "6": "موارد المطورين: شركاؤنا يساهمون في موارد شاملة تشمل SDKs والتوثيق.",
                 "7": "نحن متحمسون للفرص التي تخلقها هذه الشراكات."
               },
-              "tags": { "0": "شراكة", "1": "توسع", "2": "مؤسسي", "3": "عالمي" }
+              "tags": {
+                "0": "شراكة",
+                "1": "توسع",
+                "2": "مؤسسي",
+                "3": "عالمي"
+              }
             },
             "staking-program-details": {
               "title": "تفاصيل برنامج التخزين: عظّم مكافآت TBURN الخاصة بك",
@@ -10428,7 +10878,12 @@
                 "7": "التركيب التلقائي: فعّل التركيب التلقائي لإعادة استثمار مكافآتك تلقائياً.",
                 "8": "البدء: قم بزيارة لوحة تحكم تخزين TBURN اليوم."
               },
-              "tags": { "0": "تخزين", "1": "مكافآت", "2": "اقتصاديات الرمز", "3": "عائد سنوي" }
+              "tags": {
+                "0": "تخزين",
+                "1": "مكافآت",
+                "2": "اقتصاديات الرمز",
+                "3": "عائد سنوي"
+              }
             },
             "trust-score-deep-dive": {
               "title": "تحليل عميق لنقاط الثقة: كيف يقيّم ذكاء TBURN أمان الشبكة",
@@ -10449,7 +10904,12 @@
                 "6": "الحفاظ على نقاط عالية: وقت التشغيل المتسق والمشاركة النشطة عوامل رئيسية.",
                 "7": "يضمن النظام مكافأة المشاركين الأكثر موثوقية."
               },
-              "tags": { "0": "أمان", "1": "نقاط الثقة", "2": "ذكاء اصطناعي", "3": "المدققون" }
+              "tags": {
+                "0": "أمان",
+                "1": "نقاط الثقة",
+                "2": "ذكاء اصطناعي",
+                "3": "المدققون"
+              }
             },
             "sdk-2-released": {
               "title": "إصدار TBURN SDK 2.0: ابنِ أسرع مع أدوات المطورين الجديدة",
@@ -10471,7 +10931,12 @@
                 "7": "التوثيق: قم بزيارة بوابة المطورين للأدلة الشاملة.",
                 "8": "يمثل SDK 2.0 التزامنا بجعل تطوير TBURN سهلاً وممتعاً."
               },
-              "tags": { "0": "SDK", "1": "تطوير", "2": "TypeScript", "3": "أدوات" }
+              "tags": {
+                "0": "SDK",
+                "1": "تطوير",
+                "2": "TypeScript",
+                "3": "أدوات"
+              }
             },
             "quantum-resistant-cryptography": {
               "title": "التشفير المقاوم للحوسبة الكمية: تأمين مستقبل TBURN",
@@ -10494,7 +10959,12 @@
                 "8": "دوال التجزئة: نظام متعدد التجزئات مع خيارات مقاومة.",
                 "9": "يضمن هذا النهج الاستباقي بقاء TBURN آمناً."
               },
-              "tags": { "0": "كمي", "1": "تشفير", "2": "أمان", "3": "بحث" }
+              "tags": {
+                "0": "كمي",
+                "1": "تشفير",
+                "2": "أمان",
+                "3": "بحث"
+              }
             },
             "tburn-dex-beta": {
               "title": "إطلاق TBURN DEX التجريبي: التداول اللامركزي هنا",
@@ -10516,7 +10986,12 @@
                 "7": "البدء: اربط محفظتك وابدأ التداول اليوم.",
                 "8": "انضم إلى قنواتنا المجتمعية لتقديم الملاحظات."
               },
-              "tags": { "0": "DEX", "1": "DeFi", "2": "تداول", "3": "AMM" }
+              "tags": {
+                "0": "DEX",
+                "1": "DeFi",
+                "2": "تداول",
+                "3": "AMM"
+              }
             }
           }
         }
@@ -10525,6 +11000,9 @@
         "tag": "الفعاليات والأنشطة",
         "title": "الفعاليات والأنشطة",
         "subtitle": "انضم إلى فعاليات مجتمع TBurn Lab والهاكاثونات والمؤتمرات.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "featuredTitle": "الفعاليات المميزة",
         "upcomingTitle": "الفعاليات القادمة",
         "capacity": "السعة",
@@ -10657,16 +11135,46 @@
                 "2": "ستتاح للحاضرين فرصة طرح الأسئلة مباشرة على المطورين."
               },
               "speakers": {
-                "0": { "name": "أليكس بارك", "role": "الرئيس التنفيذي والمؤسس", "avatar": "AP" },
-                "1": { "name": "د. سارة تشين", "role": "كبير مهندسي الذكاء الاصطناعي", "avatar": "SC" },
-                "2": { "name": "مايكل رودريغيز", "role": "قائد منتج DeFi", "avatar": "MR" }
+                "0": {
+                  "name": "أليكس بارك",
+                  "role": "الرئيس التنفيذي والمؤسس",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "د. سارة تشين",
+                  "role": "كبير مهندسي الذكاء الاصطناعي",
+                  "avatar": "SC"
+                },
+                "2": {
+                  "name": "مايكل رودريغيز",
+                  "role": "قائد منتج DeFi",
+                  "avatar": "MR"
+                }
               },
               "agenda": {
-                "0": { "time": "14:00", "title": "الترحيب والمقدمة", "speaker": "أليكس بارك" },
-                "1": { "time": "14:15", "title": "نظرة عامة تقنية على TBURN v7.0" },
-                "2": { "time": "14:45", "title": "تحليل عميق لتنسيق الذكاء الاصطناعي", "speaker": "د. سارة تشين" },
-                "3": { "time": "15:15", "title": "عرض توضيحي لنظام DeFi البيئي", "speaker": "مايكل رودريغيز" },
-                "4": { "time": "15:45", "title": "جلسة أسئلة وأجوبة مباشرة" }
+                "0": {
+                  "time": "14:00",
+                  "title": "الترحيب والمقدمة",
+                  "speaker": "أليكس بارك"
+                },
+                "1": {
+                  "time": "14:15",
+                  "title": "نظرة عامة تقنية على TBURN v7.0"
+                },
+                "2": {
+                  "time": "14:45",
+                  "title": "تحليل عميق لتنسيق الذكاء الاصطناعي",
+                  "speaker": "د. سارة تشين"
+                },
+                "3": {
+                  "time": "15:15",
+                  "title": "عرض توضيحي لنظام DeFi البيئي",
+                  "speaker": "مايكل رودريغيز"
+                },
+                "4": {
+                  "time": "15:45",
+                  "title": "جلسة أسئلة وأجوبة مباشرة"
+                }
               },
               "requirements": {
                 "0": "اتصال إنترنت مستقر",
@@ -10689,16 +11197,44 @@
                 "2": "في نهاية هذه الورشة، ستكون قد نشرت عقدك الذكي الأول على شبكة اختبار TBURN."
               },
               "speakers": {
-                "0": { "name": "جيمس ليو", "role": "المطور الرئيسي", "avatar": "JL" },
-                "1": { "name": "إيما ويلسون", "role": "علاقات المطورين", "avatar": "EW" }
+                "0": {
+                  "name": "جيمس ليو",
+                  "role": "المطور الرئيسي",
+                  "avatar": "JL"
+                },
+                "1": {
+                  "name": "إيما ويلسون",
+                  "role": "علاقات المطورين",
+                  "avatar": "EW"
+                }
               },
               "agenda": {
-                "0": { "time": "10:00", "title": "إعداد البيئة والمتطلبات المسبقة" },
-                "1": { "time": "10:30", "title": "مقدمة في TBURN SDK", "speaker": "جيمس ليو" },
-                "2": { "time": "11:30", "title": "تطوير العقود الذكية" },
-                "3": { "time": "12:30", "title": "استراحة غداء" },
-                "4": { "time": "13:00", "title": "الاختبار والنشر", "speaker": "إيما ويلسون" },
-                "5": { "time": "13:45", "title": "أسئلة وأجوبة وختام" }
+                "0": {
+                  "time": "10:00",
+                  "title": "إعداد البيئة والمتطلبات المسبقة"
+                },
+                "1": {
+                  "time": "10:30",
+                  "title": "مقدمة في TBURN SDK",
+                  "speaker": "جيمس ليو"
+                },
+                "2": {
+                  "time": "11:30",
+                  "title": "تطوير العقود الذكية"
+                },
+                "3": {
+                  "time": "12:30",
+                  "title": "استراحة غداء"
+                },
+                "4": {
+                  "time": "13:00",
+                  "title": "الاختبار والنشر",
+                  "speaker": "إيما ويلسون"
+                },
+                "5": {
+                  "time": "13:45",
+                  "title": "أسئلة وأجوبة وختام"
+                }
               },
               "requirements": {
                 "0": "Node.js 18+ مثبت",
@@ -10722,14 +11258,34 @@
                 "2": "يمكن تقديم الأسئلة مسبقاً عبر Discord أو طرحها مباشرة خلال الجلسة."
               },
               "speakers": {
-                "0": { "name": "أليكس بارك", "role": "الرئيس التنفيذي والمؤسس", "avatar": "AP" },
-                "1": { "name": "فريق المجتمع", "role": "المشرفون", "avatar": "CT" }
+                "0": {
+                  "name": "أليكس بارك",
+                  "role": "الرئيس التنفيذي والمؤسس",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "فريق المجتمع",
+                  "role": "المشرفون",
+                  "avatar": "CT"
+                }
               },
               "agenda": {
-                "0": { "time": "18:00", "title": "الترحيب والتحديثات" },
-                "1": { "time": "18:15", "title": "الأسئلة المقدمة مسبقاً" },
-                "2": { "time": "18:45", "title": "أسئلة مباشرة من المجتمع" },
-                "3": { "time": "19:15", "title": "الملاحظات الختامية والإعلانات" }
+                "0": {
+                  "time": "18:00",
+                  "title": "الترحيب والتحديثات"
+                },
+                "1": {
+                  "time": "18:15",
+                  "title": "الأسئلة المقدمة مسبقاً"
+                },
+                "2": {
+                  "time": "18:45",
+                  "title": "أسئلة مباشرة من المجتمع"
+                },
+                "3": {
+                  "time": "19:15",
+                  "title": "الملاحظات الختامية والإعلانات"
+                }
               },
               "requirements": {
                 "0": "حساب Discord",
@@ -10751,14 +11307,36 @@
                 "2": "سيشرح فريقنا أيضاً نظام المدققين ثلاثي المستويات."
               },
               "speakers": {
-                "0": { "name": "ديفيد كيم", "role": "قائد البنية التحتية", "avatar": "DK" },
-                "1": { "name": "ليزا تشانغ", "role": "علاقات المدققين", "avatar": "LZ" }
+                "0": {
+                  "name": "ديفيد كيم",
+                  "role": "قائد البنية التحتية",
+                  "avatar": "DK"
+                },
+                "1": {
+                  "name": "ليزا تشانغ",
+                  "role": "علاقات المدققين",
+                  "avatar": "LZ"
+                }
               },
               "agenda": {
-                "0": { "time": "15:00", "title": "مقدمة في التحقق في TBURN" },
-                "1": { "time": "15:30", "title": "المتطلبات التقنية والإعداد", "speaker": "ديفيد كيم" },
-                "2": { "time": "16:00", "title": "الاقتصاديات والمكافآت", "speaker": "ليزا تشانغ" },
-                "3": { "time": "16:30", "title": "عرض توضيحي مباشر وأسئلة وأجوبة" }
+                "0": {
+                  "time": "15:00",
+                  "title": "مقدمة في التحقق في TBURN"
+                },
+                "1": {
+                  "time": "15:30",
+                  "title": "المتطلبات التقنية والإعداد",
+                  "speaker": "ديفيد كيم"
+                },
+                "2": {
+                  "time": "16:00",
+                  "title": "الاقتصاديات والمكافآت",
+                  "speaker": "ليزا تشانغ"
+                },
+                "3": {
+                  "time": "16:30",
+                  "title": "عرض توضيحي مباشر وأسئلة وأجوبة"
+                }
               },
               "requirements": {
                 "0": "فهم أساسي للبلوكتشين",
@@ -10767,6 +11345,71 @@
               }
             }
           }
+        },
+        "items": {
+          "launchAma": {
+            "title": "جلسة أسئلة وأجوبة لإطلاق TBURN v7.0",
+            "description": "انضم إلى الفريق الأساسي لجلسة أسئلة وأجوبة مباشرة حول إطلاق الشبكة الرئيسية والميزات القادمة"
+          },
+          "defiWorkshop": {
+            "title": "ورشة عمل DeFi: تعدين السيولة",
+            "description": "تعلم استراتيجيات تعدين السيولة المتقدمة مع التمارين العملية وتوجيهات الخبراء"
+          },
+          "hackathon": {
+            "title": "TBURN هاكاثون 2025",
+            "description": "هاكاثون عالمي لمدة 48 ساعة بجوائز قيمتها 500 ألف دولار. ابنِ حلول DeFi مبتكرة على TBURN Lab وتنافس على المنح وفرص الحضانة."
+          },
+          "tokyoMeetup": {
+            "title": "لقاء المجتمع - طوكيو",
+            "description": "تواصل مع عشاق TBURN في طوكيو. يتم توفير الطعام والمشروبات!"
+          },
+          "stakingCompetition": {
+            "title": "مسابقة الرهان",
+            "description": "تنافس على أعلى مكافآت الرهان هذا الشهر. يفوز أفضل المراهنين بمكافآت إضافية!"
+          },
+          "nftContest": {
+            "title": "مسابقة فن NFT",
+            "description": "أنشئ عمل فني NFT بموضوع TBURN واربح جوائز. التقديم مفتوح الآن!"
+          },
+          "validatorTraining": {
+            "title": "جلسة تدريب المحققين",
+            "description": "تعلم كيف تصبح محققًا لـ TBURN مع هذه الجلسة التدريبية الشاملة"
+          },
+          "airdropEvent": {
+            "title": "حدث الإسقاط الجوي للمجتمع",
+            "description": "إسقاط جوي حصري لأعضاء المجتمع النشطين. أكمل المهام لكسب المكافآت!"
+          }
+        }
+      },
+      "time": {
+        "justNow": "الآن",
+        "hoursAgo": "منذ {{count}} ساعة",
+        "daysAgo": "منذ {{count}} يوم"
+      },
+      "announcements": {
+        "mainnetLaunch": {
+          "title": "تأكيد تاريخ إطلاق الشبكة الرئيسية: 8 ديسمبر",
+          "content": "يسعدنا الإعلان عن أن TBURN v7.0 Mainnet سيتم إطلاقه رسميًا في 8 ديسمبر 2024. جميع الأنظمة جاهزة لأكبر ترقية في تاريخنا!"
+        },
+        "stakingTiers": {
+          "title": "مستويات رهان جديدة متاحة",
+          "content": "الرهان على مستوى الماس متاح الآن مع زيادة تصل إلى 25% في APY. تحقق من لوحة الرهان الجديدة لمزيد من التفاصيل."
+        },
+        "securityAudit": {
+          "title": "اكتمال تدقيق الأمان",
+          "content": "اجتازت عقودنا الذكية عمليات تدقيق أمني شاملة من CertiK و Trail of Bits. التقارير الكاملة متاحة على GitHub."
+        },
+        "bridgeIntegration": {
+          "title": "جسر عبر السلاسل مباشر الآن",
+          "content": "جسر TBURN مباشر الآن، ويدعم التحويلات بين شبكات Ethereum و BSC و Polygon."
+        },
+        "maintenance": {
+          "title": "صيانة مجدولة: ترقية العقدة",
+          "content": "نافذة صيانة قصيرة مجدولة في 10 ديسمبر، الساعة 2:00 صباحًا UTC. وقت التوقف المتوقع: 15 دقيقة."
+        },
+        "aiOrchestration": {
+          "title": "نظام تنسيق الذكاء الاصطناعي مباشر",
+          "content": "نظام تنسيق Quad-Band AI يعمل بالكامل الآن مع Gemini 3 Pro كأساسي و Claude Sonnet 4.5 و GPT-4o و Grok 3 كاحتياطي."
         }
       }
     },
@@ -10780,6 +11423,9 @@
           "privacy": {
             "title": "سياسة الخصوصية",
             "subtitle": "How we handle your data",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "subtitleData": "Your data protection rights"
           },
           "terms": {
@@ -10789,6 +11435,9 @@
           "disclaimer": {
             "title": "إخلاء المسؤولية",
             "subtitle": "Legal notices",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "subtitleRisk": "Risk disclosures"
           }
         },
@@ -10796,12 +11445,18 @@
           "trustScore": {
             "title": "نظام درجة الثقة",
             "subtitle": "3-stage verification process",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "subtitleHow": "How Trust Scores work",
             "subtitleVerification": "Verification methodology"
           },
           "wallet": {
             "title": "What is a Wallet?",
             "subtitle": "Wallet basics",
+            "forumTitle": "منتدى المجتمع",
+            "viewAll": "عرض الكل",
+            "recentPosts": "المشاركات الأخيرة",
             "subtitleSecurity": "Securing your assets"
           },
           "blockchain": {
@@ -10831,6 +11486,9 @@
       "terms": {
         "title": "شروط الخدمة",
         "subtitle": "Terms and conditions for using TBurn Lab services.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "backToHome": "العودة إلى الصفحة الرئيسية",
         "sections": {
           "acceptance": {
@@ -11025,6 +11683,9 @@
       "privacy": {
         "title": "سياسة الخصوصية",
         "subtitle": "How we collect, use, and protect your data.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "backToHome": "العودة إلى الصفحة الرئيسية",
         "sections": {
           "introduction": {
@@ -11237,6 +11898,9 @@
       "disclaimer": {
         "title": "إخلاء المسؤولية",
         "subtitle": "Important legal notices and risk disclosures.",
+        "forumTitle": "منتدى المجتمع",
+        "viewAll": "عرض الكل",
+        "recentPosts": "المشاركات الأخيرة",
         "backToHome": "العودة إلى الصفحة الرئيسية",
         "importantNotice": {
           "title": "Important Notice",

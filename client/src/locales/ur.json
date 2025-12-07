@@ -162,6 +162,9 @@
     "technicalDetails": "Technical Details",
     "title": "ڈیش بورڈ",
     "subtitle": "ریئل ٹائم بلاک چین نیٹ ورک کا جائزہ",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "networkStats": "نیٹ ورک اعدادوشمار",
     "totalBlocks": "کل بلاکس",
     "totalTransactions": "کل لین دین",
@@ -173,7 +176,6 @@
     "gasUsed": "استعمال شدہ گیس",
     "txCount": "TX گنتی",
     "timestamp": "ٹائم اسٹیمپ",
-    "viewAll": "سب دیکھیں",
     "networkHealth": "نیٹ ورک صحت",
     "healthy": "صحت مند",
     "degraded": "خراب",
@@ -186,6 +188,9 @@
     "details": "Details",
     "title": "اسٹیکنگ ڈیش بورڈ",
     "subtitle": "انعامات کمانے اور نیٹ ورک گورننس میں حصہ لینے کے لیے TBURN اسٹیک کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "stakingPools": "اسٹیکنگ پولز",
     "tierSystem": "ٹیئر سسٹم",
     "aiInsights": "AI انسائٹس",
@@ -302,6 +307,9 @@
   "dex": {
     "title": "غیر مرکزی ایکسچینج",
     "subtitle": "انٹرپرائز گریڈ لیکویڈیٹی کے ساتھ ٹوکن ٹریڈ کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "swap": "سواپ",
     "swapTokens": "ٹوکن سواپ کریں",
     "liquidityPools": "لیکویڈیٹی پولز",
@@ -344,6 +352,9 @@
   "lending": {
     "title": "لینڈنگ پروٹوکول",
     "subtitle": "غیر مرکزی لینڈنگ کے ساتھ سپلائی، قرض اور کمائی کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "markets": "مارکیٹس",
     "supply": "سپلائی",
     "borrow": "قرض",
@@ -380,6 +391,9 @@
   "bridge": {
     "title": "کراس چین برج",
     "subtitle": "محفوظ طریقے سے بلاک چینز میں اثاثے منتقل کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "transfer": "منتقلی",
     "history": "تاریخ",
     "fromChain": "سے چین",
@@ -468,6 +482,9 @@
   "blocks": {
     "title": "بلاکس ایکسپلورر",
     "subtitle": "TBURN بلاک چین پر تمام بلاکس دیکھیں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "blockNumber": "بلاک نمبر",
     "blockHash": "بلاک ہیش",
     "parentHash": "پیرنٹ ہیش",
@@ -520,6 +537,9 @@
   "transactions": {
     "title": "لین دین ایکسپلورر",
     "subtitle": "TBURN بلاک چین پر تمام لین دین دیکھیں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "txHash": "لین دین ہیش",
     "blockNumber": "بلاک نمبر",
     "from": "سے",
@@ -547,6 +567,9 @@
   "validators": {
     "title": "ویلیڈیٹرز",
     "subtitle": "نیٹ ورک ویلیڈیٹرز اور ان کی کارکردگی",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "validatorAddress": "ویلیڈیٹر پتہ",
     "validatorName": "ویلیڈیٹر نام",
     "stake": "اسٹیک",
@@ -579,6 +602,9 @@
   "nft": {
     "title": "NFT مارکیٹ پلیس",
     "subtitle": "منفرد ڈیجیٹل اثاثے دریافت کریں، جمع کریں اور ٹریڈ کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "collections": "کلیکشنز",
     "explore": "دریافت کریں",
     "myNfts": "میرے NFTs",
@@ -617,6 +643,9 @@
   "admin": {
     "title": "ایڈمن پینل",
     "subtitle": "سسٹم انتظامیہ اور ترتیب",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "systemStatus": "سسٹم حیثیت",
     "mainnetStatus": "مین نیٹ حیثیت",
     "running": "چل رہا ہے",
@@ -646,6 +675,9 @@
   "token": {
     "title": "ٹوکن سسٹم v4.0",
     "subtitle": "AI سے بہتر انٹرپرائز ٹوکن معیارات",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "tbc20": "TBC-20",
     "tbc721": "TBC-721",
     "tbc1155": "TBC-1155",
@@ -677,6 +709,9 @@
   "yield": {
     "title": "یلڈ فارمنگ",
     "subtitle": "یلڈ حکمت عملیوں کے ساتھ اپنے منافع کو زیادہ سے زیادہ کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "vaults": "والٹس",
     "myVaults": "میرے والٹس",
     "deposit": "جمع کریں",
@@ -706,6 +741,9 @@
   "liquidStaking": {
     "title": "لیکوڈ اسٹیکنگ",
     "subtitle": "لیکوڈ اسٹیکنگ ٹوکنز کے ساتھ اسٹیک کریں اور لیکویڈیٹی برقرار رکھیں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "stake": "اسٹیک",
     "unstake": "ان اسٹیک",
     "mint": "منٹ",
@@ -729,6 +767,9 @@
   "launchpad": {
     "title": "NFT لانچ پیڈ",
     "subtitle": "خصوصی NFT لانچز میں دریافت اور شرکت کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "upcomingLaunches": "آنے والی لانچز",
     "activeLaunches": "فعال لانچز",
     "pastLaunches": "ماضی کی لانچز",
@@ -754,6 +795,9 @@
   "gamefi": {
     "title": "GameFi ہب",
     "subtitle": "پلے ٹو ارن گیمنگ ایکو سسٹم",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "games": "گیمز",
     "tournaments": "ٹورنامنٹس",
     "assets": "اثاثے",
@@ -822,6 +866,9 @@
   "aiOrchestration": {
     "title": "AI آرکیسٹریشن",
     "subtitle": "ٹرپل بینڈ AI سسٹم مانیٹرنگ اور مینجمنٹ",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "tripleBandAi": "ٹرپل بینڈ AI",
     "gpt5": "GPT-5",
     "claudeSonnet": "Claude Sonnet 4.5",
@@ -945,6 +992,9 @@
   "consensus": {
     "title": "اتفاق رائے",
     "subtitle": "AI بہتر کمیٹی BFT اتفاق رائے مانیٹرنگ",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "currentRound": "موجودہ راؤنڈ",
     "proposer": "تجویز کنندہ",
     "preVotes": "پری ووٹس",
@@ -983,6 +1033,9 @@
   "sharding": {
     "title": "شارڈنگ",
     "subtitle": "ڈائنامک AI سے چلنے والا شارڈنگ سسٹم",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "shards": "شارڈز",
     "shardId": "شارڈ ID",
     "tps": "TPS",
@@ -997,6 +1050,9 @@
   "smartContracts": {
     "title": "سمارٹ کنٹریکٹس",
     "subtitle": "سمارٹ کنٹریکٹس تعینات اور تعامل کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "deployedContracts": "تعینات کنٹریکٹس",
     "contractAddress": "کنٹریکٹ پتہ",
     "contractName": "کنٹریکٹ نام",
@@ -1018,6 +1074,9 @@
   "nodeHealth": {
     "title": "نوڈ صحت",
     "subtitle": "پیش گوئی کرنے والا خود علاج کرنے والا سسٹم مانیٹرنگ",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "systemMetrics": "سسٹم میٹرکس",
     "cpu": "CPU",
     "memory": "میموری",
@@ -1040,6 +1099,9 @@
   "operator": {
     "title": "آپریٹر پورٹل",
     "subtitle": "جامع نیٹ ورک آپریشنز مینجمنٹ",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "enterpriseBackoffice": "TBURN نیٹ ورک مینجمنٹ کے لیے انٹرپرائز بیک آفس",
     "adminAccess": "ایڈمن رسائی",
     "logout": "لاگ آؤٹ",
@@ -1077,6 +1139,9 @@
       "technicalDetails": "Technical Details",
       "title": "آپریٹر پورٹل",
       "subtitle": "TBURN نیٹ ورک مینجمنٹ کے لیے انٹرپرائز بیک آفس",
+      "forumTitle": "کمیونٹی فورم",
+      "viewAll": "سب دیکھیں",
+      "recentPosts": "حالیہ پوسٹس",
       "autoRefresh": "خودکار",
       "paused": "موقوف",
       "accessDenied": "رسائی نامنظور",
@@ -1197,6 +1262,9 @@
     "validators": {
       "title": "ویلیڈیٹر آپریشنز",
       "subtitle": "درخواستوں کا جائزہ لیں، ویلیڈیٹرز کا انتظام کریں اور سلیشنگ لاگو کریں",
+      "forumTitle": "کمیونٹی فورم",
+      "viewAll": "سب دیکھیں",
+      "recentPosts": "حالیہ پوسٹس",
       "slashValidator": "ویلیڈیٹر کو سزا دیں",
       "applications": "درخواستیں",
       "performance": "کارکردگی",
@@ -1330,6 +1398,9 @@
     "security": {
       "title": "سیکورٹی آڈٹ",
       "subtitle": "سیکورٹی ایونٹس کی نگرانی کریں، آڈٹ لاگز کا جائزہ لیں اور تعمیل کا انتظام کریں",
+      "forumTitle": "کمیونٹی فورم",
+      "viewAll": "سب دیکھیں",
+      "recentPosts": "حالیہ پوسٹس",
       "logSecurityEvent": "سیکورٹی ایونٹ لاگ کریں",
       "criticalEvents": "نازک ایونٹس",
       "highPriority": "اعلیٰ ترجیح",
@@ -1521,6 +1592,9 @@
     "reports": {
       "title": "تعمیل رپورٹس",
       "subtitle": "ریگولیٹری تعمیل رپورٹس بنائیں، شیڈول کریں اور انتظام کریں",
+      "forumTitle": "کمیونٹی فورم",
+      "viewAll": "سب دیکھیں",
+      "recentPosts": "حالیہ پوسٹس",
       "exportCsv": "CSV ایکسپورٹ کریں",
       "newSchedule": "نیا شیڈول",
       "generateReport": "رپورٹ بنائیں",
@@ -1664,6 +1738,9 @@
       "details": "Details",
       "title": "اسٹیکنگ آپریشنز",
       "subtitle": "اسٹیکنگ پولز، ٹیئرز اور انعام کی تقسیم کا انتظام کریں",
+      "forumTitle": "کمیونٹی فورم",
+      "viewAll": "سب دیکھیں",
+      "recentPosts": "حالیہ پوسٹس",
       "refresh": "ریفریش",
       "createPool": "پول بنائیں",
       "totalStaked": "کل اسٹیک شدہ",
@@ -1680,6 +1757,9 @@
   "walletSdk": {
     "title": "والیٹ SDK",
     "subtitle": "انٹرپرائز والیٹ انٹیگریشن ٹول کٹ",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "walletConnect": "والیٹ جوڑیں",
     "walletDisconnect": "والیٹ منقطع کریں",
     "walletAddress": "والیٹ پتہ",
@@ -1696,6 +1776,9 @@
   "txSimulator": {
     "title": "لین دین سمیلیٹر",
     "subtitle": "عمل درآمد سے پہلے لین دین کی نقل اور ٹیسٹ کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "simulate": "نقل کریں",
     "simulationResult": "نقل کا نتیجہ",
     "gasEstimate": "گیس کا تخمینہ",
@@ -1712,6 +1795,9 @@
   "security": {
     "title": "سیکورٹی",
     "subtitle": "نیٹ ورک سیکورٹی مانیٹرنگ اور الرٹس",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "securityScore": "سیکورٹی سکور",
     "threats": "خطرات",
     "vulnerabilities": "کمزوریاں",
@@ -1728,6 +1814,9 @@
   "performance": {
     "title": "کارکردگی",
     "subtitle": "سسٹم کارکردگی میٹرکس اور آپٹیمائزیشن",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "cpuUsage": "CPU استعمال",
     "memoryUsage": "میموری استعمال",
     "diskUsage": "ڈسک استعمال",
@@ -1742,6 +1831,9 @@
   "wallets": {
     "title": "والیٹس",
     "subtitle": "والیٹ ایڈریسز اور ہولڈنگز تلاش کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "balance": "بیلنس",
     "transactions": "لین دین",
     "tokens": "ٹوکنز",
@@ -1761,6 +1853,9 @@
   "members": {
     "title": "ممبران کا انتظام",
     "subtitle": "ممبران، سٹیکرز اور ویلیڈیٹرز کا جامع انتظامی نظام",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "totalMembers": "کل ممبران",
     "activeMembers": "فعال ممبران",
     "totalValidators": "کل ویلیڈیٹرز",
@@ -1885,6 +1980,9 @@
   "stakingRewards": {
     "title": "انعامات مرکز",
     "subtitle": "اپنے سٹیکنگ انعامات کو ٹریک اور کلیم کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "cycle": "سائیکل",
     "pendingRewards": "زیر التواء انعامات",
     "readyToClaim": "کلیم کے لیے تیار",
@@ -1914,6 +2012,9 @@
   "stakingSdk": {
     "title": "والیٹ SDK اور ڈیولپمنٹ ٹولز",
     "subtitle": "جامع APIs اور SDKs کے ساتھ اپنی ایپلیکیشن میں TBURN سٹیکنگ کو مربوط کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "quickStart": "فوری آغاز",
     "quickStartDesc": "قدم بہ قدم گائیڈ کے ساتھ منٹوں میں شروع کریں",
     "apiReference": "API حوالہ",
@@ -1950,6 +2051,9 @@
   "tokenSystem": {
     "title": "ٹوکن سسٹم v4.0",
     "subtitle": "کوانٹم مزاحمت اور AI آپٹیمائزیشن کے ساتھ AI بہتر انٹرپرائز ٹوکن معیارات",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "tripleBandAi": "ٹرپل بینڈ AI",
     "quantumResistant": "کوانٹم مزاحم",
     "audited": "آڈٹ شدہ",
@@ -2104,6 +2208,9 @@
   "crossShard": {
     "title": "کراس شارڈ کمیونیکیشن",
     "subtitle": "انٹر شارڈ میسج روٹنگ اور ڈیلیوری کی نگرانی کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "pendingMessages": "زیر التواء پیغامات",
     "awaitingConfirmation": "تصدیق کا انتظار",
     "confirmed": "تصدیق شدہ",
@@ -2160,6 +2267,9 @@
   "apiKeys": {
     "title": "API کلیدیں",
     "subtitle": "TBURN بلاکچین API تک محفوظ رسائی کے لیے API کلیدوں کا انتظام کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "createNewKey": "نئی API کلید بنائیں",
     "createDescription": "پروگرامیٹک رسائی کے لیے نئی API کلید تیار کریں۔ کلید صرف ایک بار دکھائی جائے گی۔",
     "keyLabel": "API کلید لیبل",
@@ -2209,6 +2319,9 @@
   "performanceMetrics": {
     "title": "کارکردگی میٹرکس",
     "subtitle": "ریئل ٹائم نیٹ ورک کارکردگی تجزیات اور SLA نگرانی",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "currentTps": "موجودہ TPS",
     "peakTps": "پیک TPS",
     "ofPeak": "پیک کا",
@@ -2235,6 +2348,9 @@
   "login": {
     "title": "TBURN چین",
     "subtitle": "مین نیٹ بلاکچین ایکسپلورر",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "password": "پاس ورڈ",
     "enterPassword": "پاس ورڈ درج کریں",
     "loggingIn": "لاگ ان ہو رہا ہے...",
@@ -2296,6 +2412,9 @@
   "governance": {
     "title": "AI گورننس",
     "subtitle": "AI-بہتر DAO - تجویز تجزیہ اور نتائج کی پیش گوئی",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "aiPowered": "AI سے چلنے والا",
     "totalProposals": "کل تجاویز",
     "activeCount": "{{count}} فعال",
@@ -2407,6 +2526,9 @@
   "burn": {
     "title": "آٹو-برن ڈیش بورڈ",
     "subtitle": "ملٹی-ٹرگر میکانزم کے ساتھ AI سے بہتر خود مختار برن سسٹم",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "deflationary": "ڈیفلیشنری",
     "totalBurned": "کل جلایا گیا",
     "tburnPermanentlyRemoved": "TBURN مستقل طور پر ہٹا دیا گیا",
@@ -2504,6 +2626,9 @@
   "community": {
     "title": "عنوان",
     "subtitle": "TBURN ایکو سسٹم کے ساتھ جڑیں، تعاون کریں اور ترقی کریں",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "online": "آن لائن",
     "totalMembers": "کل ممبران",
     "thisWeek": "اس ہفتے",
@@ -2783,6 +2908,9 @@
     "badge": "VC ٹیسٹ موڈ",
     "title": "TBURN پلیٹ فارم",
     "subtitle": "سرمایہ کاری ٹیسٹ ماحول",
+    "forumTitle": "کمیونٹی فورم",
+    "viewAll": "سب دیکھیں",
+    "recentPosts": "حالیہ پوسٹس",
     "description": "پہلے سے فنڈڈ ڈیمو والیٹ کے ساتھ TBURN مین نیٹ کی مکمل صلاحیتوں کا تجربہ کریں۔ تمام DeFi خصوصیات کی جانچ کریں، ہماری AI آرکیسٹریشن کا جائزہ لیں، اور ہماری ٹیکنالوجی کا اندازہ لگائیں۔",
     "startTour": "گائیڈڈ ٹور شروع کریں",
     "explorePlatform": "پلیٹ فارم دریافت کریں",
@@ -2886,6 +3014,9 @@
       "gatewayRegister": "گیٹ_وے_رجسٹریشن",
       "title": "ابتدا کریں",
       "subtitle": "نیورل لیئر پر نئی شناخت بنائیں",
+      "forumTitle": "کمیونٹی فورم",
+      "viewAll": "سب دیکھیں",
+      "recentPosts": "حالیہ پوسٹس",
       "nodeAlias": "نوڈ عرفیت",
       "usernamePlaceholder": "صارف نام درج کریں",
       "signalFrequency": "سگنل فریکوئنسی (ای میل)",
@@ -3267,6 +3398,9 @@
       "solutions": {
         "title": "بنیادی حل",
         "subtitle": "انٹرپرائز گریڈ بلاکچین انفراسٹرکچر",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "tripleBandAi": {
           "title": "ٹرپل بینڈ AI",
           "description": "تین سطحی AI آرکیسٹریشن جو حکمت عملی، تکنیکی اور آپریشنل سطحوں پر بہتر فیصلہ سازی کا استعمال کرتی ہے۔"
@@ -3299,6 +3433,9 @@
       "cta": {
         "title": "اعتماد بنانے کے لیے تیار ہیں؟",
         "subtitle": "ہزاروں ڈویلپرز میں شامل ہوں جو اعتماد پر مبنی بلاکچین کا مستقبل بنا رہے ہیں",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "exploreEcosystem": "ایکو سسٹم دریافت کریں",
         "joinCommunity": "کمیونٹی میں شامل ہوں"
       }
@@ -3308,6 +3445,9 @@
         "tag": "V4 لرننگ سینٹر",
         "title": "ایجوکیشن ہب",
         "subtitle": "TBurn Lab V4 ایکو سسٹم میں مہارت حاصل کریں۔ اعتماد پر مبنی اتفاق رائے الگورتھم سے لے کر تیز رفتار dApps بنانے تک، اپنا سفر یہاں سے شروع کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "stats": {
           "courses": "کورسز",
           "learners": "سیکھنے والے",
@@ -3492,6 +3632,9 @@
         "tag": "تعارف",
         "title": "TBurn Lab کیا ہے؟",
         "subtitle": "دنیا کی پہلی اعتماد پر مبنی بلاکچین دریافت کریں جس میں AI تصدیق اور کوانٹم مزاحم سیکیورٹی ہے۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "coreFeatures": {
           "title": "بنیادی خصوصیات",
           "items": {
@@ -3517,6 +3660,9 @@
         "consensus": {
           "title": "اتفاق رائے میکانزم",
           "subtitle": "Proof کا Trust (PoT) ویلیڈیشن کو ٹرسٹ سکورنگ کے ساتھ جوڑتا ہے",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "specs": {
             "blockTime": "بلاک ٹائم",
             "finality": "فائنلٹی",
@@ -3572,6 +3718,9 @@
         "tag": "بنیادی فیچر",
         "title": "ٹرسٹ سکور سسٹم",
         "subtitle": "3 مرحلے کے تصدیقی نظام، AI تجزیہ اور متحرک سکورنگ الگورتھم میں گہرائی سے جائیں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "philosophy": {
           "title": "تشخیص کا فلسفہ",
           "description": "ٹرسٹ سکورز سرمایہ کاروں کی حفاظت کے لیے ڈیزائن کیے گئے ہیں، متعدد جہتوں کے ذریعے پروجیکٹ کی قابل اعتمادی کا جائزہ لے کر",
@@ -3747,6 +3896,9 @@
         "tag": "شروع کرنا",
         "title": "والیٹ کیا ہے؟",
         "subtitle": "کرپٹو کرنسی والیٹس، سیکیورٹی کے بہترین طریقے اور اپنا TBurn والیٹ کیسے ترتیب دیں سیکھیں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "types": {
           "title": "والیٹ کی اقسام",
           "hot": {
@@ -3820,9 +3972,15 @@
         "tag": "تکنیکی دستاویز",
         "title": "وائٹ پیپر",
         "subtitle": "TBurn Lab آرکیٹیکچر، اتفاق رائے اور ٹوکنومکس کی مکمل تکنیکی دستاویزات۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "trustCrisis": {
           "title": "اعتماد کا بحران",
           "subtitle": "ہم جو مسئلہ حل کرتے ہیں اسے سمجھنا",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "stats": {
             "rugPulls": {
               "value": "$2.8B",
@@ -3907,6 +4065,9 @@
             "description": "فوری فراڈ کا پتہ لگانا اور روک تھام"
           },
           "subtitle": "میںtelligent decہےiپر-mایکkمیںg ہممیںg three dہےtمیںct ایکI models.",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "items": {
             "strategic": {
               "title": "Strپرegic Lایکyer",
@@ -3986,6 +4147,9 @@
         "tag": "معاشیات",
         "title": "ٹوکن اکنامکس",
         "subtitle": "TBURN ٹوکن کی تقسیم، اجراء کے شیڈول اور افراط زر کے میکانزم کو سمجھیں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "marketStats": {
           "title": "مارکیٹ کے اعدادوشمار",
           "totalSupply": "کل سپلائی",
@@ -4082,6 +4246,9 @@
         "distributionSection": {
           "title": "ٹوکن کی تقسیم",
           "subtitle": "طویل مدتی ایکو سسٹم کی ترقی اور پائیداری کے لیے اسٹریٹجک تخصیص",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
@@ -4126,6 +4293,9 @@
         "tag": "ترقی",
         "title": "روڈ میپ",
         "subtitle": "مرکزی دھارے میں اپنانے کے سفر پر ہماری پیشرفت اور آنے والے سنگ میل کو ٹریک کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "phases": {
           "phase1": {
             "title": "فیز 1: بنیاد",
@@ -4239,6 +4409,9 @@
         "tag": "ابتدائی",
         "title": "بلاکچین کی بنیادیں",
         "subtitle": "بلاکچین ٹیکنالوجی اور تقسیم شدہ سسٹمز کے بنیادی تصورات۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "duration": "4 گھنٹے",
         "backToEducation": "تعلیمی پروگراموں پر واپس",
         "courseOverview": {
@@ -4253,21 +4426,33 @@
           "module1": {
             "title": "بلاکچین کیا ہے؟",
             "subtitle": "تقسیم شدہ لیجر ٹیکنالوجی کو سمجھنا",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "45 منٹ"
           },
           "module2": {
             "title": "خفیہ نگاری کی بنیادیں",
             "subtitle": "ہیش فنکشنز، دستخط اور انکرپشن",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "60 منٹ"
           },
           "module3": {
             "title": "اتفاق رائے کے طریقے",
             "subtitle": "PoW، PoS اور TBurn کا Proof of Trust",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "75 منٹ"
           },
           "module4": {
             "title": "TBurn Lab فن تعمیر",
             "subtitle": "ہمارے اعتماد پر مبنی نظام میں گہرائی سے غوطہ",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "60 منٹ"
           }
         },
@@ -4312,6 +4497,9 @@
         "tag": "درمیانی",
         "title": "DeFi مہارت",
         "subtitle": "DEX، لینڈنگ اور یلڈ حکمت عملیوں سمیت غیر مرکزی فنانس کے تصورات میں مہارت حاصل کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "duration": "8 گھنٹے",
         "backToEducation": "تعلیمی پروگراموں پر واپس",
         "stats": {
@@ -4340,21 +4528,33 @@
           "module1": {
             "title": "DEX اور AMM میکانکس",
             "subtitle": "خودکار مارکیٹ میکرز کو سمجھنا",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "90 منٹ"
           },
           "module2": {
             "title": "لینڈنگ پروٹوکولز",
             "subtitle": "ضمانت شدہ قرضہ لینا اور دینا",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "120 منٹ"
           },
           "module3": {
             "title": "لیکویڈیٹی فراہمی",
             "subtitle": "LP ٹوکنز، عارضی نقصان، اور انعامات",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "90 منٹ"
           },
           "module4": {
             "title": "یلڈ حکمت عملیاں",
             "subtitle": "اعتماد سے بڑھی ہوئی یلڈ کے ساتھ منافع کو بہتر بنانا",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "120 منٹ"
           }
         },
@@ -4407,6 +4607,9 @@
         "tag": "ایڈوانسڈ",
         "title": "ڈویلپر کورس",
         "subtitle": "TBurn Lab پر dApps بنانے اور تعینات کرنے کی مکمل گائیڈ۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "duration": "20 گھنٹے",
         "backToEducation": "تعلیمی پروگراموں پر واپس",
         "courseOverview": {
@@ -4418,21 +4621,33 @@
           "module1": {
             "title": "SDK سیٹ اپ اور ترتیب",
             "subtitle": "ماحول کی تیاری اور پروجیکٹ شروع کرنا",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "2 گھنٹے"
           },
           "module2": {
             "title": "سمارٹ کنٹریکٹ ڈویلپمنٹ",
             "subtitle": "محفوظ، بہتر کنٹریکٹس لکھنا",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "6 گھنٹے"
           },
           "module3": {
             "title": "API انضمام",
             "subtitle": "REST، GraphQL، اور WebSocket APIs",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "4 گھنٹے"
           },
           "module4": {
             "title": "تعیناتی اور DevOps",
             "subtitle": "مین نیٹ پر تعیناتی اور مانیٹرنگ",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "4 گھنٹے"
           }
         },
@@ -4491,6 +4706,9 @@
         "tag": "ابتدائی",
         "title": "DeFi کا تعارف",
         "subtitle": "TBurn Lab پر غیر مرکزی فنانس میں آپ کے پہلے قدم۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "duration": "2 گھنٹے",
         "backToEducation": "تعلیمی پروگراموں پر واپس",
         "scoreFormula": {
@@ -4614,6 +4832,9 @@
         "tag": "پروگرامز",
         "title": "تعلیمی پروگرامز",
         "subtitle": "بلاکچین تعلیم کے لیے ساختہ سیکھنے کے راستے اور سرٹیفیکیشن پروگرامز۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "backToLearn": "سیکھنے پر واپس",
         "pathsTitle": "سیکھنے کے راستے",
         "pathsSubtitle": "اپنے اہداف اور تجربے کی سطح کے مطابق ایک ساختہ راستہ منتخب کریں۔",
@@ -4642,24 +4863,36 @@
           "beginner": {
             "title": "بلاکچین کی بنیادیں",
             "subtitle": "بنیادی تصورات اور اصطلاحات کے ساتھ اپنا بلاکچین سفر شروع کریں۔",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "۶ گھنٹے",
             "level": "ابتدائی"
           },
           "defi": {
             "title": "DeFi ماہر",
             "subtitle": "غیر مرکزی مالیات کے پروٹوکولز اور حکمت عملیوں میں مہارت حاصل کریں۔",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "۱۲ گھنٹے",
             "level": "درمیانی"
           },
           "developer": {
             "title": "سمارٹ کنٹریکٹ ڈویلپر",
             "subtitle": "TBurn Lab پر پروڈکشن کے لیے تیار dApps بنائیں۔",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "۲۰ گھنٹے",
             "level": "ایڈوانسڈ"
           },
           "security": {
             "title": "سیکورٹی اور اعتماد",
             "subtitle": "Trust Score، سیکورٹی آڈٹ اور بہترین طریقوں کے بارے میں جانیں۔",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "duration": "۱۰ گھنٹے",
             "level": "درمیانی"
           }
@@ -4730,6 +4963,9 @@
         "tag": "V4 SDK اور API تیار",
         "title": "ڈویلپر ہب",
         "subtitle": "اگلی نسل کی اعتماد پر مبنی ایپلیکیشنز بنائیں۔ TBurn Lab V4 ایکو سسٹم کے لیے جامع ڈویلپمنٹ ٹولز، SDKs اور APIs تک رسائی حاصل کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "getStarted": "شروع کریں",
         "viewDocs": "دستاویزات دیکھیں",
         "quickStart": {
@@ -4743,6 +4979,9 @@
         "apiReference": {
           "title": "API حوالہ",
           "subtitle": "RESTful API اور WebSocket سٹریمنگ",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "blockchainApi": "بلاکچین API",
           "defiApi": "DeFi API",
           "aiApi": "AI API"
@@ -4764,6 +5003,9 @@
         "grants": {
           "title": "ڈویلپر گرانٹس پروگرام",
           "subtitle": "ہم TBurn Lab ایکو سسٹم کو بڑھانے والے پروجیکٹس کی حمایت کرتے ہیں۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "totalFund": "$50M کل گرانٹ فنڈ"
         },
         "quickStartSteps": {
@@ -4912,6 +5154,9 @@
         "tag": "دستاویزات",
         "title": "دستاویزات",
         "subtitle": "TBurn Lab ڈویلپمنٹ کے لیے جامع گائیڈز اور حوالہ جات۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "heroDescription": "TBurn Lab پر تعمیر کے لیے آپ کو سب کچھ درکار ہے۔ فوری شروعات سے لے کر ایڈوانسڈ API حوالہ جات تک۔",
         "searchPlaceholder": "دستاویزات تلاش کریں...",
         "categoriesTitle": "دستاویزات کے زمرے",
@@ -4923,6 +5168,9 @@
         "architecture": {
           "title": "نیٹ ورک آرکیٹیکچر",
           "subtitle": "TBurn Lab ملٹی لیئر آرکیٹیکچر کو سمجھنا",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "layers": {
             "consensus": {
               "title": "اتفاق رائے کی پرت",
@@ -5035,6 +5283,9 @@
         "tag": "API حوالہ",
         "title": "API دستاویزات",
         "subtitle": "بلاکچین، DeFi اور AI سروسز کے لیے RESTful API اینڈ پوائنٹس۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "baseUrl": "بیس URL",
         "coreEndpoints": "کور اینڈ پوائنٹس",
         "parameters": "پیرامیٹرز",
@@ -5120,6 +5371,9 @@
         "tag": "CLI ٹولز",
         "title": "CLI حوالہ",
         "subtitle": "پروجیکٹ مینجمنٹ اور تعیناتی کے لیے کمانڈ لائن انٹرفیس۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "currentVersion": "موجودہ ورژن",
         "usage": "استعمال",
         "options": "اختیارات",
@@ -5204,6 +5458,9 @@
         "tag": "SDK گائیڈ",
         "title": "SDK گائیڈ",
         "subtitle": "ملٹی لینگویج SDK انٹیگریشن گائیڈز اور بہترین طریقے۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "installation": "انسٹالیشن",
         "configuration": "ترتیب",
         "quickExamples": "فوری مثالیں",
@@ -5242,6 +5499,9 @@
         "tag": "سمارٹ کنٹریکٹس",
         "title": "سمارٹ کنٹریکٹس",
         "subtitle": "TBurn Lab پر محفوظ سمارٹ کنٹریکٹس لکھیں، ٹیسٹ کریں اور تعینات کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "contractTemplates": "کنٹریکٹ ٹیمپلیٹس",
         "copy": "کاپی کریں",
         "copied": "کاپی ہو گیا!",
@@ -5328,6 +5588,9 @@
         "gasOptimization": {
           "title": "گیس آپٹیمائزیشن",
           "subtitle": "ٹرانزیکشن لاگت کم کرنے کے لیے تجاویز",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "tip1": "متعدد چھوٹے متغیرات کو سنگل سٹوریج سلاٹس میں پیک کریں",
           "tip2": "ریڈ اونلی فنکشن پیرامیٹرز کے لیے میموری کی بجائے calldata استعمال کریں",
           "tip3": "متعدد بار رسائی ہونے پر سٹوریج متغیرات کو میموری میں کیش کریں",
@@ -5385,6 +5648,9 @@
         "tag": "ریئل ٹائم",
         "title": "WebSocket API",
         "subtitle": "ریئل ٹائم ڈیٹا سٹریمنگ اور ایونٹ سبسکرپشنز۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "connectionEndpoints": "کنکشن اینڈ پوائنٹس",
         "subscriptionChannels": "سبسکرپشن چینلز",
         "fullReference": "مکمل حوالہ",
@@ -5433,6 +5699,9 @@
         "tag": "کوڈ مثالیں",
         "title": "کوڈ مثالیں",
         "subtitle": "استعمال کے لیے تیار کوڈ سنپٹس اور نمونہ پروجیکٹس۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "commonRecipes": "عام ریسپیز",
         "categories": {
           "allRecipes": "تمام ریسپیز",
@@ -5497,6 +5766,9 @@
         "tag": "شروع کرنا",
         "title": "فوری شروعات",
         "subtitle": "منٹوں میں TBurn Lab کے ساتھ شروع کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "whatsNext": "Whپر's اگلا?",
         "prerequisites": {
           "title": "Prerequہےites",
@@ -5560,6 +5832,9 @@
         "tag": "سیٹ اپ",
         "title": "انسٹالیشن گائیڈ",
         "subtitle": "قدم بہ قدم انسٹالیشن اور کنفیگریشن ہدایات۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "startBuilding": "شروع تعمیر کریںمیںg",
         "viewQuickStart": "دیکھیں فوری شروع",
         "systemRequirements": "System Requirements",
@@ -5584,6 +5859,9 @@
           "minimum": {
             "title": "کم سے کم Requirements",
             "subtitle": "Fیا ڈویلپمنٹ اور testمیںg",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "cpu": "4 cیاes / 8 threایکds",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
@@ -5592,6 +5870,9 @@
           "recommended": {
             "title": "Recommended Requirements",
             "subtitle": "Fیا productiپر vایکlidپریاs",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "cpu": "8+ cیاes / 16 threایکds",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
@@ -5606,6 +5887,9 @@
           "ports": {
             "title": "Netwیاk Pیاts",
             "subtitle": "ضروری pیاts کے لیے node operپرiپر",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
@@ -5719,6 +6003,9 @@
         "tag": "مائیگریشن",
         "title": "EVM مائیگریشن",
         "subtitle": "اپنے Ethereum dApps کو TBurn Lab میں منتقل کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "startMigration": "شروع Migrپرiپر",
         "viewGuide": "دیکھیں Full گائیڈ",
         "overview": {
@@ -5774,6 +6061,9 @@
         "keyDifferences": {
           "title": "Key Technicایکl Differences",
           "subtitle": "Whپر sets TBurn Chایکمیں ایکpایکrt from trایکditiپرایکl EVM chایکمیںs",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "existingEvmChains": "Exہےtمیںg EVM Chایکمیںs",
           "tburnChain": "TBurn Chایکمیں",
           "upgrade": "Upgrایکde"
@@ -5864,6 +6154,9 @@
         "title": "DeFi ہب",
         "titleHighlight": "ایکو سسٹم",
         "subtitle": "DEX، لینڈنگ، اسٹیکنگ اور یلڈ فارمنگ کے ساتھ مکمل غیر مرکزی فنانس انفراسٹرکچر۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "features": {
           "dex": "DEX/AMM",
           "lending": "لینڈنگ پروٹوکول",
@@ -5913,6 +6206,9 @@
         "cta": {
           "title": "TBurn DeFi پر تجارت شروع کریں",
           "subtitle": "سب سے زیادہ قابل اعتماد غیر مرکزی فنانس ایکو سسٹم تک رسائی",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "launchApp": "ایپ لانچ کریں",
           "viewDocs": "دستاویزات دیکھیں"
         },
@@ -6035,6 +6331,9 @@
         "title": "ٹوکن",
         "titleHighlight": "ایکسٹینشنز",
         "subtitle": "بلٹ ان ٹرسٹ ویریفیکیشن اور خودکار برن میکانکس کے ساتھ ایڈوانسڈ TBC-20 ٹوکن معیارات۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "exploreBrc20": "TBC-20 دریافت کریں",
         "readSpecs": "وضاحتیں پڑھیں",
         "features": {
@@ -6079,6 +6378,9 @@
         "brc20Standard": {
           "title": "TBC-20 ٹوکن اسٹینڈرڈ",
           "subtitle": "ٹرسٹ اور برن فنکشنالٹی کے لیے بنیادی انٹرفیسز۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "trustScoreFunctions": "ٹرسٹ سکور فنکشنز",
           "autoBurnFunctions": "آٹو برن فنکشنز"
         },
@@ -6127,6 +6429,9 @@
         "cta": {
           "title": "TBC-20 ٹوکنز جاری کرنا شروع کریں",
           "subtitle": "5 منٹ سے کم میں بلٹ ان ٹرسٹ ریٹنگ خصوصیات کے ساتھ ٹوکنز جاری کریں۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "openConsole": "ڈویلپر کنسول کھولیں",
           "viewApiDocs": "API دستاویزات دیکھیں"
         },
@@ -6139,6 +6444,9 @@
         "brc20": {
           "title": "TBC-20 ٹوکن معیار",
           "subtitle": "ٹرسٹ اور برن فنکشنالٹی کے لیے بنیادی انٹرفیسز۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "trustScoreFunctions": "ٹرسٹ سکور فنکشنز",
           "autoBurnFunctions": "آٹو برن فنکشنز"
         },
@@ -6174,10 +6482,16 @@
         "title": "ایکشنز اور",
         "titleHighlight": "بلنکس",
         "subtitle": "سادہ URL لنکس کے ذریعے بلاکچین لین دین عمل میں لائیں۔ سوشل میڈیا پر سواپس، مائننگ، اور ووٹس شیئر کریں۔ ٹرسٹ سکور تصدیق شامل۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "createAction": "ایکشن بنائیں",
         "coreCapabilities": {
           "title": "بنیادی صلاحیتیں",
           "subtitle": "بلاکچین تعاملات کو معیاری بنانے والا اگلی نسل کا پروٹوکول",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "urlExecution": {
             "title": "URL عمل درآمد",
             "description": "ڈیپ لنکس کے ذریعے فوری سواپس، مائننگ، اور ووٹنگ۔"
@@ -6320,6 +6634,9 @@
         "title": "والیٹس اور",
         "titleHighlight": "سیکیورٹی",
         "subtitle": "قابل اعتماد والیٹس کا استعمال کرتے ہوئے TBurn Lab سے جڑیں۔ تمام والیٹس لین دین سے پہلے ریئل ٹائم ٹرسٹ سکورز دکھاتے ہیں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "recommended": "تجویز کردہ",
         "walletList": {
           "tburn": {
@@ -6398,11 +6715,17 @@
         "title": "اجازت یافتہ",
         "titleHighlight": "نیٹ ورکس",
         "subtitle": "TBurn Lab کی ٹرسٹ ویریفیکیشن کے ساتھ پرائیویٹ بلاکچین نیٹ ورکس تعینات کریں۔ پبلک چین اینکرنگ کے ساتھ انٹرپرائز گریڈ سیکیورٹی۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "contactSales": "سیلز سے رابطہ کریں",
         "viewWhitepaper": "وائٹ پیپر دیکھیں",
         "enterpriseFeatures": {
           "title": "انٹرپرائز گریڈ اجازت یافتہ چین",
           "subtitle": "کاروباروں کے لیے جدید کنٹرول اور تعمیل کی خصوصیات۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "rbac": {
             "title": "رول بیسڈ ایکسیس کنٹرول (RBAC)",
             "description": "ایڈمنز، ویلیڈیٹرز، اور صارفین کے لیے تفصیلی اجازت کی ترتیبات۔ سمارٹ کنٹریکٹ تعیناتی، لین دین کی منظوری، اور ڈیٹا سوالات کے لیے رول کی بنیاد پر الگ اجازتیں۔"
@@ -6423,6 +6746,9 @@
         "hybridArchitecture": {
           "title": "ہائبرڈ آرکیٹیکچر",
           "subtitle": "پرائیویٹ چین کی رازداری کو پبلک بلاکچین کی سیکیورٹی کے ساتھ جوڑیں۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "privateChainAnchor": {
             "title": "پرائیویٹ چین + پبلک اینکر",
             "description": "اندرونی لین دین تیز رفتار پرائیویٹ چین پر چلتے ہیں، جبکہ وقفے وقفے سے اسٹیٹ ہیشز TBurn پبلک مین نیٹ میں اینکر ہوتے ہیں تاکہ ناقابل تبدیلی یقینی ہو۔"
@@ -6573,10 +6899,16 @@
         "title": "گیم",
         "titleHighlight": "ٹولنگ",
         "subtitle": "NFT تصدیق، P2E میکانکس، اور کراس گیم اثاثہ تجارت کے ساتھ مکمل GameFi SDK۔ ٹرسٹ سکور دھوکہ دہی والے گیم پروجیکٹس کو روکتا ہے۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "getUnitySdk": "Unity SDK حاصل کریں",
         "whyBuild": {
           "title": "TBurn پر کیوں بنائیں؟",
           "subtitle": "تیز رفتار گیمنگ اور محفوظ اثاثہ تجارت کے لیے بہتر۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "ultraFastProcessing": {
             "title": "انتہائی تیز پروسیسنگ",
             "description": "50,000+ TPS (پیک 520,000+ TPS) تھروپٹ ریئل ٹائم ان گیم آئٹم تجارت کو فعال کرتا ہے۔ اوسطاً 1 سیکنڈ بلاک ٹائم کے ساتھ، کھلاڑی بغیر تاخیر فوری تصدیق کا تجربہ کرتے ہیں۔"
@@ -6633,6 +6965,9 @@
             "desc": "Immersive virtuایکl envirپرments کے ساتھ verified digitایکl ایکsset ownership."
           },
           "subtitle": "تعمیر کریں ایکy type کا blockchایکمیں gایکme کے ساتھ ہمارا comprehensive toolمیںg",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "marketplace": {
             "title": "NFT Mایکrketplایکces",
             "desc": "محفوظ trایکdمیںg plپرکے لیےms کے لیے میں-gایکme items کے ساتھ trust verificپرiپر.",
@@ -6689,6 +7024,9 @@
         "trustScore": {
           "title": "NFT پروجیکٹ ٹرسٹ سکور",
           "subtitle": "گیم پروجیکٹس کے لیے جامع تصدیقی نظام",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "teamScore": "ٹیم شناخت سکور",
           "contractScore": "کنٹریکٹ سیکیورٹی سکور",
           "utilityScore": "یوٹیلیٹی اور روڈ میپ سکور",
@@ -6786,10 +7124,16 @@
         "title": "عالمی",
         "titleHighlight": "ادائیگیاں",
         "subtitle": "دنیا بھر میں تصدیق شدہ کرپٹو ادائیگیاں قبول کریں۔ فوری سیٹلمنٹ، انتہائی کم فیس، اور مرچنٹ تحفظ کے لیے ٹرسٹ سکور فلٹرنگ۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "getApiKey": "API کلید حاصل کریں",
         "whyChoose": {
           "title": "TBurn کیوں چنیں؟",
           "subtitle": "عالمی کامرس کے لیے بہتر انفراسٹرکچر۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "instantSettlement": {
             "title": "فوری سیٹلمنٹ",
             "description": "اوسطاً 1 سیکنڈ بلاک ٹائم اور 6 سیکنڈ فائنلٹی۔ 50,000+ TPS (پیک 520,000+ TPS) صلاحیت کے ساتھ روایتی کریڈٹ کارڈز سے تیز ادائیگی کی رفتار کا تجربہ کریں۔"
@@ -6884,6 +7228,9 @@
         "tag": "کامرس",
         "title": "کامرس",
         "subtitle": "ای کامرس انٹیگریشن اور مرچنٹ حل۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "titleHighlight": "حل",
         "buttons": {
           "installPlugin": "پلگ ان انسٹال کریں",
@@ -6977,6 +7324,9 @@
         "tag": "فنانس",
         "title": "مالیاتی خدمات",
         "subtitle": "بلاکچین پر انٹرپرائز مالیاتی انفراسٹرکچر۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "titleHighlight": "خدمات",
         "buttons": {
           "startBuilding": "تعمیر شروع کریں",
@@ -7060,6 +7410,9 @@
         "tag": "AI سے چلنے والا",
         "title": "AI فیچرز",
         "subtitle": "ذہین بلاکچین آپریشنز کے لیے ٹرپل بینڈ AI آرکیسٹریشن۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "titleHighlight": "ٹرپل بینڈ آرکیسٹریشن",
         "tiers": {
           "strategic": {
@@ -7201,6 +7554,9 @@
         "tag": "تخلیقی",
         "title": "فنکار اور تخلیق کار",
         "subtitle": "NFT مائننگ، رائلٹیز اور کریئٹر اکانومی ٹولز۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "titleHighlight": "تخلیق کار",
         "buttons": {
           "startCreating": "تخلیق شروع کریں",
@@ -7315,6 +7671,9 @@
         "tag": "بٹ کوائن DEFI",
         "title": "BTCfi",
         "subtitle": "ریپڈ BTC اور کراس چین یلڈز کے ساتھ بٹ کوائن DeFi انٹیگریشن۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "titleHighlight": "بٹ کوائن DeFi",
         "buttons": {
           "bridgeBtc": "BTC برج کریں",
@@ -7456,6 +7815,9 @@
         "tag": "برج",
         "title": "کراس چین برج",
         "subtitle": "7+ بلاکچین نیٹ ورکس میں محفوظ اثاثہ منتقلی۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "titleHighlight": "برج",
         "buttons": {
           "launchBridge": "برج لانچ کریں",
@@ -7475,6 +7837,9 @@
           "mpcSecurity": {
             "title": "MPC سیکیورٹی",
             "subtitle": "ٹرسٹ لیس برجنگ کے لیے ملٹی پارٹی کمپیوٹیشن",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "items": {
               "distributedKeyGen": "تقسیم شدہ کلید جنریشن",
               "thresholdSignatures": "تھریشولڈ دستخط",
@@ -7484,6 +7849,9 @@
           "atomicSwaps": {
             "title": "ایٹامک سویپس",
             "subtitle": "سب کچھ یا کچھ نہیں لین دین کی ضمانتیں",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "items": {
               "htlcContracts": "HTLC سمارٹ کنٹریکٹس",
               "zeroSlippage": "صفر سلپیج سویپس",
@@ -7493,6 +7861,9 @@
           "unifiedLiquidity": {
             "title": "متحد لیکویڈیٹی",
             "subtitle": "گہرے کراس چین لیکویڈیٹی پولز",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "items": {
               "crossChainPools": "کراس چین لیکویڈیٹی پولز",
               "dynamicRebalancing": "متحرک پول ری بیلنسنگ",
@@ -7615,6 +7986,9 @@
         "tag": "گیمنگ اور میٹاورس",
         "title": "گیمنگ اور میٹاورس",
         "subtitle": "TBURN کے اعلیٰ کارکردگی GameFi انفراسٹرکچر کے ساتھ اگلی نسل کے بلاکچین گیمز بنائیں۔ بغیر رکاوٹ P2E انضمام، NFT اثاثے اور کراس گیم معیشتیں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "buttons": {
           "startBuilding": "تعمیر شروع کریں",
           "gameTooling": "گیم ٹولنگ"
@@ -7724,6 +8098,9 @@
         "tag": "اثاثے کی ٹوکنائزیشن",
         "title": "اثاثے کی ٹوکنائزیشن",
         "subtitle": "حقیقی دنیا کے اثاثوں کو بلاکچین ٹوکنز میں تبدیل کریں۔ لیکویڈیٹی کھولیں، جزوی ملکیت فعال کریں، اور ضابطہ سازی کے مطابق ٹوکنائزیشن کے ساتھ عالمی منڈیوں تک رسائی حاصل کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "buttons": {
           "startTokenizing": "ٹوکنائزنگ شروع کریں",
           "viewDocumentation": "دستاویزات دیکھیں"
@@ -7784,6 +8161,9 @@
         "tag": "غیر مرکزی انفراسٹرکچر",
         "title": "DePIN نیٹ ورکس",
         "subtitle": "غیر مرکزی جسمانی انفراسٹرکچر نیٹ ورکس بنائیں اور چلائیں۔ کمپیوٹ، اسٹوریج، وائرلیس اور سینسنگ وسائل فراہم کر کے انعامات حاصل کریں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "buttons": {
           "deployNode": "نوڈ تعینات کریں",
           "depinDocs": "DePIN دستاویزات"
@@ -7844,6 +8224,9 @@
         "tag": "اسٹیبل کوائن انفراسٹرکچر",
         "title": "اسٹیبل کوائن حل",
         "subtitle": "انٹرپرائز گریڈ اسٹیبل کوائن اجرا اور انتظام۔ فیاٹ بیکڈ، کرپٹو کولیٹرلائزڈ اور الگورتھمک اختیارات مکمل ریگولیٹری کمپلائنس کے ساتھ۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "buttons": {
           "issueStablecoin": "اسٹیبل کوائن جاری کریں",
           "technicalDocs": "تکنیکی دستاویزات"
@@ -7923,6 +8306,9 @@
         "tag": "ادارہ جاتی ادائیگیاں",
         "title": "ادارہ جاتی ادائیگی کے حل",
         "subtitle": "مالیاتی اداروں کے لیے بینک گریڈ ادائیگی انفراسٹرکچر۔ ریئل ٹائم سیٹلمنٹ، کراس بارڈر ادائیگیاں اور مکمل ریگولیٹری کمپلائنس۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "buttons": {
           "contactSales": "سیلز سے رابطہ کریں",
           "apiReference": "API حوالہ"
@@ -8002,6 +8388,9 @@
         "tag": "انٹرپرائز بلاکچین",
         "title": "انٹرپرائز حل",
         "subtitle": "جدید کاروباروں کے لیے جامع بلاکچین حل۔ پرائیویٹ نیٹ ورکس، کمپلائنس فیچرز اور 24/7 انٹرپرائز سپورٹ۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "buttons": {
           "contactEnterprise": "انٹرپرائز سے رابطہ کریں",
           "enterpriseDocs": "انٹرپرائز دستاویزات"
@@ -8091,6 +8480,9 @@
         "tag": "نیٹ ورک تصدیق کنندگان",
         "title": "تصدیق کنندگان",
         "subtitle": "TBurn تصدیق کنندگان کے نیٹ ورک میں شامل ہوں اور بلاکچین کو محفوظ کرتے ہوئے انعامات حاصل کریں",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "becomeValidator": "تصدیق کنندہ بنیں",
         "consensusSpecs": {
           "title": "اتفاق رائے کی وضاحتیں",
@@ -8178,6 +8570,9 @@
         "cta": {
           "title": "تصدیق کنندہ بننے کے لیے تیار؟",
           "subtitle": "نیٹ ورک میں شامل ہوں اور TBurn Lab کو محفوظ کرتے ہوئے انعامات حاصل کریں۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "startValidating": "توثیق شروع کریں",
           "readDocs": "دستاویزات پڑھیں"
         },
@@ -8247,6 +8642,9 @@
         "slashing": {
           "title": "سلیشنگ شرائط",
           "subtitle": "تصدیق کنندگان کو اعلیٰ معیار برقرار رکھنا ہوگا۔ خلاف ورزیوں کے نتیجے میں اسٹیک کی سزا ہوگی۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "minor": {
             "title": "معمولی خلاف ورزی",
             "badge": "انتباہ",
@@ -8285,6 +8683,9 @@
         "tag": "RPC انفراسٹرکچر",
         "title": "RPC اینڈ پوائنٹس",
         "subtitle": "قابل اعتماد نیٹ ورک رسائی کے لیے سرکاری RPC نوڈز سے جڑیں",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "getApiKey": "API کلید حاصل کریں",
         "apiPlans": {
           "title": "API پلانز اور حدود",
@@ -8373,6 +8774,9 @@
         "cta": {
           "title": "بنانے کے لیے تیار ہیں؟",
           "subtitle": "آج ہی TBurn Lab API کے ساتھ بنانا شروع کریں۔ اپنی مفت API کلید حاصل کریں اور انٹرپرائز گریڈ بلاکچین انفراسٹرکچر تک رسائی۔",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "getStartedFree": "مفت شروع کریں",
           "contactSales": "سیلز سے رابطہ کریں",
           "desc": "آج ہی TBurn Lab API کے ساتھ بنانا شروع کریں۔ اپنی مفت API کلید حاصل کریں اور انٹرپرائز گریڈ بلاکچین انفراسٹرکچر تک رسائی حاصل کریں۔"
@@ -8437,6 +8841,9 @@
         "tag": "حیثیت",
         "title": "نیٹ ورک حیثیت",
         "subtitle": "ریئل ٹائم نیٹ ورک صحت اور کارکردگی میٹرکس۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "operational": "آپریشنل",
         "lastUpdated": "آخری اپڈیٹ",
         "daysAgo": "دن پہلے",
@@ -8533,6 +8940,9 @@
         "tag": "فیاٹ گیٹ وے",
         "title": "فیاٹ جمع/نکلوانا",
         "subtitle": "فیاٹ کرنسی سے TBURN خریدیں اور بیچیں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "fee": "فیس",
         "sections": {
           "howItWorks": "یہ کیسے کام کرتا ہے",
@@ -8635,6 +9045,9 @@
         "tag": "کمیونٹی",
         "title": "کمیونٹی ہب",
         "subtitle": "ڈویلپرز، تصدیق کنندگان اور شائقین سے جڑیں",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "stats": {
           "totalMembers": "کل ممبران",
           "monthlyActive": "ماہانہ فعال",
@@ -8671,6 +9084,9 @@
         "leaderboard": {
           "title": "شراکت داروں کی درجہ بندی",
           "subtitle": "اس مہینے کے سرفہرست شراکت دار",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "points": "{{count}} پوائنٹس",
           "tiers": {
             "diamond": "ہیرا",
@@ -8683,6 +9099,9 @@
         "ambassadorProgram": {
           "title": "سفیر پروگرام",
           "subtitle": "عالمی کمیونٹی کی قیادت کریں",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "benefits": {
             "tokenRewards": "ماہانہ TBURN ٹوکن انعامات",
             "earlyAccess": "نئے فیچرز تک ابتدائی رسائی",
@@ -8731,6 +9150,9 @@
         "ambassador": {
           "title": "سفیر پروگرام",
           "subtitle": "عالمی TBurn کمیونٹی کی قیادت کریں",
+          "forumTitle": "کمیونٹی فورم",
+          "viewAll": "سب دیکھیں",
+          "recentPosts": "حالیہ پوسٹس",
           "applyButton": "سفیر کے طور پر درخواست دیں",
           "benefits": {
             "rewards": "ماہانہ TBURN ٹوکن انعامات",
@@ -8745,6 +9167,9 @@
         "tag": "خبریں اور بلاگ",
         "title": "خبریں اور بلاگ",
         "subtitle": "تازہ ترین اپڈیٹس، اعلانات اور بصیرت",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "searchPlaceholder": "مضامین تلاش کریں...",
         "featuredTitle": "نمایاں کہانیاں",
         "featuredBadge": "نمایاں",
@@ -8844,7 +9269,13 @@
                 "6": "مین نیٹ لانچ میں DEX/AMM، قرض دینے کے پروٹوکول، لیکویڈ سٹیکنگ، NFT مارکیٹ پلیس اور کراس چین بریجز کے ساتھ ایک مکمل DeFi ایکو سسٹم شامل ہے۔",
                 "7": "ہم ڈویلپرز، ویلیڈیٹرز اور صارفین کو TBURN v7.0 پر غیر مرکزی مالیات کے مستقبل کی تعمیر میں شامل ہونے کی دعوت دیتے ہیں۔"
               },
-              "tags": { "0": "مین نیٹ", "1": "لانچ", "2": "v7.0", "3": "AI", "4": "DeFi" }
+              "tags": {
+                "0": "مین نیٹ",
+                "1": "لانچ",
+                "2": "v7.0",
+                "3": "AI",
+                "4": "DeFi"
+              }
             },
             "triple-band-ai-revealed": {
               "title": "ٹرپل-بینڈ AI فن تعمیر کا انکشاف: بلاک چین ذہانت کا مستقبل",
@@ -8865,7 +9296,12 @@
                 "6": "فیڈ بیک لرننگ سسٹم: تمام AI فیصلوں کو ٹریک اور جانچا جاتا ہے۔ درستگی فی الحال 99.7% سے زیادہ ہے۔",
                 "7": "نتیجہ ایک خود بہتر کرنے والی، فالٹ ٹالرنٹ AI پرت ہے۔"
               },
-              "tags": { "0": "AI", "1": "ٹیکنالوجی", "2": "گہرا تجزیہ", "3": "فن تعمیر" }
+              "tags": {
+                "0": "AI",
+                "1": "ٹیکنالوجی",
+                "2": "گہرا تجزیہ",
+                "3": "فن تعمیر"
+              }
             },
             "global-partnership-expansion": {
               "title": "عالمی شراکت داری کی توسیع: TBURN صنعت کے رہنماؤں کے ساتھ شامل",
@@ -8886,7 +9322,12 @@
                 "6": "ڈویلپر وسائل: ہمارے پارٹنرز SDKs اور دستاویزات سمیت جامع وسائل میں حصہ ڈال رہے ہیں۔",
                 "7": "ہم ان شراکت داریوں سے پیدا ہونے والے مواقع کے بارے میں پرجوش ہیں۔"
               },
-              "tags": { "0": "شراکت داری", "1": "توسیع", "2": "انٹرپرائز", "3": "عالمی" }
+              "tags": {
+                "0": "شراکت داری",
+                "1": "توسیع",
+                "2": "انٹرپرائز",
+                "3": "عالمی"
+              }
             },
             "staking-program-details": {
               "title": "سٹیکنگ پروگرام کی تفصیلات: اپنے TBURN انعامات کو زیادہ سے زیادہ کریں",
@@ -8908,7 +9349,12 @@
                 "7": "آٹو-کمپاؤنڈنگ: اپنے انعامات کو خودکار طور پر دوبارہ لگانے کے لیے آٹو-کمپاؤنڈنگ فعال کریں۔",
                 "8": "شروع کریں: آج TBURN سٹیکنگ ڈیش بورڈ ملاحظہ کریں۔"
               },
-              "tags": { "0": "سٹیکنگ", "1": "انعامات", "2": "ٹوکنومکس", "3": "APY" }
+              "tags": {
+                "0": "سٹیکنگ",
+                "1": "انعامات",
+                "2": "ٹوکنومکس",
+                "3": "APY"
+              }
             },
             "trust-score-deep-dive": {
               "title": "ٹرسٹ سکور گہرا تجزیہ: TBURN کا AI نیٹ ورک سیکورٹی کا جائزہ کیسے لیتا ہے",
@@ -8929,7 +9375,12 @@
                 "6": "زیادہ اسکورز برقرار رکھنا: مستقل اپ ٹائم اور فعال شرکت اہم عوامل ہیں۔",
                 "7": "سسٹم یقینی بناتا ہے کہ سب سے زیادہ قابل اعتماد شرکاء کو انعام دیا جائے۔"
               },
-              "tags": { "0": "سیکورٹی", "1": "ٹرسٹ سکور", "2": "AI", "3": "ویلیڈیٹرز" }
+              "tags": {
+                "0": "سیکورٹی",
+                "1": "ٹرسٹ سکور",
+                "2": "AI",
+                "3": "ویلیڈیٹرز"
+              }
             },
             "sdk-2-released": {
               "title": "TBURN SDK 2.0 جاری: نئے ڈویلپر ٹولز کے ساتھ تیزی سے بنائیں",
@@ -8951,7 +9402,12 @@
                 "7": "دستاویزات: جامع گائیڈز کے لیے ہمارے ڈویلپر پورٹل ملاحظہ کریں۔",
                 "8": "SDK 2.0 TBURN ڈویلپمنٹ کو قابل رسائی بنانے کے ہمارے عزم کی نمائندگی کرتا ہے۔"
               },
-              "tags": { "0": "SDK", "1": "ڈویلپمنٹ", "2": "TypeScript", "3": "ٹولز" }
+              "tags": {
+                "0": "SDK",
+                "1": "ڈویلپمنٹ",
+                "2": "TypeScript",
+                "3": "ٹولز"
+              }
             },
             "quantum-resistant-cryptography": {
               "title": "کوانٹم مزاحم خفیہ نگاری: TBURN کے مستقبل کی حفاظت",
@@ -8974,7 +9430,12 @@
                 "8": "ہیش فنکشنز: مزاحم آپشنز کے ساتھ ملٹی-ہیش سسٹم۔",
                 "9": "یہ فعال نقطہ نظر یقینی بناتا ہے کہ TBURN محفوظ رہے۔"
               },
-              "tags": { "0": "کوانٹم", "1": "خفیہ نگاری", "2": "سیکورٹی", "3": "ریسرچ" }
+              "tags": {
+                "0": "کوانٹم",
+                "1": "خفیہ نگاری",
+                "2": "سیکورٹی",
+                "3": "ریسرچ"
+              }
             },
             "tburn-dex-beta": {
               "title": "TBURN DEX بیٹا لانچ: غیر مرکزی ٹریڈنگ یہاں ہے",
@@ -8996,7 +9457,12 @@
                 "7": "شروع کریں: اپنا والیٹ کنیکٹ کریں اور آج ہی ٹریڈنگ شروع کریں۔",
                 "8": "فیڈبیک دینے کے لیے ہماری کمیونٹی چینلز میں شامل ہوں۔"
               },
-              "tags": { "0": "DEX", "1": "DeFi", "2": "ٹریڈنگ", "3": "AMM" }
+              "tags": {
+                "0": "DEX",
+                "1": "DeFi",
+                "2": "ٹریڈنگ",
+                "3": "AMM"
+              }
             }
           }
         }
@@ -9005,6 +9471,9 @@
         "tag": "ایونٹس اور سرگرمیاں",
         "title": "ایونٹس اور سرگرمیاں",
         "subtitle": "کمیونٹی ایونٹس، ہیکاتھون اور کانفرنسز میں شامل ہوں",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "filters": {
           "all": "تمام ایونٹس",
           "hackathon": "ہیکاتھون",
@@ -9118,16 +9587,46 @@
                 "2": "شرکاء کو براہ راست ڈویلپرز سے سوالات پوچھنے کا موقع ملے گا۔"
               },
               "speakers": {
-                "0": { "name": "ایلکس پارک", "role": "CEO اور بانی", "avatar": "AP" },
-                "1": { "name": "ڈاکٹر سارہ چن", "role": "چیف AI آرکیٹیکٹ", "avatar": "SC" },
-                "2": { "name": "مائیکل روڈریگز", "role": "DeFi پروڈکٹ لیڈ", "avatar": "MR" }
+                "0": {
+                  "name": "ایلکس پارک",
+                  "role": "CEO اور بانی",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "ڈاکٹر سارہ چن",
+                  "role": "چیف AI آرکیٹیکٹ",
+                  "avatar": "SC"
+                },
+                "2": {
+                  "name": "مائیکل روڈریگز",
+                  "role": "DeFi پروڈکٹ لیڈ",
+                  "avatar": "MR"
+                }
               },
               "agenda": {
-                "0": { "time": "14:00", "title": "خوش آمدید اور تعارف", "speaker": "ایلکس پارک" },
-                "1": { "time": "14:15", "title": "TBURN v7.0 تکنیکی جائزہ" },
-                "2": { "time": "14:45", "title": "AI آرکیسٹریشن گہرا تجزیہ", "speaker": "ڈاکٹر سارہ چن" },
-                "3": { "time": "15:15", "title": "DeFi ایکو سسٹم ڈیمو", "speaker": "مائیکل روڈریگز" },
-                "4": { "time": "15:45", "title": "لائیو Q&A سیشن" }
+                "0": {
+                  "time": "14:00",
+                  "title": "خوش آمدید اور تعارف",
+                  "speaker": "ایلکس پارک"
+                },
+                "1": {
+                  "time": "14:15",
+                  "title": "TBURN v7.0 تکنیکی جائزہ"
+                },
+                "2": {
+                  "time": "14:45",
+                  "title": "AI آرکیسٹریشن گہرا تجزیہ",
+                  "speaker": "ڈاکٹر سارہ چن"
+                },
+                "3": {
+                  "time": "15:15",
+                  "title": "DeFi ایکو سسٹم ڈیمو",
+                  "speaker": "مائیکل روڈریگز"
+                },
+                "4": {
+                  "time": "15:45",
+                  "title": "لائیو Q&A سیشن"
+                }
               },
               "requirements": {
                 "0": "مستحکم انٹرنیٹ کنکشن",
@@ -9150,16 +9649,44 @@
                 "2": "ورکشاپ کے اختتام پر، آپ TBURN ٹیسٹ نیٹ پر اپنا پہلا سمارٹ کنٹریکٹ ڈپلائی کر چکے ہوں گے۔"
               },
               "speakers": {
-                "0": { "name": "جیمز لیو", "role": "لیڈ ڈویلپر", "avatar": "JL" },
-                "1": { "name": "ایما ولسن", "role": "ڈویلپر ریلیشنز", "avatar": "EW" }
+                "0": {
+                  "name": "جیمز لیو",
+                  "role": "لیڈ ڈویلپر",
+                  "avatar": "JL"
+                },
+                "1": {
+                  "name": "ایما ولسن",
+                  "role": "ڈویلپر ریلیشنز",
+                  "avatar": "EW"
+                }
               },
               "agenda": {
-                "0": { "time": "10:00", "title": "انوائرنمنٹ سیٹ اپ اور پری ریکوزٹس" },
-                "1": { "time": "10:30", "title": "TBURN SDK تعارف", "speaker": "جیمز لیو" },
-                "2": { "time": "11:30", "title": "سمارٹ کنٹریکٹ ڈویلپمنٹ" },
-                "3": { "time": "12:30", "title": "لنچ بریک" },
-                "4": { "time": "13:00", "title": "ٹیسٹنگ اور ڈپلائمنٹ", "speaker": "ایما ولسن" },
-                "5": { "time": "13:45", "title": "Q&A اور ریپ اپ" }
+                "0": {
+                  "time": "10:00",
+                  "title": "انوائرنمنٹ سیٹ اپ اور پری ریکوزٹس"
+                },
+                "1": {
+                  "time": "10:30",
+                  "title": "TBURN SDK تعارف",
+                  "speaker": "جیمز لیو"
+                },
+                "2": {
+                  "time": "11:30",
+                  "title": "سمارٹ کنٹریکٹ ڈویلپمنٹ"
+                },
+                "3": {
+                  "time": "12:30",
+                  "title": "لنچ بریک"
+                },
+                "4": {
+                  "time": "13:00",
+                  "title": "ٹیسٹنگ اور ڈپلائمنٹ",
+                  "speaker": "ایما ولسن"
+                },
+                "5": {
+                  "time": "13:45",
+                  "title": "Q&A اور ریپ اپ"
+                }
               },
               "requirements": {
                 "0": "Node.js 18+ انسٹال",
@@ -9183,14 +9710,34 @@
                 "2": "سوالات Discord کے ذریعے پہلے سے جمع کروائے جا سکتے ہیں یا سیشن کے دوران لائیو پوچھے جا سکتے ہیں۔"
               },
               "speakers": {
-                "0": { "name": "ایلکس پارک", "role": "CEO اور بانی", "avatar": "AP" },
-                "1": { "name": "کمیونٹی ٹیم", "role": "ماڈریٹرز", "avatar": "CT" }
+                "0": {
+                  "name": "ایلکس پارک",
+                  "role": "CEO اور بانی",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "کمیونٹی ٹیم",
+                  "role": "ماڈریٹرز",
+                  "avatar": "CT"
+                }
               },
               "agenda": {
-                "0": { "time": "18:00", "title": "خوش آمدید اور اپڈیٹس" },
-                "1": { "time": "18:15", "title": "پہلے سے جمع کردہ سوالات" },
-                "2": { "time": "18:45", "title": "کمیونٹی سے لائیو سوالات" },
-                "3": { "time": "19:15", "title": "اختتامی ریمارکس اور اعلانات" }
+                "0": {
+                  "time": "18:00",
+                  "title": "خوش آمدید اور اپڈیٹس"
+                },
+                "1": {
+                  "time": "18:15",
+                  "title": "پہلے سے جمع کردہ سوالات"
+                },
+                "2": {
+                  "time": "18:45",
+                  "title": "کمیونٹی سے لائیو سوالات"
+                },
+                "3": {
+                  "time": "19:15",
+                  "title": "اختتامی ریمارکس اور اعلانات"
+                }
               },
               "requirements": {
                 "0": "Discord اکاؤنٹ",
@@ -9212,14 +9759,36 @@
                 "2": "ہماری ٹیم 3 ٹائر ویلیڈیٹر سسٹم اور AI ٹرسٹ سکورز کے اثرات کی بھی وضاحت کرے گی۔"
               },
               "speakers": {
-                "0": { "name": "ڈیوڈ کم", "role": "انفراسٹرکچر لیڈ", "avatar": "DK" },
-                "1": { "name": "لیزا ژانگ", "role": "ویلیڈیٹر ریلیشنز", "avatar": "LZ" }
+                "0": {
+                  "name": "ڈیوڈ کم",
+                  "role": "انفراسٹرکچر لیڈ",
+                  "avatar": "DK"
+                },
+                "1": {
+                  "name": "لیزا ژانگ",
+                  "role": "ویلیڈیٹر ریلیشنز",
+                  "avatar": "LZ"
+                }
               },
               "agenda": {
-                "0": { "time": "15:00", "title": "TBURN ویلیڈیشن تعارف" },
-                "1": { "time": "15:30", "title": "تکنیکی ضروریات اور سیٹ اپ", "speaker": "ڈیوڈ کم" },
-                "2": { "time": "16:00", "title": "اکنامکس اور انعامات", "speaker": "لیزا ژانگ" },
-                "3": { "time": "16:30", "title": "لائیو ڈیمو اور Q&A" }
+                "0": {
+                  "time": "15:00",
+                  "title": "TBURN ویلیڈیشن تعارف"
+                },
+                "1": {
+                  "time": "15:30",
+                  "title": "تکنیکی ضروریات اور سیٹ اپ",
+                  "speaker": "ڈیوڈ کم"
+                },
+                "2": {
+                  "time": "16:00",
+                  "title": "اکنامکس اور انعامات",
+                  "speaker": "لیزا ژانگ"
+                },
+                "3": {
+                  "time": "16:30",
+                  "title": "لائیو ڈیمو اور Q&A"
+                }
               },
               "requirements": {
                 "0": "بلاک چین کی بنیادی سمجھ",
@@ -9247,6 +9816,71 @@
           "title": "ایونٹ میزبانی کرنا چاہتے ہیں؟",
           "description": "TBurn Lab کمیونٹی کے ساتھ میٹ اپس، ویبینارز، یا ہیکاتھونز کی میزبانی کریں۔ ہم منظور شدہ میزبانوں کے لیے فنڈنگ، سویگ، اور مارکیٹنگ سپورٹ فراہم کرتے ہیں۔",
           "button": "میزبانی کے لیے درخواست دیں"
+        },
+        "items": {
+          "launchAma": {
+            "title": "TBURN v7.0 لانچ AMA",
+            "description": "مین نیٹ لانچ اور آنے والی خصوصیات کے بارے میں لائیو Q&A سیشن کے لیے کور ٹیم میں شامل ہوں"
+          },
+          "defiWorkshop": {
+            "title": "DeFi ورکشاپ: لیکویڈیٹی مائننگ",
+            "description": "پریکٹیکل مشقوں اور ماہر رہنمائی کے ساتھ جدید لیکویڈیٹی مائننگ حکمت عملی سیکھیں"
+          },
+          "hackathon": {
+            "title": "TBURN ہیکاتھون 2025",
+            "description": "$500K انعامات کے ساتھ 48 گھنٹے کا عالمی ہیکاتھون۔ TBURN Lab پر جدید DeFi حل بنائیں اور گرانٹس اور انکیوبیشن مواقع کے لیے مقابلہ کریں۔"
+          },
+          "tokyoMeetup": {
+            "title": "کمیونٹی میٹ اپ - ٹوکیو",
+            "description": "ٹوکیو میں TBURN کے شائقین کے ساتھ نیٹ ورک کریں۔ کھانا اور مشروبات فراہم کیے گئے!"
+          },
+          "stakingCompetition": {
+            "title": "اسٹیکنگ مقابلہ",
+            "description": "اس مہینے سب سے زیادہ اسٹیکنگ انعامات کے لیے مقابلہ کریں۔ سرفہرست اسٹیکرز بونس انعامات جیتتے ہیں!"
+          },
+          "nftContest": {
+            "title": "NFT آرٹ مقابلہ",
+            "description": "TBURN تھیم والا NFT آرٹ ورک بنائیں اور انعامات جیتیں۔ جمع کرانا اب کھلا ہے!"
+          },
+          "validatorTraining": {
+            "title": "ویلیڈیٹر ٹریننگ سیشن",
+            "description": "اس جامع تربیتی سیشن کے ساتھ TBURN ویلیڈیٹر بننے کا طریقہ سیکھیں"
+          },
+          "airdropEvent": {
+            "title": "کمیونٹی ایئر ڈراپ ایونٹ",
+            "description": "فعال کمیونٹی ممبران کے لیے خصوصی ایئر ڈراپ۔ انعامات حاصل کرنے کے لیے کام مکمل کریں!"
+          }
+        }
+      },
+      "time": {
+        "justNow": "ابھی",
+        "hoursAgo": "{{count}} گھنٹے پہلے",
+        "daysAgo": "{{count}} دن پہلے"
+      },
+      "announcements": {
+        "mainnetLaunch": {
+          "title": "مین نیٹ لانچ کی تاریخ کی تصدیق: 8 دسمبر",
+          "content": "ہمیں یہ اعلان کرتے ہوئے خوشی ہو رہی ہے کہ TBURN v7.0 مین نیٹ سرکاری طور پر 8 دسمبر 2024 کو لانچ ہو گا۔ ہماری تاریخ کے سب سے بڑے اپ گریڈ کے لیے تمام سسٹمز تیار ہیں!"
+        },
+        "stakingTiers": {
+          "title": "نئے اسٹیکنگ ٹائرز دستیاب",
+          "content": "ڈائمنڈ ٹائر اسٹیکنگ اب 25% تک APY بوسٹ کے ساتھ دستیاب ہے۔ مزید تفصیلات کے لیے نیا اسٹیکنگ ڈیش بورڈ دیکھیں۔"
+        },
+        "securityAudit": {
+          "title": "سیکیورٹی آڈٹ مکمل",
+          "content": "ہمارے سمارٹ کنٹریکٹس نے CertiK اور Trail of Bits کے جامع سیکیورٹی آڈٹس پاس کر لیے ہیں۔ مکمل رپورٹس GitHub پر دستیاب ہیں۔"
+        },
+        "bridgeIntegration": {
+          "title": "کراس چین برج اب لائیو",
+          "content": "TBURN برج اب لائیو ہے، Ethereum، BSC اور Polygon نیٹ ورکس کے درمیان منتقلی کی حمایت کرتا ہے۔"
+        },
+        "maintenance": {
+          "title": "شیڈولڈ مینٹیننس: نوڈ اپ گریڈ",
+          "content": "10 دسمبر، 2:00 AM UTC پر مختصر مینٹیننس ونڈو شیڈول ہے۔ متوقع ڈاؤن ٹائم: 15 منٹ۔"
+        },
+        "aiOrchestration": {
+          "title": "AI آرکیسٹریشن سسٹم لائیو",
+          "content": "Quad-Band AI آرکیسٹریشن سسٹم اب Gemini 3 Pro کو پرائمری کے طور پر، Claude Sonnet 4.5، GPT-4o اور Grok 3 فال بیک کے طور پر مکمل طور پر فعال ہے۔"
         }
       }
     },
@@ -9254,6 +9888,9 @@
       "terms": {
         "title": "سروس کی شرائط",
         "subtitle": "TBurn Lab سروسز استعمال کرنے کی شرائط و ضوابط۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "backToHome": "ہوم پر واپس جائیں",
         "sections": {
           "acceptance": {
@@ -9449,6 +10086,9 @@
       "privacy": {
         "title": "رازداری کی پالیسی",
         "subtitle": "ہم آپ کے ڈیٹا کو کیسے جمع، استعمال اور محفوظ کرتے ہیں۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "backToHome": "ہوم پر واپس جائیں",
         "sections": {
           "introduction": {
@@ -9661,6 +10301,9 @@
       "disclaimer": {
         "title": "دستبرداری",
         "subtitle": "اہم قانونی نوٹسز اور رسک انکشافات۔",
+        "forumTitle": "کمیونٹی فورم",
+        "viewAll": "سب دیکھیں",
+        "recentPosts": "حالیہ پوسٹس",
         "backToHome": "ہوم پر واپس جائیں",
         "importantNotice": {
           "title": "اہم نوٹس",
@@ -9803,6 +10446,9 @@
           "privacy": {
             "title": "Privایکcy Policy",
             "subtitle": "How we hاورle آپ کا dپرایک",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "subtitleData": "Yہمارا dپرایک protectiپر حقوق"
           },
           "terms": {
@@ -9812,6 +10458,9 @@
           "disclaimer": {
             "title": "Dہےclایکimer",
             "subtitle": "Legایکl notices",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "subtitleRisk": "خطرہ dہےclosures"
           }
         },
@@ -9819,12 +10468,18 @@
           "trustScore": {
             "title": "اعتماد سکور سسٹم",
             "subtitle": "3-stایکge verificپرiپر process",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "subtitleHow": "How Trust Scیاes wیاk",
             "subtitleVerification": "تصدیق methodology"
           },
           "wallet": {
             "title": "Whپر ہے ایک Wایکllet?",
             "subtitle": "Wایکllet bایکsics",
+            "forumTitle": "کمیونٹی فورم",
+            "viewAll": "سب دیکھیں",
+            "recentPosts": "حالیہ پوسٹس",
             "subtitleSecurity": "Securمیںg آپ کا ایکssets"
           },
           "blockchain": {

@@ -13564,6 +13564,9 @@
         "tag": "COMMUNITY",
         "title": "Community Hub",
         "subtitle": "Connect with builders, validators, and enthusiasts.",
+        "forumTitle": "Community Forum",
+        "viewAll": "View All",
+        "recentPosts": "Recent Posts",
         "stats": {
           "totalMembers": "Total Members",
           "monthlyActive": "Monthly Active",
@@ -14336,7 +14339,41 @@
         "online": "Online",
         "inPerson": "In Person",
         "register": "Register",
-        "viewAll": "View All Events"
+        "viewAll": "View All Events",
+        "items": {
+          "launchAma": {
+            "title": "TBURN v7.0 Launch AMA",
+            "description": "Join the core team for a live Q&A session about the mainnet launch and upcoming features"
+          },
+          "defiWorkshop": {
+            "title": "DeFi Workshop: Liquidity Mining",
+            "description": "Learn advanced liquidity mining strategies with hands-on exercises and expert guidance"
+          },
+          "hackathon": {
+            "title": "TBURN Hackathon 2025",
+            "description": "48-hour global hackathon with $500K in prizes. Build innovative DeFi solutions on TBURN Lab and compete for grants and incubation opportunities."
+          },
+          "tokyoMeetup": {
+            "title": "Community Meetup - Tokyo",
+            "description": "Network with fellow TBURN enthusiasts in Tokyo. Food and drinks provided!"
+          },
+          "stakingCompetition": {
+            "title": "Staking Competition",
+            "description": "Compete for the highest staking rewards this month. Top stakers win bonus rewards!"
+          },
+          "nftContest": {
+            "title": "NFT Art Contest",
+            "description": "Create TBURN-themed NFT artwork and win prizes. Submissions open now!"
+          },
+          "validatorTraining": {
+            "title": "Validator Training Session",
+            "description": "Learn how to become a TBURN validator with this comprehensive training session"
+          },
+          "airdropEvent": {
+            "title": "Community Airdrop Event",
+            "description": "Exclusive airdrop for active community members. Complete tasks to earn rewards!"
+          }
+        }
       },
       "hero": {
         "tag": "Community",
@@ -14383,6 +14420,37 @@
         "subtitle": "Become an ambassador",
         "description": "Help grow the TBurn ecosystem",
         "apply": "Apply"
+      },
+      "time": {
+        "justNow": "Just now",
+        "hoursAgo": "{{count}}h ago",
+        "daysAgo": "{{count}}d ago"
+      },
+      "announcements": {
+        "mainnetLaunch": {
+          "title": "Mainnet Launch Date Confirmed: December 8th",
+          "content": "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 8th, 2024. All systems are go for the biggest upgrade in our history!"
+        },
+        "stakingTiers": {
+          "title": "New Staking Tiers Available",
+          "content": "Diamond tier staking is now available with up to 25% APY boost. Check out the new staking dashboard for more details."
+        },
+        "securityAudit": {
+          "title": "Security Audit Complete",
+          "content": "Our smart contracts have passed comprehensive security audits by CertiK and Trail of Bits. Full reports available on GitHub."
+        },
+        "bridgeIntegration": {
+          "title": "Cross-Chain Bridge Now Live",
+          "content": "The TBURN bridge is now live, supporting transfers between Ethereum, BSC, and Polygon networks."
+        },
+        "maintenance": {
+          "title": "Scheduled Maintenance: Node Upgrade",
+          "content": "Brief maintenance window scheduled for December 10th, 2:00 AM UTC. Expected downtime: 15 minutes."
+        },
+        "aiOrchestration": {
+          "title": "AI Orchestration System Goes Live",
+          "content": "The Quad-Band AI Orchestration System is now fully operational with Gemini 3 Pro as primary, Claude Sonnet 4.5, GPT-4o, and Grok 3 as fallback."
+        }
       }
     },
     "legal": {
@@ -18943,7 +19011,11 @@
     "maintenanceMode": "Maintenance Mode",
     "maintenanceModeDesc": "Enable read-only mode",
     "activate": "Activate",
-    "confirm": "Confirm",
+    "confirm": {
+      "toggleBreaker": "Toggle Circuit Breaker",
+      "enableBreakerDesc": "Are you sure you want to enable the {{name}} circuit breaker?",
+      "disableBreakerDesc": "Are you sure you want to disable the {{name}} circuit breaker? This may expose the system to risks."
+    },
     "cancel": "Cancel",
     "confirmAction": "Confirm Emergency Action",
     "confirmDesc": "Are you sure you want to proceed? This action cannot be undone.",
@@ -19021,11 +19093,6 @@
       "thresholdConfig": "Threshold Configuration",
       "actionInfo": "Action Information",
       "timeline": "Timeline"
-    },
-    "confirm": {
-      "toggleBreaker": "Toggle Circuit Breaker",
-      "enableBreakerDesc": "Are you sure you want to enable the {{name}} circuit breaker?",
-      "disableBreakerDesc": "Are you sure you want to disable the {{name}} circuit breaker? This may expose the system to risks."
     },
     "error": {
       "title": "Failed to Load Emergency Controls",
@@ -20845,11 +20912,10 @@
       "scheduledToday": "scheduled today"
     },
     "detail": {
-      "title": "Execution Details",
+      "title": "Title",
       "overview": "Overview",
       "executionId": "Execution ID",
       "proposalId": "Proposal ID",
-      "title": "Title",
       "type": "Type",
       "status": "Status",
       "progress": "Progress Information",
@@ -21137,7 +21203,7 @@
     }
   },
   "adminCommunityContent": {
-    "title": "Community Content Management",
+    "title": "Title",
     "subtitle": "Manage news, events, and community hub content",
     "news": "News",
     "events": "Events",
@@ -21211,7 +21277,6 @@
     "categorySupport": "Support",
     "categoryAnnouncements": "Announcements",
     "tags": "Tags",
-    "title": "Title",
     "content": "Content",
     "views": "Views",
     "likes": "Likes",
@@ -21462,10 +21527,7 @@
     "dataUpdated": "Data has been updated",
     "refreshError": "Refresh Failed",
     "refreshErrorDesc": "Unable to refresh data",
-    "error": {
-      "title": "Failed to load SDK data",
-      "description": "Unable to fetch SDK data. Please try again."
-    },
+    "error": "Error",
     "refresh": "Refresh",
     "refreshed": "Data Refreshed",
     "refreshedDesc": "SDK data has been updated",
@@ -21473,7 +21535,6 @@
     "exported": "SDK Data Exported",
     "exportedDesc": "SDK data exported successfully",
     "loadError": "Failed to load SDK data",
-    "error": "Error",
     "retry": "Retry",
     "view": "View",
     "cancel": "Cancel",
@@ -23124,10 +23185,8 @@
     "implementSuccessDesc": "Cost optimization applied",
     "implementError": "Implementation Failed",
     "implementErrorDesc": "Failed to implement recommendation",
-    "export": "Export",
     "exported": "Cost Report Exported",
     "exportedDesc": "Cost report exported successfully",
-    "refresh": "Refresh",
     "refreshed": "Data Refreshed",
     "refreshedDesc": "Cost data has been updated",
     "loadError": "Failed to load cost data",

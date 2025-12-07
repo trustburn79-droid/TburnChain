@@ -162,6 +162,9 @@
     "technicalDetails": "Technical Details",
     "title": "仪表板",
     "subtitle": "实时区块链网络概览",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "explorerTitle": "TBURN 浏览器",
     "explorerSubtitle": "实时区块链数据和网络统计",
     "networkStats": "网络统计",
@@ -175,7 +178,6 @@
     "gasUsed": "Gas 使用量",
     "txCount": "交易数",
     "timestamp": "时间戳",
-    "viewAll": "查看全部",
     "networkHealth": "网络健康",
     "healthy": "健康",
     "degraded": "降级",
@@ -298,6 +300,9 @@
   "blocks": {
     "title": "区块",
     "subtitle": "浏览 TBURN 区块链上的所有区块",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "totalBlocks": "总区块数",
     "blocks": "区块",
     "blockNumber": "区块号",
@@ -405,6 +410,9 @@
   "transactions": {
     "title": "交易浏览器",
     "subtitle": "浏览 TBURN 区块链上的所有交易",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "txHash": "交易哈希",
     "blockNumber": "区块号",
     "from": "发送方",
@@ -505,6 +513,9 @@
   "wallets": {
     "title": "钱包浏览器",
     "subtitle": "追踪钱包余额、质押和奖励",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "totalWallets": "总钱包数",
     "registeredAddresses": "注册地址",
     "totalBalance": "总余额",
@@ -587,6 +598,9 @@
   "validators": {
     "title": "验证者",
     "subtitle": "具有 AI 增强委员会 BFT 的分层验证者系统",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "validatorAddress": "验证者地址",
     "validatorName": "验证者名称",
     "validator": "验证者",
@@ -774,6 +788,9 @@
     "details": "Details",
     "title": "质押仪表板",
     "subtitle": "质押 TBURN 以获得奖励并参与网络治理",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "stakingPools": "质押池",
     "pools": "质押池",
     "tierSystem": "等级系统",
@@ -980,6 +997,9 @@
   "stakingRewards": {
     "title": "奖励中心",
     "subtitle": "追踪和领取您的质押奖励，管理解绑请求",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "cycle": "周期",
     "pendingRewards": "待领奖励",
     "readyToClaim": "可领取",
@@ -1056,6 +1076,9 @@
   "stakingSdk": {
     "title": "钱包 SDK 和开发工具",
     "subtitle": "使用我们的 SDK 将 TBURN 质押集成到您的应用程序中",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "quickStart": "快速开始",
     "quickStartDesc": "通过分步指南在几分钟内开始使用",
     "apiReference": "API 参考",
@@ -1239,6 +1262,9 @@
   "tokenSystem": {
     "title": "代币系统 v4.0",
     "subtitle": "具有量子安全的 AI 增强企业代币标准",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "tripleBandAi": "三带 AI",
     "quantumResistant": "量子抗性",
     "audited": "已审计",
@@ -1680,6 +1706,9 @@
   "dex": {
     "title": "去中心化交易所",
     "subtitle": "使用企业级流动性交易代币",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "swap": "交换",
     "swapTokens": "交换代币",
     "liquidityPools": "流动性池",
@@ -1812,6 +1841,9 @@
   "lending": {
     "title": "借贷协议",
     "subtitle": "通过去中心化借贷进行供应、借款和赚取收益",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "markets": "市场",
     "marketsOverview": "市场概览",
     "supply": "供应",
@@ -1996,6 +2028,9 @@
   "yieldFarming": {
     "title": "收益农场",
     "subtitle": "使用 AI 优化的耕作策略最大化您的收益",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "aiEnhanced": "AI 增强",
     "totalValueLocked": "总锁仓价值",
     "activeVaults": "活跃金库",
@@ -2164,6 +2199,9 @@
   "liquidStaking": {
     "title": "流动性质押",
     "subtitle": "质押资产并获得具有自动收益的流动性质押代币",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "aiOptimized": "AI 优化",
     "aiOptimizedValidatorSelection": "AI 优化验证者选择",
     "totalValueStaked": "总质押价值",
@@ -2258,6 +2296,9 @@
   "nft": {
     "title": "NFT 市场",
     "subtitle": "发现、收藏和交易独特的数字资产",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "collections": "收藏",
     "explore": "探索",
     "myNfts": "我的 NFT",
@@ -2296,6 +2337,9 @@
   "launchpad": {
     "title": "NFT 发射台",
     "subtitle": "发现和参与独家 NFT 发射",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "upcomingLaunches": "即将发射",
     "activeLaunches": "活跃发射",
     "pastLaunches": "过去发射",
@@ -2321,6 +2365,9 @@
   "gamefi": {
     "title": "GameFi 中心",
     "subtitle": "边玩边赚游戏生态系统",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "pageDescription": "在 TBURN 区块链上进行边玩边赚游戏、锦标赛和成就",
     "games": "游戏",
     "tournaments": "锦标赛",
@@ -2557,6 +2604,9 @@
   "bridge": {
     "title": "跨链桥",
     "subtitle": "AI 驱动的多链资产转移，具有企业级安全性",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "subtitleAlt": "安全地跨区块链转移资产",
     "transfer": "转移",
     "history": "历史",
@@ -2694,6 +2744,9 @@
   "aiOrchestration": {
     "title": "AI 编排",
     "subtitle": "三带 AI 系统监控和管理",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "tripleBandAi": "三带 AI",
     "gpt5": "GPT-5",
     "claudeSonnet": "Claude Sonnet 4.5",
@@ -2863,6 +2916,9 @@
   "crossShard": {
     "title": "跨分片通信",
     "subtitle": "监控分片间消息路由和传递",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "pendingMessages": "待处理消息",
     "awaitingConfirmation": "等待确认",
     "confirmed": "已确认",
@@ -2973,6 +3029,9 @@
   "consensus": {
     "title": "共识",
     "subtitle": "AI 增强委员会 BFT 共识监控",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "currentRound": "当前轮次",
     "proposer": "提议者",
     "preVotes": "预投票",
@@ -3089,6 +3148,9 @@
   "sharding": {
     "title": "分片",
     "subtitle": "动态 AI 驱动分片系统",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "shards": "分片",
     "shardId": "分片 ID",
     "tps": "TPS",
@@ -3174,6 +3236,9 @@
   "smartContracts": {
     "title": "智能合约",
     "subtitle": "构建、部署和交互智能合约",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "deployedContracts": "已部署合约",
     "contractAddress": "合约地址",
     "contractName": "合约名称",
@@ -3322,6 +3387,9 @@
   "nodeHealth": {
     "title": "节点健康",
     "subtitle": "预测性自愈系统监控",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "systemMetrics": "系统指标",
     "cpu": "CPU",
     "memory": "内存",
@@ -3412,6 +3480,9 @@
   "admin": {
     "title": "主网管理",
     "subtitle": "控制和监控 TBURN 主网基础设施",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "systemStatus": "系统状态",
     "mainnetStatus": "主网状态",
     "running": "运行中",
@@ -3689,6 +3760,9 @@
   "operator": {
     "title": "运营门户",
     "subtitle": "综合网络运营管理",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "enterpriseBackoffice": "TBURN 网络管理企业后台",
     "adminAccess": "管理员访问",
     "logout": "退出登录",
@@ -3726,6 +3800,9 @@
       "technicalDetails": "Technical Details",
       "title": "运营门户",
       "subtitle": "TBURN 网络管理企业后台",
+      "forumTitle": "社区论坛",
+      "viewAll": "查看全部",
+      "recentPosts": "最近帖子",
       "autoRefresh": "自动",
       "paused": "暂停",
       "accessDenied": "访问被拒绝",
@@ -3846,6 +3923,9 @@
     "members": {
       "title": "成员管理",
       "subtitle": "管理网络成员、KYC/AML 状态和等级分配",
+      "forumTitle": "社区论坛",
+      "viewAll": "查看全部",
+      "recentPosts": "最近帖子",
       "exportCsv": "导出 CSV",
       "totalMembers": "总成员",
       "membersSelected": "已选择成员",
@@ -3957,6 +4037,9 @@
     "validators": {
       "title": "验证者运营",
       "subtitle": "审核申请、管理验证者和执行罚没",
+      "forumTitle": "社区论坛",
+      "viewAll": "查看全部",
+      "recentPosts": "最近帖子",
       "slashValidator": "罚没验证者",
       "applications": "申请",
       "performance": "性能",
@@ -4183,6 +4266,9 @@
     "security": {
       "title": "安全审计",
       "subtitle": "监控安全事件和管理访问控制",
+      "forumTitle": "社区论坛",
+      "viewAll": "查看全部",
+      "recentPosts": "最近帖子",
       "newEvent": "新建事件",
       "securityEvents": "安全事件",
       "ipBlocking": "IP 封禁",
@@ -4445,6 +4531,9 @@
     "reports": {
       "title": "合规报告",
       "subtitle": "生成、计划和管理监管合规报告",
+      "forumTitle": "社区论坛",
+      "viewAll": "查看全部",
+      "recentPosts": "最近帖子",
       "exportCsv": "导出 CSV",
       "newSchedule": "新计划",
       "generateReport": "生成报告",
@@ -4679,6 +4768,9 @@
       "details": "Details",
       "title": "质押管理",
       "subtitle": "管理质押池、等级系统和奖励分配",
+      "forumTitle": "社区论坛",
+      "viewAll": "查看全部",
+      "recentPosts": "最近帖子",
       "refresh": "刷新",
       "createPool": "创建池",
       "totalStaked": "总质押",
@@ -4800,6 +4892,9 @@
   "token": {
     "title": "代币系统 v4.0",
     "subtitle": "AI 增强企业代币标准",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "tbc20": "TBC-20",
     "tbc721": "TBC-721",
     "tbc1155": "TBC-1155",
@@ -4831,6 +4926,9 @@
   "walletSdk": {
     "title": "钱包 SDK",
     "subtitle": "企业钱包集成工具包",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "walletConnect": "连接钱包",
     "walletDisconnect": "断开钱包",
     "walletAddress": "钱包地址",
@@ -4847,6 +4945,9 @@
   "txSimulator": {
     "title": "交易模拟器",
     "subtitle": "创建和广播测试交易到网络",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "simulate": "模拟",
     "simulationResult": "模拟结果",
     "gasEstimate": "Gas 估算",
@@ -4994,6 +5095,9 @@
   "security": {
     "title": "安全",
     "subtitle": "网络安全监控和警报",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "securityScore": "安全评分",
     "threats": "威胁",
     "vulnerabilities": "漏洞",
@@ -5010,6 +5114,9 @@
   "performance": {
     "title": "性能",
     "subtitle": "系统性能指标和优化",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "cpuUsage": "CPU 使用率",
     "memoryUsage": "内存使用率",
     "diskUsage": "磁盘使用率",
@@ -5045,6 +5152,9 @@
   "members": {
     "title": "成员管理",
     "subtitle": "综合成员、质押者和验证者管理系统",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "totalMembers": "总成员",
     "activeMembers": "活跃成员",
     "totalValidators": "验证者总数",
@@ -5321,6 +5431,9 @@
   "apiKeys": {
     "title": "API 密钥",
     "subtitle": "管理 TBURN 区块链数据安全访问的 API 密钥",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "createNewKey": "创建新 API 密钥",
     "createDescription": "生成用于程序化访问的新 API 密钥。密钥只会显示一次。",
     "keyLabel": "API 密钥标签",
@@ -5354,6 +5467,9 @@
   "performanceMetrics": {
     "title": "性能指标",
     "subtitle": "实时网络性能分析和 SLA 监控",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "currentTps": "当前 TPS",
     "peakTps": "峰值 TPS",
     "ofPeak": "占峰值",
@@ -5383,6 +5499,9 @@
   "metrics": {
     "title": "性能指标",
     "subtitle": "企业级网络性能分析和 SLA 监控",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "live": "实时",
     "polling": "轮询",
     "export": "导出",
@@ -5512,6 +5631,9 @@
   "login": {
     "title": "TBURN 链",
     "subtitle": "主网区块链浏览器",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "password": "密码",
     "enterPassword": "输入密码",
     "loggingIn": "正在登录...",
@@ -5573,6 +5695,9 @@
   "governance": {
     "title": "AI 治理",
     "subtitle": "AI 增强的 DAO - 提案分析与结果预测",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "aiPowered": "AI 驱动",
     "totalProposals": "总提案数",
     "activeCount": "{{count}} 个活跃",
@@ -5684,6 +5809,9 @@
   "burn": {
     "title": "自动销毁仪表板",
     "subtitle": "AI 增强的自主销毁系统，具有多触发机制",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "deflationary": "通缩",
     "totalBurned": "总销毁量",
     "tburnPermanentlyRemoved": "永久移除的 TBURN",
@@ -5781,6 +5909,9 @@
   "nftMarketplace": {
     "title": "NFT 市场",
     "subtitle": "在 TBURN 区块链上发现、收藏和交易独特的数字资产",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "searchCollections": "搜索收藏...",
     "listNft": "上架 NFT",
     "volume24h": "24h 交易量",
@@ -5880,7 +6011,6 @@
       "burn": "销毁"
     },
     "verifiedCollection": "已验证收藏",
-    "viewAll": "查看全部",
     "by": "创作者",
     "share": "分享",
     "viewOnExplorer": "在浏览器中查看",
@@ -5930,6 +6060,9 @@
   "nftLaunchpad": {
     "title": "NFT 发射台",
     "subtitle": "在 TBURN 区块链上发现和参与最新的 NFT 发射",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "stats": {
       "totalProjects": "项目总数",
       "active": "活跃",
@@ -6080,6 +6213,9 @@
   "community": {
     "title": "标题",
     "subtitle": "与TBURN生态系统连接、协作和成长",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "online": "在线",
     "totalMembers": "总成员数",
     "thisWeek": "本周",
@@ -6359,6 +6495,9 @@
     "badge": "VC测试模式",
     "title": "TBURN平台",
     "subtitle": "投资测试环境",
+    "forumTitle": "社区论坛",
+    "viewAll": "查看全部",
+    "recentPosts": "最近帖子",
     "description": "使用预充值的演示钱包体验TBURN主网的全部功能。测试所有DeFi功能，探索我们的AI编排系统，评估我们的技术。",
     "startTour": "开始引导游览",
     "explorePlatform": "探索平台",
@@ -6462,6 +6601,9 @@
       "gatewayRegister": "网关注册",
       "title": "初始化",
       "subtitle": "在神经层创建新身份",
+      "forumTitle": "社区论坛",
+      "viewAll": "查看全部",
+      "recentPosts": "最近帖子",
       "nodeAlias": "节点别名",
       "usernamePlaceholder": "输入用户名",
       "signalFrequency": "信号频率（邮箱）",
@@ -6843,6 +6985,9 @@
       "solutions": {
         "title": "核心解决方案",
         "subtitle": "企业级区块链基础设施",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "tripleBandAi": {
           "title": "三频AI",
           "description": "在战略、战术和操作层面进行优化决策的三层AI编排。"
@@ -6875,6 +7020,9 @@
       "cta": {
         "title": "准备好建立信任了吗？",
         "subtitle": "加入数千名开发者，共同构建信任驱动区块链的未来",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "exploreEcosystem": "探索生态系统",
         "joinCommunity": "加入社区"
       }
@@ -6884,6 +7032,9 @@
         "tag": "V4学习中心",
         "title": "教育中心",
         "subtitle": "掌握TBurn Lab V4生态系统。从信任共识算法到构建高速dApp，从这里开始。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "stats": {
           "courses": "课程",
           "learners": "学习者",
@@ -7068,6 +7219,9 @@
         "tag": "介绍",
         "title": "什么是TBurn Lab？",
         "subtitle": "探索全球首个具有AI验证和量子安全的信任驱动区块链。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "coreFeatures": {
           "title": "核心功能",
           "items": {
@@ -7093,6 +7247,9 @@
         "consensus": {
           "title": "共识机制",
           "subtitle": "信任证明（PoT）将验证与信任评分相结合",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "specs": {
             "blockTime": "出块时间",
             "finality": "最终确认",
@@ -7148,6 +7305,9 @@
         "tag": "核心功能",
         "title": "信任评分系统",
         "subtitle": "深入了解三阶段验证系统、AI分析和动态评分算法。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "philosophy": {
           "title": "评估理念",
           "description": "信任评分旨在通过多维度评估项目可靠性来保护投资者",
@@ -7323,6 +7483,9 @@
         "tag": "入门",
         "title": "什么是钱包？",
         "subtitle": "了解加密货币钱包、安全最佳实践以及如何设置TBurn钱包。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "types": {
           "title": "钱包类型",
           "hot": {
@@ -7396,9 +7559,15 @@
         "tag": "技术文档",
         "title": "白皮书",
         "subtitle": "TBurn Lab架构、共识机制和代币经济学的完整技术文档。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "trustCrisis": {
           "title": "信任危机",
           "subtitle": "了解我们解决的问题",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "stats": {
             "rugPulls": {
               "value": "$28亿",
@@ -7483,6 +7652,9 @@
             "description": "即时欺诈检测和预防"
           },
           "subtitle": "使用三种不同AI模型进行智能决策。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "items": {
             "strategic": {
               "title": "战略层",
@@ -7562,9 +7734,15 @@
         "tag": "经济学",
         "title": "代币经济学",
         "subtitle": "了解TBURN代币分配、发行计划和通缩机制。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "distributionSection": {
           "title": "代币分配",
           "subtitle": "为长期生态系统增长和可持续性设计的战略分配",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
@@ -7702,6 +7880,9 @@
         "tag": "发展",
         "title": "路线图",
         "subtitle": "跟踪我们通向主流采用之旅的进展和即将到来的里程碑。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "phases": {
           "phase1": {
             "title": "第一阶段：基础建设",
@@ -7815,6 +7996,9 @@
         "tag": "初级",
         "title": "区块链基础",
         "subtitle": "区块链技术和分布式系统的基本概念。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "duration": "4小时",
         "backToEducation": "返回教育课程",
         "courseOverview": {
@@ -7829,21 +8013,33 @@
           "module1": {
             "title": "什么是区块链？",
             "subtitle": "理解分布式账本技术",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "45 min"
           },
           "module2": {
             "title": "密码学基础",
             "subtitle": "哈希函数、签名和加密",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "60 min"
           },
           "module3": {
             "title": "共识机制",
             "subtitle": "PoW、PoS和TBurn的信任证明",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "75 min"
           },
           "module4": {
             "title": "TBurn Lab架构",
             "subtitle": "深入了解信任驱动系统",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "60 min"
           }
         },
@@ -7888,6 +8084,9 @@
         "tag": "中级",
         "title": "DeFi精通",
         "subtitle": "掌握去中心化金融概念，包括DEX、借贷和收益策略。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "duration": "8小时",
         "backToEducation": "返回教育课程",
         "stats": {
@@ -7916,21 +8115,33 @@
           "module1": {
             "title": "DEX与AMM机制",
             "subtitle": "理解自动做市商",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "90 min"
           },
           "module2": {
             "title": "借贷协议",
             "subtitle": "抵押借贷",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "120 min"
           },
           "module3": {
             "title": "流动性提供",
             "subtitle": "LP代币、无常损失和奖励",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "90 min"
           },
           "module4": {
             "title": "收益策略",
             "subtitle": "通过信任加成优化收益",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "120 min"
           }
         },
@@ -7983,6 +8194,9 @@
         "tag": "高级",
         "title": "开发者课程",
         "subtitle": "在TBurn Lab上构建和部署dApp的完整指南。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "duration": "20小时",
         "backToEducation": "返回教育课程",
         "courseOverview": {
@@ -7994,21 +8208,33 @@
           "module1": {
             "title": "SDK设置与配置",
             "subtitle": "环境设置和项目初始化",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "2小时"
           },
           "module2": {
             "title": "智能合约开发",
             "subtitle": "编写安全、优化的合约",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "6小时"
           },
           "module3": {
             "title": "API集成",
             "subtitle": "REST、GraphQL和WebSocket API",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "4小时"
           },
           "module4": {
             "title": "部署与DevOps",
             "subtitle": "主网部署和监控",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "4小时"
           }
         },
@@ -8067,6 +8293,9 @@
         "tag": "初级",
         "title": "DeFi入门",
         "subtitle": "在TBurn Lab上迈入去中心化金融的第一步。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "duration": "2小时",
         "backToEducation": "返回教育课程",
         "scoreFormula": {
@@ -8190,6 +8419,9 @@
         "tag": "项目",
         "title": "教育项目",
         "subtitle": "区块链教育的结构化学习路径和认证项目。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "backToLearn": "返回学习",
         "pathsTitle": "学习路径",
         "pathsSubtitle": "根据您的目标和经验水平选择结构化路径。",
@@ -8218,24 +8450,36 @@
           "beginner": {
             "title": "区块链基础",
             "subtitle": "从核心概念和术语开始您的区块链之旅。",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "6小时",
             "level": "初级"
           },
           "defi": {
             "title": "DeFi专家",
             "subtitle": "掌握去中心化金融协议和策略。",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "12小时",
             "level": "中级"
           },
           "developer": {
             "title": "智能合约开发者",
             "subtitle": "在TBurn链上构建生产级dApp。",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "20小时",
             "level": "高级"
           },
           "security": {
             "title": "安全与信任",
             "subtitle": "学习Trust Score、安全审计和最佳实践。",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "duration": "10小时",
             "level": "中级"
           }
@@ -8306,6 +8550,9 @@
         "tag": "V4 SDK和API就绪",
         "title": "开发者中心",
         "subtitle": "构建下一代信任驱动应用。访问TBurn Lab V4生态系统的综合开发工具、SDK和API。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "getStarted": "开始使用",
         "viewDocs": "查看文档",
         "quickStart": {
@@ -8322,6 +8569,9 @@
           "_value": "API参考",
           "title": "API参考",
           "subtitle": "RESTful API与WebSocket流",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "blockchainApi": "区块链API",
           "defiApi": "DeFi API",
           "aiApi": "AI API"
@@ -8345,6 +8595,9 @@
           "_value": "开发者资助",
           "title": "开发者资助计划",
           "subtitle": "我们支持扩展TBurn Lab生态系统的项目。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "totalFund": "$50M 总资助基金"
         },
         "quickStartSteps": {
@@ -8493,6 +8746,9 @@
         "tag": "文档",
         "title": "文档",
         "subtitle": "TBurn Lab开发的综合指南和参考。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "heroDescription": "在 TBurn Lab 上构建所需的一切。从快速入门到高级 API 参考。",
         "searchPlaceholder": "搜索文档...",
         "categoriesTitle": "文档分类",
@@ -8504,6 +8760,9 @@
         "architecture": {
           "title": "网络架构",
           "subtitle": "了解 TBurn Lab 多层架构",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "layers": {
             "consensus": {
               "title": "共识层",
@@ -8616,6 +8875,9 @@
         "tag": "API参考",
         "title": "API文档",
         "subtitle": "区块链、DeFi和AI服务的RESTful API端点。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "baseUrl": "基础 URL",
         "coreEndpoints": "核心端点",
         "parameters": "参数",
@@ -8701,6 +8963,9 @@
         "tag": "CLI工具",
         "title": "CLI参考",
         "subtitle": "项目管理和部署的命令行界面。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "currentVersion": "当前版本",
         "usage": "使用方法",
         "options": "选项",
@@ -8785,6 +9050,9 @@
         "tag": "SDK指南",
         "title": "SDK指南",
         "subtitle": "多语言SDK集成指南和最佳实践。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "installation": "安装",
         "configuration": "配置",
         "quickExamples": "快速示例",
@@ -8823,6 +9091,9 @@
         "tag": "智能合约",
         "title": "智能合约",
         "subtitle": "在TBurn Lab上编写、测试和部署安全的智能合约。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "contractTemplates": "合约模板",
         "copy": "复制",
         "copied": "已复制！",
@@ -8909,6 +9180,9 @@
         "gasOptimization": {
           "title": "Gas 优化",
           "subtitle": "降低交易成本的技巧",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "tip1": "将多个小变量打包到单个存储槽中",
           "tip2": "对只读函数参数使用 calldata 而不是 memory",
           "tip3": "多次访问时将存储变量缓存到内存中",
@@ -8966,6 +9240,9 @@
         "tag": "实时",
         "title": "WebSocket API",
         "subtitle": "实时数据流和事件订阅。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "connectionEndpoints": "连接端点",
         "subscriptionChannels": "订阅频道",
         "fullReference": "完整参考",
@@ -9014,6 +9291,9 @@
         "tag": "代码示例",
         "title": "代码示例",
         "subtitle": "即用型代码片段和示例项目。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "commonRecipes": "常用示例",
         "categories": {
           "allRecipes": "全部示例",
@@ -9078,6 +9358,9 @@
         "tag": "入门",
         "title": "快速开始",
         "subtitle": "几分钟内开始使用TBurn Lab。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "whatsNext": "下一步是什么？",
         "prerequisites": {
           "title": "先决条件",
@@ -9141,6 +9424,9 @@
         "tag": "设置",
         "title": "安装指南",
         "subtitle": "分步安装和配置说明。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "startBuilding": "开始构建",
         "viewQuickStart": "查看快速入门",
         "requirements": {
@@ -9160,6 +9446,9 @@
           "minimum": {
             "title": "最低要求",
             "subtitle": "用于开发和测试",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "cpu": "4 核 / 8 线程",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
@@ -9168,6 +9457,9 @@
           "recommended": {
             "title": "推荐要求",
             "subtitle": "用于生产验证者",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "cpu": "8+ 核 / 16 线程",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
@@ -9182,6 +9474,9 @@
           "ports": {
             "title": "网络端口",
             "subtitle": "节点运行所需端口",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
@@ -9300,6 +9595,9 @@
         "tag": "迁移",
         "title": "EVM迁移",
         "subtitle": "将以太坊dApp迁移到TBurn Lab。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "startMigration": "开始迁移",
         "viewGuide": "查看完整指南",
         "overview": {
@@ -9429,6 +9727,9 @@
         "keyDifferences": {
           "title": "关键技术差异",
           "subtitle": "TBurn Lab 与传统 EVM 链的区别",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "existingEvmChains": "现有 EVM 链",
           "tburnChain": "TBurn Lab",
           "upgrade": "升级"
@@ -9445,6 +9746,9 @@
         "title": "DeFi中心",
         "titleHighlight": "中心",
         "subtitle": "包含DEX、借贷、质押和流动性挖矿的完整去中心化金融基础设施。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "features": {
           "dex": "DEX/AMM",
           "lending": "借贷协议",
@@ -9494,6 +9798,9 @@
         "cta": {
           "title": "开始在TBurn DeFi交易",
           "subtitle": "访问最受信赖的去中心化金融生态系统",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "launchApp": "启动应用",
           "viewDocs": "查看文档"
         },
@@ -9616,6 +9923,9 @@
         "title": "代币",
         "titleHighlight": "扩展",
         "subtitle": "具有内置信任验证和自动销毁机制的高级TBC-20代币标准。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "exploreBrc20": "探索TBC-20",
         "readSpecs": "阅读规格",
         "features": {
@@ -9660,6 +9970,9 @@
         "brc20Standard": {
           "title": "TBC-20代币标准",
           "subtitle": "信任与销毁功能的核心接口。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "trustScoreFunctions": "信任评分函数",
           "autoBurnFunctions": "自动销毁函数"
         },
@@ -9708,6 +10021,9 @@
         "cta": {
           "title": "开始发行TBC-20代币",
           "subtitle": "在5分钟内发行具有内置信任评级功能的代币。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "openConsole": "打开开发者控制台",
           "viewApiDocs": "查看API文档"
         },
@@ -9720,6 +10036,9 @@
         "brc20": {
           "title": "TBC-20 代币标准",
           "subtitle": "信任与销毁功能的核心接口。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "trustScoreFunctions": "信任评分函数",
           "autoBurnFunctions": "自动销毁函数"
         },
@@ -9755,10 +10074,16 @@
         "title": "Actions &",
         "titleHighlight": "Blinks",
         "subtitle": "通过简单的URL链接执行区块链交易。在社交媒体上分享交换、铸造和投票。包含信任评分验证。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "createAction": "创建操作",
         "coreCapabilities": {
           "title": "核心功能",
           "subtitle": "标准化区块链交互的下一代协议",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "urlExecution": {
             "title": "URL执行",
             "description": "通过深度链接即时执行交换、铸造和投票。"
@@ -9901,6 +10226,9 @@
         "title": "钱包 &",
         "titleHighlight": "安全",
         "subtitle": "使用受信任的钱包连接TBurn Lab。所有钱包在交易前显示实时信任评分。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "recommended": "推荐",
         "walletList": {
           "tburn": {
@@ -9979,11 +10307,17 @@
         "title": "许可",
         "titleHighlight": "网络",
         "subtitle": "使用TBurn Lab的信任验证部署私有区块链网络。企业级安全与公链锚定。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "contactSales": "联系销售",
         "viewWhitepaper": "查看白皮书",
         "enterpriseFeatures": {
           "title": "企业级许可链",
           "subtitle": "面向企业的高级控制和合规功能。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "rbac": {
             "title": "基于角色的访问控制（RBAC）",
             "description": "针对管理员、验证者和用户的细粒度权限设置。基于角色为智能合约部署、交易批准和数据查询设置单独权限。"
@@ -10004,6 +10338,9 @@
         "hybridArchitecture": {
           "title": "混合架构",
           "subtitle": "结合私有链的隐私与公共区块链的安全。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "privateChainAnchor": {
             "title": "私有链 + 公链锚定",
             "description": "内部交易在高速私有链上运行，定期将状态哈希锚定到TBurn公共主网以实现不可篡改性。"
@@ -10154,10 +10491,16 @@
         "title": "游戏",
         "titleHighlight": "工具",
         "subtitle": "完整的GameFi SDK，包含NFT验证、P2E机制和跨游戏资产交易。信任评分防止欺诈游戏项目。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "getUnitySdk": "获取Unity SDK",
         "whyBuild": {
           "title": "为什么在TBurn上构建？",
           "subtitle": "为高速游戏和安全资产交易优化。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "ultraFastProcessing": {
             "title": "超快处理",
             "description": "50,000+ TPS（峰值520,000+ TPS）吞吐量实现实时游戏内道具交易。平均1秒出块时间，玩家体验即时确认无延迟。"
@@ -10214,6 +10557,9 @@
             "desc": "具有已验证数字资产所有权的沉浸式虚拟环境。"
           },
           "subtitle": "使用我们全面的工具构建任何类型的区块链游戏",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "marketplace": {
             "title": "NFT 市场",
             "desc": "具有信任验证的游戏内物品安全交易平台。",
@@ -10270,6 +10616,9 @@
         "trustScore": {
           "title": "NFT 项目信任评分",
           "subtitle": "游戏项目的综合验证系统",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "teamScore": "团队身份评分",
           "contractScore": "合约安全评分",
           "utilityScore": "实用性与路线图评分",
@@ -10367,10 +10716,16 @@
         "title": "全球",
         "titleHighlight": "支付",
         "subtitle": "在全球范围内接受经过验证的加密支付。即时结算、超低费用和信任评分过滤保护商家。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "getApiKey": "获取API密钥",
         "whyChoose": {
           "title": "为什么选择TBurn？",
           "subtitle": "为全球商务优化的基础设施。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "instantSettlement": {
             "title": "即时结算",
             "description": "平均1秒出块时间和6秒最终确认。体验比传统信用卡更快的支付速度，50,000+ TPS（峰值520,000+ TPS）容量。"
@@ -10465,6 +10820,9 @@
         "tag": "商业",
         "title": "商业",
         "subtitle": "电子商务集成和商家解决方案。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "titleHighlight": "解决方案",
         "buttons": {
           "installPlugin": "安装插件",
@@ -10558,6 +10916,9 @@
         "tag": "金融",
         "title": "金融服务",
         "subtitle": "基于区块链的企业金融基础设施。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "titleHighlight": "服务",
         "buttons": {
           "startBuilding": "开始构建",
@@ -10641,6 +11002,9 @@
         "tag": "AI驱动",
         "title": "AI功能",
         "subtitle": "用于智能区块链操作的三频AI编排。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "titleHighlight": "三频段编排",
         "tiers": {
           "strategic": {
@@ -10782,6 +11146,9 @@
         "tag": "创意",
         "title": "艺术家与创作者",
         "subtitle": "NFT铸造、版税和创作者经济工具。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "titleHighlight": "创作者",
         "buttons": {
           "startCreating": "开始创作",
@@ -10896,6 +11263,9 @@
         "tag": "比特币DEFI",
         "title": "BTCfi",
         "subtitle": "包含包装BTC和跨链收益的比特币DeFi集成。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "titleHighlight": "比特币 DeFi",
         "buttons": {
           "bridgeBtc": "桥接 BTC",
@@ -11037,6 +11407,9 @@
         "tag": "跨链桥",
         "title": "跨链桥",
         "subtitle": "跨7+区块链网络的安全资产转移。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "titleHighlight": "桥接",
         "buttons": {
           "launchBridge": "启动桥接",
@@ -11056,6 +11429,9 @@
           "mpcSecurity": {
             "title": "MPC 安全",
             "subtitle": "用于无信任桥接的多方计算",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "items": {
               "distributedKeyGen": "分布式密钥生成",
               "thresholdSignatures": "门限签名",
@@ -11065,6 +11441,9 @@
           "atomicSwaps": {
             "title": "原子交换",
             "subtitle": "全有或全无的交易保证",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "items": {
               "htlcContracts": "HTLC 智能合约",
               "zeroSlippage": "零滑点交换",
@@ -11074,6 +11453,9 @@
           "unifiedLiquidity": {
             "title": "统一流动性",
             "subtitle": "深度跨链流动性池",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "items": {
               "crossChainPools": "跨链流动性池",
               "dynamicRebalancing": "动态池再平衡",
@@ -11196,6 +11578,9 @@
         "tag": "游戏与元宇宙",
         "title": "游戏与元宇宙",
         "subtitle": "使用TBURN的高性能GameFi基础设施构建下一代区块链游戏。无缝P2E集成、NFT资产和跨游戏经济。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "buttons": {
           "startBuilding": "开始构建",
           "gameTooling": "游戏工具"
@@ -11305,6 +11690,9 @@
         "tag": "资产代币化",
         "title": "资产代币化",
         "subtitle": "将现实世界资产转化为区块链代币。释放流动性，实现部分所有权，并通过合规代币化进入全球市场。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "buttons": {
           "startTokenizing": "开始代币化",
           "viewDocumentation": "查看文档"
@@ -11365,6 +11753,9 @@
         "tag": "去中心化基础设施",
         "title": "DePIN网络",
         "subtitle": "构建和运营去中心化物理基础设施网络。通过贡献计算、存储、无线和传感资源来获得奖励。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "buttons": {
           "deployInfrastructure": "部署基础设施",
           "protocolDocs": "协议文档"
@@ -11432,6 +11823,9 @@
         "tag": "稳定币基础设施",
         "title": "稳定币解决方案",
         "subtitle": "企业级稳定币发行和管理。法币担保、加密担保和算法选项，完全符合监管要求。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "buttons": {
           "issueStablecoin": "发行稳定币",
           "technicalDocs": "技术文档"
@@ -11511,6 +11905,9 @@
         "tag": "机构支付",
         "title": "机构支付",
         "subtitle": "为银行和金融机构提供的大容量支付基础设施。实时总额结算、跨境支付和监管合规。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "buttons": {
           "contactSales": "联系销售",
           "apiReference": "API参考"
@@ -11590,6 +11987,9 @@
         "tag": "企业区块链",
         "title": "企业解决方案",
         "subtitle": "现代企业的综合区块链解决方案。私有网络、合规功能和24/7企业支持。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "buttons": {
           "contactEnterprise": "联系企业",
           "enterpriseDocs": "企业文档"
@@ -11679,6 +12079,9 @@
         "tag": "网络验证者",
         "title": "验证者",
         "subtitle": "加入TBurn验证者网络，在保护区块链的同时获得奖励。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "becomeValidator": "成为验证者",
         "consensusSpecs": {
           "title": "共识规格",
@@ -11824,6 +12227,9 @@
         "slashing": {
           "title": "罚没条件",
           "subtitle": "验证者必须维持高标准。违规将导致质押惩罚。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "minor": {
             "title": "轻微违规",
             "badge": "警告",
@@ -11865,6 +12271,9 @@
         "cta": {
           "title": "准备好成为验证者了吗？",
           "subtitle": "加入网络，在保护 TBurn Lab 的同时获得奖励。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "startValidating": "开始验证",
           "readDocs": "阅读文档"
         }
@@ -11873,6 +12282,9 @@
         "tag": "RPC基础设施",
         "title": "RPC端点",
         "subtitle": "连接官方RPC节点以获得可靠的网络访问。支持WebSocket和HTTP连接。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "getApiKey": "获取API密钥",
         "apiPlans": {
           "title": "API计划与限制",
@@ -11961,6 +12373,9 @@
         "cta": {
           "title": "准备好开始构建了吗？",
           "subtitle": "立即开始使用TBurn Lab API构建。获取您的免费API密钥并访问企业级区块链基础设施。",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "getStartedFree": "免费开始",
           "contactSales": "联系销售",
           "desc": "立即开始使用 TBurn Lab API 构建。获取您的免费 API 密钥并访问企业级区块链基础设施。"
@@ -12025,6 +12440,9 @@
         "tag": "状态",
         "title": "网络状态",
         "subtitle": "实时网络健康和性能指标。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "operational": "运行中",
         "lastUpdated": "最后更新",
         "daysAgo": "天前",
@@ -12121,6 +12539,9 @@
         "tag": "法币通道",
         "title": "法币出入金",
         "subtitle": "使用法币购买和出售TBURN。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "fee": "费用",
         "sections": {
           "howItWorks": "如何运作",
@@ -12223,6 +12644,9 @@
         "tag": "社区",
         "title": "社区中心",
         "subtitle": "与建设者、验证者和爱好者联系。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "stats": {
           "totalMembers": "总成员",
           "monthlyActive": "月活跃",
@@ -12260,6 +12684,9 @@
         "leaderboard": {
           "title": "贡献者排行榜",
           "subtitle": "本月顶级社区贡献者",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "points": "{{count}} 积分",
           "tiers": {
             "diamond": "钻石",
@@ -12272,6 +12699,9 @@
         "ambassador": {
           "title": "大使计划",
           "subtitle": "领导全球TBurn社区",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "applyButton": "申请成为大使",
           "benefits": {
             "rewards": "月度TBURN代币奖励",
@@ -12283,6 +12713,9 @@
         "ambassadorProgram": {
           "title": "大使计划",
           "subtitle": "领导全球社区",
+          "forumTitle": "社区论坛",
+          "viewAll": "查看全部",
+          "recentPosts": "最近帖子",
           "benefits": {
             "tokenRewards": "每月TBURN代币奖励",
             "earlyAccess": "提前访问新功能",
@@ -12333,6 +12766,9 @@
         "tag": "新闻与博客",
         "title": "新闻与博客",
         "subtitle": "最新更新、公告和见解。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "searchPlaceholder": "搜索文章...",
         "featuredTitle": "精选故事",
         "featuredBadge": "精选",
@@ -12432,7 +12868,13 @@
                 "6": "主网启动包含完整的 DeFi 生态系统，包括 DEX/AMM、借贷协议、流动性质押、NFT 市场和跨链桥功能。",
                 "7": "我们邀请开发者、验证者和用户加入我们，在 TBURN v7.0 上共同构建去中心化金融的未来。"
               },
-              "tags": { "0": "主网", "1": "启动", "2": "v7.0", "3": "AI", "4": "DeFi" }
+              "tags": {
+                "0": "主网",
+                "1": "启动",
+                "2": "v7.0",
+                "3": "AI",
+                "4": "DeFi"
+              }
             },
             "triple-band-ai-revealed": {
               "title": "Triple-Band AI 架构揭秘：区块链智能的未来",
@@ -12453,7 +12895,12 @@
                 "6": "反馈学习系统：所有 AI 决策都被跟踪并与实际结果进行评估。这个持续的反馈循环使系统能够不断改进，验证者选择决策的准确率目前超过 99.7%。",
                 "7": "结果是一个自我改进、容错的 AI 层，增强区块链运营的各个方面。"
               },
-              "tags": { "0": "AI", "1": "技术", "2": "深度分析", "3": "架构" }
+              "tags": {
+                "0": "AI",
+                "1": "技术",
+                "2": "深度分析",
+                "3": "架构"
+              }
             },
             "global-partnership-expansion": {
               "title": "全球合作伙伴扩展：TBURN 与行业领导者携手",
@@ -12474,7 +12921,12 @@
                 "6": "开发者资源：我们的合作伙伴正在为包括 SDK、文档和培训计划在内的综合开发者资源做出贡献。",
                 "7": "我们对这些合作伙伴关系为我们的社区和更广泛的区块链生态系统创造的机会感到兴奋。"
               },
-              "tags": { "0": "合作伙伴", "1": "扩展", "2": "企业", "3": "全球" }
+              "tags": {
+                "0": "合作伙伴",
+                "1": "扩展",
+                "2": "企业",
+                "3": "全球"
+              }
             },
             "staking-program-details": {
               "title": "质押计划详情：最大化您的 TBURN 奖励",
@@ -12496,7 +12948,12 @@
                 "7": "自动复利：启用自动复利以自动再投资您的奖励并最大化收益。",
                 "8": "开始使用：今天访问 TBURN 质押仪表板开始获得奖励。"
               },
-              "tags": { "0": "质押", "1": "奖励", "2": "代币经济学", "3": "APY" }
+              "tags": {
+                "0": "质押",
+                "1": "奖励",
+                "2": "代币经济学",
+                "3": "APY"
+              }
             },
             "trust-score-deep-dive": {
               "title": "信任分数深度分析：TBURN AI 如何评估网络安全",
@@ -12517,7 +12974,12 @@
                 "6": "保持高分：一致的正常运行时间、及时的区块生产和积极的治理参与是保持高信任分数的关键因素。",
                 "7": "信任分数系统确保最可靠的参与者获得奖励，创建自我强化的安全机制。"
               },
-              "tags": { "0": "安全", "1": "信任分数", "2": "AI", "3": "验证者" }
+              "tags": {
+                "0": "安全",
+                "1": "信任分数",
+                "2": "AI",
+                "3": "验证者"
+              }
             },
             "sdk-2-released": {
               "title": "TBURN SDK 2.0 发布：使用新开发工具更快构建",
@@ -12539,7 +13001,12 @@
                 "7": "文档：访问我们的开发者门户获取全面的指南、API 参考和示例项目。",
                 "8": "SDK 2.0 代表了我们让 TBURN 开发变得易于访问和愉快的承诺。"
               },
-              "tags": { "0": "SDK", "1": "开发", "2": "TypeScript", "3": "工具" }
+              "tags": {
+                "0": "SDK",
+                "1": "开发",
+                "2": "TypeScript",
+                "3": "工具"
+              }
             },
             "quantum-resistant-cryptography": {
               "title": "量子抗性密码学：保护 TBURN 的未来",
@@ -12562,7 +13029,12 @@
                 "8": "哈希函数：带有量子抗性选项的多哈希系统。",
                 "9": "这种积极的方法确保 TBURN 在量子计算能力发展的情况下仍然保持安全。"
               },
-              "tags": { "0": "量子", "1": "密码学", "2": "安全", "3": "研究" }
+              "tags": {
+                "0": "量子",
+                "1": "密码学",
+                "2": "安全",
+                "3": "研究"
+              }
             },
             "tburn-dex-beta": {
               "title": "TBURN DEX Beta 启动：去中心化交易来了",
@@ -12584,7 +13056,12 @@
                 "7": "开始使用：今天连接您的钱包并开始在 TBURN DEX 上交易。完整文档可在我们的开发者门户获取。",
                 "8": "加入我们的社区频道提供反馈，帮助塑造 TBURN 上去中心化交易的未来。"
               },
-              "tags": { "0": "DEX", "1": "DeFi", "2": "交易", "3": "AMM" }
+              "tags": {
+                "0": "DEX",
+                "1": "DeFi",
+                "2": "交易",
+                "3": "AMM"
+              }
             }
           }
         }
@@ -12593,6 +13070,9 @@
         "tag": "活动与事件",
         "title": "活动与事件",
         "subtitle": "参加TBurn Lab社区活动、黑客马拉松和会议。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "featuredTitle": "精选活动",
         "upcomingTitle": "即将举行的活动",
         "capacity": "容量",
@@ -12725,16 +13205,46 @@
                 "2": "参与者将有机会直接向开发者提问，并学习如何开始使用 TBURN v7.0。"
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO & 创始人", "avatar": "AP" },
-                "1": { "name": "Dr. Sarah Chen", "role": "首席 AI 架构师", "avatar": "SC" },
-                "2": { "name": "Michael Rodriguez", "role": "DeFi 产品负责人", "avatar": "MR" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO & 创始人",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "Dr. Sarah Chen",
+                  "role": "首席 AI 架构师",
+                  "avatar": "SC"
+                },
+                "2": {
+                  "name": "Michael Rodriguez",
+                  "role": "DeFi 产品负责人",
+                  "avatar": "MR"
+                }
               },
               "agenda": {
-                "0": { "time": "14:00", "title": "欢迎 & 介绍", "speaker": "Alex Park" },
-                "1": { "time": "14:15", "title": "TBURN v7.0 技术概览" },
-                "2": { "time": "14:45", "title": "AI 编排深度解析", "speaker": "Dr. Sarah Chen" },
-                "3": { "time": "15:15", "title": "DeFi 生态系统演示", "speaker": "Michael Rodriguez" },
-                "4": { "time": "15:45", "title": "现场问答环节" }
+                "0": {
+                  "time": "14:00",
+                  "title": "欢迎 & 介绍",
+                  "speaker": "Alex Park"
+                },
+                "1": {
+                  "time": "14:15",
+                  "title": "TBURN v7.0 技术概览"
+                },
+                "2": {
+                  "time": "14:45",
+                  "title": "AI 编排深度解析",
+                  "speaker": "Dr. Sarah Chen"
+                },
+                "3": {
+                  "time": "15:15",
+                  "title": "DeFi 生态系统演示",
+                  "speaker": "Michael Rodriguez"
+                },
+                "4": {
+                  "time": "15:45",
+                  "title": "现场问答环节"
+                }
               },
               "requirements": {
                 "0": "稳定的网络连接",
@@ -12757,16 +13267,44 @@
                 "2": "工作坊结束时，您将在 TBURN 测试网上部署您的第一个智能合约，并理解完整的开发生命周期。"
               },
               "speakers": {
-                "0": { "name": "James Liu", "role": "首席开发者", "avatar": "JL" },
-                "1": { "name": "Emma Wilson", "role": "开发者关系", "avatar": "EW" }
+                "0": {
+                  "name": "James Liu",
+                  "role": "首席开发者",
+                  "avatar": "JL"
+                },
+                "1": {
+                  "name": "Emma Wilson",
+                  "role": "开发者关系",
+                  "avatar": "EW"
+                }
               },
               "agenda": {
-                "0": { "time": "10:00", "title": "环境设置 & 前提条件" },
-                "1": { "time": "10:30", "title": "TBURN SDK 入门", "speaker": "James Liu" },
-                "2": { "time": "11:30", "title": "智能合约开发" },
-                "3": { "time": "12:30", "title": "午餐休息" },
-                "4": { "time": "13:00", "title": "测试 & 部署", "speaker": "Emma Wilson" },
-                "5": { "time": "13:45", "title": "问答 & 总结" }
+                "0": {
+                  "time": "10:00",
+                  "title": "环境设置 & 前提条件"
+                },
+                "1": {
+                  "time": "10:30",
+                  "title": "TBURN SDK 入门",
+                  "speaker": "James Liu"
+                },
+                "2": {
+                  "time": "11:30",
+                  "title": "智能合约开发"
+                },
+                "3": {
+                  "time": "12:30",
+                  "title": "午餐休息"
+                },
+                "4": {
+                  "time": "13:00",
+                  "title": "测试 & 部署",
+                  "speaker": "Emma Wilson"
+                },
+                "5": {
+                  "time": "13:45",
+                  "title": "问答 & 总结"
+                }
               },
               "requirements": {
                 "0": "已安装 Node.js 18+",
@@ -12790,14 +13328,34 @@
                 "2": "问题可以通过 Discord 提前提交，也可以在活动期间现场提问。"
               },
               "speakers": {
-                "0": { "name": "Alex Park", "role": "CEO & 创始人", "avatar": "AP" },
-                "1": { "name": "社区团队", "role": "主持人", "avatar": "CT" }
+                "0": {
+                  "name": "Alex Park",
+                  "role": "CEO & 创始人",
+                  "avatar": "AP"
+                },
+                "1": {
+                  "name": "社区团队",
+                  "role": "主持人",
+                  "avatar": "CT"
+                }
               },
               "agenda": {
-                "0": { "time": "18:00", "title": "欢迎 & 更新" },
-                "1": { "time": "18:15", "title": "预先提交的问题" },
-                "2": { "time": "18:45", "title": "社区现场提问" },
-                "3": { "time": "19:15", "title": "结束语 & 公告" }
+                "0": {
+                  "time": "18:00",
+                  "title": "欢迎 & 更新"
+                },
+                "1": {
+                  "time": "18:15",
+                  "title": "预先提交的问题"
+                },
+                "2": {
+                  "time": "18:45",
+                  "title": "社区现场提问"
+                },
+                "3": {
+                  "time": "19:15",
+                  "title": "结束语 & 公告"
+                }
               },
               "requirements": {
                 "0": "Discord 账户",
@@ -12819,14 +13377,36 @@
                 "2": "我们的团队还将解释三层验证者系统以及 AI 信任分数如何影响您的奖励。"
               },
               "speakers": {
-                "0": { "name": "David Kim", "role": "基础设施负责人", "avatar": "DK" },
-                "1": { "name": "Lisa Zhang", "role": "验证者关系", "avatar": "LZ" }
+                "0": {
+                  "name": "David Kim",
+                  "role": "基础设施负责人",
+                  "avatar": "DK"
+                },
+                "1": {
+                  "name": "Lisa Zhang",
+                  "role": "验证者关系",
+                  "avatar": "LZ"
+                }
               },
               "agenda": {
-                "0": { "time": "15:00", "title": "TBURN 验证介绍" },
-                "1": { "time": "15:30", "title": "技术要求 & 设置", "speaker": "David Kim" },
-                "2": { "time": "16:00", "title": "收益 & 奖励", "speaker": "Lisa Zhang" },
-                "3": { "time": "16:30", "title": "现场演示 & 问答" }
+                "0": {
+                  "time": "15:00",
+                  "title": "TBURN 验证介绍"
+                },
+                "1": {
+                  "time": "15:30",
+                  "title": "技术要求 & 设置",
+                  "speaker": "David Kim"
+                },
+                "2": {
+                  "time": "16:00",
+                  "title": "收益 & 奖励",
+                  "speaker": "Lisa Zhang"
+                },
+                "3": {
+                  "time": "16:30",
+                  "title": "现场演示 & 问答"
+                }
               },
               "requirements": {
                 "0": "对区块链的基本了解",
@@ -12835,6 +13415,71 @@
               }
             }
           }
+        },
+        "items": {
+          "launchAma": {
+            "title": "TBURN v7.0发布AMA",
+            "description": "与核心团队一起参加关于主网发布和即将推出功能的现场问答环节"
+          },
+          "defiWorkshop": {
+            "title": "DeFi研讨会：流动性挖矿",
+            "description": "通过实践练习和专家指导学习高级流动性挖矿策略"
+          },
+          "hackathon": {
+            "title": "TBURN黑客松2025",
+            "description": "48小时全球黑客松，奖金50万美元。在TBURN Lab上构建创新DeFi解决方案，争夺资助和孵化机会。"
+          },
+          "tokyoMeetup": {
+            "title": "社区聚会 - 东京",
+            "description": "在东京与TBURN爱好者们交流。提供餐饮！"
+          },
+          "stakingCompetition": {
+            "title": "质押竞赛",
+            "description": "竞争本月最高质押奖励。顶级质押者赢取额外奖励！"
+          },
+          "nftContest": {
+            "title": "NFT艺术大赛",
+            "description": "创作TBURN主题NFT艺术作品并赢取奖品。现已开放提交！"
+          },
+          "validatorTraining": {
+            "title": "验证者培训课程",
+            "description": "通过这个全面的培训课程学习如何成为TBURN验证者"
+          },
+          "airdropEvent": {
+            "title": "社区空投活动",
+            "description": "活跃社区成员的独家空投。完成任务赚取奖励！"
+          }
+        }
+      },
+      "time": {
+        "justNow": "刚刚",
+        "hoursAgo": "{{count}}小时前",
+        "daysAgo": "{{count}}天前"
+      },
+      "announcements": {
+        "mainnetLaunch": {
+          "title": "主网发布日期确认：12月8日",
+          "content": "我们很高兴地宣布TBURN v7.0主网将于2024年12月8日正式发布。所有系统已准备就绪，迎接历史上最大的升级！"
+        },
+        "stakingTiers": {
+          "title": "新质押层级上线",
+          "content": "钻石级质押现已推出，APY提升高达25%。请在新的质押仪表板上查看更多详情。"
+        },
+        "securityAudit": {
+          "title": "安全审计完成",
+          "content": "我们的智能合约已通过CertiK和Trail of Bits的全面安全审计。完整报告可在GitHub上查看。"
+        },
+        "bridgeIntegration": {
+          "title": "跨链桥正式上线",
+          "content": "TBURN跨链桥现已上线，支持以太坊、BSC和Polygon网络之间的转账。"
+        },
+        "maintenance": {
+          "title": "计划维护：节点升级",
+          "content": "12月10日凌晨2:00 UTC将进行短暂维护。预计停机时间：15分钟。"
+        },
+        "aiOrchestration": {
+          "title": "AI编排系统上线",
+          "content": "Quad-Band AI编排系统现已全面运行，Gemini 3 Pro为主，Claude Sonnet 4.5、GPT-4o和Grok 3为备用。"
         }
       }
     },
@@ -12842,6 +13487,9 @@
       "terms": {
         "title": "服务条款",
         "subtitle": "使用TBurn Lab服务的条款和条件。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "backToHome": "返回首页",
         "sections": {
           "acceptance": {
@@ -13037,6 +13685,9 @@
       "privacy": {
         "title": "隐私政策",
         "subtitle": "我们如何收集、使用和保护您的数据。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "backToHome": "返回首页",
         "sections": {
           "introduction": {
@@ -13249,6 +13900,9 @@
       "disclaimer": {
         "title": "免责声明",
         "subtitle": "重要法律声明和风险披露。",
+        "forumTitle": "社区论坛",
+        "viewAll": "查看全部",
+        "recentPosts": "最近帖子",
         "backToHome": "返回首页",
         "importantNotice": {
           "title": "重要通知",
@@ -13391,6 +14045,9 @@
           "privacy": {
             "title": "隐私政策",
             "subtitle": "How we handle your data",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "subtitleData": "Your data protection rights"
           },
           "terms": {
@@ -13400,6 +14057,9 @@
           "disclaimer": {
             "title": "免责声明",
             "subtitle": "Legal notices",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "subtitleRisk": "Risk disclosures"
           }
         },
@@ -13407,12 +14067,18 @@
           "trustScore": {
             "title": "信任评分系统",
             "subtitle": "3-stage verification process",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "subtitleHow": "How Trust Scores work",
             "subtitleVerification": "验证 methodology"
           },
           "wallet": {
             "title": "What is a 钱包?",
             "subtitle": "钱包 basics",
+            "forumTitle": "社区论坛",
+            "viewAll": "查看全部",
+            "recentPosts": "最近帖子",
             "subtitleSecurity": "Securing your assets"
           },
           "blockchain": {

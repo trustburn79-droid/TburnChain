@@ -24,6 +24,7 @@ interface EventData {
   location?: string;
   isOnline: boolean;
   isRegistered?: boolean;
+  translationKey?: string;
 }
 
 const eventTypeIcons: Record<string, any> = {
@@ -78,12 +79,32 @@ export default function Events() {
   const [activeFilter, setActiveFilter] = useState("all");
   const { toast } = useToast();
 
-  const isKorean = i18n.language === 'ko';
+  const currentLang = i18n.language;
 
   const { data: events, isLoading, error } = useQuery<EventData[]>({
     queryKey: ['/api/community/events'],
     refetchInterval: 30000,
   });
+
+  const getLocalizedContent = (event: EventData, field: 'title' | 'description') => {
+    if (event.translationKey) {
+      const translationPath = `publicPages.community.events.items.${event.translationKey}.${field}`;
+      const translated = t(translationPath);
+      if (translated !== translationPath) {
+        return translated;
+      }
+    }
+    return field === 'title' ? event.title : event.description;
+  };
+
+  const getLocaleForDate = () => {
+    const localeMap: Record<string, string> = {
+      en: 'en-US', ko: 'ko-KR', zh: 'zh-CN', ja: 'ja-JP',
+      es: 'es-ES', fr: 'fr-FR', ru: 'ru-RU', ar: 'ar-SA',
+      hi: 'hi-IN', bn: 'bn-BD', pt: 'pt-BR', ur: 'ur-PK'
+    };
+    return localeMap[currentLang] || 'en-US';
+  };
 
   const filterCategories = [
     { key: "all", label: t('publicPages.community.events.filters.all') },
@@ -103,7 +124,7 @@ export default function Events() {
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', { 
+    return date.toLocaleDateString(getLocaleForDate(), { 
       month: '2-digit', 
       day: '2-digit',
       year: 'numeric'
@@ -112,15 +133,15 @@ export default function Events() {
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleTimeString(isKorean ? 'ko-KR' : 'en-US', { 
+    return date.toLocaleTimeString(getLocaleForDate(), { 
       hour: '2-digit', 
       minute: '2-digit',
       timeZoneName: 'short'
     });
   };
 
-  const getTitle = (event: EventData) => isKorean && event.titleKo ? event.titleKo : event.title;
-  const getDescription = (event: EventData) => isKorean && event.descriptionKo ? event.descriptionKo : event.description;
+  const getTitle = (event: EventData) => getLocalizedContent(event, 'title');
+  const getDescription = (event: EventData) => getLocalizedContent(event, 'description');
   
   const handleNotification = (eventTitle: string) => {
     toast({ title: t('publicPages.community.events.toast.reminderSet'), description: t('publicPages.community.events.toast.reminderDescription', { title: eventTitle }) });

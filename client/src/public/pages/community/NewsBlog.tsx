@@ -20,6 +20,7 @@ interface AnnouncementData {
   isImportant: boolean;
   views?: number;
   isPinned?: boolean;
+  translationKey?: string;
 }
 
 const categoryIcons: Record<string, any> = {
@@ -68,12 +69,23 @@ export default function NewsBlog() {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
 
-  const isKorean = i18n.language === 'ko';
+  const currentLang = i18n.language;
 
   const { data: announcements, isLoading, error } = useQuery<AnnouncementData[]>({
     queryKey: ['/api/community/announcements'],
     refetchInterval: 30000,
   });
+
+  const getLocalizedContent = (ann: AnnouncementData, field: 'title' | 'content') => {
+    if (ann.translationKey) {
+      const translationPath = `publicPages.community.announcements.${ann.translationKey}.${field}`;
+      const translated = t(translationPath);
+      if (translated !== translationPath) {
+        return translated;
+      }
+    }
+    return field === 'title' ? ann.title : ann.content;
+  };
 
   const categories = [
     { key: "all", label: t('publicPages.community.news.categories.all') },
@@ -85,8 +97,8 @@ export default function NewsBlog() {
 
   const filteredAnnouncements = announcements?.filter(ann => {
     const matchesCategory = activeCategory === "all" || ann.type === activeCategory;
-    const title = isKorean && ann.titleKo ? ann.titleKo : ann.title;
-    const content = isKorean && ann.contentKo ? ann.contentKo : ann.content;
+    const title = getLocalizedContent(ann, 'title');
+    const content = getLocalizedContent(ann, 'content');
     const matchesSearch = !searchQuery || 
       title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       content.toLowerCase().includes(searchQuery.toLowerCase());
@@ -96,9 +108,18 @@ export default function NewsBlog() {
   const featuredNews = filteredAnnouncements.filter(ann => ann.isImportant || ann.isPinned).slice(0, 3);
   const latestArticles = filteredAnnouncements.filter(ann => !ann.isImportant && !ann.isPinned).slice(0, 6);
 
+  const getLocaleForDate = () => {
+    const localeMap: Record<string, string> = {
+      en: 'en-US', ko: 'ko-KR', zh: 'zh-CN', ja: 'ja-JP',
+      es: 'es-ES', fr: 'fr-FR', ru: 'ru-RU', ar: 'ar-SA',
+      hi: 'hi-IN', bn: 'bn-BD', pt: 'pt-BR', ur: 'ur-PK'
+    };
+    return localeMap[currentLang] || 'en-US';
+  };
+
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', { 
+    return date.toLocaleDateString(getLocaleForDate(), { 
       year: 'numeric', 
       month: '2-digit', 
       day: '2-digit' 
@@ -122,8 +143,8 @@ export default function NewsBlog() {
     setEmail("");
   };
 
-  const getTitle = (ann: AnnouncementData) => isKorean && ann.titleKo ? ann.titleKo : ann.title;
-  const getContent = (ann: AnnouncementData) => isKorean && ann.contentKo ? ann.contentKo : ann.content;
+  const getTitle = (ann: AnnouncementData) => getLocalizedContent(ann, 'title');
+  const getContent = (ann: AnnouncementData) => getLocalizedContent(ann, 'content');
 
   return (
     <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
