@@ -68,6 +68,7 @@ import CommunityPage from "@/pages/community";
 import SearchResults from "@/pages/search-results";
 import TokenomicsSimulation from "@/pages/tokenomics-simulation";
 import VCTestMode from "@/pages/vc-test-mode";
+import VCLayout from "@/public/components/VCLayout";
 
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -264,7 +265,9 @@ function RootRouter() {
   if (location === "/vc" || location.startsWith("/vc-test")) {
     return (
       <ThemeProvider defaultTheme="dark">
-        <VCTestMode />
+        <VCLayout>
+          <VCTestMode />
+        </VCLayout>
       </ThemeProvider>
     );
   }
