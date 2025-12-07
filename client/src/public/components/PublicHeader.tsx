@@ -144,7 +144,7 @@ export function PublicHeader() {
               <span className="text-white font-bold text-xl">B</span>
             </div>
             <span className="font-bold text-xl tracking-tight text-white">
-              TBurn <span className="text-cyan-400 font-light">Chain</span>
+              TBurn <span className="text-cyan-400 font-light">Lab</span>
             </span>
           </Link>
 
