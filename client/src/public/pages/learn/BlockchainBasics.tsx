@@ -73,21 +73,21 @@ export default function BlockchainBasics() {
   ];
 
   return (
-    <main className="flex-grow relative z-10">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-12 mb-8">
         <div className="absolute inset-0 bg-gradient-to-br from-[#7000ff]/10 via-[#00f0ff]/5 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 
             href="/learn/education-programs"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
             data-testid="link-back-education"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.learn.blockchainBasics.backToEducation')}
           </Link>
           
           <div className="flex items-start gap-6">
-            <div className="hidden md:flex w-20 h-20 rounded-2xl bg-gradient-to-br from-[#00f0ff]/20 to-[#7000ff]/20 border border-white/10 items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.1)]">
+            <div className="hidden md:flex w-20 h-20 rounded-2xl bg-gradient-to-br from-[#00f0ff]/20 to-[#7000ff]/20 border border-gray-300 dark:border-white/10 items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.1)]">
               <BookOpen className="w-8 h-8 text-[#00f0ff]" />
             </div>
             <div>
@@ -95,12 +95,12 @@ export default function BlockchainBasics() {
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border border-[#00f0ff] text-[#00f0ff] bg-[#00f0ff]/5">
                   {t('publicPages.learn.blockchainBasics.tag')}
                 </span>
-                <span className="text-sm text-gray-400 flex items-center gap-1">
+                <span className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
                   <Clock className="w-4 h-4" /> {t('publicPages.learn.blockchainBasics.duration')}
                 </span>
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('publicPages.learn.blockchainBasics.title')}</h1>
-              <p className="text-xl text-gray-400 max-w-3xl leading-relaxed">
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.learn.blockchainBasics.title')}</h1>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed">
                 {t('publicPages.learn.blockchainBasics.subtitle')}
               </p>
             </div>
@@ -116,22 +116,22 @@ export default function BlockchainBasics() {
           <div className="lg:col-span-2 space-y-8">
             
             {/* Course Overview */}
-            <div className="spotlight-card rounded-xl p-8">
+            <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8">
               <div className="flex items-center gap-3 mb-4">
                 <FileText className="w-6 h-6 text-[#7000ff]" />
-                <h2 className="text-xl font-bold text-white">{t('publicPages.learn.blockchainBasics.courseOverview.title')}</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.learn.blockchainBasics.courseOverview.title')}</h2>
               </div>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 {t('publicPages.learn.blockchainBasics.courseOverview.description')}
               </p>
               
-              <div className="mt-6 p-4 border border-white/10 border-dashed rounded-lg bg-black/20">
+              <div className="mt-6 p-4 border border-gray-300 dark:border-white/10 border-dashed rounded-lg bg-gray-50 dark:bg-black/20">
                 <div className="aspect-video bg-gradient-to-br from-[#00f0ff]/5 to-[#7000ff]/5 rounded-lg flex items-center justify-center">
                   <div className="text-center">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#00f0ff]/10 flex items-center justify-center">
                       <Play className="w-8 h-8 text-[#00f0ff]" />
                     </div>
-                    <p className="text-gray-400 text-sm">{t('publicPages.learn.blockchainBasics.courseOverview.videoTitle')}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">{t('publicPages.learn.blockchainBasics.courseOverview.videoTitle')}</p>
                     <p className="text-xs text-gray-500 mt-1">{t('publicPages.learn.blockchainBasics.courseOverview.videoSubtitle')}</p>
                   </div>
                 </div>
@@ -141,12 +141,12 @@ export default function BlockchainBasics() {
 
             {/* Curriculum */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.learn.blockchainBasics.curriculumTitle')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.learn.blockchainBasics.curriculumTitle')}</h2>
               <div className="space-y-4">
                 {curriculumModules.map((module, index) => (
                   <div 
                     key={index}
-                    className={`spotlight-card rounded-xl p-5 cursor-pointer group ${
+                    className={`bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-5 cursor-pointer group ${
                       module.active ? 'border-[#7000ff]/30' : ''
                     }`}
                     data-testid={`card-module-${module.number}`}
@@ -164,8 +164,8 @@ export default function BlockchainBasics() {
             </div>
 
             {/* Related Links */}
-            <div className="spotlight-card rounded-xl p-6">
-              <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.learn.blockchainBasics.continueLearning.title')}</h3>
+            <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.learn.blockchainBasics.continueLearning.title')}</h3>
               <div className="grid md:grid-cols-2 gap-4">
                 <Link 
                   href="/developers/contracts"
@@ -174,7 +174,7 @@ export default function BlockchainBasics() {
                 >
                   <Code className="w-5 h-5 text-[#00f0ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.blockchainBasics.continueLearning.smartContracts.title')}</p>
+                    <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.blockchainBasics.continueLearning.smartContracts.title')}</p>
                     <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.continueLearning.smartContracts.subtitle')}</p>
                   </div>
                 </Link>
@@ -185,7 +185,7 @@ export default function BlockchainBasics() {
                 >
                   <BookOpen className="w-5 h-5 text-[#7000ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.blockchainBasics.continueLearning.sdkGuide.title')}</p>
+                    <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.blockchainBasics.continueLearning.sdkGuide.title')}</p>
                     <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.continueLearning.sdkGuide.subtitle')}</p>
                   </div>
                 </Link>
@@ -196,7 +196,7 @@ export default function BlockchainBasics() {
                 >
                   <Play className="w-5 h-5 text-[#00ff9d]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#00ff9d] transition">{t('publicPages.learn.blockchainBasics.continueLearning.quickStart.title')}</p>
+                    <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00ff9d] transition">{t('publicPages.learn.blockchainBasics.continueLearning.quickStart.title')}</p>
                     <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.continueLearning.quickStart.subtitle')}</p>
                   </div>
                 </Link>
@@ -207,7 +207,7 @@ export default function BlockchainBasics() {
                 >
                   <FileText className="w-5 h-5 text-[#ffd700]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.learn.blockchainBasics.continueLearning.documentation.title')}</p>
+                    <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ffd700] transition">{t('publicPages.learn.blockchainBasics.continueLearning.documentation.title')}</p>
                     <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.continueLearning.documentation.subtitle')}</p>
                   </div>
                 </Link>
@@ -219,7 +219,7 @@ export default function BlockchainBasics() {
           <div className="lg:col-span-1 space-y-6">
             
             {/* Start Learning Card */}
-            <div className="spotlight-card rounded-xl p-6 sticky top-24">
+            <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 sticky top-24">
               <Link href="/learn/trust-score">
                 <button 
                   className="w-full bg-[#00f0ff] text-black font-bold py-3 rounded-lg hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)] mb-6 flex items-center justify-center gap-2"
@@ -231,10 +231,10 @@ export default function BlockchainBasics() {
 
               {/* What You'll Learn */}
               <div className="mb-6">
-                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.blockchainBasics.whatYouWillLearn')}</h3>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.blockchainBasics.whatYouWillLearn')}</h3>
                 <ul className="space-y-3">
                   {learningOutcomes.map((outcome, index) => (
-                    <li key={index} className="flex items-start gap-3 text-sm text-gray-400">
+                    <li key={index} className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
                       <CheckCircle className="w-4 h-4 text-[#00f0ff] mt-0.5 flex-shrink-0" />
                       {outcome}
                     </li>
@@ -243,11 +243,11 @@ export default function BlockchainBasics() {
               </div>
 
               {/* Prerequisites */}
-              <div className="border-t border-white/10 pt-6">
-                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.blockchainBasics.prerequisitesTitle')}</h3>
+              <div className="border-t border-gray-300 dark:border-white/10 pt-6">
+                <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.blockchainBasics.prerequisitesTitle')}</h3>
                 <ul className="space-y-3">
                   {prerequisites.map((prereq, index) => (
-                    <li key={index} className="flex items-start gap-3 text-sm text-gray-400">
+                    <li key={index} className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
                       <prereq.icon className="w-4 h-4 text-gray-600 mt-0.5 flex-shrink-0" />
                       {prereq.text}
                     </li>
@@ -259,7 +259,7 @@ export default function BlockchainBasics() {
             {/* Up Next Card */}
             <Link 
               href="/learn/trust-score"
-              className="spotlight-card rounded-xl p-6 group cursor-pointer block"
+              className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group cursor-pointer block"
               data-testid="link-trust-score"
             >
               <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.learn.blockchainBasics.upNext.label')}</h3>
@@ -268,7 +268,7 @@ export default function BlockchainBasics() {
                   <Shield className="w-5 h-5 text-[#7000ff]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.blockchainBasics.upNext.title')}</h4>
+                  <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.blockchainBasics.upNext.title')}</h4>
                   <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.upNext.level')}</p>
                 </div>
               </div>
@@ -298,16 +298,16 @@ function ModuleContent({ module }: { module: CurriculumModule }) {
           <span className="font-mono font-bold" style={{ color: colorClass }}>{module.number}</span>
         </div>
         <div>
-          <h3 className="font-bold text-lg text-white group-hover:text-[#00f0ff] transition-colors">{module.title}</h3>
+          <h3 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition-colors">{module.title}</h3>
           <p className="text-xs text-gray-500">{module.subtitle}</p>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <span className="text-xs font-mono text-gray-500 bg-gray-900 px-2 py-1 rounded">{module.duration}</span>
+        <span className="text-xs font-mono text-gray-500 bg-gray-100 dark:bg-gray-900 px-2 py-1 rounded">{module.duration}</span>
         {module.active ? (
           <PlayCircle className="w-5 h-5" style={{ color: colorClass }} />
         ) : (
-          <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
+          <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
         )}
       </div>
     </div>

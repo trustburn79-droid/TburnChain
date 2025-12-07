@@ -94,11 +94,11 @@ export default function AddressDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#030407] to-[#0a0d14]">
+    <div className="min-h-screen bg-gray-50 dark:bg-gradient-to-b dark:from-[#030407] dark:to-[#0a0d14] transition-colors">
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center gap-3 mb-6">
           <Link href="/scan">
-            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white" data-testid="button-back">
+            <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back">
               <ChevronLeft className="w-5 h-5" />
             </Button>
           </Link>
@@ -112,7 +112,7 @@ export default function AddressDetail() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-bold text-white" data-testid="title-address">
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white" data-testid="title-address">
                   {isValidator ? t("scan.validator", "Validator") : t("scan.address", "Address")}
                 </h1>
                 {isValidator && (
@@ -122,13 +122,13 @@ export default function AddressDetail() {
                 )}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-gray-400 font-mono text-sm" data-testid="text-address">
+                <span className="text-gray-600 dark:text-gray-400 font-mono text-sm" data-testid="text-address">
                   {address}
                 </span>
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="h-6 w-6 text-gray-400"
+                  className="h-6 w-6 text-gray-600 dark:text-gray-400"
                   onClick={() => copyToClipboard(address)}
                   data-testid="button-copy-address"
                 >
@@ -142,46 +142,46 @@ export default function AddressDetail() {
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           <Card className="bg-gray-900/50 border-gray-800" data-testid="card-balance">
             <CardContent className="p-6">
-              <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm mb-2">
                 <Coins className="w-4 h-4" />
                 {t("scan.balance", "Balance")}
               </div>
-              <div className="text-2xl font-bold text-white">{balance} TBURN</div>
-              <div className="text-sm text-gray-400">{usdValue}</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">{balance} TBURN</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">{usdValue}</div>
             </CardContent>
           </Card>
 
           <Card className="bg-gray-900/50 border-gray-800" data-testid="card-transactions">
             <CardContent className="p-6">
-              <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm mb-2">
                 <ArrowRightLeft className="w-4 h-4" />
                 {t("scan.transactions", "Transactions")}
               </div>
-              <div className="text-2xl font-bold text-white">{transactions.length}</div>
-              <div className="text-sm text-gray-400">{t("scan.totalTxs", "Total transactions")}</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">{transactions.length}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">{t("scan.totalTxs", "Total transactions")}</div>
             </CardContent>
           </Card>
 
           {isValidator ? (
             <Card className="bg-gray-900/50 border-gray-800" data-testid="card-staking">
               <CardContent className="p-6">
-                <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm mb-2">
                   <Flame className="w-4 h-4 text-orange-500" />
                   {t("scan.staked", "Staked")}
                 </div>
-                <div className="text-2xl font-bold text-white">{validator?.stake || "0"} TBURN</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">{validator?.stake || "0"} TBURN</div>
                 <div className="text-sm text-green-400">APY: {validator?.apy || "0"}%</div>
               </CardContent>
             </Card>
           ) : (
             <Card className="bg-gray-900/50 border-gray-800" data-testid="card-tokens">
               <CardContent className="p-6">
-                <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm mb-2">
                   <Coins className="w-4 h-4" />
                   {t("scan.tokens", "Tokens")}
                 </div>
-                <div className="text-2xl font-bold text-white">3</div>
-                <div className="text-sm text-gray-400">{t("scan.tokenTypes", "TBC-20 tokens")}</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">3</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">{t("scan.tokenTypes", "TBC-20 tokens")}</div>
               </CardContent>
             </Card>
           )}
@@ -211,19 +211,19 @@ export default function AddressDetail() {
                     ))}
                   </div>
                 ) : transactions.length === 0 ? (
-                  <div className="text-center py-8 text-gray-400">
+                  <div className="text-center py-8 text-gray-600 dark:text-gray-400">
                     {t("scan.noTransactions", "No transactions found")}
                   </div>
                 ) : (
                   <Table>
                     <TableHeader>
                       <TableRow className="border-gray-800">
-                        <TableHead className="text-gray-400">{t("scan.txnHash", "Txn Hash")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.block", "Block")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.age", "Age")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.direction", "Direction")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.address", "Address")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.value", "Value")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.txnHash", "Txn Hash")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.block", "Block")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.age", "Age")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.direction", "Direction")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.address", "Address")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.value", "Value")}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -269,7 +269,7 @@ export default function AddressDetail() {
                                 </span>
                               </Link>
                             </TableCell>
-                            <TableCell className="text-white font-medium">
+                            <TableCell className="text-gray-900 dark:text-white font-medium">
                               {parseFloat(tx.value).toFixed(4)} TBURN
                             </TableCell>
                           </TableRow>
@@ -281,7 +281,7 @@ export default function AddressDetail() {
               </TabsContent>
 
               <TabsContent value="tokens">
-                <div className="text-center py-8 text-gray-400">
+                <div className="text-center py-8 text-gray-600 dark:text-gray-400">
                   {t("scan.noTokenTransfers", "No token transfers found")}
                 </div>
               </TabsContent>

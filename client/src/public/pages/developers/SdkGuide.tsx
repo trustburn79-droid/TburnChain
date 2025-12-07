@@ -151,9 +151,9 @@ export default function SdkGuide() {
   };
 
   return (
-    <main className="flex-grow relative z-10">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl relative z-10">
@@ -162,18 +162,18 @@ export default function SdkGuide() {
               <Package className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white">{t('publicPages.developers.sdk.title')}</h1>
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">{t('publicPages.developers.sdk.title')}</h1>
               <p className="text-sm text-[#00f0ff] font-mono mt-1">{t('publicPages.developers.sdk.tag')}</p>
             </div>
           </div>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
             {t('publicPages.developers.sdk.subtitle')}
           </p>
         </div>
       </section>
 
       {/* Language Selector (Sticky) */}
-      <section className="py-4 px-6 border-b border-white/5 bg-black/40 sticky top-20 z-40 backdrop-blur-md">
+      <section className="py-4 px-6 border-b border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/40 sticky top-20 z-40 backdrop-blur-md">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-wrap gap-3">
             {languages.map((lang) => (
@@ -182,14 +182,14 @@ export default function SdkGuide() {
                 onClick={() => setActiveLang(lang.name)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition border ${
                   activeLang === lang.name
-                    ? "bg-[#7000ff]/20 border-[#7000ff] text-white"
-                    : "bg-white/5 border-white/10 text-gray-400 hover:border-[#7000ff] hover:text-white"
+                    ? "bg-[#7000ff]/20 border-[#7000ff] text-gray-900 dark:text-white"
+                    : "bg-gray-100 dark:bg-white/5 border-gray-300 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:border-[#7000ff] hover:text-gray-900 dark:hover:text-white"
                 }`}
                 data-testid={`button-lang-${lang.name.toLowerCase()}`}
               >
                 <lang.icon className="w-4 h-4" style={{ color: lang.color }} />
                 {lang.name}
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10">{lang.version}</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-200 dark:bg-white/10">{lang.version}</span>
               </button>
             ))}
           </div>
@@ -201,14 +201,14 @@ export default function SdkGuide() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid md:grid-cols-3 gap-6">
             {features.map((feature, index) => (
-              <div key={index} className="spotlight-card rounded-xl p-6 border border-white/10">
+              <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                 <div className="flex items-start gap-4">
                   <div className={`w-10 h-10 rounded-lg ${feature.bgColor} flex items-center justify-center flex-shrink-0`} style={{ color: feature.color }}>
                     <feature.icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-1">{feature.title}</h3>
-                    <p className="text-sm text-gray-400">{feature.desc}</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{feature.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{feature.desc}</p>
                   </div>
                 </div>
               </div>
@@ -218,27 +218,27 @@ export default function SdkGuide() {
       </section>
 
       {/* Installation & Configuration */}
-      <section className="py-16 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-16 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Installation */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <Download className="w-6 h-6 text-[#00f0ff]" /> {t('publicPages.developers.sdk.installation')}
               </h2>
               <div className="space-y-4">
                 {installCommands.map((install, index) => (
-                  <div key={index} className="spotlight-card rounded-xl p-4 border border-white/10">
+                  <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-xs text-gray-500 font-mono">{install.label}</span>
                       <button 
                         onClick={() => handleCopy(install.command, index)}
-                        className="text-gray-500 hover:text-white transition"
+                        className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition"
                       >
                         <Copy className={`w-4 h-4 ${copiedIndex === index ? "text-[#00ff9d]" : ""}`} />
                       </button>
                     </div>
-                    <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-3 font-mono text-sm text-white">
+                    <div className="bg-gray-900 dark:bg-[#0d0d12] border border-gray-300 dark:border-white/10 rounded-lg p-3 font-mono text-sm text-white">
                       {install.command}
                     </div>
                   </div>
@@ -248,17 +248,17 @@ export default function SdkGuide() {
 
             {/* Configuration */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <Settings className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.sdk.configuration')}
               </h2>
-              <div className="spotlight-card rounded-xl overflow-hidden border border-white/10">
-                <div className="bg-black/40 border-b border-white/10 p-3 flex items-center gap-2">
+              <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl overflow-hidden">
+                <div className="bg-gray-100 dark:bg-black/40 border-b border-gray-200 dark:border-white/10 p-3 flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-red-500" />
                   <span className="w-3 h-3 rounded-full bg-yellow-500" />
                   <span className="w-3 h-3 rounded-full bg-green-500" />
                   <span className="ml-2 text-xs text-gray-500 font-mono">tburn.config.ts</span>
                 </div>
-                <pre className="bg-[#0d0d12] p-4 font-mono text-sm text-gray-400 overflow-x-auto">
+                <pre className="bg-gray-900 dark:bg-[#0d0d12] p-4 font-mono text-sm text-gray-300 dark:text-gray-400 overflow-x-auto">
                   <code dangerouslySetInnerHTML={{ __html: configCode
                     .replace(/import|from|export default/g, '<span class="text-[#7000ff]">$&</span>')
                     .replace(/'[^']*'/g, '<span class="text-[#00ff9d]">$&</span>')
@@ -276,20 +276,20 @@ export default function SdkGuide() {
       {/* Quick Examples */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-2">
             <Code className="w-6 h-6 text-[#ffd700]" /> {t('publicPages.developers.sdk.quickExamples')}
           </h2>
 
-          <div className="spotlight-card rounded-xl overflow-hidden border border-white/10">
-            <div className="flex border-b border-white/10 bg-black/40">
+          <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl overflow-hidden">
+            <div className="flex border-b border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-black/40">
               {exampleTabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`px-6 py-3 text-sm font-medium transition ${
                     activeTab === tab
-                      ? "text-white border-b-2 border-[#7000ff] bg-white/5 font-bold"
-                      : "text-gray-400 hover:text-white"
+                      ? "text-gray-900 dark:text-white border-b-2 border-[#7000ff] bg-white dark:bg-white/5 font-bold"
+                      : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                   }`}
                   data-testid={`button-tab-${tab.toLowerCase()}`}
                 >
@@ -298,7 +298,7 @@ export default function SdkGuide() {
               ))}
             </div>
 
-            <pre className="bg-[#0d0d12] p-6 font-mono text-sm text-gray-400 overflow-x-auto">
+            <pre className="bg-gray-900 dark:bg-[#0d0d12] p-6 font-mono text-sm text-gray-300 dark:text-gray-400 overflow-x-auto">
               <code dangerouslySetInnerHTML={{ __html: getExampleCode()
                 .replace(/import|from|const|await|new/g, '<span class="text-[#7000ff]">$&</span>')
                 .replace(/'[^']*'/g, '<span class="text-[#00ff9d]">$&</span>')
@@ -311,36 +311,36 @@ export default function SdkGuide() {
       </section>
 
       {/* Need Help Section */}
-      <section className="py-16 px-6 bg-gradient-to-br from-[#7000ff]/5 to-transparent border-t border-white/5">
+      <section className="py-16 px-6 bg-gradient-to-br from-[#7000ff]/5 to-transparent border-t border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center gap-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center justify-center gap-2">
             <HelpCircle className="w-6 h-6" /> {t('publicPages.developers.sdk.needHelp.title')}
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="/developers/api"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-api-reference"
             >
               <Server className="w-5 h-5 text-[#00f0ff]" /> {t('publicPages.developers.sdk.needHelp.apiReference')}
             </Link>
             <Link 
               href="/developers/cli"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00ff9d] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#00ff9d] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-cli-reference"
             >
               <Terminal className="w-5 h-5 text-[#00ff9d]" /> {t('publicPages.developers.sdk.needHelp.cliReference')}
             </Link>
             <Link 
               href="/developers/examples"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ffd700] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#ffd700] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-code-examples"
             >
               <Book className="w-5 h-5 text-[#ffd700]" /> {t('publicPages.developers.sdk.needHelp.codeExamples')}
             </Link>
             <Link 
               href="/community/hub"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-discord-support"
             >
               <SiDiscord className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.developers.sdk.needHelp.discordSupport')}

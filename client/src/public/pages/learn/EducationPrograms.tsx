@@ -171,21 +171,21 @@ export default function EducationPrograms() {
   ];
 
   return (
-    <main className="flex-grow relative z-10">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-12 mb-8">
         <div className="absolute inset-0 bg-gradient-to-br from-[#00f0ff]/20 via-[#7000ff]/5 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 
             href="/learn"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
             data-testid="link-back-learn"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.learn.educationPrograms.backToLearn')}
           </Link>
           
           <div className="flex items-start gap-6">
-            <div className="hidden md:flex w-20 h-20 rounded-2xl bg-gradient-to-br from-[#00f0ff] to-[#7000ff] border border-white/10 items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.2)]">
+            <div className="hidden md:flex w-20 h-20 rounded-2xl bg-gradient-to-br from-[#00f0ff] to-[#7000ff] border border-gray-300 dark:border-white/10 items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.2)]">
               <GraduationCap className="w-8 h-8 text-white" />
             </div>
             <div>
@@ -194,8 +194,8 @@ export default function EducationPrograms() {
                   {t('publicPages.learn.educationPrograms.tag')}
                 </span>
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('publicPages.learn.educationPrograms.title')}</h1>
-              <p className="text-xl text-gray-400 max-w-3xl leading-relaxed">
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.learn.educationPrograms.title')}</h1>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed">
                 {t('publicPages.learn.educationPrograms.subtitle')}
               </p>
             </div>
@@ -204,9 +204,9 @@ export default function EducationPrograms() {
           {/* Stats Bar */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
             {stats.map((stat, index) => (
-              <div key={index} className="spotlight-card rounded-xl p-4 text-center">
+              <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-4 text-center">
                 <div className="text-2xl font-bold text-[#00f0ff]">{stat.value}</div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -218,15 +218,15 @@ export default function EducationPrograms() {
         
         {/* Learning Paths */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-white mb-2">{t('publicPages.learn.educationPrograms.pathsTitle')}</h2>
-          <p className="text-gray-400 mb-6">{t('publicPages.learn.educationPrograms.pathsSubtitle')}</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.educationPrograms.pathsTitle')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">{t('publicPages.learn.educationPrograms.pathsSubtitle')}</p>
           
           <div className="grid md:grid-cols-2 gap-6">
             {learningPaths.map((path, index) => (
               <Link 
                 key={index}
                 href={path.link}
-                className="spotlight-card rounded-xl p-6 cursor-pointer group block"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 cursor-pointer group block"
                 data-testid={`card-path-${index}`}
               >
                 <div className="flex items-start gap-4">
@@ -238,10 +238,10 @@ export default function EducationPrograms() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="font-bold text-lg text-white group-hover:text-[#00f0ff] transition-colors">{path.title}</h3>
-                      <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
+                      <h3 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition-colors">{path.title}</h3>
+                      <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
                     </div>
-                    <p className="text-sm text-gray-400 mb-3">{path.subtitle}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{path.subtitle}</p>
                     <div className="flex items-center gap-4 text-xs">
                       <span className="flex items-center gap-1 text-gray-500">
                         <Clock className="w-3 h-3" /> {path.duration}
@@ -263,15 +263,15 @@ export default function EducationPrograms() {
 
         {/* Featured Courses */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-white mb-2">{t('publicPages.learn.educationPrograms.featuredTitle')}</h2>
-          <p className="text-gray-400 mb-6">{t('publicPages.learn.educationPrograms.featuredSubtitle')}</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.educationPrograms.featuredTitle')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">{t('publicPages.learn.educationPrograms.featuredSubtitle')}</p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredCourses.map((course, index) => (
               <Link 
                 key={index}
                 href={course.link}
-                className="spotlight-card rounded-xl p-5 cursor-pointer group block relative overflow-hidden"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-5 cursor-pointer group block relative overflow-hidden"
                 data-testid={`card-course-${index}`}
               >
                 {course.tag && (
@@ -288,8 +288,8 @@ export default function EducationPrograms() {
                 >
                   <course.icon className="w-5 h-5" style={{ color: course.color }} />
                 </div>
-                <h3 className="font-bold text-white mb-2 group-hover:text-[#00f0ff] transition-colors">{course.title}</h3>
-                <p className="text-sm text-gray-400 mb-4 line-clamp-2">{course.description}</p>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#00f0ff] transition-colors">{course.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{course.description}</p>
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-3">
                     <span className="flex items-center gap-1 text-gray-500">
@@ -306,9 +306,9 @@ export default function EducationPrograms() {
 
         {/* Benefits Section */}
         <div className="mb-16">
-          <div className="spotlight-card rounded-xl p-8">
-            <h2 className="text-2xl font-bold text-white mb-2 text-center">{t('publicPages.learn.educationPrograms.benefitsTitle')}</h2>
-            <p className="text-gray-400 mb-8 text-center max-w-2xl mx-auto">{t('publicPages.learn.educationPrograms.benefitsSubtitle')}</p>
+          <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">{t('publicPages.learn.educationPrograms.benefitsTitle')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8 text-center max-w-2xl mx-auto">{t('publicPages.learn.educationPrograms.benefitsSubtitle')}</p>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {benefits.map((benefit, index) => (
@@ -316,8 +316,8 @@ export default function EducationPrograms() {
                   <div className="w-14 h-14 rounded-xl bg-[#00f0ff]/10 border border-[#00f0ff]/20 flex items-center justify-center mx-auto mb-4">
                     <benefit.icon className="w-6 h-6 text-[#00f0ff]" />
                   </div>
-                  <h3 className="font-bold text-white mb-2">{benefit.title}</h3>
-                  <p className="text-sm text-gray-400">{benefit.description}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-2">{benefit.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{benefit.description}</p>
                 </div>
               ))}
             </div>
@@ -328,7 +328,7 @@ export default function EducationPrograms() {
         <div className="mb-16">
           <Link 
             href="/learn/universities"
-            className="spotlight-card rounded-xl p-8 block group cursor-pointer border-[#7000ff]/20 hover:border-[#7000ff]/40 transition-colors"
+            className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8 block group cursor-pointer border-[#7000ff]/20 hover:border-[#7000ff]/40 transition-colors"
             data-testid="link-universities"
           >
             <div className="flex flex-col md:flex-row items-center gap-6">
@@ -336,10 +336,10 @@ export default function EducationPrograms() {
                 <Users className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#7000ff] transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#7000ff] transition-colors">
                   {t('publicPages.learn.educationPrograms.universities.title')}
                 </h3>
-                <p className="text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400">
                   {t('publicPages.learn.educationPrograms.universities.description')}
                 </p>
               </div>
@@ -350,9 +350,9 @@ export default function EducationPrograms() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <div className="spotlight-card rounded-xl p-8 bg-gradient-to-br from-[#00f0ff]/5 to-[#7000ff]/5 border-[#00f0ff]/20">
-            <h2 className="text-2xl font-bold text-white mb-4">{t('publicPages.learn.educationPrograms.cta.title')}</h2>
-            <p className="text-gray-400 mb-6 max-w-xl mx-auto">{t('publicPages.learn.educationPrograms.cta.description')}</p>
+          <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8 bg-gradient-to-br from-[#00f0ff]/5 to-[#7000ff]/5 border-[#00f0ff]/20">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.learn.educationPrograms.cta.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-xl mx-auto">{t('publicPages.learn.educationPrograms.cta.description')}</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/learn/blockchain-basics">
                 <button 

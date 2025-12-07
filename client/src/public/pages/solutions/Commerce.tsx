@@ -135,22 +135,22 @@ export default function Commerce() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 left-1/4 w-[600px] h-[500px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <ShoppingBag className="w-4 h-4" /> {t('publicPages.solutions.commerce.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.solutions.commerce.title')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
               {t('publicPages.solutions.commerce.titleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
             {t('publicPages.solutions.commerce.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -165,7 +165,7 @@ export default function Commerce() {
             </Link>
             <Link href="/developers/docs">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-8 py-3 rounded-lg border border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-white/5 transition"
                 data-testid="button-docs"
               >
                 {t('publicPages.solutions.commerce.buttons.viewApiDocs')}
@@ -179,8 +179,8 @@ export default function Commerce() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.commerce.sections.coreFeatures.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.solutions.commerce.sections.coreFeatures.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.solutions.commerce.sections.coreFeatures.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.solutions.commerce.sections.coreFeatures.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -189,7 +189,7 @@ export default function Commerce() {
               return (
                 <div 
                   key={idx}
-                  className="spotlight-card rounded-2xl p-8 border border-white/10"
+                  className="spotlight-card rounded-2xl p-8 border border-gray-300 dark:border-white/10"
                   data-testid={`card-feature-${idx}`}
                 >
                   <div 
@@ -201,8 +201,8 @@ export default function Commerce() {
                   >
                     <Icon className="w-7 h-7" style={{ color: feature.iconColor }} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{feature.desc}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{feature.desc}</p>
                 </div>
               );
             })}
@@ -211,9 +211,9 @@ export default function Commerce() {
       </section>
 
       {/* Integration Platforms Section */}
-      <section className="py-20 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.commerce.sections.platforms.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.solutions.commerce.sections.platforms.title')}</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {integrationPlatforms.map((platform, idx) => {
@@ -228,8 +228,8 @@ export default function Commerce() {
                     className="w-12 h-12 mx-auto mb-6 group-hover:scale-110 transition-transform" 
                     style={{ color: platform.iconColor }}
                   />
-                  <h3 className="text-xl font-bold text-white mb-2">{platform.title}</h3>
-                  <p className="text-sm text-gray-400 mb-4">{platform.desc}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{platform.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{platform.desc}</p>
                   <span 
                     className="text-xs font-mono px-2 py-1 rounded"
                     style={{ 
@@ -249,21 +249,21 @@ export default function Commerce() {
       {/* Success Stories Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.commerce.sections.successStories.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.solutions.commerce.sections.successStories.title')}</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {successStories.map((story, idx) => (
               <div 
                 key={idx}
-                className={`spotlight-card rounded-xl p-8 border border-white/10 bg-gradient-to-br ${story.gradient} to-transparent`}
+                className={`spotlight-card rounded-xl p-8 border border-gray-300 dark:border-white/10 bg-gradient-to-br ${story.gradient} to-transparent`}
                 data-testid={`card-story-${idx}`}
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white text-xl">
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-gray-900 dark:text-white text-xl">
                     {story.initial}
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-white">{story.name}</h4>
-                    <p className="text-xs text-gray-400">{story.type}</p>
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white">{story.name}</h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">{story.type}</p>
                   </div>
                 </div>
                 <p className="text-gray-300 mb-6">"{story.quote}"</p>
@@ -293,13 +293,13 @@ export default function Commerce() {
         style={{ background: "linear-gradient(to right, rgba(112,0,255,0.1), rgba(0,240,255,0.1))" }}
       >
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-white mb-8">{t('publicPages.solutions.commerce.sections.integration.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.solutions.commerce.sections.integration.title')}</h2>
           
           <div className="space-y-4 text-left max-w-2xl mx-auto">
             {integrationSteps.map((step, idx) => (
               <div 
                 key={idx}
-                className="bg-black/60 p-4 rounded-lg border border-white/10"
+                className="bg-black/60 p-4 rounded-lg border border-gray-300 dark:border-white/10"
                 data-testid={`card-step-${step.step}`}
               >
                 <div className="flex gap-4 items-center">
@@ -307,11 +307,11 @@ export default function Commerce() {
                     {step.step}
                   </span>
                   <div className="flex-1">
-                    <h4 className="text-white font-bold">{step.title}</h4>
-                    <p className="text-xs text-gray-400">{step.desc}</p>
+                    <h4 className="text-gray-900 dark:text-white font-bold">{step.title}</h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">{step.desc}</p>
                     {step.code && (
                       <div 
-                        className="mt-2 p-3 rounded-lg font-mono text-xs text-gray-400 overflow-x-auto"
+                        className="mt-2 p-3 rounded-lg font-mono text-xs text-gray-600 dark:text-gray-400 overflow-x-auto"
                         style={{ 
                           backgroundColor: "#0d0d12",
                           border: "1px solid rgba(255,255,255,0.1)"

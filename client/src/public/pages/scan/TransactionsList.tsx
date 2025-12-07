@@ -106,10 +106,10 @@ export default function TransactionsList() {
 
   return (
     <ScanLayout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-white flex items-center gap-2" data-testid="text-txs-title">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2" data-testid="text-txs-title">
               <ArrowRightLeft className="w-6 h-6 text-green-400" />
               {t("scan.transactions", "Transactions")}
               {isConnected && (
@@ -119,7 +119,7 @@ export default function TransactionsList() {
                 </span>
               )}
             </h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
               {t("scan.transactionsDesc", "All transactions on TBURN Mainnet")}
             </p>
           </div>
@@ -133,7 +133,7 @@ export default function TransactionsList() {
                 value={searchTx}
                 onChange={(e) => setSearchTx(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearchTx()}
-                className="pl-10 w-64 bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500"
+                className="pl-10 w-64 bg-gray-900/50 border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500"
                 data-testid="input-search-tx"
               />
             </div>
@@ -142,7 +142,7 @@ export default function TransactionsList() {
               size="sm"
               onClick={() => refetch()}
               disabled={isFetching}
-              className="border-gray-700 text-gray-300 hover:text-white"
+              className="border-gray-700 text-gray-300 hover:text-gray-900 dark:hover:text-white"
               data-testid="button-refresh-txs"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
@@ -154,18 +154,18 @@ export default function TransactionsList() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <ArrowRightLeft className="w-3.5 h-3.5 text-green-400" />
                 {t("scan.totalTxs", "Total Transactions")}
               </div>
-              <div className="text-xl font-bold text-white">
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
                 {totalTxs.toLocaleString()}
               </div>
             </CardContent>
           </Card>
           <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
                 {t("scan.confirmed", "Confirmed")}
               </div>
@@ -176,11 +176,11 @@ export default function TransactionsList() {
           </Card>
           <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <Zap className="w-3.5 h-3.5 text-yellow-400" />
                 {t("scan.avgValue", "Avg Value")}
               </div>
-              <div className="text-xl font-bold text-white">
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
                 {transactions.length > 0 
                   ? formatLargeNumber(String(transactions.reduce((sum, tx) => sum + parseFloat(tx.value || "0"), 0) / transactions.length))
                   : "0"} TBURN
@@ -189,11 +189,11 @@ export default function TransactionsList() {
           </Card>
           <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <Fuel className="w-3.5 h-3.5 text-orange-400" />
                 {t("scan.avgGas", "Avg Gas")}
               </div>
-              <div className="text-xl font-bold text-white">
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
                 {avgGasUsed.toLocaleString()}
               </div>
             </CardContent>
@@ -224,14 +224,14 @@ export default function TransactionsList() {
                 <Table>
                   <TableHeader>
                     <TableRow className="border-gray-800 hover:bg-transparent">
-                      <TableHead className="text-gray-400">{t("scan.txnHash", "Txn Hash")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.block", "Block")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.age", "Age")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.from", "From")}</TableHead>
-                      <TableHead className="text-gray-400"></TableHead>
-                      <TableHead className="text-gray-400">{t("scan.to", "To")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.value", "Value")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.status", "Status")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.txnHash", "Txn Hash")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.block", "Block")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.age", "Age")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.from", "From")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400"></TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.to", "To")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.value", "Value")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.status", "Status")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -288,7 +288,7 @@ export default function TransactionsList() {
                             </span>
                           </Link>
                         </TableCell>
-                        <TableCell className="text-white font-medium">
+                        <TableCell className="text-gray-900 dark:text-white font-medium">
                           {formatLargeNumber(tx.value)} TBURN
                         </TableCell>
                         <TableCell>
@@ -318,7 +318,7 @@ export default function TransactionsList() {
 
           {totalPages > 1 && (
             <div className="flex items-center justify-between p-4 border-t border-gray-800">
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-gray-600 dark:text-gray-400">
                 {t("scan.showingTxs", `Showing ${(page - 1) * pageSize + 1} - ${Math.min(page * pageSize, totalTxs)} of ${totalTxs}`)}
               </div>
               <div className="flex items-center gap-2">
@@ -327,12 +327,12 @@ export default function TransactionsList() {
                   size="sm"
                   onClick={() => setPage(p => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="border-gray-700 text-gray-300 hover:text-white"
+                  className="border-gray-700 text-gray-300 hover:text-gray-900 dark:hover:text-white"
                   data-testid="button-prev-page"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </Button>
-                <span className="text-sm text-gray-400 px-2">
+                <span className="text-sm text-gray-600 dark:text-gray-400 px-2">
                   {page} / {totalPages}
                 </span>
                 <Button
@@ -340,7 +340,7 @@ export default function TransactionsList() {
                   size="sm"
                   onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="border-gray-700 text-gray-300 hover:text-white"
+                  className="border-gray-700 text-gray-300 hover:text-gray-900 dark:hover:text-white"
                   data-testid="button-next-page"
                 >
                   <ChevronRight className="w-4 h-4" />

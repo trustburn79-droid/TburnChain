@@ -108,18 +108,18 @@ export default function DePIN() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Radio className="w-4 h-4" /> {t('publicPages.useCases.depin.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.useCases.depin.title')}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
             {t('publicPages.useCases.depin.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -134,7 +134,7 @@ export default function DePIN() {
             </Link>
             <Link href="/developers/docs">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition"
                 data-testid="button-docs"
               >
                 {t('publicPages.useCases.depin.buttons.protocolDocs')}
@@ -144,7 +144,7 @@ export default function DePIN() {
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-white/[0.02] border-b border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/[0.02] border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-3 gap-8">
             {metrics.map((metric, idx) => (
@@ -159,7 +159,7 @@ export default function DePIN() {
                 >
                   {metric.value}
                 </div>
-                <p className="text-sm text-gray-400">{metric.label}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{metric.label}</p>
               </div>
             ))}
           </div>
@@ -169,8 +169,8 @@ export default function DePIN() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.useCases.depin.sections.categories')}</h2>
-            <p className="text-gray-400">{t('publicPages.useCases.depin.sections.categoriesDesc')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.useCases.depin.sections.categories')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.useCases.depin.sections.categoriesDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -179,7 +179,7 @@ export default function DePIN() {
               return (
                 <div 
                   key={idx}
-                  className="spotlight-card rounded-2xl p-8 border border-white/10"
+                  className="spotlight-card rounded-2xl p-8 border border-gray-300 dark:border-white/10"
                   data-testid={`card-category-${idx}`}
                 >
                   <div 
@@ -191,8 +191,8 @@ export default function DePIN() {
                   >
                     <Icon className="w-7 h-7" style={{ color: category.iconColor }} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{category.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{category.desc}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{category.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{category.desc}</p>
                 </div>
               );
             })}
@@ -200,9 +200,9 @@ export default function DePIN() {
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-white/[0.02] border-y border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/[0.02] border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.depin.sections.protocolFeatures')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.useCases.depin.sections.protocolFeatures')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, idx) => {
@@ -210,12 +210,12 @@ export default function DePIN() {
               return (
                 <div 
                   key={idx}
-                  className="spotlight-card rounded-xl p-6 border border-white/10 text-center"
+                  className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10 text-center"
                   data-testid={`card-feature-${idx}`}
                 >
                   <Icon className="w-8 h-8 text-[#00f0ff] mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-                  <p className="text-sm text-gray-400">{feature.desc}</p>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{feature.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{feature.desc}</p>
                 </div>
               );
             })}
@@ -225,17 +225,17 @@ export default function DePIN() {
 
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="spotlight-card rounded-2xl p-8 border border-white/10">
+          <div className="spotlight-card rounded-2xl p-8 border border-gray-300 dark:border-white/10">
             <div className="flex items-start gap-6">
               <div className="w-16 h-16 rounded-xl bg-[#00f0ff]/10 border border-[#00f0ff]/30 flex items-center justify-center flex-shrink-0">
                 <HardDrive className="w-8 h-8 text-[#00f0ff]" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white mb-3">{t('publicPages.useCases.depin.hardware.title')}</h3>
-                <p className="text-gray-400 mb-4">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{t('publicPages.useCases.depin.hardware.title')}</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
                   {t('publicPages.useCases.depin.hardware.desc')}
                 </p>
-                <ul className="space-y-2 text-sm text-gray-400">
+                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#00ff9d]" />
                     <span>{t('publicPages.useCases.depin.hardware.minimum')}</span>
@@ -259,8 +259,8 @@ export default function DePIN() {
         <div className="container mx-auto max-w-4xl">
           <div className="spotlight-card rounded-2xl p-8 border border-[#00f0ff]/30 text-center"
                style={{ background: "linear-gradient(135deg, rgba(0,240,255,0.1) 0%, rgba(112,0,255,0.05) 100%)" }}>
-            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.useCases.depin.cta.title')}</h2>
-            <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.useCases.depin.cta.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
               {t('publicPages.useCases.depin.cta.desc')}
             </p>
             <Link href="/app">

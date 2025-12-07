@@ -85,9 +85,9 @@ export default function LearnHub() {
   ];
 
   const certifications = [
-    { title: t('publicPages.learn.hub.certifications.fundamentals.title'), description: t('publicPages.learn.hub.certifications.fundamentals.description'), color: "#ffb800", bgColor: "bg-amber-900/30" },
-    { title: t('publicPages.learn.hub.certifications.defiExpert.title'), description: t('publicPages.learn.hub.certifications.defiExpert.description'), color: "#9ca3af", bgColor: "bg-gray-700/30" },
-    { title: t('publicPages.learn.hub.certifications.developer.title'), description: t('publicPages.learn.hub.certifications.developer.description'), color: "#ffb800", bgColor: "bg-[#ffb800]/20" },
+    { title: t('publicPages.learn.hub.certifications.fundamentals.title'), description: t('publicPages.learn.hub.certifications.fundamentals.description'), color: "#ffb800", bgColor: "bg-amber-100 dark:bg-amber-900/30" },
+    { title: t('publicPages.learn.hub.certifications.defiExpert.title'), description: t('publicPages.learn.hub.certifications.defiExpert.description'), color: "#9ca3af", bgColor: "bg-gray-200 dark:bg-gray-700/30" },
+    { title: t('publicPages.learn.hub.certifications.developer.title'), description: t('publicPages.learn.hub.certifications.developer.description'), color: "#ffb800", bgColor: "bg-amber-100 dark:bg-[#ffb800]/20" },
   ];
 
   const communityLinks = [
@@ -116,19 +116,19 @@ export default function LearnHub() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-20 px-6 overflow-hidden">
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-[#7000ff]/20 rounded-full blur-[100px] animate-pulse pointer-events-none" />
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
               <GraduationCap className="w-4 h-4" /> {t('publicPages.learn.hub.tag')}
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-learn-title">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-learn-title">
               {t('publicPages.learn.hub.title')}
             </h1>
-            <p className="text-xl text-gray-400 leading-relaxed max-w-2xl">
+            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
               {t('publicPages.learn.hub.subtitle')}
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function LearnHub() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-10 px-6 border-y border-white/5 bg-black/20">
+      <section className="py-10 px-6 border-y border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/20">
         <div className="container mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="text-center" data-testid={`stat-${index}`}>
@@ -151,15 +151,15 @@ export default function LearnHub() {
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.hub.learningPaths')}</h2>
-            <p className="text-gray-400">{t('publicPages.learn.hub.learningPathsDesc')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.hub.learningPaths')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.hub.learningPathsDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {learningPaths.map((path, index) => (
               <Link key={index} href={path.href}>
                 <div 
-                  className="spotlight-card rounded-xl p-8 group cursor-pointer h-full"
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8 group cursor-pointer h-full"
                   data-testid={`learning-path-${index}`}
                 >
                   <div className="flex justify-between items-start mb-6 flex-wrap gap-2">
@@ -183,13 +183,13 @@ export default function LearnHub() {
                       {path.level}
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{path.title}</h3>
-                  <p className="text-gray-400 text-sm mb-6">{path.description}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{path.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">{path.description}</p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {path.tags.map((tag, tagIndex) => (
                       <span 
                         key={tagIndex}
-                        className="font-mono text-[0.7rem] px-2 py-1 rounded bg-white/5 text-gray-300 border border-white/10"
+                        className="font-mono text-[0.7rem] px-2 py-1 rounded bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-white/10"
                       >
                         {tag}
                       </span>
@@ -209,26 +209,26 @@ export default function LearnHub() {
       </section>
 
       {/* Core Concepts Section */}
-      <section className="py-16 px-6 bg-white/5">
+      <section className="py-16 px-6 bg-gray-100 dark:bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.hub.coreConcepts')}</h2>
-            <p className="text-gray-400">{t('publicPages.learn.hub.coreConceptsDesc')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.hub.coreConcepts')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.hub.coreConceptsDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {coreConcepts.map((concept, index) => (
               <div 
                 key={index} 
-                className="spotlight-card p-6 rounded-xl"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-6 rounded-xl"
                 data-testid={`core-concept-${index}`}
               >
                 <concept.icon 
                   className="w-8 h-8 mb-4" 
                   style={{ color: concept.color }} 
                 />
-                <h3 className="font-bold text-white mb-2">{concept.title}</h3>
-                <p className="text-sm text-gray-400">{concept.description}</p>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{concept.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{concept.description}</p>
               </div>
             ))}
           </div>
@@ -240,12 +240,12 @@ export default function LearnHub() {
         <div className="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-12">
           {/* Glossary */}
           <div>
-            <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.learn.hub.glossaryTitle')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.learn.hub.glossaryTitle')}</h2>
             <div className="space-y-4">
               {glossary.map((item, index) => (
                 <div 
                   key={index}
-                  className="spotlight-card p-4 rounded-lg flex gap-4 items-start"
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-4 rounded-lg flex gap-4 items-start"
                   data-testid={`glossary-${index}`}
                 >
                   <span 
@@ -257,7 +257,7 @@ export default function LearnHub() {
                   >
                     {item.term}
                   </span>
-                  <p className="text-sm text-gray-400">{item.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
                 </div>
               ))}
             </div>
@@ -265,12 +265,12 @@ export default function LearnHub() {
 
           {/* Certifications */}
           <div>
-            <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.learn.hub.certificationsTitle')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.learn.hub.certificationsTitle')}</h2>
             <div className="space-y-4">
               {certifications.map((cert, index) => (
                 <div 
                   key={index}
-                  className="spotlight-card p-4 rounded-lg flex items-center gap-4"
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-4 rounded-lg flex items-center gap-4"
                   data-testid={`certification-${index}`}
                 >
                   <div 
@@ -280,8 +280,8 @@ export default function LearnHub() {
                     <Award className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white">{cert.title}</h4>
-                    <p className="text-xs text-gray-400">{cert.description}</p>
+                    <h4 className="font-bold text-gray-900 dark:text-white">{cert.title}</h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">{cert.description}</p>
                   </div>
                 </div>
               ))}
@@ -297,15 +297,15 @@ export default function LearnHub() {
             {communityLinks.map((link, index) => (
               <Link key={index} href={link.href}>
                 <div 
-                  className="spotlight-card p-6 rounded-xl text-center group cursor-pointer"
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-6 rounded-xl text-center group cursor-pointer"
                   data-testid={`community-link-${index}`}
                 >
                   <link.icon 
                     className="w-10 h-10 mx-auto mb-4 group-hover:scale-110 transition-transform"
                     style={{ color: link.color }}
                   />
-                  <h3 className="font-bold text-white">{link.title}</h3>
-                  <p className="text-sm text-gray-400">{link.description}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white">{link.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{link.description}</p>
                 </div>
               </Link>
             ))}

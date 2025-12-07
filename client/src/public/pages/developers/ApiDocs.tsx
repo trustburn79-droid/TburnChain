@@ -38,12 +38,12 @@ function CodeBlock({ code, language = "json" }: { code: string; language?: strin
     <div className="relative group">
       <button
         onClick={handleCopy}
-        className="absolute top-3 right-3 p-1.5 rounded bg-white/5 border border-white/10 opacity-0 group-hover:opacity-100 transition"
+        className="absolute top-3 right-3 p-1.5 rounded bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 opacity-0 group-hover:opacity-100 transition"
         data-testid="button-copy-code"
       >
         {copied ? <Check className="w-3 h-3 text-[#00ff9d]" /> : <Copy className="w-3 h-3 text-gray-400" />}
       </button>
-      <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-4 font-mono text-sm text-gray-400 overflow-x-auto whitespace-pre">
+      <div className="bg-gray-900 dark:bg-[#0d0d12] border border-gray-300 dark:border-white/10 rounded-lg p-4 font-mono text-sm text-gray-300 dark:text-gray-400 overflow-x-auto whitespace-pre">
         {code}
       </div>
     </div>
@@ -54,7 +54,7 @@ function ParamTable({ params }: { params: Array<{ name: string; type: string; re
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
-        <thead className="text-gray-500 border-b border-white/10">
+        <thead className="text-gray-500 border-b border-gray-300 dark:border-white/10">
           <tr>
             <th className="py-2 text-left">Parameter</th>
             <th className="py-2 text-left">Type</th>
@@ -62,11 +62,11 @@ function ParamTable({ params }: { params: Array<{ name: string; type: string; re
             <th className="py-2 text-left">Description</th>
           </tr>
         </thead>
-        <tbody className="text-gray-300">
+        <tbody className="text-gray-700 dark:text-gray-300">
           {params.map((param, index) => (
-            <tr key={index} className="border-b border-white/5">
+            <tr key={index} className="border-b border-gray-200 dark:border-white/5">
               <td className="py-2"><code className="text-[#00f0ff]">{param.name}</code></td>
-              <td className="py-2 text-gray-400 font-mono text-xs">{param.type}</td>
+              <td className="py-2 text-gray-600 dark:text-gray-400 font-mono text-xs">{param.type}</td>
               <td className="py-2">
                 {param.required ? (
                   <span className="text-[#00ff9d] text-xs">Required</span>
@@ -74,7 +74,7 @@ function ParamTable({ params }: { params: Array<{ name: string; type: string; re
                   <span className="text-gray-500 text-xs">Optional</span>
                 )}
               </td>
-              <td className="py-2 text-gray-400">{param.desc}</td>
+              <td className="py-2 text-gray-600 dark:text-gray-400">{param.desc}</td>
             </tr>
           ))}
         </tbody>
@@ -121,33 +121,33 @@ export default function ApiDocs() {
   ];
 
   return (
-    <main className="flex-grow relative z-10">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-20 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-20 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-6xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Code className="w-3 h-3" /> API Reference v8.0
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             TBURN Chain <span className="text-gradient">API Documentation</span>
           </h1>
-          <p className="text-lg text-gray-400 leading-relaxed max-w-2xl mb-8">
+          <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mb-8">
             Enterprise-grade REST API and WebSocket endpoints for building on TBURN Chain. 
             Complete access to blockchain data, smart contracts, and real-time events.
           </p>
           <div className="flex flex-wrap gap-4 items-center">
             <button 
               onClick={handleCopyUrl}
-              className="px-4 py-2 rounded bg-white/5 border border-white/10 font-mono text-sm text-gray-300 flex items-center gap-2 hover:bg-white/10 transition"
+              className="px-4 py-2 rounded bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 font-mono text-sm text-gray-700 dark:text-gray-300 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-white/10 transition"
               data-testid="button-copy-base-url"
             >
               <span className="text-[#7000ff]">Base URL:</span> https://api.tburn.io/v8
               {copiedUrl ? <Check className="w-4 h-4 text-[#00ff9d]" /> : <Copy className="w-4 h-4" />}
             </button>
             <span className="text-gray-500">|</span>
-            <span className="text-sm text-gray-400">WebSocket: <code className="text-[#00f0ff]">wss://ws.tburn.io/v8</code></span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">WebSocket: <code className="text-[#00f0ff]">wss://ws.tburn.io/v8</code></span>
           </div>
         </div>
       </section>
@@ -170,8 +170,8 @@ export default function ApiDocs() {
                       onClick={() => scrollToSection(item.id)}
                       className={`w-full text-left px-4 py-2 rounded transition flex items-center gap-2 ${
                         activeSection === item.id 
-                          ? "bg-white/5 text-white font-medium border-l-2 border-[#00f0ff]" 
-                          : "text-gray-400 hover:bg-white/5 hover:text-white"
+                          ? "bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white font-medium border-l-2 border-[#00f0ff]" 
+                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white"
                       }`}
                       data-testid={`nav-${item.id}`}
                     >
@@ -184,16 +184,16 @@ export default function ApiDocs() {
                 <div className="pt-8 pb-2 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
                   RELATED
                 </div>
-                <Link href="/developers" className="block px-4 py-2 rounded text-gray-400 hover:bg-white/5 hover:text-white transition flex items-center gap-2">
+                <Link href="/developers" className="block px-4 py-2 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition flex items-center gap-2">
                   <Layers className="w-4 h-4" /> Developer Hub
                 </Link>
-                <Link href="/developers/docs" className="block px-4 py-2 rounded text-gray-400 hover:bg-white/5 hover:text-white transition flex items-center gap-2">
+                <Link href="/developers/docs" className="block px-4 py-2 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition flex items-center gap-2">
                   <FileText className="w-4 h-4" /> Full Documentation
                 </Link>
-                <Link href="/developers/examples" className="block px-4 py-2 rounded text-gray-400 hover:bg-white/5 hover:text-white transition flex items-center gap-2">
+                <Link href="/developers/examples" className="block px-4 py-2 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition flex items-center gap-2">
                   <Code className="w-4 h-4" /> Code Examples
                 </Link>
-                <Link href="/developers/quickstart" className="block px-4 py-2 rounded text-gray-400 hover:bg-white/5 hover:text-white transition flex items-center gap-2">
+                <Link href="/developers/quickstart" className="block px-4 py-2 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition flex items-center gap-2">
                   <Terminal className="w-4 h-4" /> Quick Start Guide
                 </Link>
               </div>
@@ -203,30 +203,30 @@ export default function ApiDocs() {
             <div className="col-span-4 space-y-16">
               {/* Overview Section */}
               <section id="overview" className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <Globe className="w-8 h-8 text-[#00f0ff]" /> API Overview
                 </h2>
                 
                 <div className="grid md:grid-cols-3 gap-4 mb-8">
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <Server className="w-8 h-8 text-[#00ff9d] mb-3" />
-                    <h3 className="text-lg font-bold text-white mb-2">RESTful API</h3>
-                    <p className="text-sm text-gray-400">JSON-based REST endpoints with comprehensive query parameters and filtering.</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">RESTful API</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">JSON-based REST endpoints with comprehensive query parameters and filtering.</p>
                   </div>
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <Zap className="w-8 h-8 text-[#7000ff] mb-3" />
-                    <h3 className="text-lg font-bold text-white mb-2">WebSocket</h3>
-                    <p className="text-sm text-gray-400">Real-time streaming for blocks, transactions, and smart contract events.</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">WebSocket</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Real-time streaming for blocks, transactions, and smart contract events.</p>
                   </div>
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <Shield className="w-8 h-8 text-[#ffd700] mb-3" />
-                    <h3 className="text-lg font-bold text-white mb-2">Enterprise Ready</h3>
-                    <p className="text-sm text-gray-400">99.99% uptime SLA, dedicated support, and custom rate limits.</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Enterprise Ready</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">99.99% uptime SLA, dedicated support, and custom rate limits.</p>
                   </div>
                 </div>
 
-                <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                  <h3 className="text-lg font-bold text-white mb-4">Quick Start</h3>
+                <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Quick Start</h3>
                   <CodeBlock code={`# Get the latest block
 curl https://api.tburn.io/v8/blocks/latest \\
   -H "X-API-Key: YOUR_API_KEY"
@@ -248,14 +248,14 @@ curl https://api.tburn.io/v8/blocks/latest \\
 
               {/* Authentication Section */}
               <section id="authentication" className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <Key className="w-8 h-8 text-[#ffd700]" /> Authentication
                 </h2>
                 
                 <div className="space-y-6">
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">API Key Authentication</h3>
-                    <p className="text-gray-400 mb-4">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">API Key Authentication</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
                       All API requests require authentication using an API key. Include your key in the request header:
                     </p>
                     <CodeBlock code={`curl https://api.tburn.io/v8/blocks/latest \\
@@ -269,9 +269,9 @@ curl https://api.tburn.io/v8/blocks/latest \\
                     </div>
                   </div>
 
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">Getting an API Key</h3>
-                    <ol className="space-y-3 text-gray-400">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Getting an API Key</h3>
+                    <ol className="space-y-3 text-gray-600 dark:text-gray-400">
                       <li className="flex items-start gap-3">
                         <span className="w-6 h-6 rounded-full bg-[#00f0ff]/10 text-[#00f0ff] text-sm flex items-center justify-center flex-shrink-0">1</span>
                         <span>Create an account at <Link href="/developers" className="text-[#00f0ff] hover:underline">Developer Portal</Link></span>
@@ -287,11 +287,11 @@ curl https://api.tburn.io/v8/blocks/latest \\
                     </ol>
                   </div>
 
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">API Key Tiers</h3>
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">API Key Tiers</h3>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
-                        <thead className="text-gray-500 border-b border-white/10">
+                        <thead className="text-gray-500 border-b border-gray-300 dark:border-white/10">
                           <tr>
                             <th className="py-3 text-left">Tier</th>
                             <th className="py-3 text-left">Rate Limit</th>
@@ -299,20 +299,20 @@ curl https://api.tburn.io/v8/blocks/latest \\
                             <th className="py-3 text-left">Support</th>
                           </tr>
                         </thead>
-                        <tbody className="text-gray-300">
-                          <tr className="border-b border-white/5">
-                            <td className="py-3"><span className="text-gray-400">Free</span></td>
+                        <tbody className="text-gray-700 dark:text-gray-300">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
+                            <td className="py-3"><span className="text-gray-600 dark:text-gray-400">Free</span></td>
                             <td className="py-3">100 req/min</td>
                             <td className="py-3">5 connections</td>
                             <td className="py-3">Community</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><span className="text-[#00f0ff]">Pro</span></td>
                             <td className="py-3">1,000 req/min</td>
                             <td className="py-3">50 connections</td>
                             <td className="py-3">Email (24h)</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><span className="text-[#ffd700]">Enterprise</span></td>
                             <td className="py-3">Unlimited</td>
                             <td className="py-3">Unlimited</td>
@@ -327,14 +327,14 @@ curl https://api.tburn.io/v8/blocks/latest \\
 
               {/* Rate Limits Section */}
               <section id="rate-limits" className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <Clock className="w-8 h-8 text-[#ff6b35]" /> Rate Limits
                 </h2>
                 
                 <div className="space-y-6">
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">Rate Limit Headers</h3>
-                    <p className="text-gray-400 mb-4">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Rate Limit Headers</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
                       Every API response includes rate limit information in the headers:
                     </p>
                     <CodeBlock code={`X-RateLimit-Limit: 100
@@ -350,11 +350,11 @@ X-RateLimit-Window: 60`} />
                     ]} />
                   </div>
 
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">Endpoint-Specific Limits</h3>
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Endpoint-Specific Limits</h3>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
-                        <thead className="text-gray-500 border-b border-white/10">
+                        <thead className="text-gray-500 border-b border-gray-300 dark:border-white/10">
                           <tr>
                             <th className="py-3 text-left">Endpoint Category</th>
                             <th className="py-3 text-left">Free Tier</th>
@@ -362,26 +362,26 @@ X-RateLimit-Window: 60`} />
                             <th className="py-3 text-left">Enterprise</th>
                           </tr>
                         </thead>
-                        <tbody className="text-gray-300">
-                          <tr className="border-b border-white/5">
+                        <tbody className="text-gray-700 dark:text-gray-300">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3">Block / Transaction</td>
                             <td className="py-3">100/min</td>
                             <td className="py-3">1,000/min</td>
                             <td className="py-3">Unlimited</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3">Account Balance</td>
                             <td className="py-3">50/min</td>
                             <td className="py-3">500/min</td>
                             <td className="py-3">Unlimited</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3">Smart Contract Calls</td>
                             <td className="py-3">30/min</td>
                             <td className="py-3">300/min</td>
                             <td className="py-3">Unlimited</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3">Historical Data</td>
                             <td className="py-3">20/min</td>
                             <td className="py-3">200/min</td>
@@ -392,9 +392,9 @@ X-RateLimit-Window: 60`} />
                     </div>
                   </div>
 
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">429 Too Many Requests</h3>
-                    <p className="text-gray-400 mb-4">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">429 Too Many Requests</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
                       When rate limited, the API returns a 429 status with retry information:
                     </p>
                     <CodeBlock code={`{
@@ -411,18 +411,18 @@ X-RateLimit-Window: 60`} />
 
               {/* Block Endpoints Section */}
               <section id="block" className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <Box className="w-8 h-8 text-[#00ff9d]" /> Block Endpoints
                 </h2>
                 
                 <div className="space-y-6">
                   {/* Get Block by Number */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/blocks/{'{blockNumber}'}</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/blocks/{'{blockNumber}'}</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Retrieve detailed information about a specific block by its number or use 'latest' for the most recent block.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Retrieve detailed information about a specific block by its number or use 'latest' for the most recent block.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
                     <ParamTable params={[
@@ -461,12 +461,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Get Latest Blocks */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/blocks</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/blocks</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Retrieve a paginated list of recent blocks with optional filtering.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Retrieve a paginated list of recent blocks with optional filtering.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
                     <ParamTable params={[
@@ -503,12 +503,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Get Block Transactions */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/blocks/{'{blockNumber}'}/transactions</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/blocks/{'{blockNumber}'}/transactions</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Get all transactions in a specific block with pagination support.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get all transactions in a specific block with pagination support.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
                     <ParamTable params={[
@@ -522,18 +522,18 @@ X-RateLimit-Window: 60`} />
 
               {/* Transaction Endpoints Section */}
               <section id="transaction" className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <Activity className="w-8 h-8 text-[#00f0ff]" /> Transaction Endpoints
                 </h2>
                 
                 <div className="space-y-6">
                   {/* Get Transaction */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/transactions/{'{txHash}'}</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/transactions/{'{txHash}'}</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Retrieve detailed information about a transaction by its hash.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Retrieve detailed information about a transaction by its hash.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
                     <ParamTable params={[
@@ -568,12 +568,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Send Transaction */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="POST" />
-                      <code className="text-white font-mono text-lg">/transactions/send</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/transactions/send</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Broadcast a signed transaction to the network.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Broadcast a signed transaction to the network.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Request Body</h4>
                     <ParamTable params={[
@@ -600,12 +600,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Get Transaction Receipt */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/transactions/{'{txHash}'}/receipt</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/transactions/{'{txHash}'}/receipt</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Get the receipt of a mined transaction including logs and status.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get the receipt of a mined transaction including logs and status.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Response</h4>
                     <CodeBlock code={`{
@@ -632,12 +632,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Search Transactions */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/transactions</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/transactions</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Search and filter transactions with advanced query options.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Search and filter transactions with advanced query options.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
                     <ParamTable params={[
@@ -658,18 +658,18 @@ X-RateLimit-Window: 60`} />
 
               {/* Account Endpoints Section */}
               <section id="account" className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <Wallet className="w-8 h-8 text-[#7000ff]" /> Account Endpoints
                 </h2>
                 
                 <div className="space-y-6">
                   {/* Get Account Balance */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/accounts/{'{address}'}/balance</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/accounts/{'{address}'}/balance</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Get the native token balance and nonce for an address.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get the native token balance and nonce for an address.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Response</h4>
                     <CodeBlock code={`{
@@ -685,12 +685,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Get Account Info */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/accounts/{'{address}'}</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/accounts/{'{address}'}</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Get comprehensive account information including balances, tokens, and activity.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get comprehensive account information including balances, tokens, and activity.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
                     <ParamTable params={[
@@ -729,12 +729,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Get Account Transactions */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/accounts/{'{address}'}/transactions</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/accounts/{'{address}'}/transactions</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Get paginated transaction history for an address.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get paginated transaction history for an address.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
                     <ParamTable params={[
@@ -746,12 +746,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Get Token Balances */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/accounts/{'{address}'}/tokens</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/accounts/{'{address}'}/tokens</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Get all TBC-20 token balances for an address.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get all TBC-20 token balances for an address.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Response</h4>
                     <CodeBlock code={`{
@@ -786,18 +786,18 @@ X-RateLimit-Window: 60`} />
 
               {/* Smart Contract Endpoints Section */}
               <section id="smart-contract" className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <FileCode className="w-8 h-8 text-[#ffd700]" /> Smart Contract Endpoints
                 </h2>
                 
                 <div className="space-y-6">
                   {/* Get Contract Info */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/contracts/{'{address}'}</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/contracts/{'{address}'}</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Get detailed information about a deployed smart contract.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get detailed information about a deployed smart contract.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Response</h4>
                     <CodeBlock code={`{
@@ -823,12 +823,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Call Contract Method (Read) */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="POST" />
-                      <code className="text-white font-mono text-lg">/contracts/{'{address}'}/call</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/contracts/{'{address}'}/call</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Call a read-only contract method without creating a transaction.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Call a read-only contract method without creating a transaction.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Request Body</h4>
                     <ParamTable params={[
@@ -861,12 +861,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Get Contract Events */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="GET" />
-                      <code className="text-white font-mono text-lg">/contracts/{'{address}'}/events</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/contracts/{'{address}'}/events</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Get decoded event logs emitted by a contract.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get decoded event logs emitted by a contract.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
                     <ParamTable params={[
@@ -905,12 +905,12 @@ X-RateLimit-Window: 60`} />
                   </div>
 
                   {/* Verify Contract */}
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <MethodBadge method="POST" />
-                      <code className="text-white font-mono text-lg">/contracts/{'{address}'}/verify</code>
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/contracts/{'{address}'}/verify</code>
                     </div>
-                    <p className="text-gray-400 mb-4">Submit source code for contract verification.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Submit source code for contract verification.</p>
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Request Body</h4>
                     <ParamTable params={[
@@ -926,14 +926,14 @@ X-RateLimit-Window: 60`} />
 
               {/* WebSocket Real-time Events Section */}
               <section id="realtime-events" className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <Zap className="w-8 h-8 text-purple-400" /> Real-time Events (WebSocket)
                 </h2>
                 
                 <div className="space-y-6">
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">Connection</h3>
-                    <p className="text-gray-400 mb-4">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Connection</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
                       Connect to the WebSocket endpoint with your API key for real-time blockchain events.
                     </p>
                     <CodeBlock code={`const ws = new WebSocket('wss://ws.tburn.io/v8?apiKey=YOUR_API_KEY');
@@ -954,49 +954,49 @@ ws.onmessage = (event) => {
 };`} />
                   </div>
 
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">Available Channels</h3>
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Available Channels</h3>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
-                        <thead className="text-gray-500 border-b border-white/10">
+                        <thead className="text-gray-500 border-b border-gray-300 dark:border-white/10">
                           <tr>
                             <th className="py-3 text-left">Channel</th>
                             <th className="py-3 text-left">Description</th>
                             <th className="py-3 text-left">Parameters</th>
                           </tr>
                         </thead>
-                        <tbody className="text-gray-300">
-                          <tr className="border-b border-white/5">
+                        <tbody className="text-gray-700 dark:text-gray-300">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">blocks</code></td>
                             <td className="py-3">New block notifications</td>
                             <td className="py-3 text-gray-500">-</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">transactions</code></td>
                             <td className="py-3">All pending and confirmed transactions</td>
                             <td className="py-3 text-gray-500">-</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">address</code></td>
                             <td className="py-3">Transactions for specific address</td>
                             <td className="py-3"><code className="text-gray-400">address: "0x..."</code></td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">contract</code></td>
                             <td className="py-3">Contract events</td>
                             <td className="py-3"><code className="text-gray-400">address: "0x...", event: "Transfer"</code></td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">pendingTx</code></td>
                             <td className="py-3">Pending transactions in mempool</td>
                             <td className="py-3 text-gray-500">-</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">validators</code></td>
                             <td className="py-3">Validator status updates</td>
                             <td className="py-3 text-gray-500">-</td>
                           </tr>
-                          <tr className="border-b border-white/5">
+                          <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">consensus</code></td>
                             <td className="py-3">BFT consensus round updates</td>
                             <td className="py-3 text-gray-500">-</td>
@@ -1006,8 +1006,8 @@ ws.onmessage = (event) => {
                     </div>
                   </div>
 
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">Subscribe to Address</h3>
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Subscribe to Address</h3>
                     <CodeBlock code={`// Subscribe to transactions for a specific address
 ws.send(JSON.stringify({
   method: 'subscribe',
@@ -1032,8 +1032,8 @@ ws.send(JSON.stringify({
 }`} />
                   </div>
 
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">Subscribe to Contract Events</h3>
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Subscribe to Contract Events</h3>
                     <CodeBlock code={`// Subscribe to Transfer events for a token contract
 ws.send(JSON.stringify({
   method: 'subscribe',
@@ -1064,8 +1064,8 @@ ws.send(JSON.stringify({
 }`} />
                   </div>
 
-                  <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-4">Unsubscribe</h3>
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Unsubscribe</h3>
                     <CodeBlock code={`// Unsubscribe from a channel
 ws.send(JSON.stringify({
   method: 'unsubscribe',
@@ -1086,55 +1086,55 @@ ws.send(JSON.stringify({
 
               {/* Error Handling */}
               <section className="scroll-mt-24">
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <AlertTriangle className="w-8 h-8 text-[#ff0055]" /> Error Handling
                 </h2>
                 
-                <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                      <thead className="text-gray-500 border-b border-white/10">
+                      <thead className="text-gray-500 border-b border-gray-300 dark:border-white/10">
                         <tr>
                           <th className="py-3 text-left">Code</th>
                           <th className="py-3 text-left">Error</th>
                           <th className="py-3 text-left">Description</th>
                         </tr>
                       </thead>
-                      <tbody className="text-gray-300">
-                        <tr className="border-b border-white/5">
+                      <tbody className="text-gray-700 dark:text-gray-300">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">400</td>
                           <td className="py-3">Bad Request</td>
-                          <td className="py-3 text-gray-400">Invalid request parameters or malformed JSON</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Invalid request parameters or malformed JSON</td>
                         </tr>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">401</td>
                           <td className="py-3">Unauthorized</td>
-                          <td className="py-3 text-gray-400">Missing or invalid API key</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Missing or invalid API key</td>
                         </tr>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">403</td>
                           <td className="py-3">Forbidden</td>
-                          <td className="py-3 text-gray-400">API key doesn't have permission for this endpoint</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">API key doesn't have permission for this endpoint</td>
                         </tr>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">404</td>
                           <td className="py-3">Not Found</td>
-                          <td className="py-3 text-gray-400">Resource not found (block, transaction, address)</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Resource not found (block, transaction, address)</td>
                         </tr>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">429</td>
                           <td className="py-3">Too Many Requests</td>
-                          <td className="py-3 text-gray-400">Rate limit exceeded</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Rate limit exceeded</td>
                         </tr>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">500</td>
                           <td className="py-3">Internal Error</td>
-                          <td className="py-3 text-gray-400">Server error - contact support if persistent</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Server error - contact support if persistent</td>
                         </tr>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">503</td>
                           <td className="py-3">Service Unavailable</td>
-                          <td className="py-3 text-gray-400">API temporarily unavailable for maintenance</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">API temporarily unavailable for maintenance</td>
                         </tr>
                       </tbody>
                     </table>
@@ -1161,24 +1161,24 @@ ws.send(JSON.stringify({
       </section>
 
       {/* Official SDKs */}
-      <section className="py-20 px-6 bg-white/5 border-t border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-t border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Official SDKs</h2>
-          <p className="text-gray-400 mb-12 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Official SDKs</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
             Use our official SDKs for a better developer experience with type safety, error handling, and automatic retries.
           </p>
           <div className="grid md:grid-cols-5 gap-4">
             {sdks.map((sdk, index) => (
               <div 
                 key={index}
-                className={`spotlight-card rounded-xl p-6 border border-white/10 group ${sdk.hoverBorder} transition-colors`}
+                className={`bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group ${sdk.hoverBorder} transition-colors`}
               >
                 <sdk.icon className="w-8 h-8 mx-auto mb-3" style={{ color: sdk.color }} />
-                <h3 className="text-lg font-bold text-white mb-2">{sdk.name}</h3>
-                <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-2 font-mono text-xs text-gray-400 mb-3">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{sdk.name}</h3>
+                <div className="bg-gray-900 dark:bg-[#0d0d12] border border-gray-300 dark:border-white/10 rounded-lg p-2 font-mono text-xs text-gray-400 mb-3">
                   {sdk.install}
                 </div>
-                <Link href="/developers/docs" className="text-xs text-gray-400 hover:text-white flex items-center justify-center gap-1">
+                <Link href="/developers/docs" className="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white flex items-center justify-center gap-1">
                   View Docs <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
@@ -1191,20 +1191,20 @@ ws.send(JSON.stringify({
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-5xl">
           <div className="grid md:grid-cols-3 gap-6">
-            <Link href="/developers/quickstart" className="spotlight-card rounded-xl p-6 border border-white/10 group hover:border-[#00f0ff]/50 transition-colors">
+            <Link href="/developers/quickstart" className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group hover:border-[#00f0ff]/50 transition-colors">
               <Terminal className="w-8 h-8 text-[#00f0ff] mb-4" />
-              <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#00f0ff] transition-colors">Quick Start Guide</h3>
-              <p className="text-sm text-gray-400">Get up and running in 5 minutes with our step-by-step tutorial.</p>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#00f0ff] transition-colors">Quick Start Guide</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Get up and running in 5 minutes with our step-by-step tutorial.</p>
             </Link>
-            <Link href="/developers/examples" className="spotlight-card rounded-xl p-6 border border-white/10 group hover:border-[#7000ff]/50 transition-colors">
+            <Link href="/developers/examples" className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group hover:border-[#7000ff]/50 transition-colors">
               <FileText className="w-8 h-8 text-[#7000ff] mb-4" />
-              <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#7000ff] transition-colors">Code Examples</h3>
-              <p className="text-sm text-gray-400">Real-world examples for common integration patterns.</p>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#7000ff] transition-colors">Code Examples</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Real-world examples for common integration patterns.</p>
             </Link>
-            <Link href="/network/rpc" className="spotlight-card rounded-xl p-6 border border-white/10 group hover:border-[#00ff9d]/50 transition-colors">
+            <Link href="/network/rpc" className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group hover:border-[#00ff9d]/50 transition-colors">
               <Layers className="w-8 h-8 text-[#00ff9d] mb-4" />
-              <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#00ff9d] transition-colors">RPC Providers</h3>
-              <p className="text-sm text-gray-400">Direct RPC access for Web3 library integration.</p>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#00ff9d] transition-colors">RPC Providers</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Direct RPC access for Web3 library integration.</p>
             </Link>
           </div>
         </div>

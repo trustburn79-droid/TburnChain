@@ -104,7 +104,7 @@ export default function Btcfi() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-20 mb-12 text-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#f7931a]/10 via-transparent to-transparent pointer-events-none" />
@@ -115,7 +115,7 @@ export default function Btcfi() {
         <div className="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 
             href="/solutions/token-extensions"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#f7931a] mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[#f7931a] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
@@ -125,20 +125,20 @@ export default function Btcfi() {
             <Bitcoin className="w-4 h-4" /> {t('publicPages.solutions.btcfi.tag')}
           </div>
           
-          <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
+          <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" data-testid="text-page-title">
             {t('publicPages.solutions.btcfi.title')} <br />
             <span className="bg-gradient-to-r from-[#f7931a] via-[#ffd700] to-white bg-clip-text text-transparent">
               {t('publicPages.solutions.btcfi.titleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
             {t('publicPages.solutions.btcfi.subtitle')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/solutions/cross-chain-bridge">
               <button 
-                className="bg-[#f7931a] text-white px-8 py-3 rounded-lg font-bold hover:bg-orange-600 transition flex items-center justify-center gap-2"
+                className="bg-[#f7931a] text-gray-900 dark:text-white px-8 py-3 rounded-lg font-bold hover:bg-orange-600 transition flex items-center justify-center gap-2"
                 style={{ boxShadow: "0 0 20px rgba(247,147,26,0.4)" }}
                 data-testid="button-bridge-btc"
               >
@@ -147,7 +147,7 @@ export default function Btcfi() {
             </Link>
             <Link href="/app/yield-farming">
               <button 
-                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
+                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 dark:bg-white/5 transition flex items-center justify-center gap-2 text-gray-900 dark:text-white"
                 data-testid="button-view-yields"
               >
                 <BarChart3 className="w-4 h-4" /> {t('publicPages.solutions.btcfi.buttons.viewYields')}
@@ -173,13 +173,13 @@ export default function Btcfi() {
                     className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300"
                     style={{ background: `linear-gradient(135deg, ${feature.gradientFrom}, ${feature.gradientTo})` }}
                   >
-                    <Icon className="w-6 h-6 text-white" />
+                    <Icon className="w-6 h-6 text-gray-900 dark:text-white" />
                   </div>
                   <div>
-                    <h3 className={`text-2xl font-bold text-white mb-3 group-hover:${feature.hoverColor} transition-colors`}>
+                    <h3 className={`text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:${feature.hoverColor} transition-colors`}>
                       {feature.title}
                     </h3>
-                    <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
               </div>
@@ -197,7 +197,7 @@ export default function Btcfi() {
           <div className="grid md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-800 relative z-10">
             {stats.map((stat, idx) => (
               <div key={idx} className="p-4">
-                <div className="text-4xl font-bold text-white mb-2 font-mono">{stat.value}</div>
+                <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono">{stat.value}</div>
                 <div className="text-sm uppercase tracking-widest" style={{ color: stat.color }}>{stat.label}</div>
               </div>
             ))}
@@ -208,8 +208,8 @@ export default function Btcfi() {
       {/* BTCfi Products */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.solutions.btcfi.productsSection.title')}</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.btcfi.productsSection.title')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {t('publicPages.solutions.btcfi.productsSection.description')}
           </p>
         </div>
@@ -231,14 +231,14 @@ export default function Btcfi() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-bold text-white group-hover:text-[#f7931a] transition-colors">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-[#f7931a] transition-colors">
                         {product.title}
                       </h3>
-                      <span className="text-xs font-mono px-2 py-1 rounded bg-white/5 border border-white/10" style={{ color: product.iconColor }}>
+                      <span className="text-xs font-mono px-2 py-1 rounded bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10" style={{ color: product.iconColor }}>
                         {product.stats}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-400">{product.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{product.description}</p>
                   </div>
                 </div>
               </div>
@@ -250,8 +250,8 @@ export default function Btcfi() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.btcfi.relatedSolutions.title')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.btcfi.relatedSolutions.title')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.solutions.btcfi.relatedSolutions.description')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
@@ -262,7 +262,7 @@ export default function Btcfi() {
             >
               <Coins className="w-5 h-5 text-[#f7931a]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.relatedSolutions.tokenExtensions.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.relatedSolutions.tokenExtensions.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.tokenExtensions.subtitle')}</p>
               </div>
             </Link>
@@ -273,7 +273,7 @@ export default function Btcfi() {
             >
               <Wallet className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.btcfi.relatedSolutions.wallets.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.btcfi.relatedSolutions.wallets.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.wallets.subtitle')}</p>
               </div>
             </Link>
@@ -284,7 +284,7 @@ export default function Btcfi() {
             >
               <CreditCard className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.btcfi.relatedSolutions.payments.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.btcfi.relatedSolutions.payments.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.payments.subtitle')}</p>
               </div>
             </Link>
@@ -295,7 +295,7 @@ export default function Btcfi() {
             >
               <Landmark className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.btcfi.relatedSolutions.financial.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.btcfi.relatedSolutions.financial.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.financial.subtitle')}</p>
               </div>
             </Link>
@@ -306,7 +306,7 @@ export default function Btcfi() {
             >
               <Store className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.btcfi.relatedSolutions.commerce.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.btcfi.relatedSolutions.commerce.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.commerce.subtitle')}</p>
               </div>
             </Link>
@@ -317,7 +317,7 @@ export default function Btcfi() {
             >
               <Lock className="w-5 h-5 text-[#ffd700]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.solutions.btcfi.relatedSolutions.permissioned.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ffd700] transition">{t('publicPages.solutions.btcfi.relatedSolutions.permissioned.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.permissioned.subtitle')}</p>
               </div>
             </Link>
@@ -328,7 +328,7 @@ export default function Btcfi() {
             >
               <TrendingUp className="w-5 h-5 text-[#8b5cf6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.btcfi.relatedSolutions.aiFeatures.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.btcfi.relatedSolutions.aiFeatures.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.aiFeatures.subtitle')}</p>
               </div>
             </Link>
@@ -339,7 +339,7 @@ export default function Btcfi() {
             >
               <Zap className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.btcfi.relatedSolutions.actionsBlinks.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.btcfi.relatedSolutions.actionsBlinks.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.actionsBlinks.subtitle')}</p>
               </div>
             </Link>
@@ -350,8 +350,8 @@ export default function Btcfi() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.btcfi.developerResources.title')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.btcfi.developerResources.title')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.solutions.btcfi.developerResources.description')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
@@ -362,7 +362,7 @@ export default function Btcfi() {
             >
               <BookOpen className="w-5 h-5 text-[#f7931a]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.developerResources.sdkGuide.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.developerResources.sdkGuide.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.sdkGuide.subtitle')}</p>
               </div>
             </Link>
@@ -373,7 +373,7 @@ export default function Btcfi() {
             >
               <Code className="w-5 h-5 text-[#ffd700]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.solutions.btcfi.developerResources.smartContracts.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ffd700] transition">{t('publicPages.solutions.btcfi.developerResources.smartContracts.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.smartContracts.subtitle')}</p>
               </div>
             </Link>
@@ -384,7 +384,7 @@ export default function Btcfi() {
             >
               <FileText className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.btcfi.developerResources.apiReference.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.btcfi.developerResources.apiReference.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.apiReference.subtitle')}</p>
               </div>
             </Link>
@@ -395,7 +395,7 @@ export default function Btcfi() {
             >
               <Globe className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.btcfi.developerResources.websocketApi.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.btcfi.developerResources.websocketApi.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.websocketApi.subtitle')}</p>
               </div>
             </Link>
@@ -406,7 +406,7 @@ export default function Btcfi() {
             >
               <Terminal className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.btcfi.developerResources.cliReference.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.btcfi.developerResources.cliReference.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.cliReference.subtitle')}</p>
               </div>
             </Link>
@@ -417,7 +417,7 @@ export default function Btcfi() {
             >
               <ExternalLink className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.btcfi.developerResources.codeExamples.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.btcfi.developerResources.codeExamples.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.codeExamples.subtitle')}</p>
               </div>
             </Link>
@@ -437,7 +437,7 @@ export default function Btcfi() {
                 <BarChart3 className="w-5 h-5 text-[#8b5cf6]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.btcfi.learnMore.defiMastery.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.btcfi.learnMore.defiMastery.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.learnMore.defiMastery.subtitle')}</p>
               </div>
             </div>
@@ -453,7 +453,7 @@ export default function Btcfi() {
                 <Bitcoin className="w-5 h-5 text-[#f7931a]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.learnMore.introToDefi.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.learnMore.introToDefi.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.learnMore.introToDefi.subtitle')}</p>
               </div>
             </div>
@@ -462,13 +462,13 @@ export default function Btcfi() {
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.solutions.btcfi.cta.title')}</h2>
-          <p className="text-gray-400 mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.solutions.btcfi.cta.title')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
             {t('publicPages.solutions.btcfi.cta.description')}
           </p>
           <Link 
             href="/developers/docs"
-            className="text-[#f7931a] hover:text-white transition-colors border-b border-[#f7931a] hover:border-white pb-1"
+            className="text-[#f7931a] hover:text-gray-900 dark:text-white transition-colors border-b border-[#f7931a] hover:border-white pb-1"
             data-testid="link-btcfi-guide"
           >
             {t('publicPages.solutions.btcfi.cta.link')} <ArrowLeft className="w-4 h-4 inline-block rotate-180 ml-1" />

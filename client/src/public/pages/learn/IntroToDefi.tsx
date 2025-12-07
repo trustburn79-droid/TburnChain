@@ -117,14 +117,14 @@ export default function IntroToDefi() {
   ];
 
   return (
-    <main className="flex-grow relative z-10">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-16 mb-8 text-center">
         <div className="absolute inset-0 bg-gradient-to-b from-[#00ff9d]/10 via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 
             href="/learn/education-programs"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#00ff9d] mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[#00ff9d] mb-6 transition-colors group"
             data-testid="link-back-education"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.learn.introToDefi.backToEducation')}
@@ -134,10 +134,10 @@ export default function IntroToDefi() {
             <Shield className="w-4 h-4" /> {t('publicPages.learn.introToDefi.tag')}
           </div>
           
-          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             {t('publicPages.learn.introToDefi.title')}
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
             {t('publicPages.learn.introToDefi.subtitle')}
           </p>
           
@@ -145,7 +145,7 @@ export default function IntroToDefi() {
             <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border border-[#00ff9d] text-[#00ff9d] bg-[#00ff9d]/5">
               {t('publicPages.common.beginner')}
             </span>
-            <span className="text-sm text-gray-400 flex items-center gap-1">
+            <span className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
               <Clock className="w-4 h-4" /> {t('publicPages.learn.introToDefi.duration')}
             </span>
           </div>
@@ -154,20 +154,20 @@ export default function IntroToDefi() {
 
       {/* Score Formula Section */}
       <section className="max-w-5xl mx-auto px-6 lg:px-8 mb-20">
-        <div className="spotlight-card rounded-2xl p-10 border-[#00ff9d]/20 relative overflow-hidden">
+        <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-2xl p-10 border-[#00ff9d]/20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#00ff9d]/10 rounded-full blur-[80px]" />
           
-          <h2 className="text-2xl font-bold text-center text-white mb-10">{t('publicPages.learn.introToDefi.scoreFormula.title')}</h2>
+          <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-10">{t('publicPages.learn.introToDefi.scoreFormula.title')}</h2>
           
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 font-mono text-sm md:text-base">
             {scoreFormula.map((item, index) => (
               <div key={index} className="flex items-center gap-4 md:gap-8">
                 <div 
-                  className="bg-black/40 p-6 rounded-xl text-center flex-1 w-full hover:scale-105 transition-transform"
+                  className="bg-gray-50 dark:bg-black/40 p-6 rounded-xl text-center flex-1 w-full hover:scale-105 transition-transform"
                   style={{ border: `1px solid ${item.color}30` }}
                 >
                   <div className="text-3xl font-bold mb-2" style={{ color: item.color }}>{item.percentage}</div>
-                  <div className="text-gray-300">{item.title}</div>
+                  <div className="text-gray-700 dark:text-gray-300">{item.title}</div>
                   <p className="text-xs text-gray-500 mt-2">{item.subtitle}</p>
                 </div>
                 {index < scoreFormula.length - 1 && (
@@ -183,12 +183,12 @@ export default function IntroToDefi() {
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
         <div className="flex items-center gap-3 mb-8">
           <Check className="w-6 h-6 text-[#00ff9d]" />
-          <h2 className="text-2xl font-bold text-white">{t('publicPages.learn.introToDefi.verification.title')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('publicPages.learn.introToDefi.verification.title')}</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {verificationStages.map((stage, index) => (
-            <div key={index} className="spotlight-card rounded-xl p-6 group">
+            <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group">
               <div className="flex justify-between items-start mb-4">
                 <div 
                   className="w-10 h-10 rounded-lg flex items-center justify-center"
@@ -203,8 +203,8 @@ export default function IntroToDefi() {
                   {stage.duration}
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{stage.title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{stage.description}</p>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{stage.title}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{stage.description}</p>
             </div>
           ))}
         </div>
@@ -212,17 +212,17 @@ export default function IntroToDefi() {
 
       {/* Actions by Score */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
-        <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.learn.introToDefi.scoreActions.title')}</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.learn.introToDefi.scoreActions.title')}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {scoreActions.map((action, index) => (
             <div 
               key={index}
-              className="spotlight-card p-6 rounded-xl"
+              className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-6 rounded-xl"
               style={{ borderLeft: `4px solid ${action.color}` }}
             >
               <div className="text-3xl font-bold mb-1" style={{ color: action.color }}>{action.range}</div>
-              <div className="text-white font-bold mb-3">{action.label}</div>
-              <p className="text-xs text-gray-400">{action.description}</p>
+              <div className="text-gray-900 dark:text-white font-bold mb-3">{action.label}</div>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{action.description}</p>
             </div>
           ))}
         </div>
@@ -230,13 +230,13 @@ export default function IntroToDefi() {
 
       {/* Hybrid Forced Burn */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
-        <div className="spotlight-card rounded-2xl p-8 border border-white/10">
+        <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-2xl p-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-white">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
                 <AlertTriangle className="w-6 h-6 text-[#ff0055]" /> {t('publicPages.learn.introToDefi.hybridBurn.title')}
               </h2>
-              <p className="text-gray-400 mb-6 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                 {t('publicPages.learn.introToDefi.hybridBurn.description')}
               </p>
               
@@ -247,7 +247,7 @@ export default function IntroToDefi() {
                       {item.step}
                     </div>
                     <div>
-                      <h4 className="text-white font-bold text-sm">{item.title}</h4>
+                      <h4 className="text-gray-900 dark:text-white font-bold text-sm">{item.title}</h4>
                       <p className="text-xs text-gray-500">{item.description}</p>
                     </div>
                   </li>
@@ -255,7 +255,7 @@ export default function IntroToDefi() {
               </ul>
             </div>
             
-            <div className="h-64 bg-black/40 rounded-xl border border-dashed border-gray-700 flex items-center justify-center flex-col text-gray-500">
+            <div className="h-64 bg-gray-100 dark:bg-black/40 rounded-xl border border-dashed border-gray-400 dark:border-gray-700 flex items-center justify-center flex-col text-gray-500">
               <Coins className="w-12 h-12 mb-2 text-[#00ff9d]/50" />
               <span className="text-xs mt-2">{t('publicPages.learn.introToDefi.hybridBurn.figureCaption')}</span>
             </div>
@@ -265,9 +265,9 @@ export default function IntroToDefi() {
 
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
-        <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.learn.introToDefi.developerResources.title')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+        <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.learn.introToDefi.developerResources.title')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.learn.introToDefi.developerResources.description')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
@@ -278,7 +278,7 @@ export default function IntroToDefi() {
             >
               <Code className="w-5 h-5 text-[#00ff9d]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00ff9d] transition">{t('publicPages.learn.introToDefi.developerResources.smartContracts.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00ff9d] transition">{t('publicPages.learn.introToDefi.developerResources.smartContracts.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.learn.introToDefi.developerResources.smartContracts.subtitle')}</p>
               </div>
             </Link>
@@ -289,7 +289,7 @@ export default function IntroToDefi() {
             >
               <BookOpen className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.introToDefi.developerResources.sdkGuide.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.introToDefi.developerResources.sdkGuide.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.learn.introToDefi.developerResources.sdkGuide.subtitle')}</p>
               </div>
             </Link>
@@ -300,7 +300,7 @@ export default function IntroToDefi() {
             >
               <FileText className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.introToDefi.developerResources.apiReference.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.introToDefi.developerResources.apiReference.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.learn.introToDefi.developerResources.apiReference.subtitle')}</p>
               </div>
             </Link>
@@ -311,7 +311,7 @@ export default function IntroToDefi() {
             >
               <Zap className="w-5 h-5 text-[#ffd700]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.learn.introToDefi.developerResources.websocket.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ffd700] transition">{t('publicPages.learn.introToDefi.developerResources.websocket.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.learn.introToDefi.developerResources.websocket.subtitle')}</p>
               </div>
             </Link>
@@ -322,7 +322,7 @@ export default function IntroToDefi() {
             >
               <Play className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.learn.introToDefi.developerResources.quickStart.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ff0055] transition">{t('publicPages.learn.introToDefi.developerResources.quickStart.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.learn.introToDefi.developerResources.quickStart.subtitle')}</p>
               </div>
             </Link>
@@ -333,7 +333,7 @@ export default function IntroToDefi() {
             >
               <ExternalLink className="w-5 h-5 text-[#f97316]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f97316] transition">{t('publicPages.learn.introToDefi.developerResources.codeExamples.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#f97316] transition">{t('publicPages.learn.introToDefi.developerResources.codeExamples.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.learn.introToDefi.developerResources.codeExamples.subtitle')}</p>
               </div>
             </Link>
@@ -344,7 +344,7 @@ export default function IntroToDefi() {
         <div className="mt-6 grid md:grid-cols-2 gap-4">
           <Link 
             href="/learn/defi-mastery"
-            className="spotlight-card rounded-xl p-6 group cursor-pointer block"
+            className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-defi-mastery"
           >
             <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.learn.introToDefi.continueLearning.label')}</h3>
@@ -353,14 +353,14 @@ export default function IntroToDefi() {
                 <Coins className="w-5 h-5 text-[#7000ff]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.introToDefi.continueLearning.defiMastery.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.introToDefi.continueLearning.defiMastery.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.learn.introToDefi.continueLearning.defiMastery.level')}</p>
               </div>
             </div>
           </Link>
           <Link 
             href="/learn/developer-course"
-            className="spotlight-card rounded-xl p-6 group cursor-pointer block"
+            className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-developer-course"
           >
             <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.learn.introToDefi.forDevelopers.label')}</h3>
@@ -369,7 +369,7 @@ export default function IntroToDefi() {
                 <Code className="w-5 h-5 text-[#f59e0b]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#f59e0b] transition">{t('publicPages.learn.introToDefi.forDevelopers.developerCourse.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#f59e0b] transition">{t('publicPages.learn.introToDefi.forDevelopers.developerCourse.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.learn.introToDefi.forDevelopers.developerCourse.level')}</p>
               </div>
             </div>

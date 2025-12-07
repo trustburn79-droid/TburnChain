@@ -135,22 +135,22 @@ export default function Permissioned() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Building2 className="w-4 h-4" /> {t('publicPages.solutions.permissioned.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.solutions.permissioned.title')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
               {t('publicPages.solutions.permissioned.titleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
             {t('publicPages.solutions.permissioned.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -165,7 +165,7 @@ export default function Permissioned() {
             </Link>
             <Link href="/learn/whitepaper">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-8 py-3 rounded-lg border border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-white/5 transition"
                 data-testid="button-whitepaper"
               >
                 {t('publicPages.solutions.permissioned.buttons.viewWhitepaper')}
@@ -179,8 +179,8 @@ export default function Permissioned() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.permissioned.sections.enterpriseFeatures.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.solutions.permissioned.sections.enterpriseFeatures.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.solutions.permissioned.sections.enterpriseFeatures.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.solutions.permissioned.sections.enterpriseFeatures.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -189,7 +189,7 @@ export default function Permissioned() {
               return (
                 <div 
                   key={idx}
-                  className="spotlight-card rounded-2xl p-8 border border-white/10"
+                  className="spotlight-card rounded-2xl p-8 border border-gray-300 dark:border-white/10"
                   data-testid={`card-feature-${idx}`}
                 >
                   <div 
@@ -201,8 +201,8 @@ export default function Permissioned() {
                   >
                     <Icon className="w-7 h-7" style={{ color: feature.iconColor }} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{feature.desc}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{feature.desc}</p>
                 </div>
               );
             })}
@@ -211,12 +211,12 @@ export default function Permissioned() {
       </section>
 
       {/* Hybrid Architecture Section */}
-      <section className="py-20 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.solutions.permissioned.sections.hybridArchitecture.title')}</h2>
-              <p className="text-gray-400 mb-6 text-lg leading-relaxed">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.solutions.permissioned.sections.hybridArchitecture.title')}</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
                 {t('publicPages.solutions.permissioned.sections.hybridArchitecture.subtitle')}
               </p>
               
@@ -229,8 +229,8 @@ export default function Permissioned() {
                         <Icon className="w-5 h-5" style={{ color: feature.iconColor }} />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-white mb-1">{feature.title}</h4>
-                        <p className="text-gray-400 text-sm">{feature.desc}</p>
+                        <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{feature.title}</h4>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{feature.desc}</p>
                       </div>
                     </div>
                   );
@@ -242,18 +242,18 @@ export default function Permissioned() {
             <div className="md:w-1/2 w-full">
               <div className="spotlight-card p-8 rounded-2xl border border-[#00f0ff]/30 bg-[#00f0ff]/5 text-center">
                 <Network className="w-16 h-16 text-[#00f0ff] mx-auto mb-6" />
-                <h3 className="text-xl font-bold text-white">{t('publicPages.solutions.permissioned.diagram.privateLayer')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.solutions.permissioned.diagram.privateLayer')}</h3>
                 
                 <div className="my-4 border-l-2 border-dashed border-white/20 h-12 mx-auto w-0" />
                 
-                <div className="bg-black/40 p-4 rounded-lg border border-white/10 inline-block">
+                <div className="bg-black/40 p-4 rounded-lg border border-gray-300 dark:border-white/10 inline-block">
                   <span className="text-xs font-mono text-gray-500">{t('publicPages.solutions.permissioned.diagram.anchoringHash')}</span>
                   <div className="text-[#7000ff] font-mono text-sm mt-1">0x7f...3a9b</div>
                 </div>
                 
                 <div className="my-4 border-l-2 border-dashed border-white/20 h-12 mx-auto w-0" />
                 
-                <h3 className="text-xl font-bold text-white">{t('publicPages.solutions.permissioned.diagram.publicMainnet')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.solutions.permissioned.diagram.publicMainnet')}</h3>
               </div>
             </div>
           </div>
@@ -263,21 +263,21 @@ export default function Permissioned() {
       {/* Industry Use Cases Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.permissioned.sections.useCases.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.solutions.permissioned.sections.useCases.title')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {useCases.map((useCase, idx) => {
               const Icon = useCase.icon;
               return (
                 <div 
                   key={idx}
-                  className="spotlight-card rounded-xl p-8 border border-white/10"
+                  className="spotlight-card rounded-xl p-8 border border-gray-300 dark:border-white/10"
                   data-testid={`card-usecase-${idx}`}
                 >
                   <Icon className="w-10 h-10 mb-6" style={{ color: useCase.iconColor }} />
-                  <h3 className="text-xl font-bold text-white mb-3">{useCase.title}</h3>
-                  <p className="text-gray-400 text-sm mb-4">{useCase.desc}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{useCase.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{useCase.desc}</p>
                   <div 
-                    className="bg-white/5 p-3 rounded text-xs text-gray-300"
+                    className="bg-gray-100 dark:bg-white/5 p-3 rounded text-xs text-gray-300"
                     style={{ borderLeft: `2px solid ${useCase.iconColor}` }}
                   >
                     <strong>{t('publicPages.solutions.permissioned.useCases.exampleLabel')}:</strong> {useCase.example}<br />
@@ -296,7 +296,7 @@ export default function Permissioned() {
         style={{ background: "linear-gradient(to right, rgba(112,0,255,0.1), rgba(0,240,255,0.1))" }}
       >
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.permissioned.sections.deployment.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.solutions.permissioned.sections.deployment.title')}</h2>
           <div className="space-y-6">
             {deploymentSteps.map((step, idx) => (
               <div 
@@ -304,7 +304,7 @@ export default function Permissioned() {
                 className={`spotlight-card p-6 rounded-xl flex gap-6 items-center ${
                   step.highlight 
                     ? "border border-[#00f0ff]/30 bg-[#00f0ff]/5" 
-                    : "border border-white/10"
+                    : "border border-gray-300 dark:border-white/10"
                 }`}
                 data-testid={`card-step-${step.step}`}
               >
@@ -312,14 +312,14 @@ export default function Permissioned() {
                   className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl shrink-0 ${
                     step.highlight 
                       ? "bg-[#00f0ff] text-black" 
-                      : "bg-white/10 text-white"
+                      : "bg-white/10 text-gray-900 dark:text-white"
                   }`}
                 >
                   {step.step}
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">{step.title}</h3>
-                  <p className="text-sm text-gray-400">{step.desc}</p>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">{step.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{step.desc}</p>
                 </div>
               </div>
             ))}

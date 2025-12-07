@@ -157,19 +157,19 @@ export default function Roadmap() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-[#00f0ff]/10 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Map className="w-4 h-4" /> {t('publicPages.learn.roadmap.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.learn.roadmap.title')}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
             {t('publicPages.learn.roadmap.subtitle')}
           </p>
         </div>
@@ -193,7 +193,7 @@ export default function Roadmap() {
                   <>
                     <div className="md:text-right order-2 md:order-1">
                       <div 
-                        className="spotlight-card rounded-xl p-8"
+                        className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8"
                         style={{ border: `1px solid ${phase.statusColor}30` }}
                         data-testid={`timeline-card-${index}`}
                       >
@@ -208,12 +208,12 @@ export default function Roadmap() {
                           >
                             {phase.status}
                           </span>
-                          <h3 className="text-2xl font-bold text-white">{phase.quarter}</h3>
+                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{phase.quarter}</h3>
                         </div>
                         <h4 className="text-xl mb-4" style={{ color: phase.statusColor }}>{phase.title}</h4>
-                        <ul className="space-y-2 text-sm text-gray-400 text-left md:text-right">
+                        <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 text-left md:text-right">
                           {phase.items.map((item, itemIndex) => (
-                            <li key={itemIndex} className={`flex items-center gap-2 md:justify-end ${item.inProgress ? 'text-white' : ''}`}>
+                            <li key={itemIndex} className={`flex items-center gap-2 md:justify-end ${item.inProgress ? 'text-gray-900 dark:text-white' : ''}`}>
                               {item.text}
                               {item.completed && <Check className="w-4 h-4 text-[#00ff9d]" />}
                               {item.inProgress && <Loader2 className="w-4 h-4 text-[#00f0ff] animate-spin" />}
@@ -229,7 +229,7 @@ export default function Roadmap() {
                     {/* Timeline Dot */}
                     <div className="hidden md:flex justify-center order-1 md:order-2">
                       <div 
-                        className="w-5 h-5 rounded-full bg-[#050505] z-10"
+                        className="w-5 h-5 rounded-full bg-gray-50 dark:bg-[#050505] z-10"
                         style={{ 
                           border: `2px solid ${phase.dotColor}`,
                           boxShadow: phase.status !== t('publicPages.learn.roadmap.phases.phase3.status') && phase.status !== t('publicPages.learn.roadmap.phases.phase4.status') ? `0 0 10px ${phase.dotColor}` : 'none'
@@ -244,7 +244,7 @@ export default function Roadmap() {
                     {/* Timeline Dot */}
                     <div className="hidden md:flex justify-center">
                       <div 
-                        className="w-5 h-5 rounded-full bg-[#050505] z-10"
+                        className="w-5 h-5 rounded-full bg-gray-50 dark:bg-[#050505] z-10"
                         style={{ 
                           border: `2px solid ${phase.dotColor}`,
                           boxShadow: phase.status !== t('publicPages.learn.roadmap.phases.phase3.status') && phase.status !== t('publicPages.learn.roadmap.phases.phase4.status') ? `0 0 10px ${phase.dotColor}` : 'none'
@@ -253,12 +253,12 @@ export default function Roadmap() {
                     </div>
                     <div>
                       <div 
-                        className="spotlight-card rounded-xl p-8"
+                        className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8"
                         style={{ border: `1px solid ${phase.statusColor}30` }}
                         data-testid={`timeline-card-${index}`}
                       >
                         <div className="flex items-center justify-between gap-4 mb-4 flex-wrap">
-                          <h3 className="text-2xl font-bold text-white">{phase.quarter}</h3>
+                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{phase.quarter}</h3>
                           <span 
                             className="px-2 py-1 rounded text-xs font-mono font-bold"
                             style={{ 
@@ -271,7 +271,7 @@ export default function Roadmap() {
                           </span>
                         </div>
                         <h4 className="text-xl mb-4" style={{ color: phase.statusColor }}>{phase.title}</h4>
-                        <ul className="space-y-2 text-sm text-gray-400">
+                        <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                           {phase.items.map((item, itemIndex) => (
                             <li key={itemIndex} className="flex items-center gap-2">
                               {item.completed && <Check className="w-4 h-4 text-[#00ff9d]" />}
@@ -295,15 +295,15 @@ export default function Roadmap() {
       </section>
 
       {/* Projected Growth Metrics Section */}
-      <section className="py-20 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.learn.roadmap.growth.sectionTitle')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.learn.roadmap.growth.sectionTitle')}</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {growthMetrics.map((metric, index) => (
               <div 
                 key={index}
-                className="spotlight-card rounded-xl p-8 text-center"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8 text-center"
                 style={{ 
                   border: metric.hasBorder ? `1px solid ${metric.color}30` : undefined
                 }}
@@ -313,15 +313,15 @@ export default function Roadmap() {
                 <div className="space-y-6">
                   <div>
                     <p className="text-xs text-gray-500 uppercase">{t('publicPages.learn.roadmap.growth.labels.verifiedProjects')}</p>
-                    <p className="text-3xl font-bold text-white font-mono">{metric.projects}</p>
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white font-mono">{metric.projects}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase">{t('publicPages.learn.roadmap.growth.labels.activeUsers')}</p>
-                    <p className="text-3xl font-bold text-white font-mono">{metric.users}</p>
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white font-mono">{metric.users}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase">{t('publicPages.learn.roadmap.growth.labels.tvl')}</p>
-                    <p className="text-3xl font-bold text-white font-mono">{metric.tvl}</p>
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white font-mono">{metric.tvl}</p>
                   </div>
                 </div>
               </div>
@@ -333,8 +333,8 @@ export default function Roadmap() {
       {/* CTA Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.learn.roadmap.cta.title')}</h2>
-          <p className="text-gray-400 mb-8">{t('publicPages.learn.roadmap.cta.description')}</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.learn.roadmap.cta.title')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">{t('publicPages.learn.roadmap.cta.description')}</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/learn">
               <button 
@@ -347,7 +347,7 @@ export default function Roadmap() {
             </Link>
             <Link href="/developers/quickstart">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white font-bold hover:bg-white/5 transition-colors"
+                className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white font-bold hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
                 data-testid="button-view-docs"
               >
                 {t('publicPages.learn.roadmap.cta.viewDocs')}

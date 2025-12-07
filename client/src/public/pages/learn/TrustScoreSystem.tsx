@@ -121,19 +121,19 @@ export default function TrustScoreSystem() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <ShieldCheck className="w-4 h-4" /> {t('publicPages.learn.trustScore.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.learn.trustScore.title')}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
             {t('publicPages.learn.trustScore.subtitle')}
           </p>
         </div>
@@ -142,10 +142,10 @@ export default function TrustScoreSystem() {
       {/* Evaluation Philosophy Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.learn.trustScore.evaluationPhilosophy')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.learn.trustScore.evaluationPhilosophy')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {evaluationPhilosophy.map((item, index) => (
-              <div key={index} className="spotlight-card rounded-xl p-6" data-testid={`philosophy-card-${index}`}>
+              <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6" data-testid={`philosophy-card-${index}`}>
                 <div 
                   className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
                   style={{ 
@@ -156,8 +156,8 @@ export default function TrustScoreSystem() {
                 >
                   <item.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-400">{item.description}</p>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
               </div>
             ))}
           </div>
@@ -165,18 +165,18 @@ export default function TrustScoreSystem() {
       </section>
 
       {/* Score Components Section */}
-      <section className="py-20 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.trustScore.scoreComponents')}</h2>
-            <p className="text-gray-400 font-mono text-sm">{t('publicPages.learn.trustScore.scoreComponentsStatus')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.trustScore.scoreComponents')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 font-mono text-sm">{t('publicPages.learn.trustScore.scoreComponentsStatus')}</p>
           </div>
 
           <div className="space-y-6">
             {scoreComponents.map((component, index) => (
               <div 
                 key={index} 
-                className="spotlight-card rounded-xl"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl"
                 style={{ border: `1px solid ${component.color}30` }}
                 data-testid={`score-component-${index}`}
               >
@@ -195,7 +195,7 @@ export default function TrustScoreSystem() {
                       <component.icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">{component.title}</h3>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{component.title}</h3>
                       <div className="flex gap-1 mt-1" style={{ color: component.color }}>
                         {Array.from({ length: component.stars }).map((_, i) => (
                           <Star key={i} className="w-3 h-3 fill-current" />
@@ -204,7 +204,7 @@ export default function TrustScoreSystem() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-white font-mono">
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white font-mono">
                       {component.points} <span className="text-sm text-gray-500">{t('publicPages.learn.trustScore.pts')}</span>
                     </div>
                   </div>
@@ -213,9 +213,9 @@ export default function TrustScoreSystem() {
                   {component.items.map((item, itemIndex) => (
                     <div 
                       key={itemIndex}
-                      className="flex justify-between items-center p-3 bg-black/40 rounded border border-white/5"
+                      className="flex justify-between items-center p-3 bg-gray-100 dark:bg-black/40 rounded border border-gray-200 dark:border-white/5"
                     >
-                      <span className="text-sm text-gray-300">{item.label}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{item.label}</span>
                       <span className="text-xs font-mono" style={{ color: component.color }}>{item.pts}{t('publicPages.learn.trustScore.ptsUnit')}</span>
                     </div>
                   ))}
@@ -229,12 +229,12 @@ export default function TrustScoreSystem() {
       {/* Grade System Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.learn.trustScore.gradeSystem')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.learn.trustScore.gradeSystem')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {gradeSystem.map((grade, index) => (
               <div 
                 key={index}
-                className="spotlight-card rounded-xl p-6 group"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group"
                 style={{ borderLeft: `4px solid ${grade.color}` }}
                 data-testid={`grade-card-${grade.grade}`}
               >
@@ -255,15 +255,15 @@ export default function TrustScoreSystem() {
                     {grade.range}
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-1">{grade.title}</h3>
-                <p className="text-sm text-gray-400">{grade.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{grade.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{grade.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 p-4 rounded-lg bg-[#ffd700]/5 border border-[#ffd700]/20 flex gap-3 items-start">
+          <div className="mt-8 p-4 rounded-lg bg-amber-50 dark:bg-[#ffd700]/5 border border-amber-200 dark:border-[#ffd700]/20 flex gap-3 items-start">
             <AlertTriangle className="w-5 h-5 text-[#ffd700] shrink-0 mt-0.5" />
-            <p className="text-sm text-gray-300">
+            <p className="text-sm text-gray-700 dark:text-gray-300">
               <span className="text-[#ffd700] font-bold">{t('publicPages.learn.trustScore.importantLabel')}</span> {t('publicPages.learn.trustScore.importantNote')}
             </p>
           </div>
@@ -271,14 +271,14 @@ export default function TrustScoreSystem() {
       </section>
 
       {/* Verification Process Section */}
-      <section className="py-20 px-6 bg-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.learn.trustScore.verificationProcess')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.learn.trustScore.verificationProcess')}</h2>
           <div className="grid md:grid-cols-4 gap-6">
             {verificationProcess.map((step, index) => (
               <div key={index} className="relative text-center group" data-testid={`process-step-${step.step}`}>
                 <div 
-                  className="w-16 h-16 mx-auto rounded-full bg-black flex items-center justify-center text-xl font-bold mb-4 group-hover:text-black transition-colors"
+                  className="w-16 h-16 mx-auto rounded-full bg-white dark:bg-black flex items-center justify-center text-xl font-bold mb-4 group-hover:text-black transition-colors"
                   style={{ 
                     border: `1px solid ${step.color}`,
                     color: step.color,
@@ -287,8 +287,8 @@ export default function TrustScoreSystem() {
                 >
                   <span className="group-hover:scale-110 transition-transform">{step.step}</span>
                 </div>
-                <h3 className="font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-xs text-gray-400">{step.description}</p>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{step.title}</h3>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{step.description}</p>
               </div>
             ))}
           </div>

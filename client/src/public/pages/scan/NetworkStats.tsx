@@ -99,10 +99,10 @@ export default function NetworkStats() {
 
   return (
     <ScanLayout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-white flex items-center gap-2" data-testid="text-stats-title">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2" data-testid="text-stats-title">
               <BarChart3 className="w-6 h-6 text-blue-400" />
               {t("scan.networkStats", "Network Statistics")}
               {isConnected && (
@@ -112,7 +112,7 @@ export default function NetworkStats() {
                 </span>
               )}
             </h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
               {t("scan.networkStatsDesc", "Real-time TBURN Mainnet performance metrics")}
             </p>
           </div>
@@ -122,7 +122,7 @@ export default function NetworkStats() {
               <Badge
                 key={range}
                 variant={timeRange === range ? "default" : "outline"}
-                className={`cursor-pointer ${timeRange === range ? 'bg-blue-600' : 'border-gray-700 text-gray-400 hover:text-white'}`}
+                className={`cursor-pointer ${timeRange === range ? 'bg-blue-600' : 'border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                 onClick={() => setTimeRange(range)}
               >
                 {range}
@@ -145,11 +145,11 @@ export default function NetworkStats() {
             <>
               <Card className="bg-gray-900/50 border-gray-800">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                     <Blocks className="w-3.5 h-3.5 text-blue-400" />
                     {t("scan.blockHeight", "Block Height")}
                   </div>
-                  <div className="text-xl font-bold text-white">
+                  <div className="text-xl font-bold text-gray-900 dark:text-white">
                     #{stats?.blockHeight?.toLocaleString() || "0"}
                   </div>
                 </CardContent>
@@ -157,7 +157,7 @@ export default function NetworkStats() {
 
               <Card className="bg-gray-900/50 border-gray-800">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                     <Zap className="w-3.5 h-3.5 text-yellow-400" />
                     {t("scan.tps", "TPS")}
                   </div>
@@ -169,7 +169,7 @@ export default function NetworkStats() {
 
               <Card className="bg-gray-900/50 border-gray-800">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                     <Clock className="w-3.5 h-3.5 text-green-400" />
                     {t("scan.finality", "Finality")}
                   </div>
@@ -181,7 +181,7 @@ export default function NetworkStats() {
 
               <Card className="bg-gray-900/50 border-gray-800">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                     <Layers className="w-3.5 h-3.5 text-purple-400" />
                     {t("scan.shards", "Shards")}
                   </div>
@@ -193,7 +193,7 @@ export default function NetworkStats() {
 
               <Card className="bg-gray-900/50 border-gray-800">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                     <Globe className="w-3.5 h-3.5 text-cyan-400" />
                     {t("scan.nodes", "Nodes")}
                   </div>
@@ -205,7 +205,7 @@ export default function NetworkStats() {
 
               <Card className="bg-gray-900/50 border-gray-800">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                     <Activity className="w-3.5 h-3.5 text-green-400" />
                     {t("scan.uptime", "Uptime")}
                   </div>
@@ -221,7 +221,7 @@ export default function NetworkStats() {
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
           <Card className="bg-gray-900/50 border-gray-800">
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <Zap className="w-4 h-4 text-yellow-400" />
                 {t("scan.tpsHistory", "TPS History")}
               </CardTitle>
@@ -259,7 +259,7 @@ export default function NetworkStats() {
 
           <Card className="bg-gray-900/50 border-gray-800">
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <Flame className="w-4 h-4 text-orange-400" />
                 {t("scan.gasPrice", "Gas Price History")}
               </CardTitle>
@@ -293,7 +293,7 @@ export default function NetworkStats() {
         <div className="grid lg:grid-cols-3 gap-6 mb-6">
           <Card className="bg-gray-900/50 border-gray-800">
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <Blocks className="w-4 h-4 text-blue-400" />
                 {t("scan.blocksPerHour", "Blocks / Hour")}
               </CardTitle>
@@ -317,7 +317,7 @@ export default function NetworkStats() {
 
           <Card className="bg-gray-900/50 border-gray-800">
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <Layers className="w-4 h-4 text-purple-400" />
                 {t("scan.shardDistribution", "Shard Distribution")}
               </CardTitle>
@@ -351,7 +351,7 @@ export default function NetworkStats() {
 
           <Card className="bg-gray-900/50 border-gray-800">
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <Cpu className="w-4 h-4 text-green-400" />
                 {t("scan.networkHealth", "Network Health")}
               </CardTitle>
@@ -359,21 +359,21 @@ export default function NetworkStats() {
             <CardContent className="space-y-4">
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">{t("scan.consensusHealth", "Consensus")}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t("scan.consensusHealth", "Consensus")}</span>
                   <span className="text-green-400">100%</span>
                 </div>
                 <Progress value={100} className="h-2 bg-gray-800" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">{t("scan.networkLoad", "Network Load")}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t("scan.networkLoad", "Network Load")}</span>
                   <span className="text-blue-400">67%</span>
                 </div>
                 <Progress value={67} className="h-2 bg-gray-800" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">{t("scan.peerConnectivity", "Peer Connectivity")}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t("scan.peerConnectivity", "Peer Connectivity")}</span>
                   <span className="text-purple-400">98%</span>
                 </div>
                 <Progress value={98} className="h-2 bg-gray-800" />
@@ -384,7 +384,7 @@ export default function NetworkStats() {
 
         <Card className="bg-gray-900/50 border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-white text-base">
+            <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
               <ArrowRightLeft className="w-4 h-4 text-green-400" />
               {t("scan.dailyTransactions", "Daily Transactions")}
             </CardTitle>

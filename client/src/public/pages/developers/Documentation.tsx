@@ -161,9 +161,9 @@ export default function Documentation() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-20 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-20 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
@@ -178,7 +178,7 @@ export default function Documentation() {
               <BookOpen className="w-7 h-7 text-white" />
             </div>
             <div className="text-left">
-              <h1 className="text-4xl font-bold text-white" data-testid="text-page-title">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white" data-testid="text-page-title">
                 {t('publicPages.developers.docs.title').split(' ')[0]}{" "}
                 <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
                   {t('publicPages.developers.docs.title').split(' ').slice(1).join(' ') || 'Docs'}
@@ -188,14 +188,14 @@ export default function Documentation() {
                 <span className="px-2 py-0.5 rounded bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-mono border border-[#00ff9d]/30">
                   {t('publicPages.developers.docs.badges.mainnet')}
                 </span>
-                <span className="px-2 py-0.5 rounded bg-white/10 text-gray-300 text-xs font-mono border border-white/10">
+                <span className="px-2 py-0.5 rounded bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 text-xs font-mono border border-gray-300 dark:border-white/10">
                   {t('publicPages.developers.docs.badges.latest')}
                 </span>
               </div>
             </div>
           </div>
           
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
             {t('publicPages.developers.docs.heroDescription')}
           </p>
 
@@ -206,31 +206,27 @@ export default function Documentation() {
               placeholder={t('publicPages.developers.docs.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full py-4 pl-12 pr-24 rounded-xl text-white placeholder-gray-500 transition-all focus:outline-none"
-              style={{ 
-                background: "rgba(0, 0, 0, 0.5)",
-                border: "1px solid rgba(255, 255, 255, 0.1)"
-              }}
+              className="w-full py-4 pl-12 pr-24 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 transition-all focus:outline-none bg-white dark:bg-black/50 border border-gray-300 dark:border-white/10"
               data-testid="input-search"
             />
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
             <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2 text-xs text-gray-600 font-mono">
-              <span className="border border-gray-700 rounded px-1.5 py-0.5">Ctrl</span>
-              <span className="border border-gray-700 rounded px-1.5 py-0.5">K</span>
+              <span className="border border-gray-400 dark:border-gray-700 rounded px-1.5 py-0.5">Ctrl</span>
+              <span className="border border-gray-400 dark:border-gray-700 rounded px-1.5 py-0.5">K</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Quick Start Section */}
-      <section className="py-12 px-6 border-b border-white/5">
+      <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-lg font-bold text-white mb-6">{t('publicPages.developers.docs.quickStart.title')}</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.developers.docs.quickStart.title')}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {quickStartItems.map((item, index) => (
               <Link key={index} href="/developers/quickstart">
                 <div 
-                  className="spotlight-card p-6 rounded-xl group cursor-pointer"
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-6 rounded-xl group cursor-pointer"
                   data-testid={`quick-start-${index}`}
                 >
                   <div className="flex items-start gap-4">
@@ -244,12 +240,12 @@ export default function Documentation() {
                       <item.icon className="w-5 h-5" style={{ color: item.color }} />
                     </div>
                     <div className="flex-1">
-                      <h3 className={`font-bold text-white mb-1 transition-colors ${item.hoverColor} group-hover:text-opacity-100`}>
+                      <h3 className={`font-bold text-gray-900 dark:text-white mb-1 transition-colors ${item.hoverColor} group-hover:text-opacity-100`}>
                         {item.title}
                       </h3>
-                      <p className="text-xs text-gray-400">{item.description}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">{item.description}</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-white transition-colors mt-2" />
+                    <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-600 group-hover:text-gray-900 dark:group-hover:text-white transition-colors mt-2" />
                   </div>
                 </div>
               </Link>
@@ -261,12 +257,12 @@ export default function Documentation() {
       {/* Documentation Categories Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.docs.categoriesTitle')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.developers.docs.categoriesTitle')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {docCategories.map((category, index) => (
               <div 
                 key={index}
-                className="spotlight-card rounded-xl p-6 group cursor-pointer"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group cursor-pointer"
                 data-testid={`doc-category-${index}`}
               >
                 <div 
@@ -275,12 +271,12 @@ export default function Documentation() {
                   <category.icon className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex justify-between items-start mb-2 flex-wrap gap-2">
-                  <h3 className="text-xl font-bold text-white">{category.title}</h3>
-                  <span className="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-gray-300">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{category.title}</h3>
+                  <span className="text-[10px] font-mono bg-gray-100 dark:bg-white/10 px-2 py-0.5 rounded text-gray-600 dark:text-gray-300">
                     {category.badge}
                   </span>
                 </div>
-                <p className="text-sm text-gray-400">{category.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{category.description}</p>
               </div>
             ))}
           </div>
@@ -288,13 +284,13 @@ export default function Documentation() {
       </section>
 
       {/* V4 Core Architecture Section */}
-      <section className="py-20 px-6 bg-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
               <Cpu className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.docs.architecture.title')}
             </h2>
-            <p className="text-gray-400">{t('publicPages.developers.docs.architecture.subtitle')}</p>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.developers.docs.architecture.subtitle')}</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
@@ -303,15 +299,11 @@ export default function Documentation() {
               {architectureStats.map((stat, index) => (
                 <div 
                   key={index}
-                  className="p-4 rounded-lg text-center"
-                  style={{ 
-                    background: "rgba(0, 0, 0, 0.4)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)"
-                  }}
+                  className="p-4 rounded-lg text-center bg-gray-50 dark:bg-black/40 border border-gray-300 dark:border-white/10"
                   data-testid={`arch-stat-${index}`}
                 >
                   <stat.icon className="w-7 h-7 mx-auto mb-2" style={{ color: stat.color }} />
-                  <div className="font-bold text-white">{stat.label}</div>
+                  <div className="font-bold text-gray-900 dark:text-white">{stat.label}</div>
                   <div className="text-xs text-gray-500">{stat.sublabel}</div>
                 </div>
               ))}
@@ -322,7 +314,7 @@ export default function Documentation() {
               {architectureLayers.map((layer, index) => (
                 <div 
                   key={index}
-                  className="spotlight-card rounded-lg p-4 flex justify-between items-center group"
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-lg p-4 flex justify-between items-center group"
                   data-testid={`arch-layer-${index}`}
                 >
                   <div className="flex items-center gap-4">
@@ -337,7 +329,7 @@ export default function Documentation() {
                       {layer.number}
                     </div>
                     <div>
-                      <h4 className="text-white font-bold text-sm">{layer.title}</h4>
+                      <h4 className="text-gray-900 dark:text-white font-bold text-sm">{layer.title}</h4>
                       <p className="text-xs text-gray-500">{layer.description}</p>
                     </div>
                   </div>
@@ -346,11 +338,7 @@ export default function Documentation() {
                       {layer.tags.map((tag, tagIndex) => (
                         <span 
                           key={tagIndex}
-                          className="px-2 py-1 rounded text-[10px] text-gray-400"
-                          style={{ 
-                            background: "rgba(255, 255, 255, 0.05)",
-                            border: "1px solid rgba(255, 255, 255, 0.1)"
-                          }}
+                          className="px-2 py-1 rounded text-[10px] text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10"
                         >
                           {tag}
                         </span>
@@ -367,20 +355,19 @@ export default function Documentation() {
       {/* Additional Resources Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.docs.resourcesTitle')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.developers.docs.resourcesTitle')}</h2>
           <div className="grid md:grid-cols-4 gap-4">
             {additionalResources.map((resource, index) => (
               <Link key={index} href="/developers">
                 <div 
-                  className="spotlight-card p-4 rounded-xl cursor-pointer transition-colors"
-                  style={{ border: "1px solid rgba(255, 255, 255, 0.1)" }}
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-4 rounded-xl cursor-pointer transition-colors"
                   data-testid={`resource-${index}`}
                 >
-                  <h4 className="font-bold text-white text-sm mb-1 flex items-center gap-2">
+                  <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-1 flex items-center gap-2">
                     <resource.icon className="w-4 h-4" style={{ color: resource.color }} />
                     {resource.title}
                   </h4>
-                  <p className="text-xs text-gray-400">{resource.description}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{resource.description}</p>
                 </div>
               </Link>
             ))}
@@ -394,10 +381,10 @@ export default function Documentation() {
         style={{ background: "linear-gradient(to right, rgba(112, 0, 255, 0.1), rgba(0, 240, 255, 0.1))" }}
       >
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             {t('publicPages.developers.docs.cta.title')}
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
             {t('publicPages.developers.docs.cta.description')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -417,7 +404,7 @@ export default function Documentation() {
               href="https://discord.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
+              className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition flex items-center gap-2"
               data-testid="link-discord"
             >
               <MessageCircle className="w-4 h-4" /> {t('publicPages.developers.docs.cta.joinDiscord')}

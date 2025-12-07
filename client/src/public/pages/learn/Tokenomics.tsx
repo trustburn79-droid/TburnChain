@@ -65,26 +65,26 @@ export default function Tokenomics() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-20 right-1/4 w-[500px] h-[500px] bg-[#ffb800]/10 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#ffb800] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#ffb800] mb-6">
             <Coins className="w-4 h-4" /> {t('publicPages.learn.tokenomics.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.learn.tokenomics.title')}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
             {t('publicPages.learn.tokenomics.subtitle')}
           </p>
         </div>
       </section>
 
       {/* Market Stats Section */}
-      <section className="py-12 px-6 border-b border-white/5 bg-white/5">
+      <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5 bg-gray-100 dark:bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {marketStats.map((stat, index) => (
@@ -105,7 +105,7 @@ export default function Tokenomics() {
           <div className="grid md:grid-cols-2 gap-8">
             {/* TBURN Token Card */}
             <div 
-              className="spotlight-card rounded-2xl p-8"
+              className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-2xl p-8"
               style={{ 
                 border: "1px solid rgba(255, 184, 0, 0.3)",
                 background: "rgba(255, 184, 0, 0.05)"
@@ -117,29 +117,29 @@ export default function Tokenomics() {
                   <Coins className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white">TBURN</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">TBURN</h3>
                   <p className="text-sm text-[#ffb800] font-mono">{t('publicPages.learn.tokenomics.tburn.type')}</p>
                 </div>
               </div>
               <div className="space-y-4">
-                <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.tburn.totalSupply')}</span>
-                  <span className="text-white font-mono">10,000,000,000</span>
+                <div className="flex justify-between border-b border-gray-300 dark:border-white/10 pb-2 gap-2">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.tburn.totalSupply')}</span>
+                  <span className="text-gray-900 dark:text-white font-mono">10,000,000,000</span>
                 </div>
-                <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.tburn.decimals')}</span>
-                  <span className="text-white font-mono">18</span>
+                <div className="flex justify-between border-b border-gray-300 dark:border-white/10 pb-2 gap-2">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.tburn.decimals')}</span>
+                  <span className="text-gray-900 dark:text-white font-mono">18</span>
                 </div>
-                <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.tburn.role')}</span>
-                  <span className="text-white">{t('publicPages.learn.tokenomics.tburn.roleValue')}</span>
+                <div className="flex justify-between border-b border-gray-300 dark:border-white/10 pb-2 gap-2">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.tburn.role')}</span>
+                  <span className="text-gray-900 dark:text-white">{t('publicPages.learn.tokenomics.tburn.roleValue')}</span>
                 </div>
               </div>
             </div>
 
             {/* Ember Token Card */}
             <div 
-              className="spotlight-card rounded-2xl p-8"
+              className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-2xl p-8"
               style={{ 
                 border: "1px solid rgba(255, 94, 0, 0.3)",
                 background: "rgba(255, 94, 0, 0.05)"
@@ -151,22 +151,22 @@ export default function Tokenomics() {
                   <Flame className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white">Ember</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Ember</h3>
                   <p className="text-sm text-[#ff5e00] font-mono">{t('publicPages.learn.tokenomics.ember.type')}</p>
                 </div>
               </div>
               <div className="space-y-4">
-                <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.ember.exchangeRatio')}</span>
-                  <span className="text-white font-mono">1 TBURN = 1,000,000 EMB</span>
+                <div className="flex justify-between border-b border-gray-300 dark:border-white/10 pb-2 gap-2">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.ember.exchangeRatio')}</span>
+                  <span className="text-gray-900 dark:text-white font-mono">1 TBURN = 1,000,000 EMB</span>
                 </div>
-                <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.ember.baseFee')}</span>
+                <div className="flex justify-between border-b border-gray-300 dark:border-white/10 pb-2 gap-2">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.ember.baseFee')}</span>
                   <span className="text-[#ff0055] font-bold">{t('publicPages.learn.tokenomics.ember.baseFeeValue')}</span>
                 </div>
-                <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.ember.role')}</span>
-                  <span className="text-white">{t('publicPages.learn.tokenomics.ember.roleValue')}</span>
+                <div className="flex justify-between border-b border-gray-300 dark:border-white/10 pb-2 gap-2">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.ember.role')}</span>
+                  <span className="text-gray-900 dark:text-white">{t('publicPages.learn.tokenomics.ember.roleValue')}</span>
                 </div>
               </div>
             </div>
@@ -175,11 +175,11 @@ export default function Tokenomics() {
       </section>
 
       {/* Token Distribution Section */}
-      <section className="py-20 px-6 bg-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.tokenomics.distributionSection.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.learn.tokenomics.distributionSection.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.tokenomics.distributionSection.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.distributionSection.subtitle')}</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -251,7 +251,7 @@ export default function Tokenomics() {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="text-4xl font-bold text-white font-mono">10B</span>
+                <span className="text-4xl font-bold text-gray-900 dark:text-white font-mono">10B</span>
                 <span className="text-sm text-gray-500">{t('publicPages.learn.tokenomics.distributionSection.totalSupply')}</span>
               </div>
             </div>
@@ -261,13 +261,13 @@ export default function Tokenomics() {
               {tokenDistribution.map((item, index) => (
                 <div 
                   key={index}
-                  className="spotlight-card rounded-xl p-4 flex gap-4 items-center"
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-4 flex gap-4 items-center"
                   data-testid={`distribution-item-${index}`}
                 >
-                  <div className="w-16 text-right font-bold text-white">{item.percent}</div>
+                  <div className="w-16 text-right font-bold text-gray-900 dark:text-white">{item.percent}</div>
                   <div className="flex-1">
                     <div className="font-bold" style={{ color: item.color }}>{item.title}</div>
-                    <div className="text-xs text-gray-400">{item.subtitle}</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">{item.subtitle}</div>
                   </div>
                 </div>
               ))}
@@ -281,23 +281,23 @@ export default function Tokenomics() {
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#ff0055]/10 to-transparent pointer-events-none" />
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2 flex items-center justify-center gap-3">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center justify-center gap-3">
               <Flame className="w-8 h-8 text-[#ff0055]" /> {t('publicPages.learn.tokenomics.burnSection.title')}
             </h2>
-            <p className="text-gray-400">{t('publicPages.learn.tokenomics.burnSection.subtitle')}</p>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.burnSection.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
             {burnMechanisms.map((item, index) => (
               <div 
                 key={index}
-                className="spotlight-card rounded-xl p-6 text-center"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 text-center"
                 style={{ borderTop: "2px solid #ff0055" }}
                 data-testid={`burn-mechanism-${index}`}
               >
-                <div className="text-4xl font-bold text-white mb-2">{item.percent}</div>
+                <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">{item.percent}</div>
                 <h4 className="text-[#ff0055] font-bold mb-2">{item.title}</h4>
-                <p className="text-xs text-gray-400">{item.description}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{item.description}</p>
               </div>
             ))}
           </div>
@@ -310,18 +310,18 @@ export default function Tokenomics() {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Staking Rewards */}
             <div 
-              className="spotlight-card rounded-xl p-8"
+              className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8"
               style={{ border: "1px solid rgba(0, 255, 157, 0.2)" }}
               data-testid="card-staking"
             >
               <div className="flex items-center gap-3 mb-6">
                 <Layers className="w-6 h-6 text-[#00ff9d]" />
-                <h3 className="text-2xl font-bold text-white">{t('publicPages.learn.tokenomics.staking.title')}</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('publicPages.learn.tokenomics.staking.title')}</h3>
               </div>
               <div className="space-y-4">
                 {stakingRewards.map((item, index) => (
-                  <div key={index} className="flex justify-between items-center p-3 bg-white/5 rounded flex-wrap gap-2">
-                    <span className="text-white">{item.type}</span>
+                  <div key={index} className="flex justify-between items-center p-3 bg-gray-100 dark:bg-white/5 rounded flex-wrap gap-2">
+                    <span className="text-gray-900 dark:text-white">{item.type}</span>
                     <span className="text-[#00ff9d] font-bold font-mono">{item.apy}</span>
                   </div>
                 ))}
@@ -330,15 +330,15 @@ export default function Tokenomics() {
 
             {/* Governance */}
             <div 
-              className="spotlight-card rounded-xl p-8"
+              className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8"
               style={{ border: "1px solid rgba(112, 0, 255, 0.2)" }}
               data-testid="card-governance"
             >
               <div className="flex items-center gap-3 mb-6">
                 <Gavel className="w-6 h-6 text-[#7000ff]" />
-                <h3 className="text-2xl font-bold text-white">{t('publicPages.learn.tokenomics.governance.title')}</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('publicPages.learn.tokenomics.governance.title')}</h3>
               </div>
-              <ul className="space-y-3 text-gray-400">
+              <ul className="space-y-3 text-gray-600 dark:text-gray-400">
                 {governanceFeatures.map((feature, index) => (
                   <li key={index} className="flex gap-3 items-start">
                     <Check className="w-4 h-4 text-[#7000ff] mt-1 flex-shrink-0" />

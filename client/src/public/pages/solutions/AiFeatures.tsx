@@ -101,7 +101,7 @@ export default function AiFeatures() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-20 mb-12 text-center">
         <div className="absolute inset-0 bg-gradient-to-b from-[#7000ff]/10 via-transparent to-transparent pointer-events-none" />
@@ -113,7 +113,7 @@ export default function AiFeatures() {
         <div className="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 
             href="/solutions/token-extensions"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#7000ff] mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[#7000ff] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
@@ -123,13 +123,13 @@ export default function AiFeatures() {
             <Brain className="w-4 h-4" /> {t('publicPages.solutions.aiFeatures.tag')}
           </div>
           
-          <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
+          <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" data-testid="text-page-title">
             {t('publicPages.solutions.aiFeatures.title')} <br />
             <span className="bg-gradient-to-r from-[#7000ff] via-[#3b82f6] to-[#22c55e] bg-clip-text text-transparent">
               {t('publicPages.solutions.aiFeatures.titleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
             {t('publicPages.solutions.aiFeatures.subtitle')}
           </p>
         </div>
@@ -173,9 +173,9 @@ export default function AiFeatures() {
                     {tier.latency}
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-1">{tier.title}</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{tier.title}</h3>
                 <p className="text-sm font-semibold mb-4" style={{ color: tier.color }}>{tier.model}</p>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">{tier.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">{tier.description}</p>
                 <ul className="space-y-2 text-sm text-gray-500">
                   {tier.capabilities.map((cap, capIdx) => (
                     <li key={capIdx} className="flex items-center gap-2">
@@ -192,7 +192,7 @@ export default function AiFeatures() {
 
       {/* Architecture Timeline */}
       <section className="max-w-4xl mx-auto px-6 lg:px-8 mb-24">
-        <h2 className="text-3xl font-bold text-center text-white mb-12">{t('publicPages.solutions.aiFeatures.sections.architecture.title')}</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">{t('publicPages.solutions.aiFeatures.sections.architecture.title')}</h2>
         
         <div className="relative pl-8 border-l border-gray-800 space-y-12">
           {architectureSteps.map((step, idx) => (
@@ -208,7 +208,7 @@ export default function AiFeatures() {
                 <h4 className="font-bold mb-2 text-lg" style={{ color: step.color }}>
                   {step.step}. {step.title}
                 </h4>
-                <p className="text-sm text-gray-400">{step.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{step.description}</p>
               </div>
             </div>
           ))}
@@ -221,9 +221,9 @@ export default function AiFeatures() {
           {systemStats.map((stat, idx) => {
             const Icon = stat.icon;
             return (
-              <div key={idx} className="spotlight-card p-6 rounded-xl text-center hover:bg-white/5 transition">
+              <div key={idx} className="spotlight-card p-6 rounded-xl text-center hover:bg-gray-100 dark:bg-white/5 transition">
                 <Icon className="w-8 h-8 mx-auto text-gray-500 mb-4" />
-                <h3 className="font-bold text-white mb-2">{stat.title}</h3>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{stat.title}</h3>
                 <p className="text-xs text-gray-500">{stat.desc}</p>
               </div>
             );
@@ -234,8 +234,8 @@ export default function AiFeatures() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.aiFeatures.sections.relatedSolutions.title')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.aiFeatures.sections.relatedSolutions.title')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.solutions.aiFeatures.sections.relatedSolutions.subtitle')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
@@ -246,7 +246,7 @@ export default function AiFeatures() {
             >
               <Wallet className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.wallets.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.wallets.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.relatedLinks.wallets.desc')}</p>
               </div>
             </Link>
@@ -257,7 +257,7 @@ export default function AiFeatures() {
             >
               <CreditCard className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.payments.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.payments.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.relatedLinks.payments.desc')}</p>
               </div>
             </Link>
@@ -268,7 +268,7 @@ export default function AiFeatures() {
             >
               <Gamepad2 className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.gameTooling.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.gameTooling.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.relatedLinks.gameTooling.desc')}</p>
               </div>
             </Link>
@@ -279,7 +279,7 @@ export default function AiFeatures() {
             >
               <Shield className="w-5 h-5 text-[#f59e0b]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.financial.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.financial.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.relatedLinks.financial.desc')}</p>
               </div>
             </Link>
@@ -290,8 +290,8 @@ export default function AiFeatures() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.aiFeatures.sections.developerResources.title')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.aiFeatures.sections.developerResources.title')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.solutions.aiFeatures.sections.developerResources.subtitle')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
@@ -302,7 +302,7 @@ export default function AiFeatures() {
             >
               <BookOpen className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.devResources.sdkGuide.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.devResources.sdkGuide.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.sdkGuide.desc')}</p>
               </div>
             </Link>
@@ -313,7 +313,7 @@ export default function AiFeatures() {
             >
               <Code className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.aiFeatures.devResources.smartContracts.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.aiFeatures.devResources.smartContracts.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.smartContracts.desc')}</p>
               </div>
             </Link>
@@ -324,7 +324,7 @@ export default function AiFeatures() {
             >
               <FileText className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.aiFeatures.devResources.apiReference.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.aiFeatures.devResources.apiReference.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.apiReference.desc')}</p>
               </div>
             </Link>
@@ -335,7 +335,7 @@ export default function AiFeatures() {
             >
               <Zap className="w-5 h-5 text-[#f59e0b]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.devResources.websocket.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.devResources.websocket.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.websocket.desc')}</p>
               </div>
             </Link>
@@ -346,7 +346,7 @@ export default function AiFeatures() {
             >
               <Terminal className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.aiFeatures.devResources.cli.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.aiFeatures.devResources.cli.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.cli.desc')}</p>
               </div>
             </Link>
@@ -357,7 +357,7 @@ export default function AiFeatures() {
             >
               <ExternalLink className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.aiFeatures.devResources.examples.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.aiFeatures.devResources.examples.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.examples.desc')}</p>
               </div>
             </Link>
@@ -377,7 +377,7 @@ export default function AiFeatures() {
                 <Brain className="w-5 h-5 text-[#7000ff]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.learnMore.defiMastery.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.learnMore.defiMastery.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.learnMore.defiMastery.desc')}</p>
               </div>
             </div>
@@ -393,7 +393,7 @@ export default function AiFeatures() {
                 <Code className="w-5 h-5 text-[#f59e0b]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.forDevelopers.devCourse.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.forDevelopers.devCourse.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.forDevelopers.devCourse.desc')}</p>
               </div>
             </div>

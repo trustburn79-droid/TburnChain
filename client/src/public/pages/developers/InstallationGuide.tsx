@@ -75,19 +75,13 @@ function TerminalWindow({
 }) {
   return (
     <div 
-      className="relative rounded-lg overflow-hidden"
+      className="relative rounded-lg overflow-hidden bg-gray-900 dark:bg-[#0d0d12] border border-gray-300 dark:border-white/10"
       style={{ 
-        background: "#0d0d12",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
         boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
       }}
     >
       <div 
-        className="px-4 py-2 flex items-center gap-1.5"
-        style={{ 
-          background: "#1a1a20",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.05)"
-        }}
+        className="px-4 py-2 flex items-center gap-1.5 bg-gray-800 dark:bg-[#1a1a20] border-b border-gray-700 dark:border-white/5"
       >
         <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
         <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
@@ -205,22 +199,22 @@ export default function InstallationGuide() {
   ];
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-20 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-20 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 left-1/4 w-[800px] h-[500px] bg-[#00f0ff]/5 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Download className="w-4 h-4" /> {t('publicPages.developers.installation.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.developers.installation.title').split(' ').slice(0, 1).join(' ')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
               {t('publicPages.developers.installation.title').split(' ').slice(1).join(' ') || 'Guide'}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
             {t('publicPages.developers.installation.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -235,7 +229,7 @@ export default function InstallationGuide() {
             </Link>
             <Link href="#docker">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
+                className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition flex items-center gap-2"
                 data-testid="button-docker"
               >
                 <SiDocker className="w-5 h-5" /> {t('publicPages.developers.installation.dockerImage')}
@@ -248,7 +242,7 @@ export default function InstallationGuide() {
       {/* System Requirements */}
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
             <Cpu className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.installation.systemRequirements')}
           </h2>
           
@@ -256,15 +250,15 @@ export default function InstallationGuide() {
             {Object.entries(systemRequirements).map(([key, req]) => (
               <div 
                 key={key}
-                className={`spotlight-card p-6 rounded-xl ${
+                className={`bg-white dark:bg-transparent shadow-sm border dark:spotlight-card p-6 rounded-xl ${
                   req.highlighted 
-                    ? "border border-[#7000ff]/50 bg-[#7000ff]/5" 
-                    : "border border-white/10"
+                    ? "border-[#7000ff]/50 bg-[#7000ff]/5" 
+                    : "border-gray-200 dark:border-white/10"
                 }`}
                 data-testid={`card-req-${key}`}
               >
                 <div className="flex justify-between items-start">
-                  <h3 className="text-lg font-bold text-white mb-1">{req.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{req.title}</h3>
                   {req.highlighted && <Star className="w-4 h-4 text-[#7000ff]" />}
                 </div>
                 <p className="text-xs text-gray-500 mb-4">{req.subtitle}</p>
@@ -274,11 +268,11 @@ export default function InstallationGuide() {
                       key={idx}
                       className={`flex justify-between pb-2 ${
                         idx < req.specs.length - 1 
-                          ? req.highlighted ? "border-b border-white/10" : "border-b border-white/5" 
+                          ? req.highlighted ? "border-b border-gray-300 dark:border-white/10" : "border-b border-gray-200 dark:border-white/5" 
                           : ""
                       }`}
                     >
-                      <span className={req.highlighted ? "text-white" : "text-gray-300"}>
+                      <span className={req.highlighted ? "text-gray-900 dark:text-white" : "text-gray-600 dark:text-gray-300"}>
                         {spec.label}
                       </span>
                       <span 
@@ -297,12 +291,12 @@ export default function InstallationGuide() {
       </section>
 
       {/* Installation Steps */}
-      <section className="py-16 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-16 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.installation.installationSteps')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.developers.installation.installationSteps')}</h2>
 
           {/* OS Tabs */}
-          <div className="flex mb-0 border-b border-white/10 overflow-x-auto">
+          <div className="flex mb-0 border-b border-gray-300 dark:border-white/10 overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -310,7 +304,7 @@ export default function InstallationGuide() {
                 className={`px-4 py-2 rounded-t-lg border-b-2 transition flex items-center gap-2 whitespace-nowrap ${
                   activeTab === tab.id
                     ? "text-[#00f0ff] border-[#00f0ff] bg-[#00f0ff]/5"
-                    : "text-gray-500 border-transparent hover:text-white"
+                    : "text-gray-500 border-transparent hover:text-gray-900 dark:hover:text-white"
                 }`}
                 data-testid={`tab-${tab.id}`}
               >
@@ -329,7 +323,7 @@ export default function InstallationGuide() {
                     <span className="w-6 h-6 rounded-full bg-[#00f0ff] text-black font-bold flex items-center justify-center text-sm">
                       {stepIdx + 1}
                     </span>
-                    <h3 className="text-lg font-bold text-white">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                       {t(`publicPages.developers.installation.linuxSteps.${step.titleKey}`)}
                     </h3>
                   </div>
@@ -359,7 +353,7 @@ export default function InstallationGuide() {
                   <span className="w-6 h-6 rounded-full bg-[#7000ff] text-white font-bold flex items-center justify-center text-sm">
                     1
                   </span>
-                  <h3 className="text-lg font-bold text-white">{t('publicPages.developers.installation.docker.pullAndRun')}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">{t('publicPages.developers.installation.docker.pullAndRun')}</h3>
                 </div>
                 <TerminalWindow onCopy={() => handleCopy(dockerCommands.join("\n"))}>
                   {dockerCommands.map((cmd, idx) => (
@@ -373,7 +367,7 @@ export default function InstallationGuide() {
               
               <div className="p-4 bg-[#7000ff]/10 border border-[#7000ff]/30 rounded-lg flex gap-3 items-start">
                 <Info className="w-5 h-5 text-[#7000ff] flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-gray-300">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   {t('publicPages.developers.installation.docker.recommendation')}
                   <Link href="/developers/docs#docker-compose" className="text-[#00f0ff] hover:underline ml-1">
                     {t('publicPages.developers.installation.docker.viewDockerCompose')}
@@ -386,12 +380,12 @@ export default function InstallationGuide() {
           {/* Windows Content */}
           {activeTab === "windows" && (
             <div className="pt-6">
-              <div className="text-center py-12 bg-white/5 rounded-xl">
-                <Monitor className="w-10 h-10 text-gray-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.developers.installation.windows.title')}</h3>
-                <p className="text-gray-400 mb-6">{t('publicPages.developers.installation.windows.recommendation')}</p>
+              <div className="text-center py-12 bg-gray-50 dark:bg-white/5 rounded-xl">
+                <Monitor className="w-10 h-10 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.developers.installation.windows.title')}</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">{t('publicPages.developers.installation.windows.recommendation')}</p>
                 <Link href="https://github.com/burnchain/core/releases">
-                  <button className="px-6 py-2 border border-white/20 rounded hover:bg-white/10 text-white transition">
+                  <button className="px-6 py-2 border border-gray-300 dark:border-white/20 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-white transition">
                     {t('publicPages.developers.installation.windows.downloadBeta')}
                   </button>
                 </Link>
@@ -421,16 +415,16 @@ export default function InstallationGuide() {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Configuration */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.developers.installation.configuration.title')}</h2>
-              <p className="text-gray-400 mb-4 text-sm">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.developers.installation.configuration.title')}</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
                 {t('publicPages.developers.installation.configuration.description')}
               </p>
-              <div className="spotlight-card p-6 rounded-xl border border-white/10">
+              <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-6 rounded-xl">
                 <h4 className="font-bold text-[#00f0ff] mb-3">{t('publicPages.developers.installation.configuration.commonFlags')}</h4>
-                <ul className="space-y-3 text-sm font-mono text-gray-300">
+                <ul className="space-y-3 text-sm font-mono text-gray-600 dark:text-gray-300">
                   {commonFlags.map((flag, idx) => (
                     <li key={idx}>
-                      <span className="text-white">{flag.flag}</span> : {flag.desc}
+                      <span className="text-gray-900 dark:text-white">{flag.flag}</span> : {flag.desc}
                     </li>
                   ))}
                 </ul>
@@ -439,20 +433,20 @@ export default function InstallationGuide() {
 
             {/* Troubleshooting */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.developers.installation.troubleshootingTitle')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.developers.installation.troubleshootingTitle')}</h2>
               <div className="space-y-4">
                 {troubleshooting.map((item, idx) => (
                   <div key={idx} className="group">
                     <button 
-                      className="w-full text-left p-4 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex justify-between items-center transition"
+                      className="w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/5 flex justify-between items-center transition"
                       onClick={() => setExpandedTroubleshooting(expandedTroubleshooting === idx ? null : idx)}
                       data-testid={`button-troubleshooting-${idx}`}
                     >
-                      <span className="text-sm font-bold text-gray-300">{item}</span>
-                      <ChevronDown className={`w-4 h-4 text-gray-600 group-hover:text-white transition-transform ${expandedTroubleshooting === idx ? 'rotate-180' : ''}`} />
+                      <span className="text-sm font-bold text-gray-600 dark:text-gray-300">{item}</span>
+                      <ChevronDown className={`w-4 h-4 text-gray-400 dark:text-gray-600 group-hover:text-gray-900 dark:group-hover:text-white transition-transform ${expandedTroubleshooting === idx ? 'rotate-180' : ''}`} />
                     </button>
                     {expandedTroubleshooting === idx && (
-                      <div className="p-4 text-sm text-gray-400 bg-white/5 rounded-b-lg border-x border-b border-white/5">
+                      <div className="p-4 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-white/5 rounded-b-lg border-x border-b border-gray-200 dark:border-white/5">
                         {troubleshootingAnswers[idx]}
                       </div>
                     )}
@@ -467,8 +461,8 @@ export default function InstallationGuide() {
       {/* Need Help */}
       <section className="py-16 px-6 text-center">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-white mb-4">{t('publicPages.developers.installation.needHelp.title')}</h2>
-          <p className="text-gray-400 mb-8">{t('publicPages.developers.installation.needHelp.description')}</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.developers.installation.needHelp.title')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">{t('publicPages.developers.installation.needHelp.description')}</p>
           <Link 
             href="/community/hub" 
             className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-[#5865F2] text-white font-bold hover:bg-[#4752C4] transition"

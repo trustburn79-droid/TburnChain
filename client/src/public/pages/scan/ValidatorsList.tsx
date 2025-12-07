@@ -109,10 +109,10 @@ export default function ValidatorsList() {
 
   return (
     <ScanLayout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-white flex items-center gap-2" data-testid="text-validators-title">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2" data-testid="text-validators-title">
               <Shield className="w-6 h-6 text-purple-400" />
               {t("scan.validators", "Validators")}
               {isConnected && (
@@ -122,7 +122,7 @@ export default function ValidatorsList() {
                 </span>
               )}
             </h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
               {t("scan.validatorsDesc", "TBURN Mainnet validator nodes")}
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function ValidatorsList() {
                 placeholder={t("scan.searchValidator", "Search validator...")}
                 value={searchValidator}
                 onChange={(e) => setSearchValidator(e.target.value)}
-                className="pl-10 w-64 bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500"
+                className="pl-10 w-64 bg-gray-900/50 border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500"
                 data-testid="input-search-validator"
               />
             </div>
@@ -144,7 +144,7 @@ export default function ValidatorsList() {
               size="sm"
               onClick={() => refetch()}
               disabled={isFetching}
-              className="border-gray-700 text-gray-300 hover:text-white"
+              className="border-gray-700 text-gray-300 hover:text-gray-900 dark:hover:text-white"
               data-testid="button-refresh-validators"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
@@ -160,7 +160,7 @@ export default function ValidatorsList() {
                 <Shield className="w-3.5 h-3.5" />
                 {t("scan.totalValidators", "Total Validators")}
               </div>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {summary?.total || validators.length}
               </div>
             </CardContent>
@@ -184,7 +184,7 @@ export default function ValidatorsList() {
                 <Coins className="w-3.5 h-3.5" />
                 {t("scan.totalStaked", "Total Staked")}
               </div>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {summary?.totalStaked ? formatStake(summary.totalStaked) : "0"} TBURN
               </div>
             </CardContent>
@@ -205,7 +205,7 @@ export default function ValidatorsList() {
 
         <Card className="bg-gray-900/50 border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-white flex items-center gap-2 text-base">
+            <CardTitle className="text-gray-900 dark:text-white flex items-center gap-2 text-base">
               <Award className="w-4 h-4 text-yellow-400" />
               {t("scan.validatorLeaderboard", "Validator Leaderboard")}
             </CardTitle>
@@ -233,14 +233,14 @@ export default function ValidatorsList() {
                 <Table>
                   <TableHeader>
                     <TableRow className="border-gray-800 hover:bg-transparent">
-                      <TableHead className="text-gray-400 w-16">{t("scan.rank", "Rank")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.validator", "Validator")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.status", "Status")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.tier", "Tier")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.stake", "Stake")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.uptime", "Uptime")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.commission", "Commission")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.apy", "APY")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400 w-16">{t("scan.rank", "Rank")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.validator", "Validator")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.status", "Status")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.tier", "Tier")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.stake", "Stake")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.uptime", "Uptime")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.commission", "Commission")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.apy", "APY")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -252,7 +252,7 @@ export default function ValidatorsList() {
                       >
                         <TableCell className="font-medium">
                           <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                            index < 3 ? 'bg-yellow-500/20 text-yellow-400' : 'bg-gray-800 text-gray-400'
+                            index < 3 ? 'bg-yellow-500/20 text-yellow-400' : 'bg-gray-800 text-gray-600 dark:text-gray-400'
                           }`}>
                             {validator.rank || index + 1}
                           </div>
@@ -260,7 +260,7 @@ export default function ValidatorsList() {
                         <TableCell>
                           <Link href={`/scan/address/${validator.address}`}>
                             <div className="cursor-pointer group/name">
-                              <div className="text-white font-medium hover:text-blue-400 flex items-center gap-2">
+                              <div className="text-gray-900 dark:text-white font-medium hover:text-blue-400 flex items-center gap-2">
                                 {validator.name || "Unknown Validator"}
                                 {validator.location && (
                                   <span className="text-xs text-gray-500 flex items-center gap-1">
@@ -282,7 +282,7 @@ export default function ValidatorsList() {
                           </Link>
                         </TableCell>
                         <TableCell>
-                          <Badge className={validator.status === 'active' ? "bg-green-500/20 text-green-400 border-green-500/30" : "bg-gray-500/20 text-gray-400 border-gray-500/30"}>
+                          <Badge className={validator.status === 'active' ? "bg-green-500/20 text-green-400 border-green-500/30" : "bg-gray-500/20 text-gray-600 dark:text-gray-400 border-gray-500/30"}>
                             <span className={`w-2 h-2 rounded-full mr-1.5 ${validator.status === 'active' ? 'bg-green-400' : 'bg-gray-400'}`} />
                             {validator.status}
                           </Badge>
@@ -291,7 +291,7 @@ export default function ValidatorsList() {
                           {getTierBadge(validator.tier)}
                         </TableCell>
                         <TableCell>
-                          <div className="text-white font-medium">
+                          <div className="text-gray-900 dark:text-white font-medium">
                             {formatStake(validator.stake)} TBURN
                           </div>
                           {validator.delegators !== undefined && (

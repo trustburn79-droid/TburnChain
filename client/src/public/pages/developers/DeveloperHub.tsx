@@ -129,22 +129,22 @@ export default function DeveloperHub() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-[#7000ff]/10 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Terminal className="w-4 h-4" /> {t('publicPages.developers.hub.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.developers.hub.title').split(' ')[0]}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
               {t('publicPages.developers.hub.title').split(' ')[1]}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
             {t('publicPages.developers.hub.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -162,7 +162,7 @@ export default function DeveloperHub() {
             </Link>
             <Link href="/developers/docs">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
+                className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition flex items-center gap-2"
                 data-testid="button-view-docs"
               >
                 <BookOpen className="w-4 h-4" /> {t('publicPages.common.viewDocs')}
@@ -173,11 +173,11 @@ export default function DeveloperHub() {
       </section>
 
       {/* Quick Start Section */}
-      <section className="py-20 px-6 bg-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.hub.quickStart.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.developers.hub.quickStart.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.developers.hub.quickStart.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.developers.hub.quickStart.subtitle')}</p>
           </div>
 
           <div 
@@ -223,23 +223,23 @@ export default function DeveloperHub() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.hub.sdks.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.developers.hub.sdks.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.developers.hub.sdks.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.developers.hub.sdks.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {sdks.map((sdk, index) => (
               <div 
                 key={index}
-                className="spotlight-card rounded-xl p-6"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6"
                 data-testid={`sdk-card-${index}`}
               >
                 <div className="flex justify-between items-start mb-4 flex-wrap gap-2">
                   <sdk.icon className="text-3xl" style={{ color: sdk.iconColor }} />
-                  <span className="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white">{sdk.version}</span>
+                  <span className="px-2 py-1 rounded bg-gray-100 dark:bg-white/10 text-xs font-mono text-gray-900 dark:text-white">{sdk.version}</span>
                 </div>
-                <h3 className="font-bold text-white mb-2">{sdk.name}</h3>
-                <div className="bg-black/30 p-2 rounded text-xs font-mono text-[#00f0ff] mb-3">
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{sdk.name}</h3>
+                <div className="bg-gray-900 dark:bg-black/30 p-2 rounded text-xs font-mono text-[#00f0ff] mb-3">
                   {sdk.install}
                 </div>
                 <p className="text-xs text-gray-500">{sdk.downloads}</p>
@@ -250,17 +250,17 @@ export default function DeveloperHub() {
       </section>
 
       {/* API Reference Section */}
-      <section className="py-20 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.hub.apiReference.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.developers.hub.apiReference.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.developers.hub.apiReference.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.developers.hub.apiReference.subtitle')}</p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Blockchain API */}
-            <div className="spotlight-card rounded-xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Box className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.developers.hub.apiReference.blockchainApi')}
               </h3>
               <div className="space-y-3 font-mono text-xs">
@@ -276,15 +276,15 @@ export default function DeveloperHub() {
                     >
                       {endpoint.method}
                     </span>
-                    <span className="text-gray-300">{endpoint.path}</span>
+                    <span className="text-gray-600 dark:text-gray-300">{endpoint.path}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* DeFi API */}
-            <div className="spotlight-card rounded-xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Coins className="w-5 h-5 text-[#00f0ff]" /> {t('publicPages.developers.hub.apiReference.defiApi')}
               </h3>
               <div className="space-y-3 font-mono text-xs">
@@ -300,15 +300,15 @@ export default function DeveloperHub() {
                     >
                       {endpoint.method}
                     </span>
-                    <span className="text-gray-300">{endpoint.path}</span>
+                    <span className="text-gray-600 dark:text-gray-300">{endpoint.path}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* AI API */}
-            <div className="spotlight-card rounded-xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Brain className="w-5 h-5 text-[#00ff9d]" /> {t('publicPages.developers.hub.apiReference.aiApi')}
               </h3>
               <div className="space-y-3 font-mono text-xs">
@@ -324,7 +324,7 @@ export default function DeveloperHub() {
                     >
                       {endpoint.method}
                     </span>
-                    <span className="text-gray-300">{endpoint.path}</span>
+                    <span className="text-gray-600 dark:text-gray-300">{endpoint.path}</span>
                   </div>
                 ))}
               </div>
@@ -336,22 +336,22 @@ export default function DeveloperHub() {
       {/* Development Tools Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">{t('publicPages.developers.hub.devToolsSection.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">{t('publicPages.developers.hub.devToolsSection.title')}</h2>
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {devTools.map((tool, index) => (
               <Link key={index} href="/developers/docs">
                 <div 
-                  className="spotlight-card p-6 rounded-xl flex items-center gap-4 group cursor-pointer"
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-6 rounded-xl flex items-center gap-4 group cursor-pointer"
                   data-testid={`dev-tool-${index}`}
                 >
-                  <div className="w-12 h-12 rounded bg-white/5 flex items-center justify-center" style={{ color: tool.color }}>
+                  <div className="w-12 h-12 rounded bg-gray-100 dark:bg-white/5 flex items-center justify-center" style={{ color: tool.color }}>
                     <tool.icon className="w-5 h-5" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-white">{tool.title}</h4>
-                    <p className="text-xs text-gray-400">{tool.description}</p>
+                    <h4 className="font-bold text-gray-900 dark:text-white">{tool.title}</h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">{tool.description}</p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" />
+                  <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-600 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
                 </div>
               </Link>
             ))}
@@ -359,15 +359,15 @@ export default function DeveloperHub() {
 
           {/* Developer Grants Program */}
           <div 
-            className="spotlight-card rounded-2xl p-8 text-center"
+            className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-2xl p-8 text-center"
             style={{ 
               border: "1px solid rgba(0, 255, 157, 0.3)",
               background: "rgba(0, 255, 157, 0.05)"
             }}
             data-testid="grants-section"
           >
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.hub.grants.title')}</h2>
-            <p className="text-gray-400 mb-8">{t('publicPages.developers.hub.grants.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.developers.hub.grants.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">{t('publicPages.developers.hub.grants.subtitle')}</p>
             
             <div className="inline-block px-6 py-2 rounded-full bg-[#00ff9d]/20 text-[#00ff9d] font-bold text-2xl mb-8">
               {t('publicPages.developers.hub.grants.totalFund')}
@@ -377,7 +377,7 @@ export default function DeveloperHub() {
               {grantTiers.map((tier, index) => (
                 <div 
                   key={index}
-                  className="p-4 rounded border border-white/10"
+                  className="p-4 rounded border border-gray-300 dark:border-white/10"
                   style={{ background: "rgba(0, 0, 0, 0.4)" }}
                 >
                   <div className="text-xs text-[#00ff9d] font-bold uppercase mb-1">{tier.tier}</div>

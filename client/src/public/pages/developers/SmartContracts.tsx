@@ -253,9 +253,9 @@ export default function SmartContracts() {
   };
 
   return (
-    <main className="flex-grow relative z-10">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl relative z-10">
@@ -264,11 +264,11 @@ export default function SmartContracts() {
               <FileCode className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white">{t('publicPages.developers.contracts.title')}</h1>
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">{t('publicPages.developers.contracts.title')}</h1>
               <p className="text-sm text-[#00f0ff] font-mono mt-1">{t('publicPages.developers.contracts.tag')}</p>
             </div>
           </div>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
             {t('publicPages.developers.contracts.subtitle')}
           </p>
         </div>
@@ -277,17 +277,17 @@ export default function SmartContracts() {
       {/* Platform Features */}
       <section className="py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.contracts.platformFeatures')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.developers.contracts.platformFeatures')}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {platformFeatures.map((feature, index) => (
-              <div key={index} className="spotlight-card rounded-xl p-6 border border-white/10">
+              <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                 <div className="flex items-start gap-4">
                   <div className={`w-10 h-10 rounded-lg ${feature.bgColor} flex items-center justify-center flex-shrink-0`} style={{ color: feature.color }}>
                     <feature.icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-1">{feature.title}</h3>
-                    <p className="text-sm text-gray-400">{feature.desc}</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{feature.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{feature.desc}</p>
                   </div>
                 </div>
               </div>
@@ -297,14 +297,14 @@ export default function SmartContracts() {
       </section>
 
       {/* Contract Templates */}
-      <section className="py-12 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-12 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
             <Layers className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.contracts.contractTemplates')}
           </h2>
 
-          <div className="spotlight-card rounded-xl overflow-hidden border border-white/10">
-            <div className="flex border-b border-white/10 bg-black/40 overflow-x-auto">
+          <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl overflow-hidden">
+            <div className="flex border-b border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 overflow-x-auto">
               {contractTemplates.map((template) => (
                 <button
                   key={template.name}
@@ -312,7 +312,7 @@ export default function SmartContracts() {
                   className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition border-b-2 ${
                     activeTemplate === template.name
                       ? "text-[#00f0ff] border-[#00f0ff]"
-                      : "text-gray-400 border-transparent hover:text-white"
+                      : "text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 dark:hover:text-white"
                   }`}
                   data-testid={`button-template-${template.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
@@ -325,14 +325,14 @@ export default function SmartContracts() {
               <div className="absolute right-4 top-4 z-10">
                 <button 
                   onClick={handleCopy}
-                  className="flex items-center gap-1.5 text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded border border-white/10 transition"
+                  className="flex items-center gap-1.5 text-xs bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-gray-900 dark:text-white px-3 py-1.5 rounded border border-gray-300 dark:border-white/10 transition"
                   data-testid="button-copy-code"
                 >
                   <Copy className="w-3 h-3" />
                   {copied ? t('publicPages.developers.contracts.copied') : t('publicPages.developers.contracts.copy')}
                 </button>
               </div>
-              <pre className="bg-[#0d0d12] p-6 font-mono text-sm text-gray-400 overflow-x-auto leading-relaxed">
+              <pre className="bg-gray-900 dark:bg-[#0d0d12] p-6 font-mono text-sm text-gray-300 dark:text-gray-400 overflow-x-auto leading-relaxed">
                 <code dangerouslySetInnerHTML={{ __html: highlightCode(getTemplateCode()) }} />
               </pre>
             </div>
@@ -345,13 +345,13 @@ export default function SmartContracts() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Security Checklist */}
-            <div className="spotlight-card rounded-xl overflow-hidden border border-[#ffd700]/30 bg-[#ffd700]/5">
-              <div className="p-6 border-b border-white/10 flex items-center gap-3">
+            <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl overflow-hidden border-[#ffd700]/30 bg-[#ffd700]/5">
+              <div className="p-6 border-b border-gray-200 dark:border-white/10 flex items-center gap-3">
                 <Shield className="w-6 h-6 text-[#ffd700]" />
-                <h3 className="text-xl font-bold text-white">{t('publicPages.developers.contracts.securityChecklist')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.developers.contracts.securityChecklist')}</h3>
               </div>
               <div className="p-6">
-                <ul className="space-y-3 text-sm text-gray-300">
+                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
                   {securityChecklist.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-[#ffd700] mt-0.5 flex-shrink-0" />
@@ -365,13 +365,13 @@ export default function SmartContracts() {
             </div>
 
             {/* Gas Optimization Tips */}
-            <div className="spotlight-card rounded-xl overflow-hidden border border-[#00ff9d]/30 bg-[#00ff9d]/5">
-              <div className="p-6 border-b border-white/10 flex items-center gap-3">
+            <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl overflow-hidden border-[#00ff9d]/30 bg-[#00ff9d]/5">
+              <div className="p-6 border-b border-gray-200 dark:border-white/10 flex items-center gap-3">
                 <Fuel className="w-6 h-6 text-[#00ff9d]" />
-                <h3 className="text-xl font-bold text-white">{t('publicPages.developers.contracts.gasOptimizationTips')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.developers.contracts.gasOptimizationTips')}</h3>
               </div>
               <div className="p-6">
-                <ul className="space-y-3 text-sm text-gray-300">
+                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
                   {gasOptimizationTips.map((tip, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <Zap className="w-4 h-4 text-[#00ff9d] mt-0.5 flex-shrink-0" />
@@ -386,9 +386,9 @@ export default function SmartContracts() {
       </section>
 
       {/* Ready to Deploy Section */}
-      <section className="py-12 px-6 bg-gradient-to-br from-[#7000ff]/10 to-[#00f0ff]/10 border-t border-white/5">
+      <section className="py-12 px-6 bg-gradient-to-br from-[#7000ff]/10 to-[#00f0ff]/10 border-t border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.developers.contracts.readyToDeploy')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.developers.contracts.readyToDeploy')}</h2>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="/developers/cli"
@@ -399,21 +399,21 @@ export default function SmartContracts() {
             </Link>
             <Link 
               href="/developers/api"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-api-reference"
             >
               <Server className="w-5 h-5" /> {t('publicPages.developers.contracts.apiReference')}
             </Link>
             <Link 
               href="/developers/sdk"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00ff9d] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#00ff9d] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-sdk-guide"
             >
               <Book className="w-5 h-5" /> {t('publicPages.developers.contracts.sdkGuide')}
             </Link>
             <Link 
               href="/developers/evm-migration"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ffd700] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#ffd700] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-evm-migration"
             >
               <Rocket className="w-5 h-5" /> {t('publicPages.developers.contracts.evmMigration')}

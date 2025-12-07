@@ -127,26 +127,26 @@ export default function Events() {
   };
 
   return (
-    <main className="flex-grow relative z-10">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 left-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <CalendarDays className="w-3 h-3" /> {t('publicPages.community.events.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             {t('publicPages.community.events.title')}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mb-10">
             {t('publicPages.community.events.subtitle')}
           </p>
         </div>
       </section>
 
       {/* Filter Bar */}
-      <section className="py-8 px-6 border-b border-white/5 bg-black/40 sticky top-16 z-40 backdrop-blur-md">
+      <section className="py-8 px-6 border-b border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/40 sticky top-16 z-40 backdrop-blur-md">
         <div className="container mx-auto max-w-7xl flex items-center gap-4 overflow-x-auto">
           <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
           {filterCategories.map((cat) => (
@@ -155,8 +155,8 @@ export default function Events() {
               onClick={() => setActiveFilter(cat.key)}
               className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition ${
                 activeFilter === cat.key
-                  ? "bg-[#7000ff]/20 border border-[#7000ff] text-white shadow-[0_0_10px_rgba(112,0,255,0.2)]"
-                  : "bg-white/5 border border-white/10 text-gray-400 hover:bg-[#7000ff]/20 hover:border-[#7000ff] hover:text-white"
+                  ? "bg-[#7000ff]/20 border border-[#7000ff] text-gray-900 dark:text-white shadow-[0_0_10px_rgba(112,0,255,0.2)]"
+                  : "bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:bg-[#7000ff]/20 hover:border-[#7000ff] hover:text-gray-900 dark:hover:text-white"
               }`}
               data-testid={`button-filter-${cat.key}`}
             >
@@ -172,7 +172,7 @@ export default function Events() {
           <div className="container mx-auto max-w-7xl">
             <div className="flex items-center justify-center gap-3 py-20">
               <Loader2 className="w-6 h-6 animate-spin text-[#7000ff]" />
-              <span className="text-gray-400">{t('common.loading')}</span>
+              <span className="text-gray-600 dark:text-gray-400">{t('common.loading')}</span>
             </div>
           </div>
         </section>
@@ -184,7 +184,7 @@ export default function Events() {
           <div className="container mx-auto max-w-7xl">
             <div className="flex flex-col items-center justify-center gap-3 py-20">
               <AlertTriangle className="w-10 h-10 text-red-500" />
-              <span className="text-gray-400">{t('common.error')}</span>
+              <span className="text-gray-600 dark:text-gray-400">{t('common.error')}</span>
             </div>
           </div>
         </section>
@@ -194,7 +194,7 @@ export default function Events() {
       {!isLoading && !error && featuredEvents.length > 0 && (
         <section className="py-16 px-6">
           <div className="container mx-auto max-w-7xl">
-            <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-2">
               <Rocket className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.community.events.featuredTitle')}
             </h2>
             
@@ -206,9 +206,9 @@ export default function Events() {
                 const progressColor = eventProgressColors[event.type] || "bg-[#00f0ff]";
                 
                 return (
-                  <div key={event.id} className="spotlight-card rounded-2xl p-0 border border-white/10 overflow-hidden group">
+                  <div key={event.id} className="spotlight-card rounded-2xl p-0 border border-gray-300 dark:border-white/10 overflow-hidden group bg-white dark:bg-transparent shadow-sm">
                     <div className={`h-48 bg-gradient-to-r ${gradient} relative p-6 flex flex-col justify-between`}>
-                      <div className="absolute inset-0 bg-black/20" />
+                      <div className="absolute inset-0 bg-gray-50 dark:bg-black/20" />
                       <div className="relative z-10 flex justify-between items-start">
                         <span className="bg-white/90 text-black text-xs font-bold px-2 py-1 rounded shadow-lg flex items-center gap-1">
                           <Icon className="w-3 h-3" /> {event.type.toUpperCase()}
@@ -225,7 +225,7 @@ export default function Events() {
                       </div>
                     </div>
                     <div className="p-6">
-                      <p className="text-gray-400 text-sm mb-6 leading-relaxed">{getDescription(event)}</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-6 leading-relaxed">{getDescription(event)}</p>
                       
                       {event.maxParticipants && (
                         <div className="mb-6">
@@ -233,7 +233,7 @@ export default function Events() {
                             <span className="text-gray-500">{t('publicPages.community.events.capacity')}</span>
                             <span className="text-[#00f0ff] font-mono">{event.participants.toLocaleString()} / {event.maxParticipants.toLocaleString()}</span>
                           </div>
-                          <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-1.5 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
                             <div 
                               className={`h-full ${progressColor} rounded-full transition-all duration-500`} 
                               style={{ width: `${Math.min((event.participants / event.maxParticipants) * 100, 100)}%` }}
@@ -259,7 +259,7 @@ export default function Events() {
                           </button>
                         </Link>
                         <button 
-                          className="px-4 py-2 rounded border border-white/20 text-white hover:bg-white/10 transition"
+                          className="px-4 py-2 rounded border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 transition"
                           onClick={() => handleNotification(getTitle(event))}
                           data-testid={`button-notify-${event.id}`}
                         >
@@ -277,20 +277,20 @@ export default function Events() {
 
       {/* Upcoming Events */}
       {!isLoading && !error && upcomingEvents.length > 0 && (
-        <section className="py-12 px-6 bg-white/5">
+        <section className="py-12 px-6 bg-gray-100 dark:bg-white/5">
           <div className="container mx-auto max-w-7xl">
-            <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
-              <CalendarDays className="w-5 h-5 text-gray-400" /> {t('publicPages.community.events.upcomingTitle')}
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-2">
+              <CalendarDays className="w-5 h-5 text-gray-600 dark:text-gray-400" /> {t('publicPages.community.events.upcomingTitle')}
             </h2>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {upcomingEvents.map((event) => {
-                const badgeColor = eventBadgeColors[event.type] || "bg-gray-500/20 text-gray-400 border-gray-500/30";
+                const badgeColor = eventBadgeColors[event.type] || "bg-gray-500/20 text-gray-600 dark:text-gray-400 border-gray-500/30";
                 
                 return (
                   <div 
                     key={event.id} 
-                    className="spotlight-card rounded-xl p-6 border border-white/10 flex flex-col"
+                    className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10 flex flex-col bg-white dark:bg-transparent shadow-sm"
                   >
                     <div className="flex justify-between items-start mb-4">
                       <div className={`${badgeColor} border px-2 py-1 rounded text-xs font-bold`}>{event.type.toUpperCase()}</div>
@@ -298,8 +298,8 @@ export default function Events() {
                         {event.isOnline ? t('publicPages.community.events.locations.online') : event.location}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">{getTitle(event)}</h3>
-                    <p className="text-gray-400 text-sm mb-4 flex-grow line-clamp-2">{getDescription(event)}</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{getTitle(event)}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 flex-grow line-clamp-2">{getDescription(event)}</p>
                     
                     {event.rewards && (
                       <div className="mb-3 flex items-center gap-2 text-xs">
@@ -314,7 +314,7 @@ export default function Events() {
                     </div>
                     <Link href={`/community/events/${event.id}`}>
                       <button 
-                        className="w-full py-2 rounded text-xs transition border border-white/20 text-white hover:bg-white/10"
+                        className="w-full py-2 rounded text-xs transition border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10"
                         data-testid={`button-event-${event.id}`}
                       >
                         {t('publicPages.community.events.buttons.register')}
@@ -334,7 +334,7 @@ export default function Events() {
           <div className="container mx-auto max-w-7xl">
             <div className="flex flex-col items-center justify-center gap-3 py-20">
               <CalendarDays className="w-10 h-10 text-gray-500" />
-              <span className="text-gray-400">{t('adminCommunityContent.noEventsFound')}</span>
+              <span className="text-gray-600 dark:text-gray-400">{t('adminCommunityContent.noEventsFound')}</span>
             </div>
           </div>
         </section>
@@ -343,12 +343,12 @@ export default function Events() {
       {/* Host Event CTA */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-2xl">
-          <div className="spotlight-card rounded-xl p-8 border border-[#00f0ff]/30 text-center bg-gradient-to-b from-[#00f0ff]/5 to-transparent">
+          <div className="spotlight-card rounded-xl p-8 border border-[#00f0ff]/30 text-center bg-white dark:bg-transparent shadow-sm bg-gradient-to-b from-[#00f0ff]/5 to-transparent">
             <div className="w-16 h-16 bg-[#00f0ff]/10 rounded-full flex items-center justify-center mx-auto mb-6">
               <Mic className="w-8 h-8 text-[#00f0ff]" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-3">{t('publicPages.community.events.hostCta.title')}</h2>
-            <p className="text-gray-400 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{t('publicPages.community.events.hostCta.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
               {t('publicPages.community.events.hostCta.description')}
             </p>
             <Link href="/community/hub">

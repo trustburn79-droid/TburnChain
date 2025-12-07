@@ -98,10 +98,10 @@ export default function BlocksList() {
 
   return (
     <ScanLayout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-white flex items-center gap-2" data-testid="text-blocks-title">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2" data-testid="text-blocks-title">
               <Blocks className="w-6 h-6 text-blue-400" />
               {t("scan.blocks", "Blocks")}
               {isConnected && (
@@ -111,7 +111,7 @@ export default function BlocksList() {
                 </span>
               )}
             </h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
               {t("scan.blocksDesc", "All blocks on TBURN Mainnet")}
             </p>
           </div>
@@ -125,7 +125,7 @@ export default function BlocksList() {
                 value={searchBlock}
                 onChange={(e) => setSearchBlock(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearchBlock()}
-                className="pl-10 w-48 bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500"
+                className="pl-10 w-48 bg-gray-900/50 border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500"
                 data-testid="input-search-block"
               />
             </div>
@@ -134,7 +134,7 @@ export default function BlocksList() {
               size="sm"
               onClick={() => refetch()}
               disabled={isFetching}
-              className="border-gray-700 text-gray-300 hover:text-white"
+              className="border-gray-700 text-gray-300 hover:text-gray-900 dark:hover:text-white"
               data-testid="button-refresh-blocks"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
@@ -146,31 +146,31 @@ export default function BlocksList() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <Blocks className="w-3.5 h-3.5 text-blue-400" />
                 {t("scan.latestBlock", "Latest Block")}
               </div>
-              <div className="text-xl font-bold text-white">
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
                 #{blocks[0]?.number.toLocaleString() || "0"}
               </div>
             </CardContent>
           </Card>
           <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <Clock className="w-3.5 h-3.5 text-green-400" />
                 {t("scan.avgBlockTime", "Avg Block Time")}
               </div>
-              <div className="text-xl font-bold text-white">0.5s</div>
+              <div className="text-xl font-bold text-gray-900 dark:text-white">0.5s</div>
             </CardContent>
           </Card>
           <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <ArrowRightLeft className="w-3.5 h-3.5 text-purple-400" />
                 {t("scan.avgTxPerBlock", "Avg Txs/Block")}
               </div>
-              <div className="text-xl font-bold text-white">
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
                 {blocks.length > 0 
                   ? Math.round(blocks.reduce((sum, b) => sum + b.transactions, 0) / blocks.length).toLocaleString()
                   : "0"}
@@ -179,11 +179,11 @@ export default function BlocksList() {
           </Card>
           <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <Fuel className="w-3.5 h-3.5 text-orange-400" />
                 {t("scan.avgGasUsed", "Avg Gas Used")}
               </div>
-              <div className="text-xl font-bold text-white">
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
                 {blocks.length > 0 
                   ? formatGas(String(Math.round(blocks.reduce((sum, b) => sum + parseInt(b.gasUsed || "0"), 0) / blocks.length)))
                   : "0"}
@@ -216,13 +216,13 @@ export default function BlocksList() {
                 <Table>
                   <TableHeader>
                     <TableRow className="border-gray-800 hover:bg-transparent">
-                      <TableHead className="text-gray-400">{t("scan.block", "Block")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.age", "Age")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.txn", "Txn")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.validator", "Validator")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.gasUsed", "Gas Used")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.gasLimit", "Gas Limit")}</TableHead>
-                      <TableHead className="text-gray-400">{t("scan.size", "Size")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.block", "Block")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.age", "Age")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.txn", "Txn")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.validator", "Validator")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.gasUsed", "Gas Used")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.gasLimit", "Gas Limit")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.size", "Size")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -281,7 +281,7 @@ export default function BlocksList() {
 
           {totalPages > 1 && (
             <div className="flex items-center justify-between p-4 border-t border-gray-800">
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-gray-600 dark:text-gray-400">
                 {t("scan.showingBlocks", { from: (page - 1) * pageSize + 1, to: Math.min(page * pageSize, totalBlocks), total: totalBlocks })}
               </div>
               <div className="flex items-center gap-2">
@@ -290,12 +290,12 @@ export default function BlocksList() {
                   size="sm"
                   onClick={() => setPage(p => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="border-gray-700 text-gray-300 hover:text-white"
+                  className="border-gray-700 text-gray-300 hover:text-gray-900 dark:hover:text-white"
                   data-testid="button-prev-page"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </Button>
-                <span className="text-sm text-gray-400 px-2">
+                <span className="text-sm text-gray-600 dark:text-gray-400 px-2">
                   {page} / {totalPages}
                 </span>
                 <Button
@@ -303,7 +303,7 @@ export default function BlocksList() {
                   size="sm"
                   onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="border-gray-700 text-gray-300 hover:text-white"
+                  className="border-gray-700 text-gray-300 hover:text-gray-900 dark:hover:text-white"
                   data-testid="button-next-page"
                 >
                   <ChevronRight className="w-4 h-4" />

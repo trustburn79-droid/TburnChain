@@ -118,28 +118,28 @@ export default function TokenExtensions() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#7000ff] mb-6">
             <Layers className="w-4 h-4" /> {t('publicPages.solutions.tokenExtensions.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.solutions.tokenExtensions.title')}{" "}
             <span className="bg-gradient-to-r from-[#7000ff] to-[#00f0ff] bg-clip-text text-transparent">
               {t('publicPages.solutions.tokenExtensions.titleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
             {t('publicPages.solutions.tokenExtensions.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <a 
               href="#tbc-20"
-              className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
+              className="px-8 py-3 rounded-lg bg-[#7000ff] text-gray-900 dark:text-white font-bold hover:bg-purple-600 transition"
               style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
               data-testid="button-explore"
             >
@@ -147,7 +147,7 @@ export default function TokenExtensions() {
             </a>
             <Link href="/developers/docs">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-8 py-3 rounded-lg border border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-white/5 transition"
                 data-testid="button-specs"
               >
                 {t('publicPages.solutions.tokenExtensions.buttons.readSpecs')}
@@ -178,12 +178,12 @@ export default function TokenExtensions() {
                   >
                     <Icon className="w-7 h-7" style={{ color: card.iconColor }} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{card.title}</h3>
-                  <p className="text-gray-400 mb-6 leading-relaxed">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{card.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                     {card.desc}
                     {card.codeInline && (
                       <>
-                        <span className="font-mono text-white bg-white/10 px-1 rounded mx-1">
+                        <span className="font-mono text-gray-900 dark:text-white bg-white/10 px-1 rounded mx-1">
                           {card.codeInline}
                         </span>
                         {card.descContinue}
@@ -203,19 +203,19 @@ export default function TokenExtensions() {
       </section>
 
       {/* TBC-20 Token Standard Section */}
-      <section id="tbc-20" className="py-20 px-6 bg-white/5 border-y border-white/5">
+      <section id="tbc-20" className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.tokenExtensions.brc20.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.solutions.tokenExtensions.brc20.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.solutions.tokenExtensions.brc20.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.solutions.tokenExtensions.brc20.subtitle')}</p>
           </div>
 
           <div className="space-y-8">
             {/* Trust Score Functions */}
-            <div className="spotlight-card rounded-xl p-6 border border-white/10">
+            <div className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10">
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="w-6 h-6 text-[#7000ff]" />
-                <h3 className="text-xl font-bold text-white">{t('publicPages.solutions.tokenExtensions.brc20.trustScoreFunctions')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.solutions.tokenExtensions.brc20.trustScoreFunctions')}</h3>
               </div>
               <div 
                 className="rounded-lg p-4 font-mono text-sm overflow-x-auto"
@@ -224,7 +224,7 @@ export default function TokenExtensions() {
                   border: "1px solid rgba(255, 255, 255, 0.1)"
                 }}
               >
-                <pre className="text-gray-400">
+                <pre className="text-gray-600 dark:text-gray-400">
                   <code>
                     <span className="text-[#ff79c6]">function</span>{" "}
                     <span className="text-[#50fa7b]">getTrustScore</span>(){" "}
@@ -250,10 +250,10 @@ export default function TokenExtensions() {
             </div>
 
             {/* Auto Burn Functions */}
-            <div className="spotlight-card rounded-xl p-6 border border-white/10">
+            <div className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10">
               <div className="flex items-center gap-3 mb-4">
                 <Flame className="w-6 h-6 text-[#ff0055]" />
-                <h3 className="text-xl font-bold text-white">{t('publicPages.solutions.tokenExtensions.brc20.autoBurnFunctions')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.solutions.tokenExtensions.brc20.autoBurnFunctions')}</h3>
               </div>
               <div 
                 className="rounded-lg p-4 font-mono text-sm overflow-x-auto"
@@ -262,7 +262,7 @@ export default function TokenExtensions() {
                   border: "1px solid rgba(255, 255, 255, 0.1)"
                 }}
               >
-                <pre className="text-gray-400">
+                <pre className="text-gray-600 dark:text-gray-400">
                   <code>
                     <span className="text-[#ff79c6]">function</span>{" "}
                     <span className="text-[#50fa7b]">scheduleBurn</span>(
@@ -291,7 +291,7 @@ export default function TokenExtensions() {
       {/* Use Cases Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.tokenExtensions.useCasesSection.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.solutions.tokenExtensions.useCasesSection.title')}</h2>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -306,26 +306,26 @@ export default function TokenExtensions() {
                       <Icon className="w-6 h-6" style={{ color: uc.color }} />
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold text-white mb-1">{uc.title}</h4>
-                      <p className="text-sm text-gray-400">{uc.desc}</p>
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{uc.title}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{uc.desc}</p>
                     </div>
                   </div>
                 );
               })}
             </div>
 
-            <div className="spotlight-card rounded-2xl p-8 border border-white/10 bg-white/5">
-              <h3 className="text-xl font-bold text-white mb-6">{t('publicPages.solutions.tokenExtensions.examplesSection.title')}</h3>
+            <div className="spotlight-card rounded-2xl p-8 border border-gray-300 dark:border-white/10 bg-gray-100 dark:bg-white/5">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.solutions.tokenExtensions.examplesSection.title')}</h3>
               <ul className="space-y-4 text-sm">
                 {realExamples.map((ex, idx) => {
                   const Icon = ex.icon;
                   return (
                     <li key={idx} className="flex items-center justify-between p-3 rounded bg-black/40">
-                      <span className="text-white font-bold flex items-center gap-2">
+                      <span className="text-gray-900 dark:text-white font-bold flex items-center gap-2">
                         <Icon className="w-4 h-4" style={{ color: ex.iconColor }} />
                         {ex.name}
                       </span>
-                      <span className="text-gray-400 text-xs">{ex.badge}</span>
+                      <span className="text-gray-600 dark:text-gray-400 text-xs">{ex.badge}</span>
                     </li>
                   );
                 })}
@@ -338,12 +338,12 @@ export default function TokenExtensions() {
       {/* CTA Section */}
       <section className="py-20 px-6 bg-gradient-to-r from-[#7000ff]/10 to-[#00f0ff]/10">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.solutions.tokenExtensions.cta.title')}</h2>
-          <p className="text-gray-400 mb-8">{t('publicPages.solutions.tokenExtensions.cta.subtitle')}</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.tokenExtensions.cta.title')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">{t('publicPages.solutions.tokenExtensions.cta.subtitle')}</p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">
               <button 
-                className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
+                className="px-8 py-3 rounded-lg bg-[#7000ff] text-gray-900 dark:text-white font-bold hover:bg-purple-600 transition"
                 data-testid="button-console"
               >
                 {t('publicPages.solutions.tokenExtensions.buttons.openConsole')}
@@ -351,7 +351,7 @@ export default function TokenExtensions() {
             </Link>
             <Link href="/developers/api">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-8 py-3 rounded-lg border border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-white/5 transition"
                 data-testid="button-api"
               >
                 {t('publicPages.solutions.tokenExtensions.buttons.viewApiDocs')}

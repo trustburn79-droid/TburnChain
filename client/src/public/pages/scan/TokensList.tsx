@@ -83,14 +83,14 @@ export default function TokensList() {
 
   return (
     <ScanLayout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-white flex items-center gap-2" data-testid="text-tokens-title">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2" data-testid="text-tokens-title">
               <Coins className="w-6 h-6 text-yellow-400" />
               {t("scan.tokens", "Tokens")}
             </h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
               {t("scan.tokensDesc", "TBC-20, TBC-721, and TBC-1155 tokens on TBURN Mainnet")}
             </p>
           </div>
@@ -103,7 +103,7 @@ export default function TokensList() {
                 placeholder={t("scan.searchToken", "Search token...")}
                 value={searchToken}
                 onChange={(e) => setSearchToken(e.target.value)}
-                className="pl-10 w-64 bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500"
+                className="pl-10 w-64 bg-gray-900/50 border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500"
                 data-testid="input-search-token"
               />
             </div>
@@ -117,7 +117,7 @@ export default function TokensList() {
                 <Coins className="w-3.5 h-3.5" />
                 TBC-20 {t("scan.tokens", "Tokens")}
               </div>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {mockTokens.length}
               </div>
             </CardContent>
@@ -129,7 +129,7 @@ export default function TokensList() {
                 <Image className="w-3.5 h-3.5" />
                 TBC-721 NFTs
               </div>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {mockNFTs.filter(n => n.type === 'TBC-721').length}
               </div>
             </CardContent>
@@ -141,7 +141,7 @@ export default function TokensList() {
                 <Layers className="w-3.5 h-3.5" />
                 TBC-1155
               </div>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {mockNFTs.filter(n => n.type === 'TBC-1155').length}
               </div>
             </CardContent>
@@ -153,7 +153,7 @@ export default function TokensList() {
                 <TrendingUp className="w-3.5 h-3.5" />
                 {t("scan.totalHolders", "Total Holders")}
               </div>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {(mockTokens.reduce((sum, t) => sum + t.holders, 0) + mockNFTs.reduce((sum, t) => sum + t.holders, 0)).toLocaleString()}
               </div>
             </CardContent>
@@ -181,13 +181,13 @@ export default function TokensList() {
                   <Table>
                     <TableHeader>
                       <TableRow className="border-gray-800 hover:bg-transparent">
-                        <TableHead className="text-gray-400">#</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.token", "Token")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.price", "Price")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.change24h", "24h Change")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.volume24h", "24h Volume")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.totalSupply", "Total Supply")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.holders", "Holders")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">#</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.token", "Token")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.price", "Price")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.change24h", "24h Change")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.volume24h", "24h Volume")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.totalSupply", "Total Supply")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.holders", "Holders")}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -197,7 +197,7 @@ export default function TokensList() {
                           className="border-gray-800 hover:bg-gray-800/30 group"
                           data-testid={`token-row-${index}`}
                         >
-                          <TableCell className="text-gray-400 font-medium">
+                          <TableCell className="text-gray-600 dark:text-gray-400 font-medium">
                             {index + 1}
                           </TableCell>
                           <TableCell>
@@ -208,7 +208,7 @@ export default function TokensList() {
                                     <Coins className="w-4 h-4 text-yellow-400" />
                                   </div>
                                   <div>
-                                    <div className="text-white font-medium hover:text-blue-400">
+                                    <div className="text-gray-900 dark:text-white font-medium hover:text-blue-400">
                                       {token.name}
                                     </div>
                                     <div className="text-gray-500 text-xs">
@@ -219,7 +219,7 @@ export default function TokensList() {
                               </div>
                             </Link>
                           </TableCell>
-                          <TableCell className="text-white font-medium">
+                          <TableCell className="text-gray-900 dark:text-white font-medium">
                             {token.price}
                           </TableCell>
                           <TableCell>
@@ -253,12 +253,12 @@ export default function TokensList() {
                   <Table>
                     <TableHeader>
                       <TableRow className="border-gray-800 hover:bg-transparent">
-                        <TableHead className="text-gray-400">#</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.collection", "Collection")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.type", "Type")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.items", "Items")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.holders", "Holders")}</TableHead>
-                        <TableHead className="text-gray-400">{t("scan.contract", "Contract")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">#</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.collection", "Collection")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.type", "Type")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.items", "Items")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.holders", "Holders")}</TableHead>
+                        <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.contract", "Contract")}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -268,7 +268,7 @@ export default function TokensList() {
                           className="border-gray-800 hover:bg-gray-800/30 group"
                           data-testid={`nft-row-${index}`}
                         >
-                          <TableCell className="text-gray-400 font-medium">
+                          <TableCell className="text-gray-600 dark:text-gray-400 font-medium">
                             {index + 1}
                           </TableCell>
                           <TableCell>
@@ -285,7 +285,7 @@ export default function TokensList() {
                                     )}
                                   </div>
                                   <div>
-                                    <div className="text-white font-medium hover:text-blue-400">
+                                    <div className="text-gray-900 dark:text-white font-medium hover:text-blue-400">
                                       {nft.name}
                                     </div>
                                     <div className="text-gray-500 text-xs">

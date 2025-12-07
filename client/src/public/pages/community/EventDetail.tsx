@@ -86,10 +86,10 @@ export default function EventDetail() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] pt-24 px-6">
+      <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
           <Loader2 className="w-8 h-8 animate-spin text-purple-500 mx-auto mb-4" />
-          <p className="text-gray-400">{t('common.loading')}</p>
+          <p className="text-gray-600 dark:text-gray-400">{t('common.loading')}</p>
         </div>
       </main>
     );
@@ -97,16 +97,16 @@ export default function EventDetail() {
 
   if (!event) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] pt-24 px-6">
+      <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
-          <h1 className="text-3xl font-bold text-white mb-4">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             {t('publicPages.community.events.detail.notFound')}
           </h1>
-          <p className="text-gray-400 mb-8">
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
             {t('publicPages.community.events.detail.notFoundDesc')}
           </p>
           <Link href="/community/events">
-            <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+            <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10">
               <ArrowLeft className="w-4 h-4 mr-2" />
               {t('publicPages.community.events.detail.backToEvents')}
             </Button>
@@ -157,7 +157,7 @@ export default function EventDetail() {
   const typeLabel = isKorean ? (typeLabels[event.type]?.ko || event.type) : (typeLabels[event.type]?.en || event.type);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f]">
+    <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors">
       <div className={`h-72 bg-gradient-to-r ${gradient} relative`}>
         <div className="absolute inset-0 bg-black/40" />
         <div className="container mx-auto max-w-5xl px-6 h-full flex flex-col justify-end pb-8 relative z-10">
@@ -185,17 +185,17 @@ export default function EventDetail() {
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <section>
-              <h2 className="text-xl font-bold text-white mb-4">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 {t('publicPages.community.events.detail.about')}
               </h2>
-              <div className="prose prose-invert max-w-none">
-                <p className="text-lg text-gray-300 leading-relaxed mb-4">{description}</p>
+              <div className="prose prose-gray dark:prose-invert max-w-none">
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">{description}</p>
               </div>
             </section>
 
             {event.rewards && (
               <section>
-                <h2 className="text-xl font-bold text-white mb-4">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   {isKorean ? '보상' : 'Rewards'}
                 </h2>
                 <Card className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border-yellow-500/30">
@@ -206,7 +206,7 @@ export default function EventDetail() {
                       </div>
                       <div>
                         <p className="text-yellow-400 font-bold text-xl">{event.rewards}</p>
-                        <p className="text-gray-400 text-sm">{isKorean ? '참가자 보상' : 'Participant Rewards'}</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{isKorean ? '참가자 보상' : 'Participant Rewards'}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -216,16 +216,16 @@ export default function EventDetail() {
           </div>
 
           <div className="space-y-6">
-            <Card className="bg-white/5 border-white/10">
+            <Card className="bg-white dark:bg-white/5 border-gray-300 dark:border-white/10 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-white text-lg">
+                <CardTitle className="text-gray-900 dark:text-white text-lg">
                   {t('publicPages.community.events.detail.registration')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">{isKorean ? '참가자' : 'Registered'}</span>
-                  <span className="text-white font-mono">{capacity.current.toLocaleString()} / {capacity.max.toLocaleString()}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '참가자' : 'Registered'}</span>
+                  <span className="text-gray-900 dark:text-white font-mono">{capacity.current.toLocaleString()} / {capacity.max.toLocaleString()}</span>
                 </div>
                 <Progress value={capacityPercentage} className="h-2" />
                 <p className="text-xs text-gray-500">
@@ -245,11 +245,11 @@ export default function EventDetail() {
                 )}
 
                 <div className="flex gap-2">
-                  <Button variant="outline" className="flex-1 border-white/20 text-white hover:bg-white/10" onClick={handleNotification}>
+                  <Button variant="outline" className="flex-1 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={handleNotification}>
                     <Bell className="w-4 h-4 mr-1" />
                     {isKorean ? '알림' : 'Notify'}
                   </Button>
-                  <Button variant="outline" className="flex-1 border-white/20 text-white hover:bg-white/10" onClick={handleShare}>
+                  <Button variant="outline" className="flex-1 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={handleShare}>
                     <Share2 className="w-4 h-4 mr-1" />
                     {isKorean ? '공유' : 'Share'}
                   </Button>
@@ -257,32 +257,32 @@ export default function EventDetail() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/5 border-white/10">
+            <Card className="bg-white dark:bg-white/5 border-gray-300 dark:border-white/10 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-white text-lg">
+                <CardTitle className="text-gray-900 dark:text-white text-lg">
                   {isKorean ? '이벤트 정보' : 'Event Details'}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-400">{isKorean ? '유형' : 'Type'}</span>
-                  <span className="text-white">{typeLabel}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '유형' : 'Type'}</span>
+                  <span className="text-gray-900 dark:text-white">{typeLabel}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">{isKorean ? '날짜' : 'Date'}</span>
-                  <span className="text-white">{formatDate(event.startDate)}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '날짜' : 'Date'}</span>
+                  <span className="text-gray-900 dark:text-white">{formatDate(event.startDate)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">{isKorean ? '시간' : 'Time'}</span>
-                  <span className="text-white">{formatTime(event.startDate)}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '시간' : 'Time'}</span>
+                  <span className="text-gray-900 dark:text-white">{formatTime(event.startDate)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">{isKorean ? '장소' : 'Location'}</span>
-                  <span className="text-white">{locationType}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{isKorean ? '장소' : 'Location'}</span>
+                  <span className="text-gray-900 dark:text-white">{locationType}</span>
                 </div>
                 {event.rewards && (
                   <div className="flex justify-between">
-                    <span className="text-gray-400">{isKorean ? '보상' : 'Rewards'}</span>
+                    <span className="text-gray-600 dark:text-gray-400">{isKorean ? '보상' : 'Rewards'}</span>
                     <span className="text-yellow-400">{event.rewards}</span>
                   </div>
                 )}

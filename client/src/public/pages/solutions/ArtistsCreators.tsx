@@ -72,7 +72,7 @@ export default function ArtistsCreators() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-20 mb-12 text-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#d946ef]/10 via-transparent to-transparent pointer-events-none" />
@@ -83,7 +83,7 @@ export default function ArtistsCreators() {
         <div className="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 
             href="/solutions/token-extensions"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#d946ef] mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[#d946ef] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
@@ -93,20 +93,20 @@ export default function ArtistsCreators() {
             <Sparkles className="w-4 h-4" /> {t('publicPages.solutions.artistsCreators.tag')}
           </div>
           
-          <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
+          <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" data-testid="text-page-title">
             {t('publicPages.solutions.artistsCreators.title')} <br />
             <span className="bg-gradient-to-r from-[#d946ef] via-[#8b5cf6] to-[#00f0ff] bg-clip-text text-transparent">
               {t('publicPages.solutions.artistsCreators.titleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
             {t('publicPages.solutions.artistsCreators.subtitle')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/developers/quickstart">
               <button 
-                className="bg-[#d946ef] text-white px-8 py-3 rounded-lg font-bold hover:bg-pink-600 transition flex items-center justify-center gap-2"
+                className="bg-[#d946ef] text-gray-900 dark:text-white px-8 py-3 rounded-lg font-bold hover:bg-pink-600 transition flex items-center justify-center gap-2"
                 style={{ boxShadow: "0 0 20px rgba(217,70,239,0.4)" }}
                 data-testid="button-start-creating"
               >
@@ -115,7 +115,7 @@ export default function ArtistsCreators() {
             </Link>
             <Link href="/app/nft-marketplace">
               <button 
-                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
+                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 dark:bg-white/5 transition flex items-center justify-center gap-2 text-gray-900 dark:text-white"
                 data-testid="button-explore"
               >
                 <Search className="w-4 h-4" /> {t('publicPages.solutions.artistsCreators.buttons.exploreCollections')}
@@ -140,13 +140,13 @@ export default function ArtistsCreators() {
                   className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300"
                   style={{ background: `linear-gradient(135deg, ${feature.gradientFrom}, ${feature.gradientTo})` }}
                 >
-                  <Icon className="w-8 h-8 text-white" />
+                  <Icon className="w-8 h-8 text-gray-900 dark:text-white" />
                 </div>
                 <div>
-                  <h3 className={`text-2xl font-bold text-white mb-3 group-hover:${feature.hoverColor} transition-colors`}>
+                  <h3 className={`text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:${feature.hoverColor} transition-colors`}>
                     {feature.title}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{feature.description}</p>
                 </div>
               </div>
             );
@@ -160,7 +160,7 @@ export default function ArtistsCreators() {
           <div className="grid md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-800">
             {stats.map((stat, idx) => (
               <div key={idx} className="p-4">
-                <div className="text-4xl font-bold text-white mb-2 font-mono">{stat.value}</div>
+                <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono">{stat.value}</div>
                 <div className="text-sm uppercase tracking-widest" style={{ color: stat.color }}>{stat.label}</div>
               </div>
             ))}
@@ -171,8 +171,8 @@ export default function ArtistsCreators() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.artistsCreators.relatedSolutions.title')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.artistsCreators.relatedSolutions.title')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.solutions.artistsCreators.relatedSolutions.description')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
@@ -183,7 +183,7 @@ export default function ArtistsCreators() {
             >
               <Coins className="w-5 h-5 text-[#d946ef]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#d946ef] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.tokenExtensions.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#d946ef] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.tokenExtensions.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.tokenExtensions.subtitle')}</p>
               </div>
             </Link>
@@ -194,7 +194,7 @@ export default function ArtistsCreators() {
             >
               <Wallet className="w-5 h-5 text-[#8b5cf6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.wallets.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.wallets.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.wallets.subtitle')}</p>
               </div>
             </Link>
@@ -205,7 +205,7 @@ export default function ArtistsCreators() {
             >
               <Store className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.commerce.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.commerce.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.commerce.subtitle')}</p>
               </div>
             </Link>
@@ -216,7 +216,7 @@ export default function ArtistsCreators() {
             >
               <Gamepad2 className="w-5 h-5 text-[#f97316]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f97316] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.gameTooling.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#f97316] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.gameTooling.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.gameTooling.subtitle')}</p>
               </div>
             </Link>
@@ -227,7 +227,7 @@ export default function ArtistsCreators() {
             >
               <CreditCard className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.payments.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.payments.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.payments.subtitle')}</p>
               </div>
             </Link>
@@ -238,7 +238,7 @@ export default function ArtistsCreators() {
             >
               <Zap className="w-5 h-5 text-[#facc15]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#facc15] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.actionsBlinks.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#facc15] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.actionsBlinks.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.actionsBlinks.subtitle')}</p>
               </div>
             </Link>
@@ -249,7 +249,7 @@ export default function ArtistsCreators() {
             >
               <Shield className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.financial.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.financial.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.financial.subtitle')}</p>
               </div>
             </Link>
@@ -260,7 +260,7 @@ export default function ArtistsCreators() {
             >
               <Sparkles className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.aiFeatures.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.aiFeatures.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.aiFeatures.subtitle')}</p>
               </div>
             </Link>
@@ -271,8 +271,8 @@ export default function ArtistsCreators() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.artistsCreators.developerResources.title')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.artistsCreators.developerResources.title')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.solutions.artistsCreators.developerResources.description')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
@@ -283,7 +283,7 @@ export default function ArtistsCreators() {
             >
               <BookOpen className="w-5 h-5 text-[#d946ef]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#d946ef] transition">{t('publicPages.solutions.artistsCreators.developerResources.sdkGuide.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#d946ef] transition">{t('publicPages.solutions.artistsCreators.developerResources.sdkGuide.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.sdkGuide.subtitle')}</p>
               </div>
             </Link>
@@ -294,7 +294,7 @@ export default function ArtistsCreators() {
             >
               <Code className="w-5 h-5 text-[#8b5cf6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.developerResources.smartContracts.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.developerResources.smartContracts.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.smartContracts.subtitle')}</p>
               </div>
             </Link>
@@ -305,7 +305,7 @@ export default function ArtistsCreators() {
             >
               <FileText className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.artistsCreators.developerResources.apiReference.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.artistsCreators.developerResources.apiReference.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.apiReference.subtitle')}</p>
               </div>
             </Link>
@@ -316,7 +316,7 @@ export default function ArtistsCreators() {
             >
               <Zap className="w-5 h-5 text-[#f97316]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f97316] transition">{t('publicPages.solutions.artistsCreators.developerResources.websocketApi.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#f97316] transition">{t('publicPages.solutions.artistsCreators.developerResources.websocketApi.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.websocketApi.subtitle')}</p>
               </div>
             </Link>
@@ -327,7 +327,7 @@ export default function ArtistsCreators() {
             >
               <Terminal className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.artistsCreators.developerResources.cliReference.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.artistsCreators.developerResources.cliReference.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.cliReference.subtitle')}</p>
               </div>
             </Link>
@@ -338,7 +338,7 @@ export default function ArtistsCreators() {
             >
               <ExternalLink className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.artistsCreators.developerResources.codeExamples.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.artistsCreators.developerResources.codeExamples.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.codeExamples.subtitle')}</p>
               </div>
             </Link>
@@ -358,7 +358,7 @@ export default function ArtistsCreators() {
                 <Coins className="w-5 h-5 text-[#8b5cf6]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.learnMore.defiMastery.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.learnMore.defiMastery.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.learnMore.defiMastery.subtitle')}</p>
               </div>
             </div>
@@ -374,7 +374,7 @@ export default function ArtistsCreators() {
                 <Code className="w-5 h-5 text-[#f59e0b]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.artistsCreators.learnMore.developerCourse.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.artistsCreators.learnMore.developerCourse.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.learnMore.developerCourse.subtitle')}</p>
               </div>
             </div>
@@ -383,13 +383,13 @@ export default function ArtistsCreators() {
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.solutions.artistsCreators.cta.title')}</h2>
-          <p className="text-gray-400 mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.solutions.artistsCreators.cta.title')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
             {t('publicPages.solutions.artistsCreators.cta.description')}
           </p>
           <Link 
             href="/developers/docs"
-            className="text-[#d946ef] hover:text-white transition-colors border-b border-[#d946ef] hover:border-white pb-1"
+            className="text-[#d946ef] hover:text-gray-900 dark:text-white transition-colors border-b border-[#d946ef] hover:border-white pb-1"
             data-testid="link-creator-guide"
           >
             {t('publicPages.solutions.artistsCreators.cta.link')} <ArrowLeft className="w-4 h-4 inline-block rotate-180 ml-1" />

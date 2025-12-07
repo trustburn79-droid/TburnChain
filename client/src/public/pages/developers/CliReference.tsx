@@ -100,19 +100,19 @@ tburn deploy Token --network=testnet --verify`,
   ];
 
   return (
-    <main className="flex-grow relative z-10">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Terminal className="w-3 h-3" /> {t('publicPages.developers.cli.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             {t('publicPages.developers.cli.title').split(' ')[0]} <span className="text-gradient">{t('publicPages.developers.cli.title').split(' ').slice(1).join(' ')}</span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-4">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mb-4">
             {t('publicPages.developers.cli.subtitle')}
           </p>
           <span className="text-sm font-mono text-[#7000ff]">{t('publicPages.developers.cli.currentVersion')}: 4.2.1</span>
@@ -120,31 +120,31 @@ tburn deploy Token --network=testnet --verify`,
       </section>
 
       {/* Installation Section */}
-      <section className="py-12 px-6 border-b border-white/5 bg-black/40">
+      <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/40">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
             <Download className="w-6 h-6 text-[#00ff9d]" /> {t('publicPages.developers.cli.installation.title')}
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {installMethods.map((method, index) => (
-              <div key={index} className="spotlight-card rounded-xl p-6 border border-white/10">
+              <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                 <div className="flex justify-between mb-4">
-                  <span className="font-bold text-white">{method.name}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">{method.name}</span>
                   {method.icon ? (
                     <method.icon className="w-6 h-6" style={{ color: method.color }} />
                   ) : (
                     <span className="font-mono font-bold" style={{ color: method.color }}>{method.label}</span>
                   )}
                 </div>
-                <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-3 font-mono text-xs text-gray-400">
+                <div className="bg-gray-900 dark:bg-[#0d0d12] border border-gray-300 dark:border-white/10 rounded-lg p-3 font-mono text-xs text-gray-300 dark:text-gray-400">
                   {method.command}
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-6 flex items-center gap-4 text-sm text-gray-400">
+          <div className="mt-6 flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
             <span>{t('publicPages.developers.cli.installation.verify')}:</span>
-            <code className="bg-white/10 px-2 py-1 rounded text-white">tburn --version</code>
+            <code className="bg-gray-100 dark:bg-white/10 px-2 py-1 rounded text-gray-900 dark:text-white">tburn --version</code>
           </div>
         </div>
       </section>
@@ -156,13 +156,13 @@ tburn deploy Token --network=testnet --verify`,
             {/* Sidebar */}
             <div className="lg:col-span-1 space-y-6">
               {/* Global Options */}
-              <div className="spotlight-card rounded-xl p-6 border border-white/10 sticky top-24">
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-gray-400" /> {t('publicPages.developers.cli.globalOptionsTitle')}
+              <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 sticky top-24">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" /> {t('publicPages.developers.cli.globalOptionsTitle')}
                 </h3>
                 <ul className="space-y-3 text-sm font-mono">
                   {globalOptions.map((opt, index) => (
-                    <li key={index} className="flex justify-between items-center border-b border-white/5 pb-2 last:border-0">
+                    <li key={index} className="flex justify-between items-center border-b border-gray-200 dark:border-white/5 pb-2 last:border-0">
                       <span className="text-[#00f0ff]">{opt.flag}</span>
                       <span className="text-gray-500 text-xs">{opt.desc}</span>
                     </li>
@@ -171,14 +171,14 @@ tburn deploy Token --network=testnet --verify`,
               </div>
 
               {/* Environment Variables */}
-              <div className="spotlight-card rounded-xl p-6 border border-white/10 bg-gradient-to-br from-red-900/10 to-transparent">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 bg-gradient-to-br from-red-900/10 to-transparent">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <Key className="w-5 h-5 text-[#ff0055]" /> {t('publicPages.developers.cli.environmentTitle')}
                 </h3>
                 <div className="space-y-3 text-xs">
                   {envVars.map((env, index) => (
                     <div key={index} className="flex justify-between items-center">
-                      <code className="text-white">{env.name}</code>
+                      <code className="text-gray-900 dark:text-white">{env.name}</code>
                       <span className={`font-mono text-[10px] px-2 py-0.5 rounded border ${
                         env.required 
                           ? "text-[#ff0055] border-[#ff0055]/30 bg-[#ff0055]/10" 
@@ -192,22 +192,22 @@ tburn deploy Token --network=testnet --verify`,
               </div>
 
               {/* Related Links */}
-              <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.developers.cli.relatedDocs')}</h3>
+              <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.developers.cli.relatedDocs')}</h3>
                 <div className="space-y-2">
-                  <Link href="/developers" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                  <Link href="/developers" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-[#00f0ff] transition">
                     {t('publicPages.developers.cli.relatedLinks.developerHub')}
                   </Link>
-                  <Link href="/developers/docs" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                  <Link href="/developers/docs" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-[#00f0ff] transition">
                     {t('publicPages.developers.cli.relatedLinks.documentation')}
                   </Link>
-                  <Link href="/developers/api" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                  <Link href="/developers/api" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-[#00f0ff] transition">
                     {t('publicPages.developers.cli.relatedLinks.apiReference')}
                   </Link>
-                  <Link href="/developers/quickstart" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                  <Link href="/developers/quickstart" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-[#00f0ff] transition">
                     {t('publicPages.developers.cli.relatedLinks.quickStart')}
                   </Link>
-                  <Link href="/developers/installation" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                  <Link href="/developers/installation" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-[#00f0ff] transition">
                     {t('publicPages.developers.cli.relatedLinks.installationGuide')}
                   </Link>
                 </div>
@@ -225,7 +225,7 @@ tburn deploy Token --network=testnet --verify`,
                     className={`px-3 py-1 rounded-full border text-xs font-bold transition ${
                       activeCategory === cat.name
                         ? "border-[#7000ff] text-[#7000ff]"
-                        : "border-white/20 text-gray-400 hover:border-white hover:text-white"
+                        : "border-gray-300 dark:border-white/20 text-gray-600 dark:text-gray-400 hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white"
                     }`}
                     data-testid={`button-category-${cat.name.toLowerCase()}`}
                   >
@@ -236,15 +236,15 @@ tburn deploy Token --network=testnet --verify`,
 
               {/* Command Cards */}
               {commands.map((command, index) => (
-                <div key={index} className="spotlight-card rounded-xl p-8 border border-white/10">
+                <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8">
                   <div className="flex items-center gap-4 mb-4">
                     <code className="text-xl font-bold text-[#7000ff] font-mono">{command.cmd}</code>
-                    <span className="text-gray-400 text-sm">{command.desc}</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{command.desc}</span>
                   </div>
                   
                   <div className="mb-6">
                     <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">{t('publicPages.developers.cli.usage')}</h4>
-                    <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-3 font-mono text-sm text-gray-400">
+                    <div className="bg-gray-900 dark:bg-[#0d0d12] border border-gray-300 dark:border-white/10 rounded-lg p-3 font-mono text-sm text-gray-300 dark:text-gray-400">
                       {command.usage}
                     </div>
                   </div>
@@ -255,9 +255,9 @@ tburn deploy Token --network=testnet --verify`,
                       {command.options.map((opt, oIndex) => (
                         <div key={oIndex} className="flex gap-4">
                           <code className="text-[#00f0ff] w-32 flex-shrink-0">{opt.flag}</code>
-                          <span className="text-gray-400 flex-1">{opt.desc}</span>
+                          <span className="text-gray-600 dark:text-gray-400 flex-1">{opt.desc}</span>
                           {opt.default && (
-                            <span className="text-xs text-gray-600">{t('publicPages.developers.cli.default')}: {opt.default}</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-600">{t('publicPages.developers.cli.default')}: {opt.default}</span>
                           )}
                         </div>
                       ))}
@@ -267,7 +267,7 @@ tburn deploy Token --network=testnet --verify`,
                   {command.examples && (
                     <div>
                       <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">{t('publicPages.developers.cli.examples')}</h4>
-                      <pre className="bg-[#0d0d12] border border-white/10 rounded-lg p-4 font-mono text-xs text-gray-400 overflow-x-auto whitespace-pre-wrap">
+                      <pre className="bg-gray-900 dark:bg-[#0d0d12] border border-gray-300 dark:border-white/10 rounded-lg p-4 font-mono text-xs text-gray-300 dark:text-gray-400 overflow-x-auto whitespace-pre-wrap">
                         {command.examples}
                       </pre>
                     </div>
@@ -280,22 +280,22 @@ tburn deploy Token --network=testnet --verify`,
       </section>
 
       {/* Need Help Section */}
-      <section className="py-12 px-6 bg-gradient-to-br from-[#7000ff]/5 to-transparent border-t border-white/5">
+      <section className="py-12 px-6 bg-gradient-to-br from-[#7000ff]/5 to-transparent border-t border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center gap-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center justify-center gap-2">
             <HelpCircle className="w-6 h-6" /> {t('publicPages.developers.cli.needHelp.title')}
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="/developers/docs"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-sdk-docs"
             >
               <Book className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.developers.cli.needHelp.sdkDocumentation')}
             </Link>
             <Link 
               href="/developers/api"
-              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-white"
+              className="px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-gray-900 dark:text-white"
               data-testid="link-api-ref"
             >
               <Server className="w-5 h-5 text-[#00f0ff]" /> {t('publicPages.developers.cli.needHelp.apiReference')}

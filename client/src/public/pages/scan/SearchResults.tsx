@@ -130,7 +130,7 @@ export default function SearchResults() {
       case 'token':
         return <Coins className="w-5 h-5 text-yellow-400" />;
       default:
-        return <Search className="w-5 h-5 text-gray-400" />;
+        return <Search className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
     }
   };
 
@@ -142,7 +142,7 @@ export default function SearchResults() {
       validator: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
       token: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
     };
-    return colors[type] || 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+    return colors[type] || 'bg-gray-500/20 text-gray-600 dark:text-gray-400 border-gray-500/30';
   };
 
   const getLink = (result: SearchResult) => {
@@ -170,11 +170,11 @@ export default function SearchResults() {
 
   return (
     <ScanLayout>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 bg-gray-50 dark:bg-transparent transition-colors">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <Link href="/scan">
-            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white" data-testid="button-back">
+            <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back">
               <ChevronLeft className="w-5 h-5" />
             </Button>
           </Link>
@@ -183,11 +183,11 @@ export default function SearchResults() {
               <Search className="w-5 h-5 text-orange-400" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white" data-testid="title-search">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white" data-testid="title-search">
                 {t("scan.searchResults", "Search Results")}
               </h1>
               {debouncedQuery && (
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   {t("scan.resultsFor", "Results for")} "<span className="text-orange-400">{debouncedQuery}</span>"
                 </p>
               )}
@@ -207,7 +207,7 @@ export default function SearchResults() {
                     placeholder={t("scan.searchPlaceholder", "Search by Address / Txn Hash / Block / Token")}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 h-12 bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg focus:ring-orange-500/50 focus:border-orange-500/50"
+                    className="pl-12 h-12 bg-gray-800/50 border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 rounded-lg focus:ring-orange-500/50 focus:border-orange-500/50"
                     data-testid="input-search"
                   />
                 </div>
@@ -231,7 +231,7 @@ export default function SearchResults() {
                 <AlertCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-sm text-gray-300 font-medium mb-2">{t("scan.searchTips", "Search Tips")}</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-gray-400">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-400">
                     <div className="flex items-center gap-2">
                       <Blocks className="w-3 h-3 text-blue-400" />
                       <span>{t("scan.tipBlock", "Block number: 21329150")}</span>
@@ -259,8 +259,8 @@ export default function SearchResults() {
         <Card className="bg-gray-900/50 border-gray-800" data-testid="card-results">
           <CardHeader className="border-b border-gray-800/50">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-white flex items-center gap-2">
-                <Database className="w-5 h-5 text-gray-400" />
+              <CardTitle className="text-gray-900 dark:text-white flex items-center gap-2">
+                <Database className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 {results.length > 0 
                   ? t("scan.foundResults", "Found {{count}} results", { count: results.length })
                   : t("scan.results", "Results")
@@ -276,7 +276,7 @@ export default function SearchResults() {
           </CardHeader>
           <CardContent className="p-4">
             {!debouncedQuery || debouncedQuery.length < 2 ? (
-              <div className="text-center py-12 text-gray-400">
+              <div className="text-center py-12 text-gray-600 dark:text-gray-400">
                 <Search className="w-16 h-16 mx-auto mb-4 opacity-30" />
                 <p className="text-lg">{t("scan.enterSearch", "Enter at least 2 characters to search")}</p>
                 <p className="text-sm mt-2 text-gray-500">{t("scan.searchHint", "Search for addresses, transactions, blocks, or tokens")}</p>
@@ -301,7 +301,7 @@ export default function SearchResults() {
                 <p className="text-sm mt-2 text-gray-500">{t("scan.tryAgain", "Please try again")}</p>
               </div>
             ) : results.length === 0 ? (
-              <div className="text-center py-12 text-gray-400">
+              <div className="text-center py-12 text-gray-600 dark:text-gray-400">
                 <Search className="w-16 h-16 mx-auto mb-4 opacity-30" />
                 <p className="text-lg">{t("scan.noResults", "No results found for")} "<span className="text-orange-400">{debouncedQuery}</span>"</p>
                 <p className="text-sm mt-2 text-gray-500">{t("scan.tryDifferent", "Try a different search term")}</p>
@@ -346,19 +346,19 @@ export default function SearchResults() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-white font-medium truncate">{result.title}</span>
+                            <span className="text-gray-900 dark:text-white font-medium truncate">{result.title}</span>
                             <Badge variant="outline" className={`text-xs ${getTypeBadge(result.type)}`}>
                               {result.type.charAt(0).toUpperCase() + result.type.slice(1)}
                             </Badge>
                           </div>
-                          <div className="text-sm text-gray-400 truncate mt-1">{result.subtitle}</div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400 truncate mt-1">{result.subtitle}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0 ml-4">
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-gray-500 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="h-8 w-8 text-gray-500 hover:text-gray-900 dark:hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();

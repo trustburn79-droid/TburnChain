@@ -142,19 +142,19 @@ export default function Whitepaper() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 left-1/4 w-[800px] h-[500px] bg-[#00f0ff]/5 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <FileCode className="w-4 h-4" /> {t('publicPages.learn.whitepaper.tag')}
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" data-testid="text-page-title">
             {t('publicPages.learn.whitepaper.title')}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
             {t('publicPages.learn.whitepaper.heroDescription')}
             <br />
             {t('publicPages.learn.whitepaper.heroSubDescription')}
@@ -176,7 +176,7 @@ export default function Whitepaper() {
               href="https://github.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
+              className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition flex items-center gap-2"
               data-testid="link-view-source"
             >
               <SiGithub className="w-4 h-4" /> {t('publicPages.learn.whitepaper.viewSource')}
@@ -186,10 +186,10 @@ export default function Whitepaper() {
       </section>
 
       {/* The Trust Crisis Section */}
-      <section className="py-20 px-6 border-b border-white/5">
+      <section className="py-20 px-6 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.whitepaper.trustCrisis.title')}</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.whitepaper.trustCrisis.title')}</h2>
             <p className="text-gray-500">{t('publicPages.learn.whitepaper.trustCrisis.subtitle')}</p>
           </div>
 
@@ -197,13 +197,13 @@ export default function Whitepaper() {
             {trustCrisis.map((item, index) => (
               <div 
                 key={index}
-                className="spotlight-card rounded-xl p-6"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6"
                 style={{ borderTop: `2px solid ${item.color}50` }}
                 data-testid={`crisis-card-${index}`}
               >
                 <item.icon className="w-8 h-8 mb-4" style={{ color: item.color }} />
-                <h3 className="text-white font-bold text-lg mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-400">{item.description}</p>
+                <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
               </div>
             ))}
           </div>
@@ -218,11 +218,11 @@ export default function Whitepaper() {
               <div className="inline-block px-3 py-1 rounded bg-[#7000ff]/20 text-[#7000ff] text-xs font-bold mb-4 font-mono">
                 {t('publicPages.learn.whitepaper.performance.badge')}
               </div>
-              <h2 className="text-4xl font-bold text-white mb-6">{t('publicPages.learn.whitepaper.performance.title')}</h2>
-              <p className="text-gray-400 leading-relaxed mb-6">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.learn.whitepaper.performance.title')}</h2>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                 {t('publicPages.learn.whitepaper.performance.description')}
               </p>
-              <ul className="space-y-3 text-gray-300">
+              <ul className="space-y-3 text-gray-700 dark:text-gray-300">
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.learn.whitepaper.performance.features.hybridConsensus')}
                 </li>
@@ -239,7 +239,7 @@ export default function Whitepaper() {
                 {performanceMetrics.map((metric, index) => (
                   <div 
                     key={index}
-                    className="p-6 rounded-lg text-center"
+                    className="p-6 rounded-lg text-center bg-gray-50 dark:bg-transparent"
                     style={{ 
                       border: "1px solid rgba(255, 255, 255, 0.1)",
                       background: "rgba(0,0,0,0.4)"
@@ -247,7 +247,7 @@ export default function Whitepaper() {
                     data-testid={`performance-metric-${index}`}
                   >
                     <metric.icon className="w-6 h-6 mx-auto mb-2" style={{ color: metric.color }} />
-                    <div className="text-2xl font-bold text-white font-mono">{metric.value}</div>
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono">{metric.value}</div>
                     <div className="text-xs text-gray-500 uppercase tracking-widest">{metric.label}</div>
                   </div>
                 ))}
@@ -258,18 +258,18 @@ export default function Whitepaper() {
       </section>
 
       {/* Triple-Band AI Orchestration Section */}
-      <section className="py-20 px-6 bg-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.learn.whitepaper.aiLayers.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.learn.whitepaper.aiLayers.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.learn.whitepaper.aiLayers.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.whitepaper.aiLayers.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {aiLayers.map((layer, index) => (
               <div 
                 key={index}
-                className="spotlight-card rounded-xl p-8"
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8"
                 style={{ border: `1px solid ${layer.color}20` }}
                 data-testid={`ai-layer-${index}`}
               >
@@ -285,9 +285,9 @@ export default function Whitepaper() {
                     {layer.latency}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{layer.title}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{layer.title}</h3>
                 <p className="text-xs mb-4 font-mono" style={{ color: layer.color }}>{layer.model}</p>
-                <p className="text-sm text-gray-400">{layer.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{layer.description}</p>
               </div>
             ))}
           </div>
@@ -300,18 +300,18 @@ export default function Whitepaper() {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Quantum-Safe Security */}
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                 <ShieldCheck className="w-6 h-6 text-[#00f0ff]" /> {t('publicPages.learn.whitepaper.quantumSecurity.title')}
               </h3>
               <div className="space-y-4">
                 {quantumSecurity.map((item, index) => (
-                  <div key={index} className="spotlight-card p-5 rounded-lg flex gap-4">
+                  <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-5 rounded-lg flex gap-4">
                     <div className="text-[#00f0ff] text-xl">
                       <item.icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="text-white font-bold text-sm">{item.title}</h4>
-                      <p className="text-gray-400 text-xs">{item.description}</p>
+                      <h4 className="text-gray-900 dark:text-white font-bold text-sm">{item.title}</h4>
+                      <p className="text-gray-600 dark:text-gray-400 text-xs">{item.description}</p>
                     </div>
                   </div>
                 ))}
@@ -320,18 +320,18 @@ export default function Whitepaper() {
 
             {/* V4 Core Modules */}
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                 <Boxes className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.learn.whitepaper.coreModules.title')}
               </h3>
               <div className="space-y-4">
                 {coreModules.map((item, index) => (
-                  <div key={index} className="spotlight-card p-5 rounded-lg flex gap-4">
+                  <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card p-5 rounded-lg flex gap-4">
                     <div className="text-[#7000ff] text-xl">
                       <item.icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="text-white font-bold text-sm">{item.title}</h4>
-                      <p className="text-gray-400 text-xs">{item.description}</p>
+                      <h4 className="text-gray-900 dark:text-white font-bold text-sm">{item.title}</h4>
+                      <p className="text-gray-600 dark:text-gray-400 text-xs">{item.description}</p>
                     </div>
                   </div>
                 ))}

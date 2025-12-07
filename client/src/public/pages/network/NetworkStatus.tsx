@@ -42,8 +42,8 @@ export default function NetworkStatus() {
   const uptimeSegments = Array(15).fill(100).map((_, i) => i === 11 ? 99.8 : 100);
 
   return (
-    <main className="flex-grow relative z-10">
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#00ff9d]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl relative z-10">
@@ -55,15 +55,15 @@ export default function NetworkStatus() {
             <span className="text-xs font-mono text-gray-500">{t('publicPages.network.status.lastUpdated')}: {lastUpdated}</span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             {t('publicPages.network.status.title')}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mb-10">
             {t('publicPages.network.status.subtitle')}
           </p>
           
           <button 
-            className="px-6 py-2 rounded-lg border border-white/20 text-white hover:bg-white/5 transition text-sm flex items-center gap-2"
+            className="px-6 py-2 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition text-sm flex items-center gap-2"
             data-testid="button-refresh-data"
             onClick={() => refetchStats()}
           >
@@ -75,8 +75,8 @@ export default function NetworkStatus() {
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white mb-2">{t('publicPages.network.status.sections.coreMetrics')}</h2>
-            <p className="text-gray-400 text-sm">{t('publicPages.network.status.sections.coreMetricsDesc')}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.status.sections.coreMetrics')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">{t('publicPages.network.status.sections.coreMetricsDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -85,10 +85,10 @@ export default function NetworkStatus() {
                 <Zap className="w-5 h-5" />
                 <span className="font-bold">{t('publicPages.network.status.metrics.tps')}</span>
               </div>
-              <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-tps">
+              <div className="text-4xl font-mono font-bold text-gray-900 dark:text-white mb-2" data-testid="stat-tps">
                 {stats?.tps != null ? stats.tps.toLocaleString() : "100,000+"}
               </div>
-              <div className="text-xs text-gray-400">{t('publicPages.network.status.metrics.peak')}: 520,000+</div>
+              <div className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.status.metrics.peak')}: 520,000+</div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 border border-[#00f0ff]/20 bg-[#00f0ff]/5">
@@ -96,10 +96,10 @@ export default function NetworkStatus() {
                 <Gauge className="w-5 h-5" />
                 <span className="font-bold">{t('publicPages.network.status.metrics.latency')}</span>
               </div>
-              <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-latency">
+              <div className="text-4xl font-mono font-bold text-gray-900 dark:text-white mb-2" data-testid="stat-latency">
                 {stats?.avgBlockTime != null ? `${Number(stats.avgBlockTime).toFixed(2)}s` : "0.5s"}
               </div>
-              <div className="text-xs text-gray-400">{t('publicPages.network.status.metrics.finality')}: {stats?.finality ?? "< 2s"}</div>
+              <div className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.status.metrics.finality')}: {stats?.finality ?? "< 2s"}</div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 border border-[#7000ff]/20 bg-[#7000ff]/5">
@@ -107,10 +107,10 @@ export default function NetworkStatus() {
                 <Box className="w-5 h-5" />
                 <span className="font-bold">{t('publicPages.network.status.metrics.blockHeight')}</span>
               </div>
-              <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-block-height">
+              <div className="text-4xl font-mono font-bold text-gray-900 dark:text-white mb-2" data-testid="stat-block-height">
                 {stats?.blockHeight != null ? stats.blockHeight.toLocaleString() : "14,035,000"}
               </div>
-              <div className="text-xs text-gray-400">{t('publicPages.network.status.metrics.shards')}: {stats?.shardCount ?? 8}</div>
+              <div className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.status.metrics.shards')}: {stats?.shardCount ?? 8}</div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 border border-[#ffd700]/20 bg-[#ffd700]/5">
@@ -118,26 +118,26 @@ export default function NetworkStatus() {
                 <Fuel className="w-5 h-5" />
                 <span className="font-bold">{t('publicPages.network.status.metrics.avgFee')}</span>
               </div>
-              <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-fee">
+              <div className="text-4xl font-mono font-bold text-gray-900 dark:text-white mb-2" data-testid="stat-fee">
                 ${stats?.gasPrice ?? "0.0001"}
               </div>
-              <div className="text-xs text-gray-400">{t('publicPages.network.status.metrics.cheapFast')}</div>
+              <div className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.status.metrics.cheapFast')}</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-16 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white mb-2">{t('publicPages.network.status.sections.validatorNetwork')}</h2>
-            <p className="text-gray-400 text-sm">{t('publicPages.network.status.sections.validatorNetworkDesc')}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.status.sections.validatorNetwork')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">{t('publicPages.network.status.sections.validatorNetworkDesc')}</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Users className="w-6 h-6 text-[#7000ff] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono" data-testid="stat-active-validators">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono" data-testid="stat-active-validators">
                 {validatorData?.summary?.active != null 
                   ? validatorData.summary.active.toLocaleString() 
                   : stats?.activeValidators != null 
@@ -148,21 +148,21 @@ export default function NetworkStatus() {
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Crown className="w-6 h-6 text-[#ffd700] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono">
                 {Math.floor((validatorData?.summary?.active ?? stats?.activeValidators ?? 156) * 0.1)}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.superNodes')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Server className="w-6 h-6 text-[#00f0ff] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono" data-testid="stat-nodes">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono" data-testid="stat-nodes">
                 {stats?.nodeCount != null ? stats.nodeCount.toLocaleString() : "2,450"}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.nodeCount')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <HeartPulse className="w-6 h-6 text-[#00ff9d] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono text-[#00ff9d]" data-testid="stat-uptime">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono text-[#00ff9d]" data-testid="stat-uptime">
                 {validatorData?.summary?.avgUptime != null 
                   ? `${parseFloat(validatorData.summary.avgUptime).toFixed(2)}%` 
                   : stats?.uptime ?? "99.97%"}
@@ -171,14 +171,14 @@ export default function NetworkStatus() {
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Coins className="w-6 h-6 text-[#ffd700] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono" data-testid="stat-staked">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono" data-testid="stat-staked">
                 {stats?.totalStaked ?? "$1.2B"}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.totalStaked')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
-              <Globe className="w-6 h-6 text-white mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono">160</div>
+              <Globe className="w-6 h-6 text-gray-900 dark:text-white mx-auto mb-2" />
+              <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono">160</div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.regions')}</div>
             </div>
           </div>
@@ -188,16 +188,16 @@ export default function NetworkStatus() {
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white mb-2">{t('publicPages.network.status.sections.aiSystem')}</h2>
-            <p className="text-gray-400 text-sm">{t('publicPages.network.status.sections.aiSystemDesc')}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.status.sections.aiSystem')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">{t('publicPages.network.status.sections.aiSystemDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="spotlight-card rounded-xl p-6 border border-white/10" data-testid="card-ai-strategic">
+            <div className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10" data-testid="card-ai-strategic">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-bold text-white text-lg">{t('publicPages.network.status.ai.strategic.title')}</h3>
-                  <p className="text-xs text-gray-400">{t('publicPages.network.status.ai.strategic.model')}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-lg">{t('publicPages.network.status.ai.strategic.title')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.status.ai.strategic.model')}</p>
                 </div>
                 <span className="px-2 py-1 rounded bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-mono border border-[#00ff9d]/30">{t('publicPages.network.status.ai.active')}</span>
               </div>
@@ -207,15 +207,15 @@ export default function NetworkStatus() {
               </div>
               <div className="flex justify-between text-sm mt-2">
                 <span className="text-gray-500">{t('publicPages.network.status.ai.accuracy')}</span>
-                <span className="text-white font-mono">{aiData?.models?.gpt5?.accuracy || "99.1%"}</span>
+                <span className="text-gray-900 dark:text-white font-mono">{aiData?.models?.gpt5?.accuracy || "99.1%"}</span>
               </div>
             </div>
 
-            <div className="spotlight-card rounded-xl p-6 border border-white/10" data-testid="card-ai-tactical">
+            <div className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10" data-testid="card-ai-tactical">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-bold text-white text-lg">{t('publicPages.network.status.ai.tactical.title')}</h3>
-                  <p className="text-xs text-gray-400">{t('publicPages.network.status.ai.tactical.model')}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-lg">{t('publicPages.network.status.ai.tactical.title')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.status.ai.tactical.model')}</p>
                 </div>
                 <span className="px-2 py-1 rounded bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-mono border border-[#00ff9d]/30">{t('publicPages.network.status.ai.active')}</span>
               </div>
@@ -225,15 +225,15 @@ export default function NetworkStatus() {
               </div>
               <div className="flex justify-between text-sm mt-2">
                 <span className="text-gray-500">{t('publicPages.network.status.ai.accuracy')}</span>
-                <span className="text-white font-mono">{aiData?.models?.claude?.accuracy || "99.4%"}</span>
+                <span className="text-gray-900 dark:text-white font-mono">{aiData?.models?.claude?.accuracy || "99.4%"}</span>
               </div>
             </div>
 
-            <div className="spotlight-card rounded-xl p-6 border border-white/10" data-testid="card-ai-operational">
+            <div className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10" data-testid="card-ai-operational">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-bold text-white text-lg">{t('publicPages.network.status.ai.operational.title')}</h3>
-                  <p className="text-xs text-gray-400">{t('publicPages.network.status.ai.operational.model')}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-lg">{t('publicPages.network.status.ai.operational.title')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.status.ai.operational.model')}</p>
                 </div>
                 <span className="px-2 py-1 rounded bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-mono border border-[#00ff9d]/30">{t('publicPages.network.status.ai.active')}</span>
               </div>
@@ -243,27 +243,27 @@ export default function NetworkStatus() {
               </div>
               <div className="flex justify-between text-sm mt-2">
                 <span className="text-gray-500">{t('publicPages.network.status.ai.accuracy')}</span>
-                <span className="text-white font-mono">{aiData?.models?.llama?.accuracy || "98.9%"}</span>
+                <span className="text-gray-900 dark:text-white font-mono">{aiData?.models?.llama?.accuracy || "98.9%"}</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-white/5 border-t border-white/5">
+      <section className="py-16 px-6 bg-gray-100 dark:bg-white/5 border-t border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white mb-2">{t('publicPages.network.status.sections.serviceStatus')}</h2>
-            <p className="text-gray-400 text-sm">{t('publicPages.network.status.sections.serviceStatusDesc')}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.status.sections.serviceStatus')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">{t('publicPages.network.status.sections.serviceStatusDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             {services.map((service) => (
-              <div key={service.name} className="spotlight-card rounded-lg p-4 flex items-center justify-between border border-white/10">
+              <div key={service.name} className="spotlight-card rounded-lg p-4 flex items-center justify-between border border-gray-300 dark:border-white/10">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-[#00ff9d]" />
                   <div>
-                    <h4 className="text-white font-bold text-sm">{service.name}</h4>
+                    <h4 className="text-gray-900 dark:text-white font-bold text-sm">{service.name}</h4>
                     <p className="text-xs text-gray-500">{service.desc}</p>
                   </div>
                 </div>
@@ -281,13 +281,13 @@ export default function NetworkStatus() {
         <div className="container mx-auto max-w-7xl">
           <div className="mb-6 flex flex-wrap justify-between items-end gap-4">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-2">{t('publicPages.network.status.sections.uptimeHistory')}</h2>
-              <p className="text-gray-400 text-sm">{t('publicPages.network.status.sections.uptimeHistoryDesc')}</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.status.sections.uptimeHistory')}</h2>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">{t('publicPages.network.status.sections.uptimeHistoryDesc')}</p>
             </div>
             <span className="text-[#00ff9d] font-bold">{t('publicPages.network.status.uptimeAvg')}</span>
           </div>
 
-          <div className="spotlight-card rounded-xl p-6 border border-white/10">
+          <div className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10">
             <div className="flex gap-0.5 h-8">
               {uptimeSegments.map((uptime, index) => (
                 <div

@@ -110,18 +110,18 @@ export default function Tokenization() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 left-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#7000ff] mb-6">
             <Coins className="w-4 h-4" /> {t('publicPages.useCases.tokenization.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.useCases.tokenization.title')}
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
             {t('publicPages.useCases.tokenization.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -136,7 +136,7 @@ export default function Tokenization() {
             </Link>
             <Link href="/developers/docs">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition"
                 data-testid="button-docs"
               >
                 {t('publicPages.useCases.tokenization.buttons.viewDocumentation')}
@@ -149,8 +149,8 @@ export default function Tokenization() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.useCases.tokenization.sections.types')}</h2>
-            <p className="text-gray-400">{t('publicPages.useCases.tokenization.sections.typesDesc')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.useCases.tokenization.sections.types')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.useCases.tokenization.sections.typesDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -159,7 +159,7 @@ export default function Tokenization() {
               return (
                 <div 
                   key={idx}
-                  className="spotlight-card rounded-2xl p-8 border border-white/10"
+                  className="spotlight-card rounded-2xl p-8 border border-gray-300 dark:border-white/10"
                   data-testid={`card-type-${idx}`}
                 >
                   <div 
@@ -171,8 +171,8 @@ export default function Tokenization() {
                   >
                     <Icon className="w-7 h-7" style={{ color: type.iconColor }} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{type.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{type.desc}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{type.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{type.desc}</p>
                 </div>
               );
             })}
@@ -180,7 +180,7 @@ export default function Tokenization() {
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-white/[0.02] border-y border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/[0.02] border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="grid md:grid-cols-3 gap-8">
             {metrics.map((metric, idx) => {
@@ -195,8 +195,8 @@ export default function Tokenization() {
                     className="w-10 h-10 mx-auto mb-4 group-hover:scale-110 transition-transform" 
                     style={{ color: metric.iconColor }}
                   />
-                  <div className="text-4xl font-bold text-white mb-2 font-mono">{metric.value}</div>
-                  <p className="text-sm text-gray-400">{metric.label}</p>
+                  <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono">{metric.value}</div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{metric.label}</p>
                 </div>
               );
             })}
@@ -206,7 +206,7 @@ export default function Tokenization() {
 
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.tokenization.sections.platformFeatures')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.useCases.tokenization.sections.platformFeatures')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, idx) => {
@@ -214,12 +214,12 @@ export default function Tokenization() {
               return (
                 <div 
                   key={idx}
-                  className="spotlight-card rounded-xl p-6 border border-white/10 text-center"
+                  className="spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10 text-center"
                   data-testid={`card-feature-${idx}`}
                 >
                   <Icon className="w-8 h-8 text-[#00f0ff] mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-                  <p className="text-sm text-gray-400">{feature.desc}</p>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{feature.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{feature.desc}</p>
                 </div>
               );
             })}
@@ -231,8 +231,8 @@ export default function Tokenization() {
         <div className="container mx-auto max-w-4xl">
           <div className="spotlight-card rounded-2xl p-8 border border-[#7000ff]/30 text-center"
                style={{ background: "linear-gradient(135deg, rgba(112,0,255,0.1) 0%, rgba(0,240,255,0.05) 100%)" }}>
-            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.useCases.tokenization.cta.title')}</h2>
-            <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.useCases.tokenization.cta.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
               {t('publicPages.useCases.tokenization.cta.desc')}
             </p>
             <Link href="/app">

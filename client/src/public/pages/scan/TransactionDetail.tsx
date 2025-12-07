@@ -153,11 +153,11 @@ export default function TransactionDetail() {
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/20 flex items-center justify-center">
                 <XCircle className="w-8 h-8 text-red-400" />
               </div>
-              <h1 className="text-2xl font-bold text-white mb-2">{t("scan.txNotFound", "Transaction Not Found")}</h1>
-              <p className="text-gray-400 mb-6">{t("scan.txNotFoundDesc", "The transaction hash you entered could not be found.")}</p>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t("scan.txNotFound", "Transaction Not Found")}</h1>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">{t("scan.txNotFoundDesc", "The transaction hash you entered could not be found.")}</p>
               <div className="bg-gray-800/50 rounded-lg p-4 mb-6">
                 <p className="text-sm text-gray-500 mb-1">{t("scan.searchedFor", "Searched for")}:</p>
-                <p className="text-sm text-white font-mono break-all">{txHash}</p>
+                <p className="text-sm text-gray-900 dark:text-white font-mono break-all">{txHash}</p>
               </div>
               <Link href="/scan/txs">
                 <Button className="bg-gradient-to-r from-orange-500 to-red-600">{t("scan.backToTransactions", "Back to Transactions")}</Button>
@@ -174,10 +174,10 @@ export default function TransactionDetail() {
 
   return (
     <ScanLayout>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex items-center gap-3 mb-6">
           <Link href="/scan/txs">
-            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white" data-testid="button-back">
+            <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back">
               <ChevronLeft className="w-5 h-5" />
             </Button>
           </Link>
@@ -195,11 +195,11 @@ export default function TransactionDetail() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-bold text-white" data-testid="title-tx-detail">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white" data-testid="title-tx-detail">
                   {t("scan.transactionDetails", "Transaction Details")}
                 </h1>
               </div>
-              <p className="text-sm text-gray-400 flex items-center gap-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
                 <Clock className="w-3 h-3" />
                 {formatTimeAgo(tx.timestamp)}
               </p>
@@ -211,25 +211,25 @@ export default function TransactionDetail() {
           <div className="lg:col-span-2 space-y-6">
             <Card className="bg-gray-900/50 border-gray-800" data-testid="card-tx-overview">
               <CardHeader className="pb-4">
-                <CardTitle className="text-white flex items-center gap-2">
+                <CardTitle className="text-gray-900 dark:text-white flex items-center gap-2">
                   <Activity className="w-5 h-5 text-blue-400" />
                   {t("scan.overview", "Overview")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-5">
                 <div className="flex items-start gap-4">
-                  <div className="text-gray-400 min-w-[140px] flex items-center gap-2">
+                  <div className="text-gray-600 dark:text-gray-400 min-w-[140px] flex items-center gap-2">
                     <Hash className="w-4 h-4" />
                     {t("scan.transactionHash", "Transaction Hash")}:
                   </div>
                   <div className="flex items-center gap-2 flex-1">
-                    <span className="text-white font-mono text-sm break-all" data-testid="text-tx-hash">
+                    <span className="text-gray-900 dark:text-white font-mono text-sm break-all" data-testid="text-tx-hash">
                       {tx.hash}
                     </span>
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="h-6 w-6 text-gray-400 hover:text-white shrink-0"
+                      className="h-6 w-6 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shrink-0"
                       onClick={() => copyToClipboard(tx.hash)}
                       data-testid="button-copy-hash"
                     >
@@ -239,7 +239,7 @@ export default function TransactionDetail() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="text-gray-400 min-w-[140px] flex items-center gap-2">
+                  <div className="text-gray-600 dark:text-gray-400 min-w-[140px] flex items-center gap-2">
                     <CheckCircle className="w-4 h-4" />
                     {t("scan.status", "Status")}:
                   </div>
@@ -256,7 +256,7 @@ export default function TransactionDetail() {
                       </Badge>
                     )}
                     {confirmations > 0 && (
-                      <Badge variant="outline" className="text-gray-400 border-gray-600">
+                      <Badge variant="outline" className="text-gray-600 dark:text-gray-400 border-gray-600">
                         {confirmations.toLocaleString()} {t("scan.confirmations", "Confirmations")}
                       </Badge>
                     )}
@@ -264,7 +264,7 @@ export default function TransactionDetail() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="text-gray-400 min-w-[140px] flex items-center gap-2">
+                  <div className="text-gray-600 dark:text-gray-400 min-w-[140px] flex items-center gap-2">
                     <Blocks className="w-4 h-4" />
                     {t("scan.block", "Block")}:
                   </div>
@@ -277,11 +277,11 @@ export default function TransactionDetail() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="text-gray-400 min-w-[140px] flex items-center gap-2">
+                  <div className="text-gray-600 dark:text-gray-400 min-w-[140px] flex items-center gap-2">
                     <Clock className="w-4 h-4" />
                     {t("scan.timestamp", "Timestamp")}:
                   </div>
-                  <span className="text-white" data-testid="text-timestamp">
+                  <span className="text-gray-900 dark:text-white" data-testid="text-timestamp">
                     {formatTime(tx.timestamp)} ({formatTimeAgo(tx.timestamp)})
                   </span>
                 </div>
@@ -291,7 +291,7 @@ export default function TransactionDetail() {
                 <div className="bg-gray-800/30 rounded-lg p-4">
                   <div className="flex flex-col md:flex-row md:items-center gap-4">
                     <div className="flex-1">
-                      <div className="text-gray-400 text-sm mb-2 flex items-center gap-2">
+                      <div className="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center gap-2">
                         <User className="w-4 h-4" />
                         {t("scan.from", "From")}
                       </div>
@@ -310,7 +310,7 @@ export default function TransactionDetail() {
                     </div>
 
                     <div className="flex-1">
-                      <div className="text-gray-400 text-sm mb-2 flex items-center gap-2">
+                      <div className="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center gap-2">
                         <User className="w-4 h-4" />
                         {t("scan.to", "To")}
                       </div>
@@ -330,11 +330,11 @@ export default function TransactionDetail() {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <div className="text-gray-400 text-sm mb-2 flex items-center gap-2">
+                    <div className="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center gap-2">
                       <Flame className="w-4 h-4 text-orange-400" />
                       {t("scan.value", "Value")}
                     </div>
-                    <div className="text-2xl font-bold text-white" data-testid="text-value">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white" data-testid="text-value">
                       {formatTokenValue(tx.value)} <span className="text-orange-400">TBURN</span>
                     </div>
                     <div className="text-sm text-gray-500">
@@ -343,12 +343,12 @@ export default function TransactionDetail() {
                   </div>
 
                   <div>
-                    <div className="text-gray-400 text-sm mb-2 flex items-center gap-2">
+                    <div className="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center gap-2">
                       <Zap className="w-4 h-4 text-yellow-400" />
                       {t("scan.transactionFee", "Transaction Fee")}
                     </div>
-                    <div className="text-2xl font-bold text-white" data-testid="text-fee">
-                      {txFee} <span className="text-gray-400">TBURN</span>
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white" data-testid="text-fee">
+                      {txFee} <span className="text-gray-600 dark:text-gray-400">TBURN</span>
                     </div>
                     <div className="text-sm text-gray-500">
                       ≈ ${txFeeUsd} USD
@@ -360,7 +360,7 @@ export default function TransactionDetail() {
 
             <Card className="bg-gray-900/50 border-gray-800">
               <CardHeader className="pb-4">
-                <CardTitle className="text-white flex items-center gap-2">
+                <CardTitle className="text-gray-900 dark:text-white flex items-center gap-2">
                   <Fuel className="w-5 h-5 text-orange-400" />
                   {t("scan.gasDetails", "Gas Details")}
                 </CardTitle>
@@ -368,22 +368,22 @@ export default function TransactionDetail() {
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="bg-gray-800/30 rounded-lg p-4">
-                    <div className="text-gray-400 text-sm mb-1">{t("scan.gasUsed", "Gas Used")}</div>
-                    <div className="text-xl font-bold text-white" data-testid="text-gas-used">
+                    <div className="text-gray-600 dark:text-gray-400 text-sm mb-1">{t("scan.gasUsed", "Gas Used")}</div>
+                    <div className="text-xl font-bold text-gray-900 dark:text-white" data-testid="text-gas-used">
                       {parseInt(tx.gasUsed).toLocaleString()}
                     </div>
                   </div>
 
                   <div className="bg-gray-800/30 rounded-lg p-4">
-                    <div className="text-gray-400 text-sm mb-1">{t("scan.gasPrice", "Gas Price")}</div>
-                    <div className="text-xl font-bold text-white" data-testid="text-gas-price">
-                      {(parseFloat(tx.gasPrice) / 1e9).toFixed(2)} <span className="text-sm text-gray-400">EMB</span>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm mb-1">{t("scan.gasPrice", "Gas Price")}</div>
+                    <div className="text-xl font-bold text-gray-900 dark:text-white" data-testid="text-gas-price">
+                      {(parseFloat(tx.gasPrice) / 1e9).toFixed(2)} <span className="text-sm text-gray-600 dark:text-gray-400">EMB</span>
                     </div>
                   </div>
 
                   <div className="bg-gray-800/30 rounded-lg p-4">
-                    <div className="text-gray-400 text-sm mb-1">{t("scan.nonce", "Nonce")}</div>
-                    <div className="text-xl font-bold text-white">
+                    <div className="text-gray-600 dark:text-gray-400 text-sm mb-1">{t("scan.nonce", "Nonce")}</div>
+                    <div className="text-xl font-bold text-gray-900 dark:text-white">
                       {tx.nonce?.toLocaleString() || Math.floor(parseInt(tx.hash.slice(2, 6), 16) / 100)}
                     </div>
                   </div>
@@ -395,28 +395,28 @@ export default function TransactionDetail() {
           <div className="space-y-6">
             <Card className="bg-gray-900/50 border-gray-800">
               <CardHeader className="pb-4">
-                <CardTitle className="text-white flex items-center gap-2">
+                <CardTitle className="text-gray-900 dark:text-white flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-green-400" />
                   {t("scan.txInfo", "Transaction Info")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between items-center py-2 border-b border-gray-800">
-                  <span className="text-gray-400 text-sm">{t("scan.type", "Type")}</span>
-                  <Badge variant="outline" className="text-white border-gray-600">
+                  <span className="text-gray-600 dark:text-gray-400 text-sm">{t("scan.type", "Type")}</span>
+                  <Badge variant="outline" className="text-gray-900 dark:text-white border-gray-600">
                     {tx.type || "Transfer"}
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-800">
-                  <span className="text-gray-400 text-sm">{t("scan.position", "Position")}</span>
-                  <span className="text-white">{Math.floor(parseInt(tx.hash.slice(2, 4), 16) / 4)}</span>
+                  <span className="text-gray-600 dark:text-gray-400 text-sm">{t("scan.position", "Position")}</span>
+                  <span className="text-gray-900 dark:text-white">{Math.floor(parseInt(tx.hash.slice(2, 4), 16) / 4)}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-800">
-                  <span className="text-gray-400 text-sm">{t("scan.burned", "Burned")}</span>
+                  <span className="text-gray-600 dark:text-gray-400 text-sm">{t("scan.burned", "Burned")}</span>
                   <span className="text-orange-400">{(parseFloat(txFee) * 0.5).toFixed(8)} TBURN</span>
                 </div>
                 <div className="flex justify-between items-center py-2">
-                  <span className="text-gray-400 text-sm">{t("scan.validatorReward", "Validator Reward")}</span>
+                  <span className="text-gray-600 dark:text-gray-400 text-sm">{t("scan.validatorReward", "Validator Reward")}</span>
                   <span className="text-green-400">{(parseFloat(txFee) * 0.5).toFixed(8)} TBURN</span>
                 </div>
               </CardContent>
@@ -424,13 +424,13 @@ export default function TransactionDetail() {
 
             <Card className="bg-gray-900/50 border-gray-800">
               <CardHeader className="pb-4">
-                <CardTitle className="text-white flex items-center gap-2">
+                <CardTitle className="text-gray-900 dark:text-white flex items-center gap-2">
                   <FileText className="w-5 h-5 text-purple-400" />
                   {t("scan.inputData", "Input Data")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="bg-gray-800/50 rounded-lg p-3 font-mono text-xs text-gray-400 break-all max-h-32 overflow-y-auto">
+                <div className="bg-gray-800/50 rounded-lg p-3 font-mono text-xs text-gray-600 dark:text-gray-400 break-all max-h-32 overflow-y-auto">
                   {tx.inputData || "0x"}
                 </div>
               </CardContent>

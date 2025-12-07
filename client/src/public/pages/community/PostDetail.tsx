@@ -77,10 +77,10 @@ export default function PostDetail() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] pt-24 px-6">
+      <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
           <Loader2 className="w-8 h-8 animate-spin text-purple-500 mx-auto mb-4" />
-          <p className="text-gray-400">{t('common.loading')}</p>
+          <p className="text-gray-600 dark:text-gray-400">{t('common.loading')}</p>
         </div>
       </main>
     );
@@ -88,16 +88,16 @@ export default function PostDetail() {
 
   if (!post) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] pt-24 px-6">
+      <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
-          <h1 className="text-3xl font-bold text-white mb-4">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             {isKorean ? "게시물을 찾을 수 없습니다" : "Post Not Found"}
           </h1>
-          <p className="text-gray-400 mb-8">
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
             {isKorean ? "찾으시는 게시물이 존재하지 않거나 삭제되었습니다." : "The post you are looking for does not exist or has been deleted."}
           </p>
           <Link href="/community/hub">
-            <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+            <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10">
               <ArrowLeft className="w-4 h-4 mr-2" />
               {isKorean ? "커뮤니티 허브로 돌아가기" : "Back to Community Hub"}
             </Button>
@@ -134,7 +134,7 @@ export default function PostDetail() {
   const relatedPosts = posts?.filter(p => p.id !== postId && p.category === post.category).slice(0, 3) || [];
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f]">
+    <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors">
       <div className={`h-48 bg-gradient-to-r ${gradient} relative`}>
         <div className="absolute inset-0 bg-black/40" />
         <div className="container mx-auto max-w-4xl px-6 h-full flex flex-col justify-end pb-6 relative z-10">
@@ -153,70 +153,70 @@ export default function PostDetail() {
       </div>
 
       <div className="container mx-auto max-w-4xl px-6 py-8">
-        <div className="flex items-center justify-between mb-6 pb-6 border-b border-white/10">
+        <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-300 dark:border-white/10">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
               {post.author.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <p className="text-white font-medium">{post.author}</p>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
+              <p className="text-gray-900 dark:text-white font-medium">{post.author}</p>
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
                 <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {formatDate(post.createdAt)}</span>
                 <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {post.views.toLocaleString()}</span>
               </div>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10" onClick={handleBookmark}>
+            <Button variant="outline" size="sm" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={handleBookmark}>
               <Bookmark className="w-4 h-4" />
             </Button>
-            <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10" onClick={handleShare}>
+            <Button variant="outline" size="sm" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={handleShare}>
               <Share2 className="w-4 h-4" />
             </Button>
           </div>
         </div>
 
-        <article className="prose prose-invert prose-lg max-w-none mb-8">
-          <p className="text-gray-300 leading-relaxed text-lg whitespace-pre-line">{content}</p>
+        <article className="prose prose-gray dark:prose-invert prose-lg max-w-none mb-8">
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg whitespace-pre-line">{content}</p>
         </article>
 
-        <div className="flex items-center justify-between py-6 border-t border-b border-white/10 mb-8">
+        <div className="flex items-center justify-between py-6 border-t border-b border-gray-300 dark:border-white/10 mb-8">
           <div className="flex items-center gap-6">
-            <button onClick={handleLike} className="flex items-center gap-2 text-gray-400 hover:text-red-400 transition" data-testid="button-like-post">
+            <button onClick={handleLike} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-red-400 transition" data-testid="button-like-post">
               <Heart className="w-5 h-5" />
               <span>{post.likes.toLocaleString()}</span>
             </button>
-            <div className="flex items-center gap-2 text-gray-400">
+            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
               <MessageCircle className="w-5 h-5" />
               <span>{post.comments.toLocaleString()}</span>
             </div>
-            <div className="flex items-center gap-2 text-gray-400">
+            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
               <Eye className="w-5 h-5" />
               <span>{post.views.toLocaleString()}</span>
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Tag className="w-4 h-4 text-gray-400" />
-            <Badge variant="outline" className="border-white/20 text-gray-400">{categoryLabel}</Badge>
-            <Badge variant="outline" className="border-white/20 text-gray-400">TBURN</Badge>
+            <Tag className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+            <Badge variant="outline" className="border-gray-300 dark:border-white/20 text-gray-600 dark:text-gray-400">{categoryLabel}</Badge>
+            <Badge variant="outline" className="border-gray-300 dark:border-white/20 text-gray-600 dark:text-gray-400">TBURN</Badge>
           </div>
         </div>
 
         {relatedPosts.length > 0 && (
           <section>
-            <h2 className="text-xl font-bold text-white mb-6">{isKorean ? '관련 게시물' : 'Related Posts'}</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{isKorean ? '관련 게시물' : 'Related Posts'}</h2>
             <div className="grid md:grid-cols-3 gap-4">
               {relatedPosts.map(related => (
                 <Link key={related.id} href={`/community/hub/post/${related.id}`}>
-                  <Card className="bg-white/5 border-white/10 hover:border-white/30 transition cursor-pointer h-full">
+                  <Card className="bg-white dark:bg-white/5 border-gray-300 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/30 transition cursor-pointer h-full shadow-sm">
                     <CardContent className="p-4">
                       <Badge className={`mb-2 text-xs ${categoryColors[related.category] || 'bg-purple-500/20 text-purple-400'}`}>
                         {isKorean ? (categoryLabels[related.category]?.ko || related.category) : (categoryLabels[related.category]?.en || related.category)}
                       </Badge>
-                      <h3 className="text-white font-medium mb-2 line-clamp-2">
+                      <h3 className="text-gray-900 dark:text-white font-medium mb-2 line-clamp-2">
                         {isKorean ? (related.titleKo || related.title) : related.title}
                       </h3>
-                      <div className="flex items-center gap-3 text-sm text-gray-400">
+                      <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
                         <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {related.likes}</span>
                         <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" /> {related.comments}</span>
                       </div>

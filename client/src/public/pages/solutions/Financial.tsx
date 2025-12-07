@@ -140,22 +140,22 @@ export default function Financial() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Landmark className="w-4 h-4" /> {t('publicPages.solutions.financial.tag')}
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.solutions.financial.title')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
               {t('publicPages.solutions.financial.titleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mb-10">
             {t('publicPages.solutions.financial.subtitle')}
           </p>
           <div className="flex flex-wrap gap-4">
@@ -170,7 +170,7 @@ export default function Financial() {
             </Link>
             <Link href="/learn/whitepaper">
               <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-8 py-3 rounded-lg border border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-white/5 transition"
                 data-testid="button-whitepaper"
               >
                 {t('publicPages.solutions.financial.buttons.readWhitepaper')}
@@ -184,8 +184,8 @@ export default function Financial() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.financial.sections.coreServices.title')}</h2>
-            <p className="text-gray-400">{t('publicPages.solutions.financial.sections.coreServices.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.solutions.financial.sections.coreServices.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.solutions.financial.sections.coreServices.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -194,7 +194,7 @@ export default function Financial() {
               return (
                 <div 
                   key={idx}
-                  className="spotlight-card rounded-2xl p-8 border border-white/10"
+                  className="spotlight-card rounded-2xl p-8 border border-gray-300 dark:border-white/10"
                   data-testid={`card-service-${idx}`}
                 >
                   <div 
@@ -206,8 +206,8 @@ export default function Financial() {
                   >
                     <Icon className="w-7 h-7" style={{ color: service.iconColor }} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{service.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{service.desc}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{service.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{service.desc}</p>
                 </div>
               );
             })}
@@ -216,7 +216,7 @@ export default function Financial() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 px-6 bg-white/5 border-y border-white/5">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="grid md:grid-cols-3 gap-8">
             {stats.map((stat, idx) => {
@@ -231,8 +231,8 @@ export default function Financial() {
                     className="w-10 h-10 mx-auto mb-4 group-hover:scale-110 transition-transform" 
                     style={{ color: stat.iconColor }}
                   />
-                  <div className="text-4xl font-bold text-white mb-2 font-mono">{stat.value}</div>
-                  <p className="text-sm text-gray-400">{stat.label}</p>
+                  <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono">{stat.value}</div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
                 </div>
               );
             })}
@@ -243,22 +243,22 @@ export default function Financial() {
       {/* Real Cases Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.financial.sections.realCases.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.solutions.financial.sections.realCases.title')}</h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
             {realCases.map((story, idx) => (
               <div 
                 key={idx}
-                className={`spotlight-card rounded-xl p-8 border border-white/10 bg-gradient-to-br ${story.gradient} to-transparent`}
+                className={`spotlight-card rounded-xl p-8 border border-gray-300 dark:border-white/10 bg-gradient-to-br ${story.gradient} to-transparent`}
                 data-testid={`card-case-${idx}`}
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white text-xl font-bold">
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-gray-900 dark:text-white text-xl font-bold">
                     {story.initial}
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-white">{story.name}</h4>
-                    <p className="text-xs text-gray-400">{story.type}</p>
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white">{story.name}</h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">{story.type}</p>
                   </div>
                 </div>
                 <p className="text-gray-300 mb-6">"{story.quote}"</p>
@@ -288,13 +288,13 @@ export default function Financial() {
         style={{ background: "linear-gradient(to bottom, transparent, rgba(112,0,255,0.05))" }}
       >
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.financial.sections.building.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.solutions.financial.sections.building.title')}</h2>
           
           <div className="space-y-4">
             {buildingSteps.map((step, idx) => (
               <div 
                 key={idx}
-                className="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors"
+                className="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-gray-100 dark:bg-white/5 transition-colors"
                 data-testid={`card-step-${step.step}`}
               >
                 <div 
@@ -307,8 +307,8 @@ export default function Financial() {
                   {step.step}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                  <p className="text-gray-400">{step.desc}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{step.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{step.desc}</p>
                 </div>
               </div>
             ))}

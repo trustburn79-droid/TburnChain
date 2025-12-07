@@ -147,22 +147,22 @@ export default function CodeExamples() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-20 px-6 overflow-hidden border-b border-white/5">
+      <section className="relative py-20 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#00ff9d]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00ff9d] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00ff9d] mb-6">
             <Utensils className="w-4 h-4" /> {t('publicPages.developers.examples.tag')}
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.developers.examples.title').split(' ')[0]}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
               {t('publicPages.developers.examples.title').split(' ').slice(1).join(' ') || 'Examples'}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
             {t('publicPages.developers.examples.subtitle')}
           </p>
           
@@ -174,7 +174,7 @@ export default function CodeExamples() {
                 className={`px-4 py-2 rounded-lg font-mono text-sm transition ${
                   activeCategory === category
                     ? "bg-[#00f0ff]/20 text-[#00f0ff] border border-[#00f0ff]/50"
-                    : "bg-white/5 text-gray-400 border border-white/10 hover:text-white hover:border-white/30"
+                    : "bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-white/10 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-white/30"
                 }`}
                 data-testid={`filter-${index}`}
               >
@@ -188,17 +188,17 @@ export default function CodeExamples() {
       {/* Featured Recipe Section */}
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
             <Flame className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.examples.featured.title')}
           </h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div>
-                <p className="text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400">
                   {t('publicPages.developers.examples.featured.description')}
                 </p>
-                <ul className="space-y-3 text-gray-300 text-sm mt-4">
+                <ul className="space-y-3 text-gray-600 dark:text-gray-300 text-sm mt-4">
                   {featuredRecipeChecks.map((check, index) => (
                     <li key={index} className="flex items-center gap-3">
                       <CheckCircle className="w-4 h-4 text-[#00ff9d]" /> {check}
@@ -208,13 +208,13 @@ export default function CodeExamples() {
               </div>
               
               <div className="flex gap-4">
-                <div className="bg-white/5 rounded p-3 border border-white/10 text-center flex-1">
+                <div className="bg-gray-100 dark:bg-white/5 rounded p-3 border border-gray-300 dark:border-white/10 text-center flex-1">
                   <div className="text-xs text-gray-500 uppercase">{t('publicPages.developers.examples.featured.difficulty')}</div>
                   <div className="text-[#00ff9d] font-bold">{t('publicPages.developers.examples.featured.intermediate')}</div>
                 </div>
-                <div className="bg-white/5 rounded p-3 border border-white/10 text-center flex-1">
+                <div className="bg-gray-100 dark:bg-white/5 rounded p-3 border border-gray-300 dark:border-white/10 text-center flex-1">
                   <div className="text-xs text-gray-500 uppercase">{t('publicPages.developers.examples.featured.time')}</div>
-                  <div className="text-white font-bold">{t('publicPages.developers.examples.featured.tenMins')}</div>
+                  <div className="text-gray-900 dark:text-white font-bold">{t('publicPages.developers.examples.featured.tenMins')}</div>
                 </div>
               </div>
             </div>
@@ -271,16 +271,15 @@ export default function CodeExamples() {
       </section>
 
       {/* Common Recipes Section */}
-      <section className="py-16 px-6 bg-white/5">
+      <section className="py-16 px-6 bg-gray-100 dark:bg-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.examples.commonRecipes')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.developers.examples.commonRecipes')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {commonRecipes.map((recipe, index) => (
               <div 
                 key={index}
-                className="spotlight-card rounded-xl p-6 group cursor-pointer"
-                style={{ border: "1px solid rgba(255, 255, 255, 0.1)" }}
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group cursor-pointer"
                 data-testid={`recipe-card-${index}`}
               >
                 <div className="flex justify-between items-start mb-4 flex-wrap gap-2">
@@ -290,17 +289,17 @@ export default function CodeExamples() {
                   >
                     <recipe.icon className="w-5 h-5" />
                   </div>
-                  <span className="text-xs font-mono bg-white/10 px-2 py-1 rounded text-gray-300">
+                  <span className="text-xs font-mono bg-gray-100 dark:bg-white/10 px-2 py-1 rounded text-gray-600 dark:text-gray-300">
                     {recipe.category}
                   </span>
                 </div>
                 <h3 
-                  className="text-lg font-bold text-white mb-2 transition-colors"
+                  className="text-lg font-bold text-gray-900 dark:text-white mb-2 transition-colors"
                   style={{ "--hover-color": recipe.color } as React.CSSProperties}
                 >
                   {recipe.title}
                 </h3>
-                <p className="text-sm text-gray-400 mb-4">{recipe.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{recipe.description}</p>
                 <div className="flex gap-2 text-xs font-mono text-gray-500">
                   {recipe.tags.map((tag, tagIndex) => (
                     <span key={tagIndex}>{tag}</span>

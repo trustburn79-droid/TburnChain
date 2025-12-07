@@ -259,7 +259,7 @@ export default function ScanHome() {
 
   return (
     <ScanLayout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-transparent transition-colors">
         {/* Hero Search Section */}
         <div className="relative mb-8">
           <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-red-500/10 to-purple-500/10 rounded-2xl blur-xl"></div>
@@ -268,7 +268,7 @@ export default function ScanHome() {
               <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-400 via-red-400 to-purple-400 bg-clip-text text-transparent mb-2" data-testid="text-scan-title">
                 {t("scan.subtitle", "TBURN Mainnet Blockchain Explorer")}
               </h1>
-              <div className="flex items-center justify-center gap-4 text-sm text-gray-400">
+              <div className="flex items-center justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
                 {isConnected && (
                   <div className="flex items-center gap-1.5">
                     <span className="relative flex h-2 w-2">
@@ -299,7 +299,7 @@ export default function ScanHome() {
                         setSearchQuery(e.target.value);
                         setSearchError("");
                       }}
-                      className="pl-12 pr-4 h-14 bg-gray-950/90 border-gray-700/50 text-white text-lg placeholder:text-gray-500 rounded-xl focus:border-orange-500/50 focus:ring-orange-500/20"
+                      className="pl-12 pr-4 h-14 bg-gray-950/90 border-gray-700/50 text-gray-900 dark:text-white text-lg placeholder:text-gray-500 rounded-xl focus:border-orange-500/50 focus:ring-orange-500/20"
                       data-testid="input-hero-search"
                     />
                   </div>
@@ -364,7 +364,7 @@ export default function ScanHome() {
                     <Blocks className="w-3.5 h-3.5" />
                     {t("scan.blockHeight", "Block Height")}
                   </div>
-                  <div className="text-2xl font-bold text-white">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
                     #{formatNumber(stats?.blockHeight || 0)}
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
@@ -380,7 +380,7 @@ export default function ScanHome() {
                     <ArrowRightLeft className="w-3.5 h-3.5" />
                     {t("scan.transactions", "Transactions")}
                   </div>
-                  <div className="text-2xl font-bold text-white">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
                     {formatNumber(stats?.totalTransactions || 0)}
                   </div>
                   <div className="flex items-center gap-1 text-xs text-green-400 mt-1">
@@ -396,7 +396,7 @@ export default function ScanHome() {
                     <Zap className="w-3.5 h-3.5" />
                     {t("scan.tps", "TPS")}
                   </div>
-                  <div className="text-2xl font-bold text-white">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
                     {formatNumber(stats?.tps || 0)}
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
@@ -411,7 +411,7 @@ export default function ScanHome() {
                     <Shield className="w-3.5 h-3.5" />
                     {t("scan.validators", "Validators")}
                   </div>
-                  <div className="text-2xl font-bold text-white">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
                     {stats?.activeValidators || 0}
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
@@ -453,7 +453,7 @@ export default function ScanHome() {
         <div className="grid lg:grid-cols-3 gap-4 mb-6">
           <Card className="bg-gray-900/50 border-gray-800 lg:col-span-2">
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <Activity className="w-4 h-4 text-blue-400" />
                 {t("scan.networkActivity", "Network Activity")} (24h)
               </CardTitle>
@@ -490,7 +490,7 @@ export default function ScanHome() {
 
           <Card className="bg-gray-900/50 border-gray-800">
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <BarChart3 className="w-4 h-4 text-purple-400" />
                 {t("scan.networkHealth", "Network Health")}
               </CardTitle>
@@ -498,21 +498,21 @@ export default function ScanHome() {
             <CardContent className="space-y-4">
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">{t("scan.uptime", "Uptime")}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t("scan.uptime", "Uptime")}</span>
                   <span className="text-green-400">{stats?.uptime || "99.99%"}</span>
                 </div>
                 <Progress value={99.99} className="h-2 bg-gray-800" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">{t("scan.shards", "Shards")}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t("scan.shards", "Shards")}</span>
                   <span className="text-blue-400">{stats?.shardCount || 16}</span>
                 </div>
                 <Progress value={100} className="h-2 bg-gray-800" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">{t("scan.consensusHealth", "Consensus")}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t("scan.consensusHealth", "Consensus")}</span>
                   <span className="text-purple-400">100%</span>
                 </div>
                 <Progress value={100} className="h-2 bg-gray-800" />
@@ -520,12 +520,12 @@ export default function ScanHome() {
               <div className="pt-2 border-t border-gray-800">
                 <div className="grid grid-cols-2 gap-2 text-center">
                   <div className="p-2 bg-gray-800/50 rounded-lg">
-                    <div className="text-lg font-bold text-white">{stats?.finality || "< 2s"}</div>
-                    <div className="text-xs text-gray-400">{t("scan.finality", "Finality")}</div>
+                    <div className="text-lg font-bold text-gray-900 dark:text-white">{stats?.finality || "< 2s"}</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">{t("scan.finality", "Finality")}</div>
                   </div>
                   <div className="p-2 bg-gray-800/50 rounded-lg">
-                    <div className="text-lg font-bold text-white">{stats?.avgBlockTime || 0.5}s</div>
-                    <div className="text-xs text-gray-400">{t("scan.blockTime", "Block Time")}</div>
+                    <div className="text-lg font-bold text-gray-900 dark:text-white">{stats?.avgBlockTime || 0.5}s</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">{t("scan.blockTime", "Block Time")}</div>
                   </div>
                 </div>
               </div>
@@ -537,7 +537,7 @@ export default function ScanHome() {
         <div className="grid lg:grid-cols-2 gap-6">
           <Card className="bg-gray-900/50 border-gray-800" data-testid="card-latest-blocks">
             <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <Blocks className="w-4 h-4 text-blue-400" />
                 {t("scan.latestBlocks", "Latest Blocks")}
                 {isConnected && (
@@ -548,7 +548,7 @@ export default function ScanHome() {
                 )}
               </CardTitle>
               <Link href="/scan/blocks">
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white h-8" data-testid="link-view-all-blocks">
+                <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white h-8" data-testid="link-view-all-blocks">
                   {t("scan.viewAll", "View All")} <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -600,7 +600,7 @@ export default function ScanHome() {
                           }}
                         >
                           {formatAddress(block.validator)}
-                          <Copy className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-gray-400" />
+                          <Copy className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-gray-600 dark:text-gray-400" />
                         </div>
                       </div>
                     </div>
@@ -612,7 +612,7 @@ export default function ScanHome() {
 
           <Card className="bg-gray-900/50 border-gray-800" data-testid="card-latest-transactions">
             <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3">
-              <CardTitle className="flex items-center gap-2 text-white text-base">
+              <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white text-base">
                 <ArrowRightLeft className="w-4 h-4 text-green-400" />
                 {t("scan.latestTransactions", "Latest Transactions")}
                 {isConnected && (
@@ -623,7 +623,7 @@ export default function ScanHome() {
                 )}
               </CardTitle>
               <Link href="/scan/txs">
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white h-8" data-testid="link-view-all-txs">
+                <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white h-8" data-testid="link-view-all-txs">
                   {t("scan.viewAll", "View All")} <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -670,7 +670,7 @@ export default function ScanHome() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-sm font-medium text-white">
+                        <div className="text-sm font-medium text-gray-900 dark:text-white">
                           {formatLargeNumber(tx.value)} TBURN
                         </div>
                         <div className="text-xs text-gray-500">

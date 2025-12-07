@@ -99,7 +99,7 @@ export default function ActionsBlinks() {
 
   const howItWorks = [
     { step: 1, bgColor: "bg-[#00f0ff]", textColor: "text-black", title: t('publicPages.solutions.actionsBlinks.howItWorks.step1.title'), desc: t('publicPages.solutions.actionsBlinks.howItWorks.step1.description') },
-    { step: 2, bgColor: "bg-[#7000ff]", textColor: "text-white", title: t('publicPages.solutions.actionsBlinks.howItWorks.step2.title'), desc: t('publicPages.solutions.actionsBlinks.howItWorks.step2.description') },
+    { step: 2, bgColor: "bg-[#7000ff]", textColor: "text-gray-900 dark:text-white", title: t('publicPages.solutions.actionsBlinks.howItWorks.step2.title'), desc: t('publicPages.solutions.actionsBlinks.howItWorks.step2.description') },
     { step: 3, bgColor: "bg-[#facc15]", textColor: "text-black", title: t('publicPages.solutions.actionsBlinks.howItWorks.step3.title'), desc: t('publicPages.solutions.actionsBlinks.howItWorks.step3.description') }
   ];
 
@@ -129,14 +129,14 @@ export default function ActionsBlinks() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-16 mb-8 text-center">
         <div className="absolute inset-0 bg-gradient-to-b from-[#00f0ff]/10 via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 
             href="/solutions/token-extensions"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
@@ -146,13 +146,13 @@ export default function ActionsBlinks() {
             <Link2 className="w-4 h-4" /> {t('publicPages.solutions.actionsBlinks.tag')}
           </div>
           
-          <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6" data-testid="text-page-title">
+          <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6" data-testid="text-page-title">
             {t('publicPages.solutions.actionsBlinks.title')} <br />
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#facc15] bg-clip-text text-transparent">
               {t('publicPages.solutions.actionsBlinks.titleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
             {t('publicPages.solutions.actionsBlinks.subtitle')}
           </p>
           
@@ -168,7 +168,7 @@ export default function ActionsBlinks() {
             </Link>
             <Link href="/developers/docs">
               <button 
-                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
+                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 dark:bg-white/5 transition flex items-center justify-center gap-2 text-gray-900 dark:text-white"
                 data-testid="button-documentation"
               >
                 <BookOpen className="w-4 h-4" /> {t('publicPages.common.documentation')}
@@ -181,8 +181,8 @@ export default function ActionsBlinks() {
       {/* Core Capabilities */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.solutions.actionsBlinks.coreCapabilities.title')}</h2>
-          <p className="text-gray-400">{t('publicPages.solutions.actionsBlinks.coreCapabilities.subtitle')}</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.solutions.actionsBlinks.coreCapabilities.title')}</h2>
+          <p className="text-gray-600 dark:text-gray-400">{t('publicPages.solutions.actionsBlinks.coreCapabilities.subtitle')}</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -200,8 +200,8 @@ export default function ActionsBlinks() {
                 >
                   <Icon className="w-6 h-6" style={{ color: feature.iconColor }} />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-                <p className="text-sm text-gray-400">{feature.desc}</p>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{feature.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{feature.desc}</p>
               </div>
             );
           })}
@@ -213,7 +213,7 @@ export default function ActionsBlinks() {
         <div className="spotlight-card rounded-2xl p-8 border border-[#00f0ff]/20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6 text-white">{t('publicPages.solutions.actionsBlinks.howItWorks.title')}</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{t('publicPages.solutions.actionsBlinks.howItWorks.title')}</h2>
               <div className="space-y-6">
                 {howItWorks.map((step, idx) => (
                   <div key={idx} className="flex gap-4">
@@ -221,8 +221,8 @@ export default function ActionsBlinks() {
                       {step.step}
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold text-white">{step.title}</h4>
-                      <p className="text-sm text-gray-400">{step.desc}</p>
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-white">{step.title}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{step.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -240,7 +240,7 @@ export default function ActionsBlinks() {
 
       {/* Real-World Applications */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
-        <h2 className="text-3xl font-bold mb-12 text-white text-center">{t('publicPages.solutions.actionsBlinks.realWorldApps.title')}</h2>
+        <h2 className="text-3xl font-bold mb-12 text-gray-900 dark:text-white text-center">{t('publicPages.solutions.actionsBlinks.realWorldApps.title')}</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {realWorldApps.map((app, idx) => {
             const Icon = app.icon;
@@ -255,8 +255,8 @@ export default function ActionsBlinks() {
                   <Icon className="w-7 h-7" style={{ color: app.iconColor }} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#00f0ff] transition">{app.title}</h3>
-                  <p className="text-gray-400 text-sm">{app.desc}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#00f0ff] transition">{app.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">{app.desc}</p>
                 </div>
               </Link>
             );
@@ -266,7 +266,7 @@ export default function ActionsBlinks() {
 
       {/* Developer Quick Start */}
       <section className="max-w-4xl mx-auto px-6 lg:px-8 mb-24">
-        <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
           <Code className="w-6 h-6 text-[#00f0ff]" /> {t('publicPages.solutions.actionsBlinks.developerQuickStart.title')}
         </h2>
         
@@ -300,8 +300,8 @@ export default function ActionsBlinks() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.common.relatedSolutions')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.common.relatedSolutions')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.solutions.actionsBlinks.relatedSolutions.description')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
@@ -312,7 +312,7 @@ export default function ActionsBlinks() {
             >
               <Wallet className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.actionsBlinks.relatedSolutions.wallets.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.actionsBlinks.relatedSolutions.wallets.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.relatedSolutions.wallets.subtitle')}</p>
               </div>
             </Link>
@@ -323,7 +323,7 @@ export default function ActionsBlinks() {
             >
               <CreditCard className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.actionsBlinks.relatedSolutions.payments.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.actionsBlinks.relatedSolutions.payments.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.relatedSolutions.payments.subtitle')}</p>
               </div>
             </Link>
@@ -334,7 +334,7 @@ export default function ActionsBlinks() {
             >
               <Store className="w-5 h-5 text-[#facc15]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#facc15] transition">{t('publicPages.solutions.actionsBlinks.relatedSolutions.commerce.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#facc15] transition">{t('publicPages.solutions.actionsBlinks.relatedSolutions.commerce.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.relatedSolutions.commerce.subtitle')}</p>
               </div>
             </Link>
@@ -345,7 +345,7 @@ export default function ActionsBlinks() {
             >
               <Coins className="w-5 h-5 text-[#00ff9d]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00ff9d] transition">{t('publicPages.solutions.actionsBlinks.relatedSolutions.tokenExtensions.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00ff9d] transition">{t('publicPages.solutions.actionsBlinks.relatedSolutions.tokenExtensions.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.relatedSolutions.tokenExtensions.subtitle')}</p>
               </div>
             </Link>
@@ -356,8 +356,8 @@ export default function ActionsBlinks() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.common.developerResources')}</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t('publicPages.common.developerResources')}</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {t('publicPages.solutions.actionsBlinks.developerResources.description')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
@@ -368,7 +368,7 @@ export default function ActionsBlinks() {
             >
               <BookOpen className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.actionsBlinks.developerResources.sdkGuide.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.actionsBlinks.developerResources.sdkGuide.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.developerResources.sdkGuide.subtitle')}</p>
               </div>
             </Link>
@@ -379,7 +379,7 @@ export default function ActionsBlinks() {
             >
               <Code className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.actionsBlinks.developerResources.smartContracts.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.actionsBlinks.developerResources.smartContracts.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.developerResources.smartContracts.subtitle')}</p>
               </div>
             </Link>
@@ -390,7 +390,7 @@ export default function ActionsBlinks() {
             >
               <FileText className="w-5 h-5 text-[#facc15]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#facc15] transition">{t('publicPages.solutions.actionsBlinks.developerResources.apiReference.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#facc15] transition">{t('publicPages.solutions.actionsBlinks.developerResources.apiReference.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.developerResources.apiReference.subtitle')}</p>
               </div>
             </Link>
@@ -401,7 +401,7 @@ export default function ActionsBlinks() {
             >
               <Zap className="w-5 h-5 text-[#00ff9d]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00ff9d] transition">{t('publicPages.solutions.actionsBlinks.developerResources.websocket.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#00ff9d] transition">{t('publicPages.solutions.actionsBlinks.developerResources.websocket.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.developerResources.websocket.subtitle')}</p>
               </div>
             </Link>
@@ -412,7 +412,7 @@ export default function ActionsBlinks() {
             >
               <Terminal className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.actionsBlinks.developerResources.cli.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.actionsBlinks.developerResources.cli.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.developerResources.cli.subtitle')}</p>
               </div>
             </Link>
@@ -423,7 +423,7 @@ export default function ActionsBlinks() {
             >
               <ExternalLink className="w-5 h-5 text-[#f97316]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f97316] transition">{t('publicPages.solutions.actionsBlinks.developerResources.examples.title')}</p>
+                <p className="font-medium text-gray-900 dark:text-white group-hover:text-[#f97316] transition">{t('publicPages.solutions.actionsBlinks.developerResources.examples.title')}</p>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.developerResources.examples.subtitle')}</p>
               </div>
             </Link>
@@ -443,7 +443,7 @@ export default function ActionsBlinks() {
                 <Shield className="w-5 h-5 text-[#00ff9d]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#00ff9d] transition">{t('publicPages.solutions.actionsBlinks.learnPages.introToDefi.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#00ff9d] transition">{t('publicPages.solutions.actionsBlinks.learnPages.introToDefi.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.learnPages.introToDefi.subtitle')}</p>
               </div>
             </div>
@@ -459,7 +459,7 @@ export default function ActionsBlinks() {
                 <Code className="w-5 h-5 text-[#f59e0b]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.actionsBlinks.learnPages.developerCourse.title')}</h4>
+                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.actionsBlinks.learnPages.developerCourse.title')}</h4>
                 <p className="text-xs text-gray-500">{t('publicPages.solutions.actionsBlinks.learnPages.developerCourse.subtitle')}</p>
               </div>
             </div>
