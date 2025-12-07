@@ -57,42 +57,48 @@ export default function Documentation() {
       description: t('publicPages.developers.docs.categories.apiReference.description'),
       icon: Server,
       badge: "v8.0.0",
-      gradient: "from-blue-500 to-cyan-500"
+      gradient: "from-blue-500 to-cyan-500",
+      href: "/developers/api-docs"
     },
     { 
       title: t('publicPages.developers.docs.categories.sdkGuide.title'), 
       description: t('publicPages.developers.docs.categories.sdkGuide.description'),
       icon: Package,
       badge: t('publicPages.developers.docs.categories.sdkGuide.badge'),
-      gradient: "from-green-500 to-emerald-500"
+      gradient: "from-green-500 to-emerald-500",
+      href: "/developers/sdk"
     },
     { 
       title: t('publicPages.developers.docs.categories.cliReference.title'), 
       description: t('publicPages.developers.docs.categories.cliReference.description'),
       icon: Terminal,
       badge: t('publicPages.developers.docs.categories.cliReference.badge'),
-      gradient: "from-purple-500 to-pink-500"
+      gradient: "from-purple-500 to-pink-500",
+      href: "/developers/cli"
     },
     { 
       title: t('publicPages.developers.docs.categories.smartContracts.title'), 
       description: t('publicPages.developers.docs.categories.smartContracts.description'),
       icon: FileCode,
       badge: "EVM",
-      gradient: "from-orange-500 to-red-500"
+      gradient: "from-orange-500 to-red-500",
+      href: "/developers/smart-contracts"
     },
     { 
       title: t('publicPages.developers.docs.categories.websocketApi.title'), 
       description: t('publicPages.developers.docs.categories.websocketApi.description'),
       icon: Radio,
       badge: t('publicPages.developers.docs.categories.websocketApi.badge'),
-      gradient: "from-indigo-500 to-violet-500"
+      gradient: "from-indigo-500 to-violet-500",
+      href: "/developers/websocket"
     },
     { 
       title: t('publicPages.developers.docs.categories.tutorials.title'), 
       description: t('publicPages.developers.docs.categories.tutorials.description'),
       icon: GraduationCap,
       badge: t('publicPages.developers.docs.categories.tutorials.badge'),
-      gradient: "from-teal-500 to-cyan-500"
+      gradient: "from-teal-500 to-cyan-500",
+      href: "/developers/tutorials"
     },
   ];
 
@@ -260,24 +266,25 @@ export default function Documentation() {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.developers.docs.categoriesTitle')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {docCategories.map((category, index) => (
-              <div 
-                key={index}
-                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group cursor-pointer"
-                data-testid={`doc-category-${index}`}
-              >
+              <Link key={index} href={category.href}>
                 <div 
-                  className={`w-12 h-12 rounded-lg bg-gradient-to-br ${category.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                  className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group cursor-pointer hover:border-[#00f0ff]/50 transition-colors"
+                  data-testid={`doc-category-${index}`}
                 >
-                  <category.icon className="w-5 h-5 text-white" />
+                  <div 
+                    className={`w-12 h-12 rounded-lg bg-gradient-to-br ${category.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                  >
+                    <category.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex justify-between items-start mb-2 flex-wrap gap-2">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{category.title}</h3>
+                    <span className="text-[10px] font-mono bg-gray-100 dark:bg-white/10 px-2 py-0.5 rounded text-gray-600 dark:text-gray-300">
+                      {category.badge}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{category.description}</p>
                 </div>
-                <div className="flex justify-between items-start mb-2 flex-wrap gap-2">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{category.title}</h3>
-                  <span className="text-[10px] font-mono bg-gray-100 dark:bg-white/10 px-2 py-0.5 rounded text-gray-600 dark:text-gray-300">
-                    {category.badge}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{category.description}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
