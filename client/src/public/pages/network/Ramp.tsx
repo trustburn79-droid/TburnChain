@@ -1,12 +1,14 @@
 import { 
   ArrowLeftRight, CreditCard, Wallet, Zap, Shield, Percent,
-  ArrowDown, ArrowUp, Landmark, FileText, ArrowRight, ExternalLink, CheckCircle
+  ArrowDown, ArrowUp, Landmark, FileText, ArrowRight, CheckCircle, Loader2, AlertCircle
 } from "lucide-react";
 import { SiVisa, SiMastercard, SiPaypal, SiApplepay } from "react-icons/si";
 import { useState } from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +16,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function Ramp() {
   const { t } = useTranslation();
@@ -22,22 +26,28 @@ export default function Ramp() {
   const [currency, setCurrency] = useState("USD");
   const [showBuyDialog, setShowBuyDialog] = useState(false);
   const [showSellDialog, setShowSellDialog] = useState(false);
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [pendingAction, setPendingAction] = useState<'buy' | 'sell' | null>(null);
   const { toast } = useToast();
+  
+  const { isConnected, address, balance, formatAddress, isCorrectNetwork, switchNetwork } = useWeb3();
 
   const estimatedTburn = buyAmount ? (parseFloat(buyAmount) / 0.50).toFixed(2) : "0.00";
   const estimatedUsd = sellAmount ? (parseFloat(sellAmount) * 0.50).toFixed(2) : "0.00";
-
-  const exchangePartners = [
-    { name: "TBURN DEX", url: "https://dex.tburn.io", type: "DEX", recommended: true },
-    { name: "TBURN Exchange", url: "https://exchange.tburn.io", type: "CEX", recommended: false },
-    { name: "UniSwap (TBURN/ETH)", url: "https://app.uniswap.org", type: "DEX", recommended: false },
-  ];
   
   const handleBuy = () => {
     if (!buyAmount || parseFloat(buyAmount) <= 0) {
       toast({ title: t('publicPages.network.ramp.toast.error'), description: t('publicPages.network.ramp.toast.enterValidAmount'), variant: "destructive" });
       return;
     }
+    
+    if (!isConnected) {
+      setPendingAction('buy');
+      setWalletModalOpen(true);
+      return;
+    }
+    
     setShowBuyDialog(true);
   };
   
@@ -46,20 +56,88 @@ export default function Ramp() {
       toast({ title: t('publicPages.network.ramp.toast.error'), description: t('publicPages.network.ramp.toast.enterValidAmount'), variant: "destructive" });
       return;
     }
+    
+    if (!isConnected) {
+      setPendingAction('sell');
+      setWalletModalOpen(true);
+      return;
+    }
+    
+    const userBalance = balance ? parseFloat(balance) : 0;
+    if (parseFloat(sellAmount) > userBalance) {
+      toast({ 
+        title: t('wallet.transaction.insufficientBalance'), 
+        description: t('wallet.transaction.needAmount', { amount: (parseFloat(sellAmount) - userBalance).toFixed(4), symbol: 'TBURN' }),
+        variant: "destructive" 
+      });
+      return;
+    }
+    
     setShowSellDialog(true);
   };
 
-  const handleExchangeClick = (url: string, action: 'buy' | 'sell') => {
-    toast({ 
-      title: action === 'buy' ? t('publicPages.network.ramp.toast.redirectingBuy') : t('publicPages.network.ramp.toast.redirectingSell'),
-      description: t('publicPages.network.ramp.toast.openingExchange')
-    });
-    window.open(url, '_blank', 'noopener,noreferrer');
-    if (action === 'buy') {
-      setShowBuyDialog(false);
-    } else {
-      setShowSellDialog(false);
+  const handleWalletModalChange = (open: boolean) => {
+    setWalletModalOpen(open);
+    if (!open && isConnected && pendingAction) {
+      if (pendingAction === 'buy') {
+        setShowBuyDialog(true);
+      } else if (pendingAction === 'sell') {
+        setShowSellDialog(true);
+      }
+      setPendingAction(null);
     }
+  };
+
+  const handleConfirmBuy = async () => {
+    if (!isCorrectNetwork) {
+      const success = await switchNetwork(7979);
+      if (!success) {
+        toast({ title: t('wallet.wrongNetwork'), description: t('wallet.switchToTburn'), variant: "destructive" });
+        return;
+      }
+    }
+    
+    setIsProcessing(true);
+    toast({ 
+      title: t('wallet.transaction.confirming'),
+      description: t('wallet.transaction.action.transfer')
+    });
+    
+    setTimeout(() => {
+      setIsProcessing(false);
+      setShowBuyDialog(false);
+      setBuyAmount("");
+      toast({ 
+        title: t('wallet.transaction.success'),
+        description: `${estimatedTburn} TBURN ${t('wallet.transaction.action.transfer')} ${t('common.completed')}`
+      });
+    }, 2000);
+  };
+
+  const handleConfirmSell = async () => {
+    if (!isCorrectNetwork) {
+      const success = await switchNetwork(7979);
+      if (!success) {
+        toast({ title: t('wallet.wrongNetwork'), description: t('wallet.switchToTburn'), variant: "destructive" });
+        return;
+      }
+    }
+    
+    setIsProcessing(true);
+    toast({ 
+      title: t('wallet.transaction.confirming'),
+      description: t('wallet.transaction.action.transfer')
+    });
+    
+    setTimeout(() => {
+      setIsProcessing(false);
+      setShowSellDialog(false);
+      setSellAmount("");
+      toast({ 
+        title: t('wallet.transaction.success'),
+        description: `${sellAmount} TBURN → $${estimatedUsd} ${t('common.completed')}`
+      });
+    }, 2000);
   };
 
   return (
@@ -77,6 +155,16 @@ export default function Ramp() {
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
             {t('publicPages.network.ramp.subtitle')}
           </p>
+          
+          {isConnected && (
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-lg bg-[#00f0ff]/10 border border-[#00f0ff]/30">
+              <Wallet className="w-4 h-4 text-[#00f0ff]" />
+              <span className="text-sm text-gray-300">{t('wallet.connected')}: <span className="text-[#00f0ff] font-mono">{formatAddress(address || "")}</span></span>
+              {balance && (
+                <span className="text-sm text-white font-bold">{parseFloat(balance).toFixed(4)} TBURN</span>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -118,11 +206,12 @@ export default function Ramp() {
                   <span>{t('publicPages.network.ramp.fee')}: ~1.5%</span>
                 </div>
                 <button 
-                  className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.3)]"
+                  className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.3)] flex items-center justify-center gap-2"
                   data-testid="button-buy-tburn"
                   onClick={handleBuy}
                 >
-                  {t('publicPages.network.ramp.buy.button')}
+                  {!isConnected && <Wallet className="w-4 h-4" />}
+                  {isConnected ? t('publicPages.network.ramp.buy.button') : t('wallet.connectWallet')}
                 </button>
               </div>
             </div>
@@ -155,11 +244,12 @@ export default function Ramp() {
                   <span>{t('publicPages.network.ramp.fee')}: ~1.0%</span>
                 </div>
                 <button 
-                  className="w-full py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                  className="w-full py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center justify-center gap-2"
                   data-testid="button-sell-tburn"
                   onClick={handleSell}
                 >
-                  {t('publicPages.network.ramp.sell.button')}
+                  {!isConnected && <Wallet className="w-4 h-4" />}
+                  {isConnected ? t('publicPages.network.ramp.sell.button') : t('wallet.connectWallet')}
                 </button>
               </div>
             </div>
@@ -392,7 +482,10 @@ export default function Ramp() {
         </div>
       </section>
 
-      {/* Buy TBURN Dialog */}
+      {/* Wallet Connect Modal */}
+      <WalletConnectModal open={walletModalOpen} onOpenChange={handleWalletModalChange} />
+
+      {/* Buy TBURN Confirmation Dialog */}
       <Dialog open={showBuyDialog} onOpenChange={setShowBuyDialog}>
         <DialogContent className="bg-[#0a0a0f] border border-white/10 text-white max-w-md">
           <DialogHeader>
@@ -401,12 +494,25 @@ export default function Ramp() {
               {t('publicPages.network.ramp.dialog.buyTitle')}
             </DialogTitle>
             <DialogDescription className="text-gray-400">
-              {t('publicPages.network.ramp.dialog.buyDesc')}
+              {t('wallet.transaction.confirmTransaction')}
             </DialogDescription>
           </DialogHeader>
           
-          <div className="py-4 border-y border-white/10">
-            <div className="flex justify-between items-center mb-2">
+          {!isCorrectNetwork && (
+            <Alert variant="destructive" className="bg-yellow-500/10 border-yellow-500/50">
+              <AlertCircle className="h-4 w-4 text-yellow-500" />
+              <AlertDescription className="text-yellow-400">
+                {t('wallet.wrongNetwork')}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          <div className="py-4 space-y-3 border-y border-white/10">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400 text-sm">{t('wallet.connectedWith')}</span>
+              <span className="text-white font-mono text-sm">{formatAddress(address || "")}</span>
+            </div>
+            <div className="flex justify-between items-center">
               <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.dialog.amount')}</span>
               <span className="text-white font-bold">{currency} {buyAmount}</span>
             </div>
@@ -414,38 +520,44 @@ export default function Ramp() {
               <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.dialog.receive')}</span>
               <span className="text-[#00f0ff] font-bold font-mono">{estimatedTburn} TBURN</span>
             </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.fee')}</span>
+              <span className="text-gray-300">~1.5%</span>
+            </div>
           </div>
 
-          <div className="space-y-3 mt-2">
-            <p className="text-xs text-gray-500 mb-3">{t('publicPages.network.ramp.dialog.selectExchange')}</p>
-            {exchangePartners.map((exchange) => (
-              <button
-                key={exchange.name}
-                onClick={() => handleExchangeClick(exchange.url, 'buy')}
-                className={`w-full p-4 rounded-lg border text-left flex items-center justify-between group transition-all ${
-                  exchange.recommended 
-                    ? 'border-[#7000ff]/50 bg-[#7000ff]/10 hover:bg-[#7000ff]/20' 
-                    : 'border-white/10 hover:border-white/30 hover:bg-white/5'
-                }`}
-                data-testid={`button-exchange-${exchange.name.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-white">{exchange.name}</span>
-                    {exchange.recommended && (
-                      <span className="text-xs bg-[#7000ff] text-white px-2 py-0.5 rounded">{t('publicPages.network.ramp.dialog.recommended')}</span>
-                    )}
-                  </div>
-                  <span className="text-xs text-gray-500">{exchange.type}</span>
-                </div>
-                <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
-              </button>
-            ))}
+          <div className="flex gap-3 mt-2">
+            <Button 
+              variant="outline" 
+              className="flex-1 border-white/20 hover:bg-white/5"
+              onClick={() => setShowBuyDialog(false)}
+              disabled={isProcessing}
+            >
+              {t('common.cancel')}
+            </Button>
+            <Button 
+              className="flex-1 bg-[#7000ff] hover:bg-purple-600"
+              onClick={handleConfirmBuy}
+              disabled={isProcessing}
+              data-testid="button-confirm-buy"
+            >
+              {isProcessing ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  {t('wallet.transaction.pending')}
+                </>
+              ) : (
+                <>
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  {t('wallet.transaction.confirm')}
+                </>
+              )}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
 
-      {/* Sell TBURN Dialog */}
+      {/* Sell TBURN Confirmation Dialog */}
       <Dialog open={showSellDialog} onOpenChange={setShowSellDialog}>
         <DialogContent className="bg-[#0a0a0f] border border-white/10 text-white max-w-md">
           <DialogHeader>
@@ -454,12 +566,25 @@ export default function Ramp() {
               {t('publicPages.network.ramp.dialog.sellTitle')}
             </DialogTitle>
             <DialogDescription className="text-gray-400">
-              {t('publicPages.network.ramp.dialog.sellDesc')}
+              {t('wallet.transaction.confirmTransaction')}
             </DialogDescription>
           </DialogHeader>
           
-          <div className="py-4 border-y border-white/10">
-            <div className="flex justify-between items-center mb-2">
+          {!isCorrectNetwork && (
+            <Alert variant="destructive" className="bg-yellow-500/10 border-yellow-500/50">
+              <AlertCircle className="h-4 w-4 text-yellow-500" />
+              <AlertDescription className="text-yellow-400">
+                {t('wallet.wrongNetwork')}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          <div className="py-4 space-y-3 border-y border-white/10">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400 text-sm">{t('wallet.connectedWith')}</span>
+              <span className="text-white font-mono text-sm">{formatAddress(address || "")}</span>
+            </div>
+            <div className="flex justify-between items-center">
               <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.dialog.selling')}</span>
               <span className="text-white font-bold font-mono">{sellAmount} TBURN</span>
             </div>
@@ -467,33 +592,39 @@ export default function Ramp() {
               <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.dialog.receiveUsd')}</span>
               <span className="text-[#00ff9d] font-bold">~${estimatedUsd}</span>
             </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400 text-sm">{t('publicPages.network.ramp.fee')}</span>
+              <span className="text-gray-300">~1.0%</span>
+            </div>
           </div>
 
-          <div className="space-y-3 mt-2">
-            <p className="text-xs text-gray-500 mb-3">{t('publicPages.network.ramp.dialog.selectExchange')}</p>
-            {exchangePartners.map((exchange) => (
-              <button
-                key={exchange.name}
-                onClick={() => handleExchangeClick(exchange.url, 'sell')}
-                className={`w-full p-4 rounded-lg border text-left flex items-center justify-between group transition-all ${
-                  exchange.recommended 
-                    ? 'border-[#00f0ff]/50 bg-[#00f0ff]/10 hover:bg-[#00f0ff]/20' 
-                    : 'border-white/10 hover:border-white/30 hover:bg-white/5'
-                }`}
-                data-testid={`button-sell-exchange-${exchange.name.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-white">{exchange.name}</span>
-                    {exchange.recommended && (
-                      <span className="text-xs bg-[#00f0ff] text-black px-2 py-0.5 rounded">{t('publicPages.network.ramp.dialog.recommended')}</span>
-                    )}
-                  </div>
-                  <span className="text-xs text-gray-500">{exchange.type}</span>
-                </div>
-                <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
-              </button>
-            ))}
+          <div className="flex gap-3 mt-2">
+            <Button 
+              variant="outline" 
+              className="flex-1 border-white/20 hover:bg-white/5"
+              onClick={() => setShowSellDialog(false)}
+              disabled={isProcessing}
+            >
+              {t('common.cancel')}
+            </Button>
+            <Button 
+              className="flex-1 bg-[#00f0ff] text-black hover:bg-cyan-400"
+              onClick={handleConfirmSell}
+              disabled={isProcessing}
+              data-testid="button-confirm-sell"
+            >
+              {isProcessing ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  {t('wallet.transaction.pending')}
+                </>
+              ) : (
+                <>
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  {t('wallet.transaction.confirm')}
+                </>
+              )}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
