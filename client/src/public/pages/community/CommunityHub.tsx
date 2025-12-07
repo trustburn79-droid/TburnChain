@@ -13,36 +13,36 @@ export default function CommunityHub() {
     {
       id: 1,
       icon: Users,
-      value: "307,538",
+      value: "425,680",
       label: t('publicPages.community.hub.stats.totalMembers'),
-      change: "+12.5%",
+      change: "+18.7%",
       iconColor: "text-[#7000ff]",
       bgColor: "bg-[#7000ff]/10",
     },
     {
       id: 2,
       icon: TrendingUp,
-      value: "89,421",
+      value: "156,340",
       label: t('publicPages.community.hub.stats.monthlyActive'),
-      change: "+8.3%",
+      change: "+24.5%",
       iconColor: "text-[#00f0ff]",
       bgColor: "bg-[#00f0ff]/10",
     },
     {
       id: 3,
       icon: Crown,
-      value: "1,247",
+      value: "1,850",
       label: t('publicPages.community.hub.stats.ambassadors'),
-      change: "+156",
+      change: "+320",
       iconColor: "text-[#ffd700]",
       bgColor: "bg-[#ffd700]/10",
     },
     {
       id: 4,
       icon: GitBranch,
-      value: "482",
+      value: "720",
       label: t('publicPages.community.hub.stats.contributors'),
-      change: "+45",
+      change: "+95",
       iconColor: "text-[#ff0055]",
       bgColor: "bg-[#ff0055]/10",
     },
@@ -96,9 +96,9 @@ export default function CommunityHub() {
   ];
 
   const leaderboard = [
-    { rank: 1, name: "CryptoKim", initials: "CK", points: "125,840 pts", tier: t('publicPages.community.hub.leaderboard.tiers.diamond'), isTop: true },
-    { rank: 2, name: "BlockMaster", initials: "BM", points: "98,520 pts", tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
-    { rank: 3, name: "DeFiQueen", initials: "DQ", points: "87,340 pts", tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
+    { rank: 1, name: "CryptoKim", initials: "CK", points: "248,560 pts", tier: t('publicPages.community.hub.leaderboard.tiers.diamond'), isTop: true },
+    { rank: 2, name: "BlockMaster", initials: "BM", points: "185,740 pts", tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
+    { rank: 3, name: "DeFiQueen", initials: "DQ", points: "156,890 pts", tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
   ];
 
   const ambassadorBenefits = [
