@@ -84,36 +84,38 @@ export default function AdminBurnControl() {
   });
 
   const burnStats = data?.stats || {
-    totalBurned: "800,000,000",
-    burnPercentage: "8.0",
-    dailyBurn: "350,000",
-    weeklyBurn: "2,450,000",
+    totalBurned: "350,000,000",
+    burnPercentage: "3.5",
+    dailyBurn: "4,850,000",
+    weeklyBurn: "33,950,000",
     targetSupply: "6,940,000,000",
-    currentSupply: "10,000,000,000",
-    burnVelocity: "14,583",
+    currentSupply: "9,650,000,000",
+    burnVelocity: "202,083",
   };
 
   const burnHistory = data?.history || [
-    { date: "Dec 3", txBurn: 45000, timeBurn: 30000, aiBurn: 75000 },
-    { date: "Dec 2", txBurn: 42000, timeBurn: 30000, aiBurn: 68000 },
-    { date: "Dec 1", txBurn: 48000, timeBurn: 30000, aiBurn: 82000 },
-    { date: "Nov 30", txBurn: 40000, timeBurn: 30000, aiBurn: 65000 },
-    { date: "Nov 29", txBurn: 44000, timeBurn: 30000, aiBurn: 70000 },
-    { date: "Nov 28", txBurn: 46000, timeBurn: 30000, aiBurn: 72000 },
-    { date: "Nov 27", txBurn: 41000, timeBurn: 30000, aiBurn: 66000 },
+    { date: "Dec 7", txBurn: 1250000, timeBurn: 850000, aiBurn: 2750000 },
+    { date: "Dec 6", txBurn: 1180000, timeBurn: 850000, aiBurn: 2680000 },
+    { date: "Dec 5", txBurn: 1320000, timeBurn: 850000, aiBurn: 2920000 },
+    { date: "Dec 4", txBurn: 1150000, timeBurn: 850000, aiBurn: 2580000 },
+    { date: "Dec 3", txBurn: 1280000, timeBurn: 850000, aiBurn: 2720000 },
+    { date: "Dec 2", txBurn: 1220000, timeBurn: 850000, aiBurn: 2650000 },
+    { date: "Dec 1", txBurn: 1190000, timeBurn: 850000, aiBurn: 2610000 },
   ];
 
   const scheduledBurns = data?.scheduledBurns || [
-    { id: 1, type: "Time-based", amount: "500,000 TBURN", schedule: "Daily at 00:00 UTC", status: "active", nextRun: "2024-12-04 00:00" },
-    { id: 2, type: "Volume-based", amount: "0.5% of volume", schedule: "When 24h volume > 10M", status: "active", nextRun: "Condition-based" },
-    { id: 3, type: "AI Optimized", amount: "AI calculated", schedule: "Every 6 hours", status: "active", nextRun: "2024-12-03 18:00" },
+    { id: 1, type: "Time-based", amount: "850,000 TBURN", schedule: "Daily at 00:00 UTC", status: "active", nextRun: "2024-12-08 00:00" },
+    { id: 2, type: "Volume-based", amount: "0.7% of volume", schedule: "When 24h volume > 50M", status: "active", nextRun: "Condition-based" },
+    { id: 3, type: "AI Optimized", amount: "AI calculated (70% burn rate)", schedule: "Every 6 hours", status: "active", nextRun: "2024-12-07 18:00" },
+    { id: 4, type: "Transaction-based", amount: "0.7% per tx", schedule: "Per transaction", status: "active", nextRun: "Real-time" },
   ];
 
   const burnEvents = data?.events || [
-    { id: 1, type: "Transaction", amount: "12,500", txHash: "0xabc...123", timestamp: "2024-12-03 14:30:25" },
-    { id: 2, type: "AI Optimized", amount: "75,000", txHash: "0xdef...456", timestamp: "2024-12-03 12:00:00" },
-    { id: 3, type: "Time-based", amount: "30,000", txHash: "0xghi...789", timestamp: "2024-12-03 00:00:00" },
-    { id: 4, type: "Manual", amount: "100,000", txHash: "0xjkl...012", timestamp: "2024-12-02 15:45:30" },
+    { id: 1, type: "AI Optimized", amount: "2,750,000", txHash: "0xf8e2...a123", timestamp: "2024-12-07 18:00:00" },
+    { id: 2, type: "Transaction", amount: "312,500", txHash: "0xb7c4...d456", timestamp: "2024-12-07 17:45:25" },
+    { id: 3, type: "AI Optimized", amount: "2,680,000", txHash: "0xe6a9...f789", timestamp: "2024-12-07 12:00:00" },
+    { id: 4, type: "Time-based", amount: "850,000", txHash: "0xc5d8...b012", timestamp: "2024-12-07 00:00:00" },
+    { id: 5, type: "Volume-based", amount: "1,920,000", txHash: "0xa4f7...c345", timestamp: "2024-12-06 23:30:00" },
   ];
 
   useEffect(() => {

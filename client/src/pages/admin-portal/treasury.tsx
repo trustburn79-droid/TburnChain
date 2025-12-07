@@ -86,44 +86,44 @@ export default function AdminTreasury() {
   });
 
   const treasuryStats = data?.stats || {
-    totalBalance: "2,500,000,000",
-    usdValue: "$1,250,000,000",
-    monthlyIncome: "50,000,000",
-    monthlyExpense: "35,000,000",
-    netChange: "+15,000,000",
+    totalBalance: "1,850,000,000",
+    usdValue: "$925,000,000",
+    monthlyIncome: "82,500,000",
+    monthlyExpense: "45,200,000",
+    netChange: "+37,300,000",
   };
 
   const poolBalances = data?.pools || [
-    { name: "Main Treasury", balance: "1,500,000,000", percentage: 60, color: "bg-blue-500" },
-    { name: "Development Fund", balance: "500,000,000", percentage: 20, color: "bg-purple-500" },
-    { name: "Marketing Fund", balance: "250,000,000", percentage: 10, color: "bg-orange-500" },
-    { name: "Community Fund", balance: "150,000,000", percentage: 6, color: "bg-green-500" },
-    { name: "Reserve Fund", balance: "100,000,000", percentage: 4, color: "bg-gray-500" },
+    { name: "Main Treasury", balance: "925,000,000", percentage: 50, color: "bg-blue-500" },
+    { name: "Staking Rewards Pool", balance: "370,000,000", percentage: 20, color: "bg-green-500" },
+    { name: "Development Fund", balance: "277,500,000", percentage: 15, color: "bg-purple-500" },
+    { name: "AI Infrastructure Fund", balance: "185,000,000", percentage: 10, color: "bg-orange-500" },
+    { name: "Emergency Reserve", balance: "92,500,000", percentage: 5, color: "bg-gray-500" },
   ];
 
   const transactions = data?.transactions || [
-    { id: 1, type: "income", category: "Transaction Fees", amount: "125,000", timestamp: "2024-12-03 14:30", status: "completed" },
-    { id: 2, type: "income", category: "Bridge Fees", amount: "45,000", timestamp: "2024-12-03 12:00", status: "completed" },
-    { id: 3, type: "expense", category: "Validator Rewards", amount: "250,000", timestamp: "2024-12-03 00:00", status: "completed" },
-    { id: 4, type: "expense", category: "Development", amount: "75,000", timestamp: "2024-12-02 16:00", status: "pending" },
-    { id: 5, type: "income", category: "Slashing Penalty", amount: "10,000", timestamp: "2024-12-02 10:30", status: "completed" },
+    { id: 1, type: "income", category: "Transaction Fees", amount: "4,250,000", timestamp: "2024-12-07 18:00", status: "completed" },
+    { id: 2, type: "income", category: "Bridge Fees", amount: "1,850,000", timestamp: "2024-12-07 12:00", status: "completed" },
+    { id: 3, type: "expense", category: "Staking Rewards (Daily)", amount: "500,000", timestamp: "2024-12-07 00:00", status: "completed" },
+    { id: 4, type: "income", category: "DEX Trading Fees", amount: "2,150,000", timestamp: "2024-12-06 18:00", status: "completed" },
+    { id: 5, type: "expense", category: "AI Infrastructure", amount: "125,000", timestamp: "2024-12-06 12:00", status: "pending" },
   ];
 
   const growthData = data?.growthData || [
-    { month: "Jul", balance: 220 },
-    { month: "Aug", balance: 228 },
-    { month: "Sep", balance: 235 },
-    { month: "Oct", balance: 242 },
-    { month: "Nov", balance: 248 },
-    { month: "Dec", balance: 250 },
+    { month: "Jul", balance: 1520 },
+    { month: "Aug", balance: 1580 },
+    { month: "Sep", balance: 1650 },
+    { month: "Oct", balance: 1720 },
+    { month: "Nov", balance: 1785 },
+    { month: "Dec", balance: 1850 },
   ];
 
   const multiSigSigners = data?.signers || [
-    { address: "0x1234...5678", name: "Admin 1", signed: true },
-    { address: "0x2345...6789", name: "Admin 2", signed: true },
-    { address: "0x3456...7890", name: "Admin 3", signed: false },
-    { address: "0x4567...8901", name: "Admin 4", signed: false },
-    { address: "0x5678...9012", name: "Admin 5", signed: false },
+    { address: "0xf8e2...a123", name: "Treasury Lead", signed: true },
+    { address: "0xb7c4...d456", name: "CFO", signed: true },
+    { address: "0xe6a9...f789", name: "Security Officer", signed: true },
+    { address: "0xc5d8...b012", name: "Operations", signed: false },
+    { address: "0xa4f7...c345", name: "Governance Rep", signed: false },
   ];
 
   useEffect(() => {
