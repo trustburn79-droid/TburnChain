@@ -20393,7 +20393,11 @@
       "peakSessions": "피크 세션",
       "onlineNow": "현재 온라인",
       "lastHour": "지난 1시간",
-      "last24h": "최근 24시간"
+      "last24h": "최근 24시간",
+      "acrossAllUsers": "모든 사용자 대상",
+      "ofTotal": "전체 대비",
+      "inactive30min": "30분 이상 비활성",
+      "needCleanup": "정리 필요"
     },
     "settingsDialog": {
       "title": "세션 설정",

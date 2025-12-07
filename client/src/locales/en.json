@@ -20393,7 +20393,11 @@
       "peakSessions": "Peak Sessions",
       "onlineNow": "online now",
       "lastHour": "last hour",
-      "last24h": "last 24h"
+      "last24h": "last 24h",
+      "acrossAllUsers": "across all users",
+      "ofTotal": "of total",
+      "inactive30min": "inactive for 30+ min",
+      "needCleanup": "need cleanup"
     },
     "settingsDialog": {
       "title": "Session Settings",
