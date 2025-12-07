@@ -71,6 +71,11 @@ const legalLinks = [
   { titleKey: "disclaimer", href: "/legal/disclaimer" },
 ];
 
+const quickLinks = [
+  { title: "TBurn Scan", href: "/scan" },
+  { title: "VC", href: "/vc" },
+];
+
 export function PublicFooter() {
   const { t } = useTranslation();
 
@@ -295,8 +300,22 @@ export function PublicFooter() {
         
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-gray-600">
-            {t('publicPages.footer.copyright')}
+          <div className="flex items-center gap-6">
+            <div className="text-sm text-gray-600">
+              {t('publicPages.footer.copyright')}
+            </div>
+            <div className="flex items-center gap-4 text-sm">
+              {quickLinks.map((link) => (
+                <Link 
+                  key={link.href}
+                  href={link.href} 
+                  className="text-[#00f0ff] hover:text-white transition font-medium"
+                  data-testid={`link-footer-${link.title.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  {link.title}
+                </Link>
+              ))}
+            </div>
           </div>
           <div className="flex items-center gap-6 text-sm text-gray-500">
             {legalLinks.map((link) => (
