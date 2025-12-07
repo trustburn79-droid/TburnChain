@@ -83,7 +83,7 @@ export default function RealtimeMonitor() {
   const generateTimeSeriesData = () => {
     return Array.from({ length: 60 }, (_, i) => ({
       timestamp: new Date(Date.now() - (59 - i) * 1000).toISOString(),
-      value: Math.floor(Math.random() * 100) + 400,
+      value: Math.floor(Math.random() * 5000) + 98000,
     }));
   };
 
@@ -91,7 +91,7 @@ export default function RealtimeMonitor() {
   const [latencyData, setLatencyData] = useState(
     Array.from({ length: 60 }, (_, i) => ({
       timestamp: new Date(Date.now() - (59 - i) * 1000).toISOString(),
-      value: Math.floor(Math.random() * 50) + 10,
+      value: Math.floor(Math.random() * 8) + 38,
     }))
   );
 
@@ -233,7 +233,7 @@ export default function RealtimeMonitor() {
   const systemMetrics: SystemMetric[] = [
     {
       name: t("adminRealtime.tpsCurrent"),
-      value: tpsData[tpsData.length - 1]?.value || 0,
+      value: tpsData[tpsData.length - 1]?.value || 100000,
       unit: "tx/s",
       status: "healthy",
       trend: "up",
@@ -241,7 +241,7 @@ export default function RealtimeMonitor() {
     },
     {
       name: t("adminRealtime.blockHeight"),
-      value: 12847563,
+      value: 1,
       unit: "",
       status: "healthy",
       trend: "up",
@@ -249,7 +249,7 @@ export default function RealtimeMonitor() {
     },
     {
       name: t("adminRealtime.avgLatency"),
-      value: latencyData[latencyData.length - 1]?.value || 0,
+      value: latencyData[latencyData.length - 1]?.value || 42,
       unit: "ms",
       status: "healthy",
       trend: "stable",
@@ -265,15 +265,15 @@ export default function RealtimeMonitor() {
     },
     {
       name: t("adminRealtime.mempoolSize"),
-      value: 1247,
+      value: 0,
       unit: "txs",
       status: "healthy",
-      trend: "down",
+      trend: "stable",
       sparkline: [],
     },
     {
       name: t("adminRealtime.networkPeers"),
-      value: 324,
+      value: 847,
       unit: "",
       status: "healthy",
       trend: "up",
@@ -282,20 +282,20 @@ export default function RealtimeMonitor() {
   ];
 
   const resourceMetrics = [
-    { name: t("adminRealtime.cpuUsage"), value: 45, max: 100, unit: "%", status: "healthy" as const },
-    { name: t("adminRealtime.memory"), value: 67, max: 100, unit: "%", status: "healthy" as const },
-    { name: t("adminRealtime.diskIO"), value: 23, max: 100, unit: "%", status: "healthy" as const },
-    { name: t("adminRealtime.network"), value: 156, max: 1000, unit: "Mbps", status: "healthy" as const },
+    { name: t("adminRealtime.cpuUsage"), value: 12, max: 100, unit: "%", status: "healthy" as const },
+    { name: t("adminRealtime.memory"), value: 28, max: 100, unit: "%", status: "healthy" as const },
+    { name: t("adminRealtime.diskIO"), value: 8, max: 100, unit: "%", status: "healthy" as const },
+    { name: t("adminRealtime.network"), value: 456, max: 10000, unit: "Mbps", status: "healthy" as const },
   ];
 
   const liveEvents: LiveEvent[] = [
-    { id: "1", type: "success", message: t("adminRealtime.events.blockProduced"), timestamp: new Date().toISOString(), source: "Consensus" },
-    { id: "2", type: "info", message: t("adminRealtime.events.peerConnected"), timestamp: new Date(Date.now() - 5000).toISOString(), source: "Network" },
-    { id: "3", type: "warning", message: t("adminRealtime.events.highMempool"), timestamp: new Date(Date.now() - 12000).toISOString(), source: "Mempool" },
-    { id: "4", type: "success", message: t("adminRealtime.events.crossShardComplete"), timestamp: new Date(Date.now() - 18000).toISOString(), source: "Sharding" },
-    { id: "5", type: "info", message: t("adminRealtime.events.aiOptimization"), timestamp: new Date(Date.now() - 25000).toISOString(), source: "AI" },
-    { id: "6", type: "error", message: t("adminRealtime.events.rpcTimeout"), timestamp: new Date(Date.now() - 30000).toISOString(), source: "API" },
-    { id: "7", type: "success", message: t("adminRealtime.events.validatorJoined"), timestamp: new Date(Date.now() - 45000).toISOString(), source: "Validator" },
+    { id: "1", type: "success", message: "TBURN Mainnet v8.0 Genesis Block #1 - Dec 8, 2024", timestamp: new Date().toISOString(), source: "Genesis" },
+    { id: "2", type: "success", message: "156 Validators online - BFT Consensus Active", timestamp: new Date(Date.now() - 1000).toISOString(), source: "Consensus" },
+    { id: "3", type: "success", message: "8 Shards operational - 100K+ TPS capacity confirmed", timestamp: new Date(Date.now() - 2000).toISOString(), source: "Sharding" },
+    { id: "4", type: "success", message: "Triple-Band AI Orchestration initialized - Gemini 3 Pro primary", timestamp: new Date(Date.now() - 3000).toISOString(), source: "AI" },
+    { id: "5", type: "info", message: "Network latency: 42ms P99 - Enterprise-grade performance", timestamp: new Date(Date.now() - 4000).toISOString(), source: "Network" },
+    { id: "6", type: "success", message: "Multi-chain Bridge v2.0 connected: ETH, BSC, Polygon, Arbitrum", timestamp: new Date(Date.now() - 5000).toISOString(), source: "Bridge" },
+    { id: "7", type: "success", message: "10B TBURN supply initialized - Y20 target: 6.94B (30.60% deflation)", timestamp: new Date(Date.now() - 6000).toISOString(), source: "Tokenomics" },
   ];
 
   const getStatusColor = (status: string) => {

@@ -78,28 +78,28 @@ export default function MetricsExplorer() {
   ];
 
   const metrics: Metric[] = metricsData?.metrics || [
-    { name: "tburn_tps_current", description: t("adminMetrics.metricDescriptions.tpsCurrent"), type: "gauge", category: "network", value: 485000, unit: "tx/s", labels: { node: "all" }, isFavorite: true },
-    { name: "tburn_block_height", description: t("adminMetrics.metricDescriptions.blockHeight"), type: "counter", category: "network", value: 12847563, unit: "", labels: { chain: "mainnet" }, isFavorite: true },
-    { name: "tburn_consensus_time_ms", description: t("adminMetrics.metricDescriptions.consensusTime"), type: "histogram", category: "consensus", value: 124, unit: "ms", labels: { algorithm: "bft" }, isFavorite: false },
-    { name: "tburn_validator_count", description: t("adminMetrics.metricDescriptions.validatorCount"), type: "gauge", category: "consensus", value: 156, unit: "", labels: { status: "active" }, isFavorite: true },
-    { name: "tburn_cpu_usage_percent", description: t("adminMetrics.metricDescriptions.cpuUsage"), type: "gauge", category: "resources", value: 45.2, unit: "%", labels: { node: "primary" }, isFavorite: false },
-    { name: "tburn_memory_usage_gb", description: t("adminMetrics.metricDescriptions.memoryUsage"), type: "gauge", category: "resources", value: 64.8, unit: "GB", labels: { node: "primary" }, isFavorite: false },
-    { name: "tburn_disk_io_mbps", description: t("adminMetrics.metricDescriptions.diskIO"), type: "gauge", category: "resources", value: 256, unit: "MB/s", labels: { device: "nvme0" }, isFavorite: false },
-    { name: "tburn_tx_pending", description: t("adminMetrics.metricDescriptions.txPending"), type: "gauge", category: "transactions", value: 1247, unit: "txs", labels: { priority: "all" }, isFavorite: false },
-    { name: "tburn_tx_confirmed_24h", description: t("adminMetrics.metricDescriptions.txConfirmed"), type: "counter", category: "transactions", value: 42560000, unit: "", labels: {}, isFavorite: true },
-    { name: "tburn_ai_decision_latency_ms", description: t("adminMetrics.metricDescriptions.aiLatency"), type: "histogram", category: "ai", value: 45, unit: "ms", labels: { model: "llama" }, isFavorite: false },
-    { name: "tburn_ai_accuracy_percent", description: t("adminMetrics.metricDescriptions.aiAccuracy"), type: "gauge", category: "ai", value: 98.7, unit: "%", labels: { model: "all" }, isFavorite: true },
-    { name: "tburn_bridge_pending", description: t("adminMetrics.metricDescriptions.bridgePending"), type: "gauge", category: "bridge", value: 23, unit: "", labels: { chain: "all" }, isFavorite: false },
-    { name: "tburn_bridge_volume_24h", description: t("adminMetrics.metricDescriptions.bridgeVolume"), type: "counter", category: "bridge", value: 12500000, unit: "TBURN", labels: {}, isFavorite: false },
-    { name: "tburn_shard_count", description: t("adminMetrics.metricDescriptions.shardCount"), type: "gauge", category: "network", value: 48, unit: "", labels: {}, isFavorite: false },
-    { name: "tburn_cross_shard_latency_ms", description: t("adminMetrics.metricDescriptions.crossShardLatency"), type: "histogram", category: "network", value: 3.2, unit: "ms", labels: {}, isFavorite: false },
+    { name: "tburn_tps_current", description: t("adminMetrics.metricDescriptions.tpsCurrent"), type: "gauge", category: "network", value: 100000, unit: "tx/s", labels: { node: "all", network: "mainnet-v8.0" }, isFavorite: true },
+    { name: "tburn_block_height", description: t("adminMetrics.metricDescriptions.blockHeight"), type: "counter", category: "network", value: 1, unit: "", labels: { chain: "mainnet-v8.0", genesis: "Dec 8 2024" }, isFavorite: true },
+    { name: "tburn_consensus_time_ms", description: t("adminMetrics.metricDescriptions.consensusTime"), type: "histogram", category: "consensus", value: 42, unit: "ms", labels: { algorithm: "bft", validators: "156" }, isFavorite: true },
+    { name: "tburn_validator_count", description: t("adminMetrics.metricDescriptions.validatorCount"), type: "gauge", category: "consensus", value: 156, unit: "", labels: { status: "active", tier1: "12", tier2: "48", tier3: "96" }, isFavorite: true },
+    { name: "tburn_cpu_usage_percent", description: t("adminMetrics.metricDescriptions.cpuUsage"), type: "gauge", category: "resources", value: 12.4, unit: "%", labels: { node: "primary" }, isFavorite: false },
+    { name: "tburn_memory_usage_gb", description: t("adminMetrics.metricDescriptions.memoryUsage"), type: "gauge", category: "resources", value: 28.6, unit: "GB", labels: { node: "primary", capacity: "128GB" }, isFavorite: false },
+    { name: "tburn_disk_io_mbps", description: t("adminMetrics.metricDescriptions.diskIO"), type: "gauge", category: "resources", value: 847, unit: "MB/s", labels: { device: "nvme-raid" }, isFavorite: false },
+    { name: "tburn_tx_pending", description: t("adminMetrics.metricDescriptions.txPending"), type: "gauge", category: "transactions", value: 0, unit: "txs", labels: { priority: "all" }, isFavorite: false },
+    { name: "tburn_tx_confirmed_24h", description: t("adminMetrics.metricDescriptions.txConfirmed"), type: "counter", category: "transactions", value: 0, unit: "", labels: { genesis: "true" }, isFavorite: true },
+    { name: "tburn_ai_decision_latency_ms", description: t("adminMetrics.metricDescriptions.aiLatency"), type: "histogram", category: "ai", value: 18, unit: "ms", labels: { model: "gemini-3-pro", band: "triple" }, isFavorite: true },
+    { name: "tburn_ai_accuracy_percent", description: t("adminMetrics.metricDescriptions.aiAccuracy"), type: "gauge", category: "ai", value: 99.7, unit: "%", labels: { model: "triple-band" }, isFavorite: true },
+    { name: "tburn_bridge_pending", description: t("adminMetrics.metricDescriptions.bridgePending"), type: "gauge", category: "bridge", value: 0, unit: "", labels: { chains: "ETH,BSC,Polygon,Arbitrum" }, isFavorite: false },
+    { name: "tburn_bridge_volume_24h", description: t("adminMetrics.metricDescriptions.bridgeVolume"), type: "counter", category: "bridge", value: 0, unit: "TBURN", labels: { status: "genesis" }, isFavorite: false },
+    { name: "tburn_shard_count", description: t("adminMetrics.metricDescriptions.shardCount"), type: "gauge", category: "network", value: 8, unit: "", labels: { capacity: "100K+ TPS" }, isFavorite: true },
+    { name: "tburn_cross_shard_latency_ms", description: t("adminMetrics.metricDescriptions.crossShardLatency"), type: "histogram", category: "network", value: 1.8, unit: "ms", labels: { optimization: "ai-driven" }, isFavorite: false },
   ];
 
   const chartData = metricsData?.chartData || Array.from({ length: 60 }, (_, i) => ({
     time: `${59 - i}m ago`,
-    tburn_tps_current: Math.floor(Math.random() * 100000) + 400000,
-    tburn_consensus_time_ms: Math.floor(Math.random() * 30) + 110,
-    tburn_validator_count: 156 + Math.floor(Math.random() * 5) - 2,
+    tburn_tps_current: Math.floor(Math.random() * 5000) + 98000,
+    tburn_consensus_time_ms: Math.floor(Math.random() * 8) + 38,
+    tburn_validator_count: 156,
   }));
 
   const handleRefresh = useCallback(() => {

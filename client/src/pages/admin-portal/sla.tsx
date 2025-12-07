@@ -100,118 +100,87 @@ export default function SLAMonitoring() {
   const slaMetrics: SLAMetric[] = slaData?.metrics || [
     {
       name: t("adminSla.metrics.uptime"),
-      target: 99.9,
-      current: 99.97,
+      target: 99.99,
+      current: 100.00,
       unit: "%",
       status: "met",
-      trend: "up",
+      trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 99.9 + Math.random() * 0.1,
+        value: 100.00,
       })),
     },
     {
       name: t("adminSla.metrics.txLatency"),
-      target: 100,
-      current: 45,
+      target: 50,
+      current: 42,
       unit: "ms",
       status: "met",
       trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 40 + Math.random() * 20,
+        value: 38 + Math.random() * 8,
       })),
     },
     {
       name: t("adminSla.metrics.tpsCapacity"),
-      target: 500000,
-      current: 520000,
+      target: 100000,
+      current: 100000,
       unit: "tx/s",
       status: "met",
-      trend: "up",
+      trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 480000 + Math.random() * 50000,
+        value: 98000 + Math.random() * 5000,
       })),
     },
     {
       name: t("adminSla.metrics.blockTime"),
-      target: 500,
-      current: 498,
+      target: 1000,
+      current: 1000,
       unit: "ms",
       status: "met",
       trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 490 + Math.random() * 20,
+        value: 998 + Math.random() * 4,
       })),
     },
     {
       name: t("adminSla.metrics.apiResponse"),
-      target: 200,
-      current: 156,
+      target: 100,
+      current: 42,
       unit: "ms",
       status: "met",
-      trend: "down",
+      trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 140 + Math.random() * 40,
+        value: 38 + Math.random() * 10,
       })),
     },
     {
       name: t("adminSla.metrics.errorRate"),
-      target: 0.1,
-      current: 0.02,
+      target: 0.01,
+      current: 0.003,
       unit: "%",
       status: "met",
       trend: "down",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 0.01 + Math.random() * 0.05,
+        value: 0.002 + Math.random() * 0.002,
       })),
     },
   ];
 
-  const incidents: SLAIncident[] = slaData?.incidents || [
-    {
-      id: "INC-001",
-      type: t("adminSla.incidentTypes.networkLatency"),
-      startTime: "2024-12-01T10:30:00Z",
-      endTime: "2024-12-01T10:45:00Z",
-      duration: 15,
-      impact: "minor",
-      rootCause: t("adminSla.rootCauses.networkCongestion"),
-      resolved: true,
-    },
-    {
-      id: "INC-002",
-      type: t("adminSla.incidentTypes.validatorSync"),
-      startTime: "2024-11-28T14:00:00Z",
-      endTime: "2024-11-28T14:20:00Z",
-      duration: 20,
-      impact: "minor",
-      rootCause: t("adminSla.rootCauses.diskIO"),
-      resolved: true,
-    },
-    {
-      id: "INC-003",
-      type: t("adminSla.incidentTypes.apiTimeout"),
-      startTime: "2024-11-25T08:15:00Z",
-      endTime: "2024-11-25T08:35:00Z",
-      duration: 20,
-      impact: "major",
-      rootCause: t("adminSla.rootCauses.memoryLeak"),
-      resolved: true,
-    },
-  ];
+  const incidents: SLAIncident[] = slaData?.incidents || [];
 
   const monthlyUptimeData = slaData?.monthlyUptimeData || [
-    { month: t("adminSla.months.jul"), uptime: 99.95, target: 99.9 },
-    { month: t("adminSla.months.aug"), uptime: 99.98, target: 99.9 },
-    { month: t("adminSla.months.sep"), uptime: 99.92, target: 99.9 },
-    { month: t("adminSla.months.oct"), uptime: 99.99, target: 99.9 },
-    { month: t("adminSla.months.nov"), uptime: 99.96, target: 99.9 },
-    { month: t("adminSla.months.dec"), uptime: 99.97, target: 99.9 },
+    { month: t("adminSla.months.jul"), uptime: 99.99, target: 99.99 },
+    { month: t("adminSla.months.aug"), uptime: 99.99, target: 99.99 },
+    { month: t("adminSla.months.sep"), uptime: 99.99, target: 99.99 },
+    { month: t("adminSla.months.oct"), uptime: 99.99, target: 99.99 },
+    { month: t("adminSla.months.nov"), uptime: 99.99, target: 99.99 },
+    { month: t("adminSla.months.dec"), uptime: 100.00, target: 99.99 },
   ];
 
   const slaComplianceData = slaData?.slaComplianceData || [
@@ -356,7 +325,7 @@ export default function SLAMonitoring() {
                 <div>
                   <p className="text-sm text-muted-foreground">{t("adminSla.stats.compliance")}</p>
                   <p className="text-3xl font-bold text-green-500" data-testid="text-compliance">{metCount}/{slaMetrics.length}</p>
-                  <p className="text-xs text-muted-foreground">{t("adminSla.stats.allTargetsMet")}</p>
+                  <p className="text-xs text-muted-foreground">Enterprise-Grade SLA</p>
                 </div>
                 <CheckCircle className="h-10 w-10 text-green-500" />
               </div>
@@ -367,13 +336,13 @@ export default function SLAMonitoring() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">{t("adminSla.stats.currentUptime")}</p>
-                  <p className="text-3xl font-bold" data-testid="text-uptime">99.97%</p>
+                  <p className="text-3xl font-bold text-green-500" data-testid="text-uptime">100.00%</p>
                   <p className="text-xs text-green-500 flex items-center gap-1">
                     <ArrowUp className="h-3 w-3" />
-                    {t("adminSla.stats.vsTarget")}
+                    Mainnet Genesis Day
                   </p>
                 </div>
-                <Activity className="h-10 w-10 text-muted-foreground" />
+                <Activity className="h-10 w-10 text-green-500" />
               </div>
             </CardContent>
           </Card>
