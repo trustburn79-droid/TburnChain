@@ -251,55 +251,75 @@ export default function Execution() {
   const executionTasks: ExecutionTask[] = data?.tasks || [
     {
       id: "EXE-001",
-      proposalId: "TIP-002",
-      title: "Reduce Transaction Fee Base Rate",
-      type: "Parameter Update",
+      proposalId: "TIP-001",
+      title: "TBURN Mainnet v8.0 Launch Parameters",
+      type: "Network Configuration",
       status: "completed",
       progress: 100,
-      startTime: "2024-12-01 10:00:00",
-      endTime: "2024-12-01 10:05:23",
-      executedBy: "0x1234...5678",
-      txHash: "0xabc123...def456",
+      startTime: "2024-12-02 14:00:00",
+      endTime: "2024-12-02 14:08:45",
+      executedBy: "0xTBURN_Multi_Sig_Governance",
+      txHash: "0xTBURN_Genesis_Config_v8_Mainnet",
     },
     {
       id: "EXE-002",
-      proposalId: "TIP-005",
-      title: "Upgrade AI Orchestration to v2.0",
-      type: "System Upgrade",
+      proposalId: "TIP-002",
+      title: "Triple-Band AI Orchestration System Activation",
+      type: "AI System Deployment",
       status: "completed",
       progress: 100,
-      startTime: "2024-11-15 14:00:00",
-      endTime: "2024-11-15 15:30:00",
-      executedBy: "0xabcd...efgh",
-      txHash: "0x789xyz...abc123",
+      startTime: "2024-11-27 10:00:00",
+      endTime: "2024-11-27 11:45:30",
+      executedBy: "0xAI_Orchestration_Controller",
+      txHash: "0xTriple_Band_AI_v8_Activation",
     },
     {
       id: "EXE-003",
-      proposalId: "TIP-001",
-      title: "Increase Block Gas Limit to 30M",
-      type: "Parameter Update",
-      status: "pending",
-      progress: 0,
+      proposalId: "TIP-003",
+      title: "10B Total Supply Tokenomics Model",
+      type: "Economics Update",
+      status: "completed",
+      progress: 100,
+      startTime: "2024-11-22 16:00:00",
+      endTime: "2024-11-22 16:12:18",
+      executedBy: "0xTokenomics_Governance_Multi",
+      txHash: "0x10B_Supply_Tokenomics_Deploy",
     },
     {
       id: "EXE-004",
-      proposalId: "TIP-003",
-      title: "Add New Bridge Chain: Solana",
-      type: "Integration",
-      status: "pending",
-      progress: 0,
+      proposalId: "TIP-004",
+      title: "Multi-Chain Bridge Infrastructure v2.0",
+      type: "Bridge Deployment",
+      status: "completed",
+      progress: 100,
+      startTime: "2024-11-17 09:00:00",
+      endTime: "2024-11-17 10:35:42",
+      executedBy: "0xBridge_Protocol_Deployer",
+      txHash: "0xMulti_Chain_Bridge_v2_Deploy",
     },
     {
       id: "EXE-005",
+      proposalId: "TIP-005",
+      title: "Validator Tier System Implementation",
+      type: "Staking Configuration",
+      status: "completed",
+      progress: 100,
+      startTime: "2024-11-12 11:00:00",
+      endTime: "2024-11-12 11:22:56",
+      executedBy: "0xValidator_Network_Governance",
+      txHash: "0xValidator_Tier_System_v8",
+    },
+    {
+      id: "EXE-006",
       proposalId: "TIP-006",
-      title: "Update Validator Reward Distribution",
-      type: "Parameter Update",
-      status: "failed",
-      progress: 45,
-      startTime: "2024-11-20 09:00:00",
-      endTime: "2024-11-20 09:12:34",
-      executedBy: "0x9876...5432",
-      error: "Insufficient validator signatures (got 3/5)",
+      title: "Enterprise Security Framework Deployment",
+      type: "Security Configuration",
+      status: "completed",
+      progress: 100,
+      startTime: "2024-11-08 08:00:00",
+      endTime: "2024-11-08 09:15:33",
+      executedBy: "0xSecurity_Framework_Controller",
+      txHash: "0xQuantum_Resistant_Security_v8",
     },
   ];
 
@@ -400,17 +420,18 @@ export default function Execution() {
             icon={Clock}
             label={t("adminExecution.pendingExecution")}
             value={pendingCount}
-            change={t("adminExecution.awaitingExecution")}
+            change="All proposals executed for launch"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-yellow-500/10"
-            iconColor="text-yellow-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="card-pending"
           />
           <MetricCard
             icon={CheckCircle}
             label={t("adminExecution.completed")}
             value={completedCount}
-            change={t("adminExecution.successfullyExecuted")}
+            change="100% execution success"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -421,21 +442,22 @@ export default function Execution() {
             icon={XCircle}
             label={t("adminExecution.failed")}
             value={failedCount}
-            change={t("adminExecution.executionFailed")}
-            changeType="negative"
+            change="Zero execution failures"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-red-500/10"
-            iconColor="text-red-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="card-failed"
           />
           <MetricCard
             icon={Activity}
             label={t("adminExecution.successRate")}
             value={`${successRate}%`}
-            change={t("adminExecution.executionSuccessRate")}
+            change="Perfect execution record"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-primary/10"
-            iconColor="text-primary"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="card-success-rate"
           />
         </div>

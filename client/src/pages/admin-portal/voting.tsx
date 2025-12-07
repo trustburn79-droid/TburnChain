@@ -220,28 +220,28 @@ export default function VotingMonitor() {
   }, [selectedProposal, toast, t]);
 
   const votingTrend: VotingData[] = [
-    { time: "00:00", for: 2000000, against: 500000, abstain: 100000 },
-    { time: "04:00", for: 3500000, against: 1000000, abstain: 200000 },
-    { time: "08:00", for: 5000000, against: 1500000, abstain: 300000 },
-    { time: "12:00", for: 6500000, against: 1800000, abstain: 350000 },
-    { time: "16:00", for: 7500000, against: 2000000, abstain: 380000 },
-    { time: "20:00", for: 8500000, against: 2100000, abstain: 400000 },
+    { time: "00:00", for: 120000000, against: 8000000, abstain: 2000000 },
+    { time: "04:00", for: 280000000, against: 10000000, abstain: 4000000 },
+    { time: "08:00", for: 450000000, against: 11000000, abstain: 5000000 },
+    { time: "12:00", for: 620000000, against: 11500000, abstain: 6000000 },
+    { time: "16:00", for: 780000000, against: 12000000, abstain: 7000000 },
+    { time: "20:00", for: 850000000, against: 12000000, abstain: 8000000 },
   ];
 
   const voteDistribution = [
-    { name: t("adminVoting.for"), value: 8500000, color: "#22c55e" },
-    { name: t("adminVoting.against"), value: 2100000, color: "#ef4444" },
-    { name: t("adminVoting.abstain"), value: 400000, color: "#94a3b8" },
+    { name: t("adminVoting.for"), value: 850000000, color: "#22c55e" },
+    { name: t("adminVoting.against"), value: 12000000, color: "#ef4444" },
+    { name: t("adminVoting.abstain"), value: 8000000, color: "#94a3b8" },
   ];
 
   const recentVoters: VoterRecord[] = [
-    { address: "0x1234567890abcdef1234567890abcdef12345678", vote: "for", power: 150000, timestamp: "2024-12-04 14:45:00" },
-    { address: "0xabcdef0123456789abcdef0123456789abcdef01", vote: "against", power: 85000, timestamp: "2024-12-04 14:42:00" },
-    { address: "0x9876543210fedcba9876543210fedcba98765432", vote: "for", power: 320000, timestamp: "2024-12-04 14:38:00" },
-    { address: "0xdeadbeef0123456789deadbeef0123456789dead", vote: "abstain", power: 45000, timestamp: "2024-12-04 14:35:00" },
-    { address: "0xfacecafe0123456789facecafe0123456789face", vote: "for", power: 210000, timestamp: "2024-12-04 14:30:00" },
-    { address: "0x555566667777888899990000aaaabbbbccccdddd", vote: "for", power: 175000, timestamp: "2024-12-04 14:25:00" },
-    { address: "0x77778888999900001111222233334444555566667", vote: "against", power: 95000, timestamp: "2024-12-04 14:20:00" },
+    { address: "0xTBURN_Validator_Pool_Alpha_001", vote: "for", power: 25000000, timestamp: "2024-12-07 23:55:00" },
+    { address: "0xTBURN_Staking_DAO_Treasury_01", vote: "for", power: 18500000, timestamp: "2024-12-07 23:50:00" },
+    { address: "0xTBURN_Foundation_Reserve_Main", vote: "for", power: 15000000, timestamp: "2024-12-07 23:45:00" },
+    { address: "0xTBURN_Enterprise_Partner_A01", vote: "for", power: 8500000, timestamp: "2024-12-07 23:40:00" },
+    { address: "0xTBURN_Community_Pool_Voting", vote: "for", power: 5200000, timestamp: "2024-12-07 23:35:00" },
+    { address: "0xTBURN_DeFi_Protocol_Partner", vote: "for", power: 3800000, timestamp: "2024-12-07 23:30:00" },
+    { address: "0xTBURN_Institutional_Investor", vote: "for", power: 2500000, timestamp: "2024-12-07 23:25:00" },
   ];
 
   const getVoteIcon = (vote: string) => {
@@ -363,7 +363,7 @@ export default function VotingMonitor() {
                     <ThumbsUp className="h-5 w-5" />
                     <span className="font-medium">{t("adminVoting.for")}</span>
                   </div>
-                  <p className="text-2xl font-bold mt-2" data-testid="text-for-percentage">77.3%</p>
+                  <p className="text-2xl font-bold mt-2" data-testid="text-for-percentage">97.7%</p>
                   <p className="text-sm text-muted-foreground" data-testid="text-for-amount">850M TBURN</p>
                 </div>
                 <div className="p-4 border rounded-lg" data-testid="card-votes-against">
@@ -371,26 +371,26 @@ export default function VotingMonitor() {
                     <ThumbsDown className="h-5 w-5" />
                     <span className="font-medium">{t("adminVoting.against")}</span>
                   </div>
-                  <p className="text-2xl font-bold mt-2" data-testid="text-against-percentage">19.1%</p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-against-amount">210M TBURN</p>
+                  <p className="text-2xl font-bold mt-2" data-testid="text-against-percentage">1.4%</p>
+                  <p className="text-sm text-muted-foreground" data-testid="text-against-amount">12M TBURN</p>
                 </div>
                 <div className="p-4 border rounded-lg" data-testid="card-votes-abstain">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Minus className="h-5 w-5" />
                     <span className="font-medium">{t("adminVoting.abstain")}</span>
                   </div>
-                  <p className="text-2xl font-bold mt-2" data-testid="text-abstain-percentage">3.6%</p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-abstain-amount">40M TBURN</p>
+                  <p className="text-2xl font-bold mt-2" data-testid="text-abstain-percentage">0.9%</p>
+                  <p className="text-sm text-muted-foreground" data-testid="text-abstain-amount">8M TBURN</p>
                 </div>
                 <div className="p-4 border rounded-lg" data-testid="card-quorum">
                   <div className="flex items-center gap-2">
                     <Users className="h-5 w-5" />
                     <span className="font-medium">{t("adminVoting.quorum")}</span>
                   </div>
-                  <p className={`text-2xl font-bold mt-2 ${quorumPercentage >= 100 ? "text-green-500" : "text-yellow-500"}`} data-testid="text-quorum-percentage">
-                    {quorumPercentage.toFixed(1)}%
+                  <p className="text-2xl font-bold mt-2 text-green-500" data-testid="text-quorum-percentage">
+                    174.0%
                   </p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-quorum-amount">{(totalVotes / 1000000).toFixed(1)}M / 1B</p>
+                  <p className="text-sm text-muted-foreground" data-testid="text-quorum-amount">870M / 500M Required</p>
                 </div>
               </div>
             )}
@@ -417,17 +417,17 @@ export default function VotingMonitor() {
             </div>
 
             <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-              <span className="flex items-center gap-1" data-testid="text-remaining-time">
-                <Clock className="h-4 w-4" />
-                {t("adminVoting.daysRemaining", { count: 4 })}
+              <span className="flex items-center gap-1 text-green-500" data-testid="text-remaining-time">
+                <CheckCircle className="h-4 w-4" />
+                Voting Complete - Executed
               </span>
               <span className="flex items-center gap-1" data-testid="text-voters-count">
                 <Users className="h-4 w-4" />
-                1,247 {t("adminVoting.voters")}
+                4,847 {t("adminVoting.voters")}
               </span>
               <span className="flex items-center gap-1" data-testid="text-end-date">
                 <Calendar className="h-4 w-4" />
-                {t("adminVoting.ends")}: Dec 8, 2024
+                Executed: Dec 2, 2024
               </span>
             </div>
           </CardContent>

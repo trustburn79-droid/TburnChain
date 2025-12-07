@@ -291,8 +291,9 @@ export default function GovParams() {
           <MetricCard
             icon={Users}
             label={t("adminGovParams.quorum")}
-            value="30%"
-            change={t("adminGovParams.quorumMin")}
+            value="5%"
+            change="500M TBURN minimum (10B supply)"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-primary/10"
             iconColor="text-primary"
@@ -302,7 +303,8 @@ export default function GovParams() {
             icon={Percent}
             label={t("adminGovParams.approvalThreshold")}
             value="66%"
-            change={t("adminGovParams.requiredForPassing")}
+            change="Supermajority for governance"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
             iconColor="text-blue-500"
@@ -312,7 +314,8 @@ export default function GovParams() {
             icon={Clock}
             label={t("adminGovParams.votingPeriod")}
             value={t("adminGovParams.days", { count: 7 })}
-            change={t("adminGovParams.defaultDuration")}
+            change="Standard voting window"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
             iconColor="text-green-500"
@@ -322,7 +325,8 @@ export default function GovParams() {
             icon={Timer}
             label={t("adminGovParams.timelock")}
             value={t("adminGovParams.hours", { count: 48 })}
-            change={t("adminGovParams.beforeExecution")}
+            change="Security review period"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-yellow-500/10"
             iconColor="text-yellow-500"

@@ -271,82 +271,98 @@ export default function Proposals() {
   const proposals: Proposal[] = data?.proposals || [
     {
       id: "TIP-001",
-      title: "Increase Block Gas Limit to 30M",
-      description: "Proposal to increase the block gas limit from 20M to 30M to accommodate higher transaction throughput",
+      title: "TBURN Mainnet v8.0 Launch Parameters",
+      description: "Finalize network parameters for December 8th mainnet launch: 100K+ TPS capacity, 1.0s block time, 8 shards, AI-optimized consensus",
       category: "Network",
-      proposer: "0x1234567890abcdef1234567890abcdef12345678",
-      status: "active",
-      votesFor: 8500000,
-      votesAgainst: 2100000,
-      votesAbstain: 400000,
-      quorum: 10000000,
-      startDate: "2024-12-01",
-      endDate: "2024-12-08",
-      totalVoters: 1247,
+      proposer: "0xTBURN8a4b7c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
+      status: "executed",
+      votesFor: 850000000,
+      votesAgainst: 12000000,
+      votesAbstain: 8000000,
+      quorum: 500000000,
+      startDate: "2024-11-25",
+      endDate: "2024-12-02",
+      totalVoters: 4847,
       requiredApproval: 66,
     },
     {
       id: "TIP-002",
-      title: "Reduce Transaction Fee Base Rate",
-      description: "Lower the base transaction fee from 0.001 TBURN to 0.0005 TBURN to improve network accessibility",
-      category: "Economics",
-      proposer: "0xabcdef0123456789abcdef0123456789abcdef01",
-      status: "passed",
-      votesFor: 12000000,
-      votesAgainst: 3000000,
-      votesAbstain: 1000000,
-      quorum: 10000000,
+      title: "Triple-Band AI Orchestration System Activation",
+      description: "Enable Quad-Band AI System with Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3 fallback for mainnet operations",
+      category: "AI",
+      proposer: "0xAI0rch3str4t10n5yst3m0p3r4t10n4l",
+      status: "executed",
+      votesFor: 920000000,
+      votesAgainst: 15000000,
+      votesAbstain: 5000000,
+      quorum: 500000000,
       startDate: "2024-11-20",
       endDate: "2024-11-27",
-      totalVoters: 2156,
+      totalVoters: 5234,
       requiredApproval: 66,
     },
     {
       id: "TIP-003",
-      title: "Add New Bridge Chain: Solana",
-      description: "Integrate Solana blockchain into the TBURN cross-chain bridge infrastructure",
-      category: "Bridge",
-      proposer: "0x9876543210fedcba9876543210fedcba98765432",
-      status: "active",
-      votesFor: 5000000,
-      votesAgainst: 4500000,
-      votesAbstain: 500000,
-      quorum: 10000000,
-      startDate: "2024-12-02",
-      endDate: "2024-12-09",
-      totalVoters: 987,
+      title: "10B Total Supply Tokenomics Model",
+      description: "Approve 20-year tokenomics: Genesis 100억 TBURN → Y20 69.40억 (30.60% total deflation via AI-driven burns)",
+      category: "Economics",
+      proposer: "0xT0k3n0m1c5D3s1gn3rC0mm1tt33",
+      status: "executed",
+      votesFor: 780000000,
+      votesAgainst: 45000000,
+      votesAbstain: 25000000,
+      quorum: 500000000,
+      startDate: "2024-11-15",
+      endDate: "2024-11-22",
+      totalVoters: 4156,
       requiredApproval: 66,
     },
     {
       id: "TIP-004",
-      title: "Implement Auto-Compounding Rewards",
-      description: "Enable automatic reward compounding for stakers to improve DeFi experience",
-      category: "Staking",
-      proposer: "0xdeadbeef0123456789deadbeef0123456789dead",
-      status: "rejected",
-      votesFor: 4000000,
-      votesAgainst: 8000000,
-      votesAbstain: 2000000,
-      quorum: 10000000,
-      startDate: "2024-11-15",
-      endDate: "2024-11-22",
-      totalVoters: 1543,
+      title: "Multi-Chain Bridge Infrastructure v2.0",
+      description: "Deploy cross-chain bridge supporting Ethereum, BSC, Polygon, Arbitrum with AI risk assessment and quantum-resistant signatures",
+      category: "Bridge",
+      proposer: "0xBr1dg3Pr0t0c0lD3v3l0pm3nt",
+      status: "executed",
+      votesFor: 695000000,
+      votesAgainst: 85000000,
+      votesAbstain: 20000000,
+      quorum: 500000000,
+      startDate: "2024-11-10",
+      endDate: "2024-11-17",
+      totalVoters: 3892,
       requiredApproval: 66,
     },
     {
       id: "TIP-005",
-      title: "Upgrade AI Orchestration to v2.0",
-      description: "Major upgrade to AI systems including improved consensus optimization and security features",
-      category: "AI",
-      proposer: "0xfacecafe0123456789facecafe0123456789face",
+      title: "Validator Tier System Implementation",
+      description: "Establish 3-tier validator structure: Tier 1 (20M min), Tier 2 (5M min), Tier 3 (10K min) with dynamic emission rates",
+      category: "Staking",
+      proposer: "0xV4l1d4t0rN3tw0rkG0v3rn4nc3",
       status: "executed",
-      votesFor: 15000000,
-      votesAgainst: 1500000,
-      votesAbstain: 500000,
-      quorum: 10000000,
+      votesFor: 725000000,
+      votesAgainst: 65000000,
+      votesAbstain: 10000000,
+      quorum: 500000000,
+      startDate: "2024-11-05",
+      endDate: "2024-11-12",
+      totalVoters: 3567,
+      requiredApproval: 66,
+    },
+    {
+      id: "TIP-006",
+      title: "Enterprise Security Framework Deployment",
+      description: "Activate quantum-resistant encryption, 2FA enforcement, multi-sig governance with 99.7% security score target",
+      category: "Security",
+      proposer: "0xS3cur1tyFr4m3w0rkC0mm1tt33",
+      status: "executed",
+      votesFor: 890000000,
+      votesAgainst: 8000000,
+      votesAbstain: 2000000,
+      quorum: 500000000,
       startDate: "2024-11-01",
       endDate: "2024-11-08",
-      totalVoters: 2847,
+      totalVoters: 4123,
       requiredApproval: 66,
     },
   ];
@@ -510,7 +526,8 @@ export default function Proposals() {
             icon={FileText}
             label={t("adminProposals.totalProposals")}
             value={proposals.length}
-            change={t("adminProposals.allTime")}
+            change="All pre-launch proposals executed"
+            changeType="positive"
             isLoading={isLoading}
             bgColor="bg-primary/10"
             iconColor="text-primary"
@@ -520,18 +537,18 @@ export default function Proposals() {
             icon={Vote}
             label={t("adminProposals.activeVoting")}
             value={activeCount}
-            change={t("adminProposals.currentlyInProgress")}
-            changeType="neutral"
+            change="Launch parameters finalized"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-blue-500/10"
-            iconColor="text-blue-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="card-active-voting"
           />
           <MetricCard
             icon={CheckCircle}
             label={t("adminProposals.passed")}
             value={passedCount}
-            change={t("adminProposals.approvedProposals")}
+            change="100% consensus achieved"
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -542,11 +559,11 @@ export default function Proposals() {
             icon={XCircle}
             label={t("adminProposals.rejected")}
             value={rejectedCount}
-            change={t("adminProposals.notApproved")}
-            changeType="negative"
+            change="Zero rejected proposals"
+            changeType="positive"
             isLoading={isLoading}
-            bgColor="bg-red-500/10"
-            iconColor="text-red-500"
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
             testId="card-rejected"
           />
         </div>

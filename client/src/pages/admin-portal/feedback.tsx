@@ -147,27 +147,27 @@ export default function FeedbackSystem() {
   }, [toast, t]);
 
   const feedbackItems: FeedbackItem[] = feedbackData?.items || [
-    { id: "FB-001", type: "suggestion", category: t("adminFeedback.categories.dashboard"), message: t("adminFeedback.sampleMessages.customWidgets"), rating: 4, user: "admin@tburn.io", createdAt: "2024-12-03T10:00:00Z", status: "new", response: null },
-    { id: "FB-002", type: "praise", category: t("adminFeedback.categories.performance"), message: t("adminFeedback.sampleMessages.realtimeMonitoring"), rating: 5, user: "ops@tburn.io", createdAt: "2024-12-02T15:30:00Z", status: "reviewed", response: t("adminFeedback.sampleResponses.thanks") },
-    { id: "FB-003", type: "bug", category: t("adminFeedback.categories.alerts"), message: t("adminFeedback.sampleMessages.lateNotifications"), rating: 2, user: "security@tburn.io", createdAt: "2024-12-02T09:15:00Z", status: "actioned", response: t("adminFeedback.sampleResponses.fixed") },
-    { id: "FB-004", type: "complaint", category: t("adminFeedback.categories.documentation"), message: t("adminFeedback.sampleMessages.outdatedDocs"), rating: 2, user: "dev@tburn.io", createdAt: "2024-12-01T14:00:00Z", status: "actioned", response: t("adminFeedback.sampleResponses.updating") },
-    { id: "FB-005", type: "suggestion", category: t("adminFeedback.categories.security"), message: t("adminFeedback.sampleMessages.hardwareKeys"), rating: 4, user: "analyst@tburn.io", createdAt: "2024-11-30T11:20:00Z", status: "reviewed", response: null },
-    { id: "FB-006", type: "praise", category: t("adminFeedback.categories.uiux"), message: t("adminFeedback.sampleMessages.darkMode"), rating: 5, user: "designer@tburn.io", createdAt: "2024-11-28T16:45:00Z", status: "archived", response: t("adminFeedback.sampleResponses.glad") },
+    { id: "FB-001", type: "praise", category: "Network Performance", message: "100K+ TPS capacity is impressive - far exceeds our enterprise requirements. Ready for Dec 8 launch!", rating: 5, user: "enterprise@partner.com", createdAt: "2024-12-07T18:00:00Z", status: "reviewed", response: "Thank you for your confidence in TBURN Mainnet v8.0!" },
+    { id: "FB-002", type: "praise", category: "AI Orchestration", message: "Triple-Band AI system provides exceptional consensus optimization. Latency under 50ms consistently.", rating: 5, user: "validator@node.io", createdAt: "2024-12-07T15:30:00Z", status: "reviewed", response: "Our Quad-Band AI ensures optimal performance across all network conditions." },
+    { id: "FB-003", type: "praise", category: "Security Framework", message: "Quantum-resistant signatures and 2FA enforcement give us confidence for institutional adoption.", rating: 5, user: "security@institution.com", createdAt: "2024-12-06T12:00:00Z", status: "reviewed", response: "Security is our top priority - 99.7% security score maintained." },
+    { id: "FB-004", type: "suggestion", category: "Bridge Infrastructure", message: "Consider adding Cosmos IBC support in future updates for cross-chain interoperability.", rating: 4, user: "defi@protocol.io", createdAt: "2024-12-05T09:15:00Z", status: "reviewed", response: "Added to Q1 2025 roadmap - TIP-007 draft in progress." },
+    { id: "FB-005", type: "praise", category: "Tokenomics", message: "20-year deflationary model with AI-driven burns is well-designed. 30.60% target deflation is sustainable.", rating: 5, user: "economist@research.org", createdAt: "2024-12-04T14:45:00Z", status: "actioned", response: "Our tokenomics ensures long-term value while maintaining network utility." },
+    { id: "FB-006", type: "praise", category: "Validator System", message: "3-tier validator structure with dynamic emissions provides fair incentives for all participants.", rating: 5, user: "staker@community.io", createdAt: "2024-12-03T11:20:00Z", status: "actioned", response: "Community-first approach to validator rewards and governance." },
   ];
 
   const ratingData = feedbackData?.ratingData || [
-    { rating: t("adminFeedback.ratings.5stars"), count: 45, percentage: 35 },
-    { rating: t("adminFeedback.ratings.4stars"), count: 38, percentage: 30 },
-    { rating: t("adminFeedback.ratings.3stars"), count: 25, percentage: 20 },
-    { rating: t("adminFeedback.ratings.2stars"), count: 12, percentage: 9 },
-    { rating: t("adminFeedback.ratings.1star"), count: 8, percentage: 6 },
+    { rating: t("adminFeedback.ratings.5stars"), count: 847, percentage: 78 },
+    { rating: t("adminFeedback.ratings.4stars"), count: 186, percentage: 17 },
+    { rating: t("adminFeedback.ratings.3stars"), count: 42, percentage: 4 },
+    { rating: t("adminFeedback.ratings.2stars"), count: 8, percentage: 1 },
+    { rating: t("adminFeedback.ratings.1star"), count: 2, percentage: 0 },
   ];
 
   const typeDistribution = feedbackData?.typeDistribution || [
-    { name: t("adminFeedback.types.suggestions"), value: 40, color: "hsl(var(--chart-1))" },
-    { name: t("adminFeedback.types.praise"), value: 30, color: "hsl(var(--chart-2))" },
-    { name: t("adminFeedback.types.bugs"), value: 20, color: "hsl(var(--chart-3))" },
-    { name: t("adminFeedback.types.complaints"), value: 10, color: "hsl(var(--chart-5))" },
+    { name: t("adminFeedback.types.praise"), value: 72, color: "hsl(var(--chart-2))" },
+    { name: t("adminFeedback.types.suggestions"), value: 23, color: "hsl(var(--chart-1))" },
+    { name: t("adminFeedback.types.bugs"), value: 4, color: "hsl(var(--chart-3))" },
+    { name: t("adminFeedback.types.complaints"), value: 1, color: "hsl(var(--chart-5))" },
   ];
 
   const trendData = feedbackData?.trendData || Array.from({ length: 30 }, (_, i) => ({
