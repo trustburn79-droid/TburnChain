@@ -6939,6 +6939,80 @@
     "addressCopied": "주소가 클립보드에 복사되었습니다",
     "txHashCopied": "거래 해시가 클립보드에 복사되었습니다"
   },
+  "vcTestMode": {
+    "badge": "VC 테스트 모드",
+    "title": "TBURN 플랫폼",
+    "subtitle": "투자 테스트 환경",
+    "description": "사전 충전된 데모 지갑으로 TBURN 메인넷의 모든 기능을 체험하세요. 모든 DeFi 기능을 테스트하고, AI 오케스트레이션을 탐색하고, 기술을 평가하세요.",
+    "startTour": "가이드 투어 시작",
+    "explorePlatform": "플랫폼 탐색",
+    "demoWallet": "데모 지갑",
+    "testFunds": "플랫폼 평가용 테스트 자금. 실제 가치 없음.",
+    "walletCopied": "지갑 주소가 복사되었습니다",
+    "walletReset": "데모 지갑 초기화",
+    "walletResetDesc": "데모 지갑이 초기 잔액으로 재설정되었습니다",
+    "quickStats": "주요 통계",
+    "tokenomics": "토크노믹스",
+    "networkStatus": "네트워크 상태",
+    "quickAccess": "빠른 액세스",
+    "growthMetrics": "성장 지표",
+    "competitiveEdge": "경쟁 우위",
+    "aiSystem": "Quad-Band AI 시스템",
+    "security": "보안 아키텍처",
+    "techStack": "기술 스택",
+    "tabs": {
+      "overview": "개요",
+      "features": "기능",
+      "metrics": "지표",
+      "tech": "기술"
+    },
+    "stats": {
+      "marketCap": "시가총액",
+      "tvl": "총 예치금",
+      "dailyVolume": "일일 거래량",
+      "activeWallets": "활성 지갑",
+      "totalSupply": "총 공급량",
+      "circulating": "유통량",
+      "burned": "소각량",
+      "status": "상태",
+      "operational": "운영 중",
+      "validators": "검증자",
+      "shards": "활성 샤드",
+      "tps": "TPS",
+      "blockTime": "블록 시간"
+    },
+    "metrics": {
+      "userGrowth": "전년 대비 사용자 증가율",
+      "tvl": "총 예치금",
+      "activeUsers": "월간 활성 사용자",
+      "validators": "활성 검증자"
+    },
+    "edge": {
+      "aiOrchestration": "Quad-Band AI 오케스트레이션",
+      "dynamicSharding": "다이나믹 AI 샤딩",
+      "quantumResistant": "양자 저항 서명",
+      "deflationary": "AI 기반 디플레이션 (70%)",
+      "crossChain": "크로스체인 브릿지"
+    },
+    "ai": {
+      "primary": "Primary - 네트워크 최적화",
+      "analysis": "Analysis - 스마트 컨트랙트 감사",
+      "prediction": "Prediction - 시장 분석",
+      "fallback": "Fallback - 이중화 레이어"
+    },
+    "sec": {
+      "consensus": "합의 메커니즘",
+      "signatures": "서명",
+      "audit": "감사 상태",
+      "insurance": "보험 펀드"
+    },
+    "stack": {
+      "blockchain": "독립 블록체인",
+      "throughput": "트랜잭션 처리량",
+      "finality": "블록 완결성",
+      "gasFee": "평균 가스 비용"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "시작하기",

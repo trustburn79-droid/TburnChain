@@ -67,6 +67,7 @@ import GameFiPage from "@/pages/gamefi";
 import CommunityPage from "@/pages/community";
 import SearchResults from "@/pages/search-results";
 import TokenomicsSimulation from "@/pages/tokenomics-simulation";
+import VCTestMode from "@/pages/vc-test-mode";
 
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -258,6 +259,14 @@ function RootRouter() {
   
   if (location === "/signup") {
     return <Signup />;
+  }
+  
+  if (location === "/vc" || location.startsWith("/vc-test")) {
+    return (
+      <ThemeProvider defaultTheme="dark">
+        <VCTestMode />
+      </ThemeProvider>
+    );
   }
   
   return <PublicRouter />;

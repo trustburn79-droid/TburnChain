@@ -6939,6 +6939,80 @@
     "addressCopied": "Address copied to clipboard",
     "txHashCopied": "Transaction hash copied to clipboard"
   },
+  "vcTestMode": {
+    "badge": "VC Test Mode",
+    "title": "TBURN Platform",
+    "subtitle": "Investment Test Environment",
+    "description": "Experience the full capabilities of TBURN Mainnet with a pre-funded demo wallet. Test all DeFi features, explore our AI orchestration, and evaluate our technology.",
+    "startTour": "Start Guided Tour",
+    "explorePlatform": "Explore Platform",
+    "demoWallet": "Demo Wallet",
+    "testFunds": "Test funds for platform evaluation. No real value.",
+    "walletCopied": "Wallet address copied",
+    "walletReset": "Demo wallet reset",
+    "walletResetDesc": "Your demo wallet has been reset to initial balance",
+    "quickStats": "Quick Stats",
+    "tokenomics": "Tokenomics",
+    "networkStatus": "Network Status",
+    "quickAccess": "Quick Access",
+    "growthMetrics": "Growth Metrics",
+    "competitiveEdge": "Competitive Edge",
+    "aiSystem": "Quad-Band AI System",
+    "security": "Security Architecture",
+    "techStack": "Technology Stack",
+    "tabs": {
+      "overview": "Overview",
+      "features": "Features",
+      "metrics": "Metrics",
+      "tech": "Technology"
+    },
+    "stats": {
+      "marketCap": "Market Cap",
+      "tvl": "Total Value Locked",
+      "dailyVolume": "Daily Volume",
+      "activeWallets": "Active Wallets",
+      "totalSupply": "Total Supply",
+      "circulating": "Circulating",
+      "burned": "Burned",
+      "status": "Status",
+      "operational": "Operational",
+      "validators": "Validators",
+      "shards": "Active Shards",
+      "tps": "TPS",
+      "blockTime": "Block Time"
+    },
+    "metrics": {
+      "userGrowth": "YoY User Growth",
+      "tvl": "Total Value Locked",
+      "activeUsers": "Monthly Active Users",
+      "validators": "Active Validators"
+    },
+    "edge": {
+      "aiOrchestration": "Quad-Band AI Orchestration",
+      "dynamicSharding": "Dynamic AI Sharding",
+      "quantumResistant": "Quantum-Resistant Signatures",
+      "deflationary": "AI-Driven Deflation (70%)",
+      "crossChain": "Cross-Chain Bridge"
+    },
+    "ai": {
+      "primary": "Primary - Network optimization",
+      "analysis": "Analysis - Smart contract audit",
+      "prediction": "Prediction - Market analytics",
+      "fallback": "Fallback - Redundancy layer"
+    },
+    "sec": {
+      "consensus": "Consensus",
+      "signatures": "Signatures",
+      "audit": "Audit Status",
+      "insurance": "Insurance Fund"
+    },
+    "stack": {
+      "blockchain": "Independent Blockchain",
+      "throughput": "Transaction Throughput",
+      "finality": "Block Finality",
+      "gasFee": "Average Gas Fee"
+    }
+  },
   "publicPages": {
     "common": {
       "getStarted": "Get Started",
