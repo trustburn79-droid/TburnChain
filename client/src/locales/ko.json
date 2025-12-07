@@ -20024,11 +20024,21 @@
       "manageRoles": "사용자 역할 관리",
       "managePermissions": "권한 관리"
     },
+    "saveChanges": "변경 사항 저장",
     "saveSuccess": "권한 저장됨",
     "saveSuccessDesc": "권한 변경 사항이 저장되었습니다",
     "saveError": "저장 실패",
     "view": "보기",
     "cancel": "취소",
+    "searchPlaceholder": "권한 검색...",
+    "permissions": "권한",
+    "table": {
+      "permission": "권한",
+      "description": "설명",
+      "level": "레벨",
+      "status": "상태",
+      "actions": "작업"
+    },
     "detail": {
       "permissionInfo": "권한 정보",
       "accessControl": "접근 제어"

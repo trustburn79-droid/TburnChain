@@ -20162,11 +20162,21 @@
       "manageRoles": "Manage user roles",
       "managePermissions": "Manage permissions"
     },
+    "saveChanges": "Save Changes",
     "saveSuccess": "Permissions Saved",
     "saveSuccessDesc": "Permission changes have been saved",
     "saveError": "Save Failed",
     "view": "View",
     "cancel": "Cancel",
+    "searchPlaceholder": "Search permissions...",
+    "permissions": "Permissions",
+    "table": {
+      "permission": "Permission",
+      "description": "Description",
+      "level": "Level",
+      "status": "Status",
+      "actions": "Actions"
+    },
     "detail": {
       "permissionInfo": "Permission Information",
       "accessControl": "Access Control"
