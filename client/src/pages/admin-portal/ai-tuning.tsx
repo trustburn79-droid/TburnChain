@@ -885,7 +885,7 @@ export default function AdminAITuning() {
         description={t("adminAITuning.confirm.saveDescription")}
         confirmText={t("adminAITuning.confirm.save")}
         cancelText={t("adminAITuning.confirm.cancel")}
-        variant="default"
+        destructive={false}
         onConfirm={confirmApply}
         isLoading={saveParamsMutation.isPending}
       />
@@ -897,7 +897,7 @@ export default function AdminAITuning() {
         description={t("adminAITuning.confirm.resetDescription")}
         confirmText={t("adminAITuning.confirm.reset")}
         cancelText={t("adminAITuning.confirm.keep")}
-        variant="destructive"
+        destructive={true}
         onConfirm={confirmReset}
       />
     </ScrollArea>

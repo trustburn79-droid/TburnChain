@@ -606,7 +606,7 @@ export default function AdminAIAnalytics() {
         description={t("adminAIAnalytics.confirm.exportDescription")}
         confirmText={t("adminAIAnalytics.confirm.export")}
         cancelText={t("adminAIAnalytics.confirm.cancel")}
-        variant="default"
+        destructive={false}
         onConfirm={confirmExport}
       />
     </ScrollArea>

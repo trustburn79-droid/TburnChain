@@ -722,7 +722,7 @@ export default function AdminAITraining() {
         description={t("adminTraining.confirm.cancelDescription", { name: jobToCancel?.name })}
         confirmText={t("adminTraining.confirm.cancel")}
         cancelText={t("adminTraining.confirm.keep")}
-        variant="destructive"
+        destructive={true}
         onConfirm={confirmCancelJob}
         isLoading={cancelJobMutation.isPending}
       />
