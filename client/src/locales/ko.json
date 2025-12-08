@@ -806,6 +806,18 @@
     "delegatorsByValidator": "검증자별 위임자",
     "avgDelegatorsPerValidator": "검증자당 평균 위임자",
     "avgStakePerDelegator": "위임자당 평균 스테이크",
+    "validatorsList": "검증자 목록",
+    "avgApy": "평균 APY",
+    "avgUptime": "평균 가동시간",
+    "tierRequirements": "티어 요구사항",
+    "apyRange": "APY 범위",
+    "dailyRewardPool": "일일 보상 풀",
+    "blocksProduced": "생성 블록",
+    "validatorsLabel": "검증자",
+    "rewardDistribution": "보상 배분",
+    "perValidator": "검증자당",
+    "networkShare": "네트워크 점유율",
+    "validatorShare": "검증자 점유율",
     "economics": "경제학"
   },
   "staking": {

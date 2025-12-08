@@ -792,6 +792,18 @@
     "delegatorsByValidator": "Delegators by Validator",
     "avgDelegatorsPerValidator": "Avg Delegators Per Validator",
     "avgStakePerDelegator": "Avg Stake Per Delegator",
+    "validatorsList": "Validators List",
+    "avgApy": "Average APY",
+    "avgUptime": "Average Uptime",
+    "tierRequirements": "Tier Requirements",
+    "apyRange": "APY Range",
+    "dailyRewardPool": "Daily Reward Pool",
+    "blocksProduced": "Blocks Produced",
+    "validatorsLabel": "Validators",
+    "rewardDistribution": "Reward Distribution",
+    "perValidator": "Per Validator",
+    "networkShare": "Network Share",
+    "validatorShare": "Validator Share",
     "economics": "Economics"
   },
   "staking": {
