@@ -12456,6 +12456,179 @@ Provide JSON portfolio analysis:
   }, 30000, 'real_ai_decisions'); // Every 30 seconds to manage API costs
 
   // ============================================
+  // Phase 3: Validator Scheduling AI Events
+  // AI-driven validator rescheduling every 60 seconds
+  // ============================================
+  createTrackedInterval(async () => {
+    try {
+      const validators = await storage.getAllValidators();
+      const blocks = await storage.getRecentBlocks(1);
+      if (blocks.length === 0 || validators.length === 0) return;
+      
+      const latestBlock = blocks[0];
+      const activeValidators = validators.filter(v => v.status === 'active');
+      const jailedValidators = validators.filter(v => v.status === 'jailed');
+      
+      const validatorEvent: BlockchainEvent = {
+        type: 'validation',
+        data: {
+          eventSubtype: 'RESCHEDULE_VALIDATORS',
+          activeValidators: activeValidators.length,
+          jailedValidators: jailedValidators.length,
+          totalValidators: validators.length,
+          topValidators: activeValidators.slice(0, 10).map(v => ({
+            address: v.address,
+            name: v.name,
+            uptime: v.uptime,
+            missedBlocks: v.missedBlocks,
+            reputationScore: v.reputationScore,
+            performanceScore: v.performanceScore,
+            aiTrustScore: v.aiTrustScore,
+          })),
+          lowPerformingValidators: activeValidators
+            .filter(v => v.uptime < 9500 || v.missedBlocks > 100)
+            .slice(0, 5)
+            .map(v => ({ address: v.address, name: v.name, uptime: v.uptime, missedBlocks: v.missedBlocks })),
+        },
+        blockHeight: latestBlock.blockNumber,
+        validatorAddress: activeValidators[0]?.address,
+        timestamp: new Date(),
+      };
+      
+      const result = await aiOrchestrator.processBlockchainEvent(validatorEvent);
+      if (result) {
+        console.log(`[Phase 3] Validator Scheduling: ${result.decision} (confidence: ${result.confidence}%)`);
+      }
+    } catch (error) {
+      console.error('[Phase 3] Validator scheduling error:', error);
+    }
+  }, 60000, 'validator_scheduling_ai');
+
+  // ============================================
+  // Phase 4: Governance Pre-validation AI Events
+  // 85-90% automated governance proposal analysis every 45 seconds
+  // ============================================
+  createTrackedInterval(async () => {
+    try {
+      const blocks = await storage.getRecentBlocks(1);
+      const validators = await storage.getAllValidators();
+      const shards = await storage.getAllShards();
+      const stats = await storage.getNetworkStats();
+      
+      if (blocks.length === 0) return;
+      
+      const latestBlock = blocks[0];
+      
+      const proposalTypes = [
+        'PARAMETER_CHANGE',
+        'TREASURY_SPEND',
+        'VALIDATOR_SET_UPDATE',
+        'PROTOCOL_UPGRADE',
+        'EMERGENCY_ACTION',
+      ];
+      
+      const proposalType = proposalTypes[Math.floor(Math.random() * proposalTypes.length)];
+      
+      const mockProposal = {
+        proposalId: `prop-${Date.now()}`,
+        proposalType,
+        title: `AI-Generated ${proposalType.replace(/_/g, ' ')} Proposal`,
+        description: `Automated analysis for ${proposalType} governance action`,
+        proposedChanges: generateProposalChanges(proposalType, stats, shards),
+        submittedBy: validators[Math.floor(Math.random() * validators.length)]?.address || '0x0',
+        totalVotingPower: validators.reduce((sum, v) => sum + parseInt(v.votingPower || '0'), 0),
+        quorumRequired: 0.67,
+        currentApproval: 0,
+      };
+      
+      const governanceEvent: BlockchainEvent = {
+        type: 'governance',
+        data: {
+          eventSubtype: 'GOVERNANCE_PREVALIDATION',
+          proposal: mockProposal,
+          networkState: {
+            tps: stats.tps,
+            activeValidators: validators.filter(v => v.status === 'active').length,
+            shardCount: shards.length,
+            totalStake: validators.reduce((sum, v) => sum + parseFloat(v.stake), 0),
+          },
+        },
+        blockHeight: latestBlock.blockNumber,
+        timestamp: new Date(),
+      };
+      
+      const result = await aiOrchestrator.processBlockchainEvent(governanceEvent);
+      if (result) {
+        console.log(`[Phase 4] Governance Pre-validation: ${result.decision} (confidence: ${result.confidence}%)`);
+        
+        try {
+          await storage.createGovernancePrevalidation({
+            proposalId: mockProposal.proposalId,
+            proposalType: mockProposal.proposalType,
+            proposalTitle: mockProposal.title,
+            proposalDescription: mockProposal.description,
+            aiRecommendation: result.decision.includes('APPROVE') ? 'approve' : 
+                              result.decision.includes('REJECT') ? 'reject' : 'review',
+            confidenceScore: result.confidence,
+            riskLevel: result.impact,
+            analysisDetails: {
+              action: result.decision,
+              reasoning: result.rawResponse,
+              impact: result.impact,
+            },
+            automatedDecision: result.confidence >= 85,
+            requiresHumanReview: result.confidence < 85 || result.impact === 'high',
+          });
+          console.log(`[Phase 4] Governance pre-validation saved: ${mockProposal.proposalId}`);
+        } catch (dbError) {
+          console.error('[Phase 4] Failed to save governance pre-validation:', dbError);
+        }
+      }
+    } catch (error) {
+      console.error('[Phase 4] Governance pre-validation error:', error);
+    }
+  }, 45000, 'governance_prevalidation_ai');
+
+  // Helper function to generate proposal changes based on type
+  function generateProposalChanges(proposalType: string, stats: any, shards: any[]): Record<string, any> {
+    switch (proposalType) {
+      case 'PARAMETER_CHANGE':
+        return {
+          parameter: 'maxBlockGas',
+          currentValue: 30000000,
+          proposedValue: 35000000,
+          reason: 'Increase throughput capacity',
+        };
+      case 'TREASURY_SPEND':
+        return {
+          recipient: '0x' + '1'.repeat(40),
+          amount: '1000000',
+          purpose: 'Development fund allocation',
+        };
+      case 'VALIDATOR_SET_UPDATE':
+        return {
+          action: 'add_validator',
+          validatorAddress: '0x' + 'a'.repeat(40),
+          initialStake: '10000000',
+        };
+      case 'PROTOCOL_UPGRADE':
+        return {
+          version: '7.1.0',
+          features: ['Enhanced AI control', 'Improved shard balancing'],
+          activationBlock: stats.blockHeight + 100000,
+        };
+      case 'EMERGENCY_ACTION':
+        return {
+          action: 'pause_bridge',
+          reason: 'Security vulnerability detected',
+          duration: 3600,
+        };
+      default:
+        return { type: proposalType };
+    }
+  }
+
+  // ============================================
   // Development Mode Polling (Storage-based)
   // ONLY runs when NOT in production mode
   // ============================================
