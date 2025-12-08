@@ -34,13 +34,18 @@ export interface ExecutionResult {
 }
 
 export interface AIDecisionPayload {
-  decisionId: string;
-  type: AIDecisionType;
+  decisionId?: string;
+  type: AIDecisionType | string;
   confidence: number;
   parameters: Record<string, any>;
   provider: string;
   model: string;
   rawDecision: string;
+  tokensUsed?: number;
+  costUsd?: string;
+  shardId?: number;
+  validatorAddress?: string;
+  blockHeight?: number;
 }
 
 interface ShardMetrics {

@@ -2,6 +2,7 @@ import { aiService, AIProvider, AIResponse } from '../ai-service-manager';
 import { storage } from '../storage';
 import { InsertAiDecision, InsertAiUsageLog } from '@shared/schema';
 import { EventEmitter } from 'events';
+import { aiDecisionExecutor, AIDecisionPayload, ExecutionResult } from './AIDecisionExecutor';
 
 export type AIBand = 'strategic' | 'tactical' | 'operational' | 'fallback';
 
@@ -28,6 +29,7 @@ export interface AIDecisionResult {
   isRealAi: boolean;
   rawResponse: string;
   prompt: string;
+  executionResult?: ExecutionResult;
 }
 
 const BAND_PROVIDER_MAP: Record<AIBand, AIProvider> = {
@@ -67,12 +69,14 @@ class AIOrchestrator extends EventEmitter {
 
   async start(): Promise<void> {
     this.isRunning = true;
-    console.log('[AIOrchestrator] Started - Real AI decisions enabled');
+    await aiDecisionExecutor.start();
+    console.log('[AIOrchestrator] Started - Real AI decisions AND EXECUTION enabled');
     this.emit('started');
   }
 
   async stop(): Promise<void> {
     this.isRunning = false;
+    await aiDecisionExecutor.stop();
     console.log('[AIOrchestrator] Stopped');
     this.emit('stopped');
   }
@@ -131,8 +135,14 @@ class AIOrchestrator extends EventEmitter {
       this.totalCost += response.cost;
       this.totalTokens += response.tokensUsed;
 
+      const executionResult = await this.executeAIDecision(result, event, band, response);
+      result.executionResult = executionResult;
+
       this.emit('decision', result);
       console.log(`[AIOrchestrator] Decision: ${result.decision} (confidence: ${result.confidence}%, cost: $${result.costUsd})`);
+      if (executionResult) {
+        console.log(`[AIOrchestrator] Execution: ${executionResult.status} - ${executionResult.improvement || executionResult.reason || 'N/A'}`);
+      }
 
       return result;
     } catch (error) {
@@ -286,6 +296,118 @@ Respond in JSON:
     };
     
     return eventActions[eventType] || 'OPTIMIZATION_PROCESSED_BY_AI';
+  }
+
+  private async executeAIDecision(
+    result: AIDecisionResult,
+    event: BlockchainEvent,
+    band: AIBand,
+    response: AIResponse
+  ): Promise<ExecutionResult | undefined> {
+    const decisionCode = result.decision;
+    
+    const executionTypes = [
+      'REBALANCE_SHARD_LOAD',
+      'SCALE_SHARD_CAPACITY',
+      'OPTIMIZE_BLOCK_TIME',
+      'OPTIMIZE_TPS',
+      'RESCHEDULE_VALIDATORS',
+      'GOVERNANCE_PREVALIDATION',
+      'SECURITY_RESPONSE',
+      'CONSENSUS_OPTIMIZATION',
+      'DYNAMIC_GAS_OPTIMIZATION',
+      'PREDICTIVE_HEALING',
+    ];
+
+    if (!executionTypes.some(type => decisionCode.includes(type.split('_')[0]))) {
+      console.log(`[AIOrchestrator] Decision ${decisionCode} does not require execution`);
+      return undefined;
+    }
+
+    const decisionType = this.mapDecisionToExecutionType(decisionCode);
+    if (!decisionType) {
+      console.log(`[AIOrchestrator] No execution type mapping for ${decisionCode}`);
+      return undefined;
+    }
+
+    const payload: AIDecisionPayload = {
+      type: decisionType,
+      confidence: result.confidence,
+      provider: result.provider,
+      model: result.model,
+      tokensUsed: result.tokensUsed,
+      costUsd: result.costUsd,
+      rawDecision: result.rawResponse,
+      parameters: this.extractParametersFromEvent(event, decisionType),
+      shardId: event.shardId,
+      validatorAddress: event.validatorAddress,
+      blockHeight: event.blockHeight,
+    };
+
+    try {
+      const executionResult = await aiDecisionExecutor.executeDecision(payload);
+      console.log(`[AIOrchestrator] AI Decision Executed: ${executionResult.status}`);
+      this.emit('execution', executionResult);
+      return executionResult;
+    } catch (error) {
+      console.error('[AIOrchestrator] Failed to execute AI decision:', error);
+      return undefined;
+    }
+  }
+
+  private mapDecisionToExecutionType(decisionCode: string): string | null {
+    const mappings: Record<string, string> = {
+      'REBALANCE_SHARD_LOAD': 'REBALANCE_SHARD_LOAD',
+      'SCALE_SHARD_CAPACITY': 'SCALE_SHARD_CAPACITY',
+      'SHARDING_PROCESSED_BY_AI': 'REBALANCE_SHARD_LOAD',
+      'OPTIMIZE_VALIDATOR_SCHEDULING': 'RESCHEDULE_VALIDATORS',
+      'OPTIMIZE_VALIDATOR_ROTATION': 'RESCHEDULE_VALIDATORS',
+      'VALIDATION_PROCESSED_BY_AI': 'RESCHEDULE_VALIDATORS',
+      'OPTIMIZE_CONSENSUS_PARAMETERS': 'CONSENSUS_OPTIMIZATION',
+      'CONSENSUS_PROCESSED_BY_AI': 'OPTIMIZE_BLOCK_TIME',
+      'OPTIMIZATION_PROCESSED_BY_AI': 'OPTIMIZE_TPS',
+      'NETWORK_OPTIMIZATION_APPLIED': 'OPTIMIZE_TPS',
+      'SECURITY_PROTOCOL_UPDATED': 'SECURITY_RESPONSE',
+      'SECURITY_PROCESSED_BY_AI': 'SECURITY_RESPONSE',
+      'GOVERNANCE_PROCESSED_BY_AI': 'GOVERNANCE_PREVALIDATION',
+      'DYNAMIC_GAS_OPTIMIZATION': 'DYNAMIC_GAS_OPTIMIZATION',
+      'EMERGENCY_CAPACITY_EXPANSION': 'SCALE_SHARD_CAPACITY',
+    };
+    return mappings[decisionCode] || null;
+  }
+
+  private extractParametersFromEvent(event: BlockchainEvent, executionType: string): Record<string, any> {
+    const params: Record<string, any> = { ...event.data };
+
+    switch (executionType) {
+      case 'REBALANCE_SHARD_LOAD':
+        params.targetShardCount = event.data.shardCount || 12;
+        params.maxLoadImbalance = 20;
+        break;
+      case 'SCALE_SHARD_CAPACITY':
+        params.targetShardCount = (event.data.currentShards || 12) + (event.data.scaleDelta || 2);
+        break;
+      case 'OPTIMIZE_BLOCK_TIME':
+        params.targetBlockTime = event.data.targetBlockTime || 250;
+        break;
+      case 'OPTIMIZE_TPS':
+        params.batchSizeMultiplier = 1.05;
+        params.parallelismLevel = 4;
+        break;
+      case 'RESCHEDULE_VALIDATORS':
+        params.selectionStrategy = 'ai_weighted';
+        break;
+      case 'GOVERNANCE_PREVALIDATION':
+        params.proposal = event.data.proposal;
+        params.aiAnalysis = event.data.analysis;
+        break;
+      case 'SECURITY_RESPONSE':
+        params.threatType = event.data.threatType || 'unknown';
+        params.severity = event.data.severity || 'medium';
+        break;
+    }
+
+    return params;
   }
 
   private parseAIResponse(response: string, eventType: string): {
