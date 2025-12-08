@@ -19,6 +19,10 @@ import {
   type InsertAiExecutionLog,
   type GovernancePrevalidation,
   type InsertGovernancePrevalidation,
+  type AiTrainingJob,
+  type InsertAiTrainingJob,
+  type AiParameters,
+  type InsertAiParameters,
   type Shard,
   type InsertShard,
   type NetworkStats,
@@ -326,6 +330,9 @@ import {
   type BridgeTransfer,
   type InsertBridgeTransfer,
   bridgeTransfers,
+  // AI Training & Parameters Tables
+  aiTrainingJobs,
+  aiParameters,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -1005,6 +1012,24 @@ export interface IStorage {
   getPendingBridgeTransfers(): Promise<BridgeTransfer[]>;
   createBridgeTransfer(data: InsertBridgeTransfer): Promise<BridgeTransfer>;
   updateBridgeTransfer(id: string, data: Partial<BridgeTransfer>): Promise<void>;
+
+  // ============================================
+  // AI TRAINING & PARAMETERS (Persistent Storage)
+  // ============================================
+  
+  // AI Training Jobs
+  getAllAiTrainingJobs(): Promise<AiTrainingJob[]>;
+  getAiTrainingJobById(id: string): Promise<AiTrainingJob | undefined>;
+  getAiTrainingJobsByStatus(status: string): Promise<AiTrainingJob[]>;
+  createAiTrainingJob(data: InsertAiTrainingJob): Promise<AiTrainingJob>;
+  updateAiTrainingJob(id: string, data: Partial<AiTrainingJob>): Promise<void>;
+  
+  // AI Parameters
+  getActiveAiParameters(): Promise<AiParameters | undefined>;
+  getAiParametersById(id: string): Promise<AiParameters | undefined>;
+  getAllAiParameters(): Promise<AiParameters[]>;
+  createAiParameters(data: InsertAiParameters): Promise<AiParameters>;
+  updateAiParameters(id: string, data: Partial<AiParameters>): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -1021,6 +1046,8 @@ export class MemStorage implements IStorage {
   private crossShardMessages: Map<string, CrossShardMessage>;
   private walletBalances: Map<string, WalletBalance>;
   private restartSession: RestartSession | undefined;
+  private aiTrainingJobsMap: Map<string, AiTrainingJob>;
+  private aiParametersMap: Map<string, AiParameters>;
 
   // Memory management limits - ENTERPRISE PRODUCTION CONFIGURATION
   // Optimized for 100ms block time (10 blocks/second) with 50,000+ TPS capability
@@ -1074,6 +1101,8 @@ export class MemStorage implements IStorage {
     this.crossShardMessages = new Map();
     this.walletBalances = new Map();
     this.restartSession = undefined;
+    this.aiTrainingJobsMap = new Map();
+    this.aiParametersMap = new Map();
 
     this.initializeMockData();
   }
@@ -2327,6 +2356,109 @@ export class MemStorage implements IStorage {
         ...data,
         updatedAt: new Date(),
       });
+    }
+  }
+
+  // ============================================
+  // AI TRAINING & PARAMETERS (In-Memory Fallback)
+  // ============================================
+  
+  async getAllAiTrainingJobs(): Promise<AiTrainingJob[]> {
+    return Array.from(this.aiTrainingJobsMap.values());
+  }
+
+  async getAiTrainingJobById(id: string): Promise<AiTrainingJob | undefined> {
+    return this.aiTrainingJobsMap.get(id);
+  }
+
+  async getAiTrainingJobsByStatus(status: string): Promise<AiTrainingJob[]> {
+    return Array.from(this.aiTrainingJobsMap.values()).filter(j => j.status === status);
+  }
+
+  async createAiTrainingJob(data: InsertAiTrainingJob): Promise<AiTrainingJob> {
+    const job: AiTrainingJob = {
+      id: randomUUID(),
+      name: data.name,
+      model: data.model,
+      status: data.status ?? "queued",
+      progress: data.progress ?? 0,
+      eta: data.eta ?? null,
+      dataPoints: data.dataPoints ?? "0",
+      epochs: data.epochs ?? 10,
+      currentEpoch: data.currentEpoch ?? 0,
+      learningRate: data.learningRate ?? 0.001,
+      batchSize: data.batchSize ?? 32,
+      accuracy: data.accuracy ?? 0,
+      loss: data.loss ?? 0,
+      validationAccuracy: data.validationAccuracy ?? 0,
+      validationLoss: data.validationLoss ?? 0,
+      datasetName: data.datasetName ?? null,
+      datasetSize: data.datasetSize ?? null,
+      errorMessage: data.errorMessage ?? null,
+      retryCount: data.retryCount ?? 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      startedAt: null,
+      pausedAt: null,
+      completedAt: null,
+    };
+    this.aiTrainingJobsMap.set(job.id, job);
+    return job;
+  }
+
+  async updateAiTrainingJob(id: string, data: Partial<AiTrainingJob>): Promise<void> {
+    const existing = this.aiTrainingJobsMap.get(id);
+    if (existing) {
+      this.aiTrainingJobsMap.set(id, { ...existing, ...data, updatedAt: new Date() });
+    }
+  }
+
+  async getActiveAiParameters(): Promise<AiParameters | undefined> {
+    return Array.from(this.aiParametersMap.values()).find(p => p.isActive);
+  }
+
+  async getAiParametersById(id: string): Promise<AiParameters | undefined> {
+    return this.aiParametersMap.get(id);
+  }
+
+  async getAllAiParameters(): Promise<AiParameters[]> {
+    return Array.from(this.aiParametersMap.values());
+  }
+
+  async createAiParameters(data: InsertAiParameters): Promise<AiParameters> {
+    const params: AiParameters = {
+      id: randomUUID(),
+      configName: data.configName ?? "default",
+      isActive: data.isActive ?? true,
+      modelConfigs: data.modelConfigs ?? [],
+      decisionParams: data.decisionParams ?? [],
+      strategicWeight: data.strategicWeight ?? 50,
+      tacticalWeight: data.tacticalWeight ?? 30,
+      operationalWeight: data.operationalWeight ?? 20,
+      autoExecuteThreshold: data.autoExecuteThreshold ?? 70,
+      humanReviewThreshold: data.humanReviewThreshold ?? 50,
+      rejectionThreshold: data.rejectionThreshold ?? 30,
+      strategicPerHour: data.strategicPerHour ?? 10,
+      tacticalPerMinute: data.tacticalPerMinute ?? 100,
+      operationalPerSecond: data.operationalPerSecond ?? 1000,
+      allowEmergencyActions: data.allowEmergencyActions ?? true,
+      circuitBreaker: data.circuitBreaker ?? true,
+      consensusTimeout: data.consensusTimeout ?? 5000,
+      retryAttempts: data.retryAttempts ?? 3,
+      backoffMultiplier: data.backoffMultiplier ?? 1.5,
+      cacheTtl: data.cacheTtl ?? 300,
+      createdBy: data.createdBy ?? null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.aiParametersMap.set(params.id, params);
+    return params;
+  }
+
+  async updateAiParameters(id: string, data: Partial<AiParameters>): Promise<void> {
+    const existing = this.aiParametersMap.get(id);
+    if (existing) {
+      this.aiParametersMap.set(id, { ...existing, ...data, updatedAt: new Date() });
     }
   }
 }
@@ -6137,6 +6269,73 @@ export class DbStorage implements IStorage {
     await db.update(bridgeTransfers)
       .set({ ...data, updatedAt: new Date() })
       .where(eq(bridgeTransfers.id, id));
+  }
+
+  // ============================================
+  // AI TRAINING & PARAMETERS (PostgreSQL Persistent Storage)
+  // ============================================
+  
+  async getAllAiTrainingJobs(): Promise<AiTrainingJob[]> {
+    return db.select().from(aiTrainingJobs)
+      .orderBy(desc(aiTrainingJobs.createdAt));
+  }
+
+  async getAiTrainingJobById(id: string): Promise<AiTrainingJob | undefined> {
+    const [job] = await db.select().from(aiTrainingJobs)
+      .where(eq(aiTrainingJobs.id, id));
+    return job;
+  }
+
+  async getAiTrainingJobsByStatus(status: string): Promise<AiTrainingJob[]> {
+    return db.select().from(aiTrainingJobs)
+      .where(eq(aiTrainingJobs.status, status))
+      .orderBy(desc(aiTrainingJobs.createdAt));
+  }
+
+  async createAiTrainingJob(data: InsertAiTrainingJob): Promise<AiTrainingJob> {
+    const [result] = await db.insert(aiTrainingJobs).values({
+      ...data,
+      id: `ai-train-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateAiTrainingJob(id: string, data: Partial<AiTrainingJob>): Promise<void> {
+    await db.update(aiTrainingJobs)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(aiTrainingJobs.id, id));
+  }
+
+  async getActiveAiParameters(): Promise<AiParameters | undefined> {
+    const [params] = await db.select().from(aiParameters)
+      .where(eq(aiParameters.isActive, true))
+      .limit(1);
+    return params;
+  }
+
+  async getAiParametersById(id: string): Promise<AiParameters | undefined> {
+    const [params] = await db.select().from(aiParameters)
+      .where(eq(aiParameters.id, id));
+    return params;
+  }
+
+  async getAllAiParameters(): Promise<AiParameters[]> {
+    return db.select().from(aiParameters)
+      .orderBy(desc(aiParameters.updatedAt));
+  }
+
+  async createAiParameters(data: InsertAiParameters): Promise<AiParameters> {
+    const [result] = await db.insert(aiParameters).values({
+      ...data,
+      id: `ai-params-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateAiParameters(id: string, data: Partial<AiParameters>): Promise<void> {
+    await db.update(aiParameters)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(aiParameters.id, id));
   }
 }
 

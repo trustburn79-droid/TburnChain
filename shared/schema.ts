@@ -269,6 +269,87 @@ export const governancePrevalidations = pgTable("governance_prevalidations", {
   decidedAt: timestamp("decided_at"),
 });
 
+// AI Training Jobs (Track model fine-tuning and training progress)
+export const aiTrainingJobs = pgTable("ai_training_jobs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  model: text("model").notNull(), // Gemini 3 Pro FT, Claude Sonnet 4.5 FT, etc.
+  status: text("status").notNull().default("queued"), // queued, running, paused, completed, cancelled, failed
+  progress: integer("progress").notNull().default(0), // 0-100
+  eta: text("eta"), // Estimated time remaining
+  dataPoints: text("data_points").notNull().default("0"), // e.g., "1.2M"
+  
+  // Training configuration
+  epochs: integer("epochs").notNull().default(10),
+  currentEpoch: integer("current_epoch").notNull().default(0),
+  learningRate: real("learning_rate").notNull().default(0.001),
+  batchSize: integer("batch_size").notNull().default(32),
+  
+  // Training metrics
+  accuracy: real("accuracy").notNull().default(0), // Current accuracy
+  loss: real("loss").notNull().default(0), // Current loss
+  validationAccuracy: real("validation_accuracy").notNull().default(0),
+  validationLoss: real("validation_loss").notNull().default(0),
+  
+  // Dataset info
+  datasetName: text("dataset_name"),
+  datasetSize: text("dataset_size"), // e.g., "8.5 GB"
+  
+  // Error handling
+  errorMessage: text("error_message"),
+  retryCount: integer("retry_count").notNull().default(0),
+  
+  // Timing
+  startedAt: timestamp("started_at"),
+  pausedAt: timestamp("paused_at"),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// AI Parameters (Store AI configuration parameters persistently)
+export const aiParameters = pgTable("ai_parameters", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  configName: text("config_name").notNull().default("default"), // Configuration profile name
+  isActive: boolean("is_active").notNull().default(true),
+  
+  // Model configurations (JSON array)
+  modelConfigs: jsonb("model_configs").notNull().default([]),
+  
+  // Decision parameters (JSON array)
+  decisionParams: jsonb("decision_params").notNull().default([]),
+  
+  // Layer weights
+  strategicWeight: integer("strategic_weight").notNull().default(50),
+  tacticalWeight: integer("tactical_weight").notNull().default(30),
+  operationalWeight: integer("operational_weight").notNull().default(20),
+  
+  // Thresholds
+  autoExecuteThreshold: integer("auto_execute_threshold").notNull().default(70),
+  humanReviewThreshold: integer("human_review_threshold").notNull().default(50),
+  rejectionThreshold: integer("rejection_threshold").notNull().default(30),
+  
+  // Rate limits
+  strategicPerHour: integer("strategic_per_hour").notNull().default(10),
+  tacticalPerMinute: integer("tactical_per_minute").notNull().default(100),
+  operationalPerSecond: integer("operational_per_second").notNull().default(1000),
+  
+  // Emergency settings
+  allowEmergencyActions: boolean("allow_emergency_actions").notNull().default(true),
+  circuitBreaker: boolean("circuit_breaker").notNull().default(true),
+  
+  // Advanced config
+  consensusTimeout: integer("consensus_timeout").notNull().default(5000),
+  retryAttempts: integer("retry_attempts").notNull().default(3),
+  backoffMultiplier: real("backoff_multiplier").notNull().default(1.5),
+  cacheTtl: integer("cache_ttl").notNull().default(300),
+  
+  // Metadata
+  createdBy: text("created_by"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // Shard Information
 // Shards (Dynamic AI-Driven Sharding with ML Optimization)
 export const shards = pgTable("shards", {
@@ -1374,6 +1455,8 @@ export const insertAiDecisionSchema = createInsertSchema(aiDecisions).omit({ id:
 export const insertAiUsageLogSchema = createInsertSchema(aiUsageLogs).omit({ id: true, createdAt: true });
 export const insertAiExecutionLogSchema = createInsertSchema(aiExecutionLogs).omit({ id: true, createdAt: true, completedAt: true, rollbackAt: true });
 export const insertGovernancePrevalidationSchema = createInsertSchema(governancePrevalidations).omit({ id: true, createdAt: true, decidedAt: true });
+export const insertAiTrainingJobSchema = createInsertSchema(aiTrainingJobs).omit({ id: true, createdAt: true, updatedAt: true, startedAt: true, pausedAt: true, completedAt: true });
+export const insertAiParametersSchema = createInsertSchema(aiParameters).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertShardSchema = createInsertSchema(shards).omit({ id: true, lastSyncedAt: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
 export const insertConsensusRoundSchema = createInsertSchema(consensusRounds).omit({ id: true, createdAt: true });
@@ -1520,6 +1603,12 @@ export type InsertAiExecutionLog = z.infer<typeof insertAiExecutionLogSchema>;
 
 export type GovernancePrevalidation = typeof governancePrevalidations.$inferSelect;
 export type InsertGovernancePrevalidation = z.infer<typeof insertGovernancePrevalidationSchema>;
+
+export type AiTrainingJob = typeof aiTrainingJobs.$inferSelect;
+export type InsertAiTrainingJob = z.infer<typeof insertAiTrainingJobSchema>;
+
+export type AiParameters = typeof aiParameters.$inferSelect;
+export type InsertAiParameters = z.infer<typeof insertAiParametersSchema>;
 
 export type Shard = typeof shards.$inferSelect;
 export type InsertShard = z.infer<typeof insertShardSchema>;

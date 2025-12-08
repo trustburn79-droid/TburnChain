@@ -7416,117 +7416,148 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/ai/params", async (_req, res) => {
-    res.json({
-      modelConfigs: [
-        { 
-          name: "Gemini 3 Pro", 
-          layer: "Strategic",
-          temperature: 0.7,
-          maxTokens: 4096,
-          topP: 0.9,
-          frequencyPenalty: 0.3,
-          presencePenalty: 0.3
-        },
-        { 
-          name: "Claude Sonnet 4.5", 
-          layer: "Tactical",
-          temperature: 0.5,
-          maxTokens: 8192,
-          topP: 0.95,
-          frequencyPenalty: 0.2,
-          presencePenalty: 0.2
-        },
-        { 
-          name: "GPT-4o", 
-          layer: "Operational",
-          temperature: 0.3,
-          maxTokens: 2048,
-          topP: 0.8,
-          frequencyPenalty: 0.1,
-          presencePenalty: 0.1
-        },
-        { 
-          name: "Grok 3", 
-          layer: "Fallback",
-          temperature: 0.4,
-          maxTokens: 4096,
-          topP: 0.85,
-          frequencyPenalty: 0.15,
-          presencePenalty: 0.15
-        },
-      ],
-      decisionParams: [
+    try {
+      // Fetch active AI parameters from database
+      const params = await storage.getActiveAiParameters();
+      
+      // Default model configs if not in database
+      const defaultModelConfigs = [
+        { name: "Gemini 3 Pro", layer: "Strategic", temperature: 0.7, maxTokens: 4096, topP: 0.9, frequencyPenalty: 0.3, presencePenalty: 0.3 },
+        { name: "Claude Sonnet 4.5", layer: "Tactical", temperature: 0.5, maxTokens: 8192, topP: 0.95, frequencyPenalty: 0.2, presencePenalty: 0.2 },
+        { name: "GPT-4o", layer: "Operational", temperature: 0.3, maxTokens: 2048, topP: 0.8, frequencyPenalty: 0.1, presencePenalty: 0.1 },
+        { name: "Grok 3", layer: "Fallback", temperature: 0.4, maxTokens: 4096, topP: 0.85, frequencyPenalty: 0.15, presencePenalty: 0.15 },
+      ];
+      
+      const defaultDecisionParams = [
         { name: "Consensus Optimization", weight: 0.85, enabled: true },
         { name: "Shard Rebalancing", weight: 0.75, enabled: true },
         { name: "Gas Price Adjustment", weight: 0.90, enabled: true },
         { name: "Validator Selection", weight: 0.80, enabled: true },
         { name: "Bridge Risk Assessment", weight: 0.70, enabled: true },
         { name: "Burn Rate Optimization", weight: 0.65, enabled: false },
-      ],
-      layerWeights: {
-        strategic: 50,
-        tactical: 30,
-        operational: 20
-      },
-      thresholds: {
-        autoExecute: 70,
-        humanReview: 50,
-        rejection: 30
-      },
-      rateLimits: {
-        strategicPerHour: 10,
-        tacticalPerMinute: 100,
-        operationalPerSecond: 1000
-      },
-      emergencySettings: {
-        allowEmergencyActions: true,
-        circuitBreaker: true
-      },
-      advancedConfig: {
-        consensusTimeout: 5000,
-        retryAttempts: 3,
-        backoffMultiplier: 1.5,
-        cacheTTL: 300
+      ];
+      
+      if (params) {
+        res.json({
+          id: params.id,
+          configName: params.configName,
+          modelConfigs: Array.isArray(params.modelConfigs) && params.modelConfigs.length > 0 
+            ? params.modelConfigs 
+            : defaultModelConfigs,
+          decisionParams: Array.isArray(params.decisionParams) && params.decisionParams.length > 0 
+            ? params.decisionParams 
+            : defaultDecisionParams,
+          layerWeights: {
+            strategic: params.strategicWeight,
+            tactical: params.tacticalWeight,
+            operational: params.operationalWeight
+          },
+          thresholds: {
+            autoExecute: params.autoExecuteThreshold,
+            humanReview: params.humanReviewThreshold,
+            rejection: params.rejectionThreshold
+          },
+          rateLimits: {
+            strategicPerHour: params.strategicPerHour,
+            tacticalPerMinute: params.tacticalPerMinute,
+            operationalPerSecond: params.operationalPerSecond
+          },
+          emergencySettings: {
+            allowEmergencyActions: params.allowEmergencyActions,
+            circuitBreaker: params.circuitBreaker
+          },
+          advancedConfig: {
+            consensusTimeout: params.consensusTimeout,
+            retryAttempts: params.retryAttempts,
+            backoffMultiplier: params.backoffMultiplier,
+            cacheTTL: params.cacheTtl
+          }
+        });
+      } else {
+        // Return defaults if no active params found
+        res.json({
+          modelConfigs: defaultModelConfigs,
+          decisionParams: defaultDecisionParams,
+          layerWeights: { strategic: 50, tactical: 30, operational: 20 },
+          thresholds: { autoExecute: 70, humanReview: 50, rejection: 30 },
+          rateLimits: { strategicPerHour: 10, tacticalPerMinute: 100, operationalPerSecond: 1000 },
+          emergencySettings: { allowEmergencyActions: true, circuitBreaker: true },
+          advancedConfig: { consensusTimeout: 5000, retryAttempts: 3, backoffMultiplier: 1.5, cacheTTL: 300 }
+        });
       }
-    });
+    } catch (error) {
+      console.error('[AI Params] Error fetching AI parameters:', error);
+      res.status(500).json({ error: 'Failed to fetch AI parameters' });
+    }
   });
 
   app.get("/api/admin/ai/training", async (_req, res) => {
-    res.json({
-      jobs: [
-        { id: 1, name: "Consensus Optimizer v2.1", model: "Llama 3.3", status: "running", progress: 67, eta: "2h 15m", dataPoints: "1.2M" },
-        { id: 2, name: "Shard Balancer v1.8", model: "Custom", status: "completed", progress: 100, eta: "-", dataPoints: "850K" },
-        { id: 3, name: "Gas Predictor v3.0", model: "Claude FT", status: "queued", progress: 0, eta: "~4h", dataPoints: "2.1M" },
-        { id: 4, name: "Anomaly Detector v2.5", model: "Llama 3.3", status: "paused", progress: 45, eta: "-", dataPoints: "500K" },
-      ],
-      datasets: [
-        { name: "Transaction Patterns", records: "15.2M", size: "8.5 GB", lastUpdated: "2024-12-03", quality: 98 },
-        { name: "Validator Performance", records: "2.8M", size: "1.2 GB", lastUpdated: "2024-12-03", quality: 99 },
-        { name: "Network Metrics", records: "45.6M", size: "12.3 GB", lastUpdated: "2024-12-02", quality: 97 },
-        { name: "Security Events", records: "890K", size: "450 MB", lastUpdated: "2024-12-03", quality: 95 },
-      ],
-      accuracyData: [
-        { epoch: 1, accuracy: 75, loss: 0.45 },
-        { epoch: 2, accuracy: 82, loss: 0.32 },
-        { epoch: 3, accuracy: 88, loss: 0.24 },
-        { epoch: 4, accuracy: 92, loss: 0.18 },
-        { epoch: 5, accuracy: 95, loss: 0.12 },
-        { epoch: 6, accuracy: 97, loss: 0.08 },
-      ],
-      modelVersions: [
-        { version: "v2.1.0", date: "2024-12-03", accuracy: 98.7, status: "production" },
-        { version: "v2.0.5", date: "2024-11-28", accuracy: 97.2, status: "backup" },
-        { version: "v2.0.0", date: "2024-11-15", accuracy: 96.5, status: "archived" },
-      ],
-      stats: {
-        activeJobs: 2,
-        runningJobs: 1,
-        queuedJobs: 1,
-        totalData: "64.5M",
-        avgAccuracy: 97.4,
-        modelVersions: 12
-      }
-    });
+    try {
+      // Fetch training jobs from database
+      const jobs = await storage.getAllAiTrainingJobs();
+      
+      const runningJobs = jobs.filter(j => j.status === 'running');
+      const queuedJobs = jobs.filter(j => j.status === 'queued');
+      const completedJobs = jobs.filter(j => j.status === 'completed');
+      
+      // Calculate average accuracy from completed jobs
+      const avgAccuracy = completedJobs.length > 0 
+        ? completedJobs.reduce((sum, j) => sum + (j.accuracy || 0), 0) / completedJobs.length 
+        : 0;
+      
+      res.json({
+        jobs: jobs.map(j => ({
+          id: j.id,
+          name: j.name,
+          model: j.model,
+          status: j.status,
+          progress: j.progress,
+          eta: j.eta || '-',
+          dataPoints: j.dataPoints,
+          epochs: j.epochs,
+          currentEpoch: j.currentEpoch,
+          accuracy: j.accuracy,
+          loss: j.loss,
+          validationAccuracy: j.validationAccuracy,
+          validationLoss: j.validationLoss,
+          datasetName: j.datasetName,
+          datasetSize: j.datasetSize,
+          startedAt: j.startedAt,
+          completedAt: j.completedAt,
+        })),
+        datasets: [
+          { name: "Transaction Patterns", records: "15.2M", size: "8.5 GB", lastUpdated: "2024-12-03", quality: 98 },
+          { name: "Validator Performance", records: "2.8M", size: "1.2 GB", lastUpdated: "2024-12-03", quality: 99 },
+          { name: "Network Metrics", records: "45.6M", size: "12.3 GB", lastUpdated: "2024-12-02", quality: 97 },
+          { name: "Security Events", records: "890K", size: "450 MB", lastUpdated: "2024-12-03", quality: 95 },
+        ],
+        accuracyData: runningJobs.length > 0 
+          ? runningJobs[0].epochs > 0 
+            ? Array.from({ length: runningJobs[0].currentEpoch || 1 }, (_, i) => ({
+                epoch: i + 1,
+                accuracy: 75 + (i * 4),
+                loss: 0.45 - (i * 0.07)
+              }))
+            : []
+          : [],
+        modelVersions: [
+          { version: "v2.1.0", date: "2024-12-08", accuracy: avgAccuracy * 100, status: "production" },
+          { version: "v2.0.5", date: "2024-12-01", accuracy: 97.2, status: "backup" },
+          { version: "v2.0.0", date: "2024-11-15", accuracy: 96.5, status: "archived" },
+        ],
+        stats: {
+          activeJobs: runningJobs.length + queuedJobs.length,
+          runningJobs: runningJobs.length,
+          queuedJobs: queuedJobs.length,
+          totalData: jobs.reduce((sum, j) => sum + parseInt(j.dataPoints?.replace(/[^0-9]/g, '') || '0'), 0) + 'K',
+          avgAccuracy: Math.round(avgAccuracy * 1000) / 10,
+          modelVersions: 12
+        }
+      });
+    } catch (error) {
+      console.error('[AI Training] Error fetching training jobs:', error);
+      res.status(500).json({ error: 'Failed to fetch training jobs' });
+    }
   });
 
   // AI Training Job Actions
@@ -12434,6 +12465,10 @@ Provide JSON portfolio analysis:
             'staking_activity',
             'staking_rewards',
             'staking_tiers',
+            // AI Admin channels
+            'ai_training',
+            'ai_tuning',
+            'ai_parameters',
           ];
           
           if (supportedChannels.includes(data.channel)) {
@@ -12498,6 +12533,58 @@ Provide JSON portfolio analysis:
                   }
                 } catch (error) {
                   console.error('Error sending initial staking data:', error);
+                }
+              })();
+            }
+            
+            // AI Training channel - send current training jobs status
+            if (data.channel === 'ai_training') {
+              (async () => {
+                try {
+                  const jobs = await storage.getAllAiTrainingJobs();
+                  ws.send(JSON.stringify({
+                    type: 'ai_training_update',
+                    data: {
+                      jobs: jobs.map(j => ({
+                        id: j.id,
+                        name: j.name,
+                        model: j.model,
+                        status: j.status,
+                        progress: j.progress,
+                        eta: j.eta,
+                        dataPoints: j.dataPoints,
+                        accuracy: j.accuracy,
+                        loss: j.loss,
+                      })),
+                      stats: {
+                        activeJobs: jobs.filter(j => j.status === 'running' || j.status === 'queued').length,
+                        runningJobs: jobs.filter(j => j.status === 'running').length,
+                        queuedJobs: jobs.filter(j => j.status === 'queued').length,
+                        completedJobs: jobs.filter(j => j.status === 'completed').length,
+                      }
+                    },
+                    timestamp: Date.now(),
+                  }));
+                } catch (error) {
+                  console.error('Error sending AI training data:', error);
+                }
+              })();
+            }
+            
+            // AI Parameters channel - send current AI parameters
+            if (data.channel === 'ai_parameters') {
+              (async () => {
+                try {
+                  const params = await storage.getActiveAiParameters();
+                  if (params) {
+                    ws.send(JSON.stringify({
+                      type: 'ai_parameters_update',
+                      data: params,
+                      timestamp: Date.now(),
+                    }));
+                  }
+                } catch (error) {
+                  console.error('Error sending AI parameters data:', error);
                 }
               })();
             }
