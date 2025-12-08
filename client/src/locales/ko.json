@@ -17003,6 +17003,10 @@
       "requests24h": "24시간 요청",
       "cost24h": "24시간 비용",
       "temperature": "온도",
+      "strategicBand": "전략 밴드",
+      "tacticalBand": "전술 밴드",
+      "operationalBand": "운영 밴드",
+      "fallbackBand": "폴백 밴드",
       "maxTokens": "최대 토큰",
       "topP": "Top P"
     },
@@ -17080,6 +17084,10 @@
       "noExecutionLogs": "아직 실행 로그가 없습니다",
       "executionLogsHint": "AI 결정이 실행되면 여기에 표시됩니다",
       "temperature": "온도",
+      "strategicBand": "전략 밴드",
+      "tacticalBand": "전술 밴드",
+      "operationalBand": "운영 밴드",
+      "fallbackBand": "폴백 밴드",
       "activation": "활성화"
     }
   },
@@ -19580,6 +19588,10 @@
     "epochs": "에포크",
     "hyperparameters": "하이퍼파라미터",
     "temperature": "온도",
+      "strategicBand": "전략 밴드",
+      "tacticalBand": "전술 밴드",
+      "operationalBand": "운영 밴드",
+      "fallbackBand": "폴백 밴드",
     "controlsRandomness": "무작위성 제어",
     "maxTokens": "최대 토큰",
     "topP": "Top P",

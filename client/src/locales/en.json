@@ -16469,7 +16469,11 @@
       "noExecutionLogs": "No execution logs available yet",
       "executionLogsHint": "AI decisions will appear here when executed",
       "temperature": "Temperature",
-      "activation": "Activation"
+      "activation": "Activation",
+      "strategicBand": "Strategic Band",
+      "tacticalBand": "Tactical Band",
+      "operationalBand": "Operational Band",
+      "fallbackBand": "Fallback Band"
     }
   },
   "adminTraining": {

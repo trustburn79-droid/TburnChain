@@ -715,7 +715,7 @@ export default function AdminAIOrchestration() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <Brain className="text-blue-500" />
-                          {bandsData?.data?.strategic?.name || 'Strategic Band'}
+                          {bandsData?.data?.strategic?.name || t("adminAI.enterprise.strategicBand")}
                         </CardTitle>
                         <CardDescription>{bandsData?.data?.strategic?.provider} - {bandsData?.data?.strategic?.model}</CardDescription>
                       </CardHeader>
@@ -727,7 +727,7 @@ export default function AdminAIOrchestration() {
                           ))}
                         </div>
                         <div className="text-sm">
-                          <span className="text-muted-foreground">Temperature: </span>
+                          <span className="text-muted-foreground">{t("adminAI.enterprise.temperature")}: </span>
                           <span className="font-medium">{bandsData?.data?.strategic?.temperature}</span>
                         </div>
                       </CardContent>
@@ -738,7 +738,7 @@ export default function AdminAIOrchestration() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <Brain className="text-purple-500" />
-                          {bandsData?.data?.tactical?.name || 'Tactical Band'}
+                          {bandsData?.data?.tactical?.name || t("adminAI.enterprise.tacticalBand")}
                         </CardTitle>
                         <CardDescription>{bandsData?.data?.tactical?.provider} - {bandsData?.data?.tactical?.model}</CardDescription>
                       </CardHeader>
@@ -750,7 +750,7 @@ export default function AdminAIOrchestration() {
                           ))}
                         </div>
                         <div className="text-sm">
-                          <span className="text-muted-foreground">Temperature: </span>
+                          <span className="text-muted-foreground">{t("adminAI.enterprise.temperature")}: </span>
                           <span className="font-medium">{bandsData?.data?.tactical?.temperature}</span>
                         </div>
                       </CardContent>
@@ -761,7 +761,7 @@ export default function AdminAIOrchestration() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <Brain className="text-green-500" />
-                          {bandsData?.data?.operational?.name || 'Operational Band'}
+                          {bandsData?.data?.operational?.name || t("adminAI.enterprise.operationalBand")}
                         </CardTitle>
                         <CardDescription>{bandsData?.data?.operational?.provider} - {bandsData?.data?.operational?.model}</CardDescription>
                       </CardHeader>
@@ -773,7 +773,7 @@ export default function AdminAIOrchestration() {
                           ))}
                         </div>
                         <div className="text-sm">
-                          <span className="text-muted-foreground">Temperature: </span>
+                          <span className="text-muted-foreground">{t("adminAI.enterprise.temperature")}: </span>
                           <span className="font-medium">{bandsData?.data?.operational?.temperature}</span>
                         </div>
                       </CardContent>
@@ -784,14 +784,14 @@ export default function AdminAIOrchestration() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <RefreshCw className="text-orange-500" />
-                          {bandsData?.data?.fallback?.name || 'Fallback Band'}
+                          {bandsData?.data?.fallback?.name || t("adminAI.enterprise.fallbackBand")}
                         </CardTitle>
                         <CardDescription>{bandsData?.data?.fallback?.provider} - {bandsData?.data?.fallback?.model}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-3">
                         <p className="text-sm text-muted-foreground">{bandsData?.data?.fallback?.description}</p>
                         <div className="text-sm">
-                          <span className="text-muted-foreground">Activation: </span>
+                          <span className="text-muted-foreground">{t("adminAI.enterprise.activation")}: </span>
                           <span className="font-medium">{bandsData?.data?.fallback?.activationCondition}</span>
                         </div>
                       </CardContent>
@@ -801,8 +801,8 @@ export default function AdminAIOrchestration() {
                   {/* Decision Flow */}
                   <Card data-testid="card-decision-flow">
                     <CardHeader>
-                      <CardTitle>AI Decision Hierarchy Flow</CardTitle>
-                      <CardDescription>How decisions flow through the Triple-Band system</CardDescription>
+                      <CardTitle>{t("adminAI.enterprise.decisionFlow")}</CardTitle>
+                      <CardDescription>{t("adminAI.enterprise.decisionFlowDesc")}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg flex-wrap gap-4">
@@ -861,9 +861,9 @@ export default function AdminAIOrchestration() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <FileCheck className="w-5 h-5" />
-                    Governance Pre-validation Stats
+                    {t("adminAI.enterprise.governanceStats")}
                   </CardTitle>
-                  <CardDescription>AI-powered proposal analysis (90% confidence threshold)</CardDescription>
+                  <CardDescription>{t("adminAI.enterprise.governanceDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {governanceLoading ? (
@@ -877,25 +877,25 @@ export default function AdminAIOrchestration() {
                           <p className="text-3xl font-bold" data-testid="text-total-analyzed">
                             {governanceData?.data?.totalAnalyzed || 0}
                           </p>
-                          <p className="text-sm text-muted-foreground">Total Analyzed</p>
+                          <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.totalAnalyzed")}</p>
                         </div>
                         <div className="p-4 bg-muted/50 rounded-lg text-center">
                           <p className="text-3xl font-bold text-green-500" data-testid="text-auto-approved">
                             {governanceData?.data?.autoApproved || 0}
                           </p>
-                          <p className="text-sm text-muted-foreground">Auto-Approved</p>
+                          <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.autoApproved")}</p>
                         </div>
                         <div className="p-4 bg-muted/50 rounded-lg text-center">
                           <p className="text-3xl font-bold text-yellow-500" data-testid="text-manual-review">
                             {governanceData?.data?.manualReview || 0}
                           </p>
-                          <p className="text-sm text-muted-foreground">Manual Review</p>
+                          <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.manualReview")}</p>
                         </div>
                         <div className="p-4 bg-muted/50 rounded-lg text-center">
                           <p className="text-3xl font-bold text-blue-500" data-testid="text-avg-confidence">
                             {governanceData?.data?.avgConfidence || 0}%
                           </p>
-                          <p className="text-sm text-muted-foreground">Avg Confidence</p>
+                          <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.avgConfidence")}</p>
                         </div>
                       </div>
                     </>
@@ -908,7 +908,7 @@ export default function AdminAIOrchestration() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Target className="w-5 h-5" />
-                    Risk Level Distribution
+                    {t("adminAI.enterprise.riskDistribution")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -935,10 +935,10 @@ export default function AdminAIOrchestration() {
                         </PieChart>
                       </ResponsiveContainer>
                       <div className="flex justify-center gap-4 text-xs">
-                        <span className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-green-500" /> Low</span>
-                        <span className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-yellow-500" /> Medium</span>
-                        <span className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-orange-500" /> High</span>
-                        <span className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-red-500" /> Critical</span>
+                        <span className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-green-500" /> {t("adminAI.enterprise.low")}</span>
+                        <span className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-yellow-500" /> {t("adminAI.enterprise.medium")}</span>
+                        <span className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-orange-500" /> {t("adminAI.enterprise.high")}</span>
+                        <span className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-red-500" /> {t("adminAI.enterprise.critical")}</span>
                       </div>
                     </div>
                   )}
@@ -950,7 +950,7 @@ export default function AdminAIOrchestration() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <History className="w-5 h-5" />
-                    Recent Pre-validations
+                    {t("adminAI.enterprise.recentPrevalidations")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -977,11 +977,11 @@ export default function AdminAIOrchestration() {
                             </Badge>
                           </div>
                           <div className="flex items-center justify-between mt-1">
-                            <span className="text-muted-foreground">Confidence: {pv.aiConfidence}%</span>
+                            <span className="text-muted-foreground">{t("adminAI.enterprise.tableConfidence")}: {pv.aiConfidence}%</span>
                             {pv.automatedDecision ? (
-                              <Badge className="bg-green-500 text-xs">Auto</Badge>
+                              <Badge className="bg-green-500 text-xs">{t("adminAI.enterprise.auto")}</Badge>
                             ) : (
-                              <Badge variant="outline" className="text-xs">Manual</Badge>
+                              <Badge variant="outline" className="text-xs">{t("adminAI.enterprise.manual")}</Badge>
                             )}
                           </div>
                         </div>
