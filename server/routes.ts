@@ -12567,10 +12567,16 @@ Provide JSON portfolio analysis:
             proposalType: mockProposal.proposalType,
             proposalTitle: mockProposal.title,
             proposalDescription: mockProposal.description,
+            aiConfidence: result.confidence,
             aiRecommendation: result.decision.includes('APPROVE') ? 'approve' : 
                               result.decision.includes('REJECT') ? 'reject' : 'review',
+            aiReasoning: result.rawResponse || 'AI governance analysis completed',
+            riskLevel: result.impact || 'medium',
+            provider: result.provider || 'gemini',
+            model: result.model || 'gemini-2.5-pro',
+            tokensUsed: 0,
+            costUsd: '0',
             confidenceScore: result.confidence,
-            riskLevel: result.impact,
             analysisDetails: {
               action: result.decision,
               reasoning: result.rawResponse,
