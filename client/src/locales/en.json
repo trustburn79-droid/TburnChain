@@ -16473,7 +16473,23 @@
       "strategicBand": "Strategic Band",
       "tacticalBand": "Tactical Band",
       "operationalBand": "Operational Band",
-      "fallbackBand": "Fallback Band"
+      "fallbackBand": "Fallback Band",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "statusReady": "Ready",
+      "statusPending": "Pending",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "typeRebalanceShardLoad": "Rebalance Shard Load",
+      "typeScaleShardCapacity": "Scale Shard Capacity",
+      "typeOptimizeBlockTime": "Optimize Block Time",
+      "typeOptimizeTps": "Optimize TPS",
+      "typeRescheduleValidators": "Reschedule Validators",
+      "typeGovernancePrevalidation": "Governance Pre-validation",
+      "typeSecurityResponse": "Security Response",
+      "typeConsensusOptimization": "Consensus Optimization",
+      "typeDynamicGasOptimization": "Dynamic Gas Optimization",
+      "typePredictiveHealing": "Predictive Healing"
     }
   },
   "adminTraining": {

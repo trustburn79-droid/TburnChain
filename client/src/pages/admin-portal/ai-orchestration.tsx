@@ -203,9 +203,33 @@ export default function AdminAIOrchestration() {
       'degraded': t("adminAI.statusDegraded"),
       'standby': t("adminAI.statusStandby"),
       'healthy': t("adminAI.statusOnline"),
-      'active': t("adminAI.statusOnline"),
+      'active': t("adminAI.enterprise.statusActive"),
+      'inactive': t("adminAI.enterprise.statusInactive"),
+      'ready': t("adminAI.enterprise.statusReady"),
+      'pending': t("adminAI.enterprise.statusPending"),
+      'completed': t("adminAI.enterprise.statusCompleted"),
+      'failed': t("adminAI.enterprise.statusFailed"),
+      'executing': t("adminAI.enterprise.statusExecuting"),
+      'enabled': t("adminAI.enterprise.enabled"),
+      'disabled': t("adminAI.enterprise.disabled"),
     };
-    return statusMap[status] || status;
+    return statusMap[status?.toLowerCase()] || status;
+  };
+
+  const translateExecutionType = (type: string) => {
+    const typeMap: Record<string, string> = {
+      'REBALANCE_SHARD_LOAD': t("adminAI.enterprise.typeRebalanceShardLoad"),
+      'SCALE_SHARD_CAPACITY': t("adminAI.enterprise.typeScaleShardCapacity"),
+      'OPTIMIZE_BLOCK_TIME': t("adminAI.enterprise.typeOptimizeBlockTime"),
+      'OPTIMIZE_TPS': t("adminAI.enterprise.typeOptimizeTps"),
+      'RESCHEDULE_VALIDATORS': t("adminAI.enterprise.typeRescheduleValidators"),
+      'GOVERNANCE_PREVALIDATION': t("adminAI.enterprise.typeGovernancePrevalidation"),
+      'SECURITY_RESPONSE': t("adminAI.enterprise.typeSecurityResponse"),
+      'CONSENSUS_OPTIMIZATION': t("adminAI.enterprise.typeConsensusOptimization"),
+      'DYNAMIC_GAS_OPTIMIZATION': t("adminAI.enterprise.typeDynamicGasOptimization"),
+      'PREDICTIVE_HEALING': t("adminAI.enterprise.typePredictiveHealing"),
+    };
+    return typeMap[type] || type?.replace(/_/g, ' ');
   };
   
   const [wsConnected, setWsConnected] = useState(false);
@@ -521,13 +545,13 @@ export default function AdminAIOrchestration() {
               <div className="flex items-center gap-6">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-green-500" data-testid="text-ai-service-status">
-                    {healthData?.data?.components?.aiService?.status === 'healthy' ? 'Online' : 'Degraded'}
+                    {translateStatus(healthData?.data?.components?.aiService?.status || 'degraded')}
                   </p>
                   <p className="text-xs text-muted-foreground">{t("adminAI.enterprise.aiService")}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-green-500" data-testid="text-executor-status">
-                    {executorData?.data?.isActive ? 'Active' : 'Inactive'}
+                    {executorData?.data?.isActive ? translateStatus('active') : translateStatus('inactive')}
                   </p>
                   <p className="text-xs text-muted-foreground">{t("adminAI.enterprise.executor")}</p>
                 </div>
@@ -601,7 +625,7 @@ export default function AdminAIOrchestration() {
                             <div className="flex items-center justify-between mb-2">
                               <span className="font-medium">{t(`adminAI.enterprise.${phaseKeys[index]}`)}</span>
                               <Badge className={getPhaseStatusColor(phaseData?.status || 'pending')}>
-                                {phaseData?.status || 'Pending'}
+                                {translateStatus(phaseData?.status || 'pending')}
                               </Badge>
                             </div>
                             {phaseData?.details && (
@@ -1025,10 +1049,10 @@ export default function AdminAIOrchestration() {
                         executionsData.data.map((log: any, index: number) => (
                           <TableRow key={log.id || index} data-testid={`row-execution-${index}`}>
                             <TableCell>
-                              <Badge variant="outline">{log.executionType?.replace(/_/g, ' ')}</Badge>
+                              <Badge variant="outline">{translateExecutionType(log.executionType)}</Badge>
                             </TableCell>
                             <TableCell className="max-w-xs truncate">
-                              {log.metricsImprovement ? Object.entries(log.metricsImprovement).map(([k, v]) => `${k}: ${v}`).join(', ') : log.executionType?.replace(/_/g, ' ')}
+                              {log.metricsImprovement ? Object.entries(log.metricsImprovement).map(([k, v]) => `${k}: ${v}`).join(', ') : translateExecutionType(log.executionType)}
                             </TableCell>
                             <TableCell>
                               <Badge className={log.status === 'completed' ? 'bg-green-500' : log.status === 'failed' ? 'bg-red-500' : 'bg-yellow-500'}>
