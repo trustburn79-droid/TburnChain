@@ -807,9 +807,6 @@
     "networkShare": "Network Share",
     "validatorShare": "Validator Share",
     "target": "Target",
-    "stakeShare": "Stake Share",
-    "dailyPool": "Daily Pool",
-    "annualEstimate": "Annual Estimate",
     "economics": "Economics"
   },
   "staking": {
@@ -3166,10 +3163,7 @@
       "implement_validator_incentive_restructuring_and_capacity_expansion_protocol": "Implement Validator Incentive and Capacity Expansion",
       "optimize_validator_participation_and_implement_dynamic_shard_scaling": "Optimize Validator Participation and Dynamic Shard Scaling",
       "optimize_validator_participation": "Optimize Validator Participation",
-      "optimize_consensus_parameters": "Optimize Consensus Parameters",
-      "security_protocol_updated": "Security Protocol Updated",
-      "network_optimization_applied": "Network Optimization Applied",
-      "load_balancing_complete": "Load Balancing Complete"
+      "optimize_consensus_parameters": "Optimize Consensus Parameters"
     },
     "actions": "Actions",
     "operations": "Operations",
@@ -16489,7 +16483,18 @@
       "typeSecurityResponse": "Security Response",
       "typeConsensusOptimization": "Consensus Optimization",
       "typeDynamicGasOptimization": "Dynamic Gas Optimization",
-      "typePredictiveHealing": "Predictive Healing"
+      "typePredictiveHealing": "Predictive Healing",
+      "strategicBandDesc": "Long-term planning, governance decisions, shard topology",
+      "tacticalBandDesc": "Block-by-block decisions, validator scheduling, consensus optimization",
+      "operationalBandDesc": "Real-time optimization, TPS tuning, gas adjustment, security response",
+      "fallbackBandDesc": "Emergency fallback when primary providers fail",
+      "activationCondition": "3 consecutive failures from primary providers",
+      "eventGovernance": "governance",
+      "eventSharding": "sharding",
+      "eventConsensus": "consensus",
+      "eventValidation": "validation",
+      "eventOptimization": "optimization",
+      "eventSecurity": "security"
     }
   },
   "adminTraining": {
@@ -19320,7 +19325,6 @@
     "no": "No",
     "enable": "Enable",
     "disable": "Disable",
-    "enabled": "Enabled",
     "disabled": "Disabled",
     "ready": "Ready",
     "controlId": "Control ID",
@@ -22511,8 +22515,6 @@
     "delete": "Delete",
     "enable": "Enable",
     "disable": "Disable",
-    "enabled": "Enabled",
-    "disabled": "Disabled",
     "duplicate": "Duplicate",
     "testRule": "Test Rule",
     "createRuleDialog": {

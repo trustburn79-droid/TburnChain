@@ -739,16 +739,15 @@ export default function AdminAIOrchestration() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <Brain className="text-blue-500" />
-                          {bandsData?.data?.strategic?.name || t("adminAI.enterprise.strategicBand")}
+                          {t("adminAI.enterprise.strategicBand")}
                         </CardTitle>
                         <CardDescription>{bandsData?.data?.strategic?.provider} - {bandsData?.data?.strategic?.model}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-3">
-                        <p className="text-sm text-muted-foreground">{bandsData?.data?.strategic?.description}</p>
+                        <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.strategicBandDesc")}</p>
                         <div className="flex flex-wrap gap-1">
-                          {bandsData?.data?.strategic?.eventTypes?.map(type => (
-                            <Badge key={type} variant="outline" className="text-xs bg-blue-500/10">{type}</Badge>
-                          ))}
+                          <Badge variant="outline" className="text-xs bg-blue-500/10">{t("adminAI.enterprise.eventGovernance")}</Badge>
+                          <Badge variant="outline" className="text-xs bg-blue-500/10">{t("adminAI.enterprise.eventSharding")}</Badge>
                         </div>
                         <div className="text-sm">
                           <span className="text-muted-foreground">{t("adminAI.enterprise.temperature")}: </span>
@@ -762,16 +761,15 @@ export default function AdminAIOrchestration() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <Brain className="text-purple-500" />
-                          {bandsData?.data?.tactical?.name || t("adminAI.enterprise.tacticalBand")}
+                          {t("adminAI.enterprise.tacticalBand")}
                         </CardTitle>
                         <CardDescription>{bandsData?.data?.tactical?.provider} - {bandsData?.data?.tactical?.model}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-3">
-                        <p className="text-sm text-muted-foreground">{bandsData?.data?.tactical?.description}</p>
+                        <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.tacticalBandDesc")}</p>
                         <div className="flex flex-wrap gap-1">
-                          {bandsData?.data?.tactical?.eventTypes?.map(type => (
-                            <Badge key={type} variant="outline" className="text-xs bg-purple-500/10">{type}</Badge>
-                          ))}
+                          <Badge variant="outline" className="text-xs bg-purple-500/10">{t("adminAI.enterprise.eventConsensus")}</Badge>
+                          <Badge variant="outline" className="text-xs bg-purple-500/10">{t("adminAI.enterprise.eventValidation")}</Badge>
                         </div>
                         <div className="text-sm">
                           <span className="text-muted-foreground">{t("adminAI.enterprise.temperature")}: </span>
@@ -785,16 +783,15 @@ export default function AdminAIOrchestration() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <Brain className="text-green-500" />
-                          {bandsData?.data?.operational?.name || t("adminAI.enterprise.operationalBand")}
+                          {t("adminAI.enterprise.operationalBand")}
                         </CardTitle>
                         <CardDescription>{bandsData?.data?.operational?.provider} - {bandsData?.data?.operational?.model}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-3">
-                        <p className="text-sm text-muted-foreground">{bandsData?.data?.operational?.description}</p>
+                        <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.operationalBandDesc")}</p>
                         <div className="flex flex-wrap gap-1">
-                          {bandsData?.data?.operational?.eventTypes?.map(type => (
-                            <Badge key={type} variant="outline" className="text-xs bg-green-500/10">{type}</Badge>
-                          ))}
+                          <Badge variant="outline" className="text-xs bg-green-500/10">{t("adminAI.enterprise.eventOptimization")}</Badge>
+                          <Badge variant="outline" className="text-xs bg-green-500/10">{t("adminAI.enterprise.eventSecurity")}</Badge>
                         </div>
                         <div className="text-sm">
                           <span className="text-muted-foreground">{t("adminAI.enterprise.temperature")}: </span>
@@ -808,15 +805,15 @@ export default function AdminAIOrchestration() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <RefreshCw className="text-orange-500" />
-                          {bandsData?.data?.fallback?.name || t("adminAI.enterprise.fallbackBand")}
+                          {t("adminAI.enterprise.fallbackBand")}
                         </CardTitle>
                         <CardDescription>{bandsData?.data?.fallback?.provider} - {bandsData?.data?.fallback?.model}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-3">
-                        <p className="text-sm text-muted-foreground">{bandsData?.data?.fallback?.description}</p>
+                        <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.fallbackBandDesc")}</p>
                         <div className="text-sm">
                           <span className="text-muted-foreground">{t("adminAI.enterprise.activation")}: </span>
-                          <span className="font-medium">{bandsData?.data?.fallback?.activationCondition}</span>
+                          <span className="font-medium">{t("adminAI.enterprise.activationCondition")}</span>
                         </div>
                       </CardContent>
                     </Card>
