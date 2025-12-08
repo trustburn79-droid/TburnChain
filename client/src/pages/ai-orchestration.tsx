@@ -99,15 +99,64 @@ function formatSafeDate(dateValue: string | Date | null | undefined, justNowText
 
 type TranslationFn = (key: string, options?: { defaultValue?: string; returnObjects?: boolean }) => string;
 
+function normalizeDecisionToCode(action: string): string {
+  const lowerAction = action.toLowerCase();
+  
+  if (lowerAction.includes('shard') && lowerAction.includes('rebalanc')) {
+    return 'rebalance_shard_load';
+  }
+  if (lowerAction.includes('shard') && (lowerAction.includes('expan') || lowerAction.includes('scale') || lowerAction.includes('capacity') || lowerAction.includes('count'))) {
+    return 'scale_shard_capacity';
+  }
+  if (lowerAction.includes('validator') && lowerAction.includes('schedul')) {
+    return 'optimize_validator_scheduling';
+  }
+  if (lowerAction.includes('validator') && lowerAction.includes('rotation')) {
+    return 'optimize_validator_rotation';
+  }
+  if (lowerAction.includes('validator') && (lowerAction.includes('incentiv') || lowerAction.includes('participat'))) {
+    return 'optimize_validator_participation';
+  }
+  if (lowerAction.includes('validator') && lowerAction.includes('distribut')) {
+    return 'optimize_validator_distribution';
+  }
+  if (lowerAction.includes('gas') && (lowerAction.includes('optim') || lowerAction.includes('routing'))) {
+    return 'dynamic_gas_optimization';
+  }
+  if (lowerAction.includes('consensus')) {
+    return 'optimize_consensus_parameters';
+  }
+  if (lowerAction.includes('security') || lowerAction.includes('threat')) {
+    return 'security_protocol_updated';
+  }
+  if (lowerAction.includes('load') && lowerAction.includes('balanc')) {
+    return 'load_balancing_complete';
+  }
+  if (lowerAction.includes('network') && lowerAction.includes('optim')) {
+    return 'network_optimization_applied';
+  }
+  if (lowerAction.includes('emergency') || (lowerAction.includes('capacity') && !lowerAction.includes('shard'))) {
+    return 'emergency_capacity_expansion';
+  }
+  if (lowerAction.includes('implement') && lowerAction.includes('shard')) {
+    return 'scale_shard_capacity';
+  }
+  if (lowerAction.includes('increase') && lowerAction.includes('shard')) {
+    return 'scale_shard_capacity';
+  }
+  
+  return action.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+}
+
 function getTranslatedDecision(decision: string | null | undefined, t: TranslationFn): string {
   if (!decision) return t('aiOrchestration.aiDecision');
-  const decisionKey = decision.toLowerCase()
-    .replace(/\s+/g, '_')
-    .replace(/[^a-z0-9_]/g, '');
-  if (!decisionKey || decisionKey.trim() === '') {
+  
+  const normalizedKey = normalizeDecisionToCode(decision);
+  if (!normalizedKey || normalizedKey.trim() === '') {
     return decision;
   }
-  const translationKey = `aiOrchestration.decisions.${decisionKey}`;
+  
+  const translationKey = `aiOrchestration.decisions.${normalizedKey}`;
   const translated = t(translationKey, { defaultValue: decision, returnObjects: false });
   return (typeof translated === 'string' && translated !== translationKey) ? translated : decision;
 }
