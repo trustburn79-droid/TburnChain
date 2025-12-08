@@ -39,6 +39,7 @@ import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
 import { bridgeService } from "./services/BridgeService";
 import { getSelfHealingEngine } from "./services/SelfHealingEngine";
+import { aiOrchestrator, type BlockchainEvent } from "./services/AIOrchestrator";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 const SITE_PASSWORD = ADMIN_PASSWORD || "admin7979";
@@ -12389,6 +12390,70 @@ Provide JSON portfolio analysis:
       console.error('Error broadcasting block updates:', error);
     }
   }, 500, 'block_updates'); // Optimized for 100ms block time
+
+  // ============================================
+  // REAL AI Decision Processing
+  // Triggers actual AI API calls for blockchain events
+  // ============================================
+  
+  // Start the AI Orchestrator
+  aiOrchestrator.start().then(() => {
+    console.log('[Routes] AI Orchestrator started for real AI decisions');
+  }).catch(err => {
+    console.error('[Routes] Failed to start AI Orchestrator:', err);
+  });
+
+  // Process blockchain events with real AI every 30 seconds
+  // This generates REAL AI decisions using Gemini, Claude, GPT-4o, Grok
+  createTrackedInterval(async () => {
+    try {
+      // Get recent network state for AI analysis
+      const blocks = await storage.getRecentBlocks(1);
+      const stats = await storage.getNetworkStats();
+      const validators = await storage.getAllValidators();
+      const shards = await storage.getAllShards();
+      
+      if (blocks.length === 0) return;
+      
+      const latestBlock = blocks[0];
+      const eventTypes: BlockchainEvent['type'][] = ['consensus', 'validation', 'optimization', 'security', 'governance', 'sharding'];
+      
+      // Randomly select an event type to process (to avoid too many API calls)
+      const eventType = eventTypes[Math.floor(Math.random() * eventTypes.length)];
+      
+      // Build blockchain event with real network data
+      const event: BlockchainEvent = {
+        type: eventType,
+        data: {
+          blockHash: latestBlock.hash,
+          transactions: latestBlock.transactionCount,
+          gasUsed: latestBlock.gasUsed,
+          networkTps: stats.tps,
+          activeValidators: validators.filter(v => v.status === 'active').length,
+          totalValidators: validators.length,
+          shardCount: shards.length,
+          avgBlockTime: 100, // TBURN's 100ms block time
+        },
+        blockHeight: latestBlock.blockNumber,
+        shardId: Math.floor(Math.random() * shards.length),
+        validatorAddress: validators.length > 0 ? validators[0].address : undefined,
+        timestamp: new Date(),
+      };
+      
+      // Process with REAL AI
+      const result = await aiOrchestrator.processBlockchainEvent(event);
+      
+      if (result) {
+        console.log(`[Real AI] ${result.provider}/${result.model}: ${result.decision} (confidence: ${result.confidence}%, cost: $${result.costUsd})`);
+        
+        // Broadcast the real AI decision
+        const decisions = await storage.getRecentAiDecisions(10);
+        broadcastUpdate('ai_decisions_snapshot', decisions, aiDecisionsSnapshotSchema);
+      }
+    } catch (error) {
+      console.error('[Real AI] Error processing blockchain event:', error);
+    }
+  }, 30000, 'real_ai_decisions'); // Every 30 seconds to manage API costs
 
   // ============================================
   // Development Mode Polling (Storage-based)

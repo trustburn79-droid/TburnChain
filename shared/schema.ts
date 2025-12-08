@@ -142,11 +142,12 @@ export const aiModels = pgTable("ai_models", {
   consensusContribution: integer("consensus_contribution").notNull().default(0), // Contributions to consensus decisions
 });
 
-// AI Decisions (Triple-Band AI tracking)
+// AI Decisions (Triple-Band AI tracking with REAL AI execution)
 export const aiDecisions = pgTable("ai_decisions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  band: text("band").notNull(), // strategic, tactical, operational
+  band: text("band").notNull(), // strategic, tactical, operational, fallback
   modelName: text("model_name").notNull(),
+  provider: text("provider").notNull().default("unknown"), // gemini, anthropic, openai, grok
   decision: text("decision").notNull(),
   impact: text("impact").notNull(), // high, medium, low
   category: text("category").notNull(), // scaling, optimization, validation, etc.
@@ -155,9 +156,46 @@ export const aiDecisions = pgTable("ai_decisions", {
   status: text("status").notNull().default("executed"), // pending, executed, failed
   confidence: integer("confidence"), // 0-100 percentage
   executionTime: integer("execution_time"), // execution time in ms
+  
+  // REAL AI execution fields
+  promptText: text("prompt_text"), // Actual prompt sent to AI
+  responseText: text("response_text"), // Raw AI response
+  tokensUsed: integer("tokens_used").default(0), // Actual tokens consumed
+  costUsd: text("cost_usd").default("0"), // Actual cost in USD
+  isRealAi: boolean("is_real_ai").notNull().default(true), // True = real AI call, False = fallback/cached
+  
+  // Blockchain action taken
+  actionApplied: text("action_applied"), // Description of blockchain action
+  blockchainTxHash: text("blockchain_tx_hash"), // If action resulted in transaction
+  
   metadata: jsonb("metadata"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   executedAt: timestamp("executed_at"),
+});
+
+// AI Usage Logs (Detailed per-request tracking for audit)
+export const aiUsageLogs = pgTable("ai_usage_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  provider: text("provider").notNull(), // gemini, anthropic, openai, grok
+  model: text("model").notNull(), // gpt-4o, claude-sonnet-4-5, etc.
+  band: text("band").notNull(), // strategic, tactical, operational, fallback
+  requestType: text("request_type").notNull(), // consensus, validation, optimization, security
+  
+  promptTokens: integer("prompt_tokens").notNull().default(0),
+  completionTokens: integer("completion_tokens").notNull().default(0),
+  totalTokens: integer("total_tokens").notNull().default(0),
+  costUsd: text("cost_usd").notNull().default("0"),
+  responseTimeMs: integer("response_time_ms").notNull().default(0),
+  
+  success: boolean("success").notNull().default(true),
+  errorType: text("error_type"), // rate_limit, timeout, api_error, etc.
+  errorMessage: text("error_message"),
+  
+  // Fallback tracking
+  wasFailover: boolean("was_failover").notNull().default(false),
+  originalProvider: text("original_provider"), // If failover, which provider failed
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 // Shard Information
@@ -1262,6 +1300,7 @@ export const insertValidatorSchema = createInsertSchema(validators).omit({ id: t
 export const insertSmartContractSchema = createInsertSchema(smartContracts).omit({ id: true, deployedAt: true });
 export const insertAiModelSchema = createInsertSchema(aiModels).omit({ id: true, lastUsed: true });
 export const insertAiDecisionSchema = createInsertSchema(aiDecisions).omit({ id: true, createdAt: true, executedAt: true });
+export const insertAiUsageLogSchema = createInsertSchema(aiUsageLogs).omit({ id: true, createdAt: true });
 export const insertShardSchema = createInsertSchema(shards).omit({ id: true, lastSyncedAt: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
 export const insertConsensusRoundSchema = createInsertSchema(consensusRounds).omit({ id: true, createdAt: true });
@@ -1399,6 +1438,9 @@ export type InsertAiModel = z.infer<typeof insertAiModelSchema>;
 
 export type AiDecision = typeof aiDecisions.$inferSelect;
 export type InsertAiDecision = z.infer<typeof insertAiDecisionSchema>;
+
+export type AiUsageLog = typeof aiUsageLogs.$inferSelect;
+export type InsertAiUsageLog = z.infer<typeof insertAiUsageLogSchema>;
 
 export type Shard = typeof shards.$inferSelect;
 export type InsertShard = z.infer<typeof insertShardSchema>;

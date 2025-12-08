@@ -13,6 +13,8 @@ import {
   type InsertAiModel,
   type AiDecision,
   type InsertAiDecision,
+  type AiUsageLog,
+  type InsertAiUsageLog,
   type Shard,
   type InsertShard,
   type NetworkStats,
@@ -183,6 +185,7 @@ import {
   smartContracts,
   aiModels,
   aiDecisions,
+  aiUsageLogs,
   shards,
   networkStats as networkStatsTable,
   consensusRounds,
@@ -373,6 +376,21 @@ export interface IStorage {
   getAiDecisionById(id: string): Promise<AiDecision | undefined>;
   createAiDecision(data: InsertAiDecision): Promise<AiDecision>;
   getRecentAiDecisions(limit?: number): Promise<AiDecision[]>;
+
+  // AI Usage Logs (Real AI tracking)
+  createAiUsageLog(data: InsertAiUsageLog): Promise<AiUsageLog>;
+  getAiUsageLogs(limit?: number): Promise<AiUsageLog[]>;
+
+  // AI Model Stats (Real AI statistics update)
+  updateAiModelStats(name: string, stats: {
+    requestCount?: number;
+    successCount?: number;
+    failureCount?: number;
+    avgResponseTime?: number;
+    totalCost?: string;
+    tokensUsed?: number;
+    band?: string;
+  }): Promise<void>;
 
   // Shards
   getAllShards(): Promise<Shard[]>;
@@ -1932,6 +1950,62 @@ export class MemStorage implements IStorage {
       .slice(0, limit);
   }
 
+  // AI Usage Logs (Real AI tracking)
+  private aiUsageLogs: Map<string, AiUsageLog> = new Map();
+
+  async createAiUsageLog(data: InsertAiUsageLog): Promise<AiUsageLog> {
+    const log: AiUsageLog = {
+      id: randomUUID(),
+      ...data,
+      errorType: data.errorType ?? null,
+      errorMessage: data.errorMessage ?? null,
+      originalProvider: data.originalProvider ?? null,
+      createdAt: new Date(),
+    };
+    this.aiUsageLogs.set(log.id, log);
+    return log;
+  }
+
+  async getAiUsageLogs(limit: number = 100): Promise<AiUsageLog[]> {
+    return Array.from(this.aiUsageLogs.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice(0, limit);
+  }
+
+  async updateAiModelStats(name: string, stats: {
+    requestCount?: number;
+    successCount?: number;
+    failureCount?: number;
+    avgResponseTime?: number;
+    totalCost?: string;
+    tokensUsed?: number;
+    band?: string;
+  }): Promise<void> {
+    const model = Array.from(this.aiModels.values()).find(m => m.name === name);
+    if (model) {
+      const currentCost = parseFloat(model.totalCost) || 0;
+      const addedCost = parseFloat(stats.totalCost || '0') || 0;
+      
+      const updated: AiModel = {
+        ...model,
+        requestCount: model.requestCount + (stats.requestCount || 0),
+        successCount: model.successCount + (stats.successCount || 0),
+        failureCount: model.failureCount + (stats.failureCount || 0),
+        avgResponseTime: stats.avgResponseTime 
+          ? Math.round((model.avgResponseTime + stats.avgResponseTime) / 2)
+          : model.avgResponseTime,
+        totalCost: (currentCost + addedCost).toFixed(4),
+        lastUsed: new Date(),
+      };
+      
+      if (stats.band === 'strategic') updated.strategicDecisions += 1;
+      if (stats.band === 'tactical') updated.tacticalDecisions += 1;
+      if (stats.band === 'operational') updated.operationalDecisions += 1;
+      
+      this.aiModels.set(model.id, updated);
+    }
+  }
+
   // Shards
   async getAllShards(): Promise<Shard[]> {
     return Array.from(this.shards.values());
@@ -2597,6 +2671,49 @@ export class DbStorage implements IStorage {
 
   async getRecentAiDecisions(limit: number = 10): Promise<AiDecision[]> {
     return db.select().from(aiDecisions).orderBy(desc(aiDecisions.createdAt)).limit(limit);
+  }
+
+  // AI Usage Logs (Real AI tracking)
+  async createAiUsageLog(data: InsertAiUsageLog): Promise<AiUsageLog> {
+    const result = await db.insert(aiUsageLogs).values(data).returning();
+    return result[0];
+  }
+
+  async getAiUsageLogs(limit: number = 100): Promise<AiUsageLog[]> {
+    return db.select().from(aiUsageLogs).orderBy(desc(aiUsageLogs.createdAt)).limit(limit);
+  }
+
+  async updateAiModelStats(name: string, stats: {
+    requestCount?: number;
+    successCount?: number;
+    failureCount?: number;
+    avgResponseTime?: number;
+    totalCost?: string;
+    tokensUsed?: number;
+    band?: string;
+  }): Promise<void> {
+    const model = await this.getAiModelByName(name);
+    if (model) {
+      const currentCost = parseFloat(model.totalCost) || 0;
+      const addedCost = parseFloat(stats.totalCost || '0') || 0;
+      
+      const updates: Partial<AiModel> = {
+        requestCount: model.requestCount + (stats.requestCount || 0),
+        successCount: model.successCount + (stats.successCount || 0),
+        failureCount: model.failureCount + (stats.failureCount || 0),
+        avgResponseTime: stats.avgResponseTime 
+          ? Math.round((model.avgResponseTime + stats.avgResponseTime) / 2)
+          : model.avgResponseTime,
+        totalCost: (currentCost + addedCost).toFixed(4),
+        lastUsed: new Date(),
+      };
+      
+      if (stats.band === 'strategic') updates.strategicDecisions = model.strategicDecisions + 1;
+      if (stats.band === 'tactical') updates.tacticalDecisions = model.tacticalDecisions + 1;
+      if (stats.band === 'operational') updates.operationalDecisions = model.operationalDecisions + 1;
+      
+      await db.update(aiModels).set(updates).where(eq(aiModels.name, name));
+    }
   }
 
   // Shards
