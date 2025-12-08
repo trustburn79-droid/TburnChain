@@ -40,6 +40,7 @@ import { gameFiService } from "./services/GameFiService";
 import { bridgeService } from "./services/BridgeService";
 import { getSelfHealingEngine } from "./services/SelfHealingEngine";
 import { aiOrchestrator, type BlockchainEvent } from "./services/AIOrchestrator";
+import { aiDecisionExecutor } from "./services/AIDecisionExecutor";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 const SITE_PASSWORD = ADMIN_PASSWORD || "admin7979";
@@ -556,7 +557,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/enterprise/gamefi/summary") ||
         req.path.startsWith("/enterprise/launchpad/summary") ||
         req.path.startsWith("/enterprise/burn/") ||
-        req.path.startsWith("/enterprise/events/")) {
+        req.path.startsWith("/enterprise/events/") ||
+        req.path.startsWith("/enterprise/ai/")) {
       return next();
     }
     // Skip auth check for Public API v1 (read-only public website endpoints)
@@ -6493,6 +6495,192 @@ export async function registerRoutes(app: Express): Promise<Server> {
         error: "Failed to reset AI provider limits",
         message: error.message
       });
+    }
+  });
+
+  // ============================================
+  // ENTERPRISE AI BLOCKCHAIN CONTROL APIs
+  // Production-ready endpoints for December 9th launch
+  // ============================================
+
+  // Enterprise AI System Health Check
+  app.get("/api/enterprise/ai/health", async (_req, res) => {
+    try {
+      const health = await aiOrchestrator.getEnterpriseHealthStatus();
+      res.json({
+        success: true,
+        data: health,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      console.error('[Enterprise] AI health check failed:', error);
+      res.status(500).json({ error: "AI health check failed", message: error.message });
+    }
+  });
+
+  // Enterprise AI Metrics Dashboard
+  app.get("/api/enterprise/ai/metrics", async (_req, res) => {
+    try {
+      const metrics = await aiOrchestrator.getEnterpriseMetrics();
+      res.json({
+        success: true,
+        data: metrics,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      console.error('[Enterprise] AI metrics failed:', error);
+      res.status(500).json({ error: "Failed to get AI metrics", message: error.message });
+    }
+  });
+
+  // Production Readiness Report
+  app.get("/api/enterprise/ai/production-readiness", async (_req, res) => {
+    try {
+      const report = await aiOrchestrator.getProductionReadinessReport();
+      res.json({
+        success: true,
+        data: report,
+        launchDate: "2024-12-09",
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      console.error('[Enterprise] Production readiness check failed:', error);
+      res.status(500).json({ error: "Production readiness check failed", message: error.message });
+    }
+  });
+
+  // AI Decision Executor Status
+  app.get("/api/enterprise/ai/executor/status", async (_req, res) => {
+    try {
+      const stats = aiDecisionExecutor.getStats();
+      res.json({
+        success: true,
+        data: {
+          ...stats,
+          executionTypes: [
+            'REBALANCE_SHARD_LOAD',
+            'SCALE_SHARD_CAPACITY', 
+            'OPTIMIZE_BLOCK_TIME',
+            'OPTIMIZE_TPS',
+            'RESCHEDULE_VALIDATORS',
+            'GOVERNANCE_PREVALIDATION',
+            'SECURITY_RESPONSE',
+            'CONSENSUS_OPTIMIZATION',
+            'DYNAMIC_GAS_OPTIMIZATION',
+            'PREDICTIVE_HEALING',
+          ],
+          confidenceThresholds: {
+            low: 60,
+            medium: 70,
+            high: 80,
+            critical: 90,
+          },
+        },
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      console.error('[Enterprise] Executor status failed:', error);
+      res.status(500).json({ error: "Failed to get executor status", message: error.message });
+    }
+  });
+
+  // Recent AI Execution Logs
+  app.get("/api/enterprise/ai/executions", async (req, res) => {
+    try {
+      const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
+      const logs = await storage.getRecentAiExecutionLogs(limit);
+      res.json({
+        success: true,
+        data: logs,
+        count: logs.length,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      console.error('[Enterprise] Execution logs failed:', error);
+      res.status(500).json({ error: "Failed to get execution logs", message: error.message });
+    }
+  });
+
+  // Governance Pre-validation Stats
+  app.get("/api/enterprise/ai/governance/stats", async (_req, res) => {
+    try {
+      const prevalidations = await storage.getRecentGovernancePrevalidations(100);
+      const autoApproved = prevalidations.filter(p => p.automatedDecision).length;
+      const manualReview = prevalidations.filter(p => p.requiresHumanReview).length;
+      const avgConfidence = prevalidations.length > 0 
+        ? Math.round(prevalidations.reduce((sum, p) => sum + (p.aiConfidence || 0), 0) / prevalidations.length)
+        : 0;
+
+      res.json({
+        success: true,
+        data: {
+          totalAnalyzed: prevalidations.length,
+          autoApproved,
+          manualReview,
+          avgConfidence,
+          confidenceThreshold: 90,
+          riskLevelDistribution: {
+            low: prevalidations.filter(p => p.riskLevel === 'low').length,
+            medium: prevalidations.filter(p => p.riskLevel === 'medium').length,
+            high: prevalidations.filter(p => p.riskLevel === 'high').length,
+            critical: prevalidations.filter(p => p.riskLevel === 'critical').length,
+          },
+          recentPrevalidations: prevalidations.slice(0, 10),
+        },
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      console.error('[Enterprise] Governance stats failed:', error);
+      res.status(500).json({ error: "Failed to get governance stats", message: error.message });
+    }
+  });
+
+  // Triple-Band AI System Status
+  app.get("/api/enterprise/ai/bands", async (_req, res) => {
+    try {
+      const orchestratorStats = aiOrchestrator.getStats();
+      res.json({
+        success: true,
+        data: {
+          strategic: {
+            name: 'Strategic Band',
+            provider: 'Gemini',
+            model: 'Gemini 3 Pro',
+            temperature: 0.3,
+            eventTypes: ['governance', 'sharding'],
+            description: 'Long-term planning, governance decisions, shard topology',
+          },
+          tactical: {
+            name: 'Tactical Band',
+            provider: 'Anthropic',
+            model: 'Claude Sonnet 4.5',
+            temperature: 0.5,
+            eventTypes: ['consensus', 'validation'],
+            description: 'Block-by-block decisions, validator scheduling, consensus optimization',
+          },
+          operational: {
+            name: 'Operational Band',
+            provider: 'OpenAI',
+            model: 'GPT-4o',
+            temperature: 0.7,
+            eventTypes: ['optimization', 'security'],
+            description: 'Real-time optimization, TPS tuning, gas adjustment, security response',
+          },
+          fallback: {
+            name: 'Fallback Band',
+            provider: 'xAI',
+            model: 'Grok 3',
+            description: 'Emergency fallback when primary providers fail',
+            activationCondition: '3 consecutive failures from primary providers',
+          },
+          status: orchestratorStats.isRunning ? 'active' : 'stopped',
+          processedDecisions: orchestratorStats.processedDecisions,
+        },
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      console.error('[Enterprise] Bands status failed:', error);
+      res.status(500).json({ error: "Failed to get band status", message: error.message });
     }
   });
 
