@@ -16996,6 +16996,71 @@
       "syncDescription": "이 작업은 모든 AI 모델 설정을 최신 데이터와 동기화합니다. 계속하시겠습니까?",
       "sync": "모두 동기화",
       "cancel": "취소"
+    },
+    "confirmSync": {
+      "title": "AI 모델 동기화",
+      "description": "{{name}}을(를) 최신 설정으로 동기화합니다. 계속하시겠습니까?"
+    },
+    "view": "보기",
+    "sync": "동기화",
+    "enterprise": {
+      "tabEnterprise": "엔터프라이즈 제어",
+      "tabBands": "트리플 밴드 시스템",
+      "tabGovernance": "거버넌스 AI",
+      "tabExecutions": "실행 로그",
+      "tabModels": "AI 모델",
+      "pageSubtitle": "프로덕션 준비 AI 블록체인 제어 시스템",
+      "systemStatus": "시스템 상태",
+      "uptimeLabel": "가동 시간",
+      "minutes": "분",
+      "processed": "처리됨",
+      "decisionsLabel": "결정",
+      "aiService": "AI 서비스",
+      "executor": "실행기",
+      "executions": "실행",
+      "productionReady": "프로덕션 준비 완료",
+      "preparing": "준비 중",
+      "productionReadiness": "프로덕션 준비 상태 보고서",
+      "launchStatus": "12월 9일 런칭 상태",
+      "phase1": "Phase 1: AI 서비스 인프라",
+      "phase2": "Phase 2: 결정 실행기",
+      "phase3": "Phase 3: 전술 밴드 (Claude)",
+      "phase4": "Phase 4: 전략 밴드 (Gemini)",
+      "phase5": "Phase 5: 전체 시스템 통합",
+      "recommendations": "권장 사항",
+      "aiDecisionExecutor": "AI 결정 실행기",
+      "realtimeControl": "실시간 블록체인 운영 제어",
+      "totalExecutions": "총 실행 횟수",
+      "rollbacks": "롤백",
+      "confidenceThresholds": "신뢰도 임계값",
+      "low": "낮음",
+      "medium": "중간",
+      "high": "높음",
+      "critical": "위험",
+      "supportedTypes": "지원 실행 유형",
+      "more": "더 보기",
+      "decisionFlow": "AI 결정 계층 흐름",
+      "decisionFlowDesc": "트리플 밴드 시스템을 통한 결정 흐름",
+      "governanceStats": "거버넌스 사전 검증 통계",
+      "governanceDesc": "AI 기반 제안 분석 (90%% 신뢰도 임계값)",
+      "totalAnalyzed": "총 분석",
+      "autoApproved": "자동 승인",
+      "manualReview": "수동 검토",
+      "avgConfidence": "평균 신뢰도",
+      "riskDistribution": "위험 수준 분포",
+      "recentPrevalidations": "최근 사전 검증",
+      "auto": "자동",
+      "manual": "수동",
+      "executionLogs": "AI 블록체인 실행 로그",
+      "executionLogsDesc": "블록체인에서 실행된 AI 결정의 실시간 기록",
+      "action": "작업",
+      "result": "결과",
+      "provider": "제공자",
+      "time": "시간",
+      "noExecutionLogs": "아직 실행 로그가 없습니다",
+      "executionLogsHint": "AI 결정이 실행되면 여기에 표시됩니다",
+      "temperature": "온도",
+      "activation": "활성화"
     }
   },
   "adminBridge": {
@@ -25013,7 +25078,6 @@
       "h2": {
         "description": "완전한 DeFi + NFT + GameFi 생태계"
       }
-    }
   },
   "apiDocs": {
     "title": "API 문서",
@@ -25134,4 +25198,4 @@
       "connections": "연결"
     }
   }
-}
+}}

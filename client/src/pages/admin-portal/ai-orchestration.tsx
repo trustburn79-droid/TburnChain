@@ -451,10 +451,10 @@ export default function AdminAIOrchestration() {
           <div>
             <h1 className="text-2xl font-bold flex items-center gap-2" data-testid="text-page-title">
               <Brain className="w-7 h-7 text-primary" />
-              {t("adminAI.title")} - Enterprise Control
+              {t("adminAI.title")} - {t("adminAI.enterprise.tabEnterprise")}
             </h1>
             <p className="text-muted-foreground" data-testid="text-page-subtitle">
-              {t("adminAI.subtitle")} | Production-Ready AI Blockchain Control System
+              {t("adminAI.subtitle")} | {t("adminAI.enterprise.pageSubtitle")}
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -510,11 +510,11 @@ export default function AdminAIOrchestration() {
                 </div>
                 <div>
                   <p className="font-medium text-lg" data-testid="text-system-status">
-                    System Status: {translateStatus(healthData?.data?.status || 'loading')}
+                    {t("adminAI.enterprise.systemStatus")}: {translateStatus(healthData?.data?.status || 'loading')}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Uptime: {healthData?.data?.uptime?.toFixed(1) || '0'} minutes | 
-                    Processed: {bandsData?.data?.processedDecisions || 0} decisions
+                    {t("adminAI.enterprise.uptimeLabel")}: {healthData?.data?.uptime?.toFixed(1) || '0'} {t("adminAI.enterprise.minutes")} | 
+                    {t("adminAI.enterprise.processed")}: {bandsData?.data?.processedDecisions || 0} {t("adminAI.enterprise.decisionsLabel")}
                   </p>
                 </div>
               </div>
@@ -523,23 +523,23 @@ export default function AdminAIOrchestration() {
                   <p className="text-2xl font-bold text-green-500" data-testid="text-ai-service-status">
                     {healthData?.data?.components?.aiService?.status === 'healthy' ? 'Online' : 'Degraded'}
                   </p>
-                  <p className="text-xs text-muted-foreground">AI Service</p>
+                  <p className="text-xs text-muted-foreground">{t("adminAI.enterprise.aiService")}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-green-500" data-testid="text-executor-status">
                     {executorData?.data?.isActive ? 'Active' : 'Inactive'}
                   </p>
-                  <p className="text-xs text-muted-foreground">Executor</p>
+                  <p className="text-xs text-muted-foreground">{t("adminAI.enterprise.executor")}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-blue-500" data-testid="text-execution-count">
                     {executorData?.data?.executionCount || 0}
                   </p>
-                  <p className="text-xs text-muted-foreground">Executions</p>
+                  <p className="text-xs text-muted-foreground">{t("adminAI.enterprise.executions")}</p>
                 </div>
                 <Badge className={readinessData?.data?.ready ? 'bg-green-500' : 'bg-yellow-500'} data-testid="badge-production-ready">
                   <Rocket className="w-3 h-3 mr-1" />
-                  {readinessData?.data?.ready ? 'Production Ready' : 'Preparing'}
+                  {readinessData?.data?.ready ? t("adminAI.enterprise.productionReady") : t("adminAI.enterprise.preparing")}
                 </Badge>
               </div>
             </div>
@@ -550,23 +550,23 @@ export default function AdminAIOrchestration() {
           <TabsList data-testid="tabs-list">
             <TabsTrigger value="enterprise" data-testid="tab-enterprise">
               <Rocket className="w-4 h-4 mr-2" />
-              Enterprise Control
+              {t("adminAI.enterprise.tabEnterprise")}
             </TabsTrigger>
             <TabsTrigger value="bands" data-testid="tab-bands">
               <Layers className="w-4 h-4 mr-2" />
-              Triple-Band System
+              {t("adminAI.enterprise.tabBands")}
             </TabsTrigger>
             <TabsTrigger value="governance" data-testid="tab-governance">
               <FileCheck className="w-4 h-4 mr-2" />
-              Governance AI
+              {t("adminAI.enterprise.tabGovernance")}
             </TabsTrigger>
             <TabsTrigger value="executions" data-testid="tab-executions">
               <Terminal className="w-4 h-4 mr-2" />
-              Execution Logs
+              {t("adminAI.enterprise.tabExecutions")}
             </TabsTrigger>
             <TabsTrigger value="models" data-testid="tab-models">
               <Brain className="w-4 h-4 mr-2" />
-              AI Models
+              {t("adminAI.enterprise.tabModels")}
             </TabsTrigger>
             <TabsTrigger value="performance" data-testid="tab-performance">
               <Activity className="w-4 h-4 mr-2" />
@@ -582,9 +582,9 @@ export default function AdminAIOrchestration() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Rocket className="w-5 h-5" />
-                    Production Readiness Report
+                    {t("adminAI.enterprise.productionReadiness")}
                   </CardTitle>
-                  <CardDescription>December 9th Launch Status</CardDescription>
+                  <CardDescription>{t("adminAI.enterprise.launchStatus")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {readinessLoading ? (
@@ -595,17 +595,11 @@ export default function AdminAIOrchestration() {
                     <>
                       {['phase1', 'phase2', 'phase3', 'phase4', 'phase5'].map((phase, index) => {
                         const phaseData = readinessData?.data?.[phase as keyof ProductionReadinessData] as { status: string; details: string[] } | undefined;
-                        const phaseNames = [
-                          'AI Service Infrastructure',
-                          'Decision Executor',
-                          'Tactical Band (Claude)',
-                          'Strategic Band (Gemini)',
-                          'Full System Integration'
-                        ];
+                        const phaseKeys = ['phase1', 'phase2', 'phase3', 'phase4', 'phase5'];
                         return (
                           <div key={phase} className="p-3 border rounded-lg" data-testid={`phase-${index + 1}`}>
                             <div className="flex items-center justify-between mb-2">
-                              <span className="font-medium">Phase {index + 1}: {phaseNames[index]}</span>
+                              <span className="font-medium">{t(`adminAI.enterprise.${phaseKeys[index]}`)}</span>
                               <Badge className={getPhaseStatusColor(phaseData?.status || 'pending')}>
                                 {phaseData?.status || 'Pending'}
                               </Badge>
@@ -625,7 +619,7 @@ export default function AdminAIOrchestration() {
                       })}
                       {readinessData?.data?.recommendations && readinessData.data.recommendations.length > 0 && (
                         <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                          <p className="font-medium text-yellow-500 mb-2">Recommendations</p>
+                          <p className="font-medium text-yellow-500 mb-2">{t("adminAI.enterprise.recommendations")}</p>
                           <ul className="text-sm space-y-1">
                             {readinessData.data.recommendations.map((rec, i) => (
                               <li key={i} className="flex items-center gap-2">
@@ -646,9 +640,9 @@ export default function AdminAIOrchestration() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Server className="w-5 h-5" />
-                    AI Decision Executor
+                    {t("adminAI.enterprise.aiDecisionExecutor")}
                   </CardTitle>
-                  <CardDescription>Real-time Blockchain Operation Control</CardDescription>
+                  <CardDescription>{t("adminAI.enterprise.realtimeControl")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {executorLoading ? (
@@ -662,30 +656,30 @@ export default function AdminAIOrchestration() {
                           <p className="text-3xl font-bold text-primary" data-testid="text-total-executions">
                             {executorData?.data?.executionCount || 0}
                           </p>
-                          <p className="text-sm text-muted-foreground">Total Executions</p>
+                          <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.totalExecutions")}</p>
                         </div>
                         <div className="p-4 bg-muted/50 rounded-lg text-center">
                           <p className="text-3xl font-bold text-red-500" data-testid="text-rollbacks">
                             {executorData?.data?.rollbackCount || 0}
                           </p>
-                          <p className="text-sm text-muted-foreground">Rollbacks</p>
+                          <p className="text-sm text-muted-foreground">{t("adminAI.enterprise.rollbacks")}</p>
                         </div>
                       </div>
                       
                       <div className="space-y-2">
-                        <p className="font-medium">Confidence Thresholds</p>
+                        <p className="font-medium">{t("adminAI.enterprise.confidenceThresholds")}</p>
                         <div className="grid grid-cols-4 gap-2">
                           {['low', 'medium', 'high', 'critical'].map(level => (
                             <div key={level} className="p-2 border rounded text-center">
                               <p className="text-lg font-bold">{executorData?.data?.confidenceThresholds?.[level as keyof typeof executorData.data.confidenceThresholds] || 0}%</p>
-                              <p className="text-xs text-muted-foreground capitalize">{level}</p>
+                              <p className="text-xs text-muted-foreground">{t(`adminAI.enterprise.${level}`)}</p>
                             </div>
                           ))}
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <p className="font-medium">Supported Execution Types</p>
+                        <p className="font-medium">{t("adminAI.enterprise.supportedTypes")}</p>
                         <div className="flex flex-wrap gap-2">
                           {executorData?.data?.executionTypes?.slice(0, 6).map(type => (
                             <Badge key={type} variant="outline" className="text-xs">
@@ -694,7 +688,7 @@ export default function AdminAIOrchestration() {
                           ))}
                           {(executorData?.data?.executionTypes?.length || 0) > 6 && (
                             <Badge variant="outline" className="text-xs">
-                              +{(executorData?.data?.executionTypes?.length || 0) - 6} more
+                              +{(executorData?.data?.executionTypes?.length || 0) - 6} {t("adminAI.enterprise.more")}
                             </Badge>
                           )}
                         </div>

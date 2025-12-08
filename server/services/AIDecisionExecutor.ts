@@ -120,11 +120,17 @@ class AIDecisionExecutor extends EventEmitter {
     this.emit('stopped');
   }
 
+  private isValidDecisionType(type: string): type is AIDecisionType {
+    return type in this.IMPACT_MAP;
+  }
+
   async executeDecision(payload: AIDecisionPayload): Promise<ExecutionResult> {
+    const decisionType = payload.type as AIDecisionType;
+    
     if (!this.isActive) {
       return {
         executionId: '',
-        type: payload.type,
+        type: decisionType,
         status: 'skipped',
         reason: 'Executor not active',
         executionTimeMs: 0,
@@ -132,35 +138,46 @@ class AIDecisionExecutor extends EventEmitter {
     }
 
     const startTime = Date.now();
-    const impactLevel = this.IMPACT_MAP[payload.type];
+    
+    if (!this.isValidDecisionType(payload.type)) {
+      return {
+        executionId: '',
+        type: decisionType,
+        status: 'skipped',
+        reason: `Unknown decision type: ${payload.type}`,
+        executionTimeMs: Date.now() - startTime,
+      };
+    }
+    
+    const impactLevel = this.IMPACT_MAP[decisionType];
     const requiredConfidence = this.CONFIDENCE_THRESHOLDS[impactLevel];
 
     if (payload.confidence < requiredConfidence) {
-      console.log(`[AIDecisionExecutor] Skipping ${payload.type}: confidence ${payload.confidence}% < required ${requiredConfidence}%`);
+      console.log(`[AIDecisionExecutor] Skipping ${decisionType}: confidence ${payload.confidence}% < required ${requiredConfidence}%`);
       return {
         executionId: '',
-        type: payload.type,
+        type: decisionType,
         status: 'skipped',
         reason: `Confidence ${payload.confidence}% below threshold ${requiredConfidence}%`,
         executionTimeMs: Date.now() - startTime,
       };
     }
 
-    if (!this.checkExecutionInterval(payload.type)) {
+    if (!this.checkExecutionInterval(decisionType)) {
       return {
         executionId: '',
-        type: payload.type,
+        type: decisionType,
         status: 'skipped',
         reason: 'Execution interval not met (min 5 minutes between same type)',
         executionTimeMs: Date.now() - startTime,
       };
     }
 
-    const beforeState = await this.captureCurrentState(payload.type);
+    const beforeState = await this.captureCurrentState(decisionType);
 
     const executionLog: InsertAiExecutionLog = {
-      decisionId: payload.decisionId,
-      executionType: payload.type,
+      decisionId: payload.decisionId || `decision-${Date.now()}`,
+      executionType: decisionType,
       status: 'executing',
       confidence: payload.confidence,
       impactLevel,
