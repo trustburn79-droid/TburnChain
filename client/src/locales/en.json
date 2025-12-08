@@ -2868,6 +2868,8 @@
     "genreSports": "Sports",
     "genreSimulation": "Simulation",
     "genreCasual": "Casual",
+    "genreSportsManager": "Sports Manager",
+    "genreFarmSimulator": "Farm Simulator",
     "genreMmorpg": "MMORPG",
     "genreBattleRoyale": "Battle Royale",
     "badges": {

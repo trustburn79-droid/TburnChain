@@ -2830,7 +2830,7 @@
     "noGamesAvailable": "사용 가능한 게임 없음",
     "noTournamentsAvailable": "사용 가능한 토너먼트 없음",
     "noAssetsOwned": "소유한 자산 없음",
-    "playToEarn": "Play to Earn",
+    "playToEarn": "플레이 투 언",
     "noPendingRewards": "대기 중인 보상 없음",
     "earnRewardsHint": "게임을 플레이하고 토너먼트에 참가하여 보상을 획득하세요",
     "noAchievementsAvailable": "사용 가능한 업적 없음",
@@ -2920,6 +2920,8 @@
     "genreSports": "스포츠",
     "genreSimulation": "시뮬레이션",
     "genreCasual": "캐주얼",
+    "genreSportsManager": "스포츠 매니저",
+    "genreFarmSimulator": "농장 시뮬레이터",
     "genreMmorpg": "MMORPG",
     "genreBattleRoyale": "배틀로얄",
     "badges": {

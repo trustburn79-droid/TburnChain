@@ -334,6 +334,8 @@ function getGenreTranslationKey(genre: string): string {
     "puzzle": "gamefi.genrePuzzle",
     "Sports": "gamefi.genreSports",
     "sports": "gamefi.genreSports",
+    "Sports Manager": "gamefi.genreSportsManager",
+    "sports manager": "gamefi.genreSportsManager",
     "Simulation": "gamefi.genreSimulation",
     "simulation": "gamefi.genreSimulation",
     "Casual": "gamefi.genreCasual",
@@ -342,6 +344,8 @@ function getGenreTranslationKey(genre: string): string {
     "mmorpg": "gamefi.genreMmorpg",
     "Battle Royale": "gamefi.genreBattleRoyale",
     "battle royale": "gamefi.genreBattleRoyale",
+    "Farm Simulator": "gamefi.genreFarmSimulator",
+    "farm simulator": "gamefi.genreFarmSimulator",
   };
   return genreMap[genre] || genre;
 }

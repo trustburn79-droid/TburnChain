@@ -2539,7 +2539,9 @@
     "genrePuzzle": "益智",
     "genreSports": "体育",
     "genreSimulation": "模拟",
-    "genreCasual": "休闲",
+    "genreCasual": "Casual",
+    "genreSportsManager": "Sports Manager",
+    "genreFarmSimulator": "Farm Simulator",
     "genreMmorpg": "大型多人在线角色扮演",
     "genreBattleRoyale": "大逃杀",
     "badges": {
