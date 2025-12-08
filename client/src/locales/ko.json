@@ -6958,7 +6958,27 @@
     "creatorRoyalty": "창작자 로열티",
     "totalPayment": "총 결제 금액",
     "secureTransaction": "안전한 거래",
-    "secureTransactionDesc": "이 거래는 TBURN 스마트 컨트랙트 보안으로 보호됩니다"
+    "secureTransactionDesc": "이 거래는 TBURN 스마트 컨트랙트 보안으로 보호됩니다",
+    "collectionDescriptions": {
+      "TBURN Founders": "TBURN Founders는 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 TBURN 블록체인의 프리미엄 NFT 컬렉션입니다.",
+      "Quantum Punks": "Quantum Punks는 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 TBURN 블록체인의 프리미엄 NFT 컬렉션입니다.",
+      "AI Worlds": "AI Worlds는 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 TBURN 블록체인의 프리미엄 NFT 컬렉션입니다.",
+      "CryptoBeasts": "CryptoBeasts는 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 TBURN 블록체인의 프리미엄 NFT 컬렉션입니다.",
+      "Neon Dreams": "Neon Dreams는 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 TBURN 블록체인의 프리미엄 NFT 컬렉션입니다.",
+      "BlockchainBots": "BlockchainBots는 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 TBURN 블록체인의 프리미엄 NFT 컬렉션입니다.",
+      "Digital Realms": "Digital Realms는 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 TBURN 블록체인의 프리미엄 NFT 컬렉션입니다.",
+      "Genesis Artifacts": "Genesis Artifacts는 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 TBURN 블록체인의 프리미엄 NFT 컬렉션입니다.",
+      "default": "TBURN 블록체인에서 AI 강화 희귀도 점수가 적용된 고유한 디지털 자산을 특징으로 하는 프리미엄 NFT 컬렉션입니다."
+    },
+    "itemDescriptions": {
+      "common": "{{collection}} 컬렉션의 일반 아이템입니다.",
+      "uncommon": "{{collection}} 컬렉션의 비일반 아이템입니다.",
+      "rare": "{{collection}} 컬렉션의 레어 아이템입니다.",
+      "epic": "{{collection}} 컬렉션의 에픽 아이템입니다.",
+      "legendary": "{{collection}} 컬렉션의 레전더리 아이템입니다.",
+      "mythic": "{{collection}} 컬렉션의 미식 아이템입니다.",
+      "default": "{{collection}} 컬렉션의 고유 아이템입니다."
+    }
   },
   "nftLaunchpad": {
     "title": "NFT 런치패드",

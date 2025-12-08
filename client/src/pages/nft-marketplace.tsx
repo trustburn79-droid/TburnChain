@@ -594,7 +594,7 @@ function CollectionDetailDialog({
               </DialogDescription>
               {collection.description && (
                 <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
-                  {collection.description}
+                  {t(`nftMarketplace.collectionDescriptions.${collection.name}`, collection.description)}
                 </p>
               )}
             </div>
@@ -926,7 +926,11 @@ function NftItemDetailDialog({
               </div>
               <h2 className="text-2xl font-bold">{item.name || `#${item.tokenId}`}</h2>
               {item.description && (
-                <p className="text-sm text-muted-foreground mt-2">{item.description}</p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  {item.rarityTier 
+                    ? t(`nftMarketplace.itemDescriptions.${item.rarityTier}`, { collection: collection?.name || '' }) 
+                    : t('nftMarketplace.itemDescriptions.default', { collection: collection?.name || '' })}
+                </p>
               )}
             </div>
 

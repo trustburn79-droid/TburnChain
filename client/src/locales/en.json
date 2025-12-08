@@ -6807,7 +6807,27 @@
     "creatorRoyalty": "Creator Royalty",
     "totalPayment": "Total Payment",
     "secureTransaction": "Secure Transaction",
-    "secureTransactionDesc": "This transaction is protected by TBURN smart contract security"
+    "secureTransactionDesc": "This transaction is protected by TBURN smart contract security",
+    "collectionDescriptions": {
+      "TBURN Founders": "TBURN Founders is a premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring.",
+      "Quantum Punks": "Quantum Punks is a premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring.",
+      "AI Worlds": "AI Worlds is a premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring.",
+      "CryptoBeasts": "CryptoBeasts is a premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring.",
+      "Neon Dreams": "Neon Dreams is a premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring.",
+      "BlockchainBots": "BlockchainBots is a premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring.",
+      "Digital Realms": "Digital Realms is a premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring.",
+      "Genesis Artifacts": "Genesis Artifacts is a premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring.",
+      "default": "A premium NFT collection on the TBURN blockchain featuring unique digital assets with AI-enhanced rarity scoring."
+    },
+    "itemDescriptions": {
+      "common": "A unique common item from the {{collection}} collection.",
+      "uncommon": "A unique uncommon item from the {{collection}} collection.",
+      "rare": "A unique rare item from the {{collection}} collection.",
+      "epic": "A unique epic item from the {{collection}} collection.",
+      "legendary": "A unique legendary item from the {{collection}} collection.",
+      "mythic": "A unique mythic item from the {{collection}} collection.",
+      "default": "A unique item from the {{collection}} collection."
+    }
   },
   "nftLaunchpad": {
     "title": "NFT Launchpad",
