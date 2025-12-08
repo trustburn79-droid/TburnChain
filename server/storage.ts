@@ -15,6 +15,10 @@ import {
   type InsertAiDecision,
   type AiUsageLog,
   type InsertAiUsageLog,
+  type AiExecutionLog,
+  type InsertAiExecutionLog,
+  type GovernancePrevalidation,
+  type InsertGovernancePrevalidation,
   type Shard,
   type InsertShard,
   type NetworkStats,
@@ -186,6 +190,8 @@ import {
   aiModels,
   aiDecisions,
   aiUsageLogs,
+  aiExecutionLogs,
+  governancePrevalidations,
   shards,
   networkStats as networkStatsTable,
   consensusRounds,
@@ -391,6 +397,17 @@ export interface IStorage {
     tokensUsed?: number;
     band?: string;
   }): Promise<void>;
+
+  // AI Execution Logs (Blockchain control tracking)
+  createAiExecutionLog(data: InsertAiExecutionLog): Promise<AiExecutionLog>;
+  getAiExecutionLog(id: string): Promise<AiExecutionLog | undefined>;
+  updateAiExecutionLog(id: string, data: Partial<AiExecutionLog>): Promise<void>;
+  getRecentAiExecutionLogs(limit?: number): Promise<AiExecutionLog[]>;
+
+  // Governance Pre-validations
+  createGovernancePrevalidation(data: InsertGovernancePrevalidation): Promise<GovernancePrevalidation>;
+  getGovernancePrevalidation(id: string): Promise<GovernancePrevalidation | undefined>;
+  getRecentGovernancePrevalidations(limit?: number): Promise<GovernancePrevalidation[]>;
 
   // Shards
   getAllShards(): Promise<Shard[]>;
@@ -2714,6 +2731,47 @@ export class DbStorage implements IStorage {
       
       await db.update(aiModels).set(updates).where(eq(aiModels.name, name));
     }
+  }
+
+  // AI Execution Logs (Blockchain control tracking)
+  async createAiExecutionLog(data: InsertAiExecutionLog): Promise<AiExecutionLog> {
+    const result = await db.insert(aiExecutionLogs).values(data).returning();
+    return result[0];
+  }
+
+  async getAiExecutionLog(id: string): Promise<AiExecutionLog | undefined> {
+    const result = await db.select().from(aiExecutionLogs).where(eq(aiExecutionLogs.id, id)).limit(1);
+    return result[0];
+  }
+
+  async updateAiExecutionLog(id: string, data: Partial<AiExecutionLog>): Promise<void> {
+    const updateData = {
+      ...data,
+      completedAt: data.status === 'completed' || data.status === 'failed' || data.status === 'rolled_back' 
+        ? new Date() 
+        : undefined,
+      rollbackAt: data.rolledBack ? new Date() : undefined,
+    };
+    await db.update(aiExecutionLogs).set(updateData).where(eq(aiExecutionLogs.id, id));
+  }
+
+  async getRecentAiExecutionLogs(limit: number = 50): Promise<AiExecutionLog[]> {
+    return db.select().from(aiExecutionLogs).orderBy(desc(aiExecutionLogs.createdAt)).limit(limit);
+  }
+
+  // Governance Pre-validations
+  async createGovernancePrevalidation(data: InsertGovernancePrevalidation): Promise<GovernancePrevalidation> {
+    const result = await db.insert(governancePrevalidations).values(data).returning();
+    return result[0];
+  }
+
+  async getGovernancePrevalidation(id: string): Promise<GovernancePrevalidation | undefined> {
+    const result = await db.select().from(governancePrevalidations).where(eq(governancePrevalidations.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getRecentGovernancePrevalidations(limit: number = 50): Promise<GovernancePrevalidation[]> {
+    return db.select().from(governancePrevalidations).orderBy(desc(governancePrevalidations.createdAt)).limit(limit);
   }
 
   // Shards

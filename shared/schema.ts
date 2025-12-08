@@ -198,6 +198,77 @@ export const aiUsageLogs = pgTable("ai_usage_logs", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// AI Execution Logs (Track actual blockchain actions taken by AI decisions)
+export const aiExecutionLogs = pgTable("ai_execution_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  decisionId: varchar("decision_id").notNull(), // Reference to ai_decisions
+  executionType: text("execution_type").notNull(), // SHARD_REBALANCE, BLOCK_TIME_ADJUST, TPS_OPTIMIZE, VALIDATOR_SCHEDULE, GOVERNANCE_PREVALIDATION
+  
+  // Execution status
+  status: text("status").notNull().default("pending"), // pending, executing, completed, failed, rolled_back
+  confidence: integer("confidence").notNull(), // AI confidence at execution time
+  impactLevel: text("impact_level").notNull(), // low, medium, high, critical
+  
+  // Before/After state for rollback
+  beforeState: jsonb("before_state").notNull(),
+  afterState: jsonb("after_state"),
+  
+  // Execution details
+  executionTimeMs: integer("execution_time_ms").notNull().default(0),
+  blockchainTxHash: text("blockchain_tx_hash"), // Transaction hash if applicable
+  
+  // Rollback info
+  rolledBack: boolean("rolled_back").notNull().default(false),
+  rollbackReason: text("rollback_reason"),
+  rollbackAt: timestamp("rollback_at"),
+  
+  // Metrics change
+  metricsImprovement: jsonb("metrics_improvement"), // { tps: +15%, blockTime: -10ms, etc. }
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  completedAt: timestamp("completed_at"),
+});
+
+// Governance Pre-validations (AI 85-90% automated governance decisions)
+export const governancePrevalidations = pgTable("governance_prevalidations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  proposalId: varchar("proposal_id").notNull(),
+  proposalTitle: text("proposal_title").notNull(),
+  proposalType: text("proposal_type").notNull(), // parameter_change, treasury_spend, validator_update, protocol_upgrade
+  
+  // AI Analysis
+  aiConfidence: integer("ai_confidence").notNull(), // 0-100
+  aiRecommendation: text("ai_recommendation").notNull(), // APPROVE, REJECT, MANUAL_REVIEW
+  aiReasoning: text("ai_reasoning").notNull(), // Detailed AI explanation
+  
+  // Risk Assessment
+  riskLevel: text("risk_level").notNull(), // low, medium, high, critical
+  riskFactors: jsonb("risk_factors"), // Array of identified risks
+  economicImpact: jsonb("economic_impact"), // Predicted economic effects
+  securityImpact: jsonb("security_impact"), // Security implications
+  
+  // Auto-decision tracking
+  autoDecision: boolean("auto_decision").notNull().default(false), // True if confidence >= 90%
+  autoDecisionResult: text("auto_decision_result"), // approved, rejected
+  
+  // Validator notification
+  validatorNotified: boolean("validator_notified").notNull().default(false),
+  validatorVoteRequired: boolean("validator_vote_required").notNull().default(true),
+  
+  // Similar proposals analysis
+  similarProposals: jsonb("similar_proposals"), // Historical similar proposals
+  
+  // Timing
+  analysisTimeMs: integer("analysis_time_ms").notNull().default(0),
+  provider: text("provider").notNull(), // Which AI provider analyzed
+  model: text("model").notNull(), // Which model was used
+  tokensUsed: integer("tokens_used").notNull().default(0),
+  costUsd: text("cost_usd").notNull().default("0"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  decidedAt: timestamp("decided_at"),
+});
+
 // Shard Information
 // Shards (Dynamic AI-Driven Sharding with ML Optimization)
 export const shards = pgTable("shards", {
@@ -1301,6 +1372,8 @@ export const insertSmartContractSchema = createInsertSchema(smartContracts).omit
 export const insertAiModelSchema = createInsertSchema(aiModels).omit({ id: true, lastUsed: true });
 export const insertAiDecisionSchema = createInsertSchema(aiDecisions).omit({ id: true, createdAt: true, executedAt: true });
 export const insertAiUsageLogSchema = createInsertSchema(aiUsageLogs).omit({ id: true, createdAt: true });
+export const insertAiExecutionLogSchema = createInsertSchema(aiExecutionLogs).omit({ id: true, createdAt: true, completedAt: true, rollbackAt: true });
+export const insertGovernancePrevalidationSchema = createInsertSchema(governancePrevalidations).omit({ id: true, createdAt: true, decidedAt: true });
 export const insertShardSchema = createInsertSchema(shards).omit({ id: true, lastSyncedAt: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
 export const insertConsensusRoundSchema = createInsertSchema(consensusRounds).omit({ id: true, createdAt: true });
@@ -1441,6 +1514,12 @@ export type InsertAiDecision = z.infer<typeof insertAiDecisionSchema>;
 
 export type AiUsageLog = typeof aiUsageLogs.$inferSelect;
 export type InsertAiUsageLog = z.infer<typeof insertAiUsageLogSchema>;
+
+export type AiExecutionLog = typeof aiExecutionLogs.$inferSelect;
+export type InsertAiExecutionLog = z.infer<typeof insertAiExecutionLogSchema>;
+
+export type GovernancePrevalidation = typeof governancePrevalidations.$inferSelect;
+export type InsertGovernancePrevalidation = z.infer<typeof insertGovernancePrevalidationSchema>;
 
 export type Shard = typeof shards.$inferSelect;
 export type InsertShard = z.infer<typeof insertShardSchema>;
