@@ -236,6 +236,58 @@ Respond in JSON:
     }
   }
 
+  private normalizeDecisionToCode(action: string, eventType: string): string {
+    const lowerAction = action.toLowerCase();
+    
+    if (lowerAction.includes('shard') && lowerAction.includes('rebalanc')) {
+      return 'REBALANCE_SHARD_LOAD';
+    }
+    if (lowerAction.includes('shard') && (lowerAction.includes('expan') || lowerAction.includes('scale') || lowerAction.includes('capacity'))) {
+      return 'SCALE_SHARD_CAPACITY';
+    }
+    if (lowerAction.includes('validator') && lowerAction.includes('schedul')) {
+      return 'OPTIMIZE_VALIDATOR_SCHEDULING';
+    }
+    if (lowerAction.includes('validator') && lowerAction.includes('rotation')) {
+      return 'OPTIMIZE_VALIDATOR_ROTATION';
+    }
+    if (lowerAction.includes('validator') && (lowerAction.includes('incentiv') || lowerAction.includes('participat'))) {
+      return 'OPTIMIZE_VALIDATOR_PARTICIPATION';
+    }
+    if (lowerAction.includes('validator') && lowerAction.includes('distribut')) {
+      return 'OPTIMIZE_VALIDATOR_DISTRIBUTION';
+    }
+    if (lowerAction.includes('gas') && (lowerAction.includes('optim') || lowerAction.includes('routing'))) {
+      return 'DYNAMIC_GAS_OPTIMIZATION';
+    }
+    if (lowerAction.includes('consensus')) {
+      return 'OPTIMIZE_CONSENSUS_PARAMETERS';
+    }
+    if (lowerAction.includes('security') || lowerAction.includes('threat')) {
+      return 'SECURITY_PROTOCOL_UPDATED';
+    }
+    if (lowerAction.includes('load') && lowerAction.includes('balanc')) {
+      return 'LOAD_BALANCING_COMPLETE';
+    }
+    if (lowerAction.includes('network') && lowerAction.includes('optim')) {
+      return 'NETWORK_OPTIMIZATION_APPLIED';
+    }
+    if (lowerAction.includes('emergency') || lowerAction.includes('capacity')) {
+      return 'EMERGENCY_CAPACITY_EXPANSION';
+    }
+    
+    const eventActions: Record<string, string> = {
+      'consensus': 'CONSENSUS_PROCESSED_BY_AI',
+      'validation': 'VALIDATION_PROCESSED_BY_AI',
+      'optimization': 'OPTIMIZATION_PROCESSED_BY_AI',
+      'security': 'SECURITY_PROCESSED_BY_AI',
+      'governance': 'GOVERNANCE_PROCESSED_BY_AI',
+      'sharding': 'SHARDING_PROCESSED_BY_AI',
+    };
+    
+    return eventActions[eventType] || 'OPTIMIZATION_PROCESSED_BY_AI';
+  }
+
   private parseAIResponse(response: string, eventType: string): {
     action: string;
     confidence: number;
@@ -247,8 +299,10 @@ Respond in JSON:
       const jsonMatch = response.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0]);
+        const rawAction = parsed.action || `${eventType} analyzed`;
+        const normalizedAction = this.normalizeDecisionToCode(rawAction, eventType);
         return {
-          action: parsed.action || `${eventType} analyzed`,
+          action: normalizedAction,
           confidence: Math.min(100, Math.max(0, parseInt(parsed.confidence) || 85)),
           impact: ['high', 'medium', 'low'].includes(parsed.impact) ? parsed.impact : 'medium',
           appliedAction: parsed.appliedAction || 'No immediate action required',
@@ -259,8 +313,9 @@ Respond in JSON:
       console.warn('[AIOrchestrator] Failed to parse AI response as JSON');
     }
 
+    const fallbackAction = this.normalizeDecisionToCode(`${eventType} processed`, eventType);
     return {
-      action: `${eventType} processed by AI`,
+      action: fallbackAction,
       confidence: 75,
       impact: 'medium',
       appliedAction: 'Analysis recorded',

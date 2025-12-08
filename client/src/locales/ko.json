@@ -3220,7 +3220,12 @@
       "implement_dynamic_shard_expansion_protocol_with_validator_recruitment_incentives": "검증자 모집 인센티브를 포함한 동적 샤드 확장",
       "implement_progressive_validator_incentivization_and_prepare_for_shard_expansion_to_67_shards": "점진적 검증자 인센티브화 및 샤드 확장 준비",
       "implement_validator_incentive_restructuring_and_capacity_expansion_protocol": "검증자 인센티브 재구성 및 용량 확장 프로토콜",
-      "optimize_validator_participation_and_implement_dynamic_shard_scaling": "검증자 참여 최적화 및 동적 샤드 스케일링"
+      "optimize_validator_participation_and_implement_dynamic_shard_scaling": "검증자 참여 최적화 및 동적 샤드 스케일링",
+      "optimize_validator_participation": "검증자 참여 최적화",
+      "optimize_consensus_parameters": "합의 파라미터 최적화",
+      "security_protocol_updated": "보안 프로토콜 업데이트됨",
+      "network_optimization_applied": "네트워크 최적화 적용됨",
+      "load_balancing_complete": "부하 분산 완료"
     },
     "actions": "작업",
     "operations": "운영",

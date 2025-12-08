@@ -49,6 +49,7 @@ export interface AIRequest {
   maxTokens?: number;
   temperature?: number;
   systemPrompt?: string;
+  preferredProvider?: AIProvider;
 }
 
 export interface AIResponse {
