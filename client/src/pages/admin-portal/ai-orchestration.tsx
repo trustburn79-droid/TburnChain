@@ -999,9 +999,9 @@ export default function AdminAIOrchestration() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Terminal className="w-5 h-5" />
-                  AI Blockchain Execution Logs
+                  {t("adminAI.enterprise.executionLogs")}
                 </CardTitle>
-                <CardDescription>Real-time record of AI decisions executed on the blockchain</CardDescription>
+                <CardDescription>{t("adminAI.enterprise.executionLogsDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 {executionsLoading ? (
@@ -1012,12 +1012,12 @@ export default function AdminAIOrchestration() {
                   <Table data-testid="table-executions">
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Action</TableHead>
-                        <TableHead>Result</TableHead>
-                        <TableHead>Confidence</TableHead>
-                        <TableHead>Provider</TableHead>
-                        <TableHead>Time</TableHead>
+                        <TableHead>{t("adminAI.enterprise.tableType")}</TableHead>
+                        <TableHead>{t("adminAI.enterprise.tableAction")}</TableHead>
+                        <TableHead>{t("adminAI.enterprise.tableResult")}</TableHead>
+                        <TableHead>{t("adminAI.enterprise.tableConfidence")}</TableHead>
+                        <TableHead>{t("adminAI.enterprise.tableProvider")}</TableHead>
+                        <TableHead>{t("adminAI.enterprise.tableTime")}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -1032,7 +1032,9 @@ export default function AdminAIOrchestration() {
                             </TableCell>
                             <TableCell>
                               <Badge className={log.status === 'completed' ? 'bg-green-500' : log.status === 'failed' ? 'bg-red-500' : 'bg-yellow-500'}>
-                                {log.status}
+                                {log.status === 'completed' ? t("adminAI.enterprise.statusCompleted") : 
+                                 log.status === 'failed' ? t("adminAI.enterprise.statusFailed") : 
+                                 t("adminAI.enterprise.statusExecuting")}
                               </Badge>
                             </TableCell>
                             <TableCell>
@@ -1057,8 +1059,8 @@ export default function AdminAIOrchestration() {
                         <TableRow>
                           <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
                             <Terminal className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                            <p>No execution logs available yet</p>
-                            <p className="text-sm">AI decisions will appear here when executed</p>
+                            <p>{t("adminAI.enterprise.noExecutionLogs")}</p>
+                            <p className="text-sm">{t("adminAI.enterprise.executionLogsHint")}</p>
                           </TableCell>
                         </TableRow>
                       )}
