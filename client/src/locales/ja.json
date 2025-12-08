@@ -1,7 +1,5 @@
 {
   "common": {
-    "testLabel": "テスト",
-    "testnetMessage": "このページはテストデータを表示しています",
     "id": "ID",
     "loading": "読み込み中...",
     "error": "エラー",
@@ -7244,8 +7242,6 @@
   },
   "publicPages": {
     "common": {
-    "testLabel": "テスト",
-    "testnetMessage": "このページはテストデータを表示しています",
       "getStarted": "始める",
       "learnMore": "詳しく見る",
       "viewDocs": "ドキュメントを見る",
@@ -15013,8 +15009,6 @@
         "lastUpdated": "最終更新日"
       },
       "common": {
-    "testLabel": "テスト",
-    "testnetMessage": "このページはテストデータを表示しています",
         "backToHome": "ホームに戻る",
         "learnMore": "詳しく見る",
         "relatedDocs": "Related Documents",

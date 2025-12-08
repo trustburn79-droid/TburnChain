@@ -1,7 +1,5 @@
 {
   "common": {
-    "testLabel": "테스트",
-    "testnetMessage": "이 페이지는 테스트 데이터를 표시합니다",
     "id": "ID",
     "loading": "로딩 중...",
     "error": "오류",
@@ -7174,8 +7172,6 @@
   },
   "publicPages": {
     "common": {
-    "testLabel": "테스트",
-    "testnetMessage": "이 페이지는 테스트 데이터를 표시합니다",
       "getStarted": "시작하기",
       "learnMore": "더 알아보기",
       "viewDocs": "문서 보기",
@@ -15617,8 +15613,6 @@
         }
       },
       "common": {
-    "testLabel": "테스트",
-    "testnetMessage": "이 페이지는 테스트 데이터를 표시합니다",
         "backToHome": "뒤로 to Home",
         "learnMore": "자세히 알아보기",
         "relatedDocs": "Related Documents",

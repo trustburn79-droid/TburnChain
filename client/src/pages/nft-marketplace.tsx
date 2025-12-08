@@ -66,7 +66,6 @@ import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
-import { TestBadge } from "@/components/TestBadge";
 
 const ENTERPRISE_WALLET = "0xTBURNEnterprise7a3b4c5d6e7f8901234567890abcdef";
 
@@ -1713,10 +1712,7 @@ export default function NftMarketplacePage() {
       <WalletRequiredBanner />
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("nftMarketplace.title")}</h1>
-            <TestBadge />
-          </div>
+          <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("nftMarketplace.title")}</h1>
           <p className="text-muted-foreground">
             {t("nftMarketplace.subtitle")}
           </p>

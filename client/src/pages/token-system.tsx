@@ -69,7 +69,6 @@ import {
 import { formatNumber, formatTokenAmount } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { TestBadge } from "@/components/TestBadge";
 
 interface TokenStandard {
   id: string;
@@ -385,12 +384,9 @@ export default function TokenSystem() {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold" data-testid="text-token-system-title">
-              {t('tokenSystem.title')}
-            </h1>
-            <TestBadge />
-          </div>
+          <h1 className="text-3xl font-bold" data-testid="text-token-system-title">
+            {t('tokenSystem.title')}
+          </h1>
           <p className="text-muted-foreground">
             {t('tokenSystem.subtitle')}
           </p>

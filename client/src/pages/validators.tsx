@@ -40,7 +40,6 @@ import { formatAddress, formatTokenAmount, formatPercentage, formatNumber } from
 import type { Validator } from "@shared/schema";
 import { useEffect, useState } from "react";
 import { useWebSocket } from "@/lib/websocket-context";
-import { TestBadge } from "@/components/TestBadge";
 import {
   PieChart,
   Pie,
@@ -1654,13 +1653,10 @@ export default function Validators() {
   return (
     <div className="flex flex-col gap-6 p-6">
       <div>
-        <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-validators-title">
-            <Server className="h-8 w-8" />
-            {t('validators.title')}
-          </h1>
-          <TestBadge />
-        </div>
+        <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-validators-title">
+          <Server className="h-8 w-8" />
+          {t('validators.title')}
+        </h1>
         <p className="text-sm text-muted-foreground mt-1">
           {t('validators.subtitle')}
         </p>

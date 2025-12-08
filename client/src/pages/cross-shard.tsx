@@ -54,7 +54,6 @@ import {
   Sankey,
   Treemap,
 } from "recharts";
-import { TestBadge } from "@/components/TestBadge";
 
 type StatType = 'pending' | 'confirmed' | 'failed' | 'gas' | 'latency' | null;
 
@@ -1290,13 +1289,10 @@ export default function CrossShard() {
   return (
     <div className="flex flex-col gap-6 p-6">
       <div>
-        <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-cross-shard-title">
-            <Network className="h-8 w-8" />
-            {t('crossShard.title')}
-          </h1>
-          <TestBadge />
-        </div>
+        <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-cross-shard-title">
+          <Network className="h-8 w-8" />
+          {t('crossShard.title')}
+        </h1>
         <p className="text-sm text-muted-foreground mt-1">
           {t('crossShard.subtitle')}
         </p>

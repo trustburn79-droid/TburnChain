@@ -35,7 +35,6 @@ import {
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { TestBadge } from "@/components/TestBadge";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import {
   PieChart,
@@ -1001,13 +1000,10 @@ export default function TransactionSimulator() {
     <div className="flex flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-simulator-title">
-              <Zap className="h-8 w-8" />
-              {t('txSimulator.title')}
-            </h1>
-            <TestBadge />
-          </div>
+          <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-simulator-title">
+            <Zap className="h-8 w-8" />
+            {t('txSimulator.title')}
+          </h1>
           <p className="text-sm text-muted-foreground mt-1">
             {t('txSimulator.subtitle')}
           </p>

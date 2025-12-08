@@ -1,7 +1,5 @@
 {
   "common": {
-    "testLabel": "ٹیسٹ",
-    "testnetMessage": "یہ صفحہ ٹیسٹ ڈیٹا دکھاتا ہے",
     "loading": "لوڈ ہو رہا ہے...",
     "error": "خرابی",
     "success": "کامیاب",
@@ -2985,8 +2983,6 @@
   },
   "publicPages": {
     "common": {
-    "testLabel": "ٹیسٹ",
-    "testnetMessage": "یہ صفحہ ٹیسٹ ڈیٹا دکھاتا ہے",
       "getStarted": "شروع کریں",
       "learnMore": "مزید جانیں",
       "viewDocs": "دستاویزات دیکھیں",
@@ -10529,8 +10525,6 @@
         }
       },
       "common": {
-    "testLabel": "ٹیسٹ",
-    "testnetMessage": "یہ صفحہ ٹیسٹ ڈیٹا دکھاتا ہے",
         "backToHome": "واپس کی طرف ہوم",
         "learnMore": "مزید جانیں",
         "relatedDocs": "Relپرed Documents",

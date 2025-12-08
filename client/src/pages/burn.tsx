@@ -52,7 +52,6 @@ import {
 } from "lucide-react";
 import { formatNumber, formatTokenAmount } from "@/lib/formatters";
 import { WalletRequiredBanner } from "@/components/require-wallet";
-import { TestBadge } from "@/components/TestBadge";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
 
 interface BurnEvent {
@@ -176,12 +175,9 @@ export default function BurnDashboard() {
       <WalletRequiredBanner />
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold" data-testid="text-burn-title">
-              {t("burn.title")}
-            </h1>
-            <TestBadge />
-          </div>
+          <h1 className="text-3xl font-bold" data-testid="text-burn-title">
+            {t("burn.title")}
+          </h1>
           <p className="text-muted-foreground">
             {t("burn.subtitle")}
           </p>

@@ -1,7 +1,5 @@
 {
   "common": {
-    "testLabel": "परीक्षण",
-    "testnetMessage": "यह पृष्ठ परीक्षण डेटा प्रदर्शित करता है",
     "id": "आईडी",
     "loading": "लोड हो रहा है...",
     "error": "त्रुटि",
@@ -5154,8 +5152,6 @@
   },
   "publicPages": {
     "common": {
-    "testLabel": "परीक्षण",
-    "testnetMessage": "यह पृष्ठ परीक्षण डेटा प्रदर्शित करता है",
       "getStarted": "शुरू करें",
       "learnMore": "और जानें",
       "viewDocs": "दस्तावेज़ देखें",
@@ -12705,8 +12701,6 @@
         }
       },
       "common": {
-    "testLabel": "परीक्षण",
-    "testnetMessage": "यह पृष्ठ परीक्षण डेटा प्रदर्शित करता है",
         "backToHome": "वापस to Home",
         "learnMore": "और जानें",
         "relatedDocs": "Related Documents",

@@ -1,7 +1,5 @@
 {
   "common": {
-    "testLabel": "Prueba",
-    "testnetMessage": "Esta página muestra datos de prueba",
     "id": "ID",
     "loading": "Cargando...",
     "error": "Error",
@@ -5181,8 +5179,6 @@
   },
   "publicPages": {
     "common": {
-    "testLabel": "Prueba",
-    "testnetMessage": "Esta página muestra datos de prueba",
       "getStarted": "Comenzar",
       "learnMore": "Más Información",
       "viewDocs": "Ver documentación",
@@ -13816,8 +13812,6 @@
         }
       },
       "common": {
-    "testLabel": "Prueba",
-    "testnetMessage": "Esta página muestra datos de prueba",
         "backToHome": "Atrás to Inicio",
         "learnMore": "Aprende Más",
         "relatedDocs": "Related Documents",

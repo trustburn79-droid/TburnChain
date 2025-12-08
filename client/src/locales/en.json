@@ -1,8 +1,6 @@
 {
   "common": {
     "id": "ID",
-    "testLabel": "Test",
-    "testnetMessage": "This page displays test data",
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",

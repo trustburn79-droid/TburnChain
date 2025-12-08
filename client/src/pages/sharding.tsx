@@ -51,7 +51,6 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
-import { TestBadge } from "@/components/TestBadge";
 
 type StatType = 'shards' | 'tps' | 'load' | 'validators' | 'crossShard' | null;
 
@@ -676,13 +675,10 @@ export default function Sharding() {
 
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-sharding-title">
-              <Grid3x3 className="h-8 w-8" />
-              {t('sharding.title')}
-            </h1>
-            <TestBadge />
-          </div>
+          <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-sharding-title">
+            <Grid3x3 className="h-8 w-8" />
+            {t('sharding.title')}
+          </h1>
           <p className="text-sm text-muted-foreground mt-1">
             {t('sharding.subtitle')}
           </p>

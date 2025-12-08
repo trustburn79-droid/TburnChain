@@ -63,7 +63,6 @@ import type { NetworkStats, Block, Transaction } from "@shared/schema";
 import { Link } from "wouter";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, LineChart, Line } from "recharts";
 import { motion } from "framer-motion";
-import { TestBadge } from "@/components/TestBadge";
 
 interface TokenomicsData {
   tiers: {
@@ -684,10 +683,7 @@ export default function Dashboard() {
     <div className="flex flex-col gap-6 p-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-semibold" data-testid="text-dashboard-title">{t("dashboard.explorerTitle")}</h1>
-            <TestBadge />
-          </div>
+          <h1 className="text-3xl font-semibold" data-testid="text-dashboard-title">{t("dashboard.explorerTitle")}</h1>
           <p className="text-sm text-muted-foreground mt-1">
             {t("dashboard.explorerSubtitle")}
           </p>

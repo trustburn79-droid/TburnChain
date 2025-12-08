@@ -82,7 +82,6 @@ import {
   Send
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { TestBadge } from "@/components/TestBadge";
 import type { Transaction } from "@shared/schema";
 
 interface TransactionsResponse {
@@ -663,13 +662,10 @@ export default function Transactions() {
     <div className="flex flex-col gap-4 p-4 md:p-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2" data-testid="text-transactions-title">
-              <Activity className="h-7 w-7 text-primary" />
-              {t('transactions.title')}
-            </h1>
-            <TestBadge />
-          </div>
+          <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2" data-testid="text-transactions-title">
+            <Activity className="h-7 w-7 text-primary" />
+            {t('transactions.title')}
+          </h1>
           <div className="flex items-center gap-2 mt-1">
             <Badge variant={isConnected ? "default" : "secondary"} className={`gap-1 ${isConnected && isAutoRefresh ? "bg-green-600 hover:bg-green-700 border-0" : ""}`}>
               {isConnected ? <Wifi className="h-3 w-3" /> : <WifiOff className="h-3 w-3" />}

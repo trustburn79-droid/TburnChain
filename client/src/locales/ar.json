@@ -1,7 +1,5 @@
 {
   "common": {
-    "testLabel": "اختبار",
-    "testnetMessage": "تعرض هذه الصفحة بيانات الاختبار",
     "loading": "جاري التحميل...",
     "error": "خطأ",
     "success": "نجاح",
@@ -4666,8 +4664,6 @@
   },
   "publicPages": {
     "common": {
-    "testLabel": "اختبار",
-    "testnetMessage": "تعرض هذه الصفحة بيانات الاختبار",
       "getStarted": "ابدأ الآن",
       "learnMore": "اعرف المزيد",
       "viewDocs": "عرض الوثائق",
@@ -11506,8 +11502,6 @@
     },
     "legal": {
       "common": {
-    "testLabel": "اختبار",
-    "testnetMessage": "تعرض هذه الصفحة بيانات الاختبار",
         "backToHome": "العودة إلى الصفحة الرئيسية",
         "learnMore": "اعرف المزيد",
         "relatedDocs": "Related Documents",

@@ -62,7 +62,6 @@ import {
   Wallet
 } from "lucide-react";
 import { useWebSocket } from "@/lib/websocket-context";
-import { TestBadge } from "@/components/TestBadge";
 
 interface CommunityStats {
   totalMembers: number;
@@ -725,13 +724,10 @@ export default function Community() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-community-title">
-              <Users className="h-8 w-8 text-primary" />
-              {t('community.title', 'Community')}
-            </h1>
-            <TestBadge />
-          </div>
+          <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-community-title">
+            <Users className="h-8 w-8 text-primary" />
+            {t('community.title', 'Community')}
+          </h1>
           <p className="text-muted-foreground mt-1">
             {t('community.subtitle', 'Connect, collaborate, and grow with the TBURN ecosystem')}
           </p>

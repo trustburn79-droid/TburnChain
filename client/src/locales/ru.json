@@ -1,7 +1,5 @@
 {
   "common": {
-    "testLabel": "Тест",
-    "testnetMessage": "На этой странице отображаются тестовые данные",
     "loading": "Загрузка...",
     "error": "Ошибка",
     "success": "Успешно",
@@ -3863,8 +3861,6 @@
   },
   "publicPages": {
     "common": {
-    "testLabel": "Тест",
-    "testnetMessage": "На этой странице отображаются тестовые данные",
       "getStarted": "Начать",
       "learnMore": "Узнать больше",
       "viewDocs": "Документация",
@@ -11409,8 +11405,6 @@
         }
       },
       "common": {
-    "testLabel": "Тест",
-    "testnetMessage": "На этой странице отображаются тестовые данные",
         "backToHome": "На главную",
         "learnMore": "Узнать больше",
         "relatedDocs": "Related Documents",
