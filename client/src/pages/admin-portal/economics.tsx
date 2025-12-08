@@ -108,22 +108,27 @@ export default function AdminEconomics() {
   useEffect(() => {
     let ws: WebSocket | null = null;
     let reconnectTimeout: NodeJS.Timeout;
+    let reconnectAttempts = 0;
 
     const connectWebSocket = () => {
       try {
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        ws = new WebSocket(`${protocol}//${window.location.host}/ws/admin/economics`);
+        ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
 
         ws.onopen = () => {
           setWsConnected(true);
+          reconnectAttempts = 0;
+          ws?.send(JSON.stringify({ type: 'subscribe', channel: 'economics' }));
         };
 
         ws.onmessage = (event) => {
           try {
             const message = JSON.parse(event.data);
-            if (message.type === 'economics_update') {
-              queryClient.invalidateQueries({ queryKey: ['/api/admin/economics'] });
-              setLastUpdate(new Date());
+            if (message.type === 'economics_update' || message.type === 'subscribed') {
+              if (message.type === 'economics_update') {
+                queryClient.invalidateQueries({ queryKey: ['/api/admin/economics'] });
+                setLastUpdate(new Date());
+              }
             }
           } catch (e) {
             console.error('WebSocket message parse error:', e);
@@ -132,7 +137,9 @@ export default function AdminEconomics() {
 
         ws.onclose = () => {
           setWsConnected(false);
-          reconnectTimeout = setTimeout(connectWebSocket, 5000);
+          const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+          reconnectAttempts++;
+          reconnectTimeout = setTimeout(connectWebSocket, delay);
         };
 
         ws.onerror = () => {

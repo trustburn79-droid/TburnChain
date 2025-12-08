@@ -12469,6 +12469,14 @@ Provide JSON portfolio analysis:
             'ai_training',
             'ai_tuning',
             'ai_parameters',
+            'ai_orchestration',
+            'ai_analytics',
+            // Token & Economy channels
+            'token_issuance',
+            'burn_control',
+            'economics',
+            'treasury',
+            'tokenomics_simulation',
           ];
           
           if (supportedChannels.includes(data.channel)) {
@@ -12585,6 +12593,123 @@ Provide JSON portfolio analysis:
                   }
                 } catch (error) {
                   console.error('Error sending AI parameters data:', error);
+                }
+              })();
+            }
+            
+            // AI Orchestration channel - send current AI model status
+            if (data.channel === 'ai_orchestration') {
+              (async () => {
+                try {
+                  const aiUsage = aiService.getAllUsageStats();
+                  ws.send(JSON.stringify({
+                    type: 'ai_orchestration_update',
+                    data: {
+                      models: [
+                        { name: 'Gemini 3 Pro', layer: 'Strategic', status: 'active', health: 99.8, latency: 145, requestsToday: aiUsage.gemini?.requestCount || 0 },
+                        { name: 'Claude Sonnet 4.5', layer: 'Tactical', status: 'active', health: 99.9, latency: 128, requestsToday: aiUsage.claude?.requestCount || 0 },
+                        { name: 'GPT-4o', layer: 'Operational', status: 'active', health: 99.7, latency: 95, requestsToday: aiUsage.openai?.requestCount || 0 },
+                        { name: 'Grok 3', layer: 'Fallback', status: 'standby', health: 99.5, latency: 0, requestsToday: aiUsage.grok?.requestCount || 0 },
+                      ],
+                      totalRequests: Object.values(aiUsage).reduce((sum: number, m: any) => sum + (m?.requestCount || 0), 0),
+                      avgLatency: 122,
+                      successRate: 99.8,
+                    },
+                    timestamp: Date.now(),
+                  }));
+                } catch (error) {
+                  console.error('Error sending AI orchestration data:', error);
+                }
+              })();
+            }
+            
+            // Token Issuance channel - send token supply data
+            if (data.channel === 'token_issuance') {
+              (async () => {
+                try {
+                  const enterpriseNode = getEnterpriseNode();
+                  const tokenomics = enterpriseNode?.getTokenEconomics();
+                  ws.send(JSON.stringify({
+                    type: 'token_issuance_update',
+                    data: {
+                      totalSupply: tokenomics?.totalSupply?.toString() || '10000000000',
+                      circulatingSupply: tokenomics?.circulatingSupply?.toString() || '6850000000',
+                      burnedSupply: tokenomics?.burnedTotal?.toString() || '350000000',
+                      lockedSupply: tokenomics?.stakedAmount?.toString() || '3200000000',
+                      tokenPrice: tokenomics?.tokenPrice || 28.91,
+                      priceChange24h: tokenomics?.priceChangePercent || 0,
+                    },
+                    timestamp: Date.now(),
+                  }));
+                } catch (error) {
+                  console.error('Error sending token issuance data:', error);
+                }
+              })();
+            }
+            
+            // Burn Control channel - send burn schedule data
+            if (data.channel === 'burn_control') {
+              (async () => {
+                try {
+                  const enterpriseNode = getEnterpriseNode();
+                  const tokenomics = enterpriseNode?.getTokenEconomics();
+                  ws.send(JSON.stringify({
+                    type: 'burn_control_update',
+                    data: {
+                      dailyBurnRate: tokenomics?.dailyBurnRate?.toString() || '500000',
+                      totalBurned: tokenomics?.burnedTotal?.toString() || '350000000',
+                      aiBurnEnabled: true,
+                      nextScheduledBurn: new Date(Date.now() + 6 * 60 * 60 * 1000).toISOString(),
+                      burnHistory: [],
+                    },
+                    timestamp: Date.now(),
+                  }));
+                } catch (error) {
+                  console.error('Error sending burn control data:', error);
+                }
+              })();
+            }
+            
+            // Economics channel - send economic model data
+            if (data.channel === 'economics') {
+              (async () => {
+                try {
+                  const enterpriseNode = getEnterpriseNode();
+                  const tokenomics = enterpriseNode?.getTokenEconomics();
+                  ws.send(JSON.stringify({
+                    type: 'economics_update',
+                    data: {
+                      marketCap: tokenomics?.marketCap?.toString() || '2891000000',
+                      demandIndex: tokenomics?.demandIndex || 0.28,
+                      supplyPressure: tokenomics?.supplyPressure || -0.01,
+                      stakingRatio: 32.0,
+                      inflationRate: -1.75,
+                      deflationTarget: 30.6,
+                    },
+                    timestamp: Date.now(),
+                  }));
+                } catch (error) {
+                  console.error('Error sending economics data:', error);
+                }
+              })();
+            }
+            
+            // Treasury channel - send treasury data
+            if (data.channel === 'treasury') {
+              (async () => {
+                try {
+                  ws.send(JSON.stringify({
+                    type: 'treasury_update',
+                    data: {
+                      totalBalance: '1250000000',
+                      reserves: { tburn: '850000000', usdc: '125000000', eth: '25420' },
+                      pendingTransactions: 3,
+                      dailyVolume: '45000000',
+                    },
+                    timestamp: Date.now(),
+                  }));
+                } catch (error) {
+                  console.error('Error sending treasury data:', error);
                 }
               })();
             }

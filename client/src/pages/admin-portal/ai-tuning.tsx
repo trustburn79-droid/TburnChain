@@ -193,19 +193,35 @@ export default function AdminAITuning() {
   useEffect(() => {
     let ws: WebSocket | null = null;
     let reconnectTimeout: NodeJS.Timeout;
+    let reconnectAttempts = 0;
 
     const connect = () => {
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      ws = new WebSocket(`${protocol}//${window.location.host}/ws/ai-tuning`);
+      ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
 
       ws.onopen = () => {
         setWsConnected(true);
         setLastUpdate(new Date());
+        reconnectAttempts = 0;
+        ws?.send(JSON.stringify({ type: 'subscribe', channel: 'ai_parameters' }));
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const message = JSON.parse(event.data);
+          if (message.type === 'ai_parameters_update') {
+            setLastUpdate(new Date());
+          }
+        } catch (e) {
+          console.error('WebSocket message parse error:', e);
+        }
       };
 
       ws.onclose = () => {
         setWsConnected(false);
-        reconnectTimeout = setTimeout(connect, 5000);
+        const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+        reconnectAttempts++;
+        reconnectTimeout = setTimeout(connect, delay);
       };
 
       ws.onerror = () => {

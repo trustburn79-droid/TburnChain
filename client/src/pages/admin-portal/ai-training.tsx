@@ -172,27 +172,34 @@ export default function AdminAITraining() {
   useEffect(() => {
     let ws: WebSocket | null = null;
     let reconnectTimeout: NodeJS.Timeout;
+    let reconnectAttempts = 0;
 
     const connect = () => {
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      ws = new WebSocket(`${protocol}//${window.location.host}/ws/ai-training`);
+      ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
 
       ws.onopen = () => {
         setWsConnected(true);
         setLastUpdate(new Date());
+        reconnectAttempts = 0;
+        ws?.send(JSON.stringify({ type: 'subscribe', channel: 'ai_training' }));
       };
 
       ws.onmessage = (event) => {
         try {
           const update = JSON.parse(event.data);
-          if (update.type === 'job_update') {
-            setLiveJobs(prev => {
-              const existing = prev.find(j => j.id === update.data.id);
-              if (existing) {
-                return prev.map(j => j.id === update.data.id ? update.data : j);
-              }
-              return [update.data, ...prev];
-            });
+          if (update.type === 'ai_training_update' || update.type === 'job_update') {
+            if (update.data?.jobs) {
+              setLiveJobs(update.data.jobs);
+            } else if (update.data?.id) {
+              setLiveJobs(prev => {
+                const existing = prev.find(j => j.id === update.data.id);
+                if (existing) {
+                  return prev.map(j => j.id === update.data.id ? update.data : j);
+                }
+                return [update.data, ...prev];
+              });
+            }
             setLastUpdate(new Date());
           }
         } catch (e) {
@@ -202,7 +209,9 @@ export default function AdminAITraining() {
 
       ws.onclose = () => {
         setWsConnected(false);
-        reconnectTimeout = setTimeout(connect, 5000);
+        const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+        reconnectAttempts++;
+        reconnectTimeout = setTimeout(connect, delay);
       };
 
       ws.onerror = () => {

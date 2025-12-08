@@ -284,21 +284,31 @@ export default function AdminAIOrchestration() {
   useEffect(() => {
     let ws: WebSocket | null = null;
     let reconnectTimeout: NodeJS.Timeout;
+    let reconnectAttempts = 0;
 
     const connect = () => {
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      ws = new WebSocket(`${protocol}//${window.location.host}/ws/ai-orchestration`);
+      ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
 
       ws.onopen = () => {
         setWsConnected(true);
         setLastUpdate(new Date());
+        reconnectAttempts = 0;
+        ws?.send(JSON.stringify({ type: 'subscribe', channel: 'ai_orchestration' }));
+        ws?.send(JSON.stringify({ type: 'subscribe', channel: 'ai_decisions' }));
       };
 
       ws.onmessage = (event) => {
         try {
           const update = JSON.parse(event.data);
-          if (update.type === 'decision') {
-            setLiveDecisions(prev => [update.data, ...prev.slice(0, 9)]);
+          if (update.type === 'ai_orchestration_update') {
+            setLastUpdate(new Date());
+          } else if (update.type === 'decision' || update.type === 'ai_decisions_snapshot') {
+            if (Array.isArray(update.data)) {
+              setLiveDecisions(update.data.slice(0, 10));
+            } else {
+              setLiveDecisions(prev => [update.data, ...prev.slice(0, 9)]);
+            }
             setLastUpdate(new Date());
           }
         } catch (e) {
@@ -308,7 +318,9 @@ export default function AdminAIOrchestration() {
 
       ws.onclose = () => {
         setWsConnected(false);
-        reconnectTimeout = setTimeout(connect, 5000);
+        const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+        reconnectAttempts++;
+        reconnectTimeout = setTimeout(connect, delay);
       };
 
       ws.onerror = () => {
