@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { 
   Bot, Cpu, DollarSign, Zap, Activity, TrendingUp, Brain, Network, Scale, Target, 
   AlertCircle, CheckCircle, XCircle, RefreshCw, BarChart3, PieChart as PieChartIcon,
   Gauge, Clock, Server, Shield, Eye, ChevronRight, ArrowUpRight, ArrowDownRight,
-  Layers, Database, Sparkles, Workflow, Timer, Hash
+  Layers, Database, Sparkles, Workflow, Timer, Hash, WifiOff
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
   DialogContent,
@@ -791,30 +792,59 @@ function DecisionDetailDialog({
 
 export default function AIOrchestration() {
   const { t, i18n } = useTranslation();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedStatType, setSelectedStatType] = useState<StatType | null>(null);
   const [selectedDecision, setSelectedDecision] = useState<AiDecision | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [bandFilter, setBandFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [wsError, setWsError] = useState(false);
 
-  const { data: aiModels, isLoading } = useQuery<AiModel[]>({
+  const { data: aiModels, isLoading, isError: modelsError, error: modelsErrorObj, refetch: refetchModels } = useQuery<AiModel[]>({
     queryKey: ["/api/ai/models"],
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
+    staleTime: 30000,
   });
 
-  const { data: aiDecisions, isLoading: decisionsLoading } = useQuery<AiDecision[]>({
+  const { data: aiDecisions, isLoading: decisionsLoading, isError: decisionsError, error: decisionsErrorObj, refetch: refetchDecisions } = useQuery<AiDecision[]>({
     queryKey: ["/api/ai/decisions"],
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
+    staleTime: 30000,
   });
 
-  useWebSocketChannel({
+  const wsResult = useWebSocketChannel({
     channel: "ai_decisions_snapshot",
     schema: aiDecisionsSnapshotSchema,
     queryKey: ["/api/ai/decisions"],
     updateMode: "snapshot",
   });
 
-  const models = aiModels || [];
-  const decisions = aiDecisions || [];
+  useEffect(() => {
+    if (modelsError && modelsErrorObj) {
+      toast({
+        title: t('common.error'),
+        description: t('aiOrchestration.failedToLoadModels', { defaultValue: 'Failed to load AI models. Retrying...' }),
+        variant: "destructive",
+      });
+    }
+  }, [modelsError, modelsErrorObj, t, toast]);
+
+  useEffect(() => {
+    if (decisionsError && decisionsErrorObj) {
+      toast({
+        title: t('common.error'),
+        description: t('aiOrchestration.failedToLoadDecisions', { defaultValue: 'Failed to load AI decisions. Retrying...' }),
+        variant: "destructive",
+      });
+    }
+  }, [decisionsError, decisionsErrorObj, t, toast]);
+
+  const models = aiModels ?? [];
+  const decisions = aiDecisions ?? [];
+  const hasError = modelsError || decisionsError;
   
   const totalRequests = models.reduce((sum, m) => sum + m.requestCount, 0);
   const totalCost = models.reduce((sum, m) => sum + parseFloat(m.totalCost), 0);
@@ -897,12 +927,54 @@ export default function AIOrchestration() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className="gap-1">
-            <Activity className="h-3 w-3 animate-pulse text-green-500" />
-            {t('common.live')}
-          </Badge>
+          {hasError ? (
+            <Badge variant="destructive" className="gap-1">
+              <AlertCircle className="h-3 w-3" />
+              {t('common.error')}
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="gap-1">
+              <Activity className="h-3 w-3 animate-pulse text-green-500" />
+              {t('common.live')}
+            </Badge>
+          )}
         </div>
       </div>
+
+      {/* Error Banner */}
+      {hasError && (
+        <Card className="border-destructive bg-destructive/5" data-testid="error-banner">
+          <CardContent className="pt-4 pb-4">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-full bg-destructive/10">
+                  <WifiOff className="h-5 w-5 text-destructive" />
+                </div>
+                <div>
+                  <p className="font-medium text-destructive">
+                    {t('aiOrchestration.connectionError', { defaultValue: 'Connection Error' })}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {t('aiOrchestration.failedToFetchData', { defaultValue: 'Failed to fetch data from the blockchain. Please try again.' })}
+                  </p>
+                </div>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => {
+                  refetchModels();
+                  refetchDecisions();
+                }}
+                data-testid="button-retry"
+              >
+                <RefreshCw className="h-4 w-4 mr-2" />
+                {t('common.retry', { defaultValue: 'Retry' })}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Clickable Statistics Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
