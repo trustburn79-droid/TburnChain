@@ -5704,82 +5704,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
-  // AI Models
+  // AI Models - Direct Enterprise Node Proxy
   // ============================================
   app.get("/api/ai/models", async (_req, res) => {
     try {
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const models = await client.getAIModels();
-        res.json(models);
-      } else {
-        // Fetch from local database (demo mode)
+      // Always fetch from Enterprise Node directly for reliability
+      const response = await fetch('http://localhost:8545/api/ai/models');
+      if (!response.ok) {
+        throw new Error(`Enterprise node returned status: ${response.status}`);
+      }
+      const models = await response.json();
+      res.json(models);
+    } catch (error) {
+      // Fallback to database
+      try {
         const models = await storage.getAllAiModels();
         res.json(models);
+      } catch {
+        res.status(500).json({ error: "Failed to fetch AI models" });
       }
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch AI models" });
     }
   });
 
   app.get("/api/ai/models/:name", async (req, res) => {
     try {
       const name = req.params.name;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const model = await client.getAIModel(name);
-        res.json(model);
-      } else {
-        // Fetch from local database (demo mode)
-        const model = await storage.getAiModelByName(name);
+      // Direct fetch from Enterprise Node
+      const response = await fetch(`http://localhost:8545/api/ai/models/${encodeURIComponent(name)}`);
+      if (response.status === 404) {
+        return res.status(404).json({ error: "AI model not found" });
+      }
+      if (!response.ok) {
+        throw new Error(`Enterprise node returned status: ${response.status}`);
+      }
+      const model = await response.json();
+      res.json(model);
+    } catch (error) {
+      // Fallback to database
+      try {
+        const model = await storage.getAiModelByName(req.params.name);
         if (!model) {
           return res.status(404).json({ error: "AI model not found" });
         }
         res.json(model);
+      } catch {
+        res.status(500).json({ error: "Failed to fetch AI model" });
       }
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch AI model" });
     }
   });
 
   // ============================================
-  // AI Decisions (Triple-Band AI System)
+  // AI Decisions (Triple-Band AI System) - Direct Enterprise Node Proxy
   // ============================================
   app.get("/api/ai/decisions", async (req, res) => {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const decisions = await client.getAIDecisions(limit);
-        res.json(decisions);
-      } else {
-        // Fetch from local database (demo mode)
+      // Direct fetch from Enterprise Node
+      const response = await fetch(`http://localhost:8545/api/ai/decisions?limit=${limit}`);
+      if (!response.ok) {
+        throw new Error(`Enterprise node returned status: ${response.status}`);
+      }
+      const decisions = await response.json();
+      res.json(decisions);
+    } catch (error) {
+      // Fallback to database
+      try {
+        const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
         const decisions = await storage.getAllAiDecisions(limit);
         res.json(decisions);
+      } catch {
+        res.status(500).json({ error: "Failed to fetch AI decisions" });
       }
-    } catch (error: unknown) {
-      res.status(500).json({ error: "Failed to fetch AI decisions" });
     }
   });
 
   app.get("/api/ai/decisions/recent", async (req, res) => {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const decisions = await client.getRecentAIDecisions(limit);
-        res.json(decisions);
-      } else {
-        // Fetch from local database (demo mode)
+      // Direct fetch from Enterprise Node
+      const response = await fetch(`http://localhost:8545/api/ai/decisions/recent?limit=${limit}`);
+      if (!response.ok) {
+        throw new Error(`Enterprise node returned status: ${response.status}`);
+      }
+      const decisions = await response.json();
+      res.json(decisions);
+    } catch (error) {
+      // Fallback to database
+      try {
+        const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
         const decisions = await storage.getRecentAiDecisions(limit);
         res.json(decisions);
+      } catch {
+        res.status(500).json({ error: "Failed to fetch recent AI decisions" });
       }
-    } catch (error: unknown) {
-      res.status(500).json({ error: "Failed to fetch recent AI decisions" });
     }
   });
 
@@ -5787,44 +5804,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // The /api/shards endpoint now uses the TBurnEnterpriseNode for dynamic shard generation
   // based on the current shard configuration (5-64 shards with dynamic validators)
 
-  // AI Decisions endpoints
-  app.get("/api/ai/decisions", async (req, res) => {
-    try {
-      const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const decisions = await client.getRecentAIDecisions(limit);
-        res.json(decisions);
-      } else {
-        // Fetch from local database (demo mode)
-        const decisions = await storage.getRecentAiDecisions(limit);
-        res.json(decisions);
-      }
-    } catch (error: unknown) {
-      console.error('Error fetching AI decisions:', error);
-      res.status(500).json({ error: "Failed to fetch recent AI decisions" });
-    }
-  });
-
+  // AI Decision by ID - Direct Enterprise Node Proxy
   app.get("/api/ai/decisions/:id", async (req, res) => {
     try {
       const id = req.params.id;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const decision = await client.getAIDecision(id);
-        res.json(decision);
-      } else {
-        // Fetch from local database (demo mode)
-        const decision = await storage.getAiDecisionById(id);
+      // Direct fetch from Enterprise Node
+      const response = await fetch(`http://localhost:8545/api/ai/decisions/${encodeURIComponent(id)}`);
+      if (response.status === 404) {
+        return res.status(404).json({ error: "AI decision not found" });
+      }
+      if (!response.ok) {
+        throw new Error(`Enterprise node returned status: ${response.status}`);
+      }
+      const decision = await response.json();
+      res.json(decision);
+    } catch (error) {
+      // Fallback to database
+      try {
+        const decision = await storage.getAiDecisionById(req.params.id);
         if (!decision) {
           return res.status(404).json({ error: "AI decision not found" });
         }
         res.json(decision);
+      } catch {
+        res.status(500).json({ error: "Failed to fetch AI decision" });
       }
-    } catch (error: unknown) {
-      res.status(500).json({ error: "Failed to fetch AI decision" });
     }
   });
 
