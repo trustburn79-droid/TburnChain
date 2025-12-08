@@ -111,10 +111,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
   
   // Token Economics Simulation
   // TBURN Token Model: Demand-Supply Equilibrium Based Pricing
-  private tokenPrice = 28.91; // Initial price in USD
+  // Updated for 10B supply (100x from original 100M, so price is 1/100th)
+  private tokenPrice = 0.29; // Initial price in USD (scaled for 10B supply)
   private priceChangePercent = 0; // 24h change percentage
   private lastPriceUpdate = Date.now();
-  private priceHistory: number[] = [28.91]; // Track price history for volatility
+  private priceHistory: number[] = [0.29]; // Track price history for volatility
   
   // Supply Dynamics (20-Year Tokenomics: Genesis 100억 → Y20 69.40억)
   private readonly TOTAL_SUPPLY = 10_000_000_000; // 10B (100억) TBURN total supply
@@ -142,7 +143,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private netDailyEmission = 150_000; // Net positive initially, becomes negative over time
   
   // Advanced Tokenomics Parameters (Demand-Supply Formula)
-  private readonly BASE_PRICE = 25.00; // Base equilibrium price (adjusted for 100M supply)
+  // BASE_PRICE adjusted for 10B supply (1/100th of original $25 for 100M supply)
+  private readonly BASE_PRICE = 0.25; // Base equilibrium price (adjusted for 10B supply)
   private readonly TPS_MAX = 520000; // Maximum theoretical TPS
   private readonly PRICE_UPDATE_INTERVAL = 5000; // Update every 5 seconds
   private readonly MAX_PRICE_CHANGE = 0.05; // Max 5% change per update
@@ -2566,8 +2568,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const marketNoise = 1 + (Math.random() - 0.5) * 0.004; // ±0.2% noise
     newPrice *= marketNoise;
     
-    // 12. Update price (minimum $1, maximum $1000)
-    this.tokenPrice = Math.max(1, Math.min(1000, newPrice));
+    // 12. Update price (minimum $0.01, maximum $10 for 10B supply)
+    this.tokenPrice = Math.max(0.01, Math.min(10, newPrice));
     this.tokenPrice = Math.round(this.tokenPrice * 100) / 100; // Round to 2 decimals
     
     // 13. Track price history
@@ -2599,23 +2601,23 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return Math.min(1, stdDev / avg);
   }
   
-  // Update supply dynamics (staking/unstaking simulation) - Updated for 100M supply
+  // Update supply dynamics (staking/unstaking simulation) - Updated for 10B supply
   private updateSupplyDynamics(): void {
-    // Simulate small staking/unstaking activity within 24M-45M range
-    const stakingChange = Math.floor((Math.random() - 0.48) * 10000); // Slight bias toward staking
-    this.stakedAmount = Math.max(24_000_000, Math.min(45_000_000, this.stakedAmount + stakingChange));
+    // Simulate small staking/unstaking activity within 2.4B-4.5B range (scaled 100x for 10B supply)
+    const stakingChange = Math.floor((Math.random() - 0.48) * 1_000_000); // Slight bias toward staking
+    this.stakedAmount = Math.max(2_400_000_000, Math.min(4_500_000_000, this.stakedAmount + stakingChange));
     this.circulatingSupply = this.TOTAL_SUPPLY - this.stakedAmount - this.burnedTokens;
     
     // Update dynamic emission based on current stake ratio
     this.updateDynamicEmission();
     
-    // Simulate token burn from fees (daily ~1000 TBURN, per update ~0.2 TBURN)
-    this.burnedTokens += Math.floor(Math.random() * 1);
+    // Simulate token burn from fees (daily ~100,000 TBURN for 10B supply, per update ~20 TBURN)
+    this.burnedTokens += Math.floor(Math.random() * 100);
   }
   
   // Calculate adaptive emission based on stake ratio
   private updateDynamicEmission(): void {
-    const targetStake = 32_000_000; // 32M target stake
+    const targetStake = 3_200_000_000; // 3.2B target stake (32% of 10B supply)
     const stakeRatio = this.stakedAmount / targetStake;
     
     // Emission = BaseEmission × min(1.15, sqrt(EffStake/TargetStake))
