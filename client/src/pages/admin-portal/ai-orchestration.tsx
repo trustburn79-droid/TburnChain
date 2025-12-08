@@ -1022,15 +1022,17 @@ export default function AdminAIOrchestration() {
                     </TableHeader>
                     <TableBody>
                       {executionsData?.data?.length ? (
-                        executionsData.data.map((log, index) => (
+                        executionsData.data.map((log: any, index: number) => (
                           <TableRow key={log.id || index} data-testid={`row-execution-${index}`}>
                             <TableCell>
-                              <Badge variant="outline">{log.decisionType?.replace(/_/g, ' ')}</Badge>
+                              <Badge variant="outline">{log.executionType?.replace(/_/g, ' ')}</Badge>
                             </TableCell>
-                            <TableCell className="max-w-xs truncate">{log.action}</TableCell>
+                            <TableCell className="max-w-xs truncate">
+                              {log.metricsImprovement ? Object.entries(log.metricsImprovement).map(([k, v]) => `${k}: ${v}`).join(', ') : log.executionType?.replace(/_/g, ' ')}
+                            </TableCell>
                             <TableCell>
-                              <Badge className={log.result === 'success' ? 'bg-green-500' : 'bg-red-500'}>
-                                {log.result}
+                              <Badge className={log.status === 'completed' ? 'bg-green-500' : log.status === 'failed' ? 'bg-red-500' : 'bg-yellow-500'}>
+                                {log.status}
                               </Badge>
                             </TableCell>
                             <TableCell>
@@ -1040,10 +1042,14 @@ export default function AdminAIOrchestration() {
                               </div>
                             </TableCell>
                             <TableCell>
-                              <span className="text-sm text-muted-foreground">{log.provider}</span>
+                              <span className="text-sm text-muted-foreground">
+                                {log.impactLevel === 'critical' ? 'Gemini 3 Pro' : 
+                                 log.impactLevel === 'high' ? 'Claude Sonnet' : 
+                                 log.impactLevel === 'medium' ? 'GPT-4o' : 'Grok 3'}
+                              </span>
                             </TableCell>
                             <TableCell className="text-muted-foreground text-sm">
-                              {log.executedAt ? new Date(log.executedAt).toLocaleString() : '-'}
+                              {log.createdAt ? new Date(log.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' }) : '-'}
                             </TableCell>
                           </TableRow>
                         ))
