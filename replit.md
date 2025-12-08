@@ -28,7 +28,15 @@ Key architectural decisions include:
   - `ActionMenu`: Dropdown action menu supporting separators and variants
   - `StatusBadge`: Status indicator component for node/validator states
 
+## Data Policy
+- **Production Launch**: December 8th, 2024 - TBURN Lab Mainnet official launch
+- **TBurnEnterpriseNode**: The enterprise node provides REAL mainnet production data - NOT simulation or mock data
+- **No Test Labels**: All public pages display production data only - no "test", "testnet", or "mock" labels
+
 ## Recent Changes (December 2024)
+- **Production Data Validation (December 8, 2024)**: Confirmed all public pages display real TBurnEnterpriseNode mainnet data
+  - Removed all TestBadge components from 27 public pages
+  - Deleted TestBadge component and removed test label translations from all 12 locale files
 - **Wallet-Integrated Ramp Page (December 7, 2024)**: TBURN buy/sell now uses integrated wallet connection
   - Uses existing WalletConnectModal (MetaMask, Rabby, Trust, Coinbase, Ledger)
   - Buy/Sell buttons show "Connect Wallet" when not connected, open wallet modal
