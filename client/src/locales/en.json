@@ -115,7 +115,18 @@
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
     "days": "days",
-    "clickForDetails": "Click for details"
+    "clickForDetails": "Click for details",
+    "realtime": "Real-time",
+    "reconnecting": "Reconnecting...",
+    "fromLastHour": "from last hour",
+    "avgBlockTime": "avg block time",
+    "uptime": "uptime",
+    "shards": "shards",
+    "validators": "validators",
+    "blocks": "blocks",
+    "percentage": "Percentage",
+    "count": "Count",
+    "resolved": "Resolved"
   },
   "nav": {
     "brand": "TBURN Lab Mainnet",
@@ -22698,9 +22709,15 @@
       "activeValidators": "Active Validators",
       "networkPeers": "Network Peers",
       "tpsOverTime": "TPS Over Time",
+      "tpsOverTimeDesc": "24-hour TPS history with target threshold",
       "latencyDist": "Latency Distribution",
+      "latencyDistDesc": "Transaction latency distribution by range",
       "recentBlocks": "Recent Blocks",
-      "activeAlerts": "Active Alerts"
+      "recentBlocksDesc": "Latest blocks from the network",
+      "activeAlerts": "Active Alerts",
+      "activeAlertsDesc": "System alerts and notifications",
+      "shardDistribution": "Shard Distribution",
+      "validatorPerformance": "Validator Performance"
     },
     "setDefault": "Set as Default",
     "widgetTypes": {

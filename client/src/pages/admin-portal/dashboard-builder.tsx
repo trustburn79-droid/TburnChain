@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,10 +10,27 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
+import {
+  LineChart,
+  Line,
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 import {
   LayoutDashboard,
   Plus,
@@ -39,17 +56,35 @@ import {
   Lock,
   Globe,
   AlertCircle,
+  Activity,
+  TrendingUp,
+  TrendingDown,
+  Zap,
+  Server,
+  Users,
+  Wifi,
+  CheckCircle,
+  XCircle,
+  Timer,
+  Cpu,
+  HardDrive,
+  Network,
+  ArrowUp,
+  ArrowDown,
+  Database,
+  Box,
 } from "lucide-react";
 
 interface Widget {
   id: string;
-  type: "chart" | "gauge" | "table" | "alert" | "metric" | "map";
+  type: "chart" | "gauge" | "table" | "alert" | "metric" | "map" | "area" | "bar" | "pie";
   title: string;
   width: number;
   height: number;
   x: number;
   y: number;
   config: Record<string, unknown>;
+  dataSource?: string;
 }
 
 interface Dashboard {
@@ -69,10 +104,42 @@ interface DashboardsData {
   totalCount: number;
 }
 
+interface NetworkStats {
+  tps: number;
+  blockHeight: number;
+  activeValidators: number;
+  networkPeers: number;
+  totalTransactions: number;
+  avgBlockTime: number;
+  shardCount: number;
+  gasPrice: string;
+}
+
+interface BlockData {
+  height: number;
+  hash: string;
+  transactions: number;
+  timestamp: string;
+  validator: string;
+  size: string;
+  gasUsed: number;
+}
+
+interface AlertData {
+  id: string;
+  type: "warning" | "error" | "info" | "success";
+  title: string;
+  message: string;
+  timestamp: string;
+  resolved: boolean;
+}
+
+const CHART_COLORS = ["#3b82f6", "#22c55e", "#f97316", "#8b5cf6", "#ec4899", "#14b8a6"];
+
 export default function DashboardBuilder() {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const [selectedDashboard, setSelectedDashboard] = useState<string>("main");
+  const [selectedDashboard, setSelectedDashboard] = useState<string>("mainnet-v8");
   const [isEditing, setIsEditing] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [newDashboard, setNewDashboard] = useState({
@@ -85,10 +152,180 @@ export default function DashboardBuilder() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [showExportConfirm, setShowExportConfirm] = useState(false);
+  const [wsConnected, setWsConnected] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [networkStats, setNetworkStats] = useState<NetworkStats>({
+    tps: 485000,
+    blockHeight: 25055842,
+    activeValidators: 156,
+    networkPeers: 324,
+    totalTransactions: 0,
+    avgBlockTime: 0.4,
+    shardCount: 8,
+    gasPrice: "0.001",
+  });
+  const [tpsHistory, setTpsHistory] = useState<Array<{ time: string; tps: number; target: number }>>([]);
+  const [latencyData, setLatencyData] = useState<Array<{ range: string; count: number; percentage: number }>>([]);
+  const [recentBlocks, setRecentBlocks] = useState<BlockData[]>([]);
+  const [activeAlerts, setActiveAlerts] = useState<AlertData[]>([]);
+  const [shardDistribution, setShardDistribution] = useState<Array<{ name: string; value: number; tps: number }>>([]);
+  const [validatorPerformance, setValidatorPerformance] = useState<Array<{ tier: string; count: number; uptime: number; blocks: number }>>([]);
 
   const { data: dashboardsData, isLoading, error, refetch } = useQuery<DashboardsData>({
     queryKey: ["/api/admin/dashboards"],
   });
+
+  useEffect(() => {
+    let ws: WebSocket | null = null;
+    let reconnectTimeout: NodeJS.Timeout;
+    let reconnectAttempts = 0;
+
+    const connect = () => {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+
+      ws.onopen = () => {
+        setWsConnected(true);
+        reconnectAttempts = 0;
+        ws?.send(JSON.stringify({ type: 'subscribe', channel: 'network_stats' }));
+        ws?.send(JSON.stringify({ type: 'subscribe', channel: 'blocks' }));
+        ws?.send(JSON.stringify({ type: 'subscribe', channel: 'dashboard_builder' }));
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const message = JSON.parse(event.data);
+          if (message.type === 'network_stats_update' && message.data) {
+            setNetworkStats(prev => ({
+              ...prev,
+              ...message.data,
+            }));
+            setLastUpdate(new Date());
+          }
+          if (message.type === 'block_update' && message.data) {
+            setRecentBlocks(prev => {
+              const newBlocks = Array.isArray(message.data) ? message.data : [message.data];
+              return [...newBlocks, ...prev].slice(0, 10);
+            });
+          }
+        } catch (e) {
+          console.error('WebSocket message parse error:', e);
+        }
+      };
+
+      ws.onclose = () => {
+        setWsConnected(false);
+        const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+        reconnectAttempts++;
+        reconnectTimeout = setTimeout(connect, delay);
+      };
+
+      ws.onerror = () => {
+        setWsConnected(false);
+      };
+    };
+
+    connect();
+
+    return () => {
+      if (ws) ws.close();
+      clearTimeout(reconnectTimeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    const now = new Date();
+    const initialTpsHistory = Array.from({ length: 24 }, (_, i) => {
+      const time = new Date(now.getTime() - (23 - i) * 60 * 60 * 1000);
+      const baseTps = 450000 + Math.random() * 70000;
+      return {
+        time: time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }),
+        tps: Math.round(baseTps),
+        target: 500000,
+      };
+    });
+    setTpsHistory(initialTpsHistory);
+
+    const initialLatencyData = [
+      { range: "<10ms", count: 45000, percentage: 45 },
+      { range: "10-50ms", count: 32000, percentage: 32 },
+      { range: "50-100ms", count: 15000, percentage: 15 },
+      { range: "100-200ms", count: 5000, percentage: 5 },
+      { range: ">200ms", count: 3000, percentage: 3 },
+    ];
+    setLatencyData(initialLatencyData);
+
+    const initialBlocks: BlockData[] = Array.from({ length: 10 }, (_, i) => ({
+      height: networkStats.blockHeight - i,
+      hash: `0x${Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}...`,
+      transactions: Math.floor(Math.random() * 500) + 100,
+      timestamp: new Date(Date.now() - i * 2500).toLocaleTimeString('en-US', { timeZone: 'America/New_York' }),
+      validator: `validator-${Math.floor(Math.random() * 156) + 1}`,
+      size: `${(Math.random() * 2 + 0.5).toFixed(2)} MB`,
+      gasUsed: Math.floor(Math.random() * 30000000) + 10000000,
+    }));
+    setRecentBlocks(initialBlocks);
+
+    const initialAlerts: AlertData[] = [
+      { id: "1", type: "info", title: "Network Status", message: "All 8 shards operating normally at 100K+ TPS", timestamp: "2 min ago", resolved: false },
+      { id: "2", type: "success", title: "Validator Sync", message: "All 156 validators synchronized", timestamp: "5 min ago", resolved: false },
+      { id: "3", type: "warning", title: "High Load Alert", message: "Shard 3 approaching 95% capacity", timestamp: "8 min ago", resolved: false },
+      { id: "4", type: "info", title: "AI Optimization", message: "Triple-band AI optimizing cross-shard routing", timestamp: "12 min ago", resolved: false },
+      { id: "5", type: "success", title: "Bridge Active", message: "Multi-chain bridge processing 1,250 TPS", timestamp: "15 min ago", resolved: true },
+    ];
+    setActiveAlerts(initialAlerts);
+
+    const initialShardDist = Array.from({ length: 8 }, (_, i) => ({
+      name: `Shard ${i + 1}`,
+      value: Math.floor(Math.random() * 15) + 10,
+      tps: Math.floor(Math.random() * 15000) + 55000,
+    }));
+    setShardDistribution(initialShardDist);
+
+    const initialValidatorPerf = [
+      { tier: "Tier 1 (20M+)", count: 25, uptime: 99.98, blocks: 12500 },
+      { tier: "Tier 2 (5M+)", count: 56, uptime: 99.85, blocks: 8200 },
+      { tier: "Tier 3 (10K+)", count: 75, uptime: 99.72, blocks: 4100 },
+    ];
+    setValidatorPerformance(initialValidatorPerf);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNetworkStats(prev => ({
+        ...prev,
+        tps: prev.tps + Math.floor(Math.random() * 2000) - 1000,
+        blockHeight: prev.blockHeight + 1,
+      }));
+
+      setTpsHistory(prev => {
+        const now = new Date();
+        const newPoint = {
+          time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }),
+          tps: networkStats.tps + Math.floor(Math.random() * 5000) - 2500,
+          target: 500000,
+        };
+        return [...prev.slice(1), newPoint];
+      });
+
+      setRecentBlocks(prev => {
+        const newBlock: BlockData = {
+          height: (prev[0]?.height || networkStats.blockHeight) + 1,
+          hash: `0x${Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}...`,
+          transactions: Math.floor(Math.random() * 500) + 100,
+          timestamp: new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York' }),
+          validator: `validator-${Math.floor(Math.random() * 156) + 1}`,
+          size: `${(Math.random() * 2 + 0.5).toFixed(2)} MB`,
+          gasUsed: Math.floor(Math.random() * 30000000) + 10000000,
+        };
+        return [newBlock, ...prev.slice(0, 9)];
+      });
+
+      setLastUpdate(new Date());
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [networkStats.tps, networkStats.blockHeight]);
 
   const createDashboardMutation = useMutation({
     mutationFn: async (dashboard: typeof newDashboard) => {
@@ -141,74 +378,12 @@ export default function DashboardBuilder() {
 
   const handleRefresh = useCallback(() => {
     refetch();
+    setLastUpdate(new Date());
     toast({
       title: t("adminDashboardBuilder.refreshed"),
       description: t("adminDashboardBuilder.refreshedDesc"),
     });
   }, [refetch, toast, t]);
-
-  const performExport = useCallback(() => {
-    setShowExportConfirm(false);
-    const currentDash = dashboards.find(d => d.id === selectedDashboard);
-    if (currentDash) {
-      const exportData = {
-        ...currentDash,
-        exportedAt: new Date().toISOString(),
-      };
-      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `dashboard-${currentDash.name.toLowerCase().replace(/\s+/g, "-")}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      toast({
-        title: t("adminDashboardBuilder.exported"),
-        description: t("adminDashboardBuilder.exportedDesc"),
-      });
-    }
-  }, [selectedDashboard, toast, t]);
-
-  const confirmDelete = useCallback(() => {
-    if (pendingDeleteId) {
-      deleteDashboardMutation.mutate(pendingDeleteId);
-      setShowDeleteConfirm(false);
-      setPendingDeleteId(null);
-    }
-  }, [pendingDeleteId, deleteDashboardMutation]);
-
-  const getDashboardDetailSections = (dashboard: Dashboard): DetailSection[] => [
-    {
-      title: t("adminDashboardBuilder.detail.dashboardInfo"),
-      fields: [
-        { label: t("common.name"), value: dashboard.name },
-        { label: t("common.description"), value: dashboard.description },
-        { label: t("adminDashboardBuilder.owner"), value: dashboard.owner },
-        { 
-          label: t("adminDashboardBuilder.public"), 
-          value: dashboard.isPublic ? t("common.yes") : t("common.no"), 
-          type: "badge" as const,
-          badgeVariant: dashboard.isPublic ? "default" : "secondary"
-        },
-        { 
-          label: t("adminDashboardBuilder.default"), 
-          value: dashboard.isDefault ? t("common.yes") : t("common.no"), 
-          type: "badge" as const,
-          badgeVariant: dashboard.isDefault ? "default" : "secondary"
-        },
-      ],
-    },
-    {
-      title: t("adminDashboardBuilder.detail.metadata"),
-      fields: [
-        { label: t("common.date"), value: dashboard.createdAt, type: "date" as const },
-        { label: t("adminDashboardBuilder.updated"), value: dashboard.updatedAt, type: "date" as const },
-        { label: t("adminDashboardBuilder.metrics.widgets"), value: dashboard.widgets.length },
-      ],
-    },
-  ];
 
   const dashboards: Dashboard[] = dashboardsData?.dashboards || [
     {
@@ -255,27 +430,66 @@ export default function DashboardBuilder() {
       updatedAt: "2024-12-08",
       owner: "ai-team",
     },
+  ];
+
+  const performExport = useCallback(() => {
+    setShowExportConfirm(false);
+    const currentDash = dashboards.find(d => d.id === selectedDashboard);
+    if (currentDash) {
+      const exportData = {
+        ...currentDash,
+        networkStats,
+        tpsHistory,
+        recentBlocks,
+        activeAlerts,
+        exportedAt: new Date().toISOString(),
+      };
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `dashboard-${currentDash.name.toLowerCase().replace(/\s+/g, "-")}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast({
+        title: t("adminDashboardBuilder.exported"),
+        description: t("adminDashboardBuilder.exportedDesc"),
+      });
+    }
+  }, [selectedDashboard, dashboards, networkStats, tpsHistory, recentBlocks, activeAlerts, toast, t]);
+
+  const confirmDelete = useCallback(() => {
+    if (pendingDeleteId) {
+      deleteDashboardMutation.mutate(pendingDeleteId);
+      setShowDeleteConfirm(false);
+      setPendingDeleteId(null);
+    }
+  }, [pendingDeleteId, deleteDashboardMutation]);
+
+  const getDashboardDetailSections = (dashboard: Dashboard): DetailSection[] => [
     {
-      id: "bridge-multichain",
-      name: "Multi-Chain Bridge v2.0",
-      description: "ETH, BSC, Polygon, Arbitrum bridge monitoring with AI risk assessment and quantum signatures",
-      isDefault: false,
-      isPublic: true,
-      widgets: [],
-      createdAt: "2024-12-08",
-      updatedAt: "2024-12-08",
-      owner: "bridge-ops",
+      title: t("adminDashboardBuilder.detail.dashboardInfo"),
+      fields: [
+        { label: t("common.name"), value: dashboard.name },
+        { label: t("common.description"), value: dashboard.description },
+        { label: t("adminDashboardBuilder.owner"), value: dashboard.owner },
+        { 
+          label: t("adminDashboardBuilder.public"), 
+          value: dashboard.isPublic ? t("common.yes") : t("common.no"), 
+          type: "badge" as const,
+          badgeVariant: dashboard.isPublic ? "default" : "secondary"
+        },
+      ],
     },
     {
-      id: "tokenomics-10b",
-      name: "10B TBURN Tokenomics",
-      description: "Supply tracking: Genesis 10B → Y20 6.94B (30.60% deflation), AI burn rate 70%, daily emission 500K",
-      isDefault: false,
-      isPublic: true,
-      widgets: [],
-      createdAt: "2024-12-08",
-      updatedAt: "2024-12-08",
-      owner: "economics-team",
+      title: t("adminDashboardBuilder.detail.metadata"),
+      fields: [
+        { label: t("common.date"), value: dashboard.createdAt, type: "date" as const },
+        { label: t("adminDashboardBuilder.updated"), value: dashboard.updatedAt, type: "date" as const },
+        { label: t("adminDashboardBuilder.metrics.widgets"), value: dashboard.widgets.length },
+      ],
     },
   ];
 
@@ -288,18 +502,20 @@ export default function DashboardBuilder() {
     { type: "alert", icon: AlertTriangle, label: t("adminDashboardBuilder.widgets.alertList"), description: t("adminDashboardBuilder.widgets.alertListDesc") },
   ];
 
-  const previewWidgets = [
-    { id: "1", type: "metric", title: t("adminDashboardBuilder.preview.currentTps"), x: 0, y: 0, width: 3, height: 1 },
-    { id: "2", type: "metric", title: t("adminDashboardBuilder.preview.blockHeight"), x: 3, y: 0, width: 3, height: 1 },
-    { id: "3", type: "metric", title: t("adminDashboardBuilder.preview.activeValidators"), x: 6, y: 0, width: 3, height: 1 },
-    { id: "4", type: "metric", title: t("adminDashboardBuilder.preview.networkPeers"), x: 9, y: 0, width: 3, height: 1 },
-    { id: "5", type: "chart", title: t("adminDashboardBuilder.preview.tpsOverTime"), x: 0, y: 1, width: 6, height: 2 },
-    { id: "6", type: "chart", title: t("adminDashboardBuilder.preview.latencyDist"), x: 6, y: 1, width: 6, height: 2 },
-    { id: "7", type: "table", title: t("adminDashboardBuilder.preview.recentBlocks"), x: 0, y: 3, width: 6, height: 2 },
-    { id: "8", type: "alert", title: t("adminDashboardBuilder.preview.activeAlerts"), x: 6, y: 3, width: 6, height: 2 },
-  ];
-
   const currentDashboard = dashboards.find(d => d.id === selectedDashboard);
+
+  const formatNumber = (num: number) => {
+    return new Intl.NumberFormat().format(num);
+  };
+
+  const getAlertIcon = (type: AlertData["type"]) => {
+    switch (type) {
+      case "error": return <XCircle className="h-4 w-4 text-destructive" />;
+      case "warning": return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+      case "success": return <CheckCircle className="h-4 w-4 text-green-500" />;
+      default: return <AlertCircle className="h-4 w-4 text-blue-500" />;
+    }
+  };
 
   if (error) {
     return (
@@ -340,20 +556,14 @@ export default function DashboardBuilder() {
               <Skeleton className="h-10 w-36" />
             </div>
           </div>
-          <Card>
-            <CardHeader>
-              <Skeleton className="h-6 w-48" />
-            </CardHeader>
-          </Card>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <Card className="lg:col-span-4">
-              <CardHeader>
-                <Skeleton className="h-6 w-48" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-96 w-full" />
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-4 gap-4">
+            {[...Array(4)].map((_, i) => (
+              <Skeleton key={i} className="h-24" />
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Skeleton className="h-64" />
+            <Skeleton className="h-64" />
           </div>
         </div>
       </div>
@@ -369,8 +579,21 @@ export default function DashboardBuilder() {
               <LayoutDashboard className="h-8 w-8" />
               {t("adminDashboardBuilder.title")}
             </h1>
-            <p className="text-muted-foreground" data-testid="text-dashboard-builder-description">
+            <p className="text-muted-foreground flex items-center gap-2" data-testid="text-dashboard-builder-description">
               {t("adminDashboardBuilder.description")}
+              <span className="flex items-center gap-1 text-xs">
+                {wsConnected ? (
+                  <>
+                    <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-green-600">{t("common.realtime")}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="h-2 w-2 rounded-full bg-yellow-500" />
+                    <span className="text-yellow-600">{t("common.reconnecting")}</span>
+                  </>
+                )}
+              </span>
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -457,7 +680,7 @@ export default function DashboardBuilder() {
                           onClick={() => setNewDashboard({ ...newDashboard, isPublic: !newDashboard.isPublic })}
                           data-testid="button-toggle-public"
                         >
-                          {newDashboard.isPublic ? t("adminDashboardBuilder.yes") : t("adminDashboardBuilder.no")}
+                          {newDashboard.isPublic ? t("common.yes") : t("common.no")}
                         </Button>
                       </div>
                     </div>
@@ -480,142 +703,356 @@ export default function DashboardBuilder() {
           </div>
         </div>
 
-        {currentDashboard && (
-          <Card data-testid="card-current-dashboard">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="flex items-center gap-2">
-                    {currentDashboard.name}
-                    {currentDashboard.isDefault && <Badge variant="secondary">{t("adminDashboardBuilder.default")}</Badge>}
-                    {currentDashboard.isPublic ? (
-                      <Badge variant="outline" className="gap-1">
-                        <Globe className="h-3 w-3" />
-                        {t("adminDashboardBuilder.public")}
-                      </Badge>
-                    ) : (
-                      <Badge variant="outline" className="gap-1">
-                        <Lock className="h-3 w-3" />
-                        {t("adminDashboardBuilder.private")}
-                      </Badge>
-                    )}
-                  </CardTitle>
-                  <CardDescription>{currentDashboard.description}</CardDescription>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Clock className="h-4 w-4" />
-                  {t("adminDashboardBuilder.updated")} {new Date(currentDashboard.updatedAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
-                </div>
+        <Card data-testid="card-dashboard-preview">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  {t("adminDashboardBuilder.preview.title")}
+                  <Badge variant="outline" className="gap-1">
+                    <Activity className="h-3 w-3" />
+                    {t("common.live")}
+                  </Badge>
+                </CardTitle>
+                <CardDescription>
+                  {currentDashboard?.name} - {t("adminDashboardBuilder.updated")} {lastUpdate.toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}
+                </CardDescription>
               </div>
-            </CardHeader>
-          </Card>
-        )}
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="icon" onClick={handleRefresh} data-testid="button-refresh-preview">
+                  <RefreshCw className="h-4 w-4" />
+                </Button>
+                <Button variant="outline" size="icon" data-testid="button-fullscreen">
+                  <Maximize2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20" data-testid="metric-tps">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">{t("adminDashboardBuilder.preview.currentTps")}</p>
+                      <p className="text-3xl font-bold text-blue-600">{formatNumber(networkStats.tps)}</p>
+                    </div>
+                    <div className="h-12 w-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                      <Zap className="h-6 w-6 text-blue-500" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 mt-2 text-xs text-green-600">
+                    <TrendingUp className="h-3 w-3" />
+                    <span>+2.5% {t("common.fromLastHour")}</span>
+                  </div>
+                </CardContent>
+              </Card>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {isEditing && (
-            <Card className="lg:col-span-1" data-testid="card-widget-library">
-              <CardHeader>
-                <CardTitle className="text-lg">{t("adminDashboardBuilder.widgetLibrary.title")}</CardTitle>
-                <CardDescription>{t("adminDashboardBuilder.widgetLibrary.description")}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-[500px]">
-                  <div className="space-y-2">
-                    {widgetTypes.map((widget, index) => (
-                      <div
-                        key={widget.type}
-                        className="p-3 border rounded-lg cursor-move hover-elevate"
-                        draggable
-                        data-testid={`widget-type-${index}`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
-                            <widget.icon className="h-5 w-5" />
+              <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 border-green-500/20" data-testid="metric-block-height">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">{t("adminDashboardBuilder.preview.blockHeight")}</p>
+                      <p className="text-3xl font-bold text-green-600">{formatNumber(networkStats.blockHeight)}</p>
+                    </div>
+                    <div className="h-12 w-12 rounded-full bg-green-500/20 flex items-center justify-center">
+                      <Box className="h-6 w-6 text-green-500" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
+                    <Timer className="h-3 w-3" />
+                    <span>{networkStats.avgBlockTime}s {t("common.avgBlockTime")}</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-500/20" data-testid="metric-validators">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">{t("adminDashboardBuilder.preview.activeValidators")}</p>
+                      <p className="text-3xl font-bold text-purple-600">{networkStats.activeValidators}</p>
+                    </div>
+                    <div className="h-12 w-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                      <Users className="h-6 w-6 text-purple-500" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 mt-2 text-xs text-green-600">
+                    <CheckCircle className="h-3 w-3" />
+                    <span>99.9% {t("common.uptime")}</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-orange-500/10 to-orange-600/5 border-orange-500/20" data-testid="metric-peers">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">{t("adminDashboardBuilder.preview.networkPeers")}</p>
+                      <p className="text-3xl font-bold text-orange-600">{networkStats.networkPeers}</p>
+                    </div>
+                    <div className="h-12 w-12 rounded-full bg-orange-500/20 flex items-center justify-center">
+                      <Network className="h-6 w-6 text-orange-500" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
+                    <Globe className="h-3 w-3" />
+                    <span>{networkStats.shardCount} {t("common.shards")}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card data-testid="chart-tps-history">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <ChartLine className="h-5 w-5 text-blue-500" />
+                    {t("adminDashboardBuilder.preview.tpsOverTime")}
+                  </CardTitle>
+                  <CardDescription>{t("adminDashboardBuilder.preview.tpsOverTimeDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={tpsHistory} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="tpsGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                        <XAxis dataKey="time" className="text-xs" tick={{ fill: 'currentColor' }} />
+                        <YAxis className="text-xs" tick={{ fill: 'currentColor' }} tickFormatter={(v) => `${(v / 1000).toFixed(0)}K`} />
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
+                          labelStyle={{ color: 'hsl(var(--foreground))' }}
+                          formatter={(value: number) => [formatNumber(value), 'TPS']}
+                        />
+                        <Area type="monotone" dataKey="tps" stroke="#3b82f6" strokeWidth={2} fill="url(#tpsGradient)" />
+                        <Line type="monotone" dataKey="target" stroke="#22c55e" strokeDasharray="5 5" strokeWidth={1} dot={false} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="chart-latency-distribution">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <ChartBar className="h-5 w-5 text-green-500" />
+                    {t("adminDashboardBuilder.preview.latencyDist")}
+                  </CardTitle>
+                  <CardDescription>{t("adminDashboardBuilder.preview.latencyDistDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={latencyData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                        <XAxis dataKey="range" className="text-xs" tick={{ fill: 'currentColor' }} />
+                        <YAxis className="text-xs" tick={{ fill: 'currentColor' }} tickFormatter={(v) => `${v}%`} />
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
+                          formatter={(value: number, name: string) => {
+                            if (name === 'percentage') return [`${value}%`, t('common.percentage')];
+                            return [formatNumber(value), t('common.count')];
+                          }}
+                        />
+                        <Bar dataKey="percentage" fill="#22c55e" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card data-testid="table-recent-blocks">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Database className="h-5 w-5 text-purple-500" />
+                    {t("adminDashboardBuilder.preview.recentBlocks")}
+                  </CardTitle>
+                  <CardDescription>{t("adminDashboardBuilder.preview.recentBlocksDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-64">
+                    <div className="space-y-2">
+                      {recentBlocks.map((block, index) => (
+                        <div 
+                          key={`${block.height}-${index}`}
+                          className="flex items-center justify-between p-3 rounded-lg bg-muted/50 hover-elevate"
+                          data-testid={`block-row-${index}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                              <Box className="h-5 w-5 text-purple-500" />
+                            </div>
+                            <div>
+                              <p className="font-medium">#{formatNumber(block.height)}</p>
+                              <p className="text-xs text-muted-foreground font-mono">{block.hash}</p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-medium text-sm">{widget.label}</p>
-                            <p className="text-xs text-muted-foreground">{widget.description}</p>
+                          <div className="text-right">
+                            <p className="text-sm font-medium">{block.transactions} txs</p>
+                            <p className="text-xs text-muted-foreground">{block.timestamp}</p>
                           </div>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="alerts-active">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <AlertTriangle className="h-5 w-5 text-yellow-500" />
+                    {t("adminDashboardBuilder.preview.activeAlerts")}
+                  </CardTitle>
+                  <CardDescription>{t("adminDashboardBuilder.preview.activeAlertsDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-64">
+                    <div className="space-y-2">
+                      {activeAlerts.map((alert, index) => (
+                        <div 
+                          key={alert.id}
+                          className={`flex items-start gap-3 p-3 rounded-lg border ${
+                            alert.resolved ? 'bg-muted/30 border-muted' : 'bg-muted/50 border-muted'
+                          }`}
+                          data-testid={`alert-row-${index}`}
+                        >
+                          <div className="mt-0.5">{getAlertIcon(alert.type)}</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <p className="font-medium text-sm">{alert.title}</p>
+                              {alert.resolved && (
+                                <Badge variant="secondary" className="text-xs">{t("common.resolved")}</Badge>
+                              )}
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">{alert.message}</p>
+                            <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {alert.timestamp}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <Card data-testid="chart-shard-distribution">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <ChartPie className="h-5 w-5 text-blue-500" />
+                    {t("adminDashboardBuilder.preview.shardDistribution")}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-48">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={shardDistribution}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={40}
+                          outerRadius={70}
+                          paddingAngle={2}
+                          dataKey="value"
+                        >
+                          {shardDistribution.map((_, index) => (
+                            <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
+                          formatter={(value: number, name: string) => [`${value}%`, name]}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 mt-2">
+                    {shardDistribution.slice(0, 8).map((shard, index) => (
+                      <div key={shard.name} className="flex items-center gap-1 text-xs">
+                        <div className="h-2 w-2 rounded-full" style={{ backgroundColor: CHART_COLORS[index % CHART_COLORS.length] }} />
+                        <span className="truncate">{shard.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="lg:col-span-2" data-testid="chart-validator-performance">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Users className="h-5 w-5 text-purple-500" />
+                    {t("adminDashboardBuilder.preview.validatorPerformance")}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {validatorPerformance.map((tier, index) => (
+                      <div key={tier.tier} className="space-y-2" data-testid={`validator-tier-${index}`}>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-medium">{tier.tier}</span>
+                          <div className="flex items-center gap-4 text-muted-foreground">
+                            <span>{tier.count} {t("common.validators")}</span>
+                            <span className="text-green-600">{tier.uptime}% {t("common.uptime")}</span>
+                            <span>{formatNumber(tier.blocks)} {t("common.blocks")}</span>
+                          </div>
+                        </div>
+                        <div className="h-2 rounded-full bg-muted overflow-hidden">
+                          <div 
+                            className="h-full rounded-full transition-all duration-500"
+                            style={{ 
+                              width: `${tier.uptime}%`,
+                              backgroundColor: CHART_COLORS[index % CHART_COLORS.length]
+                            }}
+                          />
                         </div>
                       </div>
                     ))}
                   </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
-          )}
+                </CardContent>
+              </Card>
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className={isEditing ? "lg:col-span-3" : "lg:col-span-4"} data-testid="card-dashboard-preview">
+        {isEditing && (
+          <Card data-testid="card-widget-library">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle>{t("adminDashboardBuilder.preview.title")}</CardTitle>
-                <div className="flex items-center gap-2">
-                  <Button variant="outline" size="icon" onClick={handleRefresh} data-testid="button-refresh-preview">
-                    <RefreshCw className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon" data-testid="button-fullscreen">
-                    <Maximize2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
+              <CardTitle className="text-lg">{t("adminDashboardBuilder.widgetLibrary.title")}</CardTitle>
+              <CardDescription>{t("adminDashboardBuilder.widgetLibrary.description")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-12 gap-4 min-h-[600px] p-4 border-2 border-dashed rounded-lg">
-                {previewWidgets.map((widget, index) => (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                {widgetTypes.map((widget, index) => (
                   <div
-                    key={widget.id}
-                    className={`col-span-${widget.width} row-span-${widget.height} p-4 bg-muted rounded-lg border relative group`}
-                    style={{
-                      gridColumn: `span ${widget.width}`,
-                    }}
-                    data-testid={`preview-widget-${index}`}
+                    key={widget.type}
+                    className="p-4 border rounded-lg cursor-move hover-elevate text-center"
+                    draggable
+                    data-testid={`widget-type-${index}`}
                   >
-                    {isEditing && (
-                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                        <Button variant="ghost" size="icon" className="h-6 w-6" data-testid={`button-move-widget-${index}`}>
-                          <Move className="h-3 w-3" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="h-6 w-6" data-testid={`button-settings-widget-${index}`}>
-                          <Settings className="h-3 w-3" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" data-testid={`button-delete-widget-${index}`}>
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    )}
-                    <div className="flex flex-col h-full">
-                      <span className="text-sm font-medium mb-2">{widget.title}</span>
-                      <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">
-                        {widget.type === "metric" && (
-                          <span className="text-2xl font-bold text-foreground">
-                            {widget.title === t("adminDashboardBuilder.preview.currentTps") ? "485,000" :
-                             widget.title === t("adminDashboardBuilder.preview.blockHeight") ? "12,847,563" :
-                             widget.title === t("adminDashboardBuilder.preview.activeValidators") ? "156" : "324"}
-                          </span>
-                        )}
-                        {widget.type === "chart" && (
-                          <div className="w-full h-full min-h-[100px] bg-muted-foreground/10 rounded flex items-center justify-center">
-                            <ChartLine className="h-8 w-8 text-muted-foreground" />
-                          </div>
-                        )}
-                        {widget.type === "table" && (
-                          <div className="w-full h-full min-h-[100px] bg-muted-foreground/10 rounded flex items-center justify-center">
-                            <Table2 className="h-8 w-8 text-muted-foreground" />
-                          </div>
-                        )}
-                        {widget.type === "alert" && (
-                          <div className="w-full h-full min-h-[100px] bg-muted-foreground/10 rounded flex items-center justify-center">
-                            <AlertTriangle className="h-8 w-8 text-muted-foreground" />
-                          </div>
-                        )}
-                      </div>
+                    <div className="h-12 w-12 mx-auto rounded-lg bg-muted flex items-center justify-center mb-2">
+                      <widget.icon className="h-6 w-6" />
                     </div>
+                    <p className="font-medium text-sm">{widget.label}</p>
+                    <p className="text-xs text-muted-foreground">{widget.description}</p>
                   </div>
                 ))}
               </div>
             </CardContent>
           </Card>
-        </div>
+        )}
 
         <Card data-testid="card-all-dashboards">
           <CardHeader>
@@ -636,7 +1073,7 @@ export default function DashboardBuilder() {
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <LayoutDashboard className="h-5 w-5" />
-                      <span className="font-medium">{dashboard.name}</span>
+                      <span className="font-medium text-sm">{dashboard.name}</span>
                     </div>
                     <div className="flex gap-1">
                       {dashboard.isDefault && (
@@ -649,7 +1086,7 @@ export default function DashboardBuilder() {
                       )}
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">{dashboard.description}</p>
+                  <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{dashboard.description}</p>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span>{t("adminDashboardBuilder.owner")}: {dashboard.owner}</span>
                     <span>{new Date(dashboard.updatedAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}</span>
@@ -672,10 +1109,6 @@ export default function DashboardBuilder() {
                     <Button variant="ghost" size="sm" className="flex-1" data-testid={`button-clone-dashboard-${index}`}>
                       <Copy className="h-3 w-3 mr-1" />
                       {t("adminDashboardBuilder.clone")}
-                    </Button>
-                    <Button variant="ghost" size="sm" className="flex-1" data-testid={`button-share-dashboard-${index}`}>
-                      <Share2 className="h-3 w-3 mr-1" />
-                      {t("adminDashboardBuilder.share")}
                     </Button>
                   </div>
                 </div>
@@ -743,8 +1176,8 @@ export default function DashboardBuilder() {
         onOpenChange={setShowDeleteConfirm}
         title={t("adminDashboardBuilder.confirm.deleteTitle")}
         description={t("adminDashboardBuilder.confirm.deleteDesc")}
-        confirmLabel={t("adminDashboardBuilder.delete")}
-        cancelLabel={t("adminDashboardBuilder.cancel")}
+        confirmText={t("adminDashboardBuilder.delete")}
+        cancelText={t("adminDashboardBuilder.cancel")}
         onConfirm={confirmDelete}
         destructive={true}
       />
@@ -754,8 +1187,8 @@ export default function DashboardBuilder() {
         onOpenChange={setShowExportConfirm}
         title={t("adminDashboardBuilder.confirm.exportTitle")}
         description={t("adminDashboardBuilder.confirm.exportDesc")}
-        confirmLabel={t("adminDashboardBuilder.export")}
-        cancelLabel={t("adminDashboardBuilder.cancel")}
+        confirmText={t("adminDashboardBuilder.export")}
+        cancelText={t("adminDashboardBuilder.cancel")}
         onConfirm={performExport}
         destructive={false}
       />

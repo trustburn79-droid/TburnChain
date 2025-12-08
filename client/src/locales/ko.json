@@ -118,7 +118,18 @@
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
     "days": "일",
-    "clickForDetails": "클릭하여 상세보기"
+    "clickForDetails": "클릭하여 상세보기",
+    "realtime": "실시간",
+    "reconnecting": "재연결 중...",
+    "fromLastHour": "지난 1시간 대비",
+    "avgBlockTime": "평균 블록 시간",
+    "uptime": "가동률",
+    "shards": "샤드",
+    "validators": "검증자",
+    "blocks": "블록",
+    "percentage": "비율",
+    "count": "개수",
+    "resolved": "해결됨"
   },
   "nav": {
     "brand": "TBURN 체인 메인넷",
@@ -23523,7 +23534,13 @@
       "tpsOverTime": "시간별 TPS",
       "latencyDist": "지연 시간 분포",
       "recentBlocks": "최근 블록",
-      "activeAlerts": "활성 알림"
+      "activeAlerts": "활성 알림",
+      "activeAlertsDesc": "시스템 알림 및 공지",
+      "shardDistribution": "샤드 분포",
+      "validatorPerformance": "검증자 성능",
+      "tpsOverTimeDesc": "24시간 TPS 기록 및 목표 임계값",
+      "latencyDistDesc": "범위별 트랜잭션 지연 시간 분포",
+      "recentBlocksDesc": "네트워크의 최신 블록"
     },
     "setDefault": "기본값으로 설정",
     "widgetTypes": {
