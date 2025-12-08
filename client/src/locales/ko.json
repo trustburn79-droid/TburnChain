@@ -818,6 +818,10 @@
     "perValidator": "검증자당",
     "networkShare": "네트워크 점유율",
     "validatorShare": "검증자 점유율",
+    "target": "목표",
+    "stakeShare": "스테이크 점유율",
+    "dailyPool": "일일 풀",
+    "annualEstimate": "연간 추정",
     "economics": "경제학"
   },
   "staking": {

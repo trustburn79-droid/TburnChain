@@ -899,7 +899,7 @@ function TierDetailDialog({ tier, tierData, validators, open, onClose }: TierDet
                         <div className="flex justify-between">
                           <span className="text-sm text-muted-foreground">{t('validators.stakeShare')}</span>
                           <span className="font-medium">
-                            {tierData.stakedAmount > 0 ? ((totalStake / (tierData.stakedAmount / 1e18)) * 100).toFixed(2) : 0}%
+                            {tierData.stakedAmount > 0 ? ((totalStake / tierData.stakedAmount) * 100).toFixed(2) : 0}%
                           </span>
                         </div>
                         <div className="flex justify-between">

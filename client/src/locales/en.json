@@ -804,6 +804,10 @@
     "perValidator": "Per Validator",
     "networkShare": "Network Share",
     "validatorShare": "Validator Share",
+    "target": "Target",
+    "stakeShare": "Stake Share",
+    "dailyPool": "Daily Pool",
+    "annualEstimate": "Annual Estimate",
     "economics": "Economics"
   },
   "staking": {
