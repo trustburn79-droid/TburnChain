@@ -3158,7 +3158,13 @@
       "validation_processed_by_ai": "Validation Processed by AI",
       "consensus_processed_by_ai": "Consensus Processed by AI",
       "sharding_processed_by_ai": "Sharding Processed by AI",
-      "governance_processed_by_ai": "Governance Processed by AI"
+      "governance_processed_by_ai": "Governance Processed by AI",
+      "scale_shard_capacity": "Scale Shard Capacity",
+      "implement_dynamic_shard_expansion_protocol_and_validator_incentive_restructuring": "Implement Dynamic Shard Expansion and Validator Restructuring",
+      "implement_dynamic_shard_expansion_protocol_with_validator_recruitment_incentives": "Implement Dynamic Shard Expansion with Validator Recruitment",
+      "implement_progressive_validator_incentivization_and_prepare_for_shard_expansion_to_67_shards": "Implement Progressive Validator Incentivization",
+      "implement_validator_incentive_restructuring_and_capacity_expansion_protocol": "Implement Validator Incentive and Capacity Expansion",
+      "optimize_validator_participation_and_implement_dynamic_shard_scaling": "Optimize Validator Participation and Dynamic Shard Scaling"
     },
     "actions": "Actions",
     "operations": "Operations",
@@ -3212,7 +3218,8 @@
       "verification": "Verification",
       "optimization": "Optimization",
       "governance": "Governance",
-      "routing": "Routing"
+      "routing": "Routing",
+      "sharding": "Sharding"
     },
     "impactLevels": {
       "high": "High",
