@@ -999,8 +999,8 @@ function EmissionDetailDialog({ type, tierData, open, onClose }: EmissionDetailD
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent className="max-w-3xl max-h-[85vh] p-0 overflow-hidden" data-testid={`modal-${type}-detail`}>
-        <div className="flex flex-col h-full">
-          <DialogHeader className="px-6 pt-6 pb-4 border-b">
+        <div className="flex flex-col h-[85vh]">
+          <DialogHeader className="px-6 pt-6 pb-4 border-b shrink-0">
             <div className="flex items-center gap-3">
               <div className={`h-10 w-10 rounded-full bg-muted flex items-center justify-center`}>
                 <Icon className={`h-5 w-5 ${config.color}`} />
@@ -1014,7 +1014,7 @@ function EmissionDetailDialog({ type, tierData, open, onClose }: EmissionDetailD
             </div>
           </DialogHeader>
 
-          <ScrollArea className="flex-1 px-6 py-4">
+          <ScrollArea className="flex-1 px-6 py-4 overflow-auto">
             <div className="space-y-6">
               <div className="flex items-center justify-center py-4">
                 <div className="text-center">
@@ -1158,7 +1158,7 @@ function EmissionDetailDialog({ type, tierData, open, onClose }: EmissionDetailD
             </div>
           </ScrollArea>
 
-          <DialogFooter className="px-6 py-4 border-t">
+          <DialogFooter className="px-6 py-4 border-t shrink-0">
             <Button variant="outline" onClick={onClose}>{t('validators.close')}</Button>
           </DialogFooter>
         </div>
@@ -1235,8 +1235,8 @@ function ValidatorStatsDialog({ type, validators, tierData, open, onClose }: Val
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent className="max-w-4xl max-h-[85vh] p-0 overflow-hidden" data-testid={`modal-${type}-stats`}>
-        <div className="flex flex-col h-full">
-          <DialogHeader className="px-6 pt-6 pb-4 border-b">
+        <div className="flex flex-col h-[85vh]">
+          <DialogHeader className="px-6 pt-6 pb-4 border-b shrink-0">
             <div className="flex items-center gap-3">
               <div className={`h-10 w-10 rounded-full bg-muted flex items-center justify-center`}>
                 <Icon className={`h-5 w-5 ${config.color}`} />
@@ -1248,7 +1248,7 @@ function ValidatorStatsDialog({ type, validators, tierData, open, onClose }: Val
             </div>
           </DialogHeader>
 
-          <ScrollArea className="flex-1 px-6 py-4">
+          <ScrollArea className="flex-1 px-6 py-4 overflow-auto">
             {type === 'active' && (
               <div className="space-y-6">
                 <div className="grid grid-cols-3 gap-4">
@@ -1565,7 +1565,7 @@ function ValidatorStatsDialog({ type, validators, tierData, open, onClose }: Val
             )}
           </ScrollArea>
 
-          <DialogFooter className="px-6 py-4 border-t">
+          <DialogFooter className="px-6 py-4 border-t shrink-0">
             <Button variant="outline" onClick={onClose}>{t('validators.close')}</Button>
           </DialogFooter>
         </div>
