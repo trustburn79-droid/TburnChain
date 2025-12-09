@@ -128,17 +128,17 @@ export default function Execution() {
   const [taskToCancel, setTaskToCancel] = useState<ExecutionTask | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<ExecutionData>({
-    queryKey: ['/api/admin/governance/execution'],
+    queryKey: ['/api/enterprise/admin/governance/execution'],
     refetchInterval: 15000,
   });
 
   const executeProposalMutation = useMutation({
     mutationFn: async (taskId: string) => {
-      const response = await apiRequest("POST", `/api/admin/governance/execution/${taskId}/execute`);
+      const response = await apiRequest("POST", `/api/enterprise/admin/governance/execution/${taskId}/execute`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/execution'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/execution'] });
       setTaskToExecute(null);
       toast({
         title: t("adminExecution.executionStarted"),
@@ -156,11 +156,11 @@ export default function Execution() {
 
   const retryExecutionMutation = useMutation({
     mutationFn: async (taskId: string) => {
-      const response = await apiRequest("POST", `/api/admin/governance/execution/${taskId}/retry`);
+      const response = await apiRequest("POST", `/api/enterprise/admin/governance/execution/${taskId}/retry`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/execution'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/execution'] });
       toast({
         title: t("adminExecution.retryStarted"),
         description: t("adminExecution.retryStartedDesc"),
@@ -177,11 +177,11 @@ export default function Execution() {
 
   const cancelExecutionMutation = useMutation({
     mutationFn: async (taskId: string) => {
-      const response = await apiRequest("POST", `/api/admin/governance/execution/${taskId}/cancel`);
+      const response = await apiRequest("POST", `/api/enterprise/admin/governance/execution/${taskId}/cancel`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/execution'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/execution'] });
       setTaskToCancel(null);
       toast({
         title: t("adminExecution.executionCancelled"),

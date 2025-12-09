@@ -77,15 +77,15 @@ export default function FeedbackSystem() {
   const [pendingArchiveId, setPendingArchiveId] = useState<string | null>(null);
 
   const { data: feedbackData, isLoading, error, refetch } = useQuery<FeedbackData>({
-    queryKey: ["/api/admin/feedback"],
+    queryKey: ["/api/enterprise/admin/feedback"],
   });
 
   const respondMutation = useMutation({
     mutationFn: async ({ feedbackId, response }: { feedbackId: string; response: string }) => {
-      return apiRequest("POST", `/api/admin/feedback/${feedbackId}/respond`, { response });
+      return apiRequest("POST", `/api/enterprise/admin/feedback/${feedbackId}/respond`, { response });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/feedback"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/feedback"] });
       setIsRespondDialogOpen(false);
       setResponseText("");
       setSelectedFeedback(null);
@@ -105,10 +105,10 @@ export default function FeedbackSystem() {
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ feedbackId, status }: { feedbackId: string; status: string }) => {
-      return apiRequest("PATCH", `/api/admin/feedback/${feedbackId}`, { status });
+      return apiRequest("PATCH", `/api/enterprise/admin/feedback/${feedbackId}`, { status });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/feedback"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/feedback"] });
       toast({
         title: t("adminFeedback.statusUpdated"),
         description: t("adminFeedback.statusUpdatedDesc"),

@@ -153,17 +153,17 @@ export default function CommunityManagement() {
   const [pendingBanId, setPendingBanId] = useState<string | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<CommunityData>({
-    queryKey: ['/api/admin/community'],
+    queryKey: ['/api/enterprise/admin/community'],
     refetchInterval: 30000,
   });
 
   const sendAnnouncementMutation = useMutation({
     mutationFn: async (announcement: { title: string; message: string; audience: string }) => {
-      const response = await apiRequest("POST", "/api/admin/community/announcements", announcement);
+      const response = await apiRequest("POST", "/api/enterprise/admin/community/announcements", announcement);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/community'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/community'] });
       setIsAnnouncementDialogOpen(false);
       toast({
         title: t("adminCommunity.announcementSent"),
@@ -181,11 +181,11 @@ export default function CommunityManagement() {
 
   const moderatePostMutation = useMutation({
     mutationFn: async ({ postId, action }: { postId: string; action: "approve" | "remove" }) => {
-      const response = await apiRequest("POST", `/api/admin/community/posts/${postId}/${action}`);
+      const response = await apiRequest("POST", `/api/enterprise/admin/community/posts/${postId}/${action}`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/community'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/community'] });
       toast({
         title: t("adminCommunity.postModerated"),
         description: t("adminCommunity.postModeratedDesc"),
@@ -202,11 +202,11 @@ export default function CommunityManagement() {
 
   const banMemberMutation = useMutation({
     mutationFn: async (memberId: string) => {
-      const response = await apiRequest("POST", `/api/admin/community/members/${memberId}/ban`);
+      const response = await apiRequest("POST", `/api/enterprise/admin/community/members/${memberId}/ban`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/community'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/community'] });
       toast({
         title: t("adminCommunity.memberBanned"),
         description: t("adminCommunity.memberBannedDesc"),

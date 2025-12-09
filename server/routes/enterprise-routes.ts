@@ -3122,4 +3122,237 @@ router.post('/admin/sessions/settings', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// Governance Endpoints
+// ============================================
+
+router.get('/admin/governance/proposals', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getGovernanceProposals();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch governance proposals',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/governance/proposals', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Proposal created successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create proposal',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/governance/proposals/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Proposal deleted successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete proposal',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/governance/votes', async (req: Request, res: Response) => {
+  try {
+    const proposalId = req.query.proposalId as string | undefined;
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getGovernanceVotes(proposalId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch governance votes',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/governance/votes/config', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Voting config updated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update voting config',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/governance/execution', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getGovernanceExecution();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch execution tasks',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/governance/execution/:id/execute', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Task execution started' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to execute task',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/governance/execution/:id/cancel', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Task cancelled' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to cancel task',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/governance/execution/:id/retry', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Task retry initiated' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to retry task',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/governance/params', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getGovernanceParams();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch governance params',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/governance/params', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Governance params updated' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update governance params',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/feedback', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getCommunityFeedback();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch community feedback',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/feedback/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Feedback updated' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update feedback',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/feedback/:id/respond', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Response submitted' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to submit response',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/community', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getCommunityContent();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch community content',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/community/posts/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Post updated' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update post',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/community/posts/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Post deleted' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete post',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/community/members/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Member updated' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update member',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;

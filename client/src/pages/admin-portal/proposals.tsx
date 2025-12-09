@@ -141,7 +141,7 @@ export default function Proposals() {
   const [proposalToDelete, setProposalToDelete] = useState<Proposal | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<ProposalsData>({
-    queryKey: ['/api/admin/governance/proposals'],
+    queryKey: ['/api/enterprise/admin/governance/proposals'],
     refetchInterval: 30000,
   });
 
@@ -159,7 +159,7 @@ export default function Proposals() {
       try {
         const message = JSON.parse(event.data);
         if (message.type === "proposal_update" || message.type === "vote_update") {
-          queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/proposals'] });
+          queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/proposals'] });
         }
       } catch (e) {
         console.error("WebSocket message parse error:", e);

@@ -126,7 +126,7 @@ export default function VotingMonitor() {
   const [selectedVoter, setSelectedVoter] = useState<VoterRecord | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<VotingStats>({
-    queryKey: ['/api/admin/governance/votes', selectedProposal],
+    queryKey: ['/api/enterprise/admin/governance/votes', selectedProposal],
     refetchInterval: 10000,
   });
 
@@ -144,7 +144,7 @@ export default function VotingMonitor() {
       try {
         const message = JSON.parse(event.data);
         if (message.type === "vote_cast" || message.type === "voting_update") {
-          queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/votes'] });
+          queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/votes'] });
         }
       } catch (e) {
         console.error("WebSocket message parse error:", e);
@@ -166,11 +166,11 @@ export default function VotingMonitor() {
 
   const castVoteMutation = useMutation({
     mutationFn: async (voteData: { proposalId: string; vote: string }) => {
-      const response = await apiRequest("POST", "/api/admin/governance/votes", voteData);
+      const response = await apiRequest("POST", "/api/enterprise/admin/governance/votes", voteData);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/votes'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/votes'] });
       toast({
         title: t("adminVoting.voteCast"),
         description: t("adminVoting.voteCastDesc"),

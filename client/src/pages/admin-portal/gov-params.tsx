@@ -132,17 +132,17 @@ export default function GovParams() {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const { data, isLoading, error, refetch } = useQuery<GovParamsData>({
-    queryKey: ['/api/admin/governance/params'],
+    queryKey: ['/api/enterprise/admin/governance/params'],
     refetchInterval: 60000,
   });
 
   const updateParamsMutation = useMutation({
     mutationFn: async (params: Partial<GovParamsData>) => {
-      const response = await apiRequest("PUT", "/api/admin/governance/params", params);
+      const response = await apiRequest("PUT", "/api/enterprise/admin/governance/params", params);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/params'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/params'] });
       setShowSaveConfirm(false);
       toast({
         title: t("adminGovParams.saved"),
@@ -160,11 +160,11 @@ export default function GovParams() {
 
   const resetParamsMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest("POST", "/api/admin/governance/params/reset");
+      const response = await apiRequest("POST", "/api/enterprise/admin/governance/params/reset");
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/params'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/params'] });
       setShowResetConfirm(false);
       setQuorumPercentage([30]);
       setApprovalThreshold([66]);
