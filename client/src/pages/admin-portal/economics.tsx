@@ -74,36 +74,16 @@ export default function AdminEconomics() {
   });
 
   const economicMetrics = data?.metrics || {
-    inflationRate: "0.0",
-    deflationRate: "1.53",
-    netChange: "-1.53",
-    stakingRatio: "32.0",
-    velocity: "3.2",
-    giniCoefficient: "0.38",
+    inflationRate: "0",
+    deflationRate: "0",
+    netChange: "0",
+    stakingRatio: "0",
+    velocity: "0",
+    giniCoefficient: "0",
   };
-
-  const rewardDistribution = data?.rewardDistribution || [
-    { name: "Committee (Tier 1)", value: 50, color: "#3b82f6" },
-    { name: "Standby (Tier 2)", value: 30, color: "#22c55e" },
-    { name: "Delegators (Tier 3)", value: 20, color: "#f97316" },
-  ];
-
-  const inflationSchedule = data?.inflationSchedule || [
-    { year: "Year 1 (2024)", rate: "-1.80%", blockReward: "500,000 TBURN/day" },
-    { year: "Year 2-5", rate: "-1.70%", blockReward: "450,000 TBURN/day" },
-    { year: "Year 6-10", rate: "-1.55%", blockReward: "380,000 TBURN/day" },
-    { year: "Year 11-15", rate: "-1.40%", blockReward: "320,000 TBURN/day" },
-    { year: "Year 16-20", rate: "-1.30%", blockReward: "280,000 TBURN/day" },
-  ];
-
-  const supplyProjection = data?.supplyProjection || [
-    { month: "Dec 24", supply: 9650, target: 9600 },
-    { month: "Jan 25", supply: 9520, target: 9450 },
-    { month: "Feb 25", supply: 9390, target: 9300 },
-    { month: "Mar 25", supply: 9260, target: 9150 },
-    { month: "Apr 25", supply: 9130, target: 9000 },
-    { month: "May 25", supply: 9000, target: 8850 },
-  ];
+  const rewardDistribution = data?.rewardDistribution || [];
+  const inflationSchedule = data?.inflationSchedule || [];
+  const supplyProjection = data?.supplyProjection || [];
 
   useEffect(() => {
     let ws: WebSocket | null = null;

@@ -72,29 +72,9 @@ export default function AdminTokenIssuance() {
     refetchInterval: 30000,
   });
 
-  const tokens = data?.tokens || [
-    { id: 1, name: "TBURN Token", symbol: "TBURN", standard: "TBC-20", totalSupply: "10,000,000,000", circulatingSupply: "7,000,000,000", holders: 1847520, status: "active", aiEnabled: true },
-    { id: 2, name: "Staked TBURN", symbol: "stTBURN", standard: "TBC-20", totalSupply: "3,200,000,000", circulatingSupply: "3,200,000,000", holders: 524890, status: "active", aiEnabled: true },
-    { id: 3, name: "Wrapped Ethereum", symbol: "WETH", standard: "TBC-20", totalSupply: "25,420", circulatingSupply: "25,420", holders: 12845, status: "active", aiEnabled: false },
-    { id: 4, name: "USD Coin", symbol: "USDC", standard: "TBC-20", totalSupply: "125,000,000", circulatingSupply: "125,000,000", holders: 48752, status: "active", aiEnabled: false },
-    { id: 5, name: "TBURN Genesis NFT", symbol: "TGEN", standard: "TBC-721", totalSupply: "10,000", circulatingSupply: "10,000", holders: 7842, status: "active", aiEnabled: false },
-    { id: 6, name: "TBURN Liquid Staking", symbol: "lstTBURN", standard: "TBC-20", totalSupply: "850,000,000", circulatingSupply: "850,000,000", holders: 125480, status: "active", aiEnabled: true },
-  ];
-
-  const supplyStats = data?.supplyStats || [
-    { label: t("adminTokenIssuance.totalSupply"), value: "10,000,000,000", unit: "TBURN" },
-    { label: t("adminTokenIssuance.circulatingSupply"), value: "6,850,000,000", unit: "TBURN" },
-    { label: t("adminTokenIssuance.lockedSupply"), value: "3,200,000,000", unit: "TBURN" },
-    { label: t("adminTokenIssuance.burnedSupply"), value: "350,000,000", unit: "TBURN" },
-  ];
-
-  const recentActions = data?.recentActions || [
-    { id: 1, action: "Burn", token: "TBURN", amount: "2,450,000", to: "Burn Address", by: "AI System", timestamp: "2024-12-07 18:00" },
-    { id: 2, action: "Burn", token: "TBURN", amount: "1,850,000", to: "Burn Address", by: "Time-based", timestamp: "2024-12-07 12:00" },
-    { id: 3, action: "Burn", token: "TBURN", amount: "2,100,000", to: "Burn Address", by: "AI System", timestamp: "2024-12-07 06:00" },
-    { id: 4, action: "Mint", token: "stTBURN", amount: "15,000,000", to: "Staking Pool", by: "System", timestamp: "2024-12-06 00:00" },
-    { id: 5, action: "Burn", token: "TBURN", amount: "1,920,000", to: "Burn Address", by: "Volume-based", timestamp: "2024-12-06 18:00" },
-  ];
+  const tokens = data?.tokens || [];
+  const supplyStats = data?.supplyStats || [];
+  const recentActions = data?.recentActions || [];
 
   useEffect(() => {
     let ws: WebSocket | null = null;
