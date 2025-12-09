@@ -104,7 +104,7 @@ export default function AdminNetworkAnalytics() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: networkData, isLoading, error, refetch } = useQuery<NetworkAnalytics>({
-    queryKey: ["/api/admin/analytics/network"],
+    queryKey: ["/api/enterprise/admin/analytics/network"],
     refetchInterval: 10000,
   });
 

@@ -110,7 +110,7 @@ export default function AdminUserAnalytics() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: userData, isLoading, error, refetch } = useQuery<UserAnalytics>({
-    queryKey: ["/api/admin/analytics/users"],
+    queryKey: ["/api/enterprise/admin/analytics/users"],
     refetchInterval: 30000,
   });
 

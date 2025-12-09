@@ -72,20 +72,20 @@ export default function AdminReportGenerator() {
   const [pendingDeleteId, setPendingDeleteId] = useState<number | null>(null);
 
   const { data: reportData, isLoading, error, refetch } = useQuery<ReportData>({
-    queryKey: ["/api/admin/reports/templates"],
+    queryKey: ["/api/enterprise/admin/reports/templates"],
     refetchInterval: 60000,
   });
 
   const generateReportMutation = useMutation({
     mutationFn: async (data: { name: string; dateRange: string; format: string; sections: string[] }) => {
-      return apiRequest("POST", "/api/admin/reports/generate", data);
+      return apiRequest("POST", "/api/enterprise/admin/reports/generate", data);
     },
     onSuccess: () => {
       toast({
         title: t("adminReports.generateSuccess"),
         description: t("adminReports.generateSuccessDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/reports/templates"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/reports/templates"] });
     },
     onError: () => {
       toast({
@@ -98,27 +98,27 @@ export default function AdminReportGenerator() {
 
   const toggleScheduleMutation = useMutation({
     mutationFn: async (data: { id: number; status: "active" | "paused" }) => {
-      return apiRequest("PATCH", `/api/admin/reports/schedule/${data.id}`, { status: data.status });
+      return apiRequest("PATCH", `/api/enterprise/admin/reports/schedule/${data.id}`, { status: data.status });
     },
     onSuccess: () => {
       toast({
         title: t("adminReports.scheduleUpdated"),
         description: t("adminReports.scheduleUpdatedDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/reports/templates"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/reports/templates"] });
     },
   });
 
   const deleteScheduleMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest("DELETE", `/api/admin/reports/schedule/${id}`);
+      return apiRequest("DELETE", `/api/enterprise/admin/reports/schedule/${id}`);
     },
     onSuccess: () => {
       toast({
         title: t("adminReports.scheduleDeleted"),
         description: t("adminReports.scheduleDeletedDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/reports/templates"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/reports/templates"] });
     },
   });
 

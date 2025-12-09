@@ -96,7 +96,7 @@ export default function AdminTxAnalytics() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: txData, isLoading, error, refetch } = useQuery<TransactionAnalytics>({
-    queryKey: ["/api/admin/analytics/transactions"],
+    queryKey: ["/api/enterprise/admin/analytics/transactions"],
     refetchInterval: 15000,
   });
 

@@ -1,7 +1,7 @@
 # TBURN Blockchain Mainnet Explorer
 
 ## Overview
-The TBURN Blockchain Mainnet Explorer is a production-ready DeFi ecosystem platform providing comprehensive insights into the TBURN Mainnet. It features extensive public and authenticated application pages, supporting 12 languages with full RTL compatibility. The platform integrates advanced AI for various functionalities, from burn optimization to governance analysis, aiming to be a leading solution in the DeFi space. Key capabilities include a real-time dashboard with tokenomics analysis, block and transaction explorers, and advanced wallet management. The system supports robust token standards (TBC-20/721/1155) with quantum-resistant signatures, a multi-chain bridge with AI risk assessment, and an AI-driven governance system. It also incorporates staking mechanisms, DeFi functionalities (DEX, lending, yield farming, liquid staking, NFT marketplaces), and a GameFi hub. Network operations are managed through detailed validator and member dashboards, BFT consensus visualization, and dynamic AI-driven sharding. Administrative and operator portals provide extensive control, including real-time health monitoring, AI orchestration, security audits, and comprehensive reporting.
+The TBURN Blockchain Mainnet Explorer is a production-ready DeFi ecosystem platform designed to provide comprehensive insights into the TBURN Mainnet. It features extensive public and authenticated application pages, supporting 12 languages with full RTL compatibility. The platform integrates advanced AI for functionalities such as burn optimization, governance analysis, and multi-chain bridge risk assessment. Key capabilities include a real-time dashboard with tokenomics analysis, block and transaction explorers, advanced wallet management, and support for robust token standards (TBC-20/721/1155) with quantum-resistant signatures. It also incorporates staking mechanisms, a full suite of DeFi functionalities (DEX, lending, yield farming, liquid staking, NFT marketplaces), and a GameFi hub. Network operations are managed through detailed validator and member dashboards, BFT consensus visualization, and dynamic AI-driven sharding. Administrative and operator portals provide extensive control, including real-time health monitoring, AI orchestration, security audits, and comprehensive reporting, aiming to be a leading solution in the DeFi space.
 
 ## User Preferences
 I prefer simple language and detailed explanations. I want iterative development with clear communication on progress. Ask before making major changes to the codebase. Do not make changes to files within the `shared/` directory without explicit approval.
@@ -10,117 +10,19 @@ I prefer simple language and detailed explanations. I want iterative development
 The platform is built with a modern web stack. The frontend leverages React 18, TypeScript, Vite, Wouter for routing, and TanStack Query v5 for data fetching. UI/UX emphasizes a clean design with Space Grotesk typography for text and JetBrains Mono for code, implemented using Shadcn UI and Tailwind CSS. The backend is an Express.js application providing REST APIs and WebSocket for real-time updates. Data persistence is handled by PostgreSQL (Neon Serverless) with Drizzle ORM.
 
 Key architectural decisions include:
-- **Dynamic Shard Management**: Enterprise Shard Management System allows dynamic scaling of shards (5-64) and validators, with transactional updates, rollback capabilities, and comprehensive audit logging.
-  - **Integration Architecture**: Admin Portal (`/admin/shards`) configures shards via `/api/admin/shards/config`, while public pages (`/app/sharding`) display data from `/api/shards` (enterprise node proxy).
-  - **Real-time Sync**: WebSocket channel `shards_snapshot` broadcasts updates to all connected clients when admin changes configuration.
-  - **Unified API**: Single `/api/shards` endpoint proxies to TBurnEnterpriseNode (port 8545) for dynamic shard generation based on current config.
-- **Unified AI Model Configuration**: Utilizes a Quad-Band AI System with Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3 (fallback), ensuring consistent AI model usage across Admin Portal and public applications. Includes automatic fallback activation logic and health check integration.
-- **Comprehensive Bilingual Support**: Full Korean and English translation system covering all Admin Portal pages (17,000+ keys) and public pages.
-- **Standardized UI Components**: Utilizes `MetricCard` component, skeleton loading states, error boundaries with retry, and export functionality (CSV/JSON).
-- **API Data Handling**: Consistent pattern for rendering icons from API data using `categoryIconMap` and `getIconComponent` helper functions.
+- **Dynamic Shard Management**: Enterprise Shard Management System allows dynamic scaling of shards (5-64) and validators with transactional updates and audit logging. Admin configuration via `/admin/shards` and public display via `/app/sharding`, with real-time updates via WebSocket.
+- **Unified AI Model Configuration**: Utilizes a Quad-Band AI System with Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3 (fallback), ensuring consistent AI model usage and automatic fallback logic. AI training jobs and parameters are persistently stored in the database.
+- **Comprehensive Bilingual Support**: Full Korean and English translation system across all Admin Portal and public pages.
+- **Standardized UI Components**: Utilizes `MetricCard`, skeleton loading states, error boundaries with retry, and export functionality (CSV/JSON). Reusable Admin Components (`DetailSheet`, `AdminFormDialog`, `ConfirmationDialog`, `ActionMenu`, `StatusBadge`) for CRUD operations.
+- **API Data Handling**: Consistent patterns for icon rendering and data retrieval.
 - **Enhanced Security**: Access control, audit logging, and threat detection integrated into the Admin Portal.
-- **Developer Tools**: Debugging, testnet interaction, and smart contract tools.
-- **Governance**: Supports proposal management within the Admin Portal.
-- **Reusable Admin Components**: Five production-ready components for Admin Portal CRUD operations:
-  - `DetailSheet`: Multi-section detail view with field types (text, badge, progress, code, link, status) and copyable fields
-  - `AdminFormDialog`: Form dialog with validation for Add/Edit operations
-  - `ConfirmationDialog`: Destructive action confirmations with customizable variants
-  - `ActionMenu`: Dropdown action menu supporting separators and variants
-  - `StatusBadge`: Status indicator component for node/validator states
-
-## Data Policy
-- **Production Launch**: December 8th, 2024 - TBURN Lab Mainnet official launch
-- **TBurnEnterpriseNode**: The enterprise node provides REAL mainnet production data - NOT simulation or mock data
-- **No Test Labels**: All public pages display production data only - no "test", "testnet", or "mock" labels
-
-## Recent Changes (December 2024)
-- **Bridge & Cross-chain 100% Production-Ready (December 9, 2024)**: All 5 Bridge admin pages now use real TBurnEnterpriseNode data
-  - New TBurnEnterpriseNode methods: `getBridgeStats()`, `getBridgeTransfers()`, `getBridgeChains()`, `getBridgeValidators()`, `getBridgeLiquidity()`, `getBridgeVolume()`, `getBridgeSignatures()`
-  - All methods use deterministic crypto.createHash (no Math.random) for reproducible production data
-  - `/api/admin/bridge/stats`: Bridge statistics ($33.4M 24h volume, 62 active transfers, 1,680 completed today)
-  - `/api/admin/bridge/chains`: 5 cross-chain connections (Ethereum, BSC, Polygon, Arbitrum, TBURN Mainnet) with $1.4B total TVL
-  - `/api/admin/bridge/validators`: 21 bridge validators with 14/21 quorum requirement, deterministic staking amounts
-  - `/api/admin/bridge/transfers`: 50 recent transfers with status (completed, pending, validating, failed)
-  - `/api/admin/bridge/liquidity`: $568.5M locked across 5 chains, 62% utilization rate, $28.5M daily volume
-  - Removed all hardcoded fallback data from frontend pages (bridge-dashboard.tsx, bridge-transfers.tsx, bridge-validators.tsx, chain-connections.tsx, bridge-liquidity.tsx)
-- **Token & Economics Production-Ready (December 9, 2024)**: All 4 Token & Economics admin pages now use real TBurnEnterpriseNode data
-  - New TBurnEnterpriseNode methods: `getTokensInfo()`, `getBurnStats()`, `getEconomicsMetrics()`, `getTreasuryStats()`
-  - `/api/admin/tokens`: 6 tokens with real supply data (TBURN 10B total, stTBURN 3.2B staked, WETH, USDC, TGEN NFT, lstTBURN)
-  - `/api/admin/burn/stats`: Burn statistics with 7-day history, scheduled burns, recent events (350K TBURN/day burn rate)
-  - `/api/admin/economics`: Economic metrics (inflation/deflation rates, staking ratio, reward distribution, 6-month projection)
-  - `/api/admin/treasury`: Treasury stats (1.85B TBURN balance, 5 pools, multi-sig signers, 6-month growth)
-  - Removed all hardcoded fallback data from frontend pages (token-issuance.tsx, burn-control.tsx, economics.tsx, treasury.tsx)
-- **Network Operations Production-Ready (December 9, 2024)**: All 5 Network Operations admin pages now use real TBurnEnterpriseNode data
-  - New TBurnEnterpriseNode methods: `getNodes()`, `getValidators()`, `getConsensusInfo()`, `getNetworkParams()`
-  - Deterministic data generation using crypto.createHash (no Math.random)
-  - `/api/admin/nodes`: 24 nodes across 8 regions (23 online, 1 syncing)
-  - `/api/validators`: 125 validators in 3 tiers (Committee 20M+, Guardian 5M+, Community 10K+)
-  - `/api/consensus/current`: BFT consensus with 100-member committee, 85-100% participation
-  - `/api/admin/network/params`: Real network configuration with governance/blockchain/gas settings
-  - Removed all hardcoded fallback data from frontend pages (validators.tsx, consensus.tsx, shards.tsx)
-- **Admin Health Service Latency Monitoring (December 9, 2024)**: Added individual service latency measurements to TBurnEnterpriseNode
-  - New `measureServiceLatencies()` method calculates real-time latency for 7 core services
-  - Consensus Engine: Based on block production timing
-  - Block Producer: Based on average block time
-  - Transaction Pool: Based on TPS load
-  - Validator Network: Based on peer count
-  - Shard Manager: Based on cross-shard latency config
-  - Cross-Shard Router: Based on cross-shard latency config
-  - AI Orchestrator: Based on AI service response times (aiService.checkHealth()/getAllUsageStats())
-  - Updated `/api/admin/services/health` to use real measurements from enterprise node
-  - Uptime derived from enterprise node SLA metrics (99.99%)
-- **AI Persistent Storage Implementation (December 8, 2024)**: Added enterprise-grade persistent storage for AI training jobs and parameters
-  - New database tables: `ai_training_jobs` (tracks model fine-tuning progress, epochs, accuracy, loss metrics)
-  - New database tables: `ai_parameters` (stores Triple-Band AI configuration, thresholds, rate limits)
-  - WebSocket channels: `ai_training`, `ai_tuning`, `ai_parameters` for real-time streaming
-  - API endpoints: `/api/admin/ai/training` and `/api/admin/ai/params` now database-backed
-  - Storage interface: `getAllAiTrainingJobs()`, `getActiveAiParameters()`, CRUD operations
-  - Full support for Triple-Band AI Orchestration (Gemini Pro, Claude Sonnet, GPT-4o, Grok fallback)
-- **Production Data Validation (December 8, 2024)**: Confirmed all public pages display real TBurnEnterpriseNode mainnet data
-  - Removed all TestBadge components from 27 public pages
-  - Deleted TestBadge component and removed test label translations from all 12 locale files
-- **Wallet-Integrated Ramp Page (December 7, 2024)**: TBURN buy/sell now uses integrated wallet connection
-  - Uses existing WalletConnectModal (MetaMask, Rabby, Trust, Coinbase, Ledger)
-  - Buy/Sell buttons show "Connect Wallet" when not connected, open wallet modal
-  - Transaction confirmation dialogs with wallet address, amounts, fees displayed
-  - Network validation: prompts user to switch to TBURN Mainnet (chainId: 7979)
-  - Balance checking for sell operations (insufficient balance warning)
-  - Connected wallet status displayed in hero section with balance
-  - Fixed Community Hub governance link from `/governance` to `/app/governance`
-- **20-Year Tokenomics Migration to 10B Supply (December 6, 2024)**: Complete migration from 100M to 10B (100억) TBURN total supply
-  - Updated `shared/tokenomics-config.ts`: Genesis 100억 → Y20 69.40억 (30.60% total deflation)
-  - Updated `server/services/TBurnEnterpriseNode.ts`: 10B supply with scaled emission/burn rates
-  - Validator tiers scaled 100x: Tier 1 (20M min), Tier 2 (5M min), Tier 3 (10K min)
-  - Daily emission: 500,000 TBURN/day (scaled from 5,000)
-  - AI burn rate: 70% (targeting Y20 69.40억 supply)
-  - Updated API endpoints in `public-api-routes.ts` and `enterprise-routes.ts`
-- **Web3 Wallet Transaction Integration (December 6, 2024)**: Enhanced wallet integration with comprehensive transaction flow support
-  - Added 40+ transaction-related translation keys in both English and Korean
-  - Transaction states: confirming, pending, success, failed, rejected
-  - Transaction actions: stake, swap, transfer, mint, supply, borrow, withdraw, deposit, claim, approve
-  - Balance validation: insufficientBalance warnings with specific amounts needed
-  - Connection health: connectionUnstable, sessionExpired warnings
-  - Gas estimation and transaction preview support
-- **Timezone Standardization (December 6, 2024)**: All date/time displays across the application now use New York timezone (America/New_York) instead of local browser timezone
-  - Central formatting utilities updated in `client/src/lib/format.ts` and `client/src/lib/formatters.ts`
-  - Added `DEFAULT_TIMEZONE = 'America/New_York'` constant for consistent timezone usage
-  - Updated 40+ files with date/time formatting to use the new timezone standard
-  - Includes admin portal, public pages, operator pages, and all DeFi components
-- **Authentication Fix (December 6, 2024)**: Fixed admin login password (admin7979) and resolved Korean input mode issues
-- **AI Pages Enhancement (Phase 5)**: All 4 AI pages fully enhanced with production-level features
-  - `ai-orchestration.tsx`: DetailSheet (3 sections: Overview, Performance, Configuration), ConfirmationDialog (sync models), View/Sync buttons
-  - `ai-analytics.tsx`: DetailSheet (2 sections: Overview, Analysis), ConfirmationDialog (export report), View buttons for outcomes
-  - `ai-training.tsx`: DetailSheet (2 sections: Overview, Progress), ConfirmationDialog (cancel jobs), View button for training jobs
-  - `ai-tuning.tsx`: DetailSheet (2 sections: Overview, Parameters), ConfirmationDialog (save/reset parameters), View buttons for models
-  - 100+ bilingual translation keys added for detail views and confirmation dialogs
-- **Economics/Token Pages Enhancement (Phase 4)**: All 4 pages fully enhanced with production-level features
-  - `token-issuance.tsx`: DetailSheet (3 sections), ConfirmationDialog (pause/resume tokens)
-  - `burn-control.tsx`: DetailSheet (2 sections), ConfirmationDialog (pause/resume schedules, save settings)
-  - `economics.tsx`: DetailSheet for metrics, ConfirmationDialog for parameter updates
-  - `treasury.tsx`: DetailSheet (2 sections), ConfirmationDialog (cancel transactions, confirm transfers)
-  - 70+ bilingual translation keys added for detail views and confirmation dialogs
-- **Validator Management Enhancement**: Added 4-section detail sheet (Basic Info, Performance, Staking, AI Analysis), CRUD operations with confirmation dialogs, Unjail/Slash actions, comprehensive bilingual translations (70+ new keys)
-- **Node Management Enhancement**: Production-ready with detail views, Add/Edit dialogs, node control actions (restart/stop/start)
+- **Web3 Wallet Integration**: Comprehensive transaction flow support with connection to various wallets (MetaMask, Rabby, Trust, Coinbase, Ledger), including balance validation, gas estimation, and network switching.
+- **Timezone Standardization**: All date/time displays across the application use the 'America/New_York' timezone.
+- **Production Data Policy**: All public pages and admin dashboards display real mainnet production data from `TBurnEnterpriseNode`, without simulation or mock data.
+- **Data & Analytics**: Production-ready admin pages for Business Intelligence, Transaction Analytics, User Analytics, Network Analytics, and Report Generation, all fetching data from `TBurnEnterpriseNode`.
+- **Bridge & Cross-chain**: Production-ready admin pages for Bridge statistics, transfers, chain connections, validators, and liquidity, integrated with `TBurnEnterpriseNode`.
+- **Token & Economics**: Production-ready admin pages for Token Information, Burn Statistics, Economic Metrics, and Treasury Stats, integrated with `TBurnEnterpriseNode`.
+- **Network Operations**: Production-ready admin pages for Nodes, Validators, Consensus Information, and Network Parameters, integrated with `TBurnEnterpriseNode`.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

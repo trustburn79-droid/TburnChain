@@ -2190,4 +2190,144 @@ router.post('/admin/compliance/assessment', async (req: Request, res: Response) 
   }
 });
 
+// ============================================
+// Data & Analytics API Routes
+// ============================================
+
+router.get('/admin/bi/metrics', async (req: Request, res: Response) => {
+  try {
+    const timeRange = (req.query.timeRange as string) || '30d';
+    const node = getEnterpriseNode();
+    const data = node.getBIMetrics(timeRange);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch BI metrics',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/analytics/transactions', async (req: Request, res: Response) => {
+  try {
+    const node = getEnterpriseNode();
+    const data = node.getTxAnalytics();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch transaction analytics',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/analytics/users', async (req: Request, res: Response) => {
+  try {
+    const node = getEnterpriseNode();
+    const data = node.getUserAnalytics();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch user analytics',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/analytics/network', async (req: Request, res: Response) => {
+  try {
+    const node = getEnterpriseNode();
+    const data = node.getNetworkAnalytics();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch network analytics',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/reports/templates', async (req: Request, res: Response) => {
+  try {
+    const node = getEnterpriseNode();
+    const data = node.getReportTemplates();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch report templates',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/reports/generate', async (req: Request, res: Response) => {
+  try {
+    const { name, dateRange, format, sections } = req.body;
+    res.json({
+      success: true,
+      data: {
+        reportId: `report_${Date.now()}`,
+        name: name || 'Custom Report',
+        status: 'generating',
+        estimatedTime: '2 minutes',
+        format: format || 'pdf',
+        sections: sections || [],
+        startedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to generate report',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/reports/schedule/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    res.json({
+      success: true,
+      data: {
+        id: parseInt(id),
+        status: status || 'active',
+        updatedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update schedule',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/reports/schedule/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    res.json({
+      success: true,
+      data: {
+        id: parseInt(id),
+        deleted: true,
+        deletedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete schedule',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;

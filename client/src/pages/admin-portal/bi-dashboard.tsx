@@ -104,7 +104,7 @@ export default function AdminBIDashboard() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: biData, isLoading, error, refetch } = useQuery<BIMetrics>({
-    queryKey: ["/api/admin/bi/metrics", timeRange],
+    queryKey: ["/api/enterprise/admin/bi/metrics", timeRange],
     refetchInterval: 30000,
   });
 
