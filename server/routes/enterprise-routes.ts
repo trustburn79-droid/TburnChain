@@ -3727,4 +3727,76 @@ router.get('/admin/sla', async (req: Request, res: Response) => {
   }
 });
 
+// ===== FINANCE & ACCOUNTING ROUTES =====
+
+router.get('/admin/finance', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getFinanceOverview();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch finance overview',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/tx-accounting', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getTransactionAccounting();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch transaction accounting',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/budget', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getBudgetManagement();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch budget management data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/cost-analysis', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getCostAnalysis();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch cost analysis',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/tax', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getTaxCompliance();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch tax compliance data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;
