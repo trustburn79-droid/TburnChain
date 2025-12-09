@@ -907,7 +907,7 @@ export default function Blocks() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="all">{t('blocks.allValidators')}</SelectItem>
-                          {validators.slice(0, 20).map(v => (
+                          {(Array.isArray(validators) ? validators : []).slice(0, 20).map(v => (
                             <SelectItem key={v.id} value={v.address}>{v.name}</SelectItem>
                           ))}
                         </SelectContent>
