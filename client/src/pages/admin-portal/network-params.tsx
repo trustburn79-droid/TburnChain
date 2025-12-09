@@ -73,9 +73,10 @@ interface NetworkParamsResponse {
     param: string;
     oldValue: string;
     newValue: string;
-    changedBy: string;
+    changedByKey: string;
+    changedByValue: string;
     date: string;
-    reason: string;
+    reasonKey: string;
   }>;
 }
 
@@ -179,10 +180,10 @@ export default function AdminNetworkParams() {
   }, [paramsData]);
 
   const changeHistory = useMemo(() => paramsData?.changeHistory || [
-    { id: 1, param: "Committee Size", oldValue: "100", newValue: "110", changedBy: "Governance", date: "2024-12-07", reason: "Mainnet launch preparation" },
-    { id: 2, param: "Gas Base Price", oldValue: "15 EMB", newValue: "10 EMB", changedBy: "AI System", date: "2024-12-06", reason: "Cost optimization" },
-    { id: 3, param: "Burn Rate", oldValue: "0.6%", newValue: "0.7%", changedBy: "Governance", date: "2024-12-05", reason: "Y20 deflation target 30.6%" },
-    { id: 4, param: "Max TPS per Shard", oldValue: "8000", newValue: "10000", changedBy: "Admin", date: "2024-12-03", reason: "Performance upgrade" },
+    { id: 1, param: "committee.defaultSize", oldValue: "100", newValue: "110", changedByKey: "governanceProposal", changedByValue: "", date: "2024-12-07", reasonKey: "mainnetLaunchPreparation" },
+    { id: 2, param: "gas.baseGas", oldValue: "15 EMB", newValue: "10 EMB", changedByKey: "aiOptimizationEngine", changedByValue: "", date: "2024-12-06", reasonKey: "costOptimization" },
+    { id: 3, param: "burn.txBurnRate", oldValue: "0.6%", newValue: "0.7%", changedByKey: "governanceProposal", changedByValue: "", date: "2024-12-05", reasonKey: "y20DeflationTarget" },
+    { id: 4, param: "blockchain.maxTxPerBlock", oldValue: "8000", newValue: "10000", changedByKey: "admin", changedByValue: "", date: "2024-12-03", reasonKey: "performanceUpgrade" },
   ], [paramsData]);
 
   const [blockchainParams, setBlockchainParams] = useState(defaultBlockchain);
@@ -971,8 +972,8 @@ export default function AdminNetworkParams() {
                               <span className="text-green-500" data-testid={`text-history-new-${change.id}`}>{change.newValue}</span>
                             </p>
                             <div className="flex items-center gap-4 mt-2 text-sm flex-wrap">
-                              <span>{t("adminNetworkParams.by")}: <span data-testid={`text-history-by-${change.id}`}>{change.changedBy}</span></span>
-                              <span className="text-muted-foreground" data-testid={`text-history-reason-${change.id}`}>{change.reason}</span>
+                              <span>{t("adminNetworkParams.by")}: <span data-testid={`text-history-by-${change.id}`}>{t(`adminNetworkParams.changedByTypes.${change.changedByKey}`)}{change.changedByValue ? ` ${change.changedByValue}` : ''}</span></span>
+                              <span className="text-muted-foreground" data-testid={`text-history-reason-${change.id}`}>{t(`adminNetworkParams.reasons.${change.reasonKey}`)}</span>
                             </div>
                           </div>
                           <Tooltip>

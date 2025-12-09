@@ -17445,6 +17445,20 @@
     "resetSuccessDesc": "Network parameters reset to defaults",
     "exportSuccess": "Export Complete",
     "exportSuccessDesc": "Network parameters exported successfully",
+    "changedByTypes": {
+      "governanceProposal": "Governance Proposal",
+      "aiOptimizationEngine": "AI Optimization Engine",
+      "admin": "Admin"
+    },
+    "reasons": {
+      "improvedNetworkThroughput": "Improved network throughput",
+      "targetY20Supply": "Target Y20 supply of 69.4B",
+      "increasedDecentralization": "Increased decentralization",
+      "mainnetLaunchPreparation": "Mainnet launch preparation",
+      "costOptimization": "Cost optimization",
+      "y20DeflationTarget": "Y20 deflation target 30.6%",
+      "performanceUpgrade": "Performance upgrade"
+    },
     "error": {
       "title": "Failed to Load Parameters",
       "description": "Unable to fetch network parameters. Please try again."

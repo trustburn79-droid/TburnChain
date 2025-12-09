@@ -18123,6 +18123,20 @@
     "resetSuccessDesc": "네트워크 파라미터가 기본값으로 초기화되었습니다",
     "exportSuccess": "내보내기 완료",
     "exportSuccessDesc": "네트워크 파라미터를 성공적으로 내보냈습니다",
+    "changedByTypes": {
+      "governanceProposal": "거버넌스 제안",
+      "aiOptimizationEngine": "AI 최적화 엔진",
+      "admin": "관리자"
+    },
+    "reasons": {
+      "improvedNetworkThroughput": "네트워크 처리량 향상",
+      "targetY20Supply": "Y20 목표 공급량 694억",
+      "increasedDecentralization": "탈중앙화 강화",
+      "mainnetLaunchPreparation": "메인넷 런칭 준비",
+      "costOptimization": "비용 최적화",
+      "y20DeflationTarget": "Y20 디플레이션 목표 30.6%",
+      "performanceUpgrade": "성능 업그레이드"
+    },
     "error": {
       "title": "파라미터 로드 실패",
       "description": "네트워크 파라미터를 가져올 수 없습니다. 다시 시도해 주세요."

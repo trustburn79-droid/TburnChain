@@ -3470,7 +3470,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     gas: { baseGas: number; minGas: number; maxGas: number; congestionMultiplier: number; eip1559: boolean; aiOptimization: boolean };
     burn: { txBurnRate: number; timeBurnRate: number; volumeBurnRate: number; aiOptimized: boolean };
     governance: { minStake: number; quorum: number; approvalThreshold: number; votingPeriod: number; executionDelay: number };
-    changeHistory: Array<{ id: number; param: string; oldValue: string; newValue: string; changedBy: string; date: string; reason: string }>;
+    changeHistory: Array<{ id: number; param: string; oldValue: string; newValue: string; changedByKey: string; changedByValue: string; date: string; reasonKey: string }>;
   } {
     const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
     
@@ -3515,27 +3515,30 @@ export class TBurnEnterpriseNode extends EventEmitter {
           param: 'blockchain.blockTime',
           oldValue: '1000',
           newValue: '500',
-          changedBy: 'Governance Proposal TIP-001',
+          changedByKey: 'governanceProposal',
+          changedByValue: 'TIP-001',
           date: '2024-12-01',
-          reason: 'Improved network throughput'
+          reasonKey: 'improvedNetworkThroughput'
         },
         {
           id: 2,
           param: 'burn.txBurnRate',
           oldValue: '50%',
           newValue: '70%',
-          changedBy: 'AI Optimization Engine',
+          changedByKey: 'aiOptimizationEngine',
+          changedByValue: '',
           date: '2024-12-05',
-          reason: 'Target Y20 supply of 69.4B'
+          reasonKey: 'targetY20Supply'
         },
         {
           id: 3,
           param: 'committee.defaultSize',
           oldValue: '100',
           newValue: '110',
-          changedBy: 'Governance Proposal TIP-003',
+          changedByKey: 'governanceProposal',
+          changedByValue: 'TIP-003',
           date: '2024-12-08',
-          reason: 'Increased decentralization'
+          reasonKey: 'increasedDecentralization'
         }
       ]
     };
