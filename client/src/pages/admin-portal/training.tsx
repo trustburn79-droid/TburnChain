@@ -87,15 +87,15 @@ export default function TrainingMaterials() {
   const [activeTab, setActiveTab] = useState("courses");
 
   const { data: trainingData, isLoading, error, refetch } = useQuery<TrainingData>({
-    queryKey: ["/api/admin/training"],
+    queryKey: ["/api/enterprise/admin/training"],
   });
 
   const enrollMutation = useMutation({
     mutationFn: async (courseId: string) => {
-      return apiRequest("POST", `/api/admin/training/courses/${courseId}/enroll`);
+      return apiRequest("POST", `/api/enterprise/admin/training/courses/${courseId}/enroll`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/training"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/training"] });
       toast({
         title: t("adminTraining.enrolled"),
         description: t("adminTraining.enrolledDesc"),
@@ -112,10 +112,10 @@ export default function TrainingMaterials() {
 
   const completeMutation = useMutation({
     mutationFn: async ({ courseId, moduleId }: { courseId: string; moduleId: string }) => {
-      return apiRequest("POST", `/api/admin/training/courses/${courseId}/modules/${moduleId}/complete`);
+      return apiRequest("POST", `/api/enterprise/admin/training/courses/${courseId}/modules/${moduleId}/complete`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/training"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/training"] });
       toast({
         title: t("adminTraining.moduleCompleted"),
         description: t("adminTraining.moduleCompletedDesc"),

@@ -77,7 +77,7 @@ export default function SupportTickets() {
   const wsRef = useRef<WebSocket | null>(null);
 
   const { data: ticketData, isLoading, error, refetch } = useQuery<TicketData>({
-    queryKey: ["/api/admin/tickets"],
+    queryKey: ["/api/enterprise/admin/tickets"],
   });
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function SupportTickets() {
       wsRef.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.type === "ticket_update") {
-          queryClient.invalidateQueries({ queryKey: ["/api/admin/tickets"] });
+          queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/tickets"] });
         }
       };
     } catch (err) {
@@ -103,10 +103,10 @@ export default function SupportTickets() {
 
   const createTicketMutation = useMutation({
     mutationFn: async (ticket: { title: string; category: string; priority: string; description: string }) => {
-      return apiRequest("POST", "/api/admin/tickets", ticket);
+      return apiRequest("POST", "/api/enterprise/admin/tickets", ticket);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/tickets"] });
       setIsCreateDialogOpen(false);
       toast({
         title: t("adminTickets.ticketCreated"),
@@ -124,10 +124,10 @@ export default function SupportTickets() {
 
   const updateTicketMutation = useMutation({
     mutationFn: async ({ ticketId, status }: { ticketId: string; status: string }) => {
-      return apiRequest("PATCH", `/api/admin/tickets/${ticketId}`, { status });
+      return apiRequest("PATCH", `/api/enterprise/admin/tickets/${ticketId}`, { status });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/tickets"] });
       toast({
         title: t("adminTickets.ticketUpdated"),
         description: t("adminTickets.ticketUpdatedDesc"),
@@ -137,10 +137,10 @@ export default function SupportTickets() {
 
   const closeTicketMutation = useMutation({
     mutationFn: async (ticketId: string) => {
-      return apiRequest("POST", `/api/admin/tickets/${ticketId}/close`);
+      return apiRequest("POST", `/api/enterprise/admin/tickets/${ticketId}/close`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/tickets"] });
       toast({
         title: t("adminTickets.ticketClosed"),
         description: t("adminTickets.ticketClosedDesc"),

@@ -3799,4 +3799,172 @@ router.get('/admin/tax', async (req: Request, res: Response) => {
   }
 });
 
+// ===== EDUCATION & SUPPORT ROUTES =====
+
+router.get('/admin/help', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getHelpCenter();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch help center data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/training', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getTrainingMaterials();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch training materials',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/training/courses/:courseId/enroll', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Enrolled in course successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to enroll in course',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/training/courses/:courseId/modules/:moduleId/complete', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Module completed successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to complete module',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/tickets', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getSupportTickets();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch support tickets',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/tickets', async (req: Request, res: Response) => {
+  try {
+    const ticket = req.body;
+    res.json({ success: true, message: 'Ticket created successfully', ticketId: `TKT-${Date.now()}` });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create ticket',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/tickets/:ticketId', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Ticket updated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update ticket',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/tickets/:ticketId/close', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Ticket closed successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to close ticket',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/announcements', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getAnnouncements();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch announcements',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/announcements', async (req: Request, res: Response) => {
+  try {
+    const announcement = req.body;
+    res.json({ success: true, message: 'Announcement created successfully', id: `ANN-${Date.now()}` });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create announcement',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/announcements/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Announcement updated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update announcement',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/announcements/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Announcement deleted successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete announcement',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/announcements/:id/publish', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Announcement published successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to publish announcement',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;

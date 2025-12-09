@@ -80,15 +80,15 @@ export default function AnnouncementsManagement() {
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: announcementData, isLoading, error, refetch } = useQuery<AnnouncementData>({
-    queryKey: ["/api/admin/announcements"],
+    queryKey: ["/api/enterprise/admin/announcements"],
   });
 
   const createMutation = useMutation({
     mutationFn: async (announcement: typeof newAnnouncement) => {
-      return apiRequest("POST", "/api/admin/announcements", announcement);
+      return apiRequest("POST", "/api/enterprise/admin/announcements", announcement);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/announcements"] });
       setIsCreateDialogOpen(false);
       setNewAnnouncement({ title: "", content: "", type: "info", audience: "all", pinned: false, sendEmail: false, scheduledFor: "" });
       toast({
@@ -107,10 +107,10 @@ export default function AnnouncementsManagement() {
 
   const publishMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest("POST", `/api/admin/announcements/${id}/publish`);
+      return apiRequest("POST", `/api/enterprise/admin/announcements/${id}/publish`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/announcements"] });
       toast({
         title: t("adminAnnouncements.published"),
         description: t("adminAnnouncements.publishedDesc"),
@@ -120,10 +120,10 @@ export default function AnnouncementsManagement() {
 
   const archiveMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest("POST", `/api/admin/announcements/${id}/archive`);
+      return apiRequest("POST", `/api/enterprise/admin/announcements/${id}/archive`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/announcements"] });
       toast({
         title: t("adminAnnouncements.archived"),
         description: t("adminAnnouncements.archivedDesc"),
@@ -133,10 +133,10 @@ export default function AnnouncementsManagement() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest("DELETE", `/api/admin/announcements/${id}`);
+      return apiRequest("DELETE", `/api/enterprise/admin/announcements/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/announcements"] });
       toast({
         title: t("adminAnnouncements.deleted"),
         description: t("adminAnnouncements.deletedDesc"),
@@ -146,10 +146,10 @@ export default function AnnouncementsManagement() {
 
   const togglePinMutation = useMutation({
     mutationFn: async ({ id, pinned }: { id: string; pinned: boolean }) => {
-      return apiRequest("PATCH", `/api/admin/announcements/${id}`, { pinned });
+      return apiRequest("PATCH", `/api/enterprise/admin/announcements/${id}`, { pinned });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/announcements"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/announcements"] });
       toast({
         title: t("adminAnnouncements.updated"),
         description: t("adminAnnouncements.updatedDesc"),

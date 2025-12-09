@@ -81,7 +81,7 @@ export default function HelpCenter() {
   const [activeTab, setActiveTab] = useState("articles");
 
   const { data: helpData, isLoading, error, refetch } = useQuery<HelpData>({
-    queryKey: ["/api/admin/help"],
+    queryKey: ["/api/enterprise/admin/help"],
   });
 
   const handleRefresh = useCallback(() => {
