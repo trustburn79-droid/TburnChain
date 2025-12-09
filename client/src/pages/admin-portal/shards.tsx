@@ -237,13 +237,8 @@ export default function AdminShards() {
     },
   });
 
-  const shards: Shard[] = useMemo(() => shardingData?.shards || [
-    { id: 0, name: "Beacon Shard", validators: 25, tps: 10245, load: 68, pendingTx: 2145, crossShardTx: 523, status: "healthy", rebalanceScore: 95 },
-    { id: 1, name: "Shard Alpha", validators: 22, tps: 10128, load: 72, pendingTx: 2389, crossShardTx: 645, status: "healthy", rebalanceScore: 92 },
-    { id: 2, name: "Shard Beta", validators: 21, tps: 10312, load: 65, pendingTx: 1934, crossShardTx: 531, status: "healthy", rebalanceScore: 96 },
-    { id: 3, name: "Shard Gamma", validators: 22, tps: 9876, load: 78, pendingTx: 3256, crossShardTx: 867, status: "warning", rebalanceScore: 78 },
-    { id: 4, name: "Shard Delta", validators: 20, tps: 10456, load: 62, pendingTx: 1698, crossShardTx: 428, status: "healthy", rebalanceScore: 97 },
-  ], [shardingData]);
+  // Use only API data - no hardcoded fallback for production
+  const shards: Shard[] = useMemo(() => shardingData?.shards || [], [shardingData]);
 
   const stats: ShardingStats = useMemo(() => shardingData?.stats || {
     totalShards: shards.length,

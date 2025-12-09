@@ -109,35 +109,26 @@ export default function AdminConsensus() {
     refetchInterval: 2000,
   });
 
+  // Use API data with minimal default values for loading state
   const currentRound = useMemo(() => consensusData?.currentRound || {
-    roundNumber: 22156842,
-    phase: "commit" as const,
-    proposer: "0x1234...5678",
-    votesReceived: 98,
-    votesRequired: 74,
-    startTime: new Date(Date.now() - 189),
-    committee: Array.from({ length: 110 }, (_, i) => ({
-      address: `0x${i.toString(16).padStart(4, '0')}...${(i + 1).toString(16).padStart(4, '0')}`,
-      votingPower: Math.floor(Math.random() * 2000000) + 20000000,
-      voted: Math.random() > 0.08,
-      vote: (Math.random() > 0.02 ? "approve" : "reject") as "approve" | "reject",
-    })),
+    roundNumber: 0,
+    phase: "propose" as const,
+    proposer: "",
+    votesReceived: 0,
+    votesRequired: 0,
+    startTime: new Date(),
+    committee: []
   }, [consensusData]);
 
-  const consensusHistory = useMemo(() => consensusData?.history || Array.from({ length: 30 }, (_, i) => ({
-    round: 22156812 + i,
-    blockTime: Math.floor(Math.random() * 50) + 475,
-    votes: Math.floor(Math.random() * 15) + 95,
-    finality: Math.floor(Math.random() * 200) + 1800,
-  })), [consensusData]);
+  const consensusHistory = useMemo(() => consensusData?.history || [], [consensusData]);
 
   const stats = useMemo(() => consensusData?.stats || {
-    avgBlockTime: 0.5,
-    avgFinality: 1.8,
-    consensusRate: 99.95,
-    participationRate: 94.2,
-    committeeSize: 110,
-    aiOptimization: "active",
+    avgBlockTime: 0,
+    avgFinality: 0,
+    consensusRate: 0,
+    participationRate: 0,
+    committeeSize: 0,
+    aiOptimization: "inactive"
   }, [consensusData]);
 
   useEffect(() => {

@@ -3391,9 +3391,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/validators", async (_req, res) => {
     try {
-      // Always use local database validators (we have simulation generating them)
-      const validators = await storage.getAllValidators();
-      res.json(validators);
+      // Use TBurnEnterpriseNode for real validator data (no Math.random)
+      const enterpriseNode = getEnterpriseNode();
+      const validators = enterpriseNode.getValidators();
+      
+      const active = validators.filter(v => v.status === 'active').length;
+      const inactive = validators.filter(v => v.status === 'inactive').length;
+      const jailed = validators.filter(v => v.status === 'jailed').length;
+      const totalStake = validators.reduce((sum, v) => sum + Number(v.stake), 0);
+      const totalDelegators = validators.reduce((sum, v) => sum + v.delegators, 0);
+      
+      res.json({
+        validators,
+        total: validators.length,
+        active,
+        inactive,
+        jailed,
+        totalStake,
+        totalDelegators
+      });
     } catch (error) {
       console.error("Error fetching validators:", error);
       res.status(500).json({ error: "Failed to fetch validators" });
@@ -6695,75 +6711,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get("/api/admin/nodes", async (_req, res) => {
     try {
-      // Fetch current block height from Enterprise Node for accurate sync status
-      // Use cached value if fetched within last 5 seconds
-      const now = Date.now();
-      let currentBlockHeight = cachedBlockHeight.value || 0;
-      
-      if (now - cachedBlockHeight.timestamp > 5000) {
-        try {
-          const healthResponse = await fetch('http://localhost:8545/api/node/health');
-          if (healthResponse.ok) {
-            const health = await healthResponse.json();
-            currentBlockHeight = health.blockHeight || 0;
-            cachedBlockHeight = { value: currentBlockHeight, timestamp: now };
-          } else {
-            console.log('[Admin Nodes] Health endpoint returned non-OK status, using cached/default block height');
-          }
-        } catch (e) {
-          console.log('[Admin Nodes] Failed to fetch block height from Enterprise Node:', (e as Error).message);
-        }
-      }
-      
-      // If still no block height, try to get from network stats
-      if (currentBlockHeight === 0) {
-        const dbStats = await storage.getNetworkStats();
-        currentBlockHeight = dbStats?.currentBlockHeight || 21200000 + Math.floor(Date.now() / 3000);
-      }
-      
-      const types = ['validator', 'full', 'archive', 'light'] as const;
-      // Production environment: 96% online (23/24), 1 syncing, 0 offline - enterprise-grade uptime
-      const regions = ['US-East', 'EU-West', 'AP-East', 'US-West', 'EU-Central', 'AP-South', 'AP-Southeast', 'EU-North'] as const;
-      const nodeNames = [
-        'TBURN Genesis Validator', 'EU Primary Validator', 'APAC Primary Validator', 
-        'US-West Validator', 'Singapore Hub', 'Frankfurt Archive', 
-        'Tokyo Full Node', 'Sydney Light Node', 'London Validator',
-        'New York Archive', 'Seoul Full Node', 'Mumbai Light Node',
-        'Paris Validator', 'Toronto Full Node', 'Dubai Archive',
-        'Hong Kong Validator', 'Amsterdam Full Node', 'Osaka Light Node',
-        'Chicago Validator', 'Berlin Archive', 'Bangkok Full Node',
-        'Melbourne Validator', 'Stockholm Light Node', 'São Paulo Node'
-      ];
-      
-      const nodes = Array.from({ length: 24 }, (_, i) => {
-        // Production: 23 online, 1 syncing (brief maintenance window)
-        const status = i === 23 ? 'syncing' : 'online';
-        const typeIndex = i < 12 ? 0 : (i < 18 ? 1 : (i < 22 ? 2 : 3)); // More validators
-        
-        return {
-          id: `node-${String(i + 1).padStart(2, '0')}`,
-          name: nodeNames[i] || `TBURN Node ${i + 1}`,
-          type: types[typeIndex],
-          status,
-          ip: `10.${Math.floor(i / 8) + 1}.${(i % 8) + 1}.${100 + i}`,
-          region: regions[i % 8],
-          version: 'v2.1.0', // All nodes on latest production version
-          blockHeight: status === 'syncing' ? currentBlockHeight - 3 : currentBlockHeight,
-          peers: 120 + Math.floor(Math.random() * 30), // 120-150 peers (enterprise connectivity)
-          uptime: 99.95 + Math.random() * 0.05, // 99.95-100% uptime (enterprise SLA)
-          cpu: 2 + Math.random() * 8, // 2-10% CPU (optimized workload)
-          memory: 15 + Math.random() * 10, // 15-25% memory (efficient utilization)
-          disk: 25 + Math.random() * 15, // 25-40% disk (ample headroom)
-          latency: 1 + Math.floor(Math.random() * 5), // 1-6ms latency (ultra-low)
-          lastSeen: new Date(Date.now() - Math.random() * 5000).toISOString() // Within 5 seconds
-        };
-      });
+      // Use TBurnEnterpriseNode for real node data (no Math.random)
+      const enterpriseNode = getEnterpriseNode();
+      const nodes = enterpriseNode.getNodes();
       
       const online = nodes.filter(n => n.status === 'online').length;
       const offline = nodes.filter(n => n.status === 'offline').length;
       const syncing = nodes.filter(n => n.status === 'syncing').length;
+      
       res.json({ nodes, total: nodes.length, online, offline, syncing });
     } catch (error) {
+      console.error('[Admin Nodes] Failed to fetch nodes:', error);
       res.status(500).json({ error: "Failed to fetch nodes" });
     }
   });
@@ -7034,33 +6992,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Network Parameters
+  // Network Parameters - uses TBurnEnterpriseNode for real configuration
   app.get("/api/admin/network/params", async (_req, res) => {
     try {
+      // Use TBurnEnterpriseNode for real network parameters (no hardcoded values)
+      const enterpriseNode = getEnterpriseNode();
+      const params = enterpriseNode.getNetworkParams();
+      
       res.json({
-        params: {
-          blockTime: 2000,
-          maxBlockSize: 5242880,
-          maxTransactionsPerBlock: 10000,
-          minGasPrice: "1000000000",
-          maxGasLimit: 30000000,
-          epochLength: 100,
-          stakingMinimum: "1000000000000000000000",
-          slashingPenalty: 0.05,
-          rewardRate: 0.08,
-          inflationRate: 0.02,
-          deflationRate: 0.01,
-          burnRate: 0.005,
-          validatorMinStake: "10000000000000000000000",
-          delegatorMinStake: "100000000000000000000",
-          unbondingPeriod: 604800,
-          maxValidators: 100,
-          targetBlockTime: 2000,
-          consensusTimeout: 30000
-        },
+        ...params,
         lastUpdated: new Date().toISOString()
       });
     } catch (error) {
+      console.error('[Admin Network Params] Failed to fetch:', error);
       res.status(500).json({ error: "Failed to fetch network parameters" });
     }
   });
@@ -7992,59 +7936,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // Validators list for admin management
+  // Validators list for admin management - uses TBurnEnterpriseNode
   app.get("/api/admin/validators", async (_req, res) => {
     try {
-      // Try to get validators from database
-      const validators = await storage.getValidators?.() || [];
+      // Use TBurnEnterpriseNode for real validator data (no Math.random)
+      const enterpriseNode = getEnterpriseNode();
+      const validators = enterpriseNode.getValidators();
       
-      if (validators.length > 0) {
-        res.json({
-          validators: validators.slice(0, 50).map(v => ({
-            id: v.id,
-            address: v.address,
-            name: v.name,
-            status: v.status,
-            stake: v.stake,
-            votingPower: v.votingPower || (v.stake ? Number(v.stake) / 1000000 : 0),
-            uptime: v.uptime || 99.9,
-            blocksProposed: v.blocksProposed || Math.floor(Math.random() * 10000),
-            blocksValidated: v.blocksValidated || Math.floor(Math.random() * 100000),
-            commission: v.commission || 5,
-            delegators: v.delegators || Math.floor(Math.random() * 1000),
-            lastActive: v.lastActive || new Date().toISOString(),
-            region: v.region || "Global"
-          })),
-          total: validators.length,
-          active: validators.filter(v => v.status === "active").length,
-          inactive: validators.filter(v => v.status !== "active").length
-        });
-      } else {
-        // Fallback to enterprise node generated validators
-        const mockValidators = Array.from({ length: 50 }, (_, i) => ({
-          id: `validator-${String(i + 1).padStart(3, '0')}`,
-          address: `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
-          name: `Validator ${i + 1}`,
-          status: Math.random() > 0.05 ? "active" : "inactive",
-          stake: String(Math.floor(100000 + Math.random() * 10000000)),
-          votingPower: Math.floor(1 + Math.random() * 5),
-          uptime: 99 + Math.random(),
-          blocksProposed: Math.floor(1000 + Math.random() * 10000),
-          blocksValidated: Math.floor(10000 + Math.random() * 100000),
-          commission: Math.floor(3 + Math.random() * 7),
-          delegators: Math.floor(50 + Math.random() * 500),
-          lastActive: new Date(Date.now() - Math.random() * 60000).toISOString(),
-          region: ["US-East", "EU-West", "AP-East", "US-West", "EU-Central"][Math.floor(Math.random() * 5)]
-        }));
-        
-        res.json({
-          validators: mockValidators,
-          total: 125,
-          active: 120,
-          inactive: 5
-        });
-      }
+      const active = validators.filter(v => v.status === 'active').length;
+      const inactive = validators.filter(v => v.status === 'inactive').length;
+      const jailed = validators.filter(v => v.status === 'jailed').length;
+      const totalStake = validators.reduce((sum, v) => sum + Number(v.stake), 0);
+      const totalDelegators = validators.reduce((sum, v) => sum + v.delegators, 0);
+      
+      res.json({
+        validators,
+        total: validators.length,
+        active,
+        inactive,
+        jailed,
+        totalStake,
+        totalDelegators
+      });
     } catch (error) {
+      console.error('[Admin Validators] Failed to fetch validators:', error);
       res.status(500).json({ error: "Failed to fetch validators" });
     }
   });
@@ -10206,20 +10121,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Note: Cross-shard messages endpoint is defined earlier using Enterprise Node
 
-  // Consensus current state endpoint - always uses TBurnEnterpriseNode for production-ready 85-100% participation
+  // Consensus current state endpoint - uses TBurnEnterpriseNode for real consensus data
   app.get("/api/consensus/current", async (_req, res) => {
     try {
-      // Always use Enterprise Node for accurate consensus state with high participation rates (85-100%)
-      const response = await fetch('http://localhost:8545/api/consensus/current');
+      // Use TBurnEnterpriseNode for real consensus data (no Math.random)
+      const enterpriseNode = getEnterpriseNode();
+      const consensusInfo = enterpriseNode.getConsensusInfo();
       
-      if (!response.ok) {
-        throw new Error(`Enterprise node returned status: ${response.status}`);
-      }
-      
-      const consensusState = await response.json();
-      res.json(consensusState);
+      res.json(consensusInfo);
     } catch (error: any) {
-      console.error('Error fetching consensus state:', error);
+      console.error('[Consensus] Error fetching consensus state:', error);
       res.status(500).json({ error: "Failed to fetch consensus state" });
     }
   });
