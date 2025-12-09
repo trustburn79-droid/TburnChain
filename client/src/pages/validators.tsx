@@ -1579,6 +1579,7 @@ export default function Validators() {
   const { toast } = useToast();
   const { data: validators, isLoading } = useQuery<Validator[]>({
     queryKey: ["/api/validators"],
+    select: (data: any) => Array.isArray(data) ? data : (data?.validators || []),
   });
 
   const { data: tierData, isLoading: tiersLoading } = useQuery<TokenomicsTiers>({
