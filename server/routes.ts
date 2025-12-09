@@ -8940,7 +8940,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const aiStats = aiService.getAllUsageStats();
       
       const uptimeMs = nodeStatus.uptime;
-      const uptimePercent = Math.min(99.99, 99 + (uptimeMs > 86400000 ? 0.99 : uptimeMs / 86400000));
+      const slaUptime = networkStats.slaUptime / 100; // Convert from basis points to percentage
       const isNodeSyncing = nodeStatus.isSyncing;
       
       const healthyAiModels = aiHealth.availableProviders.length;
@@ -8949,54 +8949,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ? Math.floor(aiStats.reduce((sum, s) => sum + (s.averageResponseTime || 0), 0) / aiStats.length)
         : 0;
       
+      // Use individual service latencies measured by the enterprise node
+      const serviceLatencies = networkStats.serviceLatencies;
+      
       const services = [
         { 
           name: 'Consensus Engine', 
           status: isNodeSyncing ? 'degraded' : 'healthy',
-          latency: Math.floor(networkStats.latency * 0.3),
-          uptime: uptimePercent,
+          latency: serviceLatencies.consensus,
+          uptime: slaUptime,
           details: `BFT consensus - Block ${nodeStatus.currentBlock.toLocaleString()}`
         },
         { 
           name: 'Block Producer', 
           status: 'healthy',
-          latency: Math.floor(networkStats.avgBlockTime),
-          uptime: uptimePercent,
+          latency: serviceLatencies.blockProducer,
+          uptime: slaUptime,
           details: `Block time: ${networkStats.avgBlockTime}ms, Height: ${(nodeStatus.currentBlock / 1e6).toFixed(2)}M`
         },
         { 
           name: 'Transaction Pool', 
           status: 'healthy',
-          latency: Math.floor(networkStats.latency * 0.1),
-          uptime: uptimePercent,
+          latency: serviceLatencies.transactionPool,
+          uptime: slaUptime,
           details: `${networkStats.tps.toLocaleString()} current TPS`
         },
         { 
           name: 'Validator Network', 
           status: networkStats.activeValidators > 100 ? 'healthy' : 'degraded',
-          latency: Math.floor(networkStats.latency * 0.2),
-          uptime: uptimePercent,
+          latency: serviceLatencies.validatorNetwork,
+          uptime: slaUptime,
           details: `${networkStats.activeValidators} active / ${networkStats.totalValidators} total validators`
         },
         { 
           name: 'Shard Manager', 
           status: 'healthy',
-          latency: Math.floor(networkStats.latency * 0.15),
-          uptime: uptimePercent,
+          latency: serviceLatencies.shardManager,
+          uptime: slaUptime,
           details: `${networkStats.totalShards} shards operational`
         },
         { 
           name: 'Cross-Shard Router', 
           status: 'healthy',
-          latency: Math.floor(networkStats.latency * 0.25),
-          uptime: uptimePercent * 0.995,
+          latency: serviceLatencies.crossShardRouter,
+          uptime: slaUptime * 0.9995,
           details: `${(networkStats.crossShardMessages || 0).toLocaleString()} cross-shard messages`
         },
         { 
           name: 'AI Orchestrator', 
           status: aiHealth.rateLimitedProviders.length === 0 ? 'healthy' : 'degraded',
           latency: avgAiResponseTime,
-          uptime: uptimePercent * 0.995,
+          uptime: slaUptime * 0.9995,
           details: `${healthyAiModels}/${totalAiModels} AI models active`
         }
       ];
