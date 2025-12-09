@@ -2455,8 +2455,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const toHash = crypto.createHash('sha256').update(hash + 'to').digest('hex');
     
     // Deterministic value and gas
+    // TBURN gas model: gasPrice = 10 EMB, gasUsed = 50-500 (avg ~72 for transfers)
+    // Fee = 10 * 72 = 720 EMB ≈ $0.00036 (Solana-level fees)
     const valueMultiplier = Math.floor(seededRandom(2) * 1000000);
-    const gasUsedExtra = Math.floor(seededRandom(3) * 100000);
+    const gasUsedBase = 50 + Math.floor(seededRandom(3) * 450); // 50-500 gas units
     const nonce = Math.floor(seededRandom(4) * 1000);
     
     return {
@@ -2465,8 +2467,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
       from: `tburn1${fromHash.slice(0, 40)}`,
       to: `tburn1${toHash.slice(0, 40)}`,
       value: (BigInt(valueMultiplier) * BigInt('1000000000000000000')).toString(),
-      gasPrice: this.DEFAULT_GAS_PRICE_WEI, // 10 EMB
-      gasUsed: (21000 + gasUsedExtra).toString(),
+      gasPrice: this.DEFAULT_GAS_PRICE_WEI, // 10 EMB in wei
+      gasUsed: gasUsedBase.toString(), // 50-500 gas units, avg fee ~720 EMB
       timestamp: Math.floor(Date.now() / 1000),
       status,
       nonce

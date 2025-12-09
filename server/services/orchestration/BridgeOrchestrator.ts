@@ -93,9 +93,9 @@ class BridgeOrchestratorService {
         from: userAddress,
         to: `bridge:${targetChain}`,
         value: amount,
-        gas: 100000,
-        gasPrice: '10',
-        gasUsed: 100000,
+        gas: 500,
+        gasPrice: '10000000000000', // 10 EMB in wei
+        gasUsed: 450, // TBURN gas model: bridge ops ~450 units
         status: 'success',
         nonce: Math.floor(Math.random() * 1000000),
         timestamp: currentBlock,

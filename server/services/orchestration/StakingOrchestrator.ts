@@ -96,9 +96,9 @@ class StakingOrchestratorService {
         from: userAddress,
         to: validatorAddress,
         value: amount,
-        gas: 21000,
-        gasPrice: '10',
-        gasUsed: 21000,
+        gas: 100,
+        gasPrice: '10000000000000', // 10 EMB in wei
+        gasUsed: 72, // TBURN gas model: avg 72 units for staking
         status: 'success',
         nonce: Math.floor(Math.random() * 1000000),
         timestamp: currentBlock,

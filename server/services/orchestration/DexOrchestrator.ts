@@ -106,9 +106,9 @@ class DexOrchestratorService {
         from: userAddress,
         to: poolId,
         value: amountIn,
-        gas: 150000,
-        gasPrice: '10',
-        gasUsed: 150000,
+        gas: 500,
+        gasPrice: '10000000000000', // 10 EMB in wei
+        gasUsed: 350, // TBURN gas model: DEX swaps ~350 units
         status: 'success',
         nonce: Math.floor(Math.random() * 1000000),
         timestamp: currentBlock,

@@ -26,6 +26,7 @@ import {
   Zap
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { formatGasPriceEmber, calculateTransactionFeeEmber, emberToTburn } from "@/lib/format";
 import ScanLayout from "../../components/ScanLayout";
 
 interface Transaction {
@@ -70,8 +71,8 @@ export default function TransactionDetail() {
       from: `0x${txHash.slice(2, 42)}`,
       to: `0x${txHash.slice(26, 66) || txHash.slice(2, 42)}`,
       value: String((hashNum % 10000) * 1e18),
-      gasUsed: String(21000 + (hashNum % 100000)),
-      gasPrice: String(1000000000 + (hashNum % 1000000000)),
+      gasUsed: String(50 + (hashNum % 450)), // 50-500 gas units (TBURN model)
+      gasPrice: String(10000000000000 + (hashNum % 5000000000000)), // 10-15 EMB in wei
       timestamp: Date.now() - (hashNum % 86400000),
       status: "confirmed",
       nonce: hashNum % 1000,
@@ -169,8 +170,10 @@ export default function TransactionDetail() {
     );
   }
 
-  const txFee = (parseFloat(tx.gasUsed) * parseFloat(tx.gasPrice) / 1e18).toFixed(8);
-  const txFeeUsd = (parseFloat(txFee) * 2.45).toFixed(4);
+  // Calculate fee in EMB then convert to TBURN
+  const feeEmb = (parseFloat(tx.gasUsed) * parseFloat(tx.gasPrice)) / 1e12; // wei to EMB
+  const txFee = emberToTburn(feeEmb).toFixed(8); // EMB to TBURN
+  const txFeeUsd = (parseFloat(txFee) * 0.50).toFixed(6); // $0.50 per TBURN
 
   return (
     <ScanLayout>
@@ -377,7 +380,7 @@ export default function TransactionDetail() {
                   <div className="bg-gray-800/30 rounded-lg p-4">
                     <div className="text-gray-600 dark:text-gray-400 text-sm mb-1">{t("scan.gasPrice", "Gas Price")}</div>
                     <div className="text-xl font-bold text-gray-900 dark:text-white" data-testid="text-gas-price">
-                      {(parseFloat(tx.gasPrice) / 1e9).toFixed(2)} <span className="text-sm text-gray-600 dark:text-gray-400">EMB</span>
+                      {formatGasPriceEmber(tx.gasPrice)}
                     </div>
                   </div>
 

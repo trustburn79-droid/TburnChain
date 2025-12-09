@@ -550,16 +550,16 @@ X-RateLimit-Window: 60`} />
     "from": "0xSender1234567890abcdef1234567890abcdef1234",
     "to": "0xReceiver1234567890abcdef1234567890abcdef12",
     "value": "1000000000000000000",
-    "gasPrice": "1000000000",
-    "gasUsed": "21000",
-    "gasLimit": "21000",
+    "gasPrice": "10000000000000",
+    "gasUsed": "72",
+    "gasLimit": "100",
     "nonce": 156,
     "input": "0x",
     "type": "transfer",
     "status": "success",
     "timestamp": 1733493600,
     "confirmations": 125,
-    "fee": "21000000000000",
+    "fee": "720000000000000",
     "logs": [],
     "decodedInput": null
   }
@@ -614,9 +614,9 @@ X-RateLimit-Window: 60`} />
     "blockNumber": 20750000,
     "blockHash": "0x83b0a4f...",
     "status": 1,
-    "gasUsed": "21000",
+    "gasUsed": "72",
     "cumulativeGasUsed": "5250000",
-    "effectiveGasPrice": "1000000000",
+    "effectiveGasPrice": "10000000000000",
     "logs": [
       {
         "address": "0xContract...",

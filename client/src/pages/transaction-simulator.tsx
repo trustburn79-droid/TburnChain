@@ -567,14 +567,14 @@ function SimulationDetailDialog({
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>{t('txSimulator.baseGas')}</span>
-                    <span>21,000</span>
+                    <span>50 EMB</span>
                   </div>
-                  <Progress value={21000 / simulation.gasUsed * 100} className="h-2" />
+                  <Progress value={50 / simulation.gasUsed * 100} className="h-2" />
                   <div className="flex justify-between text-sm">
                     <span>{t('txSimulator.executionGas')}</span>
-                    <span>{formatNumber(simulation.gasUsed - 21000)}</span>
+                    <span>{formatNumber(Math.max(0, simulation.gasUsed - 50))} EMB</span>
                   </div>
-                  <Progress value={(simulation.gasUsed - 21000) / simulation.gasUsed * 100} className="h-2" />
+                  <Progress value={Math.max(0, (simulation.gasUsed - 50)) / simulation.gasUsed * 100} className="h-2" />
                 </div>
               </CardContent>
             </Card>
