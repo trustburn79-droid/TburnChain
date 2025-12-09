@@ -137,38 +137,35 @@ export default function AdminHealth() {
 
   const services: ServiceHealth[] = useMemo(() => {
     if (servicesData?.services) return servicesData.services;
-    return [
-      { name: t("adminHealth.consensusEngine"), status: "healthy", latency: 189, uptime: 99.99, lastCheck: new Date(), details: "Committee BFT - 110/125 validators active" },
-      { name: t("adminHealth.blockProducer"), status: "healthy", latency: 500, uptime: 99.98, lastCheck: new Date(), details: "Block time: 500ms, Height: 22M+" },
-      { name: t("adminHealth.transactionPool"), status: "healthy", latency: 12, uptime: 99.99, lastCheck: new Date(), details: "50,908 current TPS, 520K peak capacity" },
-      { name: t("adminHealth.validatorNetwork"), status: "healthy", latency: 145, uptime: 99.95, lastCheck: new Date(), details: "110 active / 125 total validators" },
-      { name: t("adminHealth.shardManager"), status: "healthy", latency: 18, uptime: 99.97, lastCheck: new Date(), details: "5 shards active, AI-optimized distribution" },
-      { name: t("adminHealth.crossShardRouter"), status: "healthy", latency: 35, uptime: 99.92, lastCheck: new Date(), details: "Cross-shard finality < 2 seconds" },
-      { name: t("adminHealth.bridgeRelayer"), status: "healthy", latency: 185, uptime: 99.85, lastCheck: new Date(), details: "7 chains connected, quantum-resistant" },
-      { name: t("adminHealth.aiOrchestrator"), status: "healthy", latency: 85, uptime: 99.95, lastCheck: new Date(), details: "Triple-Band AI: 94.2% combined accuracy" },
-      { name: t("adminHealth.databaseCluster"), status: "healthy", latency: 3, uptime: 99.99, lastCheck: new Date(), details: "PostgreSQL cluster, auto-failover enabled" },
-      { name: t("adminHealth.cacheLayer"), status: "healthy", latency: 1, uptime: 99.99, lastCheck: new Date(), details: "Redis cluster, 99.8% hit rate" },
-      { name: t("adminHealth.apiGateway"), status: "healthy", latency: 15, uptime: 99.97, lastCheck: new Date(), details: "Rate limiting active, DDoS protection" },
-      { name: t("adminHealth.websocketServer"), status: "healthy", latency: 8, uptime: 99.95, lastCheck: new Date(), details: "Real-time sync, 51 event channels" },
-    ];
-  }, [servicesData, t]);
+    if (healthData?.services && healthData.services.length > 0) {
+      return healthData.services.map((svc: any) => ({
+        name: svc.name,
+        status: svc.status as "healthy" | "degraded" | "unhealthy",
+        latency: svc.latency || 0,
+        uptime: svc.uptime || healthData.metrics?.uptime || 99.0,
+        lastCheck: new Date(),
+        details: svc.details || ""
+      }));
+    }
+    return [];
+  }, [servicesData, healthData]);
 
   const healthMetrics: HealthMetrics = useMemo(() => {
     if (healthData?.metrics) {
       return {
-        overallHealth: healthData.overallHealth || 98.7,
-        networkHealth: healthData.metrics.networkHealth || 99.8,
-        consensusHealth: healthData.metrics.consensusHealth || 99.9,
-        storageHealth: healthData.metrics.storageHealth || 99.5,
-        aiHealth: healthData.metrics.aiHealth || 99.2,
+        overallHealth: healthData.overallHealth,
+        networkHealth: healthData.metrics.networkHealth,
+        consensusHealth: healthData.metrics.consensusHealth,
+        storageHealth: healthData.metrics.storageHealth,
+        aiHealth: healthData.metrics.aiHealth,
       };
     }
     return {
-      overallHealth: 98.7,
-      networkHealth: 99.8,
-      consensusHealth: 99.9,
-      storageHealth: 99.5,
-      aiHealth: 99.2,
+      overallHealth: 0,
+      networkHealth: 0,
+      consensusHealth: 0,
+      storageHealth: 0,
+      aiHealth: 0,
     };
   }, [healthData]);
 
@@ -193,11 +190,7 @@ export default function AdminHealth() {
         };
       });
     }
-    return [
-      { time: t("adminHealth.minAgo", { count: 2 }), event: t("adminHealth.healthCheckCompleted"), status: "success" as const },
-      { time: t("adminHealth.minAgo", { count: 15 }), event: t("adminHealth.bridgeLatencySpike"), status: "warning" as const },
-      { time: t("adminHealth.hourAgo", { count: 1 }), event: t("adminHealth.cacheRefreshCompleted"), status: "success" as const },
-    ];
+    return [];
   }, [activityData, t]);
 
   const getStatusIcon = (status: string) => {
