@@ -152,27 +152,11 @@ interface ExecutionLog {
   blockchainImpact: string;
 }
 
-const mockData: AIOrchestrationData = {
-  models: [
-    { id: 1, name: "Gemini 3 Pro", layer: "Strategic", status: "online", latency: 380, tokenRate: 185, accuracy: 99.2, requests24h: 28450, cost24h: 285.50 },
-    { id: 2, name: "Claude Sonnet 4.5", layer: "Tactical", status: "online", latency: 145, tokenRate: 2850, accuracy: 98.5, requests24h: 124500, cost24h: 198.75 },
-    { id: 3, name: "GPT-4o", layer: "Operational", status: "online", latency: 38, tokenRate: 1250, accuracy: 97.8, requests24h: 485000, cost24h: 125.00 },
-    { id: 4, name: "Grok 3", layer: "Fallback", status: "standby", latency: 95, tokenRate: 980, accuracy: 96.2, requests24h: 0, cost24h: 0 },
-  ],
-  decisions: [
-    { id: 1, type: "Strategic", content: "Scale validator committee to 512 for mainnet launch", confidence: 98, executed: true, timestamp: "2024-12-07 18:30" },
-    { id: 2, type: "Tactical", content: "Optimize shard distribution across 16 active shards", confidence: 95, executed: true, timestamp: "2024-12-07 18:15" },
-    { id: 3, type: "Operational", content: "Adjust burn rate to 70% for Y20 target alignment", confidence: 97, executed: true, timestamp: "2024-12-07 18:00" },
-  ],
-  performance: [
-    { time: "00:00", gemini: 35, claude: 142, openai: 380, grok: 0 },
-    { time: "04:00", gemini: 38, claude: 145, openai: 385, grok: 0 },
-    { time: "08:00", gemini: 42, claude: 148, openai: 392, grok: 0 },
-    { time: "12:00", gemini: 36, claude: 144, openai: 378, grok: 0 },
-    { time: "16:00", gemini: 39, claude: 146, openai: 382, grok: 0 },
-    { time: "20:00", gemini: 38, claude: 145, openai: 380, grok: 0 },
-  ],
-  stats: { overallAccuracy: 98.7, totalRequests24h: "637.9k", totalCost24h: 609.25, uptime: 99.97 }
+const emptyFallback: AIOrchestrationData = {
+  models: [],
+  decisions: [],
+  performance: [],
+  stats: { overallAccuracy: 0, totalRequests24h: "0", totalCost24h: 0, uptime: 0 }
 };
 
 const RISK_COLORS = {
@@ -278,7 +262,7 @@ export default function AdminAIOrchestration() {
     refetchInterval: 15000,
   });
 
-  const aiData = data && data.models?.length > 0 ? data : mockData;
+  const aiData = data && data.models?.length > 0 ? data : emptyFallback;
   const decisions = liveDecisions.length > 0 ? liveDecisions : aiData.decisions;
 
   useEffect(() => {

@@ -66,79 +66,33 @@ interface AITuningData {
   };
 }
 
-const mockData: AITuningData = {
-  modelConfigs: [
-    { 
-      name: "Gemini 3 Pro", 
-      layer: "Strategic",
-      temperature: 0.65,
-      maxTokens: 8192,
-      topP: 0.92,
-      frequencyPenalty: 0.25,
-      presencePenalty: 0.25
-    },
-    { 
-      name: "Claude Sonnet 4.5", 
-      layer: "Tactical",
-      temperature: 0.45,
-      maxTokens: 16384,
-      topP: 0.96,
-      frequencyPenalty: 0.15,
-      presencePenalty: 0.15
-    },
-    { 
-      name: "GPT-4o", 
-      layer: "Operational",
-      temperature: 0.25,
-      maxTokens: 4096,
-      topP: 0.85,
-      frequencyPenalty: 0.08,
-      presencePenalty: 0.08
-    },
-    { 
-      name: "Grok 3", 
-      layer: "Fallback",
-      temperature: 0.35,
-      maxTokens: 8192,
-      topP: 0.88,
-      frequencyPenalty: 0.12,
-      presencePenalty: 0.12
-    },
-  ],
-  decisionParams: [
-    { name: "Consensus Optimization", weight: 0.95, enabled: true },
-    { name: "Shard Rebalancing", weight: 0.92, enabled: true },
-    { name: "Gas Price Adjustment", weight: 0.98, enabled: true },
-    { name: "Validator Selection", weight: 0.94, enabled: true },
-    { name: "Bridge Risk Assessment", weight: 0.90, enabled: true },
-    { name: "Burn Rate Optimization", weight: 0.96, enabled: true },
-    { name: "Treasury Management", weight: 0.88, enabled: true },
-    { name: "Quantum Security Check", weight: 0.85, enabled: true },
-  ],
+const emptyFallback: AITuningData = {
+  modelConfigs: [],
+  decisionParams: [],
   layerWeights: {
-    strategic: 45,
-    tactical: 35,
-    operational: 20
+    strategic: 0,
+    tactical: 0,
+    operational: 0
   },
   thresholds: {
-    autoExecute: 85,
-    humanReview: 65,
-    rejection: 40
+    autoExecute: 0,
+    humanReview: 0,
+    rejection: 0
   },
   rateLimits: {
-    strategicPerHour: 25,
-    tacticalPerMinute: 250,
-    operationalPerSecond: 2500
+    strategicPerHour: 0,
+    tacticalPerMinute: 0,
+    operationalPerSecond: 0
   },
   emergencySettings: {
-    allowEmergencyActions: true,
-    circuitBreaker: true
+    allowEmergencyActions: false,
+    circuitBreaker: false
   },
   advancedConfig: {
-    consensusTimeout: 3000,
-    retryAttempts: 5,
-    backoffMultiplier: 1.25,
-    cacheTTL: 180
+    consensusTimeout: 0,
+    retryAttempts: 0,
+    backoffMultiplier: 0,
+    cacheTTL: 0
   }
 };
 
@@ -161,7 +115,7 @@ export default function AdminAITuning() {
     enabled: true,
   });
 
-  const tuningData = localParams || data || mockData;
+  const tuningData = localParams || data || emptyFallback;
 
   useEffect(() => {
     if (data && !localParams) {
@@ -264,7 +218,7 @@ export default function AdminAITuning() {
   }, []);
 
   const confirmReset = useCallback(() => {
-    setLocalParams(data || mockData);
+    setLocalParams(data || emptyFallback);
     setHasChanges(false);
     setResetDialogOpen(false);
     toast({

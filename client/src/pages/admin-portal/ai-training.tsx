@@ -66,42 +66,18 @@ interface TrainingData {
   };
 }
 
-const mockData: TrainingData = {
-  jobs: [
-    { id: 1, name: "Mainnet Consensus Optimizer v8.0", model: "Gemini 3 Pro FT", status: "running", progress: 94, eta: "25m", dataPoints: "18.5M" },
-    { id: 2, name: "Quantum Shard Balancer v4.2", model: "Claude Sonnet 4.5 FT", status: "completed", progress: 100, eta: "-", dataPoints: "12.8M" },
-    { id: 3, name: "Burn Rate Predictor v5.0", model: "GPT-4o FT", status: "completed", progress: 100, eta: "-", dataPoints: "8.4M" },
-    { id: 4, name: "Bridge Risk Analyzer v3.5", model: "Custom Ensemble", status: "running", progress: 78, eta: "1h 45m", dataPoints: "6.2M" },
-    { id: 5, name: "Validator Selection AI v6.0", model: "Llama 3.3 FT", status: "queued", progress: 0, eta: "~3h", dataPoints: "15.2M" },
-  ],
-  datasets: [
-    { name: "TBURN Transaction Patterns", records: "245.8M", size: "128.5 GB", lastUpdated: "2024-12-07", quality: 99 },
-    { name: "Validator Performance Metrics", records: "48.5M", size: "24.2 GB", lastUpdated: "2024-12-07", quality: 99 },
-    { name: "Network Consensus Logs", records: "185.2M", size: "96.8 GB", lastUpdated: "2024-12-07", quality: 98 },
-    { name: "Burn Event History", records: "12.4M", size: "6.8 GB", lastUpdated: "2024-12-07", quality: 99 },
-    { name: "Bridge Transaction Records", records: "8.9M", size: "4.5 GB", lastUpdated: "2024-12-07", quality: 97 },
-  ],
-  accuracyData: [
-    { epoch: 1, accuracy: 82, loss: 0.38 },
-    { epoch: 2, accuracy: 88, loss: 0.25 },
-    { epoch: 3, accuracy: 93, loss: 0.15 },
-    { epoch: 4, accuracy: 96, loss: 0.09 },
-    { epoch: 5, accuracy: 98, loss: 0.05 },
-    { epoch: 6, accuracy: 99, loss: 0.02 },
-  ],
-  modelVersions: [
-    { version: "v8.0.0", date: "2024-12-07", accuracy: 99.2, status: "production" },
-    { version: "v7.5.2", date: "2024-12-01", accuracy: 98.7, status: "backup" },
-    { version: "v7.0.0", date: "2024-11-15", accuracy: 97.8, status: "archived" },
-    { version: "v6.5.0", date: "2024-10-28", accuracy: 96.5, status: "archived" },
-  ],
+const emptyFallback: TrainingData = {
+  jobs: [],
+  datasets: [],
+  accuracyData: [],
+  modelVersions: [],
   stats: {
-    activeJobs: 3,
-    runningJobs: 2,
-    queuedJobs: 1,
-    totalData: "500.8M",
-    avgAccuracy: 99.2,
-    modelVersions: 24
+    activeJobs: 0,
+    runningJobs: 0,
+    queuedJobs: 0,
+    totalData: "0",
+    avgAccuracy: 0,
+    modelVersions: 0
   }
 };
 
@@ -124,7 +100,7 @@ export default function AdminAITraining() {
     refetchInterval: 30000,
   });
 
-  const trainingData = data && data.stats ? data : mockData;
+  const trainingData = data && data.stats ? data : emptyFallback;
   const jobs = liveJobs.length > 0 ? liveJobs : trainingData.jobs;
 
   const pauseJobMutation = useMutation({
