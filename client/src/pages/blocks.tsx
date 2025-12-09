@@ -573,7 +573,8 @@ export default function Blocks() {
           const errorText = await response.text();
           throw new Error(`Failed to fetch validators: ${response.status} ${errorText}`);
         }
-        return response.json();
+        const data = await response.json();
+        return Array.isArray(data) ? data : (data.validators || []);
       } catch (err) {
         clearTimeout(timeoutId);
         throw err;
