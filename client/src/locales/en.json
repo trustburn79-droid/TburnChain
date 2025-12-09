@@ -18815,6 +18815,8 @@
     "assessmentSuccessDesc": "Compliance assessment completed successfully",
     "assessmentError": "Assessment Failed",
     "assessmentErrorDesc": "Unable to run assessment. Please try again.",
+    "reportGenerated": "Report Generated",
+    "reportDownloaded": "{{fileName}} has been downloaded",
     "error": {
       "title": "Failed to Load Compliance Data",
       "description": "Unable to fetch compliance data. Please try again."
