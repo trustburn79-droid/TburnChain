@@ -503,7 +503,7 @@ export default function AdminNodes() {
       icon: <Database className="h-4 w-4" />,
       fields: [
         { label: t("adminNodes.blockHeight"), value: node.blockHeight.toLocaleString(), type: "code" },
-        { label: t("adminNodes.uptime"), value: node.uptime, type: "progress" },
+        { label: t("adminNodes.uptime"), value: Number(node.uptime.toFixed(3)), type: "progress" },
         { label: t("adminNodes.lastSeen"), value: node.lastSeen, type: "date" },
       ],
     },
@@ -821,7 +821,7 @@ export default function AdminNodes() {
                               className={node.uptime >= 99.9 ? "bg-green-500/10 text-green-500" : node.uptime >= 99 ? "bg-yellow-500/10 text-yellow-500" : "bg-red-500/10 text-red-500"}
                               data-testid={`badge-node-uptime-${node.id}`}
                             >
-                              {node.uptime}%
+                              {Number(node.uptime).toFixed(3)}%
                             </Badge>
                           </td>
                           <td className="py-3 px-4" onClick={(e) => e.stopPropagation()}>
