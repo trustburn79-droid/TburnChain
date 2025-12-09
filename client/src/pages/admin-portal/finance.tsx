@@ -83,7 +83,7 @@ export default function FinanceOverview() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: financeData, isLoading, error, refetch } = useQuery<FinanceData>({
-    queryKey: ["/api/admin/finance"],
+    queryKey: ["/api/enterprise/admin/finance"],
   });
 
   const handleRefresh = useCallback(() => {

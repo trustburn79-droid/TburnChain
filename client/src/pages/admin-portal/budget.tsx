@@ -82,15 +82,15 @@ export default function BudgetManagement() {
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: budgetData, isLoading, error, refetch } = useQuery<BudgetData>({
-    queryKey: ["/api/admin/budget"],
+    queryKey: ["/api/enterprise/admin/budget"],
   });
 
   const createRequestMutation = useMutation({
     mutationFn: async (request: typeof newRequest) => {
-      return apiRequest("POST", "/api/admin/budget/requests", request);
+      return apiRequest("POST", "/api/enterprise/admin/budget/requests", request);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/budget"] });
       setIsRequestDialogOpen(false);
       setNewRequest({ title: "", department: "", amount: 0, justification: "" });
       toast({
@@ -109,10 +109,10 @@ export default function BudgetManagement() {
 
   const approveRequestMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest("POST", `/api/admin/budget/requests/${id}/approve`);
+      return apiRequest("POST", `/api/enterprise/admin/budget/requests/${id}/approve`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/budget"] });
       toast({
         title: t("adminBudget.requestApproved"),
         description: t("adminBudget.requestApprovedDesc"),
@@ -122,10 +122,10 @@ export default function BudgetManagement() {
 
   const rejectRequestMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest("POST", `/api/admin/budget/requests/${id}/reject`);
+      return apiRequest("POST", `/api/enterprise/admin/budget/requests/${id}/reject`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/budget"] });
       toast({
         title: t("adminBudget.requestRejected"),
         description: t("adminBudget.requestRejectedDesc"),
@@ -135,10 +135,10 @@ export default function BudgetManagement() {
 
   const deleteBudgetMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest("DELETE", `/api/admin/budget/${id}`);
+      return apiRequest("DELETE", `/api/enterprise/admin/budget/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/budget"] });
       toast({
         title: t("adminBudget.budgetDeleted"),
         description: t("adminBudget.budgetDeletedDesc"),

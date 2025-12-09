@@ -75,7 +75,7 @@ export default function CostAnalysis() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: costData, isLoading, error, refetch } = useQuery<CostData>({
-    queryKey: ["/api/admin/costs"],
+    queryKey: ["/api/enterprise/admin/cost-analysis"],
   });
 
   const handleRefresh = useCallback(() => {

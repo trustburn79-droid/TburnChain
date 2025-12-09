@@ -69,7 +69,7 @@ export default function TxAccounting() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: accountingData, isLoading, error, refetch } = useQuery<TxAccountingData>({
-    queryKey: ["/api/admin/accounting/transactions"],
+    queryKey: ["/api/enterprise/admin/tx-accounting"],
   });
 
   const handleRefresh = useCallback(() => {

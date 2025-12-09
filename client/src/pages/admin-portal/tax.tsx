@@ -74,15 +74,15 @@ export default function TaxReporting() {
   const [pendingReportType, setPendingReportType] = useState<string | null>(null);
 
   const { data: taxData, isLoading, error, refetch } = useQuery<TaxData>({
-    queryKey: ["/api/admin/tax"],
+    queryKey: ["/api/enterprise/admin/tax"],
   });
 
   const generateReportMutation = useMutation({
     mutationFn: async (reportType: string) => {
-      return apiRequest("POST", "/api/admin/tax/reports/generate", { reportType, year: selectedYear });
+      return apiRequest("POST", "/api/enterprise/admin/tax/reports/generate", { reportType, year: selectedYear });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/tax"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/tax"] });
       toast({
         title: t("adminTax.reportGenerated"),
         description: t("adminTax.reportGeneratedDesc"),
