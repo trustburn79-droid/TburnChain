@@ -98,8 +98,6 @@ const menuItems = [
   { titleKey: "nav.nftLaunchpad", url: "/app/nft-launchpad", icon: Rocket, groupKey: "nav.defi" },
   { titleKey: "nav.gamefiHub", url: "/app/gamefi", icon: Gamepad2, groupKey: "nav.defi" },
   { titleKey: "nav.community", url: "/app/community", icon: Users, groupKey: "nav.community" },
-  { titleKey: "nav.validators", url: "/app/validators", icon: Server, groupKey: "nav.network" },
-  { titleKey: "nav.members", url: "/app/members", icon: Users, groupKey: "nav.network" },
   { titleKey: "nav.consensus", url: "/app/consensus", icon: Vote, groupKey: "nav.network" },
   { titleKey: "nav.aiOrchestration", url: "/app/ai", icon: Bot, groupKey: "nav.network" },
   { titleKey: "nav.sharding", url: "/app/sharding", icon: Grid3x3, groupKey: "nav.network" },

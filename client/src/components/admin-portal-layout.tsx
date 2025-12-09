@@ -17,9 +17,10 @@ import AdminHealth from "@/pages/admin-portal/health";
 import AdminAlerts from "@/pages/admin-portal/alerts";
 import AdminLogs from "@/pages/admin-portal/logs";
 
-// Group 2: Network Operations (5 pages)
+// Group 2: Network Operations (6 pages)
 import AdminNodes from "@/pages/admin-portal/nodes";
 import AdminValidators from "@/pages/admin-portal/validators";
+import AdminMembers from "@/pages/members";
 import AdminConsensus from "@/pages/admin-portal/consensus";
 import AdminShards from "@/pages/admin-portal/shards";
 import AdminNetworkParams from "@/pages/admin-portal/network-params";
@@ -127,6 +128,7 @@ function AdminRouter() {
       {/* Group 2: Network Operations */}
       <Route path="/admin/nodes" component={AdminNodes} />
       <Route path="/admin/validators" component={AdminValidators} />
+      <Route path="/admin/members" component={AdminMembers} />
       <Route path="/admin/consensus" component={AdminConsensus} />
       <Route path="/admin/shards" component={AdminShards} />
       <Route path="/admin/network-params" component={AdminNetworkParams} />

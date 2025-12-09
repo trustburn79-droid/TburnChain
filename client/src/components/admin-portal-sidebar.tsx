@@ -82,6 +82,7 @@ const adminMenuItems = [
   // Group 2: Network Operations
   { titleKey: "adminNav.nodeManagement", url: "/admin/nodes", icon: Server, groupKey: "adminNav.networkOps", badge: null },
   { titleKey: "adminNav.validatorManagement", url: "/admin/validators", icon: ShieldCheck, groupKey: "adminNav.networkOps", badge: null },
+  { titleKey: "adminNav.memberManagement", url: "/admin/members", icon: Users, groupKey: "adminNav.networkOps", badge: null },
   { titleKey: "adminNav.consensusMonitor", url: "/admin/consensus", icon: Vote, groupKey: "adminNav.networkOps", badge: null },
   { titleKey: "adminNav.shardManagement", url: "/admin/shards", icon: Grid3x3, groupKey: "adminNav.networkOps", badge: null },
   { titleKey: "adminNav.networkParams", url: "/admin/network-params", icon: Settings, groupKey: "adminNav.networkOps", badge: null },
