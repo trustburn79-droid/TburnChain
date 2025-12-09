@@ -15465,6 +15465,7 @@
     "networkOps": "Network Operations",
     "nodeManagement": "Node Management",
     "validatorManagement": "Validator Management",
+    "memberManagement": "Member Management",
     "consensusMonitor": "Consensus Monitor",
     "shardManagement": "Shard Management",
     "networkParams": "Network Parameters",
