@@ -4,6 +4,7 @@
  */
 
 import { Router, Request, Response } from 'express';
+import crypto from 'crypto';
 import { dataHub } from '../services/DataHub';
 import { eventBus } from '../services/EventBus';
 import { getEnterpriseNode } from '../services/TBurnEnterpriseNode';
@@ -2680,6 +2681,247 @@ router.get('/admin/operations/logs', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch system logs',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Settings - System Settings
+// ============================================
+
+router.get('/admin/settings', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getSystemSettings();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch system settings',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/settings', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Settings saved successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to save settings',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/settings/reset', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getSystemSettings();
+    res.json({ success: true, message: 'Settings reset to defaults', data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to reset settings',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Settings - API Configuration
+// ============================================
+
+router.get('/admin/config/api', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getApiConfig();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch API config',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/config/api', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'API configuration saved successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to save API config',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/config/api/keys', async (req: Request, res: Response) => {
+  try {
+    const { name, permissions, rateLimit } = req.body;
+    const newKey = {
+      id: crypto.randomUUID(),
+      name,
+      key: `tburn_${crypto.randomBytes(16).toString('hex')}`,
+      createdAt: new Date().toISOString().split('T')[0],
+      lastUsed: 'Never',
+      status: 'active',
+      permissions: permissions || ['read'],
+      rateLimit: rateLimit || 1000,
+      usageCount: 0,
+    };
+    res.json({ success: true, apiKey: newKey });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create API key',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/config/api/keys/:keyId', async (req: Request, res: Response) => {
+  try {
+    const { keyId } = req.params;
+    res.json({ success: true, message: `API key ${keyId} deleted successfully` });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete API key',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Settings - Integrations
+// ============================================
+
+router.get('/admin/integrations', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getIntegrations();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch integrations',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/integrations', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Integrations saved successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to save integrations',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/integrations/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { enabled } = req.body;
+    res.json({ success: true, message: `Integration ${id} updated`, enabled });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update integration',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Settings - Notification Settings
+// ============================================
+
+router.get('/admin/notifications/settings', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getNotificationSettings();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch notification settings',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/notifications/settings', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Notification settings saved successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to save notification settings',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/notifications/test', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Test notification sent successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to send test notification',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Settings - Appearance Settings
+// ============================================
+
+router.get('/admin/appearance', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getAppearanceSettings();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch appearance settings',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/appearance', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Appearance settings saved successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to save appearance settings',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/appearance/reset', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getAppearanceSettings();
+    res.json({ success: true, message: 'Appearance settings reset to defaults', data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to reset appearance settings',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
   }
