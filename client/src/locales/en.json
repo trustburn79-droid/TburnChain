@@ -3600,6 +3600,8 @@
     "split": "Split",
     "merge": "Merge",
     "rebalance": "Rebalance",
+    "monitor": "Monitor",
+    "optimize": "Optimize",
     "interShardComm": "Inter-shard communication",
     "totalMessages": "Total Messages",
     "messageStatusDistribution": "Message Status Distribution",
@@ -3614,6 +3616,8 @@
     "recommendationSplitDesc": "AI recommends splitting this shard to distribute load more evenly",
     "recommendationMergeDesc": "AI recommends merging this shard with another low-load shard",
     "recommendationRebalanceDesc": "AI recommends rebalancing validators and transactions across shards",
+    "recommendationMonitorDesc": "AI recommends continuous monitoring of this shard's load and performance",
+    "recommendationOptimizeDesc": "AI recommends optimizing resource usage and transaction processing for this shard",
     "liveShardEvents": "Live Shard Events",
     "liveShardEventsDesc": "Real-time cross-shard message routing and shard events",
     "noLiveEvents": "No live events at the moment"

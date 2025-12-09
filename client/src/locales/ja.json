@@ -3791,6 +3791,8 @@
     "split": "分割",
     "merge": "マージ",
     "rebalance": "リバランス",
+    "monitor": "モニタリング",
+    "optimize": "最適化",
     "interShardComm": "シャード間通信",
     "totalMessages": "総メッセージ数",
     "messageStatusDistribution": "メッセージステータス分布",
@@ -3805,6 +3807,8 @@
     "recommendationSplitDesc": "AIはこのシャードを分割して負荷をより均等に分散することを推奨しています",
     "recommendationMergeDesc": "AIはこのシャードを別の低負荷シャードとマージすることを推奨しています",
     "recommendationRebalanceDesc": "AIはシャード間でバリデーターとトランザクションをリバランスすることを推奨しています",
+    "recommendationMonitorDesc": "AIはこのシャードの負荷とパフォーマンスを継続的に監視することを推奨しています",
+    "recommendationOptimizeDesc": "AIはこのシャードのリソース使用とトランザクション処理を最適化することを推奨しています",
     "liveShardEvents": "リアルタイムシャードイベント",
     "liveShardEventsDesc": "リアルタイムのクロスシャードメッセージルーティングとシャードイベント",
     "noLiveEvents": "現在ライブイベントはありません"

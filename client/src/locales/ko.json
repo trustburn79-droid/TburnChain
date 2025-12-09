@@ -3683,6 +3683,8 @@
     "split": "분할",
     "merge": "병합",
     "rebalance": "리밸런스",
+    "monitor": "모니터링",
+    "optimize": "최적화",
     "interShardComm": "샤드 간 통신",
     "totalMessages": "총 메시지",
     "messageStatusDistribution": "메시지 상태 분포",
@@ -3697,6 +3699,8 @@
     "recommendationSplitDesc": "AI가 부하를 더 균등하게 분산하기 위해 이 샤드를 분할할 것을 권장합니다",
     "recommendationMergeDesc": "AI가 이 샤드를 다른 저부하 샤드와 병합할 것을 권장합니다",
     "recommendationRebalanceDesc": "AI가 샤드 간 검증자와 트랜잭션을 리밸런싱할 것을 권장합니다",
+    "recommendationMonitorDesc": "AI가 이 샤드의 부하와 성능을 지속적으로 모니터링할 것을 권장합니다",
+    "recommendationOptimizeDesc": "AI가 이 샤드의 리소스 사용과 트랜잭션 처리를 최적화할 것을 권장합니다",
     "liveShardEvents": "실시간 샤드 이벤트",
     "liveShardEventsDesc": "실시간 크로스샤드 메시지 라우팅 및 샤드 이벤트",
     "noLiveEvents": "현재 실시간 이벤트가 없습니다"

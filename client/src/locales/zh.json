@@ -3247,6 +3247,8 @@
     "split": "分裂",
     "merge": "合并",
     "rebalance": "重平衡",
+    "monitor": "监控",
+    "optimize": "优化",
     "interShardComm": "分片间通信",
     "totalMessages": "总消息数",
     "messageStatusDistribution": "消息状态分布",
@@ -3261,6 +3263,8 @@
     "recommendationSplitDesc": "AI建议分裂此分片以更均匀地分配负载",
     "recommendationMergeDesc": "AI建议将此分片与另一个低负载分片合并",
     "recommendationRebalanceDesc": "AI建议跨分片重平衡验证者和交易",
+    "recommendationMonitorDesc": "AI建议持续监控此分片的负载和性能",
+    "recommendationOptimizeDesc": "AI建议优化此分片的资源使用和交易处理",
     "liveShardEvents": "实时分片事件",
     "liveShardEventsDesc": "实时跨分片消息路由和分片事件",
     "noLiveEvents": "暂无实时事件"
