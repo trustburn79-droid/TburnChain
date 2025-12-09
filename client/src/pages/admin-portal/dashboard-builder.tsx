@@ -172,7 +172,7 @@ export default function DashboardBuilder() {
   const [validatorPerformance, setValidatorPerformance] = useState<Array<{ tier: string; count: number; uptime: number; blocks: number }>>([]);
 
   const { data: dashboardsData, isLoading, error, refetch } = useQuery<DashboardsData>({
-    queryKey: ["/api/admin/dashboards"],
+    queryKey: ["/api/enterprise/admin/dashboards"],
   });
 
   useEffect(() => {
@@ -329,10 +329,10 @@ export default function DashboardBuilder() {
 
   const createDashboardMutation = useMutation({
     mutationFn: async (dashboard: typeof newDashboard) => {
-      return apiRequest("POST", "/api/admin/dashboards", dashboard);
+      return apiRequest("POST", "/api/enterprise/admin/dashboards", dashboard);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/dashboards"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/dashboards"] });
       setIsCreateDialogOpen(false);
       setNewDashboard({ name: "", description: "", isPublic: true });
       toast({
@@ -351,10 +351,10 @@ export default function DashboardBuilder() {
 
   const updateDashboardMutation = useMutation({
     mutationFn: async ({ id, widgets }: { id: string; widgets: Widget[] }) => {
-      return apiRequest("PATCH", `/api/admin/dashboards/${id}`, { widgets });
+      return apiRequest("PATCH", `/api/enterprise/admin/dashboards/${id}`, { widgets });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/dashboards"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/dashboards"] });
       setIsEditing(false);
       toast({
         title: t("adminDashboardBuilder.dashboardSaved"),
@@ -365,10 +365,10 @@ export default function DashboardBuilder() {
 
   const deleteDashboardMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest("DELETE", `/api/admin/dashboards/${id}`);
+      return apiRequest("DELETE", `/api/enterprise/admin/dashboards/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/dashboards"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/dashboards"] });
       toast({
         title: t("adminDashboardBuilder.dashboardDeleted"),
         description: t("adminDashboardBuilder.dashboardDeletedDesc"),

@@ -79,15 +79,15 @@ export default function AlertRules() {
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: alertData, isLoading, error, refetch } = useQuery<AlertRulesData>({
-    queryKey: ["/api/admin/alerts/rules"],
+    queryKey: ["/api/enterprise/admin/alerts/rules"],
   });
 
   const createRuleMutation = useMutation({
     mutationFn: async (rule: typeof newRule) => {
-      return apiRequest("POST", "/api/admin/alerts/rules", rule);
+      return apiRequest("POST", "/api/enterprise/admin/alerts/rules", rule);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/alerts/rules"] });
       setIsCreateDialogOpen(false);
       setNewRule({
         name: "",
@@ -114,10 +114,10 @@ export default function AlertRules() {
 
   const updateRuleMutation = useMutation({
     mutationFn: async ({ id, enabled }: { id: string; enabled: boolean }) => {
-      return apiRequest("PATCH", `/api/admin/alerts/rules/${id}`, { enabled });
+      return apiRequest("PATCH", `/api/enterprise/admin/alerts/rules/${id}`, { enabled });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/alerts/rules"] });
       toast({
         title: t("adminAlertRules.ruleUpdated"),
         description: t("adminAlertRules.ruleUpdatedDesc"),
@@ -127,10 +127,10 @@ export default function AlertRules() {
 
   const deleteRuleMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest("DELETE", `/api/admin/alerts/rules/${id}`);
+      return apiRequest("DELETE", `/api/enterprise/admin/alerts/rules/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/alerts/rules"] });
       toast({
         title: t("adminAlertRules.ruleDeleted"),
         description: t("adminAlertRules.ruleDeletedDesc"),
@@ -140,7 +140,7 @@ export default function AlertRules() {
 
   const testRulesMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("POST", "/api/admin/alerts/rules/test");
+      return apiRequest("POST", "/api/enterprise/admin/alerts/rules/test");
     },
     onSuccess: () => {
       toast({

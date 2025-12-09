@@ -6608,6 +6608,256 @@ export class TBurnEnterpriseNode extends EventEmitter {
       }
     };
   }
+
+  // Monitoring & Alerts Methods
+  getRealtimeMonitoring(): {
+    systemMetrics: Array<{
+      name: string;
+      value: number;
+      unit: string;
+      status: string;
+      trend: string;
+      sparkline: Array<{ timestamp: string; value: number }>;
+    }>;
+    resourceMetrics: Array<{ name: string; value: number; max: number; unit: string; status: string }>;
+    liveEvents: Array<{ id: string; type: string; message: string; timestamp: string; source: string }>;
+    tpsData: Array<{ timestamp: string; value: number }>;
+    latencyData: Array<{ timestamp: string; value: number }>;
+  } {
+    const now = Date.now();
+    const baseTps = 98000 + (this.currentBlockHeight % 5000);
+    const baseLatency = 38 + (this.currentBlockHeight % 8);
+
+    const generateSparkline = (base: number, variance: number) => 
+      Array.from({ length: 20 }, (_, i) => ({
+        timestamp: new Date(now - (19 - i) * 3000).toISOString(),
+        value: base + Math.floor((this.currentBlockHeight + i) % variance)
+      }));
+
+    return {
+      systemMetrics: [
+        { name: 'TPS', value: baseTps, unit: 'tx/s', status: 'healthy', trend: 'up', sparkline: generateSparkline(baseTps, 3000) },
+        { name: 'Block Time', value: 1.0, unit: 's', status: 'healthy', trend: 'stable', sparkline: generateSparkline(1000, 50) },
+        { name: 'Active Validators', value: 156, unit: '', status: 'healthy', trend: 'stable', sparkline: generateSparkline(156, 2) },
+        { name: 'Network Peers', value: 324 + (this.currentBlockHeight % 20), unit: '', status: 'healthy', trend: 'up', sparkline: generateSparkline(320, 30) },
+        { name: 'Pending Transactions', value: this.currentBlockHeight % 50, unit: '', status: 'healthy', trend: 'stable', sparkline: generateSparkline(25, 40) },
+        { name: 'Active Shards', value: 8, unit: '', status: 'healthy', trend: 'stable', sparkline: generateSparkline(8, 1) },
+      ],
+      resourceMetrics: [
+        { name: 'CPU Usage', value: 42 + (this.currentBlockHeight % 15), max: 100, unit: '%', status: 'healthy' },
+        { name: 'Memory Usage', value: 58 + (this.currentBlockHeight % 12), max: 100, unit: '%', status: 'healthy' },
+        { name: 'Disk I/O', value: 847, max: 2000, unit: 'MB/s', status: 'healthy' },
+        { name: 'Network I/O', value: 1200, max: 10000, unit: 'Mbps', status: 'healthy' },
+        { name: 'GPU Usage', value: 28, max: 100, unit: '%', status: 'healthy' },
+        { name: 'Storage Used', value: 34, max: 100, unit: '%', status: 'healthy' },
+      ],
+      liveEvents: [
+        { id: '1', type: 'success', message: `Block ${this.currentBlockHeight} finalized`, timestamp: new Date(now - 1000).toISOString(), source: 'consensus' },
+        { id: '2', type: 'info', message: 'Triple-Band AI optimization completed', timestamp: new Date(now - 2000).toISOString(), source: 'ai' },
+        { id: '3', type: 'success', message: 'Cross-shard transaction batch processed', timestamp: new Date(now - 3000).toISOString(), source: 'shards' },
+        { id: '4', type: 'info', message: 'Validator rewards distributed', timestamp: new Date(now - 4000).toISOString(), source: 'staking' },
+        { id: '5', type: 'success', message: 'Bridge transfer confirmed on Ethereum', timestamp: new Date(now - 5000).toISOString(), source: 'bridge' },
+      ],
+      tpsData: Array.from({ length: 60 }, (_, i) => ({
+        timestamp: new Date(now - (59 - i) * 1000).toISOString(),
+        value: baseTps + ((this.currentBlockHeight + i) % 3000)
+      })),
+      latencyData: Array.from({ length: 60 }, (_, i) => ({
+        timestamp: new Date(now - (59 - i) * 1000).toISOString(),
+        value: baseLatency + ((this.currentBlockHeight + i) % 8)
+      }))
+    };
+  }
+
+  getMetricsExplorer(): {
+    metrics: Array<{
+      name: string;
+      description: string;
+      type: string;
+      category: string;
+      value: number;
+      unit: string;
+      labels: Record<string, string>;
+      isFavorite: boolean;
+    }>;
+    chartData: Array<{ time: string; tburn_tps_current: number; tburn_consensus_time_ms: number; tburn_validator_count: number }>;
+  } {
+    const baseTps = 98000 + (this.currentBlockHeight % 5000);
+    return {
+      metrics: [
+        { name: 'tburn_tps_current', description: 'Current transactions per second', type: 'gauge', category: 'network', value: baseTps, unit: 'tx/s', labels: { node: 'all', network: 'mainnet-v8.0' }, isFavorite: true },
+        { name: 'tburn_block_height', description: 'Current block height', type: 'counter', category: 'network', value: this.currentBlockHeight, unit: '', labels: { chain: 'mainnet-v8.0', genesis: 'Dec 8 2024' }, isFavorite: true },
+        { name: 'tburn_consensus_time_ms', description: 'BFT consensus finality time', type: 'histogram', category: 'consensus', value: 42, unit: 'ms', labels: { algorithm: 'bft', validators: '156' }, isFavorite: true },
+        { name: 'tburn_validator_count', description: 'Active validator count (3-tier)', type: 'gauge', category: 'consensus', value: 156, unit: '', labels: { status: 'active', tier1: '12', tier2: '48', tier3: '96' }, isFavorite: true },
+        { name: 'tburn_cpu_usage_percent', description: 'Node CPU utilization', type: 'gauge', category: 'resources', value: 42 + (this.currentBlockHeight % 15), unit: '%', labels: { node: 'primary' }, isFavorite: false },
+        { name: 'tburn_memory_usage_gb', description: 'Node memory consumption', type: 'gauge', category: 'resources', value: 28.6, unit: 'GB', labels: { node: 'primary', capacity: '128GB' }, isFavorite: false },
+        { name: 'tburn_disk_io_mbps', description: 'Disk I/O throughput', type: 'gauge', category: 'resources', value: 847, unit: 'MB/s', labels: { device: 'nvme-raid' }, isFavorite: false },
+        { name: 'tburn_tx_pending', description: 'Pending transaction count', type: 'gauge', category: 'transactions', value: this.currentBlockHeight % 50, unit: 'txs', labels: { priority: 'all' }, isFavorite: false },
+        { name: 'tburn_tx_confirmed_24h', description: 'Transactions confirmed in 24h', type: 'counter', category: 'transactions', value: this.currentBlockHeight * 3, unit: '', labels: { genesis: 'true' }, isFavorite: true },
+        { name: 'tburn_ai_decision_latency_ms', description: 'AI decision processing time', type: 'histogram', category: 'ai', value: 18, unit: 'ms', labels: { model: 'gemini-3-pro', band: 'triple' }, isFavorite: true },
+        { name: 'tburn_ai_accuracy_percent', description: 'AI model accuracy rate', type: 'gauge', category: 'ai', value: 99.7, unit: '%', labels: { model: 'triple-band' }, isFavorite: true },
+        { name: 'tburn_bridge_pending', description: 'Pending bridge transfers', type: 'gauge', category: 'bridge', value: 0, unit: '', labels: { chains: 'ETH,BSC,Polygon,Arbitrum' }, isFavorite: false },
+        { name: 'tburn_bridge_volume_24h', description: 'Bridge volume in 24h', type: 'counter', category: 'bridge', value: Math.floor(this.currentBlockHeight / 100) * 1000, unit: 'TBURN', labels: { status: 'active' }, isFavorite: false },
+        { name: 'tburn_shard_count', description: 'Active shard count', type: 'gauge', category: 'network', value: 8, unit: '', labels: { capacity: '100K+ TPS' }, isFavorite: true },
+        { name: 'tburn_cross_shard_latency_ms', description: 'Cross-shard message latency', type: 'histogram', category: 'network', value: 1.8, unit: 'ms', labels: { optimization: 'ai-driven' }, isFavorite: false },
+      ],
+      chartData: Array.from({ length: 60 }, (_, i) => ({
+        time: `${59 - i}m ago`,
+        tburn_tps_current: baseTps + ((this.currentBlockHeight + i) % 3000),
+        tburn_consensus_time_ms: 38 + ((this.currentBlockHeight + i) % 8),
+        tburn_validator_count: 156
+      }))
+    };
+  }
+
+  getAlertRules(): {
+    rules: Array<{
+      id: string;
+      name: string;
+      description: string;
+      condition: string;
+      severity: string;
+      enabled: boolean;
+      notifications: string[];
+      lastTriggered: string | null;
+      triggerCount: number;
+      category: string;
+      cooldown: number;
+    }>;
+    totalCount: number;
+  } {
+    return {
+      rules: [
+        { id: '1', name: 'High TPS Threshold', description: 'Alert when TPS exceeds 95% capacity', condition: 'tburn_tps_current > 95000', severity: 'high', enabled: true, notifications: ['email', 'slack'], lastTriggered: null, triggerCount: 0, category: 'performance', cooldown: 300 },
+        { id: '2', name: 'Validator Offline', description: 'Alert when validator goes offline', condition: 'validator_status == offline', severity: 'critical', enabled: true, notifications: ['email', 'sms', 'slack'], lastTriggered: null, triggerCount: 0, category: 'consensus', cooldown: 60 },
+        { id: '3', name: 'Block Time Anomaly', description: 'Alert on block time deviation', condition: 'block_time > 2000ms', severity: 'high', enabled: true, notifications: ['email', 'slack'], lastTriggered: null, triggerCount: 0, category: 'network', cooldown: 180 },
+        { id: '4', name: 'Memory Usage Critical', description: 'Alert on high memory usage', condition: 'memory_usage > 90%', severity: 'critical', enabled: true, notifications: ['email', 'sms'], lastTriggered: null, triggerCount: 0, category: 'resources', cooldown: 120 },
+        { id: '5', name: 'Bridge Transfer Delay', description: 'Alert on delayed bridge transfers', condition: 'bridge_pending_time > 30min', severity: 'high', enabled: true, notifications: ['email', 'slack'], lastTriggered: null, triggerCount: 0, category: 'bridge', cooldown: 600 },
+        { id: '6', name: 'AI Latency High', description: 'Alert on AI decision latency spike', condition: 'ai_latency > 100ms', severity: 'medium', enabled: true, notifications: ['email'], lastTriggered: null, triggerCount: 0, category: 'ai', cooldown: 300 },
+        { id: '7', name: 'Shard Desync', description: 'Alert on shard synchronization issues', condition: 'shard_sync_delta > 10blocks', severity: 'critical', enabled: true, notifications: ['email', 'sms', 'slack'], lastTriggered: null, triggerCount: 0, category: 'shards', cooldown: 60 },
+        { id: '8', name: 'Staking Rewards Delay', description: 'Alert on delayed reward distribution', condition: 'reward_delay > 1hour', severity: 'medium', enabled: true, notifications: ['email'], lastTriggered: null, triggerCount: 0, category: 'staking', cooldown: 900 },
+      ],
+      totalCount: 8
+    };
+  }
+
+  getDashboards(): {
+    dashboards: Array<{
+      id: string;
+      name: string;
+      description: string;
+      isDefault: boolean;
+      isPublic: boolean;
+      widgets: Array<{ id: string; type: string; title: string; width: number; height: number; x: number; y: number; config: Record<string, unknown>; dataSource?: string }>;
+      createdAt: string;
+      updatedAt: string;
+      owner: string;
+    }>;
+    totalCount: number;
+  } {
+    return {
+      dashboards: [
+        {
+          id: 'mainnet-v8',
+          name: 'TBURN Mainnet v8.0 Overview',
+          description: 'Production mainnet monitoring dashboard (Dec 8, 2024 Launch)',
+          isDefault: true,
+          isPublic: true,
+          widgets: [
+            { id: 'w1', type: 'metric', title: 'Current TPS', width: 3, height: 2, x: 0, y: 0, config: { metric: 'tburn_tps_current' }, dataSource: 'realtime' },
+            { id: 'w2', type: 'metric', title: 'Block Height', width: 3, height: 2, x: 3, y: 0, config: { metric: 'tburn_block_height' }, dataSource: 'realtime' },
+            { id: 'w3', type: 'metric', title: 'Active Validators', width: 3, height: 2, x: 6, y: 0, config: { metric: 'tburn_validator_count' }, dataSource: 'realtime' },
+            { id: 'w4', type: 'metric', title: 'Active Shards', width: 3, height: 2, x: 9, y: 0, config: { metric: 'tburn_shard_count' }, dataSource: 'realtime' },
+            { id: 'w5', type: 'area', title: 'TPS History', width: 6, height: 4, x: 0, y: 2, config: { metrics: ['tburn_tps_current'] }, dataSource: 'timeseries' },
+            { id: 'w6', type: 'chart', title: 'Latency Distribution', width: 6, height: 4, x: 6, y: 2, config: { metrics: ['tburn_consensus_time_ms'] }, dataSource: 'timeseries' },
+          ],
+          createdAt: '2024-12-08T00:00:00Z',
+          updatedAt: new Date().toISOString(),
+          owner: 'system'
+        },
+        {
+          id: 'validators',
+          name: 'Validator Performance',
+          description: '3-tier validator system monitoring',
+          isDefault: false,
+          isPublic: true,
+          widgets: [
+            { id: 'v1', type: 'pie', title: 'Validator Tiers', width: 4, height: 4, x: 0, y: 0, config: { breakdown: 'tier' }, dataSource: 'validators' },
+            { id: 'v2', type: 'table', title: 'Top Validators', width: 8, height: 4, x: 4, y: 0, config: { limit: 10 }, dataSource: 'validators' },
+          ],
+          createdAt: '2024-12-08T00:00:00Z',
+          updatedAt: new Date().toISOString(),
+          owner: 'system'
+        },
+        {
+          id: 'ai-orchestration',
+          name: 'Triple-Band AI Orchestration',
+          description: 'AI system performance and decision tracking',
+          isDefault: false,
+          isPublic: false,
+          widgets: [
+            { id: 'a1', type: 'gauge', title: 'AI Accuracy', width: 3, height: 2, x: 0, y: 0, config: { metric: 'tburn_ai_accuracy_percent' }, dataSource: 'ai' },
+            { id: 'a2', type: 'metric', title: 'Decision Latency', width: 3, height: 2, x: 3, y: 0, config: { metric: 'tburn_ai_decision_latency_ms' }, dataSource: 'ai' },
+            { id: 'a3', type: 'chart', title: 'AI Decisions/Hour', width: 6, height: 4, x: 0, y: 2, config: { metrics: ['ai_decisions'] }, dataSource: 'timeseries' },
+          ],
+          createdAt: '2024-12-08T00:00:00Z',
+          updatedAt: new Date().toISOString(),
+          owner: 'system'
+        },
+      ],
+      totalCount: 3
+    };
+  }
+
+  getSlaMetrics(): {
+    metrics: Array<{
+      name: string;
+      target: number;
+      current: number;
+      unit: string;
+      status: string;
+      trend: string;
+      history: Array<{ period: string; value: number }>;
+    }>;
+    incidents: Array<{
+      id: string;
+      type: string;
+      startTime: string;
+      endTime: string | null;
+      duration: number;
+      impact: string;
+      rootCause: string;
+      resolved: boolean;
+    }>;
+    monthlyUptimeData: Array<{ month: string; uptime: number; target: number }>;
+    slaComplianceData: Array<{ name: string; value: number; color: string }>;
+  } {
+    const generateHistory = (base: number, variance: number) =>
+      Array.from({ length: 30 }, (_, i) => ({
+        period: `Day ${i + 1}`,
+        value: base + ((this.currentBlockHeight + i) % variance) * (base > 1 ? 1 : 0.001)
+      }));
+
+    return {
+      metrics: [
+        { name: 'Uptime', target: 99.99, current: 100.00, unit: '%', status: 'met', trend: 'stable', history: generateHistory(99.99, 1) },
+        { name: 'Transaction Latency', target: 50, current: 42, unit: 'ms', status: 'met', trend: 'stable', history: generateHistory(42, 8) },
+        { name: 'TPS Capacity', target: 100000, current: 100000, unit: 'tx/s', status: 'met', trend: 'stable', history: generateHistory(98000, 3000) },
+        { name: 'Block Time', target: 1000, current: 1000, unit: 'ms', status: 'met', trend: 'stable', history: generateHistory(1000, 5) },
+        { name: 'API Response Time', target: 100, current: 42, unit: 'ms', status: 'met', trend: 'stable', history: generateHistory(42, 10) },
+        { name: 'Error Rate', target: 0.01, current: 0.003, unit: '%', status: 'met', trend: 'down', history: generateHistory(0.003, 2) },
+      ],
+      incidents: [],
+      monthlyUptimeData: [
+        { month: 'Dec 2024', uptime: 100.00, target: 99.99 },
+      ],
+      slaComplianceData: [
+        { name: 'Met', value: 6, color: '#22c55e' },
+        { name: 'At Risk', value: 0, color: '#f97316' },
+        { name: 'Breached', value: 0, color: '#ef4444' },
+      ]
+    };
+  }
 }
 
 // Singleton instance

@@ -63,7 +63,7 @@ export default function SLAMonitoring() {
   const [activeTab, setActiveTab] = useState("overview");
 
   const { data: slaData, isLoading, error, refetch } = useQuery<SLAData>({
-    queryKey: ["/api/admin/sla"],
+    queryKey: ["/api/enterprise/admin/sla"],
   });
 
   const handleRefresh = useCallback(() => {

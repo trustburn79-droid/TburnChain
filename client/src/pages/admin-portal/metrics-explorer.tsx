@@ -64,7 +64,7 @@ export default function MetricsExplorer() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: metricsData, isLoading, error, refetch } = useQuery<MetricsData>({
-    queryKey: ["/api/admin/monitoring/metrics"],
+    queryKey: ["/api/enterprise/admin/monitoring/metrics"],
   });
 
   const categories = [

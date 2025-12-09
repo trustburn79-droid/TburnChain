@@ -96,7 +96,7 @@ export default function RealtimeMonitor() {
   );
 
   const { data: realtimeData, isLoading, error, refetch } = useQuery<RealtimeData>({
-    queryKey: ["/api/admin/monitoring/realtime"],
+    queryKey: ["/api/enterprise/admin/monitoring/realtime"],
     refetchInterval: isLive ? (refreshRate === "1s" ? 1000 : refreshRate === "5s" ? 5000 : 10000) : false,
   });
 
