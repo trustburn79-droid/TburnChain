@@ -701,15 +701,6 @@ export default function UnifiedDashboard() {
               testId="metric-uptime"
             />
             <MetricCard
-              icon={Activity}
-              label={t("adminDashboard.pendingTx")}
-              value={formatNumber(networkStats?.pendingTransactions || 0)}
-              isLoading={loadingNetwork}
-              bgColor="bg-orange-500/10"
-              iconColor="text-orange-500"
-              testId="metric-pending-tx"
-            />
-            <MetricCard
               icon={Clock}
               label={t("adminDashboard.avgBlockTime")}
               value={`${networkStats?.avgBlockTime || 0}ms`}
