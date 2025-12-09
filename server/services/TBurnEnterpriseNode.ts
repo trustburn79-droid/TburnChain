@@ -7010,7 +7010,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         totalVolume: 185420000000 + (hash(seed + 1) % 1000000000),
         totalFees: 42850000 + (hash(seed + 2) % 100000),
         avgTransactionValue: 3508.25 + (hash(seed + 3) % 100) / 10,
-        avgFeePerTx: 0.81 + (hash(seed + 4) % 10) / 100,
+        avgFeePerTx: 0.00072 + (hash(seed + 4) % 10) / 100000, // ~725 EMB = $0.00036 (Solana-level fees)
         successRate: 99.97 + (hash(seed + 5) % 3) / 100,
       },
       transactionTypes: [
