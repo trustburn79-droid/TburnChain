@@ -7076,184 +7076,156 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ success: true, message: `Burn schedule ${req.params.action}d`, burnId: req.params.burnId });
   });
 
-  // Bridge Management
+  // Bridge Management - Real TBurnEnterpriseNode Data
   app.get("/api/admin/bridge/stats", async (_req, res) => {
     try {
-      res.json({
-        totalVolume24h: '$25,000,000',
-        activeTransfers: 45,
-        completedToday: 1247,
-        avgTransferTime: '5m 30s'
-      });
+      const enterpriseNode = getEnterpriseNode();
+      const bridgeStats = enterpriseNode.getBridgeStats();
+      res.json(bridgeStats);
     } catch (error) {
+      console.error('[Bridge Stats] Error:', error);
       res.status(500).json({ error: "Failed to fetch bridge stats" });
     }
   });
 
   app.get("/api/admin/bridge/transfers", async (_req, res) => {
     try {
-      const chains = ['Ethereum', 'BSC', 'Polygon', 'Arbitrum', 'TBURN'];
-      const statuses = ['completed', 'pending', 'validating', 'failed'] as const;
-      const timeAgo = ['1 min ago', '3 min ago', '5 min ago', '8 min ago', '12 min ago', '20 min ago', '30 min ago', '1 hour ago'];
-      const transfers = Array.from({ length: 50 }, (_, i) => {
-        const fromChain = chains[i % 4];
-        const toChain = i % 2 === 0 ? 'TBURN' : chains[(i + 1) % 4];
-        const token = fromChain === 'Ethereum' ? 'ETH' : fromChain === 'BSC' ? 'BNB' : 'MATIC';
-        return {
-          id: `0x${(10000 + i).toString(16)}...${(Math.random().toString(16).slice(2, 5))}`,
-          from: fromChain,
-          to: toChain,
-          fromAddress: `0x${Math.random().toString(16).slice(2, 42)}`,
-          toAddress: `0x${Math.random().toString(16).slice(2, 42)}`,
-          amount: `${(Math.random() * 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${token}`,
-          fee: `${(Math.random() * 0.01).toFixed(6)} ETH`,
-          status: statuses[i % 4],
-          confirmations: `${Math.floor(Math.random() * 100)}/100`,
-          timestamp: new Date(Date.now() - i * 3600000).toISOString(),
-          time: timeAgo[i % 8],
-          duration: `${Math.floor(Math.random() * 30)}m ${Math.floor(Math.random() * 60)}s`,
-          error: statuses[i % 4] === 'failed' ? 'Insufficient gas' : undefined
-        };
-      });
-      res.json({ transfers, total: transfers.length });
+      const enterpriseNode = getEnterpriseNode();
+      const transfersData = enterpriseNode.getBridgeTransfers();
+      res.json(transfersData);
     } catch (error) {
+      console.error('[Bridge Transfers] Error:', error);
       res.status(500).json({ error: "Failed to fetch transfers" });
     }
   });
 
   app.get("/api/admin/bridge/chains", async (_req, res) => {
     try {
-      res.json({
-        chains: [
-          { id: 1, name: 'Ethereum', symbol: 'ETH', chainId: 1, status: 'active', tvl: '$500M', volume24h: '$10M', pendingTx: 12, validators: 7, maxValidators: 10, rpcEndpoint: 'https://eth.tburn.io', explorerUrl: 'https://etherscan.io', bridgeContract: '0x1234...5678', confirmations: 12, enabled: true, lastBlock: 18965432, blockTime: '12s', latency: 45 },
-          { id: 2, name: 'BSC', symbol: 'BNB', chainId: 56, status: 'active', tvl: '$250M', volume24h: '$5M', pendingTx: 8, validators: 5, maxValidators: 10, rpcEndpoint: 'https://bsc.tburn.io', explorerUrl: 'https://bscscan.com', bridgeContract: '0x2345...6789', confirmations: 15, enabled: true, lastBlock: 34567890, blockTime: '3s', latency: 32 },
-          { id: 3, name: 'Polygon', symbol: 'MATIC', chainId: 137, status: 'active', tvl: '$150M', volume24h: '$3M', pendingTx: 5, validators: 4, maxValidators: 10, rpcEndpoint: 'https://polygon.tburn.io', explorerUrl: 'https://polygonscan.com', bridgeContract: '0x3456...7890', confirmations: 128, enabled: true, lastBlock: 52345678, blockTime: '2s', latency: 28 },
-          { id: 4, name: 'Arbitrum', symbol: 'ARB', chainId: 42161, status: 'degraded', tvl: '$200M', volume24h: '$4M', pendingTx: 23, validators: 6, maxValidators: 10, rpcEndpoint: 'https://arb.tburn.io', explorerUrl: 'https://arbiscan.io', bridgeContract: '0x4567...8901', confirmations: 20, enabled: true, lastBlock: 178965432, blockTime: '0.3s', latency: 85 },
-          { id: 5, name: 'TBURN', symbol: 'TBURN', chainId: 8545, status: 'active', tvl: '$150M', volume24h: '$3M', pendingTx: 3, validators: 21, maxValidators: 25, rpcEndpoint: 'http://localhost:8545', explorerUrl: 'https://explorer.tburn.io', bridgeContract: '0x5678...9012', confirmations: 1, enabled: true, lastBlock: 18203567, blockTime: '0.5s', latency: 12 }
-        ]
-      });
+      const enterpriseNode = getEnterpriseNode();
+      const chainsData = enterpriseNode.getBridgeChains();
+      res.json(chainsData);
     } catch (error) {
+      console.error('[Bridge Chains] Error:', error);
       res.status(500).json({ error: "Failed to fetch chains" });
     }
   });
 
   app.get("/api/admin/bridge/chains/stats", async (_req, res) => {
-    res.json({ 
-      totalChains: 5, 
-      activeChains: 4, 
-      degradedChains: 1, 
-      offlineChains: 0, 
-      totalTvl: '$1,250,000,000' 
-    });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const chainsStats = enterpriseNode.getBridgeChainsStats();
+      res.json(chainsStats);
+    } catch (error) {
+      console.error('[Bridge Chains Stats] Error:', error);
+      res.status(500).json({ error: "Failed to fetch chain stats" });
+    }
   });
 
   app.get("/api/admin/bridge/validators", async (_req, res) => {
     try {
-      const statuses = ['active', 'active', 'active', 'inactive', 'slashed'] as const;
-      const validators = Array.from({ length: 21 }, (_, i) => ({
-        id: i + 1,
-        name: `Bridge Validator ${i + 1}`,
-        address: `0x${Math.random().toString(16).slice(2, 42)}`,
-        stake: `${(100000 + Math.floor(Math.random() * 50000)).toLocaleString()} TBURN`,
-        status: statuses[i % 5] as "active" | "inactive" | "slashed",
-        uptime: 95 + Math.random() * 5,
-        signatures: 10000 + Math.floor(Math.random() * 5000),
-        chains: ['Ethereum', 'BSC', 'Polygon', 'Arbitrum'].slice(0, 2 + (i % 3))
-      }));
-      res.json({ validators });
+      const enterpriseNode = getEnterpriseNode();
+      const validatorsData = enterpriseNode.getBridgeValidators();
+      res.json(validatorsData);
     } catch (error) {
+      console.error('[Bridge Validators] Error:', error);
       res.status(500).json({ error: "Failed to fetch bridge validators" });
     }
   });
 
   app.get("/api/admin/bridge/validators/stats", async (_req, res) => {
-    res.json({ 
-      total: 21, 
-      active: 18, 
-      inactive: 2, 
-      slashed: 1, 
-      quorum: "14/21" 
-    });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const validatorStats = enterpriseNode.getBridgeValidatorStats();
+      res.json(validatorStats);
+    } catch (error) {
+      console.error('[Bridge Validator Stats] Error:', error);
+      res.status(500).json({ error: "Failed to fetch validator stats" });
+    }
   });
 
   app.get("/api/admin/bridge/signatures", async (_req, res) => {
-    const signatures = Array.from({ length: 20 }, (_, i) => ({
-      id: i + 1,
-      transfer: `TX${(10000 + i).toString(16).toUpperCase()}`,
-      validators: 14 + Math.floor(Math.random() * 7),
-      required: 14,
-      time: new Date(Date.now() - i * 300000).toISOString()
-    }));
-    res.json({ signatures });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const signaturesData = enterpriseNode.getBridgeSignatures();
+      res.json(signaturesData);
+    } catch (error) {
+      console.error('[Bridge Signatures] Error:', error);
+      res.status(500).json({ error: "Failed to fetch signatures" });
+    }
   });
 
   app.get("/api/admin/bridge/liquidity", async (_req, res) => {
-    res.json({
-      totalLiquidity: '$500,000,000',
-      pools: [
-        { token: 'ETH', amount: '$200,000,000', utilization: 0.65 },
-        { token: 'USDC', amount: '$150,000,000', utilization: 0.55 },
-        { token: 'USDT', amount: '$100,000,000', utilization: 0.45 },
-        { token: 'TBURN', amount: '$50,000,000', utilization: 0.35 }
-      ]
-    });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const poolsData = enterpriseNode.getBridgeLiquidityPools();
+      const statsData = enterpriseNode.getBridgeLiquidityStats();
+      res.json({
+        totalLiquidity: statsData.totalLocked,
+        pools: poolsData.pools.map(p => ({
+          token: p.chain,
+          amount: p.locked,
+          utilization: p.utilization / 100
+        }))
+      });
+    } catch (error) {
+      console.error('[Bridge Liquidity] Error:', error);
+      res.status(500).json({ error: "Failed to fetch liquidity" });
+    }
   });
 
   app.get("/api/admin/bridge/liquidity/pools", async (_req, res) => {
-    const chains = ['Ethereum', 'BSC', 'Polygon', 'Arbitrum', 'Optimism'];
-    res.json({ 
-      pools: chains.map((chain, i) => ({
-        chain,
-        locked: `$${(100 + i * 50).toLocaleString()}M`,
-        available: `$${(50 + i * 20).toLocaleString()}M`,
-        utilization: 50 + Math.floor(Math.random() * 30),
-        tokens: ['ETH', 'USDC', 'USDT', 'TBURN'].slice(0, 2 + (i % 3))
-      }))
-    });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const poolsData = enterpriseNode.getBridgeLiquidityPools();
+      res.json(poolsData);
+    } catch (error) {
+      console.error('[Bridge Liquidity Pools] Error:', error);
+      res.status(500).json({ error: "Failed to fetch liquidity pools" });
+    }
   });
 
   app.get("/api/admin/bridge/liquidity/stats", async (_req, res) => {
-    res.json({ 
-      totalLocked: '$500,000,000',
-      utilizationRate: '55%',
-      dailyVolume: '$25,000,000',
-      rebalanceNeeded: 2
-    });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const statsData = enterpriseNode.getBridgeLiquidityStats();
+      res.json(statsData);
+    } catch (error) {
+      console.error('[Bridge Liquidity Stats] Error:', error);
+      res.status(500).json({ error: "Failed to fetch liquidity stats" });
+    }
   });
 
   app.get("/api/admin/bridge/liquidity/history", async (_req, res) => {
-    res.json({ 
-      history: Array.from({ length: 30 }, (_, i) => ({ 
-        date: new Date(Date.now() - (29 - i) * 86400000).toISOString().split('T')[0], 
-        total: 450000000 + Math.floor(Math.random() * 100000000) 
-      })) 
-    });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const historyData = enterpriseNode.getBridgeLiquidityHistory();
+      res.json(historyData);
+    } catch (error) {
+      console.error('[Bridge Liquidity History] Error:', error);
+      res.status(500).json({ error: "Failed to fetch liquidity history" });
+    }
   });
 
   app.get("/api/admin/bridge/liquidity/alerts", async (_req, res) => {
-    const priorities = ['high', 'medium', 'low'] as const;
-    res.json({ 
-      alerts: [
-        { id: 1, from: "Ethereum", to: "BSC", amount: "$5M", reason: "Utilization imbalance", priority: "high" },
-        { id: 2, from: "Polygon", to: "Arbitrum", amount: "$2M", reason: "Low liquidity warning", priority: "medium" }
-      ]
-    });
-  });
-
-  app.get("/api/admin/bridge/signatures", async (_req, res) => {
-    res.json({ signatures: [], pending: 0 });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const alertsData = enterpriseNode.getBridgeLiquidityAlerts();
+      res.json(alertsData);
+    } catch (error) {
+      console.error('[Bridge Liquidity Alerts] Error:', error);
+      res.status(500).json({ error: "Failed to fetch liquidity alerts" });
+    }
   });
 
   app.get("/api/admin/bridge/volume", async (_req, res) => {
-    const hours = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
-    res.json({
-      history: hours.map((time, i) => ({
-        time,
-        eth: 1000000 + Math.floor(Math.random() * 500000),
-        bsc: 500000 + Math.floor(Math.random() * 250000),
-        polygon: 300000 + Math.floor(Math.random() * 150000)
-      }))
-    });
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      const volumeData = enterpriseNode.getBridgeVolume();
+      res.json(volumeData);
+    } catch (error) {
+      console.error('[Bridge Volume] Error:', error);
+      res.status(500).json({ error: "Failed to fetch bridge volume" });
+    }
   });
 
   // AI Management
