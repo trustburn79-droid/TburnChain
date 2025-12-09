@@ -129,7 +129,7 @@ export default function ActivityMonitor() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: activityData, isLoading, error, refetch } = useQuery<ActivityData>({
-    queryKey: ["/api/admin/activity", `timeRange=${timeRange}`],
+    queryKey: ["/api/enterprise/admin/activity", `timeRange=${timeRange}`],
     refetchInterval: wsConnected ? false : 30000,
   });
 
@@ -152,7 +152,7 @@ export default function ActivityMonitor() {
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'activity_update') {
-            queryClient.invalidateQueries({ queryKey: ["/api/admin/activity"] });
+            queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/activity"] });
           }
         } catch (e) {
           console.error('WebSocket message parse error:', e);
@@ -235,21 +235,8 @@ export default function ActivityMonitor() {
     ];
   }, [t]);
 
-  const mockActivityLogs: ActivityLog[] = [
-    { id: "1", user: { name: "Dr. James Park", email: "cto@tburn.io" }, action: t("adminActivity.actions.loggedIn"), actionType: "login", target: "Admin Portal", ip: "10.0.1.10", device: "Chrome on MacOS", location: "Seoul, KR", timestamp: "2024-12-07 23:59:45", status: "success" },
-    { id: "2", user: { name: "Sarah Kim", email: "coo@tburn.io" }, action: t("adminActivity.actions.loggedIn"), actionType: "login", target: "Admin Portal", ip: "10.0.1.11", device: "Safari on MacOS", location: "Seoul, KR", timestamp: "2024-12-07 23:58:30", status: "success" },
-    { id: "3", user: { name: "Michael Chen", email: "head-ops@tburn.io" }, action: t("adminActivity.actions.modifiedValidator"), actionType: "settings", target: "Validator Pool Config", ip: "10.0.1.20", device: "Firefox on Windows", location: "Seoul, KR", timestamp: "2024-12-07 23:55:12", status: "success" },
-    { id: "4", user: { name: "Robert Johnson", email: "ciso@tburn.io" }, action: t("adminActivity.actions.viewedLogs"), actionType: "view", target: "Security Audit Logs", ip: "10.0.1.30", device: "Chrome on Windows", location: "Seoul, KR", timestamp: "2024-12-07 23:50:00", status: "success" },
-    { id: "5", user: { name: "David Zhang", email: "tech-lead@tburn.io" }, action: t("adminActivity.actions.updatedNetwork"), actionType: "update", target: "Network Params v8.0", ip: "10.0.1.40", device: "Chrome on Linux", location: "Seoul, KR", timestamp: "2024-12-07 23:45:30", status: "success" },
-    { id: "6", user: { name: "System", email: "system@tburn.io" }, action: "Mainnet v8.0 deployment verified", actionType: "create", target: "TBURN Mainnet", ip: "Internal", device: "Automated", location: "Server Cluster", timestamp: "2024-12-07 23:40:00", status: "success" },
-    { id: "7", user: { name: "Jennifer Lee", email: "lead-ops@tburn.io" }, action: "Shard configuration optimized", actionType: "settings", target: "8-Shard Cluster", ip: "10.0.1.21", device: "Firefox on MacOS", location: "Seoul, KR", timestamp: "2024-12-07 23:35:15", status: "success" },
-    { id: "8", user: { name: "Emma Wilson", email: "security-lead@tburn.io" }, action: "Security audit completed", actionType: "security", target: "Pre-launch Security Review", ip: "10.0.1.31", device: "Chrome on MacOS", location: "Seoul, KR", timestamp: "2024-12-07 23:30:00", status: "success" },
-    { id: "9", user: { name: "Admin Bot", email: "bot@tburn.io" }, action: t("adminActivity.actions.executedBackup"), actionType: "create", target: "Full System Backup", ip: "Internal", device: "Automated", location: "Backup Server", timestamp: "2024-12-07 23:00:00", status: "success" },
-    { id: "10", user: { name: "Alex Thompson", email: "senior-dev@tburn.io" }, action: "Smart contract verified", actionType: "create", target: "TBURN Token Contract", ip: "10.0.1.41", device: "Chrome on Linux", location: "Seoul, KR", timestamp: "2024-12-07 22:45:00", status: "success" },
-  ];
-
-  const activityLogs = activityData?.logs || mockActivityLogs;
-  const stats = activityData?.stats || { totalActivities24h: 3847, activeUsers: 12, failedAttempts: 0, securityEvents: 0 };
+  const activityLogs = activityData?.logs || [];
+  const stats = activityData?.stats || { totalActivities24h: 0, activeUsers: 0, failedAttempts: 0, securityEvents: 0 };
 
   const getActionIcon = (actionType: string) => {
     switch (actionType) {

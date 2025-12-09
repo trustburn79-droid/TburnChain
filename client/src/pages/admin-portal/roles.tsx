@@ -117,17 +117,17 @@ export default function AdminRoles() {
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: rolesData, isLoading, error, refetch } = useQuery<RolesData>({
-    queryKey: ["/api/admin/roles"],
+    queryKey: ["/api/enterprise/admin/roles"],
     refetchInterval: 30000,
   });
 
   const createRoleMutation = useMutation({
     mutationFn: async (roleData: { name: string; description: string; permissions: string[] }) => {
-      const response = await apiRequest("POST", "/api/admin/roles", roleData);
+      const response = await apiRequest("POST", "/api/enterprise/admin/roles", roleData);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/roles"] });
       setShowCreateDialog(false);
       toast({
         title: t("adminRoles.roleCreated"),
@@ -145,11 +145,11 @@ export default function AdminRoles() {
 
   const updateRoleMutation = useMutation({
     mutationFn: async ({ id, permissions }: { id: string; permissions: string[] }) => {
-      const response = await apiRequest("PATCH", `/api/admin/roles/${id}`, { permissions });
+      const response = await apiRequest("PATCH", `/api/enterprise/admin/roles/${id}`, { permissions });
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/roles"] });
       toast({
         title: t("adminRoles.roleUpdated"),
         description: t("adminRoles.roleUpdatedDesc"),
@@ -166,11 +166,11 @@ export default function AdminRoles() {
 
   const deleteRoleMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/roles/${id}`);
+      const response = await apiRequest("DELETE", `/api/enterprise/admin/roles/${id}`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/roles"] });
       setSelectedRole(null);
       toast({
         title: t("adminRoles.roleDeleted"),
@@ -209,34 +209,8 @@ export default function AdminRoles() {
     });
   }, [rolesData, toast, t]);
 
-  const mockRoles: Role[] = useMemo(() => [
-    { id: "1", name: "Super Admin", description: t("adminRoles.roleDescriptions.superAdmin"), permissions: ["all"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "2", name: "Admin", description: t("adminRoles.roleDescriptions.admin"), permissions: ["read", "write", "manage_users", "view_logs"], userCount: 1, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "3", name: "Operator", description: t("adminRoles.roleDescriptions.operator"), permissions: ["read", "write", "manage_validators", "manage_nodes", "pause_services"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "4", name: "Security", description: t("adminRoles.roleDescriptions.security"), permissions: ["read", "security_management", "view_logs", "manage_access"], userCount: 3, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "5", name: "Developer", description: t("adminRoles.roleDescriptions.developer"), permissions: ["read", "deploy_contracts", "use_testnet", "view_logs"], userCount: 3, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "6", name: "Viewer", description: t("adminRoles.roleDescriptions.viewer"), permissions: ["read"], userCount: 1, isSystem: true, createdAt: new Date("2024-01-01") },
-  ], [t]);
-
-  const mockPermissions: Permission[] = useMemo(() => [
-    { id: "read", name: t("adminRoles.permissions.read"), description: t("adminRoles.permissionDescriptions.read"), category: "General" },
-    { id: "write", name: t("adminRoles.permissions.write"), description: t("adminRoles.permissionDescriptions.write"), category: "General" },
-    { id: "manage_users", name: t("adminRoles.permissions.manageUsers"), description: t("adminRoles.permissionDescriptions.manageUsers"), category: "User Management" },
-    { id: "manage_roles", name: t("adminRoles.permissions.manageRoles"), description: t("adminRoles.permissionDescriptions.manageRoles"), category: "User Management" },
-    { id: "manage_validators", name: t("adminRoles.permissions.manageValidators"), description: t("adminRoles.permissionDescriptions.manageValidators"), category: "Network" },
-    { id: "manage_nodes", name: t("adminRoles.permissions.manageNodes"), description: t("adminRoles.permissionDescriptions.manageNodes"), category: "Network" },
-    { id: "pause_services", name: t("adminRoles.permissions.pauseServices"), description: t("adminRoles.permissionDescriptions.pauseServices"), category: "Operations" },
-    { id: "emergency_controls", name: t("adminRoles.permissions.emergencyControls"), description: t("adminRoles.permissionDescriptions.emergencyControls"), category: "Operations" },
-    { id: "security_management", name: t("adminRoles.permissions.securityManagement"), description: t("adminRoles.permissionDescriptions.securityManagement"), category: "Security" },
-    { id: "manage_access", name: t("adminRoles.permissions.manageAccess"), description: t("adminRoles.permissionDescriptions.manageAccess"), category: "Security" },
-    { id: "view_logs", name: t("adminRoles.permissions.viewLogs"), description: t("adminRoles.permissionDescriptions.viewLogs"), category: "Monitoring" },
-    { id: "deploy_contracts", name: t("adminRoles.permissions.deployContracts"), description: t("adminRoles.permissionDescriptions.deployContracts"), category: "Development" },
-    { id: "use_testnet", name: t("adminRoles.permissions.useTestnet"), description: t("adminRoles.permissionDescriptions.useTestnet"), category: "Development" },
-    { id: "all", name: t("adminRoles.permissions.all"), description: t("adminRoles.permissionDescriptions.all"), category: "System" },
-  ], [t]);
-
-  const roles = rolesData?.roles || mockRoles;
-  const permissions = rolesData?.permissions || mockPermissions;
+  const roles = rolesData?.roles || [];
+  const permissions = rolesData?.permissions || [];
 
   const groupedPermissions = useMemo(() => {
     const groups: Record<string, Permission[]> = {};

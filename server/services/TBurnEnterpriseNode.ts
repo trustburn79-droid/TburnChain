@@ -5880,6 +5880,265 @@ export class TBurnEnterpriseNode extends EventEmitter {
       chartAnimationSpeed: 'normal',
     };
   }
+
+  // User Management Methods
+  getAdminAccounts(): {
+    accounts: Array<{
+      id: string;
+      email: string;
+      name: string;
+      role: string;
+      status: 'active' | 'inactive' | 'suspended';
+      lastLogin: string;
+      createdAt: string;
+      twoFactorEnabled: boolean;
+      permissions: string[];
+    }>;
+    stats: { total: number; active: number; inactive: number; suspended: number; with2FA: number };
+  } {
+    const baseTime = Date.now();
+    const accounts = [
+      { id: '1', email: 'cto@tburn.io', name: 'Dr. James Park', role: 'Super Admin', status: 'active' as const, lastLogin: new Date(baseTime - 30000).toISOString(), createdAt: '2024-01-01T00:00:00Z', twoFactorEnabled: true, permissions: ['all'] },
+      { id: '2', email: 'coo@tburn.io', name: 'Sarah Kim', role: 'Super Admin', status: 'active' as const, lastLogin: new Date(baseTime - 120000).toISOString(), createdAt: '2024-01-01T00:00:00Z', twoFactorEnabled: true, permissions: ['all'] },
+      { id: '3', email: 'head-ops@tburn.io', name: 'Michael Chen', role: 'Operator', status: 'active' as const, lastLogin: new Date(baseTime - 180000).toISOString(), createdAt: '2024-02-15T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'write', 'manage_validators', 'manage_nodes'] },
+      { id: '4', email: 'lead-ops@tburn.io', name: 'Jennifer Lee', role: 'Operator', status: 'active' as const, lastLogin: new Date(baseTime - 300000).toISOString(), createdAt: '2024-03-01T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'write', 'manage_validators'] },
+      { id: '5', email: 'ciso@tburn.io', name: 'Robert Johnson', role: 'Security', status: 'active' as const, lastLogin: new Date(baseTime - 600000).toISOString(), createdAt: '2024-01-15T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'security_management', 'view_logs', 'manage_access'] },
+      { id: '6', email: 'security-lead@tburn.io', name: 'Emma Wilson', role: 'Security', status: 'active' as const, lastLogin: new Date(baseTime - 900000).toISOString(), createdAt: '2024-02-20T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'security_management'] },
+      { id: '7', email: 'tech-lead@tburn.io', name: 'David Zhang', role: 'Developer', status: 'active' as const, lastLogin: new Date(baseTime - 1200000).toISOString(), createdAt: '2024-03-10T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'deploy_contracts', 'use_testnet', 'view_logs'] },
+      { id: '8', email: 'senior-dev@tburn.io', name: 'Alex Thompson', role: 'Developer', status: 'active' as const, lastLogin: new Date(baseTime - 1800000).toISOString(), createdAt: '2024-04-01T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'deploy_contracts', 'use_testnet'] },
+      { id: '9', email: 'blockchain-dev@tburn.io', name: 'Chris Park', role: 'Developer', status: 'active' as const, lastLogin: new Date(baseTime - 2400000).toISOString(), createdAt: '2024-05-15T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'deploy_contracts'] },
+      { id: '10', email: 'head-analyst@tburn.io', name: 'Maria Garcia', role: 'Admin', status: 'active' as const, lastLogin: new Date(baseTime - 3600000).toISOString(), createdAt: '2024-04-20T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'write', 'view_logs'] },
+      { id: '11', email: 'data-analyst@tburn.io', name: 'Kevin Brown', role: 'Viewer', status: 'active' as const, lastLogin: new Date(baseTime - 7200000).toISOString(), createdAt: '2024-06-01T00:00:00Z', twoFactorEnabled: true, permissions: ['read'] },
+      { id: '12', email: 'compliance@tburn.io', name: 'Linda Martinez', role: 'Security', status: 'active' as const, lastLogin: new Date(baseTime - 10800000).toISOString(), createdAt: '2024-05-10T00:00:00Z', twoFactorEnabled: true, permissions: ['read', 'view_logs'] },
+    ];
+
+    return {
+      accounts,
+      stats: {
+        total: accounts.length,
+        active: accounts.filter(a => a.status === 'active').length,
+        inactive: accounts.filter(a => a.status === 'inactive').length,
+        suspended: accounts.filter(a => a.status === 'suspended').length,
+        with2FA: accounts.filter(a => a.twoFactorEnabled).length,
+      }
+    };
+  }
+
+  getAdminRoles(): {
+    roles: Array<{
+      id: string;
+      name: string;
+      description: string;
+      permissions: string[];
+      userCount: number;
+      isSystem: boolean;
+      createdAt: string;
+    }>;
+    permissions: Array<{
+      id: string;
+      name: string;
+      description: string;
+      category: string;
+    }>;
+  } {
+    const roles = [
+      { id: '1', name: 'Super Admin', description: 'Full system access with all administrative capabilities', permissions: ['all'], userCount: 2, isSystem: true, createdAt: '2024-01-01T00:00:00Z' },
+      { id: '2', name: 'Admin', description: 'Administrative access with user management', permissions: ['read', 'write', 'manage_users', 'view_logs'], userCount: 1, isSystem: true, createdAt: '2024-01-01T00:00:00Z' },
+      { id: '3', name: 'Operator', description: 'Network operations and validator management', permissions: ['read', 'write', 'manage_validators', 'manage_nodes', 'pause_services'], userCount: 2, isSystem: true, createdAt: '2024-01-01T00:00:00Z' },
+      { id: '4', name: 'Security', description: 'Security monitoring and access control', permissions: ['read', 'security_management', 'view_logs', 'manage_access'], userCount: 3, isSystem: true, createdAt: '2024-01-01T00:00:00Z' },
+      { id: '5', name: 'Developer', description: 'Development and deployment capabilities', permissions: ['read', 'deploy_contracts', 'use_testnet', 'view_logs'], userCount: 3, isSystem: true, createdAt: '2024-01-01T00:00:00Z' },
+      { id: '6', name: 'Viewer', description: 'Read-only access to dashboards and reports', permissions: ['read'], userCount: 1, isSystem: true, createdAt: '2024-01-01T00:00:00Z' },
+    ];
+
+    const permissions = [
+      { id: 'read', name: 'Read Access', description: 'View system data and reports', category: 'General' },
+      { id: 'write', name: 'Write Access', description: 'Modify system configurations', category: 'General' },
+      { id: 'manage_users', name: 'Manage Users', description: 'Create, edit, delete user accounts', category: 'User Management' },
+      { id: 'manage_roles', name: 'Manage Roles', description: 'Create and modify system roles', category: 'User Management' },
+      { id: 'manage_validators', name: 'Manage Validators', description: 'Control validator nodes', category: 'Network' },
+      { id: 'manage_nodes', name: 'Manage Nodes', description: 'Control network nodes', category: 'Network' },
+      { id: 'pause_services', name: 'Pause Services', description: 'Temporarily halt network services', category: 'Operations' },
+      { id: 'emergency_controls', name: 'Emergency Controls', description: 'Access emergency shutdown controls', category: 'Operations' },
+      { id: 'security_management', name: 'Security Management', description: 'Configure security settings', category: 'Security' },
+      { id: 'manage_access', name: 'Manage Access', description: 'Control user access policies', category: 'Security' },
+      { id: 'view_logs', name: 'View Logs', description: 'Access system logs and audits', category: 'Monitoring' },
+      { id: 'deploy_contracts', name: 'Deploy Contracts', description: 'Deploy smart contracts', category: 'Development' },
+      { id: 'use_testnet', name: 'Use Testnet', description: 'Access testnet environment', category: 'Development' },
+      { id: 'all', name: 'All Permissions', description: 'Full system access', category: 'System' },
+    ];
+
+    return { roles, permissions };
+  }
+
+  getAdminPermissions(): {
+    permissionGroups: Array<{
+      name: string;
+      permissions: Array<{
+        id: string;
+        name: string;
+        description: string;
+        category: string;
+        level: 'read' | 'write' | 'admin' | 'super';
+      }>;
+    }>;
+  } {
+    return {
+      permissionGroups: [
+        {
+          name: 'Dashboard & Monitoring',
+          permissions: [
+            { id: 'dash_view', name: 'View Dashboard', description: 'View main dashboard and metrics', category: 'dashboard', level: 'read' },
+            { id: 'dash_customize', name: 'Customize Dashboard', description: 'Customize dashboard layout', category: 'dashboard', level: 'write' },
+            { id: 'metrics_view', name: 'View Metrics', description: 'Access detailed metrics', category: 'dashboard', level: 'read' },
+            { id: 'alerts_manage', name: 'Manage Alerts', description: 'Configure alert thresholds', category: 'dashboard', level: 'write' },
+          ],
+        },
+        {
+          name: 'Network Operations',
+          permissions: [
+            { id: 'nodes_view', name: 'View Nodes', description: 'View network nodes', category: 'network', level: 'read' },
+            { id: 'nodes_manage', name: 'Manage Nodes', description: 'Add, remove, configure nodes', category: 'network', level: 'admin' },
+            { id: 'validators_view', name: 'View Validators', description: 'View validator status', category: 'network', level: 'read' },
+            { id: 'validators_manage', name: 'Manage Validators', description: 'Configure validators', category: 'network', level: 'admin' },
+            { id: 'consensus_view', name: 'View Consensus', description: 'View consensus status', category: 'network', level: 'read' },
+            { id: 'shards_manage', name: 'Manage Shards', description: 'Configure shard topology', category: 'network', level: 'super' },
+          ],
+        },
+        {
+          name: 'Token & Economy',
+          permissions: [
+            { id: 'tokens_view', name: 'View Tokens', description: 'View token information', category: 'token', level: 'read' },
+            { id: 'tokens_create', name: 'Create Tokens', description: 'Deploy new tokens', category: 'token', level: 'admin' },
+            { id: 'burn_view', name: 'View Burn Stats', description: 'View burn statistics', category: 'token', level: 'read' },
+            { id: 'burn_manage', name: 'Manage Burns', description: 'Configure burn parameters', category: 'token', level: 'super' },
+            { id: 'treasury_view', name: 'View Treasury', description: 'View treasury balance', category: 'token', level: 'read' },
+            { id: 'treasury_manage', name: 'Manage Treasury', description: 'Treasury operations', category: 'token', level: 'super' },
+          ],
+        },
+        {
+          name: 'Security & Audit',
+          permissions: [
+            { id: 'security_view', name: 'View Security', description: 'View security status', category: 'security', level: 'read' },
+            { id: 'security_manage', name: 'Manage Security', description: 'Configure security settings', category: 'security', level: 'admin' },
+            { id: 'audit_view', name: 'View Audit Logs', description: 'Access audit trail', category: 'security', level: 'read' },
+            { id: 'access_manage', name: 'Manage Access', description: 'Configure access policies', category: 'security', level: 'super' },
+          ],
+        },
+        {
+          name: 'User Management',
+          permissions: [
+            { id: 'users_view', name: 'View Users', description: 'View user accounts', category: 'users', level: 'read' },
+            { id: 'users_create', name: 'Create Users', description: 'Create new accounts', category: 'users', level: 'admin' },
+            { id: 'users_edit', name: 'Edit Users', description: 'Modify user accounts', category: 'users', level: 'admin' },
+            { id: 'users_delete', name: 'Delete Users', description: 'Remove user accounts', category: 'users', level: 'super' },
+            { id: 'roles_manage', name: 'Manage Roles', description: 'Configure roles', category: 'users', level: 'super' },
+            { id: 'permissions_manage', name: 'Manage Permissions', description: 'Configure permissions', category: 'users', level: 'super' },
+          ],
+        },
+      ],
+    };
+  }
+
+  getAdminActivity(timeRange: string = '24h'): {
+    logs: Array<{
+      id: string;
+      user: { name: string; email: string; avatar?: string };
+      action: string;
+      actionType: 'login' | 'logout' | 'create' | 'update' | 'delete' | 'view' | 'settings' | 'security';
+      target: string;
+      ip: string;
+      device: string;
+      location: string;
+      timestamp: string;
+      status: 'success' | 'failed' | 'warning';
+    }>;
+    stats: { totalActivities24h: number; activeUsers: number; failedAttempts: number; securityEvents: number };
+  } {
+    const baseTime = Date.now();
+    const formatTime = (offset: number) => new Date(baseTime - offset).toISOString().replace('T', ' ').slice(0, 19);
+
+    const logs = [
+      { id: '1', user: { name: 'Dr. James Park', email: 'cto@tburn.io' }, action: 'Logged in', actionType: 'login' as const, target: 'Admin Portal', ip: '10.0.1.10', device: 'Chrome on MacOS', location: 'Seoul, KR', timestamp: formatTime(15000), status: 'success' as const },
+      { id: '2', user: { name: 'Sarah Kim', email: 'coo@tburn.io' }, action: 'Logged in', actionType: 'login' as const, target: 'Admin Portal', ip: '10.0.1.11', device: 'Safari on MacOS', location: 'Seoul, KR', timestamp: formatTime(90000), status: 'success' as const },
+      { id: '3', user: { name: 'Michael Chen', email: 'head-ops@tburn.io' }, action: 'Modified validator config', actionType: 'settings' as const, target: 'Validator Pool Config', ip: '10.0.1.20', device: 'Firefox on Windows', location: 'Seoul, KR', timestamp: formatTime(300000), status: 'success' as const },
+      { id: '4', user: { name: 'Robert Johnson', email: 'ciso@tburn.io' }, action: 'Viewed audit logs', actionType: 'view' as const, target: 'Security Audit Logs', ip: '10.0.1.30', device: 'Chrome on Windows', location: 'Seoul, KR', timestamp: formatTime(600000), status: 'success' as const },
+      { id: '5', user: { name: 'David Zhang', email: 'tech-lead@tburn.io' }, action: 'Updated network params', actionType: 'update' as const, target: 'Network Params v8.0', ip: '10.0.1.40', device: 'Chrome on Linux', location: 'Seoul, KR', timestamp: formatTime(900000), status: 'success' as const },
+      { id: '6', user: { name: 'System', email: 'system@tburn.io' }, action: 'Mainnet v8.0 deployment verified', actionType: 'create' as const, target: 'TBURN Mainnet', ip: 'Internal', device: 'Automated', location: 'Server Cluster', timestamp: formatTime(1200000), status: 'success' as const },
+      { id: '7', user: { name: 'Jennifer Lee', email: 'lead-ops@tburn.io' }, action: 'Shard configuration optimized', actionType: 'settings' as const, target: '8-Shard Cluster', ip: '10.0.1.21', device: 'Firefox on MacOS', location: 'Seoul, KR', timestamp: formatTime(1500000), status: 'success' as const },
+      { id: '8', user: { name: 'Emma Wilson', email: 'security-lead@tburn.io' }, action: 'Security audit completed', actionType: 'security' as const, target: 'Pre-launch Security Review', ip: '10.0.1.31', device: 'Chrome on MacOS', location: 'Seoul, KR', timestamp: formatTime(1800000), status: 'success' as const },
+      { id: '9', user: { name: 'Admin Bot', email: 'bot@tburn.io' }, action: 'Executed backup', actionType: 'create' as const, target: 'Full System Backup', ip: 'Internal', device: 'Automated', location: 'Backup Server', timestamp: formatTime(3600000), status: 'success' as const },
+      { id: '10', user: { name: 'Alex Thompson', email: 'senior-dev@tburn.io' }, action: 'Smart contract verified', actionType: 'create' as const, target: 'TBURN Token Contract', ip: '10.0.1.41', device: 'Chrome on Linux', location: 'Seoul, KR', timestamp: formatTime(4500000), status: 'success' as const },
+    ];
+
+    return {
+      logs,
+      stats: {
+        totalActivities24h: 3847 + Math.floor(this.currentBlockHeight % 100),
+        activeUsers: 12,
+        failedAttempts: 0,
+        securityEvents: 0,
+      }
+    };
+  }
+
+  getAdminSessions(): {
+    sessions: Array<{
+      id: string;
+      user: { name: string; email: string; role: string; avatar?: string };
+      device: string;
+      deviceType: 'desktop' | 'mobile' | 'tablet';
+      browser: string;
+      os: string;
+      ip: string;
+      location: string;
+      startTime: string;
+      lastActivity: string;
+      status: 'active' | 'idle' | 'expired';
+      isCurrent?: boolean;
+    }>;
+    stats: { total: number; active: number; idle: number; expired: number };
+    settings: { timeout: number; concurrentSessions: boolean; sessionLockOnIdle: boolean; deviceTrust: boolean };
+  } {
+    const baseTime = Date.now();
+    const formatTime = (offset: number) => new Date(baseTime - offset).toISOString().replace('T', ' ').slice(0, 19);
+    const formatLastActivity = (offset: number) => {
+      const minutes = Math.floor(offset / 60000);
+      if (minutes < 1) return 'Just now';
+      if (minutes < 60) return `${minutes} minutes ago`;
+      return `${Math.floor(minutes / 60)} hours ago`;
+    };
+
+    const sessions = [
+      { id: '1', user: { name: 'Dr. James Park', email: 'cto@tburn.io', role: 'Super Admin' }, device: 'MacBook Pro M3', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.10', location: 'Seoul, South Korea', startTime: formatTime(14400000), lastActivity: formatLastActivity(0), status: 'active' as const, isCurrent: true },
+      { id: '2', user: { name: 'Sarah Kim', email: 'coo@tburn.io', role: 'Super Admin' }, device: 'MacBook Air M2', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.11', location: 'Seoul, South Korea', startTime: formatTime(16200000), lastActivity: formatLastActivity(120000), status: 'active' as const },
+      { id: '3', user: { name: 'Michael Chen', email: 'head-ops@tburn.io', role: 'Operator' }, device: 'Dell XPS 15', deviceType: 'desktop' as const, browser: 'Firefox 132', os: 'Windows 11', ip: '10.0.1.20', location: 'Seoul, South Korea', startTime: formatTime(21600000), lastActivity: formatLastActivity(300000), status: 'active' as const },
+      { id: '4', user: { name: 'Jennifer Lee', email: 'lead-ops@tburn.io', role: 'Operator' }, device: 'ThinkPad X1', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Windows 11', ip: '10.0.1.21', location: 'Seoul, South Korea', startTime: formatTime(22500000), lastActivity: formatLastActivity(480000), status: 'active' as const },
+      { id: '5', user: { name: 'Robert Johnson', email: 'ciso@tburn.io', role: 'Security' }, device: 'MacBook Pro M3', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.30', location: 'Seoul, South Korea', startTime: formatTime(18000000), lastActivity: formatLastActivity(180000), status: 'active' as const },
+      { id: '6', user: { name: 'Emma Wilson', email: 'security-lead@tburn.io', role: 'Security' }, device: 'iMac 24', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.31', location: 'Seoul, South Korea', startTime: formatTime(19800000), lastActivity: formatLastActivity(600000), status: 'active' as const },
+      { id: '7', user: { name: 'David Zhang', email: 'tech-lead@tburn.io', role: 'Developer' }, device: 'System76 Pangolin', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Ubuntu 24.04', ip: '10.0.1.40', location: 'Seoul, South Korea', startTime: formatTime(28800000), lastActivity: formatLastActivity(60000), status: 'active' as const },
+      { id: '8', user: { name: 'Alex Thompson', email: 'senior-dev@tburn.io', role: 'Developer' }, device: 'Dell Precision', deviceType: 'desktop' as const, browser: 'Firefox 132', os: 'Fedora 40', ip: '10.0.1.41', location: 'Seoul, South Korea', startTime: formatTime(30600000), lastActivity: formatLastActivity(720000), status: 'active' as const },
+      { id: '9', user: { name: 'Chris Park', email: 'blockchain-dev@tburn.io', role: 'Developer' }, device: 'MacBook Pro M2', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.42', location: 'Seoul, South Korea', startTime: formatTime(36000000), lastActivity: formatLastActivity(420000), status: 'active' as const },
+      { id: '10', user: { name: 'Maria Garcia', email: 'head-analyst@tburn.io', role: 'Admin' }, device: 'Surface Pro 9', deviceType: 'tablet' as const, browser: 'Edge 131', os: 'Windows 11', ip: '10.0.1.50', location: 'Seoul, South Korea', startTime: formatTime(25200000), lastActivity: formatLastActivity(900000), status: 'active' as const },
+      { id: '11', user: { name: 'Kevin Brown', email: 'data-analyst@tburn.io', role: 'Viewer' }, device: 'ThinkPad T14', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Windows 11', ip: '10.0.1.51', location: 'Seoul, South Korea', startTime: formatTime(27000000), lastActivity: formatLastActivity(1200000), status: 'active' as const },
+      { id: '12', user: { name: 'Linda Martinez', email: 'compliance@tburn.io', role: 'Security' }, device: 'MacBook Air M3', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.32', location: 'Seoul, South Korea', startTime: formatTime(32400000), lastActivity: formatLastActivity(1500000), status: 'active' as const },
+    ];
+
+    return {
+      sessions,
+      stats: {
+        total: sessions.length,
+        active: sessions.filter(s => s.status === 'active').length,
+        idle: sessions.filter(s => s.status === 'idle').length,
+        expired: sessions.filter(s => s.status === 'expired').length,
+      },
+      settings: {
+        timeout: 30,
+        concurrentSessions: true,
+        sessionLockOnIdle: true,
+        deviceTrust: true,
+      }
+    };
+  }
 }
 
 // Singleton instance

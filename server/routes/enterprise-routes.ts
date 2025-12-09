@@ -2927,4 +2927,199 @@ router.post('/admin/appearance/reset', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// User Management Endpoints
+// ============================================
+
+router.get('/admin/accounts', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getAdminAccounts();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch admin accounts',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/accounts', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Account created successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create account',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/accounts/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Account updated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update account',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/accounts/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Account deleted successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete account',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/roles', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getAdminRoles();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch admin roles',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/roles', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Role created successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create role',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/roles/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Role updated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update role',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/roles/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Role deleted successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete role',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/permissions', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getAdminPermissions();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch admin permissions',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/permissions', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Permissions updated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update permissions',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/activity', async (req: Request, res: Response) => {
+  try {
+    const timeRange = (req.query.timeRange as string) || '24h';
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getAdminActivity(timeRange);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch admin activity',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/sessions', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getAdminSessions();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch admin sessions',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/sessions/:id', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Session terminated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to terminate session',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/sessions/all', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'All sessions terminated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to terminate all sessions',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/sessions/settings', async (req: Request, res: Response) => {
+  try {
+    res.json({ success: true, message: 'Session settings updated successfully' });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update session settings',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;

@@ -108,17 +108,17 @@ export default function Permissions() {
   const [showSaveConfirm, setShowSaveConfirm] = useState(false);
 
   const { data: permissionsData, isLoading, error, refetch } = useQuery<PermissionsData>({
-    queryKey: ["/api/admin/permissions"],
+    queryKey: ["/api/enterprise/admin/permissions"],
     refetchInterval: 30000,
   });
 
   const updatePermissionsMutation = useMutation({
     mutationFn: async (permissions: { id: string; enabled: boolean }[]) => {
-      const response = await apiRequest("POST", "/api/admin/permissions", { permissions });
+      const response = await apiRequest("POST", "/api/enterprise/admin/permissions", { permissions });
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/permissions"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/permissions"] });
       toast({
         title: t("adminPermissions.saveSuccess"),
         description: t("adminPermissions.saveSuccessDesc"),
@@ -156,61 +156,7 @@ export default function Permissions() {
     });
   }, [permissionsData, toast, t]);
 
-  const mockPermissionGroups: PermissionGroup[] = useMemo(() => [
-    {
-      name: t("adminPermissions.categories.dashboardMonitoring"),
-      permissions: [
-        { id: "dash_view", name: t("adminPermissions.perm.viewDashboard"), description: t("adminPermissions.permDesc.viewDashboard"), category: "dashboard", level: "read" },
-        { id: "dash_customize", name: t("adminPermissions.perm.customizeDashboard"), description: t("adminPermissions.permDesc.customizeDashboard"), category: "dashboard", level: "write" },
-        { id: "metrics_view", name: t("adminPermissions.perm.viewMetrics"), description: t("adminPermissions.permDesc.viewMetrics"), category: "dashboard", level: "read" },
-        { id: "alerts_manage", name: t("adminPermissions.perm.manageAlerts"), description: t("adminPermissions.permDesc.manageAlerts"), category: "dashboard", level: "write" },
-      ],
-    },
-    {
-      name: t("adminPermissions.categories.networkOperations"),
-      permissions: [
-        { id: "nodes_view", name: t("adminPermissions.perm.viewNodes"), description: t("adminPermissions.permDesc.viewNodes"), category: "network", level: "read" },
-        { id: "nodes_manage", name: t("adminPermissions.perm.manageNodes"), description: t("adminPermissions.permDesc.manageNodes"), category: "network", level: "admin" },
-        { id: "validators_view", name: t("adminPermissions.perm.viewValidators"), description: t("adminPermissions.permDesc.viewValidators"), category: "network", level: "read" },
-        { id: "validators_manage", name: t("adminPermissions.perm.manageValidators"), description: t("adminPermissions.permDesc.manageValidators"), category: "network", level: "admin" },
-        { id: "consensus_view", name: t("adminPermissions.perm.viewConsensus"), description: t("adminPermissions.permDesc.viewConsensus"), category: "network", level: "read" },
-        { id: "shards_manage", name: t("adminPermissions.perm.manageShards"), description: t("adminPermissions.permDesc.manageShards"), category: "network", level: "super" },
-      ],
-    },
-    {
-      name: t("adminPermissions.categories.tokenEconomy"),
-      permissions: [
-        { id: "tokens_view", name: t("adminPermissions.perm.viewTokens"), description: t("adminPermissions.permDesc.viewTokens"), category: "token", level: "read" },
-        { id: "tokens_create", name: t("adminPermissions.perm.createTokens"), description: t("adminPermissions.permDesc.createTokens"), category: "token", level: "admin" },
-        { id: "burn_view", name: t("adminPermissions.perm.viewBurnStats"), description: t("adminPermissions.permDesc.viewBurnStats"), category: "token", level: "read" },
-        { id: "burn_manage", name: t("adminPermissions.perm.manageBurns"), description: t("adminPermissions.permDesc.manageBurns"), category: "token", level: "super" },
-        { id: "treasury_view", name: t("adminPermissions.perm.viewTreasury"), description: t("adminPermissions.permDesc.viewTreasury"), category: "token", level: "read" },
-        { id: "treasury_manage", name: t("adminPermissions.perm.manageTreasury"), description: t("adminPermissions.permDesc.manageTreasury"), category: "token", level: "super" },
-      ],
-    },
-    {
-      name: t("adminPermissions.categories.securityAudit"),
-      permissions: [
-        { id: "security_view", name: t("adminPermissions.perm.viewSecurity"), description: t("adminPermissions.permDesc.viewSecurity"), category: "security", level: "read" },
-        { id: "security_manage", name: t("adminPermissions.perm.manageSecurity"), description: t("adminPermissions.permDesc.manageSecurity"), category: "security", level: "admin" },
-        { id: "audit_view", name: t("adminPermissions.perm.viewAuditLogs"), description: t("adminPermissions.permDesc.viewAuditLogs"), category: "security", level: "read" },
-        { id: "access_manage", name: t("adminPermissions.perm.manageAccess"), description: t("adminPermissions.permDesc.manageAccess"), category: "security", level: "super" },
-      ],
-    },
-    {
-      name: t("adminPermissions.categories.userManagement"),
-      permissions: [
-        { id: "users_view", name: t("adminPermissions.perm.viewUsers"), description: t("adminPermissions.permDesc.viewUsers"), category: "users", level: "read" },
-        { id: "users_create", name: t("adminPermissions.perm.createUsers"), description: t("adminPermissions.permDesc.createUsers"), category: "users", level: "admin" },
-        { id: "users_edit", name: t("adminPermissions.perm.editUsers"), description: t("adminPermissions.permDesc.editUsers"), category: "users", level: "admin" },
-        { id: "users_delete", name: t("adminPermissions.perm.deleteUsers"), description: t("adminPermissions.permDesc.deleteUsers"), category: "users", level: "super" },
-        { id: "roles_manage", name: t("adminPermissions.perm.manageRoles"), description: t("adminPermissions.permDesc.manageRoles"), category: "users", level: "super" },
-        { id: "permissions_manage", name: t("adminPermissions.perm.managePermissions"), description: t("adminPermissions.permDesc.managePermissions"), category: "users", level: "super" },
-      ],
-    },
-  ], [t]);
-
-  const permissionGroups = permissionsData?.permissionGroups || mockPermissionGroups;
+  const permissionGroups = permissionsData?.permissionGroups || [];
   const allPermissions = permissionGroups.flatMap(g => g.permissions);
 
   const filteredPermissions = searchQuery

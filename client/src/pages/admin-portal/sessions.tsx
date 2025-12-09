@@ -138,17 +138,17 @@ export default function Sessions() {
   const [pendingTerminateId, setPendingTerminateId] = useState<string | null>(null);
 
   const { data: sessionsData, isLoading, error, refetch } = useQuery<SessionsData>({
-    queryKey: ["/api/admin/sessions"],
+    queryKey: ["/api/enterprise/admin/sessions"],
     refetchInterval: wsConnected ? false : 30000,
   });
 
   const terminateSessionMutation = useMutation({
     mutationFn: async (sessionId: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/sessions/${sessionId}`);
+      const response = await apiRequest("DELETE", `/api/enterprise/admin/sessions/${sessionId}`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/sessions"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/sessions"] });
       toast({
         title: t("adminSessions.sessionTerminated"),
         description: t("adminSessions.sessionTerminatedDesc"),
@@ -165,11 +165,11 @@ export default function Sessions() {
 
   const terminateAllSessionsMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest("DELETE", "/api/admin/sessions/all");
+      const response = await apiRequest("DELETE", "/api/enterprise/admin/sessions/all");
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/sessions"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/sessions"] });
       toast({
         title: t("adminSessions.allSessionsTerminated"),
         description: t("adminSessions.allSessionsTerminatedDesc"),
@@ -186,11 +186,11 @@ export default function Sessions() {
 
   const updateSettingsMutation = useMutation({
     mutationFn: async (settings: Partial<SessionsData['settings']>) => {
-      const response = await apiRequest("POST", "/api/admin/sessions/settings", settings);
+      const response = await apiRequest("POST", "/api/enterprise/admin/sessions/settings", settings);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/sessions"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/sessions"] });
       toast({
         title: t("adminSessions.settingsSaved"),
         description: t("adminSessions.settingsSavedDesc"),
@@ -224,7 +224,7 @@ export default function Sessions() {
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'session_update') {
-            queryClient.invalidateQueries({ queryKey: ["/api/admin/sessions"] });
+            queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/sessions"] });
           }
         } catch (e) {
           console.error('WebSocket message parse error:', e);
@@ -257,28 +257,8 @@ export default function Sessions() {
     });
   }, [refetch, toast, t]);
 
-  const mockSessions: Session[] = [
-    { id: "1", user: { name: "Dr. James Park", email: "cto@tburn.io", role: "Super Admin" }, device: "MacBook Pro M3", deviceType: "desktop", browser: "Chrome 131", os: "macOS Sequoia", ip: "10.0.1.10", location: "Seoul, South Korea", startTime: "2024-12-07 20:00:00", lastActivity: "Just now", status: "active", isCurrent: true },
-    { id: "2", user: { name: "Sarah Kim", email: "coo@tburn.io", role: "Super Admin" }, device: "MacBook Air M2", deviceType: "desktop", browser: "Safari 18", os: "macOS Sequoia", ip: "10.0.1.11", location: "Seoul, South Korea", startTime: "2024-12-07 19:30:00", lastActivity: "2 minutes ago", status: "active" },
-    { id: "3", user: { name: "Michael Chen", email: "head-ops@tburn.io", role: "Operator" }, device: "Dell XPS 15", deviceType: "desktop", browser: "Firefox 132", os: "Windows 11", ip: "10.0.1.20", location: "Seoul, South Korea", startTime: "2024-12-07 18:00:00", lastActivity: "5 minutes ago", status: "active" },
-    { id: "4", user: { name: "Jennifer Lee", email: "lead-ops@tburn.io", role: "Operator" }, device: "ThinkPad X1", deviceType: "desktop", browser: "Chrome 131", os: "Windows 11", ip: "10.0.1.21", location: "Seoul, South Korea", startTime: "2024-12-07 17:45:00", lastActivity: "8 minutes ago", status: "active" },
-    { id: "5", user: { name: "Robert Johnson", email: "ciso@tburn.io", role: "Security" }, device: "MacBook Pro M3", deviceType: "desktop", browser: "Chrome 131", os: "macOS Sequoia", ip: "10.0.1.30", location: "Seoul, South Korea", startTime: "2024-12-07 19:00:00", lastActivity: "3 minutes ago", status: "active" },
-    { id: "6", user: { name: "Emma Wilson", email: "security-lead@tburn.io", role: "Security" }, device: "iMac 24", deviceType: "desktop", browser: "Safari 18", os: "macOS Sequoia", ip: "10.0.1.31", location: "Seoul, South Korea", startTime: "2024-12-07 18:30:00", lastActivity: "10 minutes ago", status: "active" },
-    { id: "7", user: { name: "David Zhang", email: "tech-lead@tburn.io", role: "Developer" }, device: "System76 Pangolin", deviceType: "desktop", browser: "Chrome 131", os: "Ubuntu 24.04", ip: "10.0.1.40", location: "Seoul, South Korea", startTime: "2024-12-07 16:00:00", lastActivity: "Just now", status: "active" },
-    { id: "8", user: { name: "Alex Thompson", email: "senior-dev@tburn.io", role: "Developer" }, device: "Dell Precision", deviceType: "desktop", browser: "Firefox 132", os: "Fedora 40", ip: "10.0.1.41", location: "Seoul, South Korea", startTime: "2024-12-07 15:30:00", lastActivity: "12 minutes ago", status: "active" },
-    { id: "9", user: { name: "Chris Park", email: "blockchain-dev@tburn.io", role: "Developer" }, device: "MacBook Pro M2", deviceType: "desktop", browser: "Chrome 131", os: "macOS Sequoia", ip: "10.0.1.42", location: "Seoul, South Korea", startTime: "2024-12-07 14:00:00", lastActivity: "7 minutes ago", status: "active" },
-    { id: "10", user: { name: "Maria Garcia", email: "head-analyst@tburn.io", role: "Admin" }, device: "Surface Pro 9", deviceType: "tablet", browser: "Edge 131", os: "Windows 11", ip: "10.0.1.50", location: "Seoul, South Korea", startTime: "2024-12-07 17:00:00", lastActivity: "15 minutes ago", status: "active" },
-    { id: "11", user: { name: "Kevin Brown", email: "data-analyst@tburn.io", role: "Viewer" }, device: "ThinkPad T14", deviceType: "desktop", browser: "Chrome 131", os: "Windows 11", ip: "10.0.1.51", location: "Seoul, South Korea", startTime: "2024-12-07 16:30:00", lastActivity: "20 minutes ago", status: "active" },
-    { id: "12", user: { name: "Linda Martinez", email: "compliance@tburn.io", role: "Security" }, device: "MacBook Air M3", deviceType: "desktop", browser: "Safari 18", os: "macOS Sequoia", ip: "10.0.1.32", location: "Seoul, South Korea", startTime: "2024-12-07 15:00:00", lastActivity: "25 minutes ago", status: "active" },
-  ];
-
-  const sessions = sessionsData?.sessions || mockSessions;
-  const stats = sessionsData?.stats || {
-    total: sessions.length,
-    active: sessions.filter(s => s.status === "active").length,
-    idle: sessions.filter(s => s.status === "idle").length,
-    expired: sessions.filter(s => s.status === "expired").length,
-  };
+  const sessions = sessionsData?.sessions || [];
+  const stats = sessionsData?.stats || { total: 0, active: 0, idle: 0, expired: 0 };
 
   const getDeviceIcon = (deviceType: string) => {
     switch (deviceType) {

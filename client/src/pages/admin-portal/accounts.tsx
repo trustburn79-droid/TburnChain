@@ -123,17 +123,17 @@ export default function AdminAccounts() {
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const { data: accountsData, isLoading, error, refetch } = useQuery<AccountsData>({
-    queryKey: ["/api/admin/accounts"],
+    queryKey: ["/api/enterprise/admin/accounts"],
     refetchInterval: 30000,
   });
 
   const createAccountMutation = useMutation({
     mutationFn: async (accountData: { name: string; email: string; role: string }) => {
-      const response = await apiRequest("POST", "/api/admin/accounts", accountData);
+      const response = await apiRequest("POST", "/api/enterprise/admin/accounts", accountData);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/accounts"] });
       setShowCreateDialog(false);
       toast({
         title: t("adminAccounts.accountCreated"),
@@ -151,11 +151,11 @@ export default function AdminAccounts() {
 
   const updateAccountMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
-      const response = await apiRequest("PATCH", `/api/admin/accounts/${id}`, { status });
+      const response = await apiRequest("PATCH", `/api/enterprise/admin/accounts/${id}`, { status });
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/accounts"] });
       toast({
         title: t("adminAccounts.accountUpdated"),
         description: t("adminAccounts.accountUpdatedDesc"),
@@ -172,11 +172,11 @@ export default function AdminAccounts() {
 
   const deleteAccountMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/accounts/${id}`);
+      const response = await apiRequest("DELETE", `/api/enterprise/admin/accounts/${id}`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/accounts"] });
       toast({
         title: t("adminAccounts.accountDeleted"),
         description: t("adminAccounts.accountDeletedDesc"),
@@ -214,22 +214,7 @@ export default function AdminAccounts() {
     });
   }, [accountsData, toast, t]);
 
-  const mockAccounts: AdminAccount[] = useMemo(() => [
-    { id: "1", email: "cto@tburn.io", name: "Dr. James Park", role: "Super Admin", status: "active", lastLogin: new Date(Date.now() - 30000), createdAt: new Date("2024-01-01"), twoFactorEnabled: true, permissions: ["all"] },
-    { id: "2", email: "coo@tburn.io", name: "Sarah Kim", role: "Super Admin", status: "active", lastLogin: new Date(Date.now() - 120000), createdAt: new Date("2024-01-01"), twoFactorEnabled: true, permissions: ["all"] },
-    { id: "3", email: "head-ops@tburn.io", name: "Michael Chen", role: "Operator", status: "active", lastLogin: new Date(Date.now() - 180000), createdAt: new Date("2024-02-15"), twoFactorEnabled: true, permissions: ["read", "write", "manage_validators", "manage_nodes"] },
-    { id: "4", email: "lead-ops@tburn.io", name: "Jennifer Lee", role: "Operator", status: "active", lastLogin: new Date(Date.now() - 300000), createdAt: new Date("2024-03-01"), twoFactorEnabled: true, permissions: ["read", "write", "manage_validators"] },
-    { id: "5", email: "ciso@tburn.io", name: "Robert Johnson", role: "Security", status: "active", lastLogin: new Date(Date.now() - 600000), createdAt: new Date("2024-01-15"), twoFactorEnabled: true, permissions: ["read", "security_management", "view_logs", "manage_access"] },
-    { id: "6", email: "security-lead@tburn.io", name: "Emma Wilson", role: "Security", status: "active", lastLogin: new Date(Date.now() - 900000), createdAt: new Date("2024-02-20"), twoFactorEnabled: true, permissions: ["read", "security_management"] },
-    { id: "7", email: "tech-lead@tburn.io", name: "David Zhang", role: "Developer", status: "active", lastLogin: new Date(Date.now() - 1200000), createdAt: new Date("2024-03-10"), twoFactorEnabled: true, permissions: ["read", "deploy_contracts", "use_testnet", "view_logs"] },
-    { id: "8", email: "senior-dev@tburn.io", name: "Alex Thompson", role: "Developer", status: "active", lastLogin: new Date(Date.now() - 1800000), createdAt: new Date("2024-04-01"), twoFactorEnabled: true, permissions: ["read", "deploy_contracts", "use_testnet"] },
-    { id: "9", email: "blockchain-dev@tburn.io", name: "Chris Park", role: "Developer", status: "active", lastLogin: new Date(Date.now() - 2400000), createdAt: new Date("2024-05-15"), twoFactorEnabled: true, permissions: ["read", "deploy_contracts"] },
-    { id: "10", email: "head-analyst@tburn.io", name: "Maria Garcia", role: "Admin", status: "active", lastLogin: new Date(Date.now() - 3600000), createdAt: new Date("2024-04-20"), twoFactorEnabled: true, permissions: ["read", "write", "view_logs"] },
-    { id: "11", email: "data-analyst@tburn.io", name: "Kevin Brown", role: "Viewer", status: "active", lastLogin: new Date(Date.now() - 7200000), createdAt: new Date("2024-06-01"), twoFactorEnabled: true, permissions: ["read"] },
-    { id: "12", email: "compliance@tburn.io", name: "Linda Martinez", role: "Security", status: "active", lastLogin: new Date(Date.now() - 10800000), createdAt: new Date("2024-05-10"), twoFactorEnabled: true, permissions: ["read", "view_logs"] },
-  ], []);
-
-  const accounts = accountsData?.accounts || mockAccounts;
+  const accounts = accountsData?.accounts || [];
   const stats = useMemo(() => ({
     total: accounts.length,
     active: accounts.filter(a => a.status === "active").length,
