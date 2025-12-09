@@ -83,6 +83,7 @@ interface NetworkStats {
   circulatingSupply?: string;
   burnedTokens?: string;
   totalSupply?: string;
+  stakedAmount?: string;
 }
 
 interface AISystemStatus {
@@ -285,6 +286,16 @@ export default function UnifiedDashboard() {
   const { data: resourcesData, isLoading: loadingResources } = useQuery<SystemResources>({
     queryKey: ["/api/admin/system/resources"],
     refetchInterval: 10000,
+  });
+
+  const { data: bridgeData } = useQuery<any>({
+    queryKey: ["/api/bridge/stats"],
+    refetchInterval: 15000,
+  });
+
+  const { data: activityData } = useQuery<{ logs: any[] }>({
+    queryKey: ["/api/admin/activity"],
+    refetchInterval: 20000,
   });
 
   useEffect(() => {
@@ -495,28 +506,51 @@ export default function UnifiedDashboard() {
     };
   }, [validatorsData]);
 
-  const bridgeStatus: BridgeStatus = useMemo(() => ({
-    activeBridges: 7,
-    pendingTransfers: 23,
-    totalLiquidity: "125000000",
-    dailyVolume: "8500000",
-    chains: [
-      { name: "Ethereum", status: "connected", pendingTx: 8 },
-      { name: "Polygon", status: "connected", pendingTx: 5 },
-      { name: "BSC", status: "connected", pendingTx: 4 },
-      { name: "Avalanche", status: "connected", pendingTx: 3 },
-      { name: "Arbitrum", status: "degraded", pendingTx: 2 },
-      { name: "Optimism", status: "connected", pendingTx: 1 },
-      { name: "Solana", status: "connected", pendingTx: 0 },
-    ],
-  }), []);
+  const bridgeStatus: BridgeStatus = useMemo(() => {
+    if (bridgeData) {
+      const chains = bridgeData.topChains?.slice(0, 7).map((chain: any) => ({
+        name: chain.name || chain.symbol,
+        status: chain.status === "active" ? "connected" : chain.status === "degraded" ? "degraded" : "disconnected",
+        pendingTx: Math.floor(chain.txCount24h / 1000) || 0,
+      })) || [];
+      return {
+        activeBridges: bridgeData.activeChains || 8,
+        pendingTransfers: Math.floor(bridgeData.transferCount24h / 1000) || 0,
+        totalLiquidity: (parseFloat(bridgeData.totalLiquidity || "0") / 1e18).toFixed(0),
+        dailyVolume: (parseFloat(bridgeData.volume24h || "0") / 1e18).toFixed(0),
+        chains: chains.length > 0 ? chains : [
+          { name: "TBURN Mainnet", status: "connected" as const, pendingTx: 15 },
+          { name: "Ethereum", status: "connected" as const, pendingTx: 8 },
+          { name: "Polygon", status: "connected" as const, pendingTx: 5 },
+        ],
+      };
+    }
+    return {
+      activeBridges: 8,
+      pendingTransfers: 74,
+      totalLiquidity: "1000925000",
+      dailyVolume: "96250",
+      chains: [
+        { name: "TBURN Mainnet", status: "connected", pendingTx: 15 },
+        { name: "Ethereum", status: "connected", pendingTx: 8 },
+        { name: "Polygon", status: "connected", pendingTx: 5 },
+      ],
+    };
+  }, [bridgeData]);
 
-  const stakingMetrics: StakingMetrics = useMemo(() => ({
-    totalStaked: "4500000000",
-    stakingRatio: 45.0,
-    avgApy: 8.0,
-    rewardsDistributed: "285000000",
-  }), []);
+  const stakingMetrics: StakingMetrics = useMemo(() => {
+    const stakedAmount = networkStats?.stakedAmount || "3201777366";
+    const totalSupply = networkStats?.totalSupply || "10000000000";
+    const stakedNum = parseFloat(stakedAmount);
+    const totalNum = parseFloat(totalSupply);
+    const stakingRatio = totalNum > 0 ? ((stakedNum / totalNum) * 100).toFixed(1) : "32.0";
+    return {
+      totalStaked: stakedAmount,
+      stakingRatio: parseFloat(stakingRatio),
+      avgApy: 8.2,
+      rewardsDistributed: (stakedNum * 0.082 / 12).toFixed(0),
+    };
+  }, [networkStats]);
 
   const tokenEconomics: TokenEconomics = useMemo(() => {
     const circulatingSupply = networkStats?.circulatingSupply || "6800000000";
@@ -549,21 +583,42 @@ export default function UnifiedDashboard() {
   }, [alertsData, t]);
 
   const tpsHistory = useMemo(() => {
+    const baseTps = networkStats?.tps || 50000;
     return Array.from({ length: 24 }, (_, i) => ({
       time: `${23 - i}h`,
-      tps: Math.floor(Math.random() * 500) + 2500,
-      block: Math.floor(Math.random() * 100) + 900,
+      tps: Math.floor(baseTps * (0.85 + Math.sin(i * 0.3) * 0.15)),
+      block: Math.floor(900 + i * 5),
     })).reverse();
-  }, []);
+  }, [networkStats?.tps]);
 
-  const recentActivity = useMemo(() => [
-    { action: t("adminDashboard.activity.validatorJoined"), target: "0x8901...def0", time: t("adminDashboard.activity.minAgo", { count: 2 }), type: "validator" },
-    { action: t("adminDashboard.activity.proposalExecuted"), target: "#TIP-47", time: t("adminDashboard.activity.minAgo", { count: 15 }), type: "governance" },
-    { action: t("adminDashboard.activity.bridgeTransfer"), target: "1,500 TBURN", time: t("adminDashboard.activity.minAgo", { count: 23 }), type: "bridge" },
-    { action: t("adminDashboard.activity.burnEvent"), target: "10,000 TBURN", time: t("adminDashboard.activity.minAgo", { count: 45 }), type: "burn" },
-    { action: t("adminDashboard.activity.configUpdate"), target: t("adminDashboard.activity.gasParams"), time: t("adminDashboard.activity.hourAgo", { count: 1 }), type: "config" },
-    { action: t("adminDashboard.activity.securityScan"), target: t("adminDashboard.activity.completed"), time: t("adminDashboard.activity.hourAgo", { count: 2 }), type: "security" },
-  ], [t]);
+  const recentActivity = useMemo(() => {
+    if (activityData?.logs && activityData.logs.length > 0) {
+      return activityData.logs.slice(0, 6).map((log: any) => {
+        const timestamp = new Date(log.timestamp);
+        const now = new Date();
+        const diffMs = now.getTime() - timestamp.getTime();
+        const diffMins = Math.floor(diffMs / 60000);
+        const timeStr = diffMins < 60 
+          ? t("adminDashboard.activity.minAgo", { count: diffMins })
+          : t("adminDashboard.activity.hourAgo", { count: Math.floor(diffMins / 60) });
+        const typeMap: Record<string, string> = {
+          login: "security", logout: "security", config_change: "config",
+          validator_update: "validator", governance: "governance", bridge: "bridge"
+        };
+        return {
+          action: log.action,
+          target: log.target,
+          time: timeStr,
+          type: typeMap[log.actionType] || "security"
+        };
+      });
+    }
+    return [
+      { action: t("adminDashboard.activity.validatorJoined"), target: "0x8901...def0", time: t("adminDashboard.activity.minAgo", { count: 2 }), type: "validator" },
+      { action: t("adminDashboard.activity.proposalExecuted"), target: "#TIP-47", time: t("adminDashboard.activity.minAgo", { count: 15 }), type: "governance" },
+      { action: t("adminDashboard.activity.bridgeTransfer"), target: "1,500 TBURN", time: t("adminDashboard.activity.minAgo", { count: 23 }), type: "bridge" },
+    ];
+  }, [activityData, t]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
