@@ -2940,6 +2940,25 @@
     "activityTab": "Activity",
     "registrationProgress": "Registration Progress",
     "nftRequiredToJoin": "NFT ownership required to participate in this tournament",
+    "projectDescriptions": {
+      "TBURN Arena": "The flagship PvP battle game on TBURN blockchain, featuring real-time combat and ranking systems.",
+      "Crypto Cards": "A blockchain-based trading card game where you can collect rare cards and enjoy strategic battles.",
+      "Metaverse Farm": "A virtual farm simulation game where you can grow crops and trade NFT assets.",
+      "Speed Racers": "A high-speed racing game with vehicle NFT customization and tournament participation.",
+      "Puzzle Quest DeFi": "An innovative game combining puzzles and DeFi, earn rewards by solving problems.",
+      "Dragon Quest NFT": "A dragon collection and breeding RPG, enjoy adventures with rare dragon NFTs.",
+      "Strategy Kingdoms": "A real-time strategy game where you build kingdoms and expand territory through warfare.",
+      "Sports Champions": "A sports manager simulation where you manage player NFTs and compete in leagues.",
+      "default": "An innovative Play-to-Earn game on the TBURN blockchain."
+    },
+    "tournamentDescriptions": {
+      "Championship": "The official championship tournament to determine the best player of the season.",
+      "Grand Prix": "A large-scale Grand Prix format tournament competing for the highest prize pool.",
+      "Open": "An open tournament that all players can participate in.",
+      "Invitational": "An invitation-only tournament for selected top players.",
+      "League": "A league-format tournament running throughout the season.",
+      "default": "Official TBURN GameFi tournament."
+    },
     "eventAssetEquipped": "Asset Equipped",
     "eventAssetUpgraded": "Asset Upgraded"
   },
@@ -7017,7 +7036,16 @@
     "allocatedMinted": "Allocated: {{allocated}} | Minted: {{minted}}",
     "copied": "Copied",
     "addressCopied": "Address copied to clipboard",
-    "txHashCopied": "Transaction hash copied to clipboard"
+    "txHashCopied": "Transaction hash copied to clipboard",
+    "projectDescriptions": {
+      "Celestial Dragons": "A premium dragon-themed NFT collection launching on TBURN Mainnet, featuring rare artwork and exclusive community benefits.",
+      "MetaVerse Lands": "Virtual real estate NFTs for the TBURN Metaverse, granting land ownership and building rights in the digital world.",
+      "Crypto Punks V2": "A next-generation NFT collection with classic pixel art style, featuring AI-enhanced rarity scoring.",
+      "GameFi Heroes": "Game character NFTs usable in Play-to-Earn games, supporting staking and battle features.",
+      "Quantum Artifacts": "An abstract digital art collection inspired by quantum computing, featuring unique generative algorithms.",
+      "Sound Waves": "An audio-visual NFT collection in collaboration with music artists, including music royalty sharing features.",
+      "default": "An innovative NFT project launching on the TBURN blockchain."
+    }
   },
   "vcTestMode": {
     "badge": "VC Test Mode",

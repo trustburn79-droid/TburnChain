@@ -2281,6 +2281,15 @@
     "noHarvestsDesc": "표시할 최근 수확이 없습니다",
     "copied": "복사됨",
     "txHashCopied": "거래 해시가 클립보드에 복사되었습니다",
+    "projectDescriptions": {
+      "Celestial Dragons": "TBURN 메인넷에서 출시되는 프리미엄 드래곤 테마 NFT 컬렉션으로, 희귀한 미술품과 독점 커뮤니티 혜택을 제공합니다.",
+      "MetaVerse Lands": "TBURN 메타버스의 가상 부동산 NFT로, 디지털 세계에서 토지 소유권과 건설 권한을 부여합니다.",
+      "Crypto Punks V2": "클래식 픽셀 아트 스타일의 차세대 NFT 컬렉션으로, AI 강화 희귀도 시스템이 적용되었습니다.",
+      "GameFi Heroes": "Play-to-Earn 게임에서 사용 가능한 게임 캐릭터 NFT로, 스테이킹 및 배틀 기능을 지원합니다.",
+      "Quantum Artifacts": "양자 컴퓨팅에서 영감을 받은 추상적 디지털 아트 컬렉션으로, 독특한 생성 알고리즘이 적용되었습니다.",
+      "Sound Waves": "음악 아티스트와 협업한 오디오 비주얼 NFT 컬렉션으로, 음악 로열티 공유 기능이 포함됩니다.",
+      "default": "TBURN 블록체인에서 출시되는 혁신적인 NFT 프로젝트입니다."
+    },
     "harvested": "수확됨",
     "compounded": "복리됨",
     "distributed": "분배됨",
@@ -2997,7 +3006,26 @@
     "noActivityYet": "아직 기록된 활동이 없습니다",
     "activityTab": "활동",
     "registrationProgress": "등록 진행률",
-    "nftRequiredToJoin": "이 토너먼트에 참여하려면 NFT 소유가 필요합니다"
+    "nftRequiredToJoin": "이 토너먼트에 참여하려면 NFT 소유가 필요합니다",
+    "projectDescriptions": {
+      "TBURN Arena": "TBURN 블록체인의 대표 PvP 배틀 게임으로, 실시간 전투와 랭킹 시스템을 제공합니다.",
+      "Crypto Cards": "블록체인 기반 트레이딩 카드 게임으로, 희귀 카드 수집과 전략적 배틀을 즐기세요.",
+      "Metaverse Farm": "가상 농장 시뮬레이션 게임으로, 작물 재배와 NFT 자산 거래가 가능합니다.",
+      "Speed Racers": "고속 레이싱 게임으로, 차량 NFT 커스터마이징과 토너먼트 참여가 가능합니다.",
+      "Puzzle Quest DeFi": "퍼즐과 DeFi가 결합된 혁신적인 게임으로, 문제 해결로 보상을 획득하세요.",
+      "Dragon Quest NFT": "드래곤 수집과 육성 RPG로, 희귀 드래곤 NFT와 모험을 즐기세요.",
+      "Strategy Kingdoms": "실시간 전략 게임으로, 왕국 건설과 전쟁을 통해 영토를 확장하세요.",
+      "Sports Champions": "스포츠 매니저 시뮬레이션으로, 선수 NFT를 관리하고 리그에서 경쟁하세요.",
+      "default": "TBURN 블록체인의 혁신적인 Play-to-Earn 게임입니다."
+    },
+    "tournamentDescriptions": {
+      "Championship": "시즌 최고의 플레이어를 가리는 공식 챔피언십 토너먼트입니다.",
+      "Grand Prix": "그랑프리 형식의 대규모 토너먼트로, 최고의 상금을 놓고 경쟁합니다.",
+      "Open": "모든 플레이어가 참여할 수 있는 오픈 토너먼트입니다.",
+      "Invitational": "선정된 상위 플레이어만 참여하는 초대 토너먼트입니다.",
+      "League": "시즌 내내 진행되는 리그 형식의 토너먼트입니다.",
+      "default": "TBURN GameFi 공식 토너먼트입니다."
+    }
   },
   "bridge": {
     "title": "크로스체인 브릿지",
@@ -7180,7 +7208,16 @@
     "allocatedMinted": "할당: {{allocated}} | 민트: {{minted}}",
     "copied": "복사됨",
     "addressCopied": "주소가 클립보드에 복사되었습니다",
-    "txHashCopied": "거래 해시가 클립보드에 복사되었습니다"
+    "txHashCopied": "거래 해시가 클립보드에 복사되었습니다",
+    "projectDescriptions": {
+      "Celestial Dragons": "TBURN 메인넷에서 출시되는 프리미엄 드래곤 테마 NFT 컬렉션으로, 희귀한 미술품과 독점 커뮤니티 혜택을 제공합니다.",
+      "MetaVerse Lands": "TBURN 메타버스의 가상 부동산 NFT로, 디지털 세계에서 토지 소유권과 건설 권한을 부여합니다.",
+      "Crypto Punks V2": "클래식 픽셀 아트 스타일의 차세대 NFT 컬렉션으로, AI 강화 희귀도 시스템이 적용되었습니다.",
+      "GameFi Heroes": "Play-to-Earn 게임에서 사용 가능한 게임 캐릭터 NFT로, 스테이킹 및 배틀 기능을 지원합니다.",
+      "Quantum Artifacts": "양자 컴퓨팅에서 영감을 받은 추상적 디지털 아트 컬렉션으로, 독특한 생성 알고리즘이 적용되었습니다.",
+      "Sound Waves": "음악 아티스트와 협업한 오디오 비주얼 NFT 컬렉션으로, 음악 로열티 공유 기능이 포함됩니다.",
+      "default": "TBURN 블록체인에서 출시되는 혁신적인 NFT 프로젝트입니다."
+    }
   },
   "vcTestMode": {
     "badge": "VC 테스트 모드",
