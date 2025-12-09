@@ -560,6 +560,8 @@
     "smallHolders": "小额持有者",
     "wallets": "钱包",
     "healthy": "健康",
+    "gasBalance": "燃料余额",
+    "gasUnit": "恩贝 (EMB)",
     "low": "低",
     "realTimeSync": "实时同步",
     "reconnecting": "重新连接中",

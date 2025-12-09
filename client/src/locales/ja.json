@@ -561,6 +561,8 @@
     "smallHolders": "小口保有者",
     "wallets": "ウォレット",
     "healthy": "健全",
+    "gasBalance": "ガス残高",
+    "gasUnit": "エンバー (EMB)",
     "low": "低",
     "realTimeSync": "リアルタイム同期",
     "reconnecting": "再接続中",

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Wallet, Coins, Lock, Unlock, Award, Activity, Clock, Hash } from "lucide-react";
+import { ArrowLeft, Wallet, Coins, Lock, Unlock, Award, Activity, Clock, Hash, Fuel } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -138,7 +138,7 @@ export default function WalletDetail() {
 
             <Separator />
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Lock className="h-4 w-4 text-green-500" />
@@ -161,6 +161,18 @@ export default function WalletDetail() {
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   {t('common.balance', 'Balance')}
+                </p>
+              </div>
+              <div className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <Fuel className="h-4 w-4 text-orange-500" />
+                  <p className="text-sm text-muted-foreground">{t('wallets.gasBalance', 'Gas Balance')}</p>
+                </div>
+                <p className="text-xl font-bold text-orange-600 dark:text-orange-400" data-testid="text-gas-balance">
+                  {formatNumber((wallet as any).gasBalanceEmb || 0)} EMB
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {t('wallets.gasUnit', 'Ember')}
                 </p>
               </div>
             </div>
@@ -187,7 +199,7 @@ export default function WalletDetail() {
 
             <Separator />
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <div>
                 <div className="flex items-center gap-2">
                   <Activity className="h-4 w-4 text-muted-foreground" />
