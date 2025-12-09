@@ -16748,6 +16748,21 @@
     "confirmResume": {
       "title": "토큰 재개",
       "description": "{{name}} ({{symbol}})을(를) 재개하시겠습니까? 전송이 다시 활성화됩니다."
+    },
+    "supplyStats": {
+      "totalSupply": "총 공급량",
+      "circulatingSupply": "유통 공급량",
+      "stakedSupply": "스테이킹 공급량",
+      "burnedSupply": "소각 공급량"
+    },
+    "destinations": {
+      "burnAddress": "소각 주소",
+      "stakingPool": "스테이킹 풀"
+    },
+    "sources": {
+      "aiSystem": "AI 시스템",
+      "timeBased": "시간 기반",
+      "volumeBased": "볼륨 기반"
     }
   },
   "adminBurnControl": {

@@ -36,7 +36,7 @@ interface Token {
 }
 
 interface SupplyStat {
-  label: string;
+  labelKey: string;
   value: string;
   unit: string;
 }
@@ -46,8 +46,8 @@ interface RecentAction {
   action: string;
   token: string;
   amount: string;
-  to: string;
-  by: string;
+  toKey: string;
+  byKey: string;
   timestamp: string;
 }
 
@@ -66,6 +66,8 @@ export default function AdminTokenIssuance() {
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [selectedToken, setSelectedToken] = useState<Token | null>(null);
   const [tokenToToggle, setTokenToToggle] = useState<Token | null>(null);
+  const [activeTab, setActiveTab] = useState("tokens");
+  const [selectedTokenForAction, setSelectedTokenForAction] = useState<Token | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<TokenData>({
     queryKey: ['/api/admin/tokens'],
@@ -369,7 +371,7 @@ export default function AdminTokenIssuance() {
             supplyStats.map((stat, index) => (
               <Card key={index} data-testid={`card-supply-stat-${index}`}>
                 <CardContent className="pt-6">
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  <div className="text-sm text-muted-foreground">{t(`adminTokenIssuance.supplyStats.${stat.labelKey}`)}</div>
                   <div className="text-2xl font-bold" data-testid={`text-supply-value-${index}`}>{stat.value}</div>
                   <div className="text-xs text-muted-foreground">{stat.unit}</div>
                 </CardContent>
@@ -378,7 +380,7 @@ export default function AdminTokenIssuance() {
           )}
         </div>
 
-        <Tabs defaultValue="tokens" className="space-y-4">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
           <TabsList data-testid="tabs-list">
             <TabsTrigger value="tokens" data-testid="tab-tokens">
               <Coins className="w-4 h-4 mr-2" />
@@ -472,10 +474,20 @@ export default function AdminTokenIssuance() {
                               >
                                 <Eye className="w-4 h-4" />
                               </Button>
-                              <Button size="icon" variant="ghost" data-testid={`button-mint-${token.id}`}>
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                onClick={() => { setSelectedTokenForAction(token); setActiveTab("mint"); }}
+                                data-testid={`button-mint-${token.id}`}
+                              >
                                 <Plus className="w-4 h-4" />
                               </Button>
-                              <Button size="icon" variant="ghost" data-testid={`button-burn-${token.id}`}>
+                              <Button 
+                                size="icon" 
+                                variant="ghost" 
+                                onClick={() => { setSelectedTokenForAction(token); setActiveTab("burn"); }}
+                                data-testid={`button-burn-${token.id}`}
+                              >
                                 <Flame className="w-4 h-4" />
                               </Button>
                               <Button 
@@ -690,8 +702,8 @@ export default function AdminTokenIssuance() {
                           </TableCell>
                           <TableCell>{action.token}</TableCell>
                           <TableCell>{action.amount}</TableCell>
-                          <TableCell className="font-mono text-sm">{action.to}</TableCell>
-                          <TableCell>{action.by}</TableCell>
+                          <TableCell className="font-mono text-sm">{t(`adminTokenIssuance.destinations.${action.toKey}`)}</TableCell>
+                          <TableCell>{t(`adminTokenIssuance.sources.${action.byKey}`)}</TableCell>
                           <TableCell className="text-muted-foreground">{action.timestamp}</TableCell>
                         </TableRow>
                       ))}

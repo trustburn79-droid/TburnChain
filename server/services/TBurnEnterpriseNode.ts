@@ -3562,14 +3562,14 @@ export class TBurnEnterpriseNode extends EventEmitter {
       burnedToday: string;
       mintedToday: string;
     }>;
-    supplyStats: Array<{ label: string; value: string; unit: string }>;
+    supplyStats: Array<{ labelKey: string; value: string; unit: string }>;
     recentActions: Array<{
       id: number;
       action: string;
       token: string;
       amount: string;
-      to: string;
-      by: string;
+      toKey: string;
+      byKey: string;
       timestamp: string;
     }>;
   } {
@@ -3672,10 +3672,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
     ];
 
     const supplyStats = [
-      { label: 'Total Supply', value: this.formatNumber(this.TOTAL_SUPPLY), unit: 'TBURN' },
-      { label: 'Circulating Supply', value: this.formatNumber(this.circulatingSupply), unit: 'TBURN' },
-      { label: 'Staked Supply', value: this.formatNumber(this.stakedAmount), unit: 'TBURN' },
-      { label: 'Burned Supply', value: this.formatNumber(totalBurned), unit: 'TBURN' }
+      { labelKey: 'totalSupply', value: this.formatNumber(this.TOTAL_SUPPLY), unit: 'TBURN' },
+      { labelKey: 'circulatingSupply', value: this.formatNumber(this.circulatingSupply), unit: 'TBURN' },
+      { labelKey: 'stakedSupply', value: this.formatNumber(this.stakedAmount), unit: 'TBURN' },
+      { labelKey: 'burnedSupply', value: this.formatNumber(totalBurned), unit: 'TBURN' }
     ];
 
     // Generate recent actions deterministically
@@ -3694,8 +3694,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
         action: actionType,
         token,
         amount: this.formatNumber(amount),
-        to: actionType === 'Burn' ? 'Burn Address' : 'Staking Pool',
-        by: i % 3 === 0 ? 'AI System' : (i % 3 === 1 ? 'Time-based' : 'Volume-based'),
+        toKey: actionType === 'Burn' ? 'burnAddress' : 'stakingPool',
+        byKey: i % 3 === 0 ? 'aiSystem' : (i % 3 === 1 ? 'timeBased' : 'volumeBased'),
         timestamp: actionDate.toISOString().replace('T', ' ').slice(0, 16)
       };
     });

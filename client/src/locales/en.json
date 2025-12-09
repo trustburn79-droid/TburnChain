@@ -16137,6 +16137,21 @@
     "confirmResume": {
       "title": "Resume Token",
       "description": "Are you sure you want to resume {{name}} ({{symbol}})? Transfers will be re-enabled."
+    },
+    "supplyStats": {
+      "totalSupply": "Total Supply",
+      "circulatingSupply": "Circulating Supply",
+      "stakedSupply": "Staked Supply",
+      "burnedSupply": "Burned Supply"
+    },
+    "destinations": {
+      "burnAddress": "Burn Address",
+      "stakingPool": "Staking Pool"
+    },
+    "sources": {
+      "aiSystem": "AI System",
+      "timeBased": "Time-based",
+      "volumeBased": "Volume-based"
     }
   },
   "adminBurnControl": {
