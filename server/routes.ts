@@ -1796,7 +1796,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Token System Stats - Enterprise Node data
   app.get("/api/token-system/stats", async (_req, res) => {
     try {
-      const stats = enterpriseNode.getPublicTokenSystemStats();
+      const node = getEnterpriseNode();
+      const stats = node.getPublicTokenSystemStats();
       res.json(stats);
     } catch (error) {
       console.error("Error fetching token system stats:", error);
@@ -1807,7 +1808,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Token List by Standard - Enterprise Node data
   app.get("/api/token-system/tokens", async (_req, res) => {
     try {
-      const tokens = enterpriseNode.getPublicTokenSystemTokens();
+      const node = getEnterpriseNode();
+      const tokens = node.getPublicTokenSystemTokens();
       res.json(tokens);
     } catch (error) {
       console.error("Error fetching tokens:", error);
@@ -2068,7 +2070,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Cross-Chain Bridge Stats - Enterprise Node data
   app.get("/api/bridge/stats", async (_req, res) => {
     try {
-      const stats = enterpriseNode.getPublicBridgeStats();
+      const node = getEnterpriseNode();
+      const stats = node.getPublicBridgeStats();
       res.json(stats);
     } catch (error) {
       console.error("Error fetching bridge stats:", error);
@@ -2079,7 +2082,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Supported Chains - Enterprise Node data
   app.get("/api/bridge/chains", async (_req, res) => {
     try {
-      const chains = enterpriseNode.getPublicBridgeChains();
+      const node = getEnterpriseNode();
+      const chains = node.getPublicBridgeChains();
       res.json(chains);
     } catch (error) {
       console.error("Error fetching chains:", error);
@@ -2090,7 +2094,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Bridge Routes - Enterprise Node data
   app.get("/api/bridge/routes", async (_req, res) => {
     try {
-      const routes = enterpriseNode.getPublicBridgeRoutes();
+      const node = getEnterpriseNode();
+      const routes = node.getPublicBridgeRoutes();
       res.json(routes);
     } catch (error) {
       console.error("Error fetching bridge routes:", error);
@@ -2101,7 +2106,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Bridge Validators - Enterprise Node data
   app.get("/api/bridge/validators", async (_req, res) => {
     try {
-      const validators = enterpriseNode.getPublicBridgeValidators();
+      const node = getEnterpriseNode();
+      const validators = node.getPublicBridgeValidators();
       res.json(validators);
     } catch (error) {
       console.error("Error fetching bridge validators:", error);
@@ -2112,7 +2118,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Bridge Liquidity Pools - Enterprise Node data
   app.get("/api/bridge/liquidity", async (_req, res) => {
     try {
-      const pools = enterpriseNode.getPublicBridgeLiquidity();
+      const node = getEnterpriseNode();
+      const pools = node.getPublicBridgeLiquidity();
       res.json(pools);
     } catch (error) {
       console.error("Error fetching bridge liquidity:", error);
@@ -2123,7 +2130,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Bridge Activity - Enterprise Node data
   app.get("/api/bridge/activity", async (_req, res) => {
     try {
-      const activities = enterpriseNode.getPublicBridgeActivity();
+      const node = getEnterpriseNode();
+      const activities = node.getPublicBridgeActivity();
       res.json(activities);
     } catch (error) {
       console.error("Error fetching bridge activity:", error);
@@ -2134,7 +2142,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Bridge Transfers - Enterprise Node data
   app.get("/api/bridge/transfers", async (_req, res) => {
     try {
-      const transfers = enterpriseNode.getPublicBridgeTransfers();
+      const node = getEnterpriseNode();
+      const transfers = node.getPublicBridgeTransfers();
       res.json(transfers);
     } catch (error) {
       console.error("Error fetching transfers:", error);
@@ -2145,13 +2154,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Initiate Bridge Transfer - Enterprise Node data
   app.post("/api/bridge/transfers/initiate", async (req, res) => {
     try {
+      const node = getEnterpriseNode();
       const { sourceChainId, destinationChainId, amount, tokenSymbol = "TBURN" } = req.body;
       
       if (!sourceChainId || !destinationChainId || !amount) {
         return res.status(400).json({ error: "Missing required fields: sourceChainId, destinationChainId, amount" });
       }
       
-      const bridgeChains = enterpriseNode.getPublicBridgeChains();
+      const bridgeChains = node.getPublicBridgeChains();
       const sourceChain = bridgeChains.find(c => c.chainId === sourceChainId);
       const destChain = bridgeChains.find(c => c.chainId === destinationChainId);
       
@@ -10075,7 +10085,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Enterprise-grade production pools from TBurnEnterpriseNode if none exist
       if (!pools || pools.length === 0) {
-        const enterprisePools = enterpriseNode.getPublicStakingPools();
+        const node = getEnterpriseNode();
+        const enterprisePools = node.getPublicStakingPools();
         return res.json(enterprisePools.map(transformPoolForFrontend));
       }
       
