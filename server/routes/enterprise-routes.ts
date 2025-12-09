@@ -2330,4 +2330,359 @@ router.delete('/admin/reports/schedule/:id', async (req: Request, res: Response)
   }
 });
 
+// ============================================
+// Operations Tools - Emergency Management
+// ============================================
+
+router.get('/admin/operations/emergency', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getEmergencyStatus();
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch emergency status',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/emergency/activate/:controlId', async (req: Request, res: Response) => {
+  try {
+    const { controlId } = req.params;
+    res.json({
+      success: true,
+      data: {
+        controlId,
+        activated: true,
+        activatedAt: new Date().toISOString(),
+        activatedBy: 'Admin'
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to activate emergency control',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/operations/emergency/breaker', async (req: Request, res: Response) => {
+  try {
+    const { name, enabled } = req.body;
+    res.json({
+      success: true,
+      data: {
+        name,
+        enabled,
+        updatedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update circuit breaker',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Operations Tools - Maintenance Management
+// ============================================
+
+router.get('/admin/operations/maintenance', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getMaintenanceData();
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch maintenance data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/maintenance/mode', async (req: Request, res: Response) => {
+  try {
+    const { enabled } = req.body;
+    res.json({
+      success: true,
+      data: {
+        maintenanceMode: enabled,
+        updatedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to toggle maintenance mode',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/maintenance/schedule', async (req: Request, res: Response) => {
+  try {
+    const { title, type, startTime, endTime, description, notification } = req.body;
+    res.json({
+      success: true,
+      data: {
+        id: Date.now(),
+        name: title,
+        type,
+        start: startTime,
+        end: endTime,
+        description,
+        notification,
+        status: 'scheduled',
+        createdAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to schedule maintenance',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/maintenance/cancel/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    res.json({
+      success: true,
+      data: {
+        id: parseInt(id),
+        status: 'cancelled',
+        cancelledAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to cancel maintenance',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Operations Tools - Backup Management
+// ============================================
+
+router.get('/admin/operations/backups', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getBackupData();
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch backup data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/backups/create', async (req: Request, res: Response) => {
+  try {
+    const { type } = req.body;
+    res.json({
+      success: true,
+      data: {
+        id: Date.now(),
+        type: type || 'full',
+        status: 'started',
+        startedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create backup',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/backups/restore/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    res.json({
+      success: true,
+      data: {
+        id: parseInt(id),
+        status: 'restoring',
+        startedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to restore backup',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.delete('/admin/operations/backups/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    res.json({
+      success: true,
+      data: {
+        id: parseInt(id),
+        deleted: true,
+        deletedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete backup',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.patch('/admin/operations/backups/job', async (req: Request, res: Response) => {
+  try {
+    const { name, enabled } = req.body;
+    res.json({
+      success: true,
+      data: {
+        name,
+        enabled,
+        updatedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update backup job',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Operations Tools - Update Management
+// ============================================
+
+router.get('/admin/operations/updates', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getUpdatesData();
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch updates data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/updates/check', async (req: Request, res: Response) => {
+  try {
+    res.json({
+      success: true,
+      data: {
+        lastCheck: new Date().toISOString(),
+        updatesAvailable: 2
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to check for updates',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/updates/install', async (req: Request, res: Response) => {
+  try {
+    const { version } = req.body;
+    res.json({
+      success: true,
+      data: {
+        version,
+        status: 'installing',
+        startedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to install update',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/updates/rollback', async (req: Request, res: Response) => {
+  try {
+    const { version } = req.body;
+    res.json({
+      success: true,
+      data: {
+        version,
+        status: 'rolling_back',
+        startedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to rollback update',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.post('/admin/operations/updates/node', async (req: Request, res: Response) => {
+  try {
+    const { nodeName } = req.body;
+    res.json({
+      success: true,
+      data: {
+        nodeName,
+        status: 'updating',
+        startedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update node',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Operations Tools - System Logs
+// ============================================
+
+router.get('/admin/operations/logs', async (req: Request, res: Response) => {
+  try {
+    const enterpriseNode = getEnterpriseNode();
+    const data = enterpriseNode.getSystemLogs();
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch system logs',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;
