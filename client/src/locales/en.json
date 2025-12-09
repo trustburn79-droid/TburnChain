@@ -18428,7 +18428,15 @@
         "developerAccess": "Developer Access",
         "developerAccessDesc": "Development and testing access",
         "bridgeControl": "Bridge Control",
-        "bridgeControlDesc": "Bridge operation permissions"
+        "bridgeControlDesc": "Bridge operation permissions",
+        "superAdminAccess": "Super Admin Access",
+        "superAdminAccessDesc": "Full system access with all permissions",
+        "validatorManagement": "Validator Management",
+        "validatorManagementDesc": "Create and manage validator operations",
+        "treasuryAccess": "Treasury Access",
+        "treasuryAccessDesc": "Access to treasury and fund management",
+        "auditReadOnly": "Audit Read Only",
+        "auditReadOnlyDesc": "Read-only access to audit logs and compliance"
       }
     },
     "permissions": {
