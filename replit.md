@@ -34,6 +34,13 @@ Key architectural decisions include:
 - **No Test Labels**: All public pages display production data only - no "test", "testnet", or "mock" labels
 
 ## Recent Changes (December 2024)
+- **Token & Economics Production-Ready (December 9, 2024)**: All 4 Token & Economics admin pages now use real TBurnEnterpriseNode data
+  - New TBurnEnterpriseNode methods: `getTokensInfo()`, `getBurnStats()`, `getEconomicsMetrics()`, `getTreasuryStats()`
+  - `/api/admin/tokens`: 6 tokens with real supply data (TBURN 10B total, stTBURN 3.2B staked, WETH, USDC, TGEN NFT, lstTBURN)
+  - `/api/admin/burn/stats`: Burn statistics with 7-day history, scheduled burns, recent events (350K TBURN/day burn rate)
+  - `/api/admin/economics`: Economic metrics (inflation/deflation rates, staking ratio, reward distribution, 6-month projection)
+  - `/api/admin/treasury`: Treasury stats (1.85B TBURN balance, 5 pools, multi-sig signers, 6-month growth)
+  - Removed all hardcoded fallback data from frontend pages (token-issuance.tsx, burn-control.tsx, economics.tsx, treasury.tsx)
 - **Network Operations Production-Ready (December 9, 2024)**: All 5 Network Operations admin pages now use real TBurnEnterpriseNode data
   - New TBurnEnterpriseNode methods: `getNodes()`, `getValidators()`, `getConsensusInfo()`, `getNetworkParams()`
   - Deterministic data generation using crypto.createHash (no Math.random)
