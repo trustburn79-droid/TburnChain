@@ -339,6 +339,37 @@ router.get('/validators', async (req: Request, res: Response) => {
     const validators = await storage.getAllValidators();
     const activeCount = validators.filter((v: Validator) => v.status === 'active').length;
     
+    // Helper to convert basis points to percentage (9500 -> 95.00)
+    const bpsToPercent = (val: string | number | undefined) => {
+      const num = parseFloat(String(val || '0'));
+      return num > 100 ? (num / 100).toFixed(2) : String(num);
+    };
+    
+    // Helper to convert Wei to TBURN (1e18 -> 1)
+    const weiToTburn = (val: string | undefined) => {
+      if (!val) return '0';
+      try {
+        const num = BigInt(val);
+        return (Number(num) / 1e18).toFixed(2);
+      } catch {
+        return '0';
+      }
+    };
+    
+    // Helper to assign tier based on stake amount
+    const getTier = (stake: string): string => {
+      try {
+        const stakeNum = Number(BigInt(stake)) / 1e18;
+        if (stakeNum >= 200000) return 'diamond';
+        if (stakeNum >= 100000) return 'platinum';
+        if (stakeNum >= 50000) return 'gold';
+        if (stakeNum >= 10000) return 'silver';
+        return 'bronze';
+      } catch {
+        return 'bronze';
+      }
+    };
+    
     res.json({
       success: true,
       data: {
@@ -346,26 +377,39 @@ router.get('/validators', async (req: Request, res: Response) => {
           address: v.address,
           name: v.name,
           status: v.status,
-          stake: v.stakedAmount,
-          delegators: v.delegatorCount || 0,
-          commission: v.commission,
-          uptime: v.uptime,
-          blocksProduced: v.blocksProduced,
-          rewardsEarned: v.rewardsEarned,
-          apy: v.apy,
+          stake: weiToTburn(v.stake),
+          delegators: v.delegators || 0,
+          commission: bpsToPercent(v.commission),
+          uptime: bpsToPercent(v.uptime),
+          blocksProduced: v.totalBlocks || 0,
+          rewardsEarned: weiToTburn(v.rewardEarned),
+          apy: bpsToPercent(v.apy),
           behaviorScore: v.behaviorScore,
           adaptiveWeight: v.adaptiveWeight,
-          tier: v.tier,
+          tier: getTier(v.stake),
           joinedAt: v.joinedAt,
-          location: v.location
+          location: v.address ? v.address.slice(2, 4) : undefined // derive region from address
         })),
         summary: {
           total: validators.length,
           active: activeCount,
           inactive: validators.length - activeCount,
-          totalStaked: validators.reduce((sum: number, v: Validator) => sum + parseFloat(v.stakedAmount || '0'), 0).toFixed(0),
-          avgUptime: (validators.reduce((sum: number, v: Validator) => sum + parseFloat(v.uptime || '0'), 0) / validators.length).toFixed(2),
-          avgApy: (validators.reduce((sum: number, v: Validator) => sum + parseFloat(v.apy || '0'), 0) / validators.length).toFixed(2)
+          totalStaked: validators.reduce((sum: number, v: Validator) => {
+            try {
+              const val = BigInt(v.stake || '0');
+              return sum + Number(val) / 1e18;
+            } catch {
+              return sum;
+            }
+          }, 0).toFixed(0),
+          avgUptime: (validators.reduce((sum: number, v: Validator) => {
+            const num = parseFloat(v.uptime || '0');
+            return sum + (num > 100 ? num / 100 : num);
+          }, 0) / validators.length).toFixed(2),
+          avgApy: (validators.reduce((sum: number, v: Validator) => {
+            const num = parseFloat(v.apy || '0');
+            return sum + (num > 100 ? num / 100 : num);
+          }, 0) / validators.length).toFixed(2)
         }
       },
       lastUpdated: Date.now()
@@ -390,8 +434,28 @@ router.get('/validators/top', async (req: Request, res: Response) => {
     const validators = await storage.getAllValidators();
     
     const topValidators = validators
-      .sort((a: Validator, b: Validator) => parseFloat(b.stakedAmount || '0') - parseFloat(a.stakedAmount || '0'))
+      .sort((a: Validator, b: Validator) => {
+        try {
+          return Number(BigInt(b.stake || '0') - BigInt(a.stake || '0'));
+        } catch {
+          return 0;
+        }
+      })
       .slice(0, limit);
+    
+    // Helper functions for conversion
+    const bpsToPercent = (val: string | number | undefined) => {
+      const num = parseFloat(String(val || '0'));
+      return num > 100 ? (num / 100).toFixed(2) : String(num);
+    };
+    const weiToTburn = (val: string | undefined) => {
+      if (!val) return '0';
+      try {
+        return (Number(BigInt(val)) / 1e18).toFixed(2);
+      } catch {
+        return '0';
+      }
+    };
     
     res.json({
       success: true,
@@ -399,10 +463,10 @@ router.get('/validators/top', async (req: Request, res: Response) => {
         rank: index + 1,
         address: v.address,
         name: v.name,
-        stake: v.stakedAmount,
-        commission: v.commission,
-        uptime: v.uptime,
-        apy: v.apy,
+        stake: weiToTburn(v.stake),
+        commission: bpsToPercent(v.commission),
+        uptime: bpsToPercent(v.uptime),
+        apy: bpsToPercent(v.apy),
         status: v.status
       })),
       lastUpdated: Date.now()
