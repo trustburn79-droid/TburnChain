@@ -2704,9 +2704,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const tier2DailyReward = this.calculateValidatorDailyReward('tier_2', tier2ValidatorCount);
     const tier3DailyReward = this.calculateValidatorDailyReward('tier_3', tier3DelegatorCount);
     
-    const tier1AvgStake = 256_000; // Average stake for Tier 1
-    const tier2AvgStake = 75_000; // Average stake for Tier 2
-    const tier3AvgStake = 1_000; // Average delegation
+    const tier1AvgStake = 9_125_000; // Average stake for Tier 1 (targets ~8% APY)
+    const tier2AvgStake = 1_825_000; // Average stake for Tier 2 (targets ~4% APY)
+    const tier3AvgStake = 36_500; // Average delegation (targets ~5% APY)
     
     return {
       // Core Price Metrics
