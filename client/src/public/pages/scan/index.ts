@@ -8,3 +8,4 @@ export { default as ValidatorsList } from './ValidatorsList';
 export { default as ScanSearchResults } from './SearchResults';
 export { default as NetworkStats } from './NetworkStats';
 export { default as TokensList } from './TokensList';
+export { default as TokenDetail } from './TokenDetail';

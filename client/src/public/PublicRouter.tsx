@@ -10,7 +10,7 @@ import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } f
 import { Validators, RpcProviders, NetworkStatus, Ramp } from "./pages/network";
 import { NewsBlog, NewsDetail, Events, EventDetail, CommunityHub, PostDetail } from "./pages/community";
 import { TermsOfService, PrivacyPolicy, Disclaimer } from "./pages/legal";
-import { ScanHome, BlocksList, BlockDetail, TransactionsList, TransactionDetail, AddressDetail, ValidatorsList, ScanSearchResults, NetworkStats, TokensList } from "./pages/scan";
+import { ScanHome, BlocksList, BlockDetail, TransactionsList, TransactionDetail, AddressDetail, ValidatorsList, ScanSearchResults, NetworkStats, TokensList, TokenDetail } from "./pages/scan";
 
 export function PublicRouter() {
   return (
@@ -95,6 +95,7 @@ export function PublicRouter() {
         <Route path="/scan/tx/:hash" component={TransactionDetail} />
         <Route path="/scan/address/:address" component={AddressDetail} />
         <Route path="/scan/validators" component={ValidatorsList} />
+        <Route path="/scan/token/:address" component={TokenDetail} />
         <Route path="/scan/tokens" component={TokensList} />
         <Route path="/scan/stats" component={NetworkStats} />
         <Route path="/scan/search" component={ScanSearchResults} />
