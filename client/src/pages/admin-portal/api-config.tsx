@@ -172,17 +172,17 @@ export default function ApiConfig() {
   };
 
   const { data: apiConfig, isLoading, error, refetch } = useQuery<ApiConfigData>({
-    queryKey: ["/api/admin/config/api"],
+    queryKey: ["/api/enterprise/admin/config/api"],
     refetchInterval: 30000,
   });
 
   const saveConfigMutation = useMutation({
     mutationFn: async (config: Partial<ApiConfigData>) => {
-      const response = await apiRequest("POST", "/api/admin/config/api", config);
+      const response = await apiRequest("POST", "/api/enterprise/admin/config/api", config);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/config/api"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/config/api"] });
       toast({
         title: t("adminApiConfig.saveSuccess"),
         description: t("adminApiConfig.saveSuccessDesc"),
@@ -199,11 +199,11 @@ export default function ApiConfig() {
 
   const createKeyMutation = useMutation({
     mutationFn: async (keyData: { name: string; permissions: string[]; rateLimit: number }) => {
-      const response = await apiRequest("POST", "/api/admin/config/api/keys", keyData);
+      const response = await apiRequest("POST", "/api/enterprise/admin/config/api/keys", keyData);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/config/api"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/config/api"] });
       toast({
         title: t("adminApiConfig.keyCreated"),
         description: t("adminApiConfig.keyCreatedDesc"),
@@ -220,11 +220,11 @@ export default function ApiConfig() {
 
   const deleteKeyMutation = useMutation({
     mutationFn: async (keyId: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/config/api/keys/${keyId}`);
+      const response = await apiRequest("DELETE", `/api/enterprise/admin/config/api/keys/${keyId}`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/config/api"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/config/api"] });
       toast({
         title: t("adminApiConfig.keyDeleted"),
         description: t("adminApiConfig.keyDeletedDesc"),
@@ -262,77 +262,8 @@ export default function ApiConfig() {
     });
   }, [apiConfig, toast, t]);
 
-  const mockApiKeys: ApiKey[] = [
-    {
-      id: "1",
-      name: "Mainnet Production API",
-      key: "sk-mainnet-prod-xxxxxxxxxxxxxxxx",
-      createdAt: "2024-12-01",
-      lastUsed: "2024-12-07 23:59:45",
-      status: "active",
-      permissions: ["read", "write", "admin"],
-      rateLimit: 100000,
-      usageCount: 18472935,
-    },
-    {
-      id: "2",
-      name: "Bridge Integration API",
-      key: "sk-bridge-int-yyyyyyyyyyyyyyyyy",
-      createdAt: "2024-11-15",
-      lastUsed: "2024-12-07 23:58:22",
-      status: "active",
-      permissions: ["read", "write"],
-      rateLimit: 50000,
-      usageCount: 8234567,
-    },
-    {
-      id: "3",
-      name: "DeFi Services API",
-      key: "sk-defi-svc-zzzzzzzzzzzzzzzz",
-      createdAt: "2024-11-20",
-      lastUsed: "2024-12-07 23:55:00",
-      status: "active",
-      permissions: ["read", "write"],
-      rateLimit: 75000,
-      usageCount: 5678234,
-    },
-    {
-      id: "4",
-      name: "AI Orchestration API",
-      key: "sk-ai-orch-aaaaaaaaaaaaaaaa",
-      createdAt: "2024-11-25",
-      lastUsed: "2024-12-07 23:59:30",
-      status: "active",
-      permissions: ["read", "write", "admin"],
-      rateLimit: 25000,
-      usageCount: 2345678,
-    },
-    {
-      id: "5",
-      name: "Analytics Dashboard API",
-      key: "sk-analytics-bbbbbbbbbbbbbbbb",
-      createdAt: "2024-12-05",
-      lastUsed: "2024-12-07 23:45:00",
-      status: "active",
-      permissions: ["read"],
-      rateLimit: 10000,
-      usageCount: 456789,
-    },
-  ];
-
-  const mockRateLimits: RateLimitConfig[] = [
-    { endpoint: "/api/blocks", limit: 10000, window: "1m", currentUsage: 4523 },
-    { endpoint: "/api/transactions", limit: 50000, window: "1m", currentUsage: 28456 },
-    { endpoint: "/api/wallets", limit: 5000, window: "1m", currentUsage: 1234 },
-    { endpoint: "/api/validators", limit: 3000, window: "1m", currentUsage: 856 },
-    { endpoint: "/api/bridge/*", limit: 25000, window: "1m", currentUsage: 12345 },
-    { endpoint: "/api/defi/*", limit: 20000, window: "1m", currentUsage: 8765 },
-    { endpoint: "/api/ai/*", limit: 5000, window: "1m", currentUsage: 2345 },
-    { endpoint: "/api/admin/*", limit: 2000, window: "1m", currentUsage: 523 },
-  ];
-
-  const apiKeys = apiConfig?.apiKeys || mockApiKeys;
-  const rateLimits = apiConfig?.rateLimits || mockRateLimits;
+  const apiKeys = apiConfig?.apiKeys || [];
+  const rateLimits = apiConfig?.rateLimits || [];
 
   if (error) {
     return (

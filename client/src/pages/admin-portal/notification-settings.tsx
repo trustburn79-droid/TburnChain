@@ -128,18 +128,18 @@ export default function NotificationSettings() {
   const [showTestConfirmDialog, setShowTestConfirmDialog] = useState(false);
 
   const { data: notificationSettings, isLoading, error, refetch } = useQuery<NotificationSettings>({
-    queryKey: ["/api/admin/notifications/settings"],
+    queryKey: ["/api/enterprise/admin/notifications/settings"],
     refetchInterval: 30000,
   });
 
   const saveSettingsMutation = useMutation({
     mutationFn: async (settings: Partial<NotificationSettings>) => {
-      const response = await apiRequest("POST", "/api/admin/notifications/settings", settings);
+      const response = await apiRequest("POST", "/api/enterprise/admin/notifications/settings", settings);
       return response.json();
     },
     onSuccess: () => {
       setShowSaveConfirmDialog(false);
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/notifications/settings"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/notifications/settings"] });
       toast({
         title: t("adminNotifications.saveSuccess"),
         description: t("adminNotifications.saveSuccessDesc"),
@@ -156,7 +156,7 @@ export default function NotificationSettings() {
 
   const testNotificationMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest("POST", "/api/admin/notifications/test");
+      const response = await apiRequest("POST", "/api/enterprise/admin/notifications/test");
       return response.json();
     },
     onSuccess: () => {
@@ -183,18 +183,7 @@ export default function NotificationSettings() {
     });
   }, [refetch, toast, t]);
 
-  const mockChannels: NotificationChannel[] = [
-    { id: "1", type: "email", name: "Critical Ops Team", enabled: true, destination: "ops-critical@tburn.io" },
-    { id: "2", type: "email", name: "Security Team", enabled: true, destination: "security@tburn.io" },
-    { id: "3", type: "slack", name: "#tburn-mainnet-alerts", enabled: true, destination: "#tburn-mainnet-alerts" },
-    { id: "4", type: "slack", name: "#validator-status", enabled: true, destination: "#validator-status" },
-    { id: "5", type: "discord", name: "TBURN Official", enabled: true, destination: "#mainnet-notifications" },
-    { id: "6", type: "telegram", name: "Ops Bot", enabled: true, destination: "@tburn_mainnet_bot" },
-    { id: "7", type: "sms", name: "On-Call Primary", enabled: true, destination: "+1-xxx-xxx-0001" },
-    { id: "8", type: "sms", name: "On-Call Secondary", enabled: true, destination: "+1-xxx-xxx-0002" },
-  ];
-
-  const channels = notificationSettings?.channels || mockChannels;
+  const channels = notificationSettings?.channels || [];
 
   const getChannelDetailSections = useCallback((channel: NotificationChannel): DetailSection[] => [
     {

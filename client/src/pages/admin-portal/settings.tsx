@@ -143,7 +143,7 @@ export default function AdminSettings() {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const { data: settings, isLoading, error, refetch } = useQuery<SystemSettings>({
-    queryKey: ["/api/admin/settings"],
+    queryKey: ["/api/enterprise/admin/settings"],
     refetchInterval: 30000,
   });
 
@@ -155,11 +155,11 @@ export default function AdminSettings() {
 
   const saveSettingsMutation = useMutation({
     mutationFn: async (newSettings: SystemSettings) => {
-      const response = await apiRequest("POST", "/api/admin/settings", newSettings);
+      const response = await apiRequest("POST", "/api/enterprise/admin/settings", newSettings);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/settings"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/settings"] });
       toast({
         title: t("adminSettings.saveSuccess"),
         description: t("adminSettings.saveSuccessDesc"),
@@ -203,11 +203,11 @@ export default function AdminSettings() {
 
   const resetSettingsMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest("POST", "/api/admin/settings/reset");
+      const response = await apiRequest("POST", "/api/enterprise/admin/settings/reset");
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/settings"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/settings"] });
       setShowResetConfirm(false);
       toast({
         title: t("adminSettings.resetSuccess"),
@@ -243,54 +243,7 @@ export default function AdminSettings() {
     resetSettingsMutation.mutate();
   }, [resetSettingsMutation]);
 
-  const mockSettings: SystemSettings = {
-    general: {
-      chainName: "TBURN Mainnet v8.0",
-      chainId: "8888",
-      rpcEndpoint: "https://mainnet-rpc.tburn.io",
-      wsEndpoint: "wss://mainnet-ws.tburn.io",
-      explorerUrl: "https://explorer.tburn.io",
-      timezone: "America/New_York",
-    },
-    database: {
-      autoBackup: true,
-      dataRetention: "365",
-    },
-    network: {
-      blockTime: 1,
-      maxBlockSize: 4,
-      gasLimit: "100000000",
-      minGasPrice: "1",
-      maxValidators: 256,
-      minStake: "20000000",
-      aiEnhancedBft: true,
-      dynamicSharding: true,
-    },
-    security: {
-      twoFactorAuth: true,
-      sessionTimeout: "15",
-      ipWhitelist: true,
-      rateLimiting: true,
-      autoKeyRotation: "30",
-    },
-    notifications: {
-      criticalAlerts: true,
-      securityEvents: true,
-      validatorStatus: true,
-      bridgeAlerts: true,
-      aiSystemAlerts: true,
-      maintenanceReminders: true,
-      alertEmail: "ops-critical@tburn.io",
-      smtpServer: "smtp.tburn.io",
-    },
-    appearance: {
-      defaultTheme: "system",
-      defaultLanguage: "en",
-      compactMode: false,
-    },
-  };
-
-  const currentSettings = localSettings || settings || mockSettings;
+  const currentSettings = localSettings || settings;
 
   const getDetailSections = useCallback((): DetailSection[] => {
     if (!selectedSection) return [];

@@ -137,17 +137,17 @@ export default function Integrations() {
   const [activeTab, setActiveTab] = useState("all");
 
   const { data: integrationsData, isLoading, error, refetch } = useQuery<IntegrationsData>({
-    queryKey: ["/api/admin/integrations"],
+    queryKey: ["/api/enterprise/admin/integrations"],
     refetchInterval: 30000,
   });
 
   const saveIntegrationsMutation = useMutation({
     mutationFn: async (config: Partial<IntegrationsData>) => {
-      const response = await apiRequest("POST", "/api/admin/integrations", config);
+      const response = await apiRequest("POST", "/api/enterprise/admin/integrations", config);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/integrations"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/integrations"] });
       toast({
         title: t("adminIntegrations.saveSuccess"),
         description: t("adminIntegrations.saveSuccessDesc"),
@@ -164,11 +164,11 @@ export default function Integrations() {
 
   const toggleIntegrationMutation = useMutation({
     mutationFn: async ({ id, enabled }: { id: string; enabled: boolean }) => {
-      const response = await apiRequest("PATCH", `/api/admin/integrations/${id}`, { enabled });
+      const response = await apiRequest("PATCH", `/api/enterprise/admin/integrations/${id}`, { enabled });
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/integrations"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/integrations"] });
       toast({
         title: t("adminIntegrations.integrationUpdated"),
         description: t("adminIntegrations.integrationUpdatedDesc"),
@@ -191,73 +191,7 @@ export default function Integrations() {
     });
   }, [refetch, toast, t]);
 
-  const mockIntegrations: Integration[] = [
-    {
-      id: "1",
-      name: "Slack",
-      description: t("adminIntegrations.integrations.slackDesc"),
-      category: "messaging",
-      status: "connected",
-      lastSync: "2024-12-07 23:58:00",
-      icon: SiSlack,
-    },
-    {
-      id: "2",
-      name: "Discord",
-      description: t("adminIntegrations.integrations.discordDesc"),
-      category: "messaging",
-      status: "connected",
-      lastSync: "2024-12-07 23:55:00",
-      icon: SiDiscord,
-    },
-    {
-      id: "3",
-      name: "Telegram",
-      description: t("adminIntegrations.integrations.telegramDesc"),
-      category: "messaging",
-      status: "connected",
-      lastSync: "2024-12-07 23:50:00",
-      icon: SiTelegram,
-    },
-    {
-      id: "4",
-      name: "GitHub",
-      description: t("adminIntegrations.integrations.githubDesc"),
-      category: "development",
-      status: "connected",
-      lastSync: "2024-12-07 22:00:00",
-      icon: SiGithub,
-    },
-    {
-      id: "5",
-      name: "AWS",
-      description: t("adminIntegrations.integrations.awsDesc"),
-      category: "cloud",
-      status: "connected",
-      lastSync: "2024-12-07 23:59:00",
-      icon: SiAmazon,
-    },
-    {
-      id: "6",
-      name: "Google Cloud",
-      description: t("adminIntegrations.integrations.gcpDesc"),
-      category: "cloud",
-      status: "connected",
-      lastSync: "2024-12-07 23:45:00",
-      icon: SiGooglecloud,
-    },
-    {
-      id: "7",
-      name: "Azure",
-      description: t("adminIntegrations.integrations.azureDesc"),
-      category: "cloud",
-      status: "connected",
-      lastSync: "2024-12-07 23:30:00",
-      icon: Cloud,
-    },
-  ];
-
-  const integrations = integrationsData?.integrations || mockIntegrations;
+  const integrations = integrationsData?.integrations || [];
 
   const getStatusIcon = (status: string) => {
     switch (status) {

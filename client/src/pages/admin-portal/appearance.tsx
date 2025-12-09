@@ -118,17 +118,17 @@ export default function Appearance() {
   const [showResetConfirmDialog, setShowResetConfirmDialog] = useState(false);
 
   const { data: appearanceSettings, isLoading, error, refetch } = useQuery<AppearanceSettings>({
-    queryKey: ["/api/admin/appearance"],
+    queryKey: ["/api/enterprise/admin/appearance"],
     refetchInterval: 60000,
   });
 
   const saveSettingsMutation = useMutation({
     mutationFn: async (settings: Partial<AppearanceSettings>) => {
-      const response = await apiRequest("POST", "/api/admin/appearance", settings);
+      const response = await apiRequest("POST", "/api/enterprise/admin/appearance", settings);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/appearance"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/appearance"] });
       setShowSaveConfirmDialog(false);
       toast({
         title: t("adminAppearance.saveSuccess"),
@@ -146,7 +146,7 @@ export default function Appearance() {
 
   const resetSettingsMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest("POST", "/api/admin/appearance/reset");
+      const response = await apiRequest("POST", "/api/enterprise/admin/appearance/reset");
       return response.json();
     },
     onSuccess: () => {
@@ -156,7 +156,7 @@ export default function Appearance() {
       setSidebarCollapsed(false);
       setLanguage("en");
       setShowResetConfirmDialog(false);
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/appearance"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/appearance"] });
       toast({
         title: t("adminAppearance.resetSuccess"),
         description: t("adminAppearance.resetSuccessDesc"),
