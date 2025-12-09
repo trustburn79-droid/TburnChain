@@ -80,6 +80,9 @@ interface NetworkStats {
   latency: number;
   totalShards: number;
   crossShardMessages: number;
+  circulatingSupply?: string;
+  burnedTokens?: string;
+  totalSupply?: string;
 }
 
 interface AISystemStatus {
@@ -515,12 +518,20 @@ export default function UnifiedDashboard() {
     rewardsDistributed: "285000000",
   }), []);
 
-  const tokenEconomics: TokenEconomics = useMemo(() => ({
-    circulatingSupply: "9650000000",
-    totalBurned: "350000000",
-    inflationRate: -1.53,
-    deflationaryRate: 1.53,
-  }), []);
+  const tokenEconomics: TokenEconomics = useMemo(() => {
+    const circulatingSupply = networkStats?.circulatingSupply || "6800000000";
+    const burnedTokens = networkStats?.burnedTokens || "0";
+    const totalSupply = networkStats?.totalSupply || "10000000000";
+    const burnedNum = parseFloat(burnedTokens);
+    const totalNum = parseFloat(totalSupply);
+    const deflationRate = totalNum > 0 ? ((burnedNum / totalNum) * 100).toFixed(2) : "0";
+    return {
+      circulatingSupply: circulatingSupply,
+      totalBurned: burnedTokens,
+      inflationRate: -parseFloat(deflationRate),
+      deflationaryRate: parseFloat(deflationRate),
+    };
+  }, [networkStats]);
 
   const alerts: SecurityAlert[] = useMemo(() => {
     if (alertsData?.alerts) {
@@ -662,7 +673,7 @@ export default function UnifiedDashboard() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <MetricCard
               icon={Zap}
               label={t("adminDashboard.tps")}
