@@ -4274,7 +4274,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       totalVolume24h: `$${this.formatNumber(baseVolume + hourlyVariance)}`,
       activeTransfers: 38 + (seedValue % 25),
       completedToday: 1456 + (seedValue % 300),
-      avgTransferTime: '4m 45s',
+      avgTransferTime: '~25s',
       totalBridged: '$2.85B',
       chainCount: 5,
       validatorCount: 21,

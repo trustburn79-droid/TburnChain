@@ -28,13 +28,25 @@ interface BridgeStats {
 }
 
 interface Chain {
+  id?: number;
   name: string;
   symbol: string;
+  chainId?: number;
   status: "active" | "degraded" | "offline";
   tvl: string;
   volume24h: string;
-  pending: number;
+  pending?: number;
+  pendingTx?: number;
   validators: number;
+  maxValidators?: number;
+  rpcEndpoint?: string;
+  explorerUrl?: string;
+  bridgeContract?: string;
+  confirmations?: number;
+  enabled?: boolean;
+  lastBlock?: number;
+  blockTime?: string;
+  latency?: number;
 }
 
 interface Transfer {
@@ -204,12 +216,14 @@ export default function AdminBridgeDashboard() {
   };
 
   const getChainDetailSections = (chain: Chain): DetailSection[] => {
+    const pendingCount = chain.pendingTx ?? chain.pending ?? 0;
     return [
       {
         title: t("adminBridge.detail.overview"),
         fields: [
           { label: t("adminBridge.detail.chainName"), value: chain.name, type: "text" as const },
           { label: t("adminBridge.detail.symbol"), value: chain.symbol, type: "badge" as const },
+          { label: t("adminBridge.detail.chainId"), value: chain.chainId?.toString() || "N/A", type: "text" as const },
           { label: t("adminBridge.detail.status"), value: chain.status, type: "status" as const },
           { label: t("adminBridge.detail.tvl"), value: chain.tvl, type: "text" as const },
         ],
@@ -218,16 +232,21 @@ export default function AdminBridgeDashboard() {
         title: t("adminBridge.detail.performance"),
         fields: [
           { label: t("adminBridge.detail.volume24h"), value: chain.volume24h, type: "text" as const },
-          { label: t("adminBridge.detail.pendingTx"), value: chain.pending.toString(), type: "badge" as const },
-          { label: t("adminBridge.detail.activeValidators"), value: `${chain.validators}/8`, type: "text" as const },
+          { label: t("adminBridge.detail.pendingTx"), value: pendingCount.toString(), type: "badge" as const },
+          { label: t("adminBridge.detail.activeValidators"), value: `${chain.validators}/${chain.maxValidators ?? 10}`, type: "text" as const },
+          { label: t("adminBridge.detail.blockTime"), value: chain.blockTime || "N/A", type: "text" as const },
+          { label: t("adminBridge.detail.latency"), value: chain.latency ? `${chain.latency}ms` : "N/A", type: "text" as const },
+          { label: t("adminBridge.detail.lastBlock"), value: chain.lastBlock?.toLocaleString() || "N/A", type: "text" as const },
         ],
       },
       {
         title: t("adminBridge.detail.configuration"),
         fields: [
-          { label: t("adminBridge.detail.bridgeContract"), value: `0x${chain.symbol.toLowerCase()}bridge...`, type: "code" as const, copyable: true },
-          { label: t("adminBridge.detail.requiredConfirmations"), value: "12", type: "text" as const },
-          { label: t("adminBridge.detail.maxTransferLimit"), value: "$1,000,000", type: "text" as const },
+          { label: t("adminBridge.detail.bridgeContract"), value: chain.bridgeContract || `0x${chain.symbol.toLowerCase()}bridge...`, type: "code" as const, copyable: true },
+          { label: t("adminBridge.detail.rpcEndpoint"), value: chain.rpcEndpoint || "N/A", type: "code" as const, copyable: true },
+          { label: t("adminBridge.detail.explorerUrl"), value: chain.explorerUrl || "N/A", type: "link" as const },
+          { label: t("adminBridge.detail.requiredConfirmations"), value: chain.confirmations?.toString() || "12", type: "text" as const },
+          { label: t("adminBridge.detail.maxTransferLimit"), value: "$10,000,000", type: "text" as const },
         ],
       },
     ];
@@ -500,9 +519,9 @@ export default function AdminBridgeDashboard() {
                             <TableCell data-testid={`text-tvl-${chain.symbol}`}>{chain.tvl}</TableCell>
                             <TableCell data-testid={`text-volume-${chain.symbol}`}>{chain.volume24h}</TableCell>
                             <TableCell>
-                              <Badge variant="outline" data-testid={`badge-pending-${chain.symbol}`}>{chain.pending}</Badge>
+                              <Badge variant="outline" data-testid={`badge-pending-${chain.symbol}`}>{chain.pendingTx ?? chain.pending ?? 0}</Badge>
                             </TableCell>
-                            <TableCell data-testid={`text-validators-${chain.symbol}`}>{chain.validators}/8</TableCell>
+                            <TableCell data-testid={`text-validators-${chain.symbol}`}>{chain.validators}/{chain.maxValidators ?? 8}</TableCell>
                             <TableCell>
                               <Button
                                 size="sm"
