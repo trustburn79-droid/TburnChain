@@ -81,15 +81,15 @@ export default function TestnetManagement() {
   const [pendingResetId, setPendingResetId] = useState<string | null>(null);
 
   const { data: testnetData, isLoading, error, refetch } = useQuery<TestnetData>({
-    queryKey: ["/api/admin/testnet"],
+    queryKey: ["/api/enterprise/admin/testnet"],
   });
 
   const faucetMutation = useMutation({
     mutationFn: async (data: { address: string; amount: number }) => {
-      return apiRequest("POST", "/api/admin/testnet/faucet", data);
+      return apiRequest("POST", "/api/enterprise/admin/testnet/faucet", data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/testnet"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/testnet"] });
       toast({
         title: t("adminTestnet.faucetSuccess"),
         description: t("adminTestnet.faucetSuccessDesc"),
@@ -107,10 +107,10 @@ export default function TestnetManagement() {
 
   const resetMutation = useMutation({
     mutationFn: async (instanceId: string) => {
-      return apiRequest("POST", `/api/admin/testnet/${instanceId}/reset`);
+      return apiRequest("POST", `/api/enterprise/admin/testnet/${instanceId}/reset`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/testnet"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/testnet"] });
       toast({
         title: t("adminTestnet.resetSuccess"),
         description: t("adminTestnet.resetSuccessDesc"),
@@ -127,10 +127,10 @@ export default function TestnetManagement() {
 
   const toggleMutation = useMutation({
     mutationFn: async ({ instanceId, action }: { instanceId: string; action: "start" | "stop" }) => {
-      return apiRequest("POST", `/api/admin/testnet/${instanceId}/${action}`);
+      return apiRequest("POST", `/api/enterprise/admin/testnet/${instanceId}/${action}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/testnet"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/testnet"] });
       toast({
         title: t("adminTestnet.toggleSuccess"),
         description: t("adminTestnet.toggleSuccessDesc"),

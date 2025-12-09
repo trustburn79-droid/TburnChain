@@ -66,15 +66,15 @@ export default function ContractTools() {
   const [showDeployConfirm, setShowDeployConfirm] = useState(false);
 
   const { data: contractsData, isLoading, error, refetch } = useQuery<ContractsData>({
-    queryKey: ["/api/admin/developer/contracts"],
+    queryKey: ["/api/enterprise/admin/developer/contracts"],
   });
 
   const deployMutation = useMutation({
     mutationFn: async (data: { sourceCode: string; contractName: string; compiler: string }) => {
-      return apiRequest("POST", "/api/admin/developer/contracts/deploy", data);
+      return apiRequest("POST", "/api/enterprise/admin/developer/contracts/deploy", data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/developer/contracts"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/developer/contracts"] });
       toast({
         title: t("adminContracts.deploySuccess"),
         description: t("adminContracts.deploySuccessDesc"),
@@ -91,10 +91,10 @@ export default function ContractTools() {
 
   const verifyMutation = useMutation({
     mutationFn: async (data: { address: string; sourceCode: string; compiler: string }) => {
-      return apiRequest("POST", "/api/admin/developer/contracts/verify", data);
+      return apiRequest("POST", "/api/enterprise/admin/developer/contracts/verify", data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/developer/contracts"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/developer/contracts"] });
       toast({
         title: t("adminContracts.verifySuccess"),
         description: t("adminContracts.verifySuccessDesc"),

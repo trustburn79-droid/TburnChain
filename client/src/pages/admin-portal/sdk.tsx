@@ -52,7 +52,7 @@ export default function SdkManagement() {
   const [pendingDownloadSdk, setPendingDownloadSdk] = useState<string | null>(null);
 
   const { data: sdkData, isLoading, error, refetch } = useQuery<SdkData>({
-    queryKey: ["/api/admin/developer/sdk"],
+    queryKey: ["/api/enterprise/admin/developer/sdk"],
   });
 
   const defaultSdkVersions: SdkVersion[] = [

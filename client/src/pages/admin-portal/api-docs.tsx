@@ -62,7 +62,7 @@ export default function ApiDocs() {
   const [showExportConfirm, setShowExportConfirm] = useState(false);
 
   const { data: apiDocsData, isLoading, error, refetch } = useQuery<ApiDocsData>({
-    queryKey: ["/api/admin/developer/docs"],
+    queryKey: ["/api/enterprise/admin/developer/docs"],
   });
 
   const defaultEndpoints: ApiEndpoint[] = [
