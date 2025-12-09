@@ -2171,6 +2171,15 @@
     "noHarvestsDesc": "没有可显示的最近收获",
     "copied": "已复制",
     "txHashCopied": "交易哈希已复制到剪贴板",
+    "projectDescriptions": {
+      "Celestial Dragons": "在TBURN主网上推出的高端龙主题NFT系列，提供稀有艺术品和专属社区福利。",
+      "MetaVerse Lands": "TBURN元宇宙虚拟房地产NFT，授予数字世界中的土地所有权和建设权限。",
+      "Crypto Punks V2": "具有经典像素艺术风格的下一代NFT系列，采用AI增强稀有度评分系统。",
+      "GameFi Heroes": "可用于边玩边赚游戏的游戏角色NFT，支持质押和战斗功能。",
+      "Quantum Artifacts": "受量子计算启发的抽象数字艺术系列，采用独特的生成算法。",
+      "Sound Waves": "与音乐艺术家合作的视听NFT系列，包含音乐版税分享功能。",
+      "default": "在TBURN区块链上推出的创新NFT项目。"
+    },
     "harvested": "已收获",
     "compounded": "已复利",
     "distributed": "已分配",
@@ -2603,7 +2612,26 @@
     "noActivityYet": "暂无活动记录",
     "activityTab": "活动",
     "registrationProgress": "注册进度",
-    "nftRequiredToJoin": "参与此锦标赛需要拥有NFT"
+    "nftRequiredToJoin": "参与此锦标赛需要拥有NFT",
+    "projectDescriptions": {
+      "TBURN Arena": "TBURN区块链的旗舰PvP战斗游戏，提供实时战斗和排名系统。",
+      "Crypto Cards": "基于区块链的交易卡牌游戏，收集稀有卡牌并享受战略对战。",
+      "Metaverse Farm": "虚拟农场模拟游戏，可以种植作物并交易NFT资产。",
+      "Speed Racers": "高速赛车游戏，支持车辆NFT定制和锦标赛参与。",
+      "Puzzle Quest DeFi": "结合谜题和DeFi的创新游戏，通过解决问题获得奖励。",
+      "Dragon Quest NFT": "龙收集和培育RPG，享受稀有龙NFT和冒险。",
+      "Strategy Kingdoms": "实时策略游戏，通过王国建设和战争扩张领土。",
+      "Sports Champions": "体育经理模拟，管理球员NFT并在联赛中竞争。",
+      "default": "TBURN区块链上的创新边玩边赚游戏。"
+    },
+    "tournamentDescriptions": {
+      "Championship": "决定赛季最佳选手的官方锦标赛。",
+      "Grand Prix": "大奖赛形式的大规模锦标赛，争夺最高奖金。",
+      "Open": "所有玩家都可参与的公开锦标赛。",
+      "Invitational": "仅限选定顶级玩家参与的邀请赛。",
+      "League": "贯穿整个赛季的联赛形式锦标赛。",
+      "default": "TBURN GameFi官方锦标赛。"
+    }
   },
   "bridge": {
     "title": "跨链桥",
@@ -6046,6 +6074,15 @@
     "bid": "出价",
     "copied": "已复制",
     "txHashCopied": "交易哈希已复制到剪贴板",
+    "projectDescriptions": {
+      "Celestial Dragons": "在TBURN主网上推出的高端龙主题NFT系列，提供稀有艺术品和专属社区福利。",
+      "MetaVerse Lands": "TBURN元宇宙虚拟房地产NFT，授予数字世界中的土地所有权和建设权限。",
+      "Crypto Punks V2": "具有经典像素艺术风格的下一代NFT系列，采用AI增强稀有度评分系统。",
+      "GameFi Heroes": "可用于边玩边赚游戏的游戏角色NFT，支持质押和战斗功能。",
+      "Quantum Artifacts": "受量子计算启发的抽象数字艺术系列，采用独特的生成算法。",
+      "Sound Waves": "与音乐艺术家合作的视听NFT系列，包含音乐版税分享功能。",
+      "default": "在TBURN区块链上推出的创新NFT项目。"
+    },
     "addressCopied": "地址已复制到剪贴板",
     "refreshSuccess": "刷新完成",
     "refreshSuccessDesc": "所有市场数据已刷新",
@@ -6212,7 +6249,16 @@
     "allocatedMinted": "配额: {{allocated}} | 已铸造: {{minted}}",
     "copied": "已复制",
     "addressCopied": "地址已复制到剪贴板",
-    "txHashCopied": "交易哈希已复制到剪贴板"
+    "txHashCopied": "交易哈希已复制到剪贴板",
+    "projectDescriptions": {
+      "Celestial Dragons": "在TBURN主网上推出的高端龙主题NFT系列，提供稀有艺术品和专属社区福利。",
+      "MetaVerse Lands": "TBURN元宇宙虚拟房地产NFT，授予数字世界中的土地所有权和建设权限。",
+      "Crypto Punks V2": "具有经典像素艺术风格的下一代NFT系列，采用AI增强稀有度评分系统。",
+      "GameFi Heroes": "可用于边玩边赚游戏的游戏角色NFT，支持质押和战斗功能。",
+      "Quantum Artifacts": "受量子计算启发的抽象数字艺术系列，采用独特的生成算法。",
+      "Sound Waves": "与音乐艺术家合作的视听NFT系列，包含音乐版税分享功能。",
+      "default": "在TBURN区块链上推出的创新NFT项目。"
+    }
   },
   "community": {
     "title": "标题",

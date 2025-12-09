@@ -3156,7 +3156,26 @@
     "noActivityYet": "まだアクティビティが記録されていません",
     "activityTab": "アクティビティ",
     "registrationProgress": "登録進捗",
-    "nftRequiredToJoin": "このトーナメントに参加するにはNFTの所有が必要です"
+    "nftRequiredToJoin": "このトーナメントに参加するにはNFTの所有が必要です",
+    "projectDescriptions": {
+      "TBURN Arena": "TBURNブロックチェーンのフラッグシップPvPバトルゲーム。リアルタイム戦闘とランキングシステムを提供します。",
+      "Crypto Cards": "ブロックチェーンベースのトレーディングカードゲーム。レアカードを収集し、戦略的なバトルを楽しめます。",
+      "Metaverse Farm": "バーチャル農場シミュレーションゲーム。作物を栽培し、NFT資産を取引できます。",
+      "Speed Racers": "高速レーシングゲーム。車両NFTカスタマイズとトーナメント参加が可能です。",
+      "Puzzle Quest DeFi": "パズルとDeFiを組み合わせた革新的なゲーム。問題を解いて報酬を獲得しましょう。",
+      "Dragon Quest NFT": "ドラゴン収集と育成RPG。レアなドラゴンNFTと冒険を楽しめます。",
+      "Strategy Kingdoms": "リアルタイム戦略ゲーム。王国建設と戦争で領土を拡大します。",
+      "Sports Champions": "スポーツマネージャーシミュレーション。選手NFTを管理し、リーグで競争します。",
+      "default": "TBURNブロックチェーンの革新的なPlay-to-Earnゲームです。"
+    },
+    "tournamentDescriptions": {
+      "Championship": "シーズン最高のプレイヤーを決める公式チャンピオンシップトーナメントです。",
+      "Grand Prix": "最高賞金を争う大規模グランプリ形式のトーナメントです。",
+      "Open": "すべてのプレイヤーが参加できるオープントーナメントです。",
+      "Invitational": "選ばれた上位プレイヤーのみが参加する招待制トーナメントです。",
+      "League": "シーズンを通じて開催されるリーグ形式のトーナメントです。",
+      "default": "TBURN GameFi公式トーナメントです。"
+    }
   },
   "bridge": {
     "title": "クロスチェーンブリッジ",
@@ -6554,6 +6573,15 @@
     "bid": "入札",
     "copied": "コピーしました",
     "txHashCopied": "トランザクションハッシュがクリップボードにコピーされました",
+    "projectDescriptions": {
+      "Celestial Dragons": "TBURNメインネットで発売されるプレミアムドラゴンテーマNFTコレクション。レアなアートワークと独占コミュニティ特典を提供します。",
+      "MetaVerse Lands": "TBURNメタバースのバーチャル不動産NFT。デジタル世界での土地所有権と建設権を付与します。",
+      "Crypto Punks V2": "クラシックなピクセルアートスタイルの次世代NFTコレクション。AI強化レアリティスコアリングを特徴としています。",
+      "GameFi Heroes": "Play-to-Earnゲームで使用可能なゲームキャラクターNFT。ステーキングとバトル機能をサポートします。",
+      "Quantum Artifacts": "量子コンピューティングにインスパイアされた抽象的なデジタルアートコレクション。ユニークな生成アルゴリズムを使用しています。",
+      "Sound Waves": "音楽アーティストとのコラボレーションによるオーディオビジュアルNFTコレクション。音楽ロイヤリティ共有機能を含みます。",
+      "default": "TBURNブロックチェーンで発売される革新的なNFTプロジェクトです。"
+    },
     "addressCopied": "アドレスがクリップボードにコピーされました",
     "refreshSuccess": "更新完了",
     "refreshSuccessDesc": "すべてのマーケットプレイスデータが更新されました",
@@ -6720,7 +6748,16 @@
     "allocatedMinted": "割当: {{allocated}} | ミント: {{minted}}",
     "copied": "コピーしました",
     "addressCopied": "アドレスがクリップボードにコピーされました",
-    "txHashCopied": "トランザクションハッシュがクリップボードにコピーされました"
+    "txHashCopied": "トランザクションハッシュがクリップボードにコピーされました",
+    "projectDescriptions": {
+      "Celestial Dragons": "TBURNメインネットで発売されるプレミアムドラゴンテーマNFTコレクション。レアなアートワークと独占コミュニティ特典を提供します。",
+      "MetaVerse Lands": "TBURNメタバースのバーチャル不動産NFT。デジタル世界での土地所有権と建設権を付与します。",
+      "Crypto Punks V2": "クラシックなピクセルアートスタイルの次世代NFTコレクション。AI強化レアリティスコアリングを特徴としています。",
+      "GameFi Heroes": "Play-to-Earnゲームで使用可能なゲームキャラクターNFT。ステーキングとバトル機能をサポートします。",
+      "Quantum Artifacts": "量子コンピューティングにインスパイアされた抽象的なデジタルアートコレクション。ユニークな生成アルゴリズムを使用しています。",
+      "Sound Waves": "音楽アーティストとのコラボレーションによるオーディオビジュアルNFTコレクション。音楽ロイヤリティ共有機能を含みます。",
+      "default": "TBURNブロックチェーンで発売される革新的なNFTプロジェクトです。"
+    }
   },
   "performanceMetrics": {
     "title": "パフォーマンスメトリクス",
