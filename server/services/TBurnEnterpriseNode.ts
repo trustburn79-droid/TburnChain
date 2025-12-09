@@ -5683,6 +5683,203 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
     return { logs };
   }
+
+  // Settings Methods
+  getSystemSettings(): {
+    general: { chainName: string; chainId: string; rpcEndpoint: string; wsEndpoint: string; explorerUrl: string; timezone: string };
+    database: { autoBackup: boolean; dataRetention: string };
+    network: { blockTime: number; maxBlockSize: number; gasLimit: string; minGasPrice: string; maxValidators: number; minStake: string; aiEnhancedBft: boolean; dynamicSharding: boolean };
+    security: { twoFactorAuth: boolean; sessionTimeout: string; ipWhitelist: boolean; rateLimiting: boolean; autoKeyRotation: string };
+    notifications: { criticalAlerts: boolean; securityEvents: boolean; validatorStatus: boolean; bridgeAlerts: boolean; aiSystemAlerts: boolean; maintenanceReminders: boolean; alertEmail: string; smtpServer: string };
+    appearance: { defaultTheme: string; defaultLanguage: string; compactMode: boolean };
+  } {
+    const shardConfig = this.getShardConfig();
+    return {
+      general: {
+        chainName: 'TBURN Mainnet',
+        chainId: '797900',
+        rpcEndpoint: 'https://rpc.tburn.io',
+        wsEndpoint: 'wss://ws.tburn.io',
+        explorerUrl: 'https://explorer.tburn.io',
+        timezone: 'America/New_York',
+      },
+      database: {
+        autoBackup: true,
+        dataRetention: '90',
+      },
+      network: {
+        blockTime: 0.5,
+        maxBlockSize: 50,
+        gasLimit: '100000000',
+        minGasPrice: '1',
+        maxValidators: shardConfig.validatorsPerShard * shardConfig.shardCount,
+        minStake: '1000000',
+        aiEnhancedBft: true,
+        dynamicSharding: true,
+      },
+      security: {
+        twoFactorAuth: true,
+        sessionTimeout: '60',
+        ipWhitelist: true,
+        rateLimiting: true,
+        autoKeyRotation: '30',
+      },
+      notifications: {
+        criticalAlerts: true,
+        securityEvents: true,
+        validatorStatus: true,
+        bridgeAlerts: true,
+        aiSystemAlerts: true,
+        maintenanceReminders: true,
+        alertEmail: 'ops@tburn.io',
+        smtpServer: 'smtp.tburn.io',
+      },
+      appearance: {
+        defaultTheme: 'dark',
+        defaultLanguage: 'en',
+        compactMode: false,
+      },
+    };
+  }
+
+  getApiConfig(): {
+    apiKeys: Array<{ id: string; name: string; key: string; createdAt: string; lastUsed: string; status: 'active' | 'inactive' | 'expired'; permissions: string[]; rateLimit: number; usageCount: number }>;
+    rateLimits: Array<{ endpoint: string; limit: number; window: string; currentUsage: number }>;
+    settings: { httpsOnly: boolean; keyRotation: boolean; ipWhitelisting: boolean; requestSigning: boolean; corsOrigins: string };
+  } {
+    const now = new Date();
+    const seed = crypto.createHash('sha256').update(`api-${now.toISOString().split('T')[0]}`).digest('hex');
+
+    const apiKeys = [
+      { id: '1', name: 'Enterprise Primary', key: `tburn_ent_${seed.slice(0, 32)}`, createdAt: '2024-11-15', lastUsed: now.toISOString().split('T')[0], status: 'active' as const, permissions: ['read', 'write', 'admin'], rateLimit: 10000, usageCount: 1245678 },
+      { id: '2', name: 'Bridge Gateway', key: `tburn_brg_${seed.slice(32, 64)}`, createdAt: '2024-11-20', lastUsed: now.toISOString().split('T')[0], status: 'active' as const, permissions: ['read', 'write'], rateLimit: 50000, usageCount: 892456 },
+      { id: '3', name: 'AI Orchestration', key: `tburn_ai_${crypto.createHash('sha256').update('ai-key').digest('hex').slice(0, 32)}`, createdAt: '2024-11-25', lastUsed: now.toISOString().split('T')[0], status: 'active' as const, permissions: ['read', 'ai'], rateLimit: 100000, usageCount: 2567890 },
+      { id: '4', name: 'Public API', key: `tburn_pub_${crypto.createHash('sha256').update('public-key').digest('hex').slice(0, 32)}`, createdAt: '2024-12-01', lastUsed: now.toISOString().split('T')[0], status: 'active' as const, permissions: ['read'], rateLimit: 2000, usageCount: 4567123 },
+      { id: '5', name: 'WebSocket Gateway', key: `tburn_ws_${crypto.createHash('sha256').update('ws-key').digest('hex').slice(0, 32)}`, createdAt: '2024-12-05', lastUsed: now.toISOString().split('T')[0], status: 'active' as const, permissions: ['read', 'stream'], rateLimit: 20000, usageCount: 1123456 },
+    ];
+
+    const rateLimits = [
+      { endpoint: '/api/v1/blocks', limit: 100, window: '1m', currentUsage: 45 },
+      { endpoint: '/api/v1/transactions', limit: 200, window: '1m', currentUsage: 78 },
+      { endpoint: '/api/v1/accounts', limit: 500, window: '1m', currentUsage: 123 },
+      { endpoint: '/api/v1/validators', limit: 50, window: '1m', currentUsage: 12 },
+      { endpoint: '/api/enterprise/*', limit: 10000, window: '1m', currentUsage: 892 },
+      { endpoint: '/api/bridge/*', limit: 50000, window: '1m', currentUsage: 2345 },
+      { endpoint: '/ws/*', limit: 1000, window: '1m', currentUsage: 456 },
+    ];
+
+    const settings = {
+      httpsOnly: true,
+      keyRotation: true,
+      ipWhitelisting: true,
+      requestSigning: true,
+      corsOrigins: 'https://tburn.io,https://app.tburn.io,https://explorer.tburn.io',
+    };
+
+    return { apiKeys, rateLimits, settings };
+  }
+
+  getIntegrations(): {
+    integrations: Array<{ id: string; name: string; description: string; category: string; status: 'connected' | 'disconnected' | 'error'; lastSync?: string; config?: Record<string, string> }>;
+    webhookConfig: { incomingUrl: string; secret: string; events: { blockCreated: boolean; transaction: boolean; alertTriggered: boolean; validatorUpdate: boolean } };
+  } {
+    const now = new Date();
+    const integrations = [
+      { id: '1', name: 'Slack', description: 'Real-time alerts and notifications', category: 'messaging', status: 'connected' as const, lastSync: new Date(now.getTime() - 2 * 60 * 1000).toISOString() },
+      { id: '2', name: 'Discord', description: 'Community notifications', category: 'messaging', status: 'connected' as const, lastSync: new Date(now.getTime() - 5 * 60 * 1000).toISOString() },
+      { id: '3', name: 'Telegram', description: 'Validator and bridge alerts', category: 'messaging', status: 'connected' as const, lastSync: new Date(now.getTime() - 10 * 60 * 1000).toISOString() },
+      { id: '4', name: 'GitHub', description: 'CI/CD and deployment hooks', category: 'development', status: 'connected' as const, lastSync: new Date(now.getTime() - 15 * 60 * 1000).toISOString() },
+      { id: '5', name: 'AWS S3', description: 'Backup storage and archival', category: 'storage', status: 'connected' as const, lastSync: new Date(now.getTime() - 60 * 60 * 1000).toISOString() },
+      { id: '6', name: 'Google Cloud', description: 'AI model hosting and inference', category: 'cloud', status: 'connected' as const, lastSync: new Date(now.getTime() - 30 * 60 * 1000).toISOString() },
+      { id: '7', name: 'Datadog', description: 'Monitoring and observability', category: 'monitoring', status: 'connected' as const, lastSync: new Date(now.getTime() - 1 * 60 * 1000).toISOString() },
+      { id: '8', name: 'PagerDuty', description: 'Incident management', category: 'operations', status: 'connected' as const, lastSync: new Date(now.getTime() - 3 * 60 * 1000).toISOString() },
+    ];
+
+    const webhookConfig = {
+      incomingUrl: 'https://webhooks.tburn.io/incoming/v1',
+      secret: 'whsec_' + crypto.createHash('sha256').update('webhook-secret').digest('hex').slice(0, 32),
+      events: {
+        blockCreated: true,
+        transaction: true,
+        alertTriggered: true,
+        validatorUpdate: true,
+      },
+    };
+
+    return { integrations, webhookConfig };
+  }
+
+  getNotificationSettings(): {
+    channels: Array<{ id: string; type: string; name: string; enabled: boolean; destination: string }>;
+    preferences: { soundEnabled: boolean; volume: number; desktopNotifications: boolean; emailDigest: boolean; duplicateSuppression: boolean; batchWindow: string };
+    schedule: { quietHoursEnabled: boolean; quietHoursStart: string; quietHoursEnd: string; timezone: string; weekendNotifications: boolean };
+  } {
+    const channels = [
+      { id: '1', type: 'email', name: 'Critical Ops Team', enabled: true, destination: 'ops-critical@tburn.io' },
+      { id: '2', type: 'email', name: 'Security Team', enabled: true, destination: 'security@tburn.io' },
+      { id: '3', type: 'slack', name: '#tburn-mainnet-alerts', enabled: true, destination: '#tburn-mainnet-alerts' },
+      { id: '4', type: 'slack', name: '#validator-status', enabled: true, destination: '#validator-status' },
+      { id: '5', type: 'discord', name: 'TBURN Official', enabled: true, destination: '#mainnet-notifications' },
+      { id: '6', type: 'telegram', name: 'Ops Bot', enabled: true, destination: '@tburn_mainnet_bot' },
+      { id: '7', type: 'webhook', name: 'PagerDuty', enabled: true, destination: 'https://events.pagerduty.com/v2/enqueue' },
+      { id: '8', type: 'webhook', name: 'Datadog Events', enabled: true, destination: 'https://api.datadoghq.com/api/v1/events' },
+    ];
+
+    const preferences = {
+      soundEnabled: true,
+      volume: 70,
+      desktopNotifications: true,
+      emailDigest: true,
+      duplicateSuppression: true,
+      batchWindow: '5',
+    };
+
+    const schedule = {
+      quietHoursEnabled: false,
+      quietHoursStart: '23:00',
+      quietHoursEnd: '07:00',
+      timezone: 'America/New_York',
+      weekendNotifications: true,
+    };
+
+    return { channels, preferences, schedule };
+  }
+
+  getAppearanceSettings(): {
+    theme: string;
+    accentColor: string;
+    fontSize: number;
+    fontFamily: string;
+    codeFontFamily: string;
+    sidebarCollapsed: boolean;
+    compactMode: boolean;
+    contentWidth: string;
+    defaultViewMode: string;
+    language: string;
+    showBothLanguages: boolean;
+    animationsEnabled: boolean;
+    reducedMotion: boolean;
+    highContrast: boolean;
+    chartAnimationSpeed: string;
+  } {
+    return {
+      theme: 'dark',
+      accentColor: 'orange',
+      fontSize: 14,
+      fontFamily: 'Space Grotesk',
+      codeFontFamily: 'JetBrains Mono',
+      sidebarCollapsed: false,
+      compactMode: false,
+      contentWidth: 'full',
+      defaultViewMode: 'grid',
+      language: 'en',
+      showBothLanguages: true,
+      animationsEnabled: true,
+      reducedMotion: false,
+      highContrast: false,
+      chartAnimationSpeed: 'normal',
+    };
+  }
 }
 
 // Singleton instance
