@@ -6858,6 +6858,445 @@ export class TBurnEnterpriseNode extends EventEmitter {
       ]
     };
   }
+
+  // ===== FINANCE & ACCOUNTING METHODS =====
+
+  getFinanceOverview(): {
+    summary: {
+      totalRevenue: number;
+      totalExpenses: number;
+      netProfit: number;
+      profitMargin: number;
+      operatingCashFlow: number;
+      treasuryBalance: number;
+      burnedTokensValue: number;
+      stakingRewardsDistributed: number;
+    };
+    revenueStreams: Array<{
+      source: string;
+      amount: number;
+      percentage: number;
+      trend: string;
+      change24h: number;
+    }>;
+    monthlyFinancials: Array<{
+      month: string;
+      revenue: number;
+      expenses: number;
+      profit: number;
+    }>;
+    treasuryAssets: Array<{
+      asset: string;
+      symbol: string;
+      amount: number;
+      valueUsd: number;
+      allocation: number;
+    }>;
+    keyMetrics: Array<{
+      name: string;
+      value: number;
+      unit: string;
+      change: number;
+      trend: string;
+    }>;
+  } {
+    const seed = this.currentBlockHeight;
+    const hash = (s: number) => parseInt(crypto.createHash('md5').update(String(s)).digest('hex').slice(0, 8), 16);
+
+    return {
+      summary: {
+        totalRevenue: 28750000 + (hash(seed) % 500000),
+        totalExpenses: 12340000 + (hash(seed + 1) % 200000),
+        netProfit: 16410000 + (hash(seed + 2) % 300000),
+        profitMargin: 57.1 + (hash(seed + 3) % 100) / 100,
+        operatingCashFlow: 14250000 + (hash(seed + 4) % 250000),
+        treasuryBalance: 485000000 + (hash(seed + 5) % 5000000),
+        burnedTokensValue: 127500000 + (hash(seed + 6) % 1000000),
+        stakingRewardsDistributed: 8420000 + (hash(seed + 7) % 100000),
+      },
+      revenueStreams: [
+        { source: 'Transaction Fees', amount: 12500000, percentage: 43.5, trend: 'up', change24h: 2.3 },
+        { source: 'Staking Commissions', amount: 6800000, percentage: 23.7, trend: 'up', change24h: 1.8 },
+        { source: 'Bridge Fees', amount: 4200000, percentage: 14.6, trend: 'stable', change24h: 0.2 },
+        { source: 'DEX Trading Fees', amount: 3150000, percentage: 11.0, trend: 'up', change24h: 3.5 },
+        { source: 'NFT Marketplace Fees', amount: 1250000, percentage: 4.3, trend: 'up', change24h: 5.2 },
+        { source: 'Lending Protocol Fees', amount: 850000, percentage: 2.9, trend: 'stable', change24h: -0.3 },
+      ],
+      monthlyFinancials: [
+        { month: 'Jul 2024', revenue: 18500000, expenses: 9200000, profit: 9300000 },
+        { month: 'Aug 2024', revenue: 21200000, expenses: 10100000, profit: 11100000 },
+        { month: 'Sep 2024', revenue: 23800000, expenses: 10800000, profit: 13000000 },
+        { month: 'Oct 2024', revenue: 25400000, expenses: 11400000, profit: 14000000 },
+        { month: 'Nov 2024', revenue: 27100000, expenses: 12000000, profit: 15100000 },
+        { month: 'Dec 2024', revenue: 28750000, expenses: 12340000, profit: 16410000 },
+      ],
+      treasuryAssets: [
+        { asset: 'TBURN', symbol: 'TBURN', amount: 850000000, valueUsd: 246500000, allocation: 50.8 },
+        { asset: 'Ethereum', symbol: 'ETH', amount: 42500, valueUsd: 127500000, allocation: 26.3 },
+        { asset: 'USDC', symbol: 'USDC', amount: 65000000, valueUsd: 65000000, allocation: 13.4 },
+        { asset: 'Bitcoin', symbol: 'BTC', amount: 450, valueUsd: 38250000, allocation: 7.9 },
+        { asset: 'Other Stablecoins', symbol: 'MULTI', amount: 7750000, valueUsd: 7750000, allocation: 1.6 },
+      ],
+      keyMetrics: [
+        { name: 'Revenue Per User', value: 2.85, unit: 'USD', change: 5.2, trend: 'up' },
+        { name: 'Cost Per Transaction', value: 0.00023, unit: 'USD', change: -2.1, trend: 'down' },
+        { name: 'Operating Margin', value: 57.1, unit: '%', change: 1.8, trend: 'up' },
+        { name: 'Treasury APY', value: 8.4, unit: '%', change: 0.3, trend: 'up' },
+        { name: 'Burn Rate (Monthly)', value: 4250000, unit: 'TBURN', change: 3.2, trend: 'up' },
+        { name: 'Validator Earnings (Daily)', value: 285000, unit: 'USD', change: 1.5, trend: 'up' },
+      ],
+    };
+  }
+
+  getTransactionAccounting(): {
+    summary: {
+      totalTransactions: number;
+      totalVolume: number;
+      totalFees: number;
+      avgTransactionValue: number;
+      avgFeePerTx: number;
+      successRate: number;
+    };
+    transactionTypes: Array<{
+      type: string;
+      count: number;
+      volume: number;
+      fees: number;
+      avgValue: number;
+      percentage: number;
+    }>;
+    dailyAccounting: Array<{
+      date: string;
+      transactions: number;
+      volume: number;
+      fees: number;
+      gasUsed: number;
+      avgGasPrice: number;
+    }>;
+    feeDistribution: Array<{
+      recipient: string;
+      amount: number;
+      percentage: number;
+    }>;
+    reconciliationStatus: {
+      status: string;
+      lastReconciled: string;
+      discrepancies: number;
+      pendingReview: number;
+    };
+    topAccounts: Array<{
+      address: string;
+      label: string;
+      transactions: number;
+      volume: number;
+      fees: number;
+    }>;
+  } {
+    const seed = this.currentBlockHeight;
+    const hash = (s: number) => parseInt(crypto.createHash('md5').update(String(s)).digest('hex').slice(0, 8), 16);
+
+    return {
+      summary: {
+        totalTransactions: 52847291 + (hash(seed) % 10000),
+        totalVolume: 185420000000 + (hash(seed + 1) % 1000000000),
+        totalFees: 42850000 + (hash(seed + 2) % 100000),
+        avgTransactionValue: 3508.25 + (hash(seed + 3) % 100) / 10,
+        avgFeePerTx: 0.81 + (hash(seed + 4) % 10) / 100,
+        successRate: 99.97 + (hash(seed + 5) % 3) / 100,
+      },
+      transactionTypes: [
+        { type: 'Token Transfer', count: 28420000, volume: 85200000000, fees: 18500000, avgValue: 2998.50, percentage: 53.8 },
+        { type: 'Smart Contract', count: 12850000, volume: 42800000000, fees: 12400000, avgValue: 3331.00, percentage: 24.3 },
+        { type: 'DEX Swap', count: 6420000, volume: 32100000000, fees: 6420000, avgValue: 5000.00, percentage: 12.1 },
+        { type: 'Staking', count: 2850000, volume: 14250000000, fees: 2850000, avgValue: 5000.00, percentage: 5.4 },
+        { type: 'Bridge', count: 1420000, volume: 7100000000, fees: 1420000, avgValue: 5000.00, percentage: 2.7 },
+        { type: 'NFT', count: 887291, volume: 3970000000, fees: 1260000, avgValue: 4475.00, percentage: 1.7 },
+      ],
+      dailyAccounting: Array.from({ length: 7 }, (_, i) => ({
+        date: new Date(Date.now() - (6 - i) * 86400000).toISOString().split('T')[0],
+        transactions: 7549613 + (hash(seed + i * 10) % 500000),
+        volume: 26488571428 + (hash(seed + i * 11) % 500000000),
+        fees: 6121428 + (hash(seed + i * 12) % 50000),
+        gasUsed: 2850000000 + (hash(seed + i * 13) % 100000000),
+        avgGasPrice: 10 + (hash(seed + i * 14) % 5),
+      })),
+      feeDistribution: [
+        { recipient: 'Validators', amount: 21425000, percentage: 50.0 },
+        { recipient: 'Treasury', amount: 12855000, percentage: 30.0 },
+        { recipient: 'Burn Pool', amount: 6427500, percentage: 15.0 },
+        { recipient: 'Development Fund', amount: 2142500, percentage: 5.0 },
+      ],
+      reconciliationStatus: {
+        status: 'completed',
+        lastReconciled: new Date().toISOString(),
+        discrepancies: 0,
+        pendingReview: 0,
+      },
+      topAccounts: [
+        { address: '0x742d35Cc6634C0532925a3b844Bc9e7595f7bD0f', label: 'DEX Router', transactions: 2850000, volume: 14250000000, fees: 2850000 },
+        { address: '0x8ba1f109551bD432803012645Ac136ddd64DBA72', label: 'Staking Pool', transactions: 1420000, volume: 8520000000, fees: 1420000 },
+        { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', label: 'Bridge Contract', transactions: 850000, volume: 5100000000, fees: 850000 },
+        { address: '0xA0b86a00D66CfbA76Ad3e0e9f46dCd3a3Bb03F90', label: 'Lending Protocol', transactions: 620000, volume: 3720000000, fees: 620000 },
+        { address: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', label: 'NFT Marketplace', transactions: 420000, volume: 1890000000, fees: 420000 },
+      ],
+    };
+  }
+
+  getBudgetManagement(): {
+    fiscalYear: string;
+    totalBudget: number;
+    allocated: number;
+    spent: number;
+    remaining: number;
+    utilizationRate: number;
+    departments: Array<{
+      name: string;
+      budget: number;
+      allocated: number;
+      spent: number;
+      remaining: number;
+      utilization: number;
+      status: string;
+    }>;
+    quarterlyBudget: Array<{
+      quarter: string;
+      budget: number;
+      actual: number;
+      variance: number;
+      variancePercent: number;
+    }>;
+    budgetRequests: Array<{
+      id: string;
+      department: string;
+      amount: number;
+      purpose: string;
+      status: string;
+      submittedAt: string;
+      priority: string;
+    }>;
+    projections: Array<{
+      category: string;
+      currentMonth: number;
+      nextMonth: number;
+      nextQuarter: number;
+      yearEnd: number;
+    }>;
+  } {
+    const seed = this.currentBlockHeight;
+    const hash = (s: number) => parseInt(crypto.createHash('md5').update(String(s)).digest('hex').slice(0, 8), 16);
+
+    return {
+      fiscalYear: 'FY2024',
+      totalBudget: 85000000,
+      allocated: 72250000,
+      spent: 61412500 + (hash(seed) % 500000),
+      remaining: 23587500 - (hash(seed + 1) % 500000),
+      utilizationRate: 72.2 + (hash(seed + 2) % 50) / 10,
+      departments: [
+        { name: 'Infrastructure & DevOps', budget: 22000000, allocated: 20000000, spent: 17500000, remaining: 4500000, utilization: 79.5, status: 'on-track' },
+        { name: 'Security & Compliance', budget: 15000000, allocated: 14000000, spent: 12250000, remaining: 2750000, utilization: 81.7, status: 'on-track' },
+        { name: 'Research & Development', budget: 18000000, allocated: 15000000, spent: 11250000, remaining: 6750000, utilization: 62.5, status: 'under-budget' },
+        { name: 'Marketing & Growth', budget: 12000000, allocated: 10000000, spent: 9500000, remaining: 2500000, utilization: 79.2, status: 'on-track' },
+        { name: 'Legal & Regulatory', budget: 8000000, allocated: 7250000, spent: 6412500, remaining: 1587500, utilization: 80.2, status: 'on-track' },
+        { name: 'Operations', budget: 10000000, allocated: 6000000, spent: 4500000, remaining: 5500000, utilization: 45.0, status: 'under-budget' },
+      ],
+      quarterlyBudget: [
+        { quarter: 'Q1 2024', budget: 20000000, actual: 18500000, variance: 1500000, variancePercent: 7.5 },
+        { quarter: 'Q2 2024', budget: 21000000, actual: 20250000, variance: 750000, variancePercent: 3.6 },
+        { quarter: 'Q3 2024', budget: 22000000, actual: 22662500, variance: -662500, variancePercent: -3.0 },
+        { quarter: 'Q4 2024', budget: 22000000, actual: 0, variance: 22000000, variancePercent: 100.0 },
+      ],
+      budgetRequests: [
+        { id: 'BR-2024-089', department: 'Security', amount: 2500000, purpose: 'Quantum-resistant signature upgrade', status: 'approved', submittedAt: '2024-12-01T10:00:00Z', priority: 'high' },
+        { id: 'BR-2024-090', department: 'Infrastructure', amount: 3000000, purpose: 'Global CDN expansion', status: 'pending', submittedAt: '2024-12-05T14:30:00Z', priority: 'medium' },
+        { id: 'BR-2024-091', department: 'R&D', amount: 1800000, purpose: 'AI model training infrastructure', status: 'review', submittedAt: '2024-12-07T09:15:00Z', priority: 'high' },
+        { id: 'BR-2024-092', department: 'Marketing', amount: 500000, purpose: 'Mainnet launch campaign', status: 'approved', submittedAt: '2024-12-08T16:00:00Z', priority: 'critical' },
+      ],
+      projections: [
+        { category: 'Infrastructure', currentMonth: 1850000, nextMonth: 1920000, nextQuarter: 5900000, yearEnd: 22000000 },
+        { category: 'Personnel', currentMonth: 2400000, nextMonth: 2450000, nextQuarter: 7500000, yearEnd: 30000000 },
+        { category: 'Cloud Services', currentMonth: 850000, nextMonth: 880000, nextQuarter: 2700000, yearEnd: 10500000 },
+        { category: 'Security Tools', currentMonth: 420000, nextMonth: 420000, nextQuarter: 1300000, yearEnd: 5000000 },
+        { category: 'Legal & Compliance', currentMonth: 650000, nextMonth: 680000, nextQuarter: 2100000, yearEnd: 8000000 },
+      ],
+    };
+  }
+
+  getCostAnalysis(): {
+    totalOperatingCost: number;
+    costPerTransaction: number;
+    costPerBlock: number;
+    monthlyTrend: number;
+    costBreakdown: Array<{
+      category: string;
+      amount: number;
+      percentage: number;
+      trend: string;
+      change: number;
+    }>;
+    infrastructureCosts: Array<{
+      service: string;
+      provider: string;
+      monthlyCost: number;
+      annualCost: number;
+      utilization: number;
+    }>;
+    costOptimizations: Array<{
+      id: string;
+      title: string;
+      description: string;
+      potentialSavings: number;
+      implementationCost: number;
+      roi: number;
+      status: string;
+      priority: string;
+    }>;
+    historicalCosts: Array<{
+      month: string;
+      infrastructure: number;
+      personnel: number;
+      security: number;
+      operations: number;
+      total: number;
+    }>;
+    costPerformanceIndex: number;
+    schedulePerformanceIndex: number;
+  } {
+    const seed = this.currentBlockHeight;
+    const hash = (s: number) => parseInt(crypto.createHash('md5').update(String(s)).digest('hex').slice(0, 8), 16);
+
+    return {
+      totalOperatingCost: 12340000 + (hash(seed) % 100000),
+      costPerTransaction: 0.000234 + (hash(seed + 1) % 10) / 100000,
+      costPerBlock: 0.48 + (hash(seed + 2) % 10) / 100,
+      monthlyTrend: -2.3 - (hash(seed + 3) % 20) / 10,
+      costBreakdown: [
+        { category: 'Cloud Infrastructure', amount: 4200000, percentage: 34.0, trend: 'down', change: -3.2 },
+        { category: 'Personnel & Contractors', amount: 3800000, percentage: 30.8, trend: 'stable', change: 0.5 },
+        { category: 'Security Services', amount: 1850000, percentage: 15.0, trend: 'up', change: 2.1 },
+        { category: 'Network Operations', amount: 1240000, percentage: 10.0, trend: 'down', change: -1.8 },
+        { category: 'Legal & Compliance', amount: 750000, percentage: 6.1, trend: 'stable', change: 0.2 },
+        { category: 'Miscellaneous', amount: 500000, percentage: 4.1, trend: 'down', change: -5.0 },
+      ],
+      infrastructureCosts: [
+        { service: 'Compute Clusters', provider: 'Multi-Cloud', monthlyCost: 1850000, annualCost: 22200000, utilization: 78.5 },
+        { service: 'Storage (Hot)', provider: 'AWS S3', monthlyCost: 420000, annualCost: 5040000, utilization: 65.2 },
+        { service: 'Storage (Cold)', provider: 'AWS Glacier', monthlyCost: 85000, annualCost: 1020000, utilization: 92.1 },
+        { service: 'CDN & Edge', provider: 'Cloudflare', monthlyCost: 320000, annualCost: 3840000, utilization: 71.8 },
+        { service: 'Database Clusters', provider: 'Self-hosted', monthlyCost: 580000, annualCost: 6960000, utilization: 82.4 },
+        { service: 'Monitoring & Logging', provider: 'Datadog', monthlyCost: 145000, annualCost: 1740000, utilization: 88.5 },
+        { service: 'Security Tools', provider: 'Multiple', monthlyCost: 280000, annualCost: 3360000, utilization: 95.2 },
+        { service: 'AI/ML Infrastructure', provider: 'Multi-Cloud', monthlyCost: 520000, annualCost: 6240000, utilization: 68.9 },
+      ],
+      costOptimizations: [
+        { id: 'OPT-001', title: 'Reserved Instance Migration', description: 'Convert on-demand instances to 3-year reserved', potentialSavings: 2400000, implementationCost: 50000, roi: 4700, status: 'in-progress', priority: 'high' },
+        { id: 'OPT-002', title: 'Storage Tier Optimization', description: 'Implement intelligent tiering for cold data', potentialSavings: 680000, implementationCost: 25000, roi: 2620, status: 'planned', priority: 'medium' },
+        { id: 'OPT-003', title: 'AI Inference Optimization', description: 'Deploy quantized models for inference', potentialSavings: 420000, implementationCost: 80000, roi: 425, status: 'review', priority: 'medium' },
+        { id: 'OPT-004', title: 'Network Egress Reduction', description: 'Implement edge caching strategy', potentialSavings: 350000, implementationCost: 40000, roi: 775, status: 'completed', priority: 'low' },
+      ],
+      historicalCosts: [
+        { month: 'Jul 2024', infrastructure: 3800000, personnel: 3500000, security: 1600000, operations: 1300000, total: 10200000 },
+        { month: 'Aug 2024', infrastructure: 3950000, personnel: 3550000, security: 1650000, operations: 1250000, total: 10400000 },
+        { month: 'Sep 2024', infrastructure: 4100000, personnel: 3600000, security: 1700000, operations: 1200000, total: 10600000 },
+        { month: 'Oct 2024', infrastructure: 4050000, personnel: 3700000, security: 1750000, operations: 1200000, total: 10700000 },
+        { month: 'Nov 2024', infrastructure: 4150000, personnel: 3750000, security: 1800000, operations: 1200000, total: 10900000 },
+        { month: 'Dec 2024', infrastructure: 4200000, personnel: 3800000, security: 1850000, operations: 1240000, total: 11090000 },
+      ],
+      costPerformanceIndex: 1.08,
+      schedulePerformanceIndex: 1.02,
+    };
+  }
+
+  getTaxCompliance(): {
+    complianceStatus: string;
+    lastAuditDate: string;
+    nextAuditDate: string;
+    taxObligations: Array<{
+      jurisdiction: string;
+      taxType: string;
+      amount: number;
+      dueDate: string;
+      status: string;
+      filingDate: string | null;
+    }>;
+    taxReserves: {
+      total: number;
+      allocated: number;
+      unallocated: number;
+    };
+    reportingCalendar: Array<{
+      report: string;
+      jurisdiction: string;
+      frequency: string;
+      nextDue: string;
+      status: string;
+    }>;
+    taxCategories: Array<{
+      category: string;
+      taxableAmount: number;
+      taxRate: number;
+      taxOwed: number;
+      paid: number;
+      remaining: number;
+    }>;
+    auditHistory: Array<{
+      id: string;
+      jurisdiction: string;
+      period: string;
+      status: string;
+      findings: number;
+      resolvedFindings: number;
+      completedDate: string;
+    }>;
+    withholdingTax: {
+      totalWithheld: number;
+      totalRemitted: number;
+      pendingRemittance: number;
+    };
+  } {
+    return {
+      complianceStatus: 'compliant',
+      lastAuditDate: '2024-09-15',
+      nextAuditDate: '2025-03-15',
+      taxObligations: [
+        { jurisdiction: 'United States', taxType: 'Corporate Income Tax', amount: 4250000, dueDate: '2025-03-15', status: 'pending', filingDate: null },
+        { jurisdiction: 'United States', taxType: 'State Tax (Delaware)', amount: 185000, dueDate: '2025-03-01', status: 'pending', filingDate: null },
+        { jurisdiction: 'Singapore', taxType: 'Corporate Tax', amount: 850000, dueDate: '2024-12-31', status: 'filed', filingDate: '2024-11-28' },
+        { jurisdiction: 'Switzerland', taxType: 'Withholding Tax', amount: 420000, dueDate: '2025-01-15', status: 'pending', filingDate: null },
+        { jurisdiction: 'European Union', taxType: 'VAT', amount: 1250000, dueDate: '2025-01-31', status: 'pending', filingDate: null },
+        { jurisdiction: 'Cayman Islands', taxType: 'Economic Substance', amount: 0, dueDate: '2025-06-30', status: 'compliant', filingDate: '2024-06-15' },
+      ],
+      taxReserves: {
+        total: 15000000,
+        allocated: 6955000,
+        unallocated: 8045000,
+      },
+      reportingCalendar: [
+        { report: 'Quarterly Tax Provision', jurisdiction: 'Global', frequency: 'Quarterly', nextDue: '2025-01-15', status: 'upcoming' },
+        { report: 'Annual Corporate Return', jurisdiction: 'United States', frequency: 'Annual', nextDue: '2025-03-15', status: 'upcoming' },
+        { report: 'Transfer Pricing Documentation', jurisdiction: 'Global', frequency: 'Annual', nextDue: '2025-06-30', status: 'not-started' },
+        { report: 'FATCA/CRS Reporting', jurisdiction: 'Multi-Jurisdictional', frequency: 'Annual', nextDue: '2025-03-31', status: 'in-progress' },
+        { report: 'State Tax Returns', jurisdiction: 'US States', frequency: 'Annual', nextDue: '2025-04-15', status: 'not-started' },
+      ],
+      taxCategories: [
+        { category: 'Transaction Fee Revenue', taxableAmount: 12500000, taxRate: 21, taxOwed: 2625000, paid: 1312500, remaining: 1312500 },
+        { category: 'Staking Commission Revenue', taxableAmount: 6800000, taxRate: 21, taxOwed: 1428000, paid: 714000, remaining: 714000 },
+        { category: 'Trading Fee Revenue', taxableAmount: 3150000, taxRate: 21, taxOwed: 661500, paid: 330750, remaining: 330750 },
+        { category: 'NFT Marketplace Revenue', taxableAmount: 1250000, taxRate: 21, taxOwed: 262500, paid: 131250, remaining: 131250 },
+        { category: 'Interest Income', taxableAmount: 850000, taxRate: 21, taxOwed: 178500, paid: 89250, remaining: 89250 },
+      ],
+      auditHistory: [
+        { id: 'AUD-2024-003', jurisdiction: 'Singapore', period: 'FY2023', status: 'completed', findings: 0, resolvedFindings: 0, completedDate: '2024-09-15' },
+        { id: 'AUD-2024-002', jurisdiction: 'United States', period: 'FY2023', status: 'completed', findings: 2, resolvedFindings: 2, completedDate: '2024-07-20' },
+        { id: 'AUD-2024-001', jurisdiction: 'Switzerland', period: 'FY2023', status: 'completed', findings: 1, resolvedFindings: 1, completedDate: '2024-05-10' },
+      ],
+      withholdingTax: {
+        totalWithheld: 2850000,
+        totalRemitted: 2430000,
+        pendingRemittance: 420000,
+      },
+    };
+  }
 }
 
 // Singleton instance
