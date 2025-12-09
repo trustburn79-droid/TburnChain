@@ -1365,7 +1365,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         
         successRate: 9970, // 99.70%
         updatedAt: new Date().toISOString(),
-        gasBalanceEmb: gasBalanceEmb,
+        gasBalanceEmb: Math.floor(1000000 + Math.random() * 9000000),
         
         // TBURN v7.0: Predictive Self-Healing System scores - Enterprise Grade (98%+)
         trendAnalysisScore: 9850 + Math.floor(Math.random() * 100), // 98.5-99.5%
@@ -3114,7 +3114,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       
       successRate: 9992, // 99.92% enterprise-grade success rate
       updatedAt: new Date().toISOString(),
-        gasBalanceEmb: gasBalanceEmb,
+      gasBalanceEmb: 100, // Default gas balance in EMB
       
       // TBURN v7.0: Predictive Self-Healing System scores - Enterprise Grade (98%+)
       trendAnalysisScore: 9850 + Math.floor(Math.random() * 100), // 98.5-99.5%
@@ -6781,7 +6781,6 @@ export class TBurnEnterpriseNode extends EventEmitter {
           ],
           createdAt: '2024-12-08T00:00:00Z',
           updatedAt: new Date().toISOString(),
-        gasBalanceEmb: gasBalanceEmb,
           owner: 'system'
         },
         {
@@ -6796,7 +6795,6 @@ export class TBurnEnterpriseNode extends EventEmitter {
           ],
           createdAt: '2024-12-08T00:00:00Z',
           updatedAt: new Date().toISOString(),
-        gasBalanceEmb: gasBalanceEmb,
           owner: 'system'
         },
         {
@@ -6812,7 +6810,6 @@ export class TBurnEnterpriseNode extends EventEmitter {
           ],
           createdAt: '2024-12-08T00:00:00Z',
           updatedAt: new Date().toISOString(),
-        gasBalanceEmb: gasBalanceEmb,
           owner: 'system'
         },
       ],
