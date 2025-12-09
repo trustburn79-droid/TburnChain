@@ -108,10 +108,12 @@ export default function AdminLogs() {
 
   const logSources = ["All", "Consensus", "Bridge", "AI", "Network", "Storage", "Security", "Database", "Mempool"];
 
-  const { data: logsData, isLoading: loadingLogs, error: logsError, refetch: refetchLogs } = useQuery<{ logs: LogEntry[] }>({
-    queryKey: ["/api/admin/logs"],
+  const { data: apiResponse, isLoading: loadingLogs, error: logsError, refetch: refetchLogs } = useQuery<{ success: boolean; data: { logs: LogEntry[] } }>({
+    queryKey: ["/api/enterprise/admin/operations/logs"],
     refetchInterval: isPaused ? false : 3000,
   });
+
+  const logsData = apiResponse?.data;
 
   const logs: LogEntry[] = useMemo(() => {
     if (logsData?.logs) return logsData.logs;

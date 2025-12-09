@@ -65,14 +65,16 @@ export default function AdminMaintenance() {
   const [showMaintenanceModeDialog, setShowMaintenanceModeDialog] = useState(false);
   const [pendingMaintenanceMode, setPendingMaintenanceMode] = useState(false);
 
-  const { data: maintenanceData, isLoading, error, refetch } = useQuery<MaintenanceData>({
-    queryKey: ["/api/admin/maintenance"],
+  const { data: apiResponse, isLoading, error, refetch } = useQuery<{ success: boolean; data: MaintenanceData }>({
+    queryKey: ["/api/enterprise/admin/operations/maintenance"],
     refetchInterval: 30000,
   });
 
+  const maintenanceData = apiResponse?.data;
+
   const toggleMaintenanceModeMutation = useMutation({
     mutationFn: async (enabled: boolean) => {
-      return apiRequest("POST", "/api/admin/maintenance/mode", { enabled });
+      return apiRequest("POST", "/api/enterprise/admin/operations/maintenance/mode", { enabled });
     },
     onSuccess: (_, enabled) => {
       setShowMaintenanceModeDialog(false);
@@ -80,7 +82,7 @@ export default function AdminMaintenance() {
         title: enabled ? t("adminMaintenance.modeEnabled") : t("adminMaintenance.modeDisabled"),
         description: enabled ? t("adminMaintenance.modeEnabledDesc") : t("adminMaintenance.modeDisabledDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/maintenance"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/maintenance"] });
     },
     onError: () => {
       toast({
@@ -93,14 +95,14 @@ export default function AdminMaintenance() {
 
   const scheduleWindowMutation = useMutation({
     mutationFn: async (data: typeof newWindow) => {
-      return apiRequest("POST", "/api/admin/maintenance/schedule", data);
+      return apiRequest("POST", "/api/enterprise/admin/operations/maintenance/schedule", data);
     },
     onSuccess: () => {
       toast({
         title: t("adminMaintenance.windowScheduled"),
         description: t("adminMaintenance.windowScheduledDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/maintenance"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/maintenance"] });
       setNewWindow({ title: "", type: "", startTime: "", endTime: "", description: "", notification: "" });
     },
     onError: () => {
@@ -114,7 +116,7 @@ export default function AdminMaintenance() {
 
   const cancelWindowMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest("POST", `/api/admin/maintenance/cancel/${id}`);
+      return apiRequest("POST", `/api/enterprise/admin/operations/maintenance/cancel/${id}`);
     },
     onSuccess: () => {
       setShowCancelDialog(false);
@@ -123,7 +125,7 @@ export default function AdminMaintenance() {
         title: t("adminMaintenance.windowCancelled"),
         description: t("adminMaintenance.windowCancelledDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/maintenance"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/maintenance"] });
     },
   });
 

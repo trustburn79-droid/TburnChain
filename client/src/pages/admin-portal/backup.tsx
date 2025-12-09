@@ -63,21 +63,23 @@ export default function AdminBackup() {
   const [showDetailSheet, setShowDetailSheet] = useState(false);
   const [selectedBackup, setSelectedBackup] = useState<BackupItem | null>(null);
 
-  const { data: backupData, isLoading, error, refetch } = useQuery<BackupData>({
-    queryKey: ["/api/admin/backups"],
+  const { data: apiResponse, isLoading, error, refetch } = useQuery<{ success: boolean; data: BackupData }>({
+    queryKey: ["/api/enterprise/admin/operations/backups"],
     refetchInterval: 10000,
   });
 
+  const backupData = apiResponse?.data;
+
   const createBackupMutation = useMutation({
     mutationFn: async (type: "full" | "incremental") => {
-      return apiRequest("POST", "/api/admin/backups/create", { type });
+      return apiRequest("POST", "/api/enterprise/admin/operations/backups/create", { type });
     },
     onSuccess: () => {
       toast({
         title: t("adminBackup.backupStarted"),
         description: t("adminBackup.backupStartedDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/backups"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/backups"] });
       setConfirmDialog(null);
     },
     onError: () => {
@@ -91,14 +93,14 @@ export default function AdminBackup() {
 
   const restoreBackupMutation = useMutation({
     mutationFn: async (backupId: number) => {
-      return apiRequest("POST", `/api/admin/backups/restore/${backupId}`);
+      return apiRequest("POST", `/api/enterprise/admin/operations/backups/restore/${backupId}`);
     },
     onSuccess: () => {
       toast({
         title: t("adminBackup.restoreStarted"),
         description: t("adminBackup.restoreStartedDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/backups"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/backups"] });
       setConfirmDialog(null);
     },
     onError: () => {
@@ -112,14 +114,14 @@ export default function AdminBackup() {
 
   const deleteBackupMutation = useMutation({
     mutationFn: async (backupId: number) => {
-      return apiRequest("DELETE", `/api/admin/backups/${backupId}`);
+      return apiRequest("DELETE", `/api/enterprise/admin/operations/backups/${backupId}`);
     },
     onSuccess: () => {
       toast({
         title: t("adminBackup.backupDeleted"),
         description: t("adminBackup.backupDeletedDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/backups"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/backups"] });
       setConfirmDialog(null);
     },
     onError: () => {
@@ -133,14 +135,14 @@ export default function AdminBackup() {
 
   const toggleJobMutation = useMutation({
     mutationFn: async (data: { name: string; enabled: boolean }) => {
-      return apiRequest("PATCH", "/api/admin/backups/job", data);
+      return apiRequest("PATCH", "/api/enterprise/admin/operations/backups/job", data);
     },
     onSuccess: () => {
       toast({
         title: t("adminBackup.jobUpdated"),
         description: t("adminBackup.jobUpdatedDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/backups"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/backups"] });
     },
   });
 

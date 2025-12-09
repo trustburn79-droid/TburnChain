@@ -65,21 +65,23 @@ export default function AdminUpdates() {
   const [showUpdateDetail, setShowUpdateDetail] = useState(false);
   const [selectedUpdate, setSelectedUpdate] = useState<AvailableUpdate | null>(null);
 
-  const { data: updateData, isLoading, error, refetch } = useQuery<UpdateData>({
-    queryKey: ["/api/admin/updates"],
+  const { data: apiResponse, isLoading, error, refetch } = useQuery<{ success: boolean; data: UpdateData }>({
+    queryKey: ["/api/enterprise/admin/operations/updates"],
     refetchInterval: 30000,
   });
 
+  const updateData = apiResponse?.data;
+
   const checkUpdatesMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("POST", "/api/admin/updates/check");
+      return apiRequest("POST", "/api/enterprise/admin/operations/updates/check");
     },
     onSuccess: () => {
       toast({
         title: t("adminUpdates.checkComplete"),
         description: t("adminUpdates.checkCompleteDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/updates"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/updates"] });
     },
     onError: () => {
       toast({
@@ -92,14 +94,14 @@ export default function AdminUpdates() {
 
   const installUpdateMutation = useMutation({
     mutationFn: async (version: string) => {
-      return apiRequest("POST", "/api/admin/updates/install", { version });
+      return apiRequest("POST", "/api/enterprise/admin/operations/updates/install", { version });
     },
     onSuccess: (_, version) => {
       toast({
         title: t("adminUpdates.installStarted"),
         description: t("adminUpdates.installStartedDesc", { version }),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/updates"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/updates"] });
       setConfirmDialog(null);
     },
     onError: () => {
@@ -113,14 +115,14 @@ export default function AdminUpdates() {
 
   const rollbackMutation = useMutation({
     mutationFn: async (version: string) => {
-      return apiRequest("POST", "/api/admin/updates/rollback", { version });
+      return apiRequest("POST", "/api/enterprise/admin/operations/updates/rollback", { version });
     },
     onSuccess: (_, version) => {
       toast({
         title: t("adminUpdates.rollbackStarted"),
         description: t("adminUpdates.rollbackStartedDesc", { version }),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/updates"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/updates"] });
       setConfirmDialog(null);
     },
     onError: () => {
@@ -134,14 +136,14 @@ export default function AdminUpdates() {
 
   const updateNodeMutation = useMutation({
     mutationFn: async (nodeName: string) => {
-      return apiRequest("POST", "/api/admin/updates/node", { nodeName });
+      return apiRequest("POST", "/api/enterprise/admin/operations/updates/node", { nodeName });
     },
     onSuccess: (_, nodeName) => {
       toast({
         title: t("adminUpdates.nodeUpdateStarted"),
         description: t("adminUpdates.nodeUpdateStartedDesc", { node: nodeName }),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/updates"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/updates"] });
     },
   });
 

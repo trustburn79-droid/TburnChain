@@ -79,21 +79,23 @@ export default function AdminEmergency() {
   const [showBreakerConfirm, setShowBreakerConfirm] = useState(false);
   const [pendingBreakerToggle, setPendingBreakerToggle] = useState<{ name: string; enabled: boolean } | null>(null);
 
-  const { data: emergencyData, isLoading, error, refetch } = useQuery<EmergencyData>({
-    queryKey: ["/api/admin/emergency/status"],
+  const { data: apiResponse, isLoading, error, refetch } = useQuery<{ success: boolean; data: EmergencyData }>({
+    queryKey: ["/api/enterprise/admin/operations/emergency"],
     refetchInterval: 5000,
   });
 
+  const emergencyData = apiResponse?.data;
+
   const activateControlMutation = useMutation({
     mutationFn: async (controlId: string) => {
-      return apiRequest("POST", `/api/admin/emergency/activate/${controlId}`);
+      return apiRequest("POST", `/api/enterprise/admin/operations/emergency/activate/${controlId}`);
     },
     onSuccess: (_, controlId) => {
       toast({
         title: t("adminEmergency.actionActivated"),
         description: t("adminEmergency.actionActivatedDesc", { action: controlId }),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/emergency/status"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/emergency"] });
       setConfirmDialog(null);
     },
     onError: () => {
@@ -107,14 +109,14 @@ export default function AdminEmergency() {
 
   const toggleBreakerMutation = useMutation({
     mutationFn: async (data: { name: string; enabled: boolean }) => {
-      return apiRequest("PATCH", "/api/admin/emergency/breaker", data);
+      return apiRequest("PATCH", "/api/enterprise/admin/operations/emergency/breaker", data);
     },
     onSuccess: () => {
       toast({
         title: t("adminEmergency.breakerUpdated"),
         description: t("adminEmergency.breakerUpdatedDesc"),
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/emergency/status"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/operations/emergency"] });
     },
   });
 
