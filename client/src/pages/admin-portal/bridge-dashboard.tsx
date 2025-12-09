@@ -51,11 +51,16 @@ interface Chain {
 
 interface Transfer {
   id: string;
-  from: string;
-  to: string;
+  from: string | { chain: string; address: string };
+  to: string | { chain: string; address: string };
   amount: string;
   status: "completed" | "pending" | "validating" | "failed";
-  time: string;
+  time?: string;
+  timestamp?: string;
+  duration?: string;
+  fee?: string;
+  confirmations?: string;
+  error?: string;
 }
 
 interface VolumeData {
@@ -592,16 +597,21 @@ export default function AdminBridgeDashboard() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {recentTransfers.map((tx, index) => (
-                          <TableRow key={index} data-testid={`row-transfer-${tx.id}`}>
-                            <TableCell className="font-mono" data-testid={`text-tx-id-${index}`}>{tx.id}</TableCell>
-                            <TableCell data-testid={`text-from-${index}`}>{tx.from}</TableCell>
-                            <TableCell data-testid={`text-to-${index}`}>{tx.to}</TableCell>
-                            <TableCell data-testid={`text-amount-${index}`}>{tx.amount}</TableCell>
-                            <TableCell>{getTransferStatusBadge(tx.status)}</TableCell>
-                            <TableCell className="text-muted-foreground" data-testid={`text-time-${index}`}>{tx.time}</TableCell>
-                          </TableRow>
-                        ))}
+                        {recentTransfers.map((tx, index) => {
+                          const fromDisplay = typeof tx.from === 'string' ? tx.from : tx.from?.chain || 'Unknown';
+                          const toDisplay = typeof tx.to === 'string' ? tx.to : tx.to?.chain || 'Unknown';
+                          const timeDisplay = tx.time || tx.duration || 'N/A';
+                          return (
+                            <TableRow key={index} data-testid={`row-transfer-${tx.id}`}>
+                              <TableCell className="font-mono" data-testid={`text-tx-id-${index}`}>{tx.id}</TableCell>
+                              <TableCell data-testid={`text-from-${index}`}>{fromDisplay}</TableCell>
+                              <TableCell data-testid={`text-to-${index}`}>{toDisplay}</TableCell>
+                              <TableCell data-testid={`text-amount-${index}`}>{tx.amount}</TableCell>
+                              <TableCell>{getTransferStatusBadge(tx.status)}</TableCell>
+                              <TableCell className="text-muted-foreground" data-testid={`text-time-${index}`}>{timeDisplay}</TableCell>
+                            </TableRow>
+                          );
+                        })}
                       </TableBody>
                     </Table>
                   )}

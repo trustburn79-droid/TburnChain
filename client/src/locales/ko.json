@@ -17196,6 +17196,8 @@
       "description": "브릿지 통계를 가져올 수 없습니다. 다시 시도해 주세요."
     },
     "retry": "다시 시도",
+    "actions": "작업",
+    "time": "시간",
     "detail": {
       "title": "체인 상세정보",
       "overview": "체인 개요",

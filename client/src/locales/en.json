@@ -17849,6 +17849,8 @@
       "description": "Unable to fetch bridge statistics. Please try again."
     },
     "retry": "Retry",
+    "actions": "Actions",
+    "time": "Time",
     "detail": {
       "title": "Chain Details",
       "overview": "Chain Overview",
