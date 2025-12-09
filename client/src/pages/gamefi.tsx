@@ -941,10 +941,12 @@ function ProjectDetailDialog({
 
           <ScrollArea className="flex-1 mt-4">
             <TabsContent value="overview" className="mt-0 space-y-6">
-              {project.description && (
+              {project.name && (
                 <div>
                   <h3 className="font-semibold mb-2">{t("gamefi.description")}</h3>
-                  <p className="text-muted-foreground">{project.description}</p>
+                  <p className="text-muted-foreground">
+                    {t(`gamefi.projectDescriptions.${project.name}`, t("gamefi.projectDescriptions.default"))}
+                  </p>
                 </div>
               )}
 
@@ -1153,8 +1155,10 @@ function TournamentDetailDialog({
 
         <ScrollArea className="flex-1 mt-4">
           <div className="space-y-6">
-            {tournament.description && (
-              <p className="text-muted-foreground">{tournament.description}</p>
+            {tournament.name && (
+              <p className="text-muted-foreground">
+                {t(`gamefi.tournamentDescriptions.${tournament.name.split(' ')[0]}`, t("gamefi.tournamentDescriptions.default"))}
+              </p>
             )}
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

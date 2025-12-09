@@ -345,10 +345,12 @@ function ProjectDetailDialog({
           
           <ScrollArea className="flex-1 mt-4">
             <TabsContent value="overview" className="mt-0 space-y-6">
-              {project.description && (
+              {project.name && (
                 <div>
                   <h4 className="font-semibold mb-2">{t("nftLaunchpad.description")}</h4>
-                  <p className="text-muted-foreground">{project.description}</p>
+                  <p className="text-muted-foreground">
+                    {t(`nftLaunchpad.projectDescriptions.${project.name}`, t("nftLaunchpad.projectDescriptions.default"))}
+                  </p>
                 </div>
               )}
               
