@@ -72,16 +72,16 @@ export default function AdminThreatDetection() {
   const [threatToUnblock, setThreatToUnblock] = useState<Threat | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<ThreatData>({
-    queryKey: ["/api/admin/security/threats"],
+    queryKey: ["/api/enterprise/admin/security/threats"],
     refetchInterval: 15000,
   });
 
   const blockMutation = useMutation({
     mutationFn: async (threatId: number) => {
-      return apiRequest("POST", `/api/admin/security/threats/${threatId}/block`);
+      return apiRequest("POST", `/api/enterprise/admin/security/threats/${threatId}/block`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/security/threats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/security/threats"] });
       toast({
         title: t("adminThreats.blockSuccess"),
         description: t("adminThreats.blockSuccessDesc"),
@@ -91,10 +91,10 @@ export default function AdminThreatDetection() {
 
   const unblockMutation = useMutation({
     mutationFn: async (threatId: number) => {
-      return apiRequest("POST", `/api/admin/security/threats/${threatId}/unblock`);
+      return apiRequest("POST", `/api/enterprise/admin/security/threats/${threatId}/unblock`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/security/threats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/security/threats"] });
       toast({
         title: t("adminThreats.unblockSuccess"),
         description: t("adminThreats.unblockSuccessDesc"),
@@ -104,10 +104,10 @@ export default function AdminThreatDetection() {
 
   const investigateMutation = useMutation({
     mutationFn: async (threatId: number) => {
-      return apiRequest("POST", `/api/admin/security/threats/${threatId}/investigate`);
+      return apiRequest("POST", `/api/enterprise/admin/security/threats/${threatId}/investigate`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/security/threats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/security/threats"] });
       toast({
         title: t("adminThreats.investigateSuccess"),
         description: t("adminThreats.investigateSuccessDesc"),
@@ -116,38 +116,17 @@ export default function AdminThreatDetection() {
   });
 
   const threatStats = data?.stats ?? {
-    threatsDetected: 1847,
-    threatsBlocked: 1845,
+    threatsDetected: 0,
+    threatsBlocked: 0,
     activeIncidents: 0,
-    riskScore: 8,
+    riskScore: 0,
   };
 
-  const recentThreats = data?.recentThreats ?? [
-    { id: 1, type: "Rate Limit Exceeded", severity: "low", source: "203.0.113.45", target: "Bridge API", status: "blocked", timestamp: "2024-12-07 18:30" },
-    { id: 2, type: "Invalid Signature", severity: "medium", source: "198.51.100.78", target: "Validator Vote", status: "blocked", timestamp: "2024-12-07 18:15" },
-    { id: 3, type: "Geo-Blocked Access", severity: "low", source: "OFAC Region", target: "All Endpoints", status: "blocked", timestamp: "2024-12-07 18:00" },
-    { id: 4, type: "Anomalous Pattern", severity: "low", source: "AI Detection", target: "Swap Router", status: "monitored", timestamp: "2024-12-07 17:45" },
-    { id: 5, type: "Expired Token", severity: "low", source: "Session Timeout", target: "User Session", status: "blocked", timestamp: "2024-12-07 17:30" },
-    { id: 6, type: "IP Reputation Block", severity: "low", source: "Known Malicious", target: "API Gateway", status: "blocked", timestamp: "2024-12-07 17:15" },
-  ];
+  const recentThreats = data?.recentThreats ?? [];
 
-  const threatTrend = data?.threatTrend ?? [
-    { date: "Dec 1", critical: 0, high: 0, medium: 2, low: 45 },
-    { date: "Dec 2", critical: 0, high: 0, medium: 1, low: 38 },
-    { date: "Dec 3", critical: 0, high: 1, medium: 3, low: 52 },
-    { date: "Dec 4", critical: 0, high: 0, medium: 2, low: 41 },
-    { date: "Dec 5", critical: 0, high: 0, medium: 1, low: 35 },
-    { date: "Dec 6", critical: 0, high: 0, medium: 2, low: 48 },
-    { date: "Dec 7", critical: 0, high: 0, medium: 1, low: 32 },
-  ];
+  const threatTrend = data?.threatTrend ?? [];
 
-  const aiDetections = data?.aiDetections ?? [
-    { pattern: "Normal transaction volume - within 2σ", confidence: 99.2, risk: "low", recommendation: "No action required" },
-    { pattern: "Validator performance optimal", confidence: 98.7, risk: "low", recommendation: "Continue monitoring" },
-    { pattern: "Bridge utilization healthy (78%)", confidence: 97.5, risk: "low", recommendation: "Optimal range maintained" },
-    { pattern: "Network latency stable (42ms avg)", confidence: 99.1, risk: "low", recommendation: "Performance excellent" },
-    { pattern: "Smart contract interactions normal", confidence: 98.8, risk: "low", recommendation: "All patterns verified" },
-  ];
+  const aiDetections = data?.aiDetections ?? [];
 
   useEffect(() => {
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
@@ -168,7 +147,7 @@ export default function AdminThreatDetection() {
           try {
             const message = JSON.parse(event.data);
             if (message.type === "threat_update" || message.type === "security_alert") {
-              queryClient.invalidateQueries({ queryKey: ["/api/admin/security/threats"] });
+              queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/security/threats"] });
               setLastUpdate(new Date());
             }
           } catch {

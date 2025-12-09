@@ -77,16 +77,16 @@ export default function AdminAccessControl() {
   const [ipToRemove, setIpToRemove] = useState<IpWhitelistEntry | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<AccessData>({
-    queryKey: ["/api/admin/access/policies"],
+    queryKey: ["/api/enterprise/admin/access/policies"],
     refetchInterval: 30000,
   });
 
   const createPolicyMutation = useMutation({
     mutationFn: async (policyData: Partial<Policy>) => {
-      return apiRequest("POST", "/api/admin/access/policies", policyData);
+      return apiRequest("POST", "/api/enterprise/admin/access/policies", policyData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/access/policies"] });
       toast({
         title: t("adminAccess.createSuccess"),
         description: t("adminAccess.createSuccessDesc"),
@@ -103,10 +103,10 @@ export default function AdminAccessControl() {
 
   const updatePolicyMutation = useMutation({
     mutationFn: async ({ id, ...policyData }: Policy) => {
-      return apiRequest("PATCH", `/api/admin/access/policies/${id}`, policyData);
+      return apiRequest("PATCH", `/api/enterprise/admin/access/policies/${id}`, policyData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/access/policies"] });
       toast({
         title: t("adminAccess.updateSuccess"),
         description: t("adminAccess.updateSuccessDesc"),
@@ -116,10 +116,10 @@ export default function AdminAccessControl() {
 
   const deletePolicyMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest("DELETE", `/api/admin/access/policies/${id}`);
+      return apiRequest("DELETE", `/api/enterprise/admin/access/policies/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/access/policies"] });
       setPolicyToDelete(null);
       toast({
         title: t("adminAccess.deleteSuccess"),
@@ -130,10 +130,10 @@ export default function AdminAccessControl() {
 
   const removeIpMutation = useMutation({
     mutationFn: async (ip: string) => {
-      return apiRequest("DELETE", `/api/admin/access/ip-whitelist/${encodeURIComponent(ip)}`);
+      return apiRequest("DELETE", `/api/enterprise/admin/access/ip-whitelist/${encodeURIComponent(ip)}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/access/policies"] });
       setIpToRemove(null);
       toast({
         title: t("adminAccess.ipRemoveSuccess"),
@@ -154,50 +154,19 @@ export default function AdminAccessControl() {
     }
   };
 
-  const policies = data?.policies ?? [
-    { id: 1, nameKey: "superAdminAccess", descKey: "superAdminAccessDesc", roles: ["super_admin"], resources: "/admin/*, /api/admin/*", status: "active" },
-    { id: 2, nameKey: "adminAccess", descKey: "adminAccessDesc", roles: ["admin"], resources: "/admin/dashboard, /admin/network, /admin/validators", status: "active" },
-    { id: 3, nameKey: "operatorAccess", descKey: "operatorAccessDesc", roles: ["operator", "senior_operator"], resources: "/operator/*, /api/operator/*", status: "active" },
-    { id: 4, nameKey: "bridgeControl", descKey: "bridgeControlDesc", roles: ["bridge_operator", "bridge_admin"], resources: "/api/bridge/*, /admin/bridge/*", status: "active" },
-    { id: 5, nameKey: "validatorManagement", descKey: "validatorManagementDesc", roles: ["validator_admin"], resources: "/api/validators/*, /admin/validators/*", status: "active" },
-    { id: 6, nameKey: "treasuryAccess", descKey: "treasuryAccessDesc", roles: ["treasury_admin", "treasury_operator"], resources: "/api/treasury/*, /admin/treasury/*", status: "active" },
-    { id: 7, nameKey: "auditReadOnly", descKey: "auditReadOnlyDesc", roles: ["auditor", "compliance_officer"], resources: "/api/audit/*, /api/logs/*", status: "active" },
-    { id: 8, nameKey: "securityControl", descKey: "securityControlDesc", roles: ["security_admin", "security_analyst"], resources: "/api/security/*, /admin/security/*", status: "active" },
-  ];
+  const policies = data?.policies ?? [];
 
-  const ipWhitelist = data?.ipWhitelist ?? [
-    { ip: "10.0.0.0/8", description: "TBURN Enterprise VPN", addedBy: "Security Admin", addedAt: "2024-11-01" },
-    { ip: "172.16.0.0/12", description: "Data Center Network", addedBy: "Infrastructure", addedAt: "2024-11-05" },
-    { ip: "192.168.100.0/24", description: "HQ Office Network - Seoul", addedBy: "Admin", addedAt: "2024-11-10" },
-    { ip: "192.168.101.0/24", description: "Regional Office - Singapore", addedBy: "Admin", addedAt: "2024-11-15" },
-    { ip: "192.168.102.0/24", description: "Regional Office - Frankfurt", addedBy: "Admin", addedAt: "2024-11-20" },
-    { ip: "52.78.0.0/16", description: "AWS Korea Region", addedBy: "Infrastructure", addedAt: "2024-12-01" },
-  ];
+  const ipWhitelist = data?.ipWhitelist ?? [];
 
-  const recentAccess = data?.recentAccess ?? [
-    { user: "admin@tburn.io", action: "Bridge Configuration Update", ip: "192.168.100.15", time: "1 min ago", status: "success" },
-    { user: "ops-lead@tburn.io", action: "Validator Status Check", ip: "10.0.2.15", time: "3 min ago", status: "success" },
-    { user: "security-chief@tburn.io", action: "Security Scan Initiated", ip: "10.0.3.25", time: "8 min ago", status: "success" },
-    { user: "treasury-ops@tburn.io", action: "Treasury Report Export", ip: "192.168.101.45", time: "12 min ago", status: "success" },
-    { user: "unknown@external.com", action: "Login Attempt", ip: "45.33.32.156", time: "25 min ago", status: "blocked" },
-    { user: "bridge-ops@tburn.io", action: "Liquidity Rebalance", ip: "10.0.4.35", time: "35 min ago", status: "success" },
-  ];
+  const recentAccess = data?.recentAccess ?? [];
 
-  const permissions = data?.permissions ?? [
-    { resource: "Dashboard", view: true, create: false, edit: false, delete: false },
-    { resource: "Network Analytics", view: true, create: true, edit: true, delete: false },
-    { resource: "Validators", view: true, create: true, edit: true, delete: true },
-    { resource: "Bridge Operations", view: true, create: true, edit: true, delete: false },
-    { resource: "Treasury", view: true, create: false, edit: false, delete: false },
-    { resource: "Security Settings", view: true, create: false, edit: true, delete: false },
-    { resource: "AI Orchestration", view: true, create: true, edit: true, delete: false },
-  ];
+  const permissions = data?.permissions ?? [];
 
   const stats = data?.stats ?? {
-    activePolicies: 8,
-    activeSessions: 47,
-    ipWhitelistCount: 6,
-    blockedToday: 12,
+    activePolicies: 0,
+    activeSessions: 0,
+    ipWhitelistCount: 0,
+    blockedToday: 0,
   };
 
   const handleRefresh = useCallback(async () => {

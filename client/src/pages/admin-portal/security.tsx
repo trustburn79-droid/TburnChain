@@ -77,42 +77,29 @@ export default function AdminSecurity() {
   const [sessionToTerminate, setSessionToTerminate] = useState<ActiveSession | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<SecurityData>({
-    queryKey: ["/api/admin/security"],
+    queryKey: ["/api/enterprise/admin/security"],
     refetchInterval: 30000,
   });
 
   const securityScore = data?.securityScore ?? {
-    overall: 98.7,
-    authentication: 99.8,
-    authorization: 98.5,
-    encryption: 99.2,
-    monitoring: 97.8,
-    compliance: 98.2,
+    overall: 0,
+    authentication: 0,
+    authorization: 0,
+    encryption: 0,
+    monitoring: 0,
+    compliance: 0,
   };
 
-  const threatEvents = data?.threatEvents ?? [
-    { id: 1, type: "Rate Limit Exceeded", severity: "low", source: "203.0.113.45", target: "/api/bridge/transfer", attempts: 85, status: "blocked", time: new Date(Date.now() - 180000).toISOString() },
-    { id: 2, type: "Invalid Signature", severity: "medium", source: "198.51.100.78", target: "/api/validator/vote", attempts: 12, status: "blocked", time: new Date(Date.now() - 600000).toISOString() },
-    { id: 3, type: "Geo-Blocked Region", severity: "low", source: "Multiple (OFAC)", target: "/api/*", attempts: 247, status: "blocked", time: new Date(Date.now() - 1800000).toISOString() },
-    { id: 4, type: "Anomalous Pattern", severity: "low", source: "AI Detection", target: "/api/swap", attempts: 1, status: "monitored", time: new Date(Date.now() - 3600000).toISOString() },
-    { id: 5, type: "API Key Rotation", severity: "info", source: "System", target: "Integration Keys", attempts: 0, status: "completed", time: new Date(Date.now() - 7200000).toISOString() },
-  ];
+  const threatEvents = data?.threatEvents ?? [];
 
-  const activeSessions = data?.activeSessions ?? [
-    { id: 1, user: "admin@tburn.io", role: "Super Admin", ip: "10.0.1.5", location: "KR-Seoul", device: "Chrome/Windows", lastActivity: new Date(Date.now() - 30000).toISOString() },
-    { id: 2, user: "ops-lead@tburn.io", role: "Operator Lead", ip: "10.0.2.15", location: "US-Virginia", device: "Firefox/macOS", lastActivity: new Date(Date.now() - 120000).toISOString() },
-    { id: 3, user: "security-chief@tburn.io", role: "Security Chief", ip: "10.0.3.25", location: "SG-Singapore", device: "Safari/macOS", lastActivity: new Date(Date.now() - 300000).toISOString() },
-    { id: 4, user: "bridge-ops@tburn.io", role: "Bridge Operator", ip: "10.0.4.35", location: "EU-Frankfurt", device: "Chrome/Linux", lastActivity: new Date(Date.now() - 600000).toISOString() },
-    { id: 5, user: "validator-admin@tburn.io", role: "Validator Admin", ip: "10.0.5.45", location: "JP-Tokyo", device: "Edge/Windows", lastActivity: new Date(Date.now() - 900000).toISOString() },
-    { id: 6, user: "treasury-ops@tburn.io", role: "Treasury Operator", ip: "10.0.6.55", location: "UK-London", device: "Chrome/macOS", lastActivity: new Date(Date.now() - 1200000).toISOString() },
-  ];
+  const activeSessions = data?.activeSessions ?? [];
 
   const terminateSessionMutation = useMutation({
     mutationFn: async (sessionId: number) => {
-      return apiRequest("POST", `/api/admin/security/sessions/${sessionId}/terminate`);
+      return apiRequest("POST", `/api/enterprise/admin/security/sessions/${sessionId}/terminate`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/security"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/security"] });
       setSessionToTerminate(null);
       toast({
         title: t("adminSecurity.terminateSuccess"),
@@ -153,7 +140,7 @@ export default function AdminSecurity() {
           try {
             const message = JSON.parse(event.data);
             if (message.type === "security_update" || message.type === "threat_update") {
-              queryClient.invalidateQueries({ queryKey: ["/api/admin/security"] });
+              queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/security"] });
               setLastUpdate(new Date());
             }
           } catch {
