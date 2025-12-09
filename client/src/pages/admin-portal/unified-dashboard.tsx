@@ -71,7 +71,7 @@ import {
 
 interface NetworkStats {
   tps: number;
-  blockHeight: number;
+  currentBlockHeight: number;
   avgBlockTime: number;
   pendingTransactions: number;
   totalValidators: number;
@@ -677,7 +677,7 @@ export default function UnifiedDashboard() {
             <MetricCard
               icon={Layers}
               label={t("adminDashboard.blockHeight")}
-              value={formatNumber(networkStats?.blockHeight || 0)}
+              value={formatNumber(networkStats?.currentBlockHeight || 0)}
               isLoading={loadingNetwork}
               bgColor="bg-blue-500/10"
               iconColor="text-blue-500"
