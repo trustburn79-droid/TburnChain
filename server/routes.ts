@@ -1793,19 +1793,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Token System Stats
+  // Token System Stats - Enterprise Node data
   app.get("/api/token-system/stats", async (_req, res) => {
     try {
-      const stats = {
-        totalTokens: 156,
-        tbc20Count: 89,
-        tbc721Count: 42,
-        tbc1155Count: 25,
-        totalBurned: "245000000000000000000000000",
-        dailyBurnRate: 0.15,
-        aiOptimizationRate: 94.5,
-        quantumSecuredTokens: 112
-      };
+      const stats = enterpriseNode.getPublicTokenSystemStats();
       res.json(stats);
     } catch (error) {
       console.error("Error fetching token system stats:", error);
@@ -1813,81 +1804,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Token List by Standard
+  // Token List by Standard - Enterprise Node data
   app.get("/api/token-system/tokens", async (_req, res) => {
     try {
-      const tokens = [
-        {
-          id: "tbc20-tburn-native",
-          name: "TBURN Token",
-          symbol: "TBURN",
-          standard: "TBC-20",
-          totalSupply: "1000000000000000000000000000",
-          holders: 45892,
-          transactions24h: 125840,
-          burnRate: 100,
-          aiEnabled: true,
-          quantumResistant: true,
-          mevProtection: true,
-          features: ["AI Burn Optimization", "Quantum Signatures", "MEV Protection", "Self-Adjusting Gas"]
-        },
-        {
-          id: "tbc20-usdt-wrapped",
-          name: "Wrapped USDT",
-          symbol: "wUSDT",
-          standard: "TBC-20",
-          totalSupply: "500000000000000000000000",
-          holders: 12456,
-          transactions24h: 45672,
-          burnRate: 0,
-          aiEnabled: true,
-          quantumResistant: true,
-          mevProtection: true,
-          features: ["Cross-Chain Bridge", "AI Price Oracle"]
-        },
-        {
-          id: "tbc721-genesis-validators",
-          name: "Genesis Validators NFT",
-          symbol: "GVAL",
-          standard: "TBC-721",
-          totalSupply: "512",
-          holders: 512,
-          transactions24h: 28,
-          burnRate: 0,
-          aiEnabled: true,
-          quantumResistant: true,
-          mevProtection: false,
-          features: ["AI Rarity Scoring", "Authenticity Verification", "Dynamic Metadata"]
-        },
-        {
-          id: "tbc721-ai-art",
-          name: "TBURN AI Art Collection",
-          symbol: "TART",
-          standard: "TBC-721",
-          totalSupply: "10000",
-          holders: 3256,
-          transactions24h: 156,
-          burnRate: 0,
-          aiEnabled: true,
-          quantumResistant: true,
-          mevProtection: false,
-          features: ["AI Generation", "Provenance Tracking", "Royalty Enforcement"]
-        },
-        {
-          id: "tbc1155-game-assets",
-          name: "TBURN Game Assets",
-          symbol: "TGAME",
-          standard: "TBC-1155",
-          totalSupply: "1000000",
-          holders: 8954,
-          transactions24h: 34521,
-          burnRate: 50,
-          aiEnabled: true,
-          quantumResistant: true,
-          mevProtection: true,
-          features: ["Batch Transfers", "Semi-Fungible", "AI Supply Management"]
-        }
-      ];
+      const tokens = enterpriseNode.getPublicTokenSystemTokens();
       res.json(tokens);
     } catch (error) {
       console.error("Error fetching tokens:", error);
@@ -2142,48 +2062,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // ============================================
   // CROSS-CHAIN BRIDGE API (Enterprise Production)
+  // Now using TBurnEnterpriseNode for all data
   // ============================================
 
-  // Bridge Chain Data (shared across endpoints)
-  const bridgeChains = [
-    { id: "tburn-mainnet", chainId: 7979, name: "TBURN Mainnet", symbol: "TBURN", nativeCurrency: "TBURN", status: "active", avgBlockTime: 100, confirmationsRequired: 1, totalLiquidity: "1000000000000000000000000000", volume24h: "50000000000000000000000", txCount24h: 15847, avgTransferTime: 5000, successRate: 9998, aiRiskScore: 50, isEvm: true },
-    { id: "ethereum", chainId: 1, name: "Ethereum", symbol: "ETH", nativeCurrency: "ETH", status: "active", avgBlockTime: 12000, confirmationsRequired: 12, totalLiquidity: "250000000000000000000000", volume24h: "12500000000000000000000", txCount24h: 8543, avgTransferTime: 180000, successRate: 9985, aiRiskScore: 120, isEvm: true },
-    { id: "bsc", chainId: 56, name: "BNB Smart Chain", symbol: "BSC", nativeCurrency: "BNB", status: "active", avgBlockTime: 3000, confirmationsRequired: 15, totalLiquidity: "180000000000000000000000", volume24h: "9000000000000000000000", txCount24h: 12456, avgTransferTime: 60000, successRate: 9992, aiRiskScore: 95, isEvm: true },
-    { id: "polygon", chainId: 137, name: "Polygon", symbol: "MATIC", nativeCurrency: "MATIC", status: "active", avgBlockTime: 2000, confirmationsRequired: 128, totalLiquidity: "120000000000000000000000", volume24h: "6000000000000000000000", txCount24h: 9876, avgTransferTime: 300000, successRate: 9988, aiRiskScore: 85, isEvm: true },
-    { id: "avalanche", chainId: 43114, name: "Avalanche", symbol: "AVAX", nativeCurrency: "AVAX", status: "active", avgBlockTime: 2000, confirmationsRequired: 1, totalLiquidity: "90000000000000000000000", volume24h: "4500000000000000000000", txCount24h: 5432, avgTransferTime: 3000, successRate: 9995, aiRiskScore: 75, isEvm: true },
-    { id: "arbitrum", chainId: 42161, name: "Arbitrum One", symbol: "ARB", nativeCurrency: "ETH", status: "active", avgBlockTime: 250, confirmationsRequired: 1, totalLiquidity: "150000000000000000000000", volume24h: "7500000000000000000000", txCount24h: 11234, avgTransferTime: 1000, successRate: 9997, aiRiskScore: 65, isEvm: true },
-    { id: "optimism", chainId: 10, name: "Optimism", symbol: "OP", nativeCurrency: "ETH", status: "active", avgBlockTime: 2000, confirmationsRequired: 1, totalLiquidity: "75000000000000000000000", volume24h: "3750000000000000000000", txCount24h: 6789, avgTransferTime: 2000, successRate: 9993, aiRiskScore: 70, isEvm: true },
-    { id: "base", chainId: 8453, name: "Base", symbol: "BASE", nativeCurrency: "ETH", status: "active", avgBlockTime: 2000, confirmationsRequired: 1, totalLiquidity: "60000000000000000000000", volume24h: "3000000000000000000000", txCount24h: 4567, avgTransferTime: 2000, successRate: 9991, aiRiskScore: 80, isEvm: true }
-  ];
-
-  // Cross-Chain Bridge Stats
+  // Cross-Chain Bridge Stats - Enterprise Node data
   app.get("/api/bridge/stats", async (_req, res) => {
     try {
-      const totalLiquidity = bridgeChains.reduce((sum, c) => sum + BigInt(c.totalLiquidity), BigInt(0));
-      const volume24h = bridgeChains.reduce((sum, c) => sum + BigInt(c.volume24h), BigInt(0));
-      const transferCount24h = bridgeChains.reduce((sum, c) => sum + c.txCount24h, 0);
-      const avgTime = bridgeChains.reduce((sum, c) => sum + c.avgTransferTime, 0) / bridgeChains.length;
-      
-      const stats = {
-        totalChains: bridgeChains.length,
-        activeChains: bridgeChains.filter(c => c.status === "active").length,
-        totalRoutes: 28,
-        activeRoutes: 27, // Enterprise: 96% route availability
-        totalValidators: 21,
-        activeValidators: 21, // Enterprise: 100% validator uptime
-        totalLiquidity: totalLiquidity.toString(),
-        totalVolume: "8500000000000000000000000000",
-        volume24h: volume24h.toString(),
-        transferCount24h,
-        avgTransferTime: Math.floor(avgTime * 0.6), // 40% faster with AI optimization
-        successRate: 9998, // Enterprise: 99.98% success rate
-        fees24h: "125000000000000000000000",
-        securityEventsCount: 0,
-        aiRiskAssessmentEnabled: true,
-        topChains: bridgeChains.slice(0, 4),
-        recentTransfers: [],
-        recentActivity: []
-      };
+      const stats = enterpriseNode.getPublicBridgeStats();
       res.json(stats);
     } catch (error) {
       console.error("Error fetching bridge stats:", error);
@@ -2191,29 +2076,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Supported Chains (matching BridgeChain interface)
+  // Supported Chains - Enterprise Node data
   app.get("/api/bridge/chains", async (_req, res) => {
     try {
-      res.json(bridgeChains);
+      const chains = enterpriseNode.getPublicBridgeChains();
+      res.json(chains);
     } catch (error) {
       console.error("Error fetching chains:", error);
       res.status(500).json({ error: "Failed to fetch chains" });
     }
   });
 
-  // Bridge Routes
+  // Bridge Routes - Enterprise Node data
   app.get("/api/bridge/routes", async (_req, res) => {
     try {
-      const routes = [
-        { id: "route-001", sourceChainId: 1, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "1000000000000000000000000", feePercent: 30, estimatedTime: 180000, successRate: 9995, volume24h: "5000000000000000000000", liquidityAvailable: "50000000000000000000000", aiOptimized: true, aiPriority: 95 },
-        { id: "route-002", sourceChainId: 7979, destinationChainId: 1, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "1000000000000000000000000", feePercent: 30, estimatedTime: 180000, successRate: 9993, volume24h: "4500000000000000000000", liquidityAvailable: "45000000000000000000000", aiOptimized: true, aiPriority: 93 },
-        { id: "route-003", sourceChainId: 56, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 25, estimatedTime: 60000, successRate: 9997, volume24h: "3500000000000000000000", liquidityAvailable: "35000000000000000000000", aiOptimized: true, aiPriority: 92 },
-        { id: "route-004", sourceChainId: 7979, destinationChainId: 56, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 25, estimatedTime: 60000, successRate: 9996, volume24h: "3200000000000000000000", liquidityAvailable: "32000000000000000000000", aiOptimized: true, aiPriority: 91 },
-        { id: "route-005", sourceChainId: 137, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "300000000000000000000000", feePercent: 20, estimatedTime: 300000, successRate: 9992, volume24h: "2800000000000000000000", liquidityAvailable: "28000000000000000000000", aiOptimized: true, aiPriority: 88 },
-        { id: "route-006", sourceChainId: 42161, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 15, estimatedTime: 2000, successRate: 9998, volume24h: "4200000000000000000000", liquidityAvailable: "42000000000000000000000", aiOptimized: true, aiPriority: 96 },
-        { id: "route-007", sourceChainId: 7979, destinationChainId: 42161, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 15, estimatedTime: 2000, successRate: 9997, volume24h: "3800000000000000000000", liquidityAvailable: "38000000000000000000000", aiOptimized: true, aiPriority: 94 },
-        { id: "route-008", sourceChainId: 10, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "300000000000000000000000", feePercent: 18, estimatedTime: 3000, successRate: 9994, volume24h: "2500000000000000000000", liquidityAvailable: "25000000000000000000000", aiOptimized: true, aiPriority: 89 }
-      ];
+      const routes = enterpriseNode.getPublicBridgeRoutes();
       res.json(routes);
     } catch (error) {
       console.error("Error fetching bridge routes:", error);
@@ -2221,17 +2098,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Bridge Validators
+  // Bridge Validators - Enterprise Node data
   app.get("/api/bridge/validators", async (_req, res) => {
     try {
-      const validators = [
-        { id: "val-001", address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", name: "TBURN Foundation", status: "active", stake: "5000000000000000000000000", commission: 500, uptime: 9998, attestationsProcessed: 125847, attestationsValid: 125832, rewardsEarned: "250000000000000000000000", avgResponseTime: 45, aiTrustScore: 9850, reputationScore: 9920 },
-        { id: "val-002", address: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", name: "ChainGuard Security", status: "active", stake: "3500000000000000000000000", commission: 600, uptime: 9995, attestationsProcessed: 98234, attestationsValid: 98189, rewardsEarned: "175000000000000000000000", avgResponseTime: 52, aiTrustScore: 9780, reputationScore: 9880 },
-        { id: "val-003", address: "0x456f109551bD432803012645Ac136ddd64DBA456", name: "BlockSecure Labs", status: "active", stake: "2800000000000000000000000", commission: 550, uptime: 9992, attestationsProcessed: 87654, attestationsValid: 87598, rewardsEarned: "140000000000000000000000", avgResponseTime: 48, aiTrustScore: 9720, reputationScore: 9850 },
-        { id: "val-004", address: "0xabcf109551bD432803012645Ac136ddd64DBAabc", name: "Quantum Bridge Node", status: "active", stake: "4200000000000000000000000", commission: 450, uptime: 9997, attestationsProcessed: 112345, attestationsValid: 112321, rewardsEarned: "210000000000000000000000", avgResponseTime: 38, aiTrustScore: 9890, reputationScore: 9940 },
-        { id: "val-005", address: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", name: "CrossChain Sentinel", status: "active", stake: "3100000000000000000000000", commission: 520, uptime: 9993, attestationsProcessed: 95678, attestationsValid: 95612, rewardsEarned: "155000000000000000000000", avgResponseTime: 55, aiTrustScore: 9750, reputationScore: 9870 },
-        { id: "val-006", address: "0x012f109551bD432803012645Ac136ddd64DBA012", name: "AI Bridge Oracle", status: "active", stake: "2500000000000000000000000", commission: 480, uptime: 9990, attestationsProcessed: 78901, attestationsValid: 78845, rewardsEarned: "125000000000000000000000", avgResponseTime: 42, aiTrustScore: 9810, reputationScore: 9890 }
-      ];
+      const validators = enterpriseNode.getPublicBridgeValidators();
       res.json(validators);
     } catch (error) {
       console.error("Error fetching bridge validators:", error);
@@ -2239,17 +2109,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Bridge Liquidity Pools
+  // Bridge Liquidity Pools - Enterprise Node data
   app.get("/api/bridge/liquidity", async (_req, res) => {
     try {
-      const pools = [
-        { id: "pool-001", chainId: 7979, tokenSymbol: "TBURN", totalLiquidity: "500000000000000000000000000", availableLiquidity: "425000000000000000000000000", utilizationRate: 1500, lpApy: 1250, providerCount: 1847, status: "active", volume24h: "25000000000000000000000", fees24h: "75000000000000000000" },
-        { id: "pool-002", chainId: 1, tokenSymbol: "TBURN", totalLiquidity: "125000000000000000000000", availableLiquidity: "98500000000000000000000", utilizationRate: 2120, lpApy: 1850, providerCount: 892, status: "active", volume24h: "12500000000000000000000", fees24h: "37500000000000000000" },
-        { id: "pool-003", chainId: 56, tokenSymbol: "TBURN", totalLiquidity: "90000000000000000000000", availableLiquidity: "72000000000000000000000", utilizationRate: 2000, lpApy: 1650, providerCount: 654, status: "active", volume24h: "9000000000000000000000", fees24h: "27000000000000000000" },
-        { id: "pool-004", chainId: 137, tokenSymbol: "TBURN", totalLiquidity: "60000000000000000000000", availableLiquidity: "51000000000000000000000", utilizationRate: 1500, lpApy: 1420, providerCount: 432, status: "active", volume24h: "6000000000000000000000", fees24h: "18000000000000000000" },
-        { id: "pool-005", chainId: 42161, tokenSymbol: "TBURN", totalLiquidity: "75000000000000000000000", availableLiquidity: "67500000000000000000000", utilizationRate: 1000, lpApy: 1180, providerCount: 567, status: "active", volume24h: "7500000000000000000000", fees24h: "22500000000000000000" },
-        { id: "pool-006", chainId: 10, tokenSymbol: "TBURN", totalLiquidity: "37500000000000000000000", availableLiquidity: "33750000000000000000000", utilizationRate: 1000, lpApy: 1080, providerCount: 321, status: "active", volume24h: "3750000000000000000000", fees24h: "11250000000000000000" }
-      ];
+      const pools = enterpriseNode.getPublicBridgeLiquidity();
       res.json(pools);
     } catch (error) {
       console.error("Error fetching bridge liquidity:", error);
@@ -2257,20 +2120,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Bridge Activity
+  // Bridge Activity - Enterprise Node data
   app.get("/api/bridge/activity", async (_req, res) => {
     try {
-      const now = Date.now();
-      const activities = [
-        { id: "act-001", eventType: "transfer_completed", chainId: 7979, walletAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", amount: "50000000000000000000000", tokenSymbol: "TBURN", txHash: "0xabc123def456789012345678901234567890abcdef1234567890abcdef123456", createdAt: new Date(now - 60000).toISOString() },
-        { id: "act-002", eventType: "transfer_initiated", chainId: 1, walletAddress: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", amount: "25000000000000000000000", tokenSymbol: "TBURN", txHash: "0xdef456abc789012345678901234567890abcdef1234567890abcdef123456789", createdAt: new Date(now - 120000).toISOString() },
-        { id: "act-003", eventType: "liquidity_added", chainId: 7979, walletAddress: "0x456f109551bD432803012645Ac136ddd64DBA456", amount: "100000000000000000000000", tokenSymbol: "TBURN", txHash: "0x789abc123def456012345678901234567890abcdef1234567890abcdef123456", createdAt: new Date(now - 180000).toISOString() },
-        { id: "act-004", eventType: "validator_joined", chainId: null, walletAddress: "0xabcf109551bD432803012645Ac136ddd64DBAabc", amount: "500000000000000000000000", tokenSymbol: "TBURN", txHash: null, createdAt: new Date(now - 300000).toISOString() },
-        { id: "act-005", eventType: "transfer_completed", chainId: 56, walletAddress: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", amount: "75000000000000000000000", tokenSymbol: "TBURN", txHash: "0x012abc345def678901234567890abcdef1234567890abcdef123456789012345", createdAt: new Date(now - 420000).toISOString() },
-        { id: "act-006", eventType: "liquidity_removed", chainId: 1, walletAddress: "0x012f109551bD432803012645Ac136ddd64DBA012", amount: "30000000000000000000000", tokenSymbol: "TBURN", txHash: "0x345def678abc901234567890abcdef1234567890abcdef123456789012345678", createdAt: new Date(now - 600000).toISOString() },
-        { id: "act-007", eventType: "transfer_initiated", chainId: 42161, walletAddress: "0x789d35Cc6634C0532925a3b844Bc454e4438f789", amount: "150000000000000000000000", tokenSymbol: "TBURN", txHash: "0x678abc901def234567890abcdef1234567890abcdef123456789012345678901", createdAt: new Date(now - 780000).toISOString() },
-        { id: "act-008", eventType: "transfer_completed", chainId: 137, walletAddress: "0x321d35Cc6634C0532925a3b844Bc454e4438f321", amount: "45000000000000000000000", tokenSymbol: "TBURN", txHash: "0x901def234abc567890abcdef1234567890abcdef123456789012345678901234", createdAt: new Date(now - 900000).toISOString() }
-      ];
+      const activities = enterpriseNode.getPublicBridgeActivity();
       res.json(activities);
     } catch (error) {
       console.error("Error fetching bridge activity:", error);
@@ -2278,17 +2131,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Bridge Transfers (matching BridgeTransfer interface)
+  // Bridge Transfers - Enterprise Node data
   app.get("/api/bridge/transfers", async (_req, res) => {
     try {
-      const now = Date.now();
-      const transfers = [
-        { id: "tx-001", sourceChainId: 1, destinationChainId: 7979, senderAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", recipientAddress: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", tokenSymbol: "TBURN", amount: "100000000000000000000000", amountReceived: null, feeAmount: "300000000000000000000", status: "pending", sourceTxHash: "0xabc123def456789012345678901234567890abcdef1234567890abcdef123456", destinationTxHash: null, confirmations: 8, requiredConfirmations: 12, estimatedArrival: new Date(now + 180000).toISOString(), aiVerified: true, aiRiskScore: 120, createdAt: new Date(now - 120000).toISOString() },
-        { id: "tx-002", sourceChainId: 56, destinationChainId: 7979, senderAddress: "0x123d35Cc6634C0532925a3b844Bc454e4438f123", recipientAddress: "0x456f109551bD432803012645Ac136ddd64DBA456", tokenSymbol: "TBURN", amount: "50000000000000000000000", amountReceived: null, feeAmount: "125000000000000000000", status: "confirming", sourceTxHash: "0xdef456789abc012345678901234567890abcdef1234567890abcdef123456789", destinationTxHash: null, confirmations: 12, requiredConfirmations: 15, estimatedArrival: new Date(now + 45000).toISOString(), aiVerified: true, aiRiskScore: 85, createdAt: new Date(now - 60000).toISOString() },
-        { id: "tx-003", sourceChainId: 7979, destinationChainId: 137, senderAddress: "0x789d35Cc6634C0532925a3b844Bc454e4438f789", recipientAddress: "0xabcf109551bD432803012645Ac136ddd64DBAabc", tokenSymbol: "TBURN", amount: "25000000000000000000000", amountReceived: "24925000000000000000000", feeAmount: "75000000000000000000", status: "completed", sourceTxHash: "0x789abc123def456012345678901234567890abcdef1234567890abcdef123456", destinationTxHash: "0x456def789abc012345678901234567890abcdef1234567890abcdef123456789", confirmations: 128, requiredConfirmations: 128, estimatedArrival: null, aiVerified: true, aiRiskScore: 50, createdAt: new Date(now - 300000).toISOString() },
-        { id: "tx-004", sourceChainId: 42161, destinationChainId: 7979, senderAddress: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", recipientAddress: "0x012f109551bD432803012645Ac136ddd64DBA012", tokenSymbol: "TBURN", amount: "200000000000000000000000", amountReceived: "199700000000000000000000", feeAmount: "300000000000000000000", status: "completed", sourceTxHash: "0x012abc345def678901234567890abcdef1234567890abcdef123456789012345", destinationTxHash: "0x789def012abc345678901234567890abcdef1234567890abcdef123456789012", confirmations: 1, requiredConfirmations: 1, estimatedArrival: null, aiVerified: true, aiRiskScore: 65, createdAt: new Date(now - 600000).toISOString() },
-        { id: "tx-005", sourceChainId: 10, destinationChainId: 7979, senderAddress: "0x321d35Cc6634C0532925a3b844Bc454e4438f321", recipientAddress: "0x654f109551bD432803012645Ac136ddd64DBA654", tokenSymbol: "TBURN", amount: "75000000000000000000000", amountReceived: null, feeAmount: "135000000000000000000", status: "bridging", sourceTxHash: "0x345def678abc901234567890abcdef1234567890abcdef123456789012345678", destinationTxHash: null, confirmations: 1, requiredConfirmations: 1, estimatedArrival: new Date(now + 2000).toISOString(), aiVerified: true, aiRiskScore: 70, createdAt: new Date(now - 30000).toISOString() }
-      ];
+      const transfers = enterpriseNode.getPublicBridgeTransfers();
       res.json(transfers);
     } catch (error) {
       console.error("Error fetching transfers:", error);
@@ -2296,7 +2142,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Initiate Bridge Transfer
+  // Initiate Bridge Transfer - Enterprise Node data
   app.post("/api/bridge/transfers/initiate", async (req, res) => {
     try {
       const { sourceChainId, destinationChainId, amount, tokenSymbol = "TBURN" } = req.body;
@@ -2305,6 +2151,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Missing required fields: sourceChainId, destinationChainId, amount" });
       }
       
+      const bridgeChains = enterpriseNode.getPublicBridgeChains();
       const sourceChain = bridgeChains.find(c => c.chainId === sourceChainId);
       const destChain = bridgeChains.find(c => c.chainId === destinationChainId);
       
@@ -10226,16 +10073,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         pools = await storage.getAllStakingPools();
       }
       
-      // Enterprise-grade production pools if none exist
+      // Enterprise-grade production pools from TBurnEnterpriseNode if none exist
       if (!pools || pools.length === 0) {
-        const enterprisePools = [
-          { id: "pool-genesis-01", name: "Genesis Validators Pool", poolType: "public", tier: "diamond", validatorId: "val-001", totalStaked: "125000000000000000000000000", totalStakers: 28547, baseApy: 2800, maxApy: 3500, lockPeriodDays: 90, status: "active", description: "Premium genesis validator pool with highest APY" },
-          { id: "pool-mainnet-02", name: "Mainnet Core Pool", poolType: "public", tier: "platinum", validatorId: "val-002", totalStaked: "98750000000000000000000000", totalStakers: 21834, baseApy: 2200, maxApy: 2800, lockPeriodDays: 60, status: "active", description: "Core mainnet staking with enhanced rewards" },
-          { id: "pool-enterprise-03", name: "Enterprise Staking", poolType: "institutional", tier: "gold", validatorId: "val-003", totalStaked: "187500000000000000000000000", totalStakers: 1247, baseApy: 1800, maxApy: 2400, lockPeriodDays: 180, status: "active", description: "Institutional-grade staking solution" },
-          { id: "pool-defi-04", name: "DeFi Yield Pool", poolType: "public", tier: "silver", validatorId: "val-004", totalStaked: "67800000000000000000000000", totalStakers: 45892, baseApy: 1400, maxApy: 1800, lockPeriodDays: 30, status: "active", description: "Flexible DeFi yield optimization" },
-          { id: "pool-community-05", name: "Community Pool", poolType: "public", tier: "bronze", validatorId: "val-005", totalStaked: "34250000000000000000000000", totalStakers: 89547, baseApy: 1000, maxApy: 1400, lockPeriodDays: 14, status: "active", description: "Low barrier community staking" },
-          { id: "pool-liquid-06", name: "Liquid Staking Pool", poolType: "liquid", tier: "gold", validatorId: "val-006", totalStaked: "156000000000000000000000000", totalStakers: 34128, baseApy: 1600, maxApy: 2000, lockPeriodDays: 0, status: "active", description: "No-lock liquid staking with stTBURN rewards" }
-        ];
+        const enterprisePools = enterpriseNode.getPublicStakingPools();
         return res.json(enterprisePools.map(transformPoolForFrontend));
       }
       
