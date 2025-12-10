@@ -7,6 +7,18 @@ import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { usePublicValidators, usePublicNetworkStats } from "../../hooks/use-public-data";
 
+// Helper function to format large numbers
+const formatLargeNumber = (value: string | number): string => {
+  const num = typeof value === 'string' ? parseFloat(value.replace(/[,$]/g, '')) : value;
+  if (isNaN(num)) return String(value);
+  
+  if (num >= 1e12) return `$${(num / 1e12).toFixed(1)}T`;
+  if (num >= 1e9) return `$${(num / 1e9).toFixed(1)}B`;
+  if (num >= 1e6) return `$${(num / 1e6).toFixed(1)}M`;
+  if (num >= 1e3) return `$${(num / 1e3).toFixed(1)}K`;
+  return `$${num.toLocaleString()}`;
+};
+
 export default function Validators() {
   const { t } = useTranslation();
   const { data: validatorsResponse } = usePublicValidators();
@@ -71,7 +83,11 @@ export default function Validators() {
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-total-staked">
               <Database className="w-8 h-8 text-[#ffd700] mx-auto mb-4" />
               <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1 font-mono">
-                {stats?.totalStaked ?? validators?.summary?.totalStaked ?? "$1.2B"}
+                {stats?.totalStaked 
+                  ? formatLargeNumber(stats.totalStaked)
+                  : validators?.summary?.totalStaked 
+                    ? formatLargeNumber(validators.summary.totalStaked)
+                    : "$1.2B"}
               </div>
               <div className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.stats.totalStaked')}</div>
             </div>
