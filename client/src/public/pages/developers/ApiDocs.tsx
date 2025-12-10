@@ -102,7 +102,7 @@ export default function ApiDocs() {
   ];
 
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText("https://api.tburn.io/v8");
+    navigator.clipboard.writeText("https://tburn.io/api/v8");
     setCopiedUrl(true);
     setTimeout(() => setCopiedUrl(false), 2000);
   };
@@ -142,11 +142,11 @@ export default function ApiDocs() {
               className="px-4 py-2 rounded bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 font-mono text-sm text-gray-700 dark:text-gray-300 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-white/10 transition"
               data-testid="button-copy-base-url"
             >
-              <span className="text-[#7000ff]">{t("apiDocs.baseUrl", "Base URL")}:</span> https://api.tburn.io/v8
+              <span className="text-[#7000ff]">{t("apiDocs.baseUrl", "Base URL")}:</span> https://tburn.io/api/v8
               {copiedUrl ? <Check className="w-4 h-4 text-[#00ff9d]" /> : <Copy className="w-4 h-4" />}
             </button>
             <span className="text-gray-500">|</span>
-            <span className="text-sm text-gray-600 dark:text-gray-400">WebSocket: <code className="text-[#00f0ff]">wss://ws.tburn.io/v8</code></span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">WebSocket: <code className="text-[#00f0ff]">wss://tburn.io/ws/v8</code></span>
           </div>
         </div>
       </section>
@@ -227,7 +227,7 @@ export default function ApiDocs() {
                 <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t("apiDocs.overview.quickStart", "Quick Start")}</h3>
                   <CodeBlock code={`# Get the latest block
-curl https://api.tburn.io/v8/blocks/latest \\
+curl https://tburn.io/api/v8/blocks/latest \\
   -H "X-API-Key: YOUR_API_KEY"
 
 # Response
@@ -257,7 +257,7 @@ curl https://api.tburn.io/v8/blocks/latest \\
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
                       All API requests require authentication using an API key. Include your key in the request header:
                     </p>
-                    <CodeBlock code={`curl https://api.tburn.io/v8/blocks/latest \\
+                    <CodeBlock code={`curl https://tburn.io/api/v8/blocks/latest \\
   -H "X-API-Key: YOUR_API_KEY"`} />
                     
                     <div className="mt-6 p-4 rounded-lg bg-[#ffd700]/10 border border-[#ffd700]/30">
@@ -580,7 +580,7 @@ X-RateLimit-Window: 60`} />
                     ]} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Request Example</h4>
-                    <CodeBlock code={`curl -X POST https://api.tburn.io/v8/transactions/send \\
+                    <CodeBlock code={`curl -X POST https://tburn.io/api/v8/transactions/send \\
   -H "X-API-Key: YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -837,7 +837,7 @@ X-RateLimit-Window: 60`} />
                     ]} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Request Example</h4>
-                    <CodeBlock code={`curl -X POST https://api.tburn.io/v8/contracts/0xToken.../call \\
+                    <CodeBlock code={`curl -X POST https://tburn.io/api/v8/contracts/0xToken.../call \\
   -H "X-API-Key: YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -935,7 +935,7 @@ X-RateLimit-Window: 60`} />
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
                       Connect to the WebSocket endpoint with your API key for real-time blockchain events.
                     </p>
-                    <CodeBlock code={`const ws = new WebSocket('wss://ws.tburn.io/v8?apiKey=YOUR_API_KEY');
+                    <CodeBlock code={`const ws = new WebSocket('wss://tburn.io/ws/v8?apiKey=YOUR_API_KEY');
 
 ws.onopen = () => {
   console.log('Connected to TBURN WebSocket');
