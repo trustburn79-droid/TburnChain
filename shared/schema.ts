@@ -6262,3 +6262,101 @@ export type InsertShardScalingEvent = z.infer<typeof insertShardScalingEventSche
 
 export type ShardConfigAuditLog = typeof shardConfigAuditLogs.$inferSelect;
 export type InsertShardConfigAuditLog = z.infer<typeof insertShardConfigAuditLogSchema>;
+
+// ============================================
+// TESTNET Tables - For recording user testnet activity
+// ============================================
+
+// Testnet Wallets - Track wallet balances on testnet
+export const testnetWallets = pgTable("testnet_wallets", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  address: varchar("address", { length: 66 }).notNull().unique(),
+  balance: numeric("balance", { precision: 40, scale: 0 }).notNull().default("0"),
+  nonce: integer("nonce").notNull().default(0),
+  txCount: integer("tx_count").notNull().default(0),
+  firstSeenAt: timestamp("first_seen_at").defaultNow().notNull(),
+  lastActiveAt: timestamp("last_active_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Testnet Transactions - Record all testnet transactions
+export const testnetTransactions = pgTable("testnet_transactions", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  hash: varchar("hash", { length: 130 }).notNull().unique(),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+  fromAddress: varchar("from_address", { length: 66 }).notNull(),
+  toAddress: varchar("to_address", { length: 66 }).notNull(),
+  value: numeric("value", { precision: 40, scale: 0 }).notNull().default("0"),
+  gasPrice: numeric("gas_price", { precision: 40, scale: 0 }).notNull().default("100"),
+  gasUsed: integer("gas_used").notNull().default(21000),
+  gasLimit: integer("gas_limit").notNull().default(21000),
+  nonce: integer("nonce").notNull().default(0),
+  status: varchar("status", { length: 20 }).notNull().default("confirmed"), // pending, confirmed, failed
+  txType: varchar("tx_type", { length: 30 }).notNull().default("transfer"), // transfer, faucet, contract_call, contract_deploy
+  input: text("input").default("0x"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Testnet Blocks - Record testnet blocks
+export const testnetBlocks = pgTable("testnet_blocks", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  number: bigint("number", { mode: "number" }).notNull().unique(),
+  hash: varchar("hash", { length: 130 }).notNull().unique(),
+  parentHash: varchar("parent_hash", { length: 130 }).notNull(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  transactionCount: integer("transaction_count").notNull().default(0),
+  gasUsed: bigint("gas_used", { mode: "number" }).notNull().default(0),
+  gasLimit: bigint("gas_limit", { mode: "number" }).notNull().default(15000000),
+  validator: varchar("validator", { length: 66 }).notNull(),
+  size: integer("size").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Testnet Faucet Requests - Track faucet distributions
+export const testnetFaucetRequests = pgTable("testnet_faucet_requests", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: varchar("wallet_address", { length: 66 }).notNull(),
+  amount: numeric("amount", { precision: 40, scale: 0 }).notNull().default("1000000000000000000000"), // 1000 tTBURN
+  txHash: varchar("tx_hash", { length: 130 }),
+  status: varchar("status", { length: 20 }).notNull().default("pending"), // pending, completed, failed
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  completedAt: timestamp("completed_at"),
+});
+
+// Testnet Insert Schemas
+export const insertTestnetWalletSchema = createInsertSchema(testnetWallets).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertTestnetTransactionSchema = createInsertSchema(testnetTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertTestnetBlockSchema = createInsertSchema(testnetBlocks).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertTestnetFaucetRequestSchema = createInsertSchema(testnetFaucetRequests).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Testnet Types
+export type TestnetWallet = typeof testnetWallets.$inferSelect;
+export type InsertTestnetWallet = z.infer<typeof insertTestnetWalletSchema>;
+
+export type TestnetTransaction = typeof testnetTransactions.$inferSelect;
+export type InsertTestnetTransaction = z.infer<typeof insertTestnetTransactionSchema>;
+
+export type TestnetBlock = typeof testnetBlocks.$inferSelect;
+export type InsertTestnetBlock = z.infer<typeof insertTestnetBlockSchema>;
+
+export type TestnetFaucetRequest = typeof testnetFaucetRequests.$inferSelect;
+export type InsertTestnetFaucetRequest = z.infer<typeof insertTestnetFaucetRequestSchema>;
