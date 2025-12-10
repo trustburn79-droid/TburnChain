@@ -12418,17 +12418,13 @@
             "title": "99.95% 가동 시간",
             "desc": "글로벌 노드 전반에 AI 기반 자가 치유"
           },
-          "accuracy": {
-            "title": "94.2% 정확도",
-            "desc": "트리플 밴드 AI 결합 예측 정확도"
+          "cost": {
+            "title": "90% 비용 절감",
+            "desc": "동적 리소스 할당으로 AI 최적화 추론"
           },
           "scale": {
             "title": "520K TPS",
             "desc": "AI 최적화 피크 처리량 (현재 50,908)"
-          },
-          "consensus": {
-            "title": "189ms 합의",
-            "desc": "AI 강화 위원회 BFT 합의"
           },
           "verify": {
             "title": "AI 검증 신뢰",

@@ -11966,23 +11966,19 @@
         "stats": {
           "uptime": {
             "title": "99.95% Uptime",
-            "desc": "AI-powered self-healing across global nodes"
+            "desc": "Global node distribution with AI-based self-healing"
           },
-          "accuracy": {
-            "title": "94.2% Accuracy",
-            "desc": "Combined Triple-Band AI prediction accuracy"
+          "cost": {
+            "title": "90% Cost Reduction",
+            "desc": "AI-optimized inference with dynamic resource allocation"
           },
           "scale": {
             "title": "520K TPS",
-            "desc": "AI-optimized peak throughput (50,908 current)"
-          },
-          "consensus": {
-            "title": "189ms Consensus",
-            "desc": "AI-enhanced Committee BFT consensus"
+            "desc": "AI-optimized peak throughput (current 50,908)"
           },
           "verify": {
-            "title": "AI-Verified Trust",
-            "desc": "Real-time scoring with 95.8% anomaly detection"
+            "title": "AI Verification Trust",
+            "desc": "95.8%+ detection rate with real-time scoring"
           }
         },
         "sections": {
