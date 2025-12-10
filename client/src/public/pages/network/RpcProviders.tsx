@@ -191,14 +191,14 @@ export default function RpcProviders() {
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="flex flex-col lg:flex-row items-start justify-between gap-8">
             <div className="flex-1 max-w-2xl">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff]">
-                  <Server className="w-3 h-3" /> Enterprise RPC
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00f0ff]/10 border border-[#00f0ff]/30 text-xs font-mono text-[#00f0ff]">
+                  <Server className="w-3.5 h-3.5" /> Enterprise RPC
                 </div>
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse mr-1.5" />
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/30 text-xs font-medium text-green-400">
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                   All Systems Operational
-                </Badge>
+                </div>
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
