@@ -203,8 +203,8 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                 <Flame className="w-4 h-4 text-orange-500" />
                 <span>TBURNScan © 2024 TBURN Foundation</span>
               </div>
-              <Link href="/" className="text-[#00f0ff] hover:text-white transition font-bold" data-testid="link-scan-tburn-lab">
-                TBURN LAB
+              <Link href="/" className="text-[#00f0ff] hover:text-white transition font-bold" data-testid="link-scan-tburn-chain">
+                TBurn Chain
               </Link>
             </div>
             <div className="flex items-center gap-6 text-sm text-gray-400">
