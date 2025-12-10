@@ -1453,6 +1453,209 @@ router.get('/tokens/:address', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// TESTNET Explorer Endpoints
+// ============================================
+
+/**
+ * GET /api/public/v1/testnet/network/stats
+ * Testnet network statistics
+ */
+router.get('/testnet/network/stats', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_SHORT);
+    const baseBlock = 1245000 + Math.floor((Date.now() - new Date('2024-12-01').getTime()) / 500);
+    
+    res.json({
+      success: true,
+      data: {
+        blockHeight: baseBlock,
+        tps: Math.floor(Math.random() * 200) + 800,
+        avgBlockTime: 0.5,
+        totalTransactions: 4532100 + Math.floor(Math.random() * 1000),
+        activeValidators: 12,
+        totalBurned: '125000000000000000000000000',
+        gasPrice: '100',
+        totalStaked: '350000000000000000000000000',
+        finality: '< 2s',
+        shardCount: 4,
+        nodeCount: 8,
+        uptime: '99.9%'
+      },
+      lastUpdated: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch testnet stats' });
+  }
+});
+
+/**
+ * GET /api/public/v1/testnet/network/blocks/recent
+ * Testnet recent blocks
+ */
+router.get('/testnet/network/blocks/recent', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_SHORT);
+    const now = Date.now();
+    const baseBlock = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
+    
+    const blocks = Array.from({ length: 10 }, (_, i) => ({
+      number: baseBlock - i,
+      hash: generateConsistentBlockHash(baseBlock - i),
+      parentHash: generateConsistentBlockHash(baseBlock - i - 1),
+      timestamp: now - i * 500,
+      transactions: Math.floor(Math.random() * 30) + 5,
+      gasUsed: Math.floor(Math.random() * 5000000) + 2000000,
+      gasLimit: 15000000,
+      validator: generateConsistentAddress(((baseBlock - i) * 7) % 12),
+      size: Math.floor(Math.random() * 50000) + 10000
+    }));
+    
+    res.json({ success: true, data: blocks, lastUpdated: now });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch testnet blocks' });
+  }
+});
+
+/**
+ * GET /api/public/v1/testnet/network/transactions/recent
+ * Testnet recent transactions
+ */
+router.get('/testnet/network/transactions/recent', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_SHORT);
+    const now = Date.now();
+    const baseBlock = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
+    
+    const transactions = Array.from({ length: 15 }, (_, i) => ({
+      hash: generateConsistentTxHash(baseBlock, i),
+      blockNumber: baseBlock - Math.floor(i / 3),
+      from: generateConsistentAddress(i * 17 + 100),
+      to: generateConsistentAddress(i * 23 + 200),
+      value: (Math.floor(Math.random() * 100) * 1e18).toString(),
+      gasPrice: '100',
+      gasUsed: Math.floor(Math.random() * 100000) + 21000,
+      timestamp: now - i * 2000,
+      status: Math.random() > 0.05 ? 'confirmed' : 'failed'
+    }));
+    
+    res.json({ success: true, data: transactions, lastUpdated: now });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch testnet transactions' });
+  }
+});
+
+/**
+ * GET /api/public/v1/testnet/network/blocks
+ * Testnet blocks list with pagination
+ */
+router.get('/testnet/network/blocks', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_SHORT);
+    const now = Date.now();
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = 25;
+    const baseBlock = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
+    const offset = (page - 1) * limit;
+    
+    const blocks = Array.from({ length: limit }, (_, i) => ({
+      number: baseBlock - offset - i,
+      hash: generateConsistentBlockHash(baseBlock - offset - i),
+      timestamp: now - (offset + i) * 500,
+      transactions: Math.floor(Math.random() * 30) + 5,
+      gasUsed: Math.floor(Math.random() * 5000000) + 2000000,
+      gasLimit: 15000000,
+      validator: generateConsistentAddress(((baseBlock - offset - i) * 7) % 12),
+      size: Math.floor(Math.random() * 50000) + 10000
+    }));
+    
+    res.json({ success: true, data: blocks, total: baseBlock, page, limit, lastUpdated: now });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch testnet blocks' });
+  }
+});
+
+/**
+ * GET /api/public/v1/testnet/network/transactions
+ * Testnet transactions list with pagination
+ */
+router.get('/testnet/network/transactions', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_SHORT);
+    const now = Date.now();
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = 25;
+    const baseBlock = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
+    const offset = (page - 1) * limit;
+    
+    const transactions = Array.from({ length: limit }, (_, i) => ({
+      hash: generateConsistentTxHash(baseBlock - Math.floor((offset + i) / 5), (offset + i) % 100),
+      blockNumber: baseBlock - Math.floor((offset + i) / 5),
+      from: generateConsistentAddress((offset + i) * 17 + 100),
+      to: generateConsistentAddress((offset + i) * 23 + 200),
+      value: (Math.floor(Math.random() * 100) * 1e18).toString(),
+      gasUsed: Math.floor(Math.random() * 100000) + 21000,
+      timestamp: now - (offset + i) * 2000,
+      status: Math.random() > 0.05 ? 'confirmed' : 'failed'
+    }));
+    
+    res.json({ success: true, data: transactions, total: 4532100, page, limit, lastUpdated: now });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch testnet transactions' });
+  }
+});
+
+/**
+ * GET /api/public/v1/testnet/validators
+ * Testnet validators list
+ */
+router.get('/testnet/validators', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_MEDIUM);
+    
+    const validators = [
+      { address: generateConsistentAddress(1), name: 'TBurn Foundation Testnet 1', status: 'active', stake: '50000000000000000000000000', delegators: 234, uptime: 99.9, blocksProduced: 125678, commission: 5 },
+      { address: generateConsistentAddress(2), name: 'TBurn Foundation Testnet 2', status: 'active', stake: '45000000000000000000000000', delegators: 189, uptime: 99.8, blocksProduced: 118934, commission: 5 },
+      { address: generateConsistentAddress(3), name: 'TBurn Foundation Testnet 3', status: 'active', stake: '40000000000000000000000000', delegators: 156, uptime: 99.7, blocksProduced: 112456, commission: 6 },
+      { address: generateConsistentAddress(4), name: 'Community Testnet Node 1', status: 'active', stake: '25000000000000000000000000', delegators: 89, uptime: 99.5, blocksProduced: 78234, commission: 8 },
+      { address: generateConsistentAddress(5), name: 'Community Testnet Node 2', status: 'active', stake: '22000000000000000000000000', delegators: 67, uptime: 99.3, blocksProduced: 67892, commission: 7 },
+      { address: generateConsistentAddress(6), name: 'Dev Testnet Node', status: 'active', stake: '18000000000000000000000000', delegators: 45, uptime: 98.9, blocksProduced: 54321, commission: 10 },
+      { address: generateConsistentAddress(7), name: 'Research Testnet Node', status: 'active', stake: '15000000000000000000000000', delegators: 34, uptime: 99.1, blocksProduced: 45678, commission: 9 },
+      { address: generateConsistentAddress(8), name: 'Partner Testnet 1', status: 'active', stake: '12000000000000000000000000', delegators: 23, uptime: 99.4, blocksProduced: 38901, commission: 6 },
+      { address: generateConsistentAddress(9), name: 'Partner Testnet 2', status: 'active', stake: '10000000000000000000000000', delegators: 18, uptime: 98.8, blocksProduced: 32145, commission: 8 },
+      { address: generateConsistentAddress(10), name: 'Academic Testnet Node', status: 'active', stake: '8000000000000000000000000', delegators: 12, uptime: 99.0, blocksProduced: 28765, commission: 5 },
+      { address: generateConsistentAddress(11), name: 'Enterprise Testnet', status: 'active', stake: '6000000000000000000000000', delegators: 8, uptime: 98.7, blocksProduced: 21098, commission: 7 },
+      { address: generateConsistentAddress(12), name: 'Backup Testnet Node', status: 'inactive', stake: '3000000000000000000000000', delegators: 5, uptime: 95.2, blocksProduced: 12345, commission: 10 }
+    ];
+    
+    res.json({ success: true, data: validators, lastUpdated: Date.now() });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch testnet validators' });
+  }
+});
+
+/**
+ * GET /api/public/v1/testnet/tokens
+ * Testnet tokens list
+ */
+router.get('/testnet/tokens', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_MEDIUM);
+    
+    const tokens = [
+      { address: '0x0001000000000000000000000000000000000001', name: 'Test TBURN', symbol: 'tTBURN', decimals: 18, totalSupply: '1000000000000000000000000000', holders: 5678, price: 0, change24h: 0 },
+      { address: '0x0002000000000000000000000000000000000002', name: 'Test USDT', symbol: 'tUSDT', decimals: 6, totalSupply: '500000000000000', holders: 3456, price: 1.0, change24h: 0.01 },
+      { address: '0x0003000000000000000000000000000000000003', name: 'Test USDC', symbol: 'tUSDC', decimals: 6, totalSupply: '450000000000000', holders: 2987, price: 1.0, change24h: -0.02 },
+      { address: '0x0004000000000000000000000000000000000004', name: 'Test Wrapped BTC', symbol: 'tWBTC', decimals: 8, totalSupply: '21000000000000', holders: 1234, price: 0, change24h: 0 },
+      { address: '0x0005000000000000000000000000000000000005', name: 'Test Wrapped ETH', symbol: 'tWETH', decimals: 18, totalSupply: '100000000000000000000000', holders: 2345, price: 0, change24h: 0 }
+    ];
+    
+    res.json({ success: true, data: tokens, lastUpdated: Date.now() });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch testnet tokens' });
+  }
+});
+
 export function registerPublicApiRoutes(app: any) {
   app.use('/api/public/v1', router);
   console.log('[Public API] v1 routes registered - read-only public access');

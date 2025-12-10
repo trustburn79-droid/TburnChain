@@ -11,6 +11,7 @@ import { Validators, RpcProviders, NetworkStatus, Ramp } from "./pages/network";
 import { NewsBlog, NewsDetail, Events, EventDetail, CommunityHub, PostDetail } from "./pages/community";
 import { TermsOfService, PrivacyPolicy, Disclaimer } from "./pages/legal";
 import { ScanHome, BlocksList, BlockDetail, TransactionsList, TransactionDetail, AddressDetail, ValidatorsList, ScanSearchResults, NetworkStats, TokensList, TokenDetail } from "./pages/scan";
+import { TestnetScanHome, TestnetBlocksList, TestnetTransactionsList, TestnetValidatorsList, TestnetTokensList, TestnetNetworkStats, TestnetFaucet } from "./pages/testnet-scan";
 
 export function PublicRouter() {
   return (
@@ -101,6 +102,15 @@ export function PublicRouter() {
         <Route path="/scan/stats" component={NetworkStats} />
         <Route path="/scan/search" component={ScanSearchResults} />
         <Route path="/scan" component={ScanHome} />
+        
+        {/* Testnet TBURNScan Explorer Routes */}
+        <Route path="/testnet-scan/blocks" component={TestnetBlocksList} />
+        <Route path="/testnet-scan/txs" component={TestnetTransactionsList} />
+        <Route path="/testnet-scan/validators" component={TestnetValidatorsList} />
+        <Route path="/testnet-scan/tokens" component={TestnetTokensList} />
+        <Route path="/testnet-scan/stats" component={TestnetNetworkStats} />
+        <Route path="/testnet-scan/faucet" component={TestnetFaucet} />
+        <Route path="/testnet-scan" component={TestnetScanHome} />
         
         {/* Fallback - redirect to home */}
         <Route>
