@@ -13530,7 +13530,7 @@
           "latency": "Latency",
           "strategic": {
             "title": "Strategic AI",
-            "model": "GPT-5"
+            "model": "Gemini 3 Pro"
           },
           "tactical": {
             "title": "Tactical AI",
@@ -13538,7 +13538,7 @@
           },
           "operational": {
             "title": "Operational AI",
-            "model": "Llama 4"
+            "model": "GPT-4o"
           }
         },
         "uptime": {

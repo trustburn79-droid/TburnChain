@@ -14043,7 +14043,7 @@
           "latency": "지연 시간",
           "strategic": {
             "title": "전략적 AI",
-            "model": "GPT-5"
+            "model": "Gemini 3 Pro"
           },
           "tactical": {
             "title": "전술적 AI",
@@ -14051,7 +14051,7 @@
           },
           "operational": {
             "title": "운영 AI",
-            "model": "Llama 4"
+            "model": "GPT-4o"
           }
         },
         "uptime": {

@@ -6,6 +6,18 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { usePublicNetworkStats, usePublicAiSummary, usePublicValidators } from "../../hooks/use-public-data";
 
+// Helper function to format large numbers
+const formatLargeNumber = (value: string | number): string => {
+  const num = typeof value === 'string' ? parseFloat(value.replace(/[,$]/g, '')) : value;
+  if (isNaN(num)) return String(value);
+  
+  if (num >= 1e12) return `$${(num / 1e12).toFixed(1)}T`;
+  if (num >= 1e9) return `$${(num / 1e9).toFixed(1)}B`;
+  if (num >= 1e6) return `$${(num / 1e6).toFixed(1)}M`;
+  if (num >= 1e3) return `$${(num / 1e3).toFixed(1)}K`;
+  return `$${num.toLocaleString()}`;
+};
+
 export default function NetworkStatus() {
   const { t } = useTranslation();
   const { data: statsResponse, refetch: refetchStats } = usePublicNetworkStats();
@@ -172,7 +184,7 @@ export default function NetworkStatus() {
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Coins className="w-6 h-6 text-[#ffd700] mx-auto mb-2" />
               <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono" data-testid="stat-staked">
-                {stats?.totalStaked ?? "$1.2B"}
+                {stats?.totalStaked ? formatLargeNumber(stats.totalStaked) : "$1.2B"}
               </div>
               <div className="text-xs text-gray-500">{t('publicPages.network.status.validators.totalStaked')}</div>
             </div>
