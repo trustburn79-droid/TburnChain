@@ -76,6 +76,7 @@ const quickLinks = [
   { title: "TBurn Scan Testnet", href: "/testnet-scan", isTestnet: true },
   { title: "VC", href: "/vc" },
   { title: "RPC", href: "/rpc" },
+  { title: "Testnet RPC", href: "/testnet-rpc", isTestnet: true },
 ];
 
 export function PublicFooter() {

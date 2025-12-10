@@ -7,7 +7,7 @@ import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, WalletGuide,
 import { DeveloperHub, Documentation, ApiDocs, CliReference, SdkGuide, SmartContracts, WebSocketApi, CodeExamples, QuickStart, InstallationGuide, EvmMigration } from "./pages/developers";
 import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Payments, Commerce, Financial, AiFeatures, ArtistsCreators, Btcfi, CrossChainBridge, DefiHub } from "./pages/solutions";
 import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } from "./pages/use-cases";
-import { Validators, RpcProviders, NetworkStatus, Ramp } from "./pages/network";
+import { Validators, RpcProviders, TestnetRpcProviders, NetworkStatus, Ramp } from "./pages/network";
 import { NewsBlog, NewsDetail, Events, EventDetail, CommunityHub, PostDetail } from "./pages/community";
 import { TermsOfService, PrivacyPolicy, Disclaimer } from "./pages/legal";
 import { ScanHome, BlocksList, BlockDetail, TransactionsList, TransactionDetail, AddressDetail, ValidatorsList, ScanSearchResults, NetworkStats, TokensList, TokenDetail } from "./pages/scan";
@@ -75,6 +75,8 @@ export function PublicRouter() {
         <Route path="/network/validators" component={Validators} />
         <Route path="/network/rpc" component={RpcProviders} />
         <Route path="/rpc" component={RpcProviders} />
+        <Route path="/network/testnet-rpc" component={TestnetRpcProviders} />
+        <Route path="/testnet-rpc" component={TestnetRpcProviders} />
         <Route path="/network/status" component={NetworkStatus} />
         <Route path="/network/ramp" component={Ramp} />
         
