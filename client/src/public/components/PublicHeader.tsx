@@ -144,7 +144,7 @@ export function PublicHeader() {
               <Flame className="w-6 h-6 text-white" />
             </div>
             <span className="font-bold text-xl tracking-tight text-white">
-              TBurn <span className="text-cyan-400 font-light">Lab</span>
+              TBurn <span className="text-cyan-400 font-light">Chain</span>
             </span>
           </Link>
 

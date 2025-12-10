@@ -10727,6 +10727,11 @@
           "title": "도움이 필요하신가요?",
           "description": "지원 및 업데이트를 위해 커뮤니티에 참여하세요.",
           "joinDiscord": "Discord 참여"
+        },
+        "linuxSteps": {
+          "downloadBinary": "바이너리 다운로드",
+          "initializeNode": "노드 초기화",
+          "startNode": "노드 시작"
         }
       },
       "evmMigration": {

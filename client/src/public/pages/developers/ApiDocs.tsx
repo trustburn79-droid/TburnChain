@@ -131,10 +131,10 @@ export default function ApiDocs() {
             <Code className="w-3 h-3" /> {t("apiDocs.apiReference", "API Reference v8.0")}
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            TBURN Lab <span className="text-gradient">{t("apiDocs.title", "API Documentation")}</span>
+            TBURN Chain <span className="text-gradient">{t("apiDocs.title", "API Documentation")}</span>
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mb-8">
-            {t("apiDocs.subtitle", "Enterprise-grade REST API and WebSocket endpoints for building on TBURN Lab. Complete access to blockchain data, smart contracts, and real-time events.")}
+            {t("apiDocs.subtitle", "Enterprise-grade REST API and WebSocket endpoints for building on TBURN Chain. Complete access to blockchain data, smart contracts, and real-time events.")}
           </p>
           <div className="flex flex-wrap gap-4 items-center">
             <button 

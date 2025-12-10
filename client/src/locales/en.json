@@ -10364,6 +10364,11 @@
             "title": "Code Examples",
             "description": "Real-world integration patterns"
           }
+        },
+        "linuxSteps": {
+          "downloadBinary": "Download Binary",
+          "initializeNode": "Initialize Node",
+          "startNode": "Start Node"
         }
       },
       "evmMigration": {
@@ -17934,7 +17939,6 @@
     },
     "retry": "Retry",
     "actions": "Actions",
-    "time": "Time",
     "detail": {
       "title": "Chain Details",
       "overview": "Chain Overview",
