@@ -303,11 +303,11 @@ export default function QuickStart() {
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
                   <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.rpcUrl')}</span>
-                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded text-xs">https://rpc.tburn.io</span>
+                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded text-xs">https://tburn.io/rpc</span>
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
                   <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.explorer')}</span>
-                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded text-xs">https://scan.tburn.io</span>
+                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded text-xs">https://tburn.io/scan</span>
                 </div>
               </div>
             </div>
@@ -331,11 +331,11 @@ export default function QuickStart() {
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
                   <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.rpcUrl')}</span>
-                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded text-xs">https://testnet-rpc.tburn.io</span>
+                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded text-xs">https://tburn.io/testnet-rpc</span>
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
                   <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.explorer')}</span>
-                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded text-xs">https://testnet-scan.tburn.io</span>
+                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded text-xs">https://tburn.io/testnet-scan</span>
                 </div>
               </div>
             </div>
