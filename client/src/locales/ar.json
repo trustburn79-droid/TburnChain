@@ -10211,161 +10211,185 @@
         }
       },
       "rpc": {
-        "tag": "بنية RPC التحتية",
-        "title": "نقاط نهاية RPC",
-        "subtitle": "اتصل بعقد RPC الرسمية للوصول الموثوق للشبكة. دعم اتصالات WebSocket و HTTP.",
-        "forumTitle": "منتدى المجتمع",
-        "viewAll": "عرض الكل",
-        "recentPosts": "المشاركات الأخيرة",
-        "getApiKey": "احصل على مفتاح API",
+        "tag": "RPC للمؤسسات",
+        "heroTitle": "بمستوى المؤسسات",
+        "heroTitleHighlight": "بنية RPC التحتية",
+        "heroDescription": "نقاط نهاية RPC عالية الأداء وموزعة جغرافياً مع اتفاقية مستوى خدمة 99.99%. مصممة لتطبيقات البلوكتشين على مستوى المؤسسات بزمن استجابة أقل من 10 مللي ثانية.",
+        "metrics": {
+          "uptime": "وقت التشغيل",
+          "latency": "زمن الاستجابة",
+          "regions": "المناطق",
+          "reqDay": "طلب/يوم"
+        },
+        "status": {
+          "operational": "جميع الأنظمة تعمل",
+          "wsConnected": "WS متصل",
+          "wsConnecting": "جاري الاتصال..."
+        },
+        "dashboard": {
+          "title": "لوحة معلومات الشبكة المباشرة",
+          "blockHeight": "ارتفاع الكتلة",
+          "tps": "TPS",
+          "avgLatency": "متوسط زمن الاستجابة",
+          "globalNodes": "العقد العالمية",
+          "online": "متصل",
+          "secondsAgo": "منذ 30 ثانية",
+          "now": "الآن"
+        },
         "buttons": {
-          "getApiKey": "احصل على مفتاح API",
-          "viewDocs": "عرض الوثائق"
+          "getFreeApiKey": "احصل على مفتاح API مجاني",
+          "apiDocumentation": "توثيق API",
+          "testConnection": "اختبار الاتصال",
+          "testing": "جاري الاختبار...",
+          "getStarted": "ابدأ الآن",
+          "subscribe": "اشترك",
+          "contactSales": "تواصل مع المبيعات",
+          "getStartedFree": "ابدأ مجاناً"
         },
-        "sections": {
-          "apiPlans": "خطط API",
-          "coreEndpoints": "نقاط النهاية الأساسية",
-          "sdkExamples": "أمثلة SDK",
-          "support": "الدعم"
-        },
-        "plans": {
-          "free": {
-            "name": "مجاني"
-          },
-          "basic": {
-            "name": "أساسي"
-          },
-          "pro": {
-            "name": "احترافي"
-          },
-          "enterprise": {
-            "name": "مؤسسي"
-          },
-          "requestsMin": "طلبات/دقيقة",
-          "requestsDay": "طلبات/يوم",
-          "perMonth": "/شهر",
-          "unlimited": "غير محدود",
-          "contact": "اتصل بنا"
+        "network": {
+          "selectNetwork": "اختر الشبكة:",
+          "mainnet": "الشبكة الرئيسية",
+          "testnet": "شبكة الاختبار",
+          "sslEncrypted": "مشفر SSL/TLS",
+          "rateLimited": "محدود المعدل"
         },
         "endpoints": {
-          "scoreQuery": {
-            "title": "API استعلام النقاط"
+          "httpTitle": "نقطة نهاية HTTP/HTTPS",
+          "httpDesc": "نقطة نهاية HTTP قياسية لطلبات JSON-RPC",
+          "wsTitle": "نقطة نهاية WebSocket",
+          "wsDesc": "اتصال مستمر للاشتراكات والبث",
+          "jsonRpc": "JSON-RPC 2.0",
+          "realtime": "في الوقت الفعلي",
+          "postRequests": "طلبات POST",
+          "batchSupport": "دعم الدفعات",
+          "corsEnabled": "CORS مفعل",
+          "newHeads": "newHeads",
+          "logs": "logs",
+          "pendingTx": "pendingTx"
+        },
+        "config": {
+          "title": "تكوين الشبكة",
+          "description": "أضف إلى MetaMask أو محافظ Web3 الأخرى",
+          "networkName": "اسم الشبكة",
+          "chainId": "معرف السلسلة",
+          "currencySymbol": "رمز العملة",
+          "rpcUrl": "عنوان RPC",
+          "blockExplorer": "مستكشف الكتل",
+          "view": "عرض"
+        },
+        "enterprise": {
+          "badge": "ميزات المؤسسات",
+          "title": "مصمم للتوسع والموثوقية",
+          "description": "بنية تحتية جاهزة للإنتاج موثوقة من قبل بروتوكولات DeFi الرائدة والبورصات والمؤسسات",
+          "security": {
+            "title": "أمان المؤسسات",
+            "desc": "شهادة SOC 2 Type II، تشفير من طرف إلى طرف، قائمة IP البيضاء"
           },
-          "projectApi": {
-            "title": "API المشاريع"
+          "uptime": {
+            "title": "اتفاقية مستوى خدمة 99.99%",
+            "desc": "توفر مضمون مع تجاوز الفشل التلقائي وموازنة الحمل"
           },
-          "analyticsApi": {
-            "title": "API التحليلات"
+          "latency": {
+            "title": "زمن استجابة منخفض للغاية",
+            "desc": "أوقات استجابة أقل من 10 مللي ثانية مع عقد حافة موزعة جغرافياً"
           },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "الأحداث: score.updated, score.alert, project.registered"
+          "scaling": {
+            "title": "توسع غير محدود",
+            "desc": "بنية تحتية ذاتية التوسع تدعم أكثر من 100 مليون طلب/يوم"
+          },
+          "ddos": {
+            "title": "حماية DDoS",
+            "desc": "حماية بمستوى المؤسسات مع تحديد المعدل وتحليل حركة المرور"
+          },
+          "archive": {
+            "title": "الوصول للأرشيف",
+            "desc": "وصول كامل للبيانات التاريخية من كتلة البداية مع APIs التتبع"
           }
         },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "مثال cURL"
-          }
+        "nodes": {
+          "title": "عقد RPC العالمية",
+          "description": "بنية تحتية موزعة جغرافياً مع تجاوز الفشل التلقائي",
+          "nodesOnline": "العقد المتصلة",
+          "latency": "زمن الاستجابة",
+          "uptime": "وقت التشغيل",
+          "load": "الحمل",
+          "requests24h": "طلبات 24 ساعة",
+          "peakTps": "ذروة TPS",
+          "version": "الإصدار"
         },
-        "cta": {
-          "title": "مستعد للبناء؟",
-          "subtitle": "ابدأ البناء مع TBurn Chain API اليوم. احصل على مفتاح API مجاني واصل إلى بنية بلوكتشين على مستوى المؤسسات.",
-          "forumTitle": "منتدى المجتمع",
-          "viewAll": "عرض الكل",
-          "recentPosts": "المشاركات الأخيرة",
-          "desc": "ابدأ البناء مع TBurn Chain API اليوم. احصل على مفتاح API مجاني واصل إلى بنية بلوكتشين على مستوى المؤسسات.",
-          "getStartedFree": "ابدأ مجاناً",
-          "contactSales": "تواصل مع المبيعات"
+        "methods": {
+          "title": "طرق RPC المدعومة",
+          "description": "توافق كامل مع Ethereum JSON-RPC بالإضافة إلى امتدادات TBurn",
+          "block": "طرق الكتل",
+          "transaction": "طرق المعاملات",
+          "account": "طرق الحسابات",
+          "contract": "طرق العقود",
+          "network": "طرق الشبكة",
+          "tburnCustom": "TBurn مخصص",
+          "debug": "طرق التصحيح",
+          "websocket": "WebSocket"
         },
-        "apiPlans": {
-          "title": "خطط وحدود API",
+        "plans": {
+          "title": "خطط API",
+          "description": "اختر الخطة التي تناسب احتياجاتك. توسع مع نموك.",
           "free": {
             "name": "مجاني",
-            "requestsPerMin": "20",
-            "requestsPerDay": "1,000",
-            "price": "$0"
+            "desc": "للاختبار والتطوير",
+            "forever": "للأبد",
+            "requestsMin": "طلب/دقيقة",
+            "requestsDay": "طلب/يوم",
+            "httpEndpoint": "نقطة نهاية HTTP",
+            "noWebSocket": "بدون WebSocket"
           },
           "basic": {
             "name": "أساسي",
-            "requestsPerMin": "100",
-            "requestsPerDay": "10,000",
-            "price": "$100/شهر"
+            "desc": "للمشاريع الصغيرة",
+            "perMonth": "/شهر",
+            "wsAccess": "وصول WebSocket",
+            "emailSupport": "دعم بالبريد الإلكتروني"
           },
           "pro": {
             "name": "احترافي",
-            "requestsPerMin": "500",
-            "requestsPerDay": "100,000",
-            "price": "$500/شهر"
+            "desc": "للفرق النامية",
+            "popular": "شائع",
+            "archiveAccess": "وصول عقدة الأرشيف",
+            "prioritySupport": "دعم ذو أولوية"
           },
           "enterprise": {
             "name": "مؤسسي",
-            "requestsPerMin": "غير محدود",
-            "requestsPerDay": "غير محدود",
-            "price": "تواصل معنا"
+            "desc": "للمنظمات الكبيرة",
+            "custom": "مخصص",
+            "contactSales": "تواصل مع المبيعات",
+            "unlimitedRequests": "طلبات غير محدودة",
+            "dedicatedNodes": "عقد مخصصة",
+            "sla": "اتفاقية 99.99%",
+            "support247": "دعم 24/7"
           }
         },
-        "coreEndpoints": {
-          "title": "نقاط النهاية الأساسية",
-          "scoreQuery": {
-            "title": "API استعلام النقاط",
-            "endpoints": [
-              "GET /score/:address",
-              "GET /score/:address/history",
-              "POST /score/batch"
-            ]
-          },
-          "project": {
-            "title": "API المشاريع",
-            "endpoints": [
-              "GET /projects",
-              "POST /projects/register",
-              "GET /projects/:id"
-            ]
-          },
-          "analytics": {
-            "title": "API التحليلات",
-            "endpoints": [
-              "GET /analytics/trends",
-              "GET /analytics/leaderboard"
-            ]
-          },
-          "webhook": {
-            "title": "Webhook API",
-            "endpoints": [
-              "POST /webhooks"
-            ],
-            "events": "الأحداث: score.updated, score.alert, project.registered"
-          }
+        "sdk": {
+          "title": "البدء السريع",
+          "description": "ابدأ مع TBurn Chain بلغتك المفضلة"
         },
-        "sdkExamples": {
-          "title": "أمثلة SDK والمؤسسات",
-          "typescript": "TypeScript Enterprise SDK",
-          "python": "Python Enterprise SDK",
-          "curl": "مثال cURL للإنتاج"
+        "resources": {
+          "title": "موارد المطورين",
+          "documentation": "التوثيق",
+          "documentationDesc": "أدلة API شاملة",
+          "apiStatus": "حالة API",
+          "apiStatusDesc": "مراقبة الصحة في الوقت الفعلي",
+          "github": "GitHub",
+          "githubDesc": "SDKs مفتوحة المصدر",
+          "community": "المجتمع",
+          "communityDesc": "انضم لمناقشات المطورين"
         },
-        "support": {
-          "title": "الدعم والتواصل",
-          "documentation": {
-            "title": "الوثائق",
-            "description": "مراجع API مفصلة وأدلة.",
-            "desc": "وثائق API شاملة وأدلة التكامل."
-          },
-          "apiStatus": {
-            "title": "حالة API",
-            "description": "حالة النظام ووقت التشغيل في الوقت الفعلي.",
-            "desc": "حالة النظام في الوقت الفعلي ومقاييس وقت التشغيل وتقارير الحوادث."
-          },
-          "developerHub": {
-            "title": "مركز المطورين",
-            "description": "SDKs مفتوحة المصدر وأمثلة.",
-            "desc": "SDKs مفتوحة المصدر وأمثلة الكود وموارد المجتمع."
-          }
+        "cta": {
+          "title": "مستعد للبناء؟",
+          "description": "انضم لآلاف المطورين الذين يبنون مستقبل DeFi على TBurn Chain. ابدأ بمستوانا المجاني وتوسع مع نموك."
+        },
+        "connection": {
+          "success": "الاتصال ناجح",
+          "failed": "فشل الاتصال",
+          "connected": "متصل",
+          "unableToConnect": "غير قادر على الاتصال بنقطة نهاية RPC"
         }
       },
       "status": {

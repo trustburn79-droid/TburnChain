@@ -91,13 +91,13 @@ const rpcMethods = [
   { category: "WebSocket", icon: Radio, methods: ["eth_subscribe", "eth_unsubscribe", "newHeads", "logs", "newPendingTransactions", "syncing"] },
 ];
 
-const enterpriseFeatures = [
-  { icon: Shield, title: "Enterprise Security", desc: "SOC 2 Type II certified, end-to-end encryption, IP whitelisting", color: "#00f0ff" },
-  { icon: Gauge, title: "99.99% Uptime SLA", desc: "Guaranteed availability with automatic failover and load balancing", color: "#00ff9d" },
-  { icon: Zap, title: "Ultra-Low Latency", desc: "Sub-10ms response times with geo-distributed edge nodes", color: "#ffd700" },
-  { icon: TrendingUp, title: "Unlimited Scaling", desc: "Auto-scaling infrastructure supporting 100M+ requests/day", color: "#7000ff" },
-  { icon: Lock, title: "DDoS Protection", desc: "Enterprise-grade protection with rate limiting and traffic analysis", color: "#ff0055" },
-  { icon: Database, title: "Archive Access", desc: "Full historical data access from genesis block with trace APIs", color: "#ff6b35" },
+const getEnterpriseFeatures = (t: any) => [
+  { icon: Shield, titleKey: "enterprise.security.title", descKey: "enterprise.security.desc", color: "#00f0ff" },
+  { icon: Gauge, titleKey: "enterprise.uptime.title", descKey: "enterprise.uptime.desc", color: "#00ff9d" },
+  { icon: Zap, titleKey: "enterprise.latency.title", descKey: "enterprise.latency.desc", color: "#ffd700" },
+  { icon: TrendingUp, titleKey: "enterprise.scaling.title", descKey: "enterprise.scaling.desc", color: "#7000ff" },
+  { icon: Lock, titleKey: "enterprise.ddos.title", descKey: "enterprise.ddos.desc", color: "#ff0055" },
+  { icon: Database, titleKey: "enterprise.archive.title", descKey: "enterprise.archive.desc", color: "#ff6b35" },
 ];
 
 export default function RpcProviders() {
@@ -193,43 +193,42 @@ export default function RpcProviders() {
             <div className="flex-1 max-w-2xl">
               <div className="flex flex-wrap items-center gap-3 mb-6">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00f0ff]/10 border border-[#00f0ff]/30 text-xs font-mono text-[#00f0ff]">
-                  <Server className="w-3.5 h-3.5" /> Enterprise RPC
+                  <Server className="w-3.5 h-3.5" /> {t('publicPages.network.rpc.tag')}
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/30 text-xs font-medium text-green-400">
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                  All Systems Operational
+                  {t('publicPages.network.rpc.status.operational')}
                 </div>
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
-                Enterprise-Grade<br />
+                {t('publicPages.network.rpc.heroTitle')}<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] to-[#7000ff]">
-                  RPC Infrastructure
+                  {t('publicPages.network.rpc.heroTitleHighlight')}
                 </span>
               </h1>
               
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                High-performance, geo-distributed RPC endpoints with 99.99% uptime SLA. 
-                Built for enterprise-scale blockchain applications with sub-10ms latency.
+                {t('publicPages.network.rpc.heroDescription')}
               </p>
 
               {/* Key Metrics */}
               <div className="grid grid-cols-4 gap-3 mb-8">
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
                   <div className="text-xl font-mono font-bold text-gray-900 dark:text-white">99.99%</div>
-                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">Uptime</div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.uptime')}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
                   <div className="text-xl font-mono font-bold text-[#00f0ff]">&lt;10ms</div>
-                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">Latency</div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.latency')}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
                   <div className="text-xl font-mono font-bold text-gray-900 dark:text-white">6</div>
-                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">Regions</div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.regions')}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
                   <div className="text-xl font-mono font-bold text-[#00ff9d]">100M+</div>
-                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">Req/Day</div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.reqDay')}</div>
                 </div>
               </div>
               
@@ -237,18 +236,18 @@ export default function RpcProviders() {
                 <Link href="/developers/quickstart">
                   <Button className="bg-[#00f0ff] text-black hover:bg-cyan-400 font-bold px-6" data-testid="button-get-api-key">
                     <Key className="w-4 h-4 mr-2" />
-                    Get Free API Key
+                    {t('publicPages.network.rpc.buttons.getFreeApiKey')}
                   </Button>
                 </Link>
                 <Link href="/developers/api">
                   <Button variant="outline" className="border-gray-300 dark:border-white/20" data-testid="button-view-docs">
                     <Book className="w-4 h-4 mr-2" />
-                    API Documentation
+                    {t('publicPages.network.rpc.buttons.apiDocumentation')}
                   </Button>
                 </Link>
                 <Button variant="outline" className="border-gray-300 dark:border-white/20" onClick={testConnection} disabled={isTesting} data-testid="button-test-connection-hero">
                   {isTesting ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : <Play className="w-4 h-4 mr-2" />}
-                  Test Connection
+                  {isTesting ? t('publicPages.network.rpc.buttons.testing') : t('publicPages.network.rpc.buttons.testConnection')}
                 </Button>
               </div>
             </div>
@@ -259,12 +258,12 @@ export default function RpcProviders() {
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base flex items-center gap-2">
                     <Activity className="w-4 h-4 text-green-500 animate-pulse" />
-                    Live Network Dashboard
+                    {t('publicPages.network.rpc.dashboard.title')}
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline" className={`text-xs ${wsConnected ? 'border-green-500/50 text-green-500' : 'border-red-500/50 text-red-500'}`}>
                       <Wifi className="w-3 h-3 mr-1" />
-                      {wsConnected ? 'WS Connected' : 'Connecting...'}
+                      {wsConnected ? t('publicPages.network.rpc.status.wsConnected') : t('publicPages.network.rpc.status.wsConnecting')}
                     </Badge>
                   </div>
                 </div>
@@ -275,7 +274,7 @@ export default function RpcProviders() {
                   <div className="p-3 rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 dark:from-white/10 dark:to-white/5 border border-gray-200 dark:border-white/10">
                     <div className="flex items-center gap-2 mb-1">
                       <Layers className="w-3 h-3 text-gray-400" />
-                      <span className="text-[10px] text-gray-500 uppercase tracking-wider">Block Height</span>
+                      <span className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.dashboard.blockHeight')}</span>
                     </div>
                     <div className="text-2xl font-mono font-bold text-gray-900 dark:text-white">
                       {currentBlockHeight.toLocaleString()}
@@ -284,7 +283,7 @@ export default function RpcProviders() {
                   <div className="p-3 rounded-lg bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-500/10 dark:to-blue-500/5 border border-cyan-200 dark:border-cyan-500/20">
                     <div className="flex items-center gap-2 mb-1">
                       <Zap className="w-3 h-3 text-[#00f0ff]" />
-                      <span className="text-[10px] text-gray-500 uppercase tracking-wider">TPS</span>
+                      <span className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.dashboard.tps')}</span>
                     </div>
                     <div className="text-2xl font-mono font-bold text-[#00f0ff]">
                       {liveTps.toLocaleString()}
@@ -297,7 +296,7 @@ export default function RpcProviders() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <Timer className="w-3 h-3 text-gray-400" />
-                      <span className="text-xs text-gray-500">Average Latency</span>
+                      <span className="text-xs text-gray-500">{t('publicPages.network.rpc.dashboard.avgLatency')}</span>
                     </div>
                     <span className="font-mono text-sm font-bold text-green-500">8ms</span>
                   </div>
@@ -314,16 +313,16 @@ export default function RpcProviders() {
                     ))}
                   </div>
                   <div className="flex justify-between mt-1 text-[9px] text-gray-400">
-                    <span>30s ago</span>
-                    <span>Now</span>
+                    <span>{t('publicPages.network.rpc.dashboard.secondsAgo')}</span>
+                    <span>{t('publicPages.network.rpc.dashboard.now')}</span>
                   </div>
                 </div>
 
                 {/* Node Status */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs text-gray-500">
-                    <span>Global Nodes</span>
-                    <span className="text-green-500">6/6 Online</span>
+                    <span>{t('publicPages.network.rpc.dashboard.globalNodes')}</span>
+                    <span className="text-green-500">6/6 {t('publicPages.network.rpc.dashboard.online')}</span>
                   </div>
                   <div className="flex gap-1">
                     {rpcNodes.map((node) => (
@@ -363,7 +362,7 @@ export default function RpcProviders() {
           {/* Network Tabs */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-500 font-medium">Select Network:</span>
+              <span className="text-sm text-gray-500 font-medium">{t('publicPages.network.rpc.network.selectNetwork')}</span>
               <div className="flex gap-2">
                 <Button
                   variant={selectedNetwork === 'mainnet' ? 'default' : 'outline'}
@@ -373,7 +372,7 @@ export default function RpcProviders() {
                   data-testid="button-select-mainnet"
                 >
                   <Globe className="w-4 h-4 mr-2" />
-                  Mainnet (7777)
+                  {t('publicPages.network.rpc.network.mainnet')} (7777)
                 </Button>
                 <Button
                   variant={selectedNetwork === 'testnet' ? 'default' : 'outline'}
@@ -383,16 +382,16 @@ export default function RpcProviders() {
                   data-testid="button-select-testnet"
                 >
                   <Globe className="w-4 h-4 mr-2" />
-                  Testnet (7778)
+                  {t('publicPages.network.rpc.network.testnet')} (7778)
                 </Button>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <ShieldCheck className="w-4 h-4 text-green-500" />
-              <span className="text-gray-500">SSL/TLS Encrypted</span>
+              <span className="text-gray-500">{t('publicPages.network.rpc.network.sslEncrypted')}</span>
               <span className="mx-2 text-gray-300 dark:text-gray-700">|</span>
               <Lock className="w-4 h-4 text-[#00f0ff]" />
-              <span className="text-gray-500">Rate Limited</span>
+              <span className="text-gray-500">{t('publicPages.network.rpc.network.rateLimited')}</span>
             </div>
           </div>
 
@@ -403,10 +402,10 @@ export default function RpcProviders() {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Server className="w-5 h-5 text-[#00f0ff]" />
-                  HTTP/HTTPS Endpoint
-                  <Badge variant="outline" className="ml-auto text-xs">JSON-RPC 2.0</Badge>
+                  {t('publicPages.network.rpc.endpoints.httpTitle')}
+                  <Badge variant="outline" className="ml-auto text-xs">{t('publicPages.network.rpc.endpoints.jsonRpc')}</Badge>
                 </CardTitle>
-                <CardDescription>Standard HTTP endpoint for JSON-RPC requests</CardDescription>
+                <CardDescription>{t('publicPages.network.rpc.endpoints.httpDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -426,9 +425,9 @@ export default function RpcProviders() {
                   </Button>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-gray-500">
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> POST requests</span>
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> Batch support</span>
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> CORS enabled</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.postRequests')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.batchSupport')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.corsEnabled')}</span>
                 </div>
               </CardContent>
             </Card>
@@ -438,10 +437,10 @@ export default function RpcProviders() {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Wifi className="w-5 h-5 text-[#7000ff]" />
-                  WebSocket Endpoint
-                  <Badge variant="outline" className="ml-auto text-xs">Real-time</Badge>
+                  {t('publicPages.network.rpc.endpoints.wsTitle')}
+                  <Badge variant="outline" className="ml-auto text-xs">{t('publicPages.network.rpc.endpoints.realtime')}</Badge>
                 </CardTitle>
-                <CardDescription>Persistent connection for subscriptions and streaming</CardDescription>
+                <CardDescription>{t('publicPages.network.rpc.endpoints.wsDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -461,9 +460,9 @@ export default function RpcProviders() {
                   </Button>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-gray-500">
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> newHeads</span>
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> logs</span>
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> pendingTx</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.newHeads')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.logs')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.pendingTx')}</span>
                 </div>
               </CardContent>
             </Card>
@@ -474,24 +473,24 @@ export default function RpcProviders() {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-base">
                 <Settings className="w-4 h-4" />
-                Network Configuration
+                {t('publicPages.network.rpc.config.title')}
               </CardTitle>
-              <CardDescription>Add {network.name} to MetaMask or other Web3 wallets</CardDescription>
+              <CardDescription>{t('publicPages.network.rpc.config.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                 {[
-                  { label: "Network Name", value: network.name },
-                  { label: "Chain ID", value: network.chainId.toString() },
-                  { label: "Currency Symbol", value: network.symbol },
-                  { label: "RPC URL", value: network.rpcUrl },
-                  { label: "Block Explorer", value: network.explorerUrl, isLink: true },
+                  { label: t('publicPages.network.rpc.config.networkName'), value: network.name },
+                  { label: t('publicPages.network.rpc.config.chainId'), value: network.chainId.toString() },
+                  { label: t('publicPages.network.rpc.config.currencySymbol'), value: network.symbol },
+                  { label: t('publicPages.network.rpc.config.rpcUrl'), value: network.rpcUrl },
+                  { label: t('publicPages.network.rpc.config.blockExplorer'), value: network.explorerUrl, isLink: true },
                 ].map((item) => (
                   <div key={item.label} className="p-3 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10">
                     <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">{item.label}</div>
                     {item.isLink ? (
                       <a href={item.value} className="font-mono text-xs text-[#00f0ff] hover:underline flex items-center gap-1">
-                        View <ExternalLink className="w-3 h-3" />
+                        {t('publicPages.network.rpc.config.view')} <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : (
                       <div 
@@ -514,16 +513,16 @@ export default function RpcProviders() {
       <section className="py-12 px-6 bg-gradient-to-b from-gray-50 to-white dark:from-transparent dark:to-transparent border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-10">
-            <Badge className="bg-[#7000ff]/20 text-[#7000ff] border-[#7000ff]/30 mb-4">Enterprise Features</Badge>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">Built for Scale & Reliability</h2>
+            <Badge className="bg-[#7000ff]/20 text-[#7000ff] border-[#7000ff]/30 mb-4">{t('publicPages.network.rpc.enterprise.badge')}</Badge>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">{t('publicPages.network.rpc.enterprise.title')}</h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Production-ready infrastructure trusted by leading DeFi protocols, exchanges, and enterprises
+              {t('publicPages.network.rpc.enterprise.description')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {enterpriseFeatures.map((feature) => (
-              <Card key={feature.title} className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 transition group">
+            {getEnterpriseFeatures(t).map((feature) => (
+              <Card key={feature.titleKey} className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 transition group">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
                     <div 
@@ -533,8 +532,8 @@ export default function RpcProviders() {
                       <feature.icon className="w-5 h-5" style={{ color: feature.color }} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#00f0ff] transition">{feature.title}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{feature.desc}</p>
+                      <h3 className="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#00f0ff] transition">{t(`publicPages.network.rpc.${feature.titleKey}`)}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{t(`publicPages.network.rpc.${feature.descKey}`)}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -549,11 +548,11 @@ export default function RpcProviders() {
         <div className="container mx-auto max-w-7xl">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Global RPC Nodes</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Geo-distributed infrastructure with automatic failover</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.nodes.title')}</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.nodes.description')}</p>
             </div>
             <Badge className="bg-green-500/20 text-green-500 border-green-500/30">
-              6/6 Nodes Online
+              6/6 {t('publicPages.network.rpc.nodes.nodesOnline')}
             </Badge>
           </div>
 
@@ -574,32 +573,32 @@ export default function RpcProviders() {
                       <div className={`text-lg font-mono font-bold ${node.latency < 20 ? 'text-green-500' : node.latency < 40 ? 'text-yellow-500' : 'text-orange-500'}`}>
                         {node.latency}ms
                       </div>
-                      <div className="text-[9px] text-gray-500 uppercase">Latency</div>
+                      <div className="text-[9px] text-gray-500 uppercase">{t('publicPages.network.rpc.nodes.latency')}</div>
                     </div>
                     <div className="p-2 rounded bg-gray-50 dark:bg-white/5 text-center">
                       <div className="text-lg font-mono font-bold text-gray-900 dark:text-white">{node.uptime}%</div>
-                      <div className="text-[9px] text-gray-500 uppercase">Uptime</div>
+                      <div className="text-[9px] text-gray-500 uppercase">{t('publicPages.network.rpc.nodes.uptime')}</div>
                     </div>
                   </div>
 
                   <div className="space-y-2 text-xs">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-500">Load</span>
+                      <span className="text-gray-500">{t('publicPages.network.rpc.nodes.load')}</span>
                       <div className="flex items-center gap-2 flex-1 ml-4">
                         <Progress value={node.load} className="h-1.5 flex-1" />
                         <span className="font-mono text-gray-700 dark:text-gray-300 w-8">{node.load}%</span>
                       </div>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">24h Requests</span>
+                      <span className="text-gray-500">{t('publicPages.network.rpc.nodes.requests24h')}</span>
                       <span className="font-mono text-gray-700 dark:text-gray-300">{(node.requests24h / 1000000).toFixed(1)}M</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Peak TPS</span>
+                      <span className="text-gray-500">{t('publicPages.network.rpc.nodes.peakTps')}</span>
                       <span className="font-mono text-gray-700 dark:text-gray-300">{node.peakTps.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Version</span>
+                      <span className="text-gray-500">{t('publicPages.network.rpc.nodes.version')}</span>
                       <span className="font-mono text-gray-700 dark:text-gray-300">v{node.version}</span>
                     </div>
                   </div>
@@ -614,8 +613,8 @@ export default function RpcProviders() {
       <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Supported RPC Methods</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Full Ethereum JSON-RPC compatibility plus TBurn-specific extensions</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.methods.title')}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.methods.description')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -652,8 +651,8 @@ export default function RpcProviders() {
       <section className="py-12 px-6 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">API Plans</h2>
-            <p className="text-gray-600 dark:text-gray-400">Choose the plan that fits your needs. Scale as you grow.</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">{t('publicPages.network.rpc.plans.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.plans.description')}</p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-5">
@@ -737,8 +736,8 @@ export default function RpcProviders() {
       <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Quick Start</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Get started with TBurn Chain in your preferred language</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.sdk.title')}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.sdk.description')}</p>
           </div>
           
           <Tabs defaultValue="javascript" className="w-full">
@@ -1065,14 +1064,14 @@ curl -X POST ${network.rpcUrl} \\
       {/* Resources */}
       <section className="py-12 px-6 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Developer Resources</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">{t('publicPages.network.rpc.resources.title')}</h2>
           <div className="grid md:grid-cols-4 gap-4">
             <Link href="/developers/docs">
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-[#7000ff]/50 transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <Book className="w-8 h-8 text-[#7000ff] mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">Documentation</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Comprehensive API guides</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.rpc.resources.documentation')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.resources.documentationDesc')}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -1080,8 +1079,8 @@ curl -X POST ${network.rpcUrl} \\
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-green-500/50 transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <HeartPulse className="w-8 h-8 text-green-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">API Status</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Real-time health monitoring</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.rpc.resources.apiStatus')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.resources.apiStatusDesc')}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -1089,8 +1088,8 @@ curl -X POST ${network.rpcUrl} \\
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-gray-500/50 transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <Github className="w-8 h-8 text-gray-900 dark:text-white mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">GitHub</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Open source SDKs</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.rpc.resources.github')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.resources.githubDesc')}</p>
                 </CardContent>
               </Card>
             </a>
@@ -1098,8 +1097,8 @@ curl -X POST ${network.rpcUrl} \\
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-[#00f0ff]/50 transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <Users className="w-8 h-8 text-[#00f0ff] mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">Community</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Join developer discussions</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.rpc.resources.community')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.resources.communityDesc')}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -1114,21 +1113,20 @@ curl -X POST ${network.rpcUrl} \\
             <div className="absolute inset-0 bg-grid-white/5" />
             <CardContent className="py-12 relative">
               <Rocket className="w-12 h-12 text-[#00f0ff] mx-auto mb-4" />
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">Ready to Build?</h2>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">{t('publicPages.network.rpc.cta.title')}</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
-                Join thousands of developers building the future of DeFi on TBurn Chain.
-                Start with our free tier and scale as you grow.
+                {t('publicPages.network.rpc.cta.description')}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/developers/quickstart">
                   <Button className="bg-[#00f0ff] text-black hover:bg-cyan-400 font-bold px-8" data-testid="button-cta-start">
-                    Get Started Free
+                    {t('publicPages.network.rpc.buttons.getStartedFree')}
                   </Button>
                 </Link>
                 <Link href="/community/hub">
                   <Button variant="outline" className="border-gray-300 dark:border-white/20 px-8" data-testid="button-cta-contact">
                     <FileText className="w-4 h-4 mr-2" />
-                    Contact Sales
+                    {t('publicPages.network.rpc.buttons.contactSales')}
                   </Button>
                 </Link>
               </div>

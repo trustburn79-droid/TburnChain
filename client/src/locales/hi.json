@@ -10858,161 +10858,185 @@
         }
       },
       "rpc": {
-        "tag": "RPC इंफ्रास्ट्रक्चर",
-        "title": "RPC प्रोवाइडर्स",
-        "subtitle": "एंटरप्राइज-ग्रेड विश्वसनीयता के साथ उच्च-प्रदर्शन RPC एंडपॉइंट्स। WebSocket और HTTP कनेक्शन के लिए समर्थन।",
-        "forumTitle": "समुदाय मंच",
-        "viewAll": "सभी देखें",
-        "recentPosts": "हाल की पोस्ट",
-        "getApiKey": "API कुंजी प्राप्त करें",
+        "tag": "एंटरप्राइज RPC",
+        "heroTitle": "एंटरप्राइज-ग्रेड",
+        "heroTitleHighlight": "RPC इंफ्रास्ट्रक्चर",
+        "heroDescription": "99.99% अपटाइम SLA के साथ उच्च-प्रदर्शन, भौगोलिक रूप से वितरित RPC एंडपॉइंट। 10ms से कम विलंबता के साथ एंटरप्राइज-स्केल ब्लॉकचेन एप्लिकेशन के लिए बनाया गया।",
+        "metrics": {
+          "uptime": "अपटाइम",
+          "latency": "विलंबता",
+          "regions": "क्षेत्र",
+          "reqDay": "अनुरोध/दिन"
+        },
+        "status": {
+          "operational": "सभी सिस्टम चालू",
+          "wsConnected": "WS कनेक्टेड",
+          "wsConnecting": "कनेक्ट हो रहा है..."
+        },
+        "dashboard": {
+          "title": "लाइव नेटवर्क डैशबोर्ड",
+          "blockHeight": "ब्लॉक ऊंचाई",
+          "tps": "TPS",
+          "avgLatency": "औसत विलंबता",
+          "globalNodes": "वैश्विक नोड्स",
+          "online": "ऑनलाइन",
+          "secondsAgo": "30 सेकंड पहले",
+          "now": "अभी"
+        },
         "buttons": {
-          "getApiKey": "API कुंजी प्राप्त करें",
-          "viewDocs": "दस्तावेज़ीकरण देखें"
+          "getFreeApiKey": "मुफ्त API कुंजी प्राप्त करें",
+          "apiDocumentation": "API दस्तावेज़",
+          "testConnection": "कनेक्शन टेस्ट करें",
+          "testing": "टेस्ट हो रहा है...",
+          "getStarted": "शुरू करें",
+          "subscribe": "सब्सक्राइब करें",
+          "contactSales": "बिक्री से संपर्क करें",
+          "getStartedFree": "मुफ्त में शुरू करें"
         },
-        "sections": {
-          "apiPlans": "API प्लान्स",
-          "coreEndpoints": "कोर एंडपॉइंट्स",
-          "sdkExamples": "SDK उदाहरण",
-          "support": "सहायता"
-        },
-        "plans": {
-          "free": {
-            "name": "निःशुल्क"
-          },
-          "basic": {
-            "name": "बेसिक"
-          },
-          "pro": {
-            "name": "प्रो"
-          },
-          "enterprise": {
-            "name": "एंटरप्राइज"
-          },
-          "requestsMin": "अनुरोध/मिनट",
-          "requestsDay": "अनुरोध/दिन",
-          "perMonth": "/माह",
-          "unlimited": "असीमित",
-          "contact": "संपर्क करें"
+        "network": {
+          "selectNetwork": "नेटवर्क चुनें:",
+          "mainnet": "मेननेट",
+          "testnet": "टेस्टनेट",
+          "sslEncrypted": "SSL/TLS एन्क्रिप्टेड",
+          "rateLimited": "रेट सीमित"
         },
         "endpoints": {
-          "scoreQuery": {
-            "title": "स्कोर क्वेरी API"
+          "httpTitle": "HTTP/HTTPS एंडपॉइंट",
+          "httpDesc": "JSON-RPC अनुरोधों के लिए मानक HTTP एंडपॉइंट",
+          "wsTitle": "WebSocket एंडपॉइंट",
+          "wsDesc": "सब्सक्रिप्शन और स्ट्रीमिंग के लिए स्थायी कनेक्शन",
+          "jsonRpc": "JSON-RPC 2.0",
+          "realtime": "रियल-टाइम",
+          "postRequests": "POST अनुरोध",
+          "batchSupport": "बैच सपोर्ट",
+          "corsEnabled": "CORS सक्षम",
+          "newHeads": "newHeads",
+          "logs": "logs",
+          "pendingTx": "pendingTx"
+        },
+        "config": {
+          "title": "नेटवर्क कॉन्फ़िगरेशन",
+          "description": "MetaMask या अन्य Web3 वॉलेट में जोड़ें",
+          "networkName": "नेटवर्क नाम",
+          "chainId": "चेन ID",
+          "currencySymbol": "मुद्रा प्रतीक",
+          "rpcUrl": "RPC URL",
+          "blockExplorer": "ब्लॉक एक्सप्लोरर",
+          "view": "देखें"
+        },
+        "enterprise": {
+          "badge": "एंटरप्राइज सुविधाएं",
+          "title": "स्केल और विश्वसनीयता के लिए बनाया गया",
+          "description": "प्रमुख DeFi प्रोटोकॉल, एक्सचेंज और उद्यमों द्वारा विश्वसनीय प्रोडक्शन-रेडी इंफ्रास्ट्रक्चर",
+          "security": {
+            "title": "एंटरप्राइज सुरक्षा",
+            "desc": "SOC 2 Type II प्रमाणित, एंड-टू-एंड एन्क्रिप्शन, IP व्हाइटलिस्टिंग"
           },
-          "projectApi": {
-            "title": "प्रोजेक्ट API"
+          "uptime": {
+            "title": "99.99% अपटाइम SLA",
+            "desc": "स्वचालित फेलओवर और लोड बैलेंसिंग के साथ गारंटीकृत उपलब्धता"
           },
-          "analyticsApi": {
-            "title": "एनालिटिक्स API"
+          "latency": {
+            "title": "अल्ट्रा-लो लेटेंसी",
+            "desc": "भौगोलिक रूप से वितरित एज नोड्स के साथ 10ms से कम प्रतिक्रिया समय"
           },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "इवेंट्स: score.updated, score.alert, project.registered"
+          "scaling": {
+            "title": "असीमित स्केलिंग",
+            "desc": "100M+ अनुरोध/दिन का समर्थन करने वाला ऑटो-स्केलिंग इंफ्रास्ट्रक्चर"
+          },
+          "ddos": {
+            "title": "DDoS सुरक्षा",
+            "desc": "रेट लिमिटिंग और ट्रैफ़िक विश्लेषण के साथ एंटरप्राइज-ग्रेड सुरक्षा"
+          },
+          "archive": {
+            "title": "आर्काइव एक्सेस",
+            "desc": "ट्रेस APIs के साथ जेनेसिस ब्लॉक से पूर्ण ऐतिहासिक डेटा एक्सेस"
           }
         },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL उदाहरण"
-          }
+        "nodes": {
+          "title": "वैश्विक RPC नोड्स",
+          "description": "स्वचालित फेलओवर के साथ भौगोलिक रूप से वितरित इंफ्रास्ट्रक्चर",
+          "nodesOnline": "ऑनलाइन नोड्स",
+          "latency": "विलंबता",
+          "uptime": "अपटाइम",
+          "load": "लोड",
+          "requests24h": "24 घंटे के अनुरोध",
+          "peakTps": "पीक TPS",
+          "version": "वर्जन"
         },
-        "cta": {
-          "title": "निर्माण के लिए तैयार हैं?",
-          "subtitle": "आज ही TBurn Chain API के साथ निर्माण शुरू करें। अपनी निःशुल्क API कुंजी प्राप्त करें और एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर एक्सेस करें।",
-          "forumTitle": "समुदाय मंच",
-          "viewAll": "सभी देखें",
-          "recentPosts": "हाल की पोस्ट",
-          "desc": "आज ही TBurn Chain API के साथ निर्माण शुरू करें। अपनी निःशुल्क API कुंजी प्राप्त करें और एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर एक्सेस करें।",
-          "getStartedFree": "निःशुल्क शुरू करें",
-          "contactSales": "बिक्री से संपर्क करें"
+        "methods": {
+          "title": "समर्थित RPC मेथड्स",
+          "description": "पूर्ण Ethereum JSON-RPC संगतता प्लस TBurn-विशिष्ट एक्सटेंशन",
+          "block": "ब्लॉक मेथड्स",
+          "transaction": "ट्रांजैक्शन मेथड्स",
+          "account": "अकाउंट मेथड्स",
+          "contract": "कॉन्ट्रैक्ट मेथड्स",
+          "network": "नेटवर्क मेथड्स",
+          "tburnCustom": "TBurn कस्टम",
+          "debug": "डीबग मेथड्स",
+          "websocket": "WebSocket"
         },
-        "apiPlans": {
-          "title": "API प्लान्स और सीमाएं",
+        "plans": {
+          "title": "API प्लान्स",
+          "description": "अपनी जरूरतों के अनुसार प्लान चुनें। बढ़ने के साथ स्केल करें।",
           "free": {
-            "name": "निःशुल्क",
-            "requestsPerMin": "20",
-            "requestsPerDay": "1,000",
-            "price": "$0"
+            "name": "मुफ्त",
+            "desc": "टेस्टिंग और डेवलपमेंट के लिए",
+            "forever": "हमेशा के लिए",
+            "requestsMin": "अनुरोध/मिनट",
+            "requestsDay": "अनुरोध/दिन",
+            "httpEndpoint": "HTTP एंडपॉइंट",
+            "noWebSocket": "कोई WebSocket नहीं"
           },
           "basic": {
             "name": "बेसिक",
-            "requestsPerMin": "100",
-            "requestsPerDay": "10,000",
-            "price": "$100/माह"
+            "desc": "छोटे प्रोजेक्ट्स के लिए",
+            "perMonth": "/माह",
+            "wsAccess": "WebSocket एक्सेस",
+            "emailSupport": "ईमेल सपोर्ट"
           },
           "pro": {
             "name": "प्रो",
-            "requestsPerMin": "500",
-            "requestsPerDay": "100,000",
-            "price": "$500/माह"
+            "desc": "बढ़ती टीमों के लिए",
+            "popular": "लोकप्रिय",
+            "archiveAccess": "आर्काइव नोड एक्सेस",
+            "prioritySupport": "प्राथमिकता सपोर्ट"
           },
           "enterprise": {
             "name": "एंटरप्राइज",
-            "requestsPerMin": "असीमित",
-            "requestsPerDay": "असीमित",
-            "price": "संपर्क करें"
+            "desc": "बड़े संगठनों के लिए",
+            "custom": "कस्टम",
+            "contactSales": "बिक्री से संपर्क करें",
+            "unlimitedRequests": "असीमित अनुरोध",
+            "dedicatedNodes": "समर्पित नोड्स",
+            "sla": "99.99% SLA",
+            "support247": "24/7 सपोर्ट"
           }
         },
-        "coreEndpoints": {
-          "title": "कोर एंडपॉइंट्स",
-          "scoreQuery": {
-            "title": "स्कोर क्वेरी API",
-            "endpoints": [
-              "GET /score/:address",
-              "GET /score/:address/history",
-              "POST /score/batch"
-            ]
-          },
-          "project": {
-            "title": "प्रोजेक्ट API",
-            "endpoints": [
-              "GET /projects",
-              "POST /projects/register",
-              "GET /projects/:id"
-            ]
-          },
-          "analytics": {
-            "title": "एनालिटिक्स API",
-            "endpoints": [
-              "GET /analytics/trends",
-              "GET /analytics/leaderboard"
-            ]
-          },
-          "webhook": {
-            "title": "Webhook API",
-            "endpoints": [
-              "POST /webhooks"
-            ],
-            "events": "इवेंट्स: score.updated, score.alert, project.registered"
-          }
+        "sdk": {
+          "title": "क्विक स्टार्ट",
+          "description": "अपनी पसंदीदा भाषा में TBurn Chain के साथ शुरू करें"
         },
-        "sdkExamples": {
-          "title": "SDK और एंटरप्राइज उदाहरण",
-          "typescript": "TypeScript एंटरप्राइज SDK",
-          "python": "Python एंटरप्राइज SDK",
-          "curl": "cURL प्रोडक्शन उदाहरण"
+        "resources": {
+          "title": "डेवलपर रिसोर्सेज",
+          "documentation": "डॉक्यूमेंटेशन",
+          "documentationDesc": "व्यापक API गाइड",
+          "apiStatus": "API स्थिति",
+          "apiStatusDesc": "रियल-टाइम हेल्थ मॉनिटरिंग",
+          "github": "GitHub",
+          "githubDesc": "ओपन सोर्स SDKs",
+          "community": "समुदाय",
+          "communityDesc": "डेवलपर चर्चाओं में शामिल हों"
         },
-        "support": {
-          "title": "सहायता और संपर्क",
-          "documentation": {
-            "title": "दस्तावेज़ीकरण",
-            "description": "विस्तृत API संदर्भ और गाइड।",
-            "desc": "व्यापक API दस्तावेज़ीकरण और एकीकरण गाइड।"
-          },
-          "apiStatus": {
-            "title": "API स्थिति",
-            "description": "रियल-टाइम सिस्टम स्थिति और अपटाइम।",
-            "desc": "रियल-टाइम सिस्टम स्थिति, अपटाइम मेट्रिक्स, और घटना रिपोर्ट।"
-          },
-          "developerHub": {
-            "title": "डेवलपर हब",
-            "description": "ओपन सोर्स SDKs और उदाहरण।",
-            "desc": "ओपन सोर्स SDKs, कोड उदाहरण, और समुदाय संसाधन।"
-          }
+        "cta": {
+          "title": "निर्माण के लिए तैयार?",
+          "description": "TBurn Chain पर DeFi का भविष्य बनाने वाले हजारों डेवलपर्स से जुड़ें। हमारे मुफ्त टियर से शुरू करें और बढ़ने के साथ स्केल करें।"
+        },
+        "connection": {
+          "success": "कनेक्शन सफल",
+          "failed": "कनेक्शन विफल",
+          "connected": "कनेक्टेड",
+          "unableToConnect": "RPC एंडपॉइंट से कनेक्ट करने में असमर्थ"
         }
       },
       "status": {

@@ -12335,161 +12335,185 @@
         }
       },
       "rpc": {
-        "tag": "RPC基础设施",
-        "title": "RPC端点",
-        "subtitle": "连接官方RPC节点以获得可靠的网络访问。支持WebSocket和HTTP连接。",
-        "forumTitle": "社区论坛",
-        "viewAll": "查看全部",
-        "recentPosts": "最近帖子",
-        "getApiKey": "获取API密钥",
-        "apiPlans": {
-          "title": "API计划与限制",
+        "tag": "企业级RPC",
+        "heroTitle": "企业级",
+        "heroTitleHighlight": "RPC基础设施",
+        "heroDescription": "高性能、地理分布式RPC端点，99.99%正常运行时间SLA。为企业规模的区块链应用程序构建，延迟低于10毫秒。",
+        "metrics": {
+          "uptime": "正常运行时间",
+          "latency": "延迟",
+          "regions": "区域",
+          "reqDay": "请求/天"
+        },
+        "status": {
+          "operational": "所有系统正常运行",
+          "wsConnected": "WS已连接",
+          "wsConnecting": "连接中..."
+        },
+        "dashboard": {
+          "title": "实时网络仪表板",
+          "blockHeight": "区块高度",
+          "tps": "TPS",
+          "avgLatency": "平均延迟",
+          "globalNodes": "全球节点",
+          "online": "在线",
+          "secondsAgo": "30秒前",
+          "now": "现在"
+        },
+        "buttons": {
+          "getFreeApiKey": "获取免费API密钥",
+          "apiDocumentation": "API文档",
+          "testConnection": "测试连接",
+          "testing": "测试中...",
+          "getStarted": "开始使用",
+          "subscribe": "订阅",
+          "contactSales": "联系销售",
+          "getStartedFree": "免费开始"
+        },
+        "network": {
+          "selectNetwork": "选择网络:",
+          "mainnet": "主网",
+          "testnet": "测试网",
+          "sslEncrypted": "SSL/TLS加密",
+          "rateLimited": "速率限制"
+        },
+        "endpoints": {
+          "httpTitle": "HTTP/HTTPS端点",
+          "httpDesc": "用于JSON-RPC请求的标准HTTP端点",
+          "wsTitle": "WebSocket端点",
+          "wsDesc": "用于订阅和流式传输的持久连接",
+          "jsonRpc": "JSON-RPC 2.0",
+          "realtime": "实时",
+          "postRequests": "POST请求",
+          "batchSupport": "批量支持",
+          "corsEnabled": "CORS已启用",
+          "newHeads": "newHeads",
+          "logs": "logs",
+          "pendingTx": "pendingTx"
+        },
+        "config": {
+          "title": "网络配置",
+          "description": "添加到MetaMask或其他Web3钱包",
+          "networkName": "网络名称",
+          "chainId": "链ID",
+          "currencySymbol": "货币符号",
+          "rpcUrl": "RPC URL",
+          "blockExplorer": "区块浏览器",
+          "view": "查看"
+        },
+        "enterprise": {
+          "badge": "企业功能",
+          "title": "为规模和可靠性而构建",
+          "description": "受领先DeFi协议、交易所和企业信赖的生产就绪基础设施",
+          "security": {
+            "title": "企业安全",
+            "desc": "SOC 2 Type II认证、端到端加密、IP白名单"
+          },
+          "uptime": {
+            "title": "99.99%正常运行时间SLA",
+            "desc": "通过自动故障转移和负载均衡保证可用性"
+          },
+          "latency": {
+            "title": "超低延迟",
+            "desc": "通过地理分布式边缘节点实现低于10毫秒的响应时间"
+          },
+          "scaling": {
+            "title": "无限扩展",
+            "desc": "支持每天1亿+请求的自动扩展基础设施"
+          },
+          "ddos": {
+            "title": "DDoS保护",
+            "desc": "具有速率限制和流量分析的企业级保护"
+          },
+          "archive": {
+            "title": "存档访问",
+            "desc": "通过跟踪API访问从创世区块开始的完整历史数据"
+          }
+        },
+        "nodes": {
+          "title": "全球RPC节点",
+          "description": "具有自动故障转移的地理分布式基础设施",
+          "nodesOnline": "在线节点",
+          "latency": "延迟",
+          "uptime": "正常运行时间",
+          "load": "负载",
+          "requests24h": "24小时请求",
+          "peakTps": "峰值TPS",
+          "version": "版本"
+        },
+        "methods": {
+          "title": "支持的RPC方法",
+          "description": "完整的以太坊JSON-RPC兼容性以及TBurn特定扩展",
+          "block": "区块方法",
+          "transaction": "交易方法",
+          "account": "账户方法",
+          "contract": "合约方法",
+          "network": "网络方法",
+          "tburnCustom": "TBurn自定义",
+          "debug": "调试方法",
+          "websocket": "WebSocket"
+        },
+        "plans": {
+          "title": "API计划",
+          "description": "选择适合您需求的计划。随增长而扩展。",
           "free": {
             "name": "免费",
-            "requestsPerMin": "20",
-            "requestsPerDay": "1,000",
-            "price": "$0"
+            "desc": "用于测试和开发",
+            "forever": "永久",
+            "requestsMin": "请求/分钟",
+            "requestsDay": "请求/天",
+            "httpEndpoint": "HTTP端点",
+            "noWebSocket": "无WebSocket"
           },
           "basic": {
             "name": "基础",
-            "requestsPerMin": "100",
-            "requestsPerDay": "10,000",
-            "price": "$100/月"
+            "desc": "适用于小型项目",
+            "perMonth": "/月",
+            "wsAccess": "WebSocket访问",
+            "emailSupport": "邮件支持"
           },
           "pro": {
             "name": "专业",
-            "requestsPerMin": "500",
-            "requestsPerDay": "100,000",
-            "price": "$500/月"
+            "desc": "适用于成长型团队",
+            "popular": "热门",
+            "archiveAccess": "存档节点访问",
+            "prioritySupport": "优先支持"
           },
           "enterprise": {
             "name": "企业",
-            "requestsPerMin": "无限制",
-            "requestsPerDay": "无限制",
-            "price": "联系我们"
-          }
-        },
-        "coreEndpoints": {
-          "title": "核心端点",
-          "scoreQuery": {
-            "title": "评分查询API",
-            "endpoints": [
-              "GET /score/:address",
-              "GET /score/:address/history",
-              "POST /score/batch"
-            ]
-          },
-          "project": {
-            "title": "项目API",
-            "endpoints": [
-              "GET /projects",
-              "POST /projects/register",
-              "GET /projects/:id"
-            ]
-          },
-          "analytics": {
-            "title": "分析API",
-            "endpoints": [
-              "GET /analytics/trends",
-              "GET /analytics/leaderboard"
-            ]
-          },
-          "webhook": {
-            "title": "Webhook API",
-            "endpoints": [
-              "POST /webhooks"
-            ],
-            "events": "事件: score.updated, score.alert, project.registered"
-          }
-        },
-        "sdkExamples": {
-          "title": "SDK与企业示例",
-          "typescript": "TypeScript企业SDK",
-          "python": "Python企业SDK",
-          "curl": "cURL生产示例"
-        },
-        "support": {
-          "title": "支持与联系",
-          "documentation": {
-            "title": "文档",
-            "description": "详细的API参考和指南。",
-            "desc": "全面的 API 文档和集成指南。"
-          },
-          "apiStatus": {
-            "title": "API状态",
-            "description": "实时系统状态和运行时间。",
-            "desc": "实时系统状态、运行时间指标和事件报告。"
-          },
-          "developerHub": {
-            "title": "开发者中心",
-            "description": "开源SDK和示例。",
-            "desc": "开源 SDK、代码示例和社区资源。"
-          }
-        },
-        "cta": {
-          "title": "准备好开始构建了吗？",
-          "subtitle": "立即开始使用TBurn Chain API构建。获取您的免费API密钥并访问企业级区块链基础设施。",
-          "forumTitle": "社区论坛",
-          "viewAll": "查看全部",
-          "recentPosts": "最近帖子",
-          "getStartedFree": "免费开始",
-          "contactSales": "联系销售",
-          "desc": "立即开始使用 TBurn Chain API 构建。获取您的免费 API 密钥并访问企业级区块链基础设施。"
-        },
-        "buttons": {
-          "getApiKey": "获取 API 密钥",
-          "viewDocs": "查看文档"
-        },
-        "sections": {
-          "apiPlans": "API 计划",
-          "coreEndpoints": "核心端点",
-          "sdkExamples": "SDK 示例",
-          "support": "支持"
-        },
-        "plans": {
-          "free": {
-            "name": "免费"
-          },
-          "basic": {
-            "name": "基础"
-          },
-          "pro": {
-            "name": "专业"
-          },
-          "enterprise": {
-            "name": "企业"
-          },
-          "requestsMin": "请求/分钟",
-          "requestsDay": "请求/天",
-          "perMonth": "/月",
-          "unlimited": "无限制",
-          "contact": "联系我们"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "评分查询 API"
-          },
-          "projectApi": {
-            "title": "项目 API"
-          },
-          "analyticsApi": {
-            "title": "分析 API"
-          },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "事件: score.updated, score.alert, project.registered"
+            "desc": "适用于大型组织",
+            "custom": "定制",
+            "contactSales": "联系销售",
+            "unlimitedRequests": "无限请求",
+            "dedicatedNodes": "专用节点",
+            "sla": "99.99% SLA",
+            "support247": "24/7支持"
           }
         },
         "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL 示例"
-          }
+          "title": "快速入门",
+          "description": "使用您喜欢的语言开始使用TBurn Chain"
+        },
+        "resources": {
+          "title": "开发者资源",
+          "documentation": "文档",
+          "documentationDesc": "全面的API指南",
+          "apiStatus": "API状态",
+          "apiStatusDesc": "实时健康监控",
+          "github": "GitHub",
+          "githubDesc": "开源SDK",
+          "community": "社区",
+          "communityDesc": "加入开发者讨论"
+        },
+        "cta": {
+          "title": "准备好开始构建了吗？",
+          "description": "加入数千名在TBurn Chain上构建DeFi未来的开发者。从我们的免费套餐开始，随增长而扩展。"
+        },
+        "connection": {
+          "success": "连接成功",
+          "failed": "连接失败",
+          "connected": "已连接",
+          "unableToConnect": "无法连接到RPC端点"
         }
       },
       "status": {

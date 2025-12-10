@@ -9562,161 +9562,185 @@
         }
       },
       "rpc": {
-        "tag": "RPC ИНФРАСТРУКТУРА",
-        "title": "RPC Эндпоинты",
-        "subtitle": "Подключитесь к официальным RPC нодам для надёжного доступа к сети",
-        "forumTitle": "Форум сообщества",
-        "viewAll": "Смотреть все",
-        "recentPosts": "Недавние записи",
-        "getApiKey": "Получить API ключ",
+        "tag": "Корпоративный RPC",
+        "heroTitle": "Корпоративного уровня",
+        "heroTitleHighlight": "RPC Инфраструктура",
+        "heroDescription": "Высокопроизводительные, геораспределённые RPC-эндпоинты с SLA 99.99% доступности. Созданы для корпоративных блокчейн-приложений с задержкой менее 10мс.",
+        "metrics": {
+          "uptime": "Доступность",
+          "latency": "Задержка",
+          "regions": "Регионы",
+          "reqDay": "Запр/День"
+        },
+        "status": {
+          "operational": "Все системы работают",
+          "wsConnected": "WS подключён",
+          "wsConnecting": "Подключение..."
+        },
+        "dashboard": {
+          "title": "Панель сети в реальном времени",
+          "blockHeight": "Высота блока",
+          "tps": "TPS",
+          "avgLatency": "Средняя задержка",
+          "globalNodes": "Глобальные ноды",
+          "online": "Онлайн",
+          "secondsAgo": "30с назад",
+          "now": "Сейчас"
+        },
         "buttons": {
-          "getApiKey": "Получить API ключ",
-          "viewDocs": "Документация"
+          "getFreeApiKey": "Получить бесплатный API ключ",
+          "apiDocumentation": "Документация API",
+          "testConnection": "Тест подключения",
+          "testing": "Тестирование...",
+          "getStarted": "Начать",
+          "subscribe": "Подписаться",
+          "contactSales": "Связаться с отделом продаж",
+          "getStartedFree": "Начать бесплатно"
         },
-        "sections": {
-          "apiPlans": "API планы",
-          "coreEndpoints": "Основные эндпоинты",
-          "sdkExamples": "Примеры SDK",
-          "support": "Поддержка"
-        },
-        "plans": {
-          "free": {
-            "name": "Бесплатный"
-          },
-          "basic": {
-            "name": "Базовый"
-          },
-          "pro": {
-            "name": "Профессиональный"
-          },
-          "enterprise": {
-            "name": "Корпоративный"
-          },
-          "requestsMin": "запросов/мин",
-          "requestsDay": "запросов/день",
-          "perMonth": "/месяц",
-          "unlimited": "Безлимитно",
-          "contact": "Связаться"
+        "network": {
+          "selectNetwork": "Выбрать сеть:",
+          "mainnet": "Основная сеть",
+          "testnet": "Тестовая сеть",
+          "sslEncrypted": "SSL/TLS шифрование",
+          "rateLimited": "Ограничение скорости"
         },
         "endpoints": {
-          "scoreQuery": {
-            "title": "API запроса рейтинга"
+          "httpTitle": "HTTP/HTTPS эндпоинт",
+          "httpDesc": "Стандартный HTTP эндпоинт для JSON-RPC запросов",
+          "wsTitle": "WebSocket эндпоинт",
+          "wsDesc": "Постоянное подключение для подписок и стриминга",
+          "jsonRpc": "JSON-RPC 2.0",
+          "realtime": "Реальное время",
+          "postRequests": "POST запросы",
+          "batchSupport": "Поддержка пакетов",
+          "corsEnabled": "CORS включён",
+          "newHeads": "newHeads",
+          "logs": "logs",
+          "pendingTx": "pendingTx"
+        },
+        "config": {
+          "title": "Конфигурация сети",
+          "description": "Добавить в MetaMask или другие Web3 кошельки",
+          "networkName": "Название сети",
+          "chainId": "ID цепи",
+          "currencySymbol": "Символ валюты",
+          "rpcUrl": "RPC URL",
+          "blockExplorer": "Обозреватель блоков",
+          "view": "Просмотр"
+        },
+        "enterprise": {
+          "badge": "Корпоративные функции",
+          "title": "Создано для масштаба и надёжности",
+          "description": "Готовая к продакшену инфраструктура, которой доверяют ведущие DeFi протоколы, биржи и предприятия",
+          "security": {
+            "title": "Корпоративная безопасность",
+            "desc": "Сертификация SOC 2 Type II, сквозное шифрование, белый список IP"
           },
-          "projectApi": {
-            "title": "API проекта"
+          "uptime": {
+            "title": "SLA 99.99% доступности",
+            "desc": "Гарантированная доступность с автоматическим переключением и балансировкой нагрузки"
           },
-          "analyticsApi": {
-            "title": "API аналитики"
+          "latency": {
+            "title": "Сверхнизкая задержка",
+            "desc": "Время отклика менее 10мс с геораспределёнными edge-нодами"
           },
-          "webhookApi": {
-            "title": "API вебхуков",
-            "events": "События: score.updated, score.alert, project.registered"
+          "scaling": {
+            "title": "Неограниченное масштабирование",
+            "desc": "Автомасштабируемая инфраструктура, поддерживающая 100М+ запросов/день"
+          },
+          "ddos": {
+            "title": "Защита от DDoS",
+            "desc": "Защита корпоративного уровня с ограничением скорости и анализом трафика"
+          },
+          "archive": {
+            "title": "Доступ к архиву",
+            "desc": "Полный доступ к историческим данным с genesis блока через trace API"
           }
         },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "Пример cURL"
-          }
+        "nodes": {
+          "title": "Глобальные RPC ноды",
+          "description": "Геораспределённая инфраструктура с автоматическим переключением",
+          "nodesOnline": "Ноды онлайн",
+          "latency": "Задержка",
+          "uptime": "Доступность",
+          "load": "Нагрузка",
+          "requests24h": "Запросов за 24ч",
+          "peakTps": "Пиковый TPS",
+          "version": "Версия"
         },
-        "apiPlans": {
-          "title": "API планы и лимиты",
+        "methods": {
+          "title": "Поддерживаемые RPC методы",
+          "description": "Полная совместимость с Ethereum JSON-RPC плюс расширения TBurn",
+          "block": "Методы блоков",
+          "transaction": "Методы транзакций",
+          "account": "Методы аккаунтов",
+          "contract": "Методы контрактов",
+          "network": "Методы сети",
+          "tburnCustom": "TBurn кастомные",
+          "debug": "Методы отладки",
+          "websocket": "WebSocket"
+        },
+        "plans": {
+          "title": "API планы",
+          "description": "Выберите план, соответствующий вашим потребностям. Масштабируйтесь по мере роста.",
           "free": {
             "name": "Бесплатный",
-            "requestsPerMin": "20",
-            "requestsPerDay": "1,000",
-            "price": "$0"
+            "desc": "Для тестирования и разработки",
+            "forever": "навсегда",
+            "requestsMin": "запросов/мин",
+            "requestsDay": "запросов/день",
+            "httpEndpoint": "HTTP эндпоинт",
+            "noWebSocket": "Без WebSocket"
           },
           "basic": {
             "name": "Базовый",
-            "requestsPerMin": "100",
-            "requestsPerDay": "10,000",
-            "price": "$100/мес"
+            "desc": "Для небольших проектов",
+            "perMonth": "/месяц",
+            "wsAccess": "Доступ к WebSocket",
+            "emailSupport": "Поддержка по email"
           },
           "pro": {
-            "name": "Профессиональный",
-            "requestsPerMin": "500",
-            "requestsPerDay": "100,000",
-            "price": "$500/мес"
+            "name": "Про",
+            "desc": "Для растущих команд",
+            "popular": "Популярный",
+            "archiveAccess": "Доступ к архивной ноде",
+            "prioritySupport": "Приоритетная поддержка"
           },
           "enterprise": {
             "name": "Корпоративный",
-            "requestsPerMin": "Неограниченно",
-            "requestsPerDay": "Неограниченно",
-            "price": "Контакт"
+            "desc": "Для крупных организаций",
+            "custom": "Индивидуально",
+            "contactSales": "связаться с продажами",
+            "unlimitedRequests": "Безлимитные запросы",
+            "dedicatedNodes": "Выделенные ноды",
+            "sla": "SLA 99.99%",
+            "support247": "Поддержка 24/7"
           }
         },
-        "coreEndpoints": {
-          "title": "Основные эндпоинты",
-          "scoreQuery": {
-            "title": "API запроса рейтинга",
-            "endpoints": [
-              "GET /score/:address",
-              "GET /score/:address/history",
-              "POST /score/batch"
-            ]
-          },
-          "project": {
-            "title": "API проекта",
-            "endpoints": [
-              "GET /projects",
-              "POST /projects/register",
-              "GET /projects/:id"
-            ]
-          },
-          "analytics": {
-            "title": "API аналитики",
-            "endpoints": [
-              "GET /analytics/trends",
-              "GET /analytics/leaderboard"
-            ]
-          },
-          "webhook": {
-            "title": "API вебхуков",
-            "endpoints": [
-              "POST /webhooks"
-            ],
-            "events": "События: score.updated, score.alert, project.registered"
-          }
+        "sdk": {
+          "title": "Быстрый старт",
+          "description": "Начните работу с TBurn Chain на предпочитаемом языке"
         },
-        "sdkExamples": {
-          "title": "SDK и корпоративные примеры",
-          "typescript": "TypeScript Enterprise SDK",
-          "python": "Python Enterprise SDK",
-          "curl": "cURL продакшен пример"
-        },
-        "support": {
-          "title": "Поддержка и контакты",
-          "documentation": {
-            "title": "Документация",
-            "description": "Подробные API справочники и руководства.",
-            "desc": "Полная документация API и руководства по интеграции."
-          },
-          "apiStatus": {
-            "title": "Статус API",
-            "description": "Статус системы и время работы в реальном времени.",
-            "desc": "Статус системы в реальном времени, метрики аптайма и отчёты об инцидентах."
-          },
-          "developerHub": {
-            "title": "Хаб разработчика",
-            "description": "Open source SDK и примеры.",
-            "desc": "Open source SDK, примеры кода и ресурсы сообщества."
-          }
+        "resources": {
+          "title": "Ресурсы для разработчиков",
+          "documentation": "Документация",
+          "documentationDesc": "Полные руководства по API",
+          "apiStatus": "Статус API",
+          "apiStatusDesc": "Мониторинг состояния в реальном времени",
+          "github": "GitHub",
+          "githubDesc": "SDK с открытым кодом",
+          "community": "Сообщество",
+          "communityDesc": "Присоединяйтесь к обсуждениям разработчиков"
         },
         "cta": {
-          "title": "Готовы строить?",
-          "subtitle": "Начните строить с TBurn Chain API уже сегодня. Получите бесплатный API ключ и доступ к корпоративной блокчейн-инфраструктуре.",
-          "forumTitle": "Форум сообщества",
-          "viewAll": "Смотреть все",
-          "recentPosts": "Недавние записи",
-          "desc": "Начните строить с TBurn Chain API уже сегодня. Получите бесплатный API ключ и доступ к корпоративной блокчейн-инфраструктуре.",
-          "getStartedFree": "Начать бесплатно",
-          "contactSales": "Связаться с отделом продаж"
+          "title": "Готовы создавать?",
+          "description": "Присоединяйтесь к тысячам разработчиков, создающих будущее DeFi на TBurn Chain. Начните с бесплатного плана и масштабируйтесь по мере роста."
+        },
+        "connection": {
+          "success": "Подключение успешно",
+          "failed": "Подключение не удалось",
+          "connected": "Подключено",
+          "unableToConnect": "Не удаётся подключиться к RPC эндпоинту"
         }
       },
       "status": {

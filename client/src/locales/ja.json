@@ -13189,161 +13189,185 @@
         }
       },
       "rpc": {
-        "tag": "RPCインフラストラクチャ",
-        "title": "RPCプロバイダー",
-        "subtitle": "エンタープライズグレードの信頼性を持つ高性能RPCエンドポイント。WebSocketとHTTP接続をサポート。",
-        "forumTitle": "コミュニティフォーラム",
-        "viewAll": "すべて表示",
-        "recentPosts": "最近の投稿",
-        "getApiKey": "APIキーを取得",
+        "tag": "エンタープライズRPC",
+        "heroTitle": "エンタープライズグレード",
+        "heroTitleHighlight": "RPCインフラストラクチャ",
+        "heroDescription": "99.99%稼働率SLAを備えた高性能、地理分散型RPCエンドポイント。10ms未満のレイテンシでエンタープライズ規模のブロックチェーンアプリケーション向けに構築。",
+        "metrics": {
+          "uptime": "稼働率",
+          "latency": "レイテンシ",
+          "regions": "リージョン",
+          "reqDay": "リクエスト/日"
+        },
+        "status": {
+          "operational": "全システム正常稼働中",
+          "wsConnected": "WS接続済み",
+          "wsConnecting": "接続中..."
+        },
+        "dashboard": {
+          "title": "ライブネットワークダッシュボード",
+          "blockHeight": "ブロック高",
+          "tps": "TPS",
+          "avgLatency": "平均レイテンシ",
+          "globalNodes": "グローバルノード",
+          "online": "オンライン",
+          "secondsAgo": "30秒前",
+          "now": "現在"
+        },
         "buttons": {
-          "getApiKey": "APIキーを取得",
-          "viewDocs": "ドキュメントを見る"
+          "getFreeApiKey": "無料APIキーを取得",
+          "apiDocumentation": "APIドキュメント",
+          "testConnection": "接続テスト",
+          "testing": "テスト中...",
+          "getStarted": "始める",
+          "subscribe": "購読",
+          "contactSales": "営業に連絡",
+          "getStartedFree": "無料で始める"
         },
-        "sections": {
-          "apiPlans": "APIプラン",
-          "coreEndpoints": "コアエンドポイント",
-          "sdkExamples": "SDK例",
-          "support": "サポート"
-        },
-        "plans": {
-          "free": {
-            "name": "無料"
-          },
-          "basic": {
-            "name": "ベーシック"
-          },
-          "pro": {
-            "name": "プロ"
-          },
-          "enterprise": {
-            "name": "エンタープライズ"
-          },
-          "requestsMin": "リクエスト/分",
-          "requestsDay": "リクエスト/日",
-          "perMonth": "/月",
-          "unlimited": "無制限",
-          "contact": "お問い合わせ"
+        "network": {
+          "selectNetwork": "ネットワーク選択:",
+          "mainnet": "メインネット",
+          "testnet": "テストネット",
+          "sslEncrypted": "SSL/TLS暗号化",
+          "rateLimited": "レート制限"
         },
         "endpoints": {
-          "scoreQuery": {
-            "title": "スコアクエリAPI"
+          "httpTitle": "HTTP/HTTPSエンドポイント",
+          "httpDesc": "JSON-RPCリクエスト用の標準HTTPエンドポイント",
+          "wsTitle": "WebSocketエンドポイント",
+          "wsDesc": "サブスクリプションとストリーミング用の永続接続",
+          "jsonRpc": "JSON-RPC 2.0",
+          "realtime": "リアルタイム",
+          "postRequests": "POSTリクエスト",
+          "batchSupport": "バッチサポート",
+          "corsEnabled": "CORS有効",
+          "newHeads": "newHeads",
+          "logs": "logs",
+          "pendingTx": "pendingTx"
+        },
+        "config": {
+          "title": "ネットワーク設定",
+          "description": "MetaMaskまたは他のWeb3ウォレットに追加",
+          "networkName": "ネットワーク名",
+          "chainId": "チェーンID",
+          "currencySymbol": "通貨シンボル",
+          "rpcUrl": "RPC URL",
+          "blockExplorer": "ブロックエクスプローラー",
+          "view": "表示"
+        },
+        "enterprise": {
+          "badge": "エンタープライズ機能",
+          "title": "スケールと信頼性のために構築",
+          "description": "主要なDeFiプロトコル、取引所、企業に信頼されている本番環境対応インフラ",
+          "security": {
+            "title": "エンタープライズセキュリティ",
+            "desc": "SOC 2 Type II認証、エンドツーエンド暗号化、IPホワイトリスト"
           },
-          "projectApi": {
-            "title": "プロジェクトAPI"
+          "uptime": {
+            "title": "99.99%稼働率SLA",
+            "desc": "自動フェイルオーバーとロードバランシングによる可用性保証"
           },
-          "analyticsApi": {
-            "title": "アナリティクスAPI"
+          "latency": {
+            "title": "超低レイテンシ",
+            "desc": "地理分散エッジノードによる10ms未満の応答時間"
           },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "イベント: score.updated, score.alert, project.registered"
+          "scaling": {
+            "title": "無制限スケーリング",
+            "desc": "1日1億以上のリクエストをサポートする自動スケーリングインフラ"
+          },
+          "ddos": {
+            "title": "DDoS保護",
+            "desc": "レート制限とトラフィック分析によるエンタープライズグレードの保護"
+          },
+          "archive": {
+            "title": "アーカイブアクセス",
+            "desc": "トレースAPIによるジェネシスブロックからの完全な履歴データアクセス"
           }
         },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL例"
-          }
+        "nodes": {
+          "title": "グローバルRPCノード",
+          "description": "自動フェイルオーバーを備えた地理分散インフラ",
+          "nodesOnline": "オンラインノード",
+          "latency": "レイテンシ",
+          "uptime": "稼働率",
+          "load": "負荷",
+          "requests24h": "24時間リクエスト",
+          "peakTps": "ピークTPS",
+          "version": "バージョン"
         },
-        "cta": {
-          "title": "構築する準備はできましたか？",
-          "subtitle": "今日からTBurn Chain APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
-          "forumTitle": "コミュニティフォーラム",
-          "viewAll": "すべて表示",
-          "recentPosts": "最近の投稿",
-          "desc": "今日からTBurn Chain APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
-          "getStartedFree": "無料で始める",
-          "contactSales": "営業に連絡"
+        "methods": {
+          "title": "サポートされるRPCメソッド",
+          "description": "完全なEthereum JSON-RPC互換性とTBurn固有の拡張",
+          "block": "ブロックメソッド",
+          "transaction": "トランザクションメソッド",
+          "account": "アカウントメソッド",
+          "contract": "コントラクトメソッド",
+          "network": "ネットワークメソッド",
+          "tburnCustom": "TBurnカスタム",
+          "debug": "デバッグメソッド",
+          "websocket": "WebSocket"
         },
-        "apiPlans": {
-          "title": "APIプラン＆制限",
+        "plans": {
+          "title": "APIプラン",
+          "description": "ニーズに合ったプランを選択。成長に合わせてスケール。",
           "free": {
             "name": "無料",
-            "requestsPerMin": "20",
-            "requestsPerDay": "1,000",
-            "price": "$0"
+            "desc": "テストと開発用",
+            "forever": "永久",
+            "requestsMin": "リクエスト/分",
+            "requestsDay": "リクエスト/日",
+            "httpEndpoint": "HTTPエンドポイント",
+            "noWebSocket": "WebSocketなし"
           },
           "basic": {
             "name": "ベーシック",
-            "requestsPerMin": "100",
-            "requestsPerDay": "10,000",
-            "price": "$100/月"
+            "desc": "小規模プロジェクト用",
+            "perMonth": "/月",
+            "wsAccess": "WebSocketアクセス",
+            "emailSupport": "メールサポート"
           },
           "pro": {
             "name": "プロ",
-            "requestsPerMin": "500",
-            "requestsPerDay": "100,000",
-            "price": "$500/月"
+            "desc": "成長するチーム用",
+            "popular": "人気",
+            "archiveAccess": "アーカイブノードアクセス",
+            "prioritySupport": "優先サポート"
           },
           "enterprise": {
             "name": "エンタープライズ",
-            "requestsPerMin": "無制限",
-            "requestsPerDay": "無制限",
-            "price": "お問い合わせ"
+            "desc": "大規模組織用",
+            "custom": "カスタム",
+            "contactSales": "営業に連絡",
+            "unlimitedRequests": "無制限リクエスト",
+            "dedicatedNodes": "専用ノード",
+            "sla": "99.99% SLA",
+            "support247": "24時間365日サポート"
           }
         },
-        "coreEndpoints": {
-          "title": "コアエンドポイント",
-          "scoreQuery": {
-            "title": "スコアクエリAPI",
-            "endpoints": [
-              "GET /score/:address",
-              "GET /score/:address/history",
-              "POST /score/batch"
-            ]
-          },
-          "project": {
-            "title": "プロジェクトAPI",
-            "endpoints": [
-              "GET /projects",
-              "POST /projects/register",
-              "GET /projects/:id"
-            ]
-          },
-          "analytics": {
-            "title": "アナリティクスAPI",
-            "endpoints": [
-              "GET /analytics/trends",
-              "GET /analytics/leaderboard"
-            ]
-          },
-          "webhook": {
-            "title": "Webhook API",
-            "endpoints": [
-              "POST /webhooks"
-            ],
-            "events": "イベント: score.updated, score.alert, project.registered"
-          }
+        "sdk": {
+          "title": "クイックスタート",
+          "description": "お好みの言語でTBurn Chainを始める"
         },
-        "sdkExamples": {
-          "title": "SDK＆エンタープライズ例",
-          "typescript": "TypeScriptエンタープライズSDK",
-          "python": "PythonエンタープライズSDK",
-          "curl": "cURLプロダクション例"
+        "resources": {
+          "title": "開発者リソース",
+          "documentation": "ドキュメント",
+          "documentationDesc": "包括的なAPIガイド",
+          "apiStatus": "APIステータス",
+          "apiStatusDesc": "リアルタイム健全性モニタリング",
+          "github": "GitHub",
+          "githubDesc": "オープンソースSDK",
+          "community": "コミュニティ",
+          "communityDesc": "開発者ディスカッションに参加"
         },
-        "support": {
-          "title": "サポート＆連絡先",
-          "documentation": {
-            "title": "ドキュメント",
-            "description": "詳細なAPIリファレンスとガイド。",
-            "desc": "包括的なAPIドキュメントと統合ガイド。"
-          },
-          "apiStatus": {
-            "title": "APIステータス",
-            "description": "リアルタイムシステムステータスと稼働時間。",
-            "desc": "リアルタイムシステムステータス、稼働率メトリクス、インシデントレポート。"
-          },
-          "developerHub": {
-            "title": "開発者ハブ",
-            "description": "オープンソースSDKと例。",
-            "desc": "オープンソースSDK、コード例、コミュニティリソース。"
-          }
+        "cta": {
+          "title": "構築する準備はできましたか？",
+          "description": "TBurn ChainでDeFiの未来を構築する数千人の開発者に参加しましょう。無料ティアから始めて、成長に合わせてスケール。"
+        },
+        "connection": {
+          "success": "接続成功",
+          "failed": "接続失敗",
+          "connected": "接続済み",
+          "unableToConnect": "RPCエンドポイントに接続できません"
         }
       },
       "status": {

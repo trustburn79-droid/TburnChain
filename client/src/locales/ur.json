@@ -8682,161 +8682,185 @@
         }
       },
       "rpc": {
-        "tag": "RPC انفراسٹرکچر",
-        "title": "RPC اینڈ پوائنٹس",
-        "subtitle": "قابل اعتماد نیٹ ورک رسائی کے لیے سرکاری RPC نوڈز سے جڑیں",
-        "forumTitle": "کمیونٹی فورم",
-        "viewAll": "سب دیکھیں",
-        "recentPosts": "حالیہ پوسٹس",
-        "getApiKey": "API کلید حاصل کریں",
-        "apiPlans": {
-          "title": "API پلانز اور حدود",
+        "tag": "انٹرپرائز RPC",
+        "heroTitle": "انٹرپرائز-گریڈ",
+        "heroTitleHighlight": "RPC انفراسٹرکچر",
+        "heroDescription": "99.99% اپ ٹائم SLA کے ساتھ اعلی کارکردگی، جغرافیائی طور پر تقسیم شدہ RPC اینڈ پوائنٹس۔ 10ms سے کم تاخیر کے ساتھ انٹرپرائز-سکیل بلاکچین ایپلیکیشنز کے لیے بنایا گیا۔",
+        "metrics": {
+          "uptime": "اپ ٹائم",
+          "latency": "تاخیر",
+          "regions": "علاقے",
+          "reqDay": "درخواست/دن"
+        },
+        "status": {
+          "operational": "تمام سسٹمز چل رہے ہیں",
+          "wsConnected": "WS منسلک",
+          "wsConnecting": "جڑ رہا ہے..."
+        },
+        "dashboard": {
+          "title": "لائیو نیٹ ورک ڈیش بورڈ",
+          "blockHeight": "بلاک کی اونچائی",
+          "tps": "TPS",
+          "avgLatency": "اوسط تاخیر",
+          "globalNodes": "عالمی نوڈز",
+          "online": "آن لائن",
+          "secondsAgo": "30 سیکنڈ پہلے",
+          "now": "ابھی"
+        },
+        "buttons": {
+          "getFreeApiKey": "مفت API کلید حاصل کریں",
+          "apiDocumentation": "API دستاویزات",
+          "testConnection": "کنکشن ٹیسٹ کریں",
+          "testing": "ٹیسٹ ہو رہا ہے...",
+          "getStarted": "شروع کریں",
+          "subscribe": "سبسکرائب کریں",
+          "contactSales": "سیلز سے رابطہ کریں",
+          "getStartedFree": "مفت میں شروع کریں"
+        },
+        "network": {
+          "selectNetwork": "نیٹ ورک منتخب کریں:",
+          "mainnet": "مین نیٹ",
+          "testnet": "ٹیسٹ نیٹ",
+          "sslEncrypted": "SSL/TLS خفیہ کردہ",
+          "rateLimited": "شرح محدود"
+        },
+        "endpoints": {
+          "httpTitle": "HTTP/HTTPS اینڈ پوائنٹ",
+          "httpDesc": "JSON-RPC درخواستوں کے لیے معیاری HTTP اینڈ پوائنٹ",
+          "wsTitle": "WebSocket اینڈ پوائنٹ",
+          "wsDesc": "سبسکرپشنز اور سٹریمنگ کے لیے مستقل کنکشن",
+          "jsonRpc": "JSON-RPC 2.0",
+          "realtime": "ریئل ٹائم",
+          "postRequests": "POST درخواستیں",
+          "batchSupport": "بیچ سپورٹ",
+          "corsEnabled": "CORS فعال",
+          "newHeads": "newHeads",
+          "logs": "logs",
+          "pendingTx": "pendingTx"
+        },
+        "config": {
+          "title": "نیٹ ورک کنفیگریشن",
+          "description": "MetaMask یا دیگر Web3 والیٹس میں شامل کریں",
+          "networkName": "نیٹ ورک کا نام",
+          "chainId": "چین ID",
+          "currencySymbol": "کرنسی کی علامت",
+          "rpcUrl": "RPC URL",
+          "blockExplorer": "بلاک ایکسپلورر",
+          "view": "دیکھیں"
+        },
+        "enterprise": {
+          "badge": "انٹرپرائز خصوصیات",
+          "title": "پیمانے اور قابل اعتمادی کے لیے بنایا گیا",
+          "description": "سرکردہ DeFi پروٹوکولز، ایکسچینجز اور انٹرپرائزز کی طرف سے قابل اعتماد پروڈکشن-ریڈی انفراسٹرکچر",
+          "security": {
+            "title": "انٹرپرائز سیکیورٹی",
+            "desc": "SOC 2 Type II تصدیق شدہ، اینڈ ٹو اینڈ خفیہ کاری، IP وائٹ لسٹنگ"
+          },
+          "uptime": {
+            "title": "99.99% اپ ٹائم SLA",
+            "desc": "خودکار فیل اوور اور لوڈ بیلنسنگ کے ساتھ ضمانت شدہ دستیابی"
+          },
+          "latency": {
+            "title": "انتہائی کم تاخیر",
+            "desc": "جغرافیائی طور پر تقسیم شدہ ایج نوڈز کے ساتھ 10ms سے کم جوابی اوقات"
+          },
+          "scaling": {
+            "title": "لامحدود سکیلنگ",
+            "desc": "100M+ درخواستیں/دن کی حمایت کرنے والا خودکار سکیلنگ انفراسٹرکچر"
+          },
+          "ddos": {
+            "title": "DDoS تحفظ",
+            "desc": "شرح کی حد بندی اور ٹریفک تجزیہ کے ساتھ انٹرپرائز-گریڈ تحفظ"
+          },
+          "archive": {
+            "title": "آرکائیو رسائی",
+            "desc": "ٹریس APIs کے ساتھ جینیسس بلاک سے مکمل تاریخی ڈیٹا تک رسائی"
+          }
+        },
+        "nodes": {
+          "title": "عالمی RPC نوڈز",
+          "description": "خودکار فیل اوور کے ساتھ جغرافیائی طور پر تقسیم شدہ انفراسٹرکچر",
+          "nodesOnline": "آن لائن نوڈز",
+          "latency": "تاخیر",
+          "uptime": "اپ ٹائم",
+          "load": "لوڈ",
+          "requests24h": "24 گھنٹے کی درخواستیں",
+          "peakTps": "چوٹی TPS",
+          "version": "ورژن"
+        },
+        "methods": {
+          "title": "تائید شدہ RPC طریقے",
+          "description": "مکمل Ethereum JSON-RPC مطابقت بمع TBurn-مخصوص توسیعات",
+          "block": "بلاک طریقے",
+          "transaction": "ٹرانزیکشن طریقے",
+          "account": "اکاؤنٹ طریقے",
+          "contract": "کنٹریکٹ طریقے",
+          "network": "نیٹ ورک طریقے",
+          "tburnCustom": "TBurn کسٹم",
+          "debug": "ڈیبگ طریقے",
+          "websocket": "WebSocket"
+        },
+        "plans": {
+          "title": "API پلانز",
+          "description": "اپنی ضروریات کے مطابق پلان منتخب کریں۔ بڑھنے کے ساتھ پیمانہ بنائیں۔",
           "free": {
             "name": "مفت",
-            "requestsPerMin": "20",
-            "requestsPerDay": "1,000",
-            "price": "$0"
+            "desc": "ٹیسٹنگ اور ڈیویلپمنٹ کے لیے",
+            "forever": "ہمیشہ کے لیے",
+            "requestsMin": "درخواست/منٹ",
+            "requestsDay": "درخواست/دن",
+            "httpEndpoint": "HTTP اینڈ پوائنٹ",
+            "noWebSocket": "کوئی WebSocket نہیں"
           },
           "basic": {
             "name": "بنیادی",
-            "requestsPerMin": "100",
-            "requestsPerDay": "10,000",
-            "price": "$100/ماہ"
+            "desc": "چھوٹے پروجیکٹس کے لیے",
+            "perMonth": "/مہینہ",
+            "wsAccess": "WebSocket رسائی",
+            "emailSupport": "ای میل سپورٹ"
           },
           "pro": {
             "name": "پرو",
-            "requestsPerMin": "500",
-            "requestsPerDay": "100,000",
-            "price": "$500/ماہ"
+            "desc": "بڑھتی ہوئی ٹیموں کے لیے",
+            "popular": "مقبول",
+            "archiveAccess": "آرکائیو نوڈ رسائی",
+            "prioritySupport": "ترجیحی سپورٹ"
           },
           "enterprise": {
             "name": "انٹرپرائز",
-            "requestsPerMin": "لامحدود",
-            "requestsPerDay": "لامحدود",
-            "price": "رابطہ کریں"
-          }
-        },
-        "coreEndpoints": {
-          "title": "بنیادی اینڈ پوائنٹس",
-          "scoreQuery": {
-            "title": "سکور کیوری API",
-            "endpoints": [
-              "GET /score/:address",
-              "GET /score/:address/history",
-              "POST /score/batch"
-            ]
-          },
-          "project": {
-            "title": "پروجیکٹ API",
-            "endpoints": [
-              "GET /projects",
-              "POST /projects/register",
-              "GET /projects/:id"
-            ]
-          },
-          "analytics": {
-            "title": "اینالیٹکس API",
-            "endpoints": [
-              "GET /analytics/trends",
-              "GET /analytics/leaderboard"
-            ]
-          },
-          "webhook": {
-            "title": "Webhook API",
-            "endpoints": [
-              "POST /webhooks"
-            ],
-            "events": "ایونٹس: score.updated, score.alert, project.registered"
-          }
-        },
-        "sdkExamples": {
-          "title": "SDK اور انٹرپرائز مثالیں",
-          "typescript": "TypeScript انٹرپرائز SDK",
-          "python": "Python انٹرپرائز SDK",
-          "curl": "cURL پروڈکشن مثال"
-        },
-        "support": {
-          "title": "سپورٹ اور رابطہ",
-          "documentation": {
-            "title": "دستاویزات",
-            "description": "تفصیلی API حوالہ جات اور گائیڈز۔",
-            "desc": "جامع API دستاویزات اور انضمام گائیڈز۔"
-          },
-          "apiStatus": {
-            "title": "API حیثیت",
-            "description": "ریئل ٹائم سسٹم حیثیت اور اپ ٹائم۔",
-            "desc": "ریئل ٹائم سسٹم حیثیت، اپ ٹائم میٹرکس، اور واقعات کی رپورٹس۔"
-          },
-          "developerHub": {
-            "title": "ڈویلپر ہب",
-            "description": "اوپن سورس SDKs اور مثالیں۔",
-            "desc": "اوپن سورس SDKs، کوڈ مثالیں، اور کمیونٹی وسائل۔"
-          }
-        },
-        "cta": {
-          "title": "بنانے کے لیے تیار ہیں؟",
-          "subtitle": "آج ہی TBurn Chain API کے ساتھ بنانا شروع کریں۔ اپنی مفت API کلید حاصل کریں اور انٹرپرائز گریڈ بلاکچین انفراسٹرکچر تک رسائی۔",
-          "forumTitle": "کمیونٹی فورم",
-          "viewAll": "سب دیکھیں",
-          "recentPosts": "حالیہ پوسٹس",
-          "getStartedFree": "مفت شروع کریں",
-          "contactSales": "سیلز سے رابطہ کریں",
-          "desc": "آج ہی TBurn Chain API کے ساتھ بنانا شروع کریں۔ اپنی مفت API کلید حاصل کریں اور انٹرپرائز گریڈ بلاکچین انفراسٹرکچر تک رسائی حاصل کریں۔"
-        },
-        "buttons": {
-          "getApiKey": "API کلید حاصل کریں",
-          "viewDocs": "دستاویزات دیکھیں"
-        },
-        "sections": {
-          "apiPlans": "API پلانز",
-          "coreEndpoints": "بنیادی اینڈ پوائنٹس",
-          "sdkExamples": "SDK مثالیں",
-          "support": "سپورٹ"
-        },
-        "plans": {
-          "free": {
-            "name": "مفت"
-          },
-          "basic": {
-            "name": "بنیادی"
-          },
-          "pro": {
-            "name": "پرو"
-          },
-          "enterprise": {
-            "name": "انٹرپرائز"
-          },
-          "requestsMin": "درخواستیں/منٹ",
-          "requestsDay": "درخواستیں/دن",
-          "perMonth": "/ماہ",
-          "unlimited": "لامحدود",
-          "contact": "ہم سے رابطہ کریں"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "سکور کیوری API"
-          },
-          "projectApi": {
-            "title": "پروجیکٹ API"
-          },
-          "analyticsApi": {
-            "title": "اینالیٹکس API"
-          },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "ایونٹس: score.updated, score.alert, project.registered"
+            "desc": "بڑی تنظیموں کے لیے",
+            "custom": "کسٹم",
+            "contactSales": "سیلز سے رابطہ کریں",
+            "unlimitedRequests": "لامحدود درخواستیں",
+            "dedicatedNodes": "مخصوص نوڈز",
+            "sla": "99.99% SLA",
+            "support247": "24/7 سپورٹ"
           }
         },
         "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL مثال"
-          }
+          "title": "فوری آغاز",
+          "description": "اپنی پسندیدہ زبان میں TBurn Chain کے ساتھ شروع کریں"
+        },
+        "resources": {
+          "title": "ڈویلپر وسائل",
+          "documentation": "دستاویزات",
+          "documentationDesc": "جامع API گائیڈز",
+          "apiStatus": "API اسٹیٹس",
+          "apiStatusDesc": "ریئل ٹائم ہیلتھ مانیٹرنگ",
+          "github": "GitHub",
+          "githubDesc": "اوپن سورس SDKs",
+          "community": "کمیونٹی",
+          "communityDesc": "ڈویلپر بحث میں شامل ہوں"
+        },
+        "cta": {
+          "title": "تعمیر کے لیے تیار؟",
+          "description": "TBurn Chain پر DeFi کا مستقبل بنانے والے ہزاروں ڈویلپرز میں شامل ہوں۔ ہمارے مفت ٹائر سے شروع کریں اور بڑھنے کے ساتھ پیمانہ بنائیں۔"
+        },
+        "connection": {
+          "success": "کنکشن کامیاب",
+          "failed": "کنکشن ناکام",
+          "connected": "منسلک",
+          "unableToConnect": "RPC اینڈ پوائنٹ سے جڑنے سے قاصر"
         }
       },
       "status": {

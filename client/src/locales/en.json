@@ -13345,155 +13345,185 @@
         }
       },
       "rpc": {
-        "tag": "RPC INFRASTRUCTURE",
-        "title": "RPC Providers",
-        "subtitle": "High-performance RPC endpoints with enterprise-grade reliability. Support for WebSocket and HTTP connections.",
-        "getApiKey": "Get API Key",
+        "tag": "Enterprise RPC",
+        "heroTitle": "Enterprise-Grade",
+        "heroTitleHighlight": "RPC Infrastructure",
+        "heroDescription": "High-performance, geo-distributed RPC endpoints with 99.99% uptime SLA. Built for enterprise-scale blockchain applications with sub-10ms latency.",
+        "metrics": {
+          "uptime": "Uptime",
+          "latency": "Latency",
+          "regions": "Regions",
+          "reqDay": "Req/Day"
+        },
+        "status": {
+          "operational": "All Systems Operational",
+          "wsConnected": "WS Connected",
+          "wsConnecting": "Connecting..."
+        },
+        "dashboard": {
+          "title": "Live Network Dashboard",
+          "blockHeight": "Block Height",
+          "tps": "TPS",
+          "avgLatency": "Average Latency",
+          "globalNodes": "Global Nodes",
+          "online": "Online",
+          "secondsAgo": "30s ago",
+          "now": "Now"
+        },
         "buttons": {
-          "getApiKey": "Get API Key",
-          "viewDocs": "View Documentation"
+          "getFreeApiKey": "Get Free API Key",
+          "apiDocumentation": "API Documentation",
+          "testConnection": "Test Connection",
+          "testing": "Testing...",
+          "getStarted": "Get Started",
+          "subscribe": "Subscribe",
+          "contactSales": "Contact Sales",
+          "getStartedFree": "Get Started Free"
         },
-        "sections": {
-          "apiPlans": "API Plans",
-          "coreEndpoints": "Core Endpoints",
-          "sdkExamples": "SDK Examples",
-          "support": "Support"
-        },
-        "plans": {
-          "free": {
-            "name": "Free"
-          },
-          "basic": {
-            "name": "Basic"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "Enterprise"
-          },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
-          "unlimited": "Unlimited",
-          "contact": "Contact Us"
+        "network": {
+          "selectNetwork": "Select Network:",
+          "mainnet": "Mainnet",
+          "testnet": "Testnet",
+          "sslEncrypted": "SSL/TLS Encrypted",
+          "rateLimited": "Rate Limited"
         },
         "endpoints": {
-          "scoreQuery": {
-            "title": "Score Query API"
+          "httpTitle": "HTTP/HTTPS Endpoint",
+          "httpDesc": "Standard HTTP endpoint for JSON-RPC requests",
+          "wsTitle": "WebSocket Endpoint",
+          "wsDesc": "Persistent connection for subscriptions and streaming",
+          "jsonRpc": "JSON-RPC 2.0",
+          "realtime": "Real-time",
+          "postRequests": "POST requests",
+          "batchSupport": "Batch support",
+          "corsEnabled": "CORS enabled",
+          "newHeads": "newHeads",
+          "logs": "logs",
+          "pendingTx": "pendingTx"
+        },
+        "config": {
+          "title": "Network Configuration",
+          "description": "Add to MetaMask or other Web3 wallets",
+          "networkName": "Network Name",
+          "chainId": "Chain ID",
+          "currencySymbol": "Currency Symbol",
+          "rpcUrl": "RPC URL",
+          "blockExplorer": "Block Explorer",
+          "view": "View"
+        },
+        "enterprise": {
+          "badge": "Enterprise Features",
+          "title": "Built for Scale & Reliability",
+          "description": "Production-ready infrastructure trusted by leading DeFi protocols, exchanges, and enterprises",
+          "security": {
+            "title": "Enterprise Security",
+            "desc": "SOC 2 Type II certified, end-to-end encryption, IP whitelisting"
           },
-          "projectApi": {
-            "title": "Project API"
+          "uptime": {
+            "title": "99.99% Uptime SLA",
+            "desc": "Guaranteed availability with automatic failover and load balancing"
           },
-          "analyticsApi": {
-            "title": "Analytics API"
+          "latency": {
+            "title": "Ultra-Low Latency",
+            "desc": "Sub-10ms response times with geo-distributed edge nodes"
           },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "Events: score.updated, score.alert, project.registered"
+          "scaling": {
+            "title": "Unlimited Scaling",
+            "desc": "Auto-scaling infrastructure supporting 100M+ requests/day"
+          },
+          "ddos": {
+            "title": "DDoS Protection",
+            "desc": "Enterprise-grade protection with rate limiting and traffic analysis"
+          },
+          "archive": {
+            "title": "Archive Access",
+            "desc": "Full historical data access from genesis block with trace APIs"
           }
         },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL Example"
-          }
+        "nodes": {
+          "title": "Global RPC Nodes",
+          "description": "Geo-distributed infrastructure with automatic failover",
+          "nodesOnline": "Nodes Online",
+          "latency": "Latency",
+          "uptime": "Uptime",
+          "load": "Load",
+          "requests24h": "24h Requests",
+          "peakTps": "Peak TPS",
+          "version": "Version"
         },
-        "cta": {
-          "title": "Ready to Build?",
-          "subtitle": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure.",
-          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure.",
-          "getStartedFree": "Get Started Free",
-          "contactSales": "Contact Sales"
+        "methods": {
+          "title": "Supported RPC Methods",
+          "description": "Full Ethereum JSON-RPC compatibility plus TBurn-specific extensions",
+          "block": "Block Methods",
+          "transaction": "Transaction Methods",
+          "account": "Account Methods",
+          "contract": "Contract Methods",
+          "network": "Network Methods",
+          "tburnCustom": "TBurn Custom",
+          "debug": "Debug Methods",
+          "websocket": "WebSocket"
         },
-        "apiPlans": {
-          "title": "API Plans & Limits",
+        "plans": {
+          "title": "API Plans",
+          "description": "Choose the plan that fits your needs. Scale as you grow.",
           "free": {
             "name": "Free",
-            "requestsPerMin": "20",
-            "requestsPerDay": "1,000",
-            "price": "$0"
+            "desc": "For testing & development",
+            "forever": "forever",
+            "requestsMin": "requests/min",
+            "requestsDay": "requests/day",
+            "httpEndpoint": "HTTP endpoint",
+            "noWebSocket": "No WebSocket"
           },
           "basic": {
             "name": "Basic",
-            "requestsPerMin": "100",
-            "requestsPerDay": "10,000",
-            "price": "$100/mo"
+            "desc": "For small projects",
+            "perMonth": "/month",
+            "wsAccess": "WebSocket access",
+            "emailSupport": "Email support"
           },
           "pro": {
             "name": "Pro",
-            "requestsPerMin": "500",
-            "requestsPerDay": "100,000",
-            "price": "$500/mo"
+            "desc": "For growing teams",
+            "popular": "Popular",
+            "archiveAccess": "Archive node access",
+            "prioritySupport": "Priority support"
           },
           "enterprise": {
             "name": "Enterprise",
-            "requestsPerMin": "Unlimited",
-            "requestsPerDay": "Unlimited",
-            "price": "Contact"
+            "desc": "For large organizations",
+            "custom": "Custom",
+            "contactSales": "contact sales",
+            "unlimitedRequests": "Unlimited requests",
+            "dedicatedNodes": "Dedicated nodes",
+            "sla": "99.99% SLA",
+            "support247": "24/7 support"
           }
         },
-        "coreEndpoints": {
-          "title": "Core Endpoints",
-          "scoreQuery": {
-            "title": "Score Query API",
-            "endpoints": [
-              "GET /score/:address",
-              "GET /score/:address/history",
-              "POST /score/batch"
-            ]
-          },
-          "project": {
-            "title": "Project API",
-            "endpoints": [
-              "GET /projects",
-              "POST /projects/register",
-              "GET /projects/:id"
-            ]
-          },
-          "analytics": {
-            "title": "Analytics API",
-            "endpoints": [
-              "GET /analytics/trends",
-              "GET /analytics/leaderboard"
-            ]
-          },
-          "webhook": {
-            "title": "Webhook API",
-            "endpoints": [
-              "POST /webhooks"
-            ],
-            "events": "Events: score.updated, score.alert, project.registered"
-          }
+        "sdk": {
+          "title": "Quick Start",
+          "description": "Get started with TBurn Chain in your preferred language"
         },
-        "sdkExamples": {
-          "title": "SDK & Enterprise Examples",
-          "typescript": "TypeScript Enterprise SDK",
-          "python": "Python Enterprise SDK",
-          "curl": "cURL Production Example"
+        "resources": {
+          "title": "Developer Resources",
+          "documentation": "Documentation",
+          "documentationDesc": "Comprehensive API guides",
+          "apiStatus": "API Status",
+          "apiStatusDesc": "Real-time health monitoring",
+          "github": "GitHub",
+          "githubDesc": "Open source SDKs",
+          "community": "Community",
+          "communityDesc": "Join developer discussions"
         },
-        "support": {
-          "title": "Support & Contact",
-          "documentation": {
-            "title": "Documentation",
-            "description": "Detailed API references and guides.",
-            "desc": "Comprehensive API documentation and integration guides."
-          },
-          "apiStatus": {
-            "title": "API Status",
-            "description": "Real-time system status and uptime.",
-            "desc": "Real-time system status, uptime metrics, and incident reports."
-          },
-          "developerHub": {
-            "title": "Developer Hub",
-            "description": "Open source SDKs and examples.",
-            "desc": "Open source SDKs, code examples, and community resources."
-          }
+        "cta": {
+          "title": "Ready to Build?",
+          "description": "Join thousands of developers building the future of DeFi on TBurn Chain. Start with our free tier and scale as you grow."
+        },
+        "connection": {
+          "success": "Connection Successful",
+          "failed": "Connection Failed",
+          "connected": "Connected",
+          "unableToConnect": "Unable to connect to RPC endpoint"
         }
       },
       "status": {

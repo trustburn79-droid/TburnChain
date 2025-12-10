@@ -11843,161 +11843,185 @@
         }
       },
       "rpc": {
-        "tag": "INFRAESTRUCTURA RPC",
-        "title": "Proveedores RPC",
-        "subtitle": "Endpoints RPC de alto rendimiento con fiabilidad de nivel empresarial. Soporte para conexiones WebSocket y HTTP.",
-        "forumTitle": "Foro de la Comunidad",
-        "viewAll": "Ver Todo",
-        "recentPosts": "Publicaciones Recientes",
-        "getApiKey": "Obtener Clave API",
+        "tag": "RPC Empresarial",
+        "heroTitle": "Nivel Empresarial",
+        "heroTitleHighlight": "Infraestructura RPC",
+        "heroDescription": "Endpoints RPC de alto rendimiento y geo-distribuidos con 99.99% de SLA de disponibilidad. Construido para aplicaciones blockchain a escala empresarial con latencia inferior a 10ms.",
+        "metrics": {
+          "uptime": "Disponibilidad",
+          "latency": "Latencia",
+          "regions": "Regiones",
+          "reqDay": "Req/Día"
+        },
+        "status": {
+          "operational": "Todos los Sistemas Operativos",
+          "wsConnected": "WS Conectado",
+          "wsConnecting": "Conectando..."
+        },
+        "dashboard": {
+          "title": "Panel de Red en Vivo",
+          "blockHeight": "Altura de Bloque",
+          "tps": "TPS",
+          "avgLatency": "Latencia Promedio",
+          "globalNodes": "Nodos Globales",
+          "online": "En línea",
+          "secondsAgo": "hace 30s",
+          "now": "Ahora"
+        },
         "buttons": {
-          "getApiKey": "Obtener Clave API",
-          "viewDocs": "Ver Documentación"
+          "getFreeApiKey": "Obtener Clave API Gratis",
+          "apiDocumentation": "Documentación API",
+          "testConnection": "Probar Conexión",
+          "testing": "Probando...",
+          "getStarted": "Comenzar",
+          "subscribe": "Suscribirse",
+          "contactSales": "Contactar Ventas",
+          "getStartedFree": "Comenzar Gratis"
         },
-        "sections": {
-          "apiPlans": "Planes API",
-          "coreEndpoints": "Endpoints Principales",
-          "sdkExamples": "Ejemplos de SDK",
-          "support": "Soporte"
-        },
-        "plans": {
-          "free": {
-            "name": "Gratis"
-          },
-          "basic": {
-            "name": "Básico"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "Empresarial"
-          },
-          "requestsMin": "solicitudes/min",
-          "requestsDay": "solicitudes/día",
-          "perMonth": "/mes",
-          "unlimited": "Ilimitado",
-          "contact": "Contáctanos"
+        "network": {
+          "selectNetwork": "Seleccionar Red:",
+          "mainnet": "Mainnet",
+          "testnet": "Testnet",
+          "sslEncrypted": "SSL/TLS Cifrado",
+          "rateLimited": "Límite de Tasa"
         },
         "endpoints": {
-          "scoreQuery": {
-            "title": "API de Consulta de Puntuación"
+          "httpTitle": "Endpoint HTTP/HTTPS",
+          "httpDesc": "Endpoint HTTP estándar para solicitudes JSON-RPC",
+          "wsTitle": "Endpoint WebSocket",
+          "wsDesc": "Conexión persistente para suscripciones y streaming",
+          "jsonRpc": "JSON-RPC 2.0",
+          "realtime": "Tiempo real",
+          "postRequests": "Solicitudes POST",
+          "batchSupport": "Soporte de lotes",
+          "corsEnabled": "CORS habilitado",
+          "newHeads": "newHeads",
+          "logs": "logs",
+          "pendingTx": "pendingTx"
+        },
+        "config": {
+          "title": "Configuración de Red",
+          "description": "Agregar a MetaMask u otras billeteras Web3",
+          "networkName": "Nombre de Red",
+          "chainId": "ID de Cadena",
+          "currencySymbol": "Símbolo de Moneda",
+          "rpcUrl": "URL RPC",
+          "blockExplorer": "Explorador de Bloques",
+          "view": "Ver"
+        },
+        "enterprise": {
+          "badge": "Características Empresariales",
+          "title": "Construido para Escala y Confiabilidad",
+          "description": "Infraestructura lista para producción en la que confían los principales protocolos DeFi, exchanges y empresas",
+          "security": {
+            "title": "Seguridad Empresarial",
+            "desc": "Certificación SOC 2 Type II, cifrado de extremo a extremo, lista blanca de IP"
           },
-          "projectApi": {
-            "title": "API de Proyectos"
+          "uptime": {
+            "title": "SLA de 99.99% de Disponibilidad",
+            "desc": "Disponibilidad garantizada con conmutación por error automática y balanceo de carga"
           },
-          "analyticsApi": {
-            "title": "API de Analíticas"
+          "latency": {
+            "title": "Latencia Ultra Baja",
+            "desc": "Tiempos de respuesta inferiores a 10ms con nodos edge geo-distribuidos"
           },
-          "webhookApi": {
-            "title": "API de Webhooks",
-            "events": "Eventos: score.updated, score.alert, project.registered"
+          "scaling": {
+            "title": "Escalado Ilimitado",
+            "desc": "Infraestructura de auto-escalado que soporta más de 100M solicitudes/día"
+          },
+          "ddos": {
+            "title": "Protección DDoS",
+            "desc": "Protección de nivel empresarial con límite de tasa y análisis de tráfico"
+          },
+          "archive": {
+            "title": "Acceso a Archivo",
+            "desc": "Acceso completo a datos históricos desde el bloque génesis con APIs de trace"
           }
         },
-        "sdk": {
-          "typescript": {
-            "title": "SDK TypeScript"
-          },
-          "python": {
-            "title": "SDK Python"
-          },
-          "curl": {
-            "title": "Ejemplo cURL"
-          }
+        "nodes": {
+          "title": "Nodos RPC Globales",
+          "description": "Infraestructura geo-distribuida con conmutación por error automática",
+          "nodesOnline": "Nodos en Línea",
+          "latency": "Latencia",
+          "uptime": "Disponibilidad",
+          "load": "Carga",
+          "requests24h": "Solicitudes 24h",
+          "peakTps": "TPS Pico",
+          "version": "Versión"
         },
-        "cta": {
-          "title": "¿Listo para Construir?",
-          "subtitle": "Comienza a construir con la API de TBurn Chain hoy. Obtén tu clave API gratuita y accede a infraestructura blockchain de nivel empresarial.",
-          "forumTitle": "Foro de la Comunidad",
-          "viewAll": "Ver Todo",
-          "recentPosts": "Publicaciones Recientes",
-          "desc": "Comienza a construir con la API de TBurn Chain hoy. Obtén tu clave API gratuita y accede a infraestructura blockchain de nivel empresarial.",
-          "getStartedFree": "Comenzar Gratis",
-          "contactSales": "Contactar Ventas"
+        "methods": {
+          "title": "Métodos RPC Soportados",
+          "description": "Compatibilidad completa con Ethereum JSON-RPC más extensiones específicas de TBurn",
+          "block": "Métodos de Bloque",
+          "transaction": "Métodos de Transacción",
+          "account": "Métodos de Cuenta",
+          "contract": "Métodos de Contrato",
+          "network": "Métodos de Red",
+          "tburnCustom": "TBurn Personalizado",
+          "debug": "Métodos de Debug",
+          "websocket": "WebSocket"
         },
-        "apiPlans": {
-          "title": "Planes y Límites de API",
+        "plans": {
+          "title": "Planes API",
+          "description": "Elige el plan que se ajuste a tus necesidades. Escala a medida que creces.",
           "free": {
             "name": "Gratis",
-            "requestsPerMin": "20",
-            "requestsPerDay": "1,000",
-            "price": "$0"
+            "desc": "Para pruebas y desarrollo",
+            "forever": "para siempre",
+            "requestsMin": "solicitudes/min",
+            "requestsDay": "solicitudes/día",
+            "httpEndpoint": "Endpoint HTTP",
+            "noWebSocket": "Sin WebSocket"
           },
           "basic": {
             "name": "Básico",
-            "requestsPerMin": "100",
-            "requestsPerDay": "10,000",
-            "price": "$100/mes"
+            "desc": "Para proyectos pequeños",
+            "perMonth": "/mes",
+            "wsAccess": "Acceso WebSocket",
+            "emailSupport": "Soporte por email"
           },
           "pro": {
             "name": "Pro",
-            "requestsPerMin": "500",
-            "requestsPerDay": "100,000",
-            "price": "$500/mes"
+            "desc": "Para equipos en crecimiento",
+            "popular": "Popular",
+            "archiveAccess": "Acceso a nodo archivo",
+            "prioritySupport": "Soporte prioritario"
           },
           "enterprise": {
             "name": "Empresarial",
-            "requestsPerMin": "Ilimitado",
-            "requestsPerDay": "Ilimitado",
-            "price": "Contactar"
+            "desc": "Para grandes organizaciones",
+            "custom": "Personalizado",
+            "contactSales": "contactar ventas",
+            "unlimitedRequests": "Solicitudes ilimitadas",
+            "dedicatedNodes": "Nodos dedicados",
+            "sla": "SLA 99.99%",
+            "support247": "Soporte 24/7"
           }
         },
-        "coreEndpoints": {
-          "title": "Endpoints Principales",
-          "scoreQuery": {
-            "title": "API de Consulta de Puntuación",
-            "endpoints": [
-              "GET /score/:address",
-              "GET /score/:address/history",
-              "POST /score/batch"
-            ]
-          },
-          "project": {
-            "title": "API de Proyectos",
-            "endpoints": [
-              "GET /projects",
-              "POST /projects/register",
-              "GET /projects/:id"
-            ]
-          },
-          "analytics": {
-            "title": "API de Analíticas",
-            "endpoints": [
-              "GET /analytics/trends",
-              "GET /analytics/leaderboard"
-            ]
-          },
-          "webhook": {
-            "title": "API de Webhooks",
-            "endpoints": [
-              "POST /webhooks"
-            ],
-            "events": "Eventos: score.updated, score.alert, project.registered"
-          }
+        "sdk": {
+          "title": "Inicio Rápido",
+          "description": "Comienza con TBurn Chain en tu lenguaje preferido"
         },
-        "sdkExamples": {
-          "title": "Ejemplos de SDK y Empresarial",
-          "typescript": "SDK Empresarial TypeScript",
-          "python": "SDK Empresarial Python",
-          "curl": "Ejemplo cURL de Producción"
+        "resources": {
+          "title": "Recursos para Desarrolladores",
+          "documentation": "Documentación",
+          "documentationDesc": "Guías API completas",
+          "apiStatus": "Estado API",
+          "apiStatusDesc": "Monitoreo de salud en tiempo real",
+          "github": "GitHub",
+          "githubDesc": "SDKs de código abierto",
+          "community": "Comunidad",
+          "communityDesc": "Únete a las discusiones de desarrolladores"
         },
-        "support": {
-          "title": "Soporte y Contacto",
-          "documentation": {
-            "title": "Documentación",
-            "description": "Referencias detalladas de API y guías.",
-            "desc": "Documentación completa de API y guías de integración."
-          },
-          "apiStatus": {
-            "title": "Estado de API",
-            "description": "Estado del sistema en tiempo real y tiempo de actividad.",
-            "desc": "Estado del sistema en tiempo real, métricas de tiempo de actividad e informes de incidentes."
-          },
-          "developerHub": {
-            "title": "Hub de Desarrolladores",
-            "description": "SDKs y ejemplos de código abierto.",
-            "desc": "SDKs de código abierto, ejemplos de código y recursos comunitarios."
-          }
+        "cta": {
+          "title": "¿Listo para Construir?",
+          "description": "Únete a miles de desarrolladores construyendo el futuro de DeFi en TBurn Chain. Comienza con nuestro nivel gratuito y escala a medida que creces."
+        },
+        "connection": {
+          "success": "Conexión Exitosa",
+          "failed": "Conexión Fallida",
+          "connected": "Conectado",
+          "unableToConnect": "No se puede conectar al endpoint RPC"
         }
       },
       "status": {
