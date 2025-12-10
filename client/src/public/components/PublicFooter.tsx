@@ -73,6 +73,7 @@ const legalLinks = [
 
 const quickLinks = [
   { title: "TBurn Scan", href: "/scan" },
+  { title: "TBurn Scan Testnet", href: "/testnet-scan", isTestnet: true },
   { title: "VC", href: "/vc" },
 ];
 
@@ -307,7 +308,7 @@ export function PublicFooter() {
                 <Link 
                   key={link.href}
                   href={link.href} 
-                  className="text-[#00f0ff] hover:text-white transition font-medium"
+                  className={`${link.isTestnet ? 'text-orange-500 hover:text-orange-400' : 'text-[#00f0ff] hover:text-white'} transition font-medium`}
                   data-testid={`link-footer-${link.title.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   {link.title}
