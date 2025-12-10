@@ -73,6 +73,19 @@ import {
   type InsertUnbondingRequest,
   type RewardCycle,
   type InsertRewardCycle,
+  // Testnet Types
+  type TestnetWallet,
+  type InsertTestnetWallet,
+  type TestnetTransaction,
+  type InsertTestnetTransaction,
+  type TestnetBlock,
+  type InsertTestnetBlock,
+  type TestnetFaucetRequest,
+  type InsertTestnetFaucetRequest,
+  testnetWallets,
+  testnetTransactions,
+  testnetBlocks,
+  testnetFaucetRequests,
   type RewardEvent,
   type InsertRewardEvent,
   type SlashingEvent,
@@ -1030,6 +1043,30 @@ export interface IStorage {
   getAllAiParameters(): Promise<AiParameters[]>;
   createAiParameters(data: InsertAiParameters): Promise<AiParameters>;
   updateAiParameters(id: string, data: Partial<AiParameters>): Promise<void>;
+
+  // ============================================
+  // TESTNET Data Persistence
+  // ============================================
+  
+  // Testnet Wallets
+  getTestnetWallet(address: string): Promise<TestnetWallet | undefined>;
+  createTestnetWallet(data: InsertTestnetWallet): Promise<TestnetWallet>;
+  updateTestnetWallet(address: string, data: Partial<TestnetWallet>): Promise<void>;
+  
+  // Testnet Transactions
+  getTestnetTransactionByHash(hash: string): Promise<TestnetTransaction | undefined>;
+  getTestnetTransactionsByAddress(address: string, limit?: number): Promise<TestnetTransaction[]>;
+  createTestnetTransaction(data: InsertTestnetTransaction): Promise<TestnetTransaction>;
+  
+  // Testnet Blocks
+  getTestnetBlockByNumber(number: number): Promise<TestnetBlock | undefined>;
+  createTestnetBlock(data: InsertTestnetBlock): Promise<TestnetBlock>;
+  
+  // Testnet Faucet
+  getRecentFaucetRequest(walletAddress: string): Promise<TestnetFaucetRequest | undefined>;
+  getFaucetRequestsByAddress(walletAddress: string): Promise<TestnetFaucetRequest[]>;
+  createFaucetRequest(data: InsertTestnetFaucetRequest): Promise<TestnetFaucetRequest>;
+  completeFaucetRequest(id: string, txHash: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -6336,6 +6373,106 @@ export class DbStorage implements IStorage {
     await db.update(aiParameters)
       .set({ ...data, updatedAt: new Date() })
       .where(eq(aiParameters.id, id));
+  }
+
+  // ============================================
+  // TESTNET Data Persistence Implementation
+  // ============================================
+
+  async getTestnetWallet(address: string): Promise<TestnetWallet | undefined> {
+    const [wallet] = await db.select().from(testnetWallets)
+      .where(eq(testnetWallets.address, address.toLowerCase()));
+    return wallet;
+  }
+
+  async createTestnetWallet(data: InsertTestnetWallet): Promise<TestnetWallet> {
+    const [result] = await db.insert(testnetWallets).values({
+      ...data,
+      address: data.address.toLowerCase(),
+      id: `tw-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateTestnetWallet(address: string, data: Partial<TestnetWallet>): Promise<void> {
+    await db.update(testnetWallets)
+      .set({ ...data, lastActiveAt: new Date(), updatedAt: new Date() })
+      .where(eq(testnetWallets.address, address.toLowerCase()));
+  }
+
+  async getTestnetTransactionByHash(hash: string): Promise<TestnetTransaction | undefined> {
+    const [tx] = await db.select().from(testnetTransactions)
+      .where(eq(testnetTransactions.hash, hash));
+    return tx;
+  }
+
+  async getTestnetTransactionsByAddress(address: string, limit: number = 20): Promise<TestnetTransaction[]> {
+    const addr = address.toLowerCase();
+    return db.select().from(testnetTransactions)
+      .where(sql`${testnetTransactions.fromAddress} = ${addr} OR ${testnetTransactions.toAddress} = ${addr}`)
+      .orderBy(desc(testnetTransactions.createdAt))
+      .limit(limit);
+  }
+
+  async createTestnetTransaction(data: InsertTestnetTransaction): Promise<TestnetTransaction> {
+    const [result] = await db.insert(testnetTransactions).values({
+      ...data,
+      fromAddress: data.fromAddress.toLowerCase(),
+      toAddress: data.toAddress.toLowerCase(),
+      id: `tt-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async getTestnetBlockByNumber(number: number): Promise<TestnetBlock | undefined> {
+    const [block] = await db.select().from(testnetBlocks)
+      .where(eq(testnetBlocks.number, number));
+    return block;
+  }
+
+  async createTestnetBlock(data: InsertTestnetBlock): Promise<TestnetBlock> {
+    const [result] = await db.insert(testnetBlocks).values({
+      ...data,
+      id: `tb-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async getRecentFaucetRequest(walletAddress: string): Promise<TestnetFaucetRequest | undefined> {
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 3600 * 1000);
+    const [request] = await db.select().from(testnetFaucetRequests)
+      .where(and(
+        eq(testnetFaucetRequests.walletAddress, walletAddress.toLowerCase()),
+        sql`${testnetFaucetRequests.createdAt} > ${twentyFourHoursAgo}`
+      ))
+      .orderBy(desc(testnetFaucetRequests.createdAt))
+      .limit(1);
+    return request;
+  }
+
+  async getFaucetRequestsByAddress(walletAddress: string): Promise<TestnetFaucetRequest[]> {
+    return db.select().from(testnetFaucetRequests)
+      .where(eq(testnetFaucetRequests.walletAddress, walletAddress.toLowerCase()))
+      .orderBy(desc(testnetFaucetRequests.createdAt));
+  }
+
+  async createFaucetRequest(data: InsertTestnetFaucetRequest): Promise<TestnetFaucetRequest> {
+    const [result] = await db.insert(testnetFaucetRequests).values({
+      ...data,
+      walletAddress: data.walletAddress.toLowerCase(),
+      id: `fr-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async completeFaucetRequest(id: string, txHash: string): Promise<void> {
+    await db.update(testnetFaucetRequests)
+      .set({ 
+        status: 'completed', 
+        txHash,
+        completedAt: new Date()
+      })
+      .where(eq(testnetFaucetRequests.id, id));
   }
 }
 

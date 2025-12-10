@@ -30,15 +30,35 @@ export default function TestnetFaucet() {
     setIsLoading(true);
     setResult(null);
 
-    setTimeout(() => {
-      const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
-      setResult({
-        success: true,
-        txHash,
-        message: t("scan.faucetSuccess", "100 tTBURN has been sent to your wallet!")
+    try {
+      const response = await fetch('/api/public/v1/testnet/faucet/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ walletAddress: address })
       });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setResult({
+          success: true,
+          txHash: data.data.txHash,
+          message: t("scan.faucetSuccess", "1,000 tTBURN has been sent to your wallet!")
+        });
+      } else {
+        setResult({
+          success: false,
+          message: data.error || t("scan.faucetError", "Failed to request tokens. Please try again later.")
+        });
+      }
+    } catch (error) {
+      setResult({
+        success: false,
+        message: t("scan.faucetError", "Failed to request tokens. Please try again later.")
+      });
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
 
   const copyToClipboard = (text: string) => {
@@ -70,7 +90,7 @@ export default function TestnetFaucet() {
               {t("scan.requestTokens", "Request Tokens")}
             </CardTitle>
             <CardDescription className="text-gray-400">
-              {t("scan.faucetLimit", "You can request up to 100 tTBURN every 24 hours")}
+              {t("scan.faucetLimit", "You can request up to 1,000 tTBURN every 24 hours")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -93,7 +113,7 @@ export default function TestnetFaucet() {
                 <div className="flex items-center gap-3">
                   <Coins className="w-8 h-8 text-yellow-400" />
                   <div>
-                    <div className="text-lg font-bold text-white">100 tTBURN</div>
+                    <div className="text-lg font-bold text-white">1,000 tTBURN</div>
                     <div className="text-xs text-gray-400">{t("scan.perRequest", "Per request")}</div>
                   </div>
                 </div>

@@ -1764,6 +1764,216 @@ router.get('/testnet/address/:address', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// Testnet Faucet API - Real data persistence
+// ============================================
+
+/**
+ * POST /api/public/v1/testnet/faucet/request
+ * Request test tokens from faucet - persists to database
+ */
+router.post('/testnet/faucet/request', async (req: Request, res: Response) => {
+  try {
+    const { walletAddress } = req.body;
+    
+    if (!walletAddress || !walletAddress.match(/^0x[a-fA-F0-9]{40}$/)) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Invalid wallet address format' 
+      });
+    }
+    
+    const ipAddress = req.ip || req.headers['x-forwarded-for'] as string || 'unknown';
+    const userAgent = req.headers['user-agent'] || '';
+    const faucetAmount = "1000000000000000000000"; // 1000 tTBURN
+    
+    // Check for recent request (24 hour cooldown)
+    const recentRequest = await storage.getRecentFaucetRequest(walletAddress.toLowerCase());
+    if (recentRequest) {
+      const cooldownRemaining = Math.ceil((24 * 3600000 - (Date.now() - new Date(recentRequest.createdAt).getTime())) / 60000);
+      return res.status(429).json({
+        success: false,
+        error: `Please wait ${cooldownRemaining} minutes before requesting again`,
+        cooldownRemaining
+      });
+    }
+    
+    // Create faucet request
+    const faucetRequest = await storage.createFaucetRequest({
+      walletAddress: walletAddress.toLowerCase(),
+      amount: faucetAmount,
+      status: 'pending',
+      ipAddress,
+      userAgent
+    });
+    
+    // Get or create wallet
+    let wallet = await storage.getTestnetWallet(walletAddress.toLowerCase());
+    if (!wallet) {
+      wallet = await storage.createTestnetWallet({
+        address: walletAddress.toLowerCase(),
+        balance: "0",
+        nonce: 0,
+        txCount: 0
+      });
+    }
+    
+    // Generate transaction
+    const now = Date.now();
+    const blockNumber = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
+    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}${walletAddress.slice(2, 10)}`.padEnd(66, '0').slice(0, 66);
+    
+    // Create block if needed
+    const existingBlock = await storage.getTestnetBlockByNumber(blockNumber);
+    if (!existingBlock) {
+      await storage.createTestnetBlock({
+        number: blockNumber,
+        hash: generateConsistentBlockHash(blockNumber),
+        parentHash: generateConsistentBlockHash(blockNumber - 1),
+        transactionCount: 1,
+        gasUsed: 21000,
+        gasLimit: 15000000,
+        validator: '0x' + 'F'.repeat(40),
+        size: 1024
+      });
+    }
+    
+    // Create transaction record
+    const transaction = await storage.createTestnetTransaction({
+      hash: txHash,
+      blockNumber,
+      fromAddress: '0x' + 'F'.repeat(40), // Faucet address
+      toAddress: walletAddress.toLowerCase(),
+      value: faucetAmount,
+      gasPrice: "100",
+      gasUsed: 21000,
+      gasLimit: 21000,
+      nonce: 0,
+      status: 'confirmed',
+      txType: 'faucet',
+      input: '0x'
+    });
+    
+    // Update wallet balance
+    const newBalance = (BigInt(wallet.balance) + BigInt(faucetAmount)).toString();
+    await storage.updateTestnetWallet(walletAddress.toLowerCase(), {
+      balance: newBalance,
+      txCount: wallet.txCount + 1
+    });
+    
+    // Complete faucet request
+    await storage.completeFaucetRequest(faucetRequest.id, txHash);
+    
+    res.json({
+      success: true,
+      data: {
+        requestId: faucetRequest.id,
+        txHash,
+        amount: faucetAmount,
+        amountFormatted: '1,000 tTBURN',
+        walletAddress: walletAddress.toLowerCase(),
+        status: 'completed',
+        message: 'Test tokens sent successfully!'
+      }
+    });
+  } catch (error) {
+    console.error('[Testnet Faucet] Error:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to process faucet request' 
+    });
+  }
+});
+
+/**
+ * GET /api/public/v1/testnet/faucet/history/:address
+ * Get faucet request history for an address
+ */
+router.get('/testnet/faucet/history/:address', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_SHORT);
+    const address = req.params.address.toLowerCase();
+    
+    const requests = await storage.getFaucetRequestsByAddress(address);
+    
+    res.json({
+      success: true,
+      data: {
+        address,
+        requests: requests.map(r => ({
+          id: r.id,
+          amount: r.amount,
+          amountFormatted: '1,000 tTBURN',
+          txHash: r.txHash,
+          status: r.status,
+          createdAt: r.createdAt,
+          completedAt: r.completedAt
+        })),
+        totalReceived: (BigInt(requests.filter(r => r.status === 'completed').length) * BigInt('1000000000000000000000')).toString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch faucet history' });
+  }
+});
+
+/**
+ * GET /api/public/v1/testnet/wallet/:address
+ * Get real testnet wallet data from database
+ */
+router.get('/testnet/wallet/:address', async (req: Request, res: Response) => {
+  try {
+    setCacheHeaders(res, CACHE_SHORT);
+    const address = req.params.address.toLowerCase();
+    
+    const wallet = await storage.getTestnetWallet(address);
+    const transactions = await storage.getTestnetTransactionsByAddress(address, 20);
+    
+    if (!wallet) {
+      return res.json({
+        success: true,
+        data: {
+          info: {
+            address,
+            balance: "0",
+            txCount: 0,
+            firstSeen: null,
+            lastSeen: null,
+            type: 'wallet'
+          },
+          transactions: []
+        }
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        info: {
+          address: wallet.address,
+          balance: wallet.balance,
+          txCount: wallet.txCount,
+          firstSeen: wallet.firstSeenAt,
+          lastSeen: wallet.lastActiveAt,
+          type: 'wallet'
+        },
+        transactions: transactions.map(tx => ({
+          hash: tx.hash,
+          blockNumber: tx.blockNumber,
+          from: tx.fromAddress,
+          to: tx.toAddress,
+          value: tx.value,
+          timestamp: new Date(tx.createdAt).getTime(),
+          status: tx.status,
+          type: tx.txType
+        }))
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch wallet data' });
+  }
+});
+
 export function registerPublicApiRoutes(app: any) {
   app.use('/api/public/v1', router);
   console.log('[Public API] v1 routes registered - read-only public access');
