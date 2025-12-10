@@ -83,11 +83,7 @@ export default function Validators() {
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-total-staked">
               <Database className="w-8 h-8 text-[#ffd700] mx-auto mb-4" />
               <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1 font-mono">
-                {stats?.totalStaked 
-                  ? formatLargeNumber(stats.totalStaked)
-                  : validators?.summary?.totalStaked 
-                    ? formatLargeNumber(validators.summary.totalStaked)
-                    : "$1.2B"}
+                {stats?.totalStaked ?? validators?.summary?.totalStaked ?? "$1.2B"}
               </div>
               <div className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.stats.totalStaked')}</div>
             </div>

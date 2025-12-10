@@ -3102,6 +3102,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       stakedAmount: this.stakedAmount.toString(),
       stakedPercent: Math.round((this.stakedAmount / this.TOTAL_SUPPLY) * 10000) / 100,
       burnedTokens: this.burnedTokens.toString(),
+      totalStaked: this.formatStakedAmount(this.stakedAmount),
       
       // Demand-Supply Equilibrium Indicators
       demandIndex: Math.round(this.demandIndex * 1000) / 1000,
@@ -3131,6 +3132,22 @@ export class TBurnEnterpriseNode extends EventEmitter {
     };
   }
   
+  /**
+   * Format large numbers with $ prefix and T/B/M suffix
+   */
+  private formatStakedAmount(amount: number): string {
+    if (amount >= 1e12) {
+      return `$${(amount / 1e12).toFixed(1)}T`;
+    } else if (amount >= 1e9) {
+      return `$${(amount / 1e9).toFixed(1)}B`;
+    } else if (amount >= 1e6) {
+      return `$${(amount / 1e6).toFixed(1)}M`;
+    } else if (amount >= 1e3) {
+      return `$${(amount / 1e3).toFixed(1)}K`;
+    }
+    return `$${amount.toLocaleString()}`;
+  }
+
   /**
    * Get total cross-shard message count from current shard configuration
    */
