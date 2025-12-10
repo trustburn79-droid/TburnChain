@@ -67,13 +67,13 @@ const rpcMethods = [
   { category: "WebSocket", icon: Radio, methods: ["eth_subscribe", "eth_unsubscribe", "newHeads", "logs", "newPendingTransactions", "syncing"] },
 ];
 
-const getTestnetFeatures = (t: any) => [
-  { icon: Beaker, titleKey: "testnet.testing.title", descKey: "testnet.testing.desc", color: "#ffd700" },
-  { icon: Gift, titleKey: "testnet.faucet.title", descKey: "testnet.faucet.desc", color: "#00ff9d" },
-  { icon: Zap, titleKey: "testnet.fast.title", descKey: "testnet.fast.desc", color: "#00f0ff" },
-  { icon: Shield, titleKey: "testnet.safe.title", descKey: "testnet.safe.desc", color: "#7000ff" },
-  { icon: Code2, titleKey: "testnet.debug.title", descKey: "testnet.debug.desc", color: "#ff6b35" },
-  { icon: RefreshCw, titleKey: "testnet.reset.title", descKey: "testnet.reset.desc", color: "#ff0055" },
+const testnetFeatures = [
+  { icon: Beaker, title: "Free Testing Environment", desc: "Unlimited access to testnet for development and testing", color: "#ffd700" },
+  { icon: Gift, title: "Testnet Faucet", desc: "Get free tTBURN tokens instantly for testing", color: "#00ff9d" },
+  { icon: Zap, title: "Fast Block Times", desc: "Same performance as mainnet for realistic testing", color: "#00f0ff" },
+  { icon: Shield, title: "Risk-Free Development", desc: "Deploy and test contracts without real value at stake", color: "#7000ff" },
+  { icon: Code2, title: "Debug Mode Enabled", desc: "Full access to trace and debug RPC methods", color: "#ff6b35" },
+  { icon: RefreshCw, title: "Regular Resets", desc: "Testnet state resets periodically for clean testing", color: "#ff0055" },
 ];
 
 export default function TestnetRpcProviders() {
@@ -168,7 +168,7 @@ export default function TestnetRpcProviders() {
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/30 text-xs font-medium text-green-400">
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                  {t('publicPages.network.rpc.status.operational')}
+                  {t('publicPages.network.rpc.status.operational', 'Operational')}
                 </div>
               </div>
               
@@ -191,11 +191,11 @@ export default function TestnetRpcProviders() {
                 </div>
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
                   <div className="text-xl font-mono font-bold text-gray-900 dark:text-white">&lt;15ms</div>
-                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.latency')}</div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.latency', 'Latency')}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
                   <div className="text-xl font-mono font-bold text-gray-900 dark:text-white">3</div>
-                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.regions')}</div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.regions', 'Regions')}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
                   <div className="text-xl font-mono font-bold text-[#00ff9d]">Unlimited</div>
@@ -218,7 +218,7 @@ export default function TestnetRpcProviders() {
                 </Link>
                 <Button variant="outline" className="border-gray-300 dark:border-white/20" onClick={testConnection} disabled={isTesting} data-testid="button-test-connection-testnet">
                   {isTesting ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : <Play className="w-4 h-4 mr-2" />}
-                  {isTesting ? t('publicPages.network.rpc.buttons.testing') : t('publicPages.network.rpc.buttons.testConnection')}
+                  {isTesting ? t('publicPages.network.rpc.buttons.testing', 'Testing...') : t('publicPages.network.rpc.buttons.testConnection', 'Test Connection')}
                 </Button>
               </div>
             </div>
@@ -242,7 +242,7 @@ export default function TestnetRpcProviders() {
                   <div className="p-3 rounded-lg bg-gradient-to-br from-[#ffd700]/10 to-[#ff6b35]/5 border border-[#ffd700]/20">
                     <div className="flex items-center gap-2 mb-1">
                       <Layers className="w-3 h-3 text-[#ffd700]" />
-                      <span className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.dashboard.blockHeight')}</span>
+                      <span className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.dashboard.blockHeight', 'Block Height')}</span>
                     </div>
                     <div className="text-2xl font-mono font-bold text-gray-900 dark:text-white">
                       {liveBlockHeight.toLocaleString()}
@@ -251,7 +251,7 @@ export default function TestnetRpcProviders() {
                   <div className="p-3 rounded-lg bg-gradient-to-br from-[#ffd700]/10 to-[#ff6b35]/5 border border-[#ffd700]/20">
                     <div className="flex items-center gap-2 mb-1">
                       <Zap className="w-3 h-3 text-[#ffd700]" />
-                      <span className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.dashboard.tps')}</span>
+                      <span className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.dashboard.tps', 'TPS')}</span>
                     </div>
                     <div className="text-2xl font-mono font-bold text-[#ffd700]">
                       {liveTps.toLocaleString()}
@@ -264,7 +264,7 @@ export default function TestnetRpcProviders() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <Timer className="w-3 h-3 text-gray-400" />
-                      <span className="text-xs text-gray-500">{t('publicPages.network.rpc.dashboard.avgLatency')}</span>
+                      <span className="text-xs text-gray-500">{t('publicPages.network.rpc.dashboard.avgLatency', 'Average Latency')}</span>
                     </div>
                     <span className="font-mono text-sm font-bold text-green-500">12ms</span>
                   </div>
@@ -286,7 +286,7 @@ export default function TestnetRpcProviders() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs text-gray-500">
                     <span>Testnet Nodes</span>
-                    <span className="text-[#ffd700]">3/3 {t('publicPages.network.rpc.dashboard.online')}</span>
+                    <span className="text-[#ffd700]">3/3 {t('publicPages.network.rpc.dashboard.online', 'Online')}</span>
                   </div>
                   <div className="flex gap-1">
                     {testnetNodes.map((node) => (
@@ -341,7 +341,7 @@ export default function TestnetRpcProviders() {
             </div>
             <div className="flex items-center gap-2 text-sm">
               <ShieldCheck className="w-4 h-4 text-green-500" />
-              <span className="text-gray-500">{t('publicPages.network.rpc.network.sslEncrypted')}</span>
+              <span className="text-gray-500">{t('publicPages.network.rpc.network.sslEncrypted', 'SSL Encrypted')}</span>
               <span className="mx-2 text-gray-300 dark:text-gray-700">|</span>
               <Gift className="w-4 h-4 text-[#ffd700]" />
               <span className="text-gray-500">No Rate Limits</span>
@@ -355,10 +355,10 @@ export default function TestnetRpcProviders() {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Server className="w-5 h-5 text-[#ffd700]" />
-                  {t('publicPages.network.rpc.endpoints.httpTitle')}
+                  {t('publicPages.network.rpc.endpoints.httpTitle', 'HTTP RPC Endpoint')}
                   <Badge className="ml-auto bg-[#ffd700]/20 text-[#ffd700] text-xs">Testnet</Badge>
                 </CardTitle>
-                <CardDescription>{t('publicPages.network.rpc.endpoints.httpDesc')}</CardDescription>
+                <CardDescription>{t('publicPages.network.rpc.endpoints.httpDesc', 'Standard JSON-RPC endpoint for blockchain interactions')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -379,8 +379,8 @@ export default function TestnetRpcProviders() {
                   </Button>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-gray-500">
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.postRequests')}</span>
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.batchSupport')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.postRequests', 'POST Requests')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.batchSupport', 'Batch Support')}</span>
                   <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> No Limits</span>
                 </div>
               </CardContent>
@@ -391,13 +391,13 @@ export default function TestnetRpcProviders() {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Radio className="w-5 h-5 text-[#ff6b35]" />
-                  {t('publicPages.network.rpc.endpoints.wsTitle')}
+                  {t('publicPages.network.rpc.endpoints.wsTitle', 'WebSocket Endpoint')}
                   <Badge variant="outline" className="ml-auto text-xs flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    {t('publicPages.network.rpc.endpoints.live')}
+                    {t('publicPages.network.rpc.endpoints.live', 'Live')}
                   </Badge>
                 </CardTitle>
-                <CardDescription>{t('publicPages.network.rpc.endpoints.wsDesc')}</CardDescription>
+                <CardDescription>{t('publicPages.network.rpc.endpoints.wsDesc', 'Real-time streaming connection for live updates')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -418,9 +418,9 @@ export default function TestnetRpcProviders() {
                   </Button>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-gray-500">
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.newBlocks')}</span>
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.pendingTxs')}</span>
-                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.logFilters')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.newBlocks', 'New Blocks')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.pendingTxs', 'Pending Txs')}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-green-500" /> {t('publicPages.network.rpc.endpoints.logFilters', 'Log Filters')}</span>
                 </div>
               </CardContent>
             </Card>
@@ -431,30 +431,30 @@ export default function TestnetRpcProviders() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Settings className="w-5 h-5 text-[#ffd700]" />
-                {t('publicPages.network.rpc.config.title')}
+                {t('publicPages.network.rpc.config.title', 'Network Configuration')}
               </CardTitle>
-              <CardDescription>{t('publicPages.network.rpc.config.description')}</CardDescription>
+              <CardDescription>{t('publicPages.network.rpc.config.description', 'Add TBurn Testnet to your wallet')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
                 <div className="p-3 rounded-lg bg-[#ffd700]/5 border border-[#ffd700]/20">
-                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.networkName')}</div>
+                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.networkName', 'Network Name')}</div>
                   <div className="font-mono font-bold text-gray-900 dark:text-white">{testnetConfig.name}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#ffd700]/5 border border-[#ffd700]/20">
-                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.chainId')}</div>
+                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.chainId', 'Chain ID')}</div>
                   <div className="font-mono font-bold text-[#ffd700]">{testnetConfig.chainId}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#ffd700]/5 border border-[#ffd700]/20">
-                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.symbol')}</div>
+                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.symbol', 'Symbol')}</div>
                   <div className="font-mono font-bold text-gray-900 dark:text-white">{testnetConfig.symbol}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#ffd700]/5 border border-[#ffd700]/20">
-                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.decimals')}</div>
+                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.decimals', 'Decimals')}</div>
                   <div className="font-mono font-bold text-gray-900 dark:text-white">18</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#ffd700]/5 border border-[#ffd700]/20">
-                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.explorerUrl')}</div>
+                  <div className="text-xs text-gray-500 mb-1">{t('publicPages.network.rpc.config.explorerUrl', 'Explorer URL')}</div>
                   <a href={testnetConfig.explorerUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-[#ffd700] hover:underline flex items-center gap-1">
                     Explorer <ExternalLink className="w-3 h-3" />
                   </a>
@@ -480,8 +480,8 @@ export default function TestnetRpcProviders() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {getTestnetFeatures(t).map((feature) => (
-              <Card key={feature.titleKey} className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-[#ffd700]/50 transition group">
+            {testnetFeatures.map((feature, index) => (
+              <Card key={index} className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-[#ffd700]/50 transition group">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
                     <div 
@@ -492,10 +492,10 @@ export default function TestnetRpcProviders() {
                     </div>
                     <div className="flex-1">
                       <h3 className="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#ffd700] transition">
-                        {t(`publicPages.network.rpc.${feature.titleKey}`) || feature.titleKey.split('.').pop()}
+                        {feature.title}
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {t(`publicPages.network.rpc.${feature.descKey}`) || "Feature description"}
+                        {feature.desc}
                       </p>
                     </div>
                   </div>
@@ -572,8 +572,8 @@ export default function TestnetRpcProviders() {
       <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.methods.title')}</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.methods.description')}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.methods.title', 'Supported RPC Methods')}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.methods.description', 'Full EVM compatibility with TBurn custom methods')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -610,7 +610,7 @@ export default function TestnetRpcProviders() {
       <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.sdk.title')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.sdk.title', 'SDK & Code Examples')}</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">Connect to TBurn Testnet in your preferred language</p>
           </div>
           
@@ -761,7 +761,7 @@ curl -X POST ${testnetConfig.rpcUrl} \\
       {/* Resources & CTA */}
       <section className="py-12 px-6 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">{t('publicPages.network.rpc.resources.title')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">{t('publicPages.network.rpc.resources.title', 'Developer Resources')}</h2>
           <div className="grid md:grid-cols-4 gap-4">
             <Link href="/testnet-scan/faucet">
               <Card className="bg-white dark:bg-black/40 border-[#ffd700]/30 hover:border-[#ffd700] transition cursor-pointer group h-full">
@@ -776,8 +776,8 @@ curl -X POST ${testnetConfig.rpcUrl} \\
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-[#7000ff]/50 transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <Book className="w-8 h-8 text-[#7000ff] mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.rpc.resources.documentation')}</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.resources.documentationDesc')}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.rpc.resources.documentation', 'Documentation')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.resources.documentationDesc', 'Complete API reference guide')}</p>
                 </CardContent>
               </Card>
             </Link>
