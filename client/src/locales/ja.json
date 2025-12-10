@@ -6202,7 +6202,7 @@
       },
       "governance": {
         "title": "ガバナンス参加",
-        "description": "提案投票を通じてTBurn Labの未来に影響を与えられます。"
+        "description": "提案投票を通じてTBurn Chainの未来に影響を与えられます。"
       },
       "resources": {
         "title": "技術リソース",
@@ -6218,7 +6218,7 @@
       "network": "ネットワーク"
     },
     "footer": {
-      "copyright": "© 2025 TBurn Lab Foundation.",
+      "copyright": "© 2025 TBurn Chain Foundation.",
       "allSystemsOperational": "全システム正常稼働中。",
       "privacy": "プライバシー",
       "terms": "利用規約",
@@ -7373,7 +7373,7 @@
       },
       "toast": {
         "successTitle": "ノード初期化完了",
-        "successDescription": "TBurn Labへようこそ！アカウントがアクティブになりました。",
+        "successDescription": "TBurn Chainへようこそ！アカウントがアクティブになりました。",
         "errorTitle": "初期化失敗",
         "errorDescription": "アカウントを作成できません。もう一度お試しください。"
       },
@@ -7674,10 +7674,10 @@
       },
       "legal": "法的情報",
       "stayUpdated": "最新情報を入手",
-      "newsletterDesc": "TBurn Labの最新ニュースとアップデートを受け取る",
+      "newsletterDesc": "TBurn Chainの最新ニュースとアップデートを受け取る",
       "enterEmail": "メールアドレスを入力",
       "subscribe": "登録する",
-      "copyright": "© 2025 TBurn Lab. All rights reserved.",
+      "copyright": "© 2025 TBurn Chain. All rights reserved.",
       "termsOfService": "利用規約",
       "privacyPolicy": "プライバシーポリシー",
       "disclaimer": "免責事項"
@@ -7750,7 +7750,7 @@
       "hub": {
         "tag": "V4ラーニングセンター",
         "title": "教育ハブ",
-        "subtitle": "TBurn Lab V4エコシステムをマスター。信頼ベースのコンセンサスアルゴリズムから高速dAppの構築まで、ここから始めましょう。",
+        "subtitle": "TBurn Chain V4エコシステムをマスター。信頼ベースのコンセンサスアルゴリズムから高速dAppの構築まで、ここから始めましょう。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -7763,7 +7763,7 @@
         "learningPaths": "学習パス",
         "learningPathsDesc": "すべてのスキルレベル向けのカリキュラム。",
         "coreConcepts": "コア概念",
-        "coreConceptsDesc": "TBurn Labの基本原理。",
+        "coreConceptsDesc": "TBurn Chainの基本原理。",
         "quickGlossary": "用語集",
         "certifications": {
           "developer": {
@@ -7827,7 +7827,7 @@
         },
         "concepts": {
           "whatIsTBurn": {
-            "title": "TBurn Labとは？",
+            "title": "TBurn Chainとは？",
             "description": "信頼ベースブロックチェーンの紹介"
           },
           "trustScore": {
@@ -7884,8 +7884,8 @@
             "term": "バリデーター",
             "definition": "トランザクションを検証しコンセンサスに参加するノード"
           },
-          "tburn": "TBURNはTBurn Labのネイティブガバナンス・ステーキングトークンで、総供給量は10億トークンに固定",
-          "ember": "EmberはTBurn Lab上の取引手数料に使用されるガストークンで、TBURNをステーキングすることで取得",
+          "tburn": "TBURNはTBurn Chainのネイティブガバナンス・ステーキングトークンで、総供給量は10億トークンに固定",
+          "ember": "EmberはTBurn Chain上の取引手数料に使用されるガストークンで、TBURNをステーキングすることで取得",
           "slashing": "スラッシングは悪意ある行動やダウンタイムに対してバリデーターのステークの一部を燃焼させるペナルティメカニズム"
         },
         "communityLinks": {
@@ -7936,7 +7936,7 @@
       },
       "whatIsBurnChain": {
         "tag": "紹介",
-        "title": "TBurn Labとは？",
+        "title": "TBurn Chainとは？",
         "subtitle": "AI検証と量子耐性セキュリティを備えた世界初の信頼ベースブロックチェーンを発見。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
@@ -8009,13 +8009,13 @@
         },
         "trustBased": {
           "title": "Trust-Based ブロックチェーン",
-          "paragraph1": "TBurn Lab is the world's first ブロックチェーン built on trust 検証. Every project on our network undergoes rigorous 3-stage 検証 before listing.",
+          "paragraph1": "TBurn Chain is the world's first ブロックチェーン built on trust 検証. Every project on our network undergoes rigorous 3-stage 検証 before listing.",
           "paragraph2": "Our unique トラストスコア system protects investors by providing transparent, real-time reliability ratings for すべて 検証済み projects.",
           "protocolRule": "プロトコル-level trust enforcement ensures bad actors are automaticすべてy identified and restricted from the ecosystem."
         },
         "developer": {
           "title": "Developer Resources",
-          "description": "Build on TBurn Lab with our comprehensive developer tools and ドキュメント.",
+          "description": "Build on TBurn Chain with our comprehensive developer tools and ドキュメント.",
           "readDocs": "Read ドキュメント",
           "tburnSdk": "TBurn SDK"
         }
@@ -8277,7 +8277,7 @@
       "whitepaper": {
         "tag": "技術文書",
         "title": "ホワイトペーパー",
-        "subtitle": "TBurn Labアーキテクチャ、コンセンサス、トークノミクスの完全な技術文書。",
+        "subtitle": "TBurn Chainアーキテクチャ、コンセンサス、トークノミクスの完全な技術文書。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -8349,7 +8349,7 @@
             }
           },
           "badge": "ソリューションアーキテクチャ",
-          "description": "TBurn Labはトラストスコアリングだけではありません。ネイティブコンセンサスを採用した高性能Layer 1スケーリングソリューションであり、エンタープライズグレードのスループット向けに設計されています。",
+          "description": "TBurn Chainはトラストスコアリングだけではありません。ネイティブコンセンサスを採用した高性能Layer 1スケーリングソリューションであり、エンタープライズグレードのスループット向けに設計されています。",
           "features": {
             "hybridConsensus": "ハイブリッドコンセンサス (DPoS + BFT)",
             "evmCompatibility": "EVM互換性",
@@ -8706,7 +8706,7 @@
         },
         "cta": {
           "title": "この旅に参加しましょう",
-          "description": "TBurn Labエコシステムの一員となり、信頼ベースブロックチェーン技術の未来を共に形作りましょう。",
+          "description": "TBurn Chainエコシステムの一員となり、信頼ベースブロックチェーン技術の未来を共に形作りましょう。",
           "joinCommunity": "コミュニティに参加",
           "viewDocs": "ドキュメントを見る"
         }
@@ -8754,7 +8754,7 @@
             "duration": "75 min"
           },
           "module4": {
-            "title": "TBurn Labアーキテクチャ",
+            "title": "TBurn Chainアーキテクチャ",
             "subtitle": "信頼ベースシステムの詳細解説",
             "forumTitle": "コミュニティフォーラム",
             "viewAll": "すべて表示",
@@ -8767,7 +8767,7 @@
           "item1": "ブロックチェーンの基礎と分散システムの理解",
           "item2": "安全なトランザクションを支える暗号原理の学習",
           "item3": "様々なコンセンサスメカニズムの探求",
-          "item4": "TBurn Lab独自の信頼ベースアーキテクチャのマスター"
+          "item4": "TBurn Chain独自の信頼ベースアーキテクチャのマスター"
         },
         "prerequisitesTitle": "前提条件",
         "prerequisites": {
@@ -8824,7 +8824,7 @@
         },
         "courseOverview": {
           "title": "コース概要",
-          "description": "この上級コースでは、TBurn Lab上の分散型金融について知るべきすべてを網羅します。AMMメカニズムの理解から複雑なイールドファーミング戦略の実装まで、DeFiエコシステムをナビゲートするための実践的なスキルを習得します。",
+          "description": "この上級コースでは、TBurn Chain上の分散型金融について知るべきすべてを網羅します。AMMメカニズムの理解から複雑なイールドファーミング戦略の実装まで、DeFiエコシステムをナビゲートするための実践的なスキルを習得します。",
           "videoTitle": "DeFi基礎",
           "videoSubtitle": "コースプレビュー",
           "figureCaption": "図：DeFiプロトコル概要"
@@ -8912,7 +8912,7 @@
       "developerCourse": {
         "tag": "上級",
         "title": "開発者コース",
-        "subtitle": "TBurn LabでdAppを構築・デプロイする完全ガイド。",
+        "subtitle": "TBurn ChainでdAppを構築・デプロイする完全ガイド。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -8920,7 +8920,7 @@
         "backToEducation": "教育プログラムに戻る",
         "courseOverview": {
           "title": "コース概要",
-          "description": "この包括的な開発者コースでは、ゼロからTBurn Lab上で本番対応のdAppをデプロイするまでを学びます。スマートコントラクト開発、SDK統合、テスト戦略、安全でスケーラブルなアプリケーション構築のベストプラクティスを習得します。"
+          "description": "この包括的な開発者コースでは、ゼロからTBurn Chain上で本番対応のdAppをデプロイするまでを学びます。スマートコントラクト開発、SDK統合、テスト戦略、安全でスケーラブルなアプリケーション構築のベストプラクティスを習得します。"
         },
         "curriculumTitle": "コースカリキュラム",
         "curriculum": {
@@ -8963,7 +8963,7 @@
         },
         "developerTools": {
           "title": "開発ツール",
-          "description": "TBurn Lab上で構築するために必要なすべてのツールにアクセス。",
+          "description": "TBurn Chain上で構築するために必要なすべてのツールにアクセス。",
           "quickStart": {
             "title": "クイックスタート",
             "subtitle": "5分セットアップガイド"
@@ -9011,7 +9011,7 @@
       "introToDefi": {
         "tag": "初級",
         "title": "DeFi入門",
-        "subtitle": "TBurn Labでの分散型金融への第一歩。",
+        "subtitle": "TBurn Chainでの分散型金融への第一歩。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -9268,7 +9268,7 @@
       "hub": {
         "tag": "V4 SDK & API 準備完了",
         "title": "開発者ハブ",
-        "subtitle": "次世代の信頼ベースアプリケーションを構築。TBurn Lab V4エコシステム向けの包括的な開発ツール、SDK、APIにアクセス。",
+        "subtitle": "次世代の信頼ベースアプリケーションを構築。TBurn Chain V4エコシステム向けの包括的な開発ツール、SDK、APIにアクセス。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -9308,7 +9308,7 @@
         },
         "grants": {
           "title": "開発者グラントプログラム",
-          "subtitle": "TBurn Labエコシステムを拡大するプロジェクトをサポートします。",
+          "subtitle": "TBurn Chainエコシステムを拡大するプロジェクトをサポートします。",
           "forumTitle": "コミュニティフォーラム",
           "viewAll": "すべて表示",
           "recentPosts": "最近の投稿",
@@ -9395,11 +9395,11 @@
       "docs": {
         "tag": "ドキュメント",
         "title": "ドキュメント",
-        "subtitle": "TBurn Lab開発のための包括的なガイドとリファレンス。",
+        "subtitle": "TBurn Chain開発のための包括的なガイドとリファレンス。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
-        "heroDescription": "TBurn Labで構築するために必要なすべて。APIからスマートコントラクトまで、本番対応のdAppを構築。",
+        "heroDescription": "TBurn Chainで構築するために必要なすべて。APIからスマートコントラクトまで、本番対応のdAppを構築。",
         "searchPlaceholder": "ドキュメントを検索...",
         "categoriesTitle": "ドキュメントカテゴリ",
         "resourcesTitle": "開発者リソース",
@@ -9409,7 +9409,7 @@
         },
         "architecture": {
           "title": "ネットワークアーキテクチャ",
-          "subtitle": "TBurn Labマルチレイヤーアーキテクチャの理解",
+          "subtitle": "TBurn Chainマルチレイヤーアーキテクチャの理解",
           "forumTitle": "コミュニティフォーラム",
           "viewAll": "すべて表示",
           "recentPosts": "最近の投稿",
@@ -9517,7 +9517,7 @@
         },
         "cta": {
           "title": "構築する準備はできましたか？",
-          "description": "包括的なドキュメントとSDKで今日からTBurn Labで構築を始めましょう。",
+          "description": "包括的なドキュメントとSDKで今日からTBurn Chainで構築を始めましょう。",
           "joinDiscord": "Discordに参加"
         }
       },
@@ -9639,7 +9639,7 @@
         },
         "commands": {
           "init": {
-            "desc": "新規TBurn Labプロジェクトを初期化",
+            "desc": "新規TBurn Chainプロジェクトを初期化",
             "options": {
               "template": "プロジェクトテンプレート（defi, nft, dao）",
               "typescript": "TypeScriptを使用"
@@ -9660,7 +9660,7 @@
             }
           },
           "deploy": {
-            "desc": "TBurn Labネットワークにデプロイ",
+            "desc": "TBurn Chainネットワークにデプロイ",
             "options": {
               "network": "ターゲットネットワーク（メインネット、テストネット）",
               "verify": "エクスプローラーでコントラクトを検証",
@@ -9740,7 +9740,7 @@
       "contracts": {
         "tag": "スマートコントラクト",
         "title": "スマートコントラクト",
-        "subtitle": "TBurn Labで安全なスマートコントラクトを作成、テスト、デプロイ。",
+        "subtitle": "TBurn Chainで安全なスマートコントラクトを作成、テスト、デプロイ。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -10007,7 +10007,7 @@
       "quickstart": {
         "tag": "はじめに",
         "title": "クイックスタート",
-        "subtitle": "数分でTBurn Labを始める。",
+        "subtitle": "数分でTBurn Chainを始める。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -10015,7 +10015,7 @@
         "prerequisites": {
           "title": "前提条件",
           "node": "Node.js 18+がインストール済み",
-          "account": "TBurn Labアカウント（テストネットフォーセット利用可能）",
+          "account": "TBurn Chainアカウント（テストネットフォーセット利用可能）",
           "knowledge": "基本的なJavaScript/TypeScriptの知識"
         },
         "steps": {
@@ -10050,7 +10050,7 @@
         },
         "vsCode": {
           "title": "VS Codeセットアップ",
-          "description": "TBurn Lab開発のための推奨拡張機能",
+          "description": "TBurn Chain開発のための推奨拡張機能",
           "solidity": "Solidity言語サポート",
           "eslint": "JavaScript/TypeScript用ESLint",
           "tburnSnippets": "TBurn SDKスニペット"
@@ -10180,7 +10180,7 @@
             "title": "設定ファイル",
             "description": "プロジェクトルートにtburn.config.jsファイルを作成"
           },
-          "description": "環境変数と設定ファイルでTBurn Labノードを構成。",
+          "description": "環境変数と設定ファイルでTBurn Chainノードを構成。",
           "commonFlags": "一般的な設定フラグ"
         },
         "troubleshooting": {
@@ -10244,7 +10244,7 @@
       "evmMigration": {
         "tag": "マイグレーション",
         "title": "EVMマイグレーション",
-        "subtitle": "EthereumのdAppをTBurn Labに移行。",
+        "subtitle": "EthereumのdAppをTBurn Chainに移行。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -10252,7 +10252,7 @@
         "viewGuide": "完全なガイドを見る",
         "overview": {
           "title": "マイグレーション概要",
-          "description": "TBurn Labは完全にEVM互換であり、最小限の変更で既存のEthereumスマートコントラクトをデプロイできます。",
+          "description": "TBurn Chainは完全にEVM互換であり、最小限の変更で既存のEthereumスマートコントラクトをデプロイできます。",
           "compatibility": "100% EVM互換性",
           "gasEfficiency": "最大10倍低いガスコスト",
           "trustFeatures": "組み込みトラストスコア統合"
@@ -10308,7 +10308,7 @@
           },
           "step2": {
             "title": "コントラクトアドレスを変更",
-            "description": "ハードコードされたコントラクトアドレスをTBurn Labデプロイメントに更新"
+            "description": "ハードコードされたコントラクトアドレスをTBurn Chainデプロイメントに更新"
           },
           "step3": {
             "title": "トラストスコア統合を追加",
@@ -10363,7 +10363,7 @@
           "title": "よくある質問",
           "q1": {
             "question": "既存のSolidityコントラクトは動作しますか？",
-            "answer": "はい、TBurn Labは完全にEVM互換であり、すべてのSolidityバージョンをサポートしています。"
+            "answer": "はい、TBurn Chainは完全にEVM互換であり、すべてのSolidityバージョンをサポートしています。"
           },
           "q2": {
             "question": "コントラクトを再監査する必要がありますか？",
@@ -10376,12 +10376,12 @@
         },
         "keyDifferences": {
           "title": "主要な技術的違い",
-          "subtitle": "従来のEVMチェーンとTBurn Labの違い",
+          "subtitle": "従来のEVMチェーンとTBurn Chainの違い",
           "forumTitle": "コミュニティフォーラム",
           "viewAll": "すべて表示",
           "recentPosts": "最近の投稿",
           "existingEvmChains": "既存のEVMチェーン",
-          "tburnChain": "TBurn Lab",
+          "tburnChain": "TBurn Chain",
           "upgrade": "アップグレード"
         },
         "developmentApproach": {
@@ -10923,7 +10923,7 @@
           },
           "developerCourse": {
             "title": "開発者コース",
-            "subtitle": "TBurn Lab上でdAppを構築"
+            "subtitle": "TBurn Chain上でdAppを構築"
           }
         },
         "titleHighlight": "ブリンクス",
@@ -10971,7 +10971,7 @@
         "tag": "ウォレットエコシステム",
         "title": "ウォレット＆",
         "titleHighlight": "セキュリティ",
-        "subtitle": "信頼できるウォレットでTBurn Labに接続。すべてのウォレットはトランザクション前にリアルタイムトラストスコアを表示します。",
+        "subtitle": "信頼できるウォレットでTBurn Chainに接続。すべてのウォレットはトランザクション前にリアルタイムトラストスコアを表示します。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -10980,13 +10980,13 @@
           "tburn": {
             "name": "TBurn公式",
             "platform": "ブラウザ拡張機能・モバイル",
-            "description": "TBurn Lab向けに最適化されたネイティブウォレット。リアルタイムトラストスコア表示、自動バーン追跡、直接ガバナンス投票機能を搭載。",
+            "description": "TBurn Chain向けに最適化されたネイティブウォレット。リアルタイムトラストスコア表示、自動バーン追跡、直接ガバナンス投票機能を搭載。",
             "button": "ウォレットをダウンロード"
           },
           "metamask": {
             "name": "MetaMask",
             "platform": "ブラウザ・モバイル",
-            "description": "世界で最も人気のWeb3ウォレット。カスタムネットワーク設定でTBurn Labと完全互換。すべての標準トークン操作をサポート。",
+            "description": "世界で最も人気のWeb3ウォレット。カスタムネットワーク設定でTBurn Chainと完全互換。すべての標準トークン操作をサポート。",
             "button": "接続ガイド"
           },
           "trust": {
@@ -10998,7 +10998,7 @@
           "ledger": {
             "name": "Ledger",
             "platform": "ハードウェアウォレット",
-            "description": "最大限のセキュリティのためのコールドストレージソリューション。TBurn Lab dAppと対話しながら秘密鍵をオフラインで保管。",
+            "description": "最大限のセキュリティのためのコールドストレージソリューション。TBurn Chain dAppと対話しながら秘密鍵をオフラインで保管。",
             "button": "セットアップガイド"
           }
         },
@@ -11052,7 +11052,7 @@
         "tag": "エンタープライズソリューション",
         "title": "パーミッションド",
         "titleHighlight": "ネットワーク",
-        "subtitle": "TBurn Labのトラスト検証でプライベートブロックチェーンネットワークをデプロイ。パブリックチェーンアンカリングによるエンタープライズグレードのセキュリティ。",
+        "subtitle": "TBurn Chainのトラスト検証でプライベートブロックチェーンネットワークをデプロイ。パブリックチェーンアンカリングによるエンタープライズグレードのセキュリティ。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -11324,7 +11324,7 @@
           "title": "統合ガイド",
           "step1": {
             "title": "コントラクトデプロイ",
-            "description": "Solidity ^0.8.19でERC-721/1155コントラクトを作成し、TBurn Labにデプロイ。"
+            "description": "Solidity ^0.8.19でERC-721/1155コントラクトを作成し、TBurn Chainにデプロイ。"
           },
           "step2": {
             "title": "トラスト検証申請",
@@ -11445,7 +11445,7 @@
           },
           "step2": {
             "title": "コントラクトをデプロイ",
-            "desc": "TBurn Labテストネットにゲームコントラクトをデプロイ。"
+            "desc": "TBurn Chainテストネットにゲームコントラクトをデプロイ。"
           },
           "step3": {
             "title": "検証を取得",
@@ -13038,7 +13038,7 @@
         },
         "cta": {
           "title": "バリデーターになる準備はできましたか？",
-          "subtitle": "ネットワークに参加してTBurn Labを保護しながら報酬を獲得しましょう。",
+          "subtitle": "ネットワークに参加してTBurn Chainを保護しながら報酬を獲得しましょう。",
           "forumTitle": "コミュニティフォーラム",
           "viewAll": "すべて表示",
           "recentPosts": "最近の投稿",
@@ -13253,11 +13253,11 @@
         },
         "cta": {
           "title": "構築する準備はできましたか？",
-          "subtitle": "今日からTBurn Lab APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
+          "subtitle": "今日からTBurn Chain APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
           "forumTitle": "コミュニティフォーラム",
           "viewAll": "すべて表示",
           "recentPosts": "最近の投稿",
-          "desc": "今日からTBurn Lab APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
+          "desc": "今日からTBurn Chain APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
           "getStartedFree": "無料で始める",
           "contactSales": "営業に連絡"
         },
@@ -13989,7 +13989,7 @@
       "events": {
         "tag": "イベント＆アクティビティ",
         "title": "イベント＆アクティビティ",
-        "subtitle": "TBurn Labコミュニティイベント、ハッカソン、カンファレンスに参加。",
+        "subtitle": "TBurn Chainコミュニティイベント、ハッカソン、カンファレンスに参加。",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -14082,12 +14082,12 @@
         },
         "hostEvent": {
           "title": "イベントを主催したいですか？",
-          "description": "TBurn Labコミュニティでミートアップ、ウェビナー、ハッカソンを主催。資金、グッズ、マーケティングサポートを提供します。",
+          "description": "TBurn Chainコミュニティでミートアップ、ウェビナー、ハッカソンを主催。資金、グッズ、マーケティングサポートを提供します。",
           "applyToHost": "主催者に応募"
         },
         "hostCta": {
           "title": "イベントを主催しませんか？",
-          "description": "TBurn Labコミュニティとミートアップ、ウェビナー、ハッカソンを主催しましょう。承認されたホストに資金、グッズ、マーケティングサポートを提供します。",
+          "description": "TBurn Chainコミュニティとミートアップ、ウェビナー、ハッカソンを主催しましょう。承認されたホストに資金、グッズ、マーケティングサポートを提供します。",
           "button": "ホスト申請"
         },
         "toast": {
@@ -14483,7 +14483,7 @@
     "legal": {
       "terms": {
         "title": "利用規約",
-        "subtitle": "TBurn Labサービスの利用条件",
+        "subtitle": "TBurn Chainサービスの利用条件",
         "forumTitle": "コミュニティフォーラム",
         "viewAll": "すべて表示",
         "recentPosts": "最近の投稿",
@@ -14491,18 +14491,18 @@
         "sections": {
           "acceptance": {
             "title": "1. 規約の承諾",
-            "content": "TBurn Labサービスにアクセスまたは使用することにより、この利用規約（「規約」）に拘束されることに同意します。これらの規約に同意しない場合は、サービスを使用しないでください。これらの規約は、お客様とTBurn Lab Foundationの間の法的拘束力のある契約を構成します。"
+            "content": "TBurn Chainサービスにアクセスまたは使用することにより、この利用規約（「規約」）に拘束されることに同意します。これらの規約に同意しない場合は、サービスを使用しないでください。これらの規約は、お客様とTBurn Chain Foundationの間の法的拘束力のある契約を構成します。"
           },
           "definitions": {
             "title": "2. 定義",
-            "tburnChain": "「TBurn Lab」とは、レイヤー1ブロックチェーンネットワークおよび関連サービスを指します。",
+            "tburnChain": "「TBurn Chain」とは、レイヤー1ブロックチェーンネットワークおよび関連サービスを指します。",
             "services": "「サービス」には、ブロックチェーンネットワーク、トラスト検証システム、API、プラットフォーム機能が含まれます。",
-            "user": "「ユーザー」または「お客様」とは、TBurn Labを使用する個人または団体を指します。",
-            "project": "「プロジェクト」とは、TBurn Labでの検証を求めるブロックチェーンプロジェクトを指します。",
+            "user": "「ユーザー」または「お客様」とは、TBurn Chainを使用する個人または団体を指します。",
+            "project": "「プロジェクト」とは、TBurn Chainでの検証を求めるブロックチェーンプロジェクトを指します。",
             "trustScore": "「トラストスコア」とは、3段階検証システムを通じて割り当てられる信頼性評価を指します。",
             "items": {
               "tburnChain": {
-                "term": "TBurn Lab",
+                "term": "TBurn Chain",
                 "desc": "The Layer 1 ブロックチェーン network and associated services"
               },
               "services": {
@@ -14511,11 +14511,11 @@
               },
               "user": {
                 "term": "User",
-                "desc": "Any individual or entity using TBurn Lab"
+                "desc": "Any individual or entity using TBurn Chain"
               },
               "project": {
                 "term": "Project",
-                "desc": "ブロックチェーン projects seeking 検証 on TBurn Lab"
+                "desc": "ブロックチェーン projects seeking 検証 on TBurn Chain"
               },
               "trustScore": {
                 "term": "トラストスコア",
@@ -14525,7 +14525,7 @@
           },
           "eligibility": {
             "title": "3. 資格",
-            "intro": "TBurn Labを使用するには、以下の条件を満たす必要があります：",
+            "intro": "TBurn Chainを使用するには、以下の条件を満たす必要があります：",
             "age": "18歳以上（または管轄区域の法定年齢以上）であること。",
             "legalCapacity": "拘束力のある契約を締結する法的能力を有すること。",
             "notProhibited": "適用法の下でサービスの使用を禁止されていないこと。",
@@ -14588,7 +14588,7 @@
           },
           "intellectualProperty": {
             "title": "8. 知的財産",
-            "content": "TBurn Labのすべての知的財産権（プラットフォーム、プロトコル、ブランディングを含む）はTBurn Lab Foundationが所有します。サービスを使用するための限定的、非独占的ライセンスが付与されます。"
+            "content": "TBurn Chainのすべての知的財産権（プラットフォーム、プロトコル、ブランディングを含む）はTBurn Chain Foundationが所有します。サービスを使用するための限定的、非独占的ライセンスが付与されます。"
           },
           "disclaimers": {
             "title": "9. 免責事項と制限",
@@ -14598,12 +14598,12 @@
             },
             "asIsContent": "サービスは、明示または黙示を問わず、いかなる種類の保証もなく「現状のまま」および「利用可能な状態で」提供されます。",
             "noInvestmentAdvice": "投資アドバイスなし",
-            "noInvestmentAdviceContent": "TBurn Labは投資、金融、法的アドバイスを提供しません。トラストスコアは情報提供のみを目的としています。",
+            "noInvestmentAdviceContent": "TBurn Chainは投資、金融、法的アドバイスを提供しません。トラストスコアは情報提供のみを目的としています。",
             "limitationOfLiability": "責任の制限",
             "limitationOfLiabilityContent": "法律で許可される最大限の範囲において、TBURN CHAINは、間接的、付随的、特別、結果的、または懲罰的損害について責任を負いません。",
             "noAdvice": {
               "title": "No 投資 Advice",
-              "content": "TBurn Lab does not provide 投資, 金融, or 法的情報 advice. トラストスコアs are 情報rmational only."
+              "content": "TBurn Chain does not provide 投資, 金融, or 法的情報 advice. トラストスコアs are 情報rmational only."
             },
             "limitation": {
               "title": "責任の制限",
@@ -14612,7 +14612,7 @@
           },
           "governingLaw": {
             "title": "10. 準拠法",
-            "content": "これらの規約は、抵触法の原則にかかわらず、TBurn Lab Foundationが設立された管轄区域の法律に準拠し、解釈されます。"
+            "content": "これらの規約は、抵触法の原則にかかわらず、TBurn Chain Foundationが設立された管轄区域の法律に準拠し、解釈されます。"
           },
           "account": {
             "title": "4. Account Registration & セキュリティ",
@@ -14643,11 +14643,11 @@
           },
           "ip": {
             "title": "8. 知的財産権",
-            "content": "すべて 知的財産権 rights in TBurn Lab, including the platform, プロトコルs, and branding, are owned by TBurn Lab Foundation. You are granted a limited, non-exclusive license to use our services."
+            "content": "すべて 知的財産権 rights in TBurn Chain, including the platform, プロトコルs, and branding, are owned by TBurn Chain Foundation. You are granted a limited, non-exclusive license to use our services."
           },
           "governing": {
             "title": "10. 準拠法",
-            "content": "These 利用規約 shすべて be governed by and construed in accordance with the laws of the jurisdiction where TBurn Lab Foundation is incorporated, without regard to conflict of law principles."
+            "content": "These 利用規約 shすべて be governed by and construed in accordance with the laws of the jurisdiction where TBurn Chain Foundation is incorporated, without regard to conflict of law principles."
           }
         },
         "contact": {
@@ -14675,7 +14675,7 @@
           "trustScoreSystemDesc": "3段階検証",
           "whatIsWallet": "ウォレットとは？",
           "whatIsWalletDesc": "ウォレットセキュリティ基礎",
-          "whatIsTBurnChain": "TBurn Labとは？",
+          "whatIsTBurnChain": "TBurn Chainとは？",
           "whatIsTBurnChainDesc": "プラットフォーム概要"
         },
         "lastUpdated": "最終更新日"
@@ -14690,7 +14690,7 @@
         "sections": {
           "introduction": {
             "title": "はじめに",
-            "content": "TBurn Lab Foundation（「当社」）は、お客様のプライバシーを尊重し、個人情報の保護に努めています。"
+            "content": "TBurn Chain Foundation（「当社」）は、お客様のプライバシーを尊重し、個人情報の保護に努めています。"
           },
           "informationCollected": {
             "title": "2. 収集する情報",
@@ -14711,7 +14711,7 @@
             "title": "3. 情報の使用方法",
             "intro": "収集した情報は以下の目的で使用されます：",
             "items": {
-              "operating": "TBurn Labプラットフォームの運営と維持。",
+              "operating": "TBurn Chainプラットフォームの運営と維持。",
               "verification": "3段階検証プロセス（AIフィルタリング、エキスパートレビュー、投票）の実施。",
               "detectingFraud": "詐欺、悪用、セキュリティ脅威の検出。",
               "improving": "分析を通じたサービスの改善。",
@@ -14732,7 +14732,7 @@
             "title": "5. ブロックチェーン固有のプライバシー",
             "publicData": {
               "title": "公開データ",
-              "content": "TBurn Lab上のトランザクションとスマートコントラクトインタラクションは公開され、不変です。このデータは削除または変更できません。"
+              "content": "TBurn Chain上のトランザクションとスマートコントラクトインタラクションは公開され、不変です。このデータは削除または変更できません。"
             },
             "pseudonymity": {
               "title": "匿名性",
@@ -14829,7 +14829,7 @@
             "title": "5. ブロックチェーン-Specific プライバシー",
             "publicData": {
               "title": "Public Data",
-              "content": "トランザクション and smart contract interアクション on TBurn Lab are publicly visible and immutable. This data cannot be deleted or modified."
+              "content": "トランザクション and smart contract interアクション on TBurn Chain are publicly visible and immutable. This data cannot be deleted or modified."
             },
             "pseudonymity": {
               "title": "Pseudonymity",
@@ -14924,7 +14924,7 @@
         "backToHome": "ホームに戻る",
         "importantNotice": {
           "title": "重要なお知らせ",
-          "content": "Please read this 免責事項 carefully before using TBurn Lab services. By accessing or using our platform, you acknowledge that you have read, understood, and agree to the following 免責事項s."
+          "content": "Please read this 免責事項 carefully before using TBurn Chain services. By accessing or using our platform, you acknowledge that you have read, understood, and agree to the following 免責事項s."
         },
         "questions": {
           "title": "ご質問はありますか？",
@@ -14947,12 +14947,12 @@
         "sections": {
           "noAdvice": {
             "title": "1. No 投資 Advice",
-            "warning": "TBurn Lab does not provide 投資, 金融, tax, or 法的情報 advice. すべて 情報rmation provided on our platform, including トラストスコアs, is for 情報rmational purposes only and should not be construed as advice of any kind.",
+            "warning": "TBurn Chain does not provide 投資, 金融, tax, or 法的情報 advice. すべて 情報rmation provided on our platform, including トラストスコアs, is for 情報rmational purposes only and should not be construed as advice of any kind.",
             "content": "You should consult with qualified professionals before making any 投資 decisions. Past performance is not indicative of future results."
           },
           "noInvestmentAdvice": {
             "title": "1. No 投資 Advice",
-            "warning": "TBurn Lab does not provide 投資, 金融, tax, or 法的情報 advice. すべて 情報rmation provided on our platform, including トラストスコアs, is for 情報rmational purposes only and should not be construed as advice of any kind.",
+            "warning": "TBurn Chain does not provide 投資, 金融, tax, or 法的情報 advice. すべて 情報rmation provided on our platform, including トラストスコアs, is for 情報rmational purposes only and should not be construed as advice of any kind.",
             "content": "You should consult with qualified professionals before making any 投資 decisions. Past performance is not indicative of future results."
           },
           "riskDisclosure": {
@@ -15034,11 +15034,11 @@
           },
           "geographic": {
             "title": "7. 地理的制限",
-            "content": "Our services may not be available in すべて jurisdictions. It is your responsibility to ensure that your use of TBurn Lab complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain 地理的 locations."
+            "content": "Our services may not be available in すべて jurisdictions. It is your responsibility to ensure that your use of TBurn Chain complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain 地理的 locations."
           },
           "geographicRestrictions": {
             "title": "7. 地理的制限",
-            "content": "Our services may not be available in すべて jurisdictions. It is your responsibility to ensure that your use of TBurn Lab complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain 地理的 locations."
+            "content": "Our services may not be available in すべて jurisdictions. It is your responsibility to ensure that your use of TBurn Chain complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain 地理的 locations."
           },
           "forwardLooking": {
             "title": "8. 将来の見通しに関する記述",
@@ -15105,7 +15105,7 @@
             "subtitle": "Understanding ブロックチェーン technology"
           },
           "burnChain": {
-            "title": "What is TBurn Lab?",
+            "title": "What is TBurn Chain?",
             "subtitle": "Platform overview"
           },
           "defi": {

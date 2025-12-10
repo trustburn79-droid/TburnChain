@@ -3069,7 +3069,7 @@
       },
       "toast": {
         "successTitle": "নোড ইনিশিয়ালাইজ হয়েছে",
-        "successDescription": "TBurn Lab-এ স্বাগতম! আপনার অ্যাকাউন্ট এখন সক্রিয়।",
+        "successDescription": "TBurn Chain-এ স্বাগতম! আপনার অ্যাকাউন্ট এখন সক্রিয়।",
         "errorTitle": "ইনিশিয়ালাইজেশন ব্যর্থ",
         "errorDescription": "অ্যাকাউন্ট তৈরি করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
       },
@@ -3370,10 +3370,10 @@
       },
       "legal": "আইনি",
       "stayUpdated": "আপডেট থাকুন",
-      "newsletterDesc": "TBurn Lab থেকে সর্বশেষ খবর এবং আপডেট পান",
+      "newsletterDesc": "TBurn Chain থেকে সর্বশেষ খবর এবং আপডেট পান",
       "enterEmail": "আপনার ইমেইল দিন",
       "subscribe": "সাবস্ক্রাইব",
-      "copyright": "© 2025 TBurn Lab. সমস্ত অধিকার সংরক্ষিত।",
+      "copyright": "© 2025 TBurn Chain. সমস্ত অধিকার সংরক্ষিত।",
       "termsOfService": "সেবার শর্তাবলী",
       "privacyPolicy": "গোপনীয়তা নীতি",
       "disclaimer": "দায়বদ্ধতা অস্বীকার"
@@ -3446,7 +3446,7 @@
       "hub": {
         "tag": "V4 লার্নিং সেন্টার",
         "title": "শিক্ষা হাব",
-        "subtitle": "TBurn Lab V4 ইকোসিস্টেম আয়ত্ত করুন। ট্রাস্ট-ভিত্তিক কনসেনসাস অ্যালগরিদম থেকে হাই-স্পিড dApps নির্মাণ পর্যন্ত, এখানে আপনার যাত্রা শুরু করুন।",
+        "subtitle": "TBurn Chain V4 ইকোসিস্টেম আয়ত্ত করুন। ট্রাস্ট-ভিত্তিক কনসেনসাস অ্যালগরিদম থেকে হাই-স্পিড dApps নির্মাণ পর্যন্ত, এখানে আপনার যাত্রা শুরু করুন।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -3459,7 +3459,7 @@
         "learningPaths": "শেখার পথ",
         "learningPathsDesc": "প্রতিটি দক্ষতা স্তরের জন্য কিউরেটেড পাঠ্যক্রম।",
         "coreConcepts": "মূল ধারণা",
-        "coreConceptsDesc": "TBurn Lab এর মৌলিক নীতিমালা।",
+        "coreConceptsDesc": "TBurn Chain এর মৌলিক নীতিমালা।",
         "quickGlossary": "দ্রুত শব্দকোষ",
         "certifications": {
           "developer": {
@@ -3523,7 +3523,7 @@
         },
         "concepts": {
           "whatIsTBurn": {
-            "title": "TBurn Lab কী?",
+            "title": "TBurn Chain কী?",
             "description": "ট্রাস্ট-ভিত্তিক ব্লকচেইনের পরিচিতি"
           },
           "trustScore": {
@@ -3580,8 +3580,8 @@
             "term": "ভ্যালিডেটর",
             "definition": "যে নোডগুলো লেনদেন যাচাই করে এবং কনসেনসাসে অংশগ্রহণ করে"
           },
-          "tburn": "TBURN হল TBurn Lab-এর নেটিভ গভর্ন্যান্স এবং স্টেকিং টোকেন যার মোট সরবরাহ ১ বিলিয়ন টোকেন",
-          "ember": "Ember হল TBurn Lab-এ লেনদেন ফির জন্য ব্যবহৃত গ্যাস টোকেন, যা TBURN স্টেক করে অর্জিত হয়",
+          "tburn": "TBURN হল TBurn Chain-এর নেটিভ গভর্ন্যান্স এবং স্টেকিং টোকেন যার মোট সরবরাহ ১ বিলিয়ন টোকেন",
+          "ember": "Ember হল TBurn Chain-এ লেনদেন ফির জন্য ব্যবহৃত গ্যাস টোকেন, যা TBURN স্টেক করে অর্জিত হয়",
           "slashing": "স্ল্যাশিং হল জরিমানা মেকানিজম যা দূষিত আচরণ বা ডাউনটাইমের জন্য ভ্যালিডেটর স্টেকের একটি অংশ পুড়িয়ে দেয়"
         },
         "communityLinks": {
@@ -3632,7 +3632,7 @@
       },
       "whatIsBurnChain": {
         "tag": "পরিচিতি",
-        "title": "TBurn Lab কী?",
+        "title": "TBurn Chain কী?",
         "subtitle": "AI ভেরিফিকেশন এবং কোয়ান্টাম-প্রতিরোধী নিরাপত্তা সহ বিশ্বের প্রথম ট্রাস্ট-ভিত্তিক ব্লকচেইন আবিষ্কার করুন।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
@@ -3705,13 +3705,13 @@
         },
         "trustBased": {
           "title": "বিশ্বাস-ভিত্তিক ব্লকচেইন",
-          "paragraph1": "TBurn Lab is the world's first blockchain built on trust যাচাইকরণ. Every project on our network undergoes rigorous 3-stage যাচাইকরণ before listing.",
+          "paragraph1": "TBurn Chain is the world's first blockchain built on trust যাচাইকরণ. Every project on our network undergoes rigorous 3-stage যাচাইকরণ before listing.",
           "paragraph2": "Our unique ট্রাস্ট স্কোর সিস্টেম protects investors by providing transparent, real-time reliability ratings for all যাচাইকৃত প্রকল্প.",
           "protocolRule": "Protocol-level trust enforcement ensures bad actors are automatically identified and restricted from the ecosystem."
         },
         "developer": {
           "title": "ডেভেলপার রিসোর্স",
-          "description": "Build on TBurn Lab with our comprehensive developer tools and ডকুমেন্টেশন.",
+          "description": "Build on TBurn Chain with our comprehensive developer tools and ডকুমেন্টেশন.",
           "readDocs": "ডকুমেন্টেশন পড়ুন",
           "tburnSdk": "TBurn SDK"
         }
@@ -3973,7 +3973,7 @@
       "whitepaper": {
         "tag": "প্রযুক্তিগত কাগজ",
         "title": "হোয়াইটপেপার",
-        "subtitle": "TBurn Lab আর্কিটেকচার, কনসেনসাস এবং টোকেনোমিক্সের সম্পূর্ণ প্রযুক্তিগত ডকুমেন্টেশন।",
+        "subtitle": "TBurn Chain আর্কিটেকচার, কনসেনসাস এবং টোকেনোমিক্সের সম্পূর্ণ প্রযুক্তিগত ডকুমেন্টেশন।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -4045,7 +4045,7 @@
             }
           },
           "badge": "সমাধান আর্কিটেকচার",
-          "description": "TBurn Lab শুধু ট্রাস্ট স্কোরিং সম্পর্কে নয়; এটি স্বতন্ত্র AI-BFT কনসেনসাস মেকানিজমে নির্মিত একটি উচ্চ-পারফরম্যান্স Layer 1 স্কেলিং সমাধান, যা এন্টারপ্রাইজ-গ্রেড থ্রুপুটের জন্য ডিজাইন করা হয়েছে।",
+          "description": "TBurn Chain শুধু ট্রাস্ট স্কোরিং সম্পর্কে নয়; এটি স্বতন্ত্র AI-BFT কনসেনসাস মেকানিজমে নির্মিত একটি উচ্চ-পারফরম্যান্স Layer 1 স্কেলিং সমাধান, যা এন্টারপ্রাইজ-গ্রেড থ্রুপুটের জন্য ডিজাইন করা হয়েছে।",
           "features": {
             "hybridConsensus": "হাইব্রিড কনসেনসাস (DPoS + BFT)",
             "evmCompatibility": "EVM সামঞ্জস্য",
@@ -4402,7 +4402,7 @@
         },
         "cta": {
           "title": "এই যাত্রায় আমাদের সাথে যোগ দিন",
-          "description": "TBurn Lab ইকোসিস্টেমের অংশ হোন এবং বিশ্বাস-ভিত্তিক ব্লকচেইন প্রযুক্তির ভবিষ্যৎ গড়তে সাহায্য করুন।",
+          "description": "TBurn Chain ইকোসিস্টেমের অংশ হোন এবং বিশ্বাস-ভিত্তিক ব্লকচেইন প্রযুক্তির ভবিষ্যৎ গড়তে সাহায্য করুন।",
           "joinCommunity": "কমিউনিটিতে যোগ দিন",
           "viewDocs": "ডকুমেন্টেশন দেখুন"
         }
@@ -4463,7 +4463,7 @@
           "item1": "ব্লকচেইন মৌলিক এবং বিতরণকৃত সিস্টেম বোঝুন",
           "item2": "নিরাপদ লেনদেনের পিছনে ক্রিপ্টোগ্রাফিক নীতি শিখুন",
           "item3": "বিভিন্ন কনসেনসাস মেকানিজম অন্বেষণ করুন",
-          "item4": "TBurn Lab-এর অনন্য বিশ্বাস-ভিত্তিক আর্কিটেকচার আয়ত্ত করুন"
+          "item4": "TBurn Chain-এর অনন্য বিশ্বাস-ভিত্তিক আর্কিটেকচার আয়ত্ত করুন"
         },
         "prerequisitesTitle": "পূর্বশর্ত",
         "prerequisites": {
@@ -4520,7 +4520,7 @@
         },
         "courseOverview": {
           "title": "কোর্স ওভারভিউ",
-          "description": "এই উন্নত কোর্স TBurn Lab-এ বিকেন্দ্রীভূত ফিনান্স সম্পর্কে আপনার যা জানা দরকার তা সব কভার করে। AMM মেকানিক্স বোঝা থেকে শুরু করে জটিল ইয়েল্ড ফার্মিং কৌশল বাস্তবায়ন পর্যন্ত, আপনি DeFi ইকোসিস্টেমে নেভিগেট করার প্রায়োগিক দক্ষতা অর্জন করবেন।",
+          "description": "এই উন্নত কোর্স TBurn Chain-এ বিকেন্দ্রীভূত ফিনান্স সম্পর্কে আপনার যা জানা দরকার তা সব কভার করে। AMM মেকানিক্স বোঝা থেকে শুরু করে জটিল ইয়েল্ড ফার্মিং কৌশল বাস্তবায়ন পর্যন্ত, আপনি DeFi ইকোসিস্টেমে নেভিগেট করার প্রায়োগিক দক্ষতা অর্জন করবেন।",
           "videoTitle": "DeFi মৌলিক",
           "videoSubtitle": "কোর্স প্রিভিউ",
           "figureCaption": "চিত্র: DeFi প্রোটোকল ওভারভিউ"
@@ -4608,7 +4608,7 @@
       "developerCourse": {
         "tag": "উন্নত",
         "title": "ডেভেলপার কোর্স",
-        "subtitle": "TBurn Lab-এ dApps নির্মাণ এবং ডিপ্লয় করার সম্পূর্ণ গাইড।",
+        "subtitle": "TBurn Chain-এ dApps নির্মাণ এবং ডিপ্লয় করার সম্পূর্ণ গাইড।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -4616,7 +4616,7 @@
         "backToEducation": "শিক্ষা প্রোগ্রামে ফিরে যান",
         "courseOverview": {
           "title": "কোর্স ওভারভিউ",
-          "description": "এই বিস্তৃত ডেভেলপার কোর্স আপনাকে শূন্য থেকে TBurn Lab-এ প্রোডাকশন-রেডি dApps ডিপ্লয় করা পর্যন্ত নিয়ে যায়। আপনি স্মার্ট কন্ট্রাক্ট ডেভেলপমেন্ট, SDK ইন্টিগ্রেশন, টেস্টিং স্ট্র্যাটেজি এবং সুরক্ষিত, স্কেলযোগ্য অ্যাপ্লিকেশন তৈরির সেরা অনুশীলন শিখবেন।"
+          "description": "এই বিস্তৃত ডেভেলপার কোর্স আপনাকে শূন্য থেকে TBurn Chain-এ প্রোডাকশন-রেডি dApps ডিপ্লয় করা পর্যন্ত নিয়ে যায়। আপনি স্মার্ট কন্ট্রাক্ট ডেভেলপমেন্ট, SDK ইন্টিগ্রেশন, টেস্টিং স্ট্র্যাটেজি এবং সুরক্ষিত, স্কেলযোগ্য অ্যাপ্লিকেশন তৈরির সেরা অনুশীলন শিখবেন।"
         },
         "curriculumTitle": "কোর্স কারিকুলাম",
         "curriculum": {
@@ -4659,7 +4659,7 @@
         },
         "developerTools": {
           "title": "ডেভেলপার টুলস",
-          "description": "TBurn Lab-এ নির্মাণ করতে প্রয়োজনীয় সব টুলে অ্যাক্সেস করুন।",
+          "description": "TBurn Chain-এ নির্মাণ করতে প্রয়োজনীয় সব টুলে অ্যাক্সেস করুন।",
           "quickStart": {
             "title": "দ্রুত শুরু",
             "subtitle": "৫ মিনিটের সেটআপ গাইড"
@@ -4707,7 +4707,7 @@
       "introToDefi": {
         "tag": "প্রারম্ভিক",
         "title": "DeFi-তে পরিচিতি",
-        "subtitle": "TBurn Lab-এ বিকেন্দ্রীভূত ফিনান্সে আপনার প্রথম পদক্ষেপ।",
+        "subtitle": "TBurn Chain-এ বিকেন্দ্রীভূত ফিনান্সে আপনার প্রথম পদক্ষেপ।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -4882,7 +4882,7 @@
           },
           "developer": {
             "title": "স্মার্ট কন্ট্রাক্ট ডেভেলপার",
-            "subtitle": "TBurn Lab-এ প্রোডাকশন-রেডি dApps তৈরি করুন।",
+            "subtitle": "TBurn Chain-এ প্রোডাকশন-রেডি dApps তৈরি করুন।",
             "forumTitle": "সম্প্রদায় ফোরাম",
             "viewAll": "সব দেখুন",
             "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -4914,7 +4914,7 @@
           },
           "developerCourse": {
             "title": "ডেভেলপার কোর্স",
-            "description": "স্মার্ট কন্ট্রাক্ট তৈরি করুন, SDK ইন্টিগ্রেট করুন এবং TBurn Lab-এ প্রোডাকশন অ্যাপ ডিপ্লয় করুন।"
+            "description": "স্মার্ট কন্ট্রাক্ট তৈরি করুন, SDK ইন্টিগ্রেট করুন এবং TBurn Chain-এ প্রোডাকশন অ্যাপ ডিপ্লয় করুন।"
           },
           "trustScore": {
             "title": "Trust Score সিস্টেম",
@@ -4964,7 +4964,7 @@
       "hub": {
         "tag": "V4 SDK এবং API প্রস্তুত",
         "title": "ডেভেলপার হাব",
-        "subtitle": "পরবর্তী প্রজন্মের ট্রাস্ট-ভিত্তিক অ্যাপ্লিকেশন তৈরি করুন। TBurn Lab V4 ইকোসিস্টেমের জন্য ব্যাপক ডেভেলপমেন্ট টুলস, SDK এবং API অ্যাক্সেস করুন।",
+        "subtitle": "পরবর্তী প্রজন্মের ট্রাস্ট-ভিত্তিক অ্যাপ্লিকেশন তৈরি করুন। TBurn Chain V4 ইকোসিস্টেমের জন্য ব্যাপক ডেভেলপমেন্ট টুলস, SDK এবং API অ্যাক্সেস করুন।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -5004,7 +5004,7 @@
         },
         "grants": {
           "title": "ডেভেলপার গ্রান্ট প্রোগ্রাম",
-          "subtitle": "আমরা TBurn Lab ইকোসিস্টেম প্রসারিত করে এমন প্রকল্পগুলিকে সমর্থন করি।",
+          "subtitle": "আমরা TBurn Chain ইকোসিস্টেম প্রসারিত করে এমন প্রকল্পগুলিকে সমর্থন করি।",
           "forumTitle": "সম্প্রদায় ফোরাম",
           "viewAll": "সব দেখুন",
           "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -5155,11 +5155,11 @@
       "docs": {
         "tag": "ডকুমেন্টেশন",
         "title": "ডকুমেন্টেশন",
-        "subtitle": "TBurn Lab ডেভেলপমেন্টের জন্য ব্যাপক গাইড এবং রেফারেন্স।",
+        "subtitle": "TBurn Chain ডেভেলপমেন্টের জন্য ব্যাপক গাইড এবং রেফারেন্স।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
-        "heroDescription": "TBurn Lab-এ তৈরি করার জন্য আপনার যা প্রয়োজন সবকিছু। দ্রুত শুরু থেকে উন্নত স্তরের API রেফারেন্স পর্যন্ত।",
+        "heroDescription": "TBurn Chain-এ তৈরি করার জন্য আপনার যা প্রয়োজন সবকিছু। দ্রুত শুরু থেকে উন্নত স্তরের API রেফারেন্স পর্যন্ত।",
         "searchPlaceholder": "ডকুমেন্টেশন খুঁজুন...",
         "categoriesTitle": "ডকুমেন্টেশন বিভাগসমূহ",
         "resourcesTitle": "ডেভেলপার রিসোর্স",
@@ -5169,7 +5169,7 @@
         },
         "architecture": {
           "title": "নেটওয়ার্ক আর্কিটেকচার",
-          "subtitle": "TBurn Lab মাল্টি-লেয়ার আর্কিটেকচার বোঝা",
+          "subtitle": "TBurn Chain মাল্টি-লেয়ার আর্কিটেকচার বোঝা",
           "forumTitle": "সম্প্রদায় ফোরাম",
           "viewAll": "সব দেখুন",
           "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -5277,7 +5277,7 @@
         },
         "cta": {
           "title": "তৈরি করতে প্রস্তুত?",
-          "description": "আমাদের ব্যাপক ডকুমেন্টেশন এবং SDK দিয়ে আজই TBurn Lab-এ তৈরি শুরু করুন।",
+          "description": "আমাদের ব্যাপক ডকুমেন্টেশন এবং SDK দিয়ে আজই TBurn Chain-এ তৈরি শুরু করুন।",
           "joinDiscord": "Discord-এ যোগ দিন"
         }
       },
@@ -5399,7 +5399,7 @@
         },
         "commands": {
           "init": {
-            "desc": "একটি নতুন TBurn Lab প্রজেক্ট ইনিশিয়ালাইজ করুন",
+            "desc": "একটি নতুন TBurn Chain প্রজেক্ট ইনিশিয়ালাইজ করুন",
             "options": {
               "template": "প্রজেক্ট টেমপ্লেট (defi, nft, dao)",
               "typescript": "TypeScript ব্যবহার করুন"
@@ -5420,7 +5420,7 @@
             }
           },
           "deploy": {
-            "desc": "TBurn Lab নেটওয়ার্কে ডিপ্লয় করুন",
+            "desc": "TBurn Chain নেটওয়ার্কে ডিপ্লয় করুন",
             "options": {
               "network": "টার্গেট নেটওয়ার্ক (mainnet, testnet)",
               "verify": "এক্সপ্লোরারে কন্ট্রাক্ট যাচাই করুন",
@@ -5500,7 +5500,7 @@
       "contracts": {
         "tag": "স্মার্ট কন্ট্রাক্ট",
         "title": "স্মার্ট কন্ট্রাক্ট",
-        "subtitle": "TBurn Lab-এ নিরাপদ স্মার্ট কন্ট্রাক্ট লিখুন, পরীক্ষা করুন এবং ডিপ্লয় করুন।",
+        "subtitle": "TBurn Chain-এ নিরাপদ স্মার্ট কন্ট্রাক্ট লিখুন, পরীক্ষা করুন এবং ডিপ্লয় করুন।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -5767,7 +5767,7 @@
       "quickstart": {
         "tag": "শুরু করা",
         "title": "দ্রুত শুরু",
-        "subtitle": "মিনিটের মধ্যে TBurn Lab দিয়ে শুরু করুন।",
+        "subtitle": "মিনিটের মধ্যে TBurn Chain দিয়ে শুরু করুন।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -5775,7 +5775,7 @@
         "prerequisites": {
           "title": "পূর্বশর্ত",
           "node": "Node.js ১৮+ installed",
-          "account": "TBurn Lab account (testnet faucet available)",
+          "account": "TBurn Chain account (testnet faucet available)",
           "knowledge": "Basic JavaScript/TypeScript knowledge"
         },
         "steps": {
@@ -5810,7 +5810,7 @@
         },
         "vsCode": {
           "title": "VS Code Setup",
-          "description": "Recommended extensions for TBurn Lab development",
+          "description": "Recommended extensions for TBurn Chain development",
           "solidity": "Solidity Language Support",
           "eslint": "ESLint for JavaScript/TypeScript",
           "tburnSnippets": "TBurn SDK Snippets"
@@ -5946,7 +5946,7 @@
         },
         "configuration": {
           "title": "কনফিগারেশন",
-          "description": "Configure your TBurn Lab node with environment variables and config files.",
+          "description": "Configure your TBurn Chain node with environment variables and config files.",
           "commonFlags": "Common কনফিগারেশন Flags",
           "envVars": {
             "title": "Environment Variables",
@@ -6004,7 +6004,7 @@
       "evmMigration": {
         "tag": "মাইগ্রেশন",
         "title": "EVM মাইগ্রেশন",
-        "subtitle": "আপনার Ethereum dApps TBurn Lab-এ মাইগ্রেট করুন।",
+        "subtitle": "আপনার Ethereum dApps TBurn Chain-এ মাইগ্রেট করুন।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -6012,7 +6012,7 @@
         "viewGuide": "View Full Guide",
         "overview": {
           "title": "মাইগ্রেশন Overview",
-          "description": "TBurn Lab is fully EVM-compatible, allowing you to deploy existing Ethereum স্মার্ট কন্ট্রাক্ট with minimal modifications.",
+          "description": "TBurn Chain is fully EVM-compatible, allowing you to deploy existing Ethereum স্মার্ট কন্ট্রাক্ট with minimal modifications.",
           "compatibility": "100% EVM সামঞ্জস্য",
           "gasEfficiency": "Up to 10x lower gas costs",
           "trustFeatures": "Built-in Trust Score integration"
@@ -6062,12 +6062,12 @@
         },
         "keyDifferences": {
           "title": "Key Technical Differences",
-          "subtitle": "What sets TBurn Lab apart from traditional EVM chains",
+          "subtitle": "What sets TBurn Chain apart from traditional EVM chains",
           "forumTitle": "সম্প্রদায় ফোরাম",
           "viewAll": "সব দেখুন",
           "recentPosts": "সাম্প্রতিক পোস্ট",
           "existingEvmChains": "Existing EVM Chains",
-          "tburnChain": "TBurn Lab",
+          "tburnChain": "TBurn Chain",
           "upgrade": "Upgrade"
         },
         "developmentApproach": {
@@ -6082,7 +6082,7 @@
           },
           "step2": {
             "title": "Modify Contract Addresses",
-            "description": "Update hardcoded contract addresses to TBurn Lab deployments"
+            "description": "Update hardcoded contract addresses to TBurn Chain deployments"
           },
           "step3": {
             "title": "Add Trust Score Integration",
@@ -6137,7 +6137,7 @@
           "title": "Frequently Asked Questions",
           "q1": {
             "question": "Will my existing Solidity contracts work?",
-            "answer": "Yes, TBurn Lab is fully EVM-compatible and supports all Solidity versions."
+            "answer": "Yes, TBurn Chain is fully EVM-compatible and supports all Solidity versions."
           },
           "q2": {
             "question": "Do I need to re-audit my contracts?",
@@ -6627,7 +6627,7 @@
           },
           "developerCourse": {
             "title": "ডেভেলপার কোর্স",
-            "subtitle": "TBurn Lab-এ dApps তৈরি করুন"
+            "subtitle": "TBurn Chain-এ dApps তৈরি করুন"
           }
         }
       },
@@ -6635,7 +6635,7 @@
         "tag": "ওয়ালেট ইকোসিস্টেম",
         "title": "ওয়ালেট এবং",
         "titleHighlight": "নিরাপত্তা",
-        "subtitle": "বিশ্বস্ত ওয়ালেট ব্যবহার করে TBurn Lab-এ সংযোগ করুন। সমস্ত ওয়ালেট লেনদেনের আগে রিয়েল-টাইম বিশ্বাস স্কোর প্রদর্শন করে।",
+        "subtitle": "বিশ্বস্ত ওয়ালেট ব্যবহার করে TBurn Chain-এ সংযোগ করুন। সমস্ত ওয়ালেট লেনদেনের আগে রিয়েল-টাইম বিশ্বাস স্কোর প্রদর্শন করে।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -6644,13 +6644,13 @@
           "tburn": {
             "name": "TBurn অফিসিয়াল",
             "platform": "ব্রাউজার এক্সটেনশন • মোবাইল",
-            "description": "TBurn Lab এর জন্য অপ্টিমাইজড নেটিভ ওয়ালেট। রিয়েল-টাইম বিশ্বাস স্কোর প্রদর্শন, অটো-বার্ন ট্র্যাকিং এবং সরাসরি গভর্ন্যান্স ভোটিং বৈশিষ্ট্যযুক্ত।",
+            "description": "TBurn Chain এর জন্য অপ্টিমাইজড নেটিভ ওয়ালেট। রিয়েল-টাইম বিশ্বাস স্কোর প্রদর্শন, অটো-বার্ন ট্র্যাকিং এবং সরাসরি গভর্ন্যান্স ভোটিং বৈশিষ্ট্যযুক্ত।",
             "button": "ওয়ালেট ডাউনলোড করুন"
           },
           "metamask": {
             "name": "MetaMask",
             "platform": "ব্রাউজার • মোবাইল",
-            "description": "বিশ্বের সবচেয়ে জনপ্রিয় Web3 ওয়ালেট। কাস্টম নেটওয়ার্ক সেটিংসের মাধ্যমে TBurn Lab এর সাথে সম্পূর্ণ সামঞ্জস্যপূর্ণ। সমস্ত স্ট্যান্ডার্ড টোকেন অপারেশন সমর্থন করে।",
+            "description": "বিশ্বের সবচেয়ে জনপ্রিয় Web3 ওয়ালেট। কাস্টম নেটওয়ার্ক সেটিংসের মাধ্যমে TBurn Chain এর সাথে সম্পূর্ণ সামঞ্জস্যপূর্ণ। সমস্ত স্ট্যান্ডার্ড টোকেন অপারেশন সমর্থন করে।",
             "button": "সংযোগ গাইড"
           },
           "trust": {
@@ -6662,7 +6662,7 @@
           "ledger": {
             "name": "Ledger",
             "platform": "হার্ডওয়্যার ওয়ালেট",
-            "description": "সর্বোচ্চ নিরাপত্তার জন্য কোল্ড স্টোরেজ সমাধান। TBurn Lab dApps-এর সাথে ইন্টারঅ্যাক্ট করার সময় আপনার প্রাইভেট কী অফলাইনে রাখুন।",
+            "description": "সর্বোচ্চ নিরাপত্তার জন্য কোল্ড স্টোরেজ সমাধান। TBurn Chain dApps-এর সাথে ইন্টারঅ্যাক্ট করার সময় আপনার প্রাইভেট কী অফলাইনে রাখুন।",
             "button": "সেটআপ গাইড"
           }
         },
@@ -6721,7 +6721,7 @@
         "tag": "এন্টারপ্রাইজ সমাধান",
         "title": "পার্মিশনড",
         "titleHighlight": "নেটওয়ার্ক",
-        "subtitle": "TBurn Lab এর ট্রাস্ট ভেরিফিকেশন সহ প্রাইভেট ব্লকচেইন নেটওয়ার্ক ডিপ্লয় করুন। পাবলিক চেইন অ্যাঙ্করিং সহ এন্টারপ্রাইজ-গ্রেড নিরাপত্তা।",
+        "subtitle": "TBurn Chain এর ট্রাস্ট ভেরিফিকেশন সহ প্রাইভেট ব্লকচেইন নেটওয়ার্ক ডিপ্লয় করুন। পাবলিক চেইন অ্যাঙ্করিং সহ এন্টারপ্রাইজ-গ্রেড নিরাপত্তা।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -6993,7 +6993,7 @@
           "title": "ইন্টিগ্রেশন গাইড",
           "step1": {
             "title": "কন্ট্রাক্ট ডিপ্লয় করুন",
-            "description": "Solidity ^0.8.19-এ ERC-721/1155 কন্ট্রাক্ট লিখুন এবং TBurn Lab-এ ডিপ্লয় করুন।"
+            "description": "Solidity ^0.8.19-এ ERC-721/1155 কন্ট্রাক্ট লিখুন এবং TBurn Chain-এ ডিপ্লয় করুন।"
           },
           "step2": {
             "title": "বিশ্বাস যাচাইকরণের জন্য আবেদন করুন",
@@ -7015,7 +7015,7 @@
         },
         "sections": {
           "whyBuild": {
-            "title": "TBurn Lab-এ কেন গেম তৈরি করবেন?",
+            "title": "TBurn Chain-এ কেন গেম তৈরি করবেন?",
             "subtitle": "পরবর্তী প্রজন্মের ব্লকচেইন গেমিংয়ের জন্য উন্নত অবকাঠামো"
           },
           "trustScore": {
@@ -7114,7 +7114,7 @@
           },
           "step2": {
             "title": "কন্ট্রাক্ট ডিপ্লয় করুন",
-            "desc": "TBurn Lab টেস্টনেটে আপনার গেম কন্ট্রাক্ট ডিপ্লয় করুন।"
+            "desc": "TBurn Chain টেস্টনেটে আপনার গেম কন্ট্রাক্ট ডিপ্লয় করুন।"
           },
           "step3": {
             "title": "যাচাই পান",
@@ -8536,7 +8536,7 @@
         },
         "cta": {
           "title": "ভ্যালিডেটর হতে প্রস্তুত?",
-          "subtitle": "TBurn Lab সুরক্ষিত করার সময় নেটওয়ার্কে যোগ দিন এবং পুরস্কার অর্জন করুন।",
+          "subtitle": "TBurn Chain সুরক্ষিত করার সময় নেটওয়ার্কে যোগ দিন এবং পুরস্কার অর্জন করুন।",
           "forumTitle": "সম্প্রদায় ফোরাম",
           "viewAll": "সব দেখুন",
           "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -8751,11 +8751,11 @@
         },
         "cta": {
           "title": "নির্মাণ করতে প্রস্তুত?",
-          "subtitle": "আজই TBurn Lab API দিয়ে নির্মাণ শুরু করুন। আপনার ফ্রি API কী পান এবং এন্টারপ্রাইজ-গ্রেড ব্লকচেইন অবকাঠামো অ্যাক্সেস করুন।",
+          "subtitle": "আজই TBurn Chain API দিয়ে নির্মাণ শুরু করুন। আপনার ফ্রি API কী পান এবং এন্টারপ্রাইজ-গ্রেড ব্লকচেইন অবকাঠামো অ্যাক্সেস করুন।",
           "forumTitle": "সম্প্রদায় ফোরাম",
           "viewAll": "সব দেখুন",
           "recentPosts": "সাম্প্রতিক পোস্ট",
-          "desc": "আজই TBurn Lab API দিয়ে নির্মাণ শুরু করুন। আপনার ফ্রি API কী পান এবং এন্টারপ্রাইজ-গ্রেড ব্লকচেইন অবকাঠামো অ্যাক্সেস করুন।",
+          "desc": "আজই TBurn Chain API দিয়ে নির্মাণ শুরু করুন। আপনার ফ্রি API কী পান এবং এন্টারপ্রাইজ-গ্রেড ব্লকচেইন অবকাঠামো অ্যাক্সেস করুন।",
           "getStartedFree": "ফ্রি শুরু করুন",
           "contactSales": "বিক্রয়ে যোগাযোগ করুন"
         },
@@ -9487,7 +9487,7 @@
       "events": {
         "tag": "ইভেন্ট ও কার্যক্রম",
         "title": "ইভেন্ট ও কার্যক্রম",
-        "subtitle": "TBurn Lab কমিউনিটি ইভেন্ট, হ্যাকাথন এবং কনফারেন্সে যোগ দিন।",
+        "subtitle": "TBurn Chain কমিউনিটি ইভেন্ট, হ্যাকাথন এবং কনফারেন্সে যোগ দিন।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -9580,12 +9580,12 @@
         },
         "hostCta": {
           "title": "ইভেন্ট হোস্ট করতে চান?",
-          "description": "TBurn Lab কমিউনিটির সাথে মিটআপ, ওয়েবিনার বা হ্যাকাথন হোস্ট করুন। আমরা অনুমোদিত হোস্টদের জন্য ফান্ডিং, সোয়াগ এবং মার্কেটিং সাপোর্ট প্রদান করি।",
+          "description": "TBurn Chain কমিউনিটির সাথে মিটআপ, ওয়েবিনার বা হ্যাকাথন হোস্ট করুন। আমরা অনুমোদিত হোস্টদের জন্য ফান্ডিং, সোয়াগ এবং মার্কেটিং সাপোর্ট প্রদান করি।",
           "button": "হোস্ট হিসেবে আবেদন করুন"
         },
         "hostEvent": {
           "title": "ইভেন্ট হোস্ট করতে চান?",
-          "description": "TBurn Lab কমিউনিটির সাথে মিটআপ, ওয়েবিনার বা হ্যাকাথন হোস্ট করুন। আমরা ফান্ডিং, সোয়াগ এবং মার্কেটিং সাপোর্ট প্রদান করি।",
+          "description": "TBurn Chain কমিউনিটির সাথে মিটআপ, ওয়েবিনার বা হ্যাকাথন হোস্ট করুন। আমরা ফান্ডিং, সোয়াগ এবং মার্কেটিং সাপোর্ট প্রদান করি।",
           "applyToHost": "হোস্ট হিসেবে আবেদন করুন"
         },
         "toast": {
@@ -9735,7 +9735,7 @@
     "legal": {
       "terms": {
         "title": "সেবার শর্তাবলী",
-        "subtitle": "TBurn Lab সার্ভিস ব্যবহারের জন্য শর্তাবলী।",
+        "subtitle": "TBurn Chain সার্ভিস ব্যবহারের জন্য শর্তাবলী।",
         "forumTitle": "সম্প্রদায় ফোরাম",
         "viewAll": "সব দেখুন",
         "recentPosts": "সাম্প্রতিক পোস্ট",
@@ -9743,18 +9743,18 @@
         "sections": {
           "acceptance": {
             "title": "১. শর্তাবলী গ্রহণ",
-            "content": "TBurn Lab সার্ভিস অ্যাক্সেস বা ব্যবহার করে, আপনি এই সেবার শর্তাবলী ('শর্তাবলী') দ্বারা আবদ্ধ হতে সম্মত হন। আপনি যদি এই শর্তাবলীতে সম্মত না হন, তাহলে আমাদের সার্ভিস ব্যবহার করবেন না। এই শর্তাবলী আপনার এবং TBurn Lab Foundation-এর মধ্যে একটি আইনগতভাবে বাধ্যতামূলক চুক্তি গঠন করে।"
+            "content": "TBurn Chain সার্ভিস অ্যাক্সেস বা ব্যবহার করে, আপনি এই সেবার শর্তাবলী ('শর্তাবলী') দ্বারা আবদ্ধ হতে সম্মত হন। আপনি যদি এই শর্তাবলীতে সম্মত না হন, তাহলে আমাদের সার্ভিস ব্যবহার করবেন না। এই শর্তাবলী আপনার এবং TBurn Chain Foundation-এর মধ্যে একটি আইনগতভাবে বাধ্যতামূলক চুক্তি গঠন করে।"
           },
           "definitions": {
             "title": "২. সংজ্ঞা",
-            "tburnChain": "'TBurn Lab' বলতে Layer 1 ব্লকচেইন নেটওয়ার্ক এবং সংশ্লিষ্ট সার্ভিস বোঝায়।",
+            "tburnChain": "'TBurn Chain' বলতে Layer 1 ব্লকচেইন নেটওয়ার্ক এবং সংশ্লিষ্ট সার্ভিস বোঝায়।",
             "services": "'সার্ভিস' ব্লকচেইন নেটওয়ার্ক, ট্রাস্ট ভেরিফিকেশন সিস্টেম, API এবং প্ল্যাটফর্ম বৈশিষ্ট্য অন্তর্ভুক্ত করে।",
-            "user": "'ব্যবহারকারী' বা 'আপনি' বলতে TBurn Lab ব্যবহারকারী যেকোনো ব্যক্তি বা সত্তা বোঝায়।",
-            "project": "'প্রজেক্ট' বলতে TBurn Lab-এ যাচাইকরণ চাওয়া ব্লকচেইন প্রজেক্ট বোঝায়।",
+            "user": "'ব্যবহারকারী' বা 'আপনি' বলতে TBurn Chain ব্যবহারকারী যেকোনো ব্যক্তি বা সত্তা বোঝায়।",
+            "project": "'প্রজেক্ট' বলতে TBurn Chain-এ যাচাইকরণ চাওয়া ব্লকচেইন প্রজেক্ট বোঝায়।",
             "trustScore": "'বিশ্বাস স্কোর' বলতে আমাদের ৩-পর্যায়ের যাচাইকরণ সিস্টেমের মাধ্যমে প্রজেক্টগুলোকে দেওয়া নির্ভরযোগ্যতা রেটিং বোঝায়।",
             "items": {
               "tburnChain": {
-                "term": "TBurn Lab",
+                "term": "TBurn Chain",
                 "desc": "The Layer 1 blockchain network and associated services"
               },
               "services": {
@@ -9763,11 +9763,11 @@
               },
               "user": {
                 "term": "User",
-                "desc": "Any individual or entity using TBurn Lab"
+                "desc": "Any individual or entity using TBurn Chain"
               },
               "project": {
                 "term": "Project",
-                "desc": "Blockchain projects seeking যাচাইকরণ on TBurn Lab"
+                "desc": "Blockchain projects seeking যাচাইকরণ on TBurn Chain"
               },
               "trustScore": {
                 "term": "Trust Score",
@@ -9777,7 +9777,7 @@
           },
           "eligibility": {
             "title": "৩. যোগ্যতা",
-            "intro": "TBurn Lab ব্যবহার করতে, আপনাকে অবশ্যই:",
+            "intro": "TBurn Chain ব্যবহার করতে, আপনাকে অবশ্যই:",
             "age": "কমপক্ষে ১৮ বছর বয়সী হতে হবে (বা আপনার এখতিয়ারে আইনি বয়স)।",
             "legalCapacity": "বাধ্যতামূলক চুক্তিতে প্রবেশের আইনি ক্ষমতা থাকতে হবে।",
             "notProhibited": "প্রযোজ্য আইনের অধীনে আমাদের সার্ভিস ব্যবহার করা নিষিদ্ধ না হতে হবে।",
@@ -9840,7 +9840,7 @@
           },
           "intellectualProperty": {
             "title": "৮. বৌদ্ধিক সম্পত্তি",
-            "content": "TBurn Lab-এর সমস্ত বৌদ্ধিক সম্পত্তি অধিকার, প্ল্যাটফর্ম, প্রোটোকল এবং ব্র্যান্ডিং সহ, TBurn Lab Foundation-এর মালিকানাধীন। আমাদের সার্ভিস ব্যবহার করার জন্য আপনাকে একটি সীমিত, অ-একচেটিয়া লাইসেন্স দেওয়া হয়েছে।"
+            "content": "TBurn Chain-এর সমস্ত বৌদ্ধিক সম্পত্তি অধিকার, প্ল্যাটফর্ম, প্রোটোকল এবং ব্র্যান্ডিং সহ, TBurn Chain Foundation-এর মালিকানাধীন। আমাদের সার্ভিস ব্যবহার করার জন্য আপনাকে একটি সীমিত, অ-একচেটিয়া লাইসেন্স দেওয়া হয়েছে।"
           },
           "disclaimers": {
             "title": "৯. দায়বদ্ধতা অস্বীকার এবং সীমাবদ্ধতা",
@@ -9850,12 +9850,12 @@
             },
             "asIsContent": "সার্ভিস 'যেমন আছে' এবং 'যেমন উপলব্ধ' ভিত্তিতে প্রদান করা হয় কোনো ধরনের ওয়ারেন্টি ছাড়াই, প্রকাশ্য বা নিহিত।",
             "noInvestmentAdvice": "কোনো বিনিয়োগ পরামর্শ নেই",
-            "noInvestmentAdviceContent": "TBurn Lab বিনিয়োগ, আর্থিক বা আইনি পরামর্শ প্রদান করে না। বিশ্বাস স্কোর শুধুমাত্র তথ্যমূলক।",
+            "noInvestmentAdviceContent": "TBurn Chain বিনিয়োগ, আর্থিক বা আইনি পরামর্শ প্রদান করে না। বিশ্বাস স্কোর শুধুমাত্র তথ্যমূলক।",
             "limitationOfLiability": "দায়বদ্ধতার সীমাবদ্ধতা",
             "limitationOfLiabilityContent": "আইন দ্বারা অনুমোদিত সর্বোচ্চ পরিমাণে, TBURN CHAIN কোনো পরোক্ষ, আকস্মিক, বিশেষ, পরিণতিমূলক বা শাস্তিমূলক ক্ষতির জন্য দায়ী থাকবে না।",
             "noAdvice": {
               "title": "No Investment Advice",
-              "content": "TBurn Lab does not provide investment, financial, or legal advice. Trust scores are informational only."
+              "content": "TBurn Chain does not provide investment, financial, or legal advice. Trust scores are informational only."
             },
             "limitation": {
               "title": "দায়বদ্ধতার সীমাবদ্ধতা",
@@ -9864,7 +9864,7 @@
           },
           "governingLaw": {
             "title": "১০. প্রযোজ্য আইন",
-            "content": "এই শর্তাবলী TBurn Lab Foundation যে এখতিয়ারে নিবন্ধিত তার আইন অনুযায়ী পরিচালিত এবং ব্যাখ্যা করা হবে, আইনি বিরোধ নীতি বিবেচনা ছাড়াই।"
+            "content": "এই শর্তাবলী TBurn Chain Foundation যে এখতিয়ারে নিবন্ধিত তার আইন অনুযায়ী পরিচালিত এবং ব্যাখ্যা করা হবে, আইনি বিরোধ নীতি বিবেচনা ছাড়াই।"
           },
           "account": {
             "title": "4. Account Registration & Security",
@@ -9895,11 +9895,11 @@
           },
           "ip": {
             "title": "8. Intellectual Property",
-            "content": "All intellectual property rights in TBurn Lab, including the platform, protocols, and branding, are owned by TBurn Lab Foundation. You are granted a limited, non-exclusive license to use our services."
+            "content": "All intellectual property rights in TBurn Chain, including the platform, protocols, and branding, are owned by TBurn Chain Foundation. You are granted a limited, non-exclusive license to use our services."
           },
           "governing": {
             "title": "10. Governing Law",
-            "content": "These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where TBurn Lab Foundation is incorporated, without regard to conflict of law principles."
+            "content": "These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where TBurn Chain Foundation is incorporated, without regard to conflict of law principles."
           }
         },
         "contact": {
@@ -9927,7 +9927,7 @@
           "trustScoreSystemDesc": "৩-পর্যায়ের যাচাইকরণ",
           "whatIsWallet": "ওয়ালেট কী?",
           "whatIsWalletDesc": "ওয়ালেট নিরাপত্তা মৌলিক বিষয়",
-          "whatIsTBurnChain": "TBurn Lab কী?",
+          "whatIsTBurnChain": "TBurn Chain কী?",
           "whatIsTBurnChainDesc": "প্ল্যাটফর্ম ওভারভিউ"
         }
       },
@@ -9941,7 +9941,7 @@
         "sections": {
           "introduction": {
             "title": "১. ভূমিকা",
-            "content": "TBurn Lab ('আমরা,' 'আমাদের,' বা 'আমাদেরকে') এ স্বাগতম। আমরা আপনার ব্যক্তিগত তথ্য এবং গোপনীয়তার অধিকার সুরক্ষিত করতে প্রতিশ্রুতিবদ্ধ। এই গোপনীয়তা নীতি ব্যাখ্যা করে যখন আপনি আমাদের ওয়েবসাইট পরিদর্শন করেন এবং আমাদের ব্লকচেইন সার্ভিস ব্যবহার করেন তখন আমরা কীভাবে আপনার তথ্য সংগ্রহ, ব্যবহার, প্রকাশ এবং সুরক্ষা করি।"
+            "content": "TBurn Chain ('আমরা,' 'আমাদের,' বা 'আমাদেরকে') এ স্বাগতম। আমরা আপনার ব্যক্তিগত তথ্য এবং গোপনীয়তার অধিকার সুরক্ষিত করতে প্রতিশ্রুতিবদ্ধ। এই গোপনীয়তা নীতি ব্যাখ্যা করে যখন আপনি আমাদের ওয়েবসাইট পরিদর্শন করেন এবং আমাদের ব্লকচেইন সার্ভিস ব্যবহার করেন তখন আমরা কীভাবে আপনার তথ্য সংগ্রহ, ব্যবহার, প্রকাশ এবং সুরক্ষা করি।"
           },
           "informationCollected": {
             "title": "২. আমরা যে তথ্য সংগ্রহ করি",
@@ -9962,7 +9962,7 @@
             "title": "৩. আমরা কীভাবে আপনার তথ্য ব্যবহার করি",
             "intro": "আমরা সংগৃহীত তথ্য ব্যবহার করি:",
             "items": {
-              "operating": "TBurn Lab প্ল্যাটফর্ম পরিচালনা এবং রক্ষণাবেক্ষণ করতে।",
+              "operating": "TBurn Chain প্ল্যাটফর্ম পরিচালনা এবং রক্ষণাবেক্ষণ করতে।",
               "verification": "আমাদের ৩-পর্যায়ের যাচাইকরণ প্রক্রিয়া (AI ফিল্টারিং, বিশেষজ্ঞ পর্যালোচনা, ভোটিং) পরিচালনা করতে।",
               "detectingFraud": "প্রতারণা, অপব্যবহার এবং নিরাপত্তা হুমকি সনাক্ত করতে।",
               "improving": "অ্যানালিটিক্সের মাধ্যমে আমাদের সার্ভিস উন্নত করতে।",
@@ -9983,7 +9983,7 @@
             "title": "৫. ব্লকচেইন-নির্দিষ্ট গোপনীয়তা",
             "publicData": {
               "title": "পাবলিক ডেটা",
-              "content": "TBurn Lab-এ লেনদেন এবং স্মার্ট কন্ট্রাক্ট ইন্টারঅ্যাকশন সর্বজনীনভাবে দৃশ্যমান এবং অপরিবর্তনীয়। এই ডেটা মুছে ফেলা বা পরিবর্তন করা যায় না।"
+              "content": "TBurn Chain-এ লেনদেন এবং স্মার্ট কন্ট্রাক্ট ইন্টারঅ্যাকশন সর্বজনীনভাবে দৃশ্যমান এবং অপরিবর্তনীয়। এই ডেটা মুছে ফেলা বা পরিবর্তন করা যায় না।"
             },
             "pseudonymity": {
               "title": "ছদ্মনাম",
@@ -10078,7 +10078,7 @@
             "title": "5. Blockchain-Specific Privacy",
             "publicData": {
               "title": "Public Data",
-              "content": "Transactions and smart contract interactions on TBurn Lab are publicly visible and immutable. This data cannot be deleted or modified."
+              "content": "Transactions and smart contract interactions on TBurn Chain are publicly visible and immutable. This data cannot be deleted or modified."
             },
             "pseudonymity": {
               "title": "Pseudonymity",
@@ -10155,12 +10155,12 @@
         "backToHome": "হোমে ফিরে যান",
         "importantNotice": {
           "title": "গুরুত্বপূর্ণ নোটিশ",
-          "content": "TBurn Lab সার্ভিস ব্যবহার করার আগে অনুগ্রহ করে এই দায়বদ্ধতা অস্বীকার সাবধানে পড়ুন। আমাদের প্ল্যাটফর্ম অ্যাক্সেস বা ব্যবহার করে, আপনি স্বীকার করেন যে আপনি নিম্নলিখিত দায়বদ্ধতা অস্বীকার পড়েছেন, বুঝেছেন এবং সম্মত হয়েছেন।"
+          "content": "TBurn Chain সার্ভিস ব্যবহার করার আগে অনুগ্রহ করে এই দায়বদ্ধতা অস্বীকার সাবধানে পড়ুন। আমাদের প্ল্যাটফর্ম অ্যাক্সেস বা ব্যবহার করে, আপনি স্বীকার করেন যে আপনি নিম্নলিখিত দায়বদ্ধতা অস্বীকার পড়েছেন, বুঝেছেন এবং সম্মত হয়েছেন।"
         },
         "sections": {
           "noInvestmentAdvice": {
             "title": "১. কোনো বিনিয়োগ পরামর্শ নেই",
-            "warning": "TBurn Lab বিনিয়োগ, আর্থিক, কর বা আইনি পরামর্শ প্রদান করে না। আমাদের প্ল্যাটফর্মে প্রদত্ত সমস্ত তথ্য, বিশ্বাস স্কোর সহ, শুধুমাত্র তথ্যমূলক উদ্দেশ্যে এবং কোনো ধরনের পরামর্শ হিসেবে বিবেচনা করা উচিত নয়।",
+            "warning": "TBurn Chain বিনিয়োগ, আর্থিক, কর বা আইনি পরামর্শ প্রদান করে না। আমাদের প্ল্যাটফর্মে প্রদত্ত সমস্ত তথ্য, বিশ্বাস স্কোর সহ, শুধুমাত্র তথ্যমূলক উদ্দেশ্যে এবং কোনো ধরনের পরামর্শ হিসেবে বিবেচনা করা উচিত নয়।",
             "content": "যেকোনো বিনিয়োগ সিদ্ধান্ত নেওয়ার আগে আপনার যোগ্য পেশাদারদের সাথে পরামর্শ করা উচিত। অতীত কর্মক্ষমতা ভবিষ্যৎ ফলাফলের সূচক নয়।"
           },
           "riskDisclosure": {
@@ -10220,7 +10220,7 @@
           },
           "geographicRestrictions": {
             "title": "৭. ভৌগোলিক সীমাবদ্ধতা",
-            "content": "আমাদের সার্ভিস সব এখতিয়ারে উপলব্ধ নাও হতে পারে। আপনার এখতিয়ারের আইন মেনে TBurn Lab ব্যবহার করা নিশ্চিত করা আপনার দায়িত্ব। আমরা নির্দিষ্ট ভৌগোলিক অবস্থান থেকে আমাদের সার্ভিসে অ্যাক্সেস সীমাবদ্ধ করার অধিকার সংরক্ষণ করি।"
+            "content": "আমাদের সার্ভিস সব এখতিয়ারে উপলব্ধ নাও হতে পারে। আপনার এখতিয়ারের আইন মেনে TBurn Chain ব্যবহার করা নিশ্চিত করা আপনার দায়িত্ব। আমরা নির্দিষ্ট ভৌগোলিক অবস্থান থেকে আমাদের সার্ভিসে অ্যাক্সেস সীমাবদ্ধ করার অধিকার সংরক্ষণ করি।"
           },
           "forwardLookingStatements": {
             "title": "৮. ভবিষ্যৎ-দর্শী বিবৃতি",
@@ -10228,7 +10228,7 @@
           },
           "noAdvice": {
             "title": "1. No Investment Advice",
-            "warning": "TBurn Lab does not provide investment, financial, tax, or legal advice. All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
+            "warning": "TBurn Chain does not provide investment, financial, tax, or legal advice. All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
             "content": "কোনো বিনিয়োগ সিদ্ধান্ত নেওয়ার আগে আপনার যোগ্য পেশাদারদের সাথে পরামর্শ করা উচিত। অতীত পারফরম্যান্স ভবিষ্যৎ ফলাফলের সূচক নয়।"
           },
           "trustScore": {
@@ -10255,7 +10255,7 @@
           },
           "geographic": {
             "title": "7. ভৌগোলিক সীমাবদ্ধতা",
-            "content": "আমাদের সেবা সব এখতিয়ারে উপলব্ধ নাও হতে পারে। আপনার এখতিয়ারের আইন মেনে TBurn Lab ব্যবহার করা নিশ্চিত করা আপনার দায়িত্ব। আমরা নির্দিষ্ট ভৌগোলিক অবস্থান থেকে আমাদের সেবায় অ্যাক্সেস সীমাবদ্ধ করার অধিকার সংরক্ষণ করি।"
+            "content": "আমাদের সেবা সব এখতিয়ারে উপলব্ধ নাও হতে পারে। আপনার এখতিয়ারের আইন মেনে TBurn Chain ব্যবহার করা নিশ্চিত করা আপনার দায়িত্ব। আমরা নির্দিষ্ট ভৌগোলিক অবস্থান থেকে আমাদের সেবায় অ্যাক্সেস সীমাবদ্ধ করার অধিকার সংরক্ষণ করি।"
           },
           "forwardLooking": {
             "title": "8. ভবিষ্যৎ-দর্শী বিবৃতি",
@@ -10335,7 +10335,7 @@
             "subtitle": "Understanding blockchain technology"
           },
           "burnChain": {
-            "title": "What is TBurn Lab?",
+            "title": "What is TBurn Chain?",
             "subtitle": "Platform overview"
           },
           "defi": {

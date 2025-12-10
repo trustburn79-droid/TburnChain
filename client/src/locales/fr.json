@@ -3782,7 +3782,7 @@
       },
       "governance": {
         "title": "Participation à la gouvernance",
-        "description": "Influencez l'avenir de TBurn Lab par le vote des propositions."
+        "description": "Influencez l'avenir de TBurn Chain par le vote des propositions."
       },
       "resources": {
         "title": "Ressources techniques",
@@ -3798,7 +3798,7 @@
       "network": "Réseau"
     },
     "footer": {
-      "copyright": "© 2025 TBurn Lab Foundation.",
+      "copyright": "© 2025 TBurn Chain Foundation.",
       "allSystemsOperational": "Tous les systèmes opérationnels.",
       "privacy": "Confidentialité",
       "terms": "Conditions",
@@ -4536,7 +4536,7 @@
       },
       "toast": {
         "successTitle": "Nœud Initialisé",
-        "successDescription": "Bienvenue sur TBurn Lab ! Votre compte est maintenant actif.",
+        "successDescription": "Bienvenue sur TBurn Chain ! Votre compte est maintenant actif.",
         "errorTitle": "Échec de l'Initialisation",
         "errorDescription": "Impossible de créer le compte. Veuillez réessayer."
       },
@@ -4837,10 +4837,10 @@
       },
       "legal": "Mentions légales",
       "stayUpdated": "Restez informé",
-      "newsletterDesc": "Recevez les dernières nouvelles et mises à jour de TBurn Lab",
+      "newsletterDesc": "Recevez les dernières nouvelles et mises à jour de TBurn Chain",
       "enterEmail": "Entrez votre e-mail",
       "subscribe": "S'abonner",
-      "copyright": "© 2025 TBurn Lab. Tous droits réservés.",
+      "copyright": "© 2025 TBurn Chain. Tous droits réservés.",
       "termsOfService": "Conditions d'utilisation",
       "privacyPolicy": "Politique de confidentialité",
       "disclaimer": "Avertissement"
@@ -4913,7 +4913,7 @@
       "hub": {
         "tag": "Centre d'apprentissage V4",
         "title": "Hub Éducation",
-        "subtitle": "Maîtrisez l'écosystème TBurn Lab V4. Des algorithmes de consensus basés sur la confiance à la création de dApps haute vitesse, commencez votre parcours ici.",
+        "subtitle": "Maîtrisez l'écosystème TBurn Chain V4. Des algorithmes de consensus basés sur la confiance à la création de dApps haute vitesse, commencez votre parcours ici.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -4926,7 +4926,7 @@
         "learningPaths": "Parcours d'apprentissage",
         "learningPathsDesc": "Programmes adaptés à chaque niveau de compétence.",
         "coreConcepts": "Concepts fondamentaux",
-        "coreConceptsDesc": "Principes fondamentaux de TBurn Lab.",
+        "coreConceptsDesc": "Principes fondamentaux de TBurn Chain.",
         "quickGlossary": "Glossaire rapide",
         "certifications": {
           "developer": {
@@ -4990,7 +4990,7 @@
         },
         "concepts": {
           "whatIsTBurn": {
-            "title": "Qu'est-ce que TBurn Lab ?",
+            "title": "Qu'est-ce que TBurn Chain ?",
             "description": "Introduction à la blockchain basée sur la confiance"
           },
           "trustScore": {
@@ -5047,8 +5047,8 @@
             "term": "Validateur",
             "definition": "Nœuds qui vérifient les transactions et participent au consensus"
           },
-          "tburn": "TBURN est le token natif de gouvernance et de staking de TBurn Lab avec une offre fixe d'un milliard de tokens",
-          "ember": "Ember est le token de gaz utilisé pour les frais de transaction sur TBurn Lab, obtenu en stakant des TBURN",
+          "tburn": "TBURN est le token natif de gouvernance et de staking de TBurn Chain avec une offre fixe d'un milliard de tokens",
+          "ember": "Ember est le token de gaz utilisé pour les frais de transaction sur TBurn Chain, obtenu en stakant des TBURN",
           "slashing": "Le slashing est le mécanisme de pénalité qui brûle une partie de la mise du validateur pour comportement malveillant ou temps d'arrêt"
         },
         "communityLinks": {
@@ -5099,7 +5099,7 @@
       },
       "whatIsBurnChain": {
         "tag": "INTRODUCTION",
-        "title": "Qu'est-ce que TBurn Lab ?",
+        "title": "Qu'est-ce que TBurn Chain ?",
         "subtitle": "Découvrez la première blockchain basée sur la confiance au monde avec vérification IA et sécurité résistante au quantique.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
@@ -5172,13 +5172,13 @@
         },
         "trustBased": {
           "title": "Blockchain Basée sur la Confiance",
-          "paragraph1": "TBurn Lab est la première blockchain au monde construite sur la vérification de confiance. Chaque projet sur notre réseau subit une vérification rigoureuse en 3 étapes avant d'être listé.",
+          "paragraph1": "TBurn Chain est la première blockchain au monde construite sur la vérification de confiance. Chaque projet sur notre réseau subit une vérification rigoureuse en 3 étapes avant d'être listé.",
           "paragraph2": "Notre système unique de Trust Score protège les investisseurs en fournissant des évaluations de fiabilité transparentes et en temps réel pour tous les projets vérifiés.",
           "protocolRule": "L'application de la confiance au niveau du protocole garantit que les mauvais acteurs sont automatiquement identifiés et exclus de l'écosystème."
         },
         "developer": {
           "title": "Ressources pour les Développeurs",
-          "description": "Développez sur TBurn Lab avec nos outils et notre documentation complets pour développeurs.",
+          "description": "Développez sur TBurn Chain avec nos outils et notre documentation complets pour développeurs.",
           "readDocs": "Lire la Documentation",
           "tburnSdk": "SDK TBurn"
         }
@@ -5440,7 +5440,7 @@
       "whitepaper": {
         "tag": "DOCUMENT TECHNIQUE",
         "title": "Livre blanc",
-        "subtitle": "Documentation technique complète de l'architecture TBurn Lab, du consensus et de la tokenomics.",
+        "subtitle": "Documentation technique complète de l'architecture TBurn Chain, du consensus et de la tokenomics.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -5512,7 +5512,7 @@
             }
           },
           "badge": "ARCHITECTURE DE LA SOLUTION",
-          "description": "TBurn Lab ne se limite pas au scoring de confiance ; c'est une solution de mise à l'échelle Layer 1 haute performance construite avec le mécanisme de consensus AI-BFT, conçue pour un débit de niveau entreprise.",
+          "description": "TBurn Chain ne se limite pas au scoring de confiance ; c'est une solution de mise à l'échelle Layer 1 haute performance construite avec le mécanisme de consensus AI-BFT, conçue pour un débit de niveau entreprise.",
           "features": {
             "hybridConsensus": "Consensus Hybride (DPoS + BFT)",
             "evmCompatibility": "Compatibilité EVM",
@@ -5869,7 +5869,7 @@
         },
         "cta": {
           "title": "Rejoignez-nous dans cette Aventure",
-          "description": "Faites partie de l'écosystème TBurn Lab et contribuez à façonner l'avenir de la technologie blockchain basée sur la confiance.",
+          "description": "Faites partie de l'écosystème TBurn Chain et contribuez à façonner l'avenir de la technologie blockchain basée sur la confiance.",
           "joinCommunity": "Rejoindre la Communauté",
           "viewDocs": "Voir la Documentation"
         }
@@ -5897,7 +5897,7 @@
           "item1": "Comprendre les fondamentaux de la blockchain et des systèmes distribués",
           "item2": "Apprendre les principes cryptographiques derrière les transactions sécurisées",
           "item3": "Explorer les différents mécanismes de consensus",
-          "item4": "Maîtriser l'architecture unique de TBurn Lab basée sur la confiance"
+          "item4": "Maîtriser l'architecture unique de TBurn Chain basée sur la confiance"
         },
         "prerequisites": {
           "item1": "Connaissances de base en programmation utiles mais non requises",
@@ -5953,7 +5953,7 @@
             "duration": "75 min"
           },
           "module4": {
-            "title": "Architecture TBurn Lab",
+            "title": "Architecture TBurn Chain",
             "subtitle": "Plongée approfondie dans notre système basé sur la confiance",
             "forumTitle": "Forum Communautaire",
             "viewAll": "Voir Tout",
@@ -5976,7 +5976,7 @@
         "prerequisitesTitle": "Prérequis",
         "courseOverview": {
           "title": "Aperçu du Cours",
-          "description": "Ce cours avancé couvre tout ce que vous devez savoir sur la finance décentralisée sur TBurn Lab. De la compréhension des mécaniques AMM à l'implémentation de stratégies de yield farming complexes, vous acquerrez des compétences pratiques pour naviguer dans l'écosystème DeFi.",
+          "description": "Ce cours avancé couvre tout ce que vous devez savoir sur la finance décentralisée sur TBurn Chain. De la compréhension des mécaniques AMM à l'implémentation de stratégies de yield farming complexes, vous acquerrez des compétences pratiques pour naviguer dans l'écosystème DeFi.",
           "videoTitle": "Fondamentaux DeFi",
           "videoSubtitle": "Aperçu du Cours",
           "figureCaption": "Figure : Vue d'ensemble du Protocole DeFi"
@@ -6075,7 +6075,7 @@
       "developerCourse": {
         "tag": "AVANCÉ",
         "title": "Cours développeur",
-        "subtitle": "Guide complet pour construire et déployer des dApps sur TBurn Lab.",
+        "subtitle": "Guide complet pour construire et déployer des dApps sur TBurn Chain.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -6087,7 +6087,7 @@
         "resourcesTitle": "Ressources",
         "courseOverview": {
           "title": "Aperçu du Cours",
-          "description": "Ce cours développeur complet vous emmène de zéro au déploiement de dApps prêtes pour la production sur TBurn Lab. Vous apprendrez le développement de contrats intelligents, l'intégration SDK, les stratégies de test et les meilleures pratiques pour construire des applications sécurisées et évolutives."
+          "description": "Ce cours développeur complet vous emmène de zéro au déploiement de dApps prêtes pour la production sur TBurn Chain. Vous apprendrez le développement de contrats intelligents, l'intégration SDK, les stratégies de test et les meilleures pratiques pour construire des applications sécurisées et évolutives."
         },
         "codeExample": {
           "title": "Exemple de Code",
@@ -6095,7 +6095,7 @@
         },
         "developerTools": {
           "title": "Outils Développeur",
-          "description": "Accédez à tous les outils nécessaires pour construire sur TBurn Lab.",
+          "description": "Accédez à tous les outils nécessaires pour construire sur TBurn Chain.",
           "quickStart": {
             "title": "Démarrage Rapide",
             "subtitle": "Guide de configuration en 5 minutes"
@@ -6174,7 +6174,7 @@
       "introToDefi": {
         "tag": "DÉBUTANT",
         "title": "Introduction à la DeFi",
-        "subtitle": "Vos premiers pas dans la finance décentralisée sur TBurn Lab.",
+        "subtitle": "Vos premiers pas dans la finance décentralisée sur TBurn Chain.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -6349,7 +6349,7 @@
           },
           "developer": {
             "title": "Développeur Smart Contract",
-            "subtitle": "Construisez des dApps prêtes pour la production sur TBurn Lab.",
+            "subtitle": "Construisez des dApps prêtes pour la production sur TBurn Chain.",
             "forumTitle": "Forum Communautaire",
             "viewAll": "Voir Tout",
             "recentPosts": "Publications Récentes",
@@ -6381,7 +6381,7 @@
           },
           "developerCourse": {
             "title": "Cours Développeur",
-            "description": "Construisez des smart contracts, intégrez des SDKs et déployez des applications en production sur TBurn Lab."
+            "description": "Construisez des smart contracts, intégrez des SDKs et déployez des applications en production sur TBurn Chain."
           },
           "trustScore": {
             "title": "Système Trust Score",
@@ -6431,7 +6431,7 @@
       "hub": {
         "tag": "SDK & API V4 PRÊTS",
         "title": "Hub développeurs",
-        "subtitle": "Construisez des applications de nouvelle génération basées sur la confiance. Accédez à des outils de développement complets, SDKs et APIs pour l'écosystème TBurn Lab V4.",
+        "subtitle": "Construisez des applications de nouvelle génération basées sur la confiance. Accédez à des outils de développement complets, SDKs et APIs pour l'écosystème TBurn Chain V4.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -6471,7 +6471,7 @@
         },
         "grants": {
           "title": "Programme de Subventions Développeur",
-          "subtitle": "Nous soutenons les projets qui étendent l'écosystème TBurn Lab.",
+          "subtitle": "Nous soutenons les projets qui étendent l'écosystème TBurn Chain.",
           "forumTitle": "Forum Communautaire",
           "viewAll": "Voir Tout",
           "recentPosts": "Publications Récentes",
@@ -6622,11 +6622,11 @@
       "docs": {
         "tag": "DOCUMENTATION",
         "title": "Documentation",
-        "subtitle": "Guides et références complets pour le développement TBurn Lab.",
+        "subtitle": "Guides et références complets pour le développement TBurn Chain.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
-        "heroDescription": "Tout ce dont vous avez besoin pour construire sur TBurn Lab. Des guides de démarrage rapide aux références API avancées.",
+        "heroDescription": "Tout ce dont vous avez besoin pour construire sur TBurn Chain. Des guides de démarrage rapide aux références API avancées.",
         "searchPlaceholder": "Rechercher dans la documentation...",
         "categoriesTitle": "Catégories de documentation",
         "resourcesTitle": "Ressources pour développeurs",
@@ -6636,7 +6636,7 @@
         },
         "architecture": {
           "title": "Architecture réseau",
-          "subtitle": "Comprendre l'architecture multi-couches de TBurn Lab",
+          "subtitle": "Comprendre l'architecture multi-couches de TBurn Chain",
           "forumTitle": "Forum Communautaire",
           "viewAll": "Voir Tout",
           "recentPosts": "Publications Récentes",
@@ -6744,7 +6744,7 @@
         },
         "cta": {
           "title": "Prêt à construire ?",
-          "description": "Commencez à construire sur TBurn Lab dès aujourd'hui avec notre documentation complète et nos SDKs.",
+          "description": "Commencez à construire sur TBurn Chain dès aujourd'hui avec notre documentation complète et nos SDKs.",
           "joinDiscord": "Rejoindre Discord"
         }
       },
@@ -6866,7 +6866,7 @@
         },
         "commands": {
           "init": {
-            "desc": "Initialiser un nouveau projet TBurn Lab",
+            "desc": "Initialiser un nouveau projet TBurn Chain",
             "options": {
               "template": "Modèle de projet (defi, nft, dao)",
               "typescript": "Utiliser TypeScript"
@@ -6887,7 +6887,7 @@
             }
           },
           "deploy": {
-            "desc": "Déployer sur le réseau TBurn Lab",
+            "desc": "Déployer sur le réseau TBurn Chain",
             "options": {
               "network": "Réseau cible (mainnet, testnet)",
               "verify": "Vérifier le contrat sur l'explorateur",
@@ -6967,7 +6967,7 @@
       "contracts": {
         "tag": "CONTRATS INTELLIGENTS",
         "title": "Contrats intelligents",
-        "subtitle": "Écrivez, testez et déployez des contrats intelligents sécurisés sur TBurn Lab.",
+        "subtitle": "Écrivez, testez et déployez des contrats intelligents sécurisés sur TBurn Chain.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -7234,7 +7234,7 @@
       "quickstart": {
         "tag": "PREMIERS PAS",
         "title": "Démarrage rapide",
-        "subtitle": "Démarrez avec TBurn Lab en quelques minutes.",
+        "subtitle": "Démarrez avec TBurn Chain en quelques minutes.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -7242,7 +7242,7 @@
         "prerequisites": {
           "title": "Prérequis",
           "node": "Node.js 18+ installé",
-          "account": "Compte TBurn Lab (faucet testnet disponible)",
+          "account": "Compte TBurn Chain (faucet testnet disponible)",
           "knowledge": "Connaissances de base en JavaScript/TypeScript"
         },
         "steps": {
@@ -7277,7 +7277,7 @@
         },
         "vsCode": {
           "title": "Configuration VS Code",
-          "description": "Extensions recommandées pour le développement TBurn Lab",
+          "description": "Extensions recommandées pour le développement TBurn Chain",
           "solidity": "Support du Langage Solidity",
           "eslint": "ESLint pour JavaScript/TypeScript",
           "tburnSnippets": "Snippets SDK TBurn"
@@ -7407,7 +7407,7 @@
             "title": "Fichier de Configuration",
             "description": "Créez un fichier tburn.config.js à la racine de votre projet"
           },
-          "description": "Configurez votre nœud TBurn Lab avec des variables d'environnement et des fichiers de configuration.",
+          "description": "Configurez votre nœud TBurn Chain avec des variables d'environnement et des fichiers de configuration.",
           "commonFlags": "Options de configuration courantes"
         },
         "troubleshooting": {
@@ -7471,7 +7471,7 @@
       "evmMigration": {
         "tag": "MIGRATION",
         "title": "Migration EVM",
-        "subtitle": "Migrez vos dApps Ethereum vers TBurn Lab.",
+        "subtitle": "Migrez vos dApps Ethereum vers TBurn Chain.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -7479,7 +7479,7 @@
         "viewGuide": "Voir le Guide Complet",
         "overview": {
           "title": "Aperçu de la Migration",
-          "description": "TBurn Lab est entièrement compatible EVM, vous permettant de déployer des contrats intelligents Ethereum existants avec des modifications minimales.",
+          "description": "TBurn Chain est entièrement compatible EVM, vous permettant de déployer des contrats intelligents Ethereum existants avec des modifications minimales.",
           "compatibility": "Compatibilité EVM 100%",
           "gasEfficiency": "Coûts de gaz jusqu'à 10x inférieurs",
           "trustFeatures": "Intégration Trust Score intégrée"
@@ -7535,7 +7535,7 @@
           },
           "step2": {
             "title": "Modifier les Adresses de Contrats",
-            "description": "Mettez à jour les adresses de contrats codées en dur vers les déploiements TBurn Lab"
+            "description": "Mettez à jour les adresses de contrats codées en dur vers les déploiements TBurn Chain"
           },
           "step3": {
             "title": "Ajouter l'Intégration Trust Score",
@@ -7590,7 +7590,7 @@
           "title": "Questions Fréquemment Posées",
           "q1": {
             "question": "Mes contrats Solidity existants fonctionneront-ils ?",
-            "answer": "Oui, TBurn Lab est entièrement compatible EVM et supporte toutes les versions de Solidity."
+            "answer": "Oui, TBurn Chain est entièrement compatible EVM et supporte toutes les versions de Solidity."
           },
           "q2": {
             "question": "Dois-je refaire l'audit de mes contrats ?",
@@ -7603,12 +7603,12 @@
         },
         "keyDifferences": {
           "title": "Différences techniques clés",
-          "subtitle": "Ce qui distingue TBurn Lab des chaînes EVM traditionnelles",
+          "subtitle": "Ce qui distingue TBurn Chain des chaînes EVM traditionnelles",
           "forumTitle": "Forum Communautaire",
           "viewAll": "Voir Tout",
           "recentPosts": "Publications Récentes",
           "existingEvmChains": "Chaînes EVM existantes",
-          "tburnChain": "TBurn Lab",
+          "tburnChain": "TBurn Chain",
           "upgrade": "Amélioration"
         },
         "developmentApproach": {
@@ -8192,7 +8192,7 @@
           },
           "developerCourse": {
             "title": "Cours Développeur",
-            "subtitle": "Construisez des dApps sur TBurn Lab"
+            "subtitle": "Construisez des dApps sur TBurn Chain"
           }
         }
       },
@@ -8200,7 +8200,7 @@
         "tag": "ÉCOSYSTÈME PORTEFEUILLE",
         "title": "Portefeuilles &",
         "titleHighlight": "Sécurité",
-        "subtitle": "Connectez-vous à TBurn Lab avec des portefeuilles de confiance. Tous les portefeuilles affichent les scores de confiance en temps réel avant les transactions.",
+        "subtitle": "Connectez-vous à TBurn Chain avec des portefeuilles de confiance. Tous les portefeuilles affichent les scores de confiance en temps réel avant les transactions.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -8209,13 +8209,13 @@
           "tburn": {
             "name": "TBurn Officiel",
             "platform": "Extension navigateur • Mobile",
-            "description": "Le portefeuille natif optimisé pour TBurn Lab. Affichage du score de confiance en temps réel, suivi du brûlage automatique et vote de gouvernance direct.",
+            "description": "Le portefeuille natif optimisé pour TBurn Chain. Affichage du score de confiance en temps réel, suivi du brûlage automatique et vote de gouvernance direct.",
             "button": "Télécharger le portefeuille"
           },
           "metamask": {
             "name": "MetaMask",
             "platform": "Navigateur • Mobile",
-            "description": "Le portefeuille Web3 le plus populaire au monde. Entièrement compatible avec TBurn Lab via les paramètres de réseau personnalisés. Prend en charge toutes les opérations de tokens standard.",
+            "description": "Le portefeuille Web3 le plus populaire au monde. Entièrement compatible avec TBurn Chain via les paramètres de réseau personnalisés. Prend en charge toutes les opérations de tokens standard.",
             "button": "Guide de connexion"
           },
           "trust": {
@@ -8227,7 +8227,7 @@
           "ledger": {
             "name": "Ledger",
             "platform": "Portefeuille matériel",
-            "description": "Solution de stockage à froid pour une sécurité maximale. Gardez vos clés privées hors ligne tout en interagissant avec les dApps TBurn Lab.",
+            "description": "Solution de stockage à froid pour une sécurité maximale. Gardez vos clés privées hors ligne tout en interagissant avec les dApps TBurn Chain.",
             "button": "Guide de configuration"
           }
         },
@@ -8281,7 +8281,7 @@
         "tag": "SOLUTIONS ENTREPRISE",
         "title": "Réseaux",
         "titleHighlight": "autorisés",
-        "subtitle": "Déployez des réseaux blockchain privés avec la vérification de confiance de TBurn Lab. Sécurité de niveau entreprise avec ancrage sur la chaîne publique.",
+        "subtitle": "Déployez des réseaux blockchain privés avec la vérification de confiance de TBurn Chain. Sécurité de niveau entreprise avec ancrage sur la chaîne publique.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -8553,7 +8553,7 @@
           "title": "Guide d'intégration",
           "step1": {
             "title": "Déployer les contrats",
-            "description": "Écrivez des contrats ERC-721/1155 en Solidity ^0.8.19 et déployez sur TBurn Lab."
+            "description": "Écrivez des contrats ERC-721/1155 en Solidity ^0.8.19 et déployez sur TBurn Chain."
           },
           "step2": {
             "title": "Demander la vérification de confiance",
@@ -8575,7 +8575,7 @@
         },
         "sections": {
           "whyBuild": {
-            "title": "Pourquoi construire des jeux sur TBurn Lab ?",
+            "title": "Pourquoi construire des jeux sur TBurn Chain ?",
             "subtitle": "Infrastructure avancée pour le gaming blockchain de nouvelle génération"
           },
           "trustScore": {
@@ -8674,7 +8674,7 @@
           },
           "step2": {
             "title": "Déployer les contrats",
-            "desc": "Déployez vos contrats de jeu sur le testnet TBurn Lab."
+            "desc": "Déployez vos contrats de jeu sur le testnet TBurn Chain."
           },
           "step3": {
             "title": "Obtenir la vérification",
@@ -10096,7 +10096,7 @@
         },
         "cta": {
           "title": "Prêt à Devenir Validateur ?",
-          "subtitle": "Rejoignez le réseau et gagnez des récompenses tout en sécurisant TBurn Lab.",
+          "subtitle": "Rejoignez le réseau et gagnez des récompenses tout en sécurisant TBurn Chain.",
           "forumTitle": "Forum Communautaire",
           "viewAll": "Voir Tout",
           "recentPosts": "Publications Récentes",
@@ -10311,11 +10311,11 @@
         },
         "cta": {
           "title": "Prêt à Construire ?",
-          "subtitle": "Commencez à construire avec l'API TBurn Lab dès aujourd'hui. Obtenez votre clé API gratuite et accédez à une infrastructure blockchain de niveau entreprise.",
+          "subtitle": "Commencez à construire avec l'API TBurn Chain dès aujourd'hui. Obtenez votre clé API gratuite et accédez à une infrastructure blockchain de niveau entreprise.",
           "forumTitle": "Forum Communautaire",
           "viewAll": "Voir Tout",
           "recentPosts": "Publications Récentes",
-          "desc": "Commencez à construire avec l'API TBurn Lab dès aujourd'hui. Obtenez votre clé API gratuite et accédez à une infrastructure blockchain de niveau entreprise.",
+          "desc": "Commencez à construire avec l'API TBurn Chain dès aujourd'hui. Obtenez votre clé API gratuite et accédez à une infrastructure blockchain de niveau entreprise.",
           "getStartedFree": "Commencer Gratuitement",
           "contactSales": "Contacter les Ventes"
         },
@@ -11047,7 +11047,7 @@
       "events": {
         "tag": "ÉVÉNEMENTS ET ACTIVITÉS",
         "title": "Événements et Activités",
-        "subtitle": "Rejoignez les événements communautaires TBurn Lab, hackathons et conférences.",
+        "subtitle": "Rejoignez les événements communautaires TBurn Chain, hackathons et conférences.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -11115,7 +11115,7 @@
         },
         "hostEvent": {
           "title": "Vous voulez organiser un événement ?",
-          "description": "Organisez des meetups, webinaires ou hackathons avec la communauté TBurn Lab. Nous fournissons financement, goodies et support marketing aux organisateurs approuvés.",
+          "description": "Organisez des meetups, webinaires ou hackathons avec la communauté TBurn Chain. Nous fournissons financement, goodies et support marketing aux organisateurs approuvés.",
           "applyToHost": "Postuler pour organiser"
         },
         "toast": {
@@ -11408,7 +11408,7 @@
         },
         "hostCta": {
           "title": "Vous voulez organiser un événement ?",
-          "description": "Organisez des meetups, webinaires ou hackathons avec la communauté TBurn Lab. Nous fournissons financement, goodies et support marketing aux organisateurs approuvés.",
+          "description": "Organisez des meetups, webinaires ou hackathons avec la communauté TBurn Chain. Nous fournissons financement, goodies et support marketing aux organisateurs approuvés.",
           "button": "Postuler pour Organiser"
         },
         "items": {
@@ -11537,7 +11537,7 @@
     "legal": {
       "terms": {
         "title": "Conditions d'utilisation",
-        "subtitle": "Termes et conditions d'utilisation des services TBurn Lab.",
+        "subtitle": "Termes et conditions d'utilisation des services TBurn Chain.",
         "forumTitle": "Forum Communautaire",
         "viewAll": "Voir Tout",
         "recentPosts": "Publications Récentes",
@@ -11545,18 +11545,18 @@
         "sections": {
           "acceptance": {
             "title": "1. Acceptation des conditions",
-            "content": "En accédant ou en utilisant les services TBurn Lab, vous acceptez d'être lié par ces Conditions d'utilisation (« Conditions »). Si vous n'acceptez pas ces Conditions, n'utilisez pas nos services. Ces Conditions constituent un accord juridiquement contraignant entre vous et TBurn Lab Foundation."
+            "content": "En accédant ou en utilisant les services TBurn Chain, vous acceptez d'être lié par ces Conditions d'utilisation (« Conditions »). Si vous n'acceptez pas ces Conditions, n'utilisez pas nos services. Ces Conditions constituent un accord juridiquement contraignant entre vous et TBurn Chain Foundation."
           },
           "definitions": {
             "title": "2. Définitions",
-            "tburnChain": "« TBurn Lab » désigne le réseau blockchain Layer 1 et les services associés.",
+            "tburnChain": "« TBurn Chain » désigne le réseau blockchain Layer 1 et les services associés.",
             "services": "« Services » inclut le réseau blockchain, le système de vérification de confiance, les APIs et les fonctionnalités de la plateforme.",
-            "user": "« Utilisateur » ou « vous » désigne toute personne physique ou morale utilisant TBurn Lab.",
-            "project": "« Projet » désigne les projets blockchain demandant une vérification sur TBurn Lab.",
+            "user": "« Utilisateur » ou « vous » désigne toute personne physique ou morale utilisant TBurn Chain.",
+            "project": "« Projet » désigne les projets blockchain demandant une vérification sur TBurn Chain.",
             "trustScore": "« Score de confiance » désigne la note de fiabilité attribuée via notre système de vérification en 3 étapes.",
             "items": {
               "tburnChain": {
-                "term": "TBurn Lab",
+                "term": "TBurn Chain",
                 "desc": "The Layer 1 blockchain Réseau and associated services"
               },
               "services": {
@@ -11565,11 +11565,11 @@
               },
               "user": {
                 "term": "User",
-                "desc": "Any individual or entity using TBurn Lab"
+                "desc": "Any individual or entity using TBurn Chain"
               },
               "project": {
                 "term": "Project",
-                "desc": "Blockchain projects seeking verification on TBurn Lab"
+                "desc": "Blockchain projects seeking verification on TBurn Chain"
               },
               "trustScore": {
                 "term": "Trust Score",
@@ -11579,7 +11579,7 @@
           },
           "eligibility": {
             "title": "3. Éligibilité",
-            "intro": "Pour utiliser TBurn Lab, vous devez :",
+            "intro": "Pour utiliser TBurn Chain, vous devez :",
             "age": "Être âgé d'au moins 18 ans (ou l'âge légal dans votre juridiction).",
             "legalCapacity": "Avoir la capacité juridique de conclure des contrats contraignants.",
             "notProhibited": "Ne pas être interdit d'utiliser nos services en vertu des lois applicables.",
@@ -11642,7 +11642,7 @@
           },
           "intellectualProperty": {
             "title": "8. Propriété intellectuelle",
-            "content": "Tous les droits de propriété intellectuelle de TBurn Lab, y compris la plateforme, les protocoles et la marque, sont détenus par TBurn Lab Foundation. Vous bénéficiez d'une licence limitée et non exclusive pour utiliser nos services."
+            "content": "Tous les droits de propriété intellectuelle de TBurn Chain, y compris la plateforme, les protocoles et la marque, sont détenus par TBurn Chain Foundation. Vous bénéficiez d'une licence limitée et non exclusive pour utiliser nos services."
           },
           "disclaimers": {
             "title": "9. Avertissements & Limitations",
@@ -11652,12 +11652,12 @@
             },
             "asIsContent": "Les services sont fournis « EN L'ÉTAT » et « TELS QUE DISPONIBLES » sans garantie d'aucune sorte, expresse ou implicite.",
             "noInvestmentAdvice": "Pas de conseil en investissement",
-            "noInvestmentAdviceContent": "TBurn Lab ne fournit pas de conseils en investissement, financiers ou juridiques. Les scores de confiance sont uniquement informatifs.",
+            "noInvestmentAdviceContent": "TBurn Chain ne fournit pas de conseils en investissement, financiers ou juridiques. Les scores de confiance sont uniquement informatifs.",
             "limitationOfLiability": "Limitation de responsabilité",
             "limitationOfLiabilityContent": "DANS TOUTE LA MESURE PERMISE PAR LA LOI, TBURN CHAIN NE SERA PAS RESPONSABLE DES DOMMAGES INDIRECTS, ACCESSOIRES, SPÉCIAUX, CONSÉCUTIFS OU PUNITIFS.",
             "noAdvice": {
               "title": "No Investment Advice",
-              "content": "TBurn Lab does not provide investment, financial, or Juridique advice. Trust scores are informational only."
+              "content": "TBurn Chain does not provide investment, financial, or Juridique advice. Trust scores are informational only."
             },
             "limitation": {
               "title": "Limitation of Liability",
@@ -11666,7 +11666,7 @@
           },
           "governingLaw": {
             "title": "10. Droit applicable",
-            "content": "Ces Conditions seront régies et interprétées conformément aux lois de la juridiction où TBurn Lab Foundation est constituée, sans tenir compte des principes de conflit de lois."
+            "content": "Ces Conditions seront régies et interprétées conformément aux lois de la juridiction où TBurn Chain Foundation est constituée, sans tenir compte des principes de conflit de lois."
           },
           "account": {
             "title": "4. Account Registration & Sécurité",
@@ -11697,11 +11697,11 @@
           },
           "ip": {
             "title": "8. Intellectual Property",
-            "content": "All intellectual property rights in TBurn Lab, including the platform, protocols, and branding, are owned by TBurn Lab Foundation. You are granted a limited, non-exclusive license to use our services."
+            "content": "All intellectual property rights in TBurn Chain, including the platform, protocols, and branding, are owned by TBurn Chain Foundation. You are granted a limited, non-exclusive license to use our services."
           },
           "governing": {
             "title": "10. Governing Law",
-            "content": "These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where TBurn Lab Foundation is incorporated, without regard to conflict of law principles."
+            "content": "These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where TBurn Chain Foundation is incorporated, without regard to conflict of law principles."
           }
         },
         "contact": {
@@ -11729,7 +11729,7 @@
           "trustScoreSystemDesc": "Vérification en 3 étapes",
           "whatIsWallet": "Qu'est-ce qu'un portefeuille ?",
           "whatIsWalletDesc": "Bases de la sécurité des portefeuilles",
-          "whatIsTBurnChain": "Qu'est-ce que TBurn Lab ?",
+          "whatIsTBurnChain": "Qu'est-ce que TBurn Chain ?",
           "whatIsTBurnChainDesc": "Présentation de la plateforme"
         }
       },
@@ -11743,7 +11743,7 @@
         "sections": {
           "introduction": {
             "title": "1. Introduction",
-            "content": "Bienvenue sur TBurn Lab (« nous », « notre » ou « nos »). Nous nous engageons à protéger vos informations personnelles et votre droit à la vie privée. Cette Politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous visitez notre site web et utilisez nos services blockchain."
+            "content": "Bienvenue sur TBurn Chain (« nous », « notre » ou « nos »). Nous nous engageons à protéger vos informations personnelles et votre droit à la vie privée. Cette Politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous visitez notre site web et utilisez nos services blockchain."
           },
           "informationCollected": {
             "title": "2. Informations que nous collectons",
@@ -11764,7 +11764,7 @@
             "title": "3. Comment nous utilisons vos informations",
             "intro": "Nous utilisons les informations collectées pour :",
             "items": {
-              "operating": "Exploiter et maintenir la plateforme TBurn Lab.",
+              "operating": "Exploiter et maintenir la plateforme TBurn Chain.",
               "verification": "Mener notre processus de vérification en 3 étapes (filtrage IA, examen d'experts, vote).",
               "detectingFraud": "Détecter la fraude, les abus et les menaces de sécurité.",
               "improving": "Améliorer nos services grâce aux analyses.",
@@ -11785,7 +11785,7 @@
             "title": "5. Confidentialité spécifique à la blockchain",
             "publicData": {
               "title": "Données publiques",
-              "content": "Les transactions et interactions avec les contrats intelligents sur TBurn Lab sont publiquement visibles et immuables. Ces données ne peuvent pas être supprimées ou modifiées."
+              "content": "Les transactions et interactions avec les contrats intelligents sur TBurn Chain sont publiquement visibles et immuables. Ces données ne peuvent pas être supprimées ou modifiées."
             },
             "pseudonymity": {
               "title": "Pseudonymat",
@@ -11880,7 +11880,7 @@
             "title": "5. Blockchain-Specific Privacy",
             "publicData": {
               "title": "Public Data",
-              "content": "Transactions and smart contract interactions on TBurn Lab are publicly visible and immutable. This data cannot be deleted or modified."
+              "content": "Transactions and smart contract interactions on TBurn Chain are publicly visible and immutable. This data cannot be deleted or modified."
             },
             "pseudonymity": {
               "title": "Pseudonymity",
@@ -11957,12 +11957,12 @@
         "backToHome": "Retour à l'accueil",
         "importantNotice": {
           "title": "Avis important",
-          "content": "Veuillez lire attentivement cet avertissement avant d'utiliser les services TBurn Lab. En accédant ou en utilisant notre plateforme, vous reconnaissez avoir lu, compris et accepté les avertissements suivants."
+          "content": "Veuillez lire attentivement cet avertissement avant d'utiliser les services TBurn Chain. En accédant ou en utilisant notre plateforme, vous reconnaissez avoir lu, compris et accepté les avertissements suivants."
         },
         "sections": {
           "noInvestmentAdvice": {
             "title": "1. Pas de conseil en investissement",
-            "warning": "TBurn Lab ne fournit pas de conseils en investissement, financiers, fiscaux ou juridiques. Toutes les informations fournies sur notre plateforme, y compris les scores de confiance, sont uniquement à titre informatif et ne doivent pas être interprétées comme des conseils de quelque nature que ce soit.",
+            "warning": "TBurn Chain ne fournit pas de conseils en investissement, financiers, fiscaux ou juridiques. Toutes les informations fournies sur notre plateforme, y compris les scores de confiance, sont uniquement à titre informatif et ne doivent pas être interprétées comme des conseils de quelque nature que ce soit.",
             "content": "Vous devez consulter des professionnels qualifiés avant de prendre toute décision d'investissement. Les performances passées ne sont pas indicatives des résultats futurs."
           },
           "riskDisclosure": {
@@ -12022,7 +12022,7 @@
           },
           "geographicRestrictions": {
             "title": "7. Restrictions géographiques",
-            "content": "Nos services peuvent ne pas être disponibles dans toutes les juridictions. Il est de votre responsabilité de vous assurer que votre utilisation de TBurn Lab est conforme aux lois de votre juridiction. Nous nous réservons le droit de restreindre l'accès à nos services depuis certaines zones géographiques."
+            "content": "Nos services peuvent ne pas être disponibles dans toutes les juridictions. Il est de votre responsabilité de vous assurer que votre utilisation de TBurn Chain est conforme aux lois de votre juridiction. Nous nous réservons le droit de restreindre l'accès à nos services depuis certaines zones géographiques."
           },
           "forwardLookingStatements": {
             "title": "8. Déclarations prospectives",
@@ -12030,7 +12030,7 @@
           },
           "noAdvice": {
             "title": "1. Pas de Conseil en Investissement",
-            "warning": "TBurn Lab ne fournit pas de conseils en investissement, financiers, fiscaux ou juridiques. Toutes les informations fournies sur notre plateforme, y compris les Trust Scores, sont uniquement à titre informatif et ne doivent pas être interprétées comme des conseils de quelque nature que ce soit.",
+            "warning": "TBurn Chain ne fournit pas de conseils en investissement, financiers, fiscaux ou juridiques. Toutes les informations fournies sur notre plateforme, y compris les Trust Scores, sont uniquement à titre informatif et ne doivent pas être interprétées comme des conseils de quelque nature que ce soit.",
             "content": "Vous devez consulter des professionnels qualifiés avant de prendre toute décision d'investissement. Les performances passées ne sont pas indicatives des résultats futurs."
           },
           "trustScore": {
@@ -12057,7 +12057,7 @@
           },
           "geographic": {
             "title": "7. Restrictions Géographiques",
-            "content": "Nos services peuvent ne pas être disponibles dans toutes les juridictions. Il est de votre responsabilité de vous assurer que votre utilisation de TBurn Lab est conforme aux lois de votre juridiction. Nous nous réservons le droit de restreindre l'accès à nos services depuis certaines zones géographiques."
+            "content": "Nos services peuvent ne pas être disponibles dans toutes les juridictions. Il est de votre responsabilité de vous assurer que votre utilisation de TBurn Chain est conforme aux lois de votre juridiction. Nous nous réservons le droit de restreindre l'accès à nos services depuis certaines zones géographiques."
           },
           "forwardLooking": {
             "title": "8. Déclarations Prospectives",
@@ -12137,7 +12137,7 @@
             "subtitle": "Understanding blockchain technology"
           },
           "burnChain": {
-            "title": "Qu'est-ce que TBurn Lab ?",
+            "title": "Qu'est-ce que TBurn Chain ?",
             "subtitle": "Platform Aperçu"
           },
           "defi": {

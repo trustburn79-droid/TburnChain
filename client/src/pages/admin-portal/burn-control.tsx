@@ -66,6 +66,34 @@ interface BurnData {
   events: BurnEvent[];
 }
 
+// Helper function to translate burn types
+const translateBurnType = (type: string, t: (key: string) => string): string => {
+  const typeMap: Record<string, string> = {
+    "Time-based": "adminBurnControl.timeBased",
+    "Volume-based": "adminBurnControl.volumeBased",
+    "AI Optimized": "adminBurnControl.aiOptimized",
+    "Transaction-based": "adminBurnControl.transactionBased",
+    "Transaction": "adminBurnControl.transaction",
+  };
+  return typeMap[type] ? t(typeMap[type]) : type;
+};
+
+// Helper function to translate burn status
+const translateBurnStatus = (status: string, t: (key: string) => string): string => {
+  const statusMap: Record<string, string> = {
+    "active": "adminBurnControl.active",
+    "paused": "adminBurnControl.paused",
+  };
+  return statusMap[status] ? t(statusMap[status]) : status;
+};
+
+// Helper function to translate next run text
+const translateNextRun = (nextRun: string, t: (key: string) => string): string => {
+  if (nextRun === "Condition-based") return t("adminBurnControl.conditionBased");
+  if (nextRun === "Real-time") return t("adminBurnControl.realTime");
+  return nextRun;
+};
+
 export default function AdminBurnControl() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -602,15 +630,15 @@ export default function AdminBurnControl() {
                       <TableBody>
                         {scheduledBurns.map((burn) => (
                           <TableRow key={burn.id} data-testid={`row-scheduled-burn-${burn.id}`}>
-                            <TableCell className="font-medium">{burn.type}</TableCell>
+                            <TableCell className="font-medium">{translateBurnType(burn.type, t)}</TableCell>
                             <TableCell>{burn.amount}</TableCell>
                             <TableCell>{burn.schedule}</TableCell>
                             <TableCell>
                               <Badge variant={burn.status === "active" ? "default" : "secondary"}>
-                                {burn.status}
+                                {translateBurnStatus(burn.status, t)}
                               </Badge>
                             </TableCell>
-                            <TableCell className="text-muted-foreground">{burn.nextRun}</TableCell>
+                            <TableCell className="text-muted-foreground">{translateNextRun(burn.nextRun, t)}</TableCell>
                             <TableCell>
                               <div className="flex gap-1">
                                 <Button 
@@ -701,7 +729,7 @@ export default function AdminBurnControl() {
                       {burnEvents.map((event) => (
                         <TableRow key={event.id} data-testid={`row-burn-event-${event.id}`}>
                           <TableCell>
-                            <Badge variant="outline">{event.type}</Badge>
+                            <Badge variant="outline">{translateBurnType(event.type, t)}</Badge>
                           </TableCell>
                           <TableCell className="font-mono">{event.amount} TBURN</TableCell>
                           <TableCell className="font-mono text-sm text-muted-foreground">{event.txHash}</TableCell>

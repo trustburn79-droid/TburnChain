@@ -1072,7 +1072,7 @@ router.get('/news', async (req: Request, res: Response) => {
           {
             id: 1,
             slug: "v4-mainnet-launch",
-            title: "TBurn Lab V4 Mainnet Launch - Official Release",
+            title: "TBurn Chain V4 Mainnet Launch - Official Release",
             description: "The world's first trust-based Layer 1 blockchain officially launches.",
             category: "Announcement",
             date: "2024-11-28",
@@ -1084,7 +1084,7 @@ router.get('/news', async (req: Request, res: Response) => {
             id: 2,
             slug: "triple-band-ai-revealed",
             title: "Triple-Band AI System Revealed",
-            description: "TBurn Lab's core AI system unveiled with real-time Trust Score analysis.",
+            description: "TBurn Chain's core AI system unveiled with real-time Trust Score analysis.",
             category: "Technology",
             date: "2024-11-25",
             readTime: "8 min",
@@ -1152,7 +1152,7 @@ router.get('/events', async (req: Request, res: Response) => {
       success: true,
       data: {
         featured: {
-          title: "TBurn Lab V4 Mainnet Launch Event",
+          title: "TBurn Chain V4 Mainnet Launch Event",
           date: "2024-12-05",
           time: "14:00 UTC",
           location: "Virtual / Seoul",

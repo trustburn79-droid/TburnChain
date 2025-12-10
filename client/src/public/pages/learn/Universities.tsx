@@ -21,7 +21,7 @@ const educationFeatures = [
   {
     icon: Users,
     title: "Student Community",
-    description: "Connect with global university chapters. Network with other students learning TBurn Lab and consensus technologies.",
+    description: "Connect with global university chapters. Network with other students learning TBurn Chain and consensus technologies.",
     color: "#7000ff",
   },
   {
@@ -36,7 +36,7 @@ const studentOpportunities = [
   {
     number: "01",
     title: "Start a Chapter",
-    description: "Launch a TBurn Lab club at your university and get official swag.",
+    description: "Launch a TBurn Chain club at your university and get official swag.",
     hoverColor: "#00ff9d",
   },
   {
@@ -140,7 +140,7 @@ export default function Universities() {
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">For Educators</h2>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Are you an educator looking to incorporate blockchain technology into your curriculum? We provide ready-to-use teaching materials, guest lecture programs, and technical support to help bring TBurn Lab to the classroom.
+                  Are you an educator looking to incorporate blockchain technology into your curriculum? We provide ready-to-use teaching materials, guest lecture programs, and technical support to help bring TBurn Chain to the classroom.
                 </p>
                 <Link href="/learn">
                   <button 

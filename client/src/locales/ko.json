@@ -6510,7 +6510,7 @@
       "network": "네트워크"
     },
     "footer": {
-      "copyright": "© 2025 TBurn Lab Foundation.",
+      "copyright": "© 2025 TBurn Chain Foundation.",
       "allSystemsOperational": "모든 시스템 정상 작동 중.",
       "privacy": "개인정보",
       "terms": "이용약관",
@@ -9574,7 +9574,7 @@
         "forumTitle": "커뮤니티 포럼",
         "viewAll": "전체 보기",
         "recentPosts": "최근 게시물",
-        "heroDescription": "TBurn Lab에서 구축하는 데 필요한 모든 것. API에서 스마트 컨트랙트까지, 프로덕션 지원 dApp을 구축하세요.",
+        "heroDescription": "TBurn Chain에서 구축하는 데 필요한 모든 것. API에서 스마트 컨트랙트까지, 프로덕션 지원 dApp을 구축하세요.",
         "searchPlaceholder": "문서 검색...",
         "categoriesTitle": "문서 카테고리",
         "resourcesTitle": "개발자 리소스",
@@ -9584,7 +9584,7 @@
         },
         "architecture": {
           "title": "네트워크 아키텍처",
-          "subtitle": "TBurn Lab 다층 아키텍처 이해",
+          "subtitle": "TBurn Chain 다층 아키텍처 이해",
           "forumTitle": "커뮤니티 포럼",
           "viewAll": "전체 보기",
           "recentPosts": "최근 게시물",
@@ -14744,7 +14744,7 @@
         },
         "hostCta": {
           "title": "이벤트를 주최하고 싶으신가요?",
-          "description": "TBurn Lab 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 승인된 호스트에게 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
+          "description": "TBurn Chain 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 승인된 호스트에게 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
           "button": "호스트 신청"
         },
         "toast": {
@@ -16875,7 +16875,25 @@
     "confirmSave": {
       "title": "소각률 업데이트",
       "description": "소각률을 업데이트하시겠습니까? 트랜잭션 비율: {{txRate}}%, 시간 비율: {{timeRate}}%"
-    }
+    },
+    "type": "유형",
+    "amount": "수량",
+    "status": "상태",
+    "actions": "작업",
+    "timestamp": "타임스탬프",
+    "active": "활성",
+    "paused": "일시 중지됨",
+    "timeBased": "시간 기반",
+    "volumeBased": "거래량 기반",
+    "aiOptimized": "AI 최적화",
+    "transactionBased": "트랜잭션 기반",
+    "transaction": "트랜잭션",
+    "dailyAt": "매일 {{time}}",
+    "whenVolumeExceeds": "24시간 거래량 > {{amount}}일 때",
+    "everyNHours": "{{hours}}시간마다",
+    "perTransaction": "트랜잭션당",
+    "conditionBased": "조건 기반",
+    "realTime": "실시간"
   },
   "adminEconomics": {
     "title": "경제 매개변수",
@@ -21435,7 +21453,7 @@
         "superAdminAccess": "슈퍼 관리자 접근",
         "superAdminAccessDesc": "최고 수준의 시스템 접근 권한",
         "validatorManagement": "검증자 관리",
-    "memberManagement": "멤버 관리",
+        "memberManagement": "멤버 관리",
         "validatorManagementDesc": "검증자 생성 및 관리 권한",
         "treasuryAccess": "재무 접근",
         "treasuryAccessDesc": "재무 및 자금 관리 접근 권한",

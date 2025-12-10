@@ -95,7 +95,7 @@ export default function Wallets() {
       borderColor: "#00ff9d",
       indicatorColor: "#00ff9d",
       config: [
-        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Lab" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Chain" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://rpc.tburn.io" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "7777" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.symbol'), value: "TBURN" },
