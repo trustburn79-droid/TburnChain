@@ -8096,180 +8096,106 @@
         }
       },
       "trustScore": {
-        "tag": "핵심 기능",
         "title": "신뢰도 점수 시스템",
-        "subtitle": "3단계 검증 시스템, AI 분석, 동적 점수 알고리즘을 심층 탐구합니다.",
+        "subtitle": "자동화된 분석과 전문가 검토를 결합하여 종합적인 프로젝트 평가를 제공합니다.",
         "forumTitle": "커뮤니티 포럼",
         "viewAll": "전체 보기",
         "recentPosts": "최근 게시물",
+        "subtitleHow": "신뢰도 점수 작동 방식",
+        "subtitleVerification": "검증 방법론",
+        "tag": "검증 시스템",
+        "evaluationPhilosophy": "평가 방법론",
         "philosophy": {
-          "title": "평가 철학",
-          "description": "신뢰도 점수는 다양한 차원에서 프로젝트 신뢰성을 평가하여 투자자를 보호하도록 설계되었습니다",
-          "objective": {
-            "title": "객관적 분석",
-            "description": "표준화된 메트릭과 AI 기반 평가를 통해 인간 편향을 제거하는 데이터 기반 평가"
-          },
           "comprehensive": {
             "title": "종합 검토",
-            "description": "팀, 기술, 재무 및 실행 역량을 다루는 다차원 분석"
-          },
-          "transparent": {
-            "title": "완전한 투명성",
-            "description": "모든 점수 요소와 방법론은 공개 문서화되고 온체인 검증 가능합니다"
+            "description": "팀, 기술, 재무 및 실행 역량을 포괄하는 다차원 분석"
           },
           "realtime": {
             "title": "실시간 업데이트",
-            "description": "프로젝트 행동 변화에 따른 즉각적인 점수 조정과 함께하는 지속적인 모니터링"
+            "description": "프로젝트 행동 변화에 따른 즉각적인 점수 조정으로 지속적인 모니터링"
+          },
+          "transparent": {
+            "title": "완전한 투명성",
+            "description": "모든 점수 요소와 방법론이 공개적으로 문서화되고 온체인에서 검증 가능"
+          },
+          "objective": {
+            "title": "객관적 분석",
+            "description": "표준화된 지표와 AI 기반 평가를 통해 인간 편향을 제거한 데이터 중심 평가"
           }
         },
+        "scoreComponents": "점수 구성 요소",
+        "scoreComponentsStatus": "실시간 구성 요소 추적",
         "components": {
-          "title": "점수 구성 요소",
-          "items": {
-            "team": {
-              "title": "팀 신원",
-              "points": "30점",
-              "description": "KYC 검증, 이력 확인, 소셜 미디어 존재감"
-            },
-            "technology": {
-              "title": "기술",
-              "points": "25점",
-              "description": "스마트 컨트랙트 감사, 코드 품질, 보안"
-            },
-            "community": {
-              "title": "커뮤니티",
-              "points": "20점",
-              "description": "소셜 참여도, 거버넌스 참여"
-            },
-            "financials": {
-              "title": "재무",
-              "points": "15점",
-              "description": "유동성, 토큰노믹스, 자금 관리"
-            },
-            "execution": {
-              "title": "실행력",
-              "points": "10점",
-              "description": "로드맵 이행 및 마일스톤 달성"
-            }
-          },
           "teamTransparency": {
             "title": "팀 투명성",
             "items": {
-              "kyc": "KYC 검증 상태",
-              "realName": "실명 공개",
-              "experience": "업계 경험 및 실적",
-              "communication": "커뮤니티 커뮤니케이션 품질"
+              "realName": "실명 인증",
+              "experience": "전문 경력 검증",
+              "kyc": "KYC 인증 완료",
+              "communication": "커뮤니티 소통 점수"
             }
           },
           "technical": {
             "title": "기술 평가",
             "items": {
-              "codeQuality": "코드 품질 및 표준",
-              "securityAudit": "보안 감사 결과",
+              "codeQuality": "코드 품질 분석",
+              "securityAudit": "보안 감사 완료",
               "testCoverage": "테스트 커버리지 비율",
-              "documentation": "기술 문서"
+              "documentation": "문서화 품질"
             }
           },
           "financial": {
-            "title": "재무 건전성",
+            "title": "재무 투명성",
             "items": {
-              "fundingReport": "자금 출처 투명성",
-              "walletDisclosure": "지갑 공개 상태",
-              "accountingAudit": "재무 감사 결과",
-              "distributionData": "토큰 배포 데이터"
+              "walletDisclosure": "지갑 주소 공개",
+              "fundingReport": "자금 조달 보고서 가용성",
+              "accountingAudit": "회계 감사 상태",
+              "distributionData": "토큰 배분 데이터"
             }
           }
         },
+        "gradeSystem": "등급 시스템",
+        "gradeSystemDescription": "프로젝트는 신뢰도 점수에 따라 분류됩니다",
         "grades": {
-          "title": "신뢰 등급",
-          "diamond": {
-            "name": "다이아몬드",
-            "range": "90-100",
-            "description": "최고 신뢰 수준"
-          },
-          "gold": {
-            "name": "골드",
-            "range": "70-89",
-            "description": "높은 신뢰도"
-          },
-          "silver": {
-            "name": "실버",
-            "range": "50-69",
-            "description": "보통 신뢰도"
-          },
-          "bronze": {
-            "name": "브론즈",
-            "range": "40-49",
-            "description": "주의 필요"
-          },
-          "restricted": {
-            "name": "제한됨",
-            "range": "0-39",
-            "description": "거래 중지"
-          },
           "s": {
-            "title": "S 등급 - 다이아몬드",
-            "description": "완벽한 검증을 갖춘 뛰어난 프로젝트. 전체 거래 액세스 및 우선 DEX 상장."
+            "title": "최고 신뢰",
+            "description": "완전한 투명성으로 최고 수준의 검증"
           },
           "a": {
-            "title": "A 등급 - 골드",
-            "description": "강력한 기초를 갖춘 매우 신뢰할 수 있는 프로젝트. 향상된 가시성과 함께 표준 거래 액세스."
+            "title": "높은 신뢰",
+            "description": "일부 개선 영역이 있는 강력한 검증"
           },
           "b": {
-            "title": "B 등급 - 실버",
-            "description": "사소한 우려가 있는 양호한 프로젝트. 표준 모니터링과 함께 거래 허용."
+            "title": "보통 신뢰",
+            "description": "일부 우려 사항이 있는 기본 검증 완료"
           },
           "c": {
-            "title": "C 등급 - 브론즈",
-            "description": "주의가 필요한 프로젝트. 경고 라벨 표시와 함께 거래 허용."
+            "title": "제한적 신뢰",
+            "description": "상당한 우려 사항이 있는 불완전한 검증"
           },
           "f": {
-            "title": "F 등급 - 제한됨",
-            "description": "검증 실패 또는 심각한 우려. 조사 대기 중 거래 중단."
+            "title": "미검증",
+            "description": "검증 실패 또는 데이터 부족"
           }
         },
-        "stages": {
-          "title": "3단계 검증",
-          "stage1": {
-            "title": "AI 분석",
-            "duration": "24시간",
-            "description": "트리플 밴드 AI를 사용한 자동화된 스크리닝"
-          },
-          "stage2": {
-            "title": "전문가 검토",
-            "duration": "7-14일",
-            "description": "인간 전문가가 AI 결과를 검증"
-          },
-          "stage3": {
-            "title": "커뮤니티 투표",
-            "duration": "3-5일",
-            "description": "토큰 보유자가 최종 승인에 투표"
-          }
-        },
-        "evaluationPhilosophy": "평가 방법론은 자동화된 분석과 인간 전문 지식을 결합하여 포괄적인 프로젝트 평가를 제공합니다.",
-        "gradeSystem": "신뢰 등급 분류",
-        "scoreComponents": "점수 구성요소",
-        "scoreComponentsStatus": "실시간 구성요소 추적",
         "verificationProcess": "검증 프로세스",
-        "pts": "점",
-        "ptsUnit": "점",
-        "importantLabel": "중요",
-        "importantNote": "신뢰도 점수는 동적이며 진행 중인 프로젝트 행동과 커뮤니티 피드백을 기반으로 실시간 업데이트됩니다.",
+        "verificationProcessDescription": "4단계 검증 워크플로우",
         "process": {
           "dataCollection": {
             "title": "데이터 수집",
-            "description": "온체인 데이터, 소셜 메트릭 및 프로젝트 문서의 자동 수집"
+            "description": "여러 소스에서 프로젝트 정보 수집"
           },
           "aiAnalysis": {
             "title": "AI 분석",
-            "description": "트리플 밴드 AI가 모든 점수 차원에서 종합 분석 수행"
+            "description": "자동화된 패턴 인식 및 위험 평가"
           },
           "expertReview": {
             "title": "전문가 검토",
-            "description": "인간 전문가가 AI 발견 사항을 검증하고 심층 조사 수행"
+            "description": "분야별 전문가에 의한 인간 검증"
           },
           "onchainCommit": {
-            "title": "온체인 커밋",
-            "description": "최종 점수는 완전한 감사 추적과 투명성과 함께 블록체인에 커밋됩니다"
+            "title": "온체인 기록",
+            "description": "검증 결과의 불변 기록"
           }
         }
       },

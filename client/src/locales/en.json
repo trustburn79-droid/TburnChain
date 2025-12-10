@@ -14716,9 +14716,104 @@
         "learn": {
           "trustScore": {
             "title": "Trust Score System",
-            "subtitle": "3-stage verification process",
+            "subtitle": "Our evaluation methodology combines automated analysis with human expertise to provide comprehensive project assessments.",
             "subtitleHow": "How Trust Scores work",
-            "subtitleVerification": "Verification methodology"
+            "subtitleVerification": "Verification methodology",
+            "tag": "Verification System",
+            "evaluationPhilosophy": "Evaluation Methodology",
+            "philosophy": {
+              "comprehensive": {
+                "title": "Comprehensive Review",
+                "description": "Multi-dimensional analysis covering team, technology, financials, and execution capabilities"
+              },
+              "realtime": {
+                "title": "Real-time Updates",
+                "description": "Continuous monitoring with instant score adjustments based on project behavior changes"
+              },
+              "transparent": {
+                "title": "Full Transparency",
+                "description": "All scoring factors and methodologies are publicly documented and on-chain verifiable"
+              },
+              "objective": {
+                "title": "Objective Analysis",
+                "description": "Data-driven evaluation eliminating human bias through standardized metrics and AI-powered assessment"
+              }
+            },
+            "scoreComponents": "Score Components",
+            "scoreComponentsStatus": "Real-time component tracking",
+            "components": {
+              "teamTransparency": {
+                "title": "Team Transparency",
+                "items": {
+                  "realName": "Real name verification",
+                  "experience": "Professional experience validation",
+                  "kyc": "KYC verification completed",
+                  "communication": "Community communication score"
+                }
+              },
+              "technical": {
+                "title": "Technical Assessment",
+                "items": {
+                  "codeQuality": "Code quality analysis",
+                  "securityAudit": "Security audit completion",
+                  "testCoverage": "Test coverage percentage",
+                  "documentation": "Documentation quality"
+                }
+              },
+              "financial": {
+                "title": "Financial Transparency",
+                "items": {
+                  "walletDisclosure": "Wallet address disclosure",
+                  "fundingReport": "Funding report availability",
+                  "accountingAudit": "Accounting audit status",
+                  "distributionData": "Token distribution data"
+                }
+              }
+            },
+            "gradeSystem": "Grade System",
+            "gradeSystemDescription": "Projects are classified based on their trust score",
+            "grades": {
+              "s": {
+                "title": "Exceptional Trust",
+                "description": "Highest verification level with complete transparency"
+              },
+              "a": {
+                "title": "High Trust",
+                "description": "Strong verification with minor areas for improvement"
+              },
+              "b": {
+                "title": "Moderate Trust",
+                "description": "Basic verification completed with some concerns"
+              },
+              "c": {
+                "title": "Limited Trust",
+                "description": "Incomplete verification with significant concerns"
+              },
+              "f": {
+                "title": "Unverified",
+                "description": "Failed verification or insufficient data"
+              }
+            },
+            "verificationProcess": "Verification Process",
+            "verificationProcessDescription": "Our 4-step verification workflow",
+            "process": {
+              "dataCollection": {
+                "title": "Data Collection",
+                "description": "Gather project information from multiple sources"
+              },
+              "aiAnalysis": {
+                "title": "AI Analysis",
+                "description": "Automated pattern recognition and risk assessment"
+              },
+              "expertReview": {
+                "title": "Expert Review",
+                "description": "Human verification by domain specialists"
+              },
+              "onchainCommit": {
+                "title": "On-chain Commit",
+                "description": "Immutable record of verification results"
+              }
+            }
           },
           "wallet": {
             "title": "What is a Wallet?",
