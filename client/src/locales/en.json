@@ -13167,6 +13167,42 @@
           "stake": "Minimum Stake",
           "apy": "Target APY",
           "slots": "Max Participants",
+          "elite": {
+            "name": "Elite Validator",
+            "badge": "Elite",
+            "stakeAmount": "1,000,000+ TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "50 slots",
+            "benefits": {
+              "blockPriority": "Priority block production",
+              "revenueShare": "Enhanced revenue share",
+              "aiDecision": "AI governance voting"
+            }
+          },
+          "standard": {
+            "name": "Standard Validator",
+            "badge": "Standard",
+            "stakeAmount": "100,000+ TBURN",
+            "apyAmount": "5-8%",
+            "slotsAmount": "500 slots",
+            "benefits": {
+              "blockValidation": "Block validation rights",
+              "votingRights": "Governance voting",
+              "feeDistribution": "Fee distribution"
+            }
+          },
+          "starter": {
+            "name": "Starter Validator",
+            "badge": "Starter",
+            "stakeAmount": "10,000+ TBURN",
+            "apyAmount": "4-6%",
+            "slotsAmount": "Unlimited",
+            "benefits": {
+              "delegate": "Delegate to validators",
+              "autoRewards": "Auto-compound rewards",
+              "unstakePeriod": "7-day unstaking"
+            }
+          },
           "tier1": {
             "name": "Tier 1: Active Committee",
             "badge": "Committee",
