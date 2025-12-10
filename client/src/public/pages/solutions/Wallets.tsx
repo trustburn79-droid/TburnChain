@@ -28,7 +28,9 @@ export default function Wallets() {
       iconType: "gradient",
       buttonText: t('publicPages.solutions.wallets.walletList.tburn.button'),
       buttonStyle: "primary",
-      borderColor: "border-[#7000ff]/30"
+      borderColor: "border-[#7000ff]/30",
+      actionType: "download",
+      actionUrl: "https://chrome.google.com/webstore/category/extensions"
     },
     {
       id: "metamask",
@@ -39,7 +41,9 @@ export default function Wallets() {
       iconType: "metamask",
       buttonText: t('publicPages.solutions.wallets.walletList.metamask.button'),
       buttonStyle: "outline",
-      borderColor: "border-gray-300 dark:border-white/10"
+      borderColor: "border-gray-300 dark:border-white/10",
+      actionType: "guide",
+      actionUrl: "/learn/wallet-guides/metamask"
     },
     {
       id: "trust",
@@ -50,7 +54,9 @@ export default function Wallets() {
       iconType: "shield",
       buttonText: t('publicPages.solutions.wallets.walletList.trust.button'),
       buttonStyle: "outline",
-      borderColor: "border-gray-300 dark:border-white/10"
+      borderColor: "border-gray-300 dark:border-white/10",
+      actionType: "guide",
+      actionUrl: "/learn/wallet-guides/trust"
     },
     {
       id: "ledger",
@@ -61,7 +67,9 @@ export default function Wallets() {
       iconType: "hardware",
       buttonText: t('publicPages.solutions.wallets.walletList.ledger.button'),
       buttonStyle: "outline",
-      borderColor: "border-gray-300 dark:border-white/10"
+      borderColor: "border-gray-300 dark:border-white/10",
+      actionType: "guide",
+      actionUrl: "/learn/wallet-guides/ledger"
     }
   ];
 
@@ -219,19 +227,39 @@ export default function Wallets() {
                   </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">{wallet.desc}</p>
-                <Link href="/developers/docs">
-                  <button 
-                    className={`w-full py-3 rounded-lg font-bold transition ${
-                      wallet.buttonStyle === "primary"
-                        ? "bg-[#7000ff] text-gray-900 dark:text-white hover:bg-purple-600"
-                        : "border border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-white/5"
-                    }`}
-                    style={wallet.buttonStyle === "primary" ? { boxShadow: "0 0 15px rgba(112,0,255,0.3)" } : {}}
-                    data-testid={`button-wallet-${wallet.id}`}
+                {wallet.actionType === "download" ? (
+                  <a 
+                    href={wallet.actionUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
                   >
-                    {wallet.buttonText}
-                  </button>
-                </Link>
+                    <button 
+                      className={`w-full py-3 rounded-lg font-bold transition ${
+                        wallet.buttonStyle === "primary"
+                          ? "bg-[#7000ff] text-gray-900 dark:text-white hover:bg-purple-600"
+                          : "border border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-white/5"
+                      }`}
+                      style={wallet.buttonStyle === "primary" ? { boxShadow: "0 0 15px rgba(112,0,255,0.3)" } : {}}
+                      data-testid={`button-wallet-${wallet.id}`}
+                    >
+                      {wallet.buttonText}
+                    </button>
+                  </a>
+                ) : (
+                  <Link href={wallet.actionUrl}>
+                    <button 
+                      className={`w-full py-3 rounded-lg font-bold transition ${
+                        wallet.buttonStyle === "primary"
+                          ? "bg-[#7000ff] text-gray-900 dark:text-white hover:bg-purple-600"
+                          : "border border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-white/5"
+                      }`}
+                      style={wallet.buttonStyle === "primary" ? { boxShadow: "0 0 15px rgba(112,0,255,0.3)" } : {}}
+                      data-testid={`button-wallet-${wallet.id}`}
+                    >
+                      {wallet.buttonText}
+                    </button>
+                  </Link>
+                )}
               </div>
             ))}
           </div>

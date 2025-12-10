@@ -2,6 +2,7 @@ export { default as LearnHub } from "./LearnHub";
 export { default as WhatIsBurnChain } from "./WhatIsBurnChain";
 export { default as TrustScoreSystem } from "./TrustScoreSystem";
 export { default as WhatIsWallet } from "./WhatIsWallet";
+export { default as WalletGuide } from "./WalletGuide";
 export { default as EducationPrograms } from "./EducationPrograms";
 export { default as Whitepaper } from "./Whitepaper";
 export { default as Tokenomics } from "./Tokenomics";

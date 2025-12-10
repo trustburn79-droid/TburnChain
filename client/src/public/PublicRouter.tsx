@@ -3,7 +3,7 @@ import { PublicLayout } from "./components/PublicLayout";
 
 import Home from "./pages/Home";
 
-import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, EducationPrograms, Whitepaper, Tokenomics, Roadmap, Universities, BlockchainBasics, DefiMastery, DeveloperCourse, IntroToDefi } from "./pages/learn";
+import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, WalletGuide, EducationPrograms, Whitepaper, Tokenomics, Roadmap, Universities, BlockchainBasics, DefiMastery, DeveloperCourse, IntroToDefi } from "./pages/learn";
 import { DeveloperHub, Documentation, ApiDocs, CliReference, SdkGuide, SmartContracts, WebSocketApi, CodeExamples, QuickStart, InstallationGuide, EvmMigration } from "./pages/developers";
 import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Payments, Commerce, Financial, AiFeatures, ArtistsCreators, Btcfi, CrossChainBridge, DefiHub } from "./pages/solutions";
 import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } from "./pages/use-cases";
@@ -23,6 +23,7 @@ export function PublicRouter() {
         <Route path="/learn/what-is-burn-chain" component={WhatIsBurnChain} />
         <Route path="/learn/trust-score" component={TrustScoreSystem} />
         <Route path="/learn/wallet" component={WhatIsWallet} />
+        <Route path="/learn/wallet-guides/:wallet" component={WalletGuide} />
         <Route path="/learn/education" component={Universities} />
         <Route path="/learn/whitepaper" component={Whitepaper} />
         <Route path="/learn/tokenomics" component={Tokenomics} />
