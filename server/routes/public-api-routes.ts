@@ -17,6 +17,20 @@ const CACHE_SHORT = 5; // 5 seconds for real-time data
 const CACHE_MEDIUM = 30; // 30 seconds for summary data
 const CACHE_LONG = 300; // 5 minutes for static-ish data
 
+// Helper function to format large numbers with $ prefix and T/B/M suffix
+function formatLargeNumber(amount: number): string {
+  if (amount >= 1e12) {
+    return `$${(amount / 1e12).toFixed(1)}T`;
+  } else if (amount >= 1e9) {
+    return `$${(amount / 1e9).toFixed(1)}B`;
+  } else if (amount >= 1e6) {
+    return `$${(amount / 1e6).toFixed(1)}M`;
+  } else if (amount >= 1e3) {
+    return `$${(amount / 1e3).toFixed(1)}K`;
+  }
+  return `$${amount.toLocaleString()}`;
+}
+
 // ============================================
 // Consistent Hash Generation (for matching search results)
 // ============================================
@@ -99,9 +113,27 @@ router.get('/network/stats', async (req: Request, res: Response) => {
         networkHashrate: "2.4 EH/s",
         difficulty: "42.5T",
         gasPrice: stats?.gasPrice || "0.0001",
-        totalStaked: snapshot?.totalStaked || moduleMetrics?.staking?.totalStaked || "847,592,000",
-        totalBurned: snapshot?.burnedAmount || moduleMetrics?.burn?.totalBurned || "23,450,000",
-        circulatingSupply: snapshot?.circulatingSupply || "500,000,000",
+        totalStaked: (() => {
+          const raw = snapshot?.totalStaked || moduleMetrics?.staking?.totalStaked;
+          if (!raw) return "$847.6M";
+          const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
+          if (isNaN(num)) return "$847.6M";
+          return formatLargeNumber(num / 1e18);
+        })(),
+        totalBurned: (() => {
+          const raw = snapshot?.burnedAmount || moduleMetrics?.burn?.totalBurned;
+          if (!raw) return "$23.5M";
+          const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
+          if (isNaN(num)) return "$23.5M";
+          return formatLargeNumber(num / 1e18);
+        })(),
+        circulatingSupply: (() => {
+          const raw = snapshot?.circulatingSupply;
+          if (!raw) return "$500.0M";
+          const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
+          if (isNaN(num)) return "$500.0M";
+          return formatLargeNumber(num / 1e18);
+        })(),
         marketCap: snapshot?.marketCap || "$1.2B",
         dexTvl: snapshot?.dexTvl || moduleMetrics?.dex?.tvl || "$124M",
         lendingTvl: snapshot?.lendingTvl || moduleMetrics?.lending?.totalSupplied || "$312M",
@@ -394,14 +426,14 @@ router.get('/validators', async (req: Request, res: Response) => {
           total: validators.length,
           active: activeCount,
           inactive: validators.length - activeCount,
-          totalStaked: validators.reduce((sum: number, v: Validator) => {
+          totalStaked: formatLargeNumber(validators.reduce((sum: number, v: Validator) => {
             try {
               const val = BigInt(v.stake || '0');
               return sum + Number(val) / 1e18;
             } catch {
               return sum;
             }
-          }, 0).toFixed(0),
+          }, 0)),
           avgUptime: (validators.reduce((sum: number, v: Validator) => {
             const num = parseFloat(v.uptime || '0');
             return sum + (num > 100 ? num / 100 : num);
