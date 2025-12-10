@@ -74,6 +74,7 @@ export function PublicRouter() {
         {/* Network Routes */}
         <Route path="/network/validators" component={Validators} />
         <Route path="/network/rpc" component={RpcProviders} />
+        <Route path="/rpc" component={RpcProviders} />
         <Route path="/network/status" component={NetworkStatus} />
         <Route path="/network/ramp" component={Ramp} />
         
