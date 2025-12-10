@@ -43,8 +43,8 @@ const networks: Record<string, NetworkConfig> = {
     name: "TBurn Mainnet",
     chainId: 7777,
     symbol: "TBURN",
-    rpcUrl: "https://rpc.tburn.io",
-    wsUrl: "wss://ws.tburn.io",
+    rpcUrl: "https://tburn.io/rpc",
+    wsUrl: "wss://tburn.io/ws",
     explorerUrl: "https://tburn.io/scan",
     color: "#ff6b35"
   },
@@ -52,8 +52,8 @@ const networks: Record<string, NetworkConfig> = {
     name: "TBurn Testnet", 
     chainId: 7778,
     symbol: "tTBURN",
-    rpcUrl: "https://testnet-rpc.tburn.io",
-    wsUrl: "wss://testnet-ws.tburn.io",
+    rpcUrl: "https://tburn.io/testnet-rpc",
+    wsUrl: "wss://tburn.io/testnet-ws",
     explorerUrl: "https://tburn.io/testnet-scan",
     color: "#ffd700"
   }
