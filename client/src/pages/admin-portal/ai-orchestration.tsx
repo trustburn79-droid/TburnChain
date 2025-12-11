@@ -757,6 +757,17 @@ export default function AdminAIOrchestration() {
     };
     return typeMap[type] || type?.replace(/_/g, ' ');
   };
+
+  const getDecisionDescription = (type: string) => {
+    const normalizedType = (type || '').toLowerCase();
+    const descMap: Record<string, string> = {
+      'strategic': t("adminAI.enterprise.strategicBandDesc"),
+      'tactical': t("adminAI.enterprise.tacticalBandDesc"),
+      'operational': t("adminAI.enterprise.operationalBandDesc"),
+      'fallback': t("adminAI.enterprise.fallbackBandDesc"),
+    };
+    return descMap[normalizedType] || '-';
+  };
   
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -1511,6 +1522,8 @@ export default function AdminAIOrchestration() {
                                       bandKey === 'fallback' ? 'text-orange-500' :
                                       'text-green-500';
                     
+                    const bandDescKey = `adminAI.enterprise.${bandKey}BandDesc`;
+                    
                     return (
                       <Card key={bandKey} className={colorClass} data-testid={`card-band-${bandKey}`}>
                         <CardHeader className="pb-2">
@@ -1522,7 +1535,7 @@ export default function AdminAIOrchestration() {
                             )}
                             {translateType(bandKey.charAt(0).toUpperCase() + bandKey.slice(1))}
                           </CardTitle>
-                          <CardDescription className="text-xs">{band?.description || t("adminAI.enterprise.bandDescription")}</CardDescription>
+                          <CardDescription className="text-xs">{t(bandDescKey)}</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-3">
                           <div className="grid grid-cols-2 gap-2 text-sm">
@@ -1541,10 +1554,10 @@ export default function AdminAIOrchestration() {
                               <p className="font-medium">{band.temperature}</p>
                             </div>
                           )}
-                          {bandKey === 'fallback' && band?.activationCondition && (
+                          {bandKey === 'fallback' && (
                             <div className="text-sm">
                               <span className="text-muted-foreground">{t("adminAI.enterprise.activation")}</span>
-                              <p className="font-medium text-xs">{band.activationCondition}</p>
+                              <p className="font-medium text-xs">{t("adminAI.enterprise.activationCondition")}</p>
                             </div>
                           )}
                           <Badge className="w-full justify-center" variant="outline">
@@ -1631,7 +1644,7 @@ export default function AdminAIOrchestration() {
                               {translateType(decision.type || 'operational')}
                             </Badge>
                           </TableCell>
-                          <TableCell className="max-w-xs truncate">{decision.content || translateExecutionType(decision.type || '') || '-'}</TableCell>
+                          <TableCell className="max-w-xs truncate">{decision.content || getDecisionDescription(decision.type || '')}</TableCell>
                           <TableCell>
                             <div className="flex items-center gap-2">
                               <Progress value={decision.confidence} className="w-16 h-2" />
