@@ -1,10 +1,14 @@
 /**
  * TBURN Enterprise API Routes
  * Unified endpoints for cross-module data access and orchestration
+ * 
+ * SECURITY: All mutating operations require admin authentication
+ * VALIDATION: All inputs validated with Zod schemas
  */
 
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import crypto from 'crypto';
+import { z } from 'zod';
 import { dataHub } from '../services/DataHub';
 import { eventBus } from '../services/EventBus';
 import { getEnterpriseNode } from '../services/TBurnEnterpriseNode';
@@ -18,6 +22,200 @@ import {
 } from '../services/orchestration';
 
 const router = Router();
+
+// ============================================
+// SECURITY: Authentication & Authorization Middleware
+// ============================================
+
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin7979';
+
+/**
+ * Enterprise Admin Authentication Middleware
+ * Required for all mutating operations (POST, PUT, DELETE, PATCH)
+ */
+function requireEnterpriseAuth(req: Request, res: Response, next: NextFunction) {
+  // Allow read-only operations without auth for monitoring
+  if (req.method === 'GET') {
+    return next();
+  }
+  
+  // Mutating operations require admin session
+  if (!req.session?.adminAuthenticated) {
+    console.warn(`[Enterprise Security] Unauthorized mutating request: ${req.method} ${req.path}`);
+    return res.status(401).json({
+      success: false,
+      error: 'Authentication required',
+      code: 'UNAUTHORIZED'
+    });
+  }
+  
+  // Log authorized access for audit
+  console.log(`[Enterprise Audit] Admin action: ${req.method} ${req.path} by session ${req.sessionID}`);
+  next();
+}
+
+/**
+ * Critical Operations require additional admin password verification
+ */
+function requireCriticalAuth(req: Request, res: Response, next: NextFunction) {
+  if (!req.session?.adminAuthenticated) {
+    return res.status(401).json({
+      success: false,
+      error: 'Admin authentication required',
+      code: 'UNAUTHORIZED'
+    });
+  }
+  
+  const adminPassword = req.headers['x-admin-password'] as string;
+  if (!adminPassword || adminPassword !== ADMIN_PASSWORD) {
+    console.warn(`[Enterprise Security] Critical operation rejected: missing/invalid admin password`);
+    return res.status(403).json({
+      success: false,
+      error: 'Admin password required for critical operations',
+      code: 'FORBIDDEN'
+    });
+  }
+  
+  console.log(`[Enterprise Audit] Critical operation approved: ${req.method} ${req.path}`);
+  next();
+}
+
+// Apply enterprise auth to all routes
+router.use(requireEnterpriseAuth);
+
+// ============================================
+// VALIDATION: Zod Schemas for Input Validation
+// ============================================
+
+// Common validation schemas
+const ethereumAddressSchema = z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid Ethereum address');
+const amountSchema = z.string().regex(/^\d+(\.\d+)?$/, 'Invalid amount format');
+const positiveNumberSchema = z.number().positive();
+const uuidSchema = z.string().uuid();
+
+// Staking operation schemas
+const stakeOperationSchema = z.object({
+  userAddress: ethereumAddressSchema,
+  validatorAddress: ethereumAddressSchema,
+  amount: amountSchema,
+  poolId: z.string().optional()
+});
+
+const unstakeOperationSchema = z.object({
+  userAddress: ethereumAddressSchema,
+  validatorAddress: ethereumAddressSchema,
+  amount: amountSchema,
+  poolId: z.string().optional()
+});
+
+const claimRewardsSchema = z.object({
+  userAddress: ethereumAddressSchema,
+  validatorAddress: ethereumAddressSchema.optional(),
+  poolId: z.string().optional()
+});
+
+// DEX operation schemas
+const swapOperationSchema = z.object({
+  userAddress: ethereumAddressSchema,
+  poolId: z.string().min(1),
+  tokenIn: z.string().min(1),
+  tokenOut: z.string().min(1),
+  amountIn: amountSchema,
+  minAmountOut: amountSchema.optional(),
+  slippageTolerance: z.number().min(0).max(100).optional()
+});
+
+const liquidityOperationSchema = z.object({
+  userAddress: ethereumAddressSchema,
+  poolId: z.string().min(1),
+  token0Amount: amountSchema,
+  token1Amount: amountSchema,
+  minLpTokens: amountSchema.optional()
+});
+
+const removeLiquiditySchema = z.object({
+  userAddress: ethereumAddressSchema,
+  poolId: z.string().min(1),
+  lpTokenAmount: amountSchema,
+  minToken0: amountSchema.optional(),
+  minToken1: amountSchema.optional()
+});
+
+// Bridge operation schemas
+const bridgeTransferSchema = z.object({
+  userAddress: ethereumAddressSchema,
+  sourceChain: z.string().min(1),
+  targetChain: z.string().min(1),
+  token: z.string().min(1),
+  amount: amountSchema,
+  recipientAddress: ethereumAddressSchema.optional()
+});
+
+// AI orchestration schemas
+const aiDecisionSchema = z.object({
+  type: z.enum([
+    'REBALANCE_SHARD_LOAD',
+    'SCALE_SHARD_CAPACITY',
+    'OPTIMIZE_BLOCK_TIME',
+    'OPTIMIZE_TPS',
+    'RESCHEDULE_VALIDATORS',
+    'GOVERNANCE_PREVALIDATION',
+    'SECURITY_RESPONSE',
+    'CONSENSUS_OPTIMIZATION',
+    'DYNAMIC_GAS_OPTIMIZATION',
+    'PREDICTIVE_HEALING'
+  ]),
+  parameters: z.record(z.unknown()).optional(),
+  priority: z.enum(['low', 'medium', 'high', 'critical']).optional()
+});
+
+// Shard management schemas
+const shardConfigSchema = z.object({
+  shardCount: z.number().int().min(1).max(64),
+  validatorsPerShard: z.number().int().min(1).max(50),
+  rebalanceThreshold: z.number().min(0).max(100).optional()
+});
+
+/**
+ * Validation middleware factory
+ */
+function validateBody<T>(schema: z.ZodType<T>) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.body);
+    if (!result.success) {
+      const errors = result.error.errors.map(e => ({
+        field: e.path.join('.'),
+        message: e.message
+      }));
+      console.warn(`[Enterprise Validation] Invalid request body:`, errors);
+      return res.status(400).json({
+        success: false,
+        error: 'Validation failed',
+        code: 'VALIDATION_ERROR',
+        details: errors
+      });
+    }
+    req.body = result.data;
+    next();
+  };
+}
+
+/**
+ * Sanitize error responses to prevent information leakage
+ */
+function sanitizeError(error: unknown): string {
+  if (error instanceof Error) {
+    // Remove stack traces and internal details
+    const message = error.message;
+    // Filter out sensitive information
+    if (message.includes('password') || message.includes('secret') || message.includes('key')) {
+      return 'Internal server error';
+    }
+    // Return safe error message
+    return message.split('\n')[0].substring(0, 200);
+  }
+  return 'An unexpected error occurred';
+}
 
 // ============================================
 // Network Snapshot Endpoints
@@ -141,17 +339,11 @@ router.get('/metrics', async (req: Request, res: Response) => {
 /**
  * POST /api/enterprise/staking/stake
  * Execute stake operation with cross-module updates
+ * SECURITY: Requires admin authentication + Zod validation
  */
-router.post('/staking/stake', async (req: Request, res: Response) => {
+router.post('/staking/stake', validateBody(stakeOperationSchema), async (req: Request, res: Response) => {
   try {
     const { userAddress, validatorAddress, amount, poolId } = req.body;
-
-    if (!userAddress || !validatorAddress || !amount) {
-      return res.status(400).json({
-        success: false,
-        error: 'Missing required fields: userAddress, validatorAddress, amount'
-      });
-    }
 
     const result = await stakingOrchestrator.stake({
       userAddress,
@@ -162,10 +354,12 @@ router.post('/staking/stake', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
+    console.error('[Enterprise] Stake operation failed:', error);
     res.status(500).json({
       success: false,
       error: 'Stake operation failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      code: 'STAKE_ERROR',
+      details: sanitizeError(error)
     });
   }
 });
@@ -173,17 +367,11 @@ router.post('/staking/stake', async (req: Request, res: Response) => {
 /**
  * POST /api/enterprise/staking/unstake
  * Execute unstake operation with cross-module updates
+ * SECURITY: Requires admin authentication + Zod validation
  */
-router.post('/staking/unstake', async (req: Request, res: Response) => {
+router.post('/staking/unstake', validateBody(unstakeOperationSchema), async (req: Request, res: Response) => {
   try {
     const { userAddress, validatorAddress, amount, poolId } = req.body;
-
-    if (!userAddress || !validatorAddress || !amount) {
-      return res.status(400).json({
-        success: false,
-        error: 'Missing required fields: userAddress, validatorAddress, amount'
-      });
-    }
 
     const result = await stakingOrchestrator.unstake({
       userAddress,
@@ -194,10 +382,12 @@ router.post('/staking/unstake', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
+    console.error('[Enterprise] Unstake operation failed:', error);
     res.status(500).json({
       success: false,
       error: 'Unstake operation failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      code: 'UNSTAKE_ERROR',
+      details: sanitizeError(error)
     });
   }
 });
@@ -205,17 +395,11 @@ router.post('/staking/unstake', async (req: Request, res: Response) => {
 /**
  * POST /api/enterprise/staking/claim-rewards
  * Claim staking rewards with cross-module updates
+ * SECURITY: Requires admin authentication + Zod validation
  */
-router.post('/staking/claim-rewards', async (req: Request, res: Response) => {
+router.post('/staking/claim-rewards', validateBody(claimRewardsSchema), async (req: Request, res: Response) => {
   try {
     const { userAddress, validatorAddress, poolId } = req.body;
-
-    if (!userAddress) {
-      return res.status(400).json({
-        success: false,
-        error: 'Missing required field: userAddress'
-      });
-    }
 
     const result = await stakingOrchestrator.claimRewards({
       userAddress,
@@ -225,9 +409,11 @@ router.post('/staking/claim-rewards', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
+    console.error('[Enterprise] Claim rewards failed:', error);
     res.status(500).json({
       success: false,
       error: 'Claim rewards failed',
+      code: 'CLAIM_ERROR',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
   }
@@ -240,17 +426,11 @@ router.post('/staking/claim-rewards', async (req: Request, res: Response) => {
 /**
  * POST /api/enterprise/dex/swap
  * Execute swap with cross-module updates
+ * SECURITY: Requires admin authentication + Zod validation
  */
-router.post('/dex/swap', async (req: Request, res: Response) => {
+router.post('/dex/swap', validateBody(swapOperationSchema), async (req: Request, res: Response) => {
   try {
     const { userAddress, poolId, tokenIn, tokenOut, amountIn, minAmountOut, slippageTolerance } = req.body;
-
-    if (!userAddress || !poolId || !tokenIn || !tokenOut || !amountIn) {
-      return res.status(400).json({
-        success: false,
-        error: 'Missing required fields'
-      });
-    }
 
     const result = await dexOrchestrator.swap({
       userAddress,
@@ -264,10 +444,12 @@ router.post('/dex/swap', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
+    console.error('[Enterprise] Swap operation failed:', error);
     res.status(500).json({
       success: false,
       error: 'Swap operation failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      code: 'SWAP_ERROR',
+      details: sanitizeError(error)
     });
   }
 });
@@ -275,17 +457,11 @@ router.post('/dex/swap', async (req: Request, res: Response) => {
 /**
  * POST /api/enterprise/dex/add-liquidity
  * Add liquidity with cross-module updates
+ * SECURITY: Requires admin authentication + Zod validation
  */
-router.post('/dex/add-liquidity', async (req: Request, res: Response) => {
+router.post('/dex/add-liquidity', validateBody(liquidityOperationSchema), async (req: Request, res: Response) => {
   try {
     const { userAddress, poolId, token0Amount, token1Amount, minLpTokens } = req.body;
-
-    if (!userAddress || !poolId || !token0Amount || !token1Amount) {
-      return res.status(400).json({
-        success: false,
-        error: 'Missing required fields'
-      });
-    }
 
     const result = await dexOrchestrator.addLiquidity({
       userAddress,
@@ -297,10 +473,12 @@ router.post('/dex/add-liquidity', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
+    console.error('[Enterprise] Add liquidity failed:', error);
     res.status(500).json({
       success: false,
       error: 'Add liquidity failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      code: 'LIQUIDITY_ERROR',
+      details: sanitizeError(error)
     });
   }
 });
@@ -308,17 +486,11 @@ router.post('/dex/add-liquidity', async (req: Request, res: Response) => {
 /**
  * POST /api/enterprise/dex/remove-liquidity
  * Remove liquidity with cross-module updates
+ * SECURITY: Requires admin authentication + Zod validation
  */
-router.post('/dex/remove-liquidity', async (req: Request, res: Response) => {
+router.post('/dex/remove-liquidity', validateBody(removeLiquiditySchema), async (req: Request, res: Response) => {
   try {
     const { userAddress, poolId, lpTokenAmount, minToken0, minToken1 } = req.body;
-
-    if (!userAddress || !poolId || !lpTokenAmount) {
-      return res.status(400).json({
-        success: false,
-        error: 'Missing required fields'
-      });
-    }
 
     const result = await dexOrchestrator.removeLiquidity({
       userAddress,
@@ -330,10 +502,12 @@ router.post('/dex/remove-liquidity', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
+    console.error('[Enterprise] Remove liquidity failed:', error);
     res.status(500).json({
       success: false,
       error: 'Remove liquidity failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      code: 'REMOVE_LIQUIDITY_ERROR',
+      details: sanitizeError(error)
     });
   }
 });
