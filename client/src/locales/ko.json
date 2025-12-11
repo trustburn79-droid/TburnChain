@@ -4807,21 +4807,6 @@
         "security": "보안",
         "settings": "설정",
         "reports": "보고서",
-      "kycAml": "KYC/AML",
-      "certifications": "인증서",
-      "risk": "리스크",
-    },
-    "kycAml": {
-      "title": "KYC/AML 모니터링",
-      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
-    },
-    "certifications": {
-      "title": "활성 인증서",
-      "description": "업계 인증서 및 규정 준수 증명"
-    },
-    "risk": {
-      "title": "리스크 평가",
-      "description": "엔터프라이즈 리스크 모니터링 및 평가"
         "kyc": "KYC",
         "staking": "스테이킹"
       },
@@ -5167,18 +5152,6 @@
       "adminAuditLogs": "관리자 감사 로그",
       "tableAction": "작업",
       "risk": "리스크",
-    },
-    "kycAml": {
-      "title": "KYC/AML 모니터링",
-      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
-    },
-    "certifications": {
-      "title": "활성 인증서",
-      "description": "업계 인증서 및 규정 준수 증명"
-    },
-    "risk": {
-      "title": "리스크 평가",
-      "description": "엔터프라이즈 리스크 모니터링 및 평가"
       "noAuditLogsFound": "감사 로그를 찾을 수 없음",
       "securityEventDetails": "보안 이벤트 상세",
       "sourceIp": "소스 IP",
@@ -5384,21 +5357,6 @@
       "newSchedule": "새 일정",
       "generateReport": "보고서 생성",
       "reports": "보고서",
-      "kycAml": "KYC/AML",
-      "certifications": "인증서",
-      "risk": "리스크",
-    },
-    "kycAml": {
-      "title": "KYC/AML 모니터링",
-      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
-    },
-    "certifications": {
-      "title": "활성 인증서",
-      "description": "업계 인증서 및 규정 준수 증명"
-    },
-    "risk": {
-      "title": "리스크 평가",
-      "description": "엔터프라이즈 리스크 모니터링 및 평가"
       "templatesTab": "템플릿",
       "templates": {
         "kycSummary": {
@@ -19064,19 +19022,7 @@
       "reports": "보고서",
       "kycAml": "KYC/AML",
       "certifications": "인증서",
-      "risk": "리스크",
-    },
-    "kycAml": {
-      "title": "KYC/AML 모니터링",
-      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
-    },
-    "certifications": {
-      "title": "활성 인증서",
-      "description": "업계 인증서 및 규정 준수 증명"
-    },
-    "risk": {
-      "title": "리스크 평가",
-      "description": "엔터프라이즈 리스크 모니터링 및 평가"
+      "risk": "리스크"
     },
     "frameworks": {
       "title": "컴플라이언스 프레임워크",
@@ -19182,6 +19128,18 @@
     "confirm": {
       "assessmentTitle": "규정 준수 평가 실행",
       "assessmentDesc": "전체 규정 준수 평가를 실행하시겠습니까? 몇 분이 소요될 수 있습니다."
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
     }
   },
   "adminLiquidity": {
@@ -23098,12 +23056,12 @@
     "networkStatus": "네트워크 상태",
     "healthy": "정상",
     "nodesOnline": "노드 온라인",
-    "slaUptime": "SLA 가동률",
+    "slaUptime": "SLA 가동 시간",
     "avgTps": "평균 TPS",
     "validators": "검증자",
     "blockExplorer": "블록 익스플로러",
-    "txBlockExplorer": "트랜잭션 & 블록 익스플로러",
-    "jsonRpcApi": "JSON-RPC & REST API",
+    "txBlockExplorer": "트랜잭션 0026 블록 익스플로러",
+    "jsonRpcApi": "JSON-RPC 0026 REST API",
     "testTburnAvailableNew": "사용 가능한 테스트 TBURN",
     "contractsDeployed": "배포된 컨트랙트",
     "tabs2": {
@@ -23114,15 +23072,15 @@
       "config": "설정"
     },
     "totalTx": "총 트랜잭션",
-    "fromYesterday": "어제 대비",
+    "fromYesterday": "전일 대비 +12.5%",
     "peakTps": "최대 TPS",
     "achievedStress": "스트레스 테스트 중 달성",
     "pendingTx": "대기 중인 트랜잭션",
     "gasPrice": "가스 가격",
-    "bridgeVolume": "브릿지 볼륨",
+    "bridgeVolume": "브릿지 거래량",
     "crossChainTest": "크로스체인 테스트 전송",
     "networkSecurity": "네트워크 보안",
-    "quantumResistant": "양자 저항 활성화",
+    "quantumResistant": "양자 저항 활성화됨",
     "recentFaucetActivity": "최근 파우셋 활동",
     "txHash": "TX 해시",
     "time": "시간",
@@ -23130,17 +23088,17 @@
     "searchNodes": "노드 검색...",
     "blockHeightLabel": "블록 높이",
     "peers": "피어",
-    "latency": "지연시간",
+    "latency": "지연 시간",
     "version": "버전",
     "requestTestTokensNew": "테스트 토큰 요청",
     "getTestTokensDesc": "테스트넷에서 개발 및 테스트를 위한 테스트 TBURN을 받으세요",
     "walletAddressLabel": "지갑 주소",
     "amountTburn": "수량 (TBURN)",
     "requestTokensBtn": "테스트 토큰 요청",
-    "rateLimit24h": "요청 제한: 주소당 24시간마다 1회",
+    "rateLimit24h": "제한: 주소당 24시간마다 1회 요청",
     "faucetInfo": "파우셋 정보",
     "availableBalance": "사용 가능 잔액",
-    "requestsToday": "오늘 요청",
+    "requestsToday": "오늘 요청 수",
     "maxPerRequest": "요청당 최대",
     "rateLimitLabel": "요청 제한",
     "hours24": "24시간",
@@ -23161,12 +23119,12 @@
     "networkConfig": "네트워크 구성",
     "addNetworkDesc": "TBURN 테스트넷을 지갑에 추가하세요",
     "networkName": "네트워크 이름",
-    "currencySymbol": "화폐 기호",
-    "decimals": "소수점",
+    "currencySymbol": "통화 기호",
+    "decimals": "소수점 자릿수",
     "addToMetamask": "MetaMask에 추가",
     "exportAsJson": "JSON으로 내보내기",
     "networkParams": "네트워크 매개변수",
-    "consensus": "합의 방식",
+    "consensus": "합의",
     "enabledFeatures": "활성화된 기능",
     "quantumResistantLabel": "양자 저항",
     "enabled": "활성화됨",
@@ -23200,19 +23158,6 @@
     "tryAgainCheckAddress": "다시 시도하거나 주소를 확인하세요",
     "failedLoadTestnet": "테스트넷 데이터 로드 실패",
     "unableConnectServices": "테스트넷 서비스에 연결할 수 없습니다",
-    "pageTitle": "TBURN 테스트넷 관리",
-    "pageSubtitle": "엔터프라이즈급 테스트넷 인프라",
-    "exportConfig": "설정 내보내기",
-    "addToWallet": "지갑에 추가",
-    "networkStatus": "네트워크 상태",
-    "healthy": "정상",
-    "nodesOnline": "노드 온라인",
-    "slaUptime": "SLA 가동 시간",
-    "avgTps": "평균 TPS",
-    "validators": "검증자",
-    "jsonRpcApi": "JSON-RPC 0026 REST API",
-    "txBlockExplorer": "트랜잭션 0026 블록 익스플로러",
-    "testTburnAvailableNew": "사용 가능한 테스트 TBURN",
     "contractsDeployedLabel": "배포된 컨트랙트",
     "tabOverview": "개요",
     "tabNodes": "노드",
@@ -23220,64 +23165,22 @@
     "tabEndpoints": "엔드포인트",
     "tabConfig": "설정",
     "totalTransactions": "총 트랜잭션",
-    "fromYesterday": "전일 대비 +12.5%",
-    "peakTps": "최대 TPS",
     "achievedStressTest": "스트레스 테스트 달성",
-    "pendingTx": "대기 중인 트랜잭션",
     "tburnPerRequest": "요청당 100 TBURN",
-    "bridgeVolume": "브릿지 거래량",
     "crossChainTransfers": "크로스체인 테스트 전송",
-    "networkSecurity": "네트워크 보안",
-    "quantumResistant": "양자 저항 활성화됨",
-    "recentFaucetActivity": "최근 파우셋 활동",
-    "time": "시간",
-    "txHash": "TX 해시",
-    "view": "보기",
-    "searchNodes": "노드 검색...",
     "offlineSyncing": "오프라인/동기화 중",
-    "peers": "피어",
-    "latency": "지연 시간",
-    "version": "버전",
     "getTestTburn": "테스트넷에서 개발 및 테스트를 위한 테스트 TBURN 받기",
-    "amountTburn": "수량 (TBURN)",
-    "rateLimit24h": "제한: 주소당 24시간마다 1회 요청",
-    "faucetInfo": "파우셋 정보",
-    "availableBalance": "사용 가능 잔액",
-    "requestsToday": "오늘 요청 수",
-    "maxPerRequest": "요청당 최대",
     "rateLimit": "제한",
     "twentyFourHours": "24시간",
-    "operational": "운영 중",
-    "recentRequests": "최근 요청",
-    "transaction": "트랜잭션",
-    "jsonRpcEndpoint": "JSON-RPC 엔드포인트",
     "primaryRpcEndpoint": "테스트넷 상호작용을 위한 기본 RPC 엔드포인트",
-    "active": "활성",
     "exploreTransactions": "트랜잭션, 블록, 컨트랙트 탐색",
-    "openExplorer": "익스플로러 열기",
     "networkConfiguration": "네트워크 설정",
     "addTestnetToWallet": "지갑에 TBURN 테스트넷 추가",
-    "networkName": "네트워크 이름",
-    "currencySymbol": "통화 기호",
-    "decimals": "소수점 자릿수",
-    "addToMetamask": "MetaMask에 추가",
-    "exportAsJson": "JSON으로 내보내기",
-    "networkParams": "네트워크 매개변수",
-    "consensus": "합의",
-    "enabledFeatures": "활성화된 기능",
     "quantumResistantFeature": "양자 저항",
-    "bridgeSupport": "브릿지 지원",
-    "aiOrchestration": "AI 오케스트레이션",
-    "dynamicSharding": "동적 샤딩",
-    "highTpsMode": "고속 TPS 모드",
-    "enabled": "활성화됨",
-    "quickStartExamples": "빠른 시작 예제",
     "connectEthers": "ethers.js로 연결",
     "addTestnetManually": "TBURN 테스트넷 수동 추가",
     "rpcUrlLabel": "RPC URL",
-    "symbol": "심볼",
-    "blockExplorer": "블록 익스플로러",
-    "gasPrice": "가스 가격"
+    "symbol": "심볼"
   },
   "adminDebug": {
     "title": "디버그 도구",
@@ -24147,22 +24050,7 @@
       "overview": "개요",
       "metrics": "지표",
       "incidents": "인시던트",
-      "reports": "보고서",
-      "kycAml": "KYC/AML",
-      "certifications": "인증서",
-      "risk": "리스크",
-    },
-    "kycAml": {
-      "title": "KYC/AML 모니터링",
-      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
-    },
-    "certifications": {
-      "title": "활성 인증서",
-      "description": "업계 인증서 및 규정 준수 증명"
-    },
-    "risk": {
-      "title": "리스크 평가",
-      "description": "엔터프라이즈 리스크 모니터링 및 평가"
+      "reports": "보고서"
     },
     "charts": {
       "uptimeTrend": "가동 시간 추세",
@@ -24226,21 +24114,6 @@
     },
     "reconciliationDesc": "계정 정산",
     "reports": "보고서",
-      "kycAml": "KYC/AML",
-      "certifications": "인증서",
-      "risk": "리스크",
-    },
-    "kycAml": {
-      "title": "KYC/AML 모니터링",
-      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
-    },
-    "certifications": {
-      "title": "활성 인증서",
-      "description": "업계 인증서 및 규정 준수 증명"
-    },
-    "risk": {
-      "title": "리스크 평가",
-      "description": "엔터프라이즈 리스크 모니터링 및 평가"
     "reportsDesc": "재무 보고서",
     "totalVolume": "총 거래량",
     "dailyVolume": "일일 거래량",
@@ -24813,21 +24686,6 @@
     "tabs": {
       "overview": "개요",
       "reports": "보고서",
-      "kycAml": "KYC/AML",
-      "certifications": "인증서",
-      "risk": "리스크",
-    },
-    "kycAml": {
-      "title": "KYC/AML 모니터링",
-      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
-    },
-    "certifications": {
-      "title": "활성 인증서",
-      "description": "업계 인증서 및 규정 준수 증명"
-    },
-    "risk": {
-      "title": "리스크 평가",
-      "description": "엔터프라이즈 리스크 모니터링 및 평가"
       "liabilities": "세금 부채",
       "calendar": "일정"
     },
