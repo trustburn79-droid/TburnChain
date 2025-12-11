@@ -210,7 +210,17 @@ export default function TestnetManagement() {
 
   const nodes = useMemo(() => testnetData?.nodes || productionNodes, [testnetData?.nodes]);
   const faucetRequests = useMemo(() => testnetData?.faucetRequests || productionFaucetRequests, [testnetData?.faucetRequests]);
-  const stats = useMemo(() => testnetData?.stats || productionStats, [testnetData?.stats]);
+  const stats = useMemo(() => {
+    const apiStats = testnetData?.stats;
+    if (apiStats && apiStats.networkStatus) {
+      return apiStats;
+    }
+    return {
+      ...productionStats,
+      ...apiStats,
+      networkStatus: apiStats?.networkStatus || productionStats.networkStatus,
+    };
+  }, [testnetData?.stats]);
 
   const filteredNodes = useMemo(() => {
     if (!searchQuery) return nodes;
@@ -374,7 +384,7 @@ export default function TestnetManagement() {
                 </div>
                 <div>
                   <h3 className="font-semibold flex items-center gap-2">
-                    Network Status: <Badge className={getStatusColor(stats.networkStatus)}>{stats.networkStatus.toUpperCase()}</Badge>
+                    Network Status: <Badge className={getStatusColor(stats.networkStatus || "healthy")}>{(stats.networkStatus || "healthy").toUpperCase()}</Badge>
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     {onlineNodes}/{nodes.length} nodes online | SLA Uptime: {(stats.slaUptime / 100).toFixed(2)}%
