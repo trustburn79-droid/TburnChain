@@ -1623,11 +1623,11 @@ export default function AdminAIOrchestration() {
                         <TableRow key={decision.id || index} data-testid={`row-decision-${index}`}>
                           <TableCell>
                             <Badge variant="outline" className={
-                              decision.type.toLowerCase() === 'strategic' ? 'bg-blue-500/10 text-blue-500' :
-                              decision.type.toLowerCase() === 'tactical' ? 'bg-purple-500/10 text-purple-500' :
+                              (decision.type || '').toLowerCase() === 'strategic' ? 'bg-blue-500/10 text-blue-500' :
+                              (decision.type || '').toLowerCase() === 'tactical' ? 'bg-purple-500/10 text-purple-500' :
                               'bg-green-500/10 text-green-500'
                             }>
-                              {translateType(decision.type)}
+                              {translateType(decision.type || 'operational')}
                             </Badge>
                           </TableCell>
                           <TableCell className="max-w-xs truncate">{decision.content}</TableCell>
