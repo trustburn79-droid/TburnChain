@@ -816,8 +816,10 @@ export default function AdminAIOrchestration() {
   const avgAccuracy = aiData.models.length > 0 ? aiData.models.reduce((sum, m) => sum + m.accuracy, 0) / aiData.models.length : 0;
 
   const filteredDecisions = decisions.filter(d => {
-    const matchesFilter = decisionFilter === "all" || d.type.toLowerCase() === decisionFilter.toLowerCase();
-    const matchesSearch = searchTerm === "" || d.content.toLowerCase().includes(searchTerm.toLowerCase());
+    const typeValue = d.type || '';
+    const contentValue = d.content || '';
+    const matchesFilter = decisionFilter === "all" || typeValue.toLowerCase() === decisionFilter.toLowerCase();
+    const matchesSearch = searchTerm === "" || contentValue.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
