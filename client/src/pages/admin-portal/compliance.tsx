@@ -15,7 +15,9 @@ import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { 
   FileCheck, Shield, AlertTriangle, CheckCircle, Clock, 
-  Download, FileText, Calendar, RefreshCw, Eye
+  Download, FileText, Calendar, RefreshCw, Eye, Award,
+  Users, Scale, Activity, TrendingUp, TrendingDown, AlertCircle,
+  Building2, Globe, Lock
 } from "lucide-react";
 
 interface ComplianceScore {
@@ -50,11 +52,62 @@ interface AuditItem {
   status: string;
 }
 
+interface KycAmlMetrics {
+  totalKycVerifications: number;
+  pendingVerifications: number;
+  approvedRate: number;
+  rejectedRate: number;
+  manualReviewRate: number;
+  avgVerificationTime: string;
+  amlAlerts: number;
+  resolvedAlerts: number;
+  falsePositiveRate: number;
+  sanctionsChecks: number;
+  pepChecks: number;
+  adverseMediaChecks: number;
+}
+
+interface RiskCategory {
+  name: string;
+  level: string;
+  score: number;
+  trend: string;
+}
+
+interface RiskIndicators {
+  overallRiskLevel: string;
+  riskScore: number;
+  categories: RiskCategory[];
+  keyRiskEvents: unknown[];
+}
+
+interface Certification {
+  name: string;
+  issuer: string;
+  validFrom: string;
+  validTo: string;
+  status: string;
+}
+
+interface PolicyDocument {
+  id: string;
+  name: string;
+  version: string;
+  lastUpdated: string;
+  reviewDate: string;
+  owner: string;
+  status: string;
+}
+
 interface ComplianceData {
   complianceScore: ComplianceScore;
   frameworks: Framework[];
   recentFindings: Finding[];
   auditSchedule: AuditItem[];
+  kycAmlMetrics?: KycAmlMetrics;
+  riskIndicators?: RiskIndicators;
+  certifications?: Certification[];
+  policyDocuments?: PolicyDocument[];
 }
 
 export default function AdminCompliance() {
@@ -68,16 +121,16 @@ export default function AdminCompliance() {
   const [showAssessmentConfirm, setShowAssessmentConfirm] = useState(false);
 
   const { data, isLoading, error, refetch } = useQuery<ComplianceData>({
-    queryKey: ["/api/enterprise/admin/compliance"],
+    queryKey: ["/api/admin/compliance"],
     refetchInterval: 60000,
   });
 
   const runAssessmentMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("POST", "/api/enterprise/admin/compliance/assessment");
+      return apiRequest("POST", "/api/admin/compliance/assessment");
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/compliance"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/compliance"] });
       toast({
         title: t("adminCompliance.assessmentSuccess"),
         description: t("adminCompliance.assessmentSuccessDesc"),
@@ -474,6 +527,18 @@ export default function AdminCompliance() {
               <FileText className="w-4 h-4 mr-2" />
               {t("adminCompliance.tabs.reports")}
             </TabsTrigger>
+            <TabsTrigger value="kyc-aml" data-testid="tab-kyc-aml">
+              <Users className="w-4 h-4 mr-2" />
+              KYC/AML
+            </TabsTrigger>
+            <TabsTrigger value="certifications" data-testid="tab-certifications">
+              <Award className="w-4 h-4 mr-2" />
+              {t("adminCompliance.tabs.certifications", "Certifications")}
+            </TabsTrigger>
+            <TabsTrigger value="risk" data-testid="tab-risk">
+              <Scale className="w-4 h-4 mr-2" />
+              {t("adminCompliance.tabs.risk", "Risk")}
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="frameworks" data-testid="tabcontent-frameworks">
@@ -735,6 +800,275 @@ export default function AdminCompliance() {
                       {t("adminCompliance.reports.customReport")}
                     </Button>
                   </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="kyc-aml" data-testid="tabcontent-kyc-aml">
+            <Card data-testid="card-kyc-aml">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="w-5 h-5" />
+                  {t("adminCompliance.kycAml.title", "KYC/AML Monitoring")}
+                </CardTitle>
+                <CardDescription>
+                  {t("adminCompliance.kycAml.description", "Know Your Customer and Anti-Money Laundering compliance monitoring")}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {isLoading ? (
+                  <div className="space-y-4">
+                    <Skeleton className="h-32 w-full" />
+                    <Skeleton className="h-48 w-full" />
+                  </div>
+                ) : data?.kycAmlMetrics ? (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                      <div className="text-center p-4 bg-muted/50 rounded-lg">
+                        <div className="text-2xl font-bold" data-testid="text-kyc-total">
+                          {data.kycAmlMetrics.totalKycVerifications.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-muted-foreground">Total KYC Checks</div>
+                      </div>
+                      <div className="text-center p-4 bg-muted/50 rounded-lg">
+                        <div className="text-2xl font-bold text-yellow-500" data-testid="text-kyc-pending">
+                          {data.kycAmlMetrics.pendingVerifications}
+                        </div>
+                        <div className="text-xs text-muted-foreground">Pending</div>
+                      </div>
+                      <div className="text-center p-4 bg-muted/50 rounded-lg">
+                        <div className="text-2xl font-bold text-green-500" data-testid="text-kyc-approved">
+                          {data.kycAmlMetrics.approvedRate}%
+                        </div>
+                        <div className="text-xs text-muted-foreground">Approval Rate</div>
+                      </div>
+                      <div className="text-center p-4 bg-muted/50 rounded-lg">
+                        <div className="text-2xl font-bold" data-testid="text-kyc-time">
+                          {data.kycAmlMetrics.avgVerificationTime}
+                        </div>
+                        <div className="text-xs text-muted-foreground">Avg. Time</div>
+                      </div>
+                      <div className="text-center p-4 bg-muted/50 rounded-lg">
+                        <div className="text-2xl font-bold text-red-500" data-testid="text-aml-alerts">
+                          {data.kycAmlMetrics.amlAlerts}
+                        </div>
+                        <div className="text-xs text-muted-foreground">AML Alerts</div>
+                      </div>
+                      <div className="text-center p-4 bg-muted/50 rounded-lg">
+                        <div className="text-2xl font-bold text-green-500" data-testid="text-aml-resolved">
+                          {data.kycAmlMetrics.resolvedAlerts}
+                        </div>
+                        <div className="text-xs text-muted-foreground">Resolved</div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <Card>
+                        <CardContent className="pt-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Lock className="w-4 h-4 text-blue-500" />
+                            <span className="font-medium">Sanctions Screening</span>
+                          </div>
+                          <div className="text-2xl font-bold">{data.kycAmlMetrics.sanctionsChecks.toLocaleString()}</div>
+                          <div className="text-xs text-muted-foreground">Checks performed</div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardContent className="pt-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Building2 className="w-4 h-4 text-purple-500" />
+                            <span className="font-medium">PEP Screening</span>
+                          </div>
+                          <div className="text-2xl font-bold">{data.kycAmlMetrics.pepChecks.toLocaleString()}</div>
+                          <div className="text-xs text-muted-foreground">Political exposure checks</div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardContent className="pt-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Globe className="w-4 h-4 text-orange-500" />
+                            <span className="font-medium">Adverse Media</span>
+                          </div>
+                          <div className="text-2xl font-bold">{data.kycAmlMetrics.adverseMediaChecks.toLocaleString()}</div>
+                          <div className="text-xs text-muted-foreground">Media screening checks</div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <div>
+                        <div className="font-medium text-green-500">KYC/AML Compliance Active</div>
+                        <div className="text-sm text-muted-foreground">
+                          All verification processes operational. False positive rate: {data.kycAmlMetrics.falsePositiveRate}%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">No KYC/AML data available</div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="certifications" data-testid="tabcontent-certifications">
+            <Card data-testid="card-certifications">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Award className="w-5 h-5" />
+                  {t("adminCompliance.certifications.title", "Active Certifications")}
+                </CardTitle>
+                <CardDescription>
+                  {t("adminCompliance.certifications.description", "Industry certifications and compliance attestations")}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {isLoading ? (
+                  <div className="space-y-3">
+                    {[1, 2, 3, 4].map((i) => (
+                      <Skeleton key={i} className="h-16 w-full" />
+                    ))}
+                  </div>
+                ) : data?.certifications && data.certifications.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {data.certifications.map((cert, index) => (
+                      <div
+                        key={index}
+                        className="border rounded-lg p-4 hover-elevate"
+                        data-testid={`card-cert-${index}`}
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                              <Award className="w-5 h-5 text-primary" />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold">{cert.name}</h4>
+                              <p className="text-sm text-muted-foreground">{cert.issuer}</p>
+                            </div>
+                          </div>
+                          <Badge className={cert.status === "active" ? "bg-green-500" : "bg-yellow-500"}>
+                            {cert.status === "active" ? (
+                              <><CheckCircle className="w-3 h-3 mr-1" /> Active</>
+                            ) : (
+                              <><Clock className="w-3 h-3 mr-1" /> Pending</>
+                            )}
+                          </Badge>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <div>
+                            <span className="text-muted-foreground">Valid From: </span>
+                            <span>{cert.validFrom}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Expires: </span>
+                            <span>{cert.validTo}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">No certifications available</div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="risk" data-testid="tabcontent-risk">
+            <Card data-testid="card-risk">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Scale className="w-5 h-5" />
+                  {t("adminCompliance.risk.title", "Risk Assessment")}
+                </CardTitle>
+                <CardDescription>
+                  {t("adminCompliance.risk.description", "Enterprise risk monitoring and assessment")}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {isLoading ? (
+                  <div className="space-y-4">
+                    <Skeleton className="h-24 w-full" />
+                    <Skeleton className="h-48 w-full" />
+                  </div>
+                ) : data?.riskIndicators ? (
+                  <div className="space-y-6">
+                    <div className="p-6 bg-green-500/10 border border-green-500/30 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
+                            <Shield className="w-8 h-8 text-green-500" />
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground">Overall Risk Level</div>
+                            <div className="text-3xl font-bold text-green-500 uppercase" data-testid="text-risk-level">
+                              {data.riskIndicators.overallRiskLevel}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-sm text-muted-foreground">Risk Score</div>
+                          <div className="text-4xl font-bold" data-testid="text-risk-score">
+                            {data.riskIndicators.riskScore}/100
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                      {data.riskIndicators.categories.map((category, index) => (
+                        <Card key={index} data-testid={`card-risk-category-${index}`}>
+                          <CardContent className="pt-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm font-medium truncate">{category.name}</span>
+                              {category.trend === "improving" ? (
+                                <TrendingDown className="w-4 h-4 text-green-500" />
+                              ) : category.trend === "worsening" ? (
+                                <TrendingUp className="w-4 h-4 text-red-500" />
+                              ) : (
+                                <Activity className="w-4 h-4 text-muted-foreground" />
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Badge
+                                variant="outline"
+                                className={
+                                  category.level === "low" ? "bg-green-500/10 text-green-500 border-green-500/30" :
+                                  category.level === "medium" ? "bg-yellow-500/10 text-yellow-500 border-yellow-500/30" :
+                                  "bg-red-500/10 text-red-500 border-red-500/30"
+                                }
+                              >
+                                {category.level.toUpperCase()}
+                              </Badge>
+                              <span className="text-sm text-muted-foreground">Score: {category.score}</span>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+
+                    <div className="p-4 border rounded-lg">
+                      <h4 className="font-medium mb-2 flex items-center gap-2">
+                        <AlertCircle className="w-4 h-4" />
+                        Key Risk Events
+                      </h4>
+                      {data.riskIndicators.keyRiskEvents.length === 0 ? (
+                        <div className="text-sm text-muted-foreground flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-green-500" />
+                          No active risk events. All risk indicators within acceptable thresholds.
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          {/* Risk events would be listed here */}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">No risk data available</div>
                 )}
               </CardContent>
             </Card>
