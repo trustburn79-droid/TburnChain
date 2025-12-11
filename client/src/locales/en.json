@@ -19068,7 +19068,22 @@
       "frameworks": "Frameworks",
       "findings": "Findings",
       "audits": "Audit Schedule",
-      "reports": "Reports"
+      "reports": "Reports",
+      "kycAml": "KYC/AML",
+      "certifications": "Certifications",
+      "risk": "Risk"
+    },
+    "kycAml": {
+      "title": "KYC/AML Monitoring",
+      "description": "Know Your Customer and Anti-Money Laundering compliance monitoring"
+    },
+    "certifications": {
+      "title": "Active Certifications",
+      "description": "Industry certifications and compliance attestations"
+    },
+    "risk": {
+      "title": "Risk Assessment",
+      "description": "Enterprise risk monitoring and assessment"
     },
     "frameworks": {
       "title": "Compliance Frameworks",

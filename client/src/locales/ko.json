@@ -4614,6 +4614,18 @@
       "tier": "티어",
       "kyc": "KYC",
       "risk": "리스크",
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
       "actions": "작업",
       "noMembersFound": "멤버를 찾을 수 없음",
       "pageOf": "{{page}} / {{total}} 페이지",
@@ -4807,6 +4819,21 @@
         "security": "보안",
         "settings": "설정",
         "reports": "보고서",
+      "kycAml": "KYC/AML",
+      "certifications": "인증서",
+      "risk": "리스크",
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
         "kyc": "KYC",
         "staking": "스테이킹"
       },
@@ -5152,6 +5179,18 @@
       "adminAuditLogs": "관리자 감사 로그",
       "tableAction": "작업",
       "risk": "리스크",
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
       "noAuditLogsFound": "감사 로그를 찾을 수 없음",
       "securityEventDetails": "보안 이벤트 상세",
       "sourceIp": "소스 IP",
@@ -5357,6 +5396,21 @@
       "newSchedule": "새 일정",
       "generateReport": "보고서 생성",
       "reports": "보고서",
+      "kycAml": "KYC/AML",
+      "certifications": "인증서",
+      "risk": "리스크",
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
       "templatesTab": "템플릿",
       "templates": {
         "kycSummary": {
@@ -19019,7 +19073,22 @@
       "frameworks": "프레임워크",
       "findings": "발견 사항",
       "audits": "감사 일정",
-      "reports": "보고서"
+      "reports": "보고서",
+      "kycAml": "KYC/AML",
+      "certifications": "인증서",
+      "risk": "리스크"
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
     },
     "frameworks": {
       "title": "컴플라이언스 프레임워크",
@@ -24090,7 +24159,22 @@
       "overview": "개요",
       "metrics": "지표",
       "incidents": "인시던트",
-      "reports": "보고서"
+      "reports": "보고서",
+      "kycAml": "KYC/AML",
+      "certifications": "인증서",
+      "risk": "리스크"
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
     },
     "charts": {
       "uptimeTrend": "가동 시간 추세",
@@ -24154,6 +24238,21 @@
     },
     "reconciliationDesc": "계정 정산",
     "reports": "보고서",
+      "kycAml": "KYC/AML",
+      "certifications": "인증서",
+      "risk": "리스크",
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
     "reportsDesc": "재무 보고서",
     "totalVolume": "총 거래량",
     "dailyVolume": "일일 거래량",
@@ -24726,6 +24825,21 @@
     "tabs": {
       "overview": "개요",
       "reports": "보고서",
+      "kycAml": "KYC/AML",
+      "certifications": "인증서",
+      "risk": "리스크",
+    },
+    "kycAml": {
+      "title": "KYC/AML 모니터링",
+      "description": "고객 확인 및 자금세탁방지 규정 준수 모니터링"
+    },
+    "certifications": {
+      "title": "활성 인증서",
+      "description": "업계 인증서 및 규정 준수 증명"
+    },
+    "risk": {
+      "title": "리스크 평가",
+      "description": "엔터프라이즈 리스크 모니터링 및 평가"
       "liabilities": "세금 부채",
       "calendar": "일정"
     },
