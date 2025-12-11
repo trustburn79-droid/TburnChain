@@ -1,7 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,10 +12,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
-import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import {
   FlaskConical,
   RefreshCw,
@@ -36,52 +39,152 @@ import {
   AlertCircle,
   Download,
   Eye,
+  Globe,
+  Network,
+  Zap,
+  Shield,
+  Layers,
+  Database,
+  Cpu,
+  TrendingUp,
+  Users,
+  Link,
+  Terminal,
+  Code,
+  FileJson,
+  Box,
+  Gauge,
+  Wallet,
+  ArrowUpRight,
+  ArrowDownRight,
+  CircleDot,
+  Radio,
+  Wifi,
+  WifiOff,
+  MonitorCheck,
+  Search,
 } from "lucide-react";
 
-interface TestnetInstance {
+// TBURN Testnet Official URLs
+const TESTNET_CONFIG = {
+  chainId: 7778,
+  chainName: "TBURN Testnet",
+  nativeCurrency: {
+    name: "TBURN",
+    symbol: "TBURN",
+    decimals: 18,
+  },
+  rpcUrl: "https://tburn.io/testnet-rpc",
+  explorerUrl: "https://tburn.io/testnet-scan",
+  faucetUrl: "https://tburn.io/testnet-faucet",
+  wsUrl: "wss://tburn.io/testnet-ws",
+};
+
+interface TestnetNode {
   id: string;
   name: string;
-  chainId: number;
-  status: "running" | "stopped" | "syncing";
-  nodes: number;
+  region: string;
+  status: "online" | "offline" | "syncing" | "maintenance";
   blockHeight: number;
-  tps: number;
+  peers: number;
+  latency: number;
   uptime: string;
-  createdAt: string;
+  version: string;
+  lastSeen: string;
 }
 
 interface FaucetRequest {
   id: string;
   address: string;
   amount: number;
-  status: "pending" | "completed" | "failed";
+  status: "pending" | "completed" | "failed" | "rate_limited";
+  txHash?: string;
   timestamp: string;
+  ip?: string;
+}
+
+interface TestnetStats {
+  networkStatus: "healthy" | "degraded" | "down";
+  blockHeight: number;
+  totalTransactions: number;
+  averageTps: number;
+  peakTps: number;
+  activeValidators: number;
+  totalValidators: number;
+  averageBlockTime: number;
+  pendingTransactions: number;
+  gasPrice: string;
+  faucetBalance: string;
+  faucetRequests24h: number;
+  uniqueAddresses: number;
+  contractsDeployed: number;
+  bridgeVolume: string;
+  lastBlockTime: string;
+  networkHashrate: string;
+  difficulty: string;
+  slaUptime: number;
 }
 
 interface TestnetData {
-  instances: TestnetInstance[];
+  nodes: TestnetNode[];
   faucetRequests: FaucetRequest[];
-  stats: {
-    activeTestnets: number;
-    totalNodes: number;
-    faucetBalance: string;
-    faucetRequests24h: number;
-  };
+  stats: TestnetStats;
 }
+
+// Production testnet nodes
+const productionNodes: TestnetNode[] = [
+  { id: "node-1", name: "tburn-testnet-primary-01", region: "US-East", status: "online", blockHeight: 4587621, peers: 48, latency: 12, uptime: "99.98%", version: "v8.0.0", lastSeen: "2024-12-11T11:30:00Z" },
+  { id: "node-2", name: "tburn-testnet-primary-02", region: "EU-West", status: "online", blockHeight: 4587621, peers: 52, latency: 18, uptime: "99.97%", version: "v8.0.0", lastSeen: "2024-12-11T11:30:00Z" },
+  { id: "node-3", name: "tburn-testnet-validator-01", region: "Asia-Pacific", status: "online", blockHeight: 4587620, peers: 45, latency: 35, uptime: "99.96%", version: "v8.0.0", lastSeen: "2024-12-11T11:30:00Z" },
+  { id: "node-4", name: "tburn-testnet-validator-02", region: "US-West", status: "online", blockHeight: 4587621, peers: 38, latency: 15, uptime: "99.95%", version: "v8.0.0", lastSeen: "2024-12-11T11:30:00Z" },
+  { id: "node-5", name: "tburn-testnet-archive-01", region: "EU-Central", status: "online", blockHeight: 4587621, peers: 42, latency: 22, uptime: "99.99%", version: "v8.0.0", lastSeen: "2024-12-11T11:30:00Z" },
+  { id: "node-6", name: "tburn-testnet-rpc-01", region: "US-East", status: "online", blockHeight: 4587621, peers: 56, latency: 8, uptime: "99.99%", version: "v8.0.0", lastSeen: "2024-12-11T11:30:00Z" },
+];
+
+const productionFaucetRequests: FaucetRequest[] = [
+  { id: "fq-1", address: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D", amount: 100, status: "completed", txHash: "0xabc...def", timestamp: "2024-12-11T11:25:00Z" },
+  { id: "fq-2", address: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984", amount: 100, status: "completed", txHash: "0x123...456", timestamp: "2024-12-11T11:20:00Z" },
+  { id: "fq-3", address: "0x6B175474E89094C44Da98b954EesdedfFe1A6fB9", amount: 100, status: "pending", timestamp: "2024-12-11T11:15:00Z" },
+  { id: "fq-4", address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", amount: 100, status: "completed", txHash: "0x789...abc", timestamp: "2024-12-11T11:10:00Z" },
+];
+
+const productionStats: TestnetStats = {
+  networkStatus: "healthy",
+  blockHeight: 4587621,
+  totalTransactions: 28745632,
+  averageTps: 2847,
+  peakTps: 15000,
+  activeValidators: 24,
+  totalValidators: 32,
+  averageBlockTime: 2.1,
+  pendingTransactions: 156,
+  gasPrice: "0.001",
+  faucetBalance: "50,000,000",
+  faucetRequests24h: 3247,
+  uniqueAddresses: 87456,
+  contractsDeployed: 4521,
+  bridgeVolume: "2.5M",
+  lastBlockTime: "2024-12-11T11:30:45Z",
+  networkHashrate: "125 TH/s",
+  difficulty: "1.2T",
+  slaUptime: 9998,
+};
 
 export default function TestnetManagement() {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState("instances");
+  const [activeTab, setActiveTab] = useState("overview");
   const [faucetAddress, setFaucetAddress] = useState("");
+  const [faucetAmount, setFaucetAmount] = useState("100");
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [showInstanceDetail, setShowInstanceDetail] = useState(false);
-  const [selectedInstance, setSelectedInstance] = useState<TestnetInstance | null>(null);
-  const [showResetConfirm, setShowResetConfirm] = useState(false);
-  const [pendingResetId, setPendingResetId] = useState<string | null>(null);
+  const [selectedNode, setSelectedNode] = useState<TestnetNode | null>(null);
+  const [nodeDetailOpen, setNodeDetailOpen] = useState(false);
+  const [showAddToWallet, setShowAddToWallet] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { data: testnetData, isLoading, error, refetch } = useQuery<TestnetData>({
     queryKey: ["/api/enterprise/admin/testnet"],
+    refetchInterval: 30000,
   });
 
   const faucetMutation = useMutation({
@@ -91,186 +194,127 @@ export default function TestnetManagement() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/testnet"] });
       toast({
-        title: t("adminTestnet.faucetSuccess"),
-        description: t("adminTestnet.faucetSuccessDesc"),
+        title: "Faucet Request Submitted",
+        description: "Test TBURN will be sent to your address shortly",
       });
       setFaucetAddress("");
     },
     onError: () => {
       toast({
-        title: t("adminTestnet.faucetError"),
-        description: t("adminTestnet.faucetErrorDesc"),
+        title: "Faucet Request Failed",
+        description: "Please try again or check your address",
         variant: "destructive",
       });
     },
   });
 
-  const resetMutation = useMutation({
-    mutationFn: async (instanceId: string) => {
-      return apiRequest("POST", `/api/enterprise/admin/testnet/${instanceId}/reset`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/testnet"] });
-      toast({
-        title: t("adminTestnet.resetSuccess"),
-        description: t("adminTestnet.resetSuccessDesc"),
-      });
-    },
-    onError: () => {
-      toast({
-        title: t("adminTestnet.resetError"),
-        description: t("adminTestnet.resetErrorDesc"),
-        variant: "destructive",
-      });
-    },
-  });
+  const nodes = useMemo(() => testnetData?.nodes || productionNodes, [testnetData?.nodes]);
+  const faucetRequests = useMemo(() => testnetData?.faucetRequests || productionFaucetRequests, [testnetData?.faucetRequests]);
+  const stats = useMemo(() => testnetData?.stats || productionStats, [testnetData?.stats]);
 
-  const toggleMutation = useMutation({
-    mutationFn: async ({ instanceId, action }: { instanceId: string; action: "start" | "stop" }) => {
-      return apiRequest("POST", `/api/enterprise/admin/testnet/${instanceId}/${action}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/testnet"] });
-      toast({
-        title: t("adminTestnet.toggleSuccess"),
-        description: t("adminTestnet.toggleSuccessDesc"),
-      });
-    },
-    onError: () => {
-      toast({
-        title: t("adminTestnet.toggleError"),
-        description: t("adminTestnet.toggleErrorDesc"),
-        variant: "destructive",
-      });
-    },
-  });
+  const filteredNodes = useMemo(() => {
+    if (!searchQuery) return nodes;
+    const query = searchQuery.toLowerCase();
+    return nodes.filter(node =>
+      node.name.toLowerCase().includes(query) ||
+      node.region.toLowerCase().includes(query)
+    );
+  }, [nodes, searchQuery]);
 
-  const defaultInstances: TestnetInstance[] = [
-    { id: "1", name: "TBURN v8.0 Mainnet Mirror", chainId: 8888, status: "running", nodes: 156, blockHeight: 2847562, tps: 98456, uptime: "99.99%", createdAt: "2024-12-01" },
-    { id: "2", name: "Enterprise Integration Testnet", chainId: 8889, status: "running", nodes: 48, blockHeight: 1456789, tps: 75000, uptime: "99.97%", createdAt: "2024-11-15" },
-    { id: "3", name: "DeFi Protocol Testing", chainId: 8890, status: "running", nodes: 32, blockHeight: 987654, tps: 50000, uptime: "99.95%", createdAt: "2024-11-01" },
-    { id: "4", name: "Bridge Validation Network", chainId: 8891, status: "running", nodes: 24, blockHeight: 654321, tps: 42000, uptime: "99.98%", createdAt: "2024-10-20" },
-  ];
-
-  const defaultFaucetRequests: FaucetRequest[] = [
-    { id: "1", address: "0xEnterprise_Partner_Test_01", amount: 10000, status: "completed", timestamp: "2024-12-07 23:55:00" },
-    { id: "2", address: "0xValidator_Pool_Integration", amount: 50000, status: "completed", timestamp: "2024-12-07 23:50:00" },
-    { id: "3", address: "0xDeFi_Protocol_Testing_A", amount: 25000, status: "completed", timestamp: "2024-12-07 23:45:00" },
-    { id: "4", address: "0xBridge_Validator_Test_B", amount: 15000, status: "completed", timestamp: "2024-12-07 23:40:00" },
-  ];
-
-  const instances = testnetData?.instances || defaultInstances;
-  const faucetRequests = testnetData?.faucetRequests || defaultFaucetRequests;
-  const stats = testnetData?.stats || {
-    activeTestnets: 4,
-    totalNodes: 260,
-    faucetBalance: "500M",
-    faucetRequests24h: 1247,
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "running": return "bg-green-500";
-      case "stopped": return "bg-red-500";
-      case "syncing": return "bg-yellow-500";
-      case "completed": return "bg-green-500";
-      case "pending": return "bg-yellow-500";
-      case "failed": return "bg-red-500";
-      default: return "bg-gray-500";
-    }
-  };
+  const onlineNodes = useMemo(() => nodes.filter(n => n.status === "online").length, [nodes]);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     try {
       await refetch();
-      toast({
-        title: t("adminTestnet.refreshSuccess"),
-        description: t("adminTestnet.dataUpdated"),
-      });
-    } catch (error) {
-      toast({
-        title: t("adminTestnet.refreshError"),
-        description: t("adminTestnet.refreshErrorDesc"),
-        variant: "destructive",
-      });
+      toast({ title: "Data Refreshed", description: "Testnet data has been updated" });
     } finally {
       setIsRefreshing(false);
     }
-  }, [refetch, toast, t]);
+  }, [refetch, toast]);
 
-  const handleExport = useCallback(() => {
-    const exportData = {
+  const handleCopy = useCallback((text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    toast({ title: "Copied", description: `${label} copied to clipboard` });
+  }, [toast]);
+
+  const handleAddToWallet = useCallback(async () => {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [{
+            chainId: `0x${TESTNET_CONFIG.chainId.toString(16)}`,
+            chainName: TESTNET_CONFIG.chainName,
+            nativeCurrency: TESTNET_CONFIG.nativeCurrency,
+            rpcUrls: [TESTNET_CONFIG.rpcUrl],
+            blockExplorerUrls: [TESTNET_CONFIG.explorerUrl],
+          }],
+        });
+        toast({ title: "Network Added", description: "TBURN Testnet has been added to your wallet" });
+      } catch (error) {
+        toast({ title: "Failed to Add Network", description: "Please add the network manually", variant: "destructive" });
+      }
+    } else {
+      setShowAddToWallet(true);
+    }
+  }, [toast]);
+
+  const handleExportConfig = useCallback(() => {
+    const config = {
+      network: {
+        chainId: TESTNET_CONFIG.chainId,
+        chainName: TESTNET_CONFIG.chainName,
+        rpcUrl: TESTNET_CONFIG.rpcUrl,
+        wsUrl: TESTNET_CONFIG.wsUrl,
+        explorerUrl: TESTNET_CONFIG.explorerUrl,
+        faucetUrl: TESTNET_CONFIG.faucetUrl,
+      },
+      nativeCurrency: TESTNET_CONFIG.nativeCurrency,
+      nodes: nodes.map(n => ({ name: n.name, region: n.region, status: n.status })),
+      stats: {
+        blockHeight: stats.blockHeight,
+        averageTps: stats.averageTps,
+        activeValidators: stats.activeValidators,
+      },
       exportedAt: new Date().toISOString(),
-      instances,
-      faucetRequests,
-      stats,
     };
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `tburn-testnet-${new Date().toISOString().split("T")[0]}.json`;
+    a.download = `tburn-testnet-config-${new Date().toISOString().split("T")[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    
-    toast({
-      title: t("adminTestnet.exportSuccess"),
-      description: t("adminTestnet.exportSuccessDesc"),
-    });
-  }, [instances, faucetRequests, stats, toast, t]);
+    toast({ title: "Config Exported", description: "Network configuration exported successfully" });
+  }, [nodes, stats, toast]);
 
-  const handleCopy = useCallback((text: string) => {
-    navigator.clipboard.writeText(text);
-    toast({
-      title: t("adminTestnet.copied"),
-      description: t("adminTestnet.copiedToClipboard"),
-    });
-  }, [toast, t]);
+  const handleFaucetSubmit = useCallback(() => {
+    if (!faucetAddress || !faucetAddress.startsWith("0x") || faucetAddress.length !== 42) {
+      toast({ title: "Invalid Address", description: "Please enter a valid Ethereum address", variant: "destructive" });
+      return;
+    }
+    faucetMutation.mutate({ address: faucetAddress, amount: parseInt(faucetAmount) });
+  }, [faucetAddress, faucetAmount, faucetMutation, toast]);
 
-  const getInstanceDetailSections = (instance: TestnetInstance): DetailSection[] => {
-    const statusColors: Record<string, string> = {
-      running: "bg-green-500/10 text-green-500",
-      stopped: "bg-red-500/10 text-red-500",
-      syncing: "bg-yellow-500/10 text-yellow-500",
-    };
-
-    return [
-      {
-        title: t("adminTestnet.detail.instanceInfo"),
-        icon: <Server className="h-4 w-4" />,
-        fields: [
-          { label: t("common.name"), value: instance.name },
-          { label: t("adminTestnet.chainId"), value: instance.chainId },
-          { label: t("common.status"), value: t(`adminTestnet.status.${instance.status}`), type: "status" as const, badgeColor: statusColors[instance.status] },
-          { label: t("adminTestnet.nodes"), value: instance.nodes },
-          { label: t("adminTestnet.uptime"), value: instance.uptime },
-        ],
-      },
-      {
-        title: t("adminTestnet.detail.blockchainStats"),
-        icon: <Activity className="h-4 w-4" />,
-        fields: [
-          { label: t("adminTestnet.blockHeight"), value: instance.blockHeight.toLocaleString() },
-          { label: t("adminTestnet.tps"), value: instance.tps.toLocaleString() },
-          { label: t("adminTestnet.created"), value: instance.createdAt, type: "date" as const },
-        ],
-      },
-    ];
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "online": case "healthy": case "completed": return "bg-green-500/10 text-green-500 border-green-500/20";
+      case "offline": case "down": case "failed": return "bg-red-500/10 text-red-500 border-red-500/20";
+      case "syncing": case "degraded": case "pending": return "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
+      case "maintenance": case "rate_limited": return "bg-blue-500/10 text-blue-500 border-blue-500/20";
+      default: return "bg-gray-500/10 text-gray-500 border-gray-500/20";
+    }
   };
 
-  const confirmReset = useCallback((instanceId: string) => {
-    setPendingResetId(instanceId);
-    setShowResetConfirm(true);
-  }, []);
-
-  const handleConfirmReset = useCallback(() => {
-    if (pendingResetId) {
-      resetMutation.mutate(pendingResetId);
-      setShowResetConfirm(false);
-      setPendingResetId(null);
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "online": case "healthy": return <Wifi className="h-4 w-4 text-green-500" />;
+      case "offline": case "down": return <WifiOff className="h-4 w-4 text-red-500" />;
+      case "syncing": return <Radio className="h-4 w-4 text-yellow-500 animate-pulse" />;
+      default: return <CircleDot className="h-4 w-4 text-blue-500" />;
     }
-  }, [pendingResetId, resetMutation]);
+  };
 
   if (error) {
     return (
@@ -278,11 +322,11 @@ export default function TestnetManagement() {
         <Card className="max-w-md">
           <CardContent className="p-6 text-center">
             <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
-            <h2 className="text-xl font-bold mb-2">{t("adminTestnet.error.title")}</h2>
-            <p className="text-muted-foreground mb-4">{t("adminTestnet.error.description")}</p>
+            <h2 className="text-xl font-bold mb-2">Failed to Load Testnet Data</h2>
+            <p className="text-muted-foreground mb-4">Unable to connect to testnet services</p>
             <Button onClick={() => refetch()} data-testid="button-retry">
               <RefreshCw className="h-4 w-4 mr-2" />
-              {t("adminTestnet.retry")}
+              Retry
             </Button>
           </CardContent>
         </Card>
@@ -293,394 +337,662 @@ export default function TestnetManagement() {
   return (
     <div className="flex-1 overflow-auto" data-testid="testnet-page">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
+        {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-page-title">
               <FlaskConical className="h-8 w-8" />
-              {t("adminTestnet.title")}
+              TBURN Testnet Management
             </h1>
-            <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminTestnet.subtitle")}</p>
+            <p className="text-muted-foreground" data-testid="text-page-subtitle">
+              Chain ID: {TESTNET_CONFIG.chainId} | Enterprise-grade testnet infrastructure
+            </p>
           </div>
-          <div className="flex gap-2">
-            <Button 
-              variant="outline" 
-              onClick={handleRefresh}
-              disabled={isRefreshing}
-              data-testid="button-refresh"
-            >
+          <div className="flex gap-2 flex-wrap">
+            <Button variant="outline" onClick={handleRefresh} disabled={isRefreshing} data-testid="button-refresh">
               <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-              {t("adminTestnet.refresh")}
+              Refresh
             </Button>
-            <Button variant="outline" onClick={handleExport} data-testid="button-export">
+            <Button variant="outline" onClick={handleExportConfig} data-testid="button-export">
               <Download className="h-4 w-4 mr-2" />
-              {t("adminTestnet.export")}
+              Export Config
             </Button>
-            <Button data-testid="button-create-testnet">
-              <Plus className="h-4 w-4 mr-2" />
-              {t("adminTestnet.createTestnet")}
+            <Button onClick={handleAddToWallet} data-testid="button-add-wallet">
+              <Wallet className="h-4 w-4 mr-2" />
+              Add to Wallet
             </Button>
           </div>
         </div>
 
+        {/* Network Status Banner */}
+        <Card className={`border-2 ${stats.networkStatus === "healthy" ? "border-green-500/30 bg-green-500/5" : stats.networkStatus === "degraded" ? "border-yellow-500/30 bg-yellow-500/5" : "border-red-500/30 bg-red-500/5"}`} data-testid="card-network-status">
+          <CardContent className="p-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className={`h-12 w-12 rounded-full flex items-center justify-center ${stats.networkStatus === "healthy" ? "bg-green-500/20" : "bg-yellow-500/20"}`}>
+                  {stats.networkStatus === "healthy" ? <CheckCircle className="h-6 w-6 text-green-500" /> : <AlertTriangle className="h-6 w-6 text-yellow-500" />}
+                </div>
+                <div>
+                  <h3 className="font-semibold flex items-center gap-2">
+                    Network Status: <Badge className={getStatusColor(stats.networkStatus)}>{stats.networkStatus.toUpperCase()}</Badge>
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {onlineNodes}/{nodes.length} nodes online | SLA Uptime: {(stats.slaUptime / 100).toFixed(2)}%
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4 flex-wrap">
+                <div className="text-center">
+                  <p className="text-2xl font-bold">{stats.blockHeight.toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground">Block Height</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold">{stats.averageTps.toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground">Avg TPS</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold">{stats.averageBlockTime}s</p>
+                  <p className="text-xs text-muted-foreground">Block Time</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold">{stats.activeValidators}/{stats.totalValidators}</p>
+                  <p className="text-xs text-muted-foreground">Validators</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Quick Access Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card data-testid="card-active-testnets">
+          <Card className="hover-elevate cursor-pointer" onClick={() => window.open(TESTNET_CONFIG.rpcUrl, "_blank")} data-testid="card-rpc-endpoint">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-              <CardTitle className="text-sm font-medium">{t("adminTestnet.activeTestnets")}</CardTitle>
-              <Server className="h-4 w-4 text-green-500" />
+              <CardTitle className="text-sm font-medium">RPC Endpoint</CardTitle>
+              <Terminal className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
-              {isLoading ? <Skeleton className="h-8 w-16" /> : (
-                <>
-                  <div className="text-2xl font-bold text-green-500">{stats.activeTestnets}</div>
-                  <p className="text-xs text-muted-foreground">{t("adminTestnet.of3Instances")}</p>
-                </>
-              )}
+              <div className="flex items-center gap-2">
+                <code className="text-xs bg-muted px-2 py-1 rounded flex-1 truncate">
+                  {TESTNET_CONFIG.rpcUrl}
+                </code>
+                <Button variant="ghost" size="icon" className="h-6 w-6 flex-shrink-0" onClick={(e) => { e.stopPropagation(); handleCopy(TESTNET_CONFIG.rpcUrl, "RPC URL"); }} data-testid="button-copy-rpc">
+                  <Copy className="h-3 w-3" />
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">JSON-RPC & REST API</p>
             </CardContent>
           </Card>
 
-          <Card data-testid="card-total-nodes">
+          <Card className="hover-elevate cursor-pointer" onClick={() => window.open(TESTNET_CONFIG.explorerUrl, "_blank")} data-testid="card-explorer">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-              <CardTitle className="text-sm font-medium">{t("adminTestnet.totalNodes")}</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Block Explorer</CardTitle>
+              <Globe className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
-              {isLoading ? <Skeleton className="h-8 w-16" /> : (
-                <>
-                  <div className="text-2xl font-bold">{stats.totalNodes}</div>
-                  <p className="text-xs text-muted-foreground">{t("adminTestnet.acrossAllTestnets")}</p>
-                </>
-              )}
+              <div className="flex items-center gap-2">
+                <code className="text-xs bg-muted px-2 py-1 rounded flex-1 truncate">
+                  {TESTNET_CONFIG.explorerUrl}
+                </code>
+                <Button variant="ghost" size="icon" className="h-6 w-6 flex-shrink-0" onClick={(e) => { e.stopPropagation(); handleCopy(TESTNET_CONFIG.explorerUrl, "Explorer URL"); }} data-testid="button-copy-explorer">
+                  <Copy className="h-3 w-3" />
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">Transaction & Block Explorer</p>
             </CardContent>
           </Card>
 
           <Card data-testid="card-faucet-balance">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-              <CardTitle className="text-sm font-medium">{t("adminTestnet.faucetBalance")}</CardTitle>
+              <CardTitle className="text-sm font-medium">Faucet Balance</CardTitle>
               <Droplets className="h-4 w-4 text-blue-500" />
             </CardHeader>
             <CardContent>
-              {isLoading ? <Skeleton className="h-8 w-16" /> : (
+              {isLoading ? <Skeleton className="h-8 w-24" /> : (
                 <>
                   <div className="text-2xl font-bold">{stats.faucetBalance}</div>
-                  <p className="text-xs text-muted-foreground">{t("adminTestnet.testTburnAvailable")}</p>
+                  <p className="text-xs text-muted-foreground">Test TBURN available</p>
                 </>
               )}
             </CardContent>
           </Card>
 
-          <Card data-testid="card-faucet-requests">
+          <Card data-testid="card-network-stats">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-              <CardTitle className="text-sm font-medium">{t("adminTestnet.faucetRequests24h")}</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Unique Addresses</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {isLoading ? <Skeleton className="h-8 w-16" /> : (
+              {isLoading ? <Skeleton className="h-8 w-24" /> : (
                 <>
-                  <div className="text-2xl font-bold">{stats.faucetRequests24h}</div>
-                  <p className="text-xs text-muted-foreground">{t("adminTestnet.testTokensDistributed")}</p>
+                  <div className="text-2xl font-bold">{stats.uniqueAddresses.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">{stats.contractsDeployed.toLocaleString()} contracts deployed</p>
                 </>
               )}
             </CardContent>
           </Card>
         </div>
 
+        {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList data-testid="tabs-testnet">
-            <TabsTrigger value="instances" data-testid="tab-instances">{t("adminTestnet.tabs.testnetInstances")}</TabsTrigger>
-            <TabsTrigger value="faucet" data-testid="tab-faucet">{t("adminTestnet.tabs.faucet")}</TabsTrigger>
-            <TabsTrigger value="settings" data-testid="tab-settings">{t("adminTestnet.tabs.settings")}</TabsTrigger>
+            <TabsTrigger value="overview" data-testid="tab-overview">
+              <Activity className="h-4 w-4 mr-2" />
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="nodes" data-testid="tab-nodes">
+              <Server className="h-4 w-4 mr-2" />
+              Nodes
+              <Badge variant="secondary" className="ml-2 h-5 px-1.5">{nodes.length}</Badge>
+            </TabsTrigger>
+            <TabsTrigger value="faucet" data-testid="tab-faucet">
+              <Droplets className="h-4 w-4 mr-2" />
+              Faucet
+            </TabsTrigger>
+            <TabsTrigger value="endpoints" data-testid="tab-endpoints">
+              <Link className="h-4 w-4 mr-2" />
+              Endpoints
+            </TabsTrigger>
+            <TabsTrigger value="config" data-testid="tab-config">
+              <Settings className="h-4 w-4 mr-2" />
+              Configuration
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="instances" className="space-y-4">
-            {isLoading ? (
-              [...Array(3)].map((_, i) => (
-                <Skeleton key={i} className="h-48 w-full" />
-              ))
-            ) : (
-              instances.map((instance, index) => (
-                <Card key={instance.id} data-testid={`testnet-instance-${index}`}>
-                  <CardHeader>
+          {/* Overview Tab */}
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Card data-testid="card-total-transactions">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+                  <CardTitle className="text-sm font-medium">Total Transactions</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-green-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.totalTransactions.toLocaleString()}</div>
+                  <div className="flex items-center gap-1 text-xs text-green-500">
+                    <ArrowUpRight className="h-3 w-3" />
+                    +12.5% from yesterday
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="card-peak-tps">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+                  <CardTitle className="text-sm font-medium">Peak TPS</CardTitle>
+                  <Zap className="h-4 w-4 text-yellow-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.peakTps.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">Achieved during stress test</p>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="card-pending-tx">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+                  <CardTitle className="text-sm font-medium">Pending Transactions</CardTitle>
+                  <Clock className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.pendingTransactions}</div>
+                  <p className="text-xs text-muted-foreground">Gas Price: {stats.gasPrice} TBURN</p>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="card-faucet-requests">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+                  <CardTitle className="text-sm font-medium">Faucet Requests (24h)</CardTitle>
+                  <Droplets className="h-4 w-4 text-blue-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.faucetRequests24h.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">100 TBURN per request</p>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="card-bridge-volume">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+                  <CardTitle className="text-sm font-medium">Bridge Volume</CardTitle>
+                  <Layers className="h-4 w-4 text-purple-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.bridgeVolume} TBURN</div>
+                  <p className="text-xs text-muted-foreground">Cross-chain test transfers</p>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="card-network-hash">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+                  <CardTitle className="text-sm font-medium">Network Security</CardTitle>
+                  <Shield className="h-4 w-4 text-green-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.networkHashrate}</div>
+                  <p className="text-xs text-muted-foreground">Quantum-resistant enabled</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Recent Activity */}
+            <Card data-testid="card-recent-activity">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Activity className="h-5 w-5" />
+                  Recent Faucet Activity
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Address</TableHead>
+                      <TableHead>Amount</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Time</TableHead>
+                      <TableHead>TX Hash</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {faucetRequests.slice(0, 5).map((request, i) => (
+                      <TableRow key={request.id} data-testid={`row-faucet-${i}`}>
+                        <TableCell className="font-mono text-xs">
+                          {request.address.slice(0, 10)}...{request.address.slice(-8)}
+                        </TableCell>
+                        <TableCell>{request.amount} TBURN</TableCell>
+                        <TableCell>
+                          <Badge className={getStatusColor(request.status)}>{request.status}</Badge>
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">
+                          {new Date(request.timestamp).toLocaleTimeString()}
+                        </TableCell>
+                        <TableCell>
+                          {request.txHash ? (
+                            <Button variant="ghost" size="sm" className="h-auto p-0 text-xs" onClick={() => window.open(`${TESTNET_CONFIG.explorerUrl}/tx/${request.txHash}`, "_blank")}>
+                              <ExternalLink className="h-3 w-3 mr-1" />
+                              View
+                            </Button>
+                          ) : "-"}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Nodes Tab */}
+          <TabsContent value="nodes" className="space-y-4">
+            <div className="flex items-center gap-4">
+              <div className="relative flex-1 max-w-sm">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search nodes..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-9"
+                  data-testid="input-search-nodes"
+                />
+              </div>
+              <Badge variant="secondary">{onlineNodes} Online</Badge>
+              <Badge variant="outline">{nodes.length - onlineNodes} Offline/Syncing</Badge>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredNodes.map((node, i) => (
+                <Card key={node.id} className="hover-elevate cursor-pointer" onClick={() => { setSelectedNode(node); setNodeDetailOpen(true); }} data-testid={`card-node-${i}`}>
+                  <CardHeader className="pb-2">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div>
-                          <CardTitle className="flex items-center gap-2">
-                            {instance.name}
-                            <Badge className={getStatusColor(instance.status)}>{t(`adminTestnet.status.${instance.status}`)}</Badge>
-                          </CardTitle>
-                          <CardDescription>{t("adminTestnet.chainId")}: {instance.chainId}</CardDescription>
-                        </div>
+                      <div className="flex items-center gap-2">
+                        {getStatusIcon(node.status)}
+                        <CardTitle className="text-sm">{node.name}</CardTitle>
                       </div>
-                      <div className="flex gap-2">
-                        {instance.status === "running" ? (
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => toggleMutation.mutate({ instanceId: instance.id, action: "stop" })}
-                            disabled={toggleMutation.isPending}
-                            data-testid={`button-stop-${index}`}
-                          >
-                            <Pause className="h-4 w-4 mr-1" />
-                            {t("adminTestnet.stop")}
-                          </Button>
-                        ) : (
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => toggleMutation.mutate({ instanceId: instance.id, action: "start" })}
-                            disabled={toggleMutation.isPending}
-                            data-testid={`button-start-${index}`}
-                          >
-                            <Play className="h-4 w-4 mr-1" />
-                            {t("adminTestnet.start")}
-                          </Button>
-                        )}
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => confirmReset(instance.id)}
-                          disabled={resetMutation.isPending}
-                          data-testid={`button-reset-${index}`}
-                        >
-                          <RotateCcw className="h-4 w-4 mr-1" />
-                          {t("adminTestnet.reset")}
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => {
-                            setSelectedInstance(instance);
-                            setShowInstanceDetail(true);
-                          }}
-                          data-testid={`button-view-${index}`}
-                        >
-                          <Eye className="h-4 w-4 mr-1" />
-                          {t("adminTestnet.view")}
-                        </Button>
-                        <Button variant="outline" size="sm" data-testid={`button-settings-${index}`}>
-                          <Settings className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-red-500" data-testid={`button-delete-${index}`}>
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
+                      <Badge className={getStatusColor(node.status)}>{node.status}</Badge>
                     </div>
+                    <CardDescription>{node.region}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <p className="text-sm text-muted-foreground">{t("adminTestnet.nodes")}</p>
-                        <p className="text-lg font-bold">{instance.nodes}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">{t("adminTestnet.blockHeight")}</p>
-                        <p className="text-lg font-bold">{instance.blockHeight.toLocaleString()}</p>
+                        <p className="text-muted-foreground">Block Height</p>
+                        <p className="font-medium">{node.blockHeight.toLocaleString()}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground">{t("adminTestnet.tps")}</p>
-                        <p className="text-lg font-bold">{instance.tps.toLocaleString()}</p>
+                        <p className="text-muted-foreground">Peers</p>
+                        <p className="font-medium">{node.peers}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground">{t("adminTestnet.uptime")}</p>
-                        <p className="text-lg font-bold">{instance.uptime}</p>
+                        <p className="text-muted-foreground">Latency</p>
+                        <p className="font-medium">{node.latency}ms</p>
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground">{t("adminTestnet.created")}</p>
-                        <p className="text-lg font-bold">{instance.createdAt}</p>
-                      </div>
-                    </div>
-
-                    <Separator className="my-4" />
-
-                    <div className="flex flex-wrap gap-4">
-                      <div className="space-y-1">
-                        <p className="text-sm text-muted-foreground">{t("adminTestnet.rpcEndpoint")}</p>
-                        <div className="flex items-center gap-2">
-                          <code className="text-xs bg-muted px-2 py-1 rounded">
-                            https://rpc-{instance.name.toLowerCase().replace(' ', '-')}.tburn.io
-                          </code>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="h-6 w-6"
-                            onClick={() => handleCopy(`https://rpc-${instance.name.toLowerCase().replace(' ', '-')}.tburn.io`)}
-                            data-testid={`button-copy-rpc-${index}`}
-                          >
-                            <Copy className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-sm text-muted-foreground">{t("adminTestnet.explorer")}</p>
-                        <Button variant="ghost" size="sm" className="h-auto p-0" data-testid={`button-explorer-${index}`}>
-                          <ExternalLink className="h-3 w-3 mr-1" />
-                          {t("adminTestnet.viewExplorer")}
-                        </Button>
+                        <p className="text-muted-foreground">Uptime</p>
+                        <p className="font-medium">{node.uptime}</p>
                       </div>
                     </div>
                   </CardContent>
+                  <CardFooter className="text-xs text-muted-foreground">
+                    Version: {node.version}
+                  </CardFooter>
                 </Card>
-              ))
-            )}
+              ))}
+            </div>
           </TabsContent>
 
+          {/* Faucet Tab */}
           <TabsContent value="faucet" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Droplets className="h-5 w-5" />
-                  {t("adminTestnet.requestTestTokens")}
-                </CardTitle>
-                <CardDescription>{t("adminTestnet.getTestTokensForDev")}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2 md:col-span-2">
-                    <Label>{t("adminTestnet.walletAddress")}</Label>
-                    <Input 
-                      placeholder="0x..." 
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card data-testid="card-faucet-request">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Droplets className="h-5 w-5 text-blue-500" />
+                    Request Test Tokens
+                  </CardTitle>
+                  <CardDescription>Get test TBURN for development and testing on the testnet</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Wallet Address</Label>
+                    <Input
+                      placeholder="0x..."
                       value={faucetAddress}
                       onChange={(e) => setFaucetAddress(e.target.value)}
                       data-testid="input-faucet-address"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label>{t("adminTestnet.amount")}</Label>
-                    <Input type="number" defaultValue="100" data-testid="input-faucet-amount" />
+                    <Label>Amount (TBURN)</Label>
+                    <Select value={faucetAmount} onValueChange={setFaucetAmount}>
+                      <SelectTrigger data-testid="select-faucet-amount">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="100">100 TBURN</SelectItem>
+                        <SelectItem value="500">500 TBURN</SelectItem>
+                        <SelectItem value="1000">1,000 TBURN</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
-                </div>
-                <Button 
-                  className="w-full md:w-auto"
-                  onClick={() => faucetMutation.mutate({ address: faucetAddress, amount: 100 })}
-                  disabled={faucetMutation.isPending || !faucetAddress}
-                  data-testid="button-request-tokens"
-                >
-                  {faucetMutation.isPending ? (
-                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                  ) : (
-                    <Droplets className="h-4 w-4 mr-2" />
-                  )}
-                  {t("adminTestnet.requestTokens")}
-                </Button>
-                <p className="text-xs text-muted-foreground">
-                  {t("adminTestnet.faucetLimit")}
-                </p>
-              </CardContent>
-            </Card>
+                  <Button className="w-full" onClick={handleFaucetSubmit} disabled={faucetMutation.isPending} data-testid="button-request-tokens">
+                    {faucetMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Droplets className="h-4 w-4 mr-2" />}
+                    Request Test Tokens
+                  </Button>
+                </CardContent>
+                <CardFooter className="text-xs text-muted-foreground">
+                  Rate limit: 1 request per address every 24 hours
+                </CardFooter>
+              </Card>
 
-            <Card>
+              <Card data-testid="card-faucet-info">
+                <CardHeader>
+                  <CardTitle>Faucet Information</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-muted-foreground">Available Balance</span>
+                    <span className="font-bold">{stats.faucetBalance} TBURN</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-muted-foreground">Requests Today</span>
+                    <span className="font-bold">{stats.faucetRequests24h.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-muted-foreground">Max Per Request</span>
+                    <span className="font-bold">1,000 TBURN</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-muted-foreground">Rate Limit</span>
+                    <span className="font-bold">24 hours</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-muted-foreground">Status</span>
+                    <Badge className="bg-green-500/10 text-green-500">Operational</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Faucet History */}
+            <Card data-testid="card-faucet-history">
               <CardHeader>
-                <CardTitle>{t("adminTestnet.recentFaucetRequests")}</CardTitle>
+                <CardTitle>Recent Requests</CardTitle>
               </CardHeader>
               <CardContent>
-                {isLoading ? (
-                  <div className="space-y-2">
-                    {[...Array(4)].map((_, i) => (
-                      <Skeleton key={i} className="h-12 w-full" />
-                    ))}
-                  </div>
-                ) : (
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{t("adminTestnet.address")}</TableHead>
-                        <TableHead>{t("adminTestnet.amount")}</TableHead>
-                        <TableHead>{t("adminTestnet.statusHeader")}</TableHead>
-                        <TableHead>{t("adminTestnet.timestamp")}</TableHead>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Address</TableHead>
+                      <TableHead>Amount</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Timestamp</TableHead>
+                      <TableHead>Transaction</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {faucetRequests.map((request, i) => (
+                      <TableRow key={request.id} data-testid={`row-history-${i}`}>
+                        <TableCell className="font-mono text-xs">
+                          <div className="flex items-center gap-2">
+                            <span>{request.address.slice(0, 10)}...{request.address.slice(-8)}</span>
+                            <Button variant="ghost" size="icon" className="h-5 w-5" onClick={() => handleCopy(request.address, "Address")}>
+                              <Copy className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                        <TableCell>{request.amount} TBURN</TableCell>
+                        <TableCell><Badge className={getStatusColor(request.status)}>{request.status}</Badge></TableCell>
+                        <TableCell className="text-sm">{new Date(request.timestamp).toLocaleString()}</TableCell>
+                        <TableCell>
+                          {request.txHash ? (
+                            <Button variant="ghost" size="sm" onClick={() => window.open(`${TESTNET_CONFIG.explorerUrl}/tx/${request.txHash}`, "_blank")}>
+                              <ExternalLink className="h-3 w-3 mr-1" />
+                              View
+                            </Button>
+                          ) : "-"}
+                        </TableCell>
                       </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {faucetRequests.map((request, index) => (
-                        <TableRow key={request.id} data-testid={`faucet-request-${index}`}>
-                          <TableCell className="font-mono">{request.address}</TableCell>
-                          <TableCell>{request.amount} TBURN</TableCell>
-                          <TableCell>
-                            <Badge className={getStatusColor(request.status)}>
-                              {request.status === "completed" && <CheckCircle className="h-3 w-3 mr-1" />}
-                              {request.status === "pending" && <Clock className="h-3 w-3 mr-1" />}
-                              {request.status === "failed" && <AlertTriangle className="h-3 w-3 mr-1" />}
-                              {t(`adminTestnet.status.${request.status}`)}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-muted-foreground">{request.timestamp}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                )}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("adminTestnet.faucetStatistics")}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div className="p-4 border rounded-lg" data-testid="stat-total-distributed">
-                    <p className="text-sm text-muted-foreground">{t("adminTestnet.totalDistributed")}</p>
-                    <p className="text-2xl font-bold">1.2M TBURN</p>
-                    <p className="text-xs text-muted-foreground">{t("adminTestnet.allTime")}</p>
-                  </div>
-                  <div className="p-4 border rounded-lg" data-testid="stat-today">
-                    <p className="text-sm text-muted-foreground">{t("adminTestnet.today")}</p>
-                    <p className="text-2xl font-bold">24,700 TBURN</p>
-                    <p className="text-xs text-green-500">247 {t("adminTestnet.requests")}</p>
-                  </div>
-                  <div className="p-4 border rounded-lg" data-testid="stat-unique-addresses">
-                    <p className="text-sm text-muted-foreground">{t("adminTestnet.uniqueAddresses")}</p>
-                    <p className="text-2xl font-bold">8,456</p>
-                    <p className="text-xs text-muted-foreground">{t("adminTestnet.allTime")}</p>
-                  </div>
-                  <div className="p-4 border rounded-lg" data-testid="stat-success-rate">
-                    <p className="text-sm text-muted-foreground">{t("adminTestnet.successRate")}</p>
-                    <p className="text-2xl font-bold text-green-500">98.7%</p>
-                    <Progress value={98.7} className="h-2 mt-2" />
-                  </div>
-                </div>
+                    ))}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="settings" className="space-y-6">
-            <Card>
+          {/* Endpoints Tab */}
+          <TabsContent value="endpoints" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card data-testid="card-endpoint-rpc">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Terminal className="h-5 w-5" />
+                    JSON-RPC Endpoint
+                  </CardTitle>
+                  <CardDescription>Primary RPC endpoint for testnet interactions</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>HTTP/HTTPS</Label>
+                    <div className="flex items-center gap-2">
+                      <code className="flex-1 text-sm bg-muted px-3 py-2 rounded">{TESTNET_CONFIG.rpcUrl}</code>
+                      <Button variant="outline" size="icon" onClick={() => handleCopy(TESTNET_CONFIG.rpcUrl, "RPC URL")} data-testid="button-copy-rpc-http">
+                        <Copy className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>WebSocket</Label>
+                    <div className="flex items-center gap-2">
+                      <code className="flex-1 text-sm bg-muted px-3 py-2 rounded">{TESTNET_CONFIG.wsUrl}</code>
+                      <Button variant="outline" size="icon" onClick={() => handleCopy(TESTNET_CONFIG.wsUrl, "WebSocket URL")} data-testid="button-copy-ws">
+                        <Copy className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    <Badge className="bg-green-500/10 text-green-500">Active</Badge>
+                    <span className="text-xs text-muted-foreground ml-2">Latency: ~15ms</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="card-endpoint-explorer">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Globe className="h-5 w-5" />
+                    Block Explorer
+                  </CardTitle>
+                  <CardDescription>Explore transactions, blocks, and contracts</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Explorer URL</Label>
+                    <div className="flex items-center gap-2">
+                      <code className="flex-1 text-sm bg-muted px-3 py-2 rounded">{TESTNET_CONFIG.explorerUrl}</code>
+                      <Button variant="outline" size="icon" onClick={() => handleCopy(TESTNET_CONFIG.explorerUrl, "Explorer URL")} data-testid="button-copy-explorer-url">
+                        <Copy className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <Button className="w-full" variant="outline" onClick={() => window.open(TESTNET_CONFIG.explorerUrl, "_blank")} data-testid="button-open-explorer">
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Open Explorer
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="md:col-span-2" data-testid="card-network-config">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Settings className="h-5 w-5" />
+                    Network Configuration
+                  </CardTitle>
+                  <CardDescription>Add TBURN Testnet to your wallet</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="space-y-1">
+                      <Label className="text-muted-foreground">Network Name</Label>
+                      <p className="font-medium">{TESTNET_CONFIG.chainName}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-muted-foreground">Chain ID</Label>
+                      <p className="font-medium">{TESTNET_CONFIG.chainId}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-muted-foreground">Currency Symbol</Label>
+                      <p className="font-medium">{TESTNET_CONFIG.nativeCurrency.symbol}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-muted-foreground">Decimals</Label>
+                      <p className="font-medium">{TESTNET_CONFIG.nativeCurrency.decimals}</p>
+                    </div>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="flex gap-2">
+                    <Button onClick={handleAddToWallet} data-testid="button-add-network">
+                      <Wallet className="h-4 w-4 mr-2" />
+                      Add to MetaMask
+                    </Button>
+                    <Button variant="outline" onClick={handleExportConfig} data-testid="button-export-json">
+                      <FileJson className="h-4 w-4 mr-2" />
+                      Export as JSON
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Configuration Tab */}
+          <TabsContent value="config" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card data-testid="card-config-network">
+                <CardHeader>
+                  <CardTitle>Network Parameters</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-muted-foreground">Chain ID</span>
+                    <code className="bg-muted px-2 py-1 rounded">{TESTNET_CONFIG.chainId}</code>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-muted-foreground">Block Time</span>
+                    <span>{stats.averageBlockTime}s</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-muted-foreground">Gas Price</span>
+                    <span>{stats.gasPrice} TBURN</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-muted-foreground">Validators</span>
+                    <span>{stats.activeValidators}/{stats.totalValidators}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-muted-foreground">Consensus</span>
+                    <Badge>BFT + PoS</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="card-config-features">
+                <CardHeader>
+                  <CardTitle>Enabled Features</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="flex items-center gap-2"><Shield className="h-4 w-4" /> Quantum-Resistant</span>
+                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="flex items-center gap-2"><Layers className="h-4 w-4" /> Bridge Support</span>
+                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="flex items-center gap-2"><Cpu className="h-4 w-4" /> AI Orchestration</span>
+                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="flex items-center gap-2"><Database className="h-4 w-4" /> Dynamic Sharding</span>
+                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="flex items-center gap-2"><Gauge className="h-4 w-4" /> High TPS Mode</span>
+                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Code Examples */}
+            <Card data-testid="card-code-examples">
               <CardHeader>
-                <CardTitle>{t("adminTestnet.testnetSettings")}</CardTitle>
-                <CardDescription>{t("adminTestnet.configureTestnetParameters")}</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <Code className="h-5 w-5" />
+                  Quick Start Examples
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{t("adminTestnet.autoRestartOnFailure")}</p>
-                    <p className="text-sm text-muted-foreground">{t("adminTestnet.autoRestartDesc")}</p>
-                  </div>
-                  <Switch defaultChecked data-testid="switch-auto-restart" />
+                <div className="space-y-2">
+                  <Label>Connect with ethers.js</Label>
+                  <pre className="bg-muted p-4 rounded text-xs overflow-x-auto">
+{`import { ethers } from 'ethers';
+
+const provider = new ethers.JsonRpcProvider('${TESTNET_CONFIG.rpcUrl}');
+const blockNumber = await provider.getBlockNumber();
+console.log('Current block:', blockNumber);`}
+                  </pre>
                 </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{t("adminTestnet.dailyBackups")}</p>
-                    <p className="text-sm text-muted-foreground">{t("adminTestnet.dailyBackupsDesc")}</p>
-                  </div>
-                  <Switch defaultChecked data-testid="switch-daily-backups" />
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{t("adminTestnet.rateLimiting")}</p>
-                    <p className="text-sm text-muted-foreground">{t("adminTestnet.rateLimitingDesc")}</p>
-                  </div>
-                  <Switch defaultChecked data-testid="switch-rate-limiting" />
-                </div>
-                <Separator />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>{t("adminTestnet.faucetDailyLimit")}</Label>
-                    <Input type="number" defaultValue="500" data-testid="input-daily-limit" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>{t("adminTestnet.faucetRequestAmount")}</Label>
-                    <Input type="number" defaultValue="100" data-testid="input-request-amount" />
-                  </div>
+                <div className="space-y-2">
+                  <Label>Add Network to MetaMask</Label>
+                  <pre className="bg-muted p-4 rounded text-xs overflow-x-auto">
+{`await window.ethereum.request({
+  method: 'wallet_addEthereumChain',
+  params: [{
+    chainId: '0x${TESTNET_CONFIG.chainId.toString(16)}',
+    chainName: '${TESTNET_CONFIG.chainName}',
+    rpcUrls: ['${TESTNET_CONFIG.rpcUrl}'],
+    blockExplorerUrls: ['${TESTNET_CONFIG.explorerUrl}']
+  }]
+});`}
+                  </pre>
                 </div>
               </CardContent>
             </Card>
@@ -688,29 +1000,101 @@ export default function TestnetManagement() {
         </Tabs>
       </div>
 
-      {selectedInstance && (
-        <DetailSheet
-          open={showInstanceDetail}
-          onOpenChange={setShowInstanceDetail}
-          title={selectedInstance.name}
-          subtitle={`${t("adminTestnet.chainId")}: ${selectedInstance.chainId}`}
-          icon={<FlaskConical className="h-5 w-5" />}
-          sections={getInstanceDetailSections(selectedInstance)}
-        />
-      )}
+      {/* Node Detail Sheet */}
+      <Sheet open={nodeDetailOpen} onOpenChange={setNodeDetailOpen}>
+        <SheetContent className="w-full sm:max-w-lg">
+          {selectedNode && (
+            <>
+              <SheetHeader>
+                <SheetTitle className="flex items-center gap-2">
+                  {getStatusIcon(selectedNode.status)}
+                  {selectedNode.name}
+                </SheetTitle>
+                <SheetDescription>{selectedNode.region}</SheetDescription>
+              </SheetHeader>
+              <div className="mt-6 space-y-6">
+                <div className="flex items-center justify-between">
+                  <span>Status</span>
+                  <Badge className={getStatusColor(selectedNode.status)}>{selectedNode.status}</Badge>
+                </div>
+                <Separator />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Block Height</p>
+                    <p className="font-medium">{selectedNode.blockHeight.toLocaleString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Peers</p>
+                    <p className="font-medium">{selectedNode.peers}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Latency</p>
+                    <p className="font-medium">{selectedNode.latency}ms</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Uptime</p>
+                    <p className="font-medium">{selectedNode.uptime}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Version</p>
+                    <p className="font-medium">{selectedNode.version}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Last Seen</p>
+                    <p className="font-medium">{new Date(selectedNode.lastSeen).toLocaleString()}</p>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
 
-      <ConfirmationDialog
-        open={showResetConfirm}
-        onOpenChange={setShowResetConfirm}
-        title={t("adminTestnet.confirm.resetTitle")}
-        description={t("adminTestnet.confirm.resetDesc")}
-        actionType="restart"
-        confirmText={t("adminTestnet.reset")}
-        cancelText={t("adminTestnet.cancel")}
-        onConfirm={handleConfirmReset}
-        isLoading={resetMutation.isPending}
-        destructive={true}
-      />
+      {/* Add to Wallet Dialog */}
+      <Dialog open={showAddToWallet} onOpenChange={setShowAddToWallet}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add TBURN Testnet Manually</DialogTitle>
+            <DialogDescription>No Web3 wallet detected. Add the network manually using these settings:</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right">Network Name</Label>
+              <div className="col-span-3">
+                <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.chainName}</code>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right">RPC URL</Label>
+              <div className="col-span-3">
+                <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.rpcUrl}</code>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right">Chain ID</Label>
+              <div className="col-span-3">
+                <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.chainId}</code>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right">Symbol</Label>
+              <div className="col-span-3">
+                <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.nativeCurrency.symbol}</code>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right">Explorer</Label>
+              <div className="col-span-3">
+                <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.explorerUrl}</code>
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowAddToWallet(false)}>Close</Button>
+            <Button onClick={handleExportConfig}>Export Config</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
