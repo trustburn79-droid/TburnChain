@@ -82,14 +82,34 @@ interface AIOrchestrationData {
 }
 
 interface EnterpriseHealthData {
+  success: boolean;
   status: string;
-  uptime: number;
-  lastDecisionTime: string | null;
   components: {
-    aiService: { status: string; latency: number };
-    executor: { status: string; latency: number };
+    orchestrator: {
+      status: string;
+      details: {
+        isRunning: boolean;
+        processedDecisions: number;
+        failedDecisions: number;
+        retryQueueSize: number;
+        totalCostUsd: number;
+        totalTokens: number;
+        averageResponseTimeMs: number;
+        successRate: number;
+        lastDecisionAt: number;
+        uptime: number;
+        issues: string[];
+        timestamp: number;
+      };
+    };
+    executor: {
+      status: string;
+      executionCount: number;
+      rollbackCount: number;
+      queueSize: number;
+    };
   };
-  alerts: string[];
+  timestamp: number;
 }
 
 interface ProductionReadinessData {
@@ -789,7 +809,7 @@ export default function AdminAIOrchestration() {
     refetchInterval: 30000,
   });
 
-  const { data: healthData, isLoading: healthLoading } = useQuery<{ success: boolean; data: EnterpriseHealthData }>({
+  const { data: healthData, isLoading: healthLoading } = useQuery<EnterpriseHealthData>({
     queryKey: ["/api/enterprise/ai/health"],
     refetchInterval: 10000,
   });
@@ -926,7 +946,7 @@ export default function AdminAIOrchestration() {
       performance: aiData.performance,
       stats: aiData.stats,
       enterprise: {
-        health: healthData?.data,
+        health: healthData,
         readiness: readinessData?.data,
         executor: executorData?.data,
         bands: bandsData?.data,
@@ -1100,35 +1120,35 @@ export default function AdminAIOrchestration() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4">
-                <div className={`p-3 rounded-full ${healthData?.data?.status === 'healthy' ? 'bg-green-500/20' : 'bg-yellow-500/20'}`}>
-                  <Shield className={`w-6 h-6 ${healthData?.data?.status === 'healthy' ? 'text-green-500' : 'text-yellow-500'}`} />
+                <div className={`p-3 rounded-full ${healthData?.status === 'healthy' ? 'bg-green-500/20' : 'bg-yellow-500/20'}`}>
+                  <Shield className={`w-6 h-6 ${healthData?.status === 'healthy' ? 'text-green-500' : 'text-yellow-500'}`} />
                 </div>
                 <div>
                   <p className="font-medium text-lg" data-testid="text-system-status">
-                    {t("adminAI.enterprise.systemStatus")}: {translateStatus(healthData?.data?.status || 'loading')}
+                    {t("adminAI.enterprise.systemStatus")}: {translateStatus(healthData?.status || 'loading')}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {t("adminAI.enterprise.uptimeLabel")}: {healthData?.data?.uptime?.toFixed(1) || '0'} {t("adminAI.enterprise.minutes")} | 
-                    {t("adminAI.enterprise.processed")}: {bandsData?.data?.processedDecisions || 0} {t("adminAI.enterprise.decisionsLabel")}
+                    {t("adminAI.enterprise.uptimeLabel")}: {((healthData?.components?.orchestrator?.details?.uptime || 0) / 60000).toFixed(1)} {t("adminAI.enterprise.minutes")} | 
+                    {t("adminAI.enterprise.processed")}: {healthData?.components?.orchestrator?.details?.processedDecisions || 0} {t("adminAI.enterprise.decisionsLabel")}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-6">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-green-500" data-testid="text-ai-service-status">
-                    {translateStatus(healthData?.data?.components?.aiService?.status || 'degraded')}
+                    {translateStatus(healthData?.components?.orchestrator?.status || 'degraded')}
                   </p>
                   <p className="text-xs text-muted-foreground">{t("adminAI.enterprise.aiService")}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-green-500" data-testid="text-executor-status">
-                    {executorData?.data?.isActive ? translateStatus('active') : translateStatus('inactive')}
+                    {healthData?.components?.executor?.status === 'healthy' ? translateStatus('active') : translateStatus('inactive')}
                   </p>
                   <p className="text-xs text-muted-foreground">{t("adminAI.enterprise.executor")}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-blue-500" data-testid="text-execution-count">
-                    {executorData?.data?.executionCount || 0}
+                    {healthData?.components?.executor?.executionCount || 0}
                   </p>
                   <p className="text-xs text-muted-foreground">{t("adminAI.enterprise.executions")}</p>
                 </div>
