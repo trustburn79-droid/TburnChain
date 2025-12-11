@@ -207,7 +207,7 @@ export default function FeedbackSystem() {
   };
 
   const filteredFeedback = feedbackItems.filter((item) => {
-    const matchesSearch = item.message.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = (item.message || "").toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = selectedType === "all" || item.type === selectedType;
     return matchesSearch && matchesType;
   });
