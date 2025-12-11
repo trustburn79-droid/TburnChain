@@ -244,7 +244,7 @@ router.get('/snapshot', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch network snapshot',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -266,7 +266,7 @@ router.get('/accounts/:address', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch account state',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -295,7 +295,7 @@ router.get('/validators/:address', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch validator state',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -329,7 +329,7 @@ router.get('/metrics', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch metrics',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -416,7 +416,7 @@ router.post('/staking/claim-rewards', validateBody(claimRewardsSchema), async (r
       success: false,
       error: 'Claim rewards failed',
       code: 'CLAIM_ERROR',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -547,7 +547,7 @@ router.post('/bridge/transfer', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Bridge transfer failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -578,7 +578,7 @@ router.post('/bridge/claim', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Claim transfer failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -701,7 +701,7 @@ router.post('/nft/list', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'List NFT failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -732,7 +732,7 @@ router.post('/nft/buy', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Buy NFT failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -874,7 +874,7 @@ router.get('/defi/overview', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get DeFi overview',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -929,7 +929,7 @@ router.get('/token-system/summary', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get token system summary',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -988,7 +988,7 @@ router.get('/staking-defi/correlation', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get staking-DeFi correlation',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1038,7 +1038,7 @@ router.get('/bridge-defi/integration', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get bridge-DeFi integration',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1087,7 +1087,7 @@ router.get('/governance/overview', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get governance overview',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1143,7 +1143,7 @@ router.get('/admin/system-status', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get admin system status',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1201,7 +1201,7 @@ router.get('/operator/dashboard', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get operator dashboard',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1276,7 +1276,7 @@ router.get('/dashboard/unified', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get unified dashboard',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1324,7 +1324,7 @@ router.get('/health', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Health check failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1374,7 +1374,7 @@ router.get('/gamefi/summary', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'GameFi summary fetch failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1420,7 +1420,7 @@ router.get('/admin/api-keys', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch API keys summary',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1469,7 +1469,7 @@ router.post('/admin/api-keys', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create API key',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1509,7 +1509,7 @@ router.delete('/admin/api-keys/:keyId', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to revoke API key',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1550,7 +1550,7 @@ router.post('/admin/api-keys/:keyId/rotate', async (req: Request, res: Response)
     res.status(500).json({
       success: false,
       error: 'Failed to rotate API key',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1589,7 +1589,7 @@ router.get('/operator/session', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch operator session',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1644,7 +1644,7 @@ router.get('/launchpad/summary', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Launchpad summary fetch failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1751,7 +1751,7 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Token issuance fetch failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1789,7 +1789,7 @@ router.post('/admin/token/mint', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Mint request failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1826,7 +1826,7 @@ router.post('/admin/token/burn-manual', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Burn request failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1900,7 +1900,7 @@ router.get('/admin/burn-control', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Burn control fetch failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -1930,7 +1930,7 @@ router.post('/admin/burn-control/update-rates', async (req: Request, res: Respon
     res.status(500).json({
       success: false,
       error: 'Update rates failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2006,7 +2006,7 @@ router.get('/admin/economics', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Economics data fetch failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2036,7 +2036,7 @@ router.post('/admin/economics/update', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Economics update failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2112,7 +2112,7 @@ router.get('/admin/treasury', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Treasury data fetch failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2150,7 +2150,7 @@ router.post('/admin/treasury/transfer', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Transfer request failed',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2176,7 +2176,7 @@ router.get('/admin/security', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch security data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2198,7 +2198,7 @@ router.get('/admin/access/policies', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch access control data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2220,7 +2220,7 @@ router.get('/admin/audit/logs', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch audit logs',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2242,7 +2242,7 @@ router.get('/admin/security/threats', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch threat data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2264,7 +2264,7 @@ router.get('/admin/compliance', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch compliance data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2289,7 +2289,7 @@ router.post('/admin/security/sessions/:id/terminate', async (req: Request, res: 
     res.status(500).json({
       success: false,
       error: 'Failed to terminate session',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2314,7 +2314,7 @@ router.post('/admin/security/threats/:id/block', async (req: Request, res: Respo
     res.status(500).json({
       success: false,
       error: 'Failed to block threat',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2339,7 +2339,7 @@ router.post('/admin/security/threats/:id/unblock', async (req: Request, res: Res
     res.status(500).json({
       success: false,
       error: 'Failed to unblock threat',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2363,7 +2363,7 @@ router.post('/admin/compliance/assessment', async (req: Request, res: Response) 
     res.status(500).json({
       success: false,
       error: 'Failed to run assessment',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2382,7 +2382,7 @@ router.get('/admin/bi/metrics', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch BI metrics',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2396,7 +2396,7 @@ router.get('/admin/analytics/transactions', async (req: Request, res: Response) 
     res.status(500).json({
       success: false,
       error: 'Failed to fetch transaction analytics',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2410,7 +2410,7 @@ router.get('/admin/analytics/users', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch user analytics',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2424,7 +2424,7 @@ router.get('/admin/analytics/network', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch network analytics',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2438,7 +2438,7 @@ router.get('/admin/reports/templates', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch report templates',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2462,7 +2462,7 @@ router.post('/admin/reports/generate', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to generate report',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2483,7 +2483,7 @@ router.patch('/admin/reports/schedule/:id', async (req: Request, res: Response) 
     res.status(500).json({
       success: false,
       error: 'Failed to update schedule',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2503,7 +2503,7 @@ router.delete('/admin/reports/schedule/:id', async (req: Request, res: Response)
     res.status(500).json({
       success: false,
       error: 'Failed to delete schedule',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2521,7 +2521,7 @@ router.get('/admin/operations/emergency', async (req: Request, res: Response) =>
     res.status(500).json({
       success: false,
       error: 'Failed to fetch emergency status',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2542,7 +2542,7 @@ router.post('/admin/operations/emergency/activate/:controlId', async (req: Reque
     res.status(500).json({
       success: false,
       error: 'Failed to activate emergency control',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2562,7 +2562,7 @@ router.patch('/admin/operations/emergency/breaker', async (req: Request, res: Re
     res.status(500).json({
       success: false,
       error: 'Failed to update circuit breaker',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2580,7 +2580,7 @@ router.get('/admin/operations/maintenance', async (req: Request, res: Response) 
     res.status(500).json({
       success: false,
       error: 'Failed to fetch maintenance data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2599,7 +2599,7 @@ router.post('/admin/operations/maintenance/mode', async (req: Request, res: Resp
     res.status(500).json({
       success: false,
       error: 'Failed to toggle maintenance mode',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2625,7 +2625,7 @@ router.post('/admin/operations/maintenance/schedule', async (req: Request, res: 
     res.status(500).json({
       success: false,
       error: 'Failed to schedule maintenance',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2645,7 +2645,7 @@ router.post('/admin/operations/maintenance/cancel/:id', async (req: Request, res
     res.status(500).json({
       success: false,
       error: 'Failed to cancel maintenance',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2663,7 +2663,7 @@ router.get('/admin/operations/backups', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch backup data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2684,7 +2684,7 @@ router.post('/admin/operations/backups/create', async (req: Request, res: Respon
     res.status(500).json({
       success: false,
       error: 'Failed to create backup',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2704,7 +2704,7 @@ router.post('/admin/operations/backups/restore/:id', async (req: Request, res: R
     res.status(500).json({
       success: false,
       error: 'Failed to restore backup',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2724,7 +2724,7 @@ router.delete('/admin/operations/backups/:id', async (req: Request, res: Respons
     res.status(500).json({
       success: false,
       error: 'Failed to delete backup',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2744,7 +2744,7 @@ router.patch('/admin/operations/backups/job', async (req: Request, res: Response
     res.status(500).json({
       success: false,
       error: 'Failed to update backup job',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2762,7 +2762,7 @@ router.get('/admin/operations/updates', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch updates data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2780,7 +2780,7 @@ router.post('/admin/operations/updates/check', async (req: Request, res: Respons
     res.status(500).json({
       success: false,
       error: 'Failed to check for updates',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2800,7 +2800,7 @@ router.post('/admin/operations/updates/install', async (req: Request, res: Respo
     res.status(500).json({
       success: false,
       error: 'Failed to install update',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2820,7 +2820,7 @@ router.post('/admin/operations/updates/rollback', async (req: Request, res: Resp
     res.status(500).json({
       success: false,
       error: 'Failed to rollback update',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2840,7 +2840,7 @@ router.post('/admin/operations/updates/node', async (req: Request, res: Response
     res.status(500).json({
       success: false,
       error: 'Failed to update node',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2858,7 +2858,7 @@ router.get('/admin/operations/logs', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch system logs',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2876,7 +2876,7 @@ router.get('/admin/settings', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch system settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2888,7 +2888,7 @@ router.post('/admin/settings', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to save settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2902,7 +2902,7 @@ router.post('/admin/settings/reset', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to reset settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2920,7 +2920,7 @@ router.get('/admin/config/api', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch API config',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2932,7 +2932,7 @@ router.post('/admin/config/api', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to save API config',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2956,7 +2956,7 @@ router.post('/admin/config/api/keys', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create API key',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2969,7 +2969,7 @@ router.delete('/admin/config/api/keys/:keyId', async (req: Request, res: Respons
     res.status(500).json({
       success: false,
       error: 'Failed to delete API key',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2987,7 +2987,7 @@ router.get('/admin/integrations', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch integrations',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -2999,7 +2999,7 @@ router.post('/admin/integrations', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to save integrations',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3013,7 +3013,7 @@ router.patch('/admin/integrations/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update integration',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3031,7 +3031,7 @@ router.get('/admin/notifications/settings', async (req: Request, res: Response) 
     res.status(500).json({
       success: false,
       error: 'Failed to fetch notification settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3043,7 +3043,7 @@ router.post('/admin/notifications/settings', async (req: Request, res: Response)
     res.status(500).json({
       success: false,
       error: 'Failed to save notification settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3055,7 +3055,7 @@ router.post('/admin/notifications/test', async (req: Request, res: Response) => 
     res.status(500).json({
       success: false,
       error: 'Failed to send test notification',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3073,7 +3073,7 @@ router.get('/admin/appearance', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch appearance settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3085,7 +3085,7 @@ router.post('/admin/appearance', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to save appearance settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3099,7 +3099,7 @@ router.post('/admin/appearance/reset', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to reset appearance settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3117,7 +3117,7 @@ router.get('/admin/accounts', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch admin accounts',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3129,7 +3129,7 @@ router.post('/admin/accounts', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create account',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3141,7 +3141,7 @@ router.patch('/admin/accounts/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update account',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3153,7 +3153,7 @@ router.delete('/admin/accounts/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to delete account',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3167,7 +3167,7 @@ router.get('/admin/roles', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch admin roles',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3179,7 +3179,7 @@ router.post('/admin/roles', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create role',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3191,7 +3191,7 @@ router.patch('/admin/roles/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update role',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3203,7 +3203,7 @@ router.delete('/admin/roles/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to delete role',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3217,7 +3217,7 @@ router.get('/admin/permissions', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch admin permissions',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3229,7 +3229,7 @@ router.post('/admin/permissions', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update permissions',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3244,7 +3244,7 @@ router.get('/admin/activity', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch admin activity',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3258,7 +3258,7 @@ router.get('/admin/sessions', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch admin sessions',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3270,7 +3270,7 @@ router.delete('/admin/sessions/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to terminate session',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3282,7 +3282,7 @@ router.delete('/admin/sessions/all', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to terminate all sessions',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3294,7 +3294,7 @@ router.post('/admin/sessions/settings', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update session settings',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3312,7 +3312,7 @@ router.get('/admin/governance/proposals', async (req: Request, res: Response) =>
     res.status(500).json({
       success: false,
       error: 'Failed to fetch governance proposals',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3324,7 +3324,7 @@ router.post('/admin/governance/proposals', async (req: Request, res: Response) =
     res.status(500).json({
       success: false,
       error: 'Failed to create proposal',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3336,7 +3336,7 @@ router.delete('/admin/governance/proposals/:id', async (req: Request, res: Respo
     res.status(500).json({
       success: false,
       error: 'Failed to delete proposal',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3351,7 +3351,7 @@ router.get('/admin/governance/votes', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch governance votes',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3363,7 +3363,7 @@ router.post('/admin/governance/votes/config', async (req: Request, res: Response
     res.status(500).json({
       success: false,
       error: 'Failed to update voting config',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3377,7 +3377,7 @@ router.get('/admin/governance/execution', async (req: Request, res: Response) =>
     res.status(500).json({
       success: false,
       error: 'Failed to fetch execution tasks',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3389,7 +3389,7 @@ router.post('/admin/governance/execution/:id/execute', async (req: Request, res:
     res.status(500).json({
       success: false,
       error: 'Failed to execute task',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3401,7 +3401,7 @@ router.post('/admin/governance/execution/:id/cancel', async (req: Request, res: 
     res.status(500).json({
       success: false,
       error: 'Failed to cancel task',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3413,7 +3413,7 @@ router.post('/admin/governance/execution/:id/retry', async (req: Request, res: R
     res.status(500).json({
       success: false,
       error: 'Failed to retry task',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3427,7 +3427,7 @@ router.get('/admin/governance/params', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch governance params',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3439,7 +3439,7 @@ router.post('/admin/governance/params', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update governance params',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3453,7 +3453,7 @@ router.get('/admin/feedback', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch community feedback',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3465,7 +3465,7 @@ router.patch('/admin/feedback/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update feedback',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3477,7 +3477,7 @@ router.post('/admin/feedback/:id/respond', async (req: Request, res: Response) =
     res.status(500).json({
       success: false,
       error: 'Failed to submit response',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3491,7 +3491,7 @@ router.get('/admin/community', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch community content',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3503,7 +3503,7 @@ router.patch('/admin/community/posts/:id', async (req: Request, res: Response) =
     res.status(500).json({
       success: false,
       error: 'Failed to update post',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3515,7 +3515,7 @@ router.delete('/admin/community/posts/:id', async (req: Request, res: Response) 
     res.status(500).json({
       success: false,
       error: 'Failed to delete post',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3527,7 +3527,7 @@ router.patch('/admin/community/members/:id', async (req: Request, res: Response)
     res.status(500).json({
       success: false,
       error: 'Failed to update member',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3545,7 +3545,7 @@ router.get('/admin/developer/docs', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch API documentation',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3559,7 +3559,7 @@ router.get('/admin/developer/sdk', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch SDK information',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3573,7 +3573,7 @@ router.get('/admin/developer/contracts', async (req: Request, res: Response) => 
     res.status(500).json({
       success: false,
       error: 'Failed to fetch contract tools',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3585,7 +3585,7 @@ router.post('/admin/developer/contracts/deploy', async (req: Request, res: Respo
     res.status(500).json({
       success: false,
       error: 'Failed to deploy contract',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3597,7 +3597,7 @@ router.post('/admin/developer/contracts/verify', async (req: Request, res: Respo
     res.status(500).json({
       success: false,
       error: 'Failed to verify contract',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3611,7 +3611,7 @@ router.get('/admin/testnet', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch testnet information',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3624,7 +3624,7 @@ router.post('/admin/testnet/faucet', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to process faucet request',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3636,7 +3636,7 @@ router.post('/admin/testnet/:id/start', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to start testnet',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3648,7 +3648,7 @@ router.post('/admin/testnet/:id/stop', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to stop testnet',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3660,7 +3660,7 @@ router.post('/admin/testnet/:id/reset', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to reset testnet',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3674,7 +3674,7 @@ router.get('/admin/debug', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch debug information',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3715,7 +3715,7 @@ Execution Complete - Transaction Finalized`;
     res.status(500).json({
       success: false,
       error: 'Failed to trace transaction',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3727,7 +3727,7 @@ router.post('/admin/debug/execute', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to execute code',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3739,7 +3739,7 @@ router.delete('/admin/debug/logs', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to clear logs',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3757,7 +3757,7 @@ router.get('/admin/monitoring/realtime', async (req: Request, res: Response) => 
     res.status(500).json({
       success: false,
       error: 'Failed to fetch realtime monitoring data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3771,7 +3771,7 @@ router.get('/admin/monitoring/metrics', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch metrics data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3785,7 +3785,7 @@ router.get('/admin/alerts/rules', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch alert rules',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3798,7 +3798,7 @@ router.post('/admin/alerts/rules', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create alert rule',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3810,7 +3810,7 @@ router.patch('/admin/alerts/rules/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update alert rule',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3822,7 +3822,7 @@ router.delete('/admin/alerts/rules/:id', async (req: Request, res: Response) => 
     res.status(500).json({
       success: false,
       error: 'Failed to delete alert rule',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3834,7 +3834,7 @@ router.post('/admin/alerts/rules/test', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to test alert rules',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3848,7 +3848,7 @@ router.get('/admin/dashboards', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch dashboards',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3861,7 +3861,7 @@ router.post('/admin/dashboards', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create dashboard',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3873,7 +3873,7 @@ router.patch('/admin/dashboards/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to update dashboard',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3885,7 +3885,7 @@ router.delete('/admin/dashboards/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to delete dashboard',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -3992,7 +3992,7 @@ router.get('/admin/sla', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch SLA metrics',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4008,7 +4008,7 @@ router.get('/admin/finance', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch finance overview',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4022,7 +4022,7 @@ router.get('/admin/tx-accounting', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch transaction accounting',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4036,7 +4036,7 @@ router.get('/admin/budget', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch budget management data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4050,7 +4050,7 @@ router.get('/admin/cost-analysis', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch cost analysis',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4064,7 +4064,7 @@ router.get('/admin/tax', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch tax compliance data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4110,7 +4110,7 @@ router.get('/admin/help', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch help center data',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4141,7 +4141,7 @@ router.get('/admin/training', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch training materials',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4153,7 +4153,7 @@ router.post('/admin/training/courses/:courseId/enroll', async (req: Request, res
     res.status(500).json({
       success: false,
       error: 'Failed to enroll in course',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4165,7 +4165,7 @@ router.post('/admin/training/courses/:courseId/modules/:moduleId/complete', asyn
     res.status(500).json({
       success: false,
       error: 'Failed to complete module',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4188,7 +4188,7 @@ router.get('/admin/tickets', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch support tickets',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4201,7 +4201,7 @@ router.post('/admin/tickets', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create ticket',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4213,7 +4213,7 @@ router.patch('/admin/tickets/:ticketId', async (req: Request, res: Response) => 
     res.status(500).json({
       success: false,
       error: 'Failed to update ticket',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4225,7 +4225,7 @@ router.post('/admin/tickets/:ticketId/close', async (req: Request, res: Response
     res.status(500).json({
       success: false,
       error: 'Failed to close ticket',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4245,7 +4245,7 @@ router.get('/admin/announcements', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch announcements',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4258,7 +4258,7 @@ router.post('/admin/announcements', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create announcement',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4270,7 +4270,7 @@ router.patch('/admin/announcements/:id', async (req: Request, res: Response) => 
     res.status(500).json({
       success: false,
       error: 'Failed to update announcement',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4282,7 +4282,7 @@ router.delete('/admin/announcements/:id', async (req: Request, res: Response) =>
     res.status(500).json({
       success: false,
       error: 'Failed to delete announcement',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
@@ -4294,7 +4294,7 @@ router.post('/admin/announcements/:id/publish', async (req: Request, res: Respon
     res.status(500).json({
       success: false,
       error: 'Failed to publish announcement',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: sanitizeError(error)
     });
   }
 });
