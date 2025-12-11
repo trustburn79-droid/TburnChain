@@ -42,8 +42,8 @@ import { getSelfHealingEngine } from "./services/SelfHealingEngine";
 import { aiOrchestrator, type BlockchainEvent } from "./services/AIOrchestrator";
 import { aiDecisionExecutor } from "./services/AIDecisionExecutor";
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
-const SITE_PASSWORD = ADMIN_PASSWORD || "admin7979";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
+const SITE_PASSWORD = ADMIN_PASSWORD;
 
 // ============================================
 // ENTERPRISE STABILITY: Interval Tracking for Graceful Shutdown
