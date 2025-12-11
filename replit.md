@@ -30,6 +30,13 @@ Key architectural decisions include:
   - Versions tab: Model version history and deployment controls
   - Deployments tab: Production model deployments with canary releases, health monitoring, rollback capability
   - Real-time WebSocket updates for training progress
+- **Compliance Management**: Enterprise-grade Compliance page (`/admin/compliance`) with:
+  - Frameworks tab: Regulatory compliance framework monitoring (SOC2, GDPR, PCI-DSS, ISO27001, etc.)
+  - KYC/AML tab: Customer verification and anti-money laundering monitoring with verification metrics
+  - Regulatory Reports tab: Compliance report generation and audit trail
+  - Incidents tab: Security incident tracking and resolution monitoring
+  - Certifications tab: Industry certification management with expiry tracking
+  - Dynamic compliance scoring with risk indicators and framework metadata
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
