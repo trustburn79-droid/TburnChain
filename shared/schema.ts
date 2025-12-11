@@ -350,6 +350,122 @@ export const aiParameters = pgTable("ai_parameters", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// AI Training Metrics (Track epoch-by-epoch training progress)
+export const aiTrainingMetrics = pgTable("ai_training_metrics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  jobId: varchar("job_id").notNull(),
+  epoch: integer("epoch").notNull(),
+  
+  // Core metrics
+  trainLoss: real("train_loss").notNull().default(0),
+  validationLoss: real("validation_loss").notNull().default(0),
+  trainAccuracy: real("train_accuracy").notNull().default(0),
+  validationAccuracy: real("validation_accuracy").notNull().default(0),
+  
+  // Advanced metrics
+  learningRate: real("learning_rate").notNull().default(0),
+  gradientNorm: real("gradient_norm").notNull().default(0),
+  throughputSamplesPerSec: integer("throughput_samples_per_sec").notNull().default(0),
+  gpuMemoryUsedMb: integer("gpu_memory_used_mb").notNull().default(0),
+  
+  // Performance
+  epochDurationMs: integer("epoch_duration_ms").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// AI Model Deployments (Track deployed model versions)
+export const aiModelDeployments = pgTable("ai_model_deployments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  modelName: text("model_name").notNull(),
+  version: text("version").notNull(),
+  status: text("status").notNull().default("pending"), // pending, deploying, active, inactive, failed, rollback
+  environment: text("environment").notNull().default("production"), // development, staging, production
+  
+  // Source info
+  trainingJobId: varchar("training_job_id"),
+  baseModel: text("base_model").notNull(), // Gemini 3 Pro, Claude Sonnet 4.5, etc.
+  
+  // Performance metrics
+  accuracy: real("accuracy").notNull().default(0),
+  latencyMs: integer("latency_ms").notNull().default(0),
+  throughputRps: integer("throughput_rps").notNull().default(0),
+  
+  // Resource usage
+  memoryMb: integer("memory_mb").notNull().default(0),
+  gpuUtilization: integer("gpu_utilization").notNull().default(0), // percentage
+  
+  // Health
+  healthScore: integer("health_score").notNull().default(100), // 0-100
+  requestCount: bigint("request_count", { mode: "number" }).notNull().default(0),
+  errorCount: integer("error_count").notNull().default(0),
+  
+  // A/B Testing
+  trafficPercent: integer("traffic_percent").notNull().default(100), // 0-100
+  isCanary: boolean("is_canary").notNull().default(false),
+  
+  // Rollback support
+  previousVersionId: varchar("previous_version_id"),
+  rollbackCount: integer("rollback_count").notNull().default(0),
+  
+  // Metadata
+  deployedBy: text("deployed_by"),
+  deployedAt: timestamp("deployed_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// AI Training Datasets (Manage training data)
+export const aiTrainingDatasets = pgTable("ai_training_datasets", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  description: text("description"),
+  
+  // Data info
+  records: bigint("records", { mode: "number" }).notNull().default(0),
+  sizeBytes: bigint("size_bytes", { mode: "number" }).notNull().default(0),
+  format: text("format").notNull().default("jsonl"), // jsonl, csv, parquet
+  
+  // Quality metrics
+  qualityScore: integer("quality_score").notNull().default(0), // 0-100
+  completeness: integer("completeness").notNull().default(0), // 0-100
+  consistency: integer("consistency").notNull().default(0), // 0-100
+  duplicateRate: real("duplicate_rate").notNull().default(0), // percentage
+  
+  // Schema info
+  columns: jsonb("columns"), // Column definitions
+  sampleData: jsonb("sample_data"), // Sample records
+  
+  // Usage tracking
+  usedInJobs: integer("used_in_jobs").notNull().default(0),
+  lastUsedAt: timestamp("last_used_at"),
+  
+  // Versioning
+  version: integer("version").notNull().default(1),
+  parentDatasetId: varchar("parent_dataset_id"),
+  
+  // Metadata
+  tags: text("tags").array(),
+  createdBy: text("created_by"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// AI Training Logs (Detailed training event logs)
+export const aiTrainingLogs = pgTable("ai_training_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  jobId: varchar("job_id").notNull(),
+  level: text("level").notNull().default("info"), // debug, info, warning, error, critical
+  message: text("message").notNull(),
+  details: jsonb("details"),
+  
+  // Context
+  epoch: integer("epoch"),
+  step: integer("step"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Shard Information
 // Shards (Dynamic AI-Driven Sharding with ML Optimization)
 export const shards = pgTable("shards", {
@@ -1456,6 +1572,10 @@ export const insertAiUsageLogSchema = createInsertSchema(aiUsageLogs).omit({ id:
 export const insertAiExecutionLogSchema = createInsertSchema(aiExecutionLogs).omit({ id: true, createdAt: true, completedAt: true, rollbackAt: true });
 export const insertGovernancePrevalidationSchema = createInsertSchema(governancePrevalidations).omit({ id: true, createdAt: true, decidedAt: true });
 export const insertAiTrainingJobSchema = createInsertSchema(aiTrainingJobs).omit({ id: true, createdAt: true, updatedAt: true, startedAt: true, pausedAt: true, completedAt: true });
+export const insertAiTrainingMetricsSchema = createInsertSchema(aiTrainingMetrics).omit({ id: true, createdAt: true });
+export const insertAiModelDeploymentSchema = createInsertSchema(aiModelDeployments).omit({ id: true, createdAt: true, updatedAt: true, deployedAt: true });
+export const insertAiTrainingDatasetSchema = createInsertSchema(aiTrainingDatasets).omit({ id: true, createdAt: true, updatedAt: true, lastUsedAt: true });
+export const insertAiTrainingLogSchema = createInsertSchema(aiTrainingLogs).omit({ id: true, createdAt: true });
 export const insertAiParametersSchema = createInsertSchema(aiParameters).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertShardSchema = createInsertSchema(shards).omit({ id: true, lastSyncedAt: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
@@ -1606,6 +1726,18 @@ export type InsertGovernancePrevalidation = z.infer<typeof insertGovernancePreva
 
 export type AiTrainingJob = typeof aiTrainingJobs.$inferSelect;
 export type InsertAiTrainingJob = z.infer<typeof insertAiTrainingJobSchema>;
+
+export type AiTrainingMetrics = typeof aiTrainingMetrics.$inferSelect;
+export type InsertAiTrainingMetrics = z.infer<typeof insertAiTrainingMetricsSchema>;
+
+export type AiModelDeployment = typeof aiModelDeployments.$inferSelect;
+export type InsertAiModelDeployment = z.infer<typeof insertAiModelDeploymentSchema>;
+
+export type AiTrainingDataset = typeof aiTrainingDatasets.$inferSelect;
+export type InsertAiTrainingDataset = z.infer<typeof insertAiTrainingDatasetSchema>;
+
+export type AiTrainingLog = typeof aiTrainingLogs.$inferSelect;
+export type InsertAiTrainingLog = z.infer<typeof insertAiTrainingLogSchema>;
 
 export type AiParameters = typeof aiParameters.$inferSelect;
 export type InsertAiParameters = z.infer<typeof insertAiParametersSchema>;

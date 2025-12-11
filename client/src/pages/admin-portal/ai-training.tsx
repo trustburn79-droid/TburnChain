@@ -12,12 +12,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/hooks/use-toast";
 import { DetailSheet, type DetailSection } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   Brain, Database, Play, Pause, Clock, CheckCircle, 
   AlertTriangle, BarChart3, TrendingUp, Layers, RefreshCw,
-  Download, Wifi, WifiOff, AlertCircle, X, Eye
+  Download, Wifi, WifiOff, AlertCircle, X, Eye, Rocket,
+  Activity, Zap, Server, RotateCcw, Terminal, Shield
 } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from "recharts";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
 interface TrainingJob {
@@ -49,6 +51,49 @@ interface ModelVersion {
   date: string;
   accuracy: number;
   status: string;
+}
+
+interface ModelDeployment {
+  id: string;
+  modelName: string;
+  version: string;
+  status: string;
+  environment: string;
+  baseModel: string;
+  accuracy: number;
+  latencyMs: number;
+  throughputRps: number;
+  healthScore: number;
+  requestCount: number;
+  errorCount: number;
+  trafficPercent: number;
+  isCanary: boolean;
+  deployedAt: string;
+}
+
+interface EnhancedDataset {
+  id: string;
+  name: string;
+  records: string;
+  size: string;
+  lastUpdated: string;
+  quality: number;
+  format: string;
+  completeness: number;
+  consistency: number;
+  duplicateRate: string;
+  usedInJobs: number;
+  tags: string[];
+}
+
+interface TrainingLog {
+  id: string;
+  jobId: string;
+  level: string;
+  message: string;
+  epoch: number;
+  step: number;
+  createdAt: string;
 }
 
 interface TrainingData {
@@ -142,6 +187,36 @@ export default function AdminAITraining() {
         description: t("adminTraining.jobCancelledDesc", { name: job?.name }),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/training"] });
+    },
+  });
+
+  // Model Deployments Query
+  const { data: deploymentsData, isLoading: deploymentsLoading } = useQuery<{ success: boolean; data: ModelDeployment[] }>({
+    queryKey: ["/api/admin/ai/training/deployments"],
+    refetchInterval: 60000,
+  });
+
+  const deployments = deploymentsData?.data || [];
+
+  // Enhanced Datasets Query
+  const { data: datasetsData, isLoading: datasetsLoading } = useQuery<{ success: boolean; data: EnhancedDataset[] }>({
+    queryKey: ["/api/admin/ai/training/datasets"],
+    refetchInterval: 120000,
+  });
+
+  const enhancedDatasets = datasetsData?.data || [];
+
+  // Rollback Deployment Mutation
+  const rollbackMutation = useMutation({
+    mutationFn: async (deploymentId: string) => {
+      return apiRequest('POST', `/api/admin/ai/training/deployments/${deploymentId}/rollback`);
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminTraining.deploymentRolledBack"),
+        description: t("adminTraining.deploymentRolledBackDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/training/deployments"] });
     },
   });
 
@@ -427,6 +502,10 @@ export default function AdminAITraining() {
               <Layers className="w-4 h-4 mr-2" />
               {t("adminTraining.versions")}
             </TabsTrigger>
+            <TabsTrigger value="deployments" data-testid="tab-deployments">
+              <Rocket className="w-4 h-4 mr-2" />
+              {t("adminTraining.deployments", "Deployments")}
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="jobs" data-testid="tab-content-jobs">
@@ -682,6 +761,149 @@ export default function AdminAITraining() {
                       ))}
                     </TableBody>
                   </Table>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="deployments" data-testid="tab-content-deployments">
+            <Card data-testid="card-deployments">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2" data-testid="text-deployments-title">
+                  <Rocket className="w-5 h-5" />
+                  {t("adminTraining.modelDeployments", "Model Deployments")}
+                </CardTitle>
+                <CardDescription data-testid="text-deployments-desc">
+                  {t("adminTraining.productionModelsDesc", "Production model deployments and canary releases")}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {deploymentsLoading ? (
+                  <div className="space-y-3" data-testid="skeleton-deployments">
+                    {[1, 2, 3].map((i) => (
+                      <Skeleton key={i} className="h-24 w-full" />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {deployments.map((deployment) => (
+                      <div
+                        key={deployment.id}
+                        className="border rounded-lg p-4 hover-elevate"
+                        data-testid={`card-deployment-${deployment.id}`}
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                              <Brain className="w-5 h-5 text-primary" />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold" data-testid={`text-deployment-name-${deployment.id}`}>
+                                {deployment.modelName}
+                              </h4>
+                              <p className="text-sm text-muted-foreground">
+                                {deployment.version} - {deployment.baseModel}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {deployment.isCanary && (
+                              <Badge variant="outline" className="bg-yellow-500/10 text-yellow-500 border-yellow-500/30">
+                                Canary {deployment.trafficPercent}%
+                              </Badge>
+                            )}
+                            <Badge
+                              variant={
+                                deployment.status === "active" ? "default" :
+                                deployment.status === "deploying" ? "secondary" : "outline"
+                              }
+                              className={deployment.status === "active" ? "bg-green-500" : ""}
+                              data-testid={`badge-deployment-status-${deployment.id}`}
+                            >
+                              {deployment.status === "active" ? (
+                                <><CheckCircle className="w-3 h-3 mr-1" /> Active</>
+                              ) : deployment.status === "deploying" ? (
+                                <><RefreshCw className="w-3 h-3 mr-1 animate-spin" /> Deploying</>
+                              ) : (
+                                deployment.status
+                              )}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-3">
+                          <div className="text-center p-2 bg-muted/50 rounded">
+                            <div className="text-lg font-bold text-green-500" data-testid={`text-deployment-accuracy-${deployment.id}`}>
+                              {deployment.accuracy}%
+                            </div>
+                            <div className="text-xs text-muted-foreground">Accuracy</div>
+                          </div>
+                          <div className="text-center p-2 bg-muted/50 rounded">
+                            <div className="text-lg font-bold" data-testid={`text-deployment-latency-${deployment.id}`}>
+                              {deployment.latencyMs}ms
+                            </div>
+                            <div className="text-xs text-muted-foreground">Latency</div>
+                          </div>
+                          <div className="text-center p-2 bg-muted/50 rounded">
+                            <div className="text-lg font-bold" data-testid={`text-deployment-throughput-${deployment.id}`}>
+                              {deployment.throughputRps.toLocaleString()}
+                            </div>
+                            <div className="text-xs text-muted-foreground">RPS</div>
+                          </div>
+                          <div className="text-center p-2 bg-muted/50 rounded">
+                            <div className="text-lg font-bold" data-testid={`text-deployment-health-${deployment.id}`}>
+                              {deployment.healthScore}%
+                            </div>
+                            <div className="text-xs text-muted-foreground">Health</div>
+                          </div>
+                          <div className="text-center p-2 bg-muted/50 rounded">
+                            <div className="text-lg font-bold" data-testid={`text-deployment-requests-${deployment.id}`}>
+                              {(deployment.requestCount / 1000).toFixed(0)}K
+                            </div>
+                            <div className="text-xs text-muted-foreground">Requests</div>
+                          </div>
+                          <div className="text-center p-2 bg-muted/50 rounded">
+                            <div className="text-lg font-bold text-red-500" data-testid={`text-deployment-errors-${deployment.id}`}>
+                              {deployment.errorCount}
+                            </div>
+                            <div className="text-xs text-muted-foreground">Errors</div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-muted-foreground">
+                            Deployed: {new Date(deployment.deployedAt).toLocaleDateString()}
+                          </span>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => rollbackMutation.mutate(deployment.id)}
+                              disabled={rollbackMutation.isPending || deployment.isCanary}
+                              data-testid={`button-rollback-${deployment.id}`}
+                            >
+                              <RotateCcw className="w-3 h-3 mr-1" />
+                              Rollback
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              data-testid={`button-view-logs-${deployment.id}`}
+                            >
+                              <Terminal className="w-3 h-3 mr-1" />
+                              Logs
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
+                    {deployments.length === 0 && (
+                      <div className="text-center py-8 text-muted-foreground">
+                        No active deployments
+                      </div>
+                    )}
+                  </div>
                 )}
               </CardContent>
             </Card>

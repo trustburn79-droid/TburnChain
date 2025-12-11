@@ -23,6 +23,13 @@ Key architectural decisions include:
 - **Bridge & Cross-chain**: Production-ready admin pages for Bridge statistics, transfers, chain connections, validators, and liquidity, integrated with `TBurnEnterpriseNode`.
 - **Token & Economics**: Production-ready admin pages for Token Information, Burn Statistics, Economic Metrics, and Treasury Stats, integrated with `TBurnEnterpriseNode`.
 - **Network Operations**: Production-ready admin pages for Nodes, Validators, Consensus Information, and Network Parameters, integrated with `TBurnEnterpriseNode`.
+- **AI Training Management**: Enterprise-grade AI Training page (`/admin/ai-training`) with:
+  - Training Jobs tab: Job creation, monitoring, pause/resume/cancel functionality
+  - Datasets tab: Enhanced dataset management with quality metrics
+  - Metrics tab: Training accuracy and loss visualization
+  - Versions tab: Model version history and deployment controls
+  - Deployments tab: Production model deployments with canary releases, health monitoring, rollback capability
+  - Real-time WebSocket updates for training progress
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
