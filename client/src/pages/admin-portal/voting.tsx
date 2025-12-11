@@ -126,7 +126,7 @@ export default function VotingMonitor() {
   const [selectedVoter, setSelectedVoter] = useState<VoterRecord | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<VotingStats>({
-    queryKey: ['/api/enterprise/admin/governance/votes', selectedProposal],
+    queryKey: ['/api/enterprise/admin/governance/votes', `proposalId=${selectedProposal}`],
     refetchInterval: 10000,
   });
 
