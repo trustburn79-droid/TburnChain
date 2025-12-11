@@ -24,6 +24,7 @@ interface LoginFormData {
 
 interface LoginProps {
   onLoginSuccess: () => void;
+  isAdminLogin?: boolean;
 }
 
 const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -183,7 +184,7 @@ const benefitLinks = [
 ];
 const benefitKeys = ["testnetAccess", "governance", "resources", "rewards"];
 
-export default function Login({ onLoginSuccess }: LoginProps) {
+export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginProps) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -218,14 +219,16 @@ export default function Login({ onLoginSuccess }: LoginProps) {
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     try {
-      const response = await fetch("/api/auth/login", {
+      const loginEndpoint = isAdminLogin ? "/api/admin/auth/login" : "/api/auth/login";
+      const response = await fetch(loginEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        await queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+        const queryKey = isAdminLogin ? ["/api/admin/auth/check"] : ["/api/auth/check"];
+        await queryClient.invalidateQueries({ queryKey });
         
         toast({
           title: t('login.loginSuccessful'),

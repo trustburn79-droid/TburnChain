@@ -101,6 +101,15 @@ const apiLimiter = rateLimit({
 
 // Authentication middleware
 function requireAuth(req: Request, res: Response, next: NextFunction) {
+  // For /api/enterprise/admin/* paths, require admin authentication
+  if (req.path.startsWith("/enterprise/admin/")) {
+    if (req.session.adminAuthenticated) {
+      return next();
+    }
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  
+  // For other paths, regular authentication
   if (req.session.authenticated) {
     return next();
   }
@@ -407,6 +416,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/auth/check", (req, res) => {
     res.json({ authenticated: !!req.session.authenticated });
+  });
+
+  // ============================================
+  // Admin Portal Authentication (Separate from /app)
+  // ============================================
+  app.post("/api/admin/auth/login", loginLimiter, (req, res) => {
+    const { password } = req.body;
+    
+    if (!ADMIN_PASSWORD) {
+      console.error('[Admin Auth] ADMIN_PASSWORD not configured');
+      return res.status(500).json({ error: "Admin authentication not configured" });
+    }
+    
+    if (password === ADMIN_PASSWORD) {
+      req.session.adminAuthenticated = true;
+      console.log('[Admin Auth] Admin login successful');
+      res.json({ success: true });
+    } else {
+      console.warn('[Admin Auth] Invalid admin password attempt');
+      res.status(401).json({ error: "Invalid admin password" });
+    }
+  });
+
+  app.post("/api/admin/auth/logout", (req, res) => {
+    req.session.adminAuthenticated = false;
+    res.json({ success: true });
+  });
+
+  app.get("/api/admin/auth/check", (req, res) => {
+    res.json({ authenticated: !!req.session.adminAuthenticated });
   });
 
   // ============================================

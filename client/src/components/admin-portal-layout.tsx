@@ -240,16 +240,16 @@ function AdminRouter() {
 
 export function AdminPortalLayout() {
   const { data: authData, isLoading, refetch } = useQuery<{ authenticated: boolean }>({
-    queryKey: ["/api/auth/check"],
+    queryKey: ["/api/admin/auth/check"],
     refetchInterval: 60000,
   });
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      await apiRequest("POST", "/api/auth/logout");
+      await apiRequest("POST", "/api/admin/auth/logout");
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
       window.location.href = "/";
     },
   });
@@ -271,7 +271,7 @@ export function AdminPortalLayout() {
   }
 
   if (!authData?.authenticated) {
-    return <Login onLoginSuccess={() => refetch()} />;
+    return <Login onLoginSuccess={() => refetch()} isAdminLogin={true} />;
   }
 
   return (
