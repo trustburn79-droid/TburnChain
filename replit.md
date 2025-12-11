@@ -30,6 +30,15 @@ Key architectural decisions include:
   - Versions tab: Model version history and deployment controls
   - Deployments tab: Production model deployments with canary releases, health monitoring, rollback capability
   - Real-time WebSocket updates for training progress
+- **Enterprise Compliance Management**: Comprehensive compliance page (`/admin/compliance`) with:
+  - Frameworks tab: SOC 2, ISO 27001, GDPR, PCI DSS, CCPA, HIPAA compliance status with detailed metrics
+  - Findings tab: Compliance findings tracking with severity levels and status management
+  - Audits tab: Audit schedule management with internal/external auditor tracking
+  - Reports tab: Compliance report generation (SOC 2, GDPR, Security Assessment, Risk Assessment)
+  - KYC/AML tab: Know Your Customer and Anti-Money Laundering monitoring with sanctions/PEP/adverse media checks
+  - Certifications tab: Active certifications display (ISO 27001, SOC 2 Type II, CSA STAR Level 2)
+  - Risk tab: Enterprise risk assessment with 5 risk categories and trend indicators
+  - Dynamic compliance scoring based on real network health metrics
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
