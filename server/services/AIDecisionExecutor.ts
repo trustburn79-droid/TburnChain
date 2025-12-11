@@ -119,6 +119,23 @@ class AIDecisionExecutor extends EventEmitter {
     console.log('[AIDecisionExecutor] Stopped');
     this.emit('stopped');
   }
+  
+  /**
+   * Get current executor status for monitoring
+   */
+  getStatus(): {
+    isActive: boolean;
+    executionCount: number;
+    rollbackCount: number;
+    queueSize: number;
+  } {
+    return {
+      isActive: this.isActive,
+      executionCount: this.executionCount,
+      rollbackCount: this.rollbackCount,
+      queueSize: this.executionQueue.length,
+    };
+  }
 
   private isValidDecisionType(type: string): type is AIDecisionType {
     return type in this.IMPACT_MAP;

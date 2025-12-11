@@ -55,37 +55,261 @@ const EVENT_BAND_MAP: Record<BlockchainEvent['type'], AIBand> = {
   security: 'operational',
 };
 
+// ============================================
+// PRODUCTION: Retry Configuration
+// ============================================
+interface RetryConfig {
+  maxRetries: number;
+  initialDelayMs: number;
+  maxDelayMs: number;
+  backoffMultiplier: number;
+}
+
+const DEFAULT_RETRY_CONFIG: RetryConfig = {
+  maxRetries: 3,
+  initialDelayMs: 1000,
+  maxDelayMs: 30000,
+  backoffMultiplier: 2,
+};
+
+interface FailedDecision {
+  event: BlockchainEvent;
+  attempts: number;
+  lastError: string;
+  nextRetryAt: number;
+  createdAt: number;
+}
+
+interface OrchestratorMetrics {
+  isRunning: boolean;
+  processedDecisions: number;
+  failedDecisions: number;
+  retryQueueSize: number;
+  totalCostUsd: number;
+  totalTokens: number;
+  averageResponseTimeMs: number;
+  successRate: number;
+  lastDecisionAt: number | null;
+  uptime: number;
+}
+
 class AIOrchestrator extends EventEmitter {
   private isRunning = false;
   private decisionQueue: BlockchainEvent[] = [];
   private processedDecisions = 0;
+  private failedDecisions = 0;
   private totalCost = 0;
   private totalTokens = 0;
+  private responseTimes: number[] = [];
+  private startTime: number = 0;
+  private lastDecisionAt: number | null = null;
+  
+  // PRODUCTION: Retry queue for failed AI decisions
+  private retryQueue: Map<string, FailedDecision> = new Map();
+  private retryInterval: NodeJS.Timeout | null = null;
+  private retryConfig: RetryConfig = DEFAULT_RETRY_CONFIG;
 
   constructor() {
     super();
-    console.log('[AIOrchestrator] Real AI Orchestrator initialized');
+    console.log('[AIOrchestrator] Real AI Orchestrator initialized with retry support');
+  }
+  
+  /**
+   * Get current orchestrator metrics for monitoring
+   */
+  getMetrics(): OrchestratorMetrics {
+    const successTotal = this.processedDecisions + this.failedDecisions;
+    const successRate = successTotal > 0 ? (this.processedDecisions / successTotal) * 100 : 100;
+    const avgResponseTime = this.responseTimes.length > 0 
+      ? this.responseTimes.reduce((a, b) => a + b, 0) / this.responseTimes.length 
+      : 0;
+    
+    return {
+      isRunning: this.isRunning,
+      processedDecisions: this.processedDecisions,
+      failedDecisions: this.failedDecisions,
+      retryQueueSize: this.retryQueue.size,
+      totalCostUsd: this.totalCost,
+      totalTokens: this.totalTokens,
+      averageResponseTimeMs: Math.round(avgResponseTime),
+      successRate: Math.round(successRate * 100) / 100,
+      lastDecisionAt: this.lastDecisionAt,
+      uptime: this.startTime ? Date.now() - this.startTime : 0,
+    };
+  }
+  
+  /**
+   * Health check for monitoring endpoints
+   */
+  getHealthStatus(): { status: 'healthy' | 'degraded' | 'unhealthy'; details: Record<string, any> } {
+    const metrics = this.getMetrics();
+    
+    // Determine health based on key metrics
+    let status: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+    const issues: string[] = [];
+    
+    if (!this.isRunning) {
+      status = 'unhealthy';
+      issues.push('Orchestrator not running');
+    }
+    
+    if (metrics.retryQueueSize > 10) {
+      status = status === 'healthy' ? 'degraded' : status;
+      issues.push(`High retry queue: ${metrics.retryQueueSize} pending`);
+    }
+    
+    if (metrics.successRate < 80) {
+      status = status === 'healthy' ? 'degraded' : status;
+      issues.push(`Low success rate: ${metrics.successRate}%`);
+    }
+    
+    if (metrics.successRate < 50) {
+      status = 'unhealthy';
+    }
+    
+    return {
+      status,
+      details: {
+        ...metrics,
+        issues,
+        timestamp: Date.now(),
+      },
+    };
   }
 
   async start(): Promise<void> {
     this.isRunning = true;
+    this.startTime = Date.now();
     await aiDecisionExecutor.start();
-    console.log('[AIOrchestrator] Started - Real AI decisions AND EXECUTION enabled');
+    
+    // Start retry processor
+    this.startRetryProcessor();
+    
+    console.log('[AIOrchestrator] Started - Real AI decisions AND EXECUTION enabled with retry support');
     this.emit('started');
   }
 
   async stop(): Promise<void> {
     this.isRunning = false;
+    
+    // Stop retry processor
+    if (this.retryInterval) {
+      clearInterval(this.retryInterval);
+      this.retryInterval = null;
+    }
+    
     await aiDecisionExecutor.stop();
     console.log('[AIOrchestrator] Stopped');
     this.emit('stopped');
+  }
+  
+  /**
+   * Start the retry processor that handles failed decisions
+   */
+  private startRetryProcessor(): void {
+    // Process retry queue every 10 seconds
+    this.retryInterval = setInterval(() => {
+      this.processRetryQueue();
+    }, 10000);
+    
+    console.log('[AIOrchestrator] Retry processor started');
+  }
+  
+  /**
+   * Process failed decisions in the retry queue
+   */
+  private async processRetryQueue(): Promise<void> {
+    const now = Date.now();
+    const toRetry: string[] = [];
+    
+    // Find decisions ready for retry
+    const entries = Array.from(this.retryQueue.entries());
+    for (const [key, failed] of entries) {
+      if (failed.nextRetryAt <= now && failed.attempts < this.retryConfig.maxRetries) {
+        toRetry.push(key);
+      } else if (failed.attempts >= this.retryConfig.maxRetries) {
+        // Max retries exceeded, move to permanent failure
+        console.error(`[AIOrchestrator] Max retries exceeded for event ${key}:`, failed.lastError);
+        this.retryQueue.delete(key);
+        this.failedDecisions++;
+        this.emit('permanentFailure', {
+          event: failed.event,
+          attempts: failed.attempts,
+          error: failed.lastError,
+        });
+      }
+    }
+    
+    // Process retries
+    for (const key of toRetry) {
+      const failed = this.retryQueue.get(key);
+      if (!failed) continue;
+      
+      console.log(`[AIOrchestrator] Retrying failed decision (attempt ${failed.attempts + 1}/${this.retryConfig.maxRetries})`);
+      
+      try {
+        const result = await this.processBlockchainEventInternal(failed.event, false);
+        if (result) {
+          // Success! Remove from retry queue
+          this.retryQueue.delete(key);
+          console.log(`[AIOrchestrator] Retry successful for ${failed.event.type}`);
+        }
+      } catch (error) {
+        // Update retry info
+        failed.attempts++;
+        failed.lastError = error instanceof Error ? error.message : 'Unknown error';
+        
+        // Calculate next retry time with exponential backoff
+        const delay = Math.min(
+          this.retryConfig.initialDelayMs * Math.pow(this.retryConfig.backoffMultiplier, failed.attempts),
+          this.retryConfig.maxDelayMs
+        );
+        failed.nextRetryAt = now + delay;
+        
+        console.log(`[AIOrchestrator] Retry failed, next attempt in ${delay}ms`);
+      }
+    }
+  }
+  
+  /**
+   * Add a failed decision to the retry queue
+   */
+  private queueForRetry(event: BlockchainEvent, error: string): void {
+    const key = `${event.type}-${event.blockHeight}-${Date.now()}`;
+    
+    this.retryQueue.set(key, {
+      event,
+      attempts: 1,
+      lastError: error,
+      nextRetryAt: Date.now() + this.retryConfig.initialDelayMs,
+      createdAt: Date.now(),
+    });
+    
+    console.log(`[AIOrchestrator] Queued ${event.type} event for retry`);
   }
 
   getBandForEvent(eventType: BlockchainEvent['type']): AIBand {
     return EVENT_BAND_MAP[eventType] || 'operational';
   }
 
+  /**
+   * Public entry point for processing blockchain events
+   * Includes retry queue support for failed decisions
+   */
   async processBlockchainEvent(event: BlockchainEvent): Promise<AIDecisionResult | null> {
+    try {
+      return await this.processBlockchainEventInternal(event, true);
+    } catch (error) {
+      // Queue for retry on failure
+      this.queueForRetry(event, error instanceof Error ? error.message : 'Unknown error');
+      return null;
+    }
+  }
+  
+  /**
+   * Internal processor that can be called directly for retries
+   */
+  private async processBlockchainEventInternal(event: BlockchainEvent, allowQueue: boolean): Promise<AIDecisionResult | null> {
     if (!this.isRunning) {
       console.log('[AIOrchestrator] Not running, skipping event');
       return null;
@@ -109,6 +333,13 @@ class AIOrchestrator extends EventEmitter {
       });
 
       const responseTimeMs = Date.now() - startTime;
+      this.responseTimes.push(responseTimeMs);
+      
+      // Keep only last 100 response times for average calculation
+      if (this.responseTimes.length > 100) {
+        this.responseTimes.shift();
+      }
+      
       const decision = this.parseAIResponse(response.text, event.type);
 
       const result: AIDecisionResult = {
@@ -134,6 +365,7 @@ class AIOrchestrator extends EventEmitter {
       this.processedDecisions++;
       this.totalCost += response.cost;
       this.totalTokens += response.tokensUsed;
+      this.lastDecisionAt = Date.now();
 
       const executionResult = await this.executeAIDecision(result, event, band, response);
       result.executionResult = executionResult;
@@ -163,6 +395,11 @@ class AIOrchestrator extends EventEmitter {
         rawResponse: '',
         prompt,
       }, band, event.type, false, error instanceof Error ? error.message : 'Unknown error');
+
+      // If called from retry, throw to let retry handler manage it
+      if (!allowQueue) {
+        throw error;
+      }
 
       return this.handleFallback(event, band, error);
     }

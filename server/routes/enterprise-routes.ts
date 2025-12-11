@@ -20,6 +20,8 @@ import {
   autoBurnOrchestrator,
   nftOrchestrator
 } from '../services/orchestration';
+import { aiOrchestrator } from '../services/AIOrchestrator';
+import { aiDecisionExecutor } from '../services/AIDecisionExecutor';
 
 const router = Router();
 
@@ -4293,6 +4295,192 @@ router.post('/admin/announcements/:id/publish', async (req: Request, res: Respon
       success: false,
       error: 'Failed to publish announcement',
       details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// PRODUCTION: AI Orchestration Health & Metrics Endpoints
+// ============================================
+
+/**
+ * GET /api/enterprise/ai/health
+ * Health check endpoint for AI orchestration system
+ * Used by monitoring tools and load balancers
+ */
+router.get('/ai/health', async (req: Request, res: Response) => {
+  try {
+    const orchestratorHealth = aiOrchestrator.getHealthStatus();
+    const executorStatus = aiDecisionExecutor.getStatus();
+    
+    // Determine overall health
+    let overallStatus: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+    
+    if (orchestratorHealth.status === 'unhealthy' || !executorStatus.isActive) {
+      overallStatus = 'unhealthy';
+    } else if (orchestratorHealth.status === 'degraded') {
+      overallStatus = 'degraded';
+    }
+    
+    // Set appropriate HTTP status code
+    const httpStatus = overallStatus === 'healthy' ? 200 : 
+                       overallStatus === 'degraded' ? 200 : 503;
+    
+    res.status(httpStatus).json({
+      success: true,
+      status: overallStatus,
+      components: {
+        orchestrator: orchestratorHealth,
+        executor: {
+          status: executorStatus.isActive ? 'healthy' : 'unhealthy',
+          executionCount: executorStatus.executionCount,
+          rollbackCount: executorStatus.rollbackCount,
+          queueSize: executorStatus.queueSize,
+        },
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    console.error('[Enterprise] AI health check failed:', error);
+    res.status(503).json({
+      success: false,
+      status: 'unhealthy',
+      error: 'Health check failed',
+      details: sanitizeError(error),
+    });
+  }
+});
+
+/**
+ * GET /api/enterprise/ai/metrics
+ * Detailed metrics for AI orchestration system
+ * Used for monitoring dashboards and alerting
+ */
+router.get('/ai/metrics', async (req: Request, res: Response) => {
+  try {
+    const orchestratorMetrics = aiOrchestrator.getMetrics();
+    const executorStatus = aiDecisionExecutor.getStatus();
+    
+    res.json({
+      success: true,
+      data: {
+        orchestrator: orchestratorMetrics,
+        executor: {
+          isActive: executorStatus.isActive,
+          executionCount: executorStatus.executionCount,
+          rollbackCount: executorStatus.rollbackCount,
+          queueSize: executorStatus.queueSize,
+          rollbackRate: executorStatus.executionCount > 0 
+            ? (executorStatus.rollbackCount / executorStatus.executionCount * 100).toFixed(2)
+            : '0',
+        },
+        summary: {
+          totalDecisions: orchestratorMetrics.processedDecisions,
+          totalFailures: orchestratorMetrics.failedDecisions,
+          pendingRetries: orchestratorMetrics.retryQueueSize,
+          successRate: orchestratorMetrics.successRate,
+          totalCostUsd: orchestratorMetrics.totalCostUsd.toFixed(6),
+          avgResponseTimeMs: orchestratorMetrics.averageResponseTimeMs,
+          uptimeMs: orchestratorMetrics.uptime,
+        },
+        timestamp: Date.now(),
+      },
+    });
+  } catch (error) {
+    console.error('[Enterprise] AI metrics fetch failed:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch AI metrics',
+      details: sanitizeError(error),
+    });
+  }
+});
+
+/**
+ * GET /api/enterprise/ai/retry-queue
+ * Get current retry queue status (admin only)
+ */
+router.get('/ai/retry-queue', async (req: Request, res: Response) => {
+  try {
+    const metrics = aiOrchestrator.getMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        queueSize: metrics.retryQueueSize,
+        maxRetries: 3,
+        retryIntervalMs: 10000,
+      },
+    });
+  } catch (error) {
+    console.error('[Enterprise] Retry queue fetch failed:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch retry queue status',
+      details: sanitizeError(error),
+    });
+  }
+});
+
+/**
+ * POST /api/enterprise/ai/trigger-decision
+ * Manually trigger an AI decision (admin only, critical operation)
+ * SECURITY: Requires critical auth with admin password
+ */
+router.post('/ai/trigger-decision', requireCriticalAuth, validateBody(aiDecisionSchema), async (req: Request, res: Response) => {
+  try {
+    const { type, parameters, priority } = req.body;
+    
+    console.log(`[Enterprise] Manual AI decision triggered: ${type} with priority ${priority || 'normal'}`);
+    
+    // Create a synthetic blockchain event for the AI to process
+    const syntheticEvent = {
+      type: type.includes('SHARD') ? 'sharding' as const :
+            type.includes('VALIDATOR') ? 'validation' as const :
+            type.includes('CONSENSUS') ? 'consensus' as const :
+            type.includes('SECURITY') ? 'security' as const :
+            type.includes('GOVERNANCE') ? 'governance' as const : 'optimization' as const,
+      data: {
+        manualTrigger: true,
+        decisionType: type,
+        parameters: parameters || {},
+        priority: priority || 'medium',
+      },
+      blockHeight: Date.now(),
+      timestamp: new Date(),
+    };
+    
+    const result = await aiOrchestrator.processBlockchainEvent(syntheticEvent);
+    
+    if (result) {
+      res.json({
+        success: true,
+        data: {
+          decision: result.decision,
+          confidence: result.confidence,
+          actionApplied: result.actionApplied,
+          impact: result.impact,
+          provider: result.provider,
+          model: result.model,
+          costUsd: result.costUsd,
+          responseTimeMs: result.responseTimeMs,
+          executionResult: result.executionResult,
+        },
+      });
+    } else {
+      res.status(202).json({
+        success: true,
+        message: 'Decision queued for retry',
+        data: null,
+      });
+    }
+  } catch (error) {
+    console.error('[Enterprise] Manual AI decision failed:', error);
+    res.status(500).json({
+      success: false,
+      error: 'AI decision trigger failed',
+      code: 'AI_DECISION_ERROR',
+      details: sanitizeError(error),
     });
   }
 });
