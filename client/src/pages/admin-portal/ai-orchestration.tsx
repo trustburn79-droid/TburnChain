@@ -1465,7 +1465,7 @@ export default function AdminAIOrchestration() {
                             </div>
                             <div className="pt-2 border-t text-xs text-muted-foreground flex items-center justify-between">
                               <span>{t('adminAI.accuracy')}:</span>
-                              <span className="font-semibold text-foreground">{(model.accuracy || 0).toFixed(2)}%</span>
+                              <span className="font-semibold text-foreground">{Number(model.accuracy || 0).toFixed(2)}%</span>
                             </div>
                           </div>
                         );
@@ -1635,7 +1635,7 @@ export default function AdminAIOrchestration() {
                           <TableCell>
                             <div className="flex items-center gap-2">
                               <Progress value={decision.confidence} className="w-16 h-2" />
-                              <span className="text-sm">{decision.confidence}%</span>
+                              <span className="text-sm">{Number(decision.confidence || 0).toFixed(2)}%</span>
                             </div>
                           </TableCell>
                           <TableCell>
@@ -1837,7 +1837,7 @@ export default function AdminAIOrchestration() {
                             <TableCell>
                               <div className="flex items-center gap-2">
                                 <Progress value={log.confidence} className="w-12" />
-                                <span>{log.confidence}%</span>
+                                <span>{Number(log.confidence || 0).toFixed(2)}%</span>
                               </div>
                             </TableCell>
                             <TableCell>
@@ -1940,7 +1940,7 @@ export default function AdminAIOrchestration() {
                         </div>
                         <div>
                           <span className="text-muted-foreground">{t("adminAI.accuracy")}</span>
-                          <p className="font-medium">{(model.accuracy || 0).toFixed(2)}%</p>
+                          <p className="font-medium">{Number(model.accuracy || 0).toFixed(2)}%</p>
                         </div>
                         <div>
                           <span className="text-muted-foreground">{t("adminAI.requests24h")}</span>
