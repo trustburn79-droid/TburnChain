@@ -77,6 +77,7 @@ interface NetworkStats {
   totalValidators: number;
   activeValidators: number;
   networkUptime: number;
+  slaUptime: number;
   latency: number;
   totalShards: number;
   crossShardMessages: number;
@@ -761,7 +762,8 @@ export default function UnifiedDashboard() {
             <MetricCard
               icon={Globe}
               label={t("adminDashboard.networkUptime")}
-              value="99.98%"
+              value={`${((networkStats?.slaUptime || 9999) / 100).toFixed(2)}%`}
+              isLoading={loadingNetwork}
               bgColor="bg-purple-500/10"
               iconColor="text-purple-500"
               testId="metric-uptime"
