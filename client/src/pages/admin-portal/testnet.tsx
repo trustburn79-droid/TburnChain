@@ -194,15 +194,15 @@ export default function TestnetManagement() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/enterprise/admin/testnet"] });
       toast({
-        title: "Faucet Request Submitted",
-        description: "Test TBURN will be sent to your address shortly",
+        title: t("adminTestnet.faucetRequestSubmitted"),
+        description: t("adminTestnet.testTburnWillBeSent"),
       });
       setFaucetAddress("");
     },
     onError: () => {
       toast({
-        title: "Faucet Request Failed",
-        description: "Please try again or check your address",
+        title: t("adminTestnet.faucetRequestFailed"),
+        description: t("adminTestnet.tryAgainCheckAddress"),
         variant: "destructive",
       });
     },
@@ -237,16 +237,16 @@ export default function TestnetManagement() {
     setIsRefreshing(true);
     try {
       await refetch();
-      toast({ title: "Data Refreshed", description: "Testnet data has been updated" });
+      toast({ title: t("adminTestnet.dataRefreshed"), description: t("adminTestnet.testnetDataUpdated") });
     } finally {
       setIsRefreshing(false);
     }
-  }, [refetch, toast]);
+  }, [refetch, toast, t]);
 
   const handleCopy = useCallback((text: string, label: string) => {
     navigator.clipboard.writeText(text);
-    toast({ title: "Copied", description: `${label} copied to clipboard` });
-  }, [toast]);
+    toast({ title: t("adminTestnet.copiedLabel"), description: t("adminTestnet.copiedToClipboardLabel") });
+  }, [toast, t]);
 
   const handleAddToWallet = useCallback(async () => {
     if (typeof window.ethereum !== "undefined") {
@@ -261,14 +261,14 @@ export default function TestnetManagement() {
             blockExplorerUrls: [TESTNET_CONFIG.explorerUrl],
           }],
         });
-        toast({ title: "Network Added", description: "TBURN Testnet has been added to your wallet" });
+        toast({ title: t("adminTestnet.networkAdded"), description: t("adminTestnet.networkAddedDesc") });
       } catch (error) {
-        toast({ title: "Failed to Add Network", description: "Please add the network manually", variant: "destructive" });
+        toast({ title: t("adminTestnet.failedAddNetwork"), description: t("adminTestnet.addManuallyDesc"), variant: "destructive" });
       }
     } else {
       setShowAddToWallet(true);
     }
-  }, [toast]);
+  }, [toast, t]);
 
   const handleExportConfig = useCallback(() => {
     const config = {
@@ -296,16 +296,16 @@ export default function TestnetManagement() {
     a.download = `tburn-testnet-config-${new Date().toISOString().split("T")[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    toast({ title: "Config Exported", description: "Network configuration exported successfully" });
-  }, [nodes, stats, toast]);
+    toast({ title: t("adminTestnet.configExported"), description: t("adminTestnet.configExportedDesc") });
+  }, [nodes, stats, toast, t]);
 
   const handleFaucetSubmit = useCallback(() => {
     if (!faucetAddress || !faucetAddress.startsWith("0x") || faucetAddress.length !== 42) {
-      toast({ title: "Invalid Address", description: "Please enter a valid Ethereum address", variant: "destructive" });
+      toast({ title: t("adminTestnet.invalidAddress"), description: t("adminTestnet.enterValidAddress"), variant: "destructive" });
       return;
     }
     faucetMutation.mutate({ address: faucetAddress, amount: parseInt(faucetAmount) });
-  }, [faucetAddress, faucetAmount, faucetMutation, toast]);
+  }, [faucetAddress, faucetAmount, faucetMutation, toast, t]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -332,11 +332,11 @@ export default function TestnetManagement() {
         <Card className="max-w-md">
           <CardContent className="p-6 text-center">
             <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
-            <h2 className="text-xl font-bold mb-2">Failed to Load Testnet Data</h2>
-            <p className="text-muted-foreground mb-4">Unable to connect to testnet services</p>
+            <h2 className="text-xl font-bold mb-2">{t("adminTestnet.failedLoadTestnet")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminTestnet.unableConnectServices")}</p>
             <Button onClick={() => refetch()} data-testid="button-retry">
               <RefreshCw className="h-4 w-4 mr-2" />
-              Retry
+              {t("adminTestnet.retry")}
             </Button>
           </CardContent>
         </Card>
@@ -352,24 +352,24 @@ export default function TestnetManagement() {
           <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-page-title">
               <FlaskConical className="h-8 w-8" />
-              TBURN Testnet Management
+              {t("adminTestnet.pageTitle")}
             </h1>
             <p className="text-muted-foreground" data-testid="text-page-subtitle">
-              Chain ID: {TESTNET_CONFIG.chainId} | Enterprise-grade testnet infrastructure
+              {t("adminTestnet.chainId")}: {TESTNET_CONFIG.chainId} | {t("adminTestnet.pageSubtitle")}
             </p>
           </div>
           <div className="flex gap-2 flex-wrap">
             <Button variant="outline" onClick={handleRefresh} disabled={isRefreshing} data-testid="button-refresh">
               <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-              Refresh
+              {t("adminTestnet.refresh")}
             </Button>
             <Button variant="outline" onClick={handleExportConfig} data-testid="button-export">
               <Download className="h-4 w-4 mr-2" />
-              Export Config
+              {t("adminTestnet.exportConfig")}
             </Button>
             <Button onClick={handleAddToWallet} data-testid="button-add-wallet">
               <Wallet className="h-4 w-4 mr-2" />
-              Add to Wallet
+              {t("adminTestnet.addToWallet")}
             </Button>
           </div>
         </div>
@@ -384,29 +384,29 @@ export default function TestnetManagement() {
                 </div>
                 <div>
                   <h3 className="font-semibold flex items-center gap-2">
-                    Network Status: <Badge className={getStatusColor(stats.networkStatus || "healthy")}>{(stats.networkStatus || "healthy").toUpperCase()}</Badge>
+                    {t("adminTestnet.networkStatus")}: <Badge className={getStatusColor(stats.networkStatus || "healthy")}>{t(`adminTestnet.${stats.networkStatus || "healthy"}`)}</Badge>
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    {onlineNodes}/{nodes.length} nodes online | SLA Uptime: {(stats.slaUptime / 100).toFixed(2)}%
+                    {onlineNodes}/{nodes.length} {t("adminTestnet.nodesOnline")} | {t("adminTestnet.slaUptime")}: {(stats.slaUptime / 100).toFixed(2)}%
                   </p>
                 </div>
               </div>
               <div className="flex gap-4 flex-wrap">
                 <div className="text-center">
                   <p className="text-2xl font-bold">{stats.blockHeight.toLocaleString()}</p>
-                  <p className="text-xs text-muted-foreground">Block Height</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.blockHeight")}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold">{stats.averageTps.toLocaleString()}</p>
-                  <p className="text-xs text-muted-foreground">Avg TPS</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.avgTps")}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold">{stats.averageBlockTime}s</p>
-                  <p className="text-xs text-muted-foreground">Block Time</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.avgBlockTime")}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold">{stats.activeValidators}/{stats.totalValidators}</p>
-                  <p className="text-xs text-muted-foreground">Validators</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.validators")}</p>
                 </div>
               </div>
             </div>
@@ -417,7 +417,7 @@ export default function TestnetManagement() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="hover-elevate cursor-pointer" onClick={() => window.open(TESTNET_CONFIG.rpcUrl, "_blank")} data-testid="card-rpc-endpoint">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-              <CardTitle className="text-sm font-medium">RPC Endpoint</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("adminTestnet.rpcEndpoint")}</CardTitle>
               <Terminal className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
@@ -429,13 +429,13 @@ export default function TestnetManagement() {
                   <Copy className="h-3 w-3" />
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-2">JSON-RPC & REST API</p>
+              <p className="text-xs text-muted-foreground mt-2">{t("adminTestnet.jsonRpcApi")}</p>
             </CardContent>
           </Card>
 
           <Card className="hover-elevate cursor-pointer" onClick={() => window.open(TESTNET_CONFIG.explorerUrl, "_blank")} data-testid="card-explorer">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-              <CardTitle className="text-sm font-medium">Block Explorer</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("adminTestnet.blockExplorer")}</CardTitle>
               <Globe className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
@@ -447,20 +447,20 @@ export default function TestnetManagement() {
                   <Copy className="h-3 w-3" />
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-2">Transaction & Block Explorer</p>
+              <p className="text-xs text-muted-foreground mt-2">{t("adminTestnet.txBlockExplorer")}</p>
             </CardContent>
           </Card>
 
           <Card data-testid="card-faucet-balance">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-              <CardTitle className="text-sm font-medium">Faucet Balance</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("adminTestnet.faucetBalance")}</CardTitle>
               <Droplets className="h-4 w-4 text-blue-500" />
             </CardHeader>
             <CardContent>
               {isLoading ? <Skeleton className="h-8 w-24" /> : (
                 <>
                   <div className="text-2xl font-bold">{stats.faucetBalance}</div>
-                  <p className="text-xs text-muted-foreground">Test TBURN available</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.testTburnAvailableNew")}</p>
                 </>
               )}
             </CardContent>
@@ -468,14 +468,14 @@ export default function TestnetManagement() {
 
           <Card data-testid="card-network-stats">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-              <CardTitle className="text-sm font-medium">Unique Addresses</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("adminTestnet.uniqueAddresses")}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               {isLoading ? <Skeleton className="h-8 w-24" /> : (
                 <>
                   <div className="text-2xl font-bold">{stats.uniqueAddresses.toLocaleString()}</div>
-                  <p className="text-xs text-muted-foreground">{stats.contractsDeployed.toLocaleString()} contracts deployed</p>
+                  <p className="text-xs text-muted-foreground">{stats.contractsDeployed.toLocaleString()} {t("adminTestnet.contractsDeployedLabel")}</p>
                 </>
               )}
             </CardContent>
@@ -487,24 +487,24 @@ export default function TestnetManagement() {
           <TabsList data-testid="tabs-testnet">
             <TabsTrigger value="overview" data-testid="tab-overview">
               <Activity className="h-4 w-4 mr-2" />
-              Overview
+              {t("adminTestnet.tabOverview")}
             </TabsTrigger>
             <TabsTrigger value="nodes" data-testid="tab-nodes">
               <Server className="h-4 w-4 mr-2" />
-              Nodes
+              {t("adminTestnet.tabNodes")}
               <Badge variant="secondary" className="ml-2 h-5 px-1.5">{nodes.length}</Badge>
             </TabsTrigger>
             <TabsTrigger value="faucet" data-testid="tab-faucet">
               <Droplets className="h-4 w-4 mr-2" />
-              Faucet
+              {t("adminTestnet.tabFaucet")}
             </TabsTrigger>
             <TabsTrigger value="endpoints" data-testid="tab-endpoints">
               <Link className="h-4 w-4 mr-2" />
-              Endpoints
+              {t("adminTestnet.tabEndpoints")}
             </TabsTrigger>
             <TabsTrigger value="config" data-testid="tab-config">
               <Settings className="h-4 w-4 mr-2" />
-              Configuration
+              {t("adminTestnet.tabConfig")}
             </TabsTrigger>
           </TabsList>
 
@@ -513,70 +513,70 @@ export default function TestnetManagement() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Card data-testid="card-total-transactions">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-                  <CardTitle className="text-sm font-medium">Total Transactions</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t("adminTestnet.totalTransactions")}</CardTitle>
                   <TrendingUp className="h-4 w-4 text-green-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{stats.totalTransactions.toLocaleString()}</div>
                   <div className="flex items-center gap-1 text-xs text-green-500">
                     <ArrowUpRight className="h-3 w-3" />
-                    +12.5% from yesterday
+                    {t("adminTestnet.fromYesterday")}
                   </div>
                 </CardContent>
               </Card>
 
               <Card data-testid="card-peak-tps">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-                  <CardTitle className="text-sm font-medium">Peak TPS</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t("adminTestnet.peakTps")}</CardTitle>
                   <Zap className="h-4 w-4 text-yellow-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{stats.peakTps.toLocaleString()}</div>
-                  <p className="text-xs text-muted-foreground">Achieved during stress test</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.achievedStressTest")}</p>
                 </CardContent>
               </Card>
 
               <Card data-testid="card-pending-tx">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-                  <CardTitle className="text-sm font-medium">Pending Transactions</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t("adminTestnet.pendingTx")}</CardTitle>
                   <Clock className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{stats.pendingTransactions}</div>
-                  <p className="text-xs text-muted-foreground">Gas Price: {stats.gasPrice} TBURN</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.gasPrice")}: {stats.gasPrice} TBURN</p>
                 </CardContent>
               </Card>
 
               <Card data-testid="card-faucet-requests">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-                  <CardTitle className="text-sm font-medium">Faucet Requests (24h)</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t("adminTestnet.faucetRequests24h")}</CardTitle>
                   <Droplets className="h-4 w-4 text-blue-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{stats.faucetRequests24h.toLocaleString()}</div>
-                  <p className="text-xs text-muted-foreground">100 TBURN per request</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.tburnPerRequest")}</p>
                 </CardContent>
               </Card>
 
               <Card data-testid="card-bridge-volume">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-                  <CardTitle className="text-sm font-medium">Bridge Volume</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t("adminTestnet.bridgeVolume")}</CardTitle>
                   <Layers className="h-4 w-4 text-purple-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{stats.bridgeVolume} TBURN</div>
-                  <p className="text-xs text-muted-foreground">Cross-chain test transfers</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.crossChainTransfers")}</p>
                 </CardContent>
               </Card>
 
               <Card data-testid="card-network-hash">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-                  <CardTitle className="text-sm font-medium">Network Security</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t("adminTestnet.networkSecurity")}</CardTitle>
                   <Shield className="h-4 w-4 text-green-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{stats.networkHashrate}</div>
-                  <p className="text-xs text-muted-foreground">Quantum-resistant enabled</p>
+                  <p className="text-xs text-muted-foreground">{t("adminTestnet.quantumResistant")}</p>
                 </CardContent>
               </Card>
             </div>
@@ -586,18 +586,18 @@ export default function TestnetManagement() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Activity className="h-5 w-5" />
-                  Recent Faucet Activity
+                  {t("adminTestnet.recentFaucetActivity")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Address</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Time</TableHead>
-                      <TableHead>TX Hash</TableHead>
+                      <TableHead>{t("adminTestnet.address")}</TableHead>
+                      <TableHead>{t("adminTestnet.amount")}</TableHead>
+                      <TableHead>{t("adminTestnet.status")}</TableHead>
+                      <TableHead>{t("adminTestnet.time")}</TableHead>
+                      <TableHead>{t("adminTestnet.txHash")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -617,7 +617,7 @@ export default function TestnetManagement() {
                           {request.txHash ? (
                             <Button variant="ghost" size="sm" className="h-auto p-0 text-xs" onClick={() => window.open(`${TESTNET_CONFIG.explorerUrl}/tx/${request.txHash}`, "_blank")}>
                               <ExternalLink className="h-3 w-3 mr-1" />
-                              View
+                              {t("adminTestnet.view")}
                             </Button>
                           ) : "-"}
                         </TableCell>
@@ -635,15 +635,15 @@ export default function TestnetManagement() {
               <div className="relative flex-1 max-w-sm">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search nodes..."
+                  placeholder={t("adminTestnet.searchNodes")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-9"
                   data-testid="input-search-nodes"
                 />
               </div>
-              <Badge variant="secondary">{onlineNodes} Online</Badge>
-              <Badge variant="outline">{nodes.length - onlineNodes} Offline/Syncing</Badge>
+              <Badge variant="secondary">{onlineNodes} {t("adminTestnet.online")}</Badge>
+              <Badge variant="outline">{nodes.length - onlineNodes} {t("adminTestnet.offlineSyncing")}</Badge>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -662,25 +662,25 @@ export default function TestnetManagement() {
                   <CardContent>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <p className="text-muted-foreground">Block Height</p>
+                        <p className="text-muted-foreground">{t("adminTestnet.blockHeight")}</p>
                         <p className="font-medium">{node.blockHeight.toLocaleString()}</p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Peers</p>
+                        <p className="text-muted-foreground">{t("adminTestnet.peers")}</p>
                         <p className="font-medium">{node.peers}</p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Latency</p>
+                        <p className="text-muted-foreground">{t("adminTestnet.latency")}</p>
                         <p className="font-medium">{node.latency}ms</p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Uptime</p>
+                        <p className="text-muted-foreground">{t("adminTestnet.uptime")}</p>
                         <p className="font-medium">{node.uptime}</p>
                       </div>
                     </div>
                   </CardContent>
                   <CardFooter className="text-xs text-muted-foreground">
-                    Version: {node.version}
+                    {t("adminTestnet.version")}: {node.version}
                   </CardFooter>
                 </Card>
               ))}
@@ -694,13 +694,13 @@ export default function TestnetManagement() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Droplets className="h-5 w-5 text-blue-500" />
-                    Request Test Tokens
+                    {t("adminTestnet.requestTestTokens")}
                   </CardTitle>
-                  <CardDescription>Get test TBURN for development and testing on the testnet</CardDescription>
+                  <CardDescription>{t("adminTestnet.getTestTburn")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Wallet Address</Label>
+                    <Label>{t("adminTestnet.walletAddress")}</Label>
                     <Input
                       placeholder="0x..."
                       value={faucetAddress}
@@ -709,7 +709,7 @@ export default function TestnetManagement() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label>Amount (TBURN)</Label>
+                    <Label>{t("adminTestnet.amountTburn")}</Label>
                     <Select value={faucetAmount} onValueChange={setFaucetAmount}>
                       <SelectTrigger data-testid="select-faucet-amount">
                         <SelectValue />
@@ -723,38 +723,38 @@ export default function TestnetManagement() {
                   </div>
                   <Button className="w-full" onClick={handleFaucetSubmit} disabled={faucetMutation.isPending} data-testid="button-request-tokens">
                     {faucetMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Droplets className="h-4 w-4 mr-2" />}
-                    Request Test Tokens
+                    {t("adminTestnet.requestTestTokens")}
                   </Button>
                 </CardContent>
                 <CardFooter className="text-xs text-muted-foreground">
-                  Rate limit: 1 request per address every 24 hours
+                  {t("adminTestnet.rateLimit24h")}
                 </CardFooter>
               </Card>
 
               <Card data-testid="card-faucet-info">
                 <CardHeader>
-                  <CardTitle>Faucet Information</CardTitle>
+                  <CardTitle>{t("adminTestnet.faucetInfo")}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="text-muted-foreground">Available Balance</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.availableBalance")}</span>
                     <span className="font-bold">{stats.faucetBalance} TBURN</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="text-muted-foreground">Requests Today</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.requestsToday")}</span>
                     <span className="font-bold">{stats.faucetRequests24h.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="text-muted-foreground">Max Per Request</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.maxPerRequest")}</span>
                     <span className="font-bold">1,000 TBURN</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="text-muted-foreground">Rate Limit</span>
-                    <span className="font-bold">24 hours</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.rateLimit")}</span>
+                    <span className="font-bold">{t("adminTestnet.twentyFourHours")}</span>
                   </div>
                   <div className="flex justify-between items-center py-2">
-                    <span className="text-muted-foreground">Status</span>
-                    <Badge className="bg-green-500/10 text-green-500">Operational</Badge>
+                    <span className="text-muted-foreground">{t("adminTestnet.status")}</span>
+                    <Badge className="bg-green-500/10 text-green-500">{t("adminTestnet.operational")}</Badge>
                   </div>
                 </CardContent>
               </Card>
@@ -763,17 +763,17 @@ export default function TestnetManagement() {
             {/* Faucet History */}
             <Card data-testid="card-faucet-history">
               <CardHeader>
-                <CardTitle>Recent Requests</CardTitle>
+                <CardTitle>{t("adminTestnet.recentRequests")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Address</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Timestamp</TableHead>
-                      <TableHead>Transaction</TableHead>
+                      <TableHead>{t("adminTestnet.address")}</TableHead>
+                      <TableHead>{t("adminTestnet.amount")}</TableHead>
+                      <TableHead>{t("adminTestnet.status")}</TableHead>
+                      <TableHead>{t("adminTestnet.timestamp")}</TableHead>
+                      <TableHead>{t("adminTestnet.transaction")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -794,7 +794,7 @@ export default function TestnetManagement() {
                           {request.txHash ? (
                             <Button variant="ghost" size="sm" onClick={() => window.open(`${TESTNET_CONFIG.explorerUrl}/tx/${request.txHash}`, "_blank")}>
                               <ExternalLink className="h-3 w-3 mr-1" />
-                              View
+                              {t("adminTestnet.view")}
                             </Button>
                           ) : "-"}
                         </TableCell>
@@ -813,9 +813,9 @@ export default function TestnetManagement() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Terminal className="h-5 w-5" />
-                    JSON-RPC Endpoint
+                    {t("adminTestnet.jsonRpcEndpoint")}
                   </CardTitle>
-                  <CardDescription>Primary RPC endpoint for testnet interactions</CardDescription>
+                  <CardDescription>{t("adminTestnet.primaryRpcEndpoint")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
@@ -837,8 +837,8 @@ export default function TestnetManagement() {
                     </div>
                   </div>
                   <div className="pt-2">
-                    <Badge className="bg-green-500/10 text-green-500">Active</Badge>
-                    <span className="text-xs text-muted-foreground ml-2">Latency: ~15ms</span>
+                    <Badge className="bg-green-500/10 text-green-500">{t("adminTestnet.active")}</Badge>
+                    <span className="text-xs text-muted-foreground ml-2">{t("adminTestnet.latency")}: ~15ms</span>
                   </div>
                 </CardContent>
               </Card>
@@ -847,13 +847,13 @@ export default function TestnetManagement() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Globe className="h-5 w-5" />
-                    Block Explorer
+                    {t("adminTestnet.blockExplorer")}
                   </CardTitle>
-                  <CardDescription>Explore transactions, blocks, and contracts</CardDescription>
+                  <CardDescription>{t("adminTestnet.exploreTransactions")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Explorer URL</Label>
+                    <Label>{t("adminTestnet.explorerUrl")}</Label>
                     <div className="flex items-center gap-2">
                       <code className="flex-1 text-sm bg-muted px-3 py-2 rounded">{TESTNET_CONFIG.explorerUrl}</code>
                       <Button variant="outline" size="icon" onClick={() => handleCopy(TESTNET_CONFIG.explorerUrl, "Explorer URL")} data-testid="button-copy-explorer-url">
@@ -863,7 +863,7 @@ export default function TestnetManagement() {
                   </div>
                   <Button className="w-full" variant="outline" onClick={() => window.open(TESTNET_CONFIG.explorerUrl, "_blank")} data-testid="button-open-explorer">
                     <ExternalLink className="h-4 w-4 mr-2" />
-                    Open Explorer
+                    {t("adminTestnet.openExplorer")}
                   </Button>
                 </CardContent>
               </Card>
@@ -872,26 +872,26 @@ export default function TestnetManagement() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Settings className="h-5 w-5" />
-                    Network Configuration
+                    {t("adminTestnet.networkConfiguration")}
                   </CardTitle>
-                  <CardDescription>Add TBURN Testnet to your wallet</CardDescription>
+                  <CardDescription>{t("adminTestnet.addTestnetToWallet")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="space-y-1">
-                      <Label className="text-muted-foreground">Network Name</Label>
+                      <Label className="text-muted-foreground">{t("adminTestnet.networkName")}</Label>
                       <p className="font-medium">{TESTNET_CONFIG.chainName}</p>
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-muted-foreground">Chain ID</Label>
+                      <Label className="text-muted-foreground">{t("adminTestnet.chainId")}</Label>
                       <p className="font-medium">{TESTNET_CONFIG.chainId}</p>
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-muted-foreground">Currency Symbol</Label>
+                      <Label className="text-muted-foreground">{t("adminTestnet.currencySymbol")}</Label>
                       <p className="font-medium">{TESTNET_CONFIG.nativeCurrency.symbol}</p>
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-muted-foreground">Decimals</Label>
+                      <Label className="text-muted-foreground">{t("adminTestnet.decimals")}</Label>
                       <p className="font-medium">{TESTNET_CONFIG.nativeCurrency.decimals}</p>
                     </div>
                   </div>
@@ -899,11 +899,11 @@ export default function TestnetManagement() {
                   <div className="flex gap-2">
                     <Button onClick={handleAddToWallet} data-testid="button-add-network">
                       <Wallet className="h-4 w-4 mr-2" />
-                      Add to MetaMask
+                      {t("adminTestnet.addToMetamask")}
                     </Button>
                     <Button variant="outline" onClick={handleExportConfig} data-testid="button-export-json">
                       <FileJson className="h-4 w-4 mr-2" />
-                      Export as JSON
+                      {t("adminTestnet.exportAsJson")}
                     </Button>
                   </div>
                 </CardContent>
@@ -916,27 +916,27 @@ export default function TestnetManagement() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card data-testid="card-config-network">
                 <CardHeader>
-                  <CardTitle>Network Parameters</CardTitle>
+                  <CardTitle>{t("adminTestnet.networkParams")}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="text-muted-foreground">Chain ID</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.chainId")}</span>
                     <code className="bg-muted px-2 py-1 rounded">{TESTNET_CONFIG.chainId}</code>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="text-muted-foreground">Block Time</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.avgBlockTime")}</span>
                     <span>{stats.averageBlockTime}s</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="text-muted-foreground">Gas Price</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.gasPrice")}</span>
                     <span>{stats.gasPrice} TBURN</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="text-muted-foreground">Validators</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.validators")}</span>
                     <span>{stats.activeValidators}/{stats.totalValidators}</span>
                   </div>
                   <div className="flex justify-between items-center py-2">
-                    <span className="text-muted-foreground">Consensus</span>
+                    <span className="text-muted-foreground">{t("adminTestnet.consensus")}</span>
                     <Badge>BFT + PoS</Badge>
                   </div>
                 </CardContent>
@@ -944,28 +944,28 @@ export default function TestnetManagement() {
 
               <Card data-testid="card-config-features">
                 <CardHeader>
-                  <CardTitle>Enabled Features</CardTitle>
+                  <CardTitle>{t("adminTestnet.enabledFeatures")}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="flex items-center gap-2"><Shield className="h-4 w-4" /> Quantum-Resistant</span>
-                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                    <span className="flex items-center gap-2"><Shield className="h-4 w-4" /> {t("adminTestnet.quantumResistantFeature")}</span>
+                    <Badge className="bg-green-500/10 text-green-500">{t("adminTestnet.enabled")}</Badge>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="flex items-center gap-2"><Layers className="h-4 w-4" /> Bridge Support</span>
-                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                    <span className="flex items-center gap-2"><Layers className="h-4 w-4" /> {t("adminTestnet.bridgeSupport")}</span>
+                    <Badge className="bg-green-500/10 text-green-500">{t("adminTestnet.enabled")}</Badge>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="flex items-center gap-2"><Cpu className="h-4 w-4" /> AI Orchestration</span>
-                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                    <span className="flex items-center gap-2"><Cpu className="h-4 w-4" /> {t("adminTestnet.aiOrchestration")}</span>
+                    <Badge className="bg-green-500/10 text-green-500">{t("adminTestnet.enabled")}</Badge>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="flex items-center gap-2"><Database className="h-4 w-4" /> Dynamic Sharding</span>
-                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                    <span className="flex items-center gap-2"><Database className="h-4 w-4" /> {t("adminTestnet.dynamicSharding")}</span>
+                    <Badge className="bg-green-500/10 text-green-500">{t("adminTestnet.enabled")}</Badge>
                   </div>
                   <div className="flex justify-between items-center py-2">
-                    <span className="flex items-center gap-2"><Gauge className="h-4 w-4" /> High TPS Mode</span>
-                    <Badge className="bg-green-500/10 text-green-500">Enabled</Badge>
+                    <span className="flex items-center gap-2"><Gauge className="h-4 w-4" /> {t("adminTestnet.highTpsMode")}</span>
+                    <Badge className="bg-green-500/10 text-green-500">{t("adminTestnet.enabled")}</Badge>
                   </div>
                 </CardContent>
               </Card>
@@ -976,12 +976,12 @@ export default function TestnetManagement() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Code className="h-5 w-5" />
-                  Quick Start Examples
+                  {t("adminTestnet.quickStartExamples")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Connect with ethers.js</Label>
+                  <Label>{t("adminTestnet.connectEthers")}</Label>
                   <pre className="bg-muted p-4 rounded text-xs overflow-x-auto">
 {`import { ethers } from 'ethers';
 
@@ -991,7 +991,7 @@ console.log('Current block:', blockNumber);`}
                   </pre>
                 </div>
                 <div className="space-y-2">
-                  <Label>Add Network to MetaMask</Label>
+                  <Label>{t("adminTestnet.addNetworkMetamask")}</Label>
                   <pre className="bg-muted p-4 rounded text-xs overflow-x-auto">
 {`await window.ethereum.request({
   method: 'wallet_addEthereumChain',
@@ -1024,33 +1024,33 @@ console.log('Current block:', blockNumber);`}
               </SheetHeader>
               <div className="mt-6 space-y-6">
                 <div className="flex items-center justify-between">
-                  <span>Status</span>
+                  <span>{t("adminTestnet.status")}</span>
                   <Badge className={getStatusColor(selectedNode.status)}>{selectedNode.status}</Badge>
                 </div>
                 <Separator />
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-muted-foreground">Block Height</p>
+                    <p className="text-sm text-muted-foreground">{t("adminTestnet.blockHeight")}</p>
                     <p className="font-medium">{selectedNode.blockHeight.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Peers</p>
+                    <p className="text-sm text-muted-foreground">{t("adminTestnet.peers")}</p>
                     <p className="font-medium">{selectedNode.peers}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Latency</p>
+                    <p className="text-sm text-muted-foreground">{t("adminTestnet.latency")}</p>
                     <p className="font-medium">{selectedNode.latency}ms</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Uptime</p>
+                    <p className="text-sm text-muted-foreground">{t("adminTestnet.uptime")}</p>
                     <p className="font-medium">{selectedNode.uptime}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Version</p>
+                    <p className="text-sm text-muted-foreground">{t("adminTestnet.version")}</p>
                     <p className="font-medium">{selectedNode.version}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Last Seen</p>
+                    <p className="text-sm text-muted-foreground">{t("adminTestnet.lastSeen")}</p>
                     <p className="font-medium">{new Date(selectedNode.lastSeen).toLocaleString()}</p>
                   </div>
                 </div>
@@ -1064,44 +1064,44 @@ console.log('Current block:', blockNumber);`}
       <Dialog open={showAddToWallet} onOpenChange={setShowAddToWallet}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add TBURN Testnet Manually</DialogTitle>
-            <DialogDescription>No Web3 wallet detected. Add the network manually using these settings:</DialogDescription>
+            <DialogTitle>{t("adminTestnet.addTestnetManually")}</DialogTitle>
+            <DialogDescription>{t("adminTestnet.noWalletDetected")}</DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right">Network Name</Label>
+              <Label className="text-right">{t("adminTestnet.networkName")}</Label>
               <div className="col-span-3">
                 <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.chainName}</code>
               </div>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right">RPC URL</Label>
+              <Label className="text-right">{t("adminTestnet.rpcUrlLabel")}</Label>
               <div className="col-span-3">
                 <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.rpcUrl}</code>
               </div>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right">Chain ID</Label>
+              <Label className="text-right">{t("adminTestnet.chainId")}</Label>
               <div className="col-span-3">
                 <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.chainId}</code>
               </div>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right">Symbol</Label>
+              <Label className="text-right">{t("adminTestnet.symbol")}</Label>
               <div className="col-span-3">
                 <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.nativeCurrency.symbol}</code>
               </div>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right">Explorer</Label>
+              <Label className="text-right">{t("adminTestnet.explorer")}</Label>
               <div className="col-span-3">
                 <code className="bg-muted px-2 py-1 rounded text-sm">{TESTNET_CONFIG.explorerUrl}</code>
               </div>
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowAddToWallet(false)}>Close</Button>
-            <Button onClick={handleExportConfig}>Export Config</Button>
+            <Button variant="outline" onClick={() => setShowAddToWallet(false)}>{t("adminTestnet.close")}</Button>
+            <Button onClick={handleExportConfig}>{t("adminTestnet.exportConfig")}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
