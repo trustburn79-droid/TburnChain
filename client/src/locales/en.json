@@ -24008,7 +24008,16 @@
       "guides": "Guides",
       "faqs": "FAQs",
       "avgResolution": "Avg Resolution"
-    }
+    },
+    "stillNeedHelp": "Still need help?",
+    "supportAvailable": "Our support team is available 24/7 to assist you",
+    "devDocs": "Developer Docs",
+    "openTicket": "Open Ticket",
+    "videoTutorials": "Video Tutorials",
+    "videoTutorialsDesc": "Learn through step-by-step video guides and walkthroughs",
+    "faqTitle": "Frequently Asked Questions",
+    "errorTitle": "Failed to load help content",
+    "errorDescription": "Please try again or contact support if the issue persists"
   },
   "adminTickets": {
     "title": "Support Tickets",
