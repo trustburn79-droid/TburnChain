@@ -3803,9 +3803,39 @@ router.get('/admin/tax', async (req: Request, res: Response) => {
 
 router.get('/admin/help', async (req: Request, res: Response) => {
   try {
-    const enterpriseNode = getEnterpriseNode();
-    const data = enterpriseNode.getHelpCenter();
-    res.json(data);
+    const helpData = {
+      categories: [
+        { name: 'Mainnet v8.0 Launch Guide', icon: 'BookOpen', articleCount: 24, description: 'Complete guide for December 8th TBURN Mainnet deployment and operations' },
+        { name: '100K TPS Network Ops', icon: 'Network', articleCount: 32, description: 'High-performance network operations with 8 dynamic shards and 156 validators' },
+        { name: 'Quantum-Resistant Security', icon: 'Shield', articleCount: 28, description: 'Advanced security protocols including quantum-resistant signatures and 2FA' },
+        { name: 'Triple-Band AI System', icon: 'Bot', articleCount: 18, description: 'Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, Grok 3 orchestration guide' },
+        { name: '10B TBURN Tokenomics', icon: 'Wallet', articleCount: 22, description: '20-year deflationary model, AI-driven burns, 30.60% target deflation' },
+        { name: 'Admin Portal Config', icon: 'Settings', articleCount: 16, description: '33 admin portal pages configuration and customization' }
+      ],
+      featuredArticles: [
+        { id: '1', title: 'TBURN Mainnet v8.0 Launch Checklist', description: 'Complete pre-launch verification for December 8th, 2024 mainnet deployment with 100K TPS capacity', category: 'Mainnet v8.0 Launch Guide', views: 4521, lastUpdated: '2024-12-07', featured: true },
+        { id: '2', title: '156 Validator Node Setup & 3-Tier Structure', description: 'Configure validator nodes across Tier 1 (20M), Tier 2 (5M), Tier 3 (10K) minimum stake requirements', category: '100K TPS Network Ops', views: 3847, lastUpdated: '2024-12-06', featured: true },
+        { id: '3', title: 'Triple-Band AI Orchestration Configuration', description: 'Set up Gemini 3 Pro (primary), Claude Sonnet 4.5 (secondary), GPT-4o + Grok 3 fallback system', category: 'Triple-Band AI System', views: 3256, lastUpdated: '2024-12-05', featured: true },
+        { id: '4', title: 'Quantum-Resistant Security Implementation', description: 'Deploy quantum-resistant signatures, 2FA enforcement, and achieve 99.7% security score', category: 'Quantum-Resistant Security', views: 2987, lastUpdated: '2024-12-04', featured: true }
+      ],
+      recentArticles: [
+        { id: '5', title: 'Multi-Chain Bridge v2.0 Operations', description: 'ETH/BSC/Polygon/Arbitrum bridge setup with AI risk assessment and 0.1% fee structure', category: '100K TPS Network Ops', views: 1892, lastUpdated: '2024-12-07', featured: false },
+        { id: '6', title: '8-Shard Dynamic Scaling Guide', description: 'Configure AI-driven sharding from 8 to 64 shards with automatic load balancing', category: '100K TPS Network Ops', views: 1654, lastUpdated: '2024-12-06', featured: false },
+        { id: '7', title: '10B TBURN Token Distribution', description: 'Genesis supply allocation: 15% treasury, 25% ecosystem, validator staking pools', category: '10B TBURN Tokenomics', views: 1432, lastUpdated: '2024-12-05', featured: false },
+        { id: '8', title: 'Real-time Monitoring & SLA Setup', description: 'Configure 99.97% uptime monitoring with WebSocket updates and alert rules', category: 'Admin Portal Config', views: 1276, lastUpdated: '2024-12-04', featured: false }
+      ],
+      faqs: [
+        { question: 'What is the total supply of TBURN and initial price?', answer: 'TBURN Mainnet v8.0 launches with 10B (10 billion) total supply at $0.50 initial price, targeting 6.94B at Y20 through 30.60% deflationary mechanism.' },
+        { question: 'How does the Triple-Band AI Orchestration work?', answer: 'The system uses Gemini 3 Pro as primary AI, Claude Sonnet 4.5 as secondary, with GPT-4o and Grok 3 as fallback. Automatic failover ensures 99.99% AI availability for consensus optimization.' },
+        { question: 'What are the validator tier requirements?', answer: 'Tier 1: 20M TBURN minimum stake (enterprise), Tier 2: 5M TBURN (professional), Tier 3: 10K TBURN (community). All 156 validators earn 8-15% APY based on tier and performance.' }
+      ],
+      videos: [
+        { title: 'TBURN Mainnet Launch Overview', duration: '15:32', views: 8432 },
+        { title: 'Validator Setup Tutorial', duration: '22:18', views: 5621 },
+        { title: 'AI Orchestration Deep Dive', duration: '18:45', views: 4128 }
+      ]
+    };
+    res.json(helpData);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -3817,9 +3847,26 @@ router.get('/admin/help', async (req: Request, res: Response) => {
 
 router.get('/admin/training', async (req: Request, res: Response) => {
   try {
-    const enterpriseNode = getEnterpriseNode();
-    const data = enterpriseNode.getTrainingMaterials();
-    res.json(data);
+    const trainingData = {
+      courses: [
+        { id: 'course-1', title: 'TBURN Blockchain Fundamentals', description: 'Learn the core concepts of TBURN blockchain technology.', category: 'Fundamentals', duration: '4 hours', modules: 12, completedModules: 0, level: 'beginner', enrolled: 245, rating: 4.8, iconName: 'BookOpen' },
+        { id: 'course-2', title: 'Validator Operations', description: 'Master validator setup, monitoring, and maintenance.', category: 'Network', duration: '6 hours', modules: 18, completedModules: 0, level: 'intermediate', enrolled: 189, rating: 4.7, iconName: 'Network' },
+        { id: 'course-3', title: 'Smart Contract Security', description: 'Advanced security practices for smart contract development.', category: 'Security', duration: '8 hours', modules: 24, completedModules: 0, level: 'advanced', enrolled: 156, rating: 4.9, iconName: 'Shield' },
+        { id: 'course-4', title: 'AI Orchestration Guide', description: 'Learn to configure and monitor the Triple-Band AI system.', category: 'AI Systems', duration: '5 hours', modules: 15, completedModules: 0, level: 'intermediate', enrolled: 132, rating: 4.6, iconName: 'Bot' }
+      ],
+      achievements: [
+        { id: 'ach-1', title: 'First Steps', description: 'Complete your first course module', earnedDate: null, iconName: 'Star' },
+        { id: 'ach-2', title: 'Quick Learner', description: 'Complete 5 modules in one day', earnedDate: null, iconName: 'Zap' },
+        { id: 'ach-3', title: 'Course Master', description: 'Complete an entire course', earnedDate: null, iconName: 'Award' },
+        { id: 'ach-4', title: 'Network Expert', description: 'Complete all Network Operations courses', earnedDate: null, iconName: 'Network' }
+      ],
+      learningPaths: [
+        { name: 'Validator Certification', courses: 4, duration: '24 hours', progress: 0 },
+        { name: 'Developer Track', courses: 6, duration: '36 hours', progress: 0 },
+        { name: 'Security Specialist', courses: 5, duration: '30 hours', progress: 0 }
+      ]
+    };
+    res.json(trainingData);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -3855,9 +3902,18 @@ router.post('/admin/training/courses/:courseId/modules/:moduleId/complete', asyn
 
 router.get('/admin/tickets', async (req: Request, res: Response) => {
   try {
-    const enterpriseNode = getEnterpriseNode();
-    const data = enterpriseNode.getSupportTickets();
-    res.json(data);
+    const ticketsData = {
+      tickets: [
+        { id: 'ticket-1', title: 'Validator sync issue', description: 'Validator node not syncing properly after network upgrade', category: 'technical', priority: 'high', status: 'open', requester: 'John Admin', assignee: 'Support Team', createdAt: new Date(Date.now() - 86400000).toISOString(), updatedAt: new Date().toISOString(), responses: 2 },
+        { id: 'ticket-2', title: 'API rate limit increase request', description: 'Need higher API rate limits for production integration', category: 'api', priority: 'medium', status: 'in-progress', requester: 'Sarah Dev', assignee: 'API Team', createdAt: new Date(Date.now() - 172800000).toISOString(), updatedAt: new Date(Date.now() - 43200000).toISOString(), responses: 5 },
+        { id: 'ticket-3', title: 'Documentation clarification needed', description: 'Need clarification on staking requirements in documentation', category: 'documentation', priority: 'low', status: 'resolved', requester: 'Mike User', assignee: 'Docs Team', createdAt: new Date(Date.now() - 604800000).toISOString(), updatedAt: new Date(Date.now() - 259200000).toISOString(), responses: 3 }
+      ],
+      messages: [
+        { id: 'msg-1', sender: 'Support Team', isAdmin: true, message: 'We are investigating the sync issue. Please provide your node logs.', timestamp: new Date(Date.now() - 43200000).toISOString() },
+        { id: 'msg-2', sender: 'John Admin', isAdmin: false, message: 'Logs have been attached to the ticket.', timestamp: new Date(Date.now() - 21600000).toISOString() }
+      ]
+    };
+    res.json(ticketsData);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -3906,9 +3962,15 @@ router.post('/admin/tickets/:ticketId/close', async (req: Request, res: Response
 
 router.get('/admin/announcements', async (req: Request, res: Response) => {
   try {
-    const enterpriseNode = getEnterpriseNode();
-    const data = enterpriseNode.getAnnouncements();
-    res.json(data);
+    const announcementsData = {
+      announcements: [
+        { id: 'ann-1', title: 'Mainnet Launch Announcement', content: 'TBURN Chain Mainnet is now live! Chain ID: 7777. All systems operational with 100K TPS capacity.', type: 'info', audience: ['all'], status: 'published', pinned: true, publishedAt: new Date(Date.now() - 86400000).toISOString(), scheduledFor: null, author: 'System Admin', views: 2453 },
+        { id: 'ann-2', title: 'Scheduled Maintenance', content: 'Planned maintenance window on December 15th, 2024 from 00:00-04:00 UTC. Minimal service disruption expected.', type: 'maintenance', audience: ['validators', 'operators'], status: 'scheduled', pinned: false, publishedAt: null, scheduledFor: new Date(Date.now() + 345600000).toISOString(), author: 'Ops Team', views: 0 },
+        { id: 'ann-3', title: 'New API Version Available', content: 'API v8 is now available with improved performance, new endpoints, and better rate limiting.', type: 'info', audience: ['developers'], status: 'published', pinned: false, publishedAt: new Date().toISOString(), scheduledFor: null, author: 'API Team', views: 876 },
+        { id: 'ann-4', title: 'Security Advisory', content: 'Please ensure all validator nodes are updated to the latest version for security patches.', type: 'warning', audience: ['validators'], status: 'published', pinned: true, publishedAt: new Date(Date.now() - 172800000).toISOString(), scheduledFor: null, author: 'Security Team', views: 1234 }
+      ]
+    };
+    res.json(announcementsData);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -3962,128 +4024,6 @@ router.post('/admin/announcements/:id/publish', async (req: Request, res: Respon
     res.status(500).json({
       success: false,
       error: 'Failed to publish announcement',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    });
-  }
-});
-
-// ============================================
-// Education & Support Endpoints
-// ============================================
-
-router.get('/admin/help', async (req: Request, res: Response) => {
-  try {
-    const helpData = {
-      categories: [
-        { name: 'Mainnet v8.0 Launch Guide', icon: 'BookOpen', articleCount: 24, description: 'Complete guide for December 8th TBURN Mainnet deployment and operations' },
-        { name: '100K TPS Network Ops', icon: 'Network', articleCount: 32, description: 'High-performance network operations with 8 dynamic shards and 156 validators' },
-        { name: 'Quantum-Resistant Security', icon: 'Shield', articleCount: 28, description: 'Advanced security protocols including quantum-resistant signatures and 2FA' },
-        { name: 'Triple-Band AI System', icon: 'Bot', articleCount: 18, description: 'Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, Grok 3 orchestration guide' },
-        { name: '10B TBURN Tokenomics', icon: 'Wallet', articleCount: 22, description: '20-year deflationary model, AI-driven burns, 30.60% target deflation' },
-        { name: 'Admin Portal Config', icon: 'Settings', articleCount: 16, description: '33 admin portal pages configuration and customization' }
-      ],
-      featuredArticles: [
-        { id: '1', title: 'TBURN Mainnet v8.0 Launch Checklist', description: 'Complete pre-launch verification for December 8th, 2024 mainnet deployment with 100K TPS capacity', category: 'Mainnet v8.0 Launch Guide', views: 4521, lastUpdated: '2024-12-07', featured: true },
-        { id: '2', title: '156 Validator Node Setup & 3-Tier Structure', description: 'Configure validator nodes across Tier 1 (20M), Tier 2 (5M), Tier 3 (10K) minimum stake requirements', category: '100K TPS Network Ops', views: 3847, lastUpdated: '2024-12-06', featured: true },
-        { id: '3', title: 'Triple-Band AI Orchestration Configuration', description: 'Set up Gemini 3 Pro (primary), Claude Sonnet 4.5 (secondary), GPT-4o + Grok 3 fallback system', category: 'Triple-Band AI System', views: 3256, lastUpdated: '2024-12-05', featured: true },
-        { id: '4', title: 'Quantum-Resistant Security Implementation', description: 'Deploy quantum-resistant signatures, 2FA enforcement, and achieve 99.7% security score', category: 'Quantum-Resistant Security', views: 2987, lastUpdated: '2024-12-04', featured: true }
-      ],
-      recentArticles: [
-        { id: '5', title: 'Multi-Chain Bridge v2.0 Operations', description: 'ETH/BSC/Polygon/Arbitrum bridge setup with AI risk assessment and 0.1% fee structure', category: '100K TPS Network Ops', views: 1892, lastUpdated: '2024-12-07', featured: false },
-        { id: '6', title: '8-Shard Dynamic Scaling Guide', description: 'Configure AI-driven sharding from 8 to 64 shards with automatic load balancing', category: '100K TPS Network Ops', views: 1654, lastUpdated: '2024-12-06', featured: false },
-        { id: '7', title: '10B TBURN Token Distribution', description: 'Genesis supply allocation: 15% treasury, 25% ecosystem, validator staking pools', category: '10B TBURN Tokenomics', views: 1432, lastUpdated: '2024-12-05', featured: false },
-        { id: '8', title: 'Real-time Monitoring & SLA Setup', description: 'Configure 99.97% uptime monitoring with WebSocket updates and alert rules', category: 'Admin Portal Config', views: 1276, lastUpdated: '2024-12-04', featured: false }
-      ],
-      faqs: [
-        { question: 'What is the total supply of TBURN and initial price?', answer: 'TBURN Mainnet v8.0 launches with 10B (10 billion) total supply at $0.50 initial price, targeting 6.94B at Y20 through 30.60% deflationary mechanism.' },
-        { question: 'How does the Triple-Band AI Orchestration work?', answer: 'The system uses Gemini 3 Pro as primary AI, Claude Sonnet 4.5 as secondary, with GPT-4o and Grok 3 as fallback. Automatic failover ensures 99.99% AI availability for consensus optimization.' },
-        { question: 'What are the validator tier requirements?', answer: 'Tier 1: 20M TBURN minimum stake (enterprise), Tier 2: 5M TBURN (professional), Tier 3: 10K TBURN (community). All 156 validators earn 8-15% APY based on tier and performance.' }
-      ],
-      videos: [
-        { title: 'TBURN Mainnet Launch Overview', duration: '15:32', views: 8432 },
-        { title: 'Validator Setup Tutorial', duration: '22:18', views: 5621 },
-        { title: 'AI Orchestration Deep Dive', duration: '18:45', views: 4128 }
-      ]
-    };
-    res.json(helpData);
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch help data',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    });
-  }
-});
-
-router.get('/admin/training', async (req: Request, res: Response) => {
-  try {
-    const trainingData = {
-      courses: [
-        { id: 'course-1', title: 'TBURN Blockchain Fundamentals', description: 'Learn the core concepts of TBURN blockchain technology.', category: 'Fundamentals', duration: '4 hours', modules: 12, completedModules: 0, level: 'beginner', enrolled: 245, rating: 4.8, iconName: 'BookOpen' },
-        { id: 'course-2', title: 'Validator Operations', description: 'Master validator setup, monitoring, and maintenance.', category: 'Network', duration: '6 hours', modules: 18, completedModules: 0, level: 'intermediate', enrolled: 189, rating: 4.7, iconName: 'Network' },
-        { id: 'course-3', title: 'Smart Contract Security', description: 'Advanced security practices for smart contract development.', category: 'Security', duration: '8 hours', modules: 24, completedModules: 0, level: 'advanced', enrolled: 156, rating: 4.9, iconName: 'Shield' },
-        { id: 'course-4', title: 'AI Orchestration Guide', description: 'Learn to configure and monitor the Triple-Band AI system.', category: 'AI Systems', duration: '5 hours', modules: 15, completedModules: 0, level: 'intermediate', enrolled: 132, rating: 4.6, iconName: 'Bot' }
-      ],
-      achievements: [
-        { id: 'ach-1', title: 'First Steps', description: 'Complete your first course module', earnedDate: null, iconName: 'Star' },
-        { id: 'ach-2', title: 'Quick Learner', description: 'Complete 5 modules in one day', earnedDate: null, iconName: 'Zap' },
-        { id: 'ach-3', title: 'Course Master', description: 'Complete an entire course', earnedDate: null, iconName: 'Award' },
-        { id: 'ach-4', title: 'Network Expert', description: 'Complete all Network Operations courses', earnedDate: null, iconName: 'Network' }
-      ],
-      learningPaths: [
-        { name: 'Validator Certification', courses: 4, duration: '24 hours', progress: 0 },
-        { name: 'Developer Track', courses: 6, duration: '36 hours', progress: 0 },
-        { name: 'Security Specialist', courses: 5, duration: '30 hours', progress: 0 }
-      ]
-    };
-    res.json(trainingData);
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch training data',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    });
-  }
-});
-
-router.get('/admin/tickets', async (req: Request, res: Response) => {
-  try {
-    const ticketsData = {
-      tickets: [
-        { id: 'ticket-1', title: 'Validator sync issue', description: 'Validator node not syncing properly after network upgrade', category: 'technical', priority: 'high', status: 'open', requester: 'John Admin', assignee: 'Support Team', createdAt: new Date(Date.now() - 86400000).toISOString(), updatedAt: new Date().toISOString(), responses: 2 },
-        { id: 'ticket-2', title: 'API rate limit increase request', description: 'Need higher API rate limits for production integration', category: 'api', priority: 'medium', status: 'in-progress', requester: 'Sarah Dev', assignee: 'API Team', createdAt: new Date(Date.now() - 172800000).toISOString(), updatedAt: new Date(Date.now() - 43200000).toISOString(), responses: 5 },
-        { id: 'ticket-3', title: 'Documentation clarification needed', description: 'Need clarification on staking requirements in documentation', category: 'documentation', priority: 'low', status: 'resolved', requester: 'Mike User', assignee: 'Docs Team', createdAt: new Date(Date.now() - 604800000).toISOString(), updatedAt: new Date(Date.now() - 259200000).toISOString(), responses: 3 }
-      ],
-      messages: [
-        { id: 'msg-1', sender: 'Support Team', isAdmin: true, message: 'We are investigating the sync issue. Please provide your node logs.', timestamp: new Date(Date.now() - 43200000).toISOString() },
-        { id: 'msg-2', sender: 'John Admin', isAdmin: false, message: 'Logs have been attached to the ticket.', timestamp: new Date(Date.now() - 21600000).toISOString() }
-      ]
-    };
-    res.json(ticketsData);
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch tickets data',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    });
-  }
-});
-
-router.get('/admin/announcements', async (req: Request, res: Response) => {
-  try {
-    const announcementsData = {
-      announcements: [
-        { id: 'ann-1', title: 'Mainnet Launch Announcement', content: 'TBURN Chain Mainnet is now live! Chain ID: 7777. All systems operational with 100K TPS capacity.', type: 'info', audience: ['all'], status: 'published', pinned: true, publishedAt: new Date(Date.now() - 86400000).toISOString(), scheduledFor: null, author: 'System Admin', views: 2453 },
-        { id: 'ann-2', title: 'Scheduled Maintenance', content: 'Planned maintenance window on December 15th, 2024 from 00:00-04:00 UTC. Minimal service disruption expected.', type: 'maintenance', audience: ['validators', 'operators'], status: 'scheduled', pinned: false, publishedAt: null, scheduledFor: new Date(Date.now() + 345600000).toISOString(), author: 'Ops Team', views: 0 },
-        { id: 'ann-3', title: 'New API Version Available', content: 'API v8 is now available with improved performance, new endpoints, and better rate limiting.', type: 'info', audience: ['developers'], status: 'published', pinned: false, publishedAt: new Date().toISOString(), scheduledFor: null, author: 'API Team', views: 876 },
-        { id: 'ann-4', title: 'Security Advisory', content: 'Please ensure all validator nodes are updated to the latest version for security patches.', type: 'warning', audience: ['validators'], status: 'published', pinned: true, publishedAt: new Date(Date.now() - 172800000).toISOString(), scheduledFor: null, author: 'Security Team', views: 1234 }
-      ]
-    };
-    res.json(announcementsData);
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch announcements data',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
   }
