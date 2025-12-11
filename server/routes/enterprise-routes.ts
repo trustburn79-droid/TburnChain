@@ -3967,4 +3967,247 @@ router.post('/admin/announcements/:id/publish', async (req: Request, res: Respon
   }
 });
 
+// ============================================
+// Education & Support Endpoints
+// ============================================
+
+router.get('/admin/help', async (req: Request, res: Response) => {
+  try {
+    const helpData = {
+      articles: [
+        {
+          id: 'help-1',
+          title: 'Getting Started with Admin Portal',
+          category: 'getting-started',
+          content: 'Learn how to navigate and use the admin portal effectively.',
+          views: 1245,
+          helpful: 89,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'help-2',
+          title: 'Managing Validators',
+          category: 'validators',
+          content: 'Guide to validator management and monitoring.',
+          views: 876,
+          helpful: 67,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'help-3',
+          title: 'Token Economics Overview',
+          category: 'tokenomics',
+          content: 'Understanding TBURN token economics and burn mechanisms.',
+          views: 2341,
+          helpful: 156,
+          createdAt: new Date().toISOString()
+        }
+      ],
+      categories: [
+        { id: 'getting-started', name: 'Getting Started', count: 12 },
+        { id: 'validators', name: 'Validators', count: 8 },
+        { id: 'tokenomics', name: 'Tokenomics', count: 15 },
+        { id: 'security', name: 'Security', count: 10 },
+        { id: 'api', name: 'API Reference', count: 25 }
+      ],
+      faqs: [
+        {
+          id: 'faq-1',
+          question: 'How do I reset my admin password?',
+          answer: 'Contact system administrator or use the password reset feature.',
+          category: 'account'
+        },
+        {
+          id: 'faq-2',
+          question: 'What are the validator requirements?',
+          answer: 'Validators must stake minimum 100,000 TBURN and maintain 99.9% uptime.',
+          category: 'validators'
+        }
+      ]
+    };
+    res.json(helpData);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch help data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/training', async (req: Request, res: Response) => {
+  try {
+    const trainingData = {
+      courses: [
+        {
+          id: 'course-1',
+          title: 'TBURN Blockchain Fundamentals',
+          description: 'Learn the core concepts of TBURN blockchain technology.',
+          duration: '4 hours',
+          modules: 12,
+          completedModules: 0,
+          level: 'beginner',
+          enrolled: false,
+          thumbnail: null
+        },
+        {
+          id: 'course-2',
+          title: 'Validator Operations',
+          description: 'Master validator setup, monitoring, and maintenance.',
+          duration: '6 hours',
+          modules: 18,
+          completedModules: 0,
+          level: 'intermediate',
+          enrolled: false,
+          thumbnail: null
+        },
+        {
+          id: 'course-3',
+          title: 'Smart Contract Security',
+          description: 'Advanced security practices for smart contract development.',
+          duration: '8 hours',
+          modules: 24,
+          completedModules: 0,
+          level: 'advanced',
+          enrolled: false,
+          thumbnail: null
+        }
+      ],
+      certifications: [
+        {
+          id: 'cert-1',
+          name: 'TBURN Certified Developer',
+          status: 'available',
+          requirements: ['Complete Fundamentals', 'Pass Developer Exam']
+        },
+        {
+          id: 'cert-2',
+          name: 'TBURN Certified Validator',
+          status: 'available',
+          requirements: ['Complete Validator Operations', 'Pass Validator Exam']
+        }
+      ],
+      progress: {
+        totalCourses: 3,
+        completedCourses: 0,
+        inProgressCourses: 0,
+        totalHours: 18,
+        completedHours: 0
+      }
+    };
+    res.json(trainingData);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch training data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/tickets', async (req: Request, res: Response) => {
+  try {
+    const ticketsData = {
+      tickets: [
+        {
+          id: 'ticket-1',
+          subject: 'Validator sync issue',
+          status: 'open',
+          priority: 'high',
+          category: 'technical',
+          createdAt: new Date(Date.now() - 86400000).toISOString(),
+          updatedAt: new Date().toISOString(),
+          assignee: 'Support Team'
+        },
+        {
+          id: 'ticket-2',
+          subject: 'API rate limit increase request',
+          status: 'in-progress',
+          priority: 'medium',
+          category: 'api',
+          createdAt: new Date(Date.now() - 172800000).toISOString(),
+          updatedAt: new Date(Date.now() - 43200000).toISOString(),
+          assignee: 'API Team'
+        },
+        {
+          id: 'ticket-3',
+          subject: 'Documentation clarification needed',
+          status: 'resolved',
+          priority: 'low',
+          category: 'documentation',
+          createdAt: new Date(Date.now() - 604800000).toISOString(),
+          updatedAt: new Date(Date.now() - 259200000).toISOString(),
+          assignee: 'Docs Team'
+        }
+      ],
+      stats: {
+        total: 3,
+        open: 1,
+        inProgress: 1,
+        resolved: 1,
+        avgResponseTime: '2.5 hours'
+      }
+    };
+    res.json(ticketsData);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch tickets data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+router.get('/admin/announcements', async (req: Request, res: Response) => {
+  try {
+    const announcementsData = {
+      announcements: [
+        {
+          id: 'ann-1',
+          title: 'Mainnet Launch Announcement',
+          content: 'TBURN Chain Mainnet is now live! Chain ID: 7777',
+          type: 'info',
+          priority: 'high',
+          published: true,
+          createdAt: new Date(Date.now() - 86400000).toISOString(),
+          expiresAt: null
+        },
+        {
+          id: 'ann-2',
+          title: 'Scheduled Maintenance',
+          content: 'Planned maintenance window on December 15th, 2024 from 00:00-04:00 UTC.',
+          type: 'warning',
+          priority: 'medium',
+          published: true,
+          createdAt: new Date(Date.now() - 43200000).toISOString(),
+          expiresAt: new Date(Date.now() + 345600000).toISOString()
+        },
+        {
+          id: 'ann-3',
+          title: 'New API Version Available',
+          content: 'API v8 is now available with improved performance and new endpoints.',
+          type: 'success',
+          priority: 'low',
+          published: true,
+          createdAt: new Date().toISOString(),
+          expiresAt: null
+        }
+      ],
+      stats: {
+        total: 3,
+        published: 3,
+        draft: 0,
+        expired: 0
+      }
+    };
+    res.json(announcementsData);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch announcements data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;
