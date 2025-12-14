@@ -18,6 +18,17 @@ import {
   shardConfigAuditLogs 
 } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
+import {
+  endpointRegistry,
+  validationLogger,
+  ShardSnapshotSchema,
+  RecentBlockSchema,
+  getValidationMonitoringEndpoints,
+  checkRequiredEndpoints,
+  ensureInteger,
+  formatStateSize,
+  formatBlockTime
+} from '../utils/rpc-validation';
 
 export interface NodeConfig {
   nodeId: string;
@@ -2579,6 +2590,27 @@ export class TBurnEnterpriseNode extends EventEmitter {
       }
     });
 
+    // ============================================
+    // VALIDATION MONITORING ENDPOINTS
+    // Exposes validation stats and error logs for monitoring
+    // ============================================
+    const monitoringEndpoints = getValidationMonitoringEndpoints();
+    this.rpcApp.get('/api/internal/validation/stats', monitoringEndpoints['/api/internal/validation/stats']);
+    this.rpcApp.get('/api/internal/validation/errors', monitoringEndpoints['/api/internal/validation/errors']);
+    this.rpcApp.get('/api/internal/validation/missing-endpoints', monitoringEndpoints['/api/internal/validation/missing-endpoints']);
+
+    // Register all critical endpoints for tracking
+    this.registerCriticalEndpoints();
+    
+    // Verify all required endpoints are registered
+    const { missing, registered } = checkRequiredEndpoints();
+    if (missing.length > 0) {
+      console.warn(`[Enterprise Node] ⚠️ Missing ${missing.length} required endpoints - dashboard may fail!`);
+      missing.forEach(e => console.warn(`  - Missing: ${e.method} ${e.path}`));
+    } else {
+      console.log(`[Enterprise Node] ✅ All ${registered.length} required endpoints verified`);
+    }
+
     // Create and start HTTP server
     this.httpServer = createServer(this.rpcApp);
     
@@ -3610,6 +3642,43 @@ export class TBurnEnterpriseNode extends EventEmitter {
     }
     
     return { currentCapacity, maxCapacity, utilizationPercent, recommendations, scalingReadiness };
+  }
+  
+  // ============================================
+  // ENDPOINT REGISTRATION SYSTEM
+  // Registers all critical endpoints for validation tracking
+  // ============================================
+  private registerCriticalEndpoints(): void {
+    const endpoints = [
+      { method: 'GET' as const, path: '/health', description: 'Health check' },
+      { method: 'GET' as const, path: '/api/shards', description: 'List all shards' },
+      { method: 'GET' as const, path: '/api/shards/:id', description: 'Get shard by ID' },
+      { method: 'GET' as const, path: '/api/blocks/recent', description: 'Get recent blocks' },
+      { method: 'GET' as const, path: '/api/network/stats', description: 'Network statistics' },
+      { method: 'GET' as const, path: '/api/node/health', description: 'Node health status' },
+      { method: 'GET' as const, path: '/api/cross-shard/messages', description: 'Cross-shard messages' },
+      { method: 'GET' as const, path: '/api/wallets', description: 'List wallets' },
+      { method: 'GET' as const, path: '/api/wallets/:address', description: 'Get wallet by address' },
+      { method: 'GET' as const, path: '/api/transactions/:hash', description: 'Get transaction by hash' },
+      { method: 'GET' as const, path: '/api/contracts', description: 'List contracts' },
+      { method: 'GET' as const, path: '/api/contracts/:address', description: 'Get contract by address' },
+      { method: 'GET' as const, path: '/api/ai/models', description: 'List AI models' },
+      { method: 'GET' as const, path: '/api/ai/decisions', description: 'List AI decisions' },
+      { method: 'GET' as const, path: '/api/ai/decisions/recent', description: 'Recent AI decisions' },
+      { method: 'GET' as const, path: '/api/consensus/rounds', description: 'Consensus rounds' },
+      { method: 'GET' as const, path: '/api/consensus/current', description: 'Current consensus state' },
+      { method: 'GET' as const, path: '/api/performance', description: 'Performance metrics' },
+      { method: 'GET' as const, path: '/api/token/economics', description: 'Token economics' },
+      { method: 'GET' as const, path: '/api/admin/shards/config', description: 'Shard configuration' },
+      { method: 'GET' as const, path: '/api/admin/shards/health', description: 'Shard health status' },
+      { method: 'POST' as const, path: '/api/admin/shards/config', description: 'Update shard configuration' },
+    ];
+    
+    for (const endpoint of endpoints) {
+      endpointRegistry.register(endpoint);
+    }
+    
+    console.log(`[Enterprise Node] ✅ Registered ${endpoints.length} critical endpoints for validation tracking`);
   }
   
   // Generate dynamic shard data based on current configuration and REAL-TIME TPS
