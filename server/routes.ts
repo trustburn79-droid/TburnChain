@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "crypto";
 import cookieSignature from "cookie-signature";
+import { ethers } from "ethers";
 import { Pool } from "@neondatabase/serverless";
 import { storage } from "./storage";
 import { 
@@ -374,9 +375,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Hash password
       const passwordHash = await bcrypt.hash(password, 12);
       
-      // Generate account address and public key
-      const accountAddress = `0x${randomBytes(20).toString('hex')}`;
-      const publicKey = `0x${randomBytes(32).toString('hex')}`;
+      // Generate real TBURN wallet using ethers
+      const wallet = ethers.Wallet.createRandom();
+      const accountAddress = wallet.address;
+      const publicKey = wallet.publicKey;
       
       // Create member
       const member = await storage.createMember({
