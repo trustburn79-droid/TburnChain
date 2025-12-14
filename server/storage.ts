@@ -1785,7 +1785,8 @@ export class MemStorage implements IStorage {
   async deleteValidatorsByIds(ids: string[]): Promise<number> {
     if (ids.length === 0) return 0;
     let deleted = 0;
-    for (const [address, validator] of this.validators.entries()) {
+    const entries = Array.from(this.validators.entries());
+    for (const [address, validator] of entries) {
       if (ids.includes(validator.id)) {
         this.validators.delete(address);
         deleted++;
