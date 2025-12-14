@@ -5,7 +5,8 @@ import {
   Code, Key, AlertTriangle, Copy, ArrowRight, Check,
   Layers, FileText, Zap, Terminal, Shield, Clock,
   Database, Wallet, FileCode, Activity, Globe, Lock,
-  Server, Cpu, RefreshCw, Box, Hash, Search, Filter
+  Server, Cpu, RefreshCw, Box, Hash, Search, Filter,
+  Coins, Link2, TrendingUp, Flame
 } from "lucide-react";
 import { SiJavascript, SiPython, SiGo, SiRust, SiTypescript } from "react-icons/si";
 
@@ -97,6 +98,9 @@ export default function ApiDocs() {
     { id: "transaction", label: t("apiDocs.sidebar.transaction", "Transaction"), icon: Activity },
     { id: "account", label: t("apiDocs.sidebar.account", "Account"), icon: Wallet },
     { id: "smart-contract", label: t("apiDocs.sidebar.smartContract", "Smart Contract"), icon: FileCode },
+    { id: "token", label: t("apiDocs.sidebar.token", "Token"), icon: Coins },
+    { id: "staking", label: t("apiDocs.sidebar.staking", "Staking"), icon: TrendingUp },
+    { id: "bridge", label: t("apiDocs.sidebar.bridge", "Bridge"), icon: Link2 },
     { section: t("apiDocs.sidebar.websocket", "WEBSOCKET") },
     { id: "realtime-events", label: t("apiDocs.sidebar.realtimeEvents", "Real-time Events"), icon: Zap },
   ];
@@ -919,6 +923,525 @@ X-RateLimit-Window: 60`} />
                       { name: "runs", type: "integer", desc: "Optimization runs (default: 200)" },
                       { name: "constructorArgs", type: "string", desc: "ABI-encoded constructor arguments" },
                     ]} />
+                  </div>
+                </div>
+              </section>
+
+              {/* Token Endpoints Section */}
+              <section id="token" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Coins className="w-8 h-8 text-[#ffd700]" /> {t("apiDocs.token.title", "Token Endpoints")}
+                </h2>
+                
+                <div className="space-y-6">
+                  {/* Get Token List */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/tokens</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Retrieve a list of all tokens on the TBURN Chain.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
+                    <ParamTable params={[
+                      { name: "page", type: "integer", desc: "Page number (default: 1)" },
+                      { name: "limit", type: "integer", desc: "Results per page (default: 20, max: 100)" },
+                      { name: "type", type: "string", desc: "Token type filter: 'TBC-20', 'TBC-721', 'TBC-1155'" },
+                      { name: "verified", type: "boolean", desc: "Filter verified tokens only" },
+                      { name: "sortBy", type: "string", desc: "Sort field: 'holders', 'transfers', 'marketCap'" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "tokens": [
+      {
+        "address": "0xTBURN...",
+        "name": "TBURN Token",
+        "symbol": "TBURN",
+        "decimals": 18,
+        "type": "TBC-20",
+        "totalSupply": "1000000000000000000000000000",
+        "holders": 150000,
+        "transfers": 2500000,
+        "verified": true,
+        "logo": "https://tburn.io/assets/tburn-logo.png"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 5000
+    }
+  }
+}`} />
+                  </div>
+
+                  {/* Get Token Details */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/tokens/{'{address}'}</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get detailed information about a specific token.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
+                    <ParamTable params={[
+                      { name: "address", type: "string", required: true, desc: "Token contract address" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "address": "0xTBURN...",
+    "name": "TBURN Token",
+    "symbol": "TBURN",
+    "decimals": 18,
+    "type": "TBC-20",
+    "totalSupply": "1000000000000000000000000000",
+    "circulatingSupply": "750000000000000000000000000",
+    "burnedAmount": "250000000000000000000000000",
+    "holders": 150000,
+    "transfers": 2500000,
+    "verified": true,
+    "contractCreator": "0x1234...",
+    "createdAt": 1700000000,
+    "website": "https://tburn.io",
+    "social": {
+      "twitter": "@tburnchain",
+      "discord": "https://discord.gg/tburn"
+    }
+  }
+}`} />
+                  </div>
+
+                  {/* Get Token Holders */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/tokens/{'{address}'}/holders</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get a list of token holders sorted by balance.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
+                    <ParamTable params={[
+                      { name: "page", type: "integer", desc: "Page number (default: 1)" },
+                      { name: "limit", type: "integer", desc: "Results per page (default: 50, max: 200)" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "holders": [
+      {
+        "address": "0xHolder1...",
+        "balance": "500000000000000000000000",
+        "percentage": "50.00",
+        "rank": 1
+      },
+      {
+        "address": "0xHolder2...",
+        "balance": "100000000000000000000000",
+        "percentage": "10.00",
+        "rank": 2
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 50,
+      "total": 150000
+    }
+  }
+}`} />
+                  </div>
+
+                  {/* Get Token Transfers */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/tokens/{'{address}'}/transfers</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get token transfer history.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
+                    <ParamTable params={[
+                      { name: "page", type: "integer", desc: "Page number (default: 1)" },
+                      { name: "limit", type: "integer", desc: "Results per page (default: 20, max: 100)" },
+                      { name: "from", type: "string", desc: "Filter by sender address" },
+                      { name: "to", type: "string", desc: "Filter by recipient address" },
+                      { name: "fromBlock", type: "integer", desc: "Start block number" },
+                      { name: "toBlock", type: "integer", desc: "End block number" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "transfers": [
+      {
+        "transactionHash": "0x5d4e...",
+        "blockNumber": 20750000,
+        "from": "0xSender...",
+        "to": "0xReceiver...",
+        "value": "1000000000000000000",
+        "timestamp": 1733493600
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 2500000
+    }
+  }
+}`} />
+                  </div>
+                </div>
+              </section>
+
+              {/* Staking Endpoints Section */}
+              <section id="staking" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <TrendingUp className="w-8 h-8 text-[#00ff9d]" /> {t("apiDocs.staking.title", "Staking Endpoints")}
+                </h2>
+                
+                <div className="space-y-6">
+                  {/* Get Validators */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/staking/validators</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get a list of all validators on the network.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
+                    <ParamTable params={[
+                      { name: "status", type: "string", desc: "Filter by status: 'active', 'inactive', 'jailed'" },
+                      { name: "sortBy", type: "string", desc: "Sort field: 'stake', 'delegators', 'uptime', 'commission'" },
+                      { name: "order", type: "string", desc: "Sort order: 'asc' or 'desc' (default: 'desc')" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "validators": [
+      {
+        "address": "0xValidator1...",
+        "name": "TBURN Foundation",
+        "status": "active",
+        "stake": "10000000000000000000000000",
+        "delegators": 5000,
+        "commission": "5.00",
+        "uptime": "99.98",
+        "blocksProposed": 150000,
+        "rewards": "50000000000000000000000"
+      }
+    ],
+    "totalValidators": 100,
+    "totalStake": "500000000000000000000000000"
+  }
+}`} />
+                  </div>
+
+                  {/* Get Delegations */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/staking/delegations/{'{address}'}</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get all delegations for a specific address.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
+                    <ParamTable params={[
+                      { name: "address", type: "string", required: true, desc: "Delegator wallet address" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "delegations": [
+      {
+        "validator": "0xValidator1...",
+        "validatorName": "TBURN Foundation",
+        "amount": "1000000000000000000000",
+        "rewards": "50000000000000000000",
+        "delegatedAt": 1730000000
+      }
+    ],
+    "totalDelegated": "2500000000000000000000",
+    "totalRewards": "125000000000000000000"
+  }
+}`} />
+                  </div>
+
+                  {/* Delegate Stake */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="POST" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/staking/delegate</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Delegate TBURN tokens to a validator.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Request Body</h4>
+                    <ParamTable params={[
+                      { name: "validator", type: "string", required: true, desc: "Validator address to delegate to" },
+                      { name: "amount", type: "string", required: true, desc: "Amount to delegate in wei" },
+                      { name: "signature", type: "string", required: true, desc: "Signed transaction data" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "transactionHash": "0xabc123...",
+    "validator": "0xValidator1...",
+    "amount": "1000000000000000000000",
+    "status": "pending"
+  }
+}`} />
+                  </div>
+
+                  {/* Undelegate Stake */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="POST" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/staking/undelegate</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Undelegate TBURN tokens from a validator. Subject to 21-day unbonding period.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Request Body</h4>
+                    <ParamTable params={[
+                      { name: "validator", type: "string", required: true, desc: "Validator address to undelegate from" },
+                      { name: "amount", type: "string", required: true, desc: "Amount to undelegate in wei" },
+                      { name: "signature", type: "string", required: true, desc: "Signed transaction data" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "transactionHash": "0xdef456...",
+    "validator": "0xValidator1...",
+    "amount": "500000000000000000000",
+    "unbondingCompletesAt": 1735000000,
+    "status": "unbonding"
+  }
+}`} />
+                  </div>
+
+                  {/* Get Rewards */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/staking/rewards/{'{address}'}</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get pending staking rewards for an address.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
+                    <ParamTable params={[
+                      { name: "address", type: "string", required: true, desc: "Delegator wallet address" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "totalRewards": "125000000000000000000",
+    "rewards": [
+      {
+        "validator": "0xValidator1...",
+        "validatorName": "TBURN Foundation",
+        "pending": "75000000000000000000",
+        "claimed": "500000000000000000000"
+      }
+    ],
+    "lastClaimedAt": 1733400000
+  }
+}`} />
+                  </div>
+                </div>
+              </section>
+
+              {/* Bridge Endpoints Section */}
+              <section id="bridge" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Link2 className="w-8 h-8 text-[#7000ff]" /> {t("apiDocs.bridge.title", "Bridge Endpoints")}
+                </h2>
+                
+                <div className="space-y-6">
+                  {/* Get Supported Chains */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/bridge/chains</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get a list of supported chains for cross-chain transfers.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "chains": [
+      {
+        "chainId": 1,
+        "name": "Ethereum",
+        "symbol": "ETH",
+        "bridgeContract": "0xBridge1...",
+        "status": "active",
+        "minTransfer": "10000000000000000",
+        "maxTransfer": "1000000000000000000000",
+        "fee": "0.1",
+        "estimatedTime": 600
+      },
+      {
+        "chainId": 56,
+        "name": "BNB Chain",
+        "symbol": "BNB",
+        "bridgeContract": "0xBridge2...",
+        "status": "active",
+        "minTransfer": "10000000000000000",
+        "maxTransfer": "500000000000000000000",
+        "fee": "0.05",
+        "estimatedTime": 300
+      },
+      {
+        "chainId": 137,
+        "name": "Polygon",
+        "symbol": "MATIC",
+        "bridgeContract": "0xBridge3...",
+        "status": "active",
+        "minTransfer": "1000000000000000",
+        "maxTransfer": "100000000000000000000",
+        "fee": "0.02",
+        "estimatedTime": 180
+      }
+    ]
+  }
+}`} />
+                  </div>
+
+                  {/* Get Bridge Transfers */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/bridge/transfers</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get cross-chain transfer history.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
+                    <ParamTable params={[
+                      { name: "address", type: "string", desc: "Filter by sender or recipient address" },
+                      { name: "sourceChain", type: "integer", desc: "Filter by source chain ID" },
+                      { name: "destChain", type: "integer", desc: "Filter by destination chain ID" },
+                      { name: "status", type: "string", desc: "Filter by status: 'pending', 'completed', 'failed'" },
+                      { name: "page", type: "integer", desc: "Page number (default: 1)" },
+                      { name: "limit", type: "integer", desc: "Results per page (default: 20, max: 100)" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "transfers": [
+      {
+        "id": "bridge_12345",
+        "sourceTxHash": "0xsource...",
+        "destTxHash": "0xdest...",
+        "sourceChain": 1,
+        "destChain": 7777,
+        "from": "0xSender...",
+        "to": "0xReceiver...",
+        "amount": "1000000000000000000",
+        "fee": "1000000000000000",
+        "status": "completed",
+        "initiatedAt": 1733490000,
+        "completedAt": 1733490600
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 50000
+    }
+  }
+}`} />
+                  </div>
+
+                  {/* Initiate Bridge Transfer */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="POST" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/bridge/transfer</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Initiate a cross-chain token transfer.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Request Body</h4>
+                    <ParamTable params={[
+                      { name: "destChain", type: "integer", required: true, desc: "Destination chain ID" },
+                      { name: "to", type: "string", required: true, desc: "Recipient address on destination chain" },
+                      { name: "amount", type: "string", required: true, desc: "Amount to transfer in wei" },
+                      { name: "token", type: "string", desc: "Token address (default: native TBURN)" },
+                      { name: "signature", type: "string", required: true, desc: "Signed transaction data" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "bridgeId": "bridge_12346",
+    "sourceTxHash": "0xabc...",
+    "destChain": 1,
+    "to": "0xReceiver...",
+    "amount": "1000000000000000000",
+    "fee": "1000000000000000",
+    "estimatedArrival": 1733494200,
+    "status": "pending"
+  }
+}`} />
+                  </div>
+
+                  {/* Get Bridge Transfer Status */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/bridge/status/{'{txHash}'}</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get the status of a specific bridge transfer.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
+                    <ParamTable params={[
+                      { name: "txHash", type: "string", required: true, desc: "Source chain transaction hash" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "bridgeId": "bridge_12346",
+    "sourceTxHash": "0xabc...",
+    "destTxHash": null,
+    "sourceChain": 7777,
+    "destChain": 1,
+    "from": "0xSender...",
+    "to": "0xReceiver...",
+    "amount": "1000000000000000000",
+    "fee": "1000000000000000",
+    "status": "validating",
+    "confirmations": 15,
+    "requiredConfirmations": 20,
+    "validators": [
+      { "address": "0xVal1...", "signed": true },
+      { "address": "0xVal2...", "signed": true },
+      { "address": "0xVal3...", "signed": false }
+    ],
+    "initiatedAt": 1733493600,
+    "estimatedArrival": 1733494200
+  }
+}`} />
                   </div>
                 </div>
               </section>

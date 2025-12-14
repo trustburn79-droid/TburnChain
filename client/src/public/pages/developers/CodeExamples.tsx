@@ -14,7 +14,8 @@ import {
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 
-const featuredCode = `pragma solidity ^0.8.19;
+const codeExamples = {
+  "SecureVault.sol": `pragma solidity ^0.8.19;
 
 import "@burnchain/contracts/ITrustOracle.sol";
 
@@ -36,7 +37,157 @@ contract SecureVault {
         (bool success, ) = project.call{value: msg.value}("");
         require(success, "Transfer failed");
     }
-}`;
+}`,
+  "App.tsx": `import { TBurnSDK } from '@tburn/sdk';
+import { useState, useEffect } from 'react';
+
+export function WalletConnect() {
+  const [sdk, setSDK] = useState<TBurnSDK | null>(null);
+  const [address, setAddress] = useState('');
+  const [balance, setBalance] = useState('0');
+
+  useEffect(() => {
+    const initSDK = async () => {
+      const instance = new TBurnSDK({
+        apiKey: import.meta.env.VITE_TBURN_API_KEY,
+        network: 'mainnet'
+      });
+      setSDK(instance);
+    };
+    initSDK();
+  }, []);
+
+  const connectWallet = async () => {
+    if (!sdk) return;
+    const wallet = await sdk.connectWallet();
+    setAddress(wallet.address);
+    const bal = await sdk.getBalance(wallet.address);
+    setBalance(sdk.utils.formatEther(bal));
+  };
+
+  return (
+    <div className="wallet-container">
+      {address ? (
+        <div>
+          <p>Connected: {address.slice(0,6)}...{address.slice(-4)}</p>
+          <p>Balance: {balance} TBURN</p>
+        </div>
+      ) : (
+        <button onClick={connectWallet}>Connect Wallet</button>
+      )}
+    </div>
+  );
+}`,
+  "DEXSwap.sol": `pragma solidity ^0.8.19;
+
+import "@burnchain/contracts/ITBC20.sol";
+import "@burnchain/contracts/ITrustOracle.sol";
+
+contract TBurnDEX {
+    ITrustOracle public trustOracle;
+    uint256 public constant FEE_BPS = 30; // 0.3% fee
+    
+    struct Pool {
+        address tokenA;
+        address tokenB;
+        uint256 reserveA;
+        uint256 reserveB;
+        uint256 totalLiquidity;
+    }
+    
+    mapping(bytes32 => Pool) public pools;
+    mapping(bytes32 => mapping(address => uint256)) public liquidity;
+    
+    event Swap(address indexed user, address tokenIn, address tokenOut, uint256 amountIn, uint256 amountOut);
+    event LiquidityAdded(address indexed provider, bytes32 poolId, uint256 amountA, uint256 amountB);
+    
+    function swap(
+        address tokenIn,
+        address tokenOut,
+        uint256 amountIn,
+        uint256 minAmountOut
+    ) external returns (uint256 amountOut) {
+        bytes32 poolId = getPoolId(tokenIn, tokenOut);
+        Pool storage pool = pools[poolId];
+        
+        // Verify trust scores for tokens
+        require(trustOracle.getScore(tokenIn) >= 60, "TokenIn trust too low");
+        require(trustOracle.getScore(tokenOut) >= 60, "TokenOut trust too low");
+        
+        // Calculate output using x*y=k formula
+        uint256 amountInWithFee = amountIn * (10000 - FEE_BPS);
+        amountOut = (amountInWithFee * pool.reserveB) / (pool.reserveA * 10000 + amountInWithFee);
+        
+        require(amountOut >= minAmountOut, "Slippage too high");
+        
+        // Transfer tokens
+        ITBC20(tokenIn).transferFrom(msg.sender, address(this), amountIn);
+        ITBC20(tokenOut).transfer(msg.sender, amountOut);
+        
+        // Update reserves
+        pool.reserveA += amountIn;
+        pool.reserveB -= amountOut;
+        
+        emit Swap(msg.sender, tokenIn, tokenOut, amountIn, amountOut);
+    }
+    
+    function getPoolId(address tokenA, address tokenB) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked(tokenA < tokenB ? tokenA : tokenB, tokenA < tokenB ? tokenB : tokenA));
+    }
+}`,
+  "NFTMint.sol": `pragma solidity ^0.8.19;
+
+import "@burnchain/contracts/TBC721.sol";
+import "@burnchain/contracts/ITrustOracle.sol";
+
+contract TBurnNFT is TBC721 {
+    ITrustOracle public trustOracle;
+    uint256 public nextTokenId;
+    uint256 public mintPrice = 0.1 ether;
+    uint256 public maxSupply = 10000;
+    
+    string private _baseTokenURI;
+    
+    mapping(uint256 => string) private _tokenURIs;
+    mapping(address => uint256) public mintCount;
+    
+    event NFTMinted(address indexed minter, uint256 tokenId, string tokenURI);
+    
+    constructor(
+        address _oracle,
+        string memory baseURI
+    ) TBC721("TBURN Collection", "TBNFT") {
+        trustOracle = ITrustOracle(_oracle);
+        _baseTokenURI = baseURI;
+    }
+    
+    function mint(string memory tokenURI) external payable returns (uint256) {
+        require(nextTokenId < maxSupply, "Max supply reached");
+        require(msg.value >= mintPrice, "Insufficient payment");
+        
+        // Check minter trust score for anti-bot protection
+        uint8 score = trustOracle.getScore(msg.sender);
+        require(score >= 50, "Trust score too low");
+        
+        // Limit mints per wallet based on trust
+        uint256 maxMints = score >= 80 ? 10 : 3;
+        require(mintCount[msg.sender] < maxMints, "Mint limit reached");
+        
+        uint256 tokenId = nextTokenId++;
+        _safeMint(msg.sender, tokenId);
+        _tokenURIs[tokenId] = tokenURI;
+        mintCount[msg.sender]++;
+        
+        emit NFTMinted(msg.sender, tokenId, tokenURI);
+        return tokenId;
+    }
+    
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        require(_exists(tokenId), "Token does not exist");
+        return string(abi.encodePacked(_baseTokenURI, _tokenURIs[tokenId]));
+    }
+}`
+};
 
 function SyntaxHighlight({ code }: { code: string }) {
   const highlight = (text: string) => {
@@ -230,7 +381,7 @@ export default function CodeExamples() {
               data-testid="ide-window"
             >
               <div 
-                className="px-4 py-2 flex items-center justify-between"
+                className="px-4 py-2 flex items-center justify-between flex-wrap gap-2"
                 style={{ 
                   background: "#1a1a20",
                   borderBottom: "1px solid rgba(255, 255, 255, 0.05)"
@@ -241,29 +392,24 @@ export default function CodeExamples() {
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
                   <span className="w-2.5 h-2.5 rounded-full bg-green-500" />
                 </div>
-                <div className="flex gap-4 text-xs font-mono">
-                  <button 
-                    onClick={() => setActiveTab("SecureVault.sol")}
-                    className={activeTab === "SecureVault.sol" 
-                      ? "text-[#00f0ff] border-b border-[#00f0ff] pb-1" 
-                      : "text-gray-500 hover:text-white transition"
-                    }
-                  >
-                    SecureVault.sol
-                  </button>
-                  <button 
-                    onClick={() => setActiveTab("App.tsx")}
-                    className={activeTab === "App.tsx" 
-                      ? "text-[#00f0ff] border-b border-[#00f0ff] pb-1" 
-                      : "text-gray-500 hover:text-white transition"
-                    }
-                  >
-                    App.tsx
-                  </button>
+                <div className="flex gap-3 text-xs font-mono overflow-x-auto">
+                  {Object.keys(codeExamples).map((tab) => (
+                    <button 
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={activeTab === tab 
+                        ? "text-[#00f0ff] border-b border-[#00f0ff] pb-1 whitespace-nowrap" 
+                        : "text-gray-500 hover:text-white transition whitespace-nowrap"
+                      }
+                      data-testid={`tab-${tab.replace('.', '-')}`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
                 </div>
               </div>
-              <div className="p-6 font-mono text-gray-300 overflow-x-auto">
-                <SyntaxHighlight code={featuredCode} />
+              <div className="p-6 font-mono text-gray-300 overflow-x-auto max-h-96">
+                <SyntaxHighlight code={codeExamples[activeTab as keyof typeof codeExamples] || codeExamples["SecureVault.sol"]} />
               </div>
             </div>
           </div>

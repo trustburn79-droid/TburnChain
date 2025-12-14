@@ -7,7 +7,10 @@ import {
   Check, 
   Copy,
   Code,
-  CheckCircle
+  CheckCircle,
+  HelpCircle,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -53,6 +56,87 @@ const step4Code = `const score = await sdk.getTrustScore('0x1234...');
 console.log('Trust Score:', score.total); // 0-100
 console.log('Grade:', score.grade); // S, A, B, C, D, F
 console.log('AI Summary:', score.aiAnalysis.summary);`;
+
+const troubleshootingItems = [
+  {
+    problem: "SDK Installation Failed",
+    solution: "Clear npm cache and reinstall. If using yarn, ensure you have the latest version.",
+    code: `npm cache clean --force
+npm install @tburn/sdk
+
+# Or with yarn
+yarn cache clean
+yarn add @tburn/sdk`
+  },
+  {
+    problem: "API Key Authentication Failed (401 Error)",
+    solution: "Verify your API key is valid and properly set in environment variables. Check for trailing whitespace.",
+    code: `# Check your .env file
+TBURN_API_KEY=your_api_key_here
+
+# Verify in code
+console.log('API Key exists:', !!process.env.TBURN_API_KEY);
+
+# Regenerate key at https://tburn.io/developers/keys`
+  },
+  {
+    problem: "Transaction Failed (Reverted)",
+    solution: "Common causes: insufficient balance, incorrect recipient address, or contract rejection.",
+    code: `try {
+  const tx = await sdk.sendTransaction({...});
+  await tx.wait();
+} catch (error) {
+  if (error.code === 'INSUFFICIENT_FUNDS') {
+    console.log('Not enough TBURN balance');
+  } else if (error.code === 'CALL_EXCEPTION') {
+    console.log('Contract reverted:', error.reason);
+  }
+}`
+  },
+  {
+    problem: "Network Connection Error",
+    solution: "Check network status and RPC endpoint. Use fallback endpoints if primary is down.",
+    code: `const sdk = new TBurnSDK({
+  apiKey: process.env.TBURN_API_KEY,
+  network: 'mainnet',
+  options: {
+    rpcEndpoints: [
+      'https://tburn.io/rpc',
+      'https://rpc2.tburn.io',  // Fallback
+    ],
+    timeout: 30000
+  }
+});`
+  },
+  {
+    problem: "Insufficient Gas Error",
+    solution: "Increase gas limit or wait for lower network congestion. Check current gas prices.",
+    code: `// Get current gas price
+const gasPrice = await sdk.getGasPrice();
+console.log('Current gas:', sdk.utils.formatGwei(gasPrice), 'Gwei');
+
+// Send with higher gas limit
+const tx = await sdk.sendTransaction({
+  to: recipient,
+  value: amount,
+  gasLimit: 50000,  // Increase from 21000
+  gasPrice: gasPrice.mul(120).div(100)  // +20%
+});`
+  },
+  {
+    problem: "Request Timeout Error",
+    solution: "Increase timeout settings or implement retry logic for slow networks.",
+    code: `const sdk = new TBurnSDK({
+  apiKey: process.env.TBURN_API_KEY,
+  network: 'mainnet',
+  options: {
+    timeout: 60000,  // 60 seconds
+    retries: 5,
+    retryDelay: 2000  // 2 seconds between retries
+  }
+});`
+  }
+];
 
 function CodeBlock({ 
   code, 
@@ -102,6 +186,7 @@ function CodeBlock({
 export default function QuickStart() {
   const { t } = useTranslation();
   const [packageManager, setPackageManager] = useState<"npm" | "yarn">("npm");
+  const [expandedTroubleshooting, setExpandedTroubleshooting] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const vsCodeExtensions = [
@@ -360,6 +445,61 @@ export default function QuickStart() {
               >
                 <CheckCircle className="w-5 h-5 text-[#00ff9d]" />
                 <span className="text-gray-900 dark:text-white text-sm">{ext}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Troubleshooting Section */}
+      <section className="py-16 px-6">
+        <div className="container mx-auto max-w-4xl">
+          <div className="flex items-center gap-3 mb-6">
+            <HelpCircle className="w-6 h-6 text-[#ff6b6b]" />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('publicPages.developers.quickstart.troubleshooting.title') || 'Troubleshooting Guide'}</h2>
+          </div>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
+            {t('publicPages.developers.quickstart.troubleshooting.description') || 'Common issues and solutions when working with the TBURN SDK. Click on any issue to see the solution and code example.'}
+          </p>
+          
+          <div className="space-y-4">
+            {troubleshootingItems.map((item, index) => (
+              <div 
+                key={index}
+                className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"
+                data-testid={`troubleshooting-item-${index}`}
+              >
+                <button
+                  onClick={() => setExpandedTroubleshooting(expandedTroubleshooting === index ? null : index)}
+                  className="w-full flex items-center justify-between p-5 text-left transition hover:bg-gray-50 dark:hover:bg-white/5"
+                  data-testid={`button-troubleshooting-${index}`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-[#ff6b6b]/20 flex items-center justify-center text-[#ff6b6b] font-bold text-sm">
+                      {index + 1}
+                    </div>
+                    <span className="font-semibold text-gray-900 dark:text-white">{item.problem}</span>
+                  </div>
+                  {expandedTroubleshooting === index ? (
+                    <ChevronUp className="w-5 h-5 text-gray-500" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-500" />
+                  )}
+                </button>
+                
+                {expandedTroubleshooting === index && (
+                  <div className="px-5 pb-5 border-t border-gray-100 dark:border-white/5">
+                    <div className="pt-4">
+                      <p className="text-gray-600 dark:text-gray-400 mb-4 flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-[#00ff9d] mt-1 flex-shrink-0" />
+                        <span>{item.solution}</span>
+                      </p>
+                      {item.code && (
+                        <CodeBlock code={item.code} />
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

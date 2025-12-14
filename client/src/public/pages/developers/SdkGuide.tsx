@@ -88,6 +88,154 @@ client.ws.subscribeTrustScores(['0xProject1...'], (update) => {
   console.log(\`Score changed: \${update.oldScore} → \${update.newScore}\`);
 });`;
 
+const errorHandlingExample = `import { TBurnClient, TBurnError, RateLimitError, NetworkError } from '@tburn/sdk';
+
+const client = new TBurnClient({ apiKey: 'YOUR_KEY' });
+
+try {
+  const balance = await client.getBalance('0xAddress...');
+} catch (error) {
+  if (error instanceof RateLimitError) {
+    // Handle rate limiting - wait and retry
+    console.log(\`Rate limited. Retry after \${error.retryAfter} seconds\`);
+    await sleep(error.retryAfter * 1000);
+    // Retry the request
+  } else if (error instanceof NetworkError) {
+    // Handle network issues
+    console.error(\`Network error: \${error.message}\`);
+    // Implement fallback or retry logic
+  } else if (error instanceof TBurnError) {
+    // Handle API errors
+    console.error(\`API Error \${error.code}: \${error.message}\`);
+    switch (error.code) {
+      case 'INVALID_ADDRESS':
+        console.log('Please check the address format');
+        break;
+      case 'INSUFFICIENT_FUNDS':
+        console.log('Not enough balance for this operation');
+        break;
+      default:
+        console.log('An unexpected error occurred');
+    }
+  }
+}`;
+
+const pythonExample = `from tburn_sdk import TBurnClient
+from tburn_sdk.exceptions import TBurnError, RateLimitError
+
+# Initialize client
+client = TBurnClient(api_key="YOUR_API_KEY")
+
+# Get balance
+balance = client.get_balance("0xYourAddress...")
+print(f"Balance: {balance.formatted} TBURN")
+
+# Send transaction with error handling
+try:
+    tx = client.transfer(
+        to="0xRecipient...",
+        amount="100",
+        gas_limit="auto"
+    )
+    print(f"Transaction Hash: {tx.hash}")
+except RateLimitError as e:
+    print(f"Rate limited. Retry after {e.retry_after} seconds")
+except TBurnError as e:
+    print(f"API Error {e.code}: {e.message}")
+
+# DeFi operations
+pool = client.defi.get_pool("TBURN-USDT")
+print(f"TVL: {pool.tvl}, APY: {pool.apy}%")
+
+# WebSocket streaming
+@client.ws.on_block
+def handle_block(block):
+    print(f"New block: #{block.number}")
+
+client.ws.connect()`;
+
+const goExample = `package main
+
+import (
+    "fmt"
+    "log"
+    tburn "github.com/tburn/go-sdk"
+)
+
+func main() {
+    // Initialize client
+    client, err := tburn.NewClient(tburn.Config{
+        APIKey:  "YOUR_API_KEY",
+        Network: tburn.Mainnet,
+    })
+    if err != nil {
+        log.Fatalf("Failed to create client: %v", err)
+    }
+
+    // Get balance with error handling
+    balance, err := client.GetBalance("0xYourAddress...")
+    if err != nil {
+        switch e := err.(type) {
+        case *tburn.RateLimitError:
+            fmt.Printf("Rate limited. Retry after %d seconds\\n", e.RetryAfter)
+        case *tburn.APIError:
+            fmt.Printf("API Error %s: %s\\n", e.Code, e.Message)
+        default:
+            fmt.Printf("Unknown error: %v\\n", err)
+        }
+        return
+    }
+    fmt.Printf("Balance: %s TBURN\\n", balance.Formatted)
+
+    // Send transaction
+    tx, err := client.Transfer(tburn.TransferRequest{
+        To:       "0xRecipient...",
+        Amount:   "100",
+        GasLimit: "auto",
+    })
+    if err == nil {
+        fmt.Printf("Transaction Hash: %s\\n", tx.Hash)
+    }
+}`;
+
+const rustExample = `use tburn_sdk::{TBurnClient, Config, Error};
+
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    // Initialize client
+    let client = TBurnClient::new(Config {
+        api_key: "YOUR_API_KEY".to_string(),
+        network: Network::Mainnet,
+        ..Default::default()
+    })?;
+
+    // Get balance with pattern matching error handling
+    match client.get_balance("0xYourAddress...").await {
+        Ok(balance) => {
+            println!("Balance: {} TBURN", balance.formatted);
+        }
+        Err(Error::RateLimit { retry_after }) => {
+            println!("Rate limited. Retry after {} seconds", retry_after);
+        }
+        Err(Error::Api { code, message }) => {
+            println!("API Error {}: {}", code, message);
+        }
+        Err(e) => {
+            println!("Unknown error: {:?}", e);
+        }
+    }
+
+    // Send transaction
+    let tx = client.transfer(TransferRequest {
+        to: "0xRecipient...".to_string(),
+        amount: "100".to_string(),
+        gas_limit: GasLimit::Auto,
+    }).await?;
+    
+    println!("Transaction Hash: {}", tx.hash);
+    Ok(())
+}`;
+
 export default function SdkGuide() {
   const { t } = useTranslation();
   const [activeLang, setActiveLang] = useState("JavaScript");
@@ -133,7 +281,8 @@ export default function SdkGuide() {
   const exampleTabs = [
     t('publicPages.developers.sdk.examples.core'),
     t('publicPages.developers.sdk.examples.defi'),
-    t('publicPages.developers.sdk.examples.streaming')
+    t('publicPages.developers.sdk.examples.streaming'),
+    "Error Handling"
   ];
 
   const handleCopy = (text: string, index: number) => {
@@ -146,6 +295,16 @@ export default function SdkGuide() {
     switch (activeTab) {
       case t('publicPages.developers.sdk.examples.defi'): return defiExample;
       case t('publicPages.developers.sdk.examples.streaming'): return streamingExample;
+      case "Error Handling": return errorHandlingExample;
+      default: return coreExample;
+    }
+  };
+
+  const getLanguageSpecificCode = () => {
+    switch (activeLang) {
+      case "Python": return pythonExample;
+      case "Go": return goExample;
+      case "Rust": return rustExample;
       default: return coreExample;
     }
   };
@@ -304,6 +463,42 @@ export default function SdkGuide() {
                 .replace(/'[^']*'/g, '<span class="text-[#00ff9d]">$&</span>')
                 .replace(/`[^`]*`/g, '<span class="text-[#00ff9d]">$&</span>')
                 .replace(/\/\/.*/g, '<span class="text-gray-500">$&</span>')
+              }} />
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Language-Specific Examples */}
+      <section className="py-16 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
+        <div className="container mx-auto max-w-7xl">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+            <Terminal className="w-6 h-6 text-[#00ff9d]" /> Language-Specific Examples
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
+            Full SDK examples with error handling for each supported language. Select a language from the top navigation to see the corresponding code.
+          </p>
+
+          <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl overflow-hidden">
+            <div className="bg-gray-100 dark:bg-black/40 border-b border-gray-200 dark:border-white/10 p-3 flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-red-500" />
+              <span className="w-3 h-3 rounded-full bg-yellow-500" />
+              <span className="w-3 h-3 rounded-full bg-green-500" />
+              <span className="ml-2 text-xs text-gray-500 font-mono">
+                {activeLang === "Python" ? "main.py" : 
+                 activeLang === "Go" ? "main.go" : 
+                 activeLang === "Rust" ? "main.rs" : "index.ts"}
+              </span>
+              <span className="ml-auto text-xs px-2 py-0.5 rounded bg-[#7000ff]/20 text-[#7000ff]">{activeLang}</span>
+            </div>
+            <pre className="bg-gray-900 dark:bg-[#0d0d12] p-6 font-mono text-sm text-gray-300 dark:text-gray-400 overflow-x-auto max-h-[600px]">
+              <code dangerouslySetInnerHTML={{ __html: getLanguageSpecificCode()
+                .replace(/import|from|const|await|new|package|func|use|async|fn|let|match|Ok|Err/g, '<span class="text-[#7000ff]">$&</span>')
+                .replace(/"[^"]*"/g, '<span class="text-[#00ff9d]">$&</span>')
+                .replace(/'[^']*'/g, '<span class="text-[#00ff9d]">$&</span>')
+                .replace(/`[^`]*`/g, '<span class="text-[#00ff9d]">$&</span>')
+                .replace(/\/\/.*/g, '<span class="text-gray-500">$&</span>')
+                .replace(/#.*/g, '<span class="text-gray-500">$&</span>')
               }} />
             </pre>
           </div>
