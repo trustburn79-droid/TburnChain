@@ -34,7 +34,10 @@ import {
   Copy,
   CheckCircle,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Plus,
+  Key,
+  Shield
 } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -914,6 +917,256 @@ function SwapDialog({
   );
 }
 
+interface CreatedWallet {
+  address: string;
+  publicKey: string;
+  privateKey: string;
+  chainId: number;
+  network: string;
+  createdAt: string;
+}
+
+function CreateWalletDialog({ 
+  open, 
+  onOpenChange 
+}: { 
+  open: boolean; 
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [createdWallet, setCreatedWallet] = useState<CreatedWallet | null>(null);
+  const [privateKeyCopied, setPrivateKeyCopied] = useState(false);
+  const [addressCopied, setAddressCopied] = useState(false);
+  const [acknowledged, setAcknowledged] = useState(false);
+
+  const createWalletMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/wallet/create", {});
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setCreatedWallet(data.wallet);
+      toast({
+        title: t("walletDashboard.walletCreated", "Wallet Created"),
+        description: t("walletDashboard.walletCreatedDesc", "Your new TBURN wallet has been generated"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/wallet/balance"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("walletDashboard.error", "Error"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleCopyPrivateKey = async () => {
+    if (!createdWallet) return;
+    try {
+      await navigator.clipboard.writeText(createdWallet.privateKey);
+      setPrivateKeyCopied(true);
+      setTimeout(() => setPrivateKeyCopied(false), 2000);
+    } catch (err) {
+      toast({
+        title: t("walletDashboard.copyFailed", "Copy failed"),
+        description: t("walletDashboard.copyFailedDesc", "Please select and copy manually"),
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCopyAddress = async () => {
+    if (!createdWallet) return;
+    try {
+      await navigator.clipboard.writeText(createdWallet.address);
+      setAddressCopied(true);
+      setTimeout(() => setAddressCopied(false), 2000);
+    } catch (err) {
+      toast({
+        title: t("walletDashboard.copyFailed", "Copy failed"),
+        description: t("walletDashboard.copyFailedDesc", "Please select and copy manually"),
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleClose = () => {
+    if (createdWallet && !acknowledged) {
+      return;
+    }
+    setCreatedWallet(null);
+    setAcknowledged(false);
+    setPrivateKeyCopied(false);
+    setAddressCopied(false);
+    onOpenChange(false);
+  };
+
+  const handleDialogChange = (open: boolean) => {
+    if (!open && createdWallet && !acknowledged) {
+      return;
+    }
+    if (!open) {
+      handleClose();
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={handleDialogChange}>
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Plus className="h-5 w-5 text-primary" />
+            {t("walletDashboard.createNewWallet", "Create New Wallet")}
+          </DialogTitle>
+          <DialogDescription>
+            {createdWallet 
+              ? t("walletDashboard.walletReadyDesc", "Your new TBURN wallet is ready")
+              : t("walletDashboard.createWalletDesc", "Generate a new TBURN Mainnet wallet address")}
+          </DialogDescription>
+        </DialogHeader>
+
+        {!createdWallet ? (
+          <div className="space-y-4 py-4">
+            <div className="rounded-lg bg-muted/50 p-4 space-y-3">
+              <div className="flex items-start gap-3">
+                <Shield className="h-5 w-5 text-primary mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium">{t("walletDashboard.secureGeneration", "Secure Wallet Generation")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {t("walletDashboard.secureGenerationDesc", "A new cryptographic key pair will be generated for your TBURN wallet. This wallet will be on the TBURN Mainnet (Chain ID: 7979).")}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Key className="h-5 w-5 text-yellow-500 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-yellow-500">{t("walletDashboard.importantWarning", "Important Warning")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {t("walletDashboard.privateKeyWarning", "Your private key will only be shown once. Make sure to save it securely - anyone with access to your private key can control your wallet.")}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <DialogFooter>
+              <Button variant="outline" onClick={handleClose} data-testid="button-create-wallet-cancel">
+                {t("common.cancel", "Cancel")}
+              </Button>
+              <Button 
+                onClick={() => createWalletMutation.mutate()}
+                disabled={createWalletMutation.isPending}
+                data-testid="button-create-wallet-confirm"
+              >
+                {createWalletMutation.isPending ? (
+                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                ) : (
+                  <Plus className="h-4 w-4 mr-2" />
+                )}
+                {t("walletDashboard.generateWallet", "Generate Wallet")}
+              </Button>
+            </DialogFooter>
+          </div>
+        ) : (
+          <div className="space-y-4 py-4">
+            <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-3 flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-green-500" />
+              <span className="text-sm text-green-600 dark:text-green-400">
+                {t("walletDashboard.walletCreatedSuccess", "Wallet successfully created!")}
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">{t("walletDashboard.walletAddress", "Wallet Address")}</Label>
+                <div className="flex gap-2">
+                  <Input
+                    value={createdWallet.address}
+                    readOnly
+                    className="font-mono text-xs"
+                    data-testid="input-new-wallet-address"
+                  />
+                  <Button 
+                    size="icon" 
+                    variant="outline" 
+                    onClick={handleCopyAddress}
+                    data-testid="button-copy-new-address"
+                  >
+                    {addressCopied ? <CheckCircle className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                  </Button>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-xs text-yellow-500 flex items-center gap-1">
+                  <Key className="h-3 w-3" />
+                  {t("walletDashboard.privateKey", "Private Key")} 
+                  <span className="text-red-500">({t("walletDashboard.saveSecurely", "SAVE SECURELY!")})</span>
+                </Label>
+                <div className="flex gap-2">
+                  <Input
+                    value={createdWallet.privateKey}
+                    readOnly
+                    className="font-mono text-xs"
+                    type="password"
+                    data-testid="input-new-wallet-private-key"
+                  />
+                  <Button 
+                    size="icon" 
+                    variant="outline" 
+                    onClick={handleCopyPrivateKey}
+                    data-testid="button-copy-private-key"
+                  >
+                    {privateKeyCopied ? <CheckCircle className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="rounded-lg bg-muted/50 p-2">
+                  <span className="text-muted-foreground">{t("walletDashboard.network", "Network")}</span>
+                  <p className="font-medium">{createdWallet.network}</p>
+                </div>
+                <div className="rounded-lg bg-muted/50 p-2">
+                  <span className="text-muted-foreground">{t("walletDashboard.chainId", "Chain ID")}</span>
+                  <p className="font-medium">{createdWallet.chainId}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3">
+              <div className="flex items-start gap-2">
+                <input
+                  type="checkbox"
+                  id="acknowledge-key"
+                  checked={acknowledged}
+                  onChange={(e) => setAcknowledged(e.target.checked)}
+                  className="mt-1"
+                  data-testid="checkbox-acknowledge-key"
+                />
+                <label htmlFor="acknowledge-key" className="text-xs text-yellow-600 dark:text-yellow-400">
+                  {t("walletDashboard.acknowledgePrivateKey", "I have securely saved my private key. I understand that if I lose it, I will permanently lose access to this wallet.")}
+                </label>
+              </div>
+            </div>
+
+            <DialogFooter>
+              <Button 
+                onClick={handleClose}
+                disabled={!acknowledged}
+                data-testid="button-close-create-wallet"
+              >
+                {t("common.done", "Done")}
+              </Button>
+            </DialogFooter>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 const defaultBalance: WalletBalance = {
   balance: "15,847.00",
   balanceUsd: "38,191.27",
@@ -945,6 +1198,7 @@ export default function WalletDashboard() {
   const [sendDialogOpen, setSendDialogOpen] = useState(false);
   const [receiveDialogOpen, setReceiveDialogOpen] = useState(false);
   const [swapDialogOpen, setSwapDialogOpen] = useState(false);
+  const [createWalletDialogOpen, setCreateWalletDialogOpen] = useState(false);
   
   const urlParams = new URLSearchParams(window.location.search);
   const addressParam = urlParams.get('address');
@@ -1043,6 +1297,14 @@ export default function WalletDashboard() {
             onClick={() => setSwapDialogOpen(true)}
             testId="button-swap"
           />
+          <QuickActionButton
+            icon={Plus}
+            title={t("walletDashboard.createWallet", "Create Wallet")}
+            subtitle={t("walletDashboard.generateNewWallet", "Generate new wallet")}
+            colorClass="bg-blue-500/10 text-blue-500 border-blue-500/30"
+            onClick={() => setCreateWalletDialogOpen(true)}
+            testId="button-create-wallet"
+          />
         </div>
       </div>
       
@@ -1073,6 +1335,10 @@ export default function WalletDashboard() {
       <SwapDialog 
         open={swapDialogOpen} 
         onOpenChange={setSwapDialogOpen}
+      />
+      <CreateWalletDialog 
+        open={createWalletDialogOpen} 
+        onOpenChange={setCreateWalletDialogOpen}
       />
     </div>
   );

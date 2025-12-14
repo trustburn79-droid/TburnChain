@@ -2,6 +2,7 @@ import type { Express, Request, Response } from "express";
 import { z } from "zod";
 import { storage } from "../storage";
 import { getEnterpriseNode } from "../services/TBurnEnterpriseNode";
+import { tburnWalletService } from "../services/TBurnWalletService";
 import { db } from "../db";
 import { 
   walletBalances,
@@ -432,6 +433,50 @@ export function registerWalletDashboardRoutes(
     } catch (error) {
       console.error("[WalletDashboard] Gas estimate error:", error);
       res.status(500).json({ error: "Failed to estimate gas" });
+    }
+  });
+
+  app.post("/api/wallet/create", requireAuth, async (req: Request, res: Response) => {
+    try {
+      let walletData = tburnWalletService.generateWalletWithPrivateKey();
+      const chainConfig = tburnWalletService.getChainConfig();
+
+      let retries = 0;
+      const maxRetries = 3;
+      while (retries < maxRetries) {
+        try {
+          const existing = await db.select().from(walletBalances).where(eq(walletBalances.address, walletData.address)).limit(1);
+          if (existing.length === 0) {
+            await db.insert(walletBalances).values({
+              address: walletData.address,
+            });
+            break;
+          }
+          walletData = tburnWalletService.generateWalletWithPrivateKey();
+          retries++;
+        } catch (insertError) {
+          walletData = tburnWalletService.generateWalletWithPrivateKey();
+          retries++;
+          if (retries >= maxRetries) throw insertError;
+        }
+      }
+
+      res.json({
+        success: true,
+        wallet: {
+          address: walletData.address,
+          publicKey: walletData.publicKey,
+          privateKey: walletData.privateKey,
+          chainId: walletData.chainId,
+          network: walletData.network,
+          createdAt: walletData.createdAt.toISOString(),
+        },
+        chainConfig,
+        warning: "IMPORTANT: Save your private key securely. It will not be shown again!",
+      });
+    } catch (error) {
+      console.error("[WalletDashboard] Create wallet error:", error);
+      res.status(500).json({ error: "Failed to create wallet" });
     }
   });
 
