@@ -182,13 +182,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   // ============================================
   // DYNAMIC SHARD SCALING SYSTEM (Enterprise Grade)
-  // Supports 5-64 shards based on hardware capacity
+  // Supports 5-128 shards based on hardware capacity
   // Includes validation, rollback, audit logging, and health monitoring
   // ============================================
   private shardConfig = {
-    currentShardCount: 5,           // Current active shards (5 for dev, 64 for prod)
+    currentShardCount: 5,           // Current active shards (5 for dev, 128 for enterprise)
     minShards: 5,                   // Minimum shard count
-    maxShards: 64,                  // Maximum shard count (32-core optimized)
+    maxShards: 128,                 // Maximum shard count (64-core enterprise optimized)
     validatorsPerShard: 25,         // Base validators per shard
     tpsPerShard: 10000,             // Base TPS per shard
     crossShardLatencyMs: 50,        // Cross-shard communication latency
@@ -724,7 +724,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return this.scalingEvents.slice(-limit);
   }
   
-  // Shard name generator for 64 shards
+  // Shard name generator for 128 shards (enterprise scale)
   private readonly SHARD_NAMES = [
     'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta',
     'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi',
@@ -733,7 +733,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
     'Iota-2', 'Kappa-2', 'Lambda-2', 'Mu-2', 'Nu-2', 'Xi-2', 'Omicron-2', 'Pi-2',
     'Rho-2', 'Sigma-2', 'Tau-2', 'Upsilon-2', 'Phi-2', 'Chi-2', 'Psi-2', 'Omega-2',
     'Alpha-3', 'Beta-3', 'Gamma-3', 'Delta-3', 'Epsilon-3', 'Zeta-3', 'Eta-3', 'Theta-3',
-    'Iota-3', 'Kappa-3', 'Lambda-3', 'Mu-3', 'Nu-3', 'Xi-3', 'Omicron-3', 'Pi-3'
+    'Iota-3', 'Kappa-3', 'Lambda-3', 'Mu-3', 'Nu-3', 'Xi-3', 'Omicron-3', 'Pi-3',
+    'Rho-3', 'Sigma-3', 'Tau-3', 'Upsilon-3', 'Phi-3', 'Chi-3', 'Psi-3', 'Omega-3',
+    'Alpha-4', 'Beta-4', 'Gamma-4', 'Delta-4', 'Epsilon-4', 'Zeta-4', 'Eta-4', 'Theta-4',
+    'Iota-4', 'Kappa-4', 'Lambda-4', 'Mu-4', 'Nu-4', 'Xi-4', 'Omicron-4', 'Pi-4',
+    'Rho-4', 'Sigma-4', 'Tau-4', 'Upsilon-4', 'Phi-4', 'Chi-4', 'Psi-4', 'Omega-4',
+    'Alpha-5', 'Beta-5', 'Gamma-5', 'Delta-5', 'Epsilon-5', 'Zeta-5', 'Eta-5', 'Theta-5',
+    'Iota-5', 'Kappa-5', 'Lambda-5', 'Mu-5', 'Nu-5', 'Xi-5', 'Omicron-5', 'Pi-5'
   ];
 
   // Hardware requirement profiles

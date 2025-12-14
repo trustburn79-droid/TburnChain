@@ -171,9 +171,9 @@ const aiDecisionSchema = z.object({
   priority: z.enum(['low', 'medium', 'high', 'critical']).optional()
 });
 
-// Shard management schemas
+// Shard management schemas (supports up to 128 shards for enterprise)
 const shardConfigSchema = z.object({
-  shardCount: z.number().int().min(1).max(64),
+  shardCount: z.number().int().min(1).max(128),
   validatorsPerShard: z.number().int().min(1).max(50),
   rebalanceThreshold: z.number().min(0).max(100).optional()
 });
