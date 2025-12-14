@@ -653,8 +653,6 @@ export const walletBalances = pgTable("wallet_balances", {
   lastTransactionAt: timestamp("last_transaction_at"),
   firstSeenAt: timestamp("first_seen_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
-  sessionId: text("session_id"),
-  createdAt: timestamp("created_at").defaultNow(),
 });
 
 // Delegations table - tracks stake delegations to validators

@@ -932,23 +932,50 @@ interface SavedWallet {
   name?: string;
 }
 
-function getStoredWallets(): SavedWallet[] {
+let inMemoryWalletFallback: SavedWallet[] = [];
+
+function isLocalStorageAvailable(): boolean {
+  if (typeof window === 'undefined') return false;
   try {
-    const stored = localStorage.getItem('tburn_my_wallets');
-    return stored ? JSON.parse(stored) : [];
+    const testKey = '__storage_test__';
+    window.localStorage.setItem(testKey, testKey);
+    window.localStorage.removeItem(testKey);
+    return true;
   } catch {
-    return [];
+    return false;
+  }
+}
+
+function getStoredWallets(): SavedWallet[] {
+  if (!isLocalStorageAvailable()) {
+    return inMemoryWalletFallback;
+  }
+  try {
+    const stored = window.localStorage.getItem('tburn_my_wallets');
+    const parsed = stored ? JSON.parse(stored) : [];
+    inMemoryWalletFallback = parsed;
+    return inMemoryWalletFallback;
+  } catch {
+    return inMemoryWalletFallback;
   }
 }
 
 function saveWalletToStorage(wallet: SavedWallet): SavedWallet[] {
-  const wallets = getStoredWallets();
-  const existing = wallets.find(w => w.address === wallet.address);
-  if (!existing) {
-    wallets.unshift(wallet);
-    localStorage.setItem('tburn_my_wallets', JSON.stringify(wallets.slice(0, 20)));
+  const currentWallets = getStoredWallets();
+  const existing = currentWallets.find(w => w.address === wallet.address);
+  if (existing) {
+    return inMemoryWalletFallback;
   }
-  return wallets;
+  const updatedWallets = [wallet, ...currentWallets].slice(0, 20);
+  inMemoryWalletFallback = updatedWallets;
+  if (isLocalStorageAvailable()) {
+    try {
+      window.localStorage.setItem('tburn_my_wallets', JSON.stringify(updatedWallets));
+    } catch {
+      // Storage quota exceeded or not available - wallet is still in memory
+    }
+  }
+  return inMemoryWalletFallback;
 }
 
 function CreateWalletDialog({ 

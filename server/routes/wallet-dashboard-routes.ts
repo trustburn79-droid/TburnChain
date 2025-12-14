@@ -440,7 +440,6 @@ export function registerWalletDashboardRoutes(
     try {
       let walletData = tburnWalletService.generateWalletWithPrivateKey();
       const chainConfig = tburnWalletService.getChainConfig();
-      const sessionId = req.sessionID;
 
       let retries = 0;
       const maxRetries = 3;
@@ -450,7 +449,6 @@ export function registerWalletDashboardRoutes(
           if (existing.length === 0) {
             await db.insert(walletBalances).values({
               address: walletData.address,
-              sessionId: sessionId,
             });
             enterpriseNode.registerWallet(walletData.address, "0");
             break;
@@ -458,6 +456,7 @@ export function registerWalletDashboardRoutes(
           walletData = tburnWalletService.generateWalletWithPrivateKey();
           retries++;
         } catch (insertError) {
+          console.error("[WalletDashboard] Insert error:", insertError);
           walletData = tburnWalletService.generateWalletWithPrivateKey();
           retries++;
           if (retries >= maxRetries) throw insertError;
@@ -480,45 +479,6 @@ export function registerWalletDashboardRoutes(
     } catch (error) {
       console.error("[WalletDashboard] Create wallet error:", error);
       res.status(500).json({ error: "Failed to create wallet" });
-    }
-  });
-
-  // Get user's wallets (wallets created in this session)
-  app.get("/api/wallet/my-wallets", requireAuth, async (req: Request, res: Response) => {
-    try {
-      const sessionId = req.sessionID;
-      
-      const wallets = await db.select({
-        address: walletBalances.address,
-        balance: walletBalances.balance,
-        stakedBalance: walletBalances.stakedBalance,
-        createdAt: walletBalances.createdAt,
-      })
-        .from(walletBalances)
-        .where(eq(walletBalances.sessionId, sessionId))
-        .orderBy(desc(walletBalances.createdAt))
-        .limit(20);
-
-      const tokenEconomics = enterpriseNode.getTokenEconomics();
-      const tokenPrice = tokenEconomics.tokenPrice || 0.29;
-
-      const formattedWallets = wallets.map(w => {
-        const totalBalance = (BigInt(w.balance) + BigInt(w.stakedBalance)).toString();
-        return {
-          address: w.address,
-          balance: formatBalance(totalBalance),
-          balanceUsd: calculateUsdValue(totalBalance, tokenPrice),
-          createdAt: w.createdAt?.toISOString() || new Date().toISOString(),
-        };
-      });
-
-      res.json({
-        wallets: formattedWallets,
-        count: formattedWallets.length,
-      });
-    } catch (error) {
-      console.error("[WalletDashboard] My wallets error:", error);
-      res.status(500).json({ error: "Failed to fetch wallets" });
     }
   });
 
