@@ -634,7 +634,7 @@ export default function AdminShards() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {[5, 8, 12, 16, 24, 32, 48, 64].filter(n => n >= shardConfig.minShards && n <= shardConfig.maxShards).map((count) => (
+                          {[5, 8, 12, 16, 24, 32, 48, 64, 80, 96, 112, 128].filter(n => n >= shardConfig.minShards && n <= shardConfig.maxShards).map((count) => (
                             <SelectItem key={count} value={count.toString()}>
                               {count} {t("adminShards.shardsLabel") || "shards"} {count === shardConfig.currentShardCount ? `(${t("adminShards.current") || "current"})` : ''}
                             </SelectItem>
