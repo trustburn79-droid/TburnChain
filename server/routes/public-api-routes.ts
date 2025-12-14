@@ -1465,32 +1465,25 @@ router.get('/testnet/network/stats', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
     const now = Date.now();
-    const baseBlock = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
     
-    // Testnet uses same performance characteristics as mainnet for realistic developer experience
-    // TPS ranges 80,000-120,000 to match mainnet capacity
-    const baseTps = 100000;
-    const tpsVariance = Math.floor(Math.sin(now / 30000) * 15000) + Math.floor(Math.random() * 5000);
-    const currentTps = baseTps + tpsVariance;
-    
-    // Testnet mirrors mainnet validator and node count
-    const testnetValidators = 110;
-    const testnetNodes = 1247;
+    // Use same real-time data sources as mainnet for consistent experience
+    const snapshot = await dataHub.getNetworkSnapshot();
+    const stats = await storage.getNetworkStats();
     
     res.json({
       success: true,
       data: {
-        blockHeight: baseBlock,
-        tps: currentTps,
-        avgBlockTime: 0.5,
-        totalTransactions: 4532100 + Math.floor((now - new Date('2024-12-01').getTime()) / 5000),
-        activeValidators: testnetValidators,
+        blockHeight: stats?.currentBlockHeight || snapshot?.blockHeight || 0,
+        tps: stats?.tps || snapshot?.tps || 0,
+        avgBlockTime: stats?.avgBlockTime || 0.5,
+        totalTransactions: stats?.totalTransactions || 68966,
+        activeValidators: stats?.activeValidators || 110,
         totalBurned: '125000000000000000000000000',
-        gasPrice: '100',
+        gasPrice: stats?.gasPrice || '100',
         totalStaked: '350000000000000000000000000',
         finality: '< 2s',
-        shardCount: 4,
-        nodeCount: testnetNodes,
+        shardCount: 8,
+        nodeCount: 1247,
         uptime: '99.9%'
       },
       lastUpdated: now
