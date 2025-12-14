@@ -135,6 +135,7 @@
     "blocks": "Blocks",
     "transactions": "Transactions",
     "wallets": "Wallets",
+    "walletDashboard": "Wallet Dashboard",
     "tokenV4": "Token v4.0",
     "tokenSystem": "Token System",
     "crossChainBridge": "Cross-Chain Bridge",
