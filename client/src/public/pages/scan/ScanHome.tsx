@@ -369,7 +369,7 @@ export default function ScanHome() {
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
                     <Timer className="w-3 h-3 inline mr-1" />
-                    {stats?.avgBlockTime || 0.5}s {t("scan.avgBlockTime", "avg")}
+                    {stats?.avgBlockTime ? (stats.avgBlockTime / 1000).toFixed(2) : 0.5}s {t("scan.avgBlockTime", "avg")}
                   </div>
                 </CardContent>
               </Card>
@@ -524,7 +524,7 @@ export default function ScanHome() {
                     <div className="text-xs text-gray-600 dark:text-gray-400">{t("scan.finality", "Finality")}</div>
                   </div>
                   <div className="p-2 bg-gray-800/50 rounded-lg">
-                    <div className="text-lg font-bold text-gray-900 dark:text-white">{stats?.avgBlockTime || 0.5}s</div>
+                    <div className="text-lg font-bold text-gray-900 dark:text-white">{stats?.avgBlockTime ? (stats.avgBlockTime / 1000).toFixed(2) : 0.5}s</div>
                     <div className="text-xs text-gray-600 dark:text-gray-400">{t("scan.blockTime", "Block Time")}</div>
                   </div>
                 </div>
