@@ -4636,6 +4636,8 @@
       "kyc": "KYC",
       "risk": "Risk",
       "actions": "Actions",
+      "viewDetails": "View Details",
+      "walletDashboard": "Wallet Dashboard",
       "noMembersFound": "No members found",
       "pageOf": "Page {{page}} of {{total}}",
       "memberDetails": "Member Details",

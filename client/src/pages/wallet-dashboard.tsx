@@ -930,29 +930,36 @@ export default function WalletDashboard() {
   const [receiveDialogOpen, setReceiveDialogOpen] = useState(false);
   const [swapDialogOpen, setSwapDialogOpen] = useState(false);
   
+  const urlParams = new URLSearchParams(window.location.search);
+  const addressParam = urlParams.get('address');
+  const walletAddress = addressParam || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+  const addressQuery = addressParam ? `?address=${addressParam}` : '';
+  
   const { data: walletBalance, isLoading: balanceLoading } = useQuery<WalletBalance>({
-    queryKey: ["/api/wallet/balance"],
+    queryKey: ["/api/wallet/balance", walletAddress],
+    queryFn: () => fetch(`/api/wallet/balance${addressQuery}`).then(res => res.json()),
     refetchInterval: 30000,
     placeholderData: defaultBalance,
     staleTime: 10000,
   });
   
   const { data: performanceResponse, isLoading: performanceLoading } = useQuery<{ dataPoints: PerformanceDataPoint[] }>({
-    queryKey: ["/api/wallet/performance", timeRange],
+    queryKey: ["/api/wallet/performance", walletAddress, timeRange],
+    queryFn: () => fetch(`/api/wallet/performance${addressQuery}${addressQuery ? '&' : '?'}range=${timeRange}`).then(res => res.json()),
     refetchInterval: 60000,
     staleTime: 30000,
   });
   const performanceData = performanceResponse?.dataPoints || defaultPerformance;
   
   const { data: activitiesResponse, isLoading: activitiesLoading } = useQuery<{ activities: ActivityItem[] }>({
-    queryKey: ["/api/wallet/activities"],
+    queryKey: ["/api/wallet/activities", walletAddress],
+    queryFn: () => fetch(`/api/wallet/activities${addressQuery}`).then(res => res.json()),
     refetchInterval: 15000,
     staleTime: 5000,
   });
   const activities = activitiesResponse?.activities || defaultActivities;
   
   const displayBalance = walletBalance || defaultBalance;
-  const walletAddress = "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
   
   return (
     <div className="flex flex-col gap-6 p-6 min-h-screen relative">

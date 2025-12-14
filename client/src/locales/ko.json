@@ -4715,7 +4715,9 @@
       "exportComplete": "내보내기 완료",
       "membersExported": "{{count}}명 회원 내보내기됨",
       "unpin": "고정 해제",
-      "pin": "고정"
+      "pin": "고정",
+      "viewDetails": "상세 보기",
+      "walletDashboard": "지갑 대시보드"
     },
     "addMember": "멤버 추가",
     "removeMember": "멤버 삭제",
@@ -15945,7 +15947,7 @@
         "securitySolutions": {
           "title": "보안 솔루션",
           "wallets": "지갑",
-    "walletDashboard": "지갑 대시보드",
+          "walletDashboard": "지갑 대시보드",
           "walletsDesc": "안전한 지갑 솔루션",
           "permissioned": "허가형 환경",
           "permissionedDesc": "엔터프라이즈 프라이버시"
@@ -23213,7 +23215,7 @@
       "blocks": "블록",
       "transactions": "트랜잭션",
       "wallets": "지갑",
-    "walletDashboard": "지갑 대시보드",
+      "walletDashboard": "지갑 대시보드",
       "staking": "스테이킹",
       "bridge": "브릿지",
       "defi": "DeFi",
@@ -25334,7 +25336,7 @@
     "categoryTypes": {
       "gettingStarted": "시작하기",
       "wallets": "지갑",
-    "walletDashboard": "지갑 대시보드",
+      "walletDashboard": "지갑 대시보드",
       "staking": "스테이킹",
       "bridge": "브릿지",
       "governance": "거버넌스",

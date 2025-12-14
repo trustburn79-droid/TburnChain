@@ -46,8 +46,9 @@ import {
   Users, Search, ChevronLeft, ChevronRight,
   Eye, Edit, Shield, FileCheck, AlertTriangle, CheckCircle2,
   Download, MoreHorizontal, UserCheck, UserX, Clock,
-  Plus, Pin, Trash2, StickyNote, Calendar, Activity
+  Plus, Pin, Trash2, StickyNote, Calendar, Activity, Wallet
 } from "lucide-react";
+import { useLocation } from "wouter";
 import { useAdminPassword } from "@/hooks/use-admin-password";
 
 interface Member {
@@ -108,6 +109,7 @@ export default function OperatorMembers() {
   const { toast } = useToast();
   const { getAuthHeaders } = useAdminPassword();
   const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -628,8 +630,18 @@ export default function OperatorMembers() {
                         variant="ghost"
                         onClick={() => setSelectedMember(member.id)}
                         data-testid={`btn-view-${member.id}`}
+                        title={t('operator.members.viewDetails')}
                       >
                         <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => setLocation(`/app/wallet-dashboard?address=${member.account_address}`)}
+                        data-testid={`btn-wallet-${member.id}`}
+                        title={t('operator.members.walletDashboard')}
+                      >
+                        <Wallet className="h-4 w-4" />
                       </Button>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
