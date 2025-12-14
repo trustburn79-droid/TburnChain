@@ -768,8 +768,8 @@ curl -X POST ${testnetConfig.rpcUrl} \\
               <Card className="bg-white dark:bg-black/40 border-[#ffd700]/30 hover:border-[#ffd700] transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <Gift className="w-8 h-8 text-[#ffd700] mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.testnetRpc.resources.faucet')}</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.testnetRpc.resources.faucetDesc')}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.testnetRpc.resources.faucet.title')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.testnetRpc.resources.faucet.desc')}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -777,8 +777,8 @@ curl -X POST ${testnetConfig.rpcUrl} \\
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-[#7000ff]/50 transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <Book className="w-8 h-8 text-[#7000ff] mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.testnetRpc.resources.documentation')}</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.testnetRpc.resources.documentationDesc')}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.testnetRpc.resources.documentation.title')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.testnetRpc.resources.documentation.desc')}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -786,8 +786,8 @@ curl -X POST ${testnetConfig.rpcUrl} \\
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-[#ffd700]/50 transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <Globe className="w-8 h-8 text-[#ffd700] mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.testnetRpc.resources.explorer')}</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.testnetRpc.resources.explorerDesc')}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.testnetRpc.resources.explorer.title')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.testnetRpc.resources.explorer.desc')}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -795,8 +795,8 @@ curl -X POST ${testnetConfig.rpcUrl} \\
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 hover:border-orange-500/50 transition cursor-pointer group h-full">
                 <CardContent className="pt-6 text-center">
                   <Server className="w-8 h-8 text-orange-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.testnetRpc.resources.mainnet')}</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.testnetRpc.resources.mainnetDesc')}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">{t('publicPages.network.testnetRpc.resources.mainnet.title')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.network.testnetRpc.resources.mainnet.desc')}</p>
                 </CardContent>
               </Card>
             </Link>
