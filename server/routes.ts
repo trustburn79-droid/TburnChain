@@ -34,6 +34,7 @@ import bridgeRoutes from "./routes/bridge-routes";
 import { registerCommunityRoutes } from "./routes/community-routes";
 import enterpriseRoutes from "./routes/enterprise-routes";
 import { registerPublicApiRoutes } from "./routes/public-api-routes";
+import { registerWalletDashboardRoutes } from "./routes/wallet-dashboard-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -840,6 +841,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   registerPublicApiRoutes(app);
   console.log("[Public API] ✅ Public v1 routes registered - no auth required");
+
+  // ============================================
+  // WALLET DASHBOARD (Enterprise Wallet Management)
+  // ============================================
+  registerWalletDashboardRoutes(app, requireAuth);
+  console.log("[Wallet Dashboard] ✅ Wallet dashboard routes registered");
 
   // ============================================
   // Network Stats
