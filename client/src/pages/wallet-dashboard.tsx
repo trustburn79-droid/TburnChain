@@ -937,23 +937,21 @@ export default function WalletDashboard() {
     staleTime: 10000,
   });
   
-  const { data: performanceData, isLoading: performanceLoading } = useQuery<PerformanceDataPoint[]>({
+  const { data: performanceResponse, isLoading: performanceLoading } = useQuery<{ dataPoints: PerformanceDataPoint[] }>({
     queryKey: ["/api/wallet/performance", timeRange],
     refetchInterval: 60000,
-    placeholderData: defaultPerformance,
     staleTime: 30000,
   });
+  const performanceData = performanceResponse?.dataPoints || defaultPerformance;
   
-  const { data: activities, isLoading: activitiesLoading } = useQuery<ActivityItem[]>({
+  const { data: activitiesResponse, isLoading: activitiesLoading } = useQuery<{ activities: ActivityItem[] }>({
     queryKey: ["/api/wallet/activities"],
     refetchInterval: 15000,
-    placeholderData: defaultActivities,
     staleTime: 5000,
   });
+  const activities = activitiesResponse?.activities || defaultActivities;
   
   const displayBalance = walletBalance || defaultBalance;
-  const displayPerformance = performanceData || defaultPerformance;
-  const displayActivities = activities || defaultActivities;
   const walletAddress = "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
   
   return (
@@ -1027,14 +1025,14 @@ export default function WalletDashboard() {
       
       <div className="grid lg:grid-cols-3 gap-6">
         <PerformanceChart 
-          data={displayPerformance}
+          data={performanceData}
           isLoading={performanceLoading}
           timeRange={timeRange}
           onTimeRangeChange={setTimeRange}
         />
         
         <ActivityFeed 
-          activities={displayActivities}
+          activities={activities}
           isLoading={activitiesLoading}
         />
       </div>
