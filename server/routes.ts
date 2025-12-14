@@ -799,6 +799,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/tokenomics/")) {
       return next();
     }
+    // Skip auth check for Wallet Dashboard GET endpoints (read-only)
+    if (req.method === "GET" && req.path.startsWith("/wallet/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
 
