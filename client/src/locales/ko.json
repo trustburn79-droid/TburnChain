@@ -6470,7 +6470,7 @@
     "viewAll": "전체 보기",
     "recentPosts": "최근 게시물",
     "password": "비밀번호",
-    "enterPassword": "비밀번호 입력",
+    "enterPassword": "비밀번호를 입력하세요...",
     "loggingIn": "로그인 중...",
     "accessExplorer": "익스플로러 접근",
     "loginSuccessful": "로그인 성공",
@@ -6484,7 +6484,6 @@
     "connectToNeural": "뉴럴 합의 레이어에 연결",
     "enterAccessKey": "액세스 키 입력...",
     "enterAdminEmail": "관리자 이메일 입력...",
-    "enterPassword": "비밀번호를 입력하세요...",
     "authenticating": "인증 중...",
     "connectNode": "노드 연결",
     "orViaOAuth": "또는 OAuth로",
@@ -7139,15 +7138,15 @@
       "noCompletedLaunches": "아직 완료된 출시 없음"
     },
     "toast": {
-        "codeSentTitle": "인증 코드 발송됨",
-        "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
-        "sendCodeError": "인증 코드 발송에 실패했습니다",
-        "invalidCodeLength": "6자리 모두 입력해 주세요",
-        "verifiedTitle": "이메일 인증 완료",
-        "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
-        "verifyError": "유효하지 않거나 만료된 코드입니다",
-        "codeResent": "새 인증 코드가 발송되었습니다",
-        "resendError": "코드 재발송에 실패했습니다",
+      "codeSentTitle": "인증 코드 발송됨",
+      "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
+      "sendCodeError": "인증 코드 발송에 실패했습니다",
+      "invalidCodeLength": "6자리 모두 입력해 주세요",
+      "verifiedTitle": "이메일 인증 완료",
+      "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
+      "verifyError": "유효하지 않거나 만료된 코드입니다",
+      "codeResent": "새 인증 코드가 발송되었습니다",
+      "resendError": "코드 재발송에 실패했습니다",
       "mintSuccess": "NFT 민트 성공",
       "mintSuccessDesc": "{{projectName}}에서 {{quantity}}개 NFT 민트. TX: {{txHash}}...",
       "mintFailed": "민트 실패",
@@ -7428,17 +7427,17 @@
         "passwordMin": "비밀번호는 최소 8자 이상이어야 합니다",
         "passwordMismatch": "비밀번호가 일치하지 않습니다",
         "termsRequired": "약관에 동의해야 합니다",
-      "step": "단계",
-      "verificationNote": "6자리 인증 코드가 이메일로 발송됩니다",
-      "sendCode": "인증 코드 발송",
-      "sending": "발송 중...",
-      "enterCode": "이메일로 받은 6자리 코드를 입력하세요",
-      "verify": "코드 확인",
-      "verifying": "확인 중...",
-      "verified": "인증됨",
-      "back": "뒤로",
-      "resendCode": "코드 재발송",
-      "resendIn": "재발송까지"
+        "step": "단계",
+        "verificationNote": "6자리 인증 코드가 이메일로 발송됩니다",
+        "sendCode": "인증 코드 발송",
+        "sending": "발송 중...",
+        "enterCode": "이메일로 받은 6자리 코드를 입력하세요",
+        "verify": "코드 확인",
+        "verifying": "확인 중...",
+        "verified": "인증됨",
+        "back": "뒤로",
+        "resendCode": "코드 재발송",
+        "resendIn": "재발송까지"
       }
     },
     "header": {
@@ -9412,7 +9411,50 @@
       "universities": {
         "tag": "학계",
         "title": "대학 파트너십",
-        "subtitle": "블록체인 교육을 발전시키는 학술 협력 및 연구 프로그램."
+        "subtitle": "블록체인 교육을 발전시키는 학술 협력 및 연구 프로그램.",
+        "educationSection": {
+          "title": "규모 있는 교육",
+          "subtitle": "학술 커뮤니티를 위한 리소스와 지원."
+        },
+        "features": {
+          "materials": {
+            "title": "교육 자료",
+            "description": "블록체인 교육을 위해 특별히 설계된 종합 강의 자료, 슬라이드 및 교육 콘텐츠에 접근하세요."
+          },
+          "community": {
+            "title": "학생 커뮤니티",
+            "description": "글로벌 대학 지부와 연결하세요. TBurn 체인과 합의 기술을 배우는 다른 학생들과 네트워킹하세요."
+          },
+          "grants": {
+            "title": "보조금 & 펀딩",
+            "description": "Trust Score 시스템의 혁신적인 응용을 탐구하는 연구 프로젝트와 학생 이니셔티브 지원."
+          }
+        },
+        "educators": {
+          "badge": "교수진 액세스",
+          "title": "교육자를 위한",
+          "description": "블록체인 기술을 커리큘럼에 통합하려는 교육자이신가요? 즉시 사용 가능한 교육 자료, 초청 강연 프로그램, 그리고 TBurn 체인을 교실에 도입하는 데 도움이 되는 기술 지원을 제공합니다.",
+          "button": "교육자 리소스 접근"
+        },
+        "students": {
+          "title": "학생 기회",
+          "description": "학생들은 해커톤에 참여하고, 오픈 소스 프로젝트에 기여하며, 연구 보조금을 신청하고, 글로벌 학습자 커뮤니티에 참여할 수 있습니다.",
+          "quote": "미래를 예측하는 가장 좋은 방법은 미래를 발명하는 것입니다."
+        },
+        "opportunities": {
+          "startChapter": {
+            "title": "지부 시작하기",
+            "description": "대학에서 TBurn 체인 클럽을 시작하고 공식 상품을 받으세요."
+          },
+          "joinHackathon": {
+            "title": "해커톤 참가",
+            "description": "학생 중심 블록체인 해커톤에 참여하고 상품을 획득하세요."
+          },
+          "applyGrants": {
+            "title": "보조금 신청",
+            "description": "연구 논문이나 dApp 프로젝트 아이디어에 대한 펀딩을 받으세요."
+          }
+        }
       }
     },
     "developers": {
@@ -14296,15 +14338,15 @@
           "contactSupport": "지원 문의"
         },
         "toast": {
-        "codeSentTitle": "인증 코드 발송됨",
-        "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
-        "sendCodeError": "인증 코드 발송에 실패했습니다",
-        "invalidCodeLength": "6자리 모두 입력해 주세요",
-        "verifiedTitle": "이메일 인증 완료",
-        "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
-        "verifyError": "유효하지 않거나 만료된 코드입니다",
-        "codeResent": "새 인증 코드가 발송되었습니다",
-        "resendError": "코드 재발송에 실패했습니다",
+          "codeSentTitle": "인증 코드 발송됨",
+          "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
+          "sendCodeError": "인증 코드 발송에 실패했습니다",
+          "invalidCodeLength": "6자리 모두 입력해 주세요",
+          "verifiedTitle": "이메일 인증 완료",
+          "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
+          "verifyError": "유효하지 않거나 만료된 코드입니다",
+          "codeResent": "새 인증 코드가 발송되었습니다",
+          "resendError": "코드 재발송에 실패했습니다",
           "processing": "처리 중...",
           "initiatingPurchase": "TBURN 구매 시작 중...",
           "initiatingSale": "TBURN 판매 시작 중...",
@@ -14333,21 +14375,143 @@
         "heroTitleHighlight": "테스트넷",
         "heroTitleSuffix": "RPC 인프라",
         "heroDescription": "개발 및 테스트를 위한 무료 테스트넷 RPC 엔드포인트. 파우셋에서 무제한 tTBURN을 받고 스마트 컨트랙트를 위험 없이 배포하세요.",
-        "status": { "operational": "정상 운영 중" },
-        "metrics": { "free": "무료", "access": "접근", "latency": "지연 시간", "regions": "지역", "unlimited": "무제한", "faucet": "파우셋" },
-        "buttons": { "getFreeTokens": "무료 tTBURN 받기", "quickStart": "빠른 시작", "testConnection": "연결 테스트", "testing": "테스트 중...", "switchToMainnet": "메인넷 RPC로 전환" },
-        "dashboard": { "title": "테스트넷 실시간 상태", "blockHeight": "블록 높이", "tps": "TPS", "avgLatency": "평균 지연 시간", "testnetNodes": "테스트넷 노드", "online": "온라인" },
-        "endpoints": { "httpTitle": "HTTP RPC 엔드포인트", "httpDesc": "블록체인 상호작용을 위한 표준 JSON-RPC 엔드포인트", "wsTitle": "WebSocket 엔드포인트", "wsDesc": "실시간 업데이트를 위한 실시간 스트리밍 연결", "testnet": "테스트넷", "live": "실시간", "postRequests": "POST 요청", "batchSupport": "배치 지원", "noLimits": "제한 없음", "newBlocks": "새 블록", "pendingTxs": "대기 중 Tx", "logFilters": "로그 필터" },
-        "config": { "title": "네트워크 구성", "description": "TBurn 테스트넷을 지갑에 추가", "networkName": "네트워크 이름", "chainId": "체인 ID", "symbol": "심볼", "decimals": "소수점", "explorerUrl": "익스플로러 URL", "explorer": "익스플로러", "faucet": "파우셋", "getTtburn": "tTBURN 받기" },
-        "features": { "title": "테스트넷 기능", "subtitle": "개발 및 테스트에 필요한 모든 것", "freeEnvironment": { "title": "무료 테스트 환경", "desc": "개발 및 테스트를 위한 무제한 테스트넷 접근" }, "faucet": { "title": "테스트넷 파우셋", "desc": "테스트를 위한 무료 tTBURN 토큰 즉시 받기" }, "fastBlocks": { "title": "빠른 블록 시간", "desc": "현실적인 테스트를 위한 메인넷과 동일한 성능" }, "riskFree": { "title": "위험 없는 개발", "desc": "실제 가치 없이 컨트랙트 배포 및 테스트" }, "debugMode": { "title": "디버그 모드 활성화", "desc": "추적 및 디버그 RPC 메서드 전체 접근" }, "regularResets": { "title": "정기 리셋", "desc": "깨끗한 테스트를 위한 주기적인 테스트넷 상태 리셋" } },
-        "nodes": { "title": "테스트넷 RPC 노드", "subtitle": "지리적으로 분산된 테스트넷 인프라", "nodesOnline": "노드 온라인", "latency": "지연 시간", "uptime": "가동 시간", "load": "부하", "requests24h": "24시간 요청", "version": "버전" },
-        "methods": { "title": "지원되는 RPC 메서드", "subtitle": "TBurn 사용자 정의 메서드와 완전한 EVM 호환성" },
-        "sdk": { "title": "SDK 및 코드 예제", "subtitle": "선호하는 언어로 TBurn 테스트넷에 연결" },
-        "resources": { "title": "개발자 리소스", "faucet": { "title": "테스트넷 파우셋", "desc": "무료 tTBURN 토큰 받기" }, "documentation": { "title": "문서", "desc": "완전한 API 참조 가이드" }, "explorer": { "title": "테스트넷 익스플로러", "desc": "테스트넷 트랜잭션 탐색" }, "mainnet": { "title": "메인넷 RPC", "desc": "프로덕션으로 전환" } },
-        "cta": { "title": "테스트넷에서 빌드할 준비가 되셨나요?", "description": "무료 tTBURN 토큰으로 개발을 시작하세요. 메인넷 배포 전에 스마트 컨트랙트와 dApp을 위험 없이 테스트하세요.", "quickStartGuide": "빠른 시작 가이드" },
-        "connection": { "success": "연결 성공", "failed": "연결 실패", "connected": "연결됨", "unableToConnect": "RPC 엔드포인트에 연결할 수 없습니다", "error": "연결에 실패했습니다. 다시 시도해 주세요." },
-        "copied": { "title": "복사됨!", "description": "클립보드에 복사되었습니다" },
-        "network": { "sslEncrypted": "SSL 암호화", "noRateLimits": "요청 제한 없음" }
+        "status": {
+          "operational": "정상 운영 중"
+        },
+        "metrics": {
+          "free": "무료",
+          "access": "접근",
+          "latency": "지연 시간",
+          "regions": "지역",
+          "unlimited": "무제한",
+          "faucet": "파우셋"
+        },
+        "buttons": {
+          "getFreeTokens": "무료 tTBURN 받기",
+          "quickStart": "빠른 시작",
+          "testConnection": "연결 테스트",
+          "testing": "테스트 중...",
+          "switchToMainnet": "메인넷 RPC로 전환"
+        },
+        "dashboard": {
+          "title": "테스트넷 실시간 상태",
+          "blockHeight": "블록 높이",
+          "tps": "TPS",
+          "avgLatency": "평균 지연 시간",
+          "testnetNodes": "테스트넷 노드",
+          "online": "온라인"
+        },
+        "endpoints": {
+          "httpTitle": "HTTP RPC 엔드포인트",
+          "httpDesc": "블록체인 상호작용을 위한 표준 JSON-RPC 엔드포인트",
+          "wsTitle": "WebSocket 엔드포인트",
+          "wsDesc": "실시간 업데이트를 위한 실시간 스트리밍 연결",
+          "testnet": "테스트넷",
+          "live": "실시간",
+          "postRequests": "POST 요청",
+          "batchSupport": "배치 지원",
+          "noLimits": "제한 없음",
+          "newBlocks": "새 블록",
+          "pendingTxs": "대기 중 Tx",
+          "logFilters": "로그 필터"
+        },
+        "config": {
+          "title": "네트워크 구성",
+          "description": "TBurn 테스트넷을 지갑에 추가",
+          "networkName": "네트워크 이름",
+          "chainId": "체인 ID",
+          "symbol": "심볼",
+          "decimals": "소수점",
+          "explorerUrl": "익스플로러 URL",
+          "explorer": "익스플로러",
+          "faucet": "파우셋",
+          "getTtburn": "tTBURN 받기"
+        },
+        "features": {
+          "title": "테스트넷 기능",
+          "subtitle": "개발 및 테스트에 필요한 모든 것",
+          "freeEnvironment": {
+            "title": "무료 테스트 환경",
+            "desc": "개발 및 테스트를 위한 무제한 테스트넷 접근"
+          },
+          "faucet": {
+            "title": "테스트넷 파우셋",
+            "desc": "테스트를 위한 무료 tTBURN 토큰 즉시 받기"
+          },
+          "fastBlocks": {
+            "title": "빠른 블록 시간",
+            "desc": "현실적인 테스트를 위한 메인넷과 동일한 성능"
+          },
+          "riskFree": {
+            "title": "위험 없는 개발",
+            "desc": "실제 가치 없이 컨트랙트 배포 및 테스트"
+          },
+          "debugMode": {
+            "title": "디버그 모드 활성화",
+            "desc": "추적 및 디버그 RPC 메서드 전체 접근"
+          },
+          "regularResets": {
+            "title": "정기 리셋",
+            "desc": "깨끗한 테스트를 위한 주기적인 테스트넷 상태 리셋"
+          }
+        },
+        "nodes": {
+          "title": "테스트넷 RPC 노드",
+          "subtitle": "지리적으로 분산된 테스트넷 인프라",
+          "nodesOnline": "노드 온라인",
+          "latency": "지연 시간",
+          "uptime": "가동 시간",
+          "load": "부하",
+          "requests24h": "24시간 요청",
+          "version": "버전"
+        },
+        "methods": {
+          "title": "지원되는 RPC 메서드",
+          "subtitle": "TBurn 사용자 정의 메서드와 완전한 EVM 호환성"
+        },
+        "sdk": {
+          "title": "SDK 및 코드 예제",
+          "subtitle": "선호하는 언어로 TBurn 테스트넷에 연결"
+        },
+        "resources": {
+          "title": "개발자 리소스",
+          "faucet": {
+            "title": "테스트넷 파우셋",
+            "desc": "무료 tTBURN 토큰 받기"
+          },
+          "documentation": {
+            "title": "문서",
+            "desc": "완전한 API 참조 가이드"
+          },
+          "explorer": {
+            "title": "테스트넷 익스플로러",
+            "desc": "테스트넷 트랜잭션 탐색"
+          },
+          "mainnet": {
+            "title": "메인넷 RPC",
+            "desc": "프로덕션으로 전환"
+          }
+        },
+        "cta": {
+          "title": "테스트넷에서 빌드할 준비가 되셨나요?",
+          "description": "무료 tTBURN 토큰으로 개발을 시작하세요. 메인넷 배포 전에 스마트 컨트랙트와 dApp을 위험 없이 테스트하세요.",
+          "quickStartGuide": "빠른 시작 가이드"
+        },
+        "connection": {
+          "success": "연결 성공",
+          "failed": "연결 실패",
+          "connected": "연결됨",
+          "unableToConnect": "RPC 엔드포인트에 연결할 수 없습니다",
+          "error": "연결에 실패했습니다. 다시 시도해 주세요."
+        },
+        "copied": {
+          "title": "복사됨!",
+          "description": "클립보드에 복사되었습니다"
+        },
+        "network": {
+          "sslEncrypted": "SSL 암호화",
+          "noRateLimits": "요청 제한 없음"
+        }
       }
     },
     "community": {
@@ -14909,15 +15073,15 @@
           "button": "호스트 신청"
         },
         "toast": {
-        "codeSentTitle": "인증 코드 발송됨",
-        "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
-        "sendCodeError": "인증 코드 발송에 실패했습니다",
-        "invalidCodeLength": "6자리 모두 입력해 주세요",
-        "verifiedTitle": "이메일 인증 완료",
-        "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
-        "verifyError": "유효하지 않거나 만료된 코드입니다",
-        "codeResent": "새 인증 코드가 발송되었습니다",
-        "resendError": "코드 재발송에 실패했습니다",
+          "codeSentTitle": "인증 코드 발송됨",
+          "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
+          "sendCodeError": "인증 코드 발송에 실패했습니다",
+          "invalidCodeLength": "6자리 모두 입력해 주세요",
+          "verifiedTitle": "이메일 인증 완료",
+          "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
+          "verifyError": "유효하지 않거나 만료된 코드입니다",
+          "codeResent": "새 인증 코드가 발송되었습니다",
+          "resendError": "코드 재발송에 실패했습니다",
           "reminderSet": "알림 설정됨",
           "reminderDescription": "\"{{title}}\" 전에 알림을 받게 됩니다"
         },

@@ -11,51 +11,51 @@ import {
   Presentation
 } from "lucide-react";
 
-const educationFeatures = [
-  {
-    icon: BookOpen,
-    title: "Educational Materials",
-    description: "Access comprehensive course materials, slides, and teaching content designed specifically for blockchain education.",
-    color: "#00f0ff",
-  },
-  {
-    icon: Users,
-    title: "Student Community",
-    description: "Connect with global university chapters. Network with other students learning TBurn Chain and consensus technologies.",
-    color: "#7000ff",
-  },
-  {
-    icon: Award,
-    title: "Grants & Funding",
-    description: "Support for research projects and student initiatives exploring innovative applications of the Trust Score system.",
-    color: "#ffd700",
-  },
-];
-
-const studentOpportunities = [
-  {
-    number: "01",
-    title: "Start a Chapter",
-    description: "Launch a TBurn Chain club at your university and get official swag.",
-    hoverColor: "#00ff9d",
-  },
-  {
-    number: "02",
-    title: "Join a Hackathon",
-    description: "Participate in student-focused blockchain hackathons and win prizes.",
-    hoverColor: "#00f0ff",
-  },
-  {
-    number: "03",
-    title: "Apply for Grants",
-    description: "Get funding for your research paper or dApp project ideas.",
-    hoverColor: "#7000ff",
-  },
-];
-
 export default function Universities() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const educationFeatures = [
+    {
+      icon: BookOpen,
+      title: t('publicPages.learn.universities.features.materials.title'),
+      description: t('publicPages.learn.universities.features.materials.description'),
+      color: "#00f0ff",
+    },
+    {
+      icon: Users,
+      title: t('publicPages.learn.universities.features.community.title'),
+      description: t('publicPages.learn.universities.features.community.description'),
+      color: "#7000ff",
+    },
+    {
+      icon: Award,
+      title: t('publicPages.learn.universities.features.grants.title'),
+      description: t('publicPages.learn.universities.features.grants.description'),
+      color: "#ffd700",
+    },
+  ];
+
+  const studentOpportunities = [
+    {
+      number: "01",
+      title: t('publicPages.learn.universities.opportunities.startChapter.title'),
+      description: t('publicPages.learn.universities.opportunities.startChapter.description'),
+      hoverColor: "#00ff9d",
+    },
+    {
+      number: "02",
+      title: t('publicPages.learn.universities.opportunities.joinHackathon.title'),
+      description: t('publicPages.learn.universities.opportunities.joinHackathon.description'),
+      hoverColor: "#00f0ff",
+    },
+    {
+      number: "03",
+      title: t('publicPages.learn.universities.opportunities.applyGrants.title'),
+      description: t('publicPages.learn.universities.opportunities.applyGrants.description'),
+      hoverColor: "#7000ff",
+    },
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -99,8 +99,12 @@ export default function Universities() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Education at Scale</h2>
-            <p className="text-gray-600 dark:text-gray-400">Resources and support for the academic community.</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              {t('publicPages.learn.universities.educationSection.title')}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">
+              {t('publicPages.learn.universities.educationSection.subtitle')}
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -136,11 +140,13 @@ export default function Universities() {
             <div className="bg-gray-50 dark:bg-black/80 backdrop-blur-xl rounded-xl p-10 md:p-12 relative z-10 flex flex-col md:flex-row items-center gap-10">
               <div className="flex-1">
                 <div className="inline-block px-3 py-1 rounded bg-[#7000ff]/20 text-[#7000ff] text-xs font-bold mb-4">
-                  FACULTY ACCESS
+                  {t('publicPages.learn.universities.educators.badge')}
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">For Educators</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                  {t('publicPages.learn.universities.educators.title')}
+                </h2>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Are you an educator looking to incorporate blockchain technology into your curriculum? We provide ready-to-use teaching materials, guest lecture programs, and technical support to help bring TBurn Chain to the classroom.
+                  {t('publicPages.learn.universities.educators.description')}
                 </p>
                 <Link href="/learn">
                   <button 
@@ -151,7 +157,7 @@ export default function Universities() {
                     }}
                     data-testid="button-educator-resources"
                   >
-                    <Download className="w-4 h-4" /> Access Educator Resources
+                    <Download className="w-4 h-4" /> {t('publicPages.learn.universities.educators.button')}
                   </button>
                 </Link>
               </div>
@@ -168,13 +174,15 @@ export default function Universities() {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row gap-12 items-start">
             <div className="md:w-1/3">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Student Opportunities</h2>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                {t('publicPages.learn.universities.students.title')}
+              </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                Students can participate in hackathons, contribute to open source projects, apply for research grants, and join a global community of learners.
+                {t('publicPages.learn.universities.students.description')}
               </p>
               <div className="p-4 border-l-2 border-[#00f0ff] bg-[#00f0ff]/5">
                 <p className="text-sm text-[#00f0ff] italic">
-                  "The best way to predict the future is to invent it."
+                  "{t('publicPages.learn.universities.students.quote')}"
                 </p>
               </div>
             </div>

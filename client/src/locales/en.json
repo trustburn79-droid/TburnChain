@@ -9099,7 +9099,50 @@
       "universities": {
         "tag": "ACADEMIA",
         "title": "University Partnerships",
-        "subtitle": "Academic collaborations and research programs advancing blockchain education."
+        "subtitle": "Academic collaborations and research programs advancing blockchain education.",
+        "educationSection": {
+          "title": "Education at Scale",
+          "subtitle": "Resources and support for the academic community."
+        },
+        "features": {
+          "materials": {
+            "title": "Educational Materials",
+            "description": "Access comprehensive course materials, slides, and teaching content designed specifically for blockchain education."
+          },
+          "community": {
+            "title": "Student Community",
+            "description": "Connect with global university chapters. Network with other students learning TBurn Chain and consensus technologies."
+          },
+          "grants": {
+            "title": "Grants & Funding",
+            "description": "Support for research projects and student initiatives exploring innovative applications of the Trust Score system."
+          }
+        },
+        "educators": {
+          "badge": "FACULTY ACCESS",
+          "title": "For Educators",
+          "description": "Are you an educator looking to incorporate blockchain technology into your curriculum? We provide ready-to-use teaching materials, guest lecture programs, and technical support to help bring TBurn Chain to the classroom.",
+          "button": "Access Educator Resources"
+        },
+        "students": {
+          "title": "Student Opportunities",
+          "description": "Students can participate in hackathons, contribute to open source projects, apply for research grants, and join a global community of learners.",
+          "quote": "The best way to predict the future is to invent it."
+        },
+        "opportunities": {
+          "startChapter": {
+            "title": "Start a Chapter",
+            "description": "Launch a TBurn Chain club at your university and get official swag."
+          },
+          "joinHackathon": {
+            "title": "Join a Hackathon",
+            "description": "Participate in student-focused blockchain hackathons and win prizes."
+          },
+          "applyGrants": {
+            "title": "Apply for Grants",
+            "description": "Get funding for your research paper or dApp project ideas."
+          }
+        }
       }
     },
     "developers": {
