@@ -11,6 +11,7 @@ The platform is built with a modern web stack. The frontend leverages React 18, 
 
 Key architectural decisions include:
 - **Dynamic Shard Management**: Enterprise Shard Management System allows dynamic scaling of shards (5-128) and validators with transactional updates and audit logging. Admin configuration via `/admin/shards` and public display via `/app/sharding`, with real-time updates via WebSocket.
+- **Auto Hardware Detection**: Uses Node.js `os.cpus()` and `os.totalmem()` to automatically detect CPU cores and RAM on startup. The system dynamically adjusts `maxShards` based on hardware capacity (development: 8 cores/32GB → 8 shards, staging: 16/64GB → 16 shards, production: 32/256GB → 64 shards, enterprise: 64/512GB → 128 shards). Hardware limits are enforced on database config load to ensure system stability.
 - **Unified AI Model Configuration**: Utilizes a Quad-Band AI System with Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3 (fallback), ensuring consistent AI model usage and automatic fallback logic. AI training jobs and parameters are persistently stored in the database.
 - **Comprehensive Bilingual Support**: Full Korean and English translation system across all Admin Portal and public pages.
 - **Standardized UI Components**: Utilizes `MetricCard`, skeleton loading states, error boundaries with retry, and export functionality (CSV/JSON). Reusable Admin Components (`DetailSheet`, `AdminFormDialog`, `ConfirmationDialog`, `ActionMenu`, `StatusBadge`) for CRUD operations.

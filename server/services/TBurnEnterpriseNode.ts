@@ -972,6 +972,25 @@ export class TBurnEnterpriseNode extends EventEmitter {
           lastHealthCheck: dbConfig.lastHealthCheck?.toISOString() || new Date().toISOString()
         };
         console.log(`[Enterprise Node] ✅ Loaded shard config from database: ${dbConfig.currentShardCount} shards, v${dbConfig.version}`);
+        
+        // Apply hardware-based limits after loading from database
+        const hwProfile = this.detectHardwareProfile();
+        let needsPersist = false;
+        if (this.shardConfig.maxShards > hwProfile.maxShards) {
+          console.log(`[Enterprise Node] 🔧 Limiting maxShards from ${this.shardConfig.maxShards} to ${hwProfile.maxShards} (hardware constraint)`);
+          this.shardConfig.maxShards = hwProfile.maxShards;
+          needsPersist = true;
+        }
+        if (this.shardConfig.currentShardCount > hwProfile.maxShards) {
+          console.log(`[Enterprise Node] ⚠️  Reducing current shards from ${this.shardConfig.currentShardCount} to ${hwProfile.maxShards} (hardware limit)`);
+          this.shardConfig.currentShardCount = hwProfile.maxShards;
+          needsPersist = true;
+        }
+        // Persist hardware-adjusted limits back to database for consistency
+        if (needsPersist) {
+          await this.persistConfigToDatabase('system', 'Hardware limit adjustment');
+          console.log(`[Enterprise Node] 💾 Persisted hardware-adjusted config to database`);
+        }
       } else {
         // Create initial configuration in database
         await this.persistConfigToDatabase('system', 'Initial configuration');
@@ -1106,6 +1125,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
     
     const hardwareProfile = this.detectHardwareProfile();
     console.log(`[Enterprise Node] 🖥️  Hardware: ${hardwareProfile.cores} cores, ${hardwareProfile.ramGB}GB RAM → Profile: ${hardwareProfile.name}, Max Shards: ${hardwareProfile.maxShards}`);
+    
+    // Apply hardware-based limits to shard configuration
+    this.shardConfig.maxShards = hardwareProfile.maxShards;
+    
+    // Ensure current shard count doesn't exceed hardware limits
+    if (this.shardConfig.currentShardCount > hardwareProfile.maxShards) {
+      console.log(`[Enterprise Node] ⚠️  Adjusting shard count from ${this.shardConfig.currentShardCount} to ${hardwareProfile.maxShards} (hardware limit)`);
+      this.shardConfig.currentShardCount = hardwareProfile.maxShards;
+    }
     
     try {
       // Load configuration from database (cold start recovery)
