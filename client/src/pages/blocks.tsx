@@ -93,6 +93,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useEnterpriseShards } from "@/hooks/use-enterprise-shards";
 
 interface Block {
   id: string;
@@ -481,13 +482,16 @@ export default function Blocks() {
   const { toast } = useToast();
   const { subscribeToEvent, isConnected } = useWebSocket();
   
-  const SHARD_OPTIONS = useMemo(() => [
-    { value: "0", label: `${t('blocks.shard')} 0 - Alpha` },
-    { value: "1", label: `${t('blocks.shard')} 1 - Beta` },
-    { value: "2", label: `${t('blocks.shard')} 2 - Gamma` },
-    { value: "3", label: `${t('blocks.shard')} 3 - Delta` },
-    { value: "4", label: `${t('blocks.shard')} 4 - Epsilon` },
-  ], [t]);
+  const { totalShards } = useEnterpriseShards();
+  
+  const SHARD_OPTIONS = useMemo(() => {
+    const shardNames = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 
+                        'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi'];
+    return Array.from({ length: totalShards }, (_, i) => ({
+      value: i.toString(),
+      label: `${t('blocks.shard')} ${i}${shardNames[i] ? ` - ${shardNames[i]}` : ''}`
+    }));
+  }, [t, totalShards]);
   
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
