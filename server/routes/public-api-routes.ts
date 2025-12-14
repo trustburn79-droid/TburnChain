@@ -1464,25 +1464,36 @@ router.get('/tokens/:address', async (req: Request, res: Response) => {
 router.get('/testnet/network/stats', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
-    const baseBlock = 1245000 + Math.floor((Date.now() - new Date('2024-12-01').getTime()) / 500);
+    const now = Date.now();
+    const baseBlock = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
+    
+    // Testnet values: lower TPS and fewer validators than mainnet
+    // TPS ranges 50-150 for realistic testnet activity
+    const baseTps = 80;
+    const tpsVariance = Math.floor(Math.sin(now / 30000) * 30) + Math.floor(Math.random() * 20);
+    const currentTps = baseTps + tpsVariance;
+    
+    // Testnet has 8 validators and 12 nodes
+    const testnetValidators = 8;
+    const testnetNodes = 12;
     
     res.json({
       success: true,
       data: {
         blockHeight: baseBlock,
-        tps: Math.floor(Math.random() * 200) + 800,
+        tps: currentTps,
         avgBlockTime: 0.5,
-        totalTransactions: 4532100 + Math.floor(Math.random() * 1000),
-        activeValidators: 12,
+        totalTransactions: 4532100 + Math.floor((now - new Date('2024-12-01').getTime()) / 5000),
+        activeValidators: testnetValidators,
         totalBurned: '125000000000000000000000000',
         gasPrice: '100',
         totalStaked: '350000000000000000000000000',
         finality: '< 2s',
         shardCount: 4,
-        nodeCount: 8,
+        nodeCount: testnetNodes,
         uptime: '99.9%'
       },
-      lastUpdated: Date.now()
+      lastUpdated: now
     });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Failed to fetch testnet stats' });
