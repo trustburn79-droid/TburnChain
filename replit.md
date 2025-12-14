@@ -37,6 +37,11 @@ Key architectural decisions include:
   - Incidents tab: Security incident tracking and resolution monitoring
   - Certifications tab: Industry certification management with expiry tracking
   - Dynamic compliance scoring with risk indicators and framework metadata
+- **Cross-Shard Performance Optimizations**: Enterprise-grade cross-shard messaging optimizations in `server/validator-simulation.ts`:
+  - **Shard Cache with TTL**: 30-second TTL cache for shard data to avoid repeated DB queries
+  - **Batch Message Insertion**: Cross-shard messages are buffered and batch-inserted (10 messages or 5s interval) with priority queue ordering
+  - **O(1) Shard Pair Selection**: Modular arithmetic replaces O(n) while loops for random shard pair selection
+  - **Priority Queue Routing**: Weighted composite scoring (priority 40%, reputation 35%, network 25%) ensures high-priority messages are processed first
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
