@@ -536,6 +536,34 @@ export default function CrossShard() {
 
             <Card>
               <CardHeader className="pb-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Zap className="h-4 w-4" />
+                  {t('crossShard.routingMetrics')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="text-center p-3 bg-muted/50 rounded-lg">
+                    <div className="text-xs text-muted-foreground">{t('crossShard.routingPriority')}</div>
+                    <div className="text-lg font-bold mt-1">{selectedMessage.routingPriority ?? 5}/10</div>
+                    <Progress value={(selectedMessage.routingPriority ?? 5) * 10} className="h-1 mt-2" />
+                  </div>
+                  <div className="text-center p-3 bg-muted/50 rounded-lg">
+                    <div className="text-xs text-muted-foreground">{t('crossShard.peerReputation')}</div>
+                    <div className="text-lg font-bold mt-1">{((selectedMessage.peerReputation ?? 8000) / 100).toFixed(1)}%</div>
+                    <Progress value={(selectedMessage.peerReputation ?? 8000) / 100} className="h-1 mt-2" />
+                  </div>
+                  <div className="text-center p-3 bg-muted/50 rounded-lg">
+                    <div className="text-xs text-muted-foreground">{t('crossShard.networkQuality')}</div>
+                    <div className="text-lg font-bold mt-1">{((selectedMessage.networkQuality ?? 9000) / 100).toFixed(1)}%</div>
+                    <Progress value={(selectedMessage.networkQuality ?? 9000) / 100} className="h-1 mt-2" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-2">
                 <CardTitle className="text-sm">{t('crossShard.timeline')}</CardTitle>
               </CardHeader>
               <CardContent>
