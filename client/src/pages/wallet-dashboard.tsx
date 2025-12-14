@@ -5,6 +5,23 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { 
   Send, 
   QrCode, 
@@ -13,9 +30,15 @@ import {
   ArrowUpRight, 
   ArrowDownLeft, 
   Wallet,
-  Activity
+  Activity,
+  Copy,
+  CheckCircle,
+  Loader2,
+  AlertCircle
 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 import { 
   AreaChart, 
   Area, 
@@ -459,6 +482,422 @@ function ActivityFeed({ activities, isLoading }: { activities: ActivityItem[]; i
   );
 }
 
+function SendDialog({ 
+  open, 
+  onOpenChange,
+  availableBalance 
+}: { 
+  open: boolean; 
+  onOpenChange: (open: boolean) => void;
+  availableBalance: string;
+}) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [toAddress, setToAddress] = useState("");
+  const [amount, setAmount] = useState("");
+  const [memo, setMemo] = useState("");
+
+  const sendMutation = useMutation({
+    mutationFn: async (data: { toAddress: string; amount: string; memo?: string }) => {
+      const amountWei = (parseFloat(data.amount) * 1e18).toString();
+      const response = await apiRequest("POST", "/api/wallet/send", {
+        toAddress: data.toAddress,
+        amount: amountWei,
+        memo: data.memo,
+      });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: t("walletDashboard.transactionSubmitted", "Transaction Submitted"),
+        description: t("walletDashboard.sendSuccess", "Your transaction is being processed"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/wallet/balance"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/wallet/activities"] });
+      onOpenChange(false);
+      setToAddress("");
+      setAmount("");
+      setMemo("");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("walletDashboard.error", "Error"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSend = () => {
+    if (!toAddress || !amount) return;
+    sendMutation.mutate({ toAddress, amount, memo });
+  };
+
+  const isValidAddress = /^0x[a-fA-F0-9]{40}$/.test(toAddress);
+  const isValidAmount = parseFloat(amount) > 0;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Send className="h-5 w-5 text-primary" />
+            {t("walletDashboard.sendTokens", "Send BURN Tokens")}
+          </DialogTitle>
+          <DialogDescription>
+            {t("walletDashboard.sendDescription", "Transfer BURN tokens to another address")}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="recipient">{t("walletDashboard.recipientAddress", "Recipient Address")}</Label>
+            <Input
+              id="recipient"
+              placeholder="0x..."
+              value={toAddress}
+              onChange={(e) => setToAddress(e.target.value)}
+              className={cn(
+                "font-mono text-sm",
+                toAddress && !isValidAddress && "border-red-500"
+              )}
+              data-testid="input-send-address"
+            />
+            {toAddress && !isValidAddress && (
+              <p className="text-xs text-red-500 flex items-center gap-1">
+                <AlertCircle className="h-3 w-3" />
+                {t("walletDashboard.invalidAddress", "Invalid address format")}
+              </p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <Label htmlFor="amount">{t("walletDashboard.amount", "Amount")}</Label>
+              <span className="text-xs text-muted-foreground">
+                {t("walletDashboard.available", "Available")}: {availableBalance} BURN
+              </span>
+            </div>
+            <div className="relative">
+              <Input
+                id="amount"
+                type="number"
+                placeholder="0.00"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="pr-16"
+                data-testid="input-send-amount"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                BURN
+              </span>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="memo">{t("walletDashboard.memo", "Memo")} ({t("walletDashboard.optional", "Optional")})</Label>
+            <Input
+              id="memo"
+              placeholder={t("walletDashboard.memoPlaceholder", "Add a note...")}
+              value={memo}
+              onChange={(e) => setMemo(e.target.value)}
+              data-testid="input-send-memo"
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-send-cancel">
+            {t("common.cancel", "Cancel")}
+          </Button>
+          <Button 
+            onClick={handleSend} 
+            disabled={!isValidAddress || !isValidAmount || sendMutation.isPending}
+            data-testid="button-send-confirm"
+          >
+            {sendMutation.isPending ? (
+              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+            ) : (
+              <Send className="h-4 w-4 mr-2" />
+            )}
+            {t("walletDashboard.send", "Send")}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function ReceiveDialog({ 
+  open, 
+  onOpenChange,
+  walletAddress 
+}: { 
+  open: boolean; 
+  onOpenChange: (open: boolean) => void;
+  walletAddress: string;
+}) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(walletAddress);
+      setCopied(true);
+      toast({
+        title: t("walletDashboard.copied", "Copied"),
+        description: t("walletDashboard.addressCopied", "Address copied to clipboard"),
+      });
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast({
+        title: t("walletDashboard.error", "Error"),
+        description: t("walletDashboard.copyFailed", "Failed to copy address"),
+        variant: "destructive",
+      });
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <QrCode className="h-5 w-5 text-purple-500" />
+            {t("walletDashboard.receiveTokens", "Receive BURN Tokens")}
+          </DialogTitle>
+          <DialogDescription>
+            {t("walletDashboard.receiveDescription", "Share your address to receive BURN tokens")}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-6 py-4">
+          <div className="flex justify-center">
+            <div className="p-4 bg-white rounded-xl">
+              <div className="w-48 h-48 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2ZmZiIvPjxnIGZpbGw9IiMwMDAiPjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8+PHJlY3QgeD0iMTIwIiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8+PHJlY3QgeD0iMjAiIHk9IjEyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8+PHJlY3QgeD0iOTAiIHk9IjkwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSI5MCIgeT0iMTIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSIxMjAiIHk9IjkwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSIxNTAiIHk9IjEyMCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIi8+PHJlY3QgeD0iMTIwIiB5PSIxNTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIzMCIvPjxyZWN0IHg9IjMwIiB5PSIzMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iMTMwIiB5PSIzMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iMzAiIHk9IjEzMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iNDAiIHk9IjQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSIxNDAiIHk9IjQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSI0MCIgeT0iMTQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48L2c+PC9zdmc+')] bg-contain" data-testid="qr-code" />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label>{t("walletDashboard.yourAddress", "Your Address")}</Label>
+            <div className="flex gap-2">
+              <Input 
+                readOnly 
+                value={walletAddress} 
+                className="font-mono text-sm"
+                data-testid="text-receive-address"
+              />
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={handleCopy}
+                data-testid="button-copy-address"
+              >
+                {copied ? <CheckCircle className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+              </Button>
+            </div>
+          </div>
+          <div className="rounded-lg bg-muted/50 p-4 space-y-2">
+            <p className="text-sm font-medium">{t("walletDashboard.instructions", "Instructions")}</p>
+            <ul className="text-xs text-muted-foreground space-y-1">
+              <li>1. {t("walletDashboard.instruction1", "Scan QR code with your wallet app")}</li>
+              <li>2. {t("walletDashboard.instruction2", "Or copy the address to send BURN tokens")}</li>
+              <li>3. {t("walletDashboard.instruction3", "Ensure you're on TBURN Mainnet (Chain ID: 7979)")}</li>
+            </ul>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button onClick={() => onOpenChange(false)} data-testid="button-receive-close">
+            {t("common.close", "Close")}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function SwapDialog({ 
+  open, 
+  onOpenChange 
+}: { 
+  open: boolean; 
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [tokenIn, setTokenIn] = useState("BURN");
+  const [tokenOut, setTokenOut] = useState("USDT");
+  const [amountIn, setAmountIn] = useState("");
+  const [slippage, setSlippage] = useState("0.5");
+
+  const swapMutation = useMutation({
+    mutationFn: async (data: { tokenIn: string; tokenOut: string; amountIn: string; slippageBps: number }) => {
+      const amountWei = (parseFloat(data.amountIn) * 1e18).toString();
+      const response = await apiRequest("POST", "/api/wallet/swap", {
+        tokenIn: data.tokenIn,
+        tokenOut: data.tokenOut,
+        amountIn: amountWei,
+        slippageBps: data.slippageBps,
+      });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: t("walletDashboard.swapSubmitted", "Swap Submitted"),
+        description: t("walletDashboard.swapSuccess", "Your swap is being processed"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/wallet/balance"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/wallet/activities"] });
+      onOpenChange(false);
+      setAmountIn("");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("walletDashboard.error", "Error"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSwap = () => {
+    if (!amountIn) return;
+    const slippageBps = Math.round(parseFloat(slippage) * 100);
+    swapMutation.mutate({ tokenIn, tokenOut, amountIn, slippageBps });
+  };
+
+  const handleFlipTokens = () => {
+    setTokenIn(tokenOut);
+    setTokenOut(tokenIn);
+  };
+
+  const tokens = ["BURN", "USDT", "ETH", "WBTC"];
+  const isValidAmount = parseFloat(amountIn) > 0;
+  const estimatedOutput = isValidAmount ? (parseFloat(amountIn) * 0.29).toFixed(4) : "0.00";
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <ArrowRightLeft className="h-5 w-5 text-green-500" />
+            {t("walletDashboard.swapTokens", "Swap Tokens")}
+          </DialogTitle>
+          <DialogDescription>
+            {t("walletDashboard.swapDescription", "Exchange tokens at the best available rate")}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4 py-4">
+          <div className="space-y-2">
+            <Label>{t("walletDashboard.youPay", "You Pay")}</Label>
+            <div className="flex gap-2">
+              <Select value={tokenIn} onValueChange={setTokenIn}>
+                <SelectTrigger className="w-28" data-testid="select-token-in">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {tokens.filter(t => t !== tokenOut).map(token => (
+                    <SelectItem key={token} value={token}>{token}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input
+                type="number"
+                placeholder="0.00"
+                value={amountIn}
+                onChange={(e) => setAmountIn(e.target.value)}
+                className="flex-1"
+                data-testid="input-swap-amount"
+              />
+            </div>
+          </div>
+          
+          <div className="flex justify-center">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              className="rounded-full"
+              onClick={handleFlipTokens}
+              data-testid="button-swap-flip"
+            >
+              <ArrowRightLeft className="h-4 w-4 rotate-90" />
+            </Button>
+          </div>
+
+          <div className="space-y-2">
+            <Label>{t("walletDashboard.youReceive", "You Receive")}</Label>
+            <div className="flex gap-2">
+              <Select value={tokenOut} onValueChange={setTokenOut}>
+                <SelectTrigger className="w-28" data-testid="select-token-out">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {tokens.filter(t => t !== tokenIn).map(token => (
+                    <SelectItem key={token} value={token}>{token}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input
+                readOnly
+                value={estimatedOutput}
+                className="flex-1 bg-muted/50"
+                data-testid="text-swap-output"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label>{t("walletDashboard.slippageTolerance", "Slippage Tolerance")}</Label>
+            <div className="flex gap-2">
+              {["0.5", "1.0", "2.0"].map(val => (
+                <Button
+                  key={val}
+                  variant={slippage === val ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSlippage(val)}
+                  data-testid={`button-slippage-${val}`}
+                >
+                  {val}%
+                </Button>
+              ))}
+              <Input
+                type="number"
+                value={slippage}
+                onChange={(e) => setSlippage(e.target.value)}
+                className="w-20"
+                data-testid="input-slippage-custom"
+              />
+            </div>
+          </div>
+
+          <div className="rounded-lg bg-muted/50 p-3 space-y-1 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{t("walletDashboard.rate", "Rate")}</span>
+              <span>1 {tokenIn} = {tokenIn === "BURN" ? "0.29" : "3.45"} {tokenOut}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{t("walletDashboard.priceImpact", "Price Impact")}</span>
+              <span className="text-green-500">&lt;0.1%</span>
+            </div>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-swap-cancel">
+            {t("common.cancel", "Cancel")}
+          </Button>
+          <Button 
+            onClick={handleSwap} 
+            disabled={!isValidAmount || swapMutation.isPending}
+            data-testid="button-swap-confirm"
+          >
+            {swapMutation.isPending ? (
+              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+            ) : (
+              <ArrowRightLeft className="h-4 w-4 mr-2" />
+            )}
+            {t("walletDashboard.swapAction", "Swap")}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 const defaultBalance: WalletBalance = {
   balance: "15,847.00",
   balanceUsd: "38,191.27",
@@ -487,6 +926,9 @@ const defaultActivities: ActivityItem[] = [
 export default function WalletDashboard() {
   const { t } = useTranslation();
   const [timeRange, setTimeRange] = useState<'1W' | '1M' | '1Y'>('1W');
+  const [sendDialogOpen, setSendDialogOpen] = useState(false);
+  const [receiveDialogOpen, setReceiveDialogOpen] = useState(false);
+  const [swapDialogOpen, setSwapDialogOpen] = useState(false);
   
   const { data: walletBalance, isLoading: balanceLoading } = useQuery<WalletBalance>({
     queryKey: ["/api/wallet/balance"],
@@ -512,6 +954,7 @@ export default function WalletDashboard() {
   const displayBalance = walletBalance || defaultBalance;
   const displayPerformance = performanceData || defaultPerformance;
   const displayActivities = activities || defaultActivities;
+  const walletAddress = "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
   
   return (
     <div className="flex flex-col gap-6 p-6 min-h-screen relative">
@@ -560,6 +1003,7 @@ export default function WalletDashboard() {
             title={t("walletDashboard.send", "Send")}
             subtitle={t("walletDashboard.transferTokens", "Transfer tokens")}
             colorClass="bg-primary/10 text-primary border-primary/30"
+            onClick={() => setSendDialogOpen(true)}
             testId="button-send"
           />
           <QuickActionButton
@@ -567,6 +1011,7 @@ export default function WalletDashboard() {
             title={t("walletDashboard.receive", "Receive")}
             subtitle={t("walletDashboard.viewAddress", "View address")}
             colorClass="bg-purple-500/10 text-purple-500 border-purple-500/30"
+            onClick={() => setReceiveDialogOpen(true)}
             testId="button-receive"
           />
           <QuickActionButton
@@ -574,6 +1019,7 @@ export default function WalletDashboard() {
             title={t("walletDashboard.swapAction", "Swap")}
             subtitle={t("walletDashboard.tradeTokens", "Trade tokens")}
             colorClass="bg-green-500/10 text-green-500 border-green-500/30"
+            onClick={() => setSwapDialogOpen(true)}
             testId="button-swap"
           />
         </div>
@@ -592,6 +1038,21 @@ export default function WalletDashboard() {
           isLoading={activitiesLoading}
         />
       </div>
+
+      <SendDialog 
+        open={sendDialogOpen} 
+        onOpenChange={setSendDialogOpen}
+        availableBalance={displayBalance.balance}
+      />
+      <ReceiveDialog 
+        open={receiveDialogOpen} 
+        onOpenChange={setReceiveDialogOpen}
+        walletAddress={walletAddress}
+      />
+      <SwapDialog 
+        open={swapDialogOpen} 
+        onOpenChange={setSwapDialogOpen}
+      />
     </div>
   );
 }
