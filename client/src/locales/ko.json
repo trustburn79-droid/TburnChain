@@ -14326,6 +14326,28 @@
           "selectExchange": "거래소 파트너 선택:",
           "recommended": "추천"
         }
+      },
+      "testnetRpc": {
+        "tag": "테스트넷 RPC",
+        "heroTitle": "TBurn",
+        "heroTitleHighlight": "테스트넷",
+        "heroTitleSuffix": "RPC 인프라",
+        "heroDescription": "개발 및 테스트를 위한 무료 테스트넷 RPC 엔드포인트. 파우셋에서 무제한 tTBURN을 받고 스마트 컨트랙트를 위험 없이 배포하세요.",
+        "status": { "operational": "정상 운영 중" },
+        "metrics": { "free": "무료", "access": "접근", "latency": "지연 시간", "regions": "지역", "unlimited": "무제한", "faucet": "파우셋" },
+        "buttons": { "getFreeTokens": "무료 tTBURN 받기", "quickStart": "빠른 시작", "testConnection": "연결 테스트", "testing": "테스트 중...", "switchToMainnet": "메인넷 RPC로 전환" },
+        "dashboard": { "title": "테스트넷 실시간 상태", "blockHeight": "블록 높이", "tps": "TPS", "avgLatency": "평균 지연 시간", "testnetNodes": "테스트넷 노드", "online": "온라인" },
+        "endpoints": { "httpTitle": "HTTP RPC 엔드포인트", "httpDesc": "블록체인 상호작용을 위한 표준 JSON-RPC 엔드포인트", "wsTitle": "WebSocket 엔드포인트", "wsDesc": "실시간 업데이트를 위한 실시간 스트리밍 연결", "testnet": "테스트넷", "live": "실시간", "postRequests": "POST 요청", "batchSupport": "배치 지원", "noLimits": "제한 없음", "newBlocks": "새 블록", "pendingTxs": "대기 중 Tx", "logFilters": "로그 필터" },
+        "config": { "title": "네트워크 구성", "description": "TBurn 테스트넷을 지갑에 추가", "networkName": "네트워크 이름", "chainId": "체인 ID", "symbol": "심볼", "decimals": "소수점", "explorerUrl": "익스플로러 URL", "explorer": "익스플로러", "faucet": "파우셋", "getTtburn": "tTBURN 받기" },
+        "features": { "title": "테스트넷 기능", "subtitle": "개발 및 테스트에 필요한 모든 것", "freeEnvironment": { "title": "무료 테스트 환경", "desc": "개발 및 테스트를 위한 무제한 테스트넷 접근" }, "faucet": { "title": "테스트넷 파우셋", "desc": "테스트를 위한 무료 tTBURN 토큰 즉시 받기" }, "fastBlocks": { "title": "빠른 블록 시간", "desc": "현실적인 테스트를 위한 메인넷과 동일한 성능" }, "riskFree": { "title": "위험 없는 개발", "desc": "실제 가치 없이 컨트랙트 배포 및 테스트" }, "debugMode": { "title": "디버그 모드 활성화", "desc": "추적 및 디버그 RPC 메서드 전체 접근" }, "regularResets": { "title": "정기 리셋", "desc": "깨끗한 테스트를 위한 주기적인 테스트넷 상태 리셋" } },
+        "nodes": { "title": "테스트넷 RPC 노드", "subtitle": "지리적으로 분산된 테스트넷 인프라", "nodesOnline": "노드 온라인", "latency": "지연 시간", "uptime": "가동 시간", "load": "부하", "requests24h": "24시간 요청", "version": "버전" },
+        "methods": { "title": "지원되는 RPC 메서드", "subtitle": "TBurn 사용자 정의 메서드와 완전한 EVM 호환성" },
+        "sdk": { "title": "SDK 및 코드 예제", "subtitle": "선호하는 언어로 TBurn 테스트넷에 연결" },
+        "resources": { "title": "개발자 리소스", "faucet": { "title": "테스트넷 파우셋", "desc": "무료 tTBURN 토큰 받기" }, "documentation": { "title": "문서", "desc": "완전한 API 참조 가이드" }, "explorer": { "title": "테스트넷 익스플로러", "desc": "테스트넷 트랜잭션 탐색" }, "mainnet": { "title": "메인넷 RPC", "desc": "프로덕션으로 전환" } },
+        "cta": { "title": "테스트넷에서 빌드할 준비가 되셨나요?", "description": "무료 tTBURN 토큰으로 개발을 시작하세요. 메인넷 배포 전에 스마트 컨트랙트와 dApp을 위험 없이 테스트하세요.", "quickStartGuide": "빠른 시작 가이드" },
+        "connection": { "success": "연결 성공", "failed": "연결 실패", "connected": "연결됨", "unableToConnect": "RPC 엔드포인트에 연결할 수 없습니다", "error": "연결에 실패했습니다. 다시 시도해 주세요." },
+        "copied": { "title": "복사됨!", "description": "클립보드에 복사되었습니다" },
+        "network": { "sslEncrypted": "SSL 암호화", "noRateLimits": "요청 제한 없음" }
       }
     },
     "community": {
