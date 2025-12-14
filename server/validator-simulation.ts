@@ -3,17 +3,52 @@ import { Validator, NetworkStats, InsertConsensusRound, InsertBlock, InsertCross
 import * as crypto from 'crypto';
 
 // TBURN v7.0 Enterprise Validator Configuration
-const ENTERPRISE_VALIDATORS_CONFIG = {
-  TOTAL_VALIDATORS: 125,
-  ACTIVE_VALIDATORS: 110,
-  COMMITTEE_SIZE: 21, // BFT committee size
-  EPOCH_DURATION: 60000, // 1 minute epochs
-  BLOCK_TIME: 100, // PRODUCTION: 100ms for optimal 10 blocks/second (TBURN v7.0 enterprise specification)
-  // Enterprise-grade performance: 10 blocks per second enables 50,000+ TPS capability
-  BASE_VOTING_POWER: "50000000000000000000000", // 50,000 TBURN base (total supply: 100M TBURN)
+// Dynamic scaling: 16 shards = 400 validators, 32 = 800, 64 = 1600, 128 = 3200
+// Shard-based validator formula: TOTAL_VALIDATORS = SHARD_COUNT * VALIDATORS_PER_SHARD
+interface DynamicValidatorConfig {
+  TOTAL_VALIDATORS: number;
+  ACTIVE_VALIDATORS: number;
+  COMMITTEE_SIZE: number;
+  EPOCH_DURATION: number;
+  BLOCK_TIME: number;
+  BASE_VOTING_POWER: string;
+  DELEGATION_MULTIPLIER: number;
+  QUORUM_THRESHOLD: number;
+  SHARD_COUNT: number;
+  VALIDATORS_PER_SHARD: number;
+}
+
+// Default configuration (will be dynamically updated based on shard settings)
+let ENTERPRISE_VALIDATORS_CONFIG: DynamicValidatorConfig = {
+  TOTAL_VALIDATORS: 125,           // Default: 5 shards * 25 validators
+  ACTIVE_VALIDATORS: 110,          // 88% active
+  COMMITTEE_SIZE: 21,              // BFT committee size
+  EPOCH_DURATION: 60000,           // 1 minute epochs
+  BLOCK_TIME: 100,                 // PRODUCTION: 100ms for optimal 10 blocks/second
+  BASE_VOTING_POWER: "50000000000000000000000", // 50,000 TBURN base
   DELEGATION_MULTIPLIER: 1.5,
-  QUORUM_THRESHOLD: 6700, // 67% in basis points
+  QUORUM_THRESHOLD: 6700,          // 67% in basis points
+  SHARD_COUNT: 5,                  // Default shard count
+  VALIDATORS_PER_SHARD: 25,        // Base validators per shard
 };
+
+// Update configuration based on shard count
+function updateValidatorConfigForShards(shardCount: number, validatorsPerShard: number = 25): void {
+  const totalValidators = shardCount * validatorsPerShard;
+  const activeValidators = Math.floor(totalValidators * 0.88); // 88% active
+  const committeeSize = Math.min(21, Math.floor(totalValidators * 0.05)); // 5% or max 21
+  
+  ENTERPRISE_VALIDATORS_CONFIG = {
+    ...ENTERPRISE_VALIDATORS_CONFIG,
+    TOTAL_VALIDATORS: totalValidators,
+    ACTIVE_VALIDATORS: activeValidators,
+    COMMITTEE_SIZE: Math.max(7, committeeSize), // Minimum 7 for BFT
+    SHARD_COUNT: shardCount,
+    VALIDATORS_PER_SHARD: validatorsPerShard,
+  };
+  
+  console.log(`🔄 Validator config updated: ${shardCount} shards × ${validatorsPerShard} validators = ${totalValidators} total`);
+}
 
 // Enterprise-grade validator names and profiles
 const VALIDATOR_PROFILES = [
@@ -59,21 +94,32 @@ const VALIDATOR_PROFILES = [
 ];
 
 // Generate remaining validators programmatically
-function generateRemainingValidators(): typeof VALIDATOR_PROFILES {
+// targetCount allows dynamic generation for different shard configurations
+function generateRemainingValidators(targetCount?: number): typeof VALIDATOR_PROFILES {
+  const total = targetCount || ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS;
   const regions = ["north-america", "europe", "asia", "oceania", "south-america", "africa"];
-  const categories = ["community", "regional", "enterprise", "infrastructure"];
+  const categories = ["community", "regional", "enterprise", "infrastructure", "institutional", "defi"];
   const remaining: typeof VALIDATOR_PROFILES = [];
   
-  for (let i = VALIDATOR_PROFILES.length; i < ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS; i++) {
-    const region = regions[i % regions.length];
-    const category = categories[Math.floor((i - VALIDATOR_PROFILES.length) / 25) % categories.length];
-    const tier = Math.floor((i - VALIDATOR_PROFILES.length) / 30) + 1;
+  // For large validator counts, use tiered naming
+  for (let i = VALIDATOR_PROFILES.length; i < total; i++) {
+    const regionIndex = i % regions.length;
+    const region = regions[regionIndex];
+    const categoryIndex = Math.floor((i - VALIDATOR_PROFILES.length) / 50) % categories.length;
+    const category = categories[categoryIndex];
+    const tier = Math.floor(i / 100) + 1;
+    const localIndex = (i - VALIDATOR_PROFILES.length) % 100 + 1;
+    
+    // Create meaningful validator names based on tier and region
+    const tierName = tier <= 3 ? ['Core', 'Prime', 'Elite'][tier - 1] : `Tier-${tier}`;
+    const regionCapitalized = region.charAt(0).toUpperCase() + region.slice(1).replace('-', ' ');
     
     remaining.push({
-      name: `${region.charAt(0).toUpperCase() + region.slice(1).replace('-', ' ')} Validator ${i - VALIDATOR_PROFILES.length + 1}`,
+      name: `${regionCapitalized} ${tierName} Validator ${localIndex}`,
       category,
       region,
-      reputation: Math.max(7000, 8450 - (i - VALIDATOR_PROFILES.length) * 20)
+      // Reputation scales with tier: higher tiers have slightly lower base reputation
+      reputation: Math.max(6500, 8500 - tier * 100 - (localIndex * 5))
     });
   }
   
@@ -106,9 +152,147 @@ export class ValidatorSimulationService {
   
   // Reentrancy guard to prevent overlapping interval executions
   private isProcessingBlock: boolean = false;
+  
+  // Dynamic shard configuration
+  private currentShardCount: number = 5;
+  private validatorsPerShard: number = 25;
 
   constructor(storage: IStorage) {
     this.storage = storage;
+  }
+  
+  // Update shard configuration and scale validators dynamically
+  public async updateShardConfiguration(shardCount: number, validatorsPerShard: number = 25): Promise<{
+    success: boolean;
+    message: string;
+    previousValidators: number;
+    newValidators: number;
+    shardCount: number;
+  }> {
+    const previousCount = ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS;
+    const newCount = shardCount * validatorsPerShard;
+    
+    console.log(`🔄 Updating validator configuration: ${previousCount} → ${newCount} validators (${shardCount} shards)`);
+    
+    // Update the global configuration
+    updateValidatorConfigForShards(shardCount, validatorsPerShard);
+    this.currentShardCount = shardCount;
+    this.validatorsPerShard = validatorsPerShard;
+    
+    // Handle scale-up: create additional validators
+    if (newCount > this.validators.length) {
+      await this.scaleUpValidators(newCount);
+    }
+    // Handle scale-down: trim validators and delete from storage
+    else if (newCount < this.validators.length) {
+      console.log(`📉 Scaling down validators: ${this.validators.length} → ${newCount}`);
+      const validatorsToRemove = this.validators.slice(newCount);
+      const idsToDelete = validatorsToRemove.map(v => v.id);
+      const deletedCount = await this.storage.deleteValidatorsByIds(idsToDelete);
+      console.log(`🗑️ Deleted ${deletedCount} validators from storage`);
+      this.validators = this.validators.slice(0, newCount);
+    }
+    
+    // Recompute validator status to match new ACTIVE_VALIDATORS count
+    this.recomputeValidatorStatus();
+    
+    // Invalidate committee cache
+    this.invalidateCommitteeCache();
+    
+    return {
+      success: true,
+      message: `Scaled validators for ${shardCount} shards: ${this.validators.length} validators`,
+      previousValidators: previousCount,
+      newValidators: this.validators.length,
+      shardCount
+    };
+  }
+  
+  // Recompute validator status to ensure correct active/inactive distribution
+  private recomputeValidatorStatus(): void {
+    const targetActive = ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS;
+    let activeCount = 0;
+    
+    for (let i = 0; i < this.validators.length; i++) {
+      if (i < targetActive) {
+        this.validators[i].status = "active";
+        activeCount++;
+      } else {
+        this.validators[i].status = "inactive";
+      }
+    }
+    
+    console.log(`✅ Recomputed validator status: ${activeCount} active, ${this.validators.length - activeCount} inactive`);
+  }
+  
+  // Scale up validators to reach target count
+  private async scaleUpValidators(targetCount: number): Promise<void> {
+    const currentCount = this.validators.length;
+    const missingCount = targetCount - currentCount;
+    
+    if (missingCount <= 0) return;
+    
+    console.log(`📈 Scaling up validators: creating ${missingCount} additional validators`);
+    
+    const allProfiles = generateRemainingValidators(targetCount);
+    
+    for (let i = currentCount; i < targetCount; i++) {
+      const profile = allProfiles[i];
+      const address = this.generateValidatorAddress(i);
+      
+      const baseStake = BigInt(ENTERPRISE_VALIDATORS_CONFIG.BASE_VOTING_POWER);
+      const stakeFactor = BigInt(profile.reputation) / BigInt(1000);
+      const stake = (baseStake * stakeFactor).toString();
+      const votingPower = BigInt(stake) + BigInt("0");
+      
+      const validator: Validator = {
+        id: `val-${i}`,
+        address,
+        name: profile.name,
+        stake,
+        delegatedStake: "0",
+        votingPower: votingPower.toString(),
+        commission: 100 + Math.floor(Math.random() * 900),
+        apy: 450 + Math.floor(Math.random() * 350),
+        uptime: 9500 + Math.floor(Math.random() * 500),
+        status: i < ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS ? "active" : "inactive",
+        rewardEarned: BigInt(Math.floor(Math.random() * 10000 * 1e18)).toString(),
+        slashCount: Math.floor(Math.random() * 3),
+        reputationScore: profile.reputation,
+        performanceScore: 8500 + Math.floor(Math.random() * 1500),
+        aiTrustScore: 8000 + Math.floor(Math.random() * 2000),
+        behaviorScore: 8500 + Math.floor(Math.random() * 1500),
+        adaptiveWeight: 8000 + Math.floor(Math.random() * 2000),
+        totalBlocks: Math.floor(Math.random() * 1000),
+        avgBlockTime: 350 + Math.floor(Math.random() * 150),
+        missedBlocks: Math.floor(Math.random() * 50),
+        delegators: 10 + Math.floor(Math.random() * 990),
+        joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
+        lastActiveAt: new Date(),
+      };
+      
+      await this.storage.createValidator(validator);
+      this.validators.push(validator);
+    }
+    
+    console.log(`✅ Scaled up to ${this.validators.length} validators`);
+  }
+  
+  // Get current validator configuration
+  public getValidatorConfig(): {
+    totalValidators: number;
+    activeValidators: number;
+    committeeSize: number;
+    shardCount: number;
+    validatorsPerShard: number;
+  } {
+    return {
+      totalValidators: ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS,
+      activeValidators: ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS,
+      committeeSize: ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
+      shardCount: this.currentShardCount,
+      validatorsPerShard: this.validatorsPerShard
+    };
   }
 
   // Generate deterministic validator address
@@ -127,9 +311,18 @@ export class ValidatorSimulationService {
     return votingPower.toString();
   }
 
-  // Initialize 125 enterprise validators and set correct block height
-  public async initializeValidators(): Promise<void> {
-    console.log("🚀 Initializing 125 Enterprise Validators...");
+  // Initialize validators based on shard configuration
+  // Supports dynamic scaling: 16 shards = 400, 32 = 800, 64 = 1600, 128 = 3200 validators
+  public async initializeValidators(shardCount?: number, validatorsPerShard?: number): Promise<void> {
+    // Update configuration if shard parameters provided
+    if (shardCount !== undefined) {
+      updateValidatorConfigForShards(shardCount, validatorsPerShard || 25);
+      this.currentShardCount = shardCount;
+      this.validatorsPerShard = validatorsPerShard || 25;
+    }
+    
+    const targetValidators = ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS;
+    console.log(`🚀 Initializing ${targetValidators} Enterprise Validators (${this.currentShardCount} shards × ${this.validatorsPerShard} validators)...`);
     
     // Get latest block height from database to avoid duplicates
     const recentBlocks = await this.storage.getRecentBlocks(1);
@@ -144,10 +337,10 @@ export class ValidatorSimulationService {
     // Check if validators already exist
     const existingValidators = await this.storage.getAllValidators();
     
-    if (existingValidators.length >= ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS) {
-      console.log(`✅ Found ${existingValidators.length} validators, using first ${ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS}`);
-      // Use first 125 existing validators
-      this.validators = existingValidators.slice(0, ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS).map((v, i) => ({
+    if (existingValidators.length >= targetValidators) {
+      console.log(`✅ Found ${existingValidators.length} validators, using first ${targetValidators}`);
+      // Use existing validators up to target count
+      this.validators = existingValidators.slice(0, targetValidators).map((v, i) => ({
         ...v,
         committee: i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
         votingHistory: v.votingHistory || 9000 + Math.floor(Math.random() * 1000),
@@ -155,8 +348,8 @@ export class ValidatorSimulationService {
       return;
     }
     
-    if (existingValidators.length > 0 && existingValidators.length < ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS) {
-      console.log(`📊 Found ${existingValidators.length} existing validators, creating ${ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS - existingValidators.length} more to reach 125 total`);
+    if (existingValidators.length > 0 && existingValidators.length < targetValidators) {
+      console.log(`📊 Found ${existingValidators.length} existing validators, creating ${targetValidators - existingValidators.length} more to reach ${targetValidators} total`);
       // Use existing validators
       this.validators = existingValidators.map((v, i) => ({
         ...v,
@@ -164,12 +357,12 @@ export class ValidatorSimulationService {
         votingHistory: v.votingHistory || 9000 + Math.floor(Math.random() * 1000),
       }));
       
-      // Create only the missing validators to reach 125
-      const missingCount = ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS - existingValidators.length;
+      // Create only the missing validators to reach target count
+      const missingCount = targetValidators - existingValidators.length;
       const startIndex = existingValidators.length;
       
       // Generate and save the missing validators
-      const allProfiles = generateRemainingValidators();
+      const allProfiles = generateRemainingValidators(targetValidators);
       for (let i = 0; i < missingCount; i++) {
         const index = startIndex + i;
         const profile = allProfiles[index];
@@ -216,10 +409,10 @@ export class ValidatorSimulationService {
       return;
     }
     
-    const allProfiles = generateRemainingValidators();
+    const allProfiles = generateRemainingValidators(targetValidators);
     const validators: Validator[] = [];
     
-    for (let i = 0; i < ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS; i++) {
+    for (let i = 0; i < targetValidators; i++) {
       const profile = allProfiles[i];
       const address = this.generateValidatorAddress(i);
       const isActive = i < ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS;
@@ -279,9 +472,10 @@ export class ValidatorSimulationService {
     }
     
     this.validators = validators;
-    console.log(`✅ Initialized ${validators.length} validators`);
+    console.log(`✅ Initialized ${validators.length} validators for ${this.currentShardCount} shards`);
     console.log(`   - Active: ${ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS}`);
     console.log(`   - Committee: ${ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE}`);
+    console.log(`   - Shards: ${this.currentShardCount} × ${this.validatorsPerShard} validators`);
   }
 
   // Public method to invalidate committee cache (call when validator state changes mid-epoch)
@@ -438,7 +632,7 @@ export class ValidatorSimulationService {
       gasUsed: Math.min(gasUsed, 30000000), // Cap at gas limit
       gasLimit: 30000000, // 30M gas limit (standard for high-throughput chains)
       size: 50000 + Math.floor(Math.random() * 100000),
-      shardId: Math.floor(Math.random() * 5),
+      shardId: Math.floor(Math.random() * this.currentShardCount),
       stateRoot: crypto.randomBytes(32).toString('hex'),
       receiptsRoot: crypto.randomBytes(32).toString('hex'),
       executionClass: "parallel",

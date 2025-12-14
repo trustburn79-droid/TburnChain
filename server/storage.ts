@@ -382,6 +382,7 @@ export interface IStorage {
   getValidatorById(id: string): Promise<Validator | undefined>;
   createValidator(validator: InsertValidator): Promise<Validator>;
   updateValidator(address: string, data: Partial<Validator>): Promise<Validator>;
+  deleteValidatorsByIds(ids: string[]): Promise<number>;
   getValidatorDetails(address: string): Promise<any>;
   delegateToValidator(address: string, amount: string, delegatorAddress: string): Promise<void>;
   undelegateFromValidator(address: string, amount: string, delegatorAddress: string): Promise<void>;
@@ -1781,6 +1782,18 @@ export class MemStorage implements IStorage {
     return updated;
   }
 
+  async deleteValidatorsByIds(ids: string[]): Promise<number> {
+    if (ids.length === 0) return 0;
+    let deleted = 0;
+    for (const [address, validator] of this.validators.entries()) {
+      if (ids.includes(validator.id)) {
+        this.validators.delete(address);
+        deleted++;
+      }
+    }
+    return deleted;
+  }
+
   async getValidatorDetails(address: string): Promise<any> {
     const validator = await this.getValidatorByAddress(address);
     if (!validator) {
@@ -2643,6 +2656,12 @@ export class DbStorage implements IStorage {
     const result = await this.getValidatorByAddress(address);
     if (!result) throw new Error(`Validator ${address} not found`);
     return result;
+  }
+
+  async deleteValidatorsByIds(ids: string[]): Promise<number> {
+    if (ids.length === 0) return 0;
+    const result = await db.delete(validators).where(sql`${validators.id} = ANY(${ids})`);
+    return result.rowCount ?? 0;
   }
 
   async getValidatorDetails(address: string): Promise<any> {
