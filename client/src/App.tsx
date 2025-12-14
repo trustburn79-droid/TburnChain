@@ -34,6 +34,7 @@ import Sharding from "@/pages/sharding";
 import CrossShard from "@/pages/cross-shard";
 import Wallets from "@/pages/wallets";
 import WalletDetail from "@/pages/wallet-detail";
+import WalletDashboard from "@/pages/wallet-dashboard";
 import SmartContracts from "@/pages/smart-contracts";
 import NodeHealth from "@/pages/node-health";
 import PerformanceMetrics from "@/pages/performance-metrics";
@@ -113,6 +114,7 @@ function AppRouter() {
       <Route path="/app/cross-shard" component={CrossShard} />
       <Route path="/app/wallets" component={Wallets} />
       <Route path="/app/wallets/:address" component={WalletDetail} />
+      <Route path="/app/wallet-dashboard" component={WalletDashboard} />
       <Route path="/app/token-system" component={TokenSystem} />
       <Route path="/app/bridge" component={Bridge} />
       <Route path="/app/governance" component={Governance} />

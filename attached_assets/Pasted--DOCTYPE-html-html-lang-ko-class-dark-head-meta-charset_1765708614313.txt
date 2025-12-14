@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대시보드 | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* 1. Background */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* 2. Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 15, 20, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 3. Spotlight Card */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(0, 240, 255, 0.4),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-4px); }
+
+        /* 4. Text Scramble */
+        .scramble-target {
+            font-family: 'Space Grotesk', monospace;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/60 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center bg-gradient-to-tr from-cyber-cyan/20 to-cyber-purple/20 rounded-lg border border-white/10 group-hover:border-cyber-cyan/50 transition-all">
+                    <i class="fas fa-fire text-cyber-cyan text-lg"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-white">TBurn <span class="text-cyber-cyan">Dash</span></span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-cyan pb-1">Overview</a>
+                <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Wallet</a>
+                <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Staking</a>
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                    <span class="w-2 h-2 rounded-full bg-cyber-green animate-pulse"></span>
+                    <span class="text-xs font-mono text-cyber-cyan">0x9a4c...2f5e</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto">
+        
+        <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-2 glass-panel rounded-2xl p-8 relative overflow-hidden group">
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-cyber-cyan/10 rounded-full blur-3xl group-hover:bg-cyber-cyan/20 transition duration-700"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <div class="text-xs font-mono text-gray-500 mb-2 border border-white/10 inline-block px-2 py-1 rounded bg-black/20">
+                                <i class="fas fa-wallet mr-1 text-cyber-purple"></i> MAIN WALLET
+                            </div>
+                            <h2 class="text-gray-400 text-sm font-medium">Total Balance</h2>
+                        </div>
+                        <span class="text-cyber-green text-xs font-mono bg-cyber-green/10 px-2 py-1 rounded border border-cyber-green/20">
+                            ▲ 4.2% (24h)
+                        </span>
+                    </div>
+                    
+                    <div class="flex items-baseline gap-2 mb-2">
+                        <h1 class="text-5xl md:text-6xl font-bold text-white tracking-tighter scramble-target" data-value="15,847.00">0.00</h1>
+                        <span class="text-xl text-cyber-cyan font-light">BURN</span>
+                    </div>
+                    <p class="text-sm text-gray-500 font-mono">≈ $38,191.27 USD</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <button class="spotlight-card flex items-center gap-4 p-4 rounded-xl bg-[#0a0a0f] hover:bg-white/5 transition group text-left w-full">
+                    <div class="w-10 h-10 rounded-lg bg-cyber-cyan/10 flex items-center justify-center text-cyber-cyan border border-cyber-cyan/30 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-sm">Send</h3>
+                        <p class="text-xs text-gray-500">Transfer tokens</p>
+                    </div>
+                </button>
+                <button class="spotlight-card flex items-center gap-4 p-4 rounded-xl bg-[#0a0a0f] hover:bg-white/5 transition group text-left w-full">
+                    <div class="w-10 h-10 rounded-lg bg-cyber-purple/10 flex items-center justify-center text-cyber-purple border border-cyber-purple/30 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-sm">Receive</h3>
+                        <p class="text-xs text-gray-500">View address</p>
+                    </div>
+                </button>
+                <button class="spotlight-card flex items-center gap-4 p-4 rounded-xl bg-[#0a0a0f] hover:bg-white/5 transition group text-left w-full">
+                    <div class="w-10 h-10 rounded-lg bg-cyber-green/10 flex items-center justify-center text-cyber-green border border-cyber-green/30 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-sm">Swap</h3>
+                        <p class="text-xs text-gray-500">Trade tokens</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 glass-panel rounded-2xl p-6 border border-white/5">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fas fa-chart-line text-cyber-cyan"></i> Performance
+                    </h3>
+                    <div class="flex bg-black/40 rounded-lg p-1 border border-white/5">
+                        <button class="px-3 py-1 text-xs rounded-md bg-white/10 text-white font-medium shadow-sm">1W</button>
+                        <button class="px-3 py-1 text-xs rounded-md text-gray-500 hover:text-white transition">1M</button>
+                        <button class="px-3 py-1 text-xs rounded-md text-gray-500 hover:text-white transition">1Y</button>
+                    </div>
+                </div>
+                <div class="relative h-[300px] w-full">
+                    <canvas id="balanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-2xl p-6 border border-white/5 flex flex-col h-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-bold text-white">Activity</h3>
+                    <button class="text-xs text-cyber-cyan hover:text-white transition font-mono">VIEW ALL</button>
+                </div>
+                
+                <div class="space-y-4 overflow-y-auto flex-1 pr-2 custom-scrollbar">
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5 hover:border-cyber-cyan/30 transition group cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-400">
+                                <i class="fas fa-arrow-up text-xs transform rotate-45"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium text-white group-hover:text-cyber-cyan transition">Sent</div>
+                                <div class="text-[10px] text-gray-500 font-mono">0x7f...9b2d</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-white">-500.00</div>
+                            <div class="text-[10px] text-gray-500">2 min ago</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5 hover:border-cyber-cyan/30 transition group cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                                <i class="fas fa-arrow-down text-xs transform rotate-45"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium text-white group-hover:text-cyber-cyan transition">Received</div>
+                                <div class="text-[10px] text-gray-500 font-mono">0x2d...4c1a</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-cyber-cyan">+1,200.00</div>
+                            <div class="text-[10px] text-gray-500">1 hr ago</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5 hover:border-cyber-cyan/30 transition group cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
+                                <i class="fas fa-random text-xs"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium text-white group-hover:text-cyber-cyan transition">Swap</div>
+                                <div class="text-[10px] text-gray-500 font-mono">BURN → USDT</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-white">300.00</div>
+                            <div class="text-[10px] text-gray-500">5 hrs ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <p class="text-white/30 text-sm font-mono">SECURE DASHBOARD</p>
+                <p class="text-white/20 text-xs mt-1">© 2025 TBurn Chain.</p>
+            </div>
+            
+            <div class="flex gap-6 text-white/50 text-sm">
+                <a href="#" class="hover:text-cyber-cyan transition">Privacy</a>
+                <a href="#" class="hover:text-cyber-cyan transition">Terms</a>
+                <a href="#" class="hover:text-cyber-cyan transition">Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Text Scramble Animation (Balance)
+        const letters = "0123456789";
+        document.querySelectorAll(".scramble-target").forEach(target => {
+            let iterations = 0;
+            const finalValue = target.dataset.value;
+            const interval = setInterval(() => {
+                target.innerText = finalValue.split("")
+                    .map((letter, index) => {
+                        if(index < iterations) return finalValue[index];
+                        if(letter === '.' || letter === ',') return letter;
+                        return letters[Math.floor(Math.random() * letters.length)];
+                    })
+                    .join("");
+                if(iterations >= finalValue.length) clearInterval(interval);
+                iterations += 1/3;
+            }, 30);
+        });
+
+        // 2. Spotlight Effect Logic (Shared)
+        const cards = document.querySelectorAll(".spotlight-card");
+        document.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 3. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00f0ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.4) - 0.2;
+                let directionY = (Math.random() * 0.4) - 0.2;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 240, 255,' + opacityValue * 0.15 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+
+        // 4. Chart Configuration (Neon)
+        const balanceCtx = document.getElementById('balanceChart').getContext('2d');
+        const gradient = balanceCtx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(0, 240, 255, 0.2)');
+        gradient.addColorStop(1, 'rgba(0, 240, 255, 0)');
+
+        new Chart(balanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Portfolio Value',
+                    data: [12500, 13200, 12800, 14500, 14200, 15100, 15847],
+                    borderColor: '#00f0ff',
+                    backgroundColor: gradient,
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#00f0ff',
+                    pointRadius: 3,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: '#6b7280' } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#6b7280' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
