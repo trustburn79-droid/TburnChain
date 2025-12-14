@@ -745,6 +745,25 @@ export class TBurnEnterpriseNode extends EventEmitter {
   public getScalingEvents(limit: number = 20): typeof this.scalingEvents {
     return this.scalingEvents.slice(-limit);
   }
+
+  // Get current shard configuration (for external sync like ValidatorSimulation)
+  public getShardConfiguration(): {
+    currentShardCount: number;
+    validatorsPerShard: number;
+    tpsPerShard: number;
+    maxShards: number;
+    minShards: number;
+    version: number;
+  } {
+    return {
+      currentShardCount: this.shardConfig.currentShardCount,
+      validatorsPerShard: this.shardConfig.validatorsPerShard,
+      tpsPerShard: this.shardConfig.tpsPerShard,
+      maxShards: this.shardConfig.maxShards,
+      minShards: this.shardConfig.minShards,
+      version: this.shardConfig.version
+    };
+  }
   
   // Shard name generator for 128 shards (enterprise scale)
   private readonly SHARD_NAMES = [
@@ -1412,7 +1431,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
         transactionCount: 17000000 + Math.floor(Math.random() * 2000000) + (shardId * 500000),
         validatorCount: this.shardConfig.validatorsPerShard,
-        tps: this.shardConfig.tpsPerShard * 0.9 + Math.floor(Math.random() * this.shardConfig.tpsPerShard * 0.2),
+        tps: Math.floor(this.shardConfig.tpsPerShard * 0.98), // Deterministic: 98% of capacity
         load: loadVariation,
         peakTps: Math.floor(this.shardConfig.tpsPerShard * 1.15),
         avgBlockTime: 0.1,
@@ -1440,10 +1459,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
     // Network Stats endpoint - uses dynamic shard configuration
     this.rpcApp.get('/api/network/stats', (_req: Request, res: Response) => {
-      // Calculate current TPS based on shard configuration
+      // Calculate deterministic TPS based on shard configuration
+      // TPS = shardCount × tpsPerShard × 0.98 (98% operating margin)
       const shardCount = this.shardConfig.currentShardCount;
       const baseTps = shardCount * this.shardConfig.tpsPerShard;
-      const currentTps = Math.floor(baseTps * 0.95 + Math.random() * baseTps * 0.1);
+      const currentTps = Math.floor(baseTps * 0.98); // Deterministic: 98% of base capacity
       
       // Calculate dynamic validators based on shard config
       const totalValidators = shardCount * this.shardConfig.validatorsPerShard;
@@ -2422,16 +2442,17 @@ export class TBurnEnterpriseNode extends EventEmitter {
           ? Math.round((this.blockTimes[this.blockTimes.length - 1] - this.blockTimes[0]) / (this.blockTimes.length - 1))
           : 100; // Default 100ms if no data yet
         
-        const avgTps = this.tpsHistory.length > 0 
-          ? Math.floor(this.tpsHistory.reduce((a, b) => a + b, 0) / this.tpsHistory.length)
-          : 50000;
+        // Deterministic TPS calculation: shardCount × tpsPerShard × 0.98
+        // TPS only changes when shard configuration changes
+        const baseTps = this.shardConfig.currentShardCount * this.shardConfig.tpsPerShard;
+        const deterministicTps = Math.floor(baseTps * 0.98);
         
         await storage.updateNetworkStats({
           avgBlockTime: avgBlockTimeMs,
           blockTimeP99: Math.round(avgBlockTimeMs * 1.2), // P99 is typically 20% higher
           currentBlockHeight: this.currentBlockHeight,
-          tps: avgTps,
-          peakTps: this.peakTps,
+          tps: deterministicTps,
+          peakTps: Math.floor(baseTps * 1.15), // Peak is 115% of base
           totalTransactions: BigInt(this.totalTransactions),
           activeValidators: this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard,
           totalValidators: this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard,
@@ -3125,8 +3146,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     
     for (let i = 0; i < shardCount; i++) {
       const shardName = this.SHARD_NAMES[i] || `Shard-${i + 1}`;
-      const loadVariation = 35 + Math.floor(Math.random() * 35); // 35-70% load
-      const tpsVariation = baseTps * 0.9 + Math.floor(Math.random() * baseTps * 0.2); // ±10% TPS variation
+      const loadVariation = 35 + Math.floor(Math.random() * 35); // 35-70% load (still random for load balancing visualization)
+      const shardTps = Math.floor(baseTps * 0.98); // Deterministic: 98% of base capacity per shard
       
       shards.push({
         id: `${i + 1}`,
@@ -3136,7 +3157,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
         transactionCount: 17000000 + Math.floor(Math.random() * 3000000) + (i * 500000),
         validatorCount: validatorsPerShard,
-        tps: Math.floor(tpsVariation),
+        tps: shardTps,
         load: loadVariation,
         peakTps: Math.floor(baseTps * 1.15),
         avgBlockTime: 0.1,

@@ -880,6 +880,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Network Stats
   // ============================================
+  
+  // Helper function to calculate TPS based on shard configuration
+  // Returns deterministic base TPS that only changes when shard count changes
+  const calculateShardBasedTps = (): { tps: number; baseTps: number; shardCount: number; tpsPerShard: number; validators: number; peakTps: number } => {
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      if (enterpriseNode) {
+        const shardConfig = enterpriseNode.getShardConfiguration();
+        const shardCount = shardConfig.currentShardCount || 5;
+        const tpsPerShard = shardConfig.tpsPerShard || 10000;
+        const baseTps = shardCount * tpsPerShard;
+        // Deterministic TPS: 98% of base capacity (minor realistic operating margin)
+        const tps = Math.floor(baseTps * 0.98);
+        const peakTps = Math.floor(baseTps * 1.15); // Peak is 115% of base
+        const validators = shardCount * (shardConfig.validatorsPerShard || 25);
+        console.log(`[TPS] Shard-based: ${shardCount} shards × ${tpsPerShard} = ${tps} TPS`);
+        return { tps, baseTps, shardCount, tpsPerShard, validators, peakTps };
+      }
+    } catch (e) {
+      console.log(`[TPS] Enterprise node error, using fallback`);
+    }
+    // Fallback: 5 shards * 10000 TPS = 50000 TPS
+    const defaultBaseTps = 50000;
+    console.log(`[TPS] Fallback: 5 shards × 10000 = 49000 TPS`);
+    return { tps: Math.floor(defaultBaseTps * 0.98), baseTps: defaultBaseTps, shardCount: 5, tpsPerShard: 10000, validators: 125, peakTps: Math.floor(defaultBaseTps * 1.15) };
+  };
+  
   app.get("/api/network/stats", async (_req, res) => {
     try {
       // Get real-time self-healing scores from the engine
@@ -930,17 +957,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const client = getTBurnClient();
           const mainnetStats = await client.getNetworkStats();
           
+          // ENTERPRISE: Always calculate TPS from shard configuration (deterministic)
+          const shardTps = calculateShardBasedTps();
+          
           // Merge with database values and real-time healing scores
-          // Database values take priority for tuned production metrics
+          // TPS values are always overridden by shard-based calculation for determinism
           const mergedStats = mergeWithHealingScores({
             ...mainnetStats,
             currentBlockHeight: dbStats?.currentBlockHeight || mainnetStats.currentBlockHeight || 0,
-            activeValidators: dbStats?.activeValidators || mainnetStats.activeValidators || 125,
-            totalValidators: dbStats?.totalValidators || mainnetStats.totalValidators || 125,
+            // Override validators with shard-based calculation
+            activeValidators: shardTps.validators,
+            totalValidators: shardTps.validators,
             totalTransactions: dbStats?.totalTransactions || mainnetStats.totalTransactions || 0,
             totalAccounts: dbStats?.totalAccounts || mainnetStats.totalAccounts || 0,
-            tps: dbStats?.tps || mainnetStats.tps || 0,
-            peakTps: dbStats?.peakTps || mainnetStats.peakTps || 0,
+            // ENTERPRISE: TPS always from shard configuration
+            tps: shardTps.tps,
+            peakTps: shardTps.peakTps,
+            shardCount: shardTps.shardCount,
+            tpsPerShard: shardTps.tpsPerShard,
             avgBlockTime: dbStats?.avgBlockTime || mainnetStats.avgBlockTime || 100,
             blockTimeP99: dbStats?.blockTimeP99 || mainnetStats.blockTimeP99 || 1200,
             slaUptime: dbStats?.slaUptime || mainnetStats.slaUptime || 9999,
@@ -954,21 +988,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
           console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) for /api/network/stats - using database fallback`);
           
           if (dbStats) {
-            res.json(mergeWithHealingScores(dbStats));
+            // ENTERPRISE: Always override TPS with deterministic shard-based calculation
+            const shardTps = calculateShardBasedTps();
+            res.json(mergeWithHealingScores({
+              ...dbStats,
+              tps: shardTps.tps,
+              peakTps: shardTps.peakTps,
+              shardCount: shardTps.shardCount,
+              tpsPerShard: shardTps.tpsPerShard,
+              activeValidators: shardTps.validators,
+              totalValidators: shardTps.validators
+            }));
           } else {
-            // If no database stats, return production defaults with real-time healing scores
+            // If no database stats, return production defaults with shard-based TPS
+            const shardTps = calculateShardBasedTps();
             const defaultStats: NetworkStats = mergeWithHealingScores({
               id: "singleton",
               currentBlockHeight: 21200000 + Math.floor(Date.now() / 1000),
-              tps: 45000 + Math.floor(Math.random() * 10000),
-              peakTps: 485000,
+              tps: shardTps.tps,
+              peakTps: shardTps.peakTps,
               avgBlockTime: 100, // 100ms enterprise block time (10 blocks/second)
               blockTimeP99: 1200,
               slaUptime: 9999, // 99.99% enterprise SLA
               latency: 8 + Math.floor(Math.random() * 7), // 8-15ms
               latencyP99: 25,
-              activeValidators: 125,
-              totalValidators: 125,
+              activeValidators: shardTps.validators,
+              totalValidators: shardTps.validators,
               totalTransactions: 71000000,
               totalAccounts: 527849,
               marketCap: "12450000000",
@@ -982,18 +1027,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         // Fetch from local database (demo mode) with real-time healing scores
         if (!dbStats) {
+          // Use shard-based TPS calculation
+          const shardTps = calculateShardBasedTps();
           const defaultStats: NetworkStats = mergeWithHealingScores({
             id: "singleton",
             currentBlockHeight: 21200000 + Math.floor(Date.now() / 1000),
-            tps: 45000 + Math.floor(Math.random() * 10000),
-            peakTps: 485000,
+            tps: shardTps.tps,
+            peakTps: shardTps.peakTps,
             avgBlockTime: 100, // 100ms enterprise block time (10 blocks/second)
             blockTimeP99: 120,
             slaUptime: 9999, // 99.99% enterprise SLA
             latency: 8 + Math.floor(Math.random() * 7), // 8-15ms
             latencyP99: 25,
-            activeValidators: 125,
-            totalValidators: 125,
+            activeValidators: shardTps.validators,
+            totalValidators: shardTps.validators,
             totalTransactions: 71000000,
             totalAccounts: 527849,
             marketCap: "12450000000",
@@ -1001,10 +1048,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
             successRate: 9992, // 99.92%
             updatedAt: new Date(),
           });
-          console.log("[API] No network stats available, returning enterprise defaults with real-time healing scores");
+          console.log(`[API] No network stats available, using shard-based TPS: ${shardTps.tps} (${shardTps.shardCount} shards × ${shardTps.tpsPerShard} TPS/shard)`);
           res.json(defaultStats);
         } else {
-          res.json(mergeWithHealingScores(dbStats));
+          // ENTERPRISE: Always override TPS with deterministic shard-based calculation
+          // This ensures TPS only changes when shard count changes, not from stale DB values
+          const shardTps = calculateShardBasedTps();
+          res.json(mergeWithHealingScores({
+            ...dbStats,
+            tps: shardTps.tps,
+            peakTps: shardTps.peakTps,
+            shardCount: shardTps.shardCount,
+            tpsPerShard: shardTps.tpsPerShard,
+            activeValidators: shardTps.validators,
+            totalValidators: shardTps.validators
+          }));
         }
       }
     } catch (error) {
@@ -13993,16 +14051,16 @@ Provide JSON portfolio analysis:
           // Fallback: use cached database stats
         }
       } else {
-        // Demo Mode: Simulate TPS variations
-        let newTps = stats.tps;
-        if (stats.tps > 0) {
-          newTps = Math.floor(stats.tps * (0.95 + Math.random() * 0.1));
-        } else {
-          // Initialize with reasonable demo TPS if 0
-          newTps = Math.floor(55000 + Math.random() * 10000); // 55K-65K
-        }
-        await storage.updateNetworkStats({ tps: newTps });
-        stats = { ...stats, tps: newTps };
+        // Demo Mode: Calculate deterministic TPS based on shard count from Enterprise Node
+        const shardTps = calculateShardBasedTps();
+        // Update storage with shard-based TPS (deterministic, only changes with shard count)
+        await storage.updateNetworkStats({ 
+          tps: shardTps.tps, 
+          peakTps: shardTps.peakTps,
+          activeValidators: shardTps.validators,
+          totalValidators: shardTps.validators
+        });
+        stats = { ...stats, tps: shardTps.tps, peakTps: shardTps.peakTps };
       }
 
       // Get real-time token economics from Enterprise Node

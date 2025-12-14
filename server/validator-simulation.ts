@@ -1,6 +1,7 @@
 import { IStorage } from "./storage";
 import { Validator, NetworkStats, InsertConsensusRound, InsertBlock, InsertCrossShardMessage, Shard } from "@shared/schema";
 import * as crypto from 'crypto';
+import { getEnterpriseNode } from "./services/TBurnEnterpriseNode";
 
 // TBURN v7.0 Enterprise Validator Configuration
 // Dynamic scaling: 16 shards = 400 validators, 32 = 800, 64 = 1600, 128 = 3200
@@ -813,20 +814,22 @@ export class ValidatorSimulationService {
 
   // Update network stats based on validator activity
   private async updateNetworkStats(): Promise<void> {
-    // Use total validators count (all 125 are operational)
+    // Use total validators count (all are operational)
     const activeCount = this.validators.length;
-    // ENTERPRISE PRODUCTION: 50,000-52,000 TPS (5000-5200 tx/block × 10 blocks/second)
-    const currentTPS = 50000 + Math.floor(Math.random() * 2000); // 50K-52K TPS
     
-    // Daily transactions: reasonable value for display (50K-100K range)
-    const dailyTransactions = 50000 + Math.floor(Math.random() * 50000);
+    // ENTERPRISE PRODUCTION: Deterministic TPS based on active shard count
+    // TPS Formula: currentShardCount * tpsPerShard * 0.98 (98% operating margin)
+    // TPS only changes when shard count changes - no random variation
+    const TPS_PER_SHARD = 10000;
+    const shardCount = ENTERPRISE_VALIDATORS_CONFIG.SHARD_COUNT;
+    const baseTps = shardCount * TPS_PER_SHARD;
+    const currentTPS = Math.floor(baseTps * 0.98); // Deterministic: 98% of base capacity
     
     await this.storage.updateNetworkStats({
       activeValidators: activeCount,
       totalValidators: this.validators.length,
       tps: currentTPS,
       currentBlockHeight: this.currentBlockHeight,
-      totalTransactions: dailyTransactions,
     });
   }
 
@@ -840,10 +843,49 @@ export class ValidatorSimulationService {
     console.log("🎯 Starting Validator Simulation Service...");
     this.isRunning = true;
     
+    // Subscribe to Enterprise Node shard config changes to keep TPS in sync
+    try {
+      const enterpriseNode = getEnterpriseNode();
+      if (enterpriseNode) {
+        enterpriseNode.on('shardConfigChanged', (data: { oldCount: number; newCount: number; version: number }) => {
+          console.log(`[ValidatorSim] 🔄 Shard config changed: ${data.oldCount} → ${data.newCount} shards`);
+          updateValidatorConfigForShards(data.newCount, 25);
+          console.log(`[ValidatorSim] ✅ Updated ENTERPRISE_VALIDATORS_CONFIG for new shard count`);
+        });
+        
+        // Initialize with current shard config from Enterprise Node
+        const shardConfig = enterpriseNode.getShardConfiguration();
+        if (shardConfig && shardConfig.currentShardCount) {
+          updateValidatorConfigForShards(shardConfig.currentShardCount, shardConfig.validatorsPerShard || 25);
+          console.log(`[ValidatorSim] ✅ Synced with Enterprise Node: ${shardConfig.currentShardCount} shards`);
+        }
+      }
+    } catch (e) {
+      console.log("[ValidatorSim] ⚠️ Enterprise Node not ready, using default shard config");
+    }
+    
     // Initialize validators if not done
     if (this.validators.length === 0) {
       await this.initializeValidators();
     }
+    
+    // Delayed sync: Retry Enterprise Node sync after initialization
+    // This handles the race condition where Enterprise Node starts after ValidatorSimulation
+    setTimeout(() => {
+      try {
+        const enterpriseNode = getEnterpriseNode();
+        if (enterpriseNode) {
+          const shardConfig = enterpriseNode.getShardConfiguration();
+          if (shardConfig && shardConfig.currentShardCount && shardConfig.currentShardCount !== ENTERPRISE_VALIDATORS_CONFIG.SHARD_COUNT) {
+            console.log(`[ValidatorSim] 🔄 Delayed sync: ${ENTERPRISE_VALIDATORS_CONFIG.SHARD_COUNT} → ${shardConfig.currentShardCount} shards`);
+            updateValidatorConfigForShards(shardConfig.currentShardCount, shardConfig.validatorsPerShard || 25);
+            console.log(`[ValidatorSim] ✅ Synced with Enterprise Node: ${shardConfig.currentShardCount} shards`);
+          }
+        }
+      } catch (e) {
+        console.log("[ValidatorSim] Delayed sync skipped - Enterprise Node not available");
+      }
+    }, 3000); // Wait 3 seconds for Enterprise Node to initialize
     
     // Get latest block height from database to avoid conflicts
     try {
