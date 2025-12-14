@@ -6477,11 +6477,13 @@
     "welcomeMessage": "TBURN 블록체인 익스플로러에 오신 것을 환영합니다",
     "loginFailed": "로그인 실패",
     "invalidPassword": "비밀번호가 잘못되었습니다. 다시 시도해 주세요.",
+    "invalidCredentials": "이메일 또는 비밀번호가 잘못되었습니다. 다시 시도해 주세요.",
     "loginError": "로그인에 실패했습니다. 다시 시도해 주세요.",
     "authenticate": "인증",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "뉴럴 합의 레이어에 연결",
     "enterAccessKey": "액세스 키 입력...",
+    "enterPassword": "비밀번호를 입력하세요...",
     "authenticating": "인증 중...",
     "connectNode": "노드 연결",
     "orViaOAuth": "또는 OAuth로",
@@ -7136,6 +7138,15 @@
       "noCompletedLaunches": "아직 완료된 출시 없음"
     },
     "toast": {
+        "codeSentTitle": "인증 코드 발송됨",
+        "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
+        "sendCodeError": "인증 코드 발송에 실패했습니다",
+        "invalidCodeLength": "6자리 모두 입력해 주세요",
+        "verifiedTitle": "이메일 인증 완료",
+        "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
+        "verifyError": "유효하지 않거나 만료된 코드입니다",
+        "codeResent": "새 인증 코드가 발송되었습니다",
+        "resendError": "코드 재발송에 실패했습니다",
       "mintSuccess": "NFT 민트 성공",
       "mintSuccessDesc": "{{projectName}}에서 {{quantity}}개 NFT 민트. TX: {{txHash}}...",
       "mintFailed": "민트 실패",
@@ -7395,6 +7406,15 @@
         "network": "네트워크"
       },
       "toast": {
+        "codeSentTitle": "인증 코드 발송됨",
+        "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
+        "sendCodeError": "인증 코드 발송에 실패했습니다",
+        "invalidCodeLength": "6자리 모두 입력해 주세요",
+        "verifiedTitle": "이메일 인증 완료",
+        "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
+        "verifyError": "유효하지 않거나 만료된 코드입니다",
+        "codeResent": "새 인증 코드가 발송되었습니다",
+        "resendError": "코드 재발송에 실패했습니다",
         "successTitle": "노드 초기화 완료",
         "successDescription": "TBurn 체인에 오신 것을 환영합니다! 계정이 활성화되었습니다.",
         "errorTitle": "초기화 실패",
@@ -7406,7 +7426,18 @@
         "emailInvalid": "유효한 이메일 주소를 입력해 주세요",
         "passwordMin": "비밀번호는 최소 8자 이상이어야 합니다",
         "passwordMismatch": "비밀번호가 일치하지 않습니다",
-        "termsRequired": "약관에 동의해야 합니다"
+        "termsRequired": "약관에 동의해야 합니다",
+      "step": "단계",
+      "verificationNote": "6자리 인증 코드가 이메일로 발송됩니다",
+      "sendCode": "인증 코드 발송",
+      "sending": "발송 중...",
+      "enterCode": "이메일로 받은 6자리 코드를 입력하세요",
+      "verify": "코드 확인",
+      "verifying": "확인 중...",
+      "verified": "인증됨",
+      "back": "뒤로",
+      "resendCode": "코드 재발송",
+      "resendIn": "재발송까지"
       }
     },
     "header": {
@@ -14264,6 +14295,15 @@
           "contactSupport": "지원 문의"
         },
         "toast": {
+        "codeSentTitle": "인증 코드 발송됨",
+        "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
+        "sendCodeError": "인증 코드 발송에 실패했습니다",
+        "invalidCodeLength": "6자리 모두 입력해 주세요",
+        "verifiedTitle": "이메일 인증 완료",
+        "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
+        "verifyError": "유효하지 않거나 만료된 코드입니다",
+        "codeResent": "새 인증 코드가 발송되었습니다",
+        "resendError": "코드 재발송에 실패했습니다",
           "processing": "처리 중...",
           "initiatingPurchase": "TBURN 구매 시작 중...",
           "initiatingSale": "TBURN 판매 시작 중...",
@@ -14846,6 +14886,15 @@
           "button": "호스트 신청"
         },
         "toast": {
+        "codeSentTitle": "인증 코드 발송됨",
+        "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
+        "sendCodeError": "인증 코드 발송에 실패했습니다",
+        "invalidCodeLength": "6자리 모두 입력해 주세요",
+        "verifiedTitle": "이메일 인증 완료",
+        "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
+        "verifyError": "유효하지 않거나 만료된 코드입니다",
+        "codeResent": "새 인증 코드가 발송되었습니다",
+        "resendError": "코드 재발송에 실패했습니다",
           "reminderSet": "알림 설정됨",
           "reminderDescription": "\"{{title}}\" 전에 알림을 받게 됩니다"
         },

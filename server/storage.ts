@@ -61,6 +61,9 @@ import {
   type InsertMemberSlashEvent,
   type MemberAuditLog,
   type InsertMemberAuditLog,
+  type EmailVerification,
+  type InsertEmailVerification,
+  emailVerifications,
   type RestartSession,
   type InsertRestartSession,
   type StakingPool,
@@ -521,6 +524,13 @@ export interface IStorage {
   // Member Audit Logs
   getMemberAuditLogs(memberId: string, limit?: number): Promise<MemberAuditLog[]>;
   createMemberAuditLog(data: InsertMemberAuditLog): Promise<MemberAuditLog>;
+  
+  // Email Verifications
+  createEmailVerification(data: InsertEmailVerification): Promise<EmailVerification>;
+  getEmailVerificationByEmail(email: string, type: string): Promise<EmailVerification | undefined>;
+  verifyEmailCode(email: string, code: string, type: string): Promise<boolean>;
+  incrementVerificationAttempts(id: string): Promise<void>;
+  deleteExpiredVerifications(): Promise<void>;
   
   // Member Analytics
   getMemberStatistics(): Promise<{
@@ -3396,6 +3406,58 @@ export class DbStorage implements IStorage {
   async createMemberAuditLog(data: InsertMemberAuditLog): Promise<MemberAuditLog> {
     const result = await db.insert(memberAuditLogs).values(data).returning();
     return result[0];
+  }
+
+  // Email Verifications
+  async createEmailVerification(data: InsertEmailVerification): Promise<EmailVerification> {
+    const result = await db.insert(emailVerifications).values(data).returning();
+    return result[0];
+  }
+
+  async getEmailVerificationByEmail(email: string, type: string): Promise<EmailVerification | undefined> {
+    const result = await db.select().from(emailVerifications)
+      .where(and(
+        eq(emailVerifications.email, email),
+        eq(emailVerifications.type, type),
+        eq(emailVerifications.verified, false)
+      ))
+      .orderBy(desc(emailVerifications.createdAt))
+      .limit(1);
+    return result[0];
+  }
+
+  async verifyEmailCode(email: string, code: string, type: string): Promise<boolean> {
+    const verification = await db.select().from(emailVerifications)
+      .where(and(
+        eq(emailVerifications.email, email),
+        eq(emailVerifications.verificationCode, code),
+        eq(emailVerifications.type, type),
+        eq(emailVerifications.verified, false)
+      ))
+      .limit(1);
+    
+    if (verification.length === 0) return false;
+    
+    const record = verification[0];
+    if (new Date() > record.expiresAt) return false;
+    if (record.attempts >= 5) return false;
+    
+    await db.update(emailVerifications)
+      .set({ verified: true })
+      .where(eq(emailVerifications.id, record.id));
+    
+    return true;
+  }
+
+  async incrementVerificationAttempts(id: string): Promise<void> {
+    await db.update(emailVerifications)
+      .set({ attempts: sql`${emailVerifications.attempts} + 1` })
+      .where(eq(emailVerifications.id, id));
+  }
+
+  async deleteExpiredVerifications(): Promise<void> {
+    await db.delete(emailVerifications)
+      .where(sql`${emailVerifications.expiresAt} < NOW()`);
   }
 
   // Member Analytics

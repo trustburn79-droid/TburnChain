@@ -958,6 +958,28 @@ export const memberAuditLogs = pgTable("member_audit_logs", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Email Verifications - For signup/login email verification
+export const emailVerifications = pgTable("email_verifications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  email: text("email").notNull(),
+  verificationCode: text("verification_code").notNull(),
+  type: text("type").notNull(), // signup, login, password_reset
+  expiresAt: timestamp("expires_at").notNull(),
+  verified: boolean("verified").notNull().default(false),
+  attempts: integer("attempts").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Insert schema for email verifications
+export const insertEmailVerificationSchema = createInsertSchema(emailVerifications).omit({
+  id: true,
+  verified: true,
+  attempts: true,
+  createdAt: true,
+});
+export type InsertEmailVerification = z.infer<typeof insertEmailVerificationSchema>;
+export type EmailVerification = typeof emailVerifications.$inferSelect;
+
 // ============================================
 // ADMIN PORTAL - OPERATOR BACK-OFFICE SYSTEM
 // ============================================

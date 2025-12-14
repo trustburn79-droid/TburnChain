@@ -6311,11 +6311,13 @@
     "welcomeMessage": "Welcome to TBURN Blockchain Explorer",
     "loginFailed": "Login Failed",
     "invalidPassword": "Invalid password. Please try again.",
+    "invalidCredentials": "Invalid email or password. Please try again.",
     "loginError": "Failed to login. Please try again.",
     "authenticate": "Authenticate",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Connect to the Neural Consensus Layer",
     "enterAccessKey": "Enter access key...",
+    "enterPassword": "Enter your password...",
     "authenticating": "Authenticating...",
     "connectNode": "Connect Node",
     "orViaOAuth": "Or via OAuth",
@@ -7212,7 +7214,16 @@
         "successTitle": "Node Initialized",
         "successDescription": "Welcome to TBurn Chain! Your account is now active.",
         "errorTitle": "Initialization Failed",
-        "errorDescription": "Unable to create account. Please try again."
+        "errorDescription": "Unable to create account. Please try again.",
+        "codeSentTitle": "Verification Code Sent",
+        "codeSentDescription": "Please check your email for the 6-digit code",
+        "sendCodeError": "Failed to send verification code",
+        "invalidCodeLength": "Please enter all 6 digits",
+        "verifiedTitle": "Email Verified",
+        "verifiedDescription": "Your email has been verified successfully",
+        "verifyError": "Invalid or expired code",
+        "codeResent": "A new verification code has been sent",
+        "resendError": "Failed to resend code"
       },
       "validation": {
         "usernameMin": "Username must be at least 3 characters",
@@ -7221,7 +7232,18 @@
         "passwordMin": "Password must be at least 8 characters",
         "passwordMismatch": "Passwords do not match",
         "termsRequired": "You must accept the terms"
-      }
+      },
+      "step": "Step",
+      "verificationNote": "A 6-digit verification code will be sent to your email",
+      "sendCode": "Send Verification Code",
+      "sending": "Sending...",
+      "enterCode": "Enter the 6-digit code sent to your email",
+      "verify": "Verify Code",
+      "verifying": "Verifying...",
+      "verified": "Verified",
+      "back": "Back",
+      "resendCode": "Resend Code",
+      "resendIn": "Resend in"
     },
     "header": {
       "learn": "Learn",

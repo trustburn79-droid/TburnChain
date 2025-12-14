@@ -357,6 +357,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const selectedTier = allowedTiers.includes(memberTier) ? memberTier : "basic_user";
     
     try {
+      // Check if email was verified
+      const verification = await storage.getEmailVerificationByEmail(email, "signup");
+      if (!verification || !verification.verified) {
+        return res.status(400).json({ error: "Email not verified. Please verify your email first." });
+      }
+      
       // Check if email already exists
       const existingMember = await storage.getMemberByEmail(email);
       if (existingMember) {
@@ -403,6 +409,179 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Signup error:", error);
       res.status(500).json({ error: "Failed to create account" });
     }
+  });
+
+  // ============================================
+  // Email Verification Routes
+  // ============================================
+  
+  // Send verification code to email
+  app.post("/api/auth/send-verification", loginLimiter, async (req, res) => {
+    const { email, type = "signup" } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+    
+    try {
+      // Check if there's a recent verification request (prevent spam)
+      const existingVerification = await storage.getEmailVerificationByEmail(email, type);
+      if (existingVerification) {
+        const createdAt = new Date(existingVerification.createdAt);
+        const cooldownMs = 60 * 1000; // 1 minute cooldown
+        if (Date.now() - createdAt.getTime() < cooldownMs) {
+          const remainingSeconds = Math.ceil((cooldownMs - (Date.now() - createdAt.getTime())) / 1000);
+          return res.status(429).json({ 
+            error: `Please wait ${remainingSeconds} seconds before requesting a new code` 
+          });
+        }
+      }
+      
+      // Generate 6-digit verification code
+      const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      
+      // Set expiration (10 minutes from now)
+      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+      
+      // Store verification record
+      await storage.createEmailVerification({
+        email,
+        verificationCode,
+        type,
+        expiresAt,
+      });
+      
+      // In production, send actual email via email service
+      // For now, log the code (simulated email)
+      console.log(`[Email Verification] Code for ${email}: ${verificationCode} (expires: ${expiresAt.toISOString()})`);
+      
+      res.json({ 
+        success: true, 
+        message: "Verification code sent to your email",
+        expiresAt: expiresAt.toISOString()
+      });
+    } catch (error) {
+      console.error("Send verification error:", error);
+      res.status(500).json({ error: "Failed to send verification code" });
+    }
+  });
+
+  // Verify the code
+  app.post("/api/auth/verify-code", loginLimiter, async (req, res) => {
+    const { email, code, type = "signup" } = req.body;
+    
+    if (!email || !code) {
+      return res.status(400).json({ error: "Email and verification code are required" });
+    }
+    
+    try {
+      const verification = await storage.getEmailVerificationByEmail(email, type);
+      
+      if (!verification) {
+        return res.status(404).json({ error: "No verification request found. Please request a new code." });
+      }
+      
+      // Check if code has expired
+      if (new Date(verification.expiresAt) < new Date()) {
+        return res.status(410).json({ error: "Verification code has expired. Please request a new code." });
+      }
+      
+      // Check attempt limit (max 5 attempts)
+      if (verification.attempts >= 5) {
+        return res.status(429).json({ error: "Too many attempts. Please request a new code." });
+      }
+      
+      // Check if already verified
+      if (verification.verified) {
+        return res.json({ success: true, verified: true, message: "Email already verified" });
+      }
+      
+      // Verify the code
+      if (verification.verificationCode !== code) {
+        await storage.incrementVerificationAttempts(verification.id);
+        const remainingAttempts = 5 - verification.attempts - 1;
+        return res.status(400).json({ 
+          error: `Invalid verification code. ${remainingAttempts} attempts remaining.` 
+        });
+      }
+      
+      // Mark as verified
+      await storage.verifyEmailCode(verification.id);
+      
+      // Store verification status in session for signup flow
+      req.session.emailVerified = email;
+      req.session.emailVerifiedAt = new Date().toISOString();
+      
+      res.json({ 
+        success: true, 
+        verified: true,
+        message: "Email verified successfully" 
+      });
+    } catch (error) {
+      console.error("Verify code error:", error);
+      res.status(500).json({ error: "Failed to verify code" });
+    }
+  });
+
+  // Resend verification code
+  app.post("/api/auth/resend-code", loginLimiter, async (req, res) => {
+    const { email, type = "signup" } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+    
+    try {
+      // Delete old verification if exists
+      await storage.deleteExpiredVerifications();
+      
+      // Generate new 6-digit verification code
+      const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      
+      // Set expiration (10 minutes from now)
+      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+      
+      // Create new verification record
+      await storage.createEmailVerification({
+        email,
+        verificationCode,
+        type,
+        expiresAt,
+      });
+      
+      // Log the code (simulated email)
+      console.log(`[Email Verification] New code for ${email}: ${verificationCode} (expires: ${expiresAt.toISOString()})`);
+      
+      res.json({ 
+        success: true, 
+        message: "New verification code sent to your email",
+        expiresAt: expiresAt.toISOString()
+      });
+    } catch (error) {
+      console.error("Resend code error:", error);
+      res.status(500).json({ error: "Failed to resend verification code" });
+    }
+  });
+
+  // Check email verification status
+  app.get("/api/auth/verification-status", async (req, res) => {
+    const email = req.session.emailVerified;
+    
+    if (!email) {
+      return res.json({ verified: false });
+    }
+    
+    res.json({ 
+      verified: true, 
+      email,
+      verifiedAt: req.session.emailVerifiedAt 
+    });
   });
 
   app.post("/api/auth/logout", (req, res) => {

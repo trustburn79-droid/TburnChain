@@ -19,6 +19,7 @@ import { queryClient } from "@/lib/queryClient";
 import { LanguageSelector } from "@/components/language-selector";
 
 interface LoginFormData {
+  email: string;
   password: string;
 }
 
@@ -193,6 +194,7 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
 
   const form = useForm<LoginFormData>({
     defaultValues: {
+      email: "",
       password: "",
     },
   });
@@ -220,10 +222,14 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
     setIsLoading(true);
     try {
       const loginEndpoint = isAdminLogin ? "/api/admin/auth/login" : "/api/auth/login";
+      const requestBody = isAdminLogin 
+        ? { password: data.password } 
+        : { email: data.email, password: data.password };
+      
       const response = await fetch(loginEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(requestBody),
       });
 
       if (response.ok) {
@@ -237,12 +243,13 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
         
         onLoginSuccess();
       } else {
+        const errorData = await response.json().catch(() => ({}));
         toast({
           title: t('login.loginFailed'),
-          description: t('login.invalidPassword'),
+          description: errorData.error || t('login.invalidCredentials'),
           variant: "destructive",
         });
-        form.reset();
+        form.setValue("password", "");
       }
     } catch (error) {
       toast({
@@ -314,6 +321,29 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                {!isAdminLogin && (
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="email"
+                            placeholder={t('signup.enterEmail')}
+                            disabled={isLoading}
+                            data-testid="input-email"
+                            autoFocus
+                            className="bg-black/30 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+
                 <FormField
                   control={form.control}
                   name="password"
@@ -323,10 +353,10 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
                         <Input
                           {...field}
                           type="password"
-                          placeholder={t('login.enterAccessKey')}
+                          placeholder={isAdminLogin ? t('login.enterAccessKey') : t('login.enterPassword')}
                           disabled={isLoading}
                           data-testid="input-password"
-                          autoFocus
+                          autoFocus={isAdminLogin}
                           className="bg-black/30 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
                         />
                       </FormControl>
