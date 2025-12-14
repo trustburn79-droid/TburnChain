@@ -6,6 +6,7 @@
 import WebSocket, { WebSocketServer } from 'ws';
 import { EventEmitter } from 'events';
 import crypto from 'crypto';
+import os from 'os';
 import express, { Request, Response } from 'express';
 import { createServer } from 'http';
 import { db } from '../db';
@@ -347,13 +348,33 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
 
   private detectHardwareProfile(): { name: string; cores: number; ramGB: number; maxShards: number; tpsCapacity: number } {
-    // In production, this would query actual system resources
-    // For now, detect based on environment
-    const nodeEnv = process.env.NODE_ENV || 'development';
-    if (nodeEnv === 'production') {
-      return { name: 'production', ...this.HARDWARE_PROFILES.production };
+    const detectedCores = os.cpus().length;
+    const detectedRamGB = Math.round(os.totalmem() / (1024 ** 3));
+    
+    let profileName: keyof typeof this.HARDWARE_PROFILES = 'development';
+    if (detectedCores >= 64 && detectedRamGB >= 512) {
+      profileName = 'enterprise';
+    } else if (detectedCores >= 32 && detectedRamGB >= 256) {
+      profileName = 'production';
+    } else if (detectedCores >= 16 && detectedRamGB >= 64) {
+      profileName = 'staging';
     }
-    return { name: 'development', ...this.HARDWARE_PROFILES.development };
+    
+    const profile = this.HARDWARE_PROFILES[profileName];
+    const maxShards = Math.min(
+      Math.floor(detectedCores * 2),
+      Math.floor(detectedRamGB / 4),
+      profile.maxShards
+    );
+    const tpsCapacity = maxShards * 10000;
+    
+    return {
+      name: profileName,
+      cores: detectedCores,
+      ramGB: detectedRamGB,
+      maxShards,
+      tpsCapacity
+    };
   }
 
   // ============================================
@@ -1082,6 +1103,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
     this.isStarting = true;
 
     console.log('[Enterprise Node] Starting enterprise TBURN node...');
+    
+    const hardwareProfile = this.detectHardwareProfile();
+    console.log(`[Enterprise Node] 🖥️  Hardware: ${hardwareProfile.cores} cores, ${hardwareProfile.ramGB}GB RAM → Profile: ${hardwareProfile.name}, Max Shards: ${hardwareProfile.maxShards}`);
     
     try {
       // Load configuration from database (cold start recovery)
