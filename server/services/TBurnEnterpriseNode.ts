@@ -1696,9 +1696,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
         tps: shardTps, // REAL-TIME DYNAMIC TPS
         load: loadVariation,
         peakTps: realTimeTps.peak > 0 ? Math.floor(realTimeTps.peak / shardCount) : 10000,
-        avgBlockTime: 0.1,
+        avgBlockTime: 100, // milliseconds (integer)
         crossShardTxCount: 2000 + Math.floor(Math.random() * 1000) + (shardCount > 10 ? Math.floor(shardCount * 50) : 0),
-        stateSize: 100 + Math.floor(Math.random() * 50) + (shardId * 2),
+        stateSize: String(100 + Math.floor(Math.random() * 50) + (shardId * 2)) + "GB", // string format
         lastSyncedAt: new Date().toISOString(),
         mlOptimizationScore: 8000 + Math.floor(Math.random() * 1000),
         predictedLoad: loadVariation - 5 + Math.floor(Math.random() * 10),
@@ -2418,6 +2418,40 @@ export class TBurnEnterpriseNode extends EventEmitter {
       }
       
       res.json(decisions);
+    });
+
+    // ============================================
+    // RECENT BLOCKS ENDPOINT (Required by TBurn Client)
+    // ============================================
+    this.rpcApp.get('/api/blocks/recent', (req: Request, res: Response) => {
+      const limit = parseInt(req.query.limit as string) || 10;
+      const blocks = [];
+      
+      for (let i = 0; i < limit; i++) {
+        const blockNumber = this.currentBlockHeight - i;
+        const blockTimestamp = Math.floor(Date.now() / 1000) - Math.floor(i * 0.1);
+        const shardId = i % this.shardConfig.currentShardCount;
+        
+        blocks.push({
+          id: `block-${blockNumber}`,
+          blockNumber,
+          blockHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+          parentHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+          timestamp: blockTimestamp,
+          validatorAddress: `0x${crypto.randomBytes(20).toString('hex')}`,
+          transactionCount: 50 + Math.floor(Math.random() * 100),
+          gasUsed: String(5000000 + Math.floor(Math.random() * 5000000)),
+          gasLimit: String(15000000),
+          size: 2000 + Math.floor(Math.random() * 3000),
+          shardId,
+          hashAlgorithm: 'QUANTUM_256',
+          consensusDuration: 80 + Math.floor(Math.random() * 40),
+          rewards: '2000000000000000000',
+          createdAt: new Date(blockTimestamp * 1000).toISOString()
+        });
+      }
+      
+      res.json(blocks);
     });
 
     // ============================================
@@ -3607,9 +3641,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
         tps: shardTps,
         load: loadVariation,
         peakTps: realTimeTps.peak > 0 ? Math.floor(realTimeTps.peak / shardCount) : 10000,
-        avgBlockTime: 0.1,
+        avgBlockTime: 100, // milliseconds (integer)
         crossShardTxCount: 2000 + Math.floor(Math.random() * 1000) + (shardCount > 10 ? Math.floor(shardCount * 50) : 0),
-        stateSize: 100 + Math.floor(Math.random() * 50) + (i * 2),
+        stateSize: String(100 + Math.floor(Math.random() * 50) + (i * 2)) + "GB", // string format
         lastSyncedAt: new Date(Date.now() - Math.floor(Math.random() * 5000)).toISOString(),
         mlOptimizationScore: 8000 + Math.floor(Math.random() * 1000),
         predictedLoad: loadVariation - 5 + Math.floor(Math.random() * 10),
