@@ -6492,7 +6492,7 @@
     "and": "및",
     "privacyPolicy": "개인정보 처리방침",
     "noNodeId": "노드 ID가 없으신가요?",
-    "initializeNode": "노드 초기화",
+    "initializeNode": "노드 초기화(회원가입)",
     "whyConnect": "왜 연결해야 하나요?",
     "whyConnectSubtitle": "세계 최초의 신뢰 기반 Layer 1에 참여하세요.",
     "benefits": {
@@ -7381,10 +7381,10 @@
         "genesisProtocols": "제네시스 프로토콜",
         "suffix": "에 동의하며 노드 데이터가 체인에 불변으로 기록됨을 인정합니다."
       },
-      "initializeNode": "노드 초기화",
+      "initializeNode": "노드 초기화(회원가입)",
       "initializing": "초기화 중...",
       "alreadyHaveNode": "이미 노드 ID가 있으신가요?",
-      "accessGateway": "게이트웨이 접속",
+      "accessGateway": "게이트웨이 접속(로그인)",
       "systemPrivileges": "시스템 권한",
       "privilegesSubtitle": "계정 초기화 시 다음 기능에 즉시 액세스 가능:",
       "privileges": {
@@ -10792,7 +10792,7 @@
         },
         "linuxSteps": {
           "downloadBinary": "바이너리 다운로드",
-          "initializeNode": "노드 초기화",
+          "initializeNode": "노드 초기화(회원가입)",
           "startNode": "노드 시작"
         }
       },
