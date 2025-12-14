@@ -162,14 +162,37 @@ export class ValidatorSimulationService {
   private shardCacheTimestamp: number = 0;
   private static readonly SHARD_CACHE_TTL_MS: number = 30000; // 30 second TTL
   
-  // Cross-shard message buffer for batch insertion
+  // Cross-shard message buffer for batch insertion with priority queue
   private crossShardMessageBuffer: InsertCrossShardMessage[] = [];
   private static readonly MESSAGE_BUFFER_SIZE: number = 10;
   private static readonly MESSAGE_FLUSH_INTERVAL_MS: number = 5000;
   private messageFlushInterval: NodeJS.Timeout | null = null;
+  
+  // Priority queue weights for routing optimization
+  private static readonly PRIORITY_WEIGHT = 0.4;      // routingPriority weight
+  private static readonly REPUTATION_WEIGHT = 0.35;   // peerReputation weight
+  private static readonly NETWORK_WEIGHT = 0.25;      // networkQuality weight
 
   constructor(storage: IStorage) {
     this.storage = storage;
+  }
+  
+  // Calculate composite priority score for message routing (higher = more priority)
+  private calculateMessagePriority(msg: InsertCrossShardMessage): number {
+    const priority = (msg.routingPriority ?? 5) / 10;           // Normalize 1-10 to 0.1-1.0
+    const reputation = (msg.peerReputation ?? 8000) / 10000;    // Normalize 0-10000 to 0-1.0
+    const network = (msg.networkQuality ?? 9000) / 10000;       // Normalize 0-10000 to 0-1.0
+    
+    return (priority * ValidatorSimulationService.PRIORITY_WEIGHT) +
+           (reputation * ValidatorSimulationService.REPUTATION_WEIGHT) +
+           (network * ValidatorSimulationService.NETWORK_WEIGHT);
+  }
+  
+  // Sort buffer by priority before flushing (highest priority first)
+  private sortBufferByPriority(): void {
+    this.crossShardMessageBuffer.sort((a, b) => {
+      return this.calculateMessagePriority(b) - this.calculateMessagePriority(a);
+    });
   }
   
   // Get cached shards with automatic refresh on TTL expiry
@@ -188,9 +211,12 @@ export class ValidatorSimulationService {
     this.shardCacheTimestamp = 0;
   }
   
-  // Flush message buffer to database with batch insert
+  // Flush message buffer to database with batch insert (priority-sorted)
   private async flushMessageBuffer(): Promise<void> {
     if (this.crossShardMessageBuffer.length === 0) return;
+    
+    // Sort by priority before flushing (highest priority first for ordered processing)
+    this.sortBufferByPriority();
     
     const messages = [...this.crossShardMessageBuffer];
     this.crossShardMessageBuffer = [];
@@ -198,7 +224,7 @@ export class ValidatorSimulationService {
     try {
       await this.storage.batchCreateCrossShardMessages(messages);
     } catch (error: any) {
-      // On failure, try individual inserts as fallback
+      // On failure, try individual inserts as fallback (still in priority order)
       for (const msg of messages) {
         try {
           await this.storage.createCrossShardMessage(msg);
