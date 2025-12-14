@@ -6483,6 +6483,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "뉴럴 합의 레이어에 연결",
     "enterAccessKey": "액세스 키 입력...",
+    "enterAdminEmail": "관리자 이메일 입력...",
     "enterPassword": "비밀번호를 입력하세요...",
     "authenticating": "인증 중...",
     "connectNode": "노드 연결",

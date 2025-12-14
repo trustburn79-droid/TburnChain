@@ -3187,6 +3187,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "الاتصال بطبقة الإجماع العصبي",
     "enterAccessKey": "أدخل مفتاح الوصول...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "جاري المصادقة...",
     "connectNode": "ربط العقدة",
     "orViaOAuth": "أو عبر OAuth",

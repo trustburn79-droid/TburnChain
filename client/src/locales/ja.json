@@ -6184,6 +6184,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "ニューラルコンセンサスレイヤーに接続",
     "enterAccessKey": "アクセスキーを入力...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "認証中...",
     "connectNode": "ノードに接続",
     "orViaOAuth": "またはOAuthで",

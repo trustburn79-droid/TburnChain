@@ -4660,6 +4660,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Conectar a la Capa de Consenso Neural",
     "enterAccessKey": "Ingresa clave de acceso...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "Autenticando...",
     "connectNode": "Conectar Nodo",
     "orViaOAuth": "O mediante OAuth",

@@ -6317,6 +6317,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Connect to the Neural Consensus Layer",
     "enterAccessKey": "Enter access key...",
+    "enterAdminEmail": "Enter admin email...",
     "enterPassword": "Enter your password...",
     "authenticating": "Authenticating...",
     "connectNode": "Connect Node",

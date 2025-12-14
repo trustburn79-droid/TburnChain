@@ -3244,6 +3244,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Подключиться к Neural Consensus Layer",
     "enterAccessKey": "Введите ключ доступа...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "Аутентификация...",
     "connectNode": "Подключить узел",
     "orViaOAuth": "Или через OAuth",

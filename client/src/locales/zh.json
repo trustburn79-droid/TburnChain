@@ -5685,6 +5685,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "连接到神经共识层",
     "enterAccessKey": "输入访问密钥...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "验证中...",
     "connectNode": "连接节点",
     "orViaOAuth": "或通过 OAuth 登录",

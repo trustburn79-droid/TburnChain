@@ -4296,6 +4296,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "न्यूरल कंसेंसस लेयर से कनेक्ट करें",
     "enterAccessKey": "एक्सेस कुंजी दर्ज करें...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "प्रमाणित हो रहा है...",
     "connectNode": "नोड कनेक्ट करें",
     "orViaOAuth": "या OAuth के माध्यम से",

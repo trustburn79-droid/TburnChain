@@ -2647,6 +2647,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "নিউরাল কনসেনসাস লেয়ারে সংযোগ করুন",
     "enterAccessKey": "অ্যাক্সেস কী দিন...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "প্রমাণীকরণ হচ্ছে...",
     "connectNode": "নোড সংযুক্ত করুন",
     "orViaOAuth": "অথবা OAuth দিয়ে",

@@ -2366,6 +2366,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "نیورل کنسنسس لیئر سے جڑیں",
     "enterAccessKey": "رسائی کلید درج کریں...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "تصدیق ہو رہی ہے...",
     "connectNode": "نوڈ جوڑیں",
     "orViaOAuth": "یا OAuth کے ذریعے",

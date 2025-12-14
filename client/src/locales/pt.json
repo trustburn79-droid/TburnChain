@@ -3244,6 +3244,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Conecte-se à Camada de Consenso Neural",
     "enterAccessKey": "Digite a chave de acesso...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "Autenticando...",
     "connectNode": "Conectar Nó",
     "orViaOAuth": "Ou via OAuth",

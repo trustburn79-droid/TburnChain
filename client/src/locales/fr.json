@@ -3764,6 +3764,7 @@
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Connexion à la couche de consensus neural",
     "enterAccessKey": "Entrer la clé d'accès...",
+    "enterAdminEmail": "Enter admin email...",
     "authenticating": "Authentification en cours...",
     "connectNode": "Connecter le nœud",
     "orViaOAuth": "Ou via OAuth",
