@@ -4475,6 +4475,172 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
+  // User Validator Application APIs
+  // ============================================
+
+  // Staking requirements for validator tiers (validator applications only)
+  const validatorStakingRequirements: Record<string, number> = {
+    'candidate_validator': 5_000_000,
+    'active_validator': 20_000_000,
+    'enterprise_validator': 20_000_000,
+    'governance_validator': 20_000_000,
+  };
+
+  // Submit validator application (User API)
+  app.post("/api/validator-applications", requireAuth, async (req, res) => {
+    try {
+      const memberId = req.session.memberId;
+      if (!memberId) {
+        return res.status(401).json({ error: "User not logged in" });
+      }
+
+      const {
+        applicationType,
+        requestedTier,
+        proposedCommission,
+        proposedStake,
+        stakeSource,
+        hardwareSpecs,
+        networkEndpoints,
+        geographicLocation,
+        documents
+      } = req.body;
+
+      // Validate required fields
+      if (!applicationType || !requestedTier || !proposedStake || !stakeSource) {
+        return res.status(400).json({ error: "Missing required fields: applicationType, requestedTier, proposedStake, stakeSource" });
+      }
+
+      // Validate JSON required fields
+      if (!hardwareSpecs || typeof hardwareSpecs !== 'object') {
+        return res.status(400).json({ error: "hardwareSpecs is required and must be an object" });
+      }
+      if (!networkEndpoints || typeof networkEndpoints !== 'object') {
+        return res.status(400).json({ error: "networkEndpoints is required and must be an object" });
+      }
+      if (!geographicLocation || typeof geographicLocation !== 'object') {
+        return res.status(400).json({ error: "geographicLocation is required and must be an object" });
+      }
+
+      // Validate application type
+      const validApplicationTypes = ['new_validator', 'tier_upgrade', 'reinstatement'];
+      if (!validApplicationTypes.includes(applicationType)) {
+        return res.status(400).json({ error: "Invalid applicationType", validTypes: validApplicationTypes });
+      }
+
+      // Validate requested tier (only validator tiers allowed)
+      const validTiers = ['candidate_validator', 'active_validator', 'enterprise_validator', 'governance_validator'];
+      if (!validTiers.includes(requestedTier)) {
+        return res.status(400).json({ error: "Invalid requestedTier", validTiers });
+      }
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      // Get member info
+      const memberResult = await pool.query('SELECT * FROM members WHERE id = $1', [memberId]);
+      if (memberResult.rows.length === 0) {
+        await pool.end();
+        return res.status(404).json({ error: "Member not found" });
+      }
+      const member = memberResult.rows[0];
+
+      // Check for existing pending application
+      const existingApp = await pool.query(
+        'SELECT id FROM validator_applications WHERE applicant_member_id = $1 AND status IN ($2, $3)',
+        [memberId, 'pending', 'under_review']
+      );
+      if (existingApp.rows.length > 0) {
+        await pool.end();
+        return res.status(409).json({ 
+          error: "You already have a pending or under-review application",
+          existingApplicationId: existingApp.rows[0].id
+        });
+      }
+
+      // Verify staking balance - ALWAYS enforced for validator tiers
+      const stakingResult = await pool.query(
+        'SELECT COALESCE(SUM(CAST(amount AS NUMERIC)), 0) as total_staked FROM staking_positions WHERE staker_address = $1 AND status = $2',
+        [member.account_address, 'active']
+      );
+      const totalStaked = parseFloat(stakingResult.rows[0]?.total_staked || '0');
+      const requiredStake = validatorStakingRequirements[requestedTier];
+
+      if (requiredStake === undefined) {
+        await pool.end();
+        return res.status(400).json({ error: `No staking requirement defined for tier: ${requestedTier}` });
+      }
+
+      if (totalStaked < requiredStake) {
+        await pool.end();
+        return res.status(400).json({
+          error: "Insufficient staking balance",
+          required: requiredStake,
+          current: totalStaked,
+          deficit: requiredStake - totalStaked,
+          message: `This tier requires minimum ${requiredStake.toLocaleString()} TBURN staked. Current: ${totalStaked.toLocaleString()} TBURN`
+        });
+      }
+
+      // Create application
+      const result = await pool.query(`
+        INSERT INTO validator_applications (
+          applicant_member_id, applicant_address, applicant_name,
+          application_type, requested_tier, proposed_commission,
+          proposed_stake, stake_source,
+          hardware_specs, network_endpoints, geographic_location,
+          documents, status, submitted_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW())
+        RETURNING *
+      `, [
+        memberId,
+        member.account_address,
+        member.display_name || 'Unknown',
+        applicationType,
+        requestedTier,
+        proposedCommission || 500,
+        proposedStake,
+        stakeSource,
+        JSON.stringify(hardwareSpecs),
+        JSON.stringify(networkEndpoints),
+        JSON.stringify(geographicLocation),
+        JSON.stringify(documents || []),
+        'pending'
+      ]);
+
+      await pool.end();
+
+      console.log(`[ValidatorApplication] New application submitted by member ${memberId} for tier ${requestedTier}`);
+      res.status(201).json(result.rows[0]);
+    } catch (error) {
+      console.error('[ValidatorApplication] Submit error:', error);
+      res.status(500).json({ error: "Failed to submit validator application" });
+    }
+  });
+
+  // Get my validator applications (User API)
+  app.get("/api/validator-applications/my", requireAuth, async (req, res) => {
+    try {
+      const memberId = req.session.memberId;
+      if (!memberId) {
+        return res.status(401).json({ error: "User not logged in" });
+      }
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      const result = await pool.query(
+        'SELECT * FROM validator_applications WHERE applicant_member_id = $1 ORDER BY submitted_at DESC',
+        [memberId]
+      );
+
+      await pool.end();
+      res.json(result.rows);
+    } catch (error) {
+      console.error('[ValidatorApplication] Fetch my applications error:', error);
+      res.status(500).json({ error: "Failed to fetch applications" });
+    }
+  });
+
+  // ============================================
   // Operator Portal: Validator Operations
   // ============================================
 
@@ -4521,21 +4687,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Review validator application
+  // Review validator application (with transaction for approval flow)
   app.patch("/api/operator/validator-applications/:id", requireAdmin, operatorLimiter, async (req, res) => {
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    let client: ReturnType<typeof pool.connect> extends Promise<infer T> ? T : never;
+    let transactionStarted = false;
+    
     try {
       const { id } = req.params;
       const { status, reviewNotes, rejectionReason, approvalConditions } = req.body;
 
       const validStatuses = ['pending', 'under_review', 'approved', 'rejected', 'withdrawn'];
       if (status && !validStatuses.includes(status)) {
+        await pool.end();
         return res.status(400).json({ error: "Invalid status" });
       }
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      client = await pool.connect();
 
-      const currentApp = await pool.query('SELECT * FROM validator_applications WHERE id = $1', [id]);
+      const currentApp = await client.query('SELECT * FROM validator_applications WHERE id = $1', [id]);
       if (currentApp.rows.length === 0) {
+        client.release();
         await pool.end();
         return res.status(404).json({ error: "Application not found" });
       }
@@ -4571,15 +4743,105 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       if (updates.length === 0) {
+        client.release();
         await pool.end();
         return res.status(400).json({ error: "No updates provided" });
       }
 
+      // Use transaction for approval flow (atomic updates)
+      const application = currentApp.rows[0];
+      const isApproval = status === 'approved' && application.status !== 'approved';
+      
+      if (isApproval) {
+        await client.query('BEGIN');
+        transactionStarted = true;
+      }
+
       values.push(id);
-      await pool.query(
+      await client.query(
         `UPDATE validator_applications SET ${updates.join(', ')} WHERE id = $${valueIndex}`,
         values
       );
+
+      // Auto-update member tier and create validator record when approved
+      if (isApproval) {
+        const memberId = application.applicant_member_id;
+        const requestedTier = application.requested_tier;
+        const applicantAddress = application.applicant_address;
+        const applicantName = application.applicant_name;
+        const proposedStake = application.proposed_stake;
+        const proposedCommission = application.proposed_commission || 500;
+
+        // Update member tier
+        await client.query(
+          'UPDATE members SET member_tier = $1, updated_at = NOW() WHERE id = $2',
+          [requestedTier, memberId]
+        );
+
+        // Map tier to validator status
+        const validatorStatusMap: Record<string, string> = {
+          'candidate_validator': 'standby',
+          'active_validator': 'active',
+          'enterprise_validator': 'active',
+          'governance_validator': 'active',
+        };
+        const validatorStatus = validatorStatusMap[requestedTier] || 'standby';
+
+        // Check if validator record already exists
+        const existingValidator = await client.query(
+          'SELECT id FROM validators WHERE address = $1',
+          [applicantAddress]
+        );
+
+        let validatorId: string;
+        if (existingValidator.rows.length > 0) {
+          // Update existing validator
+          validatorId = existingValidator.rows[0].id;
+          await client.query(`
+            UPDATE validators SET 
+              status = $1, 
+              stake = $2,
+              commission = $3,
+              last_active_at = NOW()
+            WHERE id = $4
+          `, [validatorStatus, proposedStake, proposedCommission, validatorId]);
+        } else {
+          // Create new validator record
+          const validatorResult = await client.query(`
+            INSERT INTO validators (
+              address, name, stake, delegated_stake, commission, status,
+              uptime, total_blocks, voting_power, apy, delegators,
+              joined_at, missed_blocks, avg_block_time, reward_earned, slash_count,
+              last_active_at, reputation_score, performance_score, 
+              committee_selection_count, ai_trust_score, behavior_score, adaptive_weight
+            ) VALUES (
+              $1, $2, $3, '0', $4, $5,
+              10000, 0, $6, 1250, 0,
+              NOW(), 0, 0, '0', 0,
+              NOW(), 8500, 9000,
+              0, 7500, 9500, 10000
+            ) RETURNING id
+          `, [
+            applicantAddress,
+            applicantName,
+            proposedStake,
+            proposedCommission,
+            validatorStatus,
+            proposedStake
+          ]);
+          validatorId = validatorResult.rows[0].id;
+        }
+
+        // Update application with validator_id and activated_at
+        await client.query(
+          'UPDATE validator_applications SET validator_id = $1, activated_at = NOW() WHERE id = $2',
+          [validatorId, id]
+        );
+
+        await client.query('COMMIT');
+        transactionStarted = false;
+        console.log(`[ValidatorApplication] Approved application ${id}: Member ${memberId} upgraded to ${requestedTier}, Validator ${validatorId} created/updated`);
+      }
 
       await logAdminAudit(
         'admin',
@@ -4594,11 +4856,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status === 'approved' ? 'high' : 'medium'
       );
 
+      client.release();
       await pool.end();
       
       res.json({ success: true });
     } catch (error) {
       console.error('[Operator] Application review error:', error);
+      
+      // Rollback transaction if started
+      if (transactionStarted && client) {
+        try {
+          await client.query('ROLLBACK');
+        } catch (rollbackError) {
+          console.error('[Operator] Rollback error:', rollbackError);
+        }
+      }
+      
+      // Cleanup
+      if (client) {
+        try {
+          client.release();
+        } catch (releaseError) {
+          console.error('[Operator] Release error:', releaseError);
+        }
+      }
+      try {
+        await pool.end();
+      } catch (poolError) {
+        console.error('[Operator] Pool end error:', poolError);
+      }
+      
       res.status(500).json({ error: "Failed to update application" });
     }
   });
