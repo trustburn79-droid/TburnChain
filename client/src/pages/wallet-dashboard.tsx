@@ -249,7 +249,7 @@ function BalanceCard({ balance, isLoading }: { balance?: WalletBalance; isLoadin
           >
             {displayValue}
           </h1>
-          <span className="text-xl text-primary font-light">BURN</span>
+          <span className="text-xl text-primary font-light">TBURN</span>
         </div>
         <p className="text-sm text-muted-foreground font-mono" data-testid="text-balance-usd">
           ≈ ${balance?.balanceUsd || "0.00"} USD
@@ -348,7 +348,7 @@ function PerformanceChart({
                   borderRadius: '8px',
                   fontSize: '12px',
                 }}
-                formatter={(value: number) => [formatNumber(value) + ' BURN', 'Balance']}
+                formatter={(value: number) => [formatNumber(value) + ' TBURN', 'Balance']}
               />
               <Area
                 type="monotone"
@@ -558,10 +558,10 @@ function SendDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Send className="h-5 w-5 text-primary" />
-            {t("walletDashboard.sendTokens", "Send BURN Tokens")}
+            {t("walletDashboard.sendTokens", "Send TBURN Tokens")}
           </DialogTitle>
           <DialogDescription>
-            {t("walletDashboard.sendDescription", "Transfer BURN tokens to another address")}
+            {t("walletDashboard.sendDescription", "Transfer TBURN tokens to another address")}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
@@ -589,7 +589,7 @@ function SendDialog({
             <div className="flex justify-between">
               <Label htmlFor="amount">{t("walletDashboard.amount", "Amount")}</Label>
               <span className="text-xs text-muted-foreground">
-                {t("walletDashboard.available", "Available")}: {availableBalance} BURN
+                {t("walletDashboard.available", "Available")}: {availableBalance} TBURN
               </span>
             </div>
             <div className="relative">
@@ -603,7 +603,7 @@ function SendDialog({
                 data-testid="input-send-amount"
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                BURN
+                TBURN
               </span>
             </div>
           </div>
@@ -677,10 +677,10 @@ function ReceiveDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <QrCode className="h-5 w-5 text-purple-500" />
-            {t("walletDashboard.receiveTokens", "Receive BURN Tokens")}
+            {t("walletDashboard.receiveTokens", "Receive TBURN Tokens")}
           </DialogTitle>
           <DialogDescription>
-            {t("walletDashboard.receiveDescription", "Share your address to receive BURN tokens")}
+            {t("walletDashboard.receiveDescription", "Share your address to receive TBURN tokens")}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-6 py-4">
@@ -712,7 +712,7 @@ function ReceiveDialog({
             <p className="text-sm font-medium">{t("walletDashboard.instructions", "Instructions")}</p>
             <ul className="text-xs text-muted-foreground space-y-1">
               <li>1. {t("walletDashboard.instruction1", "Scan QR code with your wallet app")}</li>
-              <li>2. {t("walletDashboard.instruction2", "Or copy the address to send BURN tokens")}</li>
+              <li>2. {t("walletDashboard.instruction2", "Or copy the address to send TBURN tokens")}</li>
               <li>3. {t("walletDashboard.instruction3", "Ensure you're on TBURN Mainnet (Chain ID: 7979)")}</li>
             </ul>
           </div>
@@ -736,7 +736,7 @@ function SwapDialog({
 }) {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const [tokenIn, setTokenIn] = useState("BURN");
+  const [tokenIn, setTokenIn] = useState("TBURN");
   const [tokenOut, setTokenOut] = useState("USDT");
   const [amountIn, setAmountIn] = useState("");
   const [slippage, setSlippage] = useState("0.5");
@@ -782,7 +782,7 @@ function SwapDialog({
     setTokenOut(tokenIn);
   };
 
-  const tokens = ["BURN", "USDT", "ETH", "WBTC"];
+  const tokens = ["TBURN", "USDT", "ETH", "WBTC"];
   const isValidAmount = parseFloat(amountIn) > 0;
   const estimatedOutput = isValidAmount ? (parseFloat(amountIn) * 0.29).toFixed(4) : "0.00";
 
@@ -884,7 +884,7 @@ function SwapDialog({
           <div className="rounded-lg bg-muted/50 p-3 space-y-1 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">{t("walletDashboard.rate", "Rate")}</span>
-              <span>1 {tokenIn} = {tokenIn === "BURN" ? "0.29" : "3.45"} {tokenOut}</span>
+              <span>1 {tokenIn} = {tokenIn === "TBURN" ? "0.29" : "3.45"} {tokenOut}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">{t("walletDashboard.priceImpact", "Price Impact")}</span>
@@ -934,7 +934,7 @@ const defaultPerformance: PerformanceDataPoint[] = [
 const defaultActivities: ActivityItem[] = [
   { id: '1', type: 'sent', amount: '500.00', address: '0x7f...9b2d', timestamp: '2 min ago' },
   { id: '2', type: 'received', amount: '1,200.00', address: '0x2d...4c1a', timestamp: '1 hr ago' },
-  { id: '3', type: 'swap', amount: '300.00', address: '', tokenPair: 'BURN → USDT', timestamp: '5 hrs ago' },
+  { id: '3', type: 'swap', amount: '300.00', address: '', tokenPair: 'TBURN → USDT', timestamp: '5 hrs ago' },
   { id: '4', type: 'received', amount: '750.00', address: '0x5a...8e3f', timestamp: '8 hrs ago' },
   { id: '5', type: 'sent', amount: '200.00', address: '0x1c...7d9a', timestamp: '1 day ago' },
 ];
@@ -1011,7 +1011,7 @@ export default function WalletDashboard() {
           {t("walletDashboard.title", "Wallet Dashboard")}
         </h1>
         <p className="text-sm text-muted-foreground">
-          {t("walletDashboard.subtitle", "Manage your BURN tokens and track performance")}
+          {t("walletDashboard.subtitle", "Manage your TBURN tokens and track performance")}
         </p>
       </div>
       

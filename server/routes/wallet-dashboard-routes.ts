@@ -283,7 +283,7 @@ export function registerWalletDashboardRoutes(
         address,
         network: "TBURN Mainnet",
         chainId: 7979,
-        symbol: "BURN",
+        symbol: "TBURN",
       };
 
       res.json({
@@ -293,7 +293,7 @@ export function registerWalletDashboardRoutes(
         deepLink: `tburn://send?to=${address}&network=mainnet`,
         instructions: [
           "Scan QR code with your wallet app",
-          "Or copy the address to send BURN tokens",
+          "Or copy the address to send TBURN tokens",
           "Ensure you're on TBURN Mainnet (Chain ID: 7979)",
         ],
       });
@@ -319,7 +319,7 @@ export function registerWalletDashboardRoutes(
       const tokenEconomics = enterpriseNode.getTokenEconomics();
       const tokenPrice = tokenEconomics.tokenPrice || 0.29;
       
-      const rate = tokenIn === "BURN" ? tokenPrice : 1 / tokenPrice;
+      const rate = tokenIn === "TBURN" ? tokenPrice : 1 / tokenPrice;
       const amountOut = (parseFloat(amountIn) * rate * (1 - slippageBps / 10000)).toString();
 
       const [actionLog] = await db.insert(walletActionLog).values({
