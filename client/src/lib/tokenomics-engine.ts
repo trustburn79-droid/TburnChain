@@ -732,3 +732,523 @@ export function getMarketCapChartData(): { year: number; marketCap: number }[] {
 
 // Export summary for quick access
 export const TOKENOMICS_SUMMARY = calculateSummary();
+
+// ============================================================================
+// TOKENOMICS v2.0 - Genesis Distribution & Investor Data
+// ============================================================================
+
+/**
+ * Genesis Distribution Category
+ */
+export interface GenesisCategory {
+  id: string;
+  name: string;
+  nameKey: string;
+  amount: number;           // 억 단위
+  percentage: number;       // %
+  description: string;
+  descriptionKey: string;
+  subcategories?: GenesisSubcategory[];
+}
+
+export interface GenesisSubcategory {
+  id: string;
+  name: string;
+  nameKey: string;
+  amount: number;           // 억 단위
+  percentage: number;       // % of parent
+  description?: string;
+}
+
+/**
+ * Genesis Distribution - 100억 TBURN
+ * Based on v2.0 specification
+ */
+export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
+  {
+    id: 'block_rewards',
+    name: '블록 보상 리저브',
+    nameKey: 'tokenomics.genesis.blockRewards',
+    amount: 23,
+    percentage: 23,
+    description: '검증자 보상을 통한 네트워크 보안 유지 (20년 지속 가능)',
+    descriptionKey: 'tokenomics.genesis.blockRewards.desc'
+  },
+  {
+    id: 'community',
+    name: '커뮤니티 & 에어드랍',
+    nameKey: 'tokenomics.genesis.community',
+    amount: 30,
+    percentage: 30,
+    description: '진정한 탈중앙화 및 커뮤니티 주도 성장',
+    descriptionKey: 'tokenomics.genesis.community.desc',
+    subcategories: [
+      { id: 'initial_validators', name: '초기 검증자', nameKey: 'tokenomics.genesis.initialValidators', amount: 8, percentage: 26.7 },
+      { id: 'airdrop', name: '에어드랍 프로그램', nameKey: 'tokenomics.genesis.airdrop', amount: 10, percentage: 33.3 },
+      { id: 'community_rewards', name: '커뮤니티 보상', nameKey: 'tokenomics.genesis.communityRewards', amount: 7, percentage: 23.3 },
+      { id: 'dao_treasury', name: 'DAO 트레저리', nameKey: 'tokenomics.genesis.daoTreasury', amount: 5, percentage: 16.7 }
+    ]
+  },
+  {
+    id: 'investors',
+    name: '투자자',
+    nameKey: 'tokenomics.genesis.investors',
+    amount: 20,
+    percentage: 20,
+    description: '초기 개발 자금 조달 및 유동성 확보',
+    descriptionKey: 'tokenomics.genesis.investors.desc',
+    subcategories: [
+      { id: 'seed', name: 'Seed Round', nameKey: 'tokenomics.genesis.seed', amount: 5, percentage: 25 },
+      { id: 'private', name: 'Private Round', nameKey: 'tokenomics.genesis.private', amount: 9, percentage: 45 },
+      { id: 'public', name: 'Public Sale', nameKey: 'tokenomics.genesis.public', amount: 6, percentage: 30 }
+    ]
+  },
+  {
+    id: 'foundation',
+    name: '재단 & 생태계',
+    nameKey: 'tokenomics.genesis.foundation',
+    amount: 15,
+    percentage: 15,
+    description: '장기 운영 및 생태계 개발 지원',
+    descriptionKey: 'tokenomics.genesis.foundation.desc',
+    subcategories: [
+      { id: 'foundation_ops', name: '재단 운영', nameKey: 'tokenomics.genesis.foundationOps', amount: 5, percentage: 33.3 },
+      { id: 'ecosystem_fund', name: '생태계 펀드', nameKey: 'tokenomics.genesis.ecosystemFund', amount: 7, percentage: 46.7 },
+      { id: 'marketing', name: '마케팅 & 성장', nameKey: 'tokenomics.genesis.marketing', amount: 2, percentage: 13.3 },
+      { id: 'partnerships', name: '파트너십', nameKey: 'tokenomics.genesis.partnerships', amount: 1, percentage: 6.7 }
+    ]
+  },
+  {
+    id: 'team',
+    name: '팀 & 어드바이저',
+    nameKey: 'tokenomics.genesis.team',
+    amount: 12,
+    percentage: 12,
+    description: '핵심 팀 동기부여 및 장기 참여 유도',
+    descriptionKey: 'tokenomics.genesis.team.desc',
+    subcategories: [
+      { id: 'core_team', name: '코어 팀', nameKey: 'tokenomics.genesis.coreTeam', amount: 8, percentage: 66.7 },
+      { id: 'advisors', name: '어드바이저', nameKey: 'tokenomics.genesis.advisors', amount: 2, percentage: 16.7 },
+      { id: 'strategic_partners', name: '전략적 파트너', nameKey: 'tokenomics.genesis.strategicPartners', amount: 2, percentage: 16.7 }
+    ]
+  }
+];
+
+/**
+ * Investor Round Information
+ */
+export interface InvestorRound {
+  id: 'seed' | 'private' | 'public';
+  name: string;
+  nameKey: string;
+  allocation: number;       // 억 단위
+  allocationPercent: number; // % of investor pool
+  price: number;            // USD per TBURN
+  raised: number;           // USD (백만)
+  minInvestment: number;    // USD
+  maxInvestment: number;    // USD
+  tgePercent: number;       // % released at TGE
+  cliffMonths: number;      // Cliff period in months
+  vestingMonths: number;    // Vesting period in months
+  totalMonths: number;      // Total lock period
+}
+
+export const INVESTOR_ROUNDS: InvestorRound[] = [
+  {
+    id: 'seed',
+    name: 'Seed Round',
+    nameKey: 'tokenomics.investors.seed',
+    allocation: 5,
+    allocationPercent: 25,
+    price: 0.04,
+    raised: 20,
+    minInvestment: 100000,
+    maxInvestment: 2000000,
+    tgePercent: 0,
+    cliffMonths: 6,
+    vestingMonths: 24,
+    totalMonths: 30
+  },
+  {
+    id: 'private',
+    name: 'Private Round',
+    nameKey: 'tokenomics.investors.private',
+    allocation: 9,
+    allocationPercent: 45,
+    price: 0.10,
+    raised: 90,
+    minInvestment: 250000,
+    maxInvestment: 5000000,
+    tgePercent: 0,
+    cliffMonths: 6,
+    vestingMonths: 18,
+    totalMonths: 24
+  },
+  {
+    id: 'public',
+    name: 'Public Sale',
+    nameKey: 'tokenomics.investors.public',
+    allocation: 6,
+    allocationPercent: 30,
+    price: 0.20,
+    raised: 120,
+    minInvestment: 100,
+    maxInvestment: 100000,
+    tgePercent: 15,
+    cliffMonths: 0,
+    vestingMonths: 12,
+    totalMonths: 12
+  }
+];
+
+/**
+ * Total Fundraising: $230M
+ */
+export const TOTAL_FUNDRAISING = 230; // Million USD
+
+/**
+ * Investor ROI Projections (Neutral Scenario)
+ */
+export interface InvestorROI {
+  roundId: 'seed' | 'private' | 'public';
+  entryPrice: number;
+  y1: { price: number; roi: number };
+  y5: { price: number; roi: number };
+  y10: { price: number; roi: number };
+  y20: { price: number; roi: number };
+}
+
+export const INVESTOR_ROI_DATA: InvestorROI[] = [
+  {
+    roundId: 'seed',
+    entryPrice: 0.04,
+    y1: { price: 1.25, roi: 31.25 },
+    y5: { price: 3.05, roi: 76.25 },
+    y10: { price: 7.58, roi: 189.50 },
+    y20: { price: 15.58, roi: 389.50 }
+  },
+  {
+    roundId: 'private',
+    entryPrice: 0.10,
+    y1: { price: 1.25, roi: 12.50 },
+    y5: { price: 3.05, roi: 30.50 },
+    y10: { price: 7.58, roi: 75.80 },
+    y20: { price: 15.58, roi: 155.80 }
+  },
+  {
+    roundId: 'public',
+    entryPrice: 0.20,
+    y1: { price: 1.25, roi: 6.25 },
+    y5: { price: 3.05, roi: 15.25 },
+    y10: { price: 7.58, roi: 37.90 },
+    y20: { price: 15.58, roi: 77.90 }
+  }
+];
+
+/**
+ * Calculate investor ROI at a specific year
+ */
+export function calculateInvestorROI(
+  roundId: 'seed' | 'private' | 'public',
+  year: number,
+  scenario: 'conservative' | 'neutral' | 'optimistic' = 'neutral'
+): number {
+  const round = INVESTOR_ROUNDS.find(r => r.id === roundId);
+  const priceData = PRICE_FORECAST_DATA.find(p => p.year === year);
+  
+  if (!round || !priceData) return 0;
+  
+  const targetPrice = priceData[scenario];
+  return targetPrice / round.price;
+}
+
+/**
+ * Vesting Schedule Definition
+ */
+export interface VestingSchedule {
+  id: string;
+  category: string;
+  categoryKey: string;
+  tgePercent: number;
+  cliffMonths: number;
+  vestingMonths: number;
+  totalMonths: number;
+  description: string;
+  descriptionKey: string;
+}
+
+export const VESTING_SCHEDULES: VestingSchedule[] = [
+  {
+    id: 'seed',
+    category: 'Seed Round',
+    categoryKey: 'tokenomics.vesting.seed',
+    tgePercent: 0,
+    cliffMonths: 6,
+    vestingMonths: 24,
+    totalMonths: 30,
+    description: '6개월 클리프, 24개월 선형 베스팅',
+    descriptionKey: 'tokenomics.vesting.seed.desc'
+  },
+  {
+    id: 'private',
+    category: 'Private Round',
+    categoryKey: 'tokenomics.vesting.private',
+    tgePercent: 0,
+    cliffMonths: 6,
+    vestingMonths: 18,
+    totalMonths: 24,
+    description: '6개월 클리프, 18개월 선형 베스팅',
+    descriptionKey: 'tokenomics.vesting.private.desc'
+  },
+  {
+    id: 'public',
+    category: 'Public Sale',
+    categoryKey: 'tokenomics.vesting.public',
+    tgePercent: 15,
+    cliffMonths: 0,
+    vestingMonths: 12,
+    totalMonths: 12,
+    description: 'TGE 15%, 12개월 선형 베스팅',
+    descriptionKey: 'tokenomics.vesting.public.desc'
+  },
+  {
+    id: 'team',
+    category: '팀',
+    categoryKey: 'tokenomics.vesting.team',
+    tgePercent: 0,
+    cliffMonths: 12,
+    vestingMonths: 60,
+    totalMonths: 72,
+    description: '12개월 클리프, 60개월 선형 베스팅',
+    descriptionKey: 'tokenomics.vesting.team.desc'
+  },
+  {
+    id: 'advisors',
+    category: '어드바이저',
+    categoryKey: 'tokenomics.vesting.advisors',
+    tgePercent: 0,
+    cliffMonths: 6,
+    vestingMonths: 36,
+    totalMonths: 42,
+    description: '6개월 클리프, 36개월 선형 베스팅',
+    descriptionKey: 'tokenomics.vesting.advisors.desc'
+  },
+  {
+    id: 'initial_validators',
+    category: '초기 검증자',
+    categoryKey: 'tokenomics.vesting.validators',
+    tgePercent: 25,
+    cliffMonths: 0,
+    vestingMonths: 24,
+    totalMonths: 24,
+    description: 'TGE 25%, 24개월 선형 베스팅',
+    descriptionKey: 'tokenomics.vesting.validators.desc'
+  }
+];
+
+/**
+ * Calculate vesting unlock at a specific month
+ */
+export function calculateVestingUnlock(schedule: VestingSchedule, month: number): number {
+  if (month < 0) return 0;
+  
+  // TGE unlock
+  if (month === 0) return schedule.tgePercent;
+  
+  // During cliff period
+  if (month <= schedule.cliffMonths) return schedule.tgePercent;
+  
+  // After vesting complete
+  if (month >= schedule.totalMonths) return 100;
+  
+  // During vesting
+  const remainingPercent = 100 - schedule.tgePercent;
+  const monthsAfterCliff = month - schedule.cliffMonths;
+  const vestingProgress = Math.min(monthsAfterCliff / schedule.vestingMonths, 1);
+  
+  return schedule.tgePercent + (remainingPercent * vestingProgress);
+}
+
+/**
+ * Generate vesting chart data for a schedule
+ */
+export function getVestingChartData(scheduleId: string): { month: number; unlocked: number }[] {
+  const schedule = VESTING_SCHEDULES.find(s => s.id === scheduleId);
+  if (!schedule) return [];
+  
+  const data: { month: number; unlocked: number }[] = [];
+  for (let month = 0; month <= schedule.totalMonths; month++) {
+    data.push({
+      month,
+      unlocked: Math.round(calculateVestingUnlock(schedule, month) * 100) / 100
+    });
+  }
+  return data;
+}
+
+/**
+ * Fund Usage Plan - $230M Total
+ */
+export interface FundUsage {
+  category: string;
+  categoryKey: string;
+  amount: number;         // Million USD
+  percentage: number;     // %
+  subcategories: { name: string; amount: number }[];
+}
+
+export const FUND_USAGE: FundUsage[] = [
+  {
+    category: '개발',
+    categoryKey: 'tokenomics.funds.development',
+    amount: 92,
+    percentage: 40,
+    subcategories: [
+      { name: '코어 프로토콜', amount: 40 },
+      { name: '스마트 컨트랙트', amount: 20 },
+      { name: '인프라', amount: 15 },
+      { name: '보안', amount: 10 },
+      { name: '연구개발', amount: 7 }
+    ]
+  },
+  {
+    category: '마케팅',
+    categoryKey: 'tokenomics.funds.marketing',
+    amount: 57.5,
+    percentage: 25,
+    subcategories: [
+      { name: '브랜드 구축', amount: 20 },
+      { name: '퍼포먼스 마케팅', amount: 15 },
+      { name: '커뮤니티', amount: 10 },
+      { name: 'PR/미디어', amount: 7.5 },
+      { name: '이벤트', amount: 5 }
+    ]
+  },
+  {
+    category: '운영',
+    categoryKey: 'tokenomics.funds.operations',
+    amount: 46,
+    percentage: 20,
+    subcategories: [
+      { name: '인건비', amount: 25 },
+      { name: '사무실', amount: 8 },
+      { name: '인프라', amount: 7 },
+      { name: '보험', amount: 4 },
+      { name: '기타', amount: 2 }
+    ]
+  },
+  {
+    category: '법률/규제',
+    categoryKey: 'tokenomics.funds.legal',
+    amount: 23,
+    percentage: 10,
+    subcategories: [
+      { name: '법률 자문', amount: 10 },
+      { name: '규제 준수', amount: 7 },
+      { name: '라이선스', amount: 4 },
+      { name: '감사', amount: 2 }
+    ]
+  },
+  {
+    category: '리저브',
+    categoryKey: 'tokenomics.funds.reserve',
+    amount: 11.5,
+    percentage: 5,
+    subcategories: [
+      { name: '긴급 자금', amount: 11.5 }
+    ]
+  }
+];
+
+/**
+ * DAO Treasury Information
+ */
+export interface DAOTreasuryInfo {
+  totalAmount: number;      // 억 단위
+  governance: {
+    proposalThreshold: number;  // TBURN required for proposal
+    quorumGeneral: number;      // % quorum for general proposals
+    quorumImportant: number;    // % quorum for important proposals
+    approvalGeneral: number;    // % approval for general
+    approvalImportant: number;  // % approval for important
+    votingPeriodDays: number;
+    discussionPeriodDays: number;
+    validatorWeight: number;    // Validator vote weight multiplier
+  };
+  usageLimits: {
+    perQuarter: number;     // 억 단위
+    perYear: number;        // 억 단위
+  };
+  allocations: {
+    category: string;
+    amount: number;
+    description: string;
+  }[];
+}
+
+export const DAO_TREASURY: DAOTreasuryInfo = {
+  totalAmount: 5,
+  governance: {
+    proposalThreshold: 100000,
+    quorumGeneral: 20,
+    quorumImportant: 30,
+    approvalGeneral: 60,
+    approvalImportant: 70,
+    votingPeriodDays: 7,
+    discussionPeriodDays: 3,
+    validatorWeight: 1.5
+  },
+  usageLimits: {
+    perQuarter: 0.25,
+    perYear: 1
+  },
+  allocations: [
+    { category: '긴급 블록 보상 보충', amount: 3, description: '리저브 부족 시 긴급 보충' },
+    { category: '전략적 파트너십', amount: 1, description: '거래소 리스팅, 블록체인 통합' },
+    { category: '생태계 투자', amount: 1.5, description: '프로젝트 인큐베이션, 스타트업 투자' },
+    { category: '마케팅 캠페인', amount: 1, description: '대규모 이벤트, 글로벌 확장' },
+    { category: '개발자 그랜트', amount: 0.5, description: '대형 프로젝트 지원' },
+    { category: '위기 대응 펀드', amount: 0.5, description: '보안 사고, 네트워크 공격 대응' }
+  ]
+};
+
+/**
+ * Get genesis distribution chart data
+ */
+export function getGenesisDistributionChartData(): { name: string; value: number; percentage: number }[] {
+  return GENESIS_DISTRIBUTION.map(cat => ({
+    name: cat.name,
+    value: cat.amount,
+    percentage: cat.percentage
+  }));
+}
+
+/**
+ * Get investor comparison chart data
+ */
+export function getInvestorComparisonData(): { round: string; price: number; allocation: number; raised: number }[] {
+  return INVESTOR_ROUNDS.map(r => ({
+    round: r.name,
+    price: r.price,
+    allocation: r.allocation,
+    raised: r.raised
+  }));
+}
+
+/**
+ * Get all vesting schedules chart data
+ */
+export function getAllVestingChartData(): { month: number; [key: string]: number }[] {
+  const maxMonths = Math.max(...VESTING_SCHEDULES.map(s => s.totalMonths));
+  const data: { month: number; [key: string]: number }[] = [];
+  
+  for (let month = 0; month <= maxMonths; month++) {
+    const point: { month: number; [key: string]: number } = { month };
+    VESTING_SCHEDULES.forEach(schedule => {
+      point[schedule.id] = Math.round(calculateVestingUnlock(schedule, month) * 100) / 100;
+    });
+    data.push(point);
+  }
+  
+  return data;
+}

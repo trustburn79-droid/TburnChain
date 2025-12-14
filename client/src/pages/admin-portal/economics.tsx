@@ -17,12 +17,19 @@ import { queryClient } from "@/lib/queryClient";
 import { 
   TrendingUp, TrendingDown, Coins, Gift, Percent, PiggyBank, 
   Brain, BarChart3, Target, AlertTriangle, Calculator,
-  RefreshCw, Download, Wifi, WifiOff, Eye, Settings
+  RefreshCw, Download, Wifi, WifiOff, Eye, Settings, Clock, Layers
 } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, AreaChart, Area } from "recharts";
 import { DetailSheet } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { apiRequest } from "@/lib/queryClient";
+import { 
+  GENESIS_DISTRIBUTION, 
+  VESTING_SCHEDULES, 
+  getGenesisDistributionChartData,
+  getAllVestingChartData,
+  calculateVestingUnlock
+} from "@/lib/tokenomics-engine";
 
 interface EconomicMetrics {
   inflationRate: string;
@@ -353,8 +360,16 @@ export default function AdminEconomics() {
           )}
         </div>
 
-        <Tabs defaultValue="inflation" className="space-y-4">
+        <Tabs defaultValue="genesis" className="space-y-4">
           <TabsList data-testid="tabs-list">
+            <TabsTrigger value="genesis" data-testid="tab-genesis">
+              <Layers className="w-4 h-4 mr-2" />
+              {t("adminEconomics.genesis")}
+            </TabsTrigger>
+            <TabsTrigger value="vesting" data-testid="tab-vesting">
+              <Clock className="w-4 h-4 mr-2" />
+              {t("adminEconomics.vesting")}
+            </TabsTrigger>
             <TabsTrigger value="inflation" data-testid="tab-inflation">
               <TrendingUp className="w-4 h-4 mr-2" />
               {t("adminEconomics.inflation")}
@@ -372,6 +387,218 @@ export default function AdminEconomics() {
               {t("adminEconomics.simulation")}
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="genesis" className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <Card data-testid="card-genesis-distribution">
+                <CardHeader>
+                  <CardTitle>{t("adminEconomics.genesisDistribution")}</CardTitle>
+                  <CardDescription>{t("adminEconomics.genesisDistributionDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-80" data-testid="chart-genesis-distribution">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={getGenesisDistributionChartData()}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={60}
+                          outerRadius={100}
+                          paddingAngle={2}
+                          dataKey="percentage"
+                          nameKey="name"
+                          label={({ name, percentage }) => `${name}: ${percentage}%`}
+                        >
+                          {getGenesisDistributionChartData().map((_, index) => (
+                            <Cell 
+                              key={`cell-${index}`} 
+                              fill={[
+                                'hsl(142, 76%, 36%)',
+                                'hsl(217, 91%, 60%)',
+                                'hsl(25, 95%, 53%)',
+                                'hsl(280, 87%, 53%)',
+                                'hsl(340, 75%, 55%)'
+                              ][index % 5]} 
+                            />
+                          ))}
+                        </Pie>
+                        <Tooltip formatter={(value) => `${value}%`} />
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card data-testid="card-genesis-breakdown">
+                <CardHeader>
+                  <CardTitle>{t("adminEconomics.genesisBreakdown")}</CardTitle>
+                  <CardDescription>{t("adminEconomics.genesisBreakdownDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4 max-h-80 overflow-y-auto">
+                    {GENESIS_DISTRIBUTION.map((category, index) => (
+                      <div key={category.id} className="space-y-2" data-testid={`genesis-category-${index}`}>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div 
+                              className="w-3 h-3 rounded-full"
+                              style={{ backgroundColor: [
+                                'hsl(142, 76%, 36%)',
+                                'hsl(217, 91%, 60%)',
+                                'hsl(25, 95%, 53%)',
+                                'hsl(280, 87%, 53%)',
+                                'hsl(340, 75%, 55%)'
+                              ][index % 5] }}
+                            />
+                            <span className="font-medium">{category.name}</span>
+                          </div>
+                          <Badge variant="secondary">{category.amount}억 ({category.percentage}%)</Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground pl-5">{category.description}</p>
+                        {category.subcategories && (
+                          <div className="pl-5 space-y-1">
+                            {category.subcategories.map((sub, subIndex) => (
+                              <div key={sub.id} className="flex items-center justify-between text-sm" data-testid={`genesis-subcategory-${index}-${subIndex}`}>
+                                <span className="text-muted-foreground">{sub.name}</span>
+                                <span>{sub.amount}억 ({sub.percentage}%)</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card data-testid="card-genesis-summary">
+              <CardHeader>
+                <CardTitle>{t("adminEconomics.genesisSummary")}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-5 gap-4">
+                  {GENESIS_DISTRIBUTION.map((category, index) => (
+                    <div 
+                      key={category.id} 
+                      className="p-4 rounded-lg bg-muted/50 text-center"
+                      data-testid={`genesis-summary-${index}`}
+                    >
+                      <div className="text-2xl font-bold" style={{ color: [
+                        'hsl(142, 76%, 36%)',
+                        'hsl(217, 91%, 60%)',
+                        'hsl(25, 95%, 53%)',
+                        'hsl(280, 87%, 53%)',
+                        'hsl(340, 75%, 55%)'
+                      ][index % 5] }}>{category.percentage}%</div>
+                      <div className="text-sm text-muted-foreground">{category.name}</div>
+                      <div className="text-xs mt-1">{category.amount}억 TBURN</div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="vesting" className="space-y-4">
+            <Card data-testid="card-vesting-chart">
+              <CardHeader>
+                <CardTitle>{t("adminEconomics.vestingSchedule")}</CardTitle>
+                <CardDescription>{t("adminEconomics.vestingScheduleDesc")}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80" data-testid="chart-vesting-schedule">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={getAllVestingChartData()}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                      <XAxis 
+                        dataKey="month" 
+                        label={{ value: t("adminEconomics.months"), position: 'insideBottom', offset: -5 }}
+                      />
+                      <YAxis 
+                        domain={[0, 100]}
+                        label={{ value: '%', angle: -90, position: 'insideLeft' }}
+                      />
+                      <Tooltip formatter={(value) => `${value}%`} />
+                      <Legend />
+                      <Area type="monotone" dataKey="seed" name="Seed Round" stroke="hsl(142, 76%, 36%)" fill="hsl(142, 76%, 36%)" fillOpacity={0.3} />
+                      <Area type="monotone" dataKey="private" name="Private Round" stroke="hsl(217, 91%, 60%)" fill="hsl(217, 91%, 60%)" fillOpacity={0.3} />
+                      <Area type="monotone" dataKey="public" name="Public Sale" stroke="hsl(25, 95%, 53%)" fill="hsl(25, 95%, 53%)" fillOpacity={0.3} />
+                      <Area type="monotone" dataKey="team" name="Team" stroke="hsl(280, 87%, 53%)" fill="hsl(280, 87%, 53%)" fillOpacity={0.3} />
+                      <Area type="monotone" dataKey="advisors" name="Advisors" stroke="hsl(340, 75%, 55%)" fill="hsl(340, 75%, 55%)" fillOpacity={0.3} />
+                      <Area type="monotone" dataKey="initial_validators" name="Validators" stroke="hsl(180, 70%, 45%)" fill="hsl(180, 70%, 45%)" fillOpacity={0.3} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card data-testid="card-vesting-table">
+              <CardHeader>
+                <CardTitle>{t("adminEconomics.vestingDetails")}</CardTitle>
+                <CardDescription>{t("adminEconomics.vestingDetailsDesc")}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table data-testid="table-vesting-schedule">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t("adminEconomics.category")}</TableHead>
+                      <TableHead className="text-center">{t("adminEconomics.tgeRelease")}</TableHead>
+                      <TableHead className="text-center">{t("adminEconomics.cliffPeriod")}</TableHead>
+                      <TableHead className="text-center">{t("adminEconomics.vestingPeriod")}</TableHead>
+                      <TableHead className="text-center">{t("adminEconomics.totalPeriod")}</TableHead>
+                      <TableHead>{t("adminEconomics.description")}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {VESTING_SCHEDULES.map((schedule, index) => (
+                      <TableRow key={schedule.id} data-testid={`row-vesting-${index}`}>
+                        <TableCell className="font-medium">{schedule.category}</TableCell>
+                        <TableCell className="text-center">
+                          <Badge variant={schedule.tgePercent > 0 ? "default" : "secondary"}>
+                            {schedule.tgePercent}%
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-center">{schedule.cliffMonths} {t("adminEconomics.monthsUnit")}</TableCell>
+                        <TableCell className="text-center">{schedule.vestingMonths} {t("adminEconomics.monthsUnit")}</TableCell>
+                        <TableCell className="text-center">
+                          <Badge variant="outline">{schedule.totalMonths} {t("adminEconomics.monthsUnit")}</Badge>
+                        </TableCell>
+                        <TableCell className="text-muted-foreground">{schedule.description}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+
+            <div className="grid grid-cols-3 gap-4">
+              {VESTING_SCHEDULES.slice(0, 3).map((schedule, index) => (
+                <Card key={schedule.id} data-testid={`card-vesting-progress-${index}`}>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg">{schedule.category}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">{t("adminEconomics.currentUnlock")}</span>
+                        <span className="font-medium">{calculateVestingUnlock(schedule, 12).toFixed(1)}%</span>
+                      </div>
+                      <Progress value={calculateVestingUnlock(schedule, 12)} data-testid={`progress-vesting-${index}`} />
+                      <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                        <div>TGE: {schedule.tgePercent}%</div>
+                        <div>Cliff: {schedule.cliffMonths}M</div>
+                        <div>Vesting: {schedule.vestingMonths}M</div>
+                        <div>Total: {schedule.totalMonths}M</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
 
           <TabsContent value="inflation" className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
