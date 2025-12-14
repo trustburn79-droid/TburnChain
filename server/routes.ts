@@ -226,6 +226,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
           console.error("[ValidatorSim] Error broadcasting validators:", error);
         }
       }, 30000, 'validator_broadcast');
+      
+      // Connect shard config changes from TBurnEnterpriseNode to validator simulation
+      const enterpriseNode = getEnterpriseNode();
+      if (enterpriseNode && validatorSimulation) {
+        enterpriseNode.on('shardConfigChanged', async (data: { oldCount: number; newCount: number; version: number }) => {
+          console.log(`[ValidatorSim] 🔄 Received shard config change: ${data.oldCount} → ${data.newCount} shards`);
+          try {
+            const result = await validatorSimulation!.updateShardConfiguration(data.newCount, 25);
+            console.log(`[ValidatorSim] ✅ Updated validators: ${result.message}`);
+            
+            // Broadcast updated validators immediately
+            const validators = await storage.getAllValidators();
+            broadcastUpdate('validators', validators, z.array(z.any()), true);
+            
+            // Broadcast shard snapshot
+            const shards = await storage.getShards();
+            broadcastUpdate('shards_snapshot', shards, z.array(z.any()), true);
+          } catch (error) {
+            console.error('[ValidatorSim] Failed to update shard configuration:', error);
+          }
+        });
+        console.log('[ValidatorSim] ✅ Connected to TBurnEnterpriseNode shard config events');
+      }
     } catch (error) {
       console.error("[ValidatorSim] Failed to initialize:", error);
       // In production, ensure we can still serve API requests even if simulation fails
