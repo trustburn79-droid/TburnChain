@@ -6357,7 +6357,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // [CONSOLIDATED] Shards API endpoint - moved to Enterprise Node Proxy section (line ~8723)
   // The /api/shards endpoint now uses the TBurnEnterpriseNode for dynamic shard generation
-  // based on the current shard configuration (5-64 shards with dynamic validators)
+  // based on the current shard configuration (5-128 shards with dynamic validators)
 
   // AI Decision by ID - Direct Enterprise Node Proxy
   app.get("/api/ai/decisions/:id", async (req, res) => {
