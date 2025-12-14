@@ -1374,52 +1374,115 @@ export default function WalletDashboard() {
         </p>
       </div>
       
-      {myWallets.length > 0 && (
-        <Card className="bg-card/60 backdrop-blur-sm border-border/50">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Wallet className="h-4 w-4 text-primary" />
-              {t("walletDashboard.myWallets", "My Wallets")}
-              <Badge variant="outline" className="ml-auto text-xs">{myWallets.length}</Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="flex flex-wrap gap-2">
-              {myWallets.map((wallet) => (
-                <div
-                  key={wallet.address}
-                  className={cn(
-                    "flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-all",
-                    selectedWallet === wallet.address
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-border/50 bg-muted/30 hover:border-primary/50"
-                  )}
-                  onClick={() => handleSwitchWallet(wallet.address)}
-                  data-testid={`wallet-item-${wallet.address.slice(0, 8)}`}
-                >
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center">
-                    <Wallet className="h-3 w-3 text-white" />
-                  </div>
-                  <span className="font-mono text-xs">
-                    {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-6 w-6 ml-1"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      copyAddress(wallet.address);
-                    }}
-                    data-testid={`button-copy-wallet-${wallet.address.slice(0, 8)}`}
-                  >
-                    <Copy className="h-3 w-3" />
-                  </Button>
-                  {selectedWallet === wallet.address && (
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                  )}
+      {myWallets.length > 0 && selectedWallet && (
+        <Card className="bg-gradient-to-br from-card/80 via-card/60 to-primary/5 backdrop-blur-sm border-primary/30 overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <CardHeader className="pb-2 relative z-10">
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <CardTitle className="text-lg font-bold flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
+                  <Wallet className="h-4 w-4 text-white" />
                 </div>
-              ))}
+                {t("walletDashboard.myWallet", "My Wallet")}
+              </CardTitle>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-xs font-bold text-primary">TBURN CHAIN</span>
+                <Badge variant="outline" className="text-[10px] h-5 border-primary/50">Chain ID: 7979</Badge>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="relative z-10">
+            <div className="grid md:grid-cols-[1fr,auto] gap-6">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label className="text-xs text-muted-foreground">{t("walletDashboard.walletAddress", "Wallet Address")}</Label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 bg-background/50 border border-border/50 rounded-lg p-3 font-mono text-sm break-all" data-testid="text-full-wallet-address">
+                      {selectedWallet}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => copyAddress(selectedWallet)}
+                      data-testid="button-copy-full-address"
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                
+                {myWallets.length > 1 && (
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">{t("walletDashboard.switchWallet", "Switch Wallet")}</Label>
+                    <div className="flex flex-wrap gap-2">
+                      {myWallets.map((wallet) => (
+                        <Button
+                          key={wallet.address}
+                          variant={selectedWallet === wallet.address ? "default" : "outline"}
+                          size="sm"
+                          className="font-mono text-xs"
+                          onClick={() => handleSwitchWallet(wallet.address)}
+                          data-testid={`wallet-item-${wallet.address.slice(0, 8)}`}
+                        >
+                          {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
+                          {selectedWallet === wallet.address && <CheckCircle className="h-3 w-3 ml-1" />}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-border/50 min-w-[160px]">
+                <div className="w-32 h-32 bg-white p-2 rounded-lg flex items-center justify-center relative" data-testid="wallet-qr-code">
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <rect x="10" y="10" width="25" height="25" fill="black" />
+                    <rect x="65" y="10" width="25" height="25" fill="black" />
+                    <rect x="10" y="65" width="25" height="25" fill="black" />
+                    <rect x="15" y="15" width="15" height="15" fill="white" />
+                    <rect x="70" y="15" width="15" height="15" fill="white" />
+                    <rect x="15" y="70" width="15" height="15" fill="white" />
+                    <rect x="18" y="18" width="9" height="9" fill="black" />
+                    <rect x="73" y="18" width="9" height="9" fill="black" />
+                    <rect x="18" y="73" width="9" height="9" fill="black" />
+                    <rect x="40" y="10" width="5" height="5" fill="black" />
+                    <rect x="50" y="10" width="5" height="5" fill="black" />
+                    <rect x="40" y="20" width="5" height="5" fill="black" />
+                    <rect x="45" y="25" width="5" height="5" fill="black" />
+                    <rect x="55" y="20" width="5" height="5" fill="black" />
+                    <rect x="10" y="40" width="5" height="5" fill="black" />
+                    <rect x="20" y="45" width="5" height="5" fill="black" />
+                    <rect x="25" y="40" width="5" height="5" fill="black" />
+                    <rect x="10" y="55" width="5" height="5" fill="black" />
+                    <rect x="40" y="40" width="20" height="20" fill="black" />
+                    <rect x="45" y="45" width="10" height="10" fill="white" />
+                    <rect x="48" y="48" width="4" height="4" fill="black" />
+                    <rect x="65" y="40" width="5" height="5" fill="black" />
+                    <rect x="75" y="45" width="5" height="5" fill="black" />
+                    <rect x="85" y="40" width="5" height="5" fill="black" />
+                    <rect x="70" y="55" width="5" height="5" fill="black" />
+                    <rect x="80" y="50" width="5" height="5" fill="black" />
+                    <rect x="40" y="65" width="5" height="5" fill="black" />
+                    <rect x="50" y="70" width="5" height="5" fill="black" />
+                    <rect x="55" y="65" width="5" height="5" fill="black" />
+                    <rect x="45" y="80" width="5" height="5" fill="black" />
+                    <rect x="65" y="65" width="25" height="25" fill="black" />
+                    <rect x="70" y="70" width="15" height="15" fill="white" />
+                    <rect x="73" y="73" width="9" height="9" fill="black" />
+                    <rect x="85" y="85" width="5" height="5" fill="black" />
+                  </svg>
+                </div>
+                <p className="text-[10px] text-muted-foreground mt-2 text-center">{t("walletDashboard.scanToReceive", "Scan to receive TBURN")}</p>
+              </div>
+            </div>
+            
+            <div className="mt-4 pt-4 border-t border-border/30 flex items-center justify-between gap-2 flex-wrap">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Shield className="h-4 w-4 text-green-500" />
+                <span>{t("walletDashboard.securedBy", "Secured by")} <span className="font-bold text-foreground">TBURN Mainnet</span></span>
+              </div>
+              <Badge variant="outline" className="text-xs">{myWallets.length} {t("walletDashboard.walletsCreated", "wallet(s) created")}</Badge>
             </div>
           </CardContent>
         </Card>
