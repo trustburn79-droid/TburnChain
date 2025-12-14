@@ -17868,7 +17868,18 @@
     "pendingTx": "Pending Transactions",
     "crossShardTx": "Cross-Shard Transactions",
     "capacityUsage": "Capacity Usage",
-    "triggerRebalance": "Trigger Rebalance"
+    "triggerRebalance": "Trigger Rebalance",
+    "hardwareProfileTable": "Hardware Profile Reference",
+    "profile": "Profile",
+    "cpuCores": "CPU Cores",
+    "ram": "RAM",
+    "maxShardsLabel": "Max Shards",
+    "tpsCapacity": "TPS Capacity",
+    "profileDevelopment": "Development",
+    "profileStaging": "Staging",
+    "profileProduction": "Production",
+    "profileEnterprise": "Enterprise",
+    "hardwareNote": "TPS capacity scales linearly with shard count. Enterprise tier supports up to 128 shards for maximum throughput."
   },
   "adminNetworkParams": {
     "title": "Network Parameters",

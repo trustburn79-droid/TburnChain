@@ -18589,7 +18589,18 @@
     "pendingTx": "대기 중인 트랜잭션",
     "crossShardTx": "크로스-샤드 트랜잭션",
     "capacityUsage": "용량 사용률",
-    "triggerRebalance": "리밸런싱 실행"
+    "triggerRebalance": "리밸런싱 실행",
+    "hardwareProfileTable": "하드웨어 프로필 참조",
+    "profile": "프로필",
+    "cpuCores": "CPU 코어",
+    "ram": "RAM",
+    "maxShardsLabel": "최대 샤드",
+    "tpsCapacity": "TPS 용량",
+    "profileDevelopment": "개발",
+    "profileStaging": "스테이징",
+    "profileProduction": "프로덕션",
+    "profileEnterprise": "엔터프라이즈",
+    "hardwareNote": "TPS 용량은 샤드 수에 비례하여 증가합니다. 엔터프라이즈 티어는 최대 처리량을 위해 최대 128개 샤드를 지원합니다."
   },
   "adminNetworkParams": {
     "title": "네트워크 파라미터",

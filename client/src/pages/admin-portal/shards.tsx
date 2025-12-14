@@ -744,6 +744,84 @@ export default function AdminShards() {
                       </ul>
                     </div>
                   )}
+
+                  {/* Hardware Profile Reference Table */}
+                  <div className="p-4 rounded-lg border" data-testid="hardware-profile-table">
+                    <p className="text-sm font-medium flex items-center gap-2 mb-3">
+                      <HardDrive className="h-4 w-4" />
+                      {t("adminShards.hardwareProfileTable") || "Hardware Profile Reference"}
+                    </p>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b">
+                            <th className="text-left py-2 px-3 font-medium">{t("adminShards.profile") || "Profile"}</th>
+                            <th className="text-center py-2 px-3 font-medium">{t("adminShards.cpuCores") || "CPU Cores"}</th>
+                            <th className="text-center py-2 px-3 font-medium">{t("adminShards.ram") || "RAM"}</th>
+                            <th className="text-center py-2 px-3 font-medium">{t("adminShards.maxShardsLabel") || "Max Shards"}</th>
+                            <th className="text-center py-2 px-3 font-medium">{t("adminShards.tpsCapacity") || "TPS Capacity"}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'development' ? 'bg-primary/5' : ''}`}>
+                            <td className="py-2 px-3 flex items-center gap-2">
+                              <Cpu className="h-4 w-4 text-muted-foreground" />
+                              {t("adminShards.profileDevelopment") || "Development"}
+                              {shardConfig.hardwareRequirements?.profile === 'development' && (
+                                <Badge className="text-xs">{t("adminShards.current") || "Current"}</Badge>
+                              )}
+                            </td>
+                            <td className="text-center py-2 px-3">8</td>
+                            <td className="text-center py-2 px-3">32GB</td>
+                            <td className="text-center py-2 px-3">8</td>
+                            <td className="text-center py-2 px-3">80,000</td>
+                          </tr>
+                          <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'staging' ? 'bg-primary/5' : ''}`}>
+                            <td className="py-2 px-3 flex items-center gap-2">
+                              <Server className="h-4 w-4 text-muted-foreground" />
+                              {t("adminShards.profileStaging") || "Staging"}
+                              {shardConfig.hardwareRequirements?.profile === 'staging' && (
+                                <Badge className="text-xs">{t("adminShards.current") || "Current"}</Badge>
+                              )}
+                            </td>
+                            <td className="text-center py-2 px-3">16</td>
+                            <td className="text-center py-2 px-3">64GB</td>
+                            <td className="text-center py-2 px-3">16</td>
+                            <td className="text-center py-2 px-3">160,000</td>
+                          </tr>
+                          <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'production' ? 'bg-primary/5' : ''}`}>
+                            <td className="py-2 px-3 flex items-center gap-2">
+                              <Server className="h-4 w-4 text-blue-500" />
+                              {t("adminShards.profileProduction") || "Production"}
+                              {shardConfig.hardwareRequirements?.profile === 'production' && (
+                                <Badge className="text-xs">{t("adminShards.current") || "Current"}</Badge>
+                              )}
+                            </td>
+                            <td className="text-center py-2 px-3">32</td>
+                            <td className="text-center py-2 px-3">256GB</td>
+                            <td className="text-center py-2 px-3">64</td>
+                            <td className="text-center py-2 px-3">640,000</td>
+                          </tr>
+                          <tr className={`${shardConfig.hardwareRequirements?.profile === 'enterprise' ? 'bg-primary/5' : ''}`}>
+                            <td className="py-2 px-3 flex items-center gap-2">
+                              <Server className="h-4 w-4 text-green-500" />
+                              {t("adminShards.profileEnterprise") || "Enterprise"}
+                              {shardConfig.hardwareRequirements?.profile === 'enterprise' && (
+                                <Badge className="text-xs">{t("adminShards.current") || "Current"}</Badge>
+                              )}
+                            </td>
+                            <td className="text-center py-2 px-3 font-medium text-green-500">64</td>
+                            <td className="text-center py-2 px-3 font-medium text-green-500">512GB</td>
+                            <td className="text-center py-2 px-3 font-medium text-green-500">128</td>
+                            <td className="text-center py-2 px-3 font-medium text-green-500">1,280,000</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-3">
+                      {t("adminShards.hardwareNote") || "TPS capacity scales linearly with shard count. Enterprise tier supports up to 128 shards for maximum throughput."}
+                    </p>
+                  </div>
                 </div>
               ) : (
                 <div className="text-center text-muted-foreground py-8">
