@@ -6226,7 +6226,8 @@
     "relatedResourcesDesc": "멤버 관리를 위한 유용한 문서 및 가이드",
     "learn": "학습",
     "solutions": "솔루션",
-    "legalDeveloper": "법률 및 개발자"
+    "legalDeveloper": "법률 및 개발자",
+    "walletDashboard": "지갑 대시보드"
   },
   "stakingPoolDetail": {
     "title": "스테이킹 풀 상세",

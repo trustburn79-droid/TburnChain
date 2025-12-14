@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
@@ -1482,6 +1482,7 @@ export default function MembersPage() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   // Create schema with translations
   const memberFormSchema = createMemberFormSchema(t);
@@ -2178,6 +2179,15 @@ export default function MembersPage() {
                               data-testid={`button-edit-${member.id}`}
                             >
                               <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              onClick={(e) => { e.stopPropagation(); setLocation(`/app/wallet-dashboard?address=${member.accountAddress}`); }}
+                              data-testid={`button-wallet-${member.id}`}
+                              title={t('members.walletDashboard')}
+                            >
+                              <Wallet className="h-4 w-4" />
                             </Button>
                             <Button
                               size="icon"
