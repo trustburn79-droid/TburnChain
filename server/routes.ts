@@ -3712,15 +3712,188 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // Update member tier
-  app.post("/api/members/:id/tier", async (req, res) => {
+  // Update member tier (Enterprise-grade with Admin authentication and transactional integrity)
+  app.post("/api/members/:id/tier", requireAdmin, async (req, res) => {
+    const { id } = req.params;
+    const { tier, reason } = req.body;
+    
+    // Valid tier list - validate before DB connection
+    const validTiers = [
+      'basic_user', 'delegated_staker', 'candidate_validator', 
+      'active_validator', 'inactive_validator', 'genesis_validator',
+      'enterprise_validator', 'governance_validator', 'probation_validator',
+      'suspended_validator', 'slashed_validator'
+    ];
+    
+    if (!validTiers.includes(tier)) {
+      return res.status(400).json({ error: "Invalid tier", validTiers });
+    }
+    
+    // Validator tiers that require validators table integration
+    const validatorTiers = [
+      'candidate_validator', 'active_validator', 'inactive_validator',
+      'genesis_validator', 'enterprise_validator', 'governance_validator'
+    ];
+    
+    // Staking requirements (from tokenomics-config.ts) - ALWAYS enforced, no bypass
+    const stakingRequirements: Record<string, number> = {
+      'candidate_validator': 5_000_000,    // Tier 2 Standby minimum
+      'active_validator': 20_000_000,      // Tier 1 Committee minimum
+      'genesis_validator': 20_000_000,     // Same as active
+      'enterprise_validator': 20_000_000,  // Same as active
+      'governance_validator': 20_000_000,  // Same as active
+      'delegated_staker': 10_000,          // Tier 3 Delegator minimum
+    };
+    
+    // Map member tier to validator status
+    const statusMap: Record<string, string> = {
+      'candidate_validator': 'standby',
+      'active_validator': 'active',
+      'genesis_validator': 'active',
+      'enterprise_validator': 'active',
+      'governance_validator': 'active',
+      'inactive_validator': 'inactive',
+    };
+    
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    let client: ReturnType<typeof pool.connect> extends Promise<infer T> ? T : never;
+    let transactionStarted = false;
+    
     try {
-      const { tier } = req.body;
-      await storage.updateMember(req.params.id, { memberTier: tier });
-      res.json({ success: true });
+      client = await pool.connect();
+      
+      // Begin transaction for atomicity
+      await client.query('BEGIN');
+      transactionStarted = true;
+      
+      // Get current member with row-level lock
+      const memberResult = await client.query('SELECT * FROM members WHERE id = $1 FOR UPDATE', [id]);
+      if (memberResult.rows.length === 0) {
+        await client.query('ROLLBACK');
+        return res.status(404).json({ error: "Member not found" });
+      }
+      
+      const member = memberResult.rows[0];
+      const previousTier = member.member_tier;
+      
+      // Staking requirement validation - ALWAYS enforced for validator tiers
+      if (stakingRequirements[tier]) {
+        const stakingResult = await client.query(
+          'SELECT COALESCE(SUM(CAST(amount AS NUMERIC)), 0) as total_staked FROM staking_positions WHERE staker_address = $1 AND status = $2',
+          [member.account_address, 'active']
+        );
+        const totalStaked = parseFloat(stakingResult.rows[0]?.total_staked || '0');
+        const requiredStake = stakingRequirements[tier];
+        
+        if (totalStaked < requiredStake) {
+          await client.query('ROLLBACK');
+          return res.status(400).json({ 
+            error: "Insufficient staking balance",
+            required: requiredStake,
+            current: totalStaked,
+            deficit: requiredStake - totalStaked,
+            message: `This tier requires minimum ${requiredStake.toLocaleString()} TBURN staked. Current: ${totalStaked.toLocaleString()} TBURN`
+          });
+        }
+      }
+      
+      // Update member tier
+      await client.query(
+        'UPDATE members SET member_tier = $1, updated_at = NOW() WHERE id = $2',
+        [tier, id]
+      );
+      
+      // Handle validator table integration for validator tiers
+      let validatorId = member.validator_id;
+      if (validatorTiers.includes(tier) && !member.validator_id) {
+        // Create new validator record
+        const validatorAddress = member.account_address || `0x${require('crypto').randomBytes(20).toString('hex')}`;
+        const validatorName = member.display_name || `Validator-${id.slice(0, 8)}`;
+        const validatorStatus = statusMap[tier] || 'standby';
+        const defaultStake = stakingRequirements[tier]?.toString() || '5000000';
+        
+        const validatorResult = await client.query(`
+          INSERT INTO validators (
+            address, name, stake, status, commission, uptime, 
+            total_blocks, voting_power, apy, delegators, joined_at,
+            reputation_score, performance_score, ai_trust_score
+          ) VALUES ($1, $2, $3, $4, 500, 9500, 0, $3, 800, 0, NOW(), 8500, 9000, 7500)
+          RETURNING id
+        `, [validatorAddress, validatorName, defaultStake, validatorStatus]);
+        
+        validatorId = validatorResult.rows[0].id;
+        
+        // Update member with validator ID
+        await client.query(
+          'UPDATE members SET validator_id = $1 WHERE id = $2',
+          [validatorId, id]
+        );
+      } else if (validatorTiers.includes(tier) && member.validator_id) {
+        // Update existing validator status
+        await client.query(
+          'UPDATE validators SET status = $1 WHERE id = $2',
+          [statusMap[tier] || 'standby', member.validator_id]
+        );
+      }
+      
+      // Log audit trail - part of transaction, rolls back if this fails
+      await client.query(`
+        INSERT INTO admin_audit_logs (
+          operator_id, operator_ip, operator_user_agent, session_id,
+          action_type, action_category, resource, resource_id,
+          previous_state, new_state, reason, risk_level, status, created_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, 'success', NOW())
+      `, [
+        'admin',
+        req.ip || req.socket.remoteAddress || 'unknown',
+        req.headers['user-agent'] || 'unknown',
+        req.sessionID || null,
+        'member_tier_change',
+        'member_management',
+        'members',
+        id,
+        JSON.stringify({ tier: previousTier }),
+        JSON.stringify({ tier, validatorId }),
+        reason || null,
+        tier.includes('slashed') || tier.includes('suspended') ? 'high' : 'medium'
+      ]);
+      
+      // Commit transaction - all changes succeed or none
+      await client.query('COMMIT');
+      transactionStarted = false;
+      
+      res.json({ 
+        success: true, 
+        previousTier, 
+        newTier: tier,
+        validatorId,
+        message: `Member tier updated from ${previousTier} to ${tier}`
+      });
     } catch (error) {
-      console.error("Error updating member tier:", error);
+      // Rollback on any error if transaction was started
+      if (transactionStarted && client) {
+        try {
+          await client.query('ROLLBACK');
+        } catch (rollbackError) {
+          console.error("[Enterprise] Rollback error:", rollbackError);
+        }
+      }
+      console.error("[Enterprise] Member tier update error:", error);
       res.status(500).json({ error: "Failed to update member tier" });
+    } finally {
+      // Always release client and end pool in finally block
+      if (client) {
+        try {
+          client.release();
+        } catch (releaseError) {
+          console.error("[Enterprise] Client release error:", releaseError);
+        }
+      }
+      try {
+        await pool.end();
+      } catch (poolEndError) {
+        console.error("[Enterprise] Pool end error:", poolEndError);
+      }
     }
   });
   
