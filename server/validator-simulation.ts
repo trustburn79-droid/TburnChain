@@ -1,5 +1,5 @@
 import { IStorage } from "./storage";
-import { Validator, NetworkStats, InsertConsensusRound, InsertBlock, InsertCrossShardMessage } from "@shared/schema";
+import { Validator, NetworkStats, InsertConsensusRound, InsertBlock, InsertCrossShardMessage, Shard } from "@shared/schema";
 import * as crypto from 'crypto';
 
 // TBURN v7.0 Enterprise Validator Configuration
@@ -156,9 +156,59 @@ export class ValidatorSimulationService {
   // Dynamic shard configuration
   private currentShardCount: number = 5;
   private validatorsPerShard: number = 25;
+  
+  // Shard caching for performance optimization (avoids repeated DB queries)
+  private cachedShards: Shard[] = [];
+  private shardCacheTimestamp: number = 0;
+  private static readonly SHARD_CACHE_TTL_MS: number = 30000; // 30 second TTL
+  
+  // Cross-shard message buffer for batch insertion
+  private crossShardMessageBuffer: InsertCrossShardMessage[] = [];
+  private static readonly MESSAGE_BUFFER_SIZE: number = 10;
+  private static readonly MESSAGE_FLUSH_INTERVAL_MS: number = 5000;
+  private messageFlushInterval: NodeJS.Timeout | null = null;
 
   constructor(storage: IStorage) {
     this.storage = storage;
+  }
+  
+  // Get cached shards with automatic refresh on TTL expiry
+  private async getCachedShards(): Promise<Shard[]> {
+    const now = Date.now();
+    if (this.cachedShards.length === 0 || (now - this.shardCacheTimestamp) > ValidatorSimulationService.SHARD_CACHE_TTL_MS) {
+      this.cachedShards = await this.storage.getAllShards();
+      this.shardCacheTimestamp = now;
+    }
+    return this.cachedShards;
+  }
+  
+  // Invalidate shard cache (call when shard configuration changes)
+  public invalidateShardCache(): void {
+    this.cachedShards = [];
+    this.shardCacheTimestamp = 0;
+  }
+  
+  // Flush message buffer to database with batch insert
+  private async flushMessageBuffer(): Promise<void> {
+    if (this.crossShardMessageBuffer.length === 0) return;
+    
+    const messages = [...this.crossShardMessageBuffer];
+    this.crossShardMessageBuffer = [];
+    
+    try {
+      await this.storage.batchCreateCrossShardMessages(messages);
+    } catch (error: any) {
+      // On failure, try individual inserts as fallback
+      for (const msg of messages) {
+        try {
+          await this.storage.createCrossShardMessage(msg);
+        } catch (innerError: any) {
+          if (innerError?.code !== '23505') {
+            console.error("Error creating cross-shard message:", innerError);
+          }
+        }
+      }
+    }
   }
   
   // Update shard configuration and scale validators dynamically
@@ -664,14 +714,26 @@ export class ValidatorSimulationService {
     }
   }
 
-  // Simulate cross-shard messages between shards
+  // Simulate cross-shard messages between shards (OPTIMIZED)
   private crossShardMessageCounter: number = 0;
   
+  // O(1) shard pair selection - select different source and destination shards
+  private selectShardPair(shards: Shard[]): { fromShard: Shard; toShard: Shard } {
+    const n = shards.length;
+    if (n < 2) {
+      return { fromShard: shards[0], toShard: shards[0] };
+    }
+    const fromIndex = Math.floor(Math.random() * n);
+    // Select destination from remaining shards (offset by 1 to n-1)
+    const offset = 1 + Math.floor(Math.random() * (n - 1));
+    const toIndex = (fromIndex + offset) % n;
+    return { fromShard: shards[fromIndex], toShard: shards[toIndex] };
+  }
+  
   private async simulateCrossShardMessages(): Promise<void> {
-    // Get shards from storage
-    const shards = await this.storage.getAllShards();
+    // Use cached shards instead of querying DB every time
+    const shards = await this.getCachedShards();
     if (shards.length < 2) {
-      // Create some default shards if none exist
       return;
     }
     
@@ -683,13 +745,8 @@ export class ValidatorSimulationService {
     const statuses = ['pending', 'confirmed', 'confirmed', 'confirmed']; // 75% confirmed
     
     for (let i = 0; i < messageCount; i++) {
-      const fromShard = shards[Math.floor(Math.random() * shards.length)];
-      let toShard = shards[Math.floor(Math.random() * shards.length)];
-      
-      // Ensure different source and destination shards
-      while (toShard.shardId === fromShard.shardId && shards.length > 1) {
-        toShard = shards[Math.floor(Math.random() * shards.length)];
-      }
+      // O(1) shard pair selection (no while loop)
+      const { fromShard, toShard } = this.selectShardPair(shards);
       
       this.crossShardMessageCounter++;
       const messageType = messageTypes[Math.floor(Math.random() * messageTypes.length)];
@@ -718,14 +775,12 @@ export class ValidatorSimulationService {
         routeOptimization: routeOptimizations[Math.floor(Math.random() * routeOptimizations.length)],
       };
       
-      try {
-        await this.storage.createCrossShardMessage(messageData);
-      } catch (error: any) {
-        if (error?.code === '23505') {
-          // Duplicate key - skip
-        } else {
-          console.error("Error creating cross-shard message:", error);
-        }
+      // Buffer messages for batch insertion
+      this.crossShardMessageBuffer.push(messageData);
+      
+      // Flush buffer when it reaches threshold
+      if (this.crossShardMessageBuffer.length >= ValidatorSimulationService.MESSAGE_BUFFER_SIZE) {
+        await this.flushMessageBuffer();
       }
     }
   }
@@ -816,7 +871,16 @@ export class ValidatorSimulationService {
       }
     }, 2000);
     
-    console.log("✅ Validator simulation started (with cross-shard messaging)");
+    // Periodic message buffer flush (catches any buffered messages not yet flushed)
+    this.messageFlushInterval = setInterval(async () => {
+      try {
+        await this.flushMessageBuffer();
+      } catch (error) {
+        console.error("Error flushing message buffer:", error);
+      }
+    }, ValidatorSimulationService.MESSAGE_FLUSH_INTERVAL_MS);
+    
+    console.log("✅ Validator simulation started (with optimized cross-shard messaging)");
   }
 
   // Rotate epoch and update committee
@@ -944,7 +1008,7 @@ export class ValidatorSimulationService {
   }
 
   // Stop simulation
-  public stop(): void {
+  public async stop(): Promise<void> {
     if (!this.isRunning) {
       return;
     }
@@ -965,6 +1029,14 @@ export class ValidatorSimulationService {
       clearInterval(this.crossShardInterval);
       this.crossShardInterval = null;
     }
+    
+    if (this.messageFlushInterval) {
+      clearInterval(this.messageFlushInterval);
+      this.messageFlushInterval = null;
+    }
+    
+    // Flush any remaining buffered messages
+    await this.flushMessageBuffer();
     
     console.log("⏹️ Validator simulation stopped");
   }

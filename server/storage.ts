@@ -470,6 +470,7 @@ export interface IStorage {
   getAllCrossShardMessages(limit?: number): Promise<CrossShardMessage[]>;
   getCrossShardMessageById(id: string): Promise<CrossShardMessage | undefined>;
   createCrossShardMessage(data: InsertCrossShardMessage): Promise<CrossShardMessage>;
+  batchCreateCrossShardMessages(data: InsertCrossShardMessage[]): Promise<CrossShardMessage[]>;
   updateCrossShardMessage(id: string, data: Partial<CrossShardMessage>): Promise<void>;
 
   // Wallet Balances
@@ -2374,6 +2375,15 @@ export class MemStorage implements IStorage {
     return message;
   }
 
+  async batchCreateCrossShardMessages(data: InsertCrossShardMessage[]): Promise<CrossShardMessage[]> {
+    const results: CrossShardMessage[] = [];
+    for (const item of data) {
+      const message = await this.createCrossShardMessage(item);
+      results.push(message);
+    }
+    return results;
+  }
+
   async updateCrossShardMessage(id: string, data: Partial<CrossShardMessage>): Promise<void> {
     const existing = this.crossShardMessages.get(id);
     if (existing) {
@@ -3249,6 +3259,12 @@ export class DbStorage implements IStorage {
   async createCrossShardMessage(data: InsertCrossShardMessage): Promise<CrossShardMessage> {
     const result = await db.insert(crossShardMessages).values(data).returning();
     return result[0];
+  }
+
+  async batchCreateCrossShardMessages(data: InsertCrossShardMessage[]): Promise<CrossShardMessage[]> {
+    if (data.length === 0) return [];
+    const result = await db.insert(crossShardMessages).values(data).returning();
+    return result;
   }
 
   async updateCrossShardMessage(id: string, data: Partial<CrossShardMessage>): Promise<void> {
