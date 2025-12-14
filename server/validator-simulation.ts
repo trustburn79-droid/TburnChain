@@ -103,6 +103,9 @@ export class ValidatorSimulationService {
   // Committee caching for performance optimization
   private cachedCommittee: Validator[] = [];
   private lastCommitteeEpoch: number = 0;
+  
+  // Reentrancy guard to prevent overlapping interval executions
+  private isProcessingBlock: boolean = false;
 
   constructor(storage: IStorage) {
     this.storage = storage;
@@ -281,7 +284,13 @@ export class ValidatorSimulationService {
     console.log(`   - Committee: ${ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE}`);
   }
 
-  // Get committee validators with caching (recalculates only on epoch change)
+  // Public method to invalidate committee cache (call when validator state changes mid-epoch)
+  public invalidateCommitteeCache(): void {
+    this.lastCommitteeEpoch = 0;
+    this.cachedCommittee = [];
+  }
+
+  // Get committee validators with caching (recalculates on epoch change or cache invalidation)
   private getCommitteeValidators(): Validator[] {
     if (this.currentEpoch !== this.lastCommitteeEpoch || this.cachedCommittee.length === 0) {
       this.cachedCommittee = [...this.validators]
@@ -572,8 +581,14 @@ export class ValidatorSimulationService {
       console.log(`Using default block height: ${this.currentBlockHeight}`);
     }
     
-    // Block production every 100ms - block first, then parallel consensus/stats
+    // Block production every 100ms with reentrancy guard
     this.blockInterval = setInterval(async () => {
+      // Skip if previous cycle is still running (prevents overlap)
+      if (this.isProcessingBlock) {
+        return;
+      }
+      
+      this.isProcessingBlock = true;
       try {
         // Block production must succeed first (maintains data consistency)
         await this.simulateBlockProduction();
@@ -584,6 +599,8 @@ export class ValidatorSimulationService {
         ]);
       } catch (error) {
         console.error("Error in block simulation:", error);
+      } finally {
+        this.isProcessingBlock = false;
       }
     }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
     
@@ -630,16 +647,103 @@ export class ValidatorSimulationService {
       .filter(v => v.status === "active")
       .sort((a, b) => b.adaptiveWeight - a.adaptiveWeight);
     
-    // Update committee selection count for new committee members - parallelized
+    // Update committee selection count for new committee members (sequential with full rollback)
     const committeeMembers = sortedValidators.slice(0, ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE);
-    await Promise.all(
-      committeeMembers.map(validator => {
-        validator.committeeSelectionCount = (validator.committeeSelectionCount || 0) + 1;
-        return this.storage.updateValidator(validator.address, { 
-          committeeSelectionCount: validator.committeeSelectionCount 
+    
+    // Store original values for rollback
+    const originalCounts = committeeMembers.map(v => ({
+      address: v.address,
+      count: v.committeeSelectionCount || 0
+    }));
+    
+    // Track successfully updated validators for DB rollback
+    const successfulUpdates: { address: string; originalCount: number }[] = [];
+    
+    try {
+      // Sequential updates to ensure atomic behavior
+      for (let i = 0; i < committeeMembers.length; i++) {
+        const validator = committeeMembers[i];
+        const newCount = (validator.committeeSelectionCount || 0) + 1;
+        
+        // Update DB first
+        await this.storage.updateValidator(validator.address, { 
+          committeeSelectionCount: newCount 
         });
-      })
-    );
+        
+        // Track success for potential rollback
+        successfulUpdates.push({ 
+          address: validator.address, 
+          originalCount: validator.committeeSelectionCount || 0 
+        });
+        
+        // Then update in-memory
+        validator.committeeSelectionCount = newCount;
+      }
+    } catch (error) {
+      // Full rollback with retry: revert DB for successful updates
+      console.error("Epoch rotation failed, performing rollback with retry:", error);
+      
+      // CRITICAL: Immediately revert in-memory state for all successful updates
+      // This ensures memory consistency even if DB rollback fails
+      for (const update of successfulUpdates) {
+        const validator = committeeMembers.find(v => v.address === update.address);
+        if (validator) {
+          validator.committeeSelectionCount = update.originalCount;
+        }
+      }
+      
+      const MAX_RETRIES = 3;
+      const failedRollbacks: { address: string; originalCount: number }[] = [];
+      
+      for (const update of successfulUpdates) {
+        let retryCount = 0;
+        let rollbackSuccess = false;
+        
+        while (retryCount < MAX_RETRIES && !rollbackSuccess) {
+          try {
+            await this.storage.updateValidator(update.address, { 
+              committeeSelectionCount: update.originalCount 
+            });
+            rollbackSuccess = true;
+          } catch (rollbackError) {
+            retryCount++;
+            if (retryCount < MAX_RETRIES) {
+              await new Promise(resolve => setTimeout(resolve, 100 * retryCount)); // Backoff
+            } else {
+              console.error(`Rollback failed after ${MAX_RETRIES} retries for ${update.address}:`, rollbackError);
+              failedRollbacks.push(update);
+            }
+          }
+        }
+      }
+      
+      // Sync memory from DB to ensure consistency (handles both success and failure cases)
+      console.log("Syncing memory state from DB to ensure consistency...");
+      try {
+        const dbValidators = await this.storage.getAllValidators();
+        for (const dbVal of dbValidators) {
+          const memVal = this.validators.find(v => v.address === dbVal.address);
+          if (memVal) {
+            memVal.committeeSelectionCount = dbVal.committeeSelectionCount;
+          }
+        }
+        
+        if (failedRollbacks.length > 0) {
+          console.error(`Critical: ${failedRollbacks.length} rollbacks failed permanently. Memory synced from DB.`);
+        }
+      } catch (syncError) {
+        console.error("Critical: Memory sync from DB failed:", syncError);
+        // Last resort: restore in-memory from original values
+        for (const original of originalCounts) {
+          const validator = committeeMembers.find(v => v.address === original.address);
+          if (validator) {
+            validator.committeeSelectionCount = original.count;
+          }
+        }
+      }
+      
+      throw error;
+    }
     
     // Invalidate committee cache to force recalculation
     this.lastCommitteeEpoch = 0;
