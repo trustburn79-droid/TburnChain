@@ -6418,6 +6418,95 @@ export type ShardConfigAuditLog = typeof shardConfigAuditLogs.$inferSelect;
 export type InsertShardConfigAuditLog = z.infer<typeof insertShardConfigAuditLogSchema>;
 
 // ============================================
+// WALLET DASHBOARD Tables - Enterprise wallet management
+// ============================================
+
+// Wallet Performance History - Track wallet balance snapshots over time
+export const walletPerformanceHistory = pgTable("wallet_performance_history", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull(),
+  timeframe: text("timeframe").notNull().default("1D"), // 1H, 1D, 1W, 1M, 1Y
+  balanceEmber: text("balance_ember").notNull().default("0"), // Balance in smallest unit
+  balanceUsd: text("balance_usd").notNull().default("0"), // USD valuation
+  pnl24h: text("pnl_24h").notNull().default("0"), // Profit/loss in 24 hours
+  pnl7d: text("pnl_7d").notNull().default("0"), // Profit/loss in 7 days
+  pnlPercentage24h: integer("pnl_percentage_24h").notNull().default(0), // Basis points
+  pnlPercentage7d: integer("pnl_percentage_7d").notNull().default(0), // Basis points
+  epoch: bigint("epoch", { mode: "number" }).notNull().default(0), // Block epoch
+  source: text("source").notNull().default("node"), // node, sync, manual
+  snapshotAt: timestamp("snapshot_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Wallet Action Log - Track wallet operations (send, receive, swap)
+export const walletActionLog = pgTable("wallet_action_log", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull(),
+  actionType: text("action_type").notNull(), // send, receive, swap, stake, unstake, claim
+  status: text("status").notNull().default("pending"), // pending, processing, confirmed, failed, cancelled
+  amount: text("amount").notNull().default("0"), // Amount in smallest unit
+  amountUsd: text("amount_usd").notNull().default("0"), // USD value at time of action
+  toAddress: text("to_address"), // Recipient for sends
+  fromAddress: text("from_address"), // Sender for receives
+  txHash: text("tx_hash"), // Transaction hash when confirmed
+  blockNumber: bigint("block_number", { mode: "number" }),
+  gasUsed: bigint("gas_used", { mode: "number" }),
+  gasPrice: text("gas_price"),
+  fee: text("fee").default("0"), // Transaction fee
+  tokenPair: text("token_pair"), // For swaps: "BURN/USDT"
+  swapRate: text("swap_rate"), // Exchange rate for swaps
+  slippage: integer("slippage"), // Basis points slippage
+  metadata: jsonb("metadata"), // Additional action-specific data
+  errorMessage: text("error_message"),
+  initiatedAt: timestamp("initiated_at").notNull().defaultNow(),
+  confirmedAt: timestamp("confirmed_at"),
+  failedAt: timestamp("failed_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Wallet Streaming Checkpoint - For WebSocket stream resumption
+export const walletStreamingCheckpoint = pgTable("wallet_streaming_checkpoint", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull().unique(),
+  lastEventId: text("last_event_id").notNull().default("0"),
+  lastBlockNumber: bigint("last_block_number", { mode: "number" }).notNull().default(0),
+  lastEventTimestamp: timestamp("last_event_timestamp").notNull().defaultNow(),
+  streamType: text("stream_type").notNull().default("all"), // all, balance, transactions
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Insert Schemas for Wallet Dashboard
+export const insertWalletPerformanceHistorySchema = createInsertSchema(walletPerformanceHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertWalletActionLogSchema = createInsertSchema(walletActionLog).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertWalletStreamingCheckpointSchema = createInsertSchema(walletStreamingCheckpoint).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Types for Wallet Dashboard
+export type WalletPerformanceHistory = typeof walletPerformanceHistory.$inferSelect;
+export type InsertWalletPerformanceHistory = z.infer<typeof insertWalletPerformanceHistorySchema>;
+
+export type WalletActionLog = typeof walletActionLog.$inferSelect;
+export type InsertWalletActionLog = z.infer<typeof insertWalletActionLogSchema>;
+
+export type WalletStreamingCheckpoint = typeof walletStreamingCheckpoint.$inferSelect;
+export type InsertWalletStreamingCheckpoint = z.infer<typeof insertWalletStreamingCheckpointSchema>;
+
+// ============================================
 // TESTNET Tables - For recording user testnet activity
 // ============================================
 
