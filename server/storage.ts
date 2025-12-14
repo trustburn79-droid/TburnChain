@@ -2661,8 +2661,16 @@ export class DbStorage implements IStorage {
 
   async deleteValidatorsByIds(ids: string[]): Promise<number> {
     if (ids.length === 0) return 0;
-    const result = await db.delete(validators).where(sql`${validators.id} = ANY(${ids})`);
-    return result.rowCount ?? 0;
+    let deleted = 0;
+    for (const id of ids) {
+      try {
+        await db.delete(validators).where(eq(validators.id, id));
+        deleted++;
+      } catch (error) {
+        console.error(`Failed to delete validator ${id}:`, error);
+      }
+    }
+    return deleted;
   }
 
   async getValidatorDetails(address: string): Promise<any> {
