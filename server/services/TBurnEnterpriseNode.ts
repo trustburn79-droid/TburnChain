@@ -960,7 +960,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
     'Iota-4', 'Kappa-4', 'Lambda-4', 'Mu-4', 'Nu-4', 'Xi-4', 'Omicron-4', 'Pi-4',
     'Rho-4', 'Sigma-4', 'Tau-4', 'Upsilon-4', 'Phi-4', 'Chi-4', 'Psi-4', 'Omega-4',
     'Alpha-5', 'Beta-5', 'Gamma-5', 'Delta-5', 'Epsilon-5', 'Zeta-5', 'Eta-5', 'Theta-5',
-    'Iota-5', 'Kappa-5', 'Lambda-5', 'Mu-5', 'Nu-5', 'Xi-5', 'Omicron-5', 'Pi-5'
+    'Iota-5', 'Kappa-5', 'Lambda-5', 'Mu-5', 'Nu-5', 'Xi-5', 'Omicron-5', 'Pi-5',
+    'Rho-5', 'Sigma-5', 'Tau-5', 'Upsilon-5', 'Phi-5', 'Chi-5', 'Psi-5', 'Omega-5',
+    'Alpha-6', 'Beta-6', 'Gamma-6', 'Delta-6', 'Epsilon-6', 'Zeta-6', 'Eta-6', 'Theta-6'
   ];
 
   // Hardware requirement profiles
