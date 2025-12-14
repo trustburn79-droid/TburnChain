@@ -926,12 +926,39 @@ interface CreatedWallet {
   createdAt: string;
 }
 
+interface SavedWallet {
+  address: string;
+  createdAt: string;
+  name?: string;
+}
+
+function getStoredWallets(): SavedWallet[] {
+  try {
+    const stored = localStorage.getItem('tburn_my_wallets');
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveWalletToStorage(wallet: SavedWallet): SavedWallet[] {
+  const wallets = getStoredWallets();
+  const existing = wallets.find(w => w.address === wallet.address);
+  if (!existing) {
+    wallets.unshift(wallet);
+    localStorage.setItem('tburn_my_wallets', JSON.stringify(wallets.slice(0, 20)));
+  }
+  return wallets;
+}
+
 function CreateWalletDialog({ 
   open, 
-  onOpenChange 
+  onOpenChange,
+  onWalletCreated
 }: { 
   open: boolean; 
   onOpenChange: (open: boolean) => void;
+  onWalletCreated?: (address: string) => void;
 }) {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -947,11 +974,18 @@ function CreateWalletDialog({
     },
     onSuccess: (data) => {
       setCreatedWallet(data.wallet);
+      saveWalletToStorage({
+        address: data.wallet.address,
+        createdAt: data.wallet.createdAt,
+      });
       toast({
         title: t("walletDashboard.walletCreated", "Wallet Created"),
         description: t("walletDashboard.walletCreatedDesc", "Your new TBURN wallet has been generated"),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/wallet/balance"] });
+      if (onWalletCreated) {
+        onWalletCreated(data.wallet.address);
+      }
     },
     onError: (error: Error) => {
       toast({
@@ -1199,11 +1233,55 @@ export default function WalletDashboard() {
   const [receiveDialogOpen, setReceiveDialogOpen] = useState(false);
   const [swapDialogOpen, setSwapDialogOpen] = useState(false);
   const [createWalletDialogOpen, setCreateWalletDialogOpen] = useState(false);
+  const [myWallets, setMyWallets] = useState<SavedWallet[]>([]);
+  const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
+  const { toast } = useToast();
+  
+  useEffect(() => {
+    const storedWallets = getStoredWallets();
+    setMyWallets(storedWallets);
+    if (storedWallets.length > 0 && !selectedWallet) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const addressParam = urlParams.get('address');
+      if (!addressParam) {
+        setSelectedWallet(storedWallets[0].address);
+      }
+    }
+  }, []);
   
   const urlParams = new URLSearchParams(window.location.search);
   const addressParam = urlParams.get('address');
-  const walletAddress = addressParam || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
-  const addressQuery = addressParam ? `?address=${addressParam}` : '';
+  const walletAddress = selectedWallet || addressParam || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+  const addressQuery = walletAddress !== "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e" ? `?address=${walletAddress}` : '';
+  
+  const handleWalletCreated = (address: string) => {
+    setSelectedWallet(address);
+    setMyWallets(getStoredWallets());
+    queryClient.invalidateQueries({ queryKey: ["/api/wallet/balance"] });
+    queryClient.invalidateQueries({ queryKey: ["/api/wallet/activities"] });
+  };
+  
+  const handleSwitchWallet = (address: string) => {
+    setSelectedWallet(address);
+    queryClient.invalidateQueries({ queryKey: ["/api/wallet/balance"] });
+    queryClient.invalidateQueries({ queryKey: ["/api/wallet/activities"] });
+    toast({
+      title: t("walletDashboard.walletSwitched", "Wallet Switched"),
+      description: `${address.slice(0, 6)}...${address.slice(-4)}`,
+    });
+  };
+  
+  const copyAddress = async (address: string) => {
+    try {
+      await navigator.clipboard.writeText(address);
+      toast({
+        title: t("walletDashboard.addressCopied", "Address Copied"),
+        description: t("walletDashboard.addressCopiedDesc", "Wallet address copied to clipboard"),
+      });
+    } catch {
+      // Ignore
+    }
+  };
   
   const { data: walletBalance, isLoading: balanceLoading } = useQuery<WalletBalance>({
     queryKey: ["/api/wallet/balance", walletAddress],
@@ -1268,6 +1346,57 @@ export default function WalletDashboard() {
           {t("walletDashboard.subtitle", "Manage your TBURN tokens and track performance")}
         </p>
       </div>
+      
+      {myWallets.length > 0 && (
+        <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-sm font-medium flex items-center gap-2">
+              <Wallet className="h-4 w-4 text-primary" />
+              {t("walletDashboard.myWallets", "My Wallets")}
+              <Badge variant="outline" className="ml-auto text-xs">{myWallets.length}</Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="flex flex-wrap gap-2">
+              {myWallets.map((wallet) => (
+                <div
+                  key={wallet.address}
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-all",
+                    selectedWallet === wallet.address
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border/50 bg-muted/30 hover:border-primary/50"
+                  )}
+                  onClick={() => handleSwitchWallet(wallet.address)}
+                  data-testid={`wallet-item-${wallet.address.slice(0, 8)}`}
+                >
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center">
+                    <Wallet className="h-3 w-3 text-white" />
+                  </div>
+                  <span className="font-mono text-xs">
+                    {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6 ml-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      copyAddress(wallet.address);
+                    }}
+                    data-testid={`button-copy-wallet-${wallet.address.slice(0, 8)}`}
+                  >
+                    <Copy className="h-3 w-3" />
+                  </Button>
+                  {selectedWallet === wallet.address && (
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
       
       <div className="grid lg:grid-cols-3 gap-6 mb-4">
         <BalanceCard balance={displayBalance} isLoading={balanceLoading} />
@@ -1339,6 +1468,7 @@ export default function WalletDashboard() {
       <CreateWalletDialog 
         open={createWalletDialogOpen} 
         onOpenChange={setCreateWalletDialogOpen}
+        onWalletCreated={handleWalletCreated}
       />
     </div>
   );
