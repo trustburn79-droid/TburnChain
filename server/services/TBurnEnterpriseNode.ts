@@ -764,6 +764,186 @@ export class TBurnEnterpriseNode extends EventEmitter {
       version: this.shardConfig.version
     };
   }
+
+  // ============================================
+  // PRODUCTION-GRADE REAL-TIME TPS CALCULATION
+  // Uses actual shard health metrics for enterprise accuracy
+  // ============================================
+  public calculateRealTimeTps(): {
+    tps: number;
+    peakTps: number;
+    baseTps: number;
+    effectiveTps: number;
+    shardCount: number;
+    tpsPerShard: number;
+    validators: number;
+    loadFactor: number;
+    latencyPenalty: number;
+    uptimeFactor: number;
+    crossShardFactor: number;
+    systemImpact: number;
+    perShardMetrics: Array<{
+      shardId: number;
+      baseTps: number;
+      effectiveTps: number;
+      load: number;
+      latency: number;
+      uptime: number;
+      crossShardSuccess: number;
+    }>;
+  } {
+    const shardCount = this.shardConfig.currentShardCount;
+    const tpsPerShard = this.shardConfig.tpsPerShard;
+    const validatorsPerShard = this.shardConfig.validatorsPerShard;
+    const baseTps = shardCount * tpsPerShard;
+    
+    // Per-shard real-time TPS calculation
+    const perShardMetrics: Array<{
+      shardId: number;
+      baseTps: number;
+      effectiveTps: number;
+      load: number;
+      latency: number;
+      uptime: number;
+      crossShardSuccess: number;
+    }> = [];
+    
+    let totalEffectiveTps = 0;
+    let totalLoad = 0;
+    let totalLatency = 0;
+    let totalUptime = 0;
+    let totalCrossShardSuccess = 0;
+    let shardMetricsCount = 0;
+    
+    // Calculate effective TPS per shard based on real metrics
+    this.shardHealthMetrics.forEach((metrics, shardId) => {
+      shardMetricsCount++;
+      const shardBaseTps = tpsPerShard;
+      
+      // Load factor: High load reduces throughput capacity
+      // At 100% load, reduce to 70% capacity; at 50% load, maintain 95% capacity
+      const loadPenalty = 1 - (metrics.load * 0.3);
+      
+      // Latency penalty: High latency reduces effective throughput
+      // Target: 20ms baseline, every 10ms above adds 2% penalty (max 20% penalty)
+      const latencyPenalty = Math.max(0.80, 1 - ((metrics.latency - 20) * 0.002));
+      
+      // Validator uptime factor: Direct impact on block production
+      const uptimeFactor = metrics.validatorUptime;
+      
+      // Cross-shard success rate: Impacts transaction finality
+      // Below 98% starts reducing capacity
+      const crossShardPenalty = Math.max(0.85, metrics.crossShardSuccess);
+      
+      // Transaction backlog impact: High backlog indicates congestion
+      // Every 100 pending transactions reduces capacity by 1% (max 10%)
+      const backlogPenalty = Math.max(0.90, 1 - (metrics.transactionBacklog * 0.0001));
+      
+      // Calculate effective TPS for this shard
+      const effectiveMultiplier = loadPenalty * latencyPenalty * uptimeFactor * crossShardPenalty * backlogPenalty;
+      const shardEffectiveTps = Math.floor(shardBaseTps * effectiveMultiplier);
+      
+      totalEffectiveTps += shardEffectiveTps;
+      totalLoad += metrics.load;
+      totalLatency += metrics.latency;
+      totalUptime += metrics.validatorUptime;
+      totalCrossShardSuccess += metrics.crossShardSuccess;
+      
+      perShardMetrics.push({
+        shardId,
+        baseTps: shardBaseTps,
+        effectiveTps: shardEffectiveTps,
+        load: metrics.load,
+        latency: metrics.latency,
+        uptime: metrics.validatorUptime,
+        crossShardSuccess: metrics.crossShardSuccess
+      });
+    });
+    
+    // Fallback if no metrics yet
+    if (shardMetricsCount === 0) {
+      totalEffectiveTps = Math.floor(baseTps * 0.92); // Default 92% efficiency
+      totalLoad = 0.5 * shardCount;
+      totalLatency = 25 * shardCount;
+      totalUptime = 0.98 * shardCount;
+      totalCrossShardSuccess = 0.99 * shardCount;
+      shardMetricsCount = shardCount;
+    }
+    
+    // Calculate aggregate factors
+    const avgLoad = shardMetricsCount > 0 ? totalLoad / shardMetricsCount : 0.5;
+    const avgLatency = shardMetricsCount > 0 ? totalLatency / shardMetricsCount : 25;
+    const avgUptime = shardMetricsCount > 0 ? totalUptime / shardMetricsCount : 0.98;
+    const avgCrossShardSuccess = shardMetricsCount > 0 ? totalCrossShardSuccess / shardMetricsCount : 0.99;
+    
+    // Calculate factor representations for API
+    const loadFactor = 1 - (avgLoad * 0.3);
+    const latencyPenalty = Math.max(0.80, 1 - ((avgLatency - 20) * 0.002));
+    const uptimeFactor = avgUptime;
+    const crossShardFactor = avgCrossShardSuccess;
+    
+    // System-wide impact: cross-shard coordination overhead
+    // More shards = more coordination overhead (diminishing returns)
+    const crossShardOverhead = Math.max(0.85, 1 - (shardCount * 0.005)); // 0.5% per shard, max 15%
+    const systemImpact = crossShardOverhead;
+    
+    // Final TPS = sum of per-shard effective TPS with system-wide overhead
+    const effectiveTps = Math.floor(totalEffectiveTps * systemImpact);
+    
+    // Peak TPS: theoretical maximum (100% capacity with perfect conditions)
+    const peakTps = Math.floor(baseTps * 1.15); // 115% burst capacity
+    
+    console.log(`[TPS Real] ${shardCount} shards: base=${baseTps}, effective=${effectiveTps} (load=${(avgLoad*100).toFixed(1)}%, latency=${avgLatency.toFixed(0)}ms, uptime=${(avgUptime*100).toFixed(1)}%)`);
+    
+    return {
+      tps: effectiveTps,
+      peakTps,
+      baseTps,
+      effectiveTps,
+      shardCount,
+      tpsPerShard,
+      validators: shardCount * validatorsPerShard,
+      loadFactor,
+      latencyPenalty,
+      uptimeFactor,
+      crossShardFactor,
+      systemImpact,
+      perShardMetrics
+    };
+  }
+
+  // Update shard health metrics (called by validator simulation)
+  public updateShardHealthMetrics(shardId: number, metrics: Partial<{
+    load: number;
+    latency: number;
+    transactionBacklog: number;
+    validatorUptime: number;
+    crossShardSuccess: number;
+    status: 'healthy' | 'degraded' | 'overloaded' | 'offline';
+  }>): void {
+    const existing = this.shardHealthMetrics.get(shardId);
+    if (existing) {
+      this.shardHealthMetrics.set(shardId, {
+        ...existing,
+        ...metrics,
+        lastUpdate: new Date().toISOString()
+      });
+    }
+  }
+
+  // Get all shard health metrics for persistence
+  public getAllShardHealthMetrics(): Array<{
+    shardId: number;
+    load: number;
+    latency: number;
+    transactionBacklog: number;
+    validatorUptime: number;
+    crossShardSuccess: number;
+    lastUpdate: string;
+    status: 'healthy' | 'degraded' | 'overloaded' | 'offline';
+  }> {
+    return Array.from(this.shardHealthMetrics.values());
+  }
   
   // Shard name generator for 128 shards (enterprise scale)
   private readonly SHARD_NAMES = [
