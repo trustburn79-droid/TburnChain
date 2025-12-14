@@ -43,6 +43,7 @@ import { aiOrchestrator, type BlockchainEvent } from "./services/AIOrchestrator"
 import { aiDecisionExecutor } from "./services/AIDecisionExecutor";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
 const SITE_PASSWORD = ADMIN_PASSWORD;
 
 // ============================================
@@ -601,20 +602,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin Portal Authentication (Separate from /app)
   // ============================================
   app.post("/api/admin/auth/login", loginLimiter, (req, res) => {
-    const { password } = req.body;
+    const { email, password } = req.body;
     
-    if (!ADMIN_PASSWORD) {
-      console.error('[Admin Auth] ADMIN_PASSWORD not configured');
+    if (!ADMIN_PASSWORD || !ADMIN_EMAIL) {
+      console.error('[Admin Auth] ADMIN_PASSWORD or ADMIN_EMAIL not configured');
       return res.status(500).json({ error: "Admin authentication not configured" });
     }
     
-    if (password === ADMIN_PASSWORD) {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       req.session.adminAuthenticated = true;
       console.log('[Admin Auth] Admin login successful');
       res.json({ success: true });
     } else {
-      console.warn('[Admin Auth] Invalid admin password attempt');
-      res.status(401).json({ error: "Invalid admin password" });
+      console.warn('[Admin Auth] Invalid admin credentials attempt');
+      res.status(401).json({ error: "Invalid admin credentials" });
     }
   });
 

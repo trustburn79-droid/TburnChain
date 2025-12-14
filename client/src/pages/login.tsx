@@ -222,9 +222,7 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
     setIsLoading(true);
     try {
       const loginEndpoint = isAdminLogin ? "/api/admin/auth/login" : "/api/auth/login";
-      const requestBody = isAdminLogin 
-        ? { password: data.password } 
-        : { email: data.email, password: data.password };
+      const requestBody = { email: data.email, password: data.password };
       
       const response = await fetch(loginEndpoint, {
         method: "POST",
@@ -321,28 +319,26 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                {!isAdminLogin && (
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            type="email"
-                            placeholder={t('signup.enterEmail')}
-                            disabled={isLoading}
-                            data-testid="input-email"
-                            autoFocus
-                            className="bg-black/30 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                )}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="email"
+                          placeholder={isAdminLogin ? t('login.enterAdminEmail') : t('signup.enterEmail')}
+                          disabled={isLoading}
+                          data-testid="input-email"
+                          autoFocus
+                          className="bg-black/30 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 <FormField
                   control={form.control}
