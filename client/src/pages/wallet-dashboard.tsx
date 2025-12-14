@@ -428,55 +428,71 @@ function ActivityFeed({ activities, isLoading }: { activities: ActivityItem[]; i
           <Activity className="h-4 w-4" />
           {t("walletDashboard.activity", "Activity")}
         </CardTitle>
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          className="text-xs text-primary hover:text-primary/80 font-mono h-auto p-0"
-          data-testid="button-view-all"
-        >
-          {t("walletDashboard.viewAll", "VIEW ALL")}
-        </Button>
+        {activities.length > 0 && (
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="text-xs text-primary hover:text-primary/80 font-mono h-auto p-0"
+            data-testid="button-view-all"
+          >
+            {t("walletDashboard.viewAll", "VIEW ALL")}
+          </Button>
+        )}
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden">
-        <ScrollArea className="h-[320px] pr-2">
-          <div className="space-y-3">
-            {activities.map((activity) => (
-              <div
-                key={activity.id}
-                className="flex items-center justify-between p-3 rounded-xl bg-muted/30 border border-border/30 hover:border-primary/30 transition cursor-pointer group"
-                data-testid={`activity-item-${activity.id}`}
-              >
-                <div className="flex items-center gap-3">
-                  <div className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center",
-                    getActivityColor(activity.type)
-                  )}>
-                    {getActivityIcon(activity.type)}
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium text-foreground group-hover:text-primary transition">
-                      {getActivityLabel(activity.type)}
-                    </div>
-                    <div className="text-[10px] text-muted-foreground font-mono">
-                      {activity.tokenPair || activity.address}
-                    </div>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className={cn(
-                    "text-sm font-bold",
-                    activity.type === 'received' ? "text-primary" : "text-foreground"
-                  )}>
-                    {activity.type === 'received' ? '+' : activity.type === 'sent' ? '-' : ''}{activity.amount}
-                  </div>
-                  <div className="text-[10px] text-muted-foreground">
-                    {activity.timestamp}
-                  </div>
-                </div>
-              </div>
-            ))}
+        {activities.length === 0 ? (
+          <div className="h-[320px] flex flex-col items-center justify-center text-center px-4" data-testid="empty-activity-state">
+            <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center mb-4">
+              <Activity className="h-6 w-6 text-muted-foreground" />
+            </div>
+            <h3 className="text-sm font-medium text-foreground mb-1">
+              {t("walletDashboard.noTransactions", "No transactions yet")}
+            </h3>
+            <p className="text-xs text-muted-foreground max-w-[200px]">
+              {t("walletDashboard.noTransactionsDesc", "Your transaction history will appear here when you send, receive, or swap tokens.")}
+            </p>
           </div>
-        </ScrollArea>
+        ) : (
+          <ScrollArea className="h-[320px] pr-2">
+            <div className="space-y-3">
+              {activities.map((activity) => (
+                <div
+                  key={activity.id}
+                  className="flex items-center justify-between p-3 rounded-xl bg-muted/30 border border-border/30 hover:border-primary/30 transition cursor-pointer group"
+                  data-testid={`activity-item-${activity.id}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={cn(
+                      "w-8 h-8 rounded-full flex items-center justify-center",
+                      getActivityColor(activity.type)
+                    )}>
+                      {getActivityIcon(activity.type)}
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-foreground group-hover:text-primary transition">
+                        {getActivityLabel(activity.type)}
+                      </div>
+                      <div className="text-[10px] text-muted-foreground font-mono">
+                        {activity.tokenPair || activity.address}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className={cn(
+                      "text-sm font-bold",
+                      activity.type === 'received' ? "text-primary" : "text-foreground"
+                    )}>
+                      {activity.type === 'received' ? '+' : activity.type === 'sent' ? '-' : ''}{activity.amount}
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">
+                      {activity.timestamp}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        )}
       </CardContent>
     </Card>
   );

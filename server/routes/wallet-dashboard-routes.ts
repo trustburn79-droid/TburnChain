@@ -181,7 +181,7 @@ export function registerWalletDashboardRoutes(
         .orderBy(desc(walletActionLog.initiatedAt))
         .limit(limit);
 
-      const formattedActivities = activities.length > 0 ? activities.map(a => ({
+      const formattedActivities = activities.map(a => ({
         id: a.id,
         type: a.actionType as 'sent' | 'received' | 'swap',
         amount: formatBalance(a.amount),
@@ -192,7 +192,7 @@ export function registerWalletDashboardRoutes(
         tokenPair: a.tokenPair,
         timestamp: formatRelativeTime(a.initiatedAt),
         timestampIso: a.initiatedAt.toISOString(),
-      })) : generateDemoActivities();
+      }));
 
       res.json({
         address,
@@ -452,12 +452,3 @@ function formatRelativeTime(date: Date): string {
   return date.toLocaleDateString();
 }
 
-function generateDemoActivities() {
-  return [
-    { id: "1", type: "sent" as const, amount: "500.00", address: "0x7f...9b2d", txHash: null, status: "confirmed", tokenPair: null, timestamp: "2 min ago", timestampIso: new Date(Date.now() - 120000).toISOString() },
-    { id: "2", type: "received" as const, amount: "1,200.00", address: "0x2d...4c1a", txHash: null, status: "confirmed", tokenPair: null, timestamp: "1 hr ago", timestampIso: new Date(Date.now() - 3600000).toISOString() },
-    { id: "3", type: "swap" as const, amount: "300.00", address: "", txHash: null, status: "confirmed", tokenPair: "BURN/USDT", timestamp: "5 hrs ago", timestampIso: new Date(Date.now() - 18000000).toISOString() },
-    { id: "4", type: "received" as const, amount: "750.00", address: "0x5a...8e3f", txHash: null, status: "confirmed", tokenPair: null, timestamp: "8 hrs ago", timestampIso: new Date(Date.now() - 28800000).toISOString() },
-    { id: "5", type: "sent" as const, amount: "200.00", address: "0x1c...7d9a", txHash: null, status: "confirmed", tokenPair: null, timestamp: "1 day ago", timestampIso: new Date(Date.now() - 86400000).toISOString() },
-  ];
-}
