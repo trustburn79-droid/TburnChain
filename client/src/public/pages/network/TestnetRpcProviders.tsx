@@ -81,14 +81,24 @@ export default function TestnetRpcProviders() {
   const [testResult, setTestResult] = useState<{ success: boolean; latency?: number; blockHeight?: number; error?: string } | null>(null);
   const [isTesting, setIsTesting] = useState(false);
   const [latencyHistory, setLatencyHistory] = useState<LatencyPoint[]>([]);
-  const [liveBlockHeight, setLiveBlockHeight] = useState(5847293);
-  const [liveTps, setLiveTps] = useState(35000);
+  const [liveBlockHeight, setLiveBlockHeight] = useState(0);
+  const [liveTps, setLiveTps] = useState(0);
+
+  const { data: networkStats } = useQuery<{ success: boolean; data: any }>({
+    queryKey: ['/api/public/v1/testnet/network/stats'],
+    refetchInterval: 5000,
+  });
+
+  // Update live values from API data
+  useEffect(() => {
+    if (networkStats?.data) {
+      setLiveBlockHeight(networkStats.data.blockHeight || 0);
+      setLiveTps(networkStats.data.tps || 0);
+    }
+  }, [networkStats]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLiveBlockHeight(prev => prev + Math.floor(Math.random() * 3) + 1);
-      setLiveTps(30000 + Math.floor(Math.random() * 8000));
-      
       const now = new Date();
       const newPoint: LatencyPoint = {
         time: now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }),

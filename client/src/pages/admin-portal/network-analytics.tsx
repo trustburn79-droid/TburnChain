@@ -156,24 +156,19 @@ export default function AdminNetworkAnalytics() {
 
   const networkStats = useMemo(() => {
     if (networkData?.stats) return networkData.stats;
+    // Return empty state - API provides real-time values
     return {
-      tps: "100,000+",
-      blockTime: "1.0s",
-      nodeCount: 512,
-      avgLatency: "42ms",
+      tps: "—",
+      blockTime: "—",
+      nodeCount: 0,
+      avgLatency: "—",
     };
   }, [networkData]);
 
   const tpsHistory = useMemo(() => {
     if (networkData?.tpsHistory) return networkData.tpsHistory;
-    return [
-      { time: "00:00", tps: 85000 },
-      { time: "04:00", tps: 72000 },
-      { time: "08:00", tps: 95000 },
-      { time: "12:00", tps: 105000 },
-      { time: "16:00", tps: 98000 },
-      { time: "20:00", tps: 88000 },
-    ];
+    // Return empty array - API provides real-time history
+    return [];
   }, [networkData]);
 
   const latencyHistory = useMemo(() => {
@@ -190,16 +185,8 @@ export default function AdminNetworkAnalytics() {
 
   const shardPerformance = useMemo(() => {
     if (networkData?.shardPerformance) return networkData.shardPerformance;
-    return [
-      { shard: "MainHub", tps: 12500, load: 68, nodes: 64 },
-      { shard: "DeFi-Core", tps: 18500, load: 72, nodes: 64 },
-      { shard: "DeFi-Swap", tps: 15800, load: 65, nodes: 64 },
-      { shard: "Bridge-Hub", tps: 8500, load: 58, nodes: 48 },
-      { shard: "NFT-Market", tps: 6200, load: 52, nodes: 48 },
-      { shard: "Enterprise-1", tps: 14500, load: 62, nodes: 64 },
-      { shard: "Enterprise-2", tps: 12800, load: 58, nodes: 64 },
-      { shard: "GameFi-Hub", tps: 11200, load: 55, nodes: 48 },
-    ];
+    // Return empty array - API provides real-time shard data
+    return [];
   }, [networkData]);
 
   const resourceUsage = useMemo(() => {

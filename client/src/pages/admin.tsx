@@ -1389,7 +1389,7 @@ export default function AdminPage() {
         timeSinceLastBlock: 0,
         status: "restarting",
         tps: 0,
-        peakTps: 520000,
+        peakTps: 0,
         isStale: true
       };
     }
@@ -1435,7 +1435,7 @@ export default function AdminPage() {
         timeSinceLastBlock: 0,
         status: "paused",
         tps: statsData.tps || 0,
-        peakTps: statsData.peakTps || 520000,
+        peakTps: statsData.peakTps || 0,
         errorType,
         isStale: stats.isStale || blocks.isStale
       };
@@ -1462,7 +1462,7 @@ export default function AdminPage() {
       timeSinceLastBlock,
       status,
       tps: statsData.tps || 0,
-      peakTps: statsData.peakTps || 520000,
+      peakTps: statsData.peakTps || 0,
       errorType,
       isStale: stats.isStale || blocks.isStale
     };

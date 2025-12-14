@@ -33,7 +33,7 @@ import {
   AlertCircle,
   Loader2
 } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useLocation } from "wouter";
 import { useScanWebSocket } from "../../hooks/useScanWebSocket";
 import ScanLayout from "../../components/ScanLayout";
@@ -83,13 +83,15 @@ interface Transaction {
   status: string;
 }
 
-function generateTpsHistory() {
+function generateTpsHistory(baseTps: number = 0) {
   const data = [];
   const now = Date.now();
+  const tpsBase = baseTps > 0 ? baseTps : 0;
   for (let i = 24; i >= 0; i--) {
+    const variance = tpsBase > 0 ? Math.floor(tpsBase * 0.05 * (Math.random() - 0.5)) : 0;
     data.push({
       time: new Date(now - i * 3600000).toLocaleTimeString('en-US', { hour: '2-digit', timeZone: 'America/New_York' }),
-      tps: Math.floor(Math.random() * 500) + 3000,
+      tps: tpsBase + variance,
     });
   }
   return data;
@@ -134,7 +136,6 @@ export default function ScanHome() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { isConnected, latestBlock, lastUpdate } = useScanWebSocket();
-  const [tpsHistory] = useState(generateTpsHistory);
   const [copiedHash, setCopiedHash] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
@@ -159,6 +160,8 @@ export default function ScanHome() {
   const stats = statsData?.data;
   const blocks = blocksData?.data || [];
   const transactions = txsData?.data || [];
+
+  const tpsHistory = useMemo(() => generateTpsHistory(stats?.tps || 0), [stats?.tps]);
 
   const handleSearch = useCallback((e: React.FormEvent) => {
     e.preventDefault();
