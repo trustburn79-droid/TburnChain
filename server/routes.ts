@@ -14497,16 +14497,32 @@ Provide JSON portfolio analysis:
     }
   }, 5000, 'validators_update');
   
-  // Shard Updates snapshot every 10 seconds (for real-time shard monitoring)
+  // Shard Updates snapshot every 5 seconds (for real-time shard monitoring with LIVE TPS)
+  // Uses Enterprise Node data for real-time TPS instead of database storage
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
-      const shards = await storage.getAllShards();
-      broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
+      // Fetch from Enterprise Node for real-time TPS data (not static database)
+      const response = await fetch('http://localhost:8545/api/shards');
+      if (response.ok) {
+        const shards = await response.json();
+        broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
+      } else {
+        // Fallback to storage if Enterprise Node is unavailable
+        const shards = await storage.getAllShards();
+        broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
+      }
     } catch (error) {
       console.error('Error broadcasting shards snapshot:', error);
+      // Fallback to storage on error
+      try {
+        const shards = await storage.getAllShards();
+        broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
+      } catch (fallbackError) {
+        console.error('Error in fallback shards broadcast:', fallbackError);
+      }
     }
-  }, 10000, 'shards_snapshot');
+  }, 5000, 'shards_snapshot');
   
   // AI Usage Stats broadcasting every 10 seconds
   createTrackedInterval(() => {

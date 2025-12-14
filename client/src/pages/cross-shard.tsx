@@ -80,10 +80,12 @@ export default function CrossShard() {
 
   const { data: messages, isLoading: messagesLoading } = useQuery<CrossShardMessage[]>({
     queryKey: ["/api/cross-shard/messages"],
+    refetchInterval: 5000, // Real-time sync
   });
 
   const { data: shards, isLoading: shardsLoading } = useQuery<Shard[]>({
     queryKey: ["/api/shards"],
+    refetchInterval: 5000, // Real-time TPS sync with /admin/shards
   });
 
   useWebSocketChannel({
