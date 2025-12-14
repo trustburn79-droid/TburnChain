@@ -6,10 +6,15 @@
  * - Prevents 404 errors from missing endpoints
  * - Prevents schema type mismatches (e.g., avgBlockTime: float vs integer)
  * - Provides runtime validation logging for early detection
+ * 
+ * USAGE:
+ * 1. Use createValidatedHandler() for handlers with schema validation
+ * 2. Use registerRoute() to register and track endpoints
+ * 3. Call verifyRequiredEndpoints() at startup to catch missing routes
  */
 
 import { z } from 'zod';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Express, Router } from 'express';
 
 // ============================================
 // ENDPOINT REGISTRY SYSTEM
@@ -108,29 +113,47 @@ export const endpointRegistry = new EndpointRegistry();
 // Single source of truth for RPC response types
 // ============================================
 
+// Shard snapshot schema matching generateShards() output
 export const ShardSnapshotSchema = z.object({
-  id: z.number(),
+  id: z.string(), // "1", "2" etc - string format
+  shardId: z.number().int(),
   name: z.string(),
   status: z.enum(['active', 'inactive', 'syncing', 'error']),
   blockHeight: z.number().int(),
   transactionCount: z.number().int(),
   validatorCount: z.number().int(),
   tps: z.number().int(),
+  load: z.number().int(),
+  peakTps: z.number().int(),
   avgBlockTime: z.number().int(), // CRITICAL: Must be integer (milliseconds)
+  crossShardTxCount: z.number().int(),
   stateSize: z.string(), // CRITICAL: Must be string format (e.g., "150GB")
-  lastUpdate: z.string(),
-  crossShardMessages: z.number().int()
+  lastSyncedAt: z.string(),
+  mlOptimizationScore: z.number().int(),
+  predictedLoad: z.number().int(),
+  rebalanceCount: z.number().int(),
+  aiRecommendation: z.enum(['stable', 'monitor', 'optimize']),
+  profilingScore: z.number().int(),
+  capacityUtilization: z.number().int()
 });
 
+// Recent block schema matching /api/blocks/recent output
 export const RecentBlockSchema = z.object({
-  number: z.number().int(),
-  hash: z.string(),
+  id: z.string(),
+  blockNumber: z.number().int(),
+  blockHash: z.string(),
+  parentHash: z.string(),
   timestamp: z.number().int(),
+  validatorAddress: z.string(),
   transactionCount: z.number().int(),
   gasUsed: z.string(),
-  miner: z.string(),
+  gasLimit: z.string(),
   size: z.number().int(),
-  shardId: z.number().int()
+  shardId: z.number().int(),
+  hashAlgorithm: z.string(),
+  consensusDuration: z.number().int(),
+  rewards: z.string(),
+  createdAt: z.string()
 });
 
 export const NetworkStatsSchema = z.object({
@@ -241,6 +264,14 @@ interface WithValidationOptions<T> {
   description?: string;
 }
 
+// Custom error class for 404 responses
+export class NotFoundError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'NotFoundError';
+  }
+}
+
 export function withValidation<T>(
   options: WithValidationOptions<T>,
   handler: (req: Request) => Promise<T> | T
@@ -299,6 +330,11 @@ export function withValidation<T>(
 
       res.json(result);
     } catch (error) {
+      // Handle 404 errors specifically
+      if (error instanceof NotFoundError) {
+        return res.status(404).json({ error: error.message });
+      }
+      
       console.error(`[RPC Handler] Error in ${options.method} ${options.endpoint}:`, error);
       res.status(500).json({ 
         error: 'Internal server error',

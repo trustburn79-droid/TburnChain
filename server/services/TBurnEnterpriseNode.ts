@@ -18,9 +18,12 @@ import {
   shardConfigAuditLogs 
 } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
+import { z } from 'zod';
 import {
   endpointRegistry,
   validationLogger,
+  withValidation,
+  NotFoundError,
   ShardSnapshotSchema,
   RecentBlockSchema,
   getValidationMonitoringEndpoints,
@@ -1474,11 +1477,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json({ status: 'ok', node: this.config.nodeId });
     });
 
-    // Shards endpoint - uses dynamic shard generation
-    this.rpcApp.get('/api/shards', (_req: Request, res: Response) => {
-      const shards = this.generateShards();
-      res.json(shards);
-    });
+    // Shards endpoint - uses dynamic shard generation with validation
+    this.rpcApp.get('/api/shards', withValidation({
+      endpoint: '/api/shards',
+      method: 'GET',
+      description: 'List all shards',
+      responseSchema: z.array(ShardSnapshotSchema)
+    }, (_req: Request) => {
+      return this.generateShards();
+    }));
     
     // ============================================
     // SHARD CONFIGURATION API ENDPOINTS
@@ -1677,13 +1684,19 @@ export class TBurnEnterpriseNode extends EventEmitter {
       });
     });
 
-    // Get single shard endpoint - uses REAL-TIME DYNAMIC TPS
-    this.rpcApp.get('/api/shards/:id', (req: Request, res: Response) => {
+    // Get single shard endpoint - uses REAL-TIME DYNAMIC TPS with validation
+    // Uses withValidation wrapper for automatic registration, validation, and 404 handling
+    this.rpcApp.get('/api/shards/:id', withValidation({
+      endpoint: '/api/shards/:id',
+      method: 'GET',
+      description: 'Get shard by ID',
+      responseSchema: ShardSnapshotSchema
+    }, (req: Request) => {
       const shardId = parseInt(req.params.id);
       const shardCount = this.shardConfig.currentShardCount;
       
       if (shardId < 0 || shardId >= shardCount) {
-        return res.status(404).json({ error: `Shard not found. Active shards: 0-${shardCount - 1}` });
+        throw new NotFoundError(`Shard not found. Active shards: 0-${shardCount - 1}`);
       }
       
       // GET REAL-TIME TPS from actual block production
@@ -1696,29 +1709,29 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const shardName = this.SHARD_NAMES[shardId] || `Shard-${shardId + 1}`;
       const loadVariation = 35 + Math.floor(Math.random() * 35);
       
-      res.json({
-        id: `shard-${shardId}`,
+      return {
+        id: `${shardId + 1}`,
         shardId,
         name: `Shard ${shardName}`,
-        status: 'active',
+        status: 'active' as const,
         blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
         transactionCount: 17000000 + Math.floor(Math.random() * 2000000) + (shardId * 500000),
         validatorCount: this.shardConfig.validatorsPerShard,
-        tps: shardTps, // REAL-TIME DYNAMIC TPS
+        tps: shardTps,
         load: loadVariation,
         peakTps: realTimeTps.peak > 0 ? Math.floor(realTimeTps.peak / shardCount) : 10000,
-        avgBlockTime: 100, // milliseconds (integer)
+        avgBlockTime: 100,
         crossShardTxCount: 2000 + Math.floor(Math.random() * 1000) + (shardCount > 10 ? Math.floor(shardCount * 50) : 0),
-        stateSize: String(100 + Math.floor(Math.random() * 50) + (shardId * 2)) + "GB", // string format
+        stateSize: String(100 + Math.floor(Math.random() * 50) + (shardId * 2)) + "GB",
         lastSyncedAt: new Date().toISOString(),
         mlOptimizationScore: 8000 + Math.floor(Math.random() * 1000),
         predictedLoad: loadVariation - 5 + Math.floor(Math.random() * 10),
         rebalanceCount: 10 + Math.floor(Math.random() * 10),
-        aiRecommendation: loadVariation > 60 ? 'optimize' : loadVariation > 50 ? 'monitor' : 'stable',
+        aiRecommendation: (loadVariation > 60 ? 'optimize' : loadVariation > 50 ? 'monitor' : 'stable') as 'stable' | 'monitor' | 'optimize',
         profilingScore: 8500 + Math.floor(Math.random() * 1000),
         capacityUtilization: 4500 + Math.floor(Math.random() * 2000)
-      });
-    });
+      };
+    }));
 
     // Cross-shard messages endpoint - uses dynamic shard count
     this.rpcApp.get('/api/cross-shard/messages', (_req: Request, res: Response) => {
@@ -2432,9 +2445,14 @@ export class TBurnEnterpriseNode extends EventEmitter {
     });
 
     // ============================================
-    // RECENT BLOCKS ENDPOINT (Required by TBurn Client)
+    // RECENT BLOCKS ENDPOINT (Required by TBurn Client) - with validation
     // ============================================
-    this.rpcApp.get('/api/blocks/recent', (req: Request, res: Response) => {
+    this.rpcApp.get('/api/blocks/recent', withValidation({
+      endpoint: '/api/blocks/recent',
+      method: 'GET',
+      description: 'Get recent blocks',
+      responseSchema: z.array(RecentBlockSchema)
+    }, (req: Request) => {
       const limit = parseInt(req.query.limit as string) || 10;
       const blocks = [];
       
@@ -2462,8 +2480,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
         });
       }
       
-      res.json(blocks);
-    });
+      return blocks;
+    }));
 
     // ============================================
     // SINGLE WALLET ENDPOINT
@@ -2599,10 +2617,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     this.rpcApp.get('/api/internal/validation/errors', monitoringEndpoints['/api/internal/validation/errors']);
     this.rpcApp.get('/api/internal/validation/missing-endpoints', monitoringEndpoints['/api/internal/validation/missing-endpoints']);
 
-    // Register all critical endpoints for tracking
-    this.registerCriticalEndpoints();
-    
-    // Verify all required endpoints are registered
+    // Verify all required endpoints are registered (endpoints are auto-registered via withValidation)
     const { missing, registered } = checkRequiredEndpoints();
     if (missing.length > 0) {
       console.warn(`[Enterprise Node] ⚠️ Missing ${missing.length} required endpoints - dashboard may fail!`);
@@ -3644,42 +3659,6 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return { currentCapacity, maxCapacity, utilizationPercent, recommendations, scalingReadiness };
   }
   
-  // ============================================
-  // ENDPOINT REGISTRATION SYSTEM
-  // Registers all critical endpoints for validation tracking
-  // ============================================
-  private registerCriticalEndpoints(): void {
-    const endpoints = [
-      { method: 'GET' as const, path: '/health', description: 'Health check' },
-      { method: 'GET' as const, path: '/api/shards', description: 'List all shards' },
-      { method: 'GET' as const, path: '/api/shards/:id', description: 'Get shard by ID' },
-      { method: 'GET' as const, path: '/api/blocks/recent', description: 'Get recent blocks' },
-      { method: 'GET' as const, path: '/api/network/stats', description: 'Network statistics' },
-      { method: 'GET' as const, path: '/api/node/health', description: 'Node health status' },
-      { method: 'GET' as const, path: '/api/cross-shard/messages', description: 'Cross-shard messages' },
-      { method: 'GET' as const, path: '/api/wallets', description: 'List wallets' },
-      { method: 'GET' as const, path: '/api/wallets/:address', description: 'Get wallet by address' },
-      { method: 'GET' as const, path: '/api/transactions/:hash', description: 'Get transaction by hash' },
-      { method: 'GET' as const, path: '/api/contracts', description: 'List contracts' },
-      { method: 'GET' as const, path: '/api/contracts/:address', description: 'Get contract by address' },
-      { method: 'GET' as const, path: '/api/ai/models', description: 'List AI models' },
-      { method: 'GET' as const, path: '/api/ai/decisions', description: 'List AI decisions' },
-      { method: 'GET' as const, path: '/api/ai/decisions/recent', description: 'Recent AI decisions' },
-      { method: 'GET' as const, path: '/api/consensus/rounds', description: 'Consensus rounds' },
-      { method: 'GET' as const, path: '/api/consensus/current', description: 'Current consensus state' },
-      { method: 'GET' as const, path: '/api/performance', description: 'Performance metrics' },
-      { method: 'GET' as const, path: '/api/token/economics', description: 'Token economics' },
-      { method: 'GET' as const, path: '/api/admin/shards/config', description: 'Shard configuration' },
-      { method: 'GET' as const, path: '/api/admin/shards/health', description: 'Shard health status' },
-      { method: 'POST' as const, path: '/api/admin/shards/config', description: 'Update shard configuration' },
-    ];
-    
-    for (const endpoint of endpoints) {
-      endpointRegistry.register(endpoint);
-    }
-    
-    console.log(`[Enterprise Node] ✅ Registered ${endpoints.length} critical endpoints for validation tracking`);
-  }
   
   // Generate dynamic shard data based on current configuration and REAL-TIME TPS
   generateShards(): any[] {
