@@ -1113,6 +1113,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
       // Simulate initial peer discovery
       await this.discoverPeers();
 
+      // Initialize wallet cache and load user-created wallets from database
+      this.initializeWalletCache();
+      await this.loadWalletsFromDatabase();
+
       console.log(`[Enterprise Node] ✅ Node started successfully on ports RPC:${this.config.rpcPort}, WS:${this.config.wsPort}`);
       this.emit('started', this.getStatus());
     } catch (error) {
