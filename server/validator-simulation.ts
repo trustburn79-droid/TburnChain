@@ -99,6 +99,10 @@ export class ValidatorSimulationService {
   private epochInterval: NodeJS.Timeout | null = null;
   private blockInterval: NodeJS.Timeout | null = null;
   private crossShardInterval: NodeJS.Timeout | null = null;
+  
+  // Committee caching for performance optimization
+  private cachedCommittee: Validator[] = [];
+  private lastCommitteeEpoch: number = 0;
 
   constructor(storage: IStorage) {
     this.storage = storage;
@@ -277,18 +281,27 @@ export class ValidatorSimulationService {
     console.log(`   - Committee: ${ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE}`);
   }
 
+  // Get committee validators with caching (recalculates only on epoch change)
+  private getCommitteeValidators(): Validator[] {
+    if (this.currentEpoch !== this.lastCommitteeEpoch || this.cachedCommittee.length === 0) {
+      this.cachedCommittee = [...this.validators]
+        .sort((a, b) => {
+          const aVotingPower = BigInt(a.votingPower);
+          const bVotingPower = BigInt(b.votingPower);
+          if (aVotingPower > bVotingPower) return -1;
+          if (aVotingPower < bVotingPower) return 1;
+          return 0;
+        })
+        .slice(0, ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE);
+      this.lastCommitteeEpoch = this.currentEpoch;
+    }
+    return this.cachedCommittee;
+  }
+
   // Simulate consensus round with voting
   private async simulateConsensusRound(): Promise<void> {
-    // Committee is the top 21 validators by voting power
-    const committeeValidators = this.validators
-      .sort((a, b) => {
-        const aVotingPower = BigInt(a.votingPower);
-        const bVotingPower = BigInt(b.votingPower);
-        if (aVotingPower > bVotingPower) return -1;
-        if (aVotingPower < bVotingPower) return 1;
-        return 0;
-      })
-      .slice(0, ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE);
+    // Committee is cached and recalculated only on epoch change
+    const committeeValidators = this.getCommitteeValidators();
     
     if (committeeValidators.length === 0) {
       console.warn("No committee validators available for consensus round");
@@ -559,18 +572,18 @@ export class ValidatorSimulationService {
       console.log(`Using default block height: ${this.currentBlockHeight}`);
     }
     
-    // Block production every 100ms
+    // Block production every 100ms - block first, then parallel consensus/stats
     this.blockInterval = setInterval(async () => {
       try {
+        // Block production must succeed first (maintains data consistency)
         await this.simulateBlockProduction();
-        await this.simulateConsensusRound();
-        await this.updateNetworkStats();
-        // Increment block height after successful production
-        this.currentBlockHeight++;
+        // Consensus and stats can run in parallel (no dependencies between them)
+        await Promise.all([
+          this.simulateConsensusRound(),
+          this.updateNetworkStats()
+        ]);
       } catch (error) {
         console.error("Error in block simulation:", error);
-        // Still increment block height to avoid duplicate attempts
-        this.currentBlockHeight++;
       }
     }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
     
@@ -617,14 +630,19 @@ export class ValidatorSimulationService {
       .filter(v => v.status === "active")
       .sort((a, b) => b.adaptiveWeight - a.adaptiveWeight);
     
-    // Update committee selection count for new committee members
+    // Update committee selection count for new committee members - parallelized
     const committeeMembers = sortedValidators.slice(0, ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE);
-    for (const validator of committeeMembers) {
-      validator.committeeSelectionCount = (validator.committeeSelectionCount || 0) + 1;
-      await this.storage.updateValidator(validator.address, { 
-        committeeSelectionCount: validator.committeeSelectionCount 
-      });
-    }
+    await Promise.all(
+      committeeMembers.map(validator => {
+        validator.committeeSelectionCount = (validator.committeeSelectionCount || 0) + 1;
+        return this.storage.updateValidator(validator.address, { 
+          committeeSelectionCount: validator.committeeSelectionCount 
+        });
+      })
+    );
+    
+    // Invalidate committee cache to force recalculation
+    this.lastCommitteeEpoch = 0;
   }
 
   // Stop simulation
