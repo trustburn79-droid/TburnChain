@@ -3499,7 +3499,10 @@
       "stateSync": "상태 동기화"
     },
     "messageRoute": "샤드 {{from}} → 샤드 {{to}}",
-    "routingPriority": "라우팅 우선순위"
+    "routingPriority": "라우팅 우선순위",
+    "peerReputation": "피어 평판",
+    "networkQuality": "네트워크 품질",
+    "routingMetrics": "라우팅 메트릭"
   },
   "consensus": {
     "title": "합의",
@@ -16793,7 +16796,21 @@
       "exportDesc": "성능 지표를 JSON으로 내보내시겠습니까?"
     },
     "gasBalance": "Gas Balance",
-    "gasUnit": "Ember (EMB)"
+    "gasUnit": "Ember (EMB)",
+    "crossShardOptimizations": "크로스 샤드 최적화",
+    "crossShardOptDesc": "엔터프라이즈급 크로스 샤드 메시징 최적화",
+    "shardCacheTtl": "샤드 캐시 TTL",
+    "shardCacheTtlDesc": "샤드 데이터용 30초 TTL 캐시",
+    "batchMessageInsertion": "배치 메시지 삽입",
+    "batchMessageInsertionDesc": "10개 메시지 또는 5초 버퍼 간격",
+    "shardPairSelection": "O(1) 샤드 쌍 선택",
+    "shardPairSelectionDesc": "즉각적인 선택을 위한 모듈러 산술",
+    "priorityQueueRouting": "우선순위 큐 라우팅",
+    "priorityQueueRoutingDesc": "가중치 점수: 우선순위 40%, 평판 35%, 네트워크 25%",
+    "optimizationEnabled": "활성화됨",
+    "cacheHitRate": "캐시 히트율",
+    "batchSize": "배치 크기",
+    "avgRoutingTime": "평균 라우팅 시간"
   },
   "adminHealth": {
     "title": "시스템 상태",

@@ -3418,7 +3418,10 @@
       "stateSync": "State Sync"
     },
     "messageRoute": "Shard {{from}} \u2192 Shard {{to}}",
-    "routingPriority": "Routing Priority"
+    "routingPriority": "Routing Priority",
+    "peerReputation": "Peer Reputation",
+    "networkQuality": "Network Quality",
+    "routingMetrics": "Routing Metrics"
   },
   "consensus": {
     "title": "Consensus",
@@ -16151,7 +16154,21 @@
     "confirm": {
       "exportTitle": "Export Performance Data",
       "exportDesc": "Export performance metrics as JSON?"
-    }
+    },
+    "crossShardOptimizations": "Cross-Shard Optimizations",
+    "crossShardOptDesc": "Enterprise-grade cross-shard messaging optimizations",
+    "shardCacheTtl": "Shard Cache TTL",
+    "shardCacheTtlDesc": "30-second TTL cache for shard data",
+    "batchMessageInsertion": "Batch Message Insertion",
+    "batchMessageInsertionDesc": "10 messages or 5s buffer interval",
+    "shardPairSelection": "O(1) Shard Pair Selection",
+    "shardPairSelectionDesc": "Modular arithmetic for instant selection",
+    "priorityQueueRouting": "Priority Queue Routing",
+    "priorityQueueRoutingDesc": "Weighted scoring: Priority 40%, Reputation 35%, Network 25%",
+    "optimizationEnabled": "Enabled",
+    "cacheHitRate": "Cache Hit Rate",
+    "batchSize": "Batch Size",
+    "avgRoutingTime": "Avg Routing Time"
   },
   "adminHealth": {
     "title": "System Health",
