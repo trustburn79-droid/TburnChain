@@ -867,6 +867,61 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
 
   // ============================================
+  // WALLET REGISTRATION (for user-created wallets)
+  // ============================================
+  
+  public registerWallet(address: string, initialBalance: string = "0"): void {
+    if (!this.walletsInitialized) {
+      this.initializeWalletCache();
+    }
+    
+    if (this.walletCache.has(address)) {
+      console.log(`[Enterprise Node] Wallet ${address} already registered`);
+      return;
+    }
+    
+    const now = Date.now();
+    const wallet = {
+      id: `wallet-user-${this.walletCache.size}`,
+      address,
+      balance: initialBalance,
+      stakedBalance: "0",
+      unstakedBalance: initialBalance,
+      rewardsEarned: "0",
+      nonce: 0,
+      transactionCount: 0,
+      firstSeenAt: new Date(now).toISOString(),
+      lastTransactionAt: null,
+      updatedAt: new Date(now).toISOString(),
+      gasBalanceEmb: 1000000,
+    };
+    
+    this.walletCache.set(address, wallet);
+    console.log(`[Enterprise Node] ✅ Registered new wallet: ${address}`);
+  }
+
+  public async loadWalletsFromDatabase(): Promise<void> {
+    try {
+      const { db } = await import('../db');
+      const { walletBalances } = await import('@shared/schema');
+      
+      const dbWallets = await db.select().from(walletBalances);
+      let loadedCount = 0;
+      
+      for (const dbWallet of dbWallets) {
+        if (!this.walletCache.has(dbWallet.address)) {
+          this.registerWallet(dbWallet.address, dbWallet.balance || "0");
+          loadedCount++;
+        }
+      }
+      
+      console.log(`[Enterprise Node] ✅ Loaded ${loadedCount} wallets from database`);
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to load wallets from database:', error);
+    }
+  }
+
+  // ============================================
   // STATE PERSISTENCE METHODS
   // ============================================
   

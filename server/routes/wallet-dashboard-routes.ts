@@ -450,6 +450,7 @@ export function registerWalletDashboardRoutes(
             await db.insert(walletBalances).values({
               address: walletData.address,
             });
+            enterpriseNode.registerWallet(walletData.address, "0");
             break;
           }
           walletData = tburnWalletService.generateWalletWithPrivateKey();
