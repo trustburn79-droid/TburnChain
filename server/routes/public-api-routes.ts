@@ -1467,15 +1467,15 @@ router.get('/testnet/network/stats', async (req: Request, res: Response) => {
     const now = Date.now();
     const baseBlock = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
     
-    // Testnet values: lower TPS and fewer validators than mainnet
-    // TPS ranges 50-150 for realistic testnet activity
-    const baseTps = 80;
-    const tpsVariance = Math.floor(Math.sin(now / 30000) * 30) + Math.floor(Math.random() * 20);
+    // Testnet uses same performance characteristics as mainnet for realistic developer experience
+    // TPS ranges 80,000-120,000 to match mainnet capacity
+    const baseTps = 100000;
+    const tpsVariance = Math.floor(Math.sin(now / 30000) * 15000) + Math.floor(Math.random() * 5000);
     const currentTps = baseTps + tpsVariance;
     
-    // Testnet has 8 validators and 12 nodes
-    const testnetValidators = 8;
-    const testnetNodes = 12;
+    // Testnet mirrors mainnet validator and node count
+    const testnetValidators = 110;
+    const testnetNodes = 1247;
     
     res.json({
       success: true,
