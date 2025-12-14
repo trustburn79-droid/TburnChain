@@ -320,14 +320,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return res.json({ success: true, member: { id: member.id, displayName: member.displayName } });
           }
         }
-        return res.status(401).json({ error: "Invalid email or password" });
+        // Member auth failed, fall through to site password check
       } catch (error) {
         console.error("Member login error:", error);
-        return res.status(500).json({ error: "Login failed" });
+        // Continue to site password fallback
       }
     }
     
-    // Fallback to site password
+    // Fallback to site password (works for both admin7979 and member login fallback)
     if (password === SITE_PASSWORD) {
       req.session.authenticated = true;
       res.json({ success: true });
