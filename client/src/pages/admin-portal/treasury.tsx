@@ -18,9 +18,17 @@ import { queryClient } from "@/lib/queryClient";
 import { 
   Wallet, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, 
   PiggyBank, FileText, Lock, Key, Send, History, DollarSign,
-  RefreshCw, Download, Wifi, WifiOff, AlertTriangle, Eye, XCircle
+  RefreshCw, Download, Wifi, WifiOff, AlertTriangle, Eye, XCircle,
+  Users, Building, Landmark, Clock, Shield, Vote
 } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
+import { 
+  INVESTOR_ROUNDS, 
+  FUND_USAGE, 
+  DAO_TREASURY, 
+  TOTAL_FUNDRAISING,
+  INVESTOR_ROI_DATA
+} from "@/lib/tokenomics-engine";
 import { DetailSheet } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 import { apiRequest } from "@/lib/queryClient";
@@ -456,6 +464,18 @@ export default function AdminTreasury() {
               <History className="w-4 h-4 mr-2" />
               {t("adminTreasury.transactions")}
             </TabsTrigger>
+            <TabsTrigger value="investors" data-testid="tab-investors">
+              <Users className="w-4 h-4 mr-2" />
+              {t("adminTreasury.investors", "투자자")}
+            </TabsTrigger>
+            <TabsTrigger value="fundUsage" data-testid="tab-fund-usage">
+              <Building className="w-4 h-4 mr-2" />
+              {t("adminTreasury.fundUsage", "자금 사용")}
+            </TabsTrigger>
+            <TabsTrigger value="daoTreasury" data-testid="tab-dao-treasury">
+              <Landmark className="w-4 h-4 mr-2" />
+              {t("adminTreasury.daoTreasury", "DAO 트레저리")}
+            </TabsTrigger>
             <TabsTrigger value="budget" data-testid="tab-budget">
               <PiggyBank className="w-4 h-4 mr-2" />
               {t("adminTreasury.budget")}
@@ -547,6 +567,342 @@ export default function AdminTreasury() {
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* 투자자 라운드 탭 */}
+          <TabsContent value="investors">
+            <div className="space-y-6">
+              {/* 요약 카드들 */}
+              <div className="grid grid-cols-4 gap-4">
+                <Card className="col-span-1 bg-gradient-to-br from-green-500/10 to-emerald-500/10" data-testid="card-total-raised">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <DollarSign className="w-5 h-5 text-green-500" />
+                      <span className="text-sm text-muted-foreground">{t("adminTreasury.totalRaised", "총 조달액")}</span>
+                    </div>
+                    <div className="text-3xl font-bold" data-testid="text-total-raised">${TOTAL_FUNDRAISING}M</div>
+                    <div className="text-sm text-muted-foreground">{t("adminTreasury.usd", "USD")}</div>
+                  </CardContent>
+                </Card>
+                {INVESTOR_ROUNDS.map((round) => (
+                  <Card key={round.id} data-testid={`card-round-${round.id}`}>
+                    <CardContent className="pt-6">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Users className="w-5 h-5 text-blue-500" />
+                        <span className="text-sm text-muted-foreground">{round.name}</span>
+                      </div>
+                      <div className="text-2xl font-bold">${round.raised}M</div>
+                      <div className="text-sm text-muted-foreground">@ ${round.price.toFixed(2)}/TBURN</div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {/* 투자자 라운드 상세 테이블 */}
+                <Card data-testid="card-investor-rounds-detail">
+                  <CardHeader>
+                    <CardTitle>{t("adminTreasury.investorRounds", "투자자 라운드 상세")}</CardTitle>
+                    <CardDescription>{t("adminTreasury.investorRoundsDesc", "각 라운드별 배분 및 조건")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Table data-testid="table-investor-rounds">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminTreasury.round", "라운드")}</TableHead>
+                          <TableHead>{t("adminTreasury.allocation", "배분")}</TableHead>
+                          <TableHead>{t("adminTreasury.price", "가격")}</TableHead>
+                          <TableHead>{t("adminTreasury.raised", "조달액")}</TableHead>
+                          <TableHead>{t("adminTreasury.vestingInfo", "베스팅")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {INVESTOR_ROUNDS.map((round) => (
+                          <TableRow key={round.id} data-testid={`row-investor-${round.id}`}>
+                            <TableCell className="font-medium">
+                              <Badge variant={round.id === 'seed' ? 'default' : round.id === 'private' ? 'secondary' : 'outline'}>
+                                {round.name}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              <div>{round.allocation}억 TBURN</div>
+                              <div className="text-xs text-muted-foreground">{round.allocationPercent}%</div>
+                            </TableCell>
+                            <TableCell>${round.price.toFixed(2)}</TableCell>
+                            <TableCell className="text-green-500 font-medium">${round.raised}M</TableCell>
+                            <TableCell>
+                              <div className="text-xs">
+                                <div>TGE: {round.tgePercent}%</div>
+                                <div>Cliff: {round.cliffMonths}개월</div>
+                                <div>Vesting: {round.vestingMonths}개월</div>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+
+                {/* 투자자 ROI 예측 */}
+                <Card data-testid="card-investor-roi">
+                  <CardHeader>
+                    <CardTitle>{t("adminTreasury.investorROI", "투자자 ROI 예측")}</CardTitle>
+                    <CardDescription>{t("adminTreasury.investorROIDesc", "중립 시나리오 기준 수익률")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Table data-testid="table-investor-roi">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminTreasury.round", "라운드")}</TableHead>
+                          <TableHead>{t("adminTreasury.entryPrice", "진입가")}</TableHead>
+                          <TableHead>Y1 ROI</TableHead>
+                          <TableHead>Y5 ROI</TableHead>
+                          <TableHead>Y10 ROI</TableHead>
+                          <TableHead>Y20 ROI</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {INVESTOR_ROI_DATA.map((roi) => (
+                          <TableRow key={roi.roundId} data-testid={`row-roi-${roi.roundId}`}>
+                            <TableCell className="font-medium">{roi.roundId.toUpperCase()}</TableCell>
+                            <TableCell>${roi.entryPrice.toFixed(2)}</TableCell>
+                            <TableCell className="text-green-500">{roi.y1.roi.toFixed(1)}x</TableCell>
+                            <TableCell className="text-green-500">{roi.y5.roi.toFixed(1)}x</TableCell>
+                            <TableCell className="text-green-500">{roi.y10.roi.toFixed(1)}x</TableCell>
+                            <TableCell className="text-green-500 font-bold">{roi.y20.roi.toFixed(1)}x</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* 자금 사용 계획 탭 */}
+          <TabsContent value="fundUsage">
+            <div className="space-y-6">
+              {/* 요약 */}
+              <div className="grid grid-cols-5 gap-4">
+                {FUND_USAGE.map((fund, idx) => {
+                  const colors = ['blue', 'purple', 'orange', 'red', 'green'];
+                  const color = colors[idx % colors.length];
+                  return (
+                    <Card key={fund.category} data-testid={`card-fund-${idx}`}>
+                      <CardContent className="pt-6">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Building className={`w-5 h-5 text-${color}-500`} />
+                          <span className="text-sm text-muted-foreground">{fund.category}</span>
+                        </div>
+                        <div className="text-2xl font-bold">${fund.amount}M</div>
+                        <div className="text-sm text-muted-foreground">{fund.percentage}%</div>
+                        <Progress value={fund.percentage} className="mt-2" />
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {/* 자금 사용 파이 차트 */}
+                <Card data-testid="card-fund-usage-chart">
+                  <CardHeader>
+                    <CardTitle>{t("adminTreasury.fundAllocation", "자금 배분")}</CardTitle>
+                    <CardDescription>{t("adminTreasury.totalFund", "총 $230M 자금 사용 계획")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-80" data-testid="chart-fund-usage">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={FUND_USAGE.map(f => ({ name: f.category, value: f.amount }))}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            outerRadius={120}
+                            fill="#8884d8"
+                            dataKey="value"
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          >
+                            {FUND_USAGE.map((_, index) => {
+                              const COLORS = ['#3b82f6', '#8b5cf6', '#f97316', '#ef4444', '#22c55e'];
+                              return <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />;
+                            })}
+                          </Pie>
+                          <Tooltip formatter={(value) => [`$${value}M`, '금액']} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* 세부 사용 계획 */}
+                <Card data-testid="card-fund-usage-detail">
+                  <CardHeader>
+                    <CardTitle>{t("adminTreasury.fundDetail", "세부 사용 계획")}</CardTitle>
+                    <CardDescription>{t("adminTreasury.categoryBreakdown", "카테고리별 세부 내역")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ScrollArea className="h-80">
+                      <div className="space-y-4">
+                        {FUND_USAGE.map((fund, idx) => (
+                          <div key={fund.category} className="space-y-2" data-testid={`fund-detail-${idx}`}>
+                            <div className="flex items-center justify-between">
+                              <span className="font-medium">{fund.category}</span>
+                              <span className="text-green-500 font-bold">${fund.amount}M</span>
+                            </div>
+                            <div className="pl-4 space-y-1">
+                              {fund.subcategories.map((sub, subIdx) => (
+                                <div key={subIdx} className="flex items-center justify-between text-sm text-muted-foreground">
+                                  <span>{sub.name}</span>
+                                  <span>${sub.amount}M</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* DAO 트레저리 탭 */}
+          <TabsContent value="daoTreasury">
+            <div className="space-y-6">
+              {/* 요약 카드 */}
+              <div className="grid grid-cols-4 gap-4">
+                <Card className="col-span-1 bg-gradient-to-br from-purple-500/10 to-indigo-500/10" data-testid="card-dao-total">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Landmark className="w-5 h-5 text-purple-500" />
+                      <span className="text-sm text-muted-foreground">{t("adminTreasury.daoTotal", "DAO 트레저리")}</span>
+                    </div>
+                    <div className="text-3xl font-bold" data-testid="text-dao-total">{DAO_TREASURY.totalAmount}억 TBURN</div>
+                    <div className="text-sm text-muted-foreground">{t("adminTreasury.communityControlled", "커뮤니티 관리")}</div>
+                  </CardContent>
+                </Card>
+                <Card data-testid="card-dao-limit-quarter">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="w-5 h-5 text-blue-500" />
+                      <span className="text-sm text-muted-foreground">{t("adminTreasury.quarterlyLimit", "분기별 한도")}</span>
+                    </div>
+                    <div className="text-2xl font-bold">{DAO_TREASURY.usageLimits.perQuarter}억 TBURN</div>
+                    <div className="text-sm text-muted-foreground">{t("adminTreasury.maxPerQuarter", "최대 사용")}</div>
+                  </CardContent>
+                </Card>
+                <Card data-testid="card-dao-limit-year">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="w-5 h-5 text-orange-500" />
+                      <span className="text-sm text-muted-foreground">{t("adminTreasury.yearlyLimit", "연간 한도")}</span>
+                    </div>
+                    <div className="text-2xl font-bold">{DAO_TREASURY.usageLimits.perYear}억 TBURN</div>
+                    <div className="text-sm text-muted-foreground">{t("adminTreasury.maxPerYear", "최대 사용")}</div>
+                  </CardContent>
+                </Card>
+                <Card data-testid="card-dao-proposal-threshold">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Vote className="w-5 h-5 text-green-500" />
+                      <span className="text-sm text-muted-foreground">{t("adminTreasury.proposalThreshold", "제안 요건")}</span>
+                    </div>
+                    <div className="text-2xl font-bold">{DAO_TREASURY.governance.proposalThreshold.toLocaleString()}</div>
+                    <div className="text-sm text-muted-foreground">TBURN</div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {/* 거버넌스 규칙 */}
+                <Card data-testid="card-dao-governance">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="w-5 h-5" />
+                      {t("adminTreasury.governanceRules", "거버넌스 규칙")}
+                    </CardTitle>
+                    <CardDescription>{t("adminTreasury.governanceDesc", "DAO 투표 및 승인 기준")}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 bg-muted/50 rounded-lg" data-testid="governance-general">
+                        <div className="text-sm text-muted-foreground mb-2">{t("adminTreasury.generalProposals", "일반 제안")}</div>
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-sm">
+                            <span>정족수:</span>
+                            <span className="font-medium">{DAO_TREASURY.governance.quorumGeneral}%</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span>승인:</span>
+                            <span className="font-medium">{DAO_TREASURY.governance.approvalGeneral}%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-4 bg-muted/50 rounded-lg" data-testid="governance-important">
+                        <div className="text-sm text-muted-foreground mb-2">{t("adminTreasury.importantProposals", "중요 제안")}</div>
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-sm">
+                            <span>정족수:</span>
+                            <span className="font-medium">{DAO_TREASURY.governance.quorumImportant}%</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span>승인:</span>
+                            <span className="font-medium">{DAO_TREASURY.governance.approvalImportant}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4 mt-4">
+                      <div className="p-3 bg-muted/50 rounded-lg text-center" data-testid="governance-voting-period">
+                        <div className="text-xs text-muted-foreground">{t("adminTreasury.votingPeriod", "투표 기간")}</div>
+                        <div className="text-lg font-bold">{DAO_TREASURY.governance.votingPeriodDays}일</div>
+                      </div>
+                      <div className="p-3 bg-muted/50 rounded-lg text-center" data-testid="governance-discussion-period">
+                        <div className="text-xs text-muted-foreground">{t("adminTreasury.discussionPeriod", "토론 기간")}</div>
+                        <div className="text-lg font-bold">{DAO_TREASURY.governance.discussionPeriodDays}일</div>
+                      </div>
+                      <div className="p-3 bg-muted/50 rounded-lg text-center" data-testid="governance-validator-weight">
+                        <div className="text-xs text-muted-foreground">{t("adminTreasury.validatorWeight", "검증자 가중치")}</div>
+                        <div className="text-lg font-bold">{DAO_TREASURY.governance.validatorWeight}x</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* DAO 자금 배분 */}
+                <Card data-testid="card-dao-allocations">
+                  <CardHeader>
+                    <CardTitle>{t("adminTreasury.daoAllocations", "DAO 자금 용도")}</CardTitle>
+                    <CardDescription>{t("adminTreasury.daoAllocationsDesc", "커뮤니티 승인 사용처")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Table data-testid="table-dao-allocations">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminTreasury.category", "카테고리")}</TableHead>
+                          <TableHead>{t("adminTreasury.amount", "금액")}</TableHead>
+                          <TableHead>{t("adminTreasury.description", "설명")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {DAO_TREASURY.allocations.map((alloc, idx) => (
+                          <TableRow key={idx} data-testid={`row-dao-alloc-${idx}`}>
+                            <TableCell className="font-medium">{alloc.category}</TableCell>
+                            <TableCell className="text-purple-500 font-medium">{alloc.amount}억</TableCell>
+                            <TableCell className="text-sm text-muted-foreground">{alloc.description}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="budget">

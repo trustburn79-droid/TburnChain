@@ -32,7 +32,12 @@ import {
   formatMarketCap,
   getPhaseColor,
   getSupplyChartData,
-  getPriceChartData
+  getPriceChartData,
+  GENESIS_DISTRIBUTION,
+  INVESTOR_ROUNDS,
+  INVESTOR_ROI_DATA,
+  TOTAL_FUNDRAISING,
+  getGenesisDistributionChartData
 } from "@/lib/tokenomics-engine";
 
 type ScenarioType = 'conservative' | 'neutral' | 'optimistic';
@@ -306,9 +311,15 @@ export default function TokenomicsSimulation() {
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="simulation" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="simulation" data-testid="tab-simulation">
             {t('tokenomics.tabs.simulation', 'Simulation Table')}
+          </TabsTrigger>
+          <TabsTrigger value="genesis" data-testid="tab-genesis">
+            {t('tokenomics.tabs.genesis', 'Genesis Distribution')}
+          </TabsTrigger>
+          <TabsTrigger value="investors" data-testid="tab-investors">
+            {t('tokenomics.tabs.investors', 'Investors')}
           </TabsTrigger>
           <TabsTrigger value="charts" data-testid="tab-charts">
             {t('tokenomics.tabs.charts', 'Charts')}
@@ -406,6 +417,182 @@ export default function TokenomicsSimulation() {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* Genesis Distribution Tab */}
+        <TabsContent value="genesis" className="space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Genesis Distribution Pie Chart */}
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('tokenomics.genesisDistribution', 'Genesis Distribution')}</CardTitle>
+                <CardDescription>
+                  {t('tokenomics.genesisDistributionDesc', '100억 TBURN Initial Token Allocation')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80" data-testid="chart-genesis-distribution">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={getGenesisDistributionChartData()} layout="vertical">
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis type="number" unit="억" />
+                      <YAxis dataKey="name" type="category" width={120} />
+                      <Tooltip formatter={(value) => [`${value}억 TBURN`, t('tokenomics.amount', 'Amount')]} />
+                      <Bar dataKey="value" fill="hsl(var(--primary))">
+                        {getGenesisDistributionChartData().map((_, index) => {
+                          const COLORS = ['#22c55e', '#3b82f6', '#f59e0b', '#8b5cf6', '#ef4444'];
+                          return <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />;
+                        })}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Genesis Categories Detail */}
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('tokenomics.categoryDetail', 'Category Details')}</CardTitle>
+                <CardDescription>
+                  {t('tokenomics.categoryDetailDesc', 'Allocation breakdown by category')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {GENESIS_DISTRIBUTION.map((cat, idx) => {
+                  const COLORS = ['bg-green-500', 'bg-blue-500', 'bg-amber-500', 'bg-purple-500', 'bg-red-500'];
+                  return (
+                    <div key={cat.id} className="space-y-2" data-testid={`genesis-category-${cat.id}`}>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-3 h-3 rounded-full ${COLORS[idx % COLORS.length]}`} />
+                          <span className="font-medium">{cat.name}</span>
+                        </div>
+                        <Badge variant="outline">{cat.percentage}%</Badge>
+                      </div>
+                      <Progress value={cat.percentage} className="h-2" />
+                      <div className="text-sm text-muted-foreground">{cat.amount}억 TBURN</div>
+                      {cat.subcategories && (
+                        <div className="pl-4 space-y-1 text-xs text-muted-foreground">
+                          {cat.subcategories.map(sub => (
+                            <div key={sub.id} className="flex justify-between">
+                              <span>{sub.name}</span>
+                              <span>{sub.amount}억 ({sub.percentage}%)</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Investors Tab */}
+        <TabsContent value="investors" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Card className="md:col-span-1 bg-gradient-to-br from-green-500/10 to-emerald-500/10" data-testid="card-investor-total">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <DollarSign className="h-5 w-5 text-green-500" />
+                  <span className="text-sm text-muted-foreground">{t('tokenomics.totalRaised', 'Total Raised')}</span>
+                </div>
+                <div className="text-3xl font-bold">${TOTAL_FUNDRAISING}M</div>
+                <p className="text-xs text-muted-foreground">{t('tokenomics.fromAllRounds', 'from all rounds')}</p>
+              </CardContent>
+            </Card>
+            {INVESTOR_ROUNDS.map((round) => (
+              <Card key={round.id} data-testid={`card-investor-round-${round.id}`}>
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Users className="h-5 w-5 text-blue-500" />
+                    <span className="text-sm text-muted-foreground">{round.name}</span>
+                  </div>
+                  <div className="text-2xl font-bold">${round.raised}M</div>
+                  <p className="text-xs text-muted-foreground">@ ${round.price.toFixed(2)}/TBURN</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Investor Round Details */}
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('tokenomics.roundDetails', 'Round Details')}</CardTitle>
+                <CardDescription>{t('tokenomics.roundDetailsDesc', 'Allocation and vesting by round')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table data-testid="table-investor-details">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.round', 'Round')}</TableHead>
+                      <TableHead>{t('tokenomics.allocation', 'Allocation')}</TableHead>
+                      <TableHead>{t('tokenomics.price', 'Price')}</TableHead>
+                      <TableHead>{t('tokenomics.vestingSchedule', 'Vesting')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {INVESTOR_ROUNDS.map((round) => (
+                      <TableRow key={round.id} data-testid={`row-investor-detail-${round.id}`}>
+                        <TableCell>
+                          <Badge variant={round.id === 'seed' ? 'default' : round.id === 'private' ? 'secondary' : 'outline'}>
+                            {round.name}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="font-medium">{round.allocation}억</div>
+                          <div className="text-xs text-muted-foreground">{round.allocationPercent}%</div>
+                        </TableCell>
+                        <TableCell>${round.price.toFixed(2)}</TableCell>
+                        <TableCell className="text-xs">
+                          <div>TGE: {round.tgePercent}%</div>
+                          <div>Cliff: {round.cliffMonths}mo</div>
+                          <div>Vest: {round.vestingMonths}mo</div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+
+            {/* Investor ROI Projections */}
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('tokenomics.roiProjections', 'ROI Projections')}</CardTitle>
+                <CardDescription>{t('tokenomics.roiProjectionsDesc', 'Neutral scenario returns by round')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table data-testid="table-investor-roi">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.round', 'Round')}</TableHead>
+                      <TableHead>{t('tokenomics.entry', 'Entry')}</TableHead>
+                      <TableHead>Y1</TableHead>
+                      <TableHead>Y5</TableHead>
+                      <TableHead>Y10</TableHead>
+                      <TableHead>Y20</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {INVESTOR_ROI_DATA.map((roi) => (
+                      <TableRow key={roi.roundId} data-testid={`row-investor-roi-${roi.roundId}`}>
+                        <TableCell className="font-medium">{roi.roundId.toUpperCase()}</TableCell>
+                        <TableCell>${roi.entryPrice.toFixed(2)}</TableCell>
+                        <TableCell className="text-green-500">{roi.y1.roi.toFixed(1)}x</TableCell>
+                        <TableCell className="text-green-500">{roi.y5.roi.toFixed(1)}x</TableCell>
+                        <TableCell className="text-green-500">{roi.y10.roi.toFixed(1)}x</TableCell>
+                        <TableCell className="text-green-500 font-bold">{roi.y20.roi.toFixed(1)}x</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
 
         {/* Charts Tab */}
