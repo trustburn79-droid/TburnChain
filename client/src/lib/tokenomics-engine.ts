@@ -766,27 +766,30 @@ export interface GenesisSubcategory {
  */
 export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
   {
-    id: 'block_rewards',
-    name: '블록 보상 리저브',
-    nameKey: 'tokenomics.genesis.blockRewards',
-    amount: 23,
-    percentage: 23,
-    description: '검증자 보상을 통한 네트워크 보안 유지 (20년 지속 가능)',
-    descriptionKey: 'tokenomics.genesis.blockRewards.desc'
-  },
-  {
     id: 'community',
-    name: '커뮤니티 & 에어드랍',
+    name: '커뮤니티',
     nameKey: 'tokenomics.genesis.community',
     amount: 30,
     percentage: 30,
-    description: '진정한 탈중앙화 및 커뮤니티 주도 성장',
+    description: '커뮤니티 보상, 에어드랍 및 탈중앙화 성장 이니셔티브',
     descriptionKey: 'tokenomics.genesis.community.desc',
     subcategories: [
-      { id: 'initial_validators', name: '초기 검증자', nameKey: 'tokenomics.genesis.initialValidators', amount: 8, percentage: 26.7 },
-      { id: 'airdrop', name: '에어드랍 프로그램', nameKey: 'tokenomics.genesis.airdrop', amount: 10, percentage: 33.3 },
-      { id: 'community_rewards', name: '커뮤니티 보상', nameKey: 'tokenomics.genesis.communityRewards', amount: 7, percentage: 23.3 },
-      { id: 'dao_treasury', name: 'DAO 트레저리', nameKey: 'tokenomics.genesis.daoTreasury', amount: 5, percentage: 16.7 }
+      { id: 'airdrop', name: '에어드랍 프로그램', nameKey: 'tokenomics.genesis.airdrop', amount: 12, percentage: 40 },
+      { id: 'community_rewards', name: '커뮤니티 보상', nameKey: 'tokenomics.genesis.communityRewards', amount: 10, percentage: 33.3 },
+      { id: 'dao_treasury', name: 'DAO 트레저리', nameKey: 'tokenomics.genesis.daoTreasury', amount: 8, percentage: 26.7 }
+    ]
+  },
+  {
+    id: 'rewards',
+    name: '리워드',
+    nameKey: 'tokenomics.genesis.rewards',
+    amount: 23,
+    percentage: 23,
+    description: '네트워크 보안을 위한 블록 보상 및 검증자 인센티브',
+    descriptionKey: 'tokenomics.genesis.rewards.desc',
+    subcategories: [
+      { id: 'block_rewards', name: '블록 보상', nameKey: 'tokenomics.genesis.blockRewards', amount: 15, percentage: 65.2 },
+      { id: 'validator_incentives', name: '검증자 인센티브', nameKey: 'tokenomics.genesis.validatorIncentives', amount: 8, percentage: 34.8 }
     ]
   },
   {
@@ -795,7 +798,7 @@ export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
     nameKey: 'tokenomics.genesis.investors',
     amount: 20,
     percentage: 20,
-    description: '초기 개발 자금 조달 및 유동성 확보',
+    description: '시드, 프라이빗 및 퍼블릭 라운드 배분 (베스팅 스케줄 포함)',
     descriptionKey: 'tokenomics.genesis.investors.desc',
     subcategories: [
       { id: 'seed', name: 'Seed Round', nameKey: 'tokenomics.genesis.seed', amount: 5, percentage: 25 },
@@ -804,27 +807,26 @@ export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
     ]
   },
   {
-    id: 'foundation',
-    name: '재단 & 생태계',
-    nameKey: 'tokenomics.genesis.foundation',
+    id: 'ecosystem',
+    name: '생태계',
+    nameKey: 'tokenomics.genesis.ecosystem',
     amount: 15,
     percentage: 15,
-    description: '장기 운영 및 생태계 개발 지원',
-    descriptionKey: 'tokenomics.genesis.foundation.desc',
+    description: '그랜트, 파트너십 및 생태계 개발 이니셔티브',
+    descriptionKey: 'tokenomics.genesis.ecosystem.desc',
     subcategories: [
-      { id: 'foundation_ops', name: '재단 운영', nameKey: 'tokenomics.genesis.foundationOps', amount: 5, percentage: 33.3 },
-      { id: 'ecosystem_fund', name: '생태계 펀드', nameKey: 'tokenomics.genesis.ecosystemFund', amount: 7, percentage: 46.7 },
-      { id: 'marketing', name: '마케팅 & 성장', nameKey: 'tokenomics.genesis.marketing', amount: 2, percentage: 13.3 },
-      { id: 'partnerships', name: '파트너십', nameKey: 'tokenomics.genesis.partnerships', amount: 1, percentage: 6.7 }
+      { id: 'ecosystem_fund', name: '생태계 펀드', nameKey: 'tokenomics.genesis.ecosystemFund', amount: 8, percentage: 53.3 },
+      { id: 'partnerships', name: '파트너십', nameKey: 'tokenomics.genesis.partnerships', amount: 4, percentage: 26.7 },
+      { id: 'marketing', name: '마케팅 & 성장', nameKey: 'tokenomics.genesis.marketing', amount: 3, percentage: 20 }
     ]
   },
   {
     id: 'team',
-    name: '팀 & 어드바이저',
+    name: '팀',
     nameKey: 'tokenomics.genesis.team',
     amount: 12,
     percentage: 12,
-    description: '핵심 팀 동기부여 및 장기 참여 유도',
+    description: '4년 베스팅 스케줄이 있는 코어 팀 및 어드바이저',
     descriptionKey: 'tokenomics.genesis.team.desc',
     subcategories: [
       { id: 'core_team', name: '코어 팀', nameKey: 'tokenomics.genesis.coreTeam', amount: 8, percentage: 66.7 },

@@ -8381,6 +8381,26 @@
               "percentage": "5%"
             }
           },
+          "community": {
+            "title": "Community",
+            "subtitle": "Community rewards, airdrops, and decentralized growth initiatives"
+          },
+          "rewards": {
+            "title": "Rewards",
+            "subtitle": "Block rewards and validator incentives for network security"
+          },
+          "investors": {
+            "title": "Investors",
+            "subtitle": "Seed, private, and public round allocations with vesting schedules"
+          },
+          "ecosystem": {
+            "title": "Ecosystem",
+            "subtitle": "Grants, partnerships, and ecosystem development initiatives"
+          },
+          "team": {
+            "title": "Team",
+            "subtitle": "Core team and advisors with 4-year vesting schedule"
+          },
           "ecosystemFund": {
             "title": "Ecosystem Fund",
             "subtitle": "Grants, partnerships, and ecosystem development initiatives"

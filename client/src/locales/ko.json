@@ -8619,6 +8619,26 @@
               "percentage": "5%"
             }
           },
+          "community": {
+            "title": "커뮤니티",
+            "subtitle": "커뮤니티 보상, 에어드랍 및 탈중앙화 성장 이니셔티브"
+          },
+          "rewards": {
+            "title": "리워드",
+            "subtitle": "네트워크 보안을 위한 블록 보상 및 검증자 인센티브"
+          },
+          "investors": {
+            "title": "투자자",
+            "subtitle": "시드, 프라이빗 및 퍼블릭 라운드 배분 (베스팅 스케줄 포함)"
+          },
+          "ecosystem": {
+            "title": "생태계",
+            "subtitle": "그랜트, 파트너십 및 생태계 개발 이니셔티브"
+          },
+          "team": {
+            "title": "팀",
+            "subtitle": "4년 베스팅 스케줄이 있는 코어 팀 및 어드바이저"
+          },
           "validatorRewards": {
             "title": "검증자 보상",
             "subtitle": "네트워크 보안을 위한 블록 보상 및 검증 인센티브"

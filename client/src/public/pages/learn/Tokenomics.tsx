@@ -20,10 +20,11 @@ export default function Tokenomics() {
   ];
 
   const tokenDistribution = [
-    { percent: "30%", title: t('publicPages.learn.tokenomics.distribution.validatorRewards.title'), subtitle: t('publicPages.learn.tokenomics.distribution.validatorRewards.subtitle'), color: "#7000ff" },
-    { percent: "25%", title: t('publicPages.learn.tokenomics.distribution.ecosystemFund.title'), subtitle: t('publicPages.learn.tokenomics.distribution.ecosystemFund.subtitle'), color: "#00f0ff" },
-    { percent: "15%", title: t('publicPages.learn.tokenomics.distribution.teamAdvisors.title'), subtitle: t('publicPages.learn.tokenomics.distribution.teamAdvisors.subtitle'), color: "#00ff9d" },
-    { percent: "12%", title: t('publicPages.learn.tokenomics.distribution.foundationReserve.title'), subtitle: t('publicPages.learn.tokenomics.distribution.foundationReserve.subtitle'), color: "#ffb800" },
+    { percent: "30%", title: t('publicPages.learn.tokenomics.distribution.community.title'), subtitle: t('publicPages.learn.tokenomics.distribution.community.subtitle'), color: "#7000ff" },
+    { percent: "23%", title: t('publicPages.learn.tokenomics.distribution.rewards.title'), subtitle: t('publicPages.learn.tokenomics.distribution.rewards.subtitle'), color: "#00f0ff" },
+    { percent: "20%", title: t('publicPages.learn.tokenomics.distribution.investors.title'), subtitle: t('publicPages.learn.tokenomics.distribution.investors.subtitle'), color: "#00ff9d" },
+    { percent: "15%", title: t('publicPages.learn.tokenomics.distribution.ecosystem.title'), subtitle: t('publicPages.learn.tokenomics.distribution.ecosystem.subtitle'), color: "#ffb800" },
+    { percent: "12%", title: t('publicPages.learn.tokenomics.distribution.team.title'), subtitle: t('publicPages.learn.tokenomics.distribution.team.subtitle'), color: "#ff0055" },
   ];
 
   const burnMechanisms = [
@@ -183,71 +184,58 @@ export default function Tokenomics() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Donut Chart */}
+            {/* Donut Chart - 5 segments: 30%, 23%, 20%, 15%, 12% */}
             <div className="relative w-full max-w-md mx-auto aspect-square">
               <svg viewBox="0 0 100 100" className="transform -rotate-90 w-full h-full">
+                {/* Community 30% - #7000ff */}
                 <circle 
                   className="transition-all duration-300 hover:opacity-80 cursor-pointer" 
                   cx="50" cy="50" r="40" 
                   fill="transparent" 
                   stroke="#7000ff" 
                   strokeWidth="15" 
-                  strokeDasharray="94.2 314" 
+                  strokeDasharray="75.4 251.3" 
                   strokeDashoffset="0"
                 />
+                {/* Rewards 23% - #00f0ff */}
                 <circle 
                   className="transition-all duration-300 hover:opacity-80 cursor-pointer" 
                   cx="50" cy="50" r="40" 
                   fill="transparent" 
                   stroke="#00f0ff" 
                   strokeWidth="15" 
-                  strokeDasharray="78.5 314" 
-                  strokeDashoffset="-94.2"
+                  strokeDasharray="57.8 251.3" 
+                  strokeDashoffset="-75.4"
                 />
+                {/* Investors 20% - #00ff9d */}
                 <circle 
                   className="transition-all duration-300 hover:opacity-80 cursor-pointer" 
                   cx="50" cy="50" r="40" 
                   fill="transparent" 
                   stroke="#00ff9d" 
                   strokeWidth="15" 
-                  strokeDasharray="47.1 314" 
-                  strokeDashoffset="-172.7"
+                  strokeDasharray="50.3 251.3" 
+                  strokeDashoffset="-133.2"
                 />
+                {/* Ecosystem 15% - #ffb800 */}
                 <circle 
                   className="transition-all duration-300 hover:opacity-80 cursor-pointer" 
                   cx="50" cy="50" r="40" 
                   fill="transparent" 
                   stroke="#ffb800" 
                   strokeWidth="15" 
-                  strokeDasharray="37.7 314" 
-                  strokeDashoffset="-219.8"
+                  strokeDasharray="37.7 251.3" 
+                  strokeDashoffset="-183.5"
                 />
+                {/* Team 12% - #ff0055 */}
                 <circle 
                   className="transition-all duration-300 hover:opacity-80 cursor-pointer" 
                   cx="50" cy="50" r="40" 
                   fill="transparent" 
                   stroke="#ff0055" 
                   strokeWidth="15" 
-                  strokeDasharray="31.4 314" 
-                  strokeDashoffset="-257.5"
-                />
-                <circle 
-                  className="transition-all duration-300 hover:opacity-80 cursor-pointer" 
-                  cx="50" cy="50" r="40" 
-                  fill="transparent" 
-                  stroke="#ff00ff" 
-                  strokeWidth="15" 
-                  strokeDasharray="15.7 314" 
-                  strokeDashoffset="-288.9"
-                />
-                <circle 
-                  className="transition-all duration-300 hover:opacity-80 cursor-pointer" 
-                  cx="50" cy="50" r="40" 
-                  fill="transparent" 
-                  stroke="#ffffff" 
-                  strokeWidth="15" 
-                  strokeDasharray="9.4 314" 
-                  strokeDashoffset="-304.6"
+                  strokeDasharray="30.2 251.3" 
+                  strokeDashoffset="-221.2"
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
