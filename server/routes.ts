@@ -903,9 +903,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.method === "GET" && req.path.startsWith("/wallet/")) {
       return next();
     }
+    // Skip auth check for newsletter subscribe (public endpoint)
+    if (req.method === "POST" && req.path === "/newsletter/subscribe") {
+      return next();
+    }
     requireAuth(req, res, next);
   });
-
   // ============================================
   // DEX INFRASTRUCTURE (Modular Routes)
   // ============================================

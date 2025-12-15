@@ -94,10 +94,7 @@ export function PublicFooter() {
 
   const subscribeMutation = useMutation({
     mutationFn: async (emailToSubmit: string) => {
-      return apiRequest("/api/newsletter/subscribe", {
-        method: "POST",
-        body: JSON.stringify({ email: emailToSubmit, source: "footer" }),
-      });
+      return apiRequest("POST", "/api/newsletter/subscribe", { email: emailToSubmit, source: "footer" });
     },
     onSuccess: () => {
       toast({ title: t('publicPages.footer.subscribeSuccess') || "구독 완료!", description: t('publicPages.footer.subscribeSuccessDesc') || "뉴스레터 구독이 완료되었습니다." });
