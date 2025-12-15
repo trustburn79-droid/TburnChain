@@ -32,6 +32,7 @@ import {
   LayoutDashboard,
   Link2,
   Lock,
+  Mail,
   MessageSquare,
   Monitor,
   Network,
@@ -181,6 +182,9 @@ const adminMenuItems = [
   
   // Group 16: Genesis Launch
   { titleKey: "adminNav.genesisLaunch", url: "/admin/genesis", icon: Rocket, groupKey: "adminNav.genesisLaunch", badge: "NEW" },
+  
+  // Group 17: Marketing
+  { titleKey: "adminNav.newsletterManagement", url: "/admin/newsletter", icon: Mail, groupKey: "adminNav.marketing", badge: null },
 ];
 
 const groupOrder = [
@@ -200,6 +204,7 @@ const groupOrder = [
   "adminNav.financeAccounting",
   "adminNav.educationSupport",
   "adminNav.genesisLaunch",
+  "adminNav.marketing",
 ];
 
 export function AdminPortalSidebar() {

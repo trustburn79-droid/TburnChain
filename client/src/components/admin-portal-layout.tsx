@@ -118,6 +118,9 @@ import AdminTickets from "@/pages/admin-portal/tickets";
 import AdminFeedback from "@/pages/admin-portal/feedback";
 import AdminAnnouncements from "@/pages/admin-portal/announcements";
 
+// Group 17: Marketing
+import AdminNewsletter from "@/pages/admin-portal/newsletter";
+
 function AdminRouter() {
   return (
     <Switch>
@@ -237,6 +240,9 @@ function AdminRouter() {
 
       {/* Group 16: Genesis Launch */}
       <Route path="/admin/genesis" component={AdminGenesisLaunch} />
+
+      {/* Group 17: Marketing */}
+      <Route path="/admin/newsletter" component={AdminNewsletter} />
 
       {/* Default fallback */}
       <Route component={UnifiedDashboard} />
