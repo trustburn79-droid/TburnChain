@@ -1,8 +1,11 @@
 import { Link } from "wouter";
 import { SiX, SiGithub, SiDiscord, SiTelegram, SiMedium } from "react-icons/si";
-import { Mail, Globe, Shield, Zap, Flame } from "lucide-react";
+import { Mail, Globe, Shield, Zap, Flame, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 import "../styles/public.css";
 
 const socialLinks = [
@@ -81,11 +84,37 @@ const quickLinks = [
 
 export function PublicFooter() {
   const { t } = useTranslation();
+  const [email, setEmail] = useState("");
+  const { toast } = useToast();
 
   const { data: networkStats } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/public/v1/network/stats'],
     refetchInterval: 30000,
   });
+
+  const subscribeMutation = useMutation({
+    mutationFn: async (emailToSubmit: string) => {
+      return apiRequest("/api/newsletter/subscribe", {
+        method: "POST",
+        body: JSON.stringify({ email: emailToSubmit, source: "footer" }),
+      });
+    },
+    onSuccess: () => {
+      toast({ title: t('publicPages.footer.subscribeSuccess') || "구독 완료!", description: t('publicPages.footer.subscribeSuccessDesc') || "뉴스레터 구독이 완료되었습니다." });
+      setEmail("");
+    },
+    onError: (error: any) => {
+      toast({ title: t('publicPages.footer.subscribeError') || "오류", description: error?.message || t('publicPages.footer.subscribeErrorDesc') || "구독 처리 중 오류가 발생했습니다.", variant: "destructive" });
+    },
+  });
+
+  const handleSubscribe = () => {
+    if (!email.trim()) {
+      toast({ title: t('publicPages.footer.emailRequired') || "이메일 필요", description: t('publicPages.footer.enterValidEmail') || "이메일 주소를 입력해주세요.", variant: "destructive" });
+      return;
+    }
+    subscribeMutation.mutate(email);
+  };
 
   const stats = networkStats?.data ? [
     { 
@@ -285,14 +314,21 @@ export function PublicFooter() {
             <div className="flex gap-2 w-full md:w-auto">
               <input 
                 type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
                 placeholder={t('publicPages.footer.enterEmail')}
                 className="flex-1 md:w-64 px-4 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm placeholder:text-gray-500 focus:border-[#00f0ff] focus:outline-none transition"
                 data-testid="input-footer-email"
+                disabled={subscribeMutation.isPending}
               />
               <button 
-                className="px-5 py-2.5 rounded-lg bg-[#7000ff] text-white font-semibold text-sm hover:bg-purple-600 transition whitespace-nowrap"
+                onClick={handleSubscribe}
+                disabled={subscribeMutation.isPending}
+                className="px-5 py-2.5 rounded-lg bg-[#7000ff] text-white font-semibold text-sm hover:bg-purple-600 transition whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 data-testid="button-footer-subscribe"
               >
+                {subscribeMutation.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
                 {t('publicPages.footer.subscribe')}
               </button>
             </div>

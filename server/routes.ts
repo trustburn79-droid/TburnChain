@@ -15,10 +15,13 @@ import {
   aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema,
   shardsSnapshotSchema,
   consensusStateSchema,
+  newsletterSubscribers,
   type InsertMember,
   type NetworkStats
 } from "@shared/schema";
 import { z } from "zod";
+import { eq, desc, sql } from "drizzle-orm";
+import { db } from "./db";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 import { ValidatorSimulationService } from "./validator-simulation";
 import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
@@ -15747,6 +15750,158 @@ Provide JSON portfolio analysis:
   // ============================================
   registerCommunityRoutes(app);
   console.log("[Community] Routes registered successfully");
+
+  // ============================================
+  // NEWSLETTER SUBSCRIPTION SYSTEM
+  // ============================================
+  
+  // Public: Subscribe to newsletter
+  app.post("/api/newsletter/subscribe", async (req, res) => {
+    try {
+      const { email, source } = req.body;
+      
+      if (!email || typeof email !== 'string') {
+        return res.status(400).json({ success: false, error: "이메일 주소가 필요합니다" });
+      }
+      
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return res.status(400).json({ success: false, error: "올바른 이메일 형식이 아닙니다" });
+      }
+      
+      // Get client IP
+      const ipAddress = req.ip || req.headers['x-forwarded-for']?.toString().split(',')[0] || 'unknown';
+      
+      // Check if already subscribed
+      const existing = await db.select().from(newsletterSubscribers).where(eq(newsletterSubscribers.email, email.toLowerCase())).limit(1);
+      
+      if (existing.length > 0) {
+        if (existing[0].status === 'unsubscribed') {
+          // Resubscribe
+          await db.update(newsletterSubscribers)
+            .set({ status: 'active', unsubscribedAt: null, subscribedAt: new Date() })
+            .where(eq(newsletterSubscribers.email, email.toLowerCase()));
+          return res.json({ success: true, message: "뉴스레터 구독이 재활성화되었습니다" });
+        }
+        return res.status(409).json({ success: false, error: "이미 구독 중인 이메일입니다" });
+      }
+      
+      // Add new subscriber
+      const [subscriber] = await db.insert(newsletterSubscribers).values({
+        email: email.toLowerCase(),
+        source: source || 'footer',
+        ipAddress,
+        status: 'active',
+      }).returning();
+      
+      console.log(`[Newsletter] New subscriber: ${email}`);
+      res.json({ success: true, message: "뉴스레터 구독이 완료되었습니다", subscriber: { email: subscriber.email } });
+    } catch (error: any) {
+      console.error("[Newsletter] Subscribe error:", error);
+      res.status(500).json({ success: false, error: "구독 처리 중 오류가 발생했습니다" });
+    }
+  });
+  
+  // Admin: Get all subscribers
+  app.get("/api/admin/newsletter/subscribers", requireAuth, async (req, res) => {
+    try {
+      const { status, limit = 100, offset = 0 } = req.query;
+      
+      let query = db.select().from(newsletterSubscribers).orderBy(desc(newsletterSubscribers.subscribedAt));
+      
+      if (status && typeof status === 'string') {
+        query = query.where(eq(newsletterSubscribers.status, status)) as any;
+      }
+      
+      const subscribers = await query.limit(Number(limit)).offset(Number(offset));
+      const total = await db.select({ count: sql<number>`count(*)` }).from(newsletterSubscribers);
+      
+      res.json({
+        success: true,
+        subscribers,
+        total: Number(total[0]?.count || 0),
+        limit: Number(limit),
+        offset: Number(offset),
+      });
+    } catch (error: any) {
+      console.error("[Newsletter] Get subscribers error:", error);
+      res.status(500).json({ success: false, error: "구독자 조회 중 오류가 발생했습니다" });
+    }
+  });
+  
+  // Admin: Update subscriber status
+  app.patch("/api/admin/newsletter/subscribers/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      
+      if (!['active', 'unsubscribed'].includes(status)) {
+        return res.status(400).json({ success: false, error: "유효하지 않은 상태입니다" });
+      }
+      
+      const updateData: any = { status };
+      if (status === 'unsubscribed') {
+        updateData.unsubscribedAt = new Date();
+      }
+      
+      const [updated] = await db.update(newsletterSubscribers)
+        .set(updateData)
+        .where(eq(newsletterSubscribers.id, id))
+        .returning();
+      
+      if (!updated) {
+        return res.status(404).json({ success: false, error: "구독자를 찾을 수 없습니다" });
+      }
+      
+      res.json({ success: true, subscriber: updated });
+    } catch (error: any) {
+      console.error("[Newsletter] Update subscriber error:", error);
+      res.status(500).json({ success: false, error: "구독자 업데이트 중 오류가 발생했습니다" });
+    }
+  });
+  
+  // Admin: Delete subscriber
+  app.delete("/api/admin/newsletter/subscribers/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const [deleted] = await db.delete(newsletterSubscribers)
+        .where(eq(newsletterSubscribers.id, id))
+        .returning();
+      
+      if (!deleted) {
+        return res.status(404).json({ success: false, error: "구독자를 찾을 수 없습니다" });
+      }
+      
+      console.log(`[Newsletter] Deleted subscriber: ${deleted.email}`);
+      res.json({ success: true, message: "구독자가 삭제되었습니다" });
+    } catch (error: any) {
+      console.error("[Newsletter] Delete subscriber error:", error);
+      res.status(500).json({ success: false, error: "구독자 삭제 중 오류가 발생했습니다" });
+    }
+  });
+  
+  // Admin: Export subscribers (CSV)
+  app.get("/api/admin/newsletter/export", requireAuth, async (req, res) => {
+    try {
+      const subscribers = await db.select().from(newsletterSubscribers).orderBy(desc(newsletterSubscribers.subscribedAt));
+      
+      const csvHeader = "Email,Status,Source,Subscribed At,Unsubscribed At\n";
+      const csvRows = subscribers.map(s => 
+        `${s.email},${s.status},${s.source || 'footer'},${s.subscribedAt?.toISOString() || ''},${s.unsubscribedAt?.toISOString() || ''}`
+      ).join('\n');
+      
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=newsletter_subscribers.csv');
+      res.send(csvHeader + csvRows);
+    } catch (error: any) {
+      console.error("[Newsletter] Export error:", error);
+      res.status(500).json({ success: false, error: "내보내기 중 오류가 발생했습니다" });
+    }
+  });
+  
+  console.log("[Newsletter] Routes registered successfully");
 
   createTrackedInterval(async () => {
     if (clients.size === 0) return;

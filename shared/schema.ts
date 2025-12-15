@@ -6862,6 +6862,28 @@ export const genesisPreflightChecks = pgTable("genesis_preflight_checks", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// ============================================
+// Newsletter Subscribers
+// ============================================
+export const newsletterSubscribers = pgTable("newsletter_subscribers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  status: varchar("status", { length: 50 }).notNull().default("active"), // active, unsubscribed
+  source: varchar("source", { length: 100 }).default("footer"), // footer, popup, landing
+  ipAddress: varchar("ip_address", { length: 45 }),
+  subscribedAt: timestamp("subscribed_at").notNull().defaultNow(),
+  unsubscribedAt: timestamp("unsubscribed_at"),
+});
+
+export const insertNewsletterSubscriberSchema = createInsertSchema(newsletterSubscribers).omit({
+  id: true,
+  subscribedAt: true,
+  unsubscribedAt: true,
+});
+
+export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
+export type InsertNewsletterSubscriber = z.infer<typeof insertNewsletterSubscriberSchema>;
+
 // Genesis Insert Schemas
 export const insertGenesisConfigSchema = createInsertSchema(genesisConfig).omit({
   id: true,
