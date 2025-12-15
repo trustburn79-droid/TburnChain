@@ -36,6 +36,7 @@ import { registerCommunityRoutes } from "./routes/community-routes";
 import enterpriseRoutes from "./routes/enterprise-routes";
 import { registerPublicApiRoutes } from "./routes/public-api-routes";
 import { registerWalletDashboardRoutes } from "./routes/wallet-dashboard-routes";
+import { registerGenesisRoutes } from "./routes/genesis-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -933,6 +934,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   registerWalletDashboardRoutes(app, requireAuth);
   console.log("[Wallet Dashboard] ✅ Wallet dashboard routes registered");
+
+  // ============================================
+  // GENESIS BLOCK CREATION (Mainnet Launch)
+  // ============================================
+  registerGenesisRoutes(app);
+  console.log("[Genesis] ✅ Genesis block creation routes registered");
 
   // ============================================
   // Network Stats
