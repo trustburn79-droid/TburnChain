@@ -218,7 +218,7 @@
     "totalAccounts": "Total Accounts",
     "tburnPrice": "TBURN Price",
     "marketCap": "Market Cap",
-    "priceFormula": "= Price \u00d7 Circulating Supply",
+    "priceFormula": "= Price × Circulating Supply",
     "percentOnline": "{{percent}}% online",
     "tokenomicsEmission": "Tokenomics & Emission",
     "dailyEmission": "Daily Emission",
@@ -2192,7 +2192,7 @@
     "depositAmountWei": "Deposit Amount (Wei)",
     "enterAmountInWei": "Enter amount in Wei (e.g., 1000000000000000000)",
     "enterAmount": "Enter amount",
-    "approximateAmount": "\u2248 {{amount}} {{symbol}}",
+    "approximateAmount": "≈ {{amount}} {{symbol}}",
     "feeSummary": "Fee Summary",
     "cancel": "Cancel",
     "confirmDeposit": "Confirm Deposit",
@@ -2205,7 +2205,7 @@
     "sharesToWithdraw": "Shares to Withdraw",
     "enterSharesToWithdraw": "Enter shares to withdraw",
     "enterShares": "Enter shares",
-    "approximateShares": "\u2248 {{amount}} shares",
+    "approximateShares": "≈ {{amount}} shares",
     "withdrawalFeeWarning": "A {{fee}} fee will be applied to your withdrawal",
     "positionLocked": "Position Locked",
     "positionLockedUntil": "This position is locked until {{date}}",
@@ -2636,7 +2636,7 @@
       "trading": "Trading",
       "support": "Support",
       "announcements": "Announcements",
-    "genesisLaunch": "Genesis Launch"
+      "genesisLaunch": "Genesis Launch"
     },
     "eventTypes": {
       "ama": "AMA",
@@ -3328,7 +3328,7 @@
     "shardNetworkArchitecture": "{{count}}-shard network architecture",
     "messageQueue": "Message Queue",
     "messageRoutingStatus": "Real-time message routing and delivery status",
-    "fromTo": "From \u2192 To",
+    "fromTo": "From → To",
     "transactionHash": "Transaction Hash",
     "retryCount": "Retry Count",
     "retries": "retries",
@@ -3419,7 +3419,7 @@
       "contractCall": "Contract Call",
       "stateSync": "State Sync"
     },
-    "messageRoute": "Shard {{from}} \u2192 Shard {{to}}",
+    "messageRoute": "Shard {{from}} → Shard {{to}}",
     "routingPriority": "Routing Priority",
     "peerReputation": "Peer Reputation",
     "networkQuality": "Network Quality",
@@ -3981,7 +3981,7 @@
     "behavior2": "Replit automatically restarts the application (5-10s)",
     "behavior3": "Service reconnects to production mainnet at tburn1.replit.app",
     "behavior4": "Fresh data polling begins, block production resumes",
-    "behavior5": "Status changes from PAUSED \u2192 ACTIVE, TPS returns to normal",
+    "behavior5": "Status changes from PAUSED → ACTIVE, TPS returns to normal",
     "recoveryTime": "Recovery Time:",
     "recoveryDescription": "Service restart: 5-10 seconds (automatic) | Data sync: 10-20 seconds | Full recovery: 30-60 seconds total. Monitor \"Last Block\" and \"Current TPS\" metrics above to confirm successful restart.",
     "confirmRestartTitle": "Confirm Mainnet Restart",
@@ -4961,8 +4961,8 @@
       "noSlashingEvents": "No slashing events",
       "applicationApproved": "Application Approved",
       "applicationRejected": "Application Rejected",
-      "resolved": "\ud574\uacb0\ub428",
-      "actionFailed": "\uc791\uc5c5\uc5d0 Failed\ud588\uc2b5\ub2c8\ub2e4"
+      "resolved": "해결됨",
+      "actionFailed": "작업에 Failed했습니다"
     },
     "security": {
       "title": "Security Audit",
@@ -5218,18 +5218,18 @@
         "system": "System",
         "api": "API"
       },
-      "refresh": "\uc0c8\ub85c\uace0\uce68",
-      "today": "\uc624\ub298",
-      "threats": "\uc704\ud611",
+      "refresh": "새로고침",
+      "today": "오늘",
+      "threats": "위협",
       "auditLogsTab": "Audit Log",
-      "activeSecurityEvents": "Active Security \uc774\ubca4\ud2b8 \ubaa8\ub2c8\ud130\ub9c1",
-      "searchPlaceholder": "\uc774\ubca4\ud2b8 Search...",
-      "filterBySeverity": "\uc2ec\uac01\ub3c4\ub85c Filter",
-      "allSeverity": "\ubaa8\ub4e0 \uc2ec\uac01\ub3c4",
+      "activeSecurityEvents": "Active Security 이벤트 모니터링",
+      "searchPlaceholder": "이벤트 Search...",
+      "filterBySeverity": "심각도로 Filter",
+      "allSeverity": "모든 심각도",
       "status": "Status",
-      "detectedAt": "\ud0d0\uc9c0\uc77c",
-      "resolvedAt": "\ud574\uacb0\uc77c",
-      "logNewEvent": "\uc0c8 \uc774\ubca4\ud2b8 \uae30\ub85d"
+      "detectedAt": "탐지일",
+      "resolvedAt": "해결일",
+      "logNewEvent": "새 이벤트 기록"
     },
     "reports": {
       "title": "Compliance Reports",
@@ -6361,7 +6361,7 @@
       "network": "Network"
     },
     "footer": {
-      "copyright": "\u00a9 2025 TBurn Chain Foundation.",
+      "copyright": "© 2025 TBurn Chain Foundation.",
       "allSystemsOperational": "All systems operational.",
       "privacy": "Privacy",
       "terms": "Terms",
@@ -6503,7 +6503,7 @@
       "startDate": "Start Date",
       "viewDetails": "View Details"
     },
-    "overview": "\uac1c\uc694",
+    "overview": "개요",
     "proposal": {
       "title": "Proposal",
       "description": "Description",
@@ -6557,87 +6557,87 @@
       "failedDesc": "Failed to create proposal. Please try again."
     },
     "voting": "Vote",
-    "treasury": "\ud2b8\ub808\uc800\ub9ac",
-    "aiInsights": "AI \uc778\uc0ac\uc774\ud2b8",
-    "totalVotingPower": "Total Vote\ub825",
-    "eligibleVoters": "Vote \uc790\uaca9\uc790",
+    "treasury": "트레저리",
+    "aiInsights": "AI 인사이트",
+    "totalVotingPower": "Total Vote력",
+    "eligibleVoters": "Vote 자격자",
     "activeProposals": "Active Proposal",
-    "pendingVote": "Vote \ub300\uae30",
-    "treasuryBalance": "\ud2b8\ub808\uc800\ub9ac \uc794\uc561",
-    "stakedAssets": "Staking\ub41c \uc790\uc0b0",
-    "participationRate": "\ucc38\uc5ec\uc728",
-    "last30Days": "\ucd5c\uadfc 30\uc77c",
+    "pendingVote": "Vote 대기",
+    "treasuryBalance": "트레저리 잔액",
+    "stakedAssets": "Staking된 자산",
+    "participationRate": "참여율",
+    "last30Days": "최근 30일",
     "proposalsTab": "Proposal",
-    "newProposalTab": "\uc0c8 Proposal",
-    "myVotesTab": "\ub0b4 Vote",
+    "newProposalTab": "새 Proposal",
+    "myVotesTab": "내 Vote",
     "analyticsTab": "Analysis",
     "activeProposalsTitle": "Active Proposal",
-    "activeProposalsDesc": "\ud604\uc7ac Vote\uac00 \uc9c4\ud589 \uc911\uc778 Proposal",
-    "allProposals": "\ubaa8\ub4e0 Proposal",
-    "core": "\ud575\uc2ec",
-    "parameter": "\ub9e4\uac1c\ubcc0\uc218",
-    "upgrade": "\uc5c5\uadf8\ub808\uc774\ub4dc",
-    "emergency": "\uae34\uae09",
+    "activeProposalsDesc": "현재 Vote가 진행 중인 Proposal",
+    "allProposals": "모든 Proposal",
+    "core": "핵심",
+    "parameter": "매개변수",
+    "upgrade": "업그레이드",
+    "emergency": "긴급",
     "searchPlaceholder": "Proposal Search...",
-    "proposedBy": "Proposal\uc790:",
+    "proposedBy": "Proposal자:",
     "endTime": "End Time:",
-    "forVotes": "\ucc2c\uc131",
-    "againstVotes": "\ubc18\ub300",
-    "quorumProgress": "\uc815\uc871\uc218 \uc9c4\ud589:",
-    "viewDetails": "\uc0c1\uc138 \ubcf4\uae30",
-    "noActiveProposals": "Active Proposal \uc5c6\uc74c",
-    "noActiveProposalsDesc": "\ud604\uc7ac Vote\uac00 \uc9c4\ud589 \uc911\uc778 Proposal\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.",
+    "forVotes": "찬성",
+    "againstVotes": "반대",
+    "quorumProgress": "정족수 진행:",
+    "viewDetails": "상세 보기",
+    "noActiveProposals": "Active Proposal 없음",
+    "noActiveProposalsDesc": "현재 Vote가 진행 중인 Proposal이 없습니다.",
     "createProposal": "Proposal Create",
-    "createNewProposal": "\uc0c8 Proposal Create",
-    "createNewProposalDesc": "\ucee4\ubba4\ub2c8\ud2f0\uac00 Vote\ud560 \uc0c8 Governance Proposal Create",
-    "proposalTitle": "Proposal \uc81c\ubaa9",
-    "proposalTitlePlaceholder": "Proposal\uc758 \uba85\ud655\ud558\uace0 \uac04\uacb0\ud55c \uc81c\ubaa9 \uc785\ub825",
-    "proposalType": "Proposal \uc720\ud615",
-    "selectType": "\uc720\ud615 \uc120\ud0dd",
-    "description": "\uc124\uba85",
-    "descriptionPlaceholder": "Proposal\uc5d0 \ub300\ud55c \uc0c1\uc138 \uc124\uba85, \uadfc\uac70 \ubc0f \uc608\uc0c1 \uc601\ud5a5 \uc81c\uacf5...",
+    "createNewProposal": "새 Proposal Create",
+    "createNewProposalDesc": "커뮤니티가 Vote할 새 Governance Proposal Create",
+    "proposalTitle": "Proposal 제목",
+    "proposalTitlePlaceholder": "Proposal의 명확하고 간결한 제목 입력",
+    "proposalType": "Proposal 유형",
+    "selectType": "유형 선택",
+    "description": "설명",
+    "descriptionPlaceholder": "Proposal에 대한 상세 설명, 근거 및 예상 영향 제공...",
     "votingDuration": "Vote Period",
-    "days3": "3\uc77c (\uae34\uae09)",
-    "days7": "7\uc77c (\ud45c\uc900)",
-    "days14": "14\uc77c (\ubcf5\ud569)",
-    "days30": "30\uc77c (\uc8fc\uc694)",
-    "requiredQuorum": "\ud544\uc694 \uc815\uc871\uc218",
-    "quorum50": "50% (\ud45c\uc900)",
-    "quorum67": "67% (\uc0c1\uc704 \ub2e4\uc218)",
-    "submitting": "Submit \uc911...",
+    "days3": "3일 (긴급)",
+    "days7": "7일 (표준)",
+    "days14": "14일 (복합)",
+    "days30": "30일 (주요)",
+    "requiredQuorum": "필요 정족수",
+    "quorum50": "50% (표준)",
+    "quorum67": "67% (상위 다수)",
+    "submitting": "Submit 중...",
     "submitProposal": "Proposal Submit",
-    "myVotingHistory": "\ub0b4 Vote \uc774\ub825",
-    "myVotingHistoryDesc": "\ub0b4 Vote \uae30\ub85d \ubc0f \uc704\uc784 \ud604\ud669",
+    "myVotingHistory": "내 Vote 이력",
+    "myVotingHistoryDesc": "내 Vote 기록 및 위임 현황",
     "totalVotes": "Total Vote",
-    "proposalsVoted": "Vote\ud55c Proposal",
-    "votesFor": "\ucc2c\uc131 Vote",
-    "votesAgainst": "\ubc18\ub300 Vote",
-    "abstentions": "\uae30\uad8c",
-    "delegatedPower": "\uc704\uc784\ub41c \uad8c\ud55c",
-    "recentVotes": "\ucd5c\uadfc Vote",
-    "noVotesYet": "\uc544\uc9c1 Vote \uc5c6\uc74c",
-    "noVotesYetDesc": "\uc544\uc9c1 Proposal\uc5d0 Vote\ud558\uc9c0 \uc54a\uc558\uc2b5\ub2c8\ub2e4. \ucc38\uc5ec\ud558\ub824\uba74 Active Proposal\uc744 Confirm\ud558\uc138\uc694.",
+    "proposalsVoted": "Vote한 Proposal",
+    "votesFor": "찬성 Vote",
+    "votesAgainst": "반대 Vote",
+    "abstentions": "기권",
+    "delegatedPower": "위임된 권한",
+    "recentVotes": "최근 Vote",
+    "noVotesYet": "아직 Vote 없음",
+    "noVotesYetDesc": "아직 Proposal에 Vote하지 않았습니다. 참여하려면 Active Proposal을 Confirm하세요.",
     "votingAnalytics": "Vote Analysis",
-    "votingAnalyticsDesc": "Governance \ucc38\uc5ec Statistics \ubc0f \ud2b8\ub80c\ub4dc",
-    "proposalTypeDistribution": "Proposal \uc720\ud615 \ubd84\ud3ec",
-    "overallParticipation": "\uc804\uccb4 \ucc38\uc5ec",
-    "voteDistribution": "Vote \ubd84\ud3ec",
-    "proposalSuccessRate": "Proposal Success\ub960",
-    "participationByTier": "\ud2f0\uc5b4\ubcc4 \ucc38\uc5ec",
-    "proposalDetails": "Proposal \uc0c1\uc138",
-    "proposer": "Proposal\uc790",
-    "created": "Create\uc77c",
+    "votingAnalyticsDesc": "Governance 참여 Statistics 및 트렌드",
+    "proposalTypeDistribution": "Proposal 유형 분포",
+    "overallParticipation": "전체 참여",
+    "voteDistribution": "Vote 분포",
+    "proposalSuccessRate": "Proposal Success률",
+    "participationByTier": "티어별 참여",
+    "proposalDetails": "Proposal 상세",
+    "proposer": "Proposal자",
+    "created": "Create일",
     "votingEnds": "Vote End",
-    "currentStatus": "\ud604\uc7ac Status",
-    "voteNow": "\uc9c0\uae08 Vote",
-    "for": "\ucc2c\uc131",
-    "against": "\ubc18\ub300",
-    "abstain": "\uae30\uad8c",
-    "castVote": "Vote\ud558\uae30",
-    "alreadyVoted": "\uc774\ubbf8 Vote\ud568",
-    "aiAnalysisDesc": "\ud2b8\ub9ac\ud50c\ubc34\ub4dc AI\uc758 \uc774 Proposal\uc5d0 \ub300\ud55c Analysis",
-    "overallAssessment": "\uc804\uccb4 \ud3c9\uac00",
-    "impactAnalysis": "\uc601\ud5a5 Analysis"
+    "currentStatus": "현재 Status",
+    "voteNow": "지금 Vote",
+    "for": "찬성",
+    "against": "반대",
+    "abstain": "기권",
+    "castVote": "Vote하기",
+    "alreadyVoted": "이미 Vote함",
+    "aiAnalysisDesc": "트리플밴드 AI의 이 Proposal에 대한 Analysis",
+    "overallAssessment": "전체 평가",
+    "impactAnalysis": "영향 Analysis"
   },
   "burn": {
     "title": "Auto-Burn Dashboard",
@@ -7545,7 +7545,7 @@
       "newsletterDesc": "Get the latest news and updates from TBurn Chain",
       "enterEmail": "Enter your email",
       "subscribe": "Subscribe",
-      "copyright": "\u00a9 2025 TBurn Chain. All rights reserved.",
+      "copyright": "© 2025 TBurn Chain. All rights reserved.",
       "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
       "disclaimer": "Disclaimer"
@@ -8198,16 +8198,16 @@
           },
           "stats": {
             "rugPulls": {
-              "value": "$28\uc5b5",
-              "label": "2023\ub144 \ub7ec\uadf8\ud480\ub85c \uc190\uc2e4"
+              "value": "$28억",
+              "label": "2023년 러그풀로 손실"
             },
             "scamProjects": {
               "value": "40%",
-              "label": "\uc2e0\uaddc Token \uc911 \uc2a4\ucea0"
+              "label": "신규 Token 중 스캠"
             },
             "investorLoss": {
               "value": "67%",
-              "label": "\uc0ac\uae30 \ud53c\ud574 \ud22c\uc790\uc790"
+              "label": "사기 피해 투자자"
             }
           }
         },
@@ -8307,11 +8307,11 @@
               "description": "Combining ED25519 + Dilithium for backward compatibility and future-proofing."
             }
           },
-          "description": "\ubbf8\ub798 \uc9c0\ud5a5\uc801 \uc554\ud638\ud654 \ubcf4\ud638",
+          "description": "미래 지향적 암호화 보호",
           "features": {
-            "crystals": "CRYSTALS-Dilithium \uc11c\uba85",
-            "hybrid": "ED25519 \ud558\uc774\ube0c\ub9ac\ub4dc \uc554\ud638\ud654",
-            "postQuantum": "\ud3ec\uc2a4\ud2b8 \uc591\uc790 \ud0a4 \uad50\ud658"
+            "crystals": "CRYSTALS-Dilithium 서명",
+            "hybrid": "ED25519 하이브리드 암호화",
+            "postQuantum": "포스트 양자 키 교환"
           }
         },
         "coreModules": {
@@ -8330,20 +8330,20 @@
               "description": "Secure atomic swaps connected to 7+ major blockchains."
             },
             "consensus": {
-              "title": "\ud569\uc758 \uc5d4\uc9c4",
-              "description": "\uc2e0\ub8b0 \uc99d\uba85 \ud569\uc758 \uba54\ucee4\ub2c8\uc998"
+              "title": "합의 엔진",
+              "description": "신뢰 증명 합의 메커니즘"
             },
             "verification": {
-              "title": "\uac80\uc99d \ub808\uc774\uc5b4",
-              "description": "3\ub2e8\uacc4 \uc2e0\ub8b0 \uac80\uc99d \uc2dc\uc2a4\ud15c"
+              "title": "검증 레이어",
+              "description": "3단계 신뢰 검증 시스템"
             },
             "execution": {
-              "title": "\uc2e4\ud589 \ub808\uc774\uc5b4",
-              "description": "EVM \ud638\ud658 \uc2a4\ub9c8\ud2b8 \ucee8\ud2b8\ub799\ud2b8"
+              "title": "실행 레이어",
+              "description": "EVM 호환 스마트 컨트랙트"
             }
           }
         },
-        "viewGithub": "GitHub\uc5d0\uc11c \ubcf4\uae30"
+        "viewGithub": "GitHub에서 보기"
       },
       "tokenomics": {
         "tag": "v8.0 ECONOMICS",
@@ -8522,12 +8522,12 @@
               "item3": "Cross-Chain Bridge (ETH, BSC)",
               "item4": "DEX Launch with AMM",
               "item5": "Mobile Wallet Beta",
-              "mainnet": "\uba54\uc778\ub137 \ucd9c\uc2dc",
-              "trustScore": "\uc2e0\ub8b0\ub3c4 \uc810\uc218 \uc2dc\uc2a4\ud15c",
-              "bridge": "\ud06c\ub85c\uc2a4\uccb4\uc778 \ube0c\ub9bf\uc9c0",
-              "dex": "DEX \ucd9c\uc2dc"
+              "mainnet": "메인넷 출시",
+              "trustScore": "신뢰도 점수 시스템",
+              "bridge": "크로스체인 브릿지",
+              "dex": "DEX 출시"
             },
-            "period": "2024\ub144 1-2\ubd84\uae30"
+            "period": "2024년 1-2분기"
           },
           "phase2": {
             "quarter": "Q3-Q4 2024",
@@ -8539,12 +8539,12 @@
               "item3": "Mobile Wallet Full Release",
               "item4": "Major CEX Listings",
               "item5": "Developer SDK V2",
-              "gamefi": "GameFi \ud50c\ub7ab\ud3fc",
-              "aiEnhancement": "AI \uac15\ud654",
-              "mobileWallet": "\ubaa8\ubc14\uc77c Wallet",
-              "partnerships": "\uc8fc\uc694 \ud30c\ud2b8\ub108\uc2ed"
+              "gamefi": "GameFi 플랫폼",
+              "aiEnhancement": "AI 강화",
+              "mobileWallet": "모바일 Wallet",
+              "partnerships": "주요 파트너십"
             },
-            "period": "2024\ub144 3-4\ubd84\uae30"
+            "period": "2024년 3-4분기"
           },
           "phase3": {
             "quarter": "Q1-Q2 2025",
@@ -8556,12 +8556,12 @@
               "item3": "Cross-Chain Expansion (7+ chains)",
               "item4": "AI Trading Bot Integration",
               "item5": "Enterprise Partnership Program",
-              "dao": "\uc644\uc804 DAO Governance",
-              "l2": "\ub808\uc774\uc5b4 1 \uc194\ub8e8\uc158",
-              "enterprise": "\uc5d4\ud130\ud504\ub77c\uc774\uc988 \ucc44\ud0dd",
-              "global": "\uae00\ub85c\ubc8c \ud655\uc7a5"
+              "dao": "완전 DAO Governance",
+              "l2": "레이어 1 솔루션",
+              "enterprise": "엔터프라이즈 채택",
+              "global": "글로벌 확장"
             },
-            "period": "2025\ub144 1-2\ubd84\uae30"
+            "period": "2025년 1-2분기"
           },
           "phase4": {
             "quarter": "Q3-Q4 2025",
@@ -8572,12 +8572,12 @@
               "item2": "Institutional Services Launch",
               "item3": "Strategic Partnerships",
               "item4": "Ecosystem Fund Deployment",
-              "quantum": "\uc591\uc790 \uc5c5\uadf8\ub808\uc774\ub4dc",
-              "fiat": "\ubc95\uc815\ud654\ud3d0 \ud1b5\ud569",
-              "institutions": "\uae30\uad00 \uc11c\ube44\uc2a4",
-              "metaverse": "\uba54\ud0c0\ubc84\uc2a4 \ud1b5\ud569"
+              "quantum": "양자 업그레이드",
+              "fiat": "법정화폐 통합",
+              "institutions": "기관 서비스",
+              "metaverse": "메타버스 통합"
             },
-            "period": "2025\ub144 3-4\ubd84\uae30"
+            "period": "2025년 3-4분기"
           }
         },
         "growth": {
@@ -8613,11 +8613,11 @@
           "viewDocs": "View Documentation"
         },
         "metrics": {
-          "title": "\uc131\uc7a5 \uc804\ub9dd",
+          "title": "성장 전망",
           "users": "Active User",
-          "tvl": "Total \uc608\uce58 \uac00\uce58",
-          "transactions": "\uc77c\uc77c Transaction",
-          "developers": "Active \uac1c\ubc1c\uc790"
+          "tvl": "Total 예치 가치",
+          "transactions": "일일 Transaction",
+          "developers": "Active 개발자"
         }
       },
       "blockchainBasics": {
@@ -9211,15 +9211,15 @@
             "comment": "# Deploy to Mainnet"
           },
           "install": {
-            "title": "CLI \uc124\uce58",
+            "title": "CLI 설치",
             "command": "npm install -g @tburn/cli"
           },
           "init": {
-            "title": "\ud504\ub85c\uc81d\ud2b8 \ucd08\uae30\ud654",
+            "title": "프로젝트 초기화",
             "command": "tburn init my-project"
           },
           "deploy": {
-            "title": "\ucee8\ud2b8\ub799\ud2b8 \ubc30\ud3ec",
+            "title": "컨트랙트 배포",
             "command": "tburn deploy --network mainnet"
           }
         },
@@ -9275,7 +9275,7 @@
             "tier": "Seed",
             "amount": "$5K - $25K",
             "description": "Idea Validation",
-            "title": "\uc2dc\ub4dc \uc9c0\uc6d0\uae08"
+            "title": "시드 지원금"
           },
           "build": {
             "tier": "Build",
@@ -9291,69 +9291,69 @@
             "tier": "Enterprise",
             "amount": "$500K+",
             "description": "Ecosystem Leader",
-            "title": "\uc5d4\ud130\ud504\ub77c\uc774\uc988 \uc9c0\uc6d0\uae08"
+            "title": "엔터프라이즈 지원금"
           },
           "growth": {
-            "title": "\uc131\uc7a5 \uc9c0\uc6d0\uae08",
+            "title": "성장 지원금",
             "amount": "$25,000 - $100,000",
-            "description": "\ud655\uc7a5 \ud504\ub85c\uc81d\ud2b8\uc6a9"
+            "description": "확장 프로젝트용"
           }
         },
         "apiEndpoints": {
           "blockchain": {
-            "title": "Block\uccb4\uc778 API",
-            "description": "Block, Transaction, \uacc4\uc815"
+            "title": "Block체인 API",
+            "description": "Block, Transaction, 계정"
           },
           "trustScore": {
-            "title": "\uc2e0\ub8b0\ub3c4 \uc810\uc218 API",
-            "description": "\uc810\uc218 \uc870\ud68c \ubc0f \uac80\uc99d"
+            "title": "신뢰도 점수 API",
+            "description": "점수 조회 및 검증"
           },
           "defi": {
             "title": "DeFi API",
-            "description": "DEX, \ub300\ucd9c, Staking"
+            "description": "DEX, 대출, Staking"
           },
           "nft": {
             "title": "NFT API",
-            "description": "\ubbfc\ud305, \uc804\uc1a1, \uba54\ud0c0Data"
+            "description": "민팅, 전송, 메타Data"
           }
         },
         "devToolsList": {
           "explorer": {
-            "title": "Block \uc775\uc2a4\ud50c\ub85c\ub7ec",
-            "description": "Transaction \ubc0f \ucee8\ud2b8\ub799\ud2b8 \ub514\ubc84\uae45"
+            "title": "Block 익스플로러",
+            "description": "Transaction 및 컨트랙트 디버깅"
           },
           "faucet": {
-            "title": "\ud14c\uc2a4\ud2b8\ub137 Faucet",
-            "description": "\ud14c\uc2a4\ud2b8 Token \ubc1b\uae30"
+            "title": "테스트넷 Faucet",
+            "description": "테스트 Token 받기"
           },
           "ide": {
-            "title": "\uc628\ub77c\uc778 IDE",
-            "description": "\ube0c\ub77c\uc6b0\uc800 \uae30\ubc18 \uac1c\ubc1c"
+            "title": "온라인 IDE",
+            "description": "브라우저 기반 개발"
           },
           "debugger": {
-            "title": "\ucee8\ud2b8\ub799\ud2b8 \ub514\ubc84\uac70",
-            "description": "\ub2e8\uacc4\ubcc4 \ub514\ubc84\uae45"
+            "title": "컨트랙트 디버거",
+            "description": "단계별 디버깅"
           }
         },
         "grantsList": {
           "infrastructure": {
-            "title": "\uc778\ud504\ub77c \ud504\ub85c\uc81d\ud2b8",
-            "description": "\ub178\ub4dc, \uc720\ud6a8\uc131 \uac80\uc0ac\uae30, RPC \uc81c\uacf5\uc790",
+            "title": "인프라 프로젝트",
+            "description": "노드, 유효성 검사기, RPC 제공자",
             "funding": "$25K-$100K"
           },
           "defi": {
-            "title": "DeFi \ud504\ub85c\ud1a0\ucf5c",
-            "description": "DEX, \ub300\ucd9c, \uc218\uc775 \ub18d\uc0ac",
+            "title": "DeFi 프로토콜",
+            "description": "DEX, 대출, 수익 농사",
             "funding": "$50K-$250K"
           },
           "gamefi": {
             "title": "GameFi",
-            "description": "P2E \uac8c\uc784, NFT \ub9c8\ucf13\ud50c\ub808\uc774\uc2a4",
+            "description": "P2E 게임, NFT 마켓플레이스",
             "funding": "$25K-$150K"
           },
           "tooling": {
-            "title": "\uac1c\ubc1c\uc790 \ub3c4\uad6c",
-            "description": "IDE, \ub77c\uc774\ube0c\ub7ec\ub9ac, \ud14c\uc2a4\ud2b8 \ud504\ub808\uc784\uc6cc\ud06c",
+            "title": "개발자 도구",
+            "description": "IDE, 라이브러리, 테스트 프레임워크",
             "funding": "$10K-$50K"
           }
         }
@@ -9500,9 +9500,9 @@
           "apiKeyDesc": "Use API key for authenticated requests",
           "rateLimit": "Rate Limits",
           "rateLimitDesc": "Request limits per time period",
-          "apiKeyLabel": "API \ud0a4",
-          "headerLabel": "\uc778\uc99d \ud5e4\ub354",
-          "getApiKey": "API \ud0a4 \ubc1b\uae30"
+          "apiKeyLabel": "API 키",
+          "headerLabel": "인증 헤더",
+          "getApiKey": "API 키 받기"
         },
         "sidebar": {
           "overview": "Overview",
@@ -9548,38 +9548,38 @@
             "title": "Governance",
             "description": "Governance proposals and voting"
           },
-          "title": "API \uc5d4\ub4dc\ud3ec\uc778\ud2b8",
+          "title": "API 엔드포인트",
           "blockchain": {
-            "title": "\ube14\ub85d\uccb4\uc778",
-            "description": "\ube14\ub85d, \ud2b8\ub79c\uc7ad\uc158, \uacc4\uc815 \ub370\uc774\ud130 \ucffc\ub9ac",
+            "title": "블록체인",
+            "description": "블록, 트랜잭션, 계정 데이터 쿼리",
             "endpoint1": "GET /v1/blocks",
             "endpoint2": "GET /v1/transactions",
             "endpoint3": "GET /v1/accounts/{address}"
           },
           "trustScore": {
-            "title": "\uc2e0\ub8b0 \uc810\uc218",
-            "description": "\ud504\ub85c\uc81d\ud2b8 \uc2e0\ub8b0 \uc810\uc218 \uc870\ud68c \ubc0f \uac80\uc99d",
+            "title": "신뢰 점수",
+            "description": "프로젝트 신뢰 점수 조회 및 검증",
             "endpoint1": "GET /v1/trust/score/{address}",
             "endpoint2": "GET /v1/trust/history/{address}",
             "endpoint3": "POST /v1/trust/verify"
           },
           "defi": {
             "title": "DeFi",
-            "description": "DEX, \uc720\ub3d9\uc131 \ud480, \uc2a4\ud14c\uc774\ud0b9 \ub370\uc774\ud130",
+            "description": "DEX, 유동성 풀, 스테이킹 데이터",
             "endpoint1": "GET /v1/dex/pairs",
             "endpoint2": "GET /v1/pools/{poolId}",
             "endpoint3": "GET /v1/staking/validators"
           },
           "nft": {
             "title": "NFT",
-            "description": "NFT \uceec\ub809\uc158 \ubc0f \ub9c8\ucf13\ud50c\ub808\uc774\uc2a4 \ub370\uc774\ud130",
+            "description": "NFT 컬렉션 및 마켓플레이스 데이터",
             "endpoint1": "GET /v1/nft/collections",
             "endpoint2": "GET /v1/nft/{tokenId}",
             "endpoint3": "GET /v1/nft/marketplace/listings"
           },
           "ai": {
-            "title": "AI \uc11c\ube44\uc2a4",
-            "description": "AI \ubd84\uc11d \ubc0f \uc608\uce21 API",
+            "title": "AI 서비스",
+            "description": "AI 분석 및 예측 API",
             "endpoint1": "POST /v1/ai/analyze",
             "endpoint2": "GET /v1/ai/predictions",
             "endpoint3": "POST /v1/ai/sentiment"
@@ -9636,8 +9636,8 @@
         "buttons": {
           "viewDocs": "View Docs",
           "tryIt": "Try It",
-          "viewSpec": "API \uc0ac\uc591 \ubcf4\uae30",
-          "openPlayground": "\ud50c\ub808\uc774\uadf8\ub77c\uc6b4\ub4dc \uc5f4\uae30"
+          "viewSpec": "API 사양 보기",
+          "openPlayground": "플레이그라운드 열기"
         },
         "overview": {
           "title": "API Overview",
@@ -9650,50 +9650,50 @@
           "viewDocs": "View Docs"
         },
         "responseFormats": {
-          "title": "\uc751\ub2f5 \ud615\uc2dd",
+          "title": "응답 형식",
           "success": {
-            "title": "\uc131\uacf5 \uc751\ub2f5"
+            "title": "성공 응답"
           },
           "error": {
-            "title": "\uc624\ub958 \uc751\ub2f5"
+            "title": "오류 응답"
           }
         },
         "rateLimits": {
-          "title": "\uc694\uccad \uc81c\ud55c",
+          "title": "요청 제한",
           "free": {
-            "title": "\ubb34\ub8cc \ud2f0\uc5b4",
-            "limit": "100 \uc694\uccad/\ubd84",
-            "rateLimit": "1,000 \uc694\uccad/\uc77c"
+            "title": "무료 티어",
+            "limit": "100 요청/분",
+            "rateLimit": "1,000 요청/일"
           },
           "pro": {
-            "title": "Pro \ud2f0\uc5b4",
-            "limit": "1,000 \uc694\uccad/\ubd84",
-            "rateLimit": "100,000 \uc694\uccad/\uc77c"
+            "title": "Pro 티어",
+            "limit": "1,000 요청/분",
+            "rateLimit": "100,000 요청/일"
           },
           "enterprise": {
-            "title": "\uc5d4\ud130\ud504\ub77c\uc774\uc988",
-            "limit": "\ubb34\uc81c\ud55c",
-            "rateLimit": "\ub9de\ucda4\ud615"
+            "title": "엔터프라이즈",
+            "limit": "무제한",
+            "rateLimit": "맞춤형"
           }
         },
         "developerResources": {
-          "title": "\uac1c\ubc1c\uc790 \ub9ac\uc18c\uc2a4",
-          "description": "API \ud1b5\ud569\uc744 \uc704\ud55c \ucd94\uac00 \ub3c4\uad6c \ubc0f \ubb38\uc11c",
+          "title": "개발자 리소스",
+          "description": "API 통합을 위한 추가 도구 및 문서",
           "sdkGuide": {
-            "title": "SDK \uac00\uc774\ub4dc",
-            "subtitle": "\ub2e4\uad6d\uc5b4 \ud1b5\ud569"
+            "title": "SDK 가이드",
+            "subtitle": "다국어 통합"
           },
           "websocket": {
             "title": "WebSocket API",
-            "subtitle": "\uc2e4\uc2dc\uac04 \uc2a4\ud2b8\ub9ac\ubc0d"
+            "subtitle": "실시간 스트리밍"
           },
           "cliReference": {
-            "title": "CLI \ub808\ud37c\ub7f0\uc2a4",
-            "subtitle": "\uba85\ub839\uc904 \ub3c4\uad6c"
+            "title": "CLI 레퍼런스",
+            "subtitle": "명령줄 도구"
           },
           "codeExamples": {
-            "title": "\ucf54\ub4dc \uc608\uc81c",
-            "subtitle": "\uc0d8\ud50c \ud1b5\ud569"
+            "title": "코드 예제",
+            "subtitle": "샘플 통합"
           }
         }
       },
@@ -9714,7 +9714,7 @@
         "installation": {
           "title": "Installation",
           "verify": "Verify installation",
-          "npm": "npm\uc73c\ub85c \uc124\uce58"
+          "npm": "npm으로 설치"
         },
         "categories": {
           "project": "Project",
@@ -9731,7 +9731,7 @@
               "typescript": "Use TypeScript"
             },
             "name": "init",
-            "description": "\uc0c8 TBurn \ud504\ub85c\uc81d\ud2b8 \ucd08\uae30\ud654",
+            "description": "새 TBurn 프로젝트 초기화",
             "usage": "tburn init [project-name]"
           },
           "dev": {
@@ -9748,7 +9748,7 @@
               "sourcemap": "Generate source maps"
             },
             "name": "build",
-            "description": "\uc2a4\ub9c8\ud2b8 \ucee8\ud2b8\ub799\ud2b8 \ucef4\ud30c\uc77c",
+            "description": "스마트 컨트랙트 컴파일",
             "usage": "tburn build [--release]"
           },
           "deploy": {
@@ -9759,7 +9759,7 @@
               "gasPrice": "Gas price in EMB"
             },
             "name": "deploy",
-            "description": "\ub124\ud2b8\uc6cc\ud06c\uc5d0 \ubc30\ud3ec",
+            "description": "네트워크에 배포",
             "usage": "tburn deploy --network mainnet"
           },
           "wallet": {
@@ -9770,10 +9770,10 @@
               "balance": "Check wallet balance"
             }
           },
-          "title": "\uba85\ub839\uc5b4",
+          "title": "명령어",
           "test": {
             "name": "test",
-            "description": "\ud14c\uc2a4\ud2b8 \uc2a4\uc704\ud2b8 \uc2e4\ud589",
+            "description": "테스트 스위트 실행",
             "usage": "tburn test [--coverage]"
           }
         },
@@ -9809,11 +9809,11 @@
             "title": "Quick Start",
             "subtitle": "5 Minute Guide"
           },
-          "title": "\uac1c\ubc1c\uc790 \ub9ac\uc18c\uc2a4",
-          "description": "CLI \ub3c4\uad6c\uc640 \ud568\uaed8 \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 \ub9ac\uc18c\uc2a4",
+          "title": "개발자 리소스",
+          "description": "CLI 도구와 함께 사용할 수 있는 리소스",
           "sdkGuide": {
-            "title": "SDK \uac00\uc774\ub4dc",
-            "subtitle": "\ub2e4\uad6d\uc5b4 \ud1b5\ud569"
+            "title": "SDK 가이드",
+            "subtitle": "다국어 통합"
           }
         },
         "cta": {
@@ -9823,14 +9823,14 @@
           "viewDocs": "View Docs"
         },
         "hero": {
-          "tag": "CLI \ub808\ud37c\ub7f0\uc2a4",
+          "tag": "CLI 레퍼런스",
           "title": "CLI",
-          "titleHighlight": "\ub3c4\uad6c",
-          "subtitle": "TBurn \uccb4\uc778 \uba85\ub839\uc904 \uc778\ud130\ud398\uc774\uc2a4\ub97c \uc0ac\uc6a9\ud55c \ud504\ub85c\uc81d\ud2b8 \uad00\ub9ac \ubc0f \ubc30\ud3ec."
+          "titleHighlight": "도구",
+          "subtitle": "TBurn 체인 명령줄 인터페이스를 사용한 프로젝트 관리 및 배포."
         },
         "buttons": {
-          "install": "\uc124\uce58\ud558\uae30",
-          "viewDocs": "\ubb38\uc11c \ubcf4\uae30"
+          "install": "설치하기",
+          "viewDocs": "문서 보기"
         }
       },
       "sdk": {
@@ -9960,26 +9960,26 @@
           "subtitle": "Get started with our SDKs and build your first application.",
           "getStarted": "Get Started",
           "viewDocs": "View Docs",
-          "joinDiscord": "Discord \ucc38\uc5ec"
+          "joinDiscord": "Discord 참여"
         },
         "developerResources": {
-          "title": "\uac1c\ubc1c\uc790 \ub9ac\uc18c\uc2a4",
-          "description": "SDK \uc0ac\uc6a9\uc744 \uc704\ud55c \ucd94\uac00 \ub3c4\uad6c \ubc0f \ubb38\uc11c",
+          "title": "개발자 리소스",
+          "description": "SDK 사용을 위한 추가 도구 및 문서",
           "apiReference": {
-            "title": "API \ub808\ud37c\ub7f0\uc2a4",
-            "subtitle": "REST \uc5d4\ub4dc\ud3ec\uc778\ud2b8"
+            "title": "API 레퍼런스",
+            "subtitle": "REST 엔드포인트"
           },
           "smartContracts": {
-            "title": "\uc2a4\ub9c8\ud2b8 \ucee8\ud2b8\ub799\ud2b8",
-            "subtitle": "\ucee8\ud2b8\ub799\ud2b8 \uc0c1\ud638\uc791\uc6a9"
+            "title": "스마트 컨트랙트",
+            "subtitle": "컨트랙트 상호작용"
           },
           "cliReference": {
-            "title": "CLI \ub808\ud37c\ub7f0\uc2a4",
-            "subtitle": "\uba85\ub839\uc904 \ub3c4\uad6c"
+            "title": "CLI 레퍼런스",
+            "subtitle": "명령줄 도구"
           },
           "websocket": {
             "title": "WebSocket",
-            "subtitle": "\uc2e4\uc2dc\uac04 \uc774\ubca4\ud2b8"
+            "subtitle": "실시간 이벤트"
           }
         }
       },
@@ -10783,7 +10783,7 @@
             "title": "AI Features",
             "subtitle": "Smart automation"
           },
-          "title": "\uad00\ub828 \uc194\ub8e8\uc158"
+          "title": "관련 솔루션"
         },
         "developerResources": {
           "description": "Build and integrate with TBurn DeFi using our comprehensive developer tools",
@@ -10811,14 +10811,14 @@
             "title": "Code Examples",
             "subtitle": "Sample integrations"
           },
-          "title": "\uac1c\ubc1c\uc790 \ub9ac\uc18c\uc2a4",
+          "title": "개발자 리소스",
           "codeExamples": {
-            "title": "\ucf54\ub4dc \uc608\uc81c",
-            "subtitle": "\uc0d8\ud50c \ud1b5\ud569"
+            "title": "코드 예제",
+            "subtitle": "샘플 통합"
           },
           "quickStart": {
-            "title": "\ube60\ub978 \uc2dc\uc791",
-            "subtitle": "5\ubd84 \uac00\uc774\ub4dc"
+            "title": "빠른 시작",
+            "subtitle": "5분 가이드"
           }
         },
         "learnPages": {
@@ -10831,8 +10831,8 @@
             "title": "Introduction to DeFi",
             "subtitle": "Learn the fundamentals of decentralized finance"
           },
-          "title": "DeFi \ud559\uc2b5\ud558\uae30",
-          "description": "TBurn \uccb4\uc778\uc5d0\uc11c DeFi\ub97c \ub9c8\uc2a4\ud130\ud558\uae30 \uc704\ud55c \uc885\ud569 \uac00\uc774\ub4dc"
+          "title": "DeFi 학습하기",
+          "description": "TBurn 체인에서 DeFi를 마스터하기 위한 종합 가이드"
         },
         "cta": {
           "title": "Ready to Trade on TBurn DeFi?",
@@ -10841,12 +10841,12 @@
           "viewDocs": "View Documentation"
         },
         "dexFeatures": {
-          "title": "DEX \uae30\ub2a5",
+          "title": "DEX 기능",
           "items": {
-            "amm": "\uc790\ub3d9\ud654\ub41c \ub9c8\ucf13 \uba54\uc774\ucee4",
-            "limitOrders": "\uc9c0\uc815\uac00 \uc8fc\ubb38",
-            "crossChain": "\ud06c\ub85c\uc2a4\uccb4\uc778 \uc2a4\uc651",
-            "lowFees": "\ucd08\uc800 \uc218\uc218\ub8cc"
+            "amm": "자동화된 마켓 메이커",
+            "limitOrders": "지정가 주문",
+            "crossChain": "크로스체인 스왑",
+            "lowFees": "초저 수수료"
           }
         }
       },
@@ -11096,7 +11096,7 @@
             "title": "Token Extensions",
             "subtitle": "TBC-20 standards"
           },
-          "title": "\uad00\ub828 \uc194\ub8e8\uc158"
+          "title": "관련 솔루션"
         },
         "developerResources": {
           "description": "Build powerful blockchain actions with our comprehensive developer toolkit",
@@ -11124,7 +11124,7 @@
             "title": "Examples",
             "subtitle": "Sample code"
           },
-          "title": "\uac1c\ubc1c\uc790 \ub9ac\uc18c\uc2a4"
+          "title": "개발자 리소스"
         },
         "learnPages": {
           "introToDefi": {
@@ -11135,14 +11135,14 @@
             "title": "Developer Course",
             "subtitle": "Build dApps on TBurn Chain"
           },
-          "title": "\uc561\uc158 & \ube14\ub9c1\ud06c \ud559\uc2b5\ud558\uae30",
-          "description": "\ube14\ub85d\uccb4\uc778 \uc561\uc158\uc744 \ub9c8\uc2a4\ud130\ud558\uae30 \uc704\ud55c \uc885\ud569 \uac00\uc774\ub4dc"
+          "title": "액션 & 블링크 학습하기",
+          "description": "블록체인 액션을 마스터하기 위한 종합 가이드"
         },
         "cta": {
-          "title": "\ube14\ub85d\uccb4\uc778 \uc561\uc158 \uc2dc\uc791\ud558\uae30",
-          "subtitle": "\uc561\uc158\uc744 \ube4c\ub4dc\ud558\uace0 \uc18c\uc15c \ud50c\ub7ab\ud3fc\uc5d0 \ube14\ub85d\uccb4\uc778\uc744 \ud1b5\ud569\ud558\uc138\uc694.",
-          "createAction": "\uc561\uc158 \uc0dd\uc131",
-          "viewDocs": "\ubb38\uc11c \ubcf4\uae30"
+          "title": "블록체인 액션 시작하기",
+          "subtitle": "액션을 빌드하고 소셜 플랫폼에 블록체인을 통합하세요.",
+          "createAction": "액션 생성",
+          "viewDocs": "문서 보기"
         }
       },
       "wallets": {
@@ -11154,13 +11154,13 @@
         "walletList": {
           "tburn": {
             "name": "TBurn Official",
-            "platform": "Browser Extension \u2022 Mobile",
+            "platform": "Browser Extension • Mobile",
             "description": "The native wallet optimized for TBurn Chain. Features real-time Trust Score display, auto-burn tracking, and direct governance voting.",
             "button": "Download Wallet"
           },
           "metamask": {
             "name": "MetaMask",
-            "platform": "Browser \u2022 Mobile",
+            "platform": "Browser • Mobile",
             "description": "The world's most popular Web3 wallet. Fully compatible with TBurn Chain via custom network settings. Supports all standard token operations.",
             "button": "Connect Guide"
           },
@@ -11223,45 +11223,45 @@
           }
         },
         "cta": {
-          "title": "TBurn \uc9c0\uac11 \uc2dc\uc791\ud558\uae30",
-          "subtitle": "\uc548\uc804\ud55c \uc9c0\uac11\uc73c\ub85c TBurn \uc0dd\ud0dc\uacc4\uc5d0 \uc5f0\uacb0\ud558\uc138\uc694.",
-          "download": "\uc9c0\uac11 \ub2e4\uc6b4\ub85c\ub4dc",
-          "viewDocs": "\ubb38\uc11c \ubcf4\uae30"
+          "title": "TBurn 지갑 시작하기",
+          "subtitle": "안전한 지갑으로 TBurn 생태계에 연결하세요.",
+          "download": "지갑 다운로드",
+          "viewDocs": "문서 보기"
         },
         "relatedSolutions": {
-          "title": "\uad00\ub828 \uc194\ub8e8\uc158",
-          "description": "\uc9c0\uac11 \uae30\ub2a5\uc744 \ud655\uc7a5\ud558\ub294 \ubcf4\uc644 \uc194\ub8e8\uc158",
+          "title": "관련 솔루션",
+          "description": "지갑 기능을 확장하는 보완 솔루션",
           "payments": {
-            "title": "\uacb0\uc81c",
-            "subtitle": "\uae00\ub85c\ubc8c \uacb0\uc81c"
+            "title": "결제",
+            "subtitle": "글로벌 결제"
           },
           "defiHub": {
             "title": "DeFi Hub",
-            "subtitle": "DeFi \uc0dd\ud0dc\uacc4"
+            "subtitle": "DeFi 생태계"
           },
           "tokenExtensions": {
-            "title": "\ud1a0\ud070 \uc775\uc2a4\ud150\uc158",
-            "subtitle": "TBC-20 \ud45c\uc900"
+            "title": "토큰 익스텐션",
+            "subtitle": "TBC-20 표준"
           }
         },
         "developerResources": {
-          "title": "\uac1c\ubc1c\uc790 \ub9ac\uc18c\uc2a4",
-          "description": "\uc9c0\uac11 \ud1b5\ud569\uc744 \uc704\ud55c \uac1c\ubc1c\uc790 \ub3c4\uad6c",
+          "title": "개발자 리소스",
+          "description": "지갑 통합을 위한 개발자 도구",
           "sdkGuide": {
-            "title": "\uc9c0\uac11 SDK",
-            "subtitle": "\uc5f0\uacb0 \ud1b5\ud569"
+            "title": "지갑 SDK",
+            "subtitle": "연결 통합"
           },
           "smartContracts": {
-            "title": "\uc2a4\ub9c8\ud2b8 \ucee8\ud2b8\ub799\ud2b8",
-            "subtitle": "\uc9c0\uac11 \uc778\ud130\ud398\uc774\uc2a4"
+            "title": "스마트 컨트랙트",
+            "subtitle": "지갑 인터페이스"
           },
           "apiReference": {
-            "title": "API \ub808\ud37c\ub7f0\uc2a4",
-            "subtitle": "REST \uc5d4\ub4dc\ud3ec\uc778\ud2b8"
+            "title": "API 레퍼런스",
+            "subtitle": "REST 엔드포인트"
           },
           "websocket": {
             "title": "WebSocket",
-            "subtitle": "\uc2e4\uc2dc\uac04 \uc774\ubca4\ud2b8"
+            "subtitle": "실시간 이벤트"
           }
         }
       },
@@ -11350,19 +11350,19 @@
             "title": "Supply Chain",
             "desc": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
             "example": "Auto Parts Tracking",
-            "flow": "Raw Material \u2192 Production \u2192 Assembly"
+            "flow": "Raw Material → Production → Assembly"
           },
           "banking": {
             "title": "Banking Consortium",
             "desc": "Inter-bank settlement network. Real-time clearing and settlement with zero counterparty risk.",
             "example": "Cross-border Remittance",
-            "flow": "3 Days \u2192 3 Seconds, Fee $10 \u2192 $0.01"
+            "flow": "3 Days → 3 Seconds, Fee $10 → $0.01"
           },
           "medical": {
             "title": "Medical Data",
             "desc": "Secure patient data sharing between hospitals and insurers. Full HIPAA compliance auditing.",
             "example": "E-Prescriptions",
-            "flow": "Hospital \u2192 Pharmacy \u2192 Insurance"
+            "flow": "Hospital → Pharmacy → Insurance"
           }
         },
         "industryUseCases": {
@@ -11371,19 +11371,19 @@
             "title": "Supply Chain",
             "description": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
             "example": "Auto Parts Tracking",
-            "flow": "Raw Material \u2192 Production \u2192 Assembly"
+            "flow": "Raw Material → Production → Assembly"
           },
           "bankingConsortium": {
             "title": "Banking Consortium",
             "description": "Inter-bank settlement network. Real-time clearing and settlement with zero counterparty risk.",
             "example": "Cross-border Remittance",
-            "flow": "3 Days \u2192 3 Seconds, Fee $10 \u2192 $0.01"
+            "flow": "3 Days → 3 Seconds, Fee $10 → $0.01"
           },
           "medicalData": {
             "title": "Medical Data",
             "description": "Secure patient data sharing between hospitals and insurers. Full HIPAA compliance auditing.",
             "example": "E-Prescriptions",
-            "flow": "Hospital \u2192 Pharmacy \u2192 Insurance"
+            "flow": "Hospital → Pharmacy → Insurance"
           }
         },
         "deployment": {
@@ -11569,7 +11569,7 @@
           },
           "nftVerification": {
             "title": "NFT Project Verification",
-            "description": "Our 3-stage verification system (AI \u2192 Experts \u2192 Community) proactively blocks fraudulent NFT projects. Trading is automatically suspended if the Trust Score drops below 40%."
+            "description": "Our 3-stage verification system (AI → Experts → Community) proactively blocks fraudulent NFT projects. Trading is automatically suspended if the Trust Score drops below 40%."
           },
           "verifiedOwnership": {
             "title": "Verified Ownership",
@@ -11605,13 +11605,13 @@
             "title": "Play-to-Earn Games",
             "desc": "Reward players with verified tokens and NFTs for gameplay achievements.",
             "tags": "RPG, Strategy, Battle Royale",
-            "description": "\uc2e0\ub8b0 \uac80\uc99d\uc774 \ud3f0\uc9c0 \uc2a4\ud0b4\uc744 \ucc28\ub2e8\ud569\ub2c8\ub2e4. \uc9c0\uc18d \uac00\ub2a5\ud55c \ud50c\ub808\uc774\ud22c\uc5b8\uc744 \uc704\ud55c \uc548\uc815\uc801\uc778 \ud1a0\ud070\ub178\ubbf9\uc2a4."
+            "description": "신뢰 검증이 폰지 스킴을 차단합니다. 지속 가능한 플레이투언을 위한 안정적인 토큰노믹스."
           },
           "nftMarketplace": {
             "title": "NFT Marketplace",
             "description": "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety.",
             "desc": "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety.",
-            "tags": "Risk Warning \u2022 History"
+            "tags": "Risk Warning • History"
           },
           "marketplace": {
             "title": "NFT Marketplaces",
@@ -11622,7 +11622,7 @@
             "title": "Metaverse & Virtual Worlds",
             "desc": "Immersive virtual environments with verified digital asset ownership.",
             "tags": "Virtual Land, Avatars, Social",
-            "description": "\uac00\uc0c1 \ubd80\ub3d9\uc0b0, \uc544\ubc14\ud0c0, \uc6e8\uc5b4\ub7ec\ube14. DAO \uac70\ubc84\ub10c\uc2a4\ub97c \ud1b5\ud55c \ud0c8\uc911\uc559\ud654 \uc18c\uc720\uad8c."
+            "description": "가상 부동산, 아바타, 웨어러블. DAO 거버넌스를 통한 탈중앙화 소유권."
           },
           "casualGames": {
             "title": "Casual Games",
@@ -11661,7 +11661,7 @@
         "getApiKey": "Get API Key",
         "buttons": {
           "viewDocs": "View Docs",
-          "getStarted": "\uc2dc\uc791\ud558\uae30"
+          "getStarted": "시작하기"
         },
         "whyChoose": {
           "title": "Why Choose TBurn?",
@@ -11693,7 +11693,7 @@
               "volatility": "< 1% daily volatility",
               "liquidity": "$10M+ liquidity"
             },
-            "requirement": "\ucd5c\uc18c 85\uc810 \ud544\uc694"
+            "requirement": "최소 85점 필요"
           },
           "contractSecurity": {
             "title": "Contract Security",
@@ -11704,7 +11704,7 @@
               "criticalBug": "Critical bug found",
               "block": "BLOCK"
             },
-            "requirement": "\ucd5c\uc18c 90\uc810 \ud544\uc694"
+            "requirement": "최소 90점 필요"
           },
           "adoptionUsage": {
             "title": "Adoption & Usage",
@@ -11715,26 +11715,26 @@
               "transactions": "$1M+ monthly",
               "high": "HIGH"
             },
-            "requirement": "\ucd5c\uc18c 75\uc810 \ud544\uc694"
+            "requirement": "최소 75점 필요"
           },
-          "description": "TBurn \uccb4\uc778 \uacb0\uc81c\uc5d0 \uc2b9\uc778\ub41c \ud1a0\ud070 \ubc0f \uc810\uc218 \uae30\uc900"
+          "description": "TBurn 체인 결제에 승인된 토큰 및 점수 기준"
         },
         "solutionTypes": {
           "title": "Solution Types",
           "onlineCommerce": {
             "title": "Online Commerce",
             "description": "Easy checkout integration for shops. 5-min setup.",
-            "tags": "SDK \u2022 Plugins"
+            "tags": "SDK • Plugins"
           },
           "offlinePos": {
             "title": "Offline POS",
             "description": "Instant payments via QR code in physical stores.",
-            "tags": "App \u2022 NFC"
+            "tags": "App • NFC"
           },
           "globalRemittance": {
             "title": "Global Remittance",
             "description": "Cross-border transfers with 99% lower fees.",
-            "tags": "P2P \u2022 B2B"
+            "tags": "P2P • B2B"
           }
         },
         "integrationGuide": {
@@ -11757,70 +11757,70 @@
           }
         },
         "hero": {
-          "tag": "\uacb0\uc81c \uc778\ud504\ub77c",
-          "title": "\uacb0\uc81c &",
-          "titleHighlight": "\uae00\ub85c\ubc8c \ucee4\uba38\uc2a4",
-          "subtitle": "\uc2e0\ub8b0 \uac80\uc99d\ub41c \uc554\ud638\ud654\ud3d0 \uacb0\uc81c\ub85c \uae00\ub85c\ubc8c \uc0c1\uac70\ub798\ub97c \uac00\ub2a5\ud558\uac8c \ud569\ub2c8\ub2e4."
+          "tag": "결제 인프라",
+          "title": "결제 &",
+          "titleHighlight": "글로벌 커머스",
+          "subtitle": "신뢰 검증된 암호화폐 결제로 글로벌 상거래를 가능하게 합니다."
         },
         "features": {
-          "title": "\uacb0\uc81c \uae30\ub2a5",
+          "title": "결제 기능",
           "instantSettlement": {
-            "title": "\uc989\uc2dc \uc815\uc0b0",
-            "description": "6\ucd08 \ub0b4\uc5d0 \ud2b8\ub79c\uc7ad\uc158 \uc644\uacb0"
+            "title": "즉시 정산",
+            "description": "6초 내에 트랜잭션 완결"
           },
           "lowFees": {
-            "title": "\uc800\ub834\ud55c \uc218\uc218\ub8cc",
-            "description": "\ud2b8\ub79c\uc7ad\uc158\ub2f9 $0.00026 \ubbf8\ub9cc"
+            "title": "저렴한 수수료",
+            "description": "트랜잭션당 $0.00026 미만"
           },
           "trustVerified": {
-            "title": "\uc2e0\ub8b0 \uac80\uc99d",
-            "description": "\uc2e0\ub8b0 \uc810\uc218\uac00 \ub192\uc740 \ud310\ub9e4\uc790\ub9cc \ud5c8\uc6a9"
+            "title": "신뢰 검증",
+            "description": "신뢰 점수가 높은 판매자만 허용"
           },
           "crossBorder": {
-            "title": "\uad6d\uacbd \uc5c6\ub294 \uacb0\uc81c",
-            "description": "200\uac1c \uc774\uc0c1\uc758 \uad6d\uac00 \uc9c0\uc6d0"
+            "title": "국경 없는 결제",
+            "description": "200개 이상의 국가 지원"
           }
         },
         "relatedSolutions": {
-          "title": "\uad00\ub828 \uc194\ub8e8\uc158",
-          "description": "\uacb0\uc81c \uae30\ub2a5\uc744 \ud655\uc7a5\ud558\ub294 \ubcf4\uc644 \uc194\ub8e8\uc158",
+          "title": "관련 솔루션",
+          "description": "결제 기능을 확장하는 보완 솔루션",
           "commerce": {
-            "title": "\ucee4\uba38\uc2a4",
-            "subtitle": "\ud310\ub9e4\uc790 \ub3c4\uad6c"
+            "title": "커머스",
+            "subtitle": "판매자 도구"
           },
           "wallets": {
-            "title": "\uc9c0\uac11",
-            "subtitle": "\uc548\uc804\ud55c \uc5f0\uacb0"
+            "title": "지갑",
+            "subtitle": "안전한 연결"
           },
           "tokenExtensions": {
-            "title": "\ud1a0\ud070 \uc775\uc2a4\ud150\uc158",
-            "subtitle": "TBC-20 \ud45c\uc900"
+            "title": "토큰 익스텐션",
+            "subtitle": "TBC-20 표준"
           }
         },
         "developerResources": {
-          "title": "\uac1c\ubc1c\uc790 \ub9ac\uc18c\uc2a4",
-          "description": "\uacb0\uc81c \ud1b5\ud569\uc744 \uc704\ud55c \uac1c\ubc1c\uc790 \ub3c4\uad6c",
+          "title": "개발자 리소스",
+          "description": "결제 통합을 위한 개발자 도구",
           "sdkGuide": {
-            "title": "\uacb0\uc81c SDK",
-            "subtitle": "\uacb0\uc81c \ud1b5\ud569"
+            "title": "결제 SDK",
+            "subtitle": "결제 통합"
           },
           "smartContracts": {
-            "title": "\uc2a4\ub9c8\ud2b8 \ucee8\ud2b8\ub799\ud2b8",
-            "subtitle": "\uacb0\uc81c \ub85c\uc9c1"
+            "title": "스마트 컨트랙트",
+            "subtitle": "결제 로직"
           },
           "apiReference": {
-            "title": "API \ub808\ud37c\ub7f0\uc2a4",
-            "subtitle": "REST \uc5d4\ub4dc\ud3ec\uc778\ud2b8"
+            "title": "API 레퍼런스",
+            "subtitle": "REST 엔드포인트"
           },
           "webhooks": {
-            "title": "\uc6f9\ud6c5",
-            "subtitle": "\uc2e4\uc2dc\uac04 \uc54c\ub9bc"
+            "title": "웹훅",
+            "subtitle": "실시간 알림"
           }
         },
         "cta": {
-          "title": "\uacb0\uc81c \ud1b5\ud569 \uc2dc\uc791\ud558\uae30",
-          "subtitle": "\uc2e0\ub8b0 \uae30\ubc18 \uacb0\uc81c\ub97c \uadc0\ud558\uc758 \ube44\uc988\ub2c8\uc2a4\uc5d0 \ud1b5\ud569\ud558\uc138\uc694.",
-          "getStarted": "\uc2dc\uc791\ud558\uae30"
+          "title": "결제 통합 시작하기",
+          "subtitle": "신뢰 기반 결제를 귀하의 비즈니스에 통합하세요.",
+          "getStarted": "시작하기"
         }
       },
       "commerce": {
@@ -14952,7 +14952,7 @@
       "hot": "Hot",
       "categories": {
         "announcements": "Announcements",
-    "genesisLaunch": "Genesis Launch",
+        "genesisLaunch": "Genesis Launch",
         "trading": "Trading",
         "technical": "Technical",
         "governance": "Governance",
@@ -15268,7 +15268,7 @@
             "noInvestmentAdviceContent": "TBurn Chain does not provide investment, financial, or legal advice. Trust scores are informational only.",
             "limitationOfLiability": "Limitation of Liability",
             "limitationOfLiabilityContent": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.",
-            "asIsContent": "\uc11c\ube44\uc2a4\ub294 \uba85\uc2dc\uc801\uc774\ub4e0 \ubb35\uc2dc\uc801\uc774\ub4e0 \uc5b4\ub5a0\ud55c \uc885\ub958\uc758 \ubcf4\uc99d \uc5c6\uc774 '\uc788\ub294 \uadf8\ub300\ub85c' \ubc0f '\uc774\uc6a9 \uac00\ub2a5\ud55c \ub300\ub85c' \uc81c\uacf5\ub429\ub2c8\ub2e4."
+            "asIsContent": "서비스는 명시적이든 묵시적이든 어떠한 종류의 보증 없이 '있는 그대로' 및 '이용 가능한 대로' 제공됩니다."
           },
           "governing": {
             "title": "10. Governing Law",
@@ -16054,7 +16054,56 @@
       "required": "Required",
       "expected": "Expected:",
       "actual": "Actual:",
-      "passedLabel": "passed"
+      "passedLabel": "passed",
+      "categories": {
+        "tokenomics": "Tokenomics",
+        "validators": "Validators",
+        "security": "Security",
+        "governance": "Governance",
+        "network": "Network"
+      },
+      "checks": {
+        "totalSupplyVerification": {
+          "name": "Total Supply Verification",
+          "desc": "Verify total supply equals 10 billion TBURN"
+        },
+        "distributionSumCheck": {
+          "name": "Distribution Sum Check",
+          "desc": "Verify all distribution allocations sum to 100%"
+        },
+        "validatorCountCheck": {
+          "name": "Validator Count Check",
+          "desc": "Verify minimum 21 genesis validators configured"
+        },
+        "validatorStakeMinimum": {
+          "name": "Validator Stake Minimum",
+          "desc": "Verify all validators meet minimum stake requirement"
+        },
+        "multiSigQuorum": {
+          "name": "Multi-Sig Quorum",
+          "desc": "Verify 3/5 multi-sig approvals obtained"
+        },
+        "vestingScheduleValidity": {
+          "name": "Vesting Schedule Validity",
+          "desc": "Verify all vesting schedules are valid"
+        },
+        "nodeConnectivity": {
+          "name": "Node Connectivity",
+          "desc": "Verify all validator nodes are reachable"
+        },
+        "kycCompliance": {
+          "name": "KYC Compliance",
+          "desc": "Verify all validators passed KYC verification"
+        },
+        "chainIdUniqueness": {
+          "name": "Chain ID Uniqueness",
+          "desc": "Verify chain ID 8888 is not in use"
+        },
+        "genesisTimestamp": {
+          "name": "Genesis Timestamp",
+          "desc": "Verify genesis timestamp is in the future"
+        }
+      }
     },
     "timeline": {
       "title": "Genesis Launch Timeline",
@@ -16090,7 +16139,25 @@
       "warning": "Warning",
       "info": "Info",
       "allTypes": "All Types",
-      "noMatchingEntries": "No matching log entries found"
+      "noMatchingEntries": "No matching log entries found",
+      "logTypes": {
+        "config_created": "config created",
+        "validator_registered": "validator registered",
+        "approval_submitted": "approval submitted",
+        "preflight_executed": "preflight executed",
+        "genesis_executed": "genesis executed",
+        "config_updated": "config updated"
+      },
+      "actions": {
+        "Genesis Configuration Initialized": "Genesis Configuration Initialized",
+        "Validator Registered": "Validator Registered",
+        "Approval Submitted": "Approval Submitted",
+        "Preflight Check Executed": "Preflight Check Executed",
+        "Genesis Block Created": "Genesis Block Created"
+      },
+      "descriptions": {
+        "Default genesis configuration created with tokenomics and validator setup": "Default genesis configuration created with tokenomics and validator setup"
+      }
     },
     "config": {
       "networkConfig": "Network Configuration",
@@ -17458,11 +17525,11 @@
     },
     "time": "Time",
     "current": "Current",
-    "failed": "\uc2e4\ud328",
-    "models": "\ubaa8\ub378",
-    "deployments": "\ubc30\ud3ec",
-    "history": "\ud788\uc2a4\ud1a0\ub9ac",
-    "trainingProgress": "\ud559\uc2b5 \uc9c4\ud589"
+    "failed": "실패",
+    "models": "모델",
+    "deployments": "배포",
+    "history": "히스토리",
+    "trainingProgress": "학습 진행"
   },
   "adminAIAnalytics": {
     "title": "AI Decision Analytics",
@@ -18939,8 +19006,8 @@
     "gasSettings": "Gas Settings",
     "gasLimit": "Gas Limit",
     "gasPrice": "Gas Price",
-    "inactive": "\ube44\ud65c\uc131",
-    "maintenance": "\uc720\uc9c0\ubcf4\uc218 \uc911"
+    "inactive": "비활성",
+    "maintenance": "유지보수 중"
   },
   "adminLiquidity": {
     "title": "Liquidity Management",
@@ -19156,14 +19223,14 @@
     "firewallRules": "Firewall Rules",
     "accessLogs": "Access Logs",
     "twoFactorAuth": "Two-Factor Auth",
-    "threatLevel": "\uc704\ud611 \uc218\uc900",
-    "activeAlerts": "\ud65c\uc131 \uc54c\ub9bc",
-    "blockedAttempts": "\ucc28\ub2e8\ub41c \uc2dc\ub3c4",
-    "audits": "\uac10\uc0ac",
-    "firewall": "\ubc29\ud654\ubcbd",
-    "encryption": "\uc554\ud638\ud654",
-    "lastScan": "\ub9c8\uc9c0\ub9c9 \uc2a4\uce94",
-    "scanNow": "\uc9c0\uae08 \uc2a4\uce94"
+    "threatLevel": "위협 수준",
+    "activeAlerts": "활성 알림",
+    "blockedAttempts": "차단된 시도",
+    "audits": "감사",
+    "firewall": "방화벽",
+    "encryption": "암호화",
+    "lastScan": "마지막 스캔",
+    "scanNow": "지금 스캔"
   },
   "adminAccess": {
     "title": "Access Control",
@@ -19371,12 +19438,12 @@
     "ipAddress": "IP Address",
     "auditLogs": "Audit Logs",
     "eventType": "Event Type",
-    "searchPlaceholder": "\ub85c\uadf8 \uac80\uc0c9...",
-    "filterByAction": "\uc791\uc5c5\ubcc4 \ud544\ud130",
-    "filterByUser": "\uc0ac\uc6a9\uc790\ubcc4 \ud544\ud130",
-    "action": "\uc791\uc5c5",
-    "resource": "\ub9ac\uc18c\uc2a4",
-    "export": "\ub0b4\ubcf4\ub0b4\uae30",
+    "searchPlaceholder": "로그 검색...",
+    "filterByAction": "작업별 필터",
+    "filterByUser": "사용자별 필터",
+    "action": "작업",
+    "resource": "리소스",
+    "export": "내보내기",
     "view": "View",
     "cancel": "Cancel",
     "detail": {
@@ -19634,16 +19701,16 @@
     "reviewCase": "Review Case",
     "approveKyc": "Approve KYC",
     "rejectKyc": "Reject KYC",
-    "export": "\ub0b4\ubcf4\ub0b4\uae30",
-    "overallCompliance": "\uc804\uccb4 \uc900\uc218\uc728",
-    "policiesActive": "\ud65c\uc131 \uc815\ucc45",
-    "upcomingAudits": "\uc608\uc815\ub41c \uac10\uc0ac",
-    "violations": "\uc704\ubc18 \uc0ac\ud56d",
+    "export": "내보내기",
+    "overallCompliance": "전체 준수율",
+    "policiesActive": "활성 정책",
+    "upcomingAudits": "예정된 감사",
+    "violations": "위반 사항",
     "status": {
-      "compliant": "\uc900\uc218",
-      "partiallyCompliant": "\ubd80\ubd84 \uc900\uc218",
-      "nonCompliant": "\ube44\uc900\uc218",
-      "pending": "\uac80\ud1a0 \uc911"
+      "compliant": "준수",
+      "partiallyCompliant": "부분 준수",
+      "nonCompliant": "비준수",
+      "pending": "검토 중"
     },
     "view": "View",
     "cancel": "Cancel",
@@ -19724,10 +19791,10 @@
       "documentation": "Documentation",
       "security": "Security",
       "uiux": "UI/UX",
-      "bug": "\ubc84\uadf8",
-      "feature": "\uae30\ub2a5 \uc694\uccad",
-      "improvement": "\uac1c\uc120 \uc81c\uc548",
-      "other": "\uae30\ud0c0"
+      "bug": "버그",
+      "feature": "기능 요청",
+      "improvement": "개선 제안",
+      "other": "기타"
     },
     "sampleMessages": {
       "customWidgets": "Would love to see custom widgets on the admin dashboard",
@@ -19803,10 +19870,10 @@
     "reply": "Reply",
     "pending": "Pending",
     "inProgress": "In Progress",
-    "subtitle": "\uc0ac\uc6a9\uc790 \ud53c\ub4dc\ubc31 \ubc0f \uc81c\uc548 \uad00\ub9ac",
-    "totalFeedback": "\ucd1d \ud53c\ub4dc\ubc31",
-    "pendingReview": "\uac80\ud1a0 \ub300\uae30",
-    "resolved": "\ud574\uacb0\ub428"
+    "subtitle": "사용자 피드백 및 제안 관리",
+    "totalFeedback": "총 피드백",
+    "pendingReview": "검토 대기",
+    "resolved": "해결됨"
   },
   "adminAnnouncements": {
     "title": "Announcements",
@@ -21075,7 +21142,7 @@
       "title": "Language Settings",
       "description": "Configure language preferences",
       "englishDesc": "Use English interface",
-      "koreanDesc": "\ud55c\uad6d\uc5b4 \uc778\ud130\ud398\uc774\uc2a4 \uc0ac\uc6a9",
+      "koreanDesc": "한국어 인터페이스 사용",
       "showBoth": "Show Both Languages",
       "showBothDesc": "Display content in both languages where available"
     },
@@ -21748,7 +21815,7 @@
   "adminProposals": {
     "title": "Proposal Management",
     "subtitleEn": "Create and manage governance proposals",
-    "subtitleKo": "\uac70\ubc84\ub10c\uc2a4 \uc81c\uc548 \uc0dd\uc131 \ubc0f \uad00\ub9ac",
+    "subtitleKo": "거버넌스 제안 생성 및 관리",
     "createProposal": "Create Proposal",
     "createNewProposal": "Create New Proposal",
     "createNewProposalDesc": "Submit a new governance proposal",
@@ -21835,7 +21902,7 @@
   "adminVoting": {
     "title": "Voting Management",
     "subtitleEn": "Monitor and participate in governance voting",
-    "subtitleKo": "\uac70\ubc84\ub10c\uc2a4 \ud22c\ud45c \ubaa8\ub2c8\ud130\ub9c1 \ubc0f \ucc38\uc5ec",
+    "subtitleKo": "거버넌스 투표 모니터링 및 참여",
     "activeVoting": "Active Voting",
     "selectProposal": "Select a proposal to view voting details",
     "votingProgress": "Voting Progress",
@@ -22018,7 +22085,7 @@
     "title": "Governance Parameters",
     "subtitle": "Configure governance settings and thresholds",
     "subtitleEn": "Configure governance settings and thresholds",
-    "subtitleKo": "\uac70\ubc84\ub10c\uc2a4 \uc124\uc815 \ubc0f \uc784\uacc4\uac12 \uad6c\uc131",
+    "subtitleKo": "거버넌스 설정 및 임계값 구성",
     "votingParameters": "Voting Parameters",
     "votingParametersDesc": "Configure voting rules",
     "proposalParameters": "Proposal Parameters",
@@ -22151,7 +22218,7 @@
     "title": "Community Management",
     "subtitle": "Manage community engagement and forums",
     "subtitleEn": "Manage community engagement and forums",
-    "subtitleKo": "\ucee4\ubba4\ub2c8\ud2f0 \ucc38\uc5ec \ubc0f \ud3ec\ub7fc \uad00\ub9ac",
+    "subtitleKo": "커뮤니티 참여 및 포럼 관리",
     "communityOverview": "Community Overview",
     "communityOverviewDesc": "Community statistics and activity",
     "forums": "Forums",

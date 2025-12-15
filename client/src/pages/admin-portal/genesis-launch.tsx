@@ -1215,6 +1215,39 @@ function PreflightSystem({
     }
   };
 
+  // Helper to get check name translation key
+  const getCheckTranslationKey = (checkName: string): string => {
+    const keyMap: Record<string, string> = {
+      "Total Supply Verification": "totalSupplyVerification",
+      "Distribution Sum Check": "distributionSumCheck",
+      "Validator Count Check": "validatorCountCheck",
+      "Validator Stake Minimum": "validatorStakeMinimum",
+      "Multi-Sig Quorum": "multiSigQuorum",
+      "Vesting Schedule Validity": "vestingScheduleValidity",
+      "Node Connectivity": "nodeConnectivity",
+      "KYC Compliance": "kycCompliance",
+      "Chain ID Uniqueness": "chainIdUniqueness",
+      "Genesis Timestamp": "genesisTimestamp"
+    };
+    return keyMap[checkName] || "";
+  };
+
+  const translateCheckName = (checkName: string): string => {
+    const key = getCheckTranslationKey(checkName);
+    if (key) {
+      return t(`genesisLaunch.preflight.checks.${key}.name`, checkName);
+    }
+    return checkName;
+  };
+
+  const translateCheckDesc = (checkName: string, defaultDesc: string): string => {
+    const key = getCheckTranslationKey(checkName);
+    if (key) {
+      return t(`genesisLaunch.preflight.checks.${key}.desc`, defaultDesc);
+    }
+    return defaultDesc;
+  };
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -1293,7 +1326,7 @@ function PreflightSystem({
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     {getCategoryIcon(category)}
-                    <span className="capitalize">{category.replace(/_/g, ' ')}</span>
+                    <span className="capitalize">{t(`genesisLaunch.preflight.categories.${category}`, category.replace(/_/g, ' '))}</span>
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <span className={`text-sm ${allPassed ? 'text-green-500' : 'text-muted-foreground'}`}>
@@ -1317,7 +1350,7 @@ function PreflightSystem({
                       {getStatusIcon(check.status)}
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium">{check.checkName}</span>
+                          <span className="font-medium">{translateCheckName(check.checkName)}</span>
                           {check.isCritical && (
                             <Badge variant="destructive" className="text-xs">{t('genesisLaunch.preflight.critical')}</Badge>
                           )}
@@ -1325,7 +1358,7 @@ function PreflightSystem({
                             <Badge variant="secondary" className="text-xs">{t('genesisLaunch.preflight.required')}</Badge>
                           )}
                         </div>
-                        <div className="text-sm text-muted-foreground">{check.checkDescription}</div>
+                        <div className="text-sm text-muted-foreground">{translateCheckDesc(check.checkName, check.checkDescription)}</div>
                       </div>
                       <div className="text-right">
                         {check.expectedValue && (
@@ -1582,6 +1615,19 @@ function AuditLog({
     }
   };
 
+  // Translation helpers for audit log
+  const translateLogType = (logType: string): string => {
+    return t(`genesisLaunch.audit.logTypes.${logType}`, logType.replace(/_/g, ' '));
+  };
+
+  const translateAction = (action: string): string => {
+    return t(`genesisLaunch.audit.actions.${action}`, action);
+  };
+
+  const translateDescription = (description: string): string => {
+    return t(`genesisLaunch.audit.descriptions.${description}`, description);
+  };
+
   return (
     <div className="space-y-4">
       <Card>
@@ -1636,7 +1682,7 @@ function AuditLog({
               <SelectContent>
                 <SelectItem value="all">{t('genesisLaunch.audit.allTypes')}</SelectItem>
                 {logTypes.map(type => (
-                  <SelectItem key={type} value={type}>{type.replace(/_/g, ' ')}</SelectItem>
+                  <SelectItem key={type} value={type}>{translateLogType(type)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -1655,13 +1701,13 @@ function AuditLog({
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-medium">{log.action}</span>
-                        <Badge variant="outline" className="text-xs">{log.logType.replace(/_/g, ' ')}</Badge>
+                        <span className="font-medium">{translateAction(log.action)}</span>
+                        <Badge variant="outline" className="text-xs">{translateLogType(log.logType)}</Badge>
                         <Badge variant="secondary" className={`text-xs ${getSeverityColor(log.severity)}`}>
                           {log.severity}
                         </Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-1">{log.description}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{translateDescription(log.description)}</p>
                       
                       <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                         {log.actorName && (

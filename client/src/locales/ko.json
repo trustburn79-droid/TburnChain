@@ -126,7 +126,7 @@
     "uptime": "가동률",
     "shards": "샤드",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "blocks": "블록",
     "percentage": "비율",
     "count": "개수",
@@ -163,7 +163,7 @@
     "community": "커뮤니티",
     "network": "네트워크",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "members": "멤버",
     "consensus": "합의",
     "aiOrchestration": "AI 오케스트레이션",
@@ -245,7 +245,7 @@
     "tier3Delegators": "Tier 3: 위임자",
     "tier3Desc": "100+ TBURN, 무제한",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "apy": "APY",
     "tburnPerDay": "TBURN/일",
     "delegators": "위임자",
@@ -2352,7 +2352,7 @@
     "pendingRewards": "대기 중인 보상",
     "activePositions": "활성 포지션",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "validatorsCount": "{{count}} 검증자",
     "tvlLabel": "TVL: {{value}}",
     "noPoolsAvailable": "풀이 없습니다",
@@ -2708,7 +2708,7 @@
       "trading": "트레이딩",
       "support": "지원",
       "announcements": "공지사항",
-    "genesisLaunch": "제네시스 출시"
+      "genesisLaunch": "제네시스 출시"
     },
     "eventTypes": {
       "ama": "AMA",
@@ -4826,7 +4826,7 @@
       "resourceTypes": {
         "members": "멤버",
         "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+        "validatorsRegistered": "검증자 등록됨",
         "security": "보안",
         "settings": "설정",
         "reports": "보고서",
@@ -5322,7 +5322,7 @@
       "auditCategories": {
         "security": "보안",
         "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+        "validatorsRegistered": "검증자 등록됨",
         "members": "멤버",
         "config": "설정",
         "access": "접근 제어",
@@ -5358,7 +5358,7 @@
       "resourceTypes": {
         "members": "멤버",
         "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+        "validatorsRegistered": "검증자 등록됨",
         "config": "설정",
         "security": "보안",
         "network": "네트워크",
@@ -6027,7 +6027,7 @@
     "institutionalKyc": "기관",
     "allMembers": "모든 멤버",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "stakers": "스테이커",
     "membersList": "멤버 목록",
     "membersFound": "멤버 발견",
@@ -7693,14 +7693,14 @@
       "stats": {
         "blocks": "블록",
         "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+        "validatorsRegistered": "검증자 등록됨",
         "dailyTxs": "일일 트랜잭션",
         "uptime": "가동률"
       },
       "ecosystem": "에코시스템",
       "ecosystemLinks": {
         "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+        "validatorsRegistered": "검증자 등록됨",
         "bridge": "브릿지",
         "explorer": "익스플로러",
         "staking": "스테이킹",
@@ -7776,7 +7776,7 @@
       "stats": {
         "blocks": "블록",
         "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+        "validatorsRegistered": "검증자 등록됨",
         "dailyTxs": "일일 트랜잭션",
         "uptime": "가동률",
         "title": "네트워크 통계",
@@ -10298,7 +10298,7 @@
         },
         "installation": "설치",
         "configuration": "구성",
-      "configurationDesc": "네트워크 매개변수 구성됨",
+        "configurationDesc": "네트워크 매개변수 구성됨",
         "quickExamples": "빠른 예제",
         "install": {
           "npm": "npm으로 설치",
@@ -15553,7 +15553,7 @@
       "hot": "인기",
       "categories": {
         "announcements": "공지사항",
-    "genesisLaunch": "제네시스 출시",
+        "genesisLaunch": "제네시스 출시",
         "trading": "거래",
         "technical": "기술",
         "governance": "거버넌스",
@@ -16707,7 +16707,56 @@
       "required": "필수",
       "expected": "예상값:",
       "actual": "실제값:",
-      "passedLabel": "통과"
+      "passedLabel": "통과",
+      "categories": {
+        "tokenomics": "토크노믹스",
+        "validators": "검증자",
+        "security": "보안",
+        "governance": "거버넌스",
+        "network": "네트워크"
+      },
+      "checks": {
+        "totalSupplyVerification": {
+          "name": "총 공급량 검증",
+          "desc": "총 공급량이 100억 TBURN과 일치하는지 확인"
+        },
+        "distributionSumCheck": {
+          "name": "배분 합계 확인",
+          "desc": "모든 배분 할당량의 합계가 100%인지 확인"
+        },
+        "validatorCountCheck": {
+          "name": "검증자 수 확인",
+          "desc": "최소 21개의 제네시스 검증자가 구성되었는지 확인"
+        },
+        "validatorStakeMinimum": {
+          "name": "검증자 최소 스테이크",
+          "desc": "모든 검증자가 최소 스테이크 요구사항을 충족하는지 확인"
+        },
+        "multiSigQuorum": {
+          "name": "다중 서명 정족수",
+          "desc": "3/5 다중 서명 승인이 확보되었는지 확인"
+        },
+        "vestingScheduleValidity": {
+          "name": "베스팅 일정 유효성",
+          "desc": "모든 베스팅 일정이 유효한지 확인"
+        },
+        "nodeConnectivity": {
+          "name": "노드 연결성",
+          "desc": "모든 검증자 노드에 연결 가능한지 확인"
+        },
+        "kycCompliance": {
+          "name": "KYC 준수",
+          "desc": "모든 검증자가 KYC 인증을 통과했는지 확인"
+        },
+        "chainIdUniqueness": {
+          "name": "체인 ID 고유성",
+          "desc": "체인 ID 8888이 사용 중이지 않은지 확인"
+        },
+        "genesisTimestamp": {
+          "name": "제네시스 타임스탬프",
+          "desc": "제네시스 타임스탬프가 미래 시점인지 확인"
+        }
+      }
     },
     "timeline": {
       "title": "제네시스 출시 타임라인",
@@ -16743,7 +16792,25 @@
       "warning": "경고",
       "info": "정보",
       "allTypes": "전체 유형",
-      "noMatchingEntries": "일치하는 로그 항목이 없습니다"
+      "noMatchingEntries": "일치하는 로그 항목이 없습니다",
+      "logTypes": {
+        "config_created": "설정 생성됨",
+        "validator_registered": "검증자 등록됨",
+        "approval_submitted": "승인 제출됨",
+        "preflight_executed": "사전점검 실행됨",
+        "genesis_executed": "제네시스 실행됨",
+        "config_updated": "설정 업데이트됨"
+      },
+      "actions": {
+        "Genesis Configuration Initialized": "제네시스 설정 초기화됨",
+        "Validator Registered": "검증자 등록됨",
+        "Approval Submitted": "승인 제출됨",
+        "Preflight Check Executed": "사전점검 실행됨",
+        "Genesis Block Created": "제네시스 블록 생성됨"
+      },
+      "descriptions": {
+        "Default genesis configuration created with tokenomics and validator setup": "토크노믹스 및 검증자 설정으로 기본 제네시스 설정이 생성되었습니다"
+      }
     },
     "config": {
       "networkConfig": "네트워크 구성",
@@ -16869,7 +16936,7 @@
     "networkPerformance": "네트워크 성능",
     "viewDetails": "상세 보기",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "validatorOnline": "온라인",
     "validatorOffline": "오프라인",
     "validatorJailed": "제재됨",
@@ -17607,7 +17674,7 @@
     "rewardsAllocation": "보상 할당 방식",
     "howRewardsAllocated": "보상 할당 방식",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "delegators": "위임자",
     "development": "개발",
     "community": "커뮤니티",
@@ -17708,7 +17775,7 @@
     "decisions": "의사결정",
     "performance": "성능",
     "configuration": "구성",
-      "configurationDesc": "네트워크 매개변수 구성됨",
+    "configurationDesc": "네트워크 매개변수 구성됨",
     "history": "히스토리",
     "recentAIDecisions": "최근 AI 의사결정",
     "recentDecisionsDesc": "AI 오케스트레이션 시스템의 최근 결정",
@@ -17987,7 +18054,7 @@
     "tvl": "TVL",
     "pendingTx": "대기 TX",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "txId": "TX ID",
     "from": "출발",
     "to": "도착",
@@ -18579,7 +18646,7 @@
     "offline": "오프라인",
     "syncing": "동기화 중",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "full": "풀 노드",
     "light": "라이트 노드",
     "archive": "아카이브",
@@ -18715,7 +18782,7 @@
     "totalShards": "전체 샤드",
     "totalValidators": "전체 검증자",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "validatorsTooltip": "이 샤드에 할당된 검증자 수",
     "tpsTooltip": "이 샤드에서 처리되는 초당 트랜잭션 수",
     "healthy": "정상",
@@ -22949,8 +23016,8 @@
     "proposalSettings": "제안 설정",
     "proposalSettingsDesc": "제안 요구사항 및 제한 구성",
     "execution": "실행",
-      "genesisCreated": "제네시스 블록 생성됨",
-      "readyForLaunch": "시작 준비 완료",
+    "genesisCreated": "제네시스 블록 생성됨",
+    "readyForLaunch": "시작 준비 완료",
     "executionSettings": "실행 설정",
     "executionSettingsDesc": "제안 실행 규칙 구성",
     "security": "보안",
@@ -23107,7 +23174,7 @@
     "whaleTier": "고래 등급",
     "largeTierPlus": "대형 등급+",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "communityLeaderboard": "커뮤니티 리더보드",
     "communityLeaderboardDesc": "상위 커뮤니티 기여자",
     "leaderboard": "리더보드",
@@ -23421,7 +23488,6 @@
     "downloads": "다운로드",
     "downloadsDesc": "SDK 다운로드 통계",
     "configuration": "구성",
-      "configurationDesc": "네트워크 매개변수 구성됨",
     "configurationDesc": "SDK 구성 설정",
     "sdkName": "SDK 이름",
     "language": "언어",
@@ -26172,7 +26238,7 @@
     "totalAiBurn": "총 AI 소각",
     "netDeflation": "순 디플레이션",
     "validators": "검증자",
-      "validatorsRegistered": "검증자 등록됨",
+    "validatorsRegistered": "검증자 등록됨",
     "wallets": "지갑",
     "walletDashboard": "지갑 대시보드",
     "y1PriceForecast": "Y1 가격 예측",
