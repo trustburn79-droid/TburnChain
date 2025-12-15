@@ -86,10 +86,13 @@ export class TBurnClient {
 
   constructor(config: TBurnNodeConfig) {
     this.config = config;
-    // Check if using enterprise node - any tburn API key means enterprise mode
-    if (config.apiKey && config.apiKey.startsWith('tburn')) {
+    // Enterprise mode enabled for any valid API key (tburn*, admin*, or any configured key)
+    // This ensures the local enterprise node is always used instead of external HTTP calls
+    if (config.apiKey && config.apiKey.length > 0) {
       this.isEnterpriseMode = true;
-      console.log('[TBURN Client] Enterprise mode enabled with API key:', config.apiKey);
+      console.log('[TBURN Client] 🏢 Enterprise mode ENABLED with API key:', config.apiKey.substring(0, 8) + '...');
+    } else {
+      console.warn('[TBURN Client] ⚠️ No API key configured - running in limited mode');
     }
   }
 
