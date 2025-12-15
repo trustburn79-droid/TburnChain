@@ -185,6 +185,7 @@
     "securityAudit": "보안 감사",
     "reports": "리포트",
     "announcements": "공지사항",
+    "genesisLaunch": "제네시스 출시",
     "events": "이벤트",
     "badges": "뱃지"
   },
@@ -2706,7 +2707,8 @@
       "governance": "거버넌스",
       "trading": "트레이딩",
       "support": "지원",
-      "announcements": "공지사항"
+      "announcements": "공지사항",
+    "genesisLaunch": "제네시스 출시"
     },
     "eventTypes": {
       "ama": "AMA",
@@ -15551,6 +15553,7 @@
       "hot": "인기",
       "categories": {
         "announcements": "공지사항",
+    "genesisLaunch": "제네시스 출시",
         "trading": "거래",
         "technical": "기술",
         "governance": "거버넌스",
@@ -16597,7 +16600,8 @@
     "trainingMaterials": "교육 자료",
     "supportTickets": "지원 티켓",
     "feedbackSystem": "피드백 시스템",
-    "announcements": "공지사항"
+    "announcements": "공지사항",
+    "genesisLaunch": "제네시스 출시"
   },
   "genesisLaunch": {
     "title": "제네시스 블록 출시",
@@ -23031,6 +23035,7 @@
     "forums": "포럼",
     "forumsDesc": "토론 포럼 및 주제",
     "announcements": "공지사항",
+    "genesisLaunch": "제네시스 출시",
     "announcementsDesc": "공식 공지사항",
     "moderationTools": "관리 도구",
     "moderationToolsDesc": "콘텐츠 관리",

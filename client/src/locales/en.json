@@ -178,6 +178,7 @@
     "securityAudit": "Security Audit",
     "reports": "Reports",
     "announcements": "Announcements",
+    "genesisLaunch": "Genesis Launch",
     "events": "Events",
     "badges": "Badges"
   },
@@ -2634,7 +2635,8 @@
       "governance": "Governance",
       "trading": "Trading",
       "support": "Support",
-      "announcements": "Announcements"
+      "announcements": "Announcements",
+    "genesisLaunch": "Genesis Launch"
     },
     "eventTypes": {
       "ama": "AMA",
@@ -14950,6 +14952,7 @@
       "hot": "Hot",
       "categories": {
         "announcements": "Announcements",
+    "genesisLaunch": "Genesis Launch",
         "trading": "Trading",
         "technical": "Technical",
         "governance": "Governance",
@@ -15944,7 +15947,8 @@
     "trainingMaterials": "Training Materials",
     "supportTickets": "Support Tickets",
     "feedbackSystem": "Feedback System",
-    "announcements": "Announcements"
+    "announcements": "Announcements",
+    "genesisLaunch": "Genesis Launch"
   },
   "genesisLaunch": {
     "title": "Genesis Block Launch",
@@ -22148,6 +22152,7 @@
     "forums": "Forums",
     "forumsDesc": "Discussion forums and topics",
     "announcements": "Announcements",
+    "genesisLaunch": "Genesis Launch",
     "announcementsDesc": "Official announcements",
     "moderationTools": "Moderation Tools",
     "moderationToolsDesc": "Content moderation",
