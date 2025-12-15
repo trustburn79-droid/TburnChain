@@ -16020,7 +16020,11 @@
       "verifiedReady": "Verified & Ready",
       "pendingVerification": "Pending Verification",
       "passed": "Passed",
-      "failed": "Failed"
+      "failed": "Failed",
+      "detailsDesc": "Validator node details and configuration",
+      "publicKey": "Public Key",
+      "initialStake": "Initial Stake",
+      "commissionRate": "Commission Rate"
     },
     "approvals": {
       "title": "Multi-Signature Quorum Status",

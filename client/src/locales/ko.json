@@ -16673,7 +16673,11 @@
       "verifiedReady": "검증 완료 및 준비됨",
       "pendingVerification": "검증 대기 중",
       "passed": "통과",
-      "failed": "실패"
+      "failed": "실패",
+      "detailsDesc": "검증자 노드 상세 정보 및 구성",
+      "publicKey": "공개 키",
+      "initialStake": "초기 스테이크",
+      "commissionRate": "수수료율"
     },
     "approvals": {
       "title": "다중 서명 정족수 상태",

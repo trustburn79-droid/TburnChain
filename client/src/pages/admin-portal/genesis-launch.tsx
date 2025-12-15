@@ -759,14 +759,14 @@ function ValidatorConsole({
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[50px]">#</TableHead>
-                  <TableHead>Validator</TableHead>
-                  <TableHead>Address</TableHead>
-                  <TableHead>Stake</TableHead>
-                  <TableHead>Commission</TableHead>
-                  <TableHead>Tier</TableHead>
-                  <TableHead>KYC</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="w-[80px]">Actions</TableHead>
+                  <TableHead>{t('genesisLaunch.validators.validator')}</TableHead>
+                  <TableHead>{t('genesisLaunch.validators.address')}</TableHead>
+                  <TableHead>{t('genesisLaunch.validators.stake')}</TableHead>
+                  <TableHead>{t('genesisLaunch.validators.commission')}</TableHead>
+                  <TableHead>{t('genesisLaunch.validators.tier')}</TableHead>
+                  <TableHead>{t('genesisLaunch.validators.kyc')}</TableHead>
+                  <TableHead>{t('genesisLaunch.validators.status')}</TableHead>
+                  <TableHead className="w-[80px]">{t('genesisLaunch.validators.actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -812,12 +812,12 @@ function ValidatorConsole({
                       {validator.isVerified ? (
                         <Badge className="bg-green-500/20 text-green-500">
                           <ShieldCheck className="w-3 h-3 mr-1" />
-                          Verified
+                          {t('genesisLaunch.validators.verified')}
                         </Badge>
                       ) : (
                         <Badge variant="secondary">
                           <Clock className="w-3 h-3 mr-1" />
-                          Pending
+                          {t('genesisLaunch.validators.pendingTab')}
                         </Badge>
                       )}
                     </TableCell>
@@ -868,29 +868,29 @@ function ValidatorConsole({
               <Server className="w-5 h-5" />
               {selectedValidator?.name}
             </DialogTitle>
-            <DialogDescription>Validator node details and configuration</DialogDescription>
+            <DialogDescription>{t('genesisLaunch.validators.detailsDesc')}</DialogDescription>
           </DialogHeader>
           {selectedValidator && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-xs text-muted-foreground">Address</Label>
+                  <Label className="text-xs text-muted-foreground">{t('genesisLaunch.validators.address')}</Label>
                   <div className="font-mono text-sm mt-1 break-all">{selectedValidator.address}</div>
                 </div>
                 <div>
-                  <Label className="text-xs text-muted-foreground">Public Key</Label>
+                  <Label className="text-xs text-muted-foreground">{t('genesisLaunch.validators.publicKey')}</Label>
                   <div className="font-mono text-xs mt-1 break-all text-muted-foreground">
                     {selectedValidator.nodePublicKey || 'N/A'}
                   </div>
                 </div>
                 <div>
-                  <Label className="text-xs text-muted-foreground">Initial Stake</Label>
+                  <Label className="text-xs text-muted-foreground">{t('genesisLaunch.validators.initialStake')}</Label>
                   <div className="font-mono text-lg font-semibold mt-1">
                     {formatWeiToTBURN(selectedValidator.initialStake)} TBURN
                   </div>
                 </div>
                 <div>
-                  <Label className="text-xs text-muted-foreground">Commission Rate</Label>
+                  <Label className="text-xs text-muted-foreground">{t('genesisLaunch.validators.commissionRate')}</Label>
                   <div className="font-mono text-lg font-semibold mt-1">
                     {formatPercentage(selectedValidator.commission)}
                   </div>
