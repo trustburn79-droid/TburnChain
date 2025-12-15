@@ -273,6 +273,7 @@ function MissionControlHeader({
   onExport: () => void;
   isRefreshing: boolean;
 }) {
+  const { t } = useTranslation();
   const [countdown, setCountdown] = useState<string>("");
   
   useEffect(() => {
@@ -283,7 +284,7 @@ function MissionControlHeader({
         const diff = target - now;
         
         if (diff <= 0) {
-          setCountdown("LAUNCHED");
+          setCountdown(t('genesisLaunch.launched'));
         } else {
           const days = Math.floor(diff / (1000 * 60 * 60 * 24));
           const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -297,10 +298,10 @@ function MissionControlHeader({
   }, [config?.genesisTimestamp]);
 
   const getPhaseStatus = () => {
-    if (isExecuted) return { phase: 'EXECUTED', color: 'text-green-500', bg: 'bg-green-500/10' };
-    if (preflightReady && quorumReady) return { phase: 'READY', color: 'text-blue-500', bg: 'bg-blue-500/10' };
-    if (quorumReady) return { phase: 'AWAITING PREFLIGHT', color: 'text-yellow-500', bg: 'bg-yellow-500/10' };
-    return { phase: 'CONFIGURATION', color: 'text-orange-500', bg: 'bg-orange-500/10' };
+    if (isExecuted) return { phase: t('genesisLaunch.phase.executed'), color: 'text-green-500', bg: 'bg-green-500/10' };
+    if (preflightReady && quorumReady) return { phase: t('genesisLaunch.phase.ready'), color: 'text-blue-500', bg: 'bg-blue-500/10' };
+    if (quorumReady) return { phase: t('genesisLaunch.phase.awaitingPreflight'), color: 'text-yellow-500', bg: 'bg-yellow-500/10' };
+    return { phase: t('genesisLaunch.phase.configuration'), color: 'text-orange-500', bg: 'bg-orange-500/10' };
   };
 
   const phase = getPhaseStatus();
@@ -316,20 +317,20 @@ function MissionControlHeader({
           </div>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-3xl font-bold" data-testid="text-genesis-title">Genesis Block Launch</h1>
+              <h1 className="text-3xl font-bold" data-testid="text-genesis-title">{t('genesisLaunch.title')}</h1>
               <Badge className={`${phase.bg} ${phase.color} border-0 font-semibold`}>
                 {phase.phase}
               </Badge>
             </div>
             <p className="text-muted-foreground mt-1">
-              {config?.chainName || "TBURN Mainnet"} • Chain ID: {config?.chainId || 8888} • {config?.networkVersion || "v8.0"}
+              {config?.chainName || t('genesisLaunch.defaultChainName')} • {t('genesisLaunch.chainIdLabel')} {config?.chainId || 8888} • {config?.networkVersion || "v8.0"}
             </p>
             
             {isExecuted && config?.genesisBlockHash && (
               <div className="flex items-center gap-2 mt-2">
                 <Badge variant="outline" className="font-mono text-xs">
                   <Hash className="w-3 h-3 mr-1" />
-                  Genesis: {config.genesisBlockHash.slice(0, 16)}...
+                  {t('genesisLaunch.genesisHashLabel')} {config.genesisBlockHash.slice(0, 16)}...
                 </Badge>
               </div>
             )}
@@ -339,7 +340,7 @@ function MissionControlHeader({
         <div className="flex flex-wrap items-center gap-3">
           {countdown && !isExecuted && (
             <div className="px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20">
-              <div className="text-xs text-muted-foreground uppercase tracking-wider">Countdown</div>
+              <div className="text-xs text-muted-foreground uppercase tracking-wider">{t('genesisLaunch.countdown')}</div>
               <div className="text-lg font-mono font-bold text-orange-500">{countdown}</div>
             </div>
           )}
@@ -347,11 +348,11 @@ function MissionControlHeader({
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={onRefresh} disabled={isRefreshing} data-testid="button-refresh">
               <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-              Refresh
+              {t('genesisLaunch.refresh')}
             </Button>
             <Button variant="outline" size="sm" onClick={onExport} data-testid="button-export">
               <Download className="w-4 h-4 mr-2" />
-              Export
+              {t('genesisLaunch.export')}
             </Button>
           </div>
         </div>
@@ -374,10 +375,11 @@ function KPIGrid({
   preflightData?: PreflightResponse;
   distributionData?: DistributionResponse;
 }) {
+  const { t } = useTranslation();
   const kpis = [
     {
       icon: Coins,
-      label: "Total Supply",
+      label: t('genesisLaunch.kpi.totalSupply'),
       value: formatWeiToTBURN(config?.totalSupply || "0"),
       suffix: config?.tokenSymbol || "TBURN",
       color: "text-blue-500",
@@ -385,43 +387,43 @@ function KPIGrid({
     },
     {
       icon: Users,
-      label: "Genesis Validators",
+      label: t('genesisLaunch.kpi.genesisValidators'),
       value: `${summary?.validatorCount || 0}/${config?.initialValidatorCount || 21}`,
-      suffix: "configured",
+      suffix: t('genesisLaunch.kpi.configured'),
       color: "text-green-500",
       bgColor: "bg-green-500/10",
       progress: ((summary?.validatorCount || 0) / (config?.initialValidatorCount || 21)) * 100
     },
     {
       icon: Shield,
-      label: "Multi-Sig Approvals",
+      label: t('genesisLaunch.kpi.multiSigApprovals'),
       value: `${approvalsData?.summary?.approvedCount || 0}/${config?.requiredSignatures || 3}`,
-      suffix: approvalsData?.summary?.hasQuorum ? "Quorum Met" : "Pending",
+      suffix: approvalsData?.summary?.hasQuorum ? t('genesisLaunch.kpi.quorumMet') : t('genesisLaunch.kpi.pending'),
       color: approvalsData?.summary?.hasQuorum ? "text-green-500" : "text-yellow-500",
       bgColor: approvalsData?.summary?.hasQuorum ? "bg-green-500/10" : "bg-yellow-500/10",
       progress: ((approvalsData?.summary?.approvedCount || 0) / (config?.requiredSignatures || 3)) * 100
     },
     {
       icon: FileCheck,
-      label: "Preflight Checks",
+      label: t('genesisLaunch.kpi.preflightChecks'),
       value: `${preflightData?.summary?.passedChecks || 0}/${preflightData?.summary?.totalChecks || 0}`,
-      suffix: preflightData?.summary?.canExecute ? "All Passed" : "Running",
+      suffix: preflightData?.summary?.canExecute ? t('genesisLaunch.kpi.allPassed') : t('genesisLaunch.kpi.running'),
       color: preflightData?.summary?.canExecute ? "text-green-500" : "text-orange-500",
       bgColor: preflightData?.summary?.canExecute ? "bg-green-500/10" : "bg-orange-500/10",
       progress: ((preflightData?.summary?.passedChecks || 0) / (preflightData?.summary?.totalChecks || 1)) * 100
     },
     {
       icon: PieChart,
-      label: "Token Distribution",
+      label: t('genesisLaunch.kpi.tokenDistribution'),
       value: formatBasisToPercent(distributionData?.summary?.totalPercentage || 0).toFixed(0) + "%",
-      suffix: distributionData?.summary?.isComplete ? "Complete" : "Incomplete",
+      suffix: distributionData?.summary?.isComplete ? t('genesisLaunch.kpi.complete') : t('genesisLaunch.kpi.incomplete'),
       color: distributionData?.summary?.isComplete ? "text-green-500" : "text-red-500",
       bgColor: distributionData?.summary?.isComplete ? "bg-green-500/10" : "bg-red-500/10",
       progress: formatBasisToPercent(distributionData?.summary?.totalPercentage || 0)
     },
     {
       icon: Timer,
-      label: "Block Time",
+      label: t('genesisLaunch.kpi.blockTime'),
       value: config?.blockTimeMs || 100,
       suffix: "ms",
       color: "text-purple-500",
@@ -429,17 +431,17 @@ function KPIGrid({
     },
     {
       icon: Layers,
-      label: "Initial Shards",
+      label: t('genesisLaunch.kpi.initialShards'),
       value: config?.initialShardCount || 8,
-      suffix: `max ${config?.maxShardCount || 128}`,
+      suffix: `${t('genesisLaunch.kpi.max')} ${config?.maxShardCount || 128}`,
       color: "text-cyan-500",
       bgColor: "bg-cyan-500/10"
     },
     {
       icon: TrendingUp,
-      label: "Staking APR",
+      label: t('genesisLaunch.kpi.stakingApr'),
       value: formatPercentage(config?.stakingRewardRate || 0),
-      suffix: "annual",
+      suffix: t('genesisLaunch.kpi.annual'),
       color: "text-emerald-500",
       bgColor: "bg-emerald-500/10"
     }
@@ -478,6 +480,7 @@ function KPIGrid({
 
 // Token Distribution Chart
 function TokenDistributionChart({ distributions }: { distributions: GenesisDistribution[] }) {
+  const { t } = useTranslation();
   const chartData = useMemo(() => {
     return distributions.map((d, i) => ({
       name: d.recipientName,
@@ -510,9 +513,9 @@ function TokenDistributionChart({ distributions }: { distributions: GenesisDistr
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <PieChart className="w-5 h-5 text-primary" />
-            Token Allocation Overview
+            {t('genesisLaunch.distribution.allocationOverview')}
           </CardTitle>
-          <CardDescription>Distribution by category</CardDescription>
+          <CardDescription>{t('genesisLaunch.distribution.distributionByCategory')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -550,9 +553,9 @@ function TokenDistributionChart({ distributions }: { distributions: GenesisDistr
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Layers className="w-5 h-5 text-primary" />
-            Allocation Breakdown
+            {t('genesisLaunch.distribution.allocationBreakdown')}
           </CardTitle>
-          <CardDescription>Detailed recipient allocations</CardDescription>
+          <CardDescription>{t('genesisLaunch.distribution.detailedAllocations')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[300px]">
@@ -573,13 +576,13 @@ function TokenDistributionChart({ distributions }: { distributions: GenesisDistr
                       {item.hasVesting && (
                         <Badge variant="outline" className="text-xs">
                           <Lock className="w-3 h-3 mr-1" />
-                          {item.vestingMonths}mo vesting
+                          {item.vestingMonths}mo {t('genesisLaunch.distribution.vesting')}
                         </Badge>
                       )}
                       {item.locked && (
                         <Badge variant="secondary" className="text-xs">
                           <Lock className="w-3 h-3 mr-1" />
-                          Locked
+                          {t('genesisLaunch.distribution.locked')}
                         </Badge>
                       )}
                     </div>
@@ -606,6 +609,7 @@ function ValidatorConsole({
   isExecuted: boolean;
   onVerify: (id: string) => void;
 }) {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [selectedValidator, setSelectedValidator] = useState<GenesisValidator | null>(null);
@@ -631,11 +635,11 @@ function ValidatorConsole({
   const getKycBadge = (status: string) => {
     switch (status) {
       case 'passed':
-        return <Badge className="bg-green-500/20 text-green-500 border-green-500/30"><CheckCircle className="w-3 h-3 mr-1" />Passed</Badge>;
+        return <Badge className="bg-green-500/20 text-green-500 border-green-500/30"><CheckCircle className="w-3 h-3 mr-1" />{t('genesisLaunch.validators.passed')}</Badge>;
       case 'failed':
-        return <Badge variant="destructive"><XCircle className="w-3 h-3 mr-1" />Failed</Badge>;
+        return <Badge variant="destructive"><XCircle className="w-3 h-3 mr-1" />{t('genesisLaunch.validators.failed')}</Badge>;
       default:
-        return <Badge variant="secondary"><Clock className="w-3 h-3 mr-1" />Pending</Badge>;
+        return <Badge variant="secondary"><Clock className="w-3 h-3 mr-1" />{t('genesisLaunch.kpi.pending')}</Badge>;
     }
   };
 
@@ -657,7 +661,7 @@ function ValidatorConsole({
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground text-sm">
               <Users className="w-4 h-4" />
-              Total Validators
+              {t('genesisLaunch.validators.totalValidators')}
             </div>
             <div className="text-2xl font-bold mt-1">{stats.total}</div>
           </CardContent>
@@ -666,7 +670,7 @@ function ValidatorConsole({
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground text-sm">
               <CheckCircle className="w-4 h-4 text-green-500" />
-              Verified
+              {t('genesisLaunch.validators.verified')}
             </div>
             <div className="text-2xl font-bold mt-1 text-green-500">{stats.verified}</div>
           </CardContent>
@@ -675,7 +679,7 @@ function ValidatorConsole({
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground text-sm">
               <Fingerprint className="w-4 h-4 text-blue-500" />
-              KYC Passed
+              {t('genesisLaunch.validators.kycPassed')}
             </div>
             <div className="text-2xl font-bold mt-1 text-blue-500">{stats.kycPassed}</div>
           </CardContent>
@@ -684,7 +688,7 @@ function ValidatorConsole({
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground text-sm">
               <Coins className="w-4 h-4 text-purple-500" />
-              Total Stake
+              {t('genesisLaunch.validators.totalStake')}
             </div>
             <div className="text-2xl font-bold mt-1 text-purple-500">
               {formatWeiToTBURN(stats.totalStake.toString())}
@@ -699,15 +703,15 @@ function ValidatorConsole({
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Server className="w-5 h-5" />
-                Validator Registry
+                {t('genesisLaunch.validators.registry')}
               </CardTitle>
-              <CardDescription>Genesis validator node configuration</CardDescription>
+              <CardDescription>{t('genesisLaunch.validators.registryDesc')}</CardDescription>
             </div>
             <div className="flex items-center gap-2">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search validators..."
+                  placeholder={t('genesisLaunch.validators.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-9 w-[200px]"
@@ -720,9 +724,9 @@ function ValidatorConsole({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="verified">Verified</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="all">{t('genesisLaunch.validators.all')}</SelectItem>
+                  <SelectItem value="verified">{t('genesisLaunch.validators.verifiedTab')}</SelectItem>
+                  <SelectItem value="pending">{t('genesisLaunch.validators.pendingTab')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -767,7 +771,7 @@ function ValidatorConsole({
                               <Copy className="w-3 h-3" />
                             </Button>
                           </TooltipTrigger>
-                          <TooltipContent>Copy address</TooltipContent>
+                          <TooltipContent>{t('genesisLaunch.validators.copyAddress')}</TooltipContent>
                         </Tooltip>
                       </div>
                     </TableCell>
@@ -809,7 +813,7 @@ function ValidatorConsole({
                               <Eye className="w-4 h-4" />
                             </Button>
                           </TooltipTrigger>
-                          <TooltipContent>View details</TooltipContent>
+                          <TooltipContent>{t('genesisLaunch.validators.viewDetails')}</TooltipContent>
                         </Tooltip>
                         {!isExecuted && !validator.isVerified && (
                           <Tooltip>
@@ -823,7 +827,7 @@ function ValidatorConsole({
                                 <Check className="w-4 h-4 text-green-500" />
                               </Button>
                             </TooltipTrigger>
-                            <TooltipContent>Verify validator</TooltipContent>
+                            <TooltipContent>{t('genesisLaunch.validators.verifyValidator')}</TooltipContent>
                           </Tooltip>
                         )}
                       </div>
@@ -880,10 +884,10 @@ function ValidatorConsole({
                 {selectedValidator.isVerified ? (
                   <Badge className="bg-green-500/20 text-green-500">
                     <ShieldCheck className="w-4 h-4 mr-1" />
-                    Verified & Ready
+                    {t('genesisLaunch.validators.verifiedReady')}
                   </Badge>
                 ) : (
-                  <Badge variant="outline">Pending Verification</Badge>
+                  <Badge variant="outline">{t('genesisLaunch.validators.pendingVerification')}</Badge>
                 )}
               </div>
             </div>
@@ -912,6 +916,7 @@ function ApprovalWorkflow({
   onReject: (id: string) => void;
   isPending: boolean;
 }) {
+  const { t } = useTranslation();
   const sortedApprovals = useMemo(() => 
     [...approvals].sort((a, b) => a.signerOrder - b.signerOrder),
   [approvals]);
@@ -933,10 +938,10 @@ function ApprovalWorkflow({
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="w-5 h-5" />
-            Multi-Signature Quorum Status
+            {t('genesisLaunch.approvals.title')}
           </CardTitle>
           <CardDescription>
-            {summary?.approvedCount || 0} of {requiredSignatures} required signatures collected
+            {summary?.approvedCount || 0} / {requiredSignatures} {t('genesisLaunch.approvals.signaturesCollected')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -948,9 +953,9 @@ function ApprovalWorkflow({
             <div className={`px-4 py-2 rounded-lg ${summary?.hasQuorum ? 'bg-green-500/10 text-green-500' : 'bg-muted'}`}>
               <span className="text-sm font-semibold">
                 {summary?.hasQuorum ? (
-                  <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Quorum Met</span>
+                  <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> {t('genesisLaunch.approvals.quorumMet')}</span>
                 ) : (
-                  `${requiredSignatures - (summary?.approvedCount || 0)} more needed`
+                  `${requiredSignatures - (summary?.approvedCount || 0)} ${t('genesisLaunch.approvals.moreNeeded')}`
                 )}
               </span>
             </div>
@@ -985,7 +990,7 @@ function ApprovalWorkflow({
                       <div className="text-xs text-muted-foreground capitalize">{approval.signerRole}</div>
                       {approval.status === 'approved' && approval.approvedAt && (
                         <div className="text-xs text-green-500 mt-1">
-                          Approved {formatTimestamp(approval.approvedAt)}
+                          {t('genesisLaunch.approvals.approved')} {formatTimestamp(approval.approvedAt)}
                         </div>
                       )}
                     </div>
@@ -1001,7 +1006,7 @@ function ApprovalWorkflow({
           {summary?.hasQuorum && (
             <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-green-500/10 border border-green-500/20">
               <ShieldCheck className="w-5 h-5 text-green-500" />
-              <span className="text-green-500 font-medium">All required approvals collected. Genesis execution authorized.</span>
+              <span className="text-green-500 font-medium">{t('genesisLaunch.approvals.allApprovedMessage')}</span>
             </div>
           )}
         </CardContent>
@@ -1011,9 +1016,9 @@ function ApprovalWorkflow({
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Key className="w-5 h-5" />
-            Signature Details
+            {t('genesisLaunch.approvals.signatureDetails')}
           </CardTitle>
-          <CardDescription>Individual signer status and hardware wallet guidance</CardDescription>
+          <CardDescription>{t('genesisLaunch.approvals.signatureDetailsDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -1050,7 +1055,7 @@ function ApprovalWorkflow({
                       <div className="text-right">
                         <Badge className="bg-green-500/20 text-green-500 mb-1">
                           <CheckCircle className="w-3 h-3 mr-1" />
-                          Approved
+                          {t('genesisLaunch.approvals.approved')}
                         </Badge>
                         {approval.approvedAt && (
                           <div className="text-xs text-muted-foreground">
@@ -1061,7 +1066,7 @@ function ApprovalWorkflow({
                     ) : approval.status === 'rejected' ? (
                       <Badge variant="destructive">
                         <XCircle className="w-3 h-3 mr-1" />
-                        Rejected
+                        {t('genesisLaunch.approvals.rejected')}
                       </Badge>
                     ) : (
                       <>
@@ -1075,7 +1080,7 @@ function ApprovalWorkflow({
                               className="text-red-500 hover:text-red-600"
                             >
                               <X className="w-4 h-4 mr-1" />
-                              Reject
+                              {t('genesisLaunch.approvals.reject')}
                             </Button>
                             <Button
                               size="sm"
@@ -1088,7 +1093,7 @@ function ApprovalWorkflow({
                               ) : (
                                 <Check className="w-4 h-4 mr-1" />
                               )}
-                              Approve
+                              {t('genesisLaunch.approvals.approve')}
                             </Button>
                           </div>
                         )}
@@ -1102,10 +1107,9 @@ function ApprovalWorkflow({
                     <div className="flex items-start gap-2">
                       <Info className="w-4 h-4 text-blue-500 mt-0.5" />
                       <div className="text-sm">
-                        <div className="font-medium text-blue-500">Hardware Wallet Recommended</div>
+                        <div className="font-medium text-blue-500">{t('genesisLaunch.approvals.hardwareWallet')}</div>
                         <div className="text-muted-foreground mt-1">
-                          For maximum security, sign with a Ledger or Trezor device. 
-                          Connect your hardware wallet and confirm the transaction on the device screen.
+                          {t('genesisLaunch.approvals.hardwareWalletDesc')}
                         </div>
                       </div>
                     </div>
@@ -1122,7 +1126,7 @@ function ApprovalWorkflow({
                       {approval.isVerified && (
                         <Badge variant="outline" className="text-green-500">
                           <CheckCircle className="w-3 h-3 mr-1" />
-                          Verified
+                          {t('genesisLaunch.approvals.verified')}
                         </Badge>
                       )}
                     </div>
@@ -1157,6 +1161,7 @@ function PreflightSystem({
   isRunning: boolean;
   isExecuted: boolean;
 }) {
+  const { t } = useTranslation();
   const groupedChecks = useMemo(() => {
     const groups: Record<string, PreflightCheck[]> = {};
     checks.forEach(check => {
@@ -1195,25 +1200,25 @@ function PreflightSystem({
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold">{summary?.totalChecks || 0}</div>
-            <div className="text-sm text-muted-foreground">Total Checks</div>
+            <div className="text-sm text-muted-foreground">{t('genesisLaunch.preflight.totalChecks')}</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold text-green-500">{summary?.passedChecks || 0}</div>
-            <div className="text-sm text-muted-foreground">Passed</div>
+            <div className="text-sm text-muted-foreground">{t('genesisLaunch.preflight.passed')}</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold text-red-500">{summary?.failedChecks || 0}</div>
-            <div className="text-sm text-muted-foreground">Failed</div>
+            <div className="text-sm text-muted-foreground">{t('genesisLaunch.preflight.failed')}</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold text-yellow-500">{summary?.pendingChecks || 0}</div>
-            <div className="text-sm text-muted-foreground">Pending</div>
+            <div className="text-sm text-muted-foreground">{t('genesisLaunch.preflight.pending')}</div>
           </CardContent>
         </Card>
         <Card className={summary?.canExecute ? "border-green-500/50" : ""}>
@@ -1221,12 +1226,12 @@ function PreflightSystem({
             {summary?.canExecute ? (
               <>
                 <CheckCircle className="w-8 h-8 mx-auto text-green-500 mb-1" />
-                <div className="text-sm text-green-500 font-medium">Ready</div>
+                <div className="text-sm text-green-500 font-medium">{t('genesisLaunch.preflight.ready')}</div>
               </>
             ) : (
               <>
                 <AlertCircle className="w-8 h-8 mx-auto text-yellow-500 mb-1" />
-                <div className="text-sm text-yellow-500 font-medium">Not Ready</div>
+                <div className="text-sm text-yellow-500 font-medium">{t('genesisLaunch.preflight.notReady')}</div>
               </>
             )}
           </CardContent>
@@ -1244,12 +1249,12 @@ function PreflightSystem({
             {isRunning ? (
               <>
                 <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                Running Preflight Checks...
+                {t('genesisLaunch.preflight.running')}
               </>
             ) : (
               <>
                 <Play className="w-5 h-5 mr-2" />
-                Run All Preflight Checks
+                {t('genesisLaunch.preflight.runAll')}
               </>
             )}
           </Button>
@@ -1271,7 +1276,7 @@ function PreflightSystem({
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <span className={`text-sm ${allPassed ? 'text-green-500' : 'text-muted-foreground'}`}>
-                      {passedCount}/{categoryChecks.length} passed
+                      {passedCount}/{categoryChecks.length} {t('genesisLaunch.preflight.passedLabel')}
                     </span>
                     {allPassed && <CheckCircle className="w-4 h-4 text-green-500" />}
                   </div>
@@ -1293,10 +1298,10 @@ function PreflightSystem({
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{check.checkName}</span>
                           {check.isCritical && (
-                            <Badge variant="destructive" className="text-xs">Critical</Badge>
+                            <Badge variant="destructive" className="text-xs">{t('genesisLaunch.preflight.critical')}</Badge>
                           )}
                           {check.isRequired && !check.isCritical && (
-                            <Badge variant="secondary" className="text-xs">Required</Badge>
+                            <Badge variant="secondary" className="text-xs">{t('genesisLaunch.preflight.required')}</Badge>
                           )}
                         </div>
                         <div className="text-sm text-muted-foreground">{check.checkDescription}</div>
@@ -1304,12 +1309,12 @@ function PreflightSystem({
                       <div className="text-right">
                         {check.expectedValue && (
                           <div className="text-xs text-muted-foreground">
-                            Expected: <code className="bg-muted px-1 rounded">{check.expectedValue}</code>
+                            {t('genesisLaunch.preflight.expected')}: <code className="bg-muted px-1 rounded">{check.expectedValue}</code>
                           </div>
                         )}
                         {check.actualValue && (
                           <div className={`text-xs ${check.status === 'passed' ? 'text-green-500' : 'text-red-500'}`}>
-                            Actual: <code className="bg-muted px-1 rounded">{check.actualValue}</code>
+                            {t('genesisLaunch.preflight.actual')}: <code className="bg-muted px-1 rounded">{check.actualValue}</code>
                           </div>
                         )}
                       </div>
@@ -1347,49 +1352,50 @@ function ExecutionTimeline({
   onReset: () => void;
   isExecuting: boolean;
 }) {
+  const { t } = useTranslation();
   const steps = [
     {
       id: 'config',
-      title: 'Configuration',
-      description: 'Genesis parameters defined',
+      title: t('genesisLaunch.timeline.configuration'),
+      description: t('genesisLaunch.timeline.configurationDesc'),
       status: config?.status !== 'draft' || (summary?.validatorCount || 0) > 0 ? 'complete' : 'current',
       icon: Settings
     },
     {
       id: 'validators',
-      title: 'Validators',
-      description: `${summary?.validatorCount || 0}/${config?.initialValidatorCount || 21} validators registered`,
+      title: t('genesisLaunch.timeline.validators'),
+      description: `${summary?.validatorCount || 0}/${config?.initialValidatorCount || 21} ${t('genesisLaunch.timeline.validatorsRegistered')}`,
       status: (summary?.validatorCount || 0) >= (config?.initialValidatorCount || 21) ? 'complete' : 
               (summary?.validatorCount || 0) > 0 ? 'current' : 'pending',
       icon: Users
     },
     {
       id: 'distribution',
-      title: 'Distribution',
-      description: 'Token allocations configured',
+      title: t('genesisLaunch.timeline.distribution'),
+      description: t('genesisLaunch.timeline.distributionDesc'),
       status: (summary?.distributionCount || 0) > 0 ? 'complete' : 'pending',
       icon: PieChart
     },
     {
       id: 'approvals',
-      title: 'Approvals',
-      description: `${approvalsData?.summary?.approvedCount || 0}/${config?.requiredSignatures || 3} signatures`,
+      title: t('genesisLaunch.timeline.approvals'),
+      description: `${approvalsData?.summary?.approvedCount || 0}/${config?.requiredSignatures || 3} ${t('genesisLaunch.timeline.signatures')}`,
       status: approvalsData?.summary?.hasQuorum ? 'complete' : 
               (approvalsData?.summary?.approvedCount || 0) > 0 ? 'current' : 'pending',
       icon: Shield
     },
     {
       id: 'preflight',
-      title: 'Preflight',
-      description: `${preflightData?.summary?.passedChecks || 0}/${preflightData?.summary?.totalChecks || 0} checks passed`,
+      title: t('genesisLaunch.timeline.preflight'),
+      description: `${preflightData?.summary?.passedChecks || 0}/${preflightData?.summary?.totalChecks || 0} ${t('genesisLaunch.timeline.checksPassed')}`,
       status: preflightData?.summary?.canExecute ? 'complete' :
               (preflightData?.summary?.passedChecks || 0) > 0 ? 'current' : 'pending',
       icon: FileCheck
     },
     {
       id: 'execute',
-      title: 'Execution',
-      description: isExecuted ? 'Genesis block created' : 'Ready for launch',
+      title: t('genesisLaunch.timeline.execution'),
+      description: isExecuted ? t('genesisLaunch.timeline.genesisCreated') : t('genesisLaunch.timeline.readyForLaunch'),
       status: isExecuted ? 'complete' : canExecute ? 'current' : 'pending',
       icon: Rocket
     }
@@ -1400,9 +1406,9 @@ function ExecutionTimeline({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <GitBranch className="w-5 h-5" />
-          Genesis Launch Timeline
+          {t('genesisLaunch.timeline.title')}
         </CardTitle>
-        <CardDescription>Track progress through genesis creation phases</CardDescription>
+        <CardDescription>{t('genesisLaunch.timeline.description')}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="relative">
@@ -1436,10 +1442,10 @@ function ExecutionTimeline({
                       {step.title}
                     </span>
                     {step.status === 'complete' && (
-                      <Badge className="bg-green-500/20 text-green-500 border-0">Complete</Badge>
+                      <Badge className="bg-green-500/20 text-green-500 border-0">{t('genesisLaunch.timeline.complete')}</Badge>
                     )}
                     {step.status === 'current' && (
-                      <Badge className="bg-blue-500/20 text-blue-500 border-0">In Progress</Badge>
+                      <Badge className="bg-blue-500/20 text-blue-500 border-0">{t('genesisLaunch.timeline.inProgress')}</Badge>
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground mt-1 ml-8">{step.description}</p>
@@ -1460,7 +1466,7 @@ function ExecutionTimeline({
                 data-testid="button-reset"
               >
                 <RotateCcw className="w-4 h-4 mr-2" />
-                Reset Configuration
+                {t('genesisLaunch.timeline.resetConfig')}
               </Button>
               <Button
                 onClick={onExecute}
@@ -1472,12 +1478,12 @@ function ExecutionTimeline({
                 {isExecuting ? (
                   <>
                     <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                    Executing Genesis...
+                    {t('genesisLaunch.timeline.executing')}
                   </>
                 ) : (
                   <>
                     <Rocket className="w-5 h-5 mr-2" />
-                    Execute Genesis Block
+                    {t('genesisLaunch.timeline.executeGenesis')}
                   </>
                 )}
               </Button>
@@ -1491,13 +1497,13 @@ function ExecutionTimeline({
                   <CheckCircle className="w-8 h-8 text-green-500" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-green-500">Genesis Block Executed Successfully</h3>
+                  <h3 className="text-xl font-bold text-green-500">{t('genesisLaunch.timeline.executedSuccess')}</h3>
                   <p className="text-muted-foreground">
-                    {config?.chainName} mainnet has been initialized
+                    {config?.chainName} {t('genesisLaunch.timeline.mainnetInitialized')}
                   </p>
                   {config?.executedAt && (
                     <p className="text-sm text-muted-foreground mt-1">
-                      Executed at: {formatTimestamp(config.executedAt)}
+                      {t('genesisLaunch.timeline.executedAt')}: {formatTimestamp(config.executedAt)}
                     </p>
                   )}
                 </div>
@@ -1518,6 +1524,7 @@ function AuditLog({
   logs: ExecutionLog[];
   onExport: (format: 'json' | 'csv') => void;
 }) {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [severityFilter, setSeverityFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
@@ -1562,9 +1569,9 @@ function AuditLog({
             <div>
               <CardTitle className="flex items-center gap-2">
                 <History className="w-5 h-5" />
-                Immutable Audit Trail
+                {t('genesisLaunch.audit.title')}
               </CardTitle>
-              <CardDescription>Cryptographically verified activity log</CardDescription>
+              <CardDescription>{t('genesisLaunch.audit.description')}</CardDescription>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm" onClick={() => onExport('json')}>
@@ -1583,7 +1590,7 @@ function AuditLog({
             <div className="relative flex-1 min-w-[200px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder="Search logs..."
+                placeholder={t('genesisLaunch.audit.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-9"
@@ -1595,10 +1602,10 @@ function AuditLog({
                 <SelectValue placeholder="Severity" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Severity</SelectItem>
-                <SelectItem value="critical">Critical</SelectItem>
-                <SelectItem value="warning">Warning</SelectItem>
-                <SelectItem value="info">Info</SelectItem>
+                <SelectItem value="all">{t('genesisLaunch.audit.allSeverity')}</SelectItem>
+                <SelectItem value="critical">{t('genesisLaunch.audit.critical')}</SelectItem>
+                <SelectItem value="warning">{t('genesisLaunch.audit.warning')}</SelectItem>
+                <SelectItem value="info">{t('genesisLaunch.audit.info')}</SelectItem>
               </SelectContent>
             </Select>
             <Select value={typeFilter} onValueChange={setTypeFilter}>
@@ -1606,7 +1613,7 @@ function AuditLog({
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="all">{t('genesisLaunch.audit.allTypes')}</SelectItem>
                 {logTypes.map(type => (
                   <SelectItem key={type} value={type}>{type.replace(/_/g, ' ')}</SelectItem>
                 ))}
@@ -1666,7 +1673,7 @@ function AuditLog({
               {filteredLogs.length === 0 && (
                 <div className="text-center py-12 text-muted-foreground">
                   <FileText className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                  <p>No matching log entries found</p>
+                  <p>{t('genesisLaunch.audit.noMatchingEntries')}</p>
                 </div>
               )}
             </div>
@@ -1906,27 +1913,27 @@ export default function AdminGenesisLaunch() {
         <TabsList className="grid grid-cols-6 w-full max-w-4xl">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <Target className="w-4 h-4 mr-2" />
-            Overview
+            {t('genesisLaunch.tabs.overview')}
           </TabsTrigger>
           <TabsTrigger value="distribution" data-testid="tab-distribution">
             <PieChart className="w-4 h-4 mr-2" />
-            Distribution
+            {t('genesisLaunch.tabs.distribution')}
           </TabsTrigger>
           <TabsTrigger value="validators" data-testid="tab-validators">
             <Users className="w-4 h-4 mr-2" />
-            Validators
+            {t('genesisLaunch.tabs.validators')}
           </TabsTrigger>
           <TabsTrigger value="approvals" data-testid="tab-approvals">
             <Shield className="w-4 h-4 mr-2" />
-            Approvals
+            {t('genesisLaunch.tabs.approvals')}
           </TabsTrigger>
           <TabsTrigger value="preflight" data-testid="tab-preflight">
             <FileCheck className="w-4 h-4 mr-2" />
-            Preflight
+            {t('genesisLaunch.tabs.preflight')}
           </TabsTrigger>
           <TabsTrigger value="logs" data-testid="tab-logs">
             <History className="w-4 h-4 mr-2" />
-            Audit Log
+            {t('genesisLaunch.tabs.auditLog')}
           </TabsTrigger>
         </TabsList>
 
@@ -1948,25 +1955,25 @@ export default function AdminGenesisLaunch() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Settings className="w-5 h-5" />
-                  Network Configuration
+                  {t('genesisLaunch.config.networkConfig')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-xs text-muted-foreground">Chain ID</Label>
+                    <Label className="text-xs text-muted-foreground">{t('genesisLaunch.config.chainId')}</Label>
                     <div className="font-mono text-lg font-semibold">{config?.chainId}</div>
                   </div>
                   <div>
-                    <Label className="text-xs text-muted-foreground">Network Version</Label>
+                    <Label className="text-xs text-muted-foreground">{t('genesisLaunch.config.networkVersion')}</Label>
                     <div className="font-mono text-lg">{config?.networkVersion}</div>
                   </div>
                   <div>
-                    <Label className="text-xs text-muted-foreground">Block Time</Label>
+                    <Label className="text-xs text-muted-foreground">{t('genesisLaunch.config.blockTime')}</Label>
                     <div className="font-mono text-lg">{config?.blockTimeMs}ms</div>
                   </div>
                   <div>
-                    <Label className="text-xs text-muted-foreground">Consensus</Label>
+                    <Label className="text-xs text-muted-foreground">{t('genesisLaunch.config.consensus')}</Label>
                     <div className="font-mono text-lg">{config?.consensusType}</div>
                   </div>
                 </div>
@@ -1977,27 +1984,27 @@ export default function AdminGenesisLaunch() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Coins className="w-5 h-5" />
-                  Tokenomics
+                  {t('genesisLaunch.config.tokenomics')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-xs text-muted-foreground">Total Supply</Label>
+                    <Label className="text-xs text-muted-foreground">{t('genesisLaunch.config.totalSupply')}</Label>
                     <div className="font-mono text-lg font-semibold">
                       {formatWeiToTBURN(config?.totalSupply || "0")} {config?.tokenSymbol}
                     </div>
                   </div>
                   <div>
-                    <Label className="text-xs text-muted-foreground">Initial Price</Label>
+                    <Label className="text-xs text-muted-foreground">{t('genesisLaunch.config.initialPrice')}</Label>
                     <div className="font-mono text-lg">${config?.initialPrice}</div>
                   </div>
                   <div>
-                    <Label className="text-xs text-muted-foreground">Decimals</Label>
+                    <Label className="text-xs text-muted-foreground">{t('genesisLaunch.config.decimals')}</Label>
                     <div className="font-mono text-lg">{config?.decimals}</div>
                   </div>
                   <div>
-                    <Label className="text-xs text-muted-foreground">Staking APR</Label>
+                    <Label className="text-xs text-muted-foreground">{t('genesisLaunch.config.stakingApr')}</Label>
                     <div className="font-mono text-lg">{formatPercentage(config?.stakingRewardRate || 0)}</div>
                   </div>
                 </div>
@@ -2051,10 +2058,10 @@ export default function AdminGenesisLaunch() {
       <ConfirmationDialog
         open={showExecuteConfirm}
         onOpenChange={setShowExecuteConfirm}
-        title="Execute Genesis Block"
-        description="This action will create the genesis block and initialize the TBURN Mainnet. This is an irreversible operation that will permanently establish the blockchain network."
-        confirmText="Execute Genesis"
-        cancelText="Cancel"
+        title={t('genesisLaunch.dialogs.executeTitle')}
+        description={t('genesisLaunch.dialogs.executeDesc')}
+        confirmText={t('genesisLaunch.dialogs.executeConfirm')}
+        cancelText={t('genesisLaunch.dialogs.cancel')}
         destructive={true}
         onConfirm={() => executeMutation.mutate()}
         isLoading={executeMutation.isPending}
@@ -2063,10 +2070,10 @@ export default function AdminGenesisLaunch() {
       <ConfirmationDialog
         open={showResetConfirm}
         onOpenChange={setShowResetConfirm}
-        title="Reset Genesis Configuration"
-        description="This will reset all genesis configuration data to default values. All approvals, validators, and customizations will be lost."
-        confirmText="Reset All"
-        cancelText="Cancel"
+        title={t('genesisLaunch.dialogs.resetTitle')}
+        description={t('genesisLaunch.dialogs.resetDesc')}
+        confirmText={t('genesisLaunch.dialogs.resetConfirm')}
+        cancelText={t('genesisLaunch.dialogs.cancel')}
         destructive={true}
         onConfirm={() => resetMutation.mutate()}
         isLoading={resetMutation.isPending}
