@@ -263,7 +263,10 @@ function MissionControlHeader({
   quorumReady,
   onRefresh,
   onExport,
-  isRefreshing
+  onLaunch,
+  isRefreshing,
+  isLaunching,
+  canLaunch
 }: { 
   config?: GenesisConfig;
   isExecuted: boolean;
@@ -271,7 +274,10 @@ function MissionControlHeader({
   quorumReady: boolean;
   onRefresh: () => void;
   onExport: () => void;
+  onLaunch: () => void;
   isRefreshing: boolean;
+  isLaunching: boolean;
+  canLaunch: boolean;
 }) {
   const { t } = useTranslation();
   const [countdown, setCountdown] = useState<string>("");
@@ -354,6 +360,21 @@ function MissionControlHeader({
               <Download className="w-4 h-4 mr-2" />
               {t('genesisLaunch.export')}
             </Button>
+            {!isExecuted && (
+              <Button 
+                size="sm" 
+                onClick={onLaunch} 
+                disabled={!canLaunch || isLaunching}
+                data-testid="button-launch-genesis"
+              >
+                {isLaunching ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Rocket className="w-4 h-4 mr-2" />
+                )}
+                {t('genesisLaunch.launchGenesis')}
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -1898,7 +1919,10 @@ export default function AdminGenesisLaunch() {
         quorumReady={approvalsData?.summary?.hasQuorum || false}
         onRefresh={handleRefresh}
         onExport={handleExport}
+        onLaunch={() => setShowExecuteConfirm(true)}
         isRefreshing={isRefreshing}
+        isLaunching={executeMutation.isPending}
+        canLaunch={canExecute || false}
       />
 
       <KPIGrid

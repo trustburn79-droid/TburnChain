@@ -15966,6 +15966,7 @@
     "genesisHashLabel": "Genesis:",
     "refresh": "Refresh",
     "export": "Export",
+    "launchGenesis": "Launch Genesis",
     "kpi": {
       "totalSupply": "Total Supply",
       "genesisValidators": "Genesis Validators",

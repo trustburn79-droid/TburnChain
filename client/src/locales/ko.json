@@ -16619,6 +16619,7 @@
     "genesisHashLabel": "제네시스:",
     "refresh": "새로고침",
     "export": "내보내기",
+    "launchGenesis": "제네시스 출시",
     "kpi": {
       "totalSupply": "총 공급량",
       "genesisValidators": "제네시스 검증자",
