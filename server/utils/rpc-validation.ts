@@ -189,6 +189,245 @@ export const CrossShardMessageSchema = z.object({
 });
 
 // ============================================
+// ADDITIONAL PRODUCTION ENDPOINT SCHEMAS
+// ============================================
+
+// Health Check - /health
+export const HealthCheckSchema = z.object({
+  status: z.string(),
+  node: z.string()
+});
+
+// Full Network Stats - /api/network/stats
+export const NetworkStatsFullSchema = z.object({
+  id: z.string(),
+  currentBlockHeight: z.number().int(),
+  tps: z.number().int(),
+  peakTps: z.number().int(),
+  avgBlockTime: z.number().int(),
+  blockTimeP99: z.number().int(),
+  slaUptime: z.number().int(),
+  latency: z.number().int(),
+  latencyP99: z.number().int(),
+  activeValidators: z.number().int(),
+  totalValidators: z.number().int(),
+  totalTransactions: z.number().int(),
+  totalAccounts: z.number().int(),
+  shardCount: z.number().int(),
+  tpsPerShard: z.number().int(),
+  validatorsPerShard: z.number().int(),
+  tokenPrice: z.number(),
+  priceChangePercent: z.number(),
+  marketCap: z.number(),
+  circulatingSupply: z.string(),
+  totalSupply: z.string(),
+  stakedAmount: z.string(),
+  burnedTokens: z.string(),
+  successRate: z.number().int(),
+  updatedAt: z.string(),
+  gasBalanceEmb: z.number().int(),
+  trendAnalysisScore: z.number().int(),
+  anomalyDetectionScore: z.number().int(),
+  patternMatchingScore: z.number().int(),
+  timeseriesScore: z.number().int(),
+  healingEventsCount: z.number().int(),
+  anomaliesDetected: z.number().int()
+});
+
+// Full Cross-shard Message - /api/cross-shard/messages
+export const CrossShardMessageFullSchema = z.object({
+  id: z.string(),
+  messageId: z.string(),
+  fromShard: z.number().int(),
+  toShard: z.number().int(),
+  type: z.string(),
+  status: z.enum(['pending', 'processing', 'completed', 'confirmed', 'failed']),
+  timestamp: z.number().int(),
+  payload: z.any().optional()
+});
+
+// AI Model - /api/ai/models
+export const AIModelSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.string(),
+  band: z.string(),
+  status: z.enum(['active', 'inactive', 'standby']),
+  provider: z.string(),
+  requestCount: z.number().int(),
+  successCount: z.number().int(),
+  failureCount: z.number().int(),
+  avgResponseTime: z.number().int(),
+  totalCost: z.string(),
+  lastUsed: z.string(),
+  cacheHitRate: z.number().int(),
+  accuracy: z.number().int(),
+  uptime: z.number().int(),
+  feedbackLearningScore: z.number().int(),
+  crossBandInteractions: z.number().int(),
+  strategicDecisions: z.number().int(),
+  tacticalDecisions: z.number().int(),
+  operationalDecisions: z.number().int(),
+  modelWeight: z.number().int(),
+  consensusContribution: z.number().int()
+});
+
+// AI Decision - /api/ai/decisions
+export const AIDecisionSchema = z.object({
+  id: z.string(),
+  band: z.string(),
+  modelName: z.string(),
+  decision: z.string(),
+  impact: z.string(),
+  category: z.string(),
+  shardId: z.number().int(),
+  validatorAddress: z.string(),
+  status: z.string(),
+  metadata: z.object({
+    confidence: z.number().int(),
+    responseTimeMs: z.number().int(),
+    blockHeight: z.number().int(),
+    gasUsed: z.number().int(),
+    feedbackScore: z.number().int()
+  }),
+  createdAt: z.string(),
+  executedAt: z.string()
+});
+
+// Wallet - /api/wallets
+export const WalletSchema = z.object({
+  address: z.string(),
+  balance: z.string(),
+  balanceEmb: z.string().optional(),
+  type: z.string(),
+  label: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  transactionCount: z.number().int(),
+  lastActivity: z.string(),
+  createdAt: z.string()
+});
+
+// Contract - /api/contracts
+export const ContractSchema = z.object({
+  id: z.string(),
+  address: z.string(),
+  name: z.string(),
+  type: z.string(),
+  creator: z.string(),
+  deployedAt: z.string(),
+  transactionCount: z.number().int(),
+  balance: z.string(),
+  verified: z.boolean(),
+  verificationStatus: z.string(),
+  lastActivity: z.string(),
+  gasUsed: z.string(),
+  bytecode: z.string(),
+  abi: z.any().nullable(),
+  sourceCode: z.any().nullable()
+});
+
+// Transaction - /api/transactions/:hash
+export const TransactionSchema = z.object({
+  id: z.string(),
+  hash: z.string(),
+  blockNumber: z.number().int(),
+  blockHash: z.string(),
+  timestamp: z.number().int(),
+  fromAddress: z.string(),
+  toAddress: z.string(),
+  value: z.string(),
+  gasPrice: z.string(),
+  gasLimit: z.string(),
+  gasUsed: z.string(),
+  inputData: z.string(),
+  status: z.enum(['pending', 'confirmed', 'failed']),
+  type: z.string(),
+  shardId: z.number().int(),
+  nonce: z.number().int(),
+  signatureType: z.string(),
+  fee: z.string(),
+  createdAt: z.string()
+});
+
+// Performance Metrics - /api/performance
+export const PerformanceMetricsSchema = z.object({
+  timestamp: z.number().int(),
+  networkUptime: z.number(),
+  transactionSuccessRate: z.number(),
+  averageBlockTime: z.number(),
+  peakTps: z.number().int(),
+  currentTps: z.number().int(),
+  blockProductionRate: z.number().int(),
+  totalTransactions: z.number().int(),
+  totalBlocks: z.number().int(),
+  validatorParticipation: z.number(),
+  consensusLatency: z.number().int(),
+  resourceUtilization: z.object({
+    cpu: z.number(),
+    memory: z.number(),
+    disk: z.number(),
+    network: z.number()
+  }),
+  shardPerformance: z.object({
+    totalShards: z.number().int(),
+    activeShards: z.number().int(),
+    averageTpsPerShard: z.number().int(),
+    crossShardLatency: z.number().int()
+  })
+});
+
+// Consensus Round - /api/consensus/rounds
+export const ConsensusRoundSchema = z.object({
+  id: z.string(),
+  blockHeight: z.number().int(),
+  roundNumber: z.number().int(),
+  proposerAddress: z.string(),
+  startTime: z.number().int(),
+  endTime: z.number().int().nullable(),
+  phasesJson: z.string(),
+  finalHash: z.string().nullable(),
+  aiParticipation: z.array(z.object({
+    modelName: z.string(),
+    confidence: z.number(),
+    role: z.string(),
+    status: z.string().optional()
+  })),
+  participationRate: z.number(),
+  createdAt: z.string()
+});
+
+// Full Node Health - /api/node/health
+export const NodeHealthFullSchema = z.object({
+  status: z.string(),
+  timestamp: z.number().int(),
+  blockHeight: z.number().int(),
+  uptime: z.number().int(),
+  syncStatus: z.object({
+    synced: z.boolean(),
+    currentBlock: z.number().int(),
+    highestBlock: z.number().int(),
+    progress: z.number()
+  }),
+  systemMetrics: z.object({
+    cpuUsage: z.number(),
+    memoryUsage: z.number(),
+    diskUsage: z.number(),
+    networkLatency: z.number().int()
+  }),
+  selfHealing: z.object({
+    trendAnalysis: z.number(),
+    anomalyDetection: z.number(),
+    patternMatching: z.number(),
+    timeseries: z.number()
+  }),
+  predictions: z.object({
+    nextIssue: z.number().int(),
+    issueType: z.string(),
+    confidence: z.number()
+  })
+});
+
+// ============================================
 // VALIDATION LOGGER
 // Tracks validation failures for monitoring
 // ============================================

@@ -26,6 +26,17 @@ import {
   NotFoundError,
   ShardSnapshotSchema,
   RecentBlockSchema,
+  HealthCheckSchema,
+  NetworkStatsFullSchema,
+  CrossShardMessageFullSchema,
+  AIModelSchema,
+  AIDecisionSchema,
+  WalletSchema,
+  ContractSchema,
+  TransactionSchema,
+  PerformanceMetricsSchema,
+  ConsensusRoundSchema,
+  NodeHealthFullSchema,
   getValidationMonitoringEndpoints,
   checkRequiredEndpoints,
   ensureInteger,
@@ -1472,10 +1483,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
     this.rpcApp = express();
     this.rpcApp.use(express.json());
 
-    // Health check endpoint
-    this.rpcApp.get('/health', (_req: Request, res: Response) => {
-      res.json({ status: 'ok', node: this.config.nodeId });
-    });
+    // Health check endpoint - with validation
+    this.rpcApp.get('/health', withValidation({
+      endpoint: '/health',
+      method: 'GET',
+      description: 'Health check',
+      responseSchema: HealthCheckSchema
+    }, (_req: Request) => {
+      return { status: 'ok', node: this.config.nodeId };
+    }));
 
     // Shards endpoint - uses dynamic shard generation with validation
     this.rpcApp.get('/api/shards', withValidation({
@@ -1733,18 +1749,27 @@ export class TBurnEnterpriseNode extends EventEmitter {
       };
     }));
 
-    // Cross-shard messages endpoint - uses dynamic shard count
-    this.rpcApp.get('/api/cross-shard/messages', (_req: Request, res: Response) => {
+    // Cross-shard messages endpoint - uses dynamic shard count with validation
+    this.rpcApp.get('/api/cross-shard/messages', withValidation({
+      endpoint: '/api/cross-shard/messages',
+      method: 'GET',
+      description: 'Cross-shard messages',
+      responseSchema: z.array(CrossShardMessageFullSchema)
+    }, (_req: Request) => {
       const messageCount = 20 + Math.floor(Math.random() * 11);
-      const messages = this.generateCrossShardMessages(messageCount);
-      res.json(messages);
-    });
+      return this.generateCrossShardMessages(messageCount);
+    }));
 
     // Consensus current state endpoint
 // Removed old /api/consensus/current endpoint - see new one below
 
-    // Network Stats endpoint - uses dynamic shard configuration
-    this.rpcApp.get('/api/network/stats', (_req: Request, res: Response) => {
+    // Network Stats endpoint - uses dynamic shard configuration with validation
+    this.rpcApp.get('/api/network/stats', withValidation({
+      endpoint: '/api/network/stats',
+      method: 'GET',
+      description: 'Network statistics',
+      responseSchema: NetworkStatsFullSchema
+    }, (_req: Request) => {
       // Calculate deterministic TPS based on shard configuration
       // TPS = shardCount × tpsPerShard × 0.98 (98% operating margin)
       const shardCount = this.shardConfig.currentShardCount;
@@ -1758,7 +1783,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       this.updateTokenPrice();
       this.updateSupplyDynamics();
       
-      res.json({
+      return {
         id: 'singleton',
         currentBlockHeight: this.currentBlockHeight,
         tps: currentTps,
@@ -1798,8 +1823,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
         timeseriesScore: 9900 + Math.floor(Math.random() * 80), // 99.0-99.8%
         healingEventsCount: 0, // No healing events needed (optimal health)
         anomaliesDetected: 0, // No anomalies (enterprise stability)
-      });
-    });
+      };
+    }));
     
     // Token Economics API endpoint
     this.rpcApp.get('/api/token/economics', (_req: Request, res: Response) => {
@@ -1807,14 +1832,19 @@ export class TBurnEnterpriseNode extends EventEmitter {
     });
 
     // AI Models endpoint - TBURN v7.0 Quad-Band AI System (Matching Admin Portal)
-    this.rpcApp.get('/api/ai/models', (_req: Request, res: Response) => {
+    this.rpcApp.get('/api/ai/models', withValidation({
+      endpoint: '/api/ai/models',
+      method: 'GET',
+      description: 'List all AI models in Quad-Band system',
+      responseSchema: z.array(AIModelSchema)
+    }, (_req: Request) => {
       const models = [
         { 
           id: 'ai-model-gemini',
           name: 'Gemini 3 Pro',
           type: 'strategic',
           band: 'strategic',
-          status: 'active',
+          status: 'active' as const,
           provider: 'Google',
           requestCount: Math.floor(Math.random() * 50000) + 100000,
           successCount: Math.floor(Math.random() * 50000) + 95000,
@@ -1822,15 +1852,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
           avgResponseTime: Math.floor(42 + Math.random() * 10),
           totalCost: (0.0125 * (Math.random() * 50000 + 100000) / 1000).toFixed(4),
           lastUsed: new Date().toISOString(),
-          cacheHitRate: Math.floor((0.82 + Math.random() * 0.05) * 10000), // basis points
-          accuracy: Math.floor((0.996 + Math.random() * 0.003) * 10000), // basis points
-          uptime: 9995, // 99.95%
+          cacheHitRate: Math.floor((0.82 + Math.random() * 0.05) * 10000),
+          accuracy: Math.floor((0.996 + Math.random() * 0.003) * 10000),
+          uptime: 9995,
           feedbackLearningScore: 9200 + Math.floor(Math.random() * 500),
           crossBandInteractions: Math.floor(Math.random() * 6000) + 12000,
           strategicDecisions: Math.floor(Math.random() * 40000) + 60000,
           tacticalDecisions: Math.floor(Math.random() * 15000) + 10000,
           operationalDecisions: Math.floor(Math.random() * 8000) + 5000,
-          modelWeight: 4000, // 40% weight in basis points (Primary)
+          modelWeight: 4000,
           consensusContribution: Math.floor(Math.random() * 15000) + 30000
         },
         {
@@ -1838,7 +1868,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           name: 'Claude Sonnet 4.5',
           type: 'tactical',
           band: 'tactical',
-          status: 'active',
+          status: 'active' as const,
           provider: 'Anthropic',
           requestCount: Math.floor(Math.random() * 40000) + 80000,
           successCount: Math.floor(Math.random() * 40000) + 79000,
@@ -1846,15 +1876,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
           avgResponseTime: Math.floor(38 + Math.random() * 8),
           totalCost: (0.018 * (Math.random() * 40000 + 80000) / 1000).toFixed(4),
           lastUsed: new Date().toISOString(),
-          cacheHitRate: Math.floor((0.80 + Math.random() * 0.04) * 10000), // basis points
-          accuracy: Math.floor((0.997 + Math.random() * 0.002) * 10000), // basis points
-          uptime: 9995, // 99.95%
+          cacheHitRate: Math.floor((0.80 + Math.random() * 0.04) * 10000),
+          accuracy: Math.floor((0.997 + Math.random() * 0.002) * 10000),
+          uptime: 9995,
           feedbackLearningScore: 9000 + Math.floor(Math.random() * 500),
           crossBandInteractions: Math.floor(Math.random() * 6000) + 12000,
           strategicDecisions: Math.floor(Math.random() * 10000) + 5000,
           tacticalDecisions: Math.floor(Math.random() * 40000) + 60000,
           operationalDecisions: Math.floor(Math.random() * 10000) + 5000,
-          modelWeight: 3500, // 35% weight in basis points
+          modelWeight: 3500,
           consensusContribution: Math.floor(Math.random() * 12000) + 25000
         },
         {
@@ -1862,7 +1892,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           name: 'GPT-4o',
           type: 'operational',
           band: 'operational',
-          status: 'active',
+          status: 'active' as const,
           provider: 'OpenAI',
           requestCount: Math.floor(Math.random() * 30000) + 60000,
           successCount: Math.floor(Math.random() * 30000) + 58000,
@@ -1870,15 +1900,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
           avgResponseTime: Math.floor(45 + Math.random() * 12),
           totalCost: (0.02 * (Math.random() * 30000 + 60000) / 1000).toFixed(4),
           lastUsed: new Date().toISOString(),
-          cacheHitRate: Math.floor((0.78 + Math.random() * 0.06) * 10000), // basis points
-          accuracy: Math.floor((0.995 + Math.random() * 0.004) * 10000), // basis points
-          uptime: 9990, // 99.90%
+          cacheHitRate: Math.floor((0.78 + Math.random() * 0.06) * 10000),
+          accuracy: Math.floor((0.995 + Math.random() * 0.004) * 10000),
+          uptime: 9990,
           feedbackLearningScore: 8800 + Math.floor(Math.random() * 600),
           crossBandInteractions: Math.floor(Math.random() * 5000) + 10000,
           strategicDecisions: Math.floor(Math.random() * 8000) + 3000,
           tacticalDecisions: Math.floor(Math.random() * 15000) + 8000,
           operationalDecisions: Math.floor(Math.random() * 50000) + 80000,
-          modelWeight: 2500, // 25% weight in basis points
+          modelWeight: 2500,
           consensusContribution: Math.floor(Math.random() * 10000) + 18000
         },
         {
@@ -1886,28 +1916,28 @@ export class TBurnEnterpriseNode extends EventEmitter {
           name: 'Grok 3',
           type: 'fallback',
           band: 'fallback',
-          status: 'standby',
+          status: 'standby' as const,
           provider: 'xAI',
           requestCount: 0,
           successCount: 0,
           failureCount: 0,
           avgResponseTime: 0,
           totalCost: '0.0000',
-          lastUsed: null,
-          cacheHitRate: 9450, // basis points
-          accuracy: 9450, // basis points
-          uptime: 9999, // 99.99%
+          lastUsed: new Date().toISOString(),
+          cacheHitRate: 9450,
+          accuracy: 9450,
+          uptime: 9999,
           feedbackLearningScore: 8500,
           crossBandInteractions: 0,
           strategicDecisions: 0,
           tacticalDecisions: 0,
           operationalDecisions: 0,
-          modelWeight: 0, // 0% weight (standby)
+          modelWeight: 0,
           consensusContribution: 0
         }
       ];
-      res.json(models);
-    });
+      return models;
+    }));
     
     // AI Model by name endpoint
     this.rpcApp.get('/api/ai/models/:name', (req: Request, res: Response) => {
@@ -1987,11 +2017,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
     });
     
     // AI Decisions endpoints - Enterprise-grade schema compliance
-    this.rpcApp.get('/api/ai/decisions', (req: Request, res: Response) => {
+    this.rpcApp.get('/api/ai/decisions', withValidation({
+      endpoint: '/api/ai/decisions',
+      method: 'GET',
+      description: 'List AI decisions from Quad-Band system',
+      responseSchema: z.array(AIDecisionSchema)
+    }, (req: Request) => {
       const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
       const decisions = [];
       
-      // Quad-Band AI Model Configuration (Matching Admin Portal)
       const modelConfigs = [
         { name: 'Gemini 3 Pro', band: 'strategic', category: 'planning' },
         { name: 'Claude Sonnet 4.5', band: 'tactical', category: 'optimization' },
@@ -2037,22 +2071,29 @@ export class TBurnEnterpriseNode extends EventEmitter {
           executedAt: new Date(timestamp.getTime() + Math.floor(Math.random() * 100)).toISOString()
         });
       }
-      res.json(decisions);
-    });
+      return decisions;
+    }));
 
     // Wallet balances endpoint
     // Enterprise Wallet API - Uses cached, consistent wallet data
-    this.rpcApp.get('/api/wallets', (req: Request, res: Response) => {
+    this.rpcApp.get('/api/wallets', withValidation({
+      endpoint: '/api/wallets',
+      method: 'GET',
+      description: 'List wallet balances',
+      responseSchema: z.array(WalletSchema)
+    }, (req: Request) => {
       const limit = Math.min(parseInt(req.query.limit as string) || 100, 100);
-      
-      // Use enterprise wallet cache for consistent data
       const wallets = this.getCachedWallets(limit);
-      res.json(wallets);
-    });
+      return wallets;
+    }));
 
     // Node health endpoint
-    this.rpcApp.get('/api/node/health', (_req: Request, res: Response) => {
-      // Enterprise-grade node health with production-optimized metrics
+    this.rpcApp.get('/api/node/health', withValidation({
+      endpoint: '/api/node/health',
+      method: 'GET',
+      description: 'Node health status with self-healing metrics',
+      responseSchema: NodeHealthFullSchema
+    }, (_req: Request) => {
       const health = {
         status: 'healthy',
         timestamp: Date.now(),
@@ -2065,11 +2106,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
           progress: 100.0
         },
         systemMetrics: {
-          // Enterprise-grade optimized resource utilization
-          cpuUsage: Math.random() * 0.05 + 0.02, // 2-7% CPU (highly optimized)
-          memoryUsage: Math.random() * 0.08 + 0.15, // 15-23% memory (efficient)
-          diskUsage: Math.random() * 0.08 + 0.25, // 25-33% disk (ample headroom)
-          networkLatency: Math.floor(Math.random() * 3) + 1 // 1-4ms (ultra-low latency)
+          cpuUsage: Math.random() * 0.05 + 0.02,
+          memoryUsage: Math.random() * 0.08 + 0.15,
+          diskUsage: Math.random() * 0.08 + 0.25,
+          networkLatency: Math.floor(Math.random() * 3) + 1
         },
         selfHealing: {
           trendAnalysis: Math.random() * 0.2 + 0.8,
@@ -2083,30 +2123,34 @@ export class TBurnEnterpriseNode extends EventEmitter {
           confidence: Math.random() * 0.3 + 0.7
         }
       };
-      res.json(health);
-    });
+      return health;
+    }));
 
     // Performance metrics endpoint
-    this.rpcApp.get('/api/performance', (_req: Request, res: Response) => {
+    this.rpcApp.get('/api/performance', withValidation({
+      endpoint: '/api/performance',
+      method: 'GET',
+      description: 'Performance metrics with resource utilization',
+      responseSchema: PerformanceMetricsSchema
+    }, (_req: Request) => {
       const now = Date.now();
       const metrics = {
         timestamp: now,
-        networkUptime: 0.998 + Math.random() * 0.002, // 99.8-100%
-        transactionSuccessRate: 0.995 + Math.random() * 0.005, // 99.5-100%
-        averageBlockTime: 0.095 + Math.random() * 0.01, // ~100ms
+        networkUptime: 0.998 + Math.random() * 0.002,
+        transactionSuccessRate: 0.995 + Math.random() * 0.005,
+        averageBlockTime: 0.095 + Math.random() * 0.01,
         peakTps: this.peakTps,
-        currentTps: 50000 + Math.floor(Math.random() * 2000), // 50000-52000 TPS
-        blockProductionRate: 10, // 10 blocks/second for 100ms block time
+        currentTps: 50000 + Math.floor(Math.random() * 2000),
+        blockProductionRate: 10,
         totalTransactions: this.currentBlockHeight * 5000,
         totalBlocks: this.currentBlockHeight,
-        validatorParticipation: 0.85 + Math.random() * 0.15, // 85%~100% due to AI Pre-Validation
-        consensusLatency: Math.floor(Math.random() * 15) + 25, // 25-40ms fast consensus
+        validatorParticipation: 0.85 + Math.random() * 0.15,
+        consensusLatency: Math.floor(Math.random() * 15) + 25,
         resourceUtilization: {
-          // Enterprise-grade optimized resource utilization
-          cpu: Math.random() * 0.05 + 0.02, // 2-7% CPU (highly optimized)
-          memory: Math.random() * 0.08 + 0.15, // 15-23% memory (efficient)
-          disk: Math.random() * 0.08 + 0.25, // 25-33% disk (ample headroom)
-          network: Math.random() * 0.08 + 0.12 // 12-20% network (low utilization)
+          cpu: Math.random() * 0.05 + 0.02,
+          memory: Math.random() * 0.08 + 0.15,
+          disk: Math.random() * 0.08 + 0.25,
+          network: Math.random() * 0.08 + 0.12
         },
         shardPerformance: {
           totalShards: this.shardConfig.currentShardCount,
@@ -2115,35 +2159,32 @@ export class TBurnEnterpriseNode extends EventEmitter {
           crossShardLatency: this.shardConfig.crossShardLatencyMs + Math.floor(Math.random() * 20)
         }
       };
-      res.json(metrics);
-    });
+      return metrics;
+    }));
 
     // Consensus rounds endpoint - matches consensusRoundsSnapshotSchema
     // TBURN 5-Phase AI-BFT: AI Pre-Validation guarantees 85%+ participation through pre-screening
-    this.rpcApp.get('/api/consensus/rounds', (req: Request, res: Response) => {
+    this.rpcApp.get('/api/consensus/rounds', withValidation({
+      endpoint: '/api/consensus/rounds',
+      method: 'GET',
+      description: 'List consensus rounds with AI participation',
+      responseSchema: z.array(ConsensusRoundSchema)
+    }, (req: Request) => {
       const limit = Math.min(parseInt(req.query.limit as string) || 5, 10);
       const rounds = [];
       
-      // Dynamic validator count based on shard configuration
       const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
-      const requiredQuorum = Math.ceil(totalValidators * 2 / 3);
       
-      // AI Pre-Validation ensures high participation (85%~100%)
-      // AI prescreens all transactions before validator voting, resulting in:
-      // - Faster consensus (validators only approve pre-validated tx)
-      // - Higher participation (no invalid tx to reject)
       const getAiEnhancedParticipation = () => {
-        // 85%~100% participation due to AI Pre-Validation
         const baseParticipation = 0.85 + Math.random() * 0.15;
         return Math.floor(totalValidators * baseParticipation);
       };
       
       for (let i = 0; i < limit; i++) {
         const blockHeight = this.currentBlockHeight - i;
-        const startTime = Date.now() - (i * 100); // 100ms per block
-        const endTime = i === 0 ? null : startTime + 100; // null for in-progress
+        const startTime = Date.now() - (i * 100);
+        const endTime = i === 0 ? null : startTime + 100;
         
-        // 5-Phase AI-BFT consensus phases (including AI Pre-Validation)
         const participatingValidators = getAiEnhancedParticipation();
         const phasesData = [
           { name: 'ai-prevalidation', durationMs: 15, votes: 3, status: 'completed', aiConfidence: 0.95 + Math.random() * 0.05 },
@@ -2153,7 +2194,6 @@ export class TBurnEnterpriseNode extends EventEmitter {
           { name: 'commit', durationMs: 15, votes: i === 0 ? 0 : participatingValidators, status: i === 0 ? 'pending' : 'completed' }
         ];
         
-        // AI participation data - Quad-Band AI System pre-validates all transactions
         const aiParticipation = [
           { modelName: 'Gemini 3 Pro', confidence: 0.95 + Math.random() * 0.05, role: 'strategic' },
           { modelName: 'Claude Sonnet 4.5', confidence: 0.93 + Math.random() * 0.07, role: 'tactical' },
@@ -2171,13 +2211,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
           phasesJson: JSON.stringify(phasesData),
           finalHash: i === 0 ? null : `0x${crypto.randomBytes(32).toString('hex')}`,
           aiParticipation,
-          participationRate: participatingValidators / totalValidators, // 85%~100%
+          participationRate: participatingValidators / totalValidators,
           createdAt: new Date(startTime).toISOString()
         });
       }
       
-      res.json(rounds);
-    });
+      return rounds;
+    }));
 
     // Consensus state endpoint - 5-phase AI-BFT consensus (AI Pre-Validation + 4 validator phases)
     this.rpcApp.get('/api/consensus/current', (_req: Request, res: Response) => {
@@ -2324,7 +2364,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // ============================================
     // CONTRACTS API - Enterprise-grade smart contract tracking
     // ============================================
-    this.rpcApp.get('/api/contracts', (req: Request, res: Response) => {
+    this.rpcApp.get('/api/contracts', withValidation({
+      endpoint: '/api/contracts',
+      method: 'GET',
+      description: 'List smart contracts',
+      responseSchema: z.array(ContractSchema)
+    }, (req: Request) => {
       const limit = Math.min(parseInt(req.query.limit as string) || 20, 100);
       const contracts = [];
       
@@ -2354,15 +2399,20 @@ export class TBurnEnterpriseNode extends EventEmitter {
         });
       }
       
-      res.json(contracts);
-    });
+      return contracts;
+    }));
 
-    this.rpcApp.get('/api/contracts/:address', (req: Request, res: Response) => {
+    this.rpcApp.get('/api/contracts/:address', withValidation({
+      endpoint: '/api/contracts/:address',
+      method: 'GET',
+      description: 'Get contract by address',
+      responseSchema: ContractSchema
+    }, (req: Request) => {
       const address = req.params.address;
       const contractTypes = ['Token', 'NFT', 'DeFi', 'Bridge', 'Governance'];
       const type = contractTypes[Math.floor(Math.random() * contractTypes.length)];
       
-      res.json({
+      return {
         id: `contract-${address.substring(0, 8)}`,
         address,
         name: `${type}Contract`,
@@ -2381,8 +2431,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
           { type: 'function', name: 'transfer', inputs: [{ name: 'to', type: 'address' }, { name: 'amount', type: 'uint256' }] },
           { type: 'function', name: 'balanceOf', inputs: [{ name: 'account', type: 'address' }], outputs: [{ name: '', type: 'uint256' }] }
         ]
-      });
-    });
+      };
+    }));
 
     // ============================================
     // AI DECISIONS RECENT - Enterprise-grade schema compliance for production polling
@@ -2486,38 +2536,40 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // ============================================
     // SINGLE WALLET ENDPOINT
     // ============================================
-    this.rpcApp.get('/api/wallets/:address', (req: Request, res: Response) => {
+    this.rpcApp.get('/api/wallets/:address', withValidation({
+      endpoint: '/api/wallets/:address',
+      method: 'GET',
+      description: 'Get wallet by address',
+      responseSchema: WalletSchema
+    }, (req: Request) => {
       const address = req.params.address;
       
-      // Initialize wallet cache if needed
       if (!this.walletsInitialized) {
         this.initializeWalletCache();
       }
       
-      // Look up wallet in cache
       const wallet = this.walletCache.get(address);
       
-      if (wallet) {
-        res.json(wallet);
-      } else {
-        // Return 404 if wallet not found
-        res.status(404).json({ error: 'Wallet not found' });
+      if (!wallet) {
+        throw new NotFoundError('Wallet not found');
       }
-    });
+      
+      return wallet;
+    }));
 
     // ============================================
     // SINGLE TRANSACTION ENDPOINT
     // ============================================
-    this.rpcApp.get('/api/transactions/:hash', async (req: Request, res: Response) => {
+    this.rpcApp.get('/api/transactions/:hash', withValidation({
+      endpoint: '/api/transactions/:hash',
+      method: 'GET',
+      description: 'Get transaction by hash',
+      responseSchema: TransactionSchema
+    }, async (req: Request) => {
       const hash = req.params.hash;
-      
-      try {
-        const transaction = await this.getTransaction(hash);
-        res.json(transaction);
-      } catch (error) {
-        res.status(404).json({ error: 'Transaction not found' });
-      }
-    });
+      const transaction = await this.getTransaction(hash);
+      return transaction;
+    }));
 
     // ============================================
     // SINGLE CONSENSUS ROUND ENDPOINT
