@@ -1,5 +1,6 @@
 import WebSocket from 'ws';
 import { request } from 'undici';
+import { getDataCache, DataCacheService } from './services/DataCacheService';
 
 export interface TBurnNodeConfig {
   rpcUrl: string;
@@ -203,11 +204,16 @@ export class TBurnClient {
       return true;
     }
 
-    // Check if we're still rate limited before attempting authentication
+    // Check if we're still rate limited - only wait if short
     const now = Date.now();
     if (this.rateLimitedUntil > now) {
       const waitTime = this.rateLimitedUntil - now;
-      console.log(`[TBURN Client] Delaying authentication due to rate limit, waiting ${waitTime}ms`);
+      if (waitTime > 3000) {
+        // Don't wait more than 3 seconds for auth
+        console.log(`[TBURN Client] Rate limited, skipping auth wait of ${waitTime}ms`);
+        return false;
+      }
+      console.log(`[TBURN Client] Short auth delay: ${waitTime}ms`);
       await new Promise(resolve => setTimeout(resolve, waitTime));
     }
 
@@ -225,10 +231,11 @@ export class TBurnClient {
       await body.text();
 
       if (statusCode === 429) {
-        // Handle rate limiting during authentication
+        // Handle rate limiting during authentication - cap at 3 seconds
         const retryAfter = headers['retry-after'];
-        const delay = retryAfter ? parseInt(retryAfter as string) * 1000 : 30000;
-        console.log(`[TBURN Client] Authentication failed: 429`);
+        const rawDelay = retryAfter ? parseInt(retryAfter as string) * 1000 : 3000;
+        const delay = Math.min(rawDelay, 3000); // MAX 3 seconds
+        console.log(`[TBURN Client] Authentication rate limited (429), delay capped at ${delay}ms`);
         this.rateLimitedUntil = Date.now() + delay;
         return false;
       }
@@ -262,19 +269,28 @@ export class TBurnClient {
   private async request<T>(endpoint: string, method = 'GET', body?: any, customHeaders?: Record<string, string>): Promise<T> {
     // Queue requests to prevent concurrent API calls
     return this.requestQueue = this.requestQueue.then(async () => {
-      // Check if we're still rate limited
+      // Check if we're still rate limited - DON'T WAIT, throw immediately
       const now = Date.now();
       if (this.rateLimitedUntil > now) {
         const waitTime = this.rateLimitedUntil - now;
-        console.log(`[TBURN Client] Still rate limited, waiting ${waitTime}ms`);
+        // Only wait if remaining time is very short (< 1 second)
+        if (waitTime > 1000) {
+          console.log(`[TBURN Client] Rate limited, NOT waiting ${waitTime}ms - throw for cache fallback`);
+          const error: any = new Error(`TBURN API Rate Limited - use cached data`);
+          error.statusCode = 429;
+          error.isRateLimited = true;
+          error.retryAfter = Math.ceil(waitTime / 1000);
+          throw error;
+        }
+        // Short wait is acceptable
+        console.log(`[TBURN Client] Short rate limit wait: ${waitTime}ms`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
       }
       
-      // Rate limiting to avoid 429 errors
+      // Rate limiting to avoid 429 errors - keep this minimal delay
       const timeSinceLastRequest = now - this.lastRequestTime;
       if (timeSinceLastRequest < this.minRequestInterval) {
         const delay = this.minRequestInterval - timeSinceLastRequest;
-        console.log(`[TBURN Client] Rate limiting: waiting ${delay}ms before request`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
       this.lastRequestTime = Date.now();
@@ -331,18 +347,28 @@ export class TBurnClient {
           return this.request<T>(endpoint, method, body);
         }
         
-        // Handle rate limiting with exponential backoff
+        // Handle rate limiting - NO BLOCKING WAIT, throw immediately for cache fallback
         if (response.statusCode === 429) {
           const retryAfterHeader = response.headers['retry-after'];
           const retryAfterValue = Array.isArray(retryAfterHeader) ? retryAfterHeader[0] : retryAfterHeader;
-          const delay = retryAfterValue ? parseInt(retryAfterValue) * 1000 : 30000; // Increased to 30 seconds default
-          console.log(`[TBURN Client] Rate limited (429), will retry after ${delay}ms...`);
+          // Cap delay at 3 seconds max to prevent long waits
+          const rawDelay = retryAfterValue ? parseInt(retryAfterValue) * 1000 : 3000;
+          const delay = Math.min(rawDelay, 3000); // MAX 3 seconds, not 30!
           
-          // Set rate limited until time to prevent other requests
+          console.log(`[TBURN Client] Rate limited (429) - NOT blocking, delay capped at ${delay}ms`);
+          
+          // Set rate limited until time but DON'T WAIT - let caller handle with cache
           this.rateLimitedUntil = Date.now() + delay;
           
-          await new Promise(resolve => setTimeout(resolve, delay));
-          return this._executeRequest<T>(endpoint, method, body, customHeaders);
+          // Emit rate limit event for monitoring
+          this.onRateLimitDetected(Math.ceil(delay / 1000));
+          
+          // THROW IMMEDIATELY - don't block, let caller use cached data
+          const error: any = new Error(`TBURN API Rate Limited - use cached data`);
+          error.statusCode = 429;
+          error.isRateLimited = true;
+          error.retryAfter = Math.ceil(delay / 1000);
+          throw error;
         }
         
         // Handle server errors with limited retry

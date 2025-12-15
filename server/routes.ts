@@ -48,6 +48,8 @@ import { getSelfHealingEngine } from "./services/SelfHealingEngine";
 import { aiOrchestrator, type BlockchainEvent } from "./services/AIOrchestrator";
 import { aiDecisionExecutor } from "./services/AIDecisionExecutor";
 import { getHealthMonitor, validateCriticalConfiguration, HealthStatus } from "./services/ConnectionHealthMonitor";
+import { getDataCache, DataCacheService } from "./services/DataCacheService";
+import { getProductionDataPoller } from "./services/ProductionDataPoller";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
@@ -200,6 +202,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Start AI Provider Health Checks
   aiService.startPeriodicHealthChecks(5); // Check every 5 minutes
   console.log('[AI Health] ✅ Started periodic health checks (5 minute intervals)');
+
+  // Start Production Data Poller - CRITICAL for preventing rate limit freezing
+  // This runs in background and keeps cache warm, decoupling UI from live RPC
+  const dataPoller = getProductionDataPoller();
+  dataPoller.start().then(() => {
+    console.log('[DataPoller] ✅ Production data poller started - cache warming in background');
+  }).catch((err) => {
+    console.error('[DataPoller] ⚠️ Failed to start poller:', err.message);
+  });
 
   // Initialize validator simulation service
   let validatorSimulation: ValidatorSimulationService | null = null;
@@ -2939,9 +2950,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // The TBurnEnterpriseNode endpoint at port 8545 provides dynamic validator counts based on shard config
 
   // ============================================
-  // Blocks - Enterprise Grade API
+  // Blocks - Enterprise Grade API with Cache
   // ============================================
   app.get("/api/blocks", async (req, res) => {
+    const cache = getDataCache();
+    
     try {
       // Parse query parameters
       const page = req.query.page ? parseInt(req.query.page as string) : 1;
@@ -2960,13 +2973,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log(`[API] /api/blocks request - page: ${page}, limit: ${limit}, production: ${isProductionMode()}`);
       
       if (isProductionMode()) {
+        // Try cache first - return immediately if available (prevents rate limit freezing)
+        const cachedBlocks = cache.get<any[]>(DataCacheService.KEYS.RECENT_BLOCKS, true);
+        if (cachedBlocks && cachedBlocks.length > 0) {
+          console.log('[API] /api/blocks - serving from cache');
+          const totalBlocks = 1000000;
+          return res.json({
+            blocks: cachedBlocks.slice(0, limit),
+            pagination: {
+              page,
+              limit,
+              totalPages: Math.ceil(totalBlocks / limit),
+              totalItems: totalBlocks,
+              hasNext: page * limit < totalBlocks,
+              hasPrev: page > 1
+            },
+            fromCache: true
+          });
+        }
+        
         try {
-          // Try to fetch from TBURN mainnet
+          // Try to fetch from TBURN mainnet with timeout
           const client = getTBurnClient();
           const blocks = await client.getRecentBlocks(limit);
           
           // Check if we got valid data
           if (blocks && blocks.length > 0) {
+            // Cache the successful result
+            cache.set(DataCacheService.KEYS.RECENT_BLOCKS, blocks, 30000);
+            
             const totalBlocks = 1000000; // Estimated total blocks for production
             
             res.json({
@@ -2985,6 +3020,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
             throw new Error('No blocks returned from mainnet');
           }
         } catch (mainnetError: any) {
+          // Try stale cache first on error
+          const staleBlocks = cache.get<any[]>(DataCacheService.KEYS.RECENT_BLOCKS, true);
+          if (staleBlocks && staleBlocks.length > 0) {
+            console.log('[API] /api/blocks - serving stale cache on mainnet error');
+            const totalBlocks = 1000000;
+            return res.json({
+              blocks: staleBlocks.slice(0, limit),
+              pagination: {
+                page,
+                limit,
+                totalPages: Math.ceil(totalBlocks / limit),
+                totalItems: totalBlocks,
+                hasNext: page * limit < totalBlocks,
+                hasPrev: page > 1
+              },
+              fromCache: true
+            });
+          }
+          
           // Fallback to database when mainnet API fails
           console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'no data'}) for /api/blocks - using database fallback`);
           
@@ -3093,15 +3147,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/blocks/recent", async (req, res) => {
+    const cache = getDataCache();
+    
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
       if (isProductionMode()) {
+        // Try cache first - prevents rate limit freezing
+        const cachedBlocks = cache.get<any[]>(DataCacheService.KEYS.RECENT_BLOCKS, true);
+        if (cachedBlocks && cachedBlocks.length > 0) {
+          console.log('[API] /api/blocks/recent - serving from cache');
+          return res.json(cachedBlocks.slice(0, limit));
+        }
+        
         try {
           // Try to fetch from TBURN mainnet node
           const client = getTBurnClient();
           const blocks = await client.getRecentBlocks(limit);
+          
+          // Cache the result
+          cache.set(DataCacheService.KEYS.RECENT_BLOCKS, blocks, 30000);
+          
           res.json(blocks);
         } catch (mainnetError: any) {
+          // Try stale cache first
+          const staleBlocks = cache.get<any[]>(DataCacheService.KEYS.RECENT_BLOCKS, true);
+          if (staleBlocks && staleBlocks.length > 0) {
+            console.log('[API] /api/blocks/recent - serving stale cache on error');
+            return res.json(staleBlocks.slice(0, limit));
+          }
+          
           // Fallback to database when mainnet API fails
           console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) - using database fallback`);
           const dbBlocks = await storage.getRecentBlocks(limit);
@@ -3210,9 +3284,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
-  // Transactions
+  // Transactions - with Cache to prevent rate limit freezing
   // ============================================
   app.get("/api/transactions", async (req, res) => {
+    const cache = getDataCache();
+    
     try {
       const page = req.query.page ? parseInt(req.query.page as string) : 1;
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 20;
@@ -3221,6 +3297,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const search = req.query.search as string | undefined;
       
       if (isProductionMode()) {
+        // Try cache first - return immediately if available (prevents rate limit freezing)
+        const cachedTxs = cache.get<any[]>(DataCacheService.KEYS.RECENT_TRANSACTIONS, true);
+        if (cachedTxs && cachedTxs.length > 0) {
+          console.log('[API] /api/transactions - serving from cache');
+          
+          // Apply filters to cached data
+          let filtered = cachedTxs;
+          if (status && status !== 'all') {
+            filtered = filtered.filter(tx => tx.status === status);
+          }
+          if (search) {
+            const searchLower = search.toLowerCase();
+            filtered = filtered.filter(tx => 
+              tx.hash.toLowerCase().includes(searchLower) ||
+              tx.from?.toLowerCase().includes(searchLower) ||
+              tx.to?.toLowerCase().includes(searchLower)
+            );
+          }
+          
+          const totalItems = filtered.length;
+          const totalPages = Math.ceil(totalItems / limit);
+          const offset = (page - 1) * limit;
+          const paginatedTxs = filtered.slice(offset, offset + limit);
+          
+          return res.json({
+            transactions: paginatedTxs,
+            pagination: { page, limit, totalPages, totalItems, hasNext: page < totalPages, hasPrev: page > 1 },
+            fromCache: true
+          });
+        }
+        
         try {
           // Try to fetch from TBURN mainnet node
           const client = getTBurnClient();
@@ -3228,6 +3335,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           // Check if we got valid data
           if (transactions && transactions.length > 0) {
+            // Cache the successful result
+            cache.set(DataCacheService.KEYS.RECENT_TRANSACTIONS, transactions, 30000);
+            
             // Apply filters
             let filtered = transactions;
             if (status && status !== 'all') {
@@ -3263,6 +3373,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
             throw new Error('No transactions returned from mainnet');
           }
         } catch (mainnetError: any) {
+          // Try stale cache first
+          const staleTxs = cache.get<any[]>(DataCacheService.KEYS.RECENT_TRANSACTIONS, true);
+          if (staleTxs && staleTxs.length > 0) {
+            console.log('[API] /api/transactions - serving stale cache on mainnet error');
+            
+            let filtered = staleTxs;
+            if (status && status !== 'all') {
+              filtered = filtered.filter(tx => tx.status === status);
+            }
+            if (search) {
+              const searchLower = search.toLowerCase();
+              filtered = filtered.filter(tx => 
+                tx.hash.toLowerCase().includes(searchLower) ||
+                tx.from?.toLowerCase().includes(searchLower) ||
+                tx.to?.toLowerCase().includes(searchLower)
+              );
+            }
+            
+            const totalItems = filtered.length;
+            const totalPages = Math.ceil(totalItems / limit);
+            const offset = (page - 1) * limit;
+            const paginatedTxs = filtered.slice(offset, offset + limit);
+            
+            return res.json({
+              transactions: paginatedTxs,
+              pagination: { page, limit, totalPages, totalItems, hasNext: page < totalPages, hasPrev: page > 1 },
+              fromCache: true
+            });
+          }
           // Fallback: Generate real-time transactions based on current block height
           console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'no data'}) for /api/transactions - generating real-time data`);
           
@@ -3353,15 +3492,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/transactions/recent", async (req, res) => {
+    const cache = getDataCache();
+    
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
       if (isProductionMode()) {
+        // Try cache first - prevents rate limit freezing
+        const cachedTxs = cache.get<any[]>(DataCacheService.KEYS.RECENT_TRANSACTIONS, true);
+        if (cachedTxs && cachedTxs.length > 0) {
+          console.log('[API] /api/transactions/recent - serving from cache');
+          return res.json(cachedTxs.slice(0, limit));
+        }
+        
         try {
           // Try to fetch from TBURN mainnet node
           const client = getTBurnClient();
           const transactions = await client.getRecentTransactions(limit);
+          
+          // Cache the result
+          cache.set(DataCacheService.KEYS.RECENT_TRANSACTIONS, transactions, 30000);
+          
           res.json(transactions);
         } catch (mainnetError: any) {
+          // Try stale cache first
+          const staleTxs = cache.get<any[]>(DataCacheService.KEYS.RECENT_TRANSACTIONS, true);
+          if (staleTxs && staleTxs.length > 0) {
+            console.log('[API] /api/transactions/recent - serving stale cache on error');
+            return res.json(staleTxs.slice(0, limit));
+          }
+          
           // Fallback: Generate real-time transactions based on current block height
           console.log(`[API] Mainnet API error for /api/transactions/recent - generating real-time data`);
           
@@ -11278,20 +11437,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Proxy Routes to Enterprise Node
   // ============================================
   
-  // Sharding endpoints
+  // Sharding endpoints - WITH CACHE to prevent rate limit freezing
   app.get("/api/shards", async (_req, res) => {
+    const cache = getDataCache();
+    
     try {
-      const enterpriseNode = getEnterpriseNode();
-      const response = await fetch('http://localhost:8545/api/shards');
-      
-      if (!response.ok) {
-        throw new Error(`Enterprise node returned status: ${response.status}`);
+      // Try cache first - return immediately if available
+      const cachedShards = cache.get<any[]>(DataCacheService.KEYS.SHARDS, true);
+      if (cachedShards) {
+        console.log('[API] /api/shards - serving from cache');
+        return res.json(cachedShards);
       }
       
-      const shards = await response.json();
-      res.json(shards);
+      // No cache, try enterprise node with timeout
+      const enterpriseNode = getEnterpriseNode();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+      
+      try {
+        const response = await fetch('http://localhost:8545/api/shards', {
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`Enterprise node returned status: ${response.status}`);
+        }
+        
+        const shards = await response.json();
+        
+        // Cache the result
+        cache.set(DataCacheService.KEYS.SHARDS, shards, 30000);
+        
+        res.json(shards);
+      } catch (fetchError: any) {
+        clearTimeout(timeoutId);
+        throw fetchError;
+      }
     } catch (error: any) {
-      console.error('Error fetching shards from enterprise node:', error);
+      console.error('[API] /api/shards error:', error.message);
+      
+      // Try stale cache on error
+      const staleData = cache.get<any[]>(DataCacheService.KEYS.SHARDS, true);
+      if (staleData) {
+        console.log('[API] /api/shards - serving stale cache on error');
+        return res.json(staleData);
+      }
+      
       res.status(500).json({ error: "Failed to fetch shards data" });
     }
   });
