@@ -44,6 +44,7 @@ import { bridgeService } from "./services/BridgeService";
 import { getSelfHealingEngine } from "./services/SelfHealingEngine";
 import { aiOrchestrator, type BlockchainEvent } from "./services/AIOrchestrator";
 import { aiDecisionExecutor } from "./services/AIDecisionExecutor";
+import { getHealthMonitor, validateCriticalConfiguration, HealthStatus } from "./services/ConnectionHealthMonitor";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
@@ -171,8 +172,21 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
 // 5. Set strong SESSION_SECRET environment variable
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // ============================================
+  // CRITICAL CONFIGURATION VALIDATION AT STARTUP
+  // ============================================
+  const configValidation = validateCriticalConfiguration();
+  if (!configValidation.isValid) {
+    console.error('[Startup] ❌ Critical configuration errors detected!');
+    configValidation.errors.forEach(e => console.error(`  - ${e}`));
+    // Continue but log prominently - don't crash server for missing recommended vars
+  }
+
   // Initialize Restart Supervisor
   const restartSupervisor = getRestartSupervisor(isProductionMode());
+  
+  // Initialize Connection Health Monitor
+  const healthMonitor = getHealthMonitor();
   
   // Initialize TBURN client if in production mode  
   if (isProductionMode()) {
