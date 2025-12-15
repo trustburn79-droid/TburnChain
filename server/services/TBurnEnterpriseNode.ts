@@ -1128,6 +1128,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
       // Gas balance (EMB) - 1 TBURN = 1,000,000 EMB
       const gasBalanceEmb = Math.floor(1000000 + Math.random() * 9000000); // 1M-10M EMB
 
+      // Wallet type: standard for regular wallets, contract for first 10 (as smart contract wallets)
+      const walletType = i < 10 ? 'contract' : 'standard';
+      
       const wallet = {
         id: `wallet-${i}`,
         address,
@@ -1137,6 +1140,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
         rewardsEarned: rewardsEarned.toString(),
         nonce: Math.floor(Math.random() * 10000),
         transactionCount,
+        type: walletType,
+        lastActivity: lastTransactionAt?.toISOString() || firstSeenAt.toISOString(),
+        createdAt: firstSeenAt.toISOString(),
         firstSeenAt: firstSeenAt.toISOString(),
         lastTransactionAt: lastTransactionAt?.toISOString() || null,
         updatedAt: new Date().toISOString(),
@@ -1201,6 +1207,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     }
     
     const now = Date.now();
+    const createdAt = new Date(now).toISOString();
     const wallet = {
       id: `wallet-user-${this.walletCache.size}`,
       address,
@@ -1210,9 +1217,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
       rewardsEarned: "0",
       nonce: 0,
       transactionCount: 0,
-      firstSeenAt: new Date(now).toISOString(),
+      type: 'standard',
+      lastActivity: createdAt,
+      createdAt: createdAt,
+      firstSeenAt: createdAt,
       lastTransactionAt: null,
-      updatedAt: new Date(now).toISOString(),
+      updatedAt: createdAt,
       gasBalanceEmb: 1000000,
     };
     

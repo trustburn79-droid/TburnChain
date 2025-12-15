@@ -95,7 +95,8 @@ class EndpointRegistry {
     missingAttempts: number;
   } {
     const byMethod: Record<string, number> = {};
-    for (const endpoint of this.endpoints.values()) {
+    const endpointValues = Array.from(this.endpoints.values());
+    for (const endpoint of endpointValues) {
       byMethod[endpoint.method] = (byMethod[endpoint.method] || 0) + 1;
     }
     return {
@@ -524,7 +525,7 @@ export function withValidation<T>(
     requestSchema: options.requestSchema
   });
 
-  return async (req: Request, res: Response) => {
+  return async (req: Request, res: Response): Promise<void> => {
     try {
       // Record access
       endpointRegistry.recordAccess(options.method, options.endpoint);
@@ -540,10 +541,11 @@ export function withValidation<T>(
             errors: requestValidation.error.issues,
             responseData: req.body
           });
-          return res.status(400).json({
+          res.status(400).json({
             error: 'Request validation failed',
             issues: requestValidation.error.issues
           });
+          return;
         }
       }
 
