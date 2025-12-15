@@ -94,16 +94,12 @@ class ProductionDataPoller {
   private async waitForEnterpriseNodeReady(maxAttempts = 30, intervalMs = 1000): Promise<void> {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
-        // Check if enterprise node is started and responding
-        const status = this.enterpriseNode.getStatus();
-        if (status && status.isRunning) {
-          // Verify by hitting the health endpoint
-          const response = await fetch('http://localhost:8545/health', {
-            signal: AbortSignal.timeout(2000)
-          });
-          if (response.ok) {
-            return; // Node is ready
-          }
+        // Verify by hitting the health endpoint
+        const response = await fetch('http://localhost:8545/health', {
+          signal: AbortSignal.timeout(2000)
+        });
+        if (response.ok) {
+          return; // Node is ready
         }
       } catch (error) {
         // Node not ready yet, continue waiting
