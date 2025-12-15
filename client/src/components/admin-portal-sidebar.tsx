@@ -56,6 +56,7 @@ import {
   Wallet,
   Wrench,
   Zap,
+  Rocket,
 } from "lucide-react";
 import {
   Sidebar,
@@ -177,6 +178,9 @@ const adminMenuItems = [
   { titleKey: "adminNav.supportTickets", url: "/admin/tickets", icon: Ticket, groupKey: "adminNav.educationSupport", badge: "12" },
   { titleKey: "adminNav.feedbackSystem", url: "/admin/feedback", icon: MessageSquare, groupKey: "adminNav.educationSupport", badge: null },
   { titleKey: "adminNav.announcements", url: "/admin/announcements", icon: Bell, groupKey: "adminNav.educationSupport", badge: null },
+  
+  // Group 16: Genesis Launch
+  { titleKey: "adminNav.genesisLaunch", url: "/admin/genesis", icon: Rocket, groupKey: "adminNav.genesisLaunch", badge: "NEW" },
 ];
 
 const groupOrder = [
@@ -195,6 +199,7 @@ const groupOrder = [
   "adminNav.monitoringAlerts",
   "adminNav.financeAccounting",
   "adminNav.educationSupport",
+  "adminNav.genesisLaunch",
 ];
 
 export function AdminPortalSidebar() {

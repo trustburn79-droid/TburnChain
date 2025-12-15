@@ -89,6 +89,9 @@ import AdminGovParams from "@/pages/admin-portal/gov-params";
 import AdminTestnet from "@/pages/admin-portal/testnet";
 import AdminDebug from "@/pages/admin-portal/debug";
 
+// Group 16: Genesis Launch
+import AdminGenesisLaunch from "@/pages/admin-portal/genesis-launch";
+
 // Group 12: Developer Tools (5 pages)
 import AdminAPIDocs from "@/pages/admin-portal/api-docs";
 import AdminSDK from "@/pages/admin-portal/sdk";
@@ -231,6 +234,9 @@ function AdminRouter() {
       <Route path="/admin/tickets" component={AdminTickets} />
       <Route path="/admin/feedback" component={AdminFeedback} />
       <Route path="/admin/announcements" component={AdminAnnouncements} />
+
+      {/* Group 16: Genesis Launch */}
+      <Route path="/admin/genesis" component={AdminGenesisLaunch} />
 
       {/* Default fallback */}
       <Route component={UnifiedDashboard} />
