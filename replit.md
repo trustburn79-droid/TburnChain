@@ -43,6 +43,12 @@ Key architectural decisions include:
   - **Batch Message Insertion**: Cross-shard messages are buffered and batch-inserted (10 messages or 5s interval) with priority queue ordering
   - **O(1) Shard Pair Selection**: Modular arithmetic replaces O(n) while loops for random shard pair selection
   - **Priority Queue Routing**: Weighted composite scoring (priority 40%, reputation 35%, network 25%) ensures high-priority messages are processed first
+- **Production Launch Validation System**: RPC endpoint validation with schema enforcement in `server/utils/rpc-validation.ts`:
+  - **13 Zod Schemas**: HealthCheck, NetworkStats, Shards, Blocks, AI Models/Decisions, Wallets, Contracts, Transactions, Performance, Consensus, NodeHealth
+  - **withValidation Wrapper**: Applied to 16 required endpoints for automatic schema validation and logging
+  - **Endpoint Registry**: Tracks all registered RPC endpoints to prevent 404s and monitor access
+  - **Validation Logger**: Records schema mismatches for monitoring without blocking responses
+  - **Public Health Endpoints**: `/health` and `/api/performance` are public for monitoring systems
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
