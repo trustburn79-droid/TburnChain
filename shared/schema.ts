@@ -6603,3 +6603,316 @@ export type InsertTestnetBlock = z.infer<typeof insertTestnetBlockSchema>;
 
 export type TestnetFaucetRequest = typeof testnetFaucetRequests.$inferSelect;
 export type InsertTestnetFaucetRequest = z.infer<typeof insertTestnetFaucetRequestSchema>;
+
+// ============================================
+// GENESIS BLOCK & MAINNET LAUNCH SYSTEM
+// Enterprise-Grade Initial Token Issuance
+// ============================================
+
+// Genesis Configuration - Master configuration for mainnet launch
+export const genesisConfig = pgTable("genesis_config", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Chain Parameters
+  chainId: integer("chain_id").notNull().default(8888),
+  chainName: text("chain_name").notNull().default("TBURN Mainnet"),
+  networkVersion: text("network_version").notNull().default("v8.0"),
+  
+  // Genesis Block Parameters
+  genesisTimestamp: bigint("genesis_timestamp", { mode: "number" }),
+  genesisBlockHash: text("genesis_block_hash"),
+  initialDifficulty: text("initial_difficulty").notNull().default("1"),
+  blockTimeMs: integer("block_time_ms").notNull().default(100), // 100ms blocks
+  
+  // Token Economics
+  totalSupply: text("total_supply").notNull().default("10000000000000000000000000000"), // 10B TBURN in wei
+  decimals: integer("decimals").notNull().default(18),
+  tokenSymbol: text("token_symbol").notNull().default("TBURN"),
+  tokenName: text("token_name").notNull().default("TBURN Token"),
+  initialPrice: text("initial_price").notNull().default("0.50"), // USD
+  
+  // Staking Parameters
+  minValidatorStake: text("min_validator_stake").notNull().default("100000000000000000000000"), // 100K TBURN
+  maxValidatorCount: integer("max_validator_count").notNull().default(125),
+  initialValidatorCount: integer("initial_validator_count").notNull().default(21),
+  stakingRewardRate: integer("staking_reward_rate").notNull().default(1250), // 12.50% in basis points
+  
+  // Consensus Parameters
+  consensusType: text("consensus_type").notNull().default("ai_committee_bft"),
+  committeeSize: integer("committee_size").notNull().default(21),
+  blockProducerCount: integer("block_producer_count").notNull().default(7),
+  quorumThreshold: integer("quorum_threshold").notNull().default(6700), // 67% in basis points
+  
+  // Shard Configuration
+  initialShardCount: integer("initial_shard_count").notNull().default(8),
+  maxShardCount: integer("max_shard_count").notNull().default(128),
+  
+  // Status & Execution
+  status: text("status").notNull().default("draft"), // draft, pending_approval, approved, executing, executed, failed
+  isExecuted: boolean("is_executed").notNull().default(false),
+  executedAt: timestamp("executed_at"),
+  executedBy: text("executed_by"),
+  executionTxHash: text("execution_tx_hash"),
+  
+  // Pre-flight Validation
+  preflightChecks: jsonb("preflight_checks"), // Validation results
+  preflightPassedAt: timestamp("preflight_passed_at"),
+  
+  // Multi-Sig Configuration
+  requiredSignatures: integer("required_signatures").notNull().default(3),
+  totalSigners: integer("total_signers").notNull().default(5),
+  
+  // Audit
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  createdBy: text("created_by"),
+  lastModifiedBy: text("last_modified_by"),
+});
+
+// Genesis Validators - Initial validator set for mainnet
+export const genesisValidators = pgTable("genesis_validators", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  configId: varchar("config_id").notNull(),
+  
+  // Validator Identity
+  address: text("address").notNull(),
+  name: text("name").notNull(),
+  description: text("description"),
+  website: text("website"),
+  contactEmail: text("contact_email"),
+  
+  // Stake Allocation
+  initialStake: text("initial_stake").notNull(), // In wei
+  selfDelegation: text("self_delegation").notNull().default("0"),
+  commission: integer("commission").notNull().default(500), // 5% in basis points
+  
+  // Node Configuration
+  nodePublicKey: text("node_public_key").notNull(),
+  nodeEndpoint: text("node_endpoint"),
+  p2pPort: integer("p2p_port").notNull().default(30303),
+  rpcPort: integer("rpc_port").notNull().default(8545),
+  
+  // Validator Tier
+  tier: text("tier").notNull().default("genesis"), // genesis, enterprise, partner, community
+  priority: integer("priority").notNull().default(0), // Block producer priority
+  
+  // Verification Status
+  isVerified: boolean("is_verified").notNull().default(false),
+  verifiedAt: timestamp("verified_at"),
+  verifiedBy: text("verified_by"),
+  
+  // KYC/Compliance
+  kycStatus: text("kyc_status").notNull().default("pending"), // pending, approved, rejected
+  kycDocumentId: text("kyc_document_id"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Genesis Distribution - Token allocation for mainnet launch
+export const genesisDistribution = pgTable("genesis_distribution", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  configId: varchar("config_id").notNull(),
+  
+  // Allocation Category
+  category: text("category").notNull(), // foundation, team, ecosystem, staking_rewards, liquidity, public_sale, private_sale, advisors, reserve
+  subcategory: text("subcategory"),
+  
+  // Recipient Information
+  recipientName: text("recipient_name").notNull(),
+  recipientAddress: text("recipient_address").notNull(),
+  recipientType: text("recipient_type").notNull().default("wallet"), // wallet, contract, multisig
+  
+  // Allocation Amount
+  amount: text("amount").notNull(), // In wei
+  percentage: integer("percentage").notNull(), // Basis points (10000 = 100%)
+  
+  // Vesting Schedule
+  hasVesting: boolean("has_vesting").notNull().default(false),
+  vestingStartDate: timestamp("vesting_start_date"),
+  vestingEndDate: timestamp("vesting_end_date"),
+  vestingCliffMonths: integer("vesting_cliff_months").default(0),
+  vestingDurationMonths: integer("vesting_duration_months").default(0),
+  vestingSchedule: jsonb("vesting_schedule"), // Detailed release schedule
+  
+  // Lock Configuration
+  isLocked: boolean("is_locked").notNull().default(false),
+  lockDurationDays: integer("lock_duration_days").default(0),
+  unlockDate: timestamp("unlock_date"),
+  
+  // Distribution Status
+  status: text("status").notNull().default("pending"), // pending, approved, distributed, verified
+  distributedAt: timestamp("distributed_at"),
+  distributionTxHash: text("distribution_tx_hash"),
+  
+  // Verification
+  verificationProof: text("verification_proof"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Genesis Approvals - Multi-sig approval workflow
+export const genesisApprovals = pgTable("genesis_approvals", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  configId: varchar("config_id").notNull(),
+  
+  // Signer Information
+  signerAddress: text("signer_address").notNull(),
+  signerName: text("signer_name").notNull(),
+  signerRole: text("signer_role").notNull(), // ceo, cto, cfo, legal, security
+  signerOrder: integer("signer_order").notNull().default(0),
+  
+  // Approval Status
+  status: text("status").notNull().default("pending"), // pending, approved, rejected, abstained
+  approvedAt: timestamp("approved_at"),
+  rejectedAt: timestamp("rejected_at"),
+  rejectionReason: text("rejection_reason"),
+  
+  // Cryptographic Signature
+  signature: text("signature"),
+  signatureType: text("signature_type").notNull().default("eip712"), // eip712, personal_sign, hardware
+  signedMessage: text("signed_message"),
+  signedAt: timestamp("signed_at"),
+  
+  // Hardware Wallet Info (if applicable)
+  hardwareWalletType: text("hardware_wallet_type"), // ledger, trezor
+  derivationPath: text("derivation_path"),
+  
+  // Verification
+  isVerified: boolean("is_verified").notNull().default(false),
+  verifiedAt: timestamp("verified_at"),
+  verificationHash: text("verification_hash"),
+  
+  // Comments/Notes
+  comments: text("comments"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Genesis Execution Log - Immutable audit trail
+export const genesisExecutionLog = pgTable("genesis_execution_log", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  configId: varchar("config_id").notNull(),
+  
+  // Log Entry Type
+  logType: text("log_type").notNull(), // preflight_check, approval_received, execution_started, block_created, distribution_completed, error, warning
+  severity: text("severity").notNull().default("info"), // info, warning, error, critical
+  
+  // Log Details
+  action: text("action").notNull(),
+  description: text("description").notNull(),
+  details: jsonb("details"),
+  
+  // Actor Information
+  actorAddress: text("actor_address"),
+  actorName: text("actor_name"),
+  actorRole: text("actor_role"),
+  
+  // Reference Data
+  referenceType: text("reference_type"), // validator, distribution, approval, block, transaction
+  referenceId: text("reference_id"),
+  txHash: text("tx_hash"),
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  // Immutability
+  logHash: text("log_hash"), // SHA256 of log content
+  previousLogHash: text("previous_log_hash"), // Chain of logs
+  
+  // IP/Session Info (for compliance)
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  sessionId: text("session_id"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Genesis Preflight Checks - Validation before execution
+export const genesisPreflightChecks = pgTable("genesis_preflight_checks", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  configId: varchar("config_id").notNull(),
+  
+  // Check Information
+  checkName: text("check_name").notNull(),
+  checkCategory: text("check_category").notNull(), // tokenomics, validators, distribution, consensus, security, compliance
+  checkDescription: text("check_description").notNull(),
+  
+  // Check Result
+  status: text("status").notNull().default("pending"), // pending, passed, failed, warning, skipped
+  result: jsonb("result"),
+  errorMessage: text("error_message"),
+  warningMessage: text("warning_message"),
+  
+  // Validation Details
+  expectedValue: text("expected_value"),
+  actualValue: text("actual_value"),
+  tolerance: text("tolerance"),
+  
+  // Priority & Requirement
+  isCritical: boolean("is_critical").notNull().default(false),
+  isRequired: boolean("is_required").notNull().default(true),
+  priority: integer("priority").notNull().default(0),
+  
+  // Execution
+  executedAt: timestamp("executed_at"),
+  executionDurationMs: integer("execution_duration_ms"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Genesis Insert Schemas
+export const insertGenesisConfigSchema = createInsertSchema(genesisConfig).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGenesisValidatorSchema = createInsertSchema(genesisValidators).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGenesisDistributionSchema = createInsertSchema(genesisDistribution).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGenesisApprovalSchema = createInsertSchema(genesisApprovals).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGenesisExecutionLogSchema = createInsertSchema(genesisExecutionLog).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertGenesisPreflightCheckSchema = createInsertSchema(genesisPreflightChecks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Genesis Types
+export type GenesisConfig = typeof genesisConfig.$inferSelect;
+export type InsertGenesisConfig = z.infer<typeof insertGenesisConfigSchema>;
+
+export type GenesisValidator = typeof genesisValidators.$inferSelect;
+export type InsertGenesisValidator = z.infer<typeof insertGenesisValidatorSchema>;
+
+export type GenesisDistribution = typeof genesisDistribution.$inferSelect;
+export type InsertGenesisDistribution = z.infer<typeof insertGenesisDistributionSchema>;
+
+export type GenesisApproval = typeof genesisApprovals.$inferSelect;
+export type InsertGenesisApproval = z.infer<typeof insertGenesisApprovalSchema>;
+
+export type GenesisExecutionLog = typeof genesisExecutionLog.$inferSelect;
+export type InsertGenesisExecutionLog = z.infer<typeof insertGenesisExecutionLogSchema>;
+
+export type GenesisPreflightCheck = typeof genesisPreflightChecks.$inferSelect;
+export type InsertGenesisPreflightCheck = z.infer<typeof insertGenesisPreflightCheckSchema>;
