@@ -2960,6 +2960,96 @@ export class TBurnEnterpriseNode extends EventEmitter {
     };
   }
 
+  /**
+   * Execute Genesis Block Creation
+   * Creates the genesis block (block 0) with the provided configuration
+   * This is called by the admin genesis launch system
+   */
+  async executeGenesisBlock(params: {
+    chainId: number;
+    chainName: string;
+    totalSupply: string;
+    validators: Array<{ address: string; stake: string; name: string }>;
+    distributions: Array<{ address: string; amount: string; category: string }>;
+    approvals: Array<{ signerAddress: string; signature: string; role: string }>;
+  }): Promise<{
+    success: boolean;
+    genesisBlockHash: string;
+    genesisTimestamp: number;
+    validatorCount: number;
+    totalDistributed: string;
+    message: string;
+  }> {
+    console.log('[Enterprise Node] Executing Genesis Block Creation...');
+    console.log(`[Enterprise Node] Chain ID: ${params.chainId}, Chain Name: ${params.chainName}`);
+    console.log(`[Enterprise Node] Validators: ${params.validators.length}, Distributions: ${params.distributions.length}`);
+
+    const genesisTimestamp = Date.now();
+
+    const genesisData = JSON.stringify({
+      chainId: params.chainId,
+      chainName: params.chainName,
+      timestamp: genesisTimestamp,
+      totalSupply: params.totalSupply,
+      validators: params.validators.map(v => ({ address: v.address, stake: v.stake })),
+      distributions: params.distributions.map(d => ({ address: d.address, amount: d.amount })),
+      approvalSignatures: params.approvals.map(a => a.signature),
+      version: 'v8.0',
+      consensusType: 'ai_committee_bft',
+    });
+
+    const genesisBlockHash = '0x' + crypto.createHash('sha256').update(genesisData).digest('hex');
+
+    const totalDistributed = params.distributions
+      .reduce((sum, d) => sum + BigInt(d.amount), BigInt(0))
+      .toString();
+
+    const genesisBlock = {
+      height: 0,
+      hash: genesisBlockHash,
+      parentHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      timestamp: Math.floor(genesisTimestamp / 1000),
+      chainId: params.chainId,
+      chainName: params.chainName,
+      totalSupply: params.totalSupply,
+      validatorCount: params.validators.length,
+      distributionCount: params.distributions.length,
+      totalDistributed,
+      stateRoot: '0x' + crypto.createHash('sha256').update(genesisData + 'state').digest('hex'),
+      receiptsRoot: '0x' + crypto.createHash('sha256').update(genesisData + 'receipts').digest('hex'),
+      transactionsRoot: '0x' + crypto.createHash('sha256').update(genesisData + 'txs').digest('hex'),
+    };
+
+    const genesisMessage = JSON.stringify({
+      type: 'genesis_executed',
+      data: {
+        block: genesisBlock,
+        validators: params.validators.map(v => ({ address: v.address, name: v.name })),
+        timestamp: genesisTimestamp,
+      }
+    });
+
+    this.wsClients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(genesisMessage);
+      }
+    });
+
+    this.emit('genesis', genesisBlock);
+
+    console.log(`[Enterprise Node] Genesis Block Created: ${genesisBlockHash}`);
+    console.log(`[Enterprise Node] Genesis Timestamp: ${new Date(genesisTimestamp).toISOString()}`);
+
+    return {
+      success: true,
+      genesisBlockHash,
+      genesisTimestamp,
+      validatorCount: params.validators.length,
+      totalDistributed,
+      message: `Genesis block created successfully. TBURN ${params.chainName} is now live!`,
+    };
+  }
+
   // RPC Methods
   async getBlock(heightOrHash: number | string): Promise<any> {
     const height = typeof heightOrHash === 'number' ? heightOrHash : this.currentBlockHeight;

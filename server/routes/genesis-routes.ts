@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { storage } from "../storage";
 import crypto from "crypto";
+import { getEnterpriseNode } from "../services/TBurnEnterpriseNode";
 
 const router = Router();
 
@@ -966,32 +967,54 @@ router.post('/execute', async (req: Request, res: Response) => {
       "Beginning genesis block creation and token distribution"
     );
     
-    // Set genesis timestamp
-    const genesisTimestamp = Date.now();
-    genesisConfig.genesisTimestamp = genesisTimestamp;
     genesisConfig.status = 'executing';
     
-    // Generate genesis block hash
-    const genesisData = JSON.stringify({
-      chainId: genesisConfig.chainId,
-      timestamp: genesisTimestamp,
-      validators: genesisValidators.map(v => ({ address: v.address, stake: v.initialStake })),
-      distribution: genesisDistributions.map(d => ({ address: d.recipientAddress, amount: d.amount })),
-    });
-    const genesisBlockHash = '0x' + crypto.createHash('sha256').update(genesisData).digest('hex');
+    // Get the enterprise node and execute genesis block
+    const enterpriseNode = getEnterpriseNode();
     
-    genesisConfig.genesisBlockHash = genesisBlockHash;
+    const genesisResult = await enterpriseNode.executeGenesisBlock({
+      chainId: genesisConfig.chainId,
+      chainName: genesisConfig.chainName,
+      totalSupply: genesisConfig.totalSupply,
+      validators: genesisValidators.map(v => ({
+        address: v.address,
+        stake: v.initialStake,
+        name: v.name,
+      })),
+      distributions: genesisDistributions.map(d => ({
+        address: d.recipientAddress,
+        amount: d.amount,
+        category: d.category,
+      })),
+      approvals: genesisApprovals
+        .filter(a => a.status === 'approved')
+        .map(a => ({
+          signerAddress: a.signerAddress,
+          signature: a.signature || '',
+          role: a.signerRole,
+        })),
+    });
+    
+    if (!genesisResult.success) {
+      throw new Error('TBurnEnterpriseNode failed to create genesis block');
+    }
+    
+    // Update genesis config with results from enterprise node
+    genesisConfig.genesisTimestamp = genesisResult.genesisTimestamp;
+    genesisConfig.genesisBlockHash = genesisResult.genesisBlockHash;
     
     addExecutionLog(
       genesisConfig.id,
       "block_created",
       "info",
-      "Genesis Block Created",
-      `Block 0 created with hash: ${genesisBlockHash.slice(0, 18)}...`,
-      { blockHash: genesisBlockHash, timestamp: genesisTimestamp },
-      undefined,
-      undefined,
-      undefined
+      "Genesis Block Created via TBurnEnterpriseNode",
+      `Block 0 created with hash: ${genesisResult.genesisBlockHash.slice(0, 18)}...`,
+      { 
+        blockHash: genesisResult.genesisBlockHash, 
+        timestamp: genesisResult.genesisTimestamp,
+        validatorCount: genesisResult.validatorCount,
+        totalDistributed: genesisResult.totalDistributed,
+      }
     );
     
     // Mark distributions as distributed
@@ -1014,16 +1037,16 @@ router.post('/execute', async (req: Request, res: Response) => {
     genesisConfig.isExecuted = true;
     genesisConfig.status = 'executed';
     genesisConfig.executedAt = new Date().toISOString();
-    genesisConfig.executionTxHash = genesisBlockHash;
+    genesisConfig.executionTxHash = genesisResult.genesisBlockHash;
     
     addExecutionLog(
       genesisConfig.id,
       "execution_completed",
       "info",
       "Genesis Execution Completed",
-      "TBURN Mainnet genesis block successfully created and tokens distributed",
+      "TBURN Mainnet genesis block successfully created and tokens distributed via TBurnEnterpriseNode",
       {
-        genesisBlockHash,
+        genesisBlockHash: genesisResult.genesisBlockHash,
         totalSupply: genesisConfig.totalSupply,
         validatorCount: genesisValidators.length,
         distributionCount: genesisDistributions.length,
@@ -1032,9 +1055,10 @@ router.post('/execute', async (req: Request, res: Response) => {
     
     res.json({
       success: true,
-      genesisBlockHash,
+      genesisBlockHash: genesisResult.genesisBlockHash,
+      genesisTimestamp: genesisResult.genesisTimestamp,
       executedAt: genesisConfig.executedAt,
-      message: 'Genesis block created successfully! TBURN Mainnet is now live.',
+      message: genesisResult.message,
     });
   } catch (error) {
     console.error('Error executing genesis:', error);
