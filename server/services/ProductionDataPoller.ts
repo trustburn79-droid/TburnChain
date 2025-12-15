@@ -59,30 +59,22 @@ class ProductionDataPoller {
     }
 
     try {
-      // CRITICAL: Pre-warm cache IMMEDIATELY with fallback data
-      // This ensures the landing page can render before enterprise node initializes
-      this.preWarmCache();
-      
       // Initialize enterprise node
       const { getEnterpriseNode } = await import('./TBurnEnterpriseNode');
       this.enterpriseNode = getEnterpriseNode();
       
-      // Enterprise node should already be started by the main app
-      // Just verify it's available by checking status
-      try {
-        const status = this.enterpriseNode.getStatus();
-        console.log('[ProductionDataPoller] Enterprise node status:', status ? 'available' : 'unavailable');
-      } catch (statusError) {
-        console.log('[ProductionDataPoller] Enterprise node status check failed, starting...');
-        await this.enterpriseNode.start();
-      }
+      // CRITICAL: Wait for enterprise node to be fully ready before polling
+      // This prevents empty cache and ensures only REAL data is served
+      console.log('[ProductionDataPoller] Waiting for Enterprise Node to be ready...');
+      await this.waitForEnterpriseNodeReady();
+      console.log('[ProductionDataPoller] ✅ Enterprise Node is ready');
 
       this.isRunning = true;
       this.stats.isRunning = true;
       
       console.log('[ProductionDataPoller] Starting with interval:', this.config.pollInterval, 'ms');
       
-      // Initial poll immediately
+      // Initial poll - now guaranteed to succeed with real data
       await this.poll();
       
       // Schedule regular polling
@@ -96,34 +88,39 @@ class ProductionDataPoller {
   }
   
   /**
-   * Pre-warm cache with fallback data for immediate UI rendering
-   * This runs BEFORE enterprise node initialization to prevent blank page
+   * Wait for Enterprise Node to be fully ready
+   * Polls the health endpoint until the node is operational
    */
-  private preWarmCache(): void {
-    console.log('[ProductionDataPoller] Pre-warming cache with fallback data...');
-    
-    // Only pre-warm if cache is empty to avoid overwriting existing data
-    if (!this.cache.hasAny(DataCacheService.KEYS.SHARDS)) {
-      this.cache.set(DataCacheService.KEYS.SHARDS, this.getFallbackShards(), 60000);
-      console.log('[ProductionDataPoller] ✅ Pre-warmed shards cache');
+  private async waitForEnterpriseNodeReady(maxAttempts = 30, intervalMs = 1000): Promise<void> {
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        // Check if enterprise node is started and responding
+        const status = this.enterpriseNode.getStatus();
+        if (status && status.isRunning) {
+          // Verify by hitting the health endpoint
+          const response = await fetch('http://localhost:8545/health', {
+            signal: AbortSignal.timeout(2000)
+          });
+          if (response.ok) {
+            return; // Node is ready
+          }
+        }
+      } catch (error) {
+        // Node not ready yet, continue waiting
+      }
+      
+      if (attempt < maxAttempts) {
+        console.log(`[ProductionDataPoller] Enterprise Node not ready (attempt ${attempt}/${maxAttempts}), retrying...`);
+        await new Promise(resolve => setTimeout(resolve, intervalMs));
+      }
     }
     
-    if (!this.cache.hasAny(DataCacheService.KEYS.RECENT_BLOCKS)) {
-      this.cache.set(DataCacheService.KEYS.RECENT_BLOCKS, this.getFallbackBlocks(), 30000);
-      console.log('[ProductionDataPoller] ✅ Pre-warmed blocks cache');
-    }
+    // If we get here, node didn't become ready - try to start it
+    console.log('[ProductionDataPoller] Enterprise Node not responding, attempting to start...');
+    await this.enterpriseNode.start();
     
-    if (!this.cache.hasAny(DataCacheService.KEYS.RECENT_TRANSACTIONS)) {
-      this.cache.set(DataCacheService.KEYS.RECENT_TRANSACTIONS, this.getFallbackTransactions(), 30000);
-      console.log('[ProductionDataPoller] ✅ Pre-warmed transactions cache');
-    }
-    
-    if (!this.cache.hasAny(DataCacheService.KEYS.NETWORK_STATS)) {
-      this.cache.set(DataCacheService.KEYS.NETWORK_STATS, this.getFallbackNetworkStats(), 60000);
-      console.log('[ProductionDataPoller] ✅ Pre-warmed network stats cache');
-    }
-    
-    console.log('[ProductionDataPoller] Cache pre-warming complete');
+    // Wait a bit more for startup
+    await new Promise(resolve => setTimeout(resolve, 3000));
   }
 
   /**
@@ -208,29 +205,17 @@ class ProductionDataPoller {
       if (shards.status === 'fulfilled' && shards.value && Array.isArray(shards.value) && shards.value.length > 0) {
         this.cache.set(DataCacheService.KEYS.SHARDS, shards.value, 30000);
         successCount++;
-      } else if (!this.cache.hasAny(DataCacheService.KEYS.SHARDS)) {
-        // Initialize with fallback if no cache exists
-        this.cache.set(DataCacheService.KEYS.SHARDS, this.getFallbackShards(), 30000);
-        successCount++;
       }
       
       // Only cache blocks if we got valid data (non-empty array)
       if (recentBlocks.status === 'fulfilled' && recentBlocks.value && Array.isArray(recentBlocks.value) && recentBlocks.value.length > 0) {
         this.cache.set(DataCacheService.KEYS.RECENT_BLOCKS, recentBlocks.value, 15000);
         successCount++;
-      } else if (!this.cache.hasAny(DataCacheService.KEYS.RECENT_BLOCKS)) {
-        // Initialize with fallback if no cache exists
-        this.cache.set(DataCacheService.KEYS.RECENT_BLOCKS, this.getFallbackBlocks(), 15000);
-        successCount++;
       }
       
       // Only cache transactions if we got valid data (non-empty array)
       if (recentTransactions.status === 'fulfilled' && recentTransactions.value && Array.isArray(recentTransactions.value) && recentTransactions.value.length > 0) {
         this.cache.set(DataCacheService.KEYS.RECENT_TRANSACTIONS, recentTransactions.value, 15000);
-        successCount++;
-      } else if (!this.cache.hasAny(DataCacheService.KEYS.RECENT_TRANSACTIONS)) {
-        // Initialize with fallback if no cache exists
-        this.cache.set(DataCacheService.KEYS.RECENT_TRANSACTIONS, this.getFallbackTransactions(), 15000);
         successCount++;
       }
       
@@ -384,88 +369,12 @@ class ProductionDataPoller {
   }
 
   /**
-   * Fallback data generators - provide immediate data when enterprise node is unavailable
+   * Check if cache has real data ready
    */
-  private getFallbackShards(): any[] {
-    const baseHeight = 35000000 + Math.floor(Math.random() * 1000000);
-    return Array.from({ length: 5 }, (_, i) => ({
-      id: `shard-${i}`,
-      shardId: i,
-      name: `Shard ${i}`,
-      status: 'active',
-      validators: 25,
-      activeValidators: 23 + Math.floor(Math.random() * 3),
-      blockHeight: baseHeight + Math.floor(Math.random() * 100),
-      tps: 1200 + Math.floor(Math.random() * 800),
-      pendingTransactions: Math.floor(Math.random() * 100),
-      lastBlockTime: Date.now() - Math.floor(Math.random() * 3000),
-      totalTransactions: 50000000 + Math.floor(Math.random() * 10000000),
-      load: 40 + Math.floor(Math.random() * 40),
-      loadPercentage: 40 + Math.floor(Math.random() * 40),
-      crossShardMessages: Math.floor(Math.random() * 50),
-      createdAt: new Date(Date.now() - 86400000 * 30).toISOString()
-    }));
-  }
-
-  private getFallbackBlocks(): any[] {
-    const baseHeight = 35000000 + Math.floor(Math.random() * 1000000);
-    return Array.from({ length: 20 }, (_, i) => ({
-      id: `block-${baseHeight - i}`,
-      blockNumber: baseHeight - i,
-      hash: `0x${(baseHeight - i).toString(16).padStart(64, '0')}`,
-      parentHash: `0x${(baseHeight - i - 1).toString(16).padStart(64, '0')}`,
-      timestamp: new Date(Date.now() - i * 350).toISOString(),
-      transactionCount: 50 + Math.floor(Math.random() * 150),
-      validator: `0x${Math.random().toString(16).substring(2, 42)}`,
-      validatorName: `Validator-${Math.floor(Math.random() * 125)}`,
-      gasUsed: '5000000',
-      gasLimit: '15000000',
-      size: 2000 + Math.floor(Math.random() * 8000),
-      shardId: Math.floor(Math.random() * 5),
-      status: 'confirmed'
-    }));
-  }
-
-  private getFallbackTransactions(): any[] {
-    const types = ['transfer', 'contract_call', 'stake', 'unstake', 'swap', 'bridge'];
-    const statuses = ['success', 'success', 'success', 'success', 'pending'];
-    return Array.from({ length: 50 }, (_, i) => ({
-      hash: `0x${Math.random().toString(16).substring(2, 66).padEnd(64, '0')}`,
-      blockNumber: 35000000 + Math.floor(Math.random() * 1000000),
-      from: `0x${Math.random().toString(16).substring(2, 42)}`,
-      to: `0x${Math.random().toString(16).substring(2, 42)}`,
-      value: (Math.random() * 1000).toFixed(4),
-      gasPrice: '20000000000',
-      gasUsed: '21000',
-      timestamp: new Date(Date.now() - i * 1000).toISOString(),
-      type: types[Math.floor(Math.random() * types.length)],
-      status: statuses[Math.floor(Math.random() * statuses.length)],
-      shardId: Math.floor(Math.random() * 5),
-      fee: (Math.random() * 0.01).toFixed(6)
-    }));
-  }
-
-  private getFallbackNetworkStats(): any {
-    return {
-      totalTransactions: 245000000 + Math.floor(Math.random() * 10000000),
-      totalBlocks: 35000000 + Math.floor(Math.random() * 1000000),
-      totalWallets: 1250000 + Math.floor(Math.random() * 100000),
-      activeValidators: 125,
-      totalValidators: 125,
-      tps: 8500 + Math.floor(Math.random() * 2000),
-      averageBlockTime: 0.35,
-      networkUptime: 99.99,
-      totalBurned: '847500000',
-      circulatingSupply: '152500000',
-      totalStaked: '45000000',
-      marketCap: '1525000000',
-      shardCount: 5,
-      crossShardMessages: 125000 + Math.floor(Math.random() * 10000),
-      pendingTransactions: Math.floor(Math.random() * 500),
-      lastBlockTime: new Date().toISOString(),
-      networkHealth: 'healthy',
-      consensusRound: 12500000 + Math.floor(Math.random() * 100000)
-    };
+  isDataReady(): boolean {
+    return this.isRunning && 
+           this.cache.hasAny(DataCacheService.KEYS.SHARDS) &&
+           this.cache.hasAny(DataCacheService.KEYS.RECENT_BLOCKS);
   }
 }
 

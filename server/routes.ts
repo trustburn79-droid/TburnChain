@@ -11484,31 +11484,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.json(staleData);
       }
       
-      // Fallback: Generate immediate shards data to prevent blank page
-      console.log('[API] /api/shards - generating fallback data');
-      const baseHeight = 35000000 + Math.floor(Math.random() * 1000000);
-      const fallbackShards = Array.from({ length: 5 }, (_, i) => ({
-        id: `shard-${i}`,
-        shardId: i,
-        name: `Shard ${i}`,
-        status: 'active',
-        validators: 25,
-        activeValidators: 23 + Math.floor(Math.random() * 3),
-        blockHeight: baseHeight + Math.floor(Math.random() * 100),
-        tps: 1200 + Math.floor(Math.random() * 800),
-        pendingTransactions: Math.floor(Math.random() * 100),
-        lastBlockTime: Date.now() - Math.floor(Math.random() * 3000),
-        totalTransactions: 50000000 + Math.floor(Math.random() * 10000000),
-        load: 40 + Math.floor(Math.random() * 40),
-        loadPercentage: 40 + Math.floor(Math.random() * 40),
-        crossShardMessages: Math.floor(Math.random() * 50),
-        createdAt: new Date(Date.now() - 86400000 * 30).toISOString()
-      }));
-      
-      // Cache the fallback data to prevent repeated generation
-      cache.set(DataCacheService.KEYS.SHARDS, fallbackShards, 30000);
-      
-      res.json(fallbackShards);
+      // No real data available - return 503 Service Unavailable
+      console.log('[API] /api/shards - no real data available, returning 503');
+      res.status(503).json({ 
+        error: "Service temporarily unavailable",
+        message: "Enterprise node is warming up. Please retry in a few seconds.",
+        retryAfter: 5
+      });
     }
   });
 
