@@ -1,5 +1,21 @@
 # TBURN Blockchain Mainnet Explorer
 
+## Current Version
+**V8 - Optimization Release** (December 15, 2025) - Production Ready ✅
+
+### V8 Release Notes
+- Wallet schema mismatch fix (type, lastActivity, createdAt fields)
+- RPC validation LSP error fixes
+- AI service fallback system verified
+- All 16 required endpoints verified
+- See `.local/versions/V8_OPTIMIZATION_RELEASE.md` for full details
+
+### Restoration Guide
+To restore to V8 state:
+1. Navigate to Agent tab → Find checkpoint "V8 Optimization Release"
+2. Click "Rollback to here" → Confirm
+3. Optional: Select "Database" for full DB restore
+
 ## Overview
 The TBURN Blockchain Mainnet Explorer is a production-ready DeFi ecosystem platform designed to provide comprehensive insights into the TBURN Mainnet. It features extensive public and authenticated application pages, supporting 12 languages with full RTL compatibility. The platform integrates advanced AI for functionalities such as burn optimization, governance analysis, and multi-chain bridge risk assessment. Key capabilities include a real-time dashboard with tokenomics analysis, block and transaction explorers, advanced wallet management, and support for robust token standards (TBC-20/721/1155) with quantum-resistant signatures. It also incorporates staking mechanisms, a full suite of DeFi functionalities (DEX, lending, yield farming, liquid staking, NFT marketplaces), and a GameFi hub. Network operations are managed through detailed validator and member dashboards, BFT consensus visualization, and dynamic AI-driven sharding. Administrative and operator portals provide extensive control, including real-time health monitoring, AI orchestration, security audits, and comprehensive reporting, aiming to be a leading solution in the DeFi space.
 
