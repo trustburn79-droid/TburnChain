@@ -154,6 +154,9 @@ export default function CommunityManagement() {
 
   const { data, isLoading, error, refetch } = useQuery<CommunityData>({
     queryKey: ['/api/enterprise/admin/community'],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 
