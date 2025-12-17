@@ -8,6 +8,7 @@ import express, {
 } from "express";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
+import createMemoryStore from "memorystore";
 import { Pool } from "@neondatabase/serverless";
 
 import { registerRoutes } from "./routes";
@@ -19,6 +20,7 @@ declare module "express-session" {
 }
 
 const PgSession = connectPgSimple(session);
+const MemoryStore = createMemoryStore(session);
 
 // Fix BigInt JSON serialization
 (BigInt.prototype as any).toJSON = function () {
@@ -47,30 +49,37 @@ declare module 'http' {
   }
 }
 
-// Session configuration with PostgreSQL store
-const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
+// Session store configuration - MemoryStore for development (fast), PostgreSQL for production (persistent)
+const isProduction = process.env.NODE_ENV === "production";
+const sessionPool = isProduction ? new Pool({ connectionString: process.env.DATABASE_URL }) : null;
+
+const sessionStore = isProduction && sessionPool
+  ? new PgSession({
+      pool: sessionPool,
+      createTableIfMissing: true,
+      tableName: 'session',
+    })
+  : new MemoryStore({
+      checkPeriod: 86400000, // prune expired entries every 24h
+    });
 
 app.use(
   session({
-    store: new PgSession({
-      pool: sessionPool,
-      createTableIfMissing: true,
-      tableName: 'session', // Store sessions in 'session' table
-    }),
+    store: sessionStore,
     secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: isProduction,
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+      sameSite: isProduction ? "strict" : "lax",
     },
   })
 );
 
 // Log session store type
-log(`Session store: ${process.env.NODE_ENV === "production" ? "PostgreSQL (Production)" : "PostgreSQL (Development)"}`, "session");
+log(`Session store: ${isProduction ? "PostgreSQL (Production)" : "MemoryStore (Development - fast)"}`, "session");
 
 // Verify critical environment variables
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;

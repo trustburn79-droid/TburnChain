@@ -21,7 +21,7 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import { eq, desc, sql } from "drizzle-orm";
-import { db } from "./db";
+import { db, pool as sharedPool } from "./db";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 import { ValidatorSimulationService } from "./validator-simulation";
 import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
@@ -4597,17 +4597,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Operator Portal: Member Management
   // ============================================
   
-  // Get all members with advanced filtering
+  // Get all members with advanced filtering (optimized with caching and shared pool)
   app.get("/api/operator/members", requireAdmin, operatorLimiter, async (req, res) => {
     try {
+      const cache = getDataCache();
       const { 
         status, tier, kycLevel, riskScore, search,
         page = '1', limit = '50', sortBy = 'created_at', sortOrder = 'desc'
       } = req.query;
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Create cache key from query params
+      const cacheKey = `operator_members_${page}_${limit}_${status || 'all'}_${tier || 'all'}_${kycLevel || 'all'}_${riskScore || '0'}_${search || ''}_${sortBy}_${sortOrder}`;
       
-      let whereConditions = [];
+      // Check cache first (30 second TTL)
+      const cached = cache.get<any>(cacheKey);
+      if (cached) {
+        return res.json(cached);
+      }
+      
+      let whereConditions: string[] = [];
       let params: any[] = [];
       let paramIndex = 1;
 
@@ -4639,19 +4647,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
       
+      // Use shared pool instead of creating new pool for each request
       const [members, countResult] = await Promise.all([
-        pool.query(`
+        sharedPool.query(`
           SELECT * FROM members 
           ${whereClause}
           ORDER BY ${sortBy === 'created_at' ? 'created_at' : sortBy} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}
           LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
         `, [...params, parseInt(limit as string), offset]),
-        pool.query(`SELECT COUNT(*) as total FROM members ${whereClause}`, params)
+        sharedPool.query(`SELECT COUNT(*) as total FROM members ${whereClause}`, params)
       ]);
 
-      await pool.end();
-
-      res.json({
+      const result = {
         members: members.rows,
         pagination: {
           page: parseInt(page as string),
@@ -4659,37 +4666,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
           total: parseInt(countResult.rows[0].total),
           totalPages: Math.ceil(parseInt(countResult.rows[0].total) / parseInt(limit as string))
         }
-      });
+      };
+      
+      // Cache the result for 30 seconds
+      cache.set(cacheKey, result, 30000);
+      
+      res.json(result);
     } catch (error) {
       console.error('[Operator] Members list error:', error);
       res.status(500).json({ error: "Failed to fetch members" });
     }
   });
 
-  // Get member detail with all profiles
+  // Get member detail with all profiles (optimized with caching and shared pool)
   app.get("/api/operator/members/:id", requireAdmin, operatorLimiter, async (req, res) => {
     try {
+      const cache = getDataCache();
       const { id } = req.params;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      
+      // Check cache first (30 second TTL)
+      const cacheKey = `operator_member_detail_${id}`;
+      const cached = cache.get<any>(cacheKey);
+      if (cached) {
+        return res.json(cached);
+      }
 
+      // Use shared pool instead of creating new pool for each request
       const [member, profile, governance, financial, security, stakingPositions, auditLogs, documents] = await Promise.all([
-        pool.query('SELECT * FROM members WHERE id = $1', [id]),
-        pool.query('SELECT * FROM member_profiles WHERE member_id = $1', [id]),
-        pool.query('SELECT * FROM member_governance_profiles WHERE member_id = $1', [id]),
-        pool.query('SELECT * FROM member_financial_profiles WHERE member_id = $1', [id]),
-        pool.query('SELECT * FROM member_security_profiles WHERE member_id = $1', [id]),
-        pool.query('SELECT * FROM member_staking_positions WHERE member_id = $1', [id]),
-        pool.query('SELECT * FROM member_audit_logs WHERE member_id = $1 ORDER BY created_at DESC LIMIT 20', [id]),
-        pool.query('SELECT id, document_type, document_name, verification_status, uploaded_at FROM member_documents WHERE member_id = $1', [id])
+        sharedPool.query('SELECT * FROM members WHERE id = $1', [id]),
+        sharedPool.query('SELECT * FROM member_profiles WHERE member_id = $1', [id]),
+        sharedPool.query('SELECT * FROM member_governance_profiles WHERE member_id = $1', [id]),
+        sharedPool.query('SELECT * FROM member_financial_profiles WHERE member_id = $1', [id]),
+        sharedPool.query('SELECT * FROM member_security_profiles WHERE member_id = $1', [id]),
+        sharedPool.query('SELECT * FROM member_staking_positions WHERE member_id = $1', [id]),
+        sharedPool.query('SELECT * FROM member_audit_logs WHERE member_id = $1 ORDER BY created_at DESC LIMIT 20', [id]),
+        sharedPool.query('SELECT id, document_type, document_name, verification_status, uploaded_at FROM member_documents WHERE member_id = $1', [id])
       ]);
-
-      await pool.end();
 
       if (member.rows.length === 0) {
         return res.status(404).json({ error: "Member not found" });
       }
 
-      res.json({
+      const result = {
         member: member.rows[0],
         profile: profile.rows[0] || null,
         governance: governance.rows[0] || null,
@@ -4698,16 +4716,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
         stakingPositions: stakingPositions.rows,
         recentAuditLogs: auditLogs.rows,
         documents: documents.rows
-      });
+      };
+      
+      // Cache the result for 30 seconds
+      cache.set(cacheKey, result, 30000);
+      
+      res.json(result);
     } catch (error) {
       console.error('[Operator] Member detail error:', error);
       res.status(500).json({ error: "Failed to fetch member details" });
     }
   });
 
-  // Update member status
+  // Update member status (optimized with shared pool and cache invalidation)
   app.patch("/api/operator/members/:id/status", requireAdmin, operatorLimiter, async (req, res) => {
     try {
+      const cache = getDataCache();
       const { id } = req.params;
       const { status, reason } = req.body;
       
@@ -4715,18 +4739,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!validStatuses.includes(status)) {
         return res.status(400).json({ error: "Invalid status" });
       }
-
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
       
-      const currentMember = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
+      const currentMember = await sharedPool.query('SELECT * FROM members WHERE id = $1', [id]);
       if (currentMember.rows.length === 0) {
-        await pool.end();
         return res.status(404).json({ error: "Member not found" });
       }
 
       const previousStatus = currentMember.rows[0].member_status;
       
-      await pool.query(
+      await sharedPool.query(
         'UPDATE members SET member_status = $1, updated_at = NOW() WHERE id = $2',
         [status, id]
       );
@@ -4745,7 +4766,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status === 'blacklisted' || status === 'terminated' ? 'high' : 'medium'
       );
 
-      await pool.end();
+      // Invalidate member caches
+      cache.clearPattern('operator_members_');
+      cache.delete(`operator_member_detail_${id}`);
       
       res.json({ success: true, previousStatus, newStatus: status });
     } catch (error) {
@@ -4754,9 +4777,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Update member tier
+  // Update member tier (optimized with shared pool and cache invalidation)
   app.patch("/api/operator/members/:id/tier", requireAdmin, operatorLimiter, async (req, res) => {
     try {
+      const cache = getDataCache();
       const { id } = req.params;
       const { tier, reason } = req.body;
       
@@ -4770,18 +4794,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!validTiers.includes(tier)) {
         return res.status(400).json({ error: "Invalid tier" });
       }
-
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
       
-      const currentMember = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
+      const currentMember = await sharedPool.query('SELECT * FROM members WHERE id = $1', [id]);
       if (currentMember.rows.length === 0) {
-        await pool.end();
         return res.status(404).json({ error: "Member not found" });
       }
 
       const previousTier = currentMember.rows[0].member_tier;
       
-      await pool.query(
+      await sharedPool.query(
         'UPDATE members SET member_tier = $1, updated_at = NOW() WHERE id = $2',
         [tier, id]
       );
@@ -4799,7 +4820,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         tier.includes('slashed') || tier.includes('suspended') ? 'high' : 'medium'
       );
 
-      await pool.end();
+      // Invalidate member caches
+      cache.clearPattern('operator_members_');
+      cache.delete(`operator_member_detail_${id}`);
       
       res.json({ success: true, previousTier, newTier: tier });
     } catch (error) {
@@ -4808,17 +4831,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Update KYC status
+  // Update KYC status (optimized with shared pool and cache invalidation)
   app.patch("/api/operator/members/:id/kyc", requireAdmin, operatorLimiter, async (req, res) => {
     try {
+      const cache = getDataCache();
       const { id } = req.params;
       const { kycLevel, amlRiskScore, sanctionsCheckPassed, pepStatus, reason } = req.body;
-
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
       
-      const currentMember = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
+      const currentMember = await sharedPool.query('SELECT * FROM members WHERE id = $1', [id]);
       if (currentMember.rows.length === 0) {
-        await pool.end();
         return res.status(404).json({ error: "Member not found" });
       }
 
@@ -4845,14 +4866,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       if (updates.length === 0) {
-        await pool.end();
         return res.status(400).json({ error: "No updates provided" });
       }
 
       updates.push('updated_at = NOW()');
       values.push(id);
 
-      await pool.query(
+      await sharedPool.query(
         `UPDATE members SET ${updates.join(', ')} WHERE id = $${valueIndex}`,
         values
       );
@@ -4873,7 +4893,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'medium'
       );
 
-      await pool.end();
+      // Invalidate member caches
+      cache.clearPattern('operator_members_');
+      cache.delete(`operator_member_detail_${id}`);
       
       res.json({ success: true });
     } catch (error) {
