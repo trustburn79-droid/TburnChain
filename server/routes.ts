@@ -4153,12 +4153,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       'inactive_validator': 'inactive',
     };
     
-    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-    let client: ReturnType<typeof pool.connect> extends Promise<infer T> ? T : never;
+    // Using shared pool from db.ts for better performance
+    let client: ReturnType<typeof sharedPool.connect> extends Promise<infer T> ? T : never;
     let transactionStarted = false;
     
     try {
-      client = await pool.connect();
+      client = await sharedPool.connect();
       
       // Begin transaction for atomicity
       await client.query('BEGIN');
@@ -4288,7 +4288,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       try {
-        await pool.end();
+        // sharedPool doesn't need to be closed
       } catch (poolEndError) {
         console.error("[Enterprise] Pool end error:", poolEndError);
       }
@@ -4509,8 +4509,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     riskLevel: string = "low"
   ) {
     try {
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-      await pool.query(`
+      // Using shared pool from db.ts for better performance
+      await sharedPool.query(`
         INSERT INTO admin_audit_logs (
           operator_id, operator_ip, operator_user_agent, session_id,
           action_type, action_category, resource, resource_id,
@@ -4530,7 +4530,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         reason,
         riskLevel
       ]);
-      await pool.end();
+      // sharedPool doesn't need to be closed
     } catch (error) {
       console.error('[AdminAudit] Failed to log audit event:', error);
     }
@@ -4541,7 +4541,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/operator/dashboard", requireAdmin, operatorLimiter, async (req, res) => {
     try {
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
       
       // Get dashboard statistics
       const [
@@ -4550,7 +4550,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         securityAlerts,
         recentAuditLogs
       ] = await Promise.all([
-        pool.query(`
+        sharedPool.query(`
           SELECT 
             COUNT(*) as total_members,
             COUNT(*) FILTER (WHERE member_status = 'pending') as pending_members,
@@ -4560,18 +4560,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
             COUNT(*) FILTER (WHERE kyc_level IN ('basic', 'enhanced', 'institutional')) as kyc_verified
           FROM members
         `),
-        pool.query(`
+        sharedPool.query(`
           SELECT status, COUNT(*) as count 
           FROM validator_applications 
           GROUP BY status
         `),
-        pool.query(`
+        sharedPool.query(`
           SELECT severity, COUNT(*) as count 
           FROM security_events 
           WHERE status = 'open'
           GROUP BY severity
         `),
-        pool.query(`
+        sharedPool.query(`
           SELECT action_type, action_category, resource, created_at 
           FROM admin_audit_logs 
           ORDER BY created_at DESC 
@@ -4579,7 +4579,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         `)
       ]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({
         members: memberStats.rows[0] || {},
@@ -4964,23 +4964,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Invalid requestedTier", validTiers });
       }
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       // Get member info
-      const memberResult = await pool.query('SELECT * FROM members WHERE id = $1', [memberId]);
+      const memberResult = await sharedPool.query('SELECT * FROM members WHERE id = $1', [memberId]);
       if (memberResult.rows.length === 0) {
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(404).json({ error: "Member not found" });
       }
       const member = memberResult.rows[0];
 
       // Check for existing pending application
-      const existingApp = await pool.query(
+      const existingApp = await sharedPool.query(
         'SELECT id FROM validator_applications WHERE applicant_member_id = $1 AND status IN ($2, $3)',
         [memberId, 'pending', 'under_review']
       );
       if (existingApp.rows.length > 0) {
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(409).json({ 
           error: "You already have a pending or under-review application",
           existingApplicationId: existingApp.rows[0].id
@@ -4988,7 +4988,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Verify staking balance - ALWAYS enforced for validator tiers
-      const stakingResult = await pool.query(
+      const stakingResult = await sharedPool.query(
         'SELECT COALESCE(SUM(CAST(amount AS NUMERIC)), 0) as total_staked FROM staking_positions WHERE staker_address = $1 AND status = $2',
         [member.account_address, 'active']
       );
@@ -4996,12 +4996,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const requiredStake = validatorStakingRequirements[requestedTier];
 
       if (requiredStake === undefined) {
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(400).json({ error: `No staking requirement defined for tier: ${requestedTier}` });
       }
 
       if (totalStaked < requiredStake) {
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(400).json({
           error: "Insufficient staking balance",
           required: requiredStake,
@@ -5012,7 +5012,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Create application
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         INSERT INTO validator_applications (
           applicant_member_id, applicant_address, applicant_name,
           application_type, requested_tier, proposed_commission,
@@ -5037,7 +5037,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'pending'
       ]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       console.log(`[ValidatorApplication] New application submitted by member ${memberId} for tier ${requestedTier}`);
       res.status(201).json(result.rows[0]);
@@ -5055,14 +5055,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ error: "User not logged in" });
       }
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const result = await pool.query(
+      const result = await sharedPool.query(
         'SELECT * FROM validator_applications WHERE applicant_member_id = $1 ORDER BY submitted_at DESC',
         [memberId]
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json(result.rows);
     } catch (error) {
       console.error('[ValidatorApplication] Fetch my applications error:', error);
@@ -5078,7 +5078,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/validator-applications", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { status, page = '1', limit = '20' } = req.query;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       let whereClause = '';
       let params: any[] = [];
@@ -5091,16 +5091,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
       
       const [applications, countResult] = await Promise.all([
-        pool.query(`
+        sharedPool.query(`
           SELECT * FROM validator_applications 
           ${whereClause}
           ORDER BY submitted_at DESC
           LIMIT $${params.length + 1} OFFSET $${params.length + 2}
         `, [...params, parseInt(limit as string), offset]),
-        pool.query(`SELECT COUNT(*) as total FROM validator_applications ${whereClause}`, params)
+        sharedPool.query(`SELECT COUNT(*) as total FROM validator_applications ${whereClause}`, params)
       ]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({
         applications: applications.rows,
@@ -5119,8 +5119,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Review validator application (with transaction for approval flow)
   app.patch("/api/operator/validator-applications/:id", requireAdmin, operatorLimiter, async (req, res) => {
-    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-    let client: ReturnType<typeof pool.connect> extends Promise<infer T> ? T : never;
+    // Using shared pool from db.ts for better performance
+    let client: ReturnType<typeof sharedPool.connect> extends Promise<infer T> ? T : never;
     let transactionStarted = false;
     
     try {
@@ -5129,16 +5129,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const validStatuses = ['pending', 'under_review', 'approved', 'rejected', 'withdrawn'];
       if (status && !validStatuses.includes(status)) {
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(400).json({ error: "Invalid status" });
       }
 
-      client = await pool.connect();
+      client = await sharedPool.connect();
 
       const currentApp = await client.query('SELECT * FROM validator_applications WHERE id = $1', [id]);
       if (currentApp.rows.length === 0) {
         client.release();
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(404).json({ error: "Application not found" });
       }
 
@@ -5174,7 +5174,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       if (updates.length === 0) {
         client.release();
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(400).json({ error: "No updates provided" });
       }
 
@@ -5287,7 +5287,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       );
 
       client.release();
-      await pool.end();
+      // sharedPool doesn't need to be closed
       
       res.json({ success: true });
     } catch (error) {
@@ -5311,7 +5311,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       try {
-        await pool.end();
+        // sharedPool doesn't need to be closed
       } catch (poolError) {
         console.error('[Operator] Pool end error:', poolError);
       }
@@ -5331,30 +5331,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Invalid slash type" });
       }
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       // Find member by validator address
-      const member = await pool.query(
+      const member = await sharedPool.query(
         'SELECT id FROM members WHERE account_address = $1',
         [address]
       );
 
       if (member.rows.length === 0) {
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(404).json({ error: "Validator member not found" });
       }
 
       const memberId = member.rows[0].id;
 
       // Record slash event
-      await pool.query(`
+      await sharedPool.query(`
         INSERT INTO member_slash_events (
           member_id, validator_address, slash_type, amount, reason, evidence_hash, occurred_at
         ) VALUES ($1, $2, $3, $4, $5, $6, NOW())
       `, [memberId, address, slashType, amount, reason, evidenceHash || null]);
 
       // Update member tier to slashed
-      await pool.query(
+      await sharedPool.query(
         'UPDATE members SET member_tier = $1, updated_at = NOW() WHERE id = $2',
         ['slashed_validator', memberId]
       );
@@ -5372,7 +5372,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'critical'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       
       res.json({ success: true, memberId });
     } catch (error) {
@@ -5384,9 +5384,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get slashing history
   app.get("/api/operator/slashing-history", requireAdmin, operatorLimiter, async (req, res) => {
     try {
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
       
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         SELECT 
           id,
           validator_address,
@@ -5402,7 +5402,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         LIMIT 100
       `);
       
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json(result.rows);
     } catch (error) {
       console.error('[Operator] Slashing history error:', error);
@@ -5413,9 +5413,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get validator performance metrics
   app.get("/api/operator/validator-performance", requireAdmin, operatorLimiter, async (req, res) => {
     try {
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
       
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         SELECT 
           m.account_address as address,
           COALESCE(m.display_name, 'Validator ' || LEFT(m.account_address, 8)) as name,
@@ -5435,7 +5435,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         LIMIT 50
       `);
       
-      await pool.end();
+      // sharedPool doesn't need to be closed
       
       if (result.rows.length === 0) {
         const mockPerformance = Array.from({ length: 25 }, (_, i) => ({
@@ -5480,7 +5480,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/security-events", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { severity, status, targetType, page = '1', limit = '50' } = req.query;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       let whereConditions = [];
       let params: any[] = [];
@@ -5506,16 +5506,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
       
       const [events, countResult] = await Promise.all([
-        pool.query(`
+        sharedPool.query(`
           SELECT * FROM security_events 
           ${whereClause}
           ORDER BY occurred_at DESC
           LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
         `, [...params, parseInt(limit as string), offset]),
-        pool.query(`SELECT COUNT(*) as total FROM security_events ${whereClause}`, params)
+        sharedPool.query(`SELECT COUNT(*) as total FROM security_events ${whereClause}`, params)
       ]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({
         events: events.rows,
@@ -5537,9 +5537,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { eventType, severity, targetType, targetId, targetAddress, description, evidence } = req.body;
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         INSERT INTO security_events (
           event_type, severity, target_type, target_id, target_address,
           description, evidence, status, occurred_at, detected_at
@@ -5560,7 +5560,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         severity === 'critical' ? 'critical' : 'high'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({ success: true, id: result.rows[0].id });
     } catch (error) {
@@ -5575,9 +5575,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { id } = req.params;
       const { resolution, status } = req.body;
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      await pool.query(`
+      await sharedPool.query(`
         UPDATE security_events 
         SET status = $1, resolution = $2, resolved_by = 'admin', resolved_at = NOW()
         WHERE id = $3
@@ -5596,7 +5596,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'medium'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({ success: true });
     } catch (error) {
@@ -5609,7 +5609,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/audit-logs", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { actionCategory, riskLevel, page = '1', limit = '100' } = req.query;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       let whereConditions = [];
       let params: any[] = [];
@@ -5631,16 +5631,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
       
       const [logs, countResult] = await Promise.all([
-        pool.query(`
+        sharedPool.query(`
           SELECT * FROM admin_audit_logs 
           ${whereClause}
           ORDER BY created_at DESC
           LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
         `, [...params, parseInt(limit as string), offset]),
-        pool.query(`SELECT COUNT(*) as total FROM admin_audit_logs ${whereClause}`, params)
+        sharedPool.query(`SELECT COUNT(*) as total FROM admin_audit_logs ${whereClause}`, params)
       ]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({
         logs: logs.rows,
@@ -5664,9 +5664,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get IP blocklist
   app.get("/api/operator/ip-blocklist", requireAdmin, operatorLimiter, async (req, res) => {
     try {
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
       
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         SELECT 
           id, ip_address, reason, blocked_by, blocked_at, expires_at,
           CASE 
@@ -5678,7 +5678,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ORDER BY blocked_at DESC
       `);
       
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json(result.rows);
     } catch (error) {
       console.error('[Operator] IP blocklist fetch error:', error);
@@ -5719,9 +5719,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
       
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         INSERT INTO ip_blocklist (ip_address, reason, blocked_by, blocked_at, expires_at)
         VALUES ($1, $2, 'admin', NOW(), $3)
         RETURNING id
@@ -5740,7 +5740,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'high'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json({ success: true, id: result.rows[0].id });
     } catch (error) {
       console.error('[Operator] IP block error:', error);
@@ -5752,11 +5752,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/operator/ip-blocklist/:id", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
       
-      const existing = await pool.query('SELECT ip_address FROM ip_blocklist WHERE id = $1', [id]);
+      const existing = await sharedPool.query('SELECT ip_address FROM ip_blocklist WHERE id = $1', [id]);
       
-      await pool.query('DELETE FROM ip_blocklist WHERE id = $1', [id]);
+      await sharedPool.query('DELETE FROM ip_blocklist WHERE id = $1', [id]);
 
       await logAdminAudit(
         'admin',
@@ -5771,7 +5771,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'medium'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json({ success: true });
     } catch (error) {
       console.error('[Operator] IP unblock error:', error);
@@ -5787,7 +5787,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/reports", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { reportType, status, jurisdiction, page = '1', limit = '20' } = req.query;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       let whereConditions = [];
       let params: any[] = [];
@@ -5813,16 +5813,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
       
       const [reports, countResult] = await Promise.all([
-        pool.query(`
+        sharedPool.query(`
           SELECT * FROM compliance_reports 
           ${whereClause}
           ORDER BY created_at DESC
           LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
         `, [...params, parseInt(limit as string), offset]),
-        pool.query(`SELECT COUNT(*) as total FROM compliance_reports ${whereClause}`, params)
+        sharedPool.query(`SELECT COUNT(*) as total FROM compliance_reports ${whereClause}`, params)
       ]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({
         reports: reports.rows,
@@ -5844,13 +5844,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { reportType, reportPeriod, periodStart, periodEnd, jurisdiction, regulatoryBody } = req.body;
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       // Generate summary based on report type
       let summary = {};
       
       if (reportType === 'kyc_summary') {
-        const kycStats = await pool.query(`
+        const kycStats = await sharedPool.query(`
           SELECT 
             COUNT(*) as total_members,
             COUNT(*) FILTER (WHERE kyc_level = 'none') as no_kyc,
@@ -5863,7 +5863,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         `);
         summary = kycStats.rows[0];
       } else if (reportType === 'aml_report') {
-        const amlStats = await pool.query(`
+        const amlStats = await sharedPool.query(`
           SELECT 
             COUNT(*) FILTER (WHERE aml_risk_score >= 70) as high_risk_count,
             COUNT(*) FILTER (WHERE aml_risk_score >= 40 AND aml_risk_score < 70) as medium_risk_count,
@@ -5874,7 +5874,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         summary = amlStats.rows[0];
       }
 
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         INSERT INTO compliance_reports (
           report_type, report_period, period_start, period_end, 
           jurisdiction, regulatory_body, summary, status, generated_by,
@@ -5896,7 +5896,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'low'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({ success: true, id: result.rows[0].id, summary });
     } catch (error) {
@@ -5911,7 +5911,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { id } = req.params;
       const { status, reviewNotes } = req.body;
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       const updates: string[] = ['updated_at = NOW()'];
       const values: any[] = [];
@@ -5939,12 +5939,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       values.push(id);
-      await pool.query(
+      await sharedPool.query(
         `UPDATE compliance_reports SET ${updates.join(', ')} WHERE id = $${valueIndex}`,
         values
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({ success: true });
     } catch (error) {
@@ -5961,9 +5961,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/members/:id/documents", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const documents = await pool.query(`
+      const documents = await sharedPool.query(`
         SELECT id, document_type, document_name, mime_type, file_size,
                verification_status, verified_by, verified_at, rejection_reason,
                expiry_date, is_expired, uploaded_at, updated_at
@@ -5972,7 +5972,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ORDER BY uploaded_at DESC
       `, [id]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({ documents: documents.rows });
     } catch (error) {
@@ -5992,9 +5992,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Invalid verification status" });
       }
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      await pool.query(`
+      await sharedPool.query(`
         UPDATE member_documents 
         SET verification_status = $1, verified_by = 'admin', verified_at = NOW(),
             rejection_reason = $2, updated_at = NOW()
@@ -6002,7 +6002,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       `, [verificationStatus, verificationStatus === 'rejected' ? rejectionReason : null, id]);
 
       // Get document info for audit log
-      const doc = await pool.query('SELECT member_id, document_type FROM member_documents WHERE id = $1', [id]);
+      const doc = await sharedPool.query('SELECT member_id, document_type FROM member_documents WHERE id = $1', [id]);
 
       await logAdminAudit(
         'admin',
@@ -6017,7 +6017,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'medium'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       res.json({ success: true });
     } catch (error) {
@@ -6033,13 +6033,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get real-time system health metrics
   app.get("/api/operator/system-health", requireAdmin, operatorLimiter, async (req, res) => {
     try {
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       // Get network stats
-      const networkStats = await pool.query('SELECT * FROM network_stats WHERE id = $1', ['singleton']);
+      const networkStats = await sharedPool.query('SELECT * FROM network_stats WHERE id = $1', ['singleton']);
       
       // Get validator counts
-      const validatorCounts = await pool.query(`
+      const validatorCounts = await sharedPool.query(`
         SELECT 
           COUNT(*) FILTER (WHERE status = 'active') as active_validators,
           COUNT(*) as total_validators,
@@ -6048,7 +6048,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       `);
 
       // Get recent transaction stats
-      const txStats = await pool.query(`
+      const txStats = await sharedPool.query(`
         SELECT 
           COUNT(*) as recent_tx_count,
           COUNT(*) FILTER (WHERE status = 'success') as success_count
@@ -6096,7 +6096,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       // Save snapshot (convert percentages to integers for DB storage)
-      await pool.query(`
+      await sharedPool.query(`
         INSERT INTO system_health_snapshots 
         (tps, block_height, avg_block_time, latency, active_validators, total_validators,
          cpu_usage, memory_usage, disk_usage, network_bandwidth, peer_count, pending_tx_count,
@@ -6111,7 +6111,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         Math.round(systemHealth.consensusHealthScore * 100), Math.round(systemHealth.storageHealthScore * 100), systemHealth.status
       ]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json(systemHealth);
     } catch (error) {
       console.error('[Operator] System health error:', error);
@@ -6123,9 +6123,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/health-history", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const hours = parseInt(req.query.hours as string) || 24;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const history = await pool.query(`
+      const history = await sharedPool.query(`
         SELECT 
           tps, block_height, avg_block_time, latency,
           active_validators, cpu_usage, memory_usage, disk_usage,
@@ -6136,7 +6136,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         LIMIT 288
       `);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       // If no history, generate sample data
       if (history.rows.length === 0) {
@@ -6171,16 +6171,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/alerts", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const status = req.query.status as string || 'active';
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const alerts = await pool.query(`
+      const alerts = await sharedPool.query(`
         SELECT * FROM alert_queue
         WHERE status = $1
         ORDER BY priority DESC, created_at DESC
         LIMIT 100
       `, [status]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       // If no alerts, generate sample critical alerts
       if (alerts.rows.length === 0 && status === 'active') {
@@ -6212,16 +6212,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/operator/alerts", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { alertType, severity, title, message, sourceType, sourceId, targetType, targetId, priority, requiresImmediateAction } = req.body;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         INSERT INTO alert_queue 
         (alert_type, severity, title, message, source_type, source_id, target_type, target_id, priority, requires_immediate_action)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING *
       `, [alertType, severity || 'medium', title, message, sourceType, sourceId, targetType, targetId, priority || 50, requiresImmediateAction || false]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Create alert error:', error);
@@ -6234,7 +6234,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const { action, resolution } = req.body; // action: acknowledge, resolve, dismiss
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       let query = '';
       let params: (string | null)[] = [];
@@ -6249,12 +6249,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         query = `UPDATE alert_queue SET status = 'dismissed', updated_at = NOW() WHERE id = $1 RETURNING *`;
         params = [id];
       } else {
-        await pool.end();
+        // sharedPool doesn't need to be closed
         return res.status(400).json({ error: "Invalid action" });
       }
 
-      const result = await pool.query(query, params);
-      await pool.end();
+      const result = await sharedPool.query(query, params);
+      // sharedPool doesn't need to be closed
 
       if (result.rows.length === 0) {
         return res.status(404).json({ error: "Alert not found" });
@@ -6275,15 +6275,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/members/:id/notes", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const notes = await pool.query(`
+      const notes = await sharedPool.query(`
         SELECT * FROM member_notes
         WHERE member_id = $1
         ORDER BY is_pinned DESC, created_at DESC
       `, [id]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json(notes.rows);
     } catch (error) {
       console.error('[Operator] Member notes error:', error);
@@ -6315,9 +6315,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Invalid priority" });
       }
 
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         INSERT INTO member_notes 
         (member_id, operator_id, note_type, title, content, priority, is_private, is_pinned, requires_follow_up, follow_up_date)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
@@ -6329,7 +6329,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         result.rows[0].id, null, { memberId, noteType, title }, null, req, 'low'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Create note error:', error);
@@ -6342,9 +6342,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const { title, content, priority, isPinned, followUpCompleted } = req.body;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         UPDATE member_notes 
         SET title = COALESCE($2, title), content = COALESCE($3, content), 
             priority = COALESCE($4, priority), is_pinned = COALESCE($5, is_pinned),
@@ -6353,7 +6353,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         RETURNING *
       `, [id, title, content, priority, isPinned, followUpCompleted]);
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       if (result.rows.length === 0) {
         return res.status(404).json({ error: "Note not found" });
@@ -6370,10 +6370,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/operator/notes/:id", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const result = await pool.query('DELETE FROM member_notes WHERE id = $1 RETURNING id', [id]);
-      await pool.end();
+      const result = await sharedPool.query('DELETE FROM member_notes WHERE id = $1 RETURNING id', [id]);
+      // sharedPool doesn't need to be closed
 
       if (result.rows.length === 0) {
         return res.status(404).json({ error: "Note not found" });
@@ -6394,7 +6394,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/operator/ip-blocklist", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const activeOnly = req.query.active !== 'false';
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
       let query = 'SELECT * FROM ip_blocklist';
       if (activeOnly) {
@@ -6402,8 +6402,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       query += ' ORDER BY created_at DESC LIMIT 200';
 
-      const blocklist = await pool.query(query);
-      await pool.end();
+      const blocklist = await sharedPool.query(query);
+      // sharedPool doesn't need to be closed
 
       res.json(blocklist.rows);
     } catch (error) {
@@ -6416,9 +6416,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/operator/ip-blocklist", requireAdmin, operatorLimiter, async (req, res) => {
     try {
       const { ipAddress, ipRange, reason, blockType, severity, relatedSecurityEventId, relatedMemberId, expiresAt } = req.body;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         INSERT INTO ip_blocklist 
         (ip_address, ip_range, reason, block_type, severity, related_security_event_id, related_member_id, expires_at, blocked_by)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'admin')
@@ -6430,7 +6430,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         result.rows[0].id, null, { ipAddress, reason, severity }, null, req, 'high'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Add IP block error:', error);
@@ -6443,9 +6443,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const { reason } = req.body;
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      // Using shared pool from db.ts for better performance
 
-      const result = await pool.query(`
+      const result = await sharedPool.query(`
         UPDATE ip_blocklist 
         SET is_active = false, unblocked_by = 'admin', unblocked_at = NOW(), unblock_reason = $2, updated_at = NOW()
         WHERE id = $1
@@ -6457,7 +6457,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         id, null, { reason }, null, req, 'medium'
       );
 
-      await pool.end();
+      // sharedPool doesn't need to be closed
 
       if (result.rows.length === 0) {
         return res.status(404).json({ error: "IP block not found" });
