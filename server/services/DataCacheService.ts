@@ -143,6 +143,24 @@ class DataCacheService {
   }
 
   /**
+   * Clear all cache entries matching a pattern (prefix)
+   * @param pattern Pattern prefix to match
+   */
+  clearPattern(pattern: string): void {
+    let cleared = 0;
+    for (const key of this.cache.keys()) {
+      if (key.startsWith(pattern)) {
+        this.cache.delete(key);
+        cleared++;
+      }
+    }
+    this.stats.size = this.cache.size;
+    if (cleared > 0) {
+      console.log(`[DataCache] Cleared ${cleared} entries matching pattern: ${pattern}`);
+    }
+  }
+
+  /**
    * Clear all cache entries
    */
   clear(): void {

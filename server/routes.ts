@@ -16072,6 +16072,13 @@ Provide JSON portfolio analysis:
   app.get("/api/admin/newsletter/subscribers", requireAuth, async (req, res) => {
     try {
       const { status, limit = 100, offset = 0 } = req.query;
+      const cacheKey = `admin:newsletter:subscribers:${status || 'all'}:${limit}:${offset}`;
+      
+      // Use cache for fast response
+      const cached = dataCacheService.get(cacheKey);
+      if (cached) {
+        return res.json(cached);
+      }
       
       let query = db.select().from(newsletterSubscribers).orderBy(desc(newsletterSubscribers.subscribedAt));
       
@@ -16079,16 +16086,23 @@ Provide JSON portfolio analysis:
         query = query.where(eq(newsletterSubscribers.status, status)) as any;
       }
       
-      const subscribers = await query.limit(Number(limit)).offset(Number(offset));
-      const total = await db.select({ count: sql<number>`count(*)` }).from(newsletterSubscribers);
+      const [subscribers, totalResult] = await Promise.all([
+        query.limit(Number(limit)).offset(Number(offset)),
+        db.select({ count: sql<number>`count(*)` }).from(newsletterSubscribers),
+      ]);
       
-      res.json({
+      const result = {
         success: true,
         subscribers,
-        total: Number(total[0]?.count || 0),
+        total: Number(totalResult[0]?.count || 0),
         limit: Number(limit),
         offset: Number(offset),
-      });
+      };
+      
+      // Cache for 30 seconds
+      dataCacheService.set(cacheKey, result, 30000);
+      
+      res.json(result);
     } catch (error: any) {
       console.error("[Newsletter] Get subscribers error:", error);
       res.status(500).json({ success: false, error: "구독자 조회 중 오류가 발생했습니다" });
@@ -16119,6 +16133,7 @@ Provide JSON portfolio analysis:
         return res.status(404).json({ success: false, error: "구독자를 찾을 수 없습니다" });
       }
       
+      dataCacheService.clearPattern('admin:newsletter:subscribers:');
       res.json({ success: true, subscriber: updated });
     } catch (error: any) {
       console.error("[Newsletter] Update subscriber error:", error);
@@ -16139,6 +16154,7 @@ Provide JSON portfolio analysis:
         return res.status(404).json({ success: false, error: "구독자를 찾을 수 없습니다" });
       }
       
+      dataCacheService.clearPattern('admin:newsletter:subscribers:');
       console.log(`[Newsletter] Deleted subscriber: ${deleted.email}`);
       res.json({ success: true, message: "구독자가 삭제되었습니다" });
     } catch (error: any) {
