@@ -8189,8 +8189,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/ai/analytics", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'admin_ai_analytics';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const analyticsData = enterpriseNode.getAIAnalyticsData();
+      cache.set(cacheKey, analyticsData, 30000);
       res.json(analyticsData);
     } catch (error) {
       console.error('[AI Analytics] Error:', error);
@@ -8211,6 +8217,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/ai/params", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'admin_ai_params';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
       // Fetch active AI parameters from database
       const params = await storage.getActiveAiParameters();
       
@@ -8231,8 +8242,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { name: "Burn Rate Optimization", weight: 0.65, enabled: false },
       ];
       
+      let result;
       if (params) {
-        res.json({
+        result = {
           id: params.id,
           configName: params.configName,
           modelConfigs: Array.isArray(params.modelConfigs) && params.modelConfigs.length > 0 
@@ -8266,10 +8278,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             backoffMultiplier: params.backoffMultiplier,
             cacheTTL: params.cacheTtl
           }
-        });
+        };
       } else {
-        // Return defaults if no active params found
-        res.json({
+        result = {
           modelConfigs: defaultModelConfigs,
           decisionParams: defaultDecisionParams,
           layerWeights: { strategic: 50, tactical: 30, operational: 20 },
@@ -8277,8 +8288,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           rateLimits: { strategicPerHour: 10, tacticalPerMinute: 100, operationalPerSecond: 1000 },
           emergencySettings: { allowEmergencyActions: true, circuitBreaker: true },
           advancedConfig: { consensusTimeout: 5000, retryAttempts: 3, backoffMultiplier: 1.5, cacheTTL: 300 }
-        });
+        };
       }
+      cache.set(cacheKey, result, 30000);
+      res.json(result);
     } catch (error) {
       console.error('[AI Params] Error fetching AI parameters:', error);
       res.status(500).json({ error: 'Failed to fetch AI parameters' });
@@ -8287,6 +8300,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/ai/training", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'admin_ai_training';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
       // Fetch training jobs from database
       const jobs = await storage.getAllAiTrainingJobs();
       
@@ -8303,7 +8321,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ? completedJobs.reduce((sum, j) => sum + (j.accuracy || 0), 0) / completedJobs.length 
         : 99.2;
       
-      res.json({
+      const result = {
         jobs: jobs.map(j => ({
           id: j.id,
           name: j.name,
@@ -8334,7 +8352,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           avgAccuracy: Math.round(avgAccuracy * 10) / 10,
           modelVersions: trainingData.modelVersions.length
         }
-      });
+      };
+      cache.set(cacheKey, result, 30000);
+      res.json(result);
     } catch (error) {
       console.error('[AI Training] Error fetching training jobs:', error);
       res.status(500).json({ error: 'Failed to fetch training jobs' });
