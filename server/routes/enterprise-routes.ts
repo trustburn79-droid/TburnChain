@@ -3485,8 +3485,20 @@ router.post('/admin/feedback/:id/respond', async (req: Request, res: Response) =
 
 router.get('/admin/community', async (req: Request, res: Response) => {
   try {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_community_content';
+    
+    // Try cache first (30 second TTL)
+    const cached = cache.get<any>(cacheKey);
+    if (cached) {
+      return res.json(cached);
+    }
+    
     const enterpriseNode = getEnterpriseNode();
     const data = enterpriseNode.getCommunityContent();
+    
+    // Cache for 30 seconds
+    cache.set(cacheKey, data, 30000);
     res.json(data);
   } catch (error) {
     res.status(500).json({
