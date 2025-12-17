@@ -451,8 +451,7 @@ class ValidationLogger {
       this.errors.shift();
     }
     
-    console.error(`[RPC Validation] ❌ Schema validation failed for ${error.method} ${error.endpoint}`);
-    console.error(`[RPC Validation] Issues:`, JSON.stringify(error.errors, null, 2));
+    console.error(`[RPC Validation] ❌ Schema validation failed for ${error.method} ${error.endpoint} (${error.errors.length} issues)`);
   }
 
   getRecentErrors(limit = 50): ValidationError[] {
@@ -563,17 +562,16 @@ export function withValidation<T>(
           responseData: result
         });
         
-        // In development, log the issue but still return data
-        // In production, you might want to return an error
-        console.warn(`[RPC Validation] ⚠️ Response schema mismatch for ${options.method} ${options.endpoint}`);
-        console.warn(`[RPC Validation] Issues:`, validation.error.issues);
+        // Log once without full error details to prevent memory issues
+        console.warn(`[RPC Validation] ⚠️ Response schema mismatch for ${options.method} ${options.endpoint} (${validation.error.issues.length} issues)`);
       }
 
       res.json(result);
     } catch (error) {
       // Handle 404 errors specifically
       if (error instanceof NotFoundError) {
-        return res.status(404).json({ error: error.message });
+        res.status(404).json({ error: error.message });
+        return;
       }
       
       console.error(`[RPC Handler] Error in ${options.method} ${options.endpoint}:`, error);
