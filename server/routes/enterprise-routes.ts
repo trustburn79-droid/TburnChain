@@ -3908,14 +3908,19 @@ router.get('/admin/sla', async (req: Request, res: Response) => {
     const cache = getDataCache();
     const cacheKey = 'enterprise_sla_metrics';
     
-    // Try cache first (30 second TTL for SLA data)
+    // Try SLA cache first (30 second TTL)
     const cached = cache.get<any>(cacheKey);
     if (cached) {
       return res.json(cached);
     }
     
-    // Get network stats to synchronize SLA data with dashboards
-    const networkStats = await storage.getNetworkStats();
+    // Use cached network_stats from ProductionDataPoller (already warmed)
+    // This avoids direct DB call and provides instant response
+    let networkStats = cache.get<any>('network_stats');
+    if (!networkStats) {
+      // Fallback to storage only if cache is empty (rare cold start)
+      networkStats = await storage.getNetworkStats();
+    }
     const slaUptimePercent = (networkStats.slaUptime || 9999) / 100;
     
     const slaData = {
