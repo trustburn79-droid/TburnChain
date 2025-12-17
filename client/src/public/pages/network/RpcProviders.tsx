@@ -114,6 +114,9 @@ export default function RpcProviders() {
 
   const { data: networkStats, refetch: refetchStats } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/public/v1/network/stats'],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 5000,
   });
 

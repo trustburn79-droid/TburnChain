@@ -8,6 +8,7 @@ import { Router, Request, Response } from 'express';
 import { dataHub } from '../services/DataHub';
 import { storage } from '../storage';
 import { getTBurnClient, isProductionMode } from '../tburn-client';
+import { getDataCache } from '../services/DataCacheService';
 import type { Block, Transaction, Validator } from '@shared/schema';
 
 const router = Router();
@@ -16,6 +17,16 @@ const router = Router();
 const CACHE_SHORT = 5; // 5 seconds for real-time data
 const CACHE_MEDIUM = 30; // 30 seconds for summary data
 const CACHE_LONG = 300; // 5 minutes for static-ish data
+
+// In-memory cache keys for public API
+const PUBLIC_CACHE_KEYS = {
+  NETWORK_STATS: 'public_network_stats',
+  RECENT_BLOCKS: 'public_recent_blocks_10',
+  RECENT_TXS: 'public_recent_txs_10',
+  TESTNET_STATS: 'public_testnet_stats',
+  TESTNET_BLOCKS: 'public_testnet_blocks_10',
+  TESTNET_TXS: 'public_testnet_txs_10',
+};
 
 // Helper function to format large numbers with $ prefix and T/B/M suffix
 function formatLargeNumber(amount: number): string {
@@ -84,6 +95,98 @@ function setCacheHeaders(res: Response, maxAge: number) {
   res.set('X-Response-Time', `${Date.now()}`);
 }
 
+/**
+ * Pure formatting function for network stats - takes pre-fetched data
+ * Used by both API endpoints and ProductionDataPoller for consistent formatting
+ */
+export function formatPublicNetworkStats(
+  stats: any,
+  snapshot: any,
+  moduleMetrics: any
+): any {
+  return {
+    blockHeight: stats?.currentBlockHeight || snapshot?.blockHeight || 0,
+    tps: stats?.tps || snapshot?.tps || 0,
+    avgBlockTime: stats?.avgBlockTime || 0.5,
+    totalTransactions: stats?.totalTransactions || 68966,
+    pendingTransactions: snapshot?.pendingTransactions || 0,
+    activeValidators: stats?.activeValidators || 125,
+    totalValidators: 125,
+    networkHashrate: "2.4 EH/s",
+    difficulty: "42.5T",
+    gasPrice: stats?.gasPrice || "0.0001",
+    totalStaked: (() => {
+      const raw = snapshot?.totalStaked || moduleMetrics?.staking?.totalStaked;
+      if (!raw) return "$847.6M";
+      const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
+      if (isNaN(num)) return "$847.6M";
+      return formatLargeNumber(num / 1e18);
+    })(),
+    totalBurned: (() => {
+      const raw = snapshot?.burnedAmount || moduleMetrics?.burn?.totalBurned;
+      if (!raw) return "$23.5M";
+      const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
+      if (isNaN(num)) return "$23.5M";
+      return formatLargeNumber(num / 1e18);
+    })(),
+    circulatingSupply: (() => {
+      const raw = snapshot?.circulatingSupply;
+      if (!raw) return "$500.0M";
+      const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
+      if (isNaN(num)) return "$500.0M";
+      return formatLargeNumber(num / 1e18);
+    })(),
+    marketCap: snapshot?.marketCap || "$1.2B",
+    dexTvl: snapshot?.dexTvl || moduleMetrics?.dex?.tvl || "$124M",
+    lendingTvl: snapshot?.lendingTvl || moduleMetrics?.lending?.totalSupplied || "$312M",
+    stakingTvl: snapshot?.stakingTvl || moduleMetrics?.staking?.totalStaked || "$847M",
+    finality: "< 2s",
+    shardCount: 16,
+    nodeCount: 1247,
+    uptime: "99.99%",
+    lastUpdated: Date.now()
+  };
+}
+
+/**
+ * Pure formatting function for testnet stats - takes pre-fetched data
+ */
+export function formatPublicTestnetStats(stats: any, snapshot: any): any {
+  return {
+    blockHeight: stats?.currentBlockHeight || snapshot?.blockHeight || 0,
+    tps: stats?.tps || snapshot?.tps || 0,
+    avgBlockTime: stats?.avgBlockTime || 0.5,
+    totalTransactions: stats?.totalTransactions || 68966,
+    activeValidators: stats?.activeValidators || 110,
+    totalBurned: '125000000000000000000000000',
+    gasPrice: stats?.gasPrice || '100',
+    totalStaked: '350000000000000000000000000',
+    finality: '< 2s',
+    shardCount: 8,
+    nodeCount: 1247,
+    uptime: '99.9%'
+  };
+}
+
+/**
+ * Async wrapper - fetches data and formats (for API endpoints)
+ */
+export async function buildPublicNetworkStats(): Promise<any> {
+  const snapshot = await dataHub.getNetworkSnapshot();
+  const stats = await storage.getNetworkStats();
+  const moduleMetrics = dataHub.getModuleMetrics();
+  return formatPublicNetworkStats(stats, snapshot, moduleMetrics);
+}
+
+/**
+ * Async wrapper - fetches data and formats (for API endpoints)
+ */
+export async function buildPublicTestnetStats(): Promise<any> {
+  const snapshot = await dataHub.getNetworkSnapshot();
+  const stats = await storage.getNetworkStats();
+  return formatPublicTestnetStats(stats, snapshot);
+}
+
 // ============================================
 // Network Stats (Home Page, Network Status)
 // ============================================
@@ -96,55 +199,20 @@ router.get('/network/stats', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
     
-    const snapshot = await dataHub.getNetworkSnapshot();
-    const stats = await storage.getNetworkStats();
-    const moduleMetrics = dataHub.getModuleMetrics();
+    // Try cache first (30s TTL)
+    const cache = getDataCache();
+    const cached = cache.get<any>(PUBLIC_CACHE_KEYS.NETWORK_STATS);
+    if (cached) {
+      return res.json({ success: true, data: cached });
+    }
     
-    res.json({
-      success: true,
-      data: {
-        blockHeight: stats?.currentBlockHeight || snapshot?.blockHeight || 0,
-        tps: stats?.tps || snapshot?.tps || 0,
-        avgBlockTime: stats?.avgBlockTime || 0.5,
-        totalTransactions: stats?.totalTransactions || 68966,
-        pendingTransactions: snapshot?.pendingTransactions || 0,
-        activeValidators: stats?.activeValidators || 125,
-        totalValidators: 125,
-        networkHashrate: "2.4 EH/s",
-        difficulty: "42.5T",
-        gasPrice: stats?.gasPrice || "0.0001",
-        totalStaked: (() => {
-          const raw = snapshot?.totalStaked || moduleMetrics?.staking?.totalStaked;
-          if (!raw) return "$847.6M";
-          const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
-          if (isNaN(num)) return "$847.6M";
-          return formatLargeNumber(num / 1e18);
-        })(),
-        totalBurned: (() => {
-          const raw = snapshot?.burnedAmount || moduleMetrics?.burn?.totalBurned;
-          if (!raw) return "$23.5M";
-          const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
-          if (isNaN(num)) return "$23.5M";
-          return formatLargeNumber(num / 1e18);
-        })(),
-        circulatingSupply: (() => {
-          const raw = snapshot?.circulatingSupply;
-          if (!raw) return "$500.0M";
-          const num = typeof raw === 'string' ? parseFloat(raw.replace(/[,$]/g, '')) : raw;
-          if (isNaN(num)) return "$500.0M";
-          return formatLargeNumber(num / 1e18);
-        })(),
-        marketCap: snapshot?.marketCap || "$1.2B",
-        dexTvl: snapshot?.dexTvl || moduleMetrics?.dex?.tvl || "$124M",
-        lendingTvl: snapshot?.lendingTvl || moduleMetrics?.lending?.totalSupplied || "$312M",
-        stakingTvl: snapshot?.stakingTvl || moduleMetrics?.staking?.totalStaked || "$847M",
-        finality: "< 2s",
-        shardCount: 16,
-        nodeCount: 1247,
-        uptime: "99.99%",
-        lastUpdated: Date.now()
-      }
-    });
+    // Build data using shared formatter
+    const data = await buildPublicNetworkStats();
+    
+    // Cache for 30 seconds
+    cache.set(PUBLIC_CACHE_KEYS.NETWORK_STATS, data, 30000);
+    
+    res.json({ success: true, data });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -1466,28 +1534,20 @@ router.get('/testnet/network/stats', async (req: Request, res: Response) => {
     setCacheHeaders(res, CACHE_SHORT);
     const now = Date.now();
     
-    // Use same real-time data sources as mainnet for consistent experience
-    const snapshot = await dataHub.getNetworkSnapshot();
-    const stats = await storage.getNetworkStats();
+    // Try cache first (30s TTL)
+    const cache = getDataCache();
+    const cached = cache.get<any>(PUBLIC_CACHE_KEYS.TESTNET_STATS);
+    if (cached) {
+      return res.json({ success: true, data: cached, lastUpdated: now });
+    }
     
-    res.json({
-      success: true,
-      data: {
-        blockHeight: stats?.currentBlockHeight || snapshot?.blockHeight || 0,
-        tps: stats?.tps || snapshot?.tps || 0,
-        avgBlockTime: stats?.avgBlockTime || 0.5,
-        totalTransactions: stats?.totalTransactions || 68966,
-        activeValidators: stats?.activeValidators || 110,
-        totalBurned: '125000000000000000000000000',
-        gasPrice: stats?.gasPrice || '100',
-        totalStaked: '350000000000000000000000000',
-        finality: '< 2s',
-        shardCount: 8,
-        nodeCount: 1247,
-        uptime: '99.9%'
-      },
-      lastUpdated: now
-    });
+    // Build data using shared formatter
+    const data = await buildPublicTestnetStats();
+    
+    // Cache for 30 seconds
+    cache.set(PUBLIC_CACHE_KEYS.TESTNET_STATS, data, 30000);
+    
+    res.json({ success: true, data, lastUpdated: now });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Failed to fetch testnet stats' });
   }

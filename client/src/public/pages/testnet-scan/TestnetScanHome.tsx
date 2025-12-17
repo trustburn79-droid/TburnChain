@@ -116,18 +116,27 @@ export default function TestnetScanHome() {
 
   const { data: statsData, isLoading: statsLoading } = useQuery<{ success: boolean; data: NetworkStats }>({
     queryKey: ["/api/public/v1/testnet/network/stats"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 5000,
     retry: 3,
   });
 
   const { data: blocksData, isLoading: blocksLoading } = useQuery<{ success: boolean; data: Block[] }>({
     queryKey: ["/api/public/v1/testnet/network/blocks/recent"],
-    refetchInterval: 3000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 5000,
   });
 
   const { data: txsData, isLoading: txsLoading } = useQuery<{ success: boolean; data: Transaction[] }>({
     queryKey: ["/api/public/v1/testnet/network/transactions/recent"],
-    refetchInterval: 3000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 5000,
   });
 
   const stats = statsData?.data;

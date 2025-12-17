@@ -10,6 +10,8 @@
 
 import { getDataCache, DataCacheService } from './DataCacheService';
 import { storage } from '../storage';
+import { formatPublicNetworkStats, formatPublicTestnetStats } from '../routes/public-api-routes';
+import { dataHub } from './DataHub';
 
 interface PollerConfig {
   pollInterval: number; // Interval between polls in ms
@@ -250,6 +252,33 @@ class ProductionDataPoller {
       if (memberStatsData.status === 'fulfilled' && memberStatsData.value) {
         this.cache.set('members_stats_summary', memberStatsData.value, 30000);
         successCount++;
+      }
+      
+      // Warm public API caches using real data from dataHub for consistency
+      if (networkStats.status === 'fulfilled' && networkStats.value) {
+        try {
+          // Fetch snapshot and moduleMetrics for accurate public data
+          const snapshot = await dataHub.getNetworkSnapshot();
+          const moduleMetrics = dataHub.getModuleMetrics();
+          
+          const publicNetworkData = formatPublicNetworkStats(
+            networkStats.value,
+            snapshot || networkStats.value,
+            moduleMetrics || {}
+          );
+          this.cache.set('public_network_stats', publicNetworkData, 30000);
+          successCount++;
+          
+          // Testnet uses same data sources
+          const publicTestnetData = formatPublicTestnetStats(
+            networkStats.value,
+            snapshot || networkStats.value
+          );
+          this.cache.set('public_testnet_stats', publicTestnetData, 30000);
+          successCount++;
+        } catch (e) {
+          console.log('[ProductionDataPoller] Failed to warm public API caches');
+        }
       }
 
       if (successCount > 0) {

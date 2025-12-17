@@ -87,6 +87,9 @@ export default function TestnetRpcProviders() {
 
   const { data: networkStats } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/public/v1/testnet/network/stats'],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 5000,
   });
 

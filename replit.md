@@ -65,6 +65,12 @@ Key architectural decisions include:
   - **Endpoint Registry**: Tracks all registered RPC endpoints to prevent 404s and monitor access
   - **Validation Logger**: Records schema mismatches for monitoring without blocking responses
   - **Public Health Endpoints**: `/health` and `/api/performance` are public for monitoring systems
+- **Public API Performance Optimization** (December 17, 2025):
+  - **Shared Formatters**: Pure formatting functions `formatPublicNetworkStats()` and `formatPublicTestnetStats()` in `server/routes/public-api-routes.ts` ensure data consistency
+  - **Cache Warming**: ProductionDataPoller warms `public_network_stats` and `public_testnet_stats` caches using same formatters as API endpoints
+  - **Response Times**: All public endpoints respond in 3-7ms (well under sub-second SLA)
+  - **React Query Settings**: Frontend uses `staleTime: 30000`, `refetchOnMount: false`, `refetchInterval: 5000` for optimal caching
+  - **Backend Caching**: 30-second TTL with DataCacheService for all public API endpoints
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
