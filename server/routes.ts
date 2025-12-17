@@ -1040,6 +1040,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get("/api/network/stats", async (_req, res) => {
     try {
+      // Use cache for instant response
+      const cached = dataCacheService.get('network:stats');
+      if (cached) {
+        return res.json(cached);
+      }
+      
       // Get real-time self-healing scores from the engine
       const selfHealingEngine = getSelfHealingEngine();
       const healingScores = selfHealingEngine.getHealthScores();
@@ -1113,6 +1119,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             latencyP99: dbStats?.latencyP99 || mainnetStats.latencyP99 || 25,
             successRate: dbStats?.successRate || mainnetStats.successRate || 9992,
           });
+          // Cache for 30 seconds
+          dataCacheService.set('network:stats', mergedStats, 30000);
           res.json(mergedStats);
         } catch (mainnetError: any) {
           // Fallback to database values when mainnet API fails
@@ -1121,7 +1129,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           if (dbStats) {
             // ENTERPRISE: Always override TPS with deterministic shard-based calculation
             const shardTps = calculateRealTimeTps();
-            res.json(mergeWithHealingScores({
+            const result = mergeWithHealingScores({
               ...dbStats,
               tps: shardTps.tps,
               peakTps: shardTps.peakTps,
@@ -1129,7 +1137,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
               tpsPerShard: shardTps.tpsPerShard,
               activeValidators: shardTps.validators,
               totalValidators: shardTps.validators
-            }));
+            });
+            dataCacheService.set('network:stats', result, 30000);
+            res.json(result);
           } else {
             // If no database stats, return production defaults with shard-based TPS
             const shardTps = calculateRealTimeTps();
@@ -1152,6 +1162,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               successRate: 9992, // 99.92%
               updatedAt: new Date(),
             });
+            dataCacheService.set('network:stats', defaultStats, 30000);
             res.json(defaultStats);
           }
         }
@@ -1180,12 +1191,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
             updatedAt: new Date(),
           });
           console.log(`[API] No network stats available, using shard-based TPS: ${shardTps.tps} (${shardTps.shardCount} shards × ${shardTps.tpsPerShard} TPS/shard)`);
+          dataCacheService.set('network:stats', defaultStats, 30000);
           res.json(defaultStats);
         } else {
           // ENTERPRISE: Always override TPS with deterministic shard-based calculation
           // This ensures TPS only changes when shard count changes, not from stale DB values
           const shardTps = calculateRealTimeTps();
-          res.json(mergeWithHealingScores({
+          const result = mergeWithHealingScores({
             ...dbStats,
             tps: shardTps.tps,
             peakTps: shardTps.peakTps,
@@ -1193,7 +1205,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             tpsPerShard: shardTps.tpsPerShard,
             activeValidators: shardTps.validators,
             totalValidators: shardTps.validators
-          }));
+          });
+          dataCacheService.set('network:stats', result, 30000);
+          res.json(result);
         }
       }
     } catch (error) {
