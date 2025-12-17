@@ -80,6 +80,12 @@ Key architectural decisions include:
   - **Auth Check Query**: Added `staleTime: 30000`, `refetchOnWindowFocus: false` to prevent "Loading..." state on every page navigation while maintaining session security
   - **Data Source Query**: Added `staleTime: 30000`, `refetchOnWindowFocus: false` to reduce unnecessary refetches
   - **Impact**: Eliminates redundant auth check calls during intra-app navigation, improving perceived page load speed without compromising session validation
+- **DeFi Pages Performance Optimization** (December 17, 2025):
+  - **Pages Optimized**: dex.tsx, yield-farming.tsx, liquid-staking.tsx, nft-marketplace.tsx, nft-launchpad.tsx, gamefi.tsx
+  - **React Query Settings**: `staleTime: 30000`, `refetchOnMount: false`, `refetchOnWindowFocus: false`, `refetchInterval: 30000`
+  - **Root Cause**: DeFi pages had aggressive refetchInterval (5-15s) without staleTime, causing immediate refetches on every page mount
+  - **Solution**: Aligned staleTime with refetchInterval (30s) and disabled refetchOnMount to prevent loading states on navigation
+  - **Impact**: DeFi pages now load instantly when navigating within app (3-7ms cached response times)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

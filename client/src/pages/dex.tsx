@@ -290,19 +290,35 @@ export default function DexPage() {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<DexStatsResponse>({
-    queryKey: ["/api/dex/stats"]
+    queryKey: ["/api/dex/stats"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: pools, isLoading: poolsLoading, refetch: refetchPools } = useQuery<DexPool[]>({
-    queryKey: ["/api/dex/pools"]
+    queryKey: ["/api/dex/pools"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: recentSwaps, isLoading: swapsLoading, refetch: refetchSwaps } = useQuery<DexSwap[]>({
-    queryKey: ["/api/dex/swaps"]
+    queryKey: ["/api/dex/swaps"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: positions, isLoading: positionsLoading, refetch: refetchPositions } = useQuery<DexPosition[]>({
-    queryKey: ["/api/dex/positions"]
+    queryKey: ["/api/dex/positions"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const handleRefreshAll = async () => {
@@ -340,7 +356,8 @@ export default function DexPage() {
   
   const { data: quote, isLoading: quoteLoading } = useQuery<SwapQuote>({
     queryKey: [quoteUrl],
-    enabled: !!quoteUrl
+    enabled: !!quoteUrl,
+    staleTime: 5000,
   });
 
   const swapMutation = useMutation({

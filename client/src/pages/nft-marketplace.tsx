@@ -1478,27 +1478,42 @@ export default function NftMarketplacePage() {
 
   const { data: overview, isLoading: overviewLoading, refetch: refetchOverview } = useQuery<MarketplaceOverview>({
     queryKey: ["/api/nft/stats"],
-    refetchInterval: 10000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: collections, isLoading: collectionsLoading, refetch: refetchCollections } = useQuery<NftCollection[]>({
     queryKey: ["/api/nft/collections"],
-    refetchInterval: 15000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: listings, isLoading: listingsLoading, refetch: refetchListings } = useQuery<MarketplaceListing[]>({
     queryKey: ["/api/nft/listings"],
-    refetchInterval: 10000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: items, refetch: refetchItems } = useQuery<NftItem[]>({
     queryKey: ["/api/nft/items"],
-    refetchInterval: 15000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: activity, refetch: refetchActivity } = useQuery<NftActivity[]>({
     queryKey: ["/api/nft/activity"],
-    refetchInterval: 5000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const handleRefresh = useCallback(async () => {

@@ -1154,31 +1154,50 @@ export default function NftLaunchpadPage() {
 
   const { data: overview, isLoading: overviewLoading } = useQuery<LaunchpadOverview>({
     queryKey: ["/api/launchpad/stats"],
-    refetchInterval: 10000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: projects, isLoading: projectsLoading } = useQuery<LaunchpadProject[]>({
     queryKey: ["/api/launchpad/projects"],
-    refetchInterval: 15000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: featuredProjects } = useQuery<LaunchpadProject[]>({
     queryKey: ["/api/launchpad/projects/featured"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 
   const { data: activeRounds } = useQuery<LaunchRound[]>({
     queryKey: ["/api/launchpad/rounds/active"],
-    refetchInterval: 10000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: activity } = useQuery<LaunchpadActivity[]>({
     queryKey: ["/api/launchpad/activity"],
-    refetchInterval: 5000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: userAllocations } = useQuery<UserAllocation[]>({
     queryKey: ["/api/launchpad/allocations", ENTERPRISE_WALLET],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const mintMutation = useMutation({

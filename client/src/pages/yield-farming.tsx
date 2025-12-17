@@ -232,22 +232,42 @@ export default function YieldFarming() {
 
   const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<YieldStats>({
     queryKey: ["/api/yield/stats"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: vaults, isLoading: vaultsLoading, refetch: refetchVaults } = useQuery<YieldVault[]>({
     queryKey: ["/api/yield/vaults/active"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: positions, isLoading: positionsLoading, refetch: refetchPositions } = useQuery<YieldPosition[]>({
     queryKey: ["/api/yield/positions", userAddress],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: harvests, isLoading: harvestsLoading, refetch: refetchHarvests } = useQuery<YieldHarvest[]>({
     queryKey: ["/api/yield/harvests/recent"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: transactions, isLoading: transactionsLoading, refetch: refetchTransactions } = useQuery<YieldTransaction[]>({
     queryKey: ["/api/yield/transactions/recent"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const handleRefreshAll = useCallback(async () => {

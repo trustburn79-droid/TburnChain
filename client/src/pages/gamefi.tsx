@@ -1310,47 +1310,74 @@ export default function GameFiPage() {
 
   const { data: overview, isLoading: overviewLoading, refetch: refetchOverview } = useQuery<GamefiOverview>({
     queryKey: ["/api/gamefi/stats"],
-    refetchInterval: 10000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: projects, isLoading: projectsLoading, refetch: refetchProjects } = useQuery<GamefiProject[]>({
     queryKey: ["/api/gamefi/projects"],
-    refetchInterval: 15000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: featuredProjects, refetch: refetchFeatured } = useQuery<GamefiProject[]>({
     queryKey: ["/api/gamefi/projects/featured"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 
   const { data: tournaments, refetch: refetchTournaments } = useQuery<GameTournament[]>({
     queryKey: ["/api/gamefi/tournaments"],
-    refetchInterval: 15000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: activeTournaments, refetch: refetchActiveTournaments } = useQuery<GameTournament[]>({
     queryKey: ["/api/gamefi/tournaments/active"],
-    refetchInterval: 10000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: badges, refetch: refetchBadges } = useQuery<AchievementBadge[]>({
     queryKey: ["/api/gamefi/badges/global"],
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 60000,
   });
 
   const { data: activity, refetch: refetchActivity } = useQuery<GamefiActivity[]>({
     queryKey: ["/api/gamefi/activity"],
-    refetchInterval: 5000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: myAssets, isLoading: assetsLoading, refetch: refetchAssets } = useQuery<GameAsset[]>({
     queryKey: ["/api/gamefi/assets/owner", ENTERPRISE_WALLET],
-    refetchInterval: 15000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const { data: pendingRewards, isLoading: rewardsLoading, refetch: refetchRewards } = useQuery<PendingReward[]>({
     queryKey: ["/api/gamefi/player", ENTERPRISE_WALLET, "pending-rewards"],
-    refetchInterval: 10000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const handleRefresh = async () => {
