@@ -847,8 +847,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/search")) {
       return next();
     }
-    // Skip auth check for shards and cross-shard (public blockchain data)
-    if (req.path.startsWith("/shards") || req.path === "/shards") {
+    // Skip auth check for shards, sharding and cross-shard (public blockchain data)
+    if (req.path.startsWith("/shards") || req.path === "/shards" || req.path.startsWith("/sharding")) {
       return next();
     }
     if (req.path.startsWith("/cross-shard")) {
