@@ -557,6 +557,9 @@ export default function CommunityContentManagement() {
 
   const { data, isLoading, error, refetch } = useQuery<CommunityContentData>({
     queryKey: ['/api/admin/community/content'],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 

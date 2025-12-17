@@ -71,6 +71,11 @@ Key architectural decisions include:
   - **Response Times**: All public endpoints respond in 3-7ms (well under sub-second SLA)
   - **React Query Settings**: Frontend uses `staleTime: 30000`, `refetchOnMount: false`, `refetchInterval: 5000` for optimal caching
   - **Backend Caching**: 30-second TTL with DataCacheService for all public API endpoints
+- **Admin Page Performance Optimization** (December 17, 2025):
+  - **Pages Optimized**: `/admin/community-content`, `/admin/newsletter`
+  - **React Query Settings**: `staleTime: 30000`, `refetchOnMount: false`, `refetchOnWindowFocus: false` prevent redundant refetches
+  - **ProductionDataPoller Cache Warming**: Pre-warms `admin:community:content` cache with safety guards (3s timeout, <1000 item limit, empty-cache check)
+  - **Response Times**: All admin endpoints respond in 3-6ms after cache warming
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

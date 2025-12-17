@@ -65,6 +65,9 @@ export default function AdminNewsletter() {
       const res = await apiRequest("GET", url);
       return res.json();
     },
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
     retry: 3,
   });

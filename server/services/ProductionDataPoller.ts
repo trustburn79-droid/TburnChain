@@ -280,6 +280,51 @@ class ProductionDataPoller {
           console.log('[ProductionDataPoller] Failed to warm public API caches');
         }
       }
+      
+      // Warm admin community content cache (only if not already cached - avoids duplicate work)
+      if (!this.cache.get('admin:community:content')) {
+        try {
+          // Use Promise.race with timeout to prevent blocking the poller
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Admin cache warm timeout')), 3000)
+          );
+          
+          const dataPromise = Promise.all([
+            storage.getAllCommunityPosts(),
+            storage.getAllCommunityEvents(),
+            storage.getAllCommunityAnnouncements(),
+          ]);
+          
+          const [posts, events, announcements] = await Promise.race([
+            dataPromise,
+            timeoutPromise
+          ]) as any[];
+          
+          // Only cache if dataset is reasonable size (< 1000 items total)
+          if (posts.length + events.length + announcements.length < 1000) {
+            const stats = {
+              totalNews: announcements.length,
+              activeNews: announcements.filter((a: any) => a.status !== 'archived').length,
+              totalEvents: events.length,
+              upcomingEvents: events.filter((e: any) => e.status === 'upcoming').length,
+              totalPosts: posts.length,
+              activePosts: posts.filter((p: any) => p.status === 'active').length,
+              pinnedItems: [...announcements.filter((a: any) => a.isPinned), ...posts.filter((p: any) => p.isPinned)].length,
+              flaggedItems: posts.filter((p: any) => p.status === 'flagged').length,
+            };
+            
+            this.cache.set('admin:community:content', {
+              news: announcements,
+              events: events,
+              hubPosts: posts,
+              stats,
+            }, 30000);
+            successCount++;
+          }
+        } catch (e) {
+          // Silent fail - admin cache warming is non-critical
+        }
+      }
 
       if (successCount > 0) {
         this.stats.lastSuccessTime = new Date();
