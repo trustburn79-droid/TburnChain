@@ -9408,9 +9408,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Community Content Management - Enterprise-grade CRUD
   app.get("/api/admin/community/content", async (_req, res) => {
+    const cache = getDataCache();
     try {
       // Use cache for fast response
-      const cached = dataCacheService.get('admin:community:content');
+      const cached = cache.get('admin:community:content');
       if (cached) {
         return res.json(cached);
       }
@@ -9440,7 +9441,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
       
       // Cache for 30 seconds
-      dataCacheService.set('admin:community:content', result, 30000);
+      cache.set('admin:community:content', result, 30000);
       
       res.json(result);
     } catch (error) {
@@ -9451,6 +9452,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // News/Announcements CRUD
   app.post("/api/admin/community/news", async (req, res) => {
+    const cache = getDataCache();
     try {
       const data = req.body;
       const announcement = await storage.createCommunityAnnouncement({
@@ -9461,7 +9463,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         isPinned: data.isPinned || false,
         authorId: null,
       });
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json(announcement);
     } catch (error) {
       console.error("[Admin Community] Error creating news:", error);
@@ -9470,6 +9472,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.patch("/api/admin/community/news/:id", async (req, res) => {
+    const cache = getDataCache();
     try {
       const { id } = req.params;
       const data = req.body;
@@ -9477,7 +9480,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...data,
         updatedAt: new Date(),
       });
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating news:", error);
@@ -9486,10 +9489,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.delete("/api/admin/community/news/:id", async (req, res) => {
+    const cache = getDataCache();
     try {
       const { id } = req.params;
       await storage.deleteCommunityAnnouncement(id);
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting news:", error);
@@ -9499,6 +9503,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Events CRUD
   app.post("/api/admin/community/events", async (req, res) => {
+    const cache = getDataCache();
     try {
       const data = req.body;
       const event = await storage.createCommunityEvent({
@@ -9516,7 +9521,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         organizerId: null,
         coverImage: data.coverImage || null,
       });
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json(event);
     } catch (error) {
       console.error("[Admin Community] Error creating event:", error);
@@ -9525,6 +9530,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.patch("/api/admin/community/events/:id", async (req, res) => {
+    const cache = getDataCache();
     try {
       const { id } = req.params;
       const data = req.body;
@@ -9532,7 +9538,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (data.startDate) updateData.startDate = new Date(data.startDate);
       if (data.endDate) updateData.endDate = new Date(data.endDate);
       await storage.updateCommunityEvent(id, updateData);
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating event:", error);
@@ -9541,10 +9547,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.delete("/api/admin/community/events/:id", async (req, res) => {
+    const cache = getDataCache();
     try {
       const { id } = req.params;
       await storage.deleteCommunityEvent(id);
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting event:", error);
@@ -9554,6 +9561,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Hub Posts CRUD
   app.post("/api/admin/community/hub", async (req, res) => {
+    const cache = getDataCache();
     try {
       const data = req.body;
       const post = await storage.createCommunityPost({
@@ -9569,7 +9577,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         isHot: data.isHot || false,
         isLocked: data.isLocked || false,
       });
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json(post);
     } catch (error) {
       console.error("[Admin Community] Error creating hub post:", error);
@@ -9578,6 +9586,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.patch("/api/admin/community/hub/:id", async (req, res) => {
+    const cache = getDataCache();
     try {
       const { id } = req.params;
       const data = req.body;
@@ -9585,7 +9594,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...data,
         updatedAt: new Date(),
       });
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating hub post:", error);
@@ -9594,10 +9603,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.delete("/api/admin/community/hub/:id", async (req, res) => {
+    const cache = getDataCache();
     try {
       const { id } = req.params;
       await storage.deleteCommunityPost(id);
-      dataCacheService.delete('admin:community:content');
+      cache.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting hub post:", error);
@@ -16149,12 +16159,13 @@ Provide JSON portfolio analysis:
   
   // Admin: Get all subscribers
   app.get("/api/admin/newsletter/subscribers", requireAuth, async (req, res) => {
+    const cache = getDataCache();
     try {
       const { status, limit = 100, offset = 0 } = req.query;
       const cacheKey = `admin:newsletter:subscribers:${status || 'all'}:${limit}:${offset}`;
       
       // Use cache for fast response
-      const cached = dataCacheService.get(cacheKey);
+      const cached = cache.get(cacheKey);
       if (cached) {
         return res.json(cached);
       }
@@ -16179,7 +16190,7 @@ Provide JSON portfolio analysis:
       };
       
       // Cache for 30 seconds
-      dataCacheService.set(cacheKey, result, 30000);
+      cache.set(cacheKey, result, 30000);
       
       res.json(result);
     } catch (error: any) {
@@ -16190,6 +16201,7 @@ Provide JSON portfolio analysis:
   
   // Admin: Update subscriber status
   app.patch("/api/admin/newsletter/subscribers/:id", requireAuth, async (req, res) => {
+    const cache = getDataCache();
     try {
       const { id } = req.params;
       const { status } = req.body;
@@ -16212,7 +16224,7 @@ Provide JSON portfolio analysis:
         return res.status(404).json({ success: false, error: "구독자를 찾을 수 없습니다" });
       }
       
-      dataCacheService.clearPattern('admin:newsletter:subscribers:');
+      cache.clearPattern('admin:newsletter:subscribers:');
       res.json({ success: true, subscriber: updated });
     } catch (error: any) {
       console.error("[Newsletter] Update subscriber error:", error);
@@ -16222,6 +16234,7 @@ Provide JSON portfolio analysis:
   
   // Admin: Delete subscriber
   app.delete("/api/admin/newsletter/subscribers/:id", requireAuth, async (req, res) => {
+    const cache = getDataCache();
     try {
       const { id } = req.params;
       
@@ -16233,7 +16246,7 @@ Provide JSON portfolio analysis:
         return res.status(404).json({ success: false, error: "구독자를 찾을 수 없습니다" });
       }
       
-      dataCacheService.clearPattern('admin:newsletter:subscribers:');
+      cache.clearPattern('admin:newsletter:subscribers:');
       console.log(`[Newsletter] Deleted subscriber: ${deleted.email}`);
       res.json({ success: true, message: "구독자가 삭제되었습니다" });
     } catch (error: any) {
