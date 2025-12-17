@@ -96,6 +96,11 @@ Key architectural decisions include:
   - **Frontend**: Added React Query optimization settings to ai-training.tsx (3 queries)
   - **Response Times**: Main API 44-173ms (previously 4-7 seconds cold start)
   - **Pattern**: Cache pre-warming with 3s timeout, silent fail for non-critical warming
+- **AI Tuning Page Optimization** (December 17, 2025):
+  - **Frontend**: ai-tuning.tsx with staleTime: 30000, refetchOnMount: false, refetchOnWindowFocus: false, refetchInterval: 60000
+  - **Backend**: ProductionDataPoller warms admin_ai_params cache with exact routes.ts structure
+  - **Schema Consistency**: Both routes.ts and ProductionDataPoller include id/configName in fallback for consistent API contract
+  - **Response Times**: 4-6ms after cache warming (previously 1.3-1.7s cold start)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
