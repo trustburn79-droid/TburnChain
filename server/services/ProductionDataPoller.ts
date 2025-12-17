@@ -325,6 +325,67 @@ class ProductionDataPoller {
           // Silent fail - admin cache warming is non-critical
         }
       }
+      
+      // Warm AI training cache (only if not already cached)
+      if (!this.cache.get('admin_ai_training')) {
+        try {
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('AI training cache warm timeout')), 3000)
+          );
+          
+          const dataPromise = (async () => {
+            const jobs = await storage.getAllAiTrainingJobs();
+            const trainingData = this.enterpriseNode.getAITrainingData();
+            
+            const runningJobs = jobs.filter(j => j.status === 'running');
+            const queuedJobs = jobs.filter(j => j.status === 'queued');
+            const completedJobs = jobs.filter(j => j.status === 'completed');
+            
+            const avgAccuracy = completedJobs.length > 0 
+              ? completedJobs.reduce((sum, j) => sum + (j.accuracy || 0), 0) / completedJobs.length 
+              : 99.2;
+            
+            return {
+              jobs: jobs.map(j => ({
+                id: j.id,
+                name: j.name,
+                model: j.model,
+                status: j.status,
+                progress: j.progress,
+                eta: j.eta || '-',
+                dataPoints: j.dataPoints,
+                epochs: j.epochs,
+                currentEpoch: j.currentEpoch,
+                accuracy: j.accuracy,
+                loss: j.loss,
+                validationAccuracy: j.validationAccuracy,
+                validationLoss: j.validationLoss,
+                datasetName: j.datasetName,
+                datasetSize: j.datasetSize,
+                startedAt: j.startedAt,
+                completedAt: j.completedAt,
+              })),
+              datasets: trainingData.datasets,
+              accuracyData: trainingData.accuracyData,
+              modelVersions: trainingData.modelVersions,
+              stats: {
+                activeJobs: runningJobs.length + queuedJobs.length,
+                runningJobs: runningJobs.length,
+                queuedJobs: queuedJobs.length,
+                totalData: '500.8M',
+                avgAccuracy: Math.round(avgAccuracy * 10) / 10,
+                modelVersions: trainingData.modelVersions.length
+              }
+            };
+          })();
+          
+          const result = await Promise.race([dataPromise, timeoutPromise]) as any;
+          this.cache.set('admin_ai_training', result, 30000);
+          successCount++;
+        } catch (e) {
+          // Silent fail - AI training cache warming is non-critical
+        }
+      }
 
       if (successCount > 0) {
         this.stats.lastSuccessTime = new Date();

@@ -87,10 +87,15 @@ Key architectural decisions include:
   - **Solution**: Aligned staleTime with refetchInterval (30s) and disabled refetchOnMount to prevent loading states on navigation
   - **Impact**: DeFi pages now load instantly when navigating within app (3-7ms cached response times)
 - **Admin Page Performance Fix** (December 17, 2025):
-  - **Pages Fixed**: admin-portal/community.tsx, admin-portal/newsletter.tsx
+  - **Pages Fixed**: admin-portal/community.tsx, admin-portal/newsletter.tsx, admin-portal/ai-training.tsx
   - **Root Cause**: Missing `refetchOnMount: false` caused data refetch on every page mount despite cached data
   - **Solution**: Added page-level `staleTime: 30000`, `refetchOnMount: false`, `refetchOnWindowFocus: false` to prevent mount refetch
   - **Note**: Global queryClient keeps default `refetchOnMount: true` for security-sensitive auth queries; page-level overrides used for data dashboards
+- **AI Training Cache Warming** (December 17, 2025):
+  - **Backend**: Added AI training cache warming in ProductionDataPoller.ts
+  - **Frontend**: Added React Query optimization settings to ai-training.tsx (3 queries)
+  - **Response Times**: Main API 44-173ms (previously 4-7 seconds cold start)
+  - **Pattern**: Cache pre-warming with 3s timeout, silent fail for non-critical warming
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

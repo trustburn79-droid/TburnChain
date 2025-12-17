@@ -142,6 +142,9 @@ export default function AdminAITraining() {
   const { data, isLoading, error, refetch } = useQuery<TrainingData>({
     queryKey: ["/api/admin/ai/training"],
     enabled: true,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 
@@ -193,6 +196,9 @@ export default function AdminAITraining() {
   // Model Deployments Query
   const { data: deploymentsData, isLoading: deploymentsLoading } = useQuery<{ success: boolean; data: ModelDeployment[] }>({
     queryKey: ["/api/admin/ai/training/deployments"],
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 60000,
   });
 
@@ -201,6 +207,9 @@ export default function AdminAITraining() {
   // Enhanced Datasets Query
   const { data: datasetsData, isLoading: datasetsLoading } = useQuery<{ success: boolean; data: EnhancedDataset[] }>({
     queryKey: ["/api/admin/ai/training/datasets"],
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 120000,
   });
 
