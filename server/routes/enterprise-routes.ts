@@ -22,6 +22,7 @@ import {
 } from '../services/orchestration';
 import { aiOrchestrator } from '../services/AIOrchestrator';
 import { aiDecisionExecutor } from '../services/AIDecisionExecutor';
+import { getDataCache } from '../services/DataCacheService';
 
 const router = Router();
 
@@ -3892,9 +3893,18 @@ router.delete('/admin/dashboards/:id', async (req: Request, res: Response) => {
 
 router.get('/admin/sla', async (req: Request, res: Response) => {
   try {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_sla_metrics';
+    
+    // Try cache first (30 second TTL for SLA data)
+    const cached = cache.get<any>(cacheKey);
+    if (cached) {
+      return res.json(cached);
+    }
+    
     // Get network stats to synchronize SLA data with dashboards
     const networkStats = await storage.getNetworkStats();
-    const slaUptimePercent = (networkStats.slaUptime || 9999) / 100; // Convert from basis points to percentage (9999 -> 99.99)
+    const slaUptimePercent = (networkStats.slaUptime || 9999) / 100;
     
     const slaData = {
       metrics: [
@@ -3987,6 +3997,8 @@ router.get('/admin/sla', async (req: Request, res: Response) => {
       ]
     };
     
+    // Cache for 30 seconds
+    cache.set(cacheKey, slaData, 30000);
     res.json(slaData);
   } catch (error) {
     res.status(500).json({
