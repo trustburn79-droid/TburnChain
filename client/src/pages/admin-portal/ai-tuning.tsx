@@ -113,6 +113,10 @@ export default function AdminAITuning() {
   const { data, isLoading, error, refetch } = useQuery<AITuningData>({
     queryKey: ["/api/admin/ai/params"],
     enabled: true,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 60000,
   });
 
   const tuningData = localParams || data || emptyFallback;

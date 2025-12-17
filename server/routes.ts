@@ -8350,6 +8350,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
       } else {
         result = {
+          id: 'ai-params-default',
+          configName: 'Default Config',
           modelConfigs: defaultModelConfigs,
           decisionParams: defaultDecisionParams,
           layerWeights: { strategic: 50, tactical: 30, operational: 20 },

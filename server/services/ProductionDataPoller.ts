@@ -386,6 +386,93 @@ class ProductionDataPoller {
           // Silent fail - AI training cache warming is non-critical
         }
       }
+      
+      // Warm AI tuning params cache (only if not already cached)
+      if (!this.cache.get('admin_ai_params')) {
+        try {
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('AI params cache warm timeout')), 3000)
+          );
+          
+          const dataPromise = (async () => {
+            const params = await storage.getActiveAiParameters();
+            
+            // Match exact structure from routes.ts /api/admin/ai/params
+            const defaultModelConfigs = [
+              { name: "Gemini 3 Pro", layer: "Strategic", temperature: 0.7, maxTokens: 4096, topP: 0.9, frequencyPenalty: 0.3, presencePenalty: 0.3 },
+              { name: "Claude Sonnet 4.5", layer: "Tactical", temperature: 0.5, maxTokens: 8192, topP: 0.95, frequencyPenalty: 0.2, presencePenalty: 0.2 },
+              { name: "GPT-4o", layer: "Operational", temperature: 0.3, maxTokens: 2048, topP: 0.8, frequencyPenalty: 0.1, presencePenalty: 0.1 },
+              { name: "Grok 3", layer: "Fallback", temperature: 0.4, maxTokens: 4096, topP: 0.85, frequencyPenalty: 0.15, presencePenalty: 0.15 },
+            ];
+            
+            const defaultDecisionParams = [
+              { name: "Consensus Optimization", weight: 0.85, enabled: true },
+              { name: "Shard Rebalancing", weight: 0.75, enabled: true },
+              { name: "Gas Price Adjustment", weight: 0.90, enabled: true },
+              { name: "Validator Selection", weight: 0.80, enabled: true },
+              { name: "Bridge Risk Assessment", weight: 0.70, enabled: true },
+              { name: "Burn Rate Optimization", weight: 0.65, enabled: false },
+            ];
+            
+            if (params) {
+              return {
+                id: params.id,
+                configName: params.configName,
+                modelConfigs: Array.isArray(params.modelConfigs) && (params.modelConfigs as any[]).length > 0 
+                  ? params.modelConfigs 
+                  : defaultModelConfigs,
+                decisionParams: Array.isArray(params.decisionParams) && (params.decisionParams as any[]).length > 0 
+                  ? params.decisionParams 
+                  : defaultDecisionParams,
+                layerWeights: {
+                  strategic: params.strategicWeight,
+                  tactical: params.tacticalWeight,
+                  operational: params.operationalWeight
+                },
+                thresholds: {
+                  autoExecute: params.autoExecuteThreshold,
+                  humanReview: params.humanReviewThreshold,
+                  rejection: params.rejectionThreshold
+                },
+                rateLimits: {
+                  strategicPerHour: params.strategicPerHour,
+                  tacticalPerMinute: params.tacticalPerMinute,
+                  operationalPerSecond: params.operationalPerSecond
+                },
+                emergencySettings: {
+                  allowEmergencyActions: params.allowEmergencyActions,
+                  circuitBreaker: params.circuitBreaker
+                },
+                advancedConfig: {
+                  consensusTimeout: params.consensusTimeout,
+                  retryAttempts: params.retryAttempts,
+                  backoffMultiplier: params.backoffMultiplier,
+                  cacheTTL: params.cacheTtl
+                },
+              };
+            } else {
+              // Match exact fallback structure from routes.ts
+              return {
+                id: 'ai-params-default',
+                configName: 'Default Config',
+                modelConfigs: defaultModelConfigs,
+                decisionParams: defaultDecisionParams,
+                layerWeights: { strategic: 50, tactical: 30, operational: 20 },
+                thresholds: { autoExecute: 70, humanReview: 50, rejection: 30 },
+                rateLimits: { strategicPerHour: 10, tacticalPerMinute: 100, operationalPerSecond: 1000 },
+                emergencySettings: { allowEmergencyActions: true, circuitBreaker: true },
+                advancedConfig: { consensusTimeout: 5000, retryAttempts: 3, backoffMultiplier: 1.5, cacheTTL: 300 }
+              };
+            }
+          })();
+          
+          const result = await Promise.race([dataPromise, timeoutPromise]) as any;
+          this.cache.set('admin_ai_params', result, 30000);
+          successCount++;
+        } catch (e) {
+          // Silent fail - AI params cache warming is non-critical
+        }
+      }
 
       if (successCount > 0) {
         this.stats.lastSuccessTime = new Date();
