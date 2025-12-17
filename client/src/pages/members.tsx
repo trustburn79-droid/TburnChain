@@ -1504,13 +1504,19 @@ export default function MembersPage() {
   // Fetch members
   const { data: members = [], isLoading } = useQuery<Member[]>({
     queryKey: ["/api/members"],
-    refetchInterval: 10000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 60000,
   });
 
   // Fetch member statistics
   const { data: stats } = useQuery<MemberStats>({
     queryKey: ["/api/members/stats/summary"],
-    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 60000,
   });
 
   // Filter members based on search and filters

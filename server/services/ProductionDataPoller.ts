@@ -9,6 +9,7 @@
  */
 
 import { getDataCache, DataCacheService } from './DataCacheService';
+import { storage } from '../storage';
 
 interface PollerConfig {
   pollInterval: number; // Interval between polls in ms
@@ -177,7 +178,9 @@ class ProductionDataPoller {
         validators,
         aiModels,
         contracts,
-        consensusState
+        consensusState,
+        membersData,
+        memberStatsData
       ] = await Promise.allSettled([
         this.fetchNetworkStats(),
         this.fetchShards(),
@@ -186,7 +189,9 @@ class ProductionDataPoller {
         this.fetchValidators(),
         this.fetchAIModels(),
         this.fetchContracts(),
-        this.fetchConsensusState()
+        this.fetchConsensusState(),
+        this.fetchMembersWithProfiles(),
+        this.fetchMemberStats()
       ]);
 
       // Process results and update cache - only update if data is valid (not empty)
@@ -232,6 +237,18 @@ class ProductionDataPoller {
       
       if (consensusState.status === 'fulfilled' && consensusState.value) {
         this.cache.set(DataCacheService.KEYS.CONSENSUS_STATE, consensusState.value, 30000);
+        successCount++;
+      }
+      
+      // Cache members data from database (not enterprise node)
+      if (membersData.status === 'fulfilled' && membersData.value && Array.isArray(membersData.value) && membersData.value.length > 0) {
+        this.cache.set('members_with_profiles_100', membersData.value, 30000);
+        successCount++;
+      }
+      
+      // Cache member stats from database
+      if (memberStatsData.status === 'fulfilled' && memberStatsData.value) {
+        this.cache.set('members_stats_summary', memberStatsData.value, 30000);
         successCount++;
       }
 
@@ -338,6 +355,32 @@ class ProductionDataPoller {
       return await this.enterpriseNode.getConsensusState();
     } catch (error) {
       console.log('[ProductionDataPoller] fetchConsensusState error');
+      return null;
+    }
+  }
+  
+  private async fetchMembersWithProfiles(): Promise<any[]> {
+    try {
+      const limit = 100;
+      const membersList = await storage.getAllMembers(limit);
+      const memberIds = membersList.map(m => m.id);
+      const allProfiles = await storage.getMemberProfilesByIds(memberIds);
+      const profileMap = new Map(allProfiles.map(p => [p.memberId, p]));
+      return membersList.map(member => ({
+        ...member,
+        profile: profileMap.get(member.id) || null
+      }));
+    } catch (error) {
+      console.log('[ProductionDataPoller] fetchMembersWithProfiles error');
+      return [];
+    }
+  }
+  
+  private async fetchMemberStats(): Promise<any> {
+    try {
+      return await storage.getMemberStatistics();
+    } catch (error) {
+      console.log('[ProductionDataPoller] fetchMemberStats error');
       return null;
     }
   }
