@@ -11682,9 +11682,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // STAKING INFRASTRUCTURE API
   // ============================================
 
-  // Staking Statistics (Overview) - Enterprise Production Level
+  // Staking Statistics (Overview) - Enterprise Production Level with Caching
   app.get("/api/staking/stats", requireAuth, async (_req, res) => {
+    const cache = getDataCache();
     try {
+      // Check cache first for instant response
+      const cached = cache.get('staking:stats');
+      if (cached) {
+        return res.json(cached);
+      }
+      
       const stats = await storage.getStakingStats();
       // Enterprise-grade production defaults for mainnet launch
       const enterpriseStats = stats || {
@@ -11709,6 +11716,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         slashingRate: 0.02, // Very low slashing rate
         compoundingRate: 78.5 // % of stakers using auto-compound
       };
+      
+      // Cache for 30 seconds
+      cache.set('staking:stats', enterpriseStats, 30000);
       res.json(enterpriseStats);
     } catch (error: any) {
       console.error('Error fetching staking stats:', error);
@@ -11742,10 +11752,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     };
   }
 
-  // Staking Pools - Enterprise Production Level
+  // Staking Pools - Enterprise Production Level with Caching
   app.get("/api/staking/pools", requireAuth, async (req, res) => {
+    const cache = getDataCache();
     try {
       const poolType = req.query.type as string;
+      const cacheKey = poolType ? `staking:pools:${poolType}` : 'staking:pools:all';
+      
+      // Check cache first for instant response
+      const cached = cache.get(cacheKey);
+      if (cached) {
+        return res.json(cached);
+      }
+      
       let pools;
       
       if (poolType) {
@@ -11758,11 +11777,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!pools || pools.length === 0) {
         const node = getEnterpriseNode();
         const enterprisePools = node.getPublicStakingPools();
-        return res.json(enterprisePools.map(transformPoolForFrontend));
+        const result = enterprisePools.map(transformPoolForFrontend);
+        cache.set(cacheKey, result, 30000);
+        return res.json(result);
       }
       
       // Transform to frontend format
       const transformedPools = pools.map(transformPoolForFrontend);
+      cache.set(cacheKey, transformedPools, 30000);
       res.json(transformedPools);
     } catch (error: any) {
       console.error('Error fetching staking pools:', error);
@@ -11977,9 +11999,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Tier configuration (from database)
+  // Tier configuration (from database) with Caching
   app.get("/api/staking/tiers", requireAuth, async (_req, res) => {
+    const cache = getDataCache();
     try {
+      // Check cache first for instant response
+      const cached = cache.get('staking:tiers');
+      if (cached) {
+        return res.json(cached);
+      }
+      
       const tiers = await storage.getAllStakingTierConfigs();
       
       // Transform to frontend format with benefits
@@ -12010,6 +12039,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         benefits: tierBenefits[tier.tier] || []
       }));
       
+      // Cache for 30 seconds
+      cache.set('staking:tiers', transformedTiers, 30000);
       res.json(transformedTiers);
     } catch (error: any) {
       console.error('Error fetching tier configuration:', error);
