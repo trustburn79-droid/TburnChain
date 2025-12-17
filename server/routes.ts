@@ -14093,75 +14093,36 @@ Provide JSON portfolio analysis:
   // ============================================
   const httpServer = createServer(app);
   
-  // Create session pool for WebSocket session verification
-  const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
+  // WebSocket is public for blockchain explorer real-time updates
+  // No authentication required - same as public API endpoints
+  const isProduction = process.env.NODE_ENV === 'production';
   
   const wss = new WebSocketServer({ 
     server: httpServer, 
     path: '/ws',
     verifyClient: (info, callback) => {
-      // Enhanced session verification with signature validation and session store check
-      (async () => {
-        try {
-          const cookies = info.req.headers.cookie;
-          if (!cookies || !cookies.includes('connect.sid')) {
-            callback(false, 401, 'Unauthorized - No session');
-            return;
-          }
-          
-          // Parse connect.sid cookie
-          const sidCookie = cookies.split(';').find(c => c.trim().startsWith('connect.sid='));
-          if (!sidCookie) {
-            callback(false, 401, 'Unauthorized - Invalid session cookie');
-            return;
-          }
-          
-          const rawValue = sidCookie.split('=')[1].trim();
-          const sessionId = decodeURIComponent(rawValue);
-          
-          // Session ID format: 's:SESSION_ID.SIGNATURE'
-          if (!sessionId.startsWith('s:')) {
-            callback(false, 401, 'Unauthorized - Invalid session format');
-            return;
-          }
-          
-          // Verify signature using SESSION_SECRET
-          const secret = process.env.SESSION_SECRET || 'tburn-secret-key-change-in-production';
-          const unsigned = cookieSignature.unsign(sessionId.slice(2), secret);
-          
-          if (unsigned === false) {
-            console.warn('[WebSocket] Invalid session signature detected');
-            callback(false, 401, 'Unauthorized - Invalid session signature');
-            return;
-          }
-          
-          // Load session from PostgreSQL session store
-          const result = await sessionPool.query(
-            'SELECT sess FROM session WHERE sid = $1',
-            [unsigned]
-          );
-          
-          if (!result.rows.length) {
-            console.warn('[WebSocket] Session not found in store:', unsigned.slice(0, 8) + '...');
-            callback(false, 401, 'Unauthorized - Session not found');
-            return;
-          }
-          
-          const session = result.rows[0].sess;
-          if (!session || !session.authenticated) {
-            console.warn('[WebSocket] Session not authenticated');
-            callback(false, 401, 'Unauthorized - Not authenticated');
-            return;
-          }
-          
-          // Session is valid and authenticated
-          console.log('[WebSocket] Session verified successfully');
-          callback(true);
-        } catch (error) {
-          console.error('[WebSocket] Session verification error:', error);
-          callback(false, 500, 'Internal server error');
+      // Allow all WebSocket connections for public blockchain explorer data
+      // This is consistent with public REST API endpoints (/api/shards, /api/network/stats, etc.)
+      // Production can optionally add rate limiting via origin checking
+      const origin = info.origin || info.req.headers.origin;
+      
+      if (isProduction && origin) {
+        // In production, optionally validate origin for security
+        const allowedOrigins = [
+          process.env.ALLOWED_ORIGIN,
+          'https://tburn.io',
+          'https://www.tburn.io'
+        ].filter(Boolean);
+        
+        if (allowedOrigins.length > 0 && !allowedOrigins.includes(origin)) {
+          console.warn('[WebSocket] Rejected connection from unknown origin:', origin);
+          callback(false, 403, 'Forbidden - Unknown origin');
+          return;
         }
-      })();
+      }
+      
+      // Allow connection
+      callback(true);
     }
   });
 
