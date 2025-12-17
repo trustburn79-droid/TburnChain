@@ -6474,9 +6474,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Smart Contracts - Enterprise Production Level
   // ============================================
   app.get("/api/contracts", async (req, res) => {
+    const cache = getDataCache();
     try {
-      // Fetch from TBurnEnterpriseNode for dynamic contract data
       const limit = req.query.limit || 20;
+      const cacheKey = `contracts:list:${limit}`;
+      
+      // Check cache first for instant response
+      const cached = cache.get<any>(cacheKey);
+      if (cached) {
+        return res.json(cached);
+      }
+      
+      // Fetch from TBurnEnterpriseNode for dynamic contract data
       const response = await fetch(`http://localhost:8545/api/contracts?limit=${limit}`);
       
       if (!response.ok) {
@@ -6484,6 +6493,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const contracts = await response.json();
+      // Cache for 30 seconds
+      cache.set(cacheKey, contracts, 30000);
       res.json(contracts);
     } catch (error) {
       // Enterprise-grade fallback with production-ready contract data
@@ -11189,6 +11200,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Wallet Balances
   // ============================================
   app.get("/api/wallets", async (req, res) => {
+    const cache = getDataCache();
     try {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 20;
@@ -11203,16 +11215,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       let wallets: WalletBalance[];
       
-      // Always fetch from TBurnEnterpriseNode for dynamic wallet data
-      try {
-        const response = await fetch('http://localhost:8545/api/wallets?limit=1000');
-        if (!response.ok) {
-          throw new Error(`Enterprise node returned status: ${response.status}`);
+      // Check cache for raw wallet data first
+      const cachedWallets = cache.get<WalletBalance[]>('wallets:raw');
+      if (cachedWallets) {
+        wallets = cachedWallets;
+      } else {
+        // Fetch from TBurnEnterpriseNode for dynamic wallet data
+        try {
+          const response = await fetch('http://localhost:8545/api/wallets?limit=1000');
+          if (!response.ok) {
+            throw new Error(`Enterprise node returned status: ${response.status}`);
+          }
+          wallets = await response.json();
+          // Cache raw wallet data for 30 seconds
+          cache.set('wallets:raw', wallets, 30000);
+        } catch (fetchError) {
+          console.log('[API] Enterprise node error for wallets, using database fallback');
+          wallets = await storage.getAllWalletBalances(1000);
+          cache.set('wallets:raw', wallets, 30000);
         }
-        wallets = await response.json();
-      } catch (fetchError) {
-        console.log('[API] Enterprise node error for wallets, using database fallback');
-        wallets = await storage.getAllWalletBalances(1000);
       }
 
       // Apply search filter
@@ -11579,10 +11600,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Consensus current state endpoint - uses TBurnEnterpriseNode for real consensus data
   app.get("/api/consensus/current", async (_req, res) => {
+    const cache = getDataCache();
     try {
+      // Check cache first for instant response
+      const cached = cache.get<any>('consensus:current');
+      if (cached) {
+        return res.json(cached);
+      }
+      
       // Use TBurnEnterpriseNode for real consensus data (no Math.random)
       const enterpriseNode = getEnterpriseNode();
       const consensusInfo = enterpriseNode.getConsensusInfo();
+      
+      // Cache for 30 seconds
+      cache.set('consensus:current', consensusInfo, 30000);
       
       res.json(consensusInfo);
     } catch (error: any) {
