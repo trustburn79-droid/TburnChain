@@ -1039,9 +1039,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
   
   app.get("/api/network/stats", async (_req, res) => {
+    const cache = getDataCache();
     try {
       // Use cache for instant response
-      const cached = dataCacheService.get('network:stats');
+      const cached = cache.get('network:stats');
       if (cached) {
         return res.json(cached);
       }
@@ -1120,7 +1121,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             successRate: dbStats?.successRate || mainnetStats.successRate || 9992,
           });
           // Cache for 30 seconds
-          dataCacheService.set('network:stats', mergedStats, 30000);
+          cache.set('network:stats', mergedStats, 30000);
           res.json(mergedStats);
         } catch (mainnetError: any) {
           // Fallback to database values when mainnet API fails
@@ -1138,7 +1139,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               activeValidators: shardTps.validators,
               totalValidators: shardTps.validators
             });
-            dataCacheService.set('network:stats', result, 30000);
+            cache.set('network:stats', result, 30000);
             res.json(result);
           } else {
             // If no database stats, return production defaults with shard-based TPS
@@ -1162,7 +1163,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               successRate: 9992, // 99.92%
               updatedAt: new Date(),
             });
-            dataCacheService.set('network:stats', defaultStats, 30000);
+            cache.set('network:stats', defaultStats, 30000);
             res.json(defaultStats);
           }
         }
@@ -1191,7 +1192,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             updatedAt: new Date(),
           });
           console.log(`[API] No network stats available, using shard-based TPS: ${shardTps.tps} (${shardTps.shardCount} shards × ${shardTps.tpsPerShard} TPS/shard)`);
-          dataCacheService.set('network:stats', defaultStats, 30000);
+          cache.set('network:stats', defaultStats, 30000);
           res.json(defaultStats);
         } else {
           // ENTERPRISE: Always override TPS with deterministic shard-based calculation
@@ -1206,7 +1207,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             activeValidators: shardTps.validators,
             totalValidators: shardTps.validators
           });
-          dataCacheService.set('network:stats', result, 30000);
+          cache.set('network:stats', result, 30000);
           res.json(result);
         }
       }
@@ -6794,20 +6795,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Cross-Shard Messages endpoint - uses TBurnEnterpriseNode for dynamic generation
-  app.get("/api/cross-shard/messages", async (req, res) => {
+  // Cross-Shard Messages endpoint - direct Enterprise Node access with caching
+  app.get("/api/cross-shard/messages", async (_req, res) => {
+    const cache = getDataCache();
     try {
-      // Always fetch from TBurnEnterpriseNode which generates dynamic cross-shard data
-      const response = await fetch('http://localhost:8545/api/cross-shard/messages');
-      
-      if (!response.ok) {
-        throw new Error(`Enterprise node returned status: ${response.status}`);
+      // Try cache first
+      const cached = cache.get('crossshard:messages');
+      if (cached) {
+        return res.json(cached);
       }
       
-      const messages = await response.json();
+      // Get messages directly from TBurnEnterpriseNode
+      const enterpriseNode = getEnterpriseNode();
+      const messages = enterpriseNode.generateCrossShardMessages(25);
+      
+      // Cache for 30 seconds
+      cache.set('crossshard:messages', messages, 30000);
+      
       res.json(messages);
     } catch (error: unknown) {
-      console.error('Error fetching cross-shard messages from enterprise node:', error);
+      console.error('Error fetching cross-shard messages:', error);
       res.status(500).json({ error: "Failed to fetch cross-shard messages" });
     }
   });
@@ -11515,60 +11522,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Proxy Routes to Enterprise Node
   // ============================================
   
-  // Sharding endpoints - WITH CACHE to prevent rate limit freezing
+  // Sharding endpoints - Optimized with direct Enterprise Node access + aggressive caching
   app.get("/api/shards", async (_req, res) => {
     const cache = getDataCache();
-    
     try {
-      // Try cache first - return immediately if available
-      const cachedShards = cache.get<any[]>(DataCacheService.KEYS.SHARDS, true);
-      if (cachedShards) {
-        console.log('[API] /api/shards - serving from cache');
-        return res.json(cachedShards);
+      // Try cache first - instant response
+      const cached = cache.get('shards:all');
+      if (cached) {
+        return res.json(cached);
       }
       
-      // No cache, try enterprise node with timeout
+      // Get shards directly from TBurnEnterpriseNode (no HTTP call)
       const enterpriseNode = getEnterpriseNode();
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+      const shards = enterpriseNode.getShards();
       
-      try {
-        const response = await fetch('http://localhost:8545/api/shards', {
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) {
-          throw new Error(`Enterprise node returned status: ${response.status}`);
-        }
-        
-        const shards = await response.json();
-        
-        // Cache the result
-        cache.set(DataCacheService.KEYS.SHARDS, shards, 30000);
-        
-        res.json(shards);
-      } catch (fetchError: any) {
-        clearTimeout(timeoutId);
-        throw fetchError;
-      }
+      // Cache for 30 seconds
+      cache.set('shards:all', shards, 30000);
+      
+      res.json(shards);
     } catch (error: any) {
       console.error('[API] /api/shards error:', error.message);
       
       // Try stale cache on error
-      const staleData = cache.get<any[]>(DataCacheService.KEYS.SHARDS, true);
+      const staleData = cache.get('shards:all');
       if (staleData) {
-        console.log('[API] /api/shards - serving stale cache on error');
         return res.json(staleData);
       }
       
-      // No real data available - return 503 Service Unavailable
-      console.log('[API] /api/shards - no real data available, returning 503');
-      res.status(503).json({ 
-        error: "Service temporarily unavailable",
-        message: "Enterprise node is warming up. Please retry in a few seconds.",
-        retryAfter: 5
-      });
+      res.status(500).json({ error: "Failed to fetch shards" });
     }
   });
 
