@@ -2,6 +2,7 @@ import type { Express, Request, Response } from "express";
 import { z } from "zod";
 import { dexService } from "../services/DexService";
 import { storage } from "../storage";
+import { getDataCache } from "../services/DataCacheService";
 import {
   insertDexPoolSchema,
   insertDexPositionSchema,
@@ -74,9 +75,16 @@ const createPoolSchema = z.object({
 
 export function registerDexRoutes(app: Express, requireAuth: (req: Request, res: Response, next: () => void) => void) {
 
-  // DEX Stats - Enterprise Production Level
+  // DEX Stats - Enterprise Production Level with Caching
   app.get("/api/dex/stats", requireAuth, async (_req: Request, res: Response) => {
+    const cache = getDataCache();
     try {
+      // Check cache first for instant response
+      const cached = cache.get('dex:stats');
+      if (cached) {
+        return res.json(cached);
+      }
+      
       const stats = await dexService.getDexStats();
       // Enterprise-grade production defaults
       const enterpriseDefaults = {
@@ -104,6 +112,8 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
         totalSwaps24h: stats?.totalSwaps24h > 0 ? stats.totalSwaps24h : enterpriseDefaults.totalSwaps24h,
         totalLiquidityProviders: stats?.totalLiquidityProviders > 0 ? stats.totalLiquidityProviders : enterpriseDefaults.totalLiquidityProviders
       };
+      // Cache for 30 seconds
+      cache.set('dex:stats', enhancedStats, 30000);
       res.json(enhancedStats);
     } catch (error: any) {
       console.error('[DEX] Stats error:', error);
@@ -111,7 +121,9 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
     }
   });
 
+  // DEX Pools with Caching
   app.get("/api/dex/pools", requireAuth, async (req: Request, res: Response) => {
+    const cache = getDataCache();
     try {
       const poolType = req.query.type as string | undefined;
       const limit = parseInt(req.query.limit as string) || 100;

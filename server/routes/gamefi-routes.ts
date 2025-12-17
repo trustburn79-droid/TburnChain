@@ -1,11 +1,19 @@
 import { Router, Request, Response } from "express";
 import { gameFiService } from "../services/GameFiService";
+import { getDataCache } from "../services/DataCacheService";
 
 const router = Router();
 
-// GameFi Hub Stats - Enterprise Production Level
+// GameFi Hub Stats - Enterprise Production Level with Caching
 router.get("/stats", async (req: Request, res: Response) => {
+  const cache = getDataCache();
   try {
+    // Check cache first for instant response
+    const cached = cache.get('gamefi:stats');
+    if (cached) {
+      return res.json(cached);
+    }
+    
     const overview = await gameFiService.getOverview();
     // Enterprise-grade production defaults
     const enterpriseDefaults = {
@@ -38,6 +46,8 @@ router.get("/stats", async (req: Request, res: Response) => {
       totalPlayers: overview?.totalPlayers > 0 ? overview.totalPlayers : enterpriseDefaults.totalPlayers,
       activePlayers24h: overview?.activePlayers24h > 0 ? overview.activePlayers24h : enterpriseDefaults.activePlayers24h
     };
+    // Cache for 30 seconds
+    cache.set('gamefi:stats', enhancedOverview, 30000);
     res.json(enhancedOverview);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching stats:", error);
@@ -45,9 +55,18 @@ router.get("/stats", async (req: Request, res: Response) => {
   }
 });
 
+// GameFi Projects with Caching
 router.get("/projects", async (req: Request, res: Response) => {
+  const cache = getDataCache();
   try {
+    // Check cache first
+    const cached = cache.get('gamefi:projects');
+    if (cached) {
+      return res.json(cached);
+    }
+    
     const projects = await gameFiService.getAllProjects();
+    cache.set('gamefi:projects', projects, 30000);
     res.json(projects);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching projects:", error);
@@ -55,9 +74,17 @@ router.get("/projects", async (req: Request, res: Response) => {
   }
 });
 
+// GameFi Active Projects with Caching
 router.get("/projects/active", async (req: Request, res: Response) => {
+  const cache = getDataCache();
   try {
+    const cached = cache.get('gamefi:projects:active');
+    if (cached) {
+      return res.json(cached);
+    }
+    
     const projects = await gameFiService.getActiveProjects();
+    cache.set('gamefi:projects:active', projects, 30000);
     res.json(projects);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching active projects:", error);
@@ -65,10 +92,18 @@ router.get("/projects/active", async (req: Request, res: Response) => {
   }
 });
 
+// GameFi Featured Projects with Caching
 router.get("/projects/featured", async (req: Request, res: Response) => {
+  const cache = getDataCache();
   try {
     const limit = parseInt(req.query.limit as string) || 5;
+    const cached = cache.get(`gamefi:projects:featured:${limit}`);
+    if (cached) {
+      return res.json(cached);
+    }
+    
     const projects = await gameFiService.getFeaturedProjects(limit);
+    cache.set(`gamefi:projects:featured:${limit}`, projects, 30000);
     res.json(projects);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching featured projects:", error);

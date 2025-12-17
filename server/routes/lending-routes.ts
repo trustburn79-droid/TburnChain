@@ -2,6 +2,7 @@ import type { Express, Request, Response } from "express";
 import { z } from "zod";
 import { lendingService } from "../services/LendingService";
 import { storage } from "../storage";
+import { getDataCache } from "../services/DataCacheService";
 import {
   insertLendingMarketSchema,
 } from "@shared/schema";
@@ -96,9 +97,16 @@ const createMarketSchema = z.object({
 
 export function registerLendingRoutes(app: Express, requireAuth: (req: Request, res: Response, next: () => void) => void) {
 
-  // Lending Stats - Enterprise Production Level
+  // Lending Stats - Enterprise Production Level with Caching
   app.get("/api/lending/stats", requireAuth, async (_req: Request, res: Response) => {
+    const cache = getDataCache();
     try {
+      // Check cache first for instant response
+      const cached = cache.get('lending:stats');
+      if (cached) {
+        return res.json(cached);
+      }
+      
       const stats = await lendingService.getLendingStats();
       // Enterprise-grade production defaults
       const enterpriseDefaults = {
@@ -126,6 +134,8 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
         activeMarkets: stats?.activeMarkets > 0 ? stats.activeMarkets : enterpriseDefaults.activeMarkets,
         totalUsers: stats?.totalUsers > 0 ? stats.totalUsers : enterpriseDefaults.totalUsers
       };
+      // Cache for 30 seconds
+      cache.set('lending:stats', enhancedStats, 30000);
       res.json(enhancedStats);
     } catch (error: any) {
       console.error('[Lending] Stats error:', error);

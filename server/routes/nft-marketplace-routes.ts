@@ -1,13 +1,21 @@
 import { Router, Request, Response } from "express";
 import { storage } from "../storage";
 import { nftMarketplaceService } from "../services/NftMarketplaceService";
+import { getDataCache } from "../services/DataCacheService";
 import { insertMarketplaceListingSchema, insertMarketplaceBidSchema, insertNftOfferSchema } from "@shared/schema";
 
 const router = Router();
 
-// NFT Marketplace Stats - Enterprise Production Level
+// NFT Marketplace Stats - Enterprise Production Level with Caching
 router.get("/stats", async (req: Request, res: Response) => {
+  const cache = getDataCache();
   try {
+    // Check cache first for instant response
+    const cached = cache.get('nft:stats');
+    if (cached) {
+      return res.json(cached);
+    }
+    
     const overview = await nftMarketplaceService.getMarketplaceOverview();
     // Enterprise-grade production defaults
     const enterpriseDefaults = {
@@ -36,6 +44,8 @@ router.get("/stats", async (req: Request, res: Response) => {
       totalItems: overview?.totalItems > 0 ? overview.totalItems : enterpriseDefaults.totalItems,
       activeListings: overview?.activeListings > 0 ? overview.activeListings : enterpriseDefaults.activeListings
     };
+    // Cache for 30 seconds
+    cache.set('nft:stats', enhancedOverview, 30000);
     res.json(enhancedOverview);
   } catch (error) {
     console.error("[NFT API] Error fetching stats:", error);

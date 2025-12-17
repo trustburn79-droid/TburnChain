@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { z } from "zod";
 import { liquidStakingService } from "../services/LiquidStakingService";
 import { storage } from "../storage";
+import { getDataCache } from "../services/DataCacheService";
 
 const router = Router();
 
@@ -249,9 +250,16 @@ router.get("/calculate/underlying-from-lst/:poolId/:amount", async (req: Request
 // PROTOCOL STATS & ANALYTICS
 // ============================================
 
-// Liquid Staking Stats - Enterprise Production Level
+// Liquid Staking Stats - Enterprise Production Level with Caching
 router.get("/stats", async (_req: Request, res: Response) => {
+  const cache = getDataCache();
   try {
+    // Check cache first for instant response
+    const cached = cache.get('liquid-staking:stats');
+    if (cached) {
+      return res.json(cached);
+    }
+    
     const stats = await liquidStakingService.getProtocolStats();
     // Enterprise-grade production defaults
     const enterpriseDefaults = {
@@ -281,6 +289,8 @@ router.get("/stats", async (_req: Request, res: Response) => {
       totalStakers: stats?.totalStakers > 0 ? stats.totalStakers : enterpriseDefaults.totalStakers,
       totalStakedUsd: stats?.totalStakedUsd && stats.totalStakedUsd !== "0" ? stats.totalStakedUsd : enterpriseDefaults.totalStakedUsd
     };
+    // Cache for 30 seconds
+    cache.set('liquid-staking:stats', enhancedStats, 30000);
     res.json(enhancedStats);
   } catch (error) {
     console.error("[LST] Error getting protocol stats:", error);

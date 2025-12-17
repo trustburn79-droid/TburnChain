@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { z } from "zod";
 import { farmingService } from "../services/FarmingService";
 import { storage } from "../storage";
+import { getDataCache } from "../services/DataCacheService";
 
 const router = Router();
 
@@ -271,9 +272,16 @@ router.post("/harvest", async (req: Request, res: Response) => {
 // PROTOCOL STATS & ANALYTICS
 // ============================================
 
-// Yield Farming Stats - Enterprise Production Level
+// Yield Farming Stats - Enterprise Production Level with Caching
 router.get("/stats", async (_req: Request, res: Response) => {
+  const cache = getDataCache();
   try {
+    // Check cache first for instant response
+    const cached = cache.get('yield:stats');
+    if (cached) {
+      return res.json(cached);
+    }
+    
     const stats = await farmingService.getProtocolStats();
     // Enterprise-grade production defaults
     const enterpriseDefaults = {
@@ -301,6 +309,8 @@ router.get("/stats", async (_req: Request, res: Response) => {
       totalUsers: stats?.totalUsers > 0 ? stats.totalUsers : enterpriseDefaults.totalUsers,
       totalTvlUsd: stats?.totalTvlUsd && stats.totalTvlUsd !== "0" ? stats.totalTvlUsd : enterpriseDefaults.totalTvlUsd
     };
+    // Cache for 30 seconds
+    cache.set('yield:stats', enhancedStats, 30000);
     res.json(enhancedStats);
   } catch (error) {
     console.error("[Yield] Error getting protocol stats:", error);
