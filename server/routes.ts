@@ -111,16 +111,16 @@ const apiLimiter = rateLimit({
 
 // Authentication middleware
 function requireAuth(req: Request, res: Response, next: NextFunction) {
-  // For /api/enterprise/admin/* paths, require admin authentication
-  if (req.path.startsWith("/enterprise/admin/")) {
+  // For /api/enterprise/admin/* or /api/admin/* paths, require admin authentication
+  if (req.path.startsWith("/enterprise/admin/") || req.path.startsWith("/admin/")) {
     if (req.session.adminAuthenticated) {
       return next();
     }
     return res.status(401).json({ error: "Unauthorized" });
   }
   
-  // For other paths, regular authentication
-  if (req.session.authenticated) {
+  // For other paths, regular authentication (either authenticated or adminAuthenticated)
+  if (req.session.authenticated || req.session.adminAuthenticated) {
     return next();
   }
   res.status(401).json({ error: "Unauthorized" });
