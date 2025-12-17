@@ -9355,9 +9355,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Community Content Management - Enterprise-grade CRUD
   app.get("/api/admin/community/content", async (_req, res) => {
     try {
-      const posts = await storage.getAllCommunityPosts();
-      const events = await storage.getAllCommunityEvents();
-      const announcements = await storage.getAllCommunityAnnouncements();
+      // Use cache for fast response
+      const cached = dataCacheService.get('admin:community:content');
+      if (cached) {
+        return res.json(cached);
+      }
+      
+      const [posts, events, announcements] = await Promise.all([
+        storage.getAllCommunityPosts(),
+        storage.getAllCommunityEvents(),
+        storage.getAllCommunityAnnouncements(),
+      ]);
       
       const stats = {
         totalNews: announcements.length,
@@ -9370,12 +9378,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         flaggedItems: posts.filter((p: any) => p.status === 'flagged').length,
       };
       
-      res.json({
+      const result = {
         news: announcements,
         events: events,
         hubPosts: posts,
         stats,
-      });
+      };
+      
+      // Cache for 30 seconds
+      dataCacheService.set('admin:community:content', result, 30000);
+      
+      res.json(result);
     } catch (error) {
       console.error("[Admin Community] Error fetching content:", error);
       res.status(500).json({ error: "Failed to fetch community content" });
@@ -9394,6 +9407,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         isPinned: data.isPinned || false,
         authorId: null,
       });
+      dataCacheService.delete('admin:community:content');
       res.json(announcement);
     } catch (error) {
       console.error("[Admin Community] Error creating news:", error);
@@ -9409,6 +9423,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...data,
         updatedAt: new Date(),
       });
+      dataCacheService.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating news:", error);
@@ -9420,6 +9435,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       await storage.deleteCommunityAnnouncement(id);
+      dataCacheService.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting news:", error);
@@ -9446,6 +9462,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         organizerId: null,
         coverImage: data.coverImage || null,
       });
+      dataCacheService.delete('admin:community:content');
       res.json(event);
     } catch (error) {
       console.error("[Admin Community] Error creating event:", error);
@@ -9461,6 +9478,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (data.startDate) updateData.startDate = new Date(data.startDate);
       if (data.endDate) updateData.endDate = new Date(data.endDate);
       await storage.updateCommunityEvent(id, updateData);
+      dataCacheService.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating event:", error);
@@ -9472,6 +9490,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       await storage.deleteCommunityEvent(id);
+      dataCacheService.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting event:", error);
@@ -9496,6 +9515,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         isHot: data.isHot || false,
         isLocked: data.isLocked || false,
       });
+      dataCacheService.delete('admin:community:content');
       res.json(post);
     } catch (error) {
       console.error("[Admin Community] Error creating hub post:", error);
@@ -9511,6 +9531,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...data,
         updatedAt: new Date(),
       });
+      dataCacheService.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating hub post:", error);
@@ -9522,6 +9543,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       await storage.deleteCommunityPost(id);
+      dataCacheService.delete('admin:community:content');
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting hub post:", error);
