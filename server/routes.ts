@@ -3979,8 +3979,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get all members
   app.get("/api/members", async (req, res) => {
     try {
+      const cache = getDataCache();
       const limit = parseInt(req.query.limit as string) || 100;
+      const cacheKey = `members_list_${limit}`;
+      
+      // Try cache first (30 second TTL)
+      const cached = cache.get<any>(cacheKey);
+      if (cached) {
+        return res.json(cached);
+      }
+      
       const members = await storage.getAllMembers(limit);
+      cache.set(cacheKey, members, 30000);
       res.json(members);
     } catch (error) {
       console.error("Error fetching members:", error);
@@ -4362,7 +4372,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get member statistics
   app.get("/api/members/stats/summary", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'members_stats_summary';
+      
+      // Try cache first (30 second TTL)
+      const cached = cache.get<any>(cacheKey);
+      if (cached) {
+        return res.json(cached);
+      }
+      
       const stats = await storage.getMemberStatistics();
+      cache.set(cacheKey, stats, 30000);
       res.json(stats);
     } catch (error) {
       console.error("Error fetching member statistics:", error);
