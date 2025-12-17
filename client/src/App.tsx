@@ -162,14 +162,16 @@ interface DataSourceStatus {
 function AuthenticatedApp() {
   const { data: authData, isLoading, refetch } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
+    staleTime: 30000,
     refetchInterval: 60000,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
   });
   
   const { data: dataSourceStatus } = useQuery<DataSourceStatus>({
     queryKey: ["/api/system/data-source"],
+    staleTime: 30000,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
-    staleTime: 10000,
   });
 
   const logoutMutation = useMutation({

@@ -76,6 +76,10 @@ Key architectural decisions include:
   - **React Query Settings**: `staleTime: 30000`, `refetchOnMount: false`, `refetchOnWindowFocus: false` prevent redundant refetches
   - **ProductionDataPoller Cache Warming**: Pre-warms `admin:community:content` cache with safety guards (3s timeout, <1000 item limit, empty-cache check)
   - **Response Times**: All admin endpoints respond in 3-6ms after cache warming
+- **Global App Query Optimization** (December 17, 2025):
+  - **Auth Check Query**: Added `staleTime: 30000`, `refetchOnWindowFocus: false` to prevent "Loading..." state on every page navigation while maintaining session security
+  - **Data Source Query**: Added `staleTime: 30000`, `refetchOnWindowFocus: false` to reduce unnecessary refetches
+  - **Impact**: Eliminates redundant auth check calls during intra-app navigation, improving perceived page load speed without compromising session validation
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
