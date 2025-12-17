@@ -1372,7 +1372,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
         // Apply hardware-based limits after loading from database
         const hwProfile = this.detectHardwareProfile();
         let needsPersist = false;
-        if (this.shardConfig.maxShards > hwProfile.maxShards) {
+        
+        // Fix: If maxShards is 0 or invalid, set to hardware-detected value
+        if (this.shardConfig.maxShards <= 0 || this.shardConfig.maxShards < this.shardConfig.minShards) {
+          console.log(`[Enterprise Node] 🔧 Setting maxShards from ${this.shardConfig.maxShards} to ${hwProfile.maxShards} (invalid or zero value)`);
+          this.shardConfig.maxShards = hwProfile.maxShards;
+          needsPersist = true;
+        } else if (this.shardConfig.maxShards > hwProfile.maxShards) {
           console.log(`[Enterprise Node] 🔧 Limiting maxShards from ${this.shardConfig.maxShards} to ${hwProfile.maxShards} (hardware constraint)`);
           this.shardConfig.maxShards = hwProfile.maxShards;
           needsPersist = true;
