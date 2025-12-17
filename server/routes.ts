@@ -882,6 +882,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/enterprise/bridge-defi/integration") ||
         req.path.startsWith("/enterprise/governance/overview") ||
         req.path.startsWith("/enterprise/admin/system-status") ||
+        req.path.startsWith("/enterprise/admin/sla") ||
         req.path.startsWith("/enterprise/operator/dashboard") ||
         req.path.startsWith("/enterprise/operator/session") ||
         req.path.startsWith("/enterprise/dashboard/unified") ||
