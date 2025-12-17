@@ -352,7 +352,7 @@ import {
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
-import { eq, desc, isNull, and, sql } from "drizzle-orm";
+import { eq, desc, isNull, and, sql, inArray } from "drizzle-orm";
 
 export interface IStorage {
   // Network Stats
@@ -491,6 +491,7 @@ export interface IStorage {
   
   // Member Profiles
   getMemberProfileByMemberId(memberId: string): Promise<MemberProfile | undefined>;
+  getMemberProfilesByIds(memberIds: string[]): Promise<MemberProfile[]>;
   createMemberProfile(data: InsertMemberProfile): Promise<MemberProfile>;
   updateMemberProfile(memberId: string, data: Partial<MemberProfile>): Promise<void>;
   
@@ -3335,6 +3336,11 @@ export class DbStorage implements IStorage {
   async getMemberProfileByMemberId(memberId: string): Promise<MemberProfile | undefined> {
     const result = await db.select().from(memberProfiles).where(eq(memberProfiles.memberId, memberId)).limit(1);
     return result[0];
+  }
+
+  async getMemberProfilesByIds(memberIds: string[]): Promise<MemberProfile[]> {
+    if (memberIds.length === 0) return [];
+    return db.select().from(memberProfiles).where(inArray(memberProfiles.memberId, memberIds));
   }
 
   async createMemberProfile(data: InsertMemberProfile): Promise<MemberProfile> {

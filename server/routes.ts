@@ -3991,12 +3991,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Member Management System API Endpoints
   // ============================================
   
-  // Get all members
+  // Get all members with profiles (optimized single query)
   app.get("/api/members", async (req, res) => {
     try {
       const cache = getDataCache();
       const limit = parseInt(req.query.limit as string) || 100;
-      const cacheKey = `members_list_${limit}`;
+      const cacheKey = `members_with_profiles_${limit}`;
       
       // Try cache first (30 second TTL)
       const cached = cache.get<any>(cacheKey);
@@ -4004,9 +4004,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.json(cached);
       }
       
-      const members = await storage.getAllMembers(limit);
-      cache.set(cacheKey, members, 30000);
-      res.json(members);
+      // Get all members
+      const membersList = await storage.getAllMembers(limit);
+      
+      // Batch fetch all profiles in one query for efficiency
+      const memberIds = membersList.map(m => m.id);
+      const allProfiles = await storage.getMemberProfilesByIds(memberIds);
+      
+      // Create a map for O(1) profile lookup
+      const profileMap = new Map(allProfiles.map(p => [p.memberId, p]));
+      
+      // Merge members with their profiles
+      const membersWithProfiles = membersList.map(member => ({
+        ...member,
+        profile: profileMap.get(member.id) || null
+      }));
+      
+      cache.set(cacheKey, membersWithProfiles, 30000);
+      res.json(membersWithProfiles);
     } catch (error) {
       console.error("Error fetching members:", error);
       res.status(500).json({ error: "Failed to fetch members" });
