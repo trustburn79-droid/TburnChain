@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { useWeb3 } from "@/lib/web3-context";
+import { WalletRequiredBanner } from "@/components/require-wallet";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -1255,6 +1257,7 @@ const defaultActivities: ActivityItem[] = [
 
 export default function WalletDashboard() {
   const { t } = useTranslation();
+  const { isConnected, address: connectedAddress, memberInfo, balance: web3Balance } = useWeb3();
   const [timeRange, setTimeRange] = useState<'1W' | '1M' | '1Y'>('1W');
   const [sendDialogOpen, setSendDialogOpen] = useState(false);
   const [receiveDialogOpen, setReceiveDialogOpen] = useState(false);
@@ -1267,18 +1270,24 @@ export default function WalletDashboard() {
   useEffect(() => {
     const storedWallets = getStoredWallets();
     setMyWallets(storedWallets);
-    if (storedWallets.length > 0 && !selectedWallet) {
+    // Prioritize connected wallet address
+    if (isConnected && connectedAddress) {
+      setSelectedWallet(connectedAddress);
+    } else if (storedWallets.length > 0 && !selectedWallet) {
       const urlParams = new URLSearchParams(window.location.search);
       const addressParam = urlParams.get('address');
       if (!addressParam) {
         setSelectedWallet(storedWallets[0].address);
       }
     }
-  }, []);
+  }, [isConnected, connectedAddress]);
   
   const urlParams = new URLSearchParams(window.location.search);
   const addressParam = urlParams.get('address');
-  const walletAddress = selectedWallet || addressParam || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+  // Use connected wallet address first, then fallback to URL param or stored wallet
+  const walletAddress = (isConnected && connectedAddress) 
+    ? connectedAddress 
+    : (selectedWallet || addressParam || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e");
   const addressQuery = walletAddress !== "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e" ? `?address=${walletAddress}` : '';
   
   const handleWalletCreated = (address: string) => {
@@ -1335,6 +1344,26 @@ export default function WalletDashboard() {
   const activities = activitiesResponse?.activities || defaultActivities;
   
   const displayBalance = walletBalance || defaultBalance;
+  
+  // Show wallet connection prompt if not connected
+  if (!isConnected) {
+    return (
+      <div className="flex flex-col gap-6 p-6 min-h-screen">
+        <div className="mb-2">
+          <h1 className="text-2xl font-bold" data-testid="text-page-title">
+            {t("walletDashboard.title", "Wallet Dashboard")}
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            {t("walletDashboard.subtitle", "Manage your TBURN tokens and track performance")}
+          </p>
+        </div>
+        <WalletRequiredBanner 
+          title={t("walletDashboard.connectWalletTitle", "Connect Your Wallet")}
+          description={t("walletDashboard.connectWalletDesc", "Connect your wallet to view your balance, transaction history, and manage your TBURN tokens")}
+        />
+      </div>
+    );
+  }
   
   return (
     <div className="flex flex-col gap-6 p-6 min-h-screen relative">
