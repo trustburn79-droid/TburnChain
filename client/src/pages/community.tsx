@@ -269,41 +269,62 @@ export default function Community() {
   const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<CommunityStats>({
     queryKey: ['/api/community/stats'],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Leaderboard Query
   const { data: leaderboard, isLoading: leaderboardLoading, refetch: refetchLeaderboard } = useQuery<LeaderboardMember[]>({
     queryKey: ['/api/community/leaderboard'],
     refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Forum Posts Query
   const { data: posts, isLoading: postsLoading, refetch: refetchPosts } = useQuery<ForumPost[]>({
     queryKey: ['/api/community/posts', selectedCategory],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Events Query
   const { data: events, isLoading: eventsLoading, refetch: refetchEvents } = useQuery<CommunityEvent[]>({
     queryKey: ['/api/community/events'],
     refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Announcements Query
   const { data: announcements, isLoading: announcementsLoading, refetch: refetchAnnouncements } = useQuery<Announcement[]>({
     queryKey: ['/api/community/announcements'],
     refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Activity Feed Query
   const { data: activities, isLoading: activitiesLoading, refetch: refetchActivities } = useQuery<ActivityItem[]>({
     queryKey: ['/api/community/activity'],
     refetchInterval: 10000,
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Badges Query
   const { data: badges, isLoading: badgesLoading, refetch: refetchBadges } = useQuery<UserBadge[]>({
     queryKey: ['/api/community/badges'],
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Create Post Mutation

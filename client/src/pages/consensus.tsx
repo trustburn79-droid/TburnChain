@@ -819,6 +819,9 @@ export default function Consensus() {
   const { data: consensusState, isLoading } = useQuery<ConsensusState>({
     queryKey: ["/api/consensus/current"],
     refetchInterval: 16, // Ultra-fast polling (~60fps) for 85-95% consensus rate
+    staleTime: 16,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useWebSocketChannel({
@@ -849,6 +852,9 @@ export default function Consensus() {
     queryKey: ["/api/consensus/rounds"],
     staleTime: 10000,
     gcTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 10000,
   });
 
   useWebSocketChannel({
@@ -873,6 +879,9 @@ export default function Consensus() {
     staleTime: 5000,
     gcTime: 15000,
     initialData: [],
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 5000,
   });
 
   useWebSocketChannel({
