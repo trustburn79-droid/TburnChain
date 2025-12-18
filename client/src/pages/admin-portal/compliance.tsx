@@ -119,6 +119,12 @@ export default function AdminCompliance() {
   const [showFrameworkDetail, setShowFrameworkDetail] = useState(false);
   const [selectedFramework, setSelectedFramework] = useState<Framework | null>(null);
   const [showAssessmentConfirm, setShowAssessmentConfirm] = useState(false);
+  const [showFindingDetail, setShowFindingDetail] = useState(false);
+  const [selectedFinding, setSelectedFinding] = useState<Finding | null>(null);
+  const [showAuditDetail, setShowAuditDetail] = useState(false);
+  const [selectedAudit, setSelectedAudit] = useState<AuditItem | null>(null);
+  const [showCertDetail, setShowCertDetail] = useState(false);
+  const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
 
   const { data, isLoading, error, refetch } = useQuery<ComplianceData>({
     queryKey: ["/api/admin/compliance"],
@@ -388,6 +394,114 @@ export default function AdminCompliance() {
       ],
     },
   ];
+
+  const getFindingDetailSections = (finding: Finding): DetailSection[] => [
+    {
+      title: t("adminCompliance.detail.findingInfo", "Finding Details"),
+      fields: [
+        { label: t("adminCompliance.findings.columns.category", "Category"), value: finding.category },
+        { label: t("adminCompliance.findings.columns.finding", "Description"), value: finding.finding },
+        {
+          label: t("adminCompliance.findings.columns.severity", "Severity"),
+          value: finding.severity.toUpperCase(),
+          type: "badge",
+          badgeColor: finding.severity === "high" ? "bg-red-500" : finding.severity === "medium" ? "bg-yellow-500" : "bg-blue-500",
+        },
+        {
+          label: t("adminCompliance.findings.columns.status", "Status"),
+          value: finding.status === "resolved" ? t("adminCompliance.findings.resolved", "Resolved") : 
+                 finding.status === "in_progress" ? t("adminCompliance.findings.inProgress", "In Progress") : 
+                 t("adminCompliance.findings.open", "Open"),
+          type: "badge",
+          badgeColor: finding.status === "resolved" ? "bg-green-500" : finding.status === "in_progress" ? "bg-blue-500" : "bg-gray-500",
+        },
+      ],
+    },
+    {
+      title: t("adminCompliance.detail.timeline", "Timeline"),
+      fields: [
+        { label: t("adminCompliance.findings.columns.dueDate", "Due Date"), value: finding.due, type: "date" },
+      ],
+    },
+  ];
+
+  const getAuditDetailSections = (audit: AuditItem): DetailSection[] => [
+    {
+      title: t("adminCompliance.detail.auditInfo", "Audit Information"),
+      fields: [
+        { label: t("adminCompliance.audits.columns.audit", "Audit Name"), value: audit.audit },
+        { label: t("adminCompliance.audits.columns.auditor", "Auditor"), value: audit.auditor },
+        {
+          label: t("adminCompliance.audits.columns.status", "Status"),
+          value: audit.status === "completed" ? t("adminCompliance.audits.completed", "Completed") : 
+                 audit.status === "scheduled" ? t("adminCompliance.audits.scheduled", "Scheduled") : 
+                 t("adminCompliance.audits.pending", "In Progress"),
+          type: "badge",
+          badgeColor: audit.status === "completed" ? "bg-green-500" : audit.status === "scheduled" ? "bg-blue-500" : "bg-yellow-500",
+        },
+      ],
+    },
+    {
+      title: t("adminCompliance.detail.schedule", "Schedule"),
+      fields: [
+        { label: t("adminCompliance.audits.columns.date", "Date"), value: audit.date, type: "date" },
+      ],
+    },
+  ];
+
+  const getCertDetailSections = (cert: Certification): DetailSection[] => {
+    const expiryDate = new Date(cert.validTo);
+    const now = new Date();
+    const daysUntilExpiry = Math.ceil((expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+    const isExpiringSoon = daysUntilExpiry <= 90 && daysUntilExpiry > 0;
+    const isExpired = daysUntilExpiry <= 0;
+
+    return [
+      {
+        title: t("adminCompliance.detail.certInfo", "Certification Details"),
+        fields: [
+          { label: t("adminCompliance.certifications.name", "Certification"), value: cert.name },
+          { label: t("adminCompliance.certifications.issuer", "Issuing Body"), value: cert.issuer },
+          {
+            label: t("common.status", "Status"),
+            value: isExpired ? t("adminCompliance.certifications.expired", "Expired") : 
+                   isExpiringSoon ? t("adminCompliance.certifications.expiringSoon", "Expiring Soon") : 
+                   t("adminCompliance.certifications.active", "Active"),
+            type: "badge",
+            badgeColor: isExpired ? "bg-red-500" : isExpiringSoon ? "bg-yellow-500" : "bg-green-500",
+          },
+        ],
+      },
+      {
+        title: t("adminCompliance.detail.validity", "Validity Period"),
+        fields: [
+          { label: t("adminCompliance.certifications.validFrom", "Valid From"), value: cert.validFrom, type: "date" },
+          { label: t("adminCompliance.certifications.validTo", "Valid To"), value: cert.validTo, type: "date" },
+          { label: t("adminCompliance.certifications.daysUntilExpiry", "Days Until Expiry"), value: isExpired ? t("adminCompliance.certifications.expired", "Expired") : `${daysUntilExpiry} ${t("common.days", "days")}` },
+        ],
+      },
+    ];
+  };
+
+  const getExpiringCertifications = useCallback(() => {
+    if (!data?.certifications) return [];
+    const now = new Date();
+    return data.certifications.filter(cert => {
+      const expiryDate = new Date(cert.validTo);
+      const daysUntilExpiry = Math.ceil((expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+      return daysUntilExpiry <= 90 && daysUntilExpiry > 0;
+    });
+  }, [data?.certifications]);
+
+  const getExpiredCertifications = useCallback(() => {
+    if (!data?.certifications) return [];
+    const now = new Date();
+    return data.certifications.filter(cert => {
+      const expiryDate = new Date(cert.validTo);
+      const daysUntilExpiry = Math.ceil((expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+      return daysUntilExpiry <= 0;
+    });
+  }, [data?.certifications]);
 
   const confirmAssessment = useCallback(() => {
     runAssessmentMutation.mutate();
@@ -671,7 +785,18 @@ export default function AdminCompliance() {
                           </TableCell>
                           <TableCell className="text-muted-foreground">{finding.due}</TableCell>
                           <TableCell>
-                            <Button size="sm" variant="ghost" data-testid={`button-manage-${finding.id}`}>{t("adminCompliance.findings.manage")}</Button>
+                            <Button 
+                              size="sm" 
+                              variant="ghost" 
+                              onClick={() => {
+                                setSelectedFinding(finding);
+                                setShowFindingDetail(true);
+                              }}
+                              data-testid={`button-manage-${finding.id}`}
+                            >
+                              <Eye className="w-4 h-4 mr-1" />
+                              {t("adminCompliance.findings.manage")}
+                            </Button>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -719,7 +844,18 @@ export default function AdminCompliance() {
                             </Badge>
                           </TableCell>
                           <TableCell>
-                            <Button size="sm" variant="ghost" data-testid={`button-prepare-${index}`}>{t("adminCompliance.audits.prepare")}</Button>
+                            <Button 
+                              size="sm" 
+                              variant="ghost"
+                              onClick={() => {
+                                setSelectedAudit(audit);
+                                setShowAuditDetail(true);
+                              }}
+                              data-testid={`button-prepare-${index}`}
+                            >
+                              <Eye className="w-4 h-4 mr-1" />
+                              {t("adminCompliance.audits.prepare")}
+                            </Button>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -933,42 +1069,80 @@ export default function AdminCompliance() {
                   </div>
                 ) : data?.certifications && data.certifications.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {data.certifications.map((cert, index) => (
-                      <div
-                        key={index}
-                        className="border rounded-lg p-4 hover-elevate"
-                        data-testid={`card-cert-${index}`}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                              <Award className="w-5 h-5 text-primary" />
+                    {data.certifications.map((cert, index) => {
+                      const expiryDate = new Date(cert.validTo);
+                      const now = new Date();
+                      const daysUntilExpiry = Math.ceil((expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+                      const isExpiringSoon = daysUntilExpiry <= 90 && daysUntilExpiry > 0;
+                      const isExpired = daysUntilExpiry <= 0;
+
+                      return (
+                        <div
+                          key={index}
+                          className={`border rounded-lg p-4 cursor-pointer transition-all hover:shadow-md ${
+                            isExpired ? 'border-red-500/50 bg-red-500/5' : 
+                            isExpiringSoon ? 'border-yellow-500/50 bg-yellow-500/5' : ''
+                          }`}
+                          onClick={() => {
+                            setSelectedCert(cert);
+                            setShowCertDetail(true);
+                          }}
+                          data-testid={`card-cert-${index}`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-3">
+                              <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                                isExpired ? 'bg-red-500/10' : 
+                                isExpiringSoon ? 'bg-yellow-500/10' : 'bg-primary/10'
+                              }`}>
+                                <Award className={`w-5 h-5 ${
+                                  isExpired ? 'text-red-500' : 
+                                  isExpiringSoon ? 'text-yellow-500' : 'text-primary'
+                                }`} />
+                              </div>
+                              <div>
+                                <h4 className="font-semibold">{cert.name}</h4>
+                                <p className="text-sm text-muted-foreground">{cert.issuer}</p>
+                              </div>
+                            </div>
+                            <Badge className={
+                              isExpired ? "bg-red-500" : 
+                              isExpiringSoon ? "bg-yellow-500" : 
+                              cert.status === "active" ? "bg-green-500" : "bg-gray-500"
+                            }>
+                              {isExpired ? (
+                                <><AlertTriangle className="w-3 h-3 mr-1" /> Expired</>
+                              ) : isExpiringSoon ? (
+                                <><Clock className="w-3 h-3 mr-1" /> Expiring Soon</>
+                              ) : cert.status === "active" ? (
+                                <><CheckCircle className="w-3 h-3 mr-1" /> Active</>
+                              ) : (
+                                <><Clock className="w-3 h-3 mr-1" /> Pending</>
+                              )}
+                            </Badge>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>
+                              <span className="text-muted-foreground">Valid From: </span>
+                              <span>{cert.validFrom}</span>
                             </div>
                             <div>
-                              <h4 className="font-semibold">{cert.name}</h4>
-                              <p className="text-sm text-muted-foreground">{cert.issuer}</p>
+                              <span className="text-muted-foreground">Expires: </span>
+                              <span className={isExpiringSoon || isExpired ? 'font-medium text-yellow-600' : ''}>
+                                {cert.validTo}
+                              </span>
                             </div>
                           </div>
-                          <Badge className={cert.status === "active" ? "bg-green-500" : "bg-yellow-500"}>
-                            {cert.status === "active" ? (
-                              <><CheckCircle className="w-3 h-3 mr-1" /> Active</>
-                            ) : (
-                              <><Clock className="w-3 h-3 mr-1" /> Pending</>
-                            )}
-                          </Badge>
+                          {(isExpiringSoon || isExpired) && (
+                            <div className={`mt-2 text-xs px-2 py-1 rounded ${
+                              isExpired ? 'bg-red-500/10 text-red-600' : 'bg-yellow-500/10 text-yellow-600'
+                            }`}>
+                              {isExpired ? 'Certificate has expired - Renewal required immediately' : `${daysUntilExpiry} days until expiration`}
+                            </div>
+                          )}
                         </div>
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div>
-                            <span className="text-muted-foreground">Valid From: </span>
-                            <span>{cert.validFrom}</span>
-                          </div>
-                          <div>
-                            <span className="text-muted-foreground">Expires: </span>
-                            <span>{cert.validTo}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="text-center py-8 text-muted-foreground">No certifications available</div>
@@ -1083,6 +1257,36 @@ export default function AdminCompliance() {
           title={selectedFramework.name}
           icon={<Shield className="h-5 w-5" />}
           sections={getFrameworkDetailSections(selectedFramework)}
+        />
+      )}
+
+      {selectedFinding && (
+        <DetailSheet
+          open={showFindingDetail}
+          onOpenChange={setShowFindingDetail}
+          title={`Finding #${selectedFinding.id}`}
+          icon={<AlertTriangle className="h-5 w-5" />}
+          sections={getFindingDetailSections(selectedFinding)}
+        />
+      )}
+
+      {selectedAudit && (
+        <DetailSheet
+          open={showAuditDetail}
+          onOpenChange={setShowAuditDetail}
+          title={selectedAudit.audit}
+          icon={<Calendar className="h-5 w-5" />}
+          sections={getAuditDetailSections(selectedAudit)}
+        />
+      )}
+
+      {selectedCert && (
+        <DetailSheet
+          open={showCertDetail}
+          onOpenChange={setShowCertDetail}
+          title={selectedCert.name}
+          icon={<Award className="h-5 w-5" />}
+          sections={getCertDetailSections(selectedCert)}
         />
       )}
 
