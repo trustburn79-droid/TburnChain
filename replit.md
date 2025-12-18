@@ -25,6 +25,7 @@ Core architectural decisions and features include:
 - **Cross-Shard Performance Optimizations**: Achieved through 30-second TTL shard caching, batch message insertion, O(1) shard pair selection, and priority queue routing.
 - **Production Launch Validation System**: RPC endpoint validation with 13 Zod Schemas and a `withValidation` wrapper applied to 16 required endpoints.
 - **Public API & Admin Page Performance Optimization**: Utilizes shared formatters, cache warming via `ProductionDataPoller`, backend caching (30-second TTL), and optimized React Query settings for sub-second response times and efficient data fetching across all dashboards, including network operations, AI management, global app queries, DeFi pages, bridge, operations, user management, governance, developer tools, monitoring, finance, and support.
+- **Public App Page React Query Optimization**: All 12 public app pages (/app, /app/blocks, /app/transactions, /app/wallets, /app/wallet-dashboard, /app/token-system, /app/bridge, /app/governance, /app/burn, /app/staking, /app/staking/rewards, /app/staking/sdk) are optimized with `staleTime` matching `refetchInterval`, `refetchOnMount: false`, and `refetchOnWindowFocus: false` for instant navigation and reduced API calls. TTLs range from 5s (real-time transfers) to 60s (slow-changing configs).
 - **Health and Security Dashboards**: Dynamically calculate health and security scores based on live enterprise node and AI service data.
 
 ## External Dependencies
