@@ -80,6 +80,10 @@ export default function AlertRules() {
 
   const { data: alertData, isLoading, error, refetch } = useQuery<AlertRulesData>({
     queryKey: ["/api/enterprise/admin/alerts/rules"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const createRuleMutation = useMutation({

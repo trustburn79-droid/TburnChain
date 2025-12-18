@@ -173,6 +173,10 @@ export default function DashboardBuilder() {
 
   const { data: dashboardsData, isLoading, error, refetch } = useQuery<DashboardsData>({
     queryKey: ["/api/enterprise/admin/dashboards"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

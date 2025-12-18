@@ -64,6 +64,10 @@ export default function SLAMonitoring() {
 
   const { data: slaData, isLoading, error, refetch } = useQuery<SLAData>({
     queryKey: ["/api/enterprise/admin/sla"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const handleRefresh = useCallback(() => {

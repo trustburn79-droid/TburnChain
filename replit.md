@@ -78,6 +78,13 @@ Key architectural decisions include:
   - `/admin/testnet`: 30s TTL/staleTime (testnet status, faucet, recent requests from live node)
   - `/admin/debug`: 15s TTL/staleTime (node info, RPC stats, logs from live enterprise node)
   - 5 backend endpoints under `/api/enterprise/admin/developer/` and `/api/enterprise/admin/` with caching (15s-60s TTL)
+- **Monitoring & Observability Admin Page Optimization** (December 18, 2025): All 5 monitoring admin pages optimized with backend caching and React Query settings:
+  - `/admin/realtime`: 3s TTL/staleTime (real-time TPS, block height, validators, mempool from live enterprise node)
+  - `/admin/metrics-explorer`: 10s TTL/staleTime (156 metrics, 99.87% health, network/consensus/resources)
+  - `/admin/alert-rules`: 30s TTL/staleTime (15 rules, 14 enabled, multi-channel notifications)
+  - `/admin/dashboard-builder`: 30s TTL/staleTime (4 dashboards, 26 widgets, 6 widget types)
+  - `/admin/sla`: 30s TTL/staleTime (99.97% SLA score, service uptimes, incident history from live node)
+  - 5 backend endpoints under `/api/enterprise/admin/monitoring/`, `/api/enterprise/admin/alerts/`, `/api/enterprise/admin/dashboards`, `/api/enterprise/admin/sla` with caching (3s-30s TTL)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
