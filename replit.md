@@ -28,6 +28,13 @@ Key architectural decisions include:
 - **Production Launch Validation System**: RPC endpoint validation with 13 Zod Schemas and a `withValidation` wrapper applied to 16 required endpoints for automatic schema validation and logging.
 - **Public API Performance Optimization**: Uses shared formatters, cache warming via `ProductionDataPoller`, 30-second TTL backend caching, and optimized React Query settings for sub-second response times.
 - **Admin Page Performance Optimization**: Implements `ProductionDataPoller` for cache warming and optimized React Query settings (e.g., `staleTime: 30000`, `refetchOnMount: false`) for pages like `/admin/community-content`, `/admin/newsletter`, `/admin/ai-training`, `/admin/ai-tuning`, `/admin/ai-analytics`, and `/admin/ai`.
+- **Network Operations Admin Page Optimization** (December 18, 2025): All 6 network admin pages optimized with backend caching and React Query settings:
+  - `/admin/nodes`: 10s TTL, staleTime: 10000 (24 nodes, 23 online)
+  - `/admin/validators`: 30s TTL, staleTime: 30000 (125 validators, 121 active)
+  - `/admin/consensus`: 30s TTL, staleTime: 2000 with 2s refetchInterval (99.95% consensus rate)
+  - `/admin/shards`: 5s TTL (real-time), 10s TTL for config (5 shards, 49K TPS)
+  - `/admin/network-params`: 30s TTL, staleTime: 30000 (500ms block time, 110 committee size)
+  - `/admin/members`: Already optimized with 30s staleTime
 - **AI Management Endpoints** (December 18, 2025): All 4 AI admin endpoints (`/api/admin/ai/status`, `/api/admin/ai/analytics`, `/api/admin/ai/training`, `/api/admin/ai/params`) use 30s TTL caching, derive metrics from live AI service stats, and support the Quad-Band AI System (4 providers: Gemini, Claude, GPT-4o, Grok). Provider status (operational/standby/offline) is determined dynamically based on API availability and request history.
 - **Global App Query Optimization**: Optimized `auth` and `dataSource` queries with `staleTime` and `refetchOnWindowFocus: false` to improve perceived page load speed.
 - **DeFi Pages Performance Optimization**: Aggressive `refetchInterval` on DeFi pages (e.g., dex.tsx, yield-farming.tsx) is balanced with `staleTime` and `refetchOnMount: false` for instant navigation.
