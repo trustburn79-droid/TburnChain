@@ -151,6 +151,9 @@ export default function AdminNodes() {
 
   const { data: nodesData, isLoading, error, refetch } = useQuery<NodesResponse>({
     queryKey: ["/api/admin/nodes"],
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 10000,
   });
 

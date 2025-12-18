@@ -168,6 +168,9 @@ export default function AdminValidators() {
 
   const { data: validatorsData, isLoading, error, refetch } = useQuery<ValidatorsResponse>({
     queryKey: ["/api/validators"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 

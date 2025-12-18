@@ -177,16 +177,25 @@ export default function AdminShards() {
 
   const { data: shardingData, isLoading, error, refetch } = useQuery<ShardingResponse>({
     queryKey: ["/api/sharding"],
+    staleTime: 5000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 5000,
   });
 
   const { data: shardConfig, isLoading: isConfigLoading } = useQuery<ShardConfig>({
     queryKey: ["/api/admin/shards/config"],
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 10000,
   });
 
   const { data: shardPreview, isLoading: isPreviewLoading } = useQuery<ShardPreview>({
     queryKey: ["/api/admin/shards/preview", selectedShardCount],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     enabled: selectedShardCount !== null && selectedShardCount !== shardConfig?.currentShardCount,
   });
 

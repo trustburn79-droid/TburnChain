@@ -3855,6 +3855,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/validators", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'validators_list';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
       // Use TBurnEnterpriseNode for real validator data (no Math.random)
       const enterpriseNode = getEnterpriseNode();
       const validators = enterpriseNode.getValidators();
@@ -3865,7 +3870,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const totalStake = validators.reduce((sum, v) => sum + Number(v.stake), 0);
       const totalDelegators = validators.reduce((sum, v) => sum + v.delegators, 0);
       
-      res.json({
+      const result = {
         validators,
         total: validators.length,
         active,
@@ -3873,7 +3878,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         jailed,
         totalStake,
         totalDelegators
-      });
+      };
+      cache.set(cacheKey, result, 30000); // 30s TTL
+      res.json(result);
     } catch (error) {
       console.error("Error fetching validators:", error);
       res.status(500).json({ error: "Failed to fetch validators" });
@@ -7709,6 +7716,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get("/api/admin/nodes", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'admin_nodes';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
       // Use TBurnEnterpriseNode for real node data (no Math.random)
       const enterpriseNode = getEnterpriseNode();
       const nodes = enterpriseNode.getNodes();
@@ -7717,7 +7729,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const offline = nodes.filter(n => n.status === 'offline').length;
       const syncing = nodes.filter(n => n.status === 'syncing').length;
       
-      res.json({ nodes, total: nodes.length, online, offline, syncing });
+      const result = { nodes, total: nodes.length, online, offline, syncing };
+      cache.set(cacheKey, result, 10000); // 10s TTL for fast updates
+      res.json(result);
     } catch (error) {
       console.error('[Admin Nodes] Failed to fetch nodes:', error);
       res.status(500).json({ error: "Failed to fetch nodes" });
@@ -7727,18 +7741,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Sharding API - Dynamic shard configuration from TBurnEnterpriseNode
   app.get("/api/sharding", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'sharding_data';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
       // Fetch dynamic shards from TBurnEnterpriseNode
       const shardResponse = await fetch('http://localhost:8545/api/shards');
       const enterpriseShards = await shardResponse.json();
       
-      // Transform to expected format
-      const shards = enterpriseShards.map((s: any) => ({
+      // Transform to expected format with stable pendingTx values
+      const shards = enterpriseShards.map((s: any, idx: number) => ({
         id: s.shardId,
         name: s.name,
         validators: s.validatorCount,
         tps: s.tps,
         load: s.load,
-        pendingTx: Math.floor(Math.random() * 500),
+        pendingTx: 50 + idx * 25, // Stable values instead of random
         crossShardTx: s.crossShardTxCount,
         status: s.load > 70 ? 'warning' : 'healthy' as "healthy" | "warning" | "critical",
         rebalanceScore: s.mlOptimizationScore ? Math.floor(s.mlOptimizationScore / 100) : 85
@@ -7749,16 +7768,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const totalValidators = shards.reduce((sum: number, s: any) => sum + s.validators, 0);
       const healthyShards = shards.filter((s: any) => s.status === 'healthy').length;
       
-      // Generate dynamic load history based on shard count
+      // Generate stable load history based on shard count
       const loadHistory = Array.from({ length: 6 }, (_, i) => {
         const historyPoint: any = { time: `${String(i * 4).padStart(2, '0')}:00` };
         shards.slice(0, 4).forEach((s: any, idx: number) => {
-          historyPoint[`shard${idx}`] = 40 + Math.floor(Math.random() * 40);
+          historyPoint[`shard${idx}`] = 45 + (idx * 5) + (i * 2);
         });
         return historyPoint;
       });
       
-      res.json({
+      const result = {
         shards,
         stats: {
           totalShards: shards.length,
@@ -7769,7 +7788,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           pendingRebalance: shards.filter((s: any) => s.rebalanceScore < 80).length
         },
         loadHistory
-      });
+      };
+      cache.set(cacheKey, result, 5000); // 5s TTL for real-time sharding updates
+      res.json(result);
     } catch (error) {
       console.error('Failed to fetch sharding data:', error);
       res.status(500).json({ error: "Failed to fetch sharding data" });
@@ -7787,8 +7808,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get current shard configuration
   app.get("/api/admin/shards/config", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'shards_config';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
       const response = await fetch('http://localhost:8545/api/admin/shards/config');
       const config = await response.json();
+      cache.set(cacheKey, config, 10000); // 10s TTL for config updates
       res.json(config);
     } catch (error) {
       console.error('Failed to fetch shard config:', error);
@@ -7993,14 +8020,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Network Parameters - uses TBurnEnterpriseNode for real configuration
   app.get("/api/admin/network/params", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cacheKey = 'network_params';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
       // Use TBurnEnterpriseNode for real network parameters (no hardcoded values)
       const enterpriseNode = getEnterpriseNode();
       const params = enterpriseNode.getNetworkParams();
       
-      res.json({
+      const result = {
         ...params,
         lastUpdated: new Date().toISOString()
-      });
+      };
+      cache.set(cacheKey, result, 30000); // 30s TTL
+      res.json(result);
     } catch (error) {
       console.error('[Admin Network Params] Failed to fetch:', error);
       res.status(500).json({ error: "Failed to fetch network parameters" });

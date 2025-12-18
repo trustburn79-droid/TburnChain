@@ -118,6 +118,10 @@ export default function AdminNetworkParams() {
 
   const { data: paramsData, isLoading, error, refetch } = useQuery<NetworkParamsResponse>({
     queryKey: ["/api/admin/network/params"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: 30000,
   });
 
   const saveMutation = useMutation({

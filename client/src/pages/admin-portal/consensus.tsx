@@ -106,6 +106,9 @@ export default function AdminConsensus() {
 
   const { data: consensusData, isLoading, error, refetch } = useQuery<ConsensusResponse>({
     queryKey: ["/api/consensus/current"],
+    staleTime: 2000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 2000,
   });
 
