@@ -17,68 +17,77 @@ import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { LogOut, Loader2 } from "lucide-react";
 import '@/lib/i18n';
+import { lazy, Suspense } from "react";
 
 import { PublicRouter } from "./public/PublicRouter";
 
-import Dashboard from "@/pages/dashboard";
-import Blocks from "@/pages/blocks";
-import BlockDetail from "@/pages/block-detail";
-import Transactions from "@/pages/transactions";
-import TransactionDetail from "@/pages/transaction-detail";
-import Validators from "@/pages/validators";
-import ValidatorDetail from "@/pages/validator-detail";
-import AIOrchestration from "@/pages/ai-orchestration";
-import Sharding from "@/pages/sharding";
-import CrossShard from "@/pages/cross-shard";
-import Wallets from "@/pages/wallets";
-import WalletDetail from "@/pages/wallet-detail";
-import WalletDashboard from "@/pages/wallet-dashboard";
-import SmartContracts from "@/pages/smart-contracts";
-import NodeHealth from "@/pages/node-health";
-import PerformanceMetrics from "@/pages/performance-metrics";
-import Consensus from "@/pages/consensus";
-import TransactionSimulator from "@/pages/transaction-simulator";
-import ApiKeys from "@/pages/api-keys";
-import AdminPage from "@/pages/admin";
-import Members from "@/pages/members";
-import MemberDetail from "@/pages/member-detail";
-import NotFound from "@/pages/not-found";
+const Dashboard = lazy(() => import("@/pages/dashboard"));
+const Blocks = lazy(() => import("@/pages/blocks"));
+const BlockDetail = lazy(() => import("@/pages/block-detail"));
+const Transactions = lazy(() => import("@/pages/transactions"));
+const TransactionDetail = lazy(() => import("@/pages/transaction-detail"));
+const Validators = lazy(() => import("@/pages/validators"));
+const ValidatorDetail = lazy(() => import("@/pages/validator-detail"));
+const AIOrchestration = lazy(() => import("@/pages/ai-orchestration"));
+const Sharding = lazy(() => import("@/pages/sharding"));
+const CrossShard = lazy(() => import("@/pages/cross-shard"));
+const Wallets = lazy(() => import("@/pages/wallets"));
+const WalletDetail = lazy(() => import("@/pages/wallet-detail"));
+const WalletDashboard = lazy(() => import("@/pages/wallet-dashboard"));
+const SmartContracts = lazy(() => import("@/pages/smart-contracts"));
+const NodeHealth = lazy(() => import("@/pages/node-health"));
+const PerformanceMetrics = lazy(() => import("@/pages/performance-metrics"));
+const Consensus = lazy(() => import("@/pages/consensus"));
+const TransactionSimulator = lazy(() => import("@/pages/transaction-simulator"));
+const ApiKeys = lazy(() => import("@/pages/api-keys"));
+const AdminPage = lazy(() => import("@/pages/admin"));
+const Members = lazy(() => import("@/pages/members"));
+const MemberDetail = lazy(() => import("@/pages/member-detail"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 import Login from "@/pages/login";
 import Signup from "@/pages/signup";
 
-import TokenSystem from "@/pages/token-system";
-import Bridge from "@/pages/bridge";
-import Governance from "@/pages/governance";
-import BurnDashboard from "@/pages/burn";
+const TokenSystem = lazy(() => import("@/pages/token-system"));
+const Bridge = lazy(() => import("@/pages/bridge"));
+const Governance = lazy(() => import("@/pages/governance"));
+const BurnDashboard = lazy(() => import("@/pages/burn"));
 
-import StakingDashboard from "@/pages/staking";
-import StakingPoolDetail from "@/pages/staking-pool-detail";
-import StakingRewards from "@/pages/staking-rewards";
-import StakingSDK from "@/pages/staking-sdk";
+const StakingDashboard = lazy(() => import("@/pages/staking"));
+const StakingPoolDetail = lazy(() => import("@/pages/staking-pool-detail"));
+const StakingRewards = lazy(() => import("@/pages/staking-rewards"));
+const StakingSDK = lazy(() => import("@/pages/staking-sdk"));
 
-import DexPage from "@/pages/dex";
-import LendingPage from "@/pages/lending";
-import YieldFarmingPage from "@/pages/yield-farming";
-import LiquidStakingPage from "@/pages/liquid-staking";
-import NftMarketplacePage from "@/pages/nft-marketplace";
-import NftLaunchpadPage from "@/pages/nft-launchpad";
-import GameFiPage from "@/pages/gamefi";
-import CommunityPage from "@/pages/community";
-import SearchResults from "@/pages/search-results";
-import TokenomicsSimulation from "@/pages/tokenomics-simulation";
-import VCTestMode from "@/pages/vc-test-mode";
-import VCLayout from "@/public/components/VCLayout";
+const DexPage = lazy(() => import("@/pages/dex"));
+const LendingPage = lazy(() => import("@/pages/lending"));
+const YieldFarmingPage = lazy(() => import("@/pages/yield-farming"));
+const LiquidStakingPage = lazy(() => import("@/pages/liquid-staking"));
+const NftMarketplacePage = lazy(() => import("@/pages/nft-marketplace"));
+const NftLaunchpadPage = lazy(() => import("@/pages/nft-launchpad"));
+const GameFiPage = lazy(() => import("@/pages/gamefi"));
+const CommunityPage = lazy(() => import("@/pages/community"));
+const SearchResults = lazy(() => import("@/pages/search-results"));
+const TokenomicsSimulation = lazy(() => import("@/pages/tokenomics-simulation"));
+const VCTestMode = lazy(() => import("@/pages/vc-test-mode"));
+const VCLayout = lazy(() => import("@/public/components/VCLayout"));
 
-import OperatorDashboard from "@/pages/operator/dashboard";
-import OperatorMembers from "@/pages/operator/members";
-import OperatorValidators from "@/pages/operator/validators";
-import OperatorSecurity from "@/pages/operator/security";
-import OperatorReports from "@/pages/operator/reports";
-import OperatorStaking from "@/pages/operator/staking";
+const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
+const OperatorMembers = lazy(() => import("@/pages/operator/members"));
+const OperatorValidators = lazy(() => import("@/pages/operator/validators"));
+const OperatorSecurity = lazy(() => import("@/pages/operator/security"));
+const OperatorReports = lazy(() => import("@/pages/operator/reports"));
+const OperatorStaking = lazy(() => import("@/pages/operator/staking"));
 
 import { AdminPortalLayout } from "@/components/admin-portal-layout";
+
+function PageLoading() {
+  return (
+    <div className="flex items-center justify-center min-h-[400px]">
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    </div>
+  );
+}
 
 function ProtectedOperatorDashboard() {
   return <OperatorAuthGuard><OperatorDashboard /></OperatorAuthGuard>;
@@ -101,53 +110,55 @@ function ProtectedOperatorStaking() {
 
 function AppRouter() {
   return (
-    <Switch>
-      <Route path="/app" component={Dashboard} />
-      <Route path="/app/blocks" component={Blocks} />
-      <Route path="/app/blocks/:blockNumber" component={BlockDetail} />
-      <Route path="/app/transactions" component={Transactions} />
-      <Route path="/app/transactions/:hash" component={TransactionDetail} />
-      <Route path="/app/simulator" component={TransactionSimulator} />
-      <Route path="/app/validator/:address" component={ValidatorDetail} />
-      <Route path="/app/ai" component={AIOrchestration} />
-      <Route path="/app/sharding" component={Sharding} />
-      <Route path="/app/cross-shard" component={CrossShard} />
-      <Route path="/app/wallets" component={Wallets} />
-      <Route path="/app/wallets/:address" component={WalletDetail} />
-      <Route path="/app/wallet-dashboard" component={WalletDashboard} />
-      <Route path="/app/token-system" component={TokenSystem} />
-      <Route path="/app/bridge" component={Bridge} />
-      <Route path="/app/governance" component={Governance} />
-      <Route path="/app/burn" component={BurnDashboard} />
-      <Route path="/app/staking" component={StakingDashboard} />
-      <Route path="/app/staking/pool/:id" component={StakingPoolDetail} />
-      <Route path="/app/staking/rewards" component={StakingRewards} />
-      <Route path="/app/staking/sdk" component={StakingSDK} />
-      <Route path="/app/dex" component={DexPage} />
-      <Route path="/app/lending" component={LendingPage} />
-      <Route path="/app/yield-farming" component={YieldFarmingPage} />
-      <Route path="/app/liquid-staking" component={LiquidStakingPage} />
-      <Route path="/app/nft-marketplace" component={NftMarketplacePage} />
-      <Route path="/app/nft-launchpad" component={NftLaunchpadPage} />
-      <Route path="/app/gamefi" component={GameFiPage} />
-      <Route path="/app/community" component={CommunityPage} />
-      <Route path="/app/tokenomics" component={TokenomicsSimulation} />
-      <Route path="/app/search" component={SearchResults} />
-      <Route path="/app/address/:address" component={WalletDetail} />
-      <Route path="/app/contracts" component={SmartContracts} />
-      <Route path="/app/health" component={NodeHealth} />
-      <Route path="/app/metrics" component={PerformanceMetrics} />
-      <Route path="/app/consensus" component={Consensus} />
-      <Route path="/app/api-keys" component={ApiKeys} />
-      <Route path="/app/admin" component={AdminPage} />
-      <Route path="/app/operator" component={ProtectedOperatorDashboard} />
-      <Route path="/app/operator/members" component={ProtectedOperatorMembers} />
-      <Route path="/app/operator/validators" component={ProtectedOperatorValidators} />
-      <Route path="/app/operator/security" component={ProtectedOperatorSecurity} />
-      <Route path="/app/operator/reports" component={ProtectedOperatorReports} />
-      <Route path="/app/operator/staking" component={ProtectedOperatorStaking} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<PageLoading />}>
+      <Switch>
+        <Route path="/app" component={Dashboard} />
+        <Route path="/app/blocks" component={Blocks} />
+        <Route path="/app/blocks/:blockNumber" component={BlockDetail} />
+        <Route path="/app/transactions" component={Transactions} />
+        <Route path="/app/transactions/:hash" component={TransactionDetail} />
+        <Route path="/app/simulator" component={TransactionSimulator} />
+        <Route path="/app/validator/:address" component={ValidatorDetail} />
+        <Route path="/app/ai" component={AIOrchestration} />
+        <Route path="/app/sharding" component={Sharding} />
+        <Route path="/app/cross-shard" component={CrossShard} />
+        <Route path="/app/wallets" component={Wallets} />
+        <Route path="/app/wallets/:address" component={WalletDetail} />
+        <Route path="/app/wallet-dashboard" component={WalletDashboard} />
+        <Route path="/app/token-system" component={TokenSystem} />
+        <Route path="/app/bridge" component={Bridge} />
+        <Route path="/app/governance" component={Governance} />
+        <Route path="/app/burn" component={BurnDashboard} />
+        <Route path="/app/staking" component={StakingDashboard} />
+        <Route path="/app/staking/pool/:id" component={StakingPoolDetail} />
+        <Route path="/app/staking/rewards" component={StakingRewards} />
+        <Route path="/app/staking/sdk" component={StakingSDK} />
+        <Route path="/app/dex" component={DexPage} />
+        <Route path="/app/lending" component={LendingPage} />
+        <Route path="/app/yield-farming" component={YieldFarmingPage} />
+        <Route path="/app/liquid-staking" component={LiquidStakingPage} />
+        <Route path="/app/nft-marketplace" component={NftMarketplacePage} />
+        <Route path="/app/nft-launchpad" component={NftLaunchpadPage} />
+        <Route path="/app/gamefi" component={GameFiPage} />
+        <Route path="/app/community" component={CommunityPage} />
+        <Route path="/app/tokenomics" component={TokenomicsSimulation} />
+        <Route path="/app/search" component={SearchResults} />
+        <Route path="/app/address/:address" component={WalletDetail} />
+        <Route path="/app/contracts" component={SmartContracts} />
+        <Route path="/app/health" component={NodeHealth} />
+        <Route path="/app/metrics" component={PerformanceMetrics} />
+        <Route path="/app/consensus" component={Consensus} />
+        <Route path="/app/api-keys" component={ApiKeys} />
+        <Route path="/app/admin" component={AdminPage} />
+        <Route path="/app/operator" component={ProtectedOperatorDashboard} />
+        <Route path="/app/operator/members" component={ProtectedOperatorMembers} />
+        <Route path="/app/operator/validators" component={ProtectedOperatorValidators} />
+        <Route path="/app/operator/security" component={ProtectedOperatorSecurity} />
+        <Route path="/app/operator/reports" component={ProtectedOperatorReports} />
+        <Route path="/app/operator/staking" component={ProtectedOperatorStaking} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 
@@ -275,9 +286,11 @@ function RootRouter() {
   if (location === "/vc" || location.startsWith("/vc-test")) {
     return (
       <ThemeProvider defaultTheme="dark">
-        <VCLayout>
-          <VCTestMode />
-        </VCLayout>
+        <Suspense fallback={<PageLoading />}>
+          <VCLayout>
+            <VCTestMode />
+          </VCLayout>
+        </Suspense>
       </ThemeProvider>
     );
   }
