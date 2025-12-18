@@ -113,7 +113,7 @@ export function PublicRouter() {
           <Route path="/learn/what-is-burn-chain" component={WhatIsBurnChain} />
           <Route path="/learn/trust-score" component={TrustScoreSystem} />
           <Route path="/learn/wallet" component={WhatIsWallet} />
-          <Route path="/learn/wallet-guides/:wallet" component={WalletGuide} />
+          <Route path="/learn/wallet-guides/:wallet">{(params) => <WalletGuide key={params.wallet} />}</Route>
           <Route path="/learn/education" component={Universities} />
           <Route path="/learn/whitepaper" component={Whitepaper} />
           <Route path="/learn/tokenomics" component={Tokenomics} />
@@ -170,11 +170,11 @@ export function PublicRouter() {
           <Route path="/network/ramp" component={Ramp} />
           
           {/* Community Routes */}
-          <Route path="/community/news/:slug" component={NewsDetail} />
+          <Route path="/community/news/:slug">{(params) => <NewsDetail key={params.slug} />}</Route>
           <Route path="/community/news" component={NewsBlog} />
-          <Route path="/community/events/:id" component={EventDetail} />
+          <Route path="/community/events/:id">{(params) => <EventDetail key={params.id} />}</Route>
           <Route path="/community/events" component={Events} />
-          <Route path="/community/hub/post/:id" component={PostDetail} />
+          <Route path="/community/hub/post/:id">{(params) => <PostDetail key={params.id} />}</Route>
           <Route path="/community/hub" component={CommunityHub} />
           
           {/* Legal Routes */}
@@ -184,12 +184,12 @@ export function PublicRouter() {
           
           {/* TBURNScan Explorer Routes - specific paths BEFORE base /scan */}
           <Route path="/scan/blocks" component={BlocksList} />
-          <Route path="/scan/block/:blockNumber" component={BlockDetail} />
+          <Route path="/scan/block/:blockNumber">{(params) => <BlockDetail key={params.blockNumber} />}</Route>
           <Route path="/scan/txs" component={TransactionsList} />
-          <Route path="/scan/tx/:hash" component={TransactionDetail} />
-          <Route path="/scan/address/:address" component={AddressDetail} />
+          <Route path="/scan/tx/:hash">{(params) => <TransactionDetail key={params.hash} />}</Route>
+          <Route path="/scan/address/:address">{(params) => <AddressDetail key={params.address} />}</Route>
           <Route path="/scan/validators" component={ValidatorsList} />
-          <Route path="/scan/token/:address" component={TokenDetail} />
+          <Route path="/scan/token/:address">{(params) => <TokenDetail key={params.address} />}</Route>
           <Route path="/scan/tokens" component={TokensList} />
           <Route path="/scan/stats" component={NetworkStats} />
           <Route path="/scan/search" component={ScanSearchResults} />
@@ -197,10 +197,10 @@ export function PublicRouter() {
           
           {/* Testnet TBURNScan Explorer Routes */}
           <Route path="/testnet-scan/blocks" component={TestnetBlocksList} />
-          <Route path="/testnet-scan/block/:blockNumber" component={TestnetBlockDetail} />
+          <Route path="/testnet-scan/block/:blockNumber">{(params) => <TestnetBlockDetail key={params.blockNumber} />}</Route>
           <Route path="/testnet-scan/txs" component={TestnetTransactionsList} />
-          <Route path="/testnet-scan/tx/:hash" component={TestnetTransactionDetail} />
-          <Route path="/testnet-scan/address/:address" component={TestnetAddressDetail} />
+          <Route path="/testnet-scan/tx/:hash">{(params) => <TestnetTransactionDetail key={params.hash} />}</Route>
+          <Route path="/testnet-scan/address/:address">{(params) => <TestnetAddressDetail key={params.address} />}</Route>
           <Route path="/testnet-scan/validators" component={TestnetValidatorsList} />
           <Route path="/testnet-scan/tokens" component={TestnetTokensList} />
           <Route path="/testnet-scan/stats" component={TestnetNetworkStats} />
