@@ -111,6 +111,9 @@ export default function AdminLogs() {
   const { data: apiResponse, isLoading: loadingLogs, error: logsError, refetch: refetchLogs } = useQuery<{ success: boolean; data: { logs: LogEntry[] } }>({
     queryKey: ["/api/enterprise/admin/operations/logs"],
     refetchInterval: isPaused ? false : 3000,
+    staleTime: 3000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const logsData = apiResponse?.data;

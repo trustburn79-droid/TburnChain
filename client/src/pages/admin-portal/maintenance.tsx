@@ -68,6 +68,9 @@ export default function AdminMaintenance() {
   const { data: apiResponse, isLoading, error, refetch } = useQuery<{ success: boolean; data: MaintenanceData }>({
     queryKey: ["/api/enterprise/admin/operations/maintenance"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const maintenanceData = apiResponse?.data;

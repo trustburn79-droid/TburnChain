@@ -66,6 +66,9 @@ export default function AdminBackup() {
   const { data: apiResponse, isLoading, error, refetch } = useQuery<{ success: boolean; data: BackupData }>({
     queryKey: ["/api/enterprise/admin/operations/backups"],
     refetchInterval: 10000,
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const backupData = apiResponse?.data;

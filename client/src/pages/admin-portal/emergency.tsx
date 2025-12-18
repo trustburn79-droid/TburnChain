@@ -82,6 +82,9 @@ export default function AdminEmergency() {
   const { data: apiResponse, isLoading, error, refetch } = useQuery<{ success: boolean; data: EmergencyData }>({
     queryKey: ["/api/enterprise/admin/operations/emergency"],
     refetchInterval: 5000,
+    staleTime: 5000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const emergencyData = apiResponse?.data;

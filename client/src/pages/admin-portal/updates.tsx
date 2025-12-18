@@ -68,6 +68,9 @@ export default function AdminUpdates() {
   const { data: apiResponse, isLoading, error, refetch } = useQuery<{ success: boolean; data: UpdateData }>({
     queryKey: ["/api/enterprise/admin/operations/updates"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const updateData = apiResponse?.data;

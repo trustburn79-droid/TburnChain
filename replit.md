@@ -52,6 +52,13 @@ Key architectural decisions include:
   - `/admin/chain-connections`: 15s chains TTL, 30s stats TTL (5 chains connected)
   - `/admin/bridge-liquidity`: 15-60s TTL across pools/stats/history/alerts ($568.5M total locked, 59% utilization)
   - 13 total bridge endpoints cached with varying TTLs based on data freshness requirements
+- **Operations Management Admin Page Optimization** (December 18, 2025): All 5 operations admin pages optimized with backend caching and React Query settings:
+  - `/admin/emergency`: 5s TTL/staleTime for real-time monitoring, system status from live enterprise node
+  - `/admin/maintenance`: 30s TTL/staleTime for maintenance windows and scheduling
+  - `/admin/backup`: 10s TTL/staleTime for backup stats, jobs, and history
+  - `/admin/updates`: 30s TTL/staleTime for version info and update history
+  - `/admin/logs`: 3s TTL/staleTime for real-time log streaming with pause/resume support
+  - 5 backend endpoints under `/api/enterprise/admin/operations/` with TTLs based on data freshness (3s-30s)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
