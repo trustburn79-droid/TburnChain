@@ -864,7 +864,7 @@ export default function Consensus() {
     updateMode: "replace",
   });
 
-  const votingActivitySchema = z.array(z.object({
+  const votingActivitySchema = useMemo(() => z.array(z.object({
     blockHeight: z.number(),
     proposer: z.string(),
     prevotes: z.number(),
@@ -872,7 +872,7 @@ export default function Consensus() {
     totalValidators: z.number(),
     quorumReached: z.boolean(),
     status: z.string(),
-  }));
+  })), []);
 
   const { data: votingActivityData } = useQuery<z.infer<typeof votingActivitySchema>>({
     queryKey: ["/api/consensus/voting-activity"],
@@ -894,13 +894,13 @@ export default function Consensus() {
   const votingActivity = votingActivityData || [];
 
   const rounds: ConsensusRound[] = consensusRoundsData || [];
-  const filteredRounds = rounds.filter((round: ConsensusRound) => {
+  const filteredRounds = useMemo(() => rounds.filter((round: ConsensusRound) => {
     const matchesSearch = searchQuery === "" || 
       round.blockHeight.toString().includes(searchQuery) ||
       round.proposerAddress.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === "all" || round.status === statusFilter;
     return matchesSearch && matchesStatus;
-  });
+  }), [rounds, searchQuery, statusFilter]);
 
   const phases = consensusState?.phases || [];
   const currentRound = consensusState?.blockHeight || 0;
