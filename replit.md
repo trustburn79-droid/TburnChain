@@ -59,6 +59,18 @@ Key architectural decisions include:
   - `/admin/updates`: 30s TTL/staleTime for version info and update history
   - `/admin/logs`: 3s TTL/staleTime for real-time log streaming with pause/resume support
   - 5 backend endpoints under `/api/enterprise/admin/operations/` with TTLs based on data freshness (3s-30s)
+- **User Management & Governance Admin Page Optimization** (December 18, 2025): All 10 user management and governance admin pages optimized with backend caching and React Query settings:
+  - `/admin/accounts`: 30s TTL/staleTime (20 admin accounts, 14 active, 14 with 2FA)
+  - `/admin/roles`: 30s TTL/staleTime (6 roles, 85 users assigned)
+  - `/admin/permissions`: 30s TTL/staleTime (8 permissions across 4 categories)
+  - `/admin/activity`: 30s TTL/staleTime (1247 activities/24h, 42 active users)
+  - `/admin/sessions`: 30s TTL/staleTime (15 sessions, 10 active)
+  - `/admin/gov-params`: 60s TTL/staleTime (slow-changing governance parameters)
+  - `/admin/proposals`: 30s TTL/staleTime (3 proposals, 2 active)
+  - `/admin/voting`: 10s TTL/staleTime (active voting, 72.5% for, 85% quorum)
+  - `/admin/execution`: 15s TTL/staleTime (1 pending, 5 completed executions)
+  - `/admin/feedback`: 30s TTL/staleTime (25 feedback items, rating distribution)
+  - 10 backend endpoints under `/api/enterprise/admin/` with caching (10s-60s TTL based on data freshness)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
