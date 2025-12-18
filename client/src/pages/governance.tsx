@@ -75,7 +75,7 @@ export default function Governance() {
     queryKey: ["/api/governance/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -83,7 +83,7 @@ export default function Governance() {
     queryKey: ["/api/governance/proposals"],
     refetchInterval: 15000,
     staleTime: 15000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

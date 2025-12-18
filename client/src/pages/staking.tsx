@@ -249,7 +249,7 @@ export default function StakingDashboard() {
     queryKey: ["/api/staking/stats"],
     refetchInterval: 15000,
     staleTime: 15000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -257,7 +257,7 @@ export default function StakingDashboard() {
     queryKey: ["/api/staking/pools"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -265,7 +265,7 @@ export default function StakingDashboard() {
     queryKey: ["/api/staking/tiers"],
     refetchInterval: 60000,
     staleTime: 60000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

@@ -292,7 +292,7 @@ export default function DexPage() {
   const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<DexStatsResponse>({
     queryKey: ["/api/dex/stats"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -300,7 +300,7 @@ export default function DexPage() {
   const { data: pools, isLoading: poolsLoading, refetch: refetchPools } = useQuery<DexPool[]>({
     queryKey: ["/api/dex/pools"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -308,7 +308,7 @@ export default function DexPage() {
   const { data: recentSwaps, isLoading: swapsLoading, refetch: refetchSwaps } = useQuery<DexSwap[]>({
     queryKey: ["/api/dex/swaps"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -316,7 +316,7 @@ export default function DexPage() {
   const { data: positions, isLoading: positionsLoading, refetch: refetchPositions } = useQuery<DexPosition[]>({
     queryKey: ["/api/dex/positions"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });

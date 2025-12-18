@@ -1313,7 +1313,7 @@ export default function GameFiPage() {
   const { data: overview, isLoading: overviewLoading, refetch: refetchOverview } = useQuery<GamefiOverview>({
     queryKey: ["/api/gamefi/stats"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1321,7 +1321,7 @@ export default function GameFiPage() {
   const { data: projects, isLoading: projectsLoading, refetch: refetchProjects } = useQuery<GamefiProject[]>({
     queryKey: ["/api/gamefi/projects"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1329,7 +1329,7 @@ export default function GameFiPage() {
   const { data: featuredProjects, refetch: refetchFeatured } = useQuery<GamefiProject[]>({
     queryKey: ["/api/gamefi/projects/featured"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1337,7 +1337,7 @@ export default function GameFiPage() {
   const { data: tournaments, refetch: refetchTournaments } = useQuery<GameTournament[]>({
     queryKey: ["/api/gamefi/tournaments"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1345,7 +1345,7 @@ export default function GameFiPage() {
   const { data: activeTournaments, refetch: refetchActiveTournaments } = useQuery<GameTournament[]>({
     queryKey: ["/api/gamefi/tournaments/active"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1353,7 +1353,7 @@ export default function GameFiPage() {
   const { data: badges, refetch: refetchBadges } = useQuery<AchievementBadge[]>({
     queryKey: ["/api/gamefi/badges/global"],
     staleTime: 60000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 60000,
   });
@@ -1361,7 +1361,7 @@ export default function GameFiPage() {
   const { data: activity, refetch: refetchActivity } = useQuery<GamefiActivity[]>({
     queryKey: ["/api/gamefi/activity"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1369,7 +1369,7 @@ export default function GameFiPage() {
   const { data: myAssets, isLoading: assetsLoading, refetch: refetchAssets } = useQuery<GameAsset[]>({
     queryKey: ["/api/gamefi/assets/owner", ENTERPRISE_WALLET],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1377,7 +1377,7 @@ export default function GameFiPage() {
   const { data: pendingRewards, isLoading: rewardsLoading, refetch: refetchRewards } = useQuery<PendingReward[]>({
     queryKey: ["/api/gamefi/player", ENTERPRISE_WALLET, "pending-rewards"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });

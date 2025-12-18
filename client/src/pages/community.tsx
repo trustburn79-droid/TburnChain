@@ -270,7 +270,7 @@ export default function Community() {
     queryKey: ['/api/community/stats'],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -279,7 +279,7 @@ export default function Community() {
     queryKey: ['/api/community/leaderboard'],
     refetchInterval: 60000,
     staleTime: 60000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -288,7 +288,7 @@ export default function Community() {
     queryKey: ['/api/community/posts', selectedCategory],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -297,7 +297,7 @@ export default function Community() {
     queryKey: ['/api/community/events'],
     refetchInterval: 60000,
     staleTime: 60000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -306,7 +306,7 @@ export default function Community() {
     queryKey: ['/api/community/announcements'],
     refetchInterval: 60000,
     staleTime: 60000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -315,7 +315,7 @@ export default function Community() {
     queryKey: ['/api/community/activity'],
     refetchInterval: 10000,
     staleTime: 10000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -323,7 +323,7 @@ export default function Community() {
   const { data: badges, isLoading: badgesLoading, refetch: refetchBadges } = useQuery<UserBadge[]>({
     queryKey: ['/api/community/badges'],
     staleTime: 60000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

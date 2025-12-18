@@ -82,7 +82,7 @@ export default function CrossShard() {
     queryKey: ["/api/cross-shard/messages"],
     refetchInterval: 5000, // Real-time sync
     staleTime: 5000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -90,7 +90,7 @@ export default function CrossShard() {
     queryKey: ["/api/shards"],
     refetchInterval: 5000, // Real-time TPS sync with /admin/shards
     staleTime: 5000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

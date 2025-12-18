@@ -372,7 +372,7 @@ export default function TokenSystem() {
     queryKey: ["/api/token-system/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -380,7 +380,7 @@ export default function TokenSystem() {
     queryKey: ["/api/token-system/tokens"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

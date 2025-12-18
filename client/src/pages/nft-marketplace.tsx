@@ -1479,7 +1479,7 @@ export default function NftMarketplacePage() {
   const { data: overview, isLoading: overviewLoading, refetch: refetchOverview } = useQuery<MarketplaceOverview>({
     queryKey: ["/api/nft/stats"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1487,7 +1487,7 @@ export default function NftMarketplacePage() {
   const { data: collections, isLoading: collectionsLoading, refetch: refetchCollections } = useQuery<NftCollection[]>({
     queryKey: ["/api/nft/collections"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1495,7 +1495,7 @@ export default function NftMarketplacePage() {
   const { data: listings, isLoading: listingsLoading, refetch: refetchListings } = useQuery<MarketplaceListing[]>({
     queryKey: ["/api/nft/listings"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1503,7 +1503,7 @@ export default function NftMarketplacePage() {
   const { data: items, refetch: refetchItems } = useQuery<NftItem[]>({
     queryKey: ["/api/nft/items"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1511,7 +1511,7 @@ export default function NftMarketplacePage() {
   const { data: activity, refetch: refetchActivity } = useQuery<NftActivity[]>({
     queryKey: ["/api/nft/activity"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });

@@ -487,7 +487,7 @@ export default function Bridge() {
     queryKey: ["/api/bridge/stats"],
     refetchInterval: 10000,
     staleTime: 10000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -567,7 +567,7 @@ export default function Bridge() {
     queryKey: ["/api/bridge/chains"],
     refetchInterval: 15000,
     staleTime: 15000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -575,7 +575,7 @@ export default function Bridge() {
     queryKey: ["/api/bridge/routes"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -583,7 +583,7 @@ export default function Bridge() {
     queryKey: ["/api/bridge/transfers"],
     refetchInterval: 5000,
     staleTime: 5000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -591,7 +591,7 @@ export default function Bridge() {
     queryKey: ["/api/bridge/validators"],
     refetchInterval: 15000,
     staleTime: 15000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -599,7 +599,7 @@ export default function Bridge() {
     queryKey: ["/api/bridge/liquidity"],
     refetchInterval: 10000,
     staleTime: 10000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -607,7 +607,7 @@ export default function Bridge() {
     queryKey: ["/api/bridge/activity"],
     refetchInterval: 5000,
     staleTime: 5000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

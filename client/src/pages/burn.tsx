@@ -150,7 +150,7 @@ export default function BurnDashboard() {
     queryKey: ["/api/burn/stats"],
     refetchInterval: 15000,
     staleTime: 15000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -158,7 +158,7 @@ export default function BurnDashboard() {
     queryKey: ["/api/burn/events"],
     refetchInterval: 10000,
     staleTime: 10000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -166,7 +166,7 @@ export default function BurnDashboard() {
     queryKey: ["/api/burn/config"],
     refetchInterval: 60000,
     staleTime: 60000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -174,7 +174,7 @@ export default function BurnDashboard() {
     queryKey: ["/api/burn/history"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

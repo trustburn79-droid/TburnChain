@@ -171,7 +171,7 @@ export default function LiquidStaking() {
   const { data: stats, isLoading: statsLoading } = useQuery<LstStats>({
     queryKey: ["/api/liquid-staking/stats"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -179,7 +179,7 @@ export default function LiquidStaking() {
   const { data: pools, isLoading: poolsLoading } = useQuery<LiquidStakingPool[]>({
     queryKey: ["/api/liquid-staking/pools/active"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -187,7 +187,7 @@ export default function LiquidStaking() {
   const { data: positions, isLoading: positionsLoading } = useQuery<LstPosition[]>({
     queryKey: ["/api/liquid-staking/positions", userAddress],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });

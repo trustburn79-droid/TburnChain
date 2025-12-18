@@ -127,12 +127,9 @@ interface UserAllocation {
 function formatAmount(wei: string | null | undefined, decimals: number = 18): string {
   if (!wei || wei === "0") return "0";
   try {
-    const value = BigInt(wei);
-    const divisor = 10n ** BigInt(decimals);
-    const integerPart = value / divisor;
-    const remainder = value % divisor;
-    const decimalStr = remainder.toString().padStart(decimals, '0').slice(0, 4);
-    return `${integerPart.toLocaleString()}.${decimalStr}`;
+    const value = parseFloat(wei) / Math.pow(10, decimals);
+    if (isNaN(value)) return "0";
+    return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 });
   } catch {
     return "0";
   }
@@ -1159,7 +1156,7 @@ export default function NftLaunchpadPage() {
   const { data: overview, isLoading: overviewLoading } = useQuery<LaunchpadOverview>({
     queryKey: ["/api/launchpad/stats"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1167,7 +1164,7 @@ export default function NftLaunchpadPage() {
   const { data: projects, isLoading: projectsLoading } = useQuery<LaunchpadProject[]>({
     queryKey: ["/api/launchpad/projects"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1175,7 +1172,7 @@ export default function NftLaunchpadPage() {
   const { data: featuredProjects } = useQuery<LaunchpadProject[]>({
     queryKey: ["/api/launchpad/projects/featured"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1183,7 +1180,7 @@ export default function NftLaunchpadPage() {
   const { data: activeRounds } = useQuery<LaunchRound[]>({
     queryKey: ["/api/launchpad/rounds/active"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1191,7 +1188,7 @@ export default function NftLaunchpadPage() {
   const { data: activity } = useQuery<LaunchpadActivity[]>({
     queryKey: ["/api/launchpad/activity"],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -1199,7 +1196,7 @@ export default function NftLaunchpadPage() {
   const { data: userAllocations } = useQuery<UserAllocation[]>({
     queryKey: ["/api/launchpad/allocations", ENTERPRISE_WALLET],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });

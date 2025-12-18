@@ -320,7 +320,7 @@ export default function LendingPage() {
   const { data: markets, isLoading: marketsLoading, refetch: refetchMarkets } = useQuery<LendingMarket[]>({
     queryKey: ['/api/lending/markets'],
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
@@ -336,7 +336,7 @@ export default function LendingPage() {
   }>({
     queryKey: ['/api/lending/stats'],
     staleTime: 10000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 10000,
   });
@@ -344,7 +344,7 @@ export default function LendingPage() {
   const { data: userPosition, refetch: refetchPosition } = useQuery<LendingPosition>({
     queryKey: ['/api/lending/positions', ENTERPRISE_WALLET],
     staleTime: 15000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 15000,
   });

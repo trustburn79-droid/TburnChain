@@ -128,7 +128,7 @@ export default function StakingRewards() {
     queryKey: ["/api/staking/rewards/current"],
     refetchInterval: 15000,
     staleTime: 15000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -136,7 +136,7 @@ export default function StakingRewards() {
     queryKey: ["/api/staking/rewards/cycles"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -144,7 +144,7 @@ export default function StakingRewards() {
     queryKey: ["/api/staking/unbonding"],
     refetchInterval: 15000,
     staleTime: 15000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
@@ -152,7 +152,7 @@ export default function StakingRewards() {
     queryKey: ["/api/staking/slashing"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

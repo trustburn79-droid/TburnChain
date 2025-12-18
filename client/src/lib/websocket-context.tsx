@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState, ReactNode, useCallback } from "react";
+import { queryClient } from "./queryClient";
 
 interface WebSocketMessage {
   type: string;
@@ -78,6 +79,21 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
         console.log("[WebSocket] Connection closed");
         setIsConnected(false);
         socketRef.current = null;
+
+        // Trigger REST fallback for critical queries when WebSocket disconnects
+        console.log("[WebSocket] Triggering REST fallback for critical queries");
+        queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/dex/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/staking/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/lending/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/nft/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/launchpad/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/gamefi/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/bridge/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/burn/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/governance/stats"] });
 
         // Exponential backoff reconnection
         const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current), 30000);
