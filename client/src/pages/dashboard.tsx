@@ -709,18 +709,25 @@ export default function Dashboard() {
         ws.onopen = () => {
           setWsConnected(true);
           reconnectAttempts = 0;
-          console.log('[Dashboard] WebSocket connected');
+          console.log('[Dashboard] WebSocket connected to:', wsUrl);
           ws?.send(JSON.stringify({ type: 'subscribe', channels: ['network_stats', 'blocks', 'transactions'] }));
+          setLastDataUpdate(new Date());
         };
 
         ws.onmessage = (event) => {
           try {
             const data = JSON.parse(event.data);
-            if (data.type === 'network_stats') {
-              queryClient.setQueryData(["/api/network/stats"], data.payload);
-            } else if (data.type === 'new_block') {
+            // Handle network_stats updates (both legacy and new format)
+            if (data.type === 'network_stats' || data.type === 'network_stats_update') {
+              const payload = data.payload || data.data;
+              if (payload) {
+                queryClient.setQueryData(["/api/network/stats"], payload);
+                setLastDataUpdate(new Date());
+              }
+            } else if (data.type === 'new_block' || data.type === 'block_update' || data.type === 'block_created') {
               queryClient.invalidateQueries({ queryKey: ["/api/blocks/recent"] });
-            } else if (data.type === 'new_transaction') {
+              setLastDataUpdate(new Date());
+            } else if (data.type === 'new_transaction' || data.type === 'transaction_update') {
               queryClient.invalidateQueries({ queryKey: ["/api/transactions/recent"] });
             }
           } catch {
