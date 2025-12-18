@@ -96,42 +96,57 @@ class TextScramble {
 }
 
 function useRotatingScramble(words: string[], intervalMs: number = 3000) {
-  const [displayHtml, setDisplayHtml] = useState(words[0]);
+  const [displayHtml, setDisplayHtml] = useState(() => words?.[0] || "");
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrambleRef = useRef<TextScramble | null>(null);
-  const isInitializedRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMountedRef = useRef(true);
 
   useEffect(() => {
-    scrambleRef.current = new TextScramble((html) => setDisplayHtml(html));
+    isMountedRef.current = true;
+    
+    if (!words || words.length === 0) {
+      return;
+    }
+
+    if (!scrambleRef.current) {
+      scrambleRef.current = new TextScramble((html) => {
+        if (isMountedRef.current) {
+          setDisplayHtml(html);
+        }
+      });
+    }
 
     const runCycle = async () => {
-      if (!scrambleRef.current) return;
+      if (!scrambleRef.current || !isMountedRef.current) return;
       
       const nextIndex = (currentIndex + 1) % words.length;
       await scrambleRef.current.setText(words[nextIndex], words[currentIndex]);
       
-      setTimeout(() => {
-        setCurrentIndex(nextIndex);
-      }, intervalMs);
-    };
-
-    if (!isInitializedRef.current) {
-      isInitializedRef.current = true;
-      setTimeout(() => {
-        runCycle();
-      }, intervalMs);
-    } else {
-      runCycle();
-    }
-
-    return () => {
-      if (scrambleRef.current) {
-        scrambleRef.current.destroy();
+      if (isMountedRef.current) {
+        timerRef.current = setTimeout(() => {
+          if (isMountedRef.current) {
+            setCurrentIndex(nextIndex);
+          }
+        }, intervalMs);
       }
     };
-  }, [currentIndex]);
 
-  return displayHtml;
+    timerRef.current = setTimeout(runCycle, currentIndex === 0 ? intervalMs : 0);
+
+    return () => {
+      isMountedRef.current = false;
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      if (scrambleRef.current) {
+        scrambleRef.current.destroy();
+        scrambleRef.current = null;
+      }
+    };
+  }, [currentIndex, words, intervalMs]);
+
+  return displayHtml || words?.[0] || "";
 }
 
 const getIconStyle = (color: string) => {
@@ -171,7 +186,10 @@ const getIconStyle = (color: string) => {
 };
 
 function RotatingTitle({ keywords }: { keywords: string[] }) {
-  const displayHtml = useRotatingScramble(keywords, 3000);
+  const safeKeywords = Array.isArray(keywords) && keywords.length > 0 
+    ? keywords 
+    : ["Trust-Based"];
+  const displayHtml = useRotatingScramble(safeKeywords, 3000);
   
   return (
     <span 
