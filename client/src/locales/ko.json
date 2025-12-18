@@ -19632,7 +19632,14 @@
       "allUsers": "모든 사용자",
       "administrators": "관리자",
       "developers": "개발자",
-      "securityTeam": "보안팀"
+      "securityTeam": "보안팀",
+      "validators": "검증자",
+      "partners": "파트너",
+      "stakers": "스테이커",
+      "community": "커뮤니티",
+      "defiPartners": "DeFi 파트너",
+      "investors": "투자자",
+      "economists": "경제학자"
     },
     "authors": {
       "sysAdmin": "시스템 관리자",
@@ -19640,7 +19647,12 @@
       "securityTeam": "보안팀",
       "apiTeam": "API팀",
       "operations": "운영팀",
-      "supportTeam": "지원팀"
+      "supportTeam": "지원팀",
+      "tburnFoundation": "TBURN 재단",
+      "aiEngineeringTeam": "AI 엔지니어링팀",
+      "bridgeOperationsTeam": "브릿지 운영팀",
+      "validatorOperations": "검증자 운영팀",
+      "tokenomicsTeam": "토크노믹스팀"
     },
     "samples": {
       "maintenance": {

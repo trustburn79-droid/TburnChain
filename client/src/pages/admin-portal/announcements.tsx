@@ -375,6 +375,35 @@ export default function AnnouncementsManagement() {
     }
   };
 
+  const translateAudience = (audience: string): string => {
+    const audienceMap: Record<string, string> = {
+      "All Users": t("adminAnnouncements.audiences.allUsers"),
+      "Validators": t("adminAnnouncements.audiences.validators"),
+      "Developers": t("adminAnnouncements.audiences.developers"),
+      "Partners": t("adminAnnouncements.audiences.partners"),
+      "Administrators": t("adminAnnouncements.audiences.administrators"),
+      "Security Team": t("adminAnnouncements.audiences.securityTeam"),
+      "Stakers": t("adminAnnouncements.audiences.stakers"),
+      "Community": t("adminAnnouncements.audiences.community"),
+      "DeFi Partners": t("adminAnnouncements.audiences.defiPartners"),
+      "Investors": t("adminAnnouncements.audiences.investors"),
+      "Economists": t("adminAnnouncements.audiences.economists"),
+    };
+    return audienceMap[audience] || audience;
+  };
+
+  const translateAuthor = (author: string): string => {
+    const authorMap: Record<string, string> = {
+      "TBURN Foundation": t("adminAnnouncements.authors.tburnFoundation"),
+      "AI Engineering Team": t("adminAnnouncements.authors.aiEngineeringTeam"),
+      "Security Team": t("adminAnnouncements.authors.securityTeam"),
+      "Bridge Operations Team": t("adminAnnouncements.authors.bridgeOperationsTeam"),
+      "Validator Operations": t("adminAnnouncements.authors.validatorOperations"),
+      "Tokenomics Team": t("adminAnnouncements.authors.tokenomicsTeam"),
+    };
+    return authorMap[author] || author;
+  };
+
   const filteredAnnouncements = announcements.filter((ann) => {
     const matchesSearch = ann.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = selectedType === "all" || ann.type === selectedType;
@@ -711,11 +740,11 @@ export default function AnnouncementsManagement() {
                     <TableCell>
                       <div className="flex gap-1 flex-wrap">
                         {ann.audience.map((a) => (
-                          <Badge key={a} variant="outline" className="text-xs">{a}</Badge>
+                          <Badge key={a} variant="outline" className="text-xs">{translateAudience(a)}</Badge>
                         ))}
                       </div>
                     </TableCell>
-                    <TableCell className="text-sm">{ann.author}</TableCell>
+                    <TableCell className="text-sm">{translateAuthor(ann.author)}</TableCell>
                     <TableCell>{getStatusBadge(ann.status)}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {ann.status === "scheduled" && ann.scheduledFor
