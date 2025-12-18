@@ -10888,6 +10888,287 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Enterprise User Management endpoints with caching
+  app.get("/api/enterprise/admin/accounts", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_admin_accounts';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const roles = ['Super Admin', 'Admin', 'Operator', 'Security', 'Developer', 'Viewer'];
+    const statuses: ('active' | 'inactive' | 'suspended')[] = ['active', 'active', 'active', 'active', 'inactive', 'suspended'];
+    const names = ['System Admin', 'Operations Lead', 'Security Officer', 'Lead Developer', 'Data Analyst', 'Backup Admin', 'Support Lead', 'QA Engineer'];
+    const result = {
+      accounts: Array.from({ length: 20 }, (_, i) => ({
+        id: `user-${i + 1}`,
+        name: names[i % names.length] + (i >= names.length ? ` ${Math.floor(i / names.length) + 1}` : ''),
+        email: `user${i + 1}@tburn.io`,
+        role: roles[i % roles.length],
+        status: statuses[i % statuses.length],
+        lastLogin: i % 6 === 5 ? null : new Date(Date.now() - Math.random() * 86400000 * 7).toISOString(),
+        createdAt: new Date(Date.now() - Math.random() * 180 * 86400000).toISOString(),
+        twoFactorEnabled: i % 3 !== 2,
+        permissions: i % 6 === 0 ? ['all'] : ['read', 'write'].slice(0, (i % 3) + 1)
+      })),
+      total: 20,
+      stats: { total: 20, active: 14, inactive: 3, suspended: 3, with2FA: 14 }
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/roles", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_admin_roles';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      roles: [
+        { id: 'super-admin', name: 'Super Administrator', permissions: ['all'], users: 2, description: 'Full system access', isDefault: false },
+        { id: 'admin', name: 'Administrator', permissions: ['read', 'write', 'manage', 'admin'], users: 5, description: 'Administrative access', isDefault: false },
+        { id: 'operator', name: 'Operator', permissions: ['read', 'write', 'manage'], users: 10, description: 'Operational access', isDefault: false },
+        { id: 'security', name: 'Security Officer', permissions: ['read', 'security', 'audit'], users: 3, description: 'Security management', isDefault: false },
+        { id: 'analyst', name: 'Analyst', permissions: ['read', 'analytics'], users: 15, description: 'Read and analytics access', isDefault: false },
+        { id: 'viewer', name: 'Viewer', permissions: ['read'], users: 50, description: 'Read-only access', isDefault: true }
+      ],
+      stats: { total: 6, usersAssigned: 85, customRoles: 2 }
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/permissions", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_admin_permissions';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      permissions: [
+        { id: 'read', name: 'Read', description: 'View data and dashboards', category: 'Basic', rolesCount: 6 },
+        { id: 'write', name: 'Write', description: 'Create and edit data', category: 'Basic', rolesCount: 4 },
+        { id: 'delete', name: 'Delete', description: 'Delete records and data', category: 'Basic', rolesCount: 3 },
+        { id: 'manage', name: 'Manage', description: 'Manage settings and configurations', category: 'Advanced', rolesCount: 3 },
+        { id: 'admin', name: 'Admin', description: 'Full administrative access', category: 'Advanced', rolesCount: 2 },
+        { id: 'security', name: 'Security', description: 'Security configurations', category: 'Security', rolesCount: 2 },
+        { id: 'audit', name: 'Audit', description: 'View audit logs', category: 'Security', rolesCount: 2 },
+        { id: 'analytics', name: 'Analytics', description: 'Access analytics and reports', category: 'Analytics', rolesCount: 3 }
+      ],
+      categories: ['Basic', 'Advanced', 'Security', 'Analytics'],
+      stats: { total: 8, active: 8 }
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/activity", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_admin_activity';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const actionTypes = ['login', 'logout', 'create', 'update', 'delete', 'view', 'settings', 'security'] as const;
+    const statuses = ['success', 'failed', 'warning'] as const;
+    const devices = ['Chrome/Windows 11', 'Firefox/macOS Sonoma', 'Safari/iOS 17', 'Edge/Windows 11', 'Chrome/Android 14'];
+    const locations = ['Seoul, KR', 'Tokyo, JP', 'New York, US', 'London, UK', 'Singapore, SG', 'Sydney, AU'];
+    const targets = ['User Settings', 'Validator Node #23', 'Token Contract', 'Bridge Configuration', 'Security Policy', 'API Key', 'Dashboard Widget', 'Report Template'];
+    const actions = ['Logged in', 'Updated settings', 'Created new record', 'Viewed details', 'Deleted item', 'Modified configuration', 'Exported data', 'Changed permissions'];
+    const names = ['Admin Kim', 'Operator Lee', 'Developer Park', 'Analyst Choi', 'Manager Hong', 'Security Jung', 'Support Yang', 'Auditor Kang'];
+    
+    const result = {
+      logs: Array.from({ length: 50 }, (_, i) => ({
+        id: `act-${i + 1}`,
+        user: { name: names[i % names.length], email: `${names[i % names.length].toLowerCase().replace(' ', '.')}@tburn.io`, avatar: null },
+        action: actions[i % actions.length],
+        actionType: actionTypes[i % actionTypes.length],
+        target: targets[i % targets.length],
+        ip: `192.168.${Math.floor(i / 50)}.${(i % 255) + 1}`,
+        device: devices[i % devices.length],
+        location: locations[i % locations.length],
+        timestamp: new Date(Date.now() - i * 600000).toISOString(),
+        status: statuses[i % 10 === 0 ? 1 : i % 15 === 0 ? 2 : 0]
+      })),
+      stats: { totalActivities24h: 1247, activeUsers: 42, failedAttempts: 7, securityEvents: 3 }
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/sessions", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_admin_sessions';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const deviceTypes = ['desktop', 'mobile', 'tablet'] as const;
+    const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
+    const oses = ['Windows 11', 'macOS Sonoma', 'Ubuntu 22.04', 'iOS 17', 'Android 14'];
+    const locations = ['Seoul, KR', 'Tokyo, JP', 'New York, US', 'London, UK', 'Singapore, SG'];
+    const statuses = ['active', 'idle', 'expired'] as const;
+    const roles = ['Admin', 'Operator', 'Developer', 'Analyst', 'Viewer'];
+    
+    const result = {
+      sessions: Array.from({ length: 15 }, (_, i) => ({
+        id: `sess-${i + 1}`,
+        user: { name: `User ${(i % 10) + 1}`, email: `user${(i % 10) + 1}@tburn.io`, role: roles[i % 5], avatar: null },
+        device: `${browsers[i % 4]}/${oses[i % 5]}`,
+        deviceType: deviceTypes[i % 3],
+        browser: browsers[i % 4],
+        os: oses[i % 5],
+        ip: `192.168.1.${i + 10}`,
+        location: locations[i % 5],
+        startTime: new Date(Date.now() - Math.random() * 3600000).toISOString(),
+        lastActivity: new Date(Date.now() - Math.random() * 600000).toISOString(),
+        status: statuses[i % 3],
+        isCurrent: i === 0
+      })),
+      stats: { total: 15, active: 10, idle: 3, expired: 2 },
+      settings: { timeout: 3600, concurrentSessions: true, sessionLockOnIdle: true, deviceTrust: false }
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
+  });
+
+  // Enterprise Governance endpoints with caching
+  app.get("/api/enterprise/admin/governance/params", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_gov_params';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      params: {
+        proposalThreshold: '100000 TBURN',
+        votingPeriod: '7 days',
+        executionDelay: '2 days',
+        quorumPercentage: 10,
+        supermajorityPercentage: 66
+      }
+    };
+    cache.set(cacheKey, result, 60000);
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/governance/proposals", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_gov_proposals';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const proposals = [
+      { id: "TIP-001", title: "Increase Block Gas Limit to 30M", description: "Proposal to increase the block gas limit from 20M to 30M", category: "Network", proposer: "0x1234...5678", status: "active", votesFor: 8500000, votesAgainst: 2100000, votesAbstain: 400000, quorum: 10000000, startDate: new Date(Date.now() - 86400000 * 3).toISOString().split('T')[0], endDate: new Date(Date.now() + 86400000 * 4).toISOString().split('T')[0], totalVoters: 1247, requiredApproval: 66 },
+      { id: "TIP-002", title: "Reduce Transaction Fee Base Rate", description: "Lower the base transaction fee", category: "Economics", proposer: "0xabcd...efgh", status: "passed", votesFor: 12000000, votesAgainst: 3000000, votesAbstain: 1000000, quorum: 10000000, startDate: new Date(Date.now() - 86400000 * 14).toISOString().split('T')[0], endDate: new Date(Date.now() - 86400000 * 7).toISOString().split('T')[0], totalVoters: 2156, requiredApproval: 66 },
+      { id: "TIP-003", title: "Add New Bridge Chain: Solana", description: "Integrate Solana blockchain", category: "Bridge", proposer: "0x9876...5432", status: "active", votesFor: 5000000, votesAgainst: 4500000, votesAbstain: 500000, quorum: 10000000, startDate: new Date(Date.now() - 86400000 * 2).toISOString().split('T')[0], endDate: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0], totalVoters: 987, requiredApproval: 66 }
+    ];
+    const result = {
+      proposals,
+      stats: { total: proposals.length, active: 2, passed: 1, rejected: 0 }
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/governance/votes", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_gov_votes';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      totalVotes: 8500000,
+      forPercentage: 72.5,
+      againstPercentage: 20.3,
+      abstainPercentage: 7.2,
+      quorumPercentage: 85.0,
+      votersCount: 1247,
+      recentVoters: [
+        { address: "0x1234...5678", vote: "for", power: 150000, timestamp: new Date(Date.now() - 300000).toISOString() },
+        { address: "0xabcd...efgh", vote: "against", power: 75000, timestamp: new Date(Date.now() - 600000).toISOString() },
+        { address: "0x9876...5432", vote: "for", power: 120000, timestamp: new Date(Date.now() - 900000).toISOString() }
+      ],
+      proposals: [
+        { id: "TIP-001", title: "Treasury Allocation Q1 2025", status: "active" },
+        { id: "TIP-002", title: "Bridge Fee Adjustment", status: "active" }
+      ]
+    };
+    cache.set(cacheKey, result, 10000);
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/governance/execution", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_gov_execution';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      pendingExecutions: [
+        { id: 'exec-1', proposalId: 'TIP-002', title: 'Reduce Transaction Fee Base Rate', status: 'pending', scheduledAt: new Date(Date.now() + 86400000).toISOString() }
+      ],
+      completedExecutions: Array.from({ length: 5 }, (_, i) => ({
+        id: `exec-${i + 2}`,
+        proposalId: `TIP-${100 + i}`,
+        title: `Completed Proposal ${i + 1}`,
+        status: 'completed',
+        executedAt: new Date(Date.now() - (i + 1) * 86400000 * 7).toISOString()
+      })),
+      failedExecutions: [],
+      stats: { pending: 1, completed: 5, failed: 0 }
+    };
+    cache.set(cacheKey, result, 15000);
+    res.json(result);
+  });
+
+  // Enterprise Feedback endpoint with caching
+  app.get("/api/enterprise/admin/feedback", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_admin_feedback';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const types = ['suggestion', 'bug', 'praise', 'complaint'] as const;
+    const categories = ['UI/UX', 'Performance', 'Features', 'Documentation', 'Support'];
+    const statuses = ['new', 'reviewed', 'actioned', 'archived'] as const;
+    const result = {
+      items: Array.from({ length: 25 }, (_, i) => ({
+        id: `fb-${i + 1}`,
+        type: types[i % 4],
+        category: categories[i % 5],
+        message: `User feedback message ${i + 1}. This contains detailed feedback about the platform.`,
+        rating: 1 + Math.floor(Math.random() * 5),
+        user: `user${i + 1}@example.com`,
+        createdAt: new Date(Date.now() - i * 86400000).toISOString(),
+        status: statuses[i % 4],
+        response: i % 3 === 0 ? `Thank you for your feedback. We have addressed your concern.` : null
+      })),
+      ratingData: [
+        { rating: "5 Stars", count: 45, percentage: 45 },
+        { rating: "4 Stars", count: 28, percentage: 28 },
+        { rating: "3 Stars", count: 15, percentage: 15 },
+        { rating: "2 Stars", count: 8, percentage: 8 },
+        { rating: "1 Star", count: 4, percentage: 4 }
+      ],
+      typeDistribution: [
+        { name: "Suggestions", value: 35, color: "#8884d8" },
+        { name: "Bug Reports", value: 25, color: "#ff8042" },
+        { name: "Praise", value: 30, color: "#00C49F" },
+        { name: "Complaints", value: 10, color: "#FFBB28" }
+      ],
+      trendData: [
+        { day: "Mon", feedback: 12, avgRating: 4.2 },
+        { day: "Tue", feedback: 15, avgRating: 4.0 },
+        { day: "Wed", feedback: 8, avgRating: 4.5 },
+        { day: "Thu", feedback: 18, avgRating: 3.8 },
+        { day: "Fri", feedback: 22, avgRating: 4.1 },
+        { day: "Sat", feedback: 10, avgRating: 4.3 },
+        { day: "Sun", feedback: 6, avgRating: 4.6 }
+      ]
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
+  });
+
   // Configuration
   app.get("/api/admin/settings", async (_req, res) => {
     try {
