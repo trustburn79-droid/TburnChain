@@ -18834,7 +18834,7 @@ Provide JSON portfolio analysis:
       }
     }, 30000, 'prod_wallets');
 
-    // Poll Consensus Rounds every 500ms (high-volatility)
+    // Poll Consensus Rounds every 3000ms (balanced for performance)
     createTrackedInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('consensus_rounds')?.disabled) return;
       try {
@@ -18856,9 +18856,9 @@ Provide JSON portfolio analysis:
         }
         lastBroadcastState.delete('consensus_rounds_snapshot');
       }
-    }, 500, 'prod_consensus_rounds'); // Optimized for 100ms block time
+    }, 3000, 'prod_consensus_rounds'); // Balanced: responsive without overloading
 
-    // Poll Consensus State every 500ms (current consensus view)
+    // Poll Consensus State every 3000ms (current consensus view)
     createTrackedInterval(async () => {
       if (clients.size === 0) return;
       try {
@@ -18869,7 +18869,7 @@ Provide JSON portfolio analysis:
         console.error('Error polling consensus state from mainnet:', error.message);
         lastBroadcastState.delete('consensus_state_update');
       }
-    }, 500, 'prod_consensus_state'); // Optimized for 100ms block time
+    }, 3000, 'prod_consensus_state'); // Balanced: responsive without overloading
   }
 
   // ============================================

@@ -818,8 +818,8 @@ export default function Consensus() {
 
   const { data: consensusState, isLoading } = useQuery<ConsensusState>({
     queryKey: ["/api/consensus/current"],
-    refetchInterval: 16, // Ultra-fast polling (~60fps) for 85-95% consensus rate
-    staleTime: 16,
+    refetchInterval: 5000, // WebSocket provides real-time updates, REST is fallback
+    staleTime: 5000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
