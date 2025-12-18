@@ -16906,7 +16906,7 @@ Provide JSON portfolio analysis:
     }
   }, 5000, 'network_stats');
 
-  // Broadcast new blocks every 500ms
+  // Broadcast new blocks every 2000ms (balanced for performance)
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
 
@@ -16928,7 +16928,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error('Error broadcasting block updates:', error);
     }
-  }, 500, 'block_updates'); // Optimized for 100ms block time
+  }, 2000, 'block_updates'); // Balanced: responsive without overloading
 
   // ============================================
   // REAL AI Decision Processing
@@ -17223,7 +17223,7 @@ Provide JSON portfolio analysis:
     }, 3000, 'dev_consensus_rounds');
   }
 
-  // Consensus State snapshot every 500ms (current consensus view)
+  // Consensus State snapshot every 3000ms (balanced for performance)
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
@@ -17232,7 +17232,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error('Error broadcasting consensus state update:', error);
     }
-  }, 500, 'consensus_state'); // Optimized for 100ms block time
+  }, 3000, 'consensus_state'); // Balanced: responsive without overloading
 
   // Validator Updates snapshot every 5 seconds (voting power changes, status updates)
   createTrackedInterval(async () => {
