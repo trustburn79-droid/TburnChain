@@ -168,11 +168,15 @@ interface GovernanceStatsData {
     critical: number;
   };
   recentPrevalidations: Array<{
-    id: number;
+    id: string;
     proposalId: string;
+    proposalTitle?: string;
+    proposalType?: string;
     aiConfidence: number;
+    aiRecommendation?: string;
+    aiReasoning?: string;
     riskLevel: string;
-    automatedDecision: boolean;
+    autoDecision: boolean;
     createdAt: string;
   }>;
 }
@@ -1829,7 +1833,7 @@ export default function AdminAIOrchestration() {
                           </div>
                           <div className="flex items-center justify-between mt-1">
                             <span className="text-muted-foreground">{t("adminAI.enterprise.tableConfidence")}: {pv.aiConfidence}%</span>
-                            {pv.automatedDecision ? (
+                            {pv.autoDecision ? (
                               <Badge className="bg-green-500 text-xs">{t("adminAI.enterprise.auto")}</Badge>
                             ) : (
                               <Badge variant="outline" className="text-xs">{t("adminAI.enterprise.manual")}</Badge>
