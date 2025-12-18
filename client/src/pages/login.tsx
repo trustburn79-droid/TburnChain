@@ -232,14 +232,21 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
 
       if (response.ok) {
         const queryKey = isAdminLogin ? ["/api/admin/auth/check"] : ["/api/auth/check"];
-        await queryClient.invalidateQueries({ queryKey });
+        
+        // Optimistic cache update - immediately set authenticated state
+        // This eliminates the delay by not waiting for server roundtrip
+        queryClient.setQueryData(queryKey, { authenticated: true });
         
         toast({
           title: t('login.loginSuccessful'),
           description: t('login.welcomeMessage'),
         });
         
+        // Immediately trigger navigation - no await needed
         onLoginSuccess();
+        
+        // Background sync with server (fire-and-forget)
+        queryClient.invalidateQueries({ queryKey }).catch(() => {});
       } else {
         const errorData = await response.json().catch(() => ({}));
         toast({
@@ -248,6 +255,7 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
           variant: "destructive",
         });
         form.setValue("password", "");
+        setIsLoading(false);
       }
     } catch (error) {
       toast({
@@ -255,7 +263,6 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
         description: t('login.loginError'),
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
     }
   };
