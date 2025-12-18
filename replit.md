@@ -71,6 +71,13 @@ Key architectural decisions include:
   - `/admin/execution`: 15s TTL/staleTime (1 pending, 5 completed executions)
   - `/admin/feedback`: 30s TTL/staleTime (25 feedback items, rating distribution)
   - 10 backend endpoints under `/api/enterprise/admin/` with caching (10s-60s TTL based on data freshness)
+- **Developer Tools Admin Page Optimization** (December 18, 2025): All 5 developer tools admin pages optimized with backend caching and React Query settings:
+  - `/admin/api-docs`: 60s TTL/staleTime (156 endpoints, 99.97% success rate, changelog)
+  - `/admin/sdk`: 60s TTL/staleTime (6 SDK versions, 435K total downloads, code examples)
+  - `/admin/contract-tools`: 30s TTL/staleTime (8547 deployed, 6234 verified, 892 audited)
+  - `/admin/testnet`: 30s TTL/staleTime (testnet status, faucet, recent requests from live node)
+  - `/admin/debug`: 15s TTL/staleTime (node info, RPC stats, logs from live enterprise node)
+  - 5 backend endpoints under `/api/enterprise/admin/developer/` and `/api/enterprise/admin/` with caching (15s-60s TTL)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

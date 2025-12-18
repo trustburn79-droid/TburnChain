@@ -185,6 +185,9 @@ export default function TestnetManagement() {
   const { data: testnetData, isLoading, error, refetch } = useQuery<TestnetData>({
     queryKey: ["/api/enterprise/admin/testnet"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const faucetMutation = useMutation({

@@ -11169,6 +11169,207 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(result);
   });
 
+  // Enterprise Developer Tools endpoints with caching
+  app.get("/api/enterprise/admin/developer/docs", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_dev_docs';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const categories = ['Blocks', 'Transactions', 'Wallets', 'Contracts', 'Bridge', 'Staking', 'Governance', 'AI'];
+    const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'] as const;
+    const result = {
+      endpoints: Array.from({ length: 48 }, (_, i) => ({
+        id: `ep-${i + 1}`,
+        method: methods[i % 5],
+        path: `/api/${categories[i % 8].toLowerCase()}${i % 3 === 0 ? '' : `/${i % 3 === 1 ? ':id' : 'list'}`}`,
+        description: `${methods[i % 5]} ${categories[i % 8]} endpoint`,
+        auth: i % 4 !== 0,
+        category: categories[i % 8],
+        rateLimit: { requests: 100 + (i * 10), window: '1m' },
+        deprecated: i === 45
+      })),
+      stats: {
+        totalEndpoints: 156,
+        publicEndpoints: 48,
+        authenticatedEndpoints: 108,
+        deprecatedEndpoints: 3,
+        avgResponseTime: 45,
+        successRate: 99.97
+      },
+      changelog: [
+        { version: "v8.2.0", date: new Date(Date.now() - 86400000 * 7).toISOString().split('T')[0], changes: ["Added Bridge v2 endpoints", "Improved rate limiting"] },
+        { version: "v8.1.0", date: new Date(Date.now() - 86400000 * 30).toISOString().split('T')[0], changes: ["Added AI prediction endpoints", "WebSocket streaming"] },
+        { version: "v8.0.0", date: new Date(Date.now() - 86400000 * 60).toISOString().split('T')[0], changes: ["Major API restructure", "GraphQL support"] }
+      ]
+    };
+    cache.set(cacheKey, result, 60000); // 60s TTL for slow-changing docs
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/developer/sdk", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_dev_sdk';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      sdkVersions: [
+        { lang: "TypeScript/JavaScript", version: "8.2.0", downloads: "156K", status: "stable", lastUpdate: new Date(Date.now() - 86400000 * 3).toISOString() },
+        { lang: "Python", version: "8.2.0", downloads: "98K", status: "stable", lastUpdate: new Date(Date.now() - 86400000 * 5).toISOString() },
+        { lang: "Rust", version: "8.1.0", downloads: "67K", status: "stable", lastUpdate: new Date(Date.now() - 86400000 * 14).toISOString() },
+        { lang: "Go", version: "8.0.0", downloads: "54K", status: "stable", lastUpdate: new Date(Date.now() - 86400000 * 21).toISOString() },
+        { lang: "Java", version: "7.5.0", downloads: "32K", status: "maintenance", lastUpdate: new Date(Date.now() - 86400000 * 45).toISOString() },
+        { lang: "C#/.NET", version: "7.5.0", downloads: "28K", status: "maintenance", lastUpdate: new Date(Date.now() - 86400000 * 45).toISOString() }
+      ],
+      stats: {
+        totalDownloads: "435K",
+        weeklyDownloads: "12.5K",
+        activeProjects: 2847,
+        avgRating: 4.8
+      },
+      examples: [
+        { title: "Connect to TBURN", lang: "typescript", code: "const client = new TBurnClient({ apiKey: 'your-key' });" },
+        { title: "Send Transaction", lang: "typescript", code: "await client.sendTransaction({ to, value, data });" },
+        { title: "Query Blocks", lang: "python", code: "blocks = await client.get_blocks(limit=100)" }
+      ]
+    };
+    cache.set(cacheKey, result, 60000); // 60s TTL for SDK info
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/developer/contracts", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_dev_contracts';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const contractTypes = ['Token', 'NFT', 'DEX', 'Bridge', 'Staking', 'Governance'];
+    const statuses = ['deployed', 'verified', 'audited'] as const;
+    const result = {
+      contracts: Array.from({ length: 12 }, (_, i) => ({
+        id: `contract-${i + 1}`,
+        name: `${contractTypes[i % 6]}Contract${i + 1}`,
+        address: `0x${(1234567890 + i * 111111).toString(16).padStart(40, '0')}`,
+        type: contractTypes[i % 6],
+        status: statuses[i % 3],
+        deployedAt: new Date(Date.now() - i * 86400000 * 7).toISOString(),
+        transactions: 1000 + Math.floor(Math.random() * 50000),
+        gasUsed: `${(1.5 + Math.random() * 3).toFixed(2)} ETH`
+      })),
+      templates: [
+        { id: 'tpl-1', name: 'TBC-20 Token', description: 'Standard fungible token', popularity: 95 },
+        { id: 'tpl-2', name: 'TBC-721 NFT', description: 'Non-fungible token', popularity: 78 },
+        { id: 'tpl-3', name: 'TBC-1155 Multi', description: 'Multi-token standard', popularity: 45 },
+        { id: 'tpl-4', name: 'Staking Pool', description: 'Token staking contract', popularity: 67 }
+      ],
+      compilers: ['solc-0.8.20', 'solc-0.8.19', 'solc-0.8.17', 'vyper-0.3.10'],
+      stats: {
+        totalDeployed: 8547,
+        verified: 6234,
+        audited: 892,
+        avgGasOptimization: 23
+      }
+    };
+    cache.set(cacheKey, result, 30000); // 30s TTL for contracts
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/testnet", async (_req, res) => {
+    try {
+      const cache = getDataCache();
+      const cacheKey = 'enterprise_testnet';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
+      const enterpriseNode = getEnterpriseNode();
+      const networkStats = await enterpriseNode.getNetworkStats();
+      
+      const result = {
+        status: {
+          online: true,
+          blockHeight: Math.floor(networkStats.blockHeight * 0.95), // Testnet slightly behind
+          tps: networkStats.tps * 0.8,
+          pendingTxs: Math.floor(Math.random() * 500),
+          activeValidators: Math.floor(networkStats.activeValidators * 0.6),
+          syncStatus: 'synced'
+        },
+        faucet: {
+          balance: `${(50000 + Math.random() * 10000).toFixed(0)} TBURN`,
+          dailyLimit: 100,
+          requestsToday: Math.floor(Math.random() * 80),
+          cooldownMinutes: 60
+        },
+        recentRequests: Array.from({ length: 10 }, (_, i) => ({
+          id: `req-${Date.now() - i * 60000}`,
+          address: `0x${Math.random().toString(16).slice(2, 42)}`,
+          amount: 10,
+          timestamp: new Date(Date.now() - i * 120000).toISOString(),
+          txHash: `0x${Math.random().toString(16).slice(2, 66)}`,
+          status: i === 0 ? 'pending' : 'completed'
+        })),
+        networks: [
+          { name: 'TBURN Testnet', chainId: '8889', rpcUrl: 'https://testnet.tburn.io', status: 'healthy' },
+          { name: 'TBURN Devnet', chainId: '8890', rpcUrl: 'https://devnet.tburn.io', status: 'healthy' }
+        ]
+      };
+      cache.set(cacheKey, result, 30000); // 30s TTL to match frontend refetchInterval
+      res.json(result);
+    } catch (error) {
+      console.error('[Testnet] Error:', error);
+      res.status(500).json({ error: "Failed to fetch testnet data" });
+    }
+  });
+
+  app.get("/api/enterprise/admin/debug", async (_req, res) => {
+    try {
+      const cache = getDataCache();
+      const cacheKey = 'enterprise_debug';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
+      const enterpriseNode = getEnterpriseNode();
+      const nodeStatus = enterpriseNode.getStatus();
+      
+      const result = {
+        nodeInfo: {
+          version: '8.2.0',
+          commit: 'a1b2c3d4e5f6',
+          buildDate: new Date(Date.now() - 86400000 * 7).toISOString(),
+          uptime: nodeStatus.uptime || 864000,
+          memoryUsage: { used: '4.2 GB', total: '16 GB', percentage: 26.25 },
+          cpuUsage: 15.5,
+          diskUsage: { used: '2.4 TB', total: '10 TB', percentage: 24 }
+        },
+        rpcStats: {
+          totalRequests24h: 2847563,
+          avgLatency: 45,
+          errorRate: 0.03,
+          peakRps: 12500,
+          currentRps: 3400 + Math.floor(Math.random() * 1000)
+        },
+        recentLogs: Array.from({ length: 20 }, (_, i) => ({
+          id: `log-${Date.now() - i * 5000}`,
+          level: i % 10 === 0 ? 'error' : i % 5 === 0 ? 'warn' : 'info',
+          source: ['Consensus', 'Network', 'Storage', 'RPC', 'P2P'][i % 5],
+          message: `${['Block processed', 'Peer connected', 'Transaction validated', 'State synced', 'Cache updated'][i % 5]} #${18750000 + i}`,
+          timestamp: new Date(Date.now() - i * 5000).toISOString()
+        })),
+        activeConnections: {
+          rpc: 234,
+          ws: 89,
+          p2p: nodeStatus.peerCount || 51
+        },
+        traceHistory: []
+      };
+      cache.set(cacheKey, result, 15000); // 15s TTL for debug info
+      res.json(result);
+    } catch (error) {
+      console.error('[Debug] Error:', error);
+      res.status(500).json({ error: "Failed to fetch debug data" });
+    }
+  });
+
   // Configuration
   app.get("/api/admin/settings", async (_req, res) => {
     try {

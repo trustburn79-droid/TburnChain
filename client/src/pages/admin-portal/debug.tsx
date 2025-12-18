@@ -70,6 +70,10 @@ export default function DebugTools() {
 
   const { data: debugData, isLoading, error, refetch } = useQuery<DebugData>({
     queryKey: ["/api/enterprise/admin/debug"],
+    refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const traceMutation = useMutation({

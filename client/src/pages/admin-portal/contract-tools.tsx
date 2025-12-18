@@ -67,6 +67,10 @@ export default function ContractTools() {
 
   const { data: contractsData, isLoading, error, refetch } = useQuery<ContractsData>({
     queryKey: ["/api/enterprise/admin/developer/contracts"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const deployMutation = useMutation({

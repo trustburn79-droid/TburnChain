@@ -53,6 +53,10 @@ export default function SdkManagement() {
 
   const { data: sdkData, isLoading, error, refetch } = useQuery<SdkData>({
     queryKey: ["/api/enterprise/admin/developer/sdk"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const defaultSdkVersions: SdkVersion[] = [

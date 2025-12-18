@@ -63,6 +63,10 @@ export default function ApiDocs() {
 
   const { data: apiDocsData, isLoading, error, refetch } = useQuery<ApiDocsData>({
     queryKey: ["/api/enterprise/admin/developer/docs"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const defaultEndpoints: ApiEndpoint[] = [
