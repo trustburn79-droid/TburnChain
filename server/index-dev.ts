@@ -15,7 +15,9 @@ export async function setupVite(app: Express, server: Server) {
   
   const serverOptions = {
     middlewareMode: true,
-    hmr: false, // Disable HMR in Replit to prevent blocking issues
+    // Disable HMR in Replit to prevent WebSocket blocking issues
+    // Keep HMR enabled for local development
+    hmr: isReplit ? false : { server },
     allowedHosts: true as const,
   };
 

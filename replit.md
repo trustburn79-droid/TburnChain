@@ -32,7 +32,9 @@ Core architectural decisions and features include:
 - **Public DeFi Stats API Access**: Dashboard DeFi stats endpoints (DEX, Lending, Yield, Liquid Staking, NFT, Launchpad, GameFi) are public read-only APIs that don't require authentication. This ensures dashboard data loads immediately without login dependency. Modified in `server/routes.ts` (global middleware bypass) and individual route files (`dex-routes.ts`, `lending-routes.ts`).
 - **Health and Security Dashboards**: Dynamically calculate health and security scores based on live enterprise node and AI service data.
 - **Dashboard WebSocket Resilience**: Dashboard uses WebSocket with exponential backoff reconnection (1s-30s, max 5 attempts, 60s cooldown reset). REST fallback triggers on every reconnect attempt ensuring continuous data loading. `isActive` guard prevents memory leaks on component unmount.
-- **Vite HMR in Replit**: HMR is configured with `clientPort: 443` and `protocol: "wss"` for Replit environments. Note: HMR connection may show "server connection lost" messages due to Replit's dynamic preview URL system - this is a development-only limitation and does not affect app functionality. All data loads correctly via REST APIs.
+- **Vite HMR in Replit**: HMR is disabled in Replit environments (`hmr: isReplit ? false : { server }`) to prevent WebSocket connection failures from blocking React app mounting. Local development outside Replit retains full HMR functionality. This ensures reliable initial page loads in Replit's dynamic preview environment.
+- **HTML Loading Indicator**: Added a static loading spinner in `client/index.html` that displays immediately during JavaScript bundle load, preventing blank white screens and providing instant visual feedback.
+- **Stable Text Animation Hook**: The `useRotatingScramble` hook in `Home.tsx` uses `useRef` for index tracking and runs effect only once (empty dependency array) to prevent infinite re-renders.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
