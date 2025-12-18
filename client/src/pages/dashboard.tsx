@@ -517,35 +517,35 @@ export default function Dashboard() {
     queryKey: ["/api/network/stats"],
     refetchInterval: 5000,
     staleTime: 5000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
-    retry: 3,
-    retryDelay: 1000,
+    retry: 2,
+    retryDelay: 500,
   });
 
   const { data: recentBlocks, isLoading: blocksLoading, error: blocksError, refetch: refetchBlocks } = useQuery<Block[]>({
     queryKey: ["/api/blocks/recent"],
     refetchInterval: 3000,
     staleTime: 3000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
-    retry: 3,
+    retry: 2,
   });
 
   const { data: recentTxs, isLoading: txsLoading, error: txsError, refetch: refetchTxs } = useQuery<Transaction[]>({
     queryKey: ["/api/transactions/recent"],
     refetchInterval: 3000,
     staleTime: 3000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
-    retry: 3,
+    retry: 2,
   });
 
   const { data: memberStats, isLoading: memberStatsLoading } = useQuery<MemberStats>({
     queryKey: ["/api/members/stats/summary"],
     refetchInterval: 60000,
     staleTime: 60000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -553,7 +553,7 @@ export default function Dashboard() {
     queryKey: ["/api/tokenomics/tiers"],
     refetchInterval: 60000,
     staleTime: 60000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -561,7 +561,7 @@ export default function Dashboard() {
     queryKey: ["/api/dex/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -569,7 +569,7 @@ export default function Dashboard() {
     queryKey: ["/api/lending/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -577,7 +577,7 @@ export default function Dashboard() {
     queryKey: ["/api/yield/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -585,7 +585,7 @@ export default function Dashboard() {
     queryKey: ["/api/liquid-staking/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -593,7 +593,7 @@ export default function Dashboard() {
     queryKey: ["/api/nft/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -601,7 +601,7 @@ export default function Dashboard() {
     queryKey: ["/api/launchpad/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -609,7 +609,7 @@ export default function Dashboard() {
     queryKey: ["/api/gamefi/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -617,7 +617,7 @@ export default function Dashboard() {
     queryKey: ["/api/bridge/stats"],
     refetchInterval: 30000,
     staleTime: 30000,
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
