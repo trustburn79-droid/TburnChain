@@ -110,6 +110,9 @@ export default function Permissions() {
   const { data: permissionsData, isLoading, error, refetch } = useQuery<PermissionsData>({
     queryKey: ["/api/enterprise/admin/permissions"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const updatePermissionsMutation = useMutation({

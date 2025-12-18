@@ -130,6 +130,9 @@ export default function Execution() {
   const { data, isLoading, error, refetch } = useQuery<ExecutionData>({
     queryKey: ['/api/enterprise/admin/governance/execution'],
     refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const executeProposalMutation = useMutation({

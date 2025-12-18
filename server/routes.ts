@@ -9417,9 +9417,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // Governance
+  // Governance - with caching
   app.get("/api/admin/governance/params", async (_req, res) => {
-    res.json({
+    const cache = getDataCache();
+    const cacheKey = 'admin_gov_params';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
       params: {
         proposalThreshold: '100000 TBURN',
         votingPeriod: '7 days',
@@ -9427,10 +9432,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         quorumPercentage: 10,
         supermajorityPercentage: 66
       }
-    });
+    };
+    cache.set(cacheKey, result, 60000); // 60s TTL for config
+    res.json(result);
   });
 
   app.get("/api/admin/governance/proposals", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'admin_gov_proposals';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
     const proposals = [
       {
         id: "TIP-001",
@@ -9513,7 +9525,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         requiredApproval: 66
       }
     ];
-    res.json({
+    const result = {
       proposals,
       stats: {
         total: proposals.length,
@@ -9521,7 +9533,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         passed: proposals.filter(p => p.status === 'passed' || p.status === 'executed').length,
         rejected: proposals.filter(p => p.status === 'rejected').length
       }
-    });
+    };
+    cache.set(cacheKey, result, 30000); // 30s TTL
+    res.json(result);
   });
 
   app.get("/api/admin/proposals", async (_req, res) => {
@@ -9534,7 +9548,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/governance/votes", async (_req, res) => {
-    res.json({
+    const cache = getDataCache();
+    const cacheKey = 'admin_gov_votes';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
       votes: Array.from({ length: 20 }, (_, i) => ({
         id: `vote-${i + 1}`,
         proposalId: `prop-${(i % 3) + 1}`,
@@ -9545,7 +9564,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       })),
       totalVotes: 5000000,
       participationRate: 0.45
-    });
+    };
+    cache.set(cacheKey, result, 10000); // 10s TTL for active voting
+    res.json(result);
   });
 
   app.get("/api/admin/governance/votes/:proposalId", async (req, res) => {
@@ -9592,7 +9613,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/governance/execution", async (_req, res) => {
-    res.json({
+    const cache = getDataCache();
+    const cacheKey = 'admin_gov_execution';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
       pendingExecutions: [
         { id: 'exec-1', proposalId: 'prop-2', title: 'Add New Bridge Chain', status: 'pending', scheduledAt: new Date(Date.now() + 86400000).toISOString() }
       ],
@@ -9604,7 +9630,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         executedAt: new Date(Date.now() - (i + 1) * 86400000 * 7).toISOString()
       })),
       failedExecutions: []
-    });
+    };
+    cache.set(cacheKey, result, 15000); // 15s TTL
+    res.json(result);
   });
 
   app.get("/api/admin/execution", async (_req, res) => {
@@ -9859,12 +9887,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // User Management
+  // User Management - with 30s caching
   app.get("/api/admin/accounts", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'admin_accounts';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
     const roles = ['Super Admin', 'Admin', 'Operator', 'Security', 'Developer', 'Viewer'];
     const statuses: ('active' | 'inactive' | 'suspended')[] = ['active', 'active', 'active', 'active', 'inactive', 'suspended'];
     const names = ['System Admin', 'Operations Lead', 'Security Officer', 'Lead Developer', 'Data Analyst', 'Backup Admin', 'Support Lead', 'QA Engineer'];
-    res.json({
+    const result = {
       accounts: Array.from({ length: 20 }, (_, i) => ({
         id: `user-${i + 1}`,
         name: names[i % names.length] + (i >= names.length ? ` ${Math.floor(i / names.length) + 1}` : ''),
@@ -9877,22 +9910,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
         permissions: i % 6 === 0 ? ['all'] : ['read', 'write'].slice(0, (i % 3) + 1)
       })),
       total: 20
-    });
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
   });
 
   app.get("/api/admin/roles", async (_req, res) => {
-    res.json({
+    const cache = getDataCache();
+    const cacheKey = 'admin_roles';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
       roles: [
         { id: 'admin', name: 'Administrator', permissions: ['all'], users: 5 },
         { id: 'operator', name: 'Operator', permissions: ['read', 'write', 'manage'], users: 10 },
         { id: 'analyst', name: 'Analyst', permissions: ['read', 'analytics'], users: 15 },
         { id: 'viewer', name: 'Viewer', permissions: ['read'], users: 50 }
       ]
-    });
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
   });
 
   app.get("/api/admin/permissions", async (_req, res) => {
-    res.json({
+    const cache = getDataCache();
+    const cacheKey = 'admin_permissions';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
       permissions: [
         { id: 'read', name: 'Read', description: 'View data' },
         { id: 'write', name: 'Write', description: 'Create and edit data' },
@@ -9900,10 +9947,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { id: 'manage', name: 'Manage', description: 'Manage settings' },
         { id: 'admin', name: 'Admin', description: 'Full administrative access' }
       ]
-    });
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
   });
 
   app.get("/api/admin/activity", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'admin_activity';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
     const actionTypes = ['login', 'logout', 'create', 'update', 'delete', 'view', 'settings', 'security'] as const;
     const statuses = ['success', 'failed', 'warning'] as const;
     const devices = ['Chrome/Windows 11', 'Firefox/macOS Sonoma', 'Safari/iOS 17', 'Edge/Windows 11', 'Chrome/Android 14'];
@@ -9912,7 +9966,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const actions = ['Logged in', 'Updated settings', 'Created new record', 'Viewed details', 'Deleted item', 'Modified configuration', 'Exported data', 'Changed permissions'];
     const names = ['Admin Kim', 'Operator Lee', 'Developer Park', 'Analyst Choi', 'Manager Hong', 'Security Jung', 'Support Yang', 'Auditor Kang'];
     
-    res.json({
+    const result = {
       logs: Array.from({ length: 50 }, (_, i) => ({
         id: `act-${i + 1}`,
         user: {
@@ -9935,10 +9989,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         failedAttempts: 7,
         securityEvents: 3
       }
-    });
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
   });
 
   app.get("/api/admin/sessions", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'admin_sessions';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
     const deviceTypes = ['desktop', 'mobile', 'tablet'] as const;
     const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
     const oses = ['Windows 11', 'macOS Sonoma', 'Ubuntu 22.04', 'iOS 17', 'Android 14'];
@@ -9946,7 +10007,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const statuses = ['active', 'idle', 'expired'] as const;
     const roles = ['Admin', 'Operator', 'Developer', 'Analyst', 'Viewer'];
     
-    res.json({
+    const result = {
       sessions: Array.from({ length: 15 }, (_, i) => ({
         id: `sess-${i + 1}`,
         user: {
@@ -9978,7 +10039,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         sessionLockOnIdle: true,
         deviceTrust: false
       }
-    });
+    };
+    cache.set(cacheKey, result, 30000);
+    res.json(result);
   });
 
   // Security - Dynamic calculation based on real system state
@@ -11635,10 +11698,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/feedback", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'admin_feedback';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
     const types = ['suggestion', 'bug', 'praise', 'complaint'] as const;
     const categories = ['UI/UX', 'Performance', 'Features', 'Documentation', 'Support'];
     const statuses = ['new', 'reviewed', 'actioned', 'archived'] as const;
-    res.json({
+    const result = {
       items: Array.from({ length: 25 }, (_, i) => ({
         id: `fb-${i + 1}`,
         type: types[i % 4],
@@ -11672,7 +11740,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { day: "Sat", feedback: 10, avgRating: 4.3 },
         { day: "Sun", feedback: 6, avgRating: 4.6 }
       ]
-    });
+    };
+    cache.set(cacheKey, result, 30000); // 30s TTL
+    res.json(result);
   });
 
   app.get("/api/admin/announcements", async (_req, res) => {

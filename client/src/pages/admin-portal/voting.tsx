@@ -128,6 +128,9 @@ export default function VotingMonitor() {
   const { data, isLoading, error, refetch } = useQuery<VotingStats>({
     queryKey: ['/api/enterprise/admin/governance/votes', `proposalId=${selectedProposal}`],
     refetchInterval: 10000,
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

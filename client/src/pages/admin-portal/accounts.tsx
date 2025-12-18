@@ -125,6 +125,9 @@ export default function AdminAccounts() {
   const { data: accountsData, isLoading, error, refetch } = useQuery<AccountsData>({
     queryKey: ["/api/enterprise/admin/accounts"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const createAccountMutation = useMutation({

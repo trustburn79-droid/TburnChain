@@ -134,6 +134,9 @@ export default function GovParams() {
   const { data, isLoading, error, refetch } = useQuery<GovParamsData>({
     queryKey: ['/api/enterprise/admin/governance/params'],
     refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const updateParamsMutation = useMutation({

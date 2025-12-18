@@ -119,6 +119,9 @@ export default function AdminRoles() {
   const { data: rolesData, isLoading, error, refetch } = useQuery<RolesData>({
     queryKey: ["/api/enterprise/admin/roles"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const createRoleMutation = useMutation({

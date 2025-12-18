@@ -140,6 +140,9 @@ export default function Sessions() {
   const { data: sessionsData, isLoading, error, refetch } = useQuery<SessionsData>({
     queryKey: ["/api/enterprise/admin/sessions"],
     refetchInterval: wsConnected ? false : 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const terminateSessionMutation = useMutation({

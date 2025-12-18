@@ -131,6 +131,9 @@ export default function ActivityMonitor() {
   const { data: activityData, isLoading, error, refetch } = useQuery<ActivityData>({
     queryKey: ["/api/enterprise/admin/activity", `timeRange=${timeRange}`],
     refetchInterval: wsConnected ? false : 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

@@ -78,6 +78,10 @@ export default function FeedbackSystem() {
 
   const { data: feedbackData, isLoading, error, refetch } = useQuery<FeedbackData>({
     queryKey: ["/api/enterprise/admin/feedback"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const respondMutation = useMutation({

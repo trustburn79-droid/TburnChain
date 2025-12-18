@@ -143,6 +143,9 @@ export default function Proposals() {
   const { data, isLoading, error, refetch } = useQuery<ProposalsData>({
     queryKey: ['/api/enterprise/admin/governance/proposals'],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
