@@ -1357,10 +1357,20 @@ export default function WalletDashboard() {
             {t("walletDashboard.subtitle", "Manage your TBURN tokens and track performance")}
           </p>
         </div>
-        <WalletRequiredBanner 
-          title={t("walletDashboard.connectWalletTitle", "Connect Your Wallet")}
-          description={t("walletDashboard.connectWalletDesc", "Connect your wallet to view your balance, transaction history, and manage your TBURN tokens")}
-        />
+        <Card className="max-w-md mx-auto text-center">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-center gap-2">
+              <Wallet className="h-5 w-5 text-primary" />
+              {t("walletDashboard.connectWalletTitle", "Connect Your Wallet")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              {t("walletDashboard.connectWalletDesc", "Connect your wallet to view your balance, transaction history, and manage your TBURN tokens")}
+            </p>
+            <WalletRequiredBanner />
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -1441,6 +1451,28 @@ export default function WalletDashboard() {
                   </div>
                 </div>
                 
+                {memberInfo && (
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">{t("walletDashboard.memberStatus", "Member Status")}</Label>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge variant="outline" className="text-xs capitalize" data-testid="badge-member-tier">
+                        {memberInfo.memberTier?.replace('_', ' ') || 'Community Member'}
+                      </Badge>
+                      <Badge 
+                        variant={memberInfo.memberStatus === 'active' ? 'default' : 'outline'}
+                        className={memberInfo.memberStatus === 'active' ? 'bg-green-500/20 text-green-600 border-green-500/30' : ''}
+                        data-testid="badge-member-status"
+                      >
+                        {memberInfo.memberStatus === 'active' ? <CheckCircle className="h-3 w-3 mr-1" /> : <AlertCircle className="h-3 w-3 mr-1" />}
+                        {memberInfo.memberStatus || 'Active'}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs" data-testid="badge-kyc-level">
+                        KYC: {memberInfo.kycLevel?.toUpperCase() || 'NONE'}
+                      </Badge>
+                    </div>
+                  </div>
+                )}
+
                 {myWallets.length > 1 && (
                   <div className="space-y-2">
                     <Label className="text-xs text-muted-foreground">{t("walletDashboard.switchWallet", "Switch Wallet")}</Label>
