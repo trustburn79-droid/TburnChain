@@ -128,43 +128,31 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
 
 // Admin authentication middleware
 function requireAdmin(req: Request, res: Response, next: NextFunction) {
-  // Check basic authentication first
-  if (!req.session.authenticated) {
-    console.warn('[Admin] Unauthorized access attempt - not authenticated');
-    return res.status(401).json({ error: "Unauthorized" });
+  // Check admin session authentication (set by /api/admin/auth/login)
+  if (req.session.adminAuthenticated) {
+    return next();
   }
   
-  // Check admin password from request header
-  const adminPassword = req.headers['x-admin-password'] as string;
-  
-  // Log ADMIN_PASSWORD status (without exposing the actual value)
-  if (!ADMIN_PASSWORD) {
-    console.error('[Admin] CRITICAL: ADMIN_PASSWORD environment variable not set!');
-    return res.status(500).json({ 
-      error: "Server Configuration Error",
-      message: "Admin password not configured on server"
-    });
+  // Also accept regular authenticated sessions with admin password header
+  if (req.session.authenticated) {
+    const adminPassword = req.headers['x-admin-password'] as string;
+    
+    if (!ADMIN_PASSWORD) {
+      console.error('[Admin] CRITICAL: ADMIN_PASSWORD environment variable not set!');
+      return res.status(500).json({ 
+        error: "Server Configuration Error",
+        message: "Admin password not configured on server"
+      });
+    }
+    
+    if (adminPassword && adminPassword === ADMIN_PASSWORD) {
+      console.log('[Admin] ✅ Admin access granted via password header for session:', req.sessionID);
+      return next();
+    }
   }
   
-  if (!adminPassword) {
-    console.warn('[Admin] Missing admin password in request header');
-    return res.status(403).json({ 
-      error: "Forbidden",
-      message: "Admin password required for this operation"
-    });
-  }
-  
-  // Verify admin password
-  if (adminPassword !== ADMIN_PASSWORD) {
-    console.warn('[Admin] Invalid admin password attempt from session:', req.sessionID);
-    return res.status(403).json({ 
-      error: "Forbidden",
-      message: "Invalid admin password"
-    });
-  }
-  
-  console.log('[Admin] ✅ Admin access granted for session:', req.sessionID);
-  next();
+  console.warn('[Admin] Unauthorized access attempt - not authenticated');
+  return res.status(401).json({ error: "Unauthorized" });
 }
 
 // NOTE: WebSocket authentication limitation
