@@ -516,6 +516,9 @@ export default function Dashboard() {
   const { data: networkStats, isLoading: statsLoading, error: statsError, refetch: refetchStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
     refetchInterval: 5000,
+    staleTime: 5000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
     retry: 3,
     retryDelay: 1000,
   });
@@ -523,63 +526,99 @@ export default function Dashboard() {
   const { data: recentBlocks, isLoading: blocksLoading, error: blocksError, refetch: refetchBlocks } = useQuery<Block[]>({
     queryKey: ["/api/blocks/recent"],
     refetchInterval: 3000,
+    staleTime: 3000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
     retry: 3,
   });
 
   const { data: recentTxs, isLoading: txsLoading, error: txsError, refetch: refetchTxs } = useQuery<Transaction[]>({
     queryKey: ["/api/transactions/recent"],
     refetchInterval: 3000,
+    staleTime: 3000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
     retry: 3,
   });
 
   const { data: memberStats, isLoading: memberStatsLoading } = useQuery<MemberStats>({
     queryKey: ["/api/members/stats/summary"],
     refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: tokenomics, isLoading: tokenomicsLoading } = useQuery<TokenomicsData>({
     queryKey: ["/api/tokenomics/tiers"],
     refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: dexStats, isLoading: dexStatsLoading } = useQuery<DexStats>({
     queryKey: ["/api/dex/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: lendingStats, isLoading: lendingStatsLoading } = useQuery<LendingStats>({
     queryKey: ["/api/lending/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: yieldStats, isLoading: yieldStatsLoading } = useQuery<YieldStats>({
     queryKey: ["/api/yield/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: lstStats, isLoading: lstStatsLoading } = useQuery<LstStats>({
     queryKey: ["/api/liquid-staking/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: nftStats, isLoading: nftStatsLoading } = useQuery<NftStats>({
     queryKey: ["/api/nft/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: launchpadStats, isLoading: launchpadStatsLoading } = useQuery<LaunchpadStats>({
     queryKey: ["/api/launchpad/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: gameFiStats, isLoading: gameFiStatsLoading } = useQuery<GameFiStats>({
     queryKey: ["/api/gamefi/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: bridgeStats, isLoading: bridgeStatsLoading } = useQuery<BridgeStats>({
     queryKey: ["/api/bridge/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -598,18 +637,79 @@ export default function Dashboard() {
   }, [networkStats?.tps]);
 
   useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    const getWsUrl = (): string | null => {
+      try {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const host = window.location.hostname;
+        const port = window.location.port;
+        
+        if (port && port !== '') {
+          return `${protocol}//${host}:${port}/ws`;
+        }
+        return `${protocol}//${host}/ws`;
+      } catch {
+        return null;
+      }
+    };
+
+    const wsUrl = getWsUrl();
     
     let ws: WebSocket | null = null;
     let reconnectTimer: NodeJS.Timeout | null = null;
+    let reconnectAttempts = 0;
+    let isReconnecting = false;
+    let isActive = true;
+    const maxReconnectAttempts = 5;
+
+    const triggerRestFallback = () => {
+      if (!isActive) return;
+      console.log('[Dashboard] WebSocket unavailable, using REST fallback');
+      refetchStats();
+      refetchBlocks();
+      refetchTxs();
+    };
+
+    const scheduleReconnect = () => {
+      if (!isActive || isReconnecting) return;
+      isReconnecting = true;
+      
+      triggerRestFallback();
+      
+      if (reconnectAttempts < maxReconnectAttempts) {
+        reconnectAttempts++;
+        const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+        console.log(`[Dashboard] Scheduling reconnect attempt ${reconnectAttempts}/${maxReconnectAttempts} in ${delay}ms`);
+        reconnectTimer = setTimeout(() => {
+          if (!isActive) return;
+          isReconnecting = false;
+          connect();
+        }, delay);
+      } else {
+        const cooldownDelay = 60000;
+        console.log(`[Dashboard] Max reconnect attempts reached, retrying after ${cooldownDelay / 1000}s cooldown`);
+        reconnectTimer = setTimeout(() => {
+          if (!isActive) return;
+          reconnectAttempts = 0;
+          isReconnecting = false;
+          connect();
+        }, cooldownDelay);
+      }
+    };
 
     const connect = () => {
+      if (!wsUrl) {
+        console.warn('[Dashboard] Invalid WebSocket URL, using REST fallback');
+        triggerRestFallback();
+        return;
+      }
+
       try {
         ws = new WebSocket(wsUrl);
         
         ws.onopen = () => {
           setWsConnected(true);
+          reconnectAttempts = 0;
+          console.log('[Dashboard] WebSocket connected');
           ws?.send(JSON.stringify({ type: 'subscribe', channels: ['network_stats', 'blocks', 'transactions'] }));
         };
 
@@ -629,24 +729,29 @@ export default function Dashboard() {
 
         ws.onclose = () => {
           setWsConnected(false);
-          reconnectTimer = setTimeout(connect, 3000);
+          scheduleReconnect();
         };
 
-        ws.onerror = () => {
+        ws.onerror = (error) => {
+          console.warn('[Dashboard] WebSocket error:', error);
           setWsConnected(false);
+          scheduleReconnect();
         };
-      } catch {
+      } catch (error) {
+        console.warn('[Dashboard] WebSocket connection failed:', error);
         setWsConnected(false);
+        scheduleReconnect();
       }
     };
 
     connect();
 
     return () => {
+      isActive = false;
       if (reconnectTimer) clearTimeout(reconnectTimer);
       if (ws) ws.close();
     };
-  }, [queryClient]);
+  }, [queryClient, refetchStats, refetchBlocks, refetchTxs]);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
