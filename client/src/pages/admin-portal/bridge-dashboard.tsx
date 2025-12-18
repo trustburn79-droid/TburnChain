@@ -120,21 +120,33 @@ export default function AdminBridgeDashboard() {
   const { data: bridgeStatsData, isLoading: loadingStats, error: statsError, refetch: refetchStats } = useQuery<BridgeStats>({
     queryKey: ["/api/admin/bridge/stats"],
     refetchInterval: 10000,
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: chainsData, isLoading: loadingChains, refetch: refetchChains } = useQuery<{ chains: Chain[] }>({
     queryKey: ["/api/admin/bridge/chains"],
     refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: transfersData, isLoading: loadingTransfers, refetch: refetchTransfers } = useQuery<{ transfers: Transfer[] }>({
     queryKey: ["/api/admin/bridge/transfers", "limit=10"],
     refetchInterval: 10000,
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: volumeData, isLoading: loadingVolume } = useQuery<{ history: VolumeData[] }>({
     queryKey: ["/api/admin/bridge/volume"],
     refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

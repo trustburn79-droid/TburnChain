@@ -110,21 +110,33 @@ export default function AdminBridgeLiquidity() {
   const { data: statsData, isLoading: loadingStats, error, refetch: refetchStats } = useQuery<LiquidityStats>({
     queryKey: ["/api/admin/bridge/liquidity/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: poolsData, isLoading: loadingPools, refetch: refetchPools } = useQuery<{ pools: LiquidityPool[] }>({
     queryKey: ["/api/admin/bridge/liquidity/pools"],
     refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: historyData, isLoading: loadingHistory } = useQuery<{ history: LiquidityHistory[] }>({
     queryKey: ["/api/admin/bridge/liquidity/history"],
     refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: alertsData, isLoading: loadingAlerts, refetch: refetchAlerts } = useQuery<{ alerts: RebalanceAlert[] }>({
     queryKey: ["/api/admin/bridge/liquidity/alerts"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const rebalanceMutation = useMutation({

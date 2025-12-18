@@ -98,16 +98,25 @@ export default function AdminBridgeValidators() {
   const { data: statsData, isLoading: loadingStats, error, refetch: refetchStats } = useQuery<ValidatorStats>({
     queryKey: ["/api/admin/bridge/validators/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: validatorsData, isLoading: loadingValidators, refetch: refetchValidators } = useQuery<{ validators: Validator[] }>({
     queryKey: ["/api/admin/bridge/validators"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: signaturesData, isLoading: loadingSignatures, refetch: refetchSignatures } = useQuery<{ signatures: SignatureHistory[] }>({
     queryKey: ["/api/admin/bridge/signatures"],
     refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const manageValidatorMutation = useMutation({

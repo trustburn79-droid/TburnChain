@@ -75,6 +75,9 @@ export default function AdminBridgeTransfers() {
   const { data: transfersData, isLoading, error, refetch } = useQuery<{ transfers: Transfer[]; total: number }>({
     queryKey: ["/api/admin/bridge/transfers"],
     refetchInterval: 10000,
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const retryMutation = useMutation({

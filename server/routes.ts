@@ -8108,11 +8108,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ success: true, message: `Burn schedule ${req.params.action}d`, burnId: req.params.burnId });
   });
 
-  // Bridge Management - Real TBurnEnterpriseNode Data
+  // Bridge Management - Real TBurnEnterpriseNode Data with caching
   app.get("/api/admin/bridge/stats", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_stats');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const bridgeStats = enterpriseNode.getBridgeStats();
+      cache.set('bridge_stats', bridgeStats, 10000); // 10s TTL
       res.json(bridgeStats);
     } catch (error) {
       console.error('[Bridge Stats] Error:', error);
@@ -8122,8 +8127,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/transfers", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_transfers');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const transfersData = enterpriseNode.getBridgeTransfers();
+      cache.set('bridge_transfers', transfersData, 10000); // 10s TTL
       res.json(transfersData);
     } catch (error) {
       console.error('[Bridge Transfers] Error:', error);
@@ -8133,8 +8143,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/chains", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_chains');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const chainsData = enterpriseNode.getBridgeChains();
+      cache.set('bridge_chains', chainsData, 15000); // 15s TTL
       res.json(chainsData);
     } catch (error) {
       console.error('[Bridge Chains] Error:', error);
@@ -8144,8 +8159,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/chains/stats", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_chains_stats');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const chainsStats = enterpriseNode.getBridgeChainsStats();
+      cache.set('bridge_chains_stats', chainsStats, 30000); // 30s TTL
       res.json(chainsStats);
     } catch (error) {
       console.error('[Bridge Chains Stats] Error:', error);
@@ -8155,8 +8175,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/validators", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_validators');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const validatorsData = enterpriseNode.getBridgeValidators();
+      cache.set('bridge_validators', validatorsData, 30000); // 30s TTL
       res.json(validatorsData);
     } catch (error) {
       console.error('[Bridge Validators] Error:', error);
@@ -8166,8 +8191,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/validators/stats", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_validators_stats');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const validatorStats = enterpriseNode.getBridgeValidatorStats();
+      cache.set('bridge_validators_stats', validatorStats, 30000); // 30s TTL
       res.json(validatorStats);
     } catch (error) {
       console.error('[Bridge Validator Stats] Error:', error);
@@ -8177,8 +8207,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/signatures", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_signatures');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const signaturesData = enterpriseNode.getBridgeSignatures();
+      cache.set('bridge_signatures', signaturesData, 15000); // 15s TTL
       res.json(signaturesData);
     } catch (error) {
       console.error('[Bridge Signatures] Error:', error);
@@ -8188,17 +8223,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/liquidity", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_liquidity');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const poolsData = enterpriseNode.getBridgeLiquidityPools();
       const statsData = enterpriseNode.getBridgeLiquidityStats();
-      res.json({
+      const result = {
         totalLiquidity: statsData.totalLocked,
         pools: poolsData.pools.map(p => ({
           token: p.chain,
           amount: p.locked,
           utilization: p.utilization / 100
         }))
-      });
+      };
+      cache.set('bridge_liquidity', result, 15000); // 15s TTL
+      res.json(result);
     } catch (error) {
       console.error('[Bridge Liquidity] Error:', error);
       res.status(500).json({ error: "Failed to fetch liquidity" });
@@ -8207,8 +8248,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/liquidity/pools", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_liquidity_pools');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const poolsData = enterpriseNode.getBridgeLiquidityPools();
+      cache.set('bridge_liquidity_pools', poolsData, 15000); // 15s TTL
       res.json(poolsData);
     } catch (error) {
       console.error('[Bridge Liquidity Pools] Error:', error);
@@ -8218,8 +8264,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/liquidity/stats", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_liquidity_stats');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const statsData = enterpriseNode.getBridgeLiquidityStats();
+      cache.set('bridge_liquidity_stats', statsData, 30000); // 30s TTL
       res.json(statsData);
     } catch (error) {
       console.error('[Bridge Liquidity Stats] Error:', error);
@@ -8229,8 +8280,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/liquidity/history", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_liquidity_history');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const historyData = enterpriseNode.getBridgeLiquidityHistory();
+      cache.set('bridge_liquidity_history', historyData, 60000); // 60s TTL
       res.json(historyData);
     } catch (error) {
       console.error('[Bridge Liquidity History] Error:', error);
@@ -8240,8 +8296,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/liquidity/alerts", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_liquidity_alerts');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const alertsData = enterpriseNode.getBridgeLiquidityAlerts();
+      cache.set('bridge_liquidity_alerts', alertsData, 30000); // 30s TTL
       res.json(alertsData);
     } catch (error) {
       console.error('[Bridge Liquidity Alerts] Error:', error);
@@ -8251,8 +8312,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/bridge/volume", async (_req, res) => {
     try {
+      const cache = getDataCache();
+      const cached = cache.get<any>('bridge_volume');
+      if (cached) return res.json(cached);
+      
       const enterpriseNode = getEnterpriseNode();
       const volumeData = enterpriseNode.getBridgeVolume();
+      cache.set('bridge_volume', volumeData, 60000); // 60s TTL
       res.json(volumeData);
     } catch (error) {
       console.error('[Bridge Volume] Error:', error);

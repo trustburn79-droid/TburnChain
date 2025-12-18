@@ -99,11 +99,17 @@ export default function AdminChainConnections() {
   const { data: statsData, isLoading: loadingStats, error, refetch: refetchStats } = useQuery<ChainStats>({
     queryKey: ["/api/admin/bridge/chains/stats"],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: chainsData, isLoading: loadingChains, refetch: refetchChains } = useQuery<{ chains: Chain[] }>({
     queryKey: ["/api/admin/bridge/chains"],
     refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const toggleChainMutation = useMutation({
