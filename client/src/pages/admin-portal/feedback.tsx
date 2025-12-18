@@ -160,18 +160,18 @@ export default function FeedbackSystem() {
   ];
 
   const ratingData = feedbackData?.ratingData || [
-    { rating: "5 Stars (Excellent)", count: 1247, percentage: 82 },
-    { rating: "4 Stars (Very Good)", count: 198, percentage: 13 },
-    { rating: "3 Stars (Good)", count: 56, percentage: 4 },
-    { rating: "2 Stars (Fair)", count: 12, percentage: 1 },
-    { rating: "1 Star (Poor)", count: 4, percentage: 0 },
+    { rating: t("adminFeedback.ratings.excellent"), count: 2847, percentage: 59 },
+    { rating: t("adminFeedback.ratings.veryGood"), count: 1523, percentage: 31 },
+    { rating: t("adminFeedback.ratings.good"), count: 342, percentage: 7 },
+    { rating: t("adminFeedback.ratings.fair"), count: 89, percentage: 2 },
+    { rating: t("adminFeedback.ratings.poor"), count: 23, percentage: 1 },
   ];
 
   const typeDistribution = feedbackData?.typeDistribution || [
-    { name: "Praise (Mainnet Launch)", value: 78, color: "hsl(var(--chart-2))" },
-    { name: "Suggestions (Roadmap)", value: 18, color: "hsl(var(--chart-1))" },
-    { name: "Questions (Technical)", value: 3, color: "hsl(var(--chart-3))" },
-    { name: "Issues (Resolved)", value: 1, color: "hsl(var(--chart-5))" },
+    { name: t("adminFeedback.distribution.praise"), value: 78, color: "#22c55e" },
+    { name: t("adminFeedback.distribution.suggestions"), value: 18, color: "#3b82f6" },
+    { name: t("adminFeedback.distribution.questions"), value: 3, color: "#f59e0b" },
+    { name: t("adminFeedback.distribution.issues"), value: 1, color: "#ef4444" },
   ];
 
   const trendData = feedbackData?.trendData || Array.from({ length: 30 }, (_, i) => ({
