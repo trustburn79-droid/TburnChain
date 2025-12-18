@@ -19954,6 +19954,19 @@
     "assessmentSuccessDesc": "컴플라이언스 평가가 성공적으로 완료되었습니다",
     "assessmentError": "평가 실패",
     "assessmentErrorDesc": "평가를 실행할 수 없습니다. 다시 시도해 주세요.",
+    "assessmentResult": {
+      "title": "평가 결과",
+      "desc": "컴플라이언스 평가가 완료되었습니다",
+      "overallScore": "전체 점수",
+      "areasAssessed": "평가 영역",
+      "controlsEvaluated": "평가된 컨트롤",
+      "passedControls": "통과한 컨트롤",
+      "findings": "발견 사항",
+      "criticalFindings": "중요 발견 사항",
+      "summary": "요약",
+      "id": "평가 ID",
+      "completedAt": "완료 시간"
+    },
     "reportGenerated": "보고서 생성 완료",
     "reportDownloaded": "{{fileName}} 파일이 다운로드되었습니다",
     "error": {
