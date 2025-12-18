@@ -36,6 +36,43 @@ Core architectural decisions and features include:
 - **HTML Loading Indicator**: Added a static loading spinner in `client/index.html` that displays immediately during JavaScript bundle load, preventing blank white screens and providing instant visual feedback.
 - **Stable Text Animation Hook**: The `useRotatingScramble` hook in `Home.tsx` uses `useRef` for index tracking and runs effect only once (empty dependency array) to prevent infinite re-renders.
 
+## Engineering Standards - Preventing Infinite Loops and Render Blocking
+
+### useEffect Best Practices
+1. **Never include state setters in dependency arrays that are called inside the effect**
+   - BAD: `useEffect(() => { setCount(count + 1) }, [count])` → Infinite loop
+   - GOOD: Use `useRef` for mutable values that shouldn't trigger re-renders
+
+2. **Timer-based effects must use refs for index/counter tracking**
+   ```typescript
+   // GOOD pattern
+   const indexRef = useRef(0);
+   useEffect(() => {
+     const interval = setInterval(() => {
+       indexRef.current = (indexRef.current + 1) % items.length;
+     }, 3000);
+     return () => clearInterval(interval);
+   }, []); // Empty dependency array
+   ```
+
+3. **WebSocket effects must include `isActive` guard**
+   ```typescript
+   useEffect(() => {
+     let isActive = true;
+     const ws = new WebSocket(url);
+     ws.onmessage = () => { if (isActive) { /* update */ } };
+     return () => { isActive = false; ws.close(); };
+   }, []);
+   ```
+
+4. **Always clean up timers and subscriptions in return function**
+
+### Code Review Checklist
+- [ ] Does the effect have state variables in dependencies that are mutated inside the effect?
+- [ ] Are all `setInterval`/`setTimeout` properly cleared in cleanup?
+- [ ] Does the effect use `isActive` or `isMounted` guards for async operations?
+- [ ] For animation hooks: Is index tracking done via `useRef` not `useState`?
+
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
 - **ORM**: Drizzle ORM
