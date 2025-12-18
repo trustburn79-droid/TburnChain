@@ -3307,7 +3307,14 @@ export class DbStorage implements IStorage {
   }
 
   async getMemberByAddress(address: string): Promise<Member | undefined> {
-    const result = await db.select().from(members).where(eq(members.accountAddress, address)).limit(1);
+    // Case-insensitive lookup to handle both legacy mixed-case and new lowercase addresses
+    const normalizedAddress = address.toLowerCase();
+    // First try exact match with normalized address (new records)
+    let result = await db.select().from(members).where(eq(members.accountAddress, normalizedAddress)).limit(1);
+    if (result[0]) return result[0];
+    
+    // Fallback: case-insensitive match for legacy records with mixed-case addresses
+    result = await db.select().from(members).where(sql`LOWER(${members.accountAddress}) = ${normalizedAddress}`).limit(1);
     return result[0];
   }
 
@@ -3317,7 +3324,13 @@ export class DbStorage implements IStorage {
   }
 
   async createMember(data: InsertMember): Promise<Member> {
-    const result = await db.insert(members).values(data).returning();
+    // Normalize account address to lowercase for consistent storage
+    const normalizedData = {
+      ...data,
+      accountAddress: data.accountAddress?.toLowerCase(),
+      publicKey: data.publicKey?.toLowerCase(),
+    };
+    const result = await db.insert(members).values(normalizedData).returning();
     return result[0];
   }
 

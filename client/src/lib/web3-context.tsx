@@ -193,9 +193,9 @@ export function Web3Provider({ children }: { children: ReactNode }) {
           id: member.id,
           accountAddress: member.accountAddress,
           displayName: member.displayName,
-          memberTier: member.memberTier,
-          memberStatus: member.memberStatus,
-          kycLevel: member.kycLevel,
+          memberTier: member.memberTier || 'community_member',
+          memberStatus: member.memberStatus || 'active',
+          kycLevel: member.kycLevel || 'none',
           isRegistered: true,
         };
         

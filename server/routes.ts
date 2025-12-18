@@ -16,6 +16,7 @@ import {
   shardsSnapshotSchema,
   consensusStateSchema,
   newsletterSubscribers,
+  insertMemberSchema,
   type InsertMember,
   type NetworkStats
 } from "@shared/schema";
@@ -4080,9 +4081,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // Get member by address
+  // Get member by address (case-insensitive via storage layer)
   app.get("/api/members/address/:address", async (req, res) => {
     try {
+      // Storage layer handles case-insensitive lookup for legacy compatibility
       const member = await storage.getMemberByAddress(req.params.address);
       if (!member) {
         return res.status(404).json({ error: "Member not found" });
@@ -4097,8 +4099,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         storage.getMemberPerformanceMetrics(member.id),
       ]);
       
+      // Return with guaranteed defaults for tier/status/kycLevel
       res.json({
         ...member,
+        memberTier: member.memberTier || 'community_member',
+        memberStatus: member.memberStatus || 'active',
+        kycLevel: member.kycLevel || 'none',
         profile,
         governance,
         financial,
@@ -4132,27 +4138,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Register wallet as member (for wallet connection flow)
+  // Uses shared schema validation with address normalization
+  const registerWalletSchema = z.object({
+    accountAddress: z.string()
+      .min(1, "Wallet address is required")
+      .regex(/^0x[a-fA-F0-9]{40}$/, "Invalid Ethereum address format")
+      .transform(addr => addr.toLowerCase()),
+    displayName: z.string()
+      .max(100, "Display name too long")
+      .transform(name => name.replace(/[<>]/g, ''))
+      .optional(),
+  });
+
   app.post("/api/members/register-wallet", async (req, res) => {
     try {
-      const { accountAddress, displayName } = req.body;
-      
-      // Validate wallet address format (Ethereum address)
-      if (!accountAddress || typeof accountAddress !== 'string') {
-        return res.status(400).json({ error: "Wallet address is required" });
+      // Validate request body using Zod schema
+      const validationResult = registerWalletSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: "Validation failed", 
+          details: validationResult.error.flatten().fieldErrors 
+        });
       }
       
-      const normalizedAddress = accountAddress.toLowerCase();
-      if (!/^0x[a-f0-9]{40}$/.test(normalizedAddress)) {
-        return res.status(400).json({ error: "Invalid wallet address format" });
-      }
+      const { accountAddress: normalizedAddress, displayName } = validationResult.data;
+      const sanitizedDisplayName = displayName || `Wallet ${normalizedAddress.slice(0, 8)}`;
       
-      // Validate and sanitize display name
-      const sanitizedDisplayName = typeof displayName === 'string' 
-        ? displayName.slice(0, 100).replace(/[<>]/g, '') 
-        : `Wallet ${accountAddress.slice(0, 8)}`;
-      
-      // Check if member already exists (case-insensitive)
-      const existingMember = await storage.getMemberByAddress(accountAddress);
+      // Check if member already exists (case-insensitive via normalized address)
+      const existingMember = await storage.getMemberByAddress(normalizedAddress);
       if (existingMember) {
         return res.json({
           ...existingMember,
@@ -4162,10 +4175,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Create new member with wallet connection
+      // Create new member with wallet connection (use normalized address)
       const memberData = {
-        accountAddress,
-        publicKey: accountAddress,
+        accountAddress: normalizedAddress,
+        publicKey: normalizedAddress,
         displayName: sanitizedDisplayName,
         entityType: "individual" as const,
         memberTier: "community_member" as const,
@@ -4195,8 +4208,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         storage.createMemberSecurityProfile({ memberId: member.id }),
       ]);
       
-      console.log(`[Member] Registered new wallet member: ${accountAddress.slice(0, 8)}...`);
-      res.status(201).json(member);
+      console.log(`[Member] Registered new wallet member: ${normalizedAddress.slice(0, 8)}...`);
+      
+      // Return complete member data with guaranteed defaults
+      res.status(201).json({
+        ...member,
+        memberTier: member.memberTier || 'community_member',
+        memberStatus: member.memberStatus || 'active',
+        kycLevel: member.kycLevel || 'none',
+      });
     } catch (error) {
       console.error("Error registering wallet member:", error);
       res.status(500).json({ error: "Failed to register member" });
