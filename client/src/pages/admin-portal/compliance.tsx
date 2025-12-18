@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,7 +18,7 @@ import {
   FileCheck, Shield, AlertTriangle, CheckCircle, Clock, 
   Download, FileText, Calendar, RefreshCw, Eye, Award,
   Users, Scale, Activity, TrendingUp, TrendingDown, AlertCircle,
-  Building2, Globe, Lock
+  Building2, Globe, Lock, XCircle
 } from "lucide-react";
 
 interface ComplianceScore {
@@ -119,6 +120,20 @@ export default function AdminCompliance() {
   const [showFrameworkDetail, setShowFrameworkDetail] = useState(false);
   const [selectedFramework, setSelectedFramework] = useState<Framework | null>(null);
   const [showAssessmentConfirm, setShowAssessmentConfirm] = useState(false);
+  const [showAssessmentResult, setShowAssessmentResult] = useState(false);
+  const [assessmentResult, setAssessmentResult] = useState<{
+    id: string;
+    startedAt: string;
+    completedAt: string;
+    status: string;
+    overallScore: number;
+    areasAssessed: number;
+    controlsEvaluated: number;
+    passedControls: number;
+    findings: number;
+    criticalFindings: number;
+    summary: string;
+  } | null>(null);
   const [showFindingDetail, setShowFindingDetail] = useState(false);
   const [selectedFinding, setSelectedFinding] = useState<Finding | null>(null);
   const [showAuditDetail, setShowAuditDetail] = useState(false);
@@ -133,10 +148,15 @@ export default function AdminCompliance() {
 
   const runAssessmentMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("POST", "/api/admin/compliance/assessment");
+      const response = await apiRequest("POST", "/api/admin/compliance/assessment");
+      return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/compliance"] });
+      if (result?.data) {
+        setAssessmentResult(result.data);
+        setShowAssessmentResult(true);
+      }
       toast({
         title: t("adminCompliance.assessmentSuccess"),
         description: t("adminCompliance.assessmentSuccessDesc"),
@@ -1299,6 +1319,86 @@ export default function AdminCompliance() {
         isLoading={runAssessmentMutation.isPending}
         destructive={false}
       />
+
+      <Sheet open={showAssessmentResult} onOpenChange={setShowAssessmentResult}>
+        <SheetContent className="w-[500px] sm:max-w-[540px]" data-testid="sheet-assessment-result">
+          <SheetHeader>
+            <SheetTitle className="flex items-center gap-2">
+              <FileCheck className="h-5 w-5 text-primary" />
+              {t("adminCompliance.assessmentResult.title", "Assessment Results")}
+            </SheetTitle>
+            <SheetDescription>
+              {t("adminCompliance.assessmentResult.desc", "Compliance assessment has been completed")}
+            </SheetDescription>
+          </SheetHeader>
+
+          {assessmentResult && (
+            <div className="mt-6 space-y-6">
+              <div className="flex items-center justify-between p-4 rounded-lg bg-primary/10">
+                <div>
+                  <p className="text-sm text-muted-foreground">{t("adminCompliance.assessmentResult.overallScore", "Overall Score")}</p>
+                  <p className="text-3xl font-bold text-primary">{assessmentResult.overallScore}%</p>
+                </div>
+                <div className={`p-3 rounded-full ${assessmentResult.overallScore >= 90 ? 'bg-green-500/20' : assessmentResult.overallScore >= 70 ? 'bg-yellow-500/20' : 'bg-red-500/20'}`}>
+                  {assessmentResult.overallScore >= 90 ? (
+                    <CheckCircle className="h-8 w-8 text-green-500" />
+                  ) : assessmentResult.overallScore >= 70 ? (
+                    <AlertTriangle className="h-8 w-8 text-yellow-500" />
+                  ) : (
+                    <XCircle className="h-8 w-8 text-red-500" />
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 border rounded-lg">
+                  <p className="text-sm text-muted-foreground">{t("adminCompliance.assessmentResult.areasAssessed", "Areas Assessed")}</p>
+                  <p className="text-2xl font-semibold">{assessmentResult.areasAssessed}</p>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <p className="text-sm text-muted-foreground">{t("adminCompliance.assessmentResult.controlsEvaluated", "Controls Evaluated")}</p>
+                  <p className="text-2xl font-semibold">{assessmentResult.controlsEvaluated}</p>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <p className="text-sm text-muted-foreground">{t("adminCompliance.assessmentResult.passedControls", "Passed Controls")}</p>
+                  <p className="text-2xl font-semibold text-green-500">{assessmentResult.passedControls}</p>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <p className="text-sm text-muted-foreground">{t("adminCompliance.assessmentResult.findings", "Findings")}</p>
+                  <p className="text-2xl font-semibold text-yellow-500">{assessmentResult.findings}</p>
+                </div>
+              </div>
+
+              {assessmentResult.criticalFindings > 0 && (
+                <div className="p-4 border border-red-500/50 rounded-lg bg-red-500/10">
+                  <div className="flex items-center gap-2 text-red-500">
+                    <AlertTriangle className="h-5 w-5" />
+                    <span className="font-semibold">{assessmentResult.criticalFindings} {t("adminCompliance.assessmentResult.criticalFindings", "Critical Findings")}</span>
+                  </div>
+                </div>
+              )}
+
+              <div className="p-4 border rounded-lg">
+                <p className="text-sm font-medium mb-2">{t("adminCompliance.assessmentResult.summary", "Summary")}</p>
+                <p className="text-sm text-muted-foreground">{assessmentResult.summary}</p>
+              </div>
+
+              <div className="text-xs text-muted-foreground space-y-1">
+                <p>{t("adminCompliance.assessmentResult.id", "Assessment ID")}: {assessmentResult.id}</p>
+                <p>{t("adminCompliance.assessmentResult.completedAt", "Completed")}: {new Date(assessmentResult.completedAt).toLocaleString()}</p>
+              </div>
+
+              <Button 
+                className="w-full" 
+                onClick={() => setShowAssessmentResult(false)}
+                data-testid="button-close-assessment"
+              >
+                {t("common.close", "Close")}
+              </Button>
+            </div>
+          )}
+        </SheetContent>
+      </Sheet>
     </ScrollArea>
   );
 }
