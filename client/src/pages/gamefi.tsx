@@ -16,6 +16,7 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
+import { formatTokenAmount } from "@/lib/formatters";
 import { 
   Gamepad2, 
   Trophy, 
@@ -178,16 +179,7 @@ interface PendingReward {
 
 function formatAmount(wei: string | null | undefined, decimals: number = 18): string {
   if (!wei || wei === "0") return "0";
-  try {
-    const value = BigInt(wei);
-    const divisor = 10n ** BigInt(decimals);
-    const integerPart = value / divisor;
-    const remainder = value % divisor;
-    const decimalStr = remainder.toString().padStart(decimals, '0').slice(0, 2);
-    return `${integerPart.toLocaleString()}.${decimalStr}`;
-  } catch {
-    return "0";
-  }
+  return formatTokenAmount(wei, decimals, "").trim();
 }
 
 function shortenAddress(address: string): string {
