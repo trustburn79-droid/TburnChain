@@ -16474,22 +16474,27 @@ Provide JSON portfolio analysis:
     verifyClient: (info, callback) => {
       // Allow all WebSocket connections for public blockchain explorer data
       // This is consistent with public REST API endpoints (/api/shards, /api/network/stats, etc.)
-      // Production can optionally add rate limiting via origin checking
       const origin = info.origin || info.req.headers.origin;
       
       if (isProduction && origin) {
-        // In production, optionally validate origin for security
-        const allowedOrigins = [
-          process.env.ALLOWED_ORIGIN,
-          'https://tburn.io',
-          'https://www.tburn.io'
-        ].filter(Boolean);
+        // In production, validate origin for security
+        // Allow Replit app domains, tburn.io domains, and configured ALLOWED_ORIGIN
+        const isAllowedOrigin = 
+          origin.endsWith('.replit.app') ||
+          origin.endsWith('.replit.dev') ||
+          origin.endsWith('.repl.co') ||
+          origin.includes('tburn.io') ||
+          origin === process.env.ALLOWED_ORIGIN ||
+          origin === 'http://localhost:5000' ||
+          origin === 'https://localhost:5000';
         
-        if (allowedOrigins.length > 0 && !allowedOrigins.includes(origin)) {
+        if (!isAllowedOrigin) {
           console.warn('[WebSocket] Rejected connection from unknown origin:', origin);
           callback(false, 403, 'Forbidden - Unknown origin');
           return;
         }
+        
+        console.log('[WebSocket] Accepted connection from origin:', origin);
       }
       
       // Allow connection
