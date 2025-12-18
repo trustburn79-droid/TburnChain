@@ -4,6 +4,7 @@ import { useWeb3, TBURN_CHAIN_ID } from "@/lib/web3-context";
 import { WalletConnectModal } from "./wallet-connect-modal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLocation } from "wouter";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -52,9 +53,14 @@ export function WalletButton() {
     pendingTransactions,
     clearError,
     getConnectionHealth,
+    memberInfo,
+    isFetchingMember,
+    registerAsMember,
   } = useWeb3();
+  const [, setLocation] = useLocation();
   const [modalOpen, setModalOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const pendingCount = pendingTransactions.filter(tx => tx.status === "pending").length;
   const connectionHealth = getConnectionHealth();
@@ -272,6 +278,92 @@ export function WalletButton() {
                   <span>{t("wallet.pendingTransactions", { count: pendingCount })}</span>
                 </div>
               </div>
+              <DropdownMenuSeparator />
+            </>
+          )}
+
+          {/* Member Status Section */}
+          <div className="px-3 py-2">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs text-muted-foreground">
+                {t("wallet.memberStatus", "Member Status")}
+              </span>
+              {isFetchingMember ? (
+                <Loader2 className="h-3 w-3 animate-spin text-muted-foreground" />
+              ) : memberInfo?.isRegistered ? (
+                <Badge variant="outline" className="text-xs bg-green-500/10 text-green-600 border-green-500/30">
+                  {memberInfo.memberTier === 'community_member' ? t("wallet.communityMember", "Community") : 
+                   memberInfo.memberTier === 'active_validator' ? t("wallet.validator", "Validator") :
+                   memberInfo.memberTier}
+                </Badge>
+              ) : (
+                <Badge variant="outline" className="text-xs bg-yellow-500/10 text-yellow-600 border-yellow-500/30">
+                  {t("wallet.unregistered", "Unregistered")}
+                </Badge>
+              )}
+            </div>
+            {memberInfo?.isRegistered && memberInfo.displayName && (
+              <div className="text-xs text-muted-foreground">
+                {memberInfo.displayName}
+              </div>
+            )}
+          </div>
+          
+          {/* Register or View Profile */}
+          {memberInfo && !memberInfo.isRegistered && address && (
+            <>
+              <DropdownMenuItem
+                onClick={async () => {
+                  if (isRegistering) return;
+                  setIsRegistering(true);
+                  try {
+                    const result = await registerAsMember(address);
+                    if (result) {
+                      toast({
+                        title: t("wallet.registrationSuccess", "Registration Successful"),
+                        description: t("wallet.registrationSuccessDesc", "You are now a TBURN community member!"),
+                      });
+                    } else {
+                      toast({
+                        title: t("wallet.registrationFailed", "Registration Failed"),
+                        description: t("wallet.registrationFailedDesc", "Please try again later."),
+                        variant: "destructive",
+                      });
+                    }
+                  } catch {
+                    toast({
+                      title: t("wallet.registrationFailed", "Registration Failed"),
+                      description: t("wallet.registrationFailedDesc", "Please try again later."),
+                      variant: "destructive",
+                    });
+                  } finally {
+                    setIsRegistering(false);
+                  }
+                }}
+                disabled={isRegistering || isFetchingMember}
+                className="text-primary"
+                data-testid="button-register-member"
+              >
+                {isRegistering ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <CheckCircle className="h-4 w-4 mr-2" />
+                )}
+                {t("wallet.registerAsMember", "Register as Member")}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </>
+          )}
+          
+          {memberInfo?.isRegistered && (
+            <>
+              <DropdownMenuItem
+                onClick={() => setLocation(`/app/members/${memberInfo.id}`)}
+                data-testid="button-view-profile"
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                {t("wallet.viewProfile", "View My Profile")}
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
             </>
           )}

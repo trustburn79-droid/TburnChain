@@ -4130,6 +4130,78 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to create member" });
     }
   });
+
+  // Register wallet as member (for wallet connection flow)
+  app.post("/api/members/register-wallet", async (req, res) => {
+    try {
+      const { accountAddress, displayName } = req.body;
+      
+      // Validate wallet address format (Ethereum address)
+      if (!accountAddress || typeof accountAddress !== 'string') {
+        return res.status(400).json({ error: "Wallet address is required" });
+      }
+      
+      const normalizedAddress = accountAddress.toLowerCase();
+      if (!/^0x[a-f0-9]{40}$/.test(normalizedAddress)) {
+        return res.status(400).json({ error: "Invalid wallet address format" });
+      }
+      
+      // Validate and sanitize display name
+      const sanitizedDisplayName = typeof displayName === 'string' 
+        ? displayName.slice(0, 100).replace(/[<>]/g, '') 
+        : `Wallet ${accountAddress.slice(0, 8)}`;
+      
+      // Check if member already exists (case-insensitive)
+      const existingMember = await storage.getMemberByAddress(accountAddress);
+      if (existingMember) {
+        return res.json({
+          ...existingMember,
+          memberTier: existingMember.memberTier || 'community_member',
+          memberStatus: existingMember.memberStatus || 'active',
+          kycLevel: existingMember.kycLevel || 'none',
+        });
+      }
+      
+      // Create new member with wallet connection
+      const memberData = {
+        accountAddress,
+        publicKey: accountAddress,
+        displayName: sanitizedDisplayName,
+        entityType: "individual" as const,
+        memberTier: "community_member" as const,
+        memberStatus: "active" as const,
+        kycLevel: "none" as const,
+        amlRiskScore: 0,
+        walletConnectionMethod: "web3_connect",
+        isEmailVerified: false,
+        is2faEnabled: false,
+      };
+      
+      const member = await storage.createMember(memberData);
+      
+      // Create associated profiles with safe defaults
+      await Promise.all([
+        storage.createMemberProfile({ 
+          memberId: member.id, 
+          bio: null, 
+          avatarUrl: null, 
+          socialLinks: null,
+          preferredLanguage: "en",
+          timezone: "America/New_York",
+          notificationPreferences: { email: false, push: false, sms: false },
+        }),
+        storage.createMemberGovernanceProfile({ memberId: member.id }),
+        storage.createMemberFinancialProfile({ memberId: member.id }),
+        storage.createMemberSecurityProfile({ memberId: member.id }),
+      ]);
+      
+      console.log(`[Member] Registered new wallet member: ${accountAddress.slice(0, 8)}...`);
+      res.status(201).json(member);
+    } catch (error) {
+      console.error("Error registering wallet member:", error);
+      res.status(500).json({ error: "Failed to register member" });
+    }
+  });
   
   // Update member
   app.patch("/api/members/:id", async (req, res) => {

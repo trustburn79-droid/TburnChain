@@ -19,6 +19,16 @@ declare global {
 
 export type WalletType = "metamask" | "rabby" | "trust" | "coinbase" | "ledger" | null;
 
+export interface MemberInfo {
+  id: string;
+  accountAddress: string;
+  displayName: string | null;
+  memberTier: string;
+  memberStatus: string;
+  kycLevel: string | null;
+  isRegistered: boolean;
+}
+
 export interface WalletState {
   isConnected: boolean;
   isConnecting: boolean;
@@ -30,6 +40,8 @@ export interface WalletState {
   error: string | null;
   lastConnectedAt: number | null;
   connectionAttempts: number;
+  memberInfo: MemberInfo | null;
+  isFetchingMember: boolean;
 }
 
 export interface TransactionConfig {
@@ -67,6 +79,9 @@ export interface Web3ContextType extends WalletState {
   pendingTransactions: PendingTransaction[];
   clearError: () => void;
   getConnectionHealth: () => ConnectionHealth;
+  fetchMemberInfo: (address: string) => Promise<MemberInfo | null>;
+  registerAsMember: (address: string, displayName?: string) => Promise<MemberInfo | null>;
+  refreshMemberInfo: () => Promise<void>;
 }
 
 export interface ConnectionHealth {
@@ -107,6 +122,8 @@ const initialState: WalletState = {
   error: null,
   lastConnectedAt: null,
   connectionAttempts: 0,
+  memberInfo: null,
+  isFetchingMember: false,
 };
 
 const Web3Context = createContext<Web3ContextType | null>(null);
@@ -161,6 +178,101 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   const clearError = useCallback(() => {
     setState(prev => ({ ...prev, error: null }));
   }, []);
+
+  const fetchMemberInfo = useCallback(async (address: string): Promise<MemberInfo | null> => {
+    if (!address || !isValidEthereumAddress(address)) return null;
+    
+    setState(prev => ({ ...prev, isFetchingMember: true }));
+    
+    try {
+      const response = await fetch(`/api/members/address/${address}`);
+      
+      if (response.ok) {
+        const member = await response.json();
+        const memberInfo: MemberInfo = {
+          id: member.id,
+          accountAddress: member.accountAddress,
+          displayName: member.displayName,
+          memberTier: member.memberTier,
+          memberStatus: member.memberStatus,
+          kycLevel: member.kycLevel,
+          isRegistered: true,
+        };
+        
+        if (mountedRef.current) {
+          setState(prev => ({ ...prev, memberInfo, isFetchingMember: false }));
+        }
+        secureLog("Member found", { memberId: member.id, tier: member.memberTier });
+        return memberInfo;
+      } else if (response.status === 404) {
+        const unregisteredInfo: MemberInfo = {
+          id: '',
+          accountAddress: address,
+          displayName: null,
+          memberTier: 'unregistered',
+          memberStatus: 'pending',
+          kycLevel: null,
+          isRegistered: false,
+        };
+        
+        if (mountedRef.current) {
+          setState(prev => ({ ...prev, memberInfo: unregisteredInfo, isFetchingMember: false }));
+        }
+        secureLog("Member not found - unregistered wallet", { address });
+        return unregisteredInfo;
+      }
+      
+      throw new Error("Failed to fetch member info");
+    } catch (error) {
+      secureLog("Member fetch error", { error: String(error) });
+      if (mountedRef.current) {
+        setState(prev => ({ ...prev, isFetchingMember: false }));
+      }
+      return null;
+    }
+  }, []);
+
+  const registerAsMember = useCallback(async (address: string, displayName?: string): Promise<MemberInfo | null> => {
+    if (!address || !isValidEthereumAddress(address)) return null;
+    
+    setState(prev => ({ ...prev, isFetchingMember: true }));
+    
+    try {
+      const response = await fetch('/api/members/register-wallet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          accountAddress: address,
+          displayName: displayName || `Wallet ${address.slice(0, 8)}`,
+        }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to register member");
+      }
+      
+      // Registration successful - now fetch the complete member data
+      // This ensures UI reflects the full authoritative member payload
+      secureLog("Member registration POST successful, fetching full data");
+      const refreshedMemberInfo = await fetchMemberInfo(address);
+      
+      return refreshedMemberInfo;
+    } catch (error) {
+      secureLog("Member registration error", { error: String(error) });
+      return null;
+    } finally {
+      if (mountedRef.current) {
+        setState(prev => ({ ...prev, isFetchingMember: false }));
+      }
+    }
+  }, [fetchMemberInfo]);
+
+  const refreshMemberInfo = useCallback(async () => {
+    if (state.address) {
+      await fetchMemberInfo(state.address);
+    }
+  }, [state.address, fetchMemberInfo]);
 
   const getProvider = useCallback((walletType: WalletType): Eip1193Provider | null => {
     if (typeof window === "undefined" || !window.ethereum) return null;
@@ -362,6 +474,12 @@ export function Web3Provider({ children }: { children: ReactNode }) {
         localStorage.setItem("tburn_wallet_timestamp", now.toString());
 
         secureLog("Connection successful", { walletType, chainId });
+        
+        // Fetch member info after successful connection
+        fetchMemberInfo(address).catch(() => {
+          secureLog("Member info fetch failed silently");
+        });
+        
         resolve(true);
       } catch (error) {
         if (connectionTimeoutRef.current) {
@@ -681,6 +799,9 @@ export function Web3Provider({ children }: { children: ReactNode }) {
     pendingTransactions,
     clearError,
     getConnectionHealth,
+    fetchMemberInfo,
+    registerAsMember,
+    refreshMemberInfo,
   };
 
   return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
