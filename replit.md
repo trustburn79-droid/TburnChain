@@ -35,6 +35,7 @@ Core architectural decisions and features include:
 - **Vite HMR in Replit**: HMR is disabled in Replit environments (`hmr: isReplit ? false : { server }`) to prevent WebSocket connection failures from blocking React app mounting. Local development outside Replit retains full HMR functionality. This ensures reliable initial page loads in Replit's dynamic preview environment.
 - **HTML Loading Indicator**: Added a static loading spinner in `client/index.html` that displays immediately during JavaScript bundle load, preventing blank white screens and providing instant visual feedback.
 - **Stable Text Animation Hook**: The `useRotatingScramble` hook in `Home.tsx` uses `useRef` for index tracking and runs effect only once (empty dependency array) to prevent infinite re-renders.
+- **AI Service Fail-Fast Optimization**: `AIServiceManager.makeRequest()` checks for available providers before entering retry loops. If all providers are rate-limited, it throws immediately instead of blocking the event loop. `switchToNextProvider()` returns boolean to signal exhaustion, and the loop breaks immediately when no providers remain. Retry timeouts reduced to 500-2000ms (from 2000-10000ms) to minimize delays.
 
 ## Engineering Standards - Preventing Infinite Loops and Render Blocking
 
