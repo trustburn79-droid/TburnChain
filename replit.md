@@ -45,6 +45,13 @@ Key architectural decisions include:
   - `/api/admin/integrations`: 8 integrations all connected (Slack, Discord, Telegram, GitHub, AWS, GCP, Datadog, PagerDuty), 99.99% avg health
   - `/api/admin/notifications/settings`: 6 channels with 99.99% delivery rate, alert rules (critical=immediate)
   - `/api/admin/appearance`: 12 languages with RTL, accessibility features, theme usage stats
+- **Bridge Admin Page Optimization** (December 18, 2025): All 5 bridge admin pages optimized with backend caching and React Query settings:
+  - `/admin/bridge-dashboard`: 4 queries with staleTime matching refetchInterval (10s-60s), 4 backend endpoints with 10-60s TTL
+  - `/admin/bridge-transfers`: 10s staleTime/TTL (55 active, 1648 completed transfers)
+  - `/admin/bridge-validators`: 30s staleTime/TTL (21 validators), signatures 15s TTL
+  - `/admin/chain-connections`: 15s chains TTL, 30s stats TTL (5 chains connected)
+  - `/admin/bridge-liquidity`: 15-60s TTL across pools/stats/history/alerts ($568.5M total locked, 59% utilization)
+  - 13 total bridge endpoints cached with varying TTLs based on data freshness requirements
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
