@@ -252,7 +252,7 @@ class AIServiceManager extends EventEmitter {
     }
   }
   
-  private switchToNextProvider(currentProvider: AIProvider) {
+  private switchToNextProvider(currentProvider: AIProvider): boolean {
     const providers = Array.from(this.configs.keys())
       .filter(p => p !== currentProvider && !this.usageStats.get(p)?.isRateLimited)
       .sort((a, b) => {
@@ -268,9 +268,11 @@ class AIServiceManager extends EventEmitter {
         from: currentProvider,
         to: this.activeProvider
       });
+      return true;
     } else {
       console.error("[AI Service] All providers are rate limited!");
       this.emit("allProvidersLimited");
+      return false;
     }
   }
   
@@ -557,30 +559,66 @@ class AIServiceManager extends EventEmitter {
     };
   }
   
+  // Get list of providers that are NOT rate-limited
+  private getAvailableProviders(): AIProvider[] {
+    const available: AIProvider[] = [];
+    for (const [provider, stats] of Array.from(this.usageStats)) {
+      if (!stats.isRateLimited && this.providers.has(provider)) {
+        available.push(provider);
+      }
+    }
+    return available;
+  }
+  
   public async makeRequest(request: AIRequest): Promise<AIResponse> {
     const maxAttempts = 3;
     let lastError: any;
+    let allProvidersExhausted = false;
+    
+    // CRITICAL FIX: Check if ALL providers are rate-limited BEFORE attempting requests
+    // This prevents blocking the event loop when no providers are available
+    const initialAvailable = this.getAvailableProviders();
+    if (initialAvailable.length === 0) {
+      console.log(`[AI Service] All providers are rate limited - failing fast!`);
+      // Track failure for Grok activation before throwing
+      this.trackFailureAndCheckGrok(this.activeProvider);
+      throw new Error("All AI providers are currently rate limited. Please wait and try again.");
+    }
     
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       const provider = this.activeProvider;
       const stats = this.usageStats.get(provider);
       
-      // Check if provider is rate limited
+      // Check if provider is rate limited - if switch fails, break immediately
       if (stats?.isRateLimited) {
-        this.switchToNextProvider(provider);
+        const switched = this.switchToNextProvider(provider);
+        if (!switched) {
+          allProvidersExhausted = true;
+          this.trackFailureAndCheckGrok(provider);
+          break; // Exit loop immediately - no available providers
+        }
         continue;
       }
       
-      // Check daily limit
+      // Check daily limit - if switch fails, break immediately
       if (stats && stats.dailyLimit && stats.dailyUsage && stats.dailyUsage >= stats.dailyLimit) {
         console.log(`[AI Service] Daily limit reached for ${provider}`);
-        this.switchToNextProvider(provider);
+        const switched = this.switchToNextProvider(provider);
+        if (!switched) {
+          allProvidersExhausted = true;
+          this.trackFailureAndCheckGrok(provider);
+          break;
+        }
         continue;
       }
       
       const limiter = this.requestLimiters.get(provider);
       if (!limiter) {
-        this.switchToNextProvider(provider);
+        const switched = this.switchToNextProvider(provider);
+        if (!switched) {
+          allProvidersExhausted = true;
+          break;
+        }
         continue;
       }
       
@@ -613,9 +651,9 @@ class AIServiceManager extends EventEmitter {
               throw new Error(`Provider ${provider} not available`);
             },
             {
-              retries: 2,
-              minTimeout: 2000,
-              maxTimeout: 10000,
+              retries: 1,
+              minTimeout: 500,
+              maxTimeout: 2000,
               factor: 2,
               onFailedAttempt: (context) => {
                 console.log(`[AI Service] Attempt ${context.attemptNumber} failed for ${provider}`);
@@ -638,14 +676,23 @@ class AIServiceManager extends EventEmitter {
         const shouldTryGrok = this.trackFailureAndCheckGrok(provider);
         
         if (this.isRateLimitError(error)) {
-          // Rate limit already handled in provider methods
+          // Rate limit error - try to switch, break if all exhausted
+          const switched = this.switchToNextProvider(provider);
+          if (!switched) {
+            allProvidersExhausted = true;
+            break;
+          }
         } else {
-          // Try next provider for other errors
-          this.switchToNextProvider(provider);
+          // Other error - try next provider
+          const switched = this.switchToNextProvider(provider);
+          if (!switched) {
+            allProvidersExhausted = true;
+            break;
+          }
         }
         
         // If Grok is activated and available, try it as last resort
-        if (shouldTryGrok && attempt === maxAttempts - 1 && this.providers.has("grok")) {
+        if (shouldTryGrok && this.providers.has("grok") && !this.usageStats.get("grok")?.isRateLimited) {
           console.log(`[AI Service] 🔄 Attempting Grok fallback...`);
           try {
             const grokLimiter = this.requestLimiters.get("grok");
@@ -658,6 +705,11 @@ class AIServiceManager extends EventEmitter {
           }
         }
       }
+    }
+    
+    // Handle all providers exhausted case
+    if (allProvidersExhausted) {
+      throw new Error("All AI providers are currently rate limited. Please wait and try again.");
     }
     
     throw lastError || new Error("All AI providers failed");
