@@ -246,15 +246,27 @@ export default function StakingDashboard() {
   const [riskDialogOpen, setRiskDialogOpen] = useState(false);
 
   const { data: stats, isLoading: statsLoading } = useQuery<StakingStatsResponse>({
-    queryKey: ["/api/staking/stats"]
+    queryKey: ["/api/staking/stats"],
+    refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: pools, isLoading: poolsLoading } = useQuery<PoolResponse[]>({
-    queryKey: ["/api/staking/pools"]
+    queryKey: ["/api/staking/pools"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: tiers, isLoading: tiersLoading } = useQuery<TierResponse[]>({
-    queryKey: ["/api/staking/tiers"]
+    queryKey: ["/api/staking/tiers"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const stakeMutation = useMutation({

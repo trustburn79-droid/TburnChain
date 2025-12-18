@@ -370,10 +370,18 @@ export default function TokenSystem() {
 
   const { data: stats, isLoading: statsLoading } = useQuery<TokenSystemStats>({
     queryKey: ["/api/token-system/stats"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: tokens, isLoading: tokensLoading } = useQuery<TokenStandard[]>({
     queryKey: ["/api/token-system/tokens"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const tbc20Tokens = tokens?.filter(t => t.standard === "TBC-20") || [];

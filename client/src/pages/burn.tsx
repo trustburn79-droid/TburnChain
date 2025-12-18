@@ -148,18 +148,34 @@ export default function BurnDashboard() {
 
   const { data: stats, isLoading: statsLoading } = useQuery<BurnStats>({
     queryKey: ["/api/burn/stats"],
+    refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: events, isLoading: eventsLoading } = useQuery<BurnEvent[]>({
     queryKey: ["/api/burn/events"],
+    refetchInterval: 10000,
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: config, isLoading: configLoading } = useQuery<BurnConfig>({
     queryKey: ["/api/burn/config"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: history } = useQuery<{ date: string; amount: number }[]>({
     queryKey: ["/api/burn/history"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Calculate pie chart data

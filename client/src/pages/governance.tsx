@@ -73,10 +73,18 @@ export default function Governance() {
 
   const { data: stats, isLoading: statsLoading } = useQuery<GovernanceStats>({
     queryKey: ["/api/governance/stats"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: proposals, isLoading: proposalsLoading } = useQuery<Proposal[]>({
     queryKey: ["/api/governance/proposals"],
+    refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const activeProposals = proposals?.filter(p => p.status === "active") || [];

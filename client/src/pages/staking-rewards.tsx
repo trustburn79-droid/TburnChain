@@ -125,19 +125,35 @@ export default function StakingRewards() {
   const [isCompounding, setIsCompounding] = useState(false);
 
   const { data: currentCycle, isLoading: cycleLoading, refetch: refetchCycle } = useQuery<RewardCycle>({
-    queryKey: ["/api/staking/rewards/current"]
+    queryKey: ["/api/staking/rewards/current"],
+    refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: cycles, isLoading: cyclesLoading, refetch: refetchCycles } = useQuery<RewardCycle[]>({
-    queryKey: ["/api/staking/rewards/cycles"]
+    queryKey: ["/api/staking/rewards/cycles"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: unbonding, isLoading: unbondingLoading, refetch: refetchUnbonding } = useQuery<UnbondingRequest[]>({
-    queryKey: ["/api/staking/unbonding"]
+    queryKey: ["/api/staking/unbonding"],
+    refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: slashingEvents, isLoading: slashingLoading, refetch: refetchSlashing } = useQuery<SlashingEvent[]>({
-    queryKey: ["/api/staking/slashing"]
+    queryKey: ["/api/staking/slashing"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const handleRefreshAll = async () => {
