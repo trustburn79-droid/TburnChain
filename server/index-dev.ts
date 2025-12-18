@@ -15,13 +15,7 @@ export async function setupVite(app: Express, server: Server) {
   
   const serverOptions = {
     middlewareMode: true,
-    hmr: isReplit
-      ? { 
-          server,
-          clientPort: 443, 
-          protocol: "wss" as const,
-        }
-      : { server },
+    hmr: false, // Disable HMR in Replit to prevent blocking issues
     allowedHosts: true as const,
   };
 

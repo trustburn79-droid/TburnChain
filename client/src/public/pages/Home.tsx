@@ -97,10 +97,10 @@ class TextScramble {
 
 function useRotatingScramble(words: string[], intervalMs: number = 3000) {
   const [displayHtml, setDisplayHtml] = useState(() => words?.[0] || "");
-  const [currentIndex, setCurrentIndex] = useState(0);
   const scrambleRef = useRef<TextScramble | null>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const indexRef = useRef(0);
   const isMountedRef = useRef(true);
+  const isRunningRef = useRef(false);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -109,42 +109,58 @@ function useRotatingScramble(words: string[], intervalMs: number = 3000) {
       return;
     }
 
-    if (!scrambleRef.current) {
-      scrambleRef.current = new TextScramble((html) => {
-        if (isMountedRef.current) {
-          setDisplayHtml(html);
-        }
-      });
-    }
+    // Create scramble instance once
+    scrambleRef.current = new TextScramble((html) => {
+      if (isMountedRef.current) {
+        setDisplayHtml(html);
+      }
+    });
 
     const runCycle = async () => {
-      if (!scrambleRef.current || !isMountedRef.current) return;
+      if (!scrambleRef.current || !isMountedRef.current || isRunningRef.current) return;
       
-      const nextIndex = (currentIndex + 1) % words.length;
-      await scrambleRef.current.setText(words[nextIndex], words[currentIndex]);
+      isRunningRef.current = true;
       
-      if (isMountedRef.current) {
-        timerRef.current = setTimeout(() => {
-          if (isMountedRef.current) {
-            setCurrentIndex(nextIndex);
-          }
-        }, intervalMs);
+      const currentIdx = indexRef.current;
+      const nextIdx = (currentIdx + 1) % words.length;
+      
+      try {
+        await scrambleRef.current.setText(words[nextIdx], words[currentIdx]);
+        indexRef.current = nextIdx;
+      } catch (e) {
+        // Ignore errors if unmounted
       }
+      
+      isRunningRef.current = false;
     };
 
-    timerRef.current = setTimeout(runCycle, currentIndex === 0 ? intervalMs : 0);
+    // Initial delay before first transition
+    const initialTimer = setTimeout(() => {
+      if (!isMountedRef.current) return;
+      
+      // Start the interval loop
+      runCycle();
+      const intervalId = setInterval(() => {
+        if (isMountedRef.current) {
+          runCycle();
+        }
+      }, intervalMs);
+      
+      // Store interval for cleanup
+      (scrambleRef.current as any)._intervalId = intervalId;
+    }, intervalMs);
 
     return () => {
       isMountedRef.current = false;
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
+      clearTimeout(initialTimer);
       if (scrambleRef.current) {
+        const intervalId = (scrambleRef.current as any)._intervalId;
+        if (intervalId) clearInterval(intervalId);
         scrambleRef.current.destroy();
         scrambleRef.current = null;
       }
     };
-  }, [currentIndex, words, intervalMs]);
+  }, []); // Empty dependency array - only run once
 
   return displayHtml || words?.[0] || "";
 }
