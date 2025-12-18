@@ -31,6 +31,8 @@ Core architectural decisions and features include:
 - **Zero-Delay Authentication**: Login flow uses optimistic cache updates (`queryClient.setQueryData`) instead of waiting for server roundtrips. After POST /api/auth/login succeeds, the cache is immediately updated and navigation occurs instantly. Background sync happens via fire-and-forget invalidateQueries.
 - **Public DeFi Stats API Access**: Dashboard DeFi stats endpoints (DEX, Lending, Yield, Liquid Staking, NFT, Launchpad, GameFi) are public read-only APIs that don't require authentication. This ensures dashboard data loads immediately without login dependency. Modified in `server/routes.ts` (global middleware bypass) and individual route files (`dex-routes.ts`, `lending-routes.ts`).
 - **Health and Security Dashboards**: Dynamically calculate health and security scores based on live enterprise node and AI service data.
+- **Dashboard WebSocket Resilience**: Dashboard uses WebSocket with exponential backoff reconnection (1s-30s, max 5 attempts, 60s cooldown reset). REST fallback triggers on every reconnect attempt ensuring continuous data loading. `isActive` guard prevents memory leaks on component unmount.
+- **Vite HMR in Replit**: HMR is configured with `clientPort: 443` and `protocol: "wss"` for Replit environments. Note: HMR connection may show "server connection lost" messages due to Replit's dynamic preview URL system - this is a development-only limitation and does not affect app functionality. All data loads correctly via REST APIs.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

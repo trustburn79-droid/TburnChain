@@ -11,9 +11,17 @@ import runApp from "./app";
 
 export async function setupVite(app: Express, server: Server) {
   const viteLogger = createLogger();
+  const isReplit = Boolean(process.env.REPL_ID);
+  
   const serverOptions = {
     middlewareMode: true,
-    hmr: { server },
+    hmr: isReplit
+      ? { 
+          server,
+          clientPort: 443, 
+          protocol: "wss" as const,
+        }
+      : { server },
     allowedHosts: true as const,
   };
 
