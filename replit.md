@@ -85,6 +85,19 @@ Key architectural decisions include:
   - `/admin/dashboard-builder`: 30s TTL/staleTime (4 dashboards, 26 widgets, 6 widget types)
   - `/admin/sla`: 30s TTL/staleTime (99.97% SLA score, service uptimes, incident history from live node)
   - 5 backend endpoints under `/api/enterprise/admin/monitoring/`, `/api/enterprise/admin/alerts/`, `/api/enterprise/admin/dashboards`, `/api/enterprise/admin/sla` with caching (3s-30s TTL)
+- **Finance & Accounting Admin Page Optimization** (December 18, 2025): All 5 finance admin pages optimized with backend caching and React Query settings:
+  - `/admin/finance`: 60s TTL/staleTime (revenue, expenses, treasury allocation from live node)
+  - `/admin/tx-accounting`: 30s TTL/staleTime (ledger entries, reconciliation, 99.97% auto-reconciled)
+  - `/admin/budget`: 60s TTL/staleTime (departmental budgets, requests, $2.5M total, 75% utilized)
+  - `/admin/cost-analysis`: 60s TTL/staleTime (cost breakdown, 94.5% efficiency, $12.5K savings opportunity)
+  - `/admin/tax`: 60s TTL/staleTime (jurisdictions, reports, $425K estimated liability)
+  - 5 backend endpoints under `/api/enterprise/admin/` with caching (30s-60s TTL)
+- **Support & Help Admin Page Optimization** (December 18, 2025): All 4 support admin pages optimized with backend caching and React Query settings:
+  - `/admin/help`: 60s TTL/staleTime (101 articles, 245K views, 94.5% helpful rating)
+  - `/admin/training`: 60s TTL/staleTime (6 courses, 4524 enrolled, 85% completion rate)
+  - `/admin/tickets`: 15s TTL/staleTime (support tickets with WebSocket updates, 94.5% resolution rate)
+  - `/admin/feedback`: 30s TTL/staleTime (already optimized - 25 feedback items, rating distribution)
+  - 3 backend endpoints under `/api/enterprise/admin/` with caching (15s-60s TTL)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

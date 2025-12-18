@@ -76,6 +76,10 @@ export default function CostAnalysis() {
 
   const { data: costData, isLoading, error, refetch } = useQuery<CostData>({
     queryKey: ["/api/enterprise/admin/cost-analysis"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const handleRefresh = useCallback(() => {

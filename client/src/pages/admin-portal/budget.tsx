@@ -83,6 +83,10 @@ export default function BudgetManagement() {
 
   const { data: budgetData, isLoading, error, refetch } = useQuery<BudgetData>({
     queryKey: ["/api/enterprise/admin/budget"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const createRequestMutation = useMutation({

@@ -70,6 +70,10 @@ export default function TxAccounting() {
 
   const { data: accountingData, isLoading, error, refetch } = useQuery<TxAccountingData>({
     queryKey: ["/api/enterprise/admin/tx-accounting"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const handleRefresh = useCallback(() => {

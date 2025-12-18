@@ -437,6 +437,10 @@ export default function HelpCenter() {
 
   const { data: helpData, isLoading, error, refetch } = useQuery<HelpData>({
     queryKey: ["/api/enterprise/admin/help"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const handleRefresh = useCallback(() => {

@@ -78,6 +78,10 @@ export default function SupportTickets() {
 
   const { data: ticketData, isLoading, error, refetch } = useQuery<TicketData>({
     queryKey: ["/api/enterprise/admin/tickets"],
+    refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

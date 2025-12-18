@@ -84,6 +84,10 @@ export default function FinanceOverview() {
 
   const { data: financeData, isLoading, error, refetch } = useQuery<FinanceData>({
     queryKey: ["/api/enterprise/admin/finance"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const handleRefresh = useCallback(() => {

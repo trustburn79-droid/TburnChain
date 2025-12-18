@@ -11583,6 +11583,328 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Enterprise Finance & Accounting endpoints with caching
+  app.get("/api/enterprise/admin/finance", async (_req, res) => {
+    try {
+      const cache = getDataCache();
+      const cacheKey = 'enterprise_finance';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
+      const enterpriseNode = getEnterpriseNode();
+      const networkStats = await enterpriseNode.getNetworkStats();
+      
+      const result = {
+        overview: {
+          totalRevenue: 2847563.45,
+          monthlyRevenue: 458923.12,
+          transactionFees: networkStats.tps * 0.001 * 86400 * 30,
+          stakingRewards: 125000,
+          bridgeFees: 45000,
+          operatingCosts: 89000
+        },
+        revenueByMonth: Array.from({ length: 12 }, (_, i) => ({
+          month: new Date(Date.now() - (11 - i) * 30 * 86400000).toISOString().slice(0, 7),
+          revenue: 350000 + Math.random() * 150000,
+          fees: 20000 + Math.random() * 15000,
+          rewards: 100000 + Math.random() * 50000
+        })),
+        expenseBreakdown: [
+          { category: 'Infrastructure', amount: 35000, percentage: 39.3 },
+          { category: 'Personnel', amount: 28000, percentage: 31.5 },
+          { category: 'Marketing', amount: 12000, percentage: 13.5 },
+          { category: 'Legal & Compliance', amount: 8000, percentage: 9.0 },
+          { category: 'Other', amount: 6000, percentage: 6.7 }
+        ],
+        recentTransactions: Array.from({ length: 10 }, (_, i) => ({
+          id: `fin-tx-${i + 1}`,
+          type: ['revenue', 'expense', 'transfer'][i % 3],
+          amount: 1000 + Math.random() * 50000,
+          description: `Financial transaction ${i + 1}`,
+          date: new Date(Date.now() - i * 86400000).toISOString(),
+          status: 'completed'
+        }))
+      };
+      cache.set(cacheKey, result, 60000); // 60s TTL for finance data
+      res.json(result);
+    } catch (error) {
+      console.error('[Finance] Error:', error);
+      res.status(500).json({ error: "Failed to fetch finance data" });
+    }
+  });
+
+  app.get("/api/enterprise/admin/tx-accounting", async (_req, res) => {
+    try {
+      const cache = getDataCache();
+      const cacheKey = 'enterprise_tx_accounting';
+      const cached = cache.get<any>(cacheKey);
+      if (cached) return res.json(cached);
+      
+      const enterpriseNode = getEnterpriseNode();
+      const networkStats = await enterpriseNode.getNetworkStats();
+      
+      const result = {
+        summary: {
+          totalTransactions: networkStats.blockHeight * 150,
+          dailyVolume: networkStats.tps * 86400 * 0.15,
+          avgTransactionValue: 245.67,
+          pendingSettlements: 12,
+          reconciledToday: 99.97
+        },
+        ledgerEntries: Array.from({ length: 20 }, (_, i) => ({
+          id: `ledger-${i + 1}`,
+          txHash: `0x${Math.random().toString(16).slice(2, 66)}`,
+          type: ['transfer', 'fee', 'reward', 'bridge'][i % 4],
+          debit: i % 2 === 0 ? 100 + Math.random() * 1000 : 0,
+          credit: i % 2 !== 0 ? 100 + Math.random() * 1000 : 0,
+          balance: 1000000 + Math.random() * 500000,
+          timestamp: new Date(Date.now() - i * 3600000).toISOString(),
+          status: 'reconciled'
+        })),
+        reconciliationStatus: {
+          lastReconciled: new Date(Date.now() - 300000).toISOString(),
+          discrepancies: 0,
+          pendingReview: 3,
+          autoReconciledRate: 99.97
+        }
+      };
+      cache.set(cacheKey, result, 30000); // 30s TTL for accounting
+      res.json(result);
+    } catch (error) {
+      console.error('[TxAccounting] Error:', error);
+      res.status(500).json({ error: "Failed to fetch tx accounting data" });
+    }
+  });
+
+  app.get("/api/enterprise/admin/budget", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_budget';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      overview: {
+        totalBudget: 2500000,
+        allocated: 2150000,
+        spent: 1875000,
+        remaining: 625000,
+        utilizationRate: 75
+      },
+      departments: [
+        { name: 'Engineering', budget: 800000, spent: 720000, utilization: 90 },
+        { name: 'Operations', budget: 500000, spent: 425000, utilization: 85 },
+        { name: 'Marketing', budget: 300000, spent: 245000, utilization: 81.7 },
+        { name: 'Legal', budget: 250000, spent: 198000, utilization: 79.2 },
+        { name: 'Research', budget: 200000, spent: 187000, utilization: 93.5 },
+        { name: 'Admin', budget: 100000, spent: 100000, utilization: 100 }
+      ],
+      requests: Array.from({ length: 8 }, (_, i) => ({
+        id: `req-${i + 1}`,
+        department: ['Engineering', 'Operations', 'Marketing', 'Legal'][i % 4],
+        amount: 10000 + Math.random() * 50000,
+        purpose: `Budget request for ${['infrastructure', 'staffing', 'tools', 'services'][i % 4]}`,
+        status: ['pending', 'approved', 'rejected', 'pending'][i % 4],
+        submittedAt: new Date(Date.now() - i * 86400000).toISOString()
+      })),
+      monthlyTrend: Array.from({ length: 6 }, (_, i) => ({
+        month: new Date(Date.now() - (5 - i) * 30 * 86400000).toISOString().slice(0, 7),
+        budget: 400000,
+        actual: 350000 + Math.random() * 80000
+      }))
+    };
+    cache.set(cacheKey, result, 60000); // 60s TTL for budget
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/cost-analysis", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_cost_analysis';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      summary: {
+        totalCosts: 89000,
+        costPerTransaction: 0.0012,
+        costPerUser: 2.45,
+        efficiencyScore: 94.5,
+        savingsOpportunity: 12500
+      },
+      costBreakdown: [
+        { category: 'Cloud Infrastructure', cost: 35000, trend: 'stable', optimization: 15 },
+        { category: 'Network & Bandwidth', cost: 18000, trend: 'down', optimization: 8 },
+        { category: 'Storage', cost: 12000, trend: 'up', optimization: 20 },
+        { category: 'Security', cost: 10000, trend: 'stable', optimization: 5 },
+        { category: 'Monitoring', cost: 8000, trend: 'down', optimization: 10 },
+        { category: 'Other', cost: 6000, trend: 'stable', optimization: 3 }
+      ],
+      trends: Array.from({ length: 12 }, (_, i) => ({
+        month: new Date(Date.now() - (11 - i) * 30 * 86400000).toISOString().slice(0, 7),
+        infrastructure: 30000 + Math.random() * 10000,
+        operations: 15000 + Math.random() * 5000,
+        other: 5000 + Math.random() * 3000
+      })),
+      optimizations: [
+        { id: 'opt-1', title: 'Reserved Instance Migration', savings: 8500, status: 'in_progress' },
+        { id: 'opt-2', title: 'Storage Tiering', savings: 3200, status: 'planned' },
+        { id: 'opt-3', title: 'Bandwidth Optimization', savings: 800, status: 'completed' }
+      ]
+    };
+    cache.set(cacheKey, result, 60000); // 60s TTL for cost analysis
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/tax", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_tax';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      summary: {
+        taxYear: 2024,
+        estimatedLiability: 425000,
+        paidToDate: 320000,
+        remaining: 105000,
+        nextPaymentDue: new Date(Date.now() + 30 * 86400000).toISOString()
+      },
+      jurisdictions: [
+        { name: 'United States', liability: 280000, paid: 210000, status: 'current' },
+        { name: 'European Union', liability: 85000, paid: 65000, status: 'current' },
+        { name: 'Singapore', liability: 35000, paid: 25000, status: 'current' },
+        { name: 'Others', liability: 25000, paid: 20000, status: 'current' }
+      ],
+      reports: [
+        { id: 'rpt-1', name: 'Q4 2024 Tax Report', type: 'quarterly', status: 'generated', generatedAt: new Date(Date.now() - 7 * 86400000).toISOString() },
+        { id: 'rpt-2', name: 'Annual Summary 2024', type: 'annual', status: 'pending', generatedAt: null },
+        { id: 'rpt-3', name: 'Q3 2024 Tax Report', type: 'quarterly', status: 'filed', generatedAt: new Date(Date.now() - 90 * 86400000).toISOString() }
+      ],
+      events: Array.from({ length: 5 }, (_, i) => ({
+        id: `evt-${i + 1}`,
+        type: ['payment', 'filing', 'audit', 'amendment'][i % 4],
+        description: `Tax event ${i + 1}`,
+        date: new Date(Date.now() - i * 30 * 86400000).toISOString(),
+        amount: i % 4 === 0 ? 50000 + Math.random() * 30000 : null
+      }))
+    };
+    cache.set(cacheKey, result, 60000); // 60s TTL for tax data
+    res.json(result);
+  });
+
+  // Enterprise Support & Help endpoints with caching
+  app.get("/api/enterprise/admin/help", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_help';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      categories: [
+        { id: 'getting-started', name: 'Getting Started', articleCount: 24, icon: 'BookOpen' },
+        { id: 'wallets', name: 'Wallets & Accounts', articleCount: 18, icon: 'Wallet' },
+        { id: 'staking', name: 'Staking & Rewards', articleCount: 15, icon: 'Coins' },
+        { id: 'bridge', name: 'Bridge & Cross-chain', articleCount: 12, icon: 'ArrowLeftRight' },
+        { id: 'governance', name: 'Governance', articleCount: 10, icon: 'Vote' },
+        { id: 'troubleshooting', name: 'Troubleshooting', articleCount: 22, icon: 'Wrench' }
+      ],
+      popularArticles: Array.from({ length: 8 }, (_, i) => ({
+        id: `article-${i + 1}`,
+        title: `How to ${['connect wallet', 'stake TBURN', 'use bridge', 'vote on proposals', 'claim rewards', 'verify contract', 'check transaction', 'manage delegation'][i]}`,
+        category: ['getting-started', 'staking', 'bridge', 'governance'][i % 4],
+        views: 5000 - i * 500,
+        helpful: 95 - i * 2,
+        lastUpdated: new Date(Date.now() - i * 7 * 86400000).toISOString()
+      })),
+      stats: {
+        totalArticles: 101,
+        totalViews: 245000,
+        avgHelpfulRating: 94.5,
+        searchQueries24h: 1247
+      },
+      recentSearches: ['staking rewards', 'bridge fees', 'wallet connect', 'gas fees', 'validator selection']
+    };
+    cache.set(cacheKey, result, 60000); // 60s TTL for help content
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/training", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_training';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      courses: [
+        { id: 'course-1', title: 'TBURN Fundamentals', duration: '2h', level: 'beginner', enrolled: 1247, completion: 89, rating: 4.8 },
+        { id: 'course-2', title: 'Smart Contract Development', duration: '4h', level: 'intermediate', enrolled: 856, completion: 72, rating: 4.7 },
+        { id: 'course-3', title: 'Validator Operations', duration: '3h', level: 'advanced', enrolled: 432, completion: 85, rating: 4.9 },
+        { id: 'course-4', title: 'DeFi Strategies', duration: '2.5h', level: 'intermediate', enrolled: 678, completion: 78, rating: 4.6 },
+        { id: 'course-5', title: 'Bridge Security', duration: '1.5h', level: 'advanced', enrolled: 324, completion: 91, rating: 4.8 },
+        { id: 'course-6', title: 'Governance Participation', duration: '1h', level: 'beginner', enrolled: 987, completion: 95, rating: 4.7 }
+      ],
+      stats: {
+        totalCourses: 6,
+        totalEnrolled: 4524,
+        avgCompletionRate: 85,
+        certificationsIssued: 3847
+      },
+      userProgress: {
+        coursesCompleted: 3,
+        coursesInProgress: 1,
+        certificatesEarned: 2,
+        learningStreak: 7
+      },
+      recentActivity: Array.from({ length: 5 }, (_, i) => ({
+        id: `activity-${i + 1}`,
+        type: ['enrollment', 'completion', 'certificate'][i % 3],
+        courseId: `course-${(i % 6) + 1}`,
+        timestamp: new Date(Date.now() - i * 86400000).toISOString()
+      }))
+    };
+    cache.set(cacheKey, result, 60000); // 60s TTL for training
+    res.json(result);
+  });
+
+  app.get("/api/enterprise/admin/tickets", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_tickets';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const priorities = ['low', 'medium', 'high', 'critical'] as const;
+    const statuses = ['open', 'in_progress', 'pending', 'resolved', 'closed'] as const;
+    const categories = ['Technical', 'Billing', 'Account', 'Feature Request', 'Bug Report'];
+    
+    const result = {
+      tickets: Array.from({ length: 15 }, (_, i) => ({
+        id: `ticket-${1000 + i}`,
+        subject: `Support ticket regarding ${categories[i % 5].toLowerCase()}`,
+        category: categories[i % 5],
+        priority: priorities[i % 4],
+        status: statuses[i % 5],
+        assignee: i < 10 ? `Agent ${(i % 3) + 1}` : null,
+        createdAt: new Date(Date.now() - i * 86400000).toISOString(),
+        updatedAt: new Date(Date.now() - i * 3600000).toISOString(),
+        responseTime: i < 5 ? 15 + Math.floor(Math.random() * 30) : null
+      })),
+      stats: {
+        totalOpen: 8,
+        avgResponseTime: 23,
+        resolutionRate: 94.5,
+        satisfactionScore: 4.7,
+        ticketsToday: 12,
+        resolvedToday: 9
+      },
+      agents: [
+        { id: 'agent-1', name: 'Agent 1', ticketsAssigned: 5, avgResponseTime: 18, satisfaction: 4.8 },
+        { id: 'agent-2', name: 'Agent 2', ticketsAssigned: 4, avgResponseTime: 22, satisfaction: 4.6 },
+        { id: 'agent-3', name: 'Agent 3', ticketsAssigned: 3, avgResponseTime: 25, satisfaction: 4.7 }
+      ]
+    };
+    cache.set(cacheKey, result, 15000); // 15s TTL for tickets (more dynamic)
+    res.json(result);
+  });
+
   // Configuration
   app.get("/api/admin/settings", async (_req, res) => {
     try {

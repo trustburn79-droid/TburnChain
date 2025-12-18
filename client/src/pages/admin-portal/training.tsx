@@ -88,6 +88,10 @@ export default function TrainingMaterials() {
 
   const { data: trainingData, isLoading, error, refetch } = useQuery<TrainingData>({
     queryKey: ["/api/enterprise/admin/training"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const enrollMutation = useMutation({

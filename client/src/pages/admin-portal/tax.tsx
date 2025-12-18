@@ -75,6 +75,10 @@ export default function TaxReporting() {
 
   const { data: taxData, isLoading, error, refetch } = useQuery<TaxData>({
     queryKey: ["/api/enterprise/admin/tax"],
+    refetchInterval: 60000,
+    staleTime: 60000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const generateReportMutation = useMutation({
