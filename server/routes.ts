@@ -11905,6 +11905,189 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(result);
   });
 
+  // Enterprise Announcements endpoint with caching
+  app.get("/api/enterprise/admin/announcements", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'enterprise_announcements';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      announcements: Array.from({ length: 10 }, (_, i) => ({
+        id: `ann-${i + 1}`,
+        title: ['Mainnet Launch Update', 'Staking Rewards Increased', 'Bridge v2.0 Released', 'Governance Proposal #15', 'Security Audit Complete'][i % 5],
+        content: `Important announcement regarding ${['mainnet', 'staking', 'bridge', 'governance', 'security'][i % 5]} updates and improvements.`,
+        type: ['info', 'success', 'warning', 'update'][i % 4] as const,
+        priority: ['high', 'medium', 'low'][i % 3] as const,
+        status: i < 3 ? 'active' : i < 7 ? 'scheduled' : 'archived',
+        audience: ['all', 'validators', 'stakers', 'developers'][i % 4],
+        publishedAt: i < 3 ? new Date(Date.now() - i * 86400000).toISOString() : null,
+        scheduledAt: i >= 3 && i < 7 ? new Date(Date.now() + (i - 2) * 86400000).toISOString() : null,
+        expiresAt: new Date(Date.now() + (30 - i) * 86400000).toISOString(),
+        views: 1000 - i * 80,
+        reactions: { like: 50 - i * 4, celebrate: 20 - i * 2 }
+      })),
+      stats: {
+        totalAnnouncements: 47,
+        activeAnnouncements: 3,
+        scheduledAnnouncements: 4,
+        totalViews: 24500,
+        avgEngagement: 8.5
+      },
+      templates: [
+        { id: 'tpl-1', name: 'Maintenance Notice', category: 'operations' },
+        { id: 'tpl-2', name: 'Feature Release', category: 'product' },
+        { id: 'tpl-3', name: 'Security Alert', category: 'security' }
+      ]
+    };
+    cache.set(cacheKey, result, 30000); // 30s TTL for announcements
+    res.json(result);
+  });
+
+  // Genesis Launch endpoints with caching
+  app.get("/api/admin/genesis/config", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'genesis_config';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const enterpriseNode = getEnterpriseNode();
+    const networkStats = await enterpriseNode.getNetworkStats();
+    
+    const result = {
+      config: {
+        chainId: '8888',
+        networkName: 'TBURN Mainnet',
+        consensusType: 'AI-Enhanced BFT',
+        blockTime: networkStats.blockTime,
+        maxValidators: networkStats.totalValidators,
+        initialSupply: '1000000000',
+        genesisTime: '2024-01-15T00:00:00Z'
+      },
+      summary: {
+        status: 'launched',
+        launchDate: '2024-01-15T00:00:00Z',
+        blocksProduced: networkStats.blockHeight,
+        currentEpoch: Math.floor(networkStats.blockHeight / 7200)
+      }
+    };
+    cache.set(cacheKey, result, 30000); // 30s TTL
+    res.json(result);
+  });
+
+  app.get("/api/admin/genesis/validators", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'genesis_validators';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const enterpriseNode = getEnterpriseNode();
+    const networkStats = await enterpriseNode.getNetworkStats();
+    
+    const result = {
+      validators: Array.from({ length: 21 }, (_, i) => ({
+        id: `val-${i + 1}`,
+        address: `0x${Math.random().toString(16).slice(2, 42)}`,
+        name: `Genesis Validator ${i + 1}`,
+        stake: 1000000 + Math.floor(Math.random() * 500000),
+        status: i < networkStats.activeValidators ? 'active' : 'pending',
+        genesisBlock: true
+      })),
+      stats: {
+        totalValidators: networkStats.totalValidators,
+        activeValidators: networkStats.activeValidators,
+        totalStake: networkStats.totalValidators * 1250000
+      }
+    };
+    cache.set(cacheKey, result, 30000); // 30s TTL
+    res.json(result);
+  });
+
+  app.get("/api/admin/genesis/distribution", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'genesis_distribution';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      distribution: [
+        { category: 'Validator Rewards', allocation: 30, amount: 300000000 },
+        { category: 'Ecosystem Fund', allocation: 25, amount: 250000000 },
+        { category: 'Team & Advisors', allocation: 15, amount: 150000000 },
+        { category: 'Community Airdrop', allocation: 10, amount: 100000000 },
+        { category: 'Treasury Reserve', allocation: 15, amount: 150000000 },
+        { category: 'Liquidity Mining', allocation: 5, amount: 50000000 }
+      ],
+      vestingSchedules: [
+        { category: 'Team & Advisors', cliff: 12, duration: 48, released: 25 },
+        { category: 'Ecosystem Fund', cliff: 0, duration: 60, released: 20 },
+        { category: 'Community Airdrop', cliff: 0, duration: 12, released: 100 }
+      ]
+    };
+    cache.set(cacheKey, result, 30000); // 30s TTL
+    res.json(result);
+  });
+
+  app.get("/api/admin/genesis/approvals", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'genesis_approvals';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      approvals: [
+        { id: 'apr-1', type: 'config', approver: 'Core Team', status: 'approved', timestamp: '2024-01-10T12:00:00Z' },
+        { id: 'apr-2', type: 'validators', approver: 'Security Team', status: 'approved', timestamp: '2024-01-12T14:00:00Z' },
+        { id: 'apr-3', type: 'distribution', approver: 'Legal', status: 'approved', timestamp: '2024-01-13T10:00:00Z' },
+        { id: 'apr-4', type: 'launch', approver: 'All Stakeholders', status: 'approved', timestamp: '2024-01-14T18:00:00Z' }
+      ],
+      required: 4,
+      completed: 4
+    };
+    cache.set(cacheKey, result, 15000); // 15s TTL for approvals
+    res.json(result);
+  });
+
+  app.get("/api/admin/genesis/preflight", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'genesis_preflight';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      checks: [
+        { id: 'chk-1', name: 'Network Connectivity', status: 'passed', details: 'All nodes connected' },
+        { id: 'chk-2', name: 'Validator Readiness', status: 'passed', details: '21/21 validators ready' },
+        { id: 'chk-3', name: 'Smart Contracts', status: 'passed', details: 'Core contracts deployed' },
+        { id: 'chk-4', name: 'Security Audit', status: 'passed', details: 'No critical issues' },
+        { id: 'chk-5', name: 'Token Distribution', status: 'passed', details: 'Genesis balances set' }
+      ],
+      overallStatus: 'ready',
+      lastCheck: new Date().toISOString()
+    };
+    cache.set(cacheKey, result, 30000); // 30s TTL
+    res.json(result);
+  });
+
+  app.get("/api/admin/genesis/logs", async (_req, res) => {
+    const cache = getDataCache();
+    const cacheKey = 'genesis_logs';
+    const cached = cache.get<any>(cacheKey);
+    if (cached) return res.json(cached);
+    
+    const result = {
+      logs: Array.from({ length: 20 }, (_, i) => ({
+        id: `log-${i + 1}`,
+        timestamp: new Date(Date.now() - i * 300000).toISOString(),
+        level: ['info', 'info', 'info', 'warning', 'info'][i % 5],
+        message: ['Block produced', 'Validator joined', 'Config updated', 'High memory usage', 'Transaction processed'][i % 5],
+        source: ['consensus', 'p2p', 'api', 'system', 'mempool'][i % 5]
+      }))
+    };
+    cache.set(cacheKey, result, 15000); // 15s TTL for logs
+    res.json(result);
+  });
+
   // Configuration
   app.get("/api/admin/settings", async (_req, res) => {
     try {

@@ -1760,35 +1760,53 @@ export default function AdminGenesisLaunch() {
   const [showExecuteConfirm, setShowExecuteConfirm] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
-  // Data Queries
+  // Data Queries with optimized settings
   const { data: configData, isLoading: configLoading, refetch: refetchConfig } = useQuery<ConfigResponse>({
     queryKey: ['/api/admin/genesis/config'],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: validatorsData, isLoading: validatorsLoading, refetch: refetchValidators } = useQuery<ValidatorsResponse>({
     queryKey: ['/api/admin/genesis/validators'],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: distributionData, isLoading: distributionLoading, refetch: refetchDistribution } = useQuery<DistributionResponse>({
     queryKey: ['/api/admin/genesis/distribution'],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: approvalsData, isLoading: approvalsLoading, refetch: refetchApprovals } = useQuery<ApprovalsResponse>({
     queryKey: ['/api/admin/genesis/approvals'],
     refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: preflightData, isLoading: preflightLoading, refetch: refetchPreflight } = useQuery<PreflightResponse>({
     queryKey: ['/api/admin/genesis/preflight'],
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: logsData, isLoading: logsLoading, refetch: refetchLogs } = useQuery<LogsResponse>({
     queryKey: ['/api/admin/genesis/logs'],
     refetchInterval: 15000,
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const config = configData?.config;

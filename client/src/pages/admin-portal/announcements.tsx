@@ -81,6 +81,10 @@ export default function AnnouncementsManagement() {
 
   const { data: announcementData, isLoading, error, refetch } = useQuery<AnnouncementData>({
     queryKey: ["/api/enterprise/admin/announcements"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const createMutation = useMutation({
