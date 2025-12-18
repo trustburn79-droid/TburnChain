@@ -855,6 +855,9 @@ export default function AIOrchestration() {
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
     staleTime: 30000,
+    refetchInterval: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: aiDecisions, isLoading: decisionsLoading, isError: decisionsError, error: decisionsErrorObj, refetch: refetchDecisions } = useQuery<AiDecision[]>({
@@ -862,6 +865,9 @@ export default function AIOrchestration() {
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
     staleTime: 30000,
+    refetchInterval: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const wsResult = useWebSocketChannel({

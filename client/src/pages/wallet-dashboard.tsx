@@ -1323,15 +1323,19 @@ export default function WalletDashboard() {
     queryKey: ["/api/wallet/balance", walletAddress],
     queryFn: () => fetch(`/api/wallet/balance${addressQuery}`).then(res => res.json()),
     refetchInterval: 30000,
+    staleTime: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
     placeholderData: defaultBalance,
-    staleTime: 10000,
   });
   
   const { data: performanceResponse, isLoading: performanceLoading } = useQuery<{ dataPoints: PerformanceDataPoint[] }>({
     queryKey: ["/api/wallet/performance", walletAddress, timeRange],
     queryFn: () => fetch(`/api/wallet/performance${addressQuery}${addressQuery ? '&' : '?'}range=${timeRange}`).then(res => res.json()),
     refetchInterval: 60000,
-    staleTime: 30000,
+    staleTime: 60000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
   const performanceData = performanceResponse?.dataPoints || defaultPerformance;
   
@@ -1339,7 +1343,9 @@ export default function WalletDashboard() {
     queryKey: ["/api/wallet/activities", walletAddress],
     queryFn: () => fetch(`/api/wallet/activities${addressQuery}`).then(res => res.json()),
     refetchInterval: 15000,
-    staleTime: 5000,
+    staleTime: 15000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
   const activities = activitiesResponse?.activities || defaultActivities;
   

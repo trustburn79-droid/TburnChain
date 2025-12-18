@@ -895,6 +895,10 @@ export default function SmartContracts() {
 
   const { data: contracts, isLoading } = useQuery<SmartContract[]>({
     queryKey: ["/api/contracts"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const activities = useMemo(() => generateMockActivities(), []);
