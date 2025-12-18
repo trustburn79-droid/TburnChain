@@ -852,22 +852,30 @@ function ProjectDetailDialog({
   const { data: projectAssets } = useQuery<GameAsset[]>({
     queryKey: ["/api/gamefi/projects", project?.id, "assets"],
     enabled: !!project?.id && open,
+    staleTime: 15000,
+    refetchOnWindowFocus: false,
   });
 
   const { data: projectLeaderboard } = useQuery<GameLeaderboard[]>({
     queryKey: ["/api/gamefi/projects", project?.id, "leaderboard"],
     enabled: !!project?.id && open,
+    staleTime: 15000,
+    refetchOnWindowFocus: false,
   });
 
   const { data: projectTournaments } = useQuery<GameTournament[]>({
     queryKey: ["/api/gamefi/tournaments"],
     enabled: !!project?.id && open,
+    staleTime: 15000,
+    refetchOnWindowFocus: false,
     select: (data) => data?.filter(t => t.projectId === project?.id) || [],
   });
 
   const { data: projectActivity } = useQuery<GamefiActivity[]>({
     queryKey: ["/api/gamefi/projects", project?.id, "activity"],
     enabled: !!project?.id && open,
+    staleTime: 15000,
+    refetchOnWindowFocus: false,
   });
 
   const handleCopyAddress = (address: string) => {
@@ -1115,6 +1123,8 @@ function TournamentDetailDialog({
   const { data: participants } = useQuery<TournamentParticipant[]>({
     queryKey: ["/api/gamefi/tournaments", tournament?.id, "participants"],
     enabled: !!tournament?.id && open,
+    staleTime: 15000,
+    refetchOnWindowFocus: false,
   });
 
   const handleCopyAddress = (address: string) => {

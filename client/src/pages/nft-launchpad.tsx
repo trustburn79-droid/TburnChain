@@ -255,11 +255,15 @@ function ProjectDetailDialog({
   const { data: projectDetail } = useQuery<{ project: LaunchpadProject; rounds: LaunchRound[] }>({
     queryKey: ["/api/launchpad/projects", project?.id],
     enabled: !!project?.id && open,
+    staleTime: 15000,
+    refetchOnWindowFocus: false,
   });
   
   const { data: projectActivity } = useQuery<LaunchpadActivity[]>({
     queryKey: ["/api/launchpad/projects", project?.id, "activity"],
     enabled: !!project?.id && open && activeTab === "activity",
+    staleTime: 15000,
+    refetchOnWindowFocus: false,
   });
   
   const countdown = useCountdown(project?.endDate || null);
