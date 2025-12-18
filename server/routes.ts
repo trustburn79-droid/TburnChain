@@ -921,6 +921,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.method === "POST" && req.path === "/newsletter/subscribe") {
       return next();
     }
+    // Skip auth check for DeFi stats endpoints (public read-only dashboard data)
+    // SECURITY: Only whitelist specific GET stats endpoints, not collections/projects which have write operations
+    if (req.method === "GET" && (
+        req.path === "/dex/stats" ||
+        req.path === "/lending/stats" ||
+        req.path === "/yield/stats" ||
+        req.path === "/liquid-staking/stats" ||
+        req.path === "/nft/stats" ||
+        req.path === "/launchpad/stats" ||
+        req.path === "/gamefi/stats")) {
+      return next();
+    }
+    // Skip auth for DeFi read-only list endpoints (GET only)
+    if (req.method === "GET" && (
+        req.path.startsWith("/dex/pools") ||
+        req.path.startsWith("/lending/markets") ||
+        req.path.startsWith("/yield/vaults") ||
+        req.path.startsWith("/liquid-staking/pools") ||
+        req.path.startsWith("/gamefi/projects"))) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================

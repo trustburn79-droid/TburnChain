@@ -97,8 +97,8 @@ const createMarketSchema = z.object({
 
 export function registerLendingRoutes(app: Express, requireAuth: (req: Request, res: Response, next: () => void) => void) {
 
-  // Lending Stats - Enterprise Production Level with Caching
-  app.get("/api/lending/stats", requireAuth, async (_req: Request, res: Response) => {
+  // Lending Stats - Enterprise Production Level with Caching (Public read-only)
+  app.get("/api/lending/stats", async (_req: Request, res: Response) => {
     const cache = getDataCache();
     try {
       // Check cache first for instant response
@@ -143,7 +143,8 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
     }
   });
 
-  app.get("/api/lending/markets", requireAuth, async (req: Request, res: Response) => {
+  // Lending Markets (Public read-only)
+  app.get("/api/lending/markets", async (req: Request, res: Response) => {
     try {
       const status = req.query.status as string | undefined;
       

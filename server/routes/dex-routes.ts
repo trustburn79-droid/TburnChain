@@ -75,8 +75,8 @@ const createPoolSchema = z.object({
 
 export function registerDexRoutes(app: Express, requireAuth: (req: Request, res: Response, next: () => void) => void) {
 
-  // DEX Stats - Enterprise Production Level with Caching
-  app.get("/api/dex/stats", requireAuth, async (_req: Request, res: Response) => {
+  // DEX Stats - Enterprise Production Level with Caching (Public read-only)
+  app.get("/api/dex/stats", async (_req: Request, res: Response) => {
     const cache = getDataCache();
     try {
       // Check cache first for instant response
@@ -121,8 +121,8 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
     }
   });
 
-  // DEX Pools with Caching
-  app.get("/api/dex/pools", requireAuth, async (req: Request, res: Response) => {
+  // DEX Pools with Caching (Public read-only)
+  app.get("/api/dex/pools", async (req: Request, res: Response) => {
     const cache = getDataCache();
     try {
       const poolType = req.query.type as string | undefined;
