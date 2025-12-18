@@ -90,6 +90,9 @@ export default function AdminAIAnalytics() {
   const { data, isLoading, error, refetch } = useQuery<AnalyticsData>({
     queryKey: ["/api/admin/ai/analytics"],
     enabled: true,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 60000,
   });
 

@@ -806,36 +806,57 @@ export default function AdminAIOrchestration() {
   const { data, isLoading, error, refetch } = useQuery<AIOrchestrationData>({
     queryKey: ["/api/admin/ai/models"],
     enabled: true,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 
   const { data: healthData, isLoading: healthLoading } = useQuery<EnterpriseHealthData>({
     queryKey: ["/api/enterprise/ai/health"],
+    staleTime: 10000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 10000,
   });
 
   const { data: readinessData, isLoading: readinessLoading } = useQuery<{ success: boolean; data: ProductionReadinessData }>({
     queryKey: ["/api/enterprise/ai/production-readiness"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 
   const { data: executorData, isLoading: executorLoading } = useQuery<{ success: boolean; data: ExecutorStatusData }>({
     queryKey: ["/api/enterprise/ai/executor/status"],
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 15000,
   });
 
   const { data: bandsData, isLoading: bandsLoading } = useQuery<{ success: boolean; data: TripleBandData }>({
     queryKey: ["/api/enterprise/ai/bands"],
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 15000,
   });
 
   const { data: governanceData, isLoading: governanceLoading } = useQuery<{ success: boolean; data: GovernanceStatsData }>({
     queryKey: ["/api/enterprise/ai/governance/stats"],
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 
   const { data: executionsData, isLoading: executionsLoading } = useQuery<{ success: boolean; data: ExecutionLog[]; count: number }>({
     queryKey: ["/api/enterprise/ai/executions"],
+    staleTime: 15000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     refetchInterval: 15000,
   });
 
