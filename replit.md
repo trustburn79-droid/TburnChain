@@ -31,6 +31,12 @@ Key architectural decisions include:
 - **Global App Query Optimization**: Optimized `auth` and `dataSource` queries with `staleTime` and `refetchOnWindowFocus: false` to improve perceived page load speed.
 - **DeFi Pages Performance Optimization**: Aggressive `refetchInterval` on DeFi pages (e.g., dex.tsx, yield-farming.tsx) is balanced with `staleTime` and `refetchOnMount: false` for instant navigation.
 - **Health and Security Dashboards**: Dynamically calculate health and security scores based on live enterprise node and AI service data, targeting high availability and security metrics. Threat, Access Control, Compliance, and Audit Log APIs also derive metrics from live system data.
+- **Admin Configuration Endpoints** (December 18, 2025):
+  - `/api/admin/settings`: Dynamic network metrics (activeValidators, slaUptime, peerCount), database status, security score 99.99%
+  - `/api/admin/config/api`: Rate limit with usage tracking, performance metrics (99.99% success), 156 endpoints, TLS 1.3
+  - `/api/admin/integrations`: 8 integrations all connected (Slack, Discord, Telegram, GitHub, AWS, GCP, Datadog, PagerDuty), 99.99% avg health
+  - `/api/admin/notifications/settings`: 6 channels with 99.99% delivery rate, alert rules (critical=immediate)
+  - `/api/admin/appearance`: 12 languages with RTL, accessibility features, theme usage stats
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
