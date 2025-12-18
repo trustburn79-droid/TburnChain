@@ -19965,7 +19965,10 @@
       "criticalFindings": "중요 발견 사항",
       "summary": "요약",
       "id": "평가 ID",
-      "completedAt": "완료 시간"
+      "completedAt": "완료 시간",
+      "summaryMessages": {
+        "allFrameworksWithinThreshold": "모든 컴플라이언스 프레임워크가 허용 가능한 임계값 내에 있습니다. 중요 이슈가 확인되지 않았습니다."
+      }
     },
     "reportGenerated": "보고서 생성 완료",
     "reportDownloaded": "{{fileName}} 파일이 다운로드되었습니다",

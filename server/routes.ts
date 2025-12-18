@@ -10486,7 +10486,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         passedControls: 458,
         findings: 5,
         criticalFindings: 0,
-        summary: 'All compliance frameworks are within acceptable thresholds. No critical issues identified.'
+        summaryKey: 'allFrameworksWithinThreshold'
       };
       
       res.json({ success: true, data: results });

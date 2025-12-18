@@ -132,7 +132,7 @@ export default function AdminCompliance() {
     passedControls: number;
     findings: number;
     criticalFindings: number;
-    summary: string;
+    summaryKey: string;
   } | null>(null);
   const [showFindingDetail, setShowFindingDetail] = useState(false);
   const [selectedFinding, setSelectedFinding] = useState<Finding | null>(null);
@@ -1380,7 +1380,7 @@ export default function AdminCompliance() {
 
               <div className="p-4 border rounded-lg">
                 <p className="text-sm font-medium mb-2">{t("adminCompliance.assessmentResult.summary", "Summary")}</p>
-                <p className="text-sm text-muted-foreground">{assessmentResult.summary}</p>
+                <p className="text-sm text-muted-foreground">{t(`adminCompliance.assessmentResult.summaryMessages.${assessmentResult.summaryKey}`, "All compliance frameworks are within acceptable thresholds.")}</p>
               </div>
 
               <div className="text-xs text-muted-foreground space-y-1">
