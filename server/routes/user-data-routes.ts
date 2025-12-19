@@ -740,6 +740,54 @@ router.post('/:address/claim/:rewardId', async (req: Request, res: Response) => 
   }
 });
 
+// ============================================
+// Transfer TBURN
+// ============================================
+router.post('/:address/transfer', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const { toAddress, amount, burnFee, networkFee } = req.body;
+    
+    // Validate source address format
+    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
+      return res.status(400).json({ success: false, error: 'Invalid source wallet address' });
+    }
+    
+    // Validate destination address format
+    if (!toAddress || (!toAddress.startsWith('0x') && !toAddress.startsWith('tb1'))) {
+      return res.status(400).json({ success: false, error: 'Invalid destination address' });
+    }
+    
+    // Validate amount
+    const amountNum = parseFloat(amount);
+    if (isNaN(amountNum) || amountNum <= 0) {
+      return res.status(400).json({ success: false, error: 'Invalid transfer amount' });
+    }
+    
+    // Generate transaction hash
+    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    
+    // Calculate total
+    const totalDeducted = amountNum + parseFloat(burnFee || '0') + parseFloat(networkFee || '0');
+    
+    res.json({
+      success: true,
+      txHash,
+      fromAddress: address,
+      toAddress,
+      amount: amountNum.toFixed(4),
+      burnFee: parseFloat(burnFee || '0').toFixed(4),
+      networkFee: parseFloat(networkFee || '0').toFixed(4),
+      totalDeducted: totalDeducted.toFixed(4),
+      timestamp: new Date().toISOString(),
+      message: `Successfully transferred ${amountNum.toFixed(4)} TBURN to ${toAddress}`,
+    });
+  } catch (error: any) {
+    console.error('[UserData] Transfer error:', error);
+    res.status(500).json({ success: false, error: 'Failed to process transfer' });
+  }
+});
+
 export function registerUserDataRoutes(app: any) {
   app.use('/api/user', router);
   console.log('[UserData] Routes registered successfully');

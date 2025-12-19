@@ -5839,6 +5839,8 @@
     "serverError": "Server error. Please try again later.",
     "validationError": "Validation error. Please check your input.",
     "insufficientBalance": "Insufficient balance.",
+      "transferSuccess": "Transfer Successful",
+      "transferError": "Transfer Failed",
     "transactionFailed": "Transaction failed.",
     "connectionFailed": "Connection failed.",
     "timeout": "Request timeout."
@@ -25540,6 +25542,7 @@
       "walletRequiredTransfer": "Please connect wallet to transfer.",
       "walletRequiredVote": "Please connect wallet to vote.",
       "inputRequired": "Input Required",
+      "genericError": "An error occurred. Please try again.",
       "connectFirst": "Please connect your wallet first",
       "claimSuccess": "Rewards Claimed",
       "claimSuccessDesc": "{{amount}} TBURN has been transferred to your wallet",

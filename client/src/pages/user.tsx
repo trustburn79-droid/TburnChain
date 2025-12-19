@@ -1276,6 +1276,7 @@ function WalletSection({
 }) {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("transfer");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<TransferFormValues>({
     resolver: zodResolver(transferFormSchema),
@@ -1294,12 +1295,49 @@ function WalletSection({
 
   const { t } = useTranslation();
   
-  const onSubmit = (data: TransferFormValues) => {
-    if (!isConnected) {
+  const onSubmit = async (data: TransferFormValues) => {
+    if (!isConnected || !address) {
       toast({ title: t('userPage.toast.walletRequired'), description: t('userPage.toast.walletRequiredTransfer'), variant: "destructive" });
       return;
     }
-    toast({ title: t('userPage.transfer'), description: `${data.amount} TB → ${data.recipientAddress.slice(0, 10)}...` });
+    
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(`/api/user/${address}/transfer`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          toAddress: data.recipientAddress,
+          amount: data.amount,
+          burnFee: burnFee.toFixed(6),
+          networkFee: networkFee.toFixed(6),
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        toast({ 
+          title: t('userPage.wallet.transferSuccess'), 
+          description: `${data.amount} TB → ${data.recipientAddress.slice(0, 15)}...` 
+        });
+        form.reset();
+      } else {
+        toast({ 
+          title: t('userPage.wallet.transferError'), 
+          description: result.error || t('userPage.toast.genericError'), 
+          variant: "destructive" 
+        });
+      }
+    } catch {
+      toast({ 
+        title: t('userPage.wallet.transferError'), 
+        description: t('userPage.toast.genericError'), 
+        variant: "destructive" 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const recentTransactions = [
@@ -1430,10 +1468,14 @@ function WalletSection({
                     <Button
                       type="submit"
                       className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
-                      disabled={hasInsufficientBalance || !watchedAmount}
+                      disabled={hasInsufficientBalance || !watchedAmount || isSubmitting}
                       data-testid="button-submit-transfer"
                     >
-                      <Send className="w-4 h-4 mr-2" /> {t('userPage.transfer')}
+                      {isSubmitting ? (
+                        <><RefreshCw className="w-4 h-4 mr-2 animate-spin" /> {t('common.processing')}</>
+                      ) : (
+                        <><Send className="w-4 h-4 mr-2" /> {t('userPage.transfer')}</>
+                      )}
                     </Button>
                   </form>
                 </Form>
