@@ -12,6 +12,9 @@ import {
   Quote,
   Sun,
   Moon,
+  Home,
+  ScanLine,
+  User,
   Flame,
   Wallet,
   Layers,
@@ -124,7 +127,38 @@ export default function QnAPage() {
             TBURN <span className="text-blue-500">Help Center</span>
           </h1>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <Link href="/">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
+              data-testid="link-nav-home"
+            >
+              <Home className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href="/scan">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
+              data-testid="link-nav-scan"
+            >
+              <ScanLine className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href="/user">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
+              data-testid="link-nav-user"
+            >
+              <User className="h-5 w-5" />
+            </Button>
+          </Link>
+          <div className="w-px h-6 bg-slate-200 dark:bg-gray-700 mx-1" />
           <Button
             variant="ghost"
             size="icon"
@@ -134,11 +168,6 @@ export default function QnAPage() {
           >
             {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
-          <Link href="/app">
-            <span className="text-sm font-medium text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white transition-colors cursor-pointer hidden sm:inline" data-testid="link-back-dashboard">
-              {isKorean ? '대시보드로 돌아가기' : 'Back to Dashboard'}
-            </span>
-          </Link>
         </div>
       </header>
 
