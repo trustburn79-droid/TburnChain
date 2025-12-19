@@ -14,7 +14,8 @@ import {
   Zap, TrendingUp, Users, Activity, Clock, AlertTriangle, Vote,
   Lock, Unlock, Send, Copy, Eye, EyeOff, ChevronRight, Award,
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
-  LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot
+  LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
+  Menu, X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -169,6 +170,7 @@ const formatTimeAgo = (timestamp: string): string => {
 
 export default function UserPage() {
   const [activeSection, setActiveSection] = useState<Section>("dashboard");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const queryClient = useQueryClient();
   const { toast } = useToast();
@@ -352,34 +354,61 @@ export default function UserPage() {
   const totalBurned = formatBurnAmount(burnStats?.totalBurned);
   const burnPercentage = burnStats?.burnProgress ? Math.min(burnStats.burnProgress * 100, 100) : 0.27;
 
+  const handleNavClick = (sectionId: Section) => {
+    setActiveSection(sectionId);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="flex h-screen overflow-hidden font-sans antialiased bg-slate-50 text-slate-800 dark:bg-[#0B1120] dark:text-[#E2E8F0]">
-      <aside className="w-72 flex flex-col z-20 transition-colors duration-300 border-r bg-white border-slate-200 dark:bg-[#0F172A] dark:border-gray-800">
-        <div className="p-6 flex items-center gap-3 border-b border-slate-100 dark:border-gray-800">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 via-purple-500 to-orange-500 flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-blue-500/20">
-            T
-          </div>
-          <div>
-            <h1 className="font-bold text-xl tracking-tight text-slate-900 dark:text-white">
-              TBURN
-            </h1>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs text-emerald-500 font-medium">Mainnet v4.0.2</span>
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden" 
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+      
+      <aside className={`
+        fixed lg:relative inset-y-0 left-0 w-72 flex flex-col z-40 
+        transition-transform duration-300 ease-in-out
+        border-r bg-white border-slate-200 dark:bg-[#0F172A] dark:border-gray-800
+        ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
+        <div className="p-4 lg:p-6 flex items-center justify-between border-b border-slate-100 dark:border-gray-800">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-br from-blue-500 via-purple-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl lg:text-2xl shadow-lg shadow-blue-500/20">
+              T
+            </div>
+            <div>
+              <h1 className="font-bold text-lg lg:text-xl tracking-tight text-slate-900 dark:text-white">
+                TBURN
+              </h1>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] lg:text-xs text-emerald-500 font-medium">Mainnet v4.0.2</span>
+              </div>
             </div>
           </div>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="lg:hidden" 
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <X className="w-5 h-5" />
+          </Button>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-3 lg:p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveSection(item.id)}
+                onClick={() => handleNavClick(item.id)}
                 data-testid={`nav-${item.id}`}
-                className={`w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
+                className={`w-full flex items-center justify-between px-3 lg:px-4 py-2.5 lg:py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   isActive
                     ? "bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-600 dark:text-blue-400 border border-blue-200/50 dark:border-blue-500/20 shadow-sm"
                     : "text-slate-600 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800/50 hover:text-slate-900 dark:hover:text-white"
@@ -416,28 +445,40 @@ export default function UserPage() {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col relative overflow-hidden bg-slate-50 dark:bg-[#0B1120] transition-colors duration-300">
+      <main className="flex-1 flex flex-col relative overflow-hidden bg-slate-50 dark:bg-[#0B1120] transition-colors duration-300 w-full">
         <div className="absolute inset-0 opacity-30 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-        <header className="h-16 border-b border-slate-200 dark:border-gray-800 bg-white/90 dark:bg-[#0F172A]/90 backdrop-blur-xl flex items-center justify-between px-8 z-10">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 dark:bg-emerald-500/10 rounded-full border border-emerald-200 dark:border-emerald-500/20">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50 animate-pulse" />
-              <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
-                Mainnet Live
+        <header className="h-14 lg:h-16 border-b border-slate-200 dark:border-gray-800 bg-white/90 dark:bg-[#0F172A]/90 backdrop-blur-xl flex items-center justify-between px-3 sm:px-4 lg:px-8 z-10">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="lg:hidden" 
+              onClick={() => setMobileMenuOpen(true)}
+              data-testid="button-mobile-menu"
+            >
+              <Menu className="w-5 h-5" />
+            </Button>
+            
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-emerald-50 dark:bg-emerald-500/10 rounded-full border border-emerald-200 dark:border-emerald-500/20">
+              <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50 animate-pulse" />
+              <span className="text-xs sm:text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                Live
               </span>
             </div>
-            <Separator orientation="vertical" className="h-6" />
-            <div className="flex items-center gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-blue-500" />
-                <span className="text-slate-600 dark:text-gray-400">TPS:</span>
+            
+            <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
+            
+            <div className="hidden sm:flex items-center gap-2 lg:gap-4 text-xs sm:text-sm">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" />
+                <span className="hidden md:inline text-slate-600 dark:text-gray-400">TPS:</span>
                 <span className="font-mono font-bold text-slate-900 dark:text-white">
                   {networkStats?.tps ? formatNumber(networkStats.tps) : "---"}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <Boxes className="w-4 h-4 text-purple-500" />
+              <div className="hidden md:flex items-center gap-1 sm:gap-2">
+                <Boxes className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500" />
                 <span className="text-slate-600 dark:text-gray-400">블록:</span>
                 <span className="font-mono font-bold text-slate-900 dark:text-white">
                   #{networkStats?.currentBlockHeight ? formatNumber(networkStats.currentBlockHeight) : "---"}
@@ -446,24 +487,24 @@ export default function UserPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" onClick={handleRefresh} data-testid="button-refresh-header">
+          <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
+            <Button variant="ghost" size="icon" onClick={handleRefresh} data-testid="button-refresh-header" className="h-8 w-8 lg:h-9 lg:w-9">
               <RefreshCw className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="icon" onClick={toggleTheme} data-testid="button-theme-toggle">
+            <Button variant="ghost" size="icon" onClick={toggleTheme} data-testid="button-theme-toggle" className="h-8 w-8 lg:h-9 lg:w-9">
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
-            <Separator orientation="vertical" className="h-6" />
-            <Button variant="ghost" size="icon">
+            <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
+            <Button variant="ghost" size="icon" className="hidden sm:flex h-8 w-8 lg:h-9 lg:w-9">
               <Bell className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="hidden sm:flex h-8 w-8 lg:h-9 lg:w-9">
               <Settings className="w-4 h-4" />
             </Button>
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-6 scroll-smooth relative z-0">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 scroll-smooth relative z-0">
           {activeSection === "dashboard" && (
             <DashboardSection
               isConnected={isConnected}
@@ -547,29 +588,29 @@ function DashboardSection({
   const trustColor = avgTrustScore >= 90 ? "text-emerald-500" : avgTrustScore >= 70 ? "text-blue-500" : "text-yellow-500";
 
   return (
-    <section className="space-y-6" data-testid="section-dashboard">
-      <div className="flex justify-between items-start flex-wrap gap-4">
+    <section className="space-y-4 sm:space-y-6" data-testid="section-dashboard">
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">
             {isConnected ? "나의 대시보드" : "TBURN 대시보드"}
           </h2>
-          <p className="text-slate-500 dark:text-gray-400">
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">
             {isConnected ? "자산 현황과 네트워크 상태를 한눈에 확인하세요." : "지갑을 연결하여 모든 기능을 이용하세요."}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full sm:w-auto">
           {!isConnected && (
-            <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-dashboard">
+            <Button onClick={onConnectWallet} className="flex-1 sm:flex-none bg-gradient-to-r from-blue-500 to-purple-600 text-sm" data-testid="button-connect-dashboard">
               <Wallet className="w-4 h-4 mr-2" /> 지갑 연결
             </Button>
           )}
-          <Button variant="outline" onClick={onRefresh} data-testid="button-refresh">
+          <Button variant="outline" onClick={onRefresh} data-testid="button-refresh" className="flex-1 sm:flex-none text-sm">
             <RefreshCw className="w-4 h-4 mr-2" /> 새로고침
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         <MetricCard
           title="네트워크 TPS"
           value={networkStats?.tps ? formatNumber(networkStats.tps) : "---"}
@@ -602,80 +643,80 @@ function DashboardSection({
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white">AI 신뢰 점수</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-6">
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">AI 신뢰 점수</h3>
             <Badge variant="secondary" className={trustColor}>
               {trustLevel}
             </Badge>
           </div>
-          <div className="flex flex-col items-center justify-center relative py-4">
-            <canvas ref={trustScoreCanvasRef} width={200} height={200} />
+          <div className="flex flex-col items-center justify-center relative py-2 sm:py-4">
+            <canvas ref={trustScoreCanvasRef} width={200} height={200} className="w-[150px] h-[150px] sm:w-[200px] sm:h-[200px]" />
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-5xl font-bold text-slate-800 dark:text-white font-mono">{avgTrustScore}</span>
-              <span className={`text-sm mt-1 font-bold ${trustColor}`}>{trustLevel}</span>
+              <span className="text-4xl sm:text-5xl font-bold text-slate-800 dark:text-white font-mono">{avgTrustScore}</span>
+              <span className={`text-xs sm:text-sm mt-1 font-bold ${trustColor}`}>{trustLevel}</span>
             </div>
           </div>
-          <div className="space-y-3 mt-4">
-            <div className="flex justify-between text-sm">
+          <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-4">
+            <div className="flex justify-between text-xs sm:text-sm">
               <span className="text-slate-500 dark:text-gray-400">보안 점수</span>
               <span className="font-medium text-slate-800 dark:text-white">96/100</span>
             </div>
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-xs sm:text-sm">
               <span className="text-slate-500 dark:text-gray-400">안정성 점수</span>
               <span className="font-medium text-slate-800 dark:text-white">94/100</span>
             </div>
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-xs sm:text-sm">
               <span className="text-slate-500 dark:text-gray-400">성능 점수</span>
               <span className="font-medium text-slate-800 dark:text-white">98/100</span>
             </div>
           </div>
         </div>
 
-        <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-orange-100 dark:bg-orange-500/20 rounded-xl">
-                <Flame className="w-6 h-6 text-orange-500" />
+        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <div className="p-2 sm:p-3 bg-orange-100 dark:bg-orange-500/20 rounded-lg sm:rounded-xl">
+                <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
               </div>
               <div>
-                <p className="text-sm text-slate-500 dark:text-gray-400">총 소각량</p>
-                <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">총 소각량</p>
+                <p className="text-lg sm:text-2xl font-bold font-mono text-slate-900 dark:text-white">
                   {formatBurnAmount(burnStats?.totalBurned)} TB
                 </p>
               </div>
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
+            <div className="space-y-1.5 sm:space-y-2">
+              <div className="flex justify-between text-xs sm:text-sm">
                 <span className="text-slate-500 dark:text-gray-400">7일 소각량</span>
                 <span className="font-mono text-slate-800 dark:text-white">{formatBurnAmount(burnStats?.burned7d)} TB</span>
               </div>
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between text-xs sm:text-sm">
                 <span className="text-slate-500 dark:text-gray-400">30일 소각량</span>
                 <span className="font-mono text-slate-800 dark:text-white">{formatBurnAmount(burnStats?.burned30d)} TB</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-blue-100 dark:bg-blue-500/20 rounded-xl">
-                <Coins className="w-6 h-6 text-blue-500" />
+          <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <div className="p-2 sm:p-3 bg-blue-100 dark:bg-blue-500/20 rounded-lg sm:rounded-xl">
+                <Coins className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
               </div>
               <div>
-                <p className="text-sm text-slate-500 dark:text-gray-400">스테이킹 TVL</p>
-                <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">스테이킹 TVL</p>
+                <p className="text-lg sm:text-2xl font-bold font-mono text-slate-900 dark:text-white">
                   {formatBurnAmount(stakingStats?.totalValueLocked)} TB
                 </p>
               </div>
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
+            <div className="space-y-1.5 sm:space-y-2">
+              <div className="flex justify-between text-xs sm:text-sm">
                 <span className="text-slate-500 dark:text-gray-400">평균 APY</span>
                 <span className="font-mono text-emerald-500 font-bold">{stakingStats?.averageApy?.toFixed(1) || "12.5"}%</span>
               </div>
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between text-xs sm:text-sm">
                 <span className="text-slate-500 dark:text-gray-400">총 스테이커</span>
                 <span className="font-mono text-slate-800 dark:text-white">{formatNumber(stakingStats?.totalStakers || 0)}</span>
               </div>
@@ -813,20 +854,20 @@ function MetricCard({
   };
 
   return (
-    <div className="bg-white dark:bg-[#151E32] rounded-xl p-5 border border-slate-200 dark:border-gray-800 shadow-sm">
-      <div className="flex items-center justify-between mb-3">
-        <div className={`p-2.5 rounded-lg ${colors[color]}`}>
-          <Icon className="w-5 h-5" />
+    <div className="bg-white dark:bg-[#151E32] rounded-lg sm:rounded-xl p-3 sm:p-5 border border-slate-200 dark:border-gray-800 shadow-sm">
+      <div className="flex items-center justify-between mb-2 sm:mb-3">
+        <div className={`p-1.5 sm:p-2.5 rounded-md sm:rounded-lg ${colors[color]}`}>
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
         </div>
         {trend !== undefined && (
-          <span className={`text-xs font-medium ${trend >= 0 ? "text-emerald-500" : "text-red-500"}`}>
+          <span className={`text-[10px] sm:text-xs font-medium ${trend >= 0 ? "text-emerald-500" : "text-red-500"}`}>
             {trend >= 0 ? "+" : ""}{trend}%
           </span>
         )}
       </div>
-      <p className="text-xs text-slate-500 dark:text-gray-400 mb-1">{title}</p>
-      <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{value}</p>
-      <p className="text-xs text-slate-400 dark:text-gray-500">{subtitle}</p>
+      <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400 mb-0.5 sm:mb-1">{title}</p>
+      <p className="text-lg sm:text-2xl font-bold font-mono text-slate-900 dark:text-white truncate">{value}</p>
+      <p className="text-[10px] sm:text-xs text-slate-400 dark:text-gray-500">{subtitle}</p>
     </div>
   );
 }
@@ -876,16 +917,16 @@ function WalletSection({
 
   if (!isConnected) {
     return (
-      <section className="space-y-6" data-testid="section-wallet">
-        <div className="flex flex-col items-center justify-center min-h-[400px] bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 p-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mb-6">
-            <Wallet className="w-10 h-10 text-blue-500" />
+      <section className="space-y-4 sm:space-y-6" data-testid="section-wallet">
+        <div className="flex flex-col items-center justify-center min-h-[300px] sm:min-h-[400px] bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl border border-slate-200 dark:border-gray-800 p-4 sm:p-8">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+            <Wallet className="w-8 h-8 sm:w-10 sm:h-10 text-blue-500" />
           </div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">지갑을 연결하세요</h3>
-          <p className="text-slate-500 dark:text-gray-400 text-center mb-6 max-w-md">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 text-center">지갑을 연결하세요</h3>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400 text-center mb-4 sm:mb-6 max-w-md px-2">
             TBURN 토큰을 전송하고 거래 내역을 확인하려면 지갑을 연결해주세요.
           </p>
-          <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-wallet-section">
+          <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600 w-full sm:w-auto" data-testid="button-connect-wallet-section">
             <Wallet className="w-4 h-4 mr-2" /> 지갑 연결
           </Button>
         </div>
@@ -894,24 +935,24 @@ function WalletSection({
   }
 
   return (
-    <section className="space-y-6" data-testid="section-wallet">
-      <div className="flex justify-between items-start flex-wrap gap-4">
+    <section className="space-y-4 sm:space-y-6" data-testid="section-wallet">
+      <div className="flex justify-between items-start flex-wrap gap-3 sm:gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">지갑 & 전송</h2>
-          <p className="text-slate-500 dark:text-gray-400">TBURN 토큰을 안전하게 전송하고 관리하세요.</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">지갑 & 전송</h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">TBURN 토큰을 안전하게 전송하고 관리하세요.</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-6">
         <div className="lg:col-span-2">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-2 mb-4">
-              <TabsTrigger value="transfer">전송</TabsTrigger>
-              <TabsTrigger value="history">거래 내역</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-3 sm:mb-4">
+              <TabsTrigger value="transfer" className="text-sm">전송</TabsTrigger>
+              <TabsTrigger value="history" className="text-sm">거래 내역</TabsTrigger>
             </TabsList>
 
             <TabsContent value="transfer">
-              <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
+              <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
@@ -1117,20 +1158,20 @@ function StakingSection({
   };
 
   return (
-    <section className="space-y-6" data-testid="section-staking">
-      <div className="flex justify-between items-start flex-wrap gap-4">
+    <section className="space-y-4 sm:space-y-6" data-testid="section-staking">
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">스테이킹</h2>
-          <p className="text-slate-500 dark:text-gray-400">검증자에게 토큰을 위임하고 보상을 받으세요.</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">스테이킹</h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">검증자에게 토큰을 위임하고 보상을 받으세요.</p>
         </div>
         {!isConnected && (
-          <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-staking">
+          <Button onClick={onConnectWallet} className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-staking">
             <Wallet className="w-4 h-4 mr-2" /> 지갑 연결
           </Button>
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         <MetricCard
           title="총 TVL"
           value={formatBurnAmount(stakingStats?.totalValueLocked)}
@@ -1321,20 +1362,20 @@ function GovernanceSection({
   };
 
   return (
-    <section className="space-y-6" data-testid="section-governance">
-      <div className="flex justify-between items-start flex-wrap gap-4">
+    <section className="space-y-4 sm:space-y-6" data-testid="section-governance">
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">거버넌스</h2>
-          <p className="text-slate-500 dark:text-gray-400">TBURN 네트워크의 미래를 결정하는 투표에 참여하세요.</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">거버넌스</h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">TBURN 네트워크의 미래를 결정하는 투표에 참여하세요.</p>
         </div>
         {!isConnected && (
-          <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-governance">
+          <Button onClick={onConnectWallet} className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-governance">
             <Wallet className="w-4 h-4 mr-2" /> 지갑 연결
           </Button>
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
         <MetricCard
           title="활성 제안"
           value={proposals.filter(p => p.status.toLowerCase() === "active").length.toString()}
@@ -1506,25 +1547,25 @@ function NetworkSection({
   ];
 
   return (
-    <section className="space-y-6" data-testid="section-network">
+    <section className="space-y-4 sm:space-y-6" data-testid="section-network">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">네트워크 상태</h2>
-        <p className="text-slate-500 dark:text-gray-400">TBURN 메인넷의 실시간 상태를 모니터링하세요.</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">네트워크 상태</h2>
+        <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">TBURN 메인넷의 실시간 상태를 모니터링하세요.</p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
             <div
               key={index}
-              className="bg-white dark:bg-[#151E32] p-5 rounded-xl border border-slate-200 dark:border-gray-800 shadow-sm"
+              className="bg-white dark:bg-[#151E32] p-3 sm:p-5 rounded-lg sm:rounded-xl border border-slate-200 dark:border-gray-800 shadow-sm"
             >
-              <div className="flex items-center gap-2 mb-3">
-                <Icon className={`w-5 h-5 ${stat.color}`} />
-                <span className="text-xs text-slate-500 dark:text-gray-400 uppercase">{stat.label}</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${stat.color}`} />
+                <span className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400 uppercase truncate">{stat.label}</span>
               </div>
-              <p className={`text-3xl font-mono font-bold ${stat.color}`}>
+              <p className={`text-xl sm:text-3xl font-mono font-bold ${stat.color} truncate`}>
                 {stat.value}
               </p>
             </div>
@@ -1532,38 +1573,38 @@ function NetworkSection({
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Radio className="w-5 h-5 text-emerald-500 animate-pulse" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6">
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Radio className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 animate-pulse" />
               실시간 블록 피드
             </h3>
           </div>
-          <div className="space-y-2 max-h-80 overflow-hidden relative">
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-[#151E32] to-transparent z-10 pointer-events-none" />
+          <div className="space-y-2 max-h-60 sm:max-h-80 overflow-hidden relative">
+            <div className="absolute bottom-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-t from-white dark:from-[#151E32] to-transparent z-10 pointer-events-none" />
             {blockFeed.map((block, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-sm animate-fade-in"
+                className="flex items-center justify-between p-2 sm:p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-xs sm:text-sm animate-fade-in"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-100 dark:bg-blue-500/20 rounded-lg flex items-center justify-center">
-                    <Boxes className="w-4 h-4 text-blue-500" />
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 dark:bg-blue-500/20 rounded-md sm:rounded-lg flex items-center justify-center">
+                    <Boxes className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" />
                   </div>
                   <div>
-                    <p className="font-mono font-bold text-slate-900 dark:text-white">
+                    <p className="font-mono font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
                       #{formatNumber(block.blockNumber)}
                     </p>
-                    <p className="text-xs text-slate-400">{block.validator}</p>
+                    <p className="text-[10px] sm:text-xs text-slate-400 truncate max-w-[80px] sm:max-w-none">{block.validator}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-slate-600 dark:text-gray-400">
+                  <p className="text-slate-600 dark:text-gray-400 text-xs sm:text-sm">
                     {formatNumber(block.transactions)} txns
                   </p>
-                  <p className="text-xs text-orange-500 flex items-center justify-end gap-1">
-                    <Flame className="w-3 h-3" /> {block.burned} TB
+                  <p className="text-[10px] sm:text-xs text-orange-500 flex items-center justify-end gap-1">
+                    <Flame className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> {block.burned} TB
                   </p>
                 </div>
               </div>
@@ -1571,32 +1612,32 @@ function NetworkSection({
           </div>
         </div>
 
-        <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-            <GitBranch className="w-5 h-5 text-purple-500" />
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
+            <GitBranch className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
             샤드 상태
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {shards.slice(0, 5).map((shard) => (
               <div
                 key={shard.id}
-                className="flex items-center justify-between p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg"
+                className="flex items-center justify-between p-2 sm:p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg"
               >
-                <div className="flex items-center gap-3">
-                  <div className={`w-3 h-3 rounded-full ${
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full ${
                     shard.status === "active" ? "bg-emerald-500" : "bg-yellow-500"
                   }`} />
                   <div>
-                    <p className="font-medium text-slate-900 dark:text-white">{shard.name}</p>
-                    <p className="text-xs text-slate-400">{shard.validators} 검증자</p>
+                    <p className="text-xs sm:text-sm font-medium text-slate-900 dark:text-white">{shard.name}</p>
+                    <p className="text-[10px] sm:text-xs text-slate-400">{shard.validators} 검증자</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="flex items-center gap-2">
-                    <Progress value={shard.load} className="w-20 h-2" />
-                    <span className="text-xs text-slate-500">{shard.load}%</span>
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <Progress value={shard.load} className="w-12 sm:w-20 h-1.5 sm:h-2" />
+                    <span className="text-[10px] sm:text-xs text-slate-500">{shard.load}%</span>
                   </div>
-                  <p className="text-xs text-slate-400">{formatNumber(shard.transactions)} txns</p>
+                  <p className="text-[10px] sm:text-xs text-slate-400">{formatNumber(shard.transactions)} txns</p>
                 </div>
               </div>
             ))}
@@ -1604,27 +1645,27 @@ function NetworkSection({
         </div>
       </div>
 
-      <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-          <Network className="w-5 h-5 text-blue-500" />
+      <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
+          <Network className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
           네트워크 성능
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl">
-            <p className="text-2xl font-bold font-mono text-blue-500">{networkStats?.peakTps ? formatNumber(networkStats.peakTps) : "---"}</p>
-            <p className="text-xs text-slate-500 dark:text-gray-400">Peak TPS</p>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
+          <div className="text-center p-3 sm:p-4 bg-slate-50 dark:bg-[#0B1120] rounded-lg sm:rounded-xl">
+            <p className="text-lg sm:text-2xl font-bold font-mono text-blue-500">{networkStats?.peakTps ? formatNumber(networkStats.peakTps) : "---"}</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">Peak TPS</p>
           </div>
-          <div className="text-center p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl">
-            <p className="text-2xl font-bold font-mono text-purple-500">{networkStats?.latency || "---"}ms</p>
-            <p className="text-xs text-slate-500 dark:text-gray-400">평균 지연</p>
+          <div className="text-center p-3 sm:p-4 bg-slate-50 dark:bg-[#0B1120] rounded-lg sm:rounded-xl">
+            <p className="text-lg sm:text-2xl font-bold font-mono text-purple-500">{networkStats?.latency || "---"}ms</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">평균 지연</p>
           </div>
-          <div className="text-center p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl">
-            <p className="text-2xl font-bold font-mono text-emerald-500">{shards.length || 8}</p>
-            <p className="text-xs text-slate-500 dark:text-gray-400">활성 샤드</p>
+          <div className="text-center p-3 sm:p-4 bg-slate-50 dark:bg-[#0B1120] rounded-lg sm:rounded-xl">
+            <p className="text-lg sm:text-2xl font-bold font-mono text-emerald-500">{shards.length || 8}</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">활성 샤드</p>
           </div>
-          <div className="text-center p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl">
-            <p className="text-2xl font-bold font-mono text-orange-500">{networkStats?.blockTimeP99?.toFixed(2) || "0.8"}s</p>
-            <p className="text-xs text-slate-500 dark:text-gray-400">P99 블록 시간</p>
+          <div className="text-center p-3 sm:p-4 bg-slate-50 dark:bg-[#0B1120] rounded-lg sm:rounded-xl">
+            <p className="text-lg sm:text-2xl font-bold font-mono text-orange-500">{networkStats?.blockTimeP99?.toFixed(2) || "0.8"}s</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">P99 블록 시간</p>
           </div>
         </div>
       </div>
