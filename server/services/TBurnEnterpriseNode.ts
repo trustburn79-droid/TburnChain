@@ -2320,7 +2320,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           phasesJson: JSON.stringify(phasesData),
           finalHash: i === 0 ? null : `0x${crypto.randomBytes(32).toString('hex')}`,
           aiParticipation,
-          participationRate: participatingValidators / totalValidators,
+          participationRate: (participatingValidators / totalValidators) || 0,
           createdAt: new Date(startTime).toISOString()
         });
       }
@@ -4412,7 +4412,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         avgBlockTime,
         avgFinality,
         consensusRate: 99.95,
-        participationRate: (votesReceived / committeeSize) * 100,
+        participationRate: ((votesReceived / committeeSize) * 100) || 0,
         committeeSize,
         aiOptimization: 'active'
       },
