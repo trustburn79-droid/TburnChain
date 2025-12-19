@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import rateLimit from "express-rate-limit";
 import bcrypt from "bcryptjs";
-import { randomBytes } from "crypto";
+import { randomBytes, createHash } from "crypto";
 import cookieSignature from "cookie-signature";
 import { Pool } from "@neondatabase/serverless";
 import { tburnWalletService } from "./services/TBurnWalletService";
@@ -3497,13 +3497,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           for (let i = 0; i < limit; i++) {
             const txTimestamp = currentTimestamp - (i * 2); // 2 seconds apart
             const txBlockNumber = currentBlockHeight - Math.floor(i / 5);
+            // Use SHA-256 for full 64-char hashes and 40-char addresses without trailing zeros
+            const txHash2 = createHash('sha256').update(`tx-page-${txBlockNumber}-${i}-${Date.now()}`).digest('hex');
+            const blockHash2 = createHash('sha256').update(`block-page-${txBlockNumber}`).digest('hex');
+            const fromAddr2 = createHash('sha256').update(`from-page-${txBlockNumber}-${i}`).digest('hex').slice(0, 40);
+            const toAddr2 = createHash('sha256').update(`to-page-${txBlockNumber}-${i}`).digest('hex').slice(0, 40);
             realtimeTransactions.push({
               id: `rt-tx-${Date.now()}-${i}`,
-              hash: `0x${Math.random().toString(16).substring(2, 10)}${txBlockNumber.toString(16)}${i.toString(16).padStart(4, '0')}`,
+              hash: `0x${txHash2}`,
               blockNumber: txBlockNumber,
-              blockHash: `0x${Math.random().toString(16).substring(2, 66).padEnd(64, '0')}`,
-              from: `0x${Math.random().toString(16).substring(2, 42).padEnd(40, '0')}`,
-              to: `0x${Math.random().toString(16).substring(2, 42).padEnd(40, '0')}`,
+              blockHash: `0x${blockHash2}`,
+              from: `tburn${fromAddr2}`,
+              to: `tburn${toAddr2}`,
               value: (Math.random() * 100 * 1e18).toFixed(0),
               gas: 21000 + Math.floor(Math.random() * 100000),
               gasPrice: (20 + Math.random() * 30).toFixed(0) + '000000000',
@@ -3511,12 +3516,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
               nonce: Math.floor(Math.random() * 1000),
               timestamp: txTimestamp,
               status: statusOptions[Math.floor(Math.random() * statusOptions.length)],
-              input: Math.random() > 0.7 ? `0x${Math.random().toString(16).substring(2, 20)}` : null,
+              input: Math.random() > 0.7 ? `0x${randomBytes(10).toString('hex')}` : null,
               contractAddress: null,
               shardId: Math.floor(Math.random() * 16),
               executionClass: Math.random() > 0.3 ? 'parallel' : 'standard',
               latencyNs: 5000000 + Math.floor(Math.random() * 20000000), // 5-25ms enterprise-grade
-              parallelBatchId: Math.random() > 0.5 ? Math.random().toString(16).substring(2, 34) : null,
+              parallelBatchId: Math.random() > 0.5 ? randomBytes(16).toString('hex') : null,
               crossShardMessageId: null,
               hashAlgorithm: 'blake3'
             });
@@ -3613,13 +3618,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           for (let i = 0; i < limit; i++) {
             const txTimestamp = currentTimestamp - (i * 2);
             const txBlockNumber = currentBlockHeight - Math.floor(i / 5);
+            // Use crypto for full 64-char hashes and 40-char addresses without trailing zeros
+            const txHash = createHash('sha256').update(`tx-${txBlockNumber}-${i}-${Date.now()}`).digest('hex');
+            const blockHash = createHash('sha256').update(`block-${txBlockNumber}`).digest('hex');
+            const fromAddr = createHash('sha256').update(`from-${txBlockNumber}-${i}`).digest('hex').slice(0, 40);
+            const toAddr = createHash('sha256').update(`to-${txBlockNumber}-${i}`).digest('hex').slice(0, 40);
             realtimeTransactions.push({
               id: `rt-tx-${Date.now()}-${i}`,
-              hash: `0x${Math.random().toString(16).substring(2, 10)}${txBlockNumber.toString(16)}${i.toString(16).padStart(4, '0')}`,
+              hash: `0x${txHash}`,
               blockNumber: txBlockNumber,
-              blockHash: `0x${Math.random().toString(16).substring(2, 66).padEnd(64, '0')}`,
-              from: `0x${Math.random().toString(16).substring(2, 42).padEnd(40, '0')}`,
-              to: `0x${Math.random().toString(16).substring(2, 42).padEnd(40, '0')}`,
+              blockHash: `0x${blockHash}`,
+              from: `tburn${fromAddr}`,
+              to: `tburn${toAddr}`,
               value: (Math.random() * 100 * 1e18).toFixed(0),
               gas: 21000 + Math.floor(Math.random() * 100000),
               gasPrice: (20 + Math.random() * 30).toFixed(0) + '000000000',
@@ -3627,12 +3637,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
               nonce: Math.floor(Math.random() * 1000),
               timestamp: txTimestamp,
               status: statusOptions[Math.floor(Math.random() * statusOptions.length)],
-              input: Math.random() > 0.7 ? `0x${Math.random().toString(16).substring(2, 20)}` : null,
+              input: Math.random() > 0.7 ? `0x${randomBytes(10).toString('hex')}` : null,
               contractAddress: null,
               shardId: Math.floor(Math.random() * 16),
               executionClass: Math.random() > 0.3 ? 'parallel' : 'standard',
               latencyNs: 5000000 + Math.floor(Math.random() * 20000000), // 5-25ms enterprise-grade
-              parallelBatchId: Math.random() > 0.5 ? Math.random().toString(16).substring(2, 34) : null,
+              parallelBatchId: Math.random() > 0.5 ? randomBytes(16).toString('hex') : null,
               crossShardMessageId: null,
               hashAlgorithm: 'blake3'
             });

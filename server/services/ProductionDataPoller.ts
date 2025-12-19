@@ -8,6 +8,7 @@
  * 4. Ensures data is always available even during rate limits
  */
 
+import { createHash } from 'crypto';
 import { getDataCache, DataCacheService } from './DataCacheService';
 import { storage } from '../storage';
 import { formatPublicNetworkStats, formatPublicTestnetStats } from '../routes/public-api-routes';
@@ -608,7 +609,8 @@ class ProductionDataPoller {
     try {
       const transactions = [];
       for (let i = 0; i < 50; i++) {
-        const txHash = `0x${Math.random().toString(16).substring(2, 66).padEnd(64, '0')}`;
+        // Use SHA-256 for full 64-char hex hashes without trailing zeros
+        const txHash = `0x${createHash('sha256').update(`tx-poller-${Date.now()}-${i}`).digest('hex')}`;
         const tx = await this.enterpriseNode.getTransaction(txHash);
         transactions.push(tx);
       }

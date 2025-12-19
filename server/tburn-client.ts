@@ -1,5 +1,6 @@
 import WebSocket from 'ws';
 import { request } from 'undici';
+import { createHash } from 'crypto';
 import { getDataCache, DataCacheService } from './services/DataCacheService';
 
 export interface TBurnNodeConfig {
@@ -468,7 +469,8 @@ export class TBurnClient {
     if (this.isEnterpriseMode && this.enterpriseNode) {
       const transactions: TransactionData[] = [];
       for (let i = 0; i < limit; i++) {
-        const txHash = `0x${Math.random().toString(16).substring(2, 66).padEnd(64, '0')}`;
+        // Use SHA-256 for full 64-char hex hashes without trailing zeros
+        const txHash = `0x${createHash('sha256').update(`tx-recent-${Date.now()}-${i}`).digest('hex')}`;
         const tx = await this.enterpriseNode.getTransaction(txHash);
         transactions.push(tx);
       }

@@ -5,6 +5,7 @@
  */
 
 import { Router, Request, Response } from 'express';
+import { createHash } from 'crypto';
 import { dataHub } from '../services/DataHub';
 import { storage } from '../storage';
 import { getTBurnClient, isProductionMode } from '../tburn-client';
@@ -48,48 +49,37 @@ function formatLargeNumber(amount: number): string {
 // ============================================
 
 /**
- * Generates a consistent hash based on block number
- * This ensures the same block always has the same hash
+ * Generates a consistent hash based on block number using SHA-256
+ * This ensures the same block always has the same hash with full 64 hex chars
  */
 function generateConsistentBlockHash(blockNumber: number): string {
-  const hexParts = [
-    ((blockNumber * 7919) % 256).toString(16).padStart(2, '0'),
-    ((blockNumber * 6271) % 256).toString(16).padStart(2, '0'),
-    ((blockNumber * 4139) % 256).toString(16).padStart(2, '0'),
-    ((blockNumber * 2963) % 256).toString(16).padStart(2, '0'),
-    blockNumber.toString(16).padStart(8, '0'),
-  ];
-  return `0x${hexParts.join('')}${'0'.repeat(64 - hexParts.join('').length - 2)}`.slice(0, 66);
+  const hash = createHash('sha256')
+    .update(`tburn-block-${blockNumber}`)
+    .digest('hex');
+  return `0x${hash}`;
 }
 
 /**
- * Generates a consistent transaction hash based on block number and index
+ * Generates a consistent transaction hash based on block number and index using SHA-256
+ * Full 64 hex characters without trailing zeros
  */
 function generateConsistentTxHash(blockNumber: number, index: number): string {
-  const seed = blockNumber * 1000 + index;
-  const hexParts = [
-    ((seed * 9311) % 256).toString(16).padStart(2, '0'),
-    ((seed * 7127) % 256).toString(16).padStart(2, '0'),
-    ((seed * 5431) % 256).toString(16).padStart(2, '0'),
-    ((seed * 3257) % 256).toString(16).padStart(2, '0'),
-    blockNumber.toString(16).padStart(8, '0'),
-    index.toString(16).padStart(4, '0'),
-  ];
-  return `0x${hexParts.join('')}${'0'.repeat(64 - hexParts.join('').length - 2)}`.slice(0, 66);
+  const hash = createHash('sha256')
+    .update(`tburn-tx-${blockNumber}-${index}`)
+    .digest('hex');
+  return `0x${hash}`;
 }
 
 /**
- * Generates consistent address based on seed (tburn format)
+ * Generates consistent address based on seed using SHA-256 (tburn format)
+ * Full 40 hex characters without trailing zeros
  */
 function generateConsistentAddress(seed: number): string {
-  const hexParts = [
-    ((seed * 8243) % 256).toString(16).padStart(2, '0'),
-    ((seed * 6571) % 256).toString(16).padStart(2, '0'),
-    ((seed * 4219) % 256).toString(16).padStart(2, '0'),
-    ((seed * 2137) % 256).toString(16).padStart(2, '0'),
-  ];
-  const hexSuffix = `${hexParts.join('')}${'0'.repeat(40 - hexParts.join('').length)}`;
-  return `tburn${hexSuffix}`;
+  const hash = createHash('sha256')
+    .update(`tburn-addr-${seed}`)
+    .digest('hex')
+    .slice(0, 40);
+  return `tburn${hash}`;
 }
 
 function setCacheHeaders(res: Response, maxAge: number) {
