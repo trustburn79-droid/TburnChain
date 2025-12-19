@@ -224,7 +224,7 @@ interface UserActivity {
 }
 
 const transferFormSchema = z.object({
-  recipientAddress: z.string().min(1).regex(/^0x[a-fA-F0-9]{40}$/),
+  recipientAddress: z.string().min(1).regex(/^tb1[a-z0-9]{35,45}$/),
   amount: z.string().min(1).refine((val) => parseFloat(val) > 0),
 });
 
@@ -1232,9 +1232,9 @@ function WalletSection({
   };
 
   const recentTransactions = [
-    { hash: "0x1a2b...3c4d", type: "sent", to: "0x8F2e...9B1c", amount: 500, burned: 2.5, time: t('userPage.timeAgo.minutesAgo', { count: 5 }), status: "completed" },
-    { hash: "0x5e6f...7g8h", type: "received", from: "0x3D4e...5F6g", amount: 1200, time: t('userPage.timeAgo.hoursAgo', { count: 2 }), status: "completed" },
-    { hash: "0x9i0j...1k2l", type: "staked", validator: "TBURN Foundation", amount: 5000, time: t('userPage.timeAgo.daysAgo', { count: 1 }), status: "completed" },
+    { hash: "tb1txhash1a2b3c4d5e6f", type: "sent", to: "tb1edmprvaftt65lkp2x", amount: 500, burned: 2.5, time: t('userPage.timeAgo.minutesAgo', { count: 5 }), status: "completed" },
+    { hash: "tb1txhash7g8h9i0j1k2l", type: "received", from: "tb1v8fmjvst5spfruj47", amount: 1200, time: t('userPage.timeAgo.hoursAgo', { count: 2 }), status: "completed" },
+    { hash: "tb1txhash3m4n5o6p7q8r", type: "staked", validator: "TBURN Foundation", amount: 5000, time: t('userPage.timeAgo.daysAgo', { count: 1 }), status: "completed" },
   ];
 
   if (!isConnected) {
@@ -1285,7 +1285,7 @@ function WalletSection({
                           <FormLabel className="text-slate-700 dark:text-gray-300">{t('common.address')}</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="0x..."
+                              placeholder="tb1..."
                               className="font-mono bg-slate-50 dark:bg-[#0B1120] border-slate-200 dark:border-gray-700"
                               {...field}
                               data-testid="input-recipient"
