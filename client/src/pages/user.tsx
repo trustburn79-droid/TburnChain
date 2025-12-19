@@ -14,13 +14,26 @@ import type { Validator, NetworkStats, StakingStats } from "@shared/schema";
 type Section = "dashboard" | "wallet" | "staking" | "governance" | "network";
 
 interface GovernanceProposal {
-  id: number;
+  id: string;
+  proposer: string;
   title: string;
   description: string;
   status: string;
-  votesFor: number;
-  votesAgainst: number;
-  endTime: string;
+  votesFor: string;
+  votesAgainst: string;
+  votesAbstain: string;
+  totalVoters: number;
+  quorumReached: boolean;
+  votingEnds: string;
+  createdAt: string;
+  riskScore: number;
+  aiAnalysis?: {
+    model: string;
+    confidence: number;
+    economicImpact: number;
+    securityImpact: number;
+    recommendation: string;
+  };
 }
 
 interface Block {
@@ -32,9 +45,32 @@ interface Block {
 
 interface BurnStats {
   totalBurned: string;
-  burnRate24h: number;
-  userBurnContribution?: string;
-  burnPercentage?: number;
+  burnedToday: string;
+  burned7d: string;
+  burned30d: string;
+  transactionBurns: string;
+  currentBurnRate: number;
+  burnProgress: number;
+}
+
+interface ValidatorResponse {
+  validators: ApiValidator[];
+}
+
+interface ApiValidator {
+  address: string;
+  name: string;
+  status: string;
+  stake: string;
+  delegators: number;
+  commission: number;
+  uptime: number;
+  blocksProduced: number;
+  rewards: string;
+  aiTrustScore: number;
+  votingPower: number;
+  tier: number;
+  region: string;
 }
 
 const transferFormSchema = z.object({
@@ -43,6 +79,20 @@ const transferFormSchema = z.object({
 });
 
 type TransferFormValues = z.infer<typeof transferFormSchema>;
+
+const formatBurnAmount = (val: string | undefined): string => {
+  if (!val) return "0";
+  const num = parseFloat(val);
+  if (isNaN(num)) return "0";
+  if (num >= 1e21) return `${(num / 1e21).toFixed(2)}Z`;
+  if (num >= 1e18) return `${(num / 1e18).toFixed(2)}E`;
+  if (num >= 1e15) return `${(num / 1e15).toFixed(2)}P`;
+  if (num >= 1e12) return `${(num / 1e12).toFixed(2)}T`;
+  if (num >= 1e9) return `${(num / 1e9).toFixed(2)}B`;
+  if (num >= 1e6) return `${(num / 1e6).toFixed(2)}M`;
+  if (num >= 1e3) return `${(num / 1e3).toFixed(2)}K`;
+  return num.toFixed(2);
+};
 
 export default function UserPage() {
   const [activeSection, setActiveSection] = useState<Section>("dashboard");
@@ -55,45 +105,79 @@ export default function UserPage() {
     queryKey: ["/api/network/stats"],
     staleTime: 5000,
     refetchInterval: 5000,
+    retry: 1,
   });
 
-  const { data: stakingStats } = useQuery<StakingStats>({
+  const { data: stakingStats } = useQuery<StakingStats | null>({
     queryKey: ["/api/staking/stats"],
     staleTime: 10000,
     refetchInterval: 10000,
+    retry: false,
+    queryFn: async () => {
+      try {
+        const res = await fetch("/api/staking/stats", { credentials: "include" });
+        if (!res.ok) return null;
+        return await res.json();
+      } catch {
+        return null;
+      }
+    },
   });
 
-  const { data: validators } = useQuery<Validator[]>({
+  const { data: validatorResponse } = useQuery<ValidatorResponse>({
     queryKey: ["/api/validators"],
     staleTime: 15000,
     refetchInterval: 15000,
+    retry: 1,
   });
+  const validators = validatorResponse?.validators || [];
 
   const { data: burnStats } = useQuery<BurnStats>({
     queryKey: ["/api/burn/stats"],
     staleTime: 10000,
     refetchInterval: 10000,
+    retry: 1,
   });
 
-  const { data: proposals } = useQuery<GovernanceProposal[]>({
+  const { data: proposals } = useQuery<GovernanceProposal[] | null>({
     queryKey: ["/api/governance/proposals"],
     staleTime: 30000,
     refetchInterval: 30000,
+    retry: false,
+    queryFn: async () => {
+      try {
+        const res = await fetch("/api/governance/proposals", { credentials: "include" });
+        if (!res.ok) return null;
+        return await res.json();
+      } catch {
+        return null;
+      }
+    },
   });
 
+  const blockHeightRef = useRef(0);
+  
   useEffect(() => {
     if (activeSection !== "network") return;
+    if (networkStats?.currentBlockHeight) {
+      blockHeightRef.current = networkStats.currentBlockHeight;
+    }
     const interval = setInterval(() => {
+      blockHeightRef.current += 1;
       const newBlock: Block = {
-        blockNumber: 8921000 + Math.floor(Date.now() / 1000),
-        transactions: Math.floor(Math.random() * (60000 - 30000) + 30000),
-        burned: Math.floor(Math.random() * 200),
+        blockNumber: blockHeightRef.current,
+        transactions: networkStats?.tps ? Math.floor(networkStats.tps * 0.5 + Math.random() * networkStats.tps * 0.2) : 50000,
+        burned: Math.floor(Math.random() * 150 + 50),
         timestamp: Date.now(),
       };
       setBlockFeed((prev) => [newBlock, ...prev.slice(0, 7)]);
     }, 1000);
     return () => clearInterval(interval);
-  }, [activeSection]);
+  }, [activeSection, networkStats?.currentBlockHeight, networkStats?.tps]);
+
+  const avgTrustScore = validators.length > 0
+    ? Math.round(validators.reduce((sum, v) => sum + (v.aiTrustScore / 100), 0) / validators.length)
+    : 92;
 
   useEffect(() => {
     const canvas = trustScoreCanvasRef.current;
@@ -102,7 +186,7 @@ export default function UserPage() {
     if (!ctx) return;
 
     const isDark = theme === "dark";
-    const score = 92;
+    const score = avgTrustScore;
     const radius = 80;
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
@@ -122,7 +206,7 @@ export default function UserPage() {
     ctx.lineWidth = lineWidth;
     ctx.lineCap = "round";
     ctx.stroke();
-  }, [theme, activeSection]);
+  }, [theme, activeSection, avgTrustScore]);
 
   const handleRefresh = () => {
     queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
@@ -142,8 +226,8 @@ export default function UserPage() {
     { id: "network" as Section, label: "네트워크 상태", icon: Globe },
   ];
 
-  const totalBurned = burnStats?.totalBurned || networkStats?.totalBurned || "42,591,023";
-  const burnPercentage = 65;
+  const totalBurned = formatBurnAmount(burnStats?.totalBurned);
+  const burnPercentage = burnStats?.burnProgress ? Math.min(burnStats.burnProgress * 100, 100) : 0.27;
 
   return (
     <div className="flex h-screen overflow-hidden font-sans antialiased bg-slate-50 text-slate-800 dark:bg-[#0B1120] dark:text-[#E2E8F0]">
@@ -269,7 +353,7 @@ function DashboardSection({
   onRefresh,
 }: {
   networkStats: NetworkStats | undefined;
-  stakingStats: StakingStats | undefined;
+  stakingStats: StakingStats | null | undefined;
   burnStats: BurnStats | undefined;
   trustScoreCanvasRef: React.RefObject<HTMLCanvasElement>;
   onRefresh: () => void;
@@ -337,7 +421,7 @@ function DashboardSection({
               </div>
               <h3 className="text-slate-500 dark:text-gray-400 text-sm">총 기여 소각량 (Burn Contribution)</h3>
               <p className="text-3xl font-bold text-slate-800 dark:text-white mt-1 font-mono">
-                {burnStats?.userBurnContribution || "1,240.50"} TB
+                {burnStats?.transactionBurns ? formatBurnAmount(burnStats.transactionBurns) : "1,240.50"} TB
               </p>
             </div>
             <p className="text-xs text-slate-400 dark:text-gray-500 mt-4 group-hover:text-slate-600 dark:group-hover:text-gray-400 transition-colors">
@@ -357,7 +441,7 @@ function DashboardSection({
               </div>
               <h3 className="text-slate-500 dark:text-gray-400 text-sm">스테이킹 보상 (Rewards)</h3>
               <p className="text-3xl font-bold text-slate-800 dark:text-white mt-1 font-mono">
-                {stakingStats?.rewardsDistributed ? formatNumber(parseFloat(stakingStats.rewardsDistributed)) : "452.12"} TB
+                {stakingStats?.totalRewardsDistributed ? formatBurnAmount(stakingStats.totalRewardsDistributed) : "452.12"} TB
               </p>
             </div>
             <Button
@@ -547,22 +631,24 @@ function StakingSection({
   stakingStats,
   validators,
 }: {
-  stakingStats: StakingStats | undefined;
-  validators: Validator[];
+  stakingStats: StakingStats | null | undefined;
+  validators: ApiValidator[];
 }) {
-  const displayValidators = validators.length > 0 ? validators.slice(0, 10) : [
-    { id: 1, name: "TBURN Foundation Node", address: "0x1...", trustScore: 99.8, totalStaked: "50M", commission: 5, status: "active" },
-    { id: 2, name: "Korea Distributed ONE", address: "0x2...", trustScore: 98.5, totalStaked: "32M", commission: 3, status: "active" },
-  ];
+  const formatStake = (stake: string): string => {
+    const num = parseFloat(stake);
+    if (num >= 1e6) return `${(num / 1e6).toFixed(1)}M`;
+    if (num >= 1e3) return `${(num / 1e3).toFixed(1)}K`;
+    return num.toFixed(0);
+  };
 
   return (
     <section className="space-y-6" data-testid="section-staking">
       <div className="flex justify-between items-center flex-wrap gap-4">
         <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Validator 스테이킹</h2>
         <div className="text-right">
-          <p className="text-sm text-slate-500 dark:text-gray-400">현재 APR</p>
+          <p className="text-sm text-slate-500 dark:text-gray-400">현재 APY</p>
           <p className="text-xl text-emerald-500 font-bold font-mono">
-            {stakingStats?.apr ? `${stakingStats.apr.toFixed(1)}%` : "12.5%"}
+            {stakingStats?.averageApy ? `${stakingStats.averageApy.toFixed(1)}%` : "12.5%"}
           </p>
         </div>
       </div>
@@ -573,39 +659,42 @@ function StakingSection({
             <tr className="bg-slate-50 dark:bg-[#0B1120] border-b border-slate-200 dark:border-gray-700 text-slate-500 dark:text-gray-400 text-sm uppercase">
               <th className="p-6 font-medium">Rank</th>
               <th className="p-6 font-medium">Validator Name</th>
-              <th className="p-6 font-medium text-center">Trust Score</th>
+              <th className="p-6 font-medium text-center">AI Trust Score</th>
               <th className="p-6 font-medium text-right">Total Staked</th>
               <th className="p-6 font-medium text-right">Commission</th>
               <th className="p-6 font-medium text-center">Action</th>
             </tr>
           </thead>
           <tbody className="text-slate-800 dark:text-white divide-y divide-slate-100 dark:divide-gray-800">
-            {displayValidators.map((validator, index) => (
+            {validators.slice(0, 10).map((validator, index) => (
               <tr
-                key={validator.id}
+                key={validator.address}
                 className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group"
               >
                 <td className="p-6 text-slate-500 dark:text-gray-500 font-mono">#{index + 1}</td>
                 <td className="p-6">
                   <div className="flex items-center gap-3">
                     <img
-                      src={`https://api.dicebear.com/7.x/identicon/svg?seed=Node${index + 1}`}
+                      src={`https://api.dicebear.com/7.x/identicon/svg?seed=${validator.address}`}
                       className="w-8 h-8 rounded bg-gray-200 dark:bg-gray-700"
                       alt={validator.name}
                     />
-                    <span className="font-bold group-hover:text-blue-500 transition-colors">
-                      {validator.name}
-                    </span>
+                    <div>
+                      <span className="font-bold group-hover:text-blue-500 transition-colors">
+                        {validator.name}
+                      </span>
+                      <p className="text-xs text-slate-400">{validator.region}</p>
+                    </div>
                     {index === 0 && <CheckCircle className="w-4 h-4 text-blue-500" />}
                   </div>
                 </td>
                 <td className="p-6 text-center">
                   <span className="inline-block px-3 py-1 bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-400 rounded-full text-xs font-bold border border-green-200 dark:border-green-500/30">
-                    {validator.trustScore}
+                    {(validator.aiTrustScore / 100).toFixed(1)}
                   </span>
                 </td>
                 <td className="p-6 text-right font-mono">
-                  {typeof validator.totalStaked === "string" ? validator.totalStaked : formatNumber(validator.totalStaked)} TB
+                  {formatStake(validator.stake)} TB
                 </td>
                 <td className="p-6 text-right text-slate-500 dark:text-gray-400">
                   {validator.commission}%
@@ -614,7 +703,7 @@ function StakingSection({
                   <Button
                     variant="outline"
                     size="sm"
-                    data-testid={`button-delegate-${validator.id}`}
+                    data-testid={`button-delegate-${validator.address}`}
                     className="bg-slate-200 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-white text-slate-700 dark:text-white hover:text-white dark:hover:text-black text-xs font-bold"
                   >
                     Delegate
@@ -630,26 +719,21 @@ function StakingSection({
 }
 
 function GovernanceSection({ proposals }: { proposals: GovernanceProposal[] }) {
-  const displayProposals = proposals.length > 0 ? proposals.slice(0, 3) : [
-    {
-      id: 23,
-      title: "Q4 소각 메커니즘 업데이트",
-      description: "거래 수수료 소각 비율을 0.5%에서 0.7%로 상향 조정하는 안건입니다.",
-      status: "Active",
-      votesFor: 85,
-      votesAgainst: 15,
-      endTime: "2024-12-31",
-    },
-  ];
+  const parseVotes = (votes: string): number => {
+    const num = parseFloat(votes);
+    return isNaN(num) ? 0 : num;
+  };
 
   return (
     <section className="space-y-6" data-testid="section-governance">
       <h2 className="text-3xl font-bold text-slate-900 dark:text-white">거버넌스 투표</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {displayProposals.map((proposal) => {
-          const totalVotes = proposal.votesFor + proposal.votesAgainst;
-          const forPercentage = totalVotes > 0 ? (proposal.votesFor / totalVotes) * 100 : 0;
+        {proposals.slice(0, 3).map((proposal) => {
+          const votesFor = parseVotes(proposal.votesFor);
+          const votesAgainst = parseVotes(proposal.votesAgainst);
+          const totalVotes = votesFor + votesAgainst;
+          const forPercentage = totalVotes > 0 ? (votesFor / totalVotes) * 100 : 0;
           
           return (
             <div
@@ -717,7 +801,7 @@ function NetworkSection({
     },
     {
       label: "Block Time",
-      value: networkStats?.blockTime ? `${networkStats.blockTime}s` : "0.5s",
+      value: networkStats?.avgBlockTime ? `${networkStats.avgBlockTime.toFixed(2)}s` : "0.5s",
       color: "text-slate-800 dark:text-white",
     },
     {
@@ -726,8 +810,8 @@ function NetworkSection({
       color: "text-blue-500 dark:text-blue-400",
     },
     {
-      label: "Burn Rate (24h)",
-      value: networkStats?.burnRate24h ? `${networkStats.burnRate24h.toFixed(1)}%` : "2.4%",
+      label: "Network Uptime",
+      value: networkStats?.slaUptime ? `${networkStats.slaUptime.toFixed(2)}%` : "99.99%",
       color: "text-orange-500",
       hasBg: true,
     },
