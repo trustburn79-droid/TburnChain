@@ -2948,11 +2948,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Validate address format - TBURN uses Bech32m format with tb1 prefix
-      if (!voterAddress.startsWith('tb1') || voterAddress.length < 38 || voterAddress.length > 45) {
+      // Validate address format - TBURN uses Bech32m format with tb1 prefix (exactly 41 characters)
+      const isValidBech32m = /^tb1[a-z0-9]{38}$/.test(voterAddress);
+      const isValidLegacy = /^0x[a-fA-F0-9]{40}$/.test(voterAddress);
+      if (!isValidBech32m && !isValidLegacy) {
         return res.status(400).json({ 
           success: false, 
-          error: "Invalid wallet address format. Must be Bech32m format starting with tb1" 
+          error: "Invalid wallet address format. Must be a 41-character Bech32m address (tb1...) or legacy 0x format" 
         });
       }
       

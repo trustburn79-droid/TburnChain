@@ -224,7 +224,7 @@ interface UserActivity {
 }
 
 const transferFormSchema = z.object({
-  recipientAddress: z.string().min(1).regex(/^tb1[a-z0-9]{35,45}$/),
+  recipientAddress: z.string().min(1).regex(/^tb1[a-z0-9]{38}$/, "Address must be a valid 41-character Bech32m address starting with tb1"),
   amount: z.string().min(1).refine((val) => parseFloat(val) > 0),
 });
 

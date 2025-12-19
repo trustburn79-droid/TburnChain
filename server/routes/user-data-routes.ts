@@ -25,6 +25,19 @@ function setCachedData(key: string, data: any) {
   userDataCache.set(key, { data, timestamp: Date.now() });
 }
 
+// Bech32m address validation - TBURN uses tb1 prefix with exactly 41 characters
+function isValidBech32mAddress(address: string): boolean {
+  if (!address || address.length !== 41) return false;
+  return /^tb1[a-z0-9]{38}$/.test(address);
+}
+
+// Legacy 0x address format support for backward compatibility
+function isValidAddress(address: string): boolean {
+  if (!address) return false;
+  // Support both Bech32m (tb1) and legacy (0x) formats
+  return isValidBech32mAddress(address) || (address.startsWith('0x') && address.length === 42);
+}
+
 // Helper to generate consistent address-based seed
 function addressSeed(address: string): number {
   let hash = 0;
@@ -267,8 +280,8 @@ router.get('/:address/overview', async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
     
-    if (!address || !address.startsWith('0x')) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     const cacheKey = `overview_${address}`;
@@ -343,8 +356,8 @@ router.get('/:address/mining-rewards', async (req: Request, res: Response) => {
     const { address } = req.params;
     const { page = '1', limit = '20' } = req.query;
     
-    if (!address || !address.startsWith('0x')) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     const rewards = generateMiningRewards(address);
@@ -390,8 +403,8 @@ router.get('/:address/staking-positions', async (req: Request, res: Response) =>
   try {
     const { address } = req.params;
     
-    if (!address || !address.startsWith('0x')) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     const positions = generateStakingPositions(address);
@@ -426,8 +439,8 @@ router.get('/:address/staking-rewards', async (req: Request, res: Response) => {
     const { address } = req.params;
     const { page = '1', limit = '20' } = req.query;
     
-    if (!address || !address.startsWith('0x')) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     const rewards = generateStakingRewards(address);
@@ -474,8 +487,8 @@ router.get('/:address/events', async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
     
-    if (!address || !address.startsWith('0x')) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     const events = generateEventParticipation(address);
@@ -516,8 +529,8 @@ router.get('/:address/activities', async (req: Request, res: Response) => {
     const { address } = req.params;
     const { page = '1', limit = '20', category } = req.query;
     
-    if (!address || !address.startsWith('0x')) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     let activities = generateActivityLog(address);
@@ -559,12 +572,12 @@ router.post('/:address/delegations', async (req: Request, res: Response) => {
     const { validatorAddress, validatorName, amount } = req.body;
     
     // Validate address format (supports both 0x and tb1)
-    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     // Validate validator address
-    if (!validatorAddress || (!validatorAddress.startsWith('0x') && !validatorAddress.startsWith('tb1'))) {
+    if (!isValidAddress(validatorAddress)) {
       return res.status(400).json({ success: false, error: 'Invalid validator address' });
     }
     
@@ -618,8 +631,8 @@ router.get('/:address/delegations', async (req: Request, res: Response) => {
     const { address } = req.params;
     
     // Validate address format
-    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     // Generate delegations based on staking positions
@@ -665,8 +678,8 @@ router.post('/:address/claim-all', async (req: Request, res: Response) => {
     const { address } = req.params;
     
     // Validate address format (supports both legacy 0x and new tb1 Bech32m)
-    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     // Calculate total claimable rewards
@@ -721,8 +734,8 @@ router.post('/:address/claim/:rewardId', async (req: Request, res: Response) => 
     const { address, rewardId } = req.params;
     
     // Validate address format
-    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
-      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
     // Simulate claiming a specific reward
@@ -749,13 +762,13 @@ router.post('/:address/transfer', async (req: Request, res: Response) => {
     const { toAddress, amount, burnFee, networkFee } = req.body;
     
     // Validate source address format
-    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
-      return res.status(400).json({ success: false, error: 'Invalid source wallet address' });
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid source wallet address. Must be a 41-character Bech32m address (tb1...) or legacy 0x format' });
     }
     
-    // Validate destination address format
-    if (!toAddress || (!toAddress.startsWith('0x') && !toAddress.startsWith('tb1'))) {
-      return res.status(400).json({ success: false, error: 'Invalid destination address' });
+    // Validate destination address format - require Bech32m for new transfers
+    if (!isValidBech32mAddress(toAddress)) {
+      return res.status(400).json({ success: false, error: 'Invalid destination address. Must be a 41-character Bech32m address starting with tb1' });
     }
     
     // Validate amount
