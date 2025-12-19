@@ -17,7 +17,8 @@ import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
-import { LogOut, Loader2, CheckCircle2 } from "lucide-react";
+import { LogOut, Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle } from "lucide-react";
+import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import '@/lib/i18n';
 import { lazy, Suspense } from "react";
@@ -230,6 +231,29 @@ function AuthenticatedApp() {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
+                  <div className="hidden sm:flex items-center gap-1">
+                    <Link href="/">
+                      <Button variant="ghost" size="icon" data-testid="link-nav-home">
+                        <Home className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Link href="/scan">
+                      <Button variant="ghost" size="icon" data-testid="link-nav-scan">
+                        <ScanLine className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Link href="/user">
+                      <Button variant="ghost" size="icon" data-testid="link-nav-user">
+                        <User className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Link href="/qna">
+                      <Button variant="ghost" size="icon" data-testid="link-nav-qna">
+                        <HelpCircle className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <div className="w-px h-6 bg-border mx-1" />
+                  </div>
                   <WalletButton />
                   <LanguageSelector />
                   <ThemeToggle />
