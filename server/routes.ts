@@ -14116,8 +14116,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // STAKING INFRASTRUCTURE API
   // ============================================
 
-  // Staking Statistics (Overview) - Enterprise Production Level with Caching
-  app.get("/api/staking/stats", requireAuth, async (_req, res) => {
+  // Staking Statistics (Overview) - Enterprise Production Level with Caching (Public read-only)
+  app.get("/api/staking/stats", async (_req, res) => {
     const cache = getDataCache();
     try {
       // Check cache first for instant response
@@ -14186,8 +14186,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     };
   }
 
-  // Staking Pools - Enterprise Production Level with Caching
-  app.get("/api/staking/pools", requireAuth, async (req, res) => {
+  // Staking Pools - Enterprise Production Level with Caching (Public read-only)
+  app.get("/api/staking/pools", async (req, res) => {
     const cache = getDataCache();
     try {
       const poolType = req.query.type as string;
@@ -14309,8 +14309,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Unbonding Requests
-  app.get("/api/staking/unbonding", requireAuth, async (req, res) => {
+  // Unbonding Requests (Public read-only)
+  app.get("/api/staking/unbonding", async (req, res) => {
     try {
       const address = req.query.address as string;
       
@@ -14328,8 +14328,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Reward Cycles
-  app.get("/api/staking/rewards/cycles", requireAuth, async (req, res) => {
+  // Reward Cycles (Public read-only)
+  app.get("/api/staking/rewards/cycles", async (req, res) => {
     try {
       const limit = parseInt(req.query.limit as string) || 50;
       const cycles = await storage.getAllRewardCycles(limit);
@@ -14340,8 +14340,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Reward Center - Enterprise Production Level
-  app.get("/api/staking/rewards/current", requireAuth, async (_req, res) => {
+  // Reward Center - Enterprise Production Level (Public read-only)
+  app.get("/api/staking/rewards/current", async (_req, res) => {
     try {
       const cycle = await storage.getCurrentRewardCycle();
       // Enterprise-grade production defaults
@@ -14413,8 +14413,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Slashing Events
-  app.get("/api/staking/slashing", requireAuth, async (req, res) => {
+  // Slashing Events (Public read-only)
+  app.get("/api/staking/slashing", async (req, res) => {
     try {
       const validatorId = req.query.validatorId as string;
       const limit = parseInt(req.query.limit as string) || 50;
@@ -14433,8 +14433,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Tier configuration (from database) with Caching
-  app.get("/api/staking/tiers", requireAuth, async (_req, res) => {
+  // Tier configuration (from database) with Caching (Public read-only)
+  app.get("/api/staking/tiers", async (_req, res) => {
     const cache = getDataCache();
     try {
       // Check cache first for instant response

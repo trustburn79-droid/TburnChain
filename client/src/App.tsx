@@ -171,19 +171,19 @@ interface DataSourceStatus {
 }
 
 function AuthenticatedApp() {
-  const { data: authData, isLoading, isFetching, refetch } = useQuery<{ authenticated: boolean }>({
+  const { data: authData, isLoading } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
     staleTime: 30000,
     refetchInterval: 60000,
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
   });
   
   const { data: dataSourceStatus } = useQuery<DataSourceStatus>({
     queryKey: ["/api/system/data-source"],
     staleTime: 30000,
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchInterval: 30000,
   });
 
@@ -192,9 +192,7 @@ function AuthenticatedApp() {
       await apiRequest("POST", "/api/auth/logout");
     },
     onSuccess: () => {
-      // Optimistic update for instant logout
       queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
-      // Background sync
       queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
     },
   });
@@ -204,24 +202,7 @@ function AuthenticatedApp() {
     "--sidebar-width-icon": "3rem",
   };
 
-  // Only show loading on initial load when no cached data exists
-  // This prevents showing loading spinner when navigating back to /app
-  if (isLoading && authData === undefined) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-muted-foreground">Loading...</div>
-      </div>
-    );
-  }
-
   const isAuthenticated = authData?.authenticated ?? false;
-
-  if (!isAuthenticated) {
-    // onLoginSuccess is called after optimistic cache update
-    // refetch is no longer needed as cache is already updated
-    return <Login onLoginSuccess={() => {}} />;
-  }
-  
   const isLiveMode = dataSourceStatus?.connectionStatus === 'connected';
 
   return (
@@ -238,22 +219,24 @@ function AuthenticatedApp() {
                   <WalletButton />
                   <LanguageSelector />
                   <ThemeToggle />
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => logoutMutation.mutate()}
-                        disabled={logoutMutation.isPending}
-                        data-testid="button-logout"
-                      >
-                        <LogOut className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Logout</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  {isAuthenticated && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => logoutMutation.mutate()}
+                          disabled={logoutMutation.isPending}
+                          data-testid="button-logout"
+                        >
+                          <LogOut className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Logout</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
                 </div>
               </header>
               <main className="flex-1 overflow-auto">
