@@ -792,6 +792,7 @@ export default function UserPage() {
               isConnected={isConnected}
               proposals={proposals || []}
               onConnectWallet={() => setWalletModalOpen(true)}
+              address={address}
             />
           )}
           {activeSection === "network" && (
@@ -2191,25 +2192,63 @@ function GovernanceSection({
   isConnected,
   proposals,
   onConnectWallet,
+  address,
 }: {
   isConnected: boolean;
   proposals: GovernanceProposal[];
   onConnectWallet: () => void;
+  address: string | null;
 }) {
   const { toast } = useToast();
   const { t } = useTranslation();
+  const [votingProposal, setVotingProposal] = useState<string | null>(null);
 
   const parseVotes = (votes: string): number => {
     const num = parseFloat(votes);
     return isNaN(num) ? 0 : num;
   };
 
-  const handleVote = (proposalId: string, vote: "for" | "against" | "abstain") => {
-    if (!isConnected) {
+  const handleVote = async (proposalId: string, vote: "for" | "against" | "abstain") => {
+    if (!isConnected || !address) {
       toast({ title: t('userPage.toast.walletRequired'), description: t('userPage.toast.walletRequiredVote'), variant: "destructive" });
       return;
     }
-    toast({ title: t('userPage.governancePage.voteCompleted'), description: `#${proposalId}` });
+    
+    setVotingProposal(proposalId);
+    try {
+      const response = await fetch(`/api/governance/vote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          proposalId,
+          vote,
+          voterAddress: address,
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        toast({ 
+          title: t('userPage.governancePage.voteSuccess'), 
+          description: t('userPage.governancePage.voteSuccessDesc', { id: proposalId, vote: t(`userPage.governancePage.${vote}`) })
+        });
+      } else {
+        toast({ 
+          title: t('userPage.governancePage.voteFailed'), 
+          description: result.error || t('userPage.toast.genericError'), 
+          variant: "destructive" 
+        });
+      }
+    } catch {
+      toast({ 
+        title: t('userPage.governancePage.voteFailed'), 
+        description: t('userPage.toast.genericError'), 
+        variant: "destructive" 
+      });
+    } finally {
+      setVotingProposal(null);
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -2337,18 +2376,30 @@ function GovernanceSection({
                     size="sm"
                     className="flex-1 border-emerald-200 text-emerald-600 hover:bg-emerald-50 dark:border-emerald-500/30 dark:text-emerald-400"
                     onClick={() => handleVote(proposal.id, "for")}
+                    disabled={votingProposal === proposal.id}
                     data-testid={`button-vote-for-${proposal.id}`}
                   >
-                    <CheckCircle className="w-4 h-4 mr-1" /> {t('userPage.governancePage.for')}
+                    {votingProposal === proposal.id ? (
+                      <RefreshCw className="w-4 h-4 mr-1 animate-spin" />
+                    ) : (
+                      <CheckCircle className="w-4 h-4 mr-1" />
+                    )}
+                    {t('userPage.governancePage.for')}
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
                     className="flex-1 border-red-200 text-red-600 hover:bg-red-50 dark:border-red-500/30 dark:text-red-400"
                     onClick={() => handleVote(proposal.id, "against")}
+                    disabled={votingProposal === proposal.id}
                     data-testid={`button-vote-against-${proposal.id}`}
                   >
-                    <AlertTriangle className="w-4 h-4 mr-1" /> {t('userPage.governancePage.against')}
+                    {votingProposal === proposal.id ? (
+                      <RefreshCw className="w-4 h-4 mr-1 animate-spin" />
+                    ) : (
+                      <AlertTriangle className="w-4 h-4 mr-1" />
+                    )}
+                    {t('userPage.governancePage.against')}
                   </Button>
                 </div>
               )}

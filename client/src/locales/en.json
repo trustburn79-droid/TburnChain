@@ -25627,6 +25627,9 @@
       "quorumReached": "Quorum Reached",
       "noProposals": "No governance proposals currently in progress.",
       "voteCompleted": "Vote Completed",
+      "voteSuccess": "Vote Successful",
+      "voteSuccessDesc": "Your {{vote}} vote on proposal #{{id}} has been recorded.",
+      "voteFailed": "Vote Failed",
       "quorumNotReached": "Quorum Not Reached",
       "noActiveProposals": "No Active Proposals",
       "noActiveProposalsDesc": "There are no governance proposals currently in progress."
