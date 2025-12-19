@@ -25550,8 +25550,10 @@
       "delegationAmount": "Delegation Amount",
       "minAmount": "Min 100 TB",
       "delegate": "Delegate",
-      "selectValidatorAndAmount": "Please select validator and amount.",
-      "delegationRequested": "Delegation Requested"
+      "selectValidatorAndAmount": "Please select validator and amount",
+      "delegationRequested": "Delegation Requested",
+      "connectWalletToDelegate": "Connect Wallet to Delegate",
+      "connectWalletDesc": "Please connect your wallet to stake TBURN tokens and earn rewards"
     },
     "governancePage": {
       "title": "Governance",
