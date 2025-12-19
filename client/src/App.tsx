@@ -72,6 +72,7 @@ const TokenomicsSimulation = lazy(() => import("@/pages/tokenomics-simulation"))
 const VCTestMode = lazy(() => import("@/pages/vc-test-mode"));
 const VCLayout = lazy(() => import("@/public/components/VCLayout"));
 const UserPage = lazy(() => import("@/pages/user"));
+const QnAPage = lazy(() => import("@/pages/qna"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -267,6 +268,14 @@ function RootRouter() {
     return (
       <Suspense fallback={<PageLoading />}>
         <UserPage />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/qna" || location.startsWith("/qna")) {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <QnAPage />
       </Suspense>
     );
   }
