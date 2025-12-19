@@ -43,6 +43,14 @@ import {
   formatStateSize,
   formatBlockTime
 } from '../utils/rpc-validation';
+import {
+  generateTBurnAddress,
+  generateRandomTBurnAddress,
+  generateValidatorAddress,
+  formatTBurnAddress,
+  SYSTEM_ADDRESSES,
+  SIGNER_ADDRESSES
+} from '../utils/tburn-address';
 
 export interface NodeConfig {
   nodeId: string;
@@ -1185,7 +1193,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     for (let i = 0; i < this.WALLET_COUNT; i++) {
       const seed = `wallet-seed-${i}`;
       const addressSuffix = this.generateDeterministicAddress(seed);
-      const address = `tburn1${addressSuffix}`;
+      const address = `tburn${addressSuffix}`;
       
       // Calculate realistic balances based on wallet distribution
       // Power law distribution: few whale wallets, many small wallets
@@ -2167,7 +2175,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           impact: template.impact,
           category: template.category,
           shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
-          validatorAddress: `tburn1validator${String(Math.floor(Math.random() * (this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard))).padStart(4, '0')}`,
+          validatorAddress: generateValidatorAddress(Math.floor(Math.random() * (this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard))),
           status: 'executed',
           metadata: {
             confidence: 9000 + Math.floor(Math.random() * 1000),
@@ -2314,7 +2322,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           id: `round-${blockHeight}`,
           blockHeight,
           roundNumber: i,
-          proposerAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
+          proposerAddress: generateRandomTBurnAddress(),
           startTime,
           endTime,
           phasesJson: JSON.stringify(phasesData),
@@ -2373,7 +2381,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           time: '20ms',
           status: currentPhase > 1 ? 'completed' as const : (currentPhase === 1 ? 'active' as const : 'pending' as const),
           quorumProgress: currentPhase > 1 ? 1.0 : (currentPhase === 1 ? Math.random() * 0.5 + 0.5 : 0),
-          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 14)}`,
+          leaderAddress: generateRandomTBurnAddress(),
           startTime: startTime + 15,
           endTime: currentPhase > 1 ? startTime + 35 : null
         },
@@ -2385,7 +2393,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           time: '25ms',
           status: currentPhase > 2 ? 'completed' as const : (currentPhase === 2 ? 'active' as const : 'pending' as const),
           quorumProgress: currentPhase > 2 ? 1.0 : (currentPhase === 2 ? Math.random() * 0.5 + 0.5 : 0),
-          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 14)}`,
+          leaderAddress: generateRandomTBurnAddress(),
           startTime: startTime + 35,
           endTime: currentPhase > 2 ? startTime + 60 : null
         },
@@ -2397,7 +2405,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           time: '25ms',
           status: currentPhase > 3 ? 'completed' as const : (currentPhase === 3 ? 'active' as const : 'pending' as const),
           quorumProgress: currentPhase > 3 ? 1.0 : (currentPhase === 3 ? Math.random() * 0.5 + 0.5 : 0),
-          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 14)}`,
+          leaderAddress: generateRandomTBurnAddress(),
           startTime: startTime + 60,
           endTime: currentPhase > 3 ? startTime + 85 : null
         },
@@ -2409,13 +2417,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
           time: '15ms',
           status: currentPhase === 4 ? 'active' as const : 'pending' as const,
           quorumProgress: currentPhase === 4 ? Math.random() * 0.5 + 0.5 : 0,
-          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 14)}`,
+          leaderAddress: generateRandomTBurnAddress(),
           startTime: startTime + 85,
           endTime: null
         }
       ];
       
-      const proposerAddress = `tburn1validator${Math.floor(Math.random() * totalValidators).toString().padStart(4, '0')}`;
+      const proposerAddress = generateValidatorAddress(Math.floor(Math.random() * totalValidators));
       
       // AI Pre-Validation ensures 85%~100% participation rate
       // AI screens all transactions before validator voting, eliminating invalid tx
@@ -2463,8 +2471,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
         confirmations: 6,
         retryCount: 0,
         payload: {
-          from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-          to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+          from: generateRandomTBurnAddress(),
+          to: generateRandomTBurnAddress(),
           data: `0x${crypto.randomBytes(32).toString('hex')}`
         }
       });
@@ -2491,10 +2499,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         
         contracts.push({
           id: `contract-${i}`,
-          address: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+          address: generateRandomTBurnAddress(),
           name: `${type}Contract${i}`,
           type,
-          creator: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+          creator: generateRandomTBurnAddress(),
           deployedAt: new Date(Date.now() - Math.floor(Math.random() * 86400000 * 30)).toISOString(),
           transactionCount: Math.floor(Math.random() * 100000) + 1000,
           balance: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
@@ -2526,7 +2534,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         address,
         name: `${type}Contract`,
         type,
-        creator: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+        creator: generateRandomTBurnAddress(),
         deployedAt: new Date(Date.now() - Math.floor(Math.random() * 86400000 * 30)).toISOString(),
         transactionCount: Math.floor(Math.random() * 100000) + 1000,
         balance: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
@@ -2584,7 +2592,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           impact: template.impact,
           category: template.category,
           shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
-          validatorAddress: `tburn1validator${String(Math.floor(Math.random() * totalValidatorsForDecision)).padStart(4, '0')}`,
+          validatorAddress: generateValidatorAddress(Math.floor(Math.random() * totalValidatorsForDecision)),
           status: i === 0 ? 'pending' : 'executed', // First one pending, rest executed
           metadata: {
             confidence: 9000 + Math.floor(Math.random() * 1000),
@@ -2713,7 +2721,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         id: `round-${blockHeight}`,
         blockHeight,
         roundNumber: 0,
-        proposerAddress: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+        proposerAddress: generateRandomTBurnAddress(),
         startTime,
         endTime,
         phasesJson: JSON.stringify(phasesData),
@@ -2909,7 +2917,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       height: this.currentBlockHeight,
       hash: `0x${crypto.randomBytes(32).toString('hex')}`,
       timestamp: Math.floor(now / 1000),
-      proposer: `tburn1validator${Math.floor(Math.random() * totalValidatorsForBlock).toString().padStart(4, '0')}`,
+      proposer: generateValidatorAddress(Math.floor(Math.random() * totalValidatorsForBlock)),
       transactionCount,
       gasUsed: gasUsed.toString(),
       size: 15000 + Math.floor(Math.random() * 10000),
@@ -3183,7 +3191,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       timestamp: Math.floor(Date.now() / 1000) - (this.currentBlockHeight - height) * 100,
       transactionCount: 400 + Math.floor(Math.random() * 200),
       validatorAddress,
-      proposer: `tburn1validator${validatorIndex.toString().padStart(4, '0')}`,
+      proposer: generateValidatorAddress(validatorIndex),
       size: 15000 + Math.floor(Math.random() * 10000),
       gasUsed: 15000000 + Math.floor(Math.random() * 5000000),
       gasLimit: 30000000,
@@ -3227,8 +3235,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return {
       hash,
       blockHeight: this.currentBlockHeight - blockOffset,
-      from: `tburn1${fromHash.slice(0, 40)}`,
-      to: `tburn1${toHash.slice(0, 40)}`,
+      from: `tburn${fromHash.slice(0, 40)}`,
+      to: `tburn${toHash.slice(0, 40)}`,
       value: (BigInt(valueMultiplier) * BigInt('1000000000000000000')).toString(),
       gasPrice: this.DEFAULT_GAS_PRICE_WEI, // 10 EMB in wei
       gasUsed: gasUsedBase.toString(), // 50-500 gas units, avg fee ~720 EMB
@@ -3985,8 +3993,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
         status,
         messageType: messageTypes[Math.floor(Math.random() * messageTypes.length)],
         payload: {
-          from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-          to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+          from: generateRandomTBurnAddress(),
+          to: generateRandomTBurnAddress(),
           data: `0x${crypto.randomBytes(32).toString('hex')}`,
           value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
           gasUsed: (50000 + Math.floor(Math.random() * 100000)).toString()
