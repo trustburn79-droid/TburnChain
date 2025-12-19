@@ -26,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatNumber } from "@/lib/formatters";
+import { LanguageSelector } from "@/components/language-selector";
 import type { NetworkStats, StakingStats } from "@shared/schema";
 
 type Section = "dashboard" | "wallet" | "staking" | "governance" | "network";
@@ -695,6 +696,7 @@ export default function UserPage() {
             <Button variant="ghost" size="icon" onClick={handleRefresh} data-testid="button-refresh-header" className="h-8 w-8 lg:h-9 lg:w-9">
               <RefreshCw className="w-4 h-4" />
             </Button>
+            <LanguageSelector />
             <Button variant="ghost" size="icon" onClick={toggleTheme} data-testid="button-theme-toggle" className="h-8 w-8 lg:h-9 lg:w-9">
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
