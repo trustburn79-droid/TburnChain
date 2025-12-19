@@ -12560,5 +12560,35 @@
       "applicationSubmitted": "تم تقديم الطلب",
       "applicationProcessing": "طلبك لـ {{tier}} بـ {{amount}} TBURN قيد المعالجة"
     }
+  },
+  "qna": {
+    "viewAll": "عرض الكل",
+    "all": "الكل",
+    "items": "عناصر",
+    "howCanWeHelp": "كيف يمكننا مساعدتك؟",
+    "searchDescription": "ابحث في أكثر من 100 مستند تقني حول شبكة TBURN الرئيسية، التخزين، درجة الثقة والمزيد.",
+    "searchPlaceholder": "ابحث عن الأسئلة (مثال: مكافآت التخزين، درجة الثقة، الرسوم...)",
+    "noResults": "لم يتم العثور على نتائج.",
+    "tryDifferentKeywords": "جرب كلمات مفتاحية مختلفة أو تصفح الفئات.",
+    "resultsFor": "نتائج \"{{query}}\"",
+    "needMoreHelp": "تحتاج المزيد من المساعدة؟",
+    "supportDescription": "فريق الدعم لدينا متاح على مدار الساعة طوال أيام الأسبوع للمشاكل التقنية.",
+    "contactSupport": "اتصل بالدعم",
+    "relatedPage": "صفحة ذات صلة",
+    "categories": {
+      "title": "الفئات",
+      "getting-started": "البدء",
+      "wallet": "المحفظة والمعاملات",
+      "staking": "التخزين والمدققين",
+      "defi": "التمويل اللامركزي",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "الشبكة",
+      "developers": "المطورين",
+      "solutions": "الحلول",
+      "community": "المجتمع",
+      "security": "الأمان",
+      "tokenomics": "اقتصاديات الرمز"
+    }
   }
 }

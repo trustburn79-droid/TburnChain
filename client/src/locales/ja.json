@@ -15597,5 +15597,35 @@
       "applicationSubmitted": "申請完了",
       "applicationProcessing": "{{tier}}ティアへの{{amount}} TBURN申請を処理中"
     }
+  },
+  "qna": {
+    "viewAll": "すべて見る",
+    "all": "すべて",
+    "items": "件",
+    "howCanWeHelp": "どのようにお手伝いしますか？",
+    "searchDescription": "TBURNメインネット、ステーキング、トラストスコアなど100以上の技術文書を検索できます。",
+    "searchPlaceholder": "質問を検索（例：ステーキング報酬、トラストスコア、手数料...）",
+    "noResults": "結果が見つかりません。",
+    "tryDifferentKeywords": "別のキーワードを試すか、カテゴリを参照してください。",
+    "resultsFor": "\"{{query}}\" の検索結果",
+    "needMoreHelp": "さらにサポートが必要ですか？",
+    "supportDescription": "技術的な問題については、24時間年中無休でサポートチームが対応しています。",
+    "contactSupport": "サポートに連絡",
+    "relatedPage": "関連ページ",
+    "categories": {
+      "title": "カテゴリ",
+      "getting-started": "はじめに",
+      "wallet": "ウォレット & トランザクション",
+      "staking": "ステーキング & バリデーター",
+      "defi": "DeFi",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "ネットワーク",
+      "developers": "開発者",
+      "solutions": "ソリューション",
+      "community": "コミュニティ",
+      "security": "セキュリティ",
+      "tokenomics": "トークノミクス"
+    }
   }
 }

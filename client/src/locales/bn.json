@@ -10777,5 +10777,35 @@
       "applicationSubmitted": "আবেদন জমা দেওয়া হয়েছে",
       "applicationProcessing": "{{tier}} এর জন্য {{amount}} TBURN আবেদন প্রক্রিয়াধীন"
     }
+  },
+  "qna": {
+    "viewAll": "সব দেখুন",
+    "all": "সব",
+    "items": "আইটেম",
+    "howCanWeHelp": "আমরা কিভাবে আপনাকে সাহায্য করতে পারি?",
+    "searchDescription": "TBURN মেইননেট, স্টেকিং, ট্রাস্ট স্কোর এবং আরও অনেক কিছু সম্পর্কে ১০০+ প্রযুক্তিগত নথিতে অনুসন্ধান করুন।",
+    "searchPlaceholder": "প্রশ্ন অনুসন্ধান করুন (যেমন: স্টেকিং পুরস্কার, ট্রাস্ট স্কোর, ফি...)",
+    "noResults": "কোন ফলাফল পাওয়া যায়নি।",
+    "tryDifferentKeywords": "বিভিন্ন কীওয়ার্ড চেষ্টা করুন অথবা বিভাগ ব্রাউজ করুন।",
+    "resultsFor": "\"{{query}}\" এর ফলাফল",
+    "needMoreHelp": "আরও সাহায্য প্রয়োজন?",
+    "supportDescription": "আমাদের সাপোর্ট টিম প্রযুক্তিগত সমস্যার জন্য ২৪/৭ উপলব্ধ।",
+    "contactSupport": "সাপোর্টে যোগাযোগ করুন",
+    "relatedPage": "সম্পর্কিত পৃষ্ঠা",
+    "categories": {
+      "title": "বিভাগসমূহ",
+      "getting-started": "শুরু করুন",
+      "wallet": "ওয়ালেট ও লেনদেন",
+      "staking": "স্টেকিং ও ভ্যালিডেটর",
+      "defi": "DeFi",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "নেটওয়ার্ক",
+      "developers": "ডেভেলপার",
+      "solutions": "সমাধান",
+      "community": "কমিউনিটি",
+      "security": "নিরাপত্তা",
+      "tokenomics": "টোকেনমিক্স"
+    }
   }
 }

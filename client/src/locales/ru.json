@@ -11934,5 +11934,35 @@
       "applicationSubmitted": "Заявка Отправлена",
       "applicationProcessing": "Ваша заявка на {{tier}} с {{amount}} TBURN обрабатывается"
     }
+  },
+  "qna": {
+    "viewAll": "Показать все",
+    "all": "Все",
+    "items": "элементов",
+    "howCanWeHelp": "Чем мы можем вам помочь?",
+    "searchDescription": "Поиск среди 100+ технических документов о мейннете TBURN, стейкинге, рейтинге доверия и многом другом.",
+    "searchPlaceholder": "Поиск вопросов (например: награды за стейкинг, Trust Score, комиссии...)",
+    "noResults": "Результаты не найдены.",
+    "tryDifferentKeywords": "Попробуйте другие ключевые слова или просмотрите категории.",
+    "resultsFor": "Результаты для \"{{query}}\"",
+    "needMoreHelp": "Нужна дополнительная помощь?",
+    "supportDescription": "Наша служба поддержки доступна 24/7 для решения технических проблем.",
+    "contactSupport": "Связаться с поддержкой",
+    "relatedPage": "Связанная страница",
+    "categories": {
+      "title": "Категории",
+      "getting-started": "Начало работы",
+      "wallet": "Кошелек и транзакции",
+      "staking": "Стейкинг и валидаторы",
+      "defi": "DeFi",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "Сеть",
+      "developers": "Разработчики",
+      "solutions": "Решения",
+      "community": "Сообщество",
+      "security": "Безопасность",
+      "tokenomics": "Токеномика"
+    }
   }
 }

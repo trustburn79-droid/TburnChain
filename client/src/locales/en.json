@@ -5839,8 +5839,8 @@
     "serverError": "Server error. Please try again later.",
     "validationError": "Validation error. Please check your input.",
     "insufficientBalance": "Insufficient balance.",
-      "transferSuccess": "Transfer Successful",
-      "transferError": "Transfer Failed",
+    "transferSuccess": "Transfer Successful",
+    "transferError": "Transfer Failed",
     "transactionFailed": "Transaction failed.",
     "connectionFailed": "Connection failed.",
     "timeout": "Request timeout."
@@ -7268,16 +7268,16 @@
             "description": "Understand trust verification"
           },
           "notifications": {
-      "enabled": "Notifications Enabled",
-      "disabled": "Notifications Disabled",
-      "enabledDesc": "You will receive notifications.",
-      "disabledDesc": "Notifications have been turned off."
-    },
-    "settings": {
-      "title": "Settings",
-      "comingSoon": "Settings feature coming soon."
-    },
-    "wallet": {
+            "enabled": "Notifications Enabled",
+            "disabled": "Notifications Disabled",
+            "enabledDesc": "You will receive notifications.",
+            "disabledDesc": "Notifications have been turned off."
+          },
+          "settings": {
+            "title": "Settings",
+            "comingSoon": "Settings feature coming soon."
+          },
+          "wallet": {
             "title": "What is a Wallet?",
             "description": "Wallet basics"
           },
@@ -7760,16 +7760,16 @@
             "description": "Understanding the 3-stage verification"
           },
           "notifications": {
-      "enabled": "Notifications Enabled",
-      "disabled": "Notifications Disabled",
-      "enabledDesc": "You will receive notifications.",
-      "disabledDesc": "Notifications have been turned off."
-    },
-    "settings": {
-      "title": "Settings",
-      "comingSoon": "Settings feature coming soon."
-    },
-    "wallet": {
+            "enabled": "Notifications Enabled",
+            "disabled": "Notifications Disabled",
+            "enabledDesc": "You will receive notifications.",
+            "disabledDesc": "Notifications have been turned off."
+          },
+          "settings": {
+            "title": "Settings",
+            "comingSoon": "Settings feature coming soon."
+          },
+          "wallet": {
             "title": "What is a Wallet?",
             "description": "Secure your digital assets"
           },
@@ -8108,16 +8108,16 @@
         }
       },
       "notifications": {
-      "enabled": "Notifications Enabled",
-      "disabled": "Notifications Disabled",
-      "enabledDesc": "You will receive notifications.",
-      "disabledDesc": "Notifications have been turned off."
-    },
-    "settings": {
-      "title": "Settings",
-      "comingSoon": "Settings feature coming soon."
-    },
-    "wallet": {
+        "enabled": "Notifications Enabled",
+        "disabled": "Notifications Disabled",
+        "enabledDesc": "You will receive notifications.",
+        "disabledDesc": "Notifications have been turned off."
+      },
+      "settings": {
+        "title": "Settings",
+        "comingSoon": "Settings feature coming soon."
+      },
+      "wallet": {
         "tag": "GETTING STARTED",
         "title": "What is a Wallet?",
         "subtitle": "Learn about cryptocurrency wallets, security best practices, and how to set up your TBurn wallet.",
@@ -9786,16 +9786,16 @@
             "usage": "tburn deploy --network mainnet"
           },
           "notifications": {
-      "enabled": "Notifications Enabled",
-      "disabled": "Notifications Disabled",
-      "enabledDesc": "You will receive notifications.",
-      "disabledDesc": "Notifications have been turned off."
-    },
-    "settings": {
-      "title": "Settings",
-      "comingSoon": "Settings feature coming soon."
-    },
-    "wallet": {
+            "enabled": "Notifications Enabled",
+            "disabled": "Notifications Disabled",
+            "enabledDesc": "You will receive notifications.",
+            "disabledDesc": "Notifications have been turned off."
+          },
+          "settings": {
+            "title": "Settings",
+            "comingSoon": "Settings feature coming soon."
+          },
+          "wallet": {
             "desc": "Wallet management commands",
             "options": {
               "create": "Create new wallet",
@@ -15118,16 +15118,16 @@
             }
           },
           "notifications": {
-      "enabled": "Notifications Enabled",
-      "disabled": "Notifications Disabled",
-      "enabledDesc": "You will receive notifications.",
-      "disabledDesc": "Notifications have been turned off."
-    },
-    "settings": {
-      "title": "Settings",
-      "comingSoon": "Settings feature coming soon."
-    },
-    "wallet": {
+            "enabled": "Notifications Enabled",
+            "disabled": "Notifications Disabled",
+            "enabledDesc": "You will receive notifications.",
+            "disabledDesc": "Notifications have been turned off."
+          },
+          "settings": {
+            "title": "Settings",
+            "comingSoon": "Settings feature coming soon."
+          },
+          "wallet": {
             "title": "What is a Wallet?",
             "subtitle": "Wallet basics",
             "subtitleSecurity": "Securing your assets"
@@ -15216,16 +15216,16 @@
               "content": "You agree to provide accurate information, maintain its confidentiality, and notify us immediately of any unauthorized access."
             },
             "notifications": {
-      "enabled": "Notifications Enabled",
-      "disabled": "Notifications Disabled",
-      "enabledDesc": "You will receive notifications.",
-      "disabledDesc": "Notifications have been turned off."
-    },
-    "settings": {
-      "title": "Settings",
-      "comingSoon": "Settings feature coming soon."
-    },
-    "wallet": {
+              "enabled": "Notifications Enabled",
+              "disabled": "Notifications Disabled",
+              "enabledDesc": "You will receive notifications.",
+              "disabledDesc": "Notifications have been turned off."
+            },
+            "settings": {
+              "title": "Settings",
+              "comingSoon": "Settings feature coming soon."
+            },
+            "wallet": {
               "title": "4.2 Wallet Security",
               "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
               "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
@@ -25119,16 +25119,16 @@
     "disconnected": "Disconnected"
   },
   "notifications": {
-      "enabled": "Notifications Enabled",
-      "disabled": "Notifications Disabled",
-      "enabledDesc": "You will receive notifications.",
-      "disabledDesc": "Notifications have been turned off."
-    },
-    "settings": {
-      "title": "Settings",
-      "comingSoon": "Settings feature coming soon."
-    },
-    "wallet": {
+    "enabled": "Notifications Enabled",
+    "disabled": "Notifications Disabled",
+    "enabledDesc": "You will receive notifications.",
+    "disabledDesc": "Notifications have been turned off."
+  },
+  "settings": {
+    "title": "Settings",
+    "comingSoon": "Settings feature coming soon."
+  },
+  "wallet": {
     "connectWallet": "Connect Wallet",
     "connectDesc": "Connect your wallet to access DeFi features, staking, and governance",
     "browserWallets": "Browser Wallets",
@@ -25734,6 +25734,36 @@
       "minStakeRequired": "Minimum {{amount}} TBURN required",
       "applicationSubmitted": "Application Submitted",
       "applicationProcessing": "Your application for {{tier}} with {{amount}} TBURN is being processed"
+    }
+  },
+  "qna": {
+    "viewAll": "View All",
+    "all": "All",
+    "items": "items",
+    "howCanWeHelp": "How can we help you?",
+    "searchDescription": "Search through 100+ technical documents about TBURN mainnet, staking, trust score, and more.",
+    "searchPlaceholder": "Search questions (e.g., staking rewards, Trust Score, fees...)",
+    "noResults": "No results found.",
+    "tryDifferentKeywords": "Try different keywords or browse categories.",
+    "resultsFor": "Results for \"{{query}}\"",
+    "needMoreHelp": "Need more help?",
+    "supportDescription": "Our support team is available 24/7 for technical issues.",
+    "contactSupport": "Contact Support",
+    "relatedPage": "Related Page",
+    "categories": {
+      "title": "Categories",
+      "getting-started": "Getting Started",
+      "wallet": "Wallet & Transactions",
+      "staking": "Staking & Validators",
+      "defi": "DeFi",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "Network",
+      "developers": "Developers",
+      "solutions": "Solutions",
+      "community": "Community",
+      "security": "Security",
+      "tokenomics": "Tokenomics"
     }
   }
 }

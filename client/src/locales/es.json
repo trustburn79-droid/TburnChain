@@ -14653,5 +14653,35 @@
       "applicationSubmitted": "Solicitud Enviada",
       "applicationProcessing": "Su solicitud para {{tier}} con {{amount}} TBURN está siendo procesada"
     }
+  },
+  "qna": {
+    "viewAll": "Ver Todo",
+    "all": "Todos",
+    "items": "elementos",
+    "howCanWeHelp": "¿Cómo podemos ayudarte?",
+    "searchDescription": "Busca entre más de 100 documentos técnicos sobre mainnet TBURN, staking, puntaje de confianza y más.",
+    "searchPlaceholder": "Buscar preguntas (ej: recompensas de staking, Trust Score, comisiones...)",
+    "noResults": "No se encontraron resultados.",
+    "tryDifferentKeywords": "Prueba con diferentes palabras clave o navega por categorías.",
+    "resultsFor": "Resultados para \"{{query}}\"",
+    "needMoreHelp": "¿Necesitas más ayuda?",
+    "supportDescription": "Nuestro equipo de soporte está disponible 24/7 para problemas técnicos.",
+    "contactSupport": "Contactar Soporte",
+    "relatedPage": "Página Relacionada",
+    "categories": {
+      "title": "Categorías",
+      "getting-started": "Primeros Pasos",
+      "wallet": "Billetera & Transacciones",
+      "staking": "Staking & Validadores",
+      "defi": "DeFi",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "Red",
+      "developers": "Desarrolladores",
+      "solutions": "Soluciones",
+      "community": "Comunidad",
+      "security": "Seguridad",
+      "tokenomics": "Tokenomics"
+    }
   }
 }

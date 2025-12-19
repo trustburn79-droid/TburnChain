@@ -13197,5 +13197,35 @@
       "applicationSubmitted": "आवेदन जमा किया गया",
       "applicationProcessing": "{{tier}} के लिए {{amount}} TBURN आवेदन प्रोसेस हो रहा है"
     }
+  },
+  "qna": {
+    "viewAll": "सभी देखें",
+    "all": "सभी",
+    "items": "आइटम",
+    "howCanWeHelp": "हम आपकी कैसे मदद कर सकते हैं?",
+    "searchDescription": "TBURN मेननेट, स्टेकिंग, ट्रस्ट स्कोर और अधिक के बारे में 100+ तकनीकी दस्तावेज़ खोजें।",
+    "searchPlaceholder": "प्रश्न खोजें (जैसे: स्टेकिंग पुरस्कार, ट्रस्ट स्कोर, शुल्क...)",
+    "noResults": "कोई परिणाम नहीं मिला।",
+    "tryDifferentKeywords": "अलग कीवर्ड आज़माएं या श्रेणियां ब्राउज़ करें।",
+    "resultsFor": "\"{{query}}\" के लिए परिणाम",
+    "needMoreHelp": "और मदद चाहिए?",
+    "supportDescription": "हमारी सहायता टीम तकनीकी समस्याओं के लिए 24/7 उपलब्ध है।",
+    "contactSupport": "सहायता से संपर्क करें",
+    "relatedPage": "संबंधित पृष्ठ",
+    "categories": {
+      "title": "श्रेणियाँ",
+      "getting-started": "शुरुआत करें",
+      "wallet": "वॉलेट और लेनदेन",
+      "staking": "स्टेकिंग और वैलिडेटर",
+      "defi": "DeFi",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "नेटवर्क",
+      "developers": "डेवलपर्स",
+      "solutions": "समाधान",
+      "community": "समुदाय",
+      "security": "सुरक्षा",
+      "tokenomics": "टोकनोमिक्स"
+    }
   }
 }

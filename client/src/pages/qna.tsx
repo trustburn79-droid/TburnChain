@@ -37,6 +37,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'wouter';
 import { useTheme } from '@/components/theme-provider';
+import { LanguageSelector } from '@/components/language-selector';
 import { cn } from '@/lib/utils';
 
 const categoryIcons: Record<string, typeof Flame> = {
@@ -56,13 +57,20 @@ const categoryIcons: Record<string, typeof Flame> = {
 };
 
 export default function QnAPage() {
-  const { i18n } = useTranslation();
-  const isKorean = i18n.language === 'ko';
+  const { t, i18n } = useTranslation();
   const { theme, setTheme } = useTheme();
+  const currentLang = i18n.language;
   
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
+
+  const getLocalizedContent = (item: QnAItem, field: 'question' | 'answer') => {
+    if (currentLang === 'ko') {
+      return field === 'question' ? item.question : item.answer;
+    }
+    return field === 'question' ? item.questionEn : item.answerEn;
+  };
 
   const filteredQnA = useMemo(() => {
     let results: QnAItem[];
@@ -81,10 +89,9 @@ export default function QnAPage() {
 
   const getCategoryLabel = (categoryKey: string) => {
     if (categoryKey === 'all') {
-      return isKorean ? '전체 보기' : 'View All';
+      return t('qna.viewAll', 'View All');
     }
-    const category = qnaCategories.find(c => c.key === categoryKey);
-    return category ? (isKorean ? category.label : category.labelEn) : categoryKey;
+    return t(`qna.categories.${categoryKey}`, categoryKey);
   };
 
   const categoryCounts = useMemo(() => {
@@ -159,6 +166,7 @@ export default function QnAPage() {
             </Button>
           </Link>
           <div className="w-px h-6 bg-slate-200 dark:bg-gray-700 mx-1" />
+          <LanguageSelector />
           <Button
             variant="ghost"
             size="icon"
@@ -174,7 +182,7 @@ export default function QnAPage() {
       <div className="flex flex-1 overflow-hidden">
         <aside className="hidden lg:block w-64 border-r border-slate-200 dark:border-gray-800 overflow-y-auto p-6 bg-white dark:bg-[#0F172A]">
           <h3 className="text-xs font-bold text-slate-400 dark:text-gray-500 uppercase mb-4 tracking-wider">
-            {isKorean ? '카테고리' : 'Categories'}
+            {t('qna.categories.title', 'Categories')}
           </h3>
           <ScrollArea className="h-[calc(100vh-320px)]">
             <div className="space-y-1">
@@ -199,7 +207,7 @@ export default function QnAPage() {
                 )}>
                   <LayoutGrid className="h-4 w-4" />
                 </div>
-                <span className="flex-1">{isKorean ? '전체 보기' : 'View All'}</span>
+                <span className="flex-1">{t('qna.viewAll', 'View All')}</span>
                 <span className="text-xs opacity-70">({categoryCounts.all})</span>
               </button>
 
@@ -228,7 +236,7 @@ export default function QnAPage() {
                     )}>
                       <Icon className="h-4 w-4" />
                     </div>
-                    <span className="flex-1">{isKorean ? category.label : category.labelEn}</span>
+                    <span className="flex-1">{t(`qna.categories.${category.key}`, category.labelEn)}</span>
                     <span className="text-xs opacity-70">({categoryCounts[category.key]})</span>
                   </button>
                 );
@@ -240,17 +248,15 @@ export default function QnAPage() {
             <div className="flex items-center gap-2 mb-2">
               <Headphones className="h-4 w-4 text-blue-500" />
               <h4 className="text-sm font-bold text-blue-500">
-                {isKorean ? '더 많은 도움이 필요하신가요?' : 'Need more help?'}
+                {t('qna.needMoreHelp', 'Need more help?')}
               </h4>
             </div>
             <p className="text-xs text-slate-500 dark:text-gray-400 mb-3">
-              {isKorean 
-                ? '기술 문제에 대해 24시간 지원팀이 대기하고 있습니다.'
-                : 'Our support team is available 24/7 for technical issues.'}
+              {t('qna.supportDescription', 'Our support team is available 24/7 for technical issues.')}
             </p>
             <Link href="/community/hub">
               <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold" size="sm" data-testid="button-contact-support">
-                {isKorean ? '지원팀 연락하기' : 'Contact Support'}
+                {t('qna.contactSupport', 'Contact Support')}
               </Button>
             </Link>
           </div>
@@ -260,21 +266,17 @@ export default function QnAPage() {
           <div className="bg-white dark:bg-[#151E32] border-b border-slate-200 dark:border-gray-800 p-6 md:p-8 sticky top-0 z-10 shadow-sm">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2" data-testid="text-qna-title">
-                {isKorean ? '무엇을 도와드릴까요?' : 'How can we help you?'}
+                {t('qna.howCanWeHelp', 'How can we help you?')}
               </h2>
               <p className="text-slate-500 dark:text-gray-400 mb-6 text-sm" data-testid="text-qna-description">
-                {isKorean 
-                  ? 'TBURN 메인넷, 스테이킹, 신뢰 점수 등 100여 개의 기술 문서를 검색하세요.'
-                  : 'Search through 100+ technical documents about TBURN mainnet, staking, trust score, and more.'}
+                {t('qna.searchDescription', 'Search through 100+ technical documents about TBURN mainnet, staking, trust score, and more.')}
               </p>
               
               <div className="relative group">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                 <Input
                   type="text"
-                  placeholder={isKorean 
-                    ? '질문 키워드 검색 (예: 스테이킹 보상, Trust Score, 수수료...)'
-                    : 'Search questions (e.g., staking rewards, Trust Score, fees...)'}
+                  placeholder={t('qna.searchPlaceholder', 'Search questions (e.g., staking rewards, Trust Score, fees...)')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-slate-100 dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-2xl pl-12 pr-4 py-4 h-14 text-slate-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:bg-white dark:focus:bg-[#0B1120] transition-all shadow-sm text-base"
@@ -299,7 +301,7 @@ export default function QnAPage() {
               data-testid="button-mobile-category-all"
             >
               <LayoutGrid className="h-4 w-4" />
-              {isKorean ? '전체' : 'All'}
+              {t('qna.all', 'All')}
             </button>
             {qnaCategories.map((category) => {
               const Icon = categoryIcons[category.key] || BookOpen;
@@ -319,7 +321,7 @@ export default function QnAPage() {
                   data-testid={`button-mobile-category-${category.key}`}
                 >
                   <Icon className="h-4 w-4" />
-                  {isKorean ? category.label : category.labelEn}
+                  {t(`qna.categories.${category.key}`, category.labelEn)}
                 </button>
               );
             })}
@@ -332,10 +334,10 @@ export default function QnAPage() {
                   <Search className="h-16 w-16 mx-auto text-slate-300 dark:text-gray-600" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                  {isKorean ? '검색 결과가 없습니다.' : 'No results found.'}
+                  {t('qna.noResults', 'No results found.')}
                 </h3>
                 <p className="text-slate-500 dark:text-gray-400">
-                  {isKorean ? '다른 키워드로 검색하거나 카테고리를 탐색해보세요.' : 'Try different keywords or browse categories.'}
+                  {t('qna.tryDifferentKeywords', 'Try different keywords or browse categories.')}
                 </p>
               </div>
             ) : (
@@ -343,11 +345,11 @@ export default function QnAPage() {
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm text-slate-500 dark:text-gray-400">
                     {searchQuery 
-                      ? (isKorean ? `"${searchQuery}" 검색 결과` : `Results for "${searchQuery}"`)
+                      ? t('qna.resultsFor', { query: searchQuery, defaultValue: `Results for "${searchQuery}"` })
                       : getCategoryLabel(selectedCategory)}
                   </span>
                   <Badge variant="secondary" className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
-                    {filteredQnA.length} {isKorean ? '개 항목' : 'items'}
+                    {filteredQnA.length} {t('qna.items', 'items')}
                   </Badge>
                 </div>
 
@@ -374,7 +376,7 @@ export default function QnAPage() {
                             Q{item.id.toString().padStart(2, '0')}
                           </span>
                           <span className="font-bold text-slate-800 dark:text-white text-base md:text-lg">
-                            {isKorean ? item.question : item.questionEn}
+                            {getLocalizedContent(item, 'question')}
                           </span>
                         </div>
                         <ChevronDown 
@@ -394,14 +396,14 @@ export default function QnAPage() {
                         <div className="bg-slate-50 dark:bg-[#0B1120]/50 border-t border-slate-100 dark:border-gray-800">
                           <div className="p-5 pl-14 text-slate-600 dark:text-gray-300 leading-relaxed">
                             <Quote className="h-3 w-3 text-slate-300 dark:text-gray-600 inline mr-2" />
-                            {isKorean ? item.answer : item.answerEn}
+                            {getLocalizedContent(item, 'answer')}
                           </div>
                           <div className="px-5 pb-4 pl-14 flex flex-wrap items-center gap-2">
                             <Badge 
                               variant="outline" 
                               className="text-[10px] uppercase tracking-wider font-bold text-slate-400 border-slate-200 dark:border-gray-700"
                             >
-                              {category ? (isKorean ? category.label : category.labelEn) : item.categoryKey}
+                              {category ? t(`qna.categories.${category.key}`, category.labelEn) : item.categoryKey}
                             </Badge>
                             {item.tags.slice(0, 3).map((tag) => (
                               <Badge 
@@ -423,7 +425,7 @@ export default function QnAPage() {
                                   onClick={(e) => e.stopPropagation()}
                                   data-testid={`link-related-page-${item.id}`}
                                 >
-                                  {isKorean ? '관련 페이지' : 'Related Page'}
+                                  {t('qna.relatedPage', 'Related Page')}
                                   <ExternalLink className="h-3 w-3" />
                                 </span>
                               </Link>

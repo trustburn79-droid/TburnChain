@@ -11021,5 +11021,35 @@
       "applicationSubmitted": "درخواست جمع ہو گئی",
       "applicationProcessing": "{{tier}} کے لیے {{amount}} TBURN درخواست پروسیس ہو رہی ہے"
     }
+  },
+  "qna": {
+    "viewAll": "سب دیکھیں",
+    "all": "سب",
+    "items": "آئٹمز",
+    "howCanWeHelp": "ہم آپ کی کیسے مدد کر سکتے ہیں؟",
+    "searchDescription": "TBURN مین نیٹ، سٹیکنگ، ٹرسٹ سکور اور مزید کے بارے میں 100+ تکنیکی دستاویزات تلاش کریں۔",
+    "searchPlaceholder": "سوالات تلاش کریں (مثلاً: سٹیکنگ انعامات، ٹرسٹ سکور، فیس...)",
+    "noResults": "کوئی نتیجہ نہیں ملا۔",
+    "tryDifferentKeywords": "مختلف کلیدی الفاظ آزمائیں یا زمرے براؤز کریں۔",
+    "resultsFor": "\"{{query}}\" کے نتائج",
+    "needMoreHelp": "مزید مدد چاہیے؟",
+    "supportDescription": "ہماری سپورٹ ٹیم تکنیکی مسائل کے لیے 24/7 دستیاب ہے۔",
+    "contactSupport": "سپورٹ سے رابطہ کریں",
+    "relatedPage": "متعلقہ صفحہ",
+    "categories": {
+      "title": "زمرے",
+      "getting-started": "شروع کریں",
+      "wallet": "والیٹ اور لین دین",
+      "staking": "سٹیکنگ اور ویلیڈیٹرز",
+      "defi": "DeFi",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "نیٹ ورک",
+      "developers": "ڈیولپرز",
+      "solutions": "حل",
+      "community": "کمیونٹی",
+      "security": "سیکیورٹی",
+      "tokenomics": "ٹوکنامکس"
+    }
   }
 }

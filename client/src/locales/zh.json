@@ -14721,5 +14721,35 @@
       "applicationSubmitted": "申请已提交",
       "applicationProcessing": "您的{{tier}}层级{{amount}} TBURN申请正在处理中"
     }
+  },
+  "qna": {
+    "viewAll": "查看全部",
+    "all": "全部",
+    "items": "个项目",
+    "howCanWeHelp": "我们能帮您什么？",
+    "searchDescription": "搜索100多篇关于TBURN主网、质押、信任评分等的技术文档。",
+    "searchPlaceholder": "搜索问题（例如：质押奖励、信任评分、费用...）",
+    "noResults": "未找到结果。",
+    "tryDifferentKeywords": "尝试不同的关键词或浏览分类。",
+    "resultsFor": "\"{{query}}\" 的搜索结果",
+    "needMoreHelp": "需要更多帮助？",
+    "supportDescription": "我们的支持团队全天候24/7为您解决技术问题。",
+    "contactSupport": "联系支持",
+    "relatedPage": "相关页面",
+    "categories": {
+      "title": "分类",
+      "getting-started": "入门指南",
+      "wallet": "钱包 & 交易",
+      "staking": "质押 & 验证者",
+      "defi": "DeFi",
+      "nft": "NFT",
+      "gamefi": "GameFi",
+      "network": "网络",
+      "developers": "开发者",
+      "solutions": "解决方案",
+      "community": "社区",
+      "security": "安全",
+      "tokenomics": "代币经济学"
+    }
   }
 }
