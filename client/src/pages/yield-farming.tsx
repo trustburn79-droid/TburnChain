@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -236,6 +236,8 @@ export default function YieldFarming() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: vaults, isLoading: vaultsLoading, refetch: refetchVaults } = useQuery<YieldVault[]>({
@@ -244,6 +246,8 @@ export default function YieldFarming() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: positions, isLoading: positionsLoading, refetch: refetchPositions } = useQuery<YieldPosition[]>({
@@ -252,6 +256,8 @@ export default function YieldFarming() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: harvests, isLoading: harvestsLoading, refetch: refetchHarvests } = useQuery<YieldHarvest[]>({
@@ -260,6 +266,8 @@ export default function YieldFarming() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: transactions, isLoading: transactionsLoading, refetch: refetchTransactions } = useQuery<YieldTransaction[]>({
@@ -268,6 +276,8 @@ export default function YieldFarming() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const handleRefreshAll = useCallback(async () => {

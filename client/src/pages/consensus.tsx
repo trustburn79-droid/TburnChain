@@ -41,7 +41,7 @@ import {
   ArrowUpRight, ArrowDownRight, Hash, Network, Brain, Crown
 } from "lucide-react";
 import { formatAddress } from "@/lib/format";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useWebSocketChannel } from "@/hooks/use-websocket-channel";
 import { consensusStateSchema } from "@shared/schema";
 import type { ConsensusState, ConsensusRound } from "@shared/schema";
@@ -818,10 +818,12 @@ export default function Consensus() {
 
   const { data: consensusState, isLoading } = useQuery<ConsensusState>({
     queryKey: ["/api/consensus/current"],
-    refetchInterval: 5000, // WebSocket provides real-time updates, REST is fallback
+    refetchInterval: 5000,
     staleTime: 5000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   useWebSocketChannel({
@@ -855,6 +857,8 @@ export default function Consensus() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 10000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   useWebSocketChannel({
@@ -882,6 +886,8 @@ export default function Consensus() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 5000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   useWebSocketChannel({

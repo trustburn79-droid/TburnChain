@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { 
   FileCode, CheckCircle, XCircle, Code2, List, Activity, BarChart3, 
@@ -899,6 +899,8 @@ export default function SmartContracts() {
     refetchInterval: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const activities = useMemo(() => generateMockActivities(), []);

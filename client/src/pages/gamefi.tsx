@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -1316,6 +1316,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: projects, isLoading: projectsLoading, refetch: refetchProjects } = useQuery<GamefiProject[]>({
@@ -1324,6 +1326,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: featuredProjects, refetch: refetchFeatured } = useQuery<GamefiProject[]>({
@@ -1332,6 +1336,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: tournaments, refetch: refetchTournaments } = useQuery<GameTournament[]>({
@@ -1340,6 +1346,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: activeTournaments, refetch: refetchActiveTournaments } = useQuery<GameTournament[]>({
@@ -1348,6 +1356,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: badges, refetch: refetchBadges } = useQuery<AchievementBadge[]>({
@@ -1356,6 +1366,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 60000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: activity, refetch: refetchActivity } = useQuery<GamefiActivity[]>({
@@ -1364,6 +1376,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: myAssets, isLoading: assetsLoading, refetch: refetchAssets } = useQuery<GameAsset[]>({
@@ -1372,6 +1386,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: pendingRewards, isLoading: rewardsLoading, refetch: refetchRewards } = useQuery<PendingReward[]>({
@@ -1380,6 +1396,8 @@ export default function GameFiPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const handleRefresh = async () => {

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { 
   Grid3x3, Layers, ArrowLeftRight, Brain, TrendingUp, Activity, Zap, 
   Clock, CheckCircle, XCircle, Network, ChevronRight, Search, Filter,
@@ -64,18 +64,22 @@ export default function Sharding() {
 
   const { data: shards, isLoading: shardsLoading } = useQuery<Shard[]>({
     queryKey: ["/api/shards"],
-    refetchInterval: 5000, // Real-time TPS sync with /admin/shards
+    refetchInterval: 5000,
     staleTime: 5000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: messages, isLoading: messagesLoading } = useQuery<CrossShardMessage[]>({
     queryKey: ["/api/cross-shard/messages"],
-    refetchInterval: 5000, // Real-time sync
+    refetchInterval: 5000,
     staleTime: 5000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   useWebSocketChannel({

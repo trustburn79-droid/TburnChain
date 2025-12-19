@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -323,6 +323,8 @@ export default function LendingPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<{
@@ -339,6 +341,8 @@ export default function LendingPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 10000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: userPosition, refetch: refetchPosition } = useQuery<LendingPosition>({
@@ -347,6 +351,8 @@ export default function LendingPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 15000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const selectedMarketData = useMemo(() => {

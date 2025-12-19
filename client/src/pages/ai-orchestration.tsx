@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { 
   Bot, Cpu, DollarSign, Zap, Activity, TrendingUp, Brain, Network, Scale, Target, 
   AlertCircle, CheckCircle, XCircle, RefreshCw, BarChart3, PieChart as PieChartIcon,
@@ -858,6 +858,7 @@ export default function AIOrchestration() {
     refetchInterval: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    placeholderData: keepPreviousData,
   });
 
   const { data: aiDecisions, isLoading: decisionsLoading, isError: decisionsError, error: decisionsErrorObj, refetch: refetchDecisions } = useQuery<AiDecision[]>({
@@ -868,6 +869,7 @@ export default function AIOrchestration() {
     refetchInterval: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    placeholderData: keepPreviousData,
   });
 
   const wsResult = useWebSocketChannel({

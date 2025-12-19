@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
 const benefitKeyMap: Record<string, string> = {
@@ -251,6 +251,8 @@ export default function StakingDashboard() {
     staleTime: 15000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: pools, isLoading: poolsLoading } = useQuery<PoolResponse[]>({
@@ -259,6 +261,8 @@ export default function StakingDashboard() {
     staleTime: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: tiers, isLoading: tiersLoading } = useQuery<TierResponse[]>({
@@ -267,6 +271,8 @@ export default function StakingDashboard() {
     staleTime: 60000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const stakeMutation = useMutation({

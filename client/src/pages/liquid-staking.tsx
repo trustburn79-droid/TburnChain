@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -174,6 +174,8 @@ export default function LiquidStaking() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: pools, isLoading: poolsLoading } = useQuery<LiquidStakingPool[]>({
@@ -182,6 +184,8 @@ export default function LiquidStaking() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: positions, isLoading: positionsLoading } = useQuery<LstPosition[]>({
@@ -190,6 +194,8 @@ export default function LiquidStaking() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const mintMutation = useMutation({

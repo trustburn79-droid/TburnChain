@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -1159,6 +1159,8 @@ export default function NftLaunchpadPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: projects, isLoading: projectsLoading } = useQuery<LaunchpadProject[]>({
@@ -1167,6 +1169,8 @@ export default function NftLaunchpadPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: featuredProjects } = useQuery<LaunchpadProject[]>({
@@ -1175,6 +1179,8 @@ export default function NftLaunchpadPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: activeRounds } = useQuery<LaunchRound[]>({
@@ -1183,6 +1189,8 @@ export default function NftLaunchpadPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: activity } = useQuery<LaunchpadActivity[]>({
@@ -1191,6 +1199,8 @@ export default function NftLaunchpadPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: userAllocations } = useQuery<UserAllocation[]>({
@@ -1199,6 +1209,8 @@ export default function NftLaunchpadPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const mintMutation = useMutation({

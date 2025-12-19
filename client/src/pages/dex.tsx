@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -295,6 +295,8 @@ export default function DexPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: pools, isLoading: poolsLoading, refetch: refetchPools } = useQuery<DexPool[]>({
@@ -303,6 +305,8 @@ export default function DexPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: recentSwaps, isLoading: swapsLoading, refetch: refetchSwaps } = useQuery<DexSwap[]>({
@@ -311,6 +315,8 @@ export default function DexPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: positions, isLoading: positionsLoading, refetch: refetchPositions } = useQuery<DexPosition[]>({
@@ -319,6 +325,8 @@ export default function DexPage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const handleRefreshAll = async () => {

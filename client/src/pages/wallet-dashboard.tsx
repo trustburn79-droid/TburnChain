@@ -41,7 +41,7 @@ import {
   Key,
   Shield
 } from "lucide-react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { 
@@ -1336,6 +1336,8 @@ export default function WalletDashboard() {
     staleTime: 60000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
   const performanceData = performanceResponse?.dataPoints || defaultPerformance;
   
@@ -1346,6 +1348,8 @@ export default function WalletDashboard() {
     staleTime: 15000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
   const activities = activitiesResponse?.activities || defaultActivities;
   

@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -1482,6 +1482,8 @@ export default function NftMarketplacePage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: collections, isLoading: collectionsLoading, refetch: refetchCollections } = useQuery<NftCollection[]>({
@@ -1490,6 +1492,8 @@ export default function NftMarketplacePage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: listings, isLoading: listingsLoading, refetch: refetchListings } = useQuery<MarketplaceListing[]>({
@@ -1498,6 +1502,8 @@ export default function NftMarketplacePage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: items, refetch: refetchItems } = useQuery<NftItem[]>({
@@ -1506,6 +1512,8 @@ export default function NftMarketplacePage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: activity, refetch: refetchActivity } = useQuery<NftActivity[]>({
@@ -1514,6 +1522,8 @@ export default function NftMarketplacePage() {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchInterval: 30000,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const handleRefresh = useCallback(async () => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -130,6 +130,8 @@ export default function StakingRewards() {
     staleTime: 15000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: cycles, isLoading: cyclesLoading, refetch: refetchCycles } = useQuery<RewardCycle[]>({
@@ -138,6 +140,8 @@ export default function StakingRewards() {
     staleTime: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: unbonding, isLoading: unbondingLoading, refetch: refetchUnbonding } = useQuery<UnbondingRequest[]>({
@@ -146,6 +150,8 @@ export default function StakingRewards() {
     staleTime: 15000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: slashingEvents, isLoading: slashingLoading, refetch: refetchSlashing } = useQuery<SlashingEvent[]>({
@@ -154,6 +160,8 @@ export default function StakingRewards() {
     staleTime: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const handleRefreshAll = async () => {
