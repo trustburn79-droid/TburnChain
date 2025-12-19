@@ -1,7 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -14,7 +13,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
   Flame,
@@ -104,22 +102,6 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Price and Gas - Hidden on smaller screens */}
-              <div className="hidden xl:flex items-center gap-3 text-sm">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50">
-                  <span className="text-gray-400">TBURN</span>
-                  <span className="text-white font-medium">$2.45</span>
-                  <Badge variant="outline" className="text-green-400 border-green-400/30 text-xs">
-                    +5.2%
-                  </Badge>
-                </div>
-                
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50">
-                  <span className="text-gray-400">Gas</span>
-                  <span className="text-white font-medium">100 EMB</span>
-                </div>
-              </div>
-
               {/* Connection Status */}
               <div className="flex items-center gap-2">
                 {isConnected ? (
@@ -213,13 +195,6 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                         {item.label}
                       </DropdownMenuItem>
                     ))}
-                    <DropdownMenuSeparator className="bg-gray-700" />
-                    <DropdownMenuItem className="gap-2 text-gray-400">
-                      <span>TBURN: $2.45</span>
-                      <Badge variant="outline" className="text-green-400 border-green-400/30 text-xs ml-auto">
-                        +5.2%
-                      </Badge>
-                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
