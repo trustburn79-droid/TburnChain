@@ -224,13 +224,13 @@ interface UserActivity {
 }
 
 const transferFormSchema = z.object({
-  recipientAddress: z.string().min(1, "주소를 입력해주세요").regex(/^0x[a-fA-F0-9]{40}$/, "유효한 TBURN 주소를 입력해주세요"),
-  amount: z.string().min(1, "수량을 입력해주세요").refine((val) => parseFloat(val) > 0, "0보다 큰 수량을 입력해주세요"),
+  recipientAddress: z.string().min(1).regex(/^0x[a-fA-F0-9]{40}$/),
+  amount: z.string().min(1).refine((val) => parseFloat(val) > 0),
 });
 
 const delegateFormSchema = z.object({
-  validatorAddress: z.string().min(1, "검증자를 선택해주세요"),
-  amount: z.string().min(1, "수량을 입력해주세요").refine((val) => parseFloat(val) >= 100, "최소 100 TB 이상 위임 가능합니다"),
+  validatorAddress: z.string().min(1),
+  amount: z.string().min(1).refine((val) => parseFloat(val) >= 100),
 });
 
 type TransferFormValues = z.infer<typeof transferFormSchema>;
@@ -250,7 +250,7 @@ const formatBurnAmount = (val: string | undefined): string => {
   return num.toFixed(2);
 };
 
-const formatTimeAgo = (timestamp: string): string => {
+const formatTimeAgo = (timestamp: string, t: (key: string, options?: object) => string): string => {
   const now = new Date();
   const past = new Date(timestamp);
   const diffMs = now.getTime() - past.getTime();
@@ -258,10 +258,10 @@ const formatTimeAgo = (timestamp: string): string => {
   const diffHours = Math.floor(diffMs / 3600000);
   const diffDays = Math.floor(diffMs / 86400000);
   
-  if (diffMins < 1) return "방금 전";
-  if (diffMins < 60) return `${diffMins}분 전`;
-  if (diffHours < 24) return `${diffHours}시간 전`;
-  return `${diffDays}일 전`;
+  if (diffMins < 1) return t('userPage.timeAgo.justNow');
+  if (diffMins < 60) return t('userPage.timeAgo.minutesAgo', { count: diffMins });
+  if (diffHours < 24) return t('userPage.timeAgo.hoursAgo', { count: diffHours });
+  return t('userPage.timeAgo.daysAgo', { count: diffDays });
 };
 
 export default function UserPage() {
@@ -535,7 +535,7 @@ export default function UserPage() {
     if (isConnected) {
       refreshBalance();
     }
-    toast({ title: "데이터 갱신 중", description: "최신 데이터를 불러오고 있습니다." });
+    toast({ title: t('userPage.toast.refreshing'), description: t('userPage.toast.refreshingDesc') });
   };
 
   const toggleTheme = () => {
@@ -545,15 +545,15 @@ export default function UserPage() {
 
   const handleDisconnect = () => {
     disconnect();
-    toast({ title: "지갑 연결 해제", description: "지갑 연결이 해제되었습니다." });
+    toast({ title: t('userPage.toast.walletDisconnected'), description: t('userPage.toast.walletDisconnectedDesc') });
   };
 
   const navItems = [
-    { id: "dashboard" as Section, label: "대시보드", icon: Shield, badge: null },
-    { id: "wallet" as Section, label: "지갑 & 전송", icon: Wallet, badge: null },
-    { id: "staking" as Section, label: "스테이킹", icon: Layers, badge: isConnected ? "Active" : null },
-    { id: "governance" as Section, label: "거버넌스", icon: Gavel, badge: proposals && proposals.length > 0 ? `${proposals.length}` : null },
-    { id: "network" as Section, label: "네트워크", icon: Globe, badge: null },
+    { id: "dashboard" as Section, label: t('userPage.nav.dashboard'), icon: Shield, badge: null },
+    { id: "wallet" as Section, label: t('userPage.nav.walletAndTransfer'), icon: Wallet, badge: null },
+    { id: "staking" as Section, label: t('userPage.nav.staking'), icon: Layers, badge: isConnected ? "Active" : null },
+    { id: "governance" as Section, label: t('userPage.nav.governance'), icon: Gavel, badge: proposals && proposals.length > 0 ? `${proposals.length}` : null },
+    { id: "network" as Section, label: t('userPage.nav.network'), icon: Globe, badge: null },
   ];
 
   const totalBurned = formatBurnAmount(burnStats?.totalBurned);
@@ -636,7 +636,7 @@ export default function UserPage() {
         <div className="p-4 border-t border-slate-100 dark:border-gray-800">
           <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 dark:from-orange-500/20 dark:to-red-500/20 p-4 rounded-xl border border-orange-200/50 dark:border-orange-500/20">
             <div className="flex justify-between items-center mb-3">
-              <span className="text-xs font-medium text-slate-600 dark:text-gray-300">누적 소각량</span>
+              <span className="text-xs font-medium text-slate-600 dark:text-gray-300">{t('userPage.sidebar.cumulativeBurned')}</span>
               <Flame className="w-5 h-5 text-orange-500 animate-pulse" />
             </div>
             <div className="text-2xl font-mono font-bold text-slate-900 dark:text-white mb-2">
@@ -644,7 +644,7 @@ export default function UserPage() {
             </div>
             <Progress value={burnPercentage} className="h-2" />
             <p className="text-[10px] text-slate-500 dark:text-gray-400 mt-2">
-              목표 대비 {burnPercentage.toFixed(2)}% 달성
+              {t('userPage.sidebar.targetProgress', { percent: burnPercentage.toFixed(2) })}
             </p>
           </div>
         </div>
@@ -684,7 +684,7 @@ export default function UserPage() {
               </div>
               <div className="hidden md:flex items-center gap-1 sm:gap-2">
                 <Boxes className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500" />
-                <span className="text-slate-600 dark:text-gray-400">블록:</span>
+                <span className="text-slate-600 dark:text-gray-400">{t('userPage.header.block')}:</span>
                 <span className="font-mono font-bold text-slate-900 dark:text-white">
                   #{networkStats?.currentBlockHeight ? formatNumber(networkStats.currentBlockHeight) : "---"}
                 </span>
@@ -1117,7 +1117,7 @@ function DashboardSection({
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{activity.title}</p>
-                    <p className="text-xs text-slate-400">{formatTimeAgo(activity.createdAt)}</p>
+                    <p className="text-xs text-slate-400">{formatTimeAgo(activity.createdAt, t)}</p>
                   </div>
                   {activity.amount && (
                     <span className={`font-mono text-sm font-medium ${
@@ -1209,18 +1209,20 @@ function WalletSection({
   const totalDeduction = numAmount + burnFee + networkFee;
   const hasInsufficientBalance = isConnected && parseFloat(balance || "0") < totalDeduction;
 
+  const { t } = useTranslation();
+  
   const onSubmit = (data: TransferFormValues) => {
     if (!isConnected) {
-      toast({ title: "지갑 연결 필요", description: "전송을 위해 지갑을 연결해주세요.", variant: "destructive" });
+      toast({ title: t('userPage.toast.walletRequired'), description: t('userPage.toast.walletRequiredTransfer'), variant: "destructive" });
       return;
     }
-    toast({ title: "전송 요청됨", description: `${data.amount} TB를 ${data.recipientAddress.slice(0, 10)}...로 전송 중입니다.` });
+    toast({ title: t('userPage.transfer'), description: `${data.amount} TB → ${data.recipientAddress.slice(0, 10)}...` });
   };
 
   const recentTransactions = [
-    { hash: "0x1a2b...3c4d", type: "sent", to: "0x8F2e...9B1c", amount: 500, burned: 2.5, time: "5분 전", status: "completed" },
-    { hash: "0x5e6f...7g8h", type: "received", from: "0x3D4e...5F6g", amount: 1200, time: "2시간 전", status: "completed" },
-    { hash: "0x9i0j...1k2l", type: "staked", validator: "TBURN Foundation", amount: 5000, time: "1일 전", status: "completed" },
+    { hash: "0x1a2b...3c4d", type: "sent", to: "0x8F2e...9B1c", amount: 500, burned: 2.5, time: t('userPage.timeAgo.minutesAgo', { count: 5 }), status: "completed" },
+    { hash: "0x5e6f...7g8h", type: "received", from: "0x3D4e...5F6g", amount: 1200, time: t('userPage.timeAgo.hoursAgo', { count: 2 }), status: "completed" },
+    { hash: "0x9i0j...1k2l", type: "staked", validator: "TBURN Foundation", amount: 5000, time: t('userPage.timeAgo.daysAgo', { count: 1 }), status: "completed" },
   ];
 
   if (!isConnected) {
@@ -1230,12 +1232,12 @@ function WalletSection({
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mb-4 sm:mb-6">
             <Wallet className="w-8 h-8 sm:w-10 sm:h-10 text-blue-500" />
           </div>
-          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 text-center">지갑을 연결하세요</h3>
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 text-center">{t('userPage.wallet.connectPrompt')}</h3>
           <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400 text-center mb-4 sm:mb-6 max-w-md px-2">
-            TBURN 토큰을 전송하고 거래 내역을 확인하려면 지갑을 연결해주세요.
+            {t('userPage.wallet.connectPromptDesc')}
           </p>
           <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600 w-full sm:w-auto" data-testid="button-connect-wallet-section">
-            <Wallet className="w-4 h-4 mr-2" /> 지갑 연결
+            <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
           </Button>
         </div>
       </section>
@@ -1246,8 +1248,8 @@ function WalletSection({
     <section className="space-y-4 sm:space-y-6" data-testid="section-wallet">
       <div className="flex justify-between items-start flex-wrap gap-3 sm:gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">지갑 & 전송</h2>
-          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">TBURN 토큰을 안전하게 전송하고 관리하세요.</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">{t('userPage.wallet.title')}</h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">{t('userPage.wallet.connectPromptDesc')}</p>
         </div>
       </div>
 
@@ -1255,8 +1257,8 @@ function WalletSection({
         <div className="lg:col-span-2">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-2 mb-3 sm:mb-4">
-              <TabsTrigger value="transfer" className="text-sm">전송</TabsTrigger>
-              <TabsTrigger value="history" className="text-sm">거래 내역</TabsTrigger>
+              <TabsTrigger value="transfer" className="text-sm">{t('userPage.transfer')}</TabsTrigger>
+              <TabsTrigger value="history" className="text-sm">{t('userPage.recentActivity')}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="transfer">
@@ -1268,7 +1270,7 @@ function WalletSection({
                       name="recipientAddress"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-slate-700 dark:text-gray-300">받는 주소</FormLabel>
+                          <FormLabel className="text-slate-700 dark:text-gray-300">{t('common.address')}</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="0x..."
@@ -1288,9 +1290,9 @@ function WalletSection({
                       render={({ field }) => (
                         <FormItem>
                           <div className="flex justify-between">
-                            <FormLabel className="text-slate-700 dark:text-gray-300">전송 수량</FormLabel>
+                            <FormLabel className="text-slate-700 dark:text-gray-300">{t('common.amount')}</FormLabel>
                             <span className="text-xs text-slate-500 dark:text-gray-400">
-                              잔액: {parseFloat(balance || "0").toFixed(4)} TB
+                              {t('common.balance')}: {parseFloat(balance || "0").toFixed(4)} TB
                             </span>
                           </div>
                           <FormControl>
@@ -1314,22 +1316,22 @@ function WalletSection({
 
                     <div className="bg-slate-50 dark:bg-[#0B1120] rounded-xl p-4 space-y-3">
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-500 dark:text-gray-400">전송 수량</span>
+                        <span className="text-slate-500 dark:text-gray-400">{t('common.amount')}</span>
                         <span className="font-mono text-slate-800 dark:text-white">{numAmount.toFixed(4)} TB</span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-slate-500 dark:text-gray-400 flex items-center gap-1">
-                          <Flame className="w-3 h-3 text-orange-500" /> 소각 수수료 (0.5%)
+                          <Flame className="w-3 h-3 text-orange-500" /> {t('userPage.wallet.burnFee')}
                         </span>
                         <span className="font-mono text-orange-500">{burnFee.toFixed(4)} TB</span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-500 dark:text-gray-400">네트워크 수수료</span>
+                        <span className="text-slate-500 dark:text-gray-400">{t('userPage.wallet.networkFee')}</span>
                         <span className="font-mono text-slate-800 dark:text-white">{networkFee} TB</span>
                       </div>
                       <Separator />
                       <div className="flex justify-between font-bold">
-                        <span className="text-slate-700 dark:text-gray-300">총 차감</span>
+                        <span className="text-slate-700 dark:text-gray-300">{t('userPage.wallet.totalDeduction')}</span>
                         <span className={`font-mono ${hasInsufficientBalance ? "text-red-500" : "text-slate-900 dark:text-white"}`}>
                           {totalDeduction.toFixed(4)} TB
                         </span>
@@ -1337,7 +1339,7 @@ function WalletSection({
                       {hasInsufficientBalance && (
                         <div className="flex items-center gap-2 text-xs text-red-500">
                           <AlertTriangle className="w-4 h-4" />
-                          잔액이 부족합니다
+                          {t('userPage.wallet.insufficientBalance')}
                         </div>
                       )}
                     </div>
@@ -1348,7 +1350,7 @@ function WalletSection({
                       disabled={hasInsufficientBalance || !watchedAmount}
                       data-testid="button-submit-transfer"
                     >
-                      <Send className="w-4 h-4 mr-2" /> 전송하기
+                      <Send className="w-4 h-4 mr-2" /> {t('userPage.transfer')}
                     </Button>
                   </form>
                 </Form>
@@ -1357,7 +1359,7 @@ function WalletSection({
 
             <TabsContent value="history">
               <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-                <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">최근 거래</h3>
+                <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">{t('userPage.recentActivity')}</h3>
                 <div className="space-y-3">
                   {recentTransactions.map((tx, index) => (
                     <div
@@ -1376,7 +1378,7 @@ function WalletSection({
                         </div>
                         <div>
                           <p className="font-medium text-slate-900 dark:text-white">
-                            {tx.type === "sent" ? "전송" : tx.type === "received" ? "수신" : "스테이킹"}
+                            {tx.type === "sent" ? t('userPage.wallet.sent') : tx.type === "received" ? t('userPage.wallet.received') : t('userPage.staking')}
                           </p>
                           <p className="text-xs text-slate-500 dark:text-gray-400">{tx.time}</p>
                         </div>
@@ -1406,7 +1408,7 @@ function WalletSection({
             <div className="flex items-center gap-3 mb-4">
               <Wallet className="w-8 h-8" />
               <div>
-                <p className="text-sm text-white/70">총 잔액</p>
+                <p className="text-sm text-white/70">{t('common.balance')}</p>
                 <p className="text-3xl font-bold font-mono">
                   {parseFloat(balance || "0").toFixed(4)}
                 </p>
@@ -1416,16 +1418,16 @@ function WalletSection({
           </div>
 
           <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-            <h4 className="font-bold text-slate-900 dark:text-white mb-4">빠른 액션</h4>
+            <h4 className="font-bold text-slate-900 dark:text-white mb-4">{t('userPage.wallet.quickActions')}</h4>
             <div className="space-y-2">
               <Button variant="outline" className="w-full justify-start" size="sm">
-                <Copy className="w-4 h-4 mr-2" /> 주소 복사
+                <Copy className="w-4 h-4 mr-2" /> {t('userPage.wallet.copyAddress')}
               </Button>
               <Button variant="outline" className="w-full justify-start" size="sm">
-                <ExternalLink className="w-4 h-4 mr-2" /> 익스플로러에서 보기
+                <ExternalLink className="w-4 h-4 mr-2" /> {t('userPage.wallet.viewExplorer')}
               </Button>
               <Button variant="outline" className="w-full justify-start" size="sm">
-                <BarChart3 className="w-4 h-4 mr-2" /> 포트폴리오 분석
+                <BarChart3 className="w-4 h-4 mr-2" /> {t('userPage.wallet.portfolioAnalysis')}
               </Button>
             </div>
           </div>
@@ -1450,12 +1452,14 @@ function StakingSection({
   const [delegateAmount, setDelegateAmount] = useState("");
   const { toast } = useToast();
 
+  const { t } = useTranslation();
+  
   const handleDelegate = () => {
     if (!selectedValidator || !delegateAmount) {
-      toast({ title: "입력 필요", description: "검증자와 수량을 선택해주세요.", variant: "destructive" });
+      toast({ title: t('userPage.toast.inputRequired'), description: t('userPage.stakingPage.selectValidatorAndAmount'), variant: "destructive" });
       return;
     }
-    toast({ title: "위임 요청됨", description: `${delegateAmount} TB를 위임 중입니다.` });
+    toast({ title: t('userPage.stakingPage.delegationRequested'), description: `${delegateAmount} TB` });
   };
 
   const formatStake = (stake: string): string => {
@@ -1469,41 +1473,41 @@ function StakingSection({
     <section className="space-y-4 sm:space-y-6" data-testid="section-staking">
       <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">스테이킹</h2>
-          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">검증자에게 토큰을 위임하고 보상을 받으세요.</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">{t('userPage.staking')}</h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">{t('userPage.stakingPage.description')}</p>
         </div>
         {!isConnected && (
           <Button onClick={onConnectWallet} className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-staking">
-            <Wallet className="w-4 h-4 mr-2" /> 지갑 연결
+            <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
           </Button>
         )}
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         <MetricCard
-          title="총 TVL"
+          title={t('userPage.stakingPage.totalTVL')}
           value={formatBurnAmount(stakingStats?.totalValueLocked)}
           subtitle="TB"
           icon={Lock}
           color="blue"
         />
         <MetricCard
-          title="평균 APY"
+          title={t('userPage.stakingPage.averageAPY')}
           value={`${stakingStats?.averageApy?.toFixed(1) || "12.5"}%`}
-          subtitle="연간 수익률"
+          subtitle={t('userPage.stakingPage.annualReturn')}
           icon={TrendingUp}
           trend={2.3}
           color="green"
         />
         <MetricCard
-          title="활성 스테이커"
+          title={t('userPage.stakingPage.activeStakers')}
           value={formatNumber(stakingStats?.totalStakers || 0)}
-          subtitle="명"
+          subtitle=""
           icon={Users}
           color="purple"
         />
         <MetricCard
-          title="총 보상 분배"
+          title={t('userPage.stakingPage.totalRewardsDistributed')}
           value={formatBurnAmount(stakingStats?.totalRewardsDistributed)}
           subtitle="TB"
           icon={Award}
@@ -1514,18 +1518,18 @@ function StakingSection({
       {isConnected && (
         <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-6 border border-blue-200/50 dark:border-blue-500/20">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white">빠른 위임</h3>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t('userPage.stakingPage.quickDelegation')}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">검증자 선택</label>
+              <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">{t('userPage.stakingPage.selectValidator')}</label>
               <select
                 className="w-full p-3 bg-white dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-xl text-slate-900 dark:text-white"
                 value={selectedValidator || ""}
                 onChange={(e) => setSelectedValidator(e.target.value)}
                 data-testid="select-validator"
               >
-                <option value="">검증자를 선택하세요</option>
+                <option value="">{t('userPage.stakingPage.selectValidatorPlaceholder')}</option>
                 {validators.slice(0, 10).map((v) => (
                   <option key={v.address} value={v.address}>
                     {v.name} (APY: {stakingStats?.averageApy?.toFixed(1) || "12.5"}%)
@@ -1534,10 +1538,10 @@ function StakingSection({
               </select>
             </div>
             <div>
-              <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">위임 수량</label>
+              <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">{t('userPage.stakingPage.delegationAmount')}</label>
               <Input
                 type="number"
-                placeholder="최소 100 TB"
+                placeholder={t('userPage.stakingPage.minAmount')}
                 value={delegateAmount}
                 onChange={(e) => setDelegateAmount(e.target.value)}
                 className="bg-white dark:bg-[#0B1120] border-slate-200 dark:border-gray-700"
@@ -1551,7 +1555,7 @@ function StakingSection({
                 disabled={!selectedValidator || !delegateAmount}
                 data-testid="button-delegate"
               >
-                <Lock className="w-4 h-4 mr-2" /> 위임하기
+                <Lock className="w-4 h-4 mr-2" /> {t('userPage.stakingPage.delegate')}
               </Button>
             </div>
           </div>
@@ -1560,20 +1564,20 @@ function StakingSection({
 
       <div className="bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
         <div className="p-4 border-b border-slate-100 dark:border-gray-800">
-          <h3 className="font-bold text-lg text-slate-900 dark:text-white">검증자 목록</h3>
+          <h3 className="font-bold text-lg text-slate-900 dark:text-white">{t('userPage.stakingPage.validatorList')}</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-left text-xs text-slate-500 dark:text-gray-400 uppercase bg-slate-50 dark:bg-[#0B1120]">
-                <th className="p-4 font-medium">순위</th>
-                <th className="p-4 font-medium">검증자</th>
-                <th className="p-4 font-medium text-center">AI 점수</th>
-                <th className="p-4 font-medium text-right">스테이킹</th>
-                <th className="p-4 font-medium text-right">위임자</th>
-                <th className="p-4 font-medium text-right">수수료</th>
-                <th className="p-4 font-medium text-center">가동률</th>
-                <th className="p-4 font-medium text-center">액션</th>
+                <th className="p-4 font-medium">{t('userPage.stakingPage.rank')}</th>
+                <th className="p-4 font-medium">{t('userPage.stakingPage.validator')}</th>
+                <th className="p-4 font-medium text-center">{t('userPage.stakingPage.aiScore')}</th>
+                <th className="p-4 font-medium text-right">{t('userPage.staking')}</th>
+                <th className="p-4 font-medium text-right">{t('userPage.stakingPage.delegators')}</th>
+                <th className="p-4 font-medium text-right">{t('userPage.stakingPage.commission')}</th>
+                <th className="p-4 font-medium text-center">{t('userPage.stakingPage.uptime')}</th>
+                <th className="p-4 font-medium text-center">{t('userPage.stakingPage.action')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-gray-800">
@@ -1623,7 +1627,7 @@ function StakingSection({
                       }}
                       data-testid={`button-select-validator-${validator.address}`}
                     >
-                      선택
+                      {t('userPage.stakingPage.select')}
                     </Button>
                   </td>
                 </tr>
@@ -1646,6 +1650,7 @@ function GovernanceSection({
   onConnectWallet: () => void;
 }) {
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const parseVotes = (votes: string): number => {
     const num = parseFloat(votes);
@@ -1654,10 +1659,10 @@ function GovernanceSection({
 
   const handleVote = (proposalId: string, vote: "for" | "against" | "abstain") => {
     if (!isConnected) {
-      toast({ title: "지갑 연결 필요", description: "투표를 위해 지갑을 연결해주세요.", variant: "destructive" });
+      toast({ title: t('userPage.toast.walletRequired'), description: t('userPage.toast.walletRequiredVote'), variant: "destructive" });
       return;
     }
-    toast({ title: "투표 완료", description: `제안서 #${proposalId}에 투표했습니다.` });
+    toast({ title: t('userPage.governancePage.voteCompleted'), description: `#${proposalId}` });
   };
 
   const getStatusColor = (status: string) => {
@@ -1673,35 +1678,35 @@ function GovernanceSection({
     <section className="space-y-4 sm:space-y-6" data-testid="section-governance">
       <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">거버넌스</h2>
-          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">TBURN 네트워크의 미래를 결정하는 투표에 참여하세요.</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">{t('userPage.governance')}</h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">{t('userPage.governancePage.description')}</p>
         </div>
         {!isConnected && (
           <Button onClick={onConnectWallet} className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-governance">
-            <Wallet className="w-4 h-4 mr-2" /> 지갑 연결
+            <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
           </Button>
         )}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
         <MetricCard
-          title="활성 제안"
+          title={t('userPage.governancePage.activeProposals')}
           value={proposals.filter(p => p.status.toLowerCase() === "active").length.toString()}
-          subtitle="진행 중"
+          subtitle={t('userPage.governancePage.inProgress')}
           icon={Vote}
           color="blue"
         />
         <MetricCard
-          title="총 제안"
+          title={t('userPage.governancePage.totalProposals')}
           value={proposals.length.toString()}
-          subtitle="전체"
+          subtitle={t('userPage.governancePage.total')}
           icon={Gavel}
           color="purple"
         />
         <MetricCard
-          title="참여율"
+          title={t('userPage.governancePage.participationRate')}
           value="67.8%"
-          subtitle="평균"
+          subtitle={t('userPage.governancePage.average')}
           icon={Users}
           color="green"
         />
@@ -1731,7 +1736,7 @@ function GovernanceSection({
                 {proposal.aiAnalysis && (
                   <Badge variant="outline" className="text-xs">
                     <Star className="w-3 h-3 mr-1" />
-                    AI 분석
+                    {t('userPage.governancePage.aiAnalysis')}
                   </Badge>
                 )}
               </div>
@@ -1747,20 +1752,20 @@ function GovernanceSection({
                 <div className="bg-slate-50 dark:bg-[#0B1120] rounded-xl p-4 mb-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Cpu className="w-4 h-4 text-blue-500" />
-                    <span className="text-xs font-medium text-slate-600 dark:text-gray-400">AI 분석 결과</span>
+                    <span className="text-xs font-medium text-slate-600 dark:text-gray-400">{t('userPage.governancePage.aiAnalysisResult')}</span>
                   </div>
                   <p className="text-sm text-slate-700 dark:text-gray-300">{proposal.aiAnalysis.recommendation}</p>
                   <div className="flex gap-4 mt-2 text-xs">
-                    <span className="text-slate-500">신뢰도: {proposal.aiAnalysis.confidence}%</span>
-                    <span className="text-slate-500">경제 영향: {proposal.aiAnalysis.economicImpact}%</span>
+                    <span className="text-slate-500">{t('userPage.governancePage.confidence')}: {proposal.aiAnalysis.confidence}%</span>
+                    <span className="text-slate-500">{t('userPage.governancePage.economicImpact')}: {proposal.aiAnalysis.economicImpact}%</span>
                   </div>
                 </div>
               )}
 
               <div className="space-y-3 mb-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-emerald-500">찬성 {forPercentage.toFixed(1)}%</span>
-                  <span className="text-red-500">반대 {againstPercentage.toFixed(1)}%</span>
+                  <span className="text-emerald-500">{t('userPage.governancePage.for')} {forPercentage.toFixed(1)}%</span>
+                  <span className="text-red-500">{t('userPage.governancePage.against')} {againstPercentage.toFixed(1)}%</span>
                 </div>
                 <div className="relative h-2 bg-slate-200 dark:bg-gray-700 rounded-full overflow-hidden">
                   <div
@@ -1773,8 +1778,8 @@ function GovernanceSection({
                   />
                 </div>
                 <div className="flex justify-between text-xs text-slate-400">
-                  <span>총 {formatNumber(proposal.totalVoters)}명 참여</span>
-                  <span>{proposal.quorumReached ? "정족수 충족" : "정족수 미달"}</span>
+                  <span>{t('userPage.governancePage.totalParticipants', { count: formatNumber(proposal.totalVoters) })}</span>
+                  <span>{proposal.quorumReached ? t('userPage.governancePage.quorumReached') : t('userPage.governancePage.quorumNotReached')}</span>
                 </div>
               </div>
 
@@ -1787,7 +1792,7 @@ function GovernanceSection({
                     onClick={() => handleVote(proposal.id, "for")}
                     data-testid={`button-vote-for-${proposal.id}`}
                   >
-                    <CheckCircle className="w-4 h-4 mr-1" /> 찬성
+                    <CheckCircle className="w-4 h-4 mr-1" /> {t('userPage.governancePage.for')}
                   </Button>
                   <Button
                     variant="outline"
@@ -1796,7 +1801,7 @@ function GovernanceSection({
                     onClick={() => handleVote(proposal.id, "against")}
                     data-testid={`button-vote-against-${proposal.id}`}
                   >
-                    <AlertTriangle className="w-4 h-4 mr-1" /> 반대
+                    <AlertTriangle className="w-4 h-4 mr-1" /> {t('userPage.governancePage.against')}
                   </Button>
                 </div>
               )}
@@ -1808,8 +1813,8 @@ function GovernanceSection({
       {proposals.length === 0 && (
         <div className="flex flex-col items-center justify-center py-12 bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800">
           <Gavel className="w-12 h-12 text-slate-300 dark:text-gray-600 mb-4" />
-          <h3 className="text-lg font-bold text-slate-600 dark:text-gray-400">활성 제안 없음</h3>
-          <p className="text-sm text-slate-400 dark:text-gray-500">현재 진행 중인 거버넌스 제안이 없습니다.</p>
+          <h3 className="text-lg font-bold text-slate-600 dark:text-gray-400">{t('userPage.governancePage.noActiveProposals')}</h3>
+          <p className="text-sm text-slate-400 dark:text-gray-500">{t('userPage.governancePage.noActiveProposalsDesc')}</p>
         </div>
       )}
     </section>
@@ -1827,6 +1832,8 @@ function NetworkSection({
   shards: ShardInfo[];
   validators: ApiValidator[];
 }) {
+  const { t } = useTranslation();
+  
   const stats = [
     {
       label: "TPS",
@@ -1835,19 +1842,19 @@ function NetworkSection({
       color: "text-blue-500",
     },
     {
-      label: "블록 시간",
+      label: t('userPage.networkPage.blockTime'),
       value: networkStats?.avgBlockTime ? `${networkStats.avgBlockTime.toFixed(2)}s` : "0.5s",
       icon: Timer,
       color: "text-purple-500",
     },
     {
-      label: "활성 검증자",
+      label: t('userPage.networkPage.activeValidators'),
       value: networkStats?.activeValidators?.toString() || validators.length.toString(),
       icon: Users,
       color: "text-emerald-500",
     },
     {
-      label: "네트워크 가동률",
+      label: t('userPage.networkPage.networkUptime'),
       value: networkStats?.slaUptime ? `${networkStats.slaUptime.toFixed(2)}%` : "99.99%",
       icon: Activity,
       color: "text-orange-500",
@@ -1857,8 +1864,8 @@ function NetworkSection({
   return (
     <section className="space-y-4 sm:space-y-6" data-testid="section-network">
       <div>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">네트워크 상태</h2>
-        <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">TBURN 메인넷의 실시간 상태를 모니터링하세요.</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">{t('userPage.networkStatus')}</h2>
+        <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">{t('userPage.networkPage.description')}</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
@@ -1886,7 +1893,7 @@ function NetworkSection({
           <div className="flex items-center justify-between mb-3 sm:mb-4">
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Radio className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 animate-pulse" />
-              실시간 블록 피드
+              {t('userPage.networkPage.realtimeBlockFeed')}
             </h3>
           </div>
           <div className="space-y-2 max-h-60 sm:max-h-80 overflow-hidden relative">
@@ -1923,7 +1930,7 @@ function NetworkSection({
         <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
           <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
             <GitBranch className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
-            샤드 상태
+            {t('userPage.networkPage.shardStatus')}
           </h3>
           <div className="space-y-2 sm:space-y-3">
             {shards.slice(0, 5).map((shard) => (
@@ -1937,7 +1944,7 @@ function NetworkSection({
                   }`} />
                   <div>
                     <p className="text-xs sm:text-sm font-medium text-slate-900 dark:text-white">{shard.name}</p>
-                    <p className="text-[10px] sm:text-xs text-slate-400">{shard.validators} 검증자</p>
+                    <p className="text-[10px] sm:text-xs text-slate-400">{shard.validators} {t('userPage.stakingPage.validator')}</p>
                   </div>
                 </div>
                 <div className="text-right">
@@ -1956,7 +1963,7 @@ function NetworkSection({
       <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
         <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
           <Network className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
-          네트워크 성능
+          {t('userPage.networkPage.networkPerformance')}
         </h3>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
           <div className="text-center p-3 sm:p-4 bg-slate-50 dark:bg-[#0B1120] rounded-lg sm:rounded-xl">
@@ -1965,15 +1972,15 @@ function NetworkSection({
           </div>
           <div className="text-center p-3 sm:p-4 bg-slate-50 dark:bg-[#0B1120] rounded-lg sm:rounded-xl">
             <p className="text-lg sm:text-2xl font-bold font-mono text-purple-500">{networkStats?.latency || "---"}ms</p>
-            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">평균 지연</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">{t('userPage.networkPage.avgLatency')}</p>
           </div>
           <div className="text-center p-3 sm:p-4 bg-slate-50 dark:bg-[#0B1120] rounded-lg sm:rounded-xl">
             <p className="text-lg sm:text-2xl font-bold font-mono text-emerald-500">{shards.length || 8}</p>
-            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">활성 샤드</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">{t('userPage.networkPage.activeShards')}</p>
           </div>
           <div className="text-center p-3 sm:p-4 bg-slate-50 dark:bg-[#0B1120] rounded-lg sm:rounded-xl">
             <p className="text-lg sm:text-2xl font-bold font-mono text-orange-500">{networkStats?.blockTimeP99?.toFixed(2) || "0.8"}s</p>
-            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">P99 블록 시간</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-gray-400">{t('userPage.networkPage.p99BlockTime')}</p>
           </div>
         </div>
       </div>
