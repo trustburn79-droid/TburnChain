@@ -3,6 +3,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/components/theme-provider";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
@@ -793,13 +794,15 @@ function DashboardSection({
   onRefresh: () => void;
   onConnectWallet: () => void;
 }) {
+  const { t } = useTranslation();
+
   const getEventTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      airdrop: '에어드랍',
-      campaign: '캠페인',
-      governance_reward: '거버넌스',
-      referral: '친구초대',
-      bug_bounty: '버그바운티',
+      airdrop: t('userPage.airdrop'),
+      campaign: t('userPage.campaign'),
+      governance_reward: t('userPage.governance'),
+      referral: t('userPage.referral'),
+      bug_bounty: 'Bug Bounty',
     };
     return labels[type] || type;
   };
@@ -812,10 +815,10 @@ function DashboardSection({
       expired: 'bg-slate-100 text-slate-500 dark:bg-slate-500/20 dark:text-slate-400',
     };
     const labels: Record<string, string> = {
-      claimed: '수령완료',
-      eligible: '수령가능',
-      pending: '진행중',
-      expired: '만료됨',
+      claimed: t('userPage.claimed'),
+      eligible: t('userPage.eligible'),
+      pending: t('common.pending'),
+      expired: t('userPage.expired'),
     };
     return <Badge className={styles[status] || styles.pending}>{labels[status] || status}</Badge>;
   };
@@ -838,20 +841,20 @@ function DashboardSection({
       <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">
-            {isConnected ? "나의 자산 현황" : "TBURN 대시보드"}
+            {t('userPage.title')}
           </h2>
           <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">
-            {isConnected ? "보상, 스테이킹, 이벤트 참여 현황을 확인하세요." : "지갑을 연결하여 맞춤형 정보를 확인하세요."}
+            {isConnected ? t('userPage.pageDescription') : t('userPage.connectWalletDescription')}
           </p>
         </div>
         <div className="flex gap-2 w-full sm:w-auto">
           {!isConnected && (
             <Button onClick={onConnectWallet} className="flex-1 sm:flex-none bg-gradient-to-r from-blue-500 to-purple-600 text-sm" data-testid="button-connect-dashboard">
-              <Wallet className="w-4 h-4 mr-2" /> 지갑 연결
+              <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
             </Button>
           )}
           <Button variant="outline" onClick={onRefresh} data-testid="button-refresh" className="flex-1 sm:flex-none text-sm">
-            <RefreshCw className="w-4 h-4 mr-2" /> 새로고침
+            <RefreshCw className="w-4 h-4 mr-2" /> {t('common.refresh')}
           </Button>
         </div>
       </div>
@@ -864,12 +867,12 @@ function DashboardSection({
               <Wallet className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-900 dark:text-white">지갑을 연결하세요</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400">실제 자산과 보상을 확인할 수 있습니다</p>
+              <p className="text-sm font-medium text-slate-900 dark:text-white">{t('userPage.connectWallet')}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.connectWalletDescription')}</p>
             </div>
           </div>
           <Button onClick={onConnectWallet} size="sm" className="bg-gradient-to-r from-blue-500 to-purple-600 text-xs" data-testid="button-connect-cta">
-            <Wallet className="w-3 h-3 mr-1" /> 연결하기
+            <Wallet className="w-3 h-3 mr-1" /> {t('common.connect')}
           </Button>
         </div>
       )}
@@ -886,33 +889,33 @@ function DashboardSection({
         <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-white shadow-lg">
           <div className="flex items-center gap-2 mb-2">
             <Wallet className="w-4 h-4 sm:w-5 sm:h-5 opacity-80" />
-            <span className="text-xs sm:text-sm opacity-80">총 자산</span>
+            <span className="text-xs sm:text-sm opacity-80">{t('userPage.totalAssets')}</span>
           </div>
           <p className="text-xl sm:text-2xl font-bold font-mono">
             {isConnected ? (userOverview?.totalPortfolioValue || parseFloat(balance || "0").toFixed(2)) : "0.00"} TB
           </p>
           <p className="text-[10px] sm:text-xs opacity-70 mt-1">
-            유동: {isConnected ? (userOverview?.liquidBalance || balance || "0") : "0"} TB
+            {t('userPage.liquidBalance')}: {isConnected ? (userOverview?.liquidBalance || balance || "0") : "0"} TB
           </p>
         </div>
         
         <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-gray-800">
           <div className="flex items-center gap-2 mb-2">
             <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
-            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">스테이킹</span>
+            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">{t('userPage.staking')}</span>
           </div>
           <p className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white">
             {isConnected ? (userOverview?.totalStaked || "0") : "0"} TB
           </p>
           <p className="text-[10px] sm:text-xs text-slate-400 mt-1">
-            APY {isConnected ? (userOverview?.stakingRewards?.averageApy || "12.5") : "0.0"}%
+            {t('userPage.stakingAPY')} {isConnected ? (userOverview?.stakingRewards?.averageApy || "12.5") : "0.0"}%
           </p>
         </div>
         
         <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-emerald-200 dark:border-emerald-500/30">
           <div className="flex items-center gap-2 mb-2">
             <Award className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
-            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">미청구 보상</span>
+            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">{t('userPage.unclaimedRewards')}</span>
           </div>
           <p className="text-xl sm:text-2xl font-bold font-mono text-emerald-500">
             {isConnected ? (userOverview?.totalUnclaimedRewards || "0") : "0"} TB
@@ -923,20 +926,20 @@ function DashboardSection({
             data-testid="button-claim-all"
             disabled={!isConnected}
           >
-            전체 수령
+            {t('userPage.claimAll')}
           </Button>
         </div>
         
         <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-gray-800">
           <div className="flex items-center gap-2 mb-2">
             <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
-            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">이벤트 보상</span>
+            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">{t('userPage.eventRewards')}</span>
           </div>
           <p className="text-xl sm:text-2xl font-bold font-mono text-yellow-500">
             {isConnected ? (userOverview?.eventRewards?.claimable || "0") : "0"} TB
           </p>
           <p className="text-[10px] sm:text-xs text-slate-400 mt-1">
-            {isConnected ? (userOverview?.eventRewards?.eligibleEvents || 0) : 0}건 수령 가능
+            {t('userPage.eligibleEvents', { count: isConnected ? (userOverview?.eventRewards?.eligibleEvents || 0) : 0 })}
           </p>
         </div>
       </div>
@@ -948,22 +951,22 @@ function DashboardSection({
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
-              채굴 보상
+              {t('userPage.miningRewards')}
             </h3>
             <Badge variant="secondary" className="text-xs">
-              {isConnected ? (userMiningRewards?.rewards?.length || 0) : 0}건
+              {t('userPage.events', { count: isConnected ? (userMiningRewards?.rewards?.length || 0) : 0 })}
             </Badge>
           </div>
           
           <div className="grid grid-cols-2 gap-3 mb-4">
             <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
-              <p className="text-xs text-slate-500 dark:text-gray-400">총 획득</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.totalEarned')}</p>
               <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">
                 {isConnected ? (userOverview?.miningRewards?.total || "0") : "0"} TB
               </p>
             </div>
             <div className="p-3 bg-blue-50 dark:bg-blue-500/10 rounded-lg">
-              <p className="text-xs text-slate-500 dark:text-gray-400">미청구</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.unclaimed')}</p>
               <p className="text-lg font-bold font-mono text-blue-500">
                 {isConnected ? (userOverview?.miningRewards?.unclaimed || "0") : "0"} TB
               </p>
@@ -976,7 +979,7 @@ function DashboardSection({
                 <div className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full ${reward.claimed ? 'bg-slate-400' : 'bg-blue-500'}`} />
                   <span className="text-slate-600 dark:text-gray-300 text-xs">
-                    {reward.source === 'block_production' ? '블록 생성' : reward.source === 'validation' ? '검증' : '수수료 분배'}
+                    {reward.source === 'block_production' ? t('userPage.blockProduction') : reward.source === 'validation' ? t('userPage.validation') : t('userPage.feeDistribution')}
                   </span>
                 </div>
                 <span className={`font-mono font-medium ${reward.claimed ? 'text-slate-500' : 'text-blue-500'}`}>
@@ -985,7 +988,7 @@ function DashboardSection({
               </div>
             ))}
             {!isConnected && (
-              <p className="text-xs text-slate-400 text-center py-4">지갑 연결 시 보상 내역이 표시됩니다</p>
+              <p className="text-xs text-slate-400 text-center py-4">{t('userPage.noDataConnectWallet', { section: t('userPage.rewardsSection') })}</p>
             )}
           </div>
         </div>
@@ -995,22 +998,22 @@ function DashboardSection({
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
-              스테이킹 이자
+              {t('userPage.stakingInterest')}
             </h3>
             <Badge variant="secondary" className="text-xs">
-              {isConnected ? (userStakingPositions?.positions?.length || 0) : 0} 포지션
+              {t('userPage.positions', { count: isConnected ? (userStakingPositions?.positions?.length || 0) : 0 })}
             </Badge>
           </div>
           
           <div className="grid grid-cols-2 gap-3 mb-4">
             <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
-              <p className="text-xs text-slate-500 dark:text-gray-400">총 이자 수익</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.totalInterestEarned')}</p>
               <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">
                 {isConnected ? (userOverview?.stakingRewards?.total || "0") : "0"} TB
               </p>
             </div>
             <div className="p-3 bg-purple-50 dark:bg-purple-500/10 rounded-lg">
-              <p className="text-xs text-slate-500 dark:text-gray-400">대기중 보상</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.pendingRewards')}</p>
               <p className="text-lg font-bold font-mono text-purple-500">
                 {isConnected ? (userOverview?.pendingRewards || "0") : "0"} TB
               </p>
@@ -1022,7 +1025,7 @@ function DashboardSection({
               <div key={pos.id} className="flex items-center justify-between p-2 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-sm">
                 <div>
                   <p className="font-medium text-slate-900 dark:text-white text-xs">{pos.validatorName}</p>
-                  <p className="text-[10px] text-slate-400">{pos.stakedAmount} TB 스테이킹</p>
+                  <p className="text-[10px] text-slate-400">{pos.stakedAmount} TB {t('userPage.staked')}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-mono text-purple-500 font-medium">+{pos.pendingRewards} TB</p>
@@ -1031,7 +1034,7 @@ function DashboardSection({
               </div>
             ))}
             {!isConnected && (
-              <p className="text-xs text-slate-400 text-center py-4">지갑 연결 시 스테이킹 내역이 표시됩니다</p>
+              <p className="text-xs text-slate-400 text-center py-4">{t('userPage.noDataConnectWallet', { section: t('userPage.stakingSection') })}</p>
             )}
           </div>
         </div>
@@ -1044,10 +1047,10 @@ function DashboardSection({
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
-              이벤트 참여
+              {t('userPage.eventParticipation')}
             </h3>
             <Badge variant="secondary" className="text-xs">
-              {isConnected ? (userEvents?.summary?.total || 0) : 0}건
+              {t('userPage.events', { count: isConnected ? (userEvents?.summary?.total || 0) : 0 })}
             </Badge>
           </div>
           
@@ -1069,13 +1072,13 @@ function DashboardSection({
                 </div>
                 {event.status === 'eligible' && (
                   <Button size="sm" className="w-full mt-2 bg-yellow-500 hover:bg-yellow-600 text-xs h-7">
-                    보상 수령
+                    {t('userPage.claimReward')}
                   </Button>
                 )}
               </div>
             ))}
             {!isConnected && (
-              <p className="text-xs text-slate-400 text-center py-4">지갑 연결 시 이벤트 내역이 표시됩니다</p>
+              <p className="text-xs text-slate-400 text-center py-4">{t('userPage.noDataConnectWallet', { section: t('userPage.eventsSection') })}</p>
             )}
           </div>
         </div>
@@ -1085,10 +1088,10 @@ function DashboardSection({
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
-              최근 활동
+              {t('userPage.recentActivity')}
             </h3>
             <Button variant="ghost" size="sm" className="text-xs">
-              전체 보기 <ChevronRight className="w-3 h-3 ml-1" />
+              {t('userPage.viewAll')} <ChevronRight className="w-3 h-3 ml-1" />
             </Button>
           </div>
           
@@ -1125,7 +1128,7 @@ function DashboardSection({
               );
             })}
             {!isConnected && (
-              <p className="text-xs text-slate-400 text-center py-4">지갑 연결 시 활동 내역이 표시됩니다</p>
+              <p className="text-xs text-slate-400 text-center py-4">{t('userPage.noDataConnectWallet', { section: t('userPage.activitySection') })}</p>
             )}
           </div>
         </div>
