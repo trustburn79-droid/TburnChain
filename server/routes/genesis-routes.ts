@@ -2,6 +2,12 @@ import { Router, Request, Response } from "express";
 import { storage } from "../storage";
 import crypto from "crypto";
 import { getEnterpriseNode } from "../services/TBurnEnterpriseNode";
+import { 
+  generateSystemAddress, 
+  generateValidatorAddress,
+  SYSTEM_ADDRESSES,
+  SIGNER_ADDRESSES 
+} from "../utils/tburn-address";
 
 const router = Router();
 
@@ -165,7 +171,7 @@ function initializeDefaultDistribution(configId: string): GenesisDistributionIte
       category: "ecosystem",
       subcategory: "development",
       recipientName: "Ecosystem Development Fund",
-      recipientAddress: "tburn1ecosystem0000000000000000000000000000",
+      recipientAddress: SYSTEM_ADDRESSES.ECOSYSTEM,
       recipientType: "multisig",
       amount: (totalSupplyWei * BigInt(25) / BigInt(100)).toString(), // 25%
       percentage: 2500,
@@ -182,7 +188,7 @@ function initializeDefaultDistribution(configId: string): GenesisDistributionIte
       category: "staking_rewards",
       subcategory: "validator_incentives",
       recipientName: "Staking Rewards Pool",
-      recipientAddress: "tburn1staking00000000000000000000000000000",
+      recipientAddress: SYSTEM_ADDRESSES.STAKING,
       recipientType: "contract",
       amount: (totalSupplyWei * BigInt(32) / BigInt(100)).toString(), // 32%
       percentage: 3200,
@@ -196,7 +202,7 @@ function initializeDefaultDistribution(configId: string): GenesisDistributionIte
       category: "team",
       subcategory: "core_team",
       recipientName: "Team & Advisors",
-      recipientAddress: "tburn1team0000000000000000000000000000000",
+      recipientAddress: generateSystemAddress('tburn-team-advisors'),
       recipientType: "multisig",
       amount: (totalSupplyWei * BigInt(15) / BigInt(100)).toString(), // 15%
       percentage: 1500,
@@ -213,7 +219,7 @@ function initializeDefaultDistribution(configId: string): GenesisDistributionIte
       category: "foundation",
       subcategory: "treasury",
       recipientName: "TBURN Foundation Treasury",
-      recipientAddress: "tburn1treasury000000000000000000000000000",
+      recipientAddress: SYSTEM_ADDRESSES.TREASURY,
       recipientType: "multisig",
       amount: (totalSupplyWei * BigInt(10) / BigInt(100)).toString(), // 10%
       percentage: 1000,
@@ -230,7 +236,7 @@ function initializeDefaultDistribution(configId: string): GenesisDistributionIte
       category: "liquidity",
       subcategory: "dex_liquidity",
       recipientName: "Initial Liquidity Pool",
-      recipientAddress: "tburn1liquidity00000000000000000000000000",
+      recipientAddress: SYSTEM_ADDRESSES.LIQUIDITY,
       recipientType: "contract",
       amount: (totalSupplyWei * BigInt(8) / BigInt(100)).toString(), // 8%
       percentage: 800,
@@ -244,7 +250,7 @@ function initializeDefaultDistribution(configId: string): GenesisDistributionIte
       category: "public_sale",
       subcategory: "ieo_ido",
       recipientName: "Public Sale Allocation",
-      recipientAddress: "tburn1publicsale000000000000000000000000",
+      recipientAddress: SYSTEM_ADDRESSES.PUBLIC_SALE,
       recipientType: "contract",
       amount: (totalSupplyWei * BigInt(5) / BigInt(100)).toString(), // 5%
       percentage: 500,
@@ -258,7 +264,7 @@ function initializeDefaultDistribution(configId: string): GenesisDistributionIte
       category: "reserve",
       subcategory: "emergency_fund",
       recipientName: "Strategic Reserve",
-      recipientAddress: "tburn1reserve00000000000000000000000000000",
+      recipientAddress: SYSTEM_ADDRESSES.RESERVE,
       recipientType: "multisig",
       amount: (totalSupplyWei * BigInt(5) / BigInt(100)).toString(), // 5%
       percentage: 500,
@@ -278,7 +284,7 @@ function initializeDefaultApprovers(configId: string): GenesisApprovalItem[] {
     {
       id: crypto.randomUUID(),
       configId,
-      signerAddress: "tburn1ceo000000000000000000000000000000000",
+      signerAddress: SIGNER_ADDRESSES.CEO,
       signerName: "CEO",
       signerRole: "ceo",
       signerOrder: 1,
@@ -289,7 +295,7 @@ function initializeDefaultApprovers(configId: string): GenesisApprovalItem[] {
     {
       id: crypto.randomUUID(),
       configId,
-      signerAddress: "tburn1cto000000000000000000000000000000000",
+      signerAddress: SIGNER_ADDRESSES.CTO,
       signerName: "CTO",
       signerRole: "cto",
       signerOrder: 2,
@@ -300,7 +306,7 @@ function initializeDefaultApprovers(configId: string): GenesisApprovalItem[] {
     {
       id: crypto.randomUUID(),
       configId,
-      signerAddress: "tburn1cfo000000000000000000000000000000000",
+      signerAddress: SIGNER_ADDRESSES.CFO,
       signerName: "CFO",
       signerRole: "cfo",
       signerOrder: 3,
@@ -311,7 +317,7 @@ function initializeDefaultApprovers(configId: string): GenesisApprovalItem[] {
     {
       id: crypto.randomUUID(),
       configId,
-      signerAddress: "tburn1legal0000000000000000000000000000000",
+      signerAddress: SIGNER_ADDRESSES.LEGAL,
       signerName: "Legal Counsel",
       signerRole: "legal",
       signerOrder: 4,
@@ -322,7 +328,7 @@ function initializeDefaultApprovers(configId: string): GenesisApprovalItem[] {
     {
       id: crypto.randomUUID(),
       configId,
-      signerAddress: "tburn1security00000000000000000000000000000",
+      signerAddress: generateSystemAddress('tburn-signer-security'),
       signerName: "Security Officer",
       signerRole: "security",
       signerOrder: 5,
@@ -366,7 +372,7 @@ function initializeDefaultValidators(configId: string): GenesisValidator[] {
     validators.push({
       id: crypto.randomUUID(),
       configId,
-      address: `tburn1validator${String(i + 1).padStart(4, '0')}000000000000000000`,
+      address: generateValidatorAddress(i + 1),
       name: validatorNames[i],
       description: `Genesis validator node ${i + 1} for TBURN mainnet launch`,
       initialStake: baseStake.toString(),
