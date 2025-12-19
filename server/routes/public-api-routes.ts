@@ -79,7 +79,7 @@ function generateConsistentTxHash(blockNumber: number, index: number): string {
 }
 
 /**
- * Generates consistent address based on seed
+ * Generates consistent address based on seed (tburn format)
  */
 function generateConsistentAddress(seed: number): string {
   const hexParts = [
@@ -88,7 +88,8 @@ function generateConsistentAddress(seed: number): string {
     ((seed * 4219) % 256).toString(16).padStart(2, '0'),
     ((seed * 2137) % 256).toString(16).padStart(2, '0'),
   ];
-  return `0x${hexParts.join('')}${'0'.repeat(40 - hexParts.join('').length)}`;
+  const hexSuffix = `${hexParts.join('')}${'0'.repeat(40 - hexParts.join('').length)}`;
+  return `tburn${hexSuffix}`;
 }
 
 function setCacheHeaders(res: Response, maxAge: number) {
@@ -1309,7 +1310,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
         id: 'tburn',
         symbol: 'TBURN',
         name: 'TBURN Token',
-        address: '0x0000000000000000000000000000000000000001',
+        address: addressFromString('tburn-native-token'),
         decimals: 18,
         totalSupply: '1000000000000000000000000000',
         circulatingSupply: '500000000000000000000000000',
@@ -1328,7 +1329,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
         id: 'emb',
         symbol: 'EMB',
         name: 'Ember Gas Token',
-        address: '0x0000000000000000000000000000000000000002',
+        address: addressFromString('ember-gas-token'),
         decimals: 18,
         totalSupply: '1000000000000000000000000000000000',
         circulatingSupply: '750000000000000000000000000000000',
@@ -1347,7 +1348,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
         id: 'stburn',
         symbol: 'stTBURN',
         name: 'Staked TBURN',
-        address: '0x1234567890123456789012345678901234567890',
+        address: addressFromString('staked-tburn-token'),
         decimals: 18,
         totalSupply: '350000000000000000000000000',
         circulatingSupply: '350000000000000000000000000',
@@ -1366,7 +1367,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
         id: 'usdt',
         symbol: 'USDT',
         name: 'Tether USD (TBURN)',
-        address: '0x2345678901234567890123456789012345678901',
+        address: addressFromString('usdt-tburn-bridge'),
         decimals: 6,
         totalSupply: '1000000000000000',
         circulatingSupply: '850000000000000',
@@ -1385,7 +1386,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
         id: 'usdc',
         symbol: 'USDC',
         name: 'USD Coin (TBURN)',
-        address: '0x3456789012345678901234567890123456789012',
+        address: addressFromString('usdc-tburn-bridge'),
         decimals: 6,
         totalSupply: '750000000000000',
         circulatingSupply: '700000000000000',
@@ -1404,7 +1405,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
         id: 'weth',
         symbol: 'WETH',
         name: 'Wrapped Ether (TBURN)',
-        address: '0x4567890123456789012345678901234567890123',
+        address: addressFromString('weth-tburn-bridge'),
         decimals: 18,
         totalSupply: '50000000000000000000000',
         circulatingSupply: '45000000000000000000000',
@@ -1423,7 +1424,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
         id: 'wbtc',
         symbol: 'WBTC',
         name: 'Wrapped Bitcoin (TBURN)',
-        address: '0x5678901234567890123456789012345678901234',
+        address: addressFromString('wbtc-tburn-bridge'),
         decimals: 8,
         totalSupply: '250000000000',
         circulatingSupply: '220000000000',
@@ -1442,7 +1443,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
         id: 'lp-tburn-usdt',
         symbol: 'LP-TBURN-USDT',
         name: 'TBURN-USDT LP Token',
-        address: '0x6789012345678901234567890123456789012345',
+        address: addressFromString('tburn-usdt-lp-token'),
         decimals: 18,
         totalSupply: '25000000000000000000000000',
         circulatingSupply: '25000000000000000000000000',
@@ -1708,11 +1709,11 @@ router.get('/testnet/tokens', async (req: Request, res: Response) => {
     setCacheHeaders(res, CACHE_MEDIUM);
     
     const tokens = [
-      { address: '0x0001000000000000000000000000000000000001', name: 'Test TBURN', symbol: 'tTBURN', decimals: 18, totalSupply: '1000000000000000000000000000', holders: 5678, price: 0, change24h: 0 },
-      { address: '0x0002000000000000000000000000000000000002', name: 'Test USDT', symbol: 'tUSDT', decimals: 6, totalSupply: '500000000000000', holders: 3456, price: 1.0, change24h: 0.01 },
-      { address: '0x0003000000000000000000000000000000000003', name: 'Test USDC', symbol: 'tUSDC', decimals: 6, totalSupply: '450000000000000', holders: 2987, price: 1.0, change24h: -0.02 },
-      { address: '0x0004000000000000000000000000000000000004', name: 'Test Wrapped BTC', symbol: 'tWBTC', decimals: 8, totalSupply: '21000000000000', holders: 1234, price: 0, change24h: 0 },
-      { address: '0x0005000000000000000000000000000000000005', name: 'Test Wrapped ETH', symbol: 'tWETH', decimals: 18, totalSupply: '100000000000000000000000', holders: 2345, price: 0, change24h: 0 }
+      { address: addressFromString('testnet-tburn-token'), name: 'Test TBURN', symbol: 'tTBURN', decimals: 18, totalSupply: '1000000000000000000000000000', holders: 5678, price: 0, change24h: 0 },
+      { address: addressFromString('testnet-usdt-token'), name: 'Test USDT', symbol: 'tUSDT', decimals: 6, totalSupply: '500000000000000', holders: 3456, price: 1.0, change24h: 0.01 },
+      { address: addressFromString('testnet-usdc-token'), name: 'Test USDC', symbol: 'tUSDC', decimals: 6, totalSupply: '450000000000000', holders: 2987, price: 1.0, change24h: -0.02 },
+      { address: addressFromString('testnet-wbtc-token'), name: 'Test Wrapped BTC', symbol: 'tWBTC', decimals: 8, totalSupply: '21000000000000', holders: 1234, price: 0, change24h: 0 },
+      { address: addressFromString('testnet-weth-token'), name: 'Test Wrapped ETH', symbol: 'tWETH', decimals: 18, totalSupply: '100000000000000000000000', holders: 2345, price: 0, change24h: 0 }
     ];
     
     res.json({ success: true, data: tokens, lastUpdated: Date.now() });
