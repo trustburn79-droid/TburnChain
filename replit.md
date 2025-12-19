@@ -45,14 +45,17 @@ Core architectural decisions and features include:
 ## 366-Day Stability Architecture
 
 ### Event Loop Protection (Server-Side)
-1. **Execution Overlap Guards**: All 54 `createTrackedInterval` intervals in TBurnEnterpriseNode use `isRunning` flags with try-finally blocks to prevent interval stacking when previous execution hasn't completed.
+1. **Execution Overlap Guards**: The `createTrackedInterval` helper function (server/routes.ts lines 69-110) wraps all 54+ intervals with automatic overlap protection. Each interval is tracked in `intervalExecutionState` Map with `isRunning` flags. The guardedCallback wrapper:
+   - Checks `state.isRunning` and skips execution if previous run is still active
+   - Logs warnings every 10 skips to track overlap frequency
+   - Uses try-finally to ensure `isRunning` is reset even on errors
    ```typescript
-   let isRunning = false;
-   createTrackedInterval(async () => {
-     if (isRunning) return; // Skip if previous still running
-     isRunning = true;
-     try { /* work */ } finally { isRunning = false; }
-   }, interval);
+   // Built into createTrackedInterval - no manual guards needed
+   const guardedCallback = async () => {
+     if (state.isRunning) { state.skipCount++; return; }
+     state.isRunning = true;
+     try { await callback(); } finally { state.isRunning = false; }
+   };
    ```
 
 2. **Circuit Breaker Pattern**: ProductionDataPoller implements circuit breaker with:
