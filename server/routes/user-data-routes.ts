@@ -657,6 +657,89 @@ router.get('/:address/delegations', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// Claim All Rewards (Mining + Staking + Events)
+// ============================================
+router.post('/:address/claim-all', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    
+    // Validate address format (supports both legacy 0x and new tb1 Bech32m)
+    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    // Calculate total claimable rewards
+    const miningRewards = generateMiningRewards(address);
+    const stakingPositions = generateStakingPositions(address);
+    const stakingRewards = generateStakingRewards(address);
+    const events = generateEventParticipation(address);
+    
+    // Sum unclaimed rewards
+    const unclaimedMining = miningRewards
+      .filter(r => !r.claimed)
+      .reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0);
+    
+    const pendingStaking = stakingPositions
+      .reduce((sum, p) => sum + parseFloat(p.pendingRewards || '0'), 0);
+    
+    const unclaimedStakingRewards = stakingRewards
+      .filter(r => !r.claimed)
+      .reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0);
+    
+    const claimableEvents = events
+      .filter(e => e.status === 'eligible' || e.status === 'pending')
+      .reduce((sum, e) => sum + parseFloat(e.rewardAmount || '0'), 0);
+    
+    const totalClaimed = (unclaimedMining + pendingStaking + unclaimedStakingRewards + claimableEvents).toFixed(4);
+    
+    // Generate claim transaction hash
+    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    
+    res.json({
+      success: true,
+      totalClaimed,
+      breakdown: {
+        miningRewards: unclaimedMining.toFixed(4),
+        stakingRewards: (pendingStaking + unclaimedStakingRewards).toFixed(4),
+        eventRewards: claimableEvents.toFixed(4),
+      },
+      txHash,
+      message: `Successfully claimed ${totalClaimed} TBURN to your wallet`,
+    });
+  } catch (error: any) {
+    console.error('[UserData] Claim all error:', error);
+    res.status(500).json({ success: false, error: 'Failed to claim rewards' });
+  }
+});
+
+// ============================================
+// Claim Individual Reward
+// ============================================
+router.post('/:address/claim/:rewardId', async (req: Request, res: Response) => {
+  try {
+    const { address, rewardId } = req.params;
+    
+    // Validate address format
+    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    // Simulate claiming a specific reward
+    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    
+    res.json({
+      success: true,
+      rewardId,
+      txHash,
+      message: `Successfully claimed reward ${rewardId}`,
+    });
+  } catch (error: any) {
+    console.error('[UserData] Claim reward error:', error);
+    res.status(500).json({ success: false, error: 'Failed to claim reward' });
+  }
+});
+
 export function registerUserDataRoutes(app: any) {
   app.use('/api/user', router);
   console.log('[UserData] Routes registered successfully');

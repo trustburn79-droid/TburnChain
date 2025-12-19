@@ -274,6 +274,22 @@ export default function UserPage() {
   const trustScoreCanvasRef = useRef<HTMLCanvasElement>(null);
   const [blockFeed, setBlockFeed] = useState<Block[]>([]);
   const [walletModalOpen, setWalletModalOpen] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+
+  const handleNotificationClick = () => {
+    setNotificationsEnabled(!notificationsEnabled);
+    toast({
+      title: notificationsEnabled ? t('userPage.notifications.disabled') : t('userPage.notifications.enabled'),
+      description: notificationsEnabled ? t('userPage.notifications.disabledDesc') : t('userPage.notifications.enabledDesc'),
+    });
+  };
+
+  const handleSettingsClick = () => {
+    toast({
+      title: t('userPage.settings.title'),
+      description: t('userPage.settings.comingSoon'),
+    });
+  };
   
   const {
     isConnected,
@@ -703,10 +719,25 @@ export default function UserPage() {
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
             <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
-            <Button variant="ghost" size="icon" className="hidden sm:flex h-8 w-8 lg:h-9 lg:w-9">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="hidden sm:flex h-8 w-8 lg:h-9 lg:w-9 relative"
+              onClick={handleNotificationClick}
+              data-testid="button-notifications"
+            >
               <Bell className="w-4 h-4" />
+              {notificationsEnabled && (
+                <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full" />
+              )}
             </Button>
-            <Button variant="ghost" size="icon" className="hidden sm:flex h-8 w-8 lg:h-9 lg:w-9">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="hidden sm:flex h-8 w-8 lg:h-9 lg:w-9"
+              onClick={handleSettingsClick}
+              data-testid="button-settings"
+            >
               <Settings className="w-4 h-4" />
             </Button>
           </div>
@@ -809,6 +840,41 @@ function DashboardSection({
   onConnectWallet: () => void;
 }) {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const [isClaimingAll, setIsClaimingAll] = useState(false);
+
+  const handleClaimAll = async () => {
+    if (!isConnected || !address) {
+      toast({ title: t('userPage.toast.walletRequired'), description: t('userPage.toast.connectFirst'), variant: "destructive" });
+      return;
+    }
+    
+    setIsClaimingAll(true);
+    try {
+      const response = await apiRequest('POST', `/api/user/${address}/claim-all`, {});
+      const data = await response.json();
+      
+      if (data.success) {
+        toast({ 
+          title: t('userPage.toast.claimSuccess'), 
+          description: t('userPage.toast.claimSuccessDesc', { amount: data.totalClaimed || userOverview?.totalUnclaimedRewards || "0" })
+        });
+        queryClient.invalidateQueries({ queryKey: ['/api/user', address] });
+        onRefresh();
+      } else {
+        throw new Error(data.message || 'Claim failed');
+      }
+    } catch (error: any) {
+      toast({ 
+        title: t('userPage.toast.claimError'), 
+        description: error?.message || t('userPage.toast.claimErrorDesc'),
+        variant: "destructive" 
+      });
+    } finally {
+      setIsClaimingAll(false);
+    }
+  };
 
   const getEventTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
@@ -938,9 +1004,14 @@ function DashboardSection({
             size="sm" 
             className="mt-2 w-full bg-emerald-500 hover:bg-emerald-600 text-xs h-7" 
             data-testid="button-claim-all"
-            disabled={!isConnected}
+            disabled={!isConnected || isClaimingAll}
+            onClick={handleClaimAll}
           >
-            {t('userPage.claimAll')}
+            {isClaimingAll ? (
+              <><Loader2 className="w-3 h-3 mr-1 animate-spin" /> {t('userPage.claiming')}</>
+            ) : (
+              t('userPage.claimAll')
+            )}
           </Button>
         </div>
         

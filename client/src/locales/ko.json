@@ -7480,7 +7480,17 @@
             "title": "신뢰 점수 시스템",
             "description": "신뢰 검증 이해하기"
           },
-          "wallet": {
+          "notifications": {
+      "enabled": "알림 켜짐",
+      "disabled": "알림 꺼짐",
+      "enabledDesc": "알림이 활성화되었습니다.",
+      "disabledDesc": "알림이 비활성화되었습니다."
+    },
+    "settings": {
+      "title": "설정",
+      "comingSoon": "설정 기능이 곧 추가됩니다."
+    },
+    "wallet": {
             "title": "지갑이란?",
             "description": "지갑 기초"
           },
@@ -7969,7 +7979,17 @@
             "title": "신뢰도 점수 시스템",
             "description": "3단계 검증 이해하기"
           },
-          "wallet": {
+          "notifications": {
+      "enabled": "알림 켜짐",
+      "disabled": "알림 꺼짐",
+      "enabledDesc": "알림이 활성화되었습니다.",
+      "disabledDesc": "알림이 비활성화되었습니다."
+    },
+    "settings": {
+      "title": "설정",
+      "comingSoon": "설정 기능이 곧 추가됩니다."
+    },
+    "wallet": {
             "title": "지갑이란?",
             "description": "디지털 자산 보호하기"
           },
@@ -8337,7 +8357,17 @@
           "title": "제목"
         }
       },
-      "wallet": {
+      "notifications": {
+      "enabled": "알림 켜짐",
+      "disabled": "알림 꺼짐",
+      "enabledDesc": "알림이 활성화되었습니다.",
+      "disabledDesc": "알림이 비활성화되었습니다."
+    },
+    "settings": {
+      "title": "설정",
+      "comingSoon": "설정 기능이 곧 추가됩니다."
+    },
+    "wallet": {
         "tag": "시작하기",
         "title": "지갑이란?",
         "subtitle": "암호화폐 지갑, 보안 모범 사례, TBurn 지갑 설정 방법에 대해 알아보세요.",
@@ -10115,7 +10145,17 @@
               "open": "열기 browser automatically"
             }
           },
-          "wallet": {
+          "notifications": {
+      "enabled": "알림 켜짐",
+      "disabled": "알림 꺼짐",
+      "enabledDesc": "알림이 활성화되었습니다.",
+      "disabledDesc": "알림이 비활성화되었습니다."
+    },
+    "settings": {
+      "title": "설정",
+      "comingSoon": "설정 기능이 곧 추가됩니다."
+    },
+    "wallet": {
             "desc": "지갑 management commands",
             "options": {
               "create": "새 지갑 생성",
@@ -15699,7 +15739,17 @@
               "title": "4.1 계정 Creation",
               "content": "You agree to provide accurate information, maintain its confidentiality, and notify us immediately of any unauthorized access."
             },
-            "wallet": {
+            "notifications": {
+      "enabled": "알림 켜짐",
+      "disabled": "알림 꺼짐",
+      "enabledDesc": "알림이 활성화되었습니다.",
+      "disabledDesc": "알림이 비활성화되었습니다."
+    },
+    "settings": {
+      "title": "설정",
+      "comingSoon": "설정 기능이 곧 추가됩니다."
+    },
+    "wallet": {
               "title": "4.2 지갑 보안",
               "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
               "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
@@ -16245,7 +16295,17 @@
             "verificationProcess": "Verification Process",
             "verificationProcessDescription": "Our 4-step verification workflow"
           },
-          "wallet": {
+          "notifications": {
+      "enabled": "알림 켜짐",
+      "disabled": "알림 꺼짐",
+      "enabledDesc": "알림이 활성화되었습니다.",
+      "disabledDesc": "알림이 비활성화되었습니다."
+    },
+    "settings": {
+      "title": "설정",
+      "comingSoon": "설정 기능이 곧 추가됩니다."
+    },
+    "wallet": {
             "title": "What is a 지갑?",
             "subtitle": "지갑 basics",
             "forumTitle": "커뮤니티 포럼",
@@ -26161,7 +26221,17 @@
     "connected": "연결됨",
     "disconnected": "연결 끊김"
   },
-  "wallet": {
+  "notifications": {
+      "enabled": "알림 켜짐",
+      "disabled": "알림 꺼짐",
+      "enabledDesc": "알림이 활성화되었습니다.",
+      "disabledDesc": "알림이 비활성화되었습니다."
+    },
+    "settings": {
+      "title": "설정",
+      "comingSoon": "설정 기능이 곧 추가됩니다."
+    },
+    "wallet": {
     "connectWallet": "지갑 연결",
     "connectDesc": "DeFi 기능, 스테이킹, 거버넌스에 접근하려면 지갑을 연결하세요",
     "browserWallets": "브라우저 지갑",
@@ -26698,7 +26768,22 @@
       "walletRequired": "지갑 연결 필요",
       "walletRequiredTransfer": "전송을 위해 지갑을 연결해주세요.",
       "walletRequiredVote": "투표를 위해 지갑을 연결해주세요.",
-      "inputRequired": "입력 필요"
+      "inputRequired": "입력 필요",
+      "connectFirst": "먼저 지갑을 연결해주세요",
+      "claimSuccess": "보상 수령 완료",
+      "claimSuccessDesc": "{{amount}} TBURN이 지갑으로 전송되었습니다",
+      "claimError": "보상 수령 실패",
+      "claimErrorDesc": "보상을 수령하는 중 오류가 발생했습니다. 다시 시도해주세요."
+    },
+    "notifications": {
+      "enabled": "알림 켜짐",
+      "disabled": "알림 꺼짐",
+      "enabledDesc": "알림이 활성화되었습니다.",
+      "disabledDesc": "알림이 비활성화되었습니다."
+    },
+    "settings": {
+      "title": "설정",
+      "comingSoon": "설정 기능이 곧 추가됩니다."
     },
     "wallet": {
       "title": "지갑 & 전송",

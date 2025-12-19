@@ -7265,7 +7265,17 @@
             "title": "Trust Score System",
             "description": "Understand trust verification"
           },
-          "wallet": {
+          "notifications": {
+      "enabled": "Notifications Enabled",
+      "disabled": "Notifications Disabled",
+      "enabledDesc": "You will receive notifications.",
+      "disabledDesc": "Notifications have been turned off."
+    },
+    "settings": {
+      "title": "Settings",
+      "comingSoon": "Settings feature coming soon."
+    },
+    "wallet": {
             "title": "What is a Wallet?",
             "description": "Wallet basics"
           },
@@ -7747,7 +7757,17 @@
             "title": "Trust Score System",
             "description": "Understanding the 3-stage verification"
           },
-          "wallet": {
+          "notifications": {
+      "enabled": "Notifications Enabled",
+      "disabled": "Notifications Disabled",
+      "enabledDesc": "You will receive notifications.",
+      "disabledDesc": "Notifications have been turned off."
+    },
+    "settings": {
+      "title": "Settings",
+      "comingSoon": "Settings feature coming soon."
+    },
+    "wallet": {
             "title": "What is a Wallet?",
             "description": "Secure your digital assets"
           },
@@ -8085,7 +8105,17 @@
           }
         }
       },
-      "wallet": {
+      "notifications": {
+      "enabled": "Notifications Enabled",
+      "disabled": "Notifications Disabled",
+      "enabledDesc": "You will receive notifications.",
+      "disabledDesc": "Notifications have been turned off."
+    },
+    "settings": {
+      "title": "Settings",
+      "comingSoon": "Settings feature coming soon."
+    },
+    "wallet": {
         "tag": "GETTING STARTED",
         "title": "What is a Wallet?",
         "subtitle": "Learn about cryptocurrency wallets, security best practices, and how to set up your TBurn wallet.",
@@ -9753,7 +9783,17 @@
             "description": "네트워크에 배포",
             "usage": "tburn deploy --network mainnet"
           },
-          "wallet": {
+          "notifications": {
+      "enabled": "Notifications Enabled",
+      "disabled": "Notifications Disabled",
+      "enabledDesc": "You will receive notifications.",
+      "disabledDesc": "Notifications have been turned off."
+    },
+    "settings": {
+      "title": "Settings",
+      "comingSoon": "Settings feature coming soon."
+    },
+    "wallet": {
             "desc": "Wallet management commands",
             "options": {
               "create": "Create new wallet",
@@ -15075,7 +15115,17 @@
               }
             }
           },
-          "wallet": {
+          "notifications": {
+      "enabled": "Notifications Enabled",
+      "disabled": "Notifications Disabled",
+      "enabledDesc": "You will receive notifications.",
+      "disabledDesc": "Notifications have been turned off."
+    },
+    "settings": {
+      "title": "Settings",
+      "comingSoon": "Settings feature coming soon."
+    },
+    "wallet": {
             "title": "What is a Wallet?",
             "subtitle": "Wallet basics",
             "subtitleSecurity": "Securing your assets"
@@ -15163,7 +15213,17 @@
               "title": "4.1 Account Creation",
               "content": "You agree to provide accurate information, maintain its confidentiality, and notify us immediately of any unauthorized access."
             },
-            "wallet": {
+            "notifications": {
+      "enabled": "Notifications Enabled",
+      "disabled": "Notifications Disabled",
+      "enabledDesc": "You will receive notifications.",
+      "disabledDesc": "Notifications have been turned off."
+    },
+    "settings": {
+      "title": "Settings",
+      "comingSoon": "Settings feature coming soon."
+    },
+    "wallet": {
               "title": "4.2 Wallet Security",
               "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
               "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
@@ -25056,7 +25116,17 @@
     "connected": "Connected",
     "disconnected": "Disconnected"
   },
-  "wallet": {
+  "notifications": {
+      "enabled": "Notifications Enabled",
+      "disabled": "Notifications Disabled",
+      "enabledDesc": "You will receive notifications.",
+      "disabledDesc": "Notifications have been turned off."
+    },
+    "settings": {
+      "title": "Settings",
+      "comingSoon": "Settings feature coming soon."
+    },
+    "wallet": {
     "connectWallet": "Connect Wallet",
     "connectDesc": "Connect your wallet to access DeFi features, staking, and governance",
     "browserWallets": "Browser Wallets",
@@ -25469,7 +25539,22 @@
       "walletRequired": "Wallet Required",
       "walletRequiredTransfer": "Please connect wallet to transfer.",
       "walletRequiredVote": "Please connect wallet to vote.",
-      "inputRequired": "Input Required"
+      "inputRequired": "Input Required",
+      "connectFirst": "Please connect your wallet first",
+      "claimSuccess": "Rewards Claimed",
+      "claimSuccessDesc": "{{amount}} TBURN has been transferred to your wallet",
+      "claimError": "Claim Failed",
+      "claimErrorDesc": "An error occurred while claiming rewards. Please try again."
+    },
+    "notifications": {
+      "enabled": "Notifications Enabled",
+      "disabled": "Notifications Disabled",
+      "enabledDesc": "You will receive notifications.",
+      "disabledDesc": "Notifications have been turned off."
+    },
+    "settings": {
+      "title": "Settings",
+      "comingSoon": "Settings feature coming soon."
     },
     "wallet": {
       "title": "Wallet & Transfer",
