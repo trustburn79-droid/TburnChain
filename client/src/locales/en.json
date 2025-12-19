@@ -25642,6 +25642,42 @@
       "claimSuccess": "Rewards Claimed",
       "claimedSuccessfully": "successfully claimed"
     },
-    "networkStatus": "Network Status"
+    "networkStatus": "Network Status",
+    "validatorTiers": {
+      "title": "Validator Application",
+      "description": "Become a TBURN mainnet validator and earn block rewards",
+      "tier1Name": "Active Committee",
+      "tier2Name": "Standby Validators",
+      "tier3Name": "Delegators",
+      "maxMembers": "Max {{count}} members",
+      "unlimited": "Unlimited",
+      "validators": "Validators",
+      "delegators": "Delegators",
+      "day": "day",
+      "applyForm": "Validator Application",
+      "selectedTier": "Tier {{tier}} Selected",
+      "selectTierAbove": "Please select a tier above",
+      "connectWalletToApply": "Connect Wallet to Apply",
+      "connectWalletDesc": "Please connect your wallet to participate as a validator",
+      "stakeAmount": "Stake Amount",
+      "available": "Available",
+      "selectedTierLabel": "Selected Tier",
+      "minRequirement": "Min Requirement",
+      "estimatedAPY": "Estimated APY",
+      "applyValidator": "Apply as Validator",
+      "applyDelegator": "Participate as Delegator",
+      "tierInfo": "Tier Requirements",
+      "tier1Info": "Tier 1 (Active Committee): 200,000+ TBURN required, max 512 members, block production and consensus",
+      "tier2Info": "Tier 2 (Standby Validators): 50,000+ TBURN required, max 4,488 members, standby for active validators",
+      "tier3Info": "Tier 3 (Delegators): 100+ TBURN required, unlimited, delegate tokens to validators",
+      "connectRequired": "Connection Required",
+      "connectWalletFirst": "Please connect your wallet first",
+      "selectTierFirst": "Tier Selection Required",
+      "selectTierDesc": "Please select a tier to participate",
+      "invalidAmount": "Invalid Amount",
+      "minStakeRequired": "Minimum {{amount}} TBURN required",
+      "applicationSubmitted": "Application Submitted",
+      "applicationProcessing": "Your application for {{tier}} with {{amount}} TBURN is being processed"
+    }
   }
 }

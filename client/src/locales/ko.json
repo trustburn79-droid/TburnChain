@@ -26871,6 +26871,42 @@
       "avgLatency": "평균 지연",
       "activeShards": "활성 샤드"
     },
-    "networkStatus": "네트워크 상태"
+    "networkStatus": "네트워크 상태",
+    "validatorTiers": {
+      "title": "검증자 신청",
+      "description": "TBURN 메인넷 검증자가 되어 블록 생성 보상을 받으세요",
+      "tier1Name": "활성 위원회",
+      "tier2Name": "대기 검증자",
+      "tier3Name": "위임자",
+      "maxMembers": "최대 {{count}}명",
+      "unlimited": "무제한",
+      "validators": "검증자",
+      "delegators": "위임자",
+      "day": "일",
+      "applyForm": "검증자 신청",
+      "selectedTier": "Tier {{tier}} 선택됨",
+      "selectTierAbove": "위에서 티어를 선택해주세요",
+      "connectWalletToApply": "신청하려면 지갑을 연결하세요",
+      "connectWalletDesc": "검증자로 참여하려면 지갑을 연결해주세요",
+      "stakeAmount": "스테이킹 금액",
+      "available": "사용 가능",
+      "selectedTierLabel": "선택된 티어",
+      "minRequirement": "최소 요건",
+      "estimatedAPY": "예상 APY",
+      "applyValidator": "검증자 신청하기",
+      "applyDelegator": "위임자로 참여하기",
+      "tierInfo": "티어별 요건 안내",
+      "tier1Info": "Tier 1 (활성 위원회): 200,000+ TBURN 필요, 최대 512명, 블록 생성 및 합의 참여",
+      "tier2Info": "Tier 2 (대기 검증자): 50,000+ TBURN 필요, 최대 4,488명, 활성 검증자 대기 상태",
+      "tier3Info": "Tier 3 (위임자): 100+ TBURN 필요, 무제한, 검증자에게 토큰 위임",
+      "connectRequired": "연결 필요",
+      "connectWalletFirst": "먼저 지갑을 연결해주세요",
+      "selectTierFirst": "티어 선택 필요",
+      "selectTierDesc": "먼저 참여할 티어를 선택해주세요",
+      "invalidAmount": "금액 오류",
+      "minStakeRequired": "최소 {{amount}} TBURN이 필요합니다",
+      "applicationSubmitted": "신청 완료",
+      "applicationProcessing": "{{tier}} 티어에 {{amount}} TBURN 신청이 처리 중입니다"
+    }
   }
 }

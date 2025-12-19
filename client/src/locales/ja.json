@@ -15595,6 +15595,42 @@
       "claimSuccess": "報酬請求完了",
       "claimedSuccessfully": "正常に請求されました"
     },
-    "networkStatus": "ネットワーク状態"
+    "networkStatus": "ネットワーク状態",
+    "validatorTiers": {
+      "title": "バリデーター申請",
+      "description": "TBURNメインネットバリデーターになってブロック報酬を獲得",
+      "tier1Name": "活性委員会",
+      "tier2Name": "待機バリデーター",
+      "tier3Name": "委任者",
+      "maxMembers": "最大{{count}}名",
+      "unlimited": "無制限",
+      "validators": "バリデーター",
+      "delegators": "委任者",
+      "day": "日",
+      "applyForm": "バリデーター申請",
+      "selectedTier": "Tier {{tier}} 選択済み",
+      "selectTierAbove": "上からティアを選択してください",
+      "connectWalletToApply": "申請にはウォレット接続が必要",
+      "connectWalletDesc": "バリデーターとして参加するにはウォレットを接続してください",
+      "stakeAmount": "ステーク金額",
+      "available": "利用可能",
+      "selectedTierLabel": "選択されたティア",
+      "minRequirement": "最低要件",
+      "estimatedAPY": "推定APY",
+      "applyValidator": "バリデーターとして申請",
+      "applyDelegator": "委任者として参加",
+      "tierInfo": "ティア別要件",
+      "tier1Info": "Tier 1 (活性委員会): 200,000+ TBURN必要、最大512名、ブロック生成と合意参加",
+      "tier2Info": "Tier 2 (待機バリデーター): 50,000+ TBURN必要、最大4,488名、アクティブバリデーター待機",
+      "tier3Info": "Tier 3 (委任者): 100+ TBURN必要、無制限、バリデーターにトークン委任",
+      "connectRequired": "接続が必要",
+      "connectWalletFirst": "まずウォレットを接続してください",
+      "selectTierFirst": "ティア選択必須",
+      "selectTierDesc": "参加するティアを選択してください",
+      "invalidAmount": "無効な金額",
+      "minStakeRequired": "最低{{amount}} TBURNが必要です",
+      "applicationSubmitted": "申請完了",
+      "applicationProcessing": "{{tier}}ティアへの{{amount}} TBURN申請を処理中"
+    }
   }
 }

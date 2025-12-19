@@ -12558,6 +12558,42 @@
       "claimSuccess": "تم استلام المكافآت",
       "claimedSuccessfully": "تم الاستلام بنجاح"
     },
-    "networkStatus": "حالة الشبكة"
+    "networkStatus": "حالة الشبكة",
+    "validatorTiers": {
+      "title": "طلب المدقق",
+      "description": "كن مدققاً على TBURN mainnet واحصل على مكافآت الكتل",
+      "tier1Name": "اللجنة النشطة",
+      "tier2Name": "مدققون احتياطيون",
+      "tier3Name": "المفوضون",
+      "maxMembers": "الحد الأقصى {{count}} عضو",
+      "unlimited": "غير محدود",
+      "validators": "المدققون",
+      "delegators": "المفوضون",
+      "day": "يوم",
+      "applyForm": "طلب المدقق",
+      "selectedTier": "تم اختيار Tier {{tier}}",
+      "selectTierAbove": "يرجى اختيار tier أعلاه",
+      "connectWalletToApply": "اتصل بالمحفظة للتقديم",
+      "connectWalletDesc": "يرجى توصيل محفظتك للمشاركة كمدقق",
+      "stakeAmount": "مبلغ التخزين",
+      "available": "متاح",
+      "selectedTierLabel": "Tier المحدد",
+      "minRequirement": "الحد الأدنى للمتطلبات",
+      "estimatedAPY": "APY المقدر",
+      "applyValidator": "التقديم كمدقق",
+      "applyDelegator": "المشاركة كمفوض",
+      "tierInfo": "متطلبات كل Tier",
+      "tier1Info": "Tier 1 (اللجنة النشطة): مطلوب 200,000+ TBURN، الحد الأقصى 512، إنتاج الكتل والإجماع",
+      "tier2Info": "Tier 2 (مدققون احتياطيون): مطلوب 50,000+ TBURN، الحد الأقصى 4,488، انتظار المدققين النشطين",
+      "tier3Info": "Tier 3 (المفوضون): مطلوب 100+ TBURN، غير محدود، تفويض الرموز للمدققين",
+      "connectRequired": "الاتصال مطلوب",
+      "connectWalletFirst": "يرجى توصيل محفظتك أولاً",
+      "selectTierFirst": "اختيار Tier مطلوب",
+      "selectTierDesc": "يرجى اختيار tier للمشاركة",
+      "invalidAmount": "مبلغ غير صالح",
+      "minStakeRequired": "مطلوب {{amount}} TBURN كحد أدنى",
+      "applicationSubmitted": "تم تقديم الطلب",
+      "applicationProcessing": "طلبك لـ {{tier}} بـ {{amount}} TBURN قيد المعالجة"
+    }
   }
 }

@@ -14719,6 +14719,42 @@
       "claimSuccess": "奖励已领取",
       "claimedSuccessfully": "领取成功"
     },
-    "networkStatus": "网络状态"
+    "networkStatus": "网络状态",
+    "validatorTiers": {
+      "title": "验证者申请",
+      "description": "成为TBURN主网验证者，赚取区块奖励",
+      "tier1Name": "活跃委员会",
+      "tier2Name": "待命验证者",
+      "tier3Name": "委托者",
+      "maxMembers": "最多{{count}}名",
+      "unlimited": "无限制",
+      "validators": "验证者",
+      "delegators": "委托者",
+      "day": "天",
+      "applyForm": "验证者申请",
+      "selectedTier": "已选择Tier {{tier}}",
+      "selectTierAbove": "请在上方选择层级",
+      "connectWalletToApply": "连接钱包以申请",
+      "connectWalletDesc": "请连接钱包以参与验证",
+      "stakeAmount": "质押金额",
+      "available": "可用",
+      "selectedTierLabel": "已选层级",
+      "minRequirement": "最低要求",
+      "estimatedAPY": "预估APY",
+      "applyValidator": "申请成为验证者",
+      "applyDelegator": "参与委托",
+      "tierInfo": "层级要求说明",
+      "tier1Info": "Tier 1 (活跃委员会): 需要200,000+ TBURN，最多512人，参与区块生产和共识",
+      "tier2Info": "Tier 2 (待命验证者): 需要50,000+ TBURN，最多4,488人，等待成为活跃验证者",
+      "tier3Info": "Tier 3 (委托者): 需要100+ TBURN，无限制，将代币委托给验证者",
+      "connectRequired": "需要连接",
+      "connectWalletFirst": "请先连接钱包",
+      "selectTierFirst": "需要选择层级",
+      "selectTierDesc": "请选择要参与的层级",
+      "invalidAmount": "金额无效",
+      "minStakeRequired": "最少需要{{amount}} TBURN",
+      "applicationSubmitted": "申请已提交",
+      "applicationProcessing": "您的{{tier}}层级{{amount}} TBURN申请正在处理中"
+    }
   }
 }

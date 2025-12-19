@@ -14651,6 +14651,42 @@
       "claimSuccess": "Recompensas Reclamadas",
       "claimedSuccessfully": "reclamado exitosamente"
     },
-    "networkStatus": "Estado de Red"
+    "networkStatus": "Estado de Red",
+    "validatorTiers": {
+      "title": "Solicitud de Validador",
+      "description": "Conviértete en validador de TBURN mainnet y gana recompensas de bloque",
+      "tier1Name": "Comité Activo",
+      "tier2Name": "Validadores en Espera",
+      "tier3Name": "Delegadores",
+      "maxMembers": "Máx {{count}} miembros",
+      "unlimited": "Ilimitado",
+      "validators": "Validadores",
+      "delegators": "Delegadores",
+      "day": "día",
+      "applyForm": "Solicitud de Validador",
+      "selectedTier": "Tier {{tier}} Seleccionado",
+      "selectTierAbove": "Por favor seleccione un tier arriba",
+      "connectWalletToApply": "Conectar Wallet para Aplicar",
+      "connectWalletDesc": "Por favor conecte su wallet para participar como validador",
+      "stakeAmount": "Cantidad a Stakear",
+      "available": "Disponible",
+      "selectedTierLabel": "Tier Seleccionado",
+      "minRequirement": "Requisito Mínimo",
+      "estimatedAPY": "APY Estimado",
+      "applyValidator": "Aplicar como Validador",
+      "applyDelegator": "Participar como Delegador",
+      "tierInfo": "Requisitos por Tier",
+      "tier1Info": "Tier 1 (Comité Activo): 200,000+ TBURN requeridos, máx 512 miembros, producción de bloques y consenso",
+      "tier2Info": "Tier 2 (Validadores en Espera): 50,000+ TBURN requeridos, máx 4,488 miembros, espera para validadores activos",
+      "tier3Info": "Tier 3 (Delegadores): 100+ TBURN requeridos, ilimitado, delegar tokens a validadores",
+      "connectRequired": "Conexión Requerida",
+      "connectWalletFirst": "Por favor conecte su wallet primero",
+      "selectTierFirst": "Selección de Tier Requerida",
+      "selectTierDesc": "Por favor seleccione un tier para participar",
+      "invalidAmount": "Cantidad Inválida",
+      "minStakeRequired": "Mínimo {{amount}} TBURN requeridos",
+      "applicationSubmitted": "Solicitud Enviada",
+      "applicationProcessing": "Su solicitud para {{tier}} con {{amount}} TBURN está siendo procesada"
+    }
   }
 }

@@ -16,7 +16,7 @@ import {
   Lock, Unlock, Send, Copy, Eye, EyeOff, ChevronRight, Award,
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
   LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
-  Menu, X
+  Menu, X, Crown, Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -1464,57 +1464,80 @@ function StakingDashboardSection({
 }) {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
+  const [selectedTier, setSelectedTier] = useState<1 | 2 | 3 | null>(null);
   const [stakeAmount, setStakeAmount] = useState("");
-  const [unstakeAmount, setUnstakeAmount] = useState("");
-  const [activeTab, setActiveTab] = useState<"stake" | "unstake">("stake");
 
   const availableBalance = parseFloat(balance || "0");
-  const totalStaked = 50000.00;
-  const unclaimedRewards = 452.12;
-  const unbondingAmount = 1000.00;
-  const unbondingProgress = 50;
-  const networkAPY = stakingStats?.averageApy || 12.4;
+
+  const tierData = {
+    tier1: {
+      name: t('userPage.validatorTiers.tier1Name'),
+      requirement: "200K+ TBURN",
+      maxMembers: 512,
+      currentMembers: 125,
+      apy: 8.01,
+      dailyRewards: 250310,
+      color: "yellow",
+      icon: Crown,
+      minStake: 200000
+    },
+    tier2: {
+      name: t('userPage.validatorTiers.tier2Name'),
+      requirement: "50K+ TBURN",
+      maxMembers: 4488,
+      currentMembers: 0,
+      apy: 4,
+      dailyRewards: 150180,
+      color: "emerald",
+      icon: Shield,
+      minStake: 50000
+    },
+    tier3: {
+      name: t('userPage.validatorTiers.tier3Name'),
+      requirement: "100+ TBURN",
+      maxMembers: null,
+      currentMembers: 5000,
+      apy: 5,
+      dailyRewards: 100120,
+      color: "blue",
+      icon: Users,
+      minStake: 100
+    }
+  };
+
+  const handleApply = () => {
+    if (!isConnected) {
+      toast({ title: t('userPage.validatorTiers.connectRequired'), description: t('userPage.validatorTiers.connectWalletFirst'), variant: "destructive" });
+      return;
+    }
+    if (!selectedTier) {
+      toast({ title: t('userPage.validatorTiers.selectTierFirst'), description: t('userPage.validatorTiers.selectTierDesc'), variant: "destructive" });
+      return;
+    }
+    const amount = parseFloat(stakeAmount);
+    const minStake = selectedTier === 1 ? tierData.tier1.minStake : selectedTier === 2 ? tierData.tier2.minStake : tierData.tier3.minStake;
+    
+    if (isNaN(amount) || amount < minStake) {
+      toast({ 
+        title: t('userPage.validatorTiers.invalidAmount'), 
+        description: t('userPage.validatorTiers.minStakeRequired', { amount: minStake.toLocaleString() }), 
+        variant: "destructive" 
+      });
+      return;
+    }
+    
+    const tierName = selectedTier === 1 ? tierData.tier1.name : selectedTier === 2 ? tierData.tier2.name : tierData.tier3.name;
+    toast({ 
+      title: t('userPage.validatorTiers.applicationSubmitted'), 
+      description: t('userPage.validatorTiers.applicationProcessing', { tier: tierName, amount: amount.toLocaleString() })
+    });
+    setStakeAmount("");
+    setSelectedTier(null);
+  };
 
   const handlePercentageClick = (percentage: number) => {
     const amount = (availableBalance * percentage / 100).toFixed(2);
     setStakeAmount(amount);
-  };
-
-  const handleStake = () => {
-    if (!isConnected) {
-      toast({ title: t('userPage.stakingDashboard.connectRequired'), description: t('userPage.stakingDashboard.connectWalletFirst'), variant: "destructive" });
-      return;
-    }
-    const amount = parseFloat(stakeAmount);
-    if (isNaN(amount) || amount < 100) {
-      toast({ title: t('userPage.stakingDashboard.invalidAmount'), description: t('userPage.stakingDashboard.minStake'), variant: "destructive" });
-      return;
-    }
-    toast({ title: t('userPage.stakingDashboard.stakeSubmitted'), description: `${amount.toLocaleString()} TBURN ${t('userPage.stakingDashboard.stakeProcessing')}` });
-    setStakeAmount("");
-  };
-
-  const handleUnstake = () => {
-    if (!isConnected) {
-      toast({ title: t('userPage.stakingDashboard.connectRequired'), description: t('userPage.stakingDashboard.connectWalletFirst'), variant: "destructive" });
-      return;
-    }
-    const amount = parseFloat(unstakeAmount);
-    if (isNaN(amount) || amount <= 0) {
-      toast({ title: t('userPage.stakingDashboard.invalidAmount'), description: t('userPage.stakingDashboard.enterValidAmount'), variant: "destructive" });
-      return;
-    }
-    toast({ title: t('userPage.stakingDashboard.unstakeSubmitted'), description: `${amount.toLocaleString()} TBURN ${t('userPage.stakingDashboard.unstakeProcessing')}` });
-    setUnstakeAmount("");
-  };
-
-  const handleClaimRewards = () => {
-    if (!isConnected) {
-      onConnectWallet();
-      return;
-    }
-    toast({ title: t('userPage.stakingDashboard.claimSuccess'), description: `${unclaimedRewards.toLocaleString()} TBURN ${t('userPage.stakingDashboard.claimedSuccessfully')}` });
   };
 
   return (
@@ -1522,10 +1545,10 @@ function StakingDashboardSection({
       <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">
-            {t('userPage.stakingDashboard.title')}
+            {t('userPage.validatorTiers.title')}
           </h2>
           <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">
-            {t('userPage.stakingDashboard.description')}
+            {t('userPage.validatorTiers.description')}
           </p>
         </div>
         {!isConnected && (
@@ -1535,129 +1558,155 @@ function StakingDashboardSection({
         )}
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        {/* Available Balance */}
-        <div className="bg-white dark:bg-[#151E32]/70 backdrop-blur-sm p-6 rounded-2xl border border-slate-200 dark:border-gray-800/50 relative overflow-hidden group">
-          <div className="absolute right-0 top-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-            <Wallet className="w-16 h-16" />
+      {/* Tier Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        {/* Tier 1: Active Committee */}
+        <div 
+          onClick={() => setSelectedTier(1)}
+          className={`relative bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 dark:from-yellow-900/30 dark:to-yellow-800/20 p-6 rounded-2xl border-2 cursor-pointer transition-all ${
+            selectedTier === 1 
+              ? "border-yellow-500 shadow-lg shadow-yellow-500/20" 
+              : "border-yellow-500/30 hover:border-yellow-500/60"
+          }`}
+          data-testid="tier-card-1"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Crown className="w-5 h-5 text-yellow-500" />
+            <span className="text-sm font-bold text-yellow-500">Tier 1: {tierData.tier1.name}</span>
           </div>
-          <p className="text-sm text-slate-500 dark:text-gray-400 font-medium">{t('userPage.stakingDashboard.availableBalance')}</p>
-          <h3 className="text-2xl font-bold text-slate-800 dark:text-white font-mono mt-1">
-            {isConnected ? availableBalance.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00"} <span className="text-sm">TB</span>
-          </h3>
-          <div className="mt-4 flex gap-2">
-            <Button variant="secondary" size="sm" className="flex-1 text-xs font-bold">
-              {t('userPage.stakingDashboard.deposit')}
-            </Button>
-            <Button variant="secondary" size="sm" className="flex-1 text-xs font-bold">
-              {t('userPage.stakingDashboard.swap')}
-            </Button>
-          </div>
-        </div>
-
-        {/* Total Staked */}
-        <div className="bg-white dark:bg-[#151E32]/70 backdrop-blur-sm p-6 rounded-2xl border-l-4 border-blue-500 border-t border-r border-b border-slate-200 dark:border-gray-800/50 relative">
-          <p className="text-sm text-slate-500 dark:text-gray-400 font-medium">{t('userPage.stakingDashboard.totalStaked')}</p>
-          <h3 className="text-2xl font-bold text-blue-500 font-mono mt-1">
-            {isConnected ? totalStaked.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00"} <span className="text-sm">TB</span>
-          </h3>
-          <p className="text-xs text-emerald-500 mt-2 flex items-center">
-            <ArrowUp className="w-3 h-3 mr-1" /> +120.5 TB ({t('userPage.stakingDashboard.sinceLastEpoch')})
+          <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
+            {tierData.tier1.requirement}, {t('userPage.validatorTiers.maxMembers', { count: tierData.tier1.maxMembers })}
           </p>
-        </div>
-
-        {/* Unclaimed Rewards */}
-        <div className="bg-white dark:bg-[#151E32]/70 backdrop-blur-sm p-6 rounded-2xl border-l-4 border-emerald-500 border-t border-r border-b border-slate-200 dark:border-gray-800/50 relative">
-          <div className="flex justify-between items-start">
+          <div className="grid grid-cols-3 gap-2 text-center">
             <div>
-              <p className="text-sm text-slate-500 dark:text-gray-400 font-medium">{t('userPage.stakingDashboard.unclaimedRewards')}</p>
-              <h3 className="text-2xl font-bold text-emerald-500 font-mono mt-1">
-                {isConnected ? unclaimedRewards.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00"} <span className="text-sm">TB</span>
-              </h3>
+              <p className="text-2xl font-bold text-yellow-500">{tierData.tier1.currentMembers}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.validatorTiers.validators')}</p>
             </div>
-            <Button 
-              onClick={handleClaimRewards}
-              size="sm"
-              className="bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white text-xs font-bold"
-              disabled={!isConnected || unclaimedRewards <= 0}
-              data-testid="button-claim-rewards"
-            >
-              {t('userPage.stakingDashboard.claimAll')}
-            </Button>
+            <div>
+              <p className="text-2xl font-bold text-emerald-500">{tierData.tier1.apy}%</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">APY</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-blue-400">{(tierData.tier1.dailyRewards / 1000).toFixed(2)}K</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">TBURN/{t('userPage.validatorTiers.day')}</p>
+            </div>
           </div>
-          <p className="text-xs text-slate-400 mt-2">{t('userPage.stakingDashboard.autoCompoundAvailable')}</p>
+          {selectedTier === 1 && (
+            <div className="absolute top-3 right-3">
+              <CheckCircle className="w-6 h-6 text-yellow-500" />
+            </div>
+          )}
         </div>
 
-        {/* Unbonding (Locked) */}
-        <div className="bg-white dark:bg-[#151E32]/70 backdrop-blur-sm p-6 rounded-2xl border-l-4 border-orange-500 border-t border-r border-b border-slate-200 dark:border-gray-800/50 relative">
-          <p className="text-sm text-slate-500 dark:text-gray-400 font-medium">{t('userPage.stakingDashboard.unbonding')}</p>
-          <h3 className="text-2xl font-bold text-orange-500 font-mono mt-1">
-            {isConnected ? unbondingAmount.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00"} <span className="text-sm">TB</span>
-          </h3>
-          <div className="mt-2 text-xs text-slate-500 dark:text-gray-400">
-            <div className="flex justify-between mb-1">
-              <span>{t('userPage.stakingDashboard.availableIn2Days')}</span>
-              <span>{unbondingProgress}%</span>
+        {/* Tier 2: Standby Validators */}
+        <div 
+          onClick={() => setSelectedTier(2)}
+          className={`relative bg-gradient-to-br from-emerald-900/20 to-emerald-800/10 dark:from-emerald-900/30 dark:to-emerald-800/20 p-6 rounded-2xl border-2 cursor-pointer transition-all ${
+            selectedTier === 2 
+              ? "border-emerald-500 shadow-lg shadow-emerald-500/20" 
+              : "border-emerald-500/30 hover:border-emerald-500/60"
+          }`}
+          data-testid="tier-card-2"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Shield className="w-5 h-5 text-emerald-500" />
+            <span className="text-sm font-bold text-emerald-500">Tier 2: {tierData.tier2.name}</span>
+          </div>
+          <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
+            {tierData.tier2.requirement}, {t('userPage.validatorTiers.maxMembers', { count: tierData.tier2.maxMembers.toLocaleString() })}
+          </p>
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <p className="text-2xl font-bold text-emerald-500">{tierData.tier2.currentMembers}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.validatorTiers.validators')}</p>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-gray-700 h-1.5 rounded-full">
-              <div className="bg-orange-500 h-1.5 rounded-full" style={{ width: `${unbondingProgress}%` }} />
+            <div>
+              <p className="text-2xl font-bold text-emerald-500">{tierData.tier2.apy}%</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">APY</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-blue-400">{(tierData.tier2.dailyRewards / 1000).toFixed(2)}K</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">TBURN/{t('userPage.validatorTiers.day')}</p>
             </div>
           </div>
+          {selectedTier === 2 && (
+            <div className="absolute top-3 right-3">
+              <CheckCircle className="w-6 h-6 text-emerald-500" />
+            </div>
+          )}
+        </div>
+
+        {/* Tier 3: Delegators */}
+        <div 
+          onClick={() => setSelectedTier(3)}
+          className={`relative bg-gradient-to-br from-blue-900/20 to-blue-800/10 dark:from-blue-900/30 dark:to-blue-800/20 p-6 rounded-2xl border-2 cursor-pointer transition-all ${
+            selectedTier === 3 
+              ? "border-blue-500 shadow-lg shadow-blue-500/20" 
+              : "border-blue-500/30 hover:border-blue-500/60"
+          }`}
+          data-testid="tier-card-3"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Users className="w-5 h-5 text-blue-500" />
+            <span className="text-sm font-bold text-blue-500">Tier 3: {tierData.tier3.name}</span>
+          </div>
+          <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
+            {tierData.tier3.requirement}, {t('userPage.validatorTiers.unlimited')}
+          </p>
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <p className="text-2xl font-bold text-blue-500">{(tierData.tier3.currentMembers / 1000).toFixed(2)}K</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.validatorTiers.delegators')}</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-emerald-500">{tierData.tier3.apy}%</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">APY</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-blue-400">{(tierData.tier3.dailyRewards / 1000).toFixed(2)}K</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">TBURN/{t('userPage.validatorTiers.day')}</p>
+            </div>
+          </div>
+          {selectedTier === 3 && (
+            <div className="absolute top-3 right-3">
+              <CheckCircle className="w-6 h-6 text-blue-500" />
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Staking Panel */}
+      {/* Application Form */}
       <div className="bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-slate-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-4">
-            <h3 className="text-lg font-bold text-slate-800 dark:text-white">{t('userPage.stakingDashboard.stakeUnstake')}</h3>
-            <div className="flex bg-slate-100 dark:bg-gray-800 rounded-lg p-1">
-              <button
-                onClick={() => setActiveTab("stake")}
-                className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
-                  activeTab === "stake"
-                    ? "bg-blue-500 text-white shadow-sm"
-                    : "text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
-                }`}
-                data-testid="tab-stake"
-              >
-                {t('userPage.stakingDashboard.stake')}
-              </button>
-              <button
-                onClick={() => setActiveTab("unstake")}
-                className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
-                  activeTab === "unstake"
-                    ? "bg-orange-500 text-white shadow-sm"
-                    : "text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
-                }`}
-                data-testid="tab-unstake"
-              >
-                {t('userPage.stakingDashboard.unstake')}
-              </button>
-            </div>
-          </div>
-          <div className="flex items-center gap-6 text-sm font-mono">
-            <div className="flex flex-col items-end">
-              <span className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.stakingDashboard.networkAPY')}</span>
-              <span className="font-bold text-emerald-500">{networkAPY.toFixed(1)}%</span>
-            </div>
-            <div className="flex flex-col items-end">
-              <span className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.stakingDashboard.totalNetworkStaked')}</span>
-              <span className="font-bold text-blue-500">64.2%</span>
-            </div>
-          </div>
+        <div className="p-6 border-b border-slate-200 dark:border-gray-800">
+          <h3 className="text-lg font-bold text-slate-800 dark:text-white">{t('userPage.validatorTiers.applyForm')}</h3>
+          <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">
+            {selectedTier ? t('userPage.validatorTiers.selectedTier', { tier: selectedTier }) : t('userPage.validatorTiers.selectTierAbove')}
+          </p>
         </div>
 
         <div className="p-6">
-          {activeTab === "stake" ? (
+          {!isConnected ? (
+            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-6 text-center">
+              <Wallet className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
+              <p className="text-yellow-400 font-medium mb-2">{t('userPage.validatorTiers.connectWalletToApply')}</p>
+              <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">{t('userPage.validatorTiers.connectWalletDesc')}</p>
+              <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-apply">
+                <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
+              </Button>
+            </div>
+          ) : (
             <div className="space-y-4">
               <div>
-                <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">{t('userPage.stakingDashboard.amountToStake')}</label>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm text-slate-500 dark:text-gray-400">{t('userPage.validatorTiers.stakeAmount')}</label>
+                  <span className="text-xs text-slate-400">
+                    {t('userPage.validatorTiers.available')}: {availableBalance.toLocaleString()} TB
+                  </span>
+                </div>
                 <div className="relative">
                   <Input
                     type="number"
-                    placeholder="0.00"
+                    placeholder={selectedTier === 1 ? "200,000" : selectedTier === 2 ? "50,000" : "100"}
                     value={stakeAmount}
                     onChange={(e) => setStakeAmount(e.target.value)}
                     className="text-lg font-mono pr-16 bg-slate-50 dark:bg-gray-800 border-slate-200 dark:border-gray-700"
@@ -1666,6 +1715,7 @@ function StakingDashboardSection({
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-gray-400 font-bold">TB</span>
                 </div>
               </div>
+              
               <div className="flex gap-2">
                 {[25, 50, 75].map((pct) => (
                   <Button
@@ -1689,143 +1739,68 @@ function StakingDashboardSection({
                   MAX
                 </Button>
               </div>
-              <div className="bg-blue-50 dark:bg-blue-500/10 rounded-xl p-4 space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.estimatedAPY')}</span>
-                  <span className="font-bold text-emerald-500">{networkAPY.toFixed(1)}%</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.estimatedMonthlyReward')}</span>
-                  <span className="font-bold text-slate-800 dark:text-white font-mono">
-                    {((parseFloat(stakeAmount) || 0) * networkAPY / 100 / 12).toFixed(2)} TB
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.unbondingPeriod')}</span>
-                  <span className="font-bold text-slate-800 dark:text-white">{t('userPage.stakingDashboard.21days')}</span>
-                </div>
-              </div>
-              <Button
-                onClick={handleStake}
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
-                disabled={!stakeAmount || parseFloat(stakeAmount) <= 0}
-                data-testid="button-stake-confirm"
-              >
-                <Lock className="w-4 h-4 mr-2" /> {t('userPage.stakingDashboard.stakeNow')}
-              </Button>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">{t('userPage.stakingDashboard.amountToUnstake')}</label>
-                <div className="relative">
-                  <Input
-                    type="number"
-                    placeholder="0.00"
-                    value={unstakeAmount}
-                    onChange={(e) => setUnstakeAmount(e.target.value)}
-                    className="text-lg font-mono pr-16 bg-slate-50 dark:bg-gray-800 border-slate-200 dark:border-gray-700"
-                    data-testid="input-unstake-amount"
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-gray-400 font-bold">TB</span>
-                </div>
-              </div>
-              <div className="bg-orange-50 dark:bg-orange-500/10 rounded-xl p-4 space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.currentlyStaked')}</span>
-                  <span className="font-bold text-slate-800 dark:text-white font-mono">{isConnected ? totalStaked.toLocaleString() : "0.00"} TB</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.unbondingPeriod')}</span>
-                  <span className="font-bold text-orange-500">{t('userPage.stakingDashboard.21days')}</span>
-                </div>
-              </div>
-              <div className="bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-200 dark:border-yellow-500/30 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" />
-                  <div className="text-sm text-yellow-700 dark:text-yellow-400">
-                    {t('userPage.stakingDashboard.unstakeWarning')}
+
+              {selectedTier && (
+                <div className={`rounded-xl p-4 space-y-2 ${
+                  selectedTier === 1 ? "bg-yellow-50 dark:bg-yellow-500/10" :
+                  selectedTier === 2 ? "bg-emerald-50 dark:bg-emerald-500/10" :
+                  "bg-blue-50 dark:bg-blue-500/10"
+                }`}>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-600 dark:text-gray-400">{t('userPage.validatorTiers.selectedTierLabel')}</span>
+                    <span className={`font-bold ${
+                      selectedTier === 1 ? "text-yellow-500" :
+                      selectedTier === 2 ? "text-emerald-500" :
+                      "text-blue-500"
+                    }`}>
+                      Tier {selectedTier}: {selectedTier === 1 ? tierData.tier1.name : selectedTier === 2 ? tierData.tier2.name : tierData.tier3.name}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-600 dark:text-gray-400">{t('userPage.validatorTiers.minRequirement')}</span>
+                    <span className="font-bold text-slate-800 dark:text-white font-mono">
+                      {selectedTier === 1 ? "200,000" : selectedTier === 2 ? "50,000" : "100"} TBURN
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-600 dark:text-gray-400">{t('userPage.validatorTiers.estimatedAPY')}</span>
+                    <span className="font-bold text-emerald-500">
+                      {selectedTier === 1 ? tierData.tier1.apy : selectedTier === 2 ? tierData.tier2.apy : tierData.tier3.apy}%
+                    </span>
                   </div>
                 </div>
-              </div>
+              )}
+
               <Button
-                onClick={handleUnstake}
-                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700"
-                disabled={!unstakeAmount || parseFloat(unstakeAmount) <= 0}
-                data-testid="button-unstake-confirm"
+                onClick={handleApply}
+                className={`w-full ${
+                  selectedTier === 1 ? "bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700" :
+                  selectedTier === 2 ? "bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700" :
+                  "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                }`}
+                disabled={!selectedTier || !stakeAmount || parseFloat(stakeAmount) <= 0}
+                data-testid="button-apply-validator"
               >
-                <Unlock className="w-4 h-4 mr-2" /> {t('userPage.stakingDashboard.unstakeNow')}
+                <Lock className="w-4 h-4 mr-2" /> 
+                {selectedTier === 3 ? t('userPage.validatorTiers.applyDelegator') : t('userPage.validatorTiers.applyValidator')}
               </Button>
             </div>
           )}
         </div>
       </div>
 
-      {/* Staking History */}
-      <div className="bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-slate-200 dark:border-gray-800">
-          <h3 className="text-lg font-bold text-slate-800 dark:text-white">{t('userPage.stakingDashboard.stakingHistory')}</h3>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="bg-slate-50 dark:bg-[#0B1120] text-slate-500 dark:text-gray-400 text-xs uppercase tracking-wider">
-                <th className="p-4 font-semibold">{t('userPage.stakingDashboard.date')}</th>
-                <th className="p-4 font-semibold">{t('userPage.stakingDashboard.type')}</th>
-                <th className="p-4 font-semibold text-right">{t('userPage.stakingDashboard.amount')}</th>
-                <th className="p-4 font-semibold text-center">{t('userPage.stakingDashboard.status')}</th>
-              </tr>
-            </thead>
-            <tbody className="text-slate-800 dark:text-white divide-y divide-slate-100 dark:divide-gray-800">
-              {isConnected ? (
-                <>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-[#151E32]/80 transition-colors">
-                    <td className="p-4 text-sm text-slate-500 dark:text-gray-400">2024-12-18</td>
-                    <td className="p-4">
-                      <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">{t('userPage.stakingDashboard.stake')}</Badge>
-                    </td>
-                    <td className="p-4 text-right font-mono text-sm">+10,000.00 TB</td>
-                    <td className="p-4 text-center">
-                      <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
-                        <CheckCircle className="w-3 h-3 mr-1" /> {t('userPage.stakingDashboard.completed')}
-                      </Badge>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-[#151E32]/80 transition-colors">
-                    <td className="p-4 text-sm text-slate-500 dark:text-gray-400">2024-12-15</td>
-                    <td className="p-4">
-                      <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">{t('userPage.stakingDashboard.reward')}</Badge>
-                    </td>
-                    <td className="p-4 text-right font-mono text-sm text-emerald-500">+52.18 TB</td>
-                    <td className="p-4 text-center">
-                      <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
-                        <CheckCircle className="w-3 h-3 mr-1" /> {t('userPage.stakingDashboard.claimed')}
-                      </Badge>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-[#151E32]/80 transition-colors">
-                    <td className="p-4 text-sm text-slate-500 dark:text-gray-400">2024-12-10</td>
-                    <td className="p-4">
-                      <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300">{t('userPage.stakingDashboard.unstake')}</Badge>
-                    </td>
-                    <td className="p-4 text-right font-mono text-sm">-1,000.00 TB</td>
-                    <td className="p-4 text-center">
-                      <Badge className="bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300">
-                        <Clock className="w-3 h-3 mr-1" /> {t('userPage.stakingDashboard.unbonding')}
-                      </Badge>
-                    </td>
-                  </tr>
-                </>
-              ) : (
-                <tr>
-                  <td colSpan={4} className="p-8 text-center text-slate-400 dark:text-gray-500">
-                    <Wallet className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                    <p>{t('userPage.stakingDashboard.connectToViewHistory')}</p>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+      {/* Tier Info */}
+      <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-xl p-4">
+        <div className="flex items-start gap-3">
+          <Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+          <div className="text-sm text-blue-700 dark:text-blue-400">
+            <p className="font-bold mb-1">{t('userPage.validatorTiers.tierInfo')}</p>
+            <ul className="list-disc list-inside space-y-1 text-xs">
+              <li>{t('userPage.validatorTiers.tier1Info')}</li>
+              <li>{t('userPage.validatorTiers.tier2Info')}</li>
+              <li>{t('userPage.validatorTiers.tier3Info')}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

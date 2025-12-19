@@ -12627,6 +12627,42 @@
       "claimSuccess": "Récompenses Réclamées",
       "claimedSuccessfully": "réclamé avec succès"
     },
-    "networkStatus": "État du Réseau"
+    "networkStatus": "État du Réseau",
+    "validatorTiers": {
+      "title": "Candidature Validateur",
+      "description": "Devenez validateur TBURN mainnet et gagnez des récompenses de bloc",
+      "tier1Name": "Comité Actif",
+      "tier2Name": "Validateurs en Attente",
+      "tier3Name": "Délégateurs",
+      "maxMembers": "Max {{count}} membres",
+      "unlimited": "Illimité",
+      "validators": "Validateurs",
+      "delegators": "Délégateurs",
+      "day": "jour",
+      "applyForm": "Candidature Validateur",
+      "selectedTier": "Tier {{tier}} Sélectionné",
+      "selectTierAbove": "Veuillez sélectionner un tier ci-dessus",
+      "connectWalletToApply": "Connecter le Portefeuille pour Postuler",
+      "connectWalletDesc": "Veuillez connecter votre portefeuille pour participer en tant que validateur",
+      "stakeAmount": "Montant à Staker",
+      "available": "Disponible",
+      "selectedTierLabel": "Tier Sélectionné",
+      "minRequirement": "Exigence Minimale",
+      "estimatedAPY": "APY Estimé",
+      "applyValidator": "Postuler comme Validateur",
+      "applyDelegator": "Participer comme Délégateur",
+      "tierInfo": "Exigences par Tier",
+      "tier1Info": "Tier 1 (Comité Actif): 200,000+ TBURN requis, max 512 membres, production de blocs et consensus",
+      "tier2Info": "Tier 2 (Validateurs en Attente): 50,000+ TBURN requis, max 4,488 membres, en attente pour validateurs actifs",
+      "tier3Info": "Tier 3 (Délégateurs): 100+ TBURN requis, illimité, déléguer des tokens aux validateurs",
+      "connectRequired": "Connexion Requise",
+      "connectWalletFirst": "Veuillez d'abord connecter votre portefeuille",
+      "selectTierFirst": "Sélection de Tier Requise",
+      "selectTierDesc": "Veuillez sélectionner un tier pour participer",
+      "invalidAmount": "Montant Invalide",
+      "minStakeRequired": "Minimum {{amount}} TBURN requis",
+      "applicationSubmitted": "Candidature Soumise",
+      "applicationProcessing": "Votre candidature pour {{tier}} avec {{amount}} TBURN est en cours de traitement"
+    }
   }
 }

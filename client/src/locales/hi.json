@@ -13195,6 +13195,42 @@
       "claimSuccess": "पुरस्कार दावा किया गया",
       "claimedSuccessfully": "सफलतापूर्वक दावा किया गया"
     },
-    "networkStatus": "नेटवर्क स्थिति"
+    "networkStatus": "नेटवर्क स्थिति",
+    "validatorTiers": {
+      "title": "वैलिडेटर आवेदन",
+      "description": "TBURN मेननेट वैलिडेटर बनें और ब्लॉक पुरस्कार अर्जित करें",
+      "tier1Name": "सक्रिय समिति",
+      "tier2Name": "स्टैंडबाय वैलिडेटर",
+      "tier3Name": "डेलिगेटर",
+      "maxMembers": "अधिकतम {{count}} सदस्य",
+      "unlimited": "असीमित",
+      "validators": "वैलिडेटर",
+      "delegators": "डेलिगेटर",
+      "day": "दिन",
+      "applyForm": "वैलिडेटर आवेदन",
+      "selectedTier": "Tier {{tier}} चुना गया",
+      "selectTierAbove": "कृपया ऊपर से tier चुनें",
+      "connectWalletToApply": "आवेदन करने के लिए वॉलेट कनेक्ट करें",
+      "connectWalletDesc": "वैलिडेटर के रूप में भाग लेने के लिए अपना वॉलेट कनेक्ट करें",
+      "stakeAmount": "स्टेक राशि",
+      "available": "उपलब्ध",
+      "selectedTierLabel": "चुना गया Tier",
+      "minRequirement": "न्यूनतम आवश्यकता",
+      "estimatedAPY": "अनुमानित APY",
+      "applyValidator": "वैलिडेटर के रूप में आवेदन करें",
+      "applyDelegator": "डेलिगेटर के रूप में भाग लें",
+      "tierInfo": "Tier आवश्यकताएं",
+      "tier1Info": "Tier 1 (सक्रिय समिति): 200,000+ TBURN आवश्यक, अधिकतम 512, ब्लॉक उत्पादन और सहमति",
+      "tier2Info": "Tier 2 (स्टैंडबाय वैलिडेटर): 50,000+ TBURN आवश्यक, अधिकतम 4,488, सक्रिय वैलिडेटर की प्रतीक्षा",
+      "tier3Info": "Tier 3 (डेलिगेटर): 100+ TBURN आवश्यक, असीमित, वैलिडेटर को टोकन सौंपना",
+      "connectRequired": "कनेक्शन आवश्यक",
+      "connectWalletFirst": "कृपया पहले अपना वॉलेट कनेक्ट करें",
+      "selectTierFirst": "Tier चयन आवश्यक",
+      "selectTierDesc": "भाग लेने के लिए tier चुनें",
+      "invalidAmount": "अमान्य राशि",
+      "minStakeRequired": "न्यूनतम {{amount}} TBURN आवश्यक",
+      "applicationSubmitted": "आवेदन जमा किया गया",
+      "applicationProcessing": "{{tier}} के लिए {{amount}} TBURN आवेदन प्रोसेस हो रहा है"
+    }
   }
 }

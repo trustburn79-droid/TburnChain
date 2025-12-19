@@ -12384,6 +12384,42 @@
       "claimSuccess": "Recompensas Reivindicadas",
       "claimedSuccessfully": "reivindicado com sucesso"
     },
-    "networkStatus": "Status da Rede"
+    "networkStatus": "Status da Rede",
+    "validatorTiers": {
+      "title": "Candidatura de Validador",
+      "description": "Torne-se um validador TBURN mainnet e ganhe recompensas de bloco",
+      "tier1Name": "Comitê Ativo",
+      "tier2Name": "Validadores em Espera",
+      "tier3Name": "Delegadores",
+      "maxMembers": "Máx {{count}} membros",
+      "unlimited": "Ilimitado",
+      "validators": "Validadores",
+      "delegators": "Delegadores",
+      "day": "dia",
+      "applyForm": "Candidatura de Validador",
+      "selectedTier": "Tier {{tier}} Selecionado",
+      "selectTierAbove": "Por favor selecione um tier acima",
+      "connectWalletToApply": "Conectar Carteira para Aplicar",
+      "connectWalletDesc": "Por favor conecte sua carteira para participar como validador",
+      "stakeAmount": "Quantidade a Stakear",
+      "available": "Disponível",
+      "selectedTierLabel": "Tier Selecionado",
+      "minRequirement": "Requisito Mínimo",
+      "estimatedAPY": "APY Estimado",
+      "applyValidator": "Aplicar como Validador",
+      "applyDelegator": "Participar como Delegador",
+      "tierInfo": "Requisitos por Tier",
+      "tier1Info": "Tier 1 (Comitê Ativo): 200,000+ TBURN necessários, máx 512 membros, produção de blocos e consenso",
+      "tier2Info": "Tier 2 (Validadores em Espera): 50,000+ TBURN necessários, máx 4,488 membros, espera para validadores ativos",
+      "tier3Info": "Tier 3 (Delegadores): 100+ TBURN necessários, ilimitado, delegar tokens para validadores",
+      "connectRequired": "Conexão Necessária",
+      "connectWalletFirst": "Por favor conecte sua carteira primeiro",
+      "selectTierFirst": "Seleção de Tier Necessária",
+      "selectTierDesc": "Por favor selecione um tier para participar",
+      "invalidAmount": "Quantidade Inválida",
+      "minStakeRequired": "Mínimo {{amount}} TBURN necessários",
+      "applicationSubmitted": "Candidatura Enviada",
+      "applicationProcessing": "Sua candidatura para {{tier}} com {{amount}} TBURN está sendo processada"
+    }
   }
 }

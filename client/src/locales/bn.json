@@ -10775,6 +10775,42 @@
       "claimSuccess": "পুরস্কার দাবি করা হয়েছে",
       "claimedSuccessfully": "সফলভাবে দাবি করা হয়েছে"
     },
-    "networkStatus": "নেটওয়ার্ক স্ট্যাটাস"
+    "networkStatus": "নেটওয়ার্ক স্ট্যাটাস",
+    "validatorTiers": {
+      "title": "ভ্যালিডেটর আবেদন",
+      "description": "TBURN মেইননেট ভ্যালিডেটর হন এবং ব্লক পুরস্কার অর্জন করুন",
+      "tier1Name": "সক্রিয় কমিটি",
+      "tier2Name": "স্ট্যান্ডবাই ভ্যালিডেটর",
+      "tier3Name": "ডেলিগেটর",
+      "maxMembers": "সর্বোচ্চ {{count}} সদস্য",
+      "unlimited": "সীমাহীন",
+      "validators": "ভ্যালিডেটর",
+      "delegators": "ডেলিগেটর",
+      "day": "দিন",
+      "applyForm": "ভ্যালিডেটর আবেদন",
+      "selectedTier": "Tier {{tier}} নির্বাচিত",
+      "selectTierAbove": "উপরে থেকে tier নির্বাচন করুন",
+      "connectWalletToApply": "আবেদনের জন্য ওয়ালেট সংযোগ করুন",
+      "connectWalletDesc": "ভ্যালিডেটর হিসেবে অংশগ্রহণ করতে ওয়ালেট সংযোগ করুন",
+      "stakeAmount": "স্টেক পরিমাণ",
+      "available": "উপলব্ধ",
+      "selectedTierLabel": "নির্বাচিত Tier",
+      "minRequirement": "সর্বনিম্ন প্রয়োজনীয়তা",
+      "estimatedAPY": "আনুমানিক APY",
+      "applyValidator": "ভ্যালিডেটর হিসেবে আবেদন করুন",
+      "applyDelegator": "ডেলিগেটর হিসেবে অংশগ্রহণ করুন",
+      "tierInfo": "Tier প্রয়োজনীয়তা",
+      "tier1Info": "Tier 1 (সক্রিয় কমিটি): 200,000+ TBURN প্রয়োজন, সর্বোচ্চ 512, ব্লক উৎপাদন ও সম্মতি",
+      "tier2Info": "Tier 2 (স্ট্যান্ডবাই ভ্যালিডেটর): 50,000+ TBURN প্রয়োজন, সর্বোচ্চ 4,488, সক্রিয় ভ্যালিডেটরের জন্য অপেক্ষা",
+      "tier3Info": "Tier 3 (ডেলিগেটর): 100+ TBURN প্রয়োজন, সীমাহীন, ভ্যালিডেটরকে টোকেন সমর্পণ",
+      "connectRequired": "সংযোগ প্রয়োজন",
+      "connectWalletFirst": "প্রথমে আপনার ওয়ালেট সংযোগ করুন",
+      "selectTierFirst": "Tier নির্বাচন প্রয়োজন",
+      "selectTierDesc": "অংশগ্রহণের জন্য tier নির্বাচন করুন",
+      "invalidAmount": "অবৈধ পরিমাণ",
+      "minStakeRequired": "সর্বনিম্ন {{amount}} TBURN প্রয়োজন",
+      "applicationSubmitted": "আবেদন জমা দেওয়া হয়েছে",
+      "applicationProcessing": "{{tier}} এর জন্য {{amount}} TBURN আবেদন প্রক্রিয়াধীন"
+    }
   }
 }

@@ -11932,6 +11932,42 @@
       "claimSuccess": "Награды Получены",
       "claimedSuccessfully": "успешно получено"
     },
-    "networkStatus": "Статус Сети"
+    "networkStatus": "Статус Сети",
+    "validatorTiers": {
+      "title": "Заявка на Валидатора",
+      "description": "Станьте валидатором TBURN mainnet и получайте награды за блоки",
+      "tier1Name": "Активный Комитет",
+      "tier2Name": "Резервные Валидаторы",
+      "tier3Name": "Делегаторы",
+      "maxMembers": "Макс {{count}} участников",
+      "unlimited": "Неограничено",
+      "validators": "Валидаторы",
+      "delegators": "Делегаторы",
+      "day": "день",
+      "applyForm": "Заявка на Валидатора",
+      "selectedTier": "Tier {{tier}} Выбран",
+      "selectTierAbove": "Выберите tier выше",
+      "connectWalletToApply": "Подключите Кошелек для Заявки",
+      "connectWalletDesc": "Подключите кошелек для участия в качестве валидатора",
+      "stakeAmount": "Сумма Стейка",
+      "available": "Доступно",
+      "selectedTierLabel": "Выбранный Tier",
+      "minRequirement": "Мин Требование",
+      "estimatedAPY": "Ожидаемый APY",
+      "applyValidator": "Подать Заявку на Валидатора",
+      "applyDelegator": "Участвовать как Делегатор",
+      "tierInfo": "Требования по Tier",
+      "tier1Info": "Tier 1 (Активный Комитет): 200,000+ TBURN, макс 512 участников, производство блоков и консенсус",
+      "tier2Info": "Tier 2 (Резервные Валидаторы): 50,000+ TBURN, макс 4,488 участников, ожидание активных валидаторов",
+      "tier3Info": "Tier 3 (Делегаторы): 100+ TBURN, неограничено, делегирование токенов валидаторам",
+      "connectRequired": "Требуется Подключение",
+      "connectWalletFirst": "Сначала подключите кошелек",
+      "selectTierFirst": "Требуется Выбор Tier",
+      "selectTierDesc": "Выберите tier для участия",
+      "invalidAmount": "Неверная Сумма",
+      "minStakeRequired": "Минимум {{amount}} TBURN",
+      "applicationSubmitted": "Заявка Отправлена",
+      "applicationProcessing": "Ваша заявка на {{tier}} с {{amount}} TBURN обрабатывается"
+    }
   }
 }

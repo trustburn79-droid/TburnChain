@@ -11019,6 +11019,42 @@
       "claimSuccess": "انعامات حاصل ہوئے",
       "claimedSuccessfully": "کامیابی سے حاصل کیا گیا"
     },
-    "networkStatus": "نیٹ ورک اسٹیٹس"
+    "networkStatus": "نیٹ ورک اسٹیٹس",
+    "validatorTiers": {
+      "title": "ویلیڈیٹر درخواست",
+      "description": "TBURN مین نیٹ ویلیڈیٹر بنیں اور بلاک انعامات حاصل کریں",
+      "tier1Name": "فعال کمیٹی",
+      "tier2Name": "اسٹینڈ بائی ویلیڈیٹرز",
+      "tier3Name": "ڈیلیگیٹرز",
+      "maxMembers": "زیادہ سے زیادہ {{count}} ممبران",
+      "unlimited": "لامحدود",
+      "validators": "ویلیڈیٹرز",
+      "delegators": "ڈیلیگیٹرز",
+      "day": "دن",
+      "applyForm": "ویلیڈیٹر درخواست",
+      "selectedTier": "Tier {{tier}} منتخب",
+      "selectTierAbove": "براہ کرم اوپر سے tier منتخب کریں",
+      "connectWalletToApply": "درخواست کے لیے والیٹ جوڑیں",
+      "connectWalletDesc": "ویلیڈیٹر کے طور پر شامل ہونے کے لیے والیٹ جوڑیں",
+      "stakeAmount": "اسٹیک رقم",
+      "available": "دستیاب",
+      "selectedTierLabel": "منتخب Tier",
+      "minRequirement": "کم از کم ضرورت",
+      "estimatedAPY": "تخمینی APY",
+      "applyValidator": "ویلیڈیٹر کے طور پر درخواست دیں",
+      "applyDelegator": "ڈیلیگیٹر کے طور پر شامل ہوں",
+      "tierInfo": "Tier کی ضروریات",
+      "tier1Info": "Tier 1 (فعال کمیٹی): 200,000+ TBURN درکار، زیادہ سے زیادہ 512، بلاک پیداوار اور اتفاق رائے",
+      "tier2Info": "Tier 2 (اسٹینڈ بائی ویلیڈیٹرز): 50,000+ TBURN درکار، زیادہ سے زیادہ 4,488، فعال ویلیڈیٹرز کا انتظار",
+      "tier3Info": "Tier 3 (ڈیلیگیٹرز): 100+ TBURN درکار، لامحدود، ویلیڈیٹرز کو ٹوکنز سونپنا",
+      "connectRequired": "کنکشن ضروری",
+      "connectWalletFirst": "پہلے اپنا والیٹ جوڑیں",
+      "selectTierFirst": "Tier کا انتخاب ضروری",
+      "selectTierDesc": "شامل ہونے کے لیے tier منتخب کریں",
+      "invalidAmount": "غلط رقم",
+      "minStakeRequired": "کم از کم {{amount}} TBURN درکار",
+      "applicationSubmitted": "درخواست جمع ہو گئی",
+      "applicationProcessing": "{{tier}} کے لیے {{amount}} TBURN درخواست پروسیس ہو رہی ہے"
+    }
   }
 }
