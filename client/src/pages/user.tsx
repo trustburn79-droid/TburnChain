@@ -856,257 +856,280 @@ function DashboardSection({
         </div>
       </div>
 
-      {!isConnected ? (
-        <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-8 sm:p-12 text-center border border-blue-200 dark:border-blue-500/30">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
-            <Wallet className="w-8 h-8 text-white" />
+      {/* Wallet Connect Banner (only when not connected) */}
+      {!isConnected && (
+        <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-xl p-4 border border-blue-200 dark:border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg">
+              <Wallet className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-900 dark:text-white">지갑을 연결하세요</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">실제 자산과 보상을 확인할 수 있습니다</p>
+            </div>
           </div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">지갑을 연결하세요</h3>
-          <p className="text-slate-500 dark:text-gray-400 mb-6 max-w-md mx-auto">
-            지갑을 연결하면 채굴 보상, 스테이킹 수익, 이벤트 참여 내역 등 개인화된 정보를 확인할 수 있습니다.
-          </p>
-          <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-cta">
-            <Wallet className="w-4 h-4 mr-2" /> 지갑 연결하기
+          <Button onClick={onConnectWallet} size="sm" className="bg-gradient-to-r from-blue-500 to-purple-600 text-xs" data-testid="button-connect-cta">
+            <Wallet className="w-3 h-3 mr-1" /> 연결하기
           </Button>
         </div>
-      ) : userOverviewLoading ? (
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
-        </div>
-      ) : (
-        <>
-          {/* Portfolio Overview */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
-            <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-white shadow-lg">
-              <div className="flex items-center gap-2 mb-2">
-                <Wallet className="w-4 h-4 sm:w-5 sm:h-5 opacity-80" />
-                <span className="text-xs sm:text-sm opacity-80">총 자산</span>
-              </div>
-              <p className="text-xl sm:text-2xl font-bold font-mono">
-                {userOverview?.totalPortfolioValue || parseFloat(balance || "0").toFixed(2)} TB
-              </p>
-              <p className="text-[10px] sm:text-xs opacity-70 mt-1">유동: {userOverview?.liquidBalance || balance || "0"} TB</p>
-            </div>
-            
-            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-gray-800">
-              <div className="flex items-center gap-2 mb-2">
-                <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
-                <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">스테이킹</span>
-              </div>
-              <p className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white">
-                {userOverview?.totalStaked || "0"} TB
-              </p>
-              <p className="text-[10px] sm:text-xs text-slate-400 mt-1">
-                APY {userOverview?.stakingRewards?.averageApy || "12.5"}%
-              </p>
-            </div>
-            
-            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-emerald-200 dark:border-emerald-500/30">
-              <div className="flex items-center gap-2 mb-2">
-                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
-                <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">미청구 보상</span>
-              </div>
-              <p className="text-xl sm:text-2xl font-bold font-mono text-emerald-500">
-                {userOverview?.totalUnclaimedRewards || "0"} TB
-              </p>
-              <Button size="sm" className="mt-2 w-full bg-emerald-500 hover:bg-emerald-600 text-xs h-7" data-testid="button-claim-all">
-                전체 수령
-              </Button>
-            </div>
-            
-            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-gray-800">
-              <div className="flex items-center gap-2 mb-2">
-                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
-                <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">이벤트 보상</span>
-              </div>
-              <p className="text-xl sm:text-2xl font-bold font-mono text-yellow-500">
-                {userOverview?.eventRewards?.claimable || "0"} TB
-              </p>
-              <p className="text-[10px] sm:text-xs text-slate-400 mt-1">
-                {userOverview?.eventRewards?.eligibleEvents || 0}건 수령 가능
-              </p>
-            </div>
-          </div>
-
-          {/* Rewards Breakdown */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-            {/* Mining Rewards */}
-            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
-                  채굴 보상
-                </h3>
-                <Badge variant="secondary" className="text-xs">
-                  {userMiningRewards?.rewards?.length || 0}건
-                </Badge>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
-                  <p className="text-xs text-slate-500 dark:text-gray-400">총 획득</p>
-                  <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">
-                    {userOverview?.miningRewards?.total || "0"} TB
-                  </p>
-                </div>
-                <div className="p-3 bg-blue-50 dark:bg-blue-500/10 rounded-lg">
-                  <p className="text-xs text-slate-500 dark:text-gray-400">미청구</p>
-                  <p className="text-lg font-bold font-mono text-blue-500">
-                    {userOverview?.miningRewards?.unclaimed || "0"} TB
-                  </p>
-                </div>
-              </div>
-              
-              <div className="space-y-2 max-h-48 overflow-y-auto">
-                {userMiningRewards?.rewards?.slice(0, 5).map((reward) => (
-                  <div key={reward.id} className="flex items-center justify-between p-2 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-sm">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-2 h-2 rounded-full ${reward.claimed ? 'bg-slate-400' : 'bg-blue-500'}`} />
-                      <span className="text-slate-600 dark:text-gray-300 text-xs">
-                        {reward.source === 'block_production' ? '블록 생성' : reward.source === 'validation' ? '검증' : '수수료 분배'}
-                      </span>
-                    </div>
-                    <span className={`font-mono font-medium ${reward.claimed ? 'text-slate-500' : 'text-blue-500'}`}>
-                      +{reward.amount} TB
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Staking Rewards */}
-            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
-                  스테이킹 이자
-                </h3>
-                <Badge variant="secondary" className="text-xs">
-                  {userStakingPositions?.positions?.length || 0} 포지션
-                </Badge>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
-                  <p className="text-xs text-slate-500 dark:text-gray-400">총 이자 수익</p>
-                  <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">
-                    {userOverview?.stakingRewards?.total || "0"} TB
-                  </p>
-                </div>
-                <div className="p-3 bg-purple-50 dark:bg-purple-500/10 rounded-lg">
-                  <p className="text-xs text-slate-500 dark:text-gray-400">대기중 보상</p>
-                  <p className="text-lg font-bold font-mono text-purple-500">
-                    {userOverview?.pendingRewards || "0"} TB
-                  </p>
-                </div>
-              </div>
-              
-              <div className="space-y-2 max-h-48 overflow-y-auto">
-                {userStakingPositions?.positions?.map((pos) => (
-                  <div key={pos.id} className="flex items-center justify-between p-2 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-sm">
-                    <div>
-                      <p className="font-medium text-slate-900 dark:text-white text-xs">{pos.validatorName}</p>
-                      <p className="text-[10px] text-slate-400">{pos.stakedAmount} TB 스테이킹</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-mono text-purple-500 font-medium">+{pos.pendingRewards} TB</p>
-                      <p className="text-[10px] text-emerald-500">APY {pos.currentApy}%</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Events & Activities */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-            {/* Event Participation */}
-            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
-                  이벤트 참여
-                </h3>
-                <Badge variant="secondary" className="text-xs">
-                  {userEvents?.summary?.total || 0}건
-                </Badge>
-              </div>
-              
-              <div className="space-y-2 max-h-64 overflow-y-auto">
-                {userEvents?.events?.map((event) => (
-                  <div key={event.id} className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                          {getEventTypeLabel(event.eventType)}
-                        </Badge>
-                        <span className="font-medium text-slate-900 dark:text-white text-sm">{event.eventName}</span>
-                      </div>
-                      {getStatusBadge(event.status)}
-                    </div>
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="text-xs text-slate-400">{event.eventDescription}</span>
-                      <span className="font-mono font-bold text-yellow-500">{event.rewardAmount} TB</span>
-                    </div>
-                    {event.status === 'eligible' && (
-                      <Button size="sm" className="w-full mt-2 bg-yellow-500 hover:bg-yellow-600 text-xs h-7">
-                        보상 수령
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Recent Activity */}
-            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
-                  최근 활동
-                </h3>
-                <Button variant="ghost" size="sm" className="text-xs">
-                  전체 보기 <ChevronRight className="w-3 h-3 ml-1" />
-                </Button>
-              </div>
-              
-              <div className="space-y-2 max-h-64 overflow-y-auto">
-                {userActivities?.activities?.slice(0, 8).map((activity) => {
-                  const IconComponent = getActivityIcon(activity.activityType);
-                  return (
-                    <div key={activity.id} className="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-[#0B1120] rounded-lg transition-colors">
-                      <div className={`p-2 rounded-lg ${
-                        activity.category === 'rewards' ? 'bg-emerald-100 dark:bg-emerald-500/20' :
-                        activity.category === 'staking' ? 'bg-purple-100 dark:bg-purple-500/20' :
-                        activity.category === 'wallet' ? 'bg-blue-100 dark:bg-blue-500/20' :
-                        'bg-slate-100 dark:bg-slate-500/20'
-                      }`}>
-                        <IconComponent className={`w-4 h-4 ${
-                          activity.category === 'rewards' ? 'text-emerald-500' :
-                          activity.category === 'staking' ? 'text-purple-500' :
-                          activity.category === 'wallet' ? 'text-blue-500' :
-                          'text-slate-500'
-                        }`} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{activity.title}</p>
-                        <p className="text-xs text-slate-400">{formatTimeAgo(activity.createdAt)}</p>
-                      </div>
-                      {activity.amount && (
-                        <span className={`font-mono text-sm font-medium ${
-                          activity.activityType === 'transfer_out' ? 'text-red-500' : 'text-emerald-500'
-                        }`}>
-                          {activity.activityType === 'transfer_out' ? '-' : '+'}{activity.amount} TB
-                        </span>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </>
       )}
+
+      {/* Loading State */}
+      {isConnected && userOverviewLoading && (
+        <div className="flex items-center justify-center py-8">
+          <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
+        </div>
+      )}
+
+      {/* Portfolio Overview - Always show layout */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
+        <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-white shadow-lg">
+          <div className="flex items-center gap-2 mb-2">
+            <Wallet className="w-4 h-4 sm:w-5 sm:h-5 opacity-80" />
+            <span className="text-xs sm:text-sm opacity-80">총 자산</span>
+          </div>
+          <p className="text-xl sm:text-2xl font-bold font-mono">
+            {isConnected ? (userOverview?.totalPortfolioValue || parseFloat(balance || "0").toFixed(2)) : "0.00"} TB
+          </p>
+          <p className="text-[10px] sm:text-xs opacity-70 mt-1">
+            유동: {isConnected ? (userOverview?.liquidBalance || balance || "0") : "0"} TB
+          </p>
+        </div>
+        
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-gray-800">
+          <div className="flex items-center gap-2 mb-2">
+            <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
+            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">스테이킹</span>
+          </div>
+          <p className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white">
+            {isConnected ? (userOverview?.totalStaked || "0") : "0"} TB
+          </p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1">
+            APY {isConnected ? (userOverview?.stakingRewards?.averageApy || "12.5") : "0.0"}%
+          </p>
+        </div>
+        
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-emerald-200 dark:border-emerald-500/30">
+          <div className="flex items-center gap-2 mb-2">
+            <Award className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
+            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">미청구 보상</span>
+          </div>
+          <p className="text-xl sm:text-2xl font-bold font-mono text-emerald-500">
+            {isConnected ? (userOverview?.totalUnclaimedRewards || "0") : "0"} TB
+          </p>
+          <Button 
+            size="sm" 
+            className="mt-2 w-full bg-emerald-500 hover:bg-emerald-600 text-xs h-7" 
+            data-testid="button-claim-all"
+            disabled={!isConnected}
+          >
+            전체 수령
+          </Button>
+        </div>
+        
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-gray-800">
+          <div className="flex items-center gap-2 mb-2">
+            <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+            <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">이벤트 보상</span>
+          </div>
+          <p className="text-xl sm:text-2xl font-bold font-mono text-yellow-500">
+            {isConnected ? (userOverview?.eventRewards?.claimable || "0") : "0"} TB
+          </p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1">
+            {isConnected ? (userOverview?.eventRewards?.eligibleEvents || 0) : 0}건 수령 가능
+          </p>
+        </div>
+      </div>
+
+      {/* Rewards Breakdown */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        {/* Mining Rewards */}
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
+              채굴 보상
+            </h3>
+            <Badge variant="secondary" className="text-xs">
+              {isConnected ? (userMiningRewards?.rewards?.length || 0) : 0}건
+            </Badge>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+              <p className="text-xs text-slate-500 dark:text-gray-400">총 획득</p>
+              <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+                {isConnected ? (userOverview?.miningRewards?.total || "0") : "0"} TB
+              </p>
+            </div>
+            <div className="p-3 bg-blue-50 dark:bg-blue-500/10 rounded-lg">
+              <p className="text-xs text-slate-500 dark:text-gray-400">미청구</p>
+              <p className="text-lg font-bold font-mono text-blue-500">
+                {isConnected ? (userOverview?.miningRewards?.unclaimed || "0") : "0"} TB
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {isConnected && userMiningRewards?.rewards?.slice(0, 5).map((reward) => (
+              <div key={reward.id} className="flex items-center justify-between p-2 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-sm">
+                <div className="flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full ${reward.claimed ? 'bg-slate-400' : 'bg-blue-500'}`} />
+                  <span className="text-slate-600 dark:text-gray-300 text-xs">
+                    {reward.source === 'block_production' ? '블록 생성' : reward.source === 'validation' ? '검증' : '수수료 분배'}
+                  </span>
+                </div>
+                <span className={`font-mono font-medium ${reward.claimed ? 'text-slate-500' : 'text-blue-500'}`}>
+                  +{reward.amount} TB
+                </span>
+              </div>
+            ))}
+            {!isConnected && (
+              <p className="text-xs text-slate-400 text-center py-4">지갑 연결 시 보상 내역이 표시됩니다</p>
+            )}
+          </div>
+        </div>
+
+        {/* Staking Rewards */}
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
+              스테이킹 이자
+            </h3>
+            <Badge variant="secondary" className="text-xs">
+              {isConnected ? (userStakingPositions?.positions?.length || 0) : 0} 포지션
+            </Badge>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+              <p className="text-xs text-slate-500 dark:text-gray-400">총 이자 수익</p>
+              <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+                {isConnected ? (userOverview?.stakingRewards?.total || "0") : "0"} TB
+              </p>
+            </div>
+            <div className="p-3 bg-purple-50 dark:bg-purple-500/10 rounded-lg">
+              <p className="text-xs text-slate-500 dark:text-gray-400">대기중 보상</p>
+              <p className="text-lg font-bold font-mono text-purple-500">
+                {isConnected ? (userOverview?.pendingRewards || "0") : "0"} TB
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {isConnected && userStakingPositions?.positions?.map((pos) => (
+              <div key={pos.id} className="flex items-center justify-between p-2 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-sm">
+                <div>
+                  <p className="font-medium text-slate-900 dark:text-white text-xs">{pos.validatorName}</p>
+                  <p className="text-[10px] text-slate-400">{pos.stakedAmount} TB 스테이킹</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-mono text-purple-500 font-medium">+{pos.pendingRewards} TB</p>
+                  <p className="text-[10px] text-emerald-500">APY {pos.currentApy}%</p>
+                </div>
+              </div>
+            ))}
+            {!isConnected && (
+              <p className="text-xs text-slate-400 text-center py-4">지갑 연결 시 스테이킹 내역이 표시됩니다</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Events & Activities */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        {/* Event Participation */}
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+              이벤트 참여
+            </h3>
+            <Badge variant="secondary" className="text-xs">
+              {isConnected ? (userEvents?.summary?.total || 0) : 0}건
+            </Badge>
+          </div>
+          
+          <div className="space-y-2 max-h-64 overflow-y-auto">
+            {isConnected && userEvents?.events?.map((event) => (
+              <div key={event.id} className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                      {getEventTypeLabel(event.eventType)}
+                    </Badge>
+                    <span className="font-medium text-slate-900 dark:text-white text-sm">{event.eventName}</span>
+                  </div>
+                  {getStatusBadge(event.status)}
+                </div>
+                <div className="flex items-center justify-between mt-2">
+                  <span className="text-xs text-slate-400">{event.eventDescription}</span>
+                  <span className="font-mono font-bold text-yellow-500">{event.rewardAmount} TB</span>
+                </div>
+                {event.status === 'eligible' && (
+                  <Button size="sm" className="w-full mt-2 bg-yellow-500 hover:bg-yellow-600 text-xs h-7">
+                    보상 수령
+                  </Button>
+                )}
+              </div>
+            ))}
+            {!isConnected && (
+              <p className="text-xs text-slate-400 text-center py-4">지갑 연결 시 이벤트 내역이 표시됩니다</p>
+            )}
+          </div>
+        </div>
+
+        {/* Recent Activity */}
+        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
+              최근 활동
+            </h3>
+            <Button variant="ghost" size="sm" className="text-xs">
+              전체 보기 <ChevronRight className="w-3 h-3 ml-1" />
+            </Button>
+          </div>
+          
+          <div className="space-y-2 max-h-64 overflow-y-auto">
+            {isConnected && userActivities?.activities?.slice(0, 8).map((activity) => {
+              const IconComponent = getActivityIcon(activity.activityType);
+              return (
+                <div key={activity.id} className="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-[#0B1120] rounded-lg transition-colors">
+                  <div className={`p-2 rounded-lg ${
+                    activity.category === 'rewards' ? 'bg-emerald-100 dark:bg-emerald-500/20' :
+                    activity.category === 'staking' ? 'bg-purple-100 dark:bg-purple-500/20' :
+                    activity.category === 'wallet' ? 'bg-blue-100 dark:bg-blue-500/20' :
+                    'bg-slate-100 dark:bg-slate-500/20'
+                  }`}>
+                    <IconComponent className={`w-4 h-4 ${
+                      activity.category === 'rewards' ? 'text-emerald-500' :
+                      activity.category === 'staking' ? 'text-purple-500' :
+                      activity.category === 'wallet' ? 'text-blue-500' :
+                      'text-slate-500'
+                    }`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{activity.title}</p>
+                    <p className="text-xs text-slate-400">{formatTimeAgo(activity.createdAt)}</p>
+                  </div>
+                  {activity.amount && (
+                    <span className={`font-mono text-sm font-medium ${
+                      activity.activityType === 'transfer_out' ? 'text-red-500' : 'text-emerald-500'
+                    }`}>
+                      {activity.activityType === 'transfer_out' ? '-' : '+'}{activity.amount} TB
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+            {!isConnected && (
+              <p className="text-xs text-slate-400 text-center py-4">지갑 연결 시 활동 내역이 표시됩니다</p>
+            )}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
