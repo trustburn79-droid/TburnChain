@@ -48,6 +48,7 @@ import {
   generateRandomTBurnAddress,
   generateValidatorAddress,
   formatTBurnAddress,
+  encodeBech32m,
   SYSTEM_ADDRESSES,
   SIGNER_ADDRESSES
 } from '../utils/tburn-address';
@@ -1192,8 +1193,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Generate consistent wallet addresses using deterministic seeds
     for (let i = 0; i < this.WALLET_COUNT; i++) {
       const seed = `wallet-seed-${i}`;
-      const addressSuffix = this.generateDeterministicAddress(seed);
-      const address = `tburn${addressSuffix}`;
+      const address = generateTBurnAddress(i, i);
       
       // Calculate realistic balances based on wallet distribution
       // Power law distribution: few whale wallets, many small wallets
@@ -3221,9 +3221,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Deterministic block height offset
     const blockOffset = Math.floor(seededRandom(1) * 100);
     
-    // Deterministic addresses using hash derivation
-    const fromHash = crypto.createHash('sha256').update(hash + 'from').digest('hex');
-    const toHash = crypto.createHash('sha256').update(hash + 'to').digest('hex');
+    // Deterministic addresses using hash derivation with Bech32m encoding
+    const fromBytes = crypto.createHash('sha256').update(hash + 'from').digest().slice(0, 20);
+    const toBytes = crypto.createHash('sha256').update(hash + 'to').digest().slice(0, 20);
     
     // Deterministic value and gas
     // TBURN gas model: gasPrice = 10 EMB, gasUsed = 50-500 (avg ~72 for transfers)
@@ -3235,8 +3235,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return {
       hash,
       blockHeight: this.currentBlockHeight - blockOffset,
-      from: `tburn${fromHash.slice(0, 40)}`,
-      to: `tburn${toHash.slice(0, 40)}`,
+      from: encodeBech32m('tb', fromBytes),
+      to: encodeBech32m('tb', toBytes),
       value: (BigInt(valueMultiplier) * BigInt('1000000000000000000')).toString(),
       gasPrice: this.DEFAULT_GAS_PRICE_WEI, // 10 EMB in wei
       gasUsed: gasUsedBase.toString(), // 50-500 gas units, avg fee ~720 EMB
