@@ -550,6 +550,113 @@ router.get('/:address/activities', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// Create Delegation (POST)
+// ============================================
+router.post('/:address/delegations', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const { validatorAddress, validatorName, amount } = req.body;
+    
+    // Validate address format (supports both 0x and tb1)
+    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    // Validate validator address
+    if (!validatorAddress || (!validatorAddress.startsWith('0x') && !validatorAddress.startsWith('tb1'))) {
+      return res.status(400).json({ success: false, error: 'Invalid validator address' });
+    }
+    
+    // Validate amount
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount < 100) {
+      return res.status(400).json({ success: false, error: 'Minimum delegation amount is 100 TBURN' });
+    }
+    
+    if (parsedAmount > 1000000) {
+      return res.status(400).json({ success: false, error: 'Maximum delegation amount is 1,000,000 TBURN' });
+    }
+    
+    // Generate a delegation record
+    const now = new Date();
+    const delegationId = `del-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    
+    // Simulate processing (in production, this would be blockchain transaction)
+    const delegation = {
+      id: delegationId,
+      delegatorAddress: address,
+      validatorAddress,
+      validatorName: validatorName || 'Unknown Validator',
+      amount: parsedAmount.toFixed(4),
+      shares: (parsedAmount * 1.0).toFixed(4),
+      status: 'active',
+      txHash,
+      createdAt: now.toISOString(),
+      estimatedApy: '12.5%',
+    };
+    
+    res.json({
+      success: true,
+      data: {
+        delegation,
+        message: `Successfully delegated ${parsedAmount.toFixed(4)} TBURN to ${validatorName || validatorAddress}`,
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Delegation error:', error);
+    res.status(500).json({ success: false, error: 'Failed to create delegation' });
+  }
+});
+
+// ============================================
+// Get User Delegations List
+// ============================================
+router.get('/:address/delegations', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    
+    // Validate address format
+    if (!address || (!address.startsWith('0x') && !address.startsWith('tb1'))) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    // Generate delegations based on staking positions
+    const positions = generateStakingPositions(address);
+    const delegations = positions.map(pos => ({
+      id: pos.id,
+      delegatorAddress: address,
+      validatorAddress: `tb1${pos.validatorId.slice(4)}${address.slice(-20)}`,
+      validatorName: pos.validatorName,
+      amount: pos.stakedAmount,
+      shares: pos.shares,
+      pendingRewards: pos.pendingRewards,
+      currentApy: pos.currentApy,
+      status: pos.status,
+      createdAt: pos.createdAt,
+    }));
+    
+    const summary = {
+      totalDelegations: delegations.length,
+      totalDelegated: delegations.reduce((sum, d) => sum + parseFloat(d.amount || '0'), 0).toFixed(4),
+      totalPendingRewards: delegations.reduce((sum, d) => sum + parseFloat(d.pendingRewards || '0'), 0).toFixed(4),
+      avgApy: (delegations.reduce((sum, d) => sum + parseFloat(d.currentApy || '0'), 0) / (delegations.length || 1)).toFixed(2),
+    };
+    
+    res.json({
+      success: true,
+      data: {
+        delegations,
+        summary,
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Delegations list error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch delegations' });
+  }
+});
+
 export function registerUserDataRoutes(app: any) {
   app.use('/api/user', router);
   console.log('[UserData] Routes registered successfully');

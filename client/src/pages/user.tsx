@@ -743,6 +743,7 @@ export default function UserPage() {
               stakingStats={stakingStats}
               validators={validators}
               onConnectWallet={() => setWalletModalOpen(true)}
+              walletAddress={address}
             />
           )}
           {activeSection === "governance" && (
@@ -1443,24 +1444,67 @@ function StakingSection({
   stakingStats,
   validators,
   onConnectWallet,
+  walletAddress,
 }: {
   isConnected: boolean;
   stakingStats: StakingStats | null | undefined;
   validators: ApiValidator[];
   onConnectWallet: () => void;
+  walletAddress: string | null;
 }) {
   const [selectedValidator, setSelectedValidator] = useState<string | null>(null);
   const [delegateAmount, setDelegateAmount] = useState("");
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const { t } = useTranslation();
+
+  const selectedValidatorInfo = validators.find(v => v.address === selectedValidator);
+  
+  const delegateMutation = useMutation({
+    mutationFn: async ({ validatorAddress, validatorName, amount }: { validatorAddress: string; validatorName: string; amount: string }) => {
+      const response = await apiRequest('POST', `/api/user/${walletAddress}/delegations`, { validatorAddress, validatorName, amount });
+      return response.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: t('userPage.stakingPage.delegationSuccess', 'Delegation Successful'),
+        description: data?.data?.message || t('userPage.stakingPage.delegationCreated', 'Your delegation has been created'),
+      });
+      setDelegateAmount("");
+      setSelectedValidator(null);
+      queryClient.invalidateQueries({ queryKey: ["/api/public/v1/validators"] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: t('userPage.stakingPage.delegationError', 'Delegation Failed'),
+        description: error?.message || t('userPage.stakingPage.delegationFailed', 'Failed to create delegation'),
+        variant: "destructive",
+      });
+    },
+  });
   
   const handleDelegate = () => {
-    if (!selectedValidator || !delegateAmount) {
+    if (!selectedValidator || !delegateAmount || !walletAddress) {
       toast({ title: t('userPage.toast.inputRequired'), description: t('userPage.stakingPage.selectValidatorAndAmount'), variant: "destructive" });
       return;
     }
-    toast({ title: t('userPage.stakingPage.delegationRequested'), description: `${delegateAmount} TB` });
+    
+    const amount = parseFloat(delegateAmount);
+    if (isNaN(amount) || amount < 100) {
+      toast({ 
+        title: t('userPage.stakingPage.invalidAmount', 'Invalid Amount'), 
+        description: t('userPage.stakingPage.minDelegation', 'Minimum delegation is 100 TBURN'), 
+        variant: "destructive" 
+      });
+      return;
+    }
+    
+    delegateMutation.mutate({
+      validatorAddress: selectedValidator,
+      validatorName: selectedValidatorInfo?.name || 'Unknown Validator',
+      amount: delegateAmount,
+    });
   };
 
   const formatStake = (stake: string): string => {
@@ -1516,11 +1560,24 @@ function StakingSection({
         />
       </div>
 
-      {isConnected && (
-        <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-6 border border-blue-200/50 dark:border-blue-500/20">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t('userPage.stakingPage.quickDelegation')}</h3>
+      <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-6 border border-blue-200/50 dark:border-blue-500/20">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t('userPage.stakingPage.quickDelegation')}</h3>
+        </div>
+        {!isConnected ? (
+          <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-6 text-center">
+            <Wallet className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
+            <p className="text-yellow-400 font-medium mb-2">
+              {t('userPage.stakingPage.connectWalletToDelegate', 'Connect Wallet to Delegate')}
+            </p>
+            <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">
+              {t('userPage.stakingPage.connectWalletDesc', 'Please connect your wallet to stake TBURN tokens and earn rewards')}
+            </p>
+            <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-delegation">
+              <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
+            </Button>
           </div>
+        ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">{t('userPage.stakingPage.selectValidator')}</label>
@@ -1553,15 +1610,23 @@ function StakingSection({
               <Button
                 onClick={handleDelegate}
                 className="w-full bg-gradient-to-r from-blue-500 to-purple-600"
-                disabled={!selectedValidator || !delegateAmount}
+                disabled={!selectedValidator || !delegateAmount || delegateMutation.isPending}
                 data-testid="button-delegate"
               >
-                <Lock className="w-4 h-4 mr-2" /> {t('userPage.stakingPage.delegate')}
+                {delegateMutation.isPending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t('userPage.stakingPage.delegating', 'Delegating...')}
+                  </>
+                ) : (
+                  <>
+                    <Lock className="w-4 h-4 mr-2" /> {t('userPage.stakingPage.delegate')}
+                  </>
+                )}
               </Button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       <div className="bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
         <div className="p-4 border-b border-slate-100 dark:border-gray-800">

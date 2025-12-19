@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +8,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { 
   Shield, 
   TrendingUp, 
@@ -19,12 +21,17 @@ import {
   Award,
   Activity,
   Globe,
-  Copy
+  Copy,
+  ArrowRight,
+  Loader2,
+  Wallet
 } from "lucide-react";
 import { useState, useCallback } from "react";
 import { useScanWebSocket } from "../../hooks/useScanWebSocket";
 import ScanLayout from "../../components/ScanLayout";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useWeb3 } from "@/lib/web3-context";
 
 interface Validator {
   rank?: number;
@@ -56,12 +63,40 @@ interface ValidatorsResponse {
 export default function ValidatorsList() {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const { isConnected } = useScanWebSocket();
+  const { isConnected: wsConnected } = useScanWebSocket();
+  const { isConnected: walletConnected, address: walletAddress } = useWeb3();
   const [searchValidator, setSearchValidator] = useState("");
+  const [delegateDialogOpen, setDelegateDialogOpen] = useState(false);
+  const [selectedValidator, setSelectedValidator] = useState<Validator | null>(null);
+  const [delegationAmount, setDelegationAmount] = useState("");
 
   const { data, isLoading, error, refetch, isFetching } = useQuery<{ success: boolean; data: ValidatorsResponse }>({
     queryKey: ["/api/public/v1/validators"],
-    refetchInterval: isConnected ? 10000 : 60000,
+    refetchInterval: wsConnected ? 10000 : 60000,
+  });
+
+  const delegateMutation = useMutation({
+    mutationFn: async ({ validatorAddress, validatorName, amount }: { validatorAddress: string; validatorName: string; amount: string }) => {
+      const response = await apiRequest('POST', `/api/user/${walletAddress}/delegations`, { validatorAddress, validatorName, amount });
+      return response.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: t("scan.delegationSuccess", "Delegation Successful"),
+        description: data?.data?.message || t("scan.delegationCreated", "Your delegation has been created"),
+      });
+      setDelegateDialogOpen(false);
+      setDelegationAmount("");
+      setSelectedValidator(null);
+      queryClient.invalidateQueries({ queryKey: ["/api/public/v1/validators"] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: t("scan.delegationError", "Delegation Failed"),
+        description: error?.message || t("scan.delegationFailed", "Failed to create delegation"),
+        variant: "destructive",
+      });
+    },
   });
 
   const validators = data?.data?.validators || [];
@@ -83,6 +118,32 @@ export default function ValidatorsList() {
   const formatAddress = (addr: string) => {
     if (!addr) return "-";
     return `${addr.slice(0, 8)}...${addr.slice(-6)}`;
+  };
+
+  const handleDelegateClick = (validator: Validator) => {
+    setSelectedValidator(validator);
+    setDelegationAmount("");
+    setDelegateDialogOpen(true);
+  };
+
+  const handleDelegateSubmit = () => {
+    if (!selectedValidator || !delegationAmount || !walletAddress) return;
+    
+    const amount = parseFloat(delegationAmount);
+    if (isNaN(amount) || amount < 100) {
+      toast({
+        title: t("scan.invalidAmount", "Invalid Amount"),
+        description: t("scan.minDelegation", "Minimum delegation is 100 TBURN"),
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    delegateMutation.mutate({
+      validatorAddress: selectedValidator.address,
+      validatorName: selectedValidator.name,
+      amount: delegationAmount,
+    });
   };
 
   const formatStake = (stake: string) => {
@@ -115,7 +176,7 @@ export default function ValidatorsList() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2" data-testid="text-validators-title">
               <Shield className="w-6 h-6 text-purple-400" />
               {t("scan.validators", "Validators")}
-              {isConnected && (
+              {wsConnected && (
                 <span className="relative flex h-2 w-2 ml-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -241,6 +302,7 @@ export default function ValidatorsList() {
                       <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.uptime", "Uptime")}</TableHead>
                       <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.commission", "Commission")}</TableHead>
                       <TableHead className="text-gray-600 dark:text-gray-400">{t("scan.apy", "APY")}</TableHead>
+                      <TableHead className="text-gray-600 dark:text-gray-400 text-right">{t("scan.action", "Action")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -324,6 +386,19 @@ export default function ValidatorsList() {
                             {parseFloat(validator.apy).toFixed(1)}%
                           </span>
                         </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleDelegateClick(validator)}
+                            disabled={validator.status !== 'active'}
+                            className="text-xs border-purple-500/50 text-purple-400 hover:bg-purple-500/20 hover:text-purple-300"
+                            data-testid={`button-delegate-${validator.address}`}
+                          >
+                            <ArrowRight className="w-3 h-3 mr-1" />
+                            {t("scan.delegate", "Delegate")}
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -333,6 +408,103 @@ export default function ValidatorsList() {
           </CardContent>
         </Card>
       </div>
+
+      <Dialog open={delegateDialogOpen} onOpenChange={setDelegateDialogOpen}>
+        <DialogContent className="sm:max-w-md bg-gray-900 border-gray-800">
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center gap-2">
+              <Shield className="w-5 h-5 text-purple-400" />
+              {t("scan.delegateToValidator", "Delegate to Validator")}
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              {t("scan.delegateDescription", "Stake your TBURN tokens with this validator to earn rewards")}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedValidator && (
+            <div className="space-y-4">
+              <div className="bg-gray-800/50 rounded-lg p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 text-sm">{t("scan.validator", "Validator")}</span>
+                  <span className="text-white font-medium">{selectedValidator.name}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 text-sm">{t("scan.commission", "Commission")}</span>
+                  <span className="text-gray-300">{parseFloat(selectedValidator.commission).toFixed(1)}%</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 text-sm">{t("scan.expectedApy", "Expected APY")}</span>
+                  <span className="text-green-400 font-semibold">{parseFloat(selectedValidator.apy).toFixed(1)}%</span>
+                </div>
+              </div>
+
+              {!walletConnected ? (
+                <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 text-center">
+                  <Wallet className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
+                  <p className="text-yellow-400 text-sm">
+                    {t("scan.connectWalletToDelegate", "Please connect your wallet to delegate")}
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="amount" className="text-gray-300">
+                      {t("scan.delegationAmount", "Delegation Amount")}
+                    </Label>
+                    <div className="relative">
+                      <Input
+                        id="amount"
+                        type="number"
+                        placeholder="100"
+                        value={delegationAmount}
+                        onChange={(e) => setDelegationAmount(e.target.value)}
+                        className="bg-gray-800 border-gray-700 text-white pr-16"
+                        min="100"
+                        data-testid="input-delegation-amount"
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
+                        TBURN
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-500">
+                      {t("scan.minDelegation", "Minimum delegation is 100 TBURN")}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setDelegateDialogOpen(false)}
+              className="border-gray-700 text-gray-300"
+              data-testid="button-cancel-delegation"
+            >
+              {t("common.cancel", "Cancel")}
+            </Button>
+            <Button
+              onClick={handleDelegateSubmit}
+              disabled={!walletConnected || !delegationAmount || delegateMutation.isPending}
+              className="bg-purple-600 hover:bg-purple-700 text-white"
+              data-testid="button-confirm-delegation"
+            >
+              {delegateMutation.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  {t("scan.delegating", "Delegating...")}
+                </>
+              ) : (
+                <>
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  {t("scan.confirmDelegation", "Confirm Delegation")}
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </ScanLayout>
   );
 }
