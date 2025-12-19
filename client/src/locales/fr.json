@@ -3876,62 +3876,27 @@
       "prop-001": {
         "title": "Augmenter le taux de brûlage de 20% à 25%",
         "description": "Cette proposition vise à augmenter le taux de brûlage des émissions quotidiennes de 20% à 25% pour accélérer la déflation et soutenir la stabilité des prix à long terme.",
-        "aiRecommendation": "Cette proposition présente un risque économique modéré mais bénéficie d'un fort soutien communautaire. Envisagez une mise en œuvre progressive sur 30 jours.",
-        "risks": [
-          "Volatilité des prix à court terme",
-          "Réduction des incitations à la liquidité"
-        ],
-        "keyFactors": [
-          "Fort soutien des validateurs",
-          "Des propositions similaires ont été adoptées",
-          "Sentiment communautaire positif"
-        ]
+        "aiRecommendation": "Cette proposition présente un risque économique modéré mais un fort soutien de la communauté. Envisagez une mise en œuvre progressive sur 30 jours."
       },
       "prop-002": {
         "title": "Ajouter le support du pont zkSync",
-        "description": "Proposition d'intégration de zkSync Era comme chaîne supportée sur le pont cross-chain TBURN avec évaluation des risques par IA.",
-        "aiRecommendation": "L'intégration zkSync est techniquement réalisable avec une complexité moyenne. Un audit de sécurité est recommandé avant le déploiement.",
-        "risks": [
-          "Risques liés aux nouvelles technologies",
-          "Complexité d'intégration",
-          "Fragmentation de la liquidité"
-        ],
-        "keyFactors": [
-          "Préoccupations concernant la complexité technique",
-          "Forte croissance de l'écosystème zkSync",
-          "Intérêt de la communauté des développeurs"
-        ]
+        "description": "Proposition d'intégrer zkSync Era comme chaîne supportée dans le pont cross-chain TBURN avec évaluation des risques par IA.",
+        "aiRecommendation": "L'intégration zkSync est techniquement faisable avec une complexité modérée. Audit de sécurité recommandé avant le déploiement."
       },
       "prop-003": {
-        "title": "Réduire le stake minimum pour les validateurs Tier-1",
-        "description": "Réduire le stake minimum des validateurs Tier-1 de 200 000 TBURN à 150 000 TBURN pour promouvoir la décentralisation des validateurs.",
-        "aiRecommendation": "La réduction des exigences de stake favorise la décentralisation avec un impact minimal sur la sécurité grâce au système de réputation IA.",
-        "risks": [
-          "Légère augmentation du nombre de validateurs",
-          "Légère dilution des récompenses"
-        ],
-        "keyFactors": []
+        "title": "Réduire le stake minimum du validateur Tier 1",
+        "description": "Réduire le stake minimum du validateur Tier 1 de 200 000 TBURN à 150 000 TBURN pour augmenter la décentralisation des validateurs.",
+        "aiRecommendation": "Des exigences de stake plus basses augmentent la décentralisation avec un impact sécuritaire minimal grâce au système de réputation IA."
       },
       "prop-004": {
-        "title": "Implémenter l'optimisation des frais de gas pilotée par IA",
-        "description": "Déployer des modèles IA pour ajuster dynamiquement les frais de gas en fonction de la congestion du réseau, réduisant les coûts pendant les périodes de faible trafic.",
-        "aiRecommendation": "",
-        "risks": [],
-        "keyFactors": []
+        "title": "Implémenter l'optimisation des frais de gas par IA",
+        "description": "Déployer un modèle IA pour ajuster dynamiquement les frais de gas en fonction de la congestion du réseau, réduisant les coûts pendant les périodes de faible trafic.",
+        "aiRecommendation": ""
       },
       "prop-005": {
-        "title": "Mise à niveau des signatures résistantes aux quantiques",
-        "description": "Mise à niveau obligatoire vers les signatures hybrides CRYSTALS-Dilithium + ED25519 pour toutes les opérations des validateurs.",
-        "aiRecommendation": "Mise à niveau de sécurité critique avec impact économique minimal. Fortement recommandée pour la protection post-quantique.",
-        "risks": [
-          "Complexité de la période de transition",
-          "Léger surcoût de performance"
-        ],
-        "keyFactors": [
-          "Communauté axée sur la sécurité",
-          "Inconvénients minimaux",
-          "Avantages techniques clairs"
-        ]
+        "title": "Mise à niveau des signatures résistantes au quantique",
+        "description": "Mise à niveau obligatoire vers les signatures hybrides CRYSTALS-Dilithium + ED25519 pour toutes les opérations de validateur.",
+        "aiRecommendation": "Mise à niveau de sécurité critique avec impact économique minimal. Fortement recommandée pour la protection post-quantique."
       }
     }
   },

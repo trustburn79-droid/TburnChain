@@ -250,7 +250,7 @@ const formatBurnAmount = (val: string | undefined): string => {
   return num.toFixed(2);
 };
 
-const formatTimeAgo = (timestamp: string, t: (key: string, options?: object) => string): string => {
+const formatTimeAgo = (timestamp: string, t: (key: string, options?: Record<string, unknown>) => string): string => {
   const now = new Date();
   const past = new Date(timestamp);
   const diffMs = now.getTime() - past.getTime();
@@ -1613,7 +1613,7 @@ function StakingDashboardSection({
             <span className="text-sm font-bold text-emerald-500">Tier 2: {tierData.tier2.name}</span>
           </div>
           <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
-            {tierData.tier2.requirement}, {t('userPage.validatorTiers.maxMembers', { count: tierData.tier2.maxMembers.toLocaleString() })}
+            {tierData.tier2.requirement}, {t('userPage.validatorTiers.maxMembers', { count: tierData.tier2.maxMembers })}
           </p>
           <div className="grid grid-cols-3 gap-2 text-center">
             <div>
@@ -2176,10 +2176,10 @@ function GovernanceSection({
               </div>
 
               <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-2">
-                {proposal.title}
+                {t(`governance.proposals.${proposal.id}.title`, proposal.title)}
               </h3>
               <p className="text-sm text-slate-500 dark:text-gray-400 mb-4 line-clamp-2">
-                {proposal.description}
+                {t(`governance.proposals.${proposal.id}.description`, proposal.description)}
               </p>
 
               {proposal.aiAnalysis && (
@@ -2188,7 +2188,7 @@ function GovernanceSection({
                     <Cpu className="w-4 h-4 text-blue-500" />
                     <span className="text-xs font-medium text-slate-600 dark:text-gray-400">{t('userPage.governancePage.aiAnalysisResult')}</span>
                   </div>
-                  <p className="text-sm text-slate-700 dark:text-gray-300">{proposal.aiAnalysis.recommendation}</p>
+                  <p className="text-sm text-slate-700 dark:text-gray-300">{t(`governance.proposals.${proposal.id}.aiRecommendation`, proposal.aiAnalysis.recommendation)}</p>
                   <div className="flex gap-4 mt-2 text-xs">
                     <span className="text-slate-500">{t('userPage.governancePage.confidence')}: {proposal.aiAnalysis.confidence}%</span>
                     <span className="text-slate-500">{t('userPage.governancePage.economicImpact')}: {proposal.aiAnalysis.economicImpact}%</span>
@@ -2212,7 +2212,7 @@ function GovernanceSection({
                   />
                 </div>
                 <div className="flex justify-between text-xs text-slate-400">
-                  <span>{t('userPage.governancePage.totalParticipants', { count: formatNumber(proposal.totalVoters) })}</span>
+                  <span>{t('userPage.governancePage.totalParticipants', { count: proposal.totalVoters })}</span>
                   <span>{proposal.quorumReached ? t('userPage.governancePage.quorumReached') : t('userPage.governancePage.quorumNotReached')}</span>
                 </div>
               </div>

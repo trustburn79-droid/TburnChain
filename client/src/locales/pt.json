@@ -3343,64 +3343,29 @@
     },
     "proposals": {
       "prop-001": {
-        "title": "Aumentar a taxa de queima de 20% para 25%",
-        "description": "Esta proposta visa aumentar a taxa de queima de emissões diárias de 20% para 25% para acelerar a deflação e apoiar a estabilidade de preços a longo prazo.",
-        "aiRecommendation": "Esta proposta tem risco econômico moderado, mas forte apoio da comunidade. Considere implementação gradual ao longo de 30 dias.",
-        "risks": [
-          "Volatilidade de preços a curto prazo",
-          "Redução de incentivos de liquidez"
-        ],
-        "keyFactors": [
-          "Forte apoio dos validadores",
-          "Propostas similares foram aprovadas antes",
-          "Sentimento positivo da comunidade"
-        ]
+        "title": "Aumentar taxa de queima de 20% para 25%",
+        "description": "Esta proposta visa aumentar a taxa de queima de emissão diária de 20% para 25% para acelerar a deflação e apoiar a estabilidade de preços a longo prazo.",
+        "aiRecommendation": "Esta proposta tem risco econômico moderado, mas forte apoio da comunidade. Considere implementação gradual em 30 dias."
       },
       "prop-002": {
         "title": "Adicionar suporte para ponte zkSync",
-        "description": "Proposta para integrar zkSync Era como uma rede suportada na ponte cross-chain TBURN com avaliação de risco por IA.",
-        "aiRecommendation": "A integração zkSync é tecnicamente viável com complexidade média. Auditoria de segurança recomendada antes da implantação.",
-        "risks": [
-          "Riscos de nova tecnologia",
-          "Complexidade de integração",
-          "Fragmentação de liquidez"
-        ],
-        "keyFactors": [
-          "Preocupações com complexidade técnica",
-          "Forte crescimento do ecossistema zkSync",
-          "Interesse da comunidade de desenvolvedores"
-        ]
+        "description": "Proposta para integrar zkSync Era como uma cadeia suportada na ponte cross-chain TBURN com avaliação de risco por IA.",
+        "aiRecommendation": "A integração zkSync é tecnicamente viável com complexidade moderada. Recomenda-se auditoria de segurança antes da implantação."
       },
       "prop-003": {
-        "title": "Reduzir o stake mínimo para validadores Tier-1",
-        "description": "Reduzir o stake mínimo de validadores Tier-1 de 200.000 TBURN para 150.000 TBURN para promover a descentralização de validadores.",
-        "aiRecommendation": "A redução do requisito de stake promove a descentralização com impacto mínimo na segurança dado o sistema de reputação de IA.",
-        "risks": [
-          "Leve aumento no número de validadores",
-          "Diluição menor das recompensas"
-        ],
-        "keyFactors": []
+        "title": "Reduzir stake mínimo do validador Tier 1",
+        "description": "Reduzir o stake mínimo do validador Tier 1 de 200.000 TBURN para 150.000 TBURN para aumentar a descentralização dos validadores.",
+        "aiRecommendation": "Requisitos de stake mais baixos aumentam a descentralização com impacto mínimo na segurança dado o sistema de reputação por IA."
       },
       "prop-004": {
-        "title": "Implementar otimização de taxas de gas orientada por IA",
-        "description": "Implantar modelos de IA para ajustar dinamicamente as taxas de gas com base no congestionamento da rede, reduzindo custos durante períodos de baixo tráfego.",
-        "aiRecommendation": "",
-        "risks": [],
-        "keyFactors": []
+        "title": "Implementar otimização de taxas de gas por IA",
+        "description": "Implantar modelo de IA para ajustar dinamicamente as taxas de gas com base no congestionamento da rede, reduzindo custos durante períodos de baixo tráfego.",
+        "aiRecommendation": ""
       },
       "prop-005": {
-        "title": "Atualização de assinaturas resistentes a quantum",
-        "description": "Atualização obrigatória para assinaturas híbridas CRYSTALS-Dilithium + ED25519 para todas as operações de validadores.",
-        "aiRecommendation": "Atualização de segurança crítica com impacto econômico mínimo. Altamente recomendada para proteção pós-quântica.",
-        "risks": [
-          "Complexidade do período de transição",
-          "Ligeira sobrecarga de desempenho"
-        ],
-        "keyFactors": [
-          "Comunidade focada em segurança",
-          "Desvantagens mínimas",
-          "Vantagens técnicas claras"
-        ]
+        "title": "Atualização de assinatura resistente a quântica",
+        "description": "Atualização obrigatória para assinaturas híbridas CRYSTALS-Dilithium + ED25519 para todas as operações de validador.",
+        "aiRecommendation": "Atualização de segurança crítica com impacto econômico mínimo. Fortemente recomendada para proteção pós-quântica."
       }
     }
   },

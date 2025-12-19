@@ -5795,64 +5795,29 @@
     },
     "proposals": {
       "prop-001": {
-        "title": "将燃烧率从20%提高到25%",
-        "description": "该提案旨在将每日排放燃烧率从20%提高到25%，以加速通缩并支持长期价格稳定。",
-        "aiRecommendation": "该提案具有中等经济风险，但社区支持强劲。建议在30天内分阶段实施。",
-        "risks": [
-          "短期价格波动",
-          "流动性激励减少"
-        ],
-        "keyFactors": [
-          "验证者强力支持",
-          "类似提案曾通过",
-          "社区情绪积极"
-        ]
+        "title": "将销毁率从20%提高到25%",
+        "description": "该提案旨在将每日排放销毁率从20%提高到25%，以加速通缩并支持长期价格稳定。",
+        "aiRecommendation": "该提案有中等经济风险，但社区支持度高。建议在30天内分阶段实施。"
       },
       "prop-002": {
         "title": "添加zkSync桥接支持",
-        "description": "提议将zkSync Era作为TBURN跨链桥的支持链进行整合，并提供AI风险评估。",
-        "aiRecommendation": "zkSync整合在技术上可行，复杂度中等。建议在部署前进行安全审计。",
-        "risks": [
-          "新技术风险",
-          "整合复杂性",
-          "流动性碎片化"
-        ],
-        "keyFactors": [
-          "技术复杂性担忧",
-          "zkSync生态系统强劲增长",
-          "开发者社区兴趣"
-        ]
+        "description": "提案将zkSync Era作为TBURN跨链桥接的支持链进行集成，并配备AI风险评估。",
+        "aiRecommendation": "zkSync集成在技术上可行，复杂度中等。建议在部署前进行安全审计。"
       },
       "prop-003": {
-        "title": "降低一级验证者最低质押量",
-        "description": "将一级验证者的最低质押量从200,000 TBURN降低到150,000 TBURN，以增加验证者去中心化程度。",
-        "aiRecommendation": "降低质押要求可以在AI信誉系统的支持下，在对安全性影响最小的情况下增加去中心化程度。",
-        "risks": [
-          "验证者数量略有增加",
-          "奖励轻微稀释"
-        ],
-        "keyFactors": []
+        "title": "降低Tier 1验证者最低质押",
+        "description": "将Tier 1验证者最低质押从200,000 TBURN降低到150,000 TBURN，以提高验证者去中心化程度。",
+        "aiRecommendation": "考虑到AI声誉系统，较低的质押要求在最小安全影响下增加去中心化。"
       },
       "prop-004": {
         "title": "实施AI驱动的Gas费优化",
-        "description": "部署AI模型根据网络拥堵情况动态调整Gas费，降低低流量期间的成本。",
-        "aiRecommendation": "",
-        "risks": [],
-        "keyFactors": []
+        "description": "部署AI模型，根据网络拥堵情况动态调整Gas费用，在低流量期间降低成本。",
+        "aiRecommendation": ""
       },
       "prop-005": {
         "title": "量子抗性签名升级",
-        "description": "所有验证者操作必须升级到CRYSTALS-Dilithium + ED25519混合签名。",
-        "aiRecommendation": "经济影响最小的关键安全升级。强烈建议用于后量子保护。",
-        "risks": [
-          "过渡期复杂性",
-          "轻微性能开销"
-        ],
-        "keyFactors": [
-          "以安全为重点的社区",
-          "缺点最小",
-          "明确的技术优势"
-        ]
+        "description": "所有验证者操作强制升级到CRYSTALS-Dilithium + ED25519混合签名。",
+        "aiRecommendation": "经济影响最小的关键安全升级。强烈建议用于后量子保护。"
       }
     }
   },

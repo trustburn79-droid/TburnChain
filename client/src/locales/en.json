@@ -6446,62 +6446,27 @@
       "prop-001": {
         "title": "Increase Burn Rate from 20% to 25%",
         "description": "This proposal aims to increase the daily emission burn rate from 20% to 25% to accelerate deflation and support long-term price stability.",
-        "aiRecommendation": "This proposal has moderate economic risk but strong community support. Consider phased implementation over 30 days.",
-        "risks": [
-          "Short-term price volatility",
-          "Reduced liquidity incentives"
-        ],
-        "keyFactors": [
-          "Strong validator support",
-          "Previous similar proposal passed",
-          "Community sentiment positive"
-        ]
+        "aiRecommendation": "This proposal has moderate economic risk but strong community support. Consider phased implementation over 30 days."
       },
       "prop-002": {
         "title": "Add Support for zkSync Bridge",
         "description": "Proposal to integrate zkSync Era as a supported chain in the TBURN cross-chain bridge with AI risk assessment.",
-        "aiRecommendation": "zkSync integration is technically feasible with moderate complexity. Recommend security audit before deployment.",
-        "risks": [
-          "New technology risk",
-          "Integration complexity",
-          "Liquidity fragmentation"
-        ],
-        "keyFactors": [
-          "Technical complexity concerns",
-          "Strong zkSync ecosystem growth",
-          "Developer community interest"
-        ]
+        "aiRecommendation": "zkSync integration is technically feasible with moderate complexity. Recommend security audit before deployment."
       },
       "prop-003": {
         "title": "Reduce Tier 1 Validator Minimum Stake",
         "description": "Lower the Tier 1 validator minimum stake from 200,000 TBURN to 150,000 TBURN to increase validator decentralization.",
-        "aiRecommendation": "Lower stake requirements increase decentralization with minimal security impact given AI reputation system.",
-        "risks": [
-          "Slight increase in validator count",
-          "Minor reward dilution"
-        ],
-        "keyFactors": []
+        "aiRecommendation": "Lower stake requirements increase decentralization with minimal security impact given AI reputation system."
       },
       "prop-004": {
         "title": "Implement AI-Driven Gas Fee Optimization",
         "description": "Deploy AI model to dynamically adjust gas fees based on network congestion, reducing costs during low-traffic periods.",
-        "aiRecommendation": "",
-        "risks": [],
-        "keyFactors": []
+        "aiRecommendation": ""
       },
       "prop-005": {
         "title": "Quantum-Resistant Signature Upgrade",
         "description": "Mandatory upgrade to CRYSTALS-Dilithium + ED25519 hybrid signatures for all validator operations.",
-        "aiRecommendation": "Critical security upgrade with minimal economic impact. Strongly recommended for post-quantum protection.",
-        "risks": [
-          "Transition period complexity",
-          "Slight performance overhead"
-        ],
-        "keyFactors": [
-          "Security-focused community",
-          "Minimal downside",
-          "Clear technical benefits"
-        ]
+        "aiRecommendation": "Critical security upgrade with minimal economic impact. Strongly recommended for post-quantum protection."
       },
       "title": "Proposals",
       "create": "Create Proposal",
