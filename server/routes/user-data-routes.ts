@@ -36,6 +36,19 @@ function addressSeed(address: string): number {
   return Math.abs(hash);
 }
 
+// Generate a realistic 64-character hex hash from seed values
+function generateTxHash(seed: number, index: number): string {
+  const segments: string[] = [];
+  let current = seed + index * 7919;
+  
+  for (let i = 0; i < 8; i++) {
+    current = (current * 6271 + 2963) & 0xFFFFFFFF;
+    segments.push(current.toString(16).padStart(8, '0').slice(-8));
+  }
+  
+  return `0x${segments.join('')}`;
+}
+
 // Generate realistic mining rewards for a user
 function generateMiningRewards(address: string) {
   const seed = addressSeed(address);
@@ -54,7 +67,7 @@ function generateMiningRewards(address: string) {
       source: i % 3 === 0 ? 'block_production' : i % 3 === 1 ? 'validation' : 'fee_share',
       epoch: 1000 + i,
       blockNumber: 35760000 + (i * 1000),
-      txHash: `0x${(seed + i).toString(16).padStart(64, '0')}`,
+      txHash: generateTxHash(seed, i),
       claimed: i > 3,
       claimedAt: i > 3 ? new Date(now - dayOffset).toISOString() : null,
       createdAt: new Date(now - dayOffset).toISOString(),
@@ -129,7 +142,7 @@ function generateStakingRewards(address: string) {
       rewardType: i % 4 === 0 ? 'bonus' : i % 4 === 1 ? 'compound' : 'staking_interest',
       epoch: 900 + i,
       apy: `${12 + (i % 5)}.${seed % 10}`,
-      txHash: `0x${(seed + i * 1000).toString(16).padStart(64, 'a')}`,
+      txHash: generateTxHash(seed, i + 1000),
       claimed: i > 2,
       claimedAt: i > 2 ? new Date(now - weekOffset).toISOString() : null,
       autoCompounded: i % 3 === 1,
@@ -200,7 +213,7 @@ function generateEventParticipation(address: string) {
     ...event,
     walletAddress: address,
     rewardToken: 'TB',
-    rewardTxHash: event.status === 'claimed' ? `0x${(seed + i * 500).toString(16).padStart(64, 'b')}` : null,
+    rewardTxHash: event.status === 'claimed' ? generateTxHash(seed, i + 500) : null,
     eventStartDate: new Date(now - (180 - i * 30) * 24 * 60 * 60 * 1000).toISOString(),
     eventEndDate: event.status === 'pending' ? new Date(now + 30 * 24 * 60 * 60 * 1000).toISOString() : new Date(now - (150 - i * 30) * 24 * 60 * 60 * 1000).toISOString(),
     claimDeadline: event.status === 'eligible' ? new Date(now + 14 * 24 * 60 * 60 * 1000).toISOString() : null,
@@ -239,7 +252,7 @@ function generateActivityLog(address: string) {
       description: `${activity.title} 완료`,
       amount: activity.amount ? ((parseFloat(activity.amount) * (1 + (seed + i) % 10 / 10)).toFixed(4)) : null,
       token: 'TB',
-      txHash: `0x${(seed + i * 100).toString(16).padStart(64, 'c')}`,
+      txHash: generateTxHash(seed, i + 100),
       createdAt: new Date(now - hourOffset).toISOString(),
     });
   }
