@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
   Activity,
@@ -345,13 +345,26 @@ function WarningBanner({ type, message, onDismiss }: { type: 'warning' | 'info';
   );
 }
 
-function DataIntegrityAlert({ stats, onRefresh }: { stats: NetworkStats | undefined; onRefresh: () => void }) {
+function DataIntegrityAlert({ stats, isLoading, onRefresh }: { stats: NetworkStats | undefined; isLoading: boolean; onRefresh: () => void }) {
   const { t } = useTranslation();
+  const [showNoDataWarning, setShowNoDataWarning] = useState(false);
+  
+  useEffect(() => {
+    if (!stats && !isLoading) {
+      const timer = setTimeout(() => setShowNoDataWarning(true), 3000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowNoDataWarning(false);
+    }
+  }, [stats, isLoading]);
   
   const issues = useMemo(() => {
     const problems: string[] = [];
+    
     if (!stats) {
-      problems.push(t("dashboard.alerts.noData"));
+      if (showNoDataWarning && !isLoading) {
+        problems.push(t("dashboard.alerts.noData"));
+      }
       return problems;
     }
     
@@ -372,7 +385,7 @@ function DataIntegrityAlert({ stats, onRefresh }: { stats: NetworkStats | undefi
       }
     }
     return problems;
-  }, [stats, t]);
+  }, [stats, isLoading, showNoDataWarning, t]);
 
   if (issues.length === 0) return null;
 
@@ -519,8 +532,9 @@ export default function Dashboard() {
     staleTime: 5000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
-    retry: 2,
-    retryDelay: 500,
+    retry: 3,
+    retryDelay: 1000,
+    placeholderData: keepPreviousData,
   });
 
   const { data: recentBlocks, isLoading: blocksLoading, error: blocksError, refetch: refetchBlocks } = useQuery<Block[]>({
@@ -529,7 +543,8 @@ export default function Dashboard() {
     staleTime: 3000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
-    retry: 2,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: recentTxs, isLoading: txsLoading, error: txsError, refetch: refetchTxs } = useQuery<Transaction[]>({
@@ -538,7 +553,8 @@ export default function Dashboard() {
     staleTime: 3000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
-    retry: 2,
+    retry: 3,
+    placeholderData: keepPreviousData,
   });
 
   const { data: memberStats, isLoading: memberStatsLoading } = useQuery<MemberStats>({
@@ -814,7 +830,7 @@ export default function Dashboard() {
       </div>
 
       {/* Data Integrity Warning Alert */}
-      <DataIntegrityAlert stats={networkStats} onRefresh={handleRefresh} />
+      <DataIntegrityAlert stats={networkStats} isLoading={statsLoading} onRefresh={handleRefresh} />
 
       {statsError && (
         <ErrorCard 
