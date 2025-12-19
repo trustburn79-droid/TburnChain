@@ -17,7 +17,8 @@ import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
-import { LogOut, Loader2 } from "lucide-react";
+import { LogOut, Loader2, CheckCircle2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import '@/lib/i18n';
 import { lazy, Suspense } from "react";
 
@@ -173,6 +174,7 @@ interface DataSourceStatus {
 }
 
 function AuthenticatedApp() {
+  const { t } = useTranslation();
   const { data: authData, isLoading } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
     staleTime: 30000,
@@ -214,9 +216,19 @@ function AuthenticatedApp() {
           <div className="flex h-screen w-full">
             <AppSidebar />
             <div className="flex flex-col flex-1">
-              <DemoBanner isLiveMode={isLiveMode} />
               <header className="flex items-center justify-between p-4 border-b">
-                <SidebarTrigger data-testid="button-sidebar-toggle" />
+                <div className="flex items-center gap-3">
+                  <SidebarTrigger data-testid="button-sidebar-toggle" />
+                  {isLiveMode && (
+                    <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400" data-testid="status-live-mode">
+                      <CheckCircle2 className="h-4 w-4" />
+                      <span className="hidden sm:inline font-medium">
+                        <span className="font-bold">{t('common.liveMode', 'LIVE MODE')}</span>
+                        <span className="hidden md:inline"> | {t('common.connectedToMainnet', 'Connected to TBURN mainnet node')}</span>
+                      </span>
+                    </div>
+                  )}
+                </div>
                 <div className="flex items-center gap-2">
                   <WalletButton />
                   <LanguageSelector />
