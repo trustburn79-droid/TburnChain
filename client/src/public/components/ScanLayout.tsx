@@ -27,6 +27,9 @@ import {
   Wifi,
   WifiOff,
   Menu,
+  Home,
+  HelpCircle,
+  User,
 } from "lucide-react";
 import { useState, ReactNode } from "react";
 import { useScanWebSocket, useLiveIndicator } from "../hooks/useScanWebSocket";
@@ -155,6 +158,41 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                   <SelectItem value="ur">اردو</SelectItem>
                 </SelectContent>
               </Select>
+
+              {/* Navigation Icons */}
+              <div className="hidden sm:flex items-center gap-1">
+                <div className="w-px h-6 bg-gray-700 mx-1" />
+                <Link href="/">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-white"
+                    data-testid="link-nav-home"
+                  >
+                    <Home className="w-5 h-5" />
+                  </Button>
+                </Link>
+                <Link href="/qna">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-white"
+                    data-testid="link-nav-qna"
+                  >
+                    <HelpCircle className="w-5 h-5" />
+                  </Button>
+                </Link>
+                <Link href="/user">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-white"
+                    data-testid="link-nav-user"
+                  >
+                    <User className="w-5 h-5" />
+                  </Button>
+                </Link>
+              </div>
 
               {/* Mobile Menu */}
               <div className="lg:hidden">
