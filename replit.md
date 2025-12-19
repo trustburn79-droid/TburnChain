@@ -42,6 +42,42 @@ Core architectural decisions and features include:
 - **Stable Text Animation Hook**: The `useRotatingScramble` hook in `Home.tsx` uses `useRef` for index tracking and runs effect only once (empty dependency array) to prevent infinite re-renders.
 - **AI Service Fail-Fast Optimization**: `AIServiceManager.makeRequest()` checks for available providers before entering retry loops. If all providers are rate-limited, it throws immediately instead of blocking the event loop. `switchToNextProvider()` returns boolean to signal exhaustion, and the loop breaks immediately when no providers remain. Retry timeouts reduced to 500-2000ms (from 2000-10000ms) to minimize delays.
 
+## 366-Day Stability Architecture
+
+### Event Loop Protection (Server-Side)
+1. **Execution Overlap Guards**: All 54 `createTrackedInterval` intervals in TBurnEnterpriseNode use `isRunning` flags with try-finally blocks to prevent interval stacking when previous execution hasn't completed.
+   ```typescript
+   let isRunning = false;
+   createTrackedInterval(async () => {
+     if (isRunning) return; // Skip if previous still running
+     isRunning = true;
+     try { /* work */ } finally { isRunning = false; }
+   }, interval);
+   ```
+
+2. **Circuit Breaker Pattern**: ProductionDataPoller implements circuit breaker with:
+   - Threshold: 10 consecutive errors → circuit OPEN
+   - Half-open test: After 60 seconds, allows single request
+   - Auto-close: On successful half-open request
+   - Jitter: Random 0-2000ms delay added to polling interval
+
+3. **Subscriber-Aware Scheduling**: All 30+ WebSocket broadcast intervals check `clients.size === 0` before executing, skipping work when no clients are connected.
+
+### Memory Leak Prevention (Client-Side)
+1. **WebSocket Reconnection Limits**: Max 5 reconnection attempts with exponential backoff (1s-30s). After 60 seconds of stable connection, attempts counter resets.
+
+2. **Orphan Listener Prevention**: `useWebSocketChannel` hook uses `isActiveRef` guard pattern:
+   - Separate cleanup useEffect sets `isActiveRef.current = false` on unmount
+   - Message processing checks guard before executing
+   - Prevents stale closures from processing messages after navigation
+
+3. **Timer Cleanup**: All timers (reconnect timeout, cooldown reset) properly cleared in useEffect cleanup functions.
+
+### Resilience Patterns
+- **REST Fallback**: WebSocket disconnect triggers invalidation of 12 critical query endpoints
+- **Graceful Degradation**: When max reconnect attempts reached, system relies on REST polling
+- **Component Unmount Guards**: `isActiveRef` pattern prevents reconnection attempts during React cleanup
+
 ## Engineering Standards - Preventing Infinite Loops and Render Blocking
 
 ### useEffect Best Practices

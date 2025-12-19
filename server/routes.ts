@@ -58,13 +58,50 @@ const SITE_PASSWORD = ADMIN_PASSWORD;
 
 // ============================================
 // ENTERPRISE STABILITY: Interval Tracking for Graceful Shutdown
+// With overlap protection and execution guards for 366-day stability
 // ============================================
 const activeIntervals: NodeJS.Timeout[] = [];
 const activeTimeouts: NodeJS.Timeout[] = [];
+const intervalExecutionState = new Map<string, { isRunning: boolean; lastRun: number; skipCount: number }>();
 
-// Helper function to track intervals for cleanup
-function createTrackedInterval(callback: () => void, ms: number, name?: string): NodeJS.Timeout {
-  const interval = setInterval(callback, ms);
+// Helper function to track intervals for cleanup with OVERLAP PROTECTION
+// Prevents event loop blocking by skipping execution if previous run hasn't completed
+function createTrackedInterval(callback: () => void | Promise<void>, ms: number, name?: string): NodeJS.Timeout {
+  const intervalName = name || `interval_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  
+  // Initialize execution state for this interval
+  intervalExecutionState.set(intervalName, { isRunning: false, lastRun: 0, skipCount: 0 });
+  
+  const guardedCallback = async () => {
+    const state = intervalExecutionState.get(intervalName);
+    if (!state) return;
+    
+    // OVERLAP GUARD: Skip if previous execution is still running
+    if (state.isRunning) {
+      state.skipCount++;
+      // Log warning only every 10 skips to avoid log spam
+      if (state.skipCount % 10 === 1) {
+        console.warn(`[Enterprise] Skipping ${intervalName} - previous execution still running (skipped ${state.skipCount} times)`);
+      }
+      return;
+    }
+    
+    // Mark as running
+    state.isRunning = true;
+    state.lastRun = Date.now();
+    
+    try {
+      await callback();
+    } catch (error: any) {
+      // Silently handle errors to prevent interval from dying
+      // Critical intervals should not crash the server
+    } finally {
+      // Always mark as not running, even if error occurred
+      state.isRunning = false;
+    }
+  };
+  
+  const interval = setInterval(guardedCallback, ms);
   activeIntervals.push(interval);
   if (name) {
     console.log(`[Enterprise] Registered interval: ${name} (${ms}ms)`);
@@ -88,6 +125,9 @@ export function cleanupIntervals(): void {
   
   activeTimeouts.forEach(timeout => clearTimeout(timeout));
   activeTimeouts.length = 0;
+  
+  // Clean up execution state tracking
+  intervalExecutionState.clear();
   
   console.log('[Enterprise] ✅ All intervals and timeouts cleaned up');
 }

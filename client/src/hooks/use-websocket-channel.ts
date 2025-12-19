@@ -72,9 +72,26 @@ export function useWebSocketChannel<T>({
   const { lastMessage, isConnected } = useWebSocket();
   const queryClient = useQueryClient();
   const processedMessageHashRef = useRef<string>('');
+  const isActiveRef = useRef<boolean>(true); // Guard for cleanup - prevents orphan listeners
+
+  useEffect(() => {
+    // Reset active flag when effect runs
+    isActiveRef.current = true;
+
+    // CLEANUP: Set flag to false on unmount or dependency change
+    // This prevents orphan message processing after navigation
+    return () => {
+      isActiveRef.current = false;
+    };
+  }, [channel, queryKey, updateMode]);
 
   useEffect(() => {
     if (!enabled || !lastMessage || !isConnected) {
+      return;
+    }
+
+    // ORPHAN GUARD: Skip processing if component was unmounted or dependencies changed
+    if (!isActiveRef.current) {
       return;
     }
 

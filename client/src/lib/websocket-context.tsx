@@ -27,12 +27,22 @@ interface WebSocketProviderProps {
   children: ReactNode;
 }
 
+// Reconnection configuration for stability
+const RECONNECT_CONFIG = {
+  maxAttempts: 5, // Maximum reconnection attempts before giving up
+  maxDelay: 30000, // Maximum delay between attempts (30 seconds)
+  cooldownResetMs: 60000, // Reset attempts after 60 seconds of stable connection
+};
+
 export function WebSocketProvider({ children }: WebSocketProviderProps) {
   const [isConnected, setIsConnected] = useState(false);
   const [lastMessage, setLastMessage] = useState<MessageEvent | null>(null);
   const socketRef = useRef<WebSocket | null>(null);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
   const reconnectAttemptsRef = useRef(0);
+  const lastConnectedTimeRef = useRef<number>(0);
+  const cooldownResetTimerRef = useRef<NodeJS.Timeout>();
+  const isActiveRef = useRef<boolean>(true); // Guard for component unmount
   const eventListeners = useRef<Map<string, Set<(data: any) => void>>>(new Map());
 
   const connect = () => {
@@ -48,6 +58,16 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
         console.log("[WebSocket] Connected to server");
         setIsConnected(true);
         reconnectAttemptsRef.current = 0;
+        lastConnectedTimeRef.current = Date.now();
+        
+        // Set up cooldown reset timer - reset attempts counter after stable connection
+        if (cooldownResetTimerRef.current) {
+          clearTimeout(cooldownResetTimerRef.current);
+        }
+        cooldownResetTimerRef.current = setTimeout(() => {
+          reconnectAttemptsRef.current = 0;
+          console.log("[WebSocket] Cooldown reset - connection stable for 60s");
+        }, RECONNECT_CONFIG.cooldownResetMs);
       };
 
       socket.onmessage = (event) => {
@@ -79,6 +99,17 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
         console.log("[WebSocket] Connection closed");
         setIsConnected(false);
         socketRef.current = null;
+        
+        // Clear cooldown reset timer
+        if (cooldownResetTimerRef.current) {
+          clearTimeout(cooldownResetTimerRef.current);
+        }
+
+        // Guard: Don't reconnect if component is unmounting
+        if (!isActiveRef.current) {
+          console.log("[WebSocket] Component unmounting, not reconnecting");
+          return;
+        }
 
         // Trigger REST fallback for critical queries when WebSocket disconnects
         console.log("[WebSocket] Triggering REST fallback for critical queries");
@@ -95,11 +126,21 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
         queryClient.invalidateQueries({ queryKey: ["/api/burn/stats"] });
         queryClient.invalidateQueries({ queryKey: ["/api/governance/stats"] });
 
-        // Exponential backoff reconnection
-        const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current), 30000);
+        // Check max reconnect attempts
+        if (reconnectAttemptsRef.current >= RECONNECT_CONFIG.maxAttempts) {
+          console.warn(`[WebSocket] Max reconnection attempts (${RECONNECT_CONFIG.maxAttempts}) reached. Stopping reconnection.`);
+          console.log("[WebSocket] Will rely on REST polling for data. Refresh page to retry WebSocket.");
+          return;
+        }
+
+        // Exponential backoff reconnection with max delay cap
+        const delay = Math.min(
+          1000 * Math.pow(2, reconnectAttemptsRef.current), 
+          RECONNECT_CONFIG.maxDelay
+        );
         reconnectAttemptsRef.current++;
 
-        console.log(`[WebSocket] Reconnecting in ${delay}ms (attempt ${reconnectAttemptsRef.current})`);
+        console.log(`[WebSocket] Reconnecting in ${delay}ms (attempt ${reconnectAttemptsRef.current}/${RECONNECT_CONFIG.maxAttempts})`);
         reconnectTimeoutRef.current = setTimeout(connect, delay);
       };
     } catch (error) {
@@ -124,9 +165,16 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
   }, []);
 
   useEffect(() => {
+    isActiveRef.current = true;
     connect();
 
     return () => {
+      // Mark as inactive to prevent reconnection attempts
+      isActiveRef.current = false;
+      
+      if (cooldownResetTimerRef.current) {
+        clearTimeout(cooldownResetTimerRef.current);
+      }
       if (reconnectTimeoutRef.current) {
         clearTimeout(reconnectTimeoutRef.current);
       }

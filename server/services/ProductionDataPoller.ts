@@ -17,6 +17,9 @@ interface PollerConfig {
   pollInterval: number; // Interval between polls in ms
   retryDelay: number; // Delay before retrying on error
   maxConsecutiveErrors: number; // Max errors before backing off
+  circuitBreakerThreshold: number; // Errors before circuit opens
+  circuitBreakerResetMs: number; // Time before circuit half-opens
+  maxJitterMs: number; // Max random jitter to prevent thundering herd
 }
 
 interface PollerStats {
@@ -26,6 +29,9 @@ interface PollerStats {
   pollCount: number;
   errorCount: number;
   consecutiveErrors: number;
+  circuitState: 'closed' | 'open' | 'half-open';
+  circuitOpenedAt: number | null;
+  isPollInProgress: boolean; // Overlap protection
 }
 
 class ProductionDataPoller {
@@ -39,13 +45,19 @@ class ProductionDataPoller {
     lastSuccessTime: null,
     pollCount: 0,
     errorCount: 0,
-    consecutiveErrors: 0
+    consecutiveErrors: 0,
+    circuitState: 'closed',
+    circuitOpenedAt: null,
+    isPollInProgress: false
   };
 
   private config: PollerConfig = {
     pollInterval: 15000, // 15 seconds
     retryDelay: 5000, // 5 seconds on error
-    maxConsecutiveErrors: 5 // Back off after 5 consecutive errors
+    maxConsecutiveErrors: 5, // Back off after 5 consecutive errors
+    circuitBreakerThreshold: 10, // Open circuit after 10 consecutive errors
+    circuitBreakerResetMs: 60000, // Try again after 60 seconds
+    maxJitterMs: 2000 // Random jitter up to 2 seconds
   };
 
   constructor() {
@@ -136,19 +148,51 @@ class ProductionDataPoller {
   }
 
   /**
-   * Schedule next poll
+   * Add random jitter to prevent thundering herd
+   */
+  private getJitter(): number {
+    return Math.floor(Math.random() * this.config.maxJitterMs);
+  }
+
+  /**
+   * Check and update circuit breaker state
+   */
+  private checkCircuitBreaker(): boolean {
+    const now = Date.now();
+    
+    // If circuit is open, check if it's time to half-open
+    if (this.stats.circuitState === 'open') {
+      if (this.stats.circuitOpenedAt && 
+          now - this.stats.circuitOpenedAt >= this.config.circuitBreakerResetMs) {
+        this.stats.circuitState = 'half-open';
+        console.log('[ProductionDataPoller] Circuit half-open, attempting recovery...');
+        return true; // Allow one request to test
+      }
+      return false; // Circuit still open, block requests
+    }
+    
+    return true; // Circuit closed or half-open, allow requests
+  }
+
+  /**
+   * Schedule next poll with jitter and circuit breaker
    */
   private schedulePoll(): void {
     if (!this.isRunning) return;
 
-    // Calculate delay based on consecutive errors
-    let delay = this.config.pollInterval;
-    if (this.stats.consecutiveErrors > 0) {
+    // Calculate delay based on consecutive errors with jitter
+    let delay = this.config.pollInterval + this.getJitter();
+    
+    if (this.stats.circuitState === 'open') {
+      // Use circuit breaker reset time when open
+      delay = this.config.circuitBreakerResetMs + this.getJitter();
+      console.log(`[ProductionDataPoller] Circuit open, waiting ${delay}ms before retry`);
+    } else if (this.stats.consecutiveErrors > 0) {
       // Exponential backoff: 15s, 30s, 60s, 120s, max 300s
       delay = Math.min(
         this.config.pollInterval * Math.pow(2, this.stats.consecutiveErrors),
         300000
-      );
+      ) + this.getJitter();
       console.log(`[ProductionDataPoller] Backing off, next poll in ${delay}ms`);
     }
 
@@ -159,7 +203,7 @@ class ProductionDataPoller {
   }
 
   /**
-   * Execute a single poll cycle
+   * Execute a single poll cycle with overlap protection and circuit breaker
    */
   private async poll(): Promise<void> {
     if (!this.enterpriseNode) {
@@ -167,6 +211,19 @@ class ProductionDataPoller {
       return;
     }
 
+    // OVERLAP PROTECTION: Skip if previous poll is still running
+    if (this.stats.isPollInProgress) {
+      console.warn('[ProductionDataPoller] Skipping poll - previous poll still in progress');
+      return;
+    }
+
+    // CIRCUIT BREAKER: Check if requests are allowed
+    if (!this.checkCircuitBreaker()) {
+      return; // Circuit is open, skip this poll
+    }
+
+    // Mark poll as in progress
+    this.stats.isPollInProgress = true;
     this.stats.pollCount++;
     this.stats.lastPollTime = new Date();
 
@@ -489,6 +546,23 @@ class ProductionDataPoller {
       
       if (this.stats.consecutiveErrors >= this.config.maxConsecutiveErrors) {
         console.warn('[ProductionDataPoller] Max consecutive errors reached, backing off');
+      }
+      
+      // CIRCUIT BREAKER: Open circuit if threshold exceeded
+      if (this.stats.consecutiveErrors >= this.config.circuitBreakerThreshold) {
+        this.stats.circuitState = 'open';
+        this.stats.circuitOpenedAt = Date.now();
+        console.warn('[ProductionDataPoller] Circuit breaker OPEN - too many consecutive errors');
+      }
+    } finally {
+      // ALWAYS reset poll in progress flag
+      this.stats.isPollInProgress = false;
+      
+      // If half-open and successful, close the circuit
+      if (this.stats.circuitState === 'half-open' && this.stats.consecutiveErrors === 0) {
+        this.stats.circuitState = 'closed';
+        this.stats.circuitOpenedAt = null;
+        console.log('[ProductionDataPoller] Circuit breaker CLOSED - recovery successful');
       }
     }
   }
