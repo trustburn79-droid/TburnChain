@@ -6938,3 +6938,185 @@ export type InsertGenesisExecutionLog = z.infer<typeof insertGenesisExecutionLog
 
 export type GenesisPreflightCheck = typeof genesisPreflightChecks.$inferSelect;
 export type InsertGenesisPreflightCheck = z.infer<typeof insertGenesisPreflightCheckSchema>;
+
+// ============================================
+// User Rewards & Activity Tables
+// ============================================
+
+// Mining Rewards - User mining/block production rewards
+export const userMiningRewards = pgTable("user_mining_rewards", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull(),
+  
+  // Reward Details
+  amount: text("amount").notNull(), // Amount in TB
+  source: text("source").notNull(), // block_production, validation, fee_share
+  epoch: integer("epoch").notNull(),
+  blockNumber: integer("block_number"),
+  
+  // Transaction
+  txHash: text("tx_hash"),
+  claimed: boolean("claimed").notNull().default(false),
+  claimedAt: timestamp("claimed_at"),
+  
+  // Metadata
+  metadata: jsonb("metadata").notNull().default({}),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// User Staking Positions - Detailed staking information per user
+export const userStakingPositions = pgTable("user_staking_positions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull(),
+  validatorId: text("validator_id").notNull(),
+  validatorName: text("validator_name"),
+  
+  // Position Details
+  stakedAmount: text("staked_amount").notNull(),
+  shares: text("shares").notNull().default("0"),
+  currentValue: text("current_value").notNull(),
+  
+  // APY & Rewards
+  currentApy: text("current_apy").notNull().default("0"),
+  pendingRewards: text("pending_rewards").notNull().default("0"),
+  totalRewardsEarned: text("total_rewards_earned").notNull().default("0"),
+  
+  // Lock Status
+  status: text("status").notNull().default("active"), // active, locked, unbonding, withdrawn
+  lockPeriodDays: integer("lock_period_days").default(0),
+  unlockDate: timestamp("unlock_date"),
+  
+  // Timestamps
+  stakedAt: timestamp("staked_at").notNull().defaultNow(),
+  lastRewardAt: timestamp("last_reward_at"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// User Staking Rewards - Historical staking interest/rewards
+export const userStakingRewards = pgTable("user_staking_rewards", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull(),
+  positionId: text("position_id"), // Reference to staking position
+  validatorId: text("validator_id"),
+  
+  // Reward Details
+  amount: text("amount").notNull(),
+  rewardType: text("reward_type").notNull(), // staking_interest, compound, bonus, promotion
+  epoch: integer("epoch").notNull(),
+  apy: text("apy"), // APY at the time of reward
+  
+  // Transaction
+  txHash: text("tx_hash"),
+  claimed: boolean("claimed").notNull().default(false),
+  claimedAt: timestamp("claimed_at"),
+  autoCompounded: boolean("auto_compounded").notNull().default(false),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// User Event Participation - Airdrops, campaigns, governance rewards
+export const userEventParticipation = pgTable("user_event_participation", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull(),
+  
+  // Event Info
+  eventId: text("event_id").notNull(),
+  eventName: text("event_name").notNull(),
+  eventType: text("event_type").notNull(), // airdrop, campaign, governance_reward, referral, bug_bounty
+  eventDescription: text("event_description"),
+  
+  // Participation Status
+  status: text("status").notNull().default("pending"), // pending, eligible, claimed, expired, ineligible
+  eligibilityReason: text("eligibility_reason"),
+  
+  // Reward
+  rewardAmount: text("reward_amount"),
+  rewardToken: text("reward_token").default("TB"),
+  rewardTxHash: text("reward_tx_hash"),
+  
+  // Dates
+  eventStartDate: timestamp("event_start_date"),
+  eventEndDate: timestamp("event_end_date"),
+  claimDeadline: timestamp("claim_deadline"),
+  awardedAt: timestamp("awarded_at"),
+  claimedAt: timestamp("claimed_at"),
+  
+  // Metadata
+  metadata: jsonb("metadata").notNull().default({}),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// User Activity Log - Consolidated activity feed
+export const userActivityLog = pgTable("user_activity_log", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull(),
+  
+  // Activity Info
+  activityType: text("activity_type").notNull(), // transfer_in, transfer_out, stake, unstake, claim_reward, vote, event_participation
+  category: text("category").notNull(), // wallet, staking, governance, rewards, events
+  
+  // Details
+  title: text("title").notNull(),
+  description: text("description"),
+  amount: text("amount"),
+  token: text("token").default("TB"),
+  
+  // Reference
+  txHash: text("tx_hash"),
+  referenceId: text("reference_id"), // ID of related record
+  referenceType: text("reference_type"), // mining_reward, staking_reward, event, etc.
+  
+  // Metadata
+  metadata: jsonb("metadata").notNull().default({}),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Insert Schemas
+export const insertUserMiningRewardSchema = createInsertSchema(userMiningRewards).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertUserStakingPositionSchema = createInsertSchema(userStakingPositions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertUserStakingRewardSchema = createInsertSchema(userStakingRewards).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertUserEventParticipationSchema = createInsertSchema(userEventParticipation).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertUserActivityLogSchema = createInsertSchema(userActivityLog).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types
+export type UserMiningReward = typeof userMiningRewards.$inferSelect;
+export type InsertUserMiningReward = z.infer<typeof insertUserMiningRewardSchema>;
+
+export type UserStakingPosition = typeof userStakingPositions.$inferSelect;
+export type InsertUserStakingPosition = z.infer<typeof insertUserStakingPositionSchema>;
+
+export type UserStakingReward = typeof userStakingRewards.$inferSelect;
+export type InsertUserStakingReward = z.infer<typeof insertUserStakingRewardSchema>;
+
+export type UserEventParticipation = typeof userEventParticipation.$inferSelect;
+export type InsertUserEventParticipation = z.infer<typeof insertUserEventParticipationSchema>;
+
+export type UserActivityLog = typeof userActivityLog.$inferSelect;
+export type InsertUserActivityLog = z.infer<typeof insertUserActivityLogSchema>;

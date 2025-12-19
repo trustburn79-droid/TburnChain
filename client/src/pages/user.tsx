@@ -127,6 +127,100 @@ interface TransactionHistory {
   blockNumber: number;
 }
 
+interface UserOverview {
+  address: string;
+  liquidBalance: string;
+  totalStaked: string;
+  totalPortfolioValue: string;
+  pendingRewards: string;
+  miningRewards: {
+    total: string;
+    unclaimed: string;
+    last24h: string;
+    last7d: string;
+  };
+  stakingRewards: {
+    total: string;
+    unclaimed: string;
+    averageApy: string;
+    activePositions: number;
+  };
+  eventRewards: {
+    total: string;
+    claimable: string;
+    pendingEvents: number;
+    eligibleEvents: number;
+  };
+  totalUnclaimedRewards: string;
+}
+
+interface UserMiningReward {
+  id: string;
+  amount: string;
+  source: string;
+  epoch: number;
+  blockNumber: number;
+  txHash: string;
+  claimed: boolean;
+  createdAt: string;
+}
+
+interface UserStakingPosition {
+  id: string;
+  validatorId: string;
+  validatorName: string;
+  stakedAmount: string;
+  currentValue: string;
+  currentApy: string;
+  pendingRewards: string;
+  totalRewardsEarned: string;
+  status: string;
+  lockPeriodDays: number;
+  unlockDate: string | null;
+  stakedAt: string;
+}
+
+interface UserStakingReward {
+  id: string;
+  positionId: string;
+  validatorId: string;
+  amount: string;
+  rewardType: string;
+  epoch: number;
+  apy: string;
+  txHash: string;
+  claimed: boolean;
+  autoCompounded: boolean;
+  createdAt: string;
+}
+
+interface UserEventParticipation {
+  id: string;
+  eventId: string;
+  eventName: string;
+  eventType: string;
+  eventDescription: string;
+  status: string;
+  rewardAmount: string;
+  rewardToken: string;
+  eventStartDate: string;
+  eventEndDate: string;
+  claimDeadline: string | null;
+  claimedAt: string | null;
+}
+
+interface UserActivity {
+  id: string;
+  activityType: string;
+  category: string;
+  title: string;
+  description: string;
+  amount: string | null;
+  token: string;
+  txHash: string;
+  createdAt: string;
+}
+
 const transferFormSchema = z.object({
   recipientAddress: z.string().min(1, "주소를 입력해주세요").regex(/^0x[a-fA-F0-9]{40}$/, "유효한 TBURN 주소를 입력해주세요"),
   amount: z.string().min(1, "수량을 입력해주세요").refine((val) => parseFloat(val) > 0, "0보다 큰 수량을 입력해주세요"),
@@ -258,6 +352,115 @@ export default function UserPage() {
         return await res.json();
       } catch {
         return [];
+      }
+    },
+  });
+
+  // User-specific data queries (only fetch when wallet connected)
+  const { data: userOverview, isLoading: userOverviewLoading } = useQuery<UserOverview | null>({
+    queryKey: ["/api/user", address, "overview"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+    enabled: isConnected && !!address,
+    queryFn: async () => {
+      if (!address) return null;
+      try {
+        const res = await fetch(`/api/user/${address}/overview`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.success ? data.data : null;
+      } catch {
+        return null;
+      }
+    },
+  });
+
+  const { data: userMiningRewards } = useQuery<{ rewards: UserMiningReward[]; summary: any } | null>({
+    queryKey: ["/api/user", address, "mining-rewards"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+    enabled: isConnected && !!address,
+    queryFn: async () => {
+      if (!address) return null;
+      try {
+        const res = await fetch(`/api/user/${address}/mining-rewards?limit=10`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.success ? data.data : null;
+      } catch {
+        return null;
+      }
+    },
+  });
+
+  const { data: userStakingPositions } = useQuery<{ positions: UserStakingPosition[]; summary: any } | null>({
+    queryKey: ["/api/user", address, "staking-positions"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+    enabled: isConnected && !!address,
+    queryFn: async () => {
+      if (!address) return null;
+      try {
+        const res = await fetch(`/api/user/${address}/staking-positions`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.success ? data.data : null;
+      } catch {
+        return null;
+      }
+    },
+  });
+
+  const { data: userStakingRewards } = useQuery<{ rewards: UserStakingReward[]; summary: any } | null>({
+    queryKey: ["/api/user", address, "staking-rewards"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+    enabled: isConnected && !!address,
+    queryFn: async () => {
+      if (!address) return null;
+      try {
+        const res = await fetch(`/api/user/${address}/staking-rewards?limit=10`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.success ? data.data : null;
+      } catch {
+        return null;
+      }
+    },
+  });
+
+  const { data: userEvents } = useQuery<{ events: UserEventParticipation[]; summary: any } | null>({
+    queryKey: ["/api/user", address, "events"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+    enabled: isConnected && !!address,
+    queryFn: async () => {
+      if (!address) return null;
+      try {
+        const res = await fetch(`/api/user/${address}/events`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.success ? data.data : null;
+      } catch {
+        return null;
+      }
+    },
+  });
+
+  const { data: userActivities } = useQuery<{ activities: UserActivity[] } | null>({
+    queryKey: ["/api/user", address, "activities"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+    enabled: isConnected && !!address,
+    queryFn: async () => {
+      if (!address) return null;
+      try {
+        const res = await fetch(`/api/user/${address}/activities?limit=10`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.success ? data.data : null;
+      } catch {
+        return null;
       }
     },
   });
@@ -511,11 +714,13 @@ export default function UserPage() {
               address={address}
               balance={balance}
               networkStats={networkStats}
-              stakingStats={stakingStats}
-              burnStats={burnStats}
-              validators={validators}
-              trustScoreCanvasRef={trustScoreCanvasRef}
-              avgTrustScore={avgTrustScore}
+              userOverview={userOverview}
+              userMiningRewards={userMiningRewards}
+              userStakingPositions={userStakingPositions}
+              userStakingRewards={userStakingRewards}
+              userEvents={userEvents}
+              userActivities={userActivities}
+              userOverviewLoading={userOverviewLoading}
               onRefresh={handleRefresh}
               onConnectWallet={() => setWalletModalOpen(true)}
             />
@@ -564,11 +769,13 @@ function DashboardSection({
   address,
   balance,
   networkStats,
-  stakingStats,
-  burnStats,
-  validators,
-  trustScoreCanvasRef,
-  avgTrustScore,
+  userOverview,
+  userMiningRewards,
+  userStakingPositions,
+  userStakingRewards,
+  userEvents,
+  userActivities,
+  userOverviewLoading,
   onRefresh,
   onConnectWallet,
 }: {
@@ -576,26 +783,65 @@ function DashboardSection({
   address: string | null;
   balance: string | null;
   networkStats: NetworkStats | undefined;
-  stakingStats: StakingStats | null | undefined;
-  burnStats: BurnStats | undefined;
-  validators: ApiValidator[];
-  trustScoreCanvasRef: React.RefObject<HTMLCanvasElement>;
-  avgTrustScore: number;
+  userOverview: UserOverview | null | undefined;
+  userMiningRewards: { rewards: UserMiningReward[]; summary: any } | null | undefined;
+  userStakingPositions: { positions: UserStakingPosition[]; summary: any } | null | undefined;
+  userStakingRewards: { rewards: UserStakingReward[]; summary: any } | null | undefined;
+  userEvents: { events: UserEventParticipation[]; summary: any } | null | undefined;
+  userActivities: { activities: UserActivity[] } | null | undefined;
+  userOverviewLoading: boolean;
   onRefresh: () => void;
   onConnectWallet: () => void;
 }) {
-  const trustLevel = avgTrustScore >= 90 ? "Excellent" : avgTrustScore >= 70 ? "Good" : "Fair";
-  const trustColor = avgTrustScore >= 90 ? "text-emerald-500" : avgTrustScore >= 70 ? "text-blue-500" : "text-yellow-500";
+  const getEventTypeLabel = (type: string) => {
+    const labels: Record<string, string> = {
+      airdrop: '에어드랍',
+      campaign: '캠페인',
+      governance_reward: '거버넌스',
+      referral: '친구초대',
+      bug_bounty: '버그바운티',
+    };
+    return labels[type] || type;
+  };
+
+  const getStatusBadge = (status: string) => {
+    const styles: Record<string, string> = {
+      claimed: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400',
+      eligible: 'bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400',
+      pending: 'bg-yellow-100 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400',
+      expired: 'bg-slate-100 text-slate-500 dark:bg-slate-500/20 dark:text-slate-400',
+    };
+    const labels: Record<string, string> = {
+      claimed: '수령완료',
+      eligible: '수령가능',
+      pending: '진행중',
+      expired: '만료됨',
+    };
+    return <Badge className={styles[status] || styles.pending}>{labels[status] || status}</Badge>;
+  };
+
+  const getActivityIcon = (type: string) => {
+    const icons: Record<string, typeof Wallet> = {
+      transfer_in: ArrowDown,
+      transfer_out: ArrowUp,
+      stake: Lock,
+      unstake: Unlock,
+      claim_reward: Award,
+      vote: Vote,
+      event_participation: Star,
+    };
+    return icons[type] || Activity;
+  };
 
   return (
     <section className="space-y-4 sm:space-y-6" data-testid="section-dashboard">
       <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">
-            {isConnected ? "나의 대시보드" : "TBURN 대시보드"}
+            {isConnected ? "나의 자산 현황" : "TBURN 대시보드"}
           </h2>
           <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">
-            {isConnected ? "자산 현황과 네트워크 상태를 한눈에 확인하세요." : "지갑을 연결하여 모든 기능을 이용하세요."}
+            {isConnected ? "보상, 스테이킹, 이벤트 참여 현황을 확인하세요." : "지갑을 연결하여 맞춤형 정보를 확인하세요."}
           </p>
         </div>
         <div className="flex gap-2 w-full sm:w-auto">
@@ -610,223 +856,257 @@ function DashboardSection({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
-        <MetricCard
-          title="네트워크 TPS"
-          value={networkStats?.tps ? formatNumber(networkStats.tps) : "---"}
-          subtitle="초당 트랜잭션"
-          icon={Zap}
-          trend={12.5}
-          color="blue"
-        />
-        <MetricCard
-          title="활성 검증자"
-          value={networkStats?.activeValidators?.toString() || validators.length.toString()}
-          subtitle="전체 검증자"
-          icon={Users}
-          color="purple"
-        />
-        <MetricCard
-          title="24시간 소각량"
-          value={formatBurnAmount(burnStats?.burnedToday)}
-          subtitle="TB"
-          icon={Flame}
-          trend={8.3}
-          color="orange"
-        />
-        <MetricCard
-          title="평균 블록 시간"
-          value={networkStats?.avgBlockTime ? `${networkStats.avgBlockTime.toFixed(2)}s` : "0.5s"}
-          subtitle="초"
-          icon={Timer}
-          color="green"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-6">
-        <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-          <div className="flex items-center justify-between mb-3 sm:mb-4">
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">AI 신뢰 점수</h3>
-            <Badge variant="secondary" className={trustColor}>
-              {trustLevel}
-            </Badge>
+      {!isConnected ? (
+        <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-8 sm:p-12 text-center border border-blue-200 dark:border-blue-500/30">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+            <Wallet className="w-8 h-8 text-white" />
           </div>
-          <div className="flex flex-col items-center justify-center relative py-2 sm:py-4">
-            <canvas ref={trustScoreCanvasRef} width={200} height={200} className="w-[150px] h-[150px] sm:w-[200px] sm:h-[200px]" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-4xl sm:text-5xl font-bold text-slate-800 dark:text-white font-mono">{avgTrustScore}</span>
-              <span className={`text-xs sm:text-sm mt-1 font-bold ${trustColor}`}>{trustLevel}</span>
-            </div>
-          </div>
-          <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-4">
-            <div className="flex justify-between text-xs sm:text-sm">
-              <span className="text-slate-500 dark:text-gray-400">보안 점수</span>
-              <span className="font-medium text-slate-800 dark:text-white">96/100</span>
-            </div>
-            <div className="flex justify-between text-xs sm:text-sm">
-              <span className="text-slate-500 dark:text-gray-400">안정성 점수</span>
-              <span className="font-medium text-slate-800 dark:text-white">94/100</span>
-            </div>
-            <div className="flex justify-between text-xs sm:text-sm">
-              <span className="text-slate-500 dark:text-gray-400">성능 점수</span>
-              <span className="font-medium text-slate-800 dark:text-white">98/100</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-orange-100 dark:bg-orange-500/20 rounded-lg sm:rounded-xl">
-                <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
-              </div>
-              <div>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">총 소각량</p>
-                <p className="text-lg sm:text-2xl font-bold font-mono text-slate-900 dark:text-white">
-                  {formatBurnAmount(burnStats?.totalBurned)} TB
-                </p>
-              </div>
-            </div>
-            <div className="space-y-1.5 sm:space-y-2">
-              <div className="flex justify-between text-xs sm:text-sm">
-                <span className="text-slate-500 dark:text-gray-400">7일 소각량</span>
-                <span className="font-mono text-slate-800 dark:text-white">{formatBurnAmount(burnStats?.burned7d)} TB</span>
-              </div>
-              <div className="flex justify-between text-xs sm:text-sm">
-                <span className="text-slate-500 dark:text-gray-400">30일 소각량</span>
-                <span className="font-mono text-slate-800 dark:text-white">{formatBurnAmount(burnStats?.burned30d)} TB</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-blue-100 dark:bg-blue-500/20 rounded-lg sm:rounded-xl">
-                <Coins className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
-              </div>
-              <div>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">스테이킹 TVL</p>
-                <p className="text-lg sm:text-2xl font-bold font-mono text-slate-900 dark:text-white">
-                  {formatBurnAmount(stakingStats?.totalValueLocked)} TB
-                </p>
-              </div>
-            </div>
-            <div className="space-y-1.5 sm:space-y-2">
-              <div className="flex justify-between text-xs sm:text-sm">
-                <span className="text-slate-500 dark:text-gray-400">평균 APY</span>
-                <span className="font-mono text-emerald-500 font-bold">{stakingStats?.averageApy?.toFixed(1) || "12.5"}%</span>
-              </div>
-              <div className="flex justify-between text-xs sm:text-sm">
-                <span className="text-slate-500 dark:text-gray-400">총 스테이커</span>
-                <span className="font-mono text-slate-800 dark:text-white">{formatNumber(stakingStats?.totalStakers || 0)}</span>
-              </div>
-            </div>
-          </div>
-
-          {isConnected && (
-            <>
-              <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-white/20 rounded-xl">
-                    <Wallet className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-white/70">내 잔액</p>
-                    <p className="text-2xl font-bold font-mono">
-                      {parseFloat(balance || "0").toFixed(4)} TB
-                    </p>
-                  </div>
-                </div>
-                <Button variant="secondary" className="w-full mt-2" size="sm">
-                  <Send className="w-4 h-4 mr-2" /> 전송하기
-                </Button>
-              </div>
-
-              <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-emerald-100 dark:bg-emerald-500/20 rounded-xl">
-                    <Award className="w-6 h-6 text-emerald-500" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-500 dark:text-gray-400">보상 수령 가능</p>
-                    <p className="text-2xl font-bold font-mono text-emerald-500">
-                      {formatBurnAmount(stakingStats?.totalRewardsDistributed)} TB
-                    </p>
-                  </div>
-                </div>
-                <Button className="w-full mt-2 bg-emerald-500 hover:bg-emerald-600" size="sm" data-testid="button-claim-rewards">
-                  <Coins className="w-4 h-4 mr-2" /> 보상 수령
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-
-      <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white">상위 검증자</h3>
-          <Button variant="ghost" size="sm">
-            전체 보기 <ChevronRight className="w-4 h-4 ml-1" />
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">지갑을 연결하세요</h3>
+          <p className="text-slate-500 dark:text-gray-400 mb-6 max-w-md mx-auto">
+            지갑을 연결하면 채굴 보상, 스테이킹 수익, 이벤트 참여 내역 등 개인화된 정보를 확인할 수 있습니다.
+          </p>
+          <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-cta">
+            <Wallet className="w-4 h-4 mr-2" /> 지갑 연결하기
           </Button>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="text-left text-xs text-slate-500 dark:text-gray-400 uppercase border-b border-slate-100 dark:border-gray-800">
-                <th className="pb-3 font-medium">검증자</th>
-                <th className="pb-3 font-medium text-center">AI 점수</th>
-                <th className="pb-3 font-medium text-right">스테이킹</th>
-                <th className="pb-3 font-medium text-right">수수료</th>
-                <th className="pb-3 font-medium text-center">상태</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-gray-800">
-              {validators.slice(0, 5).map((validator, index) => (
-                <tr key={validator.address} className="text-sm">
-                  <td className="py-3">
-                    <div className="flex items-center gap-3">
-                      <span className="w-6 h-6 flex items-center justify-center text-xs font-bold text-slate-400">
-                        #{index + 1}
-                      </span>
-                      <img
-                        src={`https://api.dicebear.com/7.x/identicon/svg?seed=${validator.address}`}
-                        className="w-8 h-8 rounded-full"
-                        alt={validator.name}
-                      />
-                      <div>
-                        <p className="font-medium text-slate-900 dark:text-white">{validator.name}</p>
-                        <p className="text-xs text-slate-400">{validator.region}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-3 text-center">
-                    <Badge variant="secondary" className="bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
-                      {(validator.aiTrustScore / 100).toFixed(1)}
-                    </Badge>
-                  </td>
-                  <td className="py-3 text-right font-mono text-slate-900 dark:text-white">
-                    {formatBurnAmount(validator.stake)}
-                  </td>
-                  <td className="py-3 text-right text-slate-500 dark:text-gray-400">
-                    {validator.commission}%
-                  </td>
-                  <td className="py-3 text-center">
-                    <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                      validator.status === "active"
-                        ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400"
-                        : "bg-yellow-100 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400"
-                    }`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${validator.status === "active" ? "bg-emerald-500" : "bg-yellow-500"}`} />
-                      {validator.status === "active" ? "활성" : "대기"}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      ) : userOverviewLoading ? (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Portfolio Overview */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
+            <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-white shadow-lg">
+              <div className="flex items-center gap-2 mb-2">
+                <Wallet className="w-4 h-4 sm:w-5 sm:h-5 opacity-80" />
+                <span className="text-xs sm:text-sm opacity-80">총 자산</span>
+              </div>
+              <p className="text-xl sm:text-2xl font-bold font-mono">
+                {userOverview?.totalPortfolioValue || parseFloat(balance || "0").toFixed(2)} TB
+              </p>
+              <p className="text-[10px] sm:text-xs opacity-70 mt-1">유동: {userOverview?.liquidBalance || balance || "0"} TB</p>
+            </div>
+            
+            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-gray-800">
+              <div className="flex items-center gap-2 mb-2">
+                <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
+                <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">스테이킹</span>
+              </div>
+              <p className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                {userOverview?.totalStaked || "0"} TB
+              </p>
+              <p className="text-[10px] sm:text-xs text-slate-400 mt-1">
+                APY {userOverview?.stakingRewards?.averageApy || "12.5"}%
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-emerald-200 dark:border-emerald-500/30">
+              <div className="flex items-center gap-2 mb-2">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
+                <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">미청구 보상</span>
+              </div>
+              <p className="text-xl sm:text-2xl font-bold font-mono text-emerald-500">
+                {userOverview?.totalUnclaimedRewards || "0"} TB
+              </p>
+              <Button size="sm" className="mt-2 w-full bg-emerald-500 hover:bg-emerald-600 text-xs h-7" data-testid="button-claim-all">
+                전체 수령
+              </Button>
+            </div>
+            
+            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-gray-800">
+              <div className="flex items-center gap-2 mb-2">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+                <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">이벤트 보상</span>
+              </div>
+              <p className="text-xl sm:text-2xl font-bold font-mono text-yellow-500">
+                {userOverview?.eventRewards?.claimable || "0"} TB
+              </p>
+              <p className="text-[10px] sm:text-xs text-slate-400 mt-1">
+                {userOverview?.eventRewards?.eligibleEvents || 0}건 수령 가능
+              </p>
+            </div>
+          </div>
+
+          {/* Rewards Breakdown */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            {/* Mining Rewards */}
+            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
+                  채굴 보상
+                </h3>
+                <Badge variant="secondary" className="text-xs">
+                  {userMiningRewards?.rewards?.length || 0}건
+                </Badge>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+                  <p className="text-xs text-slate-500 dark:text-gray-400">총 획득</p>
+                  <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+                    {userOverview?.miningRewards?.total || "0"} TB
+                  </p>
+                </div>
+                <div className="p-3 bg-blue-50 dark:bg-blue-500/10 rounded-lg">
+                  <p className="text-xs text-slate-500 dark:text-gray-400">미청구</p>
+                  <p className="text-lg font-bold font-mono text-blue-500">
+                    {userOverview?.miningRewards?.unclaimed || "0"} TB
+                  </p>
+                </div>
+              </div>
+              
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {userMiningRewards?.rewards?.slice(0, 5).map((reward) => (
+                  <div key={reward.id} className="flex items-center justify-between p-2 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-2 h-2 rounded-full ${reward.claimed ? 'bg-slate-400' : 'bg-blue-500'}`} />
+                      <span className="text-slate-600 dark:text-gray-300 text-xs">
+                        {reward.source === 'block_production' ? '블록 생성' : reward.source === 'validation' ? '검증' : '수수료 분배'}
+                      </span>
+                    </div>
+                    <span className={`font-mono font-medium ${reward.claimed ? 'text-slate-500' : 'text-blue-500'}`}>
+                      +{reward.amount} TB
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Staking Rewards */}
+            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
+                  스테이킹 이자
+                </h3>
+                <Badge variant="secondary" className="text-xs">
+                  {userStakingPositions?.positions?.length || 0} 포지션
+                </Badge>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+                  <p className="text-xs text-slate-500 dark:text-gray-400">총 이자 수익</p>
+                  <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+                    {userOverview?.stakingRewards?.total || "0"} TB
+                  </p>
+                </div>
+                <div className="p-3 bg-purple-50 dark:bg-purple-500/10 rounded-lg">
+                  <p className="text-xs text-slate-500 dark:text-gray-400">대기중 보상</p>
+                  <p className="text-lg font-bold font-mono text-purple-500">
+                    {userOverview?.pendingRewards || "0"} TB
+                  </p>
+                </div>
+              </div>
+              
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {userStakingPositions?.positions?.map((pos) => (
+                  <div key={pos.id} className="flex items-center justify-between p-2 bg-slate-50 dark:bg-[#0B1120] rounded-lg text-sm">
+                    <div>
+                      <p className="font-medium text-slate-900 dark:text-white text-xs">{pos.validatorName}</p>
+                      <p className="text-[10px] text-slate-400">{pos.stakedAmount} TB 스테이킹</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-mono text-purple-500 font-medium">+{pos.pendingRewards} TB</p>
+                      <p className="text-[10px] text-emerald-500">APY {pos.currentApy}%</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Events & Activities */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            {/* Event Participation */}
+            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+                  이벤트 참여
+                </h3>
+                <Badge variant="secondary" className="text-xs">
+                  {userEvents?.summary?.total || 0}건
+                </Badge>
+              </div>
+              
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {userEvents?.events?.map((event) => (
+                  <div key={event.id} className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                          {getEventTypeLabel(event.eventType)}
+                        </Badge>
+                        <span className="font-medium text-slate-900 dark:text-white text-sm">{event.eventName}</span>
+                      </div>
+                      {getStatusBadge(event.status)}
+                    </div>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="text-xs text-slate-400">{event.eventDescription}</span>
+                      <span className="font-mono font-bold text-yellow-500">{event.rewardAmount} TB</span>
+                    </div>
+                    {event.status === 'eligible' && (
+                      <Button size="sm" className="w-full mt-2 bg-yellow-500 hover:bg-yellow-600 text-xs h-7">
+                        보상 수령
+                      </Button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Recent Activity */}
+            <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
+                  최근 활동
+                </h3>
+                <Button variant="ghost" size="sm" className="text-xs">
+                  전체 보기 <ChevronRight className="w-3 h-3 ml-1" />
+                </Button>
+              </div>
+              
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {userActivities?.activities?.slice(0, 8).map((activity) => {
+                  const IconComponent = getActivityIcon(activity.activityType);
+                  return (
+                    <div key={activity.id} className="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-[#0B1120] rounded-lg transition-colors">
+                      <div className={`p-2 rounded-lg ${
+                        activity.category === 'rewards' ? 'bg-emerald-100 dark:bg-emerald-500/20' :
+                        activity.category === 'staking' ? 'bg-purple-100 dark:bg-purple-500/20' :
+                        activity.category === 'wallet' ? 'bg-blue-100 dark:bg-blue-500/20' :
+                        'bg-slate-100 dark:bg-slate-500/20'
+                      }`}>
+                        <IconComponent className={`w-4 h-4 ${
+                          activity.category === 'rewards' ? 'text-emerald-500' :
+                          activity.category === 'staking' ? 'text-purple-500' :
+                          activity.category === 'wallet' ? 'text-blue-500' :
+                          'text-slate-500'
+                        }`} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{activity.title}</p>
+                        <p className="text-xs text-slate-400">{formatTimeAgo(activity.createdAt)}</p>
+                      </div>
+                      {activity.amount && (
+                        <span className={`font-mono text-sm font-medium ${
+                          activity.activityType === 'transfer_out' ? 'text-red-500' : 'text-emerald-500'
+                        }`}>
+                          {activity.activityType === 'transfer_out' ? '-' : '+'}{activity.amount} TB
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 }

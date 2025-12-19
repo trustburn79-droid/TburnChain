@@ -41,6 +41,7 @@ import enterpriseRoutes from "./routes/enterprise-routes";
 import { registerPublicApiRoutes } from "./routes/public-api-routes";
 import { registerWalletDashboardRoutes } from "./routes/wallet-dashboard-routes";
 import { registerGenesisRoutes } from "./routes/genesis-routes";
+import { registerUserDataRoutes } from "./routes/user-data-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -971,6 +972,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/gamefi/projects"))) {
       return next();
     }
+    // Skip auth for User Data endpoints (public read-only, address-based queries)
+    if (req.method === "GET" && req.path.startsWith("/user/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================
@@ -1024,6 +1029,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   registerGenesisRoutes(app);
   console.log("[Genesis] ✅ Genesis block creation routes registered");
+
+  // ============================================
+  // USER DATA API (User-specific rewards, staking, events)
+  // ============================================
+  registerUserDataRoutes(app);
+  console.log("[UserData] ✅ User data routes registered");
 
   // ============================================
   // Network Stats

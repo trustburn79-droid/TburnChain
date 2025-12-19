@@ -37,7 +37,8 @@ Core architectural decisions and features include:
 - **Vite HMR in Replit**: HMR is disabled in Replit environments to prevent WebSocket connection failures.
 - **HTML Loading Indicator**: A static loading spinner is added in `client/index.html` for immediate visual feedback.
 - **AI Service Fail-Fast Optimization**: `AIServiceManager.makeRequest()` checks for available providers before entering retry loops.
-- **User Page (`/user`)**: Korean-language blockchain explorer interface with 5 sections (Dashboard, Wallet & Transfer, Staking, Governance, Network Status).
+- **User Page (`/user`)**: Korean-language blockchain explorer interface with 5 sections (Dashboard, Wallet & Transfer, Staking, Governance, Network Status). Features user-centric dashboard showing personalized financial data: portfolio overview (liquid + staked balance), unclaimed rewards summary, mining rewards breakdown by source, staking positions with APY per validator, event participation (airdrops/campaigns/governance rewards), and recent activity feed.
+- **User Data API (`/api/user/:address/*`)**: Public read-only endpoints for user-specific data including overview, mining-rewards, staking-positions, staking-rewards, events, and activities. Uses address-based seed generation for consistent sample data during development.
 - **366-Day Stability Architecture**: Includes server-side event loop protection (execution overlap guards, circuit breaker pattern, subscriber-aware scheduling) and client-side memory leak prevention (WebSocket reconnection limits, orphan listener prevention, timer cleanup) with resilience patterns (REST fallback, graceful degradation, component unmount guards).
 - **Engineering Standards**: Emphasizes `useEffect` best practices for preventing infinite loops and render blocking, including proper dependency array usage, `useRef` for index/counter tracking, `isActive` guards for async operations, and consistent cleanup functions.
 
