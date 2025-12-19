@@ -270,6 +270,7 @@ export default function UserPage() {
   const { theme, setTheme } = useTheme();
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { t } = useTranslation();
   const trustScoreCanvasRef = useRef<HTMLCanvasElement>(null);
   const [blockFeed, setBlockFeed] = useState<Block[]>([]);
   const [walletModalOpen, setWalletModalOpen] = useState(false);
