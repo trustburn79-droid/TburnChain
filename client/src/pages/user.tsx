@@ -175,7 +175,6 @@ export default function UserPage() {
   const trustScoreCanvasRef = useRef<HTMLCanvasElement>(null);
   const [blockFeed, setBlockFeed] = useState<Block[]>([]);
   const [walletModalOpen, setWalletModalOpen] = useState(false);
-  const [showBalance, setShowBalance] = useState(true);
   
   const {
     isConnected,
@@ -336,12 +335,6 @@ export default function UserPage() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  const handleCopyAddress = () => {
-    if (address) {
-      navigator.clipboard.writeText(address);
-      toast({ title: "주소 복사됨", description: "지갑 주소가 클립보드에 복사되었습니다." });
-    }
-  };
 
   const handleDisconnect = () => {
     disconnect();
@@ -376,68 +369,6 @@ export default function UserPage() {
             </div>
           </div>
         </div>
-
-        {isConnected ? (
-          <div className="p-4 border-b border-slate-100 dark:border-gray-800">
-            <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 p-4 rounded-xl border border-blue-200/50 dark:border-blue-500/20">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <img
-                    src={`https://api.dicebear.com/7.x/identicon/svg?seed=${address}`}
-                    alt="Wallet"
-                    className="w-10 h-10 rounded-full bg-white dark:bg-gray-700"
-                  />
-                  <div>
-                    <p className="text-xs text-slate-500 dark:text-gray-400 font-medium">
-                      {memberInfo?.memberTier === "validator" ? "Validator" : memberInfo?.memberTier || "Member"}
-                    </p>
-                    <p className="text-sm font-mono font-bold text-slate-800 dark:text-white">
-                      {formatAddress(address || "")}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-1">
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleCopyAddress} data-testid="button-copy-address">
-                    <Copy className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setShowBalance(!showBalance)} data-testid="button-toggle-balance">
-                    {showBalance ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-                  </Button>
-                </div>
-              </div>
-              <div className="space-y-1">
-                <p className="text-xs text-slate-500 dark:text-gray-400">잔액</p>
-                <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
-                  {showBalance ? `${parseFloat(balance || "0").toFixed(4)} TB` : "••••••"}
-                </p>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full mt-3 text-xs"
-                onClick={handleDisconnect}
-                data-testid="button-disconnect-wallet"
-              >
-                <LogOut className="w-3 h-3 mr-2" /> 연결 해제
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div className="p-4 border-b border-slate-100 dark:border-gray-800">
-            <Button
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg shadow-blue-500/20"
-              onClick={() => setWalletModalOpen(true)}
-              disabled={isConnecting}
-              data-testid="button-connect-wallet"
-            >
-              {isConnecting ? (
-                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> 연결 중...</>
-              ) : (
-                <><Wallet className="w-4 h-4 mr-2" /> 지갑 연결</>
-              )}
-            </Button>
-          </div>
-        )}
 
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
