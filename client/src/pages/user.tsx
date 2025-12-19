@@ -29,7 +29,7 @@ import { formatNumber } from "@/lib/formatters";
 import { LanguageSelector } from "@/components/language-selector";
 import type { NetworkStats, StakingStats } from "@shared/schema";
 
-type Section = "dashboard" | "wallet" | "staking" | "governance" | "network";
+type Section = "dashboard" | "wallet" | "stakingDashboard" | "delegationValidator" | "governance" | "network";
 
 interface GovernanceProposal {
   id: string;
@@ -552,7 +552,8 @@ export default function UserPage() {
   const navItems = [
     { id: "dashboard" as Section, label: t('userPage.nav.dashboard'), icon: Shield, badge: null },
     { id: "wallet" as Section, label: t('userPage.nav.walletAndTransfer'), icon: Wallet, badge: null },
-    { id: "staking" as Section, label: t('userPage.nav.staking'), icon: Layers, badge: isConnected ? "Active" : null },
+    { id: "stakingDashboard" as Section, label: t('userPage.nav.stakingDashboard'), icon: Coins, badge: null },
+    { id: "delegationValidator" as Section, label: t('userPage.nav.delegationValidator'), icon: Layers, badge: isConnected ? "Active" : null },
     { id: "governance" as Section, label: t('userPage.nav.governance'), icon: Gavel, badge: proposals && proposals.length > 0 ? `${proposals.length}` : null },
     { id: "network" as Section, label: t('userPage.nav.network'), icon: Globe, badge: null },
   ];
@@ -737,7 +738,16 @@ export default function UserPage() {
               onConnectWallet={() => setWalletModalOpen(true)}
             />
           )}
-          {activeSection === "staking" && (
+          {activeSection === "stakingDashboard" && (
+            <StakingDashboardSection
+              isConnected={isConnected}
+              stakingStats={stakingStats}
+              balance={balance}
+              onConnectWallet={() => setWalletModalOpen(true)}
+              walletAddress={address}
+            />
+          )}
+          {activeSection === "delegationValidator" && (
             <StakingSection
               isConnected={isConnected}
               stakingStats={stakingStats}
@@ -1433,6 +1443,389 @@ function WalletSection({
               </Button>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StakingDashboardSection({
+  isConnected,
+  stakingStats,
+  balance,
+  onConnectWallet,
+  walletAddress,
+}: {
+  isConnected: boolean;
+  stakingStats: StakingStats | null | undefined;
+  balance: string | null;
+  onConnectWallet: () => void;
+  walletAddress: string | null;
+}) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const [stakeAmount, setStakeAmount] = useState("");
+  const [unstakeAmount, setUnstakeAmount] = useState("");
+  const [activeTab, setActiveTab] = useState<"stake" | "unstake">("stake");
+
+  const availableBalance = parseFloat(balance || "0");
+  const totalStaked = 50000.00;
+  const unclaimedRewards = 452.12;
+  const unbondingAmount = 1000.00;
+  const unbondingProgress = 50;
+  const networkAPY = stakingStats?.averageApy || 12.4;
+
+  const handlePercentageClick = (percentage: number) => {
+    const amount = (availableBalance * percentage / 100).toFixed(2);
+    setStakeAmount(amount);
+  };
+
+  const handleStake = () => {
+    if (!isConnected) {
+      toast({ title: t('userPage.stakingDashboard.connectRequired'), description: t('userPage.stakingDashboard.connectWalletFirst'), variant: "destructive" });
+      return;
+    }
+    const amount = parseFloat(stakeAmount);
+    if (isNaN(amount) || amount < 100) {
+      toast({ title: t('userPage.stakingDashboard.invalidAmount'), description: t('userPage.stakingDashboard.minStake'), variant: "destructive" });
+      return;
+    }
+    toast({ title: t('userPage.stakingDashboard.stakeSubmitted'), description: `${amount.toLocaleString()} TBURN ${t('userPage.stakingDashboard.stakeProcessing')}` });
+    setStakeAmount("");
+  };
+
+  const handleUnstake = () => {
+    if (!isConnected) {
+      toast({ title: t('userPage.stakingDashboard.connectRequired'), description: t('userPage.stakingDashboard.connectWalletFirst'), variant: "destructive" });
+      return;
+    }
+    const amount = parseFloat(unstakeAmount);
+    if (isNaN(amount) || amount <= 0) {
+      toast({ title: t('userPage.stakingDashboard.invalidAmount'), description: t('userPage.stakingDashboard.enterValidAmount'), variant: "destructive" });
+      return;
+    }
+    toast({ title: t('userPage.stakingDashboard.unstakeSubmitted'), description: `${amount.toLocaleString()} TBURN ${t('userPage.stakingDashboard.unstakeProcessing')}` });
+    setUnstakeAmount("");
+  };
+
+  const handleClaimRewards = () => {
+    if (!isConnected) {
+      onConnectWallet();
+      return;
+    }
+    toast({ title: t('userPage.stakingDashboard.claimSuccess'), description: `${unclaimedRewards.toLocaleString()} TBURN ${t('userPage.stakingDashboard.claimedSuccessfully')}` });
+  };
+
+  return (
+    <section className="space-y-6" data-testid="section-staking-dashboard">
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">
+            {t('userPage.stakingDashboard.title')}
+          </h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">
+            {t('userPage.stakingDashboard.description')}
+          </p>
+        </div>
+        {!isConnected && (
+          <Button onClick={onConnectWallet} className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-staking-dashboard">
+            <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
+          </Button>
+        )}
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        {/* Available Balance */}
+        <div className="bg-white dark:bg-[#151E32]/70 backdrop-blur-sm p-6 rounded-2xl border border-slate-200 dark:border-gray-800/50 relative overflow-hidden group">
+          <div className="absolute right-0 top-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+            <Wallet className="w-16 h-16" />
+          </div>
+          <p className="text-sm text-slate-500 dark:text-gray-400 font-medium">{t('userPage.stakingDashboard.availableBalance')}</p>
+          <h3 className="text-2xl font-bold text-slate-800 dark:text-white font-mono mt-1">
+            {isConnected ? availableBalance.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00"} <span className="text-sm">TB</span>
+          </h3>
+          <div className="mt-4 flex gap-2">
+            <Button variant="secondary" size="sm" className="flex-1 text-xs font-bold">
+              {t('userPage.stakingDashboard.deposit')}
+            </Button>
+            <Button variant="secondary" size="sm" className="flex-1 text-xs font-bold">
+              {t('userPage.stakingDashboard.swap')}
+            </Button>
+          </div>
+        </div>
+
+        {/* Total Staked */}
+        <div className="bg-white dark:bg-[#151E32]/70 backdrop-blur-sm p-6 rounded-2xl border-l-4 border-blue-500 border-t border-r border-b border-slate-200 dark:border-gray-800/50 relative">
+          <p className="text-sm text-slate-500 dark:text-gray-400 font-medium">{t('userPage.stakingDashboard.totalStaked')}</p>
+          <h3 className="text-2xl font-bold text-blue-500 font-mono mt-1">
+            {isConnected ? totalStaked.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00"} <span className="text-sm">TB</span>
+          </h3>
+          <p className="text-xs text-emerald-500 mt-2 flex items-center">
+            <ArrowUp className="w-3 h-3 mr-1" /> +120.5 TB ({t('userPage.stakingDashboard.sinceLastEpoch')})
+          </p>
+        </div>
+
+        {/* Unclaimed Rewards */}
+        <div className="bg-white dark:bg-[#151E32]/70 backdrop-blur-sm p-6 rounded-2xl border-l-4 border-emerald-500 border-t border-r border-b border-slate-200 dark:border-gray-800/50 relative">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-sm text-slate-500 dark:text-gray-400 font-medium">{t('userPage.stakingDashboard.unclaimedRewards')}</p>
+              <h3 className="text-2xl font-bold text-emerald-500 font-mono mt-1">
+                {isConnected ? unclaimedRewards.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00"} <span className="text-sm">TB</span>
+              </h3>
+            </div>
+            <Button 
+              onClick={handleClaimRewards}
+              size="sm"
+              className="bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white text-xs font-bold"
+              disabled={!isConnected || unclaimedRewards <= 0}
+              data-testid="button-claim-rewards"
+            >
+              {t('userPage.stakingDashboard.claimAll')}
+            </Button>
+          </div>
+          <p className="text-xs text-slate-400 mt-2">{t('userPage.stakingDashboard.autoCompoundAvailable')}</p>
+        </div>
+
+        {/* Unbonding (Locked) */}
+        <div className="bg-white dark:bg-[#151E32]/70 backdrop-blur-sm p-6 rounded-2xl border-l-4 border-orange-500 border-t border-r border-b border-slate-200 dark:border-gray-800/50 relative">
+          <p className="text-sm text-slate-500 dark:text-gray-400 font-medium">{t('userPage.stakingDashboard.unbonding')}</p>
+          <h3 className="text-2xl font-bold text-orange-500 font-mono mt-1">
+            {isConnected ? unbondingAmount.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00"} <span className="text-sm">TB</span>
+          </h3>
+          <div className="mt-2 text-xs text-slate-500 dark:text-gray-400">
+            <div className="flex justify-between mb-1">
+              <span>{t('userPage.stakingDashboard.availableIn2Days')}</span>
+              <span>{unbondingProgress}%</span>
+            </div>
+            <div className="w-full bg-slate-200 dark:bg-gray-700 h-1.5 rounded-full">
+              <div className="bg-orange-500 h-1.5 rounded-full" style={{ width: `${unbondingProgress}%` }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Staking Panel */}
+      <div className="bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-slate-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-4">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-white">{t('userPage.stakingDashboard.stakeUnstake')}</h3>
+            <div className="flex bg-slate-100 dark:bg-gray-800 rounded-lg p-1">
+              <button
+                onClick={() => setActiveTab("stake")}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                  activeTab === "stake"
+                    ? "bg-blue-500 text-white shadow-sm"
+                    : "text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
+                }`}
+                data-testid="tab-stake"
+              >
+                {t('userPage.stakingDashboard.stake')}
+              </button>
+              <button
+                onClick={() => setActiveTab("unstake")}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                  activeTab === "unstake"
+                    ? "bg-orange-500 text-white shadow-sm"
+                    : "text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
+                }`}
+                data-testid="tab-unstake"
+              >
+                {t('userPage.stakingDashboard.unstake')}
+              </button>
+            </div>
+          </div>
+          <div className="flex items-center gap-6 text-sm font-mono">
+            <div className="flex flex-col items-end">
+              <span className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.stakingDashboard.networkAPY')}</span>
+              <span className="font-bold text-emerald-500">{networkAPY.toFixed(1)}%</span>
+            </div>
+            <div className="flex flex-col items-end">
+              <span className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.stakingDashboard.totalNetworkStaked')}</span>
+              <span className="font-bold text-blue-500">64.2%</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6">
+          {activeTab === "stake" ? (
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">{t('userPage.stakingDashboard.amountToStake')}</label>
+                <div className="relative">
+                  <Input
+                    type="number"
+                    placeholder="0.00"
+                    value={stakeAmount}
+                    onChange={(e) => setStakeAmount(e.target.value)}
+                    className="text-lg font-mono pr-16 bg-slate-50 dark:bg-gray-800 border-slate-200 dark:border-gray-700"
+                    data-testid="input-stake-amount"
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-gray-400 font-bold">TB</span>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                {[25, 50, 75].map((pct) => (
+                  <Button
+                    key={pct}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePercentageClick(pct)}
+                    className="flex-1 font-bold"
+                    data-testid={`button-stake-${pct}`}
+                  >
+                    {pct}%
+                  </Button>
+                ))}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePercentageClick(100)}
+                  className="flex-1 font-bold text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white"
+                  data-testid="button-stake-max"
+                >
+                  MAX
+                </Button>
+              </div>
+              <div className="bg-blue-50 dark:bg-blue-500/10 rounded-xl p-4 space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.estimatedAPY')}</span>
+                  <span className="font-bold text-emerald-500">{networkAPY.toFixed(1)}%</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.estimatedMonthlyReward')}</span>
+                  <span className="font-bold text-slate-800 dark:text-white font-mono">
+                    {((parseFloat(stakeAmount) || 0) * networkAPY / 100 / 12).toFixed(2)} TB
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.unbondingPeriod')}</span>
+                  <span className="font-bold text-slate-800 dark:text-white">{t('userPage.stakingDashboard.21days')}</span>
+                </div>
+              </div>
+              <Button
+                onClick={handleStake}
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                disabled={!stakeAmount || parseFloat(stakeAmount) <= 0}
+                data-testid="button-stake-confirm"
+              >
+                <Lock className="w-4 h-4 mr-2" /> {t('userPage.stakingDashboard.stakeNow')}
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm text-slate-500 dark:text-gray-400 mb-2 block">{t('userPage.stakingDashboard.amountToUnstake')}</label>
+                <div className="relative">
+                  <Input
+                    type="number"
+                    placeholder="0.00"
+                    value={unstakeAmount}
+                    onChange={(e) => setUnstakeAmount(e.target.value)}
+                    className="text-lg font-mono pr-16 bg-slate-50 dark:bg-gray-800 border-slate-200 dark:border-gray-700"
+                    data-testid="input-unstake-amount"
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-gray-400 font-bold">TB</span>
+                </div>
+              </div>
+              <div className="bg-orange-50 dark:bg-orange-500/10 rounded-xl p-4 space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.currentlyStaked')}</span>
+                  <span className="font-bold text-slate-800 dark:text-white font-mono">{isConnected ? totalStaked.toLocaleString() : "0.00"} TB</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-600 dark:text-gray-400">{t('userPage.stakingDashboard.unbondingPeriod')}</span>
+                  <span className="font-bold text-orange-500">{t('userPage.stakingDashboard.21days')}</span>
+                </div>
+              </div>
+              <div className="bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-200 dark:border-yellow-500/30 rounded-xl p-4">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" />
+                  <div className="text-sm text-yellow-700 dark:text-yellow-400">
+                    {t('userPage.stakingDashboard.unstakeWarning')}
+                  </div>
+                </div>
+              </div>
+              <Button
+                onClick={handleUnstake}
+                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700"
+                disabled={!unstakeAmount || parseFloat(unstakeAmount) <= 0}
+                data-testid="button-unstake-confirm"
+              >
+                <Unlock className="w-4 h-4 mr-2" /> {t('userPage.stakingDashboard.unstakeNow')}
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Staking History */}
+      <div className="bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-slate-200 dark:border-gray-800">
+          <h3 className="text-lg font-bold text-slate-800 dark:text-white">{t('userPage.stakingDashboard.stakingHistory')}</h3>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-slate-50 dark:bg-[#0B1120] text-slate-500 dark:text-gray-400 text-xs uppercase tracking-wider">
+                <th className="p-4 font-semibold">{t('userPage.stakingDashboard.date')}</th>
+                <th className="p-4 font-semibold">{t('userPage.stakingDashboard.type')}</th>
+                <th className="p-4 font-semibold text-right">{t('userPage.stakingDashboard.amount')}</th>
+                <th className="p-4 font-semibold text-center">{t('userPage.stakingDashboard.status')}</th>
+              </tr>
+            </thead>
+            <tbody className="text-slate-800 dark:text-white divide-y divide-slate-100 dark:divide-gray-800">
+              {isConnected ? (
+                <>
+                  <tr className="hover:bg-slate-50 dark:hover:bg-[#151E32]/80 transition-colors">
+                    <td className="p-4 text-sm text-slate-500 dark:text-gray-400">2024-12-18</td>
+                    <td className="p-4">
+                      <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">{t('userPage.stakingDashboard.stake')}</Badge>
+                    </td>
+                    <td className="p-4 text-right font-mono text-sm">+10,000.00 TB</td>
+                    <td className="p-4 text-center">
+                      <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
+                        <CheckCircle className="w-3 h-3 mr-1" /> {t('userPage.stakingDashboard.completed')}
+                      </Badge>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50 dark:hover:bg-[#151E32]/80 transition-colors">
+                    <td className="p-4 text-sm text-slate-500 dark:text-gray-400">2024-12-15</td>
+                    <td className="p-4">
+                      <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">{t('userPage.stakingDashboard.reward')}</Badge>
+                    </td>
+                    <td className="p-4 text-right font-mono text-sm text-emerald-500">+52.18 TB</td>
+                    <td className="p-4 text-center">
+                      <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
+                        <CheckCircle className="w-3 h-3 mr-1" /> {t('userPage.stakingDashboard.claimed')}
+                      </Badge>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50 dark:hover:bg-[#151E32]/80 transition-colors">
+                    <td className="p-4 text-sm text-slate-500 dark:text-gray-400">2024-12-10</td>
+                    <td className="p-4">
+                      <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300">{t('userPage.stakingDashboard.unstake')}</Badge>
+                    </td>
+                    <td className="p-4 text-right font-mono text-sm">-1,000.00 TB</td>
+                    <td className="p-4 text-center">
+                      <Badge className="bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300">
+                        <Clock className="w-3 h-3 mr-1" /> {t('userPage.stakingDashboard.unbonding')}
+                      </Badge>
+                    </td>
+                  </tr>
+                </>
+              ) : (
+                <tr>
+                  <td colSpan={4} className="p-8 text-center text-slate-400 dark:text-gray-500">
+                    <Wallet className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                    <p>{t('userPage.stakingDashboard.connectToViewHistory')}</p>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

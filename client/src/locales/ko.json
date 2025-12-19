@@ -146,6 +146,8 @@
     "time": "시간"
   },
   "nav": {
+      "stakingDashboard": "스테이킹",
+      "delegationValidator": "위임검증자",
     "brand": "TBURN 체인 메인넷",
     "explorer": "익스플로러",
     "dashboard": "대시보드",
@@ -6558,6 +6560,8 @@
       }
     },
     "nav": {
+      "stakingDashboard": "스테이킹",
+      "delegationValidator": "위임검증자",
       "developers": "개발자",
       "network": "네트워크"
     },
@@ -7445,6 +7449,8 @@
         }
       },
       "nav": {
+      "stakingDashboard": "스테이킹",
+      "delegationValidator": "위임검증자",
         "developers": "개발자",
         "network": "네트워크"
       },
@@ -7493,6 +7499,8 @@
       "loginInterface": "로그인 인터페이스",
       "selectLanguage": "언어 선택",
       "nav": {
+      "stakingDashboard": "스테이킹",
+      "delegationValidator": "위임검증자",
         "learn": {
           "title": "학습",
           "learnHub": {
@@ -26702,6 +26710,8 @@
       "daysAgo": "{{count}}일 전"
     },
     "nav": {
+      "stakingDashboard": "스테이킹",
+      "delegationValidator": "위임검증자",
       "dashboard": "대시보드",
       "walletAndTransfer": "지갑 & 전송",
       "staking": "위임검증자",
@@ -26741,8 +26751,57 @@
       "viewExplorer": "익스플로러에서 보기",
       "portfolioAnalysis": "포트폴리오 분석"
     },
+    "stakingDashboard": {
+      "title": "스테이킹 대시보드",
+      "description": "TBURN을 스테이킹하여 보상을 받으세요",
+      "availableBalance": "사용 가능 잔액",
+      "totalStaked": "총 스테이킹",
+      "unclaimedRewards": "미청구 보상",
+      "unbonding": "언본딩 (잠금)",
+      "deposit": "입금",
+      "swap": "스왑",
+      "sinceLastEpoch": "지난 에폭 이후",
+      "claimAll": "전체 수령",
+      "autoCompoundAvailable": "자동 복리 옵션 사용 가능",
+      "availableIn2Days": "2일 후 사용 가능",
+      "stakeUnstake": "스테이크 / 언스테이크",
+      "stake": "스테이크",
+      "unstake": "언스테이크",
+      "networkAPY": "네트워크 APY",
+      "totalNetworkStaked": "총 스테이킹 비율",
+      "amountToStake": "스테이킹 금액",
+      "amountToUnstake": "언스테이킹 금액",
+      "estimatedAPY": "예상 APY",
+      "estimatedMonthlyReward": "예상 월간 보상",
+      "unbondingPeriod": "언본딩 기간",
+      "21days": "21일",
+      "stakeNow": "스테이킹하기",
+      "unstakeNow": "언스테이킹하기",
+      "currentlyStaked": "현재 스테이킹",
+      "unstakeWarning": "언스테이킹 후 21일간 토큰이 잠금됩니다. 이 기간 동안 보상이 지급되지 않으며 토큰을 사용할 수 없습니다.",
+      "stakingHistory": "스테이킹 내역",
+      "date": "날짜",
+      "type": "유형",
+      "amount": "금액",
+      "status": "상태",
+      "reward": "보상",
+      "completed": "완료",
+      "claimed": "수령완료",
+      "connectToViewHistory": "내역을 보려면 지갑을 연결하세요",
+      "connectRequired": "연결 필요",
+      "connectWalletFirst": "먼저 지갑을 연결해주세요",
+      "invalidAmount": "유효하지 않은 금액",
+      "minStake": "최소 100 TBURN 이상 스테이킹해야 합니다",
+      "enterValidAmount": "유효한 금액을 입력하세요",
+      "stakeSubmitted": "스테이킹 요청됨",
+      "stakeProcessing": "스테이킹이 처리 중입니다",
+      "unstakeSubmitted": "언스테이킹 요청됨",
+      "unstakeProcessing": "언스테이킹이 처리 중입니다",
+      "claimSuccess": "보상 수령 완료",
+      "claimedSuccessfully": "성공적으로 수령되었습니다"
+    },
     "stakingPage": {
-      "title": "스테이킹",
+    "title": "스테이킹",
       "description": "검증자에게 토큰을 위임하고 보상을 받으세요.",
       "totalTvl": "총 TVL",
       "avgApy": "평균 APY",
