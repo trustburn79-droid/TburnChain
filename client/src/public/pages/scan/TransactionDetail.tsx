@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatGasPriceEmber, calculateTransactionFeeEmber, emberToTburn } from "@/lib/format";
+import { hexToTb1Address } from "@/lib/utils";
 import ScanLayout from "../../components/ScanLayout";
 
 interface Transaction {
@@ -68,8 +69,8 @@ export default function TransactionDetail() {
     tx = {
       hash: txHash,
       blockNumber: 20514000 + (hashNum % 1000),
-      from: `0x${txHash.slice(2, 42)}`,
-      to: `0x${txHash.slice(26, 66) || txHash.slice(2, 42)}`,
+      from: hexToTb1Address(txHash.slice(2, 42)),
+      to: hexToTb1Address(txHash.slice(26, 66) || txHash.slice(2, 42)),
       value: String((hashNum % 10000) * 1e18),
       gasUsed: String(50 + (hashNum % 450)), // 50-500 gas units (TBURN model)
       gasPrice: String(10000000000000 + (hashNum % 5000000000000)), // 10-15 EMB in wei

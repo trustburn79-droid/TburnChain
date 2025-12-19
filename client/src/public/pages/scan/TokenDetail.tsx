@@ -23,6 +23,7 @@ import {
 import { useCallback, useMemo } from "react";
 import ScanLayout from "../../components/ScanLayout";
 import { useToast } from "@/hooks/use-toast";
+import { generateTb1Address } from "@/lib/utils";
 
 interface TokenInfo {
   address: string;
@@ -57,9 +58,9 @@ interface Holder {
   percentage: string;
 }
 
-const mockTokens: Record<string, TokenInfo> = {
-  '0x1234...abcd': {
-    address: '0x1234567890abcdef1234567890abcdef12345678',
+const createMockTokens = (): Record<string, TokenInfo> => ({
+  'tb1...tburn': {
+    address: generateTb1Address('tburn-token-main'),
     name: 'TBURN Token',
     symbol: 'TBURN',
     decimals: 18,
@@ -70,14 +71,14 @@ const mockTokens: Record<string, TokenInfo> = {
     volume24h: '$452M',
     marketCap: '$24.7B',
     type: 'TBC-20',
-    contractCreator: '0xCreator1234567890abcdef1234567890abcd',
+    contractCreator: generateTb1Address('tburn-token-creator'),
     createdAt: '2024-01-15',
     website: 'https://tburn.io',
     twitter: '@TBURNChain',
     telegram: 't.me/tburnchain'
   },
-  '0x2345...bcde': {
-    address: '0x2345678901bcdef12345678901bcdef123456789',
+  'tb1...sttburn': {
+    address: generateTb1Address('staked-tburn-token'),
     name: 'Staked TBURN',
     symbol: 'stTBURN',
     decimals: 18,
@@ -88,11 +89,11 @@ const mockTokens: Record<string, TokenInfo> = {
     volume24h: '$125M',
     marketCap: '$7.9B',
     type: 'TBC-20',
-    contractCreator: '0xCreator2345678901bcdef1234567890bcde',
+    contractCreator: generateTb1Address('staked-tburn-creator'),
     createdAt: '2024-02-20'
   },
-  '0x3456...cdef': {
-    address: '0x3456789012cdef123456789012cdef1234567890',
+  'tb1...gtburn': {
+    address: generateTb1Address('governance-tburn-token'),
     name: 'TBURN Governance',
     symbol: 'gTBURN',
     decimals: 18,
@@ -103,11 +104,11 @@ const mockTokens: Record<string, TokenInfo> = {
     volume24h: '$32M',
     marketCap: '$4.375B',
     type: 'TBC-20',
-    contractCreator: '0xCreator3456789012cdef123456789012cdef',
+    contractCreator: generateTb1Address('governance-tburn-creator'),
     createdAt: '2024-03-10'
   },
-  '0x4567...defg': {
-    address: '0x4567890123defg1234567890123defg12345678',
+  'tb1...lp': {
+    address: generateTb1Address('tburn-lp-token'),
     name: 'TBURN LP Token',
     symbol: 'TBURN-LP',
     decimals: 18,
@@ -118,11 +119,11 @@ const mockTokens: Record<string, TokenInfo> = {
     volume24h: '$18M',
     marketCap: '$3.8B',
     type: 'TBC-20',
-    contractCreator: '0xCreator4567890123defg123456789012defg',
+    contractCreator: generateTb1Address('tburn-lp-creator'),
     createdAt: '2024-04-05'
   },
-  '0x5678...efgh': {
-    address: '0x567890123456efgh1234567890123456efgh1234',
+  'tb1...weth': {
+    address: generateTb1Address('wrapped-eth-token'),
     name: 'Wrapped Ethereum',
     symbol: 'WETH',
     decimals: 18,
@@ -133,16 +134,18 @@ const mockTokens: Record<string, TokenInfo> = {
     volume24h: '$89M',
     marketCap: '$122.5M',
     type: 'TBC-20',
-    contractCreator: '0xCreator567890123456efgh12345678901234ef',
+    contractCreator: generateTb1Address('wrapped-eth-creator'),
     createdAt: '2024-05-15'
   }
-};
+});
+
+const mockTokens = createMockTokens();
 
 const generateMockTransfers = (tokenAddress: string): Transfer[] => {
   return Array.from({ length: 10 }, (_, i) => ({
     txHash: `0x${tokenAddress.slice(2, 10)}${i.toString(16).padStart(56, '0')}`,
-    from: `0x${Math.random().toString(16).slice(2, 42)}`,
-    to: `0x${Math.random().toString(16).slice(2, 42)}`,
+    from: generateTb1Address(`transfer-from-${tokenAddress}-${i}`),
+    to: generateTb1Address(`transfer-to-${tokenAddress}-${i}`),
     amount: `${(Math.random() * 10000).toFixed(2)}`,
     timestamp: Date.now() - (i * 60000 * (i + 1))
   }));
@@ -155,7 +158,7 @@ const generateMockHolders = (tokenAddress: string): Holder[] => {
     const percentage = i === 0 ? 15 + Math.random() * 10 : Math.random() * (remaining / (10 - i));
     remaining -= percentage;
     return {
-      address: `0x${Math.random().toString(16).slice(2, 42)}`,
+      address: generateTb1Address(`holder-${tokenAddress}-${i}`),
       balance: ((totalSupply * percentage) / 100).toLocaleString(),
       percentage: `${percentage.toFixed(2)}%`
     };
@@ -191,7 +194,7 @@ export default function TokenDetail() {
 
   const token = useMemo(() => {
     const shortAddr = formatAddress(address);
-    return mockTokens[shortAddr] || mockTokens['0x1234...abcd'];
+    return mockTokens[shortAddr] || Object.values(mockTokens)[0];
   }, [address]);
 
   const transfers = useMemo(() => generateMockTransfers(address), [address]);

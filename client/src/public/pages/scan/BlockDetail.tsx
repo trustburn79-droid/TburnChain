@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { generateTb1Address } from "@/lib/utils";
 import ScanLayout from "../../components/ScanLayout";
 
 interface Block {
@@ -71,7 +72,7 @@ export default function BlockDetail() {
       parentHash: `0x${(blockNumber - 1).toString(16).padStart(64, '0')}`,
       timestamp: Date.now() - ((20514096 - blockNumber) * 3000),
       transactions: 5 + (blockNumber % 20),
-      validator: `0x742d35Cc6634C0532925a3b844Bc${blockNumber.toString(16).padStart(8, '0')}`,
+      validator: generateTb1Address(`validator-${blockNumber}`),
       gasUsed: String(1000000 + (blockNumber % 5000000)),
       gasLimit: "30000000",
       size: 1024 + (blockNumber % 5000)

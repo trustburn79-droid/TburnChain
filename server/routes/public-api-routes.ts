@@ -71,15 +71,11 @@ function generateConsistentTxHash(blockNumber: number, index: number): string {
 }
 
 /**
- * Generates consistent address based on seed using SHA-256 (tburn format)
- * Full 40 hex characters without trailing zeros
+ * Generates consistent address based on seed using SHA-256 (Bech32m tb1 format)
+ * Uses addressFromString for consistent tb1 format
  */
 function generateConsistentAddress(seed: number): string {
-  const hash = createHash('sha256')
-    .update(`tburn-addr-${seed}`)
-    .digest('hex')
-    .slice(0, 40);
-  return `tburn${hash}`;
+  return addressFromString(`tburn-addr-${seed}`);
 }
 
 function setCacheHeaders(res: Response, maxAge: number) {
