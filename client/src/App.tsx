@@ -71,6 +71,7 @@ const SearchResults = lazy(() => import("@/pages/search-results"));
 const TokenomicsSimulation = lazy(() => import("@/pages/tokenomics-simulation"));
 const VCTestMode = lazy(() => import("@/pages/vc-test-mode"));
 const VCLayout = lazy(() => import("@/public/components/VCLayout"));
+const UserPage = lazy(() => import("@/pages/user"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -260,6 +261,19 @@ function RootRouter() {
   
   if (location.startsWith("/app")) {
     return <AuthenticatedApp />;
+  }
+  
+  if (location === "/user" || location.startsWith("/user")) {
+    return (
+      <WebSocketProvider>
+        <TooltipProvider>
+          <Suspense fallback={<PageLoading />}>
+            <UserPage />
+          </Suspense>
+          <Toaster />
+        </TooltipProvider>
+      </WebSocketProvider>
+    );
   }
   
   if (location === "/signup") {
