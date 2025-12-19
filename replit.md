@@ -41,6 +41,7 @@ Core architectural decisions and features include:
 - **User Data API (`/api/user/:address/*`)**: Public read-only endpoints for user-specific data including overview, mining-rewards, staking-positions, staking-rewards, events, and activities. Uses address-based seed generation for consistent sample data during development.
 - **366-Day Stability Architecture**: Includes server-side event loop protection (execution overlap guards, circuit breaker pattern, subscriber-aware scheduling) and client-side memory leak prevention (WebSocket reconnection limits, orphan listener prevention, timer cleanup) with resilience patterns (REST fallback, graceful degradation, component unmount guards).
 - **Engineering Standards**: Emphasizes `useEffect` best practices for preventing infinite loops and render blocking, including proper dependency array usage, `useRef` for index/counter tracking, `isActive` guards for async operations, and consistent cleanup functions.
+- **TBURN Address Standardization**: All blockchain addresses use the native `tburn` prefix format (45 characters: `tburn` + 40 hex chars). Centralized utilities in `server/utils/tburn-address.ts` provide deterministic address generation (SHA-256 hashing for system accounts), random address generation, validator address formatting (`tburnvalidator0001`), and pre-defined SYSTEM_ADDRESSES/SIGNER_ADDRESSES constants. Transaction hashes remain in `0x` format (64-char hex).
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
