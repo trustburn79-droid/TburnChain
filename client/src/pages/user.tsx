@@ -1,37 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useTheme } from "@/components/theme-provider";
 import { Flame, Wallet, Layers, Gavel, Globe, RefreshCw, Shield, Coins, ArrowUp, ArrowDown, CheckCircle, ExternalLink, Sun, Moon, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { formatNumber } from "@/lib/formatters";
+import type { Validator, NetworkStats, StakingStats } from "@shared/schema";
 
 type Section = "dashboard" | "wallet" | "staking" | "governance" | "network";
-
-interface NetworkStats {
-  tps: number;
-  blockTime: number;
-  activeValidators: number;
-  totalBurned: string;
-  burnRate24h: number;
-}
-
-interface StakingStats {
-  totalStaked: string;
-  apr: number;
-  rewardsDistributed: string;
-}
-
-interface Validator {
-  id: number;
-  name: string;
-  address: string;
-  trustScore: number;
-  totalStaked: string;
-  commission: number;
-  status: string;
-}
 
 interface GovernanceProposal {
   id: number;
@@ -49,6 +29,20 @@ interface Block {
   burned: number;
   timestamp: number;
 }
+
+interface BurnStats {
+  totalBurned: string;
+  burnRate24h: number;
+  userBurnContribution?: string;
+  burnPercentage?: number;
+}
+
+const transferFormSchema = z.object({
+  recipientAddress: z.string().min(1, "주소를 입력해주세요").regex(/^0x[a-fA-F0-9]{40}$/, "유효한 TBURN 주소를 입력해주세요"),
+  amount: z.string().min(1, "수량을 입력해주세요").refine((val) => parseFloat(val) > 0, "0보다 큰 수량을 입력해주세요"),
+});
+
+type TransferFormValues = z.infer<typeof transferFormSchema>;
 
 export default function UserPage() {
   const [activeSection, setActiveSection] = useState<Section>("dashboard");
@@ -75,7 +69,7 @@ export default function UserPage() {
     refetchInterval: 15000,
   });
 
-  const { data: burnStats } = useQuery<any>({
+  const { data: burnStats } = useQuery<BurnStats>({
     queryKey: ["/api/burn/stats"],
     staleTime: 10000,
     refetchInterval: 10000,
@@ -88,6 +82,7 @@ export default function UserPage() {
   });
 
   useEffect(() => {
+    if (activeSection !== "network") return;
     const interval = setInterval(() => {
       const newBlock: Block = {
         blockNumber: 8921000 + Math.floor(Date.now() / 1000),
@@ -98,7 +93,7 @@ export default function UserPage() {
       setBlockFeed((prev) => [newBlock, ...prev.slice(0, 7)]);
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [activeSection]);
 
   useEffect(() => {
     const canvas = trustScoreCanvasRef.current;
@@ -275,7 +270,7 @@ function DashboardSection({
 }: {
   networkStats: NetworkStats | undefined;
   stakingStats: StakingStats | undefined;
-  burnStats: any;
+  burnStats: BurnStats | undefined;
   trustScoreCanvasRef: React.RefObject<HTMLCanvasElement>;
   onRefresh: () => void;
 }) {
@@ -379,11 +374,22 @@ function DashboardSection({
 }
 
 function WalletSection() {
-  const [recipientAddress, setRecipientAddress] = useState("");
-  const [amount, setAmount] = useState("1000");
-  const burnFee = parseFloat(amount || "0") * 0.005;
+  const form = useForm<TransferFormValues>({
+    resolver: zodResolver(transferFormSchema),
+    defaultValues: {
+      recipientAddress: "",
+      amount: "1000",
+    },
+  });
+
+  const watchedAmount = form.watch("amount");
+  const burnFee = parseFloat(watchedAmount || "0") * 0.005;
   const networkFee = 0.0001;
-  const totalDeduction = parseFloat(amount || "0") + burnFee + networkFee;
+  const totalDeduction = parseFloat(watchedAmount || "0") + burnFee + networkFee;
+
+  const onSubmit = (data: TransferFormValues) => {
+    console.log("Transfer submitted:", data);
+  };
 
   const recentActivity = [
     { type: "sent", to: "0x82...1A", amount: 500, burned: 2.5, time: "2 mins ago" },
@@ -398,71 +404,89 @@ function WalletSection() {
           <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
             <ArrowUp className="w-5 h-5 text-blue-500 rotate-45" /> 자산 전송
           </h3>
-          <form className="space-y-6">
-            <div>
-              <Label className="text-sm font-medium text-slate-500 dark:text-gray-400 mb-2">
-                받는 사람 주소 (TBURN Address)
-              </Label>
-              <Input
-                type="text"
-                placeholder="0x..."
-                value={recipientAddress}
-                onChange={(e) => setRecipientAddress(e.target.value)}
-                data-testid="input-recipient-address"
-                className="w-full bg-slate-50 dark:bg-[#0B1120] border-slate-200 dark:border-gray-700 rounded-xl text-slate-900 dark:text-white font-mono"
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="recipientAddress"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-sm font-medium text-slate-500 dark:text-gray-400">
+                      받는 사람 주소 (TBURN Address)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="0x..."
+                        {...field}
+                        data-testid="input-recipient-address"
+                        className="w-full bg-slate-50 dark:bg-[#0B1120] border-slate-200 dark:border-gray-700 rounded-xl text-slate-900 dark:text-white font-mono"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            <div>
-              <Label className="text-sm font-medium text-slate-500 dark:text-gray-400 mb-2">
-                전송 수량 (TB)
-              </Label>
-              <div className="relative">
-                <Input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  data-testid="input-amount"
-                  className="w-full bg-slate-50 dark:bg-[#0B1120] border-slate-200 dark:border-gray-700 rounded-xl text-slate-900 dark:text-white font-mono font-bold pr-12"
-                />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 font-bold">
-                  TB
-                </span>
-              </div>
-            </div>
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-sm font-medium text-slate-500 dark:text-gray-400">
+                      전송 수량 (TB)
+                    </FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type="number"
+                          {...field}
+                          data-testid="input-amount"
+                          className="w-full bg-slate-50 dark:bg-[#0B1120] border-slate-200 dark:border-gray-700 rounded-xl text-slate-900 dark:text-white font-mono font-bold pr-12"
+                        />
+                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 font-bold">
+                          TB
+                        </span>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="bg-slate-50 dark:bg-[#0B1120]/50 rounded-xl p-4 border border-slate-200 dark:border-orange-500/30">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm text-slate-500 dark:text-gray-400">예상 네트워크 수수료</span>
-                <span className="text-sm text-slate-800 dark:text-white font-mono">
-                  {networkFee.toFixed(4)} TB
-                </span>
+              <div className="bg-slate-50 dark:bg-[#0B1120]/50 rounded-xl p-4 border border-slate-200 dark:border-orange-500/30">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm text-slate-500 dark:text-gray-400">예상 네트워크 수수료</span>
+                  <span className="text-sm text-slate-800 dark:text-white font-mono">
+                    {networkFee.toFixed(4)} TB
+                  </span>
+                </div>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm text-orange-500 font-medium">
+                    <Flame className="w-4 h-4 inline mr-1" /> 자동 소각 예정 (0.5%)
+                  </span>
+                  <span className="text-sm text-orange-500 font-mono font-bold">- {burnFee.toFixed(2)} TB</span>
+                </div>
+                <div className="border-t border-slate-200 dark:border-gray-700 my-2" />
+                <div className="flex justify-between items-center">
+                  <span className="text-base text-slate-900 dark:text-white font-bold">총 차감 수량</span>
+                  <span className="text-xl text-slate-900 dark:text-white font-mono font-bold">
+                    {totalDeduction.toFixed(4)} TB
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm text-orange-500 font-medium">
-                  <Flame className="w-4 h-4 inline mr-1" /> 자동 소각 예정 (0.5%)
-                </span>
-                <span className="text-sm text-orange-500 font-mono font-bold">- {burnFee.toFixed(2)} TB</span>
-              </div>
-              <div className="border-t border-slate-200 dark:border-gray-700 my-2" />
-              <div className="flex justify-between items-center">
-                <span className="text-base text-slate-900 dark:text-white font-bold">총 차감 수량</span>
-                <span className="text-xl text-slate-900 dark:text-white font-mono font-bold">
-                  {totalDeduction.toFixed(4)} TB
-                </span>
-              </div>
-            </div>
 
-            <Button
-              type="button"
-              data-testid="button-confirm-transfer"
-              className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform hover:scale-[1.01]"
-            >
-              즉시 전송 (Confirm)
-            </Button>
-            <p className="text-center text-xs text-slate-400 dark:text-gray-500">
-              예상 처리 시간: <span className="text-emerald-500 font-bold">0.01초 (Ultra Fast)</span>
-            </p>
-          </form>
+              <Button
+                type="submit"
+                data-testid="button-confirm-transfer"
+                className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform hover:scale-[1.01]"
+              >
+                즉시 전송 (Confirm)
+              </Button>
+              <p className="text-center text-xs text-slate-400 dark:text-gray-500">
+                예상 처리 시간: <span className="text-emerald-500 font-bold">0.01초 (Ultra Fast)</span>
+              </p>
+            </form>
+          </Form>
         </div>
 
         <div className="bg-white/85 dark:bg-[#151E32]/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/5 rounded-2xl p-8 flex flex-col h-full shadow-sm dark:shadow-lg">

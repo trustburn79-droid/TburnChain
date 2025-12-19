@@ -265,14 +265,9 @@ function RootRouter() {
   
   if (location === "/user" || location.startsWith("/user")) {
     return (
-      <WebSocketProvider>
-        <TooltipProvider>
-          <Suspense fallback={<PageLoading />}>
-            <UserPage />
-          </Suspense>
-          <Toaster />
-        </TooltipProvider>
-      </WebSocketProvider>
+      <Suspense fallback={<PageLoading />}>
+        <UserPage />
+      </Suspense>
     );
   }
   
