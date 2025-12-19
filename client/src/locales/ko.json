@@ -26870,6 +26870,7 @@
       "p99BlockTime": "P99 블록 시간",
       "avgLatency": "평균 지연",
       "activeShards": "활성 샤드"
-    }
+    },
+    "networkStatus": "네트워크 상태"
   }
 }

@@ -14718,6 +14718,7 @@
       "unstakeProcessing": "取消质押处理中",
       "claimSuccess": "奖励已领取",
       "claimedSuccessfully": "领取成功"
-    }
+    },
+    "networkStatus": "网络状态"
   }
 }

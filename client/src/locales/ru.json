@@ -11931,6 +11931,7 @@
       "unstakeProcessing": "анстейкинг обрабатывается",
       "claimSuccess": "Награды Получены",
       "claimedSuccessfully": "успешно получено"
-    }
+    },
+    "networkStatus": "Статус Сети"
   }
 }

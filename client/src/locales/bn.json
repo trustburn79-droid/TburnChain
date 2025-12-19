@@ -10774,6 +10774,7 @@
       "unstakeProcessing": "আনস্টেক প্রক্রিয়াকরণ হচ্ছে",
       "claimSuccess": "পুরস্কার দাবি করা হয়েছে",
       "claimedSuccessfully": "সফলভাবে দাবি করা হয়েছে"
-    }
+    },
+    "networkStatus": "নেটওয়ার্ক স্ট্যাটাস"
   }
 }

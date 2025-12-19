@@ -11018,6 +11018,7 @@
       "unstakeProcessing": "ان اسٹیک پروسیس ہو رہا ہے",
       "claimSuccess": "انعامات حاصل ہوئے",
       "claimedSuccessfully": "کامیابی سے حاصل کیا گیا"
-    }
+    },
+    "networkStatus": "نیٹ ورک اسٹیٹس"
   }
 }

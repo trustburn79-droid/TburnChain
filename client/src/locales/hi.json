@@ -13194,6 +13194,7 @@
       "unstakeProcessing": "अनस्टेक प्रोसेस हो रहा है",
       "claimSuccess": "पुरस्कार दावा किया गया",
       "claimedSuccessfully": "सफलतापूर्वक दावा किया गया"
-    }
+    },
+    "networkStatus": "नेटवर्क स्थिति"
   }
 }

@@ -12557,6 +12557,7 @@
       "unstakeProcessing": "جاري معالجة إلغاء التخزين",
       "claimSuccess": "تم استلام المكافآت",
       "claimedSuccessfully": "تم الاستلام بنجاح"
-    }
+    },
+    "networkStatus": "حالة الشبكة"
   }
 }

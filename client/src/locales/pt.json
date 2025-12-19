@@ -12383,6 +12383,7 @@
       "unstakeProcessing": "o unstaking está sendo processado",
       "claimSuccess": "Recompensas Reivindicadas",
       "claimedSuccessfully": "reivindicado com sucesso"
-    }
+    },
+    "networkStatus": "Status da Rede"
   }
 }

@@ -25641,6 +25641,7 @@
       "unstakeProcessing": "unstake is being processed",
       "claimSuccess": "Rewards Claimed",
       "claimedSuccessfully": "successfully claimed"
-    }
+    },
+    "networkStatus": "Network Status"
   }
 }

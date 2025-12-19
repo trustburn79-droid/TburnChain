@@ -14650,6 +14650,7 @@
       "unstakeProcessing": "el unstaking está siendo procesado",
       "claimSuccess": "Recompensas Reclamadas",
       "claimedSuccessfully": "reclamado exitosamente"
-    }
+    },
+    "networkStatus": "Estado de Red"
   }
 }

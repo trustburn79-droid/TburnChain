@@ -12626,6 +12626,7 @@
       "unstakeProcessing": "l'unstaking est en cours de traitement",
       "claimSuccess": "Récompenses Réclamées",
       "claimedSuccessfully": "réclamé avec succès"
-    }
+    },
+    "networkStatus": "État du Réseau"
   }
 }
