@@ -186,30 +186,30 @@ export default function BugBountyPage() {
               <span className="font-mono font-bold text-emerald-500">$2,450,000</span>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Link href="/">
               <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-home">
-                <Home className="w-5 h-5" />
+                <Home className="w-4 h-4" />
               </a>
             </Link>
             <Link href="/qna">
               <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-qna">
-                <HelpCircle className="w-5 h-5" />
+                <HelpCircle className="w-4 h-4" />
               </a>
             </Link>
             <Link href="/scan">
               <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-scan">
-                <ScanLine className="w-5 h-5" />
+                <ScanLine className="w-4 h-4" />
               </a>
             </Link>
             <Link href="/user">
               <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-user">
-                <User className="w-5 h-5" />
+                <User className="w-4 h-4" />
               </a>
             </Link>
             <Link href="/token-generator">
               <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-token-generator">
-                <Hexagon className="w-5 h-5" />
+                <Hexagon className="w-4 h-4" />
               </a>
             </Link>
             <LanguageSelector isDark={isDark} />
