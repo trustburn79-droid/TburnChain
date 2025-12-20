@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBURN Security Audits</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tburn: {
+                            dark: '#0B1120',
+                            light: '#F8FAFC',
+                            cardDark: '#151E32',
+                            primary: '#3B82F6',
+                            accent: '#F97316',
+                            success: '#10B981',
+                            warning: '#F59E0B',
+                            danger: '#EF4444',
+                            shield: '#059669' // Emerald for Security
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Rajdhani', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { transition: background-color 0.3s, color 0.3s; }
+        .glass-panel { backdrop-filter: blur(12px); transition: all 0.3s ease; }
+        .dark .glass-panel { background: rgba(21, 30, 50, 0.7); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-panel { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(226, 232, 240, 0.8); }
+        
+        /* Security Shield Glow */
+        .shield-glow { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+        
+        /* Progress Bar Animation */
+        .progress-fill { transition: width 1.5s ease-out; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden font-sans antialiased bg-tburn-light text-slate-800 dark:bg-tburn-dark dark:text-[#E2E8F0]">
+
+    <aside class="w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r bg-white border-slate-200 dark:bg-[#0F172A] dark:border-gray-800">
+        <div class="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-slate-100 dark:border-gray-800">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="hidden lg:block ml-3">
+                <h1 class="font-bold text-lg tracking-tight text-slate-900 dark:text-white">TBURN <span class="text-tburn-shield">Security</span></h1>
+            </div>
+        </div>
+        
+        <nav class="flex-1 py-6 space-y-2 px-3">
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+                <i class="fas fa-wallet w-6 text-center"></i> <span class="hidden lg:block font-medium">Wallet</span>
+            </a>
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl bg-emerald-50 text-tburn-shield border-l-4 border-tburn-shield dark:bg-tburn-cardDark dark:text-white dark:border-tburn-shield shadow-sm transition-colors">
+                <i class="fas fa-file-contract w-6 text-center"></i> <span class="hidden lg:block font-medium">Audits & Reports</span>
+            </a>
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+                <i class="fas fa-bug w-6 text-center"></i> <span class="hidden lg:block font-medium">Bug Bounty</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col relative overflow-hidden bg-slate-50 dark:bg-tburn-dark transition-colors duration-300">
+        
+        <header class="h-16 border-b border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md flex items-center justify-between px-8 z-10">
+            <div class="flex items-center gap-3">
+                <div class="px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs font-bold border border-green-200 dark:border-green-800 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Security Status: SAFE
+                </div>
+                <span class="text-xs text-slate-400">Last scanned: 10 mins ago</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-yellow-400">
+                    <i id="theme-icon" class="fas fa-sun text-lg"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth z-0">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="glass-panel p-8 rounded-3xl relative overflow-hidden flex flex-col justify-center items-center text-center shield-glow border-t-4 border-tburn-shield">
+                    <h2 class="text-sm font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest mb-4">Total Security Score</h2>
+                    <div class="relative w-40 h-40 mb-4">
+                        <svg class="w-full h-full transform -rotate-90">
+                            <circle cx="80" cy="80" r="70" stroke="currentColor" stroke-width="12" fill="transparent" class="text-slate-200 dark:text-gray-700" />
+                            <circle cx="80" cy="80" r="70" stroke="currentColor" stroke-width="12" fill="transparent" stroke-dasharray="440" stroke-dashoffset="10" class="text-tburn-shield transition-all duration-1000 ease-out" />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <span class="text-4xl font-mono font-bold text-slate-900 dark:text-white">98</span>
+                            <span class="text-xs font-bold text-tburn-shield">/ 100</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 dark:text-gray-300 font-medium">Tier 1 Security Verified</p>
+                </div>
+
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                        <div class="mb-4 text-tburn-primary text-3xl"><i class="fas fa-file-signature"></i></div>
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900 dark:text-white mb-1">3 / 3</p>
+                            <p class="text-sm text-slate-500 dark:text-gray-400">Audits Passed</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                        <div class="mb-4 text-tburn-danger text-3xl"><i class="fas fa-bug"></i></div>
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900 dark:text-white mb-1">0</p>
+                            <p class="text-sm text-slate-500 dark:text-gray-400">Critical Issues Found</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                        <div class="mb-4 text-tburn-warning text-3xl"><i class="fas fa-tools"></i></div>
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900 dark:text-white mb-1">100%</p>
+                            <p class="text-sm text-slate-500 dark:text-gray-400">Resolution Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    <i class="fas fa-certificate text-tburn-shield"></i> Verified Audit Firms
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-gray-700 hover:border-tburn-shield transition-colors group">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="h-12 w-32 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                                CERTIK
+                            </div>
+                            <span class="px-2 py-1 bg-green-500/10 text-green-500 text-xs font-bold rounded border border-green-500/20">PASSED</span>
+                        </div>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Scope</span>
+                                <span class="font-bold text-slate-800 dark:text-white">Core Consensus & Staking</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Date</span>
+                                <span class="font-bold text-slate-800 dark:text-white">Dec 15, 2024</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Score</span>
+                                <span class="font-bold text-tburn-shield">99.5 / 100</span>
+                            </div>
+                        </div>
+                        <button onclick="openCertModal('CertiK', 'TBURN_Core_Audit_Final.pdf')" class="w-full py-3 bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-slate-700 dark:text-white rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-file-pdf"></i> View Report
+                        </button>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-gray-700 hover:border-tburn-shield transition-colors group">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="h-12 w-32 bg-slate-800 rounded-lg flex items-center justify-center text-white font-bold text-lg italic">
+                                SlowMist
+                            </div>
+                            <span class="px-2 py-1 bg-green-500/10 text-green-500 text-xs font-bold rounded border border-green-500/20">PASSED</span>
+                        </div>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Scope</span>
+                                <span class="font-bold text-slate-800 dark:text-white">Tokenomics & Bridge</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Date</span>
+                                <span class="font-bold text-slate-800 dark:text-white">Nov 20, 2024</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Score</span>
+                                <span class="font-bold text-tburn-shield">Low Risk</span>
+                            </div>
+                        </div>
+                        <button onclick="openCertModal('SlowMist', 'TBURN_Token_Bridge_Audit.pdf')" class="w-full py-3 bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-slate-700 dark:text-white rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-file-pdf"></i> View Report
+                        </button>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-gray-700 hover:border-tburn-shield transition-colors group">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="h-12 w-32 bg-green-900 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                                HACKEN
+                            </div>
+                            <span class="px-2 py-1 bg-green-500/10 text-green-500 text-xs font-bold rounded border border-green-500/20">PASSED</span>
+                        </div>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Scope</span>
+                                <span class="font-bold text-slate-800 dark:text-white">Smart Contracts (DEX)</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Date</span>
+                                <span class="font-bold text-slate-800 dark:text-white">Dec 01, 2024</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500 dark:text-gray-400">Score</span>
+                                <span class="font-bold text-tburn-shield">10 / 10</span>
+                            </div>
+                        </div>
+                        <button onclick="openCertModal('Hacken', 'TBURN_SC_Audit.pdf')" class="w-full py-3 bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-slate-700 dark:text-white rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-file-pdf"></i> View Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-2xl overflow-hidden">
+                <div class="p-6 border-b border-slate-200 dark:border-gray-700 flex justify-between items-center">
+                    <h3 class="font-bold text-slate-900 dark:text-white">Detailed Findings & Resolutions</h3>
+                    <div class="flex gap-2">
+                        <span class="flex items-center gap-1 text-xs text-slate-500 dark:text-gray-400"><span class="w-2 h-2 rounded-full bg-red-500"></span>Critical</span>
+                        <span class="flex items-center gap-1 text-xs text-slate-500 dark:text-gray-400"><span class="w-2 h-2 rounded-full bg-orange-500"></span>Major</span>
+                        <span class="flex items-center gap-1 text-xs text-slate-500 dark:text-gray-400"><span class="w-2 h-2 rounded-full bg-yellow-500"></span>Medium</span>
+                        <span class="flex items-center gap-1 text-xs text-slate-500 dark:text-gray-400"><span class="w-2 h-2 rounded-full bg-blue-500"></span>Info</span>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 dark:bg-[#0B1120] text-slate-500 dark:text-gray-400 text-xs uppercase font-semibold">
+                                <th class="p-4">ID</th>
+                                <th class="p-4">Severity</th>
+                                <th class="p-4">Title / Description</th>
+                                <th class="p-4">Status</th>
+                                <th class="p-4 text-right">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-slate-700 dark:text-gray-300 divide-y divide-slate-100 dark:divide-gray-800">
+                            <tr class="hover:bg-slate-50 dark:hover:bg-white/5">
+                                <td class="p-4 font-mono">TB-001</td>
+                                <td class="p-4"><span class="bg-orange-500/10 text-orange-500 px-2 py-1 rounded text-xs font-bold border border-orange-500/20">MAJOR</span></td>
+                                <td class="p-4">
+                                    <p class="font-bold text-slate-900 dark:text-white">Reentrancy Guard Optimization</p>
+                                    <p class="text-xs text-slate-500">Staking contract potential reentrancy in withdraw function.</p>
+                                </td>
+                                <td class="p-4"><span class="text-tburn-shield font-bold flex items-center gap-1"><i class="fas fa-check-circle"></i> Fixed</span></td>
+                                <td class="p-4 text-right font-mono">2024-11-15</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 dark:hover:bg-white/5">
+                                <td class="p-4 font-mono">TB-002</td>
+                                <td class="p-4"><span class="bg-yellow-500/10 text-yellow-500 px-2 py-1 rounded text-xs font-bold border border-yellow-500/20">MEDIUM</span></td>
+                                <td class="p-4">
+                                    <p class="font-bold text-slate-900 dark:text-white">Gas Limit Threshold</p>
+                                    <p class="text-xs text-slate-500">Potential out-of-gas error in batch processing.</p>
+                                </td>
+                                <td class="p-4"><span class="text-tburn-shield font-bold flex items-center gap-1"><i class="fas fa-check-circle"></i> Resolved</span></td>
+                                <td class="p-4 text-right font-mono">2024-11-18</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 dark:hover:bg-white/5">
+                                <td class="p-4 font-mono">TB-003</td>
+                                <td class="p-4"><span class="bg-blue-500/10 text-blue-500 px-2 py-1 rounded text-xs font-bold border border-blue-500/20">INFO</span></td>
+                                <td class="p-4">
+                                    <p class="font-bold text-slate-900 dark:text-white">Variable Naming Convention</p>
+                                    <p class="text-xs text-slate-500">Code style consistency improvements.</p>
+                                </td>
+                                <td class="p-4"><span class="text-slate-500 font-bold flex items-center gap-1"><i class="fas fa-check"></i> Acknowledged</span></td>
+                                <td class="p-4 text-right font-mono">2024-11-20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-gradient-to-r from-slate-900 to-slate-800 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-700 dark:border-white/10">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-2">👮 Bug Bounty Program</h3>
+                    <p class="text-slate-300 text-sm">취약점을 발견하셨나요? TBURN 보안 팀에 제보하고 최대 $1,000,000의 보상을 받으세요.</p>
+                </div>
+                <button class="px-6 py-3 bg-tburn-shield hover:bg-emerald-600 text-white font-bold rounded-xl transition-colors shadow-lg shadow-emerald-500/20 whitespace-nowrap">
+                    Submit Report
+                </button>
+            </div>
+
+            <p class="text-center text-xs text-slate-400 dark:text-gray-600 mt-12 mb-4">
+                Security is a journey, not a destination. TBURN is committed to 24/7 monitoring.
+            </p>
+        </div>
+    </main>
+
+    <div id="cert-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeCertModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-white dark:bg-[#151E32] rounded-2xl shadow-2xl border border-slate-200 dark:border-gray-700 flex flex-col max-h-[90vh]" id="cert-modal-content">
+            <div class="p-6 border-b border-slate-200 dark:border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-file-pdf text-red-500"></i> <span id="modal-title">Audit Report</span>
+                </h3>
+                <button onclick="closeCertModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 p-8 bg-slate-100 dark:bg-black/40 overflow-y-auto">
+                <div class="aspect-[3/4] bg-white shadow-lg mx-auto max-w-md flex flex-col items-center justify-center p-8 text-center border border-slate-200">
+                    <div class="w-24 h-24 mb-6 rounded-full bg-slate-100 flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-4xl text-tburn-shield"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">SECURITY AUDIT REPORT</h2>
+                    <p class="text-slate-500 mb-8" id="modal-firm">By CertiK</p>
+                    <div class="w-full h-2 bg-slate-100 mb-2"></div>
+                    <div class="w-2/3 h-2 bg-slate-100 mb-2"></div>
+                    <div class="w-5/6 h-2 bg-slate-100 mb-8"></div>
+                    <p class="text-xs text-slate-400">This is a preview. Please download for full details.</p>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-slate-200 dark:border-gray-700 flex justify-end gap-3 bg-slate-50 dark:bg-[#0B1120]">
+                <button onclick="closeCertModal()" class="px-4 py-2 text-slate-500 hover:bg-slate-200 dark:hover:bg-gray-800 rounded-lg text-sm font-bold transition-colors">Close</button>
+                <button class="px-6 py-2 bg-tburn-primary hover:bg-blue-600 text-white rounded-lg text-sm font-bold transition-colors shadow-lg flex items-center gap-2">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Modal Logic ---
+        function openCertModal(firmName, fileName) {
+            const modal = document.getElementById('cert-modal');
+            const title = document.getElementById('modal-title');
+            const firm = document.getElementById('modal-firm');
+            
+            title.innerText = fileName;
+            firm.innerText = `By ${firmName}`;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeCertModal() {
+            document.getElementById('cert-modal').classList.add('hidden');
+        }
+
+        // --- 2. Theme Toggle ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                html.classList.add('dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+    </script>
+</body>
+</html>
