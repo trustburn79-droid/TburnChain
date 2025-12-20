@@ -2453,7 +2453,7 @@ function NetworkSection({
     },
     {
       label: t('userPage.networkPage.networkUptime'),
-      value: networkStats?.slaUptime ? `${networkStats.slaUptime.toFixed(2)}%` : "99.99%",
+      value: networkStats?.slaUptime ? `${(networkStats.slaUptime / 100).toFixed(2)}%` : "99.99%",
       icon: Activity,
       color: "text-orange-500",
     },
