@@ -16299,6 +16299,42 @@
     "createFirstToken": "创建您的第一个代币开始",
     "searchTokens": "搜索代币...",
     "filterByStandard": "按标准筛选",
-    "allStandards": "所有标准"
+    "allStandards": "所有标准",
+    "tbc20Desc": "可替代代币 (ERC-20)",
+    "tbc721Desc": "NFT 收藏 (ERC-721)",
+    "tbc1155Desc": "多代币 (ERC-1155)",
+    "tokenFactory": "代币工厂",
+    "wizardDescription": "无需编码，1分钟内创建和部署企业级代币",
+    "console": {
+      "initFactory": "初始化 {{standard}} 工厂",
+      "compilingBytecode": "编译智能合约字节码",
+      "runningAISecurity": "运行 AI 安全分析",
+      "securityScore": "安全评分",
+      "connectingMainnet": "连接到 TBURN 主网 (ChainID: 882)",
+      "estimatingGas": "估算燃气费",
+      "applyingQuantum": "应用量子抗性签名",
+      "signingTransaction": "使用钱包签名交易",
+      "broadcasting": "广播到内存池",
+      "blockConfirmed": "区块已确认",
+      "contractAddress": "合约地址",
+      "verifyingSource": "在浏览器中验证源代码"
+    },
+    "security": {
+      "quantumTitle": "检测到量子漏洞",
+      "quantumDesc": "代币未使用量子抗性签名",
+      "quantumRec": "启用 CRYSTALS-Dilithium + ED25519 签名",
+      "mevTitle": "MEV 攻击向量",
+      "mevDesc": "交易未启用 MEV 保护",
+      "mevRec": "启用 MEV 保护以防止抢先交易",
+      "uncappedTitle": "无限供应风险",
+      "uncappedDesc": "可铸造代币无供应上限",
+      "uncappedRec": "设置最大供应量以增强投资者信心",
+      "botTitle": "机器人交易漏洞",
+      "botDesc": "未启用反机器人保护",
+      "botRec": "启用 AI 反机器人以防止操纵",
+      "aiOptimizationRec": "AI 优化将减少约 23% 的燃气成本",
+      "stakingRec": "质押年化收益率配置为 {{rate}}%",
+      "vestingRec": "归属计划提供长期稳定性"
+    }
   }
 }

@@ -28963,6 +28963,42 @@
     "createFirstToken": "시작하려면 첫 번째 토큰을 생성하세요",
     "searchTokens": "토큰 검색...",
     "filterByStandard": "표준별 필터",
-    "allStandards": "모든 표준"
+    "allStandards": "모든 표준",
+    "tbc20Desc": "대체 가능 토큰 (ERC-20)",
+    "tbc721Desc": "NFT 컬렉션 (ERC-721)",
+    "tbc1155Desc": "멀티 토큰 (ERC-1155)",
+    "tokenFactory": "토큰 팩토리",
+    "wizardDescription": "코딩 없이 1분 만에 엔터프라이즈급 토큰을 생성하고 배포하세요",
+    "console": {
+      "initFactory": "{{standard}} 팩토리 초기화 중",
+      "compilingBytecode": "스마트 컨트랙트 바이트코드 컴파일 중",
+      "runningAISecurity": "AI 보안 분석 실행 중",
+      "securityScore": "보안 점수",
+      "connectingMainnet": "TBURN 메인넷 연결 중 (ChainID: 882)",
+      "estimatingGas": "가스 예측 중",
+      "applyingQuantum": "양자 저항 서명 적용 중",
+      "signingTransaction": "지갑으로 트랜잭션 서명 중",
+      "broadcasting": "멤풀로 브로드캐스트 중",
+      "blockConfirmed": "블록 확인됨",
+      "contractAddress": "컨트랙트 주소",
+      "verifyingSource": "탐색기에서 소스 코드 검증 중"
+    },
+    "security": {
+      "quantumTitle": "양자 취약점 감지됨",
+      "quantumDesc": "토큰이 양자 저항 서명을 사용하지 않음",
+      "quantumRec": "CRYSTALS-Dilithium + ED25519 서명 활성화",
+      "mevTitle": "MEV 공격 벡터",
+      "mevDesc": "트랜잭션에 MEV 보호가 활성화되지 않음",
+      "mevRec": "프런트러닝 방지를 위해 MEV 보호 활성화",
+      "uncappedTitle": "무제한 공급 위험",
+      "uncappedDesc": "공급 상한 없는 민팅 가능 토큰",
+      "uncappedRec": "투자자 신뢰를 위해 최대 공급량 설정",
+      "botTitle": "봇 거래 취약점",
+      "botDesc": "안티봇 보호가 활성화되지 않음",
+      "botRec": "조작 방지를 위해 AI 안티봇 활성화",
+      "aiOptimizationRec": "AI 최적화로 가스 비용 ~23% 절감",
+      "stakingRec": "스테이킹 APY {{rate}}%로 구성됨",
+      "vestingRec": "베스팅 일정이 장기 안정성 제공"
+    }
   }
 }

@@ -17175,6 +17175,42 @@
     "createFirstToken": "最初のトークンを作成して開始",
     "searchTokens": "トークン検索...",
     "filterByStandard": "標準でフィルター",
-    "allStandards": "すべての標準"
+    "allStandards": "すべての標準",
+    "tbc20Desc": "代替可能トークン (ERC-20)",
+    "tbc721Desc": "NFTコレクション (ERC-721)",
+    "tbc1155Desc": "マルチトークン (ERC-1155)",
+    "tokenFactory": "トークンファクトリー",
+    "wizardDescription": "コーディング不要で1分でエンタープライズグレードのトークンを作成・デプロイ",
+    "console": {
+      "initFactory": "{{standard}} ファクトリーを初期化中",
+      "compilingBytecode": "スマートコントラクトバイトコードをコンパイル中",
+      "runningAISecurity": "AIセキュリティ分析を実行中",
+      "securityScore": "セキュリティスコア",
+      "connectingMainnet": "TBURNメインネットに接続中 (ChainID: 882)",
+      "estimatingGas": "ガスを見積中",
+      "applyingQuantum": "量子耐性署名を適用中",
+      "signingTransaction": "ウォレットでトランザクションに署名中",
+      "broadcasting": "メンプールにブロードキャスト中",
+      "blockConfirmed": "ブロック確認済み",
+      "contractAddress": "コントラクトアドレス",
+      "verifyingSource": "エクスプローラーでソースコードを検証中"
+    },
+    "security": {
+      "quantumTitle": "量子脆弱性検出",
+      "quantumDesc": "トークンが量子耐性署名を使用していません",
+      "quantumRec": "CRYSTALS-Dilithium + ED25519署名を有効にする",
+      "mevTitle": "MEV攻撃ベクター",
+      "mevDesc": "トランザクションにMEV保護が有効になっていません",
+      "mevRec": "フロントランニング防止のためMEV保護を有効にする",
+      "uncappedTitle": "無制限供給リスク",
+      "uncappedDesc": "供給上限のないミント可能トークン",
+      "uncappedRec": "投資家の信頼のために最大供給量を設定",
+      "botTitle": "ボット取引脆弱性",
+      "botDesc": "アンチボット保護が有効になっていません",
+      "botRec": "操作防止のためAIアンチボットを有効にする",
+      "aiOptimizationRec": "AI最適化でガス代を約23%削減",
+      "stakingRec": "ステーキングAPY {{rate}}%で構成",
+      "vestingRec": "ベスティングスケジュールが長期安定性を提供"
+    }
   }
 }

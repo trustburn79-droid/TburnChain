@@ -273,6 +273,54 @@ const TOKEN_TEMPLATES: TokenTemplate[] = [
   }
 ];
 
+// Mapping for template IDs to locale keys
+const TEMPLATE_LOCALE_KEYS: Record<string, string> = {
+  "defi-governance": "defiGovernance",
+  "utility-token": "utilityToken",
+  "gamefi-asset": "gamefiAsset",
+  "nft-collection": "nftCollection",
+  "enterprise-token": "enterpriseSecurity",
+  "marketplace-token": "marketplaceToken"
+};
+
+// Mapping for feature names to locale keys
+const FEATURE_LOCALE_KEYS: Record<string, string> = {
+  "Governance Voting": "governanceVoting",
+  "Staking Rewards": "stakingRewards",
+  "Auto-Burn": "autoBurn",
+  "Delegation": "delegation",
+  "Usage Rewards": "usageRewards",
+  "Dynamic Pricing": "dynamicPricing",
+  "Cross-Platform": "crossPlatform",
+  "API Access": "apiAccess",
+  "In-Game Items": "inGameItems",
+  "Marketplace Ready": "marketplaceReady",
+  "Batch Transfers": "batchTransfers",
+  "Level System": "levelSystem",
+  "Royalty Enforcement": "royaltyEnforcement",
+  "AI Authenticity": "aiAuthenticity",
+  "IPFS Metadata": "ipfsMetadata",
+  "Rarity Scoring": "rarityScoring",
+  "KYC/AML": "kycAml",
+  "Multi-Signature": "multiSignature",
+  "Compliance": "compliance",
+  "Audit Trail": "auditTrail",
+  "Loyalty Points": "loyaltyPoints",
+  "Cashback": "cashback",
+  "Merchant Tools": "merchantTools",
+  "Payment Gateway": "paymentGateway"
+};
+
+// Mapping for category names to locale keys
+const CATEGORY_LOCALE_KEYS: Record<string, string> = {
+  "DeFi": "governance",
+  "Utility": "utility",
+  "GameFi": "gamefi",
+  "NFT": "nft",
+  "Enterprise": "enterprise",
+  "Commerce": "commerce"
+};
+
 const initialFormData: TokenFormData = {
   name: "",
   symbol: "",
@@ -388,9 +436,9 @@ export default function TokenSystemPage() {
       vulnerabilities.push({
         id: "qr-001",
         severity: "medium",
-        title: "Quantum Vulnerability Detected",
-        description: "Token not using quantum-resistant signatures",
-        recommendation: "Enable CRYSTALS-Dilithium + ED25519 signatures"
+        title: t('tokenGenerator.security.quantumTitle', { defaultValue: 'Quantum Vulnerability Detected' }),
+        description: t('tokenGenerator.security.quantumDesc', { defaultValue: 'Token not using quantum-resistant signatures' }),
+        recommendation: t('tokenGenerator.security.quantumRec', { defaultValue: 'Enable CRYSTALS-Dilithium + ED25519 signatures' })
       });
       score -= 10;
     }
@@ -399,9 +447,9 @@ export default function TokenSystemPage() {
       vulnerabilities.push({
         id: "mev-001",
         severity: "high",
-        title: "MEV Attack Vector",
-        description: "No MEV protection enabled for transactions",
-        recommendation: "Enable MEV protection to prevent front-running"
+        title: t('tokenGenerator.security.mevTitle', { defaultValue: 'MEV Attack Vector' }),
+        description: t('tokenGenerator.security.mevDesc', { defaultValue: 'No MEV protection enabled for transactions' }),
+        recommendation: t('tokenGenerator.security.mevRec', { defaultValue: 'Enable MEV protection to prevent front-running' })
       });
       score -= 15;
     }
@@ -410,9 +458,9 @@ export default function TokenSystemPage() {
       vulnerabilities.push({
         id: "inf-001",
         severity: "medium",
-        title: "Uncapped Supply Risk",
-        description: "Mintable token without supply cap",
-        recommendation: "Set a maximum supply limit for investor confidence"
+        title: t('tokenGenerator.security.uncappedTitle', { defaultValue: 'Uncapped Supply Risk' }),
+        description: t('tokenGenerator.security.uncappedDesc', { defaultValue: 'Mintable token without supply cap' }),
+        recommendation: t('tokenGenerator.security.uncappedRec', { defaultValue: 'Set a maximum supply limit for investor confidence' })
       });
       score -= 5;
     }
@@ -421,22 +469,22 @@ export default function TokenSystemPage() {
       vulnerabilities.push({
         id: "bot-001",
         severity: "low",
-        title: "Bot Trading Vulnerability",
-        description: "No anti-bot protection enabled",
-        recommendation: "Enable AI anti-bot to prevent manipulation"
+        title: t('tokenGenerator.security.botTitle', { defaultValue: 'Bot Trading Vulnerability' }),
+        description: t('tokenGenerator.security.botDesc', { defaultValue: 'No anti-bot protection enabled' }),
+        recommendation: t('tokenGenerator.security.botRec', { defaultValue: 'Enable AI anti-bot to prevent manipulation' })
       });
       score -= 5;
     }
 
     const recommendations = [];
     if (formData.aiOptimizationEnabled) {
-      recommendations.push("AI optimization will reduce gas costs by ~23%");
+      recommendations.push(t('tokenGenerator.security.aiOptimizationRec', { defaultValue: 'AI optimization will reduce gas costs by ~23%' }));
     }
     if (formData.stakingEnabled) {
-      recommendations.push(`Staking APY configured at ${formData.stakingRewardRate}%`);
+      recommendations.push(t('tokenGenerator.security.stakingRec', { rate: formData.stakingRewardRate, defaultValue: `Staking APY configured at ${formData.stakingRewardRate}%` }));
     }
     if (formData.vestingEnabled) {
-      recommendations.push("Vesting schedule provides long-term stability");
+      recommendations.push(t('tokenGenerator.security.vestingRec', { defaultValue: 'Vesting schedule provides long-term stability' }));
     }
 
     setSecurityAnalysis({
@@ -460,19 +508,19 @@ export default function TokenSystemPage() {
     setDeployedContractAddress(contractAddr);
 
     const steps = [
-      { msg: `> Initializing ${selectedStandard} Factory...`, delay: 500 },
-      { msg: "> Compiling Smart Contract Bytecode...", delay: 700 },
-      { msg: "> Running AI Security Analysis...", delay: 800 },
-      { msg: `> Security Score: <span class='text-emerald-500'>${securityAnalysis?.score || 95}/100</span>`, delay: 400 },
-      { msg: "> Connecting to TBURN Mainnet (ChainID: 882)...", delay: 800 },
-      { msg: "> Estimating Gas... <span class='text-emerald-500'>0.00045 TB (Ultra Low)</span>", delay: 800 },
-      { msg: "> Applying Quantum-Resistant Signatures...", delay: 600 },
-      { msg: "> Signing Transaction with Wallet...", delay: 700 },
-      { msg: "> Broadcasting to Mempool...", delay: 700 },
-      { msg: "> <span class='text-emerald-500'>[SUCCESS]</span> Block #21,334,102 Confirmed (0.4s)", delay: 800 },
-      { msg: `> Contract Address: <span class='text-pink-400'>${contractAddr.slice(0, 10)}...${contractAddr.slice(-6)}</span>`, delay: 200 },
-      { msg: "> Verifying Source Code on Explorer...", delay: 800 },
-      { msg: "> <span class='text-emerald-500 font-bold'>Token Deployed Successfully!</span>", delay: 500 },
+      { msg: `> ${t('tokenGenerator.console.initFactory', { standard: selectedStandard })}...`, delay: 500 },
+      { msg: `> ${t('tokenGenerator.console.compilingBytecode')}...`, delay: 700 },
+      { msg: `> ${t('tokenGenerator.console.runningAISecurity')}...`, delay: 800 },
+      { msg: `> ${t('tokenGenerator.console.securityScore')}: <span class='text-emerald-500'>${securityAnalysis?.score || 95}/100</span>`, delay: 400 },
+      { msg: `> ${t('tokenGenerator.console.connectingMainnet')}...`, delay: 800 },
+      { msg: `> ${t('tokenGenerator.console.estimatingGas')}... <span class='text-emerald-500'>0.00045 TB</span>`, delay: 800 },
+      { msg: `> ${t('tokenGenerator.console.applyingQuantum')}...`, delay: 600 },
+      { msg: `> ${t('tokenGenerator.console.signingTransaction')}...`, delay: 700 },
+      { msg: `> ${t('tokenGenerator.console.broadcasting')}...`, delay: 700 },
+      { msg: `> <span class='text-emerald-500'>[SUCCESS]</span> ${t('tokenGenerator.console.blockConfirmed')}`, delay: 800 },
+      { msg: `> ${t('tokenGenerator.console.contractAddress')}: <span class='text-pink-400'>${contractAddr.slice(0, 10)}...${contractAddr.slice(-6)}</span>`, delay: 200 },
+      { msg: `> ${t('tokenGenerator.console.verifyingSource')}...`, delay: 800 },
+      { msg: `> <span class='text-emerald-500 font-bold'>${t('tokenGenerator.tokenDeployedSuccess')}</span>`, delay: 500 },
     ];
 
     for (const step of steps) {
@@ -486,8 +534,8 @@ export default function TokenSystemPage() {
     setWizardStep(6);
 
     toast({
-      title: "Token Deployed Successfully",
-      description: `${formData.name} (${formData.symbol}) has been deployed to TBURN Mainnet`,
+      title: t('tokenGenerator.tokenDeployedSuccess'),
+      description: `${formData.name} (${formData.symbol}) - ${t('tokenGenerator.deployToTburn')}`,
     });
   };
 
@@ -507,7 +555,7 @@ export default function TokenSystemPage() {
     navigator.clipboard.writeText(text);
     setCopiedAddress(true);
     setTimeout(() => setCopiedAddress(false), 2000);
-    toast({ title: "Copied to clipboard" });
+    toast({ title: t('tokenGenerator.copiedToClipboard') });
   };
 
   const getStandardIcon = () => {
@@ -526,7 +574,14 @@ export default function TokenSystemPage() {
     }
   };
 
-  const stepLabels = ["Template", "Basic Info", "Features", "AI Security", "Review", "Complete"];
+  const stepLabels = [
+    t('tokenGenerator.stepTemplate'),
+    t('tokenGenerator.stepBasicInfo'),
+    t('tokenGenerator.stepFeatures'),
+    t('tokenGenerator.stepAiSecurity'),
+    t('tokenGenerator.stepReview'),
+    t('tokenGenerator.stepComplete')
+  ];
 
   return (
     <div className={`flex h-screen overflow-hidden font-sans antialiased ${isDark ? 'bg-[#0B1120] text-[#E2E8F0]' : 'bg-slate-50 text-slate-800'}`}>
@@ -538,9 +593,9 @@ export default function TokenSystemPage() {
           </div>
           <div className="hidden lg:block ml-3">
             <h1 className={`font-bold text-lg tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              TBURN <span className="text-blue-500">Factory</span>
+              {t('tokenGenerator.pageTitle')}
             </h1>
-            <p className="text-xs text-muted-foreground">Token Creation System</p>
+            <p className="text-xs text-muted-foreground">{t('tokenGenerator.tokenCreationSystem')}</p>
           </div>
         </div>
         
@@ -559,7 +614,7 @@ export default function TokenSystemPage() {
             data-testid="nav-create-token"
           >
             <PlusCircle className="w-6 h-6" />
-            <span className="hidden lg:block font-medium">Create Token</span>
+            <span className="hidden lg:block font-medium">{t('tokenGenerator.createToken')}</span>
           </button>
           <button
             onClick={() => setActiveTab("myTokens")}
@@ -575,7 +630,7 @@ export default function TokenSystemPage() {
             data-testid="nav-my-tokens"
           >
             <List className="w-6 h-6" />
-            <span className="hidden lg:block font-medium">My Tokens</span>
+            <span className="hidden lg:block font-medium">{t('tokenGenerator.myTokens')}</span>
           </button>
           <button
             onClick={() => setActiveTab("verification")}
@@ -591,7 +646,7 @@ export default function TokenSystemPage() {
             data-testid="nav-verification"
           >
             <ShieldCheck className="w-6 h-6" />
-            <span className="hidden lg:block font-medium">Verification</span>
+            <span className="hidden lg:block font-medium">{t('tokenGenerator.verification')}</span>
           </button>
         </nav>
 
@@ -599,7 +654,7 @@ export default function TokenSystemPage() {
           <div className={`p-3 rounded-xl ${isDark ? 'bg-gradient-to-br from-purple-900/30 to-blue-900/30 border border-purple-500/20' : 'bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200'}`}>
             <div className="flex items-center gap-2 mb-2">
               <Brain className="w-4 h-4 text-purple-500" />
-              <span className="text-xs font-semibold">Triple-Band AI</span>
+              <span className="text-xs font-semibold">{t('tokenGenerator.tripleBandAi')}</span>
             </div>
             <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
               GPT-4o + Claude + Gemini
@@ -639,11 +694,11 @@ export default function TokenSystemPage() {
             </Select>
             <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
               <CheckCircle2 className="w-3 h-3 mr-1" />
-              Audit Verified
+              {t('tokenGenerator.auditVerified')}
             </Badge>
             <Badge variant="outline" className={isDark ? 'border-gray-700' : ''}>
               <Shield className="w-3 h-3 mr-1" />
-              Quantum Secure
+              {t('tokenGenerator.quantumSecure')}
             </Badge>
           </div>
           <div className="flex items-center gap-4">
@@ -654,7 +709,7 @@ export default function TokenSystemPage() {
             </Link>
             <ThemeToggle />
             <div className="hidden md:flex flex-col items-end">
-              <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>Deployer Balance</span>
+              <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>{t('tokenGenerator.deployerBalance')}</span>
               <span className={`font-bold font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>12,500.00 TB</span>
             </div>
           </div>
@@ -736,6 +791,7 @@ function CreateTokenContent({
   getTokenIcon,
   stepLabels,
 }: any) {
+  const { t } = useTranslation();
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -743,10 +799,10 @@ function CreateTokenContent({
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className={`text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              {selectedStandard} Token Generator
+              {selectedStandard} {t('tokenGenerator.tokenFactory')}
             </h1>
             <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>
-              코딩 없이 1분 만에 엔터프라이즈급 토큰을 생성하고 배포하세요.
+              {t('tokenGenerator.wizardDescription')}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -773,10 +829,10 @@ function CreateTokenContent({
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-purple-500" />
-                Enterprise Templates
+                {t('tokenGenerator.chooseTemplate')}
               </CardTitle>
               <CardDescription>
-                AI-optimized templates with best practices pre-configured
+                {t('tokenGenerator.templateDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -800,22 +856,22 @@ function CreateTokenContent({
                           }`} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-sm">{template.name}</h4>
+                          <h4 className="font-semibold text-sm">{t(`tokenGenerator.templates.${TEMPLATE_LOCALE_KEYS[template.id] || template.id}.name`, { defaultValue: template.name })}</h4>
                           <div className="flex items-center gap-1 mt-1">
                             <Badge variant="outline" className="text-xs">{template.standard}</Badge>
                             {template.aiRecommended && (
                               <Badge className="text-xs bg-purple-500/10 text-purple-500">
                                 <Brain className="h-2 w-2 mr-1" />
-                                AI
+                                {t('tokenGenerator.aiRecommended')}
                               </Badge>
                             )}
                           </div>
                         </div>
                       </div>
-                      <p className={`text-xs mb-3 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>{template.description}</p>
+                      <p className={`text-xs mb-3 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>{t(`tokenGenerator.templates.${TEMPLATE_LOCALE_KEYS[template.id] || template.id}.description`, { defaultValue: template.description })}</p>
                       <div className="flex flex-wrap gap-1">
                         {template.features.slice(0, 2).map((feature: string) => (
-                          <Badge key={feature} variant="secondary" className="text-xs">{feature}</Badge>
+                          <Badge key={feature} variant="secondary" className="text-xs">{t(`tokenGenerator.featuresList.${FEATURE_LOCALE_KEYS[feature] || feature}`, { defaultValue: feature })}</Badge>
                         ))}
                       </div>
                     </CardContent>
@@ -827,16 +883,16 @@ function CreateTokenContent({
 
           <Card className={isDark ? 'bg-[#151E32]/70 border-white/5' : ''}>
             <CardHeader>
-              <CardTitle>Create from Scratch</CardTitle>
-              <CardDescription>Choose a token standard and customize everything</CardDescription>
+              <CardTitle>{t('tokenGenerator.createFromScratch')}</CardTitle>
+              <CardDescription>{t('tokenGenerator.createFromScratchDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
-                  { std: "TBC-20" as const, icon: Coins, color: "blue", desc: "Fungible Token (ERC-20)" },
-                  { std: "TBC-721" as const, icon: Image, color: "purple", desc: "NFT Collection (ERC-721)" },
-                  { std: "TBC-1155" as const, icon: Layers, color: "amber", desc: "Multi-Token (ERC-1155)" }
-                ].map(({ std, icon: Icon, color, desc }) => (
+                  { std: "TBC-20" as const, icon: Coins, color: "blue", descKey: "tbc20Desc" },
+                  { std: "TBC-721" as const, icon: Image, color: "purple", descKey: "tbc721Desc" },
+                  { std: "TBC-1155" as const, icon: Layers, color: "amber", descKey: "tbc1155Desc" }
+                ].map(({ std, icon: Icon, color, descKey }) => (
                   <Card 
                     key={std}
                     className={`cursor-pointer border-2 transition-all hover:scale-[1.02] ${isDark ? 'bg-[#0B1120]' : ''} hover:border-${color}-500`}
@@ -848,7 +904,7 @@ function CreateTokenContent({
                         <Icon className={`h-8 w-8 text-${color}-500`} />
                       </div>
                       <h3 className="font-bold text-lg">{std}</h3>
-                      <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>{desc}</p>
+                      <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>{t(`tokenGenerator.${descKey}`)}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -865,14 +921,14 @@ function CreateTokenContent({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs">1</span>
-                  Token Details
+                  {t('tokenGenerator.basicInformation')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                      Token Name <span className="text-red-500">*</span>
+                      {t('tokenGenerator.tokenName')} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       placeholder="e.g. My Awesome Token"
@@ -884,7 +940,7 @@ function CreateTokenContent({
                   </div>
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                      Symbol <span className="text-red-500">*</span>
+                      {t('tokenGenerator.tokenSymbol')} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       placeholder="e.g. MAT"
@@ -898,7 +954,7 @@ function CreateTokenContent({
                     <>
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                          Initial Supply <span className="text-red-500">*</span>
+                          {t('tokenGenerator.initialSupply')} <span className="text-red-500">*</span>
                         </label>
                         <Input
                           type="number"
@@ -911,7 +967,7 @@ function CreateTokenContent({
                       </div>
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                          Decimals
+                          {t('tokenGenerator.decimals')}
                         </label>
                         <Input
                           type="number"
@@ -927,7 +983,7 @@ function CreateTokenContent({
                     <>
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                          Max Tokens
+                          {t('tokenGenerator.maxTokens')}
                         </label>
                         <Input
                           type="number"
@@ -939,7 +995,7 @@ function CreateTokenContent({
                       </div>
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                          Base URI (IPFS)
+                          {t('tokenGenerator.baseUri')}
                         </label>
                         <Input
                           placeholder="ipfs://..."
@@ -950,7 +1006,7 @@ function CreateTokenContent({
                       </div>
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                          Royalty Percentage
+                          {t('tokenGenerator.royaltyPercentage')}
                         </label>
                         <Input
                           type="number"
@@ -965,10 +1021,10 @@ function CreateTokenContent({
                 </div>
                 <div>
                   <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                    Description
+                    {t('tokenGenerator.description')}
                   </label>
                   <Textarea
-                    placeholder="Describe your token..."
+                    placeholder={t('tokenGenerator.describeYourToken')}
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
                     className={isDark ? 'bg-[#0B1120] border-gray-700' : ''}
@@ -990,7 +1046,7 @@ function CreateTokenContent({
             <div className="mt-4 flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setWizardStep(1)} data-testid="button-back">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
+                {t('tokenGenerator.back')}
               </Button>
               <Button 
                 className="flex-1" 
@@ -998,7 +1054,7 @@ function CreateTokenContent({
                 disabled={!formData.name || !formData.symbol}
                 data-testid="button-next"
               >
-                Next
+                {t('tokenGenerator.next')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
@@ -1013,7 +1069,7 @@ function CreateTokenContent({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs">2</span>
-                  Token Features
+                  {t('tokenGenerator.tokenFeatures')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -1021,32 +1077,32 @@ function CreateTokenContent({
                   <>
                     <FeatureToggle
                       isDark={isDark}
-                      title="Mintable"
-                      description="Allow creating more tokens after deployment"
+                      title={t('tokenGenerator.mintable')}
+                      description={t('tokenGenerator.mintableDesc')}
                       checked={formData.mintable}
                       onChange={(v) => setFormData({...formData, mintable: v})}
                       testId="switch-mintable"
                     />
                     <FeatureToggle
                       isDark={isDark}
-                      title="Burnable"
-                      description="Allow holders to destroy their tokens"
+                      title={t('tokenGenerator.burnable')}
+                      description={t('tokenGenerator.burnableDesc')}
                       checked={formData.burnable}
                       onChange={(v) => setFormData({...formData, burnable: v})}
                       testId="switch-burnable"
                     />
                     <FeatureToggle
                       isDark={isDark}
-                      title="Pausable"
-                      description="Allow pausing all token transfers"
+                      title={t('tokenGenerator.pausable')}
+                      description={t('tokenGenerator.pausableDesc')}
                       checked={formData.pausable}
                       onChange={(v) => setFormData({...formData, pausable: v})}
                       testId="switch-pausable"
                     />
                     <FeatureToggle
                       isDark={isDark}
-                      title="Staking Enabled"
-                      description="Enable staking rewards for token holders"
+                      title={t('tokenGenerator.stakingEnabled')}
+                      description={t('tokenGenerator.stakingEnabledDesc')}
                       checked={formData.stakingEnabled}
                       onChange={(v) => setFormData({...formData, stakingEnabled: v})}
                       testId="switch-staking"
@@ -1060,38 +1116,38 @@ function CreateTokenContent({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Brain className="h-5 w-5 text-purple-500" />
-                  AI & Security Features
+                  {t('tokenGenerator.aiSecurityFeatures')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <FeatureToggle
                   isDark={isDark}
-                  title="AI Optimization"
-                  description="Enable AI-powered gas and transaction optimization"
+                  title={t('tokenGenerator.aiOptimizationEnabled')}
+                  description={t('tokenGenerator.aiOptimizationEnabledDesc')}
                   checked={formData.aiOptimizationEnabled}
                   onChange={(v) => setFormData({...formData, aiOptimizationEnabled: v})}
                   testId="switch-ai-optimization"
                 />
                 <FeatureToggle
                   isDark={isDark}
-                  title="AI Anti-Bot Protection"
-                  description="Detect and prevent bot trading manipulation"
+                  title={t('tokenGenerator.aiAntiBot')}
+                  description={t('tokenGenerator.antiBotDesc')}
                   checked={formData.aiAntiBot}
                   onChange={(v) => setFormData({...formData, aiAntiBot: v})}
                   testId="switch-ai-antibot"
                 />
                 <FeatureToggle
                   isDark={isDark}
-                  title="Quantum-Resistant Signatures"
-                  description="Future-proof with CRYSTALS-Dilithium + ED25519"
+                  title={t('tokenGenerator.quantumResistant')}
+                  description={t('tokenGenerator.quantumDesc')}
                   checked={formData.quantumResistant}
                   onChange={(v) => setFormData({...formData, quantumResistant: v})}
                   testId="switch-quantum"
                 />
                 <FeatureToggle
                   isDark={isDark}
-                  title="MEV Protection"
-                  description="Prevent front-running and sandwich attacks"
+                  title={t('tokenGenerator.mevProtection')}
+                  description={t('tokenGenerator.mevDesc')}
                   checked={formData.mevProtection}
                   onChange={(v) => setFormData({...formData, mevProtection: v})}
                   testId="switch-mev"
@@ -1111,10 +1167,10 @@ function CreateTokenContent({
             <div className="mt-4 flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setWizardStep(2)}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
+                {t('tokenGenerator.back')}
               </Button>
               <Button className="flex-1" onClick={() => setWizardStep(4)}>
-                Next
+                {t('tokenGenerator.next')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
@@ -1129,10 +1185,10 @@ function CreateTokenContent({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-green-500" />
-                  AI Security Analysis
+                  {t('tokenGenerator.aiSecurityFeatures')}
                 </CardTitle>
                 <CardDescription>
-                  Triple-Band AI performs comprehensive security audit
+                  {t('tokenGenerator.enterpriseFeatures')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1142,20 +1198,20 @@ function CreateTokenContent({
                       <div className="space-y-4">
                         <Loader2 className="w-12 h-12 mx-auto text-purple-500 animate-spin" />
                         <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>
-                          Running AI security analysis...
+                          {t('tokenGenerator.analyzingSecurity')}
                         </p>
                         <Progress value={65} className="w-64 mx-auto" />
                       </div>
                     ) : (
                       <div className="space-y-4">
                         <Brain className="w-16 h-16 mx-auto text-purple-500" />
-                        <h3 className="text-lg font-semibold">Ready for Security Analysis</h3>
+                        <h3 className="text-lg font-semibold">{t('tokenGenerator.readyForSecurityAnalysis')}</h3>
                         <p className={`max-w-md mx-auto ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                          Our Triple-Band AI will analyze your token for vulnerabilities, gas optimization, and best practices.
+                          {t('tokenGenerator.templateDesc')}
                         </p>
                         <Button onClick={runSecurityAnalysis} className="mt-4" data-testid="button-run-analysis">
                           <Sparkles className="w-4 h-4 mr-2" />
-                          Run AI Analysis
+                          {t('tokenGenerator.runSecurityAnalysis')}
                         </Button>
                       </div>
                     )}
@@ -1168,20 +1224,20 @@ function CreateTokenContent({
                           <span className="text-2xl font-bold text-green-500">{securityAnalysis.score}</span>
                         </div>
                         <div>
-                          <h4 className="font-semibold">Security Score</h4>
+                          <h4 className="font-semibold">{t('tokenGenerator.securityScore')}</h4>
                           <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                            {securityAnalysis.score >= 90 ? 'Excellent' : securityAnalysis.score >= 70 ? 'Good' : 'Needs Improvement'}
+                            {securityAnalysis.score >= 90 ? t('tokenGenerator.excellentSecurity') : securityAnalysis.score >= 70 ? t('tokenGenerator.goodSecurity') : t('tokenGenerator.needsImprovement')}
                           </p>
                         </div>
                       </div>
-                      <Badge className="bg-green-500/10 text-green-500">Passed</Badge>
+                      <Badge className="bg-green-500/10 text-green-500">{t('tokenGenerator.passed')}</Badge>
                     </div>
 
                     {securityAnalysis.vulnerabilities.length > 0 && (
                       <div className="space-y-3">
                         <h4 className="font-semibold flex items-center gap-2">
                           <AlertTriangle className="w-4 h-4 text-yellow-500" />
-                          Findings ({securityAnalysis.vulnerabilities.length})
+                          {t('tokenGenerator.findings')} ({securityAnalysis.vulnerabilities.length})
                         </h4>
                         {securityAnalysis.vulnerabilities.map((vuln: SecurityVulnerability) => (
                           <div 
@@ -1202,7 +1258,7 @@ function CreateTokenContent({
                     )}
 
                     <div className={`p-4 rounded-xl border ${isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-50 border-slate-200'}`}>
-                      <h4 className="font-semibold mb-2">Gas Estimate</h4>
+                      <h4 className="font-semibold mb-2">{t('tokenGenerator.gasEstimate')}</h4>
                       <p className="text-2xl font-mono font-bold text-blue-500">
                         ~{securityAnalysis.gasEstimate.toLocaleString()} gas
                       </p>
@@ -1227,14 +1283,14 @@ function CreateTokenContent({
             <div className="mt-4 flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setWizardStep(3)}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
+                {t('tokenGenerator.back')}
               </Button>
               <Button 
                 className="flex-1" 
                 onClick={() => setWizardStep(5)}
                 disabled={!analysisComplete}
               >
-                Next
+                {t('tokenGenerator.next')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
@@ -1249,56 +1305,56 @@ function CreateTokenContent({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="h-5 w-5" />
-                  Review & Deploy
+                  {t('tokenGenerator.deploymentReview')}
                 </CardTitle>
                 <CardDescription>
-                  Review your token configuration before deployment
+                  {t('tokenGenerator.reviewFinalSettings')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
-                  <ReviewItem label="Token Name" value={formData.name} />
-                  <ReviewItem label="Symbol" value={formData.symbol} />
+                  <ReviewItem label={t('tokenGenerator.tokenName')} value={formData.name} />
+                  <ReviewItem label={t('tokenGenerator.tokenSymbol')} value={formData.symbol} />
                   <ReviewItem label="Standard" value={selectedStandard} />
                   {selectedStandard === "TBC-20" && (
                     <>
-                      <ReviewItem label="Total Supply" value={formatSupply(formData.totalSupply)} />
-                      <ReviewItem label="Decimals" value={formData.decimals.toString()} />
+                      <ReviewItem label={t('tokenGenerator.totalSupply')} value={formatSupply(formData.totalSupply)} />
+                      <ReviewItem label={t('tokenGenerator.decimals')} value={formData.decimals.toString()} />
                     </>
                   )}
                   {(selectedStandard === "TBC-721" || selectedStandard === "TBC-1155") && (
                     <>
-                      <ReviewItem label="Max Tokens" value={formData.maxTokens} />
-                      <ReviewItem label="Royalty" value={`${formData.royaltyPercentage}%`} />
+                      <ReviewItem label={t('tokenGenerator.maxTokens')} value={formData.maxTokens} />
+                      <ReviewItem label={t('tokenGenerator.royaltyPercentage')} value={`${formData.royaltyPercentage}%`} />
                     </>
                   )}
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-3">Features</h4>
+                  <h4 className="font-semibold mb-3">{t('tokenGenerator.features')}</h4>
                   <div className="flex flex-wrap gap-2">
-                    {formData.mintable && <Badge>Mintable</Badge>}
-                    {formData.burnable && <Badge>Burnable</Badge>}
-                    {formData.pausable && <Badge>Pausable</Badge>}
-                    {formData.stakingEnabled && <Badge variant="secondary">Staking</Badge>}
-                    {formData.aiOptimizationEnabled && <Badge className="bg-purple-500/10 text-purple-500">AI Optimized</Badge>}
-                    {formData.quantumResistant && <Badge className="bg-green-500/10 text-green-500">Quantum Secure</Badge>}
-                    {formData.mevProtection && <Badge className="bg-blue-500/10 text-blue-500">MEV Protected</Badge>}
-                    {formData.aiAntiBot && <Badge className="bg-amber-500/10 text-amber-500">Anti-Bot</Badge>}
+                    {formData.mintable && <Badge>{t('tokenGenerator.mintable')}</Badge>}
+                    {formData.burnable && <Badge>{t('tokenGenerator.burnable')}</Badge>}
+                    {formData.pausable && <Badge>{t('tokenGenerator.pausable')}</Badge>}
+                    {formData.stakingEnabled && <Badge variant="secondary">{t('tokenGenerator.staking')}</Badge>}
+                    {formData.aiOptimizationEnabled && <Badge className="bg-purple-500/10 text-purple-500">{t('tokenGenerator.aiOptimized')}</Badge>}
+                    {formData.quantumResistant && <Badge className="bg-green-500/10 text-green-500">{t('tokenGenerator.quantumSecure')}</Badge>}
+                    {formData.mevProtection && <Badge className="bg-blue-500/10 text-blue-500">{t('tokenGenerator.mevProtected')}</Badge>}
+                    {formData.aiAntiBot && <Badge className="bg-amber-500/10 text-amber-500">{t('tokenGenerator.antiBot')}</Badge>}
                   </div>
                 </div>
 
                 <div className={`p-4 rounded-xl border ${isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-50 border-slate-200'}`}>
                   <div className="flex justify-between mb-2">
-                    <span className={isDark ? 'text-gray-400' : 'text-slate-500'}>Service Fee</span>
+                    <span className={isDark ? 'text-gray-400' : 'text-slate-500'}>{t('tokenGenerator.serviceFee')}</span>
                     <span className="font-medium">100 TB</span>
                   </div>
                   <div className="flex justify-between mb-2">
-                    <span className={isDark ? 'text-gray-400' : 'text-slate-500'}>Gas Fee (Est.)</span>
+                    <span className={isDark ? 'text-gray-400' : 'text-slate-500'}>{t('tokenGenerator.gasFee')}</span>
                     <span className="font-medium text-green-500">~0.0005 TB</span>
                   </div>
                   <div className={`border-t pt-2 mt-2 flex justify-between ${isDark ? 'border-gray-700' : 'border-slate-200'}`}>
-                    <span className="font-bold">Total</span>
+                    <span className="font-bold">{t('tokenGenerator.total')}</span>
                     <span className="font-bold text-blue-500 text-lg">~100.0005 TB</span>
                   </div>
                 </div>
@@ -1324,18 +1380,18 @@ function CreateTokenContent({
                 {isDeploying ? (
                   <>
                     <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                    Deploying...
+                    {t('tokenGenerator.deploying')}
                   </>
                 ) : (
                   <>
                     <Rocket className="w-5 h-5 mr-2" />
-                    Deploy Token
+                    {t('tokenGenerator.deploy')}
                   </>
                 )}
               </Button>
               <Button variant="outline" className="w-full" onClick={() => setWizardStep(4)}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
+                {t('tokenGenerator.back')}
               </Button>
             </div>
           </div>
@@ -1349,13 +1405,13 @@ function CreateTokenContent({
               <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-10 h-10 text-green-500" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Token Deployed Successfully!</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('tokenGenerator.tokenDeployedSuccess')}</h2>
               <p className={`mb-6 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                Your {formData.name} ({formData.symbol}) token is now live on TBURN Mainnet.
+                {formData.name} ({formData.symbol}) - {t('tokenGenerator.deployToTburn')}
               </p>
 
               <div className={`p-4 rounded-xl border mb-6 ${isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-50 border-slate-200'}`}>
-                <p className={`text-sm mb-2 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>Contract Address</p>
+                <p className={`text-sm mb-2 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>{t('tokenGenerator.contractAddress')}</p>
                 <div className="flex items-center justify-center gap-2">
                   <code className="font-mono text-sm">{deployedContractAddress}</code>
                   <Button 
@@ -1371,11 +1427,11 @@ function CreateTokenContent({
               <div className="flex gap-3 justify-center">
                 <Button variant="outline" onClick={resetWizard}>
                   <Plus className="w-4 h-4 mr-2" />
-                  Create Another
+                  {t('tokenGenerator.createToken')}
                 </Button>
                 <Button>
                   <ExternalLink className="w-4 h-4 mr-2" />
-                  View on Explorer
+                  {t('tokenGenerator.verify')}
                 </Button>
               </div>
             </CardContent>
@@ -1513,6 +1569,7 @@ function ReviewItem({ label, value }: { label: string; value: string }) {
 }
 
 function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboard }: any) {
+  const { t } = useTranslation();
   const mockTokens: DeployedToken[] = [
     {
       id: "1",
@@ -1667,6 +1724,7 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
 }
 
 function VerificationContent({ isDark }: { isDark: boolean }) {
+  const { t } = useTranslation();
   const [contractAddress, setContractAddress] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationResult, setVerificationResult] = useState<any>(null);
