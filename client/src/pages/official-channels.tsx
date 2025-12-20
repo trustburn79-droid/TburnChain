@@ -1,17 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LanguageSelector } from "@/components/LanguageSelector";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Globe,
   Home,
@@ -191,17 +185,7 @@ export default function OfficialChannelsPage() {
             <Link href="/qna"><Button variant="ghost" size="icon"><HelpCircle className="w-4 h-4" /></Button></Link>
             <Link href="/scan"><Button variant="ghost" size="icon"><ScanLine className="w-4 h-4" /></Button></Link>
             <Link href="/user"><Button variant="ghost" size="icon"><User className="w-4 h-4" /></Button></Link>
-            <Select value={i18n.language} onValueChange={(v) => i18n.changeLanguage(v)}>
-              <SelectTrigger className="w-10 h-10 p-0 rounded-full border-0 justify-center">
-                <Globe className="w-5 h-5" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="ko">한국어</SelectItem>
-                <SelectItem value="ja">日本語</SelectItem>
-                <SelectItem value="zh">中文</SelectItem>
-              </SelectContent>
-            </Select>
+            <LanguageSelector isDark={theme === 'dark'} />
             <ThemeToggle />
           </div>
         </div>

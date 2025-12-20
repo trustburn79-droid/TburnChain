@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LanguageSelector } from "@/components/LanguageSelector";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,8 +25,6 @@ import {
   HelpCircle,
   ArrowLeftRight,
   User,
-  Globe,
-  ChevronDown,
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
@@ -217,10 +216,7 @@ export default function SecurityAuditPage() {
             <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-user">
               <User className="w-5 h-5" />
             </button>
-            <button className={`p-2 rounded-full transition-colors flex items-center gap-1 ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-language">
-              <Globe className="w-5 h-5" />
-              <ChevronDown className="w-3 h-3" />
-            </button>
+            <LanguageSelector isDark={isDark} />
             <ThemeToggle />
           </div>
         </header>
