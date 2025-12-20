@@ -29,7 +29,7 @@ import { formatNumber } from "@/lib/formatters";
 import { LanguageSelector } from "@/components/language-selector";
 import type { NetworkStats, StakingStats } from "@shared/schema";
 
-type Section = "dashboard" | "wallet" | "stakingDashboard" | "delegationValidator" | "governance" | "network";
+type Section = "dashboard" | "wallet" | "stakingDashboard" | "delegationValidator" | "defi" | "governance" | "network";
 
 interface GovernanceProposal {
   id: string;
@@ -570,6 +570,7 @@ export default function UserPage() {
     { id: "wallet" as Section, label: t('userPage.nav.walletAndTransfer'), icon: Wallet, badge: null },
     { id: "stakingDashboard" as Section, label: t('userPage.nav.stakingDashboard'), icon: Coins, badge: null },
     { id: "delegationValidator" as Section, label: t('userPage.nav.delegationValidator'), icon: Layers, badge: isConnected ? "Active" : null },
+    { id: "defi" as Section, label: "DeFi", icon: TrendingUp, badge: null },
     { id: "governance" as Section, label: t('userPage.nav.governance'), icon: Gavel, badge: proposals && proposals.length > 0 ? `${proposals.length}` : null },
     { id: "network" as Section, label: t('userPage.nav.network'), icon: Globe, badge: null },
   ];
@@ -785,6 +786,13 @@ export default function UserPage() {
               validators={validators}
               onConnectWallet={() => setWalletModalOpen(true)}
               walletAddress={address}
+            />
+          )}
+          {activeSection === "defi" && (
+            <DeFiSection
+              isConnected={isConnected}
+              balance={balance}
+              onConnectWallet={() => setWalletModalOpen(true)}
             />
           )}
           {activeSection === "governance" && (
@@ -2582,6 +2590,321 @@ function NetworkSection({
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+function DeFiSection({
+  isConnected,
+  balance,
+  onConnectWallet,
+}: {
+  isConnected: boolean;
+  balance: string | null;
+  onConnectWallet: () => void;
+}) {
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState<'swap' | 'bridge'>('swap');
+  const [payAmount, setPayAmount] = useState('1000');
+  const [receiveAmount, setReceiveAmount] = useState('1245.50');
+
+  const updateSwapCalc = (value: string) => {
+    setPayAmount(value);
+    const numValue = parseFloat(value) || 0;
+    setReceiveAmount((numValue * 1.2455).toFixed(2));
+  };
+
+  const liquidityPools = [
+    { pair: 'TBURN-USDC', tvl: '$124.5M', volume: '$12.1M', apr: '45.2%', boost: '+2.5% Boost', isCore: true },
+    { pair: 'TBURN-ETH', tvl: '$85.2M', volume: '$8.4M', apr: '38.1%', boost: null, isCore: false },
+    { pair: 'TBURN-BTC', tvl: '$62.8M', volume: '$5.2M', apr: '32.5%', boost: null, isCore: false },
+  ];
+
+  return (
+    <section className="space-y-4 sm:space-y-6" data-testid="section-defi">
+      <div>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">DeFi Hub</h2>
+        <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">Swap, Bridge, and Earn on TBURN Chain</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/5 relative overflow-hidden">
+          <p className="text-sm text-slate-500 dark:text-gray-400">Total Value Locked (TVL)</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-mono mt-1">$764,200,000</h3>
+        </div>
+        <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/5">
+          <p className="text-sm text-slate-500 dark:text-gray-400">24h Trading Volume</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-blue-500 font-mono mt-1">$87,500,000</h3>
+          <p className="text-xs text-emerald-500 mt-2">▲ 12.4% vs yesterday</p>
+        </div>
+        <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border-l-4 border-orange-500 border border-slate-200 dark:border-white/5">
+          <div className="flex justify-between items-center">
+            <p className="text-sm text-slate-500 dark:text-gray-400">24h Total Burned</p>
+            <Flame className="w-5 h-5 text-orange-500 animate-pulse" />
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold text-orange-500 font-mono mt-1">1,240,500 TB</h3>
+          <p className="text-xs text-slate-400 mt-2">Deflation Rate: 1.53% / yr</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-8">
+        <div className="xl:col-span-1">
+          <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-3xl p-4 sm:p-6 border border-slate-200 dark:border-white/5 shadow-2xl">
+            <div className="flex p-1 bg-slate-100 dark:bg-gray-900 rounded-xl mb-6">
+              <button 
+                onClick={() => setActiveTab('swap')} 
+                className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'swap' ? 'bg-white dark:bg-[#151E32] text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-gray-400'}`}
+              >
+                Swap
+              </button>
+              <button 
+                onClick={() => setActiveTab('bridge')} 
+                className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'bridge' ? 'bg-white dark:bg-[#151E32] text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-gray-400'}`}
+              >
+                Bridge
+              </button>
+            </div>
+
+            {activeTab === 'swap' && (
+              <div className="space-y-4">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-bold text-slate-500 dark:text-gray-400">Pay</span>
+                  <span className="text-xs text-slate-500 dark:text-gray-400 cursor-pointer">
+                    Balance: <span className="text-blue-500 font-bold">{balance ? parseFloat(balance).toFixed(2) : '12,500.00'}</span>
+                  </span>
+                </div>
+
+                <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-2xl border border-slate-200 dark:border-gray-700">
+                  <div className="flex justify-between mb-2">
+                    <input 
+                      type="number" 
+                      placeholder="0.0" 
+                      className="bg-transparent text-2xl sm:text-3xl font-mono font-bold text-slate-900 dark:text-white focus:outline-none w-2/3"
+                      value={payAmount}
+                      onChange={(e) => updateSwapCalc(e.target.value)}
+                    />
+                    <button className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-sm">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white text-xs font-bold">T</div>
+                      <span className="font-bold text-slate-900 dark:text-white">TBURN</span>
+                      <ChevronDown className="w-3 h-3 text-slate-400" />
+                    </button>
+                  </div>
+                  <div className="text-right text-xs text-slate-400">≈ ${(parseFloat(payAmount) * 1.25 || 0).toFixed(2)}</div>
+                </div>
+
+                <div className="flex justify-center -my-3 z-10 relative">
+                  <button className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#151E32] border-4 border-white dark:border-[#0B1120] flex items-center justify-center text-slate-500 dark:text-gray-400 shadow-sm hover:rotate-180 transition-transform duration-300">
+                    <ArrowDown className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-bold text-slate-500 dark:text-gray-400">Receive</span>
+                </div>
+
+                <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-2xl border border-slate-200 dark:border-gray-700">
+                  <div className="flex justify-between mb-2">
+                    <input 
+                      type="number" 
+                      placeholder="0.0" 
+                      className="bg-transparent text-2xl sm:text-3xl font-mono font-bold text-slate-900 dark:text-white focus:outline-none w-2/3"
+                      value={receiveAmount}
+                      readOnly
+                    />
+                    <button className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-sm">
+                      <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white text-xs font-bold">U</div>
+                      <span className="font-bold text-slate-900 dark:text-white">USDC</span>
+                      <ChevronDown className="w-3 h-3 text-slate-400" />
+                    </button>
+                  </div>
+                  <div className="text-right text-xs text-slate-400">≈ ${receiveAmount}</div>
+                </div>
+
+                <div className="bg-blue-50 dark:bg-blue-900/10 rounded-xl p-4 text-sm space-y-2 border border-blue-100 dark:border-blue-900/30">
+                  <div className="flex justify-between text-slate-500 dark:text-gray-400">
+                    <span>Rate</span>
+                    <span className="font-mono">1 TBURN ≈ 1.25 USDC</span>
+                  </div>
+                  <div className="flex justify-between text-slate-500 dark:text-gray-400">
+                    <span>Network Fee</span>
+                    <span className="font-mono text-slate-800 dark:text-white">$0.00036 <span className="line-through text-xs text-slate-400">$5.00</span></span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-orange-500 flex items-center gap-1">
+                      <Flame className="w-3 h-3" /> Auto-Burn (0.5%)
+                    </span>
+                    <span className="font-mono font-bold text-orange-500">- {(parseFloat(payAmount) * 0.005 || 0).toFixed(1)} TB</span>
+                  </div>
+                </div>
+
+                {isConnected ? (
+                  <Button className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30">
+                    Swap Immediately
+                  </Button>
+                ) : (
+                  <Button onClick={onConnectWallet} className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30">
+                    Connect Wallet to Swap
+                  </Button>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'bridge' && (
+              <div className="space-y-4">
+                <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-gray-700">
+                  <p className="text-xs text-slate-500 mb-2">From Network</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-white text-sm">E</div>
+                      <span className="font-bold text-slate-900 dark:text-white">Ethereum Mainnet</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                  </div>
+                </div>
+
+                <div className="flex justify-center -my-2">
+                  <ArrowDown className="w-4 h-4 text-slate-400" />
+                </div>
+
+                <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-xl border border-blue-500/50 ring-1 ring-blue-500/20">
+                  <p className="text-xs text-slate-500 mb-2">To Network</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white font-bold">T</div>
+                      <span className="font-bold text-slate-900 dark:text-white">TBURN Chain</span>
+                    </div>
+                    <span className="text-xs bg-blue-500 text-white px-2 py-0.5 rounded">Fastest</span>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-slate-100 dark:bg-gray-800 rounded-xl text-center">
+                  <p className="text-xs text-slate-500 dark:text-gray-400">Estimated Arrival</p>
+                  <p className="text-xl font-mono font-bold text-slate-900 dark:text-white">~2 mins</p>
+                </div>
+
+                {isConnected ? (
+                  <Button className="w-full py-6 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-lg">
+                    Bridge Assets
+                  </Button>
+                ) : (
+                  <Button onClick={onConnectWallet} className="w-full py-6 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-lg">
+                    Connect Wallet to Bridge
+                  </Button>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="xl:col-span-2 space-y-4 sm:space-y-6">
+          <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-3xl p-4 sm:p-6 border border-slate-200 dark:border-white/5">
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Flame className="w-5 h-5 text-orange-500" /> Top Liquidity Pools
+              </h3>
+              <button className="text-sm text-blue-500 hover:underline">View All</button>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="text-slate-500 dark:text-gray-400 text-xs uppercase border-b border-slate-200 dark:border-gray-800">
+                    <th className="pb-3 font-medium">Pair</th>
+                    <th className="pb-3 font-medium text-right">TVL</th>
+                    <th className="pb-3 font-medium text-right hidden sm:table-cell">Volume (24h)</th>
+                    <th className="pb-3 font-medium text-right">APR</th>
+                    <th className="pb-3 font-medium text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="text-slate-800 dark:text-white text-sm divide-y divide-slate-100 dark:divide-gray-800">
+                  {liquidityPools.map((pool, index) => (
+                    <tr key={index} className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                      <td className="py-4 flex items-center gap-2 sm:gap-3">
+                        <div className="flex -space-x-2">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 border-2 border-white dark:border-[#151E32]"></div>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-indigo-500 border-2 border-white dark:border-[#151E32] flex items-center justify-center text-white text-[8px] sm:text-[10px]">
+                            {pool.pair.split('-')[1][0]}
+                          </div>
+                        </div>
+                        <span className="font-bold text-xs sm:text-sm">{pool.pair}</span>
+                        {pool.isCore && (
+                          <span className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-bold hidden sm:inline">Core</span>
+                        )}
+                      </td>
+                      <td className="py-4 text-right font-mono text-xs sm:text-sm">{pool.tvl}</td>
+                      <td className="py-4 text-right font-mono text-xs sm:text-sm hidden sm:table-cell">{pool.volume}</td>
+                      <td className="py-4 text-right">
+                        <div className="flex flex-col items-end">
+                          <span className="font-bold text-emerald-500 text-xs sm:text-sm">{pool.apr}</span>
+                          {pool.boost && (
+                            <span className="text-[8px] sm:text-[10px] text-blue-500">{pool.boost}</span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="py-4 text-center">
+                        <Button size="sm" variant="outline" className="text-[10px] sm:text-xs px-2 sm:px-3">
+                          Deposit
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-white/5">
+              <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400 mb-4">Supply Market (Earn)</h4>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white text-[10px]">U</div>
+                    <span className="font-bold text-slate-900 dark:text-white">USDC</span>
+                  </div>
+                  <span className="font-mono font-bold text-emerald-500">8.5% APY</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-white text-[10px]">E</div>
+                    <span className="font-bold text-slate-900 dark:text-white">ETH</span>
+                  </div>
+                  <span className="font-mono font-bold text-emerald-500">4.2% APY</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center text-white text-[10px]">B</div>
+                    <span className="font-bold text-slate-900 dark:text-white">BTC</span>
+                  </div>
+                  <span className="font-mono font-bold text-emerald-500">3.8% APY</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-white/5 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-orange-500/10"></div>
+              <div className="relative">
+                <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400 mb-2">My Rewards</h4>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-mono">$1,204.50</h3>
+                <p className="text-xs text-slate-500 mb-4">Pending harvest from 3 pools</p>
+                {isConnected ? (
+                  <Button className="w-full py-2 bg-emerald-500 text-white font-bold rounded-lg hover:bg-emerald-600 shadow-lg shadow-emerald-500/20">
+                    Harvest All
+                  </Button>
+                ) : (
+                  <Button onClick={onConnectWallet} variant="outline" className="w-full py-2">
+                    Connect Wallet
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p className="text-center text-xs text-slate-400 dark:text-gray-600 mt-8">
+        Powered by TBURN Triple-Band AI Orchestration | Instant Finality (&lt;1s)
+      </p>
     </section>
   );
 }
