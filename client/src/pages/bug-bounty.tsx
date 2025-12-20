@@ -223,7 +223,7 @@ export default function BugBountyPage() {
                 <span className="inline-block px-3 py-1 rounded-full bg-rose-500/20 text-rose-500 text-xs font-bold mb-4 border border-rose-500/30">
                   {t('securityPages.bugBounty.huntBugs')}
                 </span>
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight glitch-hover cursor-default">
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight glitch-hover cursor-default">
                   {t('securityPages.bugBounty.protectNetwork')}
                 </h1>
                 <p className="text-slate-400 mb-8 text-lg">

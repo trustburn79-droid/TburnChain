@@ -77,7 +77,15 @@ import {
   ImageIcon,
   ChevronDown,
   Search,
+  Share2,
+  LayoutGrid,
+  CheckCheck,
+  Maximize2,
+  Bell,
+  HelpCircle,
 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 type TabType = "create" | "myTokens" | "verification";
 type TokenStandardType = "TBC-20" | "TBC-721" | "TBC-1155";
@@ -701,17 +709,96 @@ export default function TokenSystemPage() {
               {t('tokenGenerator.quantumSecure')}
             </Badge>
           </div>
-          <div className="flex items-center gap-4">
-            <Link href="/">
-              <Button variant="ghost" size="icon" data-testid="link-home">
-                <Home className="w-4 h-4" />
-              </Button>
-            </Link>
-            <ThemeToggle />
-            <div className="hidden md:flex flex-col items-end">
-              <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>{t('tokenGenerator.deployerBalance')}</span>
-              <span className={`font-bold font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>12,500.00 TB</span>
-            </div>
+          <div className="flex items-center gap-2">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/">
+                    <Button variant="ghost" size="icon" data-testid="link-home">
+                      <Home className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.home', 'Home')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/app/transactions">
+                    <Button variant="ghost" size="icon" data-testid="link-history">
+                      <History className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.history', 'Transaction History')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" data-testid="button-share" onClick={() => navigator.share?.({ url: window.location.href, title: 'TBURN Token Generator' }).catch(() => {})}>
+                    <Share2 className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.share', 'Share')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/app/sharding">
+                    <Button variant="ghost" size="icon" data-testid="link-sharding">
+                      <LayoutGrid className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.sharding', 'Sharding')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/app/consensus">
+                    <Button variant="ghost" size="icon" data-testid="link-consensus" className="text-red-500">
+                      <CheckCheck className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.consensus', 'Consensus')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" data-testid="button-refresh" onClick={() => window.location.reload()}>
+                    <RefreshCw className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.refresh', 'Refresh')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" data-testid="button-fullscreen" onClick={() => document.documentElement.requestFullscreen?.()}>
+                    <Maximize2 className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.fullscreen', 'Fullscreen')}</p></TooltipContent>
+              </Tooltip>
+              <div className="w-px h-6 bg-border mx-1" />
+              <ThemeToggle />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" data-testid="button-notifications" className="relative">
+                    <Bell className="w-4 h-4" />
+                    <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-blue-500" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.notifications', 'Notifications')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/app/admin">
+                    <Button variant="ghost" size="icon" data-testid="link-settings">
+                      <Settings className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.settings', 'Settings')}</p></TooltipContent>
+              </Tooltip>
+              <div className="w-px h-6 bg-border mx-1" />
+              <LanguageSelector isDark={isDark} />
+            </TooltipProvider>
           </div>
         </header>
 
