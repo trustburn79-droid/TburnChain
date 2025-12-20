@@ -78,8 +78,10 @@ import {
   ChevronDown,
   Search,
   HelpCircle,
-  ArrowLeftRight,
+  ScanLine,
   User,
+  Bug,
+  Hexagon,
 } from "lucide-react";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -711,15 +713,31 @@ export default function TokenSystemPage() {
                 <Home className="w-5 h-5" />
               </a>
             </Link>
-            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-help">
-              <HelpCircle className="w-5 h-5" />
-            </button>
-            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-swap">
-              <ArrowLeftRight className="w-5 h-5" />
-            </button>
-            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-user">
-              <User className="w-5 h-5" />
-            </button>
+            <Link href="/qna">
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-qna">
+                <HelpCircle className="w-5 h-5" />
+              </a>
+            </Link>
+            <Link href="/scan">
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-scan">
+                <ScanLine className="w-5 h-5" />
+              </a>
+            </Link>
+            <Link href="/user">
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-user">
+                <User className="w-5 h-5" />
+              </a>
+            </Link>
+            <Link href="/bug-bounty">
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-bug-bounty">
+                <Bug className="w-5 h-5" />
+              </a>
+            </Link>
+            <Link href="/token-generator">
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-token-generator">
+                <Hexagon className="w-5 h-5" />
+              </a>
+            </Link>
             <LanguageSelector isDark={isDark} />
             <ThemeToggle />
           </div>
