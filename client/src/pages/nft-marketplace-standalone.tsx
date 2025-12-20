@@ -951,9 +951,6 @@ export default function NftMarketplaceStandalone() {
               <h1 className={`font-bold text-lg tracking-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>TBURN <span className="text-violet-500">NFT</span></h1>
             </div>
           </div>
-          <div className="hidden lg:block">
-            <ThemeToggle />
-          </div>
         </div>
         
         <nav className="flex-1 py-6 space-y-2 px-3">
@@ -1018,9 +1015,6 @@ export default function NftMarketplaceStandalone() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="lg:hidden">
-              <ThemeToggle />
-            </div>
             {/* Language Selector - Globe icon only */}
             <Select value={i18n.language} onValueChange={(value) => i18n.changeLanguage(value)}>
               <SelectTrigger className={`w-10 h-10 p-0 rounded-full border-0 justify-center ${theme === 'dark' ? 'bg-transparent hover:bg-gray-800 text-white' : 'bg-transparent hover:bg-gray-100 text-gray-700'}`} data-testid="select-language">
@@ -1050,6 +1044,7 @@ export default function NftMarketplaceStandalone() {
                 <Wallet className="w-4 h-4 mr-2" />{t('nftMarketplacePage.header.connect')}
               </Button>
             )}
+            <ThemeToggle />
             <div className={`w-10 h-10 rounded-full overflow-hidden cursor-pointer border-2 border-transparent hover:border-violet-500 transition-colors ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile" className="w-full h-full object-cover" />
             </div>
