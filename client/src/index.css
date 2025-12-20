@@ -286,3 +286,38 @@
     inset: -1px;
   }
 }
+
+/* NFT Marketplace Animations */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+/* NFT Card Hover Effects - uses subtle border glow instead of layout shifts */
+.nft-card {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nft-card:hover {
+  border-color: hsl(263 70% 50%) !important;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+}
+
+/* Custom scrollbar for NFT marketplace */
+.nft-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.nft-scroll::-webkit-scrollbar-thumb {
+  background: #8B5CF6;
+  border-radius: 3px;
+}
+
+.nft-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
