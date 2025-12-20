@@ -75,6 +75,8 @@ import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { useTheme } from "@/components/theme-provider";
 
 const ENTERPRISE_WALLET = "0xTBURNEnterprise7a3b4c5d6e7f8901234567890abcdef";
 
@@ -239,8 +241,9 @@ function getEventTypeIcon(type: string) {
 }
 
 function GlassPanel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const { theme } = useTheme();
   return (
-    <div className={`backdrop-blur-xl bg-[#151E32]/70 border border-white/5 rounded-xl transition-all ${className}`}>
+    <div className={`backdrop-blur-xl rounded-xl transition-all ${theme === 'dark' ? 'bg-[#151E32]/70 border border-white/5' : 'bg-white/90 border border-gray-200 shadow-sm'} ${className}`}>
       {children}
     </div>
   );
@@ -255,11 +258,12 @@ interface NftCardProps {
 }
 
 function NftCard({ listing, item, collection, onBuyNow, onViewItem }: NftCardProps) {
+  const { theme } = useTheme();
   const isLegendary = item?.rarityTier?.toLowerCase() === 'legendary' || item?.rarityTier?.toLowerCase() === 'mythic';
   
   return (
     <div 
-      className="group cursor-pointer rounded-2xl overflow-hidden border border-gray-700 bg-[#151E32] hover:-translate-y-1 transition-all duration-300"
+      className={`group cursor-pointer rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 ${theme === 'dark' ? 'border border-gray-700 bg-[#151E32]' : 'border border-gray-200 bg-white shadow-sm'}`}
       onClick={() => item && onViewItem(item, collection)}
       data-testid={`card-nft-${listing.id}`}
     >
@@ -310,21 +314,21 @@ function NftCard({ listing, item, collection, onBuyNow, onViewItem }: NftCardPro
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <div className="flex-1 min-w-0">
-            <h4 className="font-bold text-white text-lg truncate">{item?.name || `#${item?.tokenId}`}</h4>
-            <div className="flex items-center gap-1 text-xs text-gray-400">
+            <h4 className={`font-bold text-lg truncate ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{item?.name || `#${item?.tokenId}`}</h4>
+            <div className={`flex items-center gap-1 text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
               <span className="truncate">{collection?.name || "Unknown Collection"}</span>
               {collection?.verified && <CheckCircle className="w-3 h-3 text-blue-500 flex-shrink-0" />}
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-end mt-4 pt-4 border-t border-gray-700">
+        <div className={`flex justify-between items-end mt-4 pt-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <div>
-            <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Price</p>
-            <p className="text-lg font-mono font-bold text-white">{formatAmount(listing.price)} TB</p>
+            <p className={`text-[10px] uppercase font-bold tracking-wider ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Price</p>
+            <p className={`text-lg font-mono font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{formatAmount(listing.price)} TB</p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Listed</p>
-            <p className="text-sm font-mono text-gray-400">{formatDate(listing.createdAt)}</p>
+            <p className={`text-[10px] uppercase font-bold tracking-wider ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Listed</p>
+            <p className={`text-sm font-mono ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{formatDate(listing.createdAt)}</p>
           </div>
         </div>
       </div>
@@ -769,6 +773,7 @@ function CancelListingDialog({ open, onOpenChange, listing, items, collections, 
 export default function NftMarketplaceStandalone() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { theme } = useTheme();
   const { isConnected, isCorrectNetwork, address: walletAddress } = useWeb3();
   const [searchQuery, setSearchQuery] = useState("");
   const [walletModalOpen, setWalletModalOpen] = useState(false);
@@ -934,34 +939,43 @@ export default function NftMarketplaceStandalone() {
 
   return (
     <TooltipProvider>
-    <div className="flex h-screen overflow-hidden font-sans antialiased bg-[#0B1120] text-[#E2E8F0]">
+    <div className={`flex h-screen overflow-hidden font-sans antialiased transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0B1120] text-[#E2E8F0]' : 'bg-gray-50 text-gray-900'}`}>
       
-      <aside className="w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r bg-[#0F172A] border-gray-800">
-        <div className="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-gray-800">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">N</div>
-          <div className="hidden lg:block ml-3">
-            <h1 className="font-bold text-lg tracking-tight text-white">TBURN <span className="text-violet-500">NFT</span></h1>
+      <aside className={`w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r ${theme === 'dark' ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-gray-200'}`}>
+        <div className={`h-16 flex items-center justify-center lg:justify-between lg:px-6 border-b ${theme === 'dark' ? 'border-gray-800' : 'border-gray-200'}`}>
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">N</div>
+            <div className="hidden lg:block ml-3">
+              <h1 className={`font-bold text-lg tracking-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>TBURN <span className="text-violet-500">NFT</span></h1>
+            </div>
+          </div>
+          <div className="hidden lg:block">
+            <ThemeToggle />
           </div>
         </div>
         
         <nav className="flex-1 py-6 space-y-2 px-3">
           <button 
             onClick={() => { setActiveSidebarSection("marketplace"); setActiveTab("overview"); }}
-            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "marketplace" ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "text-gray-400 hover:bg-gray-800"}`}
+            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "marketplace" 
+              ? theme === 'dark' ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "bg-violet-50 text-violet-700 border-l-4 border-violet-500 shadow-sm"
+              : theme === 'dark' ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-100"}`}
             data-testid="link-marketplace"
           >
             <Store className="w-5 h-5" /> <span className="hidden lg:block font-medium">Marketplace</span>
           </button>
           <button 
             onClick={() => { setActiveSidebarSection("stats"); setActiveTab("overview"); }}
-            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "stats" ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "text-gray-400 hover:bg-gray-800"}`}
+            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "stats" 
+              ? theme === 'dark' ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "bg-violet-50 text-violet-700 border-l-4 border-violet-500 shadow-sm"
+              : theme === 'dark' ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-100"}`}
             data-testid="link-stats"
           >
             <BarChart3 className="w-5 h-5" /> <span className="hidden lg:block font-medium">Stats & Rankings</span>
           </button>
           <button 
             onClick={() => setListDialogOpen(true)}
-            className="w-full flex items-center gap-4 px-3 py-3 rounded-xl text-gray-400 hover:bg-gray-800 transition-colors"
+            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${theme === 'dark' ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-100"}`}
             data-testid="link-create"
           >
             <PaintBucket className="w-5 h-5" /> <span className="hidden lg:block font-medium">Create (Mint)</span>
@@ -976,7 +990,9 @@ export default function NftMarketplaceStandalone() {
                 setActiveTab("overview");
               }
             }}
-            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "mycollection" ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "text-gray-400 hover:bg-gray-800"}`}
+            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "mycollection" 
+              ? theme === 'dark' ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "bg-violet-50 text-violet-700 border-l-4 border-violet-500 shadow-sm"
+              : theme === 'dark' ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-100"}`}
             data-testid="link-collection"
           >
             <User className="w-5 h-5" /> <span className="hidden lg:block font-medium">My Collection</span>
@@ -984,22 +1000,25 @@ export default function NftMarketplaceStandalone() {
         </nav>
       </aside>
 
-      <main className="flex-1 flex flex-col relative overflow-hidden bg-[#0B1120] transition-colors duration-300">
+      <main className={`flex-1 flex flex-col relative overflow-hidden transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0B1120]' : 'bg-gray-50'}`}>
         
-        <header className="h-16 border-b border-gray-800 bg-[#0B1120]/80 backdrop-blur-md flex items-center justify-between px-8 z-10">
+        <header className={`h-16 border-b backdrop-blur-md flex items-center justify-between px-8 z-10 ${theme === 'dark' ? 'border-gray-800 bg-[#0B1120]/80' : 'border-gray-200 bg-white/80'}`}>
           <div className="relative w-96 hidden md:block">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} />
             <Input 
               type="text" 
               placeholder="Search collections, items, or users..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#151E32] border-gray-700 rounded-full pl-12 pr-4 py-2 text-sm focus:ring-2 focus:ring-violet-500 text-white placeholder:text-gray-500"
+              className={`w-full rounded-full pl-12 pr-4 py-2 text-sm focus:ring-2 focus:ring-violet-500 ${theme === 'dark' ? 'bg-[#151E32] border-gray-700 text-white placeholder:text-gray-500' : 'bg-gray-100 border-gray-300 text-gray-900 placeholder:text-gray-400'}`}
               data-testid="input-search"
             />
           </div>
 
           <div className="flex items-center gap-4">
+            <div className="lg:hidden">
+              <ThemeToggle />
+            </div>
             <Button 
               onClick={() => setListDialogOpen(true)} 
               className="hidden md:flex bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-violet-500/30 border-0"
@@ -1008,11 +1027,11 @@ export default function NftMarketplaceStandalone() {
               Create NFT
             </Button>
             {!isConnected && (
-              <Button onClick={() => setWalletModalOpen(true)} variant="outline" className="border-gray-600 text-white hover:bg-gray-800 rounded-full" data-testid="button-connect-wallet">
+              <Button onClick={() => setWalletModalOpen(true)} variant="outline" className={`rounded-full ${theme === 'dark' ? 'border-gray-600 text-white hover:bg-gray-800' : 'border-gray-300 text-gray-700 hover:bg-gray-100'}`} data-testid="button-connect-wallet">
                 <Wallet className="w-4 h-4 mr-2" />Connect
               </Button>
             )}
-            <div className="w-10 h-10 rounded-full bg-gray-700 overflow-hidden cursor-pointer border-2 border-transparent hover:border-violet-500 transition-colors">
+            <div className={`w-10 h-10 rounded-full overflow-hidden cursor-pointer border-2 border-transparent hover:border-violet-500 transition-colors ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile" className="w-full h-full object-cover" />
             </div>
           </div>
