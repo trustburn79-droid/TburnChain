@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBURN Bug Bounty Program</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tburn: {
+                            dark: '#0B1120',
+                            light: '#F8FAFC',
+                            cardDark: '#151E32',
+                            primary: '#3B82F6',
+                            accent: '#F97316',
+                            bug: '#F43F5E',     // Rose for Bugs
+                            reward: '#10B981',  // Emerald for Money
+                            hacker: '#00FF94'   // Matrix/Hacker Green
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Rajdhani', 'monospace'],
+                        code: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { transition: background-color 0.3s, color 0.3s; }
+        .glass-panel { backdrop-filter: blur(12px); transition: all 0.3s ease; }
+        .dark .glass-panel { background: rgba(21, 30, 50, 0.7); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-panel { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(226, 232, 240, 0.8); }
+        
+        /* Hacker Glitch Text Effect (Subtle) */
+        .glitch-hover:hover {
+            text-shadow: 2px 0 #F43F5E, -2px 0 #00FF94;
+        }
+
+        /* Rank Medals */
+        .rank-1 { background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%); color: black; }
+        .rank-2 { background: linear-gradient(135deg, #E0E0E0 0%, #BDBDBD 100%); color: black; }
+        .rank-3 { background: linear-gradient(135deg, #CD7F32 0%, #A0522D 100%); color: white; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden font-sans antialiased bg-tburn-light text-slate-800 dark:bg-tburn-dark dark:text-[#E2E8F0]">
+
+    <aside class="w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r bg-white border-slate-200 dark:bg-[#0F172A] dark:border-gray-800">
+        <div class="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-slate-100 dark:border-gray-800">
+            <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-tburn-bug font-bold text-xl shadow-lg shrink-0 border border-tburn-bug/50">
+                <i class="fas fa-spider"></i>
+            </div>
+            <div class="hidden lg:block ml-3">
+                <h1 class="font-bold text-lg tracking-tight text-slate-900 dark:text-white">TBURN <span class="text-tburn-bug">Bounty</span></h1>
+            </div>
+        </div>
+        
+        <nav class="flex-1 py-6 space-y-2 px-3">
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+                <i class="fas fa-shield-alt w-6 text-center"></i> <span class="hidden lg:block font-medium">Security Audit</span>
+            </a>
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl bg-rose-50 text-tburn-bug border-l-4 border-tburn-bug dark:bg-tburn-cardDark dark:text-white dark:border-tburn-bug shadow-sm transition-colors">
+                <i class="fas fa-crosshairs w-6 text-center"></i> <span class="hidden lg:block font-medium">Bug Bounty</span>
+            </a>
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+                <i class="fas fa-trophy w-6 text-center"></i> <span class="hidden lg:block font-medium">Hall of Fame</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col relative overflow-hidden bg-slate-50 dark:bg-tburn-dark transition-colors duration-300">
+        
+        <header class="h-16 border-b border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md flex items-center justify-between px-8 z-10">
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex items-center gap-2 bg-slate-100 dark:bg-gray-800 px-3 py-1 rounded-lg">
+                    <span class="text-xs text-slate-500 dark:text-gray-400">Total Paid Out:</span>
+                    <span class="font-mono font-bold text-tburn-reward">$2,450,000</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-yellow-400">
+                    <i id="theme-icon" class="fas fa-sun text-lg"></i>
+                </button>
+                <button onclick="openReportModal()" class="bg-tburn-bug hover:bg-rose-600 text-white px-5 py-2 rounded-lg text-sm font-bold transition-colors shadow-lg shadow-rose-500/20 flex items-center gap-2">
+                    <i class="fas fa-bug"></i> Submit Report
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth z-0">
+            
+            <div class="relative rounded-3xl overflow-hidden mb-10 bg-[#0F172A] border border-slate-200 dark:border-gray-700">
+                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#F43F5E 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-tburn-bug/10 to-transparent"></div>
+                
+                <div class="relative p-8 md:p-12 z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="max-w-xl">
+                        <span class="inline-block px-3 py-1 rounded-full bg-tburn-bug/20 text-tburn-bug text-xs font-bold mb-4 border border-tburn-bug/30">HUNT BUGS, GET PAID</span>
+                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight glitch-hover cursor-default">
+                            Protect the TBURN Network
+                        </h1>
+                        <p class="text-slate-400 mb-8 text-lg">
+                            TBURN 메인넷의 보안 취약점을 발견하고 제보하세요. <br>
+                            우리는 화이트해커의 기여를 존중하며 업계 최고 수준으로 보상합니다.
+                        </p>
+                        <div class="flex gap-4">
+                            <button class="text-white border-b-2 border-tburn-bug pb-1 hover:text-tburn-bug transition-colors font-bold">View Scope</button>
+                            <button class="text-slate-400 hover:text-white transition-colors">Read Policy</button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black/40 backdrop-blur-md border border-tburn-bug/30 p-6 rounded-2xl text-center min-w-[280px]">
+                        <p class="text-sm text-slate-400 uppercase tracking-widest mb-2">Max Critical Reward</p>
+                        <p class="text-4xl md:text-5xl font-mono font-bold text-tburn-reward animate-pulse-fast">$1,000,000</p>
+                        <p class="text-xs text-slate-500 mt-2">Paid in USDC or TBURN</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <i class="fas fa-medal text-yellow-500"></i> Reward Tiers
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="glass-panel p-6 rounded-2xl border-t-4 border-tburn-bug group hover:translate-y-[-5px] transition-transform">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="px-2 py-1 bg-rose-500/10 text-tburn-bug rounded text-xs font-bold">CRITICAL</span>
+                        <i class="fas fa-biohazard text-2xl text-slate-700 dark:text-slate-600 group-hover:text-tburn-bug transition-colors"></i>
+                    </div>
+                    <p class="text-3xl font-bold text-slate-900 dark:text-white font-mono mb-2">Up to $1M</p>
+                    <ul class="text-sm text-slate-500 dark:text-gray-400 space-y-2 list-disc list-inside">
+                        <li>Consensus manipulation</li>
+                        <li>Direct theft of funds</li>
+                        <li>Network shutdown</li>
+                        <li>Private key recovery</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl border-t-4 border-orange-500 group hover:translate-y-[-5px] transition-transform">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="px-2 py-1 bg-orange-500/10 text-orange-500 rounded text-xs font-bold">HIGH</span>
+                        <i class="fas fa-exclamation-triangle text-2xl text-slate-700 dark:text-slate-600 group-hover:text-orange-500 transition-colors"></i>
+                    </div>
+                    <p class="text-3xl font-bold text-slate-900 dark:text-white font-mono mb-2">$50,000</p>
+                    <ul class="text-sm text-slate-500 dark:text-gray-400 space-y-2 list-disc list-inside">
+                        <li>Temporary freezing</li>
+                        <li>Unintended smart contract behavior</li>
+                        <li>Fees manipulation</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl border-t-4 border-yellow-500 group hover:translate-y-[-5px] transition-transform">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="px-2 py-1 bg-yellow-500/10 text-yellow-500 rounded text-xs font-bold">MEDIUM</span>
+                        <i class="fas fa-bug text-2xl text-slate-700 dark:text-slate-600 group-hover:text-yellow-500 transition-colors"></i>
+                    </div>
+                    <p class="text-3xl font-bold text-slate-900 dark:text-white font-mono mb-2">$10,000</p>
+                    <ul class="text-sm text-slate-500 dark:text-gray-400 space-y-2 list-disc list-inside">
+                        <li>RPC node crash</li>
+                        <li>API authentication bypass</li>
+                        <li>Data leakage (Non-PII)</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl border-t-4 border-blue-500 group hover:translate-y-[-5px] transition-transform">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="px-2 py-1 bg-blue-500/10 text-blue-500 rounded text-xs font-bold">LOW</span>
+                        <i class="fas fa-info-circle text-2xl text-slate-700 dark:text-slate-600 group-hover:text-blue-500 transition-colors"></i>
+                    </div>
+                    <p class="text-3xl font-bold text-slate-900 dark:text-white font-mono mb-2">$2,000</p>
+                    <ul class="text-sm text-slate-500 dark:text-gray-400 space-y-2 list-disc list-inside">
+                        <li>UI/UX Bugs with risk</li>
+                        <li>Inefficient gas usage</li>
+                        <li>Minor logic errors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                
+                <div class="glass-panel rounded-2xl p-6 h-full">
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-4">🎯 Assets in Scope</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl border border-slate-200 dark:border-gray-700">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-file-code text-slate-400"></i>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-800 dark:text-white">Smart Contracts (Core)</p>
+                                    <p class="text-xs text-slate-500">Staking, Governance, Token</p>
+                                </div>
+                            </div>
+                            <a href="#" class="text-xs text-tburn-primary hover:underline">View GitHub</a>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl border border-slate-200 dark:border-gray-700">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-server text-slate-400"></i>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-800 dark:text-white">Node Client (Go-TBURN)</p>
+                                    <p class="text-xs text-slate-500">Consensus logic, P2P networking</p>
+                                </div>
+                            </div>
+                            <a href="#" class="text-xs text-tburn-primary hover:underline">View GitHub</a>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl border border-slate-200 dark:border-gray-700">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-globe text-slate-400"></i>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-800 dark:text-white">Web & DApps</p>
+                                    <p class="text-xs text-slate-500">Wallet, Explorer, Bridge UI</p>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-slate-200 dark:bg-gray-700 px-2 py-1 rounded">Web only</span>
+                        </div>
+                    </div>
+
+                    <h4 class="font-bold text-slate-900 dark:text-white mt-6 mb-3">⛔ Out of Scope</h4>
+                    <ul class="text-sm text-slate-500 dark:text-gray-400 space-y-2">
+                        <li class="flex items-center gap-2"><i class="fas fa-times text-red-500"></i> Social Engineering & Phishing</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-times text-red-500"></i> DDoS Attacks</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-times text-red-500"></i> Third-party DApps (not owned by Foundation)</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-6 h-full border-2 border-tburn-hacker/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-tburn-hacker/10 rounded-bl-full -mr-10 -mt-10"></div>
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fas fa-trophy text-tburn-hacker"></i> Hall of Fame
+                        </h3>
+                        <span class="text-xs text-slate-500">Top Hunters (All Time)</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="text-xs text-slate-500 dark:text-gray-400 border-b border-slate-200 dark:border-gray-700">
+                                    <th class="pb-3 pl-2">Rank</th>
+                                    <th class="pb-3">Hunter</th>
+                                    <th class="pb-3 text-right">Points</th>
+                                    <th class="pb-3 text-right">Earned</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm font-mono" id="hof-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="report-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeReportModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-white dark:bg-[#151E32] rounded-2xl shadow-2xl border border-slate-200 dark:border-gray-700 p-8 scale-95 opacity-0 transition-all duration-300" id="report-modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-user-secret text-tburn-bug"></i> Submit Vulnerability
+                </h3>
+                <button onclick="closeReportModal()" class="text-slate-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Report submitted securely via PGP encryption.'); closeReportModal();">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-1">Target Asset</label>
+                    <select class="w-full bg-slate-100 dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:ring-2 focus:ring-tburn-bug focus:outline-none">
+                        <option>Smart Contracts (Core)</option>
+                        <option>Node Client</option>
+                        <option>Website / API</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-1">Vulnerability Title</label>
+                    <input type="text" placeholder="e.g. Reentrancy in Staking.sol" class="w-full bg-slate-100 dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:ring-2 focus:ring-tburn-bug focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-1">Description (Markdown)</label>
+                    <textarea rows="4" placeholder="Describe the impact and reproduction steps..." class="w-full bg-slate-100 dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:ring-2 focus:ring-tburn-bug focus:outline-none"></textarea>
+                </div>
+                
+                <div class="bg-slate-50 dark:bg-black/20 p-3 rounded text-xs text-slate-500 dark:text-gray-400 border border-slate-200 dark:border-gray-700">
+                    <i class="fas fa-lock mr-1"></i> Your report will be encrypted. We may contact you for more details.
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-tburn-bug hover:bg-rose-600 text-white font-bold rounded-xl shadow-lg shadow-rose-500/30 transition-all">
+                    Submit Securely
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Hall of Fame Data ---
+        const hunters = [
+            { rank: 1, name: "0xSafeDuck", points: 15200, earned: "$450,000", badge: "rank-1" },
+            { rank: 2, name: "WhiteHat_Kor", points: 12400, earned: "$320,000", badge: "rank-2" },
+            { rank: 3, name: "AuditGod", points: 8900, earned: "$150,000", badge: "rank-3" },
+            { rank: 4, name: "CryptoNinja", points: 5200, earned: "$45,000", badge: "bg-slate-700 text-white" },
+            { rank: 5, name: "SolidityDev", points: 3100, earned: "$12,000", badge: "bg-slate-700 text-white" },
+        ];
+
+        function renderHallOfFame() {
+            const tbody = document.getElementById('hof-body');
+            tbody.innerHTML = hunters.map(h => `
+                <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors border-b border-slate-100 dark:border-gray-800/50">
+                    <td class="py-4 pl-2">
+                        <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${h.badge}">
+                            ${h.rank}
+                        </span>
+                    </td>
+                    <td class="py-4 font-bold text-slate-800 dark:text-white">${h.name}</td>
+                    <td class="py-4 text-right text-tburn-hacker font-bold">${h.points.toLocaleString()}</td>
+                    <td class="py-4 text-right text-slate-500 dark:text-gray-400">${h.earned}</td>
+                </tr>
+            `).join('');
+        }
+
+        // --- 2. Modal Logic ---
+        function openReportModal() {
+            const modal = document.getElementById('report-modal');
+            const content = document.getElementById('report-modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeReportModal() {
+            const modal = document.getElementById('report-modal');
+            const content = document.getElementById('report-modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // --- 3. Theme Toggle ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                html.classList.add('dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+
+        // Init
+        renderHallOfFame();
+    </script>
+</body>
+</html>

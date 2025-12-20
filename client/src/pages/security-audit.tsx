@@ -2,411 +2,402 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import {
   Shield,
   CheckCircle2,
   FileText,
   ExternalLink,
-  Lock,
-  Eye,
-  AlertTriangle,
-  Zap,
-  Globe,
-  Home,
-  HelpCircle,
-  ScanLine,
-  User,
   Download,
+  Bug,
+  Wrench,
   Award,
-  Clock,
-  Building,
-  Code,
-  Search,
-  ChevronRight,
+  X,
 } from "lucide-react";
 import { Link } from "wouter";
 
-interface AuditReport {
+interface AuditFirm {
   id: string;
-  auditor: string;
-  auditorLogo: string;
+  name: string;
+  logoStyle: string;
+  scope: string;
   date: string;
-  contractName: string;
-  version: string;
-  status: "passed" | "passed_with_notes" | "in_progress";
-  criticalIssues: number;
-  highIssues: number;
-  mediumIssues: number;
-  lowIssues: number;
-  informational: number;
-  score: number;
-  reportUrl: string;
-  scope: string[];
+  score: string;
+  status: "passed" | "in_progress";
+  reportFile: string;
 }
 
-const AUDIT_REPORTS: AuditReport[] = [
+interface Finding {
+  id: string;
+  severity: "critical" | "major" | "medium" | "info";
+  title: string;
+  description: string;
+  status: "fixed" | "resolved" | "acknowledged";
+  date: string;
+}
+
+const AUDIT_FIRMS: AuditFirm[] = [
   {
-    id: "audit-001",
-    auditor: "CertiK",
-    auditorLogo: "C",
-    date: "2024-12-15",
-    contractName: "TBURN Core Protocol",
-    version: "v1.0.0",
+    id: "certik",
+    name: "CERTIK",
+    logoStyle: "bg-slate-900 dark:bg-slate-800",
+    scope: "Core Consensus & Staking",
+    date: "Dec 15, 2024",
+    score: "99.5 / 100",
     status: "passed",
-    criticalIssues: 0,
-    highIssues: 0,
-    mediumIssues: 0,
-    lowIssues: 2,
-    informational: 5,
-    score: 98,
-    reportUrl: "#",
-    scope: ["Token Contract", "Staking Module", "Governance", "Bridge Contracts"],
+    reportFile: "TBURN_Core_Audit_Final.pdf",
   },
   {
-    id: "audit-002",
-    auditor: "Trail of Bits",
-    auditorLogo: "T",
-    date: "2024-12-10",
-    contractName: "TBURN Bridge Protocol",
-    version: "v1.0.0",
+    id: "slowmist",
+    name: "SlowMist",
+    logoStyle: "bg-slate-800 dark:bg-slate-700 italic",
+    scope: "Tokenomics & Bridge",
+    date: "Nov 20, 2024",
+    score: "Low Risk",
     status: "passed",
-    criticalIssues: 0,
-    highIssues: 0,
-    mediumIssues: 1,
-    lowIssues: 3,
-    informational: 8,
-    score: 96,
-    reportUrl: "#",
-    scope: ["Cross-chain Bridge", "Validator Set", "Liquidity Pools"],
+    reportFile: "TBURN_Token_Bridge_Audit.pdf",
   },
   {
-    id: "audit-003",
-    auditor: "OpenZeppelin",
-    auditorLogo: "O",
-    date: "2024-12-05",
-    contractName: "TBURN NFT & DeFi Modules",
-    version: "v1.0.0",
-    status: "passed_with_notes",
-    criticalIssues: 0,
-    highIssues: 0,
-    mediumIssues: 2,
-    lowIssues: 4,
-    informational: 12,
-    score: 94,
-    reportUrl: "#",
-    scope: ["NFT Marketplace", "DEX Router", "Lending Protocol", "Yield Farming"],
-  },
-  {
-    id: "audit-004",
-    auditor: "Quantstamp",
-    auditorLogo: "Q",
-    date: "2024-11-28",
-    contractName: "TBURN Consensus Layer",
-    version: "v1.0.0",
+    id: "hacken",
+    name: "HACKEN",
+    logoStyle: "bg-green-900 dark:bg-green-800",
+    scope: "Smart Contracts (DEX)",
+    date: "Dec 01, 2024",
+    score: "10 / 10",
     status: "passed",
-    criticalIssues: 0,
-    highIssues: 0,
-    mediumIssues: 0,
-    lowIssues: 1,
-    informational: 4,
-    score: 99,
-    reportUrl: "#",
-    scope: ["BFT Consensus", "Validator Selection", "Slashing Mechanism"],
+    reportFile: "TBURN_SC_Audit.pdf",
   },
 ];
 
-const SECURITY_FEATURES = [
+const FINDINGS: Finding[] = [
   {
-    icon: Lock,
-    title: "Quantum-Resistant Signatures",
-    description: "Future-proof cryptographic signatures resistant to quantum computing attacks",
+    id: "TB-001",
+    severity: "major",
+    title: "Reentrancy Guard Optimization",
+    description: "Staking contract potential reentrancy in withdraw function.",
+    status: "fixed",
+    date: "2024-11-15",
   },
   {
-    icon: Shield,
-    title: "Multi-Signature Treasury",
-    description: "All treasury operations require 4-of-7 multi-signature approval",
+    id: "TB-002",
+    severity: "medium",
+    title: "Gas Limit Threshold",
+    description: "Potential out-of-gas error in batch processing.",
+    status: "resolved",
+    date: "2024-11-18",
   },
   {
-    icon: Eye,
-    title: "Real-time Monitoring",
-    description: "24/7 automated security monitoring with instant threat detection",
-  },
-  {
-    icon: Zap,
-    title: "Circuit Breakers",
-    description: "Automatic pause mechanisms for abnormal transaction patterns",
-  },
-  {
-    icon: Code,
-    title: "Formal Verification",
-    description: "Critical contracts mathematically verified for correctness",
-  },
-  {
-    icon: Search,
-    title: "Bug Bounty Program",
-    description: "Up to $500,000 rewards for critical vulnerability discoveries",
+    id: "TB-003",
+    severity: "info",
+    title: "Variable Naming Convention",
+    description: "Code style consistency improvements.",
+    status: "acknowledged",
+    date: "2024-11-20",
   },
 ];
 
 export default function SecurityAuditPage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { theme } = useTheme();
-  const [selectedAudit, setSelectedAudit] = useState<AuditReport | null>(null);
+  const [selectedReport, setSelectedReport] = useState<AuditFirm | null>(null);
+  
+  const isDark = theme === 'dark';
 
-  const totalScore = Math.round(
-    AUDIT_REPORTS.reduce((acc, r) => acc + r.score, 0) / AUDIT_REPORTS.length
-  );
-
-  const getStatusBadge = (status: AuditReport["status"]) => {
-    switch (status) {
-      case "passed":
-        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t("security.passed", "Passed")}</Badge>;
-      case "passed_with_notes":
-        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t("security.passedWithNotes", "Passed with Notes")}</Badge>;
-      case "in_progress":
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">{t("security.inProgress", "In Progress")}</Badge>;
-    }
+  const getSeverityBadge = (severity: Finding["severity"]) => {
+    const styles = {
+      critical: "bg-red-500/10 text-red-500 border-red-500/20",
+      major: "bg-orange-500/10 text-orange-500 border-orange-500/20",
+      medium: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
+      info: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+    };
+    const labels = {
+      critical: "CRITICAL",
+      major: "MAJOR",
+      medium: "MEDIUM",
+      info: "INFO",
+    };
+    return (
+      <span className={`px-2 py-1 rounded text-xs font-bold border ${styles[severity]}`}>
+        {labels[severity]}
+      </span>
+    );
   };
 
-  const getScoreColor = (score: number) => {
-    if (score >= 95) return "text-green-400";
-    if (score >= 85) return "text-yellow-400";
-    return "text-red-400";
+  const getStatusDisplay = (status: Finding["status"]) => {
+    if (status === "fixed" || status === "resolved") {
+      return (
+        <span className="text-emerald-500 font-bold flex items-center gap-1">
+          <CheckCircle2 className="w-4 h-4" />
+          {status === "fixed" ? "Fixed" : "Resolved"}
+        </span>
+      );
+    }
+    return (
+      <span className="text-muted-foreground font-bold flex items-center gap-1">
+        <CheckCircle2 className="w-4 h-4" />
+        Acknowledged
+      </span>
+    );
   };
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
-      <header className={`sticky top-0 z-50 border-b ${theme === 'dark' ? 'bg-gray-950/95 border-gray-800' : 'bg-white/95 border-gray-200'} backdrop-blur-sm`}>
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-              <Shield className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold">{t("security.title", "Security Audit")}</h1>
-              <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                {t("security.subtitle", "TBURN Mainnet Security Reports")}
-              </p>
-            </div>
+    <div className={`min-h-screen ${isDark ? 'bg-[#0B1120]' : 'bg-slate-50'} transition-colors duration-300`}>
+      <header className={`h-16 border-b ${isDark ? 'border-gray-800 bg-[#0B1120]/80' : 'border-slate-200 bg-white/80'} backdrop-blur-md flex items-center justify-between px-4 lg:px-8 sticky top-0 z-10`}>
+        <div className="flex items-center gap-3">
+          <div className={`px-3 py-1 rounded-full ${isDark ? 'bg-green-900/30 border-green-800' : 'bg-green-100 border-green-200'} text-green-600 dark:text-green-400 text-xs font-bold border flex items-center gap-2`}>
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            Security Status: SAFE
           </div>
-          <div className="flex items-center gap-2">
-            <Link href="/"><Button variant="ghost" size="icon"><Home className="w-4 h-4" /></Button></Link>
-            <Link href="/qna"><Button variant="ghost" size="icon"><HelpCircle className="w-4 h-4" /></Button></Link>
-            <Link href="/scan"><Button variant="ghost" size="icon"><ScanLine className="w-4 h-4" /></Button></Link>
-            <Link href="/user"><Button variant="ghost" size="icon"><User className="w-4 h-4" /></Button></Link>
-            <Select value={i18n.language} onValueChange={(v) => i18n.changeLanguage(v)}>
-              <SelectTrigger className="w-10 h-10 p-0 rounded-full border-0 justify-center">
-                <Globe className="w-5 h-5" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="ko">한국어</SelectItem>
-                <SelectItem value="ja">日本語</SelectItem>
-                <SelectItem value="zh">中文</SelectItem>
-              </SelectContent>
-            </Select>
-            <ThemeToggle />
-          </div>
+          <span className="text-xs text-muted-foreground hidden sm:block">Last scanned: 10 mins ago</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link href="/">
+            <Button variant="ghost" size="sm" className="text-muted-foreground">
+              Home
+            </Button>
+          </Link>
+          <ThemeToggle />
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8 space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className={theme === 'dark' ? 'bg-gray-900 border-gray-800' : ''}>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <CheckCircle2 className="w-6 h-6 text-green-400" />
-                </div>
-                <div>
-                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                    {t("security.overallScore", "Overall Score")}
-                  </p>
-                  <p className={`text-2xl font-bold ${getScoreColor(totalScore)}`}>{totalScore}/100</p>
-                </div>
+      <main className="flex-1 overflow-y-auto p-4 lg:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className={`${isDark ? 'bg-[#151E32]/70 border-white/5' : 'bg-white/90 border-slate-200'} backdrop-blur-xl p-8 rounded-3xl relative overflow-hidden flex flex-col justify-center items-center text-center border border-t-4 border-t-emerald-600`} style={{ boxShadow: '0 0 20px rgba(16, 185, 129, 0.3)' }}>
+            <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4">
+              Total Security Score
+            </h2>
+            <div className="relative w-40 h-40 mb-4">
+              <svg className="w-full h-full transform -rotate-90">
+                <circle 
+                  cx="80" 
+                  cy="80" 
+                  r="70" 
+                  stroke="currentColor" 
+                  strokeWidth="12" 
+                  fill="transparent" 
+                  className={isDark ? 'text-gray-700' : 'text-slate-200'} 
+                />
+                <circle 
+                  cx="80" 
+                  cy="80" 
+                  r="70" 
+                  stroke="currentColor" 
+                  strokeWidth="12" 
+                  fill="transparent" 
+                  strokeDasharray="440" 
+                  strokeDashoffset="10" 
+                  className="text-emerald-600 transition-all duration-1000 ease-out" 
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-4xl font-mono font-bold">98</span>
+                <span className="text-xs font-bold text-emerald-600">/ 100</span>
               </div>
-            </CardContent>
-          </Card>
-          <Card className={theme === 'dark' ? 'bg-gray-900 border-gray-800' : ''}>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                    {t("security.auditsCompleted", "Audits Completed")}
-                  </p>
-                  <p className="text-2xl font-bold">{AUDIT_REPORTS.length}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className={theme === 'dark' ? 'bg-gray-900 border-gray-800' : ''}>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-green-400" />
-                </div>
-                <div>
-                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                    {t("security.criticalIssues", "Critical Issues")}
-                  </p>
-                  <p className="text-2xl font-bold text-green-400">0</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className={theme === 'dark' ? 'bg-gray-900 border-gray-800' : ''}>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <Building className="w-6 h-6 text-purple-400" />
-                </div>
-                <div>
-                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                    {t("security.auditors", "Auditors")}
-                  </p>
-                  <p className="text-2xl font-bold">4</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Card className={theme === 'dark' ? 'bg-gray-900 border-gray-800' : ''}>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />
-              {t("security.auditReports", "Audit Reports")}
-            </CardTitle>
-            <CardDescription>
-              {t("security.auditReportsDesc", "Complete security audit reports from leading blockchain security firms")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {AUDIT_REPORTS.map((report) => (
-                <div
-                  key={report.id}
-                  className={`p-4 rounded-lg border ${theme === 'dark' ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800' : 'bg-gray-50 border-gray-200 hover:bg-gray-100'} transition-colors cursor-pointer`}
-                  onClick={() => setSelectedAudit(report)}
-                  data-testid={`audit-report-${report.id}`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
-                        {report.auditorLogo}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold">{report.contractName}</h3>
-                        <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                          {t("security.by", "by")} {report.auditor} • {report.date}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="text-right">
-                        <p className={`text-lg font-bold ${getScoreColor(report.score)}`}>{report.score}/100</p>
-                        {getStatusBadge(report.status)}
-                      </div>
-                      <ChevronRight className="w-5 h-5 text-gray-400" />
-                    </div>
-                  </div>
-                  <div className="mt-4 grid grid-cols-5 gap-2 text-center text-sm">
-                    <div>
-                      <p className="text-red-400 font-bold">{report.criticalIssues}</p>
-                      <p className={theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}>{t("security.critical", "Critical")}</p>
-                    </div>
-                    <div>
-                      <p className="text-orange-400 font-bold">{report.highIssues}</p>
-                      <p className={theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}>{t("security.high", "High")}</p>
-                    </div>
-                    <div>
-                      <p className="text-yellow-400 font-bold">{report.mediumIssues}</p>
-                      <p className={theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}>{t("security.medium", "Medium")}</p>
-                    </div>
-                    <div>
-                      <p className="text-blue-400 font-bold">{report.lowIssues}</p>
-                      <p className={theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}>{t("security.low", "Low")}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-400 font-bold">{report.informational}</p>
-                      <p className={theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}>{t("security.info", "Info")}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
-          </CardContent>
-        </Card>
+            <p className="text-muted-foreground font-medium">Tier 1 Security Verified</p>
+          </div>
 
-        <Card className={theme === 'dark' ? 'bg-gray-900 border-gray-800' : ''}>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Shield className="w-5 h-5" />
-              {t("security.securityFeatures", "Security Features")}
-            </CardTitle>
-            <CardDescription>
-              {t("security.securityFeaturesDesc", "Built-in security mechanisms protecting the TBURN ecosystem")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {SECURITY_FEATURES.map((feature, index) => (
-                <div
-                  key={index}
-                  className={`p-4 rounded-lg border ${theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-gray-50 border-gray-200'}`}
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
-                      <feature.icon className="w-5 h-5 text-orange-400" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold">{feature.title}</h3>
-                      <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className={`p-6 rounded-lg border ${theme === 'dark' ? 'bg-gradient-to-r from-orange-900/20 to-red-900/20 border-orange-500/30' : 'bg-gradient-to-r from-orange-50 to-red-50 border-orange-200'}`}>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Award className="w-12 h-12 text-orange-400" />
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className={`${isDark ? 'bg-[#151E32]/70 border-white/5' : 'bg-white/90 border-slate-200'} backdrop-blur-xl p-6 rounded-2xl border flex flex-col justify-between`}>
+              <div className="mb-4 text-blue-500 text-3xl">
+                <FileText className="w-8 h-8" />
+              </div>
               <div>
-                <h3 className="text-xl font-bold">{t("security.bugBounty", "Bug Bounty Program")}</h3>
-                <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                  {t("security.bugBountyDesc", "Earn up to $500,000 for discovering critical vulnerabilities")}
-                </p>
+                <p className="text-3xl font-bold mb-1">3 / 3</p>
+                <p className="text-sm text-muted-foreground">Audits Passed</p>
               </div>
             </div>
-            <Link href="/bug-bounty">
-              <Button className="bg-orange-500 hover:bg-orange-600">
-                {t("security.learnMore", "Learn More")}
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
+            <div className={`${isDark ? 'bg-[#151E32]/70 border-white/5' : 'bg-white/90 border-slate-200'} backdrop-blur-xl p-6 rounded-2xl border flex flex-col justify-between`}>
+              <div className="mb-4 text-red-500 text-3xl">
+                <Bug className="w-8 h-8" />
+              </div>
+              <div>
+                <p className="text-3xl font-bold mb-1">0</p>
+                <p className="text-sm text-muted-foreground">Critical Issues Found</p>
+              </div>
+            </div>
+            <div className={`${isDark ? 'bg-[#151E32]/70 border-white/5' : 'bg-white/90 border-slate-200'} backdrop-blur-xl p-6 rounded-2xl border flex flex-col justify-between`}>
+              <div className="mb-4 text-yellow-500 text-3xl">
+                <Wrench className="w-8 h-8" />
+              </div>
+              <div>
+                <p className="text-3xl font-bold mb-1">100%</p>
+                <p className="text-sm text-muted-foreground">Resolution Rate</p>
+              </div>
+            </div>
           </div>
         </div>
+
+        <div className="mb-10">
+          <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+            <Award className="w-5 h-5 text-emerald-600" />
+            Verified Audit Firms
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {AUDIT_FIRMS.map((firm) => (
+              <div 
+                key={firm.id}
+                className={`${isDark ? 'bg-[#151E32]/70 border-gray-700 hover:border-emerald-600' : 'bg-white/90 border-slate-200 hover:border-emerald-600'} backdrop-blur-xl p-6 rounded-2xl border transition-colors group`}
+                data-testid={`audit-firm-${firm.id}`}
+              >
+                <div className="flex justify-between items-start mb-6 gap-3 flex-wrap">
+                  <div className={`h-12 px-4 min-w-[8rem] ${firm.logoStyle} rounded-lg flex items-center justify-center text-white font-bold text-lg`}>
+                    {firm.name}
+                  </div>
+                  <Badge className="bg-green-500/10 text-green-500 border-green-500/20">
+                    PASSED
+                  </Badge>
+                </div>
+                <div className="space-y-3 mb-6">
+                  <div className="flex justify-between gap-2 text-sm">
+                    <span className="text-muted-foreground">Scope</span>
+                    <span className="font-bold text-right">{firm.scope}</span>
+                  </div>
+                  <div className="flex justify-between gap-2 text-sm">
+                    <span className="text-muted-foreground">Date</span>
+                    <span className="font-bold">{firm.date}</span>
+                  </div>
+                  <div className="flex justify-between gap-2 text-sm">
+                    <span className="text-muted-foreground">Score</span>
+                    <span className="font-bold text-emerald-600">{firm.score}</span>
+                  </div>
+                </div>
+                <Button 
+                  variant="secondary"
+                  className="w-full"
+                  onClick={() => setSelectedReport(firm)}
+                  data-testid={`button-view-report-${firm.id}`}
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  View Report
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={`${isDark ? 'bg-[#151E32]/70 border-white/5' : 'bg-white/90 border-slate-200'} backdrop-blur-xl rounded-2xl overflow-hidden border mb-8`}>
+          <div className={`p-6 border-b ${isDark ? 'border-gray-700' : 'border-slate-200'} flex flex-wrap justify-between items-center gap-4`}>
+            <h3 className="font-bold">Detailed Findings & Resolutions</h3>
+            <div className="flex gap-3 flex-wrap">
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <span className="w-2 h-2 rounded-full bg-red-500" />Critical
+              </span>
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <span className="w-2 h-2 rounded-full bg-orange-500" />Major
+              </span>
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <span className="w-2 h-2 rounded-full bg-yellow-500" />Medium
+              </span>
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <span className="w-2 h-2 rounded-full bg-blue-500" />Info
+              </span>
+            </div>
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className={`${isDark ? 'bg-[#0B1120]' : 'bg-slate-50'} text-muted-foreground text-xs uppercase font-semibold`}>
+                  <th className="p-4">ID</th>
+                  <th className="p-4">Severity</th>
+                  <th className="p-4">Title / Description</th>
+                  <th className="p-4">Status</th>
+                  <th className="p-4 text-right">Date</th>
+                </tr>
+              </thead>
+              <tbody className={`text-sm ${isDark ? 'divide-gray-800' : 'divide-slate-100'} divide-y`}>
+                {FINDINGS.map((finding) => (
+                  <tr 
+                    key={finding.id}
+                    className={`${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}
+                    data-testid={`finding-${finding.id}`}
+                  >
+                    <td className="p-4 font-mono">{finding.id}</td>
+                    <td className="p-4">{getSeverityBadge(finding.severity)}</td>
+                    <td className="p-4">
+                      <p className="font-bold">{finding.title}</p>
+                      <p className="text-xs text-muted-foreground">{finding.description}</p>
+                    </td>
+                    <td className="p-4">{getStatusDisplay(finding.status)}</td>
+                    <td className="p-4 text-right font-mono">{finding.date}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className={`${isDark ? 'bg-gradient-to-r from-blue-900/20 to-purple-900/20 border-white/10' : 'bg-gradient-to-r from-slate-900 to-slate-800 border-slate-700'} rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 border`}>
+          <div>
+            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+              <Shield className="w-6 h-6" />
+              Bug Bounty Program
+            </h3>
+            <p className="text-slate-300 text-sm">
+              Found a vulnerability? Report it to the TBURN security team and earn up to $1,000,000 in rewards.
+            </p>
+          </div>
+          <Link href="/bug-bounty">
+            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white whitespace-nowrap shadow-lg shadow-emerald-500/20">
+              Submit Report
+              <ExternalLink className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        </div>
+
+        <p className="text-center text-xs text-muted-foreground mt-12 mb-4">
+          Security is a journey, not a destination. TBURN is committed to 24/7 monitoring.
+        </p>
       </main>
+
+      <Dialog open={!!selectedReport} onOpenChange={() => setSelectedReport(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-red-500" />
+              {selectedReport?.reportFile}
+            </DialogTitle>
+            <DialogDescription>
+              By {selectedReport?.name}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className={`flex-1 p-8 ${isDark ? 'bg-black/40' : 'bg-slate-100'} rounded-lg`}>
+            <div className="aspect-[3/4] bg-white shadow-lg mx-auto max-w-sm flex flex-col items-center justify-center p-8 text-center border border-slate-200 rounded-lg">
+              <div className="w-24 h-24 mb-6 rounded-full bg-slate-100 flex items-center justify-center">
+                <Shield className="w-12 h-12 text-emerald-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-slate-800 mb-2">SECURITY AUDIT REPORT</h2>
+              <p className="text-slate-500 mb-8">By {selectedReport?.name}</p>
+              <div className="w-full space-y-2">
+                <div className="w-full h-2 bg-slate-100 rounded" />
+                <div className="w-2/3 h-2 bg-slate-100 rounded mx-auto" />
+                <div className="w-5/6 h-2 bg-slate-100 rounded mx-auto" />
+              </div>
+              <p className="text-xs text-slate-400 mt-8">This is a preview. Please download for full details.</p>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            <Button variant="outline" onClick={() => setSelectedReport(null)}>
+              Close
+            </Button>
+            <Button className="bg-blue-500 hover:bg-blue-600">
+              <Download className="w-4 h-4 mr-2" />
+              Download PDF
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
