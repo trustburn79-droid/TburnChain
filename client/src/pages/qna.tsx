@@ -33,7 +33,9 @@ import {
   Coins,
   BookOpen,
   Headphones,
-  ExternalLink
+  ExternalLink,
+  Bug,
+  Hexagon
 } from 'lucide-react';
 import { Link } from 'wouter';
 import { useTheme } from '@/components/theme-provider';
@@ -182,6 +184,26 @@ export default function QnAPage() {
               data-testid="link-nav-user"
             >
               <User className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href="/bug-bounty">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
+              data-testid="link-nav-bug-bounty"
+            >
+              <Bug className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href="/token-generator">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
+              data-testid="link-nav-token-generator"
+            >
+              <Hexagon className="h-5 w-5" />
             </Button>
           </Link>
           <div className="w-px h-6 bg-slate-200 dark:bg-gray-700 mx-1" />
