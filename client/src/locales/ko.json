@@ -28332,7 +28332,13 @@
       "change": "변동",
       "totalItems": "전체 아이템",
       "collections": "컬렉션",
-      "activeSellers": "활성 판매자"
+      "activeSellers": "활성 판매자",
+      "totalVolumeStat": "총 거래량",
+      "volume24hStat": "24시간 거래량",
+      "sales24h": "24시간 판매",
+      "activeListings": "활성 리스팅",
+      "totalCollections": "전체 컬렉션",
+      "collectionRankings": "컬렉션 순위"
     },
     "tabs": {
       "overview": "개요",
@@ -28438,6 +28444,31 @@
     "walletRequired": {
       "title": "지갑 연결 필요",
       "description": "내 컬렉션을 보려면 지갑을 연결하세요"
+    },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "컬렉션",
+      "floor": "최저가",
+      "floorPrice": "최저가",
+      "volume24h": "24시간 거래량",
+      "totalVolume": "총 거래량",
+      "items": "아이템",
+      "owners": "소유자"
+    },
+    "activityEvents": {
+      "sale": "판매",
+      "listing": "등록",
+      "bid": "입찰",
+      "transfer": "전송",
+      "mint": "민트"
+    },
+    "rarity": {
+      "legendary": "레전더리",
+      "epic": "에픽",
+      "rare": "레어",
+      "uncommon": "언커먼",
+      "common": "커먼",
+      "mythic": "미틱"
     },
     "liveSales": "실시간 판매",
     "soldFor": "에 판매됨",

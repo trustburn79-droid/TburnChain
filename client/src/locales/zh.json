@@ -15693,7 +15693,13 @@
       "change": "变化",
       "totalItems": "总物品",
       "collections": "收藏集",
-      "activeSellers": "活跃卖家"
+      "activeSellers": "活跃卖家",
+      "totalVolumeStat": "总交易量",
+      "volume24hStat": "24小时交易量",
+      "sales24h": "24小时销售",
+      "activeListings": "活跃列表",
+      "totalCollections": "全部收藏",
+      "collectionRankings": "收藏排名"
     },
     "tabs": {
       "overview": "概览",
@@ -15799,6 +15805,31 @@
     "walletRequired": {
       "title": "需要钱包",
       "description": "请连接您的钱包以查看我的收藏"
+    },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "收藏集",
+      "floor": "地板价",
+      "floorPrice": "地板价",
+      "volume24h": "24小时交易量",
+      "totalVolume": "总交易量",
+      "items": "物品",
+      "owners": "所有者"
+    },
+    "activityEvents": {
+      "sale": "销售",
+      "listing": "上架",
+      "bid": "出价",
+      "transfer": "转移",
+      "mint": "铸造"
+    },
+    "rarity": {
+      "legendary": "传奇",
+      "epic": "史诗",
+      "rare": "稀有",
+      "uncommon": "罕见",
+      "common": "普通",
+      "mythic": "神话"
     },
     "liveSales": "实时销售",
     "soldFor": "以...出售",

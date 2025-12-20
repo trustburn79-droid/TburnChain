@@ -13456,6 +13456,31 @@
       "title": "Carteira Necessária",
       "description": "Por favor conecte sua carteira para ver Minha Coleção"
     },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "Coleção",
+      "floor": "Preço mínimo",
+      "floorPrice": "Preço mínimo",
+      "volume24h": "Volume 24h",
+      "totalVolume": "Volume total",
+      "items": "Itens",
+      "owners": "proprietários"
+    },
+    "activityEvents": {
+      "sale": "Venda",
+      "listing": "Listagem",
+      "bid": "Lance",
+      "transfer": "Transferência",
+      "mint": "Cunhar"
+    },
+    "rarity": {
+      "legendary": "LENDÁRIO",
+      "epic": "ÉPICO",
+      "rare": "RARO",
+      "uncommon": "INCOMUM",
+      "common": "COMUM",
+      "mythic": "MÍTICO"
+    },
     "liveSales": "VENDAS AO VIVO",
     "soldFor": "vendido por",
     "description": "Descrição",

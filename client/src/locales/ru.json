@@ -13004,6 +13004,31 @@
       "title": "Требуется Кошелек",
       "description": "Подключите кошелек для просмотра Моей Коллекции"
     },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "Коллекция",
+      "floor": "Минимальная цена",
+      "floorPrice": "Минимальная цена",
+      "volume24h": "Объем за 24ч",
+      "totalVolume": "Общий объем",
+      "items": "Предметы",
+      "owners": "владельцев"
+    },
+    "activityEvents": {
+      "sale": "Продажа",
+      "listing": "Листинг",
+      "bid": "Ставка",
+      "transfer": "Перевод",
+      "mint": "Минт"
+    },
+    "rarity": {
+      "legendary": "ЛЕГЕНДАРНЫЙ",
+      "epic": "ЭПИЧЕСКИЙ",
+      "rare": "РЕДКИЙ",
+      "uncommon": "НЕОБЫЧНЫЙ",
+      "common": "ОБЫЧНЫЙ",
+      "mythic": "МИФИЧЕСКИЙ"
+    },
     "liveSales": "ПРОДАЖИ",
     "soldFor": "продано за",
     "description": "Описание",

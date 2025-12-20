@@ -13595,7 +13595,13 @@
       "change": "Variation",
       "totalItems": "Total des Articles",
       "collections": "Collections",
-      "activeSellers": "Vendeurs Actifs"
+      "activeSellers": "TEMP_SELLER",
+      "totalVolumeStat": "Volume Total",
+      "volume24hStat": "Volume 24h",
+      "sales24h": "Ventes 24h",
+      "activeListings": "Annonces Actives",
+      "totalCollections": "Total Collections",
+      "collectionRankings": "Classement des Collections"
     },
     "tabs": {
       "overview": "Aperçu",
@@ -13695,6 +13701,31 @@
     "walletRequired": {
       "title": "Portefeuille Requis",
       "description": "Veuillez connecter votre portefeuille pour voir Ma Collection"
+    },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "Collection",
+      "floor": "Prix plancher",
+      "floorPrice": "Prix plancher",
+      "volume24h": "Volume 24h",
+      "totalVolume": "Volume total",
+      "items": "Articles",
+      "owners": "propriétaires"
+    },
+    "activityEvents": {
+      "sale": "Vente",
+      "listing": "Liste",
+      "bid": "Enchère",
+      "transfer": "Transfert",
+      "mint": "Frappe"
+    },
+    "rarity": {
+      "legendary": "LÉGENDAIRE",
+      "epic": "ÉPIQUE",
+      "rare": "RARE",
+      "uncommon": "PEU COMMUN",
+      "common": "COMMUN",
+      "mythic": "MYTHIQUE"
     },
     "liveSales": "VENTES EN DIRECT",
     "soldFor": "vendu pour",

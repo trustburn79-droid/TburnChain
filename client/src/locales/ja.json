@@ -16569,7 +16569,13 @@
       "change": "変動",
       "totalItems": "総アイテム数",
       "collections": "コレクション",
-      "activeSellers": "アクティブ販売者"
+      "activeSellers": "アクティブ販売者",
+      "totalVolumeStat": "総取引量",
+      "volume24hStat": "24時間取引量",
+      "sales24h": "24時間販売",
+      "activeListings": "アクティブリスティング",
+      "totalCollections": "全コレクション",
+      "collectionRankings": "コレクションランキング"
     },
     "tabs": {
       "overview": "概要",
@@ -16675,6 +16681,31 @@
     "walletRequired": {
       "title": "ウォレット接続が必要",
       "description": "マイコレクションを表示するにはウォレットを接続してください"
+    },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "コレクション",
+      "floor": "フロア価格",
+      "floorPrice": "フロア価格",
+      "volume24h": "24時間取引量",
+      "totalVolume": "総取引量",
+      "items": "アイテム",
+      "owners": "所有者"
+    },
+    "activityEvents": {
+      "sale": "販売",
+      "listing": "出品",
+      "bid": "入札",
+      "transfer": "転送",
+      "mint": "ミント"
+    },
+    "rarity": {
+      "legendary": "レジェンダリー",
+      "epic": "エピック",
+      "rare": "レア",
+      "uncommon": "アンコモン",
+      "common": "コモン",
+      "mythic": "ミシック"
     },
     "liveSales": "ライブセール",
     "soldFor": "で販売",

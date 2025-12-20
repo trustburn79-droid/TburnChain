@@ -394,7 +394,7 @@ function ItemDetailDialog({ open, onOpenChange, item, collection, listings, acti
             <div className="flex items-center gap-3 flex-wrap">
               {item.rarityTier && (
                 <span className={`${getRarityColor(item.rarityTier)} text-xs font-bold px-3 py-1 rounded uppercase`}>
-                  {item.rarityTier}
+                  {t(`nftMarketplacePage.rarity.${item.rarityTier.toLowerCase()}`)}
                 </span>
               )}
               {item.rarityScore && (
@@ -1113,7 +1113,7 @@ export default function NftMarketplaceStandalone() {
                       <DollarSign className="w-6 h-6 text-violet-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">총 거래량</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.totalVolumeStat')}</p>
                       <p className="font-bold font-mono text-xl text-white">{formatAmount((overview as any)?.totalVolume || overview?.totalVolume24h || "0")} TB</p>
                       <p className="text-xs text-emerald-400 flex items-center gap-1"><TrendingUp className="w-3 h-3" />+12.5%</p>
                     </div>
@@ -1125,7 +1125,7 @@ export default function NftMarketplaceStandalone() {
                       <Activity className="w-6 h-6 text-blue-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">24h 거래량</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.volume24hStat')}</p>
                       <p className="font-bold font-mono text-xl text-white">{formatAmount(overview?.totalVolume24h || "0")} TB</p>
                       <p className="text-xs text-emerald-400 flex items-center gap-1"><TrendingUp className="w-3 h-3" />+8.2%</p>
                     </div>
@@ -1137,7 +1137,7 @@ export default function NftMarketplaceStandalone() {
                       <ShoppingCart className="w-6 h-6 text-emerald-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">24h 판매</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.sales24h')}</p>
                       <p className="font-bold font-mono text-xl text-white">{(overview as any)?.totalSales24h?.toLocaleString() || activity?.filter(a => a.eventType === 'sale').length || 0}</p>
                       <p className="text-xs text-emerald-400 flex items-center gap-1"><TrendingUp className="w-3 h-3" />+5.1%</p>
                     </div>
@@ -1149,9 +1149,9 @@ export default function NftMarketplaceStandalone() {
                       <Layers className="w-6 h-6 text-amber-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">활성 리스팅</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.activeListings')}</p>
                       <p className="font-bold font-mono text-xl text-white">{listings?.length?.toLocaleString() || 0}</p>
-                      <p className="text-xs text-gray-400">전체 컬렉션</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.totalCollections')}</p>
                     </div>
                   </div>
                 </GlassPanel>
@@ -1162,18 +1162,18 @@ export default function NftMarketplaceStandalone() {
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold text-white flex items-center gap-2">
                     <Crown className="w-5 h-5 text-amber-400" />
-                    컬렉션 순위
+                    {t('nftMarketplacePage.stats.collectionRankings')}
                   </h2>
                   <Badge className="bg-violet-500/20 text-violet-400 border-violet-500/30">Top {collections?.length || 0}</Badge>
                 </div>
                 <div className="space-y-1">
                   <div className="grid grid-cols-12 gap-4 px-4 py-2 text-xs text-gray-400 font-bold uppercase tracking-wider border-b border-gray-700">
-                    <div className="col-span-1">#</div>
-                    <div className="col-span-4">컬렉션</div>
-                    <div className="col-span-2 text-right">Floor Price</div>
-                    <div className="col-span-2 text-right">24h Volume</div>
-                    <div className="col-span-2 text-right">Total Volume</div>
-                    <div className="col-span-1 text-right">Items</div>
+                    <div className="col-span-1">{t('nftMarketplacePage.collectionsTable.rank')}</div>
+                    <div className="col-span-4">{t('nftMarketplacePage.collectionsTable.collection')}</div>
+                    <div className="col-span-2 text-right">{t('nftMarketplacePage.collectionsTable.floorPrice')}</div>
+                    <div className="col-span-2 text-right">{t('nftMarketplacePage.collectionsTable.volume24h')}</div>
+                    <div className="col-span-2 text-right">{t('nftMarketplacePage.collectionsTable.totalVolume')}</div>
+                    <div className="col-span-1 text-right">{t('nftMarketplacePage.collectionsTable.items')}</div>
                   </div>
                   {collectionsLoading ? (
                     Array(5).fill(0).map((_, i) => (
@@ -1206,7 +1206,7 @@ export default function NftMarketplaceStandalone() {
                               <span className="font-medium text-white truncate">{collection.name}</span>
                               {collection.verified && <CheckCircle className="w-4 h-4 text-violet-400 shrink-0" />}
                             </div>
-                            <span className="text-xs text-gray-400">{collection.owners?.toLocaleString() || 0} owners</span>
+                            <span className="text-xs text-gray-400">{collection.owners?.toLocaleString() || 0} {t('nftMarketplacePage.collectionsTable.owners')}</span>
                           </div>
                         </div>
                         <div className="col-span-2 text-right font-mono text-white">{formatAmount(collection.floorPrice)} TB</div>
@@ -1650,11 +1650,11 @@ export default function NftMarketplaceStandalone() {
                       <p className="text-gray-400 text-sm line-clamp-2 mb-4">{collection.description}</p>
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         <div className="bg-gray-800 rounded-lg p-2 text-center">
-                          <p className="text-gray-400 text-xs">Floor</p>
+                          <p className="text-gray-400 text-xs">{t('nftMarketplacePage.collectionsTable.floor')}</p>
                           <p className="font-mono font-bold text-white">{formatAmount(collection.floorPrice || "0")} TB</p>
                         </div>
                         <div className="bg-gray-800 rounded-lg p-2 text-center">
-                          <p className="text-gray-400 text-xs">Items</p>
+                          <p className="text-gray-400 text-xs">{t('nftMarketplacePage.collectionsTable.items')}</p>
                           <p className="font-mono font-bold text-white">{collection.totalItems?.toLocaleString() || 0}</p>
                         </div>
                       </div>
@@ -1738,7 +1738,7 @@ export default function NftMarketplaceStandalone() {
                           event.eventType === 'bid' ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' :
                           'bg-violet-500/20 text-violet-400 border-violet-500/30'
                         }`}>
-                          {event.eventType?.charAt(0).toUpperCase() + event.eventType?.slice(1)}
+                          {t(`nftMarketplacePage.activityEvents.${event.eventType || 'sale'}`)}
                         </Badge>
                       </div>
                     );

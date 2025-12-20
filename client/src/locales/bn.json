@@ -11847,6 +11847,31 @@
       "title": "ওয়ালেট প্রয়োজন",
       "description": "আমার সংগ্রহ দেখতে অনুগ্রহ করে আপনার ওয়ালেট সংযুক্ত করুন"
     },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "সংগ্রহ",
+      "floor": "সর্বনিম্ন মূল্য",
+      "floorPrice": "সর্বনিম্ন মূল্য",
+      "volume24h": "২৪ঘন্টা ভলিউম",
+      "totalVolume": "মোট ভলিউম",
+      "items": "আইটেম",
+      "owners": "মালিক"
+    },
+    "activityEvents": {
+      "sale": "বিক্রয়",
+      "listing": "তালিকাভুক্তি",
+      "bid": "বিড",
+      "transfer": "স্থানান্তর",
+      "mint": "মিন্ট"
+    },
+    "rarity": {
+      "legendary": "লেজেন্ডারি",
+      "epic": "এপিক",
+      "rare": "রেয়ার",
+      "uncommon": "আনকমন",
+      "common": "কমন",
+      "mythic": "মিথিক"
+    },
     "liveSales": "লাইভ বিক্রয়",
     "soldFor": "বিক্রি হয়েছে",
     "description": "বিবরণ",

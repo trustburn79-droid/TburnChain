@@ -14267,6 +14267,31 @@
       "title": "वॉलेट आवश्यक",
       "description": "मेरा संग्रह देखने के लिए कृपया अपना वॉलेट कनेक्ट करें"
     },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "संग्रह",
+      "floor": "न्यूनतम मूल्य",
+      "floorPrice": "न्यूनतम मूल्य",
+      "volume24h": "24घं मात्रा",
+      "totalVolume": "कुल मात्रा",
+      "items": "आइटम",
+      "owners": "मालिक"
+    },
+    "activityEvents": {
+      "sale": "बिक्री",
+      "listing": "सूचीकरण",
+      "bid": "बोली",
+      "transfer": "स्थानांतरण",
+      "mint": "मिंट"
+    },
+    "rarity": {
+      "legendary": "लेजेंडरी",
+      "epic": "एपिक",
+      "rare": "रेयर",
+      "uncommon": "अनकॉमन",
+      "common": "कॉमन",
+      "mythic": "मिथिक"
+    },
     "liveSales": "लाइव बिक्री",
     "soldFor": "के लिए बिका",
     "description": "विवरण",

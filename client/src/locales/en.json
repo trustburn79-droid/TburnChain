@@ -24407,6 +24407,12 @@
       "totalItems": "Total Items",
       "collections": "Collections",
       "activeSellers": "Active Sellers",
+      "totalVolumeStat": "Total Volume",
+      "volume24hStat": "24h Volume",
+      "sales24h": "24h Sales",
+      "activeListings": "Active Listings",
+      "totalCollections": "Total Collections",
+      "collectionRankings": "Collection Rankings",
     "trend": "Trend",
     "increasing": "Increasing",
     "decreasing": "Decreasing",
@@ -27112,7 +27118,13 @@
       "change": "Change",
       "totalItems": "Total Items",
       "collections": "Collections",
-      "activeSellers": "Active Sellers"
+      "activeSellers": "Active Sellers",
+      "totalVolumeStat": "Total Volume",
+      "volume24hStat": "24h Volume",
+      "sales24h": "24h Sales",
+      "activeListings": "Active Listings",
+      "totalCollections": "Total Collections",
+      "collectionRankings": "Collection Rankings"
     },
     "tabs": {
       "overview": "Overview",
@@ -27218,6 +27230,31 @@
     "walletRequired": {
       "title": "Wallet Required",
       "description": "Please connect your wallet to view My Collection"
+    },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "Collection",
+      "floor": "Floor",
+      "floorPrice": "Floor Price",
+      "volume24h": "24h Volume",
+      "totalVolume": "Total Volume",
+      "items": "Items",
+      "owners": "owners"
+    },
+    "activityEvents": {
+      "sale": "Sale",
+      "listing": "Listing",
+      "bid": "Bid",
+      "transfer": "Transfer",
+      "mint": "Mint"
+    },
+    "rarity": {
+      "legendary": "LEGENDARY",
+      "epic": "EPIC",
+      "rare": "RARE",
+      "uncommon": "UNCOMMON",
+      "common": "COMMON",
+      "mythic": "MYTHIC"
     },
     "liveSales": "LIVE SALES",
     "soldFor": "sold for",

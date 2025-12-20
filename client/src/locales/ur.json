@@ -12091,6 +12091,31 @@
       "title": "والیٹ درکار ہے",
       "description": "میرا مجموعہ دیکھنے کے لیے براہ کرم اپنا والیٹ جوڑیں"
     },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "مجموعہ",
+      "floor": "کم از کم قیمت",
+      "floorPrice": "کم از کم قیمت",
+      "volume24h": "24 گھنٹے حجم",
+      "totalVolume": "کل حجم",
+      "items": "آئٹمز",
+      "owners": "مالکان"
+    },
+    "activityEvents": {
+      "sale": "فروخت",
+      "listing": "فہرست",
+      "bid": "بولی",
+      "transfer": "منتقلی",
+      "mint": "منٹ"
+    },
+    "rarity": {
+      "legendary": "لیجنڈری",
+      "epic": "ایپک",
+      "rare": "ریئر",
+      "uncommon": "ان کامن",
+      "common": "کامن",
+      "mythic": "میتھک"
+    },
     "liveSales": "براہ راست فروخت",
     "soldFor": "فروخت ہوا",
     "description": "تفصیل",

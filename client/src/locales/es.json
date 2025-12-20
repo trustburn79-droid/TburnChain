@@ -15625,7 +15625,13 @@
       "change": "Cambio",
       "totalItems": "Total de Artículos",
       "collections": "Colecciones",
-      "activeSellers": "Vendedores Activos"
+      "activeSellers": "TEMP_SELLER",
+      "totalVolumeStat": "Volumen Total",
+      "volume24hStat": "Volumen 24h",
+      "sales24h": "Ventas 24h",
+      "activeListings": "Listados Activos",
+      "totalCollections": "Total Colecciones",
+      "collectionRankings": "Rankings de Colección"
     },
     "tabs": {
       "overview": "Resumen",
@@ -15731,6 +15737,31 @@
     "walletRequired": {
       "title": "Wallet Requerida",
       "description": "Por favor conecte su wallet para ver Mi Colección"
+    },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "Colección",
+      "floor": "Precio mínimo",
+      "floorPrice": "Precio mínimo",
+      "volume24h": "Volumen 24h",
+      "totalVolume": "Volumen total",
+      "items": "Artículos",
+      "owners": "propietarios"
+    },
+    "activityEvents": {
+      "sale": "Venta",
+      "listing": "Listado",
+      "bid": "Oferta",
+      "transfer": "Transferencia",
+      "mint": "Acuñar"
+    },
+    "rarity": {
+      "legendary": "LEGENDARIO",
+      "epic": "ÉPICO",
+      "rare": "RARO",
+      "uncommon": "POCO COMÚN",
+      "common": "COMÚN",
+      "mythic": "MÍTICO"
     },
     "liveSales": "VENTAS EN VIVO",
     "soldFor": "vendido por",

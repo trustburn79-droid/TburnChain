@@ -13630,6 +13630,31 @@
       "title": "المحفظة مطلوبة",
       "description": "يرجى توصيل محفظتك لعرض مجموعتي"
     },
+    "collectionsTable": {
+      "rank": "#",
+      "collection": "مجموعة",
+      "floor": "الحد الأدنى للسعر",
+      "floorPrice": "الحد الأدنى للسعر",
+      "volume24h": "حجم 24 ساعة",
+      "totalVolume": "الحجم الإجمالي",
+      "items": "العناصر",
+      "owners": "المالكين"
+    },
+    "activityEvents": {
+      "sale": "بيع",
+      "listing": "إدراج",
+      "bid": "مزايدة",
+      "transfer": "نقل",
+      "mint": "سك"
+    },
+    "rarity": {
+      "legendary": "أسطوري",
+      "epic": "ملحمي",
+      "rare": "نادر",
+      "uncommon": "غير شائع",
+      "common": "شائع",
+      "mythic": "أسطوري"
+    },
     "liveSales": "مبيعات مباشرة",
     "soldFor": "بيع بـ",
     "description": "الوصف",
