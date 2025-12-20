@@ -33,9 +33,12 @@ import {
   UserCircle,
   Biohazard,
   ExternalLink,
+  Loader2,
 } from "lucide-react";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 interface Hunter {
   rank: number;
@@ -52,6 +55,14 @@ const HUNTERS: Hunter[] = [
   { rank: 5, name: "SolidityDev", points: 3100, earned: "$12,000" },
 ];
 
+const ASSET_MAP: Record<string, string> = {
+  "Smart Contracts (Core)": "smart_contracts",
+  "Node Client": "node_client",
+  "Website / API": "website_api",
+  "Bridge": "bridge",
+  "Other": "other",
+};
+
 export default function BugBountyPage() {
   const { theme } = useTheme();
   const { toast } = useToast();
@@ -60,6 +71,9 @@ export default function BugBountyPage() {
     asset: "Smart Contracts (Core)",
     title: "",
     description: "",
+    email: "",
+    wallet: "",
+    severity: "medium",
   });
   
   const isDark = theme === 'dark';
@@ -71,14 +85,46 @@ export default function BugBountyPage() {
     return "bg-slate-700 text-white";
   };
 
+  const submitMutation = useMutation({
+    mutationFn: async (data: typeof reportForm) => {
+      const res = await apiRequest("POST", "/api/bug-bounty", {
+        reporterEmail: data.email || undefined,
+        reporterWallet: data.wallet || undefined,
+        title: data.title,
+        description: data.description,
+        assetTarget: ASSET_MAP[data.asset] || "smart_contracts",
+        reportedSeverity: data.severity,
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Report Submitted Successfully",
+        description: `Report ID: ${data.reportId}. Our security team will review it shortly.`,
+      });
+      setShowReportModal(false);
+      setReportForm({ asset: "Smart Contracts (Core)", title: "", description: "", email: "", wallet: "", severity: "medium" });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Submission Failed",
+        description: error.message || "Failed to submit report. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleSubmitReport = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Report Submitted",
-      description: "Your report has been submitted securely via PGP encryption.",
-    });
-    setShowReportModal(false);
-    setReportForm({ asset: "Smart Contracts (Core)", title: "", description: "" });
+    if (!reportForm.title.trim() || !reportForm.description.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Title and description are required.",
+        variant: "destructive",
+      });
+      return;
+    }
+    submitMutation.mutate(reportForm);
   };
 
   return (
@@ -355,27 +401,80 @@ export default function BugBountyPage() {
           </DialogHeader>
           
           <form onSubmit={handleSubmitReport} className="space-y-4">
-            <div>
-              <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                Target Asset
-              </label>
-              <Select 
-                value={reportForm.asset} 
-                onValueChange={(v) => setReportForm({ ...reportForm, asset: v })}
-              >
-                <SelectTrigger className={isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-100 border-slate-200'}>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Smart Contracts (Core)">Smart Contracts (Core)</SelectItem>
-                  <SelectItem value="Node Client">Node Client</SelectItem>
-                  <SelectItem value="Website / API">Website / API</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
+                  Email (optional)
+                </label>
+                <Input 
+                  type="email"
+                  placeholder="your@email.com"
+                  value={reportForm.email}
+                  onChange={(e) => setReportForm({ ...reportForm, email: e.target.value })}
+                  className={isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-100 border-slate-200'}
+                  data-testid="input-reporter-email"
+                />
+              </div>
+              <div>
+                <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
+                  Wallet (optional)
+                </label>
+                <Input 
+                  placeholder="tb1..."
+                  value={reportForm.wallet}
+                  onChange={(e) => setReportForm({ ...reportForm, wallet: e.target.value })}
+                  className={isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-100 border-slate-200'}
+                  data-testid="input-reporter-wallet"
+                />
+              </div>
             </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
+                  Target Asset
+                </label>
+                <Select 
+                  value={reportForm.asset} 
+                  onValueChange={(v) => setReportForm({ ...reportForm, asset: v })}
+                >
+                  <SelectTrigger className={isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-100 border-slate-200'}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Smart Contracts (Core)">Smart Contracts (Core)</SelectItem>
+                    <SelectItem value="Node Client">Node Client</SelectItem>
+                    <SelectItem value="Website / API">Website / API</SelectItem>
+                    <SelectItem value="Bridge">Bridge</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
+                  Severity
+                </label>
+                <Select 
+                  value={reportForm.severity} 
+                  onValueChange={(v) => setReportForm({ ...reportForm, severity: v })}
+                >
+                  <SelectTrigger className={isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-100 border-slate-200'}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="critical">Critical</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="informational">Informational</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
             <div>
               <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                Vulnerability Title
+                Vulnerability Title <span className="text-rose-500">*</span>
               </label>
               <Input 
                 placeholder="e.g. Reentrancy in Staking.sol"
@@ -383,11 +482,12 @@ export default function BugBountyPage() {
                 onChange={(e) => setReportForm({ ...reportForm, title: e.target.value })}
                 className={isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-100 border-slate-200'}
                 data-testid="input-vulnerability-title"
+                required
               />
             </div>
             <div>
               <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                Description (Markdown)
+                Description (Markdown) <span className="text-rose-500">*</span>
               </label>
               <Textarea 
                 rows={4}
@@ -396,20 +496,29 @@ export default function BugBountyPage() {
                 onChange={(e) => setReportForm({ ...reportForm, description: e.target.value })}
                 className={isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-100 border-slate-200'}
                 data-testid="textarea-vulnerability-description"
+                required
               />
             </div>
             
             <div className={`p-3 rounded text-xs border ${isDark ? 'bg-black/20 border-gray-700 text-gray-400' : 'bg-slate-50 border-slate-200 text-slate-500'}`}>
               <Lock className="w-3 h-3 inline mr-1" />
-              Your report will be encrypted. We may contact you for more details.
+              Your report will be securely stored. We will contact you via email or wallet for updates.
             </div>
 
             <Button 
               type="submit" 
               className="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold shadow-lg shadow-rose-500/30"
               data-testid="button-submit-vulnerability"
+              disabled={submitMutation.isPending}
             >
-              Submit Securely
+              {submitMutation.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                "Submit Securely"
+              )}
             </Button>
           </form>
         </DialogContent>
