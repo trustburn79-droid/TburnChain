@@ -349,6 +349,10 @@ import {
   // AI Training & Parameters Tables
   aiTrainingJobs,
   aiParameters,
+  // Bug Bounty
+  bugBountyReports,
+  type BugBountyReport,
+  type InsertBugBountyReport,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -1080,6 +1084,23 @@ export interface IStorage {
   getFaucetRequestsByAddress(walletAddress: string): Promise<TestnetFaucetRequest[]>;
   createFaucetRequest(data: InsertTestnetFaucetRequest): Promise<TestnetFaucetRequest>;
   completeFaucetRequest(id: string, txHash: string): Promise<void>;
+
+  // ============================================
+  // Bug Bounty Reports
+  // ============================================
+  getAllBugBountyReports(): Promise<BugBountyReport[]>;
+  getBugBountyReportById(id: string): Promise<BugBountyReport | undefined>;
+  getBugBountyReportsByStatus(status: string): Promise<BugBountyReport[]>;
+  getBugBountyReportsByEmail(email: string): Promise<BugBountyReport[]>;
+  getBugBountyReportsByWallet(wallet: string): Promise<BugBountyReport[]>;
+  createBugBountyReport(data: InsertBugBountyReport): Promise<BugBountyReport>;
+  updateBugBountyReport(id: string, data: Partial<BugBountyReport>): Promise<void>;
+  getBugBountyStats(): Promise<{ 
+    totalReports: number;
+    pendingReports: number;
+    acceptedReports: number;
+    totalPaidUsd: number;
+  }>;
 }
 
 export class MemStorage implements IStorage {
@@ -6598,6 +6619,74 @@ export class DbStorage implements IStorage {
         completedAt: new Date()
       })
       .where(eq(testnetFaucetRequests.id, id));
+  }
+
+  // ============================================
+  // Bug Bounty Reports
+  // ============================================
+  
+  async getAllBugBountyReports(): Promise<BugBountyReport[]> {
+    return db.select().from(bugBountyReports).orderBy(desc(bugBountyReports.createdAt));
+  }
+
+  async getBugBountyReportById(id: string): Promise<BugBountyReport | undefined> {
+    const [report] = await db.select().from(bugBountyReports).where(eq(bugBountyReports.id, id));
+    return report;
+  }
+
+  async getBugBountyReportsByStatus(status: string): Promise<BugBountyReport[]> {
+    return db.select().from(bugBountyReports)
+      .where(eq(bugBountyReports.status, status))
+      .orderBy(desc(bugBountyReports.createdAt));
+  }
+
+  async getBugBountyReportsByEmail(email: string): Promise<BugBountyReport[]> {
+    return db.select().from(bugBountyReports)
+      .where(eq(bugBountyReports.reporterEmail, email.toLowerCase()))
+      .orderBy(desc(bugBountyReports.createdAt));
+  }
+
+  async getBugBountyReportsByWallet(wallet: string): Promise<BugBountyReport[]> {
+    return db.select().from(bugBountyReports)
+      .where(eq(bugBountyReports.reporterWallet, wallet.toLowerCase()))
+      .orderBy(desc(bugBountyReports.createdAt));
+  }
+
+  async createBugBountyReport(data: InsertBugBountyReport): Promise<BugBountyReport> {
+    const [result] = await db.insert(bugBountyReports).values({
+      ...data,
+      id: `bb-${randomUUID()}`,
+      reporterEmail: data.reporterEmail?.toLowerCase(),
+      reporterWallet: data.reporterWallet?.toLowerCase(),
+    }).returning();
+    return result;
+  }
+
+  async updateBugBountyReport(id: string, data: Partial<BugBountyReport>): Promise<void> {
+    await db.update(bugBountyReports)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(bugBountyReports.id, id));
+  }
+
+  async getBugBountyStats(): Promise<{ 
+    totalReports: number;
+    pendingReports: number;
+    acceptedReports: number;
+    totalPaidUsd: number;
+  }> {
+    const allReports = await this.getAllBugBountyReports();
+    const pendingReports = allReports.filter(r => r.status === 'pending' || r.status === 'reviewing');
+    const acceptedReports = allReports.filter(r => r.status === 'accepted' || r.status === 'paid');
+    const totalPaidUsd = allReports
+      .filter(r => r.status === 'paid')
+      .reduce((sum, r) => sum + (parseFloat(r.rewardUsd || '0')), 0);
+    
+    return {
+      totalReports: allReports.length,
+      pendingReports: pendingReports.length,
+      acceptedReports: acceptedReports.length,
+      totalPaidUsd,
+    };
   }
 }
 
