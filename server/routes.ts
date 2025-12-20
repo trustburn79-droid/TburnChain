@@ -984,6 +984,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/bug-bounty")) {
       return next();
     }
+    // Skip auth for Staking public read-only endpoints (stats, pools, tiers, validators)
+    if (req.method === "GET" && (
+        req.path === "/staking/stats" ||
+        req.path === "/staking/pools" ||
+        req.path.startsWith("/staking/pools/") ||
+        req.path === "/staking/tiers" ||
+        req.path === "/staking/validators" ||
+        req.path.startsWith("/staking/validators/") ||
+        req.path === "/staking/slashing" ||
+        req.path === "/staking/unbonding" ||
+        req.path.startsWith("/staking/rewards/cycles") ||
+        req.path.startsWith("/staking/rewards/current") ||
+        req.path.startsWith("/staking/token/info"))) {
+      return next();
+    }
+    // Skip auth for Help Center public read-only endpoints
+    if (req.method === "GET" && req.path.startsWith("/help/")) {
+      return next();
+    }
+    // Skip auth for QnA public read-only endpoints
+    if (req.method === "GET" && req.path.startsWith("/qna/")) {
+      return next();
+    }
+    // Skip auth for Token System public read-only endpoints (token explorer, stats)
+    if (req.method === "GET" && (
+        req.path === "/token-system/stats" ||
+        req.path === "/token-system/tokens" ||
+        req.path === "/token-system/deployed" ||
+        req.path === "/token-system/search" ||
+        req.path.startsWith("/token-system/token/"))) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================
