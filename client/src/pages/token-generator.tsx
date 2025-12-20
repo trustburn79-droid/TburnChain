@@ -341,6 +341,9 @@ export default function TokenSystemPage() {
     queryKey: ["/api/token-system/deployed"],
     refetchInterval: 30000,
     staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: 3,
   });
 
   const formatSupply = (value: string) => {
