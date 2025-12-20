@@ -17,7 +17,7 @@ import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
-import { LogOut, Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, History, Share2, LayoutGrid, CheckCheck, RefreshCw, Maximize2, Bell, Settings } from "lucide-react";
+import { LogOut, Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Hexagon } from "lucide-react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import '@/lib/i18n';
@@ -247,83 +247,59 @@ function AuthenticatedApp() {
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/app/transactions">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-history">
-                            <History className="h-4 w-4" />
+                        <Link href="/qna">
+                          <Button variant="ghost" size="icon" data-testid="link-nav-qna">
+                            <HelpCircle className="h-4 w-4" />
                           </Button>
                         </Link>
                       </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.history', 'Transaction History')}</p></TooltipContent>
+                      <TooltipContent><p>{t('nav.qna', 'QnA')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="ghost" size="icon" data-testid="button-share" onClick={() => navigator.share?.({ url: window.location.href, title: 'TBURN Explorer' }).catch(() => {})}>
-                          <Share2 className="h-4 w-4" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.share', 'Share')}</p></TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/app/sharding">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-sharding">
-                            <LayoutGrid className="h-4 w-4" />
+                        <Link href="/scan">
+                          <Button variant="ghost" size="icon" data-testid="link-nav-scan">
+                            <ScanLine className="h-4 w-4" />
                           </Button>
                         </Link>
                       </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.sharding', 'Sharding')}</p></TooltipContent>
+                      <TooltipContent><p>{t('nav.scan', 'Scan')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/app/consensus">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-consensus" className="text-red-500">
-                            <CheckCheck className="h-4 w-4" />
+                        <Link href="/user">
+                          <Button variant="ghost" size="icon" data-testid="link-nav-user">
+                            <User className="h-4 w-4" />
                           </Button>
                         </Link>
                       </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.consensus', 'Consensus')}</p></TooltipContent>
+                      <TooltipContent><p>{t('nav.user', 'User')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="ghost" size="icon" data-testid="button-refresh" onClick={() => window.location.reload()}>
-                          <RefreshCw className="h-4 w-4" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.refresh', 'Refresh')}</p></TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button variant="ghost" size="icon" data-testid="button-fullscreen" onClick={() => document.documentElement.requestFullscreen?.()}>
-                          <Maximize2 className="h-4 w-4" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.fullscreen', 'Fullscreen')}</p></TooltipContent>
-                    </Tooltip>
-                    <div className="w-px h-6 bg-border mx-1" />
-                    <ThemeToggle />
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button variant="ghost" size="icon" data-testid="button-notifications" className="relative">
-                          <Bell className="h-4 w-4" />
-                          <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-blue-500" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.notifications', 'Notifications')}</p></TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/app/admin">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-settings">
-                            <Settings className="h-4 w-4" />
+                        <Link href="/bug-bounty">
+                          <Button variant="ghost" size="icon" data-testid="link-nav-bug-bounty">
+                            <Bug className="h-4 w-4" />
                           </Button>
                         </Link>
                       </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.settings', 'Settings')}</p></TooltipContent>
+                      <TooltipContent><p>{t('nav.bugBounty', 'Bug Bounty')}</p></TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link href="/token-generator">
+                          <Button variant="ghost" size="icon" data-testid="link-nav-token-generator">
+                            <Hexagon className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent><p>{t('nav.tokenGenerator', 'Token Generator')}</p></TooltipContent>
                     </Tooltip>
                     <div className="w-px h-6 bg-border mx-1" />
                   </div>
-                  <WalletButton />
                   <LanguageSelector />
+                  <ThemeToggle />
+                  <WalletButton />
                   {isAuthenticated && (
                     <Tooltip>
                       <TooltipTrigger asChild>
