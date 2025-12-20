@@ -17,7 +17,7 @@ import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
-import { LogOut, Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Hexagon } from "lucide-react";
+import { LogOut, Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Hexagon, Shield, ImageIcon } from "lucide-react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import '@/lib/i18n';
@@ -247,16 +247,6 @@ function AuthenticatedApp() {
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/qna">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-qna">
-                            <HelpCircle className="h-4 w-4" />
-                          </Button>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.qna', 'QnA')}</p></TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
                         <Link href="/scan">
                           <Button variant="ghost" size="icon" data-testid="link-nav-scan">
                             <ScanLine className="h-4 w-4" />
@@ -287,6 +277,16 @@ function AuthenticatedApp() {
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
+                        <Link href="/security-audit">
+                          <Button variant="ghost" size="icon" data-testid="link-nav-security-audit">
+                            <Shield className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent><p>{t('nav.securityAudit', 'Security Audit')}</p></TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
                         <Link href="/token-generator">
                           <Button variant="ghost" size="icon" data-testid="link-nav-token-generator">
                             <Hexagon className="h-4 w-4" />
@@ -294,6 +294,26 @@ function AuthenticatedApp() {
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent><p>{t('nav.tokenGenerator', 'Token Generator')}</p></TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link href="/nft-marketplace">
+                          <Button variant="ghost" size="icon" data-testid="link-nav-nft-marketplace">
+                            <ImageIcon className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent><p>{t('nav.nftMarketplace', 'NFT Marketplace')}</p></TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link href="/qna">
+                          <Button variant="ghost" size="icon" data-testid="link-nav-qna">
+                            <HelpCircle className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent><p>{t('nav.qna', 'QnA')}</p></TooltipContent>
                     </Tooltip>
                     <div className="w-px h-6 bg-border mx-1" />
                   </div>
