@@ -16,7 +16,8 @@ import {
   Lock, Unlock, Send, Copy, Eye, EyeOff, ChevronRight, Award,
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
   LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
-  Menu, X, Crown, Info, Image, Plus, Play, Gamepad2, Rocket
+  Menu, X, Crown, Info, Image, Plus, Play, Gamepad2, Rocket,
+  Home, HelpCircle, ScanLine
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -713,6 +714,23 @@ export default function UserPage() {
           </div>
 
           <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
+            {/* Home, QnA, Scan icons */}
+            <a href="/" data-testid="link-home">
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
+                <Home className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/qna" data-testid="link-qna">
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
+                <HelpCircle className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/scan" data-testid="link-scan">
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
+                <ScanLine className="w-4 h-4" />
+              </Button>
+            </a>
+            <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
             <Button variant="ghost" size="icon" onClick={handleRefresh} data-testid="button-refresh-header" className="h-8 w-8 lg:h-9 lg:w-9">
               <RefreshCw className="w-4 h-4" />
             </Button>
