@@ -52,6 +52,7 @@ import Login from "@/pages/login";
 import Signup from "@/pages/signup";
 
 const TokenGenerator = lazy(() => import("@/pages/token-generator"));
+const TokenSystem = lazy(() => import("@/pages/token-system"));
 const Bridge = lazy(() => import("@/pages/bridge"));
 const Governance = lazy(() => import("@/pages/governance"));
 const BurnDashboard = lazy(() => import("@/pages/burn"));
@@ -149,6 +150,7 @@ function AppRouter() {
         <Route path="/app/gamefi" component={GameFiPage} />
         <Route path="/app/community" component={CommunityPage} />
         <Route path="/app/tokenomics" component={TokenomicsSimulation} />
+        <Route path="/app/token-system" component={TokenSystem} />
         <Route path="/app/search" component={SearchResults} />
         <Route path="/app/address/:address" component={WalletDetail} />
         <Route path="/app/contracts" component={SmartContracts} />
