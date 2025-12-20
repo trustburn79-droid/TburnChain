@@ -70,6 +70,9 @@ import {
   Sun,
   Moon,
   Globe,
+  Home,
+  HelpCircle,
+  ScanLine,
 } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -1014,7 +1017,28 @@ export default function NftMarketplaceStandalone() {
             />
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 lg:gap-4">
+            {/* Navigation Icons */}
+            <a href="/" data-testid="link-home">
+              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+                <Home className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/qna" data-testid="link-qna">
+              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+                <HelpCircle className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/scan" data-testid="link-scan">
+              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+                <ScanLine className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/user" data-testid="link-user">
+              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+                <User className="w-4 h-4" />
+              </Button>
+            </a>
             {/* Language Selector - Globe icon only */}
             <Select value={i18n.language} onValueChange={(value) => i18n.changeLanguage(value)}>
               <SelectTrigger className={`w-10 h-10 p-0 rounded-full border-0 justify-center ${theme === 'dark' ? 'bg-transparent hover:bg-gray-800 text-white' : 'bg-transparent hover:bg-gray-100 text-gray-700'}`} data-testid="select-language">
