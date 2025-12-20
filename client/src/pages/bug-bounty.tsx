@@ -34,6 +34,11 @@ import {
   Biohazard,
   ExternalLink,
   Loader2,
+  Home,
+  HelpCircle,
+  ArrowLeftRight,
+  User,
+  ChevronDown,
 } from "lucide-react";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
@@ -178,7 +183,25 @@ export default function BugBountyPage() {
               <span className="font-mono font-bold text-emerald-500">$2,450,000</span>
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Link href="/">
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-home">
+                <Home className="w-5 h-5" />
+              </a>
+            </Link>
+            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-help">
+              <HelpCircle className="w-5 h-5" />
+            </button>
+            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-swap">
+              <ArrowLeftRight className="w-5 h-5" />
+            </button>
+            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-user">
+              <User className="w-5 h-5" />
+            </button>
+            <button className={`p-2 rounded-full transition-colors flex items-center gap-1 ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-language">
+              <Globe className="w-5 h-5" />
+              <ChevronDown className="w-3 h-3" />
+            </button>
             <ThemeToggle />
             <Button 
               onClick={() => setShowReportModal(true)}
