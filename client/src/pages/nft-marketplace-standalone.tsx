@@ -1021,11 +1021,10 @@ export default function NftMarketplaceStandalone() {
             <div className="lg:hidden">
               <ThemeToggle />
             </div>
-            {/* Language Selector */}
+            {/* Language Selector - Globe icon only */}
             <Select value={i18n.language} onValueChange={(value) => i18n.changeLanguage(value)}>
-              <SelectTrigger className={`w-[120px] gap-2 rounded-lg h-9 ${theme === 'dark' ? 'bg-[#151E32] border-gray-700 text-white' : 'bg-gray-100 border-gray-300 text-gray-900'}`} data-testid="select-language">
-                <Globe className="w-4 h-4" />
-                <SelectValue placeholder="Language" />
+              <SelectTrigger className={`w-10 h-10 p-0 rounded-full border-0 justify-center ${theme === 'dark' ? 'bg-transparent hover:bg-gray-800 text-white' : 'bg-transparent hover:bg-gray-100 text-gray-700'}`} data-testid="select-language">
+                <Globe className="w-5 h-5" />
               </SelectTrigger>
               <SelectContent className={`min-w-[160px] ${theme === 'dark' ? 'bg-[#151E32] border-gray-700' : 'bg-white border-gray-200'}`}>
                 <SelectItem value="en" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>English</SelectItem>
@@ -1042,15 +1041,12 @@ export default function NftMarketplaceStandalone() {
                 <SelectItem value="ur" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>اردو</SelectItem>
               </SelectContent>
             </Select>
-            <Button 
-              onClick={() => setListDialogOpen(true)} 
-              className="hidden md:flex bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-violet-500/30 border-0"
-              data-testid="button-create-nft"
-            >
-              {t('nftMarketplacePage.header.createNft')}
-            </Button>
             {!isConnected && (
-              <Button onClick={() => setWalletModalOpen(true)} variant="outline" className={`rounded-full ${theme === 'dark' ? 'border-gray-600 text-white hover:bg-gray-800' : 'border-gray-300 text-gray-700 hover:bg-gray-100'}`} data-testid="button-connect-wallet">
+              <Button 
+                onClick={() => setWalletModalOpen(true)} 
+                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-violet-500/30 border-0"
+                data-testid="button-connect-wallet"
+              >
                 <Wallet className="w-4 h-4 mr-2" />{t('nftMarketplacePage.header.connect')}
               </Button>
             )}
