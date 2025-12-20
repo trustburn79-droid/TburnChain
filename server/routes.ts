@@ -969,7 +969,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/lending/markets") ||
         req.path.startsWith("/yield/vaults") ||
         req.path.startsWith("/liquid-staking/pools") ||
-        req.path.startsWith("/gamefi/projects"))) {
+        req.path.startsWith("/gamefi/projects") ||
+        req.path.startsWith("/nft/collections") ||
+        req.path.startsWith("/nft/listings") ||
+        req.path.startsWith("/nft/items") ||
+        req.path.startsWith("/nft/activity"))) {
       return next();
     }
     // Skip auth for User Data endpoints (public read-only, address-based queries)
