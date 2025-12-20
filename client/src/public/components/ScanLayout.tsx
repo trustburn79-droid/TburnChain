@@ -28,6 +28,10 @@ import {
   Home,
   HelpCircle,
   User,
+  Bug,
+  FileText,
+  Hexagon,
+  ImageIcon,
 } from "lucide-react";
 import { useState, ReactNode } from "react";
 import { useScanWebSocket, useLiveIndicator } from "../hooks/useScanWebSocket";
@@ -142,7 +146,7 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
               </Select>
 
               {/* Navigation Icons */}
-              <div className="hidden sm:flex items-center gap-1">
+              <div className="hidden sm:flex items-center gap-2">
                 <div className="w-px h-6 bg-gray-700 mx-1" />
                 <Link href="/">
                   <Button
@@ -151,7 +155,7 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                     className="text-gray-400 hover:text-white"
                     data-testid="link-nav-home"
                   >
-                    <Home className="w-5 h-5" />
+                    <Home className="w-4 h-4" />
                   </Button>
                 </Link>
                 <Link href="/qna">
@@ -161,7 +165,7 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                     className="text-gray-400 hover:text-white"
                     data-testid="link-nav-qna"
                   >
-                    <HelpCircle className="w-5 h-5" />
+                    <HelpCircle className="w-4 h-4" />
                   </Button>
                 </Link>
                 <Link href="/user">
@@ -171,7 +175,47 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                     className="text-gray-400 hover:text-white"
                     data-testid="link-nav-user"
                   >
-                    <User className="w-5 h-5" />
+                    <User className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <Link href="/bug-bounty">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-white"
+                    data-testid="link-nav-bug-bounty"
+                  >
+                    <Bug className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <Link href="/security-audit">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-white"
+                    data-testid="link-nav-security-audit"
+                  >
+                    <FileText className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <Link href="/token-generator">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-white"
+                    data-testid="link-nav-token-generator"
+                  >
+                    <Hexagon className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <Link href="/nft-marketplace">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-white"
+                    data-testid="link-nav-nft-marketplace"
+                  >
+                    <ImageIcon className="w-4 h-4" />
                   </Button>
                 </Link>
               </div>
