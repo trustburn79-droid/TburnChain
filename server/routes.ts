@@ -42,6 +42,7 @@ import { registerPublicApiRoutes } from "./routes/public-api-routes";
 import { registerWalletDashboardRoutes } from "./routes/wallet-dashboard-routes";
 import { registerGenesisRoutes } from "./routes/genesis-routes";
 import { registerUserDataRoutes } from "./routes/user-data-routes";
+import { registerLaunchEventRoutes } from "./routes/launch-event-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1016,6 +1017,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/token-system/token/"))) {
       return next();
     }
+    // Skip auth for Launch Event public endpoints (mainnet launch campaign)
+    if (req.path.startsWith("/launch-event/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================
@@ -1075,6 +1080,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   registerUserDataRoutes(app);
   console.log("[UserData] ✅ User data routes registered");
+
+  // ============================================
+  // LAUNCH EVENT (Mainnet Launch Campaign)
+  // ============================================
+  registerLaunchEventRoutes(app);
+  console.log("[Launch Event] ✅ Launch event routes registered");
 
   // ============================================
   // Network Stats

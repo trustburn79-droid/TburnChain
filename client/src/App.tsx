@@ -80,6 +80,7 @@ const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-stan
 const SecurityAuditPage = lazy(() => import("@/pages/security-audit"));
 const OfficialChannelsPage = lazy(() => import("@/pages/official-channels"));
 const BugBountyPage = lazy(() => import("@/pages/bug-bounty"));
+const LaunchEventPage = lazy(() => import("@/pages/launch-event"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -417,6 +418,14 @@ function RootRouter() {
     return (
       <Suspense fallback={<PageLoading />}>
         <TokenGenerator />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/launch-event" || location.startsWith("/launch-event") || location === "/launch" || location.startsWith("/launch")) {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <LaunchEventPage />
       </Suspense>
     );
   }
