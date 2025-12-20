@@ -730,6 +730,11 @@ export default function UserPage() {
                 <ScanLine className="w-4 h-4" />
               </Button>
             </a>
+            <a href="/nft-marketplace" data-testid="link-nft-marketplace">
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
+                <Image className="w-4 h-4" />
+              </Button>
+            </a>
             <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
             <Button variant="ghost" size="icon" onClick={handleRefresh} data-testid="button-refresh-header" className="h-8 w-8 lg:h-9 lg:w-9">
               <RefreshCw className="w-4 h-4" />
