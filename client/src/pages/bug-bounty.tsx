@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -69,6 +70,7 @@ const ASSET_MAP: Record<string, string> = {
 };
 
 export default function BugBountyPage() {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const { toast } = useToast();
   const [showReportModal, setShowReportModal] = useState(false);
@@ -104,16 +106,16 @@ export default function BugBountyPage() {
     },
     onSuccess: (data) => {
       toast({
-        title: "Report Submitted Successfully",
-        description: `Report ID: ${data.reportId}. Our security team will review it shortly.`,
+        title: t('securityPages.bugBounty.reportSubmittedTitle'),
+        description: t('securityPages.bugBounty.reportSubmittedDesc'),
       });
       setShowReportModal(false);
       setReportForm({ asset: "Smart Contracts (Core)", title: "", description: "", email: "", wallet: "", severity: "medium" });
     },
     onError: (error: Error) => {
       toast({
-        title: "Submission Failed",
-        description: error.message || "Failed to submit report. Please try again.",
+        title: t('securityPages.bugBounty.submissionFailed'),
+        description: error.message,
         variant: "destructive",
       });
     },
@@ -123,8 +125,8 @@ export default function BugBountyPage() {
     e.preventDefault();
     if (!reportForm.title.trim() || !reportForm.description.trim()) {
       toast({
-        title: "Validation Error",
-        description: "Title and description are required.",
+        title: t('securityPages.bugBounty.validationError'),
+        description: t('securityPages.bugBounty.titleDescRequired'),
         variant: "destructive",
       });
       return;
@@ -157,19 +159,19 @@ export default function BugBountyPage() {
           <Link href="/security-audit">
             <a className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${isDark ? 'text-gray-400 hover:bg-gray-800' : 'text-slate-500 hover:bg-slate-100'}`}>
               <Shield className="w-6 h-6" />
-              <span className="hidden lg:block font-medium">Security Audit</span>
+              <span className="hidden lg:block font-medium">{t('securityPages.nav.securityAudit')}</span>
             </a>
           </Link>
           <Link href="/bug-bounty">
             <a className={`flex items-center gap-4 px-3 py-3 rounded-xl border-l-4 border-rose-500 shadow-sm transition-colors ${isDark ? 'bg-[#151E32] text-white' : 'bg-rose-50 text-rose-500'}`}>
               <Crosshair className="w-6 h-6" />
-              <span className="hidden lg:block font-medium">Bug Bounty</span>
+              <span className="hidden lg:block font-medium">{t('securityPages.nav.bugBounty')}</span>
             </a>
           </Link>
           <Link href="/official-channels">
             <a className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${isDark ? 'text-gray-400 hover:bg-gray-800' : 'text-slate-500 hover:bg-slate-100'}`}>
               <Trophy className="w-6 h-6" />
-              <span className="hidden lg:block font-medium">Hall of Fame</span>
+              <span className="hidden lg:block font-medium">{t('securityPages.nav.hallOfFame')}</span>
             </a>
           </Link>
         </nav>
@@ -179,7 +181,7 @@ export default function BugBountyPage() {
         <header className={`h-16 border-b ${isDark ? 'border-gray-800 bg-[#0B1120]/80' : 'border-slate-200 bg-white/80'} backdrop-blur-md flex items-center justify-between px-4 lg:px-8 z-10`}>
           <div className="flex items-center gap-3">
             <div className={`hidden md:flex items-center gap-2 px-3 py-1 rounded-lg ${isDark ? 'bg-gray-800' : 'bg-slate-100'}`}>
-              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>Total Paid Out:</span>
+              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>{t('securityPages.bugBounty.totalPaidOut')}:</span>
               <span className="font-mono font-bold text-emerald-500">$2,450,000</span>
             </div>
           </div>
@@ -209,7 +211,7 @@ export default function BugBountyPage() {
               data-testid="button-submit-report"
             >
               <Bug className="w-4 h-4 mr-2" />
-              Submit Report
+              {t('securityPages.bugBounty.submitReport')}
             </Button>
           </div>
         </header>
@@ -222,44 +224,43 @@ export default function BugBountyPage() {
             <div className="relative p-8 md:p-12 z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="max-w-xl">
                 <span className="inline-block px-3 py-1 rounded-full bg-rose-500/20 text-rose-500 text-xs font-bold mb-4 border border-rose-500/30">
-                  HUNT BUGS, GET PAID
+                  {t('securityPages.bugBounty.huntBugs')}
                 </span>
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight glitch-hover cursor-default">
-                  Protect the TBURN Network
+                  {t('securityPages.bugBounty.protectNetwork')}
                 </h1>
                 <p className="text-slate-400 mb-8 text-lg">
-                  TBURN 메인넷의 보안 취약점을 발견하고 제보하세요. <br />
-                  우리는 화이트해커의 기여를 존중하며 업계 최고 수준으로 보상합니다.
+                  {t('securityPages.bugBounty.description')}
                 </p>
                 <div className="flex gap-4">
                   <button className="text-white border-b-2 border-rose-500 pb-1 hover:text-rose-500 transition-colors font-bold">
-                    View Scope
+                    {t('securityPages.bugBounty.viewScope')}
                   </button>
                   <button className="text-slate-400 hover:text-white transition-colors">
-                    Read Policy
+                    {t('securityPages.bugBounty.readPolicy')}
                   </button>
                 </div>
               </div>
               
               <div className="bg-black/40 backdrop-blur-md border border-rose-500/30 p-6 rounded-2xl text-center min-w-[280px]">
-                <p className="text-sm text-slate-400 uppercase tracking-widest mb-2">Max Critical Reward</p>
+                <p className="text-sm text-slate-400 uppercase tracking-widest mb-2">{t('securityPages.bugBounty.maxCriticalReward')}</p>
                 <p className="text-4xl md:text-5xl font-mono font-bold text-emerald-500 animate-pulse">$1,000,000</p>
-                <p className="text-xs text-slate-500 mt-2">Paid in USDC or TBURN</p>
+                <p className="text-xs text-slate-500 mt-2">{t('securityPages.bugBounty.paidIn')}</p>
               </div>
             </div>
           </div>
 
           <h3 className={`text-xl font-bold mb-6 flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
             <Medal className="w-5 h-5 text-yellow-500" />
-            Reward Tiers
+            {t('securityPages.bugBounty.rewardTiers')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <div className="glass-panel p-6 rounded-2xl border-t-4 border-rose-500 group hover:-translate-y-1 transition-transform">
               <div className="flex justify-between items-start mb-4">
-                <span className="px-2 py-1 bg-rose-500/10 text-rose-500 rounded text-xs font-bold">CRITICAL</span>
+                <span className="px-2 py-1 bg-rose-500/10 text-rose-500 rounded text-xs font-bold">{t('securityPages.securityAudit.severityCritical').toUpperCase()}</span>
                 <Biohazard className={`w-6 h-6 ${isDark ? 'text-slate-600' : 'text-slate-700'} group-hover:text-rose-500 transition-colors`} />
               </div>
-              <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>Up to $1M</p>
+              <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{t('securityPages.bugBounty.upTo')} $1M</p>
               <ul className={`text-sm space-y-2 list-disc list-inside ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
                 <li>Consensus manipulation</li>
                 <li>Direct theft of funds</li>
@@ -270,7 +271,7 @@ export default function BugBountyPage() {
 
             <div className="glass-panel p-6 rounded-2xl border-t-4 border-orange-500 group hover:-translate-y-1 transition-transform">
               <div className="flex justify-between items-start mb-4">
-                <span className="px-2 py-1 bg-orange-500/10 text-orange-500 rounded text-xs font-bold">HIGH</span>
+                <span className="px-2 py-1 bg-orange-500/10 text-orange-500 rounded text-xs font-bold">{t('securityPages.securityAudit.severityHigh').toUpperCase()}</span>
                 <AlertTriangle className={`w-6 h-6 ${isDark ? 'text-slate-600' : 'text-slate-700'} group-hover:text-orange-500 transition-colors`} />
               </div>
               <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>$50,000</p>
@@ -283,7 +284,7 @@ export default function BugBountyPage() {
 
             <div className="glass-panel p-6 rounded-2xl border-t-4 border-yellow-500 group hover:-translate-y-1 transition-transform">
               <div className="flex justify-between items-start mb-4">
-                <span className="px-2 py-1 bg-yellow-500/10 text-yellow-500 rounded text-xs font-bold">MEDIUM</span>
+                <span className="px-2 py-1 bg-yellow-500/10 text-yellow-500 rounded text-xs font-bold">{t('securityPages.securityAudit.severityMedium').toUpperCase()}</span>
                 <Bug className={`w-6 h-6 ${isDark ? 'text-slate-600' : 'text-slate-700'} group-hover:text-yellow-500 transition-colors`} />
               </div>
               <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>$10,000</p>
@@ -296,7 +297,7 @@ export default function BugBountyPage() {
 
             <div className="glass-panel p-6 rounded-2xl border-t-4 border-blue-500 group hover:-translate-y-1 transition-transform">
               <div className="flex justify-between items-start mb-4">
-                <span className="px-2 py-1 bg-blue-500/10 text-blue-500 rounded text-xs font-bold">LOW</span>
+                <span className="px-2 py-1 bg-blue-500/10 text-blue-500 rounded text-xs font-bold">{t('securityPages.securityAudit.severityLow').toUpperCase()}</span>
                 <Info className={`w-6 h-6 ${isDark ? 'text-slate-600' : 'text-slate-700'} group-hover:text-blue-500 transition-colors`} />
               </div>
               <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>$2,000</p>
@@ -311,60 +312,60 @@ export default function BugBountyPage() {
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
             <div className="glass-panel rounded-2xl p-6 h-full">
               <h3 className={`font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                <span className="mr-2">🎯</span>Assets in Scope
+                <span className="mr-2">🎯</span>{t('securityPages.bugBounty.assetsInScope')}
               </h3>
               <div className="space-y-4">
                 <div className={`flex items-center justify-between p-4 rounded-xl border ${isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-50 border-slate-200'}`}>
                   <div className="flex items-center gap-3">
                     <FileCode className="w-5 h-5 text-slate-400" />
                     <div>
-                      <p className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Smart Contracts (Core)</p>
-                      <p className="text-xs text-slate-500">Staking, Governance, Token</p>
+                      <p className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('securityPages.bugBounty.smartContracts')} (Core)</p>
+                      <p className="text-xs text-slate-500">{t('securityPages.bugBounty.smartContractsDesc')}</p>
                     </div>
                   </div>
                   <a href="#" className="text-xs text-blue-500 hover:underline flex items-center gap-1">
-                    View GitHub <ExternalLink className="w-3 h-3" />
+                    {t('securityPages.bugBounty.viewGitHub')} <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
                 <div className={`flex items-center justify-between p-4 rounded-xl border ${isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-50 border-slate-200'}`}>
                   <div className="flex items-center gap-3">
                     <Server className="w-5 h-5 text-slate-400" />
                     <div>
-                      <p className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Node Client (Go-TBURN)</p>
-                      <p className="text-xs text-slate-500">Consensus logic, P2P networking</p>
+                      <p className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('securityPages.bugBounty.nodeClient')} (Go-TBURN)</p>
+                      <p className="text-xs text-slate-500">{t('securityPages.bugBounty.nodeClientDesc')}</p>
                     </div>
                   </div>
                   <a href="#" className="text-xs text-blue-500 hover:underline flex items-center gap-1">
-                    View GitHub <ExternalLink className="w-3 h-3" />
+                    {t('securityPages.bugBounty.viewGitHub')} <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
                 <div className={`flex items-center justify-between p-4 rounded-xl border ${isDark ? 'bg-[#0B1120] border-gray-700' : 'bg-slate-50 border-slate-200'}`}>
                   <div className="flex items-center gap-3">
                     <Globe className="w-5 h-5 text-slate-400" />
                     <div>
-                      <p className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Web & DApps</p>
-                      <p className="text-xs text-slate-500">Wallet, Explorer, Bridge UI</p>
+                      <p className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('securityPages.bugBounty.webDapps')}</p>
+                      <p className="text-xs text-slate-500">{t('securityPages.bugBounty.webDappsDesc')}</p>
                     </div>
                   </div>
-                  <span className={`text-xs px-2 py-1 rounded ${isDark ? 'bg-gray-700' : 'bg-slate-200'}`}>Web only</span>
+                  <span className={`text-xs px-2 py-1 rounded ${isDark ? 'bg-gray-700' : 'bg-slate-200'}`}>{t('securityPages.bugBounty.webOnly')}</span>
                 </div>
               </div>
 
               <h4 className={`font-bold mt-6 mb-3 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                <span className="mr-2">⛔</span>Out of Scope
+                <span className="mr-2">⛔</span>{t('securityPages.bugBounty.outOfScope')}
               </h4>
               <ul className={`text-sm space-y-2 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
                 <li className="flex items-center gap-2">
                   <X className="w-4 h-4 text-red-500" />
-                  Social Engineering & Phishing
+                  {t('securityPages.bugBounty.socialEngineering')}
                 </li>
                 <li className="flex items-center gap-2">
                   <X className="w-4 h-4 text-red-500" />
-                  DDoS Attacks
+                  {t('securityPages.bugBounty.ddosAttacks')}
                 </li>
                 <li className="flex items-center gap-2">
                   <X className="w-4 h-4 text-red-500" />
-                  Third-party DApps (not owned by Foundation)
+                  {t('securityPages.bugBounty.thirdPartyDapps')}
                 </li>
               </ul>
             </div>
@@ -374,19 +375,19 @@ export default function BugBountyPage() {
               <div className="flex justify-between items-center mb-6">
                 <h3 className={`font-bold flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                   <Trophy className="w-5 h-5 text-[#00FF94]" />
-                  Hall of Fame
+                  {t('securityPages.nav.hallOfFame')}
                 </h3>
-                <span className="text-xs text-slate-500">Top Hunters (All Time)</span>
+                <span className="text-xs text-slate-500">{t('securityPages.bugBounty.topHunters')}</span>
               </div>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>
                     <tr className={`text-xs border-b ${isDark ? 'text-gray-400 border-gray-700' : 'text-slate-500 border-slate-200'}`}>
-                      <th className="pb-3 pl-2">Rank</th>
-                      <th className="pb-3">Hunter</th>
-                      <th className="pb-3 text-right">Points</th>
-                      <th className="pb-3 text-right">Earned</th>
+                      <th className="pb-3 pl-2">{t('securityPages.bugBounty.rank')}</th>
+                      <th className="pb-3">{t('securityPages.bugBounty.hunter')}</th>
+                      <th className="pb-3 text-right">{t('securityPages.bugBounty.points')}</th>
+                      <th className="pb-3 text-right">{t('securityPages.bugBounty.earned')}</th>
                     </tr>
                   </thead>
                   <tbody className="text-sm font-mono">
@@ -419,7 +420,7 @@ export default function BugBountyPage() {
           <DialogHeader>
             <DialogTitle className={`flex items-center gap-2 text-2xl ${isDark ? 'text-white' : 'text-slate-900'}`}>
               <UserCircle className="w-6 h-6 text-rose-500" />
-              Submit Vulnerability
+              {t('securityPages.bugBounty.submitVulnerability')}
             </DialogTitle>
           </DialogHeader>
           
@@ -427,7 +428,7 @@ export default function BugBountyPage() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                  Email (optional)
+                  {t('securityPages.bugBounty.emailOptional')}
                 </label>
                 <Input 
                   type="email"
@@ -440,7 +441,7 @@ export default function BugBountyPage() {
               </div>
               <div>
                 <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                  Wallet (optional)
+                  {t('securityPages.bugBounty.walletOptional')}
                 </label>
                 <Input 
                   placeholder="tb1..."
@@ -455,7 +456,7 @@ export default function BugBountyPage() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                  Target Asset
+                  {t('securityPages.bugBounty.targetAsset')}
                 </label>
                 <Select 
                   value={reportForm.asset} 
@@ -475,7 +476,7 @@ export default function BugBountyPage() {
               </div>
               <div>
                 <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                  Severity
+                  {t('securityPages.bugBounty.selectSeverity')}
                 </label>
                 <Select 
                   value={reportForm.severity} 
@@ -497,7 +498,7 @@ export default function BugBountyPage() {
 
             <div>
               <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                Vulnerability Title <span className="text-rose-500">*</span>
+                {t('securityPages.bugBounty.vulnerabilityTitle')} <span className="text-rose-500">*</span>
               </label>
               <Input 
                 placeholder="e.g. Reentrancy in Staking.sol"
@@ -510,7 +511,7 @@ export default function BugBountyPage() {
             </div>
             <div>
               <label className={`block text-sm font-bold mb-1 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
-                Description (Markdown) <span className="text-rose-500">*</span>
+                {t('securityPages.bugBounty.descriptionMarkdown')} <span className="text-rose-500">*</span>
               </label>
               <Textarea 
                 rows={4}
@@ -525,7 +526,7 @@ export default function BugBountyPage() {
             
             <div className={`p-3 rounded text-xs border ${isDark ? 'bg-black/20 border-gray-700 text-gray-400' : 'bg-slate-50 border-slate-200 text-slate-500'}`}>
               <Lock className="w-3 h-3 inline mr-1" />
-              Your report will be securely stored. We will contact you via email or wallet for updates.
+              {t('securityPages.bugBounty.secureNote')}
             </div>
 
             <Button 
@@ -537,10 +538,10 @@ export default function BugBountyPage() {
               {submitMutation.isPending ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Submitting...
+                  {t('securityPages.bugBounty.submitting')}
                 </>
               ) : (
-                "Submit Securely"
+                t('securityPages.bugBounty.submitSecurely')
               )}
             </Button>
           </form>

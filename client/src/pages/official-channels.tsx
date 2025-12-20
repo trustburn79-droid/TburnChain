@@ -135,33 +135,33 @@ const OFFICIAL_CHANNELS: OfficialChannel[] = [
   },
 ];
 
-const PHISHING_WARNINGS = [
-  "Never share your seed phrase or private keys",
-  "TBURN team will never DM you first asking for funds",
-  "Always verify URLs before connecting your wallet",
-  "Official domain is tburn.io - check for typos",
-  "Enable 2FA on all connected accounts",
-];
-
 export default function OfficialChannelsPage() {
   const { t, i18n } = useTranslation();
+  
+  const PHISHING_WARNINGS = [
+    t('securityPages.officialChannels.neverShareSeed'),
+    t('securityPages.officialChannels.neverDmFirst'),
+    t('securityPages.officialChannels.verifyUrls'),
+    t('securityPages.officialChannels.officialDomainCheck'),
+    t('securityPages.officialChannels.enable2fa'),
+  ];
   const { theme } = useTheme();
   const { toast } = useToast();
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: t("common.copied", "Copied!"),
-      description: text,
+      title: t("securityPages.officialChannels.linkCopied"),
+      description: t("securityPages.officialChannels.copiedToClipboard"),
     });
   };
 
   const getCategoryLabel = (category: OfficialChannel["category"]) => {
     switch (category) {
-      case "social": return t("channels.social", "Social Media");
-      case "support": return t("channels.support", "Support");
-      case "documentation": return t("channels.documentation", "Documentation");
-      case "community": return t("channels.community", "Community");
+      case "social": return t("securityPages.officialChannels.socialMedia");
+      case "support": return t("securityPages.officialChannels.support");
+      case "documentation": return t("securityPages.officialChannels.documentation");
+      case "community": return t("securityPages.officialChannels.joinCommunity");
     }
   };
 
@@ -180,9 +180,9 @@ export default function OfficialChannelsPage() {
               <MessageCircle className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold">{t("channels.title", "Official Channels")}</h1>
+              <h1 className="text-xl font-bold">{t("securityPages.officialChannels.title")}</h1>
               <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                {t("channels.subtitle", "Verified TBURN Communication Channels")}
+                {t("securityPages.officialChannels.subtitle")}
               </p>
             </div>
           </div>
@@ -211,7 +211,7 @@ export default function OfficialChannelsPage() {
         <Alert className={`border-red-500/50 ${theme === 'dark' ? 'bg-red-900/20' : 'bg-red-50'}`}>
           <AlertTriangle className="h-5 w-5 text-red-500" />
           <AlertTitle className="text-red-500 font-bold">
-            {t("channels.phishingWarning", "Phishing Warning")}
+            {t("securityPages.officialChannels.phishingWarning")}
           </AlertTitle>
           <AlertDescription className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
             <ul className="list-disc list-inside mt-2 space-y-1">
@@ -230,19 +230,19 @@ export default function OfficialChannelsPage() {
               </div>
               <div className="flex-1">
                 <h2 className="text-xl font-bold flex items-center gap-2">
-                  {t("channels.officialDomain", "Official Domain")}
+                  {t("securityPages.officialChannels.officialDomain")}
                   <CheckCircle2 className="w-5 h-5 text-green-400" />
                 </h2>
                 <p className={`text-2xl font-mono mt-1 ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>
                   tburn.io
                 </p>
                 <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                  {t("channels.sslVerified", "SSL/TLS Verified • HTTPS Secured")}
+                  {t("securityPages.officialChannels.sslVerified")}
                 </p>
               </div>
               <Button variant="outline" onClick={() => copyToClipboard("https://tburn.io")}>
                 <Copy className="w-4 h-4 mr-2" />
-                {t("common.copy", "Copy")}
+                {t("securityPages.officialChannels.copy")}
               </Button>
             </div>
           </CardContent>
@@ -293,27 +293,27 @@ export default function OfficialChannelsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Shield className="w-5 h-5" />
-              {t("channels.verificationTips", "How to Verify Official Channels")}
+              {t("securityPages.officialChannels.verificationTips")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-50'}`}>
-                <h3 className="font-semibold mb-2">1. {t("channels.checkUrl", "Check URL")}</h3>
+                <h3 className="font-semibold mb-2">1. {t("securityPages.officialChannels.checkUrl")}</h3>
                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                  {t("channels.checkUrlDesc", "Always verify the domain is exactly 'tburn.io' with HTTPS")}
+                  {t("securityPages.officialChannels.checkUrlDesc")}
                 </p>
               </div>
               <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-50'}`}>
-                <h3 className="font-semibold mb-2">2. {t("channels.verifiedBadge", "Look for Verified Badge")}</h3>
+                <h3 className="font-semibold mb-2">2. {t("securityPages.officialChannels.verifiedBadge")}</h3>
                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                  {t("channels.verifiedBadgeDesc", "Official social accounts have verification checkmarks")}
+                  {t("securityPages.officialChannels.verifiedBadgeDesc")}
                 </p>
               </div>
               <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-50'}`}>
-                <h3 className="font-semibold mb-2">3. {t("channels.crossReference", "Cross-Reference")}</h3>
+                <h3 className="font-semibold mb-2">3. {t("securityPages.officialChannels.crossReference")}</h3>
                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                  {t("channels.crossReferenceDesc", "Verify links from multiple official sources")}
+                  {t("securityPages.officialChannels.crossReferenceDesc")}
                 </p>
               </div>
             </div>
