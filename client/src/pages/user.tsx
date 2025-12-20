@@ -2731,57 +2731,57 @@ function DeFiSection({
     <section className="space-y-4 sm:space-y-6" data-testid="section-defi">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">DeFi Hub</h2>
-          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">Swap, Bridge, and Earn on TBURN Chain</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">{t('userPage.defi.title')}</h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">{t('userPage.defi.subtitle')}</p>
         </div>
         <div className="flex gap-2 flex-wrap">
           <a href="/app/dex" className="text-xs px-3 py-1.5 bg-blue-500/10 text-blue-500 rounded-full font-bold hover:bg-blue-500/20 transition-colors">
-            DEX →
+            {t('userPage.defi.dex')} →
           </a>
           <a href="/app/lending" className="text-xs px-3 py-1.5 bg-purple-500/10 text-purple-500 rounded-full font-bold hover:bg-purple-500/20 transition-colors">
-            Lending →
+            {t('userPage.defi.lending')} →
           </a>
           <a href="/app/yield-farming" className="text-xs px-3 py-1.5 bg-emerald-500/10 text-emerald-500 rounded-full font-bold hover:bg-emerald-500/20 transition-colors">
-            Yield →
+            {t('userPage.defi.yield')} →
           </a>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6">
         <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/5 relative overflow-hidden">
-          <p className="text-sm text-slate-500 dark:text-gray-400">Total Value Locked</p>
+          <p className="text-sm text-slate-500 dark:text-gray-400">{t('userPage.defi.totalValueLocked')}</p>
           <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-mono mt-1">
             {totalTvl > 0 ? formatUsdValue((totalTvl * 1e18).toString()) : '$764.2M'}
           </h3>
-          <p className="text-xs text-slate-400 mt-2">DEX + Lending + Yield</p>
+          <p className="text-xs text-slate-400 mt-2">{t('userPage.defi.tvlSubtitle')}</p>
         </div>
         <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/5">
-          <p className="text-sm text-slate-500 dark:text-gray-400">24h Trading Volume</p>
+          <p className="text-sm text-slate-500 dark:text-gray-400">{t('userPage.defi.tradingVolume24h')}</p>
           <h3 className="text-xl sm:text-2xl font-bold text-blue-500 font-mono mt-1">
             {dexStats?.totalVolume24h ? formatUsdValue(dexStats.totalVolume24h) : '$87.5M'}
           </h3>
           <p className="text-xs text-emerald-500 mt-2">
-            {dexStats?.totalSwaps24h ? `${formatNumber(dexStats.totalSwaps24h)} swaps` : '▲ 12.4%'}
+            {dexStats?.totalSwaps24h ? `${formatNumber(dexStats.totalSwaps24h)} ${t('userPage.defi.swaps')}` : '▲ 12.4%'}
           </p>
         </div>
         <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/5">
-          <p className="text-sm text-slate-500 dark:text-gray-400">Active Pools</p>
+          <p className="text-sm text-slate-500 dark:text-gray-400">{t('userPage.defi.activePools')}</p>
           <h3 className="text-xl sm:text-2xl font-bold text-purple-500 font-mono mt-1">
             {dexStats?.totalPools || 24}
           </h3>
           <p className="text-xs text-slate-400 mt-2">
-            {dexStats?.totalLiquidityProviders ? `${formatNumber(dexStats.totalLiquidityProviders)} LPs` : 'AMM + Stable + CL'}
+            {dexStats?.totalLiquidityProviders ? `${formatNumber(dexStats.totalLiquidityProviders)} ${t('userPage.defi.lps')}` : 'AMM + Stable + CL'}
           </p>
         </div>
         <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border-l-4 border-orange-500 border border-slate-200 dark:border-white/5">
           <div className="flex justify-between items-center">
-            <p className="text-sm text-slate-500 dark:text-gray-400">24h Fees Burned</p>
+            <p className="text-sm text-slate-500 dark:text-gray-400">{t('userPage.defi.feesBurned24h')}</p>
             <Flame className="w-5 h-5 text-orange-500 animate-pulse" />
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-orange-500 font-mono mt-1">
             {dexStats?.totalFees24h ? formatUsdValue(dexStats.totalFees24h) : '$124.5K'}
           </h3>
-          <p className="text-xs text-slate-400 mt-2">Auto-burn: 0.5%</p>
+          <p className="text-xs text-slate-400 mt-2">{t('userPage.defi.autoBurn')}: 0.5%</p>
         </div>
       </div>
 
@@ -2793,22 +2793,22 @@ function DeFiSection({
                 onClick={() => setActiveTab('swap')} 
                 className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'swap' ? 'bg-white dark:bg-[#151E32] text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-gray-400'}`}
               >
-                Swap
+                {t('userPage.defi.swap')}
               </button>
               <button 
                 onClick={() => setActiveTab('bridge')} 
                 className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'bridge' ? 'bg-white dark:bg-[#151E32] text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-gray-400'}`}
               >
-                Bridge
+                {t('userPage.defi.bridge')}
               </button>
             </div>
 
             {activeTab === 'swap' && (
               <div className="space-y-4">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-bold text-slate-500 dark:text-gray-400">Pay</span>
+                  <span className="text-sm font-bold text-slate-500 dark:text-gray-400">{t('userPage.defi.pay')}</span>
                   <span className="text-xs text-slate-500 dark:text-gray-400 cursor-pointer">
-                    Balance: <span className="text-blue-500 font-bold">{balance ? parseFloat(balance).toFixed(2) : '12,500.00'}</span>
+                    {t('userPage.defi.balance')}: <span className="text-blue-500 font-bold">{balance ? parseFloat(balance).toFixed(2) : '12,500.00'}</span>
                   </span>
                 </div>
 
@@ -2837,7 +2837,7 @@ function DeFiSection({
                 </div>
 
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-bold text-slate-500 dark:text-gray-400">Receive</span>
+                  <span className="text-sm font-bold text-slate-500 dark:text-gray-400">{t('userPage.defi.receive')}</span>
                 </div>
 
                 <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-2xl border border-slate-200 dark:border-gray-700">
@@ -2860,16 +2860,16 @@ function DeFiSection({
 
                 <div className="bg-blue-50 dark:bg-blue-900/10 rounded-xl p-4 text-sm space-y-2 border border-blue-100 dark:border-blue-900/30">
                   <div className="flex justify-between text-slate-500 dark:text-gray-400">
-                    <span>Rate</span>
+                    <span>{t('userPage.defi.rate')}</span>
                     <span className="font-mono">1 TBURN ≈ 1.25 USDC</span>
                   </div>
                   <div className="flex justify-between text-slate-500 dark:text-gray-400">
-                    <span>Network Fee</span>
+                    <span>{t('userPage.defi.networkFee')}</span>
                     <span className="font-mono text-slate-800 dark:text-white">$0.00036 <span className="line-through text-xs text-slate-400">$5.00</span></span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-orange-500 flex items-center gap-1">
-                      <Flame className="w-3 h-3" /> Auto-Burn (0.5%)
+                      <Flame className="w-3 h-3" /> {t('userPage.defi.autoBurn')} (0.5%)
                     </span>
                     <span className="font-mono font-bold text-orange-500">- {(parseFloat(payAmount) * 0.005 || 0).toFixed(1)} TB</span>
                   </div>
@@ -2877,11 +2877,11 @@ function DeFiSection({
 
                 {isConnected ? (
                   <Button className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30">
-                    Swap Immediately
+                    {t('userPage.defi.swapImmediately')}
                   </Button>
                 ) : (
                   <Button onClick={onConnectWallet} className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30">
-                    Connect Wallet to Swap
+                    {t('userPage.defi.connectToSwap')}
                   </Button>
                 )}
               </div>
@@ -2890,11 +2890,11 @@ function DeFiSection({
             {activeTab === 'bridge' && (
               <div className="space-y-4">
                 <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-gray-700">
-                  <p className="text-xs text-slate-500 mb-2">From Network</p>
+                  <p className="text-xs text-slate-500 mb-2">{t('userPage.defi.fromNetwork')}</p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-white text-sm">E</div>
-                      <span className="font-bold text-slate-900 dark:text-white">Ethereum Mainnet</span>
+                      <span className="font-bold text-slate-900 dark:text-white">{t('userPage.defi.ethereumMainnet')}</span>
                     </div>
                     <ChevronRight className="w-4 h-4 text-slate-400" />
                   </div>
@@ -2905,28 +2905,28 @@ function DeFiSection({
                 </div>
 
                 <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-xl border border-blue-500/50 ring-1 ring-blue-500/20">
-                  <p className="text-xs text-slate-500 mb-2">To Network</p>
+                  <p className="text-xs text-slate-500 mb-2">{t('userPage.defi.toNetwork')}</p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white font-bold">T</div>
-                      <span className="font-bold text-slate-900 dark:text-white">TBURN Chain</span>
+                      <span className="font-bold text-slate-900 dark:text-white">{t('userPage.defi.tburnChain')}</span>
                     </div>
-                    <span className="text-xs bg-blue-500 text-white px-2 py-0.5 rounded">Fastest</span>
+                    <span className="text-xs bg-blue-500 text-white px-2 py-0.5 rounded">{t('userPage.defi.fastest')}</span>
                   </div>
                 </div>
 
                 <div className="p-4 bg-slate-100 dark:bg-gray-800 rounded-xl text-center">
-                  <p className="text-xs text-slate-500 dark:text-gray-400">Estimated Arrival</p>
-                  <p className="text-xl font-mono font-bold text-slate-900 dark:text-white">~2 mins</p>
+                  <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.defi.estimatedArrival')}</p>
+                  <p className="text-xl font-mono font-bold text-slate-900 dark:text-white">~2 {t('userPage.defi.mins')}</p>
                 </div>
 
                 {isConnected ? (
                   <Button className="w-full py-6 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-lg">
-                    Bridge Assets
+                    {t('userPage.defi.bridgeAssets')}
                   </Button>
                 ) : (
                   <Button onClick={onConnectWallet} className="w-full py-6 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-lg">
-                    Connect Wallet to Bridge
+                    {t('userPage.defi.connectToBridge')}
                   </Button>
                 )}
               </div>
@@ -2938,20 +2938,20 @@ function DeFiSection({
           <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-3xl p-4 sm:p-6 border border-slate-200 dark:border-white/5">
             <div className="flex justify-between items-center mb-4 sm:mb-6">
               <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Flame className="w-5 h-5 text-orange-500" /> Top Liquidity Pools
+                <Flame className="w-5 h-5 text-orange-500" /> {t('userPage.defi.topPools')}
               </h3>
-              <a href="/app/dex#pools" className="text-sm text-blue-500 hover:underline">View All →</a>
+              <a href="/app/dex#pools" className="text-sm text-blue-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
                   <tr className="text-slate-500 dark:text-gray-400 text-xs uppercase border-b border-slate-200 dark:border-gray-800">
-                    <th className="pb-3 font-medium">Pair</th>
-                    <th className="pb-3 font-medium text-right">TVL</th>
-                    <th className="pb-3 font-medium text-right hidden sm:table-cell">Volume (24h)</th>
-                    <th className="pb-3 font-medium text-right">APY</th>
-                    <th className="pb-3 font-medium text-center">Action</th>
+                    <th className="pb-3 font-medium">{t('userPage.defi.pair')}</th>
+                    <th className="pb-3 font-medium text-right">{t('userPage.defi.tvl')}</th>
+                    <th className="pb-3 font-medium text-right hidden sm:table-cell">{t('userPage.defi.volume24h')}</th>
+                    <th className="pb-3 font-medium text-right">{t('userPage.defi.apy')}</th>
+                    <th className="pb-3 font-medium text-center">{t('userPage.defi.action')}</th>
                   </tr>
                 </thead>
                 <tbody className="text-slate-800 dark:text-white text-sm divide-y divide-slate-100 dark:divide-gray-800">
@@ -2968,7 +2968,7 @@ function DeFiSection({
                         </div>
                         <span className="font-bold text-xs sm:text-sm">{pool.token0Symbol}-{pool.token1Symbol}</span>
                         {index === 0 && (
-                          <span className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-bold hidden sm:inline">Top</span>
+                          <span className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-bold hidden sm:inline">{t('userPage.defi.top')}</span>
                         )}
                       </td>
                       <td className="py-4 text-right font-mono text-xs sm:text-sm">{formatUsdValue(pool.tvlUsd)}</td>
@@ -2979,7 +2979,7 @@ function DeFiSection({
                       <td className="py-4 text-center">
                         <a href={`/app/dex#pools`}>
                           <Button size="sm" variant="outline" className="text-[10px] sm:text-xs px-2 sm:px-3">
-                            Deposit
+                            {t('userPage.defi.deposit')}
                           </Button>
                         </a>
                       </td>
@@ -3262,7 +3262,7 @@ function NFTSection({
                 : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
             }`}
           >
-            NFT Market
+            {t('userPage.nft.nftMarket')}
           </button>
           <button 
             onClick={() => setActiveTab('launchpad')}
@@ -3272,7 +3272,7 @@ function NFTSection({
                 : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
             }`}
           >
-            Launchpad
+            {t('userPage.nft.launchpad')}
           </button>
           <button 
             onClick={() => setActiveTab('gamefi')}
@@ -3282,18 +3282,18 @@ function NFTSection({
                 : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
             }`}
           >
-            GameFi
+            {t('userPage.nft.gamefi')}
           </button>
         </div>
         <div className="flex gap-2 flex-wrap">
           <a href="/app/nft-marketplace" className="text-xs px-3 py-1.5 bg-violet-500/10 text-violet-500 rounded-full font-bold hover:bg-violet-500/20 transition-colors">
-            Marketplace →
+            {t('userPage.nft.marketplace')} →
           </a>
           <a href="/app/nft-launchpad" className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-500 rounded-full font-bold hover:bg-amber-500/20 transition-colors">
-            Launchpad →
+            {t('userPage.nft.launchpad')} →
           </a>
           <a href="/app/gamefi" className="text-xs px-3 py-1.5 bg-pink-500/10 text-pink-500 rounded-full font-bold hover:bg-pink-500/20 transition-colors">
-            GameFi →
+            {t('userPage.nft.gamefi')} →
           </a>
         </div>
       </div>
@@ -3304,25 +3304,25 @@ function NFTSection({
           {/* Stats Row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">24h Volume</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.volume24h')}</p>
               <p className="text-xl font-bold text-violet-500 font-mono">
                 {nftOverview?.totalVolume24h ? `${formatNftAmount(nftOverview.totalVolume24h)} TB` : '12.5K TB'}
               </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Active Listings</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.activeListings')}</p>
               <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">
                 {nftOverview?.activeListings ? formatNumber(nftOverview.activeListings) : '2,450'}
               </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Collections</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.collections')}</p>
               <p className="text-xl font-bold text-emerald-500 font-mono">
                 {nftOverview?.totalCollections || 128}
               </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">24h Sales</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.sales24h')}</p>
               <p className="text-xl font-bold text-amber-500 font-mono">
                 {nftOverview?.salesCount24h || 342}
               </p>
@@ -3338,20 +3338,20 @@ function NFTSection({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent opacity-90"></div>
             <div className="absolute bottom-0 left-0 p-6 sm:p-8">
-              <span className="bg-violet-500 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">Trending #1</span>
+              <span className="bg-violet-500 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">{t('userPage.nft.trending')} #1</span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-2 font-mono">
                 {trendingCollections[0]?.name || 'Cyber Punk Origins'}
               </h2>
-              <p className="text-gray-300 max-w-lg mb-4 text-sm md:text-base">TBURN 메인넷 최초의 PFP 컬렉션. Trust Score 80 이상 민팅 가능.</p>
+              <p className="text-gray-300 max-w-lg mb-4 text-sm md:text-base">{t('userPage.nft.heroDescription')}</p>
               <div className="flex flex-wrap gap-3 sm:gap-4">
                 <a href="/app/nft-marketplace">
                   <Button className="bg-white text-black hover:bg-gray-200 font-bold px-4 sm:px-6 py-2">
-                    View Collection
+                    {t('userPage.nft.viewCollection')}
                   </Button>
                 </a>
                 <a href="/app/nft-marketplace">
                   <Button variant="outline" className="backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20 font-bold px-4 sm:px-6 py-2">
-                    Browse All
+                    {t('userPage.nft.browseAll')}
                   </Button>
                 </a>
               </div>
@@ -3362,9 +3362,9 @@ function NFTSection({
           <div>
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Flame className="w-5 h-5 text-orange-500" /> Trending Collections
+                <Flame className="w-5 h-5 text-orange-500" /> {t('userPage.nft.trendingCollections')}
               </h3>
-              <a href="/app/nft-marketplace" className="text-sm text-violet-500 hover:underline">View All →</a>
+              <a href="/app/nft-marketplace" className="text-sm text-violet-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {trendingCollections.map((collection, index) => (
@@ -3389,11 +3389,11 @@ function NFTSection({
                     </div>
                     <div className="flex justify-between items-end mt-2">
                       <div>
-                        <p className="text-xs text-slate-500 dark:text-gray-400">Floor</p>
+                        <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.floor')}</p>
                         <p className="font-mono font-bold text-violet-500">{formatNftAmount(collection.floorPrice)} TB</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-slate-500 dark:text-gray-400">Vol (24h)</p>
+                        <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.vol24h')}</p>
                         <p className="font-mono font-bold text-slate-700 dark:text-gray-200">{formatNftAmount(collection.volume24h)} TB</p>
                       </div>
                     </div>
@@ -3406,10 +3406,10 @@ function NFTSection({
                 <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-gray-800 flex items-center justify-center mb-4">
                   <Plus className="w-8 h-8 text-slate-400" />
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white">Create NFT</h4>
-                <p className="text-xs text-slate-500 dark:text-gray-400 mt-1 mb-4">Mint fee: <span className="text-emerald-500">$0.001</span></p>
+                <h4 className="font-bold text-slate-900 dark:text-white">{t('userPage.nft.createNft')}</h4>
+                <p className="text-xs text-slate-500 dark:text-gray-400 mt-1 mb-4">{t('userPage.nft.mintFee')}: <span className="text-emerald-500">$0.001</span></p>
                 <Button className="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-black text-xs font-bold hover:opacity-80">
-                  Start Minting
+                  {t('userPage.nft.startMinting')}
                 </Button>
               </a>
             </div>
@@ -3423,16 +3423,16 @@ function NFTSection({
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-2">
             <div>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Rocket className="w-6 h-6" /> TBURN Launchpad
+                <Rocket className="w-6 h-6" /> {t('userPage.nft.tburnLaunchpad')}
               </h2>
-              <p className="text-slate-500 dark:text-gray-400 text-sm">Trust Score 기반의 공정한 토큰 세일 플랫폼</p>
+              <p className="text-slate-500 dark:text-gray-400 text-sm">{t('userPage.nft.launchpadSubtitle')}</p>
             </div>
             <div className="flex gap-2 text-sm">
               <span className="px-3 py-1 bg-green-500/10 text-green-500 rounded-full font-bold border border-green-500/20">
-                Live: 2
+                {t('userPage.nft.live')}: 2
               </span>
               <span className="px-3 py-1 bg-slate-100 dark:bg-gray-800 text-slate-500 rounded-full font-bold">
-                Upcoming: 5
+                {t('userPage.nft.upcoming')}: 5
               </span>
             </div>
           </div>
@@ -3440,19 +3440,19 @@ function NFTSection({
           {/* Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Total Raised</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.totalRaised')}</p>
               <p className="text-xl font-bold text-amber-500 font-mono">2.5M TB</p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Total Projects</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.totalProjects')}</p>
               <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">24</p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Total Minted</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.totalMinted')}</p>
               <p className="text-xl font-bold text-emerald-500 font-mono">125K</p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Participants</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.participants')}</p>
               <p className="text-xl font-bold text-blue-500 font-mono">8.2K</p>
             </div>
           </div>
@@ -3461,7 +3461,7 @@ function NFTSection({
           <a href="/app/nft-launchpad" className="block">
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 lg:p-8 border-l-4 border-amber-500 border border-slate-200 dark:border-white/5 relative overflow-hidden hover:border-amber-500/50 transition-colors">
               <div className="absolute top-4 right-4">
-                <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">LIVE NOW</span>
+                <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">{t('userPage.nft.liveNow')}</span>
               </div>
               
               <div className="flex flex-col md:flex-row gap-6">
@@ -3470,40 +3470,40 @@ function NFTSection({
                 </div>
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white">NexGen DeFi Protocol</h3>
-                  <p className="text-slate-500 dark:text-gray-400 text-sm mt-1 mb-4 max-w-2xl">AI 기반의 자동화된 일드 파밍 최적화 프로토콜. TBURN 메인넷 독점 런칭.</p>
+                  <p className="text-slate-500 dark:text-gray-400 text-sm mt-1 mb-4 max-w-2xl">{t('userPage.nft.aiYieldFarming')}</p>
                   
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     <div>
-                      <p className="text-xs text-slate-400">Token Price</p>
+                      <p className="text-xs text-slate-400">{t('userPage.nft.tokenPrice')}</p>
                       <p className="font-mono font-bold text-slate-800 dark:text-white">1 NGD = 0.5 TB</p>
                     </div>
                     <div>
-                      <p className="text-xs text-slate-400">Total Raise</p>
+                      <p className="text-xs text-slate-400">{t('userPage.nft.totalRaise')}</p>
                       <p className="font-mono font-bold text-slate-800 dark:text-white">500,000 TB</p>
                     </div>
                     <div>
-                      <p className="text-xs text-slate-400">Min Trust Score</p>
+                      <p className="text-xs text-slate-400">{t('userPage.nft.minTrustScore')}</p>
                       <p className="font-mono font-bold text-blue-500">85+</p>
                     </div>
                     <div>
-                      <p className="text-xs text-slate-400">Ends In</p>
+                      <p className="text-xs text-slate-400">{t('userPage.nft.endsIn')}</p>
                       <p className="font-mono font-bold text-amber-500">04h 12m 30s</p>
                     </div>
                   </div>
 
                   <div className="mb-2 flex justify-between text-xs font-bold">
-                    <span className="text-slate-500 dark:text-gray-300">Progress</span>
+                    <span className="text-slate-500 dark:text-gray-300">{t('userPage.nft.progress')}</span>
                     <span className="text-amber-500">78%</span>
                   </div>
                   <Progress value={78} className="h-3 mb-6" />
 
                   {isConnected ? (
                     <Button className="w-full md:w-auto px-8 py-3 bg-amber-500 text-black font-bold hover:bg-yellow-400 shadow-lg shadow-yellow-500/20">
-                      Participate Now
+                      {t('userPage.nft.participateNow')}
                     </Button>
                   ) : (
                     <Button onClick={(e) => { e.preventDefault(); onConnectWallet(); }} className="w-full md:w-auto px-8 py-3 bg-amber-500 text-black font-bold hover:bg-yellow-400">
-                      Connect Wallet
+                      {t('userPage.nft.connectWallet')}
                     </Button>
                   )}
                 </div>
@@ -3514,8 +3514,8 @@ function NFTSection({
           {/* Upcoming Sales */}
           <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border border-slate-200 dark:border-white/5">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-slate-900 dark:text-white">Upcoming Sales</h3>
-              <a href="/app/nft-launchpad" className="text-sm text-amber-500 hover:underline">View All →</a>
+              <h3 className="font-bold text-slate-900 dark:text-white">{t('userPage.nft.upcomingSales')}</h3>
+              <a href="/app/nft-launchpad" className="text-sm text-amber-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
             </div>
             <div className="space-y-4">
               {[
@@ -3533,11 +3533,11 @@ function NFTSection({
                     </div>
                     <div>
                       <h4 className="font-bold text-slate-900 dark:text-white">{sale.name}</h4>
-                      <p className="text-xs text-slate-500 dark:text-gray-400">{sale.category} • Starts in {sale.startsIn}</p>
+                      <p className="text-xs text-slate-500 dark:text-gray-400">{sale.category} • {t('userPage.nft.startsIn')} {sale.startsIn}</p>
                     </div>
                   </div>
                   <Button variant="outline" size="sm" className="text-xs font-bold">
-                    View Details
+                    {t('userPage.nft.viewCollection')}
                   </Button>
                 </a>
               ))}
@@ -3552,25 +3552,25 @@ function NFTSection({
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Total Players</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.totalPlayers')}</p>
               <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">
                 {gamefiOverview?.totalPlayers ? formatNumber(gamefiOverview.totalPlayers) : '1.2M+'}
               </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Active Today</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.dailyActive')}</p>
               <p className="text-xl font-bold text-pink-500 font-mono">
                 {gamefiOverview?.activePlayers24h ? formatNumber(gamefiOverview.activePlayers24h) : '45K'}
               </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Rewards Dist.</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.prizePools')}</p>
               <p className="text-xl font-bold text-emerald-500 font-mono">
                 {gamefiOverview?.totalRewardsDistributed ? `${formatNftAmount(gamefiOverview.totalRewardsDistributed)} TB` : '250K TB'}
               </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Active Games</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.nft.activeGames')}</p>
               <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">
                 {gamefiOverview?.activeProjects || 24}
               </p>
@@ -3589,26 +3589,26 @@ function NFTSection({
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-transparent"></div>
               </div>
               <div className="p-6 sm:p-8 flex flex-col justify-center">
-                <span className="text-pink-500 text-xs font-bold tracking-widest uppercase mb-2">Editor's Choice</span>
+                <span className="text-pink-500 text-xs font-bold tracking-widest uppercase mb-2">{t('userPage.nft.featuredGames')}</span>
                 <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
                   {featuredGames[0]?.name || 'TBURN Racers: Velocity'}
                 </h3>
                 <p className="text-slate-500 dark:text-gray-400 mb-6 text-sm">
                   {featuredGames[0] ? (
                     <>
-                      {featuredGames[0].category} • {formatNumber(featuredGames[0].totalPlayers)} players
+                      {featuredGames[0].category} • {formatNumber(featuredGames[0].totalPlayers)} {t('userPage.nft.players')}
                       {featuredGames[0].playToEarnEnabled && ' • Play-to-Earn'}
                     </>
                   ) : (
-                    '초고속 TPS를 활용한 실시간 멀티플레이어 레이싱. 승리하고 TBURN을 획득하세요.'
+                    t('userPage.nft.heroDescription')
                   )}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button className="flex-1 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold shadow-lg shadow-pink-500/30">
-                    <Play className="w-4 h-4 mr-2" /> Play Now
+                    <Play className="w-4 h-4 mr-2" /> {t('userPage.nft.playNow')}
                   </Button>
                   <Button variant="outline" className="px-4 py-3 font-bold">
-                    Marketplace
+                    {t('userPage.nft.marketplace')}
                   </Button>
                 </div>
               </div>
@@ -3618,8 +3618,8 @@ function NFTSection({
           {/* Featured Games List */}
           <div>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-slate-900 dark:text-white">Popular Games</h3>
-              <a href="/app/gamefi" className="text-sm text-pink-500 hover:underline">View All →</a>
+              <h3 className="font-bold text-slate-900 dark:text-white">{t('userPage.nft.featuredGames')}</h3>
+              <a href="/app/gamefi" className="text-sm text-pink-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {featuredGames.length > 0 ? featuredGames.slice(0, 4).map((game) => (
@@ -3651,7 +3651,7 @@ function NFTSection({
                       <span className="text-[10px] px-1.5 py-0.5 bg-blue-500/10 text-blue-500 rounded">Staking</span>
                     )}
                     {game.tournamentEnabled && (
-                      <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/10 text-amber-500 rounded">Tournaments</span>
+                      <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/10 text-amber-500 rounded">{t('userPage.nft.tournaments')}</span>
                     )}
                   </div>
                 </a>
@@ -3690,15 +3690,15 @@ function NFTSection({
               <div>
                 <h4 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                   <Gamepad2 className="w-5 h-5 text-pink-500" />
-                  Active Tournaments
+                  {t('userPage.nft.tournaments')}
                 </h4>
                 <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">
-                  {gamefiOverview?.activeTournaments || 5} tournaments running now
+                  {gamefiOverview?.activeTournaments || 5} {t('userPage.nft.tournaments').toLowerCase()}
                 </p>
               </div>
               <a href="/app/gamefi">
                 <Button className="bg-pink-500 hover:bg-pink-600 text-white font-bold">
-                  View Tournaments
+                  {t('userPage.defi.viewAll')}
                 </Button>
               </a>
             </div>
