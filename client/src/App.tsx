@@ -52,6 +52,7 @@ import Login from "@/pages/login";
 import Signup from "@/pages/signup";
 
 const TokenSystem = lazy(() => import("@/pages/token-system"));
+const TokenGenerator = lazy(() => import("@/pages/token-generator"));
 const Bridge = lazy(() => import("@/pages/bridge"));
 const Governance = lazy(() => import("@/pages/governance"));
 const BurnDashboard = lazy(() => import("@/pages/burn"));
@@ -352,10 +353,10 @@ function RootRouter() {
     );
   }
   
-  if (location === "/token-system" || location.startsWith("/token-system")) {
+  if (location === "/token-generator" || location.startsWith("/token-generator")) {
     return (
       <Suspense fallback={<PageLoading />}>
-        <TokenSystem />
+        <TokenGenerator />
       </Suspense>
     );
   }
