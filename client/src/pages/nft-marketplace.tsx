@@ -60,16 +60,7 @@ import {
   ChevronRight,
   Info,
   Shield,
-  Home,
-  ScanLine,
-  User,
-  Bug,
-  Hexagon,
-  HelpCircle,
 } from "lucide-react";
-import { Link } from "wouter";
-import { LanguageSelector } from "@/components/language-selector";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { WalletRequiredBanner } from "@/components/require-wallet";
@@ -1747,56 +1738,6 @@ export default function NftMarketplacePage() {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Navigation Header */}
-      <div className="flex items-center justify-between pb-4 border-b">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-            <Image className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl font-bold">NFT Marketplace</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link href="/">
-            <Button variant="ghost" size="icon" data-testid="link-nav-home">
-              <Home className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/scan">
-            <Button variant="ghost" size="icon" data-testid="link-nav-scan">
-              <ScanLine className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/user">
-            <Button variant="ghost" size="icon" data-testid="link-nav-user">
-              <User className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/bug-bounty">
-            <Button variant="ghost" size="icon" data-testid="link-nav-bug-bounty">
-              <Bug className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/security-audit">
-            <Button variant="ghost" size="icon" data-testid="link-nav-security-audit">
-              <Shield className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/token-generator">
-            <Button variant="ghost" size="icon" data-testid="link-nav-token-generator">
-              <Hexagon className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/qna">
-            <Button variant="ghost" size="icon" data-testid="link-nav-qna">
-              <HelpCircle className="w-4 h-4" />
-            </Button>
-          </Link>
-          <div className="w-px h-6 bg-border mx-1" />
-          <LanguageSelector />
-          <ThemeToggle />
-        </div>
-      </div>
-
       <WalletRequiredBanner />
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>

@@ -73,6 +73,8 @@ import {
   Home,
   HelpCircle,
   ScanLine,
+  Bug,
+  Hexagon,
 } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -1024,11 +1026,6 @@ export default function NftMarketplaceStandalone() {
                 <Home className="w-4 h-4" />
               </Button>
             </a>
-            <a href="/qna" data-testid="link-qna">
-              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
-                <HelpCircle className="w-4 h-4" />
-              </Button>
-            </a>
             <a href="/scan" data-testid="link-scan">
               <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
                 <ScanLine className="w-4 h-4" />
@@ -1037,6 +1034,26 @@ export default function NftMarketplaceStandalone() {
             <a href="/user" data-testid="link-user">
               <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
                 <User className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/bug-bounty" data-testid="link-bug-bounty">
+              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+                <Bug className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/security-audit" data-testid="link-security-audit">
+              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+                <Shield className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/token-generator" data-testid="link-token-generator">
+              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+                <Hexagon className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/qna" data-testid="link-qna">
+              <Button variant="ghost" size="icon" className={`h-9 w-9 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+                <HelpCircle className="w-4 h-4" />
               </Button>
             </a>
             {/* Language Selector - Globe icon only */}
