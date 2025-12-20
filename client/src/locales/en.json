@@ -6759,6 +6759,12 @@
     "vol24h": "24h Vol",
     "buyNow": "Buy Now",
     "auction": "Auction",
+      "status": "Status",
+      "category": "Category",
+      "creatorTrust": "Creator Trust",
+      "found": "Found",
+      "game": "Gaming",
+      "pfp": "PFP",
     "placeBid": "Place Bid",
     "cancel": "Cancel",
     "listNftForSale": "List NFT for Sale",
@@ -24398,6 +24404,9 @@
     "amount": "Amount",
     "percentOfTotal": "% of Total",
     "change": "Change",
+      "totalItems": "Total Items",
+      "collections": "Collections",
+      "activeSellers": "Active Sellers",
     "trend": "Trend",
     "increasing": "Increasing",
     "decreasing": "Decreasing",
@@ -27089,7 +27098,8 @@
       "titleHighlight": "Extraordinary NFTs",
       "subtitle": "The premier marketplace for verified digital assets on TBURN blockchain",
       "exploreBtn": "Explore Collection",
-      "createBtn": "Start Creating"
+      "createBtn": "Start Creating",
+      "liveMinting": "Live Minting"
     },
     "stats": {
       "totalVolume": "Total Volume",
@@ -27099,7 +27109,10 @@
       "floorPrice": "Floor Price",
       "items": "Items",
       "owners": "Owners",
-      "change": "Change"
+      "change": "Change",
+      "totalItems": "Total Items",
+      "collections": "Collections",
+      "activeSellers": "Active Sellers"
     },
     "tabs": {
       "overview": "Overview",
@@ -27117,7 +27130,13 @@
       "priceLow": "Price: Low to High",
       "priceHigh": "Price: High to Low",
       "buyNow": "Buy Now",
-      "auction": "Auction"
+      "auction": "Auction",
+      "status": "Status",
+      "category": "Category",
+      "creatorTrust": "Creator Trust",
+      "found": "Found",
+      "game": "Gaming",
+      "pfp": "PFP"
     },
     "card": {
       "price": "Price",

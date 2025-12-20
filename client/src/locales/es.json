@@ -2010,6 +2010,12 @@
     "vol24h": "Vol 24h",
     "buyNow": "Comprar Ahora",
     "auction": "Subasta",
+      "status": "Estado",
+      "category": "Categoría",
+      "creatorTrust": "Confianza del Creador",
+      "found": "Encontrados",
+      "game": "Juegos",
+      "pfp": "PFP",
     "placeBid": "Hacer Oferta",
     "cancel": "Cancelar",
     "listNftForSale": "Listar NFT para Venta",
@@ -15605,7 +15611,8 @@
       "titleHighlight": "NFTs Extraordinarios",
       "subtitle": "El mercado premier para activos digitales verificados en blockchain TBURN",
       "exploreBtn": "Explorar Colección",
-      "createBtn": "Empezar a Crear"
+      "createBtn": "Empezar a Crear",
+      "liveMinting": "Acuñación en Vivo"
     },
     "stats": {
       "totalVolume": "Volumen Total",
@@ -15615,7 +15622,10 @@
       "floorPrice": "Precio Mínimo",
       "items": "Artículos",
       "owners": "Propietarios",
-      "change": "Cambio"
+      "change": "Cambio",
+      "totalItems": "Total de Artículos",
+      "collections": "Colecciones",
+      "activeSellers": "Vendedores Activos"
     },
     "tabs": {
       "overview": "Resumen",
@@ -15633,7 +15643,13 @@
       "priceLow": "Precio: Menor a Mayor",
       "priceHigh": "Precio: Mayor a Menor",
       "buyNow": "Comprar Ahora",
-      "auction": "Subasta"
+      "auction": "Subasta",
+      "status": "Estado",
+      "category": "Categoría",
+      "creatorTrust": "Confianza del Creador",
+      "found": "Encontrados",
+      "game": "Juegos",
+      "pfp": "PFP"
     },
     "card": {
       "price": "Precio",

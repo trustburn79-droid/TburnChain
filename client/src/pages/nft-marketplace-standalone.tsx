@@ -259,6 +259,7 @@ interface NftCardProps {
 }
 
 function NftCard({ listing, item, collection, onBuyNow, onViewItem }: NftCardProps) {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const isLegendary = item?.rarityTier?.toLowerCase() === 'legendary' || item?.rarityTier?.toLowerCase() === 'mythic';
   
@@ -282,17 +283,17 @@ function NftCard({ listing, item, collection, onBuyNow, onViewItem }: NftCardPro
         )}
         {isLegendary && (
           <span className="absolute top-3 left-3 bg-amber-500 text-black text-xs font-extrabold px-2 py-1 rounded shadow-lg">
-            LEGENDARY
+            {t('nftMarketplacePage.rarity.legendary')}
           </span>
         )}
         {item?.rarityTier && !isLegendary && (
           <span className={`absolute top-3 left-3 ${getRarityColor(item.rarityTier)} text-xs font-bold px-2 py-1 rounded shadow-lg uppercase`}>
-            {item.rarityTier}
+            {t(`nftMarketplacePage.rarity.${item.rarityTier.toLowerCase()}`)}
           </span>
         )}
         {listing.listingType === "auction" && (
           <span className="absolute top-3 right-3 bg-violet-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
-            <Gavel className="w-3 h-3" />Auction
+            <Gavel className="w-3 h-3" />{t('nftMarketplacePage.filters.auction')}
           </span>
         )}
         <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all">
@@ -301,7 +302,7 @@ function NftCard({ listing, item, collection, onBuyNow, onViewItem }: NftCardPro
             onClick={(e) => { e.stopPropagation(); onBuyNow(listing); }}
             data-testid={`button-buy-${listing.id}`}
           >
-            {listing.listingType === "auction" ? "Place Bid" : "Buy Now"}
+            {listing.listingType === "auction" ? t('nftMarketplacePage.card.placeBid') : t('nftMarketplacePage.card.buyNow')}
           </button>
           <button 
             className="px-3 bg-gray-800/90 text-white font-bold py-2 rounded-lg shadow-lg hover:bg-gray-700 transition-all flex items-center justify-center"
@@ -324,11 +325,11 @@ function NftCard({ listing, item, collection, onBuyNow, onViewItem }: NftCardPro
         </div>
         <div className={`flex justify-between items-end mt-4 pt-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <div>
-            <p className={`text-[10px] uppercase font-bold tracking-wider ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Price</p>
+            <p className={`text-[10px] uppercase font-bold tracking-wider ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{t('nftMarketplacePage.card.price')}</p>
             <p className={`text-lg font-mono font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{formatAmount(listing.price)} TB</p>
           </div>
           <div className="text-right">
-            <p className={`text-[10px] uppercase font-bold tracking-wider ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Listed</p>
+            <p className={`text-[10px] uppercase font-bold tracking-wider ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{t('nftMarketplacePage.card.listed')}</p>
             <p className={`text-sm font-mono ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{formatDate(listing.createdAt)}</p>
           </div>
         </div>
@@ -1022,23 +1023,23 @@ export default function NftMarketplaceStandalone() {
             </div>
             {/* Language Selector */}
             <Select value={i18n.language} onValueChange={(value) => i18n.changeLanguage(value)}>
-              <SelectTrigger className={`w-auto gap-2 rounded-full ${theme === 'dark' ? 'bg-[#151E32] border-gray-700 text-white' : 'bg-gray-100 border-gray-300 text-gray-900'}`} data-testid="select-language">
+              <SelectTrigger className={`w-[120px] gap-2 rounded-lg h-9 ${theme === 'dark' ? 'bg-[#151E32] border-gray-700 text-white' : 'bg-gray-100 border-gray-300 text-gray-900'}`} data-testid="select-language">
                 <Globe className="w-4 h-4" />
-                <SelectValue />
+                <SelectValue placeholder="Language" />
               </SelectTrigger>
-              <SelectContent className={`${theme === 'dark' ? 'bg-[#151E32] border-gray-700' : 'bg-white border-gray-200'}`}>
-                <SelectItem value="en" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇺🇸 English</SelectItem>
-                <SelectItem value="ko" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇰🇷 한국어</SelectItem>
-                <SelectItem value="ja" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇯🇵 日本語</SelectItem>
-                <SelectItem value="zh" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇨🇳 中文</SelectItem>
-                <SelectItem value="es" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇪🇸 Español</SelectItem>
-                <SelectItem value="fr" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇫🇷 Français</SelectItem>
-                <SelectItem value="ru" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇷🇺 Русский</SelectItem>
-                <SelectItem value="pt" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇧🇷 Português</SelectItem>
-                <SelectItem value="ar" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇸🇦 العربية</SelectItem>
-                <SelectItem value="hi" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇮🇳 हिन्दी</SelectItem>
-                <SelectItem value="bn" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇧🇩 বাংলা</SelectItem>
-                <SelectItem value="ur" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇵🇰 اردو</SelectItem>
+              <SelectContent className={`min-w-[160px] ${theme === 'dark' ? 'bg-[#151E32] border-gray-700' : 'bg-white border-gray-200'}`}>
+                <SelectItem value="en" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>English</SelectItem>
+                <SelectItem value="ko" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>한국어</SelectItem>
+                <SelectItem value="ja" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>日本語</SelectItem>
+                <SelectItem value="zh" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>中文</SelectItem>
+                <SelectItem value="es" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>Español</SelectItem>
+                <SelectItem value="fr" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>Français</SelectItem>
+                <SelectItem value="ru" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>Русский</SelectItem>
+                <SelectItem value="pt" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>Português</SelectItem>
+                <SelectItem value="ar" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>العربية</SelectItem>
+                <SelectItem value="hi" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>हिन्दी</SelectItem>
+                <SelectItem value="bn" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>বাংলা</SelectItem>
+                <SelectItem value="ur" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>اردو</SelectItem>
               </SelectContent>
             </Select>
             <Button 
@@ -1425,18 +1426,18 @@ export default function NftMarketplaceStandalone() {
             
             <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-center max-w-2xl">
               <div className="flex items-center gap-2 mb-4">
-                <span className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-bold text-white border border-white/20">Trust Score 90+ Only</span>
-                <span className="px-3 py-1 bg-violet-500 text-white rounded-full text-xs font-bold animate-pulse">Live Minting</span>
+                <span className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-bold text-white border border-white/20">{t('nftMarketplacePage.hero.trustScore')}</span>
+                <span className="px-3 py-1 bg-violet-500 text-white rounded-full text-xs font-bold animate-pulse">{t('nftMarketplacePage.hero.liveMinting')}</span>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight" data-testid="text-page-title">
-                Discover the <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">Future</span> of Digital Art
+                {t('nftMarketplacePage.hero.title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">{t('nftMarketplacePage.hero.titleHighlight')}</span>
               </h1>
               <p className="text-gray-300 mb-8 text-lg">
-                TBURN 메인넷의 초고속, 제로 가스비 환경에서 검증된 프리미엄 NFT를 거래하세요. 
+                {t('nftMarketplacePage.hero.subtitle')}
               </p>
               <div className="flex gap-4">
-                <Button className="px-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-100 border-0" data-testid="button-explore">Explore</Button>
-                <Button variant="outline" className="px-8 py-3 bg-white/10 backdrop-blur-md text-white border-white/20 font-bold rounded-xl hover:bg-white/20" onClick={() => setListDialogOpen(true)} data-testid="button-create">Create</Button>
+                <Button className="px-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-100 border-0" data-testid="button-explore">{t('nftMarketplacePage.hero.exploreBtn')}</Button>
+                <Button variant="outline" className="px-8 py-3 bg-white/10 backdrop-blur-md text-white border-white/20 font-bold rounded-xl hover:bg-white/20" onClick={() => setListDialogOpen(true)} data-testid="button-create">{t('nftMarketplacePage.hero.createBtn')}</Button>
               </div>
             </div>
           </div>
@@ -1449,7 +1450,7 @@ export default function NftMarketplaceStandalone() {
                   <DollarSign className="w-5 h-5 text-violet-400" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400">24h Volume</p>
+                  <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.volume24h')}</p>
                   <p className="font-bold font-mono text-white">{formatAmount(overview?.totalVolume24h || "0")} TB</p>
                 </div>
               </div>
@@ -1460,7 +1461,7 @@ export default function NftMarketplaceStandalone() {
                   <Image className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400">Total Items</p>
+                  <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.totalItems')}</p>
                   <p className="font-bold font-mono text-white">{overview?.totalItems?.toLocaleString() || "0"}</p>
                 </div>
               </div>
@@ -1471,7 +1472,7 @@ export default function NftMarketplaceStandalone() {
                   <Layers className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400">Collections</p>
+                  <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.collections')}</p>
                   <p className="font-bold font-mono text-white">{overview?.totalCollections || "0"}</p>
                 </div>
               </div>
@@ -1482,7 +1483,7 @@ export default function NftMarketplaceStandalone() {
                   <Users className="w-5 h-5 text-amber-400" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400">Active Sellers</p>
+                  <p className="text-xs text-gray-400">{t('nftMarketplacePage.stats.activeSellers')}</p>
                   <p className="font-bold font-mono text-white">{(overview as any)?.activeSellers || overview?.totalCollections || "0"}</p>
                 </div>
               </div>
@@ -1493,10 +1494,10 @@ export default function NftMarketplaceStandalone() {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <div className="flex justify-between items-center flex-wrap gap-4 mb-6">
               <TabsList className="bg-[#151E32] border border-gray-700 p-1 rounded-xl">
-                <TabsTrigger value="overview" className="data-[state=active]:bg-violet-500 data-[state=active]:text-white rounded-lg px-5 py-2 text-sm font-medium" data-testid="tab-overview">Overview</TabsTrigger>
-                <TabsTrigger value="collections" className="data-[state=active]:bg-violet-500 data-[state=active]:text-white rounded-lg px-5 py-2 text-sm font-medium" data-testid="tab-collections">Collections</TabsTrigger>
-                <TabsTrigger value="listings" className="data-[state=active]:bg-violet-500 data-[state=active]:text-white rounded-lg px-5 py-2 text-sm font-medium" data-testid="tab-listings">Listings</TabsTrigger>
-                <TabsTrigger value="activity" className="data-[state=active]:bg-violet-500 data-[state=active]:text-white rounded-lg px-5 py-2 text-sm font-medium" data-testid="tab-activity">Activity</TabsTrigger>
+                <TabsTrigger value="overview" className="data-[state=active]:bg-violet-500 data-[state=active]:text-white rounded-lg px-5 py-2 text-sm font-medium" data-testid="tab-overview">{t('nftMarketplacePage.tabs.overview')}</TabsTrigger>
+                <TabsTrigger value="collections" className="data-[state=active]:bg-violet-500 data-[state=active]:text-white rounded-lg px-5 py-2 text-sm font-medium" data-testid="tab-collections">{t('nftMarketplacePage.tabs.collections')}</TabsTrigger>
+                <TabsTrigger value="listings" className="data-[state=active]:bg-violet-500 data-[state=active]:text-white rounded-lg px-5 py-2 text-sm font-medium" data-testid="tab-listings">{t('nftMarketplacePage.tabs.listings')}</TabsTrigger>
+                <TabsTrigger value="activity" className="data-[state=active]:bg-violet-500 data-[state=active]:text-white rounded-lg px-5 py-2 text-sm font-medium" data-testid="tab-activity">{t('nftMarketplacePage.tabs.activity')}</TabsTrigger>
               </TabsList>
               {activeTab === "listings" && (
                 <Select value={sortBy} onValueChange={setSortBy}>
@@ -1504,9 +1505,9 @@ export default function NftMarketplaceStandalone() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-[#151E32] border-gray-700">
-                    <SelectItem value="recent" className="text-white hover:bg-gray-800">Recently Listed</SelectItem>
-                    <SelectItem value="price_low" className="text-white hover:bg-gray-800">Price: Low to High</SelectItem>
-                    <SelectItem value="price_high" className="text-white hover:bg-gray-800">Price: High to Low</SelectItem>
+                    <SelectItem value="recent" className="text-white hover:bg-gray-800">{t('nftMarketplacePage.filters.recent')}</SelectItem>
+                    <SelectItem value="price_low" className="text-white hover:bg-gray-800">{t('nftMarketplacePage.filters.priceLow')}</SelectItem>
+                    <SelectItem value="price_high" className="text-white hover:bg-gray-800">{t('nftMarketplacePage.filters.priceHigh')}</SelectItem>
                   </SelectContent>
                 </Select>
               )}
@@ -1518,21 +1519,21 @@ export default function NftMarketplaceStandalone() {
                 {/* Filter Sidebar */}
                 <div className="w-full lg:w-64 space-y-6 shrink-0">
                   <GlassPanel className="p-5">
-                    <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">Status</h3>
+                    <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">{t('nftMarketplacePage.filters.status')}</h3>
                     <div className="space-y-3">
                       <label className="flex items-center gap-3 cursor-pointer group">
                         <Checkbox checked={showBuyNow} onCheckedChange={(checked) => setShowBuyNow(!!checked)} className="border-gray-600 data-[state=checked]:bg-violet-500 data-[state=checked]:border-violet-500" />
-                        <span className="text-sm text-gray-400 group-hover:text-violet-400 transition-colors">Buy Now</span>
+                        <span className="text-sm text-gray-400 group-hover:text-violet-400 transition-colors">{t('nftMarketplacePage.filters.buyNow')}</span>
                       </label>
                       <label className="flex items-center gap-3 cursor-pointer group">
                         <Checkbox checked={showAuction} onCheckedChange={(checked) => setShowAuction(!!checked)} className="border-gray-600 data-[state=checked]:bg-violet-500 data-[state=checked]:border-violet-500" />
-                        <span className="text-sm text-gray-400 group-hover:text-violet-400 transition-colors">On Auction</span>
+                        <span className="text-sm text-gray-400 group-hover:text-violet-400 transition-colors">{t('nftMarketplacePage.filters.auction')}</span>
                       </label>
                     </div>
                   </GlassPanel>
 
                   <GlassPanel className="p-5">
-                    <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">Category</h3>
+                    <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">{t('nftMarketplacePage.filters.category')}</h3>
                     <div className="flex flex-wrap gap-2">
                       {["all", "art", "game", "pfp", "music"].map(cat => (
                         <button 
@@ -1541,14 +1542,14 @@ export default function NftMarketplaceStandalone() {
                           className={`px-3 py-1 rounded-lg text-xs font-bold transition-colors ${categoryFilter === cat ? 'bg-violet-500 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
                           data-testid={`button-category-${cat}`}
                         >
-                          {cat === "all" ? "All" : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                          {t(`nftMarketplacePage.filters.${cat}`)}
                         </button>
                       ))}
                     </div>
                   </GlassPanel>
 
                   <GlassPanel className="p-5 border-l-4 border-violet-500">
-                    <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">Creator Trust</h3>
+                    <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">{t('nftMarketplacePage.filters.creatorTrust')}</h3>
                     <input type="range" min="0" max="100" defaultValue="80" className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-violet-500" />
                     <div className="flex justify-between text-xs text-gray-400 mt-2">
                       <span>0</span>
@@ -1562,7 +1563,7 @@ export default function NftMarketplaceStandalone() {
                 <div className="flex-1">
                   <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-bold text-white">
-                      {filteredListings.length.toLocaleString()} Items <span className="text-gray-400 text-sm font-normal">Found</span>
+                      {filteredListings.length.toLocaleString()} {t('nftMarketplacePage.stats.items')} <span className="text-gray-400 text-sm font-normal">{t('nftMarketplacePage.filters.found')}</span>
                     </h2>
                     <Select value={sortBy} onValueChange={setSortBy}>
                       <SelectTrigger className="w-48 bg-[#151E32] border-gray-700 text-white" data-testid="select-sort-overview">

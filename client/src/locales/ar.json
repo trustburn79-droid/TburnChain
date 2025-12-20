@@ -13512,7 +13512,8 @@
       "titleHighlight": "NFTs استثنائية",
       "subtitle": "السوق الأول للأصول الرقمية المُوثقة على بلوكتشين TBURN",
       "exploreBtn": "استكشف المجموعة",
-      "createBtn": "ابدأ الإنشاء"
+      "createBtn": "ابدأ الإنشاء",
+      "liveMinting": "سك مباشر"
     },
     "stats": {
       "totalVolume": "إجمالي الحجم",
@@ -13540,7 +13541,13 @@
       "priceLow": "السعر: من الأقل للأعلى",
       "priceHigh": "السعر: من الأعلى للأقل",
       "buyNow": "اشتر الآن",
-      "auction": "مزاد"
+      "auction": "مزاد",
+      "status": "الحالة",
+      "category": "الفئة",
+      "creatorTrust": "ثقة المبدع",
+      "found": "وجدت",
+      "game": "ألعاب",
+      "pfp": "PFP"
     },
     "card": {
       "price": "السعر",

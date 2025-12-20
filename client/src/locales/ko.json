@@ -6952,6 +6952,12 @@
     "vol24h": "24시간 거래량",
     "buyNow": "즉시 구매",
     "auction": "경매",
+      "status": "상태",
+      "category": "카테고리",
+      "creatorTrust": "제작자 신뢰도",
+      "found": "개 발견",
+      "game": "게임",
+      "pfp": "PFP",
     "placeBid": "입찰",
     "cancel": "취소",
     "listNftForSale": "NFT 판매 등록",
@@ -28312,7 +28318,8 @@
       "titleHighlight": "특별한 NFT",
       "subtitle": "TBURN 블록체인의 검증된 디지털 자산을 위한 최고의 마켓플레이스",
       "exploreBtn": "컬렉션 둘러보기",
-      "createBtn": "제작 시작하기"
+      "createBtn": "시작하기",
+      "liveMinting": "라이브 민팅"
     },
     "stats": {
       "totalVolume": "총 거래량",
@@ -28322,7 +28329,10 @@
       "floorPrice": "바닥 가격",
       "items": "아이템",
       "owners": "소유자",
-      "change": "변동"
+      "change": "변동",
+      "totalItems": "전체 아이템",
+      "collections": "컬렉션",
+      "activeSellers": "활성 판매자"
     },
     "tabs": {
       "overview": "개요",
@@ -28340,7 +28350,13 @@
       "priceLow": "가격: 낮은순",
       "priceHigh": "가격: 높은순",
       "buyNow": "즉시 구매",
-      "auction": "경매"
+      "auction": "경매",
+      "status": "상태",
+      "category": "카테고리",
+      "creatorTrust": "제작자 신뢰도",
+      "found": "개 발견",
+      "game": "게임",
+      "pfp": "PFP"
     },
     "card": {
       "price": "가격",

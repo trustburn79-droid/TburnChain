@@ -11729,7 +11729,8 @@
       "titleHighlight": "অসাধারণ NFTs",
       "subtitle": "TBURN ব্লকচেইনে যাচাইকৃত ডিজিটাল সম্পদের জন্য প্রধান মার্কেটপ্লেস",
       "exploreBtn": "সংগ্রহ দেখুন",
-      "createBtn": "তৈরি শুরু করুন"
+      "createBtn": "তৈরি শুরু করুন",
+      "liveMinting": "লাইভ মিন্টিং"
     },
     "stats": {
       "totalVolume": "মোট ভলিউম",
@@ -11757,7 +11758,13 @@
       "priceLow": "মূল্য: কম থেকে বেশি",
       "priceHigh": "মূল্য: বেশি থেকে কম",
       "buyNow": "এখনই কিনুন",
-      "auction": "নিলাম"
+      "auction": "নিলাম",
+      "status": "অবস্থা",
+      "category": "বিভাগ",
+      "creatorTrust": "নির্মাতা বিশ্বাস",
+      "found": "পাওয়া গেছে",
+      "game": "গেমিং",
+      "pfp": "PFP"
     },
     "card": {
       "price": "মূল্য",

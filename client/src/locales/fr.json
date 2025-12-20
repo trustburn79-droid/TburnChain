@@ -13581,7 +13581,8 @@
       "titleHighlight": "Des NFTs Extraordinaires",
       "subtitle": "Le marché de premier plan pour les actifs numériques vérifiés sur la blockchain TBURN",
       "exploreBtn": "Explorer la Collection",
-      "createBtn": "Commencer à Créer"
+      "createBtn": "Commencer à Créer",
+      "liveMinting": "Minage en Direct"
     },
     "stats": {
       "totalVolume": "Volume Total",
@@ -13591,7 +13592,10 @@
       "floorPrice": "Prix Plancher",
       "items": "Articles",
       "owners": "Propriétaires",
-      "change": "Variation"
+      "change": "Variation",
+      "totalItems": "Total des Articles",
+      "collections": "Collections",
+      "activeSellers": "Vendeurs Actifs"
     },
     "tabs": {
       "overview": "Aperçu",

@@ -13338,7 +13338,8 @@
       "titleHighlight": "NFTs Extraordinários",
       "subtitle": "O principal mercado para ativos digitais verificados na blockchain TBURN",
       "exploreBtn": "Explorar Coleção",
-      "createBtn": "Começar a Criar"
+      "createBtn": "Começar a Criar",
+      "liveMinting": "Mineração ao Vivo"
     },
     "stats": {
       "totalVolume": "Volume Total",
@@ -13366,7 +13367,13 @@
       "priceLow": "Preço: Menor para Maior",
       "priceHigh": "Preço: Maior para Menor",
       "buyNow": "Comprar Agora",
-      "auction": "Leilão"
+      "auction": "Leilão",
+      "status": "Status",
+      "category": "Categoria",
+      "creatorTrust": "Confiança do Criador",
+      "found": "Encontrados",
+      "game": "Jogos",
+      "pfp": "PFP"
     },
     "card": {
       "price": "Preço",

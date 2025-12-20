@@ -14149,7 +14149,8 @@
       "titleHighlight": "असाधारण NFTs",
       "subtitle": "TBURN ब्लॉकचेन पर सत्यापित डिजिटल संपत्तियों के लिए प्रमुख मार्केटप्लेस",
       "exploreBtn": "संग्रह देखें",
-      "createBtn": "बनाना शुरू करें"
+      "createBtn": "बनाना शुरू करें",
+      "liveMinting": "लाइव मिंटिंग"
     },
     "stats": {
       "totalVolume": "कुल वॉल्यूम",
@@ -14177,7 +14178,13 @@
       "priceLow": "कीमत: कम से ज्यादा",
       "priceHigh": "कीमत: ज्यादा से कम",
       "buyNow": "अभी खरीदें",
-      "auction": "नीलामी"
+      "auction": "नीलामी",
+      "status": "स्थिति",
+      "category": "श्रेणी",
+      "creatorTrust": "निर्माता विश्वास",
+      "found": "मिला",
+      "game": "गेमिंग",
+      "pfp": "PFP"
     },
     "card": {
       "price": "कीमत",

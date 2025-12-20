@@ -11973,7 +11973,8 @@
       "titleHighlight": "غیر معمولی NFTs",
       "subtitle": "TBURN بلاک چین پر تصدیق شدہ ڈیجیٹل اثاثوں کے لیے اولین مارکیٹ پلیس",
       "exploreBtn": "مجموعہ دیکھیں",
-      "createBtn": "بنانا شروع کریں"
+      "createBtn": "بنانا شروع کریں",
+      "liveMinting": "لائیو منٹنگ"
     },
     "stats": {
       "totalVolume": "کل حجم",
@@ -12001,7 +12002,13 @@
       "priceLow": "قیمت: کم سے زیادہ",
       "priceHigh": "قیمت: زیادہ سے کم",
       "buyNow": "ابھی خریدیں",
-      "auction": "نیلامی"
+      "auction": "نیلامی",
+      "status": "حیثیت",
+      "category": "زمرہ",
+      "creatorTrust": "تخلیق کار اعتماد",
+      "found": "ملا",
+      "game": "گیمنگ",
+      "pfp": "PFP"
     },
     "card": {
       "price": "قیمت",
