@@ -69,6 +69,7 @@ import {
   User,
   Sun,
   Moon,
+  Globe,
 } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -771,7 +772,7 @@ function CancelListingDialog({ open, onOpenChange, listing, items, collections, 
 }
 
 export default function NftMarketplaceStandalone() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const { theme } = useTheme();
   const { isConnected, isCorrectNetwork, address: walletAddress } = useWeb3();
@@ -1019,6 +1020,27 @@ export default function NftMarketplaceStandalone() {
             <div className="lg:hidden">
               <ThemeToggle />
             </div>
+            {/* Language Selector */}
+            <Select value={i18n.language} onValueChange={(value) => i18n.changeLanguage(value)}>
+              <SelectTrigger className={`w-auto gap-2 rounded-full ${theme === 'dark' ? 'bg-[#151E32] border-gray-700 text-white' : 'bg-gray-100 border-gray-300 text-gray-900'}`} data-testid="select-language">
+                <Globe className="w-4 h-4" />
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className={`${theme === 'dark' ? 'bg-[#151E32] border-gray-700' : 'bg-white border-gray-200'}`}>
+                <SelectItem value="en" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇺🇸 English</SelectItem>
+                <SelectItem value="ko" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇰🇷 한국어</SelectItem>
+                <SelectItem value="ja" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇯🇵 日本語</SelectItem>
+                <SelectItem value="zh" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇨🇳 中文</SelectItem>
+                <SelectItem value="es" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇪🇸 Español</SelectItem>
+                <SelectItem value="fr" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇫🇷 Français</SelectItem>
+                <SelectItem value="ru" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇷🇺 Русский</SelectItem>
+                <SelectItem value="pt" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇧🇷 Português</SelectItem>
+                <SelectItem value="ar" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇸🇦 العربية</SelectItem>
+                <SelectItem value="hi" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇮🇳 हिन्दी</SelectItem>
+                <SelectItem value="bn" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇧🇩 বাংলা</SelectItem>
+                <SelectItem value="ur" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>🇵🇰 اردو</SelectItem>
+              </SelectContent>
+            </Select>
             <Button 
               onClick={() => setListDialogOpen(true)} 
               className="hidden md:flex bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-violet-500/30 border-0"
