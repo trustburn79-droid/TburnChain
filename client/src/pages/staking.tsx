@@ -248,33 +248,36 @@ export default function StakingDashboard() {
   const { data: stats, isLoading: statsLoading } = useQuery<StakingStatsResponse>({
     queryKey: ["/api/staking/stats"],
     refetchInterval: 30000,
-    staleTime: 30000,
+    staleTime: 25000,
     gcTime: 300000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
-    retry: 3,
+    retry: 2,
+    retryDelay: 500,
     placeholderData: keepPreviousData,
   });
 
   const { data: pools, isLoading: poolsLoading } = useQuery<PoolResponse[]>({
     queryKey: ["/api/staking/pools"],
-    refetchInterval: 60000,
-    staleTime: 60000,
+    refetchInterval: 45000,
+    staleTime: 40000,
     gcTime: 300000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
-    retry: 3,
+    retry: 2,
+    retryDelay: 500,
     placeholderData: keepPreviousData,
   });
 
   const { data: tiers, isLoading: tiersLoading } = useQuery<TierResponse[]>({
     queryKey: ["/api/staking/tiers"],
-    refetchInterval: 120000,
-    staleTime: 120000,
+    refetchInterval: 90000,
+    staleTime: 85000,
     gcTime: 600000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
-    retry: 3,
+    retry: 2,
+    retryDelay: 500,
     placeholderData: keepPreviousData,
   });
 
