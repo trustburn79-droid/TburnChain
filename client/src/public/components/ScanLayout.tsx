@@ -195,7 +195,7 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                     className="text-gray-400 hover:text-white"
                     data-testid="link-nav-security-audit"
                   >
-                    <FileText className="w-4 h-4" />
+                    <Shield className="w-4 h-4" />
                   </Button>
                 </Link>
                 <Link href="/token-generator">
