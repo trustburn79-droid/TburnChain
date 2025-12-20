@@ -16,7 +16,7 @@ import {
   Lock, Unlock, Send, Copy, Eye, EyeOff, ChevronRight, Award,
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
   LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
-  Menu, X, Crown, Info
+  Menu, X, Crown, Info, Image, Plus, Play, Gamepad2, Rocket
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,7 +29,7 @@ import { formatNumber } from "@/lib/formatters";
 import { LanguageSelector } from "@/components/language-selector";
 import type { NetworkStats, StakingStats } from "@shared/schema";
 
-type Section = "dashboard" | "wallet" | "stakingDashboard" | "delegationValidator" | "defi" | "governance" | "network";
+type Section = "dashboard" | "wallet" | "stakingDashboard" | "delegationValidator" | "defi" | "nft" | "governance" | "network";
 
 interface GovernanceProposal {
   id: string;
@@ -571,6 +571,7 @@ export default function UserPage() {
     { id: "stakingDashboard" as Section, label: t('userPage.nav.stakingDashboard'), icon: Coins, badge: null },
     { id: "delegationValidator" as Section, label: t('userPage.nav.delegationValidator'), icon: Layers, badge: isConnected ? "Active" : null },
     { id: "defi" as Section, label: "DeFi", icon: TrendingUp, badge: null },
+    { id: "nft" as Section, label: "NFT", icon: Image, badge: null },
     { id: "governance" as Section, label: t('userPage.nav.governance'), icon: Gavel, badge: proposals && proposals.length > 0 ? `${proposals.length}` : null },
     { id: "network" as Section, label: t('userPage.nav.network'), icon: Globe, badge: null },
   ];
@@ -792,6 +793,12 @@ export default function UserPage() {
             <DeFiSection
               isConnected={isConnected}
               balance={balance}
+              onConnectWallet={() => setWalletModalOpen(true)}
+            />
+          )}
+          {activeSection === "nft" && (
+            <NFTSection
+              isConnected={isConnected}
               onConnectWallet={() => setWalletModalOpen(true)}
             />
           )}
@@ -2905,6 +2912,317 @@ function DeFiSection({
       <p className="text-center text-xs text-slate-400 dark:text-gray-600 mt-8">
         Powered by TBURN Triple-Band AI Orchestration | Instant Finality (&lt;1s)
       </p>
+    </section>
+  );
+}
+
+function NFTSection({
+  isConnected,
+  onConnectWallet,
+}: {
+  isConnected: boolean;
+  onConnectWallet: () => void;
+}) {
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState<'nft' | 'launchpad' | 'gamefi'>('nft');
+
+  const trendingCollections = [
+    { name: 'Space Walkers', floor: '450 TB', volume: '12.5k TB', image: 'https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=1000&auto=format&fit=crop' },
+    { name: 'Abstract Minds', floor: '120 TB', volume: '5.2k TB', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop' },
+  ];
+
+  const upcomingSales = [
+    { name: 'Galaxy War P2E', category: 'GameFi', startsIn: '2 days', icon: Gamepad2 },
+    { name: 'EcoTrace', category: 'RWA / Supply Chain', startsIn: '5 days', icon: Boxes },
+  ];
+
+  const gameAssets = [
+    { name: 'Flame Sword', level: 'Lvl 10' },
+    { name: 'Iron Shield', level: 'Lvl 5' },
+  ];
+
+  return (
+    <section className="space-y-6 sm:space-y-8" data-testid="section-nft">
+      {/* Tab Header */}
+      <div className="flex items-center gap-4 overflow-x-auto pb-2">
+        <button 
+          onClick={() => setActiveTab('nft')}
+          className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+            activeTab === 'nft' 
+              ? 'bg-violet-500/10 text-violet-500 ring-1 ring-violet-500/50' 
+              : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
+          }`}
+        >
+          NFT Market
+        </button>
+        <button 
+          onClick={() => setActiveTab('launchpad')}
+          className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+            activeTab === 'launchpad' 
+              ? 'bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/50' 
+              : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
+          }`}
+        >
+          Launchpad
+        </button>
+        <button 
+          onClick={() => setActiveTab('gamefi')}
+          className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+            activeTab === 'gamefi' 
+              ? 'bg-pink-500/10 text-pink-500 ring-1 ring-pink-500/50' 
+              : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
+          }`}
+        >
+          GameFi
+        </button>
+      </div>
+
+      {/* NFT Market Section */}
+      {activeTab === 'nft' && (
+        <div className="space-y-8">
+          {/* Hero Banner */}
+          <div className="relative rounded-3xl overflow-hidden h-64 md:h-80 group">
+            <img 
+              src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop" 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              alt="NFT Hero"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent opacity-90"></div>
+            <div className="absolute bottom-0 left-0 p-6 sm:p-8">
+              <span className="bg-violet-500 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">Trending #1</span>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-2 font-mono">Cyber Punk Origins</h2>
+              <p className="text-gray-300 max-w-lg mb-4 text-sm md:text-base">TBURN 메인넷 최초의 PFP 컬렉션. Trust Score 80 이상 민팅 가능.</p>
+              <div className="flex flex-wrap gap-3 sm:gap-4">
+                <Button className="bg-white text-black hover:bg-gray-200 font-bold px-4 sm:px-6 py-2">
+                  Mint Now (150 TB)
+                </Button>
+                <Button variant="outline" className="backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20 font-bold px-4 sm:px-6 py-2">
+                  View Collection
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Trending Collections */}
+          <div>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <Flame className="w-5 h-5 text-orange-500" /> Trending Collections
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {trendingCollections.map((collection, index) => (
+                <div 
+                  key={index}
+                  className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-200 dark:border-white/5 cursor-pointer group hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:border-violet-500/50 transition-all"
+                >
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src={collection.image} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      alt={collection.name}
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h4 className="font-bold text-slate-900 dark:text-white">{collection.name}</h4>
+                    <div className="flex justify-between items-end mt-2">
+                      <div>
+                        <p className="text-xs text-slate-500 dark:text-gray-400">Floor</p>
+                        <p className="font-mono font-bold text-violet-500">{collection.floor}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-slate-500 dark:text-gray-400">Vol (24h)</p>
+                        <p className="font-mono font-bold text-slate-700 dark:text-gray-200">{collection.volume}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              
+              {/* Create NFT Card */}
+              <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border-2 border-dashed border-slate-300 dark:border-gray-700 flex flex-col justify-center items-center text-center hover:border-violet-500 transition-colors">
+                <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                  <Plus className="w-8 h-8 text-slate-400" />
+                </div>
+                <h4 className="font-bold text-slate-900 dark:text-white">Create NFT</h4>
+                <p className="text-xs text-slate-500 dark:text-gray-400 mt-1 mb-4">Mint fee: <span className="text-emerald-500">$0.001</span></p>
+                <Button className="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-black text-xs font-bold hover:opacity-80">
+                  Start Minting
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Launchpad Section */}
+      {activeTab === 'launchpad' && (
+        <div className="space-y-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-2">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Rocket className="w-6 h-6" /> TBURN Launchpad
+              </h2>
+              <p className="text-slate-500 dark:text-gray-400 text-sm">Trust Score 기반의 공정한 토큰 세일 플랫폼</p>
+            </div>
+            <div className="flex gap-2 text-sm">
+              <span className="px-3 py-1 bg-green-500/10 text-green-500 rounded-full font-bold border border-green-500/20">Live: 2</span>
+              <span className="px-3 py-1 bg-slate-100 dark:bg-gray-800 text-slate-500 rounded-full font-bold">Upcoming: 5</span>
+            </div>
+          </div>
+
+          {/* Live Sale */}
+          <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 lg:p-8 border-l-4 border-amber-500 border border-slate-200 dark:border-white/5 relative overflow-hidden">
+            <div className="absolute top-4 right-4">
+              <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">LIVE NOW</span>
+            </div>
+            
+            <div className="flex flex-col md:flex-row gap-6">
+              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-3xl font-bold shrink-0">
+                NG
+              </div>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">NexGen DeFi Protocol</h3>
+                <p className="text-slate-500 dark:text-gray-400 text-sm mt-1 mb-4 max-w-2xl">AI 기반의 자동화된 일드 파밍 최적화 프로토콜. TBURN 메인넷 독점 런칭.</p>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div>
+                    <p className="text-xs text-slate-400">Token Price</p>
+                    <p className="font-mono font-bold text-slate-800 dark:text-white">1 NGD = 0.5 TB</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400">Total Raise</p>
+                    <p className="font-mono font-bold text-slate-800 dark:text-white">500,000 TB</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400">Min Trust Score</p>
+                    <p className="font-mono font-bold text-blue-500">85+</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400">Ends In</p>
+                    <p className="font-mono font-bold text-amber-500">04h 12m 30s</p>
+                  </div>
+                </div>
+
+                <div className="mb-2 flex justify-between text-xs font-bold">
+                  <span className="text-slate-500 dark:text-gray-300">Progress</span>
+                  <span className="text-amber-500">78%</span>
+                </div>
+                <Progress value={78} className="h-3 mb-6" />
+
+                {isConnected ? (
+                  <Button className="w-full md:w-auto px-8 py-3 bg-amber-500 text-black font-bold hover:bg-yellow-400 shadow-lg shadow-yellow-500/20">
+                    Participate (Commit TBURN)
+                  </Button>
+                ) : (
+                  <Button onClick={onConnectWallet} className="w-full md:w-auto px-8 py-3 bg-amber-500 text-black font-bold hover:bg-yellow-400">
+                    Connect Wallet to Participate
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Upcoming Sales */}
+          <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border border-slate-200 dark:border-white/5">
+            <h3 className="font-bold text-slate-900 dark:text-white mb-4">Upcoming Sales</h3>
+            <div className="space-y-4">
+              {upcomingSales.map((sale, index) => (
+                <div 
+                  key={index}
+                  className="flex items-center justify-between p-4 bg-slate-50 dark:bg-black/20 rounded-xl border border-slate-100 dark:border-gray-800 hover:border-amber-500/50 transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-indigo-900 flex items-center justify-center">
+                      <sale.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900 dark:text-white">{sale.name}</h4>
+                      <p className="text-xs text-slate-500 dark:text-gray-400">{sale.category} • Starts in {sale.startsIn}</p>
+                    </div>
+                  </div>
+                  <Button variant="outline" size="sm" className="text-xs font-bold">
+                    Remind Me
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* GameFi Section */}
+      {activeTab === 'gamefi' && (
+        <div className="space-y-8">
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Total Gamers</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">1.2M+</p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Daily Txns</p>
+              <p className="text-xl font-bold text-pink-500 font-mono">450k</p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Tx Speed</p>
+              <p className="text-xl font-bold text-emerald-500 font-mono">&lt; 0.5s</p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Active Games</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">24</p>
+            </div>
+          </div>
+
+          {/* Featured Game */}
+          <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-pink-500/30">
+            <div className="h-64 md:h-auto relative">
+              <img 
+                src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop" 
+                className="absolute inset-0 w-full h-full object-cover"
+                alt="Game"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-transparent"></div>
+            </div>
+            <div className="p-6 sm:p-8 flex flex-col justify-center">
+              <span className="text-pink-500 text-xs font-bold tracking-widest uppercase mb-2">Editor's Choice</span>
+              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">TBURN Racers: Velocity</h3>
+              <p className="text-slate-500 dark:text-gray-400 mb-6 text-sm">초고속 TPS를 활용한 실시간 멀티플레이어 레이싱. 승리하고 TBURN을 획득하세요. 랙 없는 완벽한 동기화.</p>
+              <div className="flex flex-wrap gap-4">
+                <Button className="flex-1 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold shadow-lg shadow-pink-500/30">
+                  <Play className="w-4 h-4 mr-2" /> Play Now
+                </Button>
+                <Button variant="outline" className="px-4 py-3 font-bold">
+                  Marketplace
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* My Game Assets */}
+          <div>
+            <h3 className="font-bold text-slate-900 dark:text-white mb-4">My Game Assets</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {gameAssets.map((asset, index) => (
+                <div 
+                  key={index}
+                  className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-3 rounded-xl border border-slate-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer text-center"
+                >
+                  <div className="w-16 h-16 mx-auto mb-2 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                    <Gamepad2 className="w-8 h-8 text-white" />
+                  </div>
+                  <p className="font-bold text-sm text-slate-800 dark:text-white">{asset.name}</p>
+                  <p className="text-xs text-pink-500">{asset.level}</p>
+                </div>
+              ))}
+              
+              {/* Connect Game Card */}
+              <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-3 rounded-xl border-2 border-dashed border-slate-300 dark:border-gray-700 flex flex-col justify-center items-center text-center hover:border-pink-500 transition-colors cursor-pointer">
+                <Plus className="w-8 h-8 text-slate-400 mb-2" />
+                <p className="text-xs text-slate-500">Connect Game</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
