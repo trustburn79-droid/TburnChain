@@ -77,14 +77,10 @@ import {
   ImageIcon,
   ChevronDown,
   Search,
-  Share2,
-  LayoutGrid,
-  CheckCheck,
-  Maximize2,
-  Bell,
   HelpCircle,
+  ArrowLeftRight,
+  User,
 } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
 type TabType = "create" | "myTokens" | "verification";
@@ -709,17 +705,23 @@ export default function TokenSystemPage() {
               {t('tokenGenerator.quantumSecure')}
             </Badge>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <Link href="/">
-              <Button variant="ghost" size="icon" data-testid="link-home">
-                <Home className="w-4 h-4" />
-              </Button>
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-home">
+                <Home className="w-5 h-5" />
+              </a>
             </Link>
+            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-help">
+              <HelpCircle className="w-5 h-5" />
+            </button>
+            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-swap">
+              <ArrowLeftRight className="w-5 h-5" />
+            </button>
+            <button className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="button-user">
+              <User className="w-5 h-5" />
+            </button>
+            <LanguageSelector isDark={isDark} />
             <ThemeToggle />
-            <div className="hidden md:flex flex-col items-end">
-              <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>{t('tokenGenerator.deployerBalance')}</span>
-              <span className={`font-bold font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>12,500.00 TB</span>
-            </div>
           </div>
         </header>
 
