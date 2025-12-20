@@ -35,7 +35,8 @@ import {
   Headphones,
   ExternalLink,
   Bug,
-  Hexagon
+  Hexagon,
+  ImageIcon
 } from 'lucide-react';
 import { Link } from 'wouter';
 import { useTheme } from '@/components/theme-provider';
@@ -163,7 +164,7 @@ export default function QnAPage() {
               className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
               data-testid="link-nav-home"
             >
-              <Home className="h-5 w-5" />
+              <Home className="h-4 w-4" />
             </Button>
           </Link>
           <Link href="/scan">
@@ -173,7 +174,7 @@ export default function QnAPage() {
               className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
               data-testid="link-nav-scan"
             >
-              <ScanLine className="h-5 w-5" />
+              <ScanLine className="h-4 w-4" />
             </Button>
           </Link>
           <Link href="/user">
@@ -183,7 +184,7 @@ export default function QnAPage() {
               className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
               data-testid="link-nav-user"
             >
-              <User className="h-5 w-5" />
+              <User className="h-4 w-4" />
             </Button>
           </Link>
           <Link href="/bug-bounty">
@@ -193,7 +194,17 @@ export default function QnAPage() {
               className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
               data-testid="link-nav-bug-bounty"
             >
-              <Bug className="h-5 w-5" />
+              <Bug className="h-4 w-4" />
+            </Button>
+          </Link>
+          <Link href="/security-audit">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
+              data-testid="link-nav-security-audit"
+            >
+              <Shield className="h-4 w-4" />
             </Button>
           </Link>
           <Link href="/token-generator">
@@ -203,7 +214,17 @@ export default function QnAPage() {
               className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
               data-testid="link-nav-token-generator"
             >
-              <Hexagon className="h-5 w-5" />
+              <Hexagon className="h-4 w-4" />
+            </Button>
+          </Link>
+          <Link href="/nft-marketplace">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
+              data-testid="link-nav-nft-marketplace"
+            >
+              <ImageIcon className="h-4 w-4" />
             </Button>
           </Link>
           <div className="w-px h-6 bg-slate-200 dark:bg-gray-700 mx-1" />
