@@ -16529,5 +16529,146 @@
         ]
       }
     }
+  },
+  "nftMarketplacePage": {
+    "title": "TBURN NFT",
+    "sidebar": {
+      "marketplace": "マーケットプレイス",
+      "statsRankings": "統計とランキング",
+      "create": "作成（ミント）",
+      "myCollection": "マイコレクション"
+    },
+    "header": {
+      "searchPlaceholder": "コレクション、アイテム、ユーザーを検索...",
+      "createNft": "NFTを作成",
+      "connect": "接続"
+    },
+    "hero": {
+      "trustScore": "トラストスコア90+のみ",
+      "title": "発見、収集、取引",
+      "titleHighlight": "特別なNFT",
+      "subtitle": "TBURNブロックチェーン上の認証済みデジタル資産のための最高のマーケットプレイス",
+      "exploreBtn": "コレクションを探索",
+      "createBtn": "作成を開始"
+    },
+    "stats": {
+      "totalVolume": "総取引量",
+      "volume24h": "24時間取引量",
+      "sales24h": "24時間販売",
+      "activeListings": "アクティブリスティング",
+      "floorPrice": "フロア価格",
+      "items": "アイテム",
+      "owners": "所有者",
+      "change": "変動"
+    },
+    "tabs": {
+      "overview": "概要",
+      "collections": "コレクション",
+      "listings": "リスティング",
+      "activity": "アクティビティ"
+    },
+    "filters": {
+      "all": "すべて",
+      "art": "アート",
+      "gaming": "ゲーム",
+      "music": "音楽",
+      "collectibles": "コレクタブル",
+      "recent": "最新",
+      "priceLow": "価格：低い順",
+      "priceHigh": "価格：高い順",
+      "buyNow": "今すぐ購入",
+      "auction": "オークション"
+    },
+    "card": {
+      "price": "価格",
+      "listed": "出品中",
+      "buyNow": "今すぐ購入",
+      "placeBid": "入札する",
+      "unknownCollection": "不明なコレクション"
+    },
+    "dialogs": {
+      "confirmPurchase": "購入確認",
+      "confirmPurchaseDesc": "このNFTを購入します",
+      "itemPrice": "アイテム価格",
+      "platformFee": "プラットフォーム手数料",
+      "total": "合計",
+      "secureTransaction": "安全な取引",
+      "protectedBy": "TBURNスマートコントラクトで保護",
+      "cancel": "キャンセル",
+      "confirmPurchaseBtn": "購入確認",
+      "processing": "処理中",
+      "placeBidTitle": "入札する",
+      "placeBidDesc": "入札金額を入力してください",
+      "minBid": "最低入札額",
+      "yourBid": "入札額（TB）",
+      "bidError": "入札額は0より大きくしてください",
+      "bidErrorMin": "入札額は最低{{min}} TB以上です",
+      "createListing": "新規リスティング作成",
+      "createListingDesc": "NFTを販売用に出品",
+      "selectNft": "出品するNFTを選択",
+      "selectNftLabel": "NFTを選択",
+      "chooseNft": "NFTを選択してください",
+      "priceLabel": "価格（TB）",
+      "listingType": "リスティングタイプ",
+      "fixedPrice": "固定価格",
+      "auctionType": "オークション",
+      "mintingFee": "ミント手数料（ガス）",
+      "listItem": "アイテムを出品",
+      "creating": "作成中",
+      "cancelListing": "リスティング取消",
+      "cancelListingDesc": "このリスティングを取り消しますか？",
+      "listedPrice": "出品価格",
+      "cancelWarning": "リスティングを取り消すとマーケットプレイスから削除されます。いつでも再出品できます。",
+      "keepListed": "出品を維持",
+      "confirmCancel": "リスティング取消",
+      "canceling": "取消中"
+    },
+    "statsRankings": {
+      "title": "統計とランキング",
+      "subtitle": "NFTコレクションランキングとマーケットプレイス統計",
+      "topCollections": "トップコレクション",
+      "collectionRankings": "コレクションランキング",
+      "rank": "ランク",
+      "collection": "コレクション",
+      "floorPrice": "フロア価格",
+      "totalVolume": "総取引量",
+      "items": "アイテム",
+      "topSellers": "トップセラー",
+      "seller": "販売者",
+      "sales": "売上",
+      "count": "数量",
+      "trending": "トレンド",
+      "hot": "Hot"
+    },
+    "myCollection": {
+      "title": "マイコレクション",
+      "subtitle": "所有NFTとリスティングを管理",
+      "demoData": "デモデータ",
+      "ownedNfts": "所有NFT",
+      "listedItems": "出品中",
+      "totalValue": "総価値",
+      "salesMade": "販売完了",
+      "myNfts": "マイNFT",
+      "listNft": "NFTを出品",
+      "noNfts": "NFTがありません",
+      "noNftsDesc": "コレクションを始めるためにNFTを収集しましょう",
+      "browseMarketplace": "マーケットプレイスを見る",
+      "listed": "出品中",
+      "price": "価格"
+    },
+    "walletRequired": {
+      "title": "ウォレット接続が必要",
+      "description": "マイコレクションを表示するにはウォレットを接続してください"
+    },
+    "liveSales": "ライブセール",
+    "soldFor": "で販売",
+    "description": "説明",
+    "currentPrice": "現在価格",
+    "notForSale": "販売なし",
+    "estValue": "推定価値",
+    "traits": "特性",
+    "attributes": "属性",
+    "noDescription": "説明がありません",
+    "legendary": "レジェンダリー"
   }
 }

@@ -15653,5 +15653,146 @@
         ]
       }
     }
+  },
+  "nftMarketplacePage": {
+    "title": "TBURN NFT",
+    "sidebar": {
+      "marketplace": "市场",
+      "statsRankings": "统计与排名",
+      "create": "创建（铸造）",
+      "myCollection": "我的收藏"
+    },
+    "header": {
+      "searchPlaceholder": "搜索收藏品、物品或用户...",
+      "createNft": "创建NFT",
+      "connect": "连接"
+    },
+    "hero": {
+      "trustScore": "仅限信任分90+",
+      "title": "发现、收集、交易",
+      "titleHighlight": "非凡的NFT",
+      "subtitle": "TBURN区块链上经过验证的数字资产的首选市场",
+      "exploreBtn": "探索收藏",
+      "createBtn": "开始创作"
+    },
+    "stats": {
+      "totalVolume": "总交易量",
+      "volume24h": "24小时交易量",
+      "sales24h": "24小时销售",
+      "activeListings": "活跃列表",
+      "floorPrice": "地板价",
+      "items": "物品",
+      "owners": "所有者",
+      "change": "变化"
+    },
+    "tabs": {
+      "overview": "概览",
+      "collections": "收藏品",
+      "listings": "列表",
+      "activity": "活动"
+    },
+    "filters": {
+      "all": "全部",
+      "art": "艺术",
+      "gaming": "游戏",
+      "music": "音乐",
+      "collectibles": "收藏品",
+      "recent": "最近",
+      "priceLow": "价格：从低到高",
+      "priceHigh": "价格：从高到低",
+      "buyNow": "立即购买",
+      "auction": "拍卖"
+    },
+    "card": {
+      "price": "价格",
+      "listed": "已列出",
+      "buyNow": "立即购买",
+      "placeBid": "出价",
+      "unknownCollection": "未知收藏"
+    },
+    "dialogs": {
+      "confirmPurchase": "确认购买",
+      "confirmPurchaseDesc": "您即将购买此NFT",
+      "itemPrice": "物品价格",
+      "platformFee": "平台费用",
+      "total": "总计",
+      "secureTransaction": "安全交易",
+      "protectedBy": "由TBURN智能合约保护",
+      "cancel": "取消",
+      "confirmPurchaseBtn": "确认购买",
+      "processing": "处理中",
+      "placeBidTitle": "出价",
+      "placeBidDesc": "输入您的出价金额",
+      "minBid": "最低出价",
+      "yourBid": "您的出价（TB）",
+      "bidError": "出价必须大于零",
+      "bidErrorMin": "出价必须至少为{{min}} TB",
+      "createListing": "创建新列表",
+      "createListingDesc": "将您的NFT上架出售",
+      "selectNft": "选择要列出的NFT",
+      "selectNftLabel": "选择NFT",
+      "chooseNft": "选择一个NFT",
+      "priceLabel": "价格（TB）",
+      "listingType": "列表类型",
+      "fixedPrice": "固定价格",
+      "auctionType": "拍卖",
+      "mintingFee": "铸造费用（Gas）",
+      "listItem": "列出物品",
+      "creating": "创建中",
+      "cancelListing": "取消列表",
+      "cancelListingDesc": "确定要取消此列表吗？",
+      "listedPrice": "列表价格",
+      "cancelWarning": "取消列表将从市场中移除。您可以随时重新列出NFT。",
+      "keepListed": "保持列出",
+      "confirmCancel": "取消列表",
+      "canceling": "取消中"
+    },
+    "statsRankings": {
+      "title": "统计与排名",
+      "subtitle": "NFT收藏品排名和市场统计",
+      "topCollections": "顶级收藏",
+      "collectionRankings": "收藏品排名",
+      "rank": "排名",
+      "collection": "收藏品",
+      "floorPrice": "地板价",
+      "totalVolume": "总交易量",
+      "items": "物品",
+      "topSellers": "顶级卖家",
+      "seller": "卖家",
+      "sales": "销售额",
+      "count": "数量",
+      "trending": "热门趋势",
+      "hot": "热门"
+    },
+    "myCollection": {
+      "title": "我的收藏",
+      "subtitle": "管理您的NFT和列表",
+      "demoData": "演示数据",
+      "ownedNfts": "拥有的NFT",
+      "listedItems": "已列出",
+      "totalValue": "总价值",
+      "salesMade": "已完成销售",
+      "myNfts": "我的NFT",
+      "listNft": "列出NFT",
+      "noNfts": "未找到NFT",
+      "noNftsDesc": "开始收集NFT来建立您的收藏",
+      "browseMarketplace": "浏览市场",
+      "listed": "已上架",
+      "price": "价格"
+    },
+    "walletRequired": {
+      "title": "需要钱包",
+      "description": "请连接您的钱包以查看我的收藏"
+    },
+    "liveSales": "实时销售",
+    "soldFor": "以...出售",
+    "description": "描述",
+    "currentPrice": "当前价格",
+    "notForSale": "非卖品",
+    "estValue": "估计价值",
+    "traits": "特征",
+    "attributes": "属性",
+    "noDescription": "暂无描述",
+    "legendary": "传奇"
   }
 }

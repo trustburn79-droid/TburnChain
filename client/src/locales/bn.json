@@ -11709,5 +11709,146 @@
         ]
       }
     }
+  },
+  "nftMarketplacePage": {
+    "title": "TBURN NFT",
+    "sidebar": {
+      "marketplace": "মার্কেটপ্লেস",
+      "statsRankings": "পরিসংখ্যান ও র‍্যাংকিং",
+      "create": "তৈরি করুন (মিন্ট)",
+      "myCollection": "আমার সংগ্রহ"
+    },
+    "header": {
+      "searchPlaceholder": "সংগ্রহ, আইটেম বা ব্যবহারকারী খুঁজুন...",
+      "createNft": "NFT তৈরি করুন",
+      "connect": "সংযোগ করুন"
+    },
+    "hero": {
+      "trustScore": "শুধুমাত্র ট্রাস্ট স্কোর 90+",
+      "title": "আবিষ্কার করুন, সংগ্রহ করুন ও ব্যবসা করুন",
+      "titleHighlight": "অসাধারণ NFTs",
+      "subtitle": "TBURN ব্লকচেইনে যাচাইকৃত ডিজিটাল সম্পদের জন্য প্রধান মার্কেটপ্লেস",
+      "exploreBtn": "সংগ্রহ দেখুন",
+      "createBtn": "তৈরি শুরু করুন"
+    },
+    "stats": {
+      "totalVolume": "মোট ভলিউম",
+      "volume24h": "24 ঘণ্টা ভলিউম",
+      "sales24h": "24 ঘণ্টা বিক্রয়",
+      "activeListings": "সক্রিয় তালিকা",
+      "floorPrice": "ফ্লোর প্রাইস",
+      "items": "আইটেম",
+      "owners": "মালিক",
+      "change": "পরিবর্তন"
+    },
+    "tabs": {
+      "overview": "ওভারভিউ",
+      "collections": "সংগ্রহ",
+      "listings": "তালিকা",
+      "activity": "কার্যকলাপ"
+    },
+    "filters": {
+      "all": "সব",
+      "art": "শিল্প",
+      "gaming": "গেমিং",
+      "music": "সঙ্গীত",
+      "collectibles": "সংগ্রহযোগ্য",
+      "recent": "সাম্প্রতিক",
+      "priceLow": "মূল্য: কম থেকে বেশি",
+      "priceHigh": "মূল্য: বেশি থেকে কম",
+      "buyNow": "এখনই কিনুন",
+      "auction": "নিলাম"
+    },
+    "card": {
+      "price": "মূল্য",
+      "listed": "তালিকাভুক্ত",
+      "buyNow": "এখনই কিনুন",
+      "placeBid": "বিড করুন",
+      "unknownCollection": "অজানা সংগ্রহ"
+    },
+    "dialogs": {
+      "confirmPurchase": "ক্রয় নিশ্চিত করুন",
+      "confirmPurchaseDesc": "আপনি এই NFT কিনতে যাচ্ছেন",
+      "itemPrice": "আইটেমের মূল্য",
+      "platformFee": "প্ল্যাটফর্ম ফি",
+      "total": "মোট",
+      "secureTransaction": "নিরাপদ লেনদেন",
+      "protectedBy": "TBURN স্মার্ট কন্ট্রাক্ট দ্বারা সুরক্ষিত",
+      "cancel": "বাতিল",
+      "confirmPurchaseBtn": "ক্রয় নিশ্চিত করুন",
+      "processing": "প্রক্রিয়াকরণ",
+      "placeBidTitle": "বিড করুন",
+      "placeBidDesc": "আপনার বিডের পরিমাণ লিখুন",
+      "minBid": "সর্বনিম্ন বিড",
+      "yourBid": "আপনার বিড (TB)",
+      "bidError": "বিড শূন্যের বেশি হতে হবে",
+      "bidErrorMin": "বিড অন্তত {{min}} TB হতে হবে",
+      "createListing": "নতুন তালিকা তৈরি করুন",
+      "createListingDesc": "বিক্রয়ের জন্য আপনার NFT তালিকাভুক্ত করুন",
+      "selectNft": "তালিকাভুক্ত করতে NFT নির্বাচন করুন",
+      "selectNftLabel": "NFT নির্বাচন করুন",
+      "chooseNft": "একটি NFT বেছে নিন",
+      "priceLabel": "মূল্য (TB)",
+      "listingType": "তালিকার ধরন",
+      "fixedPrice": "নির্ধারিত মূল্য",
+      "auctionType": "নিলাম",
+      "mintingFee": "মিন্টিং ফি (গ্যাস)",
+      "listItem": "আইটেম তালিকাভুক্ত করুন",
+      "creating": "তৈরি হচ্ছে",
+      "cancelListing": "তালিকা বাতিল করুন",
+      "cancelListingDesc": "আপনি কি এই তালিকা বাতিল করতে চান?",
+      "listedPrice": "তালিকাভুক্ত মূল্য",
+      "cancelWarning": "এই তালিকা বাতিল করলে মার্কেটপ্লেস থেকে সরিয়ে দেওয়া হবে। আপনি যেকোনো সময় NFT পুনরায় তালিকাভুক্ত করতে পারেন।",
+      "keepListed": "তালিকাভুক্ত রাখুন",
+      "confirmCancel": "তালিকা বাতিল করুন",
+      "canceling": "বাতিল হচ্ছে"
+    },
+    "statsRankings": {
+      "title": "পরিসংখ্যান ও র‍্যাংকিং",
+      "subtitle": "NFT সংগ্রহ র‍্যাংকিং এবং মার্কেটপ্লেস পরিসংখ্যান",
+      "topCollections": "শীর্ষ সংগ্রহ",
+      "collectionRankings": "সংগ্রহ র‍্যাংকিং",
+      "rank": "র‍্যাংক",
+      "collection": "সংগ্রহ",
+      "floorPrice": "ফ্লোর প্রাইস",
+      "totalVolume": "মোট ভলিউম",
+      "items": "আইটেম",
+      "topSellers": "শীর্ষ বিক্রেতা",
+      "seller": "বিক্রেতা",
+      "sales": "বিক্রয়",
+      "count": "সংখ্যা",
+      "trending": "ট্রেন্ডিং",
+      "hot": "হট"
+    },
+    "myCollection": {
+      "title": "আমার সংগ্রহ",
+      "subtitle": "আপনার NFT এবং তালিকা পরিচালনা করুন",
+      "demoData": "ডেমো ডেটা",
+      "ownedNfts": "মালিকানাধীন NFT",
+      "listedItems": "তালিকাভুক্ত",
+      "totalValue": "মোট মূল্য",
+      "salesMade": "বিক্রয় সম্পন্ন",
+      "myNfts": "আমার NFT",
+      "listNft": "NFT তালিকাভুক্ত করুন",
+      "noNfts": "কোনো NFT পাওয়া যায়নি",
+      "noNftsDesc": "আপনার সংগ্রহ তৈরি করতে NFT সংগ্রহ করা শুরু করুন",
+      "browseMarketplace": "মার্কেটপ্লেস ব্রাউজ করুন",
+      "listed": "তালিকাভুক্ত",
+      "price": "মূল্য"
+    },
+    "walletRequired": {
+      "title": "ওয়ালেট প্রয়োজন",
+      "description": "আমার সংগ্রহ দেখতে অনুগ্রহ করে আপনার ওয়ালেট সংযুক্ত করুন"
+    },
+    "liveSales": "লাইভ বিক্রয়",
+    "soldFor": "বিক্রি হয়েছে",
+    "description": "বিবরণ",
+    "currentPrice": "বর্তমান মূল্য",
+    "notForSale": "বিক্রয়ের জন্য নয়",
+    "estValue": "আনুমানিক মূল্য",
+    "traits": "বৈশিষ্ট্য",
+    "attributes": "গুণাবলী",
+    "noDescription": "কোনো বিবরণ পাওয়া যায়নি",
+    "legendary": "লিজেন্ডারি"
   }
 }

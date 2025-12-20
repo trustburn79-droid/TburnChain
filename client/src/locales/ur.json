@@ -11953,5 +11953,146 @@
         ]
       }
     }
+  },
+  "nftMarketplacePage": {
+    "title": "TBURN NFT",
+    "sidebar": {
+      "marketplace": "مارکیٹ پلیس",
+      "statsRankings": "اعداد و شمار اور درجہ بندی",
+      "create": "بنائیں (منٹ)",
+      "myCollection": "میرا مجموعہ"
+    },
+    "header": {
+      "searchPlaceholder": "مجموعے، اشیاء یا صارفین تلاش کریں...",
+      "createNft": "NFT بنائیں",
+      "connect": "جڑیں"
+    },
+    "hero": {
+      "trustScore": "صرف ٹرسٹ سکور 90+",
+      "title": "دریافت کریں، جمع کریں اور تجارت کریں",
+      "titleHighlight": "غیر معمولی NFTs",
+      "subtitle": "TBURN بلاک چین پر تصدیق شدہ ڈیجیٹل اثاثوں کے لیے اولین مارکیٹ پلیس",
+      "exploreBtn": "مجموعہ دیکھیں",
+      "createBtn": "بنانا شروع کریں"
+    },
+    "stats": {
+      "totalVolume": "کل حجم",
+      "volume24h": "24 گھنٹے حجم",
+      "sales24h": "24 گھنٹے فروخت",
+      "activeListings": "فعال فہرستیں",
+      "floorPrice": "فرش قیمت",
+      "items": "اشیاء",
+      "owners": "مالکان",
+      "change": "تبدیلی"
+    },
+    "tabs": {
+      "overview": "جائزہ",
+      "collections": "مجموعے",
+      "listings": "فہرستیں",
+      "activity": "سرگرمی"
+    },
+    "filters": {
+      "all": "سب",
+      "art": "فن",
+      "gaming": "گیمنگ",
+      "music": "موسیقی",
+      "collectibles": "قابل جمع",
+      "recent": "حالیہ",
+      "priceLow": "قیمت: کم سے زیادہ",
+      "priceHigh": "قیمت: زیادہ سے کم",
+      "buyNow": "ابھی خریدیں",
+      "auction": "نیلامی"
+    },
+    "card": {
+      "price": "قیمت",
+      "listed": "درج",
+      "buyNow": "ابھی خریدیں",
+      "placeBid": "بولی لگائیں",
+      "unknownCollection": "نامعلوم مجموعہ"
+    },
+    "dialogs": {
+      "confirmPurchase": "خریداری کی تصدیق کریں",
+      "confirmPurchaseDesc": "آپ یہ NFT خریدنے والے ہیں",
+      "itemPrice": "شے کی قیمت",
+      "platformFee": "پلیٹ فارم فیس",
+      "total": "کل",
+      "secureTransaction": "محفوظ لین دین",
+      "protectedBy": "TBURN سمارٹ کنٹریکٹس سے محفوظ",
+      "cancel": "منسوخ",
+      "confirmPurchaseBtn": "خریداری کی تصدیق کریں",
+      "processing": "پروسیسنگ",
+      "placeBidTitle": "بولی لگائیں",
+      "placeBidDesc": "اپنی بولی کی رقم درج کریں",
+      "minBid": "کم از کم بولی",
+      "yourBid": "آپ کی بولی (TB)",
+      "bidError": "بولی صفر سے زیادہ ہونی چاہیے",
+      "bidErrorMin": "بولی کم از کم {{min}} TB ہونی چاہیے",
+      "createListing": "نئی فہرست بنائیں",
+      "createListingDesc": "فروخت کے لیے اپنا NFT درج کریں",
+      "selectNft": "درج کرنے کے لیے NFT منتخب کریں",
+      "selectNftLabel": "NFT منتخب کریں",
+      "chooseNft": "NFT چنیں",
+      "priceLabel": "قیمت (TB)",
+      "listingType": "فہرست کی قسم",
+      "fixedPrice": "مقررہ قیمت",
+      "auctionType": "نیلامی",
+      "mintingFee": "منٹنگ فیس (گیس)",
+      "listItem": "شے درج کریں",
+      "creating": "بنایا جا رہا ہے",
+      "cancelListing": "فہرست منسوخ کریں",
+      "cancelListingDesc": "کیا آپ واقعی یہ فہرست منسوخ کرنا چاہتے ہیں؟",
+      "listedPrice": "درج قیمت",
+      "cancelWarning": "اس فہرست کو منسوخ کرنے سے یہ مارکیٹ پلیس سے ہٹ جائے گی۔ آپ کسی بھی وقت NFT دوبارہ درج کر سکتے ہیں۔",
+      "keepListed": "درج رکھیں",
+      "confirmCancel": "فہرست منسوخ کریں",
+      "canceling": "منسوخ کیا جا رہا ہے"
+    },
+    "statsRankings": {
+      "title": "اعداد و شمار اور درجہ بندی",
+      "subtitle": "NFT مجموعہ درجہ بندی اور مارکیٹ پلیس اعداد و شمار",
+      "topCollections": "سرفہرست مجموعے",
+      "collectionRankings": "مجموعہ درجہ بندی",
+      "rank": "درجہ",
+      "collection": "مجموعہ",
+      "floorPrice": "فرش قیمت",
+      "totalVolume": "کل حجم",
+      "items": "اشیاء",
+      "topSellers": "سرفہرست فروخت کنندگان",
+      "seller": "فروخت کنندہ",
+      "sales": "فروخت",
+      "count": "تعداد",
+      "trending": "رجحان",
+      "hot": "ہاٹ"
+    },
+    "myCollection": {
+      "title": "میرا مجموعہ",
+      "subtitle": "اپنے NFTs اور فہرستوں کا انتظام کریں",
+      "demoData": "ڈیمو ڈیٹا",
+      "ownedNfts": "ملکیتی NFTs",
+      "listedItems": "درج",
+      "totalValue": "کل قیمت",
+      "salesMade": "مکمل فروخت",
+      "myNfts": "میرے NFTs",
+      "listNft": "NFT درج کریں",
+      "noNfts": "کوئی NFT نہیں ملا",
+      "noNftsDesc": "اپنا مجموعہ بنانے کے لیے NFTs جمع کرنا شروع کریں",
+      "browseMarketplace": "مارکیٹ پلیس براؤز کریں",
+      "listed": "فہرست شدہ",
+      "price": "قیمت"
+    },
+    "walletRequired": {
+      "title": "والیٹ درکار ہے",
+      "description": "میرا مجموعہ دیکھنے کے لیے براہ کرم اپنا والیٹ جوڑیں"
+    },
+    "liveSales": "براہ راست فروخت",
+    "soldFor": "فروخت ہوا",
+    "description": "تفصیل",
+    "currentPrice": "موجودہ قیمت",
+    "notForSale": "فروخت کے لیے نہیں",
+    "estValue": "تخمینی قیمت",
+    "traits": "خصوصیات",
+    "attributes": "صفات",
+    "noDescription": "کوئی تفصیل دستیاب نہیں",
+    "legendary": "لیجنڈری"
   }
 }

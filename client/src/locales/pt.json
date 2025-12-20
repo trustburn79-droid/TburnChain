@@ -13318,5 +13318,146 @@
         ]
       }
     }
+  },
+  "nftMarketplacePage": {
+    "title": "TBURN NFT",
+    "sidebar": {
+      "marketplace": "Mercado",
+      "statsRankings": "Estatísticas e Rankings",
+      "create": "Criar (Mint)",
+      "myCollection": "Minha Coleção"
+    },
+    "header": {
+      "searchPlaceholder": "Buscar coleções, itens ou usuários...",
+      "createNft": "Criar NFT",
+      "connect": "Conectar"
+    },
+    "hero": {
+      "trustScore": "Apenas Trust Score 90+",
+      "title": "Descubra, Colecione e Negocie",
+      "titleHighlight": "NFTs Extraordinários",
+      "subtitle": "O principal mercado para ativos digitais verificados na blockchain TBURN",
+      "exploreBtn": "Explorar Coleção",
+      "createBtn": "Começar a Criar"
+    },
+    "stats": {
+      "totalVolume": "Volume Total",
+      "volume24h": "Volume 24h",
+      "sales24h": "Vendas 24h",
+      "activeListings": "Listagens Ativas",
+      "floorPrice": "Preço Mínimo",
+      "items": "Itens",
+      "owners": "Proprietários",
+      "change": "Variação"
+    },
+    "tabs": {
+      "overview": "Visão Geral",
+      "collections": "Coleções",
+      "listings": "Listagens",
+      "activity": "Atividade"
+    },
+    "filters": {
+      "all": "Todos",
+      "art": "Arte",
+      "gaming": "Jogos",
+      "music": "Música",
+      "collectibles": "Colecionáveis",
+      "recent": "Recente",
+      "priceLow": "Preço: Menor para Maior",
+      "priceHigh": "Preço: Maior para Menor",
+      "buyNow": "Comprar Agora",
+      "auction": "Leilão"
+    },
+    "card": {
+      "price": "Preço",
+      "listed": "Listado",
+      "buyNow": "Comprar Agora",
+      "placeBid": "Fazer Lance",
+      "unknownCollection": "Coleção Desconhecida"
+    },
+    "dialogs": {
+      "confirmPurchase": "Confirmar Compra",
+      "confirmPurchaseDesc": "Você está prestes a comprar este NFT",
+      "itemPrice": "Preço do Item",
+      "platformFee": "Taxa da Plataforma",
+      "total": "Total",
+      "secureTransaction": "Transação Segura",
+      "protectedBy": "Protegido pelos contratos inteligentes TBURN",
+      "cancel": "Cancelar",
+      "confirmPurchaseBtn": "Confirmar Compra",
+      "processing": "Processando",
+      "placeBidTitle": "Fazer Lance",
+      "placeBidDesc": "Digite o valor do seu lance",
+      "minBid": "Lance Mínimo",
+      "yourBid": "Seu Lance (TB)",
+      "bidError": "O lance deve ser maior que zero",
+      "bidErrorMin": "O lance deve ser de pelo menos {{min}} TB",
+      "createListing": "Criar Nova Listagem",
+      "createListingDesc": "Liste seu NFT para venda",
+      "selectNft": "Selecione um NFT para listar",
+      "selectNftLabel": "Selecionar NFT",
+      "chooseNft": "Escolher um NFT",
+      "priceLabel": "Preço (TB)",
+      "listingType": "Tipo de Listagem",
+      "fixedPrice": "Preço Fixo",
+      "auctionType": "Leilão",
+      "mintingFee": "Taxa de Mint (Gas)",
+      "listItem": "Listar Item",
+      "creating": "Criando",
+      "cancelListing": "Cancelar Listagem",
+      "cancelListingDesc": "Tem certeza que deseja cancelar esta listagem?",
+      "listedPrice": "Preço Listado",
+      "cancelWarning": "Cancelar esta listagem a removerá do mercado. Você pode relistar o NFT a qualquer momento.",
+      "keepListed": "Manter Listado",
+      "confirmCancel": "Cancelar Listagem",
+      "canceling": "Cancelando"
+    },
+    "statsRankings": {
+      "title": "Estatísticas e Rankings",
+      "subtitle": "Rankings de coleções NFT e estatísticas do mercado",
+      "topCollections": "Top Coleções",
+      "collectionRankings": "Ranking de Coleções",
+      "rank": "Rank",
+      "collection": "Coleção",
+      "floorPrice": "Preço Mínimo",
+      "totalVolume": "Volume Total",
+      "items": "Itens",
+      "topSellers": "Top Vendedores",
+      "seller": "Vendedor",
+      "sales": "Vendas",
+      "count": "Qtd",
+      "trending": "Em Alta",
+      "hot": "Hot"
+    },
+    "myCollection": {
+      "title": "Minha Coleção",
+      "subtitle": "Gerencie seus NFTs e listagens",
+      "demoData": "Dados Demo",
+      "ownedNfts": "NFTs Próprios",
+      "listedItems": "Listados",
+      "totalValue": "Valor Total",
+      "salesMade": "Vendas Feitas",
+      "myNfts": "Meus NFTs",
+      "listNft": "Listar NFT",
+      "noNfts": "Nenhum NFT Encontrado",
+      "noNftsDesc": "Comece a colecionar NFTs para construir sua coleção",
+      "browseMarketplace": "Explorar Mercado",
+      "listed": "Listado",
+      "price": "Preço"
+    },
+    "walletRequired": {
+      "title": "Carteira Necessária",
+      "description": "Por favor conecte sua carteira para ver Minha Coleção"
+    },
+    "liveSales": "VENDAS AO VIVO",
+    "soldFor": "vendido por",
+    "description": "Descrição",
+    "currentPrice": "Preço Atual",
+    "notForSale": "Não está à venda",
+    "estValue": "Valor Est.",
+    "traits": "Traços",
+    "attributes": "Atributos",
+    "noDescription": "Nenhuma descrição disponível",
+    "legendary": "LENDÁRIO"
   }
 }

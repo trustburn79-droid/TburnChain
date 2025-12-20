@@ -962,7 +962,7 @@ export default function NftMarketplaceStandalone() {
               : theme === 'dark' ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-100"}`}
             data-testid="link-marketplace"
           >
-            <Store className="w-5 h-5" /> <span className="hidden lg:block font-medium">Marketplace</span>
+            <Store className="w-5 h-5" /> <span className="hidden lg:block font-medium">{t('nftMarketplacePage.sidebar.marketplace')}</span>
           </button>
           <button 
             onClick={() => { setActiveSidebarSection("stats"); setActiveTab("overview"); }}
@@ -971,20 +971,20 @@ export default function NftMarketplaceStandalone() {
               : theme === 'dark' ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-100"}`}
             data-testid="link-stats"
           >
-            <BarChart3 className="w-5 h-5" /> <span className="hidden lg:block font-medium">Stats & Rankings</span>
+            <BarChart3 className="w-5 h-5" /> <span className="hidden lg:block font-medium">{t('nftMarketplacePage.sidebar.statsRankings')}</span>
           </button>
           <button 
             onClick={() => setListDialogOpen(true)}
             className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${theme === 'dark' ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-100"}`}
             data-testid="link-create"
           >
-            <PaintBucket className="w-5 h-5" /> <span className="hidden lg:block font-medium">Create (Mint)</span>
+            <PaintBucket className="w-5 h-5" /> <span className="hidden lg:block font-medium">{t('nftMarketplacePage.sidebar.create')}</span>
           </button>
           <button 
             onClick={() => { 
               if (!isConnected) {
                 setWalletModalOpen(true);
-                toast({ title: "지갑 연결 필요", description: "My Collection을 보려면 먼저 지갑을 연결해주세요.", variant: "default" });
+                toast({ title: t('nftMarketplacePage.walletRequired.title'), description: t('nftMarketplacePage.walletRequired.description'), variant: "default" });
               } else {
                 setActiveSidebarSection("mycollection"); 
                 setActiveTab("overview");
@@ -995,7 +995,7 @@ export default function NftMarketplaceStandalone() {
               : theme === 'dark' ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-100"}`}
             data-testid="link-collection"
           >
-            <User className="w-5 h-5" /> <span className="hidden lg:block font-medium">My Collection</span>
+            <User className="w-5 h-5" /> <span className="hidden lg:block font-medium">{t('nftMarketplacePage.sidebar.myCollection')}</span>
           </button>
         </nav>
       </aside>
@@ -1007,7 +1007,7 @@ export default function NftMarketplaceStandalone() {
             <Search className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} />
             <Input 
               type="text" 
-              placeholder="Search collections, items, or users..." 
+              placeholder={t('nftMarketplacePage.header.searchPlaceholder')} 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className={`w-full rounded-full pl-12 pr-4 py-2 text-sm focus:ring-2 focus:ring-violet-500 ${theme === 'dark' ? 'bg-[#151E32] border-gray-700 text-white placeholder:text-gray-500' : 'bg-gray-100 border-gray-300 text-gray-900 placeholder:text-gray-400'}`}
@@ -1024,11 +1024,11 @@ export default function NftMarketplaceStandalone() {
               className="hidden md:flex bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-violet-500/30 border-0"
               data-testid="button-create-nft"
             >
-              Create NFT
+              {t('nftMarketplacePage.header.createNft')}
             </Button>
             {!isConnected && (
               <Button onClick={() => setWalletModalOpen(true)} variant="outline" className={`rounded-full ${theme === 'dark' ? 'border-gray-600 text-white hover:bg-gray-800' : 'border-gray-300 text-gray-700 hover:bg-gray-100'}`} data-testid="button-connect-wallet">
-                <Wallet className="w-4 h-4 mr-2" />Connect
+                <Wallet className="w-4 h-4 mr-2" />{t('nftMarketplacePage.header.connect')}
               </Button>
             )}
             <div className={`w-10 h-10 rounded-full overflow-hidden cursor-pointer border-2 border-transparent hover:border-violet-500 transition-colors ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
@@ -1039,13 +1039,13 @@ export default function NftMarketplaceStandalone() {
 
         <div className="h-8 bg-violet-500 text-white text-xs font-bold overflow-hidden flex items-center relative z-10">
           <div className="absolute left-0 bg-violet-500 px-3 z-10 flex items-center gap-1">
-            <Flame className="w-3 h-3" /> LIVE SALES:
+            <Flame className="w-3 h-3" /> {t('nftMarketplacePage.liveSales')}:
           </div>
           <div className="animate-marquee whitespace-nowrap flex gap-8 pl-32" style={{ animation: 'marquee 25s linear infinite' }}>
             {liveSales.length > 0 ? liveSales.map((sale, idx) => {
               const saleItem = items.find(i => i.id === sale.itemId);
               return (
-                <span key={idx}>{saleItem?.name || `NFT #${idx}`} sold for {formatAmount(sale.price || "0")} TB</span>
+                <span key={idx}>{saleItem?.name || `NFT #${idx}`} {t('nftMarketplacePage.soldFor')} {formatAmount(sale.price || "0")} TB</span>
               );
             }) : (
               <>
@@ -1066,8 +1066,8 @@ export default function NftMarketplaceStandalone() {
             <div className="space-y-8">
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold text-white">Stats & Rankings</h1>
-                  <p className="text-gray-400 mt-1">NFT 컬렉션 순위 및 마켓플레이스 통계</p>
+                  <h1 className="text-3xl font-bold text-white">{t('nftMarketplacePage.statsRankings.title')}</h1>
+                  <p className="text-gray-400 mt-1">{t('nftMarketplacePage.statsRankings.subtitle')}</p>
                 </div>
                 <Select defaultValue="24h">
                   <SelectTrigger className="w-32 bg-[#151E32] border-gray-700 text-white">
@@ -1289,16 +1289,16 @@ export default function NftMarketplaceStandalone() {
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <div className="flex items-center gap-3">
-                    <h1 className="text-3xl font-bold text-white">My Collection</h1>
+                    <h1 className="text-3xl font-bold text-white">{t('nftMarketplacePage.myCollection.title')}</h1>
                     {!hasRealOwnershipData && userItems.length > 0 && (
-                      <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-xs">Demo Data</Badge>
+                      <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-xs">{t('nftMarketplacePage.myCollection.demoData')}</Badge>
                     )}
                   </div>
-                  <p className="text-gray-400 mt-1">내가 소유한 NFT 및 리스팅 관리</p>
+                  <p className="text-gray-400 mt-1">{t('nftMarketplacePage.myCollection.subtitle')}</p>
                   <p className="text-xs text-gray-500 mt-1 font-mono">{walletAddress?.slice(0, 10)}...{walletAddress?.slice(-6)}</p>
                 </div>
                 <Button onClick={() => setListDialogOpen(true)} className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-violet-500/30 border-0">
-                  <Plus className="w-4 h-4 mr-2" />List NFT
+                  <Plus className="w-4 h-4 mr-2" />{t('nftMarketplacePage.myCollection.listNft')}
                 </Button>
               </div>
 
@@ -1310,7 +1310,7 @@ export default function NftMarketplaceStandalone() {
                       <Image className="w-5 h-5 text-violet-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">Owned NFTs</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.myCollection.ownedNfts')}</p>
                       <p className="font-bold font-mono text-xl text-white">{userItems.length}</p>
                     </div>
                   </div>
@@ -1321,7 +1321,7 @@ export default function NftMarketplaceStandalone() {
                       <Tag className="w-5 h-5 text-blue-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">Listed</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.myCollection.listedItems')}</p>
                       <p className="font-bold font-mono text-xl text-white">{userListedItems.length}</p>
                     </div>
                   </div>
@@ -1332,7 +1332,7 @@ export default function NftMarketplaceStandalone() {
                       <DollarSign className="w-5 h-5 text-emerald-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">Total Value</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.myCollection.totalValue')}</p>
                       <p className="font-bold font-mono text-xl text-white">{formatAmount(String(totalValue))} TB</p>
                     </div>
                   </div>
@@ -1343,7 +1343,7 @@ export default function NftMarketplaceStandalone() {
                       <ShoppingCart className="w-5 h-5 text-amber-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">Sales Made</p>
+                      <p className="text-xs text-gray-400">{t('nftMarketplacePage.myCollection.salesMade')}</p>
                       <p className="font-bold font-mono text-xl text-white">{userSales.length}</p>
                     </div>
                   </div>
@@ -1352,13 +1352,13 @@ export default function NftMarketplaceStandalone() {
 
               {/* My NFTs Grid */}
               <GlassPanel className="p-6">
-                <h2 className="text-xl font-bold text-white mb-6">My NFTs ({userItems.length})</h2>
+                <h2 className="text-xl font-bold text-white mb-6">{t('nftMarketplacePage.myCollection.myNfts')} ({userItems.length})</h2>
                 {userItems.length === 0 ? (
                   <div className="text-center py-12">
                     <Image className="w-16 h-16 mx-auto mb-4 text-gray-600" />
-                    <p className="text-gray-400 mb-4">아직 소유한 NFT가 없습니다</p>
+                    <p className="text-gray-400 mb-4">{t('nftMarketplacePage.myCollection.noNftsDesc')}</p>
                     <Button onClick={() => { setActiveSidebarSection("marketplace"); setActiveTab("overview"); }} variant="outline" className="border-violet-500 text-violet-400 hover:bg-violet-500/10">
-                      마켓플레이스에서 NFT 둘러보기
+                      {t('nftMarketplacePage.myCollection.browseMarketplace')}
                     </Button>
                   </div>
                 ) : (
@@ -1371,7 +1371,7 @@ export default function NftMarketplaceStandalone() {
                         <div className="relative h-48 overflow-hidden">
                           <img src={item.imageUrl || `https://picsum.photos/seed/${item.id}/400/400`} alt={item.name || 'NFT'} className="w-full h-full object-cover" />
                           {itemListing && (
-                            <span className="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded">Listed</span>
+                            <span className="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded">{t('nftMarketplacePage.myCollection.listed')}</span>
                           )}
                         </div>
                         <div className="p-4">
@@ -1379,7 +1379,7 @@ export default function NftMarketplaceStandalone() {
                           <p className="text-xs text-gray-400">{itemCollection?.name || 'Unknown'}</p>
                           {itemListing && (
                             <div className="mt-3 pt-3 border-t border-gray-700 flex justify-between items-center">
-                              <span className="text-xs text-gray-400">Price</span>
+                              <span className="text-xs text-gray-400">{t('nftMarketplacePage.myCollection.price')}</span>
                               <span className="font-mono font-bold text-white">{formatAmount(itemListing.price)} TB</span>
                             </div>
                           )}

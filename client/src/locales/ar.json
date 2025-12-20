@@ -13492,5 +13492,146 @@
         ]
       }
     }
+  },
+  "nftMarketplacePage": {
+    "title": "TBURN NFT",
+    "sidebar": {
+      "marketplace": "السوق",
+      "statsRankings": "الإحصائيات والتصنيفات",
+      "create": "إنشاء (سك)",
+      "myCollection": "مجموعتي"
+    },
+    "header": {
+      "searchPlaceholder": "بحث في المجموعات أو العناصر أو المستخدمين...",
+      "createNft": "إنشاء NFT",
+      "connect": "اتصال"
+    },
+    "hero": {
+      "trustScore": "درجة الثقة 90+ فقط",
+      "title": "اكتشف، اجمع وتداول",
+      "titleHighlight": "NFTs استثنائية",
+      "subtitle": "السوق الأول للأصول الرقمية المُوثقة على بلوكتشين TBURN",
+      "exploreBtn": "استكشف المجموعة",
+      "createBtn": "ابدأ الإنشاء"
+    },
+    "stats": {
+      "totalVolume": "إجمالي الحجم",
+      "volume24h": "حجم 24 ساعة",
+      "sales24h": "مبيعات 24 ساعة",
+      "activeListings": "القوائم النشطة",
+      "floorPrice": "السعر الأدنى",
+      "items": "العناصر",
+      "owners": "المالكون",
+      "change": "التغيير"
+    },
+    "tabs": {
+      "overview": "نظرة عامة",
+      "collections": "المجموعات",
+      "listings": "القوائم",
+      "activity": "النشاط"
+    },
+    "filters": {
+      "all": "الكل",
+      "art": "فن",
+      "gaming": "ألعاب",
+      "music": "موسيقى",
+      "collectibles": "مقتنيات",
+      "recent": "الأحدث",
+      "priceLow": "السعر: من الأقل للأعلى",
+      "priceHigh": "السعر: من الأعلى للأقل",
+      "buyNow": "اشتر الآن",
+      "auction": "مزاد"
+    },
+    "card": {
+      "price": "السعر",
+      "listed": "مُدرج",
+      "buyNow": "اشتر الآن",
+      "placeBid": "قدم عرضاً",
+      "unknownCollection": "مجموعة غير معروفة"
+    },
+    "dialogs": {
+      "confirmPurchase": "تأكيد الشراء",
+      "confirmPurchaseDesc": "أنت على وشك شراء هذا الـ NFT",
+      "itemPrice": "سعر العنصر",
+      "platformFee": "رسوم المنصة",
+      "total": "المجموع",
+      "secureTransaction": "معاملة آمنة",
+      "protectedBy": "محمي بعقود TBURN الذكية",
+      "cancel": "إلغاء",
+      "confirmPurchaseBtn": "تأكيد الشراء",
+      "processing": "جاري المعالجة",
+      "placeBidTitle": "قدم عرضاً",
+      "placeBidDesc": "أدخل مبلغ عرضك",
+      "minBid": "الحد الأدنى للعرض",
+      "yourBid": "عرضك (TB)",
+      "bidError": "يجب أن يكون العرض أكبر من صفر",
+      "bidErrorMin": "يجب أن يكون العرض {{min}} TB على الأقل",
+      "createListing": "إنشاء قائمة جديدة",
+      "createListingDesc": "ادرج NFT الخاص بك للبيع",
+      "selectNft": "اختر NFT للإدراج",
+      "selectNftLabel": "اختر NFT",
+      "chooseNft": "اختر NFT",
+      "priceLabel": "السعر (TB)",
+      "listingType": "نوع القائمة",
+      "fixedPrice": "سعر ثابت",
+      "auctionType": "مزاد",
+      "mintingFee": "رسوم السك (Gas)",
+      "listItem": "إدراج العنصر",
+      "creating": "جاري الإنشاء",
+      "cancelListing": "إلغاء القائمة",
+      "cancelListingDesc": "هل أنت متأكد من إلغاء هذه القائمة؟",
+      "listedPrice": "السعر المُدرج",
+      "cancelWarning": "سيؤدي إلغاء هذه القائمة إلى إزالتها من السوق. يمكنك إعادة إدراج NFT في أي وقت.",
+      "keepListed": "إبقاء مُدرج",
+      "confirmCancel": "إلغاء القائمة",
+      "canceling": "جاري الإلغاء"
+    },
+    "statsRankings": {
+      "title": "الإحصائيات والتصنيفات",
+      "subtitle": "تصنيفات مجموعات NFT وإحصائيات السوق",
+      "topCollections": "أفضل المجموعات",
+      "collectionRankings": "تصنيف المجموعات",
+      "rank": "الترتيب",
+      "collection": "المجموعة",
+      "floorPrice": "السعر الأدنى",
+      "totalVolume": "إجمالي الحجم",
+      "items": "العناصر",
+      "topSellers": "أفضل البائعين",
+      "seller": "البائع",
+      "sales": "المبيعات",
+      "count": "العدد",
+      "trending": "الرائج",
+      "hot": "ساخن"
+    },
+    "myCollection": {
+      "title": "مجموعتي",
+      "subtitle": "إدارة NFTs والقوائم الخاصة بك",
+      "demoData": "بيانات تجريبية",
+      "ownedNfts": "NFTs المملوكة",
+      "listedItems": "مُدرجة",
+      "totalValue": "القيمة الإجمالية",
+      "salesMade": "المبيعات المنجزة",
+      "myNfts": "NFTs الخاصة بي",
+      "listNft": "إدراج NFT",
+      "noNfts": "لم يتم العثور على NFTs",
+      "noNftsDesc": "ابدأ بجمع NFTs لبناء مجموعتك",
+      "browseMarketplace": "تصفح السوق",
+      "listed": "مدرج",
+      "price": "السعر"
+    },
+    "walletRequired": {
+      "title": "المحفظة مطلوبة",
+      "description": "يرجى توصيل محفظتك لعرض مجموعتي"
+    },
+    "liveSales": "مبيعات مباشرة",
+    "soldFor": "بيع بـ",
+    "description": "الوصف",
+    "currentPrice": "السعر الحالي",
+    "notForSale": "غير معروض للبيع",
+    "estValue": "القيمة التقديرية",
+    "traits": "السمات",
+    "attributes": "الخصائص",
+    "noDescription": "لا يوجد وصف متاح",
+    "legendary": "أسطوري"
   }
 }

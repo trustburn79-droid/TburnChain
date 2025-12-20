@@ -12866,5 +12866,146 @@
         ]
       }
     }
+  },
+  "nftMarketplacePage": {
+    "title": "TBURN NFT",
+    "sidebar": {
+      "marketplace": "Маркетплейс",
+      "statsRankings": "Статистика и Рейтинги",
+      "create": "Создать (Минт)",
+      "myCollection": "Моя Коллекция"
+    },
+    "header": {
+      "searchPlaceholder": "Поиск коллекций, предметов или пользователей...",
+      "createNft": "Создать NFT",
+      "connect": "Подключить"
+    },
+    "hero": {
+      "trustScore": "Только Trust Score 90+",
+      "title": "Открывайте, Коллекционируйте, Торгуйте",
+      "titleHighlight": "Уникальными NFT",
+      "subtitle": "Ведущий маркетплейс для верифицированных цифровых активов на блокчейне TBURN",
+      "exploreBtn": "Исследовать Коллекции",
+      "createBtn": "Начать Создавать"
+    },
+    "stats": {
+      "totalVolume": "Общий Объем",
+      "volume24h": "Объем 24ч",
+      "sales24h": "Продажи 24ч",
+      "activeListings": "Активные Листинги",
+      "floorPrice": "Минимальная Цена",
+      "items": "Предметы",
+      "owners": "Владельцы",
+      "change": "Изменение"
+    },
+    "tabs": {
+      "overview": "Обзор",
+      "collections": "Коллекции",
+      "listings": "Листинги",
+      "activity": "Активность"
+    },
+    "filters": {
+      "all": "Все",
+      "art": "Искусство",
+      "gaming": "Игры",
+      "music": "Музыка",
+      "collectibles": "Коллекционные",
+      "recent": "Последние",
+      "priceLow": "Цена: По возрастанию",
+      "priceHigh": "Цена: По убыванию",
+      "buyNow": "Купить Сейчас",
+      "auction": "Аукцион"
+    },
+    "card": {
+      "price": "Цена",
+      "listed": "Выставлено",
+      "buyNow": "Купить Сейчас",
+      "placeBid": "Сделать Ставку",
+      "unknownCollection": "Неизвестная Коллекция"
+    },
+    "dialogs": {
+      "confirmPurchase": "Подтвердить Покупку",
+      "confirmPurchaseDesc": "Вы собираетесь купить этот NFT",
+      "itemPrice": "Цена Предмета",
+      "platformFee": "Комиссия Платформы",
+      "total": "Итого",
+      "secureTransaction": "Безопасная Транзакция",
+      "protectedBy": "Защищено смарт-контрактами TBURN",
+      "cancel": "Отмена",
+      "confirmPurchaseBtn": "Подтвердить Покупку",
+      "processing": "Обработка",
+      "placeBidTitle": "Сделать Ставку",
+      "placeBidDesc": "Введите сумму ставки",
+      "minBid": "Мин. Ставка",
+      "yourBid": "Ваша Ставка (TB)",
+      "bidError": "Ставка должна быть больше нуля",
+      "bidErrorMin": "Ставка должна быть не менее {{min}} TB",
+      "createListing": "Создать Новый Листинг",
+      "createListingDesc": "Выставить NFT на продажу",
+      "selectNft": "Выберите NFT для листинга",
+      "selectNftLabel": "Выбрать NFT",
+      "chooseNft": "Выберите NFT",
+      "priceLabel": "Цена (TB)",
+      "listingType": "Тип Листинга",
+      "fixedPrice": "Фиксированная Цена",
+      "auctionType": "Аукцион",
+      "mintingFee": "Комиссия за Минт (Gas)",
+      "listItem": "Выставить Предмет",
+      "creating": "Создание",
+      "cancelListing": "Отменить Листинг",
+      "cancelListingDesc": "Вы уверены, что хотите отменить этот листинг?",
+      "listedPrice": "Цена Листинга",
+      "cancelWarning": "Отмена листинга удалит его с маркетплейса. Вы можете выставить NFT снова в любое время.",
+      "keepListed": "Оставить",
+      "confirmCancel": "Отменить Листинг",
+      "canceling": "Отмена"
+    },
+    "statsRankings": {
+      "title": "Статистика и Рейтинги",
+      "subtitle": "Рейтинги NFT коллекций и статистика маркетплейса",
+      "topCollections": "Топ Коллекции",
+      "collectionRankings": "Рейтинг Коллекций",
+      "rank": "Ранг",
+      "collection": "Коллекция",
+      "floorPrice": "Мин. Цена",
+      "totalVolume": "Общий Объем",
+      "items": "Предметы",
+      "topSellers": "Топ Продавцы",
+      "seller": "Продавец",
+      "sales": "Продажи",
+      "count": "Кол-во",
+      "trending": "В Тренде",
+      "hot": "Hot"
+    },
+    "myCollection": {
+      "title": "Моя Коллекция",
+      "subtitle": "Управляйте вашими NFT и листингами",
+      "demoData": "Демо Данные",
+      "ownedNfts": "Мои NFT",
+      "listedItems": "Выставлено",
+      "totalValue": "Общая Стоимость",
+      "salesMade": "Продаж",
+      "myNfts": "Мои NFT",
+      "listNft": "Выставить NFT",
+      "noNfts": "NFT не найдены",
+      "noNftsDesc": "Начните коллекционировать NFT для создания коллекции",
+      "browseMarketplace": "Обзор Маркетплейса",
+      "listed": "В продаже",
+      "price": "Цена"
+    },
+    "walletRequired": {
+      "title": "Требуется Кошелек",
+      "description": "Подключите кошелек для просмотра Моей Коллекции"
+    },
+    "liveSales": "ПРОДАЖИ",
+    "soldFor": "продано за",
+    "description": "Описание",
+    "currentPrice": "Текущая Цена",
+    "notForSale": "Не продается",
+    "estValue": "Оценка",
+    "traits": "Свойства",
+    "attributes": "Атрибуты",
+    "noDescription": "Описание отсутствует",
+    "legendary": "ЛЕГЕНДАРНЫЙ"
   }
 }

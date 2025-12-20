@@ -14129,5 +14129,146 @@
         ]
       }
     }
+  },
+  "nftMarketplacePage": {
+    "title": "TBURN NFT",
+    "sidebar": {
+      "marketplace": "मार्केटप्लेस",
+      "statsRankings": "आंकड़े और रैंकिंग",
+      "create": "बनाएं (मिंट)",
+      "myCollection": "मेरा संग्रह"
+    },
+    "header": {
+      "searchPlaceholder": "संग्रह, आइटम या उपयोगकर्ताओं को खोजें...",
+      "createNft": "NFT बनाएं",
+      "connect": "कनेक्ट"
+    },
+    "hero": {
+      "trustScore": "केवल ट्रस्ट स्कोर 90+",
+      "title": "खोजें, संग्रह करें और व्यापार करें",
+      "titleHighlight": "असाधारण NFTs",
+      "subtitle": "TBURN ब्लॉकचेन पर सत्यापित डिजिटल संपत्तियों के लिए प्रमुख मार्केटप्लेस",
+      "exploreBtn": "संग्रह देखें",
+      "createBtn": "बनाना शुरू करें"
+    },
+    "stats": {
+      "totalVolume": "कुल वॉल्यूम",
+      "volume24h": "24 घंटे वॉल्यूम",
+      "sales24h": "24 घंटे बिक्री",
+      "activeListings": "सक्रिय लिस्टिंग",
+      "floorPrice": "फ्लोर प्राइस",
+      "items": "आइटम",
+      "owners": "मालिक",
+      "change": "परिवर्तन"
+    },
+    "tabs": {
+      "overview": "अवलोकन",
+      "collections": "संग्रह",
+      "listings": "लिस्टिंग",
+      "activity": "गतिविधि"
+    },
+    "filters": {
+      "all": "सभी",
+      "art": "कला",
+      "gaming": "गेमिंग",
+      "music": "संगीत",
+      "collectibles": "संग्रहणीय",
+      "recent": "हाल का",
+      "priceLow": "कीमत: कम से ज्यादा",
+      "priceHigh": "कीमत: ज्यादा से कम",
+      "buyNow": "अभी खरीदें",
+      "auction": "नीलामी"
+    },
+    "card": {
+      "price": "कीमत",
+      "listed": "सूचीबद्ध",
+      "buyNow": "अभी खरीदें",
+      "placeBid": "बोली लगाएं",
+      "unknownCollection": "अज्ञात संग्रह"
+    },
+    "dialogs": {
+      "confirmPurchase": "खरीद की पुष्टि करें",
+      "confirmPurchaseDesc": "आप इस NFT को खरीदने वाले हैं",
+      "itemPrice": "आइटम की कीमत",
+      "platformFee": "प्लेटफॉर्म शुल्क",
+      "total": "कुल",
+      "secureTransaction": "सुरक्षित लेनदेन",
+      "protectedBy": "TBURN स्मार्ट कॉन्ट्रैक्ट द्वारा संरक्षित",
+      "cancel": "रद्द करें",
+      "confirmPurchaseBtn": "खरीद की पुष्टि करें",
+      "processing": "प्रोसेसिंग",
+      "placeBidTitle": "बोली लगाएं",
+      "placeBidDesc": "अपनी बोली राशि दर्ज करें",
+      "minBid": "न्यूनतम बोली",
+      "yourBid": "आपकी बोली (TB)",
+      "bidError": "बोली शून्य से अधिक होनी चाहिए",
+      "bidErrorMin": "बोली कम से कम {{min}} TB होनी चाहिए",
+      "createListing": "नई लिस्टिंग बनाएं",
+      "createListingDesc": "बिक्री के लिए अपना NFT सूचीबद्ध करें",
+      "selectNft": "सूचीबद्ध करने के लिए NFT चुनें",
+      "selectNftLabel": "NFT चुनें",
+      "chooseNft": "एक NFT चुनें",
+      "priceLabel": "कीमत (TB)",
+      "listingType": "लिस्टिंग प्रकार",
+      "fixedPrice": "निश्चित कीमत",
+      "auctionType": "नीलामी",
+      "mintingFee": "मिंटिंग शुल्क (गैस)",
+      "listItem": "आइटम सूचीबद्ध करें",
+      "creating": "बनाया जा रहा है",
+      "cancelListing": "लिस्टिंग रद्द करें",
+      "cancelListingDesc": "क्या आप इस लिस्टिंग को रद्द करना चाहते हैं?",
+      "listedPrice": "सूचीबद्ध कीमत",
+      "cancelWarning": "इस लिस्टिंग को रद्द करने से यह मार्केटप्लेस से हट जाएगी। आप कभी भी NFT को फिर से सूचीबद्ध कर सकते हैं।",
+      "keepListed": "सूचीबद्ध रखें",
+      "confirmCancel": "लिस्टिंग रद्द करें",
+      "canceling": "रद्द किया जा रहा है"
+    },
+    "statsRankings": {
+      "title": "आंकड़े और रैंकिंग",
+      "subtitle": "NFT संग्रह रैंकिंग और मार्केटप्लेस आंकड़े",
+      "topCollections": "शीर्ष संग्रह",
+      "collectionRankings": "संग्रह रैंकिंग",
+      "rank": "रैंक",
+      "collection": "संग्रह",
+      "floorPrice": "फ्लोर प्राइस",
+      "totalVolume": "कुल वॉल्यूम",
+      "items": "आइटम",
+      "topSellers": "शीर्ष विक्रेता",
+      "seller": "विक्रेता",
+      "sales": "बिक्री",
+      "count": "संख्या",
+      "trending": "ट्रेंडिंग",
+      "hot": "हॉट"
+    },
+    "myCollection": {
+      "title": "मेरा संग्रह",
+      "subtitle": "अपने NFTs और लिस्टिंग प्रबंधित करें",
+      "demoData": "डेमो डेटा",
+      "ownedNfts": "स्वामित्व NFTs",
+      "listedItems": "सूचीबद्ध",
+      "totalValue": "कुल मूल्य",
+      "salesMade": "बिक्री पूर्ण",
+      "myNfts": "मेरे NFTs",
+      "listNft": "NFT सूचीबद्ध करें",
+      "noNfts": "कोई NFT नहीं मिला",
+      "noNftsDesc": "अपना संग्रह बनाने के लिए NFT संग्रह करना शुरू करें",
+      "browseMarketplace": "मार्केटप्लेस देखें",
+      "listed": "सूचीबद्ध",
+      "price": "कीमत"
+    },
+    "walletRequired": {
+      "title": "वॉलेट आवश्यक",
+      "description": "मेरा संग्रह देखने के लिए कृपया अपना वॉलेट कनेक्ट करें"
+    },
+    "liveSales": "लाइव बिक्री",
+    "soldFor": "के लिए बिका",
+    "description": "विवरण",
+    "currentPrice": "वर्तमान कीमत",
+    "notForSale": "बिक्री के लिए नहीं",
+    "estValue": "अनुमानित मूल्य",
+    "traits": "विशेषताएं",
+    "attributes": "गुण",
+    "noDescription": "कोई विवरण उपलब्ध नहीं",
+    "legendary": "लीजेंडरी"
   }
 }
