@@ -163,7 +163,9 @@ function formatAmount(wei: string | null | undefined, decimals: number = 18): st
   if (!wei || wei === "0") return "0";
   try {
     const value = BigInt(wei);
-    const divisor = BigInt(10) ** BigInt(decimals);
+    // Calculate divisor manually to avoid ES2016 target requirement
+    let divisor = BigInt(1);
+    for (let i = 0; i < decimals; i++) divisor *= BigInt(10);
     const integerPart = value / divisor;
     const remainder = value % divisor;
     const decimalStr = remainder.toString().padStart(decimals, '0').slice(0, 2);
@@ -288,13 +290,22 @@ function NftCard({ listing, item, collection, onBuyNow, onViewItem }: NftCardPro
             <Gavel className="w-3 h-3" />Auction
           </span>
         )}
-        <button 
-          className="absolute bottom-4 left-4 right-4 bg-white text-black font-bold py-2 rounded-lg shadow-lg hover:bg-gray-100 transition-all opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0"
-          onClick={(e) => { e.stopPropagation(); onBuyNow(listing); }}
-          data-testid={`button-buy-${listing.id}`}
-        >
-          {listing.listingType === "auction" ? "Place Bid" : "Buy Now"}
-        </button>
+        <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all">
+          <button 
+            className="flex-1 bg-white text-black font-bold py-2 rounded-lg shadow-lg hover:bg-gray-100 transition-all"
+            onClick={(e) => { e.stopPropagation(); onBuyNow(listing); }}
+            data-testid={`button-buy-${listing.id}`}
+          >
+            {listing.listingType === "auction" ? "Place Bid" : "Buy Now"}
+          </button>
+          <button 
+            className="px-3 bg-gray-800/90 text-white font-bold py-2 rounded-lg shadow-lg hover:bg-gray-700 transition-all flex items-center justify-center"
+            onClick={(e) => { e.stopPropagation(); item && onViewItem(item, collection); }}
+            data-testid={`button-view-${listing.id}`}
+          >
+            <Eye className="w-4 h-4" />
+          </button>
+        </div>
       </div>
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
@@ -762,6 +773,7 @@ export default function NftMarketplaceStandalone() {
   const [searchQuery, setSearchQuery] = useState("");
   const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
+  const [activeSidebarSection, setActiveSidebarSection] = useState("marketplace");
   const [listingFilter, setListingFilter] = useState("all");
   const [sortBy, setSortBy] = useState("recent");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -933,18 +945,42 @@ export default function NftMarketplaceStandalone() {
         </div>
         
         <nav className="flex-1 py-6 space-y-2 px-3">
-          <a href="#" className="flex items-center gap-4 px-3 py-3 rounded-xl bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm transition-colors" data-testid="link-marketplace">
+          <button 
+            onClick={() => { setActiveSidebarSection("marketplace"); setActiveTab("overview"); }}
+            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "marketplace" ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "text-gray-400 hover:bg-gray-800"}`}
+            data-testid="link-marketplace"
+          >
             <Store className="w-5 h-5" /> <span className="hidden lg:block font-medium">Marketplace</span>
-          </a>
-          <a href="#" className="flex items-center gap-4 px-3 py-3 rounded-xl text-gray-400 hover:bg-gray-800 transition-colors" data-testid="link-stats">
+          </button>
+          <button 
+            onClick={() => { setActiveSidebarSection("stats"); setActiveTab("overview"); }}
+            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "stats" ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "text-gray-400 hover:bg-gray-800"}`}
+            data-testid="link-stats"
+          >
             <BarChart3 className="w-5 h-5" /> <span className="hidden lg:block font-medium">Stats & Rankings</span>
-          </a>
-          <a href="#" className="flex items-center gap-4 px-3 py-3 rounded-xl text-gray-400 hover:bg-gray-800 transition-colors" data-testid="link-create" onClick={() => setListDialogOpen(true)}>
+          </button>
+          <button 
+            onClick={() => setListDialogOpen(true)}
+            className="w-full flex items-center gap-4 px-3 py-3 rounded-xl text-gray-400 hover:bg-gray-800 transition-colors"
+            data-testid="link-create"
+          >
             <PaintBucket className="w-5 h-5" /> <span className="hidden lg:block font-medium">Create (Mint)</span>
-          </a>
-          <a href="#" className="flex items-center gap-4 px-3 py-3 rounded-xl text-gray-400 hover:bg-gray-800 transition-colors" data-testid="link-collection">
+          </button>
+          <button 
+            onClick={() => { 
+              if (!isConnected) {
+                setWalletModalOpen(true);
+                toast({ title: "지갑 연결 필요", description: "My Collection을 보려면 먼저 지갑을 연결해주세요.", variant: "default" });
+              } else {
+                setActiveSidebarSection("mycollection"); 
+                setActiveTab("overview");
+              }
+            }}
+            className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${activeSidebarSection === "mycollection" ? "bg-[#151E32] text-white border-l-4 border-violet-500 shadow-sm" : "text-gray-400 hover:bg-gray-800"}`}
+            data-testid="link-collection"
+          >
             <User className="w-5 h-5" /> <span className="hidden lg:block font-medium">My Collection</span>
-          </a>
+          </button>
         </nav>
       </aside>
 
@@ -1070,7 +1106,7 @@ export default function NftMarketplaceStandalone() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-400">Active Sellers</p>
-                  <p className="font-bold font-mono text-white">{overview?.activeSellers || "0"}</p>
+                  <p className="font-bold font-mono text-white">{(overview as any)?.activeSellers || overview?.totalCollections || "0"}</p>
                 </div>
               </div>
             </GlassPanel>
@@ -1215,7 +1251,7 @@ export default function NftMarketplaceStandalone() {
                   <div key={collection.id} className="rounded-2xl overflow-hidden border border-gray-700 bg-[#151E32] hover:border-violet-500 transition-all duration-300 cursor-pointer" data-testid={`card-collection-${collection.id}`}>
                     <div className="relative h-48 overflow-hidden">
                       <img 
-                        src={collection.bannerImage || `https://picsum.photos/seed/${collection.id}/400/200`} 
+                        src={(collection as any).bannerImage || collection.imageUrl || `https://picsum.photos/seed/${collection.id}/400/200`} 
                         alt={collection.name} 
                         className="w-full h-full object-cover"
                       />
@@ -1231,7 +1267,7 @@ export default function NftMarketplaceStandalone() {
                     <div className="p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <h3 className="font-bold text-white text-lg truncate">{collection.name}</h3>
-                        {collection.isVerified && <CheckCircle className="w-4 h-4 text-violet-400" />}
+                        {collection.verified && <CheckCircle className="w-4 h-4 text-violet-400" />}
                       </div>
                       <p className="text-gray-400 text-sm line-clamp-2 mb-4">{collection.description}</p>
                       <div className="grid grid-cols-2 gap-2 text-sm">
@@ -1316,7 +1352,7 @@ export default function NftMarketplaceStandalone() {
                         </div>
                         <div className="text-right">
                           <p className="font-mono font-bold text-white">{formatAmount(event.price || "0")} TB</p>
-                          <p className="text-xs text-gray-400">{formatDate(event.timestamp)}</p>
+                          <p className="text-xs text-gray-400">{formatDate(event.createdAt)}</p>
                         </div>
                         <Badge className={`shrink-0 ${
                           event.eventType === 'sale' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
