@@ -221,10 +221,10 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
               </Link>
             </div>
             <div className="flex items-center gap-6 text-sm text-gray-400">
-              <Link href="/api">
+              <Link href="/developers/api">
                 <span className="hover:text-white cursor-pointer">API</span>
               </Link>
-              <Link href="/docs">
+              <Link href="/developers/docs">
                 <span className="hover:text-white cursor-pointer">{t("scan.docs", "Docs")}</span>
               </Link>
               <a href="https://github.com/tburn" target="_blank" rel="noopener noreferrer" className="hover:text-white">
