@@ -3286,13 +3286,13 @@ function NFTSection({
           </button>
         </div>
         <div className="flex gap-2 flex-wrap">
-          <a href="/app/nft-marketplace" className="text-xs px-3 py-1.5 bg-violet-500/10 text-violet-500 rounded-full font-bold hover:bg-violet-500/20 transition-colors">
+          <a href="/nft-marketplace" className="text-xs px-3 py-1.5 bg-violet-500/10 text-violet-500 rounded-full font-bold hover:bg-violet-500/20 transition-colors">
             {t('userPage.nft.marketplace')} →
           </a>
-          <a href="/app/nft-launchpad" className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-500 rounded-full font-bold hover:bg-amber-500/20 transition-colors">
+          <a href="/nft-marketplace?tab=launchpad" className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-500 rounded-full font-bold hover:bg-amber-500/20 transition-colors">
             {t('userPage.nft.launchpad')} →
           </a>
-          <a href="/app/gamefi" className="text-xs px-3 py-1.5 bg-pink-500/10 text-pink-500 rounded-full font-bold hover:bg-pink-500/20 transition-colors">
+          <a href="/nft-marketplace?tab=gamefi" className="text-xs px-3 py-1.5 bg-pink-500/10 text-pink-500 rounded-full font-bold hover:bg-pink-500/20 transition-colors">
             {t('userPage.nft.gamefi')} →
           </a>
         </div>
@@ -3344,12 +3344,12 @@ function NFTSection({
               </h2>
               <p className="text-gray-300 max-w-lg mb-4 text-sm md:text-base">{t('userPage.nft.heroDescription')}</p>
               <div className="flex flex-wrap gap-3 sm:gap-4">
-                <a href="/app/nft-marketplace">
+                <a href="/nft-marketplace">
                   <Button className="bg-white text-black hover:bg-gray-200 font-bold px-4 sm:px-6 py-2">
                     {t('userPage.nft.viewCollection')}
                   </Button>
                 </a>
-                <a href="/app/nft-marketplace">
+                <a href="/nft-marketplace">
                   <Button variant="outline" className="backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20 font-bold px-4 sm:px-6 py-2">
                     {t('userPage.nft.browseAll')}
                   </Button>
@@ -3364,13 +3364,13 @@ function NFTSection({
               <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <Flame className="w-5 h-5 text-orange-500" /> {t('userPage.nft.trendingCollections')}
               </h3>
-              <a href="/app/nft-marketplace" className="text-sm text-violet-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
+              <a href="/nft-marketplace" className="text-sm text-violet-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {trendingCollections.map((collection, index) => (
                 <a 
                   key={collection.id}
-                  href="/app/nft-marketplace"
+                  href="/nft-marketplace"
                   className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-200 dark:border-white/5 cursor-pointer group hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:border-violet-500/50 transition-all block"
                 >
                   <div className="h-48 overflow-hidden">
@@ -3402,7 +3402,7 @@ function NFTSection({
               ))}
               
               {/* Create NFT Card */}
-              <a href="/app/nft-marketplace" className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border-2 border-dashed border-slate-300 dark:border-gray-700 flex flex-col justify-center items-center text-center hover:border-violet-500 transition-colors">
+              <a href="/nft-marketplace" className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border-2 border-dashed border-slate-300 dark:border-gray-700 flex flex-col justify-center items-center text-center hover:border-violet-500 transition-colors">
                 <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-gray-800 flex items-center justify-center mb-4">
                   <Plus className="w-8 h-8 text-slate-400" />
                 </div>
@@ -3458,7 +3458,7 @@ function NFTSection({
           </div>
 
           {/* Live Sale */}
-          <a href="/app/nft-launchpad" className="block">
+          <a href="/nft-marketplace?tab=launchpad" className="block">
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 lg:p-8 border-l-4 border-amber-500 border border-slate-200 dark:border-white/5 relative overflow-hidden hover:border-amber-500/50 transition-colors">
               <div className="absolute top-4 right-4">
                 <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">{t('userPage.nft.liveNow')}</span>
@@ -3515,7 +3515,7 @@ function NFTSection({
           <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border border-slate-200 dark:border-white/5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-bold text-slate-900 dark:text-white">{t('userPage.nft.upcomingSales')}</h3>
-              <a href="/app/nft-launchpad" className="text-sm text-amber-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
+              <a href="/nft-marketplace?tab=launchpad" className="text-sm text-amber-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
             </div>
             <div className="space-y-4">
               {[
@@ -3524,7 +3524,7 @@ function NFTSection({
               ].map((sale, index) => (
                 <a 
                   key={index}
-                  href="/app/nft-launchpad"
+                  href="/nft-marketplace?tab=launchpad"
                   className="flex items-center justify-between p-4 bg-slate-50 dark:bg-black/20 rounded-xl border border-slate-100 dark:border-gray-800 hover:border-amber-500/50 transition-colors block"
                 >
                   <div className="flex items-center gap-4">
@@ -3578,7 +3578,7 @@ function NFTSection({
           </div>
 
           {/* Featured Game */}
-          <a href="/app/gamefi" className="block">
+          <a href="/nft-marketplace?tab=gamefi" className="block">
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-pink-500/30 hover:border-pink-500/60 transition-colors">
               <div className="h-64 md:h-auto relative">
                 <img 
@@ -3619,13 +3619,13 @@ function NFTSection({
           <div>
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-bold text-slate-900 dark:text-white">{t('userPage.nft.featuredGames')}</h3>
-              <a href="/app/gamefi" className="text-sm text-pink-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
+              <a href="/nft-marketplace?tab=gamefi" className="text-sm text-pink-500 hover:underline">{t('userPage.defi.viewAll')} →</a>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {featuredGames.length > 0 ? featuredGames.slice(0, 4).map((game) => (
                 <a 
                   key={game.id}
-                  href="/app/gamefi"
+                  href="/nft-marketplace?tab=gamefi"
                   className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl border border-slate-200 dark:border-white/5 hover:border-pink-500/50 transition-colors block"
                 >
                   <div className="w-full h-32 mb-3 bg-gradient-to-br from-pink-500 to-purple-500 rounded-lg flex items-center justify-center overflow-hidden">
@@ -3664,7 +3664,7 @@ function NFTSection({
                 ].map((game, index) => (
                   <a 
                     key={index}
-                    href="/app/gamefi"
+                    href="/nft-marketplace?tab=gamefi"
                     className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl border border-slate-200 dark:border-white/5 hover:border-pink-500/50 transition-colors block"
                   >
                     <div className="w-full h-32 mb-3 bg-gradient-to-br from-pink-500 to-purple-500 rounded-lg flex items-center justify-center">
@@ -3696,7 +3696,7 @@ function NFTSection({
                   {gamefiOverview?.activeTournaments || 5} {t('userPage.nft.tournaments').toLowerCase()}
                 </p>
               </div>
-              <a href="/app/gamefi">
+              <a href="/nft-marketplace?tab=gamefi">
                 <Button className="bg-pink-500 hover:bg-pink-600 text-white font-bold">
                   {t('userPage.defi.viewAll')}
                 </Button>
