@@ -316,6 +316,14 @@ function RootRouter() {
     );
   }
   
+  if (location === "/nft-marketplace" || location.startsWith("/nft-marketplace")) {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <NftMarketplacePage />
+      </Suspense>
+    );
+  }
+  
   if (location === "/signup") {
     return <Signup />;
   }
