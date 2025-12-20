@@ -51,7 +51,6 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 import Login from "@/pages/login";
 import Signup from "@/pages/signup";
 
-const TokenSystem = lazy(() => import("@/pages/token-system"));
 const TokenGenerator = lazy(() => import("@/pages/token-generator"));
 const Bridge = lazy(() => import("@/pages/bridge"));
 const Governance = lazy(() => import("@/pages/governance"));
@@ -134,7 +133,6 @@ function AppRouter() {
         <Route path="/app/wallets" component={Wallets} />
         <Route path="/app/wallets/:address" component={WalletDetail} />
         <Route path="/app/wallet-dashboard" component={WalletDashboard} />
-        <Route path="/app/token-system" component={TokenSystem} />
         <Route path="/app/bridge" component={Bridge} />
         <Route path="/app/governance" component={Governance} />
         <Route path="/app/burn" component={BurnDashboard} />
