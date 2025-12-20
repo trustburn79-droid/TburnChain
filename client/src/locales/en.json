@@ -25764,6 +25764,1310 @@
       "community": "Community",
       "security": "Security",
       "tokenomics": "Tokenomics"
+    },
+    "content": {
+      "1": {
+        "question": "What is TBURN?",
+        "answer": "TBURN is a next-generation Layer 1 blockchain that processes 520,000 TPS with 100ms block time. It uses an AI-enhanced BFT consensus mechanism to provide high security and scalability, with a deflationary token economic model aimed at sustainable value creation.",
+        "tags": [
+          "getting started",
+          "blockchain",
+          "introduction"
+        ]
+      },
+      "2": {
+        "question": "How do I get started with TBURN?",
+        "answer": "1) Install a supported wallet (MetaMask, Rabby, Trust Wallet, etc.). 2) Connect to TBURN mainnet. 3) Purchase or receive TB tokens. 4) Manage your assets and use DeFi services from the wallet dashboard.",
+        "tags": [
+          "start",
+          "wallet",
+          "connection"
+        ]
+      },
+      "3": {
+        "question": "Where can I buy TB tokens?",
+        "answer": "TB tokens can be purchased on TBURN's built-in DEX, partner exchanges, or through cross-chain bridges. You can swap directly on the DEX page or bring assets from other chains via the bridge.",
+        "tags": [
+          "purchase",
+          "token",
+          "DEX"
+        ]
+      },
+      "4": {
+        "question": "What is the TBURN wallet address format?",
+        "answer": "TBURN uses Bech32m format addresses. All addresses start with \"tb1\" and consist of exactly 41 characters (e.g., tb1edmprvaftt65lkp2x6v8fmjvst5spfruj47kwm). This format follows the BIP-350 standard with built-in error detection.",
+        "tags": [
+          "address",
+          "Bech32m",
+          "format"
+        ]
+      },
+      "5": {
+        "question": "What are the transaction fees?",
+        "answer": "TBURN's base network fee is approximately 0.0001 TB. Additionally, all transfers have a 0.5% burn fee that permanently burns tokens. This deflationary mechanism contributes to maintaining token value.",
+        "tags": [
+          "fee",
+          "burn",
+          "cost"
+        ]
+      },
+      "6": {
+        "question": "What is the difference between TBURN mainnet and testnet?",
+        "answer": "Mainnet is the production network where TB tokens with real value are used. Testnet is used for development and testing purposes, and test tokens have no value. Developers should deploy and test smart contracts on testnet before deploying to mainnet.",
+        "tags": [
+          "mainnet",
+          "testnet",
+          "network"
+        ]
+      },
+      "7": {
+        "question": "What is TBURN Explorer?",
+        "answer": "TBURN Explorer (Scan) is a blockchain explorer where you can view blocks, transactions, wallets, and smart contracts. It's a public tool for transparently checking real-time network status, validator information, and token movements.",
+        "tags": [
+          "explorer",
+          "scan",
+          "search"
+        ]
+      },
+      "8": {
+        "question": "What are the future plans in the roadmap?",
+        "answer": "TBURN's roadmap includes continuous network expansion, new DeFi protocol integration, cross-chain bridge expansion, AI feature enhancement, and gaming/NFT ecosystem growth. Detailed milestones can be found on the roadmap page.",
+        "tags": [
+          "roadmap",
+          "plan",
+          "future"
+        ]
+      },
+      "9": {
+        "question": "Where can I read the TBURN whitepaper?",
+        "answer": "The TBURN whitepaper is available in the Learn section of the official website. It contains detailed explanations of technical architecture, consensus mechanism, tokenomics, and governance model.",
+        "tags": [
+          "whitepaper",
+          "document",
+          "technology"
+        ]
+      },
+      "10": {
+        "question": "How can I join the TBURN community?",
+        "answer": "Through the Community Hub, you can check announcements, events, and news, and interact with other users. You can vote on governance proposals and participate in airdrops and campaigns to earn rewards.",
+        "tags": [
+          "community",
+          "participation",
+          "communication"
+        ]
+      },
+      "11": {
+        "question": "Which wallets support TBURN?",
+        "answer": "TBURN supports MetaMask, Rabby Wallet, Trust Wallet, Coinbase Wallet, and Ledger hardware wallets. You can use any EVM-compatible wallet by adding the TBURN network.",
+        "tags": [
+          "wallet",
+          "compatibility",
+          "MetaMask"
+        ]
+      },
+      "12": {
+        "question": "How do I connect my wallet to TBURN network?",
+        "answer": "Click the \"Connect Wallet\" button on the wallet dashboard and select your preferred wallet. The network will be added automatically, and if manual setup is needed, you can find network information on the RPC page.",
+        "tags": [
+          "connection",
+          "network",
+          "setup"
+        ]
+      },
+      "13": {
+        "question": "How do I transfer tokens to another wallet?",
+        "answer": "In the Wallet & Transfer tab, enter the recipient address (41 characters starting with tb1) and set the amount. Burn fee (0.5%) and network fee are automatically calculated and displayed. Click the transfer button to complete the transaction.",
+        "tags": [
+          "transfer",
+          "transfer",
+          "remittance"
+        ]
+      },
+      "14": {
+        "question": "Why is my wallet balance not updating?",
+        "answer": "It may be due to network delay or cache issues. Try refreshing the page or reconnecting your wallet. You can verify if the transaction is confirmed on the Explorer. If the issue persists, try a different RPC endpoint.",
+        "tags": [
+          "balance",
+          "update",
+          "issue"
+        ]
+      },
+      "15": {
+        "question": "Can I use a hardware wallet?",
+        "answer": "Ledger hardware wallets are fully supported. You can install the TBURN app through Ledger Live and connect it with MetaMask. Hardware wallets provide the highest level of security.",
+        "tags": [
+          "Ledger",
+          "hardware",
+          "security"
+        ]
+      },
+      "16": {
+        "question": "What can I do on the wallet dashboard?",
+        "answer": "On the wallet dashboard, you can view portfolio overview, asset balances, and recent transactions. It's the central hub for all blockchain activities including staking, DEX swaps, NFT browsing, and DeFi services.",
+        "tags": [
+          "dashboard",
+          "portfolio",
+          "management"
+        ]
+      },
+      "17": {
+        "question": "How do I claim unclaimed rewards?",
+        "answer": "You can view claimable rewards in the Rewards section of the dashboard. Click the \"Claim All\" button to claim staking, mining, and event rewards at once. They will be reflected in your wallet after transaction confirmation.",
+        "tags": [
+          "rewards",
+          "claim",
+          "claim"
+        ]
+      },
+      "18": {
+        "question": "How do I check transaction status?",
+        "answer": "Search for the transaction hash in Explorer to check status, confirmation count, gas usage, and block information. You can also view transaction history in the Recent Activity section of the wallet dashboard.",
+        "tags": [
+          "transaction",
+          "status",
+          "verification"
+        ]
+      },
+      "19": {
+        "question": "What happens if I don't have enough gas?",
+        "answer": "If you don't have enough gas (TB), the transaction will fail. Make sure you have sufficient TB balance before transferring. You can check estimated gas fees in advance using the Transaction Simulator.",
+        "tags": [
+          "gas",
+          "fee",
+          "balance"
+        ]
+      },
+      "20": {
+        "question": "How do I use the on-ramp (Fiat-to-Crypto)?",
+        "answer": "On the Network Ramp page, you can purchase TB tokens directly using credit cards, bank transfers, etc. Through partner payment services, you can easily purchase using KRW and major currencies.",
+        "tags": [
+          "on-ramp",
+          "purchase",
+          "fiat"
+        ]
+      },
+      "21": {
+        "question": "What is staking?",
+        "answer": "Staking is delegating TB tokens to validators to contribute to network security and earn rewards. Staked tokens participate in network consensus, and rewards are distributed regularly based on APY.",
+        "tags": [
+          "staking",
+          "delegation",
+          "rewards"
+        ]
+      },
+      "22": {
+        "question": "What is the minimum staking amount?",
+        "answer": "For regular delegation, staking starts from a minimum of 10 TB. To participate directly as a validator, you need between 1,000 TB to 100,000 TB depending on the tier.",
+        "tags": [
+          "minimum",
+          "delegation",
+          "validator"
+        ]
+      },
+      "23": {
+        "question": "How are staking rewards calculated?",
+        "answer": "Rewards are calculated based on staking amount, validator performance, and network participation rate. Current base APY is approximately 8-15%, and detailed breakdown can be viewed on the Rewards page.",
+        "tags": [
+          "rewards",
+          "calculation",
+          "APY"
+        ]
+      },
+      "24": {
+        "question": "How long does unstaking take?",
+        "answer": "There is a 21-day unbonding period after requesting unstaking. During this period, tokens are locked and no rewards are earned. Once unbonding is complete, tokens are returned to your wallet.",
+        "tags": [
+          "unstaking",
+          "unbonding",
+          "period"
+        ]
+      },
+      "25": {
+        "question": "How should I choose a validator?",
+        "answer": "Consider uptime, commission rate, total delegation, and self-stake amount. It's advisable to choose reliable validators with high uptime and low commission. You can compare detailed information on the Validators page.",
+        "tags": [
+          "validator",
+          "selection",
+          "commission"
+        ]
+      },
+      "26": {
+        "question": "What is slashing?",
+        "answer": "Slashing is a penalty where a portion of staked tokens is cut when validators engage in malicious behavior (double signing, extended offline periods). Choosing reliable validators can reduce slashing risk.",
+        "tags": [
+          "slashing",
+          "penalty",
+          "security"
+        ]
+      },
+      "27": {
+        "question": "What is liquid staking?",
+        "answer": "Liquid staking is a way to maintain liquidity while staking. When you stake TB, you receive stTB tokens that can be used in DeFi while simultaneously earning staking rewards.",
+        "tags": [
+          "liquid",
+          "stTB",
+          "liquidity"
+        ]
+      },
+      "28": {
+        "question": "Where can I use stTB tokens?",
+        "answer": "stTB can be traded on DEX, used as collateral in lending protocols, and deposited in yield farming pools. You can earn dual yields from both staking rewards and DeFi returns.",
+        "tags": [
+          "stTB",
+          "DeFi",
+          "utilization"
+        ]
+      },
+      "29": {
+        "question": "What is the Staking SDK?",
+        "answer": "The Staking SDK is a tool for developers to integrate staking functionality into their applications. It supports JavaScript/TypeScript and allows programmatic implementation of delegation, unstaking, and reward claiming.",
+        "tags": [
+          "SDK",
+          "developer",
+          "integration"
+        ]
+      },
+      "30": {
+        "question": "How do I apply to become a validator?",
+        "answer": "Complete the 3-step application in the Validator Application System: 1) Basic requirements verification and document submission, 2) Technical infrastructure verification, 3) Staking and final approval. Requirements vary by tier (Bronze, Silver, Gold).",
+        "tags": [
+          "validator",
+          "application",
+          "tier"
+        ]
+      },
+      "31": {
+        "question": "What is TBURN DEX?",
+        "answer": "TBURN DEX is a decentralized exchange where you can directly swap TB tokens with other assets. It operates on an AMM (Automated Market Maker) model, and you can earn trading fees by participating in liquidity pools.",
+        "tags": [
+          "DEX",
+          "swap",
+          "trade"
+        ]
+      },
+      "32": {
+        "question": "How do I swap tokens?",
+        "answer": "On the DEX page, select the token pair to exchange and enter the amount. Expected receipt amount and slippage are displayed. Click the swap button to execute the trade. Wallet approval is required.",
+        "tags": [
+          "swap",
+          "trade",
+          "DEX"
+        ]
+      },
+      "33": {
+        "question": "What is a liquidity pool?",
+        "answer": "A liquidity pool is depositing two tokens in equal ratios to enable trades for other users. Liquidity providers receive a portion of trading fees generated from the pool as rewards.",
+        "tags": [
+          "pool",
+          "liquidity provision",
+          "yield"
+        ]
+      },
+      "34": {
+        "question": "How does lending work?",
+        "answer": "Deposit assets in the lending protocol to earn interest. You can also provide collateral and borrow other assets. When borrowing, pay attention to collateral ratio (LTV) and liquidation threshold.",
+        "tags": [
+          "lending",
+          "collateral",
+          "이자"
+        ]
+      },
+      "35": {
+        "question": "What is liquidation?",
+        "answer": "Liquidation occurs when collateral value falls below a certain ratio relative to the loan. Collateral is forcibly sold to repay the loan, and a liquidation penalty applies. Keep your collateral ratio at safe levels.",
+        "tags": [
+          "liquidation",
+          "LTV",
+          "risk"
+        ]
+      },
+      "36": {
+        "question": "What is yield farming?",
+        "answer": "Yield farming is depositing LP tokens or assets in specific pools to receive additional token rewards. It offers high APY but also carries risks like impermanent loss.",
+        "tags": [
+          "yield farming",
+          "mining",
+          "yield"
+        ]
+      },
+      "37": {
+        "question": "What is impermanent loss?",
+        "answer": "When token prices in a liquidity pool change, losses compared to simply holding can occur. The loss disappears if prices return to original levels, hence \"impermanent\".",
+        "tags": [
+          "임퍼머넌트",
+          "risk",
+          "pool"
+        ]
+      },
+      "38": {
+        "question": "What should I be careful about when borrowing?",
+        "answer": "Maintain collateral ratio (LTV) above safe margin. There is liquidation risk due to market volatility. Always check interest rates, liquidation thresholds, and collateral requirements.",
+        "tags": [
+          "lending",
+          "collateral",
+          "repayment"
+        ]
+      },
+      "39": {
+        "question": "What is a flash loan?",
+        "answer": "Flash loans are uncollateralized loans borrowed and repaid within a single transaction. Used for arbitrage, collateral swaps, etc. If the transaction fails, the loan is also cancelled.",
+        "tags": [
+          "플래시 론",
+          "DeFi",
+          "고급"
+        ]
+      },
+      "40": {
+        "question": "What is a cross-chain bridge?",
+        "answer": "Moving assets from other blockchains (Ethereum, BSC, Polygon, etc.) to TBURN or vice versa. Check supported chains and fees on the Bridge page.",
+        "tags": [
+          "bridge",
+          "cross-chain",
+          "chain"
+        ]
+      },
+      "41": {
+        "question": "How do I purchase NFTs?",
+        "answer": "Browse collections on the NFT Marketplace and select your desired NFT. Fixed price purchase or auction bidding is available. Payment is made with TB tokens and gas fee is required.",
+        "tags": [
+          "NFT",
+          "marketplace",
+          "purchase"
+        ]
+      },
+      "42": {
+        "question": "How do I create and sell NFTs?",
+        "answer": "Click \"Create\" on the NFT Marketplace to upload images/media and set metadata. After paying minting fee, you can list for sale. Choose between fixed price or auction method.",
+        "tags": [
+          "NFT",
+          "creation",
+          "sale"
+        ]
+      },
+      "43": {
+        "question": "What is NFT Launchpad?",
+        "answer": "NFT Launchpad is a platform where new NFT collections are first released. Registering on the whitelist allows minting at discounted prices before public sale.",
+        "tags": [
+          "launchpad",
+          "NFT",
+          "minting"
+        ]
+      },
+      "44": {
+        "question": "What is GameFi?",
+        "answer": "GameFi combines gaming with DeFi, earning cryptocurrency and NFTs while playing games. Access partner games and check rewards on the TBURN GameFi Hub.",
+        "tags": [
+          "GameFi",
+          "game",
+          "play"
+        ]
+      },
+      "45": {
+        "question": "How do I earn in GameFi?",
+        "answer": "Earn through completing in-game quests, PvP victories, item trading, NFT sales, etc. Each game has different tokenomics, so check each game's reward structure.",
+        "tags": [
+          "GameFi",
+          "yield",
+          "asset"
+        ]
+      },
+      "46": {
+        "question": "What should I be careful about when using the bridge?",
+        "answer": "Verify correct receiving address, confirm supported tokens, and be aware that transfers may take longer during network congestion. We recommend testing with a small amount for your first bridge.",
+        "tags": [
+          "bridge",
+          "caution",
+          "support"
+        ]
+      },
+      "47": {
+        "question": "What is an RPC endpoint?",
+        "answer": "RPC (Remote Procedure Call) endpoint is the connection point for communicating with blockchain nodes. Wallets and dApps use it to send transactions and query data.",
+        "tags": [
+          "RPC",
+          "network",
+          "connection"
+        ]
+      },
+      "48": {
+        "question": "What is TBURN's TPS?",
+        "answer": "TBURN can process 520,000 transactions per second (TPS). This is achieved through sharding and parallel processing technology, with 100ms block time providing fast finality.",
+        "tags": [
+          "TPS",
+          "speed",
+          "performance"
+        ]
+      },
+      "49": {
+        "question": "What is BFT consensus?",
+        "answer": "BFT (Byzantine Fault Tolerant) is a consensus mechanism where the network operates normally even if some nodes are malicious or fail. TBURN uses AI-enhanced BFT for improved security and efficiency.",
+        "tags": [
+          "BFT",
+          "consensus",
+          "security"
+        ]
+      },
+      "50": {
+        "question": "What is sharding?",
+        "answer": "Sharding is a scaling technology that divides the blockchain into multiple shards for parallel processing. Each shard processes transactions independently, increasing overall network throughput.",
+        "tags": [
+          "sharding",
+          "extension",
+          "performance"
+        ]
+      },
+      "51": {
+        "question": "What is AI orchestration?",
+        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, GPT-4o, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
+        "tags": [
+          "AI",
+          "optimization",
+          "자동화"
+        ]
+      },
+      "52": {
+        "question": "What are the validator requirements?",
+        "answer": "Requirements vary by validator tier: Bronze (1,000 TB), Silver (10,000 TB), Gold (100,000 TB). Stable server infrastructure, high uptime, and technical capability are needed.",
+        "tags": [
+          "validator",
+          "요구사항",
+          "tier"
+        ]
+      },
+      "53": {
+        "question": "What is a cross-shard transaction?",
+        "answer": "Transactions between accounts on different shards. Coordinated through the beacon chain, may require slightly longer finalization time than regular transactions.",
+        "tags": [
+          "크로스 샤드",
+          "transaction",
+          "sharding"
+        ]
+      },
+      "54": {
+        "question": "Where can I check network status?",
+        "answer": "Check current block height, TPS, active validators, shard status, and network health in real-time on the Network Status page.",
+        "tags": [
+          "network",
+          "status",
+          "모니터링"
+        ]
+      },
+      "55": {
+        "question": "Where can I get testnet RPC?",
+        "answer": "Check testnet connection information on the Testnet RPC page. Chain ID, RPC URL, explorer URL, and faucet links are provided.",
+        "tags": [
+          "testnet",
+          "RPC",
+          "개발"
+        ]
+      },
+      "56": {
+        "question": "Can I run my own node?",
+        "answer": "Anyone can run a full node. Check node installation guide, hardware requirements, and configuration methods in developer documentation.",
+        "tags": [
+          "노드",
+          "운영",
+          "설치"
+        ]
+      },
+      "57": {
+        "question": "How is gas price determined?",
+        "answer": "Gas price is dynamically adjusted based on network congestion. You can add a priority tip to the base gas price to request faster processing.",
+        "tags": [
+          "gas",
+          "fee",
+          "network"
+        ]
+      },
+      "58": {
+        "question": "What is the membership system?",
+        "answer": "The membership system assigns tiers based on user activity (Bronze, Silver, Gold, Platinum, Diamond). Higher tiers receive more benefits and fee discounts.",
+        "tags": [
+          "멤버십",
+          "tier",
+          "혜택"
+        ]
+      },
+      "59": {
+        "question": "What is Trust Score?",
+        "answer": "Trust Score is a reputation score calculated based on on-chain activity, staking history, governance participation, etc. Higher scores provide better conditions and opportunities.",
+        "tags": [
+          "신뢰",
+          "점수",
+          "평판"
+        ]
+      },
+      "60": {
+        "question": "How do I get governance voting rights?",
+        "answer": "Stake TB tokens to get governance voting rights. Voting power is determined proportionally to staked amount. Vote on active proposals on the Governance page.",
+        "tags": [
+          "governance",
+          "voting",
+          "staking"
+        ]
+      },
+      "61": {
+        "question": "What is a smart contract?",
+        "answer": "A smart contract is a program deployed on blockchain that executes automatically. When conditions are met, contracts execute automatically without intermediaries, ensuring reliability and transparency.",
+        "tags": [
+          "smart contract",
+          "자동화",
+          "blockchain"
+        ]
+      },
+      "62": {
+        "question": "What is the TBC-20 token standard?",
+        "answer": "TBC-20 is TBURN's token standard, compatible with ERC-20. It supports additional features like burn, freeze, and metadata extensions beyond basic functions.",
+        "tags": [
+          "TBC-20",
+          "standard",
+          "token"
+        ]
+      },
+      "63": {
+        "question": "How do I deploy a smart contract?",
+        "answer": "Write contracts in Solidity or Rust and compile with TBURN compiler. Deploy on the Smart Contracts page or programmatically via SDK/CLI.",
+        "tags": [
+          "smart contract",
+          "deployment",
+          "developer"
+        ]
+      },
+      "64": {
+        "question": "What is the Transaction Simulator?",
+        "answer": "The Transaction Simulator is a tool to preview transaction results before actual execution. You can identify expected gas fees, state changes, and potential errors in advance.",
+        "tags": [
+          "시뮬레이터",
+          "transaction",
+          "테스트"
+        ]
+      },
+      "65": {
+        "question": "Where can I get API keys?",
+        "answer": "Create new API keys on the API Keys page. You can set permissions and usage limits per key, and monitor usage on the dashboard.",
+        "tags": [
+          "API",
+          "키",
+          "developer"
+        ]
+      },
+      "66": {
+        "question": "What SDK options are available?",
+        "answer": "JavaScript/TypeScript, Python, Rust, and Go SDKs are provided. Use all blockchain functions programmatically including wallet connection, transaction sending, and smart contract interaction.",
+        "tags": [
+          "SDK",
+          "developer",
+          "언어"
+        ]
+      },
+      "67": {
+        "question": "How do I use CLI tools?",
+        "answer": "Install TBURN CLI to perform account management, transaction sending, and smart contract deployment from terminal. Check installation and command guide in developer documentation.",
+        "tags": [
+          "CLI",
+          "developer",
+          "도구"
+        ]
+      },
+      "68": {
+        "question": "How do I migrate from EVM?",
+        "answer": "TBURN is EVM compatible, so existing Solidity contracts can be deployed with minimal modifications. Check step-by-step methods in the EVM Migration guide.",
+        "tags": [
+          "EVM",
+          "마이그레이션",
+          "compatibility"
+        ]
+      },
+      "69": {
+        "question": "What is WebSocket API?",
+        "answer": "WebSocket API allows receiving real-time blocks, transactions, and events in streaming format. Used when dApps need real-time updates.",
+        "tags": [
+          "WebSocket",
+          "real-time",
+          "API"
+        ]
+      },
+      "70": {
+        "question": "Where is the developer documentation?",
+        "answer": "Find complete documentation, API reference, tutorials, and code examples in the Developer Hub. Get started quickly with the Quickstart guide.",
+        "tags": [
+          "document",
+          "developer",
+          "가이드"
+        ]
+      },
+      "71": {
+        "question": "Where can I find code examples?",
+        "answer": "Find example code for various use cases including transaction sending, token issuance, NFT minting, and DeFi integration on the Code Examples page.",
+        "tags": [
+          "example",
+          "code",
+          "tutorial"
+        ]
+      },
+      "72": {
+        "question": "What are the REST API endpoints?",
+        "answer": "Query blocks, transactions, accounts, and token information via REST API. Check complete endpoint list and example requests in API documentation.",
+        "tags": [
+          "REST",
+          "API",
+          "엔드포인트"
+        ]
+      },
+      "73": {
+        "question": "What is smart contract verification?",
+        "answer": "Smart contract verification proves that deployed bytecode matches the source code. Verified contracts have source code visible in Explorer, increasing transparency.",
+        "tags": [
+          "검증",
+          "smart contract",
+          "투명성"
+        ]
+      },
+      "74": {
+        "question": "How do I interact with contracts?",
+        "answer": "Call functions directly through Read/Write tabs of verified contracts in Explorer. Or interact programmatically using SDKs.",
+        "tags": [
+          "계약",
+          "상호작용",
+          "호출"
+        ]
+      },
+      "75": {
+        "question": "What are event logs?",
+        "answer": "Event logs are records generated when smart contracts execute. Used to track activities like token transfers, swaps, and minting.",
+        "tags": [
+          "event",
+          "로그",
+          "추적"
+        ]
+      },
+      "76": {
+        "question": "What is ABI?",
+        "answer": "ABI (Application Binary Interface) is an interface definition for interacting with smart contracts. Defines function names, parameters, and return types to enable contract calls.",
+        "tags": [
+          "ABI",
+          "인터페이스",
+          "계약"
+        ]
+      },
+      "77": {
+        "question": "How do I estimate gas?",
+        "answer": "Calculate estimated gas using SDK's estimateGas function or Transaction Simulator. More complex contract calls require more gas.",
+        "tags": [
+          "gas",
+          "추정",
+          "cost"
+        ]
+      },
+      "78": {
+        "question": "What is a nonce?",
+        "answer": "Nonce is a sequential number representing the count of transactions sent from an account. Ensures transaction order and prevents double spending.",
+        "tags": [
+          "논스",
+          "transaction",
+          "순서"
+        ]
+      },
+      "79": {
+        "question": "What is a proxy contract?",
+        "answer": "A proxy contract is an upgradeable smart contract pattern. Separated from logic contracts, allowing logic changes while maintaining contract address and state.",
+        "tags": [
+          "프록시",
+          "업그레이드",
+          "계약"
+        ]
+      },
+      "80": {
+        "question": "How do I set up the development environment?",
+        "answer": "Install Node.js and TBURN SDK and connect to testnet RPC. Check step-by-step environment setup and sample projects in the Installation guide.",
+        "tags": [
+          "개발",
+          "환경",
+          "setup"
+        ]
+      },
+      "81": {
+        "question": "Getting started with dApp development",
+        "answer": "Learn basics of wallet connection, transaction sending, and smart contract calls in the Quickstart guide. Follow code examples and tutorials to build your first dApp.",
+        "tags": [
+          "dApp",
+          "개발",
+          "start"
+        ]
+      },
+      "82": {
+        "question": "What debugging tools are available?",
+        "answer": "Check execution traces in transaction details on Explorer. Analyze failure causes with Transaction Simulator, and use SDK logging for local development.",
+        "tags": [
+          "디버깅",
+          "도구",
+          "analysis"
+        ]
+      },
+      "83": {
+        "question": "How do I get a security audit?",
+        "answer": "Smart contract security audits can be obtained through partner audit firms. We recommend getting a security audit before launchpad or main protocol deployment.",
+        "tags": [
+          "security",
+          "감사",
+          "smart contract"
+        ]
+      },
+      "84": {
+        "question": "Where can I get test tokens?",
+        "answer": "You can get free test TB from the testnet faucet. Check the Testnet RPC page for faucet links and usage. Requests can be made every 24 hours.",
+        "tags": [
+          "testnet",
+          "faucet",
+          "token"
+        ]
+      },
+      "85": {
+        "question": "What are Actions & Blinks?",
+        "answer": "Actions & Blinks is a feature to share blockchain operations as URLs. Complex transactions can be shared and executed with a single link, simplifying user onboarding.",
+        "tags": [
+          "Actions",
+          "Blinks",
+          "URL"
+        ]
+      },
+      "86": {
+        "question": "What are token extensions?",
+        "answer": "TBC-20 tokens can be extended with additional features (freezing, transfer restrictions, interest, metadata). Used for security tokens or special-purpose tokens requiring compliance.",
+        "tags": [
+          "token",
+          "extension",
+          "TBC-20"
+        ]
+      },
+      "87": {
+        "question": "What are permissioned blockchain solutions?",
+        "answer": "Enterprises can build private networks with access control. Based on TBURN technology, operate enterprise blockchains accessible only to authorized participants.",
+        "tags": [
+          "permissioned",
+          "private",
+          "enterprise"
+        ]
+      },
+      "88": {
+        "question": "What are Commerce solutions?",
+        "answer": "An integrated solution for accepting TB payments in online/offline stores. Provides payment API, POS integration, settlement system, and tax calculation tools.",
+        "tags": [
+          "commerce",
+          "payment",
+          "POS"
+        ]
+      },
+      "89": {
+        "question": "What financial solutions are available?",
+        "answer": "Provides custody, trading, payment, and asset management solutions for financial institutions. Compliance tools and audit trail features meet institutional requirements.",
+        "tags": [
+          "financial",
+          "institution",
+          "custody"
+        ]
+      },
+      "90": {
+        "question": "What AI features are available?",
+        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, GPT-4o, Grok) are integrated.",
+        "tags": [
+          "AI",
+          "optimization",
+          "analysis"
+        ]
+      },
+      "91": {
+        "question": "What are enterprise use cases?",
+        "answer": "Provides enterprise blockchain use cases including supply chain tracking, digital certification, data integrity verification, and internal token systems. Dedicated support and SLA provided.",
+        "tags": [
+          "enterprise",
+          "enterprise",
+          "supply chain"
+        ]
+      },
+      "92": {
+        "question": "What is tokenization?",
+        "answer": "Converting real assets (real estate, art, commodities) into blockchain tokens. Enables fractional ownership, increased liquidity, and 24/7 trading.",
+        "tags": [
+          "tokenization",
+          "RWA",
+          "asset"
+        ]
+      },
+      "93": {
+        "question": "Where can I check news and announcements?",
+        "answer": "Check the Community News page for latest updates, partnership announcements, and technical improvements. Subscribe to the newsletter to receive updates via email.",
+        "tags": [
+          "news",
+          "announcement",
+          "update"
+        ]
+      },
+      "94": {
+        "question": "How do I participate in events?",
+        "answer": "Check the Community Events page for ongoing airdrops, campaigns, and meetup information. Meet participation requirements and register to receive rewards.",
+        "tags": [
+          "event",
+          "airdrop",
+          "campaign"
+        ]
+      },
+      "95": {
+        "question": "How do I make governance proposals?",
+        "answer": "Staking a certain amount of TB allows you to create governance proposals. Write content according to the proposal format and submit for community voting.",
+        "tags": [
+          "governance",
+          "proposal",
+          "voting"
+        ]
+      },
+      "96": {
+        "question": "What can I do on the Community Hub?",
+        "answer": "On the Community Hub, you can discuss with other users, introduce projects, and share feedback. You can also check official announcements and development updates.",
+        "tags": [
+          "hub",
+          "discussion",
+          "communication"
+        ]
+      },
+      "97": {
+        "question": "How do I keep my assets safe?",
+        "answer": "1) Use hardware wallet, 2) Never share private key/seed phrase, 3) Beware of phishing sites, 4) Use only official URLs, 5) Enable 2FA. Store large assets in cold wallets.",
+        "tags": [
+          "security",
+          "safety",
+          "wallet"
+        ]
+      },
+      "98": {
+        "question": "How do I identify scams?",
+        "answer": "Trust only official channels. Requests for private keys or seed phrases are 100% scams. Beware of messages creating urgency like \"free tokens\" or \"urgent upgrade\".",
+        "tags": [
+          "scam",
+          "fraud",
+          "caution"
+        ]
+      },
+      "99": {
+        "question": "What is the total supply of TB tokens?",
+        "answer": "Initial supply and current circulating supply of TB tokens can be checked on the Tokenomics page. Due to the burn mechanism, total supply continuously decreases.",
+        "tags": [
+          "supply",
+          "supply",
+          "token"
+        ]
+      },
+      "100": {
+        "question": "How does the burn mechanism work?",
+        "answer": "A 0.5% burn fee applies to all transfers, permanently burning that amount. Part of network fees are also burned. This deflationary model supports token value.",
+        "tags": [
+          "burn",
+          "burn",
+          "deflation"
+        ]
+      }
+    }
+  },
+  "qnaContent": {
+    "q1": {
+      "question": "What is TBURN?",
+      "answer": "TBURN is a next-generation Layer 1 blockchain that processes 520,000 TPS with 100ms block time. It uses an AI-enhanced BFT consensus mechanism to provide high security and scalability, with a deflationary token economic model aimed at sustainable value creation."
+    },
+    "q2": {
+      "question": "How do I get started with TBURN?",
+      "answer": "1) Install a supported wallet (MetaMask, Rabby, Trust Wallet, etc.). 2) Connect to TBURN mainnet. 3) Purchase or receive TB tokens. 4) Manage your assets and use DeFi services from the wallet dashboard."
+    },
+    "q3": {
+      "question": "Where can I buy TB tokens?",
+      "answer": "TB tokens can be purchased on TBURN's built-in DEX, partner exchanges, or through cross-chain bridges. You can swap directly on the DEX page or bring assets from other chains via the bridge."
+    },
+    "q4": {
+      "question": "What is the TBURN wallet address format?",
+      "answer": "TBURN uses Bech32m format addresses. All addresses start with \"tb1\" and consist of exactly 41 characters (e.g., tb1edmprvaftt65lkp2x6v8fmjvst5spfruj47kwm). This format follows the BIP-350 standard with built-in error detection."
+    },
+    "q5": {
+      "question": "What are the transaction fees?",
+      "answer": "TBURN's base network fee is approximately 0.0001 TB. Additionally, all transfers have a 0.5% burn fee that permanently burns tokens. This deflationary mechanism contributes to maintaining token value."
+    },
+    "q6": {
+      "question": "What is the difference between TBURN mainnet and testnet?",
+      "answer": "Mainnet is the production network where TB tokens with real value are used. Testnet is used for development and testing purposes, and test tokens have no value. Developers should deploy and test smart contracts on testnet before deploying to mainnet."
+    },
+    "q7": {
+      "question": "What is TBURN Explorer?",
+      "answer": "TBURN Explorer (Scan) is a blockchain explorer where you can view blocks, transactions, wallets, and smart contracts. It's a public tool for transparently checking real-time network status, validator information, and token movements."
+    },
+    "q8": {
+      "question": "What are the future plans in the roadmap?",
+      "answer": "TBURN's roadmap includes continuous network expansion, new DeFi protocol integration, cross-chain bridge expansion, AI feature enhancement, and gaming/NFT ecosystem growth. Detailed milestones can be found on the roadmap page."
+    },
+    "q9": {
+      "question": "Where can I read the TBURN whitepaper?",
+      "answer": "The TBURN whitepaper is available in the Learn section of the official website. It contains detailed explanations of technical architecture, consensus mechanism, tokenomics, and governance model."
+    },
+    "q10": {
+      "question": "How can I join the TBURN community?",
+      "answer": "Through the Community Hub, you can check announcements, events, and news, and interact with other users. You can vote on governance proposals and participate in airdrops and campaigns to earn rewards."
+    },
+    "q11": {
+      "question": "Which wallets support TBURN?",
+      "answer": "TBURN supports MetaMask, Rabby Wallet, Trust Wallet, Coinbase Wallet, and Ledger hardware wallets. You can use any EVM-compatible wallet by adding the TBURN network."
+    },
+    "q12": {
+      "question": "How do I connect my wallet to TBURN network?",
+      "answer": "Click the \"Connect Wallet\" button on the wallet dashboard and select your preferred wallet. The network will be added automatically, and if manual setup is needed, you can find network information on the RPC page."
+    },
+    "q13": {
+      "question": "How do I transfer tokens to another wallet?",
+      "answer": "In the Wallet & Transfer tab, enter the recipient address (41 characters starting with tb1) and set the amount. Burn fee (0.5%) and network fee are automatically calculated and displayed. Click the transfer button to complete the transaction."
+    },
+    "q14": {
+      "question": "Why is my wallet balance not updating?",
+      "answer": "It may be due to network delay or cache issues. Try refreshing the page or reconnecting your wallet. You can verify if the transaction is confirmed on the Explorer. If the issue persists, try a different RPC endpoint."
+    },
+    "q15": {
+      "question": "Can I use a hardware wallet?",
+      "answer": "Ledger hardware wallets are fully supported. You can install the TBURN app through Ledger Live and connect it with MetaMask. Hardware wallets provide the highest level of security."
+    },
+    "q16": {
+      "question": "What can I do on the wallet dashboard?",
+      "answer": "On the wallet dashboard, you can view portfolio overview, asset balances, and recent transactions. It's the central hub for all blockchain activities including staking, DEX swaps, NFT browsing, and DeFi services."
+    },
+    "q17": {
+      "question": "How do I claim unclaimed rewards?",
+      "answer": "You can view claimable rewards in the Rewards section of the dashboard. Click the \"Claim All\" button to claim staking, mining, and event rewards at once. They will be reflected in your wallet after transaction confirmation."
+    },
+    "q18": {
+      "question": "How do I check transaction status?",
+      "answer": "Search for the transaction hash in Explorer to check status, confirmation count, gas usage, and block information. You can also view transaction history in the Recent Activity section of the wallet dashboard."
+    },
+    "q19": {
+      "question": "What happens if I don't have enough gas?",
+      "answer": "If you don't have enough gas (TB), the transaction will fail. Make sure you have sufficient TB balance before transferring. You can check estimated gas fees in advance using the Transaction Simulator."
+    },
+    "q20": {
+      "question": "How do I use the on-ramp (Fiat-to-Crypto)?",
+      "answer": "On the Network Ramp page, you can purchase TB tokens directly using credit cards, bank transfers, etc. Through partner payment services, you can easily purchase using KRW and major currencies."
+    },
+    "q21": {
+      "question": "What is staking?",
+      "answer": "Staking is delegating TB tokens to validators to contribute to network security and earn rewards. Staked tokens participate in network consensus, and rewards are distributed regularly based on APY."
+    },
+    "q22": {
+      "question": "What is the minimum staking amount?",
+      "answer": "For regular delegation, staking starts from a minimum of 10 TB. To participate directly as a validator, you need between 1,000 TB to 100,000 TB depending on the tier."
+    },
+    "q23": {
+      "question": "How are staking rewards calculated?",
+      "answer": "Rewards are calculated based on staking amount, validator performance, and network participation rate. Current base APY is approximately 8-15%, and detailed breakdown can be viewed on the Rewards page."
+    },
+    "q24": {
+      "question": "How long does unstaking take?",
+      "answer": "There is a 21-day unbonding period after requesting unstaking. During this period, tokens are locked and no rewards are earned. Once unbonding is complete, tokens are returned to your wallet."
+    },
+    "q25": {
+      "question": "How should I choose a validator?",
+      "answer": "Consider uptime, commission rate, total delegation, and self-stake amount. It's advisable to choose reliable validators with high uptime and low commission. You can compare detailed information on the Validators page."
+    },
+    "q26": {
+      "question": "What is slashing?",
+      "answer": "Slashing is a penalty where a portion of staked tokens is cut when validators engage in malicious behavior (double signing, extended offline periods). Choosing reliable validators can reduce slashing risk."
+    },
+    "q27": {
+      "question": "What is liquid staking?",
+      "answer": "Liquid staking is a way to maintain liquidity while staking. When you stake TB, you receive stTB tokens that can be used in DeFi while simultaneously earning staking rewards."
+    },
+    "q28": {
+      "question": "Where can I use stTB tokens?",
+      "answer": "stTB can be traded on DEX, used as collateral in lending protocols, and deposited in yield farming pools. You can earn dual yields from both staking rewards and DeFi returns."
+    },
+    "q29": {
+      "question": "What is the Staking SDK?",
+      "answer": "The Staking SDK is a tool for developers to integrate staking functionality into their applications. It supports JavaScript/TypeScript and allows programmatic implementation of delegation, unstaking, and reward claiming."
+    },
+    "q30": {
+      "question": "How do I apply to become a validator?",
+      "answer": "Complete the 3-step application in the Validator Application System: 1) Basic requirements verification and document submission, 2) Technical infrastructure verification, 3) Staking and final approval. Requirements vary by tier (Bronze, Silver, Gold)."
+    },
+    "q31": {
+      "question": "What is TBURN DEX?",
+      "answer": "TBURN DEX is a decentralized exchange where you can swap TB tokens and other assets directly. It operates using AMM (Automated Market Maker), and you can earn trading fees by participating in liquidity pools."
+    },
+    "q32": {
+      "question": "How do I swap tokens on DEX?",
+      "answer": "Select the token pair to swap on the DEX page. Enter the amount and the exchange ratio is automatically calculated. Set slippage and click the swap button. Confirm the transaction in your wallet to complete."
+    },
+    "q33": {
+      "question": "What is slippage?",
+      "answer": "Slippage is the difference between the expected price and actual execution price during a swap. It mainly occurs when large orders affect pool liquidity. You can set a slippage tolerance to control acceptable price change."
+    },
+    "q34": {
+      "question": "How do I provide liquidity?",
+      "answer": "You provide a pair of tokens (e.g., TB-USDT) to a liquidity pool. LP tokens are received, and trading fees are earned proportionally. IL (Impermanent Loss) can occur when prices fluctuate."
+    },
+    "q35": {
+      "question": "What is impermanent loss?",
+      "answer": "When one token's price changes significantly compared to the other in a liquidity pool, the value of your deposited assets may be less than if you simply held them. However, trading fee rewards can offset this loss."
+    },
+    "q36": {
+      "question": "What is lending?",
+      "answer": "On the Lending page, you can deposit assets to earn interest or borrow other assets using your holdings as collateral. Interest rates are determined dynamically by supply and demand."
+    },
+    "q37": {
+      "question": "What is collateralization ratio?",
+      "answer": "The ratio of collateral required to borrow. For example, with 150% collateralization, you need to deposit 1.5 TB worth of collateral to borrow 1 TB worth. Falling below the maintenance ratio triggers liquidation."
+    },
+    "q38": {
+      "question": "What is liquidation?",
+      "answer": "If the collateral value falls below the maintenance ratio due to price drops, part of the collateral is sold to repay the debt. Set a safe collateralization ratio and monitor regularly to prevent liquidation."
+    },
+    "q39": {
+      "question": "What is yield farming?",
+      "answer": "Yield Farming is a strategy to maximize returns by depositing assets in various DeFi protocols. You can stake LP tokens or deposit single assets in different pools to earn reward tokens."
+    },
+    "q40": {
+      "question": "How are APR and APY different?",
+      "answer": "APR is simple interest without compounding, while APY includes compound interest. For example, 10% APR with monthly compounding results in approximately 10.47% APY. Most DeFi displays APY for annual return reference."
+    },
+    "q41": {
+      "question": "What is Cross-Chain Bridge?",
+      "answer": "A service that transfers assets from other blockchains (Ethereum, BSC, Polygon, etc.) to TBURN. Assets are locked on the original chain and equivalent tokens are minted on TBURN. Transfers take approximately 5-30 minutes."
+    },
+    "q42": {
+      "question": "How do I use the bridge?",
+      "answer": "Select origin and destination chains on the Bridge page. Choose the token to transfer and enter the amount. After connecting your wallet, confirm the bridge transaction. Transferred assets are stored in an address with identical format."
+    },
+    "q43": {
+      "question": "Is bridge security guaranteed?",
+      "answer": "TBURN Bridge uses multi-signature verification and AI risk assessment system. All transactions are verified by multiple validators and are monitored 24/7 for suspicious activity."
+    },
+    "q44": {
+      "question": "What tokens can be bridged?",
+      "answer": "ETH, USDT, USDC, and major tokens are supported. The list of supported tokens expands continuously, and available tokens can be checked on the Bridge page."
+    },
+    "q45": {
+      "question": "What is BTCfi?",
+      "answer": "BTCfi is DeFi using Bitcoin. Through TBURN, you can use wrapped BTC (wBTC) for staking, lending, and yield farming. Generate yield from BTC while maintaining its value."
+    },
+    "q46": {
+      "question": "How do I mint NFTs on TBURN?",
+      "answer": "On the NFT Marketplace Launchpad page, you can create NFT collections. Upload images, enter metadata, set royalties, and deploy with one click. TBC-721 standard is used."
+    },
+    "q47": {
+      "question": "How do I list NFTs for sale?",
+      "answer": "Click the NFT you want to sell on the Marketplace page and select \"List\". Set your price (fixed price or auction) and complete the listing with wallet signature. Royalties are automatically paid upon sale."
+    },
+    "q48": {
+      "question": "How much are NFT marketplace fees?",
+      "answer": "Marketplace fees are 2.5% of sale price. Creators can set royalties (up to 10%) separately, which are automatically distributed on every resale."
+    },
+    "q49": {
+      "question": "How do I participate in NFT Launchpad?",
+      "answer": "Launchpad allows early participation in new NFT projects. Connect your wallet, complete KYC if required, and participate during the minting period. Whitelist and public sale schedules are announced for each project."
+    },
+    "q50": {
+      "question": "What NFT standards are supported?",
+      "answer": "TBC-721 (single NFT) and TBC-1155 (multi-edition NFT) standards are supported. Both support metadata extension and royalty configuration, and are compatible with EVM."
+    },
+    "q51": {
+      "question": "What is GameFi?",
+      "answer": "GameFi is games with blockchain-based economies. You can own in-game items as NFTs and trade or stake game tokens. P2E (Play-to-Earn) model allows earning real value through play."
+    },
+    "q52": {
+      "question": "How can I use TBURN in games?",
+      "answer": "Games built on TBURN allow you to earn rewards as TB or game tokens. Own in-game items as NFTs and trade them in the marketplace. Check the Game Tooling page for game integration methods."
+    },
+    "q53": {
+      "question": "How is the game economy structured?",
+      "answer": "TBURN's game economy uses deflationary design. In-game consumption creates token burns, maintaining token value while running a sustainable game ecosystem."
+    },
+    "q54": {
+      "question": "What are game development tools?",
+      "answer": "Game developers can integrate using TBURN SDK. Unity and Unreal Engine plugins are provided for easy NFT minting, token transfers, and wallet connections."
+    },
+    "q55": {
+      "question": "What are in-game transaction fees?",
+      "answer": "In-game transactions also have TBURN network fees, but micro-transaction optimized gas costs are applied. Batch transaction processing can reduce fees."
+    },
+    "q56": {
+      "question": "What is TBURN network performance?",
+      "answer": "TBURN processes 520,000 TPS with 100ms block time and approximately 0.8 second finality. The sharding architecture enables parallel processing, and performance can be verified on the network stats page."
+    },
+    "q57": {
+      "question": "What is BFT consensus?",
+      "answer": "BFT (Byzantine Fault Tolerance) is a consensus algorithm that operates correctly even with up to 1/3 malicious nodes. TBURN uses AI-enhanced BFT for optimized validator selection and faster consensus."
+    },
+    "q58": {
+      "question": "What is sharding?",
+      "answer": "A technique that divides the network into multiple sub-networks (shards) for parallel processing. Each shard processes transactions independently, dramatically increasing scalability. Cross-shard communication is secured through the beacon chain."
+    },
+    "q59": {
+      "question": "How does RPC connection work?",
+      "answer": "Check the official RPC endpoint on the RPC Providers page. Enter the endpoint URL in wallet or dApp to connect. Multiple endpoints are available for redundancy and speed optimization."
+    },
+    "q60": {
+      "question": "How do I check network status?",
+      "answer": "The Network Status page shows real-time TPS, block height, validator count, and latency. You can also check uptime of each node and network congestion."
+    },
+    "q61": {
+      "question": "What are validator requirements?",
+      "answer": "Minimum 99.5% uptime, stable internet connection (100Mbps+), recommended 32GB RAM, 2TB SSD storage. Required staking amount varies by tier: Bronze 1,000 TB, Silver 10,000 TB, Gold 100,000 TB."
+    },
+    "q62": {
+      "question": "What is developer documentation?",
+      "answer": "Technical documentation for developers is available in the Developer Hub. Includes smart contract development, SDK usage, API reference, and code examples. Updated regularly."
+    },
+    "q63": {
+      "question": "What programming languages are supported?",
+      "answer": "Smart contracts support Solidity and Rust. SDKs are available for JavaScript/TypeScript, Python, Go, and Rust. Choose based on your development environment."
+    },
+    "q64": {
+      "question": "How do I deploy smart contracts?",
+      "answer": "After developing a contract, deploy to testnet for testing first. Once testing is complete, deploy to mainnet through the deployment page. Contract verification and security audit are recommended."
+    },
+    "q65": {
+      "question": "What SDK features are available?",
+      "answer": "The SDK supports wallet connection, transaction sending, smart contract interaction, event listening, staking, and NFT operations. Installation guide and code samples are provided in the documentation."
+    },
+    "q66": {
+      "question": "How do I use the API?",
+      "answer": "The REST API and GraphQL API allow querying block/transaction data. WebSocket API provides real-time updates. API keys are managed on the API Keys page."
+    },
+    "q67": {
+      "question": "What is EVM migration?",
+      "answer": "TBURN is EVM-compatible, allowing direct deployment of existing Ethereum contracts. Most Solidity code works as-is. Migration guides and tools are available on the EVM Migration page."
+    },
+    "q68": {
+      "question": "What is the smart contract security audit?",
+      "answer": "Contracts integrated in mainnet should be security audited. Auditing partners detect vulnerabilities. Auditing process and certification methods are explained in the documentation."
+    },
+    "q69": {
+      "question": "What is the Transaction Simulator?",
+      "answer": "The Transaction Simulator allows testing without executing real transactions. Verify the result before execution. Useful for gas estimation and error checking."
+    },
+    "q70": {
+      "question": "How do I use the CLI?",
+      "answer": "The command-line interface tool is available for developers to deploy contracts, query information, and send transactions from the command line. Installation and commands are in the CLI Reference."
+    },
+    "q71": {
+      "question": "What is WebSocket API?",
+      "answer": "WebSocket API provides real-time data streaming. Subscribe to new blocks, transactions, events, and receive instant notifications. Useful for building real-time applications."
+    },
+    "q72": {
+      "question": "How do I check block details?",
+      "answer": "Enter the block number in Explorer to check the block's transaction list, proposer, timestamp, and gas used. Parent hash and state root can also be verified."
+    },
+    "q73": {
+      "question": "How do I check address details?",
+      "answer": "Enter the address in Explorer to check balance, transaction history, token holdings, and contract information. Internal transactions and event logs are also displayed."
+    },
+    "q74": {
+      "question": "How do I view token list?",
+      "answer": "The Tokens page in Explorer shows all tokens issued on the network. Check holders count, transfers, and market cap. Token contract verification status is also displayed."
+    },
+    "q75": {
+      "question": "How do I verify contracts?",
+      "answer": "Publish source code on the contract verification page and match compilation settings for verification. Verified contracts show source code and ABI, enabling transparent interaction."
+    },
+    "q76": {
+      "question": "How do I use testnet?",
+      "answer": "Switch to testnet network settings in your wallet. Get test TB from the Testnet Faucet and test as you would on mainnet. Testnet Explorer is separate from mainnet."
+    },
+    "q77": {
+      "question": "What is the faucet?",
+      "answer": "Faucet provides free test tokens on testnet. Enter your wallet address to receive test TB within 24 hours. Use for development and testing."
+    },
+    "q78": {
+      "question": "What is code example library?",
+      "answer": "The Code Examples page provides sample code for common use cases. Wallet connection, token transfers, staking integration, and NFT minting examples are available for learning."
+    },
+    "q79": {
+      "question": "What is the Quick Start guide?",
+      "answer": "Explains the fastest way to get started with TBURN development. From SDK installation to first transaction, with step-by-step guidance. Perfect for beginners."
+    },
+    "q80": {
+      "question": "Where can I report bugs?",
+      "answer": "Report bugs found through the Community Hub feedback. For critical security vulnerabilities, use the Bug Bounty program for rewards."
+    },
+    "q81": {
+      "question": "What is governance?",
+      "answer": "TB token holders participate in decisions through voting. Vote on network upgrades, parameter changes, and fund allocation. Voting power is based on staking amount."
+    },
+    "q82": {
+      "question": "How do I participate in voting?",
+      "answer": "View ongoing proposals in the Governance section and vote. Must stake TB to have voting power. Voting periods are typically 7-14 days."
+    },
+    "q83": {
+      "question": "What is DePIN?",
+      "answer": "DePIN (Decentralized Physical Infrastructure Networks) tokenizes physical infrastructure like IoT devices and energy grids, enabling decentralized management and incentives."
+    },
+    "q84": {
+      "question": "Where can I get test tokens?",
+      "answer": "You can get free test TB from the testnet faucet. Check the Testnet RPC page for faucet links and usage. Requests can be made every 24 hours."
+    },
+    "q85": {
+      "question": "What are Actions & Blinks?",
+      "answer": "Actions & Blinks is a feature to share blockchain operations as URLs. Complex transactions can be shared and executed with a single link, simplifying user onboarding."
+    },
+    "q86": {
+      "question": "What are token extensions?",
+      "answer": "TBC-20 tokens can be extended with additional features (freezing, transfer restrictions, interest, metadata). Used for security tokens or special-purpose tokens requiring compliance."
+    },
+    "q87": {
+      "question": "What are permissioned blockchain solutions?",
+      "answer": "Enterprises can build private networks with access control. Based on TBURN technology, operate enterprise blockchains accessible only to authorized participants."
+    },
+    "q88": {
+      "question": "What are Commerce solutions?",
+      "answer": "An integrated solution for accepting TB payments in online/offline stores. Provides payment API, POS integration, settlement system, and tax calculation tools."
+    },
+    "q89": {
+      "question": "What financial solutions are available?",
+      "answer": "Provides custody, trading, payment, and asset management solutions for financial institutions. Compliance tools and audit trail features meet institutional requirements."
+    },
+    "q90": {
+      "question": "What AI features are available?",
+      "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, GPT-4o, Grok) are integrated."
+    },
+    "q91": {
+      "question": "What are enterprise use cases?",
+      "answer": "Provides enterprise blockchain use cases including supply chain tracking, digital certification, data integrity verification, and internal token systems. Dedicated support and SLA provided."
+    },
+    "q92": {
+      "question": "What is tokenization?",
+      "answer": "Converting real assets (real estate, art, commodities) into blockchain tokens. Enables fractional ownership, increased liquidity, and 24/7 trading."
+    },
+    "q93": {
+      "question": "Where can I check news and announcements?",
+      "answer": "Check the Community News page for latest updates, partnership announcements, and technical improvements. Subscribe to the newsletter to receive updates via email."
+    },
+    "q94": {
+      "question": "How do I participate in events?",
+      "answer": "Check the Community Events page for ongoing airdrops, campaigns, and meetup information. Meet participation requirements and register to receive rewards."
+    },
+    "q95": {
+      "question": "How do I make governance proposals?",
+      "answer": "Staking a certain amount of TB allows you to create governance proposals. Write content according to the proposal format and submit for community voting."
+    },
+    "q96": {
+      "question": "What can I do on the Community Hub?",
+      "answer": "On the Community Hub, you can discuss with other users, introduce projects, and share feedback. You can also check official announcements and development updates."
+    },
+    "q97": {
+      "question": "How do I keep my assets safe?",
+      "answer": "1) Use hardware wallet, 2) Never share private key/seed phrase, 3) Beware of phishing sites, 4) Use only official URLs, 5) Enable 2FA. Store large assets in cold wallets."
+    },
+    "q98": {
+      "question": "How do I identify scams?",
+      "answer": "Trust only official channels. Requests for private keys or seed phrases are 100% scams. Beware of messages creating urgency like \"free tokens\" or \"urgent upgrade\"."
+    },
+    "q99": {
+      "question": "What is the total supply of TB tokens?",
+      "answer": "Initial supply and current circulating supply of TB tokens can be checked on the Tokenomics page. Due to the burn mechanism, total supply continuously decreases."
+    },
+    "q100": {
+      "question": "How does the burn mechanism work?",
+      "answer": "A 0.5% burn fee applies to all transfers, permanently burning that amount. Part of network fees are also burned. This deflationary model supports token value."
     }
   }
 }

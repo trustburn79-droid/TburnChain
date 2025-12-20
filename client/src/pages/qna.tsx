@@ -66,10 +66,29 @@ export default function QnAPage() {
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
 
   const getLocalizedContent = (item: QnAItem, field: 'question' | 'answer') => {
+    // Try to get content from i18n translations first
+    const translationKey = `qna.content.${item.id}.${field}`;
+    if (i18n.exists(translationKey)) {
+      const translatedContent = t(translationKey);
+      if (translatedContent && translatedContent !== translationKey) {
+        return translatedContent;
+      }
+    }
+    // Fallback to qna-data.ts content (Korean or English)
     if (currentLang === 'ko') {
       return field === 'question' ? item.question : item.answer;
     }
     return field === 'question' ? item.questionEn : item.answerEn;
+  };
+
+  const getLocalizedTags = (item: QnAItem): string[] => {
+    // Try to get tags from i18n translations first
+    const translatedTags = t(`qna.content.${item.id}.tags`, { returnObjects: true, defaultValue: null }) as string[] | null;
+    if (Array.isArray(translatedTags) && translatedTags.length > 0 && typeof translatedTags[0] === 'string') {
+      return translatedTags;
+    }
+    // Fallback to original tags
+    return item.tags;
   };
 
   const filteredQnA = useMemo(() => {
@@ -405,9 +424,9 @@ export default function QnAPage() {
                             >
                               {category ? t(`qna.categories.${category.key}`, category.labelEn) : item.categoryKey}
                             </Badge>
-                            {item.tags.slice(0, 3).map((tag) => (
+                            {getLocalizedTags(item).slice(0, 3).map((tag, idx) => (
                               <Badge 
-                                key={tag}
+                                key={`${item.id}-tag-${idx}`}
                                 variant="outline"
                                 className="text-[10px] cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20"
                                 onClick={(e) => {
