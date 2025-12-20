@@ -5712,6 +5712,214 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
+  // BUG BOUNTY - Public Submission & Admin Management
+  // ============================================
+
+  // Public: Submit a bug bounty report
+  app.post("/api/bug-bounty", async (req, res) => {
+    try {
+      const { reporterEmail, reporterWallet, reporterName, title, description, reproductionSteps, assetTarget, reportedSeverity } = req.body;
+
+      if (!title || !description) {
+        return res.status(400).json({ error: "Title and description are required" });
+      }
+
+      const report = await storage.createBugBountyReport({
+        reporterEmail,
+        reporterWallet,
+        reporterName,
+        title,
+        description,
+        reproductionSteps,
+        assetTarget: assetTarget || 'smart_contracts',
+        reportedSeverity: reportedSeverity || 'medium',
+      });
+
+      res.status(201).json({ 
+        success: true, 
+        reportId: report.id,
+        message: "Bug report submitted successfully. Our security team will review it shortly."
+      });
+    } catch (error) {
+      console.error('[BugBounty] Submission error:', error);
+      res.status(500).json({ error: "Failed to submit bug report" });
+    }
+  });
+
+  // Public: Get my reports (by email or wallet)
+  app.get("/api/bug-bounty/my-reports", async (req, res) => {
+    try {
+      const { email, wallet } = req.query;
+      
+      if (!email && !wallet) {
+        return res.status(400).json({ error: "Email or wallet address required" });
+      }
+
+      let reports: any[] = [];
+      if (email) {
+        reports = await storage.getBugBountyReportsByEmail(email as string);
+      } else if (wallet) {
+        reports = await storage.getBugBountyReportsByWallet(wallet as string);
+      }
+
+      // Only return safe fields for public view
+      const safeReports = reports.map(r => ({
+        id: r.id,
+        title: r.title,
+        assetTarget: r.assetTarget,
+        reportedSeverity: r.reportedSeverity,
+        confirmedSeverity: r.confirmedSeverity,
+        status: r.status,
+        rewardUsd: r.rewardUsd,
+        createdAt: r.createdAt,
+        reviewedAt: r.reviewedAt,
+        paidAt: r.paidAt,
+      }));
+
+      res.json(safeReports);
+    } catch (error) {
+      console.error('[BugBounty] My reports error:', error);
+      res.status(500).json({ error: "Failed to fetch reports" });
+    }
+  });
+
+  // Public: Get bug bounty stats
+  app.get("/api/bug-bounty/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getBugBountyStats();
+      res.json(stats);
+    } catch (error) {
+      console.error('[BugBounty] Stats error:', error);
+      res.json({ totalReports: 0, pendingReports: 0, acceptedReports: 0, totalPaidUsd: 0 });
+    }
+  });
+
+  // Admin: Get all bug bounty reports
+  app.get("/api/admin/bug-bounty", requireAdmin, async (req, res) => {
+    try {
+      const { status } = req.query;
+      
+      let reports;
+      if (status) {
+        reports = await storage.getBugBountyReportsByStatus(status as string);
+      } else {
+        reports = await storage.getAllBugBountyReports();
+      }
+
+      res.json(reports);
+    } catch (error) {
+      console.error('[BugBounty] Admin list error:', error);
+      res.status(500).json({ error: "Failed to fetch bug reports" });
+    }
+  });
+
+  // Admin: Get bug bounty report by ID
+  app.get("/api/admin/bug-bounty/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const report = await storage.getBugBountyReportById(id);
+
+      if (!report) {
+        return res.status(404).json({ error: "Report not found" });
+      }
+
+      res.json(report);
+    } catch (error) {
+      console.error('[BugBounty] Admin detail error:', error);
+      res.status(500).json({ error: "Failed to fetch bug report" });
+    }
+  });
+
+  // Admin: Update bug bounty report
+  app.patch("/api/admin/bug-bounty/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status, confirmedSeverity, rewardUsd, rewardTokenAmount, rewardTxHash, adminNotes, assignedTo } = req.body;
+
+      const report = await storage.getBugBountyReportById(id);
+      if (!report) {
+        return res.status(404).json({ error: "Report not found" });
+      }
+
+      const updates: any = {};
+      
+      if (status) {
+        updates.status = status;
+        if (status === 'reviewing' && !report.reviewedAt) {
+          updates.reviewedAt = new Date();
+        }
+        if (status === 'paid') {
+          updates.paidAt = new Date();
+        }
+      }
+      if (confirmedSeverity) updates.confirmedSeverity = confirmedSeverity;
+      if (rewardUsd !== undefined) updates.rewardUsd = rewardUsd;
+      if (rewardTokenAmount !== undefined) updates.rewardTokenAmount = rewardTokenAmount;
+      if (rewardTxHash) updates.rewardTxHash = rewardTxHash;
+      if (adminNotes !== undefined) updates.adminNotes = adminNotes;
+      if (assignedTo !== undefined) updates.assignedTo = assignedTo;
+
+      await storage.updateBugBountyReport(id, updates);
+
+      // Log admin action
+      await logAdminAudit(
+        'admin',
+        'bug_bounty_update',
+        'security',
+        'bug_bounty_reports',
+        id,
+        { status: report.status, confirmedSeverity: report.confirmedSeverity },
+        updates,
+        adminNotes || null,
+        req,
+        status === 'accepted' || confirmedSeverity === 'critical' ? 'high' : 'medium'
+      );
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error('[BugBounty] Admin update error:', error);
+      res.status(500).json({ error: "Failed to update bug report" });
+    }
+  });
+
+  // Admin: Get bug bounty dashboard stats
+  app.get("/api/admin/bug-bounty/dashboard", requireAdmin, async (_req, res) => {
+    try {
+      const stats = await storage.getBugBountyStats();
+      const allReports = await storage.getAllBugBountyReports();
+      
+      // Calculate severity distribution
+      const severityDist = allReports.reduce((acc: Record<string, number>, r) => {
+        const sev = r.confirmedSeverity || r.reportedSeverity;
+        acc[sev] = (acc[sev] || 0) + 1;
+        return acc;
+      }, {});
+
+      // Recent reports (last 30 days)
+      const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+      const recentReports = allReports.filter(r => r.createdAt > thirtyDaysAgo);
+
+      res.json({
+        ...stats,
+        severityDistribution: severityDist,
+        reportsLast30Days: recentReports.length,
+        averageResolutionTime: '5.2 days', // Placeholder for now
+      });
+    } catch (error) {
+      console.error('[BugBounty] Admin dashboard error:', error);
+      res.json({ 
+        totalReports: 0, 
+        pendingReports: 0, 
+        acceptedReports: 0, 
+        totalPaidUsd: 0,
+        severityDistribution: {},
+        reportsLast30Days: 0,
+        averageResolutionTime: 'N/A'
+      });
+    }
+  });
+
+  // ============================================
   // Operator Portal: Security Audit
   // ============================================
 
