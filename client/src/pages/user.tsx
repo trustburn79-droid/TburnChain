@@ -2601,6 +2601,66 @@ function NetworkSection({
   );
 }
 
+interface DexStatsResponse {
+  totalPools: number;
+  totalTvlUsd: string;
+  totalVolume24h: string;
+  totalFees24h: string;
+  totalSwaps24h: number;
+  totalLiquidityProviders: number;
+}
+
+interface DexPool {
+  id: string;
+  name: string;
+  symbol: string;
+  token0Symbol: string;
+  token1Symbol: string;
+  tvlUsd: string;
+  volume24h: string;
+  totalApy: number;
+  status: string;
+}
+
+interface LendingStats {
+  totalValueLockedUsd: string;
+  totalBorrowedUsd: string;
+  totalMarkets: number;
+  activeMarkets: number;
+  avgSupplyRate: number;
+  avgBorrowRate: number;
+  avgUtilization: number;
+  totalSupplied: string;
+}
+
+interface LendingMarket {
+  id: string;
+  assetSymbol: string;
+  assetName: string;
+  totalSupply: string;
+  supplyRate: number;
+  borrowRateVariable: number;
+}
+
+function formatUsdValue(usdStr: string | null | undefined): string {
+  if (!usdStr) return "$0.00";
+  try {
+    const value = parseFloat(usdStr);
+    if (isNaN(value) || value === 0) return "$0.00";
+    if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
+    if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
+    if (value >= 1e6) return `$${(value / 1e6).toFixed(2)}M`;
+    if (value >= 1e3) return `$${(value / 1e3).toFixed(2)}K`;
+    return `$${value.toFixed(2)}`;
+  } catch {
+    return "$0.00";
+  }
+}
+
+function formatApyBps(bps: number): string {
+  return `${(bps / 100).toFixed(2)}%`;
+}
+
 function DeFiSection({
   isConnected,
   balance,
@@ -2615,42 +2675,113 @@ function DeFiSection({
   const [payAmount, setPayAmount] = useState('1000');
   const [receiveAmount, setReceiveAmount] = useState('1245.50');
 
+  const { data: dexStats } = useQuery<DexStatsResponse>({
+    queryKey: ["/api/dex/stats"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
+
+  const { data: dexPools } = useQuery<DexPool[]>({
+    queryKey: ["/api/dex/pools"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
+
+  const { data: lendingStats } = useQuery<LendingStats>({
+    queryKey: ["/api/lending/stats"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
+
+  const { data: lendingMarkets } = useQuery<LendingMarket[]>({
+    queryKey: ["/api/lending/markets"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
+
   const updateSwapCalc = (value: string) => {
     setPayAmount(value);
     const numValue = parseFloat(value) || 0;
     setReceiveAmount((numValue * 1.2455).toFixed(2));
   };
 
-  const liquidityPools = [
-    { pair: 'TBURN-USDC', tvl: '$124.5M', volume: '$12.1M', apr: '45.2%', boost: '+2.5% Boost', isCore: true },
-    { pair: 'TBURN-ETH', tvl: '$85.2M', volume: '$8.4M', apr: '38.1%', boost: null, isCore: false },
-    { pair: 'TBURN-BTC', tvl: '$62.8M', volume: '$5.2M', apr: '32.5%', boost: null, isCore: false },
-  ];
+  const topPools = useMemo(() => {
+    if (!dexPools) return [];
+    return dexPools
+      .filter(p => p.status === 'active')
+      .sort((a, b) => parseFloat(b.tvlUsd || '0') - parseFloat(a.tvlUsd || '0'))
+      .slice(0, 5);
+  }, [dexPools]);
+
+  const topMarkets = useMemo(() => {
+    if (!lendingMarkets?.length) return [];
+    return lendingMarkets
+      .filter(m => m.supplyRate > 0)
+      .sort((a, b) => b.supplyRate - a.supplyRate)
+      .slice(0, 3);
+  }, [lendingMarkets]);
+
+  const totalTvl = useMemo(() => {
+    const dexTvl = parseFloat(dexStats?.totalTvlUsd || '0');
+    const lendingTvl = parseFloat(lendingStats?.totalValueLockedUsd || '0');
+    return dexTvl + lendingTvl;
+  }, [dexStats, lendingStats]);
 
   return (
     <section className="space-y-4 sm:space-y-6" data-testid="section-defi">
-      <div>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">DeFi Hub</h2>
-        <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">Swap, Bridge, and Earn on TBURN Chain</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">DeFi Hub</h2>
+          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">Swap, Bridge, and Earn on TBURN Chain</p>
+        </div>
+        <div className="flex gap-2 flex-wrap">
+          <a href="/app/dex" className="text-xs px-3 py-1.5 bg-blue-500/10 text-blue-500 rounded-full font-bold hover:bg-blue-500/20 transition-colors">
+            DEX →
+          </a>
+          <a href="/app/lending" className="text-xs px-3 py-1.5 bg-purple-500/10 text-purple-500 rounded-full font-bold hover:bg-purple-500/20 transition-colors">
+            Lending →
+          </a>
+          <a href="/app/yield-farming" className="text-xs px-3 py-1.5 bg-emerald-500/10 text-emerald-500 rounded-full font-bold hover:bg-emerald-500/20 transition-colors">
+            Yield →
+          </a>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6">
         <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/5 relative overflow-hidden">
-          <p className="text-sm text-slate-500 dark:text-gray-400">Total Value Locked (TVL)</p>
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-mono mt-1">$764,200,000</h3>
+          <p className="text-sm text-slate-500 dark:text-gray-400">Total Value Locked</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-mono mt-1">
+            {totalTvl > 0 ? formatUsdValue((totalTvl * 1e18).toString()) : '$764.2M'}
+          </h3>
+          <p className="text-xs text-slate-400 mt-2">DEX + Lending + Yield</p>
         </div>
         <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/5">
           <p className="text-sm text-slate-500 dark:text-gray-400">24h Trading Volume</p>
-          <h3 className="text-xl sm:text-2xl font-bold text-blue-500 font-mono mt-1">$87,500,000</h3>
-          <p className="text-xs text-emerald-500 mt-2">▲ 12.4% vs yesterday</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-blue-500 font-mono mt-1">
+            {dexStats?.totalVolume24h ? formatUsdValue(dexStats.totalVolume24h) : '$87.5M'}
+          </h3>
+          <p className="text-xs text-emerald-500 mt-2">
+            {dexStats?.totalSwaps24h ? `${formatNumber(dexStats.totalSwaps24h)} swaps` : '▲ 12.4%'}
+          </p>
+        </div>
+        <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/5">
+          <p className="text-sm text-slate-500 dark:text-gray-400">Active Pools</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-purple-500 font-mono mt-1">
+            {dexStats?.totalPools || 24}
+          </h3>
+          <p className="text-xs text-slate-400 mt-2">
+            {dexStats?.totalLiquidityProviders ? `${formatNumber(dexStats.totalLiquidityProviders)} LPs` : 'AMM + Stable + CL'}
+          </p>
         </div>
         <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border-l-4 border-orange-500 border border-slate-200 dark:border-white/5">
           <div className="flex justify-between items-center">
-            <p className="text-sm text-slate-500 dark:text-gray-400">24h Total Burned</p>
+            <p className="text-sm text-slate-500 dark:text-gray-400">24h Fees Burned</p>
             <Flame className="w-5 h-5 text-orange-500 animate-pulse" />
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-orange-500 font-mono mt-1">1,240,500 TB</h3>
-          <p className="text-xs text-slate-400 mt-2">Deflation Rate: 1.53% / yr</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-orange-500 font-mono mt-1">
+            {dexStats?.totalFees24h ? formatUsdValue(dexStats.totalFees24h) : '$124.5K'}
+          </h3>
+          <p className="text-xs text-slate-400 mt-2">Auto-burn: 0.5%</p>
         </div>
       </div>
 
@@ -2809,7 +2940,7 @@ function DeFiSection({
               <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <Flame className="w-5 h-5 text-orange-500" /> Top Liquidity Pools
               </h3>
-              <button className="text-sm text-blue-500 hover:underline">View All</button>
+              <a href="/app/dex#pools" className="text-sm text-blue-500 hover:underline">View All →</a>
             </div>
 
             <div className="overflow-x-auto">
@@ -2819,42 +2950,71 @@ function DeFiSection({
                     <th className="pb-3 font-medium">Pair</th>
                     <th className="pb-3 font-medium text-right">TVL</th>
                     <th className="pb-3 font-medium text-right hidden sm:table-cell">Volume (24h)</th>
-                    <th className="pb-3 font-medium text-right">APR</th>
+                    <th className="pb-3 font-medium text-right">APY</th>
                     <th className="pb-3 font-medium text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody className="text-slate-800 dark:text-white text-sm divide-y divide-slate-100 dark:divide-gray-800">
-                  {liquidityPools.map((pool, index) => (
-                    <tr key={index} className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                  {topPools.length > 0 ? topPools.map((pool, index) => (
+                    <tr key={pool.id} className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
                       <td className="py-4 flex items-center gap-2 sm:gap-3">
                         <div className="flex -space-x-2">
-                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 border-2 border-white dark:border-[#151E32]"></div>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 border-2 border-white dark:border-[#151E32] flex items-center justify-center text-white text-[8px] font-bold">
+                            {pool.token0Symbol?.[0] || 'T'}
+                          </div>
                           <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-indigo-500 border-2 border-white dark:border-[#151E32] flex items-center justify-center text-white text-[8px] sm:text-[10px]">
-                            {pool.pair.split('-')[1][0]}
+                            {pool.token1Symbol?.[0] || 'U'}
                           </div>
                         </div>
-                        <span className="font-bold text-xs sm:text-sm">{pool.pair}</span>
-                        {pool.isCore && (
-                          <span className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-bold hidden sm:inline">Core</span>
+                        <span className="font-bold text-xs sm:text-sm">{pool.token0Symbol}-{pool.token1Symbol}</span>
+                        {index === 0 && (
+                          <span className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-bold hidden sm:inline">Top</span>
                         )}
                       </td>
-                      <td className="py-4 text-right font-mono text-xs sm:text-sm">{pool.tvl}</td>
-                      <td className="py-4 text-right font-mono text-xs sm:text-sm hidden sm:table-cell">{pool.volume}</td>
+                      <td className="py-4 text-right font-mono text-xs sm:text-sm">{formatUsdValue(pool.tvlUsd)}</td>
+                      <td className="py-4 text-right font-mono text-xs sm:text-sm hidden sm:table-cell">{formatUsdValue(pool.volume24h)}</td>
                       <td className="py-4 text-right">
-                        <div className="flex flex-col items-end">
-                          <span className="font-bold text-emerald-500 text-xs sm:text-sm">{pool.apr}</span>
-                          {pool.boost && (
-                            <span className="text-[8px] sm:text-[10px] text-blue-500">{pool.boost}</span>
-                          )}
-                        </div>
+                        <span className="font-bold text-emerald-500 text-xs sm:text-sm">{formatApyBps(pool.totalApy)}</span>
                       </td>
                       <td className="py-4 text-center">
-                        <Button size="sm" variant="outline" className="text-[10px] sm:text-xs px-2 sm:px-3">
-                          Deposit
-                        </Button>
+                        <a href={`/app/dex#pools`}>
+                          <Button size="sm" variant="outline" className="text-[10px] sm:text-xs px-2 sm:px-3">
+                            Deposit
+                          </Button>
+                        </a>
                       </td>
                     </tr>
-                  ))}
+                  )) : (
+                    [
+                      { pair: 'TBURN-USDC', tvl: '$124.5M', volume: '$12.1M', apr: '45.2%' },
+                      { pair: 'TBURN-ETH', tvl: '$85.2M', volume: '$8.4M', apr: '38.1%' },
+                      { pair: 'TBURN-BTC', tvl: '$62.8M', volume: '$5.2M', apr: '32.5%' },
+                    ].map((pool, index) => (
+                      <tr key={index} className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                        <td className="py-4 flex items-center gap-2 sm:gap-3">
+                          <div className="flex -space-x-2">
+                            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 border-2 border-white dark:border-[#151E32]"></div>
+                            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-indigo-500 border-2 border-white dark:border-[#151E32] flex items-center justify-center text-white text-[8px] sm:text-[10px]">
+                              {pool.pair.split('-')[1][0]}
+                            </div>
+                          </div>
+                          <span className="font-bold text-xs sm:text-sm">{pool.pair}</span>
+                        </td>
+                        <td className="py-4 text-right font-mono text-xs sm:text-sm">{pool.tvl}</td>
+                        <td className="py-4 text-right font-mono text-xs sm:text-sm hidden sm:table-cell">{pool.volume}</td>
+                        <td className="py-4 text-right">
+                          <span className="font-bold text-emerald-500 text-xs sm:text-sm">{pool.apr}</span>
+                        </td>
+                        <td className="py-4 text-center">
+                          <a href="/app/dex#pools">
+                            <Button size="sm" variant="outline" className="text-[10px] sm:text-xs px-2 sm:px-3">
+                              Deposit
+                            </Button>
+                          </a>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -2862,42 +3022,67 @@ function DeFiSection({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-white/5">
-              <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400 mb-4">Supply Market (Earn)</h4>
+              <div className="flex justify-between items-center mb-4">
+                <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400">Supply Market (Earn)</h4>
+                <a href="/app/lending" className="text-xs text-blue-500 hover:underline">View All →</a>
+              </div>
               <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white text-[10px]">U</div>
-                    <span className="font-bold text-slate-900 dark:text-white">USDC</span>
-                  </div>
-                  <span className="font-mono font-bold text-emerald-500">8.5% APY</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-white text-[10px]">E</div>
-                    <span className="font-bold text-slate-900 dark:text-white">ETH</span>
-                  </div>
-                  <span className="font-mono font-bold text-emerald-500">4.2% APY</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center text-white text-[10px]">B</div>
-                    <span className="font-bold text-slate-900 dark:text-white">BTC</span>
-                  </div>
-                  <span className="font-mono font-bold text-emerald-500">3.8% APY</span>
-                </div>
+                {topMarkets.length > 0 ? topMarkets.map((market, index) => {
+                  const colors = ['bg-indigo-500', 'bg-slate-800', 'bg-orange-500'];
+                  return (
+                    <div key={market.id} className="flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-6 h-6 rounded-full ${colors[index % 3]} flex items-center justify-center text-white text-[10px]`}>
+                          {market.assetSymbol[0]}
+                        </div>
+                        <span className="font-bold text-slate-900 dark:text-white">{market.assetSymbol}</span>
+                      </div>
+                      <span className="font-mono font-bold text-emerald-500">{formatApyBps(market.supplyRate)} APY</span>
+                    </div>
+                  );
+                }) : (
+                  <>
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white text-[10px]">U</div>
+                        <span className="font-bold text-slate-900 dark:text-white">USDC</span>
+                      </div>
+                      <span className="font-mono font-bold text-emerald-500">8.50% APY</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-white text-[10px]">E</div>
+                        <span className="font-bold text-slate-900 dark:text-white">ETH</span>
+                      </div>
+                      <span className="font-mono font-bold text-emerald-500">4.20% APY</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center text-white text-[10px]">B</div>
+                        <span className="font-bold text-slate-900 dark:text-white">BTC</span>
+                      </div>
+                      <span className="font-mono font-bold text-emerald-500">3.80% APY</span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-white/5 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-orange-500/10"></div>
               <div className="relative">
-                <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400 mb-2">My Rewards</h4>
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-mono">$1,204.50</h3>
-                <p className="text-xs text-slate-500 mb-4">Pending harvest from 3 pools</p>
+                <div className="flex justify-between items-center mb-2">
+                  <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400">Yield Farming</h4>
+                  <a href="/app/yield-farming" className="text-xs text-blue-500 hover:underline">View →</a>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-mono">45.2%</h3>
+                <p className="text-xs text-slate-500 mb-4">Top APY • 12 active vaults</p>
                 {isConnected ? (
-                  <Button className="w-full py-2 bg-emerald-500 text-white font-bold rounded-lg hover:bg-emerald-600 shadow-lg shadow-emerald-500/20">
-                    Harvest All
-                  </Button>
+                  <a href="/app/yield-farming">
+                    <Button className="w-full py-2 bg-emerald-500 text-white font-bold rounded-lg hover:bg-emerald-600 shadow-lg shadow-emerald-500/20">
+                      Explore Vaults
+                    </Button>
+                  </a>
                 ) : (
                   <Button onClick={onConnectWallet} variant="outline" className="w-full py-2">
                     Connect Wallet
@@ -2909,11 +3094,116 @@ function DeFiSection({
         </div>
       </div>
 
+      <div className="flex flex-wrap justify-center gap-4 mt-6">
+        <a href="/app/liquid-staking" className="flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-xl border border-slate-200 dark:border-white/5 hover:border-blue-500/50 transition-colors">
+          <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center">
+            <Coins className="w-4 h-4 text-blue-500" />
+          </div>
+          <div>
+            <p className="text-xs text-slate-500">Liquid Staking</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white">stTBURN</p>
+          </div>
+        </a>
+        <a href="/app/dex#swap" className="flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-xl border border-slate-200 dark:border-white/5 hover:border-purple-500/50 transition-colors">
+          <div className="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center">
+            <TrendingUp className="w-4 h-4 text-purple-500" />
+          </div>
+          <div>
+            <p className="text-xs text-slate-500">Instant Swap</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white">0 Slippage</p>
+          </div>
+        </a>
+      </div>
+
       <p className="text-center text-xs text-slate-400 dark:text-gray-600 mt-8">
         Powered by TBURN Triple-Band AI Orchestration | Instant Finality (&lt;1s)
       </p>
     </section>
   );
+}
+
+interface NftOverview {
+  totalVolume24h: string;
+  totalVolume24hUsd: string;
+  salesCount24h: number;
+  activeListings: number;
+  totalCollections: number;
+  verifiedCollections: number;
+  totalItems: number;
+  activeTraders: number;
+  trendingCollections: Array<{
+    id: string;
+    name: string;
+    symbol: string;
+    imageUrl: string | null;
+    floorPrice: string;
+    volume24h: string;
+    verified: boolean;
+  }>;
+}
+
+interface LaunchpadOverview {
+  totalProjects: number;
+  activeProjects: number;
+  upcomingProjects: number;
+  completedProjects: number;
+  totalRaised: string;
+  totalMinted: number;
+  uniqueParticipants: number;
+}
+
+interface LaunchpadProject {
+  id: string;
+  name: string;
+  symbol: string;
+  imageUrl: string | null;
+  status: string;
+  totalSupply: string;
+  mintPrice: string;
+  totalMinted: number;
+  totalRaised: string;
+  launchDate: string | null;
+  endDate: string | null;
+  category: string | null;
+  featured: boolean;
+}
+
+interface GamefiOverview {
+  totalProjects: number;
+  activeProjects: number;
+  totalPlayers: number;
+  activePlayers24h: number;
+  totalVolume: string;
+  dailyVolume: string;
+  totalRewardsDistributed: string;
+  activeTournaments: number;
+}
+
+interface GamefiProject {
+  id: string;
+  name: string;
+  slug: string;
+  imageUrl: string | null;
+  category: string;
+  status: string;
+  totalPlayers: number;
+  activePlayers24h: number;
+  rating: number;
+  playToEarnEnabled: boolean;
+  stakingEnabled: boolean;
+  tournamentEnabled: boolean;
+}
+
+function formatNftAmount(wei: string | null | undefined, decimals: number = 18): string {
+  if (!wei || wei === "0") return "0";
+  try {
+    const value = parseFloat(wei) / Math.pow(10, decimals);
+    if (value >= 1e6) return `${(value / 1e6).toFixed(2)}M`;
+    if (value >= 1e3) return `${(value / 1e3).toFixed(1)}K`;
+    return value.toFixed(2);
+  } catch {
+    return "0";
+  }
 }
 
 function NFTSection({
@@ -2926,60 +3216,119 @@ function NFTSection({
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'nft' | 'launchpad' | 'gamefi'>('nft');
 
-  const trendingCollections = [
-    { name: 'Space Walkers', floor: '450 TB', volume: '12.5k TB', image: 'https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=1000&auto=format&fit=crop' },
-    { name: 'Abstract Minds', floor: '120 TB', volume: '5.2k TB', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop' },
-  ];
+  const { data: nftOverview } = useQuery<NftOverview>({
+    queryKey: ["/api/nft/stats"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
 
-  const upcomingSales = [
-    { name: 'Galaxy War P2E', category: 'GameFi', startsIn: '2 days', icon: Gamepad2 },
-    { name: 'EcoTrace', category: 'RWA / Supply Chain', startsIn: '5 days', icon: Boxes },
-  ];
+  const { data: gamefiOverview } = useQuery<GamefiOverview>({
+    queryKey: ["/api/gamefi/stats"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
 
-  const gameAssets = [
-    { name: 'Flame Sword', level: 'Lvl 10' },
-    { name: 'Iron Shield', level: 'Lvl 5' },
-  ];
+  const { data: gamefiProjects } = useQuery<GamefiProject[]>({
+    queryKey: ["/api/gamefi/projects"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
+
+  const trendingCollections = useMemo(() => {
+    return [
+      { id: '1', name: 'Cyber Punk Origins', symbol: 'CPO', floorPrice: '450000000000000000000', volume24h: '12500000000000000000000', imageUrl: 'https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=1000&auto=format&fit=crop', verified: true },
+      { id: '2', name: 'Abstract Minds', symbol: 'AM', floorPrice: '120000000000000000000', volume24h: '5200000000000000000000', imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop', verified: true },
+      { id: '3', name: 'Space Walkers', symbol: 'SW', floorPrice: '85000000000000000000', volume24h: '3200000000000000000000', imageUrl: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1000&auto=format&fit=crop', verified: true },
+    ];
+  }, []);
+
+  const featuredGames = useMemo(() => {
+    if (gamefiProjects?.length) {
+      return gamefiProjects.filter(p => p.status === 'active').slice(0, 4);
+    }
+    return [];
+  }, [gamefiProjects]);
 
   return (
     <section className="space-y-6 sm:space-y-8" data-testid="section-nft">
-      {/* Tab Header */}
-      <div className="flex items-center gap-4 overflow-x-auto pb-2">
-        <button 
-          onClick={() => setActiveTab('nft')}
-          className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
-            activeTab === 'nft' 
-              ? 'bg-violet-500/10 text-violet-500 ring-1 ring-violet-500/50' 
-              : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
-          }`}
-        >
-          NFT Market
-        </button>
-        <button 
-          onClick={() => setActiveTab('launchpad')}
-          className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
-            activeTab === 'launchpad' 
-              ? 'bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/50' 
-              : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
-          }`}
-        >
-          Launchpad
-        </button>
-        <button 
-          onClick={() => setActiveTab('gamefi')}
-          className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
-            activeTab === 'gamefi' 
-              ? 'bg-pink-500/10 text-pink-500 ring-1 ring-pink-500/50' 
-              : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
-          }`}
-        >
-          GameFi
-        </button>
+      {/* Header with Links */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex items-center gap-4 overflow-x-auto pb-2">
+          <button 
+            onClick={() => setActiveTab('nft')}
+            className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+              activeTab === 'nft' 
+                ? 'bg-violet-500/10 text-violet-500 ring-1 ring-violet-500/50' 
+                : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
+            }`}
+          >
+            NFT Market
+          </button>
+          <button 
+            onClick={() => setActiveTab('launchpad')}
+            className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+              activeTab === 'launchpad' 
+                ? 'bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/50' 
+                : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
+            }`}
+          >
+            Launchpad
+          </button>
+          <button 
+            onClick={() => setActiveTab('gamefi')}
+            className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+              activeTab === 'gamefi' 
+                ? 'bg-pink-500/10 text-pink-500 ring-1 ring-pink-500/50' 
+                : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800'
+            }`}
+          >
+            GameFi
+          </button>
+        </div>
+        <div className="flex gap-2 flex-wrap">
+          <a href="/app/nft-marketplace" className="text-xs px-3 py-1.5 bg-violet-500/10 text-violet-500 rounded-full font-bold hover:bg-violet-500/20 transition-colors">
+            Marketplace →
+          </a>
+          <a href="/app/nft-launchpad" className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-500 rounded-full font-bold hover:bg-amber-500/20 transition-colors">
+            Launchpad →
+          </a>
+          <a href="/app/gamefi" className="text-xs px-3 py-1.5 bg-pink-500/10 text-pink-500 rounded-full font-bold hover:bg-pink-500/20 transition-colors">
+            GameFi →
+          </a>
+        </div>
       </div>
 
       {/* NFT Market Section */}
       {activeTab === 'nft' && (
         <div className="space-y-8">
+          {/* Stats Row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">24h Volume</p>
+              <p className="text-xl font-bold text-violet-500 font-mono">
+                {nftOverview?.totalVolume24h ? `${formatNftAmount(nftOverview.totalVolume24h)} TB` : '12.5K TB'}
+              </p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Active Listings</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">
+                {nftOverview?.activeListings ? formatNumber(nftOverview.activeListings) : '2,450'}
+              </p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Collections</p>
+              <p className="text-xl font-bold text-emerald-500 font-mono">
+                {nftOverview?.totalCollections || 128}
+              </p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">24h Sales</p>
+              <p className="text-xl font-bold text-amber-500 font-mono">
+                {nftOverview?.salesCount24h || 342}
+              </p>
+            </div>
+          </div>
+
           {/* Hero Banner */}
           <div className="relative rounded-3xl overflow-hidden h-64 md:h-80 group">
             <img 
@@ -2990,55 +3339,70 @@ function NFTSection({
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent opacity-90"></div>
             <div className="absolute bottom-0 left-0 p-6 sm:p-8">
               <span className="bg-violet-500 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">Trending #1</span>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-2 font-mono">Cyber Punk Origins</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-2 font-mono">
+                {trendingCollections[0]?.name || 'Cyber Punk Origins'}
+              </h2>
               <p className="text-gray-300 max-w-lg mb-4 text-sm md:text-base">TBURN 메인넷 최초의 PFP 컬렉션. Trust Score 80 이상 민팅 가능.</p>
               <div className="flex flex-wrap gap-3 sm:gap-4">
-                <Button className="bg-white text-black hover:bg-gray-200 font-bold px-4 sm:px-6 py-2">
-                  Mint Now (150 TB)
-                </Button>
-                <Button variant="outline" className="backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20 font-bold px-4 sm:px-6 py-2">
-                  View Collection
-                </Button>
+                <a href="/app/nft-marketplace">
+                  <Button className="bg-white text-black hover:bg-gray-200 font-bold px-4 sm:px-6 py-2">
+                    View Collection
+                  </Button>
+                </a>
+                <a href="/app/nft-marketplace">
+                  <Button variant="outline" className="backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20 font-bold px-4 sm:px-6 py-2">
+                    Browse All
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
 
           {/* Trending Collections */}
           <div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <Flame className="w-5 h-5 text-orange-500" /> Trending Collections
-            </h3>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Flame className="w-5 h-5 text-orange-500" /> Trending Collections
+              </h3>
+              <a href="/app/nft-marketplace" className="text-sm text-violet-500 hover:underline">View All →</a>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {trendingCollections.map((collection, index) => (
-                <div 
-                  key={index}
-                  className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-200 dark:border-white/5 cursor-pointer group hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:border-violet-500/50 transition-all"
+                <a 
+                  key={collection.id}
+                  href="/app/nft-marketplace"
+                  className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-200 dark:border-white/5 cursor-pointer group hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:border-violet-500/50 transition-all block"
                 >
                   <div className="h-48 overflow-hidden">
                     <img 
-                      src={collection.image} 
+                      src={collection.imageUrl || 'https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=1000&auto=format&fit=crop'} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       alt={collection.name}
                     />
                   </div>
                   <div className="p-4">
-                    <h4 className="font-bold text-slate-900 dark:text-white">{collection.name}</h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-slate-900 dark:text-white">{collection.name}</h4>
+                      {collection.verified && (
+                        <CheckCircle className="w-4 h-4 text-blue-500" />
+                      )}
+                    </div>
                     <div className="flex justify-between items-end mt-2">
                       <div>
                         <p className="text-xs text-slate-500 dark:text-gray-400">Floor</p>
-                        <p className="font-mono font-bold text-violet-500">{collection.floor}</p>
+                        <p className="font-mono font-bold text-violet-500">{formatNftAmount(collection.floorPrice)} TB</p>
                       </div>
                       <div className="text-right">
                         <p className="text-xs text-slate-500 dark:text-gray-400">Vol (24h)</p>
-                        <p className="font-mono font-bold text-slate-700 dark:text-gray-200">{collection.volume}</p>
+                        <p className="font-mono font-bold text-slate-700 dark:text-gray-200">{formatNftAmount(collection.volume24h)} TB</p>
                       </div>
                     </div>
                   </div>
-                </div>
+                </a>
               ))}
               
               {/* Create NFT Card */}
-              <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border-2 border-dashed border-slate-300 dark:border-gray-700 flex flex-col justify-center items-center text-center hover:border-violet-500 transition-colors">
+              <a href="/app/nft-marketplace" className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border-2 border-dashed border-slate-300 dark:border-gray-700 flex flex-col justify-center items-center text-center hover:border-violet-500 transition-colors">
                 <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-gray-800 flex items-center justify-center mb-4">
                   <Plus className="w-8 h-8 text-slate-400" />
                 </div>
@@ -3047,7 +3411,7 @@ function NFTSection({
                 <Button className="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-black text-xs font-bold hover:opacity-80">
                   Start Minting
                 </Button>
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -3064,75 +3428,108 @@ function NFTSection({
               <p className="text-slate-500 dark:text-gray-400 text-sm">Trust Score 기반의 공정한 토큰 세일 플랫폼</p>
             </div>
             <div className="flex gap-2 text-sm">
-              <span className="px-3 py-1 bg-green-500/10 text-green-500 rounded-full font-bold border border-green-500/20">Live: 2</span>
-              <span className="px-3 py-1 bg-slate-100 dark:bg-gray-800 text-slate-500 rounded-full font-bold">Upcoming: 5</span>
+              <span className="px-3 py-1 bg-green-500/10 text-green-500 rounded-full font-bold border border-green-500/20">
+                Live: 2
+              </span>
+              <span className="px-3 py-1 bg-slate-100 dark:bg-gray-800 text-slate-500 rounded-full font-bold">
+                Upcoming: 5
+              </span>
+            </div>
+          </div>
+
+          {/* Stats Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Total Raised</p>
+              <p className="text-xl font-bold text-amber-500 font-mono">2.5M TB</p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Total Projects</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">24</p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Total Minted</p>
+              <p className="text-xl font-bold text-emerald-500 font-mono">125K</p>
+            </div>
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
+              <p className="text-xs text-slate-500 dark:text-gray-400">Participants</p>
+              <p className="text-xl font-bold text-blue-500 font-mono">8.2K</p>
             </div>
           </div>
 
           {/* Live Sale */}
-          <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 lg:p-8 border-l-4 border-amber-500 border border-slate-200 dark:border-white/5 relative overflow-hidden">
-            <div className="absolute top-4 right-4">
-              <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">LIVE NOW</span>
-            </div>
-            
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-3xl font-bold shrink-0">
-                NG
+          <a href="/app/nft-launchpad" className="block">
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 lg:p-8 border-l-4 border-amber-500 border border-slate-200 dark:border-white/5 relative overflow-hidden hover:border-amber-500/50 transition-colors">
+              <div className="absolute top-4 right-4">
+                <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">LIVE NOW</span>
               </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">NexGen DeFi Protocol</h3>
-                <p className="text-slate-500 dark:text-gray-400 text-sm mt-1 mb-4 max-w-2xl">AI 기반의 자동화된 일드 파밍 최적화 프로토콜. TBURN 메인넷 독점 런칭.</p>
-                
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                  <div>
-                    <p className="text-xs text-slate-400">Token Price</p>
-                    <p className="font-mono font-bold text-slate-800 dark:text-white">1 NGD = 0.5 TB</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400">Total Raise</p>
-                    <p className="font-mono font-bold text-slate-800 dark:text-white">500,000 TB</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400">Min Trust Score</p>
-                    <p className="font-mono font-bold text-blue-500">85+</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400">Ends In</p>
-                    <p className="font-mono font-bold text-amber-500">04h 12m 30s</p>
-                  </div>
+              
+              <div className="flex flex-col md:flex-row gap-6">
+                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-3xl font-bold shrink-0">
+                  NG
                 </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">NexGen DeFi Protocol</h3>
+                  <p className="text-slate-500 dark:text-gray-400 text-sm mt-1 mb-4 max-w-2xl">AI 기반의 자동화된 일드 파밍 최적화 프로토콜. TBURN 메인넷 독점 런칭.</p>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div>
+                      <p className="text-xs text-slate-400">Token Price</p>
+                      <p className="font-mono font-bold text-slate-800 dark:text-white">1 NGD = 0.5 TB</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-400">Total Raise</p>
+                      <p className="font-mono font-bold text-slate-800 dark:text-white">500,000 TB</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-400">Min Trust Score</p>
+                      <p className="font-mono font-bold text-blue-500">85+</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-400">Ends In</p>
+                      <p className="font-mono font-bold text-amber-500">04h 12m 30s</p>
+                    </div>
+                  </div>
 
-                <div className="mb-2 flex justify-between text-xs font-bold">
-                  <span className="text-slate-500 dark:text-gray-300">Progress</span>
-                  <span className="text-amber-500">78%</span>
+                  <div className="mb-2 flex justify-between text-xs font-bold">
+                    <span className="text-slate-500 dark:text-gray-300">Progress</span>
+                    <span className="text-amber-500">78%</span>
+                  </div>
+                  <Progress value={78} className="h-3 mb-6" />
+
+                  {isConnected ? (
+                    <Button className="w-full md:w-auto px-8 py-3 bg-amber-500 text-black font-bold hover:bg-yellow-400 shadow-lg shadow-yellow-500/20">
+                      Participate Now
+                    </Button>
+                  ) : (
+                    <Button onClick={(e) => { e.preventDefault(); onConnectWallet(); }} className="w-full md:w-auto px-8 py-3 bg-amber-500 text-black font-bold hover:bg-yellow-400">
+                      Connect Wallet
+                    </Button>
+                  )}
                 </div>
-                <Progress value={78} className="h-3 mb-6" />
-
-                {isConnected ? (
-                  <Button className="w-full md:w-auto px-8 py-3 bg-amber-500 text-black font-bold hover:bg-yellow-400 shadow-lg shadow-yellow-500/20">
-                    Participate (Commit TBURN)
-                  </Button>
-                ) : (
-                  <Button onClick={onConnectWallet} className="w-full md:w-auto px-8 py-3 bg-amber-500 text-black font-bold hover:bg-yellow-400">
-                    Connect Wallet to Participate
-                  </Button>
-                )}
               </div>
             </div>
-          </div>
+          </a>
 
           {/* Upcoming Sales */}
           <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl p-6 border border-slate-200 dark:border-white/5">
-            <h3 className="font-bold text-slate-900 dark:text-white mb-4">Upcoming Sales</h3>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-bold text-slate-900 dark:text-white">Upcoming Sales</h3>
+              <a href="/app/nft-launchpad" className="text-sm text-amber-500 hover:underline">View All →</a>
+            </div>
             <div className="space-y-4">
-              {upcomingSales.map((sale, index) => (
-                <div 
+              {[
+                { name: 'Galaxy War P2E', category: 'GameFi', startsIn: '2 days' },
+                { name: 'EcoTrace', category: 'RWA / Supply Chain', startsIn: '5 days' },
+              ].map((sale, index) => (
+                <a 
                   key={index}
-                  className="flex items-center justify-between p-4 bg-slate-50 dark:bg-black/20 rounded-xl border border-slate-100 dark:border-gray-800 hover:border-amber-500/50 transition-colors"
+                  href="/app/nft-launchpad"
+                  className="flex items-center justify-between p-4 bg-slate-50 dark:bg-black/20 rounded-xl border border-slate-100 dark:border-gray-800 hover:border-amber-500/50 transition-colors block"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-lg bg-indigo-900 flex items-center justify-center">
-                      <sale.icon className="w-6 h-6 text-white" />
+                      {index === 0 ? <Gamepad2 className="w-6 h-6 text-white" /> : <Boxes className="w-6 h-6 text-white" />}
                     </div>
                     <div>
                       <h4 className="font-bold text-slate-900 dark:text-white">{sale.name}</h4>
@@ -3140,9 +3537,9 @@ function NFTSection({
                     </div>
                   </div>
                   <Button variant="outline" size="sm" className="text-xs font-bold">
-                    Remind Me
+                    View Details
                   </Button>
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -3155,70 +3552,155 @@ function NFTSection({
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Total Gamers</p>
-              <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">1.2M+</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Total Players</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">
+                {gamefiOverview?.totalPlayers ? formatNumber(gamefiOverview.totalPlayers) : '1.2M+'}
+              </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Daily Txns</p>
-              <p className="text-xl font-bold text-pink-500 font-mono">450k</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Active Today</p>
+              <p className="text-xl font-bold text-pink-500 font-mono">
+                {gamefiOverview?.activePlayers24h ? formatNumber(gamefiOverview.activePlayers24h) : '45K'}
+              </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
-              <p className="text-xs text-slate-500 dark:text-gray-400">Tx Speed</p>
-              <p className="text-xl font-bold text-emerald-500 font-mono">&lt; 0.5s</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Rewards Dist.</p>
+              <p className="text-xl font-bold text-emerald-500 font-mono">
+                {gamefiOverview?.totalRewardsDistributed ? `${formatNftAmount(gamefiOverview.totalRewardsDistributed)} TB` : '250K TB'}
+              </p>
             </div>
             <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl text-center border border-slate-200 dark:border-white/5">
               <p className="text-xs text-slate-500 dark:text-gray-400">Active Games</p>
-              <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">24</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white font-mono">
+                {gamefiOverview?.activeProjects || 24}
+              </p>
             </div>
           </div>
 
           {/* Featured Game */}
-          <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-pink-500/30">
-            <div className="h-64 md:h-auto relative">
-              <img 
-                src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop" 
-                className="absolute inset-0 w-full h-full object-cover"
-                alt="Game"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-transparent"></div>
-            </div>
-            <div className="p-6 sm:p-8 flex flex-col justify-center">
-              <span className="text-pink-500 text-xs font-bold tracking-widest uppercase mb-2">Editor's Choice</span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">TBURN Racers: Velocity</h3>
-              <p className="text-slate-500 dark:text-gray-400 mb-6 text-sm">초고속 TPS를 활용한 실시간 멀티플레이어 레이싱. 승리하고 TBURN을 획득하세요. 랙 없는 완벽한 동기화.</p>
-              <div className="flex flex-wrap gap-4">
-                <Button className="flex-1 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold shadow-lg shadow-pink-500/30">
-                  <Play className="w-4 h-4 mr-2" /> Play Now
-                </Button>
-                <Button variant="outline" className="px-4 py-3 font-bold">
-                  Marketplace
-                </Button>
+          <a href="/app/gamefi" className="block">
+            <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-pink-500/30 hover:border-pink-500/60 transition-colors">
+              <div className="h-64 md:h-auto relative">
+                <img 
+                  src={featuredGames[0]?.imageUrl || "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop"}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  alt={featuredGames[0]?.name || "Game"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-transparent"></div>
               </div>
+              <div className="p-6 sm:p-8 flex flex-col justify-center">
+                <span className="text-pink-500 text-xs font-bold tracking-widest uppercase mb-2">Editor's Choice</span>
+                <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                  {featuredGames[0]?.name || 'TBURN Racers: Velocity'}
+                </h3>
+                <p className="text-slate-500 dark:text-gray-400 mb-6 text-sm">
+                  {featuredGames[0] ? (
+                    <>
+                      {featuredGames[0].category} • {formatNumber(featuredGames[0].totalPlayers)} players
+                      {featuredGames[0].playToEarnEnabled && ' • Play-to-Earn'}
+                    </>
+                  ) : (
+                    '초고속 TPS를 활용한 실시간 멀티플레이어 레이싱. 승리하고 TBURN을 획득하세요.'
+                  )}
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button className="flex-1 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold shadow-lg shadow-pink-500/30">
+                    <Play className="w-4 h-4 mr-2" /> Play Now
+                  </Button>
+                  <Button variant="outline" className="px-4 py-3 font-bold">
+                    Marketplace
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          {/* Featured Games List */}
+          <div>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-bold text-slate-900 dark:text-white">Popular Games</h3>
+              <a href="/app/gamefi" className="text-sm text-pink-500 hover:underline">View All →</a>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {featuredGames.length > 0 ? featuredGames.slice(0, 4).map((game) => (
+                <a 
+                  key={game.id}
+                  href="/app/gamefi"
+                  className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl border border-slate-200 dark:border-white/5 hover:border-pink-500/50 transition-colors block"
+                >
+                  <div className="w-full h-32 mb-3 bg-gradient-to-br from-pink-500 to-purple-500 rounded-lg flex items-center justify-center overflow-hidden">
+                    {game.imageUrl ? (
+                      <img src={game.imageUrl} alt={game.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <Gamepad2 className="w-12 h-12 text-white" />
+                    )}
+                  </div>
+                  <p className="font-bold text-sm text-slate-800 dark:text-white">{game.name}</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <p className="text-xs text-slate-500">{game.category}</p>
+                    <div className="flex items-center gap-1 text-xs text-pink-500">
+                      <Users className="w-3 h-3" />
+                      {formatNumber(game.activePlayers24h)}
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mt-2">
+                    {game.playToEarnEnabled && (
+                      <span className="text-[10px] px-1.5 py-0.5 bg-emerald-500/10 text-emerald-500 rounded">P2E</span>
+                    )}
+                    {game.stakingEnabled && (
+                      <span className="text-[10px] px-1.5 py-0.5 bg-blue-500/10 text-blue-500 rounded">Staking</span>
+                    )}
+                    {game.tournamentEnabled && (
+                      <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/10 text-amber-500 rounded">Tournaments</span>
+                    )}
+                  </div>
+                </a>
+              )) : (
+                [
+                  { name: 'TBURN Racers', category: 'Racing', players: '125K' },
+                  { name: 'Crypto Warriors', category: 'RPG', players: '89K' },
+                  { name: 'Block Battles', category: 'Strategy', players: '45K' },
+                  { name: 'NFT Quest', category: 'Adventure', players: '32K' },
+                ].map((game, index) => (
+                  <a 
+                    key={index}
+                    href="/app/gamefi"
+                    className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-4 rounded-xl border border-slate-200 dark:border-white/5 hover:border-pink-500/50 transition-colors block"
+                  >
+                    <div className="w-full h-32 mb-3 bg-gradient-to-br from-pink-500 to-purple-500 rounded-lg flex items-center justify-center">
+                      <Gamepad2 className="w-12 h-12 text-white" />
+                    </div>
+                    <p className="font-bold text-sm text-slate-800 dark:text-white">{game.name}</p>
+                    <div className="flex items-center justify-between mt-2">
+                      <p className="text-xs text-slate-500">{game.category}</p>
+                      <div className="flex items-center gap-1 text-xs text-pink-500">
+                        <Users className="w-3 h-3" />
+                        {game.players}
+                      </div>
+                    </div>
+                  </a>
+                ))
+              )}
             </div>
           </div>
 
-          {/* My Game Assets */}
-          <div>
-            <h3 className="font-bold text-slate-900 dark:text-white mb-4">My Game Assets</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {gameAssets.map((asset, index) => (
-                <div 
-                  key={index}
-                  className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-3 rounded-xl border border-slate-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer text-center"
-                >
-                  <div className="w-16 h-16 mx-auto mb-2 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                    <Gamepad2 className="w-8 h-8 text-white" />
-                  </div>
-                  <p className="font-bold text-sm text-slate-800 dark:text-white">{asset.name}</p>
-                  <p className="text-xs text-pink-500">{asset.level}</p>
-                </div>
-              ))}
-              
-              {/* Connect Game Card */}
-              <div className="bg-white/90 dark:bg-[#151E32]/70 backdrop-blur-xl p-3 rounded-xl border-2 border-dashed border-slate-300 dark:border-gray-700 flex flex-col justify-center items-center text-center hover:border-pink-500 transition-colors cursor-pointer">
-                <Plus className="w-8 h-8 text-slate-400 mb-2" />
-                <p className="text-xs text-slate-500">Connect Game</p>
+          {/* Tournaments Banner */}
+          <div className="bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-blue-500/20 backdrop-blur-xl rounded-2xl p-6 border border-pink-500/30">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Gamepad2 className="w-5 h-5 text-pink-500" />
+                  Active Tournaments
+                </h4>
+                <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">
+                  {gamefiOverview?.activeTournaments || 5} tournaments running now
+                </p>
               </div>
+              <a href="/app/gamefi">
+                <Button className="bg-pink-500 hover:bg-pink-600 text-white font-bold">
+                  View Tournaments
+                </Button>
+              </a>
             </div>
           </div>
         </div>
