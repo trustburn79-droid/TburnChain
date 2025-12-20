@@ -980,6 +980,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.method === "GET" && req.path.startsWith("/user/")) {
       return next();
     }
+    // Skip auth for Bug Bounty public endpoints (submission and read-only stats)
+    if (req.path.startsWith("/bug-bounty")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================
