@@ -26,6 +26,7 @@ import {
   ScanLine,
   User,
   Hexagon,
+  ImageIcon,
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
@@ -208,11 +209,6 @@ export default function SecurityAuditPage() {
                 <Home className="w-4 h-4" />
               </a>
             </Link>
-            <Link href="/qna">
-              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-qna">
-                <HelpCircle className="w-4 h-4" />
-              </a>
-            </Link>
             <Link href="/scan">
               <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-scan">
                 <ScanLine className="w-4 h-4" />
@@ -231,6 +227,16 @@ export default function SecurityAuditPage() {
             <Link href="/token-generator">
               <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-token-generator">
                 <Hexagon className="w-4 h-4" />
+              </a>
+            </Link>
+            <Link href="/nft-marketplace">
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-nft-marketplace">
+                <ImageIcon className="w-4 h-4" />
+              </a>
+            </Link>
+            <Link href="/qna">
+              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-qna">
+                <HelpCircle className="w-4 h-4" />
               </a>
             </Link>
             <LanguageSelector isDark={isDark} />
