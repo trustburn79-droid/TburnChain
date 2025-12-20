@@ -75,6 +75,7 @@ const VCTestMode = lazy(() => import("@/pages/vc-test-mode"));
 const VCLayout = lazy(() => import("@/public/components/VCLayout"));
 const UserPage = lazy(() => import("@/pages/user"));
 const QnAPage = lazy(() => import("@/pages/qna"));
+const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-standalone"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -319,7 +320,7 @@ function RootRouter() {
   if (location === "/nft-marketplace" || location.startsWith("/nft-marketplace")) {
     return (
       <Suspense fallback={<PageLoading />}>
-        <NftMarketplacePage />
+        <NftMarketplaceStandalone />
       </Suspense>
     );
   }
