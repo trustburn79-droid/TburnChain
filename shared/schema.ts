@@ -7120,3 +7120,56 @@ export type InsertUserEventParticipation = z.infer<typeof insertUserEventPartici
 
 export type UserActivityLog = typeof userActivityLog.$inferSelect;
 export type InsertUserActivityLog = z.infer<typeof insertUserActivityLogSchema>;
+
+// ============================================
+// Bug Bounty Reports
+// ============================================
+export const BUG_BOUNTY_SEVERITY = ["critical", "high", "medium", "low", "informational"] as const;
+export const BUG_BOUNTY_STATUS = ["pending", "reviewing", "accepted", "rejected", "duplicate", "paid"] as const;
+export const BUG_BOUNTY_ASSET = ["smart_contracts", "node_client", "website_api", "bridge", "other"] as const;
+
+export const bugBountyReports = pgTable("bug_bounty_reports", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Reporter Information
+  reporterEmail: text("reporter_email"),
+  reporterWallet: text("reporter_wallet"),
+  reporterName: text("reporter_name"),
+  
+  // Report Details
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  reproductionSteps: text("reproduction_steps"),
+  assetTarget: text("asset_target").notNull().default("smart_contracts"), // smart_contracts, node_client, website_api, bridge, other
+  
+  // Severity and Status
+  reportedSeverity: text("reported_severity").notNull().default("medium"), // reporter's assessment
+  confirmedSeverity: text("confirmed_severity"), // admin's assessment
+  status: text("status").notNull().default("pending"), // pending, reviewing, accepted, rejected, duplicate, paid
+  
+  // Reward
+  rewardUsd: numeric("reward_usd"),
+  rewardTokenAmount: text("reward_token_amount"),
+  rewardTxHash: text("reward_tx_hash"),
+  
+  // Admin Notes
+  adminNotes: text("admin_notes"),
+  assignedTo: text("assigned_to"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  reviewedAt: timestamp("reviewed_at"),
+  paidAt: timestamp("paid_at"),
+});
+
+export const insertBugBountyReportSchema = createInsertSchema(bugBountyReports).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  reviewedAt: true,
+  paidAt: true,
+});
+
+export type BugBountyReport = typeof bugBountyReports.$inferSelect;
+export type InsertBugBountyReport = z.infer<typeof insertBugBountyReportSchema>;
