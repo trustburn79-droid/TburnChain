@@ -16,8 +16,8 @@ import {
   Lock, Unlock, Send, Copy, Eye, EyeOff, ChevronRight, Award,
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
   LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
-  Menu, X, Crown, Info, Image, Plus, Play, Gamepad2, Rocket,
-  Home, HelpCircle, ScanLine, FileText, Bug
+  Menu, X, Crown, Info, Image, ImageIcon, Plus, Play, Gamepad2, Rocket,
+  Home, HelpCircle, ScanLine, FileText, Bug, Hexagon
 } from "lucide-react";
 import { PhishingWarningBanner } from "@/components/phishing-warning-banner";
 import { Button } from "@/components/ui/button";
@@ -717,15 +717,10 @@ export default function UserPage() {
           </div>
 
           <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
-            {/* Home, QnA, Scan icons */}
+            {/* Navigation icons */}
             <a href="/" data-testid="link-home">
               <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
                 <Home className="w-4 h-4" />
-              </Button>
-            </a>
-            <a href="/qna" data-testid="link-qna">
-              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <HelpCircle className="w-4 h-4" />
               </Button>
             </a>
             <a href="/scan" data-testid="link-scan">
@@ -733,14 +728,29 @@ export default function UserPage() {
                 <ScanLine className="w-4 h-4" />
               </Button>
             </a>
+            <a href="/bug-bounty" data-testid="link-bug-bounty">
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
+                <Bug className="w-4 h-4" />
+              </Button>
+            </a>
             <a href="/security-audit" data-testid="link-security-audit">
               <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
                 <Shield className="w-4 h-4" />
               </Button>
             </a>
+            <a href="/token-generator" data-testid="link-token-generator">
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
+                <Hexagon className="w-4 h-4" />
+              </Button>
+            </a>
             <a href="/nft-marketplace" data-testid="link-nft-marketplace">
               <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <Image className="w-4 h-4" />
+                <ImageIcon className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href="/qna" data-testid="link-qna">
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
+                <HelpCircle className="w-4 h-4" />
               </Button>
             </a>
             <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
