@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBURN - TBC20 Token Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tburn: {
+                            dark: '#0B1120',
+                            light: '#F8FAFC',
+                            cardDark: '#151E32',
+                            primary: '#3B82F6',
+                            accent: '#F97316',
+                            success: '#10B981',
+                            code: '#F472B6' // Pink for code snippets
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Rajdhani', 'monospace'],
+                        code: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { transition: background-color 0.3s, color 0.3s; }
+        .glass-panel { backdrop-filter: blur(12px); transition: all 0.3s ease; }
+        .dark .glass-panel { background: rgba(21, 30, 50, 0.7); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-panel { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(226, 232, 240, 0.8); }
+        
+        /* Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #3B82F6;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #3B82F6;
+        }
+        
+        /* Card Preview Gradient */
+        .token-card-bg {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .token-card-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden font-sans antialiased bg-tburn-light text-slate-800 dark:bg-tburn-dark dark:text-[#E2E8F0]">
+
+    <aside class="w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r bg-white border-slate-200 dark:bg-[#0F172A] dark:border-gray-800">
+        <div class="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-slate-100 dark:border-gray-800">
+            <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-tburn-primary font-bold text-xl shadow-lg shrink-0 border border-slate-700">
+                <i class="fas fa-cube"></i>
+            </div>
+            <div class="hidden lg:block ml-3">
+                <h1 class="font-bold text-lg tracking-tight text-slate-900 dark:text-white">TBURN <span class="text-tburn-primary">Factory</span></h1>
+            </div>
+        </div>
+        
+        <nav class="flex-1 py-6 space-y-2 px-3">
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl bg-blue-50 text-tburn-primary border-l-4 border-tburn-primary dark:bg-tburn-cardDark dark:text-white dark:border-tburn-primary shadow-sm transition-colors">
+                <i class="fas fa-plus-circle w-6 text-center"></i> <span class="hidden lg:block font-medium">Create Token</span>
+            </a>
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+                <i class="fas fa-list w-6 text-center"></i> <span class="hidden lg:block font-medium">My Tokens</span>
+            </a>
+            <a href="#" class="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+                <i class="fas fa-code-branch w-6 text-center"></i> <span class="hidden lg:block font-medium">Verification</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col relative overflow-hidden bg-slate-50 dark:bg-tburn-dark transition-colors duration-300">
+        
+        <header class="h-16 border-b border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md flex items-center justify-between px-8 z-10">
+            <div class="flex items-center gap-2">
+                <span class="px-2 py-1 bg-slate-200 dark:bg-gray-800 rounded text-xs font-mono text-slate-600 dark:text-gray-400">Standard: TBC-20</span>
+                <span class="px-2 py-1 bg-green-500/10 text-green-500 rounded text-xs font-bold border border-green-500/20">Audit Verified</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-yellow-400">
+                    <i id="theme-icon" class="fas fa-sun text-lg"></i>
+                </button>
+                <div class="hidden md:flex flex-col items-end">
+                    <span class="text-xs text-slate-500">Deployer Balance</span>
+                    <span class="font-bold font-mono text-slate-900 dark:text-white">12,500.00 TB</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth z-0">
+            
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">TBC20 Token Generator</h1>
+                    <p class="text-slate-500 dark:text-gray-400">코딩 없이 1분 만에 나만의 TBURN 기반 토큰을 생성하고 배포하세요.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <div class="lg:col-span-2 space-y-6">
+                        
+                        <div class="glass-panel p-6 rounded-2xl">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-tburn-primary text-white flex items-center justify-center text-xs">1</span>
+                                Token Details
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Token Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="input-name" placeholder="e.g. Super Tburn Token" class="w-full bg-slate-50 dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-tburn-primary focus:outline-none transition-all" oninput="updatePreview()">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Symbol <span class="text-red-500">*</span></label>
+                                    <input type="text" id="input-symbol" placeholder="e.g. STT" class="w-full bg-slate-50 dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-tburn-primary focus:outline-none transition-all uppercase" oninput="updatePreview()">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Initial Supply <span class="text-red-500">*</span></label>
+                                    <input type="number" id="input-supply" placeholder="1000000" class="w-full bg-slate-50 dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-tburn-primary focus:outline-none transition-all" oninput="updatePreview()">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Decimals</label>
+                                    <input type="number" value="18" class="w-full bg-slate-50 dark:bg-[#0B1120] border border-slate-200 dark:border-gray-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-tburn-primary focus:outline-none transition-all">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6 rounded-2xl">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-tburn-primary text-white flex items-center justify-center text-xs">2</span>
+                                Features & Capabilities
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl border border-slate-200 dark:border-gray-700">
+                                    <div>
+                                        <p class="font-bold text-slate-900 dark:text-white">Can Mint (Mintable)</p>
+                                        <p class="text-xs text-slate-500">Allows creating more tokens after initial deployment.</p>
+                                    </div>
+                                    <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="toggle" id="toggle-mint" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300"/>
+                                        <label for="toggle-mint" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl border border-slate-200 dark:border-gray-700">
+                                    <div>
+                                        <p class="font-bold text-slate-900 dark:text-white">Can Burn (Burnable)</p>
+                                        <p class="text-xs text-slate-500">Allows holders to destroy their tokens to reduce supply.</p>
+                                    </div>
+                                    <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="toggle" id="toggle-burn" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300" checked/>
+                                        <label for="toggle-burn" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl border border-slate-200 dark:border-gray-700">
+                                    <div>
+                                        <p class="font-bold text-slate-900 dark:text-white">Anti-Bot (Limit per Tx)</p>
+                                        <p class="text-xs text-slate-500">Restricts the maximum amount per transaction.</p>
+                                    </div>
+                                    <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="toggle" id="toggle-bot" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300"/>
+                                        <label for="toggle-bot" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="lg:col-span-1 space-y-6">
+                        
+                        <div class="glass-panel p-6 rounded-2xl sticky top-6">
+                            <h3 class="text-sm font-bold text-slate-500 dark:text-gray-400 mb-4 uppercase tracking-widest">Live Preview</h3>
+                            
+                            <div class="token-card-bg rounded-2xl p-6 text-white shadow-2xl mb-6 border border-white/10 relative">
+                                <div class="flex justify-between items-start mb-8">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-xl font-bold border-2 border-white/20">
+                                        <span id="card-icon">T</span>
+                                    </div>
+                                    <span class="bg-black/30 backdrop-blur-md px-2 py-1 rounded text-xs font-mono border border-white/10">TBC-20</span>
+                                </div>
+                                <div class="mb-1">
+                                    <p class="text-xs text-gray-400">Total Supply</p>
+                                    <p class="text-2xl font-mono font-bold tracking-tight" id="card-supply">1,000,000</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold" id="card-name">Token Name</h4>
+                                    <p class="text-sm text-blue-400 font-bold" id="card-symbol">SYMBOL</p>
+                                </div>
+
+                                <div class="absolute bottom-4 right-4 text-white/5 text-6xl font-bold select-none">TBC</div>
+                            </div>
+
+                            <div class="bg-slate-50 dark:bg-[#0B1120] rounded-xl p-4 mb-6 border border-slate-200 dark:border-gray-700">
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-slate-500">Service Fee</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">100 TB</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-slate-500">Gas Fee (Est.)</span>
+                                    <span class="font-bold text-tburn-success">$0.001</span>
+                                </div>
+                                <div class="border-t border-slate-200 dark:border-gray-700 my-2 pt-2 flex justify-between">
+                                    <span class="font-bold text-slate-900 dark:text-white">Total</span>
+                                    <span class="font-bold text-tburn-primary text-lg">100.001 TB</span>
+                                </div>
+                            </div>
+
+                            <button onclick="deployToken()" class="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                                <i class="fas fa-rocket"></i> Deploy Token
+                            </button>
+                            <p class="text-center text-xs text-slate-400 mt-4">
+                                By deploying, you agree to the <a href="#" class="text-tburn-primary hover:underline">Terms of Service</a>.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="console-output" class="mt-8 hidden">
+                    <div class="glass-panel rounded-xl overflow-hidden border border-slate-700 bg-[#0B1120]">
+                        <div class="bg-slate-800 px-4 py-2 flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="ml-2 text-xs text-slate-400 font-mono">Terminal - Deploying to TBURN Mainnet</span>
+                        </div>
+                        <div class="p-4 font-code text-sm text-slate-300 space-y-1 h-48 overflow-y-auto" id="console-logs">
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- 1. Real-time Preview ---
+        function updatePreview() {
+            const name = document.getElementById('input-name').value || 'Token Name';
+            const symbol = document.getElementById('input-symbol').value || 'SYMBOL';
+            const supply = document.getElementById('input-supply').value || '0';
+
+            document.getElementById('card-name').innerText = name;
+            document.getElementById('card-symbol').innerText = symbol.toUpperCase();
+            document.getElementById('card-icon').innerText = symbol.charAt(0).toUpperCase() || 'T';
+            
+            // Format supply with commas
+            const formattedSupply = parseFloat(supply).toLocaleString('en-US');
+            document.getElementById('card-supply').innerText = formattedSupply;
+        }
+
+        // --- 2. Fake Deployment Process ---
+        function deployToken() {
+            const consoleDiv = document.getElementById('console-output');
+            const logsDiv = document.getElementById('console-logs');
+            const btn = document.querySelector('button[onclick="deployToken()"]');
+            
+            // Show Console
+            consoleDiv.classList.remove('hidden');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deploying...';
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            logsDiv.innerHTML = ''; // Clear logs
+            
+            const steps = [
+                { msg: "> Initializing TBC-20 Factory...", delay: 500 },
+                { msg: "> Compiling Smart Contract Bytecode...", delay: 1200 },
+                { msg: "> Connecting to TBURN Mainnet (ChainID: 882)...", delay: 2000 },
+                { msg: "> Estimating Gas... <span class='text-tburn-success'>0.00045 TB (Ultra Low)</span>", delay: 2800 },
+                { msg: "> Signing Transaction with Wallet...", delay: 3500 },
+                { msg: "> Broadcasting to Mempool...", delay: 4200 },
+                { msg: "> <span class='text-tburn-success'>[SUCCESS]</span> Block #21,334,102 Confirmed (0.4s)", delay: 5000 },
+                { msg: "> Contract Address: <span class='text-tburn-code'>0x71C...9A21</span>", delay: 5200 },
+                { msg: "> Verifying Source Code on Explorer...", delay: 6000 },
+                { msg: "> <span class='text-tburn-success font-bold'>Token Deployed Successfully! 🚀</span>", delay: 6500 }
+            ];
+
+            let cumulativeDelay = 0;
+
+            steps.forEach(step => {
+                cumulativeDelay = step.delay;
+                setTimeout(() => {
+                    const p = document.createElement('div');
+                    p.innerHTML = `<span class="text-slate-500">[${new Date().toLocaleTimeString()}]</span> ${step.msg}`;
+                    logsDiv.appendChild(p);
+                    logsDiv.scrollTop = logsDiv.scrollHeight; // Auto scroll
+                }, step.delay);
+            });
+
+            // Reset Button
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check"></i> Done';
+                btn.classList.remove('from-blue-600', 'to-blue-500');
+                btn.classList.add('from-green-600', 'to-green-500');
+            }, cumulativeDelay);
+        }
+
+        // --- 3. Theme Toggle ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                html.classList.add('dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+    </script>
+</body>
+</html>

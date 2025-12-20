@@ -352,6 +352,14 @@ function RootRouter() {
     );
   }
   
+  if (location === "/token-system" || location.startsWith("/token-system")) {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <TokenSystem />
+      </Suspense>
+    );
+  }
+  
   if (location === "/signup") {
     return <Signup />;
   }
