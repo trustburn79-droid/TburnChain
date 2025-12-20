@@ -17,8 +17,9 @@ import {
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
   LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
   Menu, X, Crown, Info, Image, Plus, Play, Gamepad2, Rocket,
-  Home, HelpCircle, ScanLine
+  Home, HelpCircle, ScanLine, FileText, Bug
 } from "lucide-react";
+import { PhishingWarningBanner } from "@/components/phishing-warning-banner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -586,7 +587,9 @@ export default function UserPage() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden font-sans antialiased bg-slate-50 text-slate-800 dark:bg-[#0B1120] dark:text-[#E2E8F0]">
+    <div className="flex flex-col h-screen overflow-hidden font-sans antialiased bg-slate-50 text-slate-800 dark:bg-[#0B1120] dark:text-[#E2E8F0]">
+      <PhishingWarningBanner />
+      <div className="flex flex-1 overflow-hidden">
       {mobileMenuOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-30 lg:hidden" 
@@ -845,6 +848,7 @@ export default function UserPage() {
       </main>
 
       <WalletConnectModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
+      </div>
     </div>
   );
 }

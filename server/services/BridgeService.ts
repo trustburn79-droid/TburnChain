@@ -711,6 +711,37 @@ export class BridgeService {
 
     return updatedTransfer;
   }
+
+  async refundTransfer(id: string): Promise<BridgeTransfer | null> {
+    const transfer = await this.getTransferById(id);
+    if (!transfer) {
+      return null;
+    }
+
+    if (transfer.status === "refunded") {
+      return transfer;
+    }
+
+    if (!["failed", "pending", "expired"].includes(transfer.status)) {
+      throw new Error(`Cannot refund transfer with status: ${transfer.status}. Only failed, pending, or expired transfers can be refunded.`);
+    }
+
+    const refundTxHash = generateTxHash();
+    const existingMetadata = typeof transfer.metadata === 'object' && transfer.metadata !== null 
+      ? transfer.metadata as Record<string, unknown>
+      : {};
+
+    const updatedTransfer = await this.updateTransferStatus(id, "refunded", {
+      metadata: {
+        ...existingMetadata,
+        refundTxHash,
+        refundInitiated: new Date().toISOString(),
+        refundConfirmed: new Date().toISOString(),
+      },
+    });
+
+    return updatedTransfer;
+  }
 }
 
 export const bridgeService = BridgeService.getInstance();

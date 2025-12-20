@@ -369,4 +369,22 @@ router.post("/transfers/:id/claim", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/transfers/:id/refund", async (req: Request, res: Response) => {
+  try {
+    const transfer = await bridgeService.refundTransfer(req.params.id);
+    if (!transfer) {
+      return res.status(404).json({ error: "Transfer not found" });
+    }
+    res.json({
+      success: true,
+      message: "Refund initiated successfully",
+      transfer,
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to refund transfer";
+    console.error("[Bridge] Error refunding transfer:", error);
+    res.status(400).json({ error: message });
+  }
+});
+
 export default router;

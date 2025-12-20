@@ -289,12 +289,13 @@ function ChainCard({ chain }: { chain: BridgeChain }) {
   );
 }
 
-function TransferRow({ transfer, chains, onClaim, onClick }: { transfer: BridgeTransfer; chains: BridgeChain[]; onClaim?: (id: string) => void; onClick?: () => void }) {
+function TransferRow({ transfer, chains, onClaim, onRefund, onClick }: { transfer: BridgeTransfer; chains: BridgeChain[]; onClaim?: (id: string) => void; onRefund?: (id: string) => void; onClick?: () => void }) {
   const { t } = useTranslation();
   const sourceChain = chains.find(c => c.chainId === transfer.sourceChainId);
   const destChain = chains.find(c => c.chainId === transfer.destinationChainId);
   const StatusIcon = getStatusIcon(transfer.status);
   const canClaim = ["relaying", "bridging", "confirming", "pending"].includes(transfer.status);
+  const canRefund = transfer.status === "failed";
   
   return (
     <div 
@@ -314,6 +315,11 @@ function TransferRow({ transfer, chains, onClaim, onClick }: { transfer: BridgeT
         <div className="text-sm text-muted-foreground">
           {formatAmount(transfer.amount)} {transfer.tokenSymbol}
         </div>
+        {canRefund && (
+          <div className="text-xs text-red-400 mt-1">
+            {t("bridge.refundAvailable", "Refund available - click to process")}
+          </div>
+        )}
       </div>
       <div className="text-right flex items-center gap-2">
         <div>
@@ -332,6 +338,17 @@ function TransferRow({ transfer, chains, onClaim, onClick }: { transfer: BridgeT
           >
             <Unlock className="w-3 h-3 mr-1" />
             {t("bridge.claim")}
+          </Button>
+        )}
+        {canRefund && onRefund && (
+          <Button 
+            size="sm" 
+            variant="destructive"
+            onClick={(e) => { e.stopPropagation(); onRefund(transfer.id); }}
+            data-testid={`button-refund-${transfer.id}`}
+          >
+            <RefreshCw className="w-3 h-3 mr-1" />
+            {t("bridge.refund", "Refund")}
           </Button>
         )}
       </div>
@@ -561,6 +578,37 @@ export default function Bridge() {
 
   const handleClaimTransfer = (transferId: string) => {
     claimTransferMutation.mutate(transferId);
+  };
+
+  const refundTransferMutation = useMutation({
+    mutationFn: async (transferId: string) => {
+      const res = await apiRequest("POST", `/api/bridge/transfers/${transferId}/refund`);
+      return res.json();
+    },
+    onSuccess: (response) => {
+      const transfer = response.transfer || response;
+      toast({
+        title: t("bridge.refundInitiated", "Refund Initiated"),
+        description: t("bridge.refundInitiatedDesc", "Your refund of {{amount}} {{token}} has been initiated. Expected completion: 10-30 minutes.", { 
+          amount: formatAmount(transfer.amount), 
+          token: transfer.tokenSymbol 
+        }),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/transfers"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/activity"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("bridge.refundFailed", "Refund Failed"),
+        description: error.message || t("bridge.refundFailedDesc", "Failed to process refund. Please contact support."),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleRefundTransfer = (transferId: string) => {
+    refundTransferMutation.mutate(transferId);
   };
 
   const { data: chains } = useQuery<BridgeChain[]>({
@@ -856,6 +904,7 @@ export default function Bridge() {
                       transfer={transfer} 
                       chains={chains || []} 
                       onClaim={handleClaimTransfer}
+                      onRefund={handleRefundTransfer}
                       onClick={() => setSelectedTransfer(transfer)}
                     />
                   ))}

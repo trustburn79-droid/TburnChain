@@ -76,6 +76,9 @@ const VCLayout = lazy(() => import("@/public/components/VCLayout"));
 const UserPage = lazy(() => import("@/pages/user"));
 const QnAPage = lazy(() => import("@/pages/qna"));
 const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-standalone"));
+const SecurityAuditPage = lazy(() => import("@/pages/security-audit"));
+const OfficialChannelsPage = lazy(() => import("@/pages/official-channels"));
+const BugBountyPage = lazy(() => import("@/pages/bug-bounty"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -321,6 +324,30 @@ function RootRouter() {
     return (
       <Suspense fallback={<PageLoading />}>
         <NftMarketplaceStandalone />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/security-audit" || location.startsWith("/security-audit")) {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <SecurityAuditPage />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/official-channels" || location.startsWith("/official-channels")) {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <OfficialChannelsPage />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/bug-bounty" || location.startsWith("/bug-bounty")) {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <BugBountyPage />
       </Suspense>
     );
   }
