@@ -47,12 +47,13 @@ import AdminBridgeTransfers from "@/pages/admin-portal/bridge-transfers";
 import AdminBridgeValidators from "@/pages/admin-portal/bridge-validators";
 import AdminChainConnections from "@/pages/admin-portal/chain-connections";
 
-// Group 6: Security & Audit (5 pages)
+// Group 6: Security & Audit (6 pages)
 import AdminSecurity from "@/pages/admin-portal/security";
 import AdminThreatDetection from "@/pages/admin-portal/threat-detection";
 import AdminAuditLogs from "@/pages/admin-portal/audit-logs";
 import AdminCompliance from "@/pages/admin-portal/compliance";
 import AdminAccessControl from "@/pages/admin-portal/access-control";
+import AdminBugBounty from "@/pages/admin-portal/bug-bounty";
 
 // Group 7: Data & Analytics (5 pages)
 import AdminNetworkAnalytics from "@/pages/admin-portal/network-analytics";
@@ -169,6 +170,7 @@ function AdminRouter() {
       <Route path="/admin/audit-logs" component={AdminAuditLogs} />
       <Route path="/admin/compliance" component={AdminCompliance} />
       <Route path="/admin/access-control" component={AdminAccessControl} />
+      <Route path="/admin/bug-bounty" component={AdminBugBounty} />
 
       {/* Group 7: Data & Analytics */}
       <Route path="/admin/bi" component={AdminBIDashboard} />
