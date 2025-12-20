@@ -733,6 +733,11 @@ export default function UserPage() {
                 <ScanLine className="w-4 h-4" />
               </Button>
             </a>
+            <a href="/security-audit" data-testid="link-security-audit">
+              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
+                <Shield className="w-4 h-4" />
+              </Button>
+            </a>
             <a href="/nft-marketplace" data-testid="link-nft-marketplace">
               <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
                 <Image className="w-4 h-4" />
