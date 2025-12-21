@@ -22024,7 +22024,19 @@
     "voteAgainst": "Against",
     "voteAbstain": "Abstain",
     "execute": "Execute",
-    "castVote": "Cast Vote"
+    "castVote": "Cast Vote",
+    "allPreLaunchExecuted": "All pre-launch proposals executed",
+    "launchParamsFinalized": "Launch parameters finalized",
+    "consensusAchieved": "100% consensus achieved",
+    "zeroRejected": "Zero rejected proposals",
+    "statusDraft": "Draft",
+    "statusActive": "Active",
+    "statusPassed": "Passed",
+    "statusRejected": "Rejected",
+    "statusExecuted": "Executed",
+    "statusCancelled": "Cancelled",
+    "december21stLaunch": "December 21st Mainnet Launch",
+    "subtitle": "Create and manage governance proposals"
   },
   "adminVoting": {
     "title": "Voting Management",

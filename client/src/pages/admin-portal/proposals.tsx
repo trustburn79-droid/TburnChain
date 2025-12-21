@@ -442,6 +442,31 @@ export default function Proposals() {
     }
   };
 
+  const getStatusLabel = (status: string) => {
+    const statusMap: Record<string, string> = {
+      draft: t("adminProposals.statusDraft"),
+      active: t("adminProposals.statusActive"),
+      passed: t("adminProposals.statusPassed"),
+      rejected: t("adminProposals.statusRejected"),
+      executed: t("adminProposals.statusExecuted"),
+      cancelled: t("adminProposals.statusCancelled"),
+    };
+    return statusMap[status] || status;
+  };
+
+  const getCategoryLabel = (category: string) => {
+    const categoryMap: Record<string, string> = {
+      Network: t("adminProposals.categoryNetwork"),
+      Economics: t("adminProposals.categoryEconomics"),
+      Security: t("adminProposals.categorySecurity"),
+      Staking: t("adminProposals.categoryStaking"),
+      Bridge: t("adminProposals.categoryBridge"),
+      AI: t("adminProposals.categoryAI"),
+      Community: t("adminProposals.categoryCommunity"),
+    };
+    return categoryMap[category] || category;
+  };
+
   const filteredProposals = proposals.filter((proposal) => {
     const matchesSearch = 
       proposal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -491,7 +516,7 @@ export default function Proposals() {
               )}
             </h1>
             <p className="text-muted-foreground" data-testid="text-proposals-subtitle">
-              {t("adminProposals.subtitleKo")} | {t("adminProposals.subtitleEn")}
+              {t("adminProposals.subtitle")}
             </p>
           </div>
           <div className="flex gap-2 flex-wrap">
@@ -616,7 +641,7 @@ export default function Proposals() {
             icon={FileText}
             label={t("adminProposals.totalProposals")}
             value={proposals.length}
-            change="All pre-launch proposals executed"
+            change={t("adminProposals.allPreLaunchExecuted")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-primary/10"
@@ -627,7 +652,7 @@ export default function Proposals() {
             icon={Vote}
             label={t("adminProposals.activeVoting")}
             value={activeCount}
-            change="Launch parameters finalized"
+            change={t("adminProposals.launchParamsFinalized")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -638,7 +663,7 @@ export default function Proposals() {
             icon={CheckCircle}
             label={t("adminProposals.passed")}
             value={passedCount}
-            change="100% consensus achieved"
+            change={t("adminProposals.consensusAchieved")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -649,7 +674,7 @@ export default function Proposals() {
             icon={XCircle}
             label={t("adminProposals.rejected")}
             value={rejectedCount}
-            change="Zero rejected proposals"
+            change={t("adminProposals.zeroRejected")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -711,8 +736,8 @@ export default function Proposals() {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           <Badge variant="outline" data-testid={`badge-proposal-id-${proposal.id}`}>{proposal.id}</Badge>
-                          <Badge className={getStatusColor(proposal.status)} data-testid={`badge-status-${proposal.id}`}>{proposal.status}</Badge>
-                          <Badge variant="secondary" data-testid={`badge-category-${proposal.id}`}>{proposal.category}</Badge>
+                          <Badge className={getStatusColor(proposal.status)} data-testid={`badge-status-${proposal.id}`}>{getStatusLabel(proposal.status)}</Badge>
+                          <Badge variant="secondary" data-testid={`badge-category-${proposal.id}`}>{getCategoryLabel(proposal.category)}</Badge>
                         </div>
                         <CardTitle className="text-xl" data-testid={`text-title-${proposal.id}`}>{proposal.title}</CardTitle>
                         <CardDescription data-testid={`text-description-${proposal.id}`}>{proposal.description}</CardDescription>

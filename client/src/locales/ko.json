@@ -22926,7 +22926,19 @@
     "voteAgainst": "반대",
     "voteAbstain": "기권",
     "execute": "실행",
-    "castVote": "투표하기"
+    "castVote": "투표하기",
+    "allPreLaunchExecuted": "모든 사전 출시 제안 실행됨",
+    "launchParamsFinalized": "출시 매개변수 확정됨",
+    "consensusAchieved": "100% 합의 달성",
+    "zeroRejected": "거부된 제안 없음",
+    "statusDraft": "초안",
+    "statusActive": "활성",
+    "statusPassed": "통과",
+    "statusRejected": "거부",
+    "statusExecuted": "실행됨",
+    "statusCancelled": "취소됨",
+    "december21stLaunch": "12월 21일 메인넷 출시",
+    "subtitle": "거버넌스 제안 생성 및 관리"
   },
   "adminVoting": {
     "title": "투표 관리",
