@@ -468,45 +468,80 @@ export default function LaunchEventPage() {
                     </div>
                   </div>
 
-                  {/* Genesis NFT Collection */}
-                  <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Genesis NFT 컬렉션</h2>
-                    <p className="text-slate-500 dark:text-gray-400 mb-6">Gold 티어 이상의 참여자에게 독점 Genesis NFT가 제공됩니다. (총 1,000개 한정)</p>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="glass-panel p-5 rounded-2xl">
-                        <div className="h-32 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 mb-4 flex items-center justify-center">
-                          <Hexagon className="w-16 h-16 text-white/50" />
+                  {/* Launch Schedule */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* 런칭 일정 */}
+                    <div className="glass-panel p-6 rounded-2xl">
+                      <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <span className="text-lg">📅</span> 런칭 일정
+                      </h2>
+                      <div className="space-y-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-3 h-3 rounded-full bg-[#10B981] mt-1.5 flex-shrink-0" />
+                          <div>
+                            <p className="font-bold text-white">메인넷 Genesis 블록</p>
+                            <p className="text-sm text-slate-400">Dec 21, 00:00 UTC</p>
+                          </div>
                         </div>
-                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">Genesis Founder NFT</h3>
-                        <div className="flex justify-between text-sm text-slate-500 mb-2">
-                          <span>Minted</span>
-                          <span className="font-mono">89/100</span>
+                        <div className="flex items-start gap-3">
+                          <div className="w-3 h-3 rounded-full bg-[#3B82F6] mt-1.5 flex-shrink-0 animate-pulse" />
+                          <div>
+                            <p className="font-bold text-white">에어드랍 클레임 오픈</p>
+                            <p className="text-sm text-[#3B82F6]">Dec 21, 00:01 UTC (예정)</p>
+                          </div>
                         </div>
-                        <Progress value={89} className="h-2" />
+                        <div className="flex items-start gap-3">
+                          <div className="w-3 h-3 rounded-full bg-slate-500 mt-1.5 flex-shrink-0" />
+                          <div>
+                            <p className="font-bold text-slate-400">Genesis NFT 민팅 시작</p>
+                            <p className="text-sm text-slate-500">Dec 21, 00:05 UTC</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <div className="w-3 h-3 rounded-full bg-slate-500 mt-1.5 flex-shrink-0" />
+                          <div>
+                            <p className="font-bold text-slate-400">스테이킹 보상 시작</p>
+                            <p className="text-sm text-slate-500">Dec 21, 00:10 UTC</p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="glass-panel p-5 rounded-2xl">
-                        <div className="h-32 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 mb-4 flex items-center justify-center">
-                          <Hexagon className="w-16 h-16 text-white/50" />
+                    </div>
+
+                    {/* Genesis NFT Collection */}
+                    <div className="glass-panel p-6 rounded-2xl">
+                      <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <span className="text-lg">🎨</span> Genesis NFT 컬렉션
+                      </h2>
+                      <div className="flex flex-col md:flex-row gap-4">
+                        {/* NFT Preview */}
+                        <div className="w-full md:w-40 h-40 rounded-2xl bg-gradient-to-br from-[#3B82F6] via-[#06B6D4] to-[#F97316] p-1 flex-shrink-0">
+                          <div className="w-full h-full rounded-xl bg-[#0F172A] flex items-center justify-center">
+                            <Hexagon className="w-16 h-16 text-white/40" />
+                          </div>
                         </div>
-                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">Diamond Pioneer NFT</h3>
-                        <div className="flex justify-between text-sm text-slate-500 mb-2">
-                          <span>Minted</span>
-                          <span className="font-mono">247/300</span>
+                        {/* NFT Info */}
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold text-white">Genesis 파운더 NFT</h3>
+                          <p className="text-sm text-slate-400 mt-1">100개 한정 발행. 최고의 권위와 혜택.</p>
+                          <div className="grid grid-cols-3 gap-2 mt-4">
+                            <div className="bg-black/30 rounded-lg p-2 text-center">
+                              <p className="text-[10px] text-slate-500">등급</p>
+                              <p className="text-sm font-bold text-white">3</p>
+                            </div>
+                            <div className="bg-black/30 rounded-lg p-2 text-center">
+                              <p className="text-[10px] text-slate-500">총 발행</p>
+                              <p className="text-sm font-bold text-white">1,000</p>
+                            </div>
+                            <div className="bg-black/30 rounded-lg p-2 text-center">
+                              <p className="text-[10px] text-slate-500">민팅량</p>
+                              <p className="text-sm font-bold text-[#3B82F6]">{formatNumber(stats.nftsMinted)}</p>
+                            </div>
+                          </div>
                         </div>
-                        <Progress value={82} className="h-2" />
                       </div>
-                      <div className="glass-panel p-5 rounded-2xl">
-                        <div className="h-32 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-500 mb-4 flex items-center justify-center">
-                          <Hexagon className="w-16 h-16 text-white/50" />
-                        </div>
-                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">Gold Validator NFT</h3>
-                        <div className="flex justify-between text-sm text-slate-500 mb-2">
-                          <span>Minted</span>
-                          <span className="font-mono">512/600</span>
-                        </div>
-                        <Progress value={85} className="h-2" />
-                      </div>
+                      <p className="text-xs text-slate-500 mt-4 pt-4 border-t border-slate-700/50">
+                        ※ 제네시스 및 다이아몬드 티어 스테이커에게 모든 민팅 권한이 부여됩니다
+                      </p>
                     </div>
                   </div>
 
