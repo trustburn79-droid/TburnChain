@@ -29057,6 +29057,7 @@
     "deploying": "배포 중...",
     "deployToTburn": "TBURN 메인넷에 배포",
     "tokenDeployedSuccess": "토큰이 성공적으로 배포되었습니다!",
+    "goToAdminPanel": "관리자 패널에서 토큰 관리",
     "contractAddress": "계약 주소",
     "terminal": "터미널 - TBURN 메인넷에 배포 중",
     "estimatingGas": "가스 추정 중...",

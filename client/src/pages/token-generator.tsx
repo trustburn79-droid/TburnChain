@@ -699,6 +699,11 @@ export default function TokenSystemPage() {
         title: t('tokenGenerator.tokenDeployedSuccess'),
         description: `${formData.name} (${formData.symbol}) - ${t('tokenGenerator.deployToTburn')}`,
       });
+
+      // Invalidate admin tokens cache so the new token appears immediately
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/tokens"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/tokens/user-deployed"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/token-system/deployed"] });
     } catch (error: any) {
       addConsoleLog(`> <span class='text-red-500'>[ERROR]</span> ${error.message}`);
       setIsDeploying(false);
@@ -781,6 +786,11 @@ export default function TokenSystemPage() {
         title: t('tokenGenerator.tokenDeployedSuccess'),
         description: `${formData.name} (${formData.symbol}) - ${t('tokenGenerator.deployToTburn')} (Simulation)`,
       });
+
+      // Invalidate admin tokens cache so the new token appears immediately
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/tokens"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/tokens/user-deployed"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/token-system/deployed"] });
     } catch (error: any) {
       addConsoleLog(`> <span class='text-red-500'>[ERROR]</span> ${error.message}`);
       setIsDeploying(false);
@@ -1883,15 +1893,23 @@ function CreateTokenContent({
                 </div>
               </div>
 
-              <div className="flex gap-3 justify-center">
-                <Button variant="outline" onClick={resetWizard}>
-                  <Plus className="w-4 h-4 mr-2" />
-                  {t('tokenGenerator.createToken')}
-                </Button>
-                <Button>
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  {t('tokenGenerator.verify')}
-                </Button>
+              <div className="flex flex-col gap-3 items-center">
+                <Link href="/admin/token-issuance">
+                  <Button className="w-full" data-testid="button-go-to-admin">
+                    <Settings className="w-4 h-4 mr-2" />
+                    {t('tokenGenerator.goToAdminPanel', 'Manage Tokens in Admin Panel')}
+                  </Button>
+                </Link>
+                <div className="flex gap-3">
+                  <Button variant="outline" onClick={resetWizard} data-testid="button-create-another">
+                    <Plus className="w-4 h-4 mr-2" />
+                    {t('tokenGenerator.createToken')}
+                  </Button>
+                  <Button variant="outline" data-testid="button-verify-token">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    {t('tokenGenerator.verify')}
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>

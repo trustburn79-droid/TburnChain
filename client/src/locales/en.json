@@ -27845,6 +27845,7 @@
     "deploying": "Deploying...",
     "deployToTburn": "Deploy to TBURN Mainnet",
     "tokenDeployedSuccess": "Token Deployed Successfully!",
+    "goToAdminPanel": "Manage Tokens in Admin Panel",
     "contractAddress": "Contract Address",
     "terminal": "Terminal - Deploying to TBURN Mainnet",
     "estimatingGas": "Estimating Gas...",
