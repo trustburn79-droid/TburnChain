@@ -374,9 +374,9 @@ export default function LaunchEventPage() {
                           </div>
                         </div>
                         <div className="text-xs text-slate-400 space-y-1">
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-[#F97316]" /> <span className="text-white">독점 Genesis NFT</span></p>
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 평생 거버넌스 프리미엄</p>
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 프라이빗 디스코드</p>
+                          <p>✅ <span className="text-white">독점 Genesis NFT</span></p>
+                          <p>✅ 평생 거버넌스 프리미엄</p>
+                          <p>✅ 프라이빗 디스코드</p>
                         </div>
                       </div>
 
@@ -396,16 +396,15 @@ export default function LaunchEventPage() {
                           </div>
                         </div>
                         <div className="text-xs text-slate-400 space-y-1">
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-cyan-400" /> <span className="text-white">Diamond NFT</span></p>
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 우선 지원 액세스</p>
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 베타 테스트 특권</p>
+                          <p>✅ Diamond Pioneer NFT</p>
+                          <p>✅ 우선 지원 액세스</p>
                         </div>
                       </div>
 
                       {/* Gold Tier */}
                       <div className={`tier-gold glass-panel p-5 rounded-2xl relative bg-gradient-to-b from-yellow-500/10 to-transparent ${userTier === 'gold' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-gold">
                         {userTier === 'gold' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">현재 등급</Badge>}
-                        <h3 className="text-lg font-bold text-[#FFD700] mb-1">Gold 검증자</h3>
+                        <h3 className="text-lg font-bold text-yellow-500 mb-1">Gold 검증자</h3>
                         <p className="text-xs text-slate-500 mb-4">Min: <span className="font-mono font-bold text-slate-900 dark:text-white">10,000</span> TBURN</p>
                         <div className="space-y-2 mb-4">
                           <div className="bg-black/20 rounded p-2 text-center">
@@ -414,20 +413,19 @@ export default function LaunchEventPage() {
                           </div>
                           <div className="bg-black/20 rounded p-2 text-center">
                             <p className="text-xs text-slate-400">배수 (Multiplier)</p>
-                            <p className="text-lg font-bold font-mono text-[#FFD700]">2x</p>
+                            <p className="text-lg font-bold font-mono text-yellow-500">2x</p>
                           </div>
                         </div>
                         <div className="text-xs text-slate-400 space-y-1">
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-[#FFD700]" /> <span className="text-white">Gold NFT</span></p>
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 검증자 대시보드</p>
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 월간 AMA 초대</p>
+                          <p>✅ Gold Validator NFT</p>
+                          <p>✅ 월간 AMA 초대</p>
                         </div>
                       </div>
 
                       {/* Silver Tier */}
-                      <div className={`tier-silver glass-panel p-5 rounded-2xl relative bg-gradient-to-b from-gray-400/10 to-transparent ${userTier === 'silver' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-silver">
+                      <div className={`tier-silver glass-panel p-5 rounded-2xl relative ${userTier === 'silver' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-silver">
                         {userTier === 'silver' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">현재 등급</Badge>}
-                        <h3 className="text-lg font-bold text-[#C0C0C0] mb-1">Silver 서포터</h3>
+                        <h3 className="text-lg font-bold text-gray-400 mb-1">Silver 서포터</h3>
                         <p className="text-xs text-slate-500 mb-4">Min: <span className="font-mono font-bold text-slate-900 dark:text-white">1,000</span> TBURN</p>
                         <div className="space-y-2 mb-4">
                           <div className="bg-black/20 rounded p-2 text-center">
@@ -436,19 +434,19 @@ export default function LaunchEventPage() {
                           </div>
                           <div className="bg-black/20 rounded p-2 text-center">
                             <p className="text-xs text-slate-400">배수 (Multiplier)</p>
-                            <p className="text-lg font-bold font-mono text-[#C0C0C0]">1.5x</p>
+                            <p className="text-lg font-bold font-mono text-gray-400">1.5x</p>
                           </div>
                         </div>
                         <div className="text-xs text-slate-400 space-y-1">
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 커뮤니티 배지</p>
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 이벤트 우선 액세스</p>
+                          <p>✅ 커뮤니티 배지</p>
+                          <p>✅ 이벤트 우선 액세스</p>
                         </div>
                       </div>
 
                       {/* Bronze Tier */}
-                      <div className={`tier-bronze glass-panel p-5 rounded-2xl relative bg-gradient-to-b from-amber-700/10 to-transparent ${userTier === 'bronze' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-bronze">
+                      <div className={`tier-bronze glass-panel p-5 rounded-2xl relative ${userTier === 'bronze' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-bronze">
                         {userTier === 'bronze' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">현재 등급</Badge>}
-                        <h3 className="text-lg font-bold text-[#CD7F32] mb-1">Bronze 멤버</h3>
+                        <h3 className="text-lg font-bold text-orange-700 mb-1">Bronze 멤버</h3>
                         <p className="text-xs text-slate-500 mb-4">Min: <span className="font-mono font-bold text-slate-900 dark:text-white">100</span> TBURN</p>
                         <div className="space-y-2 mb-4">
                           <div className="bg-black/20 rounded p-2 text-center">
@@ -457,91 +455,77 @@ export default function LaunchEventPage() {
                           </div>
                           <div className="bg-black/20 rounded p-2 text-center">
                             <p className="text-xs text-slate-400">배수 (Multiplier)</p>
-                            <p className="text-lg font-bold font-mono text-[#CD7F32]">1x</p>
+                            <p className="text-lg font-bold font-mono text-orange-700">1x</p>
                           </div>
                         </div>
                         <div className="text-xs text-slate-400 space-y-1">
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 기본 에어드랍 보상</p>
-                          <p className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-500" /> 커뮤니티 액세스</p>
+                          <p>✅ 런칭 참여자 배지</p>
+                          <p>✅ 커뮤니티 액세스</p>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Launch Schedule */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* 런칭 일정 */}
-                    <div className="glass-panel p-6 rounded-2xl">
-                      <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                        <span className="text-lg">📅</span> 런칭 일정
-                      </h2>
-                      <div className="space-y-4">
-                        <div className="flex items-start gap-3">
-                          <div className="w-3 h-3 rounded-full bg-[#10B981] mt-1.5 flex-shrink-0" />
-                          <div>
-                            <p className="font-bold text-white">메인넷 Genesis 블록</p>
-                            <p className="text-sm text-slate-400">Dec 21, 00:00 UTC</p>
-                          </div>
+                  {/* Launch Schedule & NFT Collection - 3 Column Grid */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    {/* 런칭 일정 - 1 Column */}
+                    <div className="glass-panel p-6 rounded-2xl lg:col-span-1">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">📅 런칭 일정</h3>
+                      <div className="space-y-0 relative border-l border-slate-700 ml-3">
+                        <div className="ml-6 mb-6 relative">
+                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#10B981] ring-4 ring-[#0B1120]"></span>
+                          <p className="text-sm font-bold text-slate-900 dark:text-white">메인넷 Genesis 블록</p>
+                          <p className="text-xs text-slate-500">Dec 21, 00:00 UTC</p>
                         </div>
-                        <div className="flex items-start gap-3">
-                          <div className="w-3 h-3 rounded-full bg-[#3B82F6] mt-1.5 flex-shrink-0 animate-pulse" />
-                          <div>
-                            <p className="font-bold text-white">에어드랍 클레임 오픈</p>
-                            <p className="text-sm text-[#3B82F6]">Dec 21, 00:01 UTC (예정)</p>
-                          </div>
+                        <div className="ml-6 mb-6 relative">
+                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#3B82F6] ring-4 ring-[#0B1120] animate-pulse"></span>
+                          <p className="text-sm font-bold text-slate-900 dark:text-white">에어드랍 클레임 오픈</p>
+                          <p className="text-xs text-[#3B82F6] font-bold">Dec 21, 00:01 UTC (예정)</p>
                         </div>
-                        <div className="flex items-start gap-3">
-                          <div className="w-3 h-3 rounded-full bg-slate-500 mt-1.5 flex-shrink-0" />
-                          <div>
-                            <p className="font-bold text-slate-400">Genesis NFT 민팅 시작</p>
-                            <p className="text-sm text-slate-500">Dec 21, 00:05 UTC</p>
-                          </div>
+                        <div className="ml-6 mb-6 relative">
+                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-slate-700 ring-4 ring-[#0B1120]"></span>
+                          <p className="text-sm font-bold text-slate-500">Genesis NFT 민팅 시작</p>
+                          <p className="text-xs text-slate-600">Dec 21, 00:05 UTC</p>
                         </div>
-                        <div className="flex items-start gap-3">
-                          <div className="w-3 h-3 rounded-full bg-slate-500 mt-1.5 flex-shrink-0" />
-                          <div>
-                            <p className="font-bold text-slate-400">스테이킹 보상 시작</p>
-                            <p className="text-sm text-slate-500">Dec 21, 00:10 UTC</p>
-                          </div>
+                        <div className="ml-6 relative">
+                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-slate-700 ring-4 ring-[#0B1120]"></span>
+                          <p className="text-sm font-bold text-slate-500">스테이킹 보상 시작</p>
+                          <p className="text-xs text-slate-600">Jan 1, 2025</p>
                         </div>
                       </div>
                     </div>
 
-                    {/* Genesis NFT Collection */}
-                    <div className="glass-panel p-6 rounded-2xl">
-                      <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                        <span className="text-lg">🎨</span> Genesis NFT 컬렉션
-                      </h2>
-                      <div className="flex flex-col md:flex-row gap-4">
-                        {/* NFT Preview */}
-                        <div className="w-full md:w-40 h-40 rounded-2xl bg-gradient-to-br from-[#3B82F6] via-[#06B6D4] to-[#F97316] p-1 flex-shrink-0">
-                          <div className="w-full h-full rounded-xl bg-[#0F172A] flex items-center justify-center">
-                            <Hexagon className="w-16 h-16 text-white/40" />
-                          </div>
-                        </div>
-                        {/* NFT Info */}
-                        <div className="flex-1">
-                          <h3 className="text-lg font-bold text-white">Genesis 파운더 NFT</h3>
-                          <p className="text-sm text-slate-400 mt-1">100개 한정 발행. 최고의 권위와 혜택.</p>
-                          <div className="grid grid-cols-3 gap-2 mt-4">
-                            <div className="bg-black/30 rounded-lg p-2 text-center">
-                              <p className="text-[10px] text-slate-500">등급</p>
-                              <p className="text-sm font-bold text-white">3</p>
+                    {/* Genesis NFT Collection - 2 Columns */}
+                    <div className="glass-panel p-6 rounded-2xl lg:col-span-2 relative overflow-hidden">
+                      <div className="absolute right-0 top-0 p-6 opacity-10">
+                        <Hexagon className="w-36 h-36 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">🎨 Genesis NFT 컬렉션</h3>
+                      <div className="flex items-center gap-6 mb-6">
+                        <img 
+                          src="https://api.dicebear.com/7.x/shapes/svg?seed=Genesis" 
+                          className="w-24 h-24 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-lg border border-white/20"
+                          alt="Genesis NFT"
+                        />
+                        <div>
+                          <h4 className="text-lg font-bold text-white">Genesis 파운더 NFT</h4>
+                          <p className="text-sm text-slate-400 mb-2">100개 한정 발행. 최고의 권위와 혜택.</p>
+                          <div className="flex gap-4 text-xs font-mono">
+                            <div className="bg-black/30 px-2 py-1 rounded">
+                              <span className="text-slate-500">등급</span> <span className="text-white font-bold">3</span>
                             </div>
-                            <div className="bg-black/30 rounded-lg p-2 text-center">
-                              <p className="text-[10px] text-slate-500">총 발행</p>
-                              <p className="text-sm font-bold text-white">1,000</p>
+                            <div className="bg-black/30 px-2 py-1 rounded">
+                              <span className="text-slate-500">총 발행</span> <span className="text-white font-bold">1,000</span>
                             </div>
-                            <div className="bg-black/30 rounded-lg p-2 text-center">
-                              <p className="text-[10px] text-slate-500">민팅량</p>
-                              <p className="text-sm font-bold text-[#3B82F6]">{formatNumber(stats.nftsMinted)}</p>
+                            <div className="bg-black/30 px-2 py-1 rounded">
+                              <span className="text-[#3B82F6]">민팅됨</span> <span className="text-white font-bold">{formatNumber(stats.nftsMinted)}</span>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <p className="text-xs text-slate-500 mt-4 pt-4 border-t border-slate-700/50">
-                        ※ 제네시스 및 다이아몬드 티어 스테이커에게 모든 민팅 권한이 부여됩니다
-                      </p>
+                      <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                        <p className="text-sm text-slate-300">ℹ️ 제네시스 및 다이아몬드 티어 스테이커에게 무료 민팅 권한이 부여됩니다.</p>
+                      </div>
                     </div>
                   </div>
 
