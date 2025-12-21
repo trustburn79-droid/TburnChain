@@ -13,16 +13,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Link } from "wouter";
 import {
   Rocket, Flame, Gift, Trophy, Users, Clock, Zap, Shield, Crown,
   Star, Sparkles, Copy, ExternalLink, CheckCircle, AlertCircle,
   Wallet, Coins, Image, Share2, Twitter, Send, Globe, Award,
   TrendingUp, BarChart3, Loader2, ChevronRight, PartyPopper, Timer,
-  Hexagon, Lock, Unlock, RefreshCw, Info, ArrowRight, Heart
+  Hexagon, Lock, Unlock, RefreshCw, Info, ArrowRight, Heart,
+  Layers, Sun, Moon
 } from "lucide-react";
 import { SiDiscord, SiTelegram } from "react-icons/si";
 
@@ -45,9 +46,11 @@ interface AirdropTier {
   nftReward: boolean;
   multiplier: number;
   color: string;
+  borderColor: string;
   icon: typeof Crown;
   benefits: string[];
   benefitsKo: string[];
+  label?: string;
 }
 
 interface LaunchStats {
@@ -96,8 +99,10 @@ const AIRDROP_TIERS: AirdropTier[] = [
     tokenReward: 50000,
     nftReward: true,
     multiplier: 5.0,
-    color: "from-amber-400 to-yellow-600",
+    color: "from-orange-500/20 to-transparent",
+    borderColor: "border-orange-500",
     icon: Crown,
+    label: "LEGENDARY",
     benefits: [
       "Exclusive Genesis NFT (1 of 100)",
       "5x Airdrop Multiplier",
@@ -121,7 +126,8 @@ const AIRDROP_TIERS: AirdropTier[] = [
     tokenReward: 25000,
     nftReward: true,
     multiplier: 3.0,
-    color: "from-cyan-400 to-blue-600",
+    color: "from-cyan-500/20 to-transparent",
+    borderColor: "border-cyan-500",
     icon: Sparkles,
     benefits: [
       "Diamond Pioneer NFT",
@@ -146,7 +152,8 @@ const AIRDROP_TIERS: AirdropTier[] = [
     tokenReward: 10000,
     nftReward: true,
     multiplier: 2.0,
-    color: "from-yellow-400 to-orange-500",
+    color: "from-yellow-500/20 to-transparent",
+    borderColor: "border-yellow-500",
     icon: Award,
     benefits: [
       "Gold Validator NFT",
@@ -169,7 +176,8 @@ const AIRDROP_TIERS: AirdropTier[] = [
     tokenReward: 2500,
     nftReward: false,
     multiplier: 1.5,
-    color: "from-gray-300 to-gray-500",
+    color: "from-gray-400/20 to-transparent",
+    borderColor: "border-gray-400",
     icon: Star,
     benefits: [
       "1.5x Airdrop Multiplier",
@@ -190,7 +198,8 @@ const AIRDROP_TIERS: AirdropTier[] = [
     tokenReward: 500,
     nftReward: false,
     multiplier: 1.0,
-    color: "from-orange-600 to-amber-700",
+    color: "from-amber-700/20 to-transparent",
+    borderColor: "border-amber-700",
     icon: Users,
     benefits: [
       "Base Airdrop Reward",
@@ -251,15 +260,10 @@ function useCountdown(targetDate: Date): CountdownTime {
   return timeLeft;
 }
 
-function CountdownBox({ value, label }: { value: number; label: string }) {
+function GlassPanel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className="flex flex-col items-center">
-      <div className="bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-xl p-4 min-w-[80px] backdrop-blur-sm">
-        <span className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">
-          {String(value).padStart(2, "0")}
-        </span>
-      </div>
-      <span className="text-xs md:text-sm text-muted-foreground mt-2 uppercase tracking-wider">{label}</span>
+    <div className={`backdrop-blur-xl bg-slate-800/60 border border-white/10 rounded-xl ${className}`}>
+      {children}
     </div>
   );
 }
@@ -269,86 +273,118 @@ function TierCard({ tier, isActive, isKorean }: { tier: AirdropTier; isActive: b
   const benefits = isKorean ? tier.benefitsKo : tier.benefits;
   const name = isKorean ? tier.nameKo : tier.name;
 
+  const getTierGlowClass = () => {
+    switch (tier.id) {
+      case "genesis": return "shadow-[0_0_15px_rgba(249,115,22,0.3)]";
+      case "diamond": return "shadow-[0_0_10px_rgba(6,182,212,0.3)]";
+      case "gold": return "shadow-[0_0_8px_rgba(234,179,8,0.2)]";
+      case "silver": return "shadow-[0_0_5px_rgba(148,163,184,0.2)]";
+      default: return "";
+    }
+  };
+
+  const getTierTextColor = () => {
+    switch (tier.id) {
+      case "genesis": return "text-orange-500";
+      case "diamond": return "text-cyan-400";
+      case "gold": return "text-yellow-500";
+      case "silver": return "text-gray-400";
+      case "bronze": return "text-amber-600";
+      default: return "text-white";
+    }
+  };
+
   return (
-    <Card className={`relative overflow-hidden transition-all duration-300 ${isActive ? "ring-2 ring-primary scale-105" : "hover-elevate"}`}>
+    <div 
+      className={`relative backdrop-blur-xl bg-gradient-to-b ${tier.color} border ${tier.borderColor} rounded-2xl p-5 transition-all duration-300 ${getTierGlowClass()} ${isActive ? "ring-2 ring-blue-500 scale-105" : "hover:scale-102"}`}
+      data-testid={`tier-card-${tier.id}`}
+    >
+      {tier.label && (
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg">
+          {tier.label}
+        </div>
+      )}
       {isActive && (
         <div className="absolute top-2 right-2">
-          <Badge className="bg-primary text-primary-foreground">
+          <Badge className="bg-blue-500 text-white text-[10px]">
             <CheckCircle className="w-3 h-3 mr-1" />
             {isKorean ? "현재 등급" : "Your Tier"}
           </Badge>
         </div>
       )}
-      <div className={`h-2 bg-gradient-to-r ${tier.color}`} />
-      <CardHeader className="pb-2">
-        <div className="flex items-center gap-3">
-          <div className={`p-3 rounded-xl bg-gradient-to-br ${tier.color}`}>
-            <Icon className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <CardTitle className="text-lg">{name}</CardTitle>
-            <CardDescription>
-              Min: {formatNumber(tier.minStake)} TBURN
-            </CardDescription>
-          </div>
+      
+      <h3 className={`text-lg font-bold ${getTierTextColor()} mb-1`}>{name}</h3>
+      <p className="text-xs text-slate-400 mb-4">
+        Min: <span className="font-mono font-bold text-white">{formatNumber(tier.minStake)}</span> TBURN
+      </p>
+      
+      <div className="space-y-2 mb-4">
+        <div className="bg-black/30 rounded-lg p-3 text-center">
+          <p className="text-xs text-slate-400">TBURN {isKorean ? "보상" : "Reward"}</p>
+          <p className="text-xl font-bold font-mono text-white">{formatNumber(tier.tokenReward)}+</p>
         </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="bg-muted/50 rounded-lg p-2 text-center">
-            <div className="text-lg font-bold text-primary">{formatNumber(tier.tokenReward)}</div>
-            <div className="text-xs text-muted-foreground">TBURN {isKorean ? "보상" : "Reward"}</div>
-          </div>
-          <div className="bg-muted/50 rounded-lg p-2 text-center">
-            <div className="text-lg font-bold text-primary">{tier.multiplier}x</div>
-            <div className="text-xs text-muted-foreground">{isKorean ? "배수" : "Multiplier"}</div>
-          </div>
+        <div className="bg-black/30 rounded-lg p-3 text-center">
+          <p className="text-xs text-slate-400">{isKorean ? "배수" : "Multiplier"}</p>
+          <p className={`text-xl font-bold font-mono ${getTierTextColor()}`}>{tier.multiplier}x</p>
         </div>
-        {tier.nftReward && (
-          <Badge variant="outline" className="w-full justify-center gap-1 py-1">
-            <Image className="w-3 h-3" />
-            {isKorean ? "NFT 포함" : "Includes NFT"}
-          </Badge>
-        )}
-        <Separator />
-        <ul className="space-y-1">
-          {benefits.map((benefit, idx) => (
-            <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
-              <CheckCircle className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
-              <span>{benefit}</span>
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+      </div>
+      
+      <div className="text-xs text-slate-400 space-y-2">
+        {benefits.slice(0, 3).map((benefit, idx) => (
+          <p key={idx} className="flex items-start gap-2">
+            <CheckCircle className={`w-3 h-3 mt-0.5 flex-shrink-0 ${tier.nftReward && idx === 0 ? getTierTextColor() : 'text-emerald-500'}`} />
+            <span className={tier.nftReward && idx === 0 ? 'text-white font-medium' : ''}>{benefit}</span>
+          </p>
+        ))}
+      </div>
+    </div>
   );
 }
 
-function LeaderboardRow({ entry, isUser }: { entry: LeaderboardEntry; isUser: boolean }) {
-  const getRankIcon = () => {
-    if (entry.rank === 1) return <Crown className="w-5 h-5 text-yellow-500" />;
-    if (entry.rank === 2) return <Award className="w-5 h-5 text-gray-400" />;
-    if (entry.rank === 3) return <Award className="w-5 h-5 text-amber-600" />;
-    return <span className="text-muted-foreground font-medium">#{entry.rank}</span>;
+function LeaderboardRow({ entry, isUser, rank }: { entry: LeaderboardEntry; isUser: boolean; rank: number }) {
+  const getRankDisplay = () => {
+    if (rank === 1) return <Crown className="w-5 h-5 text-yellow-500" />;
+    if (rank === 2) return <Award className="w-5 h-5 text-gray-400" />;
+    if (rank === 3) return <Award className="w-5 h-5 text-amber-600" />;
+    return <span className="text-slate-400 font-mono text-sm">{rank}</span>;
+  };
+
+  const getTierBadge = () => {
+    const colors: Record<string, string> = {
+      genesis: "bg-orange-500/20 text-orange-400 border-orange-500/30",
+      diamond: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
+      gold: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+      silver: "bg-gray-500/20 text-gray-400 border-gray-500/30",
+      bronze: "bg-amber-700/20 text-amber-600 border-amber-700/30"
+    };
+    return colors[entry.tier] || colors.bronze;
   };
 
   return (
-    <div className={`flex items-center justify-between p-3 rounded-lg ${isUser ? "bg-primary/10 border border-primary/30" : "bg-muted/30"}`}>
-      <div className="flex items-center gap-3">
-        <div className="w-8 flex justify-center">{getRankIcon()}</div>
+    <div 
+      className={`flex items-center justify-between p-4 rounded-xl transition-all ${isUser ? "bg-blue-500/10 border border-blue-500/30" : "bg-slate-800/40 hover:bg-slate-800/60"}`}
+      data-testid={`leaderboard-row-${rank}`}
+    >
+      <div className="flex items-center gap-4">
+        <div className="w-8 flex justify-center">{getRankDisplay()}</div>
         <div>
-          <div className="font-medium flex items-center gap-2">
-            {entry.displayName || `${entry.address.slice(0, 6)}...${entry.address.slice(-4)}`}
-            {isUser && <Badge variant="outline" className="text-xs">You</Badge>}
+          <div className="font-medium text-white flex items-center gap-2">
+            {entry.displayName || `${entry.address.slice(0, 8)}...${entry.address.slice(-6)}`}
+            {isUser && <Badge variant="outline" className="text-[10px] border-blue-500 text-blue-400">You</Badge>}
           </div>
-          <div className="text-xs text-muted-foreground">
-            {formatNumber(parseFloat(entry.stakedAmount))} TBURN staked
+          <div className="text-xs text-slate-400">
+            <span className="font-mono">{formatNumber(parseFloat(entry.stakedAmount))}</span> TBURN
           </div>
         </div>
       </div>
-      <div className="text-right">
-        <div className="font-bold text-primary">{formatNumber(entry.score)}</div>
-        <div className="text-xs text-muted-foreground">{entry.referrals} referrals</div>
+      <div className="text-right flex items-center gap-3">
+        <Badge variant="outline" className={`text-[10px] ${getTierBadge()}`}>
+          {entry.tier.charAt(0).toUpperCase() + entry.tier.slice(1)}
+        </Badge>
+        <div>
+          <div className="font-bold font-mono text-blue-400">{formatNumber(entry.score)}</div>
+          <div className="text-[10px] text-slate-500">{entry.referrals} referrals</div>
+        </div>
       </div>
     </div>
   );
@@ -450,11 +486,11 @@ export default function LaunchEventPage() {
   };
 
   const defaultStats: LaunchStats = {
-    totalParticipants: 28547,
+    totalParticipants: 28549,
     totalStaked: "125000000",
     totalAirdropClaimed: "15000000",
-    nftsMinted: 1247,
-    referralCount: 8934,
+    nftsMinted: 1248,
+    referralCount: 8936,
     countriesRepresented: 89
   };
 
@@ -475,543 +511,443 @@ export default function LaunchEventPage() {
 
   const leaderboardData = leaderboard || defaultLeaderboard;
 
+  const tabs = [
+    { id: "overview", label: isKorean ? "개요 (Overview)" : "Overview" },
+    { id: "rewards", label: isKorean ? "보상 (Rewards)" : "Rewards" },
+    { id: "tasks", label: isKorean ? "태스크 (Tasks)" : "Tasks" },
+    { id: "leaderboard", label: isKorean ? "순위 (Leaderboard)" : "Leaderboard" }
+  ];
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0B1120] text-slate-200 font-sans">
       <PhishingWarningBanner />
       
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <Flame className="w-6 h-6 text-primary" />
-              <span className="font-bold text-lg">TBURN</span>
-            </div>
-            <Badge variant="outline" className="hidden sm:flex gap-1">
-              <Rocket className="w-3 h-3" />
-              {isKorean ? "메인넷 런칭" : "Mainnet Launch"}
+      <header className="h-16 border-b border-slate-800 bg-[#0B1120]/90 backdrop-blur-xl flex items-center justify-between px-4 md:px-8 sticky top-0 z-50">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+            T
+          </div>
+          <div className="hidden sm:block">
+            <h1 className="font-bold text-lg tracking-tight text-white">
+              TBURN <span className="text-orange-500">Event</span>
+            </h1>
+          </div>
+          <Badge className="bg-orange-500/10 text-orange-500 border border-orange-500/30 animate-pulse">
+            <span className="mr-1">●</span> LIVE EVENT
+          </Badge>
+        </div>
+        <div className="flex items-center gap-3">
+          <LanguageSelector />
+          {isConnected ? (
+            <Badge variant="secondary" className="bg-slate-800 text-slate-300 border-slate-700 gap-1">
+              <Wallet className="w-3 h-3" />
+              {address?.slice(0, 6)}...{address?.slice(-4)}
             </Badge>
-          </div>
-          <div className="flex items-center gap-2">
-            <LanguageSelector />
-            {isConnected ? (
-              <Badge variant="secondary" className="gap-1">
-                <Wallet className="w-3 h-3" />
-                {address?.slice(0, 6)}...{address?.slice(-4)}
-              </Badge>
-            ) : (
-              <Button size="sm" onClick={() => setShowWalletModal(true)} data-testid="button-connect-wallet">
-                <Wallet className="w-4 h-4 mr-2" />
-                {isKorean ? "지갑 연결" : "Connect"}
-              </Button>
-            )}
-          </div>
+          ) : (
+            <Button 
+              className="bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20"
+              onClick={() => setShowWalletModal(true)} 
+              data-testid="button-connect-wallet"
+            >
+              <Wallet className="w-4 h-4 mr-2" />
+              {isKorean ? "지갑 연결" : "Connect Wallet"}
+            </Button>
+          )}
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <section className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-2 mb-6">
-            <PartyPopper className="w-4 h-4" />
-            <span className="text-sm font-medium">
-              {isKorean ? "TBURN 메인넷 정식 오픈" : "TBURN Mainnet Official Launch"}
-            </span>
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-orange-500 to-red-500 bg-clip-text text-transparent">
-            {isKorean ? "Genesis 런칭 이벤트" : "Genesis Launch Event"}
-          </h1>
-          
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            {isKorean 
-              ? "TBURN 메인넷의 역사적인 순간에 함께하세요. 에어드랍, Genesis NFT, 그리고 특별 보상이 기다리고 있습니다."
-              : "Join us for the historic launch of TBURN Mainnet. Airdrops, Genesis NFTs, and exclusive rewards await."}
-          </p>
-
-          {!countdown.isLaunched ? (
-            <div className="flex justify-center gap-4 mb-8" data-testid="countdown-timer">
-              <CountdownBox value={countdown.days} label={isKorean ? "일" : "Days"} />
-              <CountdownBox value={countdown.hours} label={isKorean ? "시간" : "Hours"} />
-              <CountdownBox value={countdown.minutes} label={isKorean ? "분" : "Min"} />
-              <CountdownBox value={countdown.seconds} label={isKorean ? "초" : "Sec"} />
+      <main className="overflow-y-auto">
+        <div className="relative bg-gradient-to-br from-blue-500/10 via-transparent to-orange-500/10 border-b border-slate-800 p-6 md:p-12">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+              <div>
+                <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
+                  TBURN {isKorean ? "메인넷" : "Mainnet"} <span className="text-orange-500">Genesis {isKorean ? "런칭" : "Launch"}</span>
+                </h1>
+                <p className="text-base md:text-lg text-slate-400 max-w-2xl">
+                  {isKorean 
+                    ? "TBURN 메인넷의 역사적인 순간에 함께하세요. 에어드랍, Genesis NFT, 그리고 특별 보상이 기다리고 있습니다."
+                    : "Join us for the historic launch of TBURN Mainnet. Airdrops, Genesis NFTs, and exclusive rewards await."}
+                </p>
+              </div>
+              <div className="text-right">
+                <span className="text-xs text-slate-500 font-bold tracking-widest uppercase">Mainnet Status</span>
+                {countdown.isLaunched ? (
+                  <div className="text-xl md:text-2xl font-bold text-emerald-500 flex items-center justify-end gap-2">
+                    <CheckCircle className="w-5 h-5" /> MAINNET LIVE
+                  </div>
+                ) : (
+                  <div className="text-xl md:text-2xl font-bold text-orange-500 flex items-center justify-end gap-2" data-testid="countdown-timer">
+                    <Clock className="w-5 h-5" /> 
+                    {countdown.days}d {countdown.hours}h {countdown.minutes}m {countdown.seconds}s
+                  </div>
+                )}
+              </div>
             </div>
-          ) : (
-            <div className="flex justify-center mb-8">
-              <Badge className="text-lg py-2 px-6 bg-green-500 hover:bg-green-600 gap-2">
-                <Zap className="w-5 h-5" />
-                {isKorean ? "메인넷 라이브!" : "MAINNET IS LIVE!"}
-              </Badge>
+
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mt-8" data-testid="launch-stats">
+              <GlassPanel className="p-4 text-center">
+                <p className="text-xs text-slate-500">{isKorean ? "참여자" : "Participants"}</p>
+                <p className="text-xl md:text-2xl font-bold font-mono text-white">{formatNumber(stats.totalParticipants)}</p>
+              </GlassPanel>
+              <GlassPanel className="p-4 text-center">
+                <p className="text-xs text-slate-500">{isKorean ? "스테이킹" : "Staked"}</p>
+                <p className="text-xl md:text-2xl font-bold font-mono text-blue-400">{formatNumber(parseFloat(stats.totalStaked) / 1e6)}M</p>
+              </GlassPanel>
+              <GlassPanel className="p-4 text-center">
+                <p className="text-xs text-slate-500">{isKorean ? "에어드랍 할당" : "Airdrop"}</p>
+                <p className="text-xl md:text-2xl font-bold font-mono text-orange-500">{formatNumber(parseFloat(stats.totalAirdropClaimed) / 1e6)}M</p>
+              </GlassPanel>
+              <GlassPanel className="p-4 text-center">
+                <p className="text-xs text-slate-500">{isKorean ? "NFT 민팅" : "NFT Minted"}</p>
+                <p className="text-xl md:text-2xl font-bold font-mono text-white">{formatNumber(stats.nftsMinted)}</p>
+              </GlassPanel>
+              <GlassPanel className="p-4 text-center">
+                <p className="text-xs text-slate-500">{isKorean ? "국가" : "Countries"}</p>
+                <p className="text-xl md:text-2xl font-bold font-mono text-white">{stats.countriesRepresented}</p>
+              </GlassPanel>
+            </div>
+          </div>
+        </div>
+
+        <div className="sticky top-16 z-40 bg-[#0B1120]/95 backdrop-blur-xl border-b border-slate-800">
+          <div className="max-w-6xl mx-auto flex">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 py-4 text-sm font-bold transition-all ${
+                  activeTab === tab.id 
+                    ? "text-blue-500 border-b-2 border-blue-500 bg-blue-500/5" 
+                    : "text-slate-500 hover:text-slate-300"
+                }`}
+                data-testid={`tab-${tab.id}`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto p-4 md:p-8 pb-32">
+          {activeTab === "overview" && (
+            <div className="space-y-12 animate-in fade-in duration-300">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                  <Gift className="w-6 h-6 text-orange-500" />
+                  {isKorean ? "에어드랍 티어 시스템" : "Airdrop Tier System"}
+                </h2>
+                <p className="text-slate-400 mb-6">
+                  {isKorean 
+                    ? "스테이킹 금액에 따라 티어가 결정되며, 높은 티어일수록 더 많은 보상을 받습니다."
+                    : "Your tier is determined by your staked amount. Higher tiers receive greater rewards."}
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                  {AIRDROP_TIERS.map((tier) => (
+                    <TierCard 
+                      key={tier.id} 
+                      tier={tier} 
+                      isActive={userData?.tier === tier.id}
+                      isKorean={isKorean}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                  <Image className="w-6 h-6 text-purple-500" />
+                  Genesis NFT {isKorean ? "컬렉션" : "Collection"}
+                </h2>
+                <p className="text-slate-400 mb-6">
+                  {isKorean 
+                    ? "Gold 티어 이상의 참여자에게 독점 Genesis NFT가 제공됩니다. (총 1,000개 한정)"
+                    : "Exclusive Genesis NFTs are available for Gold tier and above participants. (Limited to 1,000 total)"}
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {[
+                    { name: "Genesis Founder", total: 100, minted: 89, color: "from-orange-500 to-red-500" },
+                    { name: "Diamond Pioneer", total: 300, minted: 247, color: "from-cyan-500 to-blue-500" },
+                    { name: "Gold Validator", total: 600, minted: 512, color: "from-yellow-500 to-amber-500" }
+                  ].map((nft, idx) => (
+                    <GlassPanel key={idx} className="p-5">
+                      <div className={`h-32 rounded-xl bg-gradient-to-br ${nft.color} mb-4 flex items-center justify-center`}>
+                        <Hexagon className="w-16 h-16 text-white/50" />
+                      </div>
+                      <h3 className="font-bold text-white mb-2">{nft.name} NFT</h3>
+                      <div className="flex justify-between text-sm text-slate-400 mb-2">
+                        <span>Minted</span>
+                        <span className="font-mono">{nft.minted}/{nft.total}</span>
+                      </div>
+                      <Progress value={(nft.minted / nft.total) * 100} className="h-2" />
+                    </GlassPanel>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                  <Share2 className="w-6 h-6 text-blue-500" />
+                  {isKorean ? "레퍼럴 프로그램" : "Referral Program"}
+                </h2>
+                <p className="text-slate-400 mb-6">
+                  {isKorean 
+                    ? "친구를 초대하고 추가 보상을 받으세요. 추천인당 200 TBURN 보너스!"
+                    : "Invite friends and earn extra rewards. 200 TBURN bonus per referral!"}
+                </p>
+                
+                <GlassPanel className="p-6">
+                  {isConnected && userData ? (
+                    <div className="space-y-4">
+                      <div className="flex flex-col md:flex-row gap-4">
+                        <div className="flex-1 bg-slate-900/50 rounded-xl p-4 border border-slate-700">
+                          <p className="text-xs text-slate-500 mb-1">{isKorean ? "내 레퍼럴 코드" : "Your Referral Code"}</p>
+                          <div className="flex items-center gap-2">
+                            <code className="text-lg font-mono text-white flex-1">{userData.referralCode}</code>
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              onClick={copyReferralCode}
+                              className="border-slate-600"
+                            >
+                              {copiedReferral ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            </Button>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="bg-slate-900/50 rounded-xl p-4 border border-slate-700 text-center">
+                            <p className="text-xs text-slate-500">{isKorean ? "추천 수" : "Referrals"}</p>
+                            <p className="text-2xl font-bold font-mono text-blue-400">{userData.referralCount}</p>
+                          </div>
+                          <div className="bg-slate-900/50 rounded-xl p-4 border border-slate-700 text-center">
+                            <p className="text-xs text-slate-500">{isKorean ? "보너스" : "Bonus"}</p>
+                            <p className="text-2xl font-bold font-mono text-orange-500">{userData.referralBonus}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <Wallet className="w-12 h-12 text-slate-600 mx-auto mb-4" />
+                      <p className="text-slate-400 mb-4">
+                        {isKorean ? "레퍼럴 프로그램에 참여하려면 지갑을 연결하세요." : "Connect your wallet to join the referral program."}
+                      </p>
+                      <Button 
+                        onClick={() => setShowWalletModal(true)}
+                        className="bg-blue-500 hover:bg-blue-600"
+                      >
+                        <Wallet className="w-4 h-4 mr-2" />
+                        {isKorean ? "지갑 연결" : "Connect Wallet"}
+                      </Button>
+                    </div>
+                  )}
+                </GlassPanel>
+              </div>
             </div>
           )}
 
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 max-w-4xl mx-auto" data-testid="launch-stats">
-            <Card className="bg-gradient-to-br from-primary/10 to-transparent">
-              <CardContent className="pt-4 text-center">
-                <Users className="w-6 h-6 mx-auto mb-2 text-primary" />
-                <div className="text-2xl font-bold">{formatNumber(stats.totalParticipants)}</div>
-                <div className="text-xs text-muted-foreground">{isKorean ? "참여자" : "Participants"}</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-gradient-to-br from-orange-500/10 to-transparent">
-              <CardContent className="pt-4 text-center">
-                <Coins className="w-6 h-6 mx-auto mb-2 text-orange-500" />
-                <div className="text-2xl font-bold">{formatNumber(parseFloat(stats.totalStaked) / 1e6)}M</div>
-                <div className="text-xs text-muted-foreground">{isKorean ? "스테이킹" : "Staked"}</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-gradient-to-br from-green-500/10 to-transparent">
-              <CardContent className="pt-4 text-center">
-                <Gift className="w-6 h-6 mx-auto mb-2 text-green-500" />
-                <div className="text-2xl font-bold">{formatNumber(parseFloat(stats.totalAirdropClaimed) / 1e6)}M</div>
-                <div className="text-xs text-muted-foreground">{isKorean ? "에어드랍" : "Airdrop"}</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-gradient-to-br from-purple-500/10 to-transparent">
-              <CardContent className="pt-4 text-center">
-                <Image className="w-6 h-6 mx-auto mb-2 text-purple-500" />
-                <div className="text-2xl font-bold">{formatNumber(stats.nftsMinted)}</div>
-                <div className="text-xs text-muted-foreground">{isKorean ? "NFT 민팅" : "NFTs Minted"}</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-gradient-to-br from-blue-500/10 to-transparent">
-              <CardContent className="pt-4 text-center">
-                <Share2 className="w-6 h-6 mx-auto mb-2 text-blue-500" />
-                <div className="text-2xl font-bold">{formatNumber(stats.referralCount)}</div>
-                <div className="text-xs text-muted-foreground">{isKorean ? "레퍼럴" : "Referrals"}</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-gradient-to-br from-cyan-500/10 to-transparent">
-              <CardContent className="pt-4 text-center">
-                <Globe className="w-6 h-6 mx-auto mb-2 text-cyan-500" />
-                <div className="text-2xl font-bold">{stats.countriesRepresented}</div>
-                <div className="text-xs text-muted-foreground">{isKorean ? "국가" : "Countries"}</div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-          <TabsList className="grid w-full grid-cols-4 max-w-2xl mx-auto">
-            <TabsTrigger value="overview" data-testid="tab-overview">
-              <Rocket className="w-4 h-4 mr-2" />
-              {isKorean ? "개요" : "Overview"}
-            </TabsTrigger>
-            <TabsTrigger value="rewards" data-testid="tab-rewards">
-              <Gift className="w-4 h-4 mr-2" />
-              {isKorean ? "보상" : "Rewards"}
-            </TabsTrigger>
-            <TabsTrigger value="tasks" data-testid="tab-tasks">
-              <CheckCircle className="w-4 h-4 mr-2" />
-              {isKorean ? "태스크" : "Tasks"}
-            </TabsTrigger>
-            <TabsTrigger value="leaderboard" data-testid="tab-leaderboard">
-              <Trophy className="w-4 h-4 mr-2" />
-              {isKorean ? "순위" : "Ranking"}
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="overview" className="mt-8">
-            <div className="grid gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Crown className="w-5 h-5 text-primary" />
-                    {isKorean ? "에어드랍 티어 시스템" : "Airdrop Tier System"}
-                  </CardTitle>
-                  <CardDescription>
-                    {isKorean 
-                      ? "스테이킹 금액에 따라 티어가 결정되며, 높은 티어일수록 더 많은 보상을 받습니다."
-                      : "Your tier is determined by your staking amount. Higher tiers receive more rewards."}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-5 gap-4">
-                    {AIRDROP_TIERS.map((tier) => (
-                      <TierCard
-                        key={tier.id}
-                        tier={tier}
-                        isActive={userTier?.id === tier.id}
-                        isKorean={isKorean}
-                      />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Timer className="w-5 h-5 text-primary" />
-                      {isKorean ? "런칭 일정" : "Launch Schedule"}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {[
-                      { date: "Dec 21, 00:00 UTC", event: isKorean ? "메인넷 Genesis 블록" : "Mainnet Genesis Block", status: "upcoming" },
-                      { date: "Dec 21, 00:01 UTC", event: isKorean ? "에어드랍 클레임 오픈" : "Airdrop Claims Open", status: "upcoming" },
-                      { date: "Dec 21, 00:05 UTC", event: isKorean ? "Genesis NFT 민팅 시작" : "Genesis NFT Minting Starts", status: "upcoming" },
-                      { date: "Dec 21 - Dec 28", event: isKorean ? "얼리버드 보너스 기간" : "Early Bird Bonus Period", status: "upcoming" },
-                      { date: "Dec 28", event: isKorean ? "첫 거버넌스 제안" : "First Governance Proposal", status: "upcoming" },
-                      { date: "Jan 1, 2025", event: isKorean ? "스테이킹 보상 시작" : "Staking Rewards Begin", status: "upcoming" }
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-4 p-3 rounded-lg bg-muted/30">
-                        <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
-                        <div className="flex-1">
-                          <div className="font-medium">{item.event}</div>
-                          <div className="text-sm text-muted-foreground">{item.date}</div>
+          {activeTab === "rewards" && (
+            <div className="space-y-8 animate-in fade-in duration-300">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                  <Gift className="w-6 h-6 text-orange-500" />
+                  {isKorean ? "내 보상" : "My Rewards"}
+                </h2>
+                
+                {isConnected && userData ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <GlassPanel className="p-6">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                          <Coins className="w-6 h-6 text-white" />
                         </div>
-                        <Badge variant="outline">{isKorean ? "예정" : "Upcoming"}</Badge>
+                        <div>
+                          <p className="text-sm text-slate-400">{isKorean ? "에어드랍 보상" : "Airdrop Reward"}</p>
+                          <p className="text-2xl font-bold font-mono text-white">{userData.airdropAmount} TBURN</p>
+                        </div>
                       </div>
-                    ))}
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Image className="w-5 h-5 text-primary" />
-                      {isKorean ? "Genesis NFT 컬렉션" : "Genesis NFT Collection"}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="aspect-video bg-gradient-to-br from-primary/20 via-purple-500/20 to-orange-500/20 rounded-xl flex items-center justify-center border border-primary/30">
-                      <div className="text-center">
-                        <Hexagon className="w-16 h-16 mx-auto mb-4 text-primary" />
-                        <div className="text-lg font-bold">{isKorean ? "Genesis 파운더 NFT" : "Genesis Founder NFT"}</div>
-                        <div className="text-sm text-muted-foreground">{isKorean ? "100개 한정" : "Limited to 100"}</div>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 text-center">
-                      <div className="bg-muted/50 rounded-lg p-2">
-                        <div className="text-xl font-bold text-primary">3</div>
-                        <div className="text-xs text-muted-foreground">{isKorean ? "등급" : "Tiers"}</div>
-                      </div>
-                      <div className="bg-muted/50 rounded-lg p-2">
-                        <div className="text-xl font-bold text-primary">1,000</div>
-                        <div className="text-xs text-muted-foreground">{isKorean ? "총 발행" : "Total"}</div>
-                      </div>
-                      <div className="bg-muted/50 rounded-lg p-2">
-                        <div className="text-xl font-bold text-primary">{stats.nftsMinted}</div>
-                        <div className="text-xs text-muted-foreground">{isKorean ? "민팅됨" : "Minted"}</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="rewards" className="mt-8">
-            {!isConnected ? (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <Wallet className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-                  <h3 className="text-xl font-bold mb-2">
-                    {isKorean ? "지갑을 연결하세요" : "Connect Your Wallet"}
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    {isKorean 
-                      ? "보상을 확인하고 클레임하려면 지갑을 연결해주세요."
-                      : "Connect your wallet to check and claim your rewards."}
-                  </p>
-                  <Button onClick={() => setShowWalletModal(true)} data-testid="button-connect-rewards">
-                    <Wallet className="w-4 h-4 mr-2" />
-                    {isKorean ? "지갑 연결" : "Connect Wallet"}
-                  </Button>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Gift className="w-5 h-5 text-primary" />
-                      {isKorean ? "에어드랍 보상" : "Airdrop Rewards"}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="text-center p-6 bg-gradient-to-br from-primary/10 to-transparent rounded-xl">
-                      <div className="text-4xl font-bold text-primary mb-2">
-                        {userData?.airdropAmount || "10,000"} TBURN
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        {isKorean ? "총 에어드랍 보상" : "Total Airdrop Reward"}
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>{isKorean ? "기본 보상" : "Base Reward"}</span>
-                        <span>5,000 TBURN</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span>{isKorean ? "티어 보너스" : "Tier Bonus"}</span>
-                        <span>+{userTier?.multiplier || 1}x</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span>{isKorean ? "레퍼럴 보너스" : "Referral Bonus"}</span>
-                        <span>{userData?.referralBonus || "0"} TBURN</span>
-                      </div>
-                      <Separator />
-                      <div className="flex justify-between font-bold">
-                        <span>{isKorean ? "총계" : "Total"}</span>
-                        <span className="text-primary">{userData?.airdropAmount || "10,000"} TBURN</span>
-                      </div>
-                    </div>
-
-                    <Button 
-                      className="w-full" 
-                      disabled={userData?.airdropClaimed || claimAirdropMutation.isPending || !countdown.isLaunched}
-                      onClick={() => claimAirdropMutation.mutate()}
-                      data-testid="button-claim-airdrop"
-                    >
-                      {claimAirdropMutation.isPending ? (
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      ) : userData?.airdropClaimed ? (
-                        <CheckCircle className="w-4 h-4 mr-2" />
-                      ) : (
-                        <Gift className="w-4 h-4 mr-2" />
-                      )}
-                      {userData?.airdropClaimed 
-                        ? (isKorean ? "클레임 완료" : "Claimed") 
-                        : !countdown.isLaunched
-                          ? (isKorean ? "런칭 대기중" : "Waiting for Launch")
-                          : (isKorean ? "에어드랍 클레임" : "Claim Airdrop")}
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Image className="w-5 h-5 text-primary" />
-                      {isKorean ? "Genesis NFT" : "Genesis NFT"}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="aspect-square max-w-[200px] mx-auto bg-gradient-to-br from-primary/20 via-purple-500/20 to-orange-500/20 rounded-xl flex items-center justify-center border border-primary/30">
-                      <div className="text-center">
-                        {userTier?.icon && <userTier.icon className="w-12 h-12 mx-auto mb-2 text-primary" />}
-                        <div className="text-sm font-bold">{userTier?.name || "Bronze Member"}</div>
-                      </div>
-                    </div>
-
-                    {userTier?.nftReward ? (
                       <Button 
-                        className="w-full" 
-                        disabled={userData?.nftClaimed || claimNftMutation.isPending || !countdown.isLaunched}
-                        onClick={() => claimNftMutation.mutate()}
-                        data-testid="button-mint-nft"
+                        className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+                        onClick={() => claimAirdropMutation.mutate()}
+                        disabled={userData.airdropClaimed || claimAirdropMutation.isPending}
                       >
-                        {claimNftMutation.isPending ? (
+                        {claimAirdropMutation.isPending ? (
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        ) : userData?.nftClaimed ? (
+                        ) : userData.airdropClaimed ? (
                           <CheckCircle className="w-4 h-4 mr-2" />
                         ) : (
-                          <Image className="w-4 h-4 mr-2" />
+                          <Gift className="w-4 h-4 mr-2" />
                         )}
-                        {userData?.nftClaimed 
-                          ? (isKorean ? "민팅 완료" : "Minted") 
-                          : !countdown.isLaunched
-                            ? (isKorean ? "런칭 대기중" : "Waiting for Launch")
-                            : (isKorean ? "NFT 민팅" : "Mint NFT")}
+                        {userData.airdropClaimed ? (isKorean ? "클레임 완료" : "Claimed") : (isKorean ? "에어드랍 클레임" : "Claim Airdrop")}
                       </Button>
-                    ) : (
-                      <div className="text-center p-4 bg-muted/30 rounded-lg">
-                        <Lock className="w-6 h-6 mx-auto mb-2 text-muted-foreground" />
-                        <p className="text-sm text-muted-foreground">
-                          {isKorean 
-                            ? "Gold 티어 이상에서 NFT를 받을 수 있습니다."
-                            : "NFT available for Gold tier and above."}
-                        </p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+                    </GlassPanel>
 
-                <Card className="md:col-span-2">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Share2 className="w-5 h-5 text-primary" />
-                      {isKorean ? "레퍼럴 프로그램" : "Referral Program"}
-                    </CardTitle>
-                    <CardDescription>
-                      {isKorean
-                        ? "친구를 초대하고 추가 보상을 받으세요. 초대받은 친구가 스테이킹하면 10%의 보너스를 받습니다."
-                        : "Invite friends and earn extra rewards. Get 10% bonus when your referrals stake."}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div className="md:col-span-2">
-                        <div className="flex gap-2">
-                          <Input 
-                            value={`https://tburn.network/launch?ref=${userData?.referralCode || "YOURCODE"}`}
-                            readOnly
-                            className="font-mono text-sm"
-                          />
-                          <Button variant="outline" size="icon" onClick={copyReferralCode} data-testid="button-copy-referral">
-                            {copiedReferral ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                          </Button>
-                        </div>
-                        <div className="flex gap-2 mt-3">
-                          <Button variant="outline" size="sm" className="flex-1">
-                            <Twitter className="w-4 h-4 mr-2" />
-                            {isKorean ? "트위터 공유" : "Share on X"}
-                          </Button>
-                          <Button variant="outline" size="sm" className="flex-1">
-                            <SiTelegram className="w-4 h-4 mr-2" />
-                            {isKorean ? "텔레그램 공유" : "Share on Telegram"}
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="bg-muted/50 rounded-lg p-3 text-center">
-                          <div className="text-2xl font-bold text-primary">{userData?.referralCount || 0}</div>
-                          <div className="text-xs text-muted-foreground">{isKorean ? "초대" : "Invites"}</div>
-                        </div>
-                        <div className="bg-muted/50 rounded-lg p-3 text-center">
-                          <div className="text-2xl font-bold text-green-500">{userData?.referralBonus || "0"}</div>
-                          <div className="text-xs text-muted-foreground">{isKorean ? "보너스" : "Bonus"}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-          </TabsContent>
-
-          <TabsContent value="tasks" className="mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  {isKorean ? "태스크 & 퀘스트" : "Tasks & Quests"}
-                </CardTitle>
-                <CardDescription>
-                  {isKorean
-                    ? "태스크를 완료하고 추가 TBURN 토큰을 획득하세요."
-                    : "Complete tasks to earn additional TBURN tokens."}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {SOCIAL_TASKS.map((task) => {
-                    const isCompleted = userData?.tasks?.find(t => t.id === task.id)?.completed || false;
-                    const Icon = task.icon;
-                    return (
-                      <div 
-                        key={task.id}
-                        className={`flex items-center justify-between p-4 rounded-lg border ${isCompleted ? "bg-green-500/10 border-green-500/30" : "bg-muted/30"}`}
-                        data-testid={`task-${task.id}`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg ${isCompleted ? "bg-green-500/20" : "bg-muted"}`}>
-                            <Icon className={`w-5 h-5 ${isCompleted ? "text-green-500" : "text-muted-foreground"}`} />
+                    {userTier?.nftReward && (
+                      <GlassPanel className="p-6">
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                            <Image className="w-6 h-6 text-white" />
                           </div>
                           <div>
-                            <div className="font-medium">{isKorean ? task.nameKo : task.name}</div>
-                            <div className="text-sm text-muted-foreground">+{task.reward}</div>
+                            <p className="text-sm text-slate-400">Genesis NFT</p>
+                            <p className="text-lg font-bold text-white">{userTier.name} NFT</p>
                           </div>
                         </div>
-                        {isCompleted ? (
-                          <Badge className="bg-green-500">
-                            <CheckCircle className="w-3 h-3 mr-1" />
-                            {isKorean ? "완료" : "Done"}
-                          </Badge>
-                        ) : (
-                          <Button size="sm" variant="outline" data-testid={`button-task-${task.id}`}>
-                            {isKorean ? "시작" : "Start"}
-                          </Button>
-                        )}
-                      </div>
+                        <Button 
+                          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                          onClick={() => claimNftMutation.mutate()}
+                          disabled={userData.nftClaimed || claimNftMutation.isPending}
+                        >
+                          {claimNftMutation.isPending ? (
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          ) : userData.nftClaimed ? (
+                            <CheckCircle className="w-4 h-4 mr-2" />
+                          ) : (
+                            <Sparkles className="w-4 h-4 mr-2" />
+                          )}
+                          {userData.nftClaimed ? (isKorean ? "민팅 완료" : "Minted") : (isKorean ? "NFT 민팅" : "Mint NFT")}
+                        </Button>
+                      </GlassPanel>
+                    )}
+                  </div>
+                ) : (
+                  <GlassPanel className="p-12 text-center">
+                    <Wallet className="w-16 h-16 text-slate-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      {isKorean ? "지갑을 연결하세요" : "Connect Your Wallet"}
+                    </h3>
+                    <p className="text-slate-400 mb-6">
+                      {isKorean ? "보상을 확인하고 클레임하려면 지갑을 연결하세요." : "Connect your wallet to view and claim your rewards."}
+                    </p>
+                    <Button 
+                      size="lg"
+                      onClick={() => setShowWalletModal(true)}
+                      className="bg-blue-500 hover:bg-blue-600"
+                    >
+                      <Wallet className="w-5 h-5 mr-2" />
+                      {isKorean ? "지갑 연결" : "Connect Wallet"}
+                    </Button>
+                  </GlassPanel>
+                )}
+              </div>
+            </div>
+          )}
+
+          {activeTab === "tasks" && (
+            <div className="space-y-8 animate-in fade-in duration-300">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                  <CheckCircle className="w-6 h-6 text-emerald-500" />
+                  {isKorean ? "태스크 & 퀘스트" : "Tasks & Quests"}
+                </h2>
+                <p className="text-slate-400 mb-6">
+                  {isKorean 
+                    ? "태스크를 완료하고 추가 보상을 획득하세요!"
+                    : "Complete tasks to earn additional rewards!"}
+                </p>
+
+                <div className="space-y-3">
+                  {SOCIAL_TASKS.map((task, idx) => {
+                    const Icon = task.icon;
+                    const isCompleted = userData?.tasks?.find(t => t.id === task.id)?.completed || false;
+                    
+                    return (
+                      <GlassPanel key={task.id} className="p-4 flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isCompleted ? "bg-emerald-500/20" : "bg-slate-700"}`}>
+                            <Icon className={`w-5 h-5 ${isCompleted ? "text-emerald-500" : "text-slate-400"}`} />
+                          </div>
+                          <div>
+                            <p className="font-medium text-white">{isKorean ? task.nameKo : task.name}</p>
+                            <p className="text-sm text-slate-400">{isKorean ? "보상" : "Reward"}: <span className="text-orange-500 font-mono">{task.reward}</span></p>
+                          </div>
+                        </div>
+                        <Button 
+                          variant={isCompleted ? "outline" : "default"}
+                          size="sm"
+                          disabled={isCompleted}
+                          className={isCompleted ? "border-emerald-500 text-emerald-500" : "bg-blue-500 hover:bg-blue-600"}
+                        >
+                          {isCompleted ? (
+                            <>
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              {isKorean ? "완료" : "Done"}
+                            </>
+                          ) : (
+                            <>
+                              <ArrowRight className="w-4 h-4 mr-1" />
+                              {isKorean ? "시작" : "Start"}
+                            </>
+                          )}
+                        </Button>
+                      </GlassPanel>
                     );
                   })}
                 </div>
-
-                <Separator className="my-6" />
-
-                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-primary/10 to-transparent rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Trophy className="w-8 h-8 text-primary" />
-                    <div>
-                      <div className="font-bold">{isKorean ? "총 태스크 보상" : "Total Task Rewards"}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {userData?.tasks?.filter(t => t.completed).length || 0} / {SOCIAL_TASKS.length} {isKorean ? "완료" : "completed"}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-2xl font-bold text-primary">
-                    {SOCIAL_TASKS.reduce((sum, t) => {
-                      const isCompleted = userData?.tasks?.find(ut => ut.id === t.id)?.completed;
-                      return isCompleted ? sum + parseInt(t.reward.replace(/[^0-9]/g, "")) : sum;
-                    }, 0)} TBURN
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="leaderboard" className="mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Trophy className="w-5 h-5 text-primary" />
-                  {isKorean ? "런칭 리더보드" : "Launch Leaderboard"}
-                </CardTitle>
-                <CardDescription>
-                  {isKorean
-                    ? "스테이킹과 레퍼럴을 통해 순위를 올리세요. 상위 참여자에게 특별 보상이 제공됩니다."
-                    : "Climb the ranks through staking and referrals. Top participants receive special rewards."}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-[500px]">
-                  <div className="space-y-2">
-                    {leaderboardData.map((entry) => (
-                      <LeaderboardRow
-                        key={entry.rank}
-                        entry={entry}
-                        isUser={entry.address === address}
-                      />
-                    ))}
-                  </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-
-        <section className="mt-12 text-center">
-          <Card className="bg-gradient-to-r from-primary/10 via-purple-500/10 to-orange-500/10 border-primary/30">
-            <CardContent className="py-8">
-              <h2 className="text-2xl font-bold mb-4">
-                {isKorean ? "지금 참여하고 보상을 받으세요!" : "Join Now and Get Rewarded!"}
-              </h2>
-              <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                {isKorean
-                  ? "TBURN 메인넷 런칭에 참여하여 에어드랍, NFT, 그리고 다양한 보상을 받으세요."
-                  : "Participate in the TBURN mainnet launch and receive airdrops, NFTs, and various rewards."}
-              </p>
-              <div className="flex justify-center gap-4">
-                <Button size="lg" onClick={() => setShowWalletModal(true)} data-testid="button-join-launch">
-                  <Rocket className="w-5 h-5 mr-2" />
-                  {isKorean ? "런칭 이벤트 참여" : "Join Launch Event"}
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <a href="/app/staking" data-testid="link-staking">
-                    <Coins className="w-5 h-5 mr-2" />
-                    {isKorean ? "스테이킹 하기" : "Start Staking"}
-                  </a>
-                </Button>
               </div>
-            </CardContent>
-          </Card>
-        </section>
+            </div>
+          )}
+
+          {activeTab === "leaderboard" && (
+            <div className="space-y-8 animate-in fade-in duration-300">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                  <Trophy className="w-6 h-6 text-yellow-500" />
+                  {isKorean ? "런칭 리더보드" : "Launch Leaderboard"}
+                </h2>
+                <p className="text-slate-400 mb-6">
+                  {isKorean 
+                    ? "스테이킹 금액과 레퍼럴을 기반으로 한 상위 참여자 순위입니다."
+                    : "Top participants ranked by staking amount and referrals."}
+                </p>
+
+                <div className="space-y-3">
+                  {leaderboardData.map((entry, idx) => (
+                    <LeaderboardRow 
+                      key={entry.address}
+                      entry={entry}
+                      rank={idx + 1}
+                      isUser={address === entry.address}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120] to-transparent pt-16 pb-8 px-4">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/staking">
+              <Button 
+                size="lg" 
+                className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 shadow-lg shadow-blue-500/30"
+                data-testid="button-join-launch"
+              >
+                <Rocket className="w-5 h-5 mr-2" />
+                {isKorean ? "런칭 이벤트 참여" : "Join Launch Event"}
+              </Button>
+            </Link>
+            <Link href="/staking">
+              <Button 
+                size="lg" 
+                className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 shadow-lg shadow-orange-500/30"
+                data-testid="link-staking"
+              >
+                <Coins className="w-5 h-5 mr-2" />
+                {isKorean ? "스테이킹 하기" : "Start Staking"}
+              </Button>
+            </Link>
+          </div>
+        </div>
       </main>
 
-      <WalletConnectModal open={showWalletModal} onOpenChange={setShowWalletModal} />
+      <WalletConnectModal 
+        open={showWalletModal} 
+        onOpenChange={setShowWalletModal}
+      />
     </div>
   );
 }
