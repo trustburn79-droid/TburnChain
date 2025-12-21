@@ -1,4 +1,5 @@
 import { ethers, JsonRpcProvider, Wallet, Contract, TransactionReceipt } from "ethers";
+import { tokenRegistry, RegisteredToken } from "./TokenRegistry";
 
 const TBURN_MAINNET_RPC = process.env.TBURN_RPC_URL || "http://localhost:8545";
 const TBURN_CHAIN_ID = 7979;
@@ -308,6 +309,39 @@ class TokenFactoryService {
 
     this.deployedTokens.set(contractAddress.toLowerCase(), tokenMetadata);
 
+    // Register in unified TokenRegistry for admin panel integration
+    const registeredToken: RegisteredToken = {
+      id: tokenMetadata.id,
+      name: tokenMetadata.name,
+      symbol: tokenMetadata.symbol,
+      contractAddress: tokenMetadata.contractAddress,
+      standard: request.standard,
+      totalSupply: tokenMetadata.totalSupply,
+      decimals: tokenMetadata.decimals,
+      deployerAddress: tokenMetadata.deployerAddress,
+      deploymentTxHash: txHash,
+      deployedAt: tokenMetadata.deployedAt,
+      blockNumber: receipt.blockNumber,
+      mintable: tokenMetadata.mintable,
+      burnable: tokenMetadata.burnable,
+      pausable: tokenMetadata.pausable,
+      maxSupply: request.maxSupply,
+      baseUri: request.baseUri,
+      royaltyPercentage: request.royaltyPercentage,
+      royaltyRecipient: request.royaltyRecipient,
+      aiOptimizationEnabled: tokenMetadata.aiOptimizationEnabled,
+      quantumResistant: tokenMetadata.quantumResistant,
+      mevProtection: tokenMetadata.mevProtection,
+      holders: 1,
+      transactionCount: 1,
+      volume24h: "0",
+      status: "active",
+      verified: false,
+      deploymentSource: "token-factory",
+      deploymentMode: "wallet",
+    };
+    tokenRegistry.registerToken(registeredToken);
+
     return {
       success: true,
       contractAddress,
@@ -450,6 +484,39 @@ class TokenFactoryService {
     };
 
     this.deployedTokens.set(contractAddress.toLowerCase(), token);
+
+    // Register in unified TokenRegistry for admin panel integration (simulation mode)
+    const registeredToken: RegisteredToken = {
+      id: token.id,
+      name: token.name,
+      symbol: token.symbol,
+      contractAddress: token.contractAddress,
+      standard: request.standard,
+      totalSupply: token.totalSupply,
+      decimals: token.decimals,
+      deployerAddress: token.deployerAddress,
+      deploymentTxHash: txHash,
+      deployedAt: token.deployedAt,
+      blockNumber: token.blockNumber,
+      mintable: token.mintable,
+      burnable: token.burnable,
+      pausable: token.pausable,
+      maxSupply: request.maxSupply,
+      baseUri: request.baseUri,
+      royaltyPercentage: request.royaltyPercentage,
+      royaltyRecipient: request.royaltyRecipient,
+      aiOptimizationEnabled: token.aiOptimizationEnabled,
+      quantumResistant: token.quantumResistant,
+      mevProtection: token.mevProtection,
+      holders: 1,
+      transactionCount: 1,
+      volume24h: "0",
+      status: "active",
+      verified: false,
+      deploymentSource: "token-generator",
+      deploymentMode: "simulation",
+    };
+    tokenRegistry.registerToken(registeredToken);
 
     return {
       token,

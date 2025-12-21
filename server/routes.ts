@@ -2495,6 +2495,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
         verified: false,
         status: "active"
       };
+      
+      // Register in unified TokenRegistry for admin panel integration
+      const { tokenRegistry } = await import("./services/TokenRegistry");
+      tokenRegistry.registerToken({
+        id: deployedToken.id,
+        name: deployedToken.name,
+        symbol: deployedToken.symbol,
+        contractAddress: deployedToken.contractAddress,
+        standard: deployedToken.standard as "TBC-20" | "TBC-721" | "TBC-1155",
+        totalSupply: deployedToken.totalSupply,
+        decimals: deployedToken.decimals,
+        deployerAddress: deployedToken.deployerAddress,
+        deploymentTxHash: deployedToken.deploymentTxHash,
+        deployedAt: deployedToken.deployedAt,
+        blockNumber: Math.floor(Math.random() * 1000000) + 1000000,
+        mintable: deployedToken.mintable,
+        burnable: deployedToken.burnable,
+        pausable: deployedToken.pausable,
+        maxSupply: deployedToken.maxSupply || undefined,
+        baseUri: deployedToken.baseUri || undefined,
+        royaltyPercentage: deployedToken.royaltyPercentage,
+        royaltyRecipient: deployedToken.royaltyRecipient,
+        aiOptimizationEnabled: deployedToken.aiOptimizationEnabled,
+        aiBurnOptimization: deployedToken.aiBurnOptimization,
+        aiPriceOracle: deployedToken.aiPriceOracle,
+        aiSupplyManagement: deployedToken.aiSupplyManagement,
+        quantumResistant: deployedToken.quantumResistant,
+        mevProtection: deployedToken.mevProtection,
+        zkPrivacy: deployedToken.zkPrivacy,
+        holders: 1,
+        transactionCount: 1,
+        volume24h: "0",
+        status: "active",
+        verified: false,
+        deploymentSource: "token-system",
+        deploymentMode: "simulation",
+      });
 
       // Simulate AI optimization analysis (in production would call Triple-Band AI)
       const aiAnalysis = {
@@ -2755,7 +2792,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       ];
       
-      res.json(deployedTokens);
+      // Merge with real deployed tokens from TokenRegistry
+      const { tokenRegistry } = await import("./services/TokenRegistry");
+      const registryTokens = deployerAddress 
+        ? tokenRegistry.getTokensByDeployer(deployerAddress)
+        : tokenRegistry.getAllTokens();
+      
+      // Combine sample data with registry tokens (registry tokens first for freshness)
+      const allTokens = [
+        ...registryTokens.map(t => ({
+          ...t,
+          isFromRegistry: true,
+        })),
+        ...deployedTokens,
+      ];
+      
+      res.json(allTokens);
     } catch (error) {
       console.error("Error fetching deployed tokens:", error);
       res.status(500).json({ error: "Failed to fetch deployed tokens" });
@@ -8645,26 +8697,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ success: true, message: "Parameters updated successfully", params: req.body });
   });
 
-  // Token Issuance - uses TBurnEnterpriseNode for real production data
+  // Token Issuance - uses TBurnEnterpriseNode + TokenRegistry for unified view
   app.get("/api/admin/tokens", async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const tokenData = enterpriseNode.getTokensInfo();
       
+      // Get user-deployed tokens from TokenRegistry
+      const { tokenRegistry } = await import("./services/TokenRegistry");
+      const userDeployedTokens = tokenRegistry.exportAllTokens();
+      const registryStats = tokenRegistry.getStats();
+      
+      // Combine platform tokens with user-deployed tokens
+      const allTokens = [
+        ...tokenData.tokens,
+        ...userDeployedTokens.map((t: any) => ({
+          ...t,
+          isUserDeployed: true,
+        })),
+      ];
+      
       res.json({
-        tokens: tokenData.tokens,
+        tokens: allTokens,
         supplyStats: tokenData.supplyStats,
         recentActions: tokenData.recentActions,
         stats: {
-          totalTokens: tokenData.tokens.length,
+          totalTokens: allTokens.length,
+          platformTokens: tokenData.tokens.length,
+          userDeployedTokens: userDeployedTokens.length,
           totalMarketCap: '$2,900,000,000',
           dailyVolume: '$125,000,000',
           totalBurned: tokenData.supplyStats.find(s => s.label === 'Burned Supply')?.value + ' TBURN'
-        }
+        },
+        registryStats,
       });
     } catch (error) {
       console.error('[Admin Tokens] Failed to fetch:', error);
       res.status(500).json({ error: "Failed to fetch tokens" });
+    }
+  });
+  
+  // Get user-deployed tokens only (from TokenRegistry)
+  app.get("/api/admin/tokens/user-deployed", async (_req, res) => {
+    try {
+      const { tokenRegistry } = await import("./services/TokenRegistry");
+      const tokens = tokenRegistry.getAllTokens();
+      const stats = tokenRegistry.getStats();
+      res.json({ tokens, stats });
+    } catch (error) {
+      console.error('[Admin User Tokens] Failed to fetch:', error);
+      res.status(500).json({ error: "Failed to fetch user-deployed tokens" });
+    }
+  });
+  
+  // Pause/resume user-deployed token
+  app.post("/api/admin/tokens/registry/:address/:action", async (req, res) => {
+    try {
+      const { tokenRegistry } = await import("./services/TokenRegistry");
+      const { address, action } = req.params;
+      
+      let success = false;
+      if (action === "pause") {
+        success = tokenRegistry.pauseToken(address);
+      } else if (action === "resume") {
+        success = tokenRegistry.resumeToken(address);
+      } else if (action === "verify") {
+        const score = req.body.securityScore || 95;
+        success = tokenRegistry.verifyToken(address, score);
+      }
+      
+      if (!success) {
+        return res.status(404).json({ error: "Token not found in registry" });
+      }
+      
+      res.json({ success: true, message: `Token ${action} completed` });
+    } catch (error) {
+      console.error('[Admin Token Registry Action] Failed:', error);
+      res.status(500).json({ error: "Action failed" });
     }
   });
 
