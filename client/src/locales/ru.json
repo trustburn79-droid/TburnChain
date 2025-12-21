@@ -13536,5 +13536,121 @@
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
     }
+  },
+  "launchEventPage": {
+    "title": "TBURN Mainnet Genesis Запуск",
+    "subtitle": "Присоединяйтесь к историческому моменту TBURN Mainnet. Аирдропы, Genesis NFTs и специальные награды ждут вас.",
+    "liveEvent": "ПРЯМОЙ ЭФИР",
+    "connectWallet": "Подключить Кошелек",
+    "tabs": {
+      "overview": "Обзор",
+      "rewards": "Награды",
+      "tasks": "Задания",
+      "leaderboard": "Рейтинг"
+    },
+    "stats": {
+      "participants": "Участники",
+      "totalStaked": "Всего в Стейке",
+      "nftsMinted": "NFT Выпущено",
+      "countries": "Страны"
+    },
+    "timeline": {
+      "title": "График Запуска",
+      "preRegistration": "Предрегистрация",
+      "mainnetLaunch": "Запуск Mainnet",
+      "stakingBegins": "Начало Стейкинга",
+      "airdrop": "Распределение Аирдропа"
+    },
+    "nftCollection": {
+      "title": "Коллекция Genesis NFT",
+      "genesisFounder": "Genesis Founder NFT",
+      "limitedEdition": "100 лимитированных экземпляров. Высший статус и привилегии.",
+      "tier": "Уровень",
+      "totalSupply": "Общий Выпуск",
+      "minted": "Выпущено",
+      "info": "Право на бесплатный минт предоставляется стейкерам Genesis и Diamond."
+    },
+    "tiers": {
+      "genesis": "Genesis",
+      "diamond": "Diamond",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "genesisRequirement": "Стейк 1M+ TBURN",
+      "genesisPerks": [
+        "35% APY",
+        "Эксклюзивный NFT",
+        "Приоритет Управления"
+      ],
+      "diamondRequirement": "Стейк 500K+ TBURN",
+      "diamondPerks": [
+        "30% APY",
+        "Доступ к Genesis NFT"
+      ],
+      "goldRequirement": "Стейк 100K+ TBURN",
+      "goldPerks": [
+        "25% APY",
+        "Приоритетная Поддержка"
+      ],
+      "silverRequirement": "Стейк 10K+ TBURN",
+      "silverPerks": [
+        "20% APY"
+      ],
+      "bronzeRequirement": "Стейк 1K+ TBURN",
+      "bronzePerks": [
+        "15% APY"
+      ]
+    },
+    "referral": {
+      "title": "Реферальная Программа",
+      "description": "Поделитесь реферальной ссылкой и получите 10% от наград стейкинга ваших рефералов!",
+      "yourCode": "Ваша Реферальная Ссылка",
+      "copyLink": "Копировать Ссылку",
+      "copied": "Скопировано!",
+      "totalReferrals": "Всего Рефералов",
+      "bonusEarned": "Заработанный Бонус"
+    },
+    "rewards": {
+      "title": "Мои Награды",
+      "connectPrompt": "Подключить Кошелек",
+      "connectDescription": "Подключите кошелек для проверки и получения наград.",
+      "currentTier": "Текущий Уровень",
+      "stakedAmount": "Сумма в Стейке",
+      "airdropReward": "Награда Аирдропа",
+      "referralBonus": "Реферальный Бонус",
+      "claimAirdrop": "Получить Аирдроп",
+      "claimNft": "Минт NFT",
+      "claimed": "Получено",
+      "minted": "Выпущено",
+      "notEligible": "Не Соответствует"
+    },
+    "tasks": {
+      "title": "Задания и Квесты",
+      "description": "Выполняйте задания и получайте дополнительные награды!",
+      "twitterFollow": "Подписаться на X/Twitter",
+      "discordJoin": "Присоединиться к Discord",
+      "telegramJoin": "Присоединиться к Telegram",
+      "shareLaunch": "Поделиться Постом о Запуске",
+      "firstStake": "Первый Стейк",
+      "bridgeTx": "Транзакция Моста",
+      "reward": "Награда",
+      "start": "Начать",
+      "completed": "Выполнено"
+    },
+    "leaderboard": {
+      "title": "Рейтинг Запуска",
+      "description": "Повышайте ранг через стейкинг и рефералов. Специальные награды для лучших участников.",
+      "rank": "РАНГ",
+      "user": "ПОЛЬЗОВАТЕЛЬ",
+      "staked": "СТЕЙК",
+      "referrals": "РЕФЕРАЛЫ",
+      "score": "ОЧКИ"
+    },
+    "cta": {
+      "title": "Присоединяйтесь Сейчас!",
+      "description": "Участвуйте в запуске TBURN Mainnet Genesis и получите эксклюзивные награды. Начните стейкинг для автоматического участия в событии.",
+      "joinLaunch": "Присоединиться к Запуску",
+      "startStaking": "Начать Стейкинг"
+    }
   }
 }

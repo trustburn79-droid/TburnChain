@@ -17212,5 +17212,121 @@
       "stakingRec": "ステーキングAPY {{rate}}%で構成",
       "vestingRec": "ベスティングスケジュールが長期安定性を提供"
     }
+  },
+  "launchEventPage": {
+    "title": "TBURNメインネット Genesisローンチ",
+    "subtitle": "TBURNメインネットの歴史的な瞬間に参加しましょう。エアドロップ、Genesis NFT、特別報酬が待っています。",
+    "liveEvent": "ライブイベント",
+    "connectWallet": "ウォレット接続",
+    "tabs": {
+      "overview": "概要",
+      "rewards": "報酬",
+      "tasks": "タスク",
+      "leaderboard": "リーダーボード"
+    },
+    "stats": {
+      "participants": "参加者",
+      "totalStaked": "総ステーキング",
+      "nftsMinted": "NFT発行数",
+      "countries": "国"
+    },
+    "timeline": {
+      "title": "ローンチスケジュール",
+      "preRegistration": "事前登録",
+      "mainnetLaunch": "メインネットローンチ",
+      "stakingBegins": "ステーキング開始",
+      "airdrop": "エアドロップ配布"
+    },
+    "nftCollection": {
+      "title": "Genesis NFTコレクション",
+      "genesisFounder": "Genesisファウンダー NFT",
+      "limitedEdition": "100個限定発行。最高の権威と特典。",
+      "tier": "ティア",
+      "totalSupply": "総発行数",
+      "minted": "発行済み",
+      "info": "GenesisとDiamondティアのステーカーに無料ミント権が付与されます。"
+    },
+    "tiers": {
+      "genesis": "Genesis",
+      "diamond": "Diamond",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "genesisRequirement": "1M+ TBURNをステーキング",
+      "genesisPerks": [
+        "35% APY",
+        "限定NFT",
+        "ガバナンス優先権"
+      ],
+      "diamondRequirement": "500K+ TBURNをステーキング",
+      "diamondPerks": [
+        "30% APY",
+        "Genesis NFTアクセス"
+      ],
+      "goldRequirement": "100K+ TBURNをステーキング",
+      "goldPerks": [
+        "25% APY",
+        "優先サポート"
+      ],
+      "silverRequirement": "10K+ TBURNをステーキング",
+      "silverPerks": [
+        "20% APY"
+      ],
+      "bronzeRequirement": "1K+ TBURNをステーキング",
+      "bronzePerks": [
+        "15% APY"
+      ]
+    },
+    "referral": {
+      "title": "紹介プログラム",
+      "description": "紹介リンクを共有して、紹介者のステーキング報酬の10%を獲得しましょう！",
+      "yourCode": "あなたの紹介リンク",
+      "copyLink": "リンクをコピー",
+      "copied": "コピーしました！",
+      "totalReferrals": "総紹介数",
+      "bonusEarned": "獲得ボーナス"
+    },
+    "rewards": {
+      "title": "マイ報酬",
+      "connectPrompt": "ウォレットを接続",
+      "connectDescription": "報酬を確認・請求するにはウォレットを接続してください。",
+      "currentTier": "現在のティア",
+      "stakedAmount": "ステーキング額",
+      "airdropReward": "エアドロップ報酬",
+      "referralBonus": "紹介ボーナス",
+      "claimAirdrop": "エアドロップを請求",
+      "claimNft": "NFTをミント",
+      "claimed": "請求済み",
+      "minted": "ミント済み",
+      "notEligible": "対象外"
+    },
+    "tasks": {
+      "title": "タスク＆クエスト",
+      "description": "タスクを完了して追加報酬を獲得しましょう！",
+      "twitterFollow": "X/Twitterをフォロー",
+      "discordJoin": "Discordに参加",
+      "telegramJoin": "Telegramに参加",
+      "shareLaunch": "ローンチ投稿をシェア",
+      "firstStake": "初回ステーキング",
+      "bridgeTx": "ブリッジ取引",
+      "reward": "報酬",
+      "start": "開始",
+      "completed": "完了"
+    },
+    "leaderboard": {
+      "title": "ローンチリーダーボード",
+      "description": "ステーキングと紹介で順位を上げましょう。上位参加者には特別報酬があります。",
+      "rank": "順位",
+      "user": "ユーザー",
+      "staked": "ステーキング",
+      "referrals": "紹介数",
+      "score": "スコア"
+    },
+    "cta": {
+      "title": "今すぐ参加！",
+      "description": "TBURNメインネット Genesisローンチに参加して限定報酬を受け取りましょう。ステーキングを開始すると自動的にイベントに参加します。",
+      "joinLaunch": "ローンチイベントに参加",
+      "startStaking": "ステーキングを開始"
+    }
   }
 }

@@ -17,6 +17,7 @@ import {
   Crown, Award, Star, Sparkles, Trophy, Hexagon, Box
 } from "lucide-react";
 import { SiDiscord, SiTelegram } from "react-icons/si";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 import "./launch-event.css";
 
@@ -100,6 +101,7 @@ function useCountdown(targetDate: Date) {
 }
 
 export default function LaunchEventPage() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { isConnected, address } = useWeb3();
@@ -242,9 +244,10 @@ export default function LaunchEventPage() {
           {/* Header */}
           <header className="h-16 border-b border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 z-10">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-1 bg-[#F97316]/10 text-[#F97316] border border-[#F97316]/20 rounded text-xs font-bold animate-pulse">● LIVE EVENT</span>
+              <span className="px-2 py-1 bg-[#F97316]/10 text-[#F97316] border border-[#F97316]/20 rounded text-xs font-bold animate-pulse">● {t('launchEventPage.liveEvent', 'LIVE EVENT')}</span>
             </div>
             <div className="flex items-center gap-4">
+              <LanguageSelector isDark={isDark} />
               <button 
                 onClick={toggleTheme} 
                 className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-yellow-400"
@@ -261,7 +264,7 @@ export default function LaunchEventPage() {
                   className="bg-[#3B82F6] hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-lg shadow-blue-500/20"
                   data-testid="button-connect-wallet"
                 >
-                  Connect Wallet
+                  {t('launchEventPage.connectWallet', 'Connect Wallet')}
                 </button>
               )}
             </div>
@@ -276,10 +279,10 @@ export default function LaunchEventPage() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                   <div>
                     <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2">
-                      TBURN 메인넷 <span className="text-[#F97316]">Genesis 런칭</span>
+                      {t('launchEventPage.title', 'TBURN Mainnet Genesis Launch')}
                     </h1>
                     <p className="text-base md:text-lg text-slate-600 dark:text-gray-300 max-w-2xl">
-                      TBURN 메인넷의 역사적인 순간에 함께하세요. 에어드랍, Genesis NFT, 그리고 특별 보상이 기다리고 있습니다.
+                      {t('launchEventPage.subtitle', 'Join the historic moment of TBURN Mainnet. Airdrops, Genesis NFTs, and special rewards await you.')}
                     </p>
                   </div>
                   <div className="text-right">
@@ -299,23 +302,23 @@ export default function LaunchEventPage() {
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8" data-testid="launch-stats">
                   <div className="glass-panel p-4 rounded-xl text-center">
-                    <p className="text-xs text-slate-500">참여자</p>
+                    <p className="text-xs text-slate-500">{t('launchEventPage.stats.participants', 'Participants')}</p>
                     <p className="text-xl font-bold font-mono text-slate-900 dark:text-white">{formatNumber(stats.totalParticipants)}</p>
                   </div>
                   <div className="glass-panel p-4 rounded-xl text-center">
-                    <p className="text-xs text-slate-500">스테이킹</p>
+                    <p className="text-xs text-slate-500">{t('launchEventPage.stats.totalStaked', 'Total Staked')}</p>
                     <p className="text-xl font-bold font-mono text-[#3B82F6]">{formatNumber(parseFloat(stats.totalStaked) / 1e6)}M</p>
                   </div>
                   <div className="glass-panel p-4 rounded-xl text-center">
-                    <p className="text-xs text-slate-500">에어드랍 할당</p>
+                    <p className="text-xs text-slate-500">Airdrop</p>
                     <p className="text-xl font-bold font-mono text-[#F97316]">{formatNumber(parseFloat(stats.totalAirdropClaimed) / 1e6)}M</p>
                   </div>
                   <div className="glass-panel p-4 rounded-xl text-center">
-                    <p className="text-xs text-slate-500">NFT 민팅</p>
+                    <p className="text-xs text-slate-500">{t('launchEventPage.stats.nftsMinted', 'NFTs Minted')}</p>
                     <p className="text-xl font-bold font-mono text-slate-900 dark:text-white">{formatNumber(stats.nftsMinted)}</p>
                   </div>
                   <div className="glass-panel p-4 rounded-xl text-center">
-                    <p className="text-xs text-slate-500">국가</p>
+                    <p className="text-xs text-slate-500">{t('launchEventPage.stats.countries', 'Countries')}</p>
                     <p className="text-xl font-bold font-mono text-slate-900 dark:text-white">{stats.countriesRepresented}</p>
                   </div>
                 </div>
@@ -326,10 +329,10 @@ export default function LaunchEventPage() {
             <div className="sticky top-0 z-20 bg-white/90 dark:bg-[#0B1120]/90 backdrop-blur-md border-b border-slate-200 dark:border-gray-800">
               <div className="max-w-6xl mx-auto flex">
                 {[
-                  { id: "overview", label: "개요 (Overview)" },
-                  { id: "rewards", label: "보상 (Rewards)" },
-                  { id: "tasks", label: "태스크 (Tasks)" },
-                  { id: "leaderboard", label: "순위 (Leaderboard)" }
+                  { id: "overview", label: t('launchEventPage.tabs.overview', 'Overview') },
+                  { id: "rewards", label: t('launchEventPage.tabs.rewards', 'Rewards') },
+                  { id: "tasks", label: t('launchEventPage.tabs.tasks', 'Tasks') },
+                  { id: "leaderboard", label: t('launchEventPage.tabs.leaderboard', 'Leaderboard') }
                 ].map((tab) => (
                   <button
                     key={tab.id}
@@ -640,13 +643,13 @@ export default function LaunchEventPage() {
                     ) : (
                       <div className="glass-panel p-12 rounded-2xl text-center">
                         <Wallet className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-                        <h3 className="text-xl font-bold text-white mb-2">지갑을 연결하세요</h3>
-                        <p className="text-slate-400 mb-6">보상을 확인하고 클레임하려면 지갑을 연결하세요.</p>
+                        <h3 className="text-xl font-bold text-white mb-2">{t('launchEventPage.rewards.connectPrompt', 'Connect Wallet')}</h3>
+                        <p className="text-slate-400 mb-6">{t('launchEventPage.rewards.connectDescription', 'Connect your wallet to check and claim rewards.')}</p>
                         <button 
                           onClick={() => setShowWalletModal(true)}
                           className="bg-[#3B82F6] hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors"
                         >
-                          지갑 연결
+                          {t('launchEventPage.connectWallet', 'Connect Wallet')}
                         </button>
                       </div>
                     )}
@@ -658,8 +661,8 @@ export default function LaunchEventPage() {
               {activeTab === "tasks" && (
                 <div className="space-y-8">
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">태스크 & 퀘스트</h2>
-                    <p className="text-slate-500 dark:text-gray-400 mb-6">태스크를 완료하고 추가 보상을 획득하세요!</p>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('launchEventPage.tasks.title', 'Tasks & Quests')}</h2>
+                    <p className="text-slate-500 dark:text-gray-400 mb-6">{t('launchEventPage.tasks.description', 'Complete tasks and earn additional rewards!')}</p>
 
                     <div className="space-y-3">
                       {SOCIAL_TASKS.map((task) => {
@@ -674,7 +677,7 @@ export default function LaunchEventPage() {
                               </div>
                               <div>
                                 <p className="font-medium text-slate-900 dark:text-white">{task.nameKo}</p>
-                                <p className="text-sm text-slate-500">보상: <span className="text-[#F97316] font-mono">{task.reward}</span></p>
+                                <p className="text-sm text-slate-500">{t('launchEventPage.tasks.reward', 'Reward')}: <span className="text-[#F97316] font-mono">{task.reward}</span></p>
                               </div>
                             </div>
                             <button 
@@ -686,9 +689,9 @@ export default function LaunchEventPage() {
                               }`}
                             >
                               {isCompleted ? (
-                                <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> 완료</span>
+                                <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> {t('launchEventPage.tasks.completed', 'Completed')}</span>
                               ) : (
-                                <span className="flex items-center gap-1"><ArrowRight className="w-4 h-4" /> 시작</span>
+                                <span className="flex items-center gap-1"><ArrowRight className="w-4 h-4" /> {t('launchEventPage.tasks.start', 'Start')}</span>
                               )}
                             </button>
                           </div>
@@ -703,17 +706,17 @@ export default function LaunchEventPage() {
               {activeTab === "leaderboard" && (
                 <div className="space-y-8">
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">🏆 런칭 리더보드</h2>
-                    <p className="text-slate-500 dark:text-gray-400 mb-6">스테이킹과 레퍼럴을 통해 순위를 올리세요. 상위 참여자에게 특별 보상이 제공됩니다.</p>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">🏆 {t('launchEventPage.leaderboard.title', 'Launch Leaderboard')}</h2>
+                    <p className="text-slate-500 dark:text-gray-400 mb-6">{t('launchEventPage.leaderboard.description', 'Raise your rank through staking and referrals. Special rewards for top participants.')}</p>
 
                     <div className="glass-panel rounded-2xl overflow-hidden">
                       {/* Table Header */}
                       <div className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-700 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                        <div className="col-span-1">RANK</div>
-                        <div className="col-span-4">USER</div>
-                        <div className="col-span-3 text-right">STAKED</div>
-                        <div className="col-span-2 text-center">REFERRALS</div>
-                        <div className="col-span-2 text-right">SCORE</div>
+                        <div className="col-span-1">{t('launchEventPage.leaderboard.rank', 'RANK')}</div>
+                        <div className="col-span-4">{t('launchEventPage.leaderboard.user', 'USER')}</div>
+                        <div className="col-span-3 text-right">{t('launchEventPage.leaderboard.staked', 'STAKED')}</div>
+                        <div className="col-span-2 text-center">{t('launchEventPage.leaderboard.referrals', 'REFERRALS')}</div>
+                        <div className="col-span-2 text-right">{t('launchEventPage.leaderboard.score', 'SCORE')}</div>
                       </div>
                       
                       {/* Table Body */}
@@ -767,9 +770,9 @@ export default function LaunchEventPage() {
             {/* Bottom CTA */}
             <div className="bg-gradient-to-br from-blue-500/10 to-orange-500/10 border-t border-slate-200 dark:border-gray-800 p-8">
               <div className="max-w-6xl mx-auto text-center">
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">지금 바로 참여하세요!</h2>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{t('launchEventPage.cta.title', 'Join Now!')}</h2>
                 <p className="text-slate-500 dark:text-gray-400 mb-6 max-w-xl mx-auto">
-                  TBURN 메인넷 Genesis 런칭에 참여하고 독점 보상을 받으세요. 스테이킹을 시작하면 자동으로 이벤트에 참여됩니다.
+                  {t('launchEventPage.cta.description', 'Participate in the TBURN Mainnet Genesis launch and receive exclusive rewards. Start staking to automatically join the event.')}
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                   <Link href="/staking">
@@ -777,7 +780,7 @@ export default function LaunchEventPage() {
                       className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 transition-all transform hover:scale-105"
                       data-testid="button-join-launch"
                     >
-                      런칭 이벤트 참여
+                      {t('launchEventPage.cta.joinLaunch', 'Join Launch Event')}
                     </button>
                   </Link>
                   <Link href="/staking">
@@ -785,7 +788,7 @@ export default function LaunchEventPage() {
                       className="px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-bold rounded-xl shadow-lg shadow-orange-500/30 transition-all transform hover:scale-105"
                       data-testid="link-staking"
                     >
-                      스테이킹 하기
+                      {t('launchEventPage.cta.startStaking', 'Start Staking')}
                     </button>
                   </Link>
                 </div>

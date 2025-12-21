@@ -29000,5 +29000,121 @@
       "stakingRec": "스테이킹 APY {{rate}}%로 구성됨",
       "vestingRec": "베스팅 일정이 장기 안정성 제공"
     }
+  },
+  "launchEventPage": {
+    "title": "TBURN 메인넷 Genesis 런칭",
+    "subtitle": "TBURN 메인넷의 역사적인 순간에 함께하세요. 에어드랍, Genesis NFT, 그리고 특별 보상이 기다리고 있습니다.",
+    "liveEvent": "라이브 이벤트",
+    "connectWallet": "지갑 연결",
+    "tabs": {
+      "overview": "개요 (Overview)",
+      "rewards": "보상 (Rewards)",
+      "tasks": "태스크 (Tasks)",
+      "leaderboard": "순위 (Leaderboard)"
+    },
+    "stats": {
+      "participants": "참여자",
+      "totalStaked": "총 스테이킹",
+      "nftsMinted": "NFT 민팅",
+      "countries": "국가"
+    },
+    "timeline": {
+      "title": "런칭 일정",
+      "preRegistration": "사전 등록",
+      "mainnetLaunch": "메인넷 런칭",
+      "stakingBegins": "스테이킹 시작",
+      "airdrop": "에어드랍 분배"
+    },
+    "nftCollection": {
+      "title": "Genesis NFT 컬렉션",
+      "genesisFounder": "Genesis 파운더 NFT",
+      "limitedEdition": "100개 한정 발행. 최고의 권위와 혜택.",
+      "tier": "등급",
+      "totalSupply": "총 발행",
+      "minted": "민팅됨",
+      "info": "제네시스 및 다이아몬드 티어 스테이커에게 무료 민팅 권한이 부여됩니다."
+    },
+    "tiers": {
+      "genesis": "Genesis",
+      "diamond": "Diamond",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "genesisRequirement": "1M+ TBURN 스테이킹",
+      "genesisPerks": [
+        "35% APY",
+        "Exclusive NFT",
+        "거버넌스 우선권"
+      ],
+      "diamondRequirement": "500K+ TBURN 스테이킹",
+      "diamondPerks": [
+        "30% APY",
+        "Genesis NFT 접근"
+      ],
+      "goldRequirement": "100K+ TBURN 스테이킹",
+      "goldPerks": [
+        "25% APY",
+        "우선 지원"
+      ],
+      "silverRequirement": "10K+ TBURN 스테이킹",
+      "silverPerks": [
+        "20% APY"
+      ],
+      "bronzeRequirement": "1K+ TBURN 스테이킹",
+      "bronzePerks": [
+        "15% APY"
+      ]
+    },
+    "referral": {
+      "title": "레퍼럴 프로그램",
+      "description": "레퍼럴 링크를 공유하고 추천인 스테이킹 보상의 10%를 획득하세요!",
+      "yourCode": "나의 레퍼럴 링크",
+      "copyLink": "링크 복사",
+      "copied": "복사됨!",
+      "totalReferrals": "총 레퍼럴",
+      "bonusEarned": "획득 보너스"
+    },
+    "rewards": {
+      "title": "내 보상",
+      "connectPrompt": "지갑을 연결하세요",
+      "connectDescription": "보상을 확인하고 클레임하려면 지갑을 연결하세요.",
+      "currentTier": "현재 티어",
+      "stakedAmount": "스테이킹 금액",
+      "airdropReward": "에어드랍 보상",
+      "referralBonus": "레퍼럴 보너스",
+      "claimAirdrop": "에어드랍 클레임",
+      "claimNft": "NFT 민팅",
+      "claimed": "클레임 완료",
+      "minted": "민팅 완료",
+      "notEligible": "자격 없음"
+    },
+    "tasks": {
+      "title": "태스크 & 퀘스트",
+      "description": "태스크를 완료하고 추가 보상을 획득하세요!",
+      "twitterFollow": "X/Twitter 팔로우",
+      "discordJoin": "Discord 가입",
+      "telegramJoin": "Telegram 가입",
+      "shareLaunch": "런칭 포스트 공유",
+      "firstStake": "첫 스테이킹",
+      "bridgeTx": "브릿지 트랜잭션",
+      "reward": "보상",
+      "start": "시작",
+      "completed": "완료"
+    },
+    "leaderboard": {
+      "title": "런칭 리더보드",
+      "description": "스테이킹과 레퍼럴을 통해 순위를 올리세요. 상위 참여자에게 특별 보상이 제공됩니다.",
+      "rank": "순위",
+      "user": "사용자",
+      "staked": "스테이킹",
+      "referrals": "레퍼럴",
+      "score": "점수"
+    },
+    "cta": {
+      "title": "지금 참여하세요!",
+      "description": "TBURN 메인넷 Genesis 런칭에 참여하고 독점 보상을 받으세요. 스테이킹을 시작하면 자동으로 이벤트에 참여됩니다.",
+      "joinLaunch": "런칭 이벤트 참여",
+      "startStaking": "스테이킹 하기"
+    }
   }
 }

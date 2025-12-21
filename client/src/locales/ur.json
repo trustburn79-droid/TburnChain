@@ -12623,5 +12623,121 @@
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
     }
+  },
+  "launchEventPage": {
+    "title": "TBURN Mainnet Genesis لانچ",
+    "subtitle": "TBURN Mainnet کے تاریخی لمحے میں شامل ہوں۔ ایئرڈراپ، Genesis NFTs اور خصوصی انعامات آپ کا انتظار کر رہے ہیں۔",
+    "liveEvent": "لائیو ایونٹ",
+    "connectWallet": "والیٹ جوڑیں",
+    "tabs": {
+      "overview": "جائزہ",
+      "rewards": "انعامات",
+      "tasks": "کام",
+      "leaderboard": "لیڈربورڈ"
+    },
+    "stats": {
+      "participants": "شرکاء",
+      "totalStaked": "کل سٹیک",
+      "nftsMinted": "NFTs مینٹ",
+      "countries": "ممالک"
+    },
+    "timeline": {
+      "title": "لانچ شیڈول",
+      "preRegistration": "پیشگی رجسٹریشن",
+      "mainnetLaunch": "Mainnet لانچ",
+      "stakingBegins": "سٹیکنگ شروع",
+      "airdrop": "ایئرڈراپ تقسیم"
+    },
+    "nftCollection": {
+      "title": "Genesis NFT کلیکشن",
+      "genesisFounder": "Genesis Founder NFT",
+      "limitedEdition": "100 محدود ایڈیشن۔ اعلیٰ ترین اختیار اور فوائد۔",
+      "tier": "درجہ",
+      "totalSupply": "کل سپلائی",
+      "minted": "مینٹ ہوئے",
+      "info": "Genesis اور Diamond درجے کے سٹیکرز کو مفت مینٹنگ کا حق دیا گیا ہے۔"
+    },
+    "tiers": {
+      "genesis": "Genesis",
+      "diamond": "Diamond",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "genesisRequirement": "1M+ TBURN سٹیک کریں",
+      "genesisPerks": [
+        "35% APY",
+        "خصوصی NFT",
+        "گورننس ترجیح"
+      ],
+      "diamondRequirement": "500K+ TBURN سٹیک کریں",
+      "diamondPerks": [
+        "30% APY",
+        "Genesis NFT رسائی"
+      ],
+      "goldRequirement": "100K+ TBURN سٹیک کریں",
+      "goldPerks": [
+        "25% APY",
+        "ترجیحی سپورٹ"
+      ],
+      "silverRequirement": "10K+ TBURN سٹیک کریں",
+      "silverPerks": [
+        "20% APY"
+      ],
+      "bronzeRequirement": "1K+ TBURN سٹیک کریں",
+      "bronzePerks": [
+        "15% APY"
+      ]
+    },
+    "referral": {
+      "title": "ریفرل پروگرام",
+      "description": "اپنا ریفرل لنک شیئر کریں اور اپنے ریفرلز کی سٹیکنگ انعامات کا 10% حاصل کریں!",
+      "yourCode": "آپ کا ریفرل لنک",
+      "copyLink": "لنک کاپی کریں",
+      "copied": "کاپی ہو گیا!",
+      "totalReferrals": "کل ریفرل",
+      "bonusEarned": "حاصل بونس"
+    },
+    "rewards": {
+      "title": "میرے انعامات",
+      "connectPrompt": "والیٹ جوڑیں",
+      "connectDescription": "انعامات دیکھنے اور حاصل کرنے کے لیے والیٹ جوڑیں۔",
+      "currentTier": "موجودہ درجہ",
+      "stakedAmount": "سٹیک رقم",
+      "airdropReward": "ایئرڈراپ انعام",
+      "referralBonus": "ریفرل بونس",
+      "claimAirdrop": "ایئرڈراپ حاصل کریں",
+      "claimNft": "NFT مینٹ کریں",
+      "claimed": "حاصل کیا گیا",
+      "minted": "مینٹ ہو گیا",
+      "notEligible": "اہل نہیں"
+    },
+    "tasks": {
+      "title": "کام اور کویسٹ",
+      "description": "کام مکمل کریں اور اضافی انعامات حاصل کریں!",
+      "twitterFollow": "X/Twitter پر فالو کریں",
+      "discordJoin": "Discord میں شامل ہوں",
+      "telegramJoin": "Telegram میں شامل ہوں",
+      "shareLaunch": "لانچ پوسٹ شیئر کریں",
+      "firstStake": "پہلا سٹیک",
+      "bridgeTx": "برج ٹرانزیکشن",
+      "reward": "انعام",
+      "start": "شروع",
+      "completed": "مکمل"
+    },
+    "leaderboard": {
+      "title": "لانچ لیڈربورڈ",
+      "description": "سٹیکنگ اور ریفرل کے ذریعے اپنی رینک بڑھائیں۔ اعلیٰ شرکاء کے لیے خصوصی انعامات۔",
+      "rank": "رینک",
+      "user": "صارف",
+      "staked": "سٹیک",
+      "referrals": "ریفرل",
+      "score": "سکور"
+    },
+    "cta": {
+      "title": "ابھی شامل ہوں!",
+      "description": "TBURN Mainnet Genesis لانچ میں شرکت کریں اور خصوصی انعامات حاصل کریں۔ سٹیکنگ شروع کریں اور خود بخود ایونٹ میں شامل ہوں۔",
+      "joinLaunch": "لانچ ایونٹ میں شامل ہوں",
+      "startStaking": "سٹیکنگ شروع کریں"
+    }
   }
 }

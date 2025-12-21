@@ -16268,5 +16268,121 @@
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
     }
+  },
+  "launchEventPage": {
+    "title": "TBURN Mainnet Genesis Launch",
+    "subtitle": "Únete al momento histórico de TBURN Mainnet. Te esperan airdrops, Genesis NFTs y recompensas especiales.",
+    "liveEvent": "EVENTO EN VIVO",
+    "connectWallet": "Conectar Billetera",
+    "tabs": {
+      "overview": "Resumen",
+      "rewards": "Recompensas",
+      "tasks": "Tareas",
+      "leaderboard": "Clasificación"
+    },
+    "stats": {
+      "participants": "Participantes",
+      "totalStaked": "Total Staking",
+      "nftsMinted": "NFTs Acuñados",
+      "countries": "Países"
+    },
+    "timeline": {
+      "title": "Calendario de Lanzamiento",
+      "preRegistration": "Pre-registro",
+      "mainnetLaunch": "Lanzamiento Mainnet",
+      "stakingBegins": "Inicio del Staking",
+      "airdrop": "Distribución de Airdrop"
+    },
+    "nftCollection": {
+      "title": "Colección Genesis NFT",
+      "genesisFounder": "Genesis Founder NFT",
+      "limitedEdition": "100 edición limitada. Máxima autoridad y beneficios.",
+      "tier": "Nivel",
+      "totalSupply": "Suministro Total",
+      "minted": "Acuñados",
+      "info": "Derecho de acuñación gratuita para stakers de nivel Genesis y Diamond."
+    },
+    "tiers": {
+      "genesis": "Genesis",
+      "diamond": "Diamond",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "genesisRequirement": "Stake 1M+ TBURN",
+      "genesisPerks": [
+        "35% APY",
+        "NFT Exclusivo",
+        "Prioridad de Gobernanza"
+      ],
+      "diamondRequirement": "Stake 500K+ TBURN",
+      "diamondPerks": [
+        "30% APY",
+        "Acceso Genesis NFT"
+      ],
+      "goldRequirement": "Stake 100K+ TBURN",
+      "goldPerks": [
+        "25% APY",
+        "Soporte Prioritario"
+      ],
+      "silverRequirement": "Stake 10K+ TBURN",
+      "silverPerks": [
+        "20% APY"
+      ],
+      "bronzeRequirement": "Stake 1K+ TBURN",
+      "bronzePerks": [
+        "15% APY"
+      ]
+    },
+    "referral": {
+      "title": "Programa de Referidos",
+      "description": "¡Comparte tu enlace de referido y gana el 10% de las recompensas de staking de tus referidos!",
+      "yourCode": "Tu Enlace de Referido",
+      "copyLink": "Copiar Enlace",
+      "copied": "¡Copiado!",
+      "totalReferrals": "Total Referidos",
+      "bonusEarned": "Bonus Ganado"
+    },
+    "rewards": {
+      "title": "Mis Recompensas",
+      "connectPrompt": "Conectar Billetera",
+      "connectDescription": "Conecta tu billetera para verificar y reclamar recompensas.",
+      "currentTier": "Nivel Actual",
+      "stakedAmount": "Cantidad Staking",
+      "airdropReward": "Recompensa Airdrop",
+      "referralBonus": "Bonus de Referido",
+      "claimAirdrop": "Reclamar Airdrop",
+      "claimNft": "Acuñar NFT",
+      "claimed": "Reclamado",
+      "minted": "Acuñado",
+      "notEligible": "No Elegible"
+    },
+    "tasks": {
+      "title": "Tareas y Misiones",
+      "description": "¡Completa tareas y gana recompensas adicionales!",
+      "twitterFollow": "Seguir en X/Twitter",
+      "discordJoin": "Unirse a Discord",
+      "telegramJoin": "Unirse a Telegram",
+      "shareLaunch": "Compartir Post de Lanzamiento",
+      "firstStake": "Primer Stake",
+      "bridgeTx": "Transacción Bridge",
+      "reward": "Recompensa",
+      "start": "Iniciar",
+      "completed": "Completado"
+    },
+    "leaderboard": {
+      "title": "Clasificación de Lanzamiento",
+      "description": "Sube de rango a través del staking y referidos. Recompensas especiales para los mejores participantes.",
+      "rank": "RANGO",
+      "user": "USUARIO",
+      "staked": "STAKED",
+      "referrals": "REFERIDOS",
+      "score": "PUNTUACIÓN"
+    },
+    "cta": {
+      "title": "¡Únete Ahora!",
+      "description": "Participa en el lanzamiento Genesis de TBURN Mainnet y recibe recompensas exclusivas. Comienza a hacer staking para unirte automáticamente al evento.",
+      "joinLaunch": "Unirse al Evento",
+      "startStaking": "Iniciar Staking"
+    }
   }
 }

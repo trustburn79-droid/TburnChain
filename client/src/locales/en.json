@@ -27788,5 +27788,121 @@
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
     }
+  },
+  "launchEventPage": {
+    "title": "TBURN Mainnet Genesis Launch",
+    "subtitle": "Join the historic moment of TBURN Mainnet. Airdrops, Genesis NFTs, and special rewards await you.",
+    "liveEvent": "LIVE EVENT",
+    "connectWallet": "Connect Wallet",
+    "tabs": {
+      "overview": "Overview",
+      "rewards": "Rewards",
+      "tasks": "Tasks",
+      "leaderboard": "Leaderboard"
+    },
+    "stats": {
+      "participants": "Participants",
+      "totalStaked": "Total Staked",
+      "nftsMinted": "NFTs Minted",
+      "countries": "Countries"
+    },
+    "timeline": {
+      "title": "Launch Schedule",
+      "preRegistration": "Pre-registration",
+      "mainnetLaunch": "Mainnet Launch",
+      "stakingBegins": "Staking Begins",
+      "airdrop": "Airdrop Distribution"
+    },
+    "nftCollection": {
+      "title": "Genesis NFT Collection",
+      "genesisFounder": "Genesis Founder NFT",
+      "limitedEdition": "100 limited edition. Ultimate authority and benefits.",
+      "tier": "Tier",
+      "totalSupply": "Total Supply",
+      "minted": "Minted",
+      "info": "Free minting rights granted to Genesis and Diamond tier stakers."
+    },
+    "tiers": {
+      "genesis": "Genesis",
+      "diamond": "Diamond",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "genesisRequirement": "Stake 1M+ TBURN",
+      "genesisPerks": [
+        "35% APY",
+        "Exclusive NFT",
+        "Governance Priority"
+      ],
+      "diamondRequirement": "Stake 500K+ TBURN",
+      "diamondPerks": [
+        "30% APY",
+        "Genesis NFT Access"
+      ],
+      "goldRequirement": "Stake 100K+ TBURN",
+      "goldPerks": [
+        "25% APY",
+        "Priority Support"
+      ],
+      "silverRequirement": "Stake 10K+ TBURN",
+      "silverPerks": [
+        "20% APY"
+      ],
+      "bronzeRequirement": "Stake 1K+ TBURN",
+      "bronzePerks": [
+        "15% APY"
+      ]
+    },
+    "referral": {
+      "title": "Referral Program",
+      "description": "Share your referral link and earn 10% of your referrals' staking rewards!",
+      "yourCode": "Your Referral Link",
+      "copyLink": "Copy Link",
+      "copied": "Copied!",
+      "totalReferrals": "Total Referrals",
+      "bonusEarned": "Bonus Earned"
+    },
+    "rewards": {
+      "title": "My Rewards",
+      "connectPrompt": "Connect Wallet",
+      "connectDescription": "Connect your wallet to check and claim rewards.",
+      "currentTier": "Current Tier",
+      "stakedAmount": "Staked Amount",
+      "airdropReward": "Airdrop Reward",
+      "referralBonus": "Referral Bonus",
+      "claimAirdrop": "Claim Airdrop",
+      "claimNft": "Mint NFT",
+      "claimed": "Claimed",
+      "minted": "Minted",
+      "notEligible": "Not Eligible"
+    },
+    "tasks": {
+      "title": "Tasks & Quests",
+      "description": "Complete tasks and earn additional rewards!",
+      "twitterFollow": "Follow on X/Twitter",
+      "discordJoin": "Join Discord",
+      "telegramJoin": "Join Telegram",
+      "shareLaunch": "Share Launch Post",
+      "firstStake": "First Stake",
+      "bridgeTx": "Bridge Transaction",
+      "reward": "Reward",
+      "start": "Start",
+      "completed": "Completed"
+    },
+    "leaderboard": {
+      "title": "Launch Leaderboard",
+      "description": "Raise your rank through staking and referrals. Special rewards for top participants.",
+      "rank": "RANK",
+      "user": "USER",
+      "staked": "STAKED",
+      "referrals": "REFERRALS",
+      "score": "SCORE"
+    },
+    "cta": {
+      "title": "Join Now!",
+      "description": "Participate in the TBURN Mainnet Genesis launch and receive exclusive rewards. Start staking to automatically join the event.",
+      "joinLaunch": "Join Launch Event",
+      "startStaking": "Start Staking"
+    }
   }
 }

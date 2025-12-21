@@ -12379,5 +12379,121 @@
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
     }
+  },
+  "launchEventPage": {
+    "title": "TBURN Mainnet Genesis লঞ্চ",
+    "subtitle": "TBURN Mainnet-এর ঐতিহাসিক মুহূর্তে যোগ দিন। এয়ারড্রপ, Genesis NFTs এবং বিশেষ পুরস্কার আপনার জন্য অপেক্ষা করছে।",
+    "liveEvent": "লাইভ ইভেন্ট",
+    "connectWallet": "ওয়ালেট সংযুক্ত করুন",
+    "tabs": {
+      "overview": "সংক্ষিপ্ত বিবরণ",
+      "rewards": "পুরস্কার",
+      "tasks": "কাজ",
+      "leaderboard": "লিডারবোর্ড"
+    },
+    "stats": {
+      "participants": "অংশগ্রহণকারী",
+      "totalStaked": "মোট স্টেক",
+      "nftsMinted": "NFTs মিন্ট",
+      "countries": "দেশ"
+    },
+    "timeline": {
+      "title": "লঞ্চ সময়সূচী",
+      "preRegistration": "প্রাক-নিবন্ধন",
+      "mainnetLaunch": "Mainnet লঞ্চ",
+      "stakingBegins": "স্টেকিং শুরু",
+      "airdrop": "এয়ারড্রপ বিতরণ"
+    },
+    "nftCollection": {
+      "title": "Genesis NFT সংগ্রহ",
+      "genesisFounder": "Genesis Founder NFT",
+      "limitedEdition": "১০০ সীমিত সংস্করণ। সর্বোচ্চ কর্তৃত্ব এবং সুবিধা।",
+      "tier": "টায়ার",
+      "totalSupply": "মোট সরবরাহ",
+      "minted": "মিন্ট করা হয়েছে",
+      "info": "Genesis এবং Diamond টায়ার স্টেকারদের বিনামূল্যে মিন্টিং অধিকার দেওয়া হয়েছে।"
+    },
+    "tiers": {
+      "genesis": "Genesis",
+      "diamond": "Diamond",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "genesisRequirement": "1M+ TBURN স্টেক করুন",
+      "genesisPerks": [
+        "35% APY",
+        "এক্সক্লুসিভ NFT",
+        "গভর্নেন্স অগ্রাধিকার"
+      ],
+      "diamondRequirement": "500K+ TBURN স্টেক করুন",
+      "diamondPerks": [
+        "30% APY",
+        "Genesis NFT অ্যাক্সেস"
+      ],
+      "goldRequirement": "100K+ TBURN স্টেক করুন",
+      "goldPerks": [
+        "25% APY",
+        "অগ্রাধিকার সহায়তা"
+      ],
+      "silverRequirement": "10K+ TBURN স্টেক করুন",
+      "silverPerks": [
+        "20% APY"
+      ],
+      "bronzeRequirement": "1K+ TBURN স্টেক করুন",
+      "bronzePerks": [
+        "15% APY"
+      ]
+    },
+    "referral": {
+      "title": "রেফারেল প্রোগ্রাম",
+      "description": "আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং আপনার রেফারেলদের স্টেকিং পুরস্কারের 10% উপার্জন করুন!",
+      "yourCode": "আপনার রেফারেল লিঙ্ক",
+      "copyLink": "লিঙ্ক কপি করুন",
+      "copied": "কপি করা হয়েছে!",
+      "totalReferrals": "মোট রেফারেল",
+      "bonusEarned": "অর্জিত বোনাস"
+    },
+    "rewards": {
+      "title": "আমার পুরস্কার",
+      "connectPrompt": "ওয়ালেট সংযুক্ত করুন",
+      "connectDescription": "পুরস্কার দেখতে এবং দাবি করতে ওয়ালেট সংযুক্ত করুন।",
+      "currentTier": "বর্তমান টায়ার",
+      "stakedAmount": "স্টেক পরিমাণ",
+      "airdropReward": "এয়ারড্রপ পুরস্কার",
+      "referralBonus": "রেফারেল বোনাস",
+      "claimAirdrop": "এয়ারড্রপ দাবি করুন",
+      "claimNft": "NFT মিন্ট করুন",
+      "claimed": "দাবি করা হয়েছে",
+      "minted": "মিন্ট করা হয়েছে",
+      "notEligible": "যোগ্য নয়"
+    },
+    "tasks": {
+      "title": "কাজ এবং কুয়েস্ট",
+      "description": "কাজ সম্পূর্ণ করুন এবং অতিরিক্ত পুরস্কার উপার্জন করুন!",
+      "twitterFollow": "X/Twitter-এ ফলো করুন",
+      "discordJoin": "Discord-এ যোগ দিন",
+      "telegramJoin": "Telegram-এ যোগ দিন",
+      "shareLaunch": "লঞ্চ পোস্ট শেয়ার করুন",
+      "firstStake": "প্রথম স্টেক",
+      "bridgeTx": "ব্রিজ লেনদেন",
+      "reward": "পুরস্কার",
+      "start": "শুরু করুন",
+      "completed": "সম্পূর্ণ"
+    },
+    "leaderboard": {
+      "title": "লঞ্চ লিডারবোর্ড",
+      "description": "স্টেকিং এবং রেফারেলের মাধ্যমে আপনার র‍্যাঙ্ক বাড়ান। শীর্ষ অংশগ্রহণকারীদের জন্য বিশেষ পুরস্কার।",
+      "rank": "র‍্যাঙ্ক",
+      "user": "ব্যবহারকারী",
+      "staked": "স্টেক",
+      "referrals": "রেফারেল",
+      "score": "স্কোর"
+    },
+    "cta": {
+      "title": "এখনই যোগ দিন!",
+      "description": "TBURN Mainnet Genesis লঞ্চে অংশগ্রহণ করুন এবং এক্সক্লুসিভ পুরস্কার পান। স্টেকিং শুরু করুন এবং স্বয়ংক্রিয়ভাবে ইভেন্টে যোগ দিন।",
+      "joinLaunch": "লঞ্চ ইভেন্টে যোগ দিন",
+      "startStaking": "স্টেকিং শুরু করুন"
+    }
   }
 }

@@ -16336,5 +16336,121 @@
       "stakingRec": "质押年化收益率配置为 {{rate}}%",
       "vestingRec": "归属计划提供长期稳定性"
     }
+  },
+  "launchEventPage": {
+    "title": "TBURN主网 Genesis 发布",
+    "subtitle": "加入TBURN主网的历史性时刻。空投、Genesis NFT和特别奖励等待着您。",
+    "liveEvent": "直播活动",
+    "connectWallet": "连接钱包",
+    "tabs": {
+      "overview": "概览",
+      "rewards": "奖励",
+      "tasks": "任务",
+      "leaderboard": "排行榜"
+    },
+    "stats": {
+      "participants": "参与者",
+      "totalStaked": "总质押量",
+      "nftsMinted": "NFT铸造数",
+      "countries": "国家"
+    },
+    "timeline": {
+      "title": "发布时间表",
+      "preRegistration": "预注册",
+      "mainnetLaunch": "主网发布",
+      "stakingBegins": "质押开始",
+      "airdrop": "空投分配"
+    },
+    "nftCollection": {
+      "title": "Genesis NFT 系列",
+      "genesisFounder": "Genesis创始人 NFT",
+      "limitedEdition": "限量100个发行。最高权威和福利。",
+      "tier": "等级",
+      "totalSupply": "总发行量",
+      "minted": "已铸造",
+      "info": "Genesis和Diamond等级的质押者将获得免费铸造权限。"
+    },
+    "tiers": {
+      "genesis": "Genesis",
+      "diamond": "Diamond",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "genesisRequirement": "质押1M+ TBURN",
+      "genesisPerks": [
+        "35% APY",
+        "专属NFT",
+        "治理优先权"
+      ],
+      "diamondRequirement": "质押500K+ TBURN",
+      "diamondPerks": [
+        "30% APY",
+        "Genesis NFT访问权"
+      ],
+      "goldRequirement": "质押100K+ TBURN",
+      "goldPerks": [
+        "25% APY",
+        "优先支持"
+      ],
+      "silverRequirement": "质押10K+ TBURN",
+      "silverPerks": [
+        "20% APY"
+      ],
+      "bronzeRequirement": "质押1K+ TBURN",
+      "bronzePerks": [
+        "15% APY"
+      ]
+    },
+    "referral": {
+      "title": "推荐计划",
+      "description": "分享您的推荐链接，赚取推荐人质押奖励的10%！",
+      "yourCode": "您的推荐链接",
+      "copyLink": "复制链接",
+      "copied": "已复制！",
+      "totalReferrals": "总推荐数",
+      "bonusEarned": "获得奖励"
+    },
+    "rewards": {
+      "title": "我的奖励",
+      "connectPrompt": "连接钱包",
+      "connectDescription": "连接钱包以查看和领取奖励。",
+      "currentTier": "当前等级",
+      "stakedAmount": "质押金额",
+      "airdropReward": "空投奖励",
+      "referralBonus": "推荐奖励",
+      "claimAirdrop": "领取空投",
+      "claimNft": "铸造NFT",
+      "claimed": "已领取",
+      "minted": "已铸造",
+      "notEligible": "无资格"
+    },
+    "tasks": {
+      "title": "任务与挑战",
+      "description": "完成任务，获取额外奖励！",
+      "twitterFollow": "关注X/Twitter",
+      "discordJoin": "加入Discord",
+      "telegramJoin": "加入Telegram",
+      "shareLaunch": "分享发布帖子",
+      "firstStake": "首次质押",
+      "bridgeTx": "跨链交易",
+      "reward": "奖励",
+      "start": "开始",
+      "completed": "已完成"
+    },
+    "leaderboard": {
+      "title": "发布排行榜",
+      "description": "通过质押和推荐提升排名。顶级参与者将获得特别奖励。",
+      "rank": "排名",
+      "user": "用户",
+      "staked": "质押量",
+      "referrals": "推荐数",
+      "score": "积分"
+    },
+    "cta": {
+      "title": "立即加入！",
+      "description": "参与TBURN主网Genesis发布活动，获取专属奖励。开始质押即可自动参与活动。",
+      "joinLaunch": "参与发布活动",
+      "startStaking": "开始质押"
+    }
   }
 }
