@@ -12649,7 +12649,14 @@
       "simulationDesc": "Token will be deployed in simulation mode. No real blockchain transaction will be executed.",
       "connectFirst": "Connect Wallet First",
       "deployToMainnet": "Deploy to TBURN Mainnet",
-      "deploySimulation": "Deploy (Simulation)"
+      "deploySimulation": "Deploy (Simulation)",
+      "wrongNetwork": "Connected to Wrong Network",
+      "switchNetwork": "Switch Network",
+      "connectedDesc": "Wallet connected to TBURN Mainnet",
+      "connectFirstDesc": "Connect your wallet first to deploy tokens",
+      "connectionFailed": "Wallet Connection Failed",
+      "disconnected": "Disconnected",
+      "notInstalled": "MetaMask is not installed"
     },
     "myTokens": {
       "label": "My Tokens",

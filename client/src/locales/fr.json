@@ -14258,7 +14258,14 @@
       "simulationDesc": "Le token sera déployé en mode simulation. Aucune transaction blockchain réelle ne sera exécutée.",
       "connectFirst": "Connectez Portefeuille D'abord",
       "deployToMainnet": "Déployer sur TBURN Mainnet",
-      "deploySimulation": "Déployer (Simulation)"
+      "deploySimulation": "Déployer (Simulation)",
+      "wrongNetwork": "Connecté au Mauvais Réseau",
+      "switchNetwork": "Changer de Réseau",
+      "connectedDesc": "Portefeuille connecté au TBURN Mainnet",
+      "connectFirstDesc": "Connectez d'abord votre portefeuille pour déployer des tokens",
+      "connectionFailed": "Échec de Connexion du Portefeuille",
+      "disconnected": "Déconnecté",
+      "notInstalled": "MetaMask n'est pas installé"
     },
     "myTokens": {
       "label": "Mes Tokens",

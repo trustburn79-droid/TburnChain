@@ -14014,7 +14014,14 @@
       "simulationDesc": "O token será implantado em modo simulação. Nenhuma transação real será executada.",
       "connectFirst": "Primeiro Conecte a Carteira",
       "deployToMainnet": "Implantar na TBURN Mainnet",
-      "deploySimulation": "Implantar (Simulação)"
+      "deploySimulation": "Implantar (Simulação)",
+      "wrongNetwork": "Conectado à Rede Errada",
+      "switchNetwork": "Mudar de Rede",
+      "connectedDesc": "Carteira conectada à TBURN Mainnet",
+      "connectFirstDesc": "Conecte sua carteira primeiro para implantar tokens",
+      "connectionFailed": "Falha na Conexão da Carteira",
+      "disconnected": "Desconectado",
+      "notInstalled": "MetaMask não está instalado"
     },
     "myTokens": {
       "label": "Meus Tokens",

@@ -13562,7 +13562,14 @@
       "simulationDesc": "Токен будет развернут в режиме симуляции. Реальная транзакция не будет выполнена.",
       "connectFirst": "Сначала Подключите Кошелек",
       "deployToMainnet": "Развернуть в TBURN Mainnet",
-      "deploySimulation": "Развернуть (Симуляция)"
+      "deploySimulation": "Развернуть (Симуляция)",
+      "wrongNetwork": "Подключено к Неверной Сети",
+      "switchNetwork": "Сменить Сеть",
+      "connectedDesc": "Кошелек подключен к TBURN Mainnet",
+      "connectFirstDesc": "Сначала подключите кошелек для развертывания токенов",
+      "connectionFailed": "Ошибка Подключения Кошелька",
+      "disconnected": "Отключено",
+      "notInstalled": "MetaMask не установлен"
     },
     "myTokens": {
       "label": "Мои Токены",

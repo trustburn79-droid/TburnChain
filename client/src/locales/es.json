@@ -16294,7 +16294,14 @@
       "simulationDesc": "El token se desplegará en modo simulación. No se ejecutará ninguna transacción real de blockchain.",
       "connectFirst": "Primero Conecte Billetera",
       "deployToMainnet": "Desplegar en TBURN Mainnet",
-      "deploySimulation": "Desplegar (Simulación)"
+      "deploySimulation": "Desplegar (Simulación)",
+      "wrongNetwork": "Conectado a Red Incorrecta",
+      "switchNetwork": "Cambiar Red",
+      "connectedDesc": "Billetera conectada a TBURN Mainnet",
+      "connectFirstDesc": "Conecte su billetera primero para desplegar tokens",
+      "connectionFailed": "Conexión de Billetera Fallida",
+      "disconnected": "Desconectado",
+      "notInstalled": "MetaMask no está instalado"
     },
     "myTokens": {
       "label": "Mis Tokens",

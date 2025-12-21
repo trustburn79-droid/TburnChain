@@ -29228,7 +29228,14 @@
       "simulationDesc": "토큰이 시뮬레이션 모드로 배포됩니다. 실제 블록체인 트랜잭션은 실행되지 않습니다.",
       "connectFirst": "먼저 지갑 연결",
       "deployToMainnet": "TBURN 메인넷에 배포",
-      "deploySimulation": "배포 (시뮬레이션)"
+      "deploySimulation": "배포 (시뮬레이션)",
+      "wrongNetwork": "잘못된 네트워크에 연결됨",
+      "switchNetwork": "네트워크 전환",
+      "connectedDesc": "지갑이 TBURN 메인넷에 연결되었습니다",
+      "connectFirstDesc": "토큰을 배포하려면 먼저 지갑을 연결하세요",
+      "connectionFailed": "지갑 연결 실패",
+      "disconnected": "연결 해제됨",
+      "notInstalled": "MetaMask가 설치되어 있지 않습니다"
     },
     "myTokens": {
       "label": "내 토큰",

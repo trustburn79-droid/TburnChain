@@ -16362,7 +16362,14 @@
       "simulationDesc": "代币将以模拟模式部署。不会执行实际的区块链交易。",
       "connectFirst": "请先连接钱包",
       "deployToMainnet": "部署到TBURN主网",
-      "deploySimulation": "部署（模拟）"
+      "deploySimulation": "部署（模拟）",
+      "wrongNetwork": "连接到错误的网络",
+      "switchNetwork": "切换网络",
+      "connectedDesc": "钱包已连接到TBURN主网",
+      "connectFirstDesc": "请先连接钱包以部署代币",
+      "connectionFailed": "钱包连接失败",
+      "disconnected": "已断开连接",
+      "notInstalled": "MetaMask未安装"
     },
     "myTokens": {
       "label": "我的代币",

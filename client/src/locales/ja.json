@@ -17238,7 +17238,14 @@
       "simulationDesc": "トークンはシミュレーションモードでデプロイされます。実際のブロックチェーントランザクションは実行されません。",
       "connectFirst": "まずウォレットを接続",
       "deployToMainnet": "TBURNメインネットにデプロイ",
-      "deploySimulation": "デプロイ（シミュレーション）"
+      "deploySimulation": "デプロイ（シミュレーション）",
+      "wrongNetwork": "間違ったネットワークに接続中",
+      "switchNetwork": "ネットワークを切り替え",
+      "connectedDesc": "ウォレットがTBURNメインネットに接続されました",
+      "connectFirstDesc": "トークンをデプロイするには最初にウォレットを接続してください",
+      "connectionFailed": "ウォレット接続に失敗しました",
+      "disconnected": "切断されました",
+      "notInstalled": "MetaMaskがインストールされていません"
     },
     "myTokens": {
       "label": "マイトークン",
