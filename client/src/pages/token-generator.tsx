@@ -699,12 +699,12 @@ export default function TokenSystemPage() {
               </SelectContent>
             </Select>
             <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
-              <CheckCircle2 className="w-3 h-3 mr-1" />
-              {t('tokenGenerator.auditVerified')}
+              <CheckCircle2 className="w-3 h-3 sm:mr-1" />
+              <span className="hidden sm:inline">{t('tokenGenerator.auditVerified')}</span>
             </Badge>
             <Badge variant="outline" className={isDark ? 'border-gray-700' : ''}>
-              <Shield className="w-3 h-3 mr-1" />
-              {t('tokenGenerator.quantumSecure')}
+              <Shield className="w-3 h-3 sm:mr-1" />
+              <span className="hidden sm:inline">{t('tokenGenerator.quantumSecure')}</span>
             </Badge>
           </div>
           <div className="flex items-center gap-3">
