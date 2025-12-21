@@ -17,7 +17,7 @@ import {
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
   LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
   Menu, X, Crown, Info, Image, ImageIcon, Plus, Play, Gamepad2, Rocket,
-  Home, HelpCircle, ScanLine, FileText, Bug, Hexagon
+  Home, HelpCircle, ScanLine, FileText, Bug
 } from "lucide-react";
 import { PhishingWarningBanner } from "@/components/phishing-warning-banner";
 import { Button } from "@/components/ui/button";
@@ -750,7 +750,7 @@ export default function UserPage() {
             </a>
             <a href="/token-generator" data-testid="link-token-generator">
               <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <Hexagon className="w-4 h-4" />
+                <Coins className="w-4 h-4" />
               </Button>
             </a>
             <a href="/nft-marketplace" data-testid="link-nft-marketplace">

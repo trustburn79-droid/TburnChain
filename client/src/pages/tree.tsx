@@ -5,7 +5,7 @@ import { LanguageSelector } from "@/components/language-selector";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ChevronRight, Home, Folder, FileText, ScanLine, User, Bug, Shield, Hexagon, ImageIcon, HelpCircle } from "lucide-react";
+import { ChevronRight, Home, Folder, FileText, ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
 
 interface RouteItem {
   path: string;
@@ -330,7 +330,7 @@ export default function TreePage() {
                 <TooltipTrigger asChild>
                   <Link href="/token-generator">
                     <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-token-generator">
-                      <Hexagon className="h-3 w-3 sm:h-4 sm:w-4" />
+                      <Coins className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>

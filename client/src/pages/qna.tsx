@@ -35,7 +35,6 @@ import {
   Headphones,
   ExternalLink,
   Bug,
-  Hexagon,
   ImageIcon
 } from 'lucide-react';
 import { Link } from 'wouter';
@@ -214,7 +213,7 @@ export default function QnAPage() {
               className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
               data-testid="link-nav-token-generator"
             >
-              <Hexagon className="h-4 w-4" />
+              <Coins className="h-4 w-4" />
             </Button>
           </Link>
           <Link href="/nft-marketplace">

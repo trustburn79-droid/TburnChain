@@ -763,7 +763,7 @@ export default function TokenSystemPage() {
             </Link>
             <Link href="/token-generator">
               <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-token-generator">
-                <Hexagon className="w-4 h-4" />
+                <Coins className="w-4 h-4" />
               </a>
             </Link>
             <Link href="/nft-marketplace">
