@@ -1,5 +1,6 @@
 import { ethers, JsonRpcProvider, Wallet, Contract, TransactionReceipt } from "ethers";
 import { tokenRegistry, RegisteredToken } from "./TokenRegistry";
+import { generateRandomTBurnAddress, formatTBurnAddress } from "../utils/tburn-address";
 
 const TBURN_MAINNET_RPC = process.env.TBURN_RPC_URL || "http://localhost:8545";
 const TBURN_CHAIN_ID = 7979;
@@ -452,15 +453,19 @@ class TokenFactoryService {
       status: string;
     };
   }> {
-    const randomBytes = Array.from({ length: 20 }, () =>
-      Math.floor(Math.random() * 256).toString(16).padStart(2, "0")
-    ).join("");
-    const contractAddress = `0x${randomBytes}`;
+    // Generate TBURN Bech32m address (tb1...) instead of 0x format
+    const contractAddress = generateRandomTBurnAddress();
 
+    // Transaction hash remains in 0x format per TBURN spec
     const txRandomBytes = Array.from({ length: 32 }, () =>
       Math.floor(Math.random() * 256).toString(16).padStart(2, "0")
     ).join("");
     const txHash = `0x${txRandomBytes}`;
+    
+    // Format deployer address to TBURN Bech32m format if it's in 0x format
+    const formattedDeployerAddress = request.deployerAddress.startsWith('0x') 
+      ? formatTBurnAddress(request.deployerAddress) 
+      : request.deployerAddress;
 
     const token: TokenMetadata = {
       id: `${request.standard.toLowerCase()}-${Date.now()}`,
@@ -468,7 +473,7 @@ class TokenFactoryService {
       symbol: request.symbol,
       standard: request.standard,
       contractAddress,
-      deployerAddress: request.deployerAddress,
+      deployerAddress: formattedDeployerAddress,
       totalSupply: request.totalSupply || (request.standard === "TBC-20" ? "1000000" : "0"),
       decimals: request.decimals || (request.standard === "TBC-20" ? 18 : 0),
       mintable: request.mintable ?? false,
