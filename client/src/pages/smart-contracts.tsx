@@ -86,6 +86,7 @@ interface ContractActivity {
 
 function generateMockActivities(): ContractActivity[] {
   const types: ContractActivity['type'][] = ['deploy', 'call', 'verify', 'upgrade'];
+  const statuses: ContractActivity['status'][] = ['success', 'pending', 'failed'];
   const methods = ['transfer', 'approve', 'stake', 'withdraw', 'mint', 'burn', 'swap', 'addLiquidity'];
   const contracts = [
     { name: 'TBURN Token', address: '0x1234...5678' },
@@ -98,6 +99,7 @@ function generateMockActivities(): ContractActivity[] {
   return Array.from({ length: 50 }, (_, i) => {
     const contract = contracts[Math.floor(Math.random() * contracts.length)];
     const type = types[Math.floor(Math.random() * types.length)];
+    const status: ContractActivity['status'] = Math.random() > 0.1 ? 'success' : statuses[Math.floor(Math.random() * 2) + 1];
     return {
       id: `activity-${i}`,
       type,
@@ -106,7 +108,7 @@ function generateMockActivities(): ContractActivity[] {
       caller: `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`,
       method: type === 'call' ? methods[Math.floor(Math.random() * methods.length)] : undefined,
       gasUsed: Math.floor(Math.random() * 500000) + 21000,
-      status: Math.random() > 0.1 ? 'success' : Math.random() > 0.5 ? 'pending' : 'failed',
+      status,
       timestamp: new Date(Date.now() - Math.random() * 86400000 * 7),
       txHash: `0x${Math.random().toString(16).slice(2, 66)}`,
     };
