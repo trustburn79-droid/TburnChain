@@ -249,7 +249,7 @@ export function PublicHeader() {
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             {/* Mobile: Icon only button */}
-            <Link href="/app" className="sm:hidden">
+            <Link href="/login" className="sm:hidden">
               <button 
                 className="glass-panel border border-cyan-400/30 text-cyan-400 p-2 rounded-lg hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]"
                 data-testid="button-login-mobile"
@@ -258,7 +258,7 @@ export function PublicHeader() {
               </button>
             </Link>
             {/* Desktop: Full text button */}
-            <Link href="/app" className="hidden sm:block">
+            <Link href="/login" className="hidden sm:block">
               <button 
                 className="glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)] whitespace-nowrap"
                 data-testid="button-login"
