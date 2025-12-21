@@ -145,7 +145,7 @@ export default function BugBountyPage() {
         .glitch-hover:hover { text-shadow: 2px 0 #F43F5E, -2px 0 #00FF94; }
       `}</style>
 
-      <aside className={`w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r ${isDark ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-slate-200'}`}>
+      <aside className={`hidden sm:flex w-20 lg:w-64 flex-col z-20 transition-all duration-300 border-r ${isDark ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-slate-200'}`}>
         <div className={`h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b ${isDark ? 'border-gray-800' : 'border-slate-100'}`}>
           <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-rose-500 font-bold text-xl shadow-lg shrink-0 border border-rose-500/50">
             <Bug className="w-5 h-5" />

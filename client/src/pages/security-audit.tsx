@@ -160,7 +160,7 @@ export default function SecurityAuditPage() {
         .shield-glow { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
       `}</style>
 
-      <aside className={`w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r ${isDark ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-slate-200'}`}>
+      <aside className={`hidden sm:flex w-20 lg:w-64 flex-col z-20 transition-all duration-300 border-r ${isDark ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-slate-200'}`}>
         <div className={`h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b ${isDark ? 'border-gray-800' : 'border-slate-100'}`}>
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">
             <Shield className="w-5 h-5" />
