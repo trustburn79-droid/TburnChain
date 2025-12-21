@@ -13722,7 +13722,11 @@
       "proofOfConcept": "Prova de conceito (Código/Logs)",
       "walletAddress": "Endereço da carteira (para recompensa)",
       "submit": "Enviar relatório",
-      "titleDescRequired": "Título e descrição são obrigatórios."
+      "titleDescRequired": "Título e descrição são obrigatórios.",
+      "rpcNodeCrash": "Falha do nó RPC",
+      "apiAuthBypass": "Bypass de autenticação API",
+      "uiuxBugsRisk": "Bugs UI/UX com risco",
+      "inefficientGas": "Uso ineficiente de gás"
     },
     "officialChannels": {
       "title": "Canais Oficiais",

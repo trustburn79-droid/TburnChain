@@ -13966,7 +13966,11 @@
       "proofOfConcept": "Preuve de concept (Code/Logs)",
       "walletAddress": "Adresse wallet (pour récompense)",
       "submit": "Soumettre le rapport",
-      "titleDescRequired": "Le titre et la description sont requis."
+      "titleDescRequired": "Le titre et la description sont obligatoires.",
+      "rpcNodeCrash": "Crash du nœud RPC",
+      "apiAuthBypass": "Contournement authentification API",
+      "uiuxBugsRisk": "Bugs UI/UX à risque",
+      "inefficientGas": "Utilisation inefficace du gas"
     },
     "officialChannels": {
       "title": "Canaux Officiels",

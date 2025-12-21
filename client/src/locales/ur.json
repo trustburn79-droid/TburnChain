@@ -12357,7 +12357,11 @@
       "proofOfConcept": "تصور کا ثبوت (کوڈ/لاگز)",
       "walletAddress": "والیٹ پتہ (انعام کے لیے)",
       "submit": "رپورٹ جمع کرائیں",
-      "titleDescRequired": "عنوان اور تفصیل ضروری ہے۔"
+      "titleDescRequired": "عنوان اور تفصیل ضروری ہے۔",
+      "rpcNodeCrash": "RPC نوڈ کریش",
+      "apiAuthBypass": "API تصدیق بائی پاس",
+      "uiuxBugsRisk": "خطرناک UI/UX بگز",
+      "inefficientGas": "غیر موثر گیس استعمال"
     },
     "officialChannels": {
       "title": "سرکاری چینلز",

@@ -282,10 +282,10 @@ export default function BugBountyPage() {
               </div>
               <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{t('securityPages.bugBounty.upTo')} $1M</p>
               <ul className={`text-sm space-y-2 list-disc list-inside ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                <li>Consensus manipulation</li>
-                <li>Direct theft of funds</li>
-                <li>Network shutdown</li>
-                <li>Private key recovery</li>
+                <li>{t('securityPages.bugBounty.criticalDesc')}</li>
+                <li>{t('securityPages.bugBounty.directTheft')}</li>
+                <li>{t('securityPages.bugBounty.networkShutdown')}</li>
+                <li>{t('securityPages.bugBounty.privateKeyRecovery')}</li>
               </ul>
             </div>
 
@@ -296,9 +296,9 @@ export default function BugBountyPage() {
               </div>
               <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>$50,000</p>
               <ul className={`text-sm space-y-2 list-disc list-inside ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                <li>Temporary freezing</li>
-                <li>Unintended smart contract behavior</li>
-                <li>Fees manipulation</li>
+                <li>{t('securityPages.bugBounty.highDesc')}</li>
+                <li>{t('securityPages.bugBounty.mediumDesc')}</li>
+                <li>{t('securityPages.bugBounty.feesManipulation')}</li>
               </ul>
             </div>
 
@@ -309,9 +309,9 @@ export default function BugBountyPage() {
               </div>
               <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>$10,000</p>
               <ul className={`text-sm space-y-2 list-disc list-inside ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                <li>RPC node crash</li>
-                <li>API authentication bypass</li>
-                <li>Data leakage (Non-PII)</li>
+                <li>{t('securityPages.bugBounty.rpcNodeCrash')}</li>
+                <li>{t('securityPages.bugBounty.apiAuthBypass')}</li>
+                <li>{t('securityPages.bugBounty.dataLeakage')}</li>
               </ul>
             </div>
 
@@ -322,9 +322,9 @@ export default function BugBountyPage() {
               </div>
               <p className={`text-3xl font-bold font-mono mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>$2,000</p>
               <ul className={`text-sm space-y-2 list-disc list-inside ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                <li>UI/UX Bugs with risk</li>
-                <li>Inefficient gas usage</li>
-                <li>Minor logic errors</li>
+                <li>{t('securityPages.bugBounty.uiuxBugsRisk')}</li>
+                <li>{t('securityPages.bugBounty.inefficientGas')}</li>
+                <li>{t('securityPages.bugBounty.minorLogicErrors')}</li>
               </ul>
             </div>
           </div>

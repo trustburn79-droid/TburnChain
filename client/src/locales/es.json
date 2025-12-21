@@ -16002,7 +16002,11 @@
       "proofOfConcept": "Prueba de concepto (Código/Logs)",
       "walletAddress": "Dirección de wallet (para recompensa)",
       "submit": "Enviar informe",
-      "titleDescRequired": "El título y la descripción son requeridos."
+      "titleDescRequired": "El título y la descripción son obligatorios.",
+      "rpcNodeCrash": "Fallo del nodo RPC",
+      "apiAuthBypass": "Bypass de autenticación API",
+      "uiuxBugsRisk": "Bugs UI/UX con riesgo",
+      "inefficientGas": "Uso ineficiente de gas"
     },
     "officialChannels": {
       "title": "Canales Oficiales",

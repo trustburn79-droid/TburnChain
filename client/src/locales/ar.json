@@ -13896,7 +13896,11 @@
       "proofOfConcept": "إثبات المفهوم (كود/سجلات)",
       "walletAddress": "عنوان المحفظة (للمكافأة)",
       "submit": "إرسال التقرير",
-      "titleDescRequired": "العنوان والوصف مطلوبان."
+      "titleDescRequired": "العنوان والوصف مطلوبان.",
+      "rpcNodeCrash": "تعطل عقدة RPC",
+      "apiAuthBypass": "تجاوز مصادقة API",
+      "uiuxBugsRisk": "أخطاء UI/UX عالية المخاطر",
+      "inefficientGas": "استخدام غاز غير فعال"
     },
     "officialChannels": {
       "title": "القنوات الرسمية",

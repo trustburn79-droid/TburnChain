@@ -13270,7 +13270,11 @@
       "proofOfConcept": "Доказательство концепции (Код/Логи)",
       "walletAddress": "Адрес кошелька (для награды)",
       "submit": "Отправить отчет",
-      "titleDescRequired": "Заголовок и описание обязательны."
+      "titleDescRequired": "Заголовок и описание обязательны.",
+      "rpcNodeCrash": "Сбой узла RPC",
+      "apiAuthBypass": "Обход аутентификации API",
+      "uiuxBugsRisk": "UI/UX баги с риском",
+      "inefficientGas": "Неэффективное использование газа"
     },
     "officialChannels": {
       "title": "Официальные Каналы",

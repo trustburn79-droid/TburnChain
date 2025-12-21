@@ -12113,7 +12113,11 @@
       "proofOfConcept": "ধারণার প্রমাণ (কোড/লগ)",
       "walletAddress": "ওয়ালেট ঠিকানা (পুরস্কারের জন্য)",
       "submit": "রিপোর্ট জমা দিন",
-      "titleDescRequired": "শিরোনাম এবং বিবরণ প্রয়োজন।"
+      "titleDescRequired": "শিরোনাম এবং বিবরণ প্রয়োজন।",
+      "rpcNodeCrash": "RPC নোড ক্র্যাশ",
+      "apiAuthBypass": "API প্রমাণীকরণ বাইপাস",
+      "uiuxBugsRisk": "ঝুঁকিপূর্ণ UI/UX বাগ",
+      "inefficientGas": "অদক্ষ গ্যাস ব্যবহার"
     },
     "officialChannels": {
       "title": "অফিসিয়াল চ্যানেল",

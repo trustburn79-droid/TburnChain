@@ -14533,7 +14533,11 @@
       "proofOfConcept": "अवधारणा का प्रमाण (कोड/लॉग)",
       "walletAddress": "वॉलेट पता (इनाम के लिए)",
       "submit": "रिपोर्ट सबमिट करें",
-      "titleDescRequired": "शीर्षक और विवरण आवश्यक हैं।"
+      "titleDescRequired": "शीर्षक और विवरण आवश्यक हैं।",
+      "rpcNodeCrash": "RPC नोड क्रैश",
+      "apiAuthBypass": "API प्रमाणीकरण बाइपास",
+      "uiuxBugsRisk": "जोखिम वाले UI/UX बग",
+      "inefficientGas": "अक्षम गैस उपयोग"
     },
     "officialChannels": {
       "title": "आधिकारिक चैनल",

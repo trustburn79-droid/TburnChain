@@ -16070,7 +16070,11 @@
       "proofOfConcept": "概念证明 (代码/日志)",
       "walletAddress": "钱包地址 (用于奖励)",
       "submit": "提交报告",
-      "titleDescRequired": "标题和描述为必填项。"
+      "titleDescRequired": "标题和描述为必填项。",
+      "rpcNodeCrash": "RPC节点崩溃",
+      "apiAuthBypass": "API认证绕过",
+      "uiuxBugsRisk": "有风险的UI/UX漏洞",
+      "inefficientGas": "低效的Gas使用"
     },
     "officialChannels": {
       "title": "官方渠道",

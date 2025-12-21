@@ -16946,7 +16946,11 @@
       "proofOfConcept": "概念実証 (コード/ログ)",
       "walletAddress": "ウォレットアドレス (報酬用)",
       "submit": "レポート送信",
-      "titleDescRequired": "タイトルと説明は必須です。"
+      "titleDescRequired": "タイトルと説明は必須です。",
+      "rpcNodeCrash": "RPCノードクラッシュ",
+      "apiAuthBypass": "API認証バイパス",
+      "uiuxBugsRisk": "リスクのあるUI/UXバグ",
+      "inefficientGas": "非効率なガス使用"
     },
     "officialChannels": {
       "title": "公式チャンネル",
