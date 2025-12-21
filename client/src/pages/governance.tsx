@@ -169,7 +169,7 @@ export default function Governance() {
                   {(stats?.avgParticipation || 0).toFixed(1)}%
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {t("governance.totalVoters", { count: formatNumber(stats?.totalVoters || 0) })}
+                  {t("governance.totalVoters", { count: stats?.totalVoters || 0 })}
                 </p>
               </CardContent>
             </Card>
@@ -186,7 +186,7 @@ export default function Governance() {
                   {(stats?.aiPredictionAccuracy || 0).toFixed(1)}%
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {t("governance.analyzed", { count: formatNumber(stats?.aiAnalyzedProposals || 0) })}
+                  {t("governance.analyzed", { count: stats?.aiAnalyzedProposals || 0 })}
                 </p>
               </CardContent>
             </Card>
@@ -422,7 +422,7 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
               />
             </div>
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{t("governance.voters", { count: formatNumber(proposal.totalVoters) })}</span>
+              <span>{t("governance.voters", { count: proposal.totalVoters })}</span>
               <span>{t("governance.total")} {formatTokenAmount(totalVotes.toString())}</span>
             </div>
           </div>
