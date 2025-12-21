@@ -14901,7 +14901,9 @@
       "telegram_join": "Telegram में शामिल हों",
       "share_launch": "लॉन्च पोस्ट शेयर करें",
       "first_stake": "पहला स्टेकिंग",
-      "bridge_tx": "ब्रिज ट्रांजैक्शन"
+      "bridge_tx": "ब्रिज ट्रांजैक्शन",
+      "task": "टास्क",
+      "action": "एक्शन"
     },
     "leaderboard": {
       "title": "लॉन्च लीडरबोर्ड",

@@ -13638,7 +13638,9 @@
       "telegram_join": "Вступить в Telegram",
       "share_launch": "Поделиться Постом о Запуске",
       "first_stake": "Первый Стейкинг",
-      "bridge_tx": "Транзакция Моста"
+      "bridge_tx": "Транзакция Моста",
+      "task": "ЗАДАЧА",
+      "action": "ДЕЙСТВИЕ"
     },
     "leaderboard": {
       "title": "Рейтинг Запуска",

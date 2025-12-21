@@ -14264,7 +14264,9 @@
       "telegram_join": "انضم إلى Telegram",
       "share_launch": "مشاركة منشور الإطلاق",
       "first_stake": "أول تخزين",
-      "bridge_tx": "معاملة الجسر"
+      "bridge_tx": "معاملة الجسر",
+      "task": "المهمة",
+      "action": "الإجراء"
     },
     "leaderboard": {
       "title": "لوحة متصدري الإطلاق",

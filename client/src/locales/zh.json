@@ -16438,7 +16438,9 @@
       "telegram_join": "加入Telegram",
       "share_launch": "分享发布帖子",
       "first_stake": "首次质押",
-      "bridge_tx": "跨链交易"
+      "bridge_tx": "跨链交易",
+      "task": "任务",
+      "action": "操作"
     },
     "leaderboard": {
       "title": "发布排行榜",

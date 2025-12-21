@@ -14090,7 +14090,9 @@
       "telegram_join": "Entrar no Telegram",
       "share_launch": "Compartilhar Publicação de Lançamento",
       "first_stake": "Primeiro Staking",
-      "bridge_tx": "Transação Bridge"
+      "bridge_tx": "Transação Bridge",
+      "task": "TAREFA",
+      "action": "AÇÃO"
     },
     "leaderboard": {
       "title": "Classificação do Lançamento",

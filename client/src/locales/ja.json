@@ -17314,7 +17314,9 @@
       "telegram_join": "Telegramに参加",
       "share_launch": "ローンチ投稿をシェア",
       "first_stake": "初回ステーキング",
-      "bridge_tx": "ブリッジトランザクション"
+      "bridge_tx": "ブリッジトランザクション",
+      "task": "タスク",
+      "action": "アクション"
     },
     "leaderboard": {
       "title": "ローンチリーダーボード",

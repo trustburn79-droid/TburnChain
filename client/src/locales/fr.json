@@ -14334,7 +14334,9 @@
       "telegram_join": "Rejoindre Telegram",
       "share_launch": "Partager la Publication de Lancement",
       "first_stake": "Premier Staking",
-      "bridge_tx": "Transaction Bridge"
+      "bridge_tx": "Transaction Bridge",
+      "task": "TÂCHE",
+      "action": "ACTION"
     },
     "leaderboard": {
       "title": "Classement du Lancement",

@@ -29102,7 +29102,9 @@
       "telegram_join": "Telegram 가입",
       "share_launch": "런칭 포스트 공유",
       "first_stake": "첫 스테이킹",
-      "bridge_tx": "브릿지 트랜잭션"
+      "bridge_tx": "브릿지 트랜잭션",
+      "task": "태스크",
+      "action": "액션"
     },
     "leaderboard": {
       "title": "런칭 리더보드",

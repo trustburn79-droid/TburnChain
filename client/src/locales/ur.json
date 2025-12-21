@@ -12725,7 +12725,9 @@
       "telegram_join": "Telegram میں شامل ہوں",
       "share_launch": "لانچ پوسٹ شیئر کریں",
       "first_stake": "پہلا سٹیکنگ",
-      "bridge_tx": "بریج ٹرانزیکشن"
+      "bridge_tx": "بریج ٹرانزیکشن",
+      "task": "ٹاسک",
+      "action": "عمل"
     },
     "leaderboard": {
       "title": "لانچ لیڈربورڈ",

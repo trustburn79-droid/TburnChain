@@ -664,36 +664,55 @@ export default function LaunchEventPage() {
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('launchEventPage.tasks.title', 'Tasks & Quests')}</h2>
                     <p className="text-slate-500 dark:text-gray-400 mb-6">{t('launchEventPage.tasks.description', 'Complete tasks and earn additional rewards!')}</p>
 
-                    <div className="space-y-3">
+                    <div className="glass-panel rounded-2xl overflow-hidden">
+                      {/* Table Header */}
+                      <div className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        <div className="col-span-6">{t('launchEventPage.tasks.task', 'TASK')}</div>
+                        <div className="col-span-3 text-center">{t('launchEventPage.tasks.reward', 'REWARD')}</div>
+                        <div className="col-span-3 text-right">{t('launchEventPage.tasks.action', 'ACTION')}</div>
+                      </div>
+                      
+                      {/* Table Body */}
                       {SOCIAL_TASKS.map((task) => {
                         const Icon = task.icon;
                         const isCompleted = userData?.tasks?.find(t => t.id === task.id)?.completed || false;
                         
                         return (
-                          <div key={task.id} className="glass-panel p-4 rounded-xl flex items-center justify-between">
-                            <div className="flex items-center gap-4">
+                          <div 
+                            key={task.id} 
+                            className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-200 dark:border-slate-800 items-center hover:bg-slate-100 dark:hover:bg-slate-800/30 transition-colors"
+                            data-testid={`task-row-${task.id}`}
+                          >
+                            {/* Task */}
+                            <div className="col-span-6 flex items-center gap-4">
                               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isCompleted ? "bg-emerald-500/20" : "bg-slate-200 dark:bg-slate-700"}`}>
                                 <Icon className={`w-5 h-5 ${isCompleted ? "text-emerald-500" : "text-slate-500 dark:text-slate-400"}`} />
                               </div>
-                              <div>
-                                <p className="font-medium text-slate-900 dark:text-white">{t(`launchEventPage.tasks.${task.id}`, task.name)}</p>
-                                <p className="text-sm text-slate-500">{t('launchEventPage.tasks.reward', 'Reward')}: <span className="text-[#F97316] font-mono">{task.reward}</span></p>
-                              </div>
+                              <p className="font-medium text-slate-900 dark:text-white">{t(`launchEventPage.tasks.${task.id}`, task.name)}</p>
                             </div>
-                            <button 
-                              disabled={isCompleted}
-                              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                                isCompleted 
-                                  ? "bg-emerald-500/20 text-emerald-500 border border-emerald-500/30" 
-                                  : "bg-[#3B82F6] hover:bg-blue-600 text-white"
-                              }`}
-                            >
-                              {isCompleted ? (
-                                <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> {t('launchEventPage.tasks.completed', 'Completed')}</span>
-                              ) : (
-                                <span className="flex items-center gap-1"><ArrowRight className="w-4 h-4" /> {t('launchEventPage.tasks.start', 'Start')}</span>
-                              )}
-                            </button>
+                            
+                            {/* Reward */}
+                            <div className="col-span-3 text-center">
+                              <span className="text-[#F97316] font-mono font-bold">{task.reward}</span>
+                            </div>
+                            
+                            {/* Action */}
+                            <div className="col-span-3 text-right">
+                              <button 
+                                disabled={isCompleted}
+                                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                                  isCompleted 
+                                    ? "bg-emerald-500/20 text-emerald-500 border border-emerald-500/30" 
+                                    : "bg-[#3B82F6] hover:bg-blue-600 text-white"
+                                }`}
+                              >
+                                {isCompleted ? (
+                                  <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> {t('launchEventPage.tasks.completed', 'Completed')}</span>
+                                ) : (
+                                  <span className="flex items-center gap-1"><ArrowRight className="w-4 h-4" /> {t('launchEventPage.tasks.start', 'Start')}</span>
+                                )}
+                              </button>
+                            </div>
                           </div>
                         );
                       })}

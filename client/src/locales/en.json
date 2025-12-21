@@ -27890,7 +27890,9 @@
       "telegram_join": "Join Telegram",
       "share_launch": "Share Launch Post",
       "first_stake": "First Stake",
-      "bridge_tx": "Bridge Transaction"
+      "bridge_tx": "Bridge Transaction",
+      "task": "TASK",
+      "action": "ACTION"
     },
     "leaderboard": {
       "title": "Launch Leaderboard",

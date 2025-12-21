@@ -12481,7 +12481,9 @@
       "telegram_join": "Telegram-এ যোগ দিন",
       "share_launch": "লঞ্চ পোস্ট শেয়ার করুন",
       "first_stake": "প্রথম স্টেকিং",
-      "bridge_tx": "ব্রিজ লেনদেন"
+      "bridge_tx": "ব্রিজ লেনদেন",
+      "task": "টাস্ক",
+      "action": "অ্যাকশন"
     },
     "leaderboard": {
       "title": "লঞ্চ লিডারবোর্ড",
