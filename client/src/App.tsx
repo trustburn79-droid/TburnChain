@@ -14,6 +14,7 @@ import { Web3Provider } from "@/lib/web3-context";
 import { MainnetRestartOverlay } from "@/components/mainnet-restart-overlay";
 import { AdminPasswordProvider } from "@/hooks/use-admin-password";
 import { OperatorAuthGuard } from "@/components/operator-auth-guard";
+import { AuthGuard } from "@/components/auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
@@ -364,14 +365,20 @@ function RootRouter() {
   }
   
   if (location.startsWith("/app")) {
-    return <AuthenticatedApp />;
+    return (
+      <AuthGuard>
+        <AuthenticatedApp />
+      </AuthGuard>
+    );
   }
   
   if (location === "/user" || location.startsWith("/user")) {
     return (
-      <Suspense fallback={<PageLoading />}>
-        <UserPage />
-      </Suspense>
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <UserPage />
+        </Suspense>
+      </AuthGuard>
     );
   }
   
@@ -385,17 +392,21 @@ function RootRouter() {
   
   if (location === "/nft-marketplace" || location.startsWith("/nft-marketplace")) {
     return (
-      <Suspense fallback={<PageLoading />}>
-        <NftMarketplaceStandalone />
-      </Suspense>
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <NftMarketplaceStandalone />
+        </Suspense>
+      </AuthGuard>
     );
   }
   
   if (location === "/security-audit" || location.startsWith("/security-audit")) {
     return (
-      <Suspense fallback={<PageLoading />}>
-        <SecurityAuditPage />
-      </Suspense>
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <SecurityAuditPage />
+        </Suspense>
+      </AuthGuard>
     );
   }
   
@@ -409,25 +420,31 @@ function RootRouter() {
   
   if (location === "/bug-bounty" || location.startsWith("/bug-bounty")) {
     return (
-      <Suspense fallback={<PageLoading />}>
-        <BugBountyPage />
-      </Suspense>
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <BugBountyPage />
+        </Suspense>
+      </AuthGuard>
     );
   }
   
   if (location === "/token-generator" || location.startsWith("/token-generator")) {
     return (
-      <Suspense fallback={<PageLoading />}>
-        <TokenGenerator />
-      </Suspense>
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <TokenGenerator />
+        </Suspense>
+      </AuthGuard>
     );
   }
   
   if (location === "/launch-event" || location.startsWith("/launch-event") || location === "/launch" || location.startsWith("/launch")) {
     return (
-      <Suspense fallback={<PageLoading />}>
-        <LaunchEventPage />
-      </Suspense>
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <LaunchEventPage />
+        </Suspense>
+      </AuthGuard>
     );
   }
   
@@ -445,13 +462,15 @@ function RootRouter() {
   
   if (location === "/vc" || location.startsWith("/vc-test")) {
     return (
-      <ThemeProvider defaultTheme="dark">
-        <Suspense fallback={<PageLoading />}>
-          <VCLayout>
-            <VCTestMode />
-          </VCLayout>
-        </Suspense>
-      </ThemeProvider>
+      <AuthGuard>
+        <ThemeProvider defaultTheme="dark">
+          <Suspense fallback={<PageLoading />}>
+            <VCLayout>
+              <VCTestMode />
+            </VCLayout>
+          </Suspense>
+        </ThemeProvider>
+      </AuthGuard>
     );
   }
   
