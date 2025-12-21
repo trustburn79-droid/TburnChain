@@ -1701,29 +1701,31 @@ function CreateTokenContent({
             />
             {/* Wallet Connection Section */}
             <div className={`mt-4 p-4 rounded-lg border ${isDark ? 'bg-[#0F172A] border-gray-700' : 'bg-white border-slate-200'}`}>
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex flex-col gap-3 mb-3">
                 <div className="flex items-center gap-2">
                   <Wallet className="w-5 h-5 text-blue-500" />
-                  <span className="font-medium">{t('tokenGenerator.wallet.deploymentMethod', 'Deployment Method')}</span>
+                  <span className="font-medium text-sm">{t('tokenGenerator.wallet.deploymentMethod', 'Deployment Method')}</span>
                 </div>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   <Button
                     size="sm"
                     variant={deploymentMode === "wallet" ? "default" : "outline"}
                     onClick={() => setDeploymentMode("wallet")}
                     data-testid="button-mode-wallet"
+                    className="text-xs px-2"
                   >
-                    <Wallet className="w-4 h-4 mr-1" />
-                    {t('tokenGenerator.wallet.realDeploy', 'Real Deploy')}
+                    <Wallet className="w-3 h-3 mr-1 flex-shrink-0" />
+                    <span className="truncate">{t('tokenGenerator.wallet.realDeploy', 'Real Deploy')}</span>
                   </Button>
                   <Button
                     size="sm"
                     variant={deploymentMode === "simulation" ? "default" : "outline"}
                     onClick={() => setDeploymentMode("simulation")}
                     data-testid="button-mode-simulation"
+                    className="text-xs px-2"
                   >
-                    <Cpu className="w-4 h-4 mr-1" />
-                    {t('tokenGenerator.wallet.simulation', 'Simulation')}
+                    <Cpu className="w-3 h-3 mr-1 flex-shrink-0" />
+                    <span className="truncate">{t('tokenGenerator.wallet.simulation', 'Simulation')}</span>
                   </Button>
                 </div>
               </div>

@@ -29205,6 +29205,30 @@
       "aiOptimizationRec": "AI 최적화로 가스 비용 ~23% 절감",
       "stakingRec": "스테이킹 APY {{rate}}%로 구성됨",
       "vestingRec": "베스팅 일정이 장기 안정성 제공"
+    },
+    "wallet": {
+      "deploymentMethod": "배포 방법",
+      "realDeploy": "실제 배포",
+      "simulation": "시뮬레이션",
+      "metamaskRequired": "MetaMask 필요",
+      "installMetamask": "토큰을 배포하려면 MetaMask를 설치하세요",
+      "downloadMetamask": "MetaMask 다운로드",
+      "connected": "지갑 연결됨",
+      "disconnect": "연결 해제",
+      "address": "주소",
+      "balance": "잔액",
+      "network": "네트워크",
+      "wrongNetworkShort": "잘못된 네트워크",
+      "switch": "전환",
+      "estimatedGas": "예상 가스",
+      "connectToDeployReal": "TBURN 메인넷에 토큰을 배포하려면 지갑을 연결하세요",
+      "connecting": "연결 중...",
+      "connectMetamask": "MetaMask 연결",
+      "simulationMode": "시뮬레이션 모드",
+      "simulationDesc": "토큰이 시뮬레이션 모드로 배포됩니다. 실제 블록체인 트랜잭션은 실행되지 않습니다.",
+      "connectFirst": "먼저 지갑 연결",
+      "deployToMainnet": "TBURN 메인넷에 배포",
+      "deploySimulation": "배포 (시뮬레이션)"
     }
   },
   "launchEventPage": {
