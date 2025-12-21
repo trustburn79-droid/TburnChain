@@ -279,7 +279,7 @@ export default function CrossShard() {
   const formatDateTime = (dateValue: string | Date) => {
     const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
     const locale = localeMap[i18n.language] || 'en-US';
-    return date.toLocaleString(locale);
+    return date.toLocaleString(locale, { timeZone: 'America/New_York' });
   };
 
   const formatLatency = (ms: number) => {

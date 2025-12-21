@@ -672,7 +672,7 @@ export default function Transactions() {
               {isAutoRefresh ? t('blocks.live') : t('blocks.paused')}
             </Badge>
             <span className="text-xs text-muted-foreground">
-              • {t('blocks.lastUpdate')}: {lastUpdate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}
+              • {t('blocks.lastUpdate')}: {lastUpdate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, timeZone: 'America/New_York' })}
             </span>
           </div>
         </div>

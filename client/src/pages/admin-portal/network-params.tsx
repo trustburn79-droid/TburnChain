@@ -331,7 +331,7 @@ export default function AdminNetworkParams() {
             <div className="flex items-center gap-2 flex-wrap">
               <div className="flex items-center gap-2 text-sm text-muted-foreground mr-4">
                 <Clock className="h-4 w-4" />
-                <span data-testid="text-last-update">{t("adminNetworkParams.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+                <span data-testid="text-last-update">{t("adminNetworkParams.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' })}</span>
               </div>
               {hasChanges && (
                 <Badge variant="outline" className="bg-yellow-500/10 text-yellow-500 border-yellow-500/30" data-testid="badge-unsaved-changes">

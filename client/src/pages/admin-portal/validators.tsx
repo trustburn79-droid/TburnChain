@@ -541,7 +541,7 @@ export default function AdminValidators() {
       fields: [
         { label: t("adminValidators.aiTrustScore"), value: (validator.aiTrustScore / 100).toFixed(1), type: "progress" as const },
         { label: t("adminValidators.riskLevel"), value: validator.aiTrustScore >= 9000 ? t("adminValidators.riskLow") : validator.aiTrustScore >= 7500 ? t("adminValidators.riskMedium") : t("adminValidators.riskHigh"), type: "badge" as const, badgeVariant: validator.aiTrustScore >= 9000 ? "secondary" as const : validator.aiTrustScore >= 7500 ? "outline" as const : "destructive" as const },
-        ...(validator.jailedUntil ? [{ label: t("adminValidators.jailedUntil"), value: validator.jailedUntil.toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US') }] : []),
+        ...(validator.jailedUntil ? [{ label: t("adminValidators.jailedUntil"), value: validator.jailedUntil.toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' }) }] : []),
       ],
     },
   ];
@@ -609,7 +609,7 @@ export default function AdminValidators() {
                   </TooltipContent>
                 </Tooltip>
                 <Clock className="h-4 w-4" />
-                <span data-testid="text-last-update">{t("adminValidators.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+                <span data-testid="text-last-update">{t("adminValidators.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' })}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Tooltip>

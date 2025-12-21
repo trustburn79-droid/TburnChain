@@ -269,7 +269,7 @@ export default function AdminBIDashboard() {
         title: t("adminBI.detail.context"),
         fields: [
           { label: t("adminBI.timeRange"), value: timeRangeLabel },
-          { label: t("adminBI.lastUpdated"), value: lastUpdate.toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US') },
+          { label: t("adminBI.lastUpdated"), value: lastUpdate.toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' }) },
           { label: t("adminBI.dataSource"), value: "TBURN Analytics Engine" },
         ]
       }
@@ -317,7 +317,7 @@ export default function AdminBIDashboard() {
                   </TooltipContent>
                 </Tooltip>
                 <Clock className="h-4 w-4" />
-                <span data-testid="text-last-update">{t("adminBI.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+                <span data-testid="text-last-update">{t("adminBI.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' })}</span>
               </div>
               <div className="flex gap-2">
                 <Select value={timeRange} onValueChange={setTimeRange}>

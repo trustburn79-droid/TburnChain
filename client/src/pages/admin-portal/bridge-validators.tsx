@@ -333,7 +333,7 @@ export default function AdminBridgeValidators() {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4" />
-                <span data-testid="text-last-update">{t("adminBridgeValidators.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+                <span data-testid="text-last-update">{t("adminBridgeValidators.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' })}</span>
               </div>
               <div className="flex gap-2">
                 <Tooltip>

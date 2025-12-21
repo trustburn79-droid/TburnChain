@@ -400,7 +400,7 @@ export default function AdminEmergency() {
                   </TooltipContent>
                 </Tooltip>
                 <Clock className="h-4 w-4" />
-                <span data-testid="text-last-update">{t("adminEmergency.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+                <span data-testid="text-last-update">{t("adminEmergency.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' })}</span>
               </div>
               <Badge 
                 variant="outline" 

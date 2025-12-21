@@ -981,7 +981,7 @@ function EmissionDetailDialog({ type, tierData, open, onClose }: EmissionDetailD
   const emissionHistory = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(today);
     date.setDate(date.getDate() - (6 - i));
-    const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' });
     const variance = varianceFactors[i];
     const emission = Math.round(baseEmission * variance);
     const burn = Math.round(baseBurn * variance);

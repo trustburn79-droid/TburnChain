@@ -565,10 +565,10 @@ export default function AdminSettings() {
                           <SelectValue placeholder={t("adminSettings.general.selectTimezone")} />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value="America/New_York" data-testid="option-est">EST/EDT (New York)</SelectItem>
                           <SelectItem value="utc" data-testid="option-utc">UTC</SelectItem>
-                          <SelectItem value="est" data-testid="option-est">EST (UTC-5)</SelectItem>
-                          <SelectItem value="pst" data-testid="option-pst">PST (UTC-8)</SelectItem>
-                          <SelectItem value="kst" data-testid="option-kst">KST (UTC+9)</SelectItem>
+                          <SelectItem value="America/Los_Angeles" data-testid="option-pst">PST/PDT (Los Angeles)</SelectItem>
+                          <SelectItem value="America/Chicago" data-testid="option-cst">CST/CDT (Chicago)</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

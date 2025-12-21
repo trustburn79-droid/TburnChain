@@ -507,10 +507,10 @@ export default function NotificationSettings() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="America/New_York">EST/EDT (New York)</SelectItem>
                       <SelectItem value="UTC">UTC</SelectItem>
-                      <SelectItem value="EST">EST (UTC-5)</SelectItem>
-                      <SelectItem value="PST">PST (UTC-8)</SelectItem>
-                      <SelectItem value="KST">KST (UTC+9)</SelectItem>
+                      <SelectItem value="America/Los_Angeles">PST/PDT (Los Angeles)</SelectItem>
+                      <SelectItem value="America/Chicago">CST/CDT (Chicago)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

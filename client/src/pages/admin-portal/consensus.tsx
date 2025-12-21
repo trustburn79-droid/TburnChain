@@ -280,7 +280,7 @@ export default function AdminConsensus() {
                   </TooltipContent>
                 </Tooltip>
                 <Clock className="h-4 w-4" />
-                <span data-testid="text-last-update">{t("adminConsensus.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+                <span data-testid="text-last-update">{t("adminConsensus.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' })}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Badge className="bg-green-500/10 text-green-500 flex items-center gap-1" data-testid="badge-ai-active">

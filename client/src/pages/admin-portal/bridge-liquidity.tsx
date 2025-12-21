@@ -424,7 +424,7 @@ export default function AdminBridgeLiquidity() {
                   </TooltipContent>
                 </Tooltip>
                 <Clock className="h-4 w-4" />
-                <span data-testid="text-last-update">{t("adminLiquidity.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+                <span data-testid="text-last-update">{t("adminLiquidity.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' })}</span>
               </div>
               <div className="flex gap-2">
                 <Tooltip>

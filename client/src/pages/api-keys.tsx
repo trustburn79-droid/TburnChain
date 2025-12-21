@@ -295,7 +295,7 @@ export default function ApiKeys() {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const locale = i18n.language || 'en';
-    return date.toLocaleDateString(locale) + " " + date.toLocaleTimeString(locale);
+    return date.toLocaleDateString(locale, { timeZone: 'America/New_York' }) + " " + date.toLocaleTimeString(locale, { timeZone: 'America/New_York' });
   };
 
   const formatRelativeTime = (dateString: string) => {

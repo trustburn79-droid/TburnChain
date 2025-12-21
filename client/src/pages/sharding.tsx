@@ -223,7 +223,7 @@ export default function Sharding() {
 
   const formatDateTime = (dateValue: string | Date) => {
     const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
-    return date.toLocaleString(i18n.language || 'en');
+    return date.toLocaleString(i18n.language || 'en', { timeZone: 'America/New_York' });
   };
 
   const getStatDialogContent = () => {
