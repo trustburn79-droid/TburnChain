@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { DetailSheet } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
+import { formatTBurnAddress } from "@/lib/utils";
 
 interface Token {
   id: number | string;
@@ -783,8 +784,8 @@ export default function AdminTokenIssuance() {
           ...(selectedToken.contractAddress ? [{
             title: t("adminTokenIssuance.detail.deploymentInfo", "Deployment Information"),
             fields: [
-              { label: t("adminTokenIssuance.detail.contractAddress", "Contract Address"), value: selectedToken.contractAddress || '-', copyable: true },
-              { label: t("adminTokenIssuance.detail.deployerAddress", "Deployer Address"), value: selectedToken.deployerAddress || '-', copyable: true },
+              { label: t("adminTokenIssuance.detail.contractAddress", "Contract Address"), value: formatTBurnAddress(selectedToken.contractAddress) || '-', copyable: true },
+              { label: t("adminTokenIssuance.detail.deployerAddress", "Deployer Address"), value: selectedToken.deployerAddress ? formatTBurnAddress(selectedToken.deployerAddress) : '-', copyable: true },
               { label: t("adminTokenIssuance.detail.deploymentTx", "Deployment TX"), value: selectedToken.deploymentTxHash ? `${selectedToken.deploymentTxHash.slice(0, 10)}...${selectedToken.deploymentTxHash.slice(-8)}` : '-', copyable: !!selectedToken.deploymentTxHash },
               { label: t("adminTokenIssuance.detail.blockNumber", "Block Number"), value: selectedToken.blockNumber ? `#${selectedToken.blockNumber.toLocaleString()}` : '-' },
               { label: t("adminTokenIssuance.detail.deployedAt", "Created At"), value: selectedToken.deployedAt ? new Date(selectedToken.deployedAt).toLocaleString('ko-KR', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '-' },

@@ -69,6 +69,7 @@ import {
 import { formatNumber, formatTokenAmount } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { formatTBurnAddress, truncateTBurnAddress } from "@/lib/utils";
 
 interface TokenStandard {
   id: string;
@@ -2274,14 +2275,13 @@ function EnterpriseTokenCreationWizard() {
                     <span className="text-muted-foreground">{t('tokenSystem.contract')}:</span>
                     <div className="flex items-center gap-2">
                       <code className="text-xs bg-muted px-2 py-1 rounded font-mono">
-                        {deploymentResult.token.contractAddress.slice(0, 10)}...
-                        {deploymentResult.token.contractAddress.slice(-8)}
+                        {truncateTBurnAddress(formatTBurnAddress(deploymentResult.token.contractAddress), 10, 8)}
                       </code>
                       <Button 
                         size="icon" 
                         variant="ghost" 
                         className="h-6 w-6"
-                        onClick={() => copyToClipboard(deploymentResult.token.contractAddress)}
+                        onClick={() => copyToClipboard(formatTBurnAddress(deploymentResult.token.contractAddress))}
                       >
                         {copiedAddress ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
                       </Button>
@@ -2490,7 +2490,7 @@ function DeployedTokensDashboard() {
                     <span>{token.symbol}</span>
                     <span>-</span>
                     <code className="text-xs bg-muted px-1 rounded">
-                      {token.contractAddress.slice(0, 8)}...{token.contractAddress.slice(-6)}
+                      {truncateTBurnAddress(formatTBurnAddress(token.contractAddress), 8, 6)}
                     </code>
                   </div>
                 </div>
@@ -2608,8 +2608,8 @@ function DeployedTokensDashboard() {
               <div className="space-y-4">
                 <h4 className="font-medium">{t('tokenSystem.contractInfo', 'Contract Information')}</h4>
                 <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/30">
-                  <code className="text-sm font-mono">{selectedToken.contractAddress}</code>
-                  <Button size="sm" variant="ghost">
+                  <code className="text-sm font-mono">{formatTBurnAddress(selectedToken.contractAddress)}</code>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(formatTBurnAddress(selectedToken.contractAddress))}>
                     <Copy className="h-4 w-4" />
                   </Button>
                 </div>
@@ -2956,13 +2956,13 @@ function EnterpriseTokenSearch() {
                         <Badge variant="secondary" className="text-xs">{token.standard}</Badge>
                         <Badge variant="outline" className="text-xs">{getTranslatedCategory(token.category, t)}</Badge>
                         <code className="bg-muted px-1 rounded">
-                          {token.contractAddress.slice(0, 6)}...{token.contractAddress.slice(-4)}
+                          {truncateTBurnAddress(formatTBurnAddress(token.contractAddress), 8, 6)}
                         </code>
                         <Button
                           size="icon"
                           variant="ghost"
                           className="h-5 w-5"
-                          onClick={(e) => { e.stopPropagation(); copyToClipboard(token.contractAddress); }}
+                          onClick={(e) => { e.stopPropagation(); copyToClipboard(formatTBurnAddress(token.contractAddress)); }}
                         >
                           <Copy className="h-3 w-3" />
                         </Button>
@@ -3121,9 +3121,9 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <code className="bg-muted px-1 rounded text-xs">
-                  {token.contractAddress}
+                  {formatTBurnAddress(token.contractAddress)}
                 </code>
-                <Button size="icon" variant="ghost" className="h-5 w-5" onClick={() => copyToClipboard(token.contractAddress)}>
+                <Button size="icon" variant="ghost" className="h-5 w-5" onClick={() => copyToClipboard(formatTBurnAddress(token.contractAddress))}>
                   <Copy className="h-3 w-3" />
                 </Button>
               </div>

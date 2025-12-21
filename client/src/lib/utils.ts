@@ -149,3 +149,45 @@ export function hexToTb1Address(hexStr: string): string {
   const bytes = hexToBytes(hexStr);
   return encodeBech32m('tb', bytes);
 }
+
+/**
+ * Format any address to TBURN Bech32m format (tb1...)
+ * Handles: 0x addresses, legacy tburn addresses, and already-formatted tb1 addresses
+ */
+export function formatTBurnAddress(address: string): string {
+  if (!address) return address;
+  
+  // Already in tb1 format
+  if (address.startsWith('tb1') || address.startsWith('tbv1')) {
+    return address;
+  }
+  
+  // 0x format - convert to tb1
+  if (address.startsWith('0x') && address.length >= 42) {
+    return hexToTb1Address(address);
+  }
+  
+  // Legacy tburn format
+  if (address.startsWith('tburn') && address.length === 45) {
+    const hex = address.slice(5); // Remove 'tburn' prefix
+    return hexToTb1Address(hex);
+  }
+  
+  // Plain hex (40 chars)
+  if (/^[a-fA-F0-9]{40}$/.test(address)) {
+    return hexToTb1Address(address);
+  }
+  
+  // Unknown format - generate from seed
+  return generateTb1Address(address);
+}
+
+/**
+ * Truncate address for display (e.g., tb1qw50...pjn23)
+ */
+export function truncateTBurnAddress(address: string, startChars: number = 8, endChars: number = 6): string {
+  if (!address || address.length <= startChars + endChars + 3) {
+    return address;
+  }
+  return `${address.slice(0, startChars)}...${address.slice(-endChars)}`;
+}
