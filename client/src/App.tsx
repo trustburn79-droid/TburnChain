@@ -184,6 +184,7 @@ interface DataSourceStatus {
 
 function AuthenticatedApp() {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const { data: authData, isLoading } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
     staleTime: 30000,
@@ -207,6 +208,7 @@ function AuthenticatedApp() {
     onSuccess: () => {
       queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
       queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+      setLocation("/");
     },
   });
 
