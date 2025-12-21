@@ -1,0 +1,62 @@
+.launch-event-page {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.launch-event-page .glass-panel {
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.launch-event-page.dark .glass-panel {
+  background: rgba(21, 30, 50, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.launch-event-page:not(.dark) .glass-panel {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Tab Active State */
+.launch-event-page .tab-btn.active {
+  color: #3B82F6;
+  border-bottom: 2px solid #3B82F6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+/* Tier Cards Gradients */
+.launch-event-page .tier-genesis {
+  border: 1px solid #F97316;
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+}
+
+.launch-event-page .tier-diamond {
+  border: 1px solid #06B6D4;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+}
+
+.launch-event-page .tier-gold {
+  border: 1px solid #FFD700;
+}
+
+.launch-event-page .tier-silver {
+  border: 1px solid #C0C0C0;
+}
+
+.launch-event-page .tier-bronze {
+  border: 1px solid #CD7F32;
+}
+
+/* Custom Scrollbar */
+.launch-event-page ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.launch-event-page ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+.launch-event-page ::-webkit-scrollbar-track {
+  background: transparent;
+}
