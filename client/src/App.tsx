@@ -358,7 +358,7 @@ function AuthenticatedApp() {
 }
 
 function RootRouter() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   
   if (location.startsWith("/admin")) {
     return <AdminPortalLayout />;
@@ -450,6 +450,10 @@ function RootRouter() {
         <TreePage />
       </Suspense>
     );
+  }
+  
+  if (location === "/login") {
+    return <Login onLoginSuccess={() => setLocation("/app")} />;
   }
   
   if (location === "/signup") {
