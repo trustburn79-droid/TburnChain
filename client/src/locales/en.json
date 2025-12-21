@@ -28017,6 +28017,17 @@
       "connectFirst": "Connect Wallet First",
       "deployToMainnet": "Deploy to TBURN Mainnet",
       "deploySimulation": "Deploy (Simulation)"
+    },
+    "myTokens": {
+      "title": "My Deployed Tokens",
+      "subtitle": "Manage and monitor your deployed tokens on TBURN Mainnet",
+      "totalTokens": "Total Tokens",
+      "totalHolders": "Total Holders",
+      "totalTransactions": "Total Transactions",
+      "holders": "Holders",
+      "transactions": "Transactions",
+      "active": "Active",
+      "view": "View"
     }
   },
   "launchEventPage": {

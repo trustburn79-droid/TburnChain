@@ -29229,6 +29229,17 @@
       "connectFirst": "먼저 지갑 연결",
       "deployToMainnet": "TBURN 메인넷에 배포",
       "deploySimulation": "배포 (시뮬레이션)"
+    },
+    "myTokens": {
+      "title": "내 배포 토큰",
+      "subtitle": "TBURN 메인넷에 배포된 토큰을 관리하고 모니터링하세요",
+      "totalTokens": "총 토큰 수",
+      "totalHolders": "총 보유자 수",
+      "totalTransactions": "총 트랜잭션 수",
+      "holders": "보유자",
+      "transactions": "트랜잭션",
+      "active": "활성",
+      "view": "보기"
     }
   },
   "launchEventPage": {

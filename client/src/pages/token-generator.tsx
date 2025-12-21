@@ -2107,10 +2107,10 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
     <div className="max-w-6xl mx-auto">
       <div className="mb-6">
         <h1 className={`text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-          My Deployed Tokens
+          {t('tokenGenerator.myTokens.title', 'My Deployed Tokens')}
         </h1>
         <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>
-          Manage and monitor your deployed tokens on TBURN Mainnet
+          {t('tokenGenerator.myTokens.subtitle', 'Manage and monitor your deployed tokens on TBURN Mainnet')}
         </p>
       </div>
 
@@ -2119,7 +2119,7 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Total Tokens</p>
+                <p className="text-sm text-muted-foreground">{t('tokenGenerator.myTokens.totalTokens', 'Total Tokens')}</p>
                 <p className="text-2xl font-bold">{tokens.length}</p>
               </div>
               <Coins className="w-8 h-8 text-blue-500" />
@@ -2130,7 +2130,7 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Total Holders</p>
+                <p className="text-sm text-muted-foreground">{t('tokenGenerator.myTokens.totalHolders', 'Total Holders')}</p>
                 <p className="text-2xl font-bold">{tokens.reduce((sum: number, t: DeployedToken) => sum + t.holders, 0).toLocaleString()}</p>
               </div>
               <Users className="w-8 h-8 text-green-500" />
@@ -2141,7 +2141,7 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Total Transactions</p>
+                <p className="text-sm text-muted-foreground">{t('tokenGenerator.myTokens.totalTransactions', 'Total Transactions')}</p>
                 <p className="text-2xl font-bold">{tokens.reduce((sum: number, t: DeployedToken) => sum + t.transactionCount, 0).toLocaleString()}</p>
               </div>
               <Activity className="w-8 h-8 text-purple-500" />
@@ -2177,7 +2177,7 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
                       <div className="flex items-center gap-2">
                         <h3 className="font-bold">{token.name}</h3>
                         <Badge variant="outline">{token.standard}</Badge>
-                        <Badge className="bg-green-500/10 text-green-500">Active</Badge>
+                        <Badge className="bg-green-500/10 text-green-500">{t('tokenGenerator.myTokens.active', 'Active')}</Badge>
                       </div>
                       <div className="flex items-center gap-2 mt-1">
                         <code className={`text-xs font-mono ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
@@ -2191,11 +2191,11 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
                   </div>
                   <div className="flex items-center gap-6">
                     <div className="text-center">
-                      <p className="text-sm text-muted-foreground">Holders</p>
+                      <p className="text-sm text-muted-foreground">{t('tokenGenerator.myTokens.holders', 'Holders')}</p>
                       <p className="font-bold">{token.holders.toLocaleString()}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-sm text-muted-foreground">Transactions</p>
+                      <p className="text-sm text-muted-foreground">{t('tokenGenerator.myTokens.transactions', 'Transactions')}</p>
                       <p className="font-bold">{token.transactionCount.toLocaleString()}</p>
                     </div>
                     <Button 
@@ -2205,7 +2205,7 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
                       data-testid={`button-view-token-${token.id}`}
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      View
+                      {t('tokenGenerator.myTokens.view', 'View')}
                     </Button>
                   </div>
                 </div>
