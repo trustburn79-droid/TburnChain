@@ -145,14 +145,14 @@ export default function AdminBugBounty() {
       });
       setSelectedReport(null);
       toast({
-        title: "Report Updated",
-        description: "The bug bounty report has been updated successfully.",
+        title: t('adminBugBounty.reportUpdated', 'Report Updated'),
+        description: t('adminBugBounty.reportUpdatedDesc', 'The bug bounty report has been updated successfully.'),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: "Update Failed",
-        description: error.message || "Failed to update the report.",
+        title: t('adminBugBounty.updateFailed', 'Update Failed'),
+        description: error.message || t('adminBugBounty.updateFailedDesc', 'Failed to update the report.'),
         variant: "destructive",
       });
     },
@@ -163,8 +163,8 @@ export default function AdminBugBounty() {
     await refetch();
     setIsRefreshing(false);
     toast({
-      title: "Refreshed",
-      description: "Bug bounty data has been refreshed.",
+      title: t('adminBugBounty.refreshed', 'Refreshed'),
+      description: t('adminBugBounty.refreshedDesc', 'Bug bounty data has been refreshed.'),
     });
   }, [refetch, toast]);
 
@@ -207,8 +207,8 @@ export default function AdminBugBounty() {
 
     if (Object.keys(updates).length === 0) {
       toast({
-        title: "No Changes",
-        description: "No changes were made to the report.",
+        title: t('adminBugBounty.noChanges', 'No Changes'),
+        description: t('adminBugBounty.noChangesDesc', 'No changes were made to the report.'),
       });
       return;
     }
@@ -238,8 +238,8 @@ export default function AdminBugBounty() {
         <div className="flex items-center gap-3">
           <Shield className="w-8 h-8 text-rose-500" />
           <div>
-            <h1 className="text-2xl font-bold">Bug Bounty Management</h1>
-            <p className="text-sm text-muted-foreground">Review and manage vulnerability reports</p>
+            <h1 className="text-2xl font-bold">{t('adminBugBounty.title', 'Bug Bounty Management')}</h1>
+            <p className="text-sm text-muted-foreground">{t('adminBugBounty.subtitle', 'Review and manage vulnerability reports')}</p>
           </div>
         </div>
         <Button 
@@ -250,7 +250,7 @@ export default function AdminBugBounty() {
           data-testid="button-refresh-bounty"
         >
           <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-          Refresh
+          {t('common.refresh', 'Refresh')}
         </Button>
       </div>
 
@@ -268,25 +268,25 @@ export default function AdminBugBounty() {
         ) : (
           <>
             <MetricCard 
-              title="Total Reports" 
+              title={t('adminBugBounty.totalReports', 'Total Reports')} 
               value={stats?.totalReports || 0} 
               icon={Bug} 
               color="text-blue-500" 
             />
             <MetricCard 
-              title="Pending Review" 
+              title={t('adminBugBounty.pendingReview', 'Pending Review')} 
               value={stats?.pendingReports || 0} 
               icon={Clock} 
               color="text-yellow-500" 
             />
             <MetricCard 
-              title="Accepted" 
+              title={t('adminBugBounty.accepted', 'Accepted')} 
               value={stats?.acceptedReports || 0} 
               icon={CheckCircle} 
               color="text-green-500" 
             />
             <MetricCard 
-              title="Total Paid" 
+              title={t('adminBugBounty.totalPaid', 'Total Paid')} 
               value={`$${(stats?.totalPaidUsd || 0).toLocaleString()}`} 
               icon={DollarSign} 
               color="text-emerald-500" 
@@ -297,11 +297,11 @@ export default function AdminBugBounty() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList>
-          <TabsTrigger value="all" data-testid="tab-all">All Reports</TabsTrigger>
-          <TabsTrigger value="pending" data-testid="tab-pending">Pending</TabsTrigger>
-          <TabsTrigger value="reviewing" data-testid="tab-reviewing">Reviewing</TabsTrigger>
-          <TabsTrigger value="accepted" data-testid="tab-accepted">Accepted</TabsTrigger>
-          <TabsTrigger value="paid" data-testid="tab-paid">Paid</TabsTrigger>
+          <TabsTrigger value="all" data-testid="tab-all">{t('adminBugBounty.tabs.all', 'All Reports')}</TabsTrigger>
+          <TabsTrigger value="pending" data-testid="tab-pending">{t('adminBugBounty.tabs.pending', 'Pending')}</TabsTrigger>
+          <TabsTrigger value="reviewing" data-testid="tab-reviewing">{t('adminBugBounty.tabs.reviewing', 'Reviewing')}</TabsTrigger>
+          <TabsTrigger value="accepted" data-testid="tab-accepted">{t('adminBugBounty.tabs.accepted', 'Accepted')}</TabsTrigger>
+          <TabsTrigger value="paid" data-testid="tab-paid">{t('adminBugBounty.tabs.paid', 'Paid')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value={activeTab} className="mt-4">
@@ -309,7 +309,9 @@ export default function AdminBugBounty() {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2">
                 <FileText className="w-5 h-5" />
-                {activeTab === "all" ? "All Reports" : `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Reports`}
+                {activeTab === "all" 
+                  ? t('adminBugBounty.tabs.all', 'All Reports') 
+                  : t(`adminBugBounty.tabs.${activeTab}Reports`, `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Reports`)}
                 <Badge variant="secondary" className="ml-2">{filteredReports.length}</Badge>
               </CardTitle>
             </CardHeader>
@@ -324,7 +326,7 @@ export default function AdminBugBounty() {
                 ) : filteredReports.length === 0 ? (
                   <div className="text-center py-12 text-muted-foreground">
                     <Bug className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                    <p>No reports found in this category</p>
+                    <p>{t('adminBugBounty.noReportsFound', 'No reports found in this category')}</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -388,10 +390,10 @@ export default function AdminBugBounty() {
           <SheetHeader>
             <SheetTitle className="flex items-center gap-2">
               <Bug className="w-5 h-5 text-rose-500" />
-              Report Details
+              {t('adminBugBounty.reportDetails', 'Report Details')}
             </SheetTitle>
             <SheetDescription>
-              Review and update the bug bounty report
+              {t('adminBugBounty.reviewAndUpdate', 'Review and update the bug bounty report')}
             </SheetDescription>
           </SheetHeader>
 
@@ -413,44 +415,44 @@ export default function AdminBugBounty() {
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <Target className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">Asset:</span>
+                  <span className="text-muted-foreground">{t('adminBugBounty.asset', 'Asset')}:</span>
                   <span className="font-medium">{selectedReport.assetTarget}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Award className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">Max Reward:</span>
+                  <span className="text-muted-foreground">{t('adminBugBounty.maxReward', 'Max Reward')}:</span>
                   <span className="font-medium">{SEVERITY_REWARDS[selectedReport.confirmedSeverity || selectedReport.reportedSeverity]}</span>
                 </div>
                 {selectedReport.reporterEmail && (
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">Email:</span>
+                    <span className="text-muted-foreground">{t('adminBugBounty.email', 'Email')}:</span>
                     <span className="font-medium">{selectedReport.reporterEmail}</span>
                   </div>
                 )}
                 {selectedReport.reporterWallet && (
                   <div className="flex items-center gap-2">
                     <Wallet className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">Wallet:</span>
+                    <span className="text-muted-foreground">{t('adminBugBounty.wallet', 'Wallet')}:</span>
                     <span className="font-medium font-mono text-xs">{selectedReport.reporterWallet.slice(0, 16)}...</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">Submitted:</span>
+                  <span className="text-muted-foreground">{t('adminBugBounty.submitted', 'Submitted')}:</span>
                   <span className="font-medium">{format(new Date(selectedReport.createdAt), "PPp")}</span>
                 </div>
                 {selectedReport.reviewedAt && (
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">Reviewed:</span>
+                    <span className="text-muted-foreground">{t('adminBugBounty.reviewed', 'Reviewed')}:</span>
                     <span className="font-medium">{format(new Date(selectedReport.reviewedAt), "PPp")}</span>
                   </div>
                 )}
               </div>
 
               <div className="space-y-2">
-                <h4 className="font-semibold">Description</h4>
+                <h4 className="font-semibold">{t('adminBugBounty.description', 'Description')}</h4>
                 <div className="p-3 bg-muted rounded-lg text-sm whitespace-pre-wrap">
                   {selectedReport.description}
                 </div>
@@ -458,7 +460,7 @@ export default function AdminBugBounty() {
 
               {selectedReport.reproductionSteps && (
                 <div className="space-y-2">
-                  <h4 className="font-semibold">Reproduction Steps</h4>
+                  <h4 className="font-semibold">{t('adminBugBounty.reproductionSteps', 'Reproduction Steps')}</h4>
                   <div className="p-3 bg-muted rounded-lg text-sm whitespace-pre-wrap">
                     {selectedReport.reproductionSteps}
                   </div>
@@ -466,11 +468,11 @@ export default function AdminBugBounty() {
               )}
 
               <div className="border-t pt-6 space-y-4">
-                <h4 className="font-semibold">Update Report</h4>
+                <h4 className="font-semibold">{t('adminBugBounty.updateReport', 'Update Report')}</h4>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium mb-1 block">Status</label>
+                    <label className="text-sm font-medium mb-1 block">{t('adminBugBounty.status', 'Status')}</label>
                     <Select 
                       value={editForm.status} 
                       onValueChange={(v) => setEditForm({ ...editForm, status: v })}
@@ -479,17 +481,17 @@ export default function AdminBugBounty() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="pending">Pending</SelectItem>
-                        <SelectItem value="reviewing">Reviewing</SelectItem>
-                        <SelectItem value="accepted">Accepted</SelectItem>
-                        <SelectItem value="rejected">Rejected</SelectItem>
-                        <SelectItem value="duplicate">Duplicate</SelectItem>
-                        <SelectItem value="paid">Paid</SelectItem>
+                        <SelectItem value="pending">{t('adminBugBounty.statusPending', 'Pending')}</SelectItem>
+                        <SelectItem value="reviewing">{t('adminBugBounty.statusReviewing', 'Reviewing')}</SelectItem>
+                        <SelectItem value="accepted">{t('adminBugBounty.statusAccepted', 'Accepted')}</SelectItem>
+                        <SelectItem value="rejected">{t('adminBugBounty.statusRejected', 'Rejected')}</SelectItem>
+                        <SelectItem value="duplicate">{t('adminBugBounty.statusDuplicate', 'Duplicate')}</SelectItem>
+                        <SelectItem value="paid">{t('adminBugBounty.statusPaid', 'Paid')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-1 block">Confirmed Severity</label>
+                    <label className="text-sm font-medium mb-1 block">{t('adminBugBounty.confirmedSeverity', 'Confirmed Severity')}</label>
                     <Select 
                       value={editForm.confirmedSeverity} 
                       onValueChange={(v) => setEditForm({ ...editForm, confirmedSeverity: v })}
@@ -498,11 +500,11 @@ export default function AdminBugBounty() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="critical">Critical</SelectItem>
-                        <SelectItem value="high">High</SelectItem>
-                        <SelectItem value="medium">Medium</SelectItem>
-                        <SelectItem value="low">Low</SelectItem>
-                        <SelectItem value="informational">Informational</SelectItem>
+                        <SelectItem value="critical">{t('adminBugBounty.severityCritical', 'Critical')}</SelectItem>
+                        <SelectItem value="high">{t('adminBugBounty.severityHigh', 'High')}</SelectItem>
+                        <SelectItem value="medium">{t('adminBugBounty.severityMedium', 'Medium')}</SelectItem>
+                        <SelectItem value="low">{t('adminBugBounty.severityLow', 'Low')}</SelectItem>
+                        <SelectItem value="informational">{t('adminBugBounty.severityInformational', 'Informational')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -510,19 +512,19 @@ export default function AdminBugBounty() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium mb-1 block">Reward (USD)</label>
+                    <label className="text-sm font-medium mb-1 block">{t('adminBugBounty.rewardUsd', 'Reward (USD)')}</label>
                     <Input 
                       type="number" 
-                      placeholder="e.g. 50000"
+                      placeholder={t('adminBugBounty.rewardPlaceholder', 'e.g. 50000')}
                       value={editForm.rewardUsd}
                       onChange={(e) => setEditForm({ ...editForm, rewardUsd: e.target.value })}
                       data-testid="input-reward-usd"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-1 block">Reward (TBURN)</label>
+                    <label className="text-sm font-medium mb-1 block">{t('adminBugBounty.rewardTburn', 'Reward (TBURN)')}</label>
                     <Input 
-                      placeholder="e.g. 100000"
+                      placeholder={t('adminBugBounty.rewardTburnPlaceholder', 'e.g. 100000')}
                       value={editForm.rewardTokenAmount}
                       onChange={(e) => setEditForm({ ...editForm, rewardTokenAmount: e.target.value })}
                       data-testid="input-reward-tburn"
@@ -531,9 +533,9 @@ export default function AdminBugBounty() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-1 block">Payment TX Hash</label>
+                  <label className="text-sm font-medium mb-1 block">{t('adminBugBounty.paymentTxHash', 'Payment TX Hash')}</label>
                   <Input 
-                    placeholder="0x..."
+                    placeholder={t('adminBugBounty.txHashPlaceholder', '0x...')}
                     value={editForm.rewardTxHash}
                     onChange={(e) => setEditForm({ ...editForm, rewardTxHash: e.target.value })}
                     data-testid="input-tx-hash"
@@ -541,9 +543,9 @@ export default function AdminBugBounty() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-1 block">Assigned To</label>
+                  <label className="text-sm font-medium mb-1 block">{t('adminBugBounty.assignedTo', 'Assigned To')}</label>
                   <Input 
-                    placeholder="Security team member"
+                    placeholder={t('adminBugBounty.assignedToPlaceholder', 'Security team member')}
                     value={editForm.assignedTo}
                     onChange={(e) => setEditForm({ ...editForm, assignedTo: e.target.value })}
                     data-testid="input-assigned-to"
@@ -551,10 +553,10 @@ export default function AdminBugBounty() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-1 block">Admin Notes</label>
+                  <label className="text-sm font-medium mb-1 block">{t('adminBugBounty.adminNotes', 'Admin Notes')}</label>
                   <Textarea 
                     rows={3}
-                    placeholder="Internal notes about this report..."
+                    placeholder={t('adminBugBounty.adminNotesPlaceholder', 'Internal notes about this report...')}
                     value={editForm.adminNotes}
                     onChange={(e) => setEditForm({ ...editForm, adminNotes: e.target.value })}
                     data-testid="textarea-admin-notes"
@@ -568,14 +570,14 @@ export default function AdminBugBounty() {
                     disabled={updateMutation.isPending}
                     data-testid="button-save-report"
                   >
-                    {updateMutation.isPending ? "Saving..." : "Save Changes"}
+                    {updateMutation.isPending ? t('adminBugBounty.saving', 'Saving...') : t('adminBugBounty.saveChanges', 'Save Changes')}
                   </Button>
                   <Button 
                     variant="outline" 
                     onClick={() => setSelectedReport(null)}
                     data-testid="button-cancel"
                   >
-                    Cancel
+                    {t('common.cancel', 'Cancel')}
                   </Button>
                 </div>
               </div>
