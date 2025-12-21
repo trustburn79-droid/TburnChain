@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn, Flame } from "lucide-react";
+import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn, Flame, TreeDeciduous } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { useTranslation } from "react-i18next";
 import { languages } from "@/lib/i18n";
@@ -194,6 +194,15 @@ export function PublicHeader() {
           </div>
 
           <div className="flex items-center gap-4">
+            <Link href="/tree">
+              <button 
+                className="p-2 text-gray-400 hover:text-green-400 transition"
+                data-testid="link-tree"
+                title="Site Map"
+              >
+                <TreeDeciduous className="w-5 h-5" />
+              </button>
+            </Link>
             <div ref={languageMenuRef} className="relative">
               <button 
                 className="flex items-center gap-1.5 p-2 text-gray-400 hover:text-white transition"
