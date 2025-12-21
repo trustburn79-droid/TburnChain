@@ -1017,6 +1017,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/token-system/token/"))) {
       return next();
     }
+    // Skip auth for Token Factory public endpoints (production deployment)
+    if (req.path.startsWith("/token-factory/")) {
+      return next();
+    }
     // Skip auth for Launch Event public endpoints (mainnet launch campaign)
     if (req.path.startsWith("/launch-event/")) {
       return next();
@@ -2519,6 +2523,130 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to deploy token" });
     }
   });
+
+  // ===== REAL TOKEN FACTORY ENDPOINTS (Production-Ready) =====
+  
+  // Comprehensive factory status endpoint - includes launch readiness check
+  app.get("/api/token-factory/status", async (_req, res) => {
+    try {
+      const { tokenFactoryService } = await import("./services/TokenFactoryService");
+      const status = await tokenFactoryService.getFactoryStatus();
+      res.json({
+        network: "TBURN Mainnet",
+        chainId: 7979,
+        ...status,
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Estimate gas for token deployment
+  app.post("/api/token-factory/estimate-gas", async (req, res) => {
+    try {
+      const { tokenFactoryService } = await import("./services/TokenFactoryService");
+      const gasEstimation = await tokenFactoryService.estimateGas(req.body);
+      res.json(gasEstimation);
+    } catch (error: any) {
+      console.error("Gas estimation error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Build deployment transaction (for wallet signing)
+  app.post("/api/token-factory/build-transaction", async (req, res) => {
+    try {
+      const { tokenFactoryService } = await import("./services/TokenFactoryService");
+      const gasEstimation = await tokenFactoryService.estimateGas(req.body);
+      const transaction = tokenFactoryService.buildDeploymentTransaction(req.body, gasEstimation);
+      
+      res.json({
+        transaction,
+        gasEstimation,
+        factoryAddress: tokenFactoryService.getFactoryAddress(req.body.standard),
+      });
+    } catch (error: any) {
+      console.error("Build transaction error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Process deployment receipt (after wallet confirmation)
+  app.post("/api/token-factory/confirm-deployment", async (req, res) => {
+    try {
+      const { tokenFactoryService } = await import("./services/TokenFactoryService");
+      const { request, txHash, receipt } = req.body;
+      
+      if (!request || !txHash || !receipt) {
+        return res.status(400).json({ error: "Missing required fields: request, txHash, receipt" });
+      }
+
+      const result = await tokenFactoryService.processDeploymentReceipt(request, txHash, receipt);
+      res.json(result);
+    } catch (error: any) {
+      console.error("Confirm deployment error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Get user's deployed tokens from factory service
+  app.get("/api/token-factory/my-tokens", async (req, res) => {
+    try {
+      const { tokenFactoryService } = await import("./services/TokenFactoryService");
+      const deployerAddress = req.query.deployer as string;
+      const tokens = tokenFactoryService.getDeployedTokens(deployerAddress);
+      res.json(tokens);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Validate token contract on-chain
+  app.get("/api/token-factory/validate/:address", async (req, res) => {
+    try {
+      const { tokenFactoryService } = await import("./services/TokenFactoryService");
+      const result = await tokenFactoryService.validateTokenContract(req.params.address);
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Simulation mode deployment (for testing without wallet)
+  app.post("/api/token-factory/simulate-deploy", async (req, res) => {
+    try {
+      const { tokenFactoryService } = await import("./services/TokenFactoryService");
+      const result = tokenFactoryService.generateMockDeploymentForSimulation(req.body);
+      res.json({
+        success: true,
+        mode: "simulation",
+        ...result,
+      });
+    } catch (error: any) {
+      console.error("Simulation deploy error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Wait for transaction receipt
+  app.post("/api/token-factory/wait-receipt", async (req, res) => {
+    try {
+      const { tokenFactoryService } = await import("./services/TokenFactoryService");
+      const { txHash, confirmations = 1, timeout = 60000 } = req.body;
+      
+      if (!txHash) {
+        return res.status(400).json({ error: "Missing txHash" });
+      }
+      
+      const result = await tokenFactoryService.waitForTransactionReceipt(txHash, confirmations, timeout);
+      res.json(result);
+    } catch (error: any) {
+      console.error("Wait receipt error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // ===== END REAL TOKEN FACTORY ENDPOINTS =====
 
   // Get deployed tokens (user's tokens) - Enterprise Dashboard
   app.get("/api/token-system/deployed", async (req, res) => {

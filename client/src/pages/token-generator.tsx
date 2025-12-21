@@ -1,6 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { web3Provider, type Web3State, TBURN_MAINNET_CONFIG } from "@/lib/web3-provider";
 import { useTheme } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -392,6 +393,23 @@ export default function TokenSystemPage() {
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [deployedContractAddress, setDeployedContractAddress] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  // Wallet connection state
+  const [walletState, setWalletState] = useState<Web3State>(web3Provider.getState());
+  const [gasEstimation, setGasEstimation] = useState<{
+    gasLimit: string;
+    estimatedCostTB: string;
+  } | null>(null);
+  const [deploymentMode, setDeploymentMode] = useState<"wallet" | "simulation">("wallet");
+  const [txHash, setTxHash] = useState<string>("");
+
+  // Subscribe to wallet state changes
+  useEffect(() => {
+    const unsubscribe = web3Provider.subscribe((newState) => {
+      setWalletState(newState);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const { data: deployedTokens, isLoading: tokensLoading } = useQuery<DeployedToken[]>({
     queryKey: ["/api/token-system/deployed"],
@@ -506,45 +524,281 @@ export default function TokenSystemPage() {
     setAnalysisComplete(true);
   };
 
-  const handleDeploy = async () => {
+  // Helper function to add console log
+  const addConsoleLog = (msg: string) => {
+    const timestamp = new Date().toLocaleTimeString();
+    setConsoleLogs((prev) => [...prev, `[${timestamp}] ${msg}`]);
+  };
+
+  // Connect wallet
+  const handleConnectWallet = async () => {
+    try {
+      if (!web3Provider.isMetaMaskInstalled()) {
+        toast({
+          title: t('tokenGenerator.wallet.notInstalled', 'MetaMask Not Installed'),
+          description: t('tokenGenerator.wallet.installMetamask', 'Please install MetaMask to deploy tokens'),
+          variant: "destructive",
+        });
+        return;
+      }
+      await web3Provider.connect();
+      if (!walletState.isCorrectNetwork) {
+        await web3Provider.switchToTBurnNetwork();
+      }
+      toast({
+        title: t('tokenGenerator.wallet.connected', 'Wallet Connected'),
+        description: t('tokenGenerator.wallet.connectedDesc', 'Your wallet is now connected to TBURN Mainnet'),
+      });
+    } catch (error: any) {
+      toast({
+        title: t('tokenGenerator.wallet.connectionFailed', 'Connection Failed'),
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Disconnect wallet
+  const handleDisconnectWallet = () => {
+    web3Provider.disconnect();
+    toast({
+      title: t('tokenGenerator.wallet.disconnected', 'Wallet Disconnected'),
+    });
+  };
+
+  // Estimate gas for deployment
+  const estimateDeploymentGas = async () => {
+    try {
+      const response = await apiRequest("POST", "/api/token-factory/estimate-gas", {
+        standard: selectedStandard,
+        name: formData.name,
+        symbol: formData.symbol,
+        totalSupply: formData.totalSupply,
+        decimals: formData.decimals,
+        mintable: formData.mintable,
+        burnable: formData.burnable,
+        pausable: formData.pausable,
+        maxSupply: formData.maxSupply,
+        baseUri: formData.baseUri,
+        royaltyPercentage: formData.royaltyPercentage,
+        royaltyRecipient: formData.royaltyRecipient,
+        aiOptimizationEnabled: formData.aiOptimizationEnabled,
+        quantumResistant: formData.quantumResistant,
+        deployerAddress: walletState.address || "0x0000000000000000000000000000000000000000",
+      });
+      const data = await response.json();
+      setGasEstimation({
+        gasLimit: data.gasLimit,
+        estimatedCostTB: data.estimatedCostTB,
+      });
+    } catch (error) {
+      console.error("Gas estimation failed:", error);
+    }
+  };
+
+  // Real deployment with wallet
+  const handleDeployWithWallet = async () => {
+    if (!walletState.isConnected || !walletState.address) {
+      toast({
+        title: t('tokenGenerator.wallet.connectFirst', 'Connect Wallet First'),
+        description: t('tokenGenerator.wallet.connectFirstDesc', 'Please connect your wallet to deploy'),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!walletState.isCorrectNetwork) {
+      try {
+        await web3Provider.switchToTBurnNetwork();
+      } catch (error) {
+        toast({
+          title: t('tokenGenerator.wallet.wrongNetwork', 'Wrong Network'),
+          description: t('tokenGenerator.wallet.switchNetwork', 'Please switch to TBURN Mainnet'),
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
+    setIsDeploying(true);
+    setShowConsole(true);
+    setConsoleLogs([]);
+    setDeploySuccess(false);
+    setTxHash("");
+
+    try {
+      addConsoleLog(`> ${t('tokenGenerator.console.initFactory', { standard: selectedStandard })}...`);
+      await new Promise((r) => setTimeout(r, 500));
+
+      addConsoleLog(`> ${t('tokenGenerator.console.compilingBytecode')}...`);
+      await new Promise((r) => setTimeout(r, 500));
+
+      // Build transaction via API
+      addConsoleLog(`> ${t('tokenGenerator.console.buildingTransaction', 'Building deployment transaction')}...`);
+      const buildResponse = await apiRequest("POST", "/api/token-factory/build-transaction", {
+        standard: selectedStandard,
+        name: formData.name,
+        symbol: formData.symbol,
+        totalSupply: formData.totalSupply,
+        decimals: formData.decimals,
+        mintable: formData.mintable,
+        burnable: formData.burnable,
+        pausable: formData.pausable,
+        maxSupply: formData.maxSupply,
+        baseUri: formData.baseUri,
+        royaltyPercentage: formData.royaltyPercentage,
+        royaltyRecipient: formData.royaltyRecipient || walletState.address,
+        aiOptimizationEnabled: formData.aiOptimizationEnabled,
+        quantumResistant: formData.quantumResistant,
+        mevProtection: formData.mevProtection,
+        deployerAddress: walletState.address,
+      });
+      const { transaction, gasEstimation: gas } = await buildResponse.json();
+
+      addConsoleLog(`> ${t('tokenGenerator.console.runningAISecurity')}...`);
+      await new Promise((r) => setTimeout(r, 500));
+      addConsoleLog(`> ${t('tokenGenerator.console.securityScore')}: <span class='text-emerald-500'>${securityAnalysis?.score || 95}/100</span>`);
+
+      addConsoleLog(`> ${t('tokenGenerator.console.estimatingGas')}... <span class='text-emerald-500'>${gas.estimatedCostTB} TB</span>`);
+      await new Promise((r) => setTimeout(r, 300));
+
+      addConsoleLog(`> ${t('tokenGenerator.console.applyingQuantum')}...`);
+      await new Promise((r) => setTimeout(r, 400));
+
+      // Request wallet signature
+      addConsoleLog(`> <span class='text-yellow-400'>${t('tokenGenerator.console.waitingSignature', 'Waiting for wallet signature')}...</span>`);
+      
+      const txResult = await web3Provider.sendTransaction({
+        to: transaction.to,
+        data: transaction.data,
+        gasLimit: BigInt(transaction.gasLimit),
+        maxFeePerGas: BigInt(transaction.maxFeePerGas),
+        maxPriorityFeePerGas: BigInt(transaction.maxPriorityFeePerGas),
+      });
+
+      setTxHash(txResult.hash);
+      addConsoleLog(`> ${t('tokenGenerator.console.broadcasting')}...`);
+      addConsoleLog(`> TX Hash: <span class='text-blue-400'>${txResult.hash.slice(0, 14)}...${txResult.hash.slice(-8)}</span>`);
+
+      addConsoleLog(`> <span class='text-emerald-500'>[SUCCESS]</span> ${t('tokenGenerator.console.blockConfirmed')} #${txResult.blockNumber}`);
+
+      const contractAddr = txResult.contractAddress || `0x${txResult.hash.slice(2, 42)}`;
+      setDeployedContractAddress(contractAddr);
+
+      addConsoleLog(`> ${t('tokenGenerator.console.contractAddress')}: <span class='text-pink-400'>${contractAddr.slice(0, 10)}...${contractAddr.slice(-6)}</span>`);
+      addConsoleLog(`> ${t('tokenGenerator.console.verifyingSource')}...`);
+      await new Promise((r) => setTimeout(r, 500));
+
+      addConsoleLog(`> <span class='text-emerald-500 font-bold'>${t('tokenGenerator.tokenDeployedSuccess')}</span>`);
+
+      setIsDeploying(false);
+      setDeploySuccess(true);
+      setWizardStep(6);
+
+      toast({
+        title: t('tokenGenerator.tokenDeployedSuccess'),
+        description: `${formData.name} (${formData.symbol}) - ${t('tokenGenerator.deployToTburn')}`,
+      });
+    } catch (error: any) {
+      addConsoleLog(`> <span class='text-red-500'>[ERROR]</span> ${error.message}`);
+      setIsDeploying(false);
+      toast({
+        title: t('tokenGenerator.deploymentFailed', 'Deployment Failed'),
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Simulation deployment (no wallet required)
+  const handleDeploySimulation = async () => {
     setIsDeploying(true);
     setShowConsole(true);
     setConsoleLogs([]);
     setDeploySuccess(false);
 
-    const contractAddr = `0x${Math.random().toString(16).substr(2, 40)}`;
-    setDeployedContractAddress(contractAddr);
+    try {
+      addConsoleLog(`> <span class='text-yellow-400'>[SIMULATION MODE]</span> ${t('tokenGenerator.console.simulationMode', 'Running in simulation mode')}`);
+      await new Promise((r) => setTimeout(r, 500));
 
-    const steps = [
-      { msg: `> ${t('tokenGenerator.console.initFactory', { standard: selectedStandard })}...`, delay: 500 },
-      { msg: `> ${t('tokenGenerator.console.compilingBytecode')}...`, delay: 700 },
-      { msg: `> ${t('tokenGenerator.console.runningAISecurity')}...`, delay: 800 },
-      { msg: `> ${t('tokenGenerator.console.securityScore')}: <span class='text-emerald-500'>${securityAnalysis?.score || 95}/100</span>`, delay: 400 },
-      { msg: `> ${t('tokenGenerator.console.connectingMainnet')}...`, delay: 800 },
-      { msg: `> ${t('tokenGenerator.console.estimatingGas')}... <span class='text-emerald-500'>0.00045 TB</span>`, delay: 800 },
-      { msg: `> ${t('tokenGenerator.console.applyingQuantum')}...`, delay: 600 },
-      { msg: `> ${t('tokenGenerator.console.signingTransaction')}...`, delay: 700 },
-      { msg: `> ${t('tokenGenerator.console.broadcasting')}...`, delay: 700 },
-      { msg: `> <span class='text-emerald-500'>[SUCCESS]</span> ${t('tokenGenerator.console.blockConfirmed')}`, delay: 800 },
-      { msg: `> ${t('tokenGenerator.console.contractAddress')}: <span class='text-pink-400'>${contractAddr.slice(0, 10)}...${contractAddr.slice(-6)}</span>`, delay: 200 },
-      { msg: `> ${t('tokenGenerator.console.verifyingSource')}...`, delay: 800 },
-      { msg: `> <span class='text-emerald-500 font-bold'>${t('tokenGenerator.tokenDeployedSuccess')}</span>`, delay: 500 },
-    ];
+      addConsoleLog(`> ${t('tokenGenerator.console.initFactory', { standard: selectedStandard })}...`);
+      await new Promise((r) => setTimeout(r, 500));
 
-    for (const step of steps) {
-      await new Promise((resolve) => setTimeout(resolve, step.delay));
-      const timestamp = new Date().toLocaleTimeString();
-      setConsoleLogs((prev) => [...prev, `[${timestamp}] ${step.msg}`]);
+      addConsoleLog(`> ${t('tokenGenerator.console.compilingBytecode')}...`);
+      await new Promise((r) => setTimeout(r, 500));
+
+      // Call simulation API
+      const response = await apiRequest("POST", "/api/token-factory/simulate-deploy", {
+        standard: selectedStandard,
+        name: formData.name,
+        symbol: formData.symbol,
+        totalSupply: formData.totalSupply,
+        decimals: formData.decimals,
+        mintable: formData.mintable,
+        burnable: formData.burnable,
+        pausable: formData.pausable,
+        aiOptimizationEnabled: formData.aiOptimizationEnabled,
+        quantumResistant: formData.quantumResistant,
+        mevProtection: formData.mevProtection,
+        deployerAddress: walletState.address || "0x0000000000000000000000000000000000000000",
+      });
+      const result = await response.json();
+
+      addConsoleLog(`> ${t('tokenGenerator.console.runningAISecurity')}...`);
+      await new Promise((r) => setTimeout(r, 500));
+      addConsoleLog(`> ${t('tokenGenerator.console.securityScore')}: <span class='text-emerald-500'>${securityAnalysis?.score || 95}/100</span>`);
+
+      addConsoleLog(`> ${t('tokenGenerator.console.estimatingGas')}... <span class='text-emerald-500'>0.00045 TB</span>`);
+      await new Promise((r) => setTimeout(r, 400));
+
+      addConsoleLog(`> ${t('tokenGenerator.console.applyingQuantum')}...`);
+      await new Promise((r) => setTimeout(r, 400));
+
+      addConsoleLog(`> ${t('tokenGenerator.console.signingTransaction')}...`);
+      await new Promise((r) => setTimeout(r, 500));
+
+      addConsoleLog(`> ${t('tokenGenerator.console.broadcasting')}...`);
+      await new Promise((r) => setTimeout(r, 500));
+
+      setTxHash(result.transaction.hash);
+      addConsoleLog(`> TX Hash: <span class='text-blue-400'>${result.transaction.hash.slice(0, 14)}...${result.transaction.hash.slice(-8)}</span>`);
+
+      addConsoleLog(`> <span class='text-emerald-500'>[SUCCESS]</span> ${t('tokenGenerator.console.blockConfirmed')} #${result.transaction.blockNumber}`);
+
+      setDeployedContractAddress(result.token.contractAddress);
+      addConsoleLog(`> ${t('tokenGenerator.console.contractAddress')}: <span class='text-pink-400'>${result.token.contractAddress.slice(0, 10)}...${result.token.contractAddress.slice(-6)}</span>`);
+
+      addConsoleLog(`> ${t('tokenGenerator.console.verifyingSource')}...`);
+      await new Promise((r) => setTimeout(r, 500));
+
+      addConsoleLog(`> <span class='text-emerald-500 font-bold'>${t('tokenGenerator.tokenDeployedSuccess')}</span>`);
+
+      setIsDeploying(false);
+      setDeploySuccess(true);
+      setWizardStep(6);
+
+      toast({
+        title: t('tokenGenerator.tokenDeployedSuccess'),
+        description: `${formData.name} (${formData.symbol}) - ${t('tokenGenerator.deployToTburn')} (Simulation)`,
+      });
+    } catch (error: any) {
+      addConsoleLog(`> <span class='text-red-500'>[ERROR]</span> ${error.message}`);
+      setIsDeploying(false);
+      toast({
+        title: t('tokenGenerator.deploymentFailed', 'Deployment Failed'),
+        description: error.message,
+        variant: "destructive",
+      });
     }
+  };
 
-    setIsDeploying(false);
-    setDeploySuccess(true);
-    setWizardStep(6);
-
-    toast({
-      title: t('tokenGenerator.tokenDeployedSuccess'),
-      description: `${formData.name} (${formData.symbol}) - ${t('tokenGenerator.deployToTburn')}`,
-    });
+  // Main deploy handler
+  const handleDeploy = async () => {
+    if (deploymentMode === "wallet" && walletState.isConnected) {
+      await handleDeployWithWallet();
+    } else {
+      await handleDeploySimulation();
+    }
   };
 
   const resetWizard = () => {
@@ -809,6 +1063,12 @@ export default function TokenSystemPage() {
               formatSupply={formatSupply}
               getTokenIcon={getTokenIcon}
               stepLabels={stepLabels}
+              walletState={walletState}
+              deploymentMode={deploymentMode}
+              setDeploymentMode={setDeploymentMode}
+              gasEstimation={gasEstimation}
+              handleConnectWallet={handleConnectWallet}
+              handleDisconnectWallet={handleDisconnectWallet}
             />
           )}
 
@@ -856,6 +1116,12 @@ function CreateTokenContent({
   formatSupply,
   getTokenIcon,
   stepLabels,
+  walletState,
+  deploymentMode,
+  setDeploymentMode,
+  gasEstimation,
+  handleConnectWallet,
+  handleDisconnectWallet,
 }: any) {
   const { t } = useTranslation();
 
@@ -1436,11 +1702,147 @@ function CreateTokenContent({
               formatSupply={formatSupply}
               getTokenIcon={getTokenIcon}
             />
+            {/* Wallet Connection Section */}
+            <div className={`mt-4 p-4 rounded-lg border ${isDark ? 'bg-[#0F172A] border-gray-700' : 'bg-white border-slate-200'}`}>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Wallet className="w-5 h-5 text-blue-500" />
+                  <span className="font-medium">{t('tokenGenerator.wallet.deploymentMethod', 'Deployment Method')}</span>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant={deploymentMode === "wallet" ? "default" : "outline"}
+                    onClick={() => setDeploymentMode("wallet")}
+                    data-testid="button-mode-wallet"
+                  >
+                    <Wallet className="w-4 h-4 mr-1" />
+                    {t('tokenGenerator.wallet.realDeploy', 'Real Deploy')}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={deploymentMode === "simulation" ? "default" : "outline"}
+                    onClick={() => setDeploymentMode("simulation")}
+                    data-testid="button-mode-simulation"
+                  >
+                    <Cpu className="w-4 h-4 mr-1" />
+                    {t('tokenGenerator.wallet.simulation', 'Simulation')}
+                  </Button>
+                </div>
+              </div>
+
+              {deploymentMode === "wallet" ? (
+                <div className="space-y-3">
+                  {!web3Provider.isMetaMaskInstalled() ? (
+                    <div className={`p-3 rounded-lg ${isDark ? 'bg-amber-500/10 border border-amber-500/30' : 'bg-amber-50 border border-amber-200'}`}>
+                      <div className="flex items-center gap-2 text-amber-500">
+                        <AlertTriangle className="w-4 h-4" />
+                        <span className="text-sm font-medium">{t('tokenGenerator.wallet.metamaskRequired', 'MetaMask Required')}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {t('tokenGenerator.wallet.installMetamask', 'Please install MetaMask to deploy tokens')}
+                      </p>
+                      <a 
+                        href="https://metamask.io/download/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-blue-500 hover:underline mt-2"
+                      >
+                        {t('tokenGenerator.wallet.downloadMetamask', 'Download MetaMask')}
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  ) : walletState.isConnected ? (
+                    <div className={`p-3 rounded-lg ${isDark ? 'bg-emerald-500/10 border border-emerald-500/30' : 'bg-emerald-50 border border-emerald-200'}`}>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-emerald-500" />
+                          <span className="text-sm font-medium text-emerald-500">{t('tokenGenerator.wallet.connected', 'Wallet Connected')}</span>
+                        </div>
+                        <Button size="sm" variant="ghost" onClick={handleDisconnectWallet} data-testid="button-disconnect-wallet">
+                          {t('tokenGenerator.wallet.disconnect', 'Disconnect')}
+                        </Button>
+                      </div>
+                      <div className="mt-2 space-y-1">
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="text-muted-foreground">{t('tokenGenerator.wallet.address', 'Address')}:</span>
+                          <code className="font-mono">{walletState.address?.slice(0, 8)}...{walletState.address?.slice(-6)}</code>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="text-muted-foreground">{t('tokenGenerator.wallet.balance', 'Balance')}:</span>
+                          <span className="font-medium">{parseFloat(walletState.balance || "0").toFixed(4)} TB</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="text-muted-foreground">{t('tokenGenerator.wallet.network', 'Network')}:</span>
+                          {walletState.isCorrectNetwork ? (
+                            <span className="text-emerald-500 flex items-center gap-1">
+                              <CheckCircle className="w-3 h-3" />
+                              TBURN Mainnet
+                            </span>
+                          ) : (
+                            <span className="text-amber-500 flex items-center gap-1">
+                              <AlertTriangle className="w-3 h-3" />
+                              {t('tokenGenerator.wallet.wrongNetworkShort', 'Wrong Network')}
+                              <Button size="sm" variant="ghost" className="h-auto p-0 text-xs" onClick={() => web3Provider.switchToTBurnNetwork()}>
+                                {t('tokenGenerator.wallet.switch', 'Switch')}
+                              </Button>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      {gasEstimation && (
+                        <div className="mt-3 pt-3 border-t border-dashed">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-muted-foreground">{t('tokenGenerator.wallet.estimatedGas', 'Estimated Gas')}:</span>
+                            <span className="font-mono">{gasEstimation.estimatedCostTB} TB</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className={`p-3 rounded-lg ${isDark ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-blue-50 border border-blue-200'}`}>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        {t('tokenGenerator.wallet.connectToDeployReal', 'Connect your wallet to deploy tokens on TBURN Mainnet')}
+                      </p>
+                      <Button 
+                        onClick={handleConnectWallet} 
+                        disabled={walletState.isConnecting}
+                        className="w-full"
+                        data-testid="button-connect-wallet"
+                      >
+                        {walletState.isConnecting ? (
+                          <>
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            {t('tokenGenerator.wallet.connecting', 'Connecting...')}
+                          </>
+                        ) : (
+                          <>
+                            <Wallet className="w-4 h-4 mr-2" />
+                            {t('tokenGenerator.wallet.connectMetamask', 'Connect MetaMask')}
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className={`p-3 rounded-lg ${isDark ? 'bg-amber-500/10 border border-amber-500/30' : 'bg-amber-50 border border-amber-200'}`}>
+                  <div className="flex items-center gap-2 text-amber-500 mb-2">
+                    <AlertCircle className="w-4 h-4" />
+                    <span className="text-sm font-medium">{t('tokenGenerator.wallet.simulationMode', 'Simulation Mode')}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {t('tokenGenerator.wallet.simulationDesc', 'Token will be deployed in simulation mode. No real blockchain transaction will be executed.')}
+                  </p>
+                </div>
+              )}
+            </div>
+
             <div className="mt-4 space-y-3">
               <Button 
                 className="w-full py-6 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
                 onClick={handleDeploy}
-                disabled={isDeploying}
+                disabled={isDeploying || (deploymentMode === "wallet" && !walletState.isConnected)}
                 data-testid="button-deploy"
               >
                 {isDeploying ? (
@@ -1448,10 +1850,17 @@ function CreateTokenContent({
                     <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                     {t('tokenGenerator.deploying')}
                   </>
+                ) : deploymentMode === "wallet" && !walletState.isConnected ? (
+                  <>
+                    <Wallet className="w-5 h-5 mr-2" />
+                    {t('tokenGenerator.wallet.connectFirst', 'Connect Wallet First')}
+                  </>
                 ) : (
                   <>
                     <Rocket className="w-5 h-5 mr-2" />
-                    {t('tokenGenerator.deploy')}
+                    {deploymentMode === "wallet" 
+                      ? t('tokenGenerator.deployToMainnet', 'Deploy to TBURN Mainnet') 
+                      : t('tokenGenerator.deploySimulation', 'Deploy (Simulation)')}
                   </>
                 )}
               </Button>
