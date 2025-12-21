@@ -16412,17 +16412,14 @@
     },
     "rewards": {
       "title": "我的奖励",
-      "connectPrompt": "连接钱包",
-      "connectDescription": "连接钱包以查看和领取奖励。",
-      "currentTier": "当前等级",
-      "stakedAmount": "质押金额",
       "airdropReward": "空投奖励",
-      "referralBonus": "推荐奖励",
+      "claimCompleted": "已领取",
       "claimAirdrop": "领取空投",
-      "claimNft": "铸造NFT",
-      "claimed": "已领取",
-      "minted": "已铸造",
-      "notEligible": "无资格"
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "已铸造",
+      "mintNft": "铸造NFT",
+      "connectPrompt": "连接钱包",
+      "connectDescription": "连接钱包以查看和领取奖励。"
     },
     "tasks": {
       "title": "任务与挑战",
@@ -16435,7 +16432,13 @@
       "bridgeTx": "跨链交易",
       "reward": "奖励",
       "start": "开始",
-      "completed": "已完成"
+      "completed": "已完成",
+      "twitter_follow": "关注X/Twitter",
+      "discord_join": "加入Discord",
+      "telegram_join": "加入Telegram",
+      "share_launch": "分享发布帖子",
+      "first_stake": "首次质押",
+      "bridge_tx": "跨链交易"
     },
     "leaderboard": {
       "title": "发布排行榜",
@@ -16444,13 +16447,73 @@
       "user": "用户",
       "staked": "质押量",
       "referrals": "推荐数",
-      "score": "积分"
+      "score": "积分",
+      "you": "您"
     },
     "cta": {
       "title": "立即加入！",
       "description": "参与TBURN主网Genesis发布活动，获取专属奖励。开始质押即可自动参与活动。",
       "joinLaunch": "参与发布活动",
       "startStaking": "开始质押"
+    },
+    "tierSystem": {
+      "title": "空投等级系统",
+      "description": "您的等级由质押金额决定，等级越高获得的奖励越多。",
+      "currentTier": "当前等级",
+      "reward": "TBURN奖励",
+      "multiplier": "倍率",
+      "genesis": {
+        "name": "Genesis创始人",
+        "perk1": "专属Genesis NFT",
+        "perk2": "终身治理高级权限",
+        "perk3": "私人Discord"
+      },
+      "diamond": {
+        "name": "Diamond先驱者",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "优先支持访问"
+      },
+      "gold": {
+        "name": "Gold验证者",
+        "perk1": "Gold Validator NFT",
+        "perk2": "月度AMA邀请"
+      },
+      "silver": {
+        "name": "Silver支持者",
+        "perk1": "社区徽章",
+        "perk2": "活动优先访问"
+      },
+      "bronze": {
+        "name": "Bronze成员",
+        "perk1": "发布参与者徽章",
+        "perk2": "社区访问"
+      }
+    },
+    "schedule": {
+      "title": "发布时间表",
+      "mainnetGenesis": "主网Genesis区块",
+      "airdropClaim": "空投领取开放",
+      "scheduled": "预定",
+      "nftMinting": "Genesis NFT铸造开始",
+      "stakingRewards": "质押奖励开始"
+    },
+    "nftSection": {
+      "title": "Genesis NFT系列",
+      "nftName": "Genesis创始人 NFT",
+      "nftDesc": "限量100个发行。最高权威和福利。",
+      "tier": "等级",
+      "totalSupply": "总发行量",
+      "minted": "已铸造",
+      "info": "Genesis和Diamond等级的质押者将获得免费铸造权限。"
+    },
+    "referralSection": {
+      "title": "推荐计划",
+      "description": "分享您的推荐链接，赚取推荐人质押奖励的10%！",
+      "yourCode": "您的推荐链接",
+      "copyLink": "复制链接",
+      "copied": "已复制！",
+      "totalReferrals": "总推荐数",
+      "bonusEarned": "获得奖励"
     }
   }
 }

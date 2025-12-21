@@ -14875,17 +14875,14 @@
     },
     "rewards": {
       "title": "मेरे पुरस्कार",
-      "connectPrompt": "वॉलेट कनेक्ट करें",
-      "connectDescription": "पुरस्कार देखने और क्लेम करने के लिए वॉलेट कनेक्ट करें।",
-      "currentTier": "वर्तमान टियर",
-      "stakedAmount": "स्टेक राशि",
       "airdropReward": "एयरड्रॉप पुरस्कार",
-      "referralBonus": "रेफरल बोनस",
-      "claimAirdrop": "एयरड्रॉप क्लेम करें",
-      "claimNft": "NFT मिंट करें",
-      "claimed": "क्लेम किया गया",
-      "minted": "मिंट किया गया",
-      "notEligible": "पात्र नहीं"
+      "claimCompleted": "दावा किया गया",
+      "claimAirdrop": "एयरड्रॉप दावा करें",
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "मिंट किया गया",
+      "mintNft": "NFT मिंट करें",
+      "connectPrompt": "वॉलेट कनेक्ट करें",
+      "connectDescription": "पुरस्कार देखने और दावा करने के लिए अपना वॉलेट कनेक्ट करें।"
     },
     "tasks": {
       "title": "कार्य और क्वेस्ट",
@@ -14898,7 +14895,13 @@
       "bridgeTx": "ब्रिज ट्रांजैक्शन",
       "reward": "पुरस्कार",
       "start": "शुरू करें",
-      "completed": "पूर्ण"
+      "completed": "पूर्ण",
+      "twitter_follow": "X/Twitter पर फॉलो करें",
+      "discord_join": "Discord में शामिल हों",
+      "telegram_join": "Telegram में शामिल हों",
+      "share_launch": "लॉन्च पोस्ट शेयर करें",
+      "first_stake": "पहला स्टेकिंग",
+      "bridge_tx": "ब्रिज ट्रांजैक्शन"
     },
     "leaderboard": {
       "title": "लॉन्च लीडरबोर्ड",
@@ -14907,13 +14910,73 @@
       "user": "उपयोगकर्ता",
       "staked": "स्टेक",
       "referrals": "रेफरल",
-      "score": "स्कोर"
+      "score": "स्कोर",
+      "you": "आप"
     },
     "cta": {
       "title": "अभी जुड़ें!",
       "description": "TBURN Mainnet Genesis लॉन्च में भाग लें और विशेष पुरस्कार प्राप्त करें। स्टेकिंग शुरू करें और स्वचालित रूप से इवेंट में शामिल हों।",
       "joinLaunch": "लॉन्च इवेंट में शामिल हों",
       "startStaking": "स्टेकिंग शुरू करें"
+    },
+    "tierSystem": {
+      "title": "एयरड्रॉप टियर सिस्टम",
+      "description": "आपका टियर स्टेकिंग राशि से निर्धारित होता है। उच्च टियर को अधिक पुरस्कार मिलते हैं।",
+      "currentTier": "वर्तमान टियर",
+      "reward": "TBURN पुरस्कार",
+      "multiplier": "गुणक",
+      "genesis": {
+        "name": "Genesis संस्थापक",
+        "perk1": "एक्सक्लूसिव Genesis NFT",
+        "perk2": "जीवनभर गवर्नेंस प्रीमियम",
+        "perk3": "प्राइवेट Discord"
+      },
+      "diamond": {
+        "name": "Diamond पायनियर",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "प्राथमिकता सहायता"
+      },
+      "gold": {
+        "name": "Gold वेरिफायर",
+        "perk1": "Gold Validator NFT",
+        "perk2": "मासिक AMA आमंत्रण"
+      },
+      "silver": {
+        "name": "Silver समर्थक",
+        "perk1": "समुदाय बैज",
+        "perk2": "इवेंट प्राथमिकता"
+      },
+      "bronze": {
+        "name": "Bronze सदस्य",
+        "perk1": "लॉन्च प्रतिभागी बैज",
+        "perk2": "समुदाय एक्सेस"
+      }
+    },
+    "schedule": {
+      "title": "लॉन्च शेड्यूल",
+      "mainnetGenesis": "मेननेट Genesis ब्लॉक",
+      "airdropClaim": "एयरड्रॉप क्लेम ओपन",
+      "scheduled": "निर्धारित",
+      "nftMinting": "Genesis NFT मिंटिंग शुरू",
+      "stakingRewards": "स्टेकिंग पुरस्कार शुरू"
+    },
+    "nftSection": {
+      "title": "Genesis NFT संग्रह",
+      "nftName": "Genesis फाउंडर NFT",
+      "nftDesc": "100 सीमित संस्करण। सर्वोच्च अधिकार और लाभ।",
+      "tier": "टियर",
+      "totalSupply": "कुल आपूर्ति",
+      "minted": "मिंट किया गया",
+      "info": "Genesis और Diamond टियर स्टेकर्स को मुफ्त मिंटिंग अधिकार।"
+    },
+    "referralSection": {
+      "title": "रेफरल प्रोग्राम",
+      "description": "अपना रेफरल लिंक साझा करें और रेफरल के स्टेकिंग पुरस्कार का 10% कमाएं!",
+      "yourCode": "आपका रेफरल लिंक",
+      "copyLink": "लिंक कॉपी करें",
+      "copied": "कॉपी किया गया!",
+      "totalReferrals": "कुल रेफरल",
+      "bonusEarned": "अर्जित बोनस"
     }
   }
 }

@@ -27864,17 +27864,14 @@
     },
     "rewards": {
       "title": "My Rewards",
-      "connectPrompt": "Connect Wallet",
-      "connectDescription": "Connect your wallet to check and claim rewards.",
-      "currentTier": "Current Tier",
-      "stakedAmount": "Staked Amount",
       "airdropReward": "Airdrop Reward",
-      "referralBonus": "Referral Bonus",
+      "claimCompleted": "Claimed",
       "claimAirdrop": "Claim Airdrop",
-      "claimNft": "Mint NFT",
-      "claimed": "Claimed",
-      "minted": "Minted",
-      "notEligible": "Not Eligible"
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "Minted",
+      "mintNft": "Mint NFT",
+      "connectPrompt": "Connect Wallet",
+      "connectDescription": "Connect your wallet to check and claim rewards."
     },
     "tasks": {
       "title": "Tasks & Quests",
@@ -27887,7 +27884,13 @@
       "bridgeTx": "Bridge Transaction",
       "reward": "Reward",
       "start": "Start",
-      "completed": "Completed"
+      "completed": "Completed",
+      "twitter_follow": "Follow on X/Twitter",
+      "discord_join": "Join Discord",
+      "telegram_join": "Join Telegram",
+      "share_launch": "Share Launch Post",
+      "first_stake": "First Stake",
+      "bridge_tx": "Bridge Transaction"
     },
     "leaderboard": {
       "title": "Launch Leaderboard",
@@ -27896,13 +27899,73 @@
       "user": "USER",
       "staked": "STAKED",
       "referrals": "REFERRALS",
-      "score": "SCORE"
+      "score": "SCORE",
+      "you": "You"
     },
     "cta": {
       "title": "Join Now!",
       "description": "Participate in the TBURN Mainnet Genesis launch and receive exclusive rewards. Start staking to automatically join the event.",
       "joinLaunch": "Join Launch Event",
       "startStaking": "Start Staking"
+    },
+    "tierSystem": {
+      "title": "Airdrop Tier System",
+      "description": "Your tier is determined by your staking amount. Higher tiers receive more rewards.",
+      "currentTier": "Current Tier",
+      "reward": "TBURN Reward",
+      "multiplier": "Multiplier",
+      "genesis": {
+        "name": "Genesis Founder",
+        "perk1": "Exclusive Genesis NFT",
+        "perk2": "Lifetime Governance Premium",
+        "perk3": "Private Discord"
+      },
+      "diamond": {
+        "name": "Diamond Pioneer",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "Priority Support Access"
+      },
+      "gold": {
+        "name": "Gold Validator",
+        "perk1": "Gold Validator NFT",
+        "perk2": "Monthly AMA Invitation"
+      },
+      "silver": {
+        "name": "Silver Supporter",
+        "perk1": "Community Badge",
+        "perk2": "Event Priority Access"
+      },
+      "bronze": {
+        "name": "Bronze Member",
+        "perk1": "Launch Participant Badge",
+        "perk2": "Community Access"
+      }
+    },
+    "schedule": {
+      "title": "Launch Schedule",
+      "mainnetGenesis": "Mainnet Genesis Block",
+      "airdropClaim": "Airdrop Claim Open",
+      "scheduled": "Scheduled",
+      "nftMinting": "Genesis NFT Minting Start",
+      "stakingRewards": "Staking Rewards Start"
+    },
+    "nftSection": {
+      "title": "Genesis NFT Collection",
+      "nftName": "Genesis Founder NFT",
+      "nftDesc": "100 limited edition. Ultimate authority and benefits.",
+      "tier": "Tier",
+      "totalSupply": "Total Supply",
+      "minted": "Minted",
+      "info": "Free minting rights granted to Genesis and Diamond tier stakers."
+    },
+    "referralSection": {
+      "title": "Referral Program",
+      "description": "Share your referral link and earn 10% of your referrals' staking rewards!",
+      "yourCode": "Your Referral Link",
+      "copyLink": "Copy Link",
+      "copied": "Copied!",
+      "totalReferrals": "Total Referrals",
+      "bonusEarned": "Bonus Earned"
     }
   }
 }

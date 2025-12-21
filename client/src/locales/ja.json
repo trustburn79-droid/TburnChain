@@ -17287,18 +17287,15 @@
       "bonusEarned": "獲得ボーナス"
     },
     "rewards": {
-      "title": "マイ報酬",
-      "connectPrompt": "ウォレットを接続",
-      "connectDescription": "報酬を確認・請求するにはウォレットを接続してください。",
-      "currentTier": "現在のティア",
-      "stakedAmount": "ステーキング額",
+      "title": "マイリワード",
       "airdropReward": "エアドロップ報酬",
-      "referralBonus": "紹介ボーナス",
-      "claimAirdrop": "エアドロップを請求",
-      "claimNft": "NFTをミント",
-      "claimed": "請求済み",
-      "minted": "ミント済み",
-      "notEligible": "対象外"
+      "claimCompleted": "請求完了",
+      "claimAirdrop": "エアドロップ請求",
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "ミント完了",
+      "mintNft": "NFTミント",
+      "connectPrompt": "ウォレットを接続",
+      "connectDescription": "報酬を確認して請求するにはウォレットを接続してください。"
     },
     "tasks": {
       "title": "タスク＆クエスト",
@@ -17311,7 +17308,13 @@
       "bridgeTx": "ブリッジ取引",
       "reward": "報酬",
       "start": "開始",
-      "completed": "完了"
+      "completed": "完了",
+      "twitter_follow": "X/Twitterをフォロー",
+      "discord_join": "Discordに参加",
+      "telegram_join": "Telegramに参加",
+      "share_launch": "ローンチ投稿をシェア",
+      "first_stake": "初回ステーキング",
+      "bridge_tx": "ブリッジトランザクション"
     },
     "leaderboard": {
       "title": "ローンチリーダーボード",
@@ -17320,13 +17323,73 @@
       "user": "ユーザー",
       "staked": "ステーキング",
       "referrals": "紹介数",
-      "score": "スコア"
+      "score": "スコア",
+      "you": "あなた"
     },
     "cta": {
       "title": "今すぐ参加！",
       "description": "TBURNメインネット Genesisローンチに参加して限定報酬を受け取りましょう。ステーキングを開始すると自動的にイベントに参加します。",
       "joinLaunch": "ローンチイベントに参加",
       "startStaking": "ステーキングを開始"
+    },
+    "tierSystem": {
+      "title": "エアドロップティアシステム",
+      "description": "ステーキング額に応じてティアが決まり、高いティアほど多くの報酬を獲得できます。",
+      "currentTier": "現在のティア",
+      "reward": "TBURN報酬",
+      "multiplier": "倍率",
+      "genesis": {
+        "name": "Genesis創設者",
+        "perk1": "限定Genesis NFT",
+        "perk2": "生涯ガバナンスプレミアム",
+        "perk3": "プライベートDiscord"
+      },
+      "diamond": {
+        "name": "Diamondパイオニア",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "優先サポートアクセス"
+      },
+      "gold": {
+        "name": "Gold検証者",
+        "perk1": "Gold Validator NFT",
+        "perk2": "月次AMA招待"
+      },
+      "silver": {
+        "name": "Silverサポーター",
+        "perk1": "コミュニティバッジ",
+        "perk2": "イベント優先アクセス"
+      },
+      "bronze": {
+        "name": "Bronzeメンバー",
+        "perk1": "ローンチ参加者バッジ",
+        "perk2": "コミュニティアクセス"
+      }
+    },
+    "schedule": {
+      "title": "ローンチスケジュール",
+      "mainnetGenesis": "メインネットGenesisブロック",
+      "airdropClaim": "エアドロップ請求開始",
+      "scheduled": "予定",
+      "nftMinting": "Genesis NFTミント開始",
+      "stakingRewards": "ステーキング報酬開始"
+    },
+    "nftSection": {
+      "title": "Genesis NFTコレクション",
+      "nftName": "Genesisファウンダー NFT",
+      "nftDesc": "100個限定発行。最高の権威と特典。",
+      "tier": "ティア",
+      "totalSupply": "総発行数",
+      "minted": "ミント済み",
+      "info": "GenesisとDiamondティアのステーカーに無料ミント権が付与されます。"
+    },
+    "referralSection": {
+      "title": "紹介プログラム",
+      "description": "紹介リンクを共有して、紹介者のステーキング報酬の10%を獲得しましょう！",
+      "yourCode": "あなたの紹介リンク",
+      "copyLink": "リンクをコピー",
+      "copied": "コピーしました！",
+      "totalReferrals": "総紹介数",
+      "bonusEarned": "獲得ボーナス"
     }
   }
 }

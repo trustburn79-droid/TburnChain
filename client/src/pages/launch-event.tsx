@@ -356,114 +356,114 @@ export default function LaunchEventPage() {
                 <div className="space-y-12">
                   {/* Tier System */}
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">에어드랍 티어 시스템</h2>
-                    <p className="text-slate-500 dark:text-gray-400 mb-6">스테이킹 금액에 따라 티어가 결정되며, 높은 티어일수록 더 많은 보상을 받습니다.</p>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('launchEventPage.tierSystem.title', 'Airdrop Tier System')}</h2>
+                    <p className="text-slate-500 dark:text-gray-400 mb-6">{t('launchEventPage.tierSystem.description', 'Your tier is determined by your staking amount. Higher tiers receive more rewards.')}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                       {/* Genesis Tier */}
                       <div className={`tier-genesis glass-panel p-5 rounded-2xl relative bg-gradient-to-b from-orange-500/10 to-transparent ${userTier === 'genesis' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-genesis">
                         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#F97316] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg">LEGENDARY</div>
-                        {userTier === 'genesis' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">현재 등급</Badge>}
-                        <h3 className="text-lg font-bold text-[#F97316] mb-1">Genesis 창립자</h3>
+                        {userTier === 'genesis' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">{t('launchEventPage.tierSystem.currentTier', 'Current Tier')}</Badge>}
+                        <h3 className="text-lg font-bold text-[#F97316] mb-1">{t('launchEventPage.tierSystem.genesis.name', 'Genesis Founder')}</h3>
                         <p className="text-xs text-slate-500 mb-4">Min: <span className="font-mono font-bold text-slate-900 dark:text-white">100,000</span> TBURN</p>
                         <div className="space-y-2 mb-4">
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">TBURN 보상</p>
-                            <p className="text-lg font-bold font-mono text-white">50,000+</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.reward', 'TBURN Reward')}</p>
+                            <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">50,000+</p>
                           </div>
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">배수 (Multiplier)</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.multiplier', 'Multiplier')}</p>
                             <p className="text-lg font-bold font-mono text-[#F97316]">5x</p>
                           </div>
                         </div>
-                        <div className="text-xs text-slate-400 space-y-1">
-                          <p>✅ <span className="text-white">독점 Genesis NFT</span></p>
-                          <p>✅ 평생 거버넌스 프리미엄</p>
-                          <p>✅ 프라이빗 디스코드</p>
+                        <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                          <p>✅ <span className="text-slate-900 dark:text-white font-medium">{t('launchEventPage.tierSystem.genesis.perk1', 'Exclusive Genesis NFT')}</span></p>
+                          <p>✅ {t('launchEventPage.tierSystem.genesis.perk2', 'Lifetime Governance Premium')}</p>
+                          <p>✅ {t('launchEventPage.tierSystem.genesis.perk3', 'Private Discord')}</p>
                         </div>
                       </div>
 
                       {/* Diamond Tier */}
                       <div className={`tier-diamond glass-panel p-5 rounded-2xl relative bg-gradient-to-b from-cyan-500/10 to-transparent ${userTier === 'diamond' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-diamond">
-                        {userTier === 'diamond' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">현재 등급</Badge>}
-                        <h3 className="text-lg font-bold text-cyan-400 mb-1">Diamond 파이오니어</h3>
+                        {userTier === 'diamond' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">{t('launchEventPage.tierSystem.currentTier', 'Current Tier')}</Badge>}
+                        <h3 className="text-lg font-bold text-cyan-500 dark:text-cyan-400 mb-1">{t('launchEventPage.tierSystem.diamond.name', 'Diamond Pioneer')}</h3>
                         <p className="text-xs text-slate-500 mb-4">Min: <span className="font-mono font-bold text-slate-900 dark:text-white">50,000</span> TBURN</p>
                         <div className="space-y-2 mb-4">
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">TBURN 보상</p>
-                            <p className="text-lg font-bold font-mono text-white">25,000+</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.reward', 'TBURN Reward')}</p>
+                            <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">25,000+</p>
                           </div>
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">배수 (Multiplier)</p>
-                            <p className="text-lg font-bold font-mono text-cyan-400">3x</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.multiplier', 'Multiplier')}</p>
+                            <p className="text-lg font-bold font-mono text-cyan-500 dark:text-cyan-400">3x</p>
                           </div>
                         </div>
-                        <div className="text-xs text-slate-400 space-y-1">
-                          <p>✅ Diamond Pioneer NFT</p>
-                          <p>✅ 우선 지원 액세스</p>
+                        <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                          <p>✅ {t('launchEventPage.tierSystem.diamond.perk1', 'Diamond Pioneer NFT')}</p>
+                          <p>✅ {t('launchEventPage.tierSystem.diamond.perk2', 'Priority Support Access')}</p>
                         </div>
                       </div>
 
                       {/* Gold Tier */}
                       <div className={`tier-gold glass-panel p-5 rounded-2xl relative bg-gradient-to-b from-yellow-500/10 to-transparent ${userTier === 'gold' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-gold">
-                        {userTier === 'gold' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">현재 등급</Badge>}
-                        <h3 className="text-lg font-bold text-yellow-500 mb-1">Gold 검증자</h3>
+                        {userTier === 'gold' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">{t('launchEventPage.tierSystem.currentTier', 'Current Tier')}</Badge>}
+                        <h3 className="text-lg font-bold text-yellow-600 dark:text-yellow-500 mb-1">{t('launchEventPage.tierSystem.gold.name', 'Gold Validator')}</h3>
                         <p className="text-xs text-slate-500 mb-4">Min: <span className="font-mono font-bold text-slate-900 dark:text-white">10,000</span> TBURN</p>
                         <div className="space-y-2 mb-4">
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">TBURN 보상</p>
-                            <p className="text-lg font-bold font-mono text-white">10,000+</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.reward', 'TBURN Reward')}</p>
+                            <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">10,000+</p>
                           </div>
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">배수 (Multiplier)</p>
-                            <p className="text-lg font-bold font-mono text-yellow-500">2x</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.multiplier', 'Multiplier')}</p>
+                            <p className="text-lg font-bold font-mono text-yellow-600 dark:text-yellow-500">2x</p>
                           </div>
                         </div>
-                        <div className="text-xs text-slate-400 space-y-1">
-                          <p>✅ Gold Validator NFT</p>
-                          <p>✅ 월간 AMA 초대</p>
+                        <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                          <p>✅ {t('launchEventPage.tierSystem.gold.perk1', 'Gold Validator NFT')}</p>
+                          <p>✅ {t('launchEventPage.tierSystem.gold.perk2', 'Monthly AMA Invitation')}</p>
                         </div>
                       </div>
 
                       {/* Silver Tier */}
                       <div className={`tier-silver glass-panel p-5 rounded-2xl relative ${userTier === 'silver' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-silver">
-                        {userTier === 'silver' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">현재 등급</Badge>}
-                        <h3 className="text-lg font-bold text-gray-400 mb-1">Silver 서포터</h3>
+                        {userTier === 'silver' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">{t('launchEventPage.tierSystem.currentTier', 'Current Tier')}</Badge>}
+                        <h3 className="text-lg font-bold text-gray-500 dark:text-gray-400 mb-1">{t('launchEventPage.tierSystem.silver.name', 'Silver Supporter')}</h3>
                         <p className="text-xs text-slate-500 mb-4">Min: <span className="font-mono font-bold text-slate-900 dark:text-white">1,000</span> TBURN</p>
                         <div className="space-y-2 mb-4">
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">TBURN 보상</p>
-                            <p className="text-lg font-bold font-mono text-white">2,500+</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.reward', 'TBURN Reward')}</p>
+                            <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">2,500+</p>
                           </div>
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">배수 (Multiplier)</p>
-                            <p className="text-lg font-bold font-mono text-gray-400">1.5x</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.multiplier', 'Multiplier')}</p>
+                            <p className="text-lg font-bold font-mono text-gray-500 dark:text-gray-400">1.5x</p>
                           </div>
                         </div>
-                        <div className="text-xs text-slate-400 space-y-1">
-                          <p>✅ 커뮤니티 배지</p>
-                          <p>✅ 이벤트 우선 액세스</p>
+                        <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                          <p>✅ {t('launchEventPage.tierSystem.silver.perk1', 'Community Badge')}</p>
+                          <p>✅ {t('launchEventPage.tierSystem.silver.perk2', 'Event Priority Access')}</p>
                         </div>
                       </div>
 
                       {/* Bronze Tier */}
                       <div className={`tier-bronze glass-panel p-5 rounded-2xl relative ${userTier === 'bronze' ? 'ring-2 ring-blue-500' : ''}`} data-testid="tier-card-bronze">
-                        {userTier === 'bronze' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">현재 등급</Badge>}
-                        <h3 className="text-lg font-bold text-orange-700 mb-1">Bronze 멤버</h3>
+                        {userTier === 'bronze' && <Badge className="absolute top-2 right-2 bg-blue-500 text-white text-[10px]">{t('launchEventPage.tierSystem.currentTier', 'Current Tier')}</Badge>}
+                        <h3 className="text-lg font-bold text-orange-700 mb-1">{t('launchEventPage.tierSystem.bronze.name', 'Bronze Member')}</h3>
                         <p className="text-xs text-slate-500 mb-4">Min: <span className="font-mono font-bold text-slate-900 dark:text-white">100</span> TBURN</p>
                         <div className="space-y-2 mb-4">
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">TBURN 보상</p>
-                            <p className="text-lg font-bold font-mono text-white">500+</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.reward', 'TBURN Reward')}</p>
+                            <p className="text-lg font-bold font-mono text-slate-900 dark:text-white">500+</p>
                           </div>
-                          <div className="bg-black/20 rounded p-2 text-center">
-                            <p className="text-xs text-slate-400">배수 (Multiplier)</p>
+                          <div className="bg-slate-200/80 dark:bg-black/20 rounded p-2 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{t('launchEventPage.tierSystem.multiplier', 'Multiplier')}</p>
                             <p className="text-lg font-bold font-mono text-orange-700">1x</p>
                           </div>
                         </div>
-                        <div className="text-xs text-slate-400 space-y-1">
-                          <p>✅ 런칭 참여자 배지</p>
-                          <p>✅ 커뮤니티 액세스</p>
+                        <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                          <p>✅ {t('launchEventPage.tierSystem.bronze.perk1', 'Launch Participant Badge')}</p>
+                          <p>✅ {t('launchEventPage.tierSystem.bronze.perk2', 'Community Access')}</p>
                         </div>
                       </div>
                     </div>
@@ -471,28 +471,28 @@ export default function LaunchEventPage() {
 
                   {/* Launch Schedule & NFT Collection - 3 Column Grid */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* 런칭 일정 - 1 Column */}
+                    {/* Launch Schedule - 1 Column */}
                     <div className="glass-panel p-6 rounded-2xl lg:col-span-1">
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">📅 런칭 일정</h3>
-                      <div className="space-y-0 relative border-l border-slate-700 ml-3">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">📅 {t('launchEventPage.schedule.title', 'Launch Schedule')}</h3>
+                      <div className="space-y-0 relative border-l border-slate-300 dark:border-slate-700 ml-3">
                         <div className="ml-6 mb-6 relative">
-                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#10B981] ring-4 ring-[#0B1120]"></span>
-                          <p className="text-sm font-bold text-slate-900 dark:text-white">메인넷 Genesis 블록</p>
+                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#10B981] ring-4 ring-slate-100 dark:ring-[#0B1120]"></span>
+                          <p className="text-sm font-bold text-slate-900 dark:text-white">{t('launchEventPage.schedule.mainnetGenesis', 'Mainnet Genesis Block')}</p>
                           <p className="text-xs text-slate-500">Dec 21, 00:00 UTC</p>
                         </div>
                         <div className="ml-6 mb-6 relative">
-                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#3B82F6] ring-4 ring-[#0B1120] animate-pulse"></span>
-                          <p className="text-sm font-bold text-slate-900 dark:text-white">에어드랍 클레임 오픈</p>
-                          <p className="text-xs text-[#3B82F6] font-bold">Dec 21, 00:01 UTC (예정)</p>
+                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#3B82F6] ring-4 ring-slate-100 dark:ring-[#0B1120] animate-pulse"></span>
+                          <p className="text-sm font-bold text-slate-900 dark:text-white">{t('launchEventPage.schedule.airdropClaim', 'Airdrop Claim Open')}</p>
+                          <p className="text-xs text-[#3B82F6] font-bold">Dec 21, 00:01 UTC ({t('launchEventPage.schedule.scheduled', 'Scheduled')})</p>
                         </div>
                         <div className="ml-6 mb-6 relative">
-                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-slate-700 ring-4 ring-[#0B1120]"></span>
-                          <p className="text-sm font-bold text-slate-500">Genesis NFT 민팅 시작</p>
+                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-700 ring-4 ring-slate-100 dark:ring-[#0B1120]"></span>
+                          <p className="text-sm font-bold text-slate-500">{t('launchEventPage.schedule.nftMinting', 'Genesis NFT Minting Start')}</p>
                           <p className="text-xs text-slate-600">Dec 21, 00:05 UTC</p>
                         </div>
                         <div className="ml-6 relative">
-                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-slate-700 ring-4 ring-[#0B1120]"></span>
-                          <p className="text-sm font-bold text-slate-500">스테이킹 보상 시작</p>
+                          <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-700 ring-4 ring-slate-100 dark:ring-[#0B1120]"></span>
+                          <p className="text-sm font-bold text-slate-500">{t('launchEventPage.schedule.stakingRewards', 'Staking Rewards Start')}</p>
                           <p className="text-xs text-slate-600">Jan 1, 2025</p>
                         </div>
                       </div>
@@ -501,9 +501,9 @@ export default function LaunchEventPage() {
                     {/* Genesis NFT Collection - 2 Columns */}
                     <div className="glass-panel p-6 rounded-2xl lg:col-span-2 relative overflow-hidden">
                       <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-10">
-                        <Box className="w-32 h-32 text-white" strokeWidth={1} />
+                        <Box className="w-32 h-32 text-slate-400 dark:text-white" strokeWidth={1} />
                       </div>
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">🎨 Genesis NFT 컬렉션</h3>
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">🎨 {t('launchEventPage.nftSection.title', 'Genesis NFT Collection')}</h3>
                       <div className="flex items-center gap-6 mb-6">
                         <img 
                           src="https://api.dicebear.com/7.x/shapes/svg?seed=Genesis" 
@@ -511,67 +511,67 @@ export default function LaunchEventPage() {
                           alt="Genesis NFT"
                         />
                         <div>
-                          <h4 className="text-lg font-bold text-white">Genesis 파운더 NFT</h4>
-                          <p className="text-sm text-slate-400 mb-2">100개 한정 발행. 최고의 권위와 혜택.</p>
+                          <h4 className="text-lg font-bold text-slate-900 dark:text-white">{t('launchEventPage.nftSection.nftName', 'Genesis Founder NFT')}</h4>
+                          <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">{t('launchEventPage.nftSection.nftDesc', '100 limited edition. Ultimate authority and benefits.')}</p>
                           <div className="flex gap-4 text-xs font-mono">
-                            <div className="bg-black/30 px-2 py-1 rounded">
-                              <span className="text-slate-500">등급</span> <span className="text-white font-bold">3</span>
+                            <div className="bg-slate-200/80 dark:bg-black/30 px-2 py-1 rounded">
+                              <span className="text-slate-500">{t('launchEventPage.nftSection.tier', 'Tier')}</span> <span className="text-slate-900 dark:text-white font-bold">3</span>
                             </div>
-                            <div className="bg-black/30 px-2 py-1 rounded">
-                              <span className="text-slate-500">총 발행</span> <span className="text-white font-bold">1,000</span>
+                            <div className="bg-slate-200/80 dark:bg-black/30 px-2 py-1 rounded">
+                              <span className="text-slate-500">{t('launchEventPage.nftSection.totalSupply', 'Total Supply')}</span> <span className="text-slate-900 dark:text-white font-bold">1,000</span>
                             </div>
-                            <div className="bg-black/30 px-2 py-1 rounded">
-                              <span className="text-[#3B82F6]">민팅됨</span> <span className="text-white font-bold">{formatNumber(stats.nftsMinted)}</span>
+                            <div className="bg-slate-200/80 dark:bg-black/30 px-2 py-1 rounded">
+                              <span className="text-[#3B82F6]">{t('launchEventPage.nftSection.minted', 'Minted')}</span> <span className="text-slate-900 dark:text-white font-bold">{formatNumber(stats.nftsMinted)}</span>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                        <p className="text-sm text-slate-300">ℹ️ 제네시스 및 다이아몬드 티어 스테이커에게 무료 민팅 권한이 부여됩니다.</p>
+                      <div className="bg-slate-200/80 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-300 dark:border-slate-700">
+                        <p className="text-sm text-slate-600 dark:text-slate-300">ℹ️ {t('launchEventPage.nftSection.info', 'Free minting rights granted to Genesis and Diamond tier stakers.')}</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Referral Program */}
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">레퍼럴 프로그램</h2>
-                    <p className="text-slate-500 dark:text-gray-400 mb-6">친구를 초대하고 추가 보상을 받으세요. 추천인당 200 TBURN 보너스!</p>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('launchEventPage.referralSection.title', 'Referral Program')}</h2>
+                    <p className="text-slate-500 dark:text-gray-400 mb-6">{t('launchEventPage.referralSection.description', 'Share your referral link and earn 10% of your referrals\' staking rewards!')}</p>
                     
                     <div className="glass-panel p-6 rounded-2xl">
                       {isConnected && userData ? (
                         <div className="flex flex-col md:flex-row gap-4">
-                          <div className="flex-1 bg-slate-900/50 rounded-xl p-4 border border-slate-700">
-                            <p className="text-xs text-slate-500 mb-1">내 레퍼럴 코드</p>
+                          <div className="flex-1 bg-slate-200/80 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-300 dark:border-slate-700">
+                            <p className="text-xs text-slate-500 mb-1">{t('launchEventPage.referralSection.yourCode', 'Your Referral Link')}</p>
                             <div className="flex items-center gap-2">
-                              <code className="text-lg font-mono text-white flex-1">{userData.referralCode}</code>
+                              <code className="text-lg font-mono text-slate-900 dark:text-white flex-1">{userData.referralCode}</code>
                               <button 
                                 onClick={copyReferralCode}
-                                className="p-2 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors"
+                                className="p-2 rounded-lg bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors"
                               >
-                                {copiedReferral ? <CheckCircle className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-slate-400" />}
+                                {copiedReferral ? <CheckCircle className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-slate-500 dark:text-slate-400" />}
                               </button>
                             </div>
                           </div>
                           <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-slate-900/50 rounded-xl p-4 border border-slate-700 text-center">
-                              <p className="text-xs text-slate-500">추천 수</p>
+                            <div className="bg-slate-200/80 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-300 dark:border-slate-700 text-center">
+                              <p className="text-xs text-slate-500">{t('launchEventPage.referralSection.totalReferrals', 'Total Referrals')}</p>
                               <p className="text-2xl font-bold font-mono text-[#3B82F6]">{userData.referralCount}</p>
                             </div>
-                            <div className="bg-slate-900/50 rounded-xl p-4 border border-slate-700 text-center">
-                              <p className="text-xs text-slate-500">보너스</p>
+                            <div className="bg-slate-200/80 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-300 dark:border-slate-700 text-center">
+                              <p className="text-xs text-slate-500">{t('launchEventPage.referralSection.bonusEarned', 'Bonus Earned')}</p>
                               <p className="text-2xl font-bold font-mono text-[#F97316]">{userData.referralBonus}</p>
                             </div>
                           </div>
                         </div>
                       ) : (
                         <div className="text-center py-8">
-                          <Wallet className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                          <p className="text-slate-400 mb-4">레퍼럴 프로그램에 참여하려면 지갑을 연결하세요.</p>
+                          <Wallet className="w-12 h-12 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
+                          <p className="text-slate-500 dark:text-slate-400 mb-4">{t('launchEventPage.referralSection.description', 'Share your referral link and earn 10% of your referrals\' staking rewards!')}</p>
                           <button 
                             onClick={() => setShowWalletModal(true)}
                             className="bg-[#3B82F6] hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
                           >
-                            지갑 연결
+                            {t('launchEventPage.connectWallet', 'Connect Wallet')}
                           </button>
                         </div>
                       )}
@@ -584,7 +584,7 @@ export default function LaunchEventPage() {
               {activeTab === "rewards" && (
                 <div className="space-y-8">
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">내 보상</h2>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">{t('launchEventPage.rewards.title', 'My Rewards')}</h2>
                     
                     {isConnected && userData ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -594,8 +594,8 @@ export default function LaunchEventPage() {
                               <Coins className="w-6 h-6 text-white" />
                             </div>
                             <div>
-                              <p className="text-sm text-slate-400">에어드랍 보상</p>
-                              <p className="text-2xl font-bold font-mono text-white">{userData.airdropAmount} TBURN</p>
+                              <p className="text-sm text-slate-500 dark:text-slate-400">{t('launchEventPage.rewards.airdropReward', 'Airdrop Reward')}</p>
+                              <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{userData.airdropAmount} TBURN</p>
                             </div>
                           </div>
                           <button 
@@ -606,9 +606,9 @@ export default function LaunchEventPage() {
                             {claimAirdropMutation.isPending ? (
                               <Loader2 className="w-5 h-5 animate-spin" />
                             ) : userData.airdropClaimed ? (
-                              <><CheckCircle className="w-5 h-5" /> 클레임 완료</>
+                              <><CheckCircle className="w-5 h-5" /> {t('launchEventPage.rewards.claimCompleted', 'Claimed')}</>
                             ) : (
-                              <><Gift className="w-5 h-5" /> 에어드랍 클레임</>
+                              <><Gift className="w-5 h-5" /> {t('launchEventPage.rewards.claimAirdrop', 'Claim Airdrop')}</>
                             )}
                           </button>
                         </div>
@@ -620,8 +620,8 @@ export default function LaunchEventPage() {
                                 <Image className="w-6 h-6 text-white" />
                               </div>
                               <div>
-                                <p className="text-sm text-slate-400">Genesis NFT</p>
-                                <p className="text-lg font-bold text-white">{userTier?.charAt(0).toUpperCase()}{userTier?.slice(1)} NFT</p>
+                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('launchEventPage.rewards.genesisNft', 'Genesis NFT')}</p>
+                                <p className="text-lg font-bold text-slate-900 dark:text-white">{userTier?.charAt(0).toUpperCase()}{userTier?.slice(1)} NFT</p>
                               </div>
                             </div>
                             <button 
@@ -632,9 +632,9 @@ export default function LaunchEventPage() {
                               {claimNftMutation.isPending ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
                               ) : userData.nftClaimed ? (
-                                <><CheckCircle className="w-5 h-5" /> 민팅 완료</>
+                                <><CheckCircle className="w-5 h-5" /> {t('launchEventPage.rewards.mintCompleted', 'Minted')}</>
                               ) : (
-                                <><Sparkles className="w-5 h-5" /> NFT 민팅</>
+                                <><Sparkles className="w-5 h-5" /> {t('launchEventPage.rewards.mintNft', 'Mint NFT')}</>
                               )}
                             </button>
                           </div>
@@ -642,9 +642,9 @@ export default function LaunchEventPage() {
                       </div>
                     ) : (
                       <div className="glass-panel p-12 rounded-2xl text-center">
-                        <Wallet className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-                        <h3 className="text-xl font-bold text-white mb-2">{t('launchEventPage.rewards.connectPrompt', 'Connect Wallet')}</h3>
-                        <p className="text-slate-400 mb-6">{t('launchEventPage.rewards.connectDescription', 'Connect your wallet to check and claim rewards.')}</p>
+                        <Wallet className="w-16 h-16 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{t('launchEventPage.rewards.connectPrompt', 'Connect Wallet')}</h3>
+                        <p className="text-slate-500 dark:text-slate-400 mb-6">{t('launchEventPage.rewards.connectDescription', 'Connect your wallet to check and claim rewards.')}</p>
                         <button 
                           onClick={() => setShowWalletModal(true)}
                           className="bg-[#3B82F6] hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors"
@@ -672,11 +672,11 @@ export default function LaunchEventPage() {
                         return (
                           <div key={task.id} className="glass-panel p-4 rounded-xl flex items-center justify-between">
                             <div className="flex items-center gap-4">
-                              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isCompleted ? "bg-emerald-500/20" : "bg-slate-700"}`}>
-                                <Icon className={`w-5 h-5 ${isCompleted ? "text-emerald-500" : "text-slate-400"}`} />
+                              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isCompleted ? "bg-emerald-500/20" : "bg-slate-200 dark:bg-slate-700"}`}>
+                                <Icon className={`w-5 h-5 ${isCompleted ? "text-emerald-500" : "text-slate-500 dark:text-slate-400"}`} />
                               </div>
                               <div>
-                                <p className="font-medium text-slate-900 dark:text-white">{task.nameKo}</p>
+                                <p className="font-medium text-slate-900 dark:text-white">{t(`launchEventPage.tasks.${task.id}`, task.name)}</p>
                                 <p className="text-sm text-slate-500">{t('launchEventPage.tasks.reward', 'Reward')}: <span className="text-[#F97316] font-mono">{task.reward}</span></p>
                               </div>
                             </div>
@@ -711,7 +711,7 @@ export default function LaunchEventPage() {
 
                     <div className="glass-panel rounded-2xl overflow-hidden">
                       {/* Table Header */}
-                      <div className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-700 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      <div className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-500 uppercase tracking-wider">
                         <div className="col-span-1">{t('launchEventPage.leaderboard.rank', 'RANK')}</div>
                         <div className="col-span-4">{t('launchEventPage.leaderboard.user', 'USER')}</div>
                         <div className="col-span-3 text-right">{t('launchEventPage.leaderboard.staked', 'STAKED')}</div>
@@ -727,7 +727,7 @@ export default function LaunchEventPage() {
                         return (
                           <div 
                             key={entry.address}
-                            className={`grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-800 items-center hover:bg-slate-800/30 transition-colors ${isUser ? "bg-blue-500/10" : ""}`}
+                            className={`grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-200 dark:border-slate-800 items-center hover:bg-slate-100 dark:hover:bg-slate-800/30 transition-colors ${isUser ? "bg-blue-500/10" : ""}`}
                             data-testid={`leaderboard-row-${rank}`}
                           >
                             {/* Rank */}
@@ -740,8 +740,8 @@ export default function LaunchEventPage() {
                             
                             {/* User */}
                             <div className="col-span-4">
-                              <span className="font-bold text-white">{entry.displayName}</span>
-                              {isUser && <Badge className="ml-2 bg-blue-500 text-white text-[10px]">You</Badge>}
+                              <span className="font-bold text-slate-900 dark:text-white">{entry.displayName}</span>
+                              {isUser && <Badge className="ml-2 bg-blue-500 text-white text-[10px]">{t('launchEventPage.leaderboard.you', 'You')}</Badge>}
                             </div>
                             
                             {/* Staked */}
@@ -751,7 +751,7 @@ export default function LaunchEventPage() {
                             
                             {/* Referrals */}
                             <div className="col-span-2 text-center">
-                              <span className="font-mono text-white">{entry.referrals}</span>
+                              <span className="font-mono text-slate-900 dark:text-white">{entry.referrals}</span>
                             </div>
                             
                             {/* Score */}

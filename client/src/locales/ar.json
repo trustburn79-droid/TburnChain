@@ -14238,17 +14238,14 @@
     },
     "rewards": {
       "title": "مكافآتي",
-      "connectPrompt": "ربط المحفظة",
-      "connectDescription": "اربط محفظتك للتحقق من المكافآت والمطالبة بها.",
-      "currentTier": "المستوى الحالي",
-      "stakedAmount": "المبلغ المخزن",
       "airdropReward": "مكافأة الإيردروب",
-      "referralBonus": "مكافأة الإحالة",
-      "claimAirdrop": "المطالبة بالإيردروب",
-      "claimNft": "صك NFT",
-      "claimed": "تم المطالبة",
-      "minted": "تم الصك",
-      "notEligible": "غير مؤهل"
+      "claimCompleted": "تم المطالبة",
+      "claimAirdrop": "مطالبة الإيردروب",
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "تم السك",
+      "mintNft": "سك NFT",
+      "connectPrompt": "ربط المحفظة",
+      "connectDescription": "قم بربط محفظتك لعرض المكافآت والمطالبة بها."
     },
     "tasks": {
       "title": "المهام والتحديات",
@@ -14261,7 +14258,13 @@
       "bridgeTx": "معاملة الجسر",
       "reward": "المكافأة",
       "start": "بدء",
-      "completed": "مكتمل"
+      "completed": "مكتمل",
+      "twitter_follow": "متابعة على X/Twitter",
+      "discord_join": "انضم إلى Discord",
+      "telegram_join": "انضم إلى Telegram",
+      "share_launch": "مشاركة منشور الإطلاق",
+      "first_stake": "أول تخزين",
+      "bridge_tx": "معاملة الجسر"
     },
     "leaderboard": {
       "title": "لوحة متصدري الإطلاق",
@@ -14270,13 +14273,73 @@
       "user": "المستخدم",
       "staked": "المخزن",
       "referrals": "الإحالات",
-      "score": "النقاط"
+      "score": "النقاط",
+      "you": "أنت"
     },
     "cta": {
       "title": "انضم الآن!",
       "description": "شارك في إطلاق TBURN Mainnet Genesis واحصل على مكافآت حصرية. ابدأ التخزين للانضمام تلقائياً للحدث.",
       "joinLaunch": "انضم للحدث",
       "startStaking": "بدء التخزين"
+    },
+    "tierSystem": {
+      "title": "نظام مستويات الإيردروب",
+      "description": "يتم تحديد مستواك بناءً على مبلغ التخزين. المستويات الأعلى تحصل على مكافآت أكثر.",
+      "currentTier": "المستوى الحالي",
+      "reward": "مكافأة TBURN",
+      "multiplier": "المضاعف",
+      "genesis": {
+        "name": "Genesis مؤسس",
+        "perk1": "NFT Genesis حصري",
+        "perk2": "حوكمة مدى الحياة",
+        "perk3": "Discord خاص"
+      },
+      "diamond": {
+        "name": "Diamond رائد",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "وصول دعم أولوية"
+      },
+      "gold": {
+        "name": "Gold محقق",
+        "perk1": "Gold Validator NFT",
+        "perk2": "دعوة AMA شهرية"
+      },
+      "silver": {
+        "name": "Silver داعم",
+        "perk1": "شارة المجتمع",
+        "perk2": "أولوية الوصول للفعاليات"
+      },
+      "bronze": {
+        "name": "Bronze عضو",
+        "perk1": "شارة المشارك في الإطلاق",
+        "perk2": "وصول المجتمع"
+      }
+    },
+    "schedule": {
+      "title": "جدول الإطلاق",
+      "mainnetGenesis": "كتلة Genesis الرئيسية",
+      "airdropClaim": "فتح مطالبة الإيردروب",
+      "scheduled": "مجدول",
+      "nftMinting": "بدء سك Genesis NFT",
+      "stakingRewards": "بدء مكافآت التخزين"
+    },
+    "nftSection": {
+      "title": "مجموعة Genesis NFT",
+      "nftName": "Genesis مؤسس NFT",
+      "nftDesc": "100 نسخة محدودة. أعلى سلطة ومزايا.",
+      "tier": "المستوى",
+      "totalSupply": "إجمالي العرض",
+      "minted": "تم السك",
+      "info": "يتم منح حق السك المجاني لمخزني Genesis و Diamond."
+    },
+    "referralSection": {
+      "title": "برنامج الإحالة",
+      "description": "شارك رابط الإحالة واكسب 10% من مكافآت إحالاتك!",
+      "yourCode": "رابط الإحالة الخاص بك",
+      "copyLink": "نسخ الرابط",
+      "copied": "تم النسخ!",
+      "totalReferrals": "إجمالي الإحالات",
+      "bonusEarned": "المكافأة المكتسبة"
     }
   }
 }

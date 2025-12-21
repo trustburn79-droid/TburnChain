@@ -29076,17 +29076,14 @@
     },
     "rewards": {
       "title": "내 보상",
-      "connectPrompt": "지갑을 연결하세요",
-      "connectDescription": "보상을 확인하고 클레임하려면 지갑을 연결하세요.",
-      "currentTier": "현재 티어",
-      "stakedAmount": "스테이킹 금액",
       "airdropReward": "에어드랍 보상",
-      "referralBonus": "레퍼럴 보너스",
+      "claimCompleted": "클레임 완료",
       "claimAirdrop": "에어드랍 클레임",
-      "claimNft": "NFT 민팅",
-      "claimed": "클레임 완료",
-      "minted": "민팅 완료",
-      "notEligible": "자격 없음"
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "민팅 완료",
+      "mintNft": "NFT 민팅",
+      "connectPrompt": "지갑을 연결하세요",
+      "connectDescription": "보상을 확인하고 클레임하려면 지갑을 연결하세요."
     },
     "tasks": {
       "title": "태스크 & 퀘스트",
@@ -29099,7 +29096,13 @@
       "bridgeTx": "브릿지 트랜잭션",
       "reward": "보상",
       "start": "시작",
-      "completed": "완료"
+      "completed": "완료",
+      "twitter_follow": "X/Twitter 팔로우",
+      "discord_join": "Discord 가입",
+      "telegram_join": "Telegram 가입",
+      "share_launch": "런칭 포스트 공유",
+      "first_stake": "첫 스테이킹",
+      "bridge_tx": "브릿지 트랜잭션"
     },
     "leaderboard": {
       "title": "런칭 리더보드",
@@ -29108,13 +29111,73 @@
       "user": "사용자",
       "staked": "스테이킹",
       "referrals": "레퍼럴",
-      "score": "점수"
+      "score": "점수",
+      "you": "나"
     },
     "cta": {
       "title": "지금 참여하세요!",
       "description": "TBURN 메인넷 Genesis 런칭에 참여하고 독점 보상을 받으세요. 스테이킹을 시작하면 자동으로 이벤트에 참여됩니다.",
       "joinLaunch": "런칭 이벤트 참여",
       "startStaking": "스테이킹 하기"
+    },
+    "tierSystem": {
+      "title": "에어드랍 티어 시스템",
+      "description": "스테이킹 금액에 따라 티어가 결정되며, 높은 티어일수록 더 많은 보상을 받습니다.",
+      "currentTier": "현재 등급",
+      "reward": "TBURN 보상",
+      "multiplier": "배수 (Multiplier)",
+      "genesis": {
+        "name": "Genesis 창립자",
+        "perk1": "독점 Genesis NFT",
+        "perk2": "평생 거버넌스 프리미엄",
+        "perk3": "프라이빗 디스코드"
+      },
+      "diamond": {
+        "name": "Diamond 파이오니어",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "우선 지원 액세스"
+      },
+      "gold": {
+        "name": "Gold 검증자",
+        "perk1": "Gold Validator NFT",
+        "perk2": "월간 AMA 초대"
+      },
+      "silver": {
+        "name": "Silver 서포터",
+        "perk1": "커뮤니티 배지",
+        "perk2": "이벤트 우선 액세스"
+      },
+      "bronze": {
+        "name": "Bronze 멤버",
+        "perk1": "런칭 참여자 배지",
+        "perk2": "커뮤니티 액세스"
+      }
+    },
+    "schedule": {
+      "title": "런칭 일정",
+      "mainnetGenesis": "메인넷 Genesis 블록",
+      "airdropClaim": "에어드랍 클레임 오픈",
+      "scheduled": "예정",
+      "nftMinting": "Genesis NFT 민팅 시작",
+      "stakingRewards": "스테이킹 보상 시작"
+    },
+    "nftSection": {
+      "title": "Genesis NFT 컬렉션",
+      "nftName": "Genesis 파운더 NFT",
+      "nftDesc": "100개 한정 발행. 최고의 권위와 혜택.",
+      "tier": "등급",
+      "totalSupply": "총 발행",
+      "minted": "민팅됨",
+      "info": "제네시스 및 다이아몬드 티어 스테이커에게 무료 민팅 권한이 부여됩니다."
+    },
+    "referralSection": {
+      "title": "레퍼럴 프로그램",
+      "description": "레퍼럴 링크를 공유하고 추천인 스테이킹 보상의 10%를 획득하세요!",
+      "yourCode": "나의 레퍼럴 링크",
+      "copyLink": "링크 복사",
+      "copied": "복사됨!",
+      "totalReferrals": "총 레퍼럴",
+      "bonusEarned": "획득 보너스"
     }
   }
 }

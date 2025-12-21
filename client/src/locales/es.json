@@ -16344,17 +16344,14 @@
     },
     "rewards": {
       "title": "Mis Recompensas",
-      "connectPrompt": "Conectar Billetera",
-      "connectDescription": "Conecta tu billetera para verificar y reclamar recompensas.",
-      "currentTier": "Nivel Actual",
-      "stakedAmount": "Cantidad Staking",
       "airdropReward": "Recompensa Airdrop",
-      "referralBonus": "Bonus de Referido",
+      "claimCompleted": "Reclamado",
       "claimAirdrop": "Reclamar Airdrop",
-      "claimNft": "Acuñar NFT",
-      "claimed": "Reclamado",
-      "minted": "Acuñado",
-      "notEligible": "No Elegible"
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "Acuñado",
+      "mintNft": "Acuñar NFT",
+      "connectPrompt": "Conectar Billetera",
+      "connectDescription": "Conecta tu billetera para ver y reclamar recompensas."
     },
     "tasks": {
       "title": "Tareas y Misiones",
@@ -16367,7 +16364,13 @@
       "bridgeTx": "Transacción Bridge",
       "reward": "Recompensa",
       "start": "Iniciar",
-      "completed": "Completado"
+      "completed": "Completado",
+      "twitter_follow": "Seguir en X/Twitter",
+      "discord_join": "Unirse a Discord",
+      "telegram_join": "Unirse a Telegram",
+      "share_launch": "Compartir Publicación de Lanzamiento",
+      "first_stake": "Primer Staking",
+      "bridge_tx": "Transacción Bridge"
     },
     "leaderboard": {
       "title": "Clasificación de Lanzamiento",
@@ -16376,13 +16379,73 @@
       "user": "USUARIO",
       "staked": "STAKED",
       "referrals": "REFERIDOS",
-      "score": "PUNTUACIÓN"
+      "score": "PUNTUACIÓN",
+      "you": "Tú"
     },
     "cta": {
       "title": "¡Únete Ahora!",
       "description": "Participa en el lanzamiento Genesis de TBURN Mainnet y recibe recompensas exclusivas. Comienza a hacer staking para unirte automáticamente al evento.",
       "joinLaunch": "Unirse al Evento",
       "startStaking": "Iniciar Staking"
+    },
+    "tierSystem": {
+      "title": "Sistema de Niveles de Airdrop",
+      "description": "Tu nivel se determina por tu cantidad de staking. Los niveles más altos reciben más recompensas.",
+      "currentTier": "Nivel Actual",
+      "reward": "Recompensa TBURN",
+      "multiplier": "Multiplicador",
+      "genesis": {
+        "name": "Genesis Fundador",
+        "perk1": "NFT Genesis Exclusivo",
+        "perk2": "Prima de Gobernanza de por Vida",
+        "perk3": "Discord Privado"
+      },
+      "diamond": {
+        "name": "Diamond Pionero",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "Acceso a Soporte Prioritario"
+      },
+      "gold": {
+        "name": "Gold Validador",
+        "perk1": "Gold Validator NFT",
+        "perk2": "Invitación AMA Mensual"
+      },
+      "silver": {
+        "name": "Silver Soporte",
+        "perk1": "Insignia de Comunidad",
+        "perk2": "Acceso Prioritario a Eventos"
+      },
+      "bronze": {
+        "name": "Bronze Miembro",
+        "perk1": "Insignia de Participante de Lanzamiento",
+        "perk2": "Acceso a la Comunidad"
+      }
+    },
+    "schedule": {
+      "title": "Cronograma de Lanzamiento",
+      "mainnetGenesis": "Bloque Genesis de Mainnet",
+      "airdropClaim": "Apertura de Reclamación de Airdrop",
+      "scheduled": "Programado",
+      "nftMinting": "Inicio de Acuñación de Genesis NFT",
+      "stakingRewards": "Inicio de Recompensas de Staking"
+    },
+    "nftSection": {
+      "title": "Colección Genesis NFT",
+      "nftName": "Genesis Fundador NFT",
+      "nftDesc": "100 edición limitada. Máxima autoridad y beneficios.",
+      "tier": "Nivel",
+      "totalSupply": "Suministro Total",
+      "minted": "Acuñados",
+      "info": "Derecho de acuñación gratuita para stakers de nivel Genesis y Diamond."
+    },
+    "referralSection": {
+      "title": "Programa de Referidos",
+      "description": "¡Comparte tu enlace de referido y gana el 10% de las recompensas de staking de tus referidos!",
+      "yourCode": "Tu Enlace de Referido",
+      "copyLink": "Copiar Enlace",
+      "copied": "¡Copiado!",
+      "totalReferrals": "Total Referidos",
+      "bonusEarned": "Bonus Ganado"
     }
   }
 }

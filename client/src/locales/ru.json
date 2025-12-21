@@ -13612,17 +13612,14 @@
     },
     "rewards": {
       "title": "Мои Награды",
-      "connectPrompt": "Подключить Кошелек",
-      "connectDescription": "Подключите кошелек для проверки и получения наград.",
-      "currentTier": "Текущий Уровень",
-      "stakedAmount": "Сумма в Стейке",
       "airdropReward": "Награда Аирдропа",
-      "referralBonus": "Реферальный Бонус",
+      "claimCompleted": "Получено",
       "claimAirdrop": "Получить Аирдроп",
-      "claimNft": "Минт NFT",
-      "claimed": "Получено",
-      "minted": "Выпущено",
-      "notEligible": "Не Соответствует"
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "Выпущено",
+      "mintNft": "Выпустить NFT",
+      "connectPrompt": "Подключить Кошелёк",
+      "connectDescription": "Подключите кошелёк для просмотра и получения наград."
     },
     "tasks": {
       "title": "Задания и Квесты",
@@ -13635,7 +13632,13 @@
       "bridgeTx": "Транзакция Моста",
       "reward": "Награда",
       "start": "Начать",
-      "completed": "Выполнено"
+      "completed": "Выполнено",
+      "twitter_follow": "Подписаться на X/Twitter",
+      "discord_join": "Вступить в Discord",
+      "telegram_join": "Вступить в Telegram",
+      "share_launch": "Поделиться Постом о Запуске",
+      "first_stake": "Первый Стейкинг",
+      "bridge_tx": "Транзакция Моста"
     },
     "leaderboard": {
       "title": "Рейтинг Запуска",
@@ -13644,13 +13647,73 @@
       "user": "ПОЛЬЗОВАТЕЛЬ",
       "staked": "СТЕЙК",
       "referrals": "РЕФЕРАЛЫ",
-      "score": "ОЧКИ"
+      "score": "ОЧКИ",
+      "you": "Вы"
     },
     "cta": {
       "title": "Присоединяйтесь Сейчас!",
       "description": "Участвуйте в запуске TBURN Mainnet Genesis и получите эксклюзивные награды. Начните стейкинг для автоматического участия в событии.",
       "joinLaunch": "Присоединиться к Запуску",
       "startStaking": "Начать Стейкинг"
+    },
+    "tierSystem": {
+      "title": "Система Уровней Аирдропа",
+      "description": "Ваш уровень определяется суммой стейкинга. Высшие уровни получают больше наград.",
+      "currentTier": "Текущий Уровень",
+      "reward": "Награда TBURN",
+      "multiplier": "Множитель",
+      "genesis": {
+        "name": "Genesis Основатель",
+        "perk1": "Эксклюзивный Genesis NFT",
+        "perk2": "Пожизненная Премия Управления",
+        "perk3": "Приватный Discord"
+      },
+      "diamond": {
+        "name": "Diamond Пионер",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "Приоритетная Поддержка"
+      },
+      "gold": {
+        "name": "Gold Валидатор",
+        "perk1": "Gold Validator NFT",
+        "perk2": "Ежемесячное Приглашение AMA"
+      },
+      "silver": {
+        "name": "Silver Сторонник",
+        "perk1": "Значок Сообщества",
+        "perk2": "Приоритет на Мероприятиях"
+      },
+      "bronze": {
+        "name": "Bronze Участник",
+        "perk1": "Значок Участника Запуска",
+        "perk2": "Доступ к Сообществу"
+      }
+    },
+    "schedule": {
+      "title": "График Запуска",
+      "mainnetGenesis": "Genesis Блок Mainnet",
+      "airdropClaim": "Открытие Получения Аирдропа",
+      "scheduled": "Запланировано",
+      "nftMinting": "Начало Минтинга Genesis NFT",
+      "stakingRewards": "Начало Наград Стейкинга"
+    },
+    "nftSection": {
+      "title": "Коллекция Genesis NFT",
+      "nftName": "Genesis Основатель NFT",
+      "nftDesc": "100 лимитированных экземпляров. Высший статус и привилегии.",
+      "tier": "Уровень",
+      "totalSupply": "Общий Выпуск",
+      "minted": "Выпущено",
+      "info": "Право на бесплатный минт для стейкеров Genesis и Diamond."
+    },
+    "referralSection": {
+      "title": "Реферальная Программа",
+      "description": "Поделитесь ссылкой и получите 10% от наград ваших рефералов!",
+      "yourCode": "Ваша Реферальная Ссылка",
+      "copyLink": "Копировать Ссылку",
+      "copied": "Скопировано!",
+      "totalReferrals": "Всего Рефералов",
+      "bonusEarned": "Заработанный Бонус"
     }
   }
 }

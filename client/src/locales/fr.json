@@ -14308,17 +14308,14 @@
     },
     "rewards": {
       "title": "Mes Récompenses",
-      "connectPrompt": "Connecter Portefeuille",
-      "connectDescription": "Connectez votre portefeuille pour vérifier et réclamer les récompenses.",
-      "currentTier": "Niveau Actuel",
-      "stakedAmount": "Montant Staké",
       "airdropReward": "Récompense Airdrop",
-      "referralBonus": "Bonus Parrainage",
+      "claimCompleted": "Réclamé",
       "claimAirdrop": "Réclamer Airdrop",
-      "claimNft": "Minter NFT",
-      "claimed": "Réclamé",
-      "minted": "Minté",
-      "notEligible": "Non Éligible"
+      "genesisNft": "Genesis NFT",
+      "mintCompleted": "Minté",
+      "mintNft": "Minter NFT",
+      "connectPrompt": "Connecter Portefeuille",
+      "connectDescription": "Connectez votre portefeuille pour voir et réclamer les récompenses."
     },
     "tasks": {
       "title": "Tâches et Quêtes",
@@ -14331,7 +14328,13 @@
       "bridgeTx": "Transaction Bridge",
       "reward": "Récompense",
       "start": "Commencer",
-      "completed": "Terminé"
+      "completed": "Terminé",
+      "twitter_follow": "Suivre sur X/Twitter",
+      "discord_join": "Rejoindre Discord",
+      "telegram_join": "Rejoindre Telegram",
+      "share_launch": "Partager la Publication de Lancement",
+      "first_stake": "Premier Staking",
+      "bridge_tx": "Transaction Bridge"
     },
     "leaderboard": {
       "title": "Classement du Lancement",
@@ -14340,13 +14343,73 @@
       "user": "UTILISATEUR",
       "staked": "STAKÉ",
       "referrals": "PARRAINAGES",
-      "score": "SCORE"
+      "score": "SCORE",
+      "you": "Vous"
     },
     "cta": {
       "title": "Rejoignez Maintenant !",
       "description": "Participez au lancement Genesis du TBURN Mainnet et recevez des récompenses exclusives. Commencez à staker pour rejoindre automatiquement l'événement.",
       "joinLaunch": "Rejoindre l'Événement",
       "startStaking": "Commencer le Staking"
+    },
+    "tierSystem": {
+      "title": "Système de Niveaux Airdrop",
+      "description": "Votre niveau est déterminé par votre montant de staking. Les niveaux supérieurs reçoivent plus de récompenses.",
+      "currentTier": "Niveau Actuel",
+      "reward": "Récompense TBURN",
+      "multiplier": "Multiplicateur",
+      "genesis": {
+        "name": "Genesis Fondateur",
+        "perk1": "NFT Genesis Exclusif",
+        "perk2": "Prime de Gouvernance à Vie",
+        "perk3": "Discord Privé"
+      },
+      "diamond": {
+        "name": "Diamond Pionnier",
+        "perk1": "Diamond Pioneer NFT",
+        "perk2": "Accès Support Prioritaire"
+      },
+      "gold": {
+        "name": "Gold Validateur",
+        "perk1": "Gold Validator NFT",
+        "perk2": "Invitation AMA Mensuelle"
+      },
+      "silver": {
+        "name": "Silver Soutien",
+        "perk1": "Badge Communauté",
+        "perk2": "Accès Prioritaire aux Événements"
+      },
+      "bronze": {
+        "name": "Bronze Membre",
+        "perk1": "Badge Participant au Lancement",
+        "perk2": "Accès Communauté"
+      }
+    },
+    "schedule": {
+      "title": "Calendrier de Lancement",
+      "mainnetGenesis": "Bloc Genesis Mainnet",
+      "airdropClaim": "Ouverture Réclamation Airdrop",
+      "scheduled": "Prévu",
+      "nftMinting": "Début Mint Genesis NFT",
+      "stakingRewards": "Début Récompenses Staking"
+    },
+    "nftSection": {
+      "title": "Collection Genesis NFT",
+      "nftName": "Genesis Fondateur NFT",
+      "nftDesc": "100 édition limitée. Autorité et avantages ultimes.",
+      "tier": "Niveau",
+      "totalSupply": "Offre Totale",
+      "minted": "Mintés",
+      "info": "Droit de mint gratuit accordé aux stakers Genesis et Diamond."
+    },
+    "referralSection": {
+      "title": "Programme de Parrainage",
+      "description": "Partagez votre lien et gagnez 10% des récompenses de vos filleuls !",
+      "yourCode": "Votre Lien de Parrainage",
+      "copyLink": "Copier le Lien",
+      "copied": "Copié !",
+      "totalReferrals": "Total Parrainages",
+      "bonusEarned": "Bonus Gagné"
     }
   }
 }
