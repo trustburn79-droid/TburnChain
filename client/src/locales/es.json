@@ -16271,6 +16271,41 @@
       "aiOptimizationRec": "AI optimization will reduce gas costs by ~23%",
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
+    },
+    "wallet": {
+      "deploymentMethod": "Método de Despliegue",
+      "realDeploy": "Despliegue Real",
+      "simulation": "Simulación",
+      "metamaskRequired": "Se requiere MetaMask",
+      "installMetamask": "Por favor instale MetaMask para desplegar tokens",
+      "downloadMetamask": "Descargar MetaMask",
+      "connected": "Billetera Conectada",
+      "disconnect": "Desconectar",
+      "address": "Dirección",
+      "balance": "Saldo",
+      "network": "Red",
+      "wrongNetworkShort": "Red Incorrecta",
+      "switch": "Cambiar",
+      "estimatedGas": "Gas Estimado",
+      "connectToDeployReal": "Conecte su billetera para desplegar tokens en TBURN Mainnet",
+      "connecting": "Conectando...",
+      "connectMetamask": "Conectar MetaMask",
+      "simulationMode": "Modo Simulación",
+      "simulationDesc": "El token se desplegará en modo simulación. No se ejecutará ninguna transacción real de blockchain.",
+      "connectFirst": "Primero Conecte Billetera",
+      "deployToMainnet": "Desplegar en TBURN Mainnet",
+      "deploySimulation": "Desplegar (Simulación)"
+    },
+    "myTokens": {
+      "title": "Mis Tokens Desplegados",
+      "subtitle": "Administre y monitoree sus tokens desplegados en TBURN Mainnet",
+      "totalTokens": "Total de Tokens",
+      "totalHolders": "Total de Titulares",
+      "totalTransactions": "Total de Transacciones",
+      "holders": "Titulares",
+      "transactions": "Transacciones",
+      "active": "Activo",
+      "view": "Ver"
     }
   },
   "launchEventPage": {

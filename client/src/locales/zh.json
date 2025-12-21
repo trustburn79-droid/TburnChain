@@ -16339,6 +16339,41 @@
       "aiOptimizationRec": "AI 优化将减少约 23% 的燃气成本",
       "stakingRec": "质押年化收益率配置为 {{rate}}%",
       "vestingRec": "归属计划提供长期稳定性"
+    },
+    "wallet": {
+      "deploymentMethod": "部署方式",
+      "realDeploy": "实际部署",
+      "simulation": "模拟",
+      "metamaskRequired": "需要MetaMask",
+      "installMetamask": "请安装MetaMask以部署代币",
+      "downloadMetamask": "下载MetaMask",
+      "connected": "钱包已连接",
+      "disconnect": "断开连接",
+      "address": "地址",
+      "balance": "余额",
+      "network": "网络",
+      "wrongNetworkShort": "网络错误",
+      "switch": "切换",
+      "estimatedGas": "预估Gas",
+      "connectToDeployReal": "连接钱包以在TBURN主网上部署代币",
+      "connecting": "连接中...",
+      "connectMetamask": "连接MetaMask",
+      "simulationMode": "模拟模式",
+      "simulationDesc": "代币将以模拟模式部署。不会执行实际的区块链交易。",
+      "connectFirst": "请先连接钱包",
+      "deployToMainnet": "部署到TBURN主网",
+      "deploySimulation": "部署（模拟）"
+    },
+    "myTokens": {
+      "title": "已部署的代币",
+      "subtitle": "管理和监控您在TBURN主网上部署的代币",
+      "totalTokens": "代币总数",
+      "totalHolders": "持有者总数",
+      "totalTransactions": "交易总数",
+      "holders": "持有者",
+      "transactions": "交易",
+      "active": "活跃",
+      "view": "查看"
     }
   },
   "launchEventPage": {

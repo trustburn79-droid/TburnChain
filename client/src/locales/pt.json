@@ -13991,6 +13991,41 @@
       "aiOptimizationRec": "AI optimization will reduce gas costs by ~23%",
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
+    },
+    "wallet": {
+      "deploymentMethod": "Método de Implantação",
+      "realDeploy": "Implantação Real",
+      "simulation": "Simulação",
+      "metamaskRequired": "MetaMask Necessário",
+      "installMetamask": "Por favor instale o MetaMask para implantar tokens",
+      "downloadMetamask": "Baixar MetaMask",
+      "connected": "Carteira Conectada",
+      "disconnect": "Desconectar",
+      "address": "Endereço",
+      "balance": "Saldo",
+      "network": "Rede",
+      "wrongNetworkShort": "Rede Errada",
+      "switch": "Mudar",
+      "estimatedGas": "Gas Estimado",
+      "connectToDeployReal": "Conecte sua carteira para implantar tokens na TBURN Mainnet",
+      "connecting": "Conectando...",
+      "connectMetamask": "Conectar MetaMask",
+      "simulationMode": "Modo Simulação",
+      "simulationDesc": "O token será implantado em modo simulação. Nenhuma transação real será executada.",
+      "connectFirst": "Primeiro Conecte a Carteira",
+      "deployToMainnet": "Implantar na TBURN Mainnet",
+      "deploySimulation": "Implantar (Simulação)"
+    },
+    "myTokens": {
+      "title": "Meus Tokens Implantados",
+      "subtitle": "Gerencie e monitore seus tokens implantados na TBURN Mainnet",
+      "totalTokens": "Total de Tokens",
+      "totalHolders": "Total de Detentores",
+      "totalTransactions": "Total de Transações",
+      "holders": "Detentores",
+      "transactions": "Transações",
+      "active": "Ativo",
+      "view": "Ver"
     }
   },
   "launchEventPage": {

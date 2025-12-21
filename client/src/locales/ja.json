@@ -17215,6 +17215,41 @@
       "aiOptimizationRec": "AI最適化でガス代を約23%削減",
       "stakingRec": "ステーキングAPY {{rate}}%で構成",
       "vestingRec": "ベスティングスケジュールが長期安定性を提供"
+    },
+    "wallet": {
+      "deploymentMethod": "デプロイ方法",
+      "realDeploy": "実際にデプロイ",
+      "simulation": "シミュレーション",
+      "metamaskRequired": "MetaMaskが必要です",
+      "installMetamask": "トークンをデプロイするにはMetaMaskをインストールしてください",
+      "downloadMetamask": "MetaMaskをダウンロード",
+      "connected": "ウォレット接続済み",
+      "disconnect": "切断",
+      "address": "アドレス",
+      "balance": "残高",
+      "network": "ネットワーク",
+      "wrongNetworkShort": "ネットワークエラー",
+      "switch": "切替",
+      "estimatedGas": "推定ガス",
+      "connectToDeployReal": "TBURNメインネットにトークンをデプロイするにはウォレットを接続してください",
+      "connecting": "接続中...",
+      "connectMetamask": "MetaMaskを接続",
+      "simulationMode": "シミュレーションモード",
+      "simulationDesc": "トークンはシミュレーションモードでデプロイされます。実際のブロックチェーントランザクションは実行されません。",
+      "connectFirst": "まずウォレットを接続",
+      "deployToMainnet": "TBURNメインネットにデプロイ",
+      "deploySimulation": "デプロイ（シミュレーション）"
+    },
+    "myTokens": {
+      "title": "デプロイ済みトークン",
+      "subtitle": "TBURNメインネットにデプロイされたトークンを管理・監視",
+      "totalTokens": "トークン総数",
+      "totalHolders": "ホルダー総数",
+      "totalTransactions": "トランザクション総数",
+      "holders": "ホルダー",
+      "transactions": "トランザクション",
+      "active": "アクティブ",
+      "view": "表示"
     }
   },
   "launchEventPage": {

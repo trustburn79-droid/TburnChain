@@ -14165,6 +14165,41 @@
       "aiOptimizationRec": "AI optimization will reduce gas costs by ~23%",
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
+    },
+    "wallet": {
+      "deploymentMethod": "Deployment Method",
+      "realDeploy": "Real Deploy",
+      "simulation": "Simulation",
+      "metamaskRequired": "MetaMask Required",
+      "installMetamask": "Please install MetaMask to deploy tokens",
+      "downloadMetamask": "Download MetaMask",
+      "connected": "Wallet Connected",
+      "disconnect": "Disconnect",
+      "address": "Address",
+      "balance": "Balance",
+      "network": "Network",
+      "wrongNetworkShort": "Wrong Network",
+      "switch": "Switch",
+      "estimatedGas": "Estimated Gas",
+      "connectToDeployReal": "Connect your wallet to deploy tokens on TBURN Mainnet",
+      "connecting": "Connecting...",
+      "connectMetamask": "Connect MetaMask",
+      "simulationMode": "Simulation Mode",
+      "simulationDesc": "Token will be deployed in simulation mode. No real blockchain transaction will be executed.",
+      "connectFirst": "Connect Wallet First",
+      "deployToMainnet": "Deploy to TBURN Mainnet",
+      "deploySimulation": "Deploy (Simulation)"
+    },
+    "myTokens": {
+      "title": "My Deployed Tokens",
+      "subtitle": "Manage and monitor your deployed tokens on TBURN Mainnet",
+      "totalTokens": "Total Tokens",
+      "totalHolders": "Total Holders",
+      "totalTransactions": "Total Transactions",
+      "holders": "Holders",
+      "transactions": "Transactions",
+      "active": "Active",
+      "view": "View"
     }
   },
   "launchEventPage": {

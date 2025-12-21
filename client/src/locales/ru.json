@@ -13539,6 +13539,41 @@
       "aiOptimizationRec": "AI optimization will reduce gas costs by ~23%",
       "stakingRec": "Staking APY configured at {{rate}}%",
       "vestingRec": "Vesting schedule provides long-term stability"
+    },
+    "wallet": {
+      "deploymentMethod": "Метод Развертывания",
+      "realDeploy": "Реальное Развертывание",
+      "simulation": "Симуляция",
+      "metamaskRequired": "Требуется MetaMask",
+      "installMetamask": "Установите MetaMask для развертывания токенов",
+      "downloadMetamask": "Скачать MetaMask",
+      "connected": "Кошелек Подключен",
+      "disconnect": "Отключить",
+      "address": "Адрес",
+      "balance": "Баланс",
+      "network": "Сеть",
+      "wrongNetworkShort": "Неверная Сеть",
+      "switch": "Переключить",
+      "estimatedGas": "Ориентировочный Gas",
+      "connectToDeployReal": "Подключите кошелек для развертывания токенов в TBURN Mainnet",
+      "connecting": "Подключение...",
+      "connectMetamask": "Подключить MetaMask",
+      "simulationMode": "Режим Симуляции",
+      "simulationDesc": "Токен будет развернут в режиме симуляции. Реальная транзакция не будет выполнена.",
+      "connectFirst": "Сначала Подключите Кошелек",
+      "deployToMainnet": "Развернуть в TBURN Mainnet",
+      "deploySimulation": "Развернуть (Симуляция)"
+    },
+    "myTokens": {
+      "title": "Мои Развернутые Токены",
+      "subtitle": "Управляйте и отслеживайте ваши токены в TBURN Mainnet",
+      "totalTokens": "Всего Токенов",
+      "totalHolders": "Всего Держателей",
+      "totalTransactions": "Всего Транзакций",
+      "holders": "Держатели",
+      "transactions": "Транзакции",
+      "active": "Активен",
+      "view": "Просмотр"
     }
   },
   "launchEventPage": {
