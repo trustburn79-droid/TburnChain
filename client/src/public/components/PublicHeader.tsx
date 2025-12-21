@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn, Flame, TreeDeciduous } from "lucide-react";
+import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn, Flame, Network } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { useTranslation } from "react-i18next";
 import { languages } from "@/lib/i18n";
@@ -200,7 +200,7 @@ export function PublicHeader() {
                 data-testid="link-tree"
                 title="Site Map"
               >
-                <TreeDeciduous className="w-5 h-5" />
+                <Network className="w-5 h-5" />
               </button>
             </Link>
             <div ref={languageMenuRef} className="relative">
