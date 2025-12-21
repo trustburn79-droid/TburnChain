@@ -14413,5 +14413,10 @@
       "totalReferrals": "Total Parrainages",
       "bonusEarned": "Bonus Gagné"
     }
+  },
+  "tree": {
+    "title": "Plan du site",
+    "description": "Parcourez toutes les pages de l'écosystème TBURN. Cliquez sur n'importe quel élément pour naviguer.",
+    "excludeNote": "Remarque : Les routes d'administration sont exclues de cette liste."
   }
 }

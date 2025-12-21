@@ -14169,5 +14169,10 @@
       "totalReferrals": "Total de Indicações",
       "bonusEarned": "Bônus Ganho"
     }
+  },
+  "tree": {
+    "title": "Mapa do site",
+    "description": "Navegue por todas as páginas do ecossistema TBURN. Clique em qualquer item para navegar.",
+    "excludeNote": "Nota: As rotas de administração estão excluídas desta lista."
   }
 }

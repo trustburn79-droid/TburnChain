@@ -16449,5 +16449,10 @@
       "totalReferrals": "Total Referidos",
       "bonusEarned": "Bonus Ganado"
     }
+  },
+  "tree": {
+    "title": "Mapa del sitio",
+    "description": "Explora todas las páginas del ecosistema TBURN. Haz clic en cualquier elemento para navegar.",
+    "excludeNote": "Nota: Las rutas de administración están excluidas de esta lista."
   }
 }
