@@ -15,7 +15,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Link } from "wouter";
+import { formatTBurnAddress, truncateTBurnAddress } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { formatNumber, formatTokenAmount } from "@/lib/formatters";
@@ -36,6 +38,7 @@ import {
   Zap,
   Lock,
   Flame,
+  Pause,
   CheckCircle,
   AlertTriangle,
   TrendingUp,
@@ -2047,6 +2050,14 @@ function ReviewItem({ label, value }: { label: string; value: string }) {
 
 function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboard }: any) {
   const { t } = useTranslation();
+  const [selectedToken, setSelectedToken] = useState<DeployedToken | null>(null);
+  const [detailDialogOpen, setDetailDialogOpen] = useState(false);
+  
+  const handleViewToken = (token: DeployedToken) => {
+    setSelectedToken(token);
+    setDetailDialogOpen(true);
+  };
+  
   const mockTokens: DeployedToken[] = [
     {
       id: "1",
@@ -2168,9 +2179,9 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
                       </div>
                       <div className="flex items-center gap-2 mt-1">
                         <code className={`text-xs font-mono ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                          {token.contractAddress.slice(0, 10)}...{token.contractAddress.slice(-6)}
+                          {truncateTBurnAddress(formatTBurnAddress(token.contractAddress))}
                         </code>
-                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyToClipboard(token.contractAddress)}>
+                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyToClipboard(formatTBurnAddress(token.contractAddress))}>
                           <Copy className="w-3 h-3" />
                         </Button>
                       </div>
@@ -2185,7 +2196,12 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
                       <p className="text-sm text-muted-foreground">Transactions</p>
                       <p className="font-bold">{token.transactionCount.toLocaleString()}</p>
                     </div>
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleViewToken(token)}
+                      data-testid={`button-view-token-${token.id}`}
+                    >
                       <ExternalLink className="w-4 h-4 mr-2" />
                       View
                     </Button>
@@ -2196,6 +2212,146 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
           ))
         )}
       </div>
+      
+      {/* Token Detail Modal */}
+      <Dialog open={detailDialogOpen} onOpenChange={setDetailDialogOpen}>
+        <DialogContent className={`max-w-2xl ${isDark ? 'bg-[#0F172A] border-white/10' : ''}`}>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                selectedToken?.standard === "TBC-20" ? 'bg-blue-500/20' :
+                selectedToken?.standard === "TBC-721" ? 'bg-purple-500/20' : 'bg-amber-500/20'
+              }`}>
+                {selectedToken?.standard === "TBC-20" ? <Coins className="w-5 h-5 text-blue-500" /> :
+                 selectedToken?.standard === "TBC-721" ? <Image className="w-5 h-5 text-purple-500" /> :
+                 <Layers className="w-5 h-5 text-amber-500" />}
+              </div>
+              <div>
+                <span>{selectedToken?.name}</span>
+                <Badge variant="outline" className="ml-2">{selectedToken?.symbol}</Badge>
+              </div>
+            </DialogTitle>
+            <DialogDescription>
+              {t('tokenGenerator.tokenDetails', 'Token deployment details and configuration')}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedToken && (
+            <div className="space-y-6 py-4">
+              {/* Contract Info */}
+              <div className="space-y-3">
+                <h4 className="font-semibold flex items-center gap-2">
+                  <FileCode className="w-4 h-4" />
+                  {t('tokenGenerator.contractInfo', 'Contract Information')}
+                </h4>
+                <div className={`p-4 rounded-lg ${isDark ? 'bg-[#1E293B]' : 'bg-slate-100'}`}>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">{t('tokenGenerator.contractAddress', 'Contract Address')}</span>
+                      <div className="flex items-center gap-2">
+                        <code className="text-xs font-mono">{formatTBurnAddress(selectedToken.contractAddress)}</code>
+                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyToClipboard(formatTBurnAddress(selectedToken.contractAddress))}>
+                          <Copy className="w-3 h-3" />
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">{t('tokenGenerator.standard', 'Standard')}</span>
+                      <Badge>{selectedToken.standard}</Badge>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">{t('tokenGenerator.status', 'Status')}</span>
+                      <Badge className="bg-green-500/10 text-green-500">{selectedToken.status || 'Active'}</Badge>
+                    </div>
+                    {selectedToken.deployedAt && (
+                      <div className="flex justify-between">
+                        <span className="text-sm text-muted-foreground">{t('tokenGenerator.deployedAt', 'Deployed At')}</span>
+                        <span className="text-sm">{new Date(selectedToken.deployedAt).toLocaleString('ko-KR', { timeZone: 'America/New_York' })}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Token Supply */}
+              <div className="space-y-3">
+                <h4 className="font-semibold flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4" />
+                  {t('tokenGenerator.supplyInfo', 'Supply Information')}
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className={`p-4 rounded-lg ${isDark ? 'bg-[#1E293B]' : 'bg-slate-100'}`}>
+                    <p className="text-sm text-muted-foreground">{t('tokenGenerator.totalSupply', 'Total Supply')}</p>
+                    <p className="text-xl font-bold">{parseInt(selectedToken.totalSupply).toLocaleString()}</p>
+                  </div>
+                  <div className={`p-4 rounded-lg ${isDark ? 'bg-[#1E293B]' : 'bg-slate-100'}`}>
+                    <p className="text-sm text-muted-foreground">{t('tokenGenerator.decimals', 'Decimals')}</p>
+                    <p className="text-xl font-bold">{selectedToken.decimals}</p>
+                  </div>
+                  <div className={`p-4 rounded-lg ${isDark ? 'bg-[#1E293B]' : 'bg-slate-100'}`}>
+                    <p className="text-sm text-muted-foreground">{t('tokenGenerator.holders', 'Holders')}</p>
+                    <p className="text-xl font-bold">{selectedToken.holders.toLocaleString()}</p>
+                  </div>
+                  <div className={`p-4 rounded-lg ${isDark ? 'bg-[#1E293B]' : 'bg-slate-100'}`}>
+                    <p className="text-sm text-muted-foreground">{t('tokenGenerator.transactions', 'Transactions')}</p>
+                    <p className="text-xl font-bold">{selectedToken.transactionCount.toLocaleString()}</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Features */}
+              <div className="space-y-3">
+                <h4 className="font-semibold flex items-center gap-2">
+                  <Shield className="w-4 h-4" />
+                  {t('tokenGenerator.features', 'Features & Security')}
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedToken.mintable && (
+                    <Badge variant="outline" className="bg-blue-500/10 text-blue-500 border-blue-500/30">
+                      <Plus className="w-3 h-3 mr-1" /> {t('tokenGenerator.mintable', 'Mintable')}
+                    </Badge>
+                  )}
+                  {selectedToken.burnable && (
+                    <Badge variant="outline" className="bg-orange-500/10 text-orange-500 border-orange-500/30">
+                      <Flame className="w-3 h-3 mr-1" /> {t('tokenGenerator.burnable', 'Burnable')}
+                    </Badge>
+                  )}
+                  {selectedToken.pausable && (
+                    <Badge variant="outline" className="bg-yellow-500/10 text-yellow-500 border-yellow-500/30">
+                      <Pause className="w-3 h-3 mr-1" /> {t('tokenGenerator.pausable', 'Pausable')}
+                    </Badge>
+                  )}
+                  {selectedToken.aiOptimizationEnabled && (
+                    <Badge variant="outline" className="bg-purple-500/10 text-purple-500 border-purple-500/30">
+                      <Sparkles className="w-3 h-3 mr-1" /> {t('tokenGenerator.aiOptimized', 'AI Optimized')}
+                    </Badge>
+                  )}
+                  {selectedToken.quantumResistant && (
+                    <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30">
+                      <Lock className="w-3 h-3 mr-1" /> {t('tokenGenerator.quantumResistant', 'Quantum Resistant')}
+                    </Badge>
+                  )}
+                  {selectedToken.mevProtection && (
+                    <Badge variant="outline" className="bg-cyan-500/10 text-cyan-500 border-cyan-500/30">
+                      <ShieldCheck className="w-3 h-3 mr-1" /> {t('tokenGenerator.mevProtection', 'MEV Protection')}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDetailDialogOpen(false)}>
+              {t('common.close', 'Close')}
+            </Button>
+            <Button onClick={() => window.open(`/blocks?token=${formatTBurnAddress(selectedToken?.contractAddress || '')}`, '_blank')}>
+              <ExternalLink className="w-4 h-4 mr-2" />
+              {t('tokenGenerator.viewOnExplorer', 'View on Explorer')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
