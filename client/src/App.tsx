@@ -238,17 +238,17 @@ function AuthenticatedApp() {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/">
+                        <Button variant="ghost" size="icon" data-testid="link-nav-home">
+                          <Home className="h-4 w-4" />
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent><p>{t('nav.home', 'Home')}</p></TooltipContent>
+                  </Tooltip>
                   <div className="hidden sm:flex items-center gap-1">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-home">
-                            <Home className="h-4 w-4" />
-                          </Button>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent><p>{t('nav.home', 'Home')}</p></TooltipContent>
-                    </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Link href="/scan">
