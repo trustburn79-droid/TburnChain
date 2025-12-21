@@ -14,7 +14,7 @@ import { Link } from "wouter";
 import {
   Wallet, Rocket, Layers, Sun, Moon, CheckCircle, Copy, Loader2,
   Gift, Users, Globe, Coins, Image, Share2, Twitter, ArrowRight,
-  Crown, Award, Star, Sparkles, Trophy, Hexagon
+  Crown, Award, Star, Sparkles, Trophy, Hexagon, Box
 } from "lucide-react";
 import { SiDiscord, SiTelegram } from "react-icons/si";
 
@@ -497,8 +497,8 @@ export default function LaunchEventPage() {
 
                     {/* Genesis NFT Collection - 2 Columns */}
                     <div className="glass-panel p-6 rounded-2xl lg:col-span-2 relative overflow-hidden">
-                      <div className="absolute right-0 top-0 p-6 opacity-10">
-                        <Hexagon className="w-36 h-36 text-white" />
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-10">
+                        <Box className="w-32 h-32 text-white" strokeWidth={1} />
                       </div>
                       <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">🎨 Genesis NFT 컬렉션</h3>
                       <div className="flex items-center gap-6 mb-6">
