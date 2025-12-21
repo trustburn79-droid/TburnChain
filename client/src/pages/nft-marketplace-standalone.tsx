@@ -1063,17 +1063,17 @@ export default function NftMarketplaceStandalone() {
               </SelectTrigger>
               <SelectContent className={`min-w-[160px] ${theme === 'dark' ? 'bg-[#151E32] border-gray-700' : 'bg-white border-gray-200'}`}>
                 <SelectItem value="en" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>English</SelectItem>
-                <SelectItem value="ko" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>한국어</SelectItem>
-                <SelectItem value="ja" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>日本語</SelectItem>
                 <SelectItem value="zh" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>中文</SelectItem>
+                <SelectItem value="ja" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>日本語</SelectItem>
+                <SelectItem value="hi" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>हिन्दी</SelectItem>
                 <SelectItem value="es" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>Español</SelectItem>
                 <SelectItem value="fr" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>Français</SelectItem>
+                <SelectItem value="ar" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>العربية</SelectItem>
+                <SelectItem value="bn" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>বাংলা</SelectItem>
                 <SelectItem value="ru" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>Русский</SelectItem>
                 <SelectItem value="pt" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>Português</SelectItem>
-                <SelectItem value="ar" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>العربية</SelectItem>
-                <SelectItem value="hi" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>हिन्दी</SelectItem>
-                <SelectItem value="bn" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>বাংলা</SelectItem>
                 <SelectItem value="ur" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>اردو</SelectItem>
+                <SelectItem value="ko" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>한국어</SelectItem>
               </SelectContent>
             </Select>
             {!isConnected && (

@@ -131,17 +131,17 @@ export default function TestnetScanLayout({ children }: TestnetScanLayoutProps) 
                 </SelectTrigger>
                 <SelectContent className="bg-gray-900 border-yellow-800/30 max-h-80">
                   <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="ko">한국어</SelectItem>
                   <SelectItem value="zh">中文</SelectItem>
                   <SelectItem value="ja">日本語</SelectItem>
+                  <SelectItem value="hi">हिन्दी</SelectItem>
                   <SelectItem value="es">Español</SelectItem>
                   <SelectItem value="fr">Français</SelectItem>
-                  <SelectItem value="ru">Русский</SelectItem>
                   <SelectItem value="ar">العربية</SelectItem>
-                  <SelectItem value="hi">हिन्दी</SelectItem>
                   <SelectItem value="bn">বাংলা</SelectItem>
+                  <SelectItem value="ru">Русский</SelectItem>
                   <SelectItem value="pt">Português</SelectItem>
                   <SelectItem value="ur">اردو</SelectItem>
+                  <SelectItem value="ko">한국어</SelectItem>
                 </SelectContent>
               </Select>
 
