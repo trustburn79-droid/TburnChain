@@ -82,6 +82,7 @@ import {
   User,
   Bug,
   Hexagon,
+  Menu,
 } from "lucide-react";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -390,6 +391,7 @@ export default function TokenSystemPage() {
   const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [deployedContractAddress, setDeployedContractAddress] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { data: deployedTokens, isLoading: tokensLoading } = useQuery<DeployedToken[]>({
     queryKey: ["/api/token-system/deployed"],
@@ -592,22 +594,39 @@ export default function TokenSystemPage() {
   return (
     <div className={`flex h-screen overflow-hidden font-sans antialiased ${isDark ? 'bg-[#0B1120] text-[#E2E8F0]' : 'bg-slate-50 text-slate-800'}`}>
       
-      <aside className={`w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r ${isDark ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-slate-200'}`}>
-        <div className={`h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b ${isDark ? 'border-gray-800' : 'border-slate-100'}`}>
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">
-            <Box className="w-5 h-5" />
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      
+      <aside className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed lg:relative w-64 lg:w-64 flex flex-col z-40 lg:z-20 transition-all duration-300 border-r h-full ${isDark ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-slate-200'}`}>
+        <div className={`h-16 flex items-center justify-between px-4 lg:px-6 border-b ${isDark ? 'border-gray-800' : 'border-slate-100'}`}>
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">
+              <Box className="w-5 h-5" />
+            </div>
+            <div className="ml-3">
+              <h1 className={`font-bold text-lg tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                {t('tokenGenerator.pageTitle')}
+              </h1>
+              <p className="text-xs text-muted-foreground">{t('tokenGenerator.tokenCreationSystem')}</p>
+            </div>
           </div>
-          <div className="hidden lg:block ml-3">
-            <h1 className={`font-bold text-lg tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              {t('tokenGenerator.pageTitle')}
-            </h1>
-            <p className="text-xs text-muted-foreground">{t('tokenGenerator.tokenCreationSystem')}</p>
-          </div>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className={`lg:hidden p-2 rounded-lg ${isDark ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-slate-100 text-slate-500'}`}
+            data-testid="button-close-sidebar"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
         
         <nav className="flex-1 py-6 space-y-2 px-3">
           <button
-            onClick={() => setActiveTab("create")}
+            onClick={() => { setActiveTab("create"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${
               activeTab === "create"
                 ? isDark
@@ -620,10 +639,10 @@ export default function TokenSystemPage() {
             data-testid="nav-create-token"
           >
             <PlusCircle className="w-6 h-6" />
-            <span className="hidden lg:block font-medium">{t('tokenGenerator.createToken')}</span>
+            <span className="font-medium">{t('tokenGenerator.createToken')}</span>
           </button>
           <button
-            onClick={() => setActiveTab("myTokens")}
+            onClick={() => { setActiveTab("myTokens"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${
               activeTab === "myTokens"
                 ? isDark
@@ -636,10 +655,10 @@ export default function TokenSystemPage() {
             data-testid="nav-my-tokens"
           >
             <List className="w-6 h-6" />
-            <span className="hidden lg:block font-medium">{t('tokenGenerator.myTokens')}</span>
+            <span className="font-medium">{t('tokenGenerator.myTokens')}</span>
           </button>
           <button
-            onClick={() => setActiveTab("verification")}
+            onClick={() => { setActiveTab("verification"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${
               activeTab === "verification"
                 ? isDark
@@ -652,7 +671,7 @@ export default function TokenSystemPage() {
             data-testid="nav-verification"
           >
             <ShieldCheck className="w-6 h-6" />
-            <span className="hidden lg:block font-medium">{t('tokenGenerator.verification')}</span>
+            <span className="font-medium">{t('tokenGenerator.verification')}</span>
           </button>
         </nav>
 
@@ -673,6 +692,13 @@ export default function TokenSystemPage() {
         
         <header className={`h-16 border-b ${isDark ? 'border-gray-800 bg-[#0B1120]/80' : 'border-slate-200 bg-white/80'} backdrop-blur-md flex items-center justify-between px-4 lg:px-8 z-10`}>
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className={`lg:hidden p-2 rounded-lg ${isDark ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-slate-100 text-slate-500'}`}
+              data-testid="button-open-sidebar"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
             <Select value={selectedStandard} onValueChange={(v) => setSelectedStandard(v as TokenStandardType)}>
               <SelectTrigger className={`w-[140px] ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-slate-200'}`} data-testid="select-standard">
                 <SelectValue />
