@@ -244,7 +244,7 @@ export default function LaunchEventPage() {
           {/* Header */}
           <header className="h-16 border-b border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 z-10">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-1 bg-[#F97316]/10 text-[#F97316] border border-[#F97316]/20 rounded text-xs font-bold animate-pulse">● {t('launchEventPage.liveEvent', 'LIVE EVENT')}</span>
+              <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded text-xs font-bold animate-pulse">● {t('launchEventPage.liveEvent', 'LIVE EVENT')}</span>
             </div>
             <div className="flex items-center gap-4">
               <LanguageSelector isDark={isDark} />
