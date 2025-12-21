@@ -948,7 +948,7 @@ export default function NftMarketplaceStandalone() {
     <TooltipProvider>
     <div className={`flex h-screen overflow-hidden font-sans antialiased transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0B1120] text-[#E2E8F0]' : 'bg-gray-50 text-gray-900'}`}>
       
-      <aside className={`w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r ${theme === 'dark' ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-gray-200'}`}>
+      <aside className={`hidden sm:flex w-20 lg:w-64 flex-col z-20 transition-all duration-300 border-r ${theme === 'dark' ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-gray-200'}`}>
         <div className={`h-16 flex items-center justify-center lg:justify-between lg:px-6 border-b ${theme === 'dark' ? 'border-gray-800' : 'border-gray-200'}`}>
           <div className="flex items-center">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">N</div>
