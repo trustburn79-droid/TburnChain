@@ -152,7 +152,7 @@ export default function QnAPage() {
             T
           </div>
           <h1 className="font-bold text-lg tracking-tight text-slate-900 dark:text-white">
-            TBURN <span className="text-blue-500">Help Center</span>
+            TBURN <span className="text-blue-500 hidden sm:inline">Help Center</span>
           </h1>
         </div>
         <div className="flex items-center gap-2">
