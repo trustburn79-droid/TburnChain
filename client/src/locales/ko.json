@@ -17585,7 +17585,25 @@
       "circulatingSupply": "순환 공급량",
       "holders": "총 보유자",
       "features": "기능",
-      "aiEnabled": "AI 기능"
+      "aiEnabled": "AI 기능",
+      "verified": "검증 상태",
+      "decimals": "소수점",
+      "transactionCount": "거래 수",
+      "mintable": "발행 가능",
+      "burnable": "소각 가능",
+      "pausable": "일시정지 가능",
+      "deploymentInfo": "배포 정보",
+      "contractAddress": "컨트랙트 주소",
+      "deployerAddress": "배포자 주소",
+      "deploymentTx": "배포 트랜잭션",
+      "blockNumber": "블록 번호",
+      "deployedAt": "생성일시",
+      "deploymentSource": "배포 소스",
+      "deploymentMode": "배포 모드",
+      "security": "보안 기능",
+      "quantumResistant": "양자 저항",
+      "mevProtection": "MEV 보호",
+      "securityScore": "보안 점수"
     },
     "confirmPause": {
       "title": "토큰 일시 중지",
@@ -17610,7 +17628,19 @@
       "timeBased": "시간 기반",
       "volumeBased": "볼륨 기반"
     },
-    "action": "작업"
+    "action": "작업",
+    "createdAt": "생성일",
+    "source": "소스",
+    "sourceGenerator": "토큰 생성기",
+    "sourceFactory": "토큰 팩토리",
+    "sourceSystem": "토큰 시스템",
+    "sourcePlatform": "플랫폼",
+    "verified": "검증됨",
+    "unverified": "미검증",
+    "modeSimulation": "시뮬레이션",
+    "modeWallet": "지갑",
+    "statusUpdated": "상태 업데이트됨",
+    "statusUpdatedDesc": "토큰 상태가 성공적으로 업데이트되었습니다"
   },
   "adminBurnControl": {
     "title": "소각 제어",

@@ -16912,7 +16912,25 @@
       "circulatingSupply": "Circulating Supply",
       "holders": "Total Holders",
       "features": "Features",
-      "aiEnabled": "AI Features"
+      "aiEnabled": "AI Features",
+      "verified": "Verification Status",
+      "decimals": "Decimals",
+      "transactionCount": "Transactions",
+      "mintable": "Mintable",
+      "burnable": "Burnable",
+      "pausable": "Pausable",
+      "deploymentInfo": "Deployment Information",
+      "contractAddress": "Contract Address",
+      "deployerAddress": "Deployer Address",
+      "deploymentTx": "Deployment TX",
+      "blockNumber": "Block Number",
+      "deployedAt": "Created At",
+      "deploymentSource": "Deployment Source",
+      "deploymentMode": "Deployment Mode",
+      "security": "Security Features",
+      "quantumResistant": "Quantum Resistant",
+      "mevProtection": "MEV Protection",
+      "securityScore": "Security Score"
     },
     "confirmPause": {
       "title": "Pause Token",
@@ -16936,7 +16954,19 @@
       "aiSystem": "AI System",
       "timeBased": "Time-based",
       "volumeBased": "Volume-based"
-    }
+    },
+    "createdAt": "Created",
+    "source": "Source",
+    "sourceGenerator": "Generator",
+    "sourceFactory": "Factory",
+    "sourceSystem": "System",
+    "sourcePlatform": "Platform",
+    "verified": "Verified",
+    "unverified": "Unverified",
+    "modeSimulation": "Simulation",
+    "modeWallet": "Wallet",
+    "statusUpdated": "Status Updated",
+    "statusUpdatedDesc": "Token status has been updated successfully"
   },
   "adminBurnControl": {
     "title": "Burn Control",

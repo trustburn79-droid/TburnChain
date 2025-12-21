@@ -18,21 +18,42 @@ import { queryClient, apiRequest } from "@/lib/queryClient";
 import { 
   Coins, Plus, Flame, Pause, Play, Users, TrendingUp, 
   Shield, Brain, AlertTriangle, CheckCircle, FileText,
-  RefreshCw, Download, Wifi, WifiOff, Eye
+  RefreshCw, Download, Wifi, WifiOff, Eye, Calendar, Clock,
+  Box, ShieldCheck, Zap, Hash, ExternalLink, Copy
 } from "lucide-react";
 import { DetailSheet } from "@/components/admin/detail-sheet";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 
 interface Token {
-  id: number;
+  id: number | string;
   name: string;
   symbol: string;
   standard: string;
   totalSupply: string;
-  circulatingSupply: string;
+  circulatingSupply?: string;
   holders: number;
   status: string;
-  aiEnabled: boolean;
+  aiEnabled?: boolean;
+  // Extended fields for user-deployed tokens
+  contractAddress?: string;
+  deployerAddress?: string;
+  deploymentTxHash?: string;
+  deployedAt?: string;
+  blockNumber?: number;
+  decimals?: number;
+  mintable?: boolean;
+  burnable?: boolean;
+  pausable?: boolean;
+  aiOptimizationEnabled?: boolean;
+  quantumResistant?: boolean;
+  mevProtection?: boolean;
+  verified?: boolean;
+  deploymentSource?: string;
+  deploymentMode?: string;
+  securityScore?: number;
+  transactionCount?: number;
+  volume24h?: number;
+  isUserDeployed?: boolean;
 }
 
 interface SupplyStat {
@@ -424,85 +445,111 @@ export default function AdminTokenIssuance() {
                         <TableHead>{t("adminTokenIssuance.token")}</TableHead>
                         <TableHead>{t("adminTokenIssuance.standard")}</TableHead>
                         <TableHead>{t("adminTokenIssuance.totalSupply")}</TableHead>
-                        <TableHead>{t("adminTokenIssuance.circulating")}</TableHead>
+                        <TableHead>{t("adminTokenIssuance.createdAt", "Created")}</TableHead>
                         <TableHead>{t("adminTokenIssuance.holders")}</TableHead>
                         <TableHead>{t("adminTokenIssuance.status")}</TableHead>
-                        <TableHead>{t("adminTokenIssuance.ai")}</TableHead>
+                        <TableHead>{t("adminTokenIssuance.source", "Source")}</TableHead>
                         <TableHead>{t("adminTokenIssuance.actions")}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {tokens.map((token) => (
-                        <TableRow key={token.id} data-testid={`row-token-${token.id}`}>
-                          <TableCell>
-                            <div>
-                              <p className="font-medium" data-testid={`text-token-name-${token.id}`}>{token.name}</p>
-                              <p className="text-sm text-muted-foreground">{token.symbol}</p>
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="outline">{token.standard}</Badge>
-                          </TableCell>
-                          <TableCell>{token.totalSupply}</TableCell>
-                          <TableCell>{token.circulatingSupply}</TableCell>
-                          <TableCell>{token.holders.toLocaleString()}</TableCell>
-                          <TableCell>
-                            <Badge variant={token.status === "active" ? "default" : "secondary"} data-testid={`badge-status-${token.id}`}>
-                              {token.status === "active" ? (
-                                <><CheckCircle className="w-3 h-3 mr-1" /> {t("adminTokenIssuance.active")}</>
+                      {tokens.map((token) => {
+                        const isAiEnabled = token.aiEnabled || token.aiOptimizationEnabled;
+                        const createdDate = token.deployedAt ? new Date(token.deployedAt) : null;
+                        return (
+                          <TableRow key={token.id} data-testid={`row-token-${token.id}`}>
+                            <TableCell>
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <p className="font-medium" data-testid={`text-token-name-${token.id}`}>{token.name}</p>
+                                  {token.verified && (
+                                    <ShieldCheck className="w-3 h-3 text-green-500" />
+                                  )}
+                                </div>
+                                <p className="text-sm text-muted-foreground">{token.symbol}</p>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="outline">{token.standard}</Badge>
+                            </TableCell>
+                            <TableCell>{token.totalSupply}</TableCell>
+                            <TableCell>
+                              {createdDate ? (
+                                <div className="flex items-center gap-1 text-sm">
+                                  <Calendar className="w-3 h-3 text-muted-foreground" />
+                                  <span>{createdDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' })}</span>
+                                </div>
                               ) : (
-                                <><Pause className="w-3 h-3 mr-1" /> {t("adminTokenIssuance.paused")}</>
+                                <span className="text-muted-foreground">-</span>
                               )}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            {token.aiEnabled ? (
-                              <Badge variant="outline" className="bg-purple-500/10 text-purple-500">
-                                <Brain className="w-3 h-3 mr-1" /> {t("adminTokenIssuance.ai")}
+                            </TableCell>
+                            <TableCell>{(token.holders || 0).toLocaleString()}</TableCell>
+                            <TableCell>
+                              <Badge variant={token.status === "active" ? "default" : "secondary"} data-testid={`badge-status-${token.id}`}>
+                                {token.status === "active" ? (
+                                  <><CheckCircle className="w-3 h-3 mr-1" /> {t("adminTokenIssuance.active")}</>
+                                ) : (
+                                  <><Pause className="w-3 h-3 mr-1" /> {t("adminTokenIssuance.paused")}</>
+                                )}
                               </Badge>
-                            ) : (
-                              <span className="text-muted-foreground">-</span>
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex gap-1">
-                              <Button 
-                                size="icon" 
-                                variant="ghost" 
-                                onClick={() => setSelectedToken(token)}
-                                data-testid={`button-view-${token.id}`}
-                              >
-                                <Eye className="w-4 h-4" />
-                              </Button>
-                              <Button 
-                                size="icon" 
-                                variant="ghost" 
-                                onClick={() => { setSelectedTokenForAction(token); setActiveTab("mint"); }}
-                                data-testid={`button-mint-${token.id}`}
-                              >
-                                <Plus className="w-4 h-4" />
-                              </Button>
-                              <Button 
-                                size="icon" 
-                                variant="ghost" 
-                                onClick={() => { setSelectedTokenForAction(token); setActiveTab("burn"); }}
-                                data-testid={`button-burn-${token.id}`}
-                              >
-                                <Flame className="w-4 h-4" />
-                              </Button>
-                              <Button 
-                                size="icon" 
-                                variant="ghost" 
-                                onClick={() => setTokenToToggle(token)}
-                                disabled={toggleStatusMutation.isPending}
-                                data-testid={`button-toggle-${token.id}`}
-                              >
-                                {token.status === "active" ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-1">
+                                {token.isUserDeployed || token.deploymentSource ? (
+                                  <Badge variant="outline" className="text-xs">
+                                    {token.deploymentSource === 'token-generator' ? t("adminTokenIssuance.sourceGenerator", "Generator") 
+                                      : token.deploymentSource === 'token-factory' ? t("adminTokenIssuance.sourceFactory", "Factory")
+                                      : token.deploymentSource === 'token-system' ? t("adminTokenIssuance.sourceSystem", "System")
+                                      : t("adminTokenIssuance.sourcePlatform", "Platform")}
+                                  </Badge>
+                                ) : (
+                                  <Badge variant="outline" className="text-xs">{t("adminTokenIssuance.sourcePlatform", "Platform")}</Badge>
+                                )}
+                                {isAiEnabled && (
+                                  <Brain className="w-3 h-3 text-purple-500" />
+                                )}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex gap-1">
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  onClick={() => setSelectedToken(token)}
+                                  data-testid={`button-view-${token.id}`}
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </Button>
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  onClick={() => { setSelectedTokenForAction(token); setActiveTab("mint"); }}
+                                  data-testid={`button-mint-${token.id}`}
+                                >
+                                  <Plus className="w-4 h-4" />
+                                </Button>
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  onClick={() => { setSelectedTokenForAction(token); setActiveTab("burn"); }}
+                                  data-testid={`button-burn-${token.id}`}
+                                >
+                                  <Flame className="w-4 h-4" />
+                                </Button>
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost" 
+                                  onClick={() => setTokenToToggle(token)}
+                                  disabled={toggleStatusMutation.isPending}
+                                  data-testid={`button-toggle-${token.id}`}
+                                >
+                                  {token.status === "active" ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                     </TableBody>
                   </Table>
                 )}
@@ -729,20 +776,47 @@ export default function AdminTokenIssuance() {
               { label: t("adminTokenIssuance.detail.symbol"), value: selectedToken.symbol },
               { label: t("adminTokenIssuance.detail.standard"), value: selectedToken.standard, type: "badge" as const },
               { label: t("adminTokenIssuance.detail.status"), value: selectedToken.status, type: "badge" as const, badgeVariant: selectedToken.status === "active" ? "default" as const : "secondary" as const },
+              { label: t("adminTokenIssuance.detail.verified"), value: selectedToken.verified ? t("adminTokenIssuance.verified") : t("adminTokenIssuance.unverified"), type: "badge" as const, badgeVariant: selectedToken.verified ? "default" as const : "secondary" as const },
             ],
           },
+          // Deployment Info Section (only for user-deployed tokens)
+          ...(selectedToken.contractAddress ? [{
+            title: t("adminTokenIssuance.detail.deploymentInfo", "Deployment Information"),
+            fields: [
+              { label: t("adminTokenIssuance.detail.contractAddress", "Contract Address"), value: selectedToken.contractAddress || '-', copyable: true },
+              { label: t("adminTokenIssuance.detail.deployerAddress", "Deployer Address"), value: selectedToken.deployerAddress || '-', copyable: true },
+              { label: t("adminTokenIssuance.detail.deploymentTx", "Deployment TX"), value: selectedToken.deploymentTxHash ? `${selectedToken.deploymentTxHash.slice(0, 10)}...${selectedToken.deploymentTxHash.slice(-8)}` : '-', copyable: !!selectedToken.deploymentTxHash },
+              { label: t("adminTokenIssuance.detail.blockNumber", "Block Number"), value: selectedToken.blockNumber ? `#${selectedToken.blockNumber.toLocaleString()}` : '-' },
+              { label: t("adminTokenIssuance.detail.deployedAt", "Created At"), value: selectedToken.deployedAt ? new Date(selectedToken.deployedAt).toLocaleString('ko-KR', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '-' },
+              { label: t("adminTokenIssuance.detail.deploymentSource", "Deployment Source"), value: selectedToken.deploymentSource === 'token-generator' ? t("adminTokenIssuance.sourceGenerator", "Token Generator") : selectedToken.deploymentSource === 'token-factory' ? t("adminTokenIssuance.sourceFactory", "Token Factory") : selectedToken.deploymentSource === 'token-system' ? t("adminTokenIssuance.sourceSystem", "Token System") : t("adminTokenIssuance.sourcePlatform", "Platform"), type: "badge" as const },
+              { label: t("adminTokenIssuance.detail.deploymentMode", "Deployment Mode"), value: selectedToken.deploymentMode === 'simulation' ? t("adminTokenIssuance.modeSimulation", "Simulation") : t("adminTokenIssuance.modeWallet", "Wallet"), type: "badge" as const, badgeVariant: selectedToken.deploymentMode === 'simulation' ? "secondary" as const : "default" as const },
+            ],
+          }] : []),
           {
             title: t("adminTokenIssuance.detail.supplyInfo"),
             fields: [
               { label: t("adminTokenIssuance.detail.totalSupply"), value: selectedToken.totalSupply },
-              { label: t("adminTokenIssuance.detail.circulatingSupply"), value: selectedToken.circulatingSupply },
-              { label: t("adminTokenIssuance.detail.holders"), value: selectedToken.holders.toLocaleString() },
+              { label: t("adminTokenIssuance.detail.circulatingSupply"), value: selectedToken.circulatingSupply || selectedToken.totalSupply },
+              { label: t("adminTokenIssuance.detail.decimals", "Decimals"), value: String(selectedToken.decimals ?? 18) },
+              { label: t("adminTokenIssuance.detail.holders"), value: (selectedToken.holders || 0).toLocaleString() },
+              { label: t("adminTokenIssuance.detail.transactionCount", "Transactions"), value: (selectedToken.transactionCount || 0).toLocaleString() },
             ],
           },
           {
             title: t("adminTokenIssuance.detail.features"),
             fields: [
-              { label: t("adminTokenIssuance.detail.aiEnabled"), value: selectedToken.aiEnabled ? t("adminTokenIssuance.enabled") : t("adminTokenIssuance.disabled"), type: "badge" as const, badgeVariant: selectedToken.aiEnabled ? "default" as const : "secondary" as const },
+              { label: t("adminTokenIssuance.detail.mintable", "Mintable"), value: selectedToken.mintable ? t("adminTokenIssuance.enabled") : t("adminTokenIssuance.disabled"), type: "badge" as const, badgeVariant: selectedToken.mintable ? "default" as const : "secondary" as const },
+              { label: t("adminTokenIssuance.detail.burnable", "Burnable"), value: selectedToken.burnable ? t("adminTokenIssuance.enabled") : t("adminTokenIssuance.disabled"), type: "badge" as const, badgeVariant: selectedToken.burnable ? "default" as const : "secondary" as const },
+              { label: t("adminTokenIssuance.detail.pausable", "Pausable"), value: selectedToken.pausable ? t("adminTokenIssuance.enabled") : t("adminTokenIssuance.disabled"), type: "badge" as const, badgeVariant: selectedToken.pausable ? "default" as const : "secondary" as const },
+              { label: t("adminTokenIssuance.detail.aiEnabled"), value: (selectedToken.aiEnabled || selectedToken.aiOptimizationEnabled) ? t("adminTokenIssuance.enabled") : t("adminTokenIssuance.disabled"), type: "badge" as const, badgeVariant: (selectedToken.aiEnabled || selectedToken.aiOptimizationEnabled) ? "default" as const : "secondary" as const },
+            ],
+          },
+          {
+            title: t("adminTokenIssuance.detail.security", "Security Features"),
+            fields: [
+              { label: t("adminTokenIssuance.detail.quantumResistant", "Quantum Resistant"), value: selectedToken.quantumResistant ? t("adminTokenIssuance.enabled") : t("adminTokenIssuance.disabled"), type: "badge" as const, badgeVariant: selectedToken.quantumResistant ? "default" as const : "secondary" as const },
+              { label: t("adminTokenIssuance.detail.mevProtection", "MEV Protection"), value: selectedToken.mevProtection ? t("adminTokenIssuance.enabled") : t("adminTokenIssuance.disabled"), type: "badge" as const, badgeVariant: selectedToken.mevProtection ? "default" as const : "secondary" as const },
+              ...(selectedToken.securityScore ? [{ label: t("adminTokenIssuance.detail.securityScore", "Security Score"), value: `${selectedToken.securityScore}/100` }] : []),
             ],
           },
         ] : []}
