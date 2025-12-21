@@ -267,7 +267,17 @@ const formatTimeAgo = (timestamp: string, t: (key: string, options?: Record<stri
 };
 
 export default function UserPage() {
-  const [activeSection, setActiveSection] = useState<Section>("dashboard");
+  const getInitialSection = (): Section => {
+    const params = new URLSearchParams(window.location.search);
+    const section = params.get('section');
+    const validSections: Section[] = ["dashboard", "wallet", "stakingDashboard", "delegationValidator", "defi", "nft", "governance", "network"];
+    if (section && validSections.includes(section as Section)) {
+      return section as Section;
+    }
+    return "dashboard";
+  };
+  
+  const [activeSection, setActiveSection] = useState<Section>(getInitialSection);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const queryClient = useQueryClient();
