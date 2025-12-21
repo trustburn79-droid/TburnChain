@@ -87,6 +87,23 @@ interface ExecutionTrace {
   memory?: string;
 }
 
+function generateRandomHex(length: number): string {
+  const chars = '0123456789abcdef';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars[Math.floor(Math.random() * 16)];
+  }
+  return result;
+}
+
+function generateTxHash(): string {
+  return `0x${generateRandomHex(64)}`;
+}
+
+function generateAddress(): string {
+  return `0x${generateRandomHex(40)}`;
+}
+
 function generateMockSimulations(): SimulationResult[] {
   const types: SimulationResult['type'][] = ['transfer', 'contract_creation', 'contract_call'];
   // Enterprise-grade success rate: 98.5%+ (99 success, 1 failed out of 100)
@@ -106,9 +123,9 @@ function generateMockSimulations(): SimulationResult[] {
     
     return {
       id: `sim-${i}`,
-      txHash: `0x${Math.random().toString(16).slice(2, 66).padEnd(64, '0')}`,
-      from: `0x${Math.random().toString(16).slice(2, 42).padEnd(40, '0')}`,
-      to: type === 'contract_creation' ? null : `0x${Math.random().toString(16).slice(2, 42).padEnd(40, '0')}`,
+      txHash: generateTxHash(),
+      from: generateAddress(),
+      to: type === 'contract_creation' ? null : generateAddress(),
       value: type === 'transfer' ? (Math.random() * 100).toFixed(4) : '0',
       gas,
       gasUsed: Math.floor(gas * (0.85 + Math.random() * 0.10)), // Optimized gas usage: 85-95%
@@ -641,11 +658,11 @@ function SimulationDetailDialog({
                           <div className="space-y-1 text-sm font-mono">
                             <div className="flex gap-2">
                               <span className="text-muted-foreground">from:</span>
-                              <span>{`0x${Math.random().toString(16).slice(2, 42)}`}</span>
+                              <span>{generateAddress()}</span>
                             </div>
                             <div className="flex gap-2">
                               <span className="text-muted-foreground">to:</span>
-                              <span>{`0x${Math.random().toString(16).slice(2, 42)}`}</span>
+                              <span>{generateAddress()}</span>
                             </div>
                             <div className="flex gap-2">
                               <span className="text-muted-foreground">value:</span>
@@ -681,10 +698,10 @@ function SimulationDetailDialog({
                     <TableBody>
                       {Array.from({ length: simulation.stateChanges }, (_, i) => (
                         <TableRow key={i}>
-                          <TableCell className="font-mono text-xs">{formatAddress(`0x${Math.random().toString(16).slice(2, 42)}`)}</TableCell>
+                          <TableCell className="font-mono text-xs">{formatAddress(generateAddress())}</TableCell>
                           <TableCell className="font-mono text-xs">0x{i.toString(16).padStart(2, '0')}</TableCell>
-                          <TableCell className="font-mono text-xs text-muted-foreground">0x{Math.random().toString(16).slice(2, 18)}</TableCell>
-                          <TableCell className="font-mono text-xs text-green-600">0x{Math.random().toString(16).slice(2, 18)}</TableCell>
+                          <TableCell className="font-mono text-xs text-muted-foreground">0x{generateRandomHex(16)}</TableCell>
+                          <TableCell className="font-mono text-xs text-green-600">0x{generateRandomHex(16)}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -733,9 +750,9 @@ export default function TransactionSimulator() {
     const interval = setInterval(() => {
       const newActivity: SimulationResult = {
         id: `sim-live-${Date.now()}`,
-        txHash: `0x${Math.random().toString(16).slice(2, 66).padEnd(64, '0')}`,
-        from: `0x${Math.random().toString(16).slice(2, 42).padEnd(40, '0')}`,
-        to: Math.random() > 0.3 ? `0x${Math.random().toString(16).slice(2, 42).padEnd(40, '0')}` : null,
+        txHash: generateTxHash(),
+        from: generateAddress(),
+        to: Math.random() > 0.3 ? generateAddress() : null,
         value: (Math.random() * 10).toFixed(4),
         gas: Math.floor(Math.random() * 300000) + 21000,
         gasUsed: Math.floor(Math.random() * 250000) + 21000,
@@ -793,9 +810,9 @@ export default function TransactionSimulator() {
       const gasPriceInWei = (BigInt(Math.floor(gasPriceNum * 1e12))).toString();
       
       const tx = {
-        hash: `0x${Math.random().toString(16).substr(2, 64)}`,
+        hash: generateTxHash(),
         blockNumber: 0,
-        blockHash: `0x${Math.random().toString(16).substr(2, 64)}`,
+        blockHash: generateTxHash(),
         from: data.from,
         to: data.to || null,
         value: valueInWei,
@@ -816,7 +833,7 @@ export default function TransactionSimulator() {
     onSuccess: (result) => {
       const newSimulation: SimulationResult = {
         id: `sim-${Date.now()}`,
-        txHash: result.hash || `0x${Math.random().toString(16).slice(2, 66)}`,
+        txHash: result.hash || generateTxHash(),
         from: formData.from,
         to: formData.to || null,
         value: formData.value || '0',
