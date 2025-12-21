@@ -1318,6 +1318,19 @@ export default function WalletDashboard() {
       // Ignore
     }
   };
+
+  // Helper to require wallet connection for token operations
+  const requireWalletConnection = (action: () => void) => {
+    if (!isConnected) {
+      toast({
+        title: t("walletDashboard.walletRequired", "Wallet Connection Required"),
+        description: t("walletDashboard.walletRequiredDesc", "Please connect your wallet to perform this action"),
+        variant: "destructive",
+      });
+      return;
+    }
+    action();
+  };
   
   const { data: walletBalance, isLoading: balanceLoading } = useQuery<WalletBalance>({
     queryKey: ["/api/wallet/balance", walletAddress],
@@ -1355,22 +1368,8 @@ export default function WalletDashboard() {
   
   const displayBalance = walletBalance || defaultBalance;
   
-  // Show wallet connection prompt if not connected
-  if (!isConnected) {
-    return (
-      <div className="flex flex-col gap-6 p-6 min-h-screen">
-        <div className="mb-2">
-          <h1 className="text-2xl font-bold" data-testid="text-page-title">
-            {t("walletDashboard.title", "Wallet Dashboard")}
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            {t("walletDashboard.subtitle", "Manage your TBURN tokens and track performance")}
-          </p>
-        </div>
-        <WalletRequiredBanner />
-      </div>
-    );
-  }
+  // Note: isConnected determines whether real wallet data or demo data is shown
+  // The page layout is always displayed publicly
   
   return (
     <div className="flex flex-col gap-6 p-6 min-h-screen relative">
@@ -1410,7 +1409,12 @@ export default function WalletDashboard() {
         </p>
       </div>
       
-      {myWallets.length > 0 && selectedWallet && (
+      {/* Show connection banner when wallet is not connected */}
+      {!isConnected && (
+        <WalletRequiredBanner />
+      )}
+      
+      {isConnected && myWallets.length > 0 && selectedWallet && (
         <Card className="bg-gradient-to-br from-card/80 via-card/60 to-primary/5 backdrop-blur-sm border-primary/30 overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <CardHeader className="pb-2 relative z-10">
@@ -1555,7 +1559,7 @@ export default function WalletDashboard() {
             title={t("walletDashboard.send", "Send")}
             subtitle={t("walletDashboard.transferTokens", "Transfer tokens")}
             colorClass="bg-primary/10 text-primary border-primary/30"
-            onClick={() => setSendDialogOpen(true)}
+            onClick={() => requireWalletConnection(() => setSendDialogOpen(true))}
             testId="button-send"
           />
           <QuickActionButton
@@ -1563,7 +1567,7 @@ export default function WalletDashboard() {
             title={t("walletDashboard.receive", "Receive")}
             subtitle={t("walletDashboard.viewAddress", "View address")}
             colorClass="bg-purple-500/10 text-purple-500 border-purple-500/30"
-            onClick={() => setReceiveDialogOpen(true)}
+            onClick={() => requireWalletConnection(() => setReceiveDialogOpen(true))}
             testId="button-receive"
           />
           <QuickActionButton
@@ -1571,7 +1575,7 @@ export default function WalletDashboard() {
             title={t("walletDashboard.swapAction", "Swap")}
             subtitle={t("walletDashboard.tradeTokens", "Trade tokens")}
             colorClass="bg-green-500/10 text-green-500 border-green-500/30"
-            onClick={() => setSwapDialogOpen(true)}
+            onClick={() => requireWalletConnection(() => setSwapDialogOpen(true))}
             testId="button-swap"
           />
           <QuickActionButton
@@ -1579,7 +1583,7 @@ export default function WalletDashboard() {
             title={t("walletDashboard.createWallet", "Create Wallet")}
             subtitle={t("walletDashboard.generateNewWallet", "Generate new wallet")}
             colorClass="bg-blue-500/10 text-blue-500 border-blue-500/30"
-            onClick={() => setCreateWalletDialogOpen(true)}
+            onClick={() => requireWalletConnection(() => setCreateWalletDialogOpen(true))}
             testId="button-create-wallet"
           />
         </div>
