@@ -1576,6 +1576,12 @@ export const deployedTokens = pgTable("deployed_tokens", {
   verified: boolean("verified").notNull().default(false),
   status: text("status").notNull().default("active"), // active, paused, deprecated
   
+  // Registry Metadata (TokenRegistry unified tracking)
+  deploymentSource: text("deployment_source").notNull().default("token-system"), // token-generator, token-factory, token-system, admin
+  deploymentMode: text("deployment_mode").notNull().default("simulation"), // wallet, simulation
+  blockNumber: integer("block_number"),
+  securityScore: integer("security_score"),
+  
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 

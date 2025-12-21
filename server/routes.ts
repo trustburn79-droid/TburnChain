@@ -234,6 +234,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   aiService.startPeriodicHealthChecks(5); // Check every 5 minutes
   console.log('[AI Health] ✅ Started periodic health checks (5 minute intervals)');
 
+  // Initialize TokenRegistry for unified token management (database-persisted)
+  const { tokenRegistry } = await import("./services/TokenRegistry");
+  await tokenRegistry.initialize();
+
   // Start Production Data Poller - CRITICAL for preventing rate limit freezing
   // This runs in background and keeps cache warm, decoupling UI from live RPC
   const dataPoller = getProductionDataPoller();
@@ -2496,9 +2500,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: "active"
       };
       
-      // Register in unified TokenRegistry for admin panel integration
+      // Register in unified TokenRegistry for admin panel integration (async, database-persisted)
       const { tokenRegistry } = await import("./services/TokenRegistry");
-      tokenRegistry.registerToken({
+      await tokenRegistry.registerToken({
         id: deployedToken.id,
         name: deployedToken.name,
         symbol: deployedToken.symbol,
@@ -2653,7 +2657,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/token-factory/simulate-deploy", async (req, res) => {
     try {
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
-      const result = tokenFactoryService.generateMockDeploymentForSimulation(req.body);
+      const result = await tokenFactoryService.generateMockDeploymentForSimulation(req.body);
       res.json({
         success: true,
         mode: "simulation",

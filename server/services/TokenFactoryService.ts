@@ -340,7 +340,7 @@ class TokenFactoryService {
       deploymentSource: "token-factory",
       deploymentMode: "wallet",
     };
-    tokenRegistry.registerToken(registeredToken);
+    await tokenRegistry.registerToken(registeredToken);
 
     return {
       success: true,
@@ -443,7 +443,7 @@ class TokenFactoryService {
     }
   }
 
-  generateMockDeploymentForSimulation(request: TokenDeploymentRequest): {
+  async generateMockDeploymentForSimulation(request: TokenDeploymentRequest): Promise<{
     token: TokenMetadata;
     transaction: {
       hash: string;
@@ -451,7 +451,7 @@ class TokenFactoryService {
       gasUsed: string;
       status: string;
     };
-  } {
+  }> {
     const randomBytes = Array.from({ length: 20 }, () =>
       Math.floor(Math.random() * 256).toString(16).padStart(2, "0")
     ).join("");
@@ -516,7 +516,7 @@ class TokenFactoryService {
       deploymentSource: "token-generator",
       deploymentMode: "simulation",
     };
-    tokenRegistry.registerToken(registeredToken);
+    await tokenRegistry.registerToken(registeredToken);
 
     return {
       token,
