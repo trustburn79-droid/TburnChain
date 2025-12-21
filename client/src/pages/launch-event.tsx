@@ -629,7 +629,7 @@ export default function LaunchEventPage() {
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto p-4 md:p-8 pb-32">
+        <div className="max-w-6xl mx-auto p-4 md:p-8 pb-[240px] md:pb-[200px]">
           {activeTab === "overview" && (
             <div className="space-y-12 animate-in fade-in duration-300">
               <div>
