@@ -365,11 +365,7 @@ function RootRouter() {
   }
   
   if (location.startsWith("/app")) {
-    return (
-      <AuthGuard>
-        <AuthenticatedApp />
-      </AuthGuard>
-    );
+    return <AuthenticatedApp />;
   }
   
   if (location === "/user" || location.startsWith("/user")) {
