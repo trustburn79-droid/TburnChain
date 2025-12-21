@@ -1058,8 +1058,8 @@ export default function NftMarketplaceStandalone() {
             </a>
             {/* Language Selector - Globe icon only */}
             <Select value={i18n.language} onValueChange={(value) => i18n.changeLanguage(value)}>
-              <SelectTrigger className={`w-10 h-10 p-0 rounded-full border-0 justify-center ${theme === 'dark' ? 'bg-transparent hover:bg-gray-800 text-white' : 'bg-transparent hover:bg-gray-100 text-gray-700'}`} data-testid="select-language">
-                <Globe className="w-5 h-5" />
+              <SelectTrigger className={`h-9 w-9 p-0 rounded-full border-0 justify-center ${theme === 'dark' ? 'bg-transparent hover:bg-gray-800 text-white' : 'bg-transparent hover:bg-gray-100 text-gray-700'}`} data-testid="select-language">
+                <Globe className="w-4 h-4" />
               </SelectTrigger>
               <SelectContent className={`min-w-[160px] ${theme === 'dark' ? 'bg-[#151E32] border-gray-700' : 'bg-white border-gray-200'}`}>
                 <SelectItem value="en" className={`${theme === 'dark' ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}>English</SelectItem>
