@@ -63,7 +63,7 @@ interface FeedbackData {
 }
 
 export default function FeedbackSystem() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState("all");
@@ -190,7 +190,7 @@ export default function FeedbackSystem() {
       case "praise": return <Badge className="bg-green-500">{t("adminFeedback.types.praiseItem")}</Badge>;
       case "bug": return <Badge className="bg-orange-500">{t("adminFeedback.types.bug")}</Badge>;
       case "complaint": return <Badge className="bg-red-500">{t("adminFeedback.types.complaint")}</Badge>;
-      default: return <Badge>{type}</Badge>;
+      default: return <Badge>{t("adminFeedback.types.unknown", { defaultValue: type })}</Badge>;
     }
   };
 
@@ -200,7 +200,7 @@ export default function FeedbackSystem() {
       case "reviewed": return <Badge variant="secondary">{t("adminFeedback.status.reviewed")}</Badge>;
       case "actioned": return <Badge className="bg-green-500">{t("adminFeedback.status.actioned")}</Badge>;
       case "archived": return <Badge variant="outline">{t("adminFeedback.status.archived")}</Badge>;
-      default: return <Badge>{status}</Badge>;
+      default: return <Badge>{t("adminFeedback.status.unknown", { defaultValue: status })}</Badge>;
     }
   };
 
@@ -254,7 +254,7 @@ export default function FeedbackSystem() {
       fields: [
         { label: t("adminFeedback.table.id"), value: feedback.id, type: "code", copyable: true },
         { label: t("adminFeedback.table.type"), value: t(`adminFeedback.types.${feedback.type === "praise" ? "praiseItem" : feedback.type}`), type: "badge", badgeColor: getTypeBadgeColor(feedback.type) },
-        { label: t("adminFeedback.table.category"), value: feedback.category },
+        { label: t("adminFeedback.table.category"), value: t(`adminFeedback.categories.${feedback.category}`, { defaultValue: feedback.category }) },
         { label: t("adminFeedback.table.rating"), value: `${feedback.rating}/5`, type: "badge", badgeColor: getRatingBadgeColor(feedback.rating) },
         { label: t("adminFeedback.table.status"), value: t(`adminFeedback.status.${feedback.status}`), type: "badge", badgeColor: getStatusBadgeColor(feedback.status) },
       ],
@@ -558,7 +558,7 @@ export default function FeedbackSystem() {
                       <TableRow key={item.id} data-testid={`feedback-row-${index}`}>
                         <TableCell className="font-mono">{item.id}</TableCell>
                         <TableCell>{getTypeBadge(item.type)}</TableCell>
-                        <TableCell>{item.category}</TableCell>
+                        <TableCell>{t(`adminFeedback.categories.${item.category}`, { defaultValue: item.category })}</TableCell>
                         <TableCell className="max-w-xs truncate">{item.message}</TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">
@@ -569,7 +569,7 @@ export default function FeedbackSystem() {
                         <TableCell className="text-sm">{item.user}</TableCell>
                         <TableCell>{getStatusBadge(item.status)}</TableCell>
                         <TableCell className="text-sm text-muted-foreground">
-                          {new Date(item.createdAt).toLocaleDateString('en-US', { timeZone: 'America/New_York' })}
+                          {new Date(item.createdAt).toLocaleDateString(i18n.language === 'ko' ? 'ko-KR' : 'en-US', { timeZone: 'America/New_York' })}
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex items-center justify-end gap-1">

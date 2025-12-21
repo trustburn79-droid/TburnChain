@@ -263,7 +263,7 @@ export default function GovParams() {
               {t("adminGovParams.title")}
             </h1>
             <p className="text-muted-foreground" data-testid="text-gov-params-subtitle">
-              {t("adminGovParams.subtitleKo")} | {t("adminGovParams.subtitleEn")}
+              {t("adminGovParams.subtitle")}
             </p>
           </div>
           <div className="flex gap-2 flex-wrap">
@@ -295,7 +295,7 @@ export default function GovParams() {
             icon={Users}
             label={t("adminGovParams.quorum")}
             value="5%"
-            change="500M TBURN minimum (10B supply)"
+            change={t("adminGovParams.quorumMinimum", { defaultValue: "500M TBURN 최소 (10B 공급량)" })}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-primary/10"
@@ -306,7 +306,7 @@ export default function GovParams() {
             icon={Percent}
             label={t("adminGovParams.approvalThreshold")}
             value="66%"
-            change="Supermajority for governance"
+            change={t("adminGovParams.supermajorityGovernance")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-blue-500/10"
@@ -316,8 +316,8 @@ export default function GovParams() {
           <MetricCard
             icon={Clock}
             label={t("adminGovParams.votingPeriod")}
-            value={t("adminGovParams.days", { count: 7 })}
-            change="Standard voting window"
+            value={t("adminGovParams.daysOption", { count: 7 })}
+            change={t("adminGovParams.standardVotingWindow")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -327,8 +327,8 @@ export default function GovParams() {
           <MetricCard
             icon={Timer}
             label={t("adminGovParams.timelock")}
-            value={t("adminGovParams.hours", { count: 48 })}
-            change="Security review period"
+            value={t("adminGovParams.hoursOption", { count: 48 })}
+            change={t("adminGovParams.securityReviewPeriod")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-yellow-500/10"

@@ -423,7 +423,7 @@ export default function Execution() {
             icon={Clock}
             label={t("adminExecution.pendingExecution")}
             value={pendingCount}
-            change="All proposals executed for launch"
+            change={t("adminExecution.allProposalsExecuted")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -434,7 +434,7 @@ export default function Execution() {
             icon={CheckCircle}
             label={t("adminExecution.completed")}
             value={completedCount}
-            change="100% execution success"
+            change={t("adminExecution.allProposalsExecuted")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -445,7 +445,7 @@ export default function Execution() {
             icon={XCircle}
             label={t("adminExecution.failed")}
             value={failedCount}
-            change="Zero execution failures"
+            change={t("adminExecution.zeroFailures")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"
@@ -456,7 +456,7 @@ export default function Execution() {
             icon={Activity}
             label={t("adminExecution.successRate")}
             value={`${successRate}%`}
-            change="Perfect execution record"
+            change={t("adminExecution.perfectRecord")}
             changeType="positive"
             isLoading={isLoading}
             bgColor="bg-green-500/10"

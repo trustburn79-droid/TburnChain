@@ -315,7 +315,7 @@ export default function VotingMonitor() {
               )}
             </h1>
             <p className="text-muted-foreground" data-testid="text-voting-subtitle">
-              {t("adminVoting.subtitleKo")} | {t("adminVoting.subtitleEn")}
+              {t("adminVoting.subtitle")}
             </p>
           </div>
           <div className="flex gap-2 flex-wrap">
@@ -324,8 +324,8 @@ export default function VotingMonitor() {
                 <SelectValue placeholder={t("adminVoting.selectProposal")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="TIP-001">TIP-001: Increase Block Gas</SelectItem>
-                <SelectItem value="TIP-003">TIP-003: Add Solana Bridge</SelectItem>
+                <SelectItem value="TIP-001">{t("adminVoting.proposalSelectTip001")}</SelectItem>
+                <SelectItem value="TIP-003">{t("adminVoting.proposalSelectTip003")}</SelectItem>
               </SelectContent>
             </Select>
             <Button variant="outline" onClick={handleExport} data-testid="button-export">
