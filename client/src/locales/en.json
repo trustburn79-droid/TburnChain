@@ -14487,7 +14487,7 @@
         },
         "locations": {
           "online": "Online",
-          "seoul": "Seoul, Korea",
+          "sanfrancisco": "San Francisco, USA",
           "singapore": "Singapore"
         },
         "featured": {
@@ -14512,9 +14512,9 @@
             "title": "Trust Score API Integration Workshop",
             "description": "Hands-on technical workshop for developers. Learn how to integrate Trust Score verification into your dApps and smart contracts."
           },
-          "seoulMeetup": {
-            "title": "Seoul Developer Meetup",
-            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+          "sanFranciscoMeetup": {
+            "title": "San Francisco Developer Meetup",
+            "description": "In-person networking event for global developers. Technical presentations, demos, and exclusive swag for attendees."
           },
           "aiDeepDive": {
             "title": "Triple-Band AI Deep Dive Seminar",
@@ -24657,7 +24657,7 @@
       "us": "United States",
       "eu": "European Union",
       "singapore": "Singapore",
-      "korea": "South Korea",
+      "switzerland": "Switzerland",
       "japan": "Japan"
     },
     "liabilityTypes": {
@@ -24665,7 +24665,7 @@
     },
     "events": {
       "usSalesTax": "US Sales Tax Q4",
-      "koreaQ4": "Korea Q4 Withholding",
+      "switzerlandQ4": "Switzerland Q4 Withholding",
       "usQ4Estimated": "US Q4 Estimated Tax",
       "euVatQ4": "EU VAT Q4",
       "singaporeAnnual": "Singapore Annual Filing",

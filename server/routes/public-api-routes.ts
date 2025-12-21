@@ -1243,7 +1243,7 @@ router.get('/events', async (req: Request, res: Response) => {
           title: "TBurn Chain V4 Mainnet Launch Event",
           date: "2024-12-05",
           time: "14:00 UTC",
-          location: "Virtual / Seoul",
+          location: "Virtual / Global",
           registrations: 12456
         },
         upcoming: [

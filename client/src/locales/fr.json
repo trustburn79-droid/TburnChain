@@ -11079,7 +11079,7 @@
             "title": "Atelier d'Intégration Trust Score API",
             "description": "Atelier technique pratique pour développeurs. Apprenez à intégrer la vérification Trust Score dans vos dApps et contrats intelligents."
           },
-          "seoulMeetup": {
+          "sanFranciscoMeetup": {
             "title": "Meetup Développeurs à Séoul",
             "description": "Événement de networking en présentiel pour les développeurs coréens. Présentations techniques, démos et goodies exclusifs pour les participants."
           },
@@ -11404,7 +11404,7 @@
         },
         "locations": {
           "online": "En Ligne",
-          "seoul": "Séoul, Corée",
+          "sanfrancisco": "San Francisco, USA",
           "singapore": "Singapour"
         },
         "hostCta": {

@@ -13182,7 +13182,7 @@
         },
         "locations": {
           "online": "线上",
-          "seoul": "首尔，韩国",
+          "sanfrancisco": "San Francisco, USA",
           "singapore": "新加坡"
         },
         "featured": {
@@ -13207,7 +13207,7 @@
             "title": "信任评分API集成工作坊",
             "description": "开发者实践技术工作坊。学习如何将信任评分验证集成到您的dApp和智能合约中。"
           },
-          "seoulMeetup": {
+          "sanFranciscoMeetup": {
             "title": "首尔开发者聚会",
             "description": "韩国开发者线下社交活动。技术演讲、演示和参与者专属周边。"
           },

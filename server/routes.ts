@@ -10432,7 +10432,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const actionTypes = ['login', 'logout', 'create', 'update', 'delete', 'view', 'settings', 'security'] as const;
     const statuses = ['success', 'failed', 'warning'] as const;
     const devices = ['Chrome/Windows 11', 'Firefox/macOS Sonoma', 'Safari/iOS 17', 'Edge/Windows 11', 'Chrome/Android 14'];
-    const locations = ['Seoul, KR', 'Tokyo, JP', 'New York, US', 'London, UK', 'Singapore, SG', 'Sydney, AU'];
+    const locations = ['New York, US', 'Tokyo, JP', 'London, UK', 'Singapore, SG', 'Sydney, AU', 'Frankfurt, DE'];
     const targets = ['User Settings', 'Validator Node #23', 'Token Contract', 'Bridge Configuration', 'Security Policy', 'API Key', 'Dashboard Widget', 'Report Template'];
     const actions = ['Logged in', 'Updated settings', 'Created new record', 'Viewed details', 'Deleted item', 'Modified configuration', 'Exported data', 'Changed permissions'];
     const names = ['Admin Kim', 'Operator Lee', 'Developer Park', 'Analyst Choi', 'Manager Hong', 'Security Jung', 'Support Yang', 'Auditor Kang'];
@@ -10474,7 +10474,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const deviceTypes = ['desktop', 'mobile', 'tablet'] as const;
     const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
     const oses = ['Windows 11', 'macOS Sonoma', 'Ubuntu 22.04', 'iOS 17', 'Android 14'];
-    const locations = ['Seoul, KR', 'Tokyo, JP', 'New York, US', 'London, UK', 'Singapore, SG'];
+    const locations = ['New York, US', 'Tokyo, JP', 'London, UK', 'Singapore, SG', 'Frankfurt, DE'];
     const statuses = ['active', 'idle', 'expired'] as const;
     const roles = ['Admin', 'Operator', 'Developer', 'Analyst', 'Viewer'];
     
@@ -10882,7 +10882,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           pendingReports: 2,
           nextDeadline: "2025-01-15",
           nextReportType: "Quarterly SAR Summary",
-          jurisdictions: ["USA", "EU", "UK", "Singapore", "Japan", "South Korea"],
+          jurisdictions: ["USA", "EU", "UK", "Singapore", "Japan", "Switzerland"],
           reportTypes: [
             { type: "SAR", count: 12, status: "current" },
             { type: "CTR", count: 24, status: "current" },
@@ -11442,7 +11442,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const actionTypes = ['login', 'logout', 'create', 'update', 'delete', 'view', 'settings', 'security'] as const;
     const statuses = ['success', 'failed', 'warning'] as const;
     const devices = ['Chrome/Windows 11', 'Firefox/macOS Sonoma', 'Safari/iOS 17', 'Edge/Windows 11', 'Chrome/Android 14'];
-    const locations = ['Seoul, KR', 'Tokyo, JP', 'New York, US', 'London, UK', 'Singapore, SG', 'Sydney, AU'];
+    const locations = ['New York, US', 'Tokyo, JP', 'London, UK', 'Singapore, SG', 'Sydney, AU', 'Frankfurt, DE'];
     const targets = ['User Settings', 'Validator Node #23', 'Token Contract', 'Bridge Configuration', 'Security Policy', 'API Key', 'Dashboard Widget', 'Report Template'];
     const actions = ['Logged in', 'Updated settings', 'Created new record', 'Viewed details', 'Deleted item', 'Modified configuration', 'Exported data', 'Changed permissions'];
     const names = ['Admin Kim', 'Operator Lee', 'Developer Park', 'Analyst Choi', 'Manager Hong', 'Security Jung', 'Support Yang', 'Auditor Kang'];
@@ -11475,7 +11475,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const deviceTypes = ['desktop', 'mobile', 'tablet'] as const;
     const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
     const oses = ['Windows 11', 'macOS Sonoma', 'Ubuntu 22.04', 'iOS 17', 'Android 14'];
-    const locations = ['Seoul, KR', 'Tokyo, JP', 'New York, US', 'London, UK', 'Singapore, SG'];
+    const locations = ['New York, US', 'Tokyo, JP', 'London, UK', 'Singapore, SG', 'Frankfurt, DE'];
     const statuses = ['active', 'idle', 'expired'] as const;
     const roles = ['Admin', 'Operator', 'Developer', 'Analyst', 'Viewer'];
     

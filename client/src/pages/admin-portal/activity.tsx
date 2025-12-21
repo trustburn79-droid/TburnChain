@@ -525,7 +525,7 @@ export default function ActivityMonitor() {
                     </TableCell>
                     <TableCell>192.168.1.100</TableCell>
                     <TableCell>Chrome on MacOS</TableCell>
-                    <TableCell>Seoul, KR</TableCell>
+                    <TableCell>New York, US</TableCell>
                     <TableCell>2024-12-04 14:45:23</TableCell>
                     <TableCell>
                       <Badge className="bg-green-500">{t("adminActivity.activeSessions.active")}</Badge>
@@ -545,7 +545,7 @@ export default function ActivityMonitor() {
                     </TableCell>
                     <TableCell>192.168.1.105</TableCell>
                     <TableCell>Firefox on Windows</TableCell>
-                    <TableCell>Busan, KR</TableCell>
+                    <TableCell>Virginia, US</TableCell>
                     <TableCell>2024-12-04 13:30:00</TableCell>
                     <TableCell>
                       <Badge className="bg-green-500">{t("adminActivity.activeSessions.active")}</Badge>

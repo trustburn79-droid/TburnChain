@@ -4179,7 +4179,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       'TBURN Genesis Validator', 'EU Primary Validator', 'APAC Primary Validator', 
       'US-West Validator', 'Singapore Hub', 'Frankfurt Archive', 
       'Tokyo Full Node', 'Sydney Light Node', 'London Validator',
-      'New York Archive', 'Seoul Full Node', 'Mumbai Light Node',
+      'New York Archive', 'Virginia Full Node', 'Mumbai Light Node',
       'Paris Validator', 'Toronto Full Node', 'Dubai Archive',
       'Hong Kong Validator', 'Amsterdam Full Node', 'Osaka Light Node',
       'Chicago Validator', 'Berlin Archive', 'Bangkok Full Node',
@@ -5843,7 +5843,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
     // Generate active sessions from operator pool
     const operators = [
-      { user: 'admin@tburn.io', role: 'Super Admin', location: 'KR-Seoul' },
+      { user: 'admin@tburn.io', role: 'Super Admin', location: 'US-Virginia' },
       { user: 'ops-lead@tburn.io', role: 'Operator Lead', location: 'US-Virginia' },
       { user: 'security-chief@tburn.io', role: 'Security Chief', location: 'SG-Singapore' },
       { user: 'bridge-ops@tburn.io', role: 'Bridge Operator', location: 'EU-Frankfurt' },
@@ -5934,10 +5934,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const ipWhitelist = [
       { ip: '10.0.0.0/8', description: 'TBURN Enterprise VPN', addedBy: 'Security Admin', addedAt: '2024-11-01' },
       { ip: '172.16.0.0/12', description: 'Data Center Network', addedBy: 'Infrastructure', addedAt: '2024-11-05' },
-      { ip: '192.168.100.0/24', description: 'HQ Office Network - Seoul', addedBy: 'Admin', addedAt: '2024-11-10' },
+      { ip: '192.168.100.0/24', description: 'HQ Office Network - Virginia', addedBy: 'Admin', addedAt: '2024-11-10' },
       { ip: '192.168.101.0/24', description: 'Regional Office - Singapore', addedBy: 'Admin', addedAt: '2024-11-15' },
       { ip: '192.168.102.0/24', description: 'Regional Office - Frankfurt', addedBy: 'Admin', addedAt: '2024-11-20' },
-      { ip: '52.78.0.0/16', description: 'AWS Korea Region', addedBy: 'Infrastructure', addedAt: '2024-12-01' },
+      { ip: '52.0.0.0/16', description: 'AWS US-East Region', addedBy: 'Infrastructure', addedAt: '2024-12-01' },
     ];
 
     const accessActions = [
@@ -6204,7 +6204,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       { name: 'GDPR', status: 'compliant', lastAudit: '2024-10-20', nextAudit: '2025-04-20', score: 98 },
       { name: 'PCI DSS v4.0', status: 'compliant', lastAudit: '2024-11-25', nextAudit: '2025-05-25', score: 97 },
       { name: 'CCPA/CPRA', status: 'compliant', lastAudit: '2024-12-01', nextAudit: '2025-06-01', score: 99 },
-      { name: 'VASP License (Korea)', status: 'compliant', lastAudit: '2024-11-20', nextAudit: '2025-05-20', score: 100 },
+      { name: 'FinCEN MSB License (USA)', status: 'compliant', lastAudit: '2024-11-20', nextAudit: '2025-05-20', score: 100 },
       { name: 'MiCA (EU)', status: 'compliant', lastAudit: '2024-12-05', nextAudit: '2025-06-05', score: 98 },
     ];
 
@@ -7036,16 +7036,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const formatTime = (offset: number) => new Date(baseTime - offset).toISOString().replace('T', ' ').slice(0, 19);
 
     const logs = [
-      { id: '1', user: { name: 'Dr. James Park', email: 'cto@tburn.io' }, action: 'Logged in', actionType: 'login' as const, target: 'Admin Portal', ip: '10.0.1.10', device: 'Chrome on MacOS', location: 'Seoul, KR', timestamp: formatTime(15000), status: 'success' as const },
-      { id: '2', user: { name: 'Sarah Kim', email: 'coo@tburn.io' }, action: 'Logged in', actionType: 'login' as const, target: 'Admin Portal', ip: '10.0.1.11', device: 'Safari on MacOS', location: 'Seoul, KR', timestamp: formatTime(90000), status: 'success' as const },
-      { id: '3', user: { name: 'Michael Chen', email: 'head-ops@tburn.io' }, action: 'Modified validator config', actionType: 'settings' as const, target: 'Validator Pool Config', ip: '10.0.1.20', device: 'Firefox on Windows', location: 'Seoul, KR', timestamp: formatTime(300000), status: 'success' as const },
-      { id: '4', user: { name: 'Robert Johnson', email: 'ciso@tburn.io' }, action: 'Viewed audit logs', actionType: 'view' as const, target: 'Security Audit Logs', ip: '10.0.1.30', device: 'Chrome on Windows', location: 'Seoul, KR', timestamp: formatTime(600000), status: 'success' as const },
-      { id: '5', user: { name: 'David Zhang', email: 'tech-lead@tburn.io' }, action: 'Updated network params', actionType: 'update' as const, target: 'Network Params v8.0', ip: '10.0.1.40', device: 'Chrome on Linux', location: 'Seoul, KR', timestamp: formatTime(900000), status: 'success' as const },
+      { id: '1', user: { name: 'Dr. James Park', email: 'cto@tburn.io' }, action: 'Logged in', actionType: 'login' as const, target: 'Admin Portal', ip: '10.0.1.10', device: 'Chrome on MacOS', location: 'New York, US', timestamp: formatTime(15000), status: 'success' as const },
+      { id: '2', user: { name: 'Sarah Kim', email: 'coo@tburn.io' }, action: 'Logged in', actionType: 'login' as const, target: 'Admin Portal', ip: '10.0.1.11', device: 'Safari on MacOS', location: 'New York, US', timestamp: formatTime(90000), status: 'success' as const },
+      { id: '3', user: { name: 'Michael Chen', email: 'head-ops@tburn.io' }, action: 'Modified validator config', actionType: 'settings' as const, target: 'Validator Pool Config', ip: '10.0.1.20', device: 'Firefox on Windows', location: 'New York, US', timestamp: formatTime(300000), status: 'success' as const },
+      { id: '4', user: { name: 'Robert Johnson', email: 'ciso@tburn.io' }, action: 'Viewed audit logs', actionType: 'view' as const, target: 'Security Audit Logs', ip: '10.0.1.30', device: 'Chrome on Windows', location: 'New York, US', timestamp: formatTime(600000), status: 'success' as const },
+      { id: '5', user: { name: 'David Zhang', email: 'tech-lead@tburn.io' }, action: 'Updated network params', actionType: 'update' as const, target: 'Network Params v8.0', ip: '10.0.1.40', device: 'Chrome on Linux', location: 'New York, US', timestamp: formatTime(900000), status: 'success' as const },
       { id: '6', user: { name: 'System', email: 'system@tburn.io' }, action: 'Mainnet v8.0 deployment verified', actionType: 'create' as const, target: 'TBURN Mainnet', ip: 'Internal', device: 'Automated', location: 'Server Cluster', timestamp: formatTime(1200000), status: 'success' as const },
-      { id: '7', user: { name: 'Jennifer Lee', email: 'lead-ops@tburn.io' }, action: 'Shard configuration optimized', actionType: 'settings' as const, target: '8-Shard Cluster', ip: '10.0.1.21', device: 'Firefox on MacOS', location: 'Seoul, KR', timestamp: formatTime(1500000), status: 'success' as const },
-      { id: '8', user: { name: 'Emma Wilson', email: 'security-lead@tburn.io' }, action: 'Security audit completed', actionType: 'security' as const, target: 'Pre-launch Security Review', ip: '10.0.1.31', device: 'Chrome on MacOS', location: 'Seoul, KR', timestamp: formatTime(1800000), status: 'success' as const },
+      { id: '7', user: { name: 'Jennifer Lee', email: 'lead-ops@tburn.io' }, action: 'Shard configuration optimized', actionType: 'settings' as const, target: '8-Shard Cluster', ip: '10.0.1.21', device: 'Firefox on MacOS', location: 'New York, US', timestamp: formatTime(1500000), status: 'success' as const },
+      { id: '8', user: { name: 'Emma Wilson', email: 'security-lead@tburn.io' }, action: 'Security audit completed', actionType: 'security' as const, target: 'Pre-launch Security Review', ip: '10.0.1.31', device: 'Chrome on MacOS', location: 'New York, US', timestamp: formatTime(1800000), status: 'success' as const },
       { id: '9', user: { name: 'Admin Bot', email: 'bot@tburn.io' }, action: 'Executed backup', actionType: 'create' as const, target: 'Full System Backup', ip: 'Internal', device: 'Automated', location: 'Backup Server', timestamp: formatTime(3600000), status: 'success' as const },
-      { id: '10', user: { name: 'Alex Thompson', email: 'senior-dev@tburn.io' }, action: 'Smart contract verified', actionType: 'create' as const, target: 'TBURN Token Contract', ip: '10.0.1.41', device: 'Chrome on Linux', location: 'Seoul, KR', timestamp: formatTime(4500000), status: 'success' as const },
+      { id: '10', user: { name: 'Alex Thompson', email: 'senior-dev@tburn.io' }, action: 'Smart contract verified', actionType: 'create' as const, target: 'TBURN Token Contract', ip: '10.0.1.41', device: 'Chrome on Linux', location: 'New York, US', timestamp: formatTime(4500000), status: 'success' as const },
     ];
 
     return {
@@ -7087,18 +7087,18 @@ export class TBurnEnterpriseNode extends EventEmitter {
     };
 
     const sessions = [
-      { id: '1', user: { name: 'Dr. James Park', email: 'cto@tburn.io', role: 'Super Admin' }, device: 'MacBook Pro M3', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.10', location: 'Seoul, South Korea', startTime: formatTime(14400000), lastActivity: formatLastActivity(0), status: 'active' as const, isCurrent: true },
-      { id: '2', user: { name: 'Sarah Kim', email: 'coo@tburn.io', role: 'Super Admin' }, device: 'MacBook Air M2', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.11', location: 'Seoul, South Korea', startTime: formatTime(16200000), lastActivity: formatLastActivity(120000), status: 'active' as const },
-      { id: '3', user: { name: 'Michael Chen', email: 'head-ops@tburn.io', role: 'Operator' }, device: 'Dell XPS 15', deviceType: 'desktop' as const, browser: 'Firefox 132', os: 'Windows 11', ip: '10.0.1.20', location: 'Seoul, South Korea', startTime: formatTime(21600000), lastActivity: formatLastActivity(300000), status: 'active' as const },
-      { id: '4', user: { name: 'Jennifer Lee', email: 'lead-ops@tburn.io', role: 'Operator' }, device: 'ThinkPad X1', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Windows 11', ip: '10.0.1.21', location: 'Seoul, South Korea', startTime: formatTime(22500000), lastActivity: formatLastActivity(480000), status: 'active' as const },
-      { id: '5', user: { name: 'Robert Johnson', email: 'ciso@tburn.io', role: 'Security' }, device: 'MacBook Pro M3', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.30', location: 'Seoul, South Korea', startTime: formatTime(18000000), lastActivity: formatLastActivity(180000), status: 'active' as const },
-      { id: '6', user: { name: 'Emma Wilson', email: 'security-lead@tburn.io', role: 'Security' }, device: 'iMac 24', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.31', location: 'Seoul, South Korea', startTime: formatTime(19800000), lastActivity: formatLastActivity(600000), status: 'active' as const },
-      { id: '7', user: { name: 'David Zhang', email: 'tech-lead@tburn.io', role: 'Developer' }, device: 'System76 Pangolin', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Ubuntu 24.04', ip: '10.0.1.40', location: 'Seoul, South Korea', startTime: formatTime(28800000), lastActivity: formatLastActivity(60000), status: 'active' as const },
-      { id: '8', user: { name: 'Alex Thompson', email: 'senior-dev@tburn.io', role: 'Developer' }, device: 'Dell Precision', deviceType: 'desktop' as const, browser: 'Firefox 132', os: 'Fedora 40', ip: '10.0.1.41', location: 'Seoul, South Korea', startTime: formatTime(30600000), lastActivity: formatLastActivity(720000), status: 'active' as const },
-      { id: '9', user: { name: 'Chris Park', email: 'blockchain-dev@tburn.io', role: 'Developer' }, device: 'MacBook Pro M2', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.42', location: 'Seoul, South Korea', startTime: formatTime(36000000), lastActivity: formatLastActivity(420000), status: 'active' as const },
-      { id: '10', user: { name: 'Maria Garcia', email: 'head-analyst@tburn.io', role: 'Admin' }, device: 'Surface Pro 9', deviceType: 'tablet' as const, browser: 'Edge 131', os: 'Windows 11', ip: '10.0.1.50', location: 'Seoul, South Korea', startTime: formatTime(25200000), lastActivity: formatLastActivity(900000), status: 'active' as const },
-      { id: '11', user: { name: 'Kevin Brown', email: 'data-analyst@tburn.io', role: 'Viewer' }, device: 'ThinkPad T14', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Windows 11', ip: '10.0.1.51', location: 'Seoul, South Korea', startTime: formatTime(27000000), lastActivity: formatLastActivity(1200000), status: 'active' as const },
-      { id: '12', user: { name: 'Linda Martinez', email: 'compliance@tburn.io', role: 'Security' }, device: 'MacBook Air M3', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.32', location: 'Seoul, South Korea', startTime: formatTime(32400000), lastActivity: formatLastActivity(1500000), status: 'active' as const },
+      { id: '1', user: { name: 'Dr. James Park', email: 'cto@tburn.io', role: 'Super Admin' }, device: 'MacBook Pro M3', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.10', location: 'New York, US', startTime: formatTime(14400000), lastActivity: formatLastActivity(0), status: 'active' as const, isCurrent: true },
+      { id: '2', user: { name: 'Sarah Kim', email: 'coo@tburn.io', role: 'Super Admin' }, device: 'MacBook Air M2', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.11', location: 'New York, US', startTime: formatTime(16200000), lastActivity: formatLastActivity(120000), status: 'active' as const },
+      { id: '3', user: { name: 'Michael Chen', email: 'head-ops@tburn.io', role: 'Operator' }, device: 'Dell XPS 15', deviceType: 'desktop' as const, browser: 'Firefox 132', os: 'Windows 11', ip: '10.0.1.20', location: 'New York, US', startTime: formatTime(21600000), lastActivity: formatLastActivity(300000), status: 'active' as const },
+      { id: '4', user: { name: 'Jennifer Lee', email: 'lead-ops@tburn.io', role: 'Operator' }, device: 'ThinkPad X1', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Windows 11', ip: '10.0.1.21', location: 'New York, US', startTime: formatTime(22500000), lastActivity: formatLastActivity(480000), status: 'active' as const },
+      { id: '5', user: { name: 'Robert Johnson', email: 'ciso@tburn.io', role: 'Security' }, device: 'MacBook Pro M3', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.30', location: 'New York, US', startTime: formatTime(18000000), lastActivity: formatLastActivity(180000), status: 'active' as const },
+      { id: '6', user: { name: 'Emma Wilson', email: 'security-lead@tburn.io', role: 'Security' }, device: 'iMac 24', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.31', location: 'New York, US', startTime: formatTime(19800000), lastActivity: formatLastActivity(600000), status: 'active' as const },
+      { id: '7', user: { name: 'David Zhang', email: 'tech-lead@tburn.io', role: 'Developer' }, device: 'System76 Pangolin', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Ubuntu 24.04', ip: '10.0.1.40', location: 'New York, US', startTime: formatTime(28800000), lastActivity: formatLastActivity(60000), status: 'active' as const },
+      { id: '8', user: { name: 'Alex Thompson', email: 'senior-dev@tburn.io', role: 'Developer' }, device: 'Dell Precision', deviceType: 'desktop' as const, browser: 'Firefox 132', os: 'Fedora 40', ip: '10.0.1.41', location: 'New York, US', startTime: formatTime(30600000), lastActivity: formatLastActivity(720000), status: 'active' as const },
+      { id: '9', user: { name: 'Chris Park', email: 'blockchain-dev@tburn.io', role: 'Developer' }, device: 'MacBook Pro M2', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'macOS Sequoia', ip: '10.0.1.42', location: 'New York, US', startTime: formatTime(36000000), lastActivity: formatLastActivity(420000), status: 'active' as const },
+      { id: '10', user: { name: 'Maria Garcia', email: 'head-analyst@tburn.io', role: 'Admin' }, device: 'Surface Pro 9', deviceType: 'tablet' as const, browser: 'Edge 131', os: 'Windows 11', ip: '10.0.1.50', location: 'New York, US', startTime: formatTime(25200000), lastActivity: formatLastActivity(900000), status: 'active' as const },
+      { id: '11', user: { name: 'Kevin Brown', email: 'data-analyst@tburn.io', role: 'Viewer' }, device: 'ThinkPad T14', deviceType: 'desktop' as const, browser: 'Chrome 131', os: 'Windows 11', ip: '10.0.1.51', location: 'New York, US', startTime: formatTime(27000000), lastActivity: formatLastActivity(1200000), status: 'active' as const },
+      { id: '12', user: { name: 'Linda Martinez', email: 'compliance@tburn.io', role: 'Security' }, device: 'MacBook Air M3', deviceType: 'desktop' as const, browser: 'Safari 18', os: 'macOS Sequoia', ip: '10.0.1.32', location: 'New York, US', startTime: formatTime(32400000), lastActivity: formatLastActivity(1500000), status: 'active' as const },
     ];
 
     return {

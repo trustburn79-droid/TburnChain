@@ -10874,7 +10874,7 @@
             "title": "Workshop de Integração API Trust Score",
             "description": "Workshop técnico prático para desenvolvedores. Aprenda a integrar a verificação Trust Score em seus dApps e contratos inteligentes."
           },
-          "seoulMeetup": {
+          "sanFranciscoMeetup": {
             "title": "Meetup de Desenvolvedores em Seul",
             "description": "Evento de networking presencial para desenvolvedores coreanos. Apresentações técnicas, demos e brindes exclusivos para participantes."
           },
@@ -11200,7 +11200,7 @@
         },
         "locations": {
           "online": "Online",
-          "seoul": "Seul, Coreia",
+          "sanfrancisco": "San Francisco, USA",
           "singapore": "Singapura"
         },
         "hostCta": {

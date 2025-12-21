@@ -12693,7 +12693,7 @@
         },
         "locations": {
           "online": "En Línea",
-          "seoul": "Seúl, Corea",
+          "sanfrancisco": "San Francisco, USA",
           "singapore": "Singapur"
         },
         "featured": {
@@ -12718,7 +12718,7 @@
             "title": "Taller de Integración Trust Score API",
             "description": "Taller técnico práctico para desarrolladores. Aprende cómo integrar la verificación Trust Score en tus dApps y contratos inteligentes."
           },
-          "seoulMeetup": {
+          "sanFranciscoMeetup": {
             "title": "Meetup de Desarrolladores en Seúl",
             "description": "Evento de networking presencial para desarrolladores coreanos. Presentaciones técnicas, demos y merchandising exclusivo para asistentes."
           },

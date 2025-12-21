@@ -14026,7 +14026,7 @@
         },
         "locations": {
           "online": "オンライン",
-          "seoul": "ソウル、韓国",
+          "sanfrancisco": "San Francisco, USA",
           "singapore": "シンガポール"
         },
         "featured": {
@@ -14051,7 +14051,7 @@
             "title": "トラストスコアAPI統合ワークショップ",
             "description": "開発者向け実践技術ワークショップ。dAppとスマートコントラクトへのトラストスコア検証統合方法を学びます。"
           },
-          "seoulMeetup": {
+          "sanFranciscoMeetup": {
             "title": "ソウル開発者ミートアップ",
             "description": "韓国開発者向け対面ネットワーキングイベント。技術プレゼンテーション、デモ、参加者限定グッズ。"
           },
