@@ -271,16 +271,16 @@ export default function TreePage() {
                 <span className="font-bold text-slate-900 dark:text-white">TBURN</span>
               </div>
             </Link>
-            <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span className="text-slate-600 dark:text-slate-400">{t('tree.title', 'Site Map')}</span>
+            <span className="hidden sm:inline text-slate-300 dark:text-slate-600">/</span>
+            <span className="hidden sm:inline text-slate-600 dark:text-slate-400">{t('tree.title', 'Site Map')}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="hidden md:flex items-center gap-1">
+          <div className="flex items-center gap-0 sm:gap-2">
+            <div className="flex items-center gap-0 sm:gap-1">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/">
-                    <Button variant="ghost" size="icon" data-testid="link-nav-home">
-                      <Home className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-home">
+                      <Home className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -289,8 +289,8 @@ export default function TreePage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/scan">
-                    <Button variant="ghost" size="icon" data-testid="link-nav-scan">
-                      <ScanLine className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-scan">
+                      <ScanLine className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -299,8 +299,8 @@ export default function TreePage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/user">
-                    <Button variant="ghost" size="icon" data-testid="link-nav-user">
-                      <User className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-user">
+                      <User className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -309,8 +309,8 @@ export default function TreePage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/bug-bounty">
-                    <Button variant="ghost" size="icon" data-testid="link-nav-bug-bounty">
-                      <Bug className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-bug-bounty">
+                      <Bug className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -319,8 +319,8 @@ export default function TreePage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/security-audit">
-                    <Button variant="ghost" size="icon" data-testid="link-nav-security-audit">
-                      <Shield className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-security-audit">
+                      <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -329,8 +329,8 @@ export default function TreePage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/token-generator">
-                    <Button variant="ghost" size="icon" data-testid="link-nav-token-generator">
-                      <Hexagon className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-token-generator">
+                      <Hexagon className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -339,8 +339,8 @@ export default function TreePage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/nft-marketplace">
-                    <Button variant="ghost" size="icon" data-testid="link-nav-nft-marketplace">
-                      <ImageIcon className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-nft-marketplace">
+                      <ImageIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -349,14 +349,14 @@ export default function TreePage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/qna">
-                    <Button variant="ghost" size="icon" data-testid="link-nav-qna">
-                      <HelpCircle className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-9 sm:w-9" data-testid="link-nav-qna">
+                      <HelpCircle className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent><p>{t('nav.qna', 'QnA')}</p></TooltipContent>
               </Tooltip>
-              <div className="w-px h-6 bg-border mx-1" />
+              <div className="hidden sm:block w-px h-6 bg-border mx-1" />
             </div>
             <LanguageSelector />
             <ThemeToggle />
