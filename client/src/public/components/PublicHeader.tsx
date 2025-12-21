@@ -1,8 +1,10 @@
 import { Link, useLocation } from "wouter";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn, Flame, Network } from "lucide-react";
+import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn, LogOut, Flame, Network } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { useTranslation } from "react-i18next";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { languages } from "@/lib/i18n";
 import "../styles/public.css";
 
@@ -25,8 +27,37 @@ export function PublicHeader() {
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const { t, i18n } = useTranslation();
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const languageMenuRef = useRef<HTMLDivElement>(null);
+
+  // Check authentication status
+  const { data: authData } = useQuery<{ authenticated: boolean }>({
+    queryKey: ["/api/auth/check"],
+    staleTime: 30000,
+    refetchOnWindowFocus: false,
+  });
+  const isAuthenticated = authData?.authenticated ?? false;
+
+  // Logout mutation
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/auth/logout");
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+    },
+  });
+
+  const handleAuthButtonClick = () => {
+    if (isAuthenticated) {
+      // Logged in: logout
+      logoutMutation.mutate();
+    } else {
+      // Not logged in: go to login
+      setLocation("/login");
+    }
+  };
 
   const menuStructure: MenuSection[] = [
     {
@@ -249,23 +280,23 @@ export function PublicHeader() {
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             {/* Mobile: Icon only button */}
-            <Link href="/app" className="sm:hidden">
-              <button 
-                className="glass-panel border border-cyan-400/30 text-cyan-400 p-2 rounded-lg hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]"
-                data-testid="button-login-mobile"
-              >
-                <LogIn className="w-5 h-5" />
-              </button>
-            </Link>
+            <button 
+              className="sm:hidden glass-panel border border-cyan-400/30 text-cyan-400 p-2 rounded-lg hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]"
+              data-testid="button-login-mobile"
+              onClick={handleAuthButtonClick}
+              disabled={logoutMutation.isPending}
+            >
+              {isAuthenticated ? <LogOut className="w-5 h-5" /> : <LogIn className="w-5 h-5" />}
+            </button>
             {/* Desktop: Full text button */}
-            <Link href="/app" className="hidden sm:block">
-              <button 
-                className="glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)] whitespace-nowrap"
-                data-testid="button-login"
-              >
-                {t('publicPages.header.loginInterface')}
-              </button>
-            </Link>
+            <button 
+              className="hidden sm:block glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)] whitespace-nowrap"
+              data-testid="button-login"
+              onClick={handleAuthButtonClick}
+              disabled={logoutMutation.isPending}
+            >
+              {isAuthenticated ? t('publicPages.header.logout', '로그아웃') : t('publicPages.header.loginInterface')}
+            </button>
 
             <button
               className="lg:hidden p-2 text-gray-400 hover:text-white"
