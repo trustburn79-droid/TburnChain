@@ -8,7 +8,7 @@ interface AuthGuardProps {
 }
 
 export function AuthGuard({ children }: AuthGuardProps) {
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   
   const { data: authData, isLoading } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
@@ -21,9 +21,11 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
+      // Save the original URL to redirect back after login
+      sessionStorage.setItem("redirectAfterLogin", location);
       setLocation("/login");
     }
-  }, [isLoading, isAuthenticated, setLocation]);
+  }, [isLoading, isAuthenticated, setLocation, location]);
 
   if (isLoading) {
     return (

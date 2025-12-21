@@ -453,7 +453,11 @@ function RootRouter() {
   }
   
   if (location === "/login") {
-    return <Login onLoginSuccess={() => setLocation("/app")} />;
+    return <Login onLoginSuccess={() => {
+      const redirectUrl = sessionStorage.getItem("redirectAfterLogin") || "/app";
+      sessionStorage.removeItem("redirectAfterLogin");
+      setLocation(redirectUrl);
+    }} />;
   }
   
   if (location === "/signup") {
