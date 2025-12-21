@@ -29231,6 +29231,7 @@
       "deploySimulation": "배포 (시뮬레이션)"
     },
     "myTokens": {
+      "label": "내 토큰",
       "title": "내 배포 토큰",
       "subtitle": "TBURN 메인넷에 배포된 토큰을 관리하고 모니터링하세요",
       "totalTokens": "총 토큰 수",

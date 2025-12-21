@@ -12408,6 +12408,7 @@
       "deploySimulation": "Deploy (Simulation)"
     },
     "myTokens": {
+      "label": "My Tokens",
       "title": "My Deployed Tokens",
       "subtitle": "Manage and monitor your deployed tokens on TBURN Mainnet",
       "totalTokens": "Total Tokens",

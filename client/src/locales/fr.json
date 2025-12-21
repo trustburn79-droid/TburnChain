@@ -14261,6 +14261,7 @@
       "deploySimulation": "Déployer (Simulation)"
     },
     "myTokens": {
+      "label": "Mes Tokens",
       "title": "Mes Tokens Déployés",
       "subtitle": "Gérez et surveillez vos tokens déployés sur TBURN Mainnet",
       "totalTokens": "Total des Tokens",

@@ -17241,6 +17241,7 @@
       "deploySimulation": "デプロイ（シミュレーション）"
     },
     "myTokens": {
+      "label": "マイトークン",
       "title": "デプロイ済みトークン",
       "subtitle": "TBURNメインネットにデプロイされたトークンを管理・監視",
       "totalTokens": "トークン総数",

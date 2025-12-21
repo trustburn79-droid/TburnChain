@@ -14017,6 +14017,7 @@
       "deploySimulation": "Implantar (Simulação)"
     },
     "myTokens": {
+      "label": "Meus Tokens",
       "title": "Meus Tokens Implantados",
       "subtitle": "Gerencie e monitore seus tokens implantados na TBURN Mainnet",
       "totalTokens": "Total de Tokens",

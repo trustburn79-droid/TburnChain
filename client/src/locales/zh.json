@@ -16365,6 +16365,7 @@
       "deploySimulation": "部署（模拟）"
     },
     "myTokens": {
+      "label": "我的代币",
       "title": "已部署的代币",
       "subtitle": "管理和监控您在TBURN主网上部署的代币",
       "totalTokens": "代币总数",

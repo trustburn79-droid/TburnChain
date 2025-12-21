@@ -922,7 +922,7 @@ export default function TokenSystemPage() {
             data-testid="nav-my-tokens"
           >
             <List className="w-6 h-6" />
-            <span className="font-medium">{t('tokenGenerator.myTokens')}</span>
+            <span className="font-medium">{t('tokenGenerator.myTokens.label')}</span>
           </button>
           <button
             onClick={() => { setActiveTab("verification"); setSidebarOpen(false); }}
