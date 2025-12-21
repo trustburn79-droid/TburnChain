@@ -145,77 +145,77 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                 </SelectContent>
               </Select>
 
-              {/* Navigation Icons */}
-              <div className="hidden sm:flex items-center gap-2">
-                <div className="w-px h-6 bg-gray-700 mx-1" />
+              {/* Navigation Icons - visible on all screen sizes */}
+              <div className="flex items-center gap-1 sm:gap-2">
+                <div className="hidden sm:block w-px h-6 bg-gray-700 mx-1" />
                 <Link href="/">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="h-8 w-8 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
                     data-testid="link-nav-home"
                   >
-                    <Home className="w-4 h-4" />
+                    <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/qna">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="h-8 w-8 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
                     data-testid="link-nav-qna"
                   >
-                    <HelpCircle className="w-4 h-4" />
+                    <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/user">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="h-8 w-8 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
                     data-testid="link-nav-user"
                   >
-                    <User className="w-4 h-4" />
+                    <User className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/bug-bounty">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="h-8 w-8 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
                     data-testid="link-nav-bug-bounty"
                   >
-                    <Bug className="w-4 h-4" />
+                    <Bug className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/security-audit">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="h-8 w-8 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
                     data-testid="link-nav-security-audit"
                   >
-                    <Shield className="w-4 h-4" />
+                    <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/token-generator">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="h-8 w-8 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
                     data-testid="link-nav-token-generator"
                   >
-                    <Hexagon className="w-4 h-4" />
+                    <Hexagon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/nft-marketplace">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="h-8 w-8 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
                     data-testid="link-nav-nft-marketplace"
                   >
-                    <ImageIcon className="w-4 h-4" />
+                    <ImageIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
               </div>
