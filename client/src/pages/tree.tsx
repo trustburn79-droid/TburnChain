@@ -2,7 +2,10 @@ import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSelector } from "@/components/language-selector";
-import { ChevronRight, Home, Folder, FileText, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { ChevronRight, Home, Folder, FileText, ScanLine, User, Bug, Shield, Hexagon, ImageIcon, HelpCircle } from "lucide-react";
 
 interface RouteItem {
   path: string;
@@ -257,6 +260,7 @@ export default function TreePage() {
   const { t } = useTranslation();
   
   return (
+    <TooltipProvider>
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 dark:from-gray-900 dark:to-gray-950">
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -268,9 +272,92 @@ export default function TreePage() {
               </div>
             </Link>
             <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span className="text-slate-600 dark:text-slate-400">Site Map</span>
+            <span className="text-slate-600 dark:text-slate-400">{t('tree.title', 'Site Map')}</span>
           </div>
           <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-1">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/">
+                    <Button variant="ghost" size="icon" data-testid="link-nav-home">
+                      <Home className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.home', 'Home')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/scan">
+                    <Button variant="ghost" size="icon" data-testid="link-nav-scan">
+                      <ScanLine className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.scan', 'Scan')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/user">
+                    <Button variant="ghost" size="icon" data-testid="link-nav-user">
+                      <User className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.user', 'User')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/bug-bounty">
+                    <Button variant="ghost" size="icon" data-testid="link-nav-bug-bounty">
+                      <Bug className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.bugBounty', 'Bug Bounty')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/security-audit">
+                    <Button variant="ghost" size="icon" data-testid="link-nav-security-audit">
+                      <Shield className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.securityAudit', 'Security Audit')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/token-generator">
+                    <Button variant="ghost" size="icon" data-testid="link-nav-token-generator">
+                      <Hexagon className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.tokenGenerator', 'Token Generator')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/nft-marketplace">
+                    <Button variant="ghost" size="icon" data-testid="link-nav-nft-marketplace">
+                      <ImageIcon className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.nftMarketplace', 'NFT Marketplace')}</p></TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/qna">
+                    <Button variant="ghost" size="icon" data-testid="link-nav-qna">
+                      <HelpCircle className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent><p>{t('nav.qna', 'QnA')}</p></TooltipContent>
+              </Tooltip>
+              <div className="w-px h-6 bg-border mx-1" />
+            </div>
             <LanguageSelector />
             <ThemeToggle />
           </div>
@@ -309,5 +396,6 @@ export default function TreePage() {
         </div>
       </footer>
     </div>
+    </TooltipProvider>
   );
 }
