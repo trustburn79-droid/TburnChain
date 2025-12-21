@@ -25427,21 +25427,21 @@
     "supplyOverTime": "Supply Over Time",
     "supplyTrend": "20-year supply trajectory",
     "emissionVsBurn": "Emission vs Burn",
-    "tokenFlow": "Token flow per period",
-    "deflationRate": "Deflation Rate by Period",
-    "rateAnalysis": "Analysis of deflation intensity across phases",
-    "priceForecast": "20-Year Price Forecast",
-    "startingPrice": "Starting price: $0.50",
-    "marketCap": "Market Cap (Neutral)",
-    "y1Details": "Year 1 Quarterly Breakdown",
-    "y1Strategy": "Detailed strategy for the first year with quarterly milestones",
+    "tokenFlow": "Token Flow",
+    "deflationRate": "Deflation Rate",
+    "rateAnalysis": "Rate Analysis",
+    "priceForecast": "Price Forecast",
+    "startingPrice": "Starting Price",
+    "marketCap": "Market Cap",
+    "y1Details": "Y1 Details",
+    "y1Strategy": "Y1 Strategy",
     "totalBlockEmission": "Total Block Emission",
     "totalAiBurn": "Total AI Burn",
     "netDeflation": "Net Deflation",
     "validators": "Validators",
     "wallets": "Wallets",
     "y1PriceForecast": "Y1 Price Forecast",
-    "disclaimer": "Price forecasts are based on tokenomics model assumptions and do not constitute financial advice. Actual prices may vary significantly based on market conditions, adoption, and other factors.",
+    "disclaimer": "Disclaimer: Projections are estimates based on current parameters",
     "phases": {
       "growth": "Growth",
       "deflation": "Deflation",
@@ -25454,10 +25454,12 @@
       "optimistic": "Optimistic"
     },
     "tabs": {
-      "simulation": "Simulation Table",
+      "simulation": "Simulation",
       "charts": "Charts",
       "price": "Price Forecast",
-      "y1": "Y1 Details"
+      "y1": "Y1 Details",
+      "genesis": "Genesis Distribution",
+      "investors": "Investors"
     },
     "table": {
       "period": "Period",
@@ -25467,7 +25469,7 @@
       "aiBurn": "AI Burn",
       "netChange": "Net Change",
       "endSupply": "End Supply",
-      "changeRate": "Rate",
+      "changeRate": "Change Rate",
       "note": "Note",
       "year": "Year",
       "supply": "Supply"
@@ -25507,7 +25509,26 @@
       "h2": {
         "description": "Complete DeFi + NFT + GameFi Ecosystem"
       }
-    }
+    },
+    "genesisDistribution": "Genesis Distribution",
+    "genesisDistributionDesc": "100억 TBURN Initial Token Allocation",
+    "categoryDetail": "Category Details",
+    "categoryDetailDesc": "Allocation breakdown by category",
+    "totalRaised": "Total Raised",
+    "fromAllRounds": "from all rounds",
+    "roundDetails": "Round Details",
+    "roundDetailsDesc": "Allocation and vesting by round",
+    "round": "Round",
+    "allocation": "Allocation",
+    "price": "Price",
+    "vestingSchedule": "Vesting",
+    "roiProjections": "ROI Projections",
+    "roiProjectionsDesc": "Neutral scenario returns by round",
+    "entry": "Entry",
+    "seedRound": "Seed Round",
+    "privateRound": "Private Round",
+    "publicSale": "Public Sale",
+    "amount": "Amount"
   },
   "apiDocs": {
     "title": "API Documentation",

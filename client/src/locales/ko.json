@@ -26522,14 +26522,14 @@
     "supplyOverTime": "시간별 공급량",
     "supplyTrend": "20년 공급량 추이",
     "emissionVsBurn": "발행 vs 소각",
-    "tokenFlow": "기간별 토큰 흐름",
-    "deflationRate": "기간별 디플레이션율",
-    "rateAnalysis": "단계별 디플레이션 강도 분석",
-    "priceForecast": "20년 가격 예측",
-    "startingPrice": "시작 가격: $0.50",
-    "marketCap": "시가총액 (중립)",
-    "y1Details": "1년차 분기별 분석",
-    "y1Strategy": "분기별 마일스톤이 포함된 첫 해 상세 전략",
+    "tokenFlow": "토큰 흐름",
+    "deflationRate": "디플레이션율",
+    "rateAnalysis": "비율 분석",
+    "priceForecast": "가격 예측",
+    "startingPrice": "시작 가격",
+    "marketCap": "시가총액",
+    "y1Details": "Y1 상세",
+    "y1Strategy": "Y1 전략",
     "totalBlockEmission": "총 블록 발행",
     "totalAiBurn": "총 AI 소각",
     "netDeflation": "순 디플레이션",
@@ -26538,7 +26538,7 @@
     "wallets": "지갑",
     "walletDashboard": "지갑 대시보드",
     "y1PriceForecast": "Y1 가격 예측",
-    "disclaimer": "가격 예측은 토크노믹스 모델 가정을 기반으로 하며 재정 조언을 구성하지 않습니다. 실제 가격은 시장 상황, 채택률 및 기타 요인에 따라 크게 달라질 수 있습니다.",
+    "disclaimer": "면책조항: 예측은 현재 파라미터 기반 추정치입니다",
     "phases": {
       "growth": "성장",
       "deflation": "디플레이션",
@@ -26547,26 +26547,28 @@
     },
     "scenarios": {
       "conservative": "보수적",
-      "neutral": "중립적",
+      "neutral": "중립",
       "optimistic": "낙관적"
     },
     "tabs": {
       "simulation": "시뮬레이션 표",
       "charts": "차트",
       "price": "가격 예측",
-      "y1": "Y1 상세"
+      "y1": "Y1 상세",
+      "genesis": "제네시스 배분",
+      "investors": "투자자"
     },
     "table": {
-      "period": "연도/기간",
+      "period": "기간",
       "phase": "단계",
-      "startSupply": "시작 공급",
+      "startSupply": "시작 공급량",
       "blockEmission": "블록 발행",
       "aiBurn": "AI 소각",
       "netChange": "순변화",
-      "endSupply": "총 공급",
-      "changeRate": "감소율",
+      "endSupply": "최종 공급량",
+      "changeRate": "변화율",
       "note": "비고",
-      "year": "연도",
+      "year": "년도",
       "supply": "공급량"
     },
     "notes": {
@@ -26723,7 +26725,26 @@
         "unlimited": "무제한",
         "connections": "연결"
       }
-    }
+    },
+    "genesisDistribution": "제네시스 배분",
+    "genesisDistributionDesc": "100억 TBURN 초기 토큰 배분",
+    "categoryDetail": "카테고리 상세",
+    "categoryDetailDesc": "카테고리별 배분 분석",
+    "totalRaised": "총 모금액",
+    "fromAllRounds": "전체 라운드 합계",
+    "roundDetails": "라운드 상세",
+    "roundDetailsDesc": "라운드별 배분 및 베스팅",
+    "round": "라운드",
+    "allocation": "배분",
+    "price": "가격",
+    "vestingSchedule": "베스팅",
+    "roiProjections": "ROI 예상",
+    "roiProjectionsDesc": "중립 시나리오 라운드별 수익률",
+    "entry": "진입가",
+    "seedRound": "시드 라운드",
+    "privateRound": "프라이빗 라운드",
+    "publicSale": "퍼블릭 세일",
+    "amount": "금액"
   },
   "apiDocs": {
     "account": {
