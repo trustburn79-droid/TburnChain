@@ -29181,5 +29181,10 @@
       "totalReferrals": "총 레퍼럴",
       "bonusEarned": "획득 보너스"
     }
+  },
+  "tree": {
+    "title": "사이트 맵",
+    "description": "TBURN 생태계의 모든 페이지를 탐색하세요. 클릭하면 해당 페이지로 이동합니다.",
+    "excludeNote": "참고: 관리자 라우트는 이 목록에서 제외되었습니다."
   }
 }

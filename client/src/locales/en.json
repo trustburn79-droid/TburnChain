@@ -27969,5 +27969,10 @@
       "totalReferrals": "Total Referrals",
       "bonusEarned": "Bonus Earned"
     }
+  },
+  "tree": {
+    "title": "Site Map",
+    "description": "Browse all pages in TBURN ecosystem. Click any item to navigate.",
+    "excludeNote": "Note: Admin routes are excluded from this list."
   }
 }

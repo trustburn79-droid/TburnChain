@@ -81,6 +81,7 @@ const SecurityAuditPage = lazy(() => import("@/pages/security-audit"));
 const OfficialChannelsPage = lazy(() => import("@/pages/official-channels"));
 const BugBountyPage = lazy(() => import("@/pages/bug-bounty"));
 const LaunchEventPage = lazy(() => import("@/pages/launch-event"));
+const TreePage = lazy(() => import("@/pages/tree"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -426,6 +427,14 @@ function RootRouter() {
     return (
       <Suspense fallback={<PageLoading />}>
         <LaunchEventPage />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/tree") {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <TreePage />
       </Suspense>
     );
   }
