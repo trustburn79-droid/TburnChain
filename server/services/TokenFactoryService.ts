@@ -145,7 +145,7 @@ class TokenFactoryService {
         );
         const maxSupply = request.maxSupply
           ? ethers.parseUnits(request.maxSupply, request.decimals || 18)
-          : 0n;
+          : BigInt(0);
 
         return iface.encodeFunctionData("createToken", [
           request.name,
@@ -216,7 +216,7 @@ class TokenFactoryService {
       });
 
       const feeData = await this.provider.getFeeData();
-      const gasLimitWithBuffer = (gasLimit * 120n) / 100n;
+      const gasLimitWithBuffer = (gasLimit * BigInt(120)) / BigInt(100);
       const maxFeePerGas = feeData.maxFeePerGas || ethers.parseUnits("10", "gwei");
       const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas || ethers.parseUnits("1", "gwei");
       const estimatedCostWei = gasLimitWithBuffer * maxFeePerGas;
@@ -230,7 +230,7 @@ class TokenFactoryService {
       };
     } catch (error: any) {
       console.log("[TokenFactory] RPC estimation failed, using fallback values");
-      const fallbackGas = 500000n;
+      const fallbackGas = BigInt(500000);
       const fallbackFee = ethers.parseUnits("10", "gwei");
       const estimatedCost = fallbackGas * fallbackFee;
 
