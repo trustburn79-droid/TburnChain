@@ -22012,7 +22012,19 @@
       "title": "Delete Proposal",
       "description": "Are you sure you want to delete the proposal \"{{title}}\"? This action cannot be undone."
     },
-    "delete": "Delete"
+    "delete": "Delete",
+    "voteSuccess": "Vote Successful",
+    "voteSuccessDesc": "Your vote has been successfully recorded.",
+    "voteError": "Failed to cast vote.",
+    "executeSuccess": "Execution Complete",
+    "executeSuccessDesc": "Proposal has been executed successfully.",
+    "executeError": "Failed to execute proposal.",
+    "categoryCommunity": "Community",
+    "voteFor": "For",
+    "voteAgainst": "Against",
+    "voteAbstain": "Abstain",
+    "execute": "Execute",
+    "castVote": "Cast Vote"
   },
   "adminVoting": {
     "title": "Voting Management",

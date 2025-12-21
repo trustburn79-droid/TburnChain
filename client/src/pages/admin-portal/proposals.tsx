@@ -182,23 +182,76 @@ export default function Proposals() {
     };
   }, []);
 
+  const [newProposal, setNewProposal] = useState({
+    title: "",
+    description: "",
+    category: "Network",
+    startDate: "",
+    endDate: "",
+    quorum: 500000000,
+    requiredApproval: 66
+  });
+
   const createProposalMutation = useMutation({
-    mutationFn: async (proposalData: Partial<Proposal>) => {
-      const response = await apiRequest("POST", "/api/admin/governance/proposals", proposalData);
+    mutationFn: async (proposalData: typeof newProposal) => {
+      const response = await apiRequest("POST", "/api/enterprise/admin/governance/proposals", proposalData);
       return response.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/proposals'] });
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/proposals'] });
       setIsCreateDialogOpen(false);
+      setNewProposal({ title: "", description: "", category: "Network", startDate: "", endDate: "", quorum: 500000000, requiredApproval: 66 });
       toast({
         title: t("adminProposals.proposalCreated"),
-        description: t("adminProposals.proposalCreatedDesc"),
+        description: data?.message || t("adminProposals.proposalCreatedDesc"),
       });
     },
-    onError: () => {
+    onError: (error: Error) => {
       toast({
         title: t("adminProposals.error"),
-        description: t("adminProposals.createError"),
+        description: error.message || t("adminProposals.createError"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const voteProposalMutation = useMutation({
+    mutationFn: async ({ proposalId, vote }: { proposalId: string; vote: string }) => {
+      const response = await apiRequest("POST", `/api/enterprise/admin/governance/proposals/${proposalId}/vote`, { vote, votingPower: 100000 });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/proposals'] });
+      toast({
+        title: t("adminProposals.voteSuccess"),
+        description: data?.message || t("adminProposals.voteSuccessDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminProposals.error"),
+        description: error.message || t("adminProposals.voteError"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const executeProposalMutation = useMutation({
+    mutationFn: async (proposalId: string) => {
+      const response = await apiRequest("POST", `/api/enterprise/admin/governance/proposals/${proposalId}/execute`, {});
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/proposals'] });
+      toast({
+        title: t("adminProposals.executeSuccess"),
+        description: data?.message || t("adminProposals.executeSuccessDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminProposals.error"),
+        description: error.message || t("adminProposals.executeError"),
         variant: "destructive",
       });
     },
@@ -206,21 +259,21 @@ export default function Proposals() {
 
   const deleteProposalMutation = useMutation({
     mutationFn: async (proposalId: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/governance/proposals/${proposalId}`);
+      const response = await apiRequest("DELETE", `/api/enterprise/admin/governance/proposals/${proposalId}`);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/governance/proposals'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/enterprise/admin/governance/proposals'] });
       setProposalToDelete(null);
       toast({
         title: t("adminProposals.proposalDeleted"),
         description: t("adminProposals.proposalDeletedDesc"),
       });
     },
-    onError: () => {
+    onError: (error: Error) => {
       toast({
         title: t("adminProposals.error"),
-        description: t("adminProposals.deleteError"),
+        description: error.message || t("adminProposals.deleteError"),
         variant: "destructive",
       });
     },
@@ -457,57 +510,91 @@ export default function Proposals() {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label>{t("adminProposals.proposalTitle")}</Label>
-                    <Input placeholder={t("adminProposals.enterTitle")} data-testid="input-proposal-title" />
+                    <Input 
+                      placeholder={t("adminProposals.enterTitle")} 
+                      value={newProposal.title}
+                      onChange={(e) => setNewProposal(p => ({ ...p, title: e.target.value }))}
+                      data-testid="input-proposal-title" 
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label>{t("adminProposals.category")}</Label>
-                    <Select defaultValue="network">
+                    <Select value={newProposal.category} onValueChange={(val) => setNewProposal(p => ({ ...p, category: val }))}>
                       <SelectTrigger data-testid="select-proposal-category">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="network">{t("adminProposals.categoryNetwork")}</SelectItem>
-                        <SelectItem value="economics">{t("adminProposals.categoryEconomics")}</SelectItem>
-                        <SelectItem value="bridge">{t("adminProposals.categoryBridge")}</SelectItem>
-                        <SelectItem value="staking">{t("adminProposals.categoryStaking")}</SelectItem>
-                        <SelectItem value="ai">{t("adminProposals.categoryAI")}</SelectItem>
-                        <SelectItem value="security">{t("adminProposals.categorySecurity")}</SelectItem>
+                        <SelectItem value="Network">{t("adminProposals.categoryNetwork")}</SelectItem>
+                        <SelectItem value="Economics">{t("adminProposals.categoryEconomics")}</SelectItem>
+                        <SelectItem value="Bridge">{t("adminProposals.categoryBridge")}</SelectItem>
+                        <SelectItem value="Staking">{t("adminProposals.categoryStaking")}</SelectItem>
+                        <SelectItem value="AI">{t("adminProposals.categoryAI")}</SelectItem>
+                        <SelectItem value="Security">{t("adminProposals.categorySecurity")}</SelectItem>
+                        <SelectItem value="Community">{t("adminProposals.categoryCommunity") || "Community"}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
                     <Label>{t("adminProposals.description")}</Label>
-                    <Textarea placeholder={t("adminProposals.enterDescription")} className="h-32" data-testid="input-proposal-description" />
+                    <Textarea 
+                      placeholder={t("adminProposals.enterDescription")} 
+                      value={newProposal.description}
+                      onChange={(e) => setNewProposal(p => ({ ...p, description: e.target.value }))}
+                      className="h-32" 
+                      data-testid="input-proposal-description" 
+                    />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label>{t("adminProposals.votingStartDate")}</Label>
-                      <Input type="date" data-testid="input-start-date" />
+                      <Input 
+                        type="date" 
+                        value={newProposal.startDate}
+                        onChange={(e) => setNewProposal(p => ({ ...p, startDate: e.target.value }))}
+                        data-testid="input-start-date" 
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label>{t("adminProposals.votingEndDate")}</Label>
-                      <Input type="date" data-testid="input-end-date" />
+                      <Input 
+                        type="date"
+                        value={newProposal.endDate}
+                        onChange={(e) => setNewProposal(p => ({ ...p, endDate: e.target.value }))}
+                        data-testid="input-end-date" 
+                      />
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label>{t("adminProposals.quorum")}</Label>
-                      <Input type="number" defaultValue="10000000" data-testid="input-quorum" />
+                      <Input 
+                        type="number" 
+                        value={newProposal.quorum}
+                        onChange={(e) => setNewProposal(p => ({ ...p, quorum: parseInt(e.target.value) || 500000000 }))}
+                        data-testid="input-quorum" 
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label>{t("adminProposals.requiredApproval")}</Label>
-                      <Input type="number" defaultValue="66" data-testid="input-approval" />
+                      <Input 
+                        type="number" 
+                        value={newProposal.requiredApproval}
+                        onChange={(e) => setNewProposal(p => ({ ...p, requiredApproval: parseInt(e.target.value) || 66 }))}
+                        data-testid="input-approval" 
+                      />
                     </div>
                   </div>
                   <Button 
                     className="w-full" 
-                    onClick={() => createProposalMutation.mutate({})}
-                    disabled={createProposalMutation.isPending}
+                    onClick={() => createProposalMutation.mutate(newProposal)}
+                    disabled={createProposalMutation.isPending || !newProposal.title || !newProposal.description}
                     data-testid="button-submit-proposal"
                   >
                     {createProposalMutation.isPending ? (
                       <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                    ) : null}
+                    ) : (
+                      <Plus className="h-4 w-4 mr-2" />
+                    )}
                     {t("adminProposals.submitProposal")}
                   </Button>
                 </div>

@@ -22914,7 +22914,19 @@
       "title": "제안 삭제",
       "description": "정말로 \"{{title}}\" 제안을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
     },
-    "delete": "삭제"
+    "delete": "삭제",
+    "voteSuccess": "투표 완료",
+    "voteSuccessDesc": "제안에 투표가 성공적으로 등록되었습니다.",
+    "voteError": "투표에 실패했습니다.",
+    "executeSuccess": "실행 완료",
+    "executeSuccessDesc": "제안이 성공적으로 실행되었습니다.",
+    "executeError": "실행에 실패했습니다.",
+    "categoryCommunity": "커뮤니티",
+    "voteFor": "찬성",
+    "voteAgainst": "반대",
+    "voteAbstain": "기권",
+    "execute": "실행",
+    "castVote": "투표하기"
   },
   "adminVoting": {
     "title": "투표 관리",
