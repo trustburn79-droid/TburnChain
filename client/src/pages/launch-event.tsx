@@ -210,8 +210,8 @@ export default function LaunchEventPage() {
       
       <div className="flex h-screen overflow-hidden font-sans antialiased bg-[#F8FAFC] text-slate-800 dark:bg-[#0B1120] dark:text-[#E2E8F0]">
         
-        {/* Sidebar */}
-        <aside className="w-20 lg:w-64 flex flex-col z-20 transition-all duration-300 border-r bg-white border-slate-200 dark:bg-[#0F172A] dark:border-gray-800">
+        {/* Sidebar - hidden on mobile */}
+        <aside className="hidden md:flex w-20 lg:w-64 flex-col z-20 transition-all duration-300 border-r bg-white border-slate-200 dark:bg-[#0F172A] dark:border-gray-800">
           <div className="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-slate-100 dark:border-gray-800">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">T</div>
             <div className="hidden lg:block ml-3">
