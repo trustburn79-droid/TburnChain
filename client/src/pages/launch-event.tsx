@@ -14,7 +14,7 @@ import { Link } from "wouter";
 import {
   Wallet, Rocket, Layers, Sun, Moon, CheckCircle, Copy, Loader2,
   Gift, Users, Globe, Coins, Image, Share2, Twitter, ArrowRight,
-  Crown, Award, Star, Sparkles, Trophy, Hexagon, Box,
+  Crown, Award, Star, Sparkles, Trophy, Box,
   Home, ScanLine, User, Bug, Shield, HelpCircle, ImageIcon
 } from "lucide-react";
 import { SiDiscord, SiTelegram } from "react-icons/si";
@@ -277,7 +277,7 @@ export default function LaunchEventPage() {
                 </Link>
                 <Link href="/token-generator">
                   <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="Token Generator">
-                    <Hexagon className="w-4 h-4" />
+                    <Coins className="w-4 h-4" />
                   </a>
                 </Link>
                 <Link href="/nft-marketplace">

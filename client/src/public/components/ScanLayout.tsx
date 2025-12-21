@@ -30,7 +30,6 @@ import {
   User,
   Bug,
   FileText,
-  Hexagon,
   ImageIcon,
 } from "lucide-react";
 import { useState, ReactNode } from "react";
@@ -205,7 +204,7 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                     className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
                     data-testid="link-nav-token-generator"
                   >
-                    <Hexagon className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <Coins className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/nft-marketplace">

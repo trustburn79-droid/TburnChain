@@ -17,7 +17,7 @@ import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
-import { LogOut, Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Hexagon, Shield, ImageIcon } from "lucide-react";
+import { LogOut, Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Coins, Shield, ImageIcon } from "lucide-react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import '@/lib/i18n';
@@ -293,7 +293,7 @@ function AuthenticatedApp() {
                       <TooltipTrigger asChild>
                         <Link href="/token-generator">
                           <Button variant="ghost" size="icon" data-testid="link-nav-token-generator">
-                            <Hexagon className="h-4 w-4" />
+                            <Coins className="h-4 w-4" />
                           </Button>
                         </Link>
                       </TooltipTrigger>
