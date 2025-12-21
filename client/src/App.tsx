@@ -448,9 +448,11 @@ function RootRouter() {
   
   if (location === "/tree") {
     return (
-      <Suspense fallback={<PageLoading />}>
-        <TreePage />
-      </Suspense>
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <TreePage />
+        </Suspense>
+      </AuthGuard>
     );
   }
   
