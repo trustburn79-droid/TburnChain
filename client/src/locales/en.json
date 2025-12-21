@@ -21998,12 +21998,21 @@
       "createdAt": "Created At",
       "startDate": "Start Date",
       "endDate": "End Date",
-      "executionDate": "Execution Date"
+      "executionDate": "Execution Date",
+      "voting": "Voting",
+      "votesFor": "Votes For",
+      "votesAgainst": "Votes Against",
+      "votesAbstain": "Votes Abstain",
+      "totalVoters": "Total Voters",
+      "timeline": "Timeline",
+      "fullDescription": "Full Description",
+      "requiredApproval": "Required Approval"
     },
     "confirmDelete": {
       "title": "Delete Proposal",
       "description": "Are you sure you want to delete the proposal \"{{title}}\"? This action cannot be undone."
-    }
+    },
+    "delete": "Delete"
   },
   "adminVoting": {
     "title": "Voting Management",
@@ -22055,7 +22064,7 @@
     "loadError": "Failed to load voting data",
     "error": "Error",
     "detail": {
-      "title": "Voter Details",
+      "title": "Vote Details",
       "voterInfo": "Voter Information",
       "voterId": "Voter ID",
       "voterAddress": "Wallet Address",
@@ -22072,7 +22081,12 @@
       "votingPower": "Voting Power",
       "delegatedPower": "Delegated Power",
       "participationRate": "Participation Rate",
-      "averageVoteWeight": "Average Vote Weight"
+      "averageVoteWeight": "Average Vote Weight",
+      "address": "Address",
+      "proposal": "Proposal",
+      "vote": "Vote",
+      "votingDetails": "Voting Details",
+      "timestamp": "Timestamp"
     }
   },
   "adminExecution": {
@@ -22163,19 +22177,19 @@
       "scheduledToday": "scheduled today"
     },
     "detail": {
-      "title": "Title",
+      "title": "Execution Details",
       "overview": "Overview",
       "executionId": "Execution ID",
       "proposalId": "Proposal ID",
       "type": "Type",
       "status": "Status",
-      "progress": "Progress Information",
+      "progress": "Progress",
       "startTime": "Start Time",
       "endTime": "End Time",
       "executedBy": "Executed By",
       "transaction": "Transaction",
       "txHash": "Transaction Hash",
-      "error": "Error Information",
+      "error": "Error",
       "errorMessage": "Error Message"
     },
     "confirmExecute": {

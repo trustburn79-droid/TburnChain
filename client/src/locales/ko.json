@@ -22900,12 +22900,21 @@
       "createdAt": "생성일",
       "startDate": "시작일",
       "endDate": "종료일",
-      "executionDate": "실행일"
+      "executionDate": "실행일",
+      "voting": "투표",
+      "votesFor": "찬성",
+      "votesAgainst": "반대",
+      "votesAbstain": "기권",
+      "totalVoters": "총 투표자",
+      "timeline": "타임라인",
+      "fullDescription": "전체 설명",
+      "requiredApproval": "필요 승인"
     },
     "confirmDelete": {
       "title": "제안 삭제",
       "description": "정말로 \"{{title}}\" 제안을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
-    }
+    },
+    "delete": "삭제"
   },
   "adminVoting": {
     "title": "투표 관리",
@@ -22957,7 +22966,7 @@
     "loadError": "투표 데이터 로드 실패",
     "error": "오류",
     "detail": {
-      "title": "투표자 상세",
+      "title": "투표 상세",
       "voterInfo": "투표자 정보",
       "voterId": "투표자 ID",
       "voterAddress": "지갑 주소",
@@ -22974,7 +22983,12 @@
       "votingPower": "투표력",
       "delegatedPower": "위임받은 투표력",
       "participationRate": "참여율",
-      "averageVoteWeight": "평균 투표 가중치"
+      "averageVoteWeight": "평균 투표 가중치",
+      "address": "주소",
+      "proposal": "제안",
+      "vote": "투표",
+      "votingDetails": "투표 상세",
+      "timestamp": "타임스탬프"
     }
   },
   "adminExecution": {
@@ -23068,19 +23082,19 @@
       "scheduledToday": "오늘 예정"
     },
     "detail": {
-      "title": "제목",
+      "title": "실행 상세",
       "overview": "개요",
       "executionId": "실행 ID",
       "proposalId": "제안 ID",
       "type": "유형",
       "status": "상태",
-      "progress": "진행 정보",
+      "progress": "진행률",
       "startTime": "시작 시간",
       "endTime": "종료 시간",
       "executedBy": "실행자",
       "transaction": "트랜잭션",
       "txHash": "트랜잭션 해시",
-      "error": "오류 정보",
+      "error": "오류",
       "errorMessage": "오류 메시지"
     },
     "confirmExecute": {
