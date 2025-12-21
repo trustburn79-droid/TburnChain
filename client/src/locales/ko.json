@@ -17839,7 +17839,28 @@
     "confirmSave": {
       "title": "경제 매개변수 업데이트",
       "description": "{{type}}을(를) {{value}}(으)로 업데이트하시겠습니까?"
-    }
+    },
+    "genesis": "제네시스",
+    "genesisDistribution": "제네시스 배분",
+    "genesisDistributionDesc": "초기 토큰 할당 분석",
+    "genesisBreakdown": "제네시스 상세",
+    "genesisBreakdownDesc": "카테고리별 상세 배분",
+    "genesisSummary": "제네시스 요약",
+    "vesting": "베스팅",
+    "vestingSchedule": "베스팅 일정",
+    "vestingScheduleDesc": "카테고리별 토큰 언락 타임라인",
+    "vestingDetails": "베스팅 상세",
+    "vestingDetailsDesc": "카테고리별 상세 베스팅 파라미터",
+    "vestingPeriod": "베스팅 기간",
+    "category": "카테고리",
+    "tgeRelease": "TGE 배포",
+    "cliffPeriod": "클리프 기간",
+    "totalPeriod": "총 기간",
+    "currentUnlock": "현재 언락",
+    "months": "개월",
+    "monthsUnit": "개월",
+    "lockUpBonuses": "락업 보너스",
+    "description": "설명"
   },
   "adminAI": {
     "title": "AI 오케스트레이션",

@@ -17158,7 +17158,28 @@
     "confirmSave": {
       "title": "Update Economic Parameters",
       "description": "Are you sure you want to update {{type}} to {{value}}?"
-    }
+    },
+    "genesis": "Genesis",
+    "genesisDistribution": "Genesis Distribution",
+    "genesisDistributionDesc": "Initial token allocation breakdown",
+    "genesisBreakdown": "Genesis Breakdown",
+    "genesisBreakdownDesc": "Detailed allocation by category",
+    "genesisSummary": "Genesis Summary",
+    "vesting": "Vesting",
+    "vestingSchedule": "Vesting Schedule",
+    "vestingScheduleDesc": "Token unlock timeline by category",
+    "vestingDetails": "Vesting Details",
+    "vestingDetailsDesc": "Detailed vesting parameters per category",
+    "vestingPeriod": "Vesting Period",
+    "category": "Category",
+    "tgeRelease": "TGE Release",
+    "cliffPeriod": "Cliff Period",
+    "totalPeriod": "Total Period",
+    "currentUnlock": "Current Unlock",
+    "months": "Months",
+    "monthsUnit": "months",
+    "lockUpBonuses": "Lock-up Bonuses",
+    "description": "Description"
   },
   "adminAI": {
     "title": "AI Orchestration",
