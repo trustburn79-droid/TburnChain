@@ -62,12 +62,12 @@ interface LeaderboardEntry {
 }
 
 const SOCIAL_TASKS = [
-  { id: "twitter_follow", name: "Follow on X/Twitter", nameKo: "X/Twitter 팔로우", reward: "100 TBURN", icon: Twitter },
-  { id: "discord_join", name: "Join Discord", nameKo: "Discord 가입", reward: "100 TBURN", icon: SiDiscord },
-  { id: "telegram_join", name: "Join Telegram", nameKo: "Telegram 가입", reward: "100 TBURN", icon: SiTelegram },
-  { id: "share_launch", name: "Share Launch Post", nameKo: "런칭 포스트 공유", reward: "200 TBURN", icon: Share2 },
-  { id: "first_stake", name: "First Stake", nameKo: "첫 스테이킹", reward: "500 TBURN", icon: Coins },
-  { id: "bridge_tx", name: "Bridge Transaction", nameKo: "브릿지 트랜잭션", reward: "300 TBURN", icon: ArrowRight }
+  { id: "twitter_follow", name: "X/Twitter 팔로우", description: "공식 계정을 팔로우하고 알림 설정하세요.", reward: "+100 TBURN", icon: Twitter },
+  { id: "discord_join", name: "Discord 가입", description: "커뮤니티 서버에 가입하고 인사하세요.", reward: "+100 TBURN", icon: SiDiscord },
+  { id: "telegram_join", name: "Telegram 가입", description: "공지 채널을 구독하세요.", reward: "+100 TBURN", icon: SiTelegram },
+  { id: "share_launch", name: "런칭 포스트 공유", description: "런칭 소식을 친구들에게 공유하세요.", reward: "+200 TBURN", icon: Share2 },
+  { id: "first_stake", name: "첫 스테이킹", description: "최소 100 TBURN 이상 스테이킹 하세요.", reward: "+500 TBURN", icon: Coins },
+  { id: "bridge_tx", name: "브릿지 트랜잭션", description: "자산을 TBURN 메인넷으로 브릿징하세요.", reward: "+300 TBURN", icon: Box }
 ];
 
 function useCountdown(targetDate: Date) {
@@ -629,141 +629,68 @@ export default function LaunchEventPage() {
 
               {/* Rewards Tab */}
               {activeTab === "rewards" && (
-                <div className="space-y-8">
-                  <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">{t('launchEventPage.rewards.title', 'My Rewards')}</h2>
-                    
-                    {isConnected && userData ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="glass-panel p-6 rounded-2xl">
-                          <div className="flex items-center gap-4 mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-                              <Coins className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                              <p className="text-sm text-slate-500 dark:text-slate-400">{t('launchEventPage.rewards.airdropReward', 'Airdrop Reward')}</p>
-                              <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{userData.airdropAmount} TBURN</p>
-                            </div>
-                          </div>
-                          <button 
-                            onClick={() => claimAirdropMutation.mutate()}
-                            disabled={userData.airdropClaimed || claimAirdropMutation.isPending}
-                            className="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                          >
-                            {claimAirdropMutation.isPending ? (
-                              <Loader2 className="w-5 h-5 animate-spin" />
-                            ) : userData.airdropClaimed ? (
-                              <><CheckCircle className="w-5 h-5" /> {t('launchEventPage.rewards.claimCompleted', 'Claimed')}</>
-                            ) : (
-                              <><Gift className="w-5 h-5" /> {t('launchEventPage.rewards.claimAirdrop', 'Claim Airdrop')}</>
-                            )}
-                          </button>
-                        </div>
-
-                        {canClaimNft && (
-                          <div className="glass-panel p-6 rounded-2xl">
-                            <div className="flex items-center gap-4 mb-4">
-                              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                                <Image className="w-6 h-6 text-white" />
-                              </div>
-                              <div>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('launchEventPage.rewards.genesisNft', 'Genesis NFT')}</p>
-                                <p className="text-lg font-bold text-slate-900 dark:text-white">{userTier?.charAt(0).toUpperCase()}{userTier?.slice(1)} NFT</p>
-                              </div>
-                            </div>
-                            <button 
-                              onClick={() => claimNftMutation.mutate()}
-                              disabled={userData.nftClaimed || claimNftMutation.isPending}
-                              className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                            >
-                              {claimNftMutation.isPending ? (
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                              ) : userData.nftClaimed ? (
-                                <><CheckCircle className="w-5 h-5" /> {t('launchEventPage.rewards.mintCompleted', 'Minted')}</>
-                              ) : (
-                                <><Sparkles className="w-5 h-5" /> {t('launchEventPage.rewards.mintNft', 'Mint NFT')}</>
-                              )}
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="glass-panel p-12 rounded-2xl text-center">
-                        <Wallet className="w-16 h-16 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{t('launchEventPage.rewards.connectPrompt', 'Connect Wallet')}</h3>
-                        <p className="text-slate-500 dark:text-slate-400 mb-6">{t('launchEventPage.rewards.connectDescription', 'Connect your wallet to check and claim rewards.')}</p>
-                        <button 
-                          onClick={() => setShowWalletModal(true)}
-                          className="bg-[#3B82F6] hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors"
-                        >
-                          {t('launchEventPage.connectWallet', 'Connect Wallet')}
-                        </button>
-                      </div>
-                    )}
+                <div className="flex flex-col items-center justify-center py-20 text-center">
+                  <div className="w-20 h-20 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center text-4xl mb-6 shadow-xl border border-slate-300 dark:border-slate-700">
+                    <Wallet className="w-10 h-10 text-slate-400 dark:text-slate-500" />
                   </div>
+                  <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('launchEventPage.rewards.connectTitle', '지갑을 연결하세요')}</h2>
+                  <p className="text-slate-500 dark:text-gray-400 mb-8 max-w-md">
+                    {t('launchEventPage.rewards.connectMessage', '에어드랍 자격 여부를 확인하고, 스테이킹 보상을 실시간으로 추적하려면 지갑을 연결해야 합니다.')}
+                  </p>
+                  <button 
+                    onClick={() => setShowWalletModal(true)}
+                    className="bg-[#3B82F6] hover:bg-blue-600 text-white px-8 py-3 rounded-xl font-bold text-lg transition-colors shadow-lg shadow-blue-500/20"
+                    data-testid="button-rewards-connect-wallet"
+                  >
+                    {t('launchEventPage.rewards.connectButton', '지갑 연결 (Connect Wallet)')}
+                  </button>
                 </div>
               )}
 
               {/* Tasks Tab */}
               {activeTab === "tasks" && (
-                <div className="space-y-8">
-                  <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('launchEventPage.tasks.title', 'Tasks & Quests')}</h2>
-                    <p className="text-slate-500 dark:text-gray-400 mb-6">{t('launchEventPage.tasks.description', 'Complete tasks and earn additional rewards!')}</p>
-
-                    <div className="glass-panel rounded-2xl overflow-hidden">
-                      {/* Table Header */}
-                      <div className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                        <div className="col-span-6">{t('launchEventPage.tasks.task', 'TASK')}</div>
-                        <div className="col-span-3 text-center">{t('launchEventPage.tasks.reward', 'REWARD')}</div>
-                        <div className="col-span-3 text-right">{t('launchEventPage.tasks.action', 'ACTION')}</div>
-                      </div>
-                      
-                      {/* Table Body */}
-                      {SOCIAL_TASKS.map((task) => {
-                        const Icon = task.icon;
-                        const isCompleted = userData?.tasks?.find(t => t.id === task.id)?.completed || false;
-                        
-                        return (
-                          <div 
-                            key={task.id} 
-                            className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-200 dark:border-slate-800 items-center hover:bg-slate-100 dark:hover:bg-slate-800/30 transition-colors"
-                            data-testid={`task-row-${task.id}`}
-                          >
-                            {/* Task */}
-                            <div className="col-span-6 flex items-center gap-4">
-                              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isCompleted ? "bg-emerald-500/20" : "bg-slate-200 dark:bg-slate-700"}`}>
-                                <Icon className={`w-5 h-5 ${isCompleted ? "text-emerald-500" : "text-slate-500 dark:text-slate-400"}`} />
-                              </div>
-                              <p className="font-medium text-slate-900 dark:text-white">{t(`launchEventPage.tasks.${task.id}`, task.name)}</p>
-                            </div>
-                            
-                            {/* Reward */}
-                            <div className="col-span-3 text-center">
-                              <span className="text-[#F97316] font-mono font-bold">{task.reward}</span>
-                            </div>
-                            
-                            {/* Action */}
-                            <div className="col-span-3 text-right">
-                              <button 
-                                disabled={isCompleted}
-                                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                                  isCompleted 
-                                    ? "bg-emerald-500/20 text-emerald-500 border border-emerald-500/30" 
-                                    : "bg-[#3B82F6] hover:bg-blue-600 text-white"
-                                }`}
-                              >
-                                {isCompleted ? (
-                                  <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> {t('launchEventPage.tasks.completed', 'Completed')}</span>
-                                ) : (
-                                  <span className="flex items-center gap-1"><ArrowRight className="w-4 h-4" /> {t('launchEventPage.tasks.start', 'Start')}</span>
-                                )}
-                              </button>
-                            </div>
-                          </div>
-                        );
-                      })}
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{t('launchEventPage.tasks.title', '태스크 & 퀘스트')}</h2>
+                      <p className="text-slate-500 dark:text-gray-400 text-sm">{t('launchEventPage.tasks.description', '태스크를 완료하고 추가 TBURN 토큰을 획득하세요.')}</p>
                     </div>
+                    <div className="text-right">
+                      <p className="text-xs text-slate-500">{t('launchEventPage.tasks.totalReward', '총 태스크 보상')}</p>
+                      <p className="text-xl font-bold text-[#10B981]">0 TBURN</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {SOCIAL_TASKS.map((task) => {
+                      const Icon = task.icon;
+                      const isCompleted = userData?.tasks?.find(t => t.id === task.id)?.completed || false;
+                      
+                      return (
+                        <div 
+                          key={task.id}
+                          className="glass-panel p-5 rounded-xl border-l-4 border-slate-300 dark:border-slate-700 hover:border-[#3B82F6] transition-colors group"
+                          data-testid={`task-card-${task.id}`}
+                        >
+                          <div className="flex justify-between mb-2">
+                            <Icon className="text-2xl text-slate-400 group-hover:text-blue-400 transition-colors w-6 h-6" />
+                            <span className="bg-green-500/10 text-green-500 text-xs px-2 py-1 rounded font-bold">{task.reward}</span>
+                          </div>
+                          <h4 className="font-bold text-slate-900 dark:text-white">{t(`launchEventPage.tasks.${task.id}`, task.name)}</h4>
+                          <p className="text-xs text-slate-500 mb-4">{t(`launchEventPage.tasks.${task.id}Desc`, task.description || '')}</p>
+                          <button 
+                            disabled={isCompleted}
+                            className={`w-full py-2 rounded-lg text-sm font-bold transition-colors ${
+                              isCompleted 
+                                ? "bg-emerald-500/20 text-emerald-500" 
+                                : "bg-slate-200 dark:bg-gray-700 hover:bg-[#3B82F6] hover:text-white"
+                            }`}
+                          >
+                            {isCompleted ? t('launchEventPage.tasks.completed', '완료') : t('launchEventPage.tasks.start', '시작')}
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
