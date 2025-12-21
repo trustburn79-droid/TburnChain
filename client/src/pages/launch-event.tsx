@@ -703,55 +703,57 @@ export default function LaunchEventPage() {
               {activeTab === "leaderboard" && (
                 <div className="space-y-8">
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">런칭 리더보드</h2>
-                    <p className="text-slate-500 dark:text-gray-400 mb-6">스테이킹 금액과 레퍼럴을 기반으로 한 상위 참여자 순위입니다.</p>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">🏆 런칭 리더보드</h2>
+                    <p className="text-slate-500 dark:text-gray-400 mb-6">스테이킹과 레퍼럴을 통해 순위를 올리세요. 상위 참여자에게 특별 보상이 제공됩니다.</p>
 
-                    <div className="space-y-3">
-                      {leaderboardData.map((entry, idx) => {
+                    <div className="glass-panel rounded-2xl overflow-hidden">
+                      {/* Table Header */}
+                      <div className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-700 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        <div className="col-span-1">RANK</div>
+                        <div className="col-span-4">USER</div>
+                        <div className="col-span-3 text-right">STAKED</div>
+                        <div className="col-span-2 text-center">REFERRALS</div>
+                        <div className="col-span-2 text-right">SCORE</div>
+                      </div>
+                      
+                      {/* Table Body */}
+                      {leaderboardData.slice(0, 10).map((entry, idx) => {
                         const rank = idx + 1;
                         const isUser = address === entry.address;
-                        
-                        const getTierBadgeClass = () => {
-                          switch (entry.tier) {
-                            case "genesis": return "bg-orange-500/20 text-orange-400 border-orange-500/30";
-                            case "diamond": return "bg-cyan-500/20 text-cyan-400 border-cyan-500/30";
-                            case "gold": return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
-                            case "silver": return "bg-gray-500/20 text-gray-400 border-gray-500/30";
-                            default: return "bg-amber-700/20 text-amber-600 border-amber-700/30";
-                          }
-                        };
                         
                         return (
                           <div 
                             key={entry.address}
-                            className={`glass-panel p-4 rounded-xl flex items-center justify-between ${isUser ? "ring-2 ring-blue-500" : ""}`}
+                            className={`grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-800 items-center hover:bg-slate-800/30 transition-colors ${isUser ? "bg-blue-500/10" : ""}`}
                             data-testid={`leaderboard-row-${rank}`}
                           >
-                            <div className="flex items-center gap-4">
-                              <div className="w-8 flex justify-center">
-                                {rank === 1 ? <Crown className="w-5 h-5 text-yellow-500" /> :
-                                 rank === 2 ? <Award className="w-5 h-5 text-gray-400" /> :
-                                 rank === 3 ? <Award className="w-5 h-5 text-amber-600" /> :
-                                 <span className="text-slate-400 font-mono text-sm">{rank}</span>}
-                              </div>
-                              <div>
-                                <div className="font-medium text-white flex items-center gap-2">
-                                  {entry.displayName}
-                                  {isUser && <Badge className="bg-blue-500 text-white text-[10px]">You</Badge>}
-                                </div>
-                                <div className="text-xs text-slate-400">
-                                  <span className="font-mono">{formatNumber(parseFloat(entry.stakedAmount))}</span> TBURN
-                                </div>
-                              </div>
+                            {/* Rank */}
+                            <div className="col-span-1">
+                              {rank === 1 ? <span className="text-2xl">👑</span> :
+                               rank === 2 ? <span className="text-2xl">🥈</span> :
+                               rank === 3 ? <span className="text-2xl">🥉</span> :
+                               <span className="text-slate-500 font-mono">#{rank}</span>}
                             </div>
-                            <div className="flex items-center gap-3">
-                              <Badge variant="outline" className={`text-[10px] ${getTierBadgeClass()}`}>
-                                {entry.tier.charAt(0).toUpperCase() + entry.tier.slice(1)}
-                              </Badge>
-                              <div className="text-right">
-                                <div className="font-bold font-mono text-[#3B82F6]">{formatNumber(entry.score)}</div>
-                                <div className="text-[10px] text-slate-500">{entry.referrals} referrals</div>
-                              </div>
+                            
+                            {/* User */}
+                            <div className="col-span-4">
+                              <span className="font-bold text-white">{entry.displayName}</span>
+                              {isUser && <Badge className="ml-2 bg-blue-500 text-white text-[10px]">You</Badge>}
+                            </div>
+                            
+                            {/* Staked */}
+                            <div className="col-span-3 text-right">
+                              <span className="font-mono text-[#3B82F6]">{formatNumber(parseFloat(entry.stakedAmount))} TB</span>
+                            </div>
+                            
+                            {/* Referrals */}
+                            <div className="col-span-2 text-center">
+                              <span className="font-mono text-white">{entry.referrals}</span>
+                            </div>
+                            
+                            {/* Score */}
+                            <div className="col-span-2 text-right">
+                              <span className="font-bold font-mono text-[#F97316]">{formatNumber(entry.score)}</span>
                             </div>
                           </div>
                         );
