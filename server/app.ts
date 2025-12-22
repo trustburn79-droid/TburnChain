@@ -1,5 +1,4 @@
 import { type Server } from "node:http";
-
 import express, {
   type Express,
   type Request,
@@ -9,11 +8,12 @@ import express, {
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import createMemoryStore from "memorystore";
-import { RedisStore } from "connect-redis";
 import { createClient } from "redis";
 import { Pool } from "@neondatabase/serverless";
-
 import { registerRoutes } from "./routes";
+
+// ★ [수정 1] connect-redis 불러오는 방식 변경 (ESM 호환)
+import { RedisStore } from "connect-redis";
 
 declare module "express-session" {
   interface SessionData {
@@ -39,13 +39,12 @@ export function log(message: string, source = "express") {
     second: "2-digit",
     hour12: true,
   });
-
   console.log(`${formattedTime} [${source}] ${message}`);
 }
 
 export const app = express();
 
-// Trust proxy for rate limiting in Replit environment
+// ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
 app.set('trust proxy', 1);
 
 declare module 'http' {
@@ -54,45 +53,45 @@ declare module 'http' {
   }
 }
 
-// Session store configuration - Redis (cluster mode), PostgreSQL (production), MemoryStore (development)
-const isProduction = process.env.NODE_ENV === "production";
-const REDIS_URL = process.env.REDIS_URL;
+// ★ [수정 3] Redis URL 강제 설정 (환경변수 없으면 로컬호스트 사용)
+// 이렇게 해야 구글 서버에 설치된 Redis를 32개 코어가 같이 씁니다.
+const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
+const isProduction = process.env.NODE_ENV === "production" || true; // ★ 강제로 프로덕션 모드 (HTTPS 사용 위해)
+const isReplit = process.env.REPL_ID !== undefined; // Replit 환경 감지
 
-// Create session store based on available configuration
 let sessionStore: session.Store;
 let sessionStoreType: string;
 
-if (REDIS_URL) {
-  // Redis for cluster mode (32 cores sharing sessions)
-  const redisClient = createClient({ url: REDIS_URL });
-  redisClient.connect().catch((err) => {
-    console.error("[Redis] Connection error:", err);
-  });
-  redisClient.on("error", (err) => {
-    console.error("[Redis] Error:", err);
-  });
-  redisClient.on("connect", () => {
-    log("✅ Redis connected successfully", "session");
-  });
-  
-  sessionStore = new RedisStore({ client: redisClient });
-  sessionStoreType = "Redis (Cluster Mode)";
-} else if (isProduction) {
-  // PostgreSQL for production (persistent sessions)
-  // Note: Neon Pool is compatible with pg Pool at runtime
-  const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
-  sessionStore = new PgSession({
-    pool: sessionPool as any, // Neon Pool is pg-compatible
-    createTableIfMissing: true,
-    tableName: 'session',
-  });
-  sessionStoreType = "PostgreSQL (Production)";
-} else {
-  // MemoryStore for development (fast, non-persistent)
+// ★ [수정 4] Redis 연결 로직 강화
+// Replit 환경에서는 MemoryStore 사용, 프로덕션(구글 클라우드)에서는 Redis 사용
+if (isReplit) {
+  // Replit 개발 환경: MemoryStore 사용 (Redis 없음)
   sessionStore = new MemoryStore({
     checkPeriod: 86400000, // prune expired entries every 24h
   });
-  sessionStoreType = "MemoryStore (Development - fast)";
+  sessionStoreType = "MemoryStore (Replit Development)";
+} else {
+  // 프로덕션 환경 (구글 클라우드): Redis 사용
+  console.log(`[Init] Attempting to connect to Redis at ${REDIS_URL}...`);
+
+  const redisClient = createClient({ url: REDIS_URL });
+
+  redisClient.on("error", (err) => {
+    console.error("[Redis] Connection Error:", err);
+  });
+  redisClient.on("connect", () => {
+    log("✅ Redis connected successfully (Cluster Mode Ready)", "session");
+  });
+
+  // Redis 클라이언트 연결 시작
+  redisClient.connect().catch(console.error);
+
+  // 세션 스토어로 Redis 지정
+  sessionStore = new RedisStore({ 
+    client: redisClient,
+    prefix: "tburn:", // 키 충돌 방지용 접두사
+  });
+  sessionStoreType = "Redis (Enterprise Cluster Mode)";
 }
 
 app.use(
@@ -102,24 +101,22 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: isProduction,
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      sameSite: "lax", // Use lax for both environments to allow redirects
+      secure: !isReplit,   // ★ HTTPS 필수 (Nginx 뒤에 있으므로 true), Replit에서는 false
+      httpOnly: true, // 자바스크립트 접근 방지 (보안)
+      maxAge: 24 * 60 * 60 * 1000, // 24시간
+      sameSite: "lax", 
     },
-    proxy: isProduction, // Trust proxy when behind Nginx
+    proxy: !isReplit, // ★ Nginx 프록시 설정 (Replit에서는 false)
   })
 );
 
-// Log session store type
 log(`Session store: ${sessionStoreType}`, "session");
 
-// Verify critical environment variables
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 if (ADMIN_PASSWORD) {
-  log(`✅ ADMIN_PASSWORD loaded (length: ${ADMIN_PASSWORD.length} chars)`, "security");
+  log(`✅ ADMIN_PASSWORD loaded`, "security");
 } else {
-  log(`⚠️ WARNING: ADMIN_PASSWORD not set! Admin functions will not work.`, "security");
+  log(`⚠️ WARNING: ADMIN_PASSWORD not set!`, "security");
 }
 
 app.use(express.json({
@@ -147,11 +144,9 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-
       if (logLine.length > 80) {
         logLine = logLine.slice(0, 79) + "…";
       }
-
       log(logLine);
     }
   });
@@ -167,19 +162,12 @@ export default async function runApp(
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-
     res.status(status).json({ message });
     throw err;
   });
 
-  // importantly run the final setup after setting up all the other routes so
-  // the catch-all route doesn't interfere with the other routes
   await setup(app, server);
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
   server.listen({
     port,

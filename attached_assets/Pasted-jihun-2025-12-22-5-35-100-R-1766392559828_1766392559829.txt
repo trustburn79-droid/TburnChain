@@ -1,0 +1,209 @@
+jihun, [2025-12-22 오후 5:35]
+코드를 보니 문제의 원인이 100% 파악되었습니다.
+선생님이 보내주신 코드는 아주 잘 짜여졌지만, "구글 클라우드 환경에서 Redis가 켜지지 않게" 설정되어 있습니다.
+
+### 🕵️‍♂️ 범인은 바로 이 줄입니다
+
+const REDIS_URL = process.env.REDIS_URL; // 여기가 문제입니다!
+
+if (REDIS_URL) { 
+  // ... Redis 연결 코드 ...
+} else {
+  // ... MemoryStore (개발용) ...
+}
+
+
+* 상황: 구글 서버에 Redis(apt install redis-server)를 설치했지만, 환경변수 `REDIS_URL`을 따로 설정해주지 않았습니다.
+* 결과: `REDIS_URL`이 없으니 코드는 `else`로 넘어가서 MemoryStore(개발용)**를 실행합니다.
+* **문제: 32개 코어가 각자 자기 머리(Memory)에만 로그인 정보를 저장하니까, 다른 코어로 넘어가면 로그인이 풀리는 것입니다.
+
+---
+
+### 🚀 해결책: 코드 수정 (복사해서 붙여넣으세요)
+
+REDIS_URL`이 없으면 **자동으로 로컬 Redis(`redis://localhost:6379)**에 붙도록 수정했습니다.
+아래 코드를 app.ts (또는 index.ts)에 그대로 덮어씌우세요.
+
+import { type Server } from "node:http";
+import express, {
+  type Express,
+  type Request,
+  Response,
+  NextFunction,
+} from "express";
+import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
+import createMemoryStore from "memorystore";
+import { createClient } from "redis";
+import { Pool } from "@neondatabase/serverless";
+import { registerRoutes } from "./routes";
+
+// ★ [수정 1] connect-redis 불러오는 방식 변경 (호환성 해결)
+import RedisStore from "connect-redis";
+
+declare module "express-session" {
+  interface SessionData {
+    authenticated?: boolean;
+    adminAuthenticated?: boolean;
+    memberId?: string;
+    memberEmail?: string;
+  }
+}
+
+const PgSession = connectPgSimple(session);
+const MemoryStore = createMemoryStore(session);
+
+// Fix BigInt JSON serialization
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
+
+export function log(message: string, source = "express") {
+  const formattedTime = new Date().toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
+
+export const app = express();
+
+// ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
+app.set('trust proxy', 1);
+
+declare module 'http' {
+  interface IncomingMessage {
+    rawBody: unknown
+  }
+}
+
+// ★ [수정 3] Redis URL 강제 설정 (환경변수 없으면 로컬호스트 사용)
+// 이렇게 해야 구글 서버에 설치된 Redis를 32개 코어가 같이 씁니다.
+const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
+const isProduction = process.env.NODE_ENV === "production" || true; // ★ 강제로 프로덕션 모드 (HTTPS 사용 위해)
+
+let sessionStore: session.Store;
+let sessionStoreType: string;
+
+// ★ [수정 4] Redis 연결 로직 강화
+// 이제 무조건 Redis 연결을 시도합니다.
+console.log(`[Init] Attempting to connect to Redis at ${REDIS_URL}...`);
+
+const redisClient = createClient({ url: REDIS_URL });
+
+redisClient.on("error", (err) => {
+  console.error("[Redis] Connection Error:", err);
+});
+redisClient.on("connect", () => {
+  log("✅ Redis connected successfully (Cluster Mode Ready)", "session");
+});
+
+// Redis 클라이언트 연결 시작
+redisClient.connect().catch(console.error);
+
+// 세션 스토어로 Redis 지정
+sessionStore = new RedisStore({ 
+  client: redisClient,
+  prefix: "tburn:", // 키 충돌 방지용 접두사
+});
+sessionStoreType = "Redis (Enterprise Cluster Mode)";
+
+app.use(
+  session({
+    store: sessionStore,
+    secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,   // ★ HTTPS 필수 (Nginx 뒤에 있으므로 true)
+      httpOnly: true, // 자바스크립트 접근 방지 (보안)
+      maxAge: 24 * 60 * 60 * 1000, // 24시간
+      sameSite: "lax", 
+    },
+    proxy: true, // ★ Nginx 프록시 설정
+  })
+);
+
+log(`Session store: ${sessionStoreType}`, "session");
+
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+if (ADMIN_PASSWORD) {
+  log(`✅ ADMIN_PASSWORD loaded`, "security");
+} else {
+  log(`⚠️ WARNING: ADMIN_PASSWORD not set!`, "security");
+}
+
+app.use(express.json({
+  verify: (req, _res, buf) => {
+    req.rawBody = buf;
+  }
+}));
+app.use(express.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path = req.path;
+  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+
+  const originalResJson = res.json;
+  res.json = function (bodyJson, ...args) {
+    capturedJsonResponse = bodyJson;
+    return originalResJson.apply(res, [bodyJson, ...args]);
+  };
+
+jihun, [2025-12-22 오후 5:35]
+
+
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path.startsWith("/api")) {
+      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+      if (capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      }
+      if (logLine.length > 80) {
+        logLine = logLine.slice(0, 79) + "…";
+      }
+      log(logLine);
+    }
+  });
+
+  next();
+});
+
+export default async function runApp(
+  setup: (app: Express, server: Server) => Promise<void>,
+) {
+  const server = await registerRoutes(app);
+
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(status).json({ message });
+    throw err;
+  });
+
+  await setup(app, server);
+
+  const port = parseInt(process.env.PORT || '5000', 10);
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true,
+  }, () => {
+    log(`serving on port ${port}`);
+  });
+}
+
+
+---
+
+### **✅ 적용 후 할 일**
+
+1. 위 코드를 저장합니다.
+2. deploy.sh`가 **Cluster Mode(32코어)**로 되어 있는지 확인합니다. (`instances: "max")
+3. 서버를 재배포합니다. (./deploy.sh)
+
+**이제 로그를 보시면 `✅ Redis connected successfully`가 뜰 것이고, 32개 코어 어디로 튀어도 로그인이 절대 안 풀릴 겁니다!**
