@@ -891,7 +891,8 @@
       "public": "퍼블릭",
       "private": "프라이빗",
       "enterprise": "엔터프라이즈",
-      "institutional": "기관"
+      "institutional": "기관",
+      "full": "전체 인증"
     },
     "poolNames": {
       "pool-public-main": "TBURN 퍼블릭 스테이킹 풀",
@@ -4648,6 +4649,7 @@
       "basic": "기본",
       "enhanced": "강화",
       "institutional": "기관",
+      "full": "전체 인증",
       "to": "까지",
       "clearDates": "날짜 지우기",
       "address": "주소",
@@ -5098,6 +5100,7 @@
         "delegated": "위임",
         "pool": "스테이킹 풀",
         "institutional": "기관",
+      "full": "전체 인증",
         "mixed": "혼합 출처"
       },
       "unknown": "알 수 없음",
@@ -6183,7 +6186,12 @@
       "genesis_validator": "제네시스 검증자",
       "enterprise_validator": "기업 검증자",
       "governance_validator": "거버넌스 검증자",
-      "cover": "커버"
+      "cover": "커버",
+      "enterprise": "엔터프라이즈",
+      "silver": "실버",
+      "gold": "골드",
+      "platinum": "플래티넘",
+      "diamond": "다이아몬드"
     },
     "statuses": {
       "active": "활성",
@@ -6198,7 +6206,8 @@
       "none": "없음",
       "basic": "기본",
       "advanced": "고급",
-      "institutional": "기관"
+      "institutional": "기관",
+      "full": "전체 인증"
     },
     "profile": "프로필",
     "tableHeaderActions": "작업",

@@ -861,7 +861,8 @@
       "public": "Public",
       "private": "Private",
       "enterprise": "Enterprise",
-      "institutional": "Institutional"
+      "institutional": "Institutional",
+      "full": "Full Verification"
     },
     "poolNames": {
       "pool-public-main": "TBURN Public Staking Pool",
@@ -4654,6 +4655,7 @@
       "basic": "Basic",
       "enhanced": "Enhanced",
       "institutional": "Institutional",
+      "full": "Full Verification",
       "to": "to",
       "clearDates": "Clear dates",
       "address": "Address",
@@ -4923,6 +4925,7 @@
         "delegated": "Delegated",
         "pool": "Staking Pool",
         "institutional": "Institutional",
+      "full": "Full Verification",
         "mixed": "Mixed Sources"
       },
       "unknown": "Unknown",
@@ -6017,7 +6020,12 @@
       "genesis_validator": "GENESIS VALIDATOR",
       "enterprise_validator": "ENTERPRISE VALIDATOR",
       "governance_validator": "GOVERNANCE VALIDATOR",
-      "cover": "COVER"
+      "cover": "COVER",
+      "enterprise": "Enterprise",
+      "silver": "Silver",
+      "gold": "Gold",
+      "platinum": "Platinum",
+      "diamond": "Diamond"
     },
     "statuses": {
       "active": "ACTIVE",
