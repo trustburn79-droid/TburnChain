@@ -56,8 +56,12 @@ declare module 'http' {
 // ★ [수정 3] Redis URL 강제 설정 (환경변수 없으면 로컬호스트 사용)
 // 이렇게 해야 구글 서버에 설치된 Redis를 32개 코어가 같이 씁니다.
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
-const isProduction = process.env.NODE_ENV === "production" || true; // ★ 강제로 프로덕션 모드 (HTTPS 사용 위해)
 const isReplit = process.env.REPL_ID !== undefined; // Replit 환경 감지
+
+// ★ 쿠키 보안 설정 - 환경변수로 제어 가능
+// COOKIE_SECURE=true 설정하면 HTTPS 전용 쿠키 활성화 (Nginx TLS 완료 후)
+// 기본값: false (Nginx 설정이 완벽하지 않아도 작동)
+const cookieSecure = process.env.COOKIE_SECURE === "true";
 
 let sessionStore: session.Store;
 let sessionStoreType: string;
@@ -101,14 +105,16 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: !isReplit,   // ★ HTTPS 필수 (Nginx 뒤에 있으므로 true), Replit에서는 false
+      secure: cookieSecure,   // ★ COOKIE_SECURE=true 환경변수로 HTTPS 전용 쿠키 활성화
       httpOnly: true, // 자바스크립트 접근 방지 (보안)
       maxAge: 24 * 60 * 60 * 1000, // 24시간
       sameSite: "lax", 
     },
-    proxy: !isReplit, // ★ Nginx 프록시 설정 (Replit에서는 false)
+    proxy: true, // ★ 항상 프록시 신뢰 (Nginx 뒤에서 작동)
   })
 );
+
+log(`Cookie secure: ${cookieSecure} (set COOKIE_SECURE=true for HTTPS-only)`, "session");
 
 log(`Session store: ${sessionStoreType}`, "session");
 
