@@ -395,7 +395,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     };
   }
 
-  private detectHardwareProfile(): { name: string; cores: number; ramGB: number; maxShards: number; tpsCapacity: number } {
+  private detectHardwareProfile(): { name: string; cores: number; ramGB: number; maxShards: number; tpsCapacity: number; tpsRange: { min: number; max: number; avg: number } } {
     const detectedCores = os.cpus().length;
     const detectedRamGB = Math.round(os.totalmem() / (1024 ** 3));
     
@@ -411,14 +411,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
       else if (envMaxShards >= 64) profileName = 'production';
       else if (envMaxShards >= 32) profileName = 'staging';
       
-      console.log(`[Hardware] 🔧 ENV override active: MAX_SHARDS=${envMaxShards} → Profile: ${profileName}`);
+      const tpsRange = this.getProfileTpsRange(envMaxShards);
+      console.log(`[Hardware] 🔧 ENV override active: MAX_SHARDS=${envMaxShards} → Profile: ${profileName}, TPS Range: ${tpsRange.min.toLocaleString()}-${tpsRange.max.toLocaleString()}`);
       
       return {
         name: profileName,
         cores: detectedCores,
         ramGB: detectedRamGB,
         maxShards: envMaxShards,
-        tpsCapacity: envMaxShards * 10000
+        tpsCapacity: tpsRange.avg,
+        tpsRange
       };
     }
     
@@ -440,16 +442,17 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Use profile's maxShards directly (no dynamic calculation)
     const profile = this.HARDWARE_PROFILES[profileName];
     const maxShards = profile.maxShards;
-    const tpsCapacity = maxShards * 10000;
+    const tpsRange = this.getProfileTpsRange(maxShards);
     
-    console.log(`[Hardware] 🖥️  Auto-detected: ${detectedCores} cores, ${detectedRamGB}GB RAM → Profile: ${profileName}, Max Shards: ${maxShards}`);
+    console.log(`[Hardware] 🖥️  Auto-detected: ${detectedCores} cores, ${detectedRamGB}GB RAM → Profile: ${profileName}, Max Shards: ${maxShards}, TPS Range: ${tpsRange.min.toLocaleString()}-${tpsRange.max.toLocaleString()}`);
     
     return {
       name: profileName,
       cores: detectedCores,
       ramGB: detectedRamGB,
       maxShards,
-      tpsCapacity
+      tpsCapacity: tpsRange.avg,
+      tpsRange
     };
   }
 
@@ -1187,13 +1190,27 @@ export class TBurnEnterpriseNode extends EventEmitter {
     'Alpha-6', 'Beta-6', 'Gamma-6', 'Delta-6', 'Epsilon-6', 'Zeta-6', 'Eta-6', 'Theta-6'
   ];
 
-  // Hardware requirement profiles
+  // Hardware requirement profiles (tpsCapacity calculated dynamically based on load)
+  // TPS = maxShards × baseTpsPerShard × loadFactor (35-70%)
   private readonly HARDWARE_PROFILES = {
-    development: { cores: 4, ramGB: 16, maxShards: 5, tpsCapacity: 50000 },
-    staging: { cores: 16, ramGB: 64, maxShards: 32, tpsCapacity: 320000 },
-    production: { cores: 32, ramGB: 256, maxShards: 64, tpsCapacity: 640000 },
-    enterprise: { cores: 64, ramGB: 512, maxShards: 128, tpsCapacity: 1280000 }
+    development: { cores: 4, ramGB: 16, maxShards: 5 },
+    staging: { cores: 16, ramGB: 64, maxShards: 32 },
+    production: { cores: 32, ramGB: 256, maxShards: 64 },
+    enterprise: { cores: 64, ramGB: 512, maxShards: 128 }
   };
+  
+  // Dynamic TPS calculation for hardware profiles
+  private getProfileTpsRange(maxShards: number): { min: number; max: number; avg: number } {
+    const baseTpsPerShard = 6250; // ~625 tx/block × 10 blocks/sec
+    const minLoadFactor = 0.35;
+    const maxLoadFactor = 0.70;
+    const avgLoadFactor = 0.525;
+    return {
+      min: Math.round(maxShards * baseTpsPerShard * minLoadFactor),
+      max: Math.round(maxShards * baseTpsPerShard * maxLoadFactor),
+      avg: Math.round(maxShards * baseTpsPerShard * avgLoadFactor)
+    };
+  }
 
   // ============================================
   // ENTERPRISE WALLET CACHING SYSTEM

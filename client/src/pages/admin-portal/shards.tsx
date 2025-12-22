@@ -768,7 +768,7 @@ export default function AdminShards() {
                             <th className="text-center py-2 px-3 font-medium">{t("adminShards.cpuCores") || "CPU Cores"}</th>
                             <th className="text-center py-2 px-3 font-medium">{t("adminShards.ram") || "RAM"}</th>
                             <th className="text-center py-2 px-3 font-medium">{t("adminShards.maxShardsLabel") || "Max Shards"}</th>
-                            <th className="text-center py-2 px-3 font-medium">{t("adminShards.tpsCapacity") || "TPS Capacity"}</th>
+                            <th className="text-center py-2 px-3 font-medium">{t("adminShards.tpsRange") || "TPS Range"}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -783,7 +783,7 @@ export default function AdminShards() {
                             <td className="text-center py-2 px-3">4</td>
                             <td className="text-center py-2 px-3">16GB</td>
                             <td className="text-center py-2 px-3">5</td>
-                            <td className="text-center py-2 px-3">50,000</td>
+                            <td className="text-center py-2 px-3 text-muted-foreground">~11K-22K</td>
                           </tr>
                           <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'staging' ? 'bg-primary/5' : ''}`}>
                             <td className="py-2 px-3 flex items-center gap-2">
@@ -796,7 +796,7 @@ export default function AdminShards() {
                             <td className="text-center py-2 px-3">16</td>
                             <td className="text-center py-2 px-3">64GB</td>
                             <td className="text-center py-2 px-3">32</td>
-                            <td className="text-center py-2 px-3">320,000</td>
+                            <td className="text-center py-2 px-3 text-muted-foreground">~70K-140K</td>
                           </tr>
                           <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'production' ? 'bg-primary/5' : ''}`}>
                             <td className="py-2 px-3 flex items-center gap-2">
@@ -809,7 +809,7 @@ export default function AdminShards() {
                             <td className="text-center py-2 px-3">32</td>
                             <td className="text-center py-2 px-3">256GB</td>
                             <td className="text-center py-2 px-3">64</td>
-                            <td className="text-center py-2 px-3">640,000</td>
+                            <td className="text-center py-2 px-3 text-blue-500">~140K-280K</td>
                           </tr>
                           <tr className={`${shardConfig.hardwareRequirements?.profile === 'enterprise' ? 'bg-primary/5' : ''}`}>
                             <td className="py-2 px-3 flex items-center gap-2">
@@ -822,13 +822,13 @@ export default function AdminShards() {
                             <td className="text-center py-2 px-3 font-medium text-green-500">64</td>
                             <td className="text-center py-2 px-3 font-medium text-green-500">512GB</td>
                             <td className="text-center py-2 px-3 font-medium text-green-500">128</td>
-                            <td className="text-center py-2 px-3 font-medium text-green-500">1,280,000</td>
+                            <td className="text-center py-2 px-3 font-medium text-green-500">~280K-560K</td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <p className="text-xs text-muted-foreground mt-3">
-                      {t("adminShards.hardwareNote") || "TPS capacity scales linearly with shard count. Enterprise tier supports up to 128 shards for maximum throughput."}
+                      {t("adminShards.hardwareNote") || "TPS varies dynamically based on system load (35-70%). Actual TPS depends on network conditions and transaction complexity."}
                     </p>
                   </div>
                 </div>
