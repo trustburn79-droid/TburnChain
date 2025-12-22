@@ -44,6 +44,7 @@ import {
 import { useQuery, useMutation, keepPreviousData } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useTBurnAlert } from "@/components/tburn-alert-modal";
 import { 
   AreaChart, 
   Area, 
@@ -1266,6 +1267,7 @@ export default function WalletDashboard() {
   const [myWallets, setMyWallets] = useState<SavedWallet[]>([]);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
   const { toast } = useToast();
+  const { showAlert } = useTBurnAlert();
   
   useEffect(() => {
     const storedWallets = getStoredWallets();
@@ -1322,11 +1324,11 @@ export default function WalletDashboard() {
   // Helper to require wallet connection for token operations
   const requireWalletConnection = (action: () => void) => {
     if (!isConnected) {
-      toast({
-        title: t("walletDashboard.walletRequired", "Wallet Connection Required"),
-        description: t("walletDashboard.walletRequiredDesc", "Please connect your wallet to perform this action"),
-        variant: "destructive",
-      });
+      showAlert(
+        "wallet",
+        t("walletDashboard.walletRequired", "지갑 연결 필요"),
+        t("walletDashboard.walletRequiredDesc", "이 작업을 수행하려면 지갑을 연결해주세요.")
+      );
       return;
     }
     action();

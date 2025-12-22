@@ -15,6 +15,7 @@ import { MainnetRestartOverlay } from "@/components/mainnet-restart-overlay";
 import { AdminPasswordProvider } from "@/hooks/use-admin-password";
 import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { AuthGuard } from "@/components/auth-guard";
+import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { Button } from "@/components/ui/button";
@@ -490,10 +491,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark">
         <Web3Provider>
-          <AdminPasswordProvider>
-            <RootRouter />
-            <Toaster />
-          </AdminPasswordProvider>
+          <TBurnAlertProvider>
+            <AdminPasswordProvider>
+              <RootRouter />
+              <Toaster />
+            </AdminPasswordProvider>
+          </TBurnAlertProvider>
         </Web3Provider>
       </ThemeProvider>
     </QueryClientProvider>
