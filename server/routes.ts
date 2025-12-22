@@ -4,6 +4,7 @@ import { WebSocketServer, WebSocket } from "ws";
 import rateLimit from "express-rate-limit";
 import bcrypt from "bcryptjs";
 import { randomBytes, createHash } from "crypto";
+import { Resend } from "resend";
 import cookieSignature from "cookie-signature";
 import { Pool } from "@neondatabase/serverless";
 import { tburnWalletService } from "./services/TBurnWalletService";
@@ -57,6 +58,10 @@ import { getProductionDataPoller } from "./services/ProductionDataPoller";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
 const SITE_PASSWORD = ADMIN_PASSWORD;
+
+// Initialize Resend email service
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+const EMAIL_FROM = process.env.EMAIL_FROM || "TBURN Chain <onboarding@resend.dev>";
 
 // ============================================
 // ENTERPRISE STABILITY: Interval Tracking for Graceful Shutdown
@@ -548,29 +553,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
         expiresAt,
       });
       
-      // Check if email service is configured
-      const hasEmailService = process.env.MAIL_PROVIDER || process.env.SENDGRID_API_KEY || process.env.RESEND_API_KEY;
-      
-      // Log for debugging
-      console.log(`[Email Verification] Code for ${email}: ${verificationCode} (expires: ${expiresAt.toISOString()})`);
-      
-      // In development (no email service), return the code directly
-      // In production, would send via email service
-      if (!hasEmailService) {
-        res.json({ 
-          success: true, 
-          message: "Verification code generated (development mode)",
-          expiresAt: expiresAt.toISOString(),
-          devMode: true,
-          devCode: verificationCode // Only exposed in development mode
-        });
+      // Send email via Resend
+      if (resend) {
+        try {
+          const { error: sendError } = await resend.emails.send({
+            from: EMAIL_FROM,
+            to: email,
+            subject: "[TBURN Chain] 이메일 인증 코드 / Verification Code",
+            html: `
+              <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">🔥 TBURN Chain</h1>
+                  <p style="color: #888; font-size: 14px;">Blockchain Mainnet Explorer</p>
+                </div>
+                
+                <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
+                  <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">인증 코드 / Verification Code</p>
+                  <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
+                    <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
+                  </div>
+                  <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">이 코드는 10분 후 만료됩니다 / This code expires in 10 minutes</p>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                  <p style="color: #666; font-size: 12px;">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                </div>
+              </div>
+            `,
+          });
+          
+          if (sendError) {
+            console.error("[Email Verification] Resend error:", sendError);
+            return res.status(500).json({ error: "Failed to send verification email" });
+          }
+          
+          console.log(`[Email Verification] Email sent to ${email}`);
+          res.json({ 
+            success: true, 
+            message: "Verification code sent to your email",
+            expiresAt: expiresAt.toISOString()
+          });
+        } catch (emailError) {
+          console.error("[Email Verification] Email send failed:", emailError);
+          return res.status(500).json({ error: "Failed to send verification email" });
+        }
       } else {
-        // TODO: Send actual email via configured provider
-        res.json({ 
-          success: true, 
-          message: "Verification code sent to your email",
-          expiresAt: expiresAt.toISOString()
-        });
+        // No email service configured - log warning
+        console.warn("[Email Verification] No email service configured! Code:", verificationCode);
+        res.status(500).json({ error: "Email service not configured" });
       }
     } catch (error) {
       console.error("Send verification error:", error);
