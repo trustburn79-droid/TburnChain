@@ -645,6 +645,8 @@ export const crossShardMessages = pgTable("cross_shard_messages", {
 export const walletBalances = pgTable("wallet_balances", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   address: text("address").notNull().unique(),
+  walletName: text("wallet_name"),
+  ownerId: varchar("owner_id"),
   balance: text("balance").notNull().default("0"),
   stakedBalance: text("staked_balance").notNull().default("0"),
   unstakedBalance: text("unstaked_balance").notNull().default("0"),
