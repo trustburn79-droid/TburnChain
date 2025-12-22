@@ -1061,10 +1061,7 @@ function CreateWalletDialog({
     }
   };
 
-  const handleClose = () => {
-    if (createdWallet && !acknowledged) {
-      return;
-    }
+  const resetDialogState = () => {
     setCreatedWallet(null);
     setAcknowledged(false);
     setPrivateKeyCopied(false);
@@ -1072,12 +1069,27 @@ function CreateWalletDialog({
     onOpenChange(false);
   };
 
-  const handleDialogChange = (open: boolean) => {
-    if (!open && createdWallet && !acknowledged) {
+  const handleClose = () => {
+    if (createdWallet && !acknowledged) {
       return;
     }
+    resetDialogState();
+  };
+
+  const handleForceClose = () => {
+    if (createdWallet && !acknowledged) {
+      toast({
+        title: t("walletDashboard.warning", "⚠️ Warning"),
+        description: t("walletDashboard.privateKeyNotSaved", "Closing without saving private key. It cannot be recovered!"),
+        variant: "destructive",
+      });
+    }
+    resetDialogState();
+  };
+
+  const handleDialogChange = (open: boolean) => {
     if (!open) {
-      handleClose();
+      handleForceClose();
     }
   };
 

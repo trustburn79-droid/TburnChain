@@ -1481,13 +1481,28 @@ function WalletSection({
     }
   };
 
-  const handleCloseCreateDialog = () => {
-    if (createdWallet && !acknowledged) return;
+  const resetDialogState = () => {
     setCreatedWallet(null);
     setAcknowledged(false);
     setPrivateKeyCopied(false);
     setAddressCopied(false);
     setCreateWalletOpen(false);
+  };
+
+  const handleCloseCreateDialog = () => {
+    if (createdWallet && !acknowledged) return;
+    resetDialogState();
+  };
+  
+  const handleForceCloseDialog = () => {
+    if (createdWallet && !acknowledged) {
+      toast({
+        title: t('userPage.wallet.warningTitle', '⚠️ 경고'),
+        description: t('userPage.wallet.privateKeyNotSaved', '개인키를 저장하지 않고 닫습니다. 개인키는 복구할 수 없습니다!'),
+        variant: "destructive",
+      });
+    }
+    resetDialogState();
   };
 
   return (
@@ -1710,8 +1725,7 @@ function WalletSection({
 
       {/* Create Wallet Dialog */}
       <Dialog open={createWalletOpen} onOpenChange={(open) => {
-        if (!open && createdWallet && !acknowledged) return;
-        if (!open) handleCloseCreateDialog();
+        if (!open) handleForceCloseDialog();
         else setCreateWalletOpen(true);
       }}>
         <DialogContent className="sm:max-w-lg">
