@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useCallback } from "react";
+import { useState, useEffect, createContext, useContext, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Dialog,
@@ -12,10 +12,10 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, CheckCircle, Info, XCircle, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type AlertType = "info" | "success" | "warning" | "error" | "wallet";
+export type AlertType = "info" | "success" | "warning" | "error" | "wallet";
 
-interface AlertModalState {
-  isOpen: boolean;
+interface AlertMessage {
+  id: string;
   type: AlertType;
   title: string;
   description: string;
@@ -27,6 +27,9 @@ interface TBurnAlertContextType {
 }
 
 const TBurnAlertContext = createContext<TBurnAlertContextType | null>(null);
+
+let globalShowAlert: ((type: AlertType, title: string, description: string) => void) | null = null;
+const pendingAlerts: AlertMessage[] = [];
 
 export function useTBurnAlert() {
   const context = useContext(TBurnAlertContext);
@@ -100,30 +103,47 @@ function AlertIcon({ type, className }: { type: AlertType; className?: string })
 
 export function TBurnAlertProvider({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
-  const [alertState, setAlertState] = useState<AlertModalState>({
-    isOpen: false,
-    type: "info",
-    title: "",
-    description: "",
-  });
+  const [alertQueue, setAlertQueue] = useState<AlertMessage[]>([]);
+  const [currentAlert, setCurrentAlert] = useState<AlertMessage | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const showAlert = useCallback((type: AlertType, title: string, description: string) => {
-    setAlertState({
-      isOpen: true,
-      type,
-      title,
-      description,
-    });
+    const id = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const newAlert: AlertMessage = { id, type, title, description };
+    setAlertQueue(prev => [...prev, newAlert]);
   }, []);
 
   const hideAlert = useCallback(() => {
-    setAlertState((prev) => ({ ...prev, isOpen: false }));
+    setIsOpen(false);
+    setCurrentAlert(null);
   }, []);
+
+  useEffect(() => {
+    globalShowAlert = showAlert;
+    if (pendingAlerts.length > 0) {
+      pendingAlerts.forEach(alert => {
+        setAlertQueue(prev => [...prev, alert]);
+      });
+      pendingAlerts.length = 0;
+    }
+    return () => {
+      globalShowAlert = null;
+    };
+  }, [showAlert]);
+
+  useEffect(() => {
+    if (!isOpen && alertQueue.length > 0) {
+      const [next, ...rest] = alertQueue;
+      setCurrentAlert(next);
+      setAlertQueue(rest);
+      setIsOpen(true);
+    }
+  }, [isOpen, alertQueue]);
 
   return (
     <TBurnAlertContext.Provider value={{ showAlert, hideAlert }}>
       {children}
-      <Dialog open={alertState.isOpen} onOpenChange={(open) => !open && hideAlert()}>
+      <Dialog open={isOpen} onOpenChange={(open) => !open && hideAlert()}>
         <DialogContent className="sm:max-w-md bg-gradient-to-br from-card via-card to-card/95 border border-border/50 shadow-2xl">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-orange-500/5 rounded-lg pointer-events-none" />
           
@@ -135,16 +155,18 @@ export function TBurnAlertProvider({ children }: { children: React.ReactNode }) 
               </div>
               
               <div className="flex items-center gap-2">
-                <AlertIcon type={alertState.type} />
+                <AlertIcon type={currentAlert?.type || "info"} />
                 <DialogTitle className="text-xl font-bold text-foreground">
-                  {alertState.title}
+                  {currentAlert?.title || ""}
                 </DialogTitle>
               </div>
             </div>
             
-            <DialogDescription className="text-center text-muted-foreground text-sm leading-relaxed">
-              {alertState.description}
-            </DialogDescription>
+            {currentAlert?.description && (
+              <DialogDescription className="text-center text-muted-foreground text-sm leading-relaxed">
+                {currentAlert.description}
+              </DialogDescription>
+            )}
           </DialogHeader>
           
           <DialogFooter className="relative z-10 mt-4 flex justify-center sm:justify-center">
@@ -162,4 +184,29 @@ export function TBurnAlertProvider({ children }: { children: React.ReactNode }) 
       </Dialog>
     </TBurnAlertContext.Provider>
   );
+}
+
+export function showTBurnAlert(type: AlertType, title: string, description: string = "") {
+  if (globalShowAlert) {
+    globalShowAlert(type, title, description);
+  } else {
+    const id = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    pendingAlerts.push({ id, type, title, description });
+  }
+}
+
+export function showTBurnSuccess(title: string, description: string = "") {
+  showTBurnAlert("success", title, description);
+}
+
+export function showTBurnError(title: string, description: string = "") {
+  showTBurnAlert("error", title, description);
+}
+
+export function showTBurnWarning(title: string, description: string = "") {
+  showTBurnAlert("warning", title, description);
+}
+
+export function showTBurnInfo(title: string, description: string = "") {
+  showTBurnAlert("info", title, description);
 }
