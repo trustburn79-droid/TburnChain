@@ -62,6 +62,8 @@ const SITE_PASSWORD = ADMIN_PASSWORD;
 // Initialize Resend email service
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const EMAIL_FROM = process.env.EMAIL_FROM || "TBURN Chain <onboarding@resend.dev>";
+// Resend sandbox mode - only this email can receive emails until domain is verified
+const RESEND_VERIFIED_EMAIL = "trustburn79@gmail.com";
 
 // ============================================
 // ENTERPRISE STABILITY: Interval Tracking for Graceful Shutdown
