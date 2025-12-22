@@ -582,6 +582,12 @@ export function registerWalletDashboardRoutes(
       let walletData = tburnWalletService.generateWalletWithPrivateKey();
       const chainConfig = tburnWalletService.getChainConfig();
 
+      // Get the session member ID for wallet ownership
+      const sessionMemberId = req.session.memberId as string | undefined;
+      if (!sessionMemberId) {
+        return res.status(401).json({ error: "Session authentication required to create wallet" });
+      }
+
       let retries = 0;
       const maxRetries = 3;
       let memberId: string | null = null;
@@ -590,11 +596,13 @@ export function registerWalletDashboardRoutes(
         try {
           const existing = await db.select().from(walletBalances).where(eq(walletBalances.address, walletData.address)).limit(1);
           if (existing.length === 0) {
-            // Insert wallet balance record
+            // Insert wallet balance record with owner ID
             await db.insert(walletBalances).values({
               address: walletData.address,
+              ownerId: sessionMemberId,
             });
             enterpriseNode.registerWallet(walletData.address, "0");
+            console.log(`[WalletDashboard] Created wallet ${walletData.address} for member ${sessionMemberId}`);
             
             // Also create a member record for admin tracking
             const existingMember = await db.select().from(members).where(eq(members.accountAddress, walletData.address)).limit(1);
