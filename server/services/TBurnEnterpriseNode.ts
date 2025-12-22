@@ -405,10 +405,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
     
     if (envMaxShards && envMaxShards >= 5 && envMaxShards <= 128) {
       // ENV override: determine profile based on MAX_SHARDS value
+      // Profile thresholds: enterprise(128), production(64), staging(32), development(5)
       let profileName: keyof typeof this.HARDWARE_PROFILES = 'development';
       if (envMaxShards >= 128) profileName = 'enterprise';
       else if (envMaxShards >= 64) profileName = 'production';
-      else if (envMaxShards >= 16) profileName = 'staging';
+      else if (envMaxShards >= 32) profileName = 'staging';
       
       console.log(`[Hardware] 🔧 ENV override active: MAX_SHARDS=${envMaxShards} → Profile: ${profileName}`);
       
@@ -421,7 +422,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
       };
     }
     
-    // Fallback: Auto-detect based on hardware
+    // Auto-detect profile based on hardware specifications
+    // Profile requirements:
+    //   development: default (5 shards)
+    //   staging: 16+ cores AND 64+ GB RAM (32 shards)
+    //   production: 32+ cores AND 256+ GB RAM (64 shards)
+    //   enterprise: 64+ cores AND 512+ GB RAM (128 shards)
     let profileName: keyof typeof this.HARDWARE_PROFILES = 'development';
     if (detectedCores >= 64 && detectedRamGB >= 512) {
       profileName = 'enterprise';
@@ -431,12 +437,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
       profileName = 'staging';
     }
     
+    // Use profile's maxShards directly (no dynamic calculation)
     const profile = this.HARDWARE_PROFILES[profileName];
-    const maxShards = Math.min(
-      Math.floor(detectedCores * 2),
-      Math.floor(detectedRamGB / 4),
-      profile.maxShards
-    );
+    const maxShards = profile.maxShards;
     const tpsCapacity = maxShards * 10000;
     
     console.log(`[Hardware] 🖥️  Auto-detected: ${detectedCores} cores, ${detectedRamGB}GB RAM → Profile: ${profileName}, Max Shards: ${maxShards}`);
@@ -1186,8 +1189,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   // Hardware requirement profiles
   private readonly HARDWARE_PROFILES = {
-    development: { cores: 8, ramGB: 32, maxShards: 8, tpsCapacity: 80000 },
-    staging: { cores: 16, ramGB: 64, maxShards: 16, tpsCapacity: 160000 },
+    development: { cores: 4, ramGB: 16, maxShards: 5, tpsCapacity: 50000 },
+    staging: { cores: 16, ramGB: 64, maxShards: 32, tpsCapacity: 320000 },
     production: { cores: 32, ramGB: 256, maxShards: 64, tpsCapacity: 640000 },
     enterprise: { cores: 64, ramGB: 512, maxShards: 128, tpsCapacity: 1280000 }
   };
@@ -3878,6 +3881,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
     networkBandwidthGbps: number;
     profile: string;
   } {
+    // Get detected hardware profile (uses ENV override or auto-detection)
+    const hwProfile = this.detectHardwareProfile();
+    
     // Each shard needs ~0.5 cores and ~4GB RAM minimum
     const minCores = Math.ceil(shardCount * 0.5);
     const minRamGB = Math.ceil(shardCount * 4);
@@ -3892,14 +3898,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Network: ~100Mbps per shard for consensus + cross-shard
     const networkBandwidthGbps = Math.max(1, Math.ceil(shardCount * 0.1));
     
-    // Determine profile
-    let profile = 'custom';
-    for (const [name, spec] of Object.entries(this.HARDWARE_PROFILES)) {
-      if (shardCount <= spec.maxShards && recommendedCores <= spec.cores) {
-        profile = name;
-        break;
-      }
-    }
+    // Use detected hardware profile directly
+    const profile = hwProfile.name;
     
     return { minCores, minRamGB, recommendedCores, recommendedRamGB, storageGB, networkBandwidthGbps, profile };
   }

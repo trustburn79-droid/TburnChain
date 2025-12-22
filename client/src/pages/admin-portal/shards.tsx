@@ -780,10 +780,10 @@ export default function AdminShards() {
                                 <Badge className="text-xs">{t("adminShards.current") || "Current"}</Badge>
                               )}
                             </td>
-                            <td className="text-center py-2 px-3">8</td>
-                            <td className="text-center py-2 px-3">32GB</td>
-                            <td className="text-center py-2 px-3">8</td>
-                            <td className="text-center py-2 px-3">80,000</td>
+                            <td className="text-center py-2 px-3">4</td>
+                            <td className="text-center py-2 px-3">16GB</td>
+                            <td className="text-center py-2 px-3">5</td>
+                            <td className="text-center py-2 px-3">50,000</td>
                           </tr>
                           <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'staging' ? 'bg-primary/5' : ''}`}>
                             <td className="py-2 px-3 flex items-center gap-2">
@@ -795,8 +795,8 @@ export default function AdminShards() {
                             </td>
                             <td className="text-center py-2 px-3">16</td>
                             <td className="text-center py-2 px-3">64GB</td>
-                            <td className="text-center py-2 px-3">16</td>
-                            <td className="text-center py-2 px-3">160,000</td>
+                            <td className="text-center py-2 px-3">32</td>
+                            <td className="text-center py-2 px-3">320,000</td>
                           </tr>
                           <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'production' ? 'bg-primary/5' : ''}`}>
                             <td className="py-2 px-3 flex items-center gap-2">
