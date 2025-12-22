@@ -9,6 +9,8 @@ import express, {
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import createMemoryStore from "memorystore";
+import { RedisStore } from "connect-redis";
+import { createClient } from "redis";
 import { Pool } from "@neondatabase/serverless";
 
 import { registerRoutes } from "./routes";
@@ -52,19 +54,45 @@ declare module 'http' {
   }
 }
 
-// Session store configuration - MemoryStore for development (fast), PostgreSQL for production (persistent)
+// Session store configuration - Redis (cluster mode), PostgreSQL (production), MemoryStore (development)
 const isProduction = process.env.NODE_ENV === "production";
-const sessionPool = isProduction ? new Pool({ connectionString: process.env.DATABASE_URL }) : null;
+const REDIS_URL = process.env.REDIS_URL;
 
-const sessionStore = isProduction && sessionPool
-  ? new PgSession({
-      pool: sessionPool,
-      createTableIfMissing: true,
-      tableName: 'session',
-    })
-  : new MemoryStore({
-      checkPeriod: 86400000, // prune expired entries every 24h
-    });
+// Create session store based on available configuration
+let sessionStore: session.Store;
+let sessionStoreType: string;
+
+if (REDIS_URL) {
+  // Redis for cluster mode (32 cores sharing sessions)
+  const redisClient = createClient({ url: REDIS_URL });
+  redisClient.connect().catch((err) => {
+    console.error("[Redis] Connection error:", err);
+  });
+  redisClient.on("error", (err) => {
+    console.error("[Redis] Error:", err);
+  });
+  redisClient.on("connect", () => {
+    log("✅ Redis connected successfully", "session");
+  });
+  
+  sessionStore = new RedisStore({ client: redisClient });
+  sessionStoreType = "Redis (Cluster Mode)";
+} else if (isProduction) {
+  // PostgreSQL for production (persistent sessions)
+  const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
+  sessionStore = new PgSession({
+    pool: sessionPool,
+    createTableIfMissing: true,
+    tableName: 'session',
+  });
+  sessionStoreType = "PostgreSQL (Production)";
+} else {
+  // MemoryStore for development (fast, non-persistent)
+  sessionStore = new MemoryStore({
+    checkPeriod: 86400000, // prune expired entries every 24h
+  });
+  sessionStoreType = "MemoryStore (Development - fast)";
+}
 
 app.use(
   session({
@@ -78,11 +106,12 @@ app.use(
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
       sameSite: "lax", // Use lax for both environments to allow redirects
     },
+    proxy: isProduction, // Trust proxy when behind Nginx
   })
 );
 
 // Log session store type
-log(`Session store: ${isProduction ? "PostgreSQL (Production)" : "MemoryStore (Development - fast)"}`, "session");
+log(`Session store: ${sessionStoreType}`, "session");
 
 // Verify critical environment variables
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
