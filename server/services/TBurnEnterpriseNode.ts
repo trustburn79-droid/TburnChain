@@ -397,7 +397,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   private detectHardwareProfile(): { name: string; cores: number; ramGB: number; maxShards: number; tpsCapacity: number; tpsRange: { min: number; max: number; avg: number } } {
     const detectedCores = os.cpus().length;
-    const detectedRamGB = Math.round(os.totalmem() / (1024 ** 3));
+    const osDetectedRamGB = Math.round(os.totalmem() / (1024 ** 3));
+    
+    // CRITICAL FIX: Google Cloud VMs may not report full RAM via os.totalmem()
+    // Use SYSTEM_RAM_GB environment variable to override (e.g., SYSTEM_RAM_GB=256)
+    const envRamGB = process.env.SYSTEM_RAM_GB ? parseInt(process.env.SYSTEM_RAM_GB) : null;
+    const detectedRamGB = (envRamGB && envRamGB > 0) ? envRamGB : osDetectedRamGB;
+    
+    if (envRamGB && envRamGB !== osDetectedRamGB) {
+      console.log(`[Hardware] 🔧 RAM override: OS detected ${osDetectedRamGB}GB, using ENV SYSTEM_RAM_GB=${envRamGB}GB`);
+    }
     
     // CRITICAL: MAX_SHARDS environment variable ALWAYS takes priority
     // This overrides ALL hardware detection for production deployment
@@ -4555,6 +4564,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Measure individual service latencies in real-time
     const serviceLatencies = await this.measureServiceLatencies();
 
+    // System memory information for dashboard display
+    // Use SYSTEM_RAM_GB env var for Google Cloud VMs that don't report full RAM
+    const envRamGB = process.env.SYSTEM_RAM_GB ? parseInt(process.env.SYSTEM_RAM_GB) : null;
+    const totalMem = (envRamGB && envRamGB > 0) 
+      ? envRamGB * 1024 * 1024 * 1024  // Convert GB to bytes
+      : os.totalmem();
+    const freeMem = os.freemem();
+    const usedMem = totalMem - freeMem;
+
     return {
       id: 'singleton',
       currentBlockHeight: this.currentBlockHeight,
@@ -4571,6 +4589,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
       totalAccounts: 527849, // 527K+ accounts on mainnet
       totalShards: this.shardConfig.currentShardCount,
       crossShardMessages: this.getTotalCrossShardMessages(),
+      
+      // System memory information (for dashboard display)
+      memory: {
+        total: totalMem,
+        used: usedMem,
+        free: freeMem,
+        usagePercent: parseFloat(((usedMem / totalMem) * 100).toFixed(2)),
+        displayTotal: `${Math.round(totalMem / (1024 ** 3))} GB`
+      },
       
       // Individual service latency measurements (real-time)
       serviceLatencies,
