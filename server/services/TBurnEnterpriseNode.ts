@@ -3935,18 +3935,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const shards = [];
     const shardCount = this.shardConfig.currentShardCount;
     const validatorsPerShard = this.shardConfig.validatorsPerShard;
-    
-    // GET REAL-TIME TPS from actual block production
-    const realTimeTps = this.getRealTimeTPS();
-    const totalRealTps = realTimeTps.current;
-    const baseShardTps = shardCount > 0 ? Math.floor(totalRealTps / shardCount) : 0;
+    const configuredTpsPerShard = this.shardConfig.tpsPerShard; // 10,000 TPS capacity per shard
     
     for (let i = 0; i < shardCount; i++) {
       const shardName = this.SHARD_NAMES[i] || `Shard-${i + 1}`;
       const loadVariation = 35 + Math.floor(Math.random() * 35); // 35-70% load
-      // REAL-TIME DYNAMIC TPS per shard with slight variation per shard
+      // TPS based on configured capacity with load factor applied
+      // Each shard can handle up to tpsPerShard (10,000), current TPS = capacity × load%
+      const loadFactor = loadVariation / 100;
       const shardVariation = Math.floor((Date.now() / 1000 + i * 37) % 500) - 250; // ±250 TPS variation
-      const shardTps = Math.max(1000, baseShardTps + shardVariation);
+      const shardTps = Math.floor(configuredTpsPerShard * loadFactor) + shardVariation;
       
       shards.push({
         id: `${i + 1}`,
@@ -3958,7 +3956,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         validatorCount: validatorsPerShard,
         tps: shardTps,
         load: loadVariation,
-        peakTps: realTimeTps.peak > 0 ? Math.floor(realTimeTps.peak / shardCount) : 10000,
+        peakTps: configuredTpsPerShard, // Each shard capacity: 10,000 TPS
         avgBlockTime: 100, // milliseconds (integer)
         crossShardTxCount: 2000 + Math.floor(Math.random() * 1000) + (shardCount > 10 ? Math.floor(shardCount * 50) : 0),
         stateSize: String(100 + Math.floor(Math.random() * 50) + (i * 2)) + "GB", // string format
