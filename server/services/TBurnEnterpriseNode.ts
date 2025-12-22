@@ -1324,43 +1324,47 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // Initialize shard states based on current configuration
   private initializeShardStates(): void {
     const maxShards = this.shardConfig.maxShards;
-    const activeShards = this.shardConfig.currentShardCount;
+    // DYNAMIC SCALING: Start with minShards active, scale up based on demand
+    const initialActiveShards = this.shardConfig.minShards;
     
     this.shardStates.clear();
     
     for (let i = 0; i < maxShards; i++) {
-      const isActive = i < activeShards;
-      // Realistic production load: 60-75% utilization for active shards
-      // This allows natural scaling when load increases
-      const utilization = isActive ? (0.60 + Math.random() * 0.15) : 0;
+      const isActive = i < initialActiveShards;
+      // Production load: 70-85% utilization for active shards to trigger scaling
+      const utilization = isActive ? (0.70 + Math.random() * 0.15) : 0;
       
       this.shardStates.set(i, {
         id: i,
         status: isActive ? 'active' : 'standby',
         currentTps: isActive ? Math.round(this.SHARD_BASELINE_TPS * utilization) : 0,
         utilization,
-        effectiveTps: isActive ? this.SHARD_BASELINE_TPS : 0,
+        effectiveTps: isActive ? this.calculateShardEffectiveTps(i) : 0,
         crossShardMsgRate: isActive ? Math.floor(500 + Math.random() * 1000) : 0,
         activatedAt: isActive ? Date.now() : null,
         deactivatedAt: isActive ? null : Date.now()
       });
     }
     
-    this.activeShardCount = activeShards;
-    this.standbyShardCount = maxShards - activeShards;
+    this.activeShardCount = initialActiveShards;
+    this.standbyShardCount = maxShards - initialActiveShards;
     
-    console.log(`[Shard Distribution] Initialized: ${activeShards} active, ${this.standbyShardCount} standby shards`);
+    console.log(`[Shard Distribution] DYNAMIC SCALING ENABLED: Starting with ${initialActiveShards} active shards (min: ${this.shardConfig.minShards}, max: ${maxShards})`);
+    console.log(`[Shard Distribution] Standby shards available for scale-up: ${this.standbyShardCount}`);
   }
   
   // Simulate load changes for testing (called periodically in metrics collection)
   public simulateLoadVariation(): void {
     for (const state of this.shardStates.values()) {
       if (state.status === 'active') {
-        // Add small random variation to utilization (+/- 5%)
-        const variation = (Math.random() - 0.5) * 0.10;
-        state.utilization = Math.max(0.30, Math.min(0.95, state.utilization + variation));
+        // Add realistic random variation to utilization (+/- 8%)
+        // This creates natural load fluctuations that trigger scaling
+        const variation = (Math.random() - 0.45) * 0.16; // Slight upward bias
+        state.utilization = Math.max(0.35, Math.min(0.98, state.utilization + variation));
         state.currentTps = Math.round(this.SHARD_BASELINE_TPS * state.utilization);
         state.crossShardMsgRate = Math.floor(500 + Math.random() * 1500);
+        // Recalculate effective TPS
+        state.effectiveTps = this.calculateShardEffectiveTps(state.id);
       }
     }
   }
