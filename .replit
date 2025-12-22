@@ -61,6 +61,7 @@ ADMIN_EMAIL = "trustburn79@gmail.com"
 
 [userenv.production]
 NODE_ENV = "production"
+MAX_SHARDS = "64"
 
 [userenv.development]
 NODE_ENV = "development"
