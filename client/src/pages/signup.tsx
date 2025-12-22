@@ -203,6 +203,7 @@ export default function Signup() {
   const [verificationEmail, setVerificationEmail] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [resendCooldown, setResendCooldown] = useState(0);
+  const [devModeCode, setDevModeCode] = useState<string | null>(null);
   const { toast } = useToast();
   const [, navigate] = useLocation();
   const displayText = useTextScramble(t("publicPages.signup.title"), 500);
@@ -297,14 +298,24 @@ export default function Signup() {
 
     setIsLoading(true);
     try {
-      await apiRequest("POST", "/api/auth/send-verification", { email, type: "signup" });
+      const response = await apiRequest("POST", "/api/auth/send-verification", { email, type: "signup" });
+      const data = await response.json();
       setVerificationEmail(email);
       setStep(2);
       setResendCooldown(60);
-      toast({
-        title: t("publicPages.signup.toast.codeSentTitle"),
-        description: t("publicPages.signup.toast.codeSentDescription"),
-      });
+      
+      if (data.devMode && data.devCode) {
+        setDevModeCode(data.devCode);
+        toast({
+          title: t("publicPages.signup.toast.codeSentTitle"),
+          description: `개발 모드: 인증 코드 ${data.devCode}`,
+        });
+      } else {
+        toast({
+          title: t("publicPages.signup.toast.codeSentTitle"),
+          description: t("publicPages.signup.toast.codeSentDescription"),
+        });
+      }
     } catch (error: any) {
       toast({
         title: t("publicPages.signup.toast.errorTitle"),
@@ -354,13 +365,23 @@ export default function Signup() {
     
     setIsLoading(true);
     try {
-      await apiRequest("POST", "/api/auth/resend-code", { email: verificationEmail, type: "signup" });
+      const response = await apiRequest("POST", "/api/auth/send-verification", { email: verificationEmail, type: "signup" });
+      const data = await response.json();
       setResendCooldown(60);
       setVerificationCode("");
-      toast({
-        title: t("publicPages.signup.toast.codeSentTitle"),
-        description: t("publicPages.signup.toast.codeResent"),
-      });
+      
+      if (data.devMode && data.devCode) {
+        setDevModeCode(data.devCode);
+        toast({
+          title: t("publicPages.signup.toast.codeSentTitle"),
+          description: `개발 모드: 새 인증 코드 ${data.devCode}`,
+        });
+      } else {
+        toast({
+          title: t("publicPages.signup.toast.codeSentTitle"),
+          description: t("publicPages.signup.toast.codeResent"),
+        });
+      }
     } catch (error: any) {
       toast({
         title: t("publicPages.signup.toast.errorTitle"),

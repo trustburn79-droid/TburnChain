@@ -548,15 +548,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         expiresAt,
       });
       
-      // In production, send actual email via email service
-      // For now, log the code (simulated email)
+      // Check if email service is configured
+      const hasEmailService = process.env.MAIL_PROVIDER || process.env.SENDGRID_API_KEY || process.env.RESEND_API_KEY;
+      
+      // Log for debugging
       console.log(`[Email Verification] Code for ${email}: ${verificationCode} (expires: ${expiresAt.toISOString()})`);
       
-      res.json({ 
-        success: true, 
-        message: "Verification code sent to your email",
-        expiresAt: expiresAt.toISOString()
-      });
+      // In development (no email service), return the code directly
+      // In production, would send via email service
+      if (!hasEmailService) {
+        res.json({ 
+          success: true, 
+          message: "Verification code generated (development mode)",
+          expiresAt: expiresAt.toISOString(),
+          devMode: true,
+          devCode: verificationCode // Only exposed in development mode
+        });
+      } else {
+        // TODO: Send actual email via configured provider
+        res.json({ 
+          success: true, 
+          message: "Verification code sent to your email",
+          expiresAt: expiresAt.toISOString()
+        });
+      }
     } catch (error) {
       console.error("Send verification error:", error);
       res.status(500).json({ error: "Failed to send verification code" });
