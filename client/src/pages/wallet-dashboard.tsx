@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { QRCodeSVG } from "qrcode.react";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -691,8 +692,16 @@ function ReceiveDialog({
         </DialogHeader>
         <div className="space-y-6 py-4">
           <div className="flex justify-center">
-            <div className="p-4 bg-white rounded-xl">
-              <div className="w-48 h-48 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2ZmZiIvPjxnIGZpbGw9IiMwMDAiPjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8+PHJlY3QgeD0iMTIwIiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8+PHJlY3QgeD0iMjAiIHk9IjEyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8+PHJlY3QgeD0iOTAiIHk9IjkwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSI5MCIgeT0iMTIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSIxMjAiIHk9IjkwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSIxNTAiIHk9IjEyMCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIi8+PHJlY3QgeD0iMTIwIiB5PSIxNTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIzMCIvPjxyZWN0IHg9IjMwIiB5PSIzMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iMTMwIiB5PSIzMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iMzAiIHk9IjEzMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iNDAiIHk9IjQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSIxNDAiIHk9IjQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48cmVjdCB4PSI0MCIgeT0iMTQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48L2c+PC9zdmc+')] bg-contain" data-testid="qr-code" />
+            <div className="p-4 bg-white rounded-xl border border-border/50">
+              <QRCodeSVG 
+                value={walletAddress}
+                size={180}
+                level="H"
+                includeMargin={true}
+                bgColor="#FFFFFF"
+                fgColor="#000000"
+                data-testid="qr-code"
+              />
             </div>
           </div>
           <div className="space-y-2">
@@ -1141,6 +1150,22 @@ function CreateWalletDialog({
               </span>
             </div>
 
+            {/* QR Code for new wallet address */}
+            <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-white border border-border/50">
+              <QRCodeSVG 
+                value={createdWallet.address}
+                size={140}
+                level="H"
+                includeMargin={true}
+                bgColor="#FFFFFF"
+                fgColor="#000000"
+                data-testid="new-wallet-qr-code"
+              />
+              <p className="text-xs text-muted-foreground text-center">
+                {t("walletDashboard.scanToReceive", "Scan this QR code to receive TBURN tokens")}
+              </p>
+            </div>
+
             <div className="space-y-3">
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">{t("walletDashboard.walletAddress", "Wallet Address")}</Label>
@@ -1499,44 +1524,15 @@ export default function WalletDashboard() {
               </div>
               
               <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-border/50 min-w-[160px]">
-                <div className="w-32 h-32 bg-white p-2 rounded-lg flex items-center justify-center relative" data-testid="wallet-qr-code">
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                    <rect x="10" y="10" width="25" height="25" fill="black" />
-                    <rect x="65" y="10" width="25" height="25" fill="black" />
-                    <rect x="10" y="65" width="25" height="25" fill="black" />
-                    <rect x="15" y="15" width="15" height="15" fill="white" />
-                    <rect x="70" y="15" width="15" height="15" fill="white" />
-                    <rect x="15" y="70" width="15" height="15" fill="white" />
-                    <rect x="18" y="18" width="9" height="9" fill="black" />
-                    <rect x="73" y="18" width="9" height="9" fill="black" />
-                    <rect x="18" y="73" width="9" height="9" fill="black" />
-                    <rect x="40" y="10" width="5" height="5" fill="black" />
-                    <rect x="50" y="10" width="5" height="5" fill="black" />
-                    <rect x="40" y="20" width="5" height="5" fill="black" />
-                    <rect x="45" y="25" width="5" height="5" fill="black" />
-                    <rect x="55" y="20" width="5" height="5" fill="black" />
-                    <rect x="10" y="40" width="5" height="5" fill="black" />
-                    <rect x="20" y="45" width="5" height="5" fill="black" />
-                    <rect x="25" y="40" width="5" height="5" fill="black" />
-                    <rect x="10" y="55" width="5" height="5" fill="black" />
-                    <rect x="40" y="40" width="20" height="20" fill="black" />
-                    <rect x="45" y="45" width="10" height="10" fill="white" />
-                    <rect x="48" y="48" width="4" height="4" fill="black" />
-                    <rect x="65" y="40" width="5" height="5" fill="black" />
-                    <rect x="75" y="45" width="5" height="5" fill="black" />
-                    <rect x="85" y="40" width="5" height="5" fill="black" />
-                    <rect x="70" y="55" width="5" height="5" fill="black" />
-                    <rect x="80" y="50" width="5" height="5" fill="black" />
-                    <rect x="40" y="65" width="5" height="5" fill="black" />
-                    <rect x="50" y="70" width="5" height="5" fill="black" />
-                    <rect x="55" y="65" width="5" height="5" fill="black" />
-                    <rect x="45" y="80" width="5" height="5" fill="black" />
-                    <rect x="65" y="65" width="25" height="25" fill="black" />
-                    <rect x="70" y="70" width="15" height="15" fill="white" />
-                    <rect x="73" y="73" width="9" height="9" fill="black" />
-                    <rect x="85" y="85" width="5" height="5" fill="black" />
-                  </svg>
-                </div>
+                <QRCodeSVG 
+                  value={selectedWallet || "tburn:no-wallet"}
+                  size={120}
+                  level="H"
+                  includeMargin={true}
+                  bgColor="#FFFFFF"
+                  fgColor="#000000"
+                  data-testid="wallet-qr-code"
+                />
                 <p className="text-[10px] text-muted-foreground mt-2 text-center">{t("walletDashboard.scanToReceive", "Scan to receive TBURN")}</p>
               </div>
             </div>

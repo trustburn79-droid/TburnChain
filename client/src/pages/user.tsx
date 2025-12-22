@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslation } from "react-i18next";
+import { QRCodeSVG } from "qrcode.react";
 import { useTheme } from "@/components/theme-provider";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
@@ -1772,6 +1773,22 @@ function WalletSection({
               <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-3 flex items-center gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500" />
                 <span className="text-sm font-medium text-green-500">{t('userPage.wallet.walletCreatedSuccess', '지갑이 성공적으로 생성되었습니다!')}</span>
+              </div>
+
+              {/* QR Code for wallet address */}
+              <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-white border border-border/50">
+                <QRCodeSVG 
+                  value={createdWallet.address}
+                  size={160}
+                  level="H"
+                  includeMargin={true}
+                  bgColor="#FFFFFF"
+                  fgColor="#000000"
+                  data-testid="wallet-address-qr"
+                />
+                <p className="text-xs text-muted-foreground text-center">
+                  {t('userPage.wallet.scanToReceive', '이 QR 코드를 스캔하여 TBURN 토큰을 받으세요')}
+                </p>
               </div>
 
               <div className="space-y-3">
