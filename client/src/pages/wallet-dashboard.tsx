@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { QRCodeSVG } from "qrcode.react";
+import { QRCodeDisplay } from "@/components/qr-code";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletRequiredBanner } from "@/components/require-wallet";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -693,13 +693,9 @@ function ReceiveDialog({
         <div className="space-y-6 py-4">
           <div className="flex justify-center">
             <div className="p-4 bg-white rounded-xl border border-border/50">
-              <QRCodeSVG 
+              <QRCodeDisplay 
                 value={walletAddress}
                 size={180}
-                level="H"
-                includeMargin={true}
-                bgColor="#FFFFFF"
-                fgColor="#000000"
                 data-testid="qr-code"
               />
             </div>
@@ -1152,13 +1148,9 @@ function CreateWalletDialog({
 
             {/* QR Code for new wallet address */}
             <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-white border border-border/50">
-              <QRCodeSVG 
+              <QRCodeDisplay 
                 value={createdWallet.address}
                 size={140}
-                level="H"
-                includeMargin={true}
-                bgColor="#FFFFFF"
-                fgColor="#000000"
                 data-testid="new-wallet-qr-code"
               />
               <p className="text-xs text-muted-foreground text-center">
@@ -1524,13 +1516,9 @@ export default function WalletDashboard() {
               </div>
               
               <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl border border-border/50 min-w-[160px]">
-                <QRCodeSVG 
+                <QRCodeDisplay 
                   value={selectedWallet || "tburn:no-wallet"}
                   size={120}
-                  level="H"
-                  includeMargin={true}
-                  bgColor="#FFFFFF"
-                  fgColor="#000000"
                   data-testid="wallet-qr-code"
                 />
                 <p className="text-[10px] text-muted-foreground mt-2 text-center">{t("walletDashboard.scanToReceive", "Scan to receive TBURN")}</p>

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslation } from "react-i18next";
-import { QRCodeSVG } from "qrcode.react";
+import { QRCodeDisplay } from "@/components/qr-code";
 import { useTheme } from "@/components/theme-provider";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
@@ -1777,13 +1777,9 @@ function WalletSection({
 
               {/* QR Code for wallet address */}
               <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-white border border-border/50">
-                <QRCodeSVG 
+                <QRCodeDisplay 
                   value={createdWallet.address}
                   size={160}
-                  level="H"
-                  includeMargin={true}
-                  bgColor="#FFFFFF"
-                  fgColor="#000000"
                   data-testid="wallet-address-qr"
                 />
                 <p className="text-xs text-muted-foreground text-center">
