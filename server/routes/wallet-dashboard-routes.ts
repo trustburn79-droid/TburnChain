@@ -588,6 +588,42 @@ export function registerWalletDashboardRoutes(
         return res.status(401).json({ error: "Session authentication required to create wallet" });
       }
 
+      // Tier-based wallet creation limits
+      const tierLimits: Record<string, number> = {
+        'basic_user': 3,
+        'delegated_staker': 10,
+        'validator': 30,
+        'enterprise_validator': 30,
+        'enterprise_operator': 30,
+        'council_member': 30,
+      };
+
+      // Get member tier from database
+      const memberInfo = await db.select({ memberTier: members.memberTier })
+        .from(members)
+        .where(eq(members.id, sessionMemberId))
+        .limit(1);
+      
+      const memberTier = memberInfo.length > 0 ? memberInfo[0].memberTier : 'basic_user';
+      const maxWallets = tierLimits[memberTier] || 3;
+
+      // Count existing wallets owned by this member
+      const existingWalletCount = await db.select({ count: sql<number>`count(*)` })
+        .from(walletBalances)
+        .where(eq(walletBalances.ownerId, sessionMemberId));
+      
+      const currentWalletCount = Number(existingWalletCount[0]?.count || 0);
+
+      if (currentWalletCount >= maxWallets) {
+        return res.status(403).json({ 
+          error: "Wallet limit reached",
+          message: `Your tier (${memberTier}) allows maximum ${maxWallets} wallets. You currently have ${currentWalletCount}.`,
+          currentCount: currentWalletCount,
+          maxAllowed: maxWallets,
+          tier: memberTier,
+        });
+      }
+
       let retries = 0;
       const maxRetries = 3;
       let memberId: string | null = null;

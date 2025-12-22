@@ -409,24 +409,22 @@ export default function Signup() {
       <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <Link href="/">
-              <a className="flex items-center gap-2 group">
-                <div className="relative w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Flame className="w-4 h-4 text-black" />
-                  <div className="absolute inset-0 bg-white/20 rounded blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-                <span className="font-bold text-xl text-white tracking-tight">
-                  TBurn <span className="text-cyan-400">Chain</span>
-                </span>
-              </a>
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="relative w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Flame className="w-4 h-4 text-black" />
+                <div className="absolute inset-0 bg-white/20 rounded blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
+              <span className="font-bold text-xl text-white tracking-tight">
+                TBurn <span className="text-cyan-400">Chain</span>
+              </span>
             </Link>
             
             <div className="hidden md:flex items-center gap-6">
-              <Link href="/developers">
-                <a className="text-sm font-medium text-gray-400 hover:text-white transition">{t("publicPages.signup.nav.developers")}</a>
+              <Link href="/developers" className="text-sm font-medium text-gray-400 hover:text-white transition">
+                {t("publicPages.signup.nav.developers")}
               </Link>
-              <Link href="/network">
-                <a className="text-sm font-medium text-gray-400 hover:text-white transition">{t("publicPages.signup.nav.network")}</a>
+              <Link href="/network" className="text-sm font-medium text-gray-400 hover:text-white transition">
+                {t("publicPages.signup.nav.network")}
               </Link>
             </div>
           </div>
@@ -778,8 +776,8 @@ export default function Signup() {
             <div className="mt-6 text-center">
               <p className="text-xs text-gray-500">
                 {t("publicPages.signup.alreadyHaveNode")}{" "}
-                <Link href="/app">
-                  <a className="text-purple-400 hover:text-white transition ml-1 font-bold">{t("publicPages.signup.accessGateway")}</a>
+                <Link href="/app" className="text-purple-400 hover:text-white transition ml-1 font-bold">
+                  {t("publicPages.signup.accessGateway")}
                 </Link>
               </p>
             </div>
