@@ -251,13 +251,10 @@ const formatBurnAmount = (val: string | undefined): string => {
   if (!val) return "0";
   const num = parseFloat(val);
   if (isNaN(num)) return "0";
-  if (num >= 1e21) return `${(num / 1e21).toFixed(2)}Z`;
-  if (num >= 1e18) return `${(num / 1e18).toFixed(2)}E`;
-  if (num >= 1e15) return `${(num / 1e15).toFixed(2)}P`;
-  if (num >= 1e12) return `${(num / 1e12).toFixed(2)}T`;
-  if (num >= 1e9) return `${(num / 1e9).toFixed(2)}B`;
-  if (num >= 1e6) return `${(num / 1e6).toFixed(2)}M`;
-  if (num >= 1e3) return `${(num / 1e3).toFixed(2)}K`;
+  // Production format for real token amounts
+  if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(2)}B`;
+  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(2)}M`;
+  if (num >= 1_000) return `${(num / 1_000).toFixed(2)}K`;
   return num.toFixed(2);
 };
 
@@ -1453,10 +1450,10 @@ function WalletSection({
   const networkFee = 0.0001;
   const totalDeduction = numAmount + burnFee + networkFee;
   
-  // Demo balance for display when not connected
-  const displayBalance = isConnected ? (balance || "0") : "12,450.5678";
-  const displayAddress = isConnected ? address : "tb1demo...예시주소";
-  const hasInsufficientBalance = isConnected && parseFloat(balance || "0") < totalDeduction;
+  // Production balance display - show real wallet balance
+  const displayBalance = balance || "0.0000";
+  const displayAddress = address || "";
+  const hasInsufficientBalance = parseFloat(balance || "0") < totalDeduction;
 
   const { t } = useTranslation();
   
@@ -1632,8 +1629,7 @@ function WalletSection({
                           <div className="flex justify-between">
                             <FormLabel className="text-slate-700 dark:text-gray-300">{t('common.amount')}</FormLabel>
                             <span className="text-xs text-slate-500 dark:text-gray-400">
-                              {t('common.balance')}: {isConnected ? parseFloat(balance || "0").toFixed(4) : displayBalance} TB
-                              {!isConnected && <span className="ml-1 text-orange-400">(데모)</span>}
+                              {t('common.balance')}: {parseFloat(balance || "0").toFixed(4)} TB
                             </span>
                           </div>
                           <FormControl>
@@ -2011,21 +2007,16 @@ function WalletSection({
 
         <div className="space-y-4">
           <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-            {!isConnected && (
-              <div className="absolute top-2 right-2 px-2 py-1 bg-orange-500/90 rounded-full text-xs font-bold">
-                데모
-              </div>
-            )}
             <div className="flex items-center gap-3 mb-4">
               <Wallet className="w-8 h-8" />
               <div>
                 <p className="text-sm text-white/70">{t('common.balance')}</p>
                 <p className="text-3xl font-bold font-mono">
-                  {isConnected ? parseFloat(balance || "0").toFixed(4) : displayBalance}
+                  {parseFloat(balance || "0").toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
                 </p>
               </div>
             </div>
-            <p className="text-xs text-white/60 font-mono truncate">{displayAddress}</p>
+            <p className="text-xs text-white/60 font-mono truncate">{displayAddress || t('userPage.wallet.noWalletConnected', '지갑 미연결')}</p>
             {!isConnected && (
               <Button 
                 onClick={onConnectWallet} 
