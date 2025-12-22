@@ -76,7 +76,7 @@ app.use(
       secure: isProduction,
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      sameSite: isProduction ? "strict" : "lax",
+      sameSite: "lax", // Use lax for both environments to allow redirects
     },
   })
 );
