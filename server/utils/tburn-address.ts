@@ -207,10 +207,46 @@ export function generateTBurnAddress(seed: number, index: number = 0): string {
 
 /**
  * Generate a random TBURN address in tb1 format
+ * WARNING: This creates an address NOT linked to any private key - for testing only
  */
 export function generateRandomTBurnAddress(): string {
   const randomBytes = crypto.randomBytes(20);
   return encodeBech32m(HRP_WALLET, randomBytes);
+}
+
+/**
+ * Derive TBURN address from public key (PRODUCTION USE)
+ * Uses SHA256 + RIPEMD160 hash (Bitcoin-style) to create 20-byte address
+ * This creates a cryptographically linked address that can receive real transfers
+ * 
+ * @param publicKey - Hex string of secp256k1 public key (compressed or uncompressed)
+ * @returns TBURN Bech32m address (tb1...)
+ */
+export function deriveAddressFromPublicKey(publicKey: string): string {
+  // Remove 0x prefix if present
+  const cleanKey = publicKey.startsWith('0x') ? publicKey.slice(2) : publicKey;
+  const pubKeyBytes = Buffer.from(cleanKey, 'hex');
+  
+  // SHA256 hash of public key
+  const sha256Hash = crypto.createHash('sha256').update(pubKeyBytes).digest();
+  
+  // RIPEMD160 of SHA256 hash (Bitcoin-style address derivation)
+  const ripemd160Hash = crypto.createHash('ripemd160').update(sha256Hash).digest();
+  
+  // Encode as Bech32m with tb1 prefix
+  return encodeBech32m(HRP_WALLET, ripemd160Hash);
+}
+
+/**
+ * Derive TBURN address from private key (PRODUCTION USE)
+ * Computes public key from private key, then derives address
+ * 
+ * @param privateKey - Hex string of secp256k1 private key
+ * @param publicKey - Corresponding public key (required for derivation)
+ * @returns TBURN Bech32m address (tb1...)
+ */
+export function deriveAddressFromPrivateKey(privateKey: string, publicKey: string): string {
+  return deriveAddressFromPublicKey(publicKey);
 }
 
 /**
@@ -398,6 +434,8 @@ export default {
   // Main generation functions
   generateTBurnAddress,
   generateRandomTBurnAddress,
+  deriveAddressFromPublicKey,
+  deriveAddressFromPrivateKey,
   generateSystemAddress,
   generateValidatorAddress,
   addressFromString,

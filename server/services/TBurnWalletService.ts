@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { randomBytes, createHash } from "crypto";
 import { 
-  generateRandomTBurnAddress, 
+  deriveAddressFromPublicKey,
   generateTBurnAddress,
   isValidTBurnAddress,
   isTb1Format
@@ -40,30 +40,42 @@ export class TBurnWalletService {
     return TBurnWalletService.instance;
   }
 
+  /**
+   * Generate a PRODUCTION wallet with cryptographically linked address
+   * Address is derived from public key using SHA256 + RIPEMD160
+   * This ensures the private key can sign transactions for this address
+   */
   generateWallet(): TBurnWallet {
-    // Generate ethers wallet for cryptographic keys
+    // Generate secp256k1 key pair
     const wallet = ethers.Wallet.createRandom();
-    // Generate proper TBURN Bech32m address (tb1...)
-    const tburnAddress = generateRandomTBurnAddress();
+    const publicKey = wallet.signingKey.publicKey;
+    // Derive TBURN address from public key (cryptographically linked)
+    const tburnAddress = deriveAddressFromPublicKey(publicKey);
     
     return {
       address: tburnAddress,
-      publicKey: wallet.signingKey.publicKey,
+      publicKey: publicKey,
       chainId: TBURN_CHAIN_ID,
       network: TBURN_NETWORK_NAME,
       createdAt: new Date(),
     };
   }
 
+  /**
+   * Generate a PRODUCTION wallet with private key for external transfers
+   * Address is cryptographically derived from the public key
+   * Private key can sign real transactions for this address
+   */
   generateWalletWithPrivateKey(): TBurnWallet & { privateKey: string } {
-    // Generate ethers wallet for cryptographic key pair
+    // Generate secp256k1 key pair
     const wallet = ethers.Wallet.createRandom();
-    // Generate proper TBURN Bech32m address (tb1...)
-    const tburnAddress = generateRandomTBurnAddress();
+    const publicKey = wallet.signingKey.publicKey;
+    // Derive TBURN address from public key (cryptographically linked)
+    const tburnAddress = deriveAddressFromPublicKey(publicKey);
     
     return {
       address: tburnAddress,
-      publicKey: wallet.signingKey.publicKey,
+      publicKey: publicKey,
       privateKey: wallet.privateKey,
       chainId: TBURN_CHAIN_ID,
       network: TBURN_NETWORK_NAME,
@@ -71,21 +83,20 @@ export class TBurnWalletService {
     };
   }
 
-  // Helper to generate tb1 address from bytes using Bech32m
-  private generateTb1FromBytes(data: Buffer): string {
-    return generateRandomTBurnAddress();
-  }
-
+  /**
+   * Generate a deterministic PRODUCTION wallet from seed
+   * Address is cryptographically derived from the public key
+   */
   generateDeterministicWallet(seed: string): TBurnWallet {
     const hash = createHash("sha256").update(seed).digest("hex");
     const wallet = new ethers.Wallet(`0x${hash}`);
-    // Generate deterministic TBURN address
-    const seedNum = parseInt(hash.slice(0, 8), 16);
-    const tburnAddress = generateTBurnAddress(seedNum);
+    const publicKey = wallet.signingKey.publicKey;
+    // Derive TBURN address from public key (cryptographically linked)
+    const tburnAddress = deriveAddressFromPublicKey(publicKey);
     
     return {
       address: tburnAddress,
-      publicKey: wallet.signingKey.publicKey,
+      publicKey: publicKey,
       chainId: TBURN_CHAIN_ID,
       network: TBURN_NETWORK_NAME,
       createdAt: new Date(),
