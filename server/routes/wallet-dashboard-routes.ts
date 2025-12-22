@@ -95,6 +95,31 @@ export function registerWalletDashboardRoutes(
     }
   });
 
+  // Get all wallets created in this session (public endpoint for user page)
+  app.get("/api/wallet/my-wallets", async (req: Request, res: Response) => {
+    try {
+      // Get all tb1 format wallets (newly created wallets use Bech32m format)
+      const wallets = await db.select({
+        address: walletBalances.address,
+        balance: walletBalances.balance,
+        firstSeenAt: walletBalances.firstSeenAt,
+      })
+      .from(walletBalances)
+      .where(sql`${walletBalances.address} LIKE 'tb1%'`)
+      .orderBy(desc(walletBalances.firstSeenAt))
+      .limit(50);
+
+      res.json(wallets.map(w => ({
+        address: w.address,
+        balance: w.balance ? (parseFloat(w.balance) / 1e18).toFixed(4) : "0",
+        createdAt: w.firstSeenAt?.toISOString() || new Date().toISOString(),
+      })));
+    } catch (error) {
+      console.error("[WalletDashboard] My wallets error:", error);
+      res.status(500).json({ error: "Failed to fetch wallets" });
+    }
+  });
+
   app.get("/api/wallet/performance", async (req: Request, res: Response) => {
     try {
       const address = (req.query.address as string) || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";

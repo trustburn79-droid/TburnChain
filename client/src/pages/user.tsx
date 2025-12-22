@@ -1359,6 +1359,18 @@ function WalletSection({
   const [createdWallet, setCreatedWallet] = useState<{ address: string; privateKey: string } | null>(null);
   const [acknowledged, setAcknowledged] = useState(false);
   const [privateKeyCopied, setPrivateKeyCopied] = useState(false);
+  
+  // Fetch user's created wallets
+  const { data: myWallets, isLoading: walletsLoading, refetch: refetchWallets } = useQuery<{ address: string; balance: string; createdAt: string }[]>({
+    queryKey: ["/api/wallet/my-wallets"],
+    queryFn: async () => {
+      const response = await fetch("/api/wallet/my-wallets", { credentials: 'include' });
+      if (!response.ok) return [];
+      return response.json();
+    },
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
   const [addressCopied, setAddressCopied] = useState(false);
   
   const form = useForm<TransferFormValues>({
@@ -1517,8 +1529,9 @@ function WalletSection({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-6">
         <div className="lg:col-span-2">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-2 mb-3 sm:mb-4">
+            <TabsList className="grid w-full grid-cols-3 mb-3 sm:mb-4">
               <TabsTrigger value="transfer" className="text-sm">{t('userPage.transfer')}</TabsTrigger>
+              <TabsTrigger value="mywallets" className="text-sm">{t('userPage.wallet.myWallets', '내 지갑')}</TabsTrigger>
               <TabsTrigger value="history" className="text-sm">{t('userPage.recentActivity')}</TabsTrigger>
             </TabsList>
 
@@ -1620,6 +1633,91 @@ function WalletSection({
                     </Button>
                   </form>
                 </Form>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="mywallets">
+              <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-bold text-lg text-slate-900 dark:text-white">
+                    {t('userPage.wallet.myWallets', '내 지갑')}
+                  </h3>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => refetchWallets()}
+                    data-testid="button-refresh-wallets"
+                  >
+                    <RefreshCw className="w-4 h-4 mr-1" /> {t('common.refresh', '새로고침')}
+                  </Button>
+                </div>
+                
+                {walletsLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
+                    <span className="ml-2 text-slate-500">{t('common.loading', '로딩 중...')}</span>
+                  </div>
+                ) : myWallets && myWallets.length > 0 ? (
+                  <div className="space-y-3">
+                    {myWallets.map((wallet, index) => (
+                      <div
+                        key={wallet.address}
+                        className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl"
+                        data-testid={`wallet-item-${index}`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 bg-blue-100 dark:bg-blue-500/20 text-blue-500 rounded-lg">
+                            <Wallet className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <p className="font-mono text-sm text-slate-900 dark:text-white">
+                              {wallet.address.slice(0, 12)}...{wallet.address.slice(-8)}
+                            </p>
+                            <p className="text-xs text-slate-500 dark:text-gray-400">
+                              {new Date(wallet.createdAt).toLocaleDateString('ko-KR')}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="text-right mr-2">
+                            <p className="font-mono font-bold text-slate-900 dark:text-white">
+                              {parseFloat(wallet.balance || "0").toFixed(4)} TB
+                            </p>
+                          </div>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => {
+                              navigator.clipboard.writeText(wallet.address);
+                              toast({
+                                title: t('userPage.wallet.addressCopied', '주소 복사됨'),
+                                description: wallet.address.slice(0, 20) + '...',
+                              });
+                            }}
+                            data-testid={`button-copy-address-${index}`}
+                          >
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <Wallet className="w-12 h-12 mx-auto text-slate-300 dark:text-gray-600 mb-3" />
+                    <p className="text-slate-500 dark:text-gray-400 mb-4">
+                      {t('userPage.wallet.noWallets', '생성된 지갑이 없습니다')}
+                    </p>
+                    <Button
+                      variant="outline"
+                      onClick={() => setCreateWalletOpen(true)}
+                      data-testid="button-create-first-wallet"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      {t('userPage.wallet.createNewWallet', '새 지갑 생성')}
+                    </Button>
+                  </div>
+                )}
               </div>
             </TabsContent>
 
