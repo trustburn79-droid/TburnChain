@@ -448,12 +448,11 @@ function RootRouter() {
   }
   
   if (location === "/tree") {
+    // Tree navigation is public - accessible to all users without login
     return (
-      <AuthGuard>
-        <Suspense fallback={<PageLoading />}>
-          <TreePage />
-        </Suspense>
-      </AuthGuard>
+      <Suspense fallback={<PageLoading />}>
+        <TreePage />
+      </Suspense>
     );
   }
   
