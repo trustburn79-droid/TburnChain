@@ -1190,8 +1190,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     'Alpha-6', 'Beta-6', 'Gamma-6', 'Delta-6', 'Epsilon-6', 'Zeta-6', 'Eta-6', 'Theta-6'
   ];
 
-  // Hardware requirement profiles (tpsCapacity calculated dynamically based on load)
-  // TPS = maxShards × baseTpsPerShard × loadFactor (35-70%)
+  // Hardware requirement profiles (no fixed TPS - calculated dynamically)
   private readonly HARDWARE_PROFILES = {
     development: { cores: 4, ramGB: 16, maxShards: 5 },
     staging: { cores: 16, ramGB: 64, maxShards: 32 },
@@ -1199,16 +1198,415 @@ export class TBurnEnterpriseNode extends EventEmitter {
     enterprise: { cores: 64, ramGB: 512, maxShards: 128 }
   };
   
-  // Dynamic TPS calculation for hardware profiles
-  private getProfileTpsRange(maxShards: number): { min: number; max: number; avg: number } {
-    const baseTpsPerShard = 6250; // ~625 tx/block × 10 blocks/sec
-    const minLoadFactor = 0.35;
-    const maxLoadFactor = 0.70;
-    const avgLoadFactor = 0.525;
+  // ============================================
+  // OPTIMAL SHARD DISTRIBUTION ALGORITHM
+  // Each shard: 10,000 TPS baseline capacity
+  // Shards replicate optimal performance and distribute load algorithmically
+  // ============================================
+  
+  // Core Constants
+  private readonly SHARD_BASELINE_TPS = 10000;        // Each shard's optimal TPS
+  private readonly ACTIVATION_THRESHOLD = 0.75;       // Activate standby when active shards reach 75%
+  private readonly DEACTIVATION_THRESHOLD = 0.45;     // Deactivate shard when load drops below 45%
+  private readonly REDISTRIBUTION_THRESHOLD = 0.80;   // Redistribute load at 80%
+  private readonly CROSS_SHARD_PENALTY_BASE = 0.005;  // 0.5% penalty per 1k cross-shard tx
+  private readonly COORDINATION_OVERHEAD_ALPHA = 0.001; // Cross-shard message overhead coefficient
+  private readonly COORDINATION_OVERHEAD_BETA = 0.0001; // Latency variance overhead coefficient
+  
+  // Shard State Management
+  private shardStates: Map<number, {
+    id: number;
+    status: 'active' | 'standby' | 'activating' | 'deactivating';
+    currentTps: number;
+    utilization: number;          // 0-1 scale
+    effectiveTps: number;         // Actual TPS after efficiency factors
+    crossShardMsgRate: number;    // Cross-shard messages per second
+    activatedAt: number | null;
+    deactivatedAt: number | null;
+  }> = new Map();
+  
+  private activeShardCount = 5;   // Currently active shards
+  private standbyShardCount = 0;  // Shards in standby mode
+  private lastScaleEvent = 0;     // Timestamp of last scale event
+  private scaleEventCooldown = 30000; // 30 second cooldown between scale events
+  
+  // Get shard efficiency based on utilization and cross-shard overhead
+  private calculateShardEfficiency(utilization: number, crossShardMsgRate: number): number {
+    // Target utilization is 70% for optimal efficiency
+    const targetUtilization = 0.70;
+    const utilizationFactor = Math.min(1, utilization / targetUtilization);
+    
+    // Cross-shard penalty increases with message rate (0.5% per 1k messages beyond baseline)
+    const baselineCrossShardRate = 1000;
+    const excessMessages = Math.max(0, crossShardMsgRate - baselineCrossShardRate);
+    const crossShardPenalty = (excessMessages / 1000) * this.CROSS_SHARD_PENALTY_BASE;
+    
+    // Efficiency = utilization factor × (1 - penalty), capped at 1.0
+    return Math.min(1, utilizationFactor * (1 - crossShardPenalty));
+  }
+  
+  // Calculate effective TPS for a single shard
+  private calculateShardEffectiveTps(shardId: number): number {
+    const state = this.shardStates.get(shardId);
+    if (!state || state.status !== 'active') return 0;
+    
+    const efficiency = this.calculateShardEfficiency(state.utilization, state.crossShardMsgRate);
+    return Math.round(this.SHARD_BASELINE_TPS * efficiency);
+  }
+  
+  // Recompute effective TPS for all active shards (called after any scaling/redistribution)
+  private recomputeAllEffectiveTps(): void {
+    for (const state of this.shardStates.values()) {
+      if (state.status === 'active') {
+        state.effectiveTps = this.calculateShardEffectiveTps(state.id);
+      } else {
+        state.effectiveTps = 0;
+      }
+    }
+  }
+  
+  // Calculate total network TPS with coordination overhead
+  public calculateNetworkTps(): { 
+    currentTps: number; 
+    theoreticalMax: number; 
+    activeCapacity: number;
+    standbyCapacity: number;
+    utilizationPercent: number;
+    coordinationOverhead: number;
+  } {
+    // Always recompute all effective TPS values first for accuracy
+    this.recomputeAllEffectiveTps();
+    
+    let totalEffectiveTps = 0;
+    let totalCrossShardMsgs = 0;
+    let activeCount = 0;
+    
+    // Sum effective TPS from all active shards (now using freshly computed values)
+    for (const state of this.shardStates.values()) {
+      if (state.status === 'active') {
+        totalEffectiveTps += state.effectiveTps;
+        totalCrossShardMsgs += state.crossShardMsgRate;
+        activeCount++;
+      }
+    }
+    
+    // Coordination overhead = α × crossShardMsgs + β × latencyVariance
+    const avgLatencyVariance = this.calculateLatencyVariance();
+    const coordinationOverhead = Math.round(
+      this.COORDINATION_OVERHEAD_ALPHA * totalCrossShardMsgs +
+      this.COORDINATION_OVERHEAD_BETA * avgLatencyVariance * activeCount
+    );
+    
+    const currentTps = Math.max(0, totalEffectiveTps - coordinationOverhead);
+    const theoreticalMax = this.shardConfig.maxShards * this.SHARD_BASELINE_TPS;
+    const activeCapacity = activeCount * this.SHARD_BASELINE_TPS;
+    const standbyCapacity = (this.shardConfig.maxShards - activeCount) * this.SHARD_BASELINE_TPS;
+    const utilizationPercent = activeCapacity > 0 ? Math.round((currentTps / activeCapacity) * 100) : 0;
+    
     return {
-      min: Math.round(maxShards * baseTpsPerShard * minLoadFactor),
-      max: Math.round(maxShards * baseTpsPerShard * maxLoadFactor),
-      avg: Math.round(maxShards * baseTpsPerShard * avgLoadFactor)
+      currentTps,
+      theoreticalMax,
+      activeCapacity,
+      standbyCapacity,
+      utilizationPercent,
+      coordinationOverhead
+    };
+  }
+  
+  // Calculate latency variance for overhead calculation
+  private calculateLatencyVariance(): number {
+    if (this.networkLatencyHistory.length < 2) return 0;
+    const avg = this.networkLatencyHistory.reduce((a, b) => a + b, 0) / this.networkLatencyHistory.length;
+    const variance = this.networkLatencyHistory.reduce((sum, val) => sum + Math.pow(val - avg, 2), 0) / this.networkLatencyHistory.length;
+    return Math.sqrt(variance);
+  }
+  
+  // Initialize shard states based on current configuration
+  private initializeShardStates(): void {
+    const maxShards = this.shardConfig.maxShards;
+    const activeShards = this.shardConfig.currentShardCount;
+    
+    this.shardStates.clear();
+    
+    for (let i = 0; i < maxShards; i++) {
+      const isActive = i < activeShards;
+      // Realistic production load: 60-75% utilization for active shards
+      // This allows natural scaling when load increases
+      const utilization = isActive ? (0.60 + Math.random() * 0.15) : 0;
+      
+      this.shardStates.set(i, {
+        id: i,
+        status: isActive ? 'active' : 'standby',
+        currentTps: isActive ? Math.round(this.SHARD_BASELINE_TPS * utilization) : 0,
+        utilization,
+        effectiveTps: isActive ? this.SHARD_BASELINE_TPS : 0,
+        crossShardMsgRate: isActive ? Math.floor(500 + Math.random() * 1000) : 0,
+        activatedAt: isActive ? Date.now() : null,
+        deactivatedAt: isActive ? null : Date.now()
+      });
+    }
+    
+    this.activeShardCount = activeShards;
+    this.standbyShardCount = maxShards - activeShards;
+    
+    console.log(`[Shard Distribution] Initialized: ${activeShards} active, ${this.standbyShardCount} standby shards`);
+  }
+  
+  // Simulate load changes for testing (called periodically in metrics collection)
+  public simulateLoadVariation(): void {
+    for (const state of this.shardStates.values()) {
+      if (state.status === 'active') {
+        // Add small random variation to utilization (+/- 5%)
+        const variation = (Math.random() - 0.5) * 0.10;
+        state.utilization = Math.max(0.30, Math.min(0.95, state.utilization + variation));
+        state.currentTps = Math.round(this.SHARD_BASELINE_TPS * state.utilization);
+        state.crossShardMsgRate = Math.floor(500 + Math.random() * 1500);
+      }
+    }
+  }
+  
+  // Redistribute load among active shards when any exceeds REDISTRIBUTION_THRESHOLD
+  private redistributeLoad(): { redistributed: boolean; details: string } {
+    const overloadedShards: number[] = [];
+    const underutilizedShards: number[] = [];
+    
+    for (const state of this.shardStates.values()) {
+      if (state.status === 'active') {
+        if (state.utilization > this.REDISTRIBUTION_THRESHOLD) {
+          overloadedShards.push(state.id);
+        } else if (state.utilization < 0.50) {
+          underutilizedShards.push(state.id);
+        }
+      }
+    }
+    
+    if (overloadedShards.length === 0 || underutilizedShards.length === 0) {
+      return { redistributed: false, details: 'No redistribution needed' };
+    }
+    
+    // Move load from overloaded to underutilized shards
+    let redistributedCount = 0;
+    for (const overloadedId of overloadedShards) {
+      const overloaded = this.shardStates.get(overloadedId);
+      if (!overloaded) continue;
+      
+      for (const underutilizedId of underutilizedShards) {
+        const underutilized = this.shardStates.get(underutilizedId);
+        if (!underutilized) continue;
+        
+        // Calculate transfer amount (move 10% of excess load)
+        const excessLoad = overloaded.utilization - 0.70;
+        const availableCapacity = 0.70 - underutilized.utilization;
+        const transferAmount = Math.min(excessLoad * 0.5, availableCapacity * 0.5);
+        
+        if (transferAmount > 0.05) {
+          overloaded.utilization -= transferAmount;
+          underutilized.utilization += transferAmount;
+          // Recalculate currentTps and effectiveTps after redistribution
+          overloaded.currentTps = Math.round(this.SHARD_BASELINE_TPS * overloaded.utilization);
+          underutilized.currentTps = Math.round(this.SHARD_BASELINE_TPS * underutilized.utilization);
+          overloaded.effectiveTps = this.calculateShardEffectiveTps(overloaded.id);
+          underutilized.effectiveTps = this.calculateShardEffectiveTps(underutilized.id);
+          redistributedCount++;
+        }
+      }
+    }
+    
+    if (redistributedCount > 0) {
+      console.log(`[Shard Distribution] Redistributed load across ${redistributedCount} shard pairs`);
+      return { redistributed: true, details: `Balanced ${redistributedCount} shard pairs` };
+    }
+    
+    return { redistributed: false, details: 'No significant redistribution possible' };
+  }
+  
+  // Check if scaling is needed and execute
+  public checkAndScaleShards(): { action: 'none' | 'scale_up' | 'scale_down' | 'redistribute'; details: string } {
+    const now = Date.now();
+    
+    // Respect cooldown
+    if (now - this.lastScaleEvent < this.scaleEventCooldown) {
+      return { action: 'none', details: 'Cooldown active' };
+    }
+    
+    // Calculate average utilization across active shards
+    let totalUtilization = 0;
+    let activeCount = 0;
+    let maxUtilization = 0;
+    
+    for (const state of this.shardStates.values()) {
+      if (state.status === 'active') {
+        totalUtilization += state.utilization;
+        activeCount++;
+        maxUtilization = Math.max(maxUtilization, state.utilization);
+      }
+    }
+    
+    const avgUtilization = activeCount > 0 ? totalUtilization / activeCount : 0;
+    
+    // First, try to redistribute if any shard exceeds REDISTRIBUTION_THRESHOLD
+    if (maxUtilization > this.REDISTRIBUTION_THRESHOLD) {
+      const redistResult = this.redistributeLoad();
+      if (redistResult.redistributed) {
+        return { action: 'redistribute', details: redistResult.details };
+      }
+    }
+    
+    // Scale up: Average utilization > 75% and standby shards available
+    if (avgUtilization > this.ACTIVATION_THRESHOLD && this.standbyShardCount > 0) {
+      const shardsToActivate = Math.min(
+        Math.max(1, Math.ceil((avgUtilization - 0.60) / 0.10)), // At least 1 shard
+        this.standbyShardCount,
+        4 // Max 4 shards at once
+      );
+      
+      if (shardsToActivate > 0) {
+        this.activateStandbyShards(shardsToActivate);
+        this.lastScaleEvent = now;
+        
+        return { 
+          action: 'scale_up', 
+          details: `Activated ${shardsToActivate} shards (avg utilization: ${(avgUtilization * 100).toFixed(1)}%)` 
+        };
+      }
+    }
+    
+    // Scale down: Average utilization < 45% and more than minimum shards active
+    // CRITICAL: Strict guard to never go below minShards
+    const availableToDeactivate = activeCount - this.shardConfig.minShards;
+    if (avgUtilization < this.DEACTIVATION_THRESHOLD && availableToDeactivate > 0) {
+      const shardsToDeactivate = Math.min(
+        Math.max(1, Math.ceil((0.50 - avgUtilization) / 0.10)), // At least 1 shard
+        availableToDeactivate, // Never exceed available count
+        2 // Max 2 shards at once for stability
+      );
+      
+      // Double-check: ensure we won't go below minShards
+      if (shardsToDeactivate > 0 && (this.activeShardCount - shardsToDeactivate) >= this.shardConfig.minShards) {
+        this.deactivateShards(shardsToDeactivate);
+        this.lastScaleEvent = now;
+        
+        return { 
+          action: 'scale_down', 
+          details: `Deactivated ${shardsToDeactivate} shards (avg utilization: ${(avgUtilization * 100).toFixed(1)}%)` 
+        };
+      }
+    }
+    
+    return { action: 'none', details: `Stable (avg utilization: ${(avgUtilization * 100).toFixed(1)}%)` };
+  }
+  
+  // Activate standby shards
+  private activateStandbyShards(count: number): void {
+    let activated = 0;
+    
+    for (const state of this.shardStates.values()) {
+      if (state.status === 'standby' && activated < count) {
+        state.status = 'active';
+        state.utilization = 0.40; // Start at 40% after activation
+        state.currentTps = Math.round(this.SHARD_BASELINE_TPS * 0.40);
+        state.effectiveTps = this.SHARD_BASELINE_TPS;
+        state.crossShardMsgRate = 500;
+        state.activatedAt = Date.now();
+        state.deactivatedAt = null;
+        activated++;
+      }
+    }
+    
+    this.activeShardCount += activated;
+    this.standbyShardCount -= activated;
+    
+    console.log(`[Shard Distribution] Activated ${activated} shards. Active: ${this.activeShardCount}, Standby: ${this.standbyShardCount}`);
+  }
+  
+  // Deactivate active shards (lowest utilization first)
+  private deactivateShards(count: number): void {
+    // Sort active shards by utilization (lowest first)
+    const activeShards = Array.from(this.shardStates.values())
+      .filter(s => s.status === 'active')
+      .sort((a, b) => a.utilization - b.utilization);
+    
+    let deactivated = 0;
+    
+    for (const shard of activeShards) {
+      if (deactivated >= count) break;
+      if (this.activeShardCount - deactivated <= this.shardConfig.minShards) break;
+      
+      const state = this.shardStates.get(shard.id);
+      if (state) {
+        state.status = 'standby';
+        state.utilization = 0;
+        state.currentTps = 0;
+        state.effectiveTps = 0;
+        state.crossShardMsgRate = 0;
+        state.deactivatedAt = Date.now();
+        deactivated++;
+      }
+    }
+    
+    this.activeShardCount -= deactivated;
+    this.standbyShardCount += deactivated;
+    
+    console.log(`[Shard Distribution] Deactivated ${deactivated} shards. Active: ${this.activeShardCount}, Standby: ${this.standbyShardCount}`);
+  }
+  
+  // Get shard distribution metrics for API
+  public getShardDistributionMetrics(): {
+    activeShards: number;
+    standbyShards: number;
+    totalCapacity: number;
+    currentTps: number;
+    theoreticalMax: number;
+    avgUtilization: number;
+    shardStates: Array<{
+      id: number;
+      name: string;
+      status: string;
+      utilization: number;
+      effectiveTps: number;
+      crossShardMsgRate: number;
+    }>;
+  } {
+    const networkTps = this.calculateNetworkTps();
+    
+    let totalUtilization = 0;
+    let activeCount = 0;
+    
+    const shardStatesList = Array.from(this.shardStates.values()).map(state => {
+      if (state.status === 'active') {
+        totalUtilization += state.utilization;
+        activeCount++;
+      }
+      return {
+        id: state.id,
+        name: this.SHARD_NAMES[state.id] || `Shard-${state.id}`,
+        status: state.status,
+        utilization: Math.round(state.utilization * 100),
+        effectiveTps: state.status === 'active' ? this.calculateShardEffectiveTps(state.id) : 0,
+        crossShardMsgRate: state.crossShardMsgRate
+      };
+    });
+    
+    return {
+      activeShards: this.activeShardCount,
+      standbyShards: this.standbyShardCount,
+      totalCapacity: this.shardConfig.maxShards * this.SHARD_BASELINE_TPS,
+      currentTps: networkTps.currentTps,
+      theoreticalMax: networkTps.theoreticalMax,
+      avgUtilization: activeCount > 0 ? Math.round((totalUtilization / activeCount) * 100) : 0,
+      shardStates: shardStatesList
+    };
+  }
+  
+  // Legacy method for backward compatibility
+  private getProfileTpsRange(maxShards: number): { min: number; max: number; avg: number } {
+    // Theoretical max: all shards at 100% efficiency
+    const theoreticalMax = maxShards * this.SHARD_BASELINE_TPS;
+    // Practical range: 60-90% efficiency accounting for real-world conditions
+    return {
+      min: Math.round(theoreticalMax * 0.60),
+      max: Math.round(theoreticalMax * 0.90),
+      avg: Math.round(theoreticalMax * 0.75)
     };
   }
 
@@ -1640,6 +2038,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
       // Initialize wallet cache and load user-created wallets from database
       this.initializeWalletCache();
       await this.loadWalletsFromDatabase();
+      
+      // Initialize shard states for optimal distribution algorithm
+      this.initializeShardStates();
 
       console.log(`[Enterprise Node] ✅ Node started successfully on ports RPC:${this.config.rpcPort}, WS:${this.config.wsPort}`);
       this.emit('started', this.getStatus());
@@ -3008,6 +3409,29 @@ export class TBurnEnterpriseNode extends EventEmitter {
       this.updateValidatorMetrics();
       this.updateCongestionLevel();
       
+      // OPTIMAL SHARD DISTRIBUTION: Simulate load variation and check scaling
+      this.simulateLoadVariation();
+      const scaleResult = this.checkAndScaleShards();
+      if (scaleResult.action !== 'none') {
+        console.log(`[Shard Distribution] ${scaleResult.action.toUpperCase()}: ${scaleResult.details}`);
+        // Broadcast scaling event to WebSocket clients
+        const scaleMessage = JSON.stringify({
+          type: 'shard_scaling_event',
+          data: {
+            action: scaleResult.action,
+            details: scaleResult.details,
+            activeShards: this.activeShardCount,
+            standbyShards: this.standbyShardCount,
+            timestamp: new Date().toISOString()
+          }
+        });
+        this.wsClients.forEach(client => {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(scaleMessage);
+          }
+        });
+      }
+      
       const metrics = this.collectMetrics();
       this.emit('metrics', metrics);
       
@@ -3823,15 +4247,31 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // DYNAMIC SHARD GENERATION & CONFIGURATION
   // ============================================
   
-  // Get current shard configuration
+  // Get current shard configuration with optimal distribution metrics
   getShardConfig() {
     const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
-    const totalTps = this.shardConfig.currentShardCount * this.shardConfig.tpsPerShard;
+    
+    // Use dynamic network TPS calculation instead of simple multiplication
+    const networkTps = this.calculateNetworkTps();
+    const distributionMetrics = this.getShardDistributionMetrics();
     
     return {
       ...this.shardConfig,
       totalValidators,
-      estimatedTps: totalTps,
+      // Dynamic TPS based on optimal distribution algorithm
+      estimatedTps: networkTps.currentTps,
+      theoreticalMaxTps: networkTps.theoreticalMax,
+      activeCapacity: networkTps.activeCapacity,
+      standbyCapacity: networkTps.standbyCapacity,
+      utilizationPercent: networkTps.utilizationPercent,
+      coordinationOverhead: networkTps.coordinationOverhead,
+      // Shard distribution state
+      shardDistribution: {
+        activeShards: distributionMetrics.activeShards,
+        standbyShards: distributionMetrics.standbyShards,
+        avgUtilization: distributionMetrics.avgUtilization,
+        baselineTpsPerShard: this.SHARD_BASELINE_TPS
+      },
       hardwareRequirements: this.calculateHardwareRequirements(this.shardConfig.currentShardCount),
       scalingAnalysis: this.getScalingAnalysis()
     };

@@ -754,6 +754,35 @@ export default function AdminShards() {
                     </div>
                   )}
 
+                  {/* Shard Distribution Algorithm Info */}
+                  <div className="p-4 rounded-lg border bg-blue-500/5" data-testid="shard-distribution-info">
+                    <p className="text-sm font-medium flex items-center gap-2 mb-3">
+                      <Activity className="h-4 w-4 text-blue-500" />
+                      {t("adminShards.optimalDistribution") || "Optimal Shard Distribution Algorithm"}
+                    </p>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                      <div className="text-center p-2 bg-background/50 rounded">
+                        <div className="text-xs text-muted-foreground">{t("adminShards.baselineTps") || "Baseline/Shard"}</div>
+                        <div className="font-bold text-lg">10,000 TPS</div>
+                      </div>
+                      <div className="text-center p-2 bg-background/50 rounded">
+                        <div className="text-xs text-muted-foreground">{t("adminShards.activeShards") || "Active"}</div>
+                        <div className="font-bold text-lg text-green-500">{shardConfig.shardDistribution?.activeShards || shardConfig.currentShardCount}</div>
+                      </div>
+                      <div className="text-center p-2 bg-background/50 rounded">
+                        <div className="text-xs text-muted-foreground">{t("adminShards.standbyShards") || "Standby"}</div>
+                        <div className="font-bold text-lg text-muted-foreground">{shardConfig.shardDistribution?.standbyShards || (shardConfig.maxShards - shardConfig.currentShardCount)}</div>
+                      </div>
+                      <div className="text-center p-2 bg-background/50 rounded">
+                        <div className="text-xs text-muted-foreground">{t("adminShards.avgUtilization") || "Avg Utilization"}</div>
+                        <div className="font-bold text-lg">{shardConfig.shardDistribution?.avgUtilization || shardConfig.utilizationPercent || 0}%</div>
+                      </div>
+                    </div>
+                    <div className="mt-3 text-xs text-muted-foreground">
+                      {t("adminShards.distributionNote") || "Shards activate at 75% load and deactivate at 45%. Each shard maintains 10,000 TPS baseline with load balancing."}
+                    </div>
+                  </div>
+
                   {/* Hardware Profile Reference Table */}
                   <div className="p-4 rounded-lg border" data-testid="hardware-profile-table">
                     <p className="text-sm font-medium flex items-center gap-2 mb-3">
@@ -768,7 +797,7 @@ export default function AdminShards() {
                             <th className="text-center py-2 px-3 font-medium">{t("adminShards.cpuCores") || "CPU Cores"}</th>
                             <th className="text-center py-2 px-3 font-medium">{t("adminShards.ram") || "RAM"}</th>
                             <th className="text-center py-2 px-3 font-medium">{t("adminShards.maxShardsLabel") || "Max Shards"}</th>
-                            <th className="text-center py-2 px-3 font-medium">{t("adminShards.tpsRange") || "TPS Range"}</th>
+                            <th className="text-center py-2 px-3 font-medium">{t("adminShards.theoreticalMax") || "Max TPS"}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -783,7 +812,7 @@ export default function AdminShards() {
                             <td className="text-center py-2 px-3">4</td>
                             <td className="text-center py-2 px-3">16GB</td>
                             <td className="text-center py-2 px-3">5</td>
-                            <td className="text-center py-2 px-3 text-muted-foreground">~11K-22K</td>
+                            <td className="text-center py-2 px-3 text-muted-foreground">50,000</td>
                           </tr>
                           <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'staging' ? 'bg-primary/5' : ''}`}>
                             <td className="py-2 px-3 flex items-center gap-2">
@@ -796,7 +825,7 @@ export default function AdminShards() {
                             <td className="text-center py-2 px-3">16</td>
                             <td className="text-center py-2 px-3">64GB</td>
                             <td className="text-center py-2 px-3">32</td>
-                            <td className="text-center py-2 px-3 text-muted-foreground">~70K-140K</td>
+                            <td className="text-center py-2 px-3 text-muted-foreground">320,000</td>
                           </tr>
                           <tr className={`border-b ${shardConfig.hardwareRequirements?.profile === 'production' ? 'bg-primary/5' : ''}`}>
                             <td className="py-2 px-3 flex items-center gap-2">
@@ -809,7 +838,7 @@ export default function AdminShards() {
                             <td className="text-center py-2 px-3">32</td>
                             <td className="text-center py-2 px-3">256GB</td>
                             <td className="text-center py-2 px-3">64</td>
-                            <td className="text-center py-2 px-3 text-blue-500">~140K-280K</td>
+                            <td className="text-center py-2 px-3 text-blue-500">640,000</td>
                           </tr>
                           <tr className={`${shardConfig.hardwareRequirements?.profile === 'enterprise' ? 'bg-primary/5' : ''}`}>
                             <td className="py-2 px-3 flex items-center gap-2">
@@ -822,13 +851,13 @@ export default function AdminShards() {
                             <td className="text-center py-2 px-3 font-medium text-green-500">64</td>
                             <td className="text-center py-2 px-3 font-medium text-green-500">512GB</td>
                             <td className="text-center py-2 px-3 font-medium text-green-500">128</td>
-                            <td className="text-center py-2 px-3 font-medium text-green-500">~280K-560K</td>
+                            <td className="text-center py-2 px-3 font-medium text-green-500">1,280,000</td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <p className="text-xs text-muted-foreground mt-3">
-                      {t("adminShards.hardwareNote") || "TPS varies dynamically based on system load (35-70%). Actual TPS depends on network conditions and transaction complexity."}
+                      {t("adminShards.hardwareNote") || "Each shard = 10,000 TPS baseline. Max TPS = Shards × 10,000. Actual TPS varies based on load distribution algorithm."}
                     </p>
                   </div>
                 </div>
