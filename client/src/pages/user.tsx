@@ -1365,7 +1365,21 @@ function WalletSection({
   const [newWalletName, setNewWalletName] = useState("");
   const [isUpdatingName, setIsUpdatingName] = useState(false);
   
-  // Fetch user's created wallets (only when authenticated)
+  // Check session authentication status (separate from Web3 wallet connection)
+  const { data: authStatus } = useQuery<{ authenticated: boolean }>({
+    queryKey: ["/api/auth/check"],
+    staleTime: 30000,
+    refetchInterval: 60000,
+    queryFn: async () => {
+      const response = await fetch("/api/auth/check", { credentials: 'include' });
+      if (!response.ok) return { authenticated: false };
+      return response.json();
+    },
+  });
+  
+  const isSessionAuthenticated = authStatus?.authenticated || false;
+  
+  // Fetch user's created wallets (only when session authenticated)
   const { data: myWallets, isLoading: walletsLoading, refetch: refetchWallets } = useQuery<{ address: string; walletName: string | null; balance: string; stakedBalance: string; createdAt: string }[]>({
     queryKey: ["/api/wallet/my-wallets"],
     queryFn: async () => {
@@ -1374,14 +1388,14 @@ function WalletSection({
       return response.json();
     },
     staleTime: 30000,
-    refetchInterval: isConnected ? 30000 : false,
-    enabled: isConnected,
+    refetchInterval: isSessionAuthenticated ? 30000 : false,
+    enabled: isSessionAuthenticated,
   });
 
-  // Fetch wallet creation limits (only when authenticated)
+  // Fetch wallet creation limits (only when session authenticated)
   const { data: walletLimits } = useQuery<{ memberTier: string; walletLimit: number; currentWalletCount: number; canCreateWallet: boolean; remainingWallets: number }>({
     queryKey: ["/api/wallet/creation-limit"],
-    enabled: isConnected,
+    enabled: isSessionAuthenticated,
     queryFn: async () => {
       const response = await fetch("/api/wallet/creation-limit", { credentials: 'include' });
       if (!response.ok) return { memberTier: "basic_user", walletLimit: 3, currentWalletCount: 0, canCreateWallet: true, remainingWallets: 3 };
@@ -1711,7 +1725,7 @@ function WalletSection({
                   </Button>
                 </div>
                 
-                {!isConnected ? (
+                {!isSessionAuthenticated ? (
                   <div className="text-center py-8">
                     <Lock className="w-12 h-12 mx-auto text-slate-300 dark:text-gray-600 mb-3" />
                     <p className="text-slate-500 dark:text-gray-400 mb-4">
