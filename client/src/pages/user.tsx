@@ -1359,9 +1359,14 @@ function WalletSection({
   const [createdWallet, setCreatedWallet] = useState<{ address: string; privateKey: string } | null>(null);
   const [acknowledged, setAcknowledged] = useState(false);
   const [privateKeyCopied, setPrivateKeyCopied] = useState(false);
+  const [selectedWallet, setSelectedWallet] = useState<{ address: string; walletName: string | null; balance: string; stakedBalance: string; createdAt: string } | null>(null);
+  const [walletDetailOpen, setWalletDetailOpen] = useState(false);
+  const [editingName, setEditingName] = useState(false);
+  const [newWalletName, setNewWalletName] = useState("");
+  const [isUpdatingName, setIsUpdatingName] = useState(false);
   
-  // Fetch user's created wallets
-  const { data: myWallets, isLoading: walletsLoading, refetch: refetchWallets } = useQuery<{ address: string; balance: string; createdAt: string }[]>({
+  // Fetch user's created wallets (only when authenticated)
+  const { data: myWallets, isLoading: walletsLoading, refetch: refetchWallets } = useQuery<{ address: string; walletName: string | null; balance: string; stakedBalance: string; createdAt: string }[]>({
     queryKey: ["/api/wallet/my-wallets"],
     queryFn: async () => {
       const response = await fetch("/api/wallet/my-wallets", { credentials: 'include' });
@@ -1369,8 +1374,54 @@ function WalletSection({
       return response.json();
     },
     staleTime: 30000,
-    refetchInterval: 30000,
+    refetchInterval: isConnected ? 30000 : false,
+    enabled: isConnected,
   });
+
+  // Fetch wallet creation limits (only when authenticated)
+  const { data: walletLimits } = useQuery<{ memberTier: string; walletLimit: number; currentWalletCount: number; canCreateWallet: boolean; remainingWallets: number }>({
+    queryKey: ["/api/wallet/creation-limit"],
+    enabled: isConnected,
+    queryFn: async () => {
+      const response = await fetch("/api/wallet/creation-limit", { credentials: 'include' });
+      if (!response.ok) return { memberTier: "basic_user", walletLimit: 3, currentWalletCount: 0, canCreateWallet: true, remainingWallets: 3 };
+      return response.json();
+    },
+    staleTime: 60000,
+  });
+
+  const handleUpdateWalletName = async () => {
+    if (!selectedWallet) return;
+    setIsUpdatingName(true);
+    try {
+      const response = await apiRequest("PATCH", `/api/wallet/${encodeURIComponent(selectedWallet.address)}/name`, { walletName: newWalletName });
+      if (response.ok) {
+        toast({
+          title: t('userPage.wallet.nameUpdated', '지갑명 업데이트됨'),
+          description: newWalletName || t('userPage.wallet.nameCleared', '지갑명이 삭제되었습니다'),
+        });
+        refetchWallets();
+        setSelectedWallet({ ...selectedWallet, walletName: newWalletName || null });
+        setEditingName(false);
+      }
+    } catch (error) {
+      toast({
+        title: t('common.error', '오류'),
+        description: t('userPage.wallet.nameUpdateFailed', '지갑명 업데이트 실패'),
+        variant: "destructive",
+      });
+    } finally {
+      setIsUpdatingName(false);
+    }
+  };
+
+  const openWalletDetail = (wallet: { address: string; walletName: string | null; balance: string; stakedBalance: string; createdAt: string }) => {
+    setSelectedWallet(wallet);
+    setNewWalletName(wallet.walletName || "");
+    setEditingName(false);
+    setWalletDetailOpen(true);
+  };
+
   const [addressCopied, setAddressCopied] = useState(false);
   
   const form = useForm<TransferFormValues>({
@@ -1638,10 +1689,18 @@ function WalletSection({
 
             <TabsContent value="mywallets">
               <div className="bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-bold text-lg text-slate-900 dark:text-white">
-                    {t('userPage.wallet.myWallets', '내 지갑')}
-                  </h3>
+                <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                  <div>
+                    <h3 className="font-bold text-lg text-slate-900 dark:text-white">
+                      {t('userPage.wallet.myWallets', '내 지갑')}
+                    </h3>
+                    {walletLimits && (
+                      <p className="text-xs text-slate-500 dark:text-gray-400">
+                        {t('userPage.wallet.walletLimit', '지갑 {{current}}/{{limit}}개', { current: walletLimits.currentWalletCount, limit: walletLimits.walletLimit })}
+                        <span className="ml-2 text-blue-500">({t(`userPage.wallet.tier.${walletLimits.memberTier}`, walletLimits.memberTier)})</span>
+                      </p>
+                    )}
+                  </div>
                   <Button
                     size="sm"
                     variant="outline"
@@ -1652,7 +1711,22 @@ function WalletSection({
                   </Button>
                 </div>
                 
-                {walletsLoading ? (
+                {!isConnected ? (
+                  <div className="text-center py-8">
+                    <Lock className="w-12 h-12 mx-auto text-slate-300 dark:text-gray-600 mb-3" />
+                    <p className="text-slate-500 dark:text-gray-400 mb-4">
+                      {t('userPage.wallet.loginRequired', '지갑을 보려면 로그인이 필요합니다')}
+                    </p>
+                    <Button
+                      variant="default"
+                      onClick={onConnectWallet}
+                      data-testid="button-connect-wallet-wallets"
+                    >
+                      <Wallet className="w-4 h-4 mr-2" />
+                      {t('userPage.connectWallet', '지갑 연결')}
+                    </Button>
+                  </div>
+                ) : walletsLoading ? (
                   <div className="flex items-center justify-center py-8">
                     <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
                     <span className="ml-2 text-slate-500">{t('common.loading', '로딩 중...')}</span>
@@ -1662,7 +1736,8 @@ function WalletSection({
                     {myWallets.map((wallet, index) => (
                       <div
                         key={wallet.address}
-                        className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl"
+                        className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#0B1120] rounded-xl cursor-pointer hover-elevate transition-all"
+                        onClick={() => openWalletDetail(wallet)}
                         data-testid={`wallet-item-${index}`}
                       >
                         <div className="flex items-center gap-3">
@@ -1670,7 +1745,12 @@ function WalletSection({
                             <Wallet className="w-4 h-4" />
                           </div>
                           <div>
-                            <p className="font-mono text-sm text-slate-900 dark:text-white">
+                            {wallet.walletName && (
+                              <p className="font-medium text-sm text-slate-900 dark:text-white mb-0.5">
+                                {wallet.walletName}
+                              </p>
+                            )}
+                            <p className="font-mono text-xs text-slate-600 dark:text-gray-300">
                               {wallet.address.slice(0, 12)}...{wallet.address.slice(-8)}
                             </p>
                             <p className="text-xs text-slate-500 dark:text-gray-400">
@@ -1683,11 +1763,17 @@ function WalletSection({
                             <p className="font-mono font-bold text-slate-900 dark:text-white">
                               {parseFloat(wallet.balance || "0").toFixed(4)} TB
                             </p>
+                            {parseFloat(wallet.stakedBalance || "0") > 0 && (
+                              <p className="font-mono text-xs text-blue-500">
+                                +{parseFloat(wallet.stakedBalance).toFixed(4)} {t('userPage.wallet.staked', '스테이킹')}
+                              </p>
+                            )}
                           </div>
                           <Button
                             size="icon"
                             variant="ghost"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               navigator.clipboard.writeText(wallet.address);
                               toast({
                                 title: t('userPage.wallet.addressCopied', '주소 복사됨'),
@@ -1698,6 +1784,7 @@ function WalletSection({
                           >
                             <Copy className="w-4 h-4" />
                           </Button>
+                          <ChevronRight className="w-4 h-4 text-slate-400" />
                         </div>
                       </div>
                     ))}
@@ -1719,6 +1806,142 @@ function WalletSection({
                   </div>
                 )}
               </div>
+
+              {/* Wallet Detail Dialog */}
+              <Dialog open={walletDetailOpen} onOpenChange={setWalletDetailOpen}>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <Wallet className="w-5 h-5 text-blue-500" />
+                      {t('userPage.wallet.walletDetail', '지갑 상세')}
+                    </DialogTitle>
+                    <DialogDescription>
+                      {t('userPage.wallet.walletDetailDescription', '지갑 주소와 QR코드를 확인하고 지갑명을 설정하세요.')}
+                    </DialogDescription>
+                  </DialogHeader>
+                  
+                  {selectedWallet && (
+                    <div className="space-y-4">
+                      {/* Wallet Name Section */}
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-700 dark:text-gray-300">
+                          {t('userPage.wallet.walletName', '지갑명')}
+                        </label>
+                        {editingName ? (
+                          <div className="flex gap-2">
+                            <Input
+                              value={newWalletName}
+                              onChange={(e) => setNewWalletName(e.target.value)}
+                              placeholder={t('userPage.wallet.enterWalletName', '지갑명 입력 (최대 50자)')}
+                              maxLength={50}
+                              className="flex-1"
+                              data-testid="input-wallet-name"
+                            />
+                            <Button
+                              size="sm"
+                              onClick={handleUpdateWalletName}
+                              disabled={isUpdatingName}
+                              data-testid="button-save-wallet-name"
+                            >
+                              {isUpdatingName ? <Loader2 className="w-4 h-4 animate-spin" /> : t('common.save', '저장')}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                setEditingName(false);
+                                setNewWalletName(selectedWallet.walletName || "");
+                              }}
+                              data-testid="button-cancel-wallet-name"
+                            >
+                              {t('common.cancel', '취소')}
+                            </Button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+                            <span className="text-slate-900 dark:text-white">
+                              {selectedWallet.walletName || t('userPage.wallet.noName', '이름 없음')}
+                            </span>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => setEditingName(true)}
+                              data-testid="button-edit-wallet-name"
+                            >
+                              <Settings className="w-4 h-4 mr-1" />
+                              {t('common.edit', '편집')}
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* QR Code Section */}
+                      <div className="flex flex-col items-center py-4">
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                          <QRCodeDisplay
+                            value={selectedWallet.address}
+                            size={180}
+                          />
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-gray-400 mt-2">
+                          {t('userPage.wallet.scanToSend', 'QR 코드를 스캔하여 토큰을 받으세요')}
+                        </p>
+                      </div>
+
+                      {/* Full Address Section */}
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-700 dark:text-gray-300">
+                          {t('userPage.wallet.fullAddress', '지갑 주소')}
+                        </label>
+                        <div className="flex items-center gap-2 p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+                          <p className="font-mono text-xs text-slate-900 dark:text-white break-all flex-1">
+                            {selectedWallet.address}
+                          </p>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => {
+                              navigator.clipboard.writeText(selectedWallet.address);
+                              toast({
+                                title: t('userPage.wallet.addressCopied', '주소 복사됨'),
+                                description: selectedWallet.address.slice(0, 20) + '...',
+                              });
+                            }}
+                            data-testid="button-copy-detail-address"
+                          >
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      {/* Balance Info */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+                          <p className="text-xs text-slate-500 dark:text-gray-400 mb-1">
+                            {t('userPage.wallet.availableBalance', '가용 잔액')}
+                          </p>
+                          <p className="font-mono font-bold text-lg text-slate-900 dark:text-white">
+                            {parseFloat(selectedWallet.balance || "0").toFixed(4)} TB
+                          </p>
+                        </div>
+                        <div className="p-3 bg-slate-50 dark:bg-[#0B1120] rounded-lg">
+                          <p className="text-xs text-slate-500 dark:text-gray-400 mb-1">
+                            {t('userPage.wallet.stakedBalance', '스테이킹 잔액')}
+                          </p>
+                          <p className="font-mono font-bold text-lg text-blue-500">
+                            {parseFloat(selectedWallet.stakedBalance || "0").toFixed(4)} TB
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Created Date */}
+                      <div className="text-center text-xs text-slate-500 dark:text-gray-400">
+                        {t('userPage.wallet.createdAt', '생성일')}: {new Date(selectedWallet.createdAt).toLocaleString('ko-KR', { timeZone: 'America/New_York' })}
+                      </div>
+                    </div>
+                  )}
+                </DialogContent>
+              </Dialog>
             </TabsContent>
 
             <TabsContent value="history">

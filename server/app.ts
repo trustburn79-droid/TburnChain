@@ -16,6 +16,9 @@ import { registerRoutes } from "./routes";
 declare module "express-session" {
   interface SessionData {
     authenticated?: boolean;
+    adminAuthenticated?: boolean;
+    memberId?: string;
+    memberEmail?: string;
   }
 }
 

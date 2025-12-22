@@ -95,28 +95,143 @@ export function registerWalletDashboardRoutes(
     }
   });
 
-  // Get all wallets created in this session (public endpoint for user page)
-  app.get("/api/wallet/my-wallets", async (req: Request, res: Response) => {
+  // Get all wallets owned by the authenticated user (requires authentication)
+  app.get("/api/wallet/my-wallets", requireAuth, async (req: Request, res: Response) => {
     try {
-      // Get all tb1 format wallets (newly created wallets use Bech32m format)
+      const memberId = req.session.memberId as string | undefined;
+      if (!memberId) {
+        // Return empty list if no member session (basic auth without member account)
+        return res.json([]);
+      }
+
+      // Get only wallets owned by this authenticated member
       const wallets = await db.select({
         address: walletBalances.address,
+        walletName: walletBalances.walletName,
+        ownerId: walletBalances.ownerId,
         balance: walletBalances.balance,
+        stakedBalance: walletBalances.stakedBalance,
         firstSeenAt: walletBalances.firstSeenAt,
       })
       .from(walletBalances)
-      .where(sql`${walletBalances.address} LIKE 'tb1%'`)
+      .where(and(
+        sql`${walletBalances.address} LIKE 'tb1%'`,
+        eq(walletBalances.ownerId, memberId)
+      ))
       .orderBy(desc(walletBalances.firstSeenAt))
       .limit(50);
 
       res.json(wallets.map(w => ({
         address: w.address,
+        walletName: w.walletName || null,
         balance: w.balance ? (parseFloat(w.balance) / 1e18).toFixed(4) : "0",
+        stakedBalance: w.stakedBalance ? (parseFloat(w.stakedBalance) / 1e18).toFixed(4) : "0",
         createdAt: w.firstSeenAt?.toISOString() || new Date().toISOString(),
       })));
     } catch (error) {
       console.error("[WalletDashboard] My wallets error:", error);
       res.status(500).json({ error: "Failed to fetch wallets" });
+    }
+  });
+
+  // Update wallet name (requires authentication and ownership)
+  app.patch("/api/wallet/:address/name", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const memberId = req.session.memberId as string | undefined;
+      if (!memberId) {
+        return res.status(401).json({ error: "Member authentication required" });
+      }
+
+      const { address } = req.params;
+      const { walletName } = req.body;
+
+      if (!address || !address.startsWith('tb1')) {
+        return res.status(400).json({ error: "Invalid wallet address" });
+      }
+
+      if (walletName && walletName.length > 50) {
+        return res.status(400).json({ error: "Wallet name too long (max 50 characters)" });
+      }
+
+      // Verify ownership: check that this wallet belongs to the authenticated member
+      const wallet = await db.select().from(walletBalances).where(eq(walletBalances.address, address)).limit(1);
+      if (wallet.length === 0) {
+        return res.status(404).json({ error: "Wallet not found" });
+      }
+
+      if (wallet[0].ownerId !== memberId) {
+        return res.status(403).json({ error: "You do not own this wallet" });
+      }
+
+      await db.update(walletBalances)
+        .set({ walletName: walletName || null, updatedAt: new Date() })
+        .where(eq(walletBalances.address, address));
+
+      res.json({ success: true, address, walletName });
+    } catch (error) {
+      console.error("[WalletDashboard] Update wallet name error:", error);
+      res.status(500).json({ error: "Failed to update wallet name" });
+    }
+  });
+
+  // Get wallet creation limit based on authenticated user's member tier
+  app.get("/api/wallet/creation-limit", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const memberId = req.session.memberId as string | undefined;
+      if (!memberId) {
+        // Return default limits for basic auth without member account
+        return res.json({
+          memberTier: "basic_user",
+          walletLimit: 3,
+          currentWalletCount: 0,
+          canCreateWallet: true,
+          remainingWallets: 3,
+        });
+      }
+      
+      // Tier-based wallet limits
+      const tierLimits: Record<string, number> = {
+        basic_user: 3,
+        staker: 10,
+        delegated_staker: 10,
+        validator: 30,
+        candidate_validator: 30,
+        active_validator: 30,
+        super_validator: 30,
+        enterprise: 30,
+        enterprise_validator: 30,
+        genesis_validator: 30,
+        governance_validator: 30,
+      };
+
+      let memberTier = "basic_user";
+      let walletCount = 0;
+
+      // Get member tier from database by authenticated member ID
+      const member = await db.select().from(members).where(eq(members.id, memberId)).limit(1);
+      if (member.length > 0) {
+        memberTier = member[0].memberTier || "basic_user";
+        
+        // Count wallets owned by this member
+        const wallets = await db.select({ count: sql<number>`count(*)` })
+          .from(walletBalances)
+          .where(eq(walletBalances.ownerId, memberId));
+        walletCount = Number(wallets[0]?.count || 0);
+      }
+
+      const limit = tierLimits[memberTier] || 3;
+      const canCreate = walletCount < limit;
+
+      res.json({
+        memberTier,
+        walletLimit: limit,
+        currentWalletCount: walletCount,
+        canCreateWallet: canCreate,
+        remainingWallets: Math.max(0, limit - walletCount),
+      });
+    } catch (error) {
+      console.error("[WalletDashboard] Creation limit error:", error);
+      res.status(500).json({ error: "Failed to check wallet limit" });
     }
   });
 
