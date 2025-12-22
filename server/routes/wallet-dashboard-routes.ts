@@ -10,6 +10,7 @@ import {
   walletActionLog,
   walletStreamingCheckpoint,
   transactions,
+  members,
   insertWalletActionLogSchema,
 } from "@shared/schema";
 import { eq, desc, and, gte, lte, sql } from "drizzle-orm";
@@ -443,14 +444,36 @@ export function registerWalletDashboardRoutes(
 
       let retries = 0;
       const maxRetries = 3;
+      let memberId: string | null = null;
+      
       while (retries < maxRetries) {
         try {
           const existing = await db.select().from(walletBalances).where(eq(walletBalances.address, walletData.address)).limit(1);
           if (existing.length === 0) {
+            // Insert wallet balance record
             await db.insert(walletBalances).values({
               address: walletData.address,
             });
             enterpriseNode.registerWallet(walletData.address, "0");
+            
+            // Also create a member record for admin tracking
+            const existingMember = await db.select().from(members).where(eq(members.accountAddress, walletData.address)).limit(1);
+            if (existingMember.length === 0) {
+              const memberResult = await storage.createMember({
+                accountAddress: walletData.address,
+                publicKey: walletData.publicKey,
+                displayName: `Wallet ${walletData.address.slice(0, 8)}...${walletData.address.slice(-6)}`,
+                entityType: "individual",
+                memberTier: "basic_user",
+                memberStatus: "active",
+                kycLevel: "none",
+                amlRiskScore: 0,
+                sanctionsCheckPassed: false,
+                pepStatus: false,
+              });
+              memberId = memberResult.id;
+              console.log(`[WalletDashboard] Created member record: ${memberId} for wallet: ${walletData.address}`);
+            }
             break;
           }
           walletData = tburnWalletService.generateWalletWithPrivateKey();
@@ -473,6 +496,7 @@ export function registerWalletDashboardRoutes(
           network: walletData.network,
           createdAt: walletData.createdAt.toISOString(),
         },
+        memberId,
         chainConfig,
         warning: "IMPORTANT: Save your private key securely. It will not be shown again!",
       });
