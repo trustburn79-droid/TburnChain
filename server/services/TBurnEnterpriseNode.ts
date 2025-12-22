@@ -3955,155 +3955,45 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
   
   
-  // EMA cache for smooth TPS transitions
-  private shardTpsEma: Map<number, number> = new Map();
-  private lastTpsUpdate: number = 0;
-  
-  // Calculate time-of-day demand multiplier (sinusoidal pattern)
-  private getTimeOfDayDemand(): number {
-    const now = new Date();
-    const hour = now.getHours();
-    const minute = now.getMinutes();
-    const dayProgress = (hour * 60 + minute) / 1440; // 0-1 progress through day
-    
-    // Peak hours: 9-11 AM, 2-4 PM (business hours)
-    // Low hours: 2-6 AM
-    const baseDemand = 0.65; // 65% base utilization
-    const amplitude = 0.15; // ±15% variation
-    
-    // Dual-peak sinusoidal: morning peak at 10AM, afternoon peak at 3PM
-    const morningPeak = Math.sin((dayProgress - 0.42) * Math.PI * 2) * 0.5 + 0.5;
-    const afternoonPeak = Math.sin((dayProgress - 0.625) * Math.PI * 2) * 0.5 + 0.5;
-    const nightDip = dayProgress < 0.25 ? (1 - Math.cos(dayProgress * Math.PI * 4)) * 0.15 : 0;
-    
-    const demand = baseDemand + (Math.max(morningPeak, afternoonPeak) * amplitude) - nightDip;
-    return Math.max(0.52, Math.min(0.82, demand)); // Clamp to 52-82%
-  }
-  
-  // Calculate validator efficiency (logistic curve)
-  private getValidatorEfficiency(activeValidators: number, targetValidators: number): number {
-    const ratio = activeValidators / targetValidators;
-    // Logistic curve: efficiency drops sharply below 75% validators
-    const efficiency = 0.92 * (1 - Math.exp(-ratio * 1.4));
-    return Math.max(0.6, Math.min(0.98, efficiency));
-  }
-  
-  // Calculate congestion penalty (quadratic above 80% utilization)
-  private getCongestionModifier(utilization: number): number {
-    if (utilization <= 0.80) return 1.0;
-    // Quadratic penalty above 80%
-    const excess = utilization - 0.80;
-    const penalty = 1 - (excess * excess * 2.5);
-    return Math.max(0.75, penalty);
-  }
-  
-  // Calculate cross-shard overhead (exponential decay)
-  private getCrossShardEfficiency(crossShardRatio: number): number {
-    // Higher cross-shard ratio = more overhead
-    const efficiency = Math.exp(-0.18 * Math.pow(crossShardRatio, 1.2));
-    return Math.max(0.85, Math.min(1.0, efficiency));
-  }
-  
-  // Get shard role offset (deterministic, no randomness)
-  private getShardRoleOffset(shardId: number, shardCount: number): number {
-    // Settlement shards (first 10%): -5% capacity (more validation overhead)
-    // Liquidity shards (last 10%): +3% capacity (optimized for transfers)
-    // Standard shards: 0% offset
-    const settlementThreshold = Math.max(1, Math.floor(shardCount * 0.1));
-    const liquidityThreshold = shardCount - Math.max(1, Math.floor(shardCount * 0.1));
-    
-    if (shardId < settlementThreshold) return -0.05;
-    if (shardId >= liquidityThreshold) return 0.03;
-    return 0;
-  }
-  
-  // Apply EMA smoothing to prevent abrupt changes
-  private smoothTps(shardId: number, rawTps: number, alpha: number = 0.3): number {
-    const previousEma = this.shardTpsEma.get(shardId) || rawTps;
-    const smoothedTps = Math.round(alpha * rawTps + (1 - alpha) * previousEma);
-    this.shardTpsEma.set(shardId, smoothedTps);
-    return smoothedTps;
-  }
-  
-  // Generate dynamic shard data with production-grade TPS modeling
+  // Generate dynamic shard data based on current configuration
   generateShards(): any[] {
     const shards = [];
     const shardCount = this.shardConfig.currentShardCount;
     const validatorsPerShard = this.shardConfig.validatorsPerShard;
-    const baseCapacity = this.shardConfig.tpsPerShard; // 10,000 TPS base capacity
-    
-    // Network-wide factors
-    const timeOfDayDemand = this.getTimeOfDayDemand();
-    const now = Date.now();
-    const dayOfYear = Math.floor((now - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+    const configuredTpsPerShard = this.shardConfig.tpsPerShard; // 10,000 TPS capacity per shard
     
     for (let i = 0; i < shardCount; i++) {
       const shardName = this.SHARD_NAMES[i] || `Shard-${i + 1}`;
-      
-      // 1. Validator efficiency factor
-      const validatorEfficiency = this.getValidatorEfficiency(validatorsPerShard, 25);
-      
-      // 2. Cross-shard ratio (varies by shard position)
-      const crossShardRatio = 0.15 + (i / shardCount) * 0.10; // 15-25% cross-shard
-      const crossShardEfficiency = this.getCrossShardEfficiency(crossShardRatio);
-      
-      // 3. Shard role offset
-      const roleOffset = this.getShardRoleOffset(i, shardCount);
-      
-      // 4. Deterministic micro-variance using day and shardId (±2%)
-      const seed = (dayOfYear * 1000 + i * 37 + Math.floor(now / 60000)) % 1000;
-      const microVariance = ((seed % 40) - 20) / 1000; // ±2%
-      
-      // 5. Calculate raw utilization (62-78% range, steady state)
-      const baseUtilization = timeOfDayDemand + roleOffset + microVariance;
-      const utilization = Math.max(0.62, Math.min(0.78, baseUtilization));
-      
-      // 6. Apply congestion modifier
-      const congestionModifier = this.getCongestionModifier(utilization);
-      
-      // 7. Calculate final TPS
-      const rawTps = Math.round(
-        baseCapacity * 
-        utilization * 
-        validatorEfficiency * 
-        crossShardEfficiency * 
-        congestionModifier
-      );
-      
-      // 8. Apply EMA smoothing for gradual transitions
-      const smoothedTps = this.smoothTps(i, rawTps, 0.25);
-      
-      // 9. Calculate load percentage (display value)
-      const loadPercent = Math.round(utilization * 100);
-      
-      // Cross-shard transaction count scales with shard count
-      const crossShardTxCount = Math.round(2500 + (shardCount * 45) + (i * 30));
+      const loadVariation = 35 + Math.floor(Math.random() * 35); // 35-70% load
+      // TPS based on configured capacity with load factor applied
+      const loadFactor = loadVariation / 100;
+      const shardVariation = Math.floor((Date.now() / 1000 + i * 37) % 500) - 250; // ±250 TPS variation
+      const shardTps = Math.floor(configuredTpsPerShard * loadFactor) + shardVariation;
       
       shards.push({
         id: `${i + 1}`,
         shardId: i,
         name: `Shard ${shardName}`,
-        status: loadPercent > 75 ? 'busy' : 'active',
-        blockHeight: this.currentBlockHeight - (i % 5),
-        transactionCount: 17000000 + (i * 500000) + Math.floor(now / 1000) % 100000,
+        status: 'active',
+        blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
+        transactionCount: 17000000 + Math.floor(Math.random() * 3000000) + (i * 500000),
         validatorCount: validatorsPerShard,
-        tps: smoothedTps,
-        load: loadPercent,
-        peakTps: Math.round(baseCapacity * 0.95 * validatorEfficiency), // 95% max achievable
-        avgBlockTime: 100 + Math.floor((1 - congestionModifier) * 50), // Congestion affects block time
-        crossShardTxCount,
-        stateSize: `${100 + i * 2}GB`,
-        lastSyncedAt: new Date(now - (i * 100)).toISOString(),
-        mlOptimizationScore: Math.round(8000 + validatorEfficiency * 1000 + crossShardEfficiency * 500),
-        predictedLoad: Math.round(loadPercent + (timeOfDayDemand > 0.7 ? 3 : -2)),
-        rebalanceCount: Math.floor(shardCount / 8) + (i % 5),
-        aiRecommendation: loadPercent > 75 ? 'optimize' : loadPercent > 68 ? 'monitor' : 'stable',
-        profilingScore: Math.round(8500 + congestionModifier * 500),
-        capacityUtilization: Math.round(utilization * 10000)
+        tps: shardTps,
+        load: loadVariation,
+        peakTps: configuredTpsPerShard, // Each shard capacity: 10,000 TPS
+        avgBlockTime: 100, // milliseconds
+        crossShardTxCount: 2000 + Math.floor(Math.random() * 1000) + (shardCount > 10 ? Math.floor(shardCount * 50) : 0),
+        stateSize: String(100 + Math.floor(Math.random() * 50) + (i * 2)) + "GB",
+        lastSyncedAt: new Date(Date.now() - Math.floor(Math.random() * 5000)).toISOString(),
+        mlOptimizationScore: 8000 + Math.floor(Math.random() * 1000),
+        predictedLoad: loadVariation - 5 + Math.floor(Math.random() * 10),
+        rebalanceCount: 10 + Math.floor(Math.random() * 10),
+        aiRecommendation: loadVariation > 60 ? 'optimize' : loadVariation > 50 ? 'monitor' : 'stable',
+        profilingScore: 8500 + Math.floor(Math.random() * 1000),
+        capacityUtilization: 4500 + Math.floor(Math.random() * 2000)
       });
     }
     
-    this.lastTpsUpdate = now;
     return shards;
   }
   
