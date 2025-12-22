@@ -8450,11 +8450,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Sharding API - Dynamic shard configuration from TBurnEnterpriseNode
   app.get("/api/sharding", async (_req, res) => {
     try {
-      const cache = getDataCache();
-      const cacheKey = 'sharding_data';
-      const cached = cache.get<any>(cacheKey);
-      if (cached) return res.json(cached);
-      
+      // REAL-TIME: Skip cache for dynamic shard data updates
       // Fetch dynamic shards from TBurnEnterpriseNode
       const shardResponse = await fetch('http://localhost:8545/api/shards');
       const enterpriseShards = await shardResponse.json();
@@ -8498,7 +8494,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         },
         loadHistory
       };
-      cache.set(cacheKey, result, 5000); // 5s TTL for real-time sharding updates
+      // No cache - real-time data for dynamic shard updates
       res.json(result);
     } catch (error) {
       console.error('Failed to fetch sharding data:', error);

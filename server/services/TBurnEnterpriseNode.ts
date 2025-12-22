@@ -1365,6 +1365,19 @@ export class TBurnEnterpriseNode extends EventEmitter {
         state.crossShardMsgRate = Math.floor(500 + Math.random() * 1500);
         // Recalculate effective TPS
         state.effectiveTps = this.calculateShardEffectiveTps(state.id);
+        
+        // SYNC: Update shardHealthMetrics to match shardStates for real-time UI updates
+        const existingHealth = this.shardHealthMetrics.get(state.id);
+        this.shardHealthMetrics.set(state.id, {
+          shardId: state.id,
+          load: state.utilization * 100, // Convert to percentage for UI
+          latency: existingHealth?.latency ?? (15 + Math.random() * 25),
+          transactionBacklog: Math.floor(state.currentTps * 0.01),
+          validatorUptime: existingHealth?.validatorUptime ?? (0.97 + Math.random() * 0.03),
+          crossShardSuccess: existingHealth?.crossShardSuccess ?? (0.98 + Math.random() * 0.02),
+          status: 'active',
+          lastUpdate: new Date().toISOString()
+        });
       }
     }
   }
