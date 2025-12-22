@@ -399,6 +399,29 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const detectedCores = os.cpus().length;
     const detectedRamGB = Math.round(os.totalmem() / (1024 ** 3));
     
+    // CRITICAL: MAX_SHARDS environment variable ALWAYS takes priority
+    // This overrides ALL hardware detection for production deployment
+    const envMaxShards = process.env.MAX_SHARDS ? parseInt(process.env.MAX_SHARDS) : null;
+    
+    if (envMaxShards && envMaxShards >= 5 && envMaxShards <= 128) {
+      // ENV override: determine profile based on MAX_SHARDS value
+      let profileName: keyof typeof this.HARDWARE_PROFILES = 'development';
+      if (envMaxShards >= 128) profileName = 'enterprise';
+      else if (envMaxShards >= 64) profileName = 'production';
+      else if (envMaxShards >= 16) profileName = 'staging';
+      
+      console.log(`[Hardware] 🔧 ENV override active: MAX_SHARDS=${envMaxShards} → Profile: ${profileName}`);
+      
+      return {
+        name: profileName,
+        cores: detectedCores,
+        ramGB: detectedRamGB,
+        maxShards: envMaxShards,
+        tpsCapacity: envMaxShards * 10000
+      };
+    }
+    
+    // Fallback: Auto-detect based on hardware
     let profileName: keyof typeof this.HARDWARE_PROFILES = 'development';
     if (detectedCores >= 64 && detectedRamGB >= 512) {
       profileName = 'enterprise';
@@ -415,6 +438,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
       profile.maxShards
     );
     const tpsCapacity = maxShards * 10000;
+    
+    console.log(`[Hardware] 🖥️  Auto-detected: ${detectedCores} cores, ${detectedRamGB}GB RAM → Profile: ${profileName}, Max Shards: ${maxShards}`);
     
     return {
       name: profileName,
