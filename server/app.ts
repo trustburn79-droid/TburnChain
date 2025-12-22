@@ -79,9 +79,10 @@ if (REDIS_URL) {
   sessionStoreType = "Redis (Cluster Mode)";
 } else if (isProduction) {
   // PostgreSQL for production (persistent sessions)
+  // Note: Neon Pool is compatible with pg Pool at runtime
   const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
   sessionStore = new PgSession({
-    pool: sessionPool,
+    pool: sessionPool as any, // Neon Pool is pg-compatible
     createTableIfMissing: true,
     tableName: 'session',
   });
