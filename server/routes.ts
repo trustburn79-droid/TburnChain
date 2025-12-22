@@ -650,7 +650,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Mark as verified
-      await storage.verifyEmailCode(verification.id);
+      await storage.verifyEmailCode(email, code, type);
       
       // Store verification status in session for signup flow
       req.session.emailVerified = email;
