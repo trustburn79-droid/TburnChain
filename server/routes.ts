@@ -8546,6 +8546,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(response.status).json(result);
       }
       
+      // Invalidate all shard-related caches immediately after successful update
+      const cache = getDataCache();
+      cache.delete('shards_config');
+      cache.delete('shards');
+      cache.delete('sharding_data');
+      console.log(`[Cache] Invalidated shard caches after config update`);
+      
       // Broadcast shard configuration update to all connected clients
       // This ensures /app pages receive real-time updates when admin changes config
       try {
