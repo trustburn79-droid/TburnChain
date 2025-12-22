@@ -1366,18 +1366,19 @@ function WalletSection({
   const [isUpdatingName, setIsUpdatingName] = useState(false);
   
   // Check session authentication status (separate from Web3 wallet connection)
-  const { data: authStatus } = useQuery<{ authenticated: boolean }>({
+  const { data: authStatus } = useQuery<{ authenticated: boolean; hasMemberId: boolean; memberEmail: string | null }>({
     queryKey: ["/api/auth/check"],
     staleTime: 30000,
     refetchInterval: 60000,
     queryFn: async () => {
       const response = await fetch("/api/auth/check", { credentials: 'include' });
-      if (!response.ok) return { authenticated: false };
+      if (!response.ok) return { authenticated: false, hasMemberId: false, memberEmail: null };
       return response.json();
     },
   });
   
-  const isSessionAuthenticated = authStatus?.authenticated || false;
+  // Need both authenticated AND hasMemberId for wallet operations
+  const isSessionAuthenticated = authStatus?.authenticated && authStatus?.hasMemberId;
   
   // Fetch user's created wallets (only when session authenticated)
   const { data: myWallets, isLoading: walletsLoading, refetch: refetchWallets } = useQuery<{ address: string; walletName: string | null; balance: string; stakedBalance: string; createdAt: string }[]>({
@@ -1729,7 +1730,9 @@ function WalletSection({
                   <div className="text-center py-8">
                     <Lock className="w-12 h-12 mx-auto text-slate-300 dark:text-gray-600 mb-3" />
                     <p className="text-slate-500 dark:text-gray-400 mb-4">
-                      {t('userPage.wallet.loginRequired', '지갑을 보려면 로그인이 필요합니다')}
+                      {authStatus?.authenticated && !authStatus?.hasMemberId 
+                        ? t('userPage.wallet.memberRegistrationRequired', '지갑 생성을 위해 회원 등록이 필요합니다. 이메일로 회원가입해 주세요.')
+                        : t('userPage.wallet.loginRequired', '지갑을 보려면 로그인이 필요합니다')}
                     </p>
                     <Button
                       variant="default"
@@ -1737,7 +1740,9 @@ function WalletSection({
                       data-testid="button-connect-wallet-wallets"
                     >
                       <Wallet className="w-4 h-4 mr-2" />
-                      {t('userPage.connectWallet', '지갑 연결')}
+                      {authStatus?.authenticated && !authStatus?.hasMemberId 
+                        ? t('userPage.wallet.registerNow', '회원 등록')
+                        : t('userPage.connectWallet', '지갑 연결')}
                     </Button>
                   </div>
                 ) : walletsLoading ? (

@@ -685,7 +685,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/auth/check", (req, res) => {
-    res.json({ authenticated: !!req.session.authenticated });
+    res.json({ 
+      authenticated: !!req.session.authenticated,
+      hasMemberId: !!req.session.memberId,
+      memberEmail: req.session.memberEmail || null,
+    });
   });
 
   // ============================================
