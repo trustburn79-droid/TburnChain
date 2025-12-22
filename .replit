@@ -64,3 +64,4 @@ NODE_ENV = "production"
 
 [userenv.development]
 NODE_ENV = "development"
+MAX_SHARDS = "64"

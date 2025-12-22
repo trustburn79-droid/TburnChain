@@ -1379,21 +1379,24 @@ export class TBurnEnterpriseNode extends EventEmitter {
         
         // Apply hardware-based limits after loading from database
         const hwProfile = this.detectHardwareProfile();
+        
+        // Check for ENV override (MAX_SHARDS=64 for 32-core, MAX_SHARDS=128 for 64-core)
+        const envMaxShards = process.env.MAX_SHARDS ? parseInt(process.env.MAX_SHARDS) : null;
+        const effectiveMaxShards = envMaxShards && envMaxShards >= 5 && envMaxShards <= 128 
+          ? envMaxShards 
+          : hwProfile.maxShards;
+        
         let needsPersist = false;
         
-        // Fix: If maxShards is 0 or invalid, set to hardware-detected value
-        if (this.shardConfig.maxShards <= 0 || this.shardConfig.maxShards < this.shardConfig.minShards) {
-          console.log(`[Enterprise Node] 🔧 Setting maxShards from ${this.shardConfig.maxShards} to ${hwProfile.maxShards} (invalid or zero value)`);
-          this.shardConfig.maxShards = hwProfile.maxShards;
-          needsPersist = true;
-        } else if (this.shardConfig.maxShards > hwProfile.maxShards) {
-          console.log(`[Enterprise Node] 🔧 Limiting maxShards from ${this.shardConfig.maxShards} to ${hwProfile.maxShards} (hardware constraint)`);
-          this.shardConfig.maxShards = hwProfile.maxShards;
+        // Always apply ENV or hardware-detected maxShards limit
+        if (this.shardConfig.maxShards !== effectiveMaxShards) {
+          console.log(`[Enterprise Node] 🔧 Setting maxShards from ${this.shardConfig.maxShards} to ${effectiveMaxShards}${envMaxShards ? ' (ENV override)' : ' (hardware detected)'}`);
+          this.shardConfig.maxShards = effectiveMaxShards;
           needsPersist = true;
         }
-        if (this.shardConfig.currentShardCount > hwProfile.maxShards) {
-          console.log(`[Enterprise Node] ⚠️  Reducing current shards from ${this.shardConfig.currentShardCount} to ${hwProfile.maxShards} (hardware limit)`);
-          this.shardConfig.currentShardCount = hwProfile.maxShards;
+        if (this.shardConfig.currentShardCount > effectiveMaxShards) {
+          console.log(`[Enterprise Node] ⚠️  Reducing current shards from ${this.shardConfig.currentShardCount} to ${effectiveMaxShards} (hardware limit)`);
+          this.shardConfig.currentShardCount = effectiveMaxShards;
           needsPersist = true;
         }
         // Ensure currentShardCount is at least minShards
