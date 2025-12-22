@@ -8,6 +8,7 @@ import { useTheme } from "@/components/theme-provider";
 import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import { useToast } from "@/hooks/use-toast";
+import { useTBurnAlert } from "@/components/tburn-alert-modal";
 import { apiRequest } from "@/lib/queryClient";
 import {
   Flame, Wallet, Layers, Gavel, Globe, RefreshCw, Shield, Coins,
@@ -1343,6 +1344,7 @@ function WalletSection({
   onConnectWallet: () => void;
 }) {
   const { toast } = useToast();
+  const { showAlert } = useTBurnAlert();
   const [activeTab, setActiveTab] = useState("transfer");
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -1359,13 +1361,22 @@ function WalletSection({
   const burnFee = numAmount * 0.005;
   const networkFee = 0.0001;
   const totalDeduction = numAmount + burnFee + networkFee;
+  
+  // Demo balance for display when not connected
+  const displayBalance = isConnected ? (balance || "0") : "12,450.5678";
+  const displayAddress = isConnected ? address : "tb1demo...예시주소";
   const hasInsufficientBalance = isConnected && parseFloat(balance || "0") < totalDeduction;
 
   const { t } = useTranslation();
   
   const onSubmit = async (data: TransferFormValues) => {
+    // Require wallet connection for actual transfer
     if (!isConnected || !address) {
-      toast({ title: t('userPage.toast.walletRequired'), description: t('userPage.toast.walletRequiredTransfer'), variant: "destructive" });
+      showAlert(
+        "wallet",
+        t('userPage.toast.walletRequired', '지갑 연결 필요'),
+        t('userPage.toast.walletRequiredTransfer', '토큰을 전송하려면 지갑을 연결해주세요.')
+      );
       return;
     }
     
@@ -1413,25 +1424,6 @@ function WalletSection({
     { hash: "tb1txhash7g8h9i0j1k2l", type: "received", from: "tb1v8fmjvst5spfruj47", amount: 1200, time: t('userPage.timeAgo.hoursAgo', { count: 2 }), status: "completed" },
     { hash: "tb1txhash3m4n5o6p7q8r", type: "staked", validator: "TBURN Foundation", amount: 5000, time: t('userPage.timeAgo.daysAgo', { count: 1 }), status: "completed" },
   ];
-
-  if (!isConnected) {
-    return (
-      <section className="space-y-4 sm:space-y-6" data-testid="section-wallet">
-        <div className="flex flex-col items-center justify-center min-h-[300px] sm:min-h-[400px] bg-white dark:bg-[#151E32] rounded-xl sm:rounded-2xl border border-slate-200 dark:border-gray-800 p-4 sm:p-8">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mb-4 sm:mb-6">
-            <Wallet className="w-8 h-8 sm:w-10 sm:h-10 text-blue-500" />
-          </div>
-          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 text-center">{t('userPage.wallet.connectPrompt')}</h3>
-          <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400 text-center mb-4 sm:mb-6 max-w-md px-2">
-            {t('userPage.wallet.connectPromptDesc')}
-          </p>
-          <Button onClick={onConnectWallet} className="bg-gradient-to-r from-blue-500 to-purple-600 w-full sm:w-auto" data-testid="button-connect-wallet-section">
-            <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
-          </Button>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="space-y-4 sm:space-y-6" data-testid="section-wallet">
@@ -1481,7 +1473,8 @@ function WalletSection({
                           <div className="flex justify-between">
                             <FormLabel className="text-slate-700 dark:text-gray-300">{t('common.amount')}</FormLabel>
                             <span className="text-xs text-slate-500 dark:text-gray-400">
-                              {t('common.balance')}: {parseFloat(balance || "0").toFixed(4)} TB
+                              {t('common.balance')}: {isConnected ? parseFloat(balance || "0").toFixed(4) : displayBalance} TB
+                              {!isConnected && <span className="ml-1 text-orange-400">(데모)</span>}
                             </span>
                           </div>
                           <FormControl>
@@ -1597,17 +1590,31 @@ function WalletSection({
         </div>
 
         <div className="space-y-4">
-          <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
+          <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            {!isConnected && (
+              <div className="absolute top-2 right-2 px-2 py-1 bg-orange-500/90 rounded-full text-xs font-bold">
+                데모
+              </div>
+            )}
             <div className="flex items-center gap-3 mb-4">
               <Wallet className="w-8 h-8" />
               <div>
                 <p className="text-sm text-white/70">{t('common.balance')}</p>
                 <p className="text-3xl font-bold font-mono">
-                  {parseFloat(balance || "0").toFixed(4)}
+                  {isConnected ? parseFloat(balance || "0").toFixed(4) : displayBalance}
                 </p>
               </div>
             </div>
-            <p className="text-xs text-white/60 font-mono truncate">{address}</p>
+            <p className="text-xs text-white/60 font-mono truncate">{displayAddress}</p>
+            {!isConnected && (
+              <Button 
+                onClick={onConnectWallet} 
+                className="mt-4 w-full bg-white/20 hover:bg-white/30 text-white border-0"
+                data-testid="button-connect-wallet-card"
+              >
+                <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
+              </Button>
+            )}
           </div>
 
           <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
