@@ -535,6 +535,7 @@ export interface IStorage {
   // Email Verifications
   createEmailVerification(data: InsertEmailVerification): Promise<EmailVerification>;
   getEmailVerificationByEmail(email: string, type: string): Promise<EmailVerification | undefined>;
+  isEmailVerified(email: string, type: string): Promise<boolean>;
   verifyEmailCode(email: string, code: string, type: string): Promise<boolean>;
   incrementVerificationAttempts(id: string): Promise<void>;
   deleteExpiredVerifications(): Promise<void>;
@@ -3508,6 +3509,18 @@ export class DbStorage implements IStorage {
       .orderBy(desc(emailVerifications.createdAt))
       .limit(1);
     return result[0];
+  }
+
+  async isEmailVerified(email: string, type: string): Promise<boolean> {
+    const result = await db.select().from(emailVerifications)
+      .where(and(
+        eq(emailVerifications.email, email),
+        eq(emailVerifications.type, type),
+        eq(emailVerifications.verified, true)
+      ))
+      .orderBy(desc(emailVerifications.createdAt))
+      .limit(1);
+    return result.length > 0;
   }
 
   async verifyEmailCode(email: string, code: string, type: string): Promise<boolean> {

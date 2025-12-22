@@ -455,8 +455,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     try {
       // Check if email was verified
-      const verification = await storage.getEmailVerificationByEmail(email, "signup");
-      if (!verification || !verification.verified) {
+      const isVerified = await storage.isEmailVerified(email, "signup");
+      if (!isVerified) {
         return res.status(400).json({ error: "Email not verified. Please verify your email first." });
       }
       
