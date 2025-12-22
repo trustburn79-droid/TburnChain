@@ -2919,8 +2919,14 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   private produceBlock(): BlockProduction {
     this.currentBlockHeight++;
-    // ENTERPRISE PRODUCTION: 5000-5200 transactions per block for 50,000+ TPS
-    const transactionCount = 5000 + Math.floor(Math.random() * 200); // 5000-5200 tx per block
+    // DYNAMIC SHARD-PROPORTIONAL TPS: Transactions scale with shard count
+    // Base: 625 tx/block/shard × 10 blocks/sec = ~6,250 TPS per shard
+    // Load variation: 35-70% utilization per shard
+    const shardCount = this.shardConfig.currentShardCount;
+    const baseTransactionsPerShard = 625; // ~6,250 TPS/shard capacity
+    const loadFactor = 0.35 + Math.random() * 0.35; // 35-70% load per shard
+    const transactionCount = Math.floor(shardCount * baseTransactionsPerShard * loadFactor) 
+                            + Math.floor(Math.random() * 200);
     const gasUsed = BigInt(transactionCount * 21000);
     
     this.totalTransactions += transactionCount;
