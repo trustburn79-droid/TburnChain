@@ -1540,15 +1540,23 @@ export class TBurnEnterpriseNode extends EventEmitter {
     console.log('[Enterprise Node] Starting enterprise TBURN node...');
     
     const hardwareProfile = this.detectHardwareProfile();
-    console.log(`[Enterprise Node] 🖥️  Hardware: ${hardwareProfile.cores} cores, ${hardwareProfile.ramGB}GB RAM → Profile: ${hardwareProfile.name}, Max Shards: ${hardwareProfile.maxShards}`);
+    
+    // Allow environment variable override for max shards (useful for production servers)
+    // MAX_SHARDS=64 for 32-core server, MAX_SHARDS=128 for 64-core server
+    const envMaxShards = process.env.MAX_SHARDS ? parseInt(process.env.MAX_SHARDS) : null;
+    const effectiveMaxShards = envMaxShards && envMaxShards >= 5 && envMaxShards <= 128 
+      ? envMaxShards 
+      : hardwareProfile.maxShards;
+    
+    console.log(`[Enterprise Node] 🖥️  Hardware: ${hardwareProfile.cores} cores, ${hardwareProfile.ramGB}GB RAM → Profile: ${hardwareProfile.name}, Max Shards: ${effectiveMaxShards}${envMaxShards ? ' (ENV override)' : ''}`);
     
     // Apply hardware-based limits to shard configuration
-    this.shardConfig.maxShards = hardwareProfile.maxShards;
+    this.shardConfig.maxShards = effectiveMaxShards;
     
     // Ensure current shard count doesn't exceed hardware limits
-    if (this.shardConfig.currentShardCount > hardwareProfile.maxShards) {
-      console.log(`[Enterprise Node] ⚠️  Adjusting shard count from ${this.shardConfig.currentShardCount} to ${hardwareProfile.maxShards} (hardware limit)`);
-      this.shardConfig.currentShardCount = hardwareProfile.maxShards;
+    if (this.shardConfig.currentShardCount > effectiveMaxShards) {
+      console.log(`[Enterprise Node] ⚠️  Adjusting shard count from ${this.shardConfig.currentShardCount} to ${effectiveMaxShards} (hardware limit)`);
+      this.shardConfig.currentShardCount = effectiveMaxShards;
     }
     
     try {
