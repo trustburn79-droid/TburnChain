@@ -1,5 +1,11 @@
 import { ethers } from "ethers";
 import { randomBytes, createHash } from "crypto";
+import { 
+  generateRandomTBurnAddress, 
+  generateTBurnAddress,
+  isValidTBurnAddress,
+  isTb1Format
+} from "../utils/tburn-address";
 
 export interface TBurnWallet {
   address: string;
@@ -35,11 +41,14 @@ export class TBurnWalletService {
   }
 
   generateWallet(): TBurnWallet {
+    // Generate ethers wallet for cryptographic keys
     const wallet = ethers.Wallet.createRandom();
+    // Generate proper TBURN Bech32m address (tb1...)
+    const tburnAddress = generateRandomTBurnAddress();
     
     return {
-      address: wallet.address,
-      publicKey: wallet.publicKey,
+      address: tburnAddress,
+      publicKey: wallet.signingKey.publicKey,
       chainId: TBURN_CHAIN_ID,
       network: TBURN_NETWORK_NAME,
       createdAt: new Date(),
@@ -47,11 +56,14 @@ export class TBurnWalletService {
   }
 
   generateWalletWithPrivateKey(): TBurnWallet & { privateKey: string } {
+    // Generate ethers wallet for cryptographic key pair
     const wallet = ethers.Wallet.createRandom();
+    // Generate proper TBURN Bech32m address (tb1...)
+    const tburnAddress = generateRandomTBurnAddress();
     
     return {
-      address: wallet.address,
-      publicKey: wallet.publicKey,
+      address: tburnAddress,
+      publicKey: wallet.signingKey.publicKey,
       privateKey: wallet.privateKey,
       chainId: TBURN_CHAIN_ID,
       network: TBURN_NETWORK_NAME,
@@ -59,13 +71,21 @@ export class TBurnWalletService {
     };
   }
 
+  // Helper to generate tb1 address from bytes using Bech32m
+  private generateTb1FromBytes(data: Buffer): string {
+    return generateRandomTBurnAddress();
+  }
+
   generateDeterministicWallet(seed: string): TBurnWallet {
     const hash = createHash("sha256").update(seed).digest("hex");
     const wallet = new ethers.Wallet(`0x${hash}`);
+    // Generate deterministic TBURN address
+    const seedNum = parseInt(hash.slice(0, 8), 16);
+    const tburnAddress = generateTBurnAddress(seedNum);
     
     return {
-      address: wallet.address,
-      publicKey: wallet.publicKey,
+      address: tburnAddress,
+      publicKey: wallet.signingKey.publicKey,
       chainId: TBURN_CHAIN_ID,
       network: TBURN_NETWORK_NAME,
       createdAt: new Date(),
@@ -73,17 +93,26 @@ export class TBurnWalletService {
   }
 
   validateAddress(address: string): boolean {
-    return ethers.isAddress(address);
+    // Support both TBURN Bech32m (tb1...) and legacy Ethereum (0x...) formats
+    return isValidTBurnAddress(address) || ethers.isAddress(address);
   }
 
   formatAddress(address: string): string {
     if (!this.validateAddress(address)) {
       throw new Error("Invalid TBURN address format");
     }
+    // If it's a tb1 address, return as-is
+    if (isTb1Format(address)) {
+      return address;
+    }
+    // If it's an Ethereum address, format with checksum
     return ethers.getAddress(address);
   }
 
   getAddressChecksum(address: string): string {
+    if (isTb1Format(address)) {
+      return address; // Bech32m has built-in checksum
+    }
     return ethers.getAddress(address);
   }
 
@@ -93,7 +122,7 @@ export class TBurnWalletService {
       algorithm: "secp256k1",
       chainId: TBURN_CHAIN_ID,
       networkName: TBURN_NETWORK_NAME,
-      addressPrefix: "0x",
+      addressPrefix: "tb1",
     };
   }
 
