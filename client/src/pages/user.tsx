@@ -18,8 +18,15 @@ import {
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
   LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
   Menu, X, Crown, Info, Image, ImageIcon, Plus, Play, Gamepad2, Rocket,
-  Home, HelpCircle, ScanLine, FileText, Bug
+  Home, HelpCircle, ScanLine, FileText, Bug, Key
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { PhishingWarningBanner } from "@/components/phishing-warning-banner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -1347,6 +1354,11 @@ function WalletSection({
   const { showAlert } = useTBurnAlert();
   const [activeTab, setActiveTab] = useState("transfer");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [createWalletOpen, setCreateWalletOpen] = useState(false);
+  const [createdWallet, setCreatedWallet] = useState<{ address: string; privateKey: string } | null>(null);
+  const [acknowledged, setAcknowledged] = useState(false);
+  const [privateKeyCopied, setPrivateKeyCopied] = useState(false);
+  const [addressCopied, setAddressCopied] = useState(false);
   
   const form = useForm<TransferFormValues>({
     resolver: zodResolver(transferFormSchema),
@@ -1424,6 +1436,58 @@ function WalletSection({
     { hash: "tb1txhash7g8h9i0j1k2l", type: "received", from: "tb1v8fmjvst5spfruj47", amount: 1200, time: t('userPage.timeAgo.hoursAgo', { count: 2 }), status: "completed" },
     { hash: "tb1txhash3m4n5o6p7q8r", type: "staked", validator: "TBURN Foundation", amount: 5000, time: t('userPage.timeAgo.daysAgo', { count: 1 }), status: "completed" },
   ];
+
+  const createWalletMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/wallet/create", {});
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setCreatedWallet(data.wallet);
+      toast({
+        title: t('userPage.wallet.walletCreated', '지갑 생성 완료'),
+        description: t('userPage.wallet.walletCreatedDesc', '새 TBURN 지갑이 생성되었습니다'),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t('common.error', '오류'),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleCopyPrivateKey = async () => {
+    if (!createdWallet) return;
+    try {
+      await navigator.clipboard.writeText(createdWallet.privateKey);
+      setPrivateKeyCopied(true);
+      setTimeout(() => setPrivateKeyCopied(false), 2000);
+    } catch {
+      toast({ title: t('userPage.wallet.copyFailed', '복사 실패'), variant: "destructive" });
+    }
+  };
+
+  const handleCopyAddress = async () => {
+    if (!createdWallet) return;
+    try {
+      await navigator.clipboard.writeText(createdWallet.address);
+      setAddressCopied(true);
+      setTimeout(() => setAddressCopied(false), 2000);
+    } catch {
+      toast({ title: t('userPage.wallet.copyFailed', '복사 실패'), variant: "destructive" });
+    }
+  };
+
+  const handleCloseCreateDialog = () => {
+    if (createdWallet && !acknowledged) return;
+    setCreatedWallet(null);
+    setAcknowledged(false);
+    setPrivateKeyCopied(false);
+    setAddressCopied(false);
+    setCreateWalletOpen(false);
+  };
 
   return (
     <section className="space-y-4 sm:space-y-6" data-testid="section-wallet">
@@ -1620,6 +1684,15 @@ function WalletSection({
           <div className="bg-white dark:bg-[#151E32] rounded-2xl p-6 border border-slate-200 dark:border-gray-800 shadow-sm">
             <h4 className="font-bold text-slate-900 dark:text-white mb-4">{t('userPage.wallet.quickActions')}</h4>
             <div className="space-y-2">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/30 hover:border-blue-500/50" 
+                size="sm"
+                onClick={() => setCreateWalletOpen(true)}
+                data-testid="button-create-wallet-user"
+              >
+                <Plus className="w-4 h-4 mr-2 text-blue-500" /> {t('userPage.wallet.createNewWallet', '새 지갑 생성')}
+              </Button>
               <Button variant="outline" className="w-full justify-start" size="sm">
                 <Copy className="w-4 h-4 mr-2" /> {t('userPage.wallet.copyAddress')}
               </Button>
@@ -1633,6 +1706,123 @@ function WalletSection({
           </div>
         </div>
       </div>
+
+      {/* Create Wallet Dialog */}
+      <Dialog open={createWalletOpen} onOpenChange={(open) => {
+        if (!open && createdWallet && !acknowledged) return;
+        if (!open) handleCloseCreateDialog();
+        else setCreateWalletOpen(true);
+      }}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Plus className="h-5 w-5 text-primary" />
+              {t('userPage.wallet.createNewWallet', '새 지갑 생성')}
+            </DialogTitle>
+            <DialogDescription>
+              {createdWallet 
+                ? t('userPage.wallet.walletReady', '새 TBURN 지갑이 준비되었습니다')
+                : t('userPage.wallet.createWalletDesc', 'TBURN 메인넷용 새 지갑 주소를 생성합니다')}
+            </DialogDescription>
+          </DialogHeader>
+
+          {!createdWallet ? (
+            <div className="space-y-4 py-4">
+              <div className="rounded-lg bg-muted/50 p-4 space-y-3">
+                <div className="flex items-start gap-3">
+                  <Shield className="h-5 w-5 text-primary mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium">{t('userPage.wallet.secureGeneration', '안전한 지갑 생성')}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {t('userPage.wallet.secureGenerationDesc', 'TBURN 메인넷(Chain ID: 7979)용 새 암호화 키 쌍이 생성됩니다.')}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Key className="h-5 w-5 text-yellow-500 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-yellow-500">{t('userPage.wallet.importantWarning', '중요 경고')}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {t('userPage.wallet.privateKeyWarning', '개인키는 한 번만 표시됩니다. 안전하게 저장하세요. 개인키를 가진 사람은 지갑을 완전히 제어할 수 있습니다.')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={handleCloseCreateDialog}>
+                  {t('common.cancel', '취소')}
+                </Button>
+                <Button 
+                  onClick={() => createWalletMutation.mutate()}
+                  disabled={createWalletMutation.isPending}
+                  data-testid="button-generate-wallet"
+                >
+                  {createWalletMutation.isPending ? (
+                    <RefreshCw className="h-4 w-4 animate-spin mr-2" />
+                  ) : (
+                    <Plus className="h-4 w-4 mr-2" />
+                  )}
+                  {t('userPage.wallet.generateWallet', '지갑 생성')}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4 py-4">
+              <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-3 flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-green-500" />
+                <span className="text-sm font-medium text-green-500">{t('userPage.wallet.walletCreatedSuccess', '지갑이 성공적으로 생성되었습니다!')}</span>
+              </div>
+
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">{t('common.address', '주소')}</label>
+                  <div className="flex gap-2">
+                    <code className="flex-1 p-2 rounded bg-muted text-xs font-mono break-all">{createdWallet.address}</code>
+                    <Button size="sm" variant="outline" onClick={handleCopyAddress}>
+                      {addressCopied ? <CheckCircle className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-yellow-500 mb-1 block flex items-center gap-1">
+                    <AlertTriangle className="h-3 w-3" />
+                    {t('userPage.wallet.privateKey', '개인키')} - {t('userPage.wallet.saveSecurely', '안전하게 저장하세요!')}
+                  </label>
+                  <div className="flex gap-2">
+                    <code className="flex-1 p-2 rounded bg-red-500/10 border border-red-500/30 text-xs font-mono break-all text-red-400">{createdWallet.privateKey}</code>
+                    <Button size="sm" variant="outline" onClick={handleCopyPrivateKey} className="border-yellow-500/30">
+                      {privateKeyCopied ? <CheckCircle className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+                <input 
+                  type="checkbox" 
+                  id="acknowledge" 
+                  checked={acknowledged}
+                  onChange={(e) => setAcknowledged(e.target.checked)}
+                  className="rounded"
+                />
+                <label htmlFor="acknowledge" className="text-xs text-yellow-600 dark:text-yellow-400">
+                  {t('userPage.wallet.acknowledgeWarning', '개인키를 안전하게 저장했으며, 분실 시 복구가 불가능함을 이해합니다.')}
+                </label>
+              </div>
+
+              <Button 
+                onClick={handleCloseCreateDialog} 
+                disabled={!acknowledged}
+                className="w-full"
+              >
+                {t('common.complete', '완료')}
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
