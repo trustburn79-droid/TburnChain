@@ -1208,7 +1208,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private readonly SHARD_BASELINE_TPS = 10000;        // Each shard's optimal TPS
   private readonly ACTIVATION_THRESHOLD = 0.75;       // Activate standby when active shards reach 75%
   private readonly DEACTIVATION_THRESHOLD = 0.45;     // Deactivate shard when load drops below 45%
-  private readonly REDISTRIBUTION_THRESHOLD = 0.80;   // Redistribute load at 80%
+  private readonly REDISTRIBUTION_THRESHOLD = 0.95;   // Redistribute load at 95%
   private readonly CROSS_SHARD_PENALTY_BASE = 0.005;  // 0.5% penalty per 1k cross-shard tx
   private readonly COORDINATION_OVERHEAD_ALPHA = 0.001; // Cross-shard message overhead coefficient
   private readonly COORDINATION_OVERHEAD_BETA = 0.0001; // Latency variance overhead coefficient
