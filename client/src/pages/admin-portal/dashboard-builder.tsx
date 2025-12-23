@@ -261,14 +261,18 @@ export default function DashboardBuilder() {
     };
   }, []);
 
+  // CRITICAL: Initialize data only after Enterprise Node stats are loaded (unified source with /admin/shards)
   useEffect(() => {
-    // Generate TPS history based on actual network TPS (deterministic variation)
-    const baseTps = networkStats.tps || 210000;
+    if (!realNetworkStats?.tps || realNetworkStats.tps === 0) return;
+    
+    const baseTps = realNetworkStats.tps;
+    const shardCount = realNetworkStats.shardCount || 64;
+    const validators = realNetworkStats.activeValidators || 1600;
     const now = new Date();
+    
     const initialTpsHistory = Array.from({ length: 24 }, (_, i) => {
       const time = new Date(now.getTime() - (23 - i) * 60 * 60 * 1000);
-      // Deterministic variation using sine wave (±5% of base TPS)
-      const variation = Math.sin(i * 0.5) * 0.05 * baseTps;
+      const variation = Math.sin(i * 0.5) * 0.025 * baseTps;
       return {
         time: time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }),
         tps: Math.round(baseTps + variation),
@@ -286,68 +290,85 @@ export default function DashboardBuilder() {
     ];
     setLatencyData(initialLatencyData);
 
+    const baseHeight = realNetworkStats.currentBlockHeight || 28000000;
     const initialBlocks: BlockData[] = Array.from({ length: 10 }, (_, i) => ({
-      height: networkStats.blockHeight - i,
-      hash: `0x${Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}...`,
-      transactions: Math.floor(Math.random() * 500) + 100,
+      height: baseHeight - i,
+      hash: `0x${((baseHeight - i) * 7919).toString(16).substring(0, 8)}...`,
+      transactions: Math.floor(200 + 100 * Math.sin(i * 0.3)),
       timestamp: new Date(Date.now() - i * 2500).toLocaleTimeString('en-US', { timeZone: 'America/New_York' }),
-      validator: `validator-${Math.floor(Math.random() * 156) + 1}`,
-      size: `${(Math.random() * 2 + 0.5).toFixed(2)} MB`,
-      gasUsed: Math.floor(Math.random() * 30000000) + 10000000,
+      validator: `validator-${(i * 17) % validators + 1}`,
+      size: `${(1.0 + 0.5 * Math.sin(i * 0.4)).toFixed(2)} MB`,
+      gasUsed: Math.floor(20000000 + 5000000 * Math.sin(i * 0.5)),
     }));
     setRecentBlocks(initialBlocks);
 
+    const shardTps = Math.floor(baseTps / shardCount);
     const initialAlerts: AlertData[] = [
-      { id: "1", type: "info", title: "Network Status", message: "All 8 shards operating normally at 100K+ TPS", timestamp: "2 min ago", resolved: false },
-      { id: "2", type: "success", title: "Validator Sync", message: "All 156 validators synchronized", timestamp: "5 min ago", resolved: false },
+      { id: "1", type: "info", title: "Network Status", message: `All ${shardCount} shards operating normally at ${Math.floor(baseTps / 1000)}K+ TPS`, timestamp: "2 min ago", resolved: false },
+      { id: "2", type: "success", title: "Validator Sync", message: `All ${validators} validators synchronized`, timestamp: "5 min ago", resolved: false },
       { id: "3", type: "warning", title: "High Load Alert", message: "Shard 3 approaching 95% capacity", timestamp: "8 min ago", resolved: false },
-      { id: "4", type: "info", title: "AI Optimization", message: "Triple-band AI optimizing cross-shard routing", timestamp: "12 min ago", resolved: false },
-      { id: "5", type: "success", title: "Bridge Active", message: "Multi-chain bridge processing 1,250 TPS", timestamp: "15 min ago", resolved: true },
+      { id: "4", type: "info", title: "AI Optimization", message: "Quad-band AI optimizing cross-shard routing", timestamp: "12 min ago", resolved: false },
+      { id: "5", type: "success", title: "Bridge Active", message: `Multi-chain bridge processing ${Math.floor(shardTps * 0.2).toLocaleString()} TPS`, timestamp: "15 min ago", resolved: true },
     ];
     setActiveAlerts(initialAlerts);
 
-    const initialShardDist = Array.from({ length: 8 }, (_, i) => ({
+    const initialShardDist = Array.from({ length: Math.min(shardCount, 8) }, (_, i) => ({
       name: `Shard ${i + 1}`,
-      value: Math.floor(Math.random() * 15) + 10,
-      tps: Math.floor(Math.random() * 15000) + 55000,
+      value: Math.floor(10 + 5 * Math.sin(i * 0.7)),
+      tps: Math.floor(shardTps + shardTps * 0.1 * Math.sin(i * 0.5)),
     }));
     setShardDistribution(initialShardDist);
 
     const initialValidatorPerf = [
-      { tier: "Tier 1 (20M+)", count: 25, uptime: 99.98, blocks: 12500 },
-      { tier: "Tier 2 (5M+)", count: 56, uptime: 99.85, blocks: 8200 },
-      { tier: "Tier 3 (10K+)", count: 75, uptime: 99.72, blocks: 4100 },
+      { tier: "Tier 1 (20M+)", count: Math.floor(validators * 0.16), uptime: 99.98, blocks: 12500 },
+      { tier: "Tier 2 (5M+)", count: Math.floor(validators * 0.36), uptime: 99.85, blocks: 8200 },
+      { tier: "Tier 3 (10K+)", count: Math.floor(validators * 0.48), uptime: 99.72, blocks: 4100 },
     ];
     setValidatorPerformance(initialValidatorPerf);
-  }, []);
+  }, [realNetworkStats?.tps, realNetworkStats?.shardCount, realNetworkStats?.activeValidators, realNetworkStats?.currentBlockHeight]);
 
+  // CRITICAL: Deterministic interval updates - no Math.random() for legal compliance
+  // Note: Only depends on realNetworkStats to avoid stale closures
   useEffect(() => {
+    if (!realNetworkStats?.tps) return;
+    
+    let tickCounter = 0;
+    const baseTps = realNetworkStats.tps;
+    const validators = realNetworkStats.activeValidators || 1600;
+    const baseHeight = realNetworkStats.currentBlockHeight || 28000000;
+    
     const interval = setInterval(() => {
+      tickCounter++;
+      const sinVariation = Math.sin(tickCounter * 0.1) * 0.025 * baseTps;
+      const currentHeight = baseHeight + tickCounter;
+      
       setNetworkStats(prev => ({
         ...prev,
-        tps: prev.tps + Math.floor(Math.random() * 2000) - 1000,
-        blockHeight: prev.blockHeight + 1,
+        tps: Math.floor(baseTps + sinVariation),
+        blockHeight: currentHeight,
       }));
 
       setTpsHistory(prev => {
+        if (prev.length === 0) return prev;
         const now = new Date();
         const newPoint = {
           time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }),
-          tps: networkStats.tps + Math.floor(Math.random() * 5000) - 2500,
-          target: 500000,
+          tps: Math.floor(baseTps + sinVariation),
+          target: Math.floor(baseTps * 1.2),
         };
         return [...prev.slice(1), newPoint];
       });
 
       setRecentBlocks(prev => {
+        if (prev.length === 0) return prev;
         const newBlock: BlockData = {
-          height: (prev[0]?.height || networkStats.blockHeight) + 1,
-          hash: `0x${Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}...`,
-          transactions: Math.floor(Math.random() * 500) + 100,
+          height: currentHeight,
+          hash: `0x${(currentHeight * 7919).toString(16).substring(0, 8)}...`,
+          transactions: Math.floor(200 + 100 * Math.sin(tickCounter * 0.3)),
           timestamp: new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York' }),
-          validator: `validator-${Math.floor(Math.random() * 156) + 1}`,
-          size: `${(Math.random() * 2 + 0.5).toFixed(2)} MB`,
-          gasUsed: Math.floor(Math.random() * 30000000) + 10000000,
+          validator: `validator-${(tickCounter * 17) % validators + 1}`,
+          size: `${(1.0 + 0.5 * Math.sin(tickCounter * 0.4)).toFixed(2)} MB`,
+          gasUsed: Math.floor(20000000 + 5000000 * Math.sin(tickCounter * 0.5)),
         };
         return [newBlock, ...prev.slice(0, 9)];
       });
@@ -356,7 +377,7 @@ export default function DashboardBuilder() {
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [networkStats.tps, networkStats.blockHeight]);
+  }, [realNetworkStats?.tps, realNetworkStats?.activeValidators, realNetworkStats?.currentBlockHeight]);
 
   const createDashboardMutation = useMutation({
     mutationFn: async (dashboard: typeof newDashboard) => {

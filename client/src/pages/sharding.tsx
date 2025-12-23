@@ -82,6 +82,15 @@ export default function Sharding() {
     placeholderData: keepPreviousData,
   });
 
+  // CRITICAL: Fetch unified TPS from Enterprise Node (same source as /admin/shards "결합 TPS")
+  const { data: networkStats } = useQuery<any>({
+    queryKey: ["/api/network/stats"],
+    refetchInterval: 5000,
+    staleTime: 5000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
   useWebSocketChannel({
     channel: "cross_shard_snapshot",
     schema: crossShardMessagesSnapshotSchema,
@@ -97,9 +106,10 @@ export default function Sharding() {
   });
 
   const activeShards = shards?.filter(s => s.status === "active").length || 0;
-  const totalTps = shards?.reduce((sum, s) => sum + s.tps, 0) || 0;
+  // CRITICAL: Use Enterprise Node TPS for consistency with /admin/shards "결합 TPS"
+  const totalTps = networkStats?.tps || shards?.reduce((sum, s) => sum + s.tps, 0) || 0;
   const avgLoad = shards?.length ? (shards.reduce((sum, s) => sum + s.load, 0) / shards.length) : 0;
-  const totalValidators = shards?.reduce((sum, s) => sum + s.validatorCount, 0) || 0;
+  const totalValidators = networkStats?.activeValidators || shards?.reduce((sum, s) => sum + s.validatorCount, 0) || 0;
   const totalCrossShardTx = shards?.reduce((sum, s) => sum + s.crossShardTxCount, 0) || 0;
   const avgMlScore = shards?.length ? (shards.reduce((sum, s) => sum + s.mlOptimizationScore, 0) / shards.length) : 0;
 

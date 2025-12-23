@@ -101,12 +101,15 @@ export default function TestnetRpcProviders() {
     }
   }, [networkStats]);
 
+  // CRITICAL: Deterministic latency simulation - no Math.random() for legal compliance
   useEffect(() => {
+    let tickCounter = 0;
     const interval = setInterval(() => {
+      tickCounter++;
       const now = new Date();
       const newPoint: LatencyPoint = {
         time: now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-        latency: 12 + Math.floor(Math.random() * 12)
+        latency: Math.floor(18 + 6 * Math.sin(tickCounter * 0.3))
       };
       setLatencyHistory(prev => [...prev.slice(-19), newPoint]);
     }, 2000);

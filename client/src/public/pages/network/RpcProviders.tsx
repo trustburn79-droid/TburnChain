@@ -128,12 +128,15 @@ export default function RpcProviders() {
     }
   }, [networkStats]);
 
+  // CRITICAL: Deterministic latency simulation - no Math.random() for legal compliance
   useEffect(() => {
+    let tickCounter = 0;
     const interval = setInterval(() => {
+      tickCounter++;
       const now = new Date();
       const newPoint: LatencyPoint = {
         time: now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-        latency: 8 + Math.floor(Math.random() * 8)
+        latency: Math.floor(12 + 4 * Math.sin(tickCounter * 0.3))
       };
       setLatencyHistory(prev => [...prev.slice(-19), newPoint]);
     }, 2000);

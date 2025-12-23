@@ -76,12 +76,14 @@ interface Transaction {
   status: string;
 }
 
+// CRITICAL: Deterministic TPS history - no Math.random() for legal compliance
+// Uses sine wave variation (±2.5% of base TPS) synchronized with /admin/shards
 function generateTpsHistory(baseTps: number = 0) {
   const data = [];
   const now = Date.now();
   const tpsBase = baseTps > 0 ? baseTps : 0;
   for (let i = 24; i >= 0; i--) {
-    const variance = tpsBase > 0 ? Math.floor(tpsBase * 0.05 * (Math.random() - 0.5)) : 0;
+    const variance = tpsBase > 0 ? Math.floor(tpsBase * 0.025 * Math.sin(i * 0.5)) : 0;
     data.push({
       time: new Date(now - i * 3600000).toLocaleTimeString('en-US', { hour: '2-digit', timeZone: 'America/New_York' }),
       tps: tpsBase + variance,

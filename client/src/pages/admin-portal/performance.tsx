@@ -238,27 +238,33 @@ export default function AdminPerformance() {
   }, [performanceData, resourcesData]);
 
   // CRITICAL: Use deterministic sine wave for legal compliance - no Math.random()
+  // Fallback TPS uses networkStats.tps from Enterprise Node (unified source with /admin/shards)
   const performanceHistory = useMemo(() => {
     if (historyData?.history) return historyData.history;
+    const baseTps = networkStats?.tps || 0;
+    if (baseTps === 0) return [];
     return Array.from({ length: 48 }, (_, i) => ({
       timestamp: Date.now() - (47 - i) * 1800000,
       time: new Date(Date.now() - (47 - i) * 1800000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-      tps: Math.floor(50000 + 2000 * Math.sin(i * 0.2)),
+      tps: Math.floor(baseTps + baseTps * 0.025 * Math.sin(i * 0.2)),
       latency: Math.floor(160 + 20 * Math.sin(i * 0.3)),
       cpu: Math.floor(5.5 + 2.5 * Math.sin(i * 0.25)),
       memory: Math.floor(22 + 4 * Math.sin(i * 0.35)),
       blockTime: 100
     }));
-  }, [historyData]);
+  }, [historyData, networkStats?.tps]);
 
   // CRITICAL: Use deterministic calculation for legal compliance - no Math.random()
+  // Fallback TPS per shard derived from Enterprise Node total TPS (unified source with /admin/shards)
   const shardPerformance: ShardPerformance[] = useMemo(() => {
     if (shardData?.shards) return shardData.shards;
-    // Fallback values based on deterministic sine wave per shard
     const shardCount = networkStats?.shardCount || 64;
+    const baseTps = networkStats?.tps || 0;
+    if (baseTps === 0) return [];
+    const tpsPerShard = Math.floor(baseTps / shardCount);
     return Array.from({ length: shardCount }, (_, i) => ({
       shardId: i,
-      tps: Math.floor(9000 + 1000 * Math.sin(i * 0.5)),
+      tps: Math.floor(tpsPerShard + tpsPerShard * 0.1 * Math.sin(i * 0.5)),
       latency: Math.floor(188 + 12 * Math.sin(i * 0.4)),
       load: Math.floor(68 + 12 * Math.sin(i * 0.6)),
       status: i % 7 === 0 ? "warning" as const : "healthy" as const,
