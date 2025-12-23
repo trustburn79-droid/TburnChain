@@ -2,9 +2,10 @@ interface TBurnLogoProps {
   className?: string;
   symbolColor?: string;
   textColor?: string;
+  fontSize?: number;
 }
 
-export function TBurnLogo({ className, symbolColor, textColor }: TBurnLogoProps) {
+export function TBurnLogo({ className, symbolColor, textColor, fontSize = 16 }: TBurnLogoProps) {
   const useGradient = !symbolColor;
   const uniqueId = Math.random().toString(36).substr(2, 9);
   
@@ -62,7 +63,7 @@ export function TBurnLogo({ className, symbolColor, textColor }: TBurnLogoProps)
         x="50"
         y="58"
         textAnchor="middle"
-        fontSize="16"
+        fontSize={fontSize}
         fontWeight="bold"
         fill={getTextColor()}
         fontFamily="sans-serif"
