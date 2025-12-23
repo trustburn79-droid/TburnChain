@@ -2063,6 +2063,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         this.shardConfig.currentShardCount = envShards;
         this.shardConfig.minShards = envShards;
         this.shardConfig.maxShards = 128;
+      }
         
       // Verify API key
       if (this.config.apiKey !== 'tburn797900') {
