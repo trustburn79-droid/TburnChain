@@ -70,6 +70,15 @@ export default function MetricsExplorer() {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
+  
+  // CRITICAL: Fetch real-time TPS from unified source (Enterprise Node)
+  const { data: networkStats } = useQuery<any>({
+    queryKey: ["/api/network/stats"],
+    refetchInterval: 5000,
+    staleTime: 5000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
 
   const categories = [
     { value: "all", label: t("adminMetrics.categories.all") },
@@ -81,29 +90,37 @@ export default function MetricsExplorer() {
     { value: "bridge", label: t("adminMetrics.categories.bridge") },
   ];
 
+  // CRITICAL: Use real-time values from Enterprise Node where available
+  const realTps = networkStats?.tps || 210000;
+  const realValidators = networkStats?.activeValidators || 1600;
+  const realShards = networkStats?.totalShards || 64;
+  const realBlockHeight = networkStats?.currentBlockHeight || 1;
+  
   const metrics: Metric[] = metricsData?.metrics || [
-    { name: "tburn_tps_current", description: t("adminMetrics.metricDescriptions.tpsCurrent"), type: "gauge", category: "network", value: 100000, unit: "tx/s", labels: { node: "all", network: "mainnet-v8.0" }, isFavorite: true },
-    { name: "tburn_block_height", description: t("adminMetrics.metricDescriptions.blockHeight"), type: "counter", category: "network", value: 1, unit: "", labels: { chain: "mainnet-v8.0", genesis: "Dec 8 2024" }, isFavorite: true },
-    { name: "tburn_consensus_time_ms", description: t("adminMetrics.metricDescriptions.consensusTime"), type: "histogram", category: "consensus", value: 42, unit: "ms", labels: { algorithm: "bft", validators: "156" }, isFavorite: true },
-    { name: "tburn_validator_count", description: t("adminMetrics.metricDescriptions.validatorCount"), type: "gauge", category: "consensus", value: 156, unit: "", labels: { status: "active", tier1: "12", tier2: "48", tier3: "96" }, isFavorite: true },
+    { name: "tburn_tps_current", description: t("adminMetrics.metricDescriptions.tpsCurrent"), type: "gauge", category: "network", value: realTps, unit: "tx/s", labels: { node: "all", network: "mainnet-v8.0" }, isFavorite: true },
+    { name: "tburn_block_height", description: t("adminMetrics.metricDescriptions.blockHeight"), type: "counter", category: "network", value: realBlockHeight, unit: "", labels: { chain: "mainnet-v8.0", genesis: "Dec 23 2024" }, isFavorite: true },
+    { name: "tburn_consensus_time_ms", description: t("adminMetrics.metricDescriptions.consensusTime"), type: "histogram", category: "consensus", value: 42, unit: "ms", labels: { algorithm: "bft", validators: String(realValidators) }, isFavorite: true },
+    { name: "tburn_validator_count", description: t("adminMetrics.metricDescriptions.validatorCount"), type: "gauge", category: "consensus", value: realValidators, unit: "", labels: { status: "active", tier1: "125", tier2: "500", tier3: "975" }, isFavorite: true },
     { name: "tburn_cpu_usage_percent", description: t("adminMetrics.metricDescriptions.cpuUsage"), type: "gauge", category: "resources", value: 12.4, unit: "%", labels: { node: "primary" }, isFavorite: false },
-    { name: "tburn_memory_usage_gb", description: t("adminMetrics.metricDescriptions.memoryUsage"), type: "gauge", category: "resources", value: 28.6, unit: "GB", labels: { node: "primary", capacity: "128GB" }, isFavorite: false },
+    { name: "tburn_memory_usage_gb", description: t("adminMetrics.metricDescriptions.memoryUsage"), type: "gauge", category: "resources", value: 28.6, unit: "GB", labels: { node: "primary", capacity: "256GB" }, isFavorite: false },
     { name: "tburn_disk_io_mbps", description: t("adminMetrics.metricDescriptions.diskIO"), type: "gauge", category: "resources", value: 847, unit: "MB/s", labels: { device: "nvme-raid" }, isFavorite: false },
     { name: "tburn_tx_pending", description: t("adminMetrics.metricDescriptions.txPending"), type: "gauge", category: "transactions", value: 0, unit: "txs", labels: { priority: "all" }, isFavorite: false },
     { name: "tburn_tx_confirmed_24h", description: t("adminMetrics.metricDescriptions.txConfirmed"), type: "counter", category: "transactions", value: 0, unit: "", labels: { genesis: "true" }, isFavorite: true },
-    { name: "tburn_ai_decision_latency_ms", description: t("adminMetrics.metricDescriptions.aiLatency"), type: "histogram", category: "ai", value: 18, unit: "ms", labels: { model: "gemini-3-pro", band: "triple" }, isFavorite: true },
-    { name: "tburn_ai_accuracy_percent", description: t("adminMetrics.metricDescriptions.aiAccuracy"), type: "gauge", category: "ai", value: 99.7, unit: "%", labels: { model: "triple-band" }, isFavorite: true },
+    { name: "tburn_ai_decision_latency_ms", description: t("adminMetrics.metricDescriptions.aiLatency"), type: "histogram", category: "ai", value: 18, unit: "ms", labels: { model: "gemini-3-pro", band: "quad" }, isFavorite: true },
+    { name: "tburn_ai_accuracy_percent", description: t("adminMetrics.metricDescriptions.aiAccuracy"), type: "gauge", category: "ai", value: 99.7, unit: "%", labels: { model: "quad-band" }, isFavorite: true },
     { name: "tburn_bridge_pending", description: t("adminMetrics.metricDescriptions.bridgePending"), type: "gauge", category: "bridge", value: 0, unit: "", labels: { chains: "ETH,BSC,Polygon,Arbitrum" }, isFavorite: false },
     { name: "tburn_bridge_volume_24h", description: t("adminMetrics.metricDescriptions.bridgeVolume"), type: "counter", category: "bridge", value: 0, unit: "TBURN", labels: { status: "genesis" }, isFavorite: false },
-    { name: "tburn_shard_count", description: t("adminMetrics.metricDescriptions.shardCount"), type: "gauge", category: "network", value: 8, unit: "", labels: { capacity: "100K+ TPS" }, isFavorite: true },
+    { name: "tburn_shard_count", description: t("adminMetrics.metricDescriptions.shardCount"), type: "gauge", category: "network", value: realShards, unit: "", labels: { capacity: `${Math.floor(realTps / 1000)}K+ TPS` }, isFavorite: true },
     { name: "tburn_cross_shard_latency_ms", description: t("adminMetrics.metricDescriptions.crossShardLatency"), type: "histogram", category: "network", value: 1.8, unit: "ms", labels: { optimization: "ai-driven" }, isFavorite: false },
   ];
 
+  // CRITICAL: Use deterministic sine wave for legal compliance - no Math.random()
+  // Base TPS is 210,000 (unified source - 64 shards × 625 tx × 0.525 load × 10 blocks/sec)
   const chartData = metricsData?.chartData || Array.from({ length: 60 }, (_, i) => ({
     time: `${59 - i}m ago`,
-    tburn_tps_current: Math.floor(Math.random() * 5000) + 98000,
-    tburn_consensus_time_ms: Math.floor(Math.random() * 8) + 38,
-    tburn_validator_count: 156,
+    tburn_tps_current: Math.floor(210000 + 5000 * Math.sin(i * 0.15)),
+    tburn_consensus_time_ms: Math.floor(42 + 4 * Math.sin(i * 0.2)),
+    tburn_validator_count: 1600,
   }));
 
   const handleRefresh = useCallback(() => {

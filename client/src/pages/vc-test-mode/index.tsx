@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'wouter';
 import { useTranslation } from 'react-i18next';
+import { useQuery } from '@tanstack/react-query';
 import { 
   Wallet, 
   TrendingUp, 
@@ -45,20 +46,37 @@ const VC_DEMO_WALLET = {
   }
 };
 
-const PLATFORM_METRICS = {
+// Static metrics (will be overridden by real-time data where applicable)
+const STATIC_METRICS = {
   totalSupply: '10,000,000,000 TBURN',
   circulatingSupply: '6,940,000,000 TBURN',
   totalBurned: '3,060,000,000 TBURN',
   burnRate: '70%',
-  validators: 125,
-  shards: 5,
-  tps: '50,000+',
   blockTime: '0.5s',
   marketCap: '$2.1B',
   tvl: '$890M',
   dailyVolume: '$125M',
   activeWallets: '1.2M+'
 };
+
+// Hook to get real-time platform metrics from unified TPS source
+function usePlatformMetrics() {
+  const { data: networkStats } = useQuery<any>({
+    queryKey: ["/api/network/stats"],
+    refetchInterval: 10000,
+    staleTime: 10000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+  
+  return useMemo(() => ({
+    ...STATIC_METRICS,
+    validators: networkStats?.activeValidators || 125,
+    shards: networkStats?.shardCount || 64,
+    tps: networkStats?.tps ? `${Math.floor(networkStats.tps / 1000)}K+` : '210K+',
+    peakTps: networkStats?.peakTps ? `${Math.floor(networkStats.peakTps / 1000)}K+` : '250K+',
+  }), [networkStats]);
+}
 
 const FEATURE_CATEGORIES = [
   {
@@ -150,6 +168,9 @@ export default function VCTestMode() {
   const [demoWallet, setDemoWallet] = useState(VC_DEMO_WALLET);
   const [tourStep, setTourStep] = useState(0);
   const [showTour, setShowTour] = useState(false);
+  
+  // CRITICAL: Get real-time TPS from unified source (same as /admin/shards)
+  const PLATFORM_METRICS = usePlatformMetrics();
 
   const copyAddress = () => {
     navigator.clipboard.writeText(demoWallet.fullAddress);
@@ -579,7 +600,7 @@ export default function VCTestMode() {
                       <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.stack.blockchain', 'Independent Blockchain')}</div>
                     </div>
                     <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-lg text-center">
-                      <div className="font-bold text-gray-900 dark:text-white">50,000+ TPS (Peak 520,000+)</div>
+                      <div className="font-bold text-gray-900 dark:text-white">{PLATFORM_METRICS.tps} TPS (Peak {PLATFORM_METRICS.peakTps})</div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.stack.throughput', 'Transaction Throughput')}</div>
                     </div>
                     <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-lg text-center">

@@ -101,6 +101,7 @@ export default function SLAMonitoring() {
     });
   }, [timeRange, toast, t]);
 
+  // CRITICAL: Use deterministic sine wave for legal compliance - no Math.random()
   const slaMetrics: SLAMetric[] = slaData?.metrics || [
     {
       name: t("adminSla.metrics.uptime"),
@@ -123,19 +124,19 @@ export default function SLAMonitoring() {
       trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 38 + Math.random() * 8,
+        value: 42 + 4 * Math.sin(i * 0.3),
       })),
     },
     {
       name: t("adminSla.metrics.tpsCapacity"),
-      target: 100000,
-      current: 100000,
+      target: 250000,
+      current: 210000,
       unit: "tx/s",
       status: "met",
       trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 98000 + Math.random() * 5000,
+        value: 210000 + 5000 * Math.sin(i * 0.25),
       })),
     },
     {
@@ -147,7 +148,7 @@ export default function SLAMonitoring() {
       trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 998 + Math.random() * 4,
+        value: 1000 + 2 * Math.sin(i * 0.2),
       })),
     },
     {
@@ -159,7 +160,7 @@ export default function SLAMonitoring() {
       trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 38 + Math.random() * 10,
+        value: 43 + 5 * Math.sin(i * 0.35),
       })),
     },
     {
@@ -171,7 +172,7 @@ export default function SLAMonitoring() {
       trend: "down",
       history: Array.from({ length: 30 }, (_, i) => ({
         period: `${t("adminSla.day")} ${i + 1}`,
-        value: 0.002 + Math.random() * 0.002,
+        value: 0.003 + 0.001 * Math.sin(i * 0.4),
       })),
     },
   ];

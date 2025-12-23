@@ -155,13 +155,13 @@ export default function DashboardBuilder() {
   const [wsConnected, setWsConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [networkStats, setNetworkStats] = useState<NetworkStats>({
-    tps: 485000,
-    blockHeight: 25055842,
-    activeValidators: 156,
+    tps: 0,
+    blockHeight: 0,
+    activeValidators: 0,
     networkPeers: 324,
     totalTransactions: 0,
     avgBlockTime: 0.4,
-    shardCount: 8,
+    shardCount: 0,
     gasPrice: "0.001",
   });
   const [tpsHistory, setTpsHistory] = useState<Array<{ time: string; tps: number; target: number }>>([]);
@@ -178,6 +178,30 @@ export default function DashboardBuilder() {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
+  
+  // CRITICAL: Fetch real-time TPS from /api/network/stats (unified source with /admin/shards)
+  const { data: realNetworkStats } = useQuery<any>({
+    queryKey: ["/api/network/stats"],
+    refetchInterval: 5000,
+    staleTime: 5000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+  
+  // Sync with real network stats when available
+  useEffect(() => {
+    if (realNetworkStats) {
+      setNetworkStats(prev => ({
+        ...prev,
+        tps: realNetworkStats.tps || prev.tps,
+        blockHeight: realNetworkStats.currentBlockHeight || prev.blockHeight,
+        activeValidators: realNetworkStats.activeValidators || prev.activeValidators,
+        shardCount: realNetworkStats.shardCount || prev.shardCount,
+        totalTransactions: realNetworkStats.totalTransactions || prev.totalTransactions,
+        avgBlockTime: realNetworkStats.avgBlockTime ? realNetworkStats.avgBlockTime / 1000 : prev.avgBlockTime,
+      }));
+    }
+  }, [realNetworkStats]);
 
   useEffect(() => {
     let ws: WebSocket | null = null;
@@ -238,14 +262,17 @@ export default function DashboardBuilder() {
   }, []);
 
   useEffect(() => {
+    // Generate TPS history based on actual network TPS (deterministic variation)
+    const baseTps = networkStats.tps || 210000;
     const now = new Date();
     const initialTpsHistory = Array.from({ length: 24 }, (_, i) => {
       const time = new Date(now.getTime() - (23 - i) * 60 * 60 * 1000);
-      const baseTps = 450000 + Math.random() * 70000;
+      // Deterministic variation using sine wave (±5% of base TPS)
+      const variation = Math.sin(i * 0.5) * 0.05 * baseTps;
       return {
         time: time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }),
-        tps: Math.round(baseTps),
-        target: 500000,
+        tps: Math.round(baseTps + variation),
+        target: Math.floor(baseTps * 1.2),
       };
     });
     setTpsHistory(initialTpsHistory);
