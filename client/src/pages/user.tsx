@@ -1045,15 +1045,18 @@ function DashboardSection({
 
       {/* Portfolio Overview - Always show layout */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
-        <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-white shadow-lg">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-white shadow-lg relative overflow-hidden">
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 opacity-30">
+            <TBurnLogo className="w-16 h-16 sm:w-20 sm:h-20" showText={true} textColor="#000000" />
+          </div>
+          <div className="flex items-center gap-2 mb-2 relative z-10">
             <Wallet className="w-4 h-4 sm:w-5 sm:h-5 opacity-80" />
             <span className="text-xs sm:text-sm opacity-80">{t('userPage.totalAssets')}</span>
           </div>
-          <p className="text-xl sm:text-2xl font-bold font-mono">
+          <p className="text-xl sm:text-2xl font-bold font-mono relative z-10">
             {isConnected ? (userOverview?.totalPortfolioValue || parseFloat(balance || "0").toFixed(2)) : "0.00"} TB
           </p>
-          <p className="text-[10px] sm:text-xs opacity-70 mt-1">
+          <p className="text-[10px] sm:text-xs opacity-70 mt-1 relative z-10">
             {t('userPage.liquidBalance')}: {isConnected ? (userOverview?.liquidBalance || balance || "0") : "0"} TB
           </p>
         </div>
