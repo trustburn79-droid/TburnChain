@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ChevronRight, Home, Folder, FileText, ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 interface RouteItem {
   path: string;
@@ -266,9 +267,13 @@ export default function TreePage() {
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/">
-              <div className="flex items-center gap-2 cursor-pointer" data-testid="link-tree-home">
-                <Home className="w-5 h-5 text-blue-600" />
-                <span className="font-bold text-slate-900 dark:text-white">TBURN</span>
+              <div className="flex items-center gap-1.5 cursor-pointer group" data-testid="link-tree-home">
+                <div className="w-10 h-10 group-hover:scale-110 transition-transform">
+                  <TBurnLogo className="w-10 h-10" />
+                </div>
+                <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white">
+                  TBurn <span className="text-cyan-400 font-light">Chain</span>
+                </span>
               </div>
             </Link>
             <span className="hidden sm:inline text-slate-300 dark:text-slate-600">/</span>
