@@ -861,6 +861,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
 
   // Get all shards with their current state (for ProductionDataPoller)
+  // CRITICAL: Uses actual TPS from block production for consistency across all dashboards
   public getShards(): Array<{
     id: string;
     shardId: number;
@@ -889,18 +890,28 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const baseTpsPerShard = this.shardConfig.tpsPerShard;
     const currentBlockHeight = this.currentBlockHeight;
     
+    // GET REAL-TIME TPS from actual block production (same source as /admin, /app dashboards)
+    const realTimeTpsData = this.getRealTimeTPS();
+    const totalRealTps = realTimeTpsData.current;
+    const baseShardTps = Math.floor(totalRealTps / shardCount);
+    const remainder = totalRealTps - (baseShardTps * shardCount); // Distribute remainder to ensure exact total
+    
     for (let i = 0; i < shardCount; i++) {
       const healthMetrics = this.shardHealthMetrics.get(i);
       
       // Get health data with stable fallbacks
-      const load = healthMetrics?.load ?? Math.floor(50 + (i * 7) % 30);
       const latency = healthMetrics?.latency ?? Math.floor(20 + (i * 11) % 20);
       const uptime = healthMetrics?.validatorUptime ?? (0.97 + (i % 3) * 0.01);
       const crossShardSuccess = healthMetrics?.crossShardSuccess ?? (0.98 + (i % 2) * 0.01);
       const status = healthMetrics?.status ?? 'active';
       
-      // Calculate shard-specific metrics
-      const shardTps = Math.floor(baseTpsPerShard * (load / 100) * uptime);
+      // Calculate load based on actual TPS vs capacity (consistent with total network TPS)
+      const actualLoadPercent = Math.floor((baseShardTps / baseTpsPerShard) * 100);
+      const load = Math.max(20, Math.min(85, actualLoadPercent + ((i * 7) % 10) - 5)); // Deterministic variation
+      
+      // TPS distributed from real-time total with deterministic distribution
+      // First 'remainder' shards get +1 TPS to ensure exact total match
+      const shardTps = baseShardTps + (i < remainder ? 1 : 0);
       const peakTps = Math.floor(baseTpsPerShard * 1.2);
       const shardBlockHeight = currentBlockHeight - Math.floor(i * 0.1);
       const transactionCount = Math.floor(this.totalTransactions / shardCount + (i * 100000));
@@ -4477,20 +4488,29 @@ export class TBurnEnterpriseNode extends EventEmitter {
   
   
   // Generate dynamic shard data based on current configuration and REAL-TIME TPS
+  // CRITICAL: Uses actual TPS from block production for consistency across all dashboards
   generateShards(): any[] {
     const shards = [];
     const shardCount = this.shardConfig.currentShardCount;
     const validatorsPerShard = this.shardConfig.validatorsPerShard;
     const configuredTpsPerShard = this.shardConfig.tpsPerShard; // 10,000 TPS capacity per shard
     
+    // GET REAL-TIME TPS from actual block production (same source as /admin, /app dashboards)
+    const realTimeTpsData = this.getRealTimeTPS();
+    const totalRealTps = realTimeTpsData.current;
+    const baseShardTps = Math.floor(totalRealTps / shardCount);
+    const remainder = totalRealTps - (baseShardTps * shardCount); // Distribute remainder to ensure exact total
+    
     for (let i = 0; i < shardCount; i++) {
       const shardName = this.SHARD_NAMES[i] || `Shard-${i + 1}`;
-      const loadVariation = 35 + Math.floor(Math.random() * 35); // 35-70% load
-      // TPS based on configured capacity with load factor applied
-      // Each shard can handle up to tpsPerShard (10,000), current TPS = capacity × load%
-      const loadFactor = loadVariation / 100;
-      const shardVariation = Math.floor((Date.now() / 1000 + i * 37) % 500) - 250; // ±250 TPS variation
-      const shardTps = Math.floor(configuredTpsPerShard * loadFactor) + shardVariation;
+      
+      // Calculate load based on actual TPS vs capacity (deterministic)
+      const actualLoadPercent = Math.floor((baseShardTps / configuredTpsPerShard) * 100);
+      const loadVariation = Math.max(20, Math.min(85, actualLoadPercent + ((i * 7) % 10) - 5)); // Deterministic variation
+      
+      // TPS distributed from real-time total with deterministic distribution
+      // First 'remainder' shards get +1 TPS to ensure exact total match
+      const shardTps = baseShardTps + (i < remainder ? 1 : 0);
       
       shards.push({
         id: `${i + 1}`,
