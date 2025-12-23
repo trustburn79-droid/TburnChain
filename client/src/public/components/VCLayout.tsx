@@ -24,6 +24,7 @@ import {
   Wallet,
   TrendingUp,
   Shield,
+  Home,
 } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useState, ReactNode } from "react";
@@ -93,13 +94,12 @@ export default function VCLayout({ children }: VCLayoutProps) {
 
             <div className="flex items-center gap-3">
               <div className="hidden xl:flex items-center gap-3 text-sm">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50">
-                  <span className="text-gray-400">TBURN</span>
-                  <span className="text-white font-medium">$2.45</span>
-                  <Badge variant="outline" className="text-green-400 border-green-400/30 text-xs">
-                    +5.2%
-                  </Badge>
-                </div>
+                <Link href="/">
+                  <Button variant="ghost" size="sm" className="gap-2 text-gray-400 hover:text-white" data-testid="link-vc-to-home">
+                    <Home className="w-4 h-4" />
+                    Home
+                  </Button>
+                </Link>
                 
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50">
                   <Wallet className="w-4 h-4 text-gray-400" />
