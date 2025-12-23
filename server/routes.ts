@@ -752,8 +752,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       req.session.adminAuthenticated = true;
-      console.log('[Admin Auth] Admin login successful');
-      res.json({ success: true });
+      
+      // Explicitly save session before responding to ensure persistence
+      req.session.save((err) => {
+        if (err) {
+          console.error('[Admin Auth] Session save error:', err);
+          return res.status(500).json({ error: "Failed to save session" });
+        }
+        console.log('[Admin Auth] Admin login successful, session saved:', req.sessionID);
+        res.json({ success: true });
+      });
     } else {
       console.warn('[Admin Auth] Invalid admin credentials attempt');
       res.status(401).json({ error: "Invalid admin credentials" });
@@ -766,7 +774,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/auth/check", (req, res) => {
-    res.json({ authenticated: !!req.session.adminAuthenticated });
+    const isAuth = !!req.session.adminAuthenticated;
+    // Log for debugging session issues
+    if (!isAuth && req.headers.cookie) {
+      console.log('[Admin Auth] Check failed - session:', req.sessionID, 'cookies present:', !!req.headers.cookie);
+    }
+    res.json({ authenticated: isAuth });
   });
 
   // ============================================
