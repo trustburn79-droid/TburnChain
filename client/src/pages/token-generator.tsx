@@ -1155,7 +1155,7 @@ function CreateTokenContent({
         <div className="space-y-6">
           <Card className={isDark ? 'bg-[#151E32]/70 border-white/5' : ''}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg">
                 <Sparkles className="h-5 w-5 text-purple-500" />
                 {t('tokenGenerator.chooseTemplate')}
               </CardTitle>
