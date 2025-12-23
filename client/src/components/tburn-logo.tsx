@@ -1,11 +1,18 @@
 interface TBurnLogoProps {
   className?: string;
   symbolColor?: string;
+  textColor?: string;
 }
 
-export function TBurnLogo({ className, symbolColor }: TBurnLogoProps) {
+export function TBurnLogo({ className, symbolColor, textColor }: TBurnLogoProps) {
   const useGradient = !symbolColor;
   const uniqueId = Math.random().toString(36).substr(2, 9);
+  
+  const getTextColor = () => {
+    if (textColor) return textColor;
+    if (symbolColor) return isLightColor(symbolColor) ? "#1a1a2e" : "#ffffff";
+    return "#1a1a2e";
+  };
   
   return (
     <svg
@@ -57,7 +64,7 @@ export function TBurnLogo({ className, symbolColor }: TBurnLogoProps) {
         textAnchor="middle"
         fontSize="16"
         fontWeight="bold"
-        fill={symbolColor ? (isLightColor(symbolColor) ? "#1a1a2e" : "#ffffff") : "#1a1a2e"}
+        fill={getTextColor()}
         fontFamily="sans-serif"
       >
         T
