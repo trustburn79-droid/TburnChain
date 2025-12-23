@@ -270,7 +270,7 @@ export default function VCTestMode() {
                 <div className="grid grid-cols-1 gap-3">
                   <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
                     <div className="flex items-center gap-2">
-                      <TBurnLogo className="w-8 h-8" showText={true} textColor="#000000" />
+                      <TBurnLogo className="w-10 h-10" showText={true} textColor="#000000" />
                       <span className="text-gray-300">TBURN</span>
                     </div>
                     <span className="font-mono font-bold">{demoWallet.balance.TBURN.toLocaleString()}</span>
