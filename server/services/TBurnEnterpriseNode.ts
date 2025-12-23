@@ -2056,7 +2056,14 @@ export class TBurnEnterpriseNode extends EventEmitter {
     try {
       // Load configuration from database (cold start recovery)
       await this.loadConfigFromDatabase();
-      
+      if (process.env.MAX_SHARDS) {
+        const envShards = parseInt(process.env.MAX_SHARDS, 10);
+        console.log(`[Enterprise Node] ⚡ FORCE OVERRIDE: Setting shards to ${envShards} (Ignoring DB value of ${this.shardConfig.currentShardCount})`);
+
+        this.shardConfig.currentShardCount = envShards;
+        this.shardConfig.minShards = envShards;
+        this.shardConfig.maxShards = 128;
+        
       // Verify API key
       if (this.config.apiKey !== 'tburn797900') {
         console.error('[Enterprise Node] Invalid API key - expected tburn797900');

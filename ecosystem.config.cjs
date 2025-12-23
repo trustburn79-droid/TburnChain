@@ -22,6 +22,7 @@ module.exports = {
     env: {
       NODE_ENV: 'production',
       PORT: 5000,
+      DATABASE_URL: 'postgresql://neondb_owner:npg_yVYPAU80cFez@ep-billowing-glitter-ahtrm1id.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require',
       
       // SHARD CONFIGURATION - 32-core server optimized
       MAX_SHARDS: '64',           // 64 shards for 32-core server
