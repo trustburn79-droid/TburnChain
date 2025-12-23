@@ -11,9 +11,9 @@ import {
   Check, 
   GitBranch, 
   BookOpen, 
-  Network,
-  Flame
+  Network
 } from "lucide-react";
+import { TBurnLogo } from "@/components/tburn-logo";
 import { SiGoogle, SiGithub } from "react-icons/si";
 import { queryClient } from "@/lib/queryClient";
 import { LanguageSelector } from "@/components/language-selector";
@@ -276,10 +276,9 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
       <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Flame className="w-4 h-4 text-black" />
-                <div className="absolute inset-0 bg-white/20 rounded blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <Link href="/" className="flex items-center gap-1.5 group">
+              <div className="w-9 h-9 group-hover:scale-110 transition-transform">
+                <TBurnLogo className="w-9 h-9" />
               </div>
               <span className="font-bold text-xl text-white tracking-tight">
                 TBurn <span className="text-cyan-400">Chain</span>
