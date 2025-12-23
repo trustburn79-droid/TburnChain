@@ -1174,7 +1174,7 @@ function CreateTokenContent({
                   >
                     <CardContent className="pt-6 relative">
                       <div className="absolute top-2 right-2">
-                        <TBurnLogo className="w-6 h-6" showText={true} textColor="#000000" />
+                        <TBurnLogo className="w-7 h-7" showText={true} textColor="#000000" />
                       </div>
                       <div className="flex items-center gap-3 mb-3">
                         <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
@@ -1232,7 +1232,7 @@ function CreateTokenContent({
                   >
                     <CardContent className="pt-6 text-center relative">
                       <div className="absolute top-2 right-2">
-                        <TBurnLogo className="w-6 h-6" showText={true} textColor="#000000" />
+                        <TBurnLogo className="w-7 h-7" showText={true} textColor="#000000" />
                       </div>
                       <div className={`h-16 w-16 rounded-full bg-${color}-500/20 flex items-center justify-center mx-auto mb-4`}>
                         <Icon className={`h-8 w-8 text-${color}-500`} />
