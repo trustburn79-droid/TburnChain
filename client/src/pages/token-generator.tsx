@@ -1173,8 +1173,8 @@ function CreateTokenContent({
                     data-testid={`card-template-${template.id}`}
                   >
                     <CardContent className="pt-6 relative">
-                      <div className="absolute top-3 right-3">
-                        <TBurnLogo fontSize={20} showText={false} symbolColor="gradient" />
+                      <div className="absolute top-2 right-2">
+                        <TBurnLogo className="w-6 h-6" showText={false} />
                       </div>
                       <div className="flex items-center gap-3 mb-3">
                         <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
@@ -1231,8 +1231,8 @@ function CreateTokenContent({
                     data-testid={`card-select-${std.toLowerCase()}`}
                   >
                     <CardContent className="pt-6 text-center relative">
-                      <div className="absolute top-3 right-3">
-                        <TBurnLogo fontSize={20} showText={false} symbolColor="gradient" />
+                      <div className="absolute top-2 right-2">
+                        <TBurnLogo className="w-6 h-6" showText={false} />
                       </div>
                       <div className={`h-16 w-16 rounded-full bg-${color}-500/20 flex items-center justify-center mx-auto mb-4`}>
                         <Icon className={`h-8 w-8 text-${color}-500`} />
