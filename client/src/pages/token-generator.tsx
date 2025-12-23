@@ -1231,8 +1231,8 @@ function CreateTokenContent({
                     data-testid={`card-select-${std.toLowerCase()}`}
                   >
                     <CardContent className="pt-6 text-center relative">
-                      <div className="absolute top-2 right-2">
-                        <TBurnLogo className="w-7 h-7" showText={true} textColor="#000000" />
+                      <div className="absolute top-3 right-3">
+                        <TBurnLogo className="w-9 h-9" showText={true} textColor="#000000" />
                       </div>
                       <div className={`h-16 w-16 rounded-full bg-${color}-500/20 flex items-center justify-center mx-auto mb-4`}>
                         <Icon className={`h-8 w-8 text-${color}-500`} />
