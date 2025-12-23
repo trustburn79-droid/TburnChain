@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { SiX, SiGithub, SiDiscord, SiTelegram, SiMedium } from "react-icons/si";
+import { SiX, SiGithub, SiDiscord, SiInstagram, SiTiktok, SiYoutube, SiFacebook, SiThreads, SiBluesky, SiReddit } from "react-icons/si";
 import { Mail, Globe, Shield, Zap, Flame, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -9,11 +9,15 @@ import { apiRequest } from "@/lib/queryClient";
 import "../styles/public.css";
 
 const socialLinks = [
-  { icon: SiX, href: "https://twitter.com/tburnchain", label: "Twitter" },
-  { icon: SiGithub, href: "https://github.com/tburnchain", label: "GitHub" },
-  { icon: SiDiscord, href: "https://discord.gg/tburnchain", label: "Discord" },
-  { icon: SiTelegram, href: "https://t.me/tburnchain", label: "Telegram" },
-  { icon: SiMedium, href: "https://medium.com/@tburnchain", label: "Medium" },
+  { icon: SiX, href: "https://x.com/tburnio", label: "X" },
+  { icon: SiDiscord, href: "https://discord.gg/uaPFkUkfN2", label: "Discord" },
+  { icon: SiYoutube, href: "https://www.youtube.com/@tburnio", label: "YouTube" },
+  { icon: SiInstagram, href: "https://www.instagram.com/tburnio/", label: "Instagram" },
+  { icon: SiTiktok, href: "https://www.tiktok.com/@tburnio", label: "TikTok" },
+  { icon: SiFacebook, href: "https://www.facebook.com/profile.php?id=61584329147888", label: "Facebook" },
+  { icon: SiReddit, href: "https://www.reddit.com/user/Living_Break_8249/", label: "Reddit" },
+  { icon: SiThreads, href: "https://www.threads.com/@tburnio", label: "Threads" },
+  { icon: SiBluesky, href: "https://bsky.app/profile/tburnio.bsky.social", label: "Bluesky" },
 ];
 
 const ecosystemLinks = [

@@ -1011,7 +1011,7 @@ X-RateLimit-Window: 60`} />
     "website": "https://tburn.io",
     "social": {
       "twitter": "@tburnchain",
-      "discord": "https://discord.gg/tburn"
+      "discord": "https://discord.gg/uaPFkUkfN2"
     }
   }
 }`} />

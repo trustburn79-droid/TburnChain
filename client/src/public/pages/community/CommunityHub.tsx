@@ -146,7 +146,7 @@ export default function CommunityHub() {
       description: t('publicPages.community.hub.channels.discord.description'),
       action: t('publicPages.community.hub.channels.discord.action'),
       color: "#5865F2",
-      href: "https://discord.gg/tburnchain",
+      href: "https://discord.gg/uaPFkUkfN2",
       external: true,
     },
     {
@@ -168,7 +168,7 @@ export default function CommunityHub() {
       description: t('publicPages.community.hub.channels.twitter.description'),
       action: t('publicPages.community.hub.channels.twitter.action'),
       color: "#ffffff",
-      href: "https://x.com/tburnchain",
+      href: "https://x.com/tburnio",
       external: true,
     },
     {

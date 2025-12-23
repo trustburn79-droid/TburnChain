@@ -208,8 +208,8 @@ export default function TestnetScanLayout({ children }: TestnetScanLayoutProps) 
               <a href="https://github.com/tburn" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">
                 GitHub
               </a>
-              <a href="https://twitter.com/tburnchain" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">
-                Twitter
+              <a href="https://x.com/tburnio" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">
+                X
               </a>
             </div>
           </div>

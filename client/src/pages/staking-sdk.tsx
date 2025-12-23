@@ -846,7 +846,7 @@ const faqItems = [
 ];
 
 const supportChannels = [
-  { id: "discord", icon: MessageCircle, labelKey: "discord", descKey: "discordDesc", url: "https://discord.gg/tburn" },
+  { id: "discord", icon: MessageCircle, labelKey: "discord", descKey: "discordDesc", url: "https://discord.gg/uaPFkUkfN2" },
   { id: "telegram", icon: Send, labelKey: "telegram", descKey: "telegramDesc", url: "https://t.me/tburnnetwork" },
   { id: "github", icon: Github, labelKey: "githubIssues", descKey: "githubIssuesDesc", url: "https://github.com/tburn-network/staking-sdk/issues" },
   { id: "email", icon: Mail, labelKey: "emailSupport", descKey: "emailSupportDesc", url: "mailto:sdk-support@tburn.network" }
@@ -1359,7 +1359,7 @@ function SupportDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o
                   </CardContent>
                 </Card>
                 
-                <Card className="hover-elevate cursor-pointer" onClick={() => window.open('https://youtube.com/tburnnetwork', '_blank')}>
+                <Card className="hover-elevate cursor-pointer" onClick={() => window.open('https://www.youtube.com/@tburnio', '_blank')}>
                   <CardContent className="p-4 flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
                       <Video className="h-6 w-6 text-red-500" />

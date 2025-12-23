@@ -273,8 +273,8 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
               <a href="https://github.com/tburn" target="_blank" rel="noopener noreferrer" className="hover:text-white">
                 GitHub
               </a>
-              <a href="https://twitter.com/tburnchain" target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                Twitter
+              <a href="https://x.com/tburnio" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                X
               </a>
             </div>
           </div>
