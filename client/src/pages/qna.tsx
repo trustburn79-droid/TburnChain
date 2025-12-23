@@ -41,6 +41,7 @@ import { Link } from 'wouter';
 import { useTheme } from '@/components/theme-provider';
 import { LanguageSelector } from '@/components/language-selector';
 import { cn } from '@/lib/utils';
+import { TBurnLogo } from "@/components/tburn-logo";
 
 const categoryIcons: Record<string, typeof Flame> = {
   'all': LayoutGrid,
@@ -147,10 +148,8 @@ export default function QnAPage() {
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-[#0B1120] text-slate-800 dark:text-slate-200" data-testid="page-qna">
       <header className="h-16 border-b border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 z-20 shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white font-bold shadow-lg">
-            T
-          </div>
+        <div className="flex items-center gap-2">
+          <TBurnLogo className="w-10 h-10" />
           <h1 className="font-bold text-lg tracking-tight text-slate-900 dark:text-white">
             TBURN <span className="text-blue-500 hidden sm:inline">Help Center</span>
           </h1>

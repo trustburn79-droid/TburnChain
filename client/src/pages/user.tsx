@@ -10,6 +10,7 @@ import { useWeb3 } from "@/lib/web3-context";
 import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import { useToast } from "@/hooks/use-toast";
 import { useTBurnAlert } from "@/components/tburn-alert-modal";
+import { TBurnLogo } from "@/components/tburn-logo";
 import { apiRequest } from "@/lib/queryClient";
 import {
   Flame, Wallet, Layers, Gavel, Globe, RefreshCw, Shield, Coins,
@@ -626,10 +627,8 @@ export default function UserPage() {
         ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
         <div className="p-4 lg:p-6 flex items-center justify-between border-b border-slate-100 dark:border-gray-800">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-br from-blue-500 via-purple-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl lg:text-2xl shadow-lg shadow-blue-500/20">
-              T
-            </div>
+          <div className="flex items-center gap-2">
+            <TBurnLogo className="w-10 h-10 lg:w-12 lg:h-12" />
             <div>
               <h1 className="font-bold text-lg lg:text-xl tracking-tight text-slate-900 dark:text-white">
                 TBURN

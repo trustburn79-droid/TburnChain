@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { TBurnLogo } from "@/components/tburn-logo";
 import { 
   Image, 
   Grid3X3, 
@@ -950,9 +951,9 @@ export default function NftMarketplaceStandalone() {
       
       <aside className={`hidden sm:flex w-20 lg:w-64 flex-col z-20 transition-all duration-300 border-r ${theme === 'dark' ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-gray-200'}`}>
         <div className={`h-16 flex items-center justify-center lg:justify-between lg:px-6 border-b ${theme === 'dark' ? 'border-gray-800' : 'border-gray-200'}`}>
-          <div className="flex items-center">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">N</div>
-            <div className="hidden lg:block ml-3">
+          <div className="flex items-center gap-2">
+            <TBurnLogo className="w-10 h-10 shrink-0" />
+            <div className="hidden lg:block">
               <h1 className={`font-bold text-lg tracking-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>TBURN <span className="text-violet-500">NFT</span></h1>
             </div>
           </div>
