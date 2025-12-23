@@ -29,6 +29,7 @@ import {
   Layers,
   RefreshCw
 } from 'lucide-react';
+import { TBurnLogo } from '@/components/tburn-logo';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -269,7 +270,7 @@ export default function VCTestMode() {
                 <div className="grid grid-cols-1 gap-3">
                   <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-xs font-bold">TB</div>
+                      <TBurnLogo className="w-8 h-8" showText={true} textColor="#000000" />
                       <span className="text-gray-300">TBURN</span>
                     </div>
                     <span className="font-mono font-bold">{demoWallet.balance.TBURN.toLocaleString()}</span>
