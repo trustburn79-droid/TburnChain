@@ -434,17 +434,17 @@ export class TBurnEnterpriseNode extends EventEmitter {
     }
     
     // Auto-detect profile based on hardware specifications
-    // Profile requirements:
+    // Profile requirements (with tolerance for OS memory overhead):
     //   development: default (5 shards)
-    //   staging: 16+ cores AND 64+ GB RAM (32 shards)
-    //   production: 32+ cores AND 256+ GB RAM (64 shards)
-    //   enterprise: 64+ cores AND 512+ GB RAM (128 shards)
+    //   staging: 16+ cores AND 60+ GB RAM (32 shards) - tolerates 64GB servers reporting ~60-63GB
+    //   production: 32+ cores AND 240+ GB RAM (64 shards) - tolerates 256GB servers reporting ~240-255GB
+    //   enterprise: 64+ cores AND 480+ GB RAM (128 shards) - tolerates 512GB servers reporting ~480-510GB
     let profileName: keyof typeof this.HARDWARE_PROFILES = 'development';
-    if (detectedCores >= 64 && detectedRamGB >= 512) {
+    if (detectedCores >= 64 && detectedRamGB >= 480) {
       profileName = 'enterprise';
-    } else if (detectedCores >= 32 && detectedRamGB >= 256) {
+    } else if (detectedCores >= 32 && detectedRamGB >= 240) {
       profileName = 'production';
-    } else if (detectedCores >= 16 && detectedRamGB >= 64) {
+    } else if (detectedCores >= 16 && detectedRamGB >= 60) {
       profileName = 'staging';
     }
     

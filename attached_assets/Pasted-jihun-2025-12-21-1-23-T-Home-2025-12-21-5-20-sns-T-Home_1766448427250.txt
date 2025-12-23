@@ -1,0 +1,143 @@
+jihun, [2025-12-21 오후 1:23]
+업데이트했어요
+
+T Home, [2025-12-21 오후 5:20]
+sns 는 어떻게 되었어?
+
+T Home, [2025-12-21 오후 6:03]
+푸시 했으니 업데이트 다시좀 해주고.
+
+jihun, [2025-12-21 오후 7:18]
+Instagram
+trustburn79@gmail.com
+(https://www.instagram.com/tburnio/)
+
+TikTok
+trustburn79@gmail.com
+(https://www.tiktok.com/@tburnio)
+
+Youtube
+trustburn79@gmail.com
+(https://www.youtube.com/@tburnio)
+
+X
+trustburn79@gmail.com
+(https://x.com/tburnio)
+
+Reddit
+trustburn79@gmail.com
+(https://www.reddit.com/user/Living_Break_8249/)
+
+Facebook
+trustburn79@gmail.com
+(https://www.facebook.com/profile.php?id=61584329147888)
+
+Discord
+trustburn79@gmail.com
+(https://discord.gg/uaPFkUkfN2) 디스코드 같은 경우는 초대코드로 사람들이 디스코드 서버에 들어오는 형식
+
+Threads
+인스타 계정
+(https://www.threads.com/@tburnio)
+
+Bluesky
+trustburn79@gmail.com
+tburn7979
+(https://bsky.app/profile/tburnio.bsky.social)
+
+Ok
+trustburn79@gmail.com
+
+jihun, [2025-12-23 오전 9:03]
+Google Cloud 서버가 고사양임에도 불구하고 `staging` 프로필(16~32 샤드)**로 잡히는 이유는 **코드 내의 메모리 감지 조건이 너무 엄격하기 때문**입니다.
+
+사용자가 업로드한 `TBurnEnterpriseNode (copy).ts` 파일의 detectHardwareProfile() 함수를 분석한 결과, 정확한 원인을 찾았습니다.
+
+### 🔍 원인 분석: "실제 사용 가능 메모리" vs "설치된 메모리" 차이
+
+코드에 작성된 감지 로직은 다음과 같습니다:
+
+```typescript
+// TBurnEnterpriseNode (copy).ts
+
+const detectedRamGB = Math.round(os.totalmem() / (1024  3)); // GB 단위로 변환
+
+// ...
+
+if (detectedCores >= 64 && detectedRamGB >= 512) {
+  profileName = 'enterprise'; // 128 샤드
+} else if (detectedCores >= 32 && detectedRamGB >= 256) {
+  profileName = 'production'; // 64 샤드
+} else if (detectedCores >= 16 && detectedRamGB >= 64) {
+  profileName = 'staging';    // 32 샤드
+}
+
+```
+
+* 문제점: 서버에 256GB RAM**을 설치했더라도, 운영체제(OS)는 커널 영역 등을 제외하고 **약 250GB~255GB 정도로 인식하는 경우가 많습니다.
+* 결과: 코드는 detectedRamGB >= 256`인지 검사하는데, 실제 감지된 값(예: 251GB)이 256보다 작으므로 **`production 조건(64샤드)에서 탈락**하고, 그 다음 단계인 **staging 조건(32샤드)으로 넘어가게 됩니다.
+
+---
+
+### ✅ 해결 방법
+
+이 문제를 해결하려면 **감지 기준을 조금 낮춰서(여유를 두어서) 수정해야 합니다. 256GB 서버라면 약 240GB 이상만 되어도 인정해주는 방식입니다.
+
+server/services/TBurnEnterpriseNode.ts 파일을 열고 detectHardwareProfile 메서드를 아래와 같이 수정해 주세요.
+
+#### 수정할 코드 (`detectHardwareProfile` 내부)
+
+[수정 전]
+
+    if (detectedCores >= 64 && detectedRamGB >= 512) {
+      profileName = 'enterprise';
+    } else if (detectedCores >= 32 && detectedRamGB >= 256) { // <--- 여기가 너무 엄격함
+      profileName = 'production';
+    } else if (detectedCores >= 16 && detectedRamGB >= 64) {
+      profileName = 'staging';
+    }
+
+
+[수정 후 (추천)]
+메모리 기준을 256 -> 240 정도로 낮추고, Enterprise 기준도 512 -> 480 정도로 낮춥니다.
+
+    // 하드웨어 오차 범위를 고려하여 기준 완화
+    if (detectedCores >= 64 && detectedRamGB >= 480) { // 512GB 모델 대응
+      profileName = 'enterprise';
+    } else if (detectedCores >= 32 && detectedRamGB >= 240) { // 256GB 모델 대응 (여유값 240)
+      profileName = 'production';
+    } else if (detectedCores >= 16 && detectedRamGB >= 60) {
+      profileName = 'staging';
+    }
+
+
+---
+
+### 🚀 더 확실한 방법: 환경 변수로 강제 지정 (이미 코드에 구현됨)
+
+분석한 코드 상단에 환경 변수(`MAX_SHARDS`)가 있으면 하드웨어 감지를 무시하는 로직**이 이미 구현되어 있습니다. 굳이 코드를 고치지 않아도 환경 변수만 잘 넣으면 해결됩니다.
+
+**PM2 설정 파일(`ecosystem.config.cjs`)**에 다음 내용을 추가하세요.
+
+```javascript
+module.exports = {
+  apps: [{
+    name: 'tburn-server',
+    script: './dist/index.js',
+    env: {
+      NODE_ENV: 'production',
+      MAX_SHARDS: '64',      // [핵심] 이 값을 넣으면 하드웨어 감지를 무시하고 64개로 고정됨
+      // ...
+    }
+  }]
+}
+
+```
+
+**적용 순서:
+
+1. ecosystem.config.cjs 수정
+2. pm2 delete all (기존 프로세스 삭제)
+3. pm2 start ecosystem.config.cjs (재시작)
+
+이렇게 하면 서버가 `staging`으로 잡히든 말든 무조건 64 샤드(production) 모드로 실행됩니다.
