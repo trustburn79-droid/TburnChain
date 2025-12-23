@@ -1,23 +1,19 @@
 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="flameGradient" x1="50%" y1="100%" x2="50%" y2="0%">
-      <stop offset="0%" stop-color="#E85A1F" />
-      <stop offset="50%" stop-color="#D4750A" />
-      <stop offset="100%" stop-color="#E8A800" />
-    </linearGradient>
-    <linearGradient id="borderGradient" x1="50%" y1="100%" x2="50%" y2="0%">
-      <stop offset="0%" stop-color="#E85A1F" />
-      <stop offset="100%" stop-color="#E8A800" />
+      <stop offset="0%" stop-color="#F7931E" />
+      <stop offset="50%" stop-color="#FFB347" />
+      <stop offset="100%" stop-color="#FFD700" />
     </linearGradient>
   </defs>
-  <circle cx="50" cy="50" r="47" stroke="url(#borderGradient)" stroke-width="4" fill="none" />
+  <circle cx="50" cy="50" r="46" stroke="#E85A1F" stroke-width="5" fill="none" />
   <path
     d="M50 12 C30 32, 18 52, 24 70 C30 88, 42 92, 50 92 C58 92, 70 88, 76 70 C82 52, 70 32, 50 12"
     fill="url(#flameGradient)"
   />
   <path
     d="M50 32 C40 46, 34 58, 40 72 C44 82, 48 86, 50 86 C52 86, 56 82, 60 72 C66 58, 60 46, 50 32"
-    fill="#E8A800"
+    fill="#FFD700"
     opacity="0.9"
   />
   <text
