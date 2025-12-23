@@ -1172,7 +1172,10 @@ function CreateTokenContent({
                     onClick={() => handleTemplateSelect(template)}
                     data-testid={`card-template-${template.id}`}
                   >
-                    <CardContent className="pt-6">
+                    <CardContent className="pt-6 relative">
+                      <div className="absolute top-3 right-3">
+                        <TBurnLogo fontSize={20} showText={false} symbolColor="gradient" />
+                      </div>
                       <div className="flex items-center gap-3 mb-3">
                         <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
                           template.standard === "TBC-20" ? 'bg-blue-500/20' :
@@ -1227,7 +1230,10 @@ function CreateTokenContent({
                     onClick={() => handleStandardSelect(std)}
                     data-testid={`card-select-${std.toLowerCase()}`}
                   >
-                    <CardContent className="pt-6 text-center">
+                    <CardContent className="pt-6 text-center relative">
+                      <div className="absolute top-3 right-3">
+                        <TBurnLogo fontSize={20} showText={false} symbolColor="gradient" />
+                      </div>
                       <div className={`h-16 w-16 rounded-full bg-${color}-500/20 flex items-center justify-center mx-auto mb-4`}>
                         <Icon className={`h-8 w-8 text-${color}-500`} />
                       </div>
