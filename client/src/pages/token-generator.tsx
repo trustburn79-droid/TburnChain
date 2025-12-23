@@ -1970,8 +1970,8 @@ function LivePreviewCard({ isDark, selectedStandard, formData, formatSupply, get
             style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)' }} />
           
           <div className="flex justify-between items-start mb-6 relative z-10">
-            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-xl font-bold border border-white/20">
-              {getTokenIcon()}
+            <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur flex items-center justify-center border border-white/20">
+              <TBurnLogo className="w-12 h-12" showText={true} textColor="#000000" />
             </div>
             <Badge className="bg-black/30 backdrop-blur-md border-white/10">{selectedStandard}</Badge>
           </div>
