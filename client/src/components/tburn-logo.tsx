@@ -1,11 +1,13 @@
 interface TBurnLogoProps {
   className?: string;
+  symbolClassName?: string;
   symbolColor?: string;
   textColor?: string;
   fontSize?: number;
+  showText?: boolean;
 }
 
-export function TBurnLogo({ className, symbolColor, textColor, fontSize = 16 }: TBurnLogoProps) {
+export function TBurnLogo({ className, symbolClassName, symbolColor, textColor, fontSize = 16, showText = true }: TBurnLogoProps) {
   const useGradient = !symbolColor;
   const uniqueId = Math.random().toString(36).substr(2, 9);
   
@@ -59,17 +61,19 @@ export function TBurnLogo({ className, symbolColor, textColor, fontSize = 16 }: 
         fill={useGradient ? "#FFD700" : symbolColor}
         opacity={useGradient ? 0.8 : 0.6}
       />
-      <text
-        x="50"
-        y="58"
-        textAnchor="middle"
-        fontSize={fontSize}
-        fontWeight="bold"
-        fill={getTextColor()}
-        fontFamily="sans-serif"
-      >
-        T
-      </text>
+      {showText && (
+        <text
+          x="50"
+          y="58"
+          textAnchor="middle"
+          fontSize={fontSize}
+          fontWeight="bold"
+          fill={getTextColor()}
+          fontFamily="sans-serif"
+        >
+          T
+        </text>
+      )}
     </svg>
   );
 }

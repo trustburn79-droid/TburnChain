@@ -32,6 +32,7 @@ import {
   FileText,
   ImageIcon,
 } from "lucide-react";
+import { TBurnLogo } from "@/components/tburn-logo";
 import { useState, ReactNode } from "react";
 import { useScanWebSocket, useLiveIndicator } from "../hooks/useScanWebSocket";
 import i18n from "@/lib/i18n";
@@ -73,10 +74,8 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-6">
               <Link href="/scan">
-                <div className="flex items-center gap-2 cursor-pointer" data-testid="link-scan-home">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                    <Flame className="w-5 h-5 text-white" />
-                  </div>
+                <div className="flex items-center gap-1.5 cursor-pointer" data-testid="link-scan-home">
+                  <TBurnLogo showText={false} className="w-10 h-10" />
                   <span className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent hidden sm:inline">
                     TBURNScan
                   </span>
@@ -255,8 +254,8 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4 text-gray-400 text-sm">
-              <div className="flex items-center gap-2">
-                <Flame className="w-4 h-4 text-orange-500" />
+              <div className="flex items-center gap-1.5">
+                <TBurnLogo showText={false} className="w-6 h-6" />
                 <span>TBURNScan © 2024 TBURN Foundation</span>
               </div>
               <Link href="/" className="text-[#00f0ff] hover:text-white transition font-bold" data-testid="link-scan-tburn-chain">
