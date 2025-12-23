@@ -7,10 +7,10 @@ import {
   Shield,
   Zap,
   Lock,
-  ArrowLeftRight,
-  Flame
+  ArrowLeftRight
 } from "lucide-react";
 import { SiEthereum } from "react-icons/si";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 export default function EvmMigration() {
   const { t } = useTranslation();
@@ -116,7 +116,7 @@ export default function EvmMigration() {
             </div>
             <ArrowRight className="w-8 h-8 text-[#7000ff] animate-pulse" />
             <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#00f0ff] to-[#7000ff] flex items-center justify-center">
-              <Flame className="w-8 h-8 text-white" />
+              <TBurnLogo showText={false} symbolColor="gradient" className="w-10 h-10" />
             </div>
           </div>
           

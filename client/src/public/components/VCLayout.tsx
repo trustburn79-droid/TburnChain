@@ -17,7 +17,6 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
-  Flame,
   Briefcase,
   BarChart3,
   Globe,

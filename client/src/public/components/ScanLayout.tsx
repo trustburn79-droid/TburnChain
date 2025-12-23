@@ -15,7 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Flame,
   Blocks,
   ArrowRightLeft,
   Shield,
@@ -54,7 +53,7 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
   };
 
   const navItems = [
-    { path: "/scan", label: t("scan.home", "Home"), icon: Flame },
+    { path: "/scan", label: t("scan.home", "Home"), icon: Home },
     { path: "/scan/blocks", label: t("scan.blocks", "Blocks"), icon: Blocks },
     { path: "/scan/txs", label: t("scan.transactions", "Transactions"), icon: ArrowRightLeft },
     { path: "/scan/validators", label: t("scan.validators", "Validators"), icon: Shield },
