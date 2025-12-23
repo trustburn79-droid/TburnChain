@@ -5,28 +5,21 @@
       <stop offset="50%" stop-color="#F7931E" />
       <stop offset="100%" stop-color="#FFD700" />
     </linearGradient>
-    <linearGradient id="outerGlow" x1="50%" y1="100%" x2="50%" y2="0%">
-      <stop offset="0%" stop-color="#FF4500" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="#FFD700" stop-opacity="0.2" />
-    </linearGradient>
   </defs>
-  <circle cx="50" cy="50" r="48" fill="#0a0a0f"/>
-  <circle cx="50" cy="50" r="45" fill="url(#outerGlow)" opacity="0.3" />
-  <circle cx="50" cy="50" r="40" stroke="url(#flameGradient)" stroke-width="2" fill="none" />
   <path
-    d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20"
+    d="M50 5 C25 30, 10 55, 18 75 C26 95, 42 98, 50 98 C58 98, 74 95, 82 75 C90 55, 75 30, 50 5"
     fill="url(#flameGradient)"
   />
   <path
-    d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35"
+    d="M50 30 C38 48, 30 62, 38 78 C44 90, 48 94, 50 94 C52 94, 56 90, 62 78 C70 62, 62 48, 50 30"
     fill="#FFD700"
-    opacity="0.8"
+    opacity="0.85"
   />
   <text
     x="50"
-    y="58"
+    y="72"
     text-anchor="middle"
-    font-size="16"
+    font-size="32"
     font-weight="bold"
     fill="#FFFFFF"
     font-family="sans-serif"
