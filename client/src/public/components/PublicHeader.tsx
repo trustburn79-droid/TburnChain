@@ -1,11 +1,12 @@
 import { Link, useLocation } from "wouter";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn, LogOut, Flame, Network } from "lucide-react";
+import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn, LogOut, Network } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { languages } from "@/lib/i18n";
+import { TBurnLogo } from "@/components/tburn-logo";
 import "../styles/public.css";
 
 interface MenuItem {
@@ -171,8 +172,8 @@ export function PublicHeader() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center gap-3 cursor-pointer group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-[0_0_15px_rgba(249,115,22,0.5)] group-hover:scale-110 transition-transform">
-              <Flame className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 group-hover:scale-110 transition-transform">
+              <TBurnLogo className="w-10 h-10" />
             </div>
             <span className="font-bold text-xl tracking-tight text-white">
               TBurn <span className="text-cyan-400 font-light">Chain</span>
