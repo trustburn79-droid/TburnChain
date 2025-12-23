@@ -2,9 +2,11 @@
  * PM2 Production Configuration for TBURN Mainnet
  * Google Cloud Server: 32-core, 256GB RAM
  * 
+ * NOTE: File extension is .cjs (CommonJS) to work with "type": "module" in package.json
+ * 
  * DEPLOYMENT STEPS:
  * 1. Copy this file to Google Cloud server
- * 2. Run: pm2 start ecosystem.config.js
+ * 2. Run: pm2 start ecosystem.config.cjs
  * 3. Run: pm2 save
  * 4. Verify: curl http://localhost:5000/api/shards/config | jq '.maxShards'
  */
