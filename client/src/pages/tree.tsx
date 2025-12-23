@@ -214,6 +214,31 @@ const routeTree: RouteItem[] = [
 function TreeNode({ item, level = 0 }: { item: RouteItem; level?: number }) {
   const isCategory = item.path.startsWith("#");
   const hasChildren = item.children && item.children.length > 0;
+  const isHomeRoot = item.path === "/" && item.label === "Home" && !hasChildren;
+  
+  if (isHomeRoot) {
+    return (
+      <div className="select-none">
+        <div className="flex items-center gap-2 py-2 px-3 rounded-lg">
+          <FileText className="w-4 h-4 text-slate-400 flex-shrink-0" />
+          <Link href={item.path} className="flex items-center gap-2 flex-1 group">
+            <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+              {item.label}
+            </span>
+            <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto font-mono">
+              {item.path}
+            </span>
+          </Link>
+        </div>
+        <Link href="/">
+          <div className="flex items-center justify-center py-12 cursor-pointer hover:opacity-80 transition-opacity">
+            <TBurnLogo className="w-24 h-24" showText={true} textColor="#000000" />
+          </div>
+        </Link>
+      </div>
+    );
+  }
   
   return (
     <div className="select-none">
