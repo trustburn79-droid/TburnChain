@@ -444,187 +444,187 @@ export default function Appearance() {
               <CardDescription>{t("adminAppearance.brandLogo.description", { defaultValue: "Preview logo symbol with various background and symbol color combinations" })}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-3">
                 {/* Default gradient on dark */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-gray-900 flex items-center justify-center" data-testid="logo-dark-gradient">
-                    <TBurnLogo className="w-10 h-10" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center" data-testid="logo-dark-gradient">
+                    <TBurnLogo className="w-11 h-11" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Dark + Gradient</span>
+                  <span className="text-xs text-muted-foreground">Dark</span>
                 </div>
                 {/* Default gradient on white */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-white border border-gray-200 flex items-center justify-center" data-testid="logo-light-gradient">
-                    <TBurnLogo className="w-10 h-10" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-white border border-gray-200 flex items-center justify-center" data-testid="logo-light-gradient">
+                    <TBurnLogo className="w-11 h-11" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Light + Gradient</span>
+                  <span className="text-xs text-muted-foreground">Light</span>
                 </div>
                 {/* Orange on black */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-black flex items-center justify-center" data-testid="logo-black-orange">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#FF6B35" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-black flex items-center justify-center" data-testid="logo-black-orange">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#FF6B35" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Black + Orange</span>
+                  <span className="text-xs text-muted-foreground">Black</span>
                 </div>
                 {/* Yellow on dark blue */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-blue-900 flex items-center justify-center" data-testid="logo-blue-yellow">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#FFD700" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-blue-900 flex items-center justify-center" data-testid="logo-blue-yellow">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#FFD700" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Navy + Gold</span>
+                  <span className="text-xs text-muted-foreground">Navy</span>
                 </div>
                 {/* White on orange */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-orange-500 flex items-center justify-center" data-testid="logo-orange-white">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#FFFFFF" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center" data-testid="logo-orange-white">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#FFFFFF" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Orange + White</span>
+                  <span className="text-xs text-muted-foreground">Orange</span>
                 </div>
                 {/* Black on yellow */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-yellow-400 flex items-center justify-center" data-testid="logo-yellow-black">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#000000" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-yellow-400 flex items-center justify-center" data-testid="logo-yellow-black">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#000000" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Yellow + Black</span>
+                  <span className="text-xs text-muted-foreground">Yellow</span>
                 </div>
                 {/* Gradient on purple */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-purple-900 flex items-center justify-center" data-testid="logo-purple-gradient">
-                    <TBurnLogo className="w-10 h-10" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-purple-900 flex items-center justify-center" data-testid="logo-purple-gradient">
+                    <TBurnLogo className="w-11 h-11" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Purple + Gradient</span>
+                  <span className="text-xs text-muted-foreground">Purple</span>
                 </div>
                 {/* Red on dark */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-gray-800 flex items-center justify-center" data-testid="logo-dark-red">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#EF4444" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-gray-800 flex items-center justify-center" data-testid="logo-dark-red">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#EF4444" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Dark + Red</span>
+                  <span className="text-xs text-muted-foreground">Red</span>
                 </div>
                 {/* Cyan on dark */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-slate-900 flex items-center justify-center" data-testid="logo-slate-cyan">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#06B6D4" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-slate-900 flex items-center justify-center" data-testid="logo-slate-cyan">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#06B6D4" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Slate + Cyan</span>
+                  <span className="text-xs text-muted-foreground">Cyan</span>
                 </div>
                 {/* Green on dark */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-zinc-900 flex items-center justify-center" data-testid="logo-zinc-green">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#22C55E" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-zinc-900 flex items-center justify-center" data-testid="logo-zinc-green">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#22C55E" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Zinc + Green</span>
+                  <span className="text-xs text-muted-foreground">Green</span>
                 </div>
                 {/* White on red */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-red-600 flex items-center justify-center" data-testid="logo-red-white">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#FFFFFF" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-red-600 flex items-center justify-center" data-testid="logo-red-white">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#FFFFFF" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Red + White</span>
+                  <span className="text-xs text-muted-foreground">Red BG</span>
                 </div>
                 {/* Default on transparent pattern */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center" data-testid="logo-brand-white">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#FFFFFF" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center" data-testid="logo-brand-white">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#FFFFFF" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Brand + White</span>
+                  <span className="text-xs text-muted-foreground">Brand</span>
                 </div>
                 {/* Cyan background + Orange */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-xl bg-cyan-500 flex items-center justify-center" data-testid="logo-cyan-orange">
-                    <TBurnLogo className="w-10 h-10" symbolColor="#FF6B35" textColor="#FFFFFF" />
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-12 h-12 rounded-lg bg-cyan-500 flex items-center justify-center" data-testid="logo-cyan-orange">
+                    <TBurnLogo className="w-11 h-11" symbolColor="#FF6B35" textColor="#FFFFFF" />
                   </div>
-                  <span className="text-xs text-muted-foreground">Cyan + Orange</span>
+                  <span className="text-xs text-muted-foreground">Cyan BG</span>
                 </div>
               </div>
               
               {/* White T variants section */}
               <div className="mt-6 pt-6 border-t">
                 <p className="text-sm font-medium mb-4">{t("adminAppearance.brandLogo.whiteT", { defaultValue: "White T Variants" })}</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-3">
                   {/* Dark + Orange with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-gray-900 flex items-center justify-center" data-testid="logo-wt-dark-orange">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#FF6B35" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center" data-testid="logo-wt-dark-orange">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#FF6B35" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Dark + Orange</span>
+                    <span className="text-xs text-muted-foreground">Orange</span>
                   </div>
                   {/* Black + Gold with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-black flex items-center justify-center" data-testid="logo-wt-black-gold">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#FFD700" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-black flex items-center justify-center" data-testid="logo-wt-black-gold">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#FFD700" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Black + Gold</span>
+                    <span className="text-xs text-muted-foreground">Gold</span>
                   </div>
                   {/* Navy + Cyan with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-blue-950 flex items-center justify-center" data-testid="logo-wt-navy-cyan">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#06B6D4" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-blue-950 flex items-center justify-center" data-testid="logo-wt-navy-cyan">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#06B6D4" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Navy + Cyan</span>
+                    <span className="text-xs text-muted-foreground">Cyan</span>
                   </div>
                   {/* Purple + Pink with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-purple-900 flex items-center justify-center" data-testid="logo-wt-purple-pink">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#EC4899" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-purple-900 flex items-center justify-center" data-testid="logo-wt-purple-pink">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#EC4899" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Purple + Pink</span>
+                    <span className="text-xs text-muted-foreground">Pink</span>
                   </div>
                   {/* Emerald + Lime with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-emerald-900 flex items-center justify-center" data-testid="logo-wt-emerald-lime">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#84CC16" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-emerald-900 flex items-center justify-center" data-testid="logo-wt-emerald-lime">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#84CC16" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Emerald + Lime</span>
+                    <span className="text-xs text-muted-foreground">Lime</span>
                   </div>
                   {/* Slate + Blue with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-slate-800 flex items-center justify-center" data-testid="logo-wt-slate-blue">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#3B82F6" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center" data-testid="logo-wt-slate-blue">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#3B82F6" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Slate + Blue</span>
+                    <span className="text-xs text-muted-foreground">Blue</span>
                   </div>
                   {/* Zinc + Amber with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-zinc-800 flex items-center justify-center" data-testid="logo-wt-zinc-amber">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#F59E0B" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-zinc-800 flex items-center justify-center" data-testid="logo-wt-zinc-amber">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#F59E0B" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Zinc + Amber</span>
+                    <span className="text-xs text-muted-foreground">Amber</span>
                   </div>
                   {/* Stone + Rose with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-stone-800 flex items-center justify-center" data-testid="logo-wt-stone-rose">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#F43F5E" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-stone-800 flex items-center justify-center" data-testid="logo-wt-stone-rose">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#F43F5E" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Stone + Rose</span>
+                    <span className="text-xs text-muted-foreground">Rose</span>
                   </div>
                   {/* Indigo + Violet with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-indigo-900 flex items-center justify-center" data-testid="logo-wt-indigo-violet">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#8B5CF6" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-indigo-900 flex items-center justify-center" data-testid="logo-wt-indigo-violet">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#8B5CF6" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Indigo + Violet</span>
+                    <span className="text-xs text-muted-foreground">Violet</span>
                   </div>
                   {/* Teal + Sky with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-teal-900 flex items-center justify-center" data-testid="logo-wt-teal-sky">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#0EA5E9" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-teal-900 flex items-center justify-center" data-testid="logo-wt-teal-sky">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#0EA5E9" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Teal + Sky</span>
+                    <span className="text-xs text-muted-foreground">Sky</span>
                   </div>
                   {/* Red + Orange with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-red-900 flex items-center justify-center" data-testid="logo-wt-red-orange">
-                      <TBurnLogo className="w-10 h-10" symbolColor="#FB923C" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-red-900 flex items-center justify-center" data-testid="logo-wt-red-orange">
+                      <TBurnLogo className="w-11 h-11" symbolColor="#FB923C" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Red + Orange</span>
+                    <span className="text-xs text-muted-foreground">Flame</span>
                   </div>
                   {/* Gradient Dark + Gradient with White T */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center" data-testid="logo-wt-gradient-dark">
-                      <TBurnLogo className="w-10 h-10" textColor="#FFFFFF" fontSize={17} />
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center" data-testid="logo-wt-gradient-dark">
+                      <TBurnLogo className="w-11 h-11" textColor="#FFFFFF" fontSize={17} />
                     </div>
-                    <span className="text-xs text-muted-foreground">Gradient + White T</span>
+                    <span className="text-xs text-muted-foreground">Gradient</span>
                   </div>
                 </div>
               </div>
