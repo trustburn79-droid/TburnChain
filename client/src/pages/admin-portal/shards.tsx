@@ -183,12 +183,12 @@ export default function AdminShards() {
     refetchInterval: 5000,
   });
 
-  const { data: shardConfig, isLoading: isConfigLoading } = useQuery<ShardConfig>({
+  const { data: shardConfig, isLoading: isConfigLoading, refetch: refetchConfig } = useQuery<ShardConfig>({
     queryKey: ["/api/admin/shards/config"],
-    staleTime: 10000,
-    refetchOnMount: false,
+    staleTime: 30000,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
-    refetchInterval: 10000,
+    refetchInterval: 30000, // Reduced polling for stable config display
   });
 
   const { data: shardPreview, isLoading: isPreviewLoading } = useQuery<ShardPreview>({
@@ -201,7 +201,10 @@ export default function AdminShards() {
 
   const updateConfigMutation = useMutation({
     mutationFn: (newConfig: { shardCount: number }) => 
-      apiRequest("POST", "/api/admin/shards/config", newConfig),
+      apiRequest("POST", "/api/admin/shards/config", {
+        ...newConfig,
+        actor: 'admin' // User-initiated changes auto-switch to manual mode in backend
+      }),
     onSuccess: () => {
       // Invalidate all shard-related queries for real-time sync across /admin and /app pages
       queryClient.invalidateQueries({ queryKey: ["/api/admin/shards/config"] });

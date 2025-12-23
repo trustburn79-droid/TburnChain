@@ -532,6 +532,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
     this.shardConfig.lastConfigUpdate = new Date().toISOString();
     this.lastConfigChangeTime = Date.now();
     
+    // CRITICAL: When user manually changes shard count, switch to manual scaling mode
+    // This prevents hardware detection from overriding user's explicit configuration
+    if (actor !== 'system' && actor !== 'auto_scale') {
+      this.shardConfig.scalingMode = 'manual';
+      console.log(`[Enterprise Node] 🔒 Switched to manual scaling mode (user-initiated change)`);
+    }
+    
     // Initialize health metrics for new shards
     this.initializeShardHealthMetrics();
     
@@ -1863,16 +1870,23 @@ export class TBurnEnterpriseNode extends EventEmitter {
           this.shardConfig.maxShards = effectiveMaxShards;
           needsPersist = true;
         }
-        if (this.shardConfig.currentShardCount > effectiveMaxShards) {
-          console.log(`[Enterprise Node] ⚠️  Reducing current shards from ${this.shardConfig.currentShardCount} to ${effectiveMaxShards} (hardware limit)`);
-          this.shardConfig.currentShardCount = effectiveMaxShards;
-          needsPersist = true;
-        }
-        // Ensure currentShardCount is at least minShards
-        if (this.shardConfig.currentShardCount < this.shardConfig.minShards) {
-          console.log(`[Enterprise Node] ⚠️  Increasing current shards from ${this.shardConfig.currentShardCount} to ${this.shardConfig.minShards} (minimum requirement)`);
-          this.shardConfig.currentShardCount = this.shardConfig.minShards;
-          needsPersist = true;
+        
+        // CRITICAL FIX: Only auto-adjust shard count if scalingMode is 'automatic'
+        // When scalingMode is 'manual', respect user's configuration choice
+        if (this.shardConfig.scalingMode === 'automatic') {
+          if (this.shardConfig.currentShardCount > effectiveMaxShards) {
+            console.log(`[Enterprise Node] ⚠️  Reducing current shards from ${this.shardConfig.currentShardCount} to ${effectiveMaxShards} (hardware limit)`);
+            this.shardConfig.currentShardCount = effectiveMaxShards;
+            needsPersist = true;
+          }
+          // Ensure currentShardCount is at least minShards
+          if (this.shardConfig.currentShardCount < this.shardConfig.minShards) {
+            console.log(`[Enterprise Node] ⚠️  Increasing current shards from ${this.shardConfig.currentShardCount} to ${this.shardConfig.minShards} (minimum requirement)`);
+            this.shardConfig.currentShardCount = this.shardConfig.minShards;
+            needsPersist = true;
+          }
+        } else {
+          console.log(`[Enterprise Node] 🔒 Manual scaling mode - preserving user-configured shard count: ${this.shardConfig.currentShardCount}`);
         }
         // Persist hardware-adjusted limits back to database for consistency
         if (needsPersist) {
@@ -2025,11 +2039,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Apply hardware-based limits to shard configuration
     this.shardConfig.maxShards = effectiveMaxShards;
     
-    // Ensure current shard count doesn't exceed hardware limits
-    if (this.shardConfig.currentShardCount > effectiveMaxShards) {
-      console.log(`[Enterprise Node] ⚠️  Adjusting shard count from ${this.shardConfig.currentShardCount} to ${effectiveMaxShards} (hardware limit)`);
-      this.shardConfig.currentShardCount = effectiveMaxShards;
-    }
+    // NOTE: Don't auto-adjust currentShardCount here - let loadConfigFromDatabase() handle it
+    // This prevents race conditions where start() overrides database config before loading
     
     try {
       // Load configuration from database (cold start recovery)
@@ -2115,6 +2126,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Update shard configuration (enterprise method with audit logging)
     this.rpcApp.post('/api/admin/shards/config', async (req: Request, res: Response) => {
       const { shardCount, validatorsPerShard, scalingMode, actor, reason, force } = req.body;
+      
+      // NOTE: scalingMode is handled AFTER validation succeeds in updateShardConfiguration
+      // to prevent state corruption when validation fails
       
       if (shardCount !== undefined) {
         const newCount = parseInt(shardCount);
