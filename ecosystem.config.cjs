@@ -14,9 +14,9 @@
 module.exports = {
   apps: [{
     name: 'tburn-mainnet',
-    script: 'npm',
-    args: 'run start',
-    cwd: '/home/tburn/tburn-mainnet',  // Adjust to your server path
+    // [중요 변경] npm 명령어를 쓰지 않고, 빌드된 파일을 직접 실행합니다.
+    script: '/home/trustburn79/TburnChain/dist/index.js', 
+    cwd: '/home/trustburn79/TburnChain',
     
     // CRITICAL: Environment variables for 64-shard production
     env: {
