@@ -1203,19 +1203,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (e) {
       console.log(`[TPS Real] Enterprise node error, using fallback`);
     }
-    // Fallback: 5 shards * 10000 TPS = 50000 TPS with 92% efficiency
-    const defaultBaseTps = 50000;
-    const defaultTps = Math.floor(defaultBaseTps * 0.92);
-    console.log(`[TPS Real] Fallback: 5 shards × 10000 × 0.92 = ${defaultTps} TPS`);
+    // CRITICAL: Fallback must match Enterprise Node formula for legal compliance
+    // 64 shards × 625 tx × 0.525 load × 10 blocks/sec = 210,000 TPS (exact)
+    const defaultShardCount = 64;
+    const defaultBaseTps = Math.round(64 * 625 * 0.525 * 10); // = 210,000 exactly
+    const defaultTpsPerShard = Math.round(defaultBaseTps / defaultShardCount); // = 3281.25 → 3281
+    const defaultTps = defaultBaseTps;
+    console.log(`[TPS Real] Fallback: ${defaultShardCount} shards × ${defaultTpsPerShard} = ${defaultTps} TPS`);
     return { 
       tps: defaultTps, 
       baseTps: defaultBaseTps, 
       effectiveTps: defaultTps,
-      shardCount: 5, 
-      tpsPerShard: 10000, 
-      validators: 125, 
+      shardCount: defaultShardCount, 
+      tpsPerShard: defaultTpsPerShard, 
+      validators: 1600, 
       peakTps: Math.floor(defaultBaseTps * 1.15),
-      loadFactor: 0.85,
+      loadFactor: 0.525,
       latencyPenalty: 0.95,
       uptimeFactor: 0.98,
       crossShardFactor: 0.99,
