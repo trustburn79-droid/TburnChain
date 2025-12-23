@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { SiX, SiGithub, SiDiscord, SiInstagram, SiTiktok, SiYoutube, SiFacebook, SiThreads, SiBluesky, SiReddit } from "react-icons/si";
-import { Mail, Globe, Shield, Zap, Flame, Loader2 } from "lucide-react";
+import { Mail, Globe, Shield, Zap, Loader2 } from "lucide-react";
+import { TBurnLogo } from "@/components/tburn-logo";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -159,7 +160,7 @@ export function PublicFooter() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <Flame className="w-7 h-7 text-orange-500" />
+              <TBurnLogo className="w-8 h-8" />
               <span className="text-xl font-bold text-white">TBurn Chain</span>
             </Link>
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
