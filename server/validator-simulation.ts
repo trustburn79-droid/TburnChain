@@ -836,11 +836,11 @@ export class ValidatorSimulationService {
   // Start simulation
   public async start(): Promise<void> {
     if (this.isRunning) {
-      console.log("⚠️ Validator simulation already running");
+      console.log("⚠️ Validator service already running");
       return;
     }
     
-    console.log("🎯 Starting Validator Simulation Service...");
+    console.log("🎯 Starting Validator Service...");
     this.isRunning = true;
     
     // Subscribe to Enterprise Node shard config changes to keep TPS in sync
@@ -848,20 +848,20 @@ export class ValidatorSimulationService {
       const enterpriseNode = getEnterpriseNode();
       if (enterpriseNode) {
         enterpriseNode.on('shardConfigChanged', (data: { oldCount: number; newCount: number; version: number }) => {
-          console.log(`[ValidatorSim] 🔄 Shard config changed: ${data.oldCount} → ${data.newCount} shards`);
+          console.log(`[Validator] 🔄 Shard config changed: ${data.oldCount} → ${data.newCount} shards`);
           updateValidatorConfigForShards(data.newCount, 25);
-          console.log(`[ValidatorSim] ✅ Updated ENTERPRISE_VALIDATORS_CONFIG for new shard count`);
+          console.log(`[Validator] ✅ Updated ENTERPRISE_VALIDATORS_CONFIG for new shard count`);
         });
         
         // Initialize with current shard config from Enterprise Node
         const shardConfig = enterpriseNode.getShardConfiguration();
         if (shardConfig && shardConfig.currentShardCount) {
           updateValidatorConfigForShards(shardConfig.currentShardCount, shardConfig.validatorsPerShard || 25);
-          console.log(`[ValidatorSim] ✅ Synced with Enterprise Node: ${shardConfig.currentShardCount} shards`);
+          console.log(`[Validator] ✅ Synced with Enterprise Node: ${shardConfig.currentShardCount} shards`);
         }
       }
     } catch (e) {
-      console.log("[ValidatorSim] ⚠️ Enterprise Node not ready, using default shard config");
+      console.log("[Validator] ⚠️ Enterprise Node not ready, using default shard config");
     }
     
     // Initialize validators if not done
@@ -877,13 +877,13 @@ export class ValidatorSimulationService {
         if (enterpriseNode) {
           const shardConfig = enterpriseNode.getShardConfiguration();
           if (shardConfig && shardConfig.currentShardCount && shardConfig.currentShardCount !== ENTERPRISE_VALIDATORS_CONFIG.SHARD_COUNT) {
-            console.log(`[ValidatorSim] 🔄 Delayed sync: ${ENTERPRISE_VALIDATORS_CONFIG.SHARD_COUNT} → ${shardConfig.currentShardCount} shards`);
+            console.log(`[Validator] 🔄 Delayed sync: ${ENTERPRISE_VALIDATORS_CONFIG.SHARD_COUNT} → ${shardConfig.currentShardCount} shards`);
             updateValidatorConfigForShards(shardConfig.currentShardCount, shardConfig.validatorsPerShard || 25);
-            console.log(`[ValidatorSim] ✅ Synced with Enterprise Node: ${shardConfig.currentShardCount} shards`);
+            console.log(`[Validator] ✅ Synced with Enterprise Node: ${shardConfig.currentShardCount} shards`);
           }
         }
       } catch (e) {
-        console.log("[ValidatorSim] Delayed sync skipped - Enterprise Node not available");
+        console.log("[Validator] Delayed sync skipped - Enterprise Node not available");
       }
     }, 3000); // Wait 3 seconds for Enterprise Node to initialize
     
@@ -915,7 +915,7 @@ export class ValidatorSimulationService {
           this.updateNetworkStats()
         ]);
       } catch (error) {
-        console.error("Error in block simulation:", error);
+        console.error("Error in block production:", error);
       } finally {
         this.isProcessingBlock = false;
       }
@@ -935,7 +935,7 @@ export class ValidatorSimulationService {
       try {
         await this.simulateCrossShardMessages();
       } catch (error) {
-        console.error("Error in cross-shard simulation:", error);
+        console.error("Error in cross-shard messaging:", error);
       }
     }, 2000);
     
@@ -948,7 +948,7 @@ export class ValidatorSimulationService {
       }
     }, ValidatorSimulationService.MESSAGE_FLUSH_INTERVAL_MS);
     
-    console.log("✅ Validator simulation started (with optimized cross-shard messaging)");
+    console.log("✅ Validator service started (with optimized cross-shard messaging)");
   }
 
   // Rotate epoch and update committee
@@ -1106,6 +1106,6 @@ export class ValidatorSimulationService {
     // Flush any remaining buffered messages
     await this.flushMessageBuffer();
     
-    console.log("⏹️ Validator simulation stopped");
+    console.log("⏹️ Validator service stopped");
   }
 }

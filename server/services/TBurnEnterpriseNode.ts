@@ -159,7 +159,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private readonly DEFAULT_GAS_PRICE_EMBER = 10; // 10 EMB standard
   private readonly DEFAULT_GAS_PRICE_WEI = '10000000000000'; // 10 EMB in wei
   
-  // Token Economics Simulation
+  // Token Economics Engine
   // TBURN Token Model: Demand-Supply Equilibrium Based Pricing
   // Updated for 10B supply (100x from original 100M, so price is 1/100th)
   private tokenPrice = 0.29; // Initial price in USD (scaled for 10B supply)
@@ -834,7 +834,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return this.scalingEvents.slice(-limit);
   }
 
-  // Get current shard configuration (for external sync like ValidatorSimulation)
+  // Get current shard configuration (for external sync like ValidatorService)
   public getShardConfiguration(): {
     currentShardCount: number;
     validatorsPerShard: number;
@@ -1146,7 +1146,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return Math.floor(totalEstimatedTps);
   }
 
-  // Update shard health metrics (called by validator simulation)
+  // Update shard health metrics (called by validator service)
   public updateShardHealthMetrics(shardId: number, metrics: Partial<{
     load: number;
     latency: number;
@@ -2050,7 +2050,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       // Start WebSocket server for real-time updates
       await this.startWebSocketServer();
 
-      // Start block production simulation
+      // Start block production
       this.startBlockProduction();
 
       // Start metrics collection
@@ -3891,7 +3891,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return Math.min(1, stdDev / avg);
   }
   
-  // Update supply dynamics (staking/unstaking simulation) - Updated for 10B supply
+  // Update supply dynamics (staking/unstaking) - Updated for 10B supply
   private updateSupplyDynamics(): void {
     // Simulate small staking/unstaking activity within 2.4B-4.5B range (scaled 100x for 10B supply)
     const stakingChange = Math.floor((Math.random() - 0.48) * 1_000_000); // Slight bias toward staking

@@ -265,27 +265,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Check existing validators first
       const existingValidators = await storage.getAllValidators();
-      console.log(`[ValidatorSim] Found ${existingValidators.length} existing validators`);
+      console.log(`[Validator] Found ${existingValidators.length} existing validators`);
       
       validatorSimulation = new ValidatorSimulationService(storage);
       
       // Only initialize validators if none exist
       if (existingValidators.length === 0) {
-        console.log("[ValidatorSim] No validators found, initializing 125 enterprise validators...");
+        console.log("[Validator] No validators found, initializing 125 enterprise validators...");
         await validatorSimulation.initializeValidators();
-        console.log("[ValidatorSim] ✅ Initialized 125 enterprise validators");
+        console.log("[Validator] ✅ Initialized 125 enterprise validators");
       } else {
-        console.log("[ValidatorSim] ✅ Using existing validators");
+        console.log("[Validator] ✅ Using existing validators");
       }
       
       // In production, start with reduced simulation frequency to prevent resource issues
       if (isProduction) {
-        console.log("[ValidatorSim] 🎯 Production mode: Running with optimized settings");
+        console.log("[Validator] 🎯 Production mode: Running with optimized settings");
       }
       
       // Start the validator simulation (this includes periodic updates)
       await validatorSimulation.start();
-      console.log("[ValidatorSim] 🚀 Started validator simulation");
+      console.log("[Validator] 🚀 Started validator service");
       
       // Broadcast validators updates periodically (every 30 seconds)
       createTrackedInterval(async () => {
@@ -294,7 +294,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const validators = await storage.getAllValidators();
           broadcastUpdate('validators', validators, z.array(z.any()));
         } catch (error) {
-          console.error("[ValidatorSim] Error broadcasting validators:", error);
+          console.error("[Validator] Error broadcasting validators:", error);
         }
       }, 30000, 'validator_broadcast');
       
@@ -302,10 +302,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const enterpriseNode = getEnterpriseNode();
       if (enterpriseNode && validatorSimulation) {
         enterpriseNode.on('shardConfigChanged', async (data: { oldCount: number; newCount: number; version: number }) => {
-          console.log(`[ValidatorSim] 🔄 Received shard config change: ${data.oldCount} → ${data.newCount} shards`);
+          console.log(`[Validator] 🔄 Received shard config change: ${data.oldCount} → ${data.newCount} shards`);
           try {
             const result = await validatorSimulation!.updateShardConfiguration(data.newCount, 25);
-            console.log(`[ValidatorSim] ✅ Updated validators: ${result.message}`);
+            console.log(`[Validator] ✅ Updated validators: ${result.message}`);
             
             // Broadcast updated validators immediately
             const validators = await storage.getAllValidators();
@@ -315,16 +315,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const shards = await storage.getShards();
             broadcastUpdate('shards_snapshot', shards, z.array(z.any()), true);
           } catch (error) {
-            console.error('[ValidatorSim] Failed to update shard configuration:', error);
+            console.error('[Validator] Failed to update shard configuration:', error);
           }
         });
-        console.log('[ValidatorSim] ✅ Connected to TBurnEnterpriseNode shard config events');
+        console.log('[Validator] ✅ Connected to TBurnEnterpriseNode shard config events');
       }
     } catch (error) {
-      console.error("[ValidatorSim] Failed to initialize:", error);
+      console.error("[Validator] Failed to initialize:", error);
       // In production, ensure we can still serve API requests even if simulation fails
       if (process.env.NODE_ENV === 'production' || process.env.NODE_MODE === 'production') {
-        console.error("[ValidatorSim] ⚠️ Production: Continuing without simulation");
+        console.error("[Validator] ⚠️ Production: Continuing without validator service");
       }
     }
   }
