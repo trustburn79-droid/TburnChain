@@ -19056,6 +19056,13 @@
     "profileStaging": "스테이징",
     "profileProduction": "프로덕션",
     "profileEnterprise": "엔터프라이즈",
+    "optimalDistribution": "최적 분배",
+    "baselineTps": "기준 TPS/샤드",
+    "activeShards": "활성 샤드",
+    "standbyShards": "대기 샤드",
+    "avgUtilization": "평균 활용률",
+    "distributionNote": "샤드는 75% 부하에서 활성화되고 45%에서 비활성화됩니다. 각 샤드는 부하 분산으로 10,000 TPS 기준을 유지합니다.",
+    "theoreticalMax": "최대 TPS",
     "hardwareNote": "TPS 용량은 샤드 수에 비례하여 증가합니다. 엔터프라이즈 티어는 최대 처리량을 위해 최대 128개 샤드를 지원합니다."
   },
   "adminNetworkParams": {
