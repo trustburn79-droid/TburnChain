@@ -15,6 +15,7 @@ import { usePublicNetworkStats } from "../hooks/use-public-data";
 import { NeuralCanvas } from "../components/NeuralCanvas";
 import { AITerminal } from "../components/AITerminal";
 import { PublicFooter } from "../components/PublicFooter";
+import { TBurnLogo } from "@/components/tburn-logo";
 import "../styles/public.css";
 
 const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#";
@@ -285,6 +286,10 @@ export default function Home() {
       <main className="relative pt-32 pb-20" style={{ position: "relative", zIndex: 1 }}>
         {/* Hero Section */}
         <section className="relative overflow-hidden mb-24">
+          {/* Large Translucent TBurn Symbol */}
+          <div className="absolute right-[5%] top-[10%] opacity-10 pointer-events-none hidden lg:block">
+            <TBurnLogo className="w-64 h-64 xl:w-80 xl:h-80" showText={true} textColor="#000000" />
+          </div>
           {/* Floating Orbs - only in dark mode */}
           <div className="hidden dark:block">
             <div className="hero-orb hero-orb-purple w-[500px] h-[500px] top-0 left-[10%]" style={{ animationDelay: "0s" }}></div>
