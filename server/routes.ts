@@ -2296,19 +2296,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const limit = parseInt(req.query.limit as string) || 20;
       const type = req.query.type as string; // transfer, mint, burn, swap
 
-      const now = Date.now();
-      const transactions = Array.from({ length: 50 }, (_, i) => ({
-        hash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
-        blockNumber: 1000000 - i * 10,
-        timestamp: new Date(now - i * 60000 * (Math.random() * 10 + 1)).toISOString(),
-        type: ["transfer", "transfer", "transfer", "swap", "burn", "mint"][Math.floor(Math.random() * 6)] as string,
-        from: `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
-        to: `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
-        value: `${Math.floor(Math.random() * 100000)}000000000000000000`,
-        gasUsed: Math.floor(Math.random() * 100000) + 21000,
-        gasPrice: "10",
-        status: "success"
-      }));
+      // Production: Return empty array (real data pending indexer)
+      const transactions: any[] = [];
 
       const filteredTx = type ? transactions.filter(tx => tx.type === type) : transactions;
       const total = filteredTx.length;
@@ -2337,18 +2326,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 20;
 
-      const holders = Array.from({ length: 100 }, (_, i) => ({
-        rank: i + 1,
-        address: `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
-        balance: `${Math.floor(10000000 / (i + 1))}000000000000000000`,
-        percentage: Math.max(0.01, 15 / (i + 1)),
-        valueUsd: `${Math.floor(45800000 / (i + 1))}`,
-        firstAcquired: new Date(Date.now() - Math.random() * 365 * 86400000).toISOString(),
-        lastActive: new Date(Date.now() - Math.random() * 7 * 86400000).toISOString(),
-        transactionCount: Math.floor(Math.random() * 1000) + 1,
-        label: i === 0 ? "Contract Deployer" : i < 5 ? "Whale" : i < 20 ? "Large Holder" : ""
-      }));
-
+      // Production: Return empty holders array (real data pending indexer)
+      const holders: any[] = [];
       const offset = (page - 1) * limit;
       const paginatedHolders = holders.slice(offset, offset + limit);
 
@@ -2394,19 +2373,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         default: dataPoints = 168; interval = 3600000;
       }
 
-      const now = Date.now();
-      let basePrice = 4.58;
-      
-      const priceHistory = Array.from({ length: dataPoints }, (_, i) => {
-        const variation = (Math.random() - 0.5) * 0.1;
-        basePrice = Math.max(0.01, basePrice * (1 + variation));
-        return {
-          timestamp: new Date(now - (dataPoints - i) * interval).toISOString(),
-          price: basePrice.toFixed(4),
-          volume: `${Math.floor(Math.random() * 10000000)}000000000000000000`,
-          marketCap: `${Math.floor(basePrice * 1000000000)}000000000000000000`
-        };
-      });
+      // Production: Return empty price history (real data pending indexer)
+      const priceHistory: any[] = [];
 
       res.json({
         period,
@@ -4053,47 +4021,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/simulator/stats", async (_req, res) => {
     try {
-      // Enterprise-grade TX Simulator statistics
+      // Production TX Simulator statistics - real counts from database
+      const txCount = await storage.getTransactionCount();
+      const enterpriseNode = getEnterpriseNode();
+      const networkStats = enterpriseNode?.getNetworkStats();
+      const shards = await storage.getShards();
+      
       const stats = {
-        totalSimulations: 2847592,
-        simulationsToday: 28547,
-        simulationsThisHour: 1247,
-        successRate: 98.7, // Production-grade success rate
-        avgExecutionTime: 45, // 45ms average
-        avgGasEstimation: 85420,
-        avgGasUsed: 72607, // 85% gas efficiency
-        avgFeeEmb: 725, // Average fee in EMB
-        networkLoad: 67.5, // Current network utilization %
-        peakTps: 52847, // Peak TPS achieved
-        currentTps: 48756,
-        avgLatency: 12, // 12ms RPC latency
-        wsLatency: 8, // 8ms WebSocket latency
-        shardDistribution: [
-          { shardId: 0, simulations: 567890, successRate: 99.1 },
-          { shardId: 1, simulations: 489756, successRate: 98.9 },
-          { shardId: 2, simulations: 512345, successRate: 99.0 },
-          { shardId: 3, simulations: 478901, successRate: 98.8 },
-          { shardId: 4, simulations: 498234, successRate: 98.7 }
-        ],
+        totalSimulations: txCount || 0,
+        simulationsToday: 0,
+        simulationsThisHour: 0,
+        successRate: 0,
+        avgExecutionTime: 0,
+        avgGasEstimation: 0,
+        avgGasUsed: 0,
+        avgFeeEmb: 0,
+        networkLoad: networkStats?.load || 0,
+        peakTps: networkStats?.peakTps || 0,
+        currentTps: networkStats?.tps || 0,
+        avgLatency: networkStats?.latency || 0,
+        wsLatency: 0,
+        shardDistribution: shards.map(s => ({
+          shardId: s.id,
+          simulations: 0,
+          successRate: 0
+        })),
         txTypeDistribution: {
-          transfer: 45.2,
-          contractCall: 38.7,
-          contractCreation: 8.4,
-          stake: 4.2,
-          bridge: 3.5
+          transfer: 0,
+          contractCall: 0,
+          contractCreation: 0,
+          stake: 0,
+          bridge: 0
         },
         aiOptimization: {
           enabled: true,
-          gasOptimizations: 847592,
-          savingsPercent: 12.5,
-          securityChecks: 2847592,
-          threatsPrevented: 2847
+          gasOptimizations: 0,
+          savingsPercent: 0,
+          securityChecks: 0,
+          threatsPrevented: 0
         },
-        recentErrors: [
-          { type: "gas_estimation_variance", count: 23, resolution: "auto-retry" },
-          { type: "user_revert", count: 47, resolution: "expected_behavior" },
-          { type: "nonce_conflict", count: 8, resolution: "auto-increment" }
-        ],
+        recentErrors: [],
         uptime: 99.97,
         lastRestart: new Date(Date.now() - 86400000 * 7).toISOString(),
         version: "4.0.0"
@@ -4189,33 +4156,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const limit = parseInt(req.query.limit as string) || 50;
       
-      // Enterprise-grade recent simulations with realistic data
-      const simulations = Array.from({ length: limit }, (_, i) => {
-        const types = ['transfer', 'contract_call', 'contract_creation'] as const;
-        const type = types[Math.floor(Math.random() * types.length)];
-        const status = Math.random() > 0.02 ? 'success' : (Math.random() > 0.5 ? 'failed' : 'reverted');
-        const gas = type === 'transfer' ? 21000 : Math.floor(Math.random() * 200000) + 50000;
-        
-        return {
-          id: `sim-${Date.now() - i * 1000}-${i}`,
-          txHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
-          from: `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
-          to: type === 'contract_creation' ? null : `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
-          value: type === 'transfer' ? (Math.random() * 100).toFixed(4) : '0',
-          gas,
-          gasUsed: Math.floor(gas * (0.85 + Math.random() * 0.10)),
-          gasPrice: String(Math.floor(Math.random() * 20) + 10),
-          status,
-          shardId: Math.floor(Math.random() * 5),
-          timestamp: new Date(Date.now() - i * 60000).toISOString(),
-          executionTime: Math.floor(Math.random() * 100) + 20,
-          stateChanges: type === 'transfer' ? 2 : Math.floor(Math.random() * 15) + 1,
-          logs: type === 'transfer' ? 1 : Math.floor(Math.random() * 8),
-          errorMessage: status === 'failed' ? 'Gas estimation variance' : 
-                       status === 'reverted' ? 'User-initiated revert' : undefined,
-          type
-        };
-      });
+      // Production: Return recent transactions from database (no fake data)
+      const transactions = await storage.getTransactions(limit);
+      const simulations = transactions.map(tx => ({
+        id: `sim-${tx.id}`,
+        txHash: tx.hash,
+        from: tx.fromAddress,
+        to: tx.toAddress,
+        value: tx.value,
+        gas: parseInt(tx.gasLimit || '21000'),
+        gasUsed: parseInt(tx.gasUsed || '0'),
+        gasPrice: tx.gasPrice || '10',
+        status: tx.status || 'success',
+        shardId: tx.shardId || 0,
+        timestamp: tx.timestamp?.toISOString() || new Date().toISOString(),
+        executionTime: 0,
+        stateChanges: 0,
+        logs: 0,
+        errorMessage: undefined,
+        type: tx.toAddress ? 'transfer' : 'contract_creation'
+      }));
       
       res.json(simulations);
     } catch (error) {
@@ -5961,37 +5921,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // sharedPool doesn't need to be closed
       
       if (result.rows.length === 0) {
-        const mockPerformance = Array.from({ length: 25 }, (_, i) => ({
-          address: `0x${(i + 1).toString(16).padStart(40, '0')}`,
-          name: `Validator ${i + 1}`,
-          tier: i < 5 ? 'tier_1' : i < 15 ? 'tier_2' : 'tier_3',
-          stake: (i < 5 ? 200000 + Math.random() * 100000 : i < 15 ? 50000 + Math.random() * 50000 : 100 + Math.random() * 5000).toString(),
-          uptime: 95 + Math.random() * 4.9,
-          blocksProduced: Math.floor(1000 + Math.random() * 50000),
-          missedBlocks: Math.floor(Math.random() * 10),
-          averageBlockTime: 0.08 + Math.random() * 0.04,
-          rewardsEarned: (10 + Math.random() * 500).toFixed(2),
-          performanceScore: Math.floor(85 + Math.random() * 15),
-        }));
-        return res.json(mockPerformance);
+        // Production: Return empty array when no data exists
+        return res.json([]);
       }
       
       res.json(result.rows);
     } catch (error) {
       console.error('[Operator] Validator performance error:', error);
-      const mockPerformance = Array.from({ length: 25 }, (_, i) => ({
-        address: `0x${(i + 1).toString(16).padStart(40, '0')}`,
-        name: `Validator ${i + 1}`,
-        tier: i < 5 ? 'tier_1' : i < 15 ? 'tier_2' : 'tier_3',
-        stake: (i < 5 ? 200000 + Math.random() * 100000 : i < 15 ? 50000 + Math.random() * 50000 : 100 + Math.random() * 5000).toString(),
-        uptime: 95 + Math.random() * 4.9,
-        blocksProduced: Math.floor(1000 + Math.random() * 50000),
-        missedBlocks: Math.floor(Math.random() * 10),
-        averageBlockTime: 0.08 + Math.random() * 0.04,
-        rewardsEarned: (10 + Math.random() * 500).toFixed(2),
-        performanceScore: Math.floor(85 + Math.random() * 15),
-      }));
-      res.json(mockPerformance);
+      res.status(500).json({ error: "Failed to fetch validator performance" });
     }
   });
 
@@ -6869,26 +6806,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // sharedPool doesn't need to be closed
 
-      // If no history, generate sample data
+      // Production: Return empty array when no history exists
       if (history.rows.length === 0) {
-        const now = Date.now();
-        const sampleData = [];
-        for (let i = 0; i < 24; i++) {
-          sampleData.push({
-            tps: Math.floor(Math.random() * 5000 + 45000),
-            block_height: Math.floor((now - i * 3600000) / 100),
-            avg_block_time: 100 + Math.floor(Math.random() * 10),
-            latency: 5 + Math.floor(Math.random() * 10),
-            active_validators: 256 + Math.floor(Math.random() * 20),
-            cpu_usage: 25 + Math.floor(Math.random() * 20),
-            memory_usage: 40 + Math.floor(Math.random() * 15),
-            disk_usage: 35 + Math.floor(Math.random() * 10),
-            overall_health_score: 9800 + Math.floor(Math.random() * 150),
-            status: 'healthy',
-            snapshot_at: new Date(now - i * 3600000).toISOString()
-          });
-        }
-        return res.json(sampleData.reverse());
+        return res.json([]);
       }
 
       res.json(history.rows);
@@ -6913,24 +6833,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // sharedPool doesn't need to be closed
 
-      // If no alerts, generate sample critical alerts
-      if (alerts.rows.length === 0 && status === 'active') {
-        const sampleAlerts = [
-          {
-            id: 'sample-1',
-            alert_type: 'system',
-            severity: 'info',
-            title: 'System Health Monitoring Active',
-            message: 'Enterprise monitoring system is operational and tracking all network metrics.',
-            source_type: 'system',
-            status: 'active',
-            priority: 30,
-            requires_immediate_action: false,
-            created_at: new Date().toISOString()
-          }
-        ];
-        return res.json(sampleAlerts);
-      }
+      // Production: Return empty array when no alerts exist
 
       res.json(alerts.rows);
     } catch (error) {
@@ -9635,24 +9538,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { jobId } = req.params;
       const { level, limit = 100 } = req.query;
       
-      const logs = Array.from({ length: Number(limit) }, (_, i) => ({
-        id: `log-${jobId}-${i}`,
-        jobId,
-        level: ['info', 'info', 'info', 'warning', 'debug'][i % 5],
-        message: [
-          'Starting epoch training...',
-          'Loading batch data...',
-          'Computing gradients...',
-          'High memory usage detected',
-          'Checkpointing model weights',
-          'Validation step complete',
-          'Adjusting learning rate',
-          'Saving model checkpoint',
-        ][i % 8],
-        epoch: Math.floor(i / 10) + 1,
-        step: (i % 100) * 10,
-        createdAt: new Date(Date.now() - i * 60000).toISOString(),
-      })).filter(log => !level || log.level === level);
+      // Production: Return empty logs array
+      const logs: any[] = [];
       
       res.json({ success: true, data: logs });
     } catch (error) {
@@ -9726,21 +9613,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Alerts Management
   app.get("/api/admin/alerts", async (_req, res) => {
     try {
-      const categories = ['validators', 'resources', 'bridge', 'security', 'system', 'consensus', 'database', 'ai'];
-      const severities = ['critical', 'high', 'medium', 'low', 'info'] as const;
-      const sources = ['Validator Monitor', 'Resource Monitor', 'Bridge Monitor', 'Security Monitor', 'System', 'Consensus Engine', 'Database Monitor', 'AI Monitor'];
-      const alerts = Array.from({ length: 15 }, (_, i) => ({
-        id: `alert-${i + 1}`,
-        severity: severities[i % 5],
-        title: ['Validator Downtime', 'High Memory Usage', 'Bridge Latency Spike', 'Unusual Traffic Pattern', 'Scheduled Maintenance', 'Consensus Delay', 'Database Connection Pool', 'AI Model Accuracy Drop', 'Network Congestion', 'Low Disk Space', 'Certificate Expiring', 'Staking Imbalance', 'Cross-shard Delay', 'API Rate Limit', 'Memory Leak Detected'][i],
-        description: `Alert description for ${['Validator Downtime', 'High Memory Usage', 'Bridge Latency Spike'][i % 3]}`,
-        source: sources[i % 8],
-        timestamp: new Date(Date.now() - i * 300000).toISOString(),
-        acknowledged: i % 3 === 0,
-        resolved: i >= 10,
-        category: categories[i % 8]
-      }));
-      res.json({ alerts });
+      // Production: Return empty alerts array
+      res.json({ alerts: [] });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch alerts" });
     }
@@ -9782,12 +9656,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         p95: 50 + Math.floor(Math.random() * 15),
         p99: 80 + Math.floor(Math.random() * 20)
       })),
-      shardPerformance: Array.from({ length: 8 }, (_, i) => ({
-        shard: `Shard ${i + 1}`,
-        tps: 5000 + Math.floor(Math.random() * 2000),
-        load: 50 + Math.floor(Math.random() * 40),
-        nodes: 15 + (i % 5)
-      })),
+      shardPerformance: [],
       resourceUsage: [
         { resource: 'CPU', usage: 65, trend: 'stable' },
         { resource: 'Memory', usage: 72, trend: 'up' },
@@ -10321,17 +10190,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
+    // Production: Return empty votes array
     const result = {
-      votes: Array.from({ length: 20 }, (_, i) => ({
-        id: `vote-${i + 1}`,
-        proposalId: `prop-${(i % 3) + 1}`,
-        voter: `0x${Math.random().toString(16).slice(2, 42)}`,
-        choice: ['for', 'against', 'abstain'][i % 3],
-        weight: Math.floor(Math.random() * 100000),
-        timestamp: new Date(Date.now() - i * 3600000).toISOString()
-      })),
-      totalVotes: 5000000,
-      participationRate: 0.45
+      votes: [],
+      totalVotes: 0,
+      participationRate: 0
     };
     cache.set(cacheKey, result, 10000); // 10s TTL for active voting
     res.json(result);
@@ -10390,13 +10253,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       pendingExecutions: [
         { id: 'exec-1', proposalId: 'prop-2', title: 'Add New Bridge Chain', status: 'pending', scheduledAt: new Date(Date.now() + 86400000).toISOString() }
       ],
-      completedExecutions: Array.from({ length: 5 }, (_, i) => ({
-        id: `exec-${i + 2}`,
-        proposalId: `prop-old-${i + 1}`,
-        title: `Completed Proposal ${i + 1}`,
-        status: 'completed',
-        executedAt: new Date(Date.now() - (i + 1) * 86400000 * 7).toISOString()
-      })),
+      completedExecutions: [],
       failedExecutions: []
     };
     cache.set(cacheKey, result, 15000); // 15s TTL
@@ -10420,20 +10277,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         proposalsCreated: 45,
         delegations: 25000
       },
-      discussions: Array.from({ length: 10 }, (_, i) => ({
-        id: `disc-${i + 1}`,
-        title: `Community Discussion ${i + 1}`,
-        author: `user${i + 1}`,
-        replies: Math.floor(Math.random() * 50),
-        views: Math.floor(Math.random() * 1000),
-        createdAt: new Date(Date.now() - i * 86400000).toISOString()
-      })),
-      topContributors: Array.from({ length: 5 }, (_, i) => ({
-        id: `user-${i + 1}`,
-        username: `contributor${i + 1}`,
-        contributions: 100 - i * 15,
-        reputation: 1000 - i * 100
-      }))
+      discussions: [],
+      topContributors: []
     });
   });
 
@@ -10662,22 +10507,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
-    const roles = ['Super Admin', 'Admin', 'Operator', 'Security', 'Developer', 'Viewer'];
-    const statuses: ('active' | 'inactive' | 'suspended')[] = ['active', 'active', 'active', 'active', 'inactive', 'suspended'];
-    const names = ['System Admin', 'Operations Lead', 'Security Officer', 'Lead Developer', 'Data Analyst', 'Backup Admin', 'Support Lead', 'QA Engineer'];
+    // Production: Return empty accounts list (real data from admin management)
     const result = {
-      accounts: Array.from({ length: 20 }, (_, i) => ({
-        id: `user-${i + 1}`,
-        name: names[i % names.length] + (i >= names.length ? ` ${Math.floor(i / names.length) + 1}` : ''),
-        email: `user${i + 1}@tburn.io`,
-        role: roles[i % roles.length],
-        status: statuses[i % statuses.length],
-        lastLogin: i % 6 === 5 ? null : new Date(Date.now() - Math.random() * 86400000 * 7).toISOString(),
-        createdAt: new Date(Date.now() - Math.random() * 180 * 86400000).toISOString(),
-        twoFactorEnabled: i % 3 !== 2,
-        permissions: i % 6 === 0 ? ['all'] : ['read', 'write'].slice(0, (i % 3) + 1)
-      })),
-      total: 20
+      accounts: [],
+      total: 0
     };
     cache.set(cacheKey, result, 30000);
     res.json(result);
@@ -10726,36 +10559,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
-    const actionTypes = ['login', 'logout', 'create', 'update', 'delete', 'view', 'settings', 'security'] as const;
-    const statuses = ['success', 'failed', 'warning'] as const;
-    const devices = ['Chrome/Windows 11', 'Firefox/macOS Sonoma', 'Safari/iOS 17', 'Edge/Windows 11', 'Chrome/Android 14'];
-    const locations = ['New York, US', 'Tokyo, JP', 'London, UK', 'Singapore, SG', 'Sydney, AU', 'Frankfurt, DE'];
-    const targets = ['User Settings', 'Validator Node #23', 'Token Contract', 'Bridge Configuration', 'Security Policy', 'API Key', 'Dashboard Widget', 'Report Template'];
-    const actions = ['Logged in', 'Updated settings', 'Created new record', 'Viewed details', 'Deleted item', 'Modified configuration', 'Exported data', 'Changed permissions'];
-    const names = ['Admin Kim', 'Operator Lee', 'Developer Park', 'Analyst Choi', 'Manager Hong', 'Security Jung', 'Support Yang', 'Auditor Kang'];
-    
+    // Production: Return empty activity logs
     const result = {
-      logs: Array.from({ length: 50 }, (_, i) => ({
-        id: `act-${i + 1}`,
-        user: {
-          name: names[i % names.length],
-          email: `${names[i % names.length].toLowerCase().replace(' ', '.')}@tburn.io`,
-          avatar: null
-        },
-        action: actions[i % actions.length],
-        actionType: actionTypes[i % actionTypes.length],
-        target: targets[i % targets.length],
-        ip: `192.168.${Math.floor(i / 50)}.${(i % 255) + 1}`,
-        device: devices[i % devices.length],
-        location: locations[i % locations.length],
-        timestamp: new Date(Date.now() - i * 600000).toISOString(),
-        status: statuses[i % 10 === 0 ? 1 : i % 15 === 0 ? 2 : 0]
-      })),
+      logs: [],
       stats: {
-        totalActivities24h: 1247,
-        activeUsers: 42,
-        failedAttempts: 7,
-        securityEvents: 3
+        totalActivities24h: 0,
+        activeUsers: 0,
+        failedAttempts: 0,
+        securityEvents: 0
       }
     };
     cache.set(cacheKey, result, 30000);
@@ -10768,38 +10579,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
-    const deviceTypes = ['desktop', 'mobile', 'tablet'] as const;
-    const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
-    const oses = ['Windows 11', 'macOS Sonoma', 'Ubuntu 22.04', 'iOS 17', 'Android 14'];
-    const locations = ['New York, US', 'Tokyo, JP', 'London, UK', 'Singapore, SG', 'Frankfurt, DE'];
-    const statuses = ['active', 'idle', 'expired'] as const;
-    const roles = ['Admin', 'Operator', 'Developer', 'Analyst', 'Viewer'];
-    
+    // Production: Return empty sessions list
     const result = {
-      sessions: Array.from({ length: 15 }, (_, i) => ({
-        id: `sess-${i + 1}`,
-        user: {
-          name: `User ${(i % 10) + 1}`,
-          email: `user${(i % 10) + 1}@tburn.io`,
-          role: roles[i % 5],
-          avatar: null
-        },
-        device: `${browsers[i % 4]}/${oses[i % 5]}`,
-        deviceType: deviceTypes[i % 3],
-        browser: browsers[i % 4],
-        os: oses[i % 5],
-        ip: `192.168.1.${i + 10}`,
-        location: locations[i % 5],
-        startTime: new Date(Date.now() - Math.random() * 3600000).toISOString(),
-        lastActivity: new Date(Date.now() - Math.random() * 600000).toISOString(),
-        status: statuses[i % 3],
-        isCurrent: i === 0
-      })),
+      sessions: [],
       stats: {
-        total: 15,
-        active: 10,
-        idle: 3,
-        expired: 2
+        total: 0,
+        active: 0,
+        idle: 0,
+        expired: 0
       },
       settings: {
         timeout: 3600,
@@ -10928,15 +10715,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           blockRate: Number((blockedRate * 100).toFixed(2)),
           aiModelsActive: connectedAiModels
         },
-        recentThreats: Array.from({ length: 15 }, (_, i) => ({
-          id: i + 1,
-          type: ['DDoS Attack', 'Brute Force', 'SQL Injection', 'XSS Attempt', 'Suspicious Login'][i % 5],
-          severity: severities[(i + 2) % 4], // Bias toward lower severity when healthy
-          source: `${10 + (i % 100)}.${50 + (i % 50)}.${i % 255}.${(i * 7) % 255}`,
-          target: ['/api/auth', '/api/wallet', '/api/bridge', '/admin/*', '/api/transactions'][i % 5],
-          status: statuses[i % 4],
-          timestamp: new Date(Date.now() - i * 1800000).toISOString()
-        })),
+        recentThreats: [],
         aiDetections: [
           { pattern: "System operating within normal parameters", confidence: Math.min(99.99, aiConfidenceBase), risk: "low", recommendation: "Continue monitoring" },
           { pattern: "All threat patterns blocked successfully", confidence: Math.min(99.99, aiConfidenceBase - 1), risk: "low", recommendation: "No action required" },
@@ -11333,32 +11112,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const actors = ['system', 'validator_network', 'consensus_engine', 'ai_orchestrator', 'security_scanner', 'backup_service'];
       const roles = ['System', 'Validator', 'Consensus', 'AI Service', 'Security', 'Automation'];
       
+      // Production: Return empty audit logs
       res.json({
-        logs: Array.from({ length: 50 }, (_, i) => ({
-          id: `audit-${Date.now()}-${i + 1}`,
-          timestamp: new Date(Date.now() - i * 300000).toISOString(),
-          actor: actors[i % 6],
-          actorRole: roles[i % 6],
-          action: actions[i % 8],
-          category: categories[i % 6],
-          target: ['network_params', 'consensus_engine', 'validator_set', 'ai_models', 'security_config', 'backup_system'][i % 6],
-          targetType: ['config', 'service', 'validator', 'ai', 'security', 'backup'][i % 6],
-          status: 'success', // All success when system is healthy
-          ipAddress: `10.0.${(i % 5) + 1}.${(i * 5) % 100}`,
-          userAgent: ['System/Internal', 'Validator/Node', 'Consensus/BFT', 'AI/Orchestrator'][i % 4],
-          details: { 
-            action: actions[i % 8], 
-            timestamp: new Date(Date.now() - i * 300000).toISOString(),
-            result: 'completed',
-            duration: `${Math.floor(10 + Math.random() * 50)}ms`
-          }
-        })),
+        logs: [],
         stats: {
-          totalLogs: 50,
-          successCount: 50,
+          totalLogs: 0,
+          successCount: 0,
           failureCount: 0,
-          successRate: Number(successRate.toFixed(2)),
-          avgResponseTime: '28ms'
+          successRate: 0,
+          avgResponseTime: '0ms'
         },
         systemStatus: {
           slaUptime: slaUptime,
@@ -11625,26 +11387,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const logSources = ["Consensus", "Bridge", "AI", "Network", "Storage", "Security", "Database", "Mempool"];
       const logLevels: ("error" | "warn" | "info" | "debug")[] = ["info", "info", "info", "debug", "info", "warn", "info", "debug", "info", "info", "debug", "info", "info", "info", "info"];
       
+      // Production: Return empty logs array
       const result = {
         success: true,
         data: {
-          logs: Array.from({ length: 50 }, (_, i) => ({
-            id: `log-${Date.now()}-${i}`,
-            timestamp: new Date(Date.now() - i * 30000),
-            level: logLevels[i % 15],
-            source: logSources[i % 8],
-            message: [
-              `Block #${18750523 - i} finalized (${networkStats.tps.toFixed(0)} TPS)`,
-              "Cross-chain transfer completed: ETH → TBURN",
-              "AI consensus reached: Gas optimization applied",
-              `Peer discovery: ${networkStats.peerCount} active nodes`,
-              "State snapshot saved: Shard MainHub",
-              "Transaction pool optimized",
-              "Rate limiter adjusted for peak traffic",
-              "Connection pool health check passed"
-            ][i % 8],
-            metadata: { timestamp: new Date(Date.now() - i * 30000).toISOString() }
-          }))
+          logs: []
         }
       };
       
@@ -11663,23 +11410,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
-    const roles = ['Super Admin', 'Admin', 'Operator', 'Security', 'Developer', 'Viewer'];
-    const statuses: ('active' | 'inactive' | 'suspended')[] = ['active', 'active', 'active', 'active', 'inactive', 'suspended'];
-    const names = ['System Admin', 'Operations Lead', 'Security Officer', 'Lead Developer', 'Data Analyst', 'Backup Admin', 'Support Lead', 'QA Engineer'];
+    // Production: Return empty accounts array
     const result = {
-      accounts: Array.from({ length: 20 }, (_, i) => ({
-        id: `user-${i + 1}`,
-        name: names[i % names.length] + (i >= names.length ? ` ${Math.floor(i / names.length) + 1}` : ''),
-        email: `user${i + 1}@tburn.io`,
-        role: roles[i % roles.length],
-        status: statuses[i % statuses.length],
-        lastLogin: i % 6 === 5 ? null : new Date(Date.now() - Math.random() * 86400000 * 7).toISOString(),
-        createdAt: new Date(Date.now() - Math.random() * 180 * 86400000).toISOString(),
-        twoFactorEnabled: i % 3 !== 2,
-        permissions: i % 6 === 0 ? ['all'] : ['read', 'write'].slice(0, (i % 3) + 1)
-      })),
-      total: 20,
-      stats: { total: 20, active: 14, inactive: 3, suspended: 3, with2FA: 14 }
+      accounts: [],
+      total: 0,
+      stats: { total: 0, active: 0, inactive: 0, suspended: 0, with2FA: 0 }
     };
     cache.set(cacheKey, result, 30000);
     res.json(result);
@@ -11736,28 +11471,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
-    const actionTypes = ['login', 'logout', 'create', 'update', 'delete', 'view', 'settings', 'security'] as const;
-    const statuses = ['success', 'failed', 'warning'] as const;
-    const devices = ['Chrome/Windows 11', 'Firefox/macOS Sonoma', 'Safari/iOS 17', 'Edge/Windows 11', 'Chrome/Android 14'];
-    const locations = ['New York, US', 'Tokyo, JP', 'London, UK', 'Singapore, SG', 'Sydney, AU', 'Frankfurt, DE'];
-    const targets = ['User Settings', 'Validator Node #23', 'Token Contract', 'Bridge Configuration', 'Security Policy', 'API Key', 'Dashboard Widget', 'Report Template'];
-    const actions = ['Logged in', 'Updated settings', 'Created new record', 'Viewed details', 'Deleted item', 'Modified configuration', 'Exported data', 'Changed permissions'];
-    const names = ['Admin Kim', 'Operator Lee', 'Developer Park', 'Analyst Choi', 'Manager Hong', 'Security Jung', 'Support Yang', 'Auditor Kang'];
-    
+    // Production: Return empty activity logs
     const result = {
-      logs: Array.from({ length: 50 }, (_, i) => ({
-        id: `act-${i + 1}`,
-        user: { name: names[i % names.length], email: `${names[i % names.length].toLowerCase().replace(' ', '.')}@tburn.io`, avatar: null },
-        action: actions[i % actions.length],
-        actionType: actionTypes[i % actionTypes.length],
-        target: targets[i % targets.length],
-        ip: `192.168.${Math.floor(i / 50)}.${(i % 255) + 1}`,
-        device: devices[i % devices.length],
-        location: locations[i % locations.length],
-        timestamp: new Date(Date.now() - i * 600000).toISOString(),
-        status: statuses[i % 10 === 0 ? 1 : i % 15 === 0 ? 2 : 0]
-      })),
-      stats: { totalActivities24h: 1247, activeUsers: 42, failedAttempts: 7, securityEvents: 3 }
+      logs: [],
+      stats: { totalActivities24h: 0, activeUsers: 0, failedAttempts: 0, securityEvents: 0 }
     };
     cache.set(cacheKey, result, 30000);
     res.json(result);
@@ -11769,29 +11486,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
-    const deviceTypes = ['desktop', 'mobile', 'tablet'] as const;
-    const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
-    const oses = ['Windows 11', 'macOS Sonoma', 'Ubuntu 22.04', 'iOS 17', 'Android 14'];
-    const locations = ['New York, US', 'Tokyo, JP', 'London, UK', 'Singapore, SG', 'Frankfurt, DE'];
-    const statuses = ['active', 'idle', 'expired'] as const;
-    const roles = ['Admin', 'Operator', 'Developer', 'Analyst', 'Viewer'];
-    
+    // Production: Return empty sessions array
     const result = {
-      sessions: Array.from({ length: 15 }, (_, i) => ({
-        id: `sess-${i + 1}`,
-        user: { name: `User ${(i % 10) + 1}`, email: `user${(i % 10) + 1}@tburn.io`, role: roles[i % 5], avatar: null },
-        device: `${browsers[i % 4]}/${oses[i % 5]}`,
-        deviceType: deviceTypes[i % 3],
-        browser: browsers[i % 4],
-        os: oses[i % 5],
-        ip: `192.168.1.${i + 10}`,
-        location: locations[i % 5],
-        startTime: new Date(Date.now() - Math.random() * 3600000).toISOString(),
-        lastActivity: new Date(Date.now() - Math.random() * 600000).toISOString(),
-        status: statuses[i % 3],
-        isCurrent: i === 0
-      })),
-      stats: { total: 15, active: 10, idle: 3, expired: 2 },
+      sessions: [],
+      stats: { total: 0, active: 0, idle: 0, expired: 0 },
       settings: { timeout: 3600, concurrentSessions: true, sessionLockOnIdle: true, deviceTrust: false }
     };
     cache.set(cacheKey, result, 30000);
@@ -12158,24 +11856,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     const categories = ['Blocks', 'Transactions', 'Wallets', 'Contracts', 'Bridge', 'Staking', 'Governance', 'AI'];
     const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'] as const;
+    // Production: Return empty endpoints array
     const result = {
-      endpoints: Array.from({ length: 48 }, (_, i) => ({
-        id: `ep-${i + 1}`,
-        method: methods[i % 5],
-        path: `/api/${categories[i % 8].toLowerCase()}${i % 3 === 0 ? '' : `/${i % 3 === 1 ? ':id' : 'list'}`}`,
-        description: `${methods[i % 5]} ${categories[i % 8]} endpoint`,
-        auth: i % 4 !== 0,
-        category: categories[i % 8],
-        rateLimit: { requests: 100 + (i * 10), window: '1m' },
-        deprecated: i === 45
-      })),
+      endpoints: [],
       stats: {
-        totalEndpoints: 156,
-        publicEndpoints: 48,
-        authenticatedEndpoints: 108,
-        deprecatedEndpoints: 3,
-        avgResponseTime: 45,
-        successRate: 99.97
+        totalEndpoints: 0,
+        publicEndpoints: 0,
+        authenticatedEndpoints: 0,
+        deprecatedEndpoints: 0,
+        avgResponseTime: 0,
+        successRate: 0
       },
       changelog: [
         { version: "v8.2.0", date: new Date(Date.now() - 86400000 * 7).toISOString().split('T')[0], changes: ["Added Bridge v2 endpoints", "Improved rate limiting"] },
@@ -12226,29 +11916,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     const contractTypes = ['Token', 'NFT', 'DEX', 'Bridge', 'Staking', 'Governance'];
     const statuses = ['deployed', 'verified', 'audited'] as const;
+    // Production: Return empty contracts array
     const result = {
-      contracts: Array.from({ length: 12 }, (_, i) => ({
-        id: `contract-${i + 1}`,
-        name: `${contractTypes[i % 6]}Contract${i + 1}`,
-        address: `0x${(1234567890 + i * 111111).toString(16).padStart(40, '0')}`,
-        type: contractTypes[i % 6],
-        status: statuses[i % 3],
-        deployedAt: new Date(Date.now() - i * 86400000 * 7).toISOString(),
-        transactions: 1000 + Math.floor(Math.random() * 50000),
-        gasUsed: `${(1.5 + Math.random() * 3).toFixed(2)} ETH`
-      })),
+      contracts: [],
       templates: [
-        { id: 'tpl-1', name: 'TBC-20 Token', description: 'Standard fungible token', popularity: 95 },
-        { id: 'tpl-2', name: 'TBC-721 NFT', description: 'Non-fungible token', popularity: 78 },
-        { id: 'tpl-3', name: 'TBC-1155 Multi', description: 'Multi-token standard', popularity: 45 },
-        { id: 'tpl-4', name: 'Staking Pool', description: 'Token staking contract', popularity: 67 }
+        { id: 'tpl-1', name: 'TBC-20 Token', description: 'Standard fungible token', popularity: 0 },
+        { id: 'tpl-2', name: 'TBC-721 NFT', description: 'Non-fungible token', popularity: 0 },
+        { id: 'tpl-3', name: 'TBC-1155 Multi', description: 'Multi-token standard', popularity: 0 },
+        { id: 'tpl-4', name: 'Staking Pool', description: 'Token staking contract', popularity: 0 }
       ],
       compilers: ['solc-0.8.20', 'solc-0.8.19', 'solc-0.8.17', 'vyper-0.3.10'],
       stats: {
-        totalDeployed: 8547,
-        verified: 6234,
-        audited: 892,
-        avgGasOptimization: 23
+        totalDeployed: 0,
+        verified: 0,
+        audited: 0,
+        avgGasOptimization: 0
       }
     };
     cache.set(cacheKey, result, 30000); // 30s TTL for contracts
@@ -12270,24 +11952,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           online: true,
           blockHeight: Math.floor(networkStats.blockHeight * 0.95), // Testnet slightly behind
           tps: networkStats.tps * 0.8,
-          pendingTxs: Math.floor(Math.random() * 500),
-          activeValidators: Math.floor(networkStats.activeValidators * 0.6),
+          pendingTxs: 0,
+          activeValidators: 0,
           syncStatus: 'synced'
         },
         faucet: {
-          balance: `${(50000 + Math.random() * 10000).toFixed(0)} TBURN`,
+          balance: '0 TBURN',
           dailyLimit: 100,
-          requestsToday: Math.floor(Math.random() * 80),
+          requestsToday: 0,
           cooldownMinutes: 60
         },
-        recentRequests: Array.from({ length: 10 }, (_, i) => ({
-          id: `req-${Date.now() - i * 60000}`,
-          address: `0x${Math.random().toString(16).slice(2, 42)}`,
-          amount: 10,
-          timestamp: new Date(Date.now() - i * 120000).toISOString(),
-          txHash: `0x${Math.random().toString(16).slice(2, 66)}`,
-          status: i === 0 ? 'pending' : 'completed'
-        })),
+        recentRequests: [],
         networks: [
           { name: 'TBURN Testnet', chainId: '8889', rpcUrl: 'https://testnet.tburn.io', status: 'healthy' },
           { name: 'TBURN Devnet', chainId: '8890', rpcUrl: 'https://devnet.tburn.io', status: 'healthy' }
@@ -12328,13 +12003,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           peakRps: 12500,
           currentRps: 3400 + Math.floor(Math.random() * 1000)
         },
-        recentLogs: Array.from({ length: 20 }, (_, i) => ({
-          id: `log-${Date.now() - i * 5000}`,
-          level: i % 10 === 0 ? 'error' : i % 5 === 0 ? 'warn' : 'info',
-          source: ['Consensus', 'Network', 'Storage', 'RPC', 'P2P'][i % 5],
-          message: `${['Block processed', 'Peer connected', 'Transaction validated', 'State synced', 'Cache updated'][i % 5]} #${18750000 + i}`,
-          timestamp: new Date(Date.now() - i * 5000).toISOString()
-        })),
+        recentLogs: [],
         activeConnections: {
           rpc: 234,
           ws: 89,
@@ -12372,27 +12041,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           latency: 45 + Math.floor(Math.random() * 20)
         },
         charts: {
-          tps: Array.from({ length: 60 }, (_, i) => ({
-            time: new Date(Date.now() - (59 - i) * 1000).toISOString(),
-            value: networkStats.tps * (0.8 + Math.random() * 0.4)
-          })),
-          blockTime: Array.from({ length: 60 }, (_, i) => ({
-            time: new Date(Date.now() - (59 - i) * 1000).toISOString(),
-            value: 500 + Math.floor(Math.random() * 100)
-          })),
-          validators: Array.from({ length: 60 }, (_, i) => ({
-            time: new Date(Date.now() - (59 - i) * 1000).toISOString(),
-            active: networkStats.activeValidators - Math.floor(Math.random() * 3),
-            total: networkStats.totalValidators
-          }))
+          tps: [],
+          blockTime: [],
+          validators: []
         },
-        events: Array.from({ length: 10 }, (_, i) => ({
-          id: `evt-${Date.now() - i * 5000}`,
-          type: ['block', 'transaction', 'validator', 'consensus'][i % 4],
-          message: `Event ${i + 1}: ${['New block produced', 'TX batch processed', 'Validator joined', 'Round completed'][i % 4]}`,
-          timestamp: new Date(Date.now() - i * 5000).toISOString(),
-          severity: i === 0 ? 'info' : i % 5 === 0 ? 'warning' : 'info'
-        }))
+        events: []
       };
       cache.set(cacheKey, result, 3000); // 3s TTL for real-time data
       res.json(result);
@@ -12414,29 +12067,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const categories = ['network', 'consensus', 'resources', 'storage', 'rpc'];
       const result = {
-        metrics: Array.from({ length: 50 }, (_, i) => ({
-          id: `metric-${i + 1}`,
-          name: `${categories[i % 5]}_metric_${Math.floor(i / 5) + 1}`,
-          category: categories[i % 5],
-          value: i % 5 === 0 ? networkStats.tps : i % 5 === 1 ? 99.95 : Math.random() * 100,
-          unit: ['tps', '%', 'ms', 'GB', 'req/s'][i % 5],
-          trend: Math.random() > 0.5 ? 'up' : 'down',
-          trendValue: (Math.random() * 5).toFixed(2)
-        })),
+        metrics: [],
         summary: {
-          totalMetrics: 156,
-          healthyMetrics: 152,
-          warningMetrics: 3,
-          criticalMetrics: 1,
-          avgHealth: 99.87
+          totalMetrics: 0,
+          healthyMetrics: 0,
+          warningMetrics: 0,
+          criticalMetrics: 0,
+          avgHealth: 0
         },
-        recentAlerts: Array.from({ length: 5 }, (_, i) => ({
-          id: `alert-${i + 1}`,
-          metric: `${categories[i % 5]}_metric_${i + 1}`,
-          severity: i === 0 ? 'critical' : i < 3 ? 'warning' : 'info',
-          message: `Metric threshold ${i === 0 ? 'exceeded' : 'approaching'}`,
-          timestamp: new Date(Date.now() - i * 300000).toISOString()
-        }))
+        recentAlerts: []
       };
       cache.set(cacheKey, result, 10000); // 10s TTL for metrics
       res.json(result);
@@ -12454,25 +12093,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     const severities = ['critical', 'warning', 'info'] as const;
     const categories = ['network', 'consensus', 'resources', 'security', 'performance'];
+    // Production: Return empty rules array
     const result = {
-      rules: Array.from({ length: 15 }, (_, i) => ({
-        id: `rule-${i + 1}`,
-        name: `${categories[i % 5].charAt(0).toUpperCase() + categories[i % 5].slice(1)} Alert ${Math.floor(i / 5) + 1}`,
-        description: `Monitor ${categories[i % 5]} threshold for anomalies`,
-        category: categories[i % 5],
-        severity: severities[i % 3],
-        condition: `${categories[i % 5]}_metric > ${80 + i}`,
-        threshold: 80 + i,
-        enabled: i !== 14,
-        notifications: ['email', 'slack', 'webhook'].slice(0, (i % 3) + 1),
-        triggeredCount: Math.floor(Math.random() * 20),
-        lastTriggered: i < 5 ? new Date(Date.now() - i * 3600000).toISOString() : null
-      })),
+      rules: [],
       stats: {
-        totalRules: 15,
-        enabledRules: 14,
-        triggeredToday: 7,
-        avgResponseTime: 45
+        totalRules: 0,
+        enabledRules: 0,
+        triggeredToday: 0,
+        avgResponseTime: 0
       },
       channels: [
         { id: 'email', name: 'Email', enabled: true, config: { recipients: 3 } },
@@ -12543,12 +12171,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           { name: 'Consensus', uptime: 99.97, latency: 250, status: 'healthy', incidents: 2 },
           { name: 'Bridge Service', uptime: 99.95, latency: 1500, status: 'warning', incidents: 3 }
         ],
-        history: Array.from({ length: 30 }, (_, i) => ({
-          date: new Date(Date.now() - i * 86400000).toISOString().split('T')[0],
-          uptime: 99.9 + Math.random() * 0.1,
-          incidents: i % 10 === 0 ? 1 : 0,
-          avgLatency: 40 + Math.random() * 20
-        })),
+        history: [],
         incidents: [
           { id: 'inc-1', service: 'Bridge Service', duration: 15, impact: 'minor', resolvedAt: new Date(Date.now() - 86400000 * 2).toISOString() },
           { id: 'inc-2', service: 'Consensus', duration: 3, impact: 'none', resolvedAt: new Date(Date.now() - 86400000 * 5).toISOString() },
@@ -12583,12 +12206,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           bridgeFees: 45000,
           operatingCosts: 89000
         },
-        revenueByMonth: Array.from({ length: 12 }, (_, i) => ({
-          month: new Date(Date.now() - (11 - i) * 30 * 86400000).toISOString().slice(0, 7),
-          revenue: 350000 + Math.random() * 150000,
-          fees: 20000 + Math.random() * 15000,
-          rewards: 100000 + Math.random() * 50000
-        })),
+        revenueByMonth: [],
         expenseBreakdown: [
           { category: 'Infrastructure', amount: 35000, percentage: 39.3 },
           { category: 'Personnel', amount: 28000, percentage: 31.5 },
@@ -12596,14 +12214,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           { category: 'Legal & Compliance', amount: 8000, percentage: 9.0 },
           { category: 'Other', amount: 6000, percentage: 6.7 }
         ],
-        recentTransactions: Array.from({ length: 10 }, (_, i) => ({
-          id: `fin-tx-${i + 1}`,
-          type: ['revenue', 'expense', 'transfer'][i % 3],
-          amount: 1000 + Math.random() * 50000,
-          description: `Financial transaction ${i + 1}`,
-          date: new Date(Date.now() - i * 86400000).toISOString(),
-          status: 'completed'
-        }))
+        recentTransactions: []
       };
       cache.set(cacheKey, result, 60000); // 60s TTL for finance data
       res.json(result);
@@ -12631,16 +12242,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           pendingSettlements: 12,
           reconciledToday: 99.97
         },
-        ledgerEntries: Array.from({ length: 20 }, (_, i) => ({
-          id: `ledger-${i + 1}`,
-          txHash: `0x${Math.random().toString(16).slice(2, 66)}`,
-          type: ['transfer', 'fee', 'reward', 'bridge'][i % 4],
-          debit: i % 2 === 0 ? 100 + Math.random() * 1000 : 0,
-          credit: i % 2 !== 0 ? 100 + Math.random() * 1000 : 0,
-          balance: 1000000 + Math.random() * 500000,
-          timestamp: new Date(Date.now() - i * 3600000).toISOString(),
-          status: 'reconciled'
-        })),
+        ledgerEntries: [],
         reconciliationStatus: {
           lastReconciled: new Date(Date.now() - 300000).toISOString(),
           discrepancies: 0,
@@ -12678,19 +12280,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { name: 'Research', budget: 200000, spent: 187000, utilization: 93.5 },
         { name: 'Admin', budget: 100000, spent: 100000, utilization: 100 }
       ],
-      requests: Array.from({ length: 8 }, (_, i) => ({
-        id: `req-${i + 1}`,
-        department: ['Engineering', 'Operations', 'Marketing', 'Legal'][i % 4],
-        amount: 10000 + Math.random() * 50000,
-        purpose: `Budget request for ${['infrastructure', 'staffing', 'tools', 'services'][i % 4]}`,
-        status: ['pending', 'approved', 'rejected', 'pending'][i % 4],
-        submittedAt: new Date(Date.now() - i * 86400000).toISOString()
-      })),
-      monthlyTrend: Array.from({ length: 6 }, (_, i) => ({
-        month: new Date(Date.now() - (5 - i) * 30 * 86400000).toISOString().slice(0, 7),
-        budget: 400000,
-        actual: 350000 + Math.random() * 80000
-      }))
+      requests: [],
+      monthlyTrend: []
     };
     cache.set(cacheKey, result, 60000); // 60s TTL for budget
     res.json(result);
@@ -12718,12 +12309,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { category: 'Monitoring', cost: 8000, trend: 'down', optimization: 10 },
         { category: 'Other', cost: 6000, trend: 'stable', optimization: 3 }
       ],
-      trends: Array.from({ length: 12 }, (_, i) => ({
-        month: new Date(Date.now() - (11 - i) * 30 * 86400000).toISOString().slice(0, 7),
-        infrastructure: 30000 + Math.random() * 10000,
-        operations: 15000 + Math.random() * 5000,
-        other: 5000 + Math.random() * 3000
-      })),
+      trends: [],
       optimizations: [
         { id: 'opt-1', title: 'Reserved Instance Migration', savings: 8500, status: 'in_progress' },
         { id: 'opt-2', title: 'Storage Tiering', savings: 3200, status: 'planned' },
@@ -12759,13 +12345,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { id: 'rpt-2', name: 'Annual Summary 2024', type: 'annual', status: 'pending', generatedAt: null },
         { id: 'rpt-3', name: 'Q3 2024 Tax Report', type: 'quarterly', status: 'filed', generatedAt: new Date(Date.now() - 90 * 86400000).toISOString() }
       ],
-      events: Array.from({ length: 5 }, (_, i) => ({
-        id: `evt-${i + 1}`,
-        type: ['payment', 'filing', 'audit', 'amendment'][i % 4],
-        description: `Tax event ${i + 1}`,
-        date: new Date(Date.now() - i * 30 * 86400000).toISOString(),
-        amount: i % 4 === 0 ? 50000 + Math.random() * 30000 : null
-      }))
+      events: []
     };
     cache.set(cacheKey, result, 60000); // 60s TTL for tax data
     res.json(result);
@@ -12787,14 +12367,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { id: 'governance', name: 'Governance', articleCount: 10, icon: 'Vote' },
         { id: 'troubleshooting', name: 'Troubleshooting', articleCount: 22, icon: 'Wrench' }
       ],
-      popularArticles: Array.from({ length: 8 }, (_, i) => ({
-        id: `article-${i + 1}`,
-        title: `How to ${['connect wallet', 'stake TBURN', 'use bridge', 'vote on proposals', 'claim rewards', 'verify contract', 'check transaction', 'manage delegation'][i]}`,
-        category: ['getting-started', 'staking', 'bridge', 'governance'][i % 4],
-        views: 5000 - i * 500,
-        helpful: 95 - i * 2,
-        lastUpdated: new Date(Date.now() - i * 7 * 86400000).toISOString()
-      })),
+      popularArticles: [],
       stats: {
         totalArticles: 101,
         totalViews: 245000,
@@ -12834,12 +12407,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         certificatesEarned: 2,
         learningStreak: 7
       },
-      recentActivity: Array.from({ length: 5 }, (_, i) => ({
-        id: `activity-${i + 1}`,
-        type: ['enrollment', 'completion', 'certificate'][i % 3],
-        courseId: `course-${(i % 6) + 1}`,
-        timestamp: new Date(Date.now() - i * 86400000).toISOString()
-      }))
+      recentActivity: []
     };
     cache.set(cacheKey, result, 60000); // 60s TTL for training
     res.json(result);
@@ -12855,25 +12423,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const statuses = ['open', 'in_progress', 'pending', 'resolved', 'closed'] as const;
     const categories = ['Technical', 'Billing', 'Account', 'Feature Request', 'Bug Report'];
     
+    // Production: Return empty tickets array
     const result = {
-      tickets: Array.from({ length: 15 }, (_, i) => ({
-        id: `ticket-${1000 + i}`,
-        subject: `Support ticket regarding ${categories[i % 5].toLowerCase()}`,
-        category: categories[i % 5],
-        priority: priorities[i % 4],
-        status: statuses[i % 5],
-        assignee: i < 10 ? `Agent ${(i % 3) + 1}` : null,
-        createdAt: new Date(Date.now() - i * 86400000).toISOString(),
-        updatedAt: new Date(Date.now() - i * 3600000).toISOString(),
-        responseTime: i < 5 ? 15 + Math.floor(Math.random() * 30) : null
-      })),
+      tickets: [],
       stats: {
-        totalOpen: 8,
-        avgResponseTime: 23,
-        resolutionRate: 94.5,
-        satisfactionScore: 4.7,
-        ticketsToday: 12,
-        resolvedToday: 9
+        totalOpen: 0,
+        avgResponseTime: 0,
+        resolutionRate: 0,
+        satisfactionScore: 0,
+        ticketsToday: 0,
+        resolvedToday: 0
       },
       agents: [
         { id: 'agent-1', name: 'Agent 1', ticketsAssigned: 5, avgResponseTime: 18, satisfaction: 4.8 },
@@ -12892,27 +12451,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
+    // Production: Return empty announcements array
     const result = {
-      announcements: Array.from({ length: 10 }, (_, i) => ({
-        id: `ann-${i + 1}`,
-        title: ['Mainnet Launch Update', 'Staking Rewards Increased', 'Bridge v2.0 Released', 'Governance Proposal #15', 'Security Audit Complete'][i % 5],
-        content: `Important announcement regarding ${['mainnet', 'staking', 'bridge', 'governance', 'security'][i % 5]} updates and improvements.`,
-        type: ['info', 'success', 'warning', 'update'][i % 4] as const,
-        priority: ['high', 'medium', 'low'][i % 3] as const,
-        status: i < 3 ? 'active' : i < 7 ? 'scheduled' : 'archived',
-        audience: ['all', 'validators', 'stakers', 'developers'][i % 4],
-        publishedAt: i < 3 ? new Date(Date.now() - i * 86400000).toISOString() : null,
-        scheduledAt: i >= 3 && i < 7 ? new Date(Date.now() + (i - 2) * 86400000).toISOString() : null,
-        expiresAt: new Date(Date.now() + (30 - i) * 86400000).toISOString(),
-        views: 1000 - i * 80,
-        reactions: { like: 50 - i * 4, celebrate: 20 - i * 2 }
-      })),
+      announcements: [],
       stats: {
-        totalAnnouncements: 47,
-        activeAnnouncements: 3,
-        scheduledAnnouncements: 4,
-        totalViews: 24500,
-        avgEngagement: 8.5
+        totalAnnouncements: 0,
+        activeAnnouncements: 0,
+        scheduledAnnouncements: 0,
+        totalViews: 0,
+        avgEngagement: 0
       },
       templates: [
         { id: 'tpl-1', name: 'Maintenance Notice', category: 'operations' },
@@ -12964,19 +12511,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const enterpriseNode = getEnterpriseNode();
     const networkStats = await enterpriseNode.getNetworkStats();
     
+    // Production: Return empty genesis validators (use real validator data)
     const result = {
-      validators: Array.from({ length: 21 }, (_, i) => ({
-        id: `val-${i + 1}`,
-        address: `0x${Math.random().toString(16).slice(2, 42)}`,
-        name: `Genesis Validator ${i + 1}`,
-        stake: 1000000 + Math.floor(Math.random() * 500000),
-        status: i < networkStats.activeValidators ? 'active' : 'pending',
-        genesisBlock: true
-      })),
+      validators: [],
       stats: {
         totalValidators: networkStats.totalValidators,
         activeValidators: networkStats.activeValidators,
-        totalStake: networkStats.totalValidators * 1250000
+        totalStake: 0
       }
     };
     cache.set(cacheKey, result, 30000); // 30s TTL
@@ -13055,14 +12596,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cached = cache.get<any>(cacheKey);
     if (cached) return res.json(cached);
     
+    // Production: Return empty genesis logs
     const result = {
-      logs: Array.from({ length: 20 }, (_, i) => ({
-        id: `log-${i + 1}`,
-        timestamp: new Date(Date.now() - i * 300000).toISOString(),
-        level: ['info', 'info', 'info', 'warning', 'info'][i % 5],
-        message: ['Block produced', 'Validator joined', 'Config updated', 'High memory usage', 'Transaction processed'][i % 5],
-        source: ['consensus', 'p2p', 'api', 'system', 'mempool'][i % 5]
-      }))
+      logs: []
     };
     cache.set(cacheKey, result, 15000); // 15s TTL for logs
     res.json(result);
@@ -13486,15 +13022,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/backups", async (_req, res) => {
+    // Production: Return empty backups array
     res.json({
-      backups: Array.from({ length: 10 }, (_, i) => ({
-        id: `backup-${i + 1}`,
-        timestamp: new Date(Date.now() - i * 86400000).toISOString(),
-        size: '2.5 GB',
-        status: 'completed',
-        type: i % 2 === 0 ? 'full' : 'incremental'
-      })),
-      nextScheduled: new Date(Date.now() + 86400000).toISOString(),
+      backups: [],
+      nextScheduled: null,
       retentionDays: 30
     });
   });
@@ -13533,14 +13064,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/logs", async (_req, res) => {
+    // Production: Return empty logs array
     res.json({
-      logs: Array.from({ length: 100 }, (_, i) => ({
-        id: `log-${i + 1}`,
-        timestamp: new Date(Date.now() - i * 1000).toISOString(),
-        level: ['info', 'warn', 'error', 'debug'][i % 4],
-        service: ['api', 'validator', 'bridge', 'consensus'][i % 4],
-        message: `Log message ${i + 1}`
-      }))
+      logs: []
     });
   });
 
@@ -13639,11 +13165,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       responseTime: 150,
       errorRate: 0.01,
       targets: { uptime: 99.9, responseTime: 200, errorRate: 0.1 },
-      history: Array.from({ length: 30 }, (_, i) => ({
-        date: new Date(Date.now() - i * 86400000).toISOString(),
-        uptime: 99.9 + Math.random() * 0.1,
-        responseTime: 150 + Math.random() * 50
-      }))
+      history: []
     });
   });
 
@@ -13740,15 +13262,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { name: "Bridge Fees", value: 20, color: "#ffc658" },
         { name: "Other", value: 10, color: "#ff8042" }
       ],
-      recentTransactions: Array.from({ length: 10 }, (_, i) => ({
-        id: `tx-${i + 1}`,
-        type: i % 2 === 0 ? "inflow" : "outflow",
-        category: ["Staking Fees", "Bridge Revenue", "Validator Rewards", "Operating Costs", "Development"][i % 5],
-        amount: 10000 + Math.floor(Math.random() * 100000),
-        date: new Date(Date.now() - i * 86400000).toISOString(),
-        description: `Transaction ${i + 1} description`,
-        status: transactionStatuses[i % 3]
-      })),
+      recentTransactions: [],
       treasuryAllocation: [
         { category: "Operating Reserve", amount: 35000000, percentage: 39 },
         { category: "Development Fund", amount: 25000000, percentage: 28 },
@@ -13760,14 +13274,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/accounting/transactions", async (_req, res) => {
+    // Production: Return empty transactions array
     res.json({
-      transactions: Array.from({ length: 50 }, (_, i) => ({
-        id: `tx-${i + 1}`,
-        type: ['revenue', 'expense', 'transfer'][i % 3],
-        amount: `$${(Math.random() * 10000).toFixed(2)}`,
-        category: ['fees', 'staking', 'bridge', 'other'][i % 4],
-        timestamp: new Date(Date.now() - i * 3600000).toISOString()
-      }))
+      transactions: []
     });
   });
 
@@ -13856,24 +13365,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const statuses = ['open', 'in-progress', 'waiting', 'resolved', 'closed'] as const;
     const priorities = ['low', 'medium', 'high', 'critical'] as const;
     const categories = ['Access Issue', 'Bug Report', 'Feature Request', 'Documentation', 'Training'];
+    // Production: Return empty tickets array
     res.json({
-      tickets: Array.from({ length: 15 }, (_, i) => ({
-        id: `TKT-${String(i + 1).padStart(3, '0')}`,
-        title: `Support ticket ${i + 1}`,
-        description: `Detailed description for support ticket ${i + 1}. This ticket requires attention.`,
-        category: categories[i % 5],
-        priority: priorities[i % 4],
-        status: statuses[i % 5],
-        requester: `user${i + 1}@tburn.io`,
-        assignee: i % 3 === 0 ? null : 'support@tburn.io',
-        createdAt: new Date(Date.now() - i * 86400000).toISOString(),
-        updatedAt: new Date(Date.now() - i * 3600000).toISOString(),
-        responses: Math.floor(Math.random() * 10)
-      })),
-      messages: [
-        { id: "1", sender: "user@tburn.io", isAdmin: false, message: "I need help with this issue.", timestamp: new Date(Date.now() - 3600000).toISOString() },
-        { id: "2", sender: "Support Team", isAdmin: true, message: "We are looking into this issue.", timestamp: new Date(Date.now() - 1800000).toISOString() }
-      ]
+      tickets: [],
+      messages: []
     });
   });
 
@@ -13886,18 +13381,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const types = ['suggestion', 'bug', 'praise', 'complaint'] as const;
     const categories = ['UI/UX', 'Performance', 'Features', 'Documentation', 'Support'];
     const statuses = ['new', 'reviewed', 'actioned', 'archived'] as const;
+    // Production: Return empty feedback items
     const result = {
-      items: Array.from({ length: 25 }, (_, i) => ({
-        id: `fb-${i + 1}`,
-        type: types[i % 4],
-        category: categories[i % 5],
-        message: `User feedback message ${i + 1}. This contains detailed feedback about the platform.`,
-        rating: 1 + Math.floor(Math.random() * 5),
-        user: `user${i + 1}@example.com`,
-        createdAt: new Date(Date.now() - i * 86400000).toISOString(),
-        status: statuses[i % 4],
-        response: i % 3 === 0 ? `Thank you for your feedback. We have addressed your concern.` : null
-      })),
+      items: [],
       ratingData: [
         { rating: "5 Stars", count: 45, percentage: 45 },
         { rating: "4 Stars", count: 28, percentage: 28 },
@@ -13929,20 +13415,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const types = ['info', 'warning', 'critical', 'maintenance'] as const;
     const statuses = ['draft', 'scheduled', 'published', 'archived'] as const;
     const audiences = [['all'], ['validators'], ['operators', 'developers'], ['all', 'validators']];
+    // Production: Return empty announcements array
     res.json({
-      announcements: Array.from({ length: 12 }, (_, i) => ({
-        id: `ann-${i + 1}`,
-        title: ['System Maintenance', 'Bridge v2 Launch', 'Security Update', 'New Feature Release', 'Network Upgrade', 'API Changes'][i % 6],
-        content: `Detailed announcement content for item ${i + 1}. This provides important information to the community.`,
-        type: types[i % 4],
-        audience: audiences[i % 4],
-        status: statuses[i % 4],
-        pinned: i < 2,
-        publishedAt: i % 4 === 2 ? new Date(Date.now() - i * 86400000).toISOString() : null,
-        scheduledFor: i % 4 === 1 ? new Date(Date.now() + (i + 1) * 86400000).toISOString() : null,
-        author: ['Admin', 'Ops Team', 'Security'][i % 3],
-        views: Math.floor(Math.random() * 5000)
-      }))
+      announcements: []
     });
   });
 
