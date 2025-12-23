@@ -276,16 +276,19 @@ export default function AdminPerformance() {
     return { p50: 145, p90: 189, p95: 225, p99: 285, max: 380 };
   }, [latencyData]);
 
-  // Computed current TPS from performance data (real-time from API)
+  // CRITICAL: Use unified Enterprise Node TPS for legal compliance
+  // networkStats.tps is the authoritative source (synchronized with /admin/shards)
   const currentTps = useMemo(() => {
-    if (performanceData?.currentTps) return performanceData.currentTps;
+    // Priority 1: Enterprise Node TPS (unified source - legally required)
     if (networkStats?.tps) return networkStats.tps;
-    // Fallback: estimate based on shard performance if available
+    // Priority 2: Fallback to performance API if Enterprise Node unavailable
+    if (performanceData?.currentTps) return performanceData.currentTps;
+    // Priority 3: estimate based on shard performance if available
     if (shardPerformance.length > 0) {
       return shardPerformance.reduce((sum, s) => sum + s.tps, 0);
     }
     return 0; // Return 0 if no data available
-  }, [performanceData, networkStats, shardPerformance]);
+  }, [networkStats, performanceData, shardPerformance]);
 
   useEffect(() => {
     let ws: WebSocket | null = null;
