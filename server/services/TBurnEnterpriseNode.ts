@@ -3399,21 +3399,28 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   private produceBlock(): BlockProduction {
     this.currentBlockHeight++;
-    // DYNAMIC SHARD-PROPORTIONAL TPS: Transactions scale with shard count
+    // DETERMINISTIC SHARD-PROPORTIONAL TPS: Transactions scale with shard count
     // Base: 625 tx/block/shard × 10 blocks/sec = ~6,250 TPS per shard
-    // Load variation: 35-70% utilization per shard
+    // Load variation: 52.5% fixed utilization (center of 35-70% range) - NO RANDOM
     const shardCount = this.shardConfig.currentShardCount;
     const baseTransactionsPerShard = 625; // ~6,250 TPS/shard capacity
-    const loadFactor = 0.35 + Math.random() * 0.35; // 35-70% load per shard
-    const transactionCount = Math.floor(shardCount * baseTransactionsPerShard * loadFactor) 
-                            + Math.floor(Math.random() * 200);
+    
+    // DETERMINISTIC load factor based on block height and time
+    // Uses sine wave with block height for natural variation without randomness
+    // Range: 50-55% utilization for stable, predictable TPS
+    const blockCycle = this.currentBlockHeight % 1000; // 1000 block cycle
+    const loadVariation = Math.sin(blockCycle * Math.PI / 500) * 0.025; // ±2.5% variation
+    const loadFactor = 0.525 + loadVariation; // 50-55% stable load
+    
+    // DETERMINISTIC transaction count - no random values
+    const transactionCount = Math.floor(shardCount * baseTransactionsPerShard * loadFactor);
     const gasUsed = BigInt(transactionCount * 21000);
     
     this.totalTransactions += transactionCount;
     this.totalGasUsed += gasUsed;
     
     // Calculate TPS (transactions per second) - Enterprise grade
-    const currentTps = transactionCount * 10; // 10 blocks per second = 50,000+ TPS
+    const currentTps = transactionCount * 10; // 10 blocks per second
     this.tpsHistory.push(currentTps);
     if (this.tpsHistory.length > 100) {
       this.tpsHistory.shift();
@@ -3435,15 +3442,24 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const totalValidatorsForBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
     const requiredSignatures = Math.ceil(totalValidatorsForBlock * 2 / 3);
     
+    // DETERMINISTIC proposer selection based on block height
+    const proposerIndex = this.currentBlockHeight % totalValidatorsForBlock;
+    
+    // DETERMINISTIC block size based on transaction count
+    const blockSize = 15000 + Math.floor(transactionCount / 10);
+    
+    // DETERMINISTIC signature count: 80% of validators (realistic BFT consensus)
+    const signatureCount = Math.floor(totalValidatorsForBlock * 0.80);
+    
     return {
       height: this.currentBlockHeight,
-      hash: `0x${crypto.randomBytes(32).toString('hex')}`,
+      hash: `0x${crypto.createHash('sha256').update(`block-${this.currentBlockHeight}-${now}`).digest('hex')}`,
       timestamp: Math.floor(now / 1000),
-      proposer: generateValidatorAddress(Math.floor(Math.random() * totalValidatorsForBlock)),
+      proposer: generateValidatorAddress(proposerIndex),
       transactionCount,
       gasUsed: gasUsed.toString(),
-      size: 15000 + Math.floor(Math.random() * 10000),
-      validatorSignatures: requiredSignatures + Math.floor(Math.random() * (totalValidatorsForBlock - requiredSignatures + 1)) // 2/3+ of total validators
+      size: blockSize,
+      validatorSignatures: signatureCount
     };
   }
 
