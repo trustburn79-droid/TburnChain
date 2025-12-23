@@ -734,10 +734,23 @@ export default function Dashboard() {
           try {
             const data = JSON.parse(event.data);
             // Handle network_stats updates (both legacy and new format)
+            // CRITICAL: Never update TPS from WebSocket - only REST API is authoritative
             if (data.type === 'network_stats' || data.type === 'network_stats_update') {
               const payload = data.payload || data.data;
               if (payload) {
-                queryClient.setQueryData(["/api/network/stats"], payload);
+                // Only update if we already have REST data - preserve TPS always
+                queryClient.setQueryData(["/api/network/stats"], (oldData: NetworkStats | undefined) => {
+                  // If no REST data yet, don't set anything - wait for REST API
+                  if (!oldData) return undefined;
+                  // Merge WebSocket data but ALWAYS preserve Enterprise Node TPS from REST
+                  const { tps: _wsTps, peakTps: _wsPeakTps, ...safePayload } = payload;
+                  return {
+                    ...oldData,
+                    ...safePayload,
+                    tps: oldData.tps, // CRITICAL: Preserve authoritative TPS
+                    peakTps: oldData.peakTps, // CRITICAL: Preserve peak TPS
+                  };
+                });
                 setLastDataUpdate(new Date());
               }
             } else if (data.type === 'new_block' || data.type === 'block_update' || data.type === 'block_created') {
