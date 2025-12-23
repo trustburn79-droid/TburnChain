@@ -43,6 +43,7 @@ import {
   Globe,
   ImageIcon,
 } from "lucide-react";
+import { TBurnLogo } from "@/components/tburn-logo";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -177,6 +178,15 @@ export default function BugBountyPage() {
             </a>
           </Link>
         </nav>
+        
+        <div className={`p-4 border-t ${isDark ? 'border-gray-800' : 'border-slate-200'}`}>
+          <div className="flex items-center justify-center lg:justify-start gap-2">
+            <TBurnLogo className="w-10 h-10" showText={true} textColor="#000000" />
+            <span className={`hidden lg:block font-bold text-lg ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              TBURN
+            </span>
+          </div>
+        </div>
       </aside>
 
       <main className={`flex-1 flex flex-col relative overflow-hidden ${isDark ? 'bg-[#0B1120]' : 'bg-slate-50'} transition-colors duration-300`}>
