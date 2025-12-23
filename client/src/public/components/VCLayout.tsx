@@ -63,7 +63,7 @@ export default function VCLayout({ children }: VCLayoutProps) {
             <div className="flex items-center gap-6">
               <Link href="/vc">
                 <div className="flex items-center gap-1.5 cursor-pointer" data-testid="link-vc-home">
-                  <TBurnLogo showText={false} className="w-10 h-10" />
+                  <TBurnLogo showText={true} textColor="#000000" className="w-10 h-10" />
                   <span className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent hidden sm:inline">
                     TBURN VC
                   </span>
