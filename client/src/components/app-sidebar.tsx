@@ -37,6 +37,7 @@ import {
   Vote,
   Zap,
 } from "lucide-react";
+import { TBurnLogo } from "@/components/tburn-logo";
 import {
   Sidebar,
   SidebarContent,
@@ -157,10 +158,8 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4 border-b">
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-md bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">T</span>
-          </div>
+        <div className="flex items-center gap-1.5">
+          <TBurnLogo className="h-9 w-9" />
           <div className="flex flex-col">
             <span className="font-semibold text-sm">{t('nav.brand')}</span>
             <span className="text-xs text-muted-foreground">Mainnet</span>
