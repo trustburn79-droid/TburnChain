@@ -691,9 +691,11 @@ export class ValidatorSimulationService {
     }
     const producer = activeValidators[this.currentBlockHeight % activeValidators.length];
     
-    // ENTERPRISE PRODUCTION: Generate very high transaction volume to match 200K+ TPS display
-    // With ~1.6 blocks/second DB write capacity, need ~130K tx/block for 200K TPS
-    const transactionCount = 125000 + Math.floor(Math.random() * 10000); // 125,000-135,000 txs per block
+    // PRODUCTION LAUNCH: Match exact displayed TPS (~210K)
+    // ~2.75 blocks/second × ~76,000 tx/block = ~210K TPS
+    // Using calculated value to match Enterprise Node display exactly
+    const baseTransactions = 75000 + Math.floor(Math.random() * 3000); // 75,000-78,000 txs per block
+    const transactionCount = baseTransactions;
     
     // Mix of transaction types for realistic gas usage:
     // 20% simple transfers (21,000 gas each)
