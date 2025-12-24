@@ -254,7 +254,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
               </Avatar>
               <div className="flex flex-col">
                 <span className="text-lg font-semibold">
-                  {isLoading ? <Skeleton className="h-5 w-32" /> : currentMember?.displayName || t("profile.anonymous", "익명")}
+                  {isLoading ? <Skeleton className="h-5 w-32" /> : currentMember?.displayName || currentEmail || currentMember?.email || (address ? `${address.slice(0, 6)}...${address.slice(-4)}` : t("profile.anonymous", "익명"))}
                 </span>
                 <Badge className={`w-fit mt-1 ${getTierColor(currentMember?.memberTier)}`}>
                   {getTierLabel(currentMember?.memberTier)}
