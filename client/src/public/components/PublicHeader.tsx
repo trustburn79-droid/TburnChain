@@ -273,25 +273,17 @@ export function PublicHeader() {
                 </div>
               )}
             </div>
+            {/* Theme toggle - hidden on mobile to save space */}
             <button 
-              className="p-2 text-gray-400 hover:text-white transition"
+              className="hidden sm:block p-2 text-gray-400 hover:text-white transition"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               data-testid="button-theme-toggle"
             >
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
-            {/* Mobile: Icon only button */}
+            {/* Desktop: Full text login button */}
             <button 
-              className="sm:hidden glass-panel border border-cyan-400/30 text-cyan-400 p-2 rounded-lg hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]"
-              data-testid="button-login-mobile"
-              onClick={handleAuthButtonClick}
-              disabled={logoutMutation.isPending}
-            >
-              {isAuthenticated ? <LogOut className="w-5 h-5" /> : <LogIn className="w-5 h-5" />}
-            </button>
-            {/* Desktop: Full text button */}
-            <button 
-              className="hidden sm:block glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)] whitespace-nowrap"
+              className="hidden lg:block glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)] whitespace-nowrap"
               data-testid="button-login"
               onClick={handleAuthButtonClick}
               disabled={logoutMutation.isPending}
@@ -299,6 +291,7 @@ export function PublicHeader() {
               {isAuthenticated ? t('publicPages.header.logout', '로그아웃') : t('publicPages.header.loginInterface')}
             </button>
 
+            {/* Mobile hamburger menu - rightmost on mobile */}
             <button
               className="lg:hidden p-2 text-gray-400 hover:text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -313,6 +306,37 @@ export function PublicHeader() {
       {mobileMenuOpen && (
         <div className="lg:hidden glass-panel border-t border-white/5 max-h-[calc(100vh-5rem)] overflow-y-auto">
           <nav className="max-w-7xl mx-auto px-6 py-4 pb-20">
+            {/* Mobile: Login/Logout and Theme Toggle */}
+            <div className="flex items-center gap-4 mb-6 pb-4 border-b border-white/10">
+              <button 
+                className="flex-1 glass-panel border border-cyan-400/30 text-cyan-400 px-4 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all"
+                data-testid="button-login-mobile"
+                onClick={() => {
+                  handleAuthButtonClick();
+                  setMobileMenuOpen(false);
+                }}
+                disabled={logoutMutation.isPending}
+              >
+                {isAuthenticated ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <LogOut className="w-4 h-4" />
+                    {t('publicPages.header.logout', '로그아웃')}
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <LogIn className="w-4 h-4" />
+                    {t('publicPages.header.loginInterface')}
+                  </span>
+                )}
+              </button>
+              <button 
+                className="p-2 text-gray-400 hover:text-white transition rounded-lg border border-white/10"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                data-testid="button-theme-toggle-mobile"
+              >
+                {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            </div>
             {menuStructure.map((menu) => (
               <div key={menu.key} className="mb-4">
                 <div className="text-sm font-semibold text-white mb-2">{t(menu.titleKey)}</div>
