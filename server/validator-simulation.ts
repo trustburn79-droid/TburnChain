@@ -478,11 +478,20 @@ export class ValidatorSimulationService {
           lastActiveAt: new Date(),
         };
         
-        await this.storage.createValidator(validator);
-        this.validators.push(validator);
+        try {
+          await this.storage.createValidator(validator);
+          this.validators.push(validator);
+        } catch (error: any) {
+          if (error?.code === '23505') {
+            // Validator already exists, skip
+            console.log(`[Validator] Skipping existing validator: ${validator.id}`);
+          } else {
+            throw error;
+          }
+        }
       }
       
-      console.log(`✅ Created ${missingCount} new validators, total now: ${this.validators.length}`);
+      console.log(`✅ Created new validators, total now: ${this.validators.length}`);
       return;
     }
     
@@ -682,8 +691,9 @@ export class ValidatorSimulationService {
     }
     const producer = activeValidators[this.currentBlockHeight % activeValidators.length];
     
-    // ENTERPRISE PRODUCTION: Generate high transaction volume for 50,000+ TPS
-    const transactionCount = 5000 + Math.floor(Math.random() * 200); // 5000-5200 txs per block
+    // ENTERPRISE PRODUCTION: Generate very high transaction volume to match 200K+ TPS display
+    // With ~1.6 blocks/second DB write capacity, need ~130K tx/block for 200K TPS
+    const transactionCount = 125000 + Math.floor(Math.random() * 10000); // 125,000-135,000 txs per block
     
     // Mix of transaction types for realistic gas usage:
     // 20% simple transfers (21,000 gas each)
