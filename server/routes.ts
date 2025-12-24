@@ -401,6 +401,149 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }
 
   // ============================================
+  // Helper function to ensure member profiles exist
+  // ============================================
+  async function ensureMemberProfiles(memberId: string): Promise<void> {
+    try {
+      // Check if profiles already exist
+      const [profile, financial, governance, security, performance] = await Promise.all([
+        storage.getMemberProfileByMemberId(memberId),
+        storage.getMemberFinancialProfile(memberId),
+        storage.getMemberGovernanceProfile(memberId),
+        storage.getMemberSecurityProfile(memberId),
+        storage.getMemberPerformanceMetrics(memberId),
+      ]);
+      
+      const referralCode = `REF${memberId.substring(0, 8).toUpperCase()}`;
+      
+      // Create missing profiles
+      if (!profile) {
+        await storage.createMemberProfile({
+          memberId,
+          bio: "",
+          avatarUrl: "",
+          website: "",
+          twitter: "",
+          telegram: "",
+          discord: "",
+          github: "",
+          preferredLanguage: "ko",
+          preferredCurrency: "USD",
+          timezone: "America/New_York",
+          emailNotifications: true,
+          smsNotifications: false,
+          pushNotifications: true,
+          referralCode,
+          referredBy: null,
+          referralCount: 0,
+          referralRewardsEarned: "0",
+        });
+        console.log(`[Profile] Created member_profile for ${memberId}`);
+      }
+      
+      if (!financial) {
+        await storage.createMemberFinancialProfile({
+          memberId,
+          totalBalance: "1000000000000000000",
+          availableBalance: "1000000000000000000",
+          lockedBalance: "0",
+          stakedBalance: "0",
+          totalTransactions: 0,
+          totalSent: "0",
+          totalReceived: "1000000000000000000",
+          totalFeesPaid: "0",
+          validatorRewards: "0",
+          stakingRewards: "0",
+          delegationRewards: "0",
+          referralRewards: "0",
+          totalSlashed: "0",
+          slashCount: 0,
+          taxReportingEnabled: false,
+          taxJurisdiction: null,
+          firstTransactionAt: new Date(),
+          lastTransactionAt: new Date(),
+        });
+        console.log(`[Profile] Created member_financial_profile for ${memberId}`);
+      }
+      
+      if (!governance) {
+        await storage.createMemberGovernanceProfile({
+          memberId,
+          votingPower: "1000000000000000000",
+          delegatedVotingPower: "0",
+          receivedVotingPower: "0",
+          proposalsCreated: 0,
+          proposalsVoted: 0,
+          votesCast: 0,
+          votesDelegated: 0,
+          participationRate: 0,
+          proposalSuccessRate: 0,
+          votingConsistency: 0,
+          activeDelegations: 0,
+          receivedDelegations: 0,
+          maxDelegationsAllowed: 100,
+          daoMemberships: [],
+          committeePositions: [],
+          governanceScore: 100,
+          influenceScore: 0,
+          lastVoteAt: null,
+          lastProposalAt: null,
+        });
+        console.log(`[Profile] Created member_governance_profile for ${memberId}`);
+      }
+      
+      if (!security) {
+        await storage.createMemberSecurityProfile({
+          memberId,
+          twoFactorEnabled: false,
+          twoFactorMethod: null,
+          twoFactorBackupCodes: [],
+          securityKeys: [],
+          passkeyEnabled: false,
+          activeSessions: 0,
+          maxSessions: 5,
+          sessionTimeout: 3600,
+          ipWhitelist: [],
+          ipBlacklist: [],
+          countryRestrictions: [],
+          failedLoginAttempts: 0,
+          lastFailedLogin: null,
+          lastSuccessfulLogin: new Date(),
+          lastPasswordChange: new Date(),
+          riskScore: 0,
+          fraudScore: 0,
+          suspiciousActivityCount: 0,
+          recoveryEmail: null,
+          recoveryPhone: null,
+          recoveryQuestions: [],
+          accountLocked: false,
+          lockReason: null,
+          lockedAt: null,
+        });
+        console.log(`[Profile] Created member_security_profile for ${memberId}`);
+      }
+      
+      if (!performance) {
+        await storage.createMemberPerformanceMetrics({
+          memberId,
+          validatorAddress: null,
+          currentUptime: 10000,
+          currentTps: 0,
+          currentLatencyMs: 0,
+          slaComplianceRate: 10000,
+          downtimeIncidents: 0,
+          performanceGrade: "A",
+          performanceScore: 100,
+          performanceRank: null,
+        });
+        console.log(`[Profile] Created member_performance_metrics for ${memberId}`);
+      }
+    } catch (error) {
+      console.error(`[Profile] Error ensuring profiles for ${memberId}:`, error);
+    }
+  }
+
+  // ============================================
   // Authentication Routes
   // ============================================
   app.post("/api/auth/login", loginLimiter, async (req, res) => {
@@ -416,7 +559,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
             req.session.authenticated = true;
             req.session.memberId = member.id;
             req.session.memberEmail = email;
-            return res.json({ success: true, member: { id: member.id, displayName: member.displayName } });
+            req.session.memberAddress = member.accountAddress;
+            
+            // Ensure all profile records exist for this member (for users who registered before profile initialization was added)
+            await ensureMemberProfiles(member.id);
+            
+            // Update login metrics
+            try {
+              await storage.updateMemberPerformanceMetrics(member.id, {
+                lastLoginAt: new Date(),
+              });
+            } catch (err) {
+              // Ignore metrics update errors
+            }
+            
+            console.log(`[Login] Member ${member.displayName} logged in with wallet ${member.accountAddress}`);
+            
+            return res.json({ 
+              success: true, 
+              member: { 
+                id: member.id, 
+                displayName: member.displayName,
+                accountAddress: member.accountAddress
+              } 
+            });
           }
         }
         // Member auth failed, fall through to site password check
@@ -493,10 +659,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         pepStatus: false,
       });
       
+      // Initialize all profile records for new member using helper function
+      // This ensures user has complete data when accessing /user page
+      await ensureMemberProfiles(member.id);
+      
+      console.log(`[Signup] New member ${username} (${email}) registered with wallet ${accountAddress}`);
+      
       // Auto-login after signup
       req.session.authenticated = true;
       req.session.memberId = member.id;
       req.session.memberEmail = email;
+      req.session.memberAddress = accountAddress;
       
       res.status(201).json({ 
         success: true, 
@@ -4723,6 +4896,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error updating member:", error);
       res.status(500).json({ error: "Failed to update member" });
+    }
+  });
+  
+  // Initialize missing profiles for all existing members (admin migration endpoint)
+  app.post("/api/admin/migrate-member-profiles", requireAdmin, async (req, res) => {
+    try {
+      const members = await storage.getAllMembers(1000);
+      let created = 0;
+      let skipped = 0;
+      
+      for (const member of members) {
+        try {
+          // Check if profiles already exist
+          const [profile, financial] = await Promise.all([
+            storage.getMemberProfileByMemberId(member.id),
+            storage.getMemberFinancialProfile(member.id),
+          ]);
+          
+          // If any profile is missing, run full initialization
+          if (!profile || !financial) {
+            await ensureMemberProfiles(member.id);
+            created++;
+            console.log(`[Migration] Initialized profiles for member ${member.displayName}`);
+          } else {
+            skipped++;
+          }
+        } catch (err) {
+          console.error(`[Migration] Failed for member ${member.id}:`, err);
+        }
+      }
+      
+      res.json({ 
+        success: true, 
+        message: `Profile migration complete`,
+        stats: { created, skipped, total: members.length }
+      });
+    } catch (error) {
+      console.error("Error migrating member profiles:", error);
+      res.status(500).json({ error: "Failed to migrate member profiles" });
     }
   });
   
