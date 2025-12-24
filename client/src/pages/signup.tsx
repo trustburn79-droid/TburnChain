@@ -19,11 +19,11 @@ import {
   Zap,
   TrendingUp,
   Globe,
-  Flame,
   ArrowLeft,
   RefreshCw,
   KeyRound
 } from "lucide-react";
+import { TBurnLogo } from "@/components/tburn-logo";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
@@ -410,10 +410,7 @@ export default function Signup() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Flame className="w-4 h-4 text-black" />
-                <div className="absolute inset-0 bg-white/20 rounded blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </div>
+              <TBurnLogo className="w-8 h-8 group-hover:scale-110 transition-transform" showText={false} />
               <span className="font-bold text-xl text-white tracking-tight">
                 TBurn <span className="text-cyan-400">Chain</span>
               </span>
@@ -604,7 +601,7 @@ export default function Signup() {
 
                     {/* Username */}
                     <div className="space-y-1">
-                      <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.nodeAlias")}</label>
+                      <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.nodeAlias")} <span className="text-gray-600">(이메일주소)</span></label>
                       <FormField
                         control={form.control}
                         name="username"
@@ -631,7 +628,7 @@ export default function Signup() {
                     {/* Password Fields */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-1">
-                        <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.encryptionKey")}</label>
+                        <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.encryptionKey")} <span className="text-gray-600">(비밀번호)</span></label>
                         <FormField
                           control={form.control}
                           name="password"
@@ -656,7 +653,7 @@ export default function Signup() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.verifyKey")}</label>
+                        <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.verifyKey")} <span className="text-gray-600">(비밀번호 확인)</span></label>
                         <FormField
                           control={form.control}
                           name="confirmPassword"
@@ -816,8 +813,11 @@ export default function Signup() {
               })}
             </div>
 
-            {/* Background Icon */}
-            <Globe className="absolute -bottom-10 -right-10 w-40 h-40 text-white/5 rotate-12 group-hover:rotate-0 transition-transform duration-700" />
+            {/* Large TBurn Logo in Background */}
+            <TBurnLogo 
+              className="absolute -bottom-8 -right-8 w-56 h-56 opacity-20 rotate-12 group-hover:rotate-0 transition-transform duration-700" 
+              showText={false}
+            />
           </div>
         </div>
       </main>
