@@ -83,6 +83,10 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   }, [isDragging]);
 
   const handleDragStart = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('a') || target.closest('[role="button"]')) {
+      return;
+    }
     e.preventDefault();
     if (dragRef.current) {
       dragStartRef.current = {
