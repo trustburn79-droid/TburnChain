@@ -124,13 +124,16 @@ import {
 interface Member {
   id: string;
   accountAddress: string;
+  displayName?: string;
+  encryptedEmail?: string;
   memberTier: string;
   memberStatus: string;
   kycLevel: string;
+  createdAt?: string;
   joinedAt: string;
   updatedAt: string;
   profile?: {
-    displayName: string;
+    displayName?: string;
     email?: string;
     avatarUrl?: string;
     bio?: string;
@@ -267,7 +270,7 @@ function MemberDetailModal({
                 </div>
                 <div>
                   <DialogTitle className="text-xl font-bold">
-                    {member.profile?.displayName || t('members.anonymousMember')}
+                    {member.displayName || member.profile?.displayName || t('members.anonymousMember')}
                   </DialogTitle>
                   <DialogDescription className="font-mono text-xs break-all">
                     {member.accountAddress}
@@ -1216,7 +1219,7 @@ function KYCWorkflowDialog({
             {t('members.kycVerificationWorkflow')}
           </DialogTitle>
           <DialogDescription>
-            {t('members.kycWorkflowDescription', { name: member.profile?.displayName || t('members.anonymousMember') })}
+            {t('members.kycWorkflowDescription', { name: member.displayName || member.profile?.displayName || t('members.anonymousMember') })}
           </DialogDescription>
         </DialogHeader>
 
@@ -1300,9 +1303,9 @@ function MemberEditDialog({
 
   if (!member || !open) return null;
 
-  if (formData.displayName === '' && member.profile?.displayName) {
+  if (formData.displayName === '' && (member.displayName || member.profile?.displayName)) {
     setFormData({
-      displayName: member.profile?.displayName || '',
+      displayName: member.displayName || member.profile?.displayName || '',
       email: member.profile?.email || '',
       bio: member.profile?.bio || '',
       location: member.profile?.location || '',
@@ -1435,7 +1438,7 @@ function MemberDeleteDialog({
             {t('members.deleteMember')}
           </DialogTitle>
           <DialogDescription>
-            {t('members.deleteMemberWarning', { name: member.profile?.displayName || member.accountAddress.slice(0, 10) })}
+            {t('members.deleteMemberWarning', { name: member.displayName || member.profile?.displayName || member.accountAddress.slice(0, 10) })}
           </DialogDescription>
         </DialogHeader>
 
@@ -1447,7 +1450,7 @@ function MemberDeleteDialog({
                   <UserX className="h-5 w-5 text-destructive" />
                 </div>
                 <div>
-                  <p className="font-medium">{member.profile?.displayName || t('members.anonymousMember')}</p>
+                  <p className="font-medium">{member.displayName || member.profile?.displayName || t('members.anonymousMember')}</p>
                   <p className="text-xs text-muted-foreground font-mono">{member.accountAddress}</p>
                 </div>
               </div>
@@ -1524,7 +1527,7 @@ export default function MembersPage() {
     const matchesSearch =
       searchQuery === "" ||
       member.accountAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.profile?.displayName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (member.displayName || member.profile?.displayName)?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       member.profile?.email?.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesTier = tierFilter === "all" || member.memberTier === tierFilter;
@@ -2118,7 +2121,7 @@ export default function MembersPage() {
                             onClick={() => setSelectedMember(member)}
                           >
                             <div className="font-medium">
-                              {member.profile?.displayName || t('members.anonymous')}
+                              {member.displayName || member.profile?.displayName || t('members.anonymous')}
                             </div>
                             <div className="text-sm text-muted-foreground font-mono">
                               {member.accountAddress.slice(0, 6)}...{member.accountAddress.slice(-4)}

@@ -1,0 +1,431 @@
+
+/operator/members
+
+Production
+Status
+JEONG published 33 minutes ago
+Visibility
+Public
+Domain
+https://tburn1.replit.app
+https://tburn.io
+Type
+Autoscale
+(4 vCPU / 8 GiB RAM / 3 Max)
+See all usage
+18a84a87
+JJ
+
+trustburn79
+JEONG
+published about 2 hours ago
+c54981bc
+JJ
+
+trustburn79
+JEONG
+published about 2 hours ago
+3ab6e754
+JJ
+
+trustburn79
+JEONG
+published about 2 hours ago
+e84afef2
+JJ
+
+trustburn79
+JEONG
+published about 2 hours ago
+302c3a0f
+JJ
+
+trustburn79
+JEONG
+published about 18 hours ago
+302c3a0f
+JJ
+
+trustburn79
+JEONG
+published about 18 hours ago
+0df1e8a6
+JJ
+
+trustburn79
+JEONG
+published about 19 hours ago
+6e2dd228
+JJ
+
+trustburn79
+JEONG
+published about 19 hours ago
+057bc5b0
+JJ
+
+trustburn79
+JEONG
+published about 19 hours ago
+cd731c00
+JJ
+
+trustburn79
+JEONG
+published about 19 hours ago
+ff45bb4d
+JJ
+
+trustburn79
+JEONG
+published about 19 hours ago
+c08d30e0
+JJ
+
+trustburn79
+JEONG
+published about 20 hours ago
+4de75071
+JJ
+
+trustburn79
+JEONG
+published about 23 hours ago
+d87aebed
+JJ
+
+trustburn79
+JEONG
+published about 23 hours ago
+72c4d3f2
+JJ
+
+trustburn79
+JEONG
+published about 23 hours ago
+466b0d48
+JJ
+
+trustburn79
+JEONG
+published 1 day ago
+fa4d3998
+JJ
+
+trustburn79
+JEONG
+published 1 day ago
+c1032fd4
+JJ
+
+trustburn79
+JEONG
+published 1 day ago
+cae60896
+JJ
+
+trustburn79
+JEONG
+published 1 day ago
+Databases
+Development Database
+923.56MB / 10GB
+Billing Period
+Renews monthly, 1월 17일
+Hours of Compute Used
+156.58 hours
+npm run dev
+1m
+ • 
+1 minute ago
+Secrets
+Secrets are accessible to anyone who has access to this App. To restrict secret access, you must update App invite permissions. For more information, visit our documentation.
+SESSION_SECRET
+••••••••
+AI_INTEGRATIONS_ANTHROPIC_BASE_URL
+••••••••
+AI_INTEGRATIONS_ANTHROPIC_API_KEY
+••••••••
+AI_INTEGRATIONS_OPENAI_BASE_URL
+••••••••
+AI_INTEGRATIONS_OPENAI_API_KEY
+••••••••
+DATABASE_URL
+••••••••
+PGDATABASE
+••••••••
+PGHOST
+••••••••
+PGPORT
+••••••••
+PGUSER
+••••••••
+PGPASSWORD
+••••••••
+AI_INTEGRATIONS_GEMINI_BASE_URL
+••••••••
+AI_INTEGRATIONS_GEMINI_API_KEY
+••••••••
+GROK_API_KEY
+••••••••
+ADMIN_PASSWORD
+••••••••
+TBURN_API_KEY
+••••••••
+ANTHROPIC_API_KEY
+••••••••
+GEMINI_API_KEY
+••••••••
+OPENAI_API_KEY
+••••••••
+RESEND_API_KEY
+••••••••
+GOOGLE_CLIENT_ID
+••••••••
+GOOGLE_CLIENT_SECRET
+••••••••
+Configurations
+Configurations are similar to secrets, but should only be used for non-sensitive information. They're useful for having a variable that's different between your published app and when testing on Replit.
+ADMIN_EMAIL
+trustburn79@gmail.com
+EMAIL_FROM
+TBURN Chain <noreply@tburn.io>
+MAX_SHARDS
+64
+Testing value
+64
+NODE_ENV
+production
+Testing value
+development
+NODE_MODE
+production
+TBURN_NODE_URL
+http://localhost:8545
+TBURN_WS_URL
+ws://localhost:8546
+VITE_NODE_MODE
+production
+Remote Updates
+origin/main•upstream
+last fetched 1 day ago
+Commit
+There are no changes to commit.
+Enable "Accessible Terminal" in Workspace Settings to use a screen reader with the shell.
+User Settings
+The following settings apply to your account and will be used across all your Apps.
+Agent Position
+Choose whether the Agent appears in the left or right sidebar.
+
+Agent Audio Notification
+Play a sound when the Agent needs your response.
+
+Agent Push Notification
+Send a push notification when the Agent needs your response.
+
+Assistant Push Notification
+Send a push notification when the Assistant needs your response.
+
+Automatic Preview
+Open a web preview automatically when a port is open
+
+Forward Opened Ports Automatically
+Automatically configure detected newly opened ports.
+
+all ports except localhost
+Font Size
+Change the font size of the editor.
+
+normal
+Theme
+
+Saved progress at the end of the loop
+
+11 messages & 30 actions
+환경 변수가 아직 적용되지 않았습니다. 로그를 확인하겠습니다:
+Update shard configuration to respect environment overrides
+Worked for 4 minutes
+최대 샤드가 16샤드 밖에 나오지 않고, 그리고 16샤드를 선택해도 5샤드로 반환된다.
+
+
+3 messages & 9 actions
+캐시 문제가 있습니다. 직접 API 응답을 확인하고 캐시를 무효화하겠습니다:
+현재 워크플로우가 아닌 외부 구글서버에서 그 문제가 발생중이다.
+
+
+1 message & 1 action
+구글 클라우드 서버에서 발생하는 문제입니다. 해결 방법을 안내드립니다: --- **구글 클라우드 서버에서 설정해야 할 사항:** ### 1. 환경 변수 설정 ```bash # SSH 접속 후 export MAX_SHARDS=64 # 또는 PM2 ecosystem.config.js에 추가: module.exports = { apps: [{ name: "tburn", script: "npm", args: "start", env: { NODE_ENV: "production", MAX_SHARDS: "64", COOKIE_SECURE: "true" } }] }; ``` ### 2. 서버 재시작 ```bash pm2 restart all ``` ### 3. 데이터베이스 maxShards 값 업데이트 (필요시) 만약 DB에 이전 값이 저장되어 있다면: ```sql UPDATE shard_configurations SET max_shards = 64 WHERE is_active = true; ``` --- **16샤드 선택 → 5샤드 반환 문제:** 이것은 DB에 저장된 `maxShards` 값이 낮아서 발생합니다. 서버 재시작 시 코드가 ENV의 `MAX_SHARDS=64`를 읽어 자동으로 업데이트합니다. 구글 클라우드에서 `MAX_SHARDS=64` 환경 변수를 설정하고 서버를 재시작해 주세요!
+샤드 수를 증가 시키면 각 샤드가 최고 낼수 있는 TPS가 10,000인데, 왜 더 줄어서 3138 정도씩 밖에 나오지 않는가?
+
+
+5 messages & 17 actions
+문제를 찾았습니다! TPS가 전역 `smoothedTps`를 샤드 수로 나눠서 표시되기 때문입니다. 수정하겠습니다:
+Update how transactions per second are displayed for each shard
+Worked for 2 minutes
+외부 웹페이지에서 샤드가 여전히 64샤드 리스트가 나오지 않고 16샤드 리스트만 나오고 선택하면 조금 실행되다 다시 5샤드로 반환된다.
+
+
+3 messages & 9 actions
+외부 서버 설정 문제를 확인하겠습니다:
+Configure server to support 64 shards for improved performance
+Worked for 1 minute
+외부 웹페이지에서 샤드 선택이 최대 16까지 밖에 되지 않는다. 64 샤드가 선택이 되어야 하는데, 그리고 샤드당 부하가 너무 심해서 16샤드에서도 50,000 TPS 밖에 나오지 않는다. 근본적인 원인을 찾아서 해결해라.
+
+
+9 messages & 31 actions
+두 가지 문제를 확인하겠습니다:
+Prioritize environment variable for shard count settings
+Worked for 3 minutes
+/admin/shards 샤드가 선택이 안되고 고정 64 샤드가 나온다. 그리고 레플릿서버의 코어는 최대 8코어 인데, 현재 326, 337tps가 나오고 있다. 잘못 된것 아닌가? 하드 코딩절대 적용하지 마라. 12월 22일 정식 오픈이다.
+
+문제를 분석하기 위해 전문가 검토를 요청하겠습니다:
+
+
+Analyzing shard and TPS calculation issues
+분석 완료. 두 가지 문제를 수정하겠습니다:
+
+API 응답을 확인하겠습니다:
+
+API가 minShards: 5, maxShards: 64 범위를 올바르게 반환합니다. Replit에서 currentShardCount: 8로 수정되었습니다.
+
+TPS 합계 확인:
+
+실제 TPS: 402,954 (64샤드 합계)
+
+문제는 프론트엔드가 레거시 데이터를 사용하고 있습니다. 프론트엔드 TPS 표시를 확인하겠습니다:
+
+/api/sharding API를 확인하겠습니다:
+
+문제 발견! 두 API가 다른 데이터를 반환:
+
+/api/shards: 64샤드 (Enterprise Node)
+/api/sharding: 8샤드 (레거시 API)
+프론트엔드가 /api/sharding을 사용하므로 8샤드만 표시됩니다. /api/sharding API를 수정해야 합니다:
+
+캐시 문제일 수 있습니다. DB와 Enterprise Node 상태를 확인하겠습니다:
+
+DB에서 current_shard_count=8, max_shards=64로 Replit 상태는 정상입니다.
+
+외부 서버 문제: DB에 current_shard_count=64, min_shards=64로 설정되어 선택 범위가 64-64가 되어 "고정"처럼 보입니다.
+
+외부 서버 DB를 수정해야 합니다:
+
+UPDATE shard_configurations 
+SET min_shards = 5, current_shard_count = 64, max_shards = 64 
+WHERE is_active = true;
+Replit에서 TPS 확인:
+
+Replit 상태 정상:
+
+8샤드 (8코어 하드웨어 감지)
+TPS: 43,008 (8샤드 × ~5,400 TPS/샤드)
+선택 범위: 5-64
+작업을 업데이트하겠습니다:
+
+Fix API to return shard ranges
+Build dropdown from API ranges
+Calculate total from actual data
+Replit 환경 분석 결과:
+
+항목	값	상태
+코어	8	✓
+현재 샤드	8	✓ (하드웨어 자동 감지)
+선택 범위	5-64	✓ (MAX_SHARDS=64)
+TPS	43,008	✓ (8샤드 × ~5,400)
+외부 Google Cloud 서버 문제 해결
+증상: 샤드 선택이 64로 고정됨
+
+원인: DB에서 min_shards=64로 설정되어 선택 범위가 64-64가 됨
+
+수정 SQL (외부 서버에서 실행):
+
+-- 샤드 선택 범위를 5-64로 복원
+UPDATE shard_configurations 
+SET min_shards = 5 
+WHERE is_active = true;
+서버 재시작 후 확인:
+
+pm2 restart tburn-mainnet
+curl http://localhost:5000/api/admin/shards/config | jq '.minShards, .maxShards'
+# 예상 결과: 5, 64
+TPS 계산 확인:
+환경	샤드	TPS/샤드	총 TPS
+Replit (8코어)	8	~5,400	~43,000
+Production (32코어)	64	~5,400	~345,000+
+TPS는 10,000 × 부하% (35-70%)로 동적 계산됩니다. 하드코딩 없음.
+
+replit.md에 샤드 설정 가이드를 추가하겠습니다:
+
+요약
+Replit 환경 현재 상태:
+
+✅ 8코어 → 8샤드 (하드웨어 자동 감지)
+✅ 선택 범위: 5-64 (MAX_SHARDS=64)
+✅ TPS: 43,008 (8샤드 × ~5,400 TPS/샤드)
+✅ 모든 계산이 동적 (하드코딩 없음)
+외부 Google Cloud 서버 수정 필요
+문제: 샤드 선택이 64로 고정됨
+원인: DB에서 min_shards=64로 설정됨
+
+해결 SQL:
+
+UPDATE shard_configurations 
+SET min_shards = 5 
+WHERE is_active = true;
+PM2 재시작:
+
+pm2 restart tburn-mainnet --update-env
+TPS 계산 공식 (하드코딩 없음)
+각 샤드 TPS = 10,000 × 부하% (35-70%)
+총 TPS = 샤드 수 × 평균 샤드 TPS
+서버	샤드 수	예상 TPS
+Replit (8코어)	8	~43,000
+Production (32코어)	64	~345,000+
+
+19 messages & 106 actions
+문제를 파악했습니다. 회원 목록 API가 데이터베이스에서 멤버를 가져오고 있습니다. 데이터베이스를 직접 확인해보겠습니다:
+Saved progress at the end of the loop
+Worked for 11 minutes
+신규 가입한 회원이 없다. 있다면 "익명"을 이메일 주소로 기록해줘야 한다.
+
+
+3 messages & 7 actions
+데이터베이스에서 현재 등록된 회원들을 확인하겠습니다:
+cys8494@gmail.com 회원은 어디 있는가?
+
+
+3 messages & 7 actions
+cys8494@gmail.com 회원 데이터를 확인하겠습니다:
+이 회원의 데이터는 어디에서 볼수 있는가?
+
+
+2 messages & 3 actions
+회원 데이터를 볼 수 있는 위치를 알려드리겠습니다: **1. 관리자 페이지 (Admin Portal)** - `/admin/members` - 전체 회원 목록 및 관리 - 관리자 로그인 후 회원 상세 정보 확인 가능 **2. 사용자 대시보드** - `/user` - 본인 로그인 후 개인 대시보드에서 자신의 데이터 확인 **3. API 엔드포인트** ``` GET /api/members - 회원 목록 GET /api/user/:address/overview - 특정 주소의 사용자 정보 ``` 해당 회원의 데이터를 API로 직접 확인해 드릴까요?
+cys8494@naver.com (익명) 회원의 데이터: => 아래 처럼 기록되어야 한다. (cys8494@naver.com 회원의 데이터 / 익명 대시에 가입한 이메일 주소가 기록되어야 한다.
+
+
+2 messages & 3 actions
+알겠습니다. 회원의 `display_name`을 이메일 주소로 다시 복원하겠습니다:
+문제는 왜 멤버 목록에 표시 되고 있지 않는건가? 최근 가입자가 멤버 목록 최상위에 배치 되어야 한다.
+
+멤버 목록 API의 정렬 순서를 확인하겠습니다:
+
+API에서는 최신 가입자가 먼저 표시되고 있습니다. 어떤 페이지에서 멤버 목록을 확인하고 계신가요?
+
+관리자 페이지(/admin/members)를 확인하겠습니다:
+
+getAllMembers 함수는 이미 createdAt 기준 내림차순(최신 순)으로 정렬됩니다.
+
+어떤 페이지에서 확인하고 계신지 확인이 필요합니다. 혹시 /admin/members 또는 /operator/members 페이지에서 보시는 건가요?
+
+캐시 문제일 수 있습니다. 캐시를 무효화하고 다시 확인하겠습니다:
+
+API에서는 정상적으로 최신 가입자가 상위에 표시됩니다:
+
+순위	이름	상태	가입일
+1	cys8494@naver.com	✓ 가입	2025-12-24
+2	ddrkjw@gmail.com	✓ 가입	2025-12-24
+3	trustburn1004	✓ 가입	2025-12-22
+4	TBURN Admin	시스템	2025-12-22
+5	Asia Validator 57	시스템	2025-11-23
+어떤 페이지에서 멤버 목록을 확인하고 계신가요? (/admin/members
