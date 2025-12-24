@@ -252,11 +252,12 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
       }}>
         <DialogContent 
           ref={dragRef}
-          className="sm:max-w-[360px] p-0 gap-0 border border-border/40 shadow-lg will-change-transform"
+          className="sm:max-w-[360px] p-0 gap-0 border border-border/40 shadow-lg will-change-transform fixed top-16 right-4 translate-x-0 translate-y-0 data-[state=open]:slide-in-from-top-2"
           style={{
             transform: `translate(${position.x}px, ${position.y}px)`,
             cursor: isDragging ? 'grabbing' : 'default',
             transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+            left: 'auto',
           }}
         >
           <DialogHeader
