@@ -393,14 +393,19 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
             {/* OAuth Buttons */}
             <div className="grid grid-cols-2 gap-3">
               <button 
+                type="button"
+                onClick={() => window.location.href = "/api/auth/google"}
                 className="bg-black/30 border border-white/10 py-2.5 rounded-lg text-sm hover:bg-white/5 transition flex items-center justify-center gap-2 text-gray-300"
                 data-testid="button-google-auth"
               >
                 <SiGoogle className="w-4 h-4" /> Google
               </button>
               <button 
-                className="bg-black/30 border border-white/10 py-2.5 rounded-lg text-sm hover:bg-white/5 transition flex items-center justify-center gap-2 text-gray-300"
+                type="button"
+                className="bg-black/30 border border-white/10 py-2.5 rounded-lg text-sm hover:bg-white/5 transition flex items-center justify-center gap-2 text-gray-300 opacity-50 cursor-not-allowed"
                 data-testid="button-github-auth"
+                disabled
+                title="GitHub 로그인 준비 중"
               >
                 <SiGithub className="w-4 h-4" /> GitHub
               </button>
