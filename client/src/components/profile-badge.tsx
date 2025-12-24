@@ -134,6 +134,31 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   const currentEmail = memberInfo?.email || authCheck?.memberEmail;
   const walletAddress = currentMember?.accountAddress || (myWallets && myWallets.length > 0 ? myWallets[0].address : null) || address;
 
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/auth/logout");
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
+      setIsOpen(false);
+      if (onLogout) {
+        onLogout();
+      } else {
+        window.location.href = "/login";
+      }
+    },
+    onError: (error) => {
+      console.error("Logout error:", error);
+      toast({
+        title: t("common.error", "오류"),
+        description: t("profile.logoutError", "로그아웃 중 오류가 발생했습니다"),
+        variant: "destructive",
+      });
+    },
+  });
+
   if (!isAuthenticated) {
     return (
       <Link href="/login">
@@ -189,31 +214,6 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
       setTimeout(() => setCopied(false), 2000);
     }
   };
-
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      await apiRequest("POST", "/api/auth/logout");
-    },
-    onSuccess: () => {
-      queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
-      queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
-      queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
-      setIsOpen(false);
-      if (onLogout) {
-        onLogout();
-      } else {
-        window.location.href = "/login";
-      }
-    },
-    onError: (error) => {
-      console.error("Logout error:", error);
-      toast({
-        title: t("common.error", "오류"),
-        description: t("profile.logoutError", "로그아웃 중 오류가 발생했습니다"),
-        variant: "destructive",
-      });
-    },
-  });
 
   const formatBalance = (balance?: string) => {
     if (!balance) return "0.00";

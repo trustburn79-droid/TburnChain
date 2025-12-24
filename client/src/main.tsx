@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-const BUILD_VERSION = "2025.12.25.v3";
+const BUILD_VERSION = "2025.12.25.v4";
 
 function safeInitApp() {
   const htmlVersion = document.documentElement.getAttribute("data-version");
