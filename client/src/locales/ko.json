@@ -7446,7 +7446,7 @@
         "resendError": "코드 재발송에 실패했습니다",
         "successTitle": "노드 초기화 완료",
         "successDescription": "TBurn 체인에 오신 것을 환영합니다! 계정이 활성화되었습니다.",
-        "errorTitle": "초기화 실패",
+        "errorTitle": "오류",
         "errorDescription": "계정을 생성할 수 없습니다. 다시 시도해 주세요."
       },
       "validation": {

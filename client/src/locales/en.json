@@ -7226,7 +7226,7 @@
       "toast": {
         "successTitle": "Node Initialized",
         "successDescription": "Welcome to TBurn Chain! Your account is now active.",
-        "errorTitle": "Initialization Failed",
+        "errorTitle": "Error",
         "errorDescription": "Unable to create account. Please try again.",
         "codeSentTitle": "Verification Code Sent",
         "codeSentDescription": "Please check your email for the 6-digit code",
