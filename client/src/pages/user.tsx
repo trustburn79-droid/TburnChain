@@ -3286,9 +3286,23 @@ function DeFiSection({
   onConnectWallet: () => void;
 }) {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<'swap' | 'bridge'>('swap');
   const [payAmount, setPayAmount] = useState('1000');
   const [receiveAmount, setReceiveAmount] = useState('1245.50');
+  const [payToken, setPayToken] = useState({ symbol: 'TBURN', color: 'bg-gradient-to-br from-blue-500 to-orange-500', rate: 1.25 });
+  const [receiveToken, setReceiveToken] = useState({ symbol: 'USDC', color: 'bg-indigo-500', rate: 1 });
+  const [showPayDropdown, setShowPayDropdown] = useState(false);
+  const [showReceiveDropdown, setShowReceiveDropdown] = useState(false);
+  const [isSwapping, setIsSwapping] = useState(false);
+
+  const availableTokens = [
+    { symbol: 'TBURN', color: 'bg-gradient-to-br from-blue-500 to-orange-500', rate: 1.25 },
+    { symbol: 'ETH', color: 'bg-slate-600', rate: 3200 },
+    { symbol: 'BTC', color: 'bg-orange-500', rate: 95000 },
+    { symbol: 'USDC', color: 'bg-indigo-500', rate: 1 },
+    { symbol: 'USDT', color: 'bg-green-500', rate: 1 },
+  ];
 
   const { data: dexStats } = useQuery<DexStatsResponse>({
     queryKey: ["/api/dex/stats"],
@@ -3314,10 +3328,47 @@ function DeFiSection({
     refetchInterval: 30000,
   });
 
-  const updateSwapCalc = (value: string) => {
+  const updateSwapCalc = (value: string, fromToken = payToken, toToken = receiveToken) => {
     setPayAmount(value);
     const numValue = parseFloat(value) || 0;
-    setReceiveAmount((numValue * 1.2455).toFixed(2));
+    const rate = fromToken.rate / toToken.rate;
+    setReceiveAmount((numValue * rate).toFixed(2));
+  };
+
+  const handleSelectPayToken = (token: typeof availableTokens[0]) => {
+    if (token.symbol === receiveToken.symbol) {
+      setReceiveToken(payToken);
+    }
+    setPayToken(token);
+    updateSwapCalc(payAmount, token, token.symbol === receiveToken.symbol ? payToken : receiveToken);
+    setShowPayDropdown(false);
+  };
+
+  const handleSelectReceiveToken = (token: typeof availableTokens[0]) => {
+    if (token.symbol === payToken.symbol) {
+      setPayToken(receiveToken);
+    }
+    setReceiveToken(token);
+    updateSwapCalc(payAmount, token.symbol === payToken.symbol ? receiveToken : payToken, token);
+    setShowReceiveDropdown(false);
+  };
+
+  const handleSwapTokens = () => {
+    const tempPay = payToken;
+    const tempReceive = receiveToken;
+    setPayToken(tempReceive);
+    setReceiveToken(tempPay);
+    updateSwapCalc(payAmount, tempReceive, tempPay);
+  };
+
+  const handleSwap = async () => {
+    setIsSwapping(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsSwapping(false);
+    toast({
+      title: t('userPage.defi.swapSuccess', '스왑 완료!'),
+      description: `${payAmount} ${payToken.symbol} → ${receiveAmount} ${receiveToken.symbol}`,
+    });
   };
 
   const topPools = useMemo(() => {
@@ -3436,17 +3487,42 @@ function DeFiSection({
                       value={payAmount}
                       onChange={(e) => updateSwapCalc(e.target.value)}
                     />
-                    <button className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-sm">
-                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white text-xs font-bold">T</div>
-                      <span className="font-bold text-slate-900 dark:text-white">TBURN</span>
-                      <ChevronDown className="w-3 h-3 text-slate-400" />
-                    </button>
+                    <div className="relative">
+                      <button 
+                        onClick={() => setShowPayDropdown(!showPayDropdown)}
+                        className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-sm hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors"
+                        data-testid="button-pay-token"
+                      >
+                        <div className={`w-6 h-6 rounded-full ${payToken.color} flex items-center justify-center text-white text-xs font-bold`}>{payToken.symbol[0]}</div>
+                        <span className="font-bold text-slate-900 dark:text-white">{payToken.symbol}</span>
+                        <ChevronDown className="w-3 h-3 text-slate-400" />
+                      </button>
+                      {showPayDropdown && (
+                        <div className="absolute right-0 top-full mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-slate-200 dark:border-gray-700 z-50 min-w-[140px]">
+                          {availableTokens.filter(t => t.symbol !== payToken.symbol).map(token => (
+                            <button
+                              key={token.symbol}
+                              onClick={() => handleSelectPayToken(token)}
+                              className="flex items-center gap-2 w-full px-3 py-2 hover:bg-slate-100 dark:hover:bg-gray-700 first:rounded-t-xl last:rounded-b-xl transition-colors"
+                              data-testid={`select-pay-${token.symbol.toLowerCase()}`}
+                            >
+                              <div className={`w-5 h-5 rounded-full ${token.color} flex items-center justify-center text-white text-[10px] font-bold`}>{token.symbol[0]}</div>
+                              <span className="text-sm font-medium text-slate-900 dark:text-white">{token.symbol}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="text-right text-xs text-slate-400">≈ ${(parseFloat(payAmount) * 1.25 || 0).toFixed(2)}</div>
+                  <div className="text-right text-xs text-slate-400">≈ ${(parseFloat(payAmount) * payToken.rate || 0).toFixed(2)}</div>
                 </div>
 
                 <div className="flex justify-center -my-3 z-10 relative">
-                  <button className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#151E32] border-4 border-white dark:border-[#0B1120] flex items-center justify-center text-slate-500 dark:text-gray-400 shadow-sm hover:rotate-180 transition-transform duration-300">
+                  <button 
+                    onClick={handleSwapTokens}
+                    className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#151E32] border-4 border-white dark:border-[#0B1120] flex items-center justify-center text-slate-500 dark:text-gray-400 shadow-sm hover:rotate-180 transition-transform duration-300"
+                    data-testid="button-swap-direction"
+                  >
                     <ArrowDown className="w-4 h-4" />
                   </button>
                 </div>
@@ -3464,11 +3540,32 @@ function DeFiSection({
                       value={receiveAmount}
                       readOnly
                     />
-                    <button className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-sm">
-                      <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white text-xs font-bold">U</div>
-                      <span className="font-bold text-slate-900 dark:text-white">USDC</span>
-                      <ChevronDown className="w-3 h-3 text-slate-400" />
-                    </button>
+                    <div className="relative">
+                      <button 
+                        onClick={() => setShowReceiveDropdown(!showReceiveDropdown)}
+                        className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-sm hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors"
+                        data-testid="button-receive-token"
+                      >
+                        <div className={`w-6 h-6 rounded-full ${receiveToken.color} flex items-center justify-center text-white text-xs font-bold`}>{receiveToken.symbol[0]}</div>
+                        <span className="font-bold text-slate-900 dark:text-white">{receiveToken.symbol}</span>
+                        <ChevronDown className="w-3 h-3 text-slate-400" />
+                      </button>
+                      {showReceiveDropdown && (
+                        <div className="absolute right-0 top-full mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-slate-200 dark:border-gray-700 z-50 min-w-[140px]">
+                          {availableTokens.filter(t => t.symbol !== receiveToken.symbol).map(token => (
+                            <button
+                              key={token.symbol}
+                              onClick={() => handleSelectReceiveToken(token)}
+                              className="flex items-center gap-2 w-full px-3 py-2 hover:bg-slate-100 dark:hover:bg-gray-700 first:rounded-t-xl last:rounded-b-xl transition-colors"
+                              data-testid={`select-receive-${token.symbol.toLowerCase()}`}
+                            >
+                              <div className={`w-5 h-5 rounded-full ${token.color} flex items-center justify-center text-white text-[10px] font-bold`}>{token.symbol[0]}</div>
+                              <span className="text-sm font-medium text-slate-900 dark:text-white">{token.symbol}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="text-right text-xs text-slate-400">≈ ${receiveAmount}</div>
                 </div>
@@ -3476,7 +3573,7 @@ function DeFiSection({
                 <div className="bg-blue-50 dark:bg-blue-900/10 rounded-xl p-4 text-sm space-y-2 border border-blue-100 dark:border-blue-900/30">
                   <div className="flex justify-between text-slate-500 dark:text-gray-400">
                     <span>{t('userPage.defi.rate')}</span>
-                    <span className="font-mono">1 TBURN ≈ 1.25 USDC</span>
+                    <span className="font-mono">1 {payToken.symbol} ≈ {(payToken.rate / receiveToken.rate).toFixed(4)} {receiveToken.symbol}</span>
                   </div>
                   <div className="flex justify-between text-slate-500 dark:text-gray-400">
                     <span>{t('userPage.defi.networkFee')}</span>
@@ -3486,16 +3583,30 @@ function DeFiSection({
                     <span className="text-orange-500 flex items-center gap-1">
                       <Flame className="w-3 h-3" /> {t('userPage.defi.autoBurn')} (0.5%)
                     </span>
-                    <span className="font-mono font-bold text-orange-500">- {(parseFloat(payAmount) * 0.005 || 0).toFixed(1)} TB</span>
+                    <span className="font-mono font-bold text-orange-500">- {(parseFloat(payAmount) * 0.005 || 0).toFixed(1)} {payToken.symbol}</span>
                   </div>
                 </div>
 
                 {isConnected ? (
-                  <Button className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30">
-                    {t('userPage.defi.swapImmediately')}
+                  <Button 
+                    onClick={handleSwap}
+                    disabled={isSwapping || !payAmount || parseFloat(payAmount) <= 0}
+                    className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 disabled:opacity-50"
+                    data-testid="button-swap"
+                  >
+                    {isSwapping ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        {t('userPage.defi.swapping', '스왑 중...')}
+                      </span>
+                    ) : t('userPage.defi.swapImmediately')}
                   </Button>
                 ) : (
-                  <Button onClick={onConnectWallet} className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30">
+                  <Button 
+                    onClick={onConnectWallet} 
+                    className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30"
+                    data-testid="button-connect-swap"
+                  >
                     {t('userPage.defi.connectToSwap')}
                   </Button>
                 )}
