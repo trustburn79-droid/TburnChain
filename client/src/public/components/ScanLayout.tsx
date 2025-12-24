@@ -32,6 +32,7 @@ import {
   ImageIcon,
 } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { ProfileBadge } from "@/components/profile-badge";
 import { useState, ReactNode } from "react";
 import { useScanWebSocket, useLiveIndicator } from "../hooks/useScanWebSocket";
 import i18n from "@/lib/i18n";
@@ -239,6 +240,9 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
+
+              {/* Profile Badge */}
+              <ProfileBadge />
             </div>
           </div>
 
