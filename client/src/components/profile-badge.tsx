@@ -131,7 +131,19 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   const walletAddress = currentMember?.accountAddress || (myWallets && myWallets.length > 0 ? myWallets[0].address : null) || address;
 
   if (!isAuthenticated) {
-    return null;
+    return (
+      <Link href="/login">
+        <Button
+          variant="ghost"
+          size="sm"
+          className={`gap-2 text-gray-400 hover:text-white ${className}`}
+          data-testid="button-login"
+        >
+          <User className="h-4 w-4" />
+          <span className="hidden sm:inline">{t("common.login", "로그인")}</span>
+        </Button>
+      </Link>
+    );
   }
 
   const getInitial = (name?: string, email?: string) => {
