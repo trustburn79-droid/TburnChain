@@ -159,23 +159,17 @@ export default function BugBountyPage() {
         </div>
         
         <nav className="flex-1 py-6 space-y-2 px-3">
-          <Link href="/security-audit">
-            <a className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${isDark ? 'text-gray-400 hover:bg-gray-800' : 'text-slate-500 hover:bg-slate-100'}`}>
-              <Shield className="w-6 h-6" />
-              <span className="hidden lg:block font-medium">{t('securityPages.nav.securityAudit')}</span>
-            </a>
+          <Link href="/security-audit" className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${isDark ? 'text-gray-400 hover:bg-gray-800' : 'text-slate-500 hover:bg-slate-100'}`}>
+            <Shield className="w-6 h-6" />
+            <span className="hidden lg:block font-medium">{t('securityPages.nav.securityAudit')}</span>
           </Link>
-          <Link href="/bug-bounty">
-            <a className={`flex items-center gap-4 px-3 py-3 rounded-xl border-l-4 border-rose-500 shadow-sm transition-colors ${isDark ? 'bg-[#151E32] text-white' : 'bg-rose-50 text-rose-500'}`}>
-              <Crosshair className="w-6 h-6" />
-              <span className="hidden lg:block font-medium">{t('securityPages.nav.bugBounty')}</span>
-            </a>
+          <Link href="/bug-bounty" className={`flex items-center gap-4 px-3 py-3 rounded-xl border-l-4 border-rose-500 shadow-sm transition-colors ${isDark ? 'bg-[#151E32] text-white' : 'bg-rose-50 text-rose-500'}`}>
+            <Crosshair className="w-6 h-6" />
+            <span className="hidden lg:block font-medium">{t('securityPages.nav.bugBounty')}</span>
           </Link>
-          <Link href="/official-channels">
-            <a className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${isDark ? 'text-gray-400 hover:bg-gray-800' : 'text-slate-500 hover:bg-slate-100'}`}>
-              <Trophy className="w-6 h-6" />
-              <span className="hidden lg:block font-medium">{t('securityPages.nav.hallOfFame')}</span>
-            </a>
+          <Link href="/official-channels" className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${isDark ? 'text-gray-400 hover:bg-gray-800' : 'text-slate-500 hover:bg-slate-100'}`}>
+            <Trophy className="w-6 h-6" />
+            <span className="hidden lg:block font-medium">{t('securityPages.nav.hallOfFame')}</span>
           </Link>
         </nav>
         
@@ -198,40 +192,26 @@ export default function BugBountyPage() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/">
-              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-home">
-                <Home className="w-4 h-4" />
-              </a>
+            <Link href="/" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-home">
+              <Home className="w-4 h-4" />
             </Link>
-            <Link href="/scan">
-              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-scan">
-                <ScanLine className="w-4 h-4" />
-              </a>
+            <Link href="/scan" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-scan">
+              <ScanLine className="w-4 h-4" />
             </Link>
-            <Link href="/user">
-              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-user">
-                <User className="w-4 h-4" />
-              </a>
+            <Link href="/user" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-user">
+              <User className="w-4 h-4" />
             </Link>
-            <Link href="/security-audit">
-              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-security-audit">
-                <Shield className="w-4 h-4" />
-              </a>
+            <Link href="/security-audit" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-security-audit">
+              <Shield className="w-4 h-4" />
             </Link>
-            <Link href="/token-generator">
-              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-token-generator">
-                <Coins className="w-4 h-4" />
-              </a>
+            <Link href="/token-generator" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-token-generator">
+              <Coins className="w-4 h-4" />
             </Link>
-            <Link href="/nft-marketplace">
-              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-nft-marketplace">
-                <ImageIcon className="w-4 h-4" />
-              </a>
+            <Link href="/nft-marketplace" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-nft-marketplace">
+              <ImageIcon className="w-4 h-4" />
             </Link>
-            <Link href="/qna">
-              <a className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-qna">
-                <HelpCircle className="w-4 h-4" />
-              </a>
+            <Link href="/qna" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-qna">
+              <HelpCircle className="w-4 h-4" />
             </Link>
             <LanguageSelector isDark={isDark} />
             <ThemeToggle />
