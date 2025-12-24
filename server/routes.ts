@@ -6,6 +6,8 @@ import bcrypt from "bcryptjs";
 import { randomBytes, createHash } from "crypto";
 import { Resend } from "resend";
 import cookieSignature from "cookie-signature";
+import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Pool } from "@neondatabase/serverless";
 import { tburnWalletService } from "./services/TBurnWalletService";
 import { storage } from "./storage";
@@ -720,6 +722,105 @@ export async function registerRoutes(app: Express): Promise<Server> {
       email,
       verifiedAt: req.session.emailVerifiedAt 
     });
+  });
+
+  // ============================================
+  // Google OAuth Routes
+  // ============================================
+  
+  // Initiate Google OAuth login
+  app.get("/api/auth/google", passport.authenticate("google", {
+    scope: ["profile", "email"],
+  }));
+
+  // Google OAuth callback
+  app.get("/api/auth/google/callback",
+    passport.authenticate("google", { failureRedirect: "/login?error=google_auth_failed" }),
+    async (req, res) => {
+      try {
+        const googleUser = req.user as { googleId: string; email: string; name: string; picture: string };
+        
+        if (!googleUser || !googleUser.email) {
+          return res.redirect("/login?error=no_email");
+        }
+
+        // Check if member exists with this email
+        let member = await storage.getMemberByEmail(googleUser.email);
+        
+        if (!member) {
+          // Create new member with Google account
+          const walletAddress = `tb1${googleUser.googleId.slice(0, 32)}gauth`;
+          
+          member = await storage.createMember({
+            email: googleUser.email,
+            username: googleUser.name || googleUser.email.split("@")[0],
+            displayName: googleUser.name || "",
+            walletAddress,
+            passwordHash: "", // No password for Google accounts
+            status: "active",
+            emailVerified: true,
+            kycStatus: "pending",
+            kycLevel: 0,
+            membershipTier: "standard",
+            referralCode: `TBURN${Date.now().toString(36).toUpperCase()}`,
+            googleId: googleUser.googleId,
+            avatarUrl: googleUser.picture || null,
+          });
+        } else if (!member.googleId) {
+          // Link Google account to existing member
+          await storage.updateMember(member.id, {
+            googleId: googleUser.googleId,
+            avatarUrl: member.avatarUrl || googleUser.picture || null,
+          });
+        }
+
+        // Set session
+        req.session.authenticated = true;
+        req.session.memberId = member.id;
+        req.session.memberEmail = member.email;
+        req.session.googleId = googleUser.googleId;
+        req.session.googleEmail = googleUser.email;
+        req.session.googleName = googleUser.name;
+        req.session.googlePicture = googleUser.picture;
+
+        // Redirect to app after successful login
+        res.redirect("/app");
+      } catch (error) {
+        console.error("Google OAuth callback error:", error);
+        res.redirect("/login?error=auth_failed");
+      }
+    }
+  );
+
+  // Check if user is authenticated (for frontend)
+  app.get("/api/auth/me", async (req, res) => {
+    if (!req.session.authenticated || !req.session.memberId) {
+      return res.status(401).json({ authenticated: false });
+    }
+
+    try {
+      const member = await storage.getMemberById(req.session.memberId);
+      if (!member) {
+        return res.status(401).json({ authenticated: false });
+      }
+
+      res.json({
+        authenticated: true,
+        user: {
+          id: member.id,
+          email: member.email,
+          username: member.username,
+          displayName: member.displayName,
+          avatarUrl: member.avatarUrl,
+          walletAddress: member.walletAddress,
+          membershipTier: member.membershipTier,
+          isGoogleAccount: !!member.googleId,
+        }
+      });
+    } catch (error) {
+      console.error("Auth check error:", error);
+      res.status(500).json({ error: "Failed to check authentication" });
+    }
   });
 
   app.post("/api/auth/logout", (req, res) => {

@@ -11,6 +11,8 @@ import createMemoryStore from "memorystore";
 import { createClient } from "redis";
 import { Pool } from "@neondatabase/serverless";
 import { registerRoutes } from "./routes";
+import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
 // ★ [수정 1] connect-redis 불러오는 방식 변경 (ESM 호환)
 import { RedisStore } from "connect-redis";
@@ -21,6 +23,12 @@ declare module "express-session" {
     adminAuthenticated?: boolean;
     memberId?: string;
     memberEmail?: string;
+    emailVerified?: string;
+    emailVerifiedAt?: string;
+    googleId?: string;
+    googleEmail?: string;
+    googleName?: string;
+    googlePicture?: string;
   }
 }
 
@@ -117,6 +125,45 @@ app.use(
 log(`Cookie secure: ${cookieSecure} (set COOKIE_SECURE=true for HTTPS-only)`, "session");
 
 log(`Session store: ${sessionStoreType}`, "session");
+
+// ============================================
+// Google OAuth Configuration
+// ============================================
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL || "https://tburn.io/api/auth/google/callback";
+
+if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) {
+  passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: GOOGLE_CALLBACK_URL,
+  }, (accessToken, refreshToken, profile, done) => {
+    // Return profile data directly - we'll handle user creation in the callback
+    const userData = {
+      googleId: profile.id,
+      email: profile.emails?.[0]?.value || "",
+      name: profile.displayName || "",
+      picture: profile.photos?.[0]?.value || "",
+    };
+    return done(null, userData);
+  }));
+
+  passport.serializeUser((user: any, done) => {
+    done(null, user);
+  });
+
+  passport.deserializeUser((user: any, done) => {
+    done(null, user);
+  });
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
+  log(`✅ Google OAuth configured (Callback: ${GOOGLE_CALLBACK_URL})`, "auth");
+} else {
+  log(`⚠️ Google OAuth not configured - missing GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET`, "auth");
+}
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 if (ADMIN_PASSWORD) {
