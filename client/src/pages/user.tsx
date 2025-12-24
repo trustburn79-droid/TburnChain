@@ -3375,23 +3375,80 @@ function DeFiSection({
   };
 
   const handleSwap = async () => {
+    if (!isConnected) {
+      toast({
+        title: t('userPage.defi.connectWalletFirst', '지갑을 먼저 연결해주세요'),
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSwapping(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsSwapping(false);
-    toast({
-      title: t('userPage.defi.swapSuccess', '스왑 완료!'),
-      description: `${payAmount} ${payToken.symbol} → ${receiveAmount} ${receiveToken.symbol}`,
-    });
+    try {
+      const { defiService } = await import('@/lib/defi-contracts');
+      const result = await defiService.executeSwap(
+        payToken.symbol,
+        receiveToken.symbol,
+        payAmount
+      );
+
+      if (result.success) {
+        toast({
+          title: t('userPage.defi.swapSuccess', '스왑 완료!'),
+          description: `${payAmount} ${payToken.symbol} → ${result.amountOut || receiveAmount} ${receiveToken.symbol}`,
+        });
+      } else {
+        throw new Error(result.error || 'Swap failed');
+      }
+    } catch (error: any) {
+      console.error('[DeFi] Swap error:', error);
+      toast({
+        title: t('userPage.defi.swapFailed', '스왑 실패'),
+        description: error.message || t('userPage.defi.swapError', '스왑 중 오류가 발생했습니다'),
+        variant: "destructive",
+      });
+    } finally {
+      setIsSwapping(false);
+    }
   };
 
   const handleBridge = async () => {
+    if (!isConnected) {
+      toast({
+        title: t('userPage.defi.connectWalletFirst', '지갑을 먼저 연결해주세요'),
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsBridging(true);
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    setIsBridging(false);
-    toast({
-      title: t('userPage.defi.bridgeSuccess', '브릿지 완료!'),
-      description: `${bridgeAmount} TBURN ${fromNetwork.name} → TBURN Chain`,
-    });
+    try {
+      const { defiService } = await import('@/lib/defi-contracts');
+      
+      const networkKey = fromNetwork.name.toLowerCase().replace(' mainnet', '').replace(' ', '');
+      const result = await defiService.executeBridge(
+        networkKey,
+        bridgeAmount
+      );
+
+      if (result.success) {
+        toast({
+          title: t('userPage.defi.bridgeSuccess', '브릿지 완료!'),
+          description: `${bridgeAmount} TBURN → TBURN Chain (TX: ${result.transactionHash?.slice(0, 10)}...)`,
+        });
+      } else {
+        throw new Error(result.error || 'Bridge failed');
+      }
+    } catch (error: any) {
+      console.error('[DeFi] Bridge error:', error);
+      toast({
+        title: t('userPage.defi.bridgeFailed', '브릿지 실패'),
+        description: error.message || t('userPage.defi.bridgeError', '브릿지 중 오류가 발생했습니다'),
+        variant: "destructive",
+      });
+    } finally {
+      setIsBridging(false);
+    }
   };
 
   const handleSelectFromNetwork = (network: typeof availableNetworks[0]) => {
