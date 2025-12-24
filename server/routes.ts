@@ -1036,6 +1036,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Get current authenticated member's profile info
+  app.get("/api/auth/me", async (req, res) => {
+    if (!req.session.authenticated || !req.session.memberId) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
+
+    try {
+      const member = await storage.getMemberById(req.session.memberId);
+      if (!member) {
+        return res.status(404).json({ error: "Member not found" });
+      }
+
+      const [financial] = await Promise.all([
+        storage.getMemberFinancialProfile(member.id),
+      ]);
+
+      res.json({
+        id: member.id,
+        displayName: member.displayName,
+        email: member.encryptedEmail || req.session.memberEmail,
+        accountAddress: member.accountAddress,
+        memberTier: member.memberTier,
+        memberStatus: member.memberStatus,
+        kycLevel: member.kycLevel,
+        balance: financial?.availableBalance || "0",
+        stakedBalance: financial?.stakedBalance || "0",
+        createdAt: member.createdAt,
+      });
+    } catch (error) {
+      console.error("Error fetching member info:", error);
+      res.status(500).json({ error: "Failed to fetch member info" });
+    }
+  });
+
   // ============================================
   // Admin Portal Authentication (Separate from /app)
   // ============================================
