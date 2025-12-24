@@ -292,8 +292,14 @@ export default function AdminShards() {
         ws.onmessage = (event) => {
           try {
             const data = JSON.parse(event.data);
-            if (data.type === "sharding_update") {
+            if (data.type === "sharding_update" || data.type === "shards_realtime_update") {
+              // Real-time TPS synchronization from Enterprise Node
               refetch();
+              setLastUpdate(new Date());
+            } else if (data.type === "shard_config_update") {
+              // Config change - refetch all shard-related data
+              refetch();
+              refetchConfig();
               setLastUpdate(new Date());
             }
           } catch (e) {

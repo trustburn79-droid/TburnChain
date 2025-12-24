@@ -4511,9 +4511,19 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
   
   
+  // Cache for generateShards to ensure TPS synchronization across all API calls within 2 seconds
+  private shardsCache: { data: any[]; timestamp: number } | null = null;
+  private readonly SHARDS_CACHE_TTL = 2000; // 2 second TTL for exact TPS sync
+  
   // Generate dynamic shard data based on current configuration and REAL-TIME TPS
-  // CRITICAL: Uses actual TPS from block production for consistency across all dashboards
+  // CRITICAL: Dec 24 Launch - Uses brief cache to ensure exact TPS sync across all dashboards
   generateShards(): any[] {
+    // Check if cached data is still valid (within 2 seconds)
+    const now = Date.now();
+    if (this.shardsCache && (now - this.shardsCache.timestamp) < this.SHARDS_CACHE_TTL) {
+      return this.shardsCache.data;
+    }
+    
     const shards = [];
     const shardCount = this.shardConfig.currentShardCount;
     const validatorsPerShard = this.shardConfig.validatorsPerShard;
@@ -4559,6 +4569,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
         capacityUtilization: 4500 + Math.floor(Math.random() * 2000)
       });
     }
+    
+    // Cache the result for TPS synchronization across all API calls
+    this.shardsCache = { data: shards, timestamp: now };
     
     return shards;
   }

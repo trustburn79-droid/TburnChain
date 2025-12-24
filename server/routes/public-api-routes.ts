@@ -86,18 +86,23 @@ function setCacheHeaders(res: Response, maxAge: number) {
 
 /**
  * Get real-time TPS from Enterprise Node (unified source for all pages)
- * CRITICAL: This ensures /admin/shards, /app, /scan, /rpc all show same TPS
+ * CRITICAL: Dec 24 Launch - This ensures /admin/shards, /app, /scan, /rpc all show same TPS
+ * Uses generateShards() and sums TPS for EXACT synchronization with /api/sharding
  */
 function getUnifiedTpsData(): { tps: number; shardCount: number; validators: number; peakTps: number } {
   try {
     const enterpriseNode = getEnterpriseNode();
     if (enterpriseNode) {
+      // Use generateShards() for EXACT TPS match with /api/shards and /api/sharding
+      const shards = enterpriseNode.generateShards();
+      const totalTps = shards.reduce((sum: number, s: any) => sum + s.tps, 0);
+      const totalValidators = shards.reduce((sum: number, s: any) => sum + s.validatorCount, 0);
       const realTimeTps = enterpriseNode.getRealTimeTPS();
-      const shardConfig = enterpriseNode.getShardConfig();
+      
       return {
-        tps: realTimeTps.current,
-        shardCount: shardConfig.currentShardCount,
-        validators: shardConfig.currentShardCount * shardConfig.validatorsPerShard,
+        tps: totalTps, // Sum of shard TPS for exact sync
+        shardCount: shards.length,
+        validators: totalValidators,
         peakTps: realTimeTps.peak
       };
     }
@@ -223,18 +228,9 @@ router.get('/network/stats', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
     
-    // Try cache first (30s TTL)
-    const cache = getDataCache();
-    const cached = cache.get<any>(PUBLIC_CACHE_KEYS.NETWORK_STATS);
-    if (cached) {
-      return res.json({ success: true, data: cached });
-    }
-    
-    // Build data using shared formatter
+    // CRITICAL Dec 24: NO separate cache - always use fresh TPS from shards cache
+    // This ensures /api/network/stats TPS matches /api/shards and /api/sharding exactly
     const data = await buildPublicNetworkStats();
-    
-    // Cache for 30 seconds
-    cache.set(PUBLIC_CACHE_KEYS.NETWORK_STATS, data, 30000);
     
     res.json({ success: true, data });
   } catch (error) {
