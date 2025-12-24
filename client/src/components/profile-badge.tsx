@@ -60,9 +60,11 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     if (!isDragging) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      setPosition({
-        x: e.clientX - dragStartRef.current.x,
-        y: e.clientY - dragStartRef.current.y,
+      requestAnimationFrame(() => {
+        setPosition({
+          x: e.clientX - dragStartRef.current.x,
+          y: e.clientY - dragStartRef.current.y,
+        });
       });
     };
 
@@ -80,6 +82,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   }, [isDragging]);
 
   const handleDragStart = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (dragRef.current) {
       dragStartRef.current = {
         x: e.clientX - position.x,
@@ -106,14 +109,15 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     return null;
   }
 
-  const getInitial = (name?: string) => {
-    if (!name) return "?";
-    const cleaned = name.replace(/@.*/, "").trim();
-    const englishMatch = cleaned.match(/[a-zA-Z]/);
+  const getInitial = (name?: string, email?: string) => {
+    const source = name || email || "";
+    if (!source) return "?";
+    const englishMatch = source.match(/[a-zA-Z]/);
     if (englishMatch) {
       return englishMatch[0].toUpperCase();
     }
-    return cleaned.charAt(0).toUpperCase();
+    const cleaned = source.replace(/@.*/, "").trim();
+    return cleaned.charAt(0).toUpperCase() || "?";
   };
 
   const getTierColor = (tier?: string) => {
@@ -191,7 +195,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     return num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 4 });
   };
 
-  const initial = getInitial(memberInfo?.displayName);
+  const initial = getInitial(memberInfo?.displayName, memberInfo?.email);
 
   return (
     <>
@@ -217,10 +221,11 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
       }}>
         <DialogContent 
           ref={dragRef}
-          className="sm:max-w-md"
+          className="sm:max-w-md will-change-transform"
           style={{
             transform: `translate(${position.x}px, ${position.y}px)`,
             cursor: isDragging ? 'grabbing' : 'default',
+            transition: isDragging ? 'none' : 'transform 0.1s ease-out',
           }}
         >
           <DialogHeader
