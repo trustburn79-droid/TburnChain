@@ -3380,16 +3380,45 @@ function DeFiSection({
         title: t('userPage.defi.connectWalletFirst', '지갑을 먼저 연결해주세요'),
         variant: "destructive",
       });
+      onConnectWallet();
+      return;
+    }
+
+    const numPayAmount = parseFloat(payAmount);
+    if (!numPayAmount || numPayAmount <= 0) {
+      toast({
+        title: t('userPage.defi.invalidAmount', '유효하지 않은 금액'),
+        variant: "destructive",
+      });
       return;
     }
 
     setIsSwapping(true);
     try {
       const { defiService } = await import('@/lib/defi-contracts');
+      const { web3Provider } = await import('@/lib/web3-provider');
+      
+      const state = web3Provider.getState();
+      if (state.chainId !== 7979) {
+        toast({
+          title: t('userPage.defi.switchNetwork', 'TBURN 네트워크로 전환해주세요'),
+          description: t('userPage.defi.switchNetworkDesc', '스왑을 위해 TBURN 메인넷으로 전환합니다'),
+        });
+        await web3Provider.switchToTBurnNetwork();
+      }
+
+      const quote = await defiService.getSwapQuote(payToken.symbol, receiveToken.symbol, payAmount);
+      
+      toast({
+        title: t('userPage.defi.swapPending', '스왑 처리 중...'),
+        description: `${payAmount} ${payToken.symbol} → ~${quote.amountOut} ${receiveToken.symbol}`,
+      });
+
       const result = await defiService.executeSwap(
         payToken.symbol,
         receiveToken.symbol,
-        payAmount
+        payAmount,
+        0.5
       );
 
       if (result.success) {
@@ -3418,14 +3447,54 @@ function DeFiSection({
         title: t('userPage.defi.connectWalletFirst', '지갑을 먼저 연결해주세요'),
         variant: "destructive",
       });
+      onConnectWallet();
+      return;
+    }
+
+    const numBridgeAmount = parseFloat(bridgeAmount);
+    if (!numBridgeAmount || numBridgeAmount <= 0) {
+      toast({
+        title: t('userPage.defi.invalidAmount', '유효하지 않은 금액'),
+        variant: "destructive",
+      });
       return;
     }
 
     setIsBridging(true);
     try {
-      const { defiService } = await import('@/lib/defi-contracts');
+      const { defiService, BRIDGE_SUPPORTED_CHAINS } = await import('@/lib/defi-contracts');
+      const { web3Provider } = await import('@/lib/web3-provider');
       
       const networkKey = fromNetwork.name.toLowerCase().replace(' mainnet', '').replace(' ', '');
+      const chain = BRIDGE_SUPPORTED_CHAINS[networkKey];
+      
+      if (!chain) {
+        throw new Error(t('userPage.defi.unsupportedChain', '지원하지 않는 네트워크입니다'));
+      }
+
+      const state = web3Provider.getState();
+      if (state.chainId !== chain.chainId) {
+        toast({
+          title: t('userPage.defi.switchToSourceChain', '소스 체인으로 전환'),
+          description: t('userPage.defi.switchToSourceChainDesc', `${fromNetwork.name}으로 전환해주세요`),
+        });
+        try {
+          await window.ethereum?.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: `0x${chain.chainId.toString(16)}` }],
+          });
+        } catch (switchError: any) {
+          throw new Error(`${fromNetwork.name} ${t('userPage.defi.networkSwitchFailed', '네트워크 전환 실패')}`);
+        }
+      }
+
+      const quote = await defiService.getBridgeQuote(networkKey, bridgeAmount);
+      
+      toast({
+        title: t('userPage.defi.bridgePending', '브릿지 처리 중...'),
+        description: `${bridgeAmount} TBURN → ~${quote.amountReceived} TBURN (${t('userPage.defi.fee', '수수료')}: ${quote.fee})`,
+      });
+
       const result = await defiService.executeBridge(
         networkKey,
         bridgeAmount
