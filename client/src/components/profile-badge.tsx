@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
@@ -51,6 +51,43 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragRef = useRef<HTMLDivElement>(null);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setPosition({
+        x: e.clientX - dragStartRef.current.x,
+        y: e.clientY - dragStartRef.current.y,
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging]);
+
+  const handleDragStart = (e: React.MouseEvent) => {
+    if (dragRef.current) {
+      dragStartRef.current = {
+        x: e.clientX - position.x,
+        y: e.clientY - position.y,
+      };
+      setIsDragging(true);
+    }
+  };
 
   const { data: authCheck } = useQuery<{ authenticated: boolean; memberId?: string }>({
     queryKey: ["/api/auth/check"],
@@ -72,6 +109,10 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   const getInitial = (name?: string) => {
     if (!name) return "?";
     const cleaned = name.replace(/@.*/, "").trim();
+    const englishMatch = cleaned.match(/[a-zA-Z]/);
+    if (englishMatch) {
+      return englishMatch[0].toUpperCase();
+    }
     return cleaned.charAt(0).toUpperCase();
   };
 
@@ -168,9 +209,24 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
         </Avatar>
       </Button>
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
+      <Dialog open={isOpen} onOpenChange={(open) => {
+        setIsOpen(open);
+        if (!open) {
+          setPosition({ x: 0, y: 0 });
+        }
+      }}>
+        <DialogContent 
+          ref={dragRef}
+          className="sm:max-w-md"
+          style={{
+            transform: `translate(${position.x}px, ${position.y}px)`,
+            cursor: isDragging ? 'grabbing' : 'default',
+          }}
+        >
+          <DialogHeader
+            className="cursor-grab active:cursor-grabbing select-none"
+            onMouseDown={handleDragStart}
+          >
             <DialogTitle className="flex items-center gap-3">
               <Avatar className="h-12 w-12 border-2 border-primary/30">
                 <AvatarFallback className="bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold text-lg">
