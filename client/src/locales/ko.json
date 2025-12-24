@@ -7778,6 +7778,8 @@
       "subscribeSuccessDesc": "뉴스레터 구독이 완료되었습니다.",
       "subscribeError": "오류",
       "subscribeErrorDesc": "구독 처리 중 오류가 발생했습니다.",
+      "emailRequired": "이메일을 입력해주세요",
+      "enterValidEmail": "유효한 이메일 주소를 입력해주세요",
       "copyright": "© 2025 TBurn Chain. 모든 권리 보유.",
       "termsOfService": "이용약관",
       "privacyPolicy": "개인정보처리방침",

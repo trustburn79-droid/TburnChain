@@ -7563,6 +7563,8 @@
       "subscribeSuccessDesc": "You have been subscribed to our newsletter.",
       "subscribeError": "Error",
       "subscribeErrorDesc": "An error occurred while processing your subscription.",
+      "emailRequired": "Please enter your email",
+      "enterValidEmail": "Please enter a valid email address",
       "copyright": "© 2025 TBurn Chain. All rights reserved.",
       "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
