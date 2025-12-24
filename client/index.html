@@ -85,6 +85,21 @@
       </div>
     </div>
     <div id="radix-portal-root"></div>
-    <script type="module" defer src="/src/main.tsx"></script>
+    <script>
+      window.__TBURN_DOM_READY__ = false;
+      window.__TBURN_BOOTSTRAP__ = null;
+      function tburnReady() {
+        window.__TBURN_DOM_READY__ = true;
+        if (typeof window.__TBURN_BOOTSTRAP__ === 'function') {
+          window.__TBURN_BOOTSTRAP__();
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', tburnReady);
+      } else {
+        tburnReady();
+      }
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

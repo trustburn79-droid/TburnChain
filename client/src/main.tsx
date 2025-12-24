@@ -1,29 +1,36 @@
-import { createRoot } from "react-dom/client";
+import { createRoot, Root } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import "./lib/i18n";
 
-let appInitialized = false;
+declare global {
+  interface Window {
+    __TBURN_DOM_READY__?: boolean;
+    __TBURN_BOOTSTRAP__?: (() => void) | null;
+  }
+}
 
-function renderApp(rootElement: HTMLElement) {
-  if (appInitialized) return;
-  appInitialized = true;
+let appRoot: Root | null = null;
+
+function safeRender(rootElement: HTMLElement) {
+  if (appRoot) return;
   
   let portalRoot = document.getElementById("radix-portal-root");
-  if (!portalRoot && document.body) {
+  if (!portalRoot) {
     portalRoot = document.createElement("div");
     portalRoot.id = "radix-portal-root";
     document.body.appendChild(portalRoot);
   }
   
   try {
-    createRoot(rootElement).render(<App />);
+    appRoot = createRoot(rootElement);
+    appRoot.render(<App />);
   } catch (error) {
-    console.error("[TBURN] Failed to render app:", error);
+    console.error("[TBURN] Render failed:", error);
     rootElement.innerHTML = `
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0a0a0a;color:#fff;font-family:sans-serif;">
         <h1>Loading Error</h1>
-        <p>Please refresh the page or try again later.</p>
+        <p>Please refresh the page.</p>
         <button onclick="window.location.reload()" style="margin-top:20px;padding:10px 20px;background:#f59e0b;color:#000;border:none;border-radius:8px;cursor:pointer;">
           Refresh
         </button>
@@ -32,47 +39,22 @@ function renderApp(rootElement: HTMLElement) {
   }
 }
 
-function waitForRoot(maxAttempts = 50): void {
-  let attempts = 0;
+function bootstrap() {
+  if (appRoot) return;
   
-  function checkRoot() {
-    const rootElement = document.getElementById("root");
-    
-    if (rootElement && document.body) {
-      renderApp(rootElement);
-      return;
-    }
-    
-    attempts++;
-    if (attempts < maxAttempts) {
-      requestAnimationFrame(checkRoot);
-    } else {
-      if (document.body) {
-        const fallbackRoot = document.createElement("div");
-        fallbackRoot.id = "root";
-        document.body.insertBefore(fallbackRoot, document.body.firstChild);
-        renderApp(fallbackRoot);
-      }
-    }
-  }
-  
-  checkRoot();
-}
-
-function initApp() {
-  if (appInitialized) return;
-  
-  const rootElement = document.getElementById("root");
-  
-  if (rootElement && document.body) {
-    renderApp(rootElement);
-  } else {
-    waitForRoot();
+  const root = document.getElementById("root");
+  if (root) {
+    safeRender(root);
+  } else if (document.body) {
+    const newRoot = document.createElement("div");
+    newRoot.id = "root";
+    document.body.insertBefore(newRoot, document.body.firstChild);
+    safeRender(newRoot);
   }
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initApp, { once: true });
+if (window.__TBURN_DOM_READY__) {
+  bootstrap();
 } else {
-  requestAnimationFrame(initApp);
+  window.__TBURN_BOOTSTRAP__ = bootstrap;
 }
