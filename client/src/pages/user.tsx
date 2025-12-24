@@ -3295,6 +3295,19 @@ function DeFiSection({
   const [showPayDropdown, setShowPayDropdown] = useState(false);
   const [showReceiveDropdown, setShowReceiveDropdown] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
+  const [bridgeAmount, setBridgeAmount] = useState('100');
+  const [fromNetwork, setFromNetwork] = useState({ name: 'Ethereum Mainnet', symbol: 'E', color: 'bg-slate-800' });
+  const [showFromNetworkDropdown, setShowFromNetworkDropdown] = useState(false);
+  const [isBridging, setIsBridging] = useState(false);
+
+  const availableNetworks = [
+    { name: 'Ethereum Mainnet', symbol: 'E', color: 'bg-slate-800' },
+    { name: 'Polygon', symbol: 'P', color: 'bg-purple-600' },
+    { name: 'Arbitrum', symbol: 'A', color: 'bg-blue-600' },
+    { name: 'Optimism', symbol: 'O', color: 'bg-red-500' },
+    { name: 'Base', symbol: 'B', color: 'bg-blue-500' },
+    { name: 'BSC', symbol: 'B', color: 'bg-yellow-500' },
+  ];
 
   const availableTokens = [
     { symbol: 'TBURN', color: 'bg-gradient-to-br from-blue-500 to-orange-500', rate: 1.25 },
@@ -3369,6 +3382,21 @@ function DeFiSection({
       title: t('userPage.defi.swapSuccess', '스왑 완료!'),
       description: `${payAmount} ${payToken.symbol} → ${receiveAmount} ${receiveToken.symbol}`,
     });
+  };
+
+  const handleBridge = async () => {
+    setIsBridging(true);
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    setIsBridging(false);
+    toast({
+      title: t('userPage.defi.bridgeSuccess', '브릿지 완료!'),
+      description: `${bridgeAmount} TBURN ${fromNetwork.name} → TBURN Chain`,
+    });
+  };
+
+  const handleSelectFromNetwork = (network: typeof availableNetworks[0]) => {
+    setFromNetwork(network);
+    setShowFromNetworkDropdown(false);
   };
 
   const topPools = useMemo(() => {
@@ -3615,15 +3643,55 @@ function DeFiSection({
 
             {activeTab === 'bridge' && (
               <div className="space-y-4">
-                <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-gray-700">
-                  <p className="text-xs text-slate-500 mb-2">{t('userPage.defi.fromNetwork')}</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-white text-sm">E</div>
-                      <span className="font-bold text-slate-900 dark:text-white">{t('userPage.defi.ethereumMainnet')}</span>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                <div className="relative">
+                  <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-gray-700">
+                    <p className="text-xs text-slate-500 mb-2">{t('userPage.defi.fromNetwork')}</p>
+                    <button
+                      onClick={() => setShowFromNetworkDropdown(!showFromNetworkDropdown)}
+                      className="flex items-center justify-between w-full hover:opacity-80 transition-opacity"
+                      data-testid="button-from-network"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className={`w-8 h-8 rounded-full ${fromNetwork.color} flex items-center justify-center text-white text-sm font-bold`}>{fromNetwork.symbol}</div>
+                        <span className="font-bold text-slate-900 dark:text-white">{fromNetwork.name}</span>
+                      </div>
+                      <ChevronDown className="w-4 h-4 text-slate-400" />
+                    </button>
                   </div>
+                  {showFromNetworkDropdown && (
+                    <div className="absolute left-0 right-0 top-full mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-slate-200 dark:border-gray-700 z-50">
+                      {availableNetworks.filter(n => n.name !== fromNetwork.name).map(network => (
+                        <button
+                          key={network.name}
+                          onClick={() => handleSelectFromNetwork(network)}
+                          className="flex items-center gap-3 w-full px-4 py-3 hover:bg-slate-100 dark:hover:bg-gray-700 first:rounded-t-xl last:rounded-b-xl transition-colors"
+                          data-testid={`select-network-${network.symbol.toLowerCase()}`}
+                        >
+                          <div className={`w-6 h-6 rounded-full ${network.color} flex items-center justify-center text-white text-xs font-bold`}>{network.symbol}</div>
+                          <span className="font-medium text-slate-900 dark:text-white">{network.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-slate-50 dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-gray-700">
+                  <p className="text-xs text-slate-500 mb-2">{t('userPage.defi.amount', '금액')}</p>
+                  <div className="flex items-center justify-between">
+                    <input
+                      type="number"
+                      value={bridgeAmount}
+                      onChange={(e) => setBridgeAmount(e.target.value)}
+                      placeholder="0.0"
+                      className="bg-transparent text-xl font-mono font-bold text-slate-900 dark:text-white focus:outline-none w-2/3"
+                      data-testid="input-bridge-amount"
+                    />
+                    <div className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded-full">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white text-xs font-bold">T</div>
+                      <span className="font-bold text-slate-900 dark:text-white">TBURN</span>
+                    </div>
+                  </div>
+                  <div className="text-right text-xs text-slate-400 mt-1">≈ ${(parseFloat(bridgeAmount) * 1.25 || 0).toFixed(2)}</div>
                 </div>
 
                 <div className="flex justify-center -my-2">
@@ -3641,17 +3709,41 @@ function DeFiSection({
                   </div>
                 </div>
 
-                <div className="p-4 bg-slate-100 dark:bg-gray-800 rounded-xl text-center">
-                  <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.defi.estimatedArrival')}</p>
-                  <p className="text-xl font-mono font-bold text-slate-900 dark:text-white">~2 {t('userPage.defi.mins')}</p>
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/30 space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-500 dark:text-gray-400">{t('userPage.defi.bridgeFee', '브릿지 수수료')}</span>
+                    <span className="font-mono text-slate-800 dark:text-white">0.1%</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-500 dark:text-gray-400">{t('userPage.defi.estimatedArrival')}</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">~2 {t('userPage.defi.mins')}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-500 dark:text-gray-400">{t('userPage.defi.youWillReceive', '수령 예상')}</span>
+                    <span className="font-mono font-bold text-emerald-500">{(parseFloat(bridgeAmount) * 0.999 || 0).toFixed(4)} TBURN</span>
+                  </div>
                 </div>
 
                 {isConnected ? (
-                  <Button className="w-full py-6 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-lg">
-                    {t('userPage.defi.bridgeAssets')}
+                  <Button 
+                    onClick={handleBridge}
+                    disabled={isBridging || !bridgeAmount || parseFloat(bridgeAmount) <= 0}
+                    className="w-full py-6 bg-gradient-to-r from-slate-800 to-slate-700 dark:from-white dark:to-slate-100 text-white dark:text-black rounded-xl font-bold text-lg disabled:opacity-50"
+                    data-testid="button-bridge"
+                  >
+                    {isBridging ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white/30 dark:border-black/30 border-t-white dark:border-t-black rounded-full animate-spin" />
+                        {t('userPage.defi.bridging', '브릿지 중...')}
+                      </span>
+                    ) : t('userPage.defi.bridgeAssets')}
                   </Button>
                 ) : (
-                  <Button onClick={onConnectWallet} className="w-full py-6 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-lg">
+                  <Button 
+                    onClick={onConnectWallet} 
+                    className="w-full py-6 bg-gradient-to-r from-slate-800 to-slate-700 dark:from-white dark:to-slate-100 text-white dark:text-black rounded-xl font-bold text-lg"
+                    data-testid="button-connect-bridge"
+                  >
                     {t('userPage.defi.connectToBridge')}
                   </Button>
                 )}
