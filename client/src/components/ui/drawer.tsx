@@ -4,6 +4,7 @@ import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
 
 import { cn } from "@/lib/utils"
+import { getPortalContainer } from "@/lib/portal-utils"
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -18,7 +19,21 @@ Drawer.displayName = "Drawer"
 
 const DrawerTrigger = DrawerPrimitive.Trigger
 
-const DrawerPortal = DrawerPrimitive.Portal
+const DrawerPortal = ({ children, ...props }: React.ComponentProps<typeof DrawerPrimitive.Portal>) => {
+  const [container, setContainer] = React.useState<HTMLElement | null>(null);
+  
+  React.useEffect(() => {
+    setContainer(getPortalContainer());
+  }, []);
+  
+  if (!container) return null;
+  
+  return (
+    <DrawerPrimitive.Portal container={container} {...props}>
+      {children}
+    </DrawerPrimitive.Portal>
+  );
+}
 
 const DrawerClose = DrawerPrimitive.Close
 

@@ -5,12 +5,29 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { getPortalContainer } from "@/lib/portal-utils"
 
 const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
 
 const SelectValue = SelectPrimitive.Value
+
+const SelectPortal = ({ children, ...props }: SelectPrimitive.SelectPortalProps) => {
+  const [container, setContainer] = React.useState<HTMLElement | null>(null);
+  
+  React.useEffect(() => {
+    setContainer(getPortalContainer());
+  }, []);
+  
+  if (!container) return null;
+  
+  return (
+    <SelectPrimitive.Portal container={container} {...props}>
+      {children}
+    </SelectPrimitive.Portal>
+  );
+}
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
@@ -71,7 +88,7 @@ const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = "popper", ...props }, ref) => (
-  <SelectPrimitive.Portal>
+  <SelectPortal>
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
@@ -95,7 +112,7 @@ const SelectContent = React.forwardRef<
       </SelectPrimitive.Viewport>
       <SelectScrollDownButton />
     </SelectPrimitive.Content>
-  </SelectPrimitive.Portal>
+  </SelectPortal>
 ))
 SelectContent.displayName = SelectPrimitive.Content.displayName
 
