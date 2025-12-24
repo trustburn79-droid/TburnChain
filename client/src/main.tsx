@@ -1,17 +1,30 @@
-import { createRoot } from "react-dom/client";
+import { createRoot, Root } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import "./lib/i18n";
 
-let hasInitialized = false;
+declare global {
+  interface Window {
+    __TBURN_APP_ROOT__?: Root;
+    __TBURN_INITIALIZED__?: boolean;
+  }
+}
 
 function initApp() {
-  if (hasInitialized) return;
-  hasInitialized = true;
+  if (window.__TBURN_INITIALIZED__) {
+    console.warn("[TBURN] App already initialized, skipping duplicate mount");
+    return;
+  }
+  window.__TBURN_INITIALIZED__ = true;
   
   const rootElement = document.getElementById("root");
   if (!rootElement) {
     console.error("[TBURN] Root element not found");
+    return;
+  }
+  
+  if (window.__TBURN_APP_ROOT__) {
+    console.warn("[TBURN] Root already exists, skipping");
     return;
   }
   
@@ -23,8 +36,8 @@ function initApp() {
   }
   
   try {
-    const root = createRoot(rootElement);
-    root.render(<App />);
+    window.__TBURN_APP_ROOT__ = createRoot(rootElement);
+    window.__TBURN_APP_ROOT__.render(<App />);
   } catch (error) {
     console.error("[TBURN] Render failed:", error);
   }
@@ -33,5 +46,5 @@ function initApp() {
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initApp, { once: true });
 } else {
-  initApp();
+  requestAnimationFrame(initApp);
 }
