@@ -94,7 +94,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     }
   };
 
-  const { data: authCheck } = useQuery<{ authenticated: boolean; memberId?: string; memberEmail?: string }>({
+  const { data: authCheck } = useQuery<{ authenticated: boolean; memberId?: string; memberEmail?: string; hasMemberId?: boolean }>({
     queryKey: ["/api/auth/check"],
     staleTime: 30000,
     refetchOnWindowFocus: false,
@@ -115,9 +115,25 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     refetchOnWindowFocus: false,
   });
 
+  // Fetch user's created wallets (from /user page wallet creation)
+  const { data: myWallets } = useQuery<{ address: string; walletName: string | null }[]>({
+    queryKey: ["/api/wallet/my-wallets"],
+    enabled: authCheck?.authenticated === true && authCheck?.hasMemberId === true,
+    staleTime: 30000,
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      const response = await fetch("/api/wallet/my-wallets", { credentials: 'include' });
+      if (!response.ok) return [];
+      return response.json();
+    },
+  });
+
   const isAuthenticated = authCheck?.authenticated || isConnected;
   const currentMember = memberInfo || walletMemberInfo;
   const currentEmail = memberInfo?.email || authCheck?.memberEmail;
+  
+  // Get wallet address: prefer accountAddress, then first created wallet, then Web3 connected address
+  const walletAddress = currentMember?.accountAddress || (myWallets && myWallets.length > 0 ? myWallets[0].address : null) || address;
 
   if (!isAuthenticated) {
     return null;
@@ -167,8 +183,8 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   };
 
   const copyAddress = async () => {
-    if (currentMember?.accountAddress || address) {
-      await navigator.clipboard.writeText(currentMember?.accountAddress || address || "");
+    if (walletAddress) {
+      await navigator.clipboard.writeText(walletAddress);
       setCopied(true);
       toast({
         title: t("common.copied", "복사됨"),
@@ -272,9 +288,9 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                 <Wallet className="h-5 w-5 text-muted-foreground" />
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-muted-foreground">{t("profile.walletAddress", "지갑 주소")}</p>
-                  {(currentMember?.accountAddress || address) ? (
+                  {walletAddress ? (
                     <p className="font-mono text-sm truncate">
-                      {isLoading ? <Skeleton className="h-4 w-48" /> : (currentMember?.accountAddress || address)}
+                      {isLoading ? <Skeleton className="h-4 w-48" /> : walletAddress}
                     </p>
                   ) : (
                     <Link href="/user?createWallet=true">
@@ -288,7 +304,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                     </Link>
                   )}
                 </div>
-                {(currentMember?.accountAddress || address) && (
+                {walletAddress && (
                   <Button
                     variant="ghost"
                     size="icon"
