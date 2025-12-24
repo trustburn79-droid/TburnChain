@@ -3,6 +3,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminPortalSidebar } from "@/components/admin-portal-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSelector } from "@/components/language-selector";
+import { ProfileBadge } from "@/components/profile-badge";
 import { Button } from "@/components/ui/button";
 import { LogOut, Shield } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -305,20 +306,10 @@ export function AdminPortalLayout() {
               <div className="flex items-center gap-2">
                 <LanguageSelector />
                 <ThemeToggle />
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => logoutMutation.mutate()}
-                      disabled={logoutMutation.isPending}
-                      data-testid="button-admin-logout"
-                    >
-                      <LogOut className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Logout</TooltipContent>
-                </Tooltip>
+                <ProfileBadge onLogout={() => {
+                  queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
+                  window.location.href = "/";
+                }} />
               </div>
             </header>
             <main className="flex-1 overflow-auto">

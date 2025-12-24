@@ -39,6 +39,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatNumber } from "@/lib/formatters";
 import { LanguageSelector } from "@/components/language-selector";
+import { ProfileBadge } from "@/components/profile-badge";
 import type { NetworkStats, StakingStats } from "@shared/schema";
 
 type Section = "dashboard" | "wallet" | "stakingDashboard" | "delegationValidator" | "defi" | "nft" | "governance" | "network";
@@ -804,6 +805,7 @@ export default function UserPage() {
             >
               <Settings className="w-4 h-4" />
             </Button>
+            <ProfileBadge />
           </div>
         </header>
 

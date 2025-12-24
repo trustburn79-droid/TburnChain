@@ -1055,7 +1055,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({
         id: member.id,
         displayName: member.displayName,
-        email: member.encryptedEmail || req.session.memberEmail,
+        email: req.session.memberEmail || null,
         accountAddress: member.accountAddress,
         memberTier: member.memberTier,
         memberStatus: member.memberStatus,

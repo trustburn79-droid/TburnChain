@@ -18,8 +18,9 @@ import { AuthGuard } from "@/components/auth-guard";
 import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
+import { ProfileBadge } from "@/components/profile-badge";
 import { Button } from "@/components/ui/button";
-import { LogOut, Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Coins, Shield, ImageIcon } from "lucide-react";
+import { Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Coins, Shield, ImageIcon } from "lucide-react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import '@/lib/i18n';
@@ -202,17 +203,6 @@ function AuthenticatedApp() {
     refetchInterval: 30000,
   });
 
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      await apiRequest("POST", "/api/auth/logout");
-    },
-    onSuccess: () => {
-      queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
-      queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
-      setLocation("/");
-    },
-  });
-
   const style = {
     "--sidebar-width": "16rem",
     "--sidebar-width-icon": "3rem",
@@ -328,24 +318,11 @@ function AuthenticatedApp() {
                   <LanguageSelector />
                   <ThemeToggle />
                   <WalletButton />
-                  {isAuthenticated && (
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => logoutMutation.mutate()}
-                          disabled={logoutMutation.isPending}
-                          data-testid="button-logout"
-                        >
-                          <LogOut className="h-4 w-4" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Logout</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  )}
+                  <ProfileBadge onLogout={() => {
+                    queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
+                    queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+                    setLocation("/");
+                  }} />
                 </div>
               </header>
               <main className="flex-1 overflow-auto">

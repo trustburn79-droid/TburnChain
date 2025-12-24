@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
   Dialog,
@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 
 interface MemberInfo {
   id: string;
@@ -118,19 +119,30 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/auth/logout");
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
       setIsOpen(false);
       if (onLogout) {
         onLogout();
       } else {
         window.location.href = "/login";
       }
-    } catch (error) {
+    },
+    onError: (error) => {
       console.error("Logout error:", error);
-    }
-  };
+      toast({
+        title: t("common.error", "오류"),
+        description: t("profile.logoutError", "로그아웃 중 오류가 발생했습니다"),
+        variant: "destructive",
+      });
+    },
+  });
 
   const formatBalance = (balance?: string) => {
     if (!balance) return "0.00";
@@ -252,7 +264,8 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
               <Button
                 variant="destructive"
                 className="w-full justify-start gap-2"
-                onClick={handleLogout}
+                onClick={() => logoutMutation.mutate()}
+                disabled={logoutMutation.isPending}
                 data-testid="button-logout"
               >
                 <LogOut className="h-4 w-4" />
