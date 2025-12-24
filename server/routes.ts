@@ -588,6 +588,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           if (sendError) {
             console.error("[Email Verification] Resend error:", sendError);
+            // Handle domain verification error - allow testing with console code
+            if (sendError.message?.includes('verify a domain') || sendError.name === 'validation_error') {
+              console.log(`[Email Verification] ⚠️ Domain not verified - Code for ${email}: ${verificationCode}`);
+              console.log(`[Email Verification] 💡 To fix: Verify domain at https://resend.com/domains`);
+              return res.json({ 
+                success: true, 
+                message: "이메일 서비스가 테스트 모드입니다. 서버 콘솔에서 인증 코드를 확인하세요.",
+                testMode: true,
+                expiresAt: expiresAt.toISOString()
+              });
+            }
             return res.status(500).json({ error: "Failed to send verification email" });
           }
           
@@ -597,8 +608,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
             message: "Verification code sent to your email",
             expiresAt: expiresAt.toISOString()
           });
-        } catch (emailError) {
+        } catch (emailError: any) {
           console.error("[Email Verification] Email send failed:", emailError);
+          // Handle domain verification error gracefully
+          if (emailError?.message?.includes('verify a domain') || emailError?.statusCode === 403) {
+            console.log(`[Email Verification] ⚠️ Domain not verified - Code for ${email}: ${verificationCode}`);
+            console.log(`[Email Verification] 💡 To fix: Verify domain at https://resend.com/domains`);
+            return res.json({ 
+              success: true, 
+              message: "이메일 서비스가 테스트 모드입니다. 서버 콘솔에서 인증 코드를 확인하세요.",
+              testMode: true,
+              expiresAt: expiresAt.toISOString()
+            });
+          }
           return res.status(500).json({ error: "Failed to send verification email" });
         }
       } else {
