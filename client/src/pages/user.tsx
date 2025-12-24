@@ -780,34 +780,9 @@ export default function UserPage() {
               </Button>
             </a>
             <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
-            <Button variant="ghost" size="icon" onClick={handleRefresh} data-testid="button-refresh-header" className="h-8 w-8 lg:h-9 lg:w-9">
-              <RefreshCw className="w-4 h-4" />
-            </Button>
             <LanguageSelector />
             <Button variant="ghost" size="icon" onClick={toggleTheme} data-testid="button-theme-toggle" className="h-8 w-8 lg:h-9 lg:w-9">
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
-            <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="hidden sm:flex h-8 w-8 lg:h-9 lg:w-9 relative"
-              onClick={handleNotificationClick}
-              data-testid="button-notifications"
-            >
-              <Bell className="w-4 h-4" />
-              {notificationsEnabled && (
-                <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full" />
-              )}
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="hidden sm:flex h-8 w-8 lg:h-9 lg:w-9"
-              onClick={handleSettingsClick}
-              data-testid="button-settings"
-            >
-              <Settings className="w-4 h-4" />
             </Button>
             <ProfileBadge />
           </div>
@@ -1011,16 +986,6 @@ function DashboardSection({
           <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">
             {isConnected ? t('userPage.pageDescription') : t('userPage.connectWalletDescription')}
           </p>
-        </div>
-        <div className="flex gap-2 w-full sm:w-auto">
-          {!isConnected && (
-            <Button onClick={onConnectWallet} className="flex-1 sm:flex-none bg-gradient-to-r from-blue-500 to-purple-600 text-sm" data-testid="button-connect-dashboard">
-              <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
-            </Button>
-          )}
-          <Button variant="outline" onClick={onRefresh} data-testid="button-refresh" className="flex-1 sm:flex-none text-sm">
-            <RefreshCw className="w-4 h-4 mr-2" /> {t('common.refresh')}
-          </Button>
         </div>
       </div>
 
