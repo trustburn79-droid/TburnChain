@@ -742,13 +742,24 @@ export default function Dashboard() {
                 queryClient.setQueryData(["/api/network/stats"], (oldData: NetworkStats | undefined) => {
                   // If no REST data yet, don't set anything - wait for REST API
                   if (!oldData) return undefined;
-                  // Merge WebSocket data but ALWAYS preserve Enterprise Node TPS from REST
-                  const { tps: _wsTps, peakTps: _wsPeakTps, ...safePayload } = payload;
+                  // Merge WebSocket data but ALWAYS preserve critical metrics from REST
+                  // PRODUCTION LAUNCH: Block height and block time must come from DB only
+                  const { 
+                    tps: _wsTps, 
+                    peakTps: _wsPeakTps, 
+                    currentBlockHeight: _wsBlockHeight,
+                    avgBlockTime: _wsBlockTime,
+                    blockTimeP99: _wsBlockTimeP99,
+                    ...safePayload 
+                  } = payload;
                   return {
                     ...oldData,
                     ...safePayload,
                     tps: oldData.tps, // CRITICAL: Preserve authoritative TPS
                     peakTps: oldData.peakTps, // CRITICAL: Preserve peak TPS
+                    currentBlockHeight: oldData.currentBlockHeight, // CRITICAL: DB-only block height
+                    avgBlockTime: oldData.avgBlockTime, // CRITICAL: DB-only block time
+                    blockTimeP99: oldData.blockTimeP99, // CRITICAL: DB-only P99
                   };
                 });
                 setLastDataUpdate(new Date());
