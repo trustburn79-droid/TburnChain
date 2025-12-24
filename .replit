@@ -58,6 +58,7 @@ TBURN_WS_URL = "ws://localhost:8546"
 NODE_MODE = "production"
 VITE_NODE_MODE = "production"
 ADMIN_EMAIL = "trustburn79@gmail.com"
+EMAIL_FROM = "TBURN Chain <noreply@tburn.io>"
 
 [userenv.production]
 NODE_ENV = "production"
