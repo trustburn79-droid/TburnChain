@@ -3,29 +3,17 @@ import App from "./App";
 import "./index.css";
 import "./lib/i18n";
 
-function initApp() {
-  let rootElement = document.getElementById("root");
-  
-  if (!rootElement) {
-    console.warn("[TBURN] Root element not found. Creating fallback root.");
-    rootElement = document.createElement("div");
-    rootElement.id = "root";
-    if (document.body) {
-      document.body.appendChild(rootElement);
-    } else {
-      document.documentElement.appendChild(rootElement);
-    }
-  }
+let appInitialized = false;
+
+function renderApp(rootElement: HTMLElement) {
+  if (appInitialized) return;
+  appInitialized = true;
   
   let portalRoot = document.getElementById("radix-portal-root");
-  if (!portalRoot) {
+  if (!portalRoot && document.body) {
     portalRoot = document.createElement("div");
     portalRoot.id = "radix-portal-root";
-    if (document.body) {
-      document.body.appendChild(portalRoot);
-    } else {
-      document.documentElement.appendChild(portalRoot);
-    }
+    document.body.appendChild(portalRoot);
   }
   
   try {
@@ -44,22 +32,47 @@ function initApp() {
   }
 }
 
-function safeInit() {
-  queueMicrotask(() => {
-    requestAnimationFrame(() => {
+function waitForRoot(maxAttempts = 50): void {
+  let attempts = 0;
+  
+  function checkRoot() {
+    const rootElement = document.getElementById("root");
+    
+    if (rootElement && document.body) {
+      renderApp(rootElement);
+      return;
+    }
+    
+    attempts++;
+    if (attempts < maxAttempts) {
+      requestAnimationFrame(checkRoot);
+    } else {
       if (document.body) {
-        initApp();
-      } else {
-        document.addEventListener("DOMContentLoaded", initApp, { once: true });
+        const fallbackRoot = document.createElement("div");
+        fallbackRoot.id = "root";
+        document.body.insertBefore(fallbackRoot, document.body.firstChild);
+        renderApp(fallbackRoot);
       }
-    });
-  });
+    }
+  }
+  
+  checkRoot();
 }
 
-if (document.readyState === "complete") {
-  initApp();
-} else if (document.readyState === "interactive") {
-  safeInit();
+function initApp() {
+  if (appInitialized) return;
+  
+  const rootElement = document.getElementById("root");
+  
+  if (rootElement && document.body) {
+    renderApp(rootElement);
+  } else {
+    waitForRoot();
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp, { once: true });
 } else {
-  document.addEventListener("DOMContentLoaded", safeInit, { once: true });
+  requestAnimationFrame(initApp);
 }
