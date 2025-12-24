@@ -12,9 +12,7 @@ import {
   Link2 
 } from "lucide-react";
 import { usePublicNetworkStats } from "../hooks/use-public-data";
-import { NeuralCanvas } from "../components/NeuralCanvas";
 import { AITerminal } from "../components/AITerminal";
-import { PublicFooter } from "../components/PublicFooter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import "../styles/public.css";
 
@@ -280,10 +278,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#030407] text-gray-900 dark:text-white antialiased selection:bg-cyan-500/30 selection:text-white transition-colors duration-300">
-      <div className="dark:block hidden"><NeuralCanvas /></div>
-
-      <main className="relative pt-32 pb-20" style={{ position: "relative", zIndex: 1 }}>
+    <div className="pt-20 pb-8">
         {/* Hero Section */}
         <section className="relative overflow-hidden mb-24">
           {/* Large Translucent TBurn Symbol */}
@@ -434,9 +429,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
-
-      <PublicFooter />
       <AITerminal />
     </div>
   );
