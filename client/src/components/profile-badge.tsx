@@ -27,6 +27,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useWeb3 } from "@/lib/web3-context";
 
 interface MemberInfo {
   id: string;
@@ -49,6 +50,7 @@ interface ProfileBadgeProps {
 export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { isConnected, address } = useWeb3();
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -92,7 +94,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     }
   };
 
-  const { data: authCheck } = useQuery<{ authenticated: boolean; memberId?: string }>({
+  const { data: authCheck } = useQuery<{ authenticated: boolean; memberId?: string; memberEmail?: string }>({
     queryKey: ["/api/auth/check"],
     staleTime: 30000,
     refetchOnWindowFocus: false,
@@ -105,7 +107,19 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     refetchOnWindowFocus: false,
   });
 
-  if (!authCheck?.authenticated) {
+  // Fetch member info by wallet address if session is not authenticated but wallet is connected
+  const { data: walletMemberInfo } = useQuery<MemberInfo>({
+    queryKey: ["/api/members/by-address", address],
+    enabled: !authCheck?.authenticated && isConnected && !!address,
+    staleTime: 60000,
+    refetchOnWindowFocus: false,
+  });
+
+  const isAuthenticated = authCheck?.authenticated || isConnected;
+  const currentMember = memberInfo || walletMemberInfo;
+  const currentEmail = memberInfo?.email || authCheck?.memberEmail;
+
+  if (!isAuthenticated) {
     return null;
   }
 
@@ -153,8 +167,8 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   };
 
   const copyAddress = async () => {
-    if (memberInfo?.accountAddress) {
-      await navigator.clipboard.writeText(memberInfo.accountAddress);
+    if (currentMember?.accountAddress || address) {
+      await navigator.clipboard.writeText(currentMember?.accountAddress || address || "");
       setCopied(true);
       toast({
         title: t("common.copied", "복사됨"),
@@ -195,7 +209,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     return num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 4 });
   };
 
-  const initial = getInitial(memberInfo?.displayName, memberInfo?.email);
+  const initial = getInitial(currentMember?.displayName, currentEmail || currentMember?.email || address || undefined);
 
   return (
     <>
@@ -240,10 +254,10 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
               </Avatar>
               <div className="flex flex-col">
                 <span className="text-lg font-semibold">
-                  {isLoading ? <Skeleton className="h-5 w-32" /> : memberInfo?.displayName || t("profile.anonymous", "익명")}
+                  {isLoading ? <Skeleton className="h-5 w-32" /> : currentMember?.displayName || t("profile.anonymous", "익명")}
                 </span>
-                <Badge className={`w-fit mt-1 ${getTierColor(memberInfo?.memberTier)}`}>
-                  {getTierLabel(memberInfo?.memberTier)}
+                <Badge className={`w-fit mt-1 ${getTierColor(currentMember?.memberTier)}`}>
+                  {getTierLabel(currentMember?.memberTier)}
                 </Badge>
               </div>
             </DialogTitle>
@@ -259,7 +273,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-muted-foreground">{t("profile.walletAddress", "지갑 주소")}</p>
                   <p className="font-mono text-sm truncate">
-                    {isLoading ? <Skeleton className="h-4 w-48" /> : memberInfo?.accountAddress}
+                    {isLoading ? <Skeleton className="h-4 w-48" /> : (currentMember?.accountAddress || address)}
                   </p>
                 </div>
                 <Button
@@ -273,12 +287,12 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                 </Button>
               </div>
 
-              {memberInfo?.email && (
+              {(currentEmail || currentMember?.email) && (
                 <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                   <Mail className="h-5 w-5 text-muted-foreground" />
                   <div className="flex-1">
                     <p className="text-xs text-muted-foreground">{t("profile.email", "이메일")}</p>
-                    <p className="text-sm">{memberInfo.email}</p>
+                    <p className="text-sm">{currentEmail || currentMember?.email}</p>
                   </div>
                 </div>
               )}
@@ -289,7 +303,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                   <div>
                     <p className="text-xs text-muted-foreground">{t("profile.balance", "잔액")}</p>
                     <p className="text-sm font-semibold">
-                      {isLoading ? <Skeleton className="h-4 w-16" /> : `${formatBalance(memberInfo?.balance)} TBURN`}
+                      {isLoading ? <Skeleton className="h-4 w-16" /> : `${formatBalance(currentMember?.balance)} TBURN`}
                     </p>
                   </div>
                 </div>
@@ -299,7 +313,7 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                   <div>
                     <p className="text-xs text-muted-foreground">{t("profile.staked", "스테이킹")}</p>
                     <p className="text-sm font-semibold">
-                      {isLoading ? <Skeleton className="h-4 w-16" /> : `${formatBalance(memberInfo?.stakedBalance)} TBURN`}
+                      {isLoading ? <Skeleton className="h-4 w-16" /> : `${formatBalance(currentMember?.stakedBalance)} TBURN`}
                     </p>
                   </div>
                 </div>
