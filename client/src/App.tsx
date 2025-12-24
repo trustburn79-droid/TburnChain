@@ -19,6 +19,7 @@ import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
 import { LanguageSelector } from "@/components/language-selector";
 import { WalletButton } from "@/components/wallet-button";
 import { ProfileBadge } from "@/components/profile-badge";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Coins, Shield, ImageIcon } from "lucide-react";
 import { Link } from "wouter";
@@ -464,18 +465,20 @@ function RootRouter() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="dark">
-        <Web3Provider>
-          <TBurnAlertProvider>
-            <AdminPasswordProvider>
-              <RootRouter />
-              <Toaster />
-            </AdminPasswordProvider>
-          </TBurnAlertProvider>
-        </Web3Provider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider defaultTheme="dark">
+          <Web3Provider>
+            <TBurnAlertProvider>
+              <AdminPasswordProvider>
+                <RootRouter />
+                <Toaster />
+              </AdminPasswordProvider>
+            </TBurnAlertProvider>
+          </Web3Provider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

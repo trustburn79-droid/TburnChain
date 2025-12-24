@@ -2,6 +2,7 @@ import { Switch, Route } from "wouter";
 import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 import { PublicLayout } from "./components/PublicLayout";
+import { ErrorBoundary } from "@/components/error-boundary";
 
 import Home from "./pages/Home";
 
@@ -103,9 +104,10 @@ const TestnetFaucet = lazy(() => import("./pages/testnet-scan/TestnetFaucet"));
 
 export function PublicRouter() {
   return (
-    <PublicLayout>
-      <Suspense fallback={<PageLoading />}>
-        <Switch>
+    <ErrorBoundary>
+      <PublicLayout>
+        <Suspense fallback={<PageLoading />}>
+          <Switch>
           <Route path="/" component={Home} />
           
           {/* Learn Routes */}
@@ -207,12 +209,13 @@ export function PublicRouter() {
           <Route path="/testnet-scan/faucet" component={TestnetFaucet} />
           <Route path="/testnet-scan" component={TestnetScanHome} />
           
-          {/* Fallback - redirect to home */}
-          <Route>
-            <Home />
-          </Route>
-        </Switch>
-      </Suspense>
-    </PublicLayout>
+            {/* Fallback - redirect to home */}
+            <Route>
+              <Home />
+            </Route>
+          </Switch>
+        </Suspense>
+      </PublicLayout>
+    </ErrorBoundary>
   );
 }
