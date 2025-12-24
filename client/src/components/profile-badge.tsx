@@ -25,7 +25,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useWeb3 } from "@/lib/web3-context";
 
@@ -272,19 +272,33 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                 <Wallet className="h-5 w-5 text-muted-foreground" />
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-muted-foreground">{t("profile.walletAddress", "지갑 주소")}</p>
-                  <p className="font-mono text-sm truncate">
-                    {isLoading ? <Skeleton className="h-4 w-48" /> : (currentMember?.accountAddress || address)}
-                  </p>
+                  {(currentMember?.accountAddress || address) ? (
+                    <p className="font-mono text-sm truncate">
+                      {isLoading ? <Skeleton className="h-4 w-48" /> : (currentMember?.accountAddress || address)}
+                    </p>
+                  ) : (
+                    <Link href="/user?createWallet=true">
+                      <button 
+                        className="text-sm text-blue-500 hover:text-blue-600 hover:underline font-medium"
+                        onClick={() => setIsOpen(false)}
+                        data-testid="button-create-wallet"
+                      >
+                        {t("profile.createWallet", "지갑생성")}
+                      </button>
+                    </Link>
+                  )}
                 </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 shrink-0"
-                  onClick={copyAddress}
-                  data-testid="button-copy-address"
-                >
-                  {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
-                </Button>
+                {(currentMember?.accountAddress || address) && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 shrink-0"
+                    onClick={copyAddress}
+                    data-testid="button-copy-address"
+                  >
+                    {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                  </Button>
+                )}
               </div>
 
               {(currentEmail || currentMember?.email) && (

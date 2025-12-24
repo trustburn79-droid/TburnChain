@@ -277,6 +277,10 @@ const formatTimeAgo = (timestamp: string, t: (key: string, options?: Record<stri
 export default function UserPage() {
   const getInitialSection = (): Section => {
     const params = new URLSearchParams(window.location.search);
+    // If createWallet param is present, go directly to wallet section
+    if (params.get('createWallet') === 'true') {
+      return "wallet";
+    }
     const section = params.get('section');
     const validSections: Section[] = ["dashboard", "wallet", "stakingDashboard", "delegationValidator", "defi", "nft", "governance", "network"];
     if (section && validSections.includes(section as Section)) {
@@ -1371,6 +1375,17 @@ function WalletSection({
   const [editingName, setEditingName] = useState(false);
   const [newWalletName, setNewWalletName] = useState("");
   const [isUpdatingName, setIsUpdatingName] = useState(false);
+
+  // Check for createWallet query parameter to auto-open wallet creation dialog
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('createWallet') === 'true') {
+      setCreateWalletOpen(true);
+      // Remove the query parameter from URL
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, []);
   
   // Check session authentication status (separate from Web3 wallet connection)
   const { data: authStatus } = useQuery<{ authenticated: boolean; hasMemberId: boolean; memberEmail: string | null }>({
