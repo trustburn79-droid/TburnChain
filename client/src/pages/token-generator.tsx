@@ -90,6 +90,7 @@ import {
   Menu,
 } from "lucide-react";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { ProfileBadge } from "@/components/profile-badge";
 
 type TabType = "create" | "myTokens" | "verification";
 type TokenStandardType = "TBC-20" | "TBC-721" | "TBC-1155";
@@ -1028,6 +1029,7 @@ export default function TokenSystemPage() {
             </Link>
             <LanguageSelector isDark={isDark} />
             <ThemeToggle />
+            <ProfileBadge />
           </div>
         </header>
 
