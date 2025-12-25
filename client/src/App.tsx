@@ -87,6 +87,7 @@ const BugBountyPage = lazy(() => import("@/pages/bug-bounty"));
 const LaunchEventPage = lazy(() => import("@/pages/launch-event"));
 const TreePage = lazy(() => import("@/pages/tree"));
 const TokenSchedule = lazy(() => import("@/pages/token-schedule"));
+const TokenDetails = lazy(() => import("@/pages/token-details"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -440,6 +441,15 @@ function RootRouter() {
     return (
       <Suspense fallback={<PageLoading />}>
         <TokenSchedule />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/Tokendetails" || location.startsWith("/Tokendetails")) {
+    // Token Details page is public - accessible to all users without login
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <TokenDetails />
       </Suspense>
     );
   }
