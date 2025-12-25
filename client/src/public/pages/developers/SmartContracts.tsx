@@ -253,12 +253,12 @@ export default function SmartContracts() {
   };
 
   return (
-    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
+    <main className="flex-grow relative z-10 pt-24 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative py-12 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
-        <div className="container mx-auto max-w-5xl relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-[#00f0ff] to-[#7000ff] flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.3)]">
               <FileCode className="w-7 h-7 text-white" />
@@ -276,7 +276,7 @@ export default function SmartContracts() {
 
       {/* Platform Features */}
       <section className="py-12 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">{t('publicPages.developers.contracts.platformFeatures')}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {platformFeatures.map((feature, index) => (
@@ -298,7 +298,7 @@ export default function SmartContracts() {
 
       {/* Contract Templates */}
       <section className="py-12 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
             <Layers className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.contracts.contractTemplates')}
           </h2>
@@ -342,7 +342,7 @@ export default function SmartContracts() {
 
       {/* Security & Gas Optimization */}
       <section className="py-12 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Security Checklist */}
             <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl overflow-hidden border-[#ffd700]/30 bg-[#ffd700]/5">
