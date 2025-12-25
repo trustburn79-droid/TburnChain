@@ -109,7 +109,7 @@ export default function Payments() {
       step: 1,
       title: t('publicPages.solutions.payments.integrationGuide.step1.title'),
       desc: t('publicPages.solutions.payments.integrationGuide.step1.description'),
-      code: "curl -X POST https://api.tburn.io/v8/auth/apikey"
+      code: "curl -X POST https://tburn.io/api/v8/auth/apikey"
     },
     {
       step: 2,

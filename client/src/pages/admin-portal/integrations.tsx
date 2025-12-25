@@ -472,7 +472,7 @@ export default function Integrations() {
               <div className="space-y-2">
                 <Label data-testid="label-incoming-webhook">{t("adminIntegrations.webhooks.incomingUrl")}</Label>
                 <div className="flex gap-2">
-                  <Input defaultValue="https://api.tburn.io/webhooks/incoming/abc123" readOnly data-testid="input-incoming-webhook" />
+                  <Input defaultValue="https://tburn.io/webhooks/incoming/abc123" readOnly data-testid="input-incoming-webhook" />
                   <Button variant="outline" size="icon" data-testid="button-open-webhook">
                     <ExternalLink className="h-4 w-4" />
                   </Button>

@@ -51,8 +51,8 @@ const testnetConfig = {
 
 const testnetNodes: RpcNode[] = [
   { id: "testnet-1", name: "Testnet Primary", url: "https://tburn.io/testnet-rpc", region: "US-East (Virginia)", status: "online", latency: 12, blockHeight: 5847293, version: "2.1.0-beta", load: 25, uptime: 99.95, requests24h: 12847293, peakTps: 35000 },
-  { id: "testnet-2", name: "Testnet Europe", url: "https://eu.testnet.tburn.io/rpc", region: "EU-West (Frankfurt)", status: "online", latency: 22, blockHeight: 5847293, version: "2.1.0-beta", load: 18, uptime: 99.92, requests24h: 8523847, peakTps: 28000 },
-  { id: "testnet-3", name: "Testnet Asia", url: "https://asia.testnet.tburn.io/rpc", region: "AP-Tokyo", status: "online", latency: 38, blockHeight: 5847292, version: "2.1.0-beta", load: 22, uptime: 99.90, requests24h: 6438293, peakTps: 25000 },
+  { id: "testnet-2", name: "Testnet Europe", url: "https://eu.tburn.io/testnet-rpc", region: "EU-West (Frankfurt)", status: "online", latency: 22, blockHeight: 5847293, version: "2.1.0-beta", load: 18, uptime: 99.92, requests24h: 8523847, peakTps: 28000 },
+  { id: "testnet-3", name: "Testnet Asia", url: "https://asia.tburn.io/testnet-rpc", region: "AP-Tokyo", status: "online", latency: 38, blockHeight: 5847292, version: "2.1.0-beta", load: 22, uptime: 99.90, requests24h: 6438293, peakTps: 25000 },
 ];
 
 const rpcMethods = [

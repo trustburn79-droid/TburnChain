@@ -150,7 +150,7 @@ export default function ApiDocs() {
               {copiedUrl ? <Check className="w-4 h-4 text-[#00ff9d]" /> : <Copy className="w-4 h-4" />}
             </button>
             <span className="text-gray-500">|</span>
-            <span className="text-sm text-gray-600 dark:text-gray-400">WebSocket: <code className="text-[#00f0ff]">wss://tburn.io/ws/v8</code></span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">WebSocket: <code className="text-[#00f0ff]">wss://tburn.io/ws</code></span>
           </div>
         </div>
       </section>

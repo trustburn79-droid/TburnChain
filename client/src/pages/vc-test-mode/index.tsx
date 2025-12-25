@@ -213,7 +213,7 @@ const MAINNET_CONFIG = {
     { url: 'https://eu.tburn.io/rpc', type: 'Secondary', status: 'Active', region: 'EU-West' },
     { url: 'https://asia.tburn.io/rpc', type: 'Tertiary', status: 'Active', region: 'AP-Seoul' }
   ],
-  blockExplorer: 'https://explorer.tburn.network',
+  blockExplorer: 'https://tburn.io/scan',
   consensus: 'BFT + PoS',
   blockTime: '~100ms',
   genesisDate: '2025-12-22',

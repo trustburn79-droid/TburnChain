@@ -616,15 +616,15 @@ export default function ApiConfig() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label data-testid="label-rest-api-url">{t("adminApiConfig.endpoints.restApiUrl")}</Label>
-                    <Input defaultValue="https://api.tburn.io/v1" data-testid="input-rest-api-url" />
+                    <Input defaultValue="https://tburn.io/api/v1" data-testid="input-rest-api-url" />
                   </div>
                   <div className="space-y-2">
                     <Label data-testid="label-websocket-url">{t("adminApiConfig.endpoints.websocketUrl")}</Label>
-                    <Input defaultValue="wss://ws.tburn.io" data-testid="input-websocket-url" />
+                    <Input defaultValue="wss://tburn.io/ws" data-testid="input-websocket-url" />
                   </div>
                   <div className="space-y-2">
                     <Label data-testid="label-graphql-endpoint">{t("adminApiConfig.endpoints.graphqlEndpoint")}</Label>
-                    <Input defaultValue="https://api.tburn.io/graphql" data-testid="input-graphql-endpoint" />
+                    <Input defaultValue="https://tburn.io/graphql" data-testid="input-graphql-endpoint" />
                   </div>
                   <div className="space-y-2">
                     <Label data-testid="label-rpc-endpoint">{t("adminApiConfig.endpoints.rpcEndpoint")}</Label>

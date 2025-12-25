@@ -342,9 +342,9 @@ export default function ApiDocs() {
                   <h3 className="font-medium mb-2">{t("adminApiDocs.baseUrl")}</h3>
                   <div className="flex items-center gap-2">
                     <code className="px-4 py-2 bg-muted rounded-lg font-mono text-sm flex-1">
-                      https://api.tburn.io/v1
+                      https://tburn.io/api/v1
                     </code>
-                    <Button variant="outline" size="icon" onClick={() => handleCopy("https://api.tburn.io/v1")} data-testid="button-copy-base-url">
+                    <Button variant="outline" size="icon" onClick={() => handleCopy("https://tburn.io/api/v1")} data-testid="button-copy-base-url">
                       <Copy className="h-4 w-4" />
                     </Button>
                   </div>
@@ -355,7 +355,7 @@ export default function ApiDocs() {
                 <div>
                   <h3 className="font-medium mb-2">{t("adminApiDocs.exampleRequest")}</h3>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
-                    <pre>{`curl -X GET "https://api.tburn.io/v1/blocks/latest" \\
+                    <pre>{`curl -X GET "https://tburn.io/api/v1/blocks/latest" \\
   -H "Content-Type: application/json"`}</pre>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ export default function ApiDocs() {
                     {t("adminApiDocs.includeApiKey")}
                   </p>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
-                    <pre>{`curl -X GET "https://api.tburn.io/v1/admin/dashboard" \\
+                    <pre>{`curl -X GET "https://tburn.io/api/v1/admin/dashboard" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json"`}</pre>
                   </div>
@@ -594,7 +594,7 @@ headers['X-Timestamp'] = timestamp;`}</pre>
                 <div>
                   <h3 className="font-medium mb-2">{t("adminApiDocs.connection")}</h3>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
-                    <pre>{`const ws = new WebSocket('wss://ws.tburn.io');
+                    <pre>{`const ws = new WebSocket('wss://tburn.io/ws');
 
 ws.onopen = () => {
   ws.send(JSON.stringify({

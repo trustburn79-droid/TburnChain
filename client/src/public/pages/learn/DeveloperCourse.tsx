@@ -36,7 +36,7 @@ const config: NetworkConfig = {
     timeout: 30000,
     retryAttempts: 3,
     cacheEnabled: true,
-    wsUrl: 'wss://ws.tburn.io/v8'  // Real-time updates
+    wsUrl: 'wss://tburn.io/ws'  // Real-time updates
   }
 };
 

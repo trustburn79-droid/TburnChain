@@ -14,7 +14,7 @@ export const TBURN_MAINNET_CONFIG = {
     "https://eu.tburn.io/rpc",
     "https://asia.tburn.io/rpc",
   ],
-  blockExplorerUrls: ["https://explorer.tburn.network"],
+  blockExplorerUrls: ["https://tburn.io/scan"],
   iconUrls: ["https://tburn.network/logo.png"],
 };
 

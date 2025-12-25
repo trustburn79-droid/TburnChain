@@ -271,7 +271,7 @@ export function TransactionConfirmDialog({
                 {t("wallet.transaction.txHash")}
               </span>
               <a
-                href={`https://scan.tburn.network/tx/${txHash}`}
+                href={`https://tburn.io/scan/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-mono text-green-600 hover:underline flex items-center gap-1"

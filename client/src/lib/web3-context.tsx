@@ -101,7 +101,7 @@ const TBURN_CHAIN_CONFIG = {
     decimals: 18,
   },
   rpcUrls: ["https://tburn.io/rpc"],
-  blockExplorerUrls: ["https://scan.tburn.network"],
+  blockExplorerUrls: ["https://tburn.io/scan"],
 };
 
 const CONNECTION_TIMEOUT = 30000;
