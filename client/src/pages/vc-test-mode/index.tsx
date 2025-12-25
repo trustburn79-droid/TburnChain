@@ -450,7 +450,7 @@ export default function VCTestMode() {
             </TabsTrigger>
             <TabsTrigger value="tech" data-testid="tab-tech">
               <Cpu className="w-4 h-4 mr-2" />
-              {t('vcTestMode.tabs.tech', 'Technology')}
+              {t('vcTestMode.tabs.technology', 'Technology')}
             </TabsTrigger>
           </TabsList>
 
@@ -733,7 +733,7 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Database className="w-5 h-5 text-orange-500" />
-                    {t('vcTestMode.tokenStandards', 'Token Standards')}
+                    {t('vcTestMode.dueDiligence.tokenStandards', 'Token Standards')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">

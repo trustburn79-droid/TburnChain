@@ -5143,7 +5143,7 @@
       "slaUptime": "SLA Uptime",
       "avgRpcLatency": "Avg RPC Latency",
       "lastUpdated": "Last updated",
-      "tokenStandards": "Token Standards",
+      "tokenStandards": "टोकन मानक",
       "blockExplorer": "Block Explorer",
       "tbc20Desc": "Fungible Token Standard (ERC-20 compatible)",
       "tbc721Desc": "Non-Fungible Token Standard (ERC-721 compatible)",
