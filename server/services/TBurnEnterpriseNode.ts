@@ -841,6 +841,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return this.scalingEvents.slice(-limit);
   }
 
+  // Get total transactions count (synchronous getter for public API consistency)
+  public getTotalTransactions(): number {
+    return this.totalTransactions;
+  }
+
   // Get current shard configuration (for external sync like ValidatorService)
   public getShardConfiguration(): {
     currentShardCount: number;
