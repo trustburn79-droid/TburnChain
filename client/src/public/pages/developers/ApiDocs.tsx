@@ -125,12 +125,12 @@ export default function ApiDocs() {
   ];
 
   return (
-    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
+    <main className="flex-grow relative z-10 pt-24 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-20 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative py-12 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
-        <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <Code className="w-3 h-3" /> {t("apiDocs.apiReference", "API Reference v8.0")}
           </div>
@@ -157,7 +157,7 @@ export default function ApiDocs() {
 
       {/* Main Content with Sidebar */}
       <section className="py-8 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-5 gap-8">
             {/* Sidebar */}
             <div className="hidden lg:block col-span-1">
@@ -1711,7 +1711,7 @@ ws.send(JSON.stringify({
 
       {/* Quick Links CTA */}
       <section className="py-16 px-6">
-        <div className="container mx-auto max-w-5xl">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-6">
             <Link href="/developers/quickstart" className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6 group hover:border-[#00f0ff]/50 transition-colors">
               <Terminal className="w-8 h-8 text-[#00f0ff] mb-4" />
