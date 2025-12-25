@@ -612,23 +612,23 @@ tburn.on('blockConfirmed', (block) => {
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
                             <div class="p-3 bg-white/5 rounded">
                                 <div class="text-tburn-orange font-bold text-xl">30</div>
-                                <div class="text-xs text-gray-400">North America</div>
+                                <div data-i18n="region_na" class="text-xs text-gray-400">North America</div>
                             </div>
                             <div class="p-3 bg-white/5 rounded">
                                 <div class="text-tburn-orange font-bold text-xl">35</div>
-                                <div class="text-xs text-gray-400">Europe</div>
+                                <div data-i18n="region_eu" class="text-xs text-gray-400">Europe</div>
                             </div>
                             <div class="p-3 bg-white/5 rounded">
                                 <div class="text-tburn-orange font-bold text-xl">30</div>
-                                <div class="text-xs text-gray-400">Asia-Pacific</div>
+                                <div data-i18n="region_ap" class="text-xs text-gray-400">Asia-Pacific</div>
                             </div>
                             <div class="p-3 bg-white/5 rounded">
                                 <div class="text-tburn-orange font-bold text-xl">15</div>
-                                <div class="text-xs text-gray-400">South America</div>
+                                <div data-i18n="region_sa" class="text-xs text-gray-400">South America</div>
                             </div>
                             <div class="p-3 bg-white/5 rounded">
                                 <div class="text-tburn-orange font-bold text-xl">10</div>
-                                <div class="text-xs text-gray-400">Africa</div>
+                                <div data-i18n="region_af" class="text-xs text-gray-400">Africa</div>
                             </div>
                         </div>
                     </div>
@@ -637,30 +637,30 @@ tburn.on('blockConfirmed', (block) => {
                         <table class="w-full tech-table">
                             <thead>
                                 <tr>
-                                    <th>Tier</th>
-                                    <th>Count</th>
-                                    <th>Providers Example</th>
-                                    <th>Monthly Cost</th>
-                                    <th>Specs</th>
+                                    <th data-i18n="val_tier">Tier</th>
+                                    <th data-i18n="val_count">Count</th>
+                                    <th data-i18n="val_providers">Providers Example</th>
+                                    <th data-i18n="val_monthly_cost">Monthly Cost</th>
+                                    <th data-i18n="val_specs">Specs</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="font-bold text-yellow-400">Tier 1 (Premium)</td>
+                                    <td data-i18n="val_tier1" class="font-bold text-yellow-400">Tier 1 (Premium)</td>
                                     <td>25</td>
                                     <td>DigitalOcean, Linode, AWS</td>
                                     <td>$2,410</td>
                                     <td>8 vCPU, 16GB RAM</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-bold text-gray-300">Tier 2 (Mid)</td>
+                                    <td data-i18n="val_tier2" class="font-bold text-gray-300">Tier 2 (Mid)</td>
                                     <td>50</td>
                                     <td>Contabo, OVH, Scaleway</td>
                                     <td>$2,525</td>
                                     <td>8 vCPU, 16GB RAM</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-bold text-orange-700">Tier 3 (Value)</td>
+                                    <td data-i18n="val_tier3" class="font-bold text-orange-700">Tier 3 (Value)</td>
                                     <td>50</td>
                                     <td>RackNerd, WebNX</td>
                                     <td>$1,425</td>
@@ -669,7 +669,7 @@ tburn.on('blockConfirmed', (block) => {
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-4 text-right text-sm font-bold text-green-400">
+                    <div data-i18n="val_annual_cost" class="mt-4 text-right text-sm font-bold text-green-400">
                         Total Annual Cost: $84,000 (76% Savings vs Centralized)
                     </div>
                 </section>
@@ -681,7 +681,7 @@ tburn.on('blockConfirmed', (block) => {
                     <div class="grid md:grid-cols-2 gap-8">
                         <div>
                             <div class="bg-tburn-card p-6 rounded border border-tburn-border">
-                                <h3 class="text-white font-bold mb-4">Supported Chains (7)</h3>
+                                <h3 data-i18n="bridge_supported_chains" class="text-white font-bold mb-4">Supported Chains (7)</h3>
                                 <ul class="space-y-3 text-sm">
                                     <li class="flex justify-between border-b border-gray-800 pb-2">
                                         <span class="text-gray-300">Ethereum</span>
@@ -704,18 +704,18 @@ tburn.on('blockConfirmed', (block) => {
                         </div>
                         <div class="space-y-4">
                             <div class="bg-blue-900/10 p-4 rounded border border-blue-900/30">
-                                <h4 class="font-bold text-blue-400 mb-2">Security Model</h4>
+                                <h4 data-i18n="bridge_security_model" class="font-bold text-blue-400 mb-2">Security Model</h4>
                                 <ul class="text-sm text-gray-400 list-disc list-inside">
-                                    <li>Multi-sig (12/12 Validators)</li>
-                                    <li>$50M Insurance Fund</li>
-                                    <li>AI Anomaly Detection</li>
+                                    <li data-i18n="bridge_multisig">Multi-sig (12/12 Validators)</li>
+                                    <li data-i18n="bridge_insurance">$50M Insurance Fund</li>
+                                    <li data-i18n="bridge_ai_anomaly">AI Anomaly Detection</li>
                                 </ul>
                             </div>
                             <div class="bg-red-900/10 p-4 rounded border border-red-900/30">
-                                <h4 class="font-bold text-red-400 mb-2">Limits</h4>
+                                <h4 data-i18n="bridge_limits" class="font-bold text-red-400 mb-2">Limits</h4>
                                 <ul class="text-sm text-gray-400 list-disc list-inside">
-                                    <li>Single Max: $2.5M</li>
-                                    <li>Hourly Chain Limit: $50M</li>
+                                    <li data-i18n="bridge_single_max">Single Max: $2.5M</li>
+                                    <li data-i18n="bridge_hourly_limit">Hourly Chain Limit: $50M</li>
                                 </ul>
                             </div>
                         </div>
@@ -729,45 +729,45 @@ tburn.on('blockConfirmed', (block) => {
                     </div>
 
                     <div class="mb-10">
-                        <h3 class="text-white font-bold mb-4">Token Distribution</h3>
+                        <h3 data-i18n="token_distribution" class="text-white font-bold mb-4">Token Distribution</h3>
                         <div class="flex h-8 rounded-full overflow-hidden w-full mb-4">
-                            <div class="bg-tburn-orange h-full flex items-center justify-center text-[10px] font-bold text-black" style="width: 30%">Community 30%</div>
-                            <div class="bg-blue-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 23%">Rewards 23%</div>
-                            <div class="bg-purple-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 20%">Investors 20%</div>
-                            <div class="bg-green-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 15%">Eco 15%</div>
-                            <div class="bg-gray-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 12%">Team 12%</div>
+                            <div data-i18n="token_community" class="bg-tburn-orange h-full flex items-center justify-center text-[10px] font-bold text-black" style="width: 30%">Community 30%</div>
+                            <div data-i18n="token_rewards" class="bg-blue-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 23%">Rewards 23%</div>
+                            <div data-i18n="token_investors" class="bg-purple-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 20%">Investors 20%</div>
+                            <div data-i18n="token_eco" class="bg-green-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 15%">Eco 15%</div>
+                            <div data-i18n="token_team" class="bg-gray-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 12%">Team 12%</div>
                         </div>
                     </div>
 
                     <div class="overflow-x-auto mb-10">
-                        <h3 class="text-white font-bold mb-4">Vesting Schedules</h3>
+                        <h3 data-i18n="vesting_schedules" class="text-white font-bold mb-4">Vesting Schedules</h3>
                         <table class="w-full tech-table">
                             <thead>
                                 <tr>
-                                    <th>Allocation</th>
-                                    <th>Cliff</th>
-                                    <th>Vesting</th>
-                                    <th>TGE Unlock</th>
+                                    <th data-i18n="vesting_allocation">Allocation</th>
+                                    <th data-i18n="vesting_cliff">Cliff</th>
+                                    <th data-i18n="vesting_vesting">Vesting</th>
+                                    <th data-i18n="vesting_tge">TGE Unlock</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-white font-bold">Team</td>
-                                    <td>12 Months</td>
-                                    <td>48 Months</td>
+                                    <td data-i18n="vesting_team" class="text-white font-bold">Team</td>
+                                    <td data-i18n="vesting_12m">12 Months</td>
+                                    <td data-i18n="vesting_48m">48 Months</td>
                                     <td class="text-gray-500">0%</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-white font-bold">Seed Investors</td>
-                                    <td>12 Months</td>
-                                    <td>36 Months</td>
+                                    <td data-i18n="vesting_seed" class="text-white font-bold">Seed Investors</td>
+                                    <td data-i18n="vesting_12m_2">12 Months</td>
+                                    <td data-i18n="vesting_36m">36 Months</td>
                                     <td class="text-gray-500">0%</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-white font-bold">Community Rewards</td>
+                                    <td data-i18n="vesting_community" class="text-white font-bold">Community Rewards</td>
                                     <td>0</td>
-                                    <td>240 Months (20 Years)</td>
-                                    <td class="text-tburn-orange">Ongoing</td>
+                                    <td data-i18n="vesting_240m">240 Months (20 Years)</td>
+                                    <td data-i18n="vesting_ongoing" class="text-tburn-orange">Ongoing</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -775,30 +775,30 @@ tburn.on('blockConfirmed', (block) => {
 
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="bg-tburn-card p-6 rounded border border-tburn-border">
-                            <h3 class="text-white font-bold mb-4">Burn Mechanism (AI Optimized)</h3>
+                            <h3 data-i18n="burn_mechanism" class="text-white font-bold mb-4">Burn Mechanism (AI Optimized)</h3>
                             <div class="flex justify-between mb-2 text-sm">
-                                <span class="text-gray-400">Transaction Burn</span>
-                                <span class="text-white">0.7% of Gas</span>
+                                <span data-i18n="burn_tx" class="text-gray-400">Transaction Burn</span>
+                                <span data-i18n="burn_tx_value" class="text-white">0.7% of Gas</span>
                             </div>
                             <div class="flex justify-between mb-2 text-sm">
-                                <span class="text-gray-400">Total Burned</span>
+                                <span data-i18n="burn_total" class="text-gray-400">Total Burned</span>
                                 <span class="text-tburn-orange">350,000,000 TBURN</span>
                             </div>
-                            <div class="mt-4 p-3 bg-red-900/20 text-red-300 text-xs rounded">
+                            <div data-i18n="burn_target" class="mt-4 p-3 bg-red-900/20 text-red-300 text-xs rounded">
                                 Target: 30.6% Deflation over 20 Years
                             </div>
                         </div>
 
                         <div class="bg-tburn-card p-6 rounded border border-tburn-border">
-                            <h3 class="text-white font-bold mb-4">Staking Tiers</h3>
+                            <h3 data-i18n="staking_tiers" class="text-white font-bold mb-4">Staking Tiers</h3>
                             <table class="w-full text-xs text-left">
                                 <thead class="border-b border-gray-700 text-gray-500">
-                                    <tr><th class="pb-2">Tier</th><th class="pb-2">Min Stake</th><th class="pb-2">APY</th></tr>
+                                    <tr><th data-i18n="staking_tier" class="pb-2">Tier</th><th data-i18n="staking_min" class="pb-2">Min Stake</th><th class="pb-2">APY</th></tr>
                                 </thead>
                                 <tbody class="text-gray-300 space-y-2">
-                                    <tr><td class="py-2">Bronze</td><td>100</td><td>5%</td></tr>
-                                    <tr><td class="py-2">Gold</td><td>10,000</td><td>7%</td></tr>
-                                    <tr><td class="py-2 text-tburn-orange font-bold">Diamond</td><td class="text-white">1,000,000</td><td class="text-green-400 font-bold">10%</td></tr>
+                                    <tr><td data-i18n="staking_bronze" class="py-2">Bronze</td><td>100</td><td>5%</td></tr>
+                                    <tr><td data-i18n="staking_gold" class="py-2">Gold</td><td>10,000</td><td>7%</td></tr>
+                                    <tr><td data-i18n="staking_diamond" class="py-2 text-tburn-orange font-bold">Diamond</td><td class="text-white">1,000,000</td><td class="text-green-400 font-bold">10%</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -814,38 +814,38 @@ tburn.on('blockConfirmed', (block) => {
                         <div class="bg-tburn-card p-5 rounded border border-tburn-border">
                             <div class="flex items-center gap-2 mb-3">
                                 <i class="fas fa-image text-purple-500"></i>
-                                <h3 class="font-bold text-white">Genesis NFT</h3>
+                                <h3 data-i18n="eco_genesis_nft" class="font-bold text-white">Genesis NFT</h3>
                             </div>
-                            <p class="text-xs text-gray-400 mb-3">Total Supply: 17,600</p>
+                            <p data-i18n="eco_nft_supply" class="text-xs text-gray-400 mb-3">Total Supply: 17,600</p>
                             <div class="space-y-1 text-xs">
-                                <div class="flex justify-between"><span class="text-yellow-500">Legendary</span> <span>100 (5x Vote)</span></div>
-                                <div class="flex justify-between"><span class="text-purple-400">Epic</span> <span>500 (3x Vote)</span></div>
+                                <div class="flex justify-between"><span data-i18n="eco_legendary" class="text-yellow-500">Legendary</span> <span data-i18n="eco_legendary_vote">100 (5x Vote)</span></div>
+                                <div class="flex justify-between"><span data-i18n="eco_epic" class="text-purple-400">Epic</span> <span data-i18n="eco_epic_vote">500 (3x Vote)</span></div>
                             </div>
                         </div>
                         
                         <div class="bg-tburn-card p-5 rounded border border-tburn-border">
                             <div class="flex items-center gap-2 mb-3">
                                 <i class="fas fa-university text-tburn-orange"></i>
-                                <h3 class="font-bold text-white">DAO Governance</h3>
+                                <h3 data-i18n="eco_dao" class="font-bold text-white">DAO Governance</h3>
                             </div>
-                            <p class="text-xs text-gray-400 mb-3">Treasury: $925,000,000</p>
+                            <p data-i18n="eco_treasury" class="text-xs text-gray-400 mb-3">Treasury: $925,000,000</p>
                             <div class="text-xs space-y-1">
-                                <div>Quorum: 50% (5B TBURN)</div>
-                                <div>Pass Rate: 50%+1</div>
-                                <div class="text-green-400">TIP-001 ~ TIP-006 Executed</div>
+                                <div data-i18n="eco_quorum">Quorum: 50% (5B TBURN)</div>
+                                <div data-i18n="eco_pass_rate">Pass Rate: 50%+1</div>
+                                <div data-i18n="eco_tips" class="text-green-400">TIP-001 ~ TIP-006 Executed</div>
                             </div>
                         </div>
 
                         <div class="bg-tburn-card p-5 rounded border border-tburn-border">
                             <div class="flex items-center gap-2 mb-3">
                                 <i class="fas fa-check-circle text-green-500"></i>
-                                <h3 class="font-bold text-white">Compliance</h3>
+                                <h3 data-i18n="eco_compliance" class="font-bold text-white">Compliance</h3>
                             </div>
                             <div class="grid grid-cols-2 gap-2 text-xs text-center">
                                 <div class="bg-white/5 p-1 rounded">SOC 2 Type II</div>
                                 <div class="bg-white/5 p-1 rounded">ISO 27001</div>
                                 <div class="bg-white/5 p-1 rounded">GDPR</div>
-                                <div class="bg-white/5 p-1 rounded">MiCA Ready</div>
+                                <div data-i18n="eco_mica" class="bg-white/5 p-1 rounded">MiCA Ready</div>
                             </div>
                         </div>
                     </div>
@@ -860,41 +860,41 @@ tburn.on('blockConfirmed', (block) => {
                     <div class="relative border-l border-gray-700 ml-4 space-y-12">
                         <div class="relative pl-8">
                             <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-green-500 rounded-full shadow-glow"></div>
-                            <h3 class="text-xl font-bold text-green-400">Phase 3: Mainnet (Q4 2024) - CURRENT</h3>
+                            <h3 data-i18n="roadmap_phase3" class="text-xl font-bold text-green-400">Phase 3: Mainnet (Q4 2024) - CURRENT</h3>
                             <ul class="mt-2 text-sm text-gray-400 list-disc list-inside">
-                                <li>Mainnet v8.0 Launch ✅</li>
-                                <li>50,908 TPS Achieved ✅</li>
-                                <li>125 Distributed Validators ✅</li>
-                                <li>7-Chain Bridge Live ✅</li>
+                                <li data-i18n="roadmap_p3_1">Mainnet v8.0 Launch ✅</li>
+                                <li data-i18n="roadmap_p3_2">50,908 TPS Achieved ✅</li>
+                                <li data-i18n="roadmap_p3_3">125 Distributed Validators ✅</li>
+                                <li data-i18n="roadmap_p3_4">7-Chain Bridge Live ✅</li>
                             </ul>
                         </div>
 
                         <div class="relative pl-8">
                             <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-tburn-orange rounded-full animate-pulse"></div>
-                            <h3 class="text-xl font-bold text-tburn-orange">Phase 4: Ecosystem (Q1-Q2 2025)</h3>
+                            <h3 data-i18n="roadmap_phase4" class="text-xl font-bold text-tburn-orange">Phase 4: Ecosystem (Q1-Q2 2025)</h3>
                             <ul class="mt-2 text-sm text-gray-400 list-disc list-inside">
-                                <li>DEX & Lending Protocol Launch</li>
-                                <li>NFT Marketplace</li>
-                                <li>GameFi Hub</li>
-                                <li>Target: 10,000+ Validators</li>
+                                <li data-i18n="roadmap_p4_1">DEX & Lending Protocol Launch</li>
+                                <li data-i18n="roadmap_p4_2">NFT Marketplace</li>
+                                <li data-i18n="roadmap_p4_3">GameFi Hub</li>
+                                <li data-i18n="roadmap_p4_4">Target: 10,000+ Validators</li>
                             </ul>
                         </div>
 
                         <div class="relative pl-8">
                             <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-gray-500 rounded-full"></div>
-                            <h3 class="text-xl font-bold text-gray-300">Phase 5: Expansion (Q3-Q4 2025)</h3>
-                            <p class="text-sm text-gray-500 mt-1">Enterprise Partnerships, Govt Adoption, Layer 2 Solutions.</p>
+                            <h3 data-i18n="roadmap_phase5" class="text-xl font-bold text-gray-300">Phase 5: Expansion (Q3-Q4 2025)</h3>
+                            <p data-i18n="roadmap_p5_desc" class="text-sm text-gray-500 mt-1">Enterprise Partnerships, Govt Adoption, Layer 2 Solutions.</p>
                         </div>
                         
                         <div class="mt-8 bg-tburn-card p-4 rounded border border-tburn-border">
-                            <h4 class="text-white font-bold mb-2">20-Year Price Projection (Neutral Case)</h4>
+                            <h4 data-i18n="price_projection" class="text-white font-bold mb-2">20-Year Price Projection (Neutral Case)</h4>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-xs text-left">
                                     <thead class="text-gray-500 border-b border-gray-700">
                                         <tr>
-                                            <th class="py-2">Year</th>
-                                            <th>Price</th>
-                                            <th>Market Cap</th>
+                                            <th data-i18n="price_year" class="py-2">Year</th>
+                                            <th data-i18n="price_price">Price</th>
+                                            <th data-i18n="price_mcap">Market Cap</th>
                                             <th>ROI</th>
                                         </tr>
                                     </thead>
@@ -914,27 +914,27 @@ tburn.on('blockConfirmed', (block) => {
                     <div class="grid md:grid-cols-4 gap-8 mb-12">
                         <div>
                             <div class="text-xl font-bold text-white mb-4">TBURN Foundation</div>
-                            <div class="text-sm text-gray-500">Seoul, South Korea</div>
+                            <div data-i18n="footer_location" class="text-sm text-gray-500">Seoul, South Korea</div>
                             <div class="text-sm text-gray-500">contact@tburn.io</div>
                         </div>
                         <div>
-                            <div class="font-bold text-white mb-4">Resources</div>
+                            <div data-i18n="footer_resources" class="font-bold text-white mb-4">Resources</div>
                             <ul class="space-y-2 text-sm text-gray-500">
-                                <li><a href="#" class="hover:text-tburn-orange">Whitepaper</a></li>
-                                <li><a href="#" class="hover:text-tburn-orange">Brand Kit</a></li>
+                                <li><a data-i18n="footer_whitepaper" href="#" class="hover:text-tburn-orange">Whitepaper</a></li>
+                                <li><a data-i18n="footer_brandkit" href="#" class="hover:text-tburn-orange">Brand Kit</a></li>
                                 <li><a href="#" class="hover:text-tburn-orange">GitHub</a></li>
                             </ul>
                         </div>
                         <div>
-                            <div class="font-bold text-white mb-4">Developers</div>
+                            <div data-i18n="footer_developers" class="font-bold text-white mb-4">Developers</div>
                             <ul class="space-y-2 text-sm text-gray-500">
-                                <li><a href="#" class="hover:text-tburn-orange">Documentation</a></li>
+                                <li><a data-i18n="footer_docs" href="#" class="hover:text-tburn-orange">Documentation</a></li>
                                 <li><a href="#" class="hover:text-tburn-orange">Enterprise SDK</a></li>
-                                <li><a href="#" class="hover:text-tburn-orange">Bug Bounty</a></li>
+                                <li><a data-i18n="footer_bounty" href="#" class="hover:text-tburn-orange">Bug Bounty</a></li>
                             </ul>
                         </div>
                         <div>
-                            <div class="font-bold text-white mb-4">Social</div>
+                            <div data-i18n="footer_social" class="font-bold text-white mb-4">Social</div>
                             <div class="flex gap-4">
                                 <a href="#" class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center hover:bg-tburn-orange hover:text-white transition"><i class="fab fa-twitter"></i></a>
                                 <a href="#" class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center hover:bg-tburn-orange hover:text-white transition"><i class="fab fa-discord"></i></a>
@@ -1085,16 +1085,106 @@ tburn.on('blockConfirmed', (block) => {
             validators_text: "메인넷 출시와 함께 1,600명의 재단 팀 밸리데이터가 네트워크를 운영합니다. 커뮤니티 밸리데이터 프로그램을 통해 점진적으로 분산화를 확대합니다.",
             section_bridge: "12. 크로스체인 브릿지",
             bridge_text: "TBURN Bridge는 이더리움, BNB Chain, 폴리곤, 솔라나와의 자산 이동을 지원합니다. AI 기반 리스크 분석이 모든 브릿지 트랜잭션을 모니터링합니다.",
+            bridge_supported_chains: "지원 체인 (7개)",
+            bridge_security_model: "보안 모델",
+            bridge_multisig: "다중 서명 (12/12 밸리데이터)",
+            bridge_insurance: "$5,000만 보험 펀드",
+            bridge_ai_anomaly: "AI 이상 탐지",
+            bridge_limits: "한도",
+            bridge_single_max: "단일 최대: $250만",
+            bridge_hourly_limit: "시간당 체인 한도: $5,000만",
             section_tokenomics: "13. 토크노믹스",
             tokenomics_subtitle: "20년 지속 가능한 디플레이션 모델 (총 공급량: 10B TBURN)",
             tokenomics_text: "총 공급량: 1,000,000,000 TBURN. 스테이킹 보상, 생태계 발전, 팀 배분이 투명하게 운영됩니다.",
+            token_distribution: "토큰 배분",
+            token_community: "커뮤니티 30%",
+            token_rewards: "보상 23%",
+            token_investors: "투자자 20%",
+            token_eco: "생태계 15%",
+            token_team: "팀 12%",
+            vesting_schedules: "베스팅 일정",
+            vesting_allocation: "할당",
+            vesting_cliff: "클리프",
+            vesting_vesting: "베스팅",
+            vesting_tge: "TGE 잠금해제",
+            vesting_team: "팀",
+            vesting_12m: "12개월",
+            vesting_48m: "48개월",
+            vesting_seed: "시드 투자자",
+            vesting_12m_2: "12개월",
+            vesting_36m: "36개월",
+            vesting_community: "커뮤니티 보상",
+            vesting_240m: "240개월 (20년)",
+            vesting_ongoing: "진행 중",
+            burn_mechanism: "소각 메커니즘 (AI 최적화)",
+            burn_tx: "거래 소각",
+            burn_tx_value: "가스의 0.7%",
+            burn_total: "총 소각량",
+            burn_target: "목표: 20년간 30.6% 디플레이션",
+            staking_tiers: "스테이킹 등급",
+            staking_tier: "등급",
+            staking_min: "최소 스테이크",
+            staking_bronze: "브론즈",
+            staking_gold: "골드",
+            staking_diamond: "다이아몬드",
             section_ecosystem: "16-19. 생태계 & 보안",
             ecosystem_text: "TBURN 생태계는 DeFi, NFT 마켓플레이스, GameFi를 포함합니다. TBC-721, TBC-1155 토큰 표준이 크리에이터와 개발자를 지원합니다.",
+            eco_genesis_nft: "제네시스 NFT",
+            eco_nft_supply: "총 공급량: 17,600개",
+            eco_legendary: "레전더리",
+            eco_legendary_vote: "100개 (5배 투표권)",
+            eco_epic: "에픽",
+            eco_epic_vote: "500개 (3배 투표권)",
+            eco_dao: "DAO 거버넌스",
+            eco_treasury: "재무: $9.25억",
+            eco_quorum: "정족수: 50% (5B TBURN)",
+            eco_pass_rate: "통과율: 50%+1",
+            eco_tips: "TIP-001 ~ TIP-006 실행됨",
+            eco_compliance: "컴플라이언스",
+            eco_mica: "MiCA 준비완료",
             section_security: "19. 보안 & 컴플라이언스",
             security_text: "양자 내성 암호화, 다중 서명 보안, 실시간 위협 탐지가 네트워크를 보호합니다. 주요 글로벌 규제 요건을 준수합니다.",
             section_roadmap: "21. 로드맵",
             roadmap_subtitle: "미래 확장 계획 (2025-2026+)",
             roadmap_text: "2024년 메인넷 출시 → 2025년 Q1 DEX 출시 → Q2 NFT 마켓플레이스 → Q3 GameFi 허브 → Q4 크로스체인 확장",
+            roadmap_phase3: "Phase 3: 메인넷 (2024 Q4) - 현재",
+            roadmap_p3_1: "메인넷 v8.0 출시 ✅",
+            roadmap_p3_2: "50,908 TPS 달성 ✅",
+            roadmap_p3_3: "125 분산 밸리데이터 ✅",
+            roadmap_p3_4: "7체인 브릿지 라이브 ✅",
+            roadmap_phase4: "Phase 4: 생태계 (2025 Q1-Q2)",
+            roadmap_p4_1: "DEX & 렌딩 프로토콜 출시",
+            roadmap_p4_2: "NFT 마켓플레이스",
+            roadmap_p4_3: "GameFi 허브",
+            roadmap_p4_4: "목표: 10,000+ 밸리데이터",
+            roadmap_phase5: "Phase 5: 확장 (2025 Q3-Q4)",
+            roadmap_p5_desc: "엔터프라이즈 파트너십, 정부 도입, Layer 2 솔루션",
+            price_projection: "20년 가격 전망 (중립 케이스)",
+            price_year: "연도",
+            price_price: "가격",
+            price_mcap: "시가총액",
+            region_na: "북미",
+            region_eu: "유럽",
+            region_ap: "아시아-태평양",
+            region_sa: "남미",
+            region_af: "아프리카",
+            val_tier: "티어",
+            val_count: "수량",
+            val_providers: "프로바이더 예시",
+            val_monthly_cost: "월간 비용",
+            val_specs: "스펙",
+            val_tier1: "Tier 1 (프리미엄)",
+            val_tier2: "Tier 2 (중급)",
+            val_tier3: "Tier 3 (밸류)",
+            val_annual_cost: "연간 총 비용: $84,000 (중앙화 대비 76% 절감)",
+            footer_location: "서울, 대한민국",
+            footer_resources: "리소스",
+            footer_whitepaper: "백서",
+            footer_brandkit: "브랜드 킷",
+            footer_developers: "개발자",
+            footer_docs: "문서",
+            footer_bounty: "버그 바운티",
+            footer_social: "소셜",
             comparison_metric: "지표",
             comparison_tburn: "TBURN Chain",
             comparison_eth: "Ethereum",
@@ -1175,16 +1265,106 @@ tburn.on('blockConfirmed', (block) => {
             validators_text: "With mainnet launch, 1,600 Foundation team validators operate the network. We progressively expand decentralization through the community validator program.",
             section_bridge: "12. Cross-Chain Bridge",
             bridge_text: "TBURN Bridge supports asset transfers with Ethereum, BNB Chain, Polygon, and Solana. AI-powered risk analysis monitors all bridge transactions.",
+            bridge_supported_chains: "Supported Chains (7)",
+            bridge_security_model: "Security Model",
+            bridge_multisig: "Multi-sig (12/12 Validators)",
+            bridge_insurance: "$50M Insurance Fund",
+            bridge_ai_anomaly: "AI Anomaly Detection",
+            bridge_limits: "Limits",
+            bridge_single_max: "Single Max: $2.5M",
+            bridge_hourly_limit: "Hourly Chain Limit: $50M",
             section_tokenomics: "13. Tokenomics",
             tokenomics_subtitle: "20-Year Sustainable Deflation Model (Total Supply: 10B TBURN)",
             tokenomics_text: "Total Supply: 1,000,000,000 TBURN. Staking rewards, ecosystem development, and team allocation are transparently managed.",
+            token_distribution: "Token Distribution",
+            token_community: "Community 30%",
+            token_rewards: "Rewards 23%",
+            token_investors: "Investors 20%",
+            token_eco: "Eco 15%",
+            token_team: "Team 12%",
+            vesting_schedules: "Vesting Schedules",
+            vesting_allocation: "Allocation",
+            vesting_cliff: "Cliff",
+            vesting_vesting: "Vesting",
+            vesting_tge: "TGE Unlock",
+            vesting_team: "Team",
+            vesting_12m: "12 Months",
+            vesting_48m: "48 Months",
+            vesting_seed: "Seed Investors",
+            vesting_12m_2: "12 Months",
+            vesting_36m: "36 Months",
+            vesting_community: "Community Rewards",
+            vesting_240m: "240 Months (20 Years)",
+            vesting_ongoing: "Ongoing",
+            burn_mechanism: "Burn Mechanism (AI Optimized)",
+            burn_tx: "Transaction Burn",
+            burn_tx_value: "0.7% of Gas",
+            burn_total: "Total Burned",
+            burn_target: "Target: 30.6% Deflation over 20 Years",
+            staking_tiers: "Staking Tiers",
+            staking_tier: "Tier",
+            staking_min: "Min Stake",
+            staking_bronze: "Bronze",
+            staking_gold: "Gold",
+            staking_diamond: "Diamond",
             section_ecosystem: "16-19. Ecosystem & Security",
             ecosystem_text: "The TBURN ecosystem includes DeFi, NFT marketplace, and GameFi. TBC-721 and TBC-1155 token standards support creators and developers.",
+            eco_genesis_nft: "Genesis NFT",
+            eco_nft_supply: "Total Supply: 17,600",
+            eco_legendary: "Legendary",
+            eco_legendary_vote: "100 (5x Vote)",
+            eco_epic: "Epic",
+            eco_epic_vote: "500 (3x Vote)",
+            eco_dao: "DAO Governance",
+            eco_treasury: "Treasury: $925,000,000",
+            eco_quorum: "Quorum: 50% (5B TBURN)",
+            eco_pass_rate: "Pass Rate: 50%+1",
+            eco_tips: "TIP-001 ~ TIP-006 Executed",
+            eco_compliance: "Compliance",
+            eco_mica: "MiCA Ready",
             section_security: "19. Security & Compliance",
             security_text: "Quantum-resistant cryptography, multi-signature security, and real-time threat detection protect the network. We comply with major global regulatory requirements.",
             section_roadmap: "21. Roadmap",
             roadmap_subtitle: "Future Expansion Plan (2025-2026+)",
             roadmap_text: "2024 Mainnet Launch → 2025 Q1 DEX Launch → Q2 NFT Marketplace → Q3 GameFi Hub → Q4 Cross-Chain Expansion",
+            roadmap_phase3: "Phase 3: Mainnet (Q4 2024) - CURRENT",
+            roadmap_p3_1: "Mainnet v8.0 Launch ✅",
+            roadmap_p3_2: "50,908 TPS Achieved ✅",
+            roadmap_p3_3: "125 Distributed Validators ✅",
+            roadmap_p3_4: "7-Chain Bridge Live ✅",
+            roadmap_phase4: "Phase 4: Ecosystem (Q1-Q2 2025)",
+            roadmap_p4_1: "DEX & Lending Protocol Launch",
+            roadmap_p4_2: "NFT Marketplace",
+            roadmap_p4_3: "GameFi Hub",
+            roadmap_p4_4: "Target: 10,000+ Validators",
+            roadmap_phase5: "Phase 5: Expansion (Q3-Q4 2025)",
+            roadmap_p5_desc: "Enterprise Partnerships, Govt Adoption, Layer 2 Solutions.",
+            price_projection: "20-Year Price Projection (Neutral Case)",
+            price_year: "Year",
+            price_price: "Price",
+            price_mcap: "Market Cap",
+            region_na: "North America",
+            region_eu: "Europe",
+            region_ap: "Asia-Pacific",
+            region_sa: "South America",
+            region_af: "Africa",
+            val_tier: "Tier",
+            val_count: "Count",
+            val_providers: "Providers Example",
+            val_monthly_cost: "Monthly Cost",
+            val_specs: "Specs",
+            val_tier1: "Tier 1 (Premium)",
+            val_tier2: "Tier 2 (Mid)",
+            val_tier3: "Tier 3 (Value)",
+            val_annual_cost: "Total Annual Cost: $84,000 (76% Savings vs Centralized)",
+            footer_location: "Seoul, South Korea",
+            footer_resources: "Resources",
+            footer_whitepaper: "Whitepaper",
+            footer_brandkit: "Brand Kit",
+            footer_developers: "Developers",
+            footer_docs: "Documentation",
+            footer_bounty: "Bug Bounty",
+            footer_social: "Social",
             comparison_metric: "Metric",
             comparison_tburn: "TBURN Chain",
             comparison_eth: "Ethereum",
