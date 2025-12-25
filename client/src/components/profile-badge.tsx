@@ -24,10 +24,11 @@ import {
   Plus,
   Home,
   LayoutGrid,
-  Search,
-  Settings,
   HelpCircle,
-  Link2,
+  ScanLine,
+  TreeDeciduous,
+  Image as ImageIcon,
+  Bug,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
@@ -267,8 +268,8 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
           }}
         >
           {/* Quick Navigation Icons */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-muted/20">
-            <Link href="/app" onClick={() => setIsOpen(false)}>
+          <div className="flex items-center justify-between px-3 py-2.5 border-b border-border/40 bg-muted/20">
+            <Link href="/" onClick={() => setIsOpen(false)}>
               <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.home", "홈")} data-testid="nav-home">
                 <Home className="h-4 w-4 text-muted-foreground hover:text-foreground" />
               </button>
@@ -278,29 +279,39 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                 <User className="h-4 w-4 text-muted-foreground hover:text-foreground" />
               </button>
             </Link>
-            <Link href="/app/staking" onClick={() => setIsOpen(false)}>
-              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.staking", "스테이킹")} data-testid="nav-staking">
-                <Shield className="h-4 w-4 text-muted-foreground hover:text-foreground" />
-              </button>
-            </Link>
             <Link href="/app" onClick={() => setIsOpen(false)}>
               <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.apps", "앱")} data-testid="nav-apps">
                 <LayoutGrid className="h-4 w-4 text-muted-foreground hover:text-foreground" />
               </button>
             </Link>
-            <Link href="/app/wallet-dashboard" onClick={() => setIsOpen(false)}>
-              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.wallet", "지갑")} data-testid="nav-wallet">
-                <Wallet className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+            <Link href="/tree" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.tree", "트리")} data-testid="nav-tree">
+                <TreeDeciduous className="h-4 w-4 text-muted-foreground hover:text-foreground" />
               </button>
             </Link>
             <Link href="/scan" onClick={() => setIsOpen(false)}>
               <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.explorer", "탐색기")} data-testid="nav-explorer">
-                <Search className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+                <ScanLine className="h-4 w-4 text-muted-foreground hover:text-foreground" />
               </button>
             </Link>
-            <Link href="/app/bridge" onClick={() => setIsOpen(false)}>
-              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.bridge", "브릿지")} data-testid="nav-bridge">
-                <Link2 className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+            <Link href="/token-generator" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.tokenGenerator", "토큰생성")} data-testid="nav-token-generator">
+                <Coins className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/nft-marketplace" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.nftMarket", "NFT마켓")} data-testid="nav-nft-marketplace">
+                <ImageIcon className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/security-audit" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.securityAudit", "보안감사")} data-testid="nav-security-audit">
+                <Shield className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/bug-bounty" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.bugBounty", "버그바운티")} data-testid="nav-bug-bounty">
+                <Bug className="h-4 w-4 text-muted-foreground hover:text-foreground" />
               </button>
             </Link>
             <Link href="/qna" onClick={() => setIsOpen(false)}>
