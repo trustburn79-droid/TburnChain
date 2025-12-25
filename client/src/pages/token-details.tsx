@@ -169,7 +169,11 @@ export default function TokenDetails() {
 
         .td-hero { padding: 100px 0 60px; text-align: center; position: relative; }
         .td-hero h1 {
-          font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; margin-bottom: 20px;
+          font-size: clamp(3rem, 6vw, 4.5rem);
+          font-weight: 700;
+          margin-bottom: 24px;
+          letter-spacing: -0.025em;
+          line-height: 1.1;
           background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -317,7 +321,7 @@ export default function TokenDetails() {
         .td-mt-6 { margin-top: 24px; }
 
         @media (max-width: 768px) {
-          .td-hero h1 { font-size: 2rem; }
+          .td-hero h1 { font-size: 2.5rem; }
           .td-section-title { font-size: 1.5rem; }
           .td-card { padding: 20px; }
         }
