@@ -24,7 +24,6 @@ import {
   Plus,
   Home,
   LayoutGrid,
-  HelpCircle,
   ScanLine,
   TreeDeciduous,
   Image as ImageIcon,
@@ -312,11 +311,6 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
             <Link href="/bug-bounty" onClick={() => setIsOpen(false)}>
               <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.bugBounty", "버그바운티")} data-testid="nav-bug-bounty">
                 <Bug className="h-4 w-4 text-muted-foreground hover:text-foreground" />
-              </button>
-            </Link>
-            <Link href="/qna" onClick={() => setIsOpen(false)}>
-              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.help", "도움말")} data-testid="nav-help">
-                <HelpCircle className="h-4 w-4 text-muted-foreground hover:text-foreground" />
               </button>
             </Link>
           </div>
