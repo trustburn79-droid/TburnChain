@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { TBurnLogo } from "@/components/tburn-logo";
+import { Home, ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
 
 export default function TokenSchedule() {
   useEffect(() => {
@@ -148,6 +149,25 @@ export default function TokenSchedule() {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+        }
+        .ts-header-icons {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .ts-header-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          color: var(--ts-text-muted);
+          transition: all 0.2s ease;
+        }
+        .ts-header-icon:hover {
+          color: var(--ts-primary);
+          background: rgba(255, 107, 53, 0.1);
         }
 
         .ts-nav-wrapper {
@@ -347,7 +367,16 @@ export default function TokenSchedule() {
               <TBurnLogo className="w-10 h-10" showText={false} />
               <div className="ts-logo-text ts-font-orbitron">TBURN</div>
             </div>
-            <div className="ts-badge ts-bg-ocean">v3.0.0 Enterprise Edition</div>
+            <div className="ts-header-icons">
+              <a href="/" className="ts-header-icon" title="Home"><Home size={18} /></a>
+              <a href="/scan" className="ts-header-icon" title="Scan"><ScanLine size={18} /></a>
+              <a href="/user" className="ts-header-icon" title="User"><User size={18} /></a>
+              <a href="/bug-bounty" className="ts-header-icon" title="Bug Bounty"><Bug size={18} /></a>
+              <a href="/security-audit" className="ts-header-icon" title="Security Audit"><Shield size={18} /></a>
+              <a href="/token-generator" className="ts-header-icon" title="Token Generator"><Coins size={18} /></a>
+              <a href="/nft-marketplace" className="ts-header-icon" title="NFT Marketplace"><ImageIcon size={18} /></a>
+              <a href="/qna" className="ts-header-icon" title="QnA"><HelpCircle size={18} /></a>
+            </div>
           </div>
         </header>
 

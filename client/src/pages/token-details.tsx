@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { TBurnLogo } from "@/components/tburn-logo";
+import { Home, ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
 
 export default function TokenDetails() {
   useEffect(() => {
@@ -143,6 +144,25 @@ export default function TokenDetails() {
           background: linear-gradient(to right, #fff, #ccc);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text;
+        }
+        .td-header-icons {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .td-header-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          color: var(--td-text-muted);
+          transition: all 0.2s ease;
+        }
+        .td-header-icon:hover {
+          color: var(--td-primary);
+          background: rgba(255, 107, 53, 0.1);
         }
 
         .td-nav-wrapper {
@@ -339,7 +359,16 @@ export default function TokenDetails() {
               <TBurnLogo className="w-10 h-10" showText={false} />
               <div className="td-logo-text td-font-orbitron">TBURN</div>
             </div>
-            <div className="td-badge td-bg-ocean">v3.0.0 Enterprise</div>
+            <div className="td-header-icons">
+              <a href="/" className="td-header-icon" title="Home"><Home size={18} /></a>
+              <a href="/scan" className="td-header-icon" title="Scan"><ScanLine size={18} /></a>
+              <a href="/user" className="td-header-icon" title="User"><User size={18} /></a>
+              <a href="/bug-bounty" className="td-header-icon" title="Bug Bounty"><Bug size={18} /></a>
+              <a href="/security-audit" className="td-header-icon" title="Security Audit"><Shield size={18} /></a>
+              <a href="/token-generator" className="td-header-icon" title="Token Generator"><Coins size={18} /></a>
+              <a href="/nft-marketplace" className="td-header-icon" title="NFT Marketplace"><ImageIcon size={18} /></a>
+              <a href="/qna" className="td-header-icon" title="QnA"><HelpCircle size={18} /></a>
+            </div>
           </div>
         </header>
 
