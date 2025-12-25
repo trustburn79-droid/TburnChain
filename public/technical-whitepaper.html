@@ -37,110 +37,249 @@
       font-size: 16px;
     }
     
-    /* Top Navigation Bar */
+    /* Top Navigation Bar - Matching /tree page exactly */
     .top-navbar {
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      height: 56px;
-      background: rgba(18, 18, 26, 0.95);
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      z-index: 1000;
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .top-navbar {
+        background: rgba(17, 24, 39, 0.8);
+        border-bottom-color: #1f2937;
+      }
+    }
+    
+    .navbar-container {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
     }
     
     .navbar-left {
       display: flex;
       align-items: center;
-      gap: 12px;
-    }
-    
-    .navbar-logo {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #ff6b35 0%, #ffd700 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
+      gap: 0.75rem;
     }
     
     .navbar-brand {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 0.375rem;
       text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .navbar-brand:hover .navbar-logo {
+      transform: scale(1.1);
+    }
+    
+    .navbar-logo {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.2s;
     }
     
     .navbar-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.025em;
+      color: #0f172a;
     }
     
-    .navbar-title span {
-      color: var(--accent-cyan);
+    @media (prefers-color-scheme: dark) {
+      .navbar-title {
+        color: #ffffff;
+      }
+    }
+    
+    .navbar-title-accent {
+      color: #22d3ee;
+      font-weight: 300;
     }
     
     .navbar-divider {
-      width: 1px;
-      height: 24px;
-      background: var(--border-color);
-      margin: 0 12px;
+      color: #cbd5e1;
+      display: none;
     }
     
-    .navbar-badge {
-      background: rgba(0, 240, 255, 0.1);
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--accent-cyan);
-      font-family: 'JetBrains Mono', monospace;
+    @media (min-width: 640px) {
+      .navbar-divider {
+        display: inline;
+      }
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .navbar-divider {
+        color: #4b5563;
+      }
+    }
+    
+    .navbar-page-title {
+      color: #475569;
+      display: none;
+    }
+    
+    @media (min-width: 640px) {
+      .navbar-page-title {
+        display: inline;
+      }
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .navbar-page-title {
+        color: #9ca3af;
+      }
     }
     
     .navbar-right {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 0;
+    }
+    
+    @media (min-width: 640px) {
+      .navbar-right {
+        gap: 0.5rem;
+      }
+    }
+    
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    
+    @media (min-width: 640px) {
+      .nav-buttons {
+        gap: 0.25rem;
+      }
     }
     
     .nav-icon {
-      width: 36px;
-      height: 36px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: 8px;
-      color: var(--text-secondary);
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      height: 1.75rem;
+      width: 1.75rem;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    
+    @media (min-width: 640px) {
+      .nav-icon {
+        height: 2.25rem;
+        width: 2.25rem;
+      }
     }
     
     .nav-icon:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-primary);
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .nav-icon {
+        color: #9ca3af;
+      }
+      .nav-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+      }
     }
     
     .nav-icon svg {
-      width: 18px;
-      height: 18px;
+      width: 0.75rem;
+      height: 0.75rem;
     }
     
-    .nav-icon.highlight {
-      background: rgba(0, 240, 255, 0.1);
-      color: var(--accent-cyan);
+    @media (min-width: 640px) {
+      .nav-icon svg {
+        width: 1rem;
+        height: 1rem;
+      }
     }
     
-    .nav-icon.highlight:hover {
-      background: rgba(0, 240, 255, 0.2);
+    .nav-separator {
+      display: none;
+      width: 1px;
+      height: 1.5rem;
+      background: #e2e8f0;
+      margin: 0 0.25rem;
+    }
+    
+    @media (min-width: 640px) {
+      .nav-separator {
+        display: block;
+      }
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .nav-separator {
+        background: #374151;
+      }
+    }
+    
+    .lang-select {
+      background: transparent;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      color: #475569;
+      cursor: pointer;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .lang-select {
+        border-color: #374151;
+        color: #9ca3af;
+        background: #1f2937;
+      }
+    }
+    
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.375rem;
+      height: 2.25rem;
+      width: 2.25rem;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    
+    .theme-toggle:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .theme-toggle {
+        color: #9ca3af;
+      }
+      .theme-toggle:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+      }
     }
     
     .container {
@@ -149,16 +288,15 @@
       padding: 0 24px;
     }
     
-    header {
+    .main-header {
       background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-      padding: 80px 0 60px;
-      padding-top: 120px;
+      padding: 60px 0;
       border-bottom: 1px solid var(--border-color);
       position: relative;
       overflow: hidden;
     }
     
-    header::before {
+    .main-header::before {
       content: '';
       position: absolute;
       top: 0;
@@ -228,9 +366,6 @@
       background: var(--bg-secondary);
       padding: 20px 0;
       border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 56px;
-      z-index: 100;
     }
     
     .toc-title {
@@ -530,96 +665,144 @@
       h2 { font-size: 24px; }
       .spec-grid { grid-template-columns: repeat(2, 1fr); }
       .meta-info { gap: 12px; }
-      header { padding: 100px 0 40px; }
-      .top-navbar { padding: 0 12px; }
-      .navbar-badge { display: none; }
-      .navbar-right { gap: 0; }
-      .nav-icon { width: 32px; height: 32px; }
     }
   </style>
 </head>
 <body>
-  <!-- Top Navigation Bar -->
-  <nav class="top-navbar">
-    <div class="navbar-left">
-      <a href="/" class="navbar-brand">
-        <div class="navbar-logo">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C11 4 9 6 9 9C9 11 10 13 12 14C14 13 15 11 15 9C15 6 13 4 12 2Z" fill="#ff6b35"/>
-            <path d="M12 14C10 15 9 17 9 19C9 21 10.5 22 12 22C13.5 22 15 21 15 19C15 17 14 15 12 14Z" fill="#ffd700"/>
-            <path d="M8 8C6.5 9 5.5 11 6 13C6.5 15 8 16 10 16" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M16 8C17.5 9 18.5 11 18 13C17.5 15 16 16 14 16" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+  <!-- Top Navigation Bar - Exact /tree page header -->
+  <header class="top-navbar">
+    <div class="navbar-container">
+      <div class="navbar-left">
+        <a href="/" class="navbar-brand">
+          <div class="navbar-logo">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="flameGradient" x1="20" y1="0" x2="20" y2="40" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#ff6b35"/>
+                  <stop offset="50%" stop-color="#ff8c42"/>
+                  <stop offset="100%" stop-color="#ffd700"/>
+                </linearGradient>
+              </defs>
+              <path d="M20 2C18 6 14 10 14 16C14 20 16 24 20 26C24 24 26 20 26 16C26 10 22 6 20 2Z" fill="url(#flameGradient)"/>
+              <path d="M20 26C16 28 14 32 14 36C14 38 16 40 20 40C24 40 26 38 26 36C26 32 24 28 20 26Z" fill="#ffd700"/>
+              <path d="M12 14C9 16 7 20 8 24C9 28 12 30 16 30" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+              <path d="M28 14C31 16 33 20 32 24C31 28 28 30 24 30" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+            </svg>
+          </div>
+          <span class="navbar-title">TBurn <span class="navbar-title-accent">Chain</span></span>
+        </a>
+        <span class="navbar-divider">/</span>
+        <span class="navbar-page-title">Technical Whitepaper</span>
+      </div>
+      <div class="navbar-right">
+        <div class="nav-buttons">
+          <!-- Home -->
+          <a href="/" class="nav-icon" title="Home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </a>
+          <!-- Scan -->
+          <a href="/scan" class="nav-icon" title="Scan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+              <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+              <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+              <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+              <line x1="7" y1="12" x2="17" y2="12"></line>
+            </svg>
+          </a>
+          <!-- User -->
+          <a href="/user" class="nav-icon" title="User">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+          <!-- Bug Bounty -->
+          <a href="/bug-bounty" class="nav-icon" title="Bug Bounty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="8" height="14" x="8" y="6" rx="4"></rect>
+              <path d="m19 7-3 2"></path>
+              <path d="m5 7 3 2"></path>
+              <path d="m19 19-3-2"></path>
+              <path d="m5 19 3-2"></path>
+              <path d="M20 13h-4"></path>
+              <path d="M4 13h4"></path>
+              <path d="m10 4 1 2"></path>
+              <path d="m14 4-1 2"></path>
+            </svg>
+          </a>
+          <!-- Security Audit -->
+          <a href="/security-audit" class="nav-icon" title="Security Audit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </a>
+          <!-- Token Generator -->
+          <a href="/token-generator" class="nav-icon" title="Token Generator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path>
+              <path d="M7 6h1v4"></path>
+              <path d="m16.71 13.88.7.71-2.82 2.82"></path>
+            </svg>
+          </a>
+          <!-- NFT Marketplace -->
+          <a href="/nft-marketplace" class="nav-icon" title="NFT Marketplace">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+              <circle cx="9" cy="9" r="2"></circle>
+              <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+            </svg>
+          </a>
+          <!-- QnA -->
+          <a href="/qna" class="nav-icon" title="QnA">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <path d="M12 17h.01"></path>
+            </svg>
+          </a>
+          <div class="nav-separator"></div>
         </div>
-        <span class="navbar-title">TBurn <span>Chain</span></span>
-      </a>
-      <div class="navbar-divider"></div>
-      <span class="navbar-badge">WHITEPAPER v9.0</span>
+        <!-- Language Selector -->
+        <select class="lang-select" onchange="window.location.href='?lang='+this.value">
+          <option value="en">EN</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+        </select>
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+      </div>
     </div>
-    <div class="navbar-right">
-      <!-- Home -->
-      <a href="/" class="nav-icon" title="Home">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
-        </svg>
-      </a>
-      <!-- Network -->
-      <a href="/dashboard" class="nav-icon" title="Network">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-        </svg>
-      </a>
-      <!-- Validators -->
-      <a href="/validators" class="nav-icon" title="Validators">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-      </a>
-      <!-- Staking -->
-      <a href="/staking" class="nav-icon" title="Staking">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="16"></line>
-          <line x1="8" y1="12" x2="16" y2="12"></line>
-        </svg>
-      </a>
-      <!-- Governance -->
-      <a href="/governance" class="nav-icon" title="Governance">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7"></rect>
-          <rect x="14" y="3" width="7" height="7"></rect>
-          <rect x="14" y="14" width="7" height="7"></rect>
-          <rect x="3" y="14" width="7" height="7"></rect>
-        </svg>
-      </a>
-      <!-- API Docs -->
-      <a href="/developers/api" class="nav-icon" title="API Documentation">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-        </svg>
-      </a>
-      <!-- GitHub -->
-      <a href="https://github.com/tburn-chain" class="nav-icon" target="_blank" title="GitHub">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-        </svg>
-      </a>
-      <!-- Website -->
-      <a href="https://tburn.io" class="nav-icon highlight" target="_blank" title="Website">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="2" y1="12" x2="22" y2="12"></line>
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-        </svg>
-      </a>
-    </div>
-  </nav>
+  </header>
+  
+  <script>
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 
-  <header>
+  <div class="main-header">
     <div class="container header-content">
       <div class="version-badge">
         <span>TECHNICAL WHITEPAPER</span>
@@ -634,7 +817,7 @@
         <div class="meta-item"><strong>Status:</strong> Production</div>
       </div>
     </div>
-  </header>
+  </div>
 
   <nav class="toc">
     <div class="container">
