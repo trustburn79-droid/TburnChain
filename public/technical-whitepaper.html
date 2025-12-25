@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain Technical Whitepaper v9.0 | Enterprise Blockchain Infrastructure</title>
+  <meta name="description" content="TBURN Chain Technical Whitepaper - Enterprise-grade Layer 1 blockchain with 210,000 TPS, AI-driven consensus, and dynamic sharding architecture.">
+  <meta property="og:title" content="TBURN Chain Technical Whitepaper v9.0">
+  <meta property="og:description" content="Enterprise-grade Layer 1 blockchain infrastructure with AI orchestration and quantum-resistant security.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --text-muted: #6b6b7b;
+      --accent-cyan: #00f0ff;
+      --accent-purple: #7000ff;
+      --accent-green: #00ff9d;
+      --accent-orange: #ff6b35;
+      --accent-gold: #ffd700;
+      --border-color: rgba(255,255,255,0.1);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    header {
+      background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(0,240,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .version-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,240,255,0.1);
+      border: 1px solid rgba(0,240,255,0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      margin-bottom: 20px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+    }
+    
+    .meta-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .meta-item strong {
+      color: var(--text-secondary);
+    }
+    
+    nav.toc {
+      background: var(--bg-secondary);
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .toc-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    
+    .toc-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      list-style: none;
+    }
+    
+    .toc-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    
+    .toc-list a:hover {
+      color: var(--accent-cyan);
+    }
+    
+    main {
+      padding: 60px 0 100px;
+    }
+    
+    section {
+      margin-bottom: 60px;
+    }
+    
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--accent-cyan);
+      display: inline-block;
+    }
+    
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 32px 0 16px;
+      color: var(--accent-cyan);
+    }
+    
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 24px 0 12px;
+      color: var(--text-primary);
+    }
+    
+    p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+    }
+    
+    .highlight {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    
+    .spec-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .spec-card .label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    
+    .spec-card .value {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .spec-card .value.cyan { color: var(--accent-cyan); }
+    .spec-card .value.green { color: var(--accent-green); }
+    .spec-card .value.orange { color: var(--accent-orange); }
+    .spec-card .value.purple { color: var(--accent-purple); }
+    .spec-card .value.gold { color: var(--accent-gold); }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    th {
+      background: var(--bg-card);
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    td {
+      color: var(--text-secondary);
+    }
+    
+    tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+    
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-card);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--accent-cyan);
+    }
+    
+    pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    
+    pre code {
+      background: transparent;
+      padding: 0;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    
+    .formula {
+      background: linear-gradient(135deg, rgba(0,240,255,0.05), rgba(112,0,255,0.05));
+      border: 1px solid rgba(0,240,255,0.2);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 24px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      text-align: center;
+    }
+    
+    .formula .title {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    
+    .formula .equation {
+      font-size: 18px;
+      color: var(--text-primary);
+    }
+    
+    ul, ol {
+      margin: 16px 0 16px 24px;
+      color: var(--text-secondary);
+    }
+    
+    li {
+      margin-bottom: 8px;
+    }
+    
+    .architecture-diagram {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 24px 0;
+      text-align: center;
+    }
+    
+    .diagram-title {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    
+    .layer {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 12px 0;
+      flex-wrap: wrap;
+    }
+    
+    .layer-box {
+      background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(112,0,255,0.1));
+      border: 1px solid rgba(0,240,255,0.3);
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .layer-box.orange {
+      background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(255,215,0,0.1));
+      border-color: rgba(255,107,53,0.3);
+    }
+    
+    .layer-box.green {
+      background: linear-gradient(135deg, rgba(0,255,157,0.1), rgba(0,240,255,0.1));
+      border-color: rgba(0,255,157,0.3);
+    }
+    
+    .layer-box.purple {
+      background: linear-gradient(135deg, rgba(112,0,255,0.1), rgba(0,240,255,0.1));
+      border-color: rgba(112,0,255,0.3);
+    }
+    
+    .connector {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin: 8px 0;
+    }
+    
+    .warning-box {
+      background: rgba(255,107,53,0.1);
+      border: 1px solid rgba(255,107,53,0.3);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      color: var(--accent-orange);
+      font-size: 14px;
+    }
+    
+    .info-box {
+      background: rgba(0,240,255,0.1);
+      border: 1px solid rgba(0,240,255,0.3);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      color: var(--accent-cyan);
+      font-size: 14px;
+    }
+    
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+      text-align: center;
+    }
+    
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 16px;
+    }
+    
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent-cyan);
+    }
+    
+    @media (max-width: 768px) {
+      h1 { font-size: 32px; }
+      h2 { font-size: 24px; }
+      .spec-grid { grid-template-columns: repeat(2, 1fr); }
+      .meta-info { gap: 12px; }
+      header { padding: 60px 0 40px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="version-badge">
+        <span>TECHNICAL WHITEPAPER</span>
+        <span>v9.0</span>
+      </div>
+      <h1>TBURN Chain</h1>
+      <p class="subtitle">Enterprise-Grade Layer 1 Blockchain with AI-Driven Consensus and Dynamic Sharding</p>
+      <div class="meta-info">
+        <div class="meta-item"><strong>Version:</strong> 9.0 (Mainnet)</div>
+        <div class="meta-item"><strong>Date:</strong> December 26, 2025</div>
+        <div class="meta-item"><strong>Chain ID:</strong> 6000 (0x1770)</div>
+        <div class="meta-item"><strong>Status:</strong> Production</div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="container">
+      <div class="toc-title">Table of Contents</div>
+      <ul class="toc-list">
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#consensus">Consensus</a></li>
+        <li><a href="#sharding">Sharding</a></li>
+        <li><a href="#ai-system">AI System</a></li>
+        <li><a href="#tokenomics">Tokenomics</a></li>
+        <li><a href="#token-standards">Token Standards</a></li>
+        <li><a href="#defi">DeFi Stack</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#governance">Governance</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Abstract -->
+    <section id="abstract">
+      <h2>1. Abstract</h2>
+      <p>
+        <span class="highlight">TBURN Chain</span> is an enterprise-grade Layer 1 blockchain platform designed to address the fundamental limitations of existing blockchain networks: scalability, energy efficiency, and intelligent automation. By integrating a novel <span class="highlight">Trust Score-Based BFT Consensus</span>, <span class="highlight">Dynamic Sharding Architecture</span>, and <span class="highlight">Quad-Band AI Orchestration System</span>, TBURN Chain achieves unprecedented throughput of <span class="highlight">210,000+ TPS</span> while maintaining decentralization and security guarantees.
+      </p>
+      <p>
+        The platform introduces a deflationary tokenomics model with an AI-optimized burn mechanism, achieving a projected 30.6% token reduction over 20 years. TBURN Chain supports full EVM compatibility with quantum-resistant cryptographic extensions, enabling seamless migration for existing Ethereum applications while future-proofing against emerging computational threats.
+      </p>
+      
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="label">Peak TPS</div>
+          <div class="value cyan">210,000</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">Block Time</div>
+          <div class="value green">100ms</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">Finality</div>
+          <div class="value orange">1 second</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">Active Validators</div>
+          <div class="value purple">1,600</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section id="architecture">
+      <h2>2. System Architecture</h2>
+      <p>
+        TBURN Chain employs a modular, layered architecture that separates concerns across execution, consensus, data availability, and settlement layers. This design enables independent scaling and upgradeability of each component.
+      </p>
+
+      <div class="architecture-diagram">
+        <div class="diagram-title">TBURN Chain Architecture Stack</div>
+        <div class="layer">
+          <div class="layer-box">DeFi Protocols</div>
+          <div class="layer-box">NFT/GameFi</div>
+          <div class="layer-box">Bridge</div>
+          <div class="layer-box">Governance</div>
+        </div>
+        <div class="connector">↓</div>
+        <div class="layer">
+          <div class="layer-box orange">Smart Contract Layer (EVM + TBC Extensions)</div>
+        </div>
+        <div class="connector">↓</div>
+        <div class="layer">
+          <div class="layer-box green">Quad-Band AI Orchestration System</div>
+        </div>
+        <div class="connector">↓</div>
+        <div class="layer">
+          <div class="layer-box purple">Trust Score BFT Consensus</div>
+          <div class="layer-box purple">Dynamic Sharding Engine</div>
+        </div>
+        <div class="connector">↓</div>
+        <div class="layer">
+          <div class="layer-box">Cross-Shard Messaging</div>
+          <div class="layer-box">State Synchronization</div>
+          <div class="layer-box">P2P Network</div>
+        </div>
+      </div>
+
+      <h3>2.1 Core Components</h3>
+      
+      <h4>Execution Layer</h4>
+      <p>
+        The execution layer implements a fully EVM-compatible virtual machine with extensions for TBURN-specific opcodes. Transactions are processed in parallel across shards with deterministic state transitions.
+      </p>
+
+      <h4>Consensus Layer</h4>
+      <p>
+        Trust Score-Based Byzantine Fault Tolerant (TS-BFT) consensus achieves finality within 1 second by weighting validator votes according to historical performance metrics, stake amount, and network contribution.
+      </p>
+
+      <h4>Data Availability Layer</h4>
+      <p>
+        Each shard maintains its own state tree with cross-shard proofs enabling trustless verification. Archive nodes preserve complete historical data for audit and compliance requirements.
+      </p>
+
+      <h4>AI Orchestration Layer</h4>
+      <p>
+        The Quad-Band AI system continuously monitors network health, optimizes resource allocation, detects anomalies, and executes governance decisions with minimal human intervention.
+      </p>
+
+      <h3>2.2 Network Specifications</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Mainnet</th>
+            <th>Testnet</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Chain ID</td>
+            <td><code>6000 (0x1770)</code></td>
+            <td><code>5900 (0x170C)</code></td>
+          </tr>
+          <tr>
+            <td>RPC Endpoint</td>
+            <td><code>https://tburn.io/rpc</code></td>
+            <td><code>https://tburn.io/testnet-rpc</code></td>
+          </tr>
+          <tr>
+            <td>WebSocket</td>
+            <td><code>wss://tburn.io/ws</code></td>
+            <td><code>wss://tburn.io/testnet-ws</code></td>
+          </tr>
+          <tr>
+            <td>Explorer</td>
+            <td><code>https://tburn.io/scan</code></td>
+            <td><code>https://tburn.io/testnet-scan</code></td>
+          </tr>
+          <tr>
+            <td>Currency Symbol</td>
+            <td>TBURN</td>
+            <td>tTBURN</td>
+          </tr>
+          <tr>
+            <td>Block Time</td>
+            <td>100ms</td>
+            <td>100ms</td>
+          </tr>
+          <tr>
+            <td>Gas Unit</td>
+            <td>Ember (EMB)</td>
+            <td>Ember (EMB)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Consensus -->
+    <section id="consensus">
+      <h2>3. Trust Score-Based BFT Consensus</h2>
+      <p>
+        TBURN Chain introduces an innovative consensus mechanism that extends traditional Byzantine Fault Tolerance with a dynamic trust scoring system. This approach reduces the impact of malicious or underperforming validators while rewarding consistent, high-quality participation.
+      </p>
+
+      <h3>3.1 Trust Score Calculation</h3>
+      <p>
+        Each validator maintains a Trust Score (TS) calculated from multiple performance metrics:
+      </p>
+
+      <div class="formula">
+        <div class="title">Trust Score Formula</div>
+        <div class="equation">
+          TS = α·Uptime + β·BlockProduction + γ·VoteAccuracy + δ·StakeRatio + ε·NetworkContribution
+        </div>
+      </div>
+
+      <p>Where the coefficients are:</p>
+      <ul>
+        <li><strong>α = 0.25:</strong> Validator uptime percentage (99%+ optimal)</li>
+        <li><strong>β = 0.20:</strong> Block production success rate</li>
+        <li><strong>γ = 0.20:</strong> Consensus vote accuracy and timeliness</li>
+        <li><strong>δ = 0.20:</strong> Stake amount relative to network total</li>
+        <li><strong>ε = 0.15:</strong> Cross-shard message relay and network health contribution</li>
+      </ul>
+
+      <h3>3.2 Validator Tiers</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Max Validators</th>
+            <th>Min Stake</th>
+            <th>Reward Share</th>
+            <th>Daily Rewards</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="highlight">Tier 1 (Elite)</span></td>
+            <td>512</td>
+            <td>20,000,000 TBURN</td>
+            <td>50%</td>
+            <td>250,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><span class="highlight">Tier 2 (Standard)</span></td>
+            <td>4,488</td>
+            <td>5,000,000 TBURN</td>
+            <td>30%</td>
+            <td>150,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><span class="highlight">Tier 3 (Delegator)</span></td>
+            <td>Unlimited</td>
+            <td>10,000 TBURN</td>
+            <td>20%</td>
+            <td>100,000 TBURN</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>3.3 Block Production</h3>
+      <p>
+        Validators are selected for block production through a weighted random selection algorithm where the probability is proportional to their Trust Score. This ensures high-performing validators produce more blocks while maintaining decentralization.
+      </p>
+
+      <pre><code>// Block Proposer Selection Algorithm
+function selectBlockProposer(validators, blockHeight) {
+  const weightedPool = validators.map(v => ({
+    address: v.address,
+    weight: v.trustScore * v.stakeAmount
+  }));
+  
+  const seed = hash(blockHeight + previousBlockHash);
+  const totalWeight = sum(weightedPool.map(v => v.weight));
+  const selection = seed % totalWeight;
+  
+  return findValidatorByWeight(weightedPool, selection);
+}</code></pre>
+
+      <h3>3.4 Finality Guarantee</h3>
+      <p>
+        TBURN Chain achieves single-slot finality through a two-phase commit process:
+      </p>
+      <ol>
+        <li><strong>Propose Phase (50ms):</strong> Selected proposer broadcasts block to shard validators</li>
+        <li><strong>Commit Phase (50ms):</strong> Validators vote, 2/3+ weighted consensus confirms finality</li>
+      </ol>
+      <p>
+        Total finality time: <span class="highlight">100ms per block</span>, with cross-shard finality achieved within <span class="highlight">1 second</span>.
+      </p>
+    </section>
+
+    <!-- Sharding -->
+    <section id="sharding">
+      <h2>4. Dynamic Sharding Architecture</h2>
+      <p>
+        TBURN Chain implements a dynamic sharding system that automatically scales from 5 to 128 shards based on network load and hardware capacity. This enables linear throughput scaling while maintaining security guarantees.
+      </p>
+
+      <h3>4.1 Shard Configuration</h3>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="label">Active Shards</div>
+          <div class="value cyan">64</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">Validators/Shard</div>
+          <div class="value green">25</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">TPS per Shard</div>
+          <div class="value orange">3,280</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">Cross-Shard Latency</div>
+          <div class="value purple">50ms</div>
+        </div>
+      </div>
+
+      <h3>4.2 TPS Calculation Formula</h3>
+      <div class="formula">
+        <div class="title">Network TPS Formula</div>
+        <div class="equation">
+          TPS = Shards × TxPerShard × NetworkLoad × BlocksPerSecond
+        </div>
+      </div>
+
+      <p>With mainnet configuration:</p>
+      <pre><code>TPS = 64 shards × 625 tx/shard × 0.525 load × 10 blocks/sec
+TPS ≈ 210,000</code></pre>
+
+      <h3>4.3 Hardware Profiles</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Profile</th>
+            <th>CPU Cores</th>
+            <th>RAM</th>
+            <th>Max Shards</th>
+            <th>TPS Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Development</td>
+            <td>&lt;16</td>
+            <td>&lt;64GB</td>
+            <td>5</td>
+            <td>10,000 - 25,000</td>
+          </tr>
+          <tr>
+            <td>Staging</td>
+            <td>16+</td>
+            <td>64GB+</td>
+            <td>32</td>
+            <td>50,000 - 100,000</td>
+          </tr>
+          <tr>
+            <td>Production</td>
+            <td>32+</td>
+            <td>256GB+</td>
+            <td>64</td>
+            <td>150,000 - 250,000</td>
+          </tr>
+          <tr>
+            <td>Enterprise</td>
+            <td>64+</td>
+            <td>512GB+</td>
+            <td>128</td>
+            <td>350,000 - 520,000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>4.4 Cross-Shard Communication</h3>
+      <p>
+        Cross-shard transactions utilize an asynchronous message passing protocol with the following characteristics:
+      </p>
+      <ul>
+        <li><strong>Message Queue:</strong> Priority-based routing with O(1) shard pair selection</li>
+        <li><strong>Batch Processing:</strong> Messages aggregated into batches for efficiency</li>
+        <li><strong>Proof Generation:</strong> Merkle proofs enable trustless cross-shard verification</li>
+        <li><strong>Caching:</strong> 30-second TTL shard state cache for optimal performance</li>
+      </ul>
+
+      <h3>4.5 Automatic Scaling</h3>
+      <p>
+        The sharding engine monitors network load in real-time and triggers scaling events when thresholds are exceeded:
+      </p>
+      <ul>
+        <li><strong>Scale Up:</strong> When average shard load exceeds 70% for 5 minutes</li>
+        <li><strong>Scale Down:</strong> When average shard load drops below 30% for 15 minutes</li>
+        <li><strong>Rebalance:</strong> When load imbalance exceeds 30% between shards</li>
+      </ul>
+    </section>
+
+    <!-- AI System -->
+    <section id="ai-system">
+      <h2>5. Quad-Band AI Orchestration System</h2>
+      <p>
+        TBURN Chain integrates a sophisticated AI orchestration layer that continuously optimizes network operations, security, and governance. The Quad-Band system leverages four leading AI models for redundancy and specialized expertise.
+      </p>
+
+      <h3>5.1 AI Model Configuration</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Band</th>
+            <th>Model</th>
+            <th>Primary Function</th>
+            <th>Latency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="highlight">Band 1</span></td>
+            <td>Gemini 3 Pro</td>
+            <td>Real-time monitoring, anomaly detection</td>
+            <td>&lt;100ms</td>
+          </tr>
+          <tr>
+            <td><span class="highlight">Band 2</span></td>
+            <td>Claude Sonnet 4.5</td>
+            <td>Governance analysis, compliance validation</td>
+            <td>&lt;200ms</td>
+          </tr>
+          <tr>
+            <td><span class="highlight">Band 3</span></td>
+            <td>GPT-4o</td>
+            <td>Burn optimization, tokenomics modeling</td>
+            <td>&lt;150ms</td>
+          </tr>
+          <tr>
+            <td><span class="highlight">Band 4</span></td>
+            <td>Grok 3</td>
+            <td>Fallback, emergency response</td>
+            <td>&lt;100ms</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>5.2 AI Decision Categories</h3>
+      <ul>
+        <li><strong>ADJUST_SHARDS:</strong> Dynamic shard count optimization</li>
+        <li><strong>OPTIMIZE_BURN:</strong> AI-driven burn rate adjustments</li>
+        <li><strong>RESCHEDULE_VALIDATORS:</strong> Validator rotation and load balancing</li>
+        <li><strong>SECURITY_ALERT:</strong> Threat detection and response</li>
+        <li><strong>GOVERNANCE_PREVALIDATION:</strong> Proposal analysis and risk assessment</li>
+        <li><strong>CROSS_SHARD_OPTIMIZATION:</strong> Message routing efficiency</li>
+      </ul>
+
+      <h3>5.3 Fail-Fast Architecture</h3>
+      <p>
+        The AI system implements a fail-fast architecture with automatic fallback:
+      </p>
+      <pre><code>// AI Orchestration Fallback Chain
+Band 1 (Gemini) → Band 2 (Claude) → Band 3 (GPT-4o) → Band 4 (Grok)
+
+// Timeout Configuration
+Primary: 2000ms
+Fallback: 1500ms
+Emergency: 1000ms</code></pre>
+
+      <h3>5.4 Burn Optimization Algorithm</h3>
+      <p>
+        The AI-driven burn mechanism analyzes network activity to optimize token burning:
+      </p>
+      <div class="formula">
+        <div class="title">Dynamic Burn Rate</div>
+        <div class="equation">
+          BurnRate = BaseBurn × (1 + NetworkUtilization × ActivityMultiplier)
+        </div>
+      </div>
+    </section>
+
+    <!-- Tokenomics -->
+    <section id="tokenomics">
+      <h2>6. Tokenomics</h2>
+      <p>
+        TBURN implements a deflationary tokenomics model designed for long-term value appreciation through systematic token burning and controlled emission.
+      </p>
+
+      <h3>6.1 Token Supply</h3>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="label">Genesis Supply</div>
+          <div class="value cyan">10B</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">Year 20 Supply</div>
+          <div class="value green">6.94B</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">Total Reduction</div>
+          <div class="value orange">30.6%</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">Target Staking</div>
+          <div class="value purple">32%</div>
+        </div>
+      </div>
+
+      <h3>6.2 Emission Schedule</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Base Daily Emission</td>
+            <td>500,000 TBURN</td>
+            <td>Maximum daily token issuance</td>
+          </tr>
+          <tr>
+            <td>AI Burn Rate</td>
+            <td>70%</td>
+            <td>Percentage of emissions burned by AI</td>
+          </tr>
+          <tr>
+            <td>Net Daily Emission</td>
+            <td>150,000 TBURN</td>
+            <td>Actual tokens entering circulation</td>
+          </tr>
+          <tr>
+            <td>Tier 1 Rewards</td>
+            <td>250,000/day</td>
+            <td>50% of base emission</td>
+          </tr>
+          <tr>
+            <td>Tier 2 Rewards</td>
+            <td>150,000/day</td>
+            <td>30% of base emission</td>
+          </tr>
+          <tr>
+            <td>Tier 3 Rewards</td>
+            <td>100,000/day</td>
+            <td>20% of base emission</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>6.3 Price Discovery Model</h3>
+      <p>
+        TBURN token price is determined by a demand-supply equilibrium formula:
+      </p>
+      <div class="formula">
+        <div class="title">Token Price Formula</div>
+        <div class="equation">
+          P = P₀ × (1 + α·TPS_Util + β·Activity + γ·Confidence) / (1 + δ·NetEmission + ε·StakeLockup)
+        </div>
+      </div>
+
+      <p>Coefficient values:</p>
+      <ul>
+        <li><strong>α = 0.40:</strong> TPS utilization weight</li>
+        <li><strong>β = 0.25:</strong> Activity index weight</li>
+        <li><strong>γ = 0.15:</strong> Confidence score weight</li>
+        <li><strong>δ = 35:</strong> Net emission ratio weight</li>
+        <li><strong>ε = 0.60:</strong> Staking lockup intensity weight</li>
+      </ul>
+
+      <h3>6.4 Gas Economics</h3>
+      <p>
+        TBURN uses <span class="highlight">Ember (EMB)</span> as the gas unit:
+      </p>
+      <ul>
+        <li><strong>1 TBURN = 1,000,000 EMB</strong></li>
+        <li><strong>1 EMB = 10<sup>12</sup> wei</strong></li>
+        <li><strong>Standard Gas Price:</strong> 10 EMB</li>
+      </ul>
+    </section>
+
+    <!-- Token Standards -->
+    <section id="token-standards">
+      <h2>7. Token Standards</h2>
+      <p>
+        TBURN Chain implements three native token standards compatible with ERC standards while adding quantum-resistant signature extensions.
+      </p>
+
+      <h3>7.1 TBC-20 (Fungible Tokens)</h3>
+      <p>
+        ERC-20 compatible fungible token standard with additional features:
+      </p>
+      <ul>
+        <li>Quantum-resistant signature verification</li>
+        <li>Built-in burn mechanism</li>
+        <li>Cross-shard transfer support</li>
+        <li>Governance voting integration</li>
+      </ul>
+
+      <h3>7.2 TBC-721 (Non-Fungible Tokens)</h3>
+      <p>
+        ERC-721 compatible NFT standard with enhancements:
+      </p>
+      <ul>
+        <li>On-chain metadata storage</li>
+        <li>Royalty enforcement (EIP-2981)</li>
+        <li>Batch minting optimization</li>
+        <li>Cross-chain bridge compatibility</li>
+      </ul>
+
+      <h3>7.3 TBC-1155 (Multi-Token Standard)</h3>
+      <p>
+        ERC-1155 compatible multi-token standard for:
+      </p>
+      <ul>
+        <li>GameFi asset management</li>
+        <li>Batch transfers</li>
+        <li>Semi-fungible tokens</li>
+        <li>Gas-efficient operations</li>
+      </ul>
+
+      <h3>7.4 Quantum-Resistant Extensions</h3>
+      <p>
+        All token standards support optional quantum-resistant signature schemes:
+      </p>
+      <ul>
+        <li><strong>SPHINCS+:</strong> Hash-based signatures (NIST approved)</li>
+        <li><strong>CRYSTALS-Dilithium:</strong> Lattice-based signatures</li>
+        <li><strong>Hybrid Mode:</strong> ECDSA + Post-quantum for transition period</li>
+      </ul>
+    </section>
+
+    <!-- DeFi -->
+    <section id="defi">
+      <h2>8. DeFi Ecosystem</h2>
+      <p>
+        TBURN Chain provides a comprehensive DeFi infrastructure with native protocol implementations.
+      </p>
+
+      <h3>8.1 Decentralized Exchange (DEX)</h3>
+      <ul>
+        <li><strong>AMM Model:</strong> Concentrated liquidity (Uniswap V3 style)</li>
+        <li><strong>Order Book:</strong> Hybrid limit order support</li>
+        <li><strong>TWAP Oracle:</strong> Time-weighted average price feeds</li>
+        <li><strong>MEV Protection:</strong> Fair ordering with commit-reveal</li>
+      </ul>
+
+      <h3>8.2 Lending Protocol</h3>
+      <ul>
+        <li><strong>Collateralized Loans:</strong> Over-collateralized borrowing</li>
+        <li><strong>Variable Rates:</strong> Utilization-based interest curves</li>
+        <li><strong>Liquidation Engine:</strong> Dutch auction liquidations</li>
+        <li><strong>Flash Loans:</strong> Single-block borrowing</li>
+      </ul>
+
+      <h3>8.3 Staking Infrastructure</h3>
+      <ul>
+        <li><strong>Native Staking:</strong> Direct validator delegation</li>
+        <li><strong>Liquid Staking:</strong> stTBURN receipt tokens</li>
+        <li><strong>Staking Pools:</strong> Aggregated staking for small holders</li>
+        <li><strong>Unbonding Period:</strong> 7 days for security</li>
+      </ul>
+
+      <h3>8.4 Yield Farming</h3>
+      <ul>
+        <li><strong>Liquidity Mining:</strong> Protocol incentivized pools</li>
+        <li><strong>Auto-Compounding:</strong> Yield optimizer vaults</li>
+        <li><strong>Multi-Asset Strategies:</strong> Diversified yield sources</li>
+      </ul>
+
+      <h3>8.5 Cross-Chain Bridge</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Specification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Supported Chains</td>
+            <td>Ethereum, BNB Chain, Polygon, Arbitrum, Solana</td>
+          </tr>
+          <tr>
+            <td>Security Model</td>
+            <td>Multi-signature + AI risk assessment</td>
+          </tr>
+          <tr>
+            <td>Transfer Time</td>
+            <td>5-15 minutes (chain dependent)</td>
+          </tr>
+          <tr>
+            <td>Fee Structure</td>
+            <td>0.1% + gas costs</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Security -->
+    <section id="security">
+      <h2>9. Security Architecture</h2>
+      <p>
+        TBURN Chain implements multiple layers of security to protect against current and future threats.
+      </p>
+
+      <h3>9.1 Cryptographic Primitives</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Function</th>
+            <th>Algorithm</th>
+            <th>Security Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Transaction Signing</td>
+            <td>ECDSA secp256k1</td>
+            <td>128-bit</td>
+          </tr>
+          <tr>
+            <td>Block Hashing</td>
+            <td>Keccak-256</td>
+            <td>256-bit</td>
+          </tr>
+          <tr>
+            <td>State Tree</td>
+            <td>Merkle Patricia Trie</td>
+            <td>256-bit</td>
+          </tr>
+          <tr>
+            <td>Quantum-Resistant</td>
+            <td>SPHINCS+ / Dilithium</td>
+            <td>NIST Level 3</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>9.2 Slashing Conditions</h3>
+      <ul>
+        <li><strong>Double Signing:</strong> 100% stake slashed</li>
+        <li><strong>Prolonged Downtime:</strong> 1% per 24 hours (max 10%)</li>
+        <li><strong>Invalid Block Production:</strong> 5% stake slashed</li>
+        <li><strong>Censorship Detected:</strong> 10% stake slashed</li>
+      </ul>
+
+      <h3>9.3 AI-Driven Security</h3>
+      <ul>
+        <li><strong>Anomaly Detection:</strong> Real-time transaction pattern analysis</li>
+        <li><strong>Attack Prevention:</strong> Automatic rate limiting and blocking</li>
+        <li><strong>Vulnerability Scanning:</strong> Continuous smart contract analysis</li>
+        <li><strong>Incident Response:</strong> Automated emergency procedures</li>
+      </ul>
+
+      <h3>9.4 Bug Bounty Program</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Severity</th>
+            <th>Reward Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Critical</td>
+            <td>$50,000 - $250,000</td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>$10,000 - $50,000</td>
+          </tr>
+          <tr>
+            <td>Medium</td>
+            <td>$2,000 - $10,000</td>
+          </tr>
+          <tr>
+            <td>Low</td>
+            <td>$500 - $2,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Governance -->
+    <section id="governance">
+      <h2>10. Governance Framework</h2>
+      <p>
+        TBURN Chain implements a decentralized governance model with AI-assisted proposal validation.
+      </p>
+
+      <h3>10.1 Governance Process</h3>
+      <ol>
+        <li><strong>Proposal Submission:</strong> Minimum 1,000,000 TBURN stake required</li>
+        <li><strong>AI Prevalidation:</strong> Automated risk and impact assessment</li>
+        <li><strong>Discussion Period:</strong> 7 days for community feedback</li>
+        <li><strong>Voting Period:</strong> 7 days, stake-weighted voting</li>
+        <li><strong>Execution:</strong> Automatic on-chain execution if passed</li>
+      </ol>
+
+      <h3>10.2 Voting Power</h3>
+      <p>
+        Voting power is calculated as:
+      </p>
+      <div class="formula">
+        <div class="title">Voting Power Formula</div>
+        <div class="equation">
+          VP = StakedAmount × TrustScore × TimeLockMultiplier
+        </div>
+      </div>
+
+      <h3>10.3 Proposal Types</h3>
+      <ul>
+        <li><strong>Parameter Changes:</strong> Network configuration adjustments</li>
+        <li><strong>Treasury Spending:</strong> Fund allocation decisions</li>
+        <li><strong>Protocol Upgrades:</strong> Smart contract updates</li>
+        <li><strong>Emergency Actions:</strong> Fast-track security responses</li>
+      </ul>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap">
+      <h2>11. Roadmap</h2>
+      
+      <h3>Phase 1: Genesis (Q4 2025)</h3>
+      <ul>
+        <li>Mainnet launch with 1,600 validators</li>
+        <li>64 shards operational (210,000 TPS)</li>
+        <li>Core DeFi protocols deployed</li>
+        <li>Quad-Band AI system active</li>
+      </ul>
+
+      <h3>Phase 2: Expansion (Q1-Q2 2026)</h3>
+      <ul>
+        <li>Cross-chain bridge deployment</li>
+        <li>128-shard scaling (500,000+ TPS)</li>
+        <li>GameFi ecosystem launch</li>
+        <li>Enterprise partnerships</li>
+      </ul>
+
+      <h3>Phase 3: Maturity (Q3-Q4 2026)</h3>
+      <ul>
+        <li>Full quantum-resistant migration</li>
+        <li>DAO treasury activation</li>
+        <li>Layer 2 rollup support</li>
+        <li>Global validator decentralization</li>
+      </ul>
+
+      <h3>Phase 4: Ecosystem (2027+)</h3>
+      <ul>
+        <li>1,000,000+ TPS theoretical capacity</li>
+        <li>Complete DeFi primitive suite</li>
+        <li>Institutional adoption</li>
+        <li>Self-sustaining ecosystem</li>
+      </ul>
+    </section>
+
+    <!-- Conclusion -->
+    <section id="conclusion">
+      <h2>12. Conclusion</h2>
+      <p>
+        TBURN Chain represents a significant advancement in blockchain technology, combining unprecedented throughput with intelligent automation and future-proof security. Through its innovative Trust Score-Based BFT Consensus, Dynamic Sharding Architecture, and Quad-Band AI Orchestration, TBURN Chain delivers an enterprise-grade platform capable of supporting the next generation of decentralized applications.
+      </p>
+      <p>
+        The deflationary tokenomics model ensures long-term value appreciation while the comprehensive DeFi ecosystem provides essential financial infrastructure. With quantum-resistant cryptographic extensions and AI-driven security, TBURN Chain is positioned to remain relevant and secure for decades to come.
+      </p>
+      <div class="info-box">
+        <strong>Official Resources:</strong><br>
+        Website: <a href="https://tburn.io" style="color: inherit;">https://tburn.io</a><br>
+        Explorer: <a href="https://tburn.io/scan" style="color: inherit;">https://tburn.io/scan</a><br>
+        Documentation: <a href="https://tburn.io/developers" style="color: inherit;">https://tburn.io/developers</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="footer-text">&copy; 2025 TBURN Foundation. All rights reserved.</p>
+      <p class="footer-text" style="margin-top: 8px; font-size: 12px;">
+        This document is for informational purposes only and does not constitute financial advice.
+      </p>
+      <div class="footer-links">
+        <a href="https://tburn.io">Website</a>
+        <a href="https://tburn.io/whitepaper">Whitepaper</a>
+        <a href="https://tburn.io/developers">Developers</a>
+        <a href="https://tburn.io/governance">Governance</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
