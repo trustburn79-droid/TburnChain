@@ -198,14 +198,14 @@
                     </div>
 
                     <div class="bg-tburn-card rounded-xl border border-tburn-border overflow-hidden mb-8">
-                        <div class="p-4 bg-white/5 border-b border-tburn-border font-bold text-white">
+                        <div data-i18n="table_performance_title" class="p-4 bg-white/5 border-b border-tburn-border font-bold text-white">
                             Performance Comparison
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full tech-table">
                                 <thead>
                                     <tr>
-                                        <th>Feature</th>
+                                        <th data-i18n="table_feature">Feature</th>
                                         <th class="text-tburn-orange">TBURN Chain 🔥</th>
                                         <th>Ethereum</th>
                                         <th>Solana</th>
@@ -214,46 +214,46 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="font-bold text-white">TPS (Transactions Per Second)</td>
+                                        <td data-i18n="table_tps" class="font-bold text-white">TPS (Transactions Per Second)</td>
                                         <td id="table-tps" class="text-tburn-orange font-bold">-- (Peak 520K)</td>
                                         <td>15-30</td>
                                         <td>65,000</td>
                                         <td>4,500</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold text-white">Block Time</td>
+                                        <td data-i18n="table_block_time" class="font-bold text-white">Block Time</td>
                                         <td class="text-white font-bold">0.5s</td>
                                         <td>12s</td>
                                         <td>0.4s</td>
                                         <td>2s</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold text-white">Finality</td>
+                                        <td data-i18n="table_finality" class="font-bold text-white">Finality</td>
                                         <td class="text-white font-bold">1.8s</td>
                                         <td>~12 mins</td>
                                         <td>0.4s</td>
                                         <td>< 2s</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold text-white">Gas Fee</td>
+                                        <td data-i18n="table_gas_fee" class="font-bold text-white">Gas Fee</td>
                                         <td class="text-green-400 font-bold">$0.00036</td>
                                         <td>$1.00 - $50.00</td>
                                         <td>$0.00025</td>
                                         <td>$0.01 - $0.10</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold text-white">AI Integration</td>
-                                        <td class="text-tburn-orange font-bold">Triple-Band Native</td>
-                                        <td>None</td>
-                                        <td>None</td>
-                                        <td>None</td>
+                                        <td data-i18n="table_ai_integration" class="font-bold text-white">AI Integration</td>
+                                        <td data-i18n="table_ai_value" class="text-tburn-orange font-bold">Triple-Band Native</td>
+                                        <td data-i18n="table_none">None</td>
+                                        <td data-i18n="table_none">None</td>
+                                        <td data-i18n="table_none">None</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold text-white">Quantum Resistance</td>
+                                        <td data-i18n="table_quantum" class="font-bold text-white">Quantum Resistance</td>
                                         <td class="text-blue-400 font-bold">Dilithium + Kyber</td>
-                                        <td>None</td>
-                                        <td>None</td>
-                                        <td>None</td>
+                                        <td data-i18n="table_none">None</td>
+                                        <td data-i18n="table_none">None</td>
+                                        <td data-i18n="table_none">None</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -270,19 +270,19 @@
                             </blockquote>
                         </div>
                         <div class="bg-tburn-card p-8 rounded-xl border border-tburn-border">
-                            <h3 class="text-xl font-bold text-white mb-4">Core Values</h3>
+                            <h3 data-i18n="core_values_title" class="text-xl font-bold text-white mb-4">Core Values</h3>
                             <ul class="space-y-3">
                                 <li class="flex items-center gap-3">
                                     <div class="w-8 h-8 rounded bg-orange-500/10 flex items-center justify-center text-tburn-orange"><i class="fas fa-lightbulb"></i></div>
-                                    <span class="text-gray-300"><strong>Innovation:</strong> Triple-Band AI & AI-BFT</span>
+                                    <span data-i18n="core_innovation" class="text-gray-300"><strong>Innovation:</strong> Triple-Band AI & AI-BFT</span>
                                 </li>
                                 <li class="flex items-center gap-3">
                                     <div class="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center text-blue-500"><i class="fas fa-shield-alt"></i></div>
-                                    <span class="text-gray-300"><strong>Security:</strong> Quantum-Resistant & Zero Trust</span>
+                                    <span data-i18n="core_security" class="text-gray-300"><strong>Security:</strong> Quantum-Resistant & Zero Trust</span>
                                 </li>
                                 <li class="flex items-center gap-3">
                                     <div class="w-8 h-8 rounded bg-green-500/10 flex items-center justify-center text-green-500"><i class="fas fa-globe"></i></div>
-                                    <span class="text-gray-300"><strong>Decentralization:</strong> 125 Distributed Validators</span>
+                                    <span data-i18n="core_decentralization" class="text-gray-300"><strong>Decentralization:</strong> 1,600 Distributed Validators</span>
                                 </li>
                             </ul>
                         </div>
@@ -376,13 +376,13 @@
 
                 <section id="consensus">
                     <div class="section-header">
-                        <h2 class="text-3xl font-bold text-white">4. AI-BFT Consensus Mechanism</h2>
-                        <p class="text-gray-400 mt-2">AI 기반 동적 위원회 선정 및 실시간 신뢰도 평가 시스템</p>
+                        <h2 data-i18n="section_consensus" class="text-3xl font-bold text-white">4. AI-BFT Consensus Mechanism</h2>
+                        <p data-i18n="consensus_subtitle" class="text-gray-400 mt-2">AI 기반 동적 위원회 선정 및 실시간 신뢰도 평가 시스템</p>
                     </div>
 
                     <div class="grid lg:grid-cols-2 gap-12">
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-4">Consensus Logic</h3>
+                            <h3 data-i18n="consensus_logic_title" class="text-xl font-bold text-white mb-4">Consensus Logic</h3>
                             <ul class="space-y-4">
                                 <li class="bg-tburn-card p-4 rounded border-l-4 border-tburn-orange">
                                     <div class="text-white font-bold">1. AI Committee Selection</div>
@@ -402,7 +402,7 @@
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-4">Trust Score Engine (Python)</h3>
+                            <h3 data-i18n="trust_score_title" class="text-xl font-bold text-white mb-4">Trust Score Engine (Python)</h3>
                             <div class="code-window">
                                 <div class="code-header">
                                     <div class="flex gap-2">
@@ -440,10 +440,10 @@
                 <section id="triple-band">
                     <div class="section-header">
                         <div class="flex items-center gap-3">
-                            <h2 class="text-3xl font-bold text-white">5. Triple-Band AI Orchestration</h2>
-                            <span class="px-2 py-1 text-xs font-bold text-black bg-white rounded">PATENTED</span>
+                            <h2 data-i18n="section_triple_band" class="text-3xl font-bold text-white">5. Triple-Band AI Orchestration</h2>
+                            <span data-i18n="patented_badge" class="px-2 py-1 text-xs font-bold text-black bg-white rounded">PATENTED</span>
                         </div>
-                        <p class="text-gray-400 mt-2">블록체인을 위한 3계층 이질적 AI 모델 통합 의사결정 시스템</p>
+                        <p data-i18n="triple_band_subtitle" class="text-gray-400 mt-2">블록체인을 위한 3계층 이질적 AI 모델 통합 의사결정 시스템</p>
                     </div>
 
                     <div class="grid md:grid-cols-3 gap-6 mb-8">
@@ -510,8 +510,8 @@
 
                 <section id="patents">
                     <div class="section-header">
-                        <h2 class="text-3xl font-bold text-white">6. Core Patent Portfolio</h2>
-                        <p class="text-gray-400 mt-2">TBURN Chain을 지탱하는 7가지 핵심 원천 기술</p>
+                        <h2 data-i18n="section_patents" class="text-3xl font-bold text-white">6. Core Patent Portfolio</h2>
+                        <p data-i18n="patents_subtitle" class="text-gray-400 mt-2">TBURN Chain을 지탱하는 7가지 핵심 원천 기술</p>
                     </div>
 
                     <div class="space-y-4">
@@ -563,7 +563,7 @@
 
                 <section id="infrastructure">
                     <div class="section-header">
-                        <h2 class="text-3xl font-bold text-white">7-9. Infrastructure & SDK</h2>
+                        <h2 data-i18n="section_infra" class="text-3xl font-bold text-white">7-9. Infrastructure & SDK</h2>
                     </div>
                     
                     <div class="grid lg:grid-cols-2 gap-8">
@@ -603,12 +603,12 @@ tburn.on('blockConfirmed', (block) => {
 
                 <section id="validators">
                     <div class="section-header">
-                        <h2 class="text-3xl font-bold text-white">10. 125 Distributed Validator Strategy</h2>
-                        <p class="text-gray-400 mt-2">세계 최초 125개 이종 호스팅 제공업체 분산 전략</p>
+                        <h2 data-i18n="section_validators" class="text-3xl font-bold text-white">10. 1,600 Distributed Validator Strategy</h2>
+                        <p data-i18n="validators_subtitle" class="text-gray-400 mt-2">세계 최초 1,600개 분산 밸리데이터 전략</p>
                     </div>
 
                     <div class="bg-tburn-card border border-tburn-border rounded-xl p-6 mb-6">
-                        <h3 class="text-xl font-bold text-white mb-4">Global Distribution Map</h3>
+                        <h3 data-i18n="validators_map_title" class="text-xl font-bold text-white mb-4">Global Distribution Map</h3>
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
                             <div class="p-3 bg-white/5 rounded">
                                 <div class="text-tburn-orange font-bold text-xl">30</div>
@@ -676,7 +676,7 @@ tburn.on('blockConfirmed', (block) => {
 
                 <section id="bridge">
                     <div class="section-header">
-                        <h2 class="text-3xl font-bold text-white">12. Cross-Chain Bridge</h2>
+                        <h2 data-i18n="section_bridge" class="text-3xl font-bold text-white">12. Cross-Chain Bridge</h2>
                     </div>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div>
@@ -724,8 +724,8 @@ tburn.on('blockConfirmed', (block) => {
 
                 <section id="tokenomics">
                     <div class="section-header">
-                        <h2 class="text-3xl font-bold text-white">13. Tokenomics</h2>
-                        <p class="text-gray-400 mt-2">20년 지속 가능한 디플레이션 모델 (Total Supply: 10B TBURN)</p>
+                        <h2 data-i18n="section_tokenomics" class="text-3xl font-bold text-white">13. Tokenomics</h2>
+                        <p data-i18n="tokenomics_subtitle" class="text-gray-400 mt-2">20년 지속 가능한 디플레이션 모델 (Total Supply: 10B TBURN)</p>
                     </div>
 
                     <div class="mb-10">
@@ -807,7 +807,7 @@ tburn.on('blockConfirmed', (block) => {
 
                 <section id="ecosystem">
                     <div class="section-header">
-                        <h2 class="text-3xl font-bold text-white">16-19. Ecosystem & Security</h2>
+                        <h2 data-i18n="section_ecosystem" class="text-3xl font-bold text-white">16-19. Ecosystem & Security</h2>
                     </div>
 
                     <div class="grid lg:grid-cols-3 gap-6 mb-8">
@@ -853,8 +853,8 @@ tburn.on('blockConfirmed', (block) => {
 
                 <section id="roadmap">
                     <div class="section-header">
-                        <h2 class="text-3xl font-bold text-white">21. Roadmap</h2>
-                        <p class="text-gray-400 mt-2">Future Expansion Plan (2025-2026+)</p>
+                        <h2 data-i18n="section_roadmap" class="text-3xl font-bold text-white">21. Roadmap</h2>
+                        <p data-i18n="roadmap_subtitle" class="text-gray-400 mt-2">Future Expansion Plan (2025-2026+)</p>
                     </div>
 
                     <div class="relative border-l border-gray-700 ml-4 space-y-12">
@@ -1036,18 +1036,37 @@ tburn.on('blockConfirmed', (block) => {
             section_executive: "1. 개요",
             executive_subtitle: "TBURN Chain의 핵심 정체성과 경쟁 우위 분석",
             executive_text: "TBURN Chain은 기존 블록체인의 확장성, 보안, 탈중앙화 트릴레마를 AI 기술로 해결하고, 엔터프라이즈급 성능과 양자 내성 보안을 제공합니다. 단순한 아이디어가 아닌, 실제 작동하는 <strong>Mainnet Live</strong> 네트워크입니다.",
+            table_performance_title: "성능 비교",
+            table_feature: "기능",
+            table_tps: "TPS (초당 거래 수)",
+            table_block_time: "블록 타임",
+            table_finality: "최종성",
+            table_gas_fee: "가스 비용",
+            table_ai_integration: "AI 통합",
+            table_ai_value: "Triple-Band 네이티브",
+            table_none: "없음",
+            table_quantum: "양자 내성",
             section_vision: "2. 비전 & 미션",
             vision_title: "비전",
             vision_quote: '"AI와 블록체인의 완벽한 융합으로, 누구나 신뢰할 수 있는 탈중앙화 인프라를 구축한다."',
             vision_text: "우리의 비전은 블록체인이 매일의 일상에서 보이지 않게 작동하는 세상을 만드는 것입니다. 결제, 아이덴티티, 게임, 소셜 그래프—모두가 신뢰할 수 있는 하나의 인프라 위에서 작동합니다.",
             mission_title: "미션",
             mission_text: "우리의 미션은 확장성과 보안을 결합하여 대규모 채택이 가능한 블록체인 인프라를 구축하는 것입니다. AI를 활용하여 네트워크를 최적화하고, 커뮤니티가 직접 통제하는 분산화된 생태계를 만듭니다.",
+            core_values_title: "핵심 가치",
+            core_innovation: "<strong>혁신:</strong> Triple-Band AI & AI-BFT",
+            core_security: "<strong>보안:</strong> 양자 내성 & 제로 트러스트",
+            core_decentralization: "<strong>탈중앙화:</strong> 1,600 분산 밸리데이터",
             section_architecture: "3. 네트워크 아키텍처",
             architecture_subtitle: "다층 구조의 하이브리드 아키텍처 및 핵심 서비스",
             architecture_text: "TBURN Chain은 64개 샤드로 구성된 적응형 샤딩 시스템을 활용합니다. 각 샤드는 병렬 트랜잭션 처리를 통해 초당 수천 건의 트랜잭션을 처리할 수 있습니다. AI 기반 라우팅이 네트워크 혼잡을 실시간으로 해결합니다.",
-            section_consensus: "4. AI-BFT 합의",
+            section_consensus: "4. AI-BFT 합의 메커니즘",
+            consensus_subtitle: "AI 기반 동적 위원회 선정 및 실시간 신뢰도 평가 시스템",
+            consensus_logic_title: "합의 로직",
+            trust_score_title: "신뢰 점수 엔진 (Python)",
             consensus_text: "우리의 AI-Enhanced BFT(Byzantine Fault Tolerance) 합의 메커니즘은 기존 BFT의 보안성과 AI의 예측 능력을 결합합니다. 결과적으로 2초 미만의 최종성과 99.99%의 네트워크 가용성을 달성합니다.",
-            section_triple_band: "5. Triple-Band AI 시스템",
+            section_triple_band: "5. Triple-Band AI 오케스트레이션",
+            triple_band_subtitle: "블록체인을 위한 3계층 이질적 AI 모델 통합 의사결정 시스템",
+            patented_badge: "특허 등록",
             triple_band_intro: "TBURN의 핵심 혁신은 Triple-Band AI입니다. 세 가지 AI 밴드가 협력하여 네트워크를 최적화합니다:",
             band1_title: "Band 1: 밸리데이터 최적화",
             band1_text: "밸리데이터 성능을 실시간으로 분석하고 블록 생성 순서를 최적화합니다.",
@@ -1055,21 +1074,26 @@ tburn.on('blockConfirmed', (block) => {
             band2_text: "트랜잭션을 가장 효율적인 샤드로 라우팅하여 처리량을 극대화합니다.",
             band3_title: "Band 3: 네트워크 보안",
             band3_text: "이상 탐지 및 위협 방지를 통해 네트워크 보안을 강화합니다.",
-            section_patents: "6. 핵심 특허",
+            section_patents: "6. 핵심 특허 포트폴리오",
+            patents_subtitle: "TBURN Chain을 지탱하는 7가지 핵심 원천 기술",
             patents_text: "TBURN Chain은 12개의 핵심 특허 출원 및 등록을 보유하고 있습니다. AI 기반 합의, 양자 내성 서명, 적응형 샤딩에 대한 혁신적인 기술을 보호합니다.",
-            section_infra: "7-9. 인프라",
+            section_infra: "7-9. 인프라 & SDK",
             infra_text: "엔터프라이즈급 인프라는 전 세계 12개 지역에 분산된 노드로 구성됩니다. 각 지역은 독립적인 장애 도메인으로 작동하며 99.99% SLA를 보장합니다.",
-            section_validators: "10. 밸리데이터 전략",
+            section_validators: "10. 1,600 분산 밸리데이터 전략",
+            validators_subtitle: "세계 최초 1,600개 분산 밸리데이터 전략",
+            validators_map_title: "글로벌 분포 현황",
             validators_text: "메인넷 출시와 함께 1,600명의 재단 팀 밸리데이터가 네트워크를 운영합니다. 커뮤니티 밸리데이터 프로그램을 통해 점진적으로 분산화를 확대합니다.",
             section_bridge: "12. 크로스체인 브릿지",
             bridge_text: "TBURN Bridge는 이더리움, BNB Chain, 폴리곤, 솔라나와의 자산 이동을 지원합니다. AI 기반 리스크 분석이 모든 브릿지 트랜잭션을 모니터링합니다.",
             section_tokenomics: "13. 토크노믹스",
+            tokenomics_subtitle: "20년 지속 가능한 디플레이션 모델 (총 공급량: 10B TBURN)",
             tokenomics_text: "총 공급량: 1,000,000,000 TBURN. 스테이킹 보상, 생태계 발전, 팀 배분이 투명하게 운영됩니다.",
-            section_ecosystem: "16. 생태계 & NFT",
+            section_ecosystem: "16-19. 생태계 & 보안",
             ecosystem_text: "TBURN 생태계는 DeFi, NFT 마켓플레이스, GameFi를 포함합니다. TBC-721, TBC-1155 토큰 표준이 크리에이터와 개발자를 지원합니다.",
             section_security: "19. 보안 & 컴플라이언스",
             security_text: "양자 내성 암호화, 다중 서명 보안, 실시간 위협 탐지가 네트워크를 보호합니다. 주요 글로벌 규제 요건을 준수합니다.",
             section_roadmap: "21. 로드맵",
+            roadmap_subtitle: "미래 확장 계획 (2025-2026+)",
             roadmap_text: "2024년 메인넷 출시 → 2025년 Q1 DEX 출시 → Q2 NFT 마켓플레이스 → Q3 GameFi 허브 → Q4 크로스체인 확장",
             comparison_metric: "지표",
             comparison_tburn: "TBURN Chain",
@@ -1102,18 +1126,37 @@ tburn.on('blockConfirmed', (block) => {
             section_executive: "1. Executive Summary",
             executive_subtitle: "Core Identity and Competitive Advantage Analysis of TBURN Chain",
             executive_text: "TBURN Chain solves the scalability, security, and decentralization trilemma of existing blockchains with AI technology, providing enterprise-grade performance and quantum-resistant security. Not just an idea, but a real <strong>Mainnet Live</strong> network.",
+            table_performance_title: "Performance Comparison",
+            table_feature: "Feature",
+            table_tps: "TPS (Transactions Per Second)",
+            table_block_time: "Block Time",
+            table_finality: "Finality",
+            table_gas_fee: "Gas Fee",
+            table_ai_integration: "AI Integration",
+            table_ai_value: "Triple-Band Native",
+            table_none: "None",
+            table_quantum: "Quantum Resistance",
             section_vision: "2. Vision & Mission",
             vision_title: "Vision",
             vision_quote: '"Through the perfect fusion of AI and blockchain, we build decentralized infrastructure that everyone can trust."',
             vision_text: "Our vision is to create a world where blockchain operates invisibly in everyday life. Payments, identity, gaming, social graphs—all running on one trustworthy infrastructure.",
             mission_title: "Mission",
             mission_text: "Our mission is to build blockchain infrastructure that combines scalability and security for mass adoption. We use AI to optimize the network and create a decentralized ecosystem controlled by the community.",
+            core_values_title: "Core Values",
+            core_innovation: "<strong>Innovation:</strong> Triple-Band AI & AI-BFT",
+            core_security: "<strong>Security:</strong> Quantum-Resistant & Zero Trust",
+            core_decentralization: "<strong>Decentralization:</strong> 1,600 Distributed Validators",
             section_architecture: "3. Network Architecture",
             architecture_subtitle: "Multi-layer Hybrid Architecture and Core Services",
             architecture_text: "TBURN Chain utilizes an adaptive sharding system with 64 shards. Each shard can process thousands of transactions per second through parallel transaction processing. AI-powered routing resolves network congestion in real-time.",
-            section_consensus: "4. AI-BFT Consensus",
+            section_consensus: "4. AI-BFT Consensus Mechanism",
+            consensus_subtitle: "AI-Based Dynamic Committee Selection and Real-time Trust Scoring System",
+            consensus_logic_title: "Consensus Logic",
+            trust_score_title: "Trust Score Engine (Python)",
             consensus_text: "Our AI-Enhanced BFT (Byzantine Fault Tolerance) consensus mechanism combines traditional BFT security with AI predictive capabilities. As a result, we achieve sub-2-second finality and 99.99% network availability.",
-            section_triple_band: "5. Triple-Band AI System",
+            section_triple_band: "5. Triple-Band AI Orchestration",
+            triple_band_subtitle: "3-Layer Heterogeneous AI Model Integration Decision System for Blockchain",
+            patented_badge: "PATENTED",
             triple_band_intro: "TBURN's core innovation is Triple-Band AI. Three AI bands work together to optimize the network:",
             band1_title: "Band 1: Validator Optimization",
             band1_text: "Analyzes validator performance in real-time and optimizes block production order.",
@@ -1121,21 +1164,26 @@ tburn.on('blockConfirmed', (block) => {
             band2_text: "Routes transactions to the most efficient shards to maximize throughput.",
             band3_title: "Band 3: Network Security",
             band3_text: "Enhances network security through anomaly detection and threat prevention.",
-            section_patents: "6. Core Patents",
+            section_patents: "6. Core Patent Portfolio",
+            patents_subtitle: "7 Core Technologies Supporting TBURN Chain",
             patents_text: "TBURN Chain holds 12 core patent applications and registrations. We protect innovative technologies in AI-based consensus, quantum-resistant signatures, and adaptive sharding.",
-            section_infra: "7-9. Infrastructure",
+            section_infra: "7-9. Infrastructure & SDK",
             infra_text: "Enterprise-grade infrastructure consists of nodes distributed across 12 regions worldwide. Each region operates as an independent failure domain with 99.99% SLA guarantee.",
-            section_validators: "10. Validator Strategy",
+            section_validators: "10. 1,600 Distributed Validator Strategy",
+            validators_subtitle: "World's First 1,600 Distributed Validator Strategy",
+            validators_map_title: "Global Distribution Map",
             validators_text: "With mainnet launch, 1,600 Foundation team validators operate the network. We progressively expand decentralization through the community validator program.",
             section_bridge: "12. Cross-Chain Bridge",
             bridge_text: "TBURN Bridge supports asset transfers with Ethereum, BNB Chain, Polygon, and Solana. AI-powered risk analysis monitors all bridge transactions.",
             section_tokenomics: "13. Tokenomics",
+            tokenomics_subtitle: "20-Year Sustainable Deflation Model (Total Supply: 10B TBURN)",
             tokenomics_text: "Total Supply: 1,000,000,000 TBURN. Staking rewards, ecosystem development, and team allocation are transparently managed.",
-            section_ecosystem: "16. Ecosystem & NFT",
+            section_ecosystem: "16-19. Ecosystem & Security",
             ecosystem_text: "The TBURN ecosystem includes DeFi, NFT marketplace, and GameFi. TBC-721 and TBC-1155 token standards support creators and developers.",
             section_security: "19. Security & Compliance",
             security_text: "Quantum-resistant cryptography, multi-signature security, and real-time threat detection protect the network. We comply with major global regulatory requirements.",
             section_roadmap: "21. Roadmap",
+            roadmap_subtitle: "Future Expansion Plan (2025-2026+)",
             roadmap_text: "2024 Mainnet Launch → 2025 Q1 DEX Launch → Q2 NFT Marketplace → Q3 GameFi Hub → Q4 Cross-Chain Expansion",
             comparison_metric: "Metric",
             comparison_tburn: "TBURN Chain",
