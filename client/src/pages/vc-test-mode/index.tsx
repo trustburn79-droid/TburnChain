@@ -27,7 +27,13 @@ import {
   Lock,
   Cpu,
   Layers,
-  RefreshCw
+  RefreshCw,
+  FileText,
+  Link2,
+  Database,
+  Clock,
+  Hash,
+  Terminal
 } from 'lucide-react';
 import { TBurnLogo } from '@/components/tburn-logo';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -160,6 +166,27 @@ const INVESTMENT_HIGHLIGHTS = [
     desc: '4 AI models orchestrated'
   }
 ];
+
+const MAINNET_CONFIG = {
+  chainId: 7979,
+  chainIdHex: '0x1F2B',
+  networkName: 'TBURN Mainnet',
+  currency: {
+    name: 'TBURN',
+    symbol: 'TB',
+    decimals: 18
+  },
+  rpcEndpoints: [
+    { url: 'https://rpc.tburn.network', type: 'Primary', status: 'Active' },
+    { url: 'https://rpc-mainnet.tburn.io', type: 'Secondary', status: 'Active' },
+    { url: 'https://mainnet.tburn.network/rpc', type: 'Tertiary', status: 'Active' }
+  ],
+  blockExplorer: 'https://explorer.tburn.network',
+  consensus: 'BFT + PoS',
+  blockTime: '~100ms',
+  genesisDate: '2025-12-22',
+  tokenStandards: ['TBC-20', 'TBC-721', 'TBC-1155']
+};
 
 export default function VCTestMode() {
   const { t, i18n } = useTranslation();
@@ -320,10 +347,14 @@ export default function VCTestMode() {
       {/* Main Content Tabs */}
       <section className="max-w-7xl mx-auto px-6 pb-16">
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
-          <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 bg-gray-100 dark:bg-white/5">
+          <TabsList className="grid w-full max-w-3xl mx-auto grid-cols-5 bg-gray-100 dark:bg-white/5">
             <TabsTrigger value="overview" data-testid="tab-overview">
               <BarChart3 className="w-4 h-4 mr-2" />
               {t('vcTestMode.tabs.overview', 'Overview')}
+            </TabsTrigger>
+            <TabsTrigger value="duediligence" data-testid="tab-duediligence">
+              <FileText className="w-4 h-4 mr-2" />
+              {t('vcTestMode.tabs.dueDiligence', 'Due Diligence')}
             </TabsTrigger>
             <TabsTrigger value="features" data-testid="tab-features">
               <Layers className="w-4 h-4 mr-2" />
@@ -431,6 +462,298 @@ export default function VCTestMode() {
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.stats.blockTime', 'Block Time')}</span>
                     <span className="font-bold text-gray-900 dark:text-white">{PLATFORM_METRICS.blockTime}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Due Diligence Tab - Chain ID & RPC Info */}
+          <TabsContent value="duediligence" className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Chain Configuration */}
+              <Card className="border-2 border-purple-500/30">
+                <CardHeader className="bg-gradient-to-r from-purple-500/10 to-blue-500/10">
+                  <CardTitle className="flex items-center gap-2">
+                    <Hash className="w-5 h-5 text-purple-500" />
+                    {t('vcTestMode.chainConfig', 'Chain Configuration')}
+                  </CardTitle>
+                  <CardDescription>
+                    {t('vcTestMode.chainConfigDesc', 'TBURN Mainnet technical specifications')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4 pt-4">
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <span className="text-gray-600 dark:text-gray-400">Chain ID</span>
+                    <div className="flex items-center gap-2">
+                      <code className="font-mono font-bold text-purple-600 dark:text-purple-400 text-lg">{MAINNET_CONFIG.chainId}</code>
+                      <Badge variant="outline" className="text-xs">{MAINNET_CONFIG.chainIdHex}</Badge>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <span className="text-gray-600 dark:text-gray-400">Network Name</span>
+                    <span className="font-bold text-gray-900 dark:text-white">{MAINNET_CONFIG.networkName}</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <span className="text-gray-600 dark:text-gray-400">Native Currency</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-gray-900 dark:text-white">{MAINNET_CONFIG.currency.symbol}</span>
+                      <Badge className="bg-orange-500">{MAINNET_CONFIG.currency.decimals} decimals</Badge>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <span className="text-gray-600 dark:text-gray-400">Consensus</span>
+                    <Badge className="bg-blue-500">{MAINNET_CONFIG.consensus}</Badge>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <span className="text-gray-600 dark:text-gray-400">Block Time</span>
+                    <span className="font-bold text-green-500">{MAINNET_CONFIG.blockTime}</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <span className="text-gray-600 dark:text-gray-400">Genesis Date</span>
+                    <span className="font-mono text-gray-900 dark:text-white">{MAINNET_CONFIG.genesisDate}</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* RPC Endpoints */}
+              <Card className="border-2 border-blue-500/30">
+                <CardHeader className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10">
+                  <CardTitle className="flex items-center gap-2">
+                    <Link2 className="w-5 h-5 text-blue-500" />
+                    {t('vcTestMode.rpcEndpoints', 'RPC Endpoints')}
+                  </CardTitle>
+                  <CardDescription>
+                    {t('vcTestMode.rpcEndpointsDesc', 'Public JSON-RPC endpoints for blockchain interaction')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3 pt-4">
+                  {MAINNET_CONFIG.rpcEndpoints.map((endpoint, idx) => (
+                    <div key={idx} className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                      <div className="flex items-center justify-between mb-1">
+                        <Badge variant="outline" className="text-xs">{endpoint.type}</Badge>
+                        <Badge className="bg-green-500 text-xs">{endpoint.status}</Badge>
+                      </div>
+                      <code className="text-sm font-mono text-blue-600 dark:text-blue-400 break-all">
+                        {endpoint.url}
+                      </code>
+                    </div>
+                  ))}
+                  <div className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <div className="flex items-center justify-between mb-1">
+                      <Badge variant="outline" className="text-xs">Block Explorer</Badge>
+                      <ExternalLink className="w-4 h-4 text-gray-400" />
+                    </div>
+                    <a 
+                      href={MAINNET_CONFIG.blockExplorer} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-sm font-mono text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      {MAINNET_CONFIG.blockExplorer}
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Real-time Network Stats */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Activity className="w-5 h-5 text-green-500" />
+                    {t('vcTestMode.realtimeStats', 'Real-time Network Stats')}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3 bg-green-500/10 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-green-500">{PLATFORM_METRICS.tps}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Current TPS</div>
+                    </div>
+                    <div className="p-3 bg-blue-500/10 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-blue-500">{PLATFORM_METRICS.peakTps}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Peak TPS</div>
+                    </div>
+                    <div className="p-3 bg-purple-500/10 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-purple-500">{PLATFORM_METRICS.validators}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Validators</div>
+                    </div>
+                    <div className="p-3 bg-orange-500/10 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-orange-500">{PLATFORM_METRICS.shards}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Active Shards</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <span className="text-gray-600 dark:text-gray-400">SLA Uptime</span>
+                    <Badge className="bg-green-500">99.99%</Badge>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
+                    <span className="text-gray-600 dark:text-gray-400">Avg Latency</span>
+                    <span className="font-bold text-green-500">12ms</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Token Standards */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Database className="w-5 h-5 text-orange-500" />
+                    {t('vcTestMode.tokenStandards', 'Token Standards')}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="p-3 bg-orange-500/10 rounded-lg">
+                    <div className="font-bold text-orange-600 dark:text-orange-400">TBC-20</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">Fungible Token Standard (ERC-20 compatible)</div>
+                  </div>
+                  <div className="p-3 bg-purple-500/10 rounded-lg">
+                    <div className="font-bold text-purple-600 dark:text-purple-400">TBC-721</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">Non-Fungible Token Standard (ERC-721 compatible)</div>
+                  </div>
+                  <div className="p-3 bg-blue-500/10 rounded-lg">
+                    <div className="font-bold text-blue-600 dark:text-blue-400">TBC-1155</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">Multi-Token Standard (ERC-1155 compatible)</div>
+                  </div>
+                  <div className="mt-4 p-3 bg-green-500/10 rounded-lg border border-green-500/30">
+                    <div className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium">
+                      <Shield className="w-4 h-4" />
+                      Quantum-Resistant Signatures
+                    </div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Post-quantum cryptography ready for future security
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* JSON Configuration for Copy */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Terminal className="w-5 h-5 text-gray-500" />
+                  {t('vcTestMode.jsonConfig', 'MetaMask / Wallet Configuration')}
+                </CardTitle>
+                <CardDescription>
+                  {t('vcTestMode.jsonConfigDesc', 'Copy this configuration to add TBURN Mainnet to your wallet')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <pre className="p-4 bg-gray-900 text-gray-100 rounded-lg overflow-x-auto text-sm">
+{`{
+  "chainId": ${MAINNET_CONFIG.chainId},
+  "chainIdHex": "${MAINNET_CONFIG.chainIdHex}",
+  "chainName": "${MAINNET_CONFIG.networkName}",
+  "nativeCurrency": {
+    "name": "${MAINNET_CONFIG.currency.name}",
+    "symbol": "${MAINNET_CONFIG.currency.symbol}",
+    "decimals": ${MAINNET_CONFIG.currency.decimals}
+  },
+  "rpcUrls": [
+    "${MAINNET_CONFIG.rpcEndpoints[0].url}",
+    "${MAINNET_CONFIG.rpcEndpoints[1].url}",
+    "${MAINNET_CONFIG.rpcEndpoints[2].url}"
+  ],
+  "blockExplorerUrls": ["${MAINNET_CONFIG.blockExplorer}"]
+}`}
+                </pre>
+                <Button 
+                  variant="outline" 
+                  className="mt-4" 
+                  onClick={() => {
+                    navigator.clipboard.writeText(JSON.stringify({
+                      chainId: MAINNET_CONFIG.chainId,
+                      chainIdHex: MAINNET_CONFIG.chainIdHex,
+                      chainName: MAINNET_CONFIG.networkName,
+                      nativeCurrency: MAINNET_CONFIG.currency,
+                      rpcUrls: MAINNET_CONFIG.rpcEndpoints.map(e => e.url),
+                      blockExplorerUrls: [MAINNET_CONFIG.blockExplorer]
+                    }, null, 2));
+                    toast({
+                      title: t('vcTestMode.configCopied', 'Configuration copied'),
+                      description: t('vcTestMode.configCopiedDesc', 'Wallet configuration copied to clipboard')
+                    });
+                  }}
+                  data-testid="button-copy-config"
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  {t('vcTestMode.copyConfig', 'Copy Configuration')}
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Token Economics Summary */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Coins className="w-4 h-4 text-orange-500" />
+                    Token Supply
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Total Supply</span>
+                    <span className="font-bold">10B TBURN</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Circulating</span>
+                    <span className="font-bold">~6.8B (68%)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Staked</span>
+                    <span className="font-bold text-purple-500">~3.2B (32%)</span>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Clock className="w-4 h-4 text-blue-500" />
+                    Key Dates
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Genesis</span>
+                    <span className="font-mono">2025.12.22</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Exchange (Target)</span>
+                    <span className="font-mono">2026.02</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Token Schedule</span>
+                    <Link href="/TokenSchedule">
+                      <span className="text-blue-500 hover:underline cursor-pointer">View →</span>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Shield className="w-4 h-4 text-green-500" />
+                    Security
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Audit</span>
+                    <Badge className="bg-green-500">CertiK A+</Badge>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Insurance</span>
+                    <span className="font-bold">$50M</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Bug Bounty</span>
+                    <Link href="/bug-bounty">
+                      <span className="text-blue-500 hover:underline cursor-pointer">Active →</span>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
