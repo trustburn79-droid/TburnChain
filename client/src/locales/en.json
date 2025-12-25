@@ -5302,7 +5302,7 @@
           "q4ReportPreparation": "Q4 2025 report in preparation",
           "auditCleanOpinion": "2024 audit completed - clean opinion",
           "multiSigActive": "3-of-5 multisig active",
-          "validatorsVerified": "All 125 validators verified",
+          "validatorsVerified": "All 1,600 validators verified",
           "nextTestScheduled": "Next test scheduled for December",
           "monitoringActive": "24/7 monitoring active"
         }
@@ -13498,7 +13498,7 @@
       "validators": {
         "tag": "AI-ENHANCED COMMITTEE BFT",
         "title": "Validators",
-        "subtitle": "110/125 active validators securing TBURN Lab with 189ms consensus and 99.95% uptime.",
+        "subtitle": "1,600/1,600 active validators securing TBURN Lab with 189ms consensus and 99.95% uptime.",
         "becomeValidator": "Become Validator",
         "validatorDocs": "View Validator Documentation",
         "stats": {

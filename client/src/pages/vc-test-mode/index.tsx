@@ -88,7 +88,7 @@ function usePlatformMetrics() {
   
   return useMemo(() => ({
     ...STATIC_METRICS,
-    validators: networkStats?.activeValidators || 125,
+    validators: networkStats?.activeValidators || 1600,
     shards: networkStats?.shardCount || 64,
     tps: networkStats?.tps ? `${Math.floor(networkStats.tps / 1000)}K+` : '210K+',
     peakTps: networkStats?.peakTps ? `${Math.floor(networkStats.peakTps / 1000)}K+` : '250K+',

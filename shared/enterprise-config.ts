@@ -48,9 +48,9 @@ export const PRODUCTION_METRICS = {
   bftTolerance: 33,          // percentage
   
   // Validator metrics
-  activeValidators: 110,
-  totalValidators: 125,
-  standbyValidators: 15,
+  activeValidators: 1600,
+  totalValidators: 1600,
+  standbyValidators: 0,
   totalNodes: 24,
   onlineNodes: 23,
   consensusLatency: { min: 25, max: 40 }, // ms
@@ -281,7 +281,7 @@ export const ARCHITECTURE_LAYERS = [
     layer: 4,
     name: 'Consensus Layer',
     components: ['AI-Enhanced Committee BFT', 'Dynamic Validators', 'Reputation System'],
-    metrics: { consensusTime: '189ms', validators: '110/125', finality: '<2s' },
+    metrics: { consensusTime: '189ms', validators: '1,600/1,600', finality: '<2s' },
   },
   {
     layer: 3,

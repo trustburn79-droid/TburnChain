@@ -993,7 +993,7 @@ function EmissionDetailDialog({ type, tierData, open, onClose }: EmissionDetailD
     { label: t('validators.byzantineThreshold'), value: `${tierData.security.byzantineThreshold}%`, status: 'good' },
     { label: t('validators.attackCost'), value: `$${formatNumber(tierData.security.attackCostUSD)}`, status: 'good' },
     { label: t('validators.minSecureStake'), value: `${formatNumber(tierData.security.minSecureStake)} TBURN`, status: 'good' },
-    { label: t('validators.networkDecentralization'), value: '125 validators', status: 'good' },
+    { label: t('validators.networkDecentralization'), value: '1,600 validators', status: 'good' },
   ];
 
   return (

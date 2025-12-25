@@ -125,7 +125,7 @@ export function PublicFooter() {
         : networkStats.data.blockHeight?.toLocaleString() || "20M+", 
       labelKey: "blocks" 
     },
-    { value: String(networkStats.data.activeValidators || 125), labelKey: "validators" },
+    { value: String(networkStats.data.activeValidators || 1600), labelKey: "validators" },
     { 
       value: networkStats.data.totalTransactions >= 1000 
         ? Math.floor(networkStats.data.totalTransactions / 1000) + "K+" 
@@ -135,7 +135,7 @@ export function PublicFooter() {
     { value: networkStats.data.uptime || "99.99%", labelKey: "uptime" },
   ] : [
     { value: "20M+", labelKey: "blocks" },
-    { value: "125", labelKey: "validators" },
+    { value: "1,600", labelKey: "validators" },
     { value: "67K+", labelKey: "dailyTxs" },
     { value: "99.99%", labelKey: "uptime" },
   ];
