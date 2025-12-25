@@ -81,6 +81,24 @@ export default function Tokenomics() {
           <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
             {t('publicPages.learn.tokenomics.subtitle')}
           </p>
+          
+          {/* Navigation Links */}
+          <div className="flex justify-center gap-4 mt-8">
+            <a 
+              href="/TokenSchedule" 
+              className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#ff6b35] to-[#ffb800] text-white font-semibold hover:opacity-90 transition-opacity"
+              data-testid="link-token-schedule"
+            >
+              토큰스케줄
+            </a>
+            <a 
+              href="/TokenDetails" 
+              className="px-6 py-3 rounded-lg border border-[#ff6b35] text-[#ff6b35] font-semibold hover:bg-[#ff6b35]/10 transition-colors"
+              data-testid="link-token-details"
+            >
+              토큰배분 가이드
+            </a>
+          </div>
         </div>
       </section>
 
