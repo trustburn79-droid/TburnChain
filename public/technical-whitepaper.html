@@ -675,18 +675,22 @@
       <div class="navbar-left">
         <a href="/" class="navbar-brand">
           <div class="navbar-logo">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <linearGradient id="flameGradient" x1="20" y1="0" x2="20" y2="40" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#ff6b35"/>
-                  <stop offset="50%" stop-color="#ff8c42"/>
-                  <stop offset="100%" stop-color="#ffd700"/>
+                <linearGradient id="flameGradient" x1="50%" y1="100%" x2="50%" y2="0%">
+                  <stop offset="0%" stop-color="#FF6B35"/>
+                  <stop offset="50%" stop-color="#F7931E"/>
+                  <stop offset="100%" stop-color="#FFD700"/>
+                </linearGradient>
+                <linearGradient id="outerGlow" x1="50%" y1="100%" x2="50%" y2="0%">
+                  <stop offset="0%" stop-color="#FF4500" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#FFD700" stop-opacity="0.2"/>
                 </linearGradient>
               </defs>
-              <path d="M20 2C18 6 14 10 14 16C14 20 16 24 20 26C24 24 26 20 26 16C26 10 22 6 20 2Z" fill="url(#flameGradient)"/>
-              <path d="M20 26C16 28 14 32 14 36C14 38 16 40 20 40C24 40 26 38 26 36C26 32 24 28 20 26Z" fill="#ffd700"/>
-              <path d="M12 14C9 16 7 20 8 24C9 28 12 30 16 30" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
-              <path d="M28 14C31 16 33 20 32 24C31 28 28 30 24 30" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+              <circle cx="50" cy="50" r="45" fill="url(#outerGlow)" opacity="0.3"/>
+              <circle cx="50" cy="50" r="40" stroke="url(#flameGradient)" stroke-width="2" fill="none"/>
+              <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#flameGradient)"/>
+              <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8"/>
             </svg>
           </div>
           <span class="navbar-title">TBurn <span class="navbar-title-accent">Chain</span></span>
