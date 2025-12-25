@@ -72,12 +72,7 @@ const networks: Record<string, NetworkConfig> = {
 };
 
 const rpcNodes: RpcNode[] = [
-  { id: "node-1", name: "TBurn Primary", url: "https://tburn.io/rpc", region: "US-East (Virginia)", status: "online", latency: 8, blockHeight: 28394560, version: "2.1.0", load: 42, uptime: 99.99, requests24h: 847293847, peakTps: 51200 },
-  { id: "node-2", name: "TBurn Europe", url: "https://eu.tburn.io/rpc", region: "EU-West (Frankfurt)", status: "online", latency: 18, blockHeight: 28394560, version: "2.1.0", load: 38, uptime: 99.98, requests24h: 523847293, peakTps: 48700 },
-  { id: "node-3", name: "TBurn Asia", url: "https://asia.tburn.io/rpc", region: "AP-Tokyo", status: "online", latency: 32, blockHeight: 28394559, version: "2.1.0", load: 55, uptime: 99.97, requests24h: 438293847, peakTps: 45200 },
-  { id: "node-4", name: "TBurn Archive", url: "https://archive.tburn.io/rpc", region: "US-West (Oregon)", status: "online", latency: 24, blockHeight: 28394560, version: "2.1.0", load: 28, uptime: 99.99, requests24h: 293847293, peakTps: 32100 },
-  { id: "node-5", name: "TBurn Singapore", url: "https://sg.tburn.io/rpc", region: "AP-Singapore", status: "online", latency: 28, blockHeight: 28394560, version: "2.1.0", load: 48, uptime: 99.96, requests24h: 384729384, peakTps: 42800 },
-  { id: "node-6", name: "TBurn Brazil", url: "https://br.tburn.io/rpc", region: "SA-Sao Paulo", status: "online", latency: 45, blockHeight: 28394559, version: "2.1.0", load: 35, uptime: 99.95, requests24h: 184729384, peakTps: 28400 },
+  { id: "node-1", name: "TBurn Primary", url: "https://tburn.io/rpc", region: "Global (CDN)", status: "online", latency: 8, blockHeight: 28394560, version: "2.1.0", load: 42, uptime: 99.99, requests24h: 847293847, peakTps: 210000 },
 ];
 
 const rpcMethods = [
@@ -234,7 +229,7 @@ export default function RpcProviders() {
                   <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.latency')}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
-                  <div className="text-xl font-mono font-bold text-gray-900 dark:text-white">6</div>
+                  <div className="text-xl font-mono font-bold text-gray-900 dark:text-white">1</div>
                   <div className="text-[10px] text-gray-500 uppercase tracking-wider">{t('publicPages.network.rpc.metrics.regions')}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-center">
@@ -333,7 +328,7 @@ export default function RpcProviders() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs text-gray-500">
                     <span>{t('publicPages.network.rpc.dashboard.globalNodes')}</span>
-                    <span className="text-green-500">6/6 {t('publicPages.network.rpc.dashboard.online')}</span>
+                    <span className="text-green-500">1/1 {t('publicPages.network.rpc.dashboard.online')}</span>
                   </div>
                   <div className="flex gap-1">
                     {rpcNodes.map((node) => (
@@ -563,7 +558,7 @@ export default function RpcProviders() {
               <p className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.nodes.description')}</p>
             </div>
             <Badge className="bg-green-500/20 text-green-500 border-green-500/30">
-              6/6 {t('publicPages.network.rpc.nodes.nodesOnline')}
+              1/1 {t('publicPages.network.rpc.nodes.nodesOnline')}
             </Badge>
           </div>
 
