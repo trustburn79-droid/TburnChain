@@ -4655,8 +4655,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
       slaUptime: 9999, // 99.99% enterprise-grade SLA
       latency: 8 + Math.floor(Math.random() * 7), // 8-15ms (ultra-low latency)
       latencyP99: 20 + Math.floor(Math.random() * 10), // 20-30ms P99
-      activeValidators: 125,
-      totalValidators: 125,
+      activeValidators: 1600,
+      totalValidators: 1600,
       totalAccounts: 527849, // 527K+ accounts on mainnet
       totalShards: this.shardConfig.currentShardCount,
       crossShardMessages: this.getTotalCrossShardMessages(),

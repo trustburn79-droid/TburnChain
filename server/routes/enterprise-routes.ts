@@ -1174,7 +1174,7 @@ router.get('/operator/dashboard', async (req: Request, res: Response) => {
           suspendedMembers: 5
         },
         validatorOperations: {
-          totalValidators: 125,
+          totalValidators: 1600,
           activeValidators: snapshot.activeValidators,
           slashedValidators: 2,
           pendingValidators: 8

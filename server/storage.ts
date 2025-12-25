@@ -1142,8 +1142,8 @@ export class MemStorage implements IStorage {
       slaUptime: 9990, // 99.90% uptime (basis points)
       latency: 12, // avg latency in ms
       latencyP99: 45, // P99 latency in ms
-      activeValidators: 125,
-      totalValidators: 150,
+      activeValidators: 1600,
+      totalValidators: 1600,
       totalTransactions: 89234567,
       totalAccounts: 234567,
       marketCap: "12450000000",
@@ -2574,8 +2574,8 @@ export class DbStorage implements IStorage {
         slaUptime: 9990,
         latency: 12,
         latencyP99: 45,
-        activeValidators: 125,
-        totalValidators: 150,
+        activeValidators: 1600,
+        totalValidators: 1600,
         totalTransactions: 89234567,
         totalAccounts: 234567,
         marketCap: "12450000000",
