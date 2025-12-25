@@ -30,7 +30,7 @@
     "details": "विवरण",
     "view": "देखें",
     "copy": "कॉपी करें",
-    "copied": "कॉपी हो गया!",
+    "copied": "कॉपी किया गया",
     "download": "डाउनलोड करें",
     "exportCsv": "CSV",
     "exportJson": "JSON",
@@ -106,7 +106,8 @@
     "applyFilters": "फ़िल्टर लागू करें",
     "noDataAvailable": "कोई डेटा उपलब्ध नहीं",
     "days": "दिन",
-    "clickForDetails": "विवरण के लिए क्लिक करें"
+    "clickForDetails": "विवरण के लिए क्लिक करें",
+    "login": "लॉग इन"
   },
   "nav": {
     "brand": "TBURN चेन मेननेट",
@@ -158,7 +159,14 @@
     "reports": "रिपोर्ट्स",
     "announcements": "घोषणाएं",
     "events": "कार्यक्रम",
-    "badges": "बैज"
+    "badges": "बैज",
+    "home": "होम",
+    "user": "उपयोगकर्ता",
+    "apps": "ऐप्स",
+    "tree": "ट्री",
+    "tokenGenerator": "टोकन जेनरेटर",
+    "nftMarket": "NFT मार्केट",
+    "bugBounty": "बग बाउंटी"
   },
   "dashboard": {
     "technicalDetails": "Technical Details",
@@ -15031,5 +15039,17 @@
     "title": "साइट मैप",
     "description": "TBURN पारिस्थितिकी तंत्र के सभी पृष्ठों को ब्राउज़ करें। नेविगेट करने के लिए किसी भी आइटम पर क्लिक करें।",
     "excludeNote": "नोट: इस सूची से व्यवस्थापक मार्ग बाहर रखे गए हैं।"
+  },
+  "profile": {
+    "anonymous": "अज्ञात",
+    "description": "सदस्य जानकारी",
+    "createWallet": "वॉलेट बनाएं",
+    "createNewWallet": "वॉलेट बनाएं",
+    "balance": "शेष",
+    "staked": "स्टेकिंग",
+    "myDashboard": "मेरा डैशबोर्ड",
+    "logout": "लॉग आउट",
+    "logoutError": "लॉग आउट में त्रुटि",
+    "addressCopied": "वॉलेट पता कॉपी किया गया"
   }
 }

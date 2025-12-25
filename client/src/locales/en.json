@@ -31,7 +31,7 @@
     "details": "Details",
     "view": "View",
     "copy": "Copy",
-    "copied": "Copied!",
+    "copied": "Copied",
     "download": "Download",
     "exportCsv": "CSV",
     "exportJson": "JSON",
@@ -137,7 +137,8 @@
     "blocks": "blocks",
     "percentage": "Percentage",
     "count": "Count",
-    "resolved": "Resolved"
+    "resolved": "Resolved",
+    "login": "Login"
   },
   "nav": {
     "brand": "TBURN Lab Mainnet",
@@ -191,7 +192,14 @@
     "announcements": "Announcements",
     "genesisLaunch": "Genesis Launch",
     "events": "Events",
-    "badges": "Badges"
+    "badges": "Badges",
+    "home": "Home",
+    "user": "User",
+    "apps": "Apps",
+    "tree": "Tree",
+    "tokenGenerator": "Token Generator",
+    "nftMarket": "NFT Market",
+    "bugBounty": "Bug Bounty"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -4925,7 +4933,7 @@
         "delegated": "Delegated",
         "pool": "Staking Pool",
         "institutional": "Institutional",
-      "full": "Full Verification",
+        "full": "Full Verification",
         "mixed": "Mixed Sources"
       },
       "unknown": "Unknown",
@@ -28329,5 +28337,17 @@
     "refreshedDesc": "Bug bounty data has been refreshed.",
     "noChanges": "No Changes",
     "noChangesDesc": "No changes were made to the report."
+  },
+  "profile": {
+    "anonymous": "Anonymous",
+    "description": "Member Info",
+    "createWallet": "Create Wallet",
+    "createNewWallet": "Create Wallet",
+    "balance": "Balance",
+    "staked": "Staking",
+    "myDashboard": "My Dashboard",
+    "logout": "Logout",
+    "logoutError": "Error during logout",
+    "addressCopied": "Wallet address copied"
   }
 }

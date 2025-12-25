@@ -29,7 +29,7 @@
     "details": "Детали",
     "view": "Просмотр",
     "copy": "Копировать",
-    "copied": "Скопировано!",
+    "copied": "Скопировано",
     "download": "Скачать",
     "exportCsv": "CSV",
     "exportJson": "JSON",
@@ -106,7 +106,8 @@
     "applyFilters": "Применить Фильтры",
     "noDataAvailable": "Нет Данных",
     "days": "Дни",
-    "clickForDetails": "Нажмите для Деталей"
+    "clickForDetails": "Нажмите для Деталей",
+    "login": "Войти"
   },
   "nav": {
     "brand": "TBURN Lab Mainnet",
@@ -158,7 +159,14 @@
     "reports": "Отчеты",
     "announcements": "Объявления",
     "events": "Мероприятия",
-    "badges": "Значки"
+    "badges": "Значки",
+    "home": "Главная",
+    "user": "Пользователь",
+    "apps": "Приложения",
+    "tree": "Дерево",
+    "tokenGenerator": "Генератор токенов",
+    "nftMarket": "NFT Маркет",
+    "bugBounty": "Баг Баунти"
   },
   "dashboard": {
     "technicalDetails": "Technical Details",
@@ -13768,5 +13776,17 @@
     "title": "Карта сайта",
     "description": "Просмотрите все страницы экосистемы TBURN. Нажмите на любой элемент для перехода.",
     "excludeNote": "Примечание: Административные маршруты исключены из этого списка."
+  },
+  "profile": {
+    "anonymous": "Аноним",
+    "description": "Информация о пользователе",
+    "createWallet": "Создать кошелек",
+    "createNewWallet": "Создать кошелек",
+    "balance": "Баланс",
+    "staked": "Стейкинг",
+    "myDashboard": "Моя панель",
+    "logout": "Выйти",
+    "logoutError": "Ошибка при выходе",
+    "addressCopied": "Адрес кошелька скопирован"
   }
 }

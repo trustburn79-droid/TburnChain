@@ -29,7 +29,7 @@
     "details": "Detalhes",
     "view": "Ver",
     "copy": "Copiar",
-    "copied": "Copiado!",
+    "copied": "Copiado",
     "download": "Baixar",
     "exportCsv": "CSV",
     "exportJson": "JSON",
@@ -106,7 +106,8 @@
     "applyFilters": "Aplicar Filtros",
     "noDataAvailable": "Sem Dados",
     "days": "Dias",
-    "clickForDetails": "Clique para Detalhes"
+    "clickForDetails": "Clique para Detalhes",
+    "login": "Entrar"
   },
   "nav": {
     "brand": "TBURN Lab Mainnet",
@@ -158,7 +159,14 @@
     "reports": "Relatórios",
     "announcements": "Anúncios",
     "events": "Eventos",
-    "badges": "Distintivos"
+    "badges": "Distintivos",
+    "home": "Início",
+    "user": "Usuário",
+    "apps": "Apps",
+    "tree": "Árvore",
+    "tokenGenerator": "Gerador de Tokens",
+    "nftMarket": "Mercado NFT",
+    "bugBounty": "Bug Bounty"
   },
   "dashboard": {
     "technicalDetails": "Technical Details",
@@ -14220,5 +14228,17 @@
     "title": "Mapa do site",
     "description": "Navegue por todas as páginas do ecossistema TBURN. Clique em qualquer item para navegar.",
     "excludeNote": "Nota: As rotas de administração estão excluídas desta lista."
+  },
+  "profile": {
+    "anonymous": "Anônimo",
+    "description": "Informações do Membro",
+    "createWallet": "Criar Carteira",
+    "createNewWallet": "Criar Carteira",
+    "balance": "Saldo",
+    "staked": "Staking",
+    "myDashboard": "Meu Painel",
+    "logout": "Sair",
+    "logoutError": "Erro ao sair",
+    "addressCopied": "Endereço da carteira copiado"
   }
 }

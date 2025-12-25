@@ -28,7 +28,7 @@
     "details": "تفصیلات",
     "view": "دیکھیں",
     "copy": "کاپی کریں",
-    "copied": "کاپی ہو گیا!",
+    "copied": "کاپی ہو گیا",
     "download": "ڈاؤن لوڈ",
     "exportCsv": "CSV",
     "exportJson": "JSON",
@@ -106,7 +106,8 @@
     "applyFilters": "فلٹرز لگائیں",
     "noDataAvailable": "کوئی ڈیٹا دستیاب نہیں",
     "days": "دن",
-    "clickForDetails": "تفصیلات کے لیے کلک کریں"
+    "clickForDetails": "تفصیلات کے لیے کلک کریں",
+    "login": "لاگ ان"
   },
   "nav": {
     "brand": "TBURN چین مین نیٹ",
@@ -158,7 +159,14 @@
     "reports": "رپورٹس",
     "announcements": "اعلانات",
     "events": "تقریبات",
-    "badges": "بیجز"
+    "badges": "بیجز",
+    "home": "ہوم",
+    "user": "صارف",
+    "apps": "ایپس",
+    "tree": "ٹری",
+    "tokenGenerator": "ٹوکن جنریٹر",
+    "nftMarket": "NFT مارکیٹ",
+    "bugBounty": "بگ باؤنٹی"
   },
   "dashboard": {
     "technicalDetails": "Technical Details",
@@ -12855,5 +12863,17 @@
     "title": "سائٹ میپ",
     "description": "TBURN ایکو سسٹم کے تمام صفحات براؤز کریں۔ نیویگیٹ کرنے کے لیے کسی بھی آئٹم پر کلک کریں۔",
     "excludeNote": "نوٹ: ایڈمن روٹس اس فہرست سے خارج ہیں۔"
+  },
+  "profile": {
+    "anonymous": "گمنام",
+    "description": "رکن کی معلومات",
+    "createWallet": "والیٹ بنائیں",
+    "createNewWallet": "والیٹ بنائیں",
+    "balance": "بیلنس",
+    "staked": "سٹیکنگ",
+    "myDashboard": "میرا ڈیش بورڈ",
+    "logout": "لاگ آؤٹ",
+    "logoutError": "لاگ آؤٹ میں خرابی",
+    "addressCopied": "والیٹ ایڈریس کاپی ہو گیا"
   }
 }

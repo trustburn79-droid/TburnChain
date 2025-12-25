@@ -29,7 +29,7 @@
     "details": "تفاصيل",
     "view": "عرض",
     "copy": "نسخ",
-    "copied": "تم النسخ!",
+    "copied": "تم النسخ",
     "download": "تحميل",
     "exportCsv": "CSV",
     "exportJson": "JSON",
@@ -106,7 +106,8 @@
     "applyFilters": "تطبيق الفلاتر",
     "noDataAvailable": "لا توجد بيانات",
     "days": "أيام",
-    "clickForDetails": "انقر للتفاصيل"
+    "clickForDetails": "انقر للتفاصيل",
+    "login": "تسجيل الدخول"
   },
   "nav": {
     "brand": "TBURN Lab الشبكة الرئيسية",
@@ -158,7 +159,14 @@
     "reports": "التقارير",
     "announcements": "الإعلانات",
     "events": "الفعاليات",
-    "badges": "الشارات"
+    "badges": "الشارات",
+    "home": "الرئيسية",
+    "user": "المستخدم",
+    "apps": "التطبيقات",
+    "tree": "الشجرة",
+    "tokenGenerator": "مولد الرموز",
+    "nftMarket": "سوق NFT",
+    "bugBounty": "مكافأة الأخطاء"
   },
   "dashboard": {
     "technicalDetails": "Technical Details",
@@ -14394,5 +14402,17 @@
     "title": "خريطة الموقع",
     "description": "تصفح جميع صفحات نظام TBURN البيئي. انقر على أي عنصر للتنقل.",
     "excludeNote": "ملاحظة: تم استبعاد مسارات الإدارة من هذه القائمة."
+  },
+  "profile": {
+    "anonymous": "مجهول",
+    "description": "معلومات العضو",
+    "createWallet": "إنشاء محفظة",
+    "createNewWallet": "إنشاء محفظة",
+    "balance": "الرصيد",
+    "staked": "التخزين",
+    "myDashboard": "لوحة التحكم",
+    "logout": "تسجيل الخروج",
+    "logoutError": "خطأ أثناء تسجيل الخروج",
+    "addressCopied": "تم نسخ عنوان المحفظة"
   }
 }
