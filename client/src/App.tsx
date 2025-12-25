@@ -86,6 +86,7 @@ const OfficialChannelsPage = lazy(() => import("@/pages/official-channels"));
 const BugBountyPage = lazy(() => import("@/pages/bug-bounty"));
 const LaunchEventPage = lazy(() => import("@/pages/launch-event"));
 const TreePage = lazy(() => import("@/pages/tree"));
+const TokenSchedule = lazy(() => import("@/pages/token-schedule"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -430,6 +431,15 @@ function RootRouter() {
     return (
       <Suspense fallback={<PageLoading />}>
         <TreePage />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/TokenSchedule" || location.startsWith("/TokenSchedule")) {
+    // Token Schedule page is public - accessible to all users without login
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <TokenSchedule />
       </Suspense>
     );
   }
