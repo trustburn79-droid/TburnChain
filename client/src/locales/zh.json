@@ -6673,6 +6673,28 @@
       "validatorDistributionDesc": "全球各地区的实时验证者节点分布",
       "geoDecentralizationScore": "地理去中心化评分",
       "geoDecentralizationDesc": "没有单一地区控制超过35%的验证者。网络对区域故障或监管行动具有弹性。",
+      "investmentHighlights": {
+        "marketOpportunity": "市场机会",
+        "marketOpportunityDesc": "2027年DeFi市场",
+        "growthRate": "增长率",
+        "growthRateDesc": "年用户增长",
+        "securityScore": "安全评分",
+        "securityScoreDesc": "CertiK审计评级",
+        "aiInnovation": "AI创新",
+        "aiInnovationDesc": "4个AI模型协同"
+      },
+      "chainId": "链ID",
+      "networkName": "网络名称",
+      "nativeCurrency": "原生货币",
+      "consensus": "共识机制",
+      "blockTime": "出块时间",
+      "genesisDate": "创世日期",
+      "decimals": "位小数",
+      "rpcEndpointTypes": {
+        "primary": "主要",
+        "secondary": "次要",
+        "tertiary": "备用"
+      },
       "operationalInfra": "运营基础设施",
       "nodeRedundancy": "节点冗余",
       "monitoring": "监控",

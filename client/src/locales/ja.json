@@ -7336,6 +7336,28 @@
       "validatorDistributionDesc": "グローバル地域全体のリアルタイムバリデーターノード分布",
       "geoDecentralizationScore": "地理的分散化スコア",
       "geoDecentralizationDesc": "単一地域がバリデーターの35%以上を支配していません。地域障害や規制措置に対するネットワーク耐性。",
+      "investmentHighlights": {
+        "marketOpportunity": "市場機会",
+        "marketOpportunityDesc": "2027年DeFi市場",
+        "growthRate": "成長率",
+        "growthRateDesc": "年間ユーザー成長",
+        "securityScore": "セキュリティスコア",
+        "securityScoreDesc": "CertiK監査評価",
+        "aiInnovation": "AIイノベーション",
+        "aiInnovationDesc": "4つのAIモデルを統合"
+      },
+      "chainId": "チェーンID",
+      "networkName": "ネットワーク名",
+      "nativeCurrency": "ネイティブ通貨",
+      "consensus": "コンセンサス",
+      "blockTime": "ブロック時間",
+      "genesisDate": "ジェネシス日",
+      "decimals": "桁",
+      "rpcEndpointTypes": {
+        "primary": "プライマリ",
+        "secondary": "セカンダリ",
+        "tertiary": "ターシャリ"
+      },
       "operationalInfra": "運用インフラ",
       "nodeRedundancy": "ノード冗長性",
       "monitoring": "モニタリング",

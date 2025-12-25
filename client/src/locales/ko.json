@@ -7414,6 +7414,28 @@
       "validatorDistributionDesc": "글로벌 지역 전체의 실시간 검증자 노드 분포",
       "geoDecentralizationScore": "지리적 탈중앙화 점수",
       "geoDecentralizationDesc": "단일 지역이 검증자의 35% 이상을 통제하지 않습니다. 지역 장애 또는 규제 조치에 대한 네트워크 복원력.",
+      "investmentHighlights": {
+        "marketOpportunity": "시장 기회",
+        "marketOpportunityDesc": "2027년까지 DeFi 시장",
+        "growthRate": "성장률",
+        "growthRateDesc": "연간 사용자 성장",
+        "securityScore": "보안 점수",
+        "securityScoreDesc": "CertiK 감사 등급",
+        "aiInnovation": "AI 혁신",
+        "aiInnovationDesc": "4개 AI 모델 통합"
+      },
+      "chainId": "체인 ID",
+      "networkName": "네트워크 이름",
+      "nativeCurrency": "기본 통화",
+      "consensus": "합의 방식",
+      "blockTime": "블록 시간",
+      "genesisDate": "제네시스 날짜",
+      "decimals": "소수점",
+      "rpcEndpointTypes": {
+        "primary": "기본",
+        "secondary": "보조",
+        "tertiary": "3차"
+      },
       "operationalInfra": "운영 인프라",
       "nodeRedundancy": "노드 이중화",
       "monitoring": "모니터링",

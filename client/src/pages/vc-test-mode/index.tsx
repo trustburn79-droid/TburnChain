@@ -169,24 +169,28 @@ const FEATURE_CATEGORIES = [
 
 const INVESTMENT_HIGHLIGHTS = [
   {
+    id: 'marketOpportunity',
     icon: Target,
     title: 'Market Opportunity',
     value: '$500B+',
     desc: 'DeFi market by 2027'
   },
   {
+    id: 'growthRate',
     icon: Rocket,
     title: 'Growth Rate',
     value: '340%',
     desc: 'YoY user growth'
   },
   {
+    id: 'securityScore',
     icon: Shield,
     title: 'Security Score',
     value: 'A+',
     desc: 'CertiK audit rating'
   },
   {
+    id: 'aiInnovation',
     icon: Brain,
     title: 'AI Innovation',
     value: 'Quad-Band',
@@ -416,8 +420,8 @@ export default function VCTestMode() {
               <CardContent className="p-4 text-center">
                 <item.icon className="w-8 h-8 mx-auto mb-2 text-purple-500" />
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.value}</div>
-                <div className="text-sm font-medium text-gray-900 dark:text-white">{item.title}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc}</div>
+                <div className="text-sm font-medium text-gray-900 dark:text-white">{t(`vcTestMode.dueDiligence.investmentHighlights.${item.id}`, item.title)}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">{t(`vcTestMode.dueDiligence.investmentHighlights.${item.id}Desc`, item.desc)}</div>
               </CardContent>
             </Card>
           ))}
@@ -564,33 +568,33 @@ export default function VCTestMode() {
                 </CardHeader>
                 <CardContent className="space-y-4 pt-4">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Chain ID</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.chainId', 'Chain ID')}</span>
                     <div className="flex items-center gap-2">
                       <code className="font-mono font-bold text-purple-600 dark:text-purple-400 text-lg">{MAINNET_CONFIG.chainId}</code>
                       <Badge variant="outline" className="text-xs">{MAINNET_CONFIG.chainIdHex}</Badge>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Network Name</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.networkName', 'Network Name')}</span>
                     <span className="font-bold text-gray-900 dark:text-white">{MAINNET_CONFIG.networkName}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Native Currency</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.nativeCurrency', 'Native Currency')}</span>
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-gray-900 dark:text-white">{MAINNET_CONFIG.currency.symbol}</span>
-                      <Badge className="bg-orange-500">{MAINNET_CONFIG.currency.decimals} decimals</Badge>
+                      <Badge className="bg-orange-500">{MAINNET_CONFIG.currency.decimals} {t('vcTestMode.dueDiligence.decimals', 'decimals')}</Badge>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Consensus</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.consensus', 'Consensus')}</span>
                     <Badge className="bg-blue-500">{MAINNET_CONFIG.consensus}</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Block Time</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.blockTime', 'Block Time')}</span>
                     <span className="font-bold text-green-500">{MAINNET_CONFIG.blockTime}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Genesis Date</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.genesisDate', 'Genesis Date')}</span>
                     <span className="font-mono text-gray-900 dark:text-white">{MAINNET_CONFIG.genesisDate}</span>
                   </div>
                 </CardContent>
@@ -611,7 +615,7 @@ export default function VCTestMode() {
                   {MAINNET_CONFIG.rpcEndpoints.map((endpoint, idx) => (
                     <div key={idx} className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                       <div className="flex items-center justify-between mb-1">
-                        <Badge variant="outline" className="text-xs">{endpoint.type}</Badge>
+                        <Badge variant="outline" className="text-xs">{t(`vcTestMode.dueDiligence.rpcEndpointTypes.${endpoint.type.toLowerCase()}`, endpoint.type)}</Badge>
                         <Badge className="bg-green-500 text-xs">{endpoint.status}</Badge>
                       </div>
                       <code className="text-sm font-mono text-blue-600 dark:text-blue-400 break-all">

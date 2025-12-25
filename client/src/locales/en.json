@@ -7208,6 +7208,28 @@
       "validatorDistributionDesc": "Real-time validator node distribution across global regions",
       "geoDecentralizationScore": "Geographic Decentralization Score",
       "geoDecentralizationDesc": "No single region controls more than 35% of validators. Network resilient to regional outages or regulatory actions.",
+      "investmentHighlights": {
+        "marketOpportunity": "Market Opportunity",
+        "marketOpportunityDesc": "DeFi market by 2027",
+        "growthRate": "Growth Rate",
+        "growthRateDesc": "YoY user growth",
+        "securityScore": "Security Score",
+        "securityScoreDesc": "CertiK audit rating",
+        "aiInnovation": "AI Innovation",
+        "aiInnovationDesc": "4 AI models orchestrated"
+      },
+      "chainId": "Chain ID",
+      "networkName": "Network Name",
+      "nativeCurrency": "Native Currency",
+      "consensus": "Consensus",
+      "blockTime": "Block Time",
+      "genesisDate": "Genesis Date",
+      "decimals": "decimals",
+      "rpcEndpointTypes": {
+        "primary": "Primary",
+        "secondary": "Secondary",
+        "tertiary": "Tertiary"
+      },
       "operationalInfra": "Operational Infrastructure",
       "nodeRedundancy": "Node Redundancy",
       "monitoring": "Monitoring",
