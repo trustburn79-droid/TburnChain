@@ -171,7 +171,7 @@ export default function EducationPrograms() {
   ];
 
   return (
-    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
+    <main className="flex-grow relative z-10 pt-24 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-12 mb-8">
         <div className="absolute inset-0 bg-gradient-to-br from-[#00f0ff]/20 via-[#7000ff]/5 to-transparent pointer-events-none" />
