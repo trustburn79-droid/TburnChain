@@ -477,12 +477,12 @@ function ExportDialog({ blocks, isOpen, onClose }: { blocks: Block[]; isOpen: bo
 }
 
 interface NetworkStats {
-  blockHeight: number;
+  currentBlockHeight: number;
   tps: number;
   totalTransactions: number;
-  pendingTransactions: number;
+  pendingTransactions?: number;
   activeValidators: number;
-  networkLoad: number;
+  networkLoad?: number;
 }
 
 export default function Blocks() {
@@ -611,7 +611,7 @@ export default function Blocks() {
   const metrics: BlockMetrics = useMemo(() => {
     const blocks = blocksData?.blocks || [];
     // Use real network stats for block height and TPS
-    const realBlockHeight = networkStats?.blockHeight || 0;
+    const realBlockHeight = networkStats?.currentBlockHeight || 0;
     const realTps = networkStats?.tps || 0;
     
     if (blocks.length === 0) {

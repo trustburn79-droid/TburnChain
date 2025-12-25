@@ -38,6 +38,13 @@ interface Block {
   size: number;
 }
 
+interface NetworkStats {
+  currentBlockHeight: number;
+  tps: number;
+  totalTransactions: number;
+  activeValidators: number;
+}
+
 export default function BlocksList() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -45,6 +52,14 @@ export default function BlocksList() {
   const [page, setPage] = useState(1);
   const [searchBlock, setSearchBlock] = useState("");
   const pageSize = 25;
+
+  // Fetch real network stats for block height
+  const { data: networkStats } = useQuery<NetworkStats>({
+    queryKey: ["/api/network/stats"],
+    staleTime: 5000,
+    refetchInterval: 5000,
+    refetchOnWindowFocus: false,
+  });
 
   const { data, isLoading, error, refetch, isFetching } = useQuery<{ success: boolean; data: Block[]; total: number }>({
     queryKey: ["/api/public/v1/network/blocks/recent?limit=100"],
@@ -151,7 +166,7 @@ export default function BlocksList() {
                 {t("scan.latestBlock", "Latest Block")}
               </div>
               <div className="text-xl font-bold text-gray-900 dark:text-white">
-                #{blocks[0]?.number.toLocaleString() || "0"}
+                #{(networkStats?.currentBlockHeight || blocks[0]?.number || 0).toLocaleString()}
               </div>
             </CardContent>
           </Card>

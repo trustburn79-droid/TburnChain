@@ -455,12 +455,12 @@ function ExportDialog({
 }
 
 interface NetworkStats {
-  blockHeight: number;
+  currentBlockHeight: number;
   tps: number;
   totalTransactions: number;
-  pendingTransactions: number;
+  pendingTransactions?: number;
   activeValidators: number;
-  networkLoad: number;
+  networkLoad?: number;
 }
 
 export default function Transactions() {
