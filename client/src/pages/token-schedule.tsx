@@ -154,6 +154,7 @@ export default function TokenSchedule() {
           display: flex;
           align-items: center;
           gap: 8px;
+          margin-left: auto;
         }
         .ts-header-icon {
           display: flex;

@@ -149,6 +149,7 @@ export default function TokenDetails() {
           display: flex;
           align-items: center;
           gap: 8px;
+          margin-left: auto;
         }
         .td-header-icon {
           display: flex;
