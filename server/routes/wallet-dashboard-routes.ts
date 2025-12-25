@@ -424,7 +424,7 @@ export function registerWalletDashboardRoutes(
       const qrData = {
         address,
         network: "TBURN Mainnet",
-        chainId: 7979,
+        chainId: 6000,
         symbol: "TBURN",
       };
 
@@ -436,7 +436,7 @@ export function registerWalletDashboardRoutes(
         instructions: [
           "Scan QR code with your wallet app",
           "Or copy the address to send TBURN tokens",
-          "Ensure you're on TBURN Mainnet (Chain ID: 7979)",
+          "Ensure you're on TBURN Mainnet (Chain ID: 6000)",
         ],
       });
     } catch (error) {

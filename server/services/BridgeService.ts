@@ -87,7 +87,7 @@ export class BridgeService {
     console.log("[Bridge] Generating demo data...");
 
     const chainConfigs = [
-      { chainId: 7979, name: "TBURN Mainnet", symbol: "TBURN", nativeCurrency: "TBURN", isEvm: true, avgBlockTime: 100, confirmations: 1 },
+      { chainId: 6000, name: "TBURN Mainnet", symbol: "TBURN", nativeCurrency: "TBURN", isEvm: true, avgBlockTime: 100, confirmations: 1 },
       { chainId: 1, name: "Ethereum", symbol: "ETH", nativeCurrency: "ETH", isEvm: true, avgBlockTime: 12000, confirmations: 12 },
       { chainId: 56, name: "BNB Chain", symbol: "BNB", nativeCurrency: "BNB", isEvm: true, avgBlockTime: 3000, confirmations: 15 },
       { chainId: 137, name: "Polygon", symbol: "MATIC", nativeCurrency: "MATIC", isEvm: true, avgBlockTime: 2000, confirmations: 256 },
