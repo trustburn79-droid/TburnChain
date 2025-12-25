@@ -369,8 +369,8 @@ export default function TokenDetails() {
                 <span className="td-meta-value">2025.12.22</span>
               </div>
               <div className="td-meta-item">
-                <span className="td-meta-label">거래소 상장</span>
-                <span className="td-meta-value">2026.02.01</span>
+                <span className="td-meta-label">거래소 상장 (목표)</span>
+                <span className="td-meta-value">2026.02 (예정)</span>
               </div>
               <div className="td-meta-item">
                 <span className="td-meta-label">적용 기간</span>
@@ -420,13 +420,13 @@ export default function TokenDetails() {
                     <div className="td-t-desc">$0.20, 6억 TBURN, $120M</div>
                   </div>
                   <div className="td-timeline-item">
-                    <div className="td-t-date">2026.02.01</div>
+                    <div className="td-t-date">2026.02 (목표)</div>
                     <div className="td-t-title">🚀 1차 상장 (베스팅 기준일)</div>
-                    <div className="td-t-desc">Gate, MEXC, KuCoin, Bitget, HTX</div>
+                    <div className="td-t-desc">목표 거래소 협의 진행 중</div>
                   </div>
                 </div>
                 <div className="td-highlight-box td-hl-fire" style={{ marginTop: '20px', fontWeight: 700, textAlign: 'center', color: '#fff' }}>
-                  ※ 모든 베스팅 스케줄은 "상장일 (2026.02.01)"을 기준으로 계산됩니다.
+                  ※ 모든 베스팅 스케줄은 상장일 기준으로 계산됩니다. (일정은 변경될 수 있음)
                 </div>
               </div>
             </div>
@@ -501,7 +501,7 @@ export default function TokenDetails() {
               <div className="td-info-grid td-mb-6">
                 <div className="td-info-box"><div className="td-info-lbl">총 물량</div><div className="td-info-val">12억 TBURN</div></div>
                 <div className="td-info-box"><div className="td-info-lbl">베스팅</div><div className="td-info-val">TGE 10% + 12M 선형</div></div>
-                <div className="td-info-box"><div className="td-info-lbl">클레임 기간</div><div className="td-info-val">상장일 ~ +12개월</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">클레임 기간</div><div className="td-info-val">상장 후 12개월 이내</div></div>
               </div>
 
               <div className="td-table-wrapper td-mb-6">
@@ -517,7 +517,7 @@ export default function TokenDetails() {
               </div>
 
               <div>
-                <div className="td-step"><div className="td-step-num">1</div><div>상장일 (2026.02.01): 에어드랍 클레임 페이지 오픈</div></div>
+                <div className="td-step"><div className="td-step-num">1</div><div>상장일: 에어드랍 클레임 페이지 오픈 (일정 추후 공지)</div></div>
                 <div className="td-step"><div className="td-step-num">2</div><div>사용자: 테스트넷 지갑으로 클레임 페이지 접속</div></div>
                 <div className="td-step"><div className="td-step-num">3</div><div>시스템: TGE 10% 즉시 전송 + 나머지 베스팅 컨트랙트 등록</div></div>
                 <div className="td-step"><div className="td-step-num">4</div><div>매월 1일: 월간 해제분 자동 클레임 가능</div></div>
@@ -549,9 +549,9 @@ export default function TokenDetails() {
                   <div className="td-info-box"><div className="td-info-lbl">방식</div><div className="td-info-val">이벤트별 배포</div></div>
                 </div>
                 <ul style={{ listStyle: 'none', fontSize: '0.95rem', color: 'var(--td-text-muted)' }}>
-                  <li style={{ marginBottom: '8px' }}>• 상장일 런칭 에어드랍 (0.4억)</li>
+                  <li style={{ marginBottom: '8px' }}>• 상장 기념 런칭 에어드랍 (0.4억)</li>
                   <li style={{ marginBottom: '8px' }}>• 지갑 활성화 캠페인 (0.2억)</li>
-                  <li>• Binance 상장 기념 (0.3억)</li>
+                  <li>• Tier-1 거래소 상장 기념 (0.3억) *</li>
                 </ul>
               </div>
             </div>
@@ -560,7 +560,7 @@ export default function TokenDetails() {
               <div className="td-card-header"><h3 className="td-card-title">2.5 DAO 트레저리 (8%)</h3><span className="td-badge td-bg-fire">12M 클리프</span></div>
               <div className="td-highlight-box td-hl-ocean" style={{ marginTop: 0 }}>
                 <p style={{ margin: 0, color: '#fff' }}><strong>⚠️ Y1 기간에는 토큰 해제 없음 (전량 락업)</strong></p>
-                <p style={{ margin: '5px 0 0', fontSize: '0.9rem', color: '#fff' }}>해제 시작: 2027년 2월 1일 (상장 1주년) | 용도: 거버넌스 투표로 결정</p>
+                <p style={{ margin: '5px 0 0', fontSize: '0.9rem', color: '#fff' }}>해제 시작: 상장 1주년 | 용도: 거버넌스 투표로 결정</p>
               </div>
             </div>
           </section>
@@ -741,10 +741,10 @@ export default function TokenDetails() {
                   </thead>
                   <tbody>
                     <tr style={{ background: 'rgba(255,107,53,0.15)', fontWeight: 700 }}>
-                      <td>상장일</td><td>1.200</td><td>0.150</td><td>0.400</td><td>-</td><td>1.200</td><td>-</td><td>0.450</td><td className="td-text-primary">3.400</td><td>🚀 1차 상장</td>
+                      <td>상장일</td><td>1.200</td><td>0.150</td><td>0.400</td><td>-</td><td>1.200</td><td>-</td><td>0.450</td><td className="td-text-primary">3.400</td><td>🚀 1차 상장 (목표)</td>
                     </tr>
                     <tr><td>M1</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.758</td><td>블록보상 시작</td></tr>
-                    <tr><td>M2</td><td>0.900</td><td>0.119</td><td>0.300</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.908</td><td>🚀 Binance 상장</td></tr>
+                    <tr><td>M2</td><td>0.900</td><td>0.119</td><td>0.300</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.908</td><td>Tier-1 상장 목표 *</td></tr>
                     <tr><td>M3</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.841</td><td>퍼블릭 클리프 끝</td></tr>
                     <tr><td>M4</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>0.533</td><td>-</td><td>0.239</td><td>2.374</td><td>퍼블릭 베스팅</td></tr>
                     <tr><td>M6</td><td>0.900</td><td>0.119</td><td>0.250</td><td>0.350</td><td>0.533</td><td>-</td><td>0.350</td><td>2.585</td><td>파트너십 시작</td></tr>
@@ -785,7 +785,7 @@ export default function TokenDetails() {
                   <table>
                     <thead><tr><th>날짜</th><th>이벤트</th><th>해제 물량</th></tr></thead>
                     <tbody>
-                      <tr style={{ background: 'rgba(255,107,53,0.1)' }}><td>2026.02.01</td><td className="td-font-bold">🚀 상장일</td><td>3.40억</td></tr>
+                      <tr style={{ background: 'rgba(255,107,53,0.1)' }}><td>2026.02 (목표)</td><td className="td-font-bold">🚀 상장일 (예정)</td><td>3.40억</td></tr>
                       <tr><td>2026.05.01</td><td>퍼블릭 베스팅 시작</td><td>+0.53억/월</td></tr>
                       <tr><td>2026.08.01</td><td>파트너십 시작</td><td>+0.11억/월</td></tr>
                       <tr><td>2026.11.01</td><td>프라이빗 시작</td><td>+0.50억/월</td></tr>
@@ -812,6 +812,26 @@ export default function TokenDetails() {
             </div>
           </div>
 
+          <div className="td-container td-fade-in-up" style={{ marginTop: '40px' }}>
+            <div className="td-card" style={{ background: 'rgba(255, 215, 0, 0.05)', border: '1px solid rgba(255, 215, 0, 0.2)' }}>
+              <div className="td-card-header"><h3 className="td-card-title" style={{ color: 'var(--td-accent)' }}>⚠️ 면책 조항 (Disclaimer)</h3></div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--td-text-muted)', lineHeight: 1.8 }}>
+                <p style={{ marginBottom: '12px' }}>
+                  <strong>투자 권유가 아님:</strong> 본 문서는 정보 제공 목적으로만 작성되었으며, 증권, 투자상품 또는 금융상품의 매수, 매도, 보유를 권유하거나 제안하는 것이 아닙니다.
+                </p>
+                <p style={{ marginBottom: '12px' }}>
+                  <strong>미래 예측 진술:</strong> 본 문서에 포함된 일정, 거래소 상장, 가격, 배분 계획 등은 현재 계획에 기반한 예상치이며, 실제 결과는 시장 상황, 규제 환경, 기술적 요인 등에 따라 달라질 수 있습니다. "*" 표시된 항목은 목표 또는 협의 진행 중인 사항입니다.
+                </p>
+                <p style={{ marginBottom: '12px' }}>
+                  <strong>변경 가능성:</strong> 토큰 배분 일정, 베스팅 조건, 거래소 상장 계획 등 모든 정보는 사전 통지 없이 변경될 수 있습니다. 최신 정보는 공식 채널을 통해 확인하시기 바랍니다.
+                </p>
+                <p>
+                  <strong>법적 책임 제한:</strong> TBURN 재단 및 관계사는 본 문서의 정보에 기반한 투자 결정으로 인한 손실에 대해 법적 책임을 지지 않습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <footer className="td-footer">
             <div className="td-container">
               <div className="td-logo-box td-justify-center td-mb-4">
@@ -819,6 +839,9 @@ export default function TokenDetails() {
                 <div className="td-logo-text td-font-orbitron">TBURN</div>
               </div>
               <p style={{ color: 'var(--td-text-muted)' }}>투명하고 예측 가능한 토큰 배분 시스템</p>
+              <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', marginTop: '15px', maxWidth: '600px', margin: '15px auto 0' }}>
+                본 문서의 모든 일정과 수치는 예정 사항이며 변경될 수 있습니다. 투자 결정 시 반드시 전문가와 상담하시기 바랍니다.
+              </p>
               <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.85rem', marginTop: '20px' }}>
                 © 2025 TBURN Foundation. All Rights Reserved.
               </p>

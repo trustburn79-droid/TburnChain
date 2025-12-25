@@ -832,6 +832,26 @@ export default function TokenSchedule() {
             </div>
           </section>
 
+          <div className="ts-container ts-fade-in-up" style={{ marginTop: '40px', marginBottom: '40px' }}>
+            <div style={{ background: 'rgba(255, 215, 0, 0.05)', border: '1px solid rgba(255, 215, 0, 0.2)', borderRadius: '20px', padding: '30px' }}>
+              <h3 className="ts-font-orbitron" style={{ color: 'var(--ts-accent)', marginBottom: '20px', fontSize: '1.1rem' }}>⚠️ 면책 조항 (Disclaimer)</h3>
+              <div style={{ fontSize: '0.85rem', color: 'var(--ts-text-muted)', lineHeight: 1.8 }}>
+                <p style={{ marginBottom: '12px' }}>
+                  <strong style={{ color: '#fff' }}>투자 권유가 아님:</strong> 본 문서는 정보 제공 목적으로만 작성되었으며, 증권, 투자상품 또는 금융상품의 매수, 매도, 보유를 권유하거나 제안하는 것이 아닙니다.
+                </p>
+                <p style={{ marginBottom: '12px' }}>
+                  <strong style={{ color: '#fff' }}>미래 예측 진술:</strong> 본 문서에 포함된 토큰 공급량, 소각률, 가격 전망 등은 현재 계획에 기반한 예상치이며, 실제 결과는 시장 상황, 규제 환경, 기술적 요인 등에 따라 크게 달라질 수 있습니다.
+                </p>
+                <p style={{ marginBottom: '12px' }}>
+                  <strong style={{ color: '#fff' }}>변경 가능성:</strong> 토큰 이코노미 설계, 소각 메커니즘, Phase 전환 시점 등 모든 정보는 거버넌스 투표 또는 재단 결정에 따라 사전 통지 없이 변경될 수 있습니다.
+                </p>
+                <p>
+                  <strong style={{ color: '#fff' }}>법적 책임 제한:</strong> TBURN 재단 및 관계사는 본 문서의 정보에 기반한 투자 결정으로 인한 손실에 대해 법적 책임을 지지 않습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <footer className="ts-footer">
             <div className="ts-container">
               <div className="ts-logo-box ts-justify-center ts-mb-4">
@@ -839,6 +859,9 @@ export default function TokenSchedule() {
                 <div className="ts-logo-text ts-font-orbitron">TBURN</div>
               </div>
               <p style={{ color: 'var(--ts-text-muted)' }}>20년 디플레이션 비전으로 장기 가치 창출</p>
+              <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', marginTop: '15px', maxWidth: '600px', margin: '15px auto 0' }}>
+                본 문서의 모든 수치와 전망은 예상치이며 실제 결과와 다를 수 있습니다. 투자 결정 시 반드시 전문가와 상담하시기 바랍니다.
+              </p>
               <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.85rem', marginTop: '20px' }}>
                 © 2025 TBURN Foundation. All Rights Reserved.
               </p>
