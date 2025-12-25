@@ -190,11 +190,11 @@ export default function RpcProviders() {
   return (
     <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative pt-24 pb-16 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] bg-[#7000ff]/10 blur-[100px] rounded-full pointer-events-none" />
         
-        <div className="container mx-auto max-w-7xl relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row items-start justify-between gap-8">
             <div className="flex-1 max-w-2xl">
               <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -364,7 +364,7 @@ export default function RpcProviders() {
 
       {/* Network Selector & Endpoints */}
       <section className="py-10 px-6 border-b border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Network Tabs */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div className="flex items-center gap-4">
@@ -517,7 +517,7 @@ export default function RpcProviders() {
 
       {/* Enterprise Features */}
       <section className="py-12 px-6 bg-gradient-to-b from-gray-50 to-white dark:from-transparent dark:to-transparent border-b border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-10">
             <Badge className="bg-[#7000ff]/20 text-[#7000ff] border-[#7000ff]/30 mb-4">{t('publicPages.network.rpc.enterprise.badge')}</Badge>
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">{t('publicPages.network.rpc.enterprise.title')}</h2>
@@ -551,7 +551,7 @@ export default function RpcProviders() {
 
       {/* Global Nodes */}
       <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.nodes.title')}</h2>
@@ -617,7 +617,7 @@ export default function RpcProviders() {
 
       {/* RPC Methods */}
       <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.methods.title')}</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.methods.description')}</p>
@@ -655,7 +655,7 @@ export default function RpcProviders() {
 
       {/* API Plans */}
       <section className="py-12 px-6 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">{t('publicPages.network.rpc.plans.title')}</h2>
             <p className="text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.plans.description')}</p>
@@ -740,7 +740,7 @@ export default function RpcProviders() {
 
       {/* SDK Examples */}
       <section className="py-12 px-6 border-b border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.network.rpc.sdk.title')}</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.network.rpc.sdk.description')}</p>
@@ -1069,7 +1069,7 @@ curl -X POST ${network.rpcUrl} \\
 
       {/* Resources */}
       <section className="py-12 px-6 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">{t('publicPages.network.rpc.resources.title')}</h2>
           <div className="grid md:grid-cols-4 gap-4">
             <Link href="/developers/docs">
@@ -1114,7 +1114,7 @@ curl -X POST ${network.rpcUrl} \\
 
       {/* CTA */}
       <section className="py-16 px-6">
-        <div className="container mx-auto max-w-4xl text-center">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <Card className="bg-gradient-to-br from-[#00f0ff]/10 via-[#7000ff]/10 to-[#ff0055]/10 border-[#00f0ff]/30 overflow-hidden relative">
             <div className="absolute inset-0 bg-grid-white/5" />
             <CardContent className="py-12 relative">
