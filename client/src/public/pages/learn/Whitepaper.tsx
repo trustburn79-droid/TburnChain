@@ -160,16 +160,16 @@ export default function Whitepaper() {
             {t('publicPages.learn.whitepaper.heroSubDescription')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/developers/docs">
+            <Link href="/whitepaper">
               <button 
                 className="px-8 py-3 rounded-lg flex items-center gap-2 font-bold text-white transition-all hover:-translate-y-0.5"
                 style={{ 
                   background: "linear-gradient(90deg, #7000ff, #00f0ff)",
                   boxShadow: "0 0 20px rgba(112, 0, 255, 0.3)"
                 }}
-                data-testid="button-download-pdf"
+                data-testid="button-web-whitepaper"
               >
-                <FileText className="w-4 h-4" /> {t('publicPages.learn.whitepaper.downloadPdf')}
+                <FileText className="w-4 h-4" /> 웹 백서
               </button>
             </Link>
             <a 
