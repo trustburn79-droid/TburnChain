@@ -370,7 +370,7 @@ export default function TokenSchedule() {
         <main>
           <div className="ts-hero ts-container">
             <div className="ts-fade-in-up">
-              <h1 className="ts-font-orbitron">TBURN TOKEN ECONOMICS</h1>
+              <h1 className="ts-font-orbitron">TBURN 토큰 이코노믹스</h1>
               <p style={{ color: 'var(--ts-text-muted)', fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
                 2025 ~ 2045 Long-term Deflationary Roadmap<br />
                 블록 발행, AI 소각, 공급량 변화 종합 시뮬레이션

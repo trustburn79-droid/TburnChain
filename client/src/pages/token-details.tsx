@@ -362,7 +362,7 @@ export default function TokenDetails() {
         <main>
           <div className="td-hero td-container">
             <div className="td-fade-in-up">
-              <h1 className="td-font-orbitron">TOKEN ALLOCATION & OPERATIONS</h1>
+              <h1 className="td-font-orbitron">토큰 배분 & 운영 가이드</h1>
               <p style={{ color: 'var(--td-text-muted)', fontSize: '1.1rem' }}>
                 TBURN 토큰 실제 배분/제공 운영 스케줄 v3.0<br />
                 100억 TBURN의 투명하고 예측 가능한 배분 실행 가이드
