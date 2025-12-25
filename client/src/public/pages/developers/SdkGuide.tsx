@@ -310,12 +310,12 @@ export default function SdkGuide() {
   };
 
   return (
-    <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
+    <main className="flex-grow relative z-10 pt-24 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative py-12 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
-        <div className="container mx-auto max-w-5xl relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-[#7000ff] to-[#00f0ff] flex items-center justify-center shadow-[0_0_30px_rgba(112,0,255,0.3)]">
               <Package className="w-7 h-7 text-white" />
@@ -333,7 +333,7 @@ export default function SdkGuide() {
 
       {/* Language Selector (Sticky) */}
       <section className="py-4 px-6 border-b border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/40 sticky top-20 z-40 backdrop-blur-md">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-wrap gap-3">
             {languages.map((lang) => (
               <button
@@ -357,7 +357,7 @@ export default function SdkGuide() {
 
       {/* Features Section */}
       <section className="py-16 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
@@ -378,7 +378,7 @@ export default function SdkGuide() {
 
       {/* Installation & Configuration */}
       <section className="py-16 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Installation */}
             <div>
@@ -434,7 +434,7 @@ export default function SdkGuide() {
 
       {/* Quick Examples */}
       <section className="py-20 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-2">
             <Code className="w-6 h-6 text-[#ffd700]" /> {t('publicPages.developers.sdk.quickExamples')}
           </h2>
@@ -471,7 +471,7 @@ export default function SdkGuide() {
 
       {/* Language-Specific Examples */}
       <section className="py-16 px-6 bg-gray-100 dark:bg-white/5 border-y border-gray-200 dark:border-white/5">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
             <Terminal className="w-6 h-6 text-[#00ff9d]" /> Language-Specific Examples
           </h2>
