@@ -266,6 +266,34 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
             left: 'auto',
           }}
         >
+          <DialogHeader
+            className="cursor-grab active:cursor-grabbing select-none px-5 pt-5 pb-4 border-b border-border/40"
+            onMouseDown={handleDragStart}
+          >
+            <div className="flex items-center gap-3">
+              <Avatar className="h-11 w-11">
+                <AvatarFallback className="bg-[#FCD535] text-[#181A20] font-bold text-base">
+                  {initial}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <DialogTitle className="text-base font-semibold truncate">
+                  {isLoading ? (
+                    <Skeleton className="h-5 w-28" />
+                  ) : (
+                    currentMember?.displayName || currentEmail || (address ? formatAddress(address) : t("profile.anonymous", "익명"))
+                  )}
+                </DialogTitle>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {getTierLabel(currentMember?.memberTier)}
+                </p>
+              </div>
+            </div>
+            <DialogDescription className="sr-only">
+              {t("profile.description", "회원 정보")}
+            </DialogDescription>
+          </DialogHeader>
+
           {/* Quick Navigation Icons */}
           <div className="flex items-center justify-between px-3 py-2.5 border-b border-border/40 bg-muted/20">
             <Link href="/" onClick={() => setIsOpen(false)}>
@@ -314,34 +342,6 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
               </button>
             </Link>
           </div>
-
-          <DialogHeader
-            className="cursor-grab active:cursor-grabbing select-none px-5 pt-5 pb-4 border-b border-border/40"
-            onMouseDown={handleDragStart}
-          >
-            <div className="flex items-center gap-3">
-              <Avatar className="h-11 w-11">
-                <AvatarFallback className="bg-[#FCD535] text-[#181A20] font-bold text-base">
-                  {initial}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1 min-w-0">
-                <DialogTitle className="text-base font-semibold truncate">
-                  {isLoading ? (
-                    <Skeleton className="h-5 w-28" />
-                  ) : (
-                    currentMember?.displayName || currentEmail || (address ? formatAddress(address) : t("profile.anonymous", "익명"))
-                  )}
-                </DialogTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {getTierLabel(currentMember?.memberTier)}
-                </p>
-              </div>
-            </div>
-            <DialogDescription className="sr-only">
-              {t("profile.description", "회원 정보")}
-            </DialogDescription>
-          </DialogHeader>
 
           <div className="p-4 space-y-3">
             <div className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-muted/40 hover:bg-muted/60 transition-colors">
