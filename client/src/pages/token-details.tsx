@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { TBurnLogo } from "@/components/tburn-logo";
 
 export default function TokenDetails() {
   useEffect(() => {
@@ -331,7 +332,7 @@ export default function TokenDetails() {
         <header className="td-header">
           <div className="td-container td-flex td-justify-between td-items-center">
             <div className="td-logo-box">
-              <div className="td-logo-icon"><i className="fas fa-fire"></i></div>
+              <TBurnLogo className="w-10 h-10" showText={false} />
               <div className="td-logo-text td-font-orbitron">TBURN</div>
             </div>
             <div className="td-badge td-bg-ocean">v3.0.0 Enterprise</div>
@@ -835,7 +836,7 @@ export default function TokenDetails() {
           <footer className="td-footer">
             <div className="td-container">
               <div className="td-logo-box td-justify-center td-mb-4">
-                <div className="td-logo-icon"><i className="fas fa-fire"></i></div>
+                <TBurnLogo className="w-10 h-10" showText={false} />
                 <div className="td-logo-text td-font-orbitron">TBURN</div>
               </div>
               <p style={{ color: 'var(--td-text-muted)' }}>투명하고 예측 가능한 토큰 배분 시스템</p>

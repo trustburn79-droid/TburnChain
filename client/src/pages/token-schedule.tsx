@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { TBurnLogo } from "@/components/tburn-logo";
 
 export default function TokenSchedule() {
   useEffect(() => {
@@ -341,7 +342,7 @@ export default function TokenSchedule() {
         <header className="ts-header">
           <div className="ts-container ts-flex ts-justify-between ts-items-center">
             <div className="ts-logo-box">
-              <div className="ts-logo-icon"><i className="fas fa-fire"></i></div>
+              <TBurnLogo className="w-10 h-10" showText={false} />
               <div className="ts-logo-text ts-font-orbitron">TBURN</div>
             </div>
             <div className="ts-badge ts-bg-ocean">v3.0.0 Enterprise Edition</div>
@@ -855,7 +856,7 @@ export default function TokenSchedule() {
           <footer className="ts-footer">
             <div className="ts-container">
               <div className="ts-logo-box ts-justify-center ts-mb-4">
-                <div className="ts-logo-icon"><i className="fas fa-fire"></i></div>
+                <TBurnLogo className="w-10 h-10" showText={false} />
                 <div className="ts-logo-text ts-font-orbitron">TBURN</div>
               </div>
               <p style={{ color: 'var(--ts-text-muted)' }}>20년 디플레이션 비전으로 장기 가치 창출</p>
