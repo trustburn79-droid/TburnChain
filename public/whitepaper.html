@@ -85,6 +85,22 @@
 
         /* Sidebar Active State */
         .nav-link.active { color: #FF5500; border-left-color: #FF5500; background: linear-gradient(90deg, rgba(255,85,0,0.1) 0%, transparent 100%); }
+        
+        /* Header Navigation Icons */
+        .wp-header-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            color: #71717a;
+            transition: all 0.2s ease;
+        }
+        .wp-header-icon:hover {
+            color: #FF5500;
+            background: rgba(255, 85, 0, 0.1);
+        }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-orange-900 selection:text-white">
@@ -126,11 +142,37 @@
                         <span id="header-block-height" class="text-tburn-orange font-mono">#--</span>
                     </div>
                 </div>
+                <div class="hidden sm:flex items-center gap-1 mr-2">
+                    <a href="/" class="wp-header-icon" title="Home">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </a>
+                    <a href="/scan" class="wp-header-icon" title="Scan">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" x2="17" y1="12" y2="12"/></svg>
+                    </a>
+                    <a href="/user" class="wp-header-icon" title="User">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </a>
+                    <a href="/bug-bounty" class="wp-header-icon" title="Bug Bounty">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
+                    </a>
+                    <a href="/security-audit" class="wp-header-icon" title="Security Audit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                    </a>
+                    <a href="/token-generator" class="wp-header-icon" title="Token Generator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+                    </a>
+                    <a href="/nft-marketplace" class="wp-header-icon" title="NFT Marketplace">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    </a>
+                    <a href="/qna" class="wp-header-icon" title="QnA">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                    </a>
+                </div>
                 <div class="flex items-center gap-2 mr-2">
                     <button id="btn-ko" onclick="setLanguage('ko')" class="px-2 py-1 text-xs font-bold rounded bg-tburn-orange text-black">한국어</button>
                     <button id="btn-en" onclick="setLanguage('en')" class="px-2 py-1 text-xs font-bold rounded bg-gray-700 text-gray-300 hover:bg-gray-600">EN</button>
                 </div>
-                <a href="/scan" data-i18n="explorer" class="px-4 py-2 bg-white text-black hover:bg-gray-200 transition font-bold rounded">Explorer</a>
+                <a href="/scan" data-i18n="explorer" class="px-4 py-2 bg-white text-black hover:bg-gray-200 transition font-bold rounded">탐색기</a>
             </div>
         </div>
     </nav>
