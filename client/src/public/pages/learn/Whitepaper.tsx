@@ -173,13 +173,11 @@ export default function Whitepaper() {
               </button>
             </a>
             <a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
+              href="/technical-whitepaper"
               className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition flex items-center gap-2"
-              data-testid="link-view-source"
+              data-testid="link-technical-whitepaper"
             >
-              <SiGithub className="w-4 h-4" /> {t('publicPages.learn.whitepaper.viewSource')}
+              <FileCode className="w-4 h-4" /> 기술백서
             </a>
           </div>
         </div>
