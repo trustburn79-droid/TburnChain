@@ -100,7 +100,7 @@ const TBURN_CHAIN_CONFIG = {
     symbol: "TBURN",
     decimals: 18,
   },
-  rpcUrls: ["https://rpc.tburn.network"],
+  rpcUrls: ["https://tburn.io/rpc"],
   blockExplorerUrls: ["https://scan.tburn.network"],
 };
 

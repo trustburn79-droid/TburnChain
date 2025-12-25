@@ -102,7 +102,7 @@ console.log('API Key exists:', !!process.env.TBURN_API_KEY);
   options: {
     rpcEndpoints: [
       'https://tburn.io/rpc',
-      'https://rpc2.tburn.io',  // Fallback
+      'https://eu.tburn.io/rpc',  // Fallback
     ],
     timeout: 30000
   }

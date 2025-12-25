@@ -96,7 +96,7 @@ pnpm add @tburn/staking-sdk`,
 const sdk = new TBurnStakingSDK({
   network: 'mainnet',       // or 'testnet'
   apiKey: 'your-api-key',   // Optional for read-only operations
-  rpcUrl: 'https://mainnet.tburn.network',
+  rpcUrl: 'https://tburn.io/rpc',
 });
 
 // Connect wallet (browser)

@@ -209,9 +209,9 @@ const MAINNET_CONFIG = {
     decimals: 18
   },
   rpcEndpoints: [
-    { url: 'https://rpc.tburn.network', type: 'Primary', status: 'Active', region: 'US-East' },
-    { url: 'https://rpc-mainnet.tburn.io', type: 'Secondary', status: 'Active', region: 'EU-West' },
-    { url: 'https://mainnet.tburn.network/rpc', type: 'Tertiary', status: 'Active', region: 'AP-Seoul' }
+    { url: 'https://tburn.io/rpc', type: 'Primary', status: 'Active', region: 'US-East' },
+    { url: 'https://eu.tburn.io/rpc', type: 'Secondary', status: 'Active', region: 'EU-West' },
+    { url: 'https://asia.tburn.io/rpc', type: 'Tertiary', status: 'Active', region: 'AP-Seoul' }
   ],
   blockExplorer: 'https://explorer.tburn.network',
   consensus: 'BFT + PoS',

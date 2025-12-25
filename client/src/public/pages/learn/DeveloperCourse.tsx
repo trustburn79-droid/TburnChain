@@ -30,7 +30,7 @@ import { TBurnSDK, NetworkConfig } from '@tburn/sdk';
 
 const config: NetworkConfig = {
   network: 'mainnet',
-  rpcUrl: 'https://rpc.tburn.io/v8',
+  rpcUrl: 'https://tburn.io/rpc',
   apiKey: process.env.TBURN_API_KEY,
   options: {
     timeout: 30000,

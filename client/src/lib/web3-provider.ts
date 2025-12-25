@@ -10,9 +10,9 @@ export const TBURN_MAINNET_CONFIG = {
     decimals: 18,
   },
   rpcUrls: [
-    "https://rpc.tburn.network",
-    "https://rpc-mainnet.tburn.io",
-    "https://mainnet.tburn.network/rpc",
+    "https://tburn.io/rpc",
+    "https://eu.tburn.io/rpc",
+    "https://asia.tburn.io/rpc",
   ],
   blockExplorerUrls: ["https://explorer.tburn.network"],
   iconUrls: ["https://tburn.network/logo.png"],

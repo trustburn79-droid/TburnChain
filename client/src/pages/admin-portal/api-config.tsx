@@ -628,7 +628,7 @@ export default function ApiConfig() {
                   </div>
                   <div className="space-y-2">
                     <Label data-testid="label-rpc-endpoint">{t("adminApiConfig.endpoints.rpcEndpoint")}</Label>
-                    <Input defaultValue="https://rpc.tburn.io" data-testid="input-rpc-endpoint" />
+                    <Input defaultValue="https://tburn.io/rpc" data-testid="input-rpc-endpoint" />
                   </div>
                 </div>
 
