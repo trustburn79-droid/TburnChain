@@ -116,11 +116,11 @@ export default function LearnHub() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
+    <div ref={containerRef} className="min-h-screen pt-24 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-20 px-6 overflow-hidden">
+      <section className="relative py-12 px-6 overflow-hidden">
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-[#7000ff]/20 rounded-full blur-[100px] animate-pulse pointer-events-none" />
-        <div className="container mx-auto max-w-7xl relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
               <GraduationCap className="w-4 h-4" /> {t('publicPages.learn.hub.tag')}
@@ -136,8 +136,8 @@ export default function LearnHub() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-10 px-6 border-y border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/20">
-        <div className="container mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="py-10 border-y border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="text-center" data-testid={`stat-${index}`}>
               <div className={`text-4xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
@@ -148,8 +148,8 @@ export default function LearnHub() {
       </section>
 
       {/* Learning Paths Section */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto max-w-7xl">
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.hub.learningPaths')}</h2>
             <p className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.hub.learningPathsDesc')}</p>
@@ -209,8 +209,8 @@ export default function LearnHub() {
       </section>
 
       {/* Core Concepts Section */}
-      <section className="py-16 px-6 bg-gray-100 dark:bg-white/5">
-        <div className="container mx-auto max-w-7xl">
+      <section className="py-16 bg-gray-100 dark:bg-white/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.learn.hub.coreConcepts')}</h2>
             <p className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.hub.coreConceptsDesc')}</p>
@@ -236,8 +236,8 @@ export default function LearnHub() {
       </section>
 
       {/* Glossary & Certifications Section */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-12">
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12">
           {/* Glossary */}
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('publicPages.learn.hub.glossaryTitle')}</h2>
@@ -291,8 +291,8 @@ export default function LearnHub() {
       </section>
 
       {/* Community Links Section */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto max-w-7xl">
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-6">
             {communityLinks.map((link, index) => (
               <Link key={index} href={link.href}>
