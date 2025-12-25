@@ -150,10 +150,10 @@ export default function WebSocketApi() {
   return (
     <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 px-6 overflow-hidden">
+      <section className="relative pt-24 pb-12 overflow-hidden">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
-        <div className="container mx-auto max-w-7xl relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <div className="inline-flex items-center gap-2 mb-4">
@@ -182,7 +182,7 @@ export default function WebSocketApi() {
 
       {/* Connection Endpoints */}
       <section className="py-12 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-6">
             <Network className="w-5 h-5 text-[#7000ff]" />
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.developers.websocket.connectionEndpoints')}</h2>
@@ -218,7 +218,7 @@ export default function WebSocketApi() {
 
       {/* Authentication & Heartbeat */}
       <section className="py-12 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Authentication */}
             <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
@@ -267,7 +267,7 @@ export default function WebSocketApi() {
 
       {/* Subscription Channels */}
       <section className="py-12 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2 text-gray-900 dark:text-white">
             <span className="text-gray-600 dark:text-gray-400">◈</span> {t('publicPages.developers.websocket.subscriptionChannels')}
           </h2>
@@ -313,7 +313,7 @@ export default function WebSocketApi() {
 
       {/* Client Implementation Strategy */}
       <section className="py-12 px-6">
-        <div className="container mx-auto max-w-7xl">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
