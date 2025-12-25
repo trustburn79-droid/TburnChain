@@ -67,7 +67,7 @@ export default function WalletGuide() {
       networkConfig: [
         { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain" },
         { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://tburn.io/rpc" },
-        { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "7777" },
+        { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "6000" },
         { label: t('publicPages.learn.walletGuide.network.symbol', 'Currency Symbol'), value: "TBURN" },
         { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" }
       ]
@@ -100,7 +100,7 @@ export default function WalletGuide() {
       networkConfig: [
         { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain" },
         { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://tburn.io/rpc" },
-        { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "7777" },
+        { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "6000" },
         { label: t('publicPages.learn.walletGuide.network.symbol', 'Currency Symbol'), value: "TBURN" },
         { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" }
       ]
@@ -133,7 +133,7 @@ export default function WalletGuide() {
       networkConfig: [
         { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain" },
         { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://tburn.io/rpc" },
-        { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "7777" },
+        { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "6000" },
         { label: t('publicPages.learn.walletGuide.network.symbol', 'Currency Symbol'), value: "TBURN" },
         { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" }
       ]

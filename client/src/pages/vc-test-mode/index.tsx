@@ -199,8 +199,8 @@ const INVESTMENT_HIGHLIGHTS = [
 ];
 
 const MAINNET_CONFIG = {
-  chainId: 7979,
-  chainIdHex: '0x1F2B',
+  chainId: 6000,
+  chainIdHex: '0x1770',
   networkName: 'TBURN Mainnet',
   networkType: 'Production Mainnet',
   currency: {
@@ -220,7 +220,7 @@ const MAINNET_CONFIG = {
   tokenStandards: ['TBC-20', 'TBC-721', 'TBC-1155'],
   chainRegistration: {
     status: 'Registered',
-    chainlistOrg: 'https://chainlist.org/chain/7979',
+    chainlistOrg: 'https://chainlist.org/chain/6000',
     evmCompatible: true,
     replayProtection: 'EIP-155 Compliant'
   },
@@ -800,7 +800,7 @@ export default function VCTestMode() {
                     <span className="font-medium text-green-600 dark:text-green-400">{t('vcTestMode.dueDiligence.uniqueChainId', 'Unique Chain ID Verified')}</span>
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    {t('vcTestMode.dueDiligence.uniqueChainIdDesc', 'Chain ID 7979 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.')}
+                    {t('vcTestMode.dueDiligence.uniqueChainIdDesc', 'Chain ID 6000 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.')}
                   </p>
                 </div>
               </CardContent>

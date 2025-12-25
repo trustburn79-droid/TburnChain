@@ -53,7 +53,7 @@ interface LatencyPoint {
 const networks: Record<string, NetworkConfig> = {
   mainnet: {
     name: "TBurn Mainnet",
-    chainId: 7777,
+    chainId: 6000,
     symbol: "TBURN",
     rpcUrl: "https://tburn.io/rpc",
     wsUrl: "wss://tburn.io/ws",
@@ -62,7 +62,7 @@ const networks: Record<string, NetworkConfig> = {
   },
   testnet: {
     name: "TBurn Testnet", 
-    chainId: 7778,
+    chainId: 5900,
     symbol: "tTBURN",
     rpcUrl: "https://tburn.io/testnet-rpc",
     wsUrl: "wss://tburn.io/testnet-ws",
@@ -383,7 +383,7 @@ export default function RpcProviders() {
                   data-testid="button-select-mainnet"
                 >
                   <Globe className="w-4 h-4 mr-2" />
-                  {t('publicPages.network.rpc.network.mainnet')} (7777)
+                  {t('publicPages.network.rpc.network.mainnet')} (6000)
                 </Button>
                 <Button
                   variant={selectedNetwork === 'testnet' ? 'default' : 'outline'}
@@ -393,7 +393,7 @@ export default function RpcProviders() {
                   data-testid="button-select-testnet"
                 >
                   <Globe className="w-4 h-4 mr-2" />
-                  {t('publicPages.network.rpc.network.testnet')} (7778)
+                  {t('publicPages.network.rpc.network.testnet')} (5900)
                 </Button>
               </div>
             </div>

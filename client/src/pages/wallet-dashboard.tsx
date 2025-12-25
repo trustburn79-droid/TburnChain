@@ -724,7 +724,7 @@ function ReceiveDialog({
             <ul className="text-xs text-muted-foreground space-y-1">
               <li>1. {t("walletDashboard.instruction1", "Scan QR code with your wallet app")}</li>
               <li>2. {t("walletDashboard.instruction2", "Or copy the address to send TBURN tokens")}</li>
-              <li>3. {t("walletDashboard.instruction3", "Ensure you're on TBURN Mainnet (Chain ID: 7979)")}</li>
+              <li>3. {t("walletDashboard.instruction3", "Ensure you're on TBURN Mainnet (Chain ID: 6000)")}</li>
             </ul>
           </div>
         </div>
@@ -1116,7 +1116,7 @@ function CreateWalletDialog({
                 <div>
                   <p className="text-sm font-medium">{t("walletDashboard.secureGeneration", "Secure Wallet Generation")}</p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {t("walletDashboard.secureGenerationDesc", "A new cryptographic key pair will be generated for your TBURN wallet. This wallet will be on the TBURN Mainnet (Chain ID: 7979).")}
+                    {t("walletDashboard.secureGenerationDesc", "A new cryptographic key pair will be generated for your TBURN wallet. This wallet will be on the TBURN Mainnet (Chain ID: 6000).")}
                   </p>
                 </div>
               </div>
@@ -1459,7 +1459,7 @@ export default function WalletDashboard() {
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-xs font-bold text-primary">TBURN CHAIN</span>
-                <Badge variant="outline" className="text-[10px] h-5 border-primary/50">Chain ID: 7979</Badge>
+                <Badge variant="outline" className="text-[10px] h-5 border-primary/50">Chain ID: 6000</Badge>
               </div>
             </div>
           </CardHeader>

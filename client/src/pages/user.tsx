@@ -2070,7 +2070,7 @@ function WalletSection({
                   <div>
                     <p className="text-sm font-medium">{t('userPage.wallet.secureGeneration', '안전한 지갑 생성')}</p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      {t('userPage.wallet.secureGenerationDesc', 'TBURN 메인넷(Chain ID: 7979)용 새 암호화 키 쌍이 생성됩니다.')}
+                      {t('userPage.wallet.secureGenerationDesc', 'TBURN 메인넷(Chain ID: 6000)용 새 암호화 키 쌍이 생성됩니다.')}
                     </p>
                   </div>
                 </div>
@@ -3381,7 +3381,7 @@ function DeFiSection({
       const { web3Provider } = await import('@/lib/web3-provider');
       
       const state = web3Provider.getState();
-      if (state.chainId !== 7979) {
+      if (state.chainId !== 6000) {
         toast({
           title: t('userPage.defi.switchNetwork', 'TBURN 네트워크로 전환해주세요'),
           description: t('userPage.defi.switchNetworkDesc', '스왑을 위해 TBURN 메인넷으로 전환합니다'),

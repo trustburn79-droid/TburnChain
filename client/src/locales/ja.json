@@ -7312,7 +7312,7 @@
       "evmCompatible": "EVM互換",
       "replayProtection": "リプレイ保護",
       "uniqueChainId": "一意のチェーンID確認済み",
-      "uniqueChainIdDesc": "チェーンID 7979は一意に登録されており、既知のEVMネットワークと競合しません。トランザクションリプレイ保護のためEIP-155準拠。",
+      "uniqueChainIdDesc": "チェーンID 6000は一意に登録されており、既知のEVMネットワークと競合しません。トランザクションリプレイ保護のためEIP-155準拠。",
       "deployedContracts": "デプロイ済みコアコントラクト",
       "deployedContractsDesc": "検証済みスマートコントラクトアドレス - エクスプローラーで確認するにはクリック",
       "contractsVerified": "すべてのコントラクトは検証済みでオープンソースです。TBURNエクスプローラーでソースコードとトランザクションを確認するにはクリックしてください。",
@@ -10495,7 +10495,7 @@
           "chainId": {
             "title": "チェーンID",
             "ethereum": "Ethereum: 1",
-            "tburn": "TBurn: 7777"
+            "tburn": "TBurn: 6000"
           },
           "consensus": {
             "title": "コンセンサスメカニズム",

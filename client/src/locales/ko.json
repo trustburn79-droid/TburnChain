@@ -7390,7 +7390,7 @@
       "evmCompatible": "EVM 호환",
       "replayProtection": "리플레이 보호",
       "uniqueChainId": "고유 체인 ID 검증됨",
-      "uniqueChainIdDesc": "체인 ID 7979는 고유하게 등록되어 있으며 알려진 EVM 네트워크와 충돌하지 않습니다. 트랜잭션 리플레이 보호를 위한 EIP-155 준수.",
+      "uniqueChainIdDesc": "체인 ID 6000는 고유하게 등록되어 있으며 알려진 EVM 네트워크와 충돌하지 않습니다. 트랜잭션 리플레이 보호를 위한 EIP-155 준수.",
       "deployedContracts": "배포된 핵심 컨트랙트",
       "deployedContractsDesc": "검증된 스마트 컨트랙트 주소 - 익스플로러에서 확인하려면 클릭",
       "contractsVerified": "모든 컨트랙트는 검증되었으며 오픈소스입니다. TBURN 익스플로러에서 소스 코드와 트랜잭션을 확인하려면 클릭하세요.",
@@ -11191,7 +11191,7 @@
           "chainId": {
             "title": "체인 ID",
             "ethereum": "Ethereum: 1",
-            "tburn": "TBurn: 7777"
+            "tburn": "TBurn: 6000"
           },
           "consensus": {
             "title": "합의 메커니즘",

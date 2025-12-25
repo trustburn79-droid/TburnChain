@@ -91,7 +91,7 @@ export interface ConnectionHealth {
   consecutiveFailures: number;
 }
 
-const TBURN_CHAIN_ID = 7979;
+const TBURN_CHAIN_ID = 6000;
 const TBURN_CHAIN_CONFIG = {
   chainId: `0x${TBURN_CHAIN_ID.toString(16)}`,
   chainName: "TBURN Mainnet",

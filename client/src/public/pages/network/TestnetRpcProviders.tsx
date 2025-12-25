@@ -41,7 +41,7 @@ interface LatencyPoint {
 
 const testnetConfig = {
   name: "TBurn Testnet", 
-  chainId: 7778,
+  chainId: 5900,
   symbol: "tTBURN",
   rpcUrl: "https://tburn.io/testnet-rpc",
   wsUrl: "wss://tburn.io/testnet-ws",
@@ -171,7 +171,7 @@ export default function TestnetRpcProviders() {
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-xs font-medium text-yellow-400">
                   <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-                  {t('publicPages.network.testnetRpc.config.chainId')}: 7778
+                  {t('publicPages.network.testnetRpc.config.chainId')}: 5900
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/30 text-xs font-medium text-green-400">
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -239,7 +239,7 @@ export default function TestnetRpcProviders() {
                     {t('publicPages.network.testnetRpc.dashboard.title')}
                   </CardTitle>
                   <Badge className="bg-[#ffd700]/20 text-[#ffd700] border-[#ffd700]/30">
-                    Chain 7778
+                    Chain 5900
                   </Badge>
                 </div>
               </CardHeader>
@@ -343,7 +343,7 @@ export default function TestnetRpcProviders() {
             <div className="flex items-center gap-4">
               <Badge className="bg-[#ffd700]/20 text-[#ffd700] border-[#ffd700]/30 text-sm px-4 py-1">
                 <Beaker className="w-4 h-4 mr-2" />
-                TBurn Testnet ({t('publicPages.network.testnetRpc.config.chainId')}: 7778)
+                TBurn Testnet ({t('publicPages.network.testnetRpc.config.chainId')}: 5900)
               </Badge>
             </div>
             <div className="flex items-center gap-2 text-sm">
@@ -691,7 +691,7 @@ wsProvider.on('block', (blockNumber) => {
 # Connect to TBurn Testnet
 w3 = Web3(Web3.HTTPProvider('${testnetConfig.rpcUrl}'))
 print(f"Connected: {w3.is_connected()}")
-print(f"Chain ID: {w3.eth.chain_id}")  # Should be 7778
+print(f"Chain ID: {w3.eth.chain_id}")  # Should be 5900
 
 # Get testnet block
 block = w3.eth.get_block('latest')
@@ -709,7 +709,7 @@ print(f"Balance: {w3.from_wei(balance, 'ether')} tTBURN")`, 'py')} data-testid="
 # Connect to TBurn Testnet
 w3 = Web3(Web3.HTTPProvider('${testnetConfig.rpcUrl}'))
 print(f"Connected: {w3.is_connected()}")
-print(f"Chain ID: {w3.eth.chain_id}")  # Should be 7778
+print(f"Chain ID: {w3.eth.chain_id}")  # Should be 5900
 
 # Get testnet block
 block = w3.eth.get_block('latest')
@@ -726,7 +726,7 @@ print(f"Balance: {w3.from_wei(balance, 'ether')} tTBURN")`}
               <Card className="bg-[#0d0d12] border-[#ffd700]/30 overflow-hidden">
                 <div className="bg-gray-900 border-b border-[#ffd700]/20 p-3 flex items-center justify-between">
                   <span className="text-[#ffd700] text-sm font-mono">cURL - Testnet</span>
-                  <Button size="sm" variant="ghost" className="text-gray-400 hover:text-[#ffd700]" onClick={() => copyToClipboard(`# Get testnet chain ID (should return 0x1e62 = 7778)
+                  <Button size="sm" variant="ghost" className="text-gray-400 hover:text-[#ffd700]" onClick={() => copyToClipboard(`# Get testnet chain ID (should return 0x170C = 5900)
 curl -X POST ${testnetConfig.rpcUrl} \\
   -H "Content-Type: application/json" \\
   -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
@@ -744,7 +744,7 @@ curl -X POST ${testnetConfig.rpcUrl} \\
                   </Button>
                 </div>
                 <pre className="p-4 text-gray-300 text-sm font-mono overflow-x-auto leading-relaxed">
-{`# Get testnet chain ID (should return 0x1e62 = 7778)
+{`# Get testnet chain ID (should return 0x170C = 5900)
 curl -X POST ${testnetConfig.rpcUrl} \\
   -H "Content-Type: application/json" \\
   -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'

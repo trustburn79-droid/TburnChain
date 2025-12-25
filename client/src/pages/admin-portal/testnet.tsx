@@ -67,7 +67,7 @@ import {
 
 // TBURN Testnet Official URLs
 const TESTNET_CONFIG = {
-  chainId: 7778,
+  chainId: 5900,
   chainName: "TBURN Testnet",
   nativeCurrency: {
     name: "TBURN",

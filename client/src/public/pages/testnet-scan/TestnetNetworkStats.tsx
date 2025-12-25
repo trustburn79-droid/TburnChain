@@ -223,7 +223,7 @@ export default function TestnetNetworkStats() {
               </div>
               <div className="flex items-center gap-2 text-gray-500 text-xs">
                 <Globe className="w-3 h-3" />
-                Chain ID: 7778
+                Chain ID: 5900
               </div>
             </CardContent>
           </Card>

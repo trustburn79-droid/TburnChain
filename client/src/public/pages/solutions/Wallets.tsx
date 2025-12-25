@@ -105,7 +105,7 @@ export default function Wallets() {
       config: [
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Chain" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://tburn.io/rpc" },
-        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "7777" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "6000" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.symbol'), value: "TBURN" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.explorer'), value: "https://tburn.io/scan" }
       ]
@@ -117,7 +117,7 @@ export default function Wallets() {
       config: [
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Testnet" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://tburn.io/testnet-rpc" },
-        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "7778" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "5900" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.symbol'), value: "TBURN" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.explorer'), value: "https://tburn.io/testnet-scan" }
       ]
