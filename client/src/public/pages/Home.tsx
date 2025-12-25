@@ -278,9 +278,9 @@ export default function Home() {
   };
 
   return (
-    <div className="pt-20 pb-8">
+    <div className="pt-24 pb-8">
         {/* Hero Section */}
-        <section className="relative overflow-hidden mb-24">
+        <section className="relative overflow-hidden mb-24 pt-8">
           {/* Large Translucent TBurn Symbol */}
           <div className="absolute right-[5%] top-[10%] opacity-10 pointer-events-none hidden lg:block">
             <TBurnLogo className="w-64 h-64 xl:w-80 xl:h-80" showText={true} textColor="#000000" />
