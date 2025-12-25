@@ -476,11 +476,28 @@ function ExportDialog({ blocks, isOpen, onClose }: { blocks: Block[]; isOpen: bo
   );
 }
 
+interface NetworkStats {
+  blockHeight: number;
+  tps: number;
+  totalTransactions: number;
+  pendingTransactions: number;
+  activeValidators: number;
+  networkLoad: number;
+}
+
 export default function Blocks() {
   const { t } = useTranslation();
   const [location, setLocation] = useLocation();
   const { toast } = useToast();
   const { subscribeToEvent, isConnected } = useWebSocket();
+  
+  // Fetch real network stats for block height and TPS
+  const { data: networkStats } = useQuery<NetworkStats>({
+    queryKey: ["/api/network/stats"],
+    staleTime: 5000,
+    refetchInterval: 5000,
+    refetchOnWindowFocus: false,
+  });
   
   const { totalShards } = useEnterpriseShards();
   
@@ -593,15 +610,19 @@ export default function Blocks() {
   
   const metrics: BlockMetrics = useMemo(() => {
     const blocks = blocksData?.blocks || [];
+    // Use real network stats for block height and TPS
+    const realBlockHeight = networkStats?.blockHeight || 0;
+    const realTps = networkStats?.tps || 0;
+    
     if (blocks.length === 0) {
       return {
         avgBlockTime: 3,
         avgGasUsed: 0,
         avgTxCount: 0,
-        totalBlocks: 0,
+        totalBlocks: realBlockHeight,
         gasEfficiency: 0,
-        networkTps: 0,
-        latestHeight: 0,
+        networkTps: realTps,
+        latestHeight: realBlockHeight,
       };
     }
     
@@ -621,12 +642,12 @@ export default function Blocks() {
       avgBlockTime: Math.max(0.5, avgBlockTime),
       avgGasUsed,
       avgTxCount,
-      totalBlocks: blocksData?.pagination.totalItems || 0,
+      totalBlocks: realBlockHeight,
       gasEfficiency,
-      networkTps: Math.round(avgTxCount / Math.max(1, avgBlockTime)),
-      latestHeight: blocks[0]?.blockNumber || 0,
+      networkTps: realTps,
+      latestHeight: realBlockHeight,
     };
-  }, [blocksData]);
+  }, [blocksData, networkStats]);
   
   const searchMutation = useMutation({
     mutationFn: async (query: string) => {
