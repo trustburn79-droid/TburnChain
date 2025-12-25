@@ -22,6 +22,12 @@ import {
   Coins,
   ChevronRight,
   Plus,
+  Home,
+  LayoutGrid,
+  Search,
+  Settings,
+  HelpCircle,
+  Link2,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
@@ -260,6 +266,50 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
             left: 'auto',
           }}
         >
+          {/* Quick Navigation Icons */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-muted/20">
+            <Link href="/app" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.home", "홈")} data-testid="nav-home">
+                <Home className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/user" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.user", "사용자")} data-testid="nav-user">
+                <User className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/app/staking" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.staking", "스테이킹")} data-testid="nav-staking">
+                <Shield className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/app" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.apps", "앱")} data-testid="nav-apps">
+                <LayoutGrid className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/app/wallet-dashboard" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.wallet", "지갑")} data-testid="nav-wallet">
+                <Wallet className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/scan" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.explorer", "탐색기")} data-testid="nav-explorer">
+                <Search className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/app/bridge" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.bridge", "브릿지")} data-testid="nav-bridge">
+                <Link2 className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+            <Link href="/qna" onClick={() => setIsOpen(false)}>
+              <button className="p-2 rounded-lg hover:bg-muted/60 transition-colors" title={t("nav.help", "도움말")} data-testid="nav-help">
+                <HelpCircle className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </Link>
+          </div>
+
           <DialogHeader
             className="cursor-grab active:cursor-grabbing select-none px-5 pt-5 pb-4 border-b border-border/40"
             onMouseDown={handleDragStart}
