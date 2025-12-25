@@ -33,6 +33,7 @@ Core architectural decisions and features include:
 - **Explorer Page Network Stats Fix**: Explorer pages fetch real-time network stats from `/api/network/stats` for accurate display of TPS, total transactions, and block height.
 - **Standardized RPC Endpoints**: All network endpoints standardized to `tburn.io` domain format for RPC, WebSocket, API, and Explorer services across all configurations.
 - **TBurn Logo Branding System**: Unified SVG-based `TBurnLogo` component for consistent branding across all application pages, supporting gradient/solid colors and text options.
+- **Whitepaper Page**: Static HTML whitepaper served at `/whitepaper` route. The whitepaper v8.0 includes detailed information about TBURN Chain's architecture, Triple-Band AI system, consensus mechanism, tokenomics, and roadmap.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

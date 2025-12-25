@@ -1155,6 +1155,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
+  // Whitepaper Page (Public - Serves static HTML)
+  // ============================================
+  app.get("/whitepaper", async (_req, res) => {
+    try {
+      const fs = await import("fs/promises");
+      const path = await import("path");
+      const whitepaperPath = path.join(process.cwd(), "public", "whitepaper.html");
+      const htmlContent = await fs.readFile(whitepaperPath, "utf-8");
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.send(htmlContent);
+    } catch (error) {
+      console.error("[Whitepaper] Error serving whitepaper:", error);
+      res.status(500).send("Error loading whitepaper");
+    }
+  });
+
+  // ============================================
   // Health Check Endpoint (Public - No Auth Required)
   // Used by monitoring systems for uptime checks
   // ============================================
