@@ -5251,7 +5251,16 @@
       "bridgeStatus": {
         "active": "सक्रिय",
         "plannedQ12026": "योजनाबद्ध Q1 2026"
-      }
+      },
+      "totalSupply": "कुल आपूर्ति",
+      "circulating": "प्रचलन में",
+      "staked": "स्टेक किया",
+      "securityTitle": "सुरक्षा",
+      "audit": "ऑडिट",
+      "certikAPlus": "CertiK A+",
+      "insurance": "बीमा",
+      "bugBounty": "बग बाउंटी",
+      "activeLink": "सक्रिय →"
     },
     "nav": {
       "overview": "अवलोकन",
@@ -5260,7 +5269,16 @@
       "explorer": "एक्सप्लोरर",
       "home": "होम",
       "demoMode": "डेमो मोड"
-    }
+    },
+    "quickLinks": {
+      "dex": "DEX",
+      "staking": "स्टेकिंग",
+      "bridge": "ब्रिज",
+      "governance": "शासन",
+      "validators": "वैलिडेटर",
+      "adminPortal": "व्यवस्थापक पोर्टल"
+    },
+    "copyConfig": "कॉन्फ़िगरेशन कॉपी करें"
   },
   "publicPages": {
     "common": {

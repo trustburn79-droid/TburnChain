@@ -3960,7 +3960,16 @@
       "bridgeStatus": {
         "active": "Активен",
         "plannedQ12026": "Запланирован Q1 2026"
-      }
+      },
+      "totalSupply": "Общее предложение",
+      "circulating": "В обращении",
+      "staked": "Застейкано",
+      "securityTitle": "Безопасность",
+      "audit": "Аудит",
+      "certikAPlus": "CertiK A+",
+      "insurance": "Страхование",
+      "bugBounty": "Bug Bounty",
+      "activeLink": "Активен →"
     },
     "nav": {
       "overview": "Обзор",
@@ -3969,7 +3978,16 @@
       "explorer": "Обозреватель",
       "home": "Главная",
       "demoMode": "Демо режим"
-    }
+    },
+    "quickLinks": {
+      "dex": "DEX",
+      "staking": "Стейкинг",
+      "bridge": "Мост",
+      "governance": "Управление",
+      "validators": "Валидаторы",
+      "adminPortal": "Админ Портал"
+    },
+    "copyConfig": "Скопировать настройки"
   },
   "publicPages": {
     "common": {

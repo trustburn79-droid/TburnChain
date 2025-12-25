@@ -5295,7 +5295,16 @@
       "bridgeStatus": {
         "active": "Activo",
         "plannedQ12026": "Planificado Q1 2026"
-      }
+      },
+      "totalSupply": "Suministro Total",
+      "circulating": "Circulante",
+      "staked": "En Staking",
+      "securityTitle": "Seguridad",
+      "audit": "Auditoría",
+      "certikAPlus": "CertiK A+",
+      "insurance": "Seguro",
+      "bugBounty": "Bug Bounty",
+      "activeLink": "Activo →"
     },
     "nav": {
       "overview": "Resumen",
@@ -5304,7 +5313,16 @@
       "explorer": "Explorador",
       "home": "Inicio",
       "demoMode": "Modo Demo"
-    }
+    },
+    "quickLinks": {
+      "dex": "DEX",
+      "staking": "Staking",
+      "bridge": "Puente",
+      "governance": "Gobernanza",
+      "validators": "Validadores",
+      "adminPortal": "Portal Admin"
+    },
+    "copyConfig": "Copiar Configuración"
   },
   "publicPages": {
     "common": {

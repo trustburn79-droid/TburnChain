@@ -3082,7 +3082,16 @@
       "bridgeStatus": {
         "active": "সক্রিয়",
         "plannedQ12026": "পরিকল্পিত Q1 2026"
-      }
+      },
+      "totalSupply": "মোট সরবরাহ",
+      "circulating": "প্রচলিত",
+      "staked": "স্টেক করা",
+      "securityTitle": "নিরাপত্তা",
+      "audit": "অডিট",
+      "certikAPlus": "CertiK A+",
+      "insurance": "বীমা",
+      "bugBounty": "বাগ বাউন্টি",
+      "activeLink": "সক্রিয় →"
     },
     "nav": {
       "overview": "সংক্ষিপ্ত বিবরণ",
@@ -3091,7 +3100,16 @@
       "explorer": "এক্সপ্লোরার",
       "home": "হোম",
       "demoMode": "ডেমো মোড"
-    }
+    },
+    "quickLinks": {
+      "dex": "ডিইএক্স",
+      "staking": "স্টেকিং",
+      "bridge": "ব্রিজ",
+      "governance": "গভর্নেন্স",
+      "validators": "ভ্যালিডেটর",
+      "adminPortal": "অ্যাডমিন পোর্টাল"
+    },
+    "copyConfig": "কনফিগারেশন কপি করুন"
   },
   "publicPages": {
     "common": {

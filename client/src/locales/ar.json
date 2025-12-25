@@ -4774,7 +4774,16 @@
       "bridgeStatus": {
         "active": "نشط",
         "plannedQ12026": "مخطط Q1 2026"
-      }
+      },
+      "totalSupply": "إجمالي المعروض",
+      "circulating": "المتداول",
+      "staked": "مرهون",
+      "securityTitle": "الأمان",
+      "audit": "التدقيق",
+      "certikAPlus": "CertiK A+",
+      "insurance": "التأمين",
+      "bugBounty": "مكافأة الأخطاء",
+      "activeLink": "نشط ←"
     },
     "nav": {
       "overview": "نظرة عامة",
@@ -4783,7 +4792,16 @@
       "explorer": "المستكشف",
       "home": "الرئيسية",
       "demoMode": "وضع العرض"
-    }
+    },
+    "quickLinks": {
+      "dex": "منصة لامركزية",
+      "staking": "الرهن",
+      "bridge": "الجسر",
+      "governance": "الحوكمة",
+      "validators": "المدققون",
+      "adminPortal": "بوابة المسؤول"
+    },
+    "copyConfig": "نسخ الإعدادات"
   },
   "publicPages": {
     "common": {

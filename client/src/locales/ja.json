@@ -7403,7 +7403,16 @@
       "bridgeStatus": {
         "active": "アクティブ",
         "plannedQ12026": "2026年Q1予定"
-      }
+      },
+      "totalSupply": "総供給量",
+      "circulating": "流通量",
+      "staked": "ステーキング中",
+      "securityTitle": "セキュリティ",
+      "audit": "監査",
+      "certikAPlus": "CertiK A+",
+      "insurance": "保険",
+      "bugBounty": "バグバウンティ",
+      "activeLink": "アクティブ →"
     },
     "nav": {
       "overview": "概要",
@@ -7412,7 +7421,16 @@
       "explorer": "エクスプローラー",
       "home": "ホーム",
       "demoMode": "デモモード"
-    }
+    },
+    "quickLinks": {
+      "dex": "DEX",
+      "staking": "ステーキング",
+      "bridge": "ブリッジ",
+      "governance": "ガバナンス",
+      "validators": "バリデータ",
+      "adminPortal": "管理者ポータル"
+    },
+    "copyConfig": "設定をコピー"
   },
   "publicPages": {
     "common": {

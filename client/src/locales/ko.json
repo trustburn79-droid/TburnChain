@@ -7481,7 +7481,16 @@
       "bridgeStatus": {
         "active": "활성",
         "plannedQ12026": "2026년 1분기 예정"
-      }
+      },
+      "totalSupply": "총 공급량",
+      "circulating": "유통량",
+      "staked": "스테이킹됨",
+      "securityTitle": "보안",
+      "audit": "감사",
+      "certikAPlus": "CertiK A+",
+      "insurance": "보험",
+      "bugBounty": "버그 바운티",
+      "activeLink": "활성 →"
     },
     "nav": {
       "overview": "개요",
@@ -7490,7 +7499,16 @@
       "explorer": "익스플로러",
       "home": "홈",
       "demoMode": "데모 모드"
-    }
+    },
+    "quickLinks": {
+      "dex": "탈중앙 거래소",
+      "staking": "스테이킹",
+      "bridge": "브릿지",
+      "governance": "거버넌스",
+      "validators": "검증인",
+      "adminPortal": "관리자 포털"
+    },
+    "copyConfig": "설정 복사"
   },
   "publicPages": {
     "common": {

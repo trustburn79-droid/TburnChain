@@ -3082,7 +3082,16 @@
       "bridgeStatus": {
         "active": "فعال",
         "plannedQ12026": "منصوبہ بندی Q1 2026"
-      }
+      },
+      "totalSupply": "کل سپلائی",
+      "circulating": "گردشی",
+      "staked": "اسٹیک شدہ",
+      "securityTitle": "سیکورٹی",
+      "audit": "آڈٹ",
+      "certikAPlus": "CertiK A+",
+      "insurance": "انشورنس",
+      "bugBounty": "بگ باؤنٹی",
+      "activeLink": "فعال ←"
     },
     "nav": {
       "overview": "جائزہ",
@@ -3091,7 +3100,16 @@
       "explorer": "ایکسپلورر",
       "home": "ہوم",
       "demoMode": "ڈیمو موڈ"
-    }
+    },
+    "quickLinks": {
+      "dex": "ڈی ای ایکس",
+      "staking": "اسٹیکنگ",
+      "bridge": "برج",
+      "governance": "گورننس",
+      "validators": "تصدیق کنندگان",
+      "adminPortal": "ایڈمن پورٹل"
+    },
+    "copyConfig": "کنفیگریشن کاپی کریں"
   },
   "publicPages": {
     "common": {

@@ -1158,15 +1158,15 @@ export default function VCTestMode() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Total Supply</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.totalSupply', 'Total Supply')}</span>
                     <span className="font-bold">10B TBURN</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Circulating</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.circulating', 'Circulating')}</span>
                     <span className="font-bold">~6.8B (68%)</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Staked</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.staked', 'Staked')}</span>
                     <span className="font-bold text-purple-500">~3.2B (32%)</span>
                   </div>
                 </CardContent>
@@ -1201,22 +1201,22 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Shield className="w-4 h-4 text-green-500" />
-                    Security
+                    {t('vcTestMode.dueDiligence.securityTitle', 'Security')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Audit</span>
-                    <Badge className="bg-green-500">CertiK A+</Badge>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.audit', 'Audit')}</span>
+                    <Badge className="bg-green-500">{t('vcTestMode.dueDiligence.certikAPlus', 'CertiK A+')}</Badge>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Insurance</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.insurance', 'Insurance')}</span>
                     <span className="font-bold">$50M</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Bug Bounty</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.bugBounty', 'Bug Bounty')}</span>
                     <Link href="/bug-bounty">
-                      <span className="text-blue-500 hover:underline cursor-pointer">Active →</span>
+                      <span className="text-blue-500 hover:underline cursor-pointer">{t('vcTestMode.dueDiligence.activeLink', 'Active →')}</span>
                     </Link>
                   </div>
                 </CardContent>
@@ -1415,37 +1415,37 @@ export default function VCTestMode() {
             <Link href="/app/dex">
               <Button variant="outline" data-testid="quick-link-dex">
                 <Coins className="w-4 h-4 mr-2" />
-                DEX
+                {t('vcTestMode.quickLinks.dex', 'DEX')}
               </Button>
             </Link>
             <Link href="/app/staking">
               <Button variant="outline" data-testid="quick-link-staking">
                 <Lock className="w-4 h-4 mr-2" />
-                Staking
+                {t('vcTestMode.quickLinks.staking', 'Staking')}
               </Button>
             </Link>
             <Link href="/app/bridge">
               <Button variant="outline" data-testid="quick-link-bridge">
                 <Globe className="w-4 h-4 mr-2" />
-                Bridge
+                {t('vcTestMode.quickLinks.bridge', 'Bridge')}
               </Button>
             </Link>
             <Link href="/app/governance">
               <Button variant="outline" data-testid="quick-link-governance">
                 <Users className="w-4 h-4 mr-2" />
-                Governance
+                {t('vcTestMode.quickLinks.governance', 'Governance')}
               </Button>
             </Link>
             <Link href="/network/validators">
               <Button variant="outline" data-testid="quick-link-validators">
                 <Server className="w-4 h-4 mr-2" />
-                Validators
+                {t('vcTestMode.quickLinks.validators', 'Validators')}
               </Button>
             </Link>
             <Link href="/admin">
               <Button variant="outline" data-testid="quick-link-admin">
                 <Shield className="w-4 h-4 mr-2" />
-                Admin Portal
+                {t('vcTestMode.quickLinks.adminPortal', 'Admin Portal')}
               </Button>
             </Link>
           </div>

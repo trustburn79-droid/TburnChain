@@ -6740,7 +6740,16 @@
       "bridgeStatus": {
         "active": "活跃",
         "plannedQ12026": "2026年Q1计划"
-      }
+      },
+      "totalSupply": "总供应量",
+      "circulating": "流通量",
+      "staked": "已质押",
+      "securityTitle": "安全",
+      "audit": "审计",
+      "certikAPlus": "CertiK A+",
+      "insurance": "保险",
+      "bugBounty": "漏洞赏金",
+      "activeLink": "活跃 →"
     },
     "nav": {
       "overview": "概览",
@@ -6749,7 +6758,16 @@
       "explorer": "浏览器",
       "home": "首页",
       "demoMode": "演示模式"
-    }
+    },
+    "quickLinks": {
+      "dex": "去中心化交易所",
+      "staking": "质押",
+      "bridge": "跨链桥",
+      "governance": "治理",
+      "validators": "验证者",
+      "adminPortal": "管理门户"
+    },
+    "copyConfig": "复制配置"
   },
   "publicPages": {
     "common": {

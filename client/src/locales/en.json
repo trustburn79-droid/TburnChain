@@ -7275,7 +7275,16 @@
       "bridgeStatus": {
         "active": "Active",
         "plannedQ12026": "Planned Q1 2026"
-      }
+      },
+      "totalSupply": "Total Supply",
+      "circulating": "Circulating",
+      "staked": "Staked",
+      "securityTitle": "Security",
+      "audit": "Audit",
+      "certikAPlus": "CertiK A+",
+      "insurance": "Insurance",
+      "bugBounty": "Bug Bounty",
+      "activeLink": "Active →"
     },
     "nav": {
       "overview": "Overview",
@@ -7284,7 +7293,16 @@
       "explorer": "Explorer",
       "home": "Home",
       "demoMode": "Demo Mode"
-    }
+    },
+    "quickLinks": {
+      "dex": "DEX",
+      "staking": "Staking",
+      "bridge": "Bridge",
+      "governance": "Governance",
+      "validators": "Validators",
+      "adminPortal": "Admin Portal"
+    },
+    "copyConfig": "Copy Configuration"
   },
   "publicPages": {
     "common": {
