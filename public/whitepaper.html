@@ -728,6 +728,25 @@ tburn.on('blockConfirmed', (block) => {
                         <p data-i18n="tokenomics_subtitle" class="text-gray-400 mt-2">20년 지속 가능한 디플레이션 모델 (Total Supply: 10B TBURN)</p>
                     </div>
 
+                    <div class="grid md:grid-cols-4 gap-4 mb-10">
+                        <div class="bg-tburn-card p-4 rounded border border-tburn-border text-center">
+                            <div class="text-2xl font-bold text-white mb-1">10B</div>
+                            <div data-i18n="token_initial_supply" class="text-xs text-gray-400">Initial Supply</div>
+                        </div>
+                        <div class="bg-tburn-card p-4 rounded border border-tburn-border text-center">
+                            <div class="text-2xl font-bold text-green-400 mb-1">6.94B</div>
+                            <div data-i18n="token_final_supply" class="text-xs text-gray-400">Final Supply (Y20)</div>
+                        </div>
+                        <div class="bg-tburn-card p-4 rounded border border-tburn-border text-center">
+                            <div class="text-2xl font-bold text-red-400 mb-1">-3.06B</div>
+                            <div data-i18n="token_total_burn" class="text-xs text-gray-400">Total Burn</div>
+                        </div>
+                        <div class="bg-tburn-card p-4 rounded border border-tburn-border text-center">
+                            <div class="text-2xl font-bold text-tburn-orange mb-1">-30.6%</div>
+                            <div data-i18n="token_deflation_rate" class="text-xs text-gray-400">Deflation Rate</div>
+                        </div>
+                    </div>
+
                     <div class="mb-10">
                         <h3 data-i18n="token_distribution" class="text-white font-bold mb-4">Token Distribution</h3>
                         <div class="flex h-8 rounded-full overflow-hidden w-full mb-4">
@@ -737,56 +756,100 @@ tburn.on('blockConfirmed', (block) => {
                             <div data-i18n="token_eco" class="bg-green-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 15%">Eco 15%</div>
                             <div data-i18n="token_team" class="bg-gray-600 h-full flex items-center justify-center text-[10px] font-bold text-white" style="width: 12%">Team 12%</div>
                         </div>
+                        <div class="grid grid-cols-5 gap-2 text-center text-xs">
+                            <div><span class="text-tburn-orange font-bold">3B</span> <span class="text-gray-500">TBURN</span></div>
+                            <div><span class="text-blue-400 font-bold">2.3B</span> <span class="text-gray-500">TBURN</span></div>
+                            <div><span class="text-purple-400 font-bold">2B</span> <span class="text-gray-500">TBURN</span></div>
+                            <div><span class="text-green-400 font-bold">1.5B</span> <span class="text-gray-500">TBURN</span></div>
+                            <div><span class="text-gray-300 font-bold">1.2B</span> <span class="text-gray-500">TBURN</span></div>
+                        </div>
                     </div>
 
-                    <div class="overflow-x-auto mb-10">
-                        <h3 data-i18n="vesting_schedules" class="text-white font-bold mb-4">Vesting Schedules</h3>
-                        <table class="w-full tech-table">
-                            <thead>
-                                <tr>
-                                    <th data-i18n="vesting_allocation">Allocation</th>
-                                    <th data-i18n="vesting_cliff">Cliff</th>
-                                    <th data-i18n="vesting_vesting">Vesting</th>
-                                    <th data-i18n="vesting_tge">TGE Unlock</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td data-i18n="vesting_team" class="text-white font-bold">Team</td>
-                                    <td data-i18n="vesting_12m">12 Months</td>
-                                    <td data-i18n="vesting_48m">48 Months</td>
-                                    <td class="text-gray-500">0%</td>
-                                </tr>
-                                <tr>
-                                    <td data-i18n="vesting_seed" class="text-white font-bold">Seed Investors</td>
-                                    <td data-i18n="vesting_12m_2">12 Months</td>
-                                    <td data-i18n="vesting_36m">36 Months</td>
-                                    <td class="text-gray-500">0%</td>
-                                </tr>
-                                <tr>
-                                    <td data-i18n="vesting_community" class="text-white font-bold">Community Rewards</td>
-                                    <td>0</td>
-                                    <td data-i18n="vesting_240m">240 Months (20 Years)</td>
-                                    <td data-i18n="vesting_ongoing" class="text-tburn-orange">Ongoing</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <div class="grid md:grid-cols-2 gap-8 mb-10">
+                        <div class="bg-tburn-card p-6 rounded border border-tburn-border">
+                            <h3 data-i18n="supply_mechanism" class="text-white font-bold mb-4">Supply Mechanism</h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between border-b border-gray-700 pb-2">
+                                    <span data-i18n="block_reward_pool" class="text-gray-400">Block Reward Pool</span>
+                                    <span class="text-white font-bold">1.5B TBURN (15%)</span>
+                                </div>
+                                <div class="flex justify-between border-b border-gray-700 pb-2">
+                                    <span data-i18n="distribution_period" class="text-gray-400">Distribution Period</span>
+                                    <span class="text-white font-bold">20 Years (240 Months)</span>
+                                </div>
+                                <div class="flex justify-between border-b border-gray-700 pb-2">
+                                    <span data-i18n="block_time" class="text-gray-400">Block Time</span>
+                                    <span class="text-white font-bold">0.5 Seconds</span>
+                                </div>
+                                <div class="mt-4 p-3 bg-blue-900/20 rounded text-xs">
+                                    <h4 data-i18n="halving_schedule" class="text-blue-400 font-bold mb-2">Halving Schedule</h4>
+                                    <div data-i18n="halving_1" class="text-gray-300 mb-1">• 1st Halving (Y6): -17.6% Emission</div>
+                                    <div data-i18n="halving_2" class="text-gray-300">• 2nd Halving (Y9): -10% Additional</div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="grid md:grid-cols-2 gap-8">
                         <div class="bg-tburn-card p-6 rounded border border-tburn-border">
                             <h3 data-i18n="burn_mechanism" class="text-white font-bold mb-4">Burn Mechanism (AI Optimized)</h3>
-                            <div class="flex justify-between mb-2 text-sm">
-                                <span data-i18n="burn_tx" class="text-gray-400">Transaction Burn</span>
-                                <span data-i18n="burn_tx_value" class="text-white">0.7% of Gas</span>
+                            <div class="space-y-3 text-sm">
+                                <div class="p-3 bg-green-900/20 rounded border border-green-900/30">
+                                    <div data-i18n="burn_ai_fee" class="text-green-400 font-bold mb-1">AI Compute Fee Burn</div>
+                                    <div data-i18n="burn_ai_desc" class="text-gray-400 text-xs">AI Inference/Training & Agent Fees 100% Burned</div>
+                                </div>
+                                <div class="p-3 bg-green-900/20 rounded border border-green-900/30">
+                                    <div data-i18n="burn_tx_fee" class="text-green-400 font-bold mb-1">Transaction Fee Burn</div>
+                                    <div data-i18n="burn_tx_desc" class="text-gray-400 text-xs">50% of Base Gas Permanently Burned (50% to Validators)</div>
+                                </div>
+                                <div class="p-3 bg-green-900/20 rounded border border-green-900/30">
+                                    <div data-i18n="burn_buyback" class="text-green-400 font-bold mb-1">Quarterly Buyback & Burn</div>
+                                    <div data-i18n="burn_buyback_desc" class="text-gray-400 text-xs">Special Events Program Active</div>
+                                </div>
                             </div>
-                            <div class="flex justify-between mb-2 text-sm">
-                                <span data-i18n="burn_total" class="text-gray-400">Total Burned</span>
-                                <span class="text-tburn-orange">350,000,000 TBURN</span>
+                            <div data-i18n="burn_target" class="mt-4 p-3 bg-red-900/20 text-red-300 text-xs rounded text-center font-bold">
+                                Target: 30.6% Deflation over 20 Years (10B → 6.94B)
                             </div>
-                            <div data-i18n="burn_target" class="mt-4 p-3 bg-red-900/20 text-red-300 text-xs rounded">
-                                Target: 30.6% Deflation over 20 Years
-                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 mb-10">
+                        <div class="overflow-x-auto">
+                            <h3 data-i18n="vesting_schedules" class="text-white font-bold mb-4">Vesting Schedules</h3>
+                            <table class="w-full tech-table">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="vesting_allocation">Allocation</th>
+                                        <th data-i18n="vesting_cliff">Cliff</th>
+                                        <th data-i18n="vesting_vesting">Vesting</th>
+                                        <th data-i18n="vesting_tge">TGE Unlock</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-i18n="vesting_team" class="text-white font-bold">Team</td>
+                                        <td data-i18n="vesting_12m">12 Months</td>
+                                        <td data-i18n="vesting_48m">48 Months</td>
+                                        <td class="text-gray-500">0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-i18n="vesting_seed" class="text-white font-bold">Seed Investors</td>
+                                        <td data-i18n="vesting_12m_2">12 Months</td>
+                                        <td data-i18n="vesting_36m">36 Months</td>
+                                        <td class="text-gray-500">0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-i18n="vesting_public" class="text-white font-bold">Public Sale</td>
+                                        <td>0</td>
+                                        <td data-i18n="vesting_12m_linear">12 Months Linear</td>
+                                        <td class="text-tburn-orange">10%</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-i18n="vesting_community" class="text-white font-bold">Community Rewards</td>
+                                        <td>0</td>
+                                        <td data-i18n="vesting_240m">240 Months (20 Years)</td>
+                                        <td data-i18n="vesting_ongoing" class="text-tburn-orange">Ongoing</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
 
                         <div class="bg-tburn-card p-6 rounded border border-tburn-border">
@@ -801,6 +864,32 @@ tburn.on('blockConfirmed', (block) => {
                                     <tr><td data-i18n="staking_diamond" class="py-2 text-tburn-orange font-bold">Diamond</td><td class="text-white">1,000,000</td><td class="text-green-400 font-bold">10%</td></tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="bg-tburn-card p-6 rounded border border-tburn-border">
+                        <h3 data-i18n="token_phases" class="text-white font-bold mb-4">20-Year Token Economics Phases</h3>
+                        <div class="grid md:grid-cols-4 gap-4">
+                            <div class="p-4 border-l-4 border-tburn-orange bg-orange-900/10 rounded-r">
+                                <div class="text-tburn-orange text-xs mb-1">Phase 1 (Y1-Y5)</div>
+                                <div data-i18n="phase1_name" class="text-white font-bold">Growth Phase</div>
+                                <div data-i18n="phase1_desc" class="text-gray-400 text-xs mt-1">Ecosystem Building</div>
+                            </div>
+                            <div class="p-4 border-l-4 border-green-500 bg-green-900/10 rounded-r">
+                                <div class="text-green-400 text-xs mb-1">Phase 2 (Y6-Y10)</div>
+                                <div data-i18n="phase2_name" class="text-white font-bold">Deflation Phase</div>
+                                <div data-i18n="phase2_desc" class="text-gray-400 text-xs mt-1">Accelerated Burn</div>
+                            </div>
+                            <div class="p-4 border-l-4 border-yellow-500 bg-yellow-900/10 rounded-r">
+                                <div class="text-yellow-400 text-xs mb-1">Phase 3 (Y11-Y15)</div>
+                                <div data-i18n="phase3_name" class="text-white font-bold">Balance Phase</div>
+                                <div data-i18n="phase3_desc" class="text-gray-400 text-xs mt-1">Full Stabilization</div>
+                            </div>
+                            <div class="p-4 border-l-4 border-purple-500 bg-purple-900/10 rounded-r">
+                                <div class="text-purple-400 text-xs mb-1">Phase 4 (Y16-Y20)</div>
+                                <div data-i18n="phase4_name" class="text-white font-bold">Optimization Phase</div>
+                                <div data-i18n="phase4_desc" class="text-gray-400 text-xs mt-1">Value Completion</div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -857,13 +946,34 @@ tburn.on('blockConfirmed', (block) => {
                         <p data-i18n="roadmap_subtitle" class="text-gray-400 mt-2">Future Expansion Plan (2025-2026+)</p>
                     </div>
 
+                    <div class="grid md:grid-cols-4 gap-4 mb-10">
+                        <div class="bg-tburn-card p-4 rounded border border-tburn-border text-center">
+                            <div class="text-tburn-orange text-xs mb-1">MAINNET GENESIS</div>
+                            <div data-i18n="roadmap_genesis_date" class="text-lg font-bold text-white">2025.12.22</div>
+                        </div>
+                        <div class="bg-tburn-card p-4 rounded border border-tburn-border text-center">
+                            <div class="text-blue-400 text-xs mb-1">SEED ROUND</div>
+                            <div data-i18n="roadmap_seed_date" class="text-lg font-bold text-white">2026.01.05~11</div>
+                            <div class="text-gray-500 text-xs">$0.04 • 500M TBURN</div>
+                        </div>
+                        <div class="bg-tburn-card p-4 rounded border border-tburn-border text-center">
+                            <div class="text-purple-400 text-xs mb-1">PUBLIC SALE</div>
+                            <div data-i18n="roadmap_public_date" class="text-lg font-bold text-white">2026.01.19~30</div>
+                            <div class="text-gray-500 text-xs">$0.20 • 600M TBURN</div>
+                        </div>
+                        <div class="bg-tburn-card p-4 rounded border border-tburn-border text-center">
+                            <div class="text-green-400 text-xs mb-1">EXCHANGE LISTING</div>
+                            <div data-i18n="roadmap_listing_date" class="text-lg font-bold text-white">2026.02 (Target)</div>
+                        </div>
+                    </div>
+
                     <div class="relative border-l border-gray-700 ml-4 space-y-12">
                         <div class="relative pl-8">
                             <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-green-500 rounded-full shadow-glow"></div>
-                            <h3 data-i18n="roadmap_phase3" class="text-xl font-bold text-green-400">Phase 3: Mainnet (Q4 2024) - CURRENT</h3>
+                            <h3 data-i18n="roadmap_phase3" class="text-xl font-bold text-green-400">Phase 3: Mainnet (Q4 2025) - CURRENT</h3>
                             <ul class="mt-2 text-sm text-gray-400 list-disc list-inside">
                                 <li data-i18n="roadmap_p3_1">Mainnet v8.0 Launch ✅</li>
-                                <li data-i18n="roadmap_p3_2">50,908 TPS Achieved ✅</li>
+                                <li data-i18n="roadmap_p3_2">210,000 TPS Achieved ✅</li>
                                 <li data-i18n="roadmap_p3_3">1,600 Distributed Validators ✅</li>
                                 <li data-i18n="roadmap_p3_4">7-Chain Bridge Live ✅</li>
                             </ul>
@@ -871,7 +981,7 @@ tburn.on('blockConfirmed', (block) => {
 
                         <div class="relative pl-8">
                             <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-tburn-orange rounded-full animate-pulse"></div>
-                            <h3 data-i18n="roadmap_phase4" class="text-xl font-bold text-tburn-orange">Phase 4: Ecosystem (Q1-Q2 2025)</h3>
+                            <h3 data-i18n="roadmap_phase4" class="text-xl font-bold text-tburn-orange">Phase 4: Ecosystem (Q1-Q2 2026)</h3>
                             <ul class="mt-2 text-sm text-gray-400 list-disc list-inside">
                                 <li data-i18n="roadmap_p4_1">DEX & Lending Protocol Launch</li>
                                 <li data-i18n="roadmap_p4_2">NFT Marketplace</li>
@@ -882,7 +992,7 @@ tburn.on('blockConfirmed', (block) => {
 
                         <div class="relative pl-8">
                             <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-gray-500 rounded-full"></div>
-                            <h3 data-i18n="roadmap_phase5" class="text-xl font-bold text-gray-300">Phase 5: Expansion (Q3-Q4 2025)</h3>
+                            <h3 data-i18n="roadmap_phase5" class="text-xl font-bold text-gray-300">Phase 5: Expansion (Q3-Q4 2026)</h3>
                             <p data-i18n="roadmap_p5_desc" class="text-sm text-gray-500 mt-1">Enterprise Partnerships, Govt Adoption, Layer 2 Solutions.</p>
                         </div>
                         
@@ -1117,13 +1227,32 @@ tburn.on('blockConfirmed', (block) => {
             bridge_hourly_limit: "시간당 체인 한도: $5,000만",
             section_tokenomics: "13. 토크노믹스",
             tokenomics_subtitle: "20년 지속 가능한 디플레이션 모델 (총 공급량: 10B TBURN)",
-            tokenomics_text: "총 공급량: 1,000,000,000 TBURN. 스테이킹 보상, 생태계 발전, 팀 배분이 투명하게 운영됩니다.",
+            tokenomics_text: "총 공급량: 10,000,000,000 TBURN. 스테이킹 보상, 생태계 발전, 팀 배분이 투명하게 운영됩니다.",
+            token_initial_supply: "초기 공급량",
+            token_final_supply: "최종 공급량 (Y20)",
+            token_total_burn: "총 소각량",
+            token_deflation_rate: "디플레이션율",
             token_distribution: "토큰 배분",
             token_community: "커뮤니티 30%",
             token_rewards: "보상 23%",
             token_investors: "투자자 20%",
             token_eco: "생태계 15%",
             token_team: "팀 12%",
+            supply_mechanism: "공급 메커니즘",
+            block_reward_pool: "블록 보상 풀",
+            distribution_period: "배분 기간",
+            block_time: "블록 시간",
+            halving_schedule: "반감기 일정",
+            halving_1: "• 1차 반감기 (Y6): -17.6% 발행량 감소",
+            halving_2: "• 2차 반감기 (Y9): -10% 추가 감소",
+            burn_mechanism: "소각 메커니즘 (AI 최적화)",
+            burn_ai_fee: "AI 연산 수수료 소각",
+            burn_ai_desc: "AI 추론/학습 비용 및 에이전트 수수료 100% 소각",
+            burn_tx_fee: "트랜잭션 수수료 소각",
+            burn_tx_desc: "기본 가스비의 50% 영구 소각 (50% 밸리데이터)",
+            burn_buyback: "분기별 바이백 & 번",
+            burn_buyback_desc: "스페셜 이벤트 프로그램 활성화",
+            burn_target: "목표: 20년간 30.6% 디플레이션 (10B → 6.94B)",
             vesting_schedules: "베스팅 일정",
             vesting_allocation: "할당",
             vesting_cliff: "클리프",
@@ -1135,20 +1264,26 @@ tburn.on('blockConfirmed', (block) => {
             vesting_seed: "시드 투자자",
             vesting_12m_2: "12개월",
             vesting_36m: "36개월",
+            vesting_public: "퍼블릭 세일",
+            vesting_12m_linear: "12개월 선형",
             vesting_community: "커뮤니티 보상",
             vesting_240m: "240개월 (20년)",
             vesting_ongoing: "진행 중",
-            burn_mechanism: "소각 메커니즘 (AI 최적화)",
-            burn_tx: "거래 소각",
-            burn_tx_value: "가스의 0.7%",
-            burn_total: "총 소각량",
-            burn_target: "목표: 20년간 30.6% 디플레이션",
             staking_tiers: "스테이킹 등급",
             staking_tier: "등급",
             staking_min: "최소 스테이크",
             staking_bronze: "브론즈",
             staking_gold: "골드",
             staking_diamond: "다이아몬드",
+            token_phases: "20년 토큰 이코노미 단계",
+            phase1_name: "성장기",
+            phase1_desc: "생태계 구축",
+            phase2_name: "디플레기",
+            phase2_desc: "가속 소각",
+            phase3_name: "균형기",
+            phase3_desc: "완전 안정화",
+            phase4_name: "최적화기",
+            phase4_desc: "가치 완성",
             section_ecosystem: "16-19. 생태계 & 보안",
             ecosystem_text: "TBURN 생태계는 DeFi, NFT 마켓플레이스, GameFi를 포함합니다. TBC-721, TBC-1155 토큰 표준이 크리에이터와 개발자를 지원합니다.",
             eco_genesis_nft: "제네시스 NFT",
@@ -1168,18 +1303,22 @@ tburn.on('blockConfirmed', (block) => {
             security_text: "양자 내성 암호화, 다중 서명 보안, 실시간 위협 탐지가 네트워크를 보호합니다. 주요 글로벌 규제 요건을 준수합니다.",
             section_roadmap: "21. 로드맵",
             roadmap_subtitle: "미래 확장 계획 (2025-2026+)",
-            roadmap_text: "2024년 메인넷 출시 → 2025년 Q1 DEX 출시 → Q2 NFT 마켓플레이스 → Q3 GameFi 허브 → Q4 크로스체인 확장",
-            roadmap_phase3: "Phase 3: 메인넷 (2024 Q4) - 현재",
+            roadmap_text: "2025년 메인넷 출시 → 2026년 Q1 DEX 출시 → Q2 NFT 마켓플레이스 → Q3 GameFi 허브 → Q4 크로스체인 확장",
+            roadmap_genesis_date: "2025.12.22",
+            roadmap_seed_date: "2026.01.05~11",
+            roadmap_public_date: "2026.01.19~30",
+            roadmap_listing_date: "2026.02 (목표)",
+            roadmap_phase3: "Phase 3: 메인넷 (2025 Q4) - 현재",
             roadmap_p3_1: "메인넷 v8.0 출시 ✅",
-            roadmap_p3_2: "50,908 TPS 달성 ✅",
+            roadmap_p3_2: "210,000 TPS 달성 ✅",
             roadmap_p3_3: "1,600 분산 밸리데이터 ✅",
             roadmap_p3_4: "7체인 브릿지 라이브 ✅",
-            roadmap_phase4: "Phase 4: 생태계 (2025 Q1-Q2)",
+            roadmap_phase4: "Phase 4: 생태계 (2026 Q1-Q2)",
             roadmap_p4_1: "DEX & 렌딩 프로토콜 출시",
             roadmap_p4_2: "NFT 마켓플레이스",
             roadmap_p4_3: "GameFi 허브",
             roadmap_p4_4: "목표: 10,000+ 밸리데이터",
-            roadmap_phase5: "Phase 5: 확장 (2025 Q3-Q4)",
+            roadmap_phase5: "Phase 5: 확장 (2026 Q3-Q4)",
             roadmap_p5_desc: "엔터프라이즈 파트너십, 정부 도입, Layer 2 솔루션",
             price_projection: "20년 가격 전망 (중립 케이스)",
             price_year: "연도",
@@ -1319,13 +1458,32 @@ tburn.on('blockConfirmed', (block) => {
             bridge_hourly_limit: "Hourly Chain Limit: $50M",
             section_tokenomics: "13. Tokenomics",
             tokenomics_subtitle: "20-Year Sustainable Deflation Model (Total Supply: 10B TBURN)",
-            tokenomics_text: "Total Supply: 1,000,000,000 TBURN. Staking rewards, ecosystem development, and team allocation are transparently managed.",
+            tokenomics_text: "Total Supply: 10,000,000,000 TBURN. Staking rewards, ecosystem development, and team allocation are transparently managed.",
+            token_initial_supply: "Initial Supply",
+            token_final_supply: "Final Supply (Y20)",
+            token_total_burn: "Total Burn",
+            token_deflation_rate: "Deflation Rate",
             token_distribution: "Token Distribution",
             token_community: "Community 30%",
             token_rewards: "Rewards 23%",
             token_investors: "Investors 20%",
             token_eco: "Eco 15%",
             token_team: "Team 12%",
+            supply_mechanism: "Supply Mechanism",
+            block_reward_pool: "Block Reward Pool",
+            distribution_period: "Distribution Period",
+            block_time: "Block Time",
+            halving_schedule: "Halving Schedule",
+            halving_1: "• 1st Halving (Y6): -17.6% Emission",
+            halving_2: "• 2nd Halving (Y9): -10% Additional",
+            burn_mechanism: "Burn Mechanism (AI Optimized)",
+            burn_ai_fee: "AI Compute Fee Burn",
+            burn_ai_desc: "AI Inference/Training & Agent Fees 100% Burned",
+            burn_tx_fee: "Transaction Fee Burn",
+            burn_tx_desc: "50% of Base Gas Permanently Burned (50% to Validators)",
+            burn_buyback: "Quarterly Buyback & Burn",
+            burn_buyback_desc: "Special Events Program Active",
+            burn_target: "Target: 30.6% Deflation over 20 Years (10B → 6.94B)",
             vesting_schedules: "Vesting Schedules",
             vesting_allocation: "Allocation",
             vesting_cliff: "Cliff",
@@ -1337,20 +1495,26 @@ tburn.on('blockConfirmed', (block) => {
             vesting_seed: "Seed Investors",
             vesting_12m_2: "12 Months",
             vesting_36m: "36 Months",
+            vesting_public: "Public Sale",
+            vesting_12m_linear: "12 Months Linear",
             vesting_community: "Community Rewards",
             vesting_240m: "240 Months (20 Years)",
             vesting_ongoing: "Ongoing",
-            burn_mechanism: "Burn Mechanism (AI Optimized)",
-            burn_tx: "Transaction Burn",
-            burn_tx_value: "0.7% of Gas",
-            burn_total: "Total Burned",
-            burn_target: "Target: 30.6% Deflation over 20 Years",
             staking_tiers: "Staking Tiers",
             staking_tier: "Tier",
             staking_min: "Min Stake",
             staking_bronze: "Bronze",
             staking_gold: "Gold",
             staking_diamond: "Diamond",
+            token_phases: "20-Year Token Economics Phases",
+            phase1_name: "Growth Phase",
+            phase1_desc: "Ecosystem Building",
+            phase2_name: "Deflation Phase",
+            phase2_desc: "Accelerated Burn",
+            phase3_name: "Balance Phase",
+            phase3_desc: "Full Stabilization",
+            phase4_name: "Optimization Phase",
+            phase4_desc: "Value Completion",
             section_ecosystem: "16-19. Ecosystem & Security",
             ecosystem_text: "The TBURN ecosystem includes DeFi, NFT marketplace, and GameFi. TBC-721 and TBC-1155 token standards support creators and developers.",
             eco_genesis_nft: "Genesis NFT",
@@ -1370,18 +1534,22 @@ tburn.on('blockConfirmed', (block) => {
             security_text: "Quantum-resistant cryptography, multi-signature security, and real-time threat detection protect the network. We comply with major global regulatory requirements.",
             section_roadmap: "21. Roadmap",
             roadmap_subtitle: "Future Expansion Plan (2025-2026+)",
-            roadmap_text: "2024 Mainnet Launch → 2025 Q1 DEX Launch → Q2 NFT Marketplace → Q3 GameFi Hub → Q4 Cross-Chain Expansion",
-            roadmap_phase3: "Phase 3: Mainnet (Q4 2024) - CURRENT",
+            roadmap_text: "2025 Mainnet Launch → 2026 Q1 DEX Launch → Q2 NFT Marketplace → Q3 GameFi Hub → Q4 Cross-Chain Expansion",
+            roadmap_genesis_date: "2025.12.22",
+            roadmap_seed_date: "2026.01.05~11",
+            roadmap_public_date: "2026.01.19~30",
+            roadmap_listing_date: "2026.02 (Target)",
+            roadmap_phase3: "Phase 3: Mainnet (Q4 2025) - CURRENT",
             roadmap_p3_1: "Mainnet v8.0 Launch ✅",
-            roadmap_p3_2: "50,908 TPS Achieved ✅",
+            roadmap_p3_2: "210,000 TPS Achieved ✅",
             roadmap_p3_3: "1,600 Distributed Validators ✅",
             roadmap_p3_4: "7-Chain Bridge Live ✅",
-            roadmap_phase4: "Phase 4: Ecosystem (Q1-Q2 2025)",
+            roadmap_phase4: "Phase 4: Ecosystem (Q1-Q2 2026)",
             roadmap_p4_1: "DEX & Lending Protocol Launch",
             roadmap_p4_2: "NFT Marketplace",
             roadmap_p4_3: "GameFi Hub",
             roadmap_p4_4: "Target: 10,000+ Validators",
-            roadmap_phase5: "Phase 5: Expansion (Q3-Q4 2025)",
+            roadmap_phase5: "Phase 5: Expansion (Q3-Q4 2026)",
             roadmap_p5_desc: "Enterprise Partnerships, Govt Adoption, Layer 2 Solutions.",
             price_projection: "20-Year Price Projection (Neutral Case)",
             price_year: "Year",
