@@ -621,7 +621,7 @@ export default function VCTestMode() {
                   ))}
                   <div className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <div className="flex items-center justify-between mb-1">
-                      <Badge variant="outline" className="text-xs">Block Explorer</Badge>
+                      <Badge variant="outline" className="text-xs">{t('vcTestMode.dueDiligence.blockExplorer', 'Block Explorer')}</Badge>
                       <ExternalLink className="w-4 h-4 text-gray-400" />
                     </div>
                     <a 
@@ -642,7 +642,7 @@ export default function VCTestMode() {
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
                       <Activity className="w-5 h-5 text-green-500" />
-                      {t('vcTestMode.realtimeStats', 'Live Network Telemetry')}
+                      {t('vcTestMode.dueDiligence.liveNetworkTelemetry', 'Live Network Telemetry')}
                     </CardTitle>
                     <div className="flex items-center gap-2">
                       {PLATFORM_METRICS.isLive ? (
@@ -653,7 +653,7 @@ export default function VCTestMode() {
                     </div>
                   </div>
                   <CardDescription>
-                    Real-time data from TBURN RPC cluster (updates every 5s)
+                    {t('vcTestMode.dueDiligence.liveNetworkTelemetryDesc', 'Real-time data from TBURN RPC cluster (updates every 5s)')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3 pt-4">
@@ -661,7 +661,7 @@ export default function VCTestMode() {
                   <div className="p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg border border-blue-500/30">
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Current Block Height</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('vcTestMode.dueDiligence.currentBlockHeight', 'Current Block Height')}</div>
                         <div className="text-3xl font-bold font-mono text-blue-600 dark:text-blue-400">
                           #{PLATFORM_METRICS.blockHeight?.toLocaleString()}
                         </div>
@@ -673,7 +673,7 @@ export default function VCTestMode() {
                         className="flex items-center gap-1 text-blue-500 hover:underline text-sm"
                       >
                         <ExternalLink className="w-4 h-4" />
-                        View in Explorer
+                        {t('vcTestMode.dueDiligence.viewInExplorer', 'View in Explorer')}
                       </a>
                     </div>
                   </div>
@@ -681,44 +681,44 @@ export default function VCTestMode() {
                   <div className="grid grid-cols-2 gap-3">
                     <div className="p-3 bg-green-500/10 rounded-lg text-center">
                       <div className="text-2xl font-bold text-green-500">{PLATFORM_METRICS.tps}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">Current TPS</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{t('vcTestMode.dueDiligence.currentTps', 'Current TPS')}</div>
                     </div>
                     <div className="p-3 bg-blue-500/10 rounded-lg text-center">
                       <div className="text-2xl font-bold text-blue-500">{PLATFORM_METRICS.peakTps}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">Peak TPS</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{t('vcTestMode.dueDiligence.peakTps', 'Peak TPS')}</div>
                     </div>
                     <div className="p-3 bg-purple-500/10 rounded-lg text-center">
                       <div className="text-2xl font-bold text-purple-500">{PLATFORM_METRICS.validators}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">Validators</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{t('vcTestMode.dueDiligence.validators', 'Validators')}</div>
                     </div>
                     <div className="p-3 bg-orange-500/10 rounded-lg text-center">
                       <div className="text-2xl font-bold text-orange-500">{PLATFORM_METRICS.shards}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">Active Shards</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{t('vcTestMode.dueDiligence.activeShards', 'Active Shards')}</div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Total Transactions</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('vcTestMode.dueDiligence.totalTransactions', 'Total Transactions')}</div>
                       <div className="font-bold text-lg">{(PLATFORM_METRICS.totalTransactions / 1_000_000_000).toFixed(2)}B</div>
                     </div>
                     <div className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Connected Peers</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('vcTestMode.dueDiligence.connectedPeers', 'Connected Peers')}</div>
                       <div className="font-bold text-lg">{PLATFORM_METRICS.peerCount?.toLocaleString()}</div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">SLA Uptime</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.slaUptime', 'SLA Uptime')}</span>
                     <Badge className="bg-green-500">99.99%</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Avg RPC Latency</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.avgRpcLatency', 'Avg RPC Latency')}</span>
                     <span className="font-bold text-green-500">{PLATFORM_METRICS.avgLatency}ms</span>
                   </div>
                   {PLATFORM_METRICS.lastUpdated && (
                     <div className="text-xs text-gray-400 text-center">
-                      Last updated: {new Date(PLATFORM_METRICS.lastUpdated).toLocaleTimeString()}
+                      {t('vcTestMode.dueDiligence.lastUpdated', 'Last updated')}: {new Date(PLATFORM_METRICS.lastUpdated).toLocaleTimeString()}
                     </div>
                   )}
                 </CardContent>
@@ -735,23 +735,23 @@ export default function VCTestMode() {
                 <CardContent className="space-y-3">
                   <div className="p-3 bg-orange-500/10 rounded-lg">
                     <div className="font-bold text-orange-600 dark:text-orange-400">TBC-20</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Fungible Token Standard (ERC-20 compatible)</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.dueDiligence.tbc20Desc', 'Fungible Token Standard (ERC-20 compatible)')}</div>
                   </div>
                   <div className="p-3 bg-purple-500/10 rounded-lg">
                     <div className="font-bold text-purple-600 dark:text-purple-400">TBC-721</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Non-Fungible Token Standard (ERC-721 compatible)</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.dueDiligence.tbc721Desc', 'Non-Fungible Token Standard (ERC-721 compatible)')}</div>
                   </div>
                   <div className="p-3 bg-blue-500/10 rounded-lg">
                     <div className="font-bold text-blue-600 dark:text-blue-400">TBC-1155</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Multi-Token Standard (ERC-1155 compatible)</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.dueDiligence.tbc1155Desc', 'Multi-Token Standard (ERC-1155 compatible)')}</div>
                   </div>
                   <div className="mt-4 p-3 bg-green-500/10 rounded-lg border border-green-500/30">
                     <div className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium">
                       <Shield className="w-4 h-4" />
-                      Quantum-Resistant Signatures
+                      {t('vcTestMode.dueDiligence.quantumResistant', 'Quantum-Resistant Signatures')}
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      Post-quantum cryptography ready for future security
+                      {t('vcTestMode.dueDiligence.quantumResistantDesc', 'Post-quantum cryptography ready for future security')}
                     </div>
                   </div>
                 </CardContent>
@@ -763,40 +763,40 @@ export default function VCTestMode() {
               <CardHeader className="bg-gradient-to-r from-green-500/10 to-emerald-500/10">
                 <CardTitle className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-green-500" />
-                  Chain Registration & EVM Compatibility
+                  {t('vcTestMode.dueDiligence.chainRegistration', 'Chain Registration & EVM Compatibility')}
                 </CardTitle>
                 <CardDescription>
-                  Verified chain identification and standard compliance for replay attack protection
+                  {t('vcTestMode.dueDiligence.chainRegistrationDesc', 'Verified chain identification and standard compliance for replay attack protection')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-4">
                 <div className="grid md:grid-cols-4 gap-4">
                   <div className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Registration Status</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('vcTestMode.dueDiligence.registrationStatus', 'Registration Status')}</div>
                     <Badge className="bg-green-500">{MAINNET_CONFIG.chainRegistration.status}</Badge>
                   </div>
                   <div className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Chainlist.org</div>
                     <a href={MAINNET_CONFIG.chainRegistration.chainlistOrg} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline text-sm">
-                      View Listing
+                      {t('vcTestMode.dueDiligence.viewListing', 'View Listing')}
                     </a>
                   </div>
                   <div className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">EVM Compatible</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('vcTestMode.dueDiligence.evmCompatible', 'EVM Compatible')}</div>
                     <Badge className="bg-blue-500">{MAINNET_CONFIG.chainRegistration.evmCompatible ? 'Yes' : 'No'}</Badge>
                   </div>
                   <div className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Replay Protection</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('vcTestMode.dueDiligence.replayProtection', 'Replay Protection')}</div>
                     <span className="font-bold text-green-500 text-sm">{MAINNET_CONFIG.chainRegistration.replayProtection}</span>
                   </div>
                 </div>
                 <div className="mt-4 p-3 bg-green-500/10 rounded-lg border border-green-500/30">
                   <div className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-green-500" />
-                    <span className="font-medium text-green-600 dark:text-green-400">Unique Chain ID Verified</span>
+                    <span className="font-medium text-green-600 dark:text-green-400">{t('vcTestMode.dueDiligence.uniqueChainId', 'Unique Chain ID Verified')}</span>
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    Chain ID 7979 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.
+                    {t('vcTestMode.dueDiligence.uniqueChainIdDesc', 'Chain ID 7979 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.')}
                   </p>
                 </div>
               </CardContent>
@@ -807,10 +807,10 @@ export default function VCTestMode() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Terminal className="w-5 h-5 text-purple-500" />
-                  Deployed Core Contracts
+                  {t('vcTestMode.dueDiligence.deployedContracts', 'Deployed Core Contracts')}
                 </CardTitle>
                 <CardDescription>
-                  Verified smart contract addresses - click to view in Explorer
+                  {t('vcTestMode.dueDiligence.deployedContractsDesc', 'Verified smart contract addresses - click to view in Explorer')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -833,15 +833,15 @@ export default function VCTestMode() {
                         {address}
                       </code>
                       <div className="flex items-center gap-1 mt-2">
-                        <Badge variant="outline" className="text-xs">Verified</Badge>
-                        <Badge className="bg-green-500 text-xs">Active</Badge>
+                        <Badge variant="outline" className="text-xs">{t('vcTestMode.dueDiligence.verified', 'Verified')}</Badge>
+                        <Badge className="bg-green-500 text-xs">{t('vcTestMode.dueDiligence.active', 'Active')}</Badge>
                       </div>
                     </a>
                   ))}
                 </div>
                 <div className="mt-4 p-3 bg-purple-500/10 rounded-lg border border-purple-500/30">
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    All contracts are verified and open-source. Click any contract to view source code and transactions in the TBURN Explorer.
+                    {t('vcTestMode.dueDiligence.contractsVerified', 'All contracts are verified and open-source. Click any contract to view source code and transactions in the TBURN Explorer.')}
                   </p>
                 </div>
               </CardContent>
@@ -854,30 +854,30 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Fuel className="w-5 h-5 text-orange-500" />
-                    Gas Fee Policy
+                    {t('vcTestMode.dueDiligence.gasFeePolicy', 'Gas Fee Policy')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Base Fee</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.baseFee', 'Base Fee')}</span>
                     <span className="font-mono font-bold">{MAINNET_CONFIG.gasPolicy.baseFee}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Priority Fee</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.priorityFee', 'Priority Fee')}</span>
                     <span className="font-mono font-bold">{MAINNET_CONFIG.gasPolicy.priorityFee}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Avg Transaction Cost</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.avgTransactionCost', 'Avg Transaction Cost')}</span>
                     <span className="font-bold text-green-500">{MAINNET_CONFIG.gasPolicy.avgTxCost}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Max Gas Limit</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.maxGasLimit', 'Max Gas Limit')}</span>
                     <span className="font-mono">{MAINNET_CONFIG.gasPolicy.maxGasLimit}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Dynamic Fee (EIP-1559)</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.dynamicFee', 'Dynamic Fee (EIP-1559)')}</span>
                     <Badge className={MAINNET_CONFIG.gasPolicy.dynamicFee ? 'bg-green-500' : 'bg-gray-500'}>
-                      {MAINNET_CONFIG.gasPolicy.dynamicFee ? 'Enabled' : 'Disabled'}
+                      {MAINNET_CONFIG.gasPolicy.dynamicFee ? t('vcTestMode.dueDiligence.enabled', 'Enabled') : t('vcTestMode.dueDiligence.disabled', 'Disabled')}
                     </Badge>
                   </div>
                 </CardContent>
@@ -888,32 +888,32 @@ export default function VCTestMode() {
                 <CardHeader className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10">
                   <CardTitle className="flex items-center gap-2">
                     <Network className="w-5 h-5 text-blue-500" />
-                    Decentralization Metrics
+                    {t('vcTestMode.dueDiligence.decentralizationMetrics', 'Decentralization Metrics')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 pt-4">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Active Validators</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.activeValidators', 'Active Validators')}</span>
                     <span className="font-bold text-blue-500">{MAINNET_CONFIG.decentralization.activeValidators.toLocaleString()}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Minimum Stake</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.minimumStake', 'Minimum Stake')}</span>
                     <span className="font-mono">{MAINNET_CONFIG.decentralization.minStake}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Quorum Threshold</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.quorumThreshold', 'Quorum Threshold')}</span>
                     <Badge className="bg-purple-500">{MAINNET_CONFIG.decentralization.quorumThreshold}</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Top Validator Share</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.topValidatorShare', 'Top Validator Share')}</span>
                     <span className="font-bold text-green-500">{MAINNET_CONFIG.decentralization.topValidatorShare}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Nakamoto Coefficient</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.nakamotoCoefficient', 'Nakamoto Coefficient')}</span>
                     <span className="font-bold text-blue-500">{MAINNET_CONFIG.decentralization.nakamatoCoefficient}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Geographic Distribution</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.geographicDistribution', 'Geographic Distribution')}</span>
                     <span className="font-bold text-sm">{MAINNET_CONFIG.decentralization.validatorDistribution}</span>
                   </div>
                 </CardContent>
@@ -925,10 +925,10 @@ export default function VCTestMode() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Globe2 className="w-5 h-5 text-cyan-500" />
-                  Validator Geographic Distribution
+                  {t('vcTestMode.dueDiligence.validatorDistribution', 'Validator Geographic Distribution')}
                 </CardTitle>
                 <CardDescription>
-                  Real-time validator node distribution across global regions
+                  {t('vcTestMode.dueDiligence.validatorDistributionDesc', 'Real-time validator node distribution across global regions')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -954,10 +954,10 @@ export default function VCTestMode() {
                 <div className="mt-4 p-3 bg-cyan-500/10 rounded-lg border border-cyan-500/30">
                   <div className="flex items-center gap-2 mb-2">
                     <Shield className="w-4 h-4 text-cyan-500" />
-                    <span className="font-medium text-cyan-600 dark:text-cyan-400">Geographic Decentralization Score: A+</span>
+                    <span className="font-medium text-cyan-600 dark:text-cyan-400">{t('vcTestMode.dueDiligence.geoDecentralizationScore', 'Geographic Decentralization Score: A+')}</span>
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    No single region controls more than 35% of validators. Network resilient to regional outages or regulatory actions.
+                    {t('vcTestMode.dueDiligence.geoDecentralizationDesc', 'No single region controls more than 35% of validators. Network resilient to regional outages or regulatory actions.')}
                   </p>
                 </div>
               </CardContent>
@@ -970,33 +970,33 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <HeartPulse className="w-5 h-5 text-red-500" />
-                    Operational Infrastructure
+                    {t('vcTestMode.dueDiligence.operationalInfra', 'Operational Infrastructure')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Node Redundancy</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.nodeRedundancy', 'Node Redundancy')}</span>
                     <span className="font-bold">{MAINNET_CONFIG.operations.nodeRedundancy}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Monitoring</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.monitoring', 'Monitoring')}</span>
                     <span className="font-bold text-sm">{MAINNET_CONFIG.operations.monitoringSystem}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Incident Response</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.incidentResponse', 'Incident Response')}</span>
                     <Badge className="bg-green-500">{MAINNET_CONFIG.operations.incidentResponse}</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">Uptime Target</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.uptimeTarget', 'Uptime Target')}</span>
                     <span className="font-bold text-green-500">{MAINNET_CONFIG.operations.uptimeTarget}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400 text-sm">RPC Failover</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.rpcFailover', 'RPC Failover')}</span>
                     <Badge className="bg-blue-500">{MAINNET_CONFIG.operations.backupRpc}</Badge>
                   </div>
                   {/* Monitoring Dashboard Links */}
                   <div className="mt-4 p-3 bg-red-500/10 rounded-lg border border-red-500/30">
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">Monitoring Dashboards</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">{t('vcTestMode.dueDiligence.monitoringDashboards', 'Monitoring Dashboards')}</div>
                     <div className="flex flex-wrap gap-2">
                       <a 
                         href="https://status.tburn.network" 
@@ -1005,7 +1005,7 @@ export default function VCTestMode() {
                         className="flex items-center gap-1 px-3 py-1 bg-white dark:bg-gray-800 rounded-md text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       >
                         <Activity className="w-3 h-3 text-green-500" />
-                        Status Page
+                        {t('vcTestMode.dueDiligence.statusPage', 'Status Page')}
                         <ExternalLink className="w-3 h-3 text-gray-400" />
                       </a>
                       <a 
@@ -1015,7 +1015,7 @@ export default function VCTestMode() {
                         className="flex items-center gap-1 px-3 py-1 bg-white dark:bg-gray-800 rounded-md text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       >
                         <BarChart3 className="w-3 h-3 text-blue-500" />
-                        Grafana Metrics
+                        {t('vcTestMode.dueDiligence.grafanaMetrics', 'Grafana Metrics')}
                         <ExternalLink className="w-3 h-3 text-gray-400" />
                       </a>
                       <a 
@@ -1025,7 +1025,7 @@ export default function VCTestMode() {
                         className="flex items-center gap-1 px-3 py-1 bg-white dark:bg-gray-800 rounded-md text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       >
                         <HeartPulse className="w-3 h-3 text-red-500" />
-                        Health Check
+                        {t('vcTestMode.dueDiligence.healthCheck', 'Health Check')}
                         <ExternalLink className="w-3 h-3 text-gray-400" />
                       </a>
                     </div>
@@ -1038,7 +1038,7 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Smartphone className="w-5 h-5 text-cyan-500" />
-                    Wallet & Integration Support
+                    {t('vcTestMode.dueDiligence.walletSupport', 'Wallet & Integration Support')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
@@ -1059,10 +1059,10 @@ export default function VCTestMode() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <ArrowLeftRight className="w-5 h-5 text-indigo-500" />
-                  Cross-Chain Bridge Connections
+                  {t('vcTestMode.dueDiligence.bridgeConnections', 'Cross-Chain Bridge Connections')}
                 </CardTitle>
                 <CardDescription>
-                  Verified bridge routes for cross-chain asset transfers
+                  {t('vcTestMode.dueDiligence.bridgeConnectionsDesc', 'Verified bridge routes for cross-chain asset transfers')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1141,7 +1141,7 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Coins className="w-4 h-4 text-orange-500" />
-                    Token Supply
+                    {t('vcTestMode.dueDiligence.tokenSupply', 'Token Supply')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
@@ -1164,20 +1164,20 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Clock className="w-4 h-4 text-blue-500" />
-                    Key Dates
+                    {t('vcTestMode.dueDiligence.keyDates', 'Key Dates')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Genesis</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.genesis', 'Genesis')}</span>
                     <span className="font-mono">2025.12.22</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Exchange (Target)</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.exchangeTarget', 'Exchange (Target)')}</span>
                     <span className="font-mono">2026.02</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Token Schedule</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.tokenSchedule', 'Token Schedule')}</span>
                     <Link href="/TokenSchedule">
                       <span className="text-blue-500 hover:underline cursor-pointer">View →</span>
                     </Link>
