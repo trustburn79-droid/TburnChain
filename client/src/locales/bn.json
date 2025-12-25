@@ -2905,11 +2905,11 @@
     "security": "নিরাপত্তা আর্কিটেকচার",
     "techStack": "প্রযুক্তি স্ট্যাক",
     "tabs": {
-      "overview": "Overview",
-      "dueDiligence": "Due Diligence",
-      "features": "Features",
-      "metrics": "Metrics",
-      "technology": "Technology"
+      "overview": "সংক্ষিপ্ত বিবরণ",
+      "dueDiligence": "যথাযথ অধ্যবসায়",
+      "features": "বৈশিষ্ট্য",
+      "metrics": "মেট্রিক্স",
+      "technology": "প্রযুক্তি"
     },
     "stats": {
       "marketCap": "বাজার মূলধন",
@@ -3071,12 +3071,12 @@
       }
     },
     "nav": {
-      "overview": "Overview",
-      "staking": "Staking",
-      "governance": "Governance",
-      "explorer": "Explorer",
-      "home": "Home",
-      "demoMode": "Demo Mode"
+      "overview": "সংক্ষিপ্ত বিবরণ",
+      "staking": "স্টেকিং",
+      "governance": "শাসন",
+      "explorer": "এক্সপ্লোরার",
+      "home": "হোম",
+      "demoMode": "ডেমো মোড"
     }
   },
   "publicPages": {

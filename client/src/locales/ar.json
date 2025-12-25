@@ -4597,11 +4597,11 @@
     "security": "هندسة الأمان",
     "techStack": "المكدس التقني",
     "tabs": {
-      "overview": "Overview",
-      "dueDiligence": "Due Diligence",
-      "features": "Features",
-      "metrics": "Metrics",
-      "technology": "Technology"
+      "overview": "نظرة عامة",
+      "dueDiligence": "العناية الواجبة",
+      "features": "الميزات",
+      "metrics": "المقاييس",
+      "technology": "التكنولوجيا"
     },
     "stats": {
       "marketCap": "القيمة السوقية",
@@ -4763,12 +4763,12 @@
       }
     },
     "nav": {
-      "overview": "Overview",
-      "staking": "Staking",
-      "governance": "Governance",
-      "explorer": "Explorer",
-      "home": "Home",
-      "demoMode": "Demo Mode"
+      "overview": "نظرة عامة",
+      "staking": "التخزين",
+      "governance": "الحوكمة",
+      "explorer": "المستكشف",
+      "home": "الرئيسية",
+      "demoMode": "وضع العرض"
     }
   },
   "publicPages": {

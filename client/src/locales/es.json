@@ -5118,11 +5118,11 @@
     "security": "Arquitectura de Seguridad",
     "techStack": "Stack Tecnológico",
     "tabs": {
-      "overview": "Overview",
-      "dueDiligence": "Due Diligence",
-      "features": "Features",
-      "metrics": "Metrics",
-      "technology": "Technology"
+      "overview": "Resumen",
+      "dueDiligence": "Diligencia Debida",
+      "features": "Características",
+      "metrics": "Métricas",
+      "technology": "Tecnología"
     },
     "stats": {
       "marketCap": "Cap. de Mercado",
@@ -5284,12 +5284,12 @@
       }
     },
     "nav": {
-      "overview": "Overview",
+      "overview": "Resumen",
       "staking": "Staking",
-      "governance": "Governance",
-      "explorer": "Explorer",
-      "home": "Home",
-      "demoMode": "Demo Mode"
+      "governance": "Gobernanza",
+      "explorer": "Explorador",
+      "home": "Inicio",
+      "demoMode": "Modo Demo"
     }
   },
   "publicPages": {

@@ -2905,11 +2905,11 @@
     "security": "سیکیورٹی آرکیٹیکچر",
     "techStack": "ٹیکنالوجی اسٹیک",
     "tabs": {
-      "overview": "Overview",
-      "dueDiligence": "Due Diligence",
-      "features": "Features",
-      "metrics": "Metrics",
-      "technology": "Technology"
+      "overview": "جائزہ",
+      "dueDiligence": "مستعدی سے جانچ",
+      "features": "خصوصیات",
+      "metrics": "میٹرکس",
+      "technology": "ٹیکنالوجی"
     },
     "stats": {
       "marketCap": "مارکیٹ کیپ",
@@ -3071,12 +3071,12 @@
       }
     },
     "nav": {
-      "overview": "Overview",
-      "staking": "Staking",
-      "governance": "Governance",
-      "explorer": "Explorer",
-      "home": "Home",
-      "demoMode": "Demo Mode"
+      "overview": "جائزہ",
+      "staking": "اسٹیکنگ",
+      "governance": "گورننس",
+      "explorer": "ایکسپلورر",
+      "home": "ہوم",
+      "demoMode": "ڈیمو موڈ"
     }
   },
   "publicPages": {

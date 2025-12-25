@@ -3783,11 +3783,11 @@
     "security": "Архитектура безопасности",
     "techStack": "Технологический стек",
     "tabs": {
-      "overview": "Overview",
-      "dueDiligence": "Due Diligence",
-      "features": "Features",
-      "metrics": "Metrics",
-      "technology": "Technology"
+      "overview": "Обзор",
+      "dueDiligence": "Комплексная проверка",
+      "features": "Функции",
+      "metrics": "Метрики",
+      "technology": "Технологии"
     },
     "stats": {
       "marketCap": "Рыночная кап.",
@@ -3949,12 +3949,12 @@
       }
     },
     "nav": {
-      "overview": "Overview",
-      "staking": "Staking",
-      "governance": "Governance",
-      "explorer": "Explorer",
-      "home": "Home",
-      "demoMode": "Demo Mode"
+      "overview": "Обзор",
+      "staking": "Стейкинг",
+      "governance": "Управление",
+      "explorer": "Обозреватель",
+      "home": "Главная",
+      "demoMode": "Демо режим"
     }
   },
   "publicPages": {
