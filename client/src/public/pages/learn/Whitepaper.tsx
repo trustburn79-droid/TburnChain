@@ -160,7 +160,7 @@ export default function Whitepaper() {
             {t('publicPages.learn.whitepaper.heroSubDescription')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/whitepaper">
+            <a href="/whitepaper">
               <button 
                 className="px-8 py-3 rounded-lg flex items-center gap-2 font-bold text-white transition-all hover:-translate-y-0.5"
                 style={{ 
@@ -171,7 +171,7 @@ export default function Whitepaper() {
               >
                 <FileText className="w-4 h-4" /> 웹 백서
               </button>
-            </Link>
+            </a>
             <a 
               href="https://github.com" 
               target="_blank" 
