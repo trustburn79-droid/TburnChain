@@ -467,16 +467,15 @@ function RootRouter() {
   }
   
   if (location === "/vc" || location.startsWith("/vc-test")) {
+    // VC Test Mode page is public - accessible to VCs without login for due diligence
     return (
-      <AuthGuard>
-        <ThemeProvider defaultTheme="dark">
-          <Suspense fallback={<PageLoading />}>
-            <VCLayout>
-              <VCTestMode />
-            </VCLayout>
-          </Suspense>
-        </ThemeProvider>
-      </AuthGuard>
+      <ThemeProvider defaultTheme="dark">
+        <Suspense fallback={<PageLoading />}>
+          <VCLayout>
+            <VCTestMode />
+          </VCLayout>
+        </Suspense>
+      </ThemeProvider>
     );
   }
   
