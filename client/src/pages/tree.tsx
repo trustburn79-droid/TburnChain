@@ -232,7 +232,7 @@ function TreeNode({ item, level = 0 }: { item: RouteItem; level?: number }) {
           </Link>
         </div>
         <Link href="/">
-          <div className="flex items-center justify-center pt-4 pb-2 cursor-pointer hover:opacity-80 transition-opacity">
+          <div className="flex items-center justify-center pt-2 pb-1 cursor-pointer hover:opacity-80 transition-opacity">
             <TBurnLogo className="w-24 h-24" showText={true} textColor="#000000" />
           </div>
         </Link>
@@ -241,6 +241,11 @@ function TreeNode({ item, level = 0 }: { item: RouteItem; level?: number }) {
             <FileText className="w-4 h-4 text-slate-400 flex-shrink-0" />
             <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400">Whitepaper</span>
             <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto font-mono">/whitepaper</span>
+          </a>
+          <a href="/technical-whitepaper" className="flex items-center gap-2 py-1.5 px-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800 group">
+            <FileText className="w-4 h-4 text-slate-400 flex-shrink-0" />
+            <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400">Technical Whitepaper</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto font-mono">/technical-whitepaper</span>
           </a>
           <Link href="/TokenSchedule" className="flex items-center gap-2 py-1.5 px-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800 group">
             <FileText className="w-4 h-4 text-slate-400 flex-shrink-0" />
