@@ -7467,6 +7467,20 @@
         "asiaPacific": "아시아 태평양",
         "southAmerica": "남미",
         "middleEastAfrica": "중동 & 아프리카"
+      },
+      "nodeRedundancyValue": "3개 지역에 분산",
+      "monitoringValue": "24/7 NOC + PagerDuty",
+      "incidentResponseValue": "<15분 SLA",
+      "rpcFailoverValue": "자동 장애조치 활성화",
+      "lockAndMint": "잠금 & 발행",
+      "walletStatus": {
+        "fullSupport": "완전 지원",
+        "v2Compatible": "v2.0 호환",
+        "hardwareSupport": "하드웨어 지원"
+      },
+      "bridgeStatus": {
+        "active": "활성",
+        "plannedQ12026": "2026년 1분기 예정"
       }
     },
     "nav": {

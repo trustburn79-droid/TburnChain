@@ -7261,6 +7261,20 @@
         "asiaPacific": "Asia Pacific",
         "southAmerica": "South America",
         "middleEastAfrica": "Middle East & Africa"
+      },
+      "nodeRedundancyValue": "3x across regions",
+      "monitoringValue": "24/7 NOC with PagerDuty",
+      "incidentResponseValue": "<15min SLA",
+      "rpcFailoverValue": "Auto-failover enabled",
+      "lockAndMint": "Lock & Mint",
+      "walletStatus": {
+        "fullSupport": "Full Support",
+        "v2Compatible": "v2.0 Compatible",
+        "hardwareSupport": "Hardware Support"
+      },
+      "bridgeStatus": {
+        "active": "Active",
+        "plannedQ12026": "Planned Q1 2026"
       }
     },
     "nav": {

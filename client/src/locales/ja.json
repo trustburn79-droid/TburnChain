@@ -7389,6 +7389,20 @@
         "asiaPacific": "アジア太平洋",
         "southAmerica": "南米",
         "middleEastAfrica": "中東・アフリカ"
+      },
+      "nodeRedundancyValue": "3つの地域に分散",
+      "monitoringValue": "24/7 NOC + PagerDuty",
+      "incidentResponseValue": "<15分 SLA",
+      "rpcFailoverValue": "自動フェイルオーバー有効",
+      "lockAndMint": "ロック&ミント",
+      "walletStatus": {
+        "fullSupport": "フルサポート",
+        "v2Compatible": "v2.0 互換",
+        "hardwareSupport": "ハードウェアサポート"
+      },
+      "bridgeStatus": {
+        "active": "アクティブ",
+        "plannedQ12026": "2026年Q1予定"
       }
     },
     "nav": {

@@ -6726,6 +6726,20 @@
         "asiaPacific": "亚太",
         "southAmerica": "南美",
         "middleEastAfrica": "中东与非洲"
+      },
+      "nodeRedundancyValue": "3个区域分布",
+      "monitoringValue": "24/7 NOC + PagerDuty",
+      "incidentResponseValue": "<15分钟 SLA",
+      "rpcFailoverValue": "自动故障转移已启用",
+      "lockAndMint": "锁定与铸造",
+      "walletStatus": {
+        "fullSupport": "完全支持",
+        "v2Compatible": "v2.0 兼容",
+        "hardwareSupport": "硬件支持"
+      },
+      "bridgeStatus": {
+        "active": "活跃",
+        "plannedQ12026": "2026年Q1计划"
       }
     },
     "nav": {

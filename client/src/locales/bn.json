@@ -3051,8 +3051,8 @@
       "walletSupport": "Wallet & Integration Support",
       "bridgeConnections": "Cross-Chain Bridge Connections",
       "bridgeConnectionsDesc": "Verified bridge routes for cross-chain asset transfers",
-      "jsonConfig": "MetaMask / Wallet Configuration",
-      "jsonConfigDesc": "Copy this configuration to add TBURN Mainnet to your wallet",
+      "jsonConfig": "MetaMask / ওয়ালেট কনফিগারেশন",
+      "jsonConfigDesc": "আপনার ওয়ালেটে TBURN যোগ করতে এই কনফিগারেশন কপি করুন",
       "copyConfig": "Copy Configuration",
       "configCopied": "Configuration copied",
       "configCopiedDesc": "Wallet configuration copied to clipboard",
@@ -3068,6 +3068,20 @@
         "asiaPacific": "Asia Pacific",
         "southAmerica": "South America",
         "middleEastAfrica": "Middle East & Africa"
+      },
+      "nodeRedundancyValue": "3x অঞ্চল জুড়ে",
+      "monitoringValue": "24/7 NOC সাথে PagerDuty",
+      "incidentResponseValue": "<15মিনিট SLA",
+      "rpcFailoverValue": "অটো-ফেইলওভার সক্রিয়",
+      "lockAndMint": "লক এবং মিন্ট",
+      "walletStatus": {
+        "fullSupport": "সম্পূর্ণ সমর্থন",
+        "v2Compatible": "v2.0 সামঞ্জস্যপূর্ণ",
+        "hardwareSupport": "হার্ডওয়্যার সমর্থন"
+      },
+      "bridgeStatus": {
+        "active": "সক্রিয়",
+        "plannedQ12026": "পরিকল্পিত Q1 2026"
       }
     },
     "nav": {

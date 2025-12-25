@@ -4529,8 +4529,8 @@
       "walletSupport": "Wallet & Integration Support",
       "bridgeConnections": "Cross-Chain Bridge Connections",
       "bridgeConnectionsDesc": "Verified bridge routes for cross-chain asset transfers",
-      "jsonConfig": "MetaMask / Wallet Configuration",
-      "jsonConfigDesc": "Copy this configuration to add TBURN Mainnet to your wallet",
+      "jsonConfig": "MetaMask / Configuration du Portefeuille",
+      "jsonConfigDesc": "Copiez cette configuration pour ajouter TBURN Mainnet à votre portefeuille",
       "copyConfig": "Copy Configuration",
       "configCopied": "Configuration copied",
       "configCopiedDesc": "Wallet configuration copied to clipboard",
@@ -4546,6 +4546,20 @@
         "asiaPacific": "Asia Pacific",
         "southAmerica": "South America",
         "middleEastAfrica": "Middle East & Africa"
+      },
+      "nodeRedundancyValue": "3x régions",
+      "monitoringValue": "24/7 NOC avec PagerDuty",
+      "incidentResponseValue": "<15min SLA",
+      "rpcFailoverValue": "Auto-failover activé",
+      "lockAndMint": "Verrouillage et Frappe",
+      "walletStatus": {
+        "fullSupport": "Support Complet",
+        "v2Compatible": "v2.0 Compatible",
+        "hardwareSupport": "Support Matériel"
+      },
+      "bridgeStatus": {
+        "active": "Actif",
+        "plannedQ12026": "Prévu T1 2026"
       }
     },
     "nav": {
