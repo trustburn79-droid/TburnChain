@@ -560,10 +560,10 @@ export default function VCTestMode() {
                 <CardHeader className="bg-gradient-to-r from-purple-500/10 to-blue-500/10">
                   <CardTitle className="flex items-center gap-2">
                     <Hash className="w-5 h-5 text-purple-500" />
-                    {t('vcTestMode.chainConfig', 'Chain Configuration')}
+                    {t('vcTestMode.dueDiligence.chainConfig', 'Chain Configuration')}
                   </CardTitle>
                   <CardDescription>
-                    {t('vcTestMode.chainConfigDesc', 'TBURN Mainnet technical specifications')}
+                    {t('vcTestMode.dueDiligence.chainConfigDesc', 'TBURN Mainnet technical specifications')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4 pt-4">
@@ -605,10 +605,10 @@ export default function VCTestMode() {
                 <CardHeader className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10">
                   <CardTitle className="flex items-center gap-2">
                     <Link2 className="w-5 h-5 text-blue-500" />
-                    {t('vcTestMode.rpcEndpoints', 'RPC Endpoints')}
+                    {t('vcTestMode.dueDiligence.rpcEndpoints', 'RPC Endpoints')}
                   </CardTitle>
                   <CardDescription>
-                    {t('vcTestMode.rpcEndpointsDesc', 'Public JSON-RPC endpoints for blockchain interaction')}
+                    {t('vcTestMode.dueDiligence.rpcEndpointsDesc', 'Public JSON-RPC endpoints for blockchain interaction')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3 pt-4">
