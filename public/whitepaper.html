@@ -103,14 +103,14 @@
                 <div class="hidden md:flex gap-6 text-gray-400">
                     <div class="flex flex-col items-end">
                         <span class="text-[10px] uppercase text-gray-500">TPS</span>
-                        <span class="text-white font-mono">50,908</span>
+                        <span id="header-tps" class="text-white font-mono">--</span>
                     </div>
                     <div class="flex flex-col items-end">
                         <span class="text-[10px] uppercase text-gray-500">Block Height</span>
-                        <span class="text-tburn-orange font-mono">#21,332,811</span>
+                        <span id="header-block-height" class="text-tburn-orange font-mono">#--</span>
                     </div>
                 </div>
-                <a href="#" class="px-4 py-2 bg-white text-black hover:bg-gray-200 transition font-bold rounded">Explorer</a>
+                <a href="/scan" class="px-4 py-2 bg-white text-black hover:bg-gray-200 transition font-bold rounded">Explorer</a>
             </div>
         </div>
     </nav>
@@ -159,20 +159,20 @@
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="bg-tburn-card p-4 rounded border border-tburn-border">
                             <div class="text-gray-500 text-xs uppercase tracking-wider mb-1">Production Blocks</div>
-                            <div class="text-2xl font-mono font-bold text-white">21,332,811+</div>
+                            <div id="card-blocks" class="text-2xl font-mono font-bold text-white">--</div>
                         </div>
                         <div class="bg-tburn-card p-4 rounded border border-tburn-border">
                             <div class="text-gray-500 text-xs uppercase tracking-wider mb-1">Current TPS</div>
-                            <div class="text-2xl font-mono font-bold text-tburn-orange">50,908</div>
+                            <div id="card-tps" class="text-2xl font-mono font-bold text-tburn-orange">--</div>
                             <div class="text-[10px] text-gray-600">Peak: 520,000+</div>
                         </div>
                         <div class="bg-tburn-card p-4 rounded border border-tburn-border">
                             <div class="text-gray-500 text-xs uppercase tracking-wider mb-1">Total Wallets</div>
-                            <div class="text-2xl font-mono font-bold text-white">847,592</div>
+                            <div id="card-wallets" class="text-2xl font-mono font-bold text-white">--</div>
                         </div>
                         <div class="bg-tburn-card p-4 rounded border border-tburn-border">
                             <div class="text-gray-500 text-xs uppercase tracking-wider mb-1">Uptime</div>
-                            <div class="text-2xl font-mono font-bold text-green-500">99.95%</div>
+                            <div id="card-uptime" class="text-2xl font-mono font-bold text-green-500">--</div>
                         </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="font-bold text-white">TPS (Transactions Per Second)</td>
-                                        <td class="text-tburn-orange font-bold">50,908 (Peak 520K)</td>
+                                        <td id="table-tps" class="text-tburn-orange font-bold">-- (Peak 520K)</td>
                                         <td>15-30</td>
                                         <td>65,000</td>
                                         <td>4,500</td>
@@ -947,5 +947,62 @@ tburn.on('blockConfirmed', (block) => {
         </main>
     </div>
 
+<script>
+    // Fetch live network data from API
+    async function fetchNetworkStats() {
+        try {
+            const response = await fetch('/api/public/v1/network/stats');
+            const result = await response.json();
+            
+            if (result.success && result.data) {
+                const data = result.data;
+                
+                // Format numbers with commas
+                const formatNumber = (num) => {
+                    return num ? num.toLocaleString() : '--';
+                };
+                
+                // Update header elements
+                const headerTps = document.getElementById('header-tps');
+                const headerBlockHeight = document.getElementById('header-block-height');
+                
+                if (headerTps) headerTps.textContent = formatNumber(data.tps || data.currentTps);
+                if (headerBlockHeight) headerBlockHeight.textContent = '#' + formatNumber(data.blockHeight || data.totalBlocks);
+                
+                // Update card elements
+                const cardBlocks = document.getElementById('card-blocks');
+                const cardTps = document.getElementById('card-tps');
+                const cardWallets = document.getElementById('card-wallets');
+                const cardUptime = document.getElementById('card-uptime');
+                
+                if (cardBlocks) cardBlocks.textContent = formatNumber(data.blockHeight || data.totalBlocks) + '+';
+                if (cardTps) cardTps.textContent = formatNumber(data.tps || data.currentTps);
+                if (cardWallets) cardWallets.textContent = formatNumber(data.totalWallets || data.activeWallets || 847592);
+                // Handle uptime - it may be a string like "99.99%" or a number
+                if (cardUptime) {
+                    if (typeof data.uptime === 'string') {
+                        cardUptime.textContent = data.uptime;
+                    } else if (typeof data.uptime === 'number') {
+                        cardUptime.textContent = (data.uptime * 100).toFixed(2) + '%';
+                    } else {
+                        cardUptime.textContent = '99.95%';
+                    }
+                }
+                
+                // Update table TPS
+                const tableTps = document.getElementById('table-tps');
+                if (tableTps) tableTps.textContent = formatNumber(data.tps || data.currentTps) + ' (Peak 520K)';
+            }
+        } catch (error) {
+            console.error('Failed to fetch network stats:', error);
+        }
+    }
+    
+    // Fetch on page load
+    document.addEventListener('DOMContentLoaded', fetchNetworkStats);
+    
+    // Refresh every 10 seconds
+    setInterval(fetchNetworkStats, 10000);
+</script>
 </body>
 </html>
