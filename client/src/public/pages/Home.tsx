@@ -318,12 +318,12 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/developers/quickstart">
+              <Link href="/scan">
                 <button 
                   className="bg-gray-900 dark:bg-white text-white dark:text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-lg dark:glow-white"
                   data-testid="button-launch-explorer"
                 >
-                  {t('publicPages.home.launchExplorer')} <ArrowRight className="w-5 h-5" />
+                  TBURN Scan <ArrowRight className="w-5 h-5" />
                 </button>
               </Link>
               <Link href="/learn/whitepaper">
