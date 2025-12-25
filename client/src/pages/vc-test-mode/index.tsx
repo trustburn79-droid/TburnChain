@@ -1234,7 +1234,7 @@ export default function VCTestMode() {
                       <div className={`p-2 rounded-lg ${category.bgColor}`}>
                         <category.icon className={`w-5 h-5 ${category.color}`} />
                       </div>
-                      {category.title}
+                      {t(`vcTestMode.features.categories.${category.id}.title`, category.title)}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
@@ -1245,8 +1245,8 @@ export default function VCTestMode() {
                           data-testid={`feature-link-${category.id}-${idx}`}
                         >
                           <div>
-                            <div className="font-medium text-gray-900 dark:text-white">{feature.name}</div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">{feature.desc}</div>
+                            <div className="font-medium text-gray-900 dark:text-white">{t(`vcTestMode.features.categories.${category.id}.items.${idx}.name`, feature.name)}</div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">{t(`vcTestMode.features.categories.${category.id}.items.${idx}.desc`, feature.desc)}</div>
                           </div>
                           <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition" />
                         </div>

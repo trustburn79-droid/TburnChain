@@ -4587,7 +4587,95 @@
       "validators": "Validateurs",
       "adminPortal": "Portail Admin"
     },
-    "copyConfig": "Copier la Configuration"
+    "copyConfig": "Copier la Configuration",
+    "features": {
+      "categories": {
+        "defi": {
+          "title": "Suite DeFi",
+          "items": [
+            {
+              "name": "Trading DEX",
+              "desc": "Exchange décentralisé AMM"
+            },
+            {
+              "name": "Protocole de Prêt",
+              "desc": "Prêts surcollatéralisés"
+            },
+            {
+              "name": "Yield Farming",
+              "desc": "Optimisation du rendement"
+            },
+            {
+              "name": "Staking Liquide",
+              "desc": "Dérivés LST"
+            }
+          ]
+        },
+        "infrastructure": {
+          "title": "Infrastructure",
+          "items": [
+            {
+              "name": "Staking",
+              "desc": "Récompenses validateurs"
+            },
+            {
+              "name": "Pont",
+              "desc": "Transferts cross-chain"
+            },
+            {
+              "name": "Système de Tokens",
+              "desc": "Tokens TBC-20/721/1155"
+            },
+            {
+              "name": "Sharding",
+              "desc": "Sharding dynamique IA"
+            }
+          ]
+        },
+        "ecosystem": {
+          "title": "Écosystème",
+          "items": [
+            {
+              "name": "Marché NFT",
+              "desc": "Objets numériques"
+            },
+            {
+              "name": "Launchpad",
+              "desc": "Plateforme IDO"
+            },
+            {
+              "name": "GameFi Hub",
+              "desc": "Jeux P2E"
+            },
+            {
+              "name": "Gouvernance",
+              "desc": "Vote DAO"
+            }
+          ]
+        },
+        "network": {
+          "title": "Réseau",
+          "items": [
+            {
+              "name": "Explorateur de Blocs",
+              "desc": "Explorateur de transactions"
+            },
+            {
+              "name": "Validateurs",
+              "desc": "Tableau de bord validateurs"
+            },
+            {
+              "name": "Consensus",
+              "desc": "Visualisation BFT"
+            },
+            {
+              "name": "Analyse",
+              "desc": "Métriques réseau"
+            }
+          ]
+        }
+      }
+    }
   },
   "publicPages": {
     "common": {

@@ -6767,7 +6767,95 @@
       "validators": "验证者",
       "adminPortal": "管理门户"
     },
-    "copyConfig": "复制配置"
+    "copyConfig": "复制配置",
+    "features": {
+      "categories": {
+        "defi": {
+          "title": "DeFi套件",
+          "items": [
+            {
+              "name": "DEX交易",
+              "desc": "AMM去中心化交易所"
+            },
+            {
+              "name": "借贷协议",
+              "desc": "超额抵押借贷"
+            },
+            {
+              "name": "收益农场",
+              "desc": "自动收益优化"
+            },
+            {
+              "name": "流动性质押",
+              "desc": "LST衍生品"
+            }
+          ]
+        },
+        "infrastructure": {
+          "title": "基础设施",
+          "items": [
+            {
+              "name": "质押",
+              "desc": "验证者质押奖励"
+            },
+            {
+              "name": "跨链桥",
+              "desc": "跨链转账"
+            },
+            {
+              "name": "代币系统",
+              "desc": "TBC-20/721/1155代币"
+            },
+            {
+              "name": "分片",
+              "desc": "动态AI分片"
+            }
+          ]
+        },
+        "ecosystem": {
+          "title": "生态系统",
+          "items": [
+            {
+              "name": "NFT市场",
+              "desc": "数字收藏品"
+            },
+            {
+              "name": "发射台",
+              "desc": "IDO平台"
+            },
+            {
+              "name": "GameFi中心",
+              "desc": "边玩边赚游戏"
+            },
+            {
+              "name": "治理",
+              "desc": "DAO投票"
+            }
+          ]
+        },
+        "network": {
+          "title": "网络",
+          "items": [
+            {
+              "name": "区块浏览器",
+              "desc": "交易浏览器"
+            },
+            {
+              "name": "验证者",
+              "desc": "验证者仪表板"
+            },
+            {
+              "name": "共识",
+              "desc": "BFT可视化"
+            },
+            {
+              "name": "分析",
+              "desc": "网络指标"
+            }
+          ]
+        }
+      }
+    }
   },
   "publicPages": {
     "common": {

@@ -7302,7 +7302,95 @@
       "validators": "Validators",
       "adminPortal": "Admin Portal"
     },
-    "copyConfig": "Copy Configuration"
+    "copyConfig": "Copy Configuration",
+    "features": {
+      "categories": {
+        "defi": {
+          "title": "DeFi Suite",
+          "items": [
+            {
+              "name": "DEX Trading",
+              "desc": "AMM-based decentralized exchange"
+            },
+            {
+              "name": "Lending Protocol",
+              "desc": "Overcollateralized lending"
+            },
+            {
+              "name": "Yield Farming",
+              "desc": "Automated yield optimization"
+            },
+            {
+              "name": "Liquid Staking",
+              "desc": "LST derivatives"
+            }
+          ]
+        },
+        "infrastructure": {
+          "title": "Infrastructure",
+          "items": [
+            {
+              "name": "Staking",
+              "desc": "Validator staking rewards"
+            },
+            {
+              "name": "Bridge",
+              "desc": "Cross-chain transfers"
+            },
+            {
+              "name": "Token System",
+              "desc": "TBC-20/721/1155 tokens"
+            },
+            {
+              "name": "Sharding",
+              "desc": "Dynamic AI sharding"
+            }
+          ]
+        },
+        "ecosystem": {
+          "title": "Ecosystem",
+          "items": [
+            {
+              "name": "NFT Marketplace",
+              "desc": "Digital collectibles"
+            },
+            {
+              "name": "Launchpad",
+              "desc": "IDO platform"
+            },
+            {
+              "name": "GameFi Hub",
+              "desc": "Play-to-earn games"
+            },
+            {
+              "name": "Governance",
+              "desc": "DAO voting"
+            }
+          ]
+        },
+        "network": {
+          "title": "Network",
+          "items": [
+            {
+              "name": "Block Explorer",
+              "desc": "Transaction explorer"
+            },
+            {
+              "name": "Validators",
+              "desc": "Validator dashboard"
+            },
+            {
+              "name": "Consensus",
+              "desc": "BFT visualization"
+            },
+            {
+              "name": "Analytics",
+              "desc": "Network metrics"
+            }
+          ]
+        }
+      }
+    }
   },
   "publicPages": {
     "common": {

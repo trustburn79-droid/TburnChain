@@ -7508,7 +7508,95 @@
       "validators": "검증인",
       "adminPortal": "관리자 포털"
     },
-    "copyConfig": "설정 복사"
+    "copyConfig": "설정 복사",
+    "features": {
+      "categories": {
+        "defi": {
+          "title": "DeFi 스위트",
+          "items": [
+            {
+              "name": "DEX 거래",
+              "desc": "AMM 기반 탈중앙 거래소"
+            },
+            {
+              "name": "대출 프로토콜",
+              "desc": "초과담보 대출"
+            },
+            {
+              "name": "이자 농사",
+              "desc": "자동화된 수익 최적화"
+            },
+            {
+              "name": "유동성 스테이킹",
+              "desc": "LST 파생상품"
+            }
+          ]
+        },
+        "infrastructure": {
+          "title": "인프라",
+          "items": [
+            {
+              "name": "스테이킹",
+              "desc": "검증인 스테이킹 보상"
+            },
+            {
+              "name": "브릿지",
+              "desc": "크로스체인 전송"
+            },
+            {
+              "name": "토큰 시스템",
+              "desc": "TBC-20/721/1155 토큰"
+            },
+            {
+              "name": "샤딩",
+              "desc": "동적 AI 샤딩"
+            }
+          ]
+        },
+        "ecosystem": {
+          "title": "생태계",
+          "items": [
+            {
+              "name": "NFT 마켓플레이스",
+              "desc": "디지털 수집품"
+            },
+            {
+              "name": "런치패드",
+              "desc": "IDO 플랫폼"
+            },
+            {
+              "name": "GameFi 허브",
+              "desc": "P2E 게임"
+            },
+            {
+              "name": "거버넌스",
+              "desc": "DAO 투표"
+            }
+          ]
+        },
+        "network": {
+          "title": "네트워크",
+          "items": [
+            {
+              "name": "블록 탐색기",
+              "desc": "트랜잭션 탐색기"
+            },
+            {
+              "name": "검증인",
+              "desc": "검증인 대시보드"
+            },
+            {
+              "name": "합의",
+              "desc": "BFT 시각화"
+            },
+            {
+              "name": "분석",
+              "desc": "네트워크 지표"
+            }
+          ]
+        }
+      }
+    }
   },
   "publicPages": {
     "common": {

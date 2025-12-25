@@ -7430,7 +7430,95 @@
       "validators": "バリデータ",
       "adminPortal": "管理者ポータル"
     },
-    "copyConfig": "設定をコピー"
+    "copyConfig": "設定をコピー",
+    "features": {
+      "categories": {
+        "defi": {
+          "title": "DeFiスイート",
+          "items": [
+            {
+              "name": "DEX取引",
+              "desc": "AMM型分散型取引所"
+            },
+            {
+              "name": "レンディング",
+              "desc": "過担保融資"
+            },
+            {
+              "name": "イールドファーミング",
+              "desc": "自動利回り最適化"
+            },
+            {
+              "name": "リキッドステーキング",
+              "desc": "LST派生商品"
+            }
+          ]
+        },
+        "infrastructure": {
+          "title": "インフラ",
+          "items": [
+            {
+              "name": "ステーキング",
+              "desc": "バリデータ報酬"
+            },
+            {
+              "name": "ブリッジ",
+              "desc": "クロスチェーン送金"
+            },
+            {
+              "name": "トークンシステム",
+              "desc": "TBC-20/721/1155トークン"
+            },
+            {
+              "name": "シャーディング",
+              "desc": "動的AIシャーディング"
+            }
+          ]
+        },
+        "ecosystem": {
+          "title": "エコシステム",
+          "items": [
+            {
+              "name": "NFTマーケット",
+              "desc": "デジタルコレクション"
+            },
+            {
+              "name": "ローンチパッド",
+              "desc": "IDOプラットフォーム"
+            },
+            {
+              "name": "GameFiハブ",
+              "desc": "P2Eゲーム"
+            },
+            {
+              "name": "ガバナンス",
+              "desc": "DAO投票"
+            }
+          ]
+        },
+        "network": {
+          "title": "ネットワーク",
+          "items": [
+            {
+              "name": "ブロックエクスプローラー",
+              "desc": "トランザクション探索"
+            },
+            {
+              "name": "バリデータ",
+              "desc": "バリデータダッシュボード"
+            },
+            {
+              "name": "コンセンサス",
+              "desc": "BFT可視化"
+            },
+            {
+              "name": "分析",
+              "desc": "ネットワーク指標"
+            }
+          ]
+        }
+      }
+    }
   },
   "publicPages": {
     "common": {
