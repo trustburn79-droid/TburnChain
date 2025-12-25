@@ -1040,41 +1040,52 @@ tburn.on('blockConfirmed', (block) => {
                     </div>
                 </section>
 
-                <footer class="border-t border-tburn-border pt-12 pb-8 mt-20">
-                    <div class="grid md:grid-cols-4 gap-8 mb-12">
-                        <div>
-                            <div class="text-xl font-bold text-white mb-4">TBURN Foundation</div>
-                            <div data-i18n="footer_location" class="text-sm text-gray-500">Seoul, South Korea</div>
-                            <div class="text-sm text-gray-500">contact@tburn.io</div>
-                        </div>
-                        <div>
-                            <div data-i18n="footer_resources" class="font-bold text-white mb-4">Resources</div>
-                            <ul class="space-y-2 text-sm text-gray-500">
-                                <li><a data-i18n="footer_whitepaper" href="#" class="hover:text-tburn-orange">Whitepaper</a></li>
-                                <li><a data-i18n="footer_brandkit" href="#" class="hover:text-tburn-orange">Brand Kit</a></li>
-                                <li><a href="#" class="hover:text-tburn-orange">GitHub</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div data-i18n="footer_developers" class="font-bold text-white mb-4">Developers</div>
-                            <ul class="space-y-2 text-sm text-gray-500">
-                                <li><a data-i18n="footer_docs" href="#" class="hover:text-tburn-orange">Documentation</a></li>
-                                <li><a href="#" class="hover:text-tburn-orange">Enterprise SDK</a></li>
-                                <li><a data-i18n="footer_bounty" href="#" class="hover:text-tburn-orange">Bug Bounty</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div data-i18n="footer_social" class="font-bold text-white mb-4">Social</div>
-                            <div class="flex gap-4">
-                                <a href="#" class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center hover:bg-tburn-orange hover:text-white transition"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center hover:bg-tburn-orange hover:text-white transition"><i class="fab fa-discord"></i></a>
-                                <a href="#" class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center hover:bg-tburn-orange hover:text-white transition"><i class="fab fa-telegram"></i></a>
-                            </div>
+                <!-- 면책 조항 -->
+                <div class="mt-16 mb-10">
+                    <div style="background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 30px;">
+                        <h3 data-i18n="disclaimer_title" class="font-bold text-yellow-400 mb-5 text-lg">⚠️ 면책 조항 (Disclaimer)</h3>
+                        <div class="text-sm text-gray-400 leading-relaxed">
+                            <p class="mb-3">
+                                <strong data-i18n="disclaimer_invest_label" class="text-white">투자 권유가 아님:</strong> <span data-i18n="disclaimer_invest_text">본 문서는 정보 제공 목적으로만 작성되었으며, 증권, 투자상품 또는 금융상품의 매수, 매도, 보유를 권유하거나 제안하는 것이 아닙니다.</span>
+                            </p>
+                            <p class="mb-3">
+                                <strong data-i18n="disclaimer_future_label" class="text-white">미래 예측 진술:</strong> <span data-i18n="disclaimer_future_text">본 문서에 포함된 토큰 공급량, 소각률, 가격 전망 등은 현재 계획에 기반한 예상치이며, 실제 결과는 시장 상황, 규제 환경, 기술적 요인 등에 따라 크게 달라질 수 있습니다.</span>
+                            </p>
+                            <p class="mb-3">
+                                <strong data-i18n="disclaimer_change_label" class="text-white">변경 가능성:</strong> <span data-i18n="disclaimer_change_text">토큰 이코노미 설계, 소각 메커니즘, Phase 전환 시점 등 모든 정보는 거버넌스 투표 또는 재단 결정에 따라 사전 통지 없이 변경될 수 있습니다.</span>
+                            </p>
+                            <p>
+                                <strong data-i18n="disclaimer_legal_label" class="text-white">법적 책임 제한:</strong> <span data-i18n="disclaimer_legal_text">TBURN 재단 및 관계사는 본 문서의 정보에 기반한 투자 결정으로 인한 손실에 대해 법적 책임을 지지 않습니다.</span>
+                            </p>
                         </div>
                     </div>
-                    <div class="text-center text-xs text-gray-600 border-t border-tburn-border pt-8">
-                        &copy; 2024-2025 TBURN Foundation. All Rights Reserved.
+                </div>
+
+                <!-- 푸터 -->
+                <footer class="border-t border-tburn-border pt-16 pb-8 mt-10 text-center" style="background: rgba(5,5,9,0.8);">
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                        <svg viewBox="0 0 100 100" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="footerFlameGradient" x1="50%" y1="100%" x2="50%" y2="0%">
+                                    <stop offset="0%" stop-color="#FF6B35" />
+                                    <stop offset="50%" stop-color="#F7931E" />
+                                    <stop offset="100%" stop-color="#FFD700" />
+                                </linearGradient>
+                                <linearGradient id="footerOuterGlow" x1="50%" y1="100%" x2="50%" y2="0%">
+                                    <stop offset="0%" stop-color="#FF4500" stop-opacity="0.8" />
+                                    <stop offset="100%" stop-color="#FFD700" stop-opacity="0.2" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="45" fill="url(#footerOuterGlow)" opacity="0.3" />
+                            <circle cx="50" cy="50" r="40" stroke="url(#footerFlameGradient)" stroke-width="2" fill="none" />
+                            <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#footerFlameGradient)" />
+                            <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8" />
+                        </svg>
+                        <span class="text-2xl font-bold text-white tracking-wide" style="font-family: 'Orbitron', sans-serif;">TBURN</span>
                     </div>
+                    <p data-i18n="footer_slogan" class="text-gray-400 mb-4">20년 디플레이션 비전으로 장기 가치 창출</p>
+                    <p data-i18n="footer_notice" class="text-xs text-gray-600 max-w-xl mx-auto mb-4">본 문서의 모든 수치와 전망은 예상치이며 실제 결과와 다를 수 있습니다. 투자 결정 시 반드시 전문가와 상담하시기 바랍니다.</p>
+                    <p class="text-sm text-gray-500">© 2025 TBURN Foundation. All Rights Reserved.</p>
                 </footer>
 
             </div>
@@ -1373,7 +1384,18 @@ tburn.on('blockConfirmed', (block) => {
             comparison_eth: "Ethereum",
             comparison_sol: "Solana",
             footer_text: "© 2024 TBURN Foundation. All Rights Reserved.",
-            footer_links: "개인정보 처리방침 | 이용약관 | 버그 바운티"
+            footer_links: "개인정보 처리방침 | 이용약관 | 버그 바운티",
+            disclaimer_title: "⚠️ 면책 조항 (Disclaimer)",
+            disclaimer_invest_label: "투자 권유가 아님:",
+            disclaimer_invest_text: "본 문서는 정보 제공 목적으로만 작성되었으며, 증권, 투자상품 또는 금융상품의 매수, 매도, 보유를 권유하거나 제안하는 것이 아닙니다.",
+            disclaimer_future_label: "미래 예측 진술:",
+            disclaimer_future_text: "본 문서에 포함된 토큰 공급량, 소각률, 가격 전망 등은 현재 계획에 기반한 예상치이며, 실제 결과는 시장 상황, 규제 환경, 기술적 요인 등에 따라 크게 달라질 수 있습니다.",
+            disclaimer_change_label: "변경 가능성:",
+            disclaimer_change_text: "토큰 이코노미 설계, 소각 메커니즘, Phase 전환 시점 등 모든 정보는 거버넌스 투표 또는 재단 결정에 따라 사전 통지 없이 변경될 수 있습니다.",
+            disclaimer_legal_label: "법적 책임 제한:",
+            disclaimer_legal_text: "TBURN 재단 및 관계사는 본 문서의 정보에 기반한 투자 결정으로 인한 손실에 대해 법적 책임을 지지 않습니다.",
+            footer_slogan: "20년 디플레이션 비전으로 장기 가치 창출",
+            footer_notice: "본 문서의 모든 수치와 전망은 예상치이며 실제 결과와 다를 수 있습니다. 투자 결정 시 반드시 전문가와 상담하시기 바랍니다."
         },
         en: {
             explorer: "Explorer",
@@ -1606,7 +1628,18 @@ tburn.on('blockConfirmed', (block) => {
             comparison_eth: "Ethereum",
             comparison_sol: "Solana",
             footer_text: "© 2024 TBURN Foundation. All Rights Reserved.",
-            footer_links: "Privacy Policy | Terms of Service | Bug Bounty"
+            footer_links: "Privacy Policy | Terms of Service | Bug Bounty",
+            disclaimer_title: "⚠️ Disclaimer",
+            disclaimer_invest_label: "Not Investment Advice:",
+            disclaimer_invest_text: "This document is for informational purposes only and does not constitute an offer or solicitation to buy, sell, or hold any securities, investment products, or financial instruments.",
+            disclaimer_future_label: "Forward-Looking Statements:",
+            disclaimer_future_text: "Token supply, burn rates, and price projections contained herein are estimates based on current plans and may differ significantly due to market conditions, regulatory environment, and technical factors.",
+            disclaimer_change_label: "Subject to Change:",
+            disclaimer_change_text: "Token economics design, burn mechanisms, phase transition timing, and all other information may be changed without prior notice through governance votes or foundation decisions.",
+            disclaimer_legal_label: "Limitation of Liability:",
+            disclaimer_legal_text: "TBURN Foundation and its affiliates shall not be held legally responsible for any losses resulting from investment decisions based on the information in this document.",
+            footer_slogan: "Creating Long-Term Value with 20-Year Deflationary Vision",
+            footer_notice: "All figures and projections in this document are estimates and may differ from actual results. Please consult with professionals before making investment decisions."
         }
     };
     
