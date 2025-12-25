@@ -3783,10 +3783,11 @@
     "security": "Arquitetura de Segurança",
     "techStack": "Stack Tecnológica",
     "tabs": {
-      "overview": "Visão Geral",
-      "features": "Recursos",
-      "metrics": "Métricas",
-      "tech": "Tecnologia"
+      "overview": "Overview",
+      "dueDiligence": "Due Diligence",
+      "features": "Features",
+      "metrics": "Metrics",
+      "technology": "Technology"
     },
     "stats": {
       "marketCap": "Cap. de Mercado",
@@ -3946,6 +3947,14 @@
         "southAmerica": "South America",
         "middleEastAfrica": "Middle East & Africa"
       }
+    },
+    "nav": {
+      "overview": "Overview",
+      "staking": "Staking",
+      "governance": "Governance",
+      "explorer": "Explorer",
+      "home": "Home",
+      "demoMode": "Demo Mode"
     }
   },
   "publicPages": {

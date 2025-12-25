@@ -45,10 +45,10 @@ export default function VCLayout({ children }: VCLayoutProps) {
   };
 
   const navItems = [
-    { path: "/vc", label: "Overview", icon: Briefcase },
-    { path: "/app/staking", label: "Staking", icon: TrendingUp },
-    { path: "/app/governance", label: "Governance", icon: Shield },
-    { path: "/scan", label: "Explorer", icon: BarChart3 },
+    { path: "/vc", labelKey: "overview", icon: Briefcase },
+    { path: "/app/staking", labelKey: "staking", icon: TrendingUp },
+    { path: "/app/governance", labelKey: "governance", icon: Shield },
+    { path: "/scan", labelKey: "explorer", icon: BarChart3 },
   ];
 
   const isActive = (path: string) => {
@@ -85,7 +85,7 @@ export default function VCLayout({ children }: VCLayoutProps) {
                       data-testid={`nav-vc-${item.path.split('/').pop()}`}
                     >
                       <item.icon className="w-4 h-4" />
-                      {item.label}
+                      {t(`vcTestMode.nav.${item.labelKey}`, item.labelKey.charAt(0).toUpperCase() + item.labelKey.slice(1))}
                     </Button>
                   </Link>
                 ))}
@@ -97,13 +97,13 @@ export default function VCLayout({ children }: VCLayoutProps) {
                 <Link href="/">
                   <Button variant="ghost" size="sm" className="gap-2 text-gray-400 hover:text-white" data-testid="link-vc-to-home">
                     <Home className="w-4 h-4" />
-                    Home
+                    {t('vcTestMode.nav.home', 'Home')}
                   </Button>
                 </Link>
                 
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50">
                   <Wallet className="w-4 h-4 text-gray-400" />
-                  <span className="text-white font-medium">Demo Mode</span>
+                  <span className="text-white font-medium">{t('vcTestMode.nav.demoMode', 'Demo Mode')}</span>
                 </div>
               </div>
 
@@ -144,7 +144,7 @@ export default function VCLayout({ children }: VCLayoutProps) {
                         onClick={() => setLocation(item.path)}
                       >
                         <item.icon className="w-4 h-4" />
-                        {item.label}
+                        {t(`vcTestMode.nav.${item.labelKey}`, item.labelKey.charAt(0).toUpperCase() + item.labelKey.slice(1))}
                       </DropdownMenuItem>
                     ))}
                     <DropdownMenuSeparator className="bg-gray-700" />

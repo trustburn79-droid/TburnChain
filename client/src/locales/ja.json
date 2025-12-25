@@ -7227,9 +7227,10 @@
     "techStack": "技術スタック",
     "tabs": {
       "overview": "概要",
+      "dueDiligence": "デューデリジェンス",
       "features": "機能",
       "metrics": "指標",
-      "tech": "技術"
+      "technology": "技術"
     },
     "stats": {
       "marketCap": "時価総額",
@@ -7389,6 +7390,14 @@
         "southAmerica": "南米",
         "middleEastAfrica": "中東・アフリカ"
       }
+    },
+    "nav": {
+      "overview": "概要",
+      "staking": "ステーキング",
+      "governance": "ガバナンス",
+      "explorer": "エクスプローラー",
+      "home": "ホーム",
+      "demoMode": "デモモード"
     }
   },
   "publicPages": {

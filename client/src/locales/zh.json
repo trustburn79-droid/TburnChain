@@ -6564,9 +6564,10 @@
     "techStack": "技术栈",
     "tabs": {
       "overview": "概览",
+      "dueDiligence": "尽职调查",
       "features": "功能",
       "metrics": "指标",
-      "tech": "技术"
+      "technology": "技术"
     },
     "stats": {
       "marketCap": "市值",
@@ -6726,6 +6727,14 @@
         "southAmerica": "南美",
         "middleEastAfrica": "中东与非洲"
       }
+    },
+    "nav": {
+      "overview": "概览",
+      "staking": "质押",
+      "governance": "治理",
+      "explorer": "浏览器",
+      "home": "首页",
+      "demoMode": "演示模式"
     }
   },
   "publicPages": {

@@ -7306,9 +7306,10 @@
     "techStack": "기술 스택",
     "tabs": {
       "overview": "개요",
+      "dueDiligence": "실사 정보",
       "features": "기능",
       "metrics": "지표",
-      "tech": "기술"
+      "technology": "기술"
     },
     "stats": {
       "marketCap": "시가총액",
@@ -7467,6 +7468,14 @@
         "southAmerica": "남미",
         "middleEastAfrica": "중동 & 아프리카"
       }
+    },
+    "nav": {
+      "overview": "개요",
+      "staking": "스테이킹",
+      "governance": "거버넌스",
+      "explorer": "익스플로러",
+      "home": "홈",
+      "demoMode": "데모 모드"
     }
   },
   "publicPages": {

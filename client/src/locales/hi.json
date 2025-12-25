@@ -5074,10 +5074,11 @@
     "security": "सुरक्षा आर्किटेक्चर",
     "techStack": "टेक्नोलॉजी स्टैक",
     "tabs": {
-      "overview": "अवलोकन",
-      "features": "सुविधाएं",
-      "metrics": "मेट्रिक्स",
-      "tech": "तकनीक"
+      "overview": "Overview",
+      "dueDiligence": "Due Diligence",
+      "features": "Features",
+      "metrics": "Metrics",
+      "technology": "Technology"
     },
     "stats": {
       "marketCap": "मार्केट कैप",
@@ -5237,6 +5238,14 @@
         "southAmerica": "South America",
         "middleEastAfrica": "Middle East & Africa"
       }
+    },
+    "nav": {
+      "overview": "Overview",
+      "staking": "Staking",
+      "governance": "Governance",
+      "explorer": "Explorer",
+      "home": "Home",
+      "demoMode": "Demo Mode"
     }
   },
   "publicPages": {
