@@ -145,27 +145,27 @@ export default function ScanHome() {
 
   const { data: statsData, isLoading: statsLoading, error: statsError } = useQuery<{ success: boolean; data: NetworkStats }>({
     queryKey: ["/api/public/v1/network/stats"],
-    staleTime: 30000,
+    staleTime: 30000, // Match backend cache TTL for consistent display
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    refetchInterval: 5000,
+    refetchInterval: 30000, // Match backend cache TTL
     retry: 3,
   });
 
   const { data: blocksData, isLoading: blocksLoading } = useQuery<{ success: boolean; data: Block[] }>({
     queryKey: ["/api/public/v1/network/blocks/recent"],
-    staleTime: 30000,
+    staleTime: 30000, // Match backend cache TTL
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    refetchInterval: 5000,
+    refetchInterval: 30000, // Match backend cache TTL
   });
 
   const { data: txsData, isLoading: txsLoading } = useQuery<{ success: boolean; data: Transaction[] }>({
     queryKey: ["/api/public/v1/network/transactions/recent"],
-    staleTime: 30000,
+    staleTime: 30000, // Match backend cache TTL
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    refetchInterval: 5000,
+    refetchInterval: 30000, // Match backend cache TTL
   });
 
   const stats = statsData?.data;

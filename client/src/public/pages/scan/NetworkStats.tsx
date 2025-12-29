@@ -87,7 +87,10 @@ export default function NetworkStats() {
 
   const { data: statsData, isLoading } = useQuery<{ success: boolean; data: NetworkStats }>({
     queryKey: ["/api/public/v1/network/stats"],
-    refetchInterval: 5000,
+    refetchInterval: 30000, // Match backend cache TTL for consistent display
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const stats = statsData?.data;

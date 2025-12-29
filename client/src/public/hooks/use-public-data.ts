@@ -223,8 +223,10 @@ export function useLaunchpadSummary() {
 export function usePublicNetworkStats() {
   return useQuery<PublicNetworkStats>({
     queryKey: ["/api/public/v1/network/stats"],
-    refetchInterval: 5000,
-    staleTime: 3000,
+    refetchInterval: 30000, // Match backend cache TTL for consistent display
+    staleTime: 30000, // 30s staleTime ensures consistent values across pages
+    refetchOnMount: false, // Use cached value when navigating between pages
+    refetchOnWindowFocus: false,
   });
 }
 

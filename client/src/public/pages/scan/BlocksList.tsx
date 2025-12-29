@@ -53,17 +53,20 @@ export default function BlocksList() {
   const [searchBlock, setSearchBlock] = useState("");
   const pageSize = 25;
 
-  // Fetch real network stats for block height
+  // Fetch real network stats for block height - uses 30s cache for consistency
   const { data: networkStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
-    staleTime: 5000,
-    refetchInterval: 5000,
+    staleTime: 30000, // Match backend cache TTL for consistent display
+    refetchInterval: 30000,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
   const { data, isLoading, error, refetch, isFetching } = useQuery<{ success: boolean; data: Block[]; total: number }>({
     queryKey: ["/api/public/v1/network/blocks/recent?limit=100"],
-    refetchInterval: isConnected ? 5000 : 30000,
+    refetchInterval: 30000, // Match backend cache TTL for consistent display
+    staleTime: 30000,
+    refetchOnWindowFocus: false,
   });
 
   const blocks = data?.data || [];

@@ -27,7 +27,9 @@ export default function TestnetTransactionsList() {
 
   const { data, isLoading } = useQuery<{ success: boolean; data: Transaction[]; total: number }>({
     queryKey: ["/api/public/v1/testnet/network/transactions", `page=${page}`],
-    refetchInterval: 10000,
+    refetchInterval: 30000, // Match backend cache TTL for consistent display
+    staleTime: 30000,
+    refetchOnWindowFocus: false,
   });
 
   const transactions = data?.data || [];

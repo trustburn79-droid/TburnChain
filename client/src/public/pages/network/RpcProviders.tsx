@@ -109,10 +109,10 @@ export default function RpcProviders() {
 
   const { data: networkStats, refetch: refetchStats } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/public/v1/network/stats'],
-    staleTime: 30000,
+    staleTime: 30000, // Match backend cache TTL for consistent display
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    refetchInterval: 5000,
+    refetchInterval: 30000, // Match backend cache TTL
   });
 
   // Update live values from API data

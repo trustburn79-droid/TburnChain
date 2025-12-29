@@ -49,7 +49,10 @@ export default function TransactionsList() {
 
   const { data, isLoading, error, refetch, isFetching } = useQuery<{ success: boolean; data: Transaction[] }>({
     queryKey: ["/api/public/v1/network/transactions/recent?limit=100"],
-    refetchInterval: isConnected ? 5000 : 30000,
+    refetchInterval: 30000, // Match backend cache TTL for consistent display
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const transactions = data?.data || [];

@@ -491,11 +491,12 @@ export default function Blocks() {
   const { toast } = useToast();
   const { subscribeToEvent, isConnected } = useWebSocket();
   
-  // Fetch real network stats for block height and TPS
+  // Fetch real network stats for block height and TPS - uses 30s cache for consistency
   const { data: networkStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
-    staleTime: 5000,
-    refetchInterval: 5000,
+    staleTime: 30000, // Match backend cache TTL for consistent display
+    refetchInterval: 30000,
+    refetchOnMount: false, // Use cached value for consistency across pages
     refetchOnWindowFocus: false,
   });
   

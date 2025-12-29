@@ -27,7 +27,9 @@ export default function TestnetBlocksList() {
 
   const { data, isLoading } = useQuery<{ success: boolean; data: Block[]; total: number }>({
     queryKey: ["/api/public/v1/testnet/network/blocks", `page=${page}`],
-    refetchInterval: 10000,
+    refetchInterval: 30000, // Match backend cache TTL for consistent display
+    staleTime: 30000,
+    refetchOnWindowFocus: false,
   });
 
   const blocks = data?.data || [];
