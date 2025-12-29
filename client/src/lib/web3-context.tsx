@@ -464,6 +464,8 @@ export function Web3Provider({ children }: { children: ReactNode }) {
           error: null,
           lastConnectedAt: now,
           connectionAttempts: 0,
+          memberInfo: null,
+          isFetchingMember: false,
         });
 
         await updateBalance(browserProvider, address);

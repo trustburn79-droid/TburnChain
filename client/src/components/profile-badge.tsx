@@ -55,7 +55,7 @@ interface ProfileBadgeProps {
 export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const { isConnected, address, connect, isConnecting } = useWeb3();
+  const { isConnected, address, connect, isConnecting, balance: web3Balance, refreshBalance, walletType } = useWeb3();
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showWalletModal, setShowWalletModal] = useState(false);
@@ -222,10 +222,17 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     }
   };
 
-  const handleConnectWallet = async (walletType: WalletType) => {
+  const handleConnectWallet = async (selectedWalletType: WalletType) => {
     try {
-      const success = await connect(walletType);
+      const success = await connect(selectedWalletType);
       if (success) {
+        // Refresh balance immediately after successful connection
+        await refreshBalance();
+        // Invalidate related queries to refresh member data
+        queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/members/by-address"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/wallet/my-wallets"] });
+        
         toast({
           title: t("profile.walletConnected", "지갑 연결됨"),
           description: t("profile.walletConnectedDesc", "지갑이 성공적으로 연결되었습니다"),
@@ -241,11 +248,26 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
     }
   };
 
-  const formatBalance = (balance?: string) => {
+  const formatBalance = (balance?: string, isWeb3Balance = false) => {
     if (!balance) return "0.00";
-    const num = parseFloat(balance) / 1e18;
+    // Web3 balance is already formatted in ether (e.g., "1.234567")
+    // API balance is in Wei (large number that needs division by 1e18)
+    let num: number;
+    if (isWeb3Balance) {
+      num = parseFloat(balance);
+    } else {
+      // Check if it looks like Wei (very large number) or already formatted
+      const parsed = parseFloat(balance);
+      // If the number is very large (> 1e10), treat it as Wei
+      num = parsed > 1e10 ? parsed / 1e18 : parsed;
+    }
     return num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 4 });
   };
+  
+  // Get the display balance - prefer web3 balance when wallet is connected
+  const displayBalance = isConnected && web3Balance 
+    ? formatBalance(web3Balance, true) 
+    : formatBalance(currentMember?.balance);
 
   const formatAddress = (addr: string) => {
     if (addr.length <= 14) return addr;
@@ -316,17 +338,33 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
 
           {/* Wallet Connect Button - Below email, above icons */}
           <div className="px-4 py-3 border-b border-border/40">
-            <button
-              onClick={() => setShowWalletModal(true)}
-              className="w-full flex items-center justify-between py-2.5 px-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-blue-500/30 transition-colors cursor-pointer group"
-              data-testid="button-connect-external-wallet"
-            >
-              <div className="flex items-center gap-3">
-                <Wallet className="h-4 w-4 text-blue-400 shrink-0" />
-                <span className="text-sm text-blue-400 font-medium">{t("profile.connectWallet", "지갑연결")}</span>
+            {isConnected && web3Balance ? (
+              <div className="w-full flex items-center justify-between py-2.5 px-3 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30">
+                <div className="flex items-center gap-3">
+                  <Wallet className="h-4 w-4 text-green-400 shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="text-sm text-green-400 font-medium">{t("profile.walletConnected", "지갑 연결됨")}</span>
+                    <span className="text-xs text-green-300/70 font-mono">{address ? formatAddress(address) : ""}</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-sm font-semibold text-green-400">{formatBalance(web3Balance, true)}</span>
+                  <span className="text-xs text-green-300/70 ml-1">TBURN</span>
+                </div>
               </div>
-              <ChevronRight className="h-4 w-4 text-blue-400 group-hover:translate-x-0.5 transition-transform" />
-            </button>
+            ) : (
+              <button
+                onClick={() => setShowWalletModal(true)}
+                className="w-full flex items-center justify-between py-2.5 px-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-blue-500/30 transition-colors cursor-pointer group"
+                data-testid="button-connect-external-wallet"
+              >
+                <div className="flex items-center gap-3">
+                  <Wallet className="h-4 w-4 text-blue-400 shrink-0" />
+                  <span className="text-sm text-blue-400 font-medium">{t("profile.connectWallet", "지갑연결")}</span>
+                </div>
+                <ChevronRight className="h-4 w-4 text-blue-400 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+            )}
           </div>
 
           {/* Quick Navigation Icons */}
@@ -423,9 +461,14 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                 <div className="flex items-center gap-2 mb-1">
                   <Coins className="h-3.5 w-3.5 text-[#FCD535]" />
                   <span className="text-xs text-muted-foreground">{t("profile.balance", "잔액")}</span>
+                  {isConnected && walletType && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 font-medium">
+                      {walletType.toUpperCase()}
+                    </span>
+                  )}
                 </div>
-                <p className="text-sm font-semibold">
-                  {isLoading ? <Skeleton className="h-4 w-16" /> : `${formatBalance(currentMember?.balance)} TBURN`}
+                <p className="text-sm font-semibold" data-testid="text-wallet-balance">
+                  {isLoading ? <Skeleton className="h-4 w-16" /> : `${displayBalance} TBURN`}
                 </p>
               </div>
 
