@@ -18,7 +18,7 @@ import {
   Home, ScanLine, User, Bug, Shield, HelpCircle, ImageIcon
 } from "lucide-react";
 import { SiDiscord, SiTelegram } from "react-icons/si";
-import { LanguageSelector } from "@/components/LanguageSelector";
+import { UnifiedHeaderNav } from "@/components/unified-header-nav";
 
 import "./launch-event.css";
 
@@ -248,59 +248,7 @@ export default function LaunchEventPage() {
               <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded text-xs font-bold animate-pulse">● {t('launchEventPage.liveEvent', 'LIVE EVENT')}</span>
             </div>
             <div className="flex items-center gap-2 md:gap-4">
-              {/* Navigation Icons */}
-              <div className="hidden md:flex items-center gap-2">
-                <Link href="/">
-                  <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="Home">
-                    <Home className="w-4 h-4" />
-                  </a>
-                </Link>
-                <Link href="/scan">
-                  <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="Scan">
-                    <ScanLine className="w-4 h-4" />
-                  </a>
-                </Link>
-                <Link href="/user">
-                  <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="User">
-                    <User className="w-4 h-4" />
-                  </a>
-                </Link>
-                <Link href="/bug-bounty">
-                  <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="Bug Bounty">
-                    <Bug className="w-4 h-4" />
-                  </a>
-                </Link>
-                <Link href="/security-audit">
-                  <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="Security Audit">
-                    <Shield className="w-4 h-4" />
-                  </a>
-                </Link>
-                <Link href="/token-generator">
-                  <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="Token Generator">
-                    <Coins className="w-4 h-4" />
-                  </a>
-                </Link>
-                <Link href="/nft-marketplace">
-                  <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="NFT Marketplace">
-                    <ImageIcon className="w-4 h-4" />
-                  </a>
-                </Link>
-                <Link href="/qna">
-                  <a className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-gray-400" title="QnA">
-                    <HelpCircle className="w-4 h-4" />
-                  </a>
-                </Link>
-              </div>
-              
-              <div className="h-6 w-px bg-slate-200 dark:bg-gray-700 hidden md:block" />
-              
-              <LanguageSelector isDark={isDark} />
-              <button 
-                onClick={toggleTheme} 
-                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors text-slate-500 dark:text-yellow-400"
-              >
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
+              <UnifiedHeaderNav variant="light" />
               {isConnected ? (
                 <Badge className="bg-[#3B82F6] text-white">
                   {address?.slice(0, 6)}...{address?.slice(-4)}
