@@ -7705,19 +7705,19 @@
         "emailInvalid": "유효한 이메일 주소를 입력해 주세요",
         "passwordMin": "비밀번호는 최소 8자 이상이어야 합니다",
         "passwordMismatch": "비밀번호가 일치하지 않습니다",
-        "termsRequired": "약관에 동의해야 합니다",
-        "step": "단계",
-        "verificationNote": "6자리 인증 코드가 이메일로 발송됩니다",
-        "sendCode": "인증 코드 발송",
-        "sending": "발송 중...",
-        "enterCode": "이메일로 받은 6자리 코드를 입력하세요",
-        "verify": "코드 확인",
-        "verifying": "확인 중...",
-        "verified": "인증됨",
-        "back": "뒤로",
-        "resendCode": "코드 재발송",
-        "resendIn": "재발송까지"
-      }
+        "termsRequired": "약관에 동의해야 합니다"
+      },
+      "step": "단계",
+      "verificationNote": "6자리 인증 코드가 이메일로 발송됩니다",
+      "sendCode": "인증 코드 발송",
+      "sending": "발송 중...",
+      "enterCode": "이메일로 받은 6자리 코드를 입력하세요",
+      "verify": "코드 확인",
+      "verifying": "확인 중...",
+      "verified": "인증됨",
+      "back": "뒤로",
+      "resendCode": "코드 재발송",
+      "resendIn": "재발송까지"
     },
     "header": {
       "learn": "학습",
