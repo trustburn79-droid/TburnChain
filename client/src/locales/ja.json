@@ -18185,5 +18185,475 @@
     "resendInSeconds": "{{seconds}}秒後に再送信可能",
     "sending": "送信中...",
     "resendCode": "コードを再送信"
+  },
+  "tokenSchedule": {
+    "nav": {
+      "overview": "概要",
+      "schedule": "20年スケジュール",
+      "phase1": "フェーズ1：基盤",
+      "phase2": "フェーズ2：成長",
+      "phase3": "フェーズ3：エコシステム",
+      "phase4": "フェーズ4：成熟",
+      "visual": "供給量の可視化",
+      "comparison": "経済比較",
+      "summary": "最終サマリー"
+    },
+    "hero": {
+      "title": "TBURN 20年間トークン発行＆バーンスケジュール",
+      "subtitle": "持続可能なトークノミクスと長期的価値創造のための包括的な設計図。",
+      "description": "アルゴリズム発行と自動バーンメカニズムによる透明な供給管理。",
+      "stats": {
+        "initialSupply": {
+          "label": "初期供給量",
+          "value": "100.0B"
+        },
+        "finalSupply": {
+          "label": "最終供給量（20年目）",
+          "value": "69.4B"
+        },
+        "totalBurn": {
+          "label": "予想総バーン量",
+          "value": "50.3B"
+        },
+        "reductionRate": {
+          "label": "供給削減率",
+          "value": "30.6%"
+        }
+      }
+    },
+    "overview": {
+      "title": "供給＆バーンメカニズム",
+      "supply": {
+        "title": "供給メカニズム",
+        "blockRewardPool": "ブロック報酬プール",
+        "blockRewardValue": "197.5億 TBURN",
+        "distributionPeriod": "配布期間",
+        "distributionValue": "20年（7,300日）",
+        "blockTime": "目標ブロック時間",
+        "blockTimeValue": "1.0秒",
+        "halvingTitle": "半減期スケジュール",
+        "halving1Label": "第1半減期：",
+        "halving1Value": "6年目（50%削減）",
+        "halving2Label": "第2半減期：",
+        "halving2Value": "9年目（33%削減）"
+      },
+      "burn": {
+        "title": "バーンメカニズム",
+        "aiFee": {
+          "title": "AIサービス手数料",
+          "description": "すべてのAIオーケストレーションおよびトレーニング手数料の80%が供給から永久にバーンされます。"
+        },
+        "txFee": {
+          "title": "トランザクション手数料",
+          "description": "ベーストランザクション手数料の50%がバーンされ、一定のデフレ圧力を生み出します。"
+        },
+        "specialEvents": {
+          "title": "戦略的バーン",
+          "description": "プラットフォームのパフォーマンスとガバナンス決定に基づく四半期ごとのエコシステムバーン。"
+        }
+      }
+    },
+    "schedule": {
+      "title": "20年経済予測",
+      "description": "発行、バーン、純供給影響の年ごとの詳細内訳。"
+    },
+    "table": {
+      "year": "年",
+      "phase": "フェーズ",
+      "blockIssuance": "ブロック発行",
+      "aiBurn": "AI＆手数料バーン",
+      "netChange": "純変化",
+      "supplyEnd": "供給量（年末）",
+      "total": "合計"
+    },
+    "units": {
+      "billion": "B"
+    },
+    "phases": {
+      "phase1": "フェーズ1：基盤",
+      "phase2": "フェーズ2：成長",
+      "phase3": "フェーズ3：エコシステム",
+      "phase4": "フェーズ4：成熟"
+    },
+    "notes": {
+      "halving": "ここで半減期イベントが発生します。"
+    },
+    "milestones": {
+      "title": "経済マイルストーン",
+      "year1": "ネットワーク開始と初期配布開始。",
+      "year3": "大量採用によりバーンが発行を上回る。",
+      "year6": "第1半減期により新規供給が大幅に減少。",
+      "year10": "供給量が710億を下回り、初期から29%削減。",
+      "year12": "発行とバーンが最適な均衡に達する。",
+      "year20": "最終供給目標達成、長期安定性実現。"
+    },
+    "visual": {
+      "title": "供給軌道の可視化",
+      "description": "初期配布からデフレエコシステムへの移行の視覚的表現。"
+    },
+    "comparison": {
+      "title": "経済効率比較",
+      "headers": {
+        "burnToIssuance": "バーン/発行比率",
+        "cumulativeReduction": "累積削減",
+        "status": "ネットワーク状態"
+      },
+      "status": {
+        "earlyGrowth": "初期成長",
+        "acceleration": "加速",
+        "massAdoption": "大量採用",
+        "enterpriseIntegration": "エンタープライズ統合",
+        "platformMaturity": "プラットフォーム成熟",
+        "firstHalving": "第1半減期",
+        "secondHalving": "第2半減期",
+        "tenYearMilestone": "10年マイルストーン",
+        "perfectBalance": "完全均衡",
+        "visionComplete": "ビジョン完了"
+      }
+    },
+    "finalSummary": {
+      "title": "20年経済サマリー",
+      "cumulativeIssuance": "累積発行（20年）",
+      "cumulativeBurn": "累積バーン（20年）",
+      "netDeflation": "純デフレ影響",
+      "burnMultiple": "バーン率は発行率の2.55倍"
+    },
+    "documentInfo": {
+      "title": "ドキュメント情報",
+      "documentTitle": "プロトコルドキュメント",
+      "documentTitleValue": "TBURN-ECON-V3",
+      "version": "バージョン",
+      "status": "ステータス",
+      "statusValue": "最終版＆ガバナンス承認済み",
+      "planPeriod": "計画期間",
+      "author": "TBURNプロトコル経済研究部門発行"
+    },
+    "disclaimer": {
+      "title": "重要な法的免責事項",
+      "notInvestmentAdvice": {
+        "title": "投資アドバイスではありません：",
+        "content": "このドキュメントで提供される情報は情報提供のみを目的としており、金融、投資、または専門的なアドバイスを構成するものではありません。"
+      },
+      "forwardLooking": {
+        "title": "将来予測に関する記述：",
+        "content": "予測、目標、見積もりは現在のネットワークパラメータに基づいており、市場状況やプロトコルの変更に左右されます。"
+      },
+      "subjectToChange": {
+        "title": "ガバナンスの対象：",
+        "content": "TBURNトークノミクスは、エコシステムの進化に伴いコミュニティガバナンス投票により変更される可能性があります。"
+      },
+      "limitedLiability": {
+        "title": "責任の限定：",
+        "content": "TBURN財団および貢献者は、このデータの使用に基づいて発生した損失について責任を負いません。"
+      }
+    },
+    "footer": {
+      "vision": "AI統合ブロックチェーン経済の持続可能な未来を構築。",
+      "disclaimer": "この技術スケジュールは公式TBURNプロトコルホワイトペーパーv3.0の一部です。"
+    }
+  },
+  "tokenDetails": {
+    "nav": {
+      "overview": "概要",
+      "community": "コミュニティ",
+      "rewards": "報酬",
+      "investors": "投資家",
+      "ecosystem": "エコシステム",
+      "team": "チーム",
+      "y1Schedule": "1年目スケジュール",
+      "checklist": "チェックリスト",
+      "calendar": "カレンダー"
+    },
+    "hero": {
+      "title": "トークン配布＆運用ガイド",
+      "subtitle": "TBURNトークン割当と配布の包括的ガイド",
+      "description": "1年目アンロックスケジュールとカテゴリ別配布詳細",
+      "mainnetGenesis": "メインネットジェネシス",
+      "exchangeListing": "取引所上場",
+      "listingDate": "2026年Q1",
+      "applicablePeriod": "適用期間"
+    },
+    "overview": {
+      "title": "トークン配布概要",
+      "purpose": {
+        "title": "ドキュメントの目的",
+        "description": "このドキュメントはTBURNメインネットの包括的なトークン配布、ベスティングスケジュール、1年目アンロック詳細を提供します。",
+        "item1": "各ステークホルダーカテゴリの詳細な割当",
+        "item2": "透明なベスティングとクリフ期間情報",
+        "item3": "1年目の月次アンロックスケジュール",
+        "item4": "配布方法とターゲット仕様"
+      },
+      "schedule": {
+        "title": "主要スケジュール",
+        "genesis": {
+          "title": "メインネットジェネシス",
+          "desc": "ネットワーク開始と初期ブロック生成"
+        },
+        "seed": {
+          "title": "シードラウンド",
+          "desc": "初期投資家参加期間"
+        },
+        "public": {
+          "title": "パブリックセール",
+          "desc": "一般向けトークンセール"
+        },
+        "listing": {
+          "date": "2026年Q1目標",
+          "title": "取引所上場",
+          "desc": "初のTier-1 CEX上場"
+        },
+        "note": "すべてのスケジュールは市場状況と規制要件に左右されます"
+      },
+      "distribution": {
+        "title": "トークン配布概要"
+      }
+    },
+    "distribution": {
+      "community": "コミュニティ",
+      "rewards": "ブロック＆バリデーター報酬",
+      "investors": "投資家",
+      "ecosystem": "エコシステム",
+      "team": "チーム＆アドバイザー"
+    },
+    "table": {
+      "category": "カテゴリ",
+      "subcategory": "サブカテゴリ",
+      "ratio": "比率",
+      "quantity": "数量",
+      "method": "配布方法",
+      "target": "ターゲット",
+      "total": "合計",
+      "communityIcon": "👥",
+      "rewardsIcon": "⛏️",
+      "investorsIcon": "💰"
+    },
+    "common": {
+      "billion": "B",
+      "month": "ヶ月",
+      "tenThousand": "K",
+      "totalSupply": "総供給量",
+      "vesting": "ベスティング"
+    },
+    "community": {
+      "title": "コミュニティ割当（30%）",
+      "airdrop": {
+        "title": "エアドロップ配布",
+        "name": "エアドロップ",
+        "method": "スナップショット＆クレーム",
+        "target": "初期コミュニティメンバー",
+        "vesting": "12ヶ月リニア",
+        "claimPeriod": "クレーム期間",
+        "claimPeriodValue": "上場から90日",
+        "tier": "ティア",
+        "qualification": "資格",
+        "allocation": "割当",
+        "expectedCount": "予想数",
+        "perPerson": "一人当たり",
+        "tierOgCondition": "ジェネシスブロック参加者＋テストネットバリデーター",
+        "tierOgCount": "約50,000",
+        "tierEarlyCondition": "テストネット参加者＋コミュニティ貢献",
+        "tierEarlyCount": "約150,000",
+        "tierActiveCondition": "アクティブウォレット＋取引履歴",
+        "tierActiveCount": "約300,000",
+        "tierBasicCondition": "ウォレット登録＋KYC完了",
+        "tierBasicCount": "約500,000",
+        "step1": "ウォレットを接続しKYC認証を完了",
+        "step2": "ティア資格に基づき適格性を確認",
+        "step3": "クレーム期間中にトークンを請求",
+        "step4": "トークンは12ヶ月でリニアにベスト"
+      },
+      "referral": {
+        "title": "リファラルプログラム",
+        "name": "リファラル報酬",
+        "method": "自動配布",
+        "target": "アクティブな紹介者",
+        "vesting": "即時アンロック",
+        "activity": "アクティビティタイプ",
+        "referrer": "紹介者報酬",
+        "referee": "被紹介者報酬",
+        "cap": "ユーザーあたり上限",
+        "walletReferral": "ウォレットリファラル",
+        "stakingReferral": "ステーキングリファラル",
+        "enterpriseReferral": "エンタープライズリファラル"
+      },
+      "events": {
+        "title": "イベント報酬",
+        "name": "イベント",
+        "method": "イベント別配布",
+        "target": "イベント参加者",
+        "vesting": "即時クレーム可能"
+      }
+    },
+    "rewards": {
+      "title": "ブロック＆バリデーター報酬（19.75%）",
+      "block": {
+        "title": "ブロック報酬",
+        "name": "ブロック発行",
+        "method": "ブロックごとの配布",
+        "target": "アクティブバリデーター",
+        "vesting": "ロックなし"
+      },
+      "validator": {
+        "title": "バリデーターインセンティブ",
+        "name": "バリデーター報酬",
+        "method": "パフォーマンスベース",
+        "target": "アクティブバリデーター",
+        "vesting": "3ヶ月リニア"
+      },
+      "delegation": {
+        "title": "デリゲーション報酬",
+        "name": "デリゲーション",
+        "method": "比例配分",
+        "target": "デリゲーター",
+        "vesting": "ロックなし"
+      }
+    },
+    "investors": {
+      "title": "投資家割当（15%）",
+      "seed": {
+        "title": "シードラウンド",
+        "name": "シード投資家",
+        "method": "SAFT",
+        "target": "戦略的投資家",
+        "vesting": "6ヶ月クリフ＋24ヶ月ベスティング",
+        "cliff": "クリフ",
+        "vestingPeriod": "ベスティング期間",
+        "tge": "TGE",
+        "monthlyUnlock": "月次アンロック"
+      },
+      "private": {
+        "title": "プライベートラウンド",
+        "name": "プライベート投資家",
+        "method": "SAFT",
+        "target": "機関＆ファンド",
+        "vesting": "3ヶ月クリフ＋18ヶ月ベスティング"
+      },
+      "public": {
+        "title": "パブリックセール",
+        "name": "パブリックセール",
+        "method": "IDO/IEO",
+        "target": "一般",
+        "vesting": "10% TGE＋9ヶ月ベスティング"
+      }
+    },
+    "ecosystem": {
+      "title": "エコシステムファンド（20%）",
+      "development": {
+        "title": "エコシステム開発",
+        "name": "開発ファンド",
+        "method": "提案ベース",
+        "target": "開発者＆プロジェクト",
+        "vesting": "プロジェクトごと"
+      },
+      "partnership": {
+        "title": "パートナーシップ",
+        "name": "パートナーシップファンド",
+        "method": "二者間合意",
+        "target": "戦略的パートナー",
+        "vesting": "12ヶ月クリフ＋24ヶ月ベスティング"
+      },
+      "treasury": {
+        "title": "トレジャリー",
+        "name": "プロトコルトレジャリー",
+        "method": "DAO管理",
+        "target": "エコシステムリザーブ",
+        "vesting": "スマートコントラクトでロック"
+      },
+      "liquidity": {
+        "title": "流動性提供",
+        "name": "流動性ファンド",
+        "method": "AMM/DEX",
+        "target": "流動性提供",
+        "vesting": "50% TGE＋6ヶ月ベスティング"
+      }
+    },
+    "team": {
+      "title": "チーム＆アドバイザー（15.25%）",
+      "core": {
+        "title": "コアチーム",
+        "name": "コアチームメンバー",
+        "method": "従業員契約",
+        "target": "創業チーム",
+        "vesting": "12ヶ月クリフ＋36ヶ月ベスティング"
+      },
+      "advisors": {
+        "title": "アドバイザー",
+        "name": "アドバイザー",
+        "method": "アドバイザー契約",
+        "target": "業界専門家",
+        "vesting": "6ヶ月クリフ＋24ヶ月ベスティング"
+      },
+      "future": {
+        "title": "将来の採用",
+        "name": "チームリザーブ",
+        "method": "報酬パッケージ",
+        "target": "新規採用",
+        "vesting": "12ヶ月クリフ＋48ヶ月ベスティング"
+      }
+    },
+    "y1Schedule": {
+      "title": "1年目アンロックスケジュール",
+      "description": "全カテゴリの詳細な月次アンロック",
+      "month": "月",
+      "category": "カテゴリ",
+      "amount": "金額",
+      "cumulative": "累積",
+      "tge": "TGE",
+      "publicStart": "パブリックセールベスティング開始",
+      "privateStart": "プライベートラウンドアンロック開始",
+      "anniversary": "1周年"
+    },
+    "checklist": {
+      "title": "ローンチ準備チェックリスト",
+      "item1": "スマートコントラクトセキュリティ監査完了（CertiK、Trail of Bits）",
+      "item2": "125以上のアクティブノードでバリデーターネットワーク運用中",
+      "item3": "トークンクレームポータルとベスティングダッシュボードが稼働中",
+      "item4": "取引所統合と上場が確認済み",
+      "item5": "コミュニティガバナンスフレームワークがアクティブ化"
+    },
+    "calendar": {
+      "title": "主要日程＆マイルストーン",
+      "date": "日付",
+      "event": "イベント",
+      "unlockAmount": "アンロック金額",
+      "listingDateTarget": "2026年Q1",
+      "listingEvent": "取引所上場＆TGE",
+      "publicVestingStart": "パブリックセールベスティング開始",
+      "partnershipStartEvent": "パートナーシップアンロック開始",
+      "privateStartEvent": "プライベートラウンドアンロック開始",
+      "anniversaryEvent": "1周年マイルストーン"
+    },
+    "docInfo": {
+      "title": "ドキュメント情報",
+      "docTitle": "ドキュメントタイトル",
+      "docTitleValue": "TBURNトークン配布ガイドv3.0",
+      "version": "バージョン",
+      "planPeriod": "計画期間",
+      "y1TotalUnlock": "1年目総アンロック",
+      "author": "TBURN財団・トークンエコノミクスチーム"
+    },
+    "disclaimer": {
+      "title": "⚠️ 重要な免責事項",
+      "notInvestmentAdvice": {
+        "title": "投資アドバイスではありません：",
+        "content": "このドキュメントは情報提供のみを目的としており、投資、法律、または税務に関するアドバイスを構成するものではありません。決定を下す前に資格のある専門家にご相談ください。"
+      },
+      "forwardLooking": {
+        "title": "将来予測に関する記述：",
+        "content": "このドキュメントにはリスクと不確実性を伴う将来予測に関する記述が含まれています。実際の結果は表明または示唆されたものと大きく異なる場合があります。"
+      },
+      "subjectToChange": {
+        "title": "変更の対象：",
+        "content": "トークン配布スケジュール、ベスティング期間、その他の詳細は、市場状況、規制要件、ガバナンス決定に基づいて変更される場合があります。"
+      },
+      "limitedLiability": {
+        "title": "責任の限定：",
+        "content": "TBURN財団およびその関連会社は、このドキュメントに含まれる情報の使用から生じる損失について責任を負いません。"
+      }
+    },
+    "footer": {
+      "tagline": "分散型金融の未来を構築",
+      "disclaimer": "このドキュメントは情報提供のみを目的として提供されています。トークン配布スケジュールは、市場状況と規制要件に基づいて変更される場合があります。"
+    }
   }
 }

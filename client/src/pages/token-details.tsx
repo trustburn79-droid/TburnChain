@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TBurnLogo } from "@/components/tburn-logo";
+import { LanguageSelector } from "@/components/LanguageSelector";
 import { Home, ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
 
 export default function TokenDetails() {
@@ -372,6 +373,7 @@ export default function TokenDetails() {
               <a href="/token-generator" className="td-header-icon" title="Token Generator"><Coins size={18} /></a>
               <a href="/nft-marketplace" className="td-header-icon" title="NFT Marketplace"><ImageIcon size={18} /></a>
               <a href="/qna" className="td-header-icon" title="QnA"><HelpCircle size={18} /></a>
+              <LanguageSelector isDark={true} />
             </div>
           </div>
         </header>

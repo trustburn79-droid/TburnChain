@@ -14966,5 +14966,475 @@
     "resendInSeconds": "Reenvio disponível em {{seconds}}s",
     "sending": "Enviando...",
     "resendCode": "Reenviar Código"
+  },
+  "tokenSchedule": {
+    "nav": {
+      "overview": "Visão Geral",
+      "schedule": "Cronograma de 20 Anos",
+      "phase1": "Fase 1: Fundação",
+      "phase2": "Fase 2: Crescimento",
+      "phase3": "Fase 3: Ecossistema",
+      "phase4": "Fase 4: Maturidade",
+      "visual": "Visualização do Suprimento",
+      "comparison": "Comparação Econômica",
+      "summary": "Resumo Final"
+    },
+    "hero": {
+      "title": "Cronograma de Emissão e Queima TBURN de 20 Anos",
+      "subtitle": "Um plano abrangente para tokenomics sustentáveis e criação de valor a longo prazo.",
+      "description": "Gestão transparente do suprimento através de emissão algorítmica e mecanismos de queima automatizados.",
+      "stats": {
+        "initialSupply": {
+          "label": "Suprimento Inicial",
+          "value": "100.0B"
+        },
+        "finalSupply": {
+          "label": "Suprimento Final (Ano 20)",
+          "value": "69.4B"
+        },
+        "totalBurn": {
+          "label": "Queima Total Projetada",
+          "value": "50.3B"
+        },
+        "reductionRate": {
+          "label": "Taxa de Redução",
+          "value": "30.6%"
+        }
+      }
+    },
+    "overview": {
+      "title": "Mecanismos de Suprimento e Queima",
+      "supply": {
+        "title": "Mecanismo de Suprimento",
+        "blockRewardPool": "Pool de Recompensas por Bloco",
+        "blockRewardValue": "19,75 Bilhões TBURN",
+        "distributionPeriod": "Período de Distribuição",
+        "distributionValue": "20 Anos (7.300 Dias)",
+        "blockTime": "Tempo de Bloco Alvo",
+        "blockTimeValue": "1,0 Segundo",
+        "halvingTitle": "Cronograma de Halving",
+        "halving1Label": "1º Halving:",
+        "halving1Value": "Ano 6 (redução de 50%)",
+        "halving2Label": "2º Halving:",
+        "halving2Value": "Ano 9 (redução de 33%)"
+      },
+      "burn": {
+        "title": "Mecanismo de Queima",
+        "aiFee": {
+          "title": "Taxas de Serviços de IA",
+          "description": "80% de todas as taxas de orquestração e treinamento de IA são permanentemente queimadas do suprimento."
+        },
+        "txFee": {
+          "title": "Taxas de Transação",
+          "description": "50% das taxas base de transação são queimadas, criando pressão deflacionária constante."
+        },
+        "specialEvents": {
+          "title": "Queimas Estratégicas",
+          "description": "Queimas trimestrais do ecossistema baseadas no desempenho da plataforma e decisões de governança."
+        }
+      }
+    },
+    "schedule": {
+      "title": "Projeção Econômica de 20 Anos",
+      "description": "Detalhamento ano a ano de emissão, queima e impacto líquido no suprimento."
+    },
+    "table": {
+      "year": "Ano",
+      "phase": "Fase",
+      "blockIssuance": "Emissão de Blocos",
+      "aiBurn": "Queima de IA e Taxas",
+      "netChange": "Variação Líquida",
+      "supplyEnd": "Suprimento (Final do Ano)",
+      "total": "Total"
+    },
+    "units": {
+      "billion": "B"
+    },
+    "phases": {
+      "phase1": "Fase 1: Fundação",
+      "phase2": "Fase 2: Crescimento",
+      "phase3": "Fase 3: Ecossistema",
+      "phase4": "Fase 4: Maturidade"
+    },
+    "notes": {
+      "halving": "O evento de halving ocorre aqui."
+    },
+    "milestones": {
+      "title": "Marcos Econômicos",
+      "year1": "Lançamento da rede e início da distribuição inicial.",
+      "year3": "Adoção em massa leva a queima a superar a emissão.",
+      "year6": "O primeiro halving reduz significativamente o novo suprimento.",
+      "year10": "Suprimento cai abaixo de 71B, 29% de redução do inicial.",
+      "year12": "Emissão e queima alcançam equilíbrio ideal.",
+      "year20": "Meta de suprimento final alcançada, estabilidade de longo prazo atingida."
+    },
+    "visual": {
+      "title": "Visualização da Trajetória do Suprimento",
+      "description": "Representação visual da transição da distribuição inicial para um ecossistema deflacionário."
+    },
+    "comparison": {
+      "title": "Comparação de Eficiência Econômica",
+      "headers": {
+        "burnToIssuance": "Razão Queima/Emissão",
+        "cumulativeReduction": "Redução Acumulada",
+        "status": "Status da Rede"
+      },
+      "status": {
+        "earlyGrowth": "Crescimento Inicial",
+        "acceleration": "Aceleração",
+        "massAdoption": "Adoção em Massa",
+        "enterpriseIntegration": "Integração Empresarial",
+        "platformMaturity": "Maturidade da Plataforma",
+        "firstHalving": "Primeiro Halving",
+        "secondHalving": "Segundo Halving",
+        "tenYearMilestone": "Marco de 10 Anos",
+        "perfectBalance": "Equilíbrio Perfeito",
+        "visionComplete": "Visão Completa"
+      }
+    },
+    "finalSummary": {
+      "title": "Resumo Econômico de 20 Anos",
+      "cumulativeIssuance": "Emissão Acumulada (20 Anos)",
+      "cumulativeBurn": "Queima Acumulada (20 Anos)",
+      "netDeflation": "Impacto Deflacionário Líquido",
+      "burnMultiple": "A taxa de queima é 2,55x a taxa de emissão"
+    },
+    "documentInfo": {
+      "title": "Informações do Documento",
+      "documentTitle": "Documento do Protocolo",
+      "documentTitleValue": "TBURN-ECON-V3",
+      "version": "Versão",
+      "status": "Status",
+      "statusValue": "Finalizado e Aprovado pela Governança",
+      "planPeriod": "Período do Plano",
+      "author": "Emitido pela Divisão de Pesquisa Econômica do Protocolo TBURN"
+    },
+    "disclaimer": {
+      "title": "AVISO LEGAL IMPORTANTE",
+      "notInvestmentAdvice": {
+        "title": "Não é Aconselhamento de Investimento:",
+        "content": "As informações fornecidas neste documento são apenas para fins informativos e não constituem aconselhamento financeiro, de investimento ou profissional."
+      },
+      "forwardLooking": {
+        "title": "Declarações Prospectivas:",
+        "content": "Projeções, metas e estimativas são baseadas nos parâmetros atuais da rede e estão sujeitas às condições de mercado e mudanças de protocolo."
+      },
+      "subjectToChange": {
+        "title": "Sujeito à Governança:",
+        "content": "Os tokenomics do TBURN podem ser modificados através de votos de governança da comunidade à medida que o ecossistema evolui."
+      },
+      "limitedLiability": {
+        "title": "Responsabilidade Limitada:",
+        "content": "A Fundação TBURN e os colaboradores não são responsáveis por quaisquer perdas incorridas com base no uso destes dados."
+      }
+    },
+    "footer": {
+      "vision": "Construindo um futuro sustentável para a economia blockchain integrada com IA.",
+      "disclaimer": "Este cronograma técnico faz parte do Whitepaper oficial do Protocolo TBURN v3.0."
+    }
+  },
+  "tokenDetails": {
+    "nav": {
+      "overview": "Visão Geral",
+      "community": "Comunidade",
+      "rewards": "Recompensas",
+      "investors": "Investidores",
+      "ecosystem": "Ecossistema",
+      "team": "Equipe",
+      "y1Schedule": "Cronograma Ano 1",
+      "checklist": "Lista de Verificação",
+      "calendar": "Calendário"
+    },
+    "hero": {
+      "title": "Guia de Distribuição e Operações de Tokens",
+      "subtitle": "Guia completo para alocação e distribuição de tokens TBURN",
+      "description": "Cronograma de desbloqueio do Ano 1 e detalhes de distribuição por categoria",
+      "mainnetGenesis": "Gênesis da Mainnet",
+      "exchangeListing": "Listagem em Exchange",
+      "listingDate": "Q1 2026",
+      "applicablePeriod": "Período Aplicável"
+    },
+    "overview": {
+      "title": "Visão Geral da Distribuição de Tokens",
+      "purpose": {
+        "title": "Objetivo do Documento",
+        "description": "Este documento fornece distribuição abrangente de tokens, cronogramas de vesting e detalhes de desbloqueio do Ano 1 para a mainnet TBURN.",
+        "item1": "Alocação detalhada para cada categoria de stakeholder",
+        "item2": "Informações transparentes de vesting e período de cliff",
+        "item3": "Cronograma de desbloqueio mensal do Ano 1",
+        "item4": "Método de distribuição e especificações de alvo"
+      },
+      "schedule": {
+        "title": "Cronograma Chave",
+        "genesis": {
+          "title": "Gênesis da Mainnet",
+          "desc": "Lançamento da rede e geração do bloco inicial"
+        },
+        "seed": {
+          "title": "Rodada Seed",
+          "desc": "Período de participação de investidores iniciais"
+        },
+        "public": {
+          "title": "Venda Pública",
+          "desc": "Venda de tokens ao público geral"
+        },
+        "listing": {
+          "date": "Meta Q1 2026",
+          "title": "Listagem em Exchange",
+          "desc": "Primeira listagem em CEX Tier-1"
+        },
+        "note": "Todos os cronogramas estão sujeitos às condições de mercado e requisitos regulatórios"
+      },
+      "distribution": {
+        "title": "Visão Geral da Distribuição de Tokens"
+      }
+    },
+    "distribution": {
+      "community": "Comunidade",
+      "rewards": "Recompensas de Bloco e Validador",
+      "investors": "Investidores",
+      "ecosystem": "Ecossistema",
+      "team": "Equipe e Consultores"
+    },
+    "table": {
+      "category": "Categoria",
+      "subcategory": "Subcategoria",
+      "ratio": "Proporção",
+      "quantity": "Quantidade",
+      "method": "Método de Distribuição",
+      "target": "Alvo",
+      "total": "Total",
+      "communityIcon": "👥",
+      "rewardsIcon": "⛏️",
+      "investorsIcon": "💰"
+    },
+    "common": {
+      "billion": "B",
+      "month": "mês",
+      "tenThousand": "K",
+      "totalSupply": "Suprimento Total",
+      "vesting": "Vesting"
+    },
+    "community": {
+      "title": "Alocação Comunitária (30%)",
+      "airdrop": {
+        "title": "Distribuição de Airdrop",
+        "name": "Airdrop",
+        "method": "Snapshot e Resgate",
+        "target": "Membros iniciais da comunidade",
+        "vesting": "12 meses linear",
+        "claimPeriod": "Período de Resgate",
+        "claimPeriodValue": "90 dias a partir da listagem",
+        "tier": "Nível",
+        "qualification": "Qualificação",
+        "allocation": "Alocação",
+        "expectedCount": "Contagem Esperada",
+        "perPerson": "Por Pessoa",
+        "tierOgCondition": "Participante do bloco gênesis + Validador de testnet",
+        "tierOgCount": "~50.000",
+        "tierEarlyCondition": "Participante de testnet + Contribuição comunitária",
+        "tierEarlyCount": "~150.000",
+        "tierActiveCondition": "Carteira ativa + Histórico de transações",
+        "tierActiveCount": "~300.000",
+        "tierBasicCondition": "Registro de carteira + KYC concluído",
+        "tierBasicCount": "~500.000",
+        "step1": "Conectar carteira e concluir verificação KYC",
+        "step2": "Verificar elegibilidade com base na qualificação do nível",
+        "step3": "Resgatar tokens durante o período de resgate",
+        "step4": "Tokens são liberados linearmente ao longo de 12 meses"
+      },
+      "referral": {
+        "title": "Programa de Indicação",
+        "name": "Recompensas de Indicação",
+        "method": "Distribuição automática",
+        "target": "Indicadores ativos",
+        "vesting": "Desbloqueio imediato",
+        "activity": "Tipo de Atividade",
+        "referrer": "Recompensa do Indicador",
+        "referee": "Recompensa do Indicado",
+        "cap": "Limite por Usuário",
+        "walletReferral": "Indicação de Carteira",
+        "stakingReferral": "Indicação de Staking",
+        "enterpriseReferral": "Indicação Empresarial"
+      },
+      "events": {
+        "title": "Recompensas de Eventos",
+        "name": "Eventos",
+        "method": "Distribuição por evento",
+        "target": "Participantes de eventos",
+        "vesting": "Resgatável imediatamente"
+      }
+    },
+    "rewards": {
+      "title": "Recompensas de Bloco e Validador (19,75%)",
+      "block": {
+        "title": "Recompensas de Bloco",
+        "name": "Emissão de Blocos",
+        "method": "Distribuição por bloco",
+        "target": "Validadores ativos",
+        "vesting": "Sem bloqueio"
+      },
+      "validator": {
+        "title": "Incentivos de Validador",
+        "name": "Recompensas de Validador",
+        "method": "Baseado em desempenho",
+        "target": "Validadores ativos",
+        "vesting": "3 meses linear"
+      },
+      "delegation": {
+        "title": "Recompensas de Delegação",
+        "name": "Delegação",
+        "method": "Proporcional",
+        "target": "Delegadores",
+        "vesting": "Sem bloqueio"
+      }
+    },
+    "investors": {
+      "title": "Alocação de Investidores (15%)",
+      "seed": {
+        "title": "Rodada Seed",
+        "name": "Investidores Seed",
+        "method": "SAFT",
+        "target": "Investidores estratégicos",
+        "vesting": "6 meses cliff + 24 meses vesting",
+        "cliff": "Cliff",
+        "vestingPeriod": "Período de Vesting",
+        "tge": "TGE",
+        "monthlyUnlock": "Desbloqueio Mensal"
+      },
+      "private": {
+        "title": "Rodada Privada",
+        "name": "Investidores Privados",
+        "method": "SAFT",
+        "target": "Instituições e fundos",
+        "vesting": "3 meses cliff + 18 meses vesting"
+      },
+      "public": {
+        "title": "Venda Pública",
+        "name": "Venda Pública",
+        "method": "IDO/IEO",
+        "target": "Público geral",
+        "vesting": "10% TGE + 9 meses vesting"
+      }
+    },
+    "ecosystem": {
+      "title": "Fundo do Ecossistema (20%)",
+      "development": {
+        "title": "Desenvolvimento do Ecossistema",
+        "name": "Fundo de Desenvolvimento",
+        "method": "Baseado em propostas",
+        "target": "Desenvolvedores e projetos",
+        "vesting": "Por projeto"
+      },
+      "partnership": {
+        "title": "Parcerias",
+        "name": "Fundo de Parcerias",
+        "method": "Acordo bilateral",
+        "target": "Parceiros estratégicos",
+        "vesting": "12 meses cliff + 24 meses vesting"
+      },
+      "treasury": {
+        "title": "Tesouraria",
+        "name": "Tesouraria do Protocolo",
+        "method": "Governado por DAO",
+        "target": "Reserva do ecossistema",
+        "vesting": "Bloqueado em contrato inteligente"
+      },
+      "liquidity": {
+        "title": "Provisão de Liquidez",
+        "name": "Fundo de Liquidez",
+        "method": "AMM/DEX",
+        "target": "Provisão de liquidez",
+        "vesting": "50% TGE + 6 meses vesting"
+      }
+    },
+    "team": {
+      "title": "Equipe e Consultores (15,25%)",
+      "core": {
+        "title": "Equipe Core",
+        "name": "Membros da Equipe Core",
+        "method": "Contratos de funcionários",
+        "target": "Equipe fundadora",
+        "vesting": "12 meses cliff + 36 meses vesting"
+      },
+      "advisors": {
+        "title": "Consultores",
+        "name": "Consultores",
+        "method": "Acordos de consultoria",
+        "target": "Especialistas do setor",
+        "vesting": "6 meses cliff + 24 meses vesting"
+      },
+      "future": {
+        "title": "Contratações Futuras",
+        "name": "Reserva da Equipe",
+        "method": "Pacotes de compensação",
+        "target": "Novas contratações",
+        "vesting": "12 meses cliff + 48 meses vesting"
+      }
+    },
+    "y1Schedule": {
+      "title": "Cronograma de Desbloqueio do Ano 1",
+      "description": "Desbloqueio mensal detalhado para todas as categorias",
+      "month": "Mês",
+      "category": "Categoria",
+      "amount": "Quantia",
+      "cumulative": "Acumulado",
+      "tge": "TGE",
+      "publicStart": "Início do vesting da venda pública",
+      "privateStart": "Início do desbloqueio da rodada privada",
+      "anniversary": "1º Aniversário"
+    },
+    "checklist": {
+      "title": "Lista de Verificação de Preparação para Lançamento",
+      "item1": "Auditorias de segurança de contratos inteligentes concluídas (CertiK, Trail of Bits)",
+      "item2": "Rede de validadores operacional com mais de 125 nós ativos",
+      "item3": "Portal de resgate de tokens e painel de vesting ativos",
+      "item4": "Integração e listagem em exchange confirmadas",
+      "item5": "Framework de governança comunitária ativado"
+    },
+    "calendar": {
+      "title": "Datas Chave e Marcos",
+      "date": "Data",
+      "event": "Evento",
+      "unlockAmount": "Quantia Desbloqueada",
+      "listingDateTarget": "Q1 2026",
+      "listingEvent": "Listagem em Exchange e TGE",
+      "publicVestingStart": "Início do Vesting da Venda Pública",
+      "partnershipStartEvent": "Início do Desbloqueio de Parcerias",
+      "privateStartEvent": "Início do Desbloqueio da Rodada Privada",
+      "anniversaryEvent": "Marco do 1º Aniversário"
+    },
+    "docInfo": {
+      "title": "Informações do Documento",
+      "docTitle": "Título do Documento",
+      "docTitleValue": "Guia de Distribuição de Tokens TBURN v3.0",
+      "version": "Versão",
+      "planPeriod": "Período do Plano",
+      "y1TotalUnlock": "Desbloqueio Total Ano 1",
+      "author": "Fundação TBURN · Equipe de Economia de Tokens"
+    },
+    "disclaimer": {
+      "title": "⚠️ Aviso Legal Importante",
+      "notInvestmentAdvice": {
+        "title": "Não é Aconselhamento de Investimento:",
+        "content": "Este documento é apenas para fins informativos e não constitui aconselhamento de investimento, jurídico ou fiscal. Consulte profissionais qualificados antes de tomar qualquer decisão."
+      },
+      "forwardLooking": {
+        "title": "Declarações Prospectivas:",
+        "content": "Este documento contém declarações prospectivas que envolvem riscos e incertezas. Os resultados reais podem diferir materialmente daqueles expressos ou implícitos."
+      },
+      "subjectToChange": {
+        "title": "Sujeito a Mudanças:",
+        "content": "Cronogramas de distribuição de tokens, períodos de vesting e outros detalhes estão sujeitos a alterações com base nas condições de mercado, requisitos regulatórios e decisões de governança."
+      },
+      "limitedLiability": {
+        "title": "Responsabilidade Limitada:",
+        "content": "A Fundação TBURN e suas afiliadas não serão responsáveis por quaisquer perdas decorrentes do uso das informações contidas neste documento."
+      }
+    },
+    "footer": {
+      "tagline": "Construindo o Futuro das Finanças Descentralizadas",
+      "disclaimer": "Este documento é fornecido apenas para fins informativos. Os cronogramas de distribuição de tokens estão sujeitos a alterações com base nas condições de mercado e requisitos regulatórios."
+    }
   }
 }
