@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
-import "../styles/public.css";
+import "../../styles/public.css";
 
 export default function TechnicalWhitepaper() {
   const { t } = useTranslation();
