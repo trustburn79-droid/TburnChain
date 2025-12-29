@@ -13119,441 +13119,441 @@
     "addressCopied": "والیٹ ایڈریس کاپی ہو گیا"
   },
   "technicalWhitepaper": {
-    "badge": "Technical Whitepaper",
-    "subtitle": "Enterprise-Grade Layer 1 Blockchain with Quad-Band AI Orchestration",
-    "backToWhitepaper": "Back to Whitepaper",
-    "tableOfContents": "Table of Contents",
+    "badge": "تکنیکی وائٹ پیپر",
+    "subtitle": "کواڈ بینڈ AI آرکیسٹریشن کے ساتھ انٹرپرائز گریڈ لیئر 1 بلاک چین",
+    "backToWhitepaper": "وائٹ پیپر پر واپس جائیں",
+    "tableOfContents": "فہرست مضامین",
     "meta": {
-      "version": "Version",
-      "date": "Date",
-      "chainId": "Chain ID",
-      "status": "Status"
+      "version": "ورژن",
+      "date": "تاریخ",
+      "chainId": "چین ID",
+      "status": "حیثیت"
     },
     "toc": {
-      "abstract": "Abstract",
-      "architecture": "Architecture",
-      "consensus": "Consensus",
-      "sharding": "Sharding",
-      "aiSystem": "AI System",
-      "tokenomics": "Tokenomics",
-      "tokenStandards": "Token Standards",
-      "defi": "DeFi Stack",
-      "security": "Security",
-      "governance": "Governance",
-      "roadmap": "Roadmap"
+      "abstract": "خلاصہ",
+      "architecture": "فن تعمیر",
+      "consensus": "اتفاق رائے",
+      "sharding": "شارڈنگ",
+      "aiSystem": "AI سسٹم",
+      "tokenomics": "ٹوکنومکس",
+      "tokenStandards": "ٹوکن معیارات",
+      "defi": "DeFi اسٹیک",
+      "security": "سیکیورٹی",
+      "governance": "گورننس",
+      "roadmap": "روڈ میپ"
     },
     "sections": {
       "abstract": {
-        "title": "Abstract",
-        "p1": "TBURN Chain is an enterprise-grade Layer 1 blockchain platform designed to address the fundamental limitations of existing blockchain networks: scalability, energy efficiency, and intelligent automation. By integrating a novel Trust Score-Based BFT Consensus, Dynamic Sharding Architecture, and Quad-Band AI Orchestration System, TBURN Chain achieves unprecedented throughput of 210,000+ TPS while maintaining decentralization and security guarantees.",
-        "p2": "The platform introduces a deflationary tokenomics model with an AI-optimized burn mechanism, achieving a projected 30.6% token reduction over 20 years. TBURN Chain supports full EVM compatibility with quantum-resistant cryptographic extensions, enabling seamless migration for existing Ethereum applications while future-proofing against emerging computational threats.",
+        "title": "خلاصہ",
+        "p1": "TBURN Chain ایک انٹرپرائز گریڈ لیئر 1 بلاک چین پلیٹ فارم ہے جو موجودہ بلاک چین نیٹ ورکس کی بنیادی حدود کو حل کرنے کے لیے ڈیزائن کیا گیا ہے: اسکیل ایبلٹی، توانائی کی کارکردگی، اور ذہین آٹومیشن۔ نئے Trust Score-Based BFT Consensus، Dynamic Sharding Architecture، اور Quad-Band AI Orchestration System کو یکجا کر کے، TBURN Chain غیر مرکزیت اور سیکیورٹی گارنٹی برقرار رکھتے ہوئے 210,000+ TPS کی بے مثال تھرو پٹ حاصل کرتا ہے۔",
+        "p2": "پلیٹ فارم AI کے ذریعے بہتر بنائے گئے برن میکانزم کے ساتھ ڈیفلیشنری ٹوکنومکس ماڈل متعارف کراتا ہے، 20 سالوں میں 30.6% ٹوکن کمی کا تخمینہ ہے۔ TBURN Chain کوانٹم مزاحم کرپٹوگرافک ایکسٹینشنز کے ساتھ مکمل EVM مطابقت کی حمایت کرتا ہے۔",
         "specs": {
-          "peakTps": "Peak TPS",
-          "blockTime": "Block Time",
-          "finality": "Finality",
-          "second": "second",
-          "validators": "Active Validators"
+          "peakTps": "زیادہ سے زیادہ TPS",
+          "blockTime": "بلاک ٹائم",
+          "finality": "حتمیت",
+          "second": "سیکنڈ",
+          "validators": "فعال ویلیڈیٹرز"
         }
       },
       "architecture": {
-        "title": "System Architecture",
-        "intro": "TBURN Chain employs a modular, layered architecture that separates concerns across execution, consensus, data availability, and settlement layers. This design enables independent scaling and upgradeability of each component.",
-        "diagramTitle": "TBURN Chain Architecture Stack",
+        "title": "سسٹم آرکیٹیکچر",
+        "intro": "TBURN Chain ایک ماڈیولر، تہہ دار فن تعمیر استعمال کرتا ہے جو ایگزیکیوشن، اتفاق رائے، ڈیٹا دستیابی، اور سیٹلمنٹ تہوں میں خدشات کو الگ کرتا ہے۔",
+        "diagramTitle": "TBURN Chain آرکیٹیکچر اسٹیک",
         "layers": {
-          "defi": "DeFi Protocols",
+          "defi": "DeFi پروٹوکولز",
           "nftGamefi": "NFT/GameFi",
-          "bridge": "Bridge",
-          "governance": "Governance",
-          "smartContract": "Smart Contract Layer (EVM + TBC Extensions)",
-          "quadBandAi": "Quad-Band AI Orchestration System",
+          "bridge": "برج",
+          "governance": "گورننس",
+          "smartContract": "سمارٹ کنٹریکٹ لیئر (EVM + TBC ایکسٹینشنز)",
+          "quadBandAi": "کواڈ بینڈ AI آرکیسٹریشن سسٹم",
           "trustScoreBft": "Trust Score BFT Consensus",
-          "dynamicSharding": "Dynamic Sharding Engine",
-          "crossShard": "Cross-Shard Messaging",
-          "stateSync": "State Synchronization",
-          "p2p": "P2P Network"
+          "dynamicSharding": "ڈائنامک شارڈنگ انجن",
+          "crossShard": "کراس شارڈ میسجنگ",
+          "stateSync": "اسٹیٹ سنکرونائزیشن",
+          "p2p": "P2P نیٹ ورک"
         },
         "coreComponents": {
-          "title": "Core Components",
+          "title": "بنیادی اجزاء",
           "execution": {
-            "title": "Execution Layer",
-            "desc": "The execution layer implements a fully EVM-compatible virtual machine with extensions for TBURN-specific opcodes. Transactions are processed in parallel across shards with deterministic state transitions."
+            "title": "ایگزیکیوشن لیئر",
+            "desc": "ایگزیکیوشن لیئر TBURN مخصوص اوپ کوڈز کے لیے ایکسٹینشنز کے ساتھ مکمل طور پر EVM مطابق ورچوئل مشین لاگو کرتی ہے۔"
           },
           "consensus": {
-            "title": "Consensus Layer",
-            "desc": "Trust Score-Based Byzantine Fault Tolerant (TS-BFT) consensus achieves finality within 1 second by weighting validator votes according to historical performance metrics, stake amount, and network contribution."
+            "title": "کنسینسس لیئر",
+            "desc": "Trust Score-Based Byzantine Fault Tolerant (TS-BFT) کنسینسس تاریخی کارکردگی کے میٹرکس کے مطابق ویلیڈیٹر ووٹوں کو وزن دے کر 1 سیکنڈ کے اندر حتمیت حاصل کرتا ہے۔"
           },
           "dataAvailability": {
-            "title": "Data Availability Layer",
-            "desc": "Each shard maintains its own state tree with cross-shard proofs enabling trustless verification. Archive nodes preserve complete historical data for audit and compliance requirements."
+            "title": "ڈیٹا دستیابی لیئر",
+            "desc": "ہر شارڈ کراس شارڈ پروفس کے ساتھ اپنا اسٹیٹ ٹری برقرار رکھتا ہے جو ٹرسٹ لیس تصدیق کو فعال کرتا ہے۔"
           },
           "aiOrchestration": {
-            "title": "AI Orchestration Layer",
-            "desc": "The Quad-Band AI system continuously monitors network health, optimizes resource allocation, detects anomalies, and executes governance decisions with minimal human intervention."
+            "title": "AI آرکیسٹریشن لیئر",
+            "desc": "کواڈ بینڈ AI سسٹم مسلسل نیٹ ورک کی صحت کی نگرانی کرتا ہے، وسائل کی تقسیم کو بہتر بناتا ہے، اور کم سے کم انسانی مداخلت کے ساتھ گورننس فیصلے کرتا ہے۔"
           }
         },
         "networkSpecs": {
-          "title": "Network Specifications",
-          "parameter": "Parameter",
-          "currencySymbol": "Currency Symbol",
-          "blockTime": "Block Time",
-          "gasUnit": "Gas Unit"
+          "title": "نیٹ ورک وضاحتیں",
+          "parameter": "پیرامیٹر",
+          "currencySymbol": "کرنسی کی علامت",
+          "blockTime": "بلاک ٹائم",
+          "gasUnit": "گیس یونٹ"
         }
       },
       "consensus": {
         "title": "Trust Score-Based BFT Consensus",
-        "intro": "TBURN Chain introduces an innovative consensus mechanism that extends traditional Byzantine Fault Tolerance with a dynamic trust scoring system.",
+        "intro": "TBURN Chain ایک اختراعی اتفاق رائے میکانزم متعارف کراتا ہے جو ڈائنامک ٹرسٹ سکورنگ سسٹم کے ساتھ روایتی Byzantine Fault Tolerance کو بڑھاتا ہے۔",
         "trustScore": {
-          "title": "Trust Score Calculation",
-          "desc": "Each validator maintains a Trust Score (TS) calculated from multiple performance metrics:",
-          "formulaTitle": "Trust Score Formula",
-          "coefficients": "Where the coefficients are:",
-          "alpha": "Validator uptime percentage (99%+ optimal)",
-          "beta": "Block production success rate",
-          "gamma": "Consensus vote accuracy and timeliness",
-          "delta": "Stake amount relative to network total",
-          "epsilon": "Cross-shard message relay and network health contribution"
+          "title": "ٹرسٹ سکور کا حساب",
+          "desc": "ہر ویلیڈیٹر متعدد کارکردگی میٹرکس سے حساب شدہ ٹرسٹ سکور (TS) برقرار رکھتا ہے:",
+          "formulaTitle": "ٹرسٹ سکور فارمولا",
+          "coefficients": "جہاں گتانک ہیں:",
+          "alpha": "ویلیڈیٹر اپ ٹائم فیصد (99%+ بہترین)",
+          "beta": "بلاک پروڈکشن کامیابی کی شرح",
+          "gamma": "کنسینسس ووٹ کی درستگی اور بروقت",
+          "delta": "نیٹ ورک کل کے نسبت اسٹیک رقم",
+          "epsilon": "کراس شارڈ میسج ریلے اور نیٹ ورک صحت میں حصہ"
         },
         "validatorTiers": {
-          "title": "Validator Tiers",
-          "tier": "Tier",
-          "maxValidators": "Max Validators",
-          "minStake": "Min Stake",
-          "rewardShare": "Reward Share",
-          "dailyRewards": "Daily Rewards",
-          "unlimited": "Unlimited"
+          "title": "ویلیڈیٹر ٹیئرز",
+          "tier": "ٹیئر",
+          "maxValidators": "زیادہ سے زیادہ ویلیڈیٹرز",
+          "minStake": "کم از کم اسٹیک",
+          "rewardShare": "انعام کا حصہ",
+          "dailyRewards": "روزانہ انعامات",
+          "unlimited": "لامحدود"
         },
         "blockProduction": {
-          "title": "Block Production",
-          "desc": "Validators are selected for block production through a weighted random selection algorithm."
+          "title": "بلاک پروڈکشن",
+          "desc": "ویلیڈیٹرز وزنی بے ترتیب انتخاب الگورتھم کے ذریعے بلاک پروڈکشن کے لیے منتخب کیے جاتے ہیں۔"
         },
         "finality": {
-          "title": "Finality Guarantee",
-          "desc": "TBURN Chain achieves single-slot finality through a two-phase commit process:",
-          "proposePhase": "Propose Phase (50ms)",
-          "proposeDesc": "Selected proposer broadcasts block to shard validators",
-          "commitPhase": "Commit Phase (50ms)",
-          "commitDesc": "Validators vote, 2/3+ weighted consensus confirms finality",
-          "totalTime": "Total finality time: 100ms per block, with cross-shard finality achieved within 1 second."
+          "title": "حتمیت کی ضمانت",
+          "desc": "TBURN Chain دو مرحلہ کمٹ عمل کے ذریعے سنگل سلاٹ حتمیت حاصل کرتا ہے:",
+          "proposePhase": "پروپوز فیز (50ms)",
+          "proposeDesc": "منتخب پروپوزر شارڈ ویلیڈیٹرز کو بلاک نشر کرتا ہے",
+          "commitPhase": "کمٹ فیز (50ms)",
+          "commitDesc": "ویلیڈیٹرز ووٹ کرتے ہیں، 2/3+ وزنی اتفاق رائے حتمیت کی تصدیق کرتا ہے",
+          "totalTime": "کل حتمیت کا وقت: فی بلاک 100ms، کراس شارڈ حتمیت 1 سیکنڈ میں۔"
         }
       },
       "sharding": {
-        "title": "Dynamic Sharding Architecture",
-        "intro": "TBURN Chain implements a dynamic sharding system that automatically scales from 5 to 128 shards based on network load and hardware capacity.",
+        "title": "ڈائنامک شارڈنگ آرکیٹیکچر",
+        "intro": "TBURN Chain ایک ڈائنامک شارڈنگ سسٹم لاگو کرتا ہے جو نیٹ ورک لوڈ اور ہارڈویئر کی گنجائش کی بنیاد پر 5 سے 128 شارڈز تک خودکار طور پر اسکیل ہوتا ہے۔",
         "config": {
-          "title": "Shard Configuration",
-          "activeShards": "Active Shards",
-          "validatorsPerShard": "Validators/Shard",
-          "tpsPerShard": "TPS per Shard",
-          "crossShardLatency": "Cross-Shard Latency"
+          "title": "شارڈ کنفیگریشن",
+          "activeShards": "فعال شارڈز",
+          "validatorsPerShard": "ویلیڈیٹرز/شارڈ",
+          "tpsPerShard": "TPS فی شارڈ",
+          "crossShardLatency": "کراس شارڈ لیٹنسی"
         },
         "tpsFormula": {
-          "title": "TPS Calculation Formula",
-          "formulaTitle": "Network TPS Formula",
-          "withConfig": "With mainnet configuration:"
+          "title": "TPS کیلکولیشن فارمولا",
+          "formulaTitle": "نیٹ ورک TPS فارمولا",
+          "withConfig": "مین نیٹ کنفیگریشن کے ساتھ:"
         },
         "hardware": {
-          "title": "Hardware Profiles",
-          "profile": "Profile",
-          "maxShards": "Max Shards",
-          "tpsRange": "TPS Range"
+          "title": "ہارڈویئر پروفائلز",
+          "profile": "پروفائل",
+          "maxShards": "زیادہ سے زیادہ شارڈز",
+          "tpsRange": "TPS رینج"
         },
         "crossShard": {
-          "title": "Cross-Shard Communication",
-          "desc": "Cross-shard transactions utilize an asynchronous message passing protocol:",
-          "messageQueue": "Message Queue",
-          "messageQueueDesc": "Priority-based routing with O(1) shard pair selection",
-          "batchProcessing": "Batch Processing",
-          "batchProcessingDesc": "Messages aggregated into batches for efficiency",
-          "proofGeneration": "Proof Generation",
-          "proofGenerationDesc": "Merkle proofs enable trustless cross-shard verification",
-          "caching": "Caching",
-          "cachingDesc": "30-second TTL shard state cache for optimal performance"
+          "title": "کراس شارڈ کمیونیکیشن",
+          "desc": "کراس شارڈ ٹرانزیکشنز غیر ہم وقت ساز میسج پاسنگ پروٹوکول استعمال کرتے ہیں:",
+          "messageQueue": "میسج قطار",
+          "messageQueueDesc": "O(1) شارڈ جوڑے کے انتخاب کے ساتھ ترجیحی بنیاد پر روٹنگ",
+          "batchProcessing": "بیچ پروسیسنگ",
+          "batchProcessingDesc": "کارکردگی کے لیے بیچوں میں میسجز جمع",
+          "proofGeneration": "پروف جنریشن",
+          "proofGenerationDesc": "مرکل پروفس ٹرسٹ لیس کراس شارڈ تصدیق کو فعال کرتے ہیں",
+          "caching": "کیشنگ",
+          "cachingDesc": "بہترین کارکردگی کے لیے 30 سیکنڈ TTL شارڈ اسٹیٹ کیش"
         },
         "autoScaling": {
-          "title": "Automatic Scaling",
-          "desc": "The sharding engine monitors network load in real-time:",
-          "scaleUp": "Scale Up",
-          "scaleUpDesc": "When average shard load exceeds 70% for 5 minutes",
-          "scaleDown": "Scale Down",
-          "scaleDownDesc": "When average shard load drops below 30% for 15 minutes",
-          "rebalance": "Rebalance",
-          "rebalanceDesc": "When load imbalance exceeds 30% between shards"
+          "title": "خودکار اسکیلنگ",
+          "desc": "شارڈنگ انجن ریئل ٹائم میں نیٹ ورک لوڈ کی نگرانی کرتا ہے:",
+          "scaleUp": "اسکیل اپ",
+          "scaleUpDesc": "جب اوسط شارڈ لوڈ 5 منٹ کے لیے 70% سے زیادہ ہو",
+          "scaleDown": "اسکیل ڈاؤن",
+          "scaleDownDesc": "جب اوسط شارڈ لوڈ 15 منٹ کے لیے 30% سے نیچے گرے",
+          "rebalance": "ری بیلنس",
+          "rebalanceDesc": "جب شارڈز کے درمیان لوڈ عدم توازن 30% سے زیادہ ہو"
         }
       },
       "aiSystem": {
-        "title": "Quad-Band AI Orchestration System",
-        "intro": "TBURN Chain integrates a sophisticated AI orchestration layer that continuously optimizes network operations, security, and governance.",
+        "title": "کواڈ بینڈ AI آرکیسٹریشن سسٹم",
+        "intro": "TBURN Chain ایک نفیس AI آرکیسٹریشن لیئر کو یکجا کرتا ہے جو مسلسل نیٹ ورک آپریشنز، سیکیورٹی، اور گورننس کو بہتر بناتا ہے۔",
         "modelConfig": {
-          "title": "AI Model Configuration",
-          "model": "Model",
-          "primaryFunction": "Primary Function",
-          "latency": "Latency",
-          "band1Func": "Real-time monitoring, anomaly detection",
-          "band2Func": "Governance analysis, compliance validation",
-          "band3Func": "Burn optimization, tokenomics modeling",
-          "band4Func": "Fallback, emergency response"
+          "title": "AI ماڈل کنفیگریشن",
+          "model": "ماڈل",
+          "primaryFunction": "بنیادی کام",
+          "latency": "لیٹنسی",
+          "band1Func": "ریئل ٹائم مانیٹرنگ، بے قاعدگی کا پتہ لگانا",
+          "band2Func": "گورننس تجزیہ، تعمیل کی توثیق",
+          "band3Func": "برن آپٹیمائزیشن، ٹوکنومکس ماڈلنگ",
+          "band4Func": "فال بیک، ایمرجنسی رسپانس"
         },
         "decisionCategories": {
-          "title": "AI Decision Categories",
-          "adjustShards": "Dynamic shard count optimization",
-          "optimizeBurn": "AI-driven burn rate adjustments",
-          "rescheduleValidators": "Validator rotation and load balancing",
-          "securityAlert": "Threat detection and response",
-          "governancePrevalidation": "Proposal analysis and risk assessment",
-          "crossShardOptimization": "Message routing efficiency"
+          "title": "AI فیصلہ کیٹیگریز",
+          "adjustShards": "ڈائنامک شارڈ کاؤنٹ آپٹیمائزیشن",
+          "optimizeBurn": "AI سے چلنے والے برن ریٹ ایڈجسٹمنٹس",
+          "rescheduleValidators": "ویلیڈیٹر روٹیشن اور لوڈ بیلنسنگ",
+          "securityAlert": "خطرے کی نشاندہی اور رسپانس",
+          "governancePrevalidation": "تجویز تجزیہ اور خطرے کی تشخیص",
+          "crossShardOptimization": "میسج روٹنگ کی کارکردگی"
         },
         "failFast": {
-          "title": "Fail-Fast Architecture",
-          "desc": "The AI system implements a fail-fast architecture with automatic fallback."
+          "title": "فیل فاسٹ آرکیٹیکچر",
+          "desc": "AI سسٹم خودکار فال بیک چین کے ساتھ فیل فاسٹ آرکیٹیکچر لاگو کرتا ہے۔"
         },
         "burnOptimization": {
-          "title": "Burn Optimization Algorithm",
-          "desc": "The AI-driven burn mechanism analyzes network activity to optimize token burning:",
-          "formulaTitle": "Dynamic Burn Rate"
+          "title": "برن آپٹیمائزیشن الگورتھم",
+          "desc": "AI سے چلنے والا برن میکانزم ٹوکن برننگ کو بہتر بنانے کے لیے نیٹ ورک سرگرمی کا تجزیہ کرتا ہے:",
+          "formulaTitle": "ڈائنامک برن ریٹ"
         }
       },
       "tokenomics": {
-        "title": "Tokenomics",
-        "intro": "TBURN implements a deflationary tokenomics model designed for long-term value appreciation.",
+        "title": "ٹوکنومکس",
+        "intro": "TBURN طویل مدتی قدر میں اضافے کے لیے ڈیزائن کیا گیا ڈیفلیشنری ٹوکنومکس ماڈل لاگو کرتا ہے۔",
         "supply": {
-          "title": "Token Supply",
-          "genesis": "Genesis Supply",
-          "year20": "Year 20 Supply",
-          "totalReduction": "Total Reduction",
-          "targetStaking": "Target Staking"
+          "title": "ٹوکن سپلائی",
+          "genesis": "جینیسس سپلائی",
+          "year20": "سال 20 سپلائی",
+          "totalReduction": "کل کمی",
+          "targetStaking": "ہدف اسٹیکنگ"
         },
         "emission": {
-          "title": "Emission Schedule",
-          "parameter": "Parameter",
-          "value": "Value",
-          "description": "Description",
-          "baseDailyEmission": "Base Daily Emission",
-          "baseDailyEmissionDesc": "Maximum daily token issuance",
-          "aiBurnRate": "AI Burn Rate",
-          "aiBurnRateDesc": "Percentage of emissions burned by AI",
-          "netDailyEmission": "Net Daily Emission",
-          "netDailyEmissionDesc": "Actual tokens entering circulation"
+          "title": "ایمیشن شیڈول",
+          "parameter": "پیرامیٹر",
+          "value": "قدر",
+          "description": "وضاحت",
+          "baseDailyEmission": "بنیادی روزانہ ایمیشن",
+          "baseDailyEmissionDesc": "زیادہ سے زیادہ روزانہ ٹوکن جاری",
+          "aiBurnRate": "AI برن ریٹ",
+          "aiBurnRateDesc": "AI کے ذریعے جلائی گئی ایمیشنز کا فیصد",
+          "netDailyEmission": "نیٹ روزانہ ایمیشن",
+          "netDailyEmissionDesc": "اصل میں گردش میں داخل ہونے والے ٹوکنز"
         },
         "priceDiscovery": {
-          "title": "Price Discovery Model",
-          "desc": "TBURN token price is determined by a demand-supply equilibrium formula:",
-          "formulaTitle": "Token Price Formula"
+          "title": "قیمت دریافت ماڈل",
+          "desc": "TBURN ٹوکن کی قیمت طلب و رسد توازن فارمولے سے طے ہوتی ہے:",
+          "formulaTitle": "ٹوکن قیمت فارمولا"
         },
         "gasEconomics": {
-          "title": "Gas Economics",
-          "desc": "TBURN uses Ember (EMB) as the gas unit:",
-          "standardGasPrice": "Standard Gas Price"
+          "title": "گیس اکنامکس",
+          "desc": "TBURN گیس یونٹ کے طور پر Ember (EMB) استعمال کرتا ہے:",
+          "standardGasPrice": "معیاری گیس قیمت"
         }
       },
       "tokenStandards": {
-        "title": "Token Standards",
-        "intro": "TBURN Chain implements three native token standards compatible with ERC standards.",
+        "title": "ٹوکن معیارات",
+        "intro": "TBURN Chain ERC معیارات کے ساتھ مطابق تین مقامی ٹوکن معیارات لاگو کرتا ہے۔",
         "tbc20": {
-          "subtitle": "Fungible Tokens",
-          "desc": "ERC-20 compatible fungible token standard with additional features:",
-          "feature1": "Quantum-resistant signature verification",
-          "feature2": "Built-in burn mechanism",
-          "feature3": "Cross-shard transfer support",
-          "feature4": "Governance voting integration"
+          "subtitle": "فنگیبل ٹوکنز",
+          "desc": "اضافی خصوصیات کے ساتھ ERC-20 مطابق فنگیبل ٹوکن معیار:",
+          "feature1": "کوانٹم مزاحم دستخط کی توثیق",
+          "feature2": "بلٹ ان برن میکانزم",
+          "feature3": "کراس شارڈ ٹرانسفر سپورٹ",
+          "feature4": "گورننس ووٹنگ انضمام"
         },
         "tbc721": {
-          "subtitle": "Non-Fungible Tokens",
-          "desc": "ERC-721 compatible NFT standard with enhancements:",
-          "feature1": "On-chain metadata storage",
-          "feature2": "Royalty enforcement (EIP-2981)",
-          "feature3": "Batch minting optimization",
-          "feature4": "Cross-chain bridge compatibility"
+          "subtitle": "نان فنگیبل ٹوکنز",
+          "desc": "بہتری کے ساتھ ERC-721 مطابق NFT معیار:",
+          "feature1": "آن چین میٹا ڈیٹا اسٹوریج",
+          "feature2": "رائلٹی نفاذ (EIP-2981)",
+          "feature3": "بیچ منٹنگ آپٹیمائزیشن",
+          "feature4": "کراس چین برج مطابقت"
         },
         "tbc1155": {
-          "subtitle": "Multi-Token Standard",
-          "desc": "ERC-1155 compatible multi-token standard for:",
-          "feature1": "GameFi asset management",
-          "feature2": "Batch transfers",
-          "feature3": "Semi-fungible tokens",
-          "feature4": "Gas-efficient operations"
+          "subtitle": "ملٹی ٹوکن معیار",
+          "desc": "ان کے لیے ERC-1155 مطابق ملٹی ٹوکن معیار:",
+          "feature1": "GameFi اثاثہ انتظام",
+          "feature2": "بیچ ٹرانسفرز",
+          "feature3": "سیمی فنگیبل ٹوکنز",
+          "feature4": "گیس موثر آپریشنز"
         },
         "quantumResistant": {
-          "title": "Quantum-Resistant Extensions",
-          "desc": "All token standards support optional quantum-resistant signature schemes:",
-          "sphincs": "Hash-based signatures (NIST approved)",
-          "crystals": "Lattice-based signatures",
-          "hybridMode": "Hybrid Mode",
-          "hybridModeDesc": "ECDSA + Post-quantum for transition period"
+          "title": "کوانٹم مزاحم ایکسٹینشنز",
+          "desc": "تمام ٹوکن معیارات اختیاری کوانٹم مزاحم دستخط اسکیمز کی حمایت کرتے ہیں:",
+          "sphincs": "ہیش بیسڈ دستخط (NIST منظور شدہ)",
+          "crystals": "لیٹس بیسڈ دستخط",
+          "hybridMode": "ہائبرڈ موڈ",
+          "hybridModeDesc": "منتقلی کی مدت کے لیے ECDSA + پوسٹ کوانٹم"
         }
       },
       "defi": {
-        "title": "DeFi Ecosystem",
-        "intro": "TBURN Chain provides a comprehensive DeFi infrastructure with native protocol implementations.",
+        "title": "DeFi ایکو سسٹم",
+        "intro": "TBURN Chain مقامی پروٹوکول نفاذ کے ساتھ جامع DeFi انفراسٹرکچر فراہم کرتا ہے۔",
         "dex": {
-          "title": "Decentralized Exchange (DEX)",
-          "amm": "AMM Model",
-          "ammDesc": "Concentrated liquidity (Uniswap V3 style)",
-          "orderBook": "Order Book",
-          "orderBookDesc": "Hybrid limit order support",
-          "twap": "TWAP Oracle",
-          "twapDesc": "Time-weighted average price feeds",
-          "mev": "MEV Protection",
-          "mevDesc": "Fair ordering with commit-reveal"
+          "title": "ڈی سینٹرلائزڈ ایکسچینج (DEX)",
+          "amm": "AMM ماڈل",
+          "ammDesc": "ارتکاز شدہ لیکویڈیٹی (Uniswap V3 سٹائل)",
+          "orderBook": "آرڈر بک",
+          "orderBookDesc": "ہائبرڈ لمٹ آرڈر سپورٹ",
+          "twap": "TWAP اوریکل",
+          "twapDesc": "ٹائم ویٹڈ ایوریج پرائس فیڈز",
+          "mev": "MEV پروٹیکشن",
+          "mevDesc": "کمٹ ریویل کے ساتھ منصفانہ ترتیب"
         },
         "lending": {
-          "title": "Lending Protocol",
-          "collateralized": "Collateralized Loans",
-          "collateralizedDesc": "Over-collateralized borrowing",
-          "variableRates": "Variable Rates",
-          "variableRatesDesc": "Utilization-based interest curves",
-          "liquidation": "Liquidation Engine",
-          "liquidationDesc": "Dutch auction liquidations",
-          "flashLoans": "Flash Loans",
-          "flashLoansDesc": "Single-block borrowing"
+          "title": "قرضے کا پروٹوکول",
+          "collateralized": "کولیٹرلائزڈ لونز",
+          "collateralizedDesc": "اوور کولیٹرلائزڈ قرض لینا",
+          "variableRates": "متغیر ریٹس",
+          "variableRatesDesc": "استعمال پر مبنی سود کے منحنی",
+          "liquidation": "لیکویڈیشن انجن",
+          "liquidationDesc": "ڈچ آکشن لیکویڈیشنز",
+          "flashLoans": "فلیش لونز",
+          "flashLoansDesc": "سنگل بلاک قرض لینا"
         },
         "staking": {
-          "title": "Staking Infrastructure",
-          "native": "Native Staking",
-          "nativeDesc": "Direct validator delegation",
-          "liquid": "Liquid Staking",
-          "liquidDesc": "stTBURN receipt tokens",
-          "pools": "Staking Pools",
-          "poolsDesc": "Aggregated staking for small holders",
-          "unbonding": "Unbonding Period",
-          "unbondingDesc": "7 days for security"
+          "title": "اسٹیکنگ انفراسٹرکچر",
+          "native": "مقامی اسٹیکنگ",
+          "nativeDesc": "براہ راست ویلیڈیٹر ڈیلیگیشن",
+          "liquid": "لیکویڈ اسٹیکنگ",
+          "liquidDesc": "stTBURN رسید ٹوکنز",
+          "pools": "اسٹیکنگ پولز",
+          "poolsDesc": "چھوٹے ہولڈرز کے لیے مجموعی اسٹیکنگ",
+          "unbonding": "ان بانڈنگ پیریڈ",
+          "unbondingDesc": "سیکیورٹی کے لیے 7 دن"
         },
         "yieldFarming": {
-          "title": "Yield Farming",
-          "liquidityMining": "Liquidity Mining",
-          "liquidityMiningDesc": "Protocol incentivized pools",
-          "autoCompounding": "Auto-Compounding",
-          "autoCompoundingDesc": "Yield optimizer vaults",
-          "multiAsset": "Multi-Asset Strategies",
-          "multiAssetDesc": "Diversified yield sources"
+          "title": "ییلڈ فارمنگ",
+          "liquidityMining": "لیکویڈیٹی مائننگ",
+          "liquidityMiningDesc": "پروٹوکول انسینٹیوائزڈ پولز",
+          "autoCompounding": "آٹو کمپاؤنڈنگ",
+          "autoCompoundingDesc": "ییلڈ آپٹیمائزر والٹس",
+          "multiAsset": "ملٹی اثاثہ حکمت عملی",
+          "multiAssetDesc": "متنوع ییلڈ ذرائع"
         },
         "bridge": {
-          "title": "Cross-Chain Bridge",
-          "feature": "Feature",
-          "specification": "Specification",
-          "supportedChains": "Supported Chains",
-          "securityModel": "Security Model",
-          "securityModelDesc": "Multi-signature + AI risk assessment",
-          "transferTime": "Transfer Time",
-          "transferTimeDesc": "5-15 minutes (chain dependent)",
-          "feeStructure": "Fee Structure",
-          "gasCosts": "gas costs"
+          "title": "کراس چین برج",
+          "feature": "خصوصیت",
+          "specification": "وضاحت",
+          "supportedChains": "معاون چینز",
+          "securityModel": "سیکیورٹی ماڈل",
+          "securityModelDesc": "ملٹی سگنیچر + AI خطرے کی تشخیص",
+          "transferTime": "ٹرانسفر ٹائم",
+          "transferTimeDesc": "5-15 منٹ (چین پر منحصر)",
+          "feeStructure": "فیس ڈھانچہ",
+          "gasCosts": "گیس لاگت"
         }
       },
       "security": {
-        "title": "Security Architecture",
-        "intro": "TBURN Chain implements multiple layers of security to protect against current and future threats.",
+        "title": "سیکیورٹی آرکیٹیکچر",
+        "intro": "TBURN Chain موجودہ اور مستقبل کے خطرات سے بچانے کے لیے سیکیورٹی کی متعدد تہیں لاگو کرتا ہے۔",
         "cryptographic": {
-          "title": "Cryptographic Primitives",
-          "function": "Function",
-          "algorithm": "Algorithm",
-          "securityLevel": "Security Level",
-          "txSigning": "Transaction Signing",
-          "blockHashing": "Block Hashing",
-          "stateTree": "State Tree",
-          "quantumResistant": "Quantum-Resistant"
+          "title": "کرپٹوگرافک پرائمٹوز",
+          "function": "فنکشن",
+          "algorithm": "الگورتھم",
+          "securityLevel": "سیکیورٹی لیول",
+          "txSigning": "ٹرانزیکشن سائننگ",
+          "blockHashing": "بلاک ہیشنگ",
+          "stateTree": "اسٹیٹ ٹری",
+          "quantumResistant": "کوانٹم مزاحم"
         },
         "slashing": {
-          "title": "Slashing Conditions",
-          "doubleSigning": "Double Signing",
-          "doubleSigningPenalty": "100% stake slashed",
-          "prolongedDowntime": "Prolonged Downtime",
-          "prolongedDowntimePenalty": "1% per 24 hours (max 10%)",
-          "invalidBlock": "Invalid Block Production",
-          "invalidBlockPenalty": "5% stake slashed",
-          "censorship": "Censorship Detected",
-          "censorshipPenalty": "10% stake slashed"
+          "title": "سلیشنگ شرائط",
+          "doubleSigning": "دوہرا دستخط",
+          "doubleSigningPenalty": "100% اسٹیک سلیش",
+          "prolongedDowntime": "طویل ڈاؤن ٹائم",
+          "prolongedDowntimePenalty": "فی 24 گھنٹے 1% (زیادہ سے زیادہ 10%)",
+          "invalidBlock": "غلط بلاک پروڈکشن",
+          "invalidBlockPenalty": "5% اسٹیک سلیش",
+          "censorship": "سنسرشپ کا پتہ لگا",
+          "censorshipPenalty": "10% اسٹیک سلیش"
         },
         "aiDriven": {
-          "title": "AI-Driven Security",
-          "anomalyDetection": "Anomaly Detection",
-          "anomalyDetectionDesc": "Real-time transaction pattern analysis",
-          "attackPrevention": "Attack Prevention",
-          "attackPreventionDesc": "Automatic rate limiting and blocking",
-          "vulnerabilityScanning": "Vulnerability Scanning",
-          "vulnerabilityScanningDesc": "Continuous smart contract analysis",
-          "incidentResponse": "Incident Response",
-          "incidentResponseDesc": "Automated emergency procedures"
+          "title": "AI سے چلنے والی سیکیورٹی",
+          "anomalyDetection": "بے قاعدگی کا پتہ لگانا",
+          "anomalyDetectionDesc": "ریئل ٹائم ٹرانزیکشن پیٹرن تجزیہ",
+          "attackPrevention": "حملے کی روک تھام",
+          "attackPreventionDesc": "خودکار ریٹ لمٹنگ اور بلاکنگ",
+          "vulnerabilityScanning": "کمزوری اسکیننگ",
+          "vulnerabilityScanningDesc": "مسلسل سمارٹ کنٹریکٹ تجزیہ",
+          "incidentResponse": "واقعہ ردعمل",
+          "incidentResponseDesc": "خودکار ایمرجنسی طریقہ کار"
         },
         "bugBounty": {
-          "title": "Bug Bounty Program",
-          "severity": "Severity",
-          "rewardRange": "Reward Range"
+          "title": "بگ باؤنٹی پروگرام",
+          "severity": "شدت",
+          "rewardRange": "انعام کی حد"
         }
       },
       "governance": {
-        "title": "Governance Framework",
-        "intro": "TBURN Chain implements a decentralized governance model with AI-assisted proposal validation.",
+        "title": "گورننس فریم ورک",
+        "intro": "TBURN Chain AI معاون تجویز توثیق کے ساتھ ڈی سینٹرلائزڈ گورننس ماڈل لاگو کرتا ہے۔",
         "process": {
-          "title": "Governance Process",
-          "submission": "Proposal Submission",
-          "submissionDesc": "Minimum 1,000,000 TBURN stake required",
-          "aiPrevalidation": "AI Prevalidation",
-          "aiPrevalidationDesc": "Automated risk and impact assessment",
-          "discussion": "Discussion Period",
-          "discussionDesc": "7 days for community feedback",
-          "voting": "Voting Period",
-          "votingDesc": "7 days, stake-weighted voting",
-          "execution": "Execution",
-          "executionDesc": "Automatic on-chain execution if passed"
+          "title": "گورننس عمل",
+          "submission": "تجویز جمع کروانا",
+          "submissionDesc": "کم از کم 1,000,000 TBURN اسٹیک درکار",
+          "aiPrevalidation": "AI پری ویلیڈیشن",
+          "aiPrevalidationDesc": "خودکار خطرہ اور اثر تشخیص",
+          "discussion": "بحث کی مدت",
+          "discussionDesc": "کمیونٹی فیڈبیک کے لیے 7 دن",
+          "voting": "ووٹنگ کی مدت",
+          "votingDesc": "7 دن، اسٹیک ویٹڈ ووٹنگ",
+          "execution": "عمل درآمد",
+          "executionDesc": "منظور ہونے پر خودکار آن چین عمل درآمد"
         },
         "votingPower": {
-          "title": "Voting Power",
-          "desc": "Voting power is calculated as:",
-          "formulaTitle": "Voting Power Formula"
+          "title": "ووٹنگ پاور",
+          "desc": "ووٹنگ پاور کا حساب اس طرح لگایا جاتا ہے:",
+          "formulaTitle": "ووٹنگ پاور فارمولا"
         },
         "proposalTypes": {
-          "title": "Proposal Types",
-          "parameterChanges": "Parameter Changes",
-          "parameterChangesDesc": "Network configuration adjustments",
-          "treasurySpending": "Treasury Spending",
-          "treasurySpendingDesc": "Fund allocation decisions",
-          "protocolUpgrades": "Protocol Upgrades",
-          "protocolUpgradesDesc": "Smart contract updates",
-          "emergencyActions": "Emergency Actions",
-          "emergencyActionsDesc": "Fast-track security responses"
+          "title": "تجویز کی اقسام",
+          "parameterChanges": "پیرامیٹر تبدیلیاں",
+          "parameterChangesDesc": "نیٹ ورک کنفیگریشن ایڈجسٹمنٹس",
+          "treasurySpending": "خزانے کے اخراجات",
+          "treasurySpendingDesc": "فنڈ مختص کرنے کے فیصلے",
+          "protocolUpgrades": "پروٹوکول اپ گریڈز",
+          "protocolUpgradesDesc": "سمارٹ کنٹریکٹ اپڈیٹس",
+          "emergencyActions": "ایمرجنسی ایکشنز",
+          "emergencyActionsDesc": "تیز رفتار سیکیورٹی ردعمل"
         }
       },
       "roadmap": {
-        "title": "Roadmap",
+        "title": "روڈ میپ",
         "phase1": {
-          "title": "Phase 1: Genesis (Q4 2025)",
-          "item1": "Mainnet launch with 1,600 validators",
-          "item2": "64 shards operational (210,000 TPS)",
-          "item3": "Core DeFi protocols deployed",
-          "item4": "Quad-Band AI system active"
+          "title": "مرحلہ 1: جینیسس (Q4 2025)",
+          "item1": "1,600 ویلیڈیٹرز کے ساتھ مین نیٹ لانچ",
+          "item2": "64 شارڈز آپریشنل (210,000 TPS)",
+          "item3": "کور DeFi پروٹوکولز ڈیپلائے",
+          "item4": "کواڈ بینڈ AI سسٹم ایکٹو"
         },
         "phase2": {
-          "title": "Phase 2: Expansion (Q1-Q2 2026)",
-          "item1": "Cross-chain bridge deployment",
-          "item2": "128-shard scaling (500,000+ TPS)",
-          "item3": "GameFi ecosystem launch",
-          "item4": "Enterprise partnerships"
+          "title": "مرحلہ 2: توسیع (Q1-Q2 2026)",
+          "item1": "کراس چین برج ڈیپلائمنٹ",
+          "item2": "128 شارڈ اسکیلنگ (500,000+ TPS)",
+          "item3": "GameFi ایکو سسٹم لانچ",
+          "item4": "انٹرپرائز پارٹنرشپس"
         },
         "phase3": {
-          "title": "Phase 3: Maturity (Q3-Q4 2026)",
-          "item1": "Full quantum-resistant migration",
-          "item2": "DAO treasury activation",
-          "item3": "Layer 2 rollup support",
-          "item4": "Global validator decentralization"
+          "title": "مرحلہ 3: پختگی (Q3-Q4 2026)",
+          "item1": "مکمل کوانٹم مزاحم ہجرت",
+          "item2": "DAO خزانہ ایکٹیویشن",
+          "item3": "لیئر 2 رول اپ سپورٹ",
+          "item4": "عالمی ویلیڈیٹر ڈی سینٹرلائزیشن"
         },
         "phase4": {
-          "title": "Phase 4: Ecosystem (2027+)",
-          "item1": "1,000,000+ TPS theoretical capacity",
-          "item2": "Complete DeFi primitive suite",
-          "item3": "Institutional adoption",
-          "item4": "Self-sustaining ecosystem"
+          "title": "مرحلہ 4: ایکو سسٹم (2027+)",
+          "item1": "1,000,000+ TPS نظریاتی صلاحیت",
+          "item2": "مکمل DeFi پرائمٹیو سویٹ",
+          "item3": "ادارہ جاتی اپنانا",
+          "item4": "خود کفیل ایکو سسٹم"
         }
       },
       "conclusion": {
-        "title": "Conclusion",
-        "p1": "TBURN Chain represents a significant advancement in blockchain technology, combining unprecedented throughput with intelligent automation and future-proof security.",
-        "p2": "The deflationary tokenomics model ensures long-term value appreciation while the comprehensive DeFi ecosystem provides essential financial infrastructure.",
-        "officialResources": "Official Resources"
+        "title": "نتیجہ",
+        "p1": "TBURN Chain بلاک چین ٹیکنالوجی میں ایک اہم پیش رفت کی نمائندگی کرتا ہے، بے مثال تھرو پٹ کو ذہین آٹومیشن اور مستقبل پروف سیکیورٹی کے ساتھ جوڑتا ہے۔",
+        "p2": "ڈیفلیشنری ٹوکنومکس ماڈل طویل مدتی قدر میں اضافے کو یقینی بناتا ہے جبکہ جامع DeFi ایکو سسٹم ضروری مالیاتی انفراسٹرکچر فراہم کرتا ہے۔",
+        "officialResources": "سرکاری وسائل"
       }
     },
     "footer": {
-      "allRightsReserved": "All rights reserved.",
-      "disclaimer": "This document is for informational purposes only and does not constitute financial advice."
+      "allRightsReserved": "جملہ حقوق محفوظ ہیں۔",
+      "disclaimer": "یہ دستاویز صرف معلوماتی مقاصد کے لیے ہے اور مالیاتی مشورہ نہیں ہے۔"
     }
   }
 }

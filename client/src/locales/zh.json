@@ -16832,441 +16832,441 @@
     "addressCopied": "钱包地址已复制"
   },
   "technicalWhitepaper": {
-    "badge": "Technical Whitepaper",
-    "subtitle": "Enterprise-Grade Layer 1 Blockchain with Quad-Band AI Orchestration",
-    "backToWhitepaper": "Back to Whitepaper",
-    "tableOfContents": "Table of Contents",
+    "badge": "技术白皮书",
+    "subtitle": "采用四频段AI编排的企业级第一层区块链",
+    "backToWhitepaper": "返回白皮书",
+    "tableOfContents": "目录",
     "meta": {
-      "version": "Version",
-      "date": "Date",
-      "chainId": "Chain ID",
-      "status": "Status"
+      "version": "版本",
+      "date": "日期",
+      "chainId": "链ID",
+      "status": "状态"
     },
     "toc": {
-      "abstract": "Abstract",
-      "architecture": "Architecture",
-      "consensus": "Consensus",
-      "sharding": "Sharding",
-      "aiSystem": "AI System",
-      "tokenomics": "Tokenomics",
-      "tokenStandards": "Token Standards",
-      "defi": "DeFi Stack",
-      "security": "Security",
-      "governance": "Governance",
-      "roadmap": "Roadmap"
+      "abstract": "摘要",
+      "architecture": "架构",
+      "consensus": "共识",
+      "sharding": "分片",
+      "aiSystem": "AI系统",
+      "tokenomics": "代币经济学",
+      "tokenStandards": "代币标准",
+      "defi": "DeFi堆栈",
+      "security": "安全",
+      "governance": "治理",
+      "roadmap": "路线图"
     },
     "sections": {
       "abstract": {
-        "title": "Abstract",
-        "p1": "TBURN Chain is an enterprise-grade Layer 1 blockchain platform designed to address the fundamental limitations of existing blockchain networks: scalability, energy efficiency, and intelligent automation. By integrating a novel Trust Score-Based BFT Consensus, Dynamic Sharding Architecture, and Quad-Band AI Orchestration System, TBURN Chain achieves unprecedented throughput of 210,000+ TPS while maintaining decentralization and security guarantees.",
-        "p2": "The platform introduces a deflationary tokenomics model with an AI-optimized burn mechanism, achieving a projected 30.6% token reduction over 20 years. TBURN Chain supports full EVM compatibility with quantum-resistant cryptographic extensions, enabling seamless migration for existing Ethereum applications while future-proofing against emerging computational threats.",
+        "title": "摘要",
+        "p1": "TBURN Chain是一个企业级第一层区块链平台，旨在解决现有区块链网络的根本限制：可扩展性、能源效率和智能自动化。通过整合新颖的信任评分BFT共识、动态分片架构和四频段AI编排系统，TBURN Chain在保持去中心化和安全保障的同时实现了210,000+ TPS的空前吞吐量。",
+        "p2": "该平台引入了具有AI优化销毁机制的通缩代币经济模型，预计在20年内实现30.6%的代币减少。TBURN Chain支持完全的EVM兼容性和抗量子密码扩展，使现有以太坊应用程序能够无缝迁移，同时为未来的计算威胁做好准备。",
         "specs": {
-          "peakTps": "Peak TPS",
-          "blockTime": "Block Time",
-          "finality": "Finality",
-          "second": "second",
-          "validators": "Active Validators"
+          "peakTps": "峰值TPS",
+          "blockTime": "出块时间",
+          "finality": "最终性",
+          "second": "秒",
+          "validators": "活跃验证者"
         }
       },
       "architecture": {
-        "title": "System Architecture",
-        "intro": "TBURN Chain employs a modular, layered architecture that separates concerns across execution, consensus, data availability, and settlement layers. This design enables independent scaling and upgradeability of each component.",
-        "diagramTitle": "TBURN Chain Architecture Stack",
+        "title": "系统架构",
+        "intro": "TBURN Chain采用模块化分层架构，将关注点分离到执行、共识、数据可用性和结算层。这种设计使每个组件能够独立扩展和升级。",
+        "diagramTitle": "TBURN Chain架构堆栈",
         "layers": {
-          "defi": "DeFi Protocols",
+          "defi": "DeFi协议",
           "nftGamefi": "NFT/GameFi",
-          "bridge": "Bridge",
-          "governance": "Governance",
-          "smartContract": "Smart Contract Layer (EVM + TBC Extensions)",
-          "quadBandAi": "Quad-Band AI Orchestration System",
-          "trustScoreBft": "Trust Score BFT Consensus",
-          "dynamicSharding": "Dynamic Sharding Engine",
-          "crossShard": "Cross-Shard Messaging",
-          "stateSync": "State Synchronization",
-          "p2p": "P2P Network"
+          "bridge": "跨链桥",
+          "governance": "治理",
+          "smartContract": "智能合约层 (EVM + TBC扩展)",
+          "quadBandAi": "四频段AI编排系统",
+          "trustScoreBft": "信任评分BFT共识",
+          "dynamicSharding": "动态分片引擎",
+          "crossShard": "跨分片消息",
+          "stateSync": "状态同步",
+          "p2p": "P2P网络"
         },
         "coreComponents": {
-          "title": "Core Components",
+          "title": "核心组件",
           "execution": {
-            "title": "Execution Layer",
-            "desc": "The execution layer implements a fully EVM-compatible virtual machine with extensions for TBURN-specific opcodes. Transactions are processed in parallel across shards with deterministic state transitions."
+            "title": "执行层",
+            "desc": "执行层实现了完全EVM兼容的虚拟机，并扩展了TBURN特定的操作码。交易在分片之间并行处理，具有确定性状态转换。"
           },
           "consensus": {
-            "title": "Consensus Layer",
-            "desc": "Trust Score-Based Byzantine Fault Tolerant (TS-BFT) consensus achieves finality within 1 second by weighting validator votes according to historical performance metrics, stake amount, and network contribution."
+            "title": "共识层",
+            "desc": "信任评分拜占庭容错（TS-BFT）共识通过根据历史性能指标、质押数量和网络贡献对验证者投票进行加权，在1秒内实现最终性。"
           },
           "dataAvailability": {
-            "title": "Data Availability Layer",
-            "desc": "Each shard maintains its own state tree with cross-shard proofs enabling trustless verification. Archive nodes preserve complete historical data for audit and compliance requirements."
+            "title": "数据可用性层",
+            "desc": "每个分片维护自己的状态树，跨分片证明使无信任验证成为可能。存档节点保存完整的历史数据以满足审计和合规要求。"
           },
           "aiOrchestration": {
-            "title": "AI Orchestration Layer",
-            "desc": "The Quad-Band AI system continuously monitors network health, optimizes resource allocation, detects anomalies, and executes governance decisions with minimal human intervention."
+            "title": "AI编排层",
+            "desc": "四频段AI系统持续监控网络健康状况、优化资源分配、检测异常，并以最少的人工干预执行治理决策。"
           }
         },
         "networkSpecs": {
-          "title": "Network Specifications",
-          "parameter": "Parameter",
-          "currencySymbol": "Currency Symbol",
-          "blockTime": "Block Time",
-          "gasUnit": "Gas Unit"
+          "title": "网络规格",
+          "parameter": "参数",
+          "currencySymbol": "货币符号",
+          "blockTime": "出块时间",
+          "gasUnit": "Gas单位"
         }
       },
       "consensus": {
-        "title": "Trust Score-Based BFT Consensus",
-        "intro": "TBURN Chain introduces an innovative consensus mechanism that extends traditional Byzantine Fault Tolerance with a dynamic trust scoring system.",
+        "title": "信任评分BFT共识",
+        "intro": "TBURN Chain引入了一种创新的共识机制，通过动态信任评分系统扩展了传统的拜占庭容错。",
         "trustScore": {
-          "title": "Trust Score Calculation",
-          "desc": "Each validator maintains a Trust Score (TS) calculated from multiple performance metrics:",
-          "formulaTitle": "Trust Score Formula",
-          "coefficients": "Where the coefficients are:",
-          "alpha": "Validator uptime percentage (99%+ optimal)",
-          "beta": "Block production success rate",
-          "gamma": "Consensus vote accuracy and timeliness",
-          "delta": "Stake amount relative to network total",
-          "epsilon": "Cross-shard message relay and network health contribution"
+          "title": "信任评分计算",
+          "desc": "每个验证者维护一个从多个性能指标计算的信任评分(TS)：",
+          "formulaTitle": "信任评分公式",
+          "coefficients": "其中系数为：",
+          "alpha": "验证者正常运行时间百分比（99%+最优）",
+          "beta": "出块成功率",
+          "gamma": "共识投票准确性和及时性",
+          "delta": "相对于网络总量的质押数量",
+          "epsilon": "跨分片消息中继和网络健康贡献"
         },
         "validatorTiers": {
-          "title": "Validator Tiers",
-          "tier": "Tier",
-          "maxValidators": "Max Validators",
-          "minStake": "Min Stake",
-          "rewardShare": "Reward Share",
-          "dailyRewards": "Daily Rewards",
-          "unlimited": "Unlimited"
+          "title": "验证者等级",
+          "tier": "等级",
+          "maxValidators": "最大验证者数",
+          "minStake": "最低质押",
+          "rewardShare": "奖励份额",
+          "dailyRewards": "每日奖励",
+          "unlimited": "无限制"
         },
         "blockProduction": {
-          "title": "Block Production",
-          "desc": "Validators are selected for block production through a weighted random selection algorithm."
+          "title": "区块生产",
+          "desc": "验证者通过加权随机选择算法被选中进行区块生产，选中概率与其信任评分成正比。"
         },
         "finality": {
-          "title": "Finality Guarantee",
-          "desc": "TBURN Chain achieves single-slot finality through a two-phase commit process:",
-          "proposePhase": "Propose Phase (50ms)",
-          "proposeDesc": "Selected proposer broadcasts block to shard validators",
-          "commitPhase": "Commit Phase (50ms)",
-          "commitDesc": "Validators vote, 2/3+ weighted consensus confirms finality",
-          "totalTime": "Total finality time: 100ms per block, with cross-shard finality achieved within 1 second."
+          "title": "最终性保证",
+          "desc": "TBURN Chain通过两阶段提交过程实现单槽最终性：",
+          "proposePhase": "提议阶段 (50ms)",
+          "proposeDesc": "选中的提议者向分片验证者广播区块",
+          "commitPhase": "提交阶段 (50ms)",
+          "commitDesc": "验证者投票，2/3+加权共识确认最终性",
+          "totalTime": "总最终性时间：每个区块100ms，跨分片最终性在1秒内实现。"
         }
       },
       "sharding": {
-        "title": "Dynamic Sharding Architecture",
-        "intro": "TBURN Chain implements a dynamic sharding system that automatically scales from 5 to 128 shards based on network load and hardware capacity.",
+        "title": "动态分片架构",
+        "intro": "TBURN Chain实现了动态分片系统，根据网络负载和硬件容量自动从5个扩展到128个分片。",
         "config": {
-          "title": "Shard Configuration",
-          "activeShards": "Active Shards",
-          "validatorsPerShard": "Validators/Shard",
-          "tpsPerShard": "TPS per Shard",
-          "crossShardLatency": "Cross-Shard Latency"
+          "title": "分片配置",
+          "activeShards": "活跃分片",
+          "validatorsPerShard": "每分片验证者",
+          "tpsPerShard": "每分片TPS",
+          "crossShardLatency": "跨分片延迟"
         },
         "tpsFormula": {
-          "title": "TPS Calculation Formula",
-          "formulaTitle": "Network TPS Formula",
-          "withConfig": "With mainnet configuration:"
+          "title": "TPS计算公式",
+          "formulaTitle": "网络TPS公式",
+          "withConfig": "使用主网配置："
         },
         "hardware": {
-          "title": "Hardware Profiles",
-          "profile": "Profile",
-          "maxShards": "Max Shards",
-          "tpsRange": "TPS Range"
+          "title": "硬件配置",
+          "profile": "配置",
+          "maxShards": "最大分片数",
+          "tpsRange": "TPS范围"
         },
         "crossShard": {
-          "title": "Cross-Shard Communication",
-          "desc": "Cross-shard transactions utilize an asynchronous message passing protocol:",
-          "messageQueue": "Message Queue",
-          "messageQueueDesc": "Priority-based routing with O(1) shard pair selection",
-          "batchProcessing": "Batch Processing",
-          "batchProcessingDesc": "Messages aggregated into batches for efficiency",
-          "proofGeneration": "Proof Generation",
-          "proofGenerationDesc": "Merkle proofs enable trustless cross-shard verification",
-          "caching": "Caching",
-          "cachingDesc": "30-second TTL shard state cache for optimal performance"
+          "title": "跨分片通信",
+          "desc": "跨分片交易使用异步消息传递协议：",
+          "messageQueue": "消息队列",
+          "messageQueueDesc": "基于优先级的路由，O(1)分片对选择",
+          "batchProcessing": "批处理",
+          "batchProcessingDesc": "消息聚合成批次以提高效率",
+          "proofGeneration": "证明生成",
+          "proofGenerationDesc": "默克尔证明实现无信任跨分片验证",
+          "caching": "缓存",
+          "cachingDesc": "30秒TTL分片状态缓存以获得最佳性能"
         },
         "autoScaling": {
-          "title": "Automatic Scaling",
-          "desc": "The sharding engine monitors network load in real-time:",
-          "scaleUp": "Scale Up",
-          "scaleUpDesc": "When average shard load exceeds 70% for 5 minutes",
-          "scaleDown": "Scale Down",
-          "scaleDownDesc": "When average shard load drops below 30% for 15 minutes",
-          "rebalance": "Rebalance",
-          "rebalanceDesc": "When load imbalance exceeds 30% between shards"
+          "title": "自动扩展",
+          "desc": "分片引擎实时监控网络负载：",
+          "scaleUp": "扩容",
+          "scaleUpDesc": "当平均分片负载超过70%持续5分钟时",
+          "scaleDown": "缩容",
+          "scaleDownDesc": "当平均分片负载低于30%持续15分钟时",
+          "rebalance": "重新平衡",
+          "rebalanceDesc": "当分片间负载不平衡超过30%时"
         }
       },
       "aiSystem": {
-        "title": "Quad-Band AI Orchestration System",
-        "intro": "TBURN Chain integrates a sophisticated AI orchestration layer that continuously optimizes network operations, security, and governance.",
+        "title": "四频段AI编排系统",
+        "intro": "TBURN Chain集成了先进的AI编排层，持续优化网络运营、安全和治理。",
         "modelConfig": {
-          "title": "AI Model Configuration",
-          "model": "Model",
-          "primaryFunction": "Primary Function",
-          "latency": "Latency",
-          "band1Func": "Real-time monitoring, anomaly detection",
-          "band2Func": "Governance analysis, compliance validation",
-          "band3Func": "Burn optimization, tokenomics modeling",
-          "band4Func": "Fallback, emergency response"
+          "title": "AI模型配置",
+          "model": "模型",
+          "primaryFunction": "主要功能",
+          "latency": "延迟",
+          "band1Func": "实时监控，异常检测",
+          "band2Func": "治理分析，合规验证",
+          "band3Func": "销毁优化，代币经济建模",
+          "band4Func": "备用，紧急响应"
         },
         "decisionCategories": {
-          "title": "AI Decision Categories",
-          "adjustShards": "Dynamic shard count optimization",
-          "optimizeBurn": "AI-driven burn rate adjustments",
-          "rescheduleValidators": "Validator rotation and load balancing",
-          "securityAlert": "Threat detection and response",
-          "governancePrevalidation": "Proposal analysis and risk assessment",
-          "crossShardOptimization": "Message routing efficiency"
+          "title": "AI决策类别",
+          "adjustShards": "动态分片数量优化",
+          "optimizeBurn": "AI驱动的销毁率调整",
+          "rescheduleValidators": "验证者轮换和负载均衡",
+          "securityAlert": "威胁检测和响应",
+          "governancePrevalidation": "提案分析和风险评估",
+          "crossShardOptimization": "消息路由效率"
         },
         "failFast": {
-          "title": "Fail-Fast Architecture",
-          "desc": "The AI system implements a fail-fast architecture with automatic fallback."
+          "title": "快速失败架构",
+          "desc": "AI系统实现了具有自动回退链的快速失败架构。"
         },
         "burnOptimization": {
-          "title": "Burn Optimization Algorithm",
-          "desc": "The AI-driven burn mechanism analyzes network activity to optimize token burning:",
-          "formulaTitle": "Dynamic Burn Rate"
+          "title": "销毁优化算法",
+          "desc": "AI驱动的销毁机制分析网络活动以优化代币销毁：",
+          "formulaTitle": "动态销毁率"
         }
       },
       "tokenomics": {
-        "title": "Tokenomics",
-        "intro": "TBURN implements a deflationary tokenomics model designed for long-term value appreciation.",
+        "title": "代币经济学",
+        "intro": "TBURN实现了为长期价值增长设计的通缩代币经济模型。",
         "supply": {
-          "title": "Token Supply",
-          "genesis": "Genesis Supply",
-          "year20": "Year 20 Supply",
-          "totalReduction": "Total Reduction",
-          "targetStaking": "Target Staking"
+          "title": "代币供应",
+          "genesis": "创世供应",
+          "year20": "第20年供应",
+          "totalReduction": "总减少",
+          "targetStaking": "目标质押"
         },
         "emission": {
-          "title": "Emission Schedule",
-          "parameter": "Parameter",
-          "value": "Value",
-          "description": "Description",
-          "baseDailyEmission": "Base Daily Emission",
-          "baseDailyEmissionDesc": "Maximum daily token issuance",
-          "aiBurnRate": "AI Burn Rate",
-          "aiBurnRateDesc": "Percentage of emissions burned by AI",
-          "netDailyEmission": "Net Daily Emission",
-          "netDailyEmissionDesc": "Actual tokens entering circulation"
+          "title": "发行计划",
+          "parameter": "参数",
+          "value": "值",
+          "description": "描述",
+          "baseDailyEmission": "基础每日发行",
+          "baseDailyEmissionDesc": "最大每日代币发行量",
+          "aiBurnRate": "AI销毁率",
+          "aiBurnRateDesc": "AI销毁的发行百分比",
+          "netDailyEmission": "净每日发行",
+          "netDailyEmissionDesc": "实际进入流通的代币"
         },
         "priceDiscovery": {
-          "title": "Price Discovery Model",
-          "desc": "TBURN token price is determined by a demand-supply equilibrium formula:",
-          "formulaTitle": "Token Price Formula"
+          "title": "价格发现模型",
+          "desc": "TBURN代币价格由供需均衡公式决定：",
+          "formulaTitle": "代币价格公式"
         },
         "gasEconomics": {
-          "title": "Gas Economics",
-          "desc": "TBURN uses Ember (EMB) as the gas unit:",
-          "standardGasPrice": "Standard Gas Price"
+          "title": "Gas经济学",
+          "desc": "TBURN使用Ember (EMB)作为Gas单位：",
+          "standardGasPrice": "标准Gas价格"
         }
       },
       "tokenStandards": {
-        "title": "Token Standards",
-        "intro": "TBURN Chain implements three native token standards compatible with ERC standards.",
+        "title": "代币标准",
+        "intro": "TBURN Chain实现了三种与ERC标准兼容的原生代币标准。",
         "tbc20": {
-          "subtitle": "Fungible Tokens",
-          "desc": "ERC-20 compatible fungible token standard with additional features:",
-          "feature1": "Quantum-resistant signature verification",
-          "feature2": "Built-in burn mechanism",
-          "feature3": "Cross-shard transfer support",
-          "feature4": "Governance voting integration"
+          "subtitle": "同质化代币",
+          "desc": "具有附加功能的ERC-20兼容同质化代币标准：",
+          "feature1": "抗量子签名验证",
+          "feature2": "内置销毁机制",
+          "feature3": "跨分片转账支持",
+          "feature4": "治理投票集成"
         },
         "tbc721": {
-          "subtitle": "Non-Fungible Tokens",
-          "desc": "ERC-721 compatible NFT standard with enhancements:",
-          "feature1": "On-chain metadata storage",
-          "feature2": "Royalty enforcement (EIP-2981)",
-          "feature3": "Batch minting optimization",
-          "feature4": "Cross-chain bridge compatibility"
+          "subtitle": "非同质化代币",
+          "desc": "具有增强功能的ERC-721兼容NFT标准：",
+          "feature1": "链上元数据存储",
+          "feature2": "版税执行 (EIP-2981)",
+          "feature3": "批量铸造优化",
+          "feature4": "跨链桥兼容性"
         },
         "tbc1155": {
-          "subtitle": "Multi-Token Standard",
-          "desc": "ERC-1155 compatible multi-token standard for:",
-          "feature1": "GameFi asset management",
-          "feature2": "Batch transfers",
-          "feature3": "Semi-fungible tokens",
-          "feature4": "Gas-efficient operations"
+          "subtitle": "多代币标准",
+          "desc": "用于以下目的的ERC-1155兼容多代币标准：",
+          "feature1": "GameFi资产管理",
+          "feature2": "批量转账",
+          "feature3": "半同质化代币",
+          "feature4": "Gas高效操作"
         },
         "quantumResistant": {
-          "title": "Quantum-Resistant Extensions",
-          "desc": "All token standards support optional quantum-resistant signature schemes:",
-          "sphincs": "Hash-based signatures (NIST approved)",
-          "crystals": "Lattice-based signatures",
-          "hybridMode": "Hybrid Mode",
-          "hybridModeDesc": "ECDSA + Post-quantum for transition period"
+          "title": "抗量子扩展",
+          "desc": "所有代币标准支持可选的抗量子签名方案：",
+          "sphincs": "基于哈希的签名（NIST批准）",
+          "crystals": "基于格的签名",
+          "hybridMode": "混合模式",
+          "hybridModeDesc": "过渡期的ECDSA + 后量子"
         }
       },
       "defi": {
-        "title": "DeFi Ecosystem",
-        "intro": "TBURN Chain provides a comprehensive DeFi infrastructure with native protocol implementations.",
+        "title": "DeFi生态系统",
+        "intro": "TBURN Chain提供具有原生协议实现的全面DeFi基础设施。",
         "dex": {
-          "title": "Decentralized Exchange (DEX)",
-          "amm": "AMM Model",
-          "ammDesc": "Concentrated liquidity (Uniswap V3 style)",
-          "orderBook": "Order Book",
-          "orderBookDesc": "Hybrid limit order support",
-          "twap": "TWAP Oracle",
-          "twapDesc": "Time-weighted average price feeds",
-          "mev": "MEV Protection",
-          "mevDesc": "Fair ordering with commit-reveal"
+          "title": "去中心化交易所 (DEX)",
+          "amm": "AMM模型",
+          "ammDesc": "集中流动性（Uniswap V3风格）",
+          "orderBook": "订单簿",
+          "orderBookDesc": "混合限价单支持",
+          "twap": "TWAP预言机",
+          "twapDesc": "时间加权平均价格信息",
+          "mev": "MEV保护",
+          "mevDesc": "使用提交-揭示的公平排序"
         },
         "lending": {
-          "title": "Lending Protocol",
-          "collateralized": "Collateralized Loans",
-          "collateralizedDesc": "Over-collateralized borrowing",
-          "variableRates": "Variable Rates",
-          "variableRatesDesc": "Utilization-based interest curves",
-          "liquidation": "Liquidation Engine",
-          "liquidationDesc": "Dutch auction liquidations",
-          "flashLoans": "Flash Loans",
-          "flashLoansDesc": "Single-block borrowing"
+          "title": "借贷协议",
+          "collateralized": "抵押贷款",
+          "collateralizedDesc": "超额抵押借款",
+          "variableRates": "浮动利率",
+          "variableRatesDesc": "基于利用率的利率曲线",
+          "liquidation": "清算引擎",
+          "liquidationDesc": "荷兰式拍卖清算",
+          "flashLoans": "闪电贷",
+          "flashLoansDesc": "单区块借款"
         },
         "staking": {
-          "title": "Staking Infrastructure",
-          "native": "Native Staking",
-          "nativeDesc": "Direct validator delegation",
-          "liquid": "Liquid Staking",
-          "liquidDesc": "stTBURN receipt tokens",
-          "pools": "Staking Pools",
-          "poolsDesc": "Aggregated staking for small holders",
-          "unbonding": "Unbonding Period",
-          "unbondingDesc": "7 days for security"
+          "title": "质押基础设施",
+          "native": "原生质押",
+          "nativeDesc": "直接验证者委托",
+          "liquid": "流动性质押",
+          "liquidDesc": "stTBURN收据代币",
+          "pools": "质押池",
+          "poolsDesc": "小额持有者的聚合质押",
+          "unbonding": "解绑期",
+          "unbondingDesc": "7天安全期"
         },
         "yieldFarming": {
-          "title": "Yield Farming",
-          "liquidityMining": "Liquidity Mining",
-          "liquidityMiningDesc": "Protocol incentivized pools",
-          "autoCompounding": "Auto-Compounding",
-          "autoCompoundingDesc": "Yield optimizer vaults",
-          "multiAsset": "Multi-Asset Strategies",
-          "multiAssetDesc": "Diversified yield sources"
+          "title": "收益农场",
+          "liquidityMining": "流动性挖矿",
+          "liquidityMiningDesc": "协议激励池",
+          "autoCompounding": "自动复投",
+          "autoCompoundingDesc": "收益优化金库",
+          "multiAsset": "多资产策略",
+          "multiAssetDesc": "多元化收益来源"
         },
         "bridge": {
-          "title": "Cross-Chain Bridge",
-          "feature": "Feature",
-          "specification": "Specification",
-          "supportedChains": "Supported Chains",
-          "securityModel": "Security Model",
-          "securityModelDesc": "Multi-signature + AI risk assessment",
-          "transferTime": "Transfer Time",
-          "transferTimeDesc": "5-15 minutes (chain dependent)",
-          "feeStructure": "Fee Structure",
-          "gasCosts": "gas costs"
+          "title": "跨链桥",
+          "feature": "功能",
+          "specification": "规格",
+          "supportedChains": "支持的链",
+          "securityModel": "安全模型",
+          "securityModelDesc": "多重签名 + AI风险评估",
+          "transferTime": "转账时间",
+          "transferTimeDesc": "5-15分钟（取决于链）",
+          "feeStructure": "费用结构",
+          "gasCosts": "Gas费用"
         }
       },
       "security": {
-        "title": "Security Architecture",
-        "intro": "TBURN Chain implements multiple layers of security to protect against current and future threats.",
+        "title": "安全架构",
+        "intro": "TBURN Chain实现了多层安全以防止当前和未来的威胁。",
         "cryptographic": {
-          "title": "Cryptographic Primitives",
-          "function": "Function",
-          "algorithm": "Algorithm",
-          "securityLevel": "Security Level",
-          "txSigning": "Transaction Signing",
-          "blockHashing": "Block Hashing",
-          "stateTree": "State Tree",
-          "quantumResistant": "Quantum-Resistant"
+          "title": "密码学原语",
+          "function": "功能",
+          "algorithm": "算法",
+          "securityLevel": "安全级别",
+          "txSigning": "交易签名",
+          "blockHashing": "区块哈希",
+          "stateTree": "状态树",
+          "quantumResistant": "抗量子"
         },
         "slashing": {
-          "title": "Slashing Conditions",
-          "doubleSigning": "Double Signing",
-          "doubleSigningPenalty": "100% stake slashed",
-          "prolongedDowntime": "Prolonged Downtime",
-          "prolongedDowntimePenalty": "1% per 24 hours (max 10%)",
-          "invalidBlock": "Invalid Block Production",
-          "invalidBlockPenalty": "5% stake slashed",
-          "censorship": "Censorship Detected",
-          "censorshipPenalty": "10% stake slashed"
+          "title": "罚没条件",
+          "doubleSigning": "双重签名",
+          "doubleSigningPenalty": "100%质押罚没",
+          "prolongedDowntime": "长时间离线",
+          "prolongedDowntimePenalty": "每24小时1%（最高10%）",
+          "invalidBlock": "无效区块生产",
+          "invalidBlockPenalty": "5%质押罚没",
+          "censorship": "检测到审查",
+          "censorshipPenalty": "10%质押罚没"
         },
         "aiDriven": {
-          "title": "AI-Driven Security",
-          "anomalyDetection": "Anomaly Detection",
-          "anomalyDetectionDesc": "Real-time transaction pattern analysis",
-          "attackPrevention": "Attack Prevention",
-          "attackPreventionDesc": "Automatic rate limiting and blocking",
-          "vulnerabilityScanning": "Vulnerability Scanning",
-          "vulnerabilityScanningDesc": "Continuous smart contract analysis",
-          "incidentResponse": "Incident Response",
-          "incidentResponseDesc": "Automated emergency procedures"
+          "title": "AI驱动的安全",
+          "anomalyDetection": "异常检测",
+          "anomalyDetectionDesc": "实时交易模式分析",
+          "attackPrevention": "攻击预防",
+          "attackPreventionDesc": "自动限速和阻止",
+          "vulnerabilityScanning": "漏洞扫描",
+          "vulnerabilityScanningDesc": "持续智能合约分析",
+          "incidentResponse": "事件响应",
+          "incidentResponseDesc": "自动化紧急程序"
         },
         "bugBounty": {
-          "title": "Bug Bounty Program",
-          "severity": "Severity",
-          "rewardRange": "Reward Range"
+          "title": "漏洞赏金计划",
+          "severity": "严重程度",
+          "rewardRange": "奖励范围"
         }
       },
       "governance": {
-        "title": "Governance Framework",
-        "intro": "TBURN Chain implements a decentralized governance model with AI-assisted proposal validation.",
+        "title": "治理框架",
+        "intro": "TBURN Chain实现了具有AI辅助提案验证的去中心化治理模型。",
         "process": {
-          "title": "Governance Process",
-          "submission": "Proposal Submission",
-          "submissionDesc": "Minimum 1,000,000 TBURN stake required",
-          "aiPrevalidation": "AI Prevalidation",
-          "aiPrevalidationDesc": "Automated risk and impact assessment",
-          "discussion": "Discussion Period",
-          "discussionDesc": "7 days for community feedback",
-          "voting": "Voting Period",
-          "votingDesc": "7 days, stake-weighted voting",
-          "execution": "Execution",
-          "executionDesc": "Automatic on-chain execution if passed"
+          "title": "治理流程",
+          "submission": "提案提交",
+          "submissionDesc": "最低需要1,000,000 TBURN质押",
+          "aiPrevalidation": "AI预验证",
+          "aiPrevalidationDesc": "自动化风险和影响评估",
+          "discussion": "讨论期",
+          "discussionDesc": "7天社区反馈",
+          "voting": "投票期",
+          "votingDesc": "7天，质押加权投票",
+          "execution": "执行",
+          "executionDesc": "通过后自动链上执行"
         },
         "votingPower": {
-          "title": "Voting Power",
-          "desc": "Voting power is calculated as:",
-          "formulaTitle": "Voting Power Formula"
+          "title": "投票权",
+          "desc": "投票权计算如下：",
+          "formulaTitle": "投票权公式"
         },
         "proposalTypes": {
-          "title": "Proposal Types",
-          "parameterChanges": "Parameter Changes",
-          "parameterChangesDesc": "Network configuration adjustments",
-          "treasurySpending": "Treasury Spending",
-          "treasurySpendingDesc": "Fund allocation decisions",
-          "protocolUpgrades": "Protocol Upgrades",
-          "protocolUpgradesDesc": "Smart contract updates",
-          "emergencyActions": "Emergency Actions",
-          "emergencyActionsDesc": "Fast-track security responses"
+          "title": "提案类型",
+          "parameterChanges": "参数变更",
+          "parameterChangesDesc": "网络配置调整",
+          "treasurySpending": "国库支出",
+          "treasurySpendingDesc": "资金分配决策",
+          "protocolUpgrades": "协议升级",
+          "protocolUpgradesDesc": "智能合约更新",
+          "emergencyActions": "紧急行动",
+          "emergencyActionsDesc": "快速安全响应"
         }
       },
       "roadmap": {
-        "title": "Roadmap",
+        "title": "路线图",
         "phase1": {
-          "title": "Phase 1: Genesis (Q4 2025)",
-          "item1": "Mainnet launch with 1,600 validators",
-          "item2": "64 shards operational (210,000 TPS)",
-          "item3": "Core DeFi protocols deployed",
-          "item4": "Quad-Band AI system active"
+          "title": "第一阶段：创世 (2025年第四季度)",
+          "item1": "1,600名验证者的主网启动",
+          "item2": "64个分片运营（210,000 TPS）",
+          "item3": "核心DeFi协议部署",
+          "item4": "四频段AI系统激活"
         },
         "phase2": {
-          "title": "Phase 2: Expansion (Q1-Q2 2026)",
-          "item1": "Cross-chain bridge deployment",
-          "item2": "128-shard scaling (500,000+ TPS)",
-          "item3": "GameFi ecosystem launch",
-          "item4": "Enterprise partnerships"
+          "title": "第二阶段：扩展 (2026年第一至二季度)",
+          "item1": "跨链桥部署",
+          "item2": "128分片扩展（500,000+ TPS）",
+          "item3": "GameFi生态系统启动",
+          "item4": "企业合作伙伴关系"
         },
         "phase3": {
-          "title": "Phase 3: Maturity (Q3-Q4 2026)",
-          "item1": "Full quantum-resistant migration",
-          "item2": "DAO treasury activation",
-          "item3": "Layer 2 rollup support",
-          "item4": "Global validator decentralization"
+          "title": "第三阶段：成熟 (2026年第三至四季度)",
+          "item1": "完全抗量子迁移",
+          "item2": "DAO国库激活",
+          "item3": "第二层Rollup支持",
+          "item4": "全球验证者去中心化"
         },
         "phase4": {
-          "title": "Phase 4: Ecosystem (2027+)",
-          "item1": "1,000,000+ TPS theoretical capacity",
-          "item2": "Complete DeFi primitive suite",
-          "item3": "Institutional adoption",
-          "item4": "Self-sustaining ecosystem"
+          "title": "第四阶段：生态系统 (2027年+)",
+          "item1": "1,000,000+ TPS理论容量",
+          "item2": "完整DeFi原语套件",
+          "item3": "机构采用",
+          "item4": "自持续生态系统"
         }
       },
       "conclusion": {
-        "title": "Conclusion",
-        "p1": "TBURN Chain represents a significant advancement in blockchain technology, combining unprecedented throughput with intelligent automation and future-proof security.",
-        "p2": "The deflationary tokenomics model ensures long-term value appreciation while the comprehensive DeFi ecosystem provides essential financial infrastructure.",
-        "officialResources": "Official Resources"
+        "title": "结论",
+        "p1": "TBURN Chain代表了区块链技术的重大进步，将空前的吞吐量与智能自动化和面向未来的安全性相结合。",
+        "p2": "通缩代币经济模型确保长期价值增值，而全面的DeFi生态系统提供必要的金融基础设施。",
+        "officialResources": "官方资源"
       }
     },
     "footer": {
-      "allRightsReserved": "All rights reserved.",
-      "disclaimer": "This document is for informational purposes only and does not constitute financial advice."
+      "allRightsReserved": "保留所有权利。",
+      "disclaimer": "本文档仅供参考，不构成财务建议。"
     }
   }
 }

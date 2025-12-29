@@ -14728,441 +14728,441 @@
     "addressCopied": "Adresse du portefeuille copiée"
   },
   "technicalWhitepaper": {
-    "badge": "Technical Whitepaper",
-    "subtitle": "Enterprise-Grade Layer 1 Blockchain with Quad-Band AI Orchestration",
-    "backToWhitepaper": "Back to Whitepaper",
-    "tableOfContents": "Table of Contents",
+    "badge": "Livre Blanc Technique",
+    "subtitle": "Blockchain de Couche 1 de Niveau Entreprise avec Orchestration IA à Quatre Bandes",
+    "backToWhitepaper": "Retour au Livre Blanc",
+    "tableOfContents": "Table des Matières",
     "meta": {
       "version": "Version",
       "date": "Date",
-      "chainId": "Chain ID",
-      "status": "Status"
+      "chainId": "ID de Chaîne",
+      "status": "Statut"
     },
     "toc": {
-      "abstract": "Abstract",
+      "abstract": "Résumé",
       "architecture": "Architecture",
       "consensus": "Consensus",
-      "sharding": "Sharding",
-      "aiSystem": "AI System",
+      "sharding": "Partitionnement",
+      "aiSystem": "Système IA",
       "tokenomics": "Tokenomics",
-      "tokenStandards": "Token Standards",
-      "defi": "DeFi Stack",
-      "security": "Security",
-      "governance": "Governance",
-      "roadmap": "Roadmap"
+      "tokenStandards": "Standards de Token",
+      "defi": "Stack DeFi",
+      "security": "Sécurité",
+      "governance": "Gouvernance",
+      "roadmap": "Feuille de Route"
     },
     "sections": {
       "abstract": {
-        "title": "Abstract",
-        "p1": "TBURN Chain is an enterprise-grade Layer 1 blockchain platform designed to address the fundamental limitations of existing blockchain networks: scalability, energy efficiency, and intelligent automation. By integrating a novel Trust Score-Based BFT Consensus, Dynamic Sharding Architecture, and Quad-Band AI Orchestration System, TBURN Chain achieves unprecedented throughput of 210,000+ TPS while maintaining decentralization and security guarantees.",
-        "p2": "The platform introduces a deflationary tokenomics model with an AI-optimized burn mechanism, achieving a projected 30.6% token reduction over 20 years. TBURN Chain supports full EVM compatibility with quantum-resistant cryptographic extensions, enabling seamless migration for existing Ethereum applications while future-proofing against emerging computational threats.",
+        "title": "Résumé",
+        "p1": "TBURN Chain est une plateforme blockchain de Couche 1 de niveau entreprise conçue pour résoudre les limitations fondamentales des réseaux blockchain existants : évolutivité, efficacité énergétique et automatisation intelligente. En intégrant un nouveau Consensus BFT basé sur le Score de Confiance, une Architecture de Partitionnement Dynamique et un Système d'Orchestration IA à Quatre Bandes, TBURN Chain atteint un débit sans précédent de plus de 210 000 TPS tout en maintenant les garanties de décentralisation et de sécurité.",
+        "p2": "La plateforme introduit un modèle tokenomics déflationniste avec un mécanisme de brûlage optimisé par IA, projetant une réduction de 30,6% des tokens sur 20 ans. TBURN Chain prend en charge une compatibilité EVM complète avec des extensions cryptographiques résistantes aux quantiques, permettant une migration transparente pour les applications Ethereum existantes tout en se préparant aux menaces informatiques futures.",
         "specs": {
-          "peakTps": "Peak TPS",
-          "blockTime": "Block Time",
-          "finality": "Finality",
-          "second": "second",
-          "validators": "Active Validators"
+          "peakTps": "TPS Maximum",
+          "blockTime": "Temps de Bloc",
+          "finality": "Finalité",
+          "second": "seconde",
+          "validators": "Validateurs Actifs"
         }
       },
       "architecture": {
-        "title": "System Architecture",
-        "intro": "TBURN Chain employs a modular, layered architecture that separates concerns across execution, consensus, data availability, and settlement layers. This design enables independent scaling and upgradeability of each component.",
-        "diagramTitle": "TBURN Chain Architecture Stack",
+        "title": "Architecture du Système",
+        "intro": "TBURN Chain utilise une architecture modulaire en couches qui sépare les responsabilités entre les couches d'exécution, de consensus, de disponibilité des données et de règlement. Cette conception permet la mise à l'échelle et la mise à niveau indépendantes de chaque composant.",
+        "diagramTitle": "Stack Architecture TBURN Chain",
         "layers": {
-          "defi": "DeFi Protocols",
+          "defi": "Protocoles DeFi",
           "nftGamefi": "NFT/GameFi",
-          "bridge": "Bridge",
-          "governance": "Governance",
-          "smartContract": "Smart Contract Layer (EVM + TBC Extensions)",
-          "quadBandAi": "Quad-Band AI Orchestration System",
-          "trustScoreBft": "Trust Score BFT Consensus",
-          "dynamicSharding": "Dynamic Sharding Engine",
-          "crossShard": "Cross-Shard Messaging",
-          "stateSync": "State Synchronization",
-          "p2p": "P2P Network"
+          "bridge": "Pont",
+          "governance": "Gouvernance",
+          "smartContract": "Couche de Contrats Intelligents (EVM + Extensions TBC)",
+          "quadBandAi": "Système d'Orchestration IA à Quatre Bandes",
+          "trustScoreBft": "Consensus BFT Score de Confiance",
+          "dynamicSharding": "Moteur de Partitionnement Dynamique",
+          "crossShard": "Messagerie Inter-Partitions",
+          "stateSync": "Synchronisation d'État",
+          "p2p": "Réseau P2P"
         },
         "coreComponents": {
-          "title": "Core Components",
+          "title": "Composants Principaux",
           "execution": {
-            "title": "Execution Layer",
-            "desc": "The execution layer implements a fully EVM-compatible virtual machine with extensions for TBURN-specific opcodes. Transactions are processed in parallel across shards with deterministic state transitions."
+            "title": "Couche d'Exécution",
+            "desc": "La couche d'exécution implémente une machine virtuelle entièrement compatible EVM avec des extensions pour les opcodes spécifiques à TBURN. Les transactions sont traitées en parallèle à travers les partitions avec des transitions d'état déterministes."
           },
           "consensus": {
-            "title": "Consensus Layer",
-            "desc": "Trust Score-Based Byzantine Fault Tolerant (TS-BFT) consensus achieves finality within 1 second by weighting validator votes according to historical performance metrics, stake amount, and network contribution."
+            "title": "Couche de Consensus",
+            "desc": "Le consensus de Tolérance aux Fautes Byzantines basé sur le Score de Confiance (TS-BFT) atteint la finalité en 1 seconde en pondérant les votes des validateurs selon les métriques de performance historiques, le montant du stake et la contribution au réseau."
           },
           "dataAvailability": {
-            "title": "Data Availability Layer",
-            "desc": "Each shard maintains its own state tree with cross-shard proofs enabling trustless verification. Archive nodes preserve complete historical data for audit and compliance requirements."
+            "title": "Couche de Disponibilité des Données",
+            "desc": "Chaque partition maintient son propre arbre d'état avec des preuves inter-partitions permettant une vérification sans confiance. Les nœuds d'archive préservent les données historiques complètes pour les exigences d'audit et de conformité."
           },
           "aiOrchestration": {
-            "title": "AI Orchestration Layer",
-            "desc": "The Quad-Band AI system continuously monitors network health, optimizes resource allocation, detects anomalies, and executes governance decisions with minimal human intervention."
+            "title": "Couche d'Orchestration IA",
+            "desc": "Le système IA à Quatre Bandes surveille en continu la santé du réseau, optimise l'allocation des ressources, détecte les anomalies et exécute les décisions de gouvernance avec une intervention humaine minimale."
           }
         },
         "networkSpecs": {
-          "title": "Network Specifications",
-          "parameter": "Parameter",
-          "currencySymbol": "Currency Symbol",
-          "blockTime": "Block Time",
-          "gasUnit": "Gas Unit"
+          "title": "Spécifications du Réseau",
+          "parameter": "Paramètre",
+          "currencySymbol": "Symbole de Devise",
+          "blockTime": "Temps de Bloc",
+          "gasUnit": "Unité de Gas"
         }
       },
       "consensus": {
-        "title": "Trust Score-Based BFT Consensus",
-        "intro": "TBURN Chain introduces an innovative consensus mechanism that extends traditional Byzantine Fault Tolerance with a dynamic trust scoring system.",
+        "title": "Consensus BFT Basé sur le Score de Confiance",
+        "intro": "TBURN Chain introduit un mécanisme de consensus innovant qui étend la Tolérance aux Fautes Byzantines traditionnelle avec un système de notation de confiance dynamique.",
         "trustScore": {
-          "title": "Trust Score Calculation",
-          "desc": "Each validator maintains a Trust Score (TS) calculated from multiple performance metrics:",
-          "formulaTitle": "Trust Score Formula",
-          "coefficients": "Where the coefficients are:",
-          "alpha": "Validator uptime percentage (99%+ optimal)",
-          "beta": "Block production success rate",
-          "gamma": "Consensus vote accuracy and timeliness",
-          "delta": "Stake amount relative to network total",
-          "epsilon": "Cross-shard message relay and network health contribution"
+          "title": "Calcul du Score de Confiance",
+          "desc": "Chaque validateur maintient un Score de Confiance (TS) calculé à partir de plusieurs métriques de performance :",
+          "formulaTitle": "Formule du Score de Confiance",
+          "coefficients": "Où les coefficients sont :",
+          "alpha": "Pourcentage de temps de disponibilité du validateur (99%+ optimal)",
+          "beta": "Taux de réussite de production de blocs",
+          "gamma": "Précision et ponctualité du vote de consensus",
+          "delta": "Montant du stake par rapport au total du réseau",
+          "epsilon": "Relais de messages inter-partitions et contribution à la santé du réseau"
         },
         "validatorTiers": {
-          "title": "Validator Tiers",
-          "tier": "Tier",
-          "maxValidators": "Max Validators",
-          "minStake": "Min Stake",
-          "rewardShare": "Reward Share",
-          "dailyRewards": "Daily Rewards",
-          "unlimited": "Unlimited"
+          "title": "Niveaux de Validateur",
+          "tier": "Niveau",
+          "maxValidators": "Max Validateurs",
+          "minStake": "Stake Minimum",
+          "rewardShare": "Part de Récompense",
+          "dailyRewards": "Récompenses Journalières",
+          "unlimited": "Illimité"
         },
         "blockProduction": {
-          "title": "Block Production",
-          "desc": "Validators are selected for block production through a weighted random selection algorithm."
+          "title": "Production de Blocs",
+          "desc": "Les validateurs sont sélectionnés pour la production de blocs par un algorithme de sélection aléatoire pondérée où la probabilité est proportionnelle à leur Score de Confiance."
         },
         "finality": {
-          "title": "Finality Guarantee",
-          "desc": "TBURN Chain achieves single-slot finality through a two-phase commit process:",
-          "proposePhase": "Propose Phase (50ms)",
-          "proposeDesc": "Selected proposer broadcasts block to shard validators",
-          "commitPhase": "Commit Phase (50ms)",
-          "commitDesc": "Validators vote, 2/3+ weighted consensus confirms finality",
-          "totalTime": "Total finality time: 100ms per block, with cross-shard finality achieved within 1 second."
+          "title": "Garantie de Finalité",
+          "desc": "TBURN Chain atteint la finalité à créneau unique via un processus de validation en deux phases :",
+          "proposePhase": "Phase de Proposition (50ms)",
+          "proposeDesc": "Le proposant sélectionné diffuse le bloc aux validateurs de la partition",
+          "commitPhase": "Phase de Validation (50ms)",
+          "commitDesc": "Les validateurs votent, un consensus pondéré de 2/3+ confirme la finalité",
+          "totalTime": "Temps total de finalité : 100ms par bloc, avec finalité inter-partitions atteinte en 1 seconde."
         }
       },
       "sharding": {
-        "title": "Dynamic Sharding Architecture",
-        "intro": "TBURN Chain implements a dynamic sharding system that automatically scales from 5 to 128 shards based on network load and hardware capacity.",
+        "title": "Architecture de Partitionnement Dynamique",
+        "intro": "TBURN Chain implémente un système de partitionnement dynamique qui s'adapte automatiquement de 5 à 128 partitions en fonction de la charge réseau et de la capacité matérielle.",
         "config": {
-          "title": "Shard Configuration",
-          "activeShards": "Active Shards",
-          "validatorsPerShard": "Validators/Shard",
-          "tpsPerShard": "TPS per Shard",
-          "crossShardLatency": "Cross-Shard Latency"
+          "title": "Configuration des Partitions",
+          "activeShards": "Partitions Actives",
+          "validatorsPerShard": "Validateurs/Partition",
+          "tpsPerShard": "TPS par Partition",
+          "crossShardLatency": "Latence Inter-Partitions"
         },
         "tpsFormula": {
-          "title": "TPS Calculation Formula",
-          "formulaTitle": "Network TPS Formula",
-          "withConfig": "With mainnet configuration:"
+          "title": "Formule de Calcul TPS",
+          "formulaTitle": "Formule TPS Réseau",
+          "withConfig": "Avec la configuration mainnet :"
         },
         "hardware": {
-          "title": "Hardware Profiles",
-          "profile": "Profile",
-          "maxShards": "Max Shards",
-          "tpsRange": "TPS Range"
+          "title": "Profils Matériels",
+          "profile": "Profil",
+          "maxShards": "Max Partitions",
+          "tpsRange": "Plage TPS"
         },
         "crossShard": {
-          "title": "Cross-Shard Communication",
-          "desc": "Cross-shard transactions utilize an asynchronous message passing protocol:",
-          "messageQueue": "Message Queue",
-          "messageQueueDesc": "Priority-based routing with O(1) shard pair selection",
-          "batchProcessing": "Batch Processing",
-          "batchProcessingDesc": "Messages aggregated into batches for efficiency",
-          "proofGeneration": "Proof Generation",
-          "proofGenerationDesc": "Merkle proofs enable trustless cross-shard verification",
-          "caching": "Caching",
-          "cachingDesc": "30-second TTL shard state cache for optimal performance"
+          "title": "Communication Inter-Partitions",
+          "desc": "Les transactions inter-partitions utilisent un protocole de passage de messages asynchrone :",
+          "messageQueue": "File de Messages",
+          "messageQueueDesc": "Routage basé sur la priorité avec sélection de paires de partitions O(1)",
+          "batchProcessing": "Traitement par Lots",
+          "batchProcessingDesc": "Messages agrégés en lots pour l'efficacité",
+          "proofGeneration": "Génération de Preuves",
+          "proofGenerationDesc": "Les preuves Merkle permettent une vérification inter-partitions sans confiance",
+          "caching": "Mise en Cache",
+          "cachingDesc": "Cache d'état de partition avec TTL de 30 secondes pour une performance optimale"
         },
         "autoScaling": {
-          "title": "Automatic Scaling",
-          "desc": "The sharding engine monitors network load in real-time:",
-          "scaleUp": "Scale Up",
-          "scaleUpDesc": "When average shard load exceeds 70% for 5 minutes",
-          "scaleDown": "Scale Down",
-          "scaleDownDesc": "When average shard load drops below 30% for 15 minutes",
-          "rebalance": "Rebalance",
-          "rebalanceDesc": "When load imbalance exceeds 30% between shards"
+          "title": "Mise à l'Échelle Automatique",
+          "desc": "Le moteur de partitionnement surveille la charge réseau en temps réel :",
+          "scaleUp": "Montée en Charge",
+          "scaleUpDesc": "Quand la charge moyenne de partition dépasse 70% pendant 5 minutes",
+          "scaleDown": "Réduction de Charge",
+          "scaleDownDesc": "Quand la charge moyenne de partition tombe en dessous de 30% pendant 15 minutes",
+          "rebalance": "Rééquilibrage",
+          "rebalanceDesc": "Quand le déséquilibre de charge dépasse 30% entre les partitions"
         }
       },
       "aiSystem": {
-        "title": "Quad-Band AI Orchestration System",
-        "intro": "TBURN Chain integrates a sophisticated AI orchestration layer that continuously optimizes network operations, security, and governance.",
+        "title": "Système d'Orchestration IA à Quatre Bandes",
+        "intro": "TBURN Chain intègre une couche d'orchestration IA sophistiquée qui optimise en continu les opérations réseau, la sécurité et la gouvernance.",
         "modelConfig": {
-          "title": "AI Model Configuration",
-          "model": "Model",
-          "primaryFunction": "Primary Function",
-          "latency": "Latency",
-          "band1Func": "Real-time monitoring, anomaly detection",
-          "band2Func": "Governance analysis, compliance validation",
-          "band3Func": "Burn optimization, tokenomics modeling",
-          "band4Func": "Fallback, emergency response"
+          "title": "Configuration des Modèles IA",
+          "model": "Modèle",
+          "primaryFunction": "Fonction Principale",
+          "latency": "Latence",
+          "band1Func": "Surveillance en temps réel, détection d'anomalies",
+          "band2Func": "Analyse de gouvernance, validation de conformité",
+          "band3Func": "Optimisation du brûlage, modélisation tokenomics",
+          "band4Func": "Secours, réponse d'urgence"
         },
         "decisionCategories": {
-          "title": "AI Decision Categories",
-          "adjustShards": "Dynamic shard count optimization",
-          "optimizeBurn": "AI-driven burn rate adjustments",
-          "rescheduleValidators": "Validator rotation and load balancing",
-          "securityAlert": "Threat detection and response",
-          "governancePrevalidation": "Proposal analysis and risk assessment",
-          "crossShardOptimization": "Message routing efficiency"
+          "title": "Catégories de Décision IA",
+          "adjustShards": "Optimisation dynamique du nombre de partitions",
+          "optimizeBurn": "Ajustements du taux de brûlage pilotés par IA",
+          "rescheduleValidators": "Rotation des validateurs et équilibrage de charge",
+          "securityAlert": "Détection et réponse aux menaces",
+          "governancePrevalidation": "Analyse des propositions et évaluation des risques",
+          "crossShardOptimization": "Efficacité du routage des messages"
         },
         "failFast": {
-          "title": "Fail-Fast Architecture",
-          "desc": "The AI system implements a fail-fast architecture with automatic fallback."
+          "title": "Architecture Fail-Fast",
+          "desc": "Le système IA implémente une architecture fail-fast avec chaîne de repli automatique."
         },
         "burnOptimization": {
-          "title": "Burn Optimization Algorithm",
-          "desc": "The AI-driven burn mechanism analyzes network activity to optimize token burning:",
-          "formulaTitle": "Dynamic Burn Rate"
+          "title": "Algorithme d'Optimisation du Brûlage",
+          "desc": "Le mécanisme de brûlage piloté par IA analyse l'activité réseau pour optimiser le brûlage de tokens :",
+          "formulaTitle": "Taux de Brûlage Dynamique"
         }
       },
       "tokenomics": {
         "title": "Tokenomics",
-        "intro": "TBURN implements a deflationary tokenomics model designed for long-term value appreciation.",
+        "intro": "TBURN implémente un modèle tokenomics déflationniste conçu pour l'appréciation de valeur à long terme.",
         "supply": {
-          "title": "Token Supply",
-          "genesis": "Genesis Supply",
-          "year20": "Year 20 Supply",
-          "totalReduction": "Total Reduction",
-          "targetStaking": "Target Staking"
+          "title": "Approvisionnement en Tokens",
+          "genesis": "Approvisionnement Genesis",
+          "year20": "Approvisionnement An 20",
+          "totalReduction": "Réduction Totale",
+          "targetStaking": "Staking Cible"
         },
         "emission": {
-          "title": "Emission Schedule",
-          "parameter": "Parameter",
-          "value": "Value",
+          "title": "Calendrier d'Émission",
+          "parameter": "Paramètre",
+          "value": "Valeur",
           "description": "Description",
-          "baseDailyEmission": "Base Daily Emission",
-          "baseDailyEmissionDesc": "Maximum daily token issuance",
-          "aiBurnRate": "AI Burn Rate",
-          "aiBurnRateDesc": "Percentage of emissions burned by AI",
-          "netDailyEmission": "Net Daily Emission",
-          "netDailyEmissionDesc": "Actual tokens entering circulation"
+          "baseDailyEmission": "Émission Journalière de Base",
+          "baseDailyEmissionDesc": "Émission maximale journalière de tokens",
+          "aiBurnRate": "Taux de Brûlage IA",
+          "aiBurnRateDesc": "Pourcentage d'émissions brûlées par l'IA",
+          "netDailyEmission": "Émission Journalière Nette",
+          "netDailyEmissionDesc": "Tokens entrant réellement en circulation"
         },
         "priceDiscovery": {
-          "title": "Price Discovery Model",
-          "desc": "TBURN token price is determined by a demand-supply equilibrium formula:",
-          "formulaTitle": "Token Price Formula"
+          "title": "Modèle de Découverte de Prix",
+          "desc": "Le prix du token TBURN est déterminé par une formule d'équilibre offre-demande :",
+          "formulaTitle": "Formule du Prix du Token"
         },
         "gasEconomics": {
-          "title": "Gas Economics",
-          "desc": "TBURN uses Ember (EMB) as the gas unit:",
-          "standardGasPrice": "Standard Gas Price"
+          "title": "Économie du Gas",
+          "desc": "TBURN utilise Ember (EMB) comme unité de gas :",
+          "standardGasPrice": "Prix du Gas Standard"
         }
       },
       "tokenStandards": {
-        "title": "Token Standards",
-        "intro": "TBURN Chain implements three native token standards compatible with ERC standards.",
+        "title": "Standards de Token",
+        "intro": "TBURN Chain implémente trois standards de token natifs compatibles avec les standards ERC.",
         "tbc20": {
-          "subtitle": "Fungible Tokens",
-          "desc": "ERC-20 compatible fungible token standard with additional features:",
-          "feature1": "Quantum-resistant signature verification",
-          "feature2": "Built-in burn mechanism",
-          "feature3": "Cross-shard transfer support",
-          "feature4": "Governance voting integration"
+          "subtitle": "Tokens Fongibles",
+          "desc": "Standard de token fongible compatible ERC-20 avec des fonctionnalités supplémentaires :",
+          "feature1": "Vérification de signature résistante aux quantiques",
+          "feature2": "Mécanisme de brûlage intégré",
+          "feature3": "Support de transfert inter-partitions",
+          "feature4": "Intégration du vote de gouvernance"
         },
         "tbc721": {
-          "subtitle": "Non-Fungible Tokens",
-          "desc": "ERC-721 compatible NFT standard with enhancements:",
-          "feature1": "On-chain metadata storage",
-          "feature2": "Royalty enforcement (EIP-2981)",
-          "feature3": "Batch minting optimization",
-          "feature4": "Cross-chain bridge compatibility"
+          "subtitle": "Tokens Non Fongibles",
+          "desc": "Standard NFT compatible ERC-721 avec améliorations :",
+          "feature1": "Stockage de métadonnées on-chain",
+          "feature2": "Application des royalties (EIP-2981)",
+          "feature3": "Optimisation du minting par lots",
+          "feature4": "Compatibilité pont inter-chaînes"
         },
         "tbc1155": {
-          "subtitle": "Multi-Token Standard",
-          "desc": "ERC-1155 compatible multi-token standard for:",
-          "feature1": "GameFi asset management",
-          "feature2": "Batch transfers",
-          "feature3": "Semi-fungible tokens",
-          "feature4": "Gas-efficient operations"
+          "subtitle": "Standard Multi-Token",
+          "desc": "Standard multi-token compatible ERC-1155 pour :",
+          "feature1": "Gestion des actifs GameFi",
+          "feature2": "Transferts par lots",
+          "feature3": "Tokens semi-fongibles",
+          "feature4": "Opérations efficaces en gas"
         },
         "quantumResistant": {
-          "title": "Quantum-Resistant Extensions",
-          "desc": "All token standards support optional quantum-resistant signature schemes:",
-          "sphincs": "Hash-based signatures (NIST approved)",
-          "crystals": "Lattice-based signatures",
-          "hybridMode": "Hybrid Mode",
-          "hybridModeDesc": "ECDSA + Post-quantum for transition period"
+          "title": "Extensions Résistantes aux Quantiques",
+          "desc": "Tous les standards de token supportent des schémas de signature résistants aux quantiques optionnels :",
+          "sphincs": "Signatures basées sur le hachage (approuvé NIST)",
+          "crystals": "Signatures basées sur les réseaux",
+          "hybridMode": "Mode Hybride",
+          "hybridModeDesc": "ECDSA + Post-quantique pour la période de transition"
         }
       },
       "defi": {
-        "title": "DeFi Ecosystem",
-        "intro": "TBURN Chain provides a comprehensive DeFi infrastructure with native protocol implementations.",
+        "title": "Écosystème DeFi",
+        "intro": "TBURN Chain fournit une infrastructure DeFi complète avec des implémentations de protocole natives.",
         "dex": {
-          "title": "Decentralized Exchange (DEX)",
-          "amm": "AMM Model",
-          "ammDesc": "Concentrated liquidity (Uniswap V3 style)",
-          "orderBook": "Order Book",
-          "orderBookDesc": "Hybrid limit order support",
-          "twap": "TWAP Oracle",
-          "twapDesc": "Time-weighted average price feeds",
-          "mev": "MEV Protection",
-          "mevDesc": "Fair ordering with commit-reveal"
+          "title": "Échange Décentralisé (DEX)",
+          "amm": "Modèle AMM",
+          "ammDesc": "Liquidité concentrée (style Uniswap V3)",
+          "orderBook": "Carnet d'Ordres",
+          "orderBookDesc": "Support hybride des ordres limites",
+          "twap": "Oracle TWAP",
+          "twapDesc": "Flux de prix moyens pondérés dans le temps",
+          "mev": "Protection MEV",
+          "mevDesc": "Ordonnancement équitable avec commit-reveal"
         },
         "lending": {
-          "title": "Lending Protocol",
-          "collateralized": "Collateralized Loans",
-          "collateralizedDesc": "Over-collateralized borrowing",
-          "variableRates": "Variable Rates",
-          "variableRatesDesc": "Utilization-based interest curves",
-          "liquidation": "Liquidation Engine",
-          "liquidationDesc": "Dutch auction liquidations",
-          "flashLoans": "Flash Loans",
-          "flashLoansDesc": "Single-block borrowing"
+          "title": "Protocole de Prêt",
+          "collateralized": "Prêts Collatéralisés",
+          "collateralizedDesc": "Emprunts sur-collatéralisés",
+          "variableRates": "Taux Variables",
+          "variableRatesDesc": "Courbes d'intérêt basées sur l'utilisation",
+          "liquidation": "Moteur de Liquidation",
+          "liquidationDesc": "Liquidations par enchère hollandaise",
+          "flashLoans": "Prêts Flash",
+          "flashLoansDesc": "Emprunts à bloc unique"
         },
         "staking": {
-          "title": "Staking Infrastructure",
-          "native": "Native Staking",
-          "nativeDesc": "Direct validator delegation",
-          "liquid": "Liquid Staking",
-          "liquidDesc": "stTBURN receipt tokens",
-          "pools": "Staking Pools",
-          "poolsDesc": "Aggregated staking for small holders",
-          "unbonding": "Unbonding Period",
-          "unbondingDesc": "7 days for security"
+          "title": "Infrastructure de Staking",
+          "native": "Staking Natif",
+          "nativeDesc": "Délégation directe aux validateurs",
+          "liquid": "Staking Liquide",
+          "liquidDesc": "Tokens de réception stTBURN",
+          "pools": "Pools de Staking",
+          "poolsDesc": "Staking agrégé pour les petits détenteurs",
+          "unbonding": "Période de Déliaison",
+          "unbondingDesc": "7 jours pour la sécurité"
         },
         "yieldFarming": {
           "title": "Yield Farming",
-          "liquidityMining": "Liquidity Mining",
-          "liquidityMiningDesc": "Protocol incentivized pools",
-          "autoCompounding": "Auto-Compounding",
-          "autoCompoundingDesc": "Yield optimizer vaults",
-          "multiAsset": "Multi-Asset Strategies",
-          "multiAssetDesc": "Diversified yield sources"
+          "liquidityMining": "Mining de Liquidité",
+          "liquidityMiningDesc": "Pools incitatifs du protocole",
+          "autoCompounding": "Auto-Composition",
+          "autoCompoundingDesc": "Coffres optimisateurs de rendement",
+          "multiAsset": "Stratégies Multi-Actifs",
+          "multiAssetDesc": "Sources de rendement diversifiées"
         },
         "bridge": {
-          "title": "Cross-Chain Bridge",
-          "feature": "Feature",
-          "specification": "Specification",
-          "supportedChains": "Supported Chains",
-          "securityModel": "Security Model",
-          "securityModelDesc": "Multi-signature + AI risk assessment",
-          "transferTime": "Transfer Time",
-          "transferTimeDesc": "5-15 minutes (chain dependent)",
-          "feeStructure": "Fee Structure",
-          "gasCosts": "gas costs"
+          "title": "Pont Inter-Chaînes",
+          "feature": "Fonctionnalité",
+          "specification": "Spécification",
+          "supportedChains": "Chaînes Supportées",
+          "securityModel": "Modèle de Sécurité",
+          "securityModelDesc": "Multi-signature + évaluation des risques IA",
+          "transferTime": "Temps de Transfert",
+          "transferTimeDesc": "5-15 minutes (selon la chaîne)",
+          "feeStructure": "Structure des Frais",
+          "gasCosts": "coûts de gas"
         }
       },
       "security": {
-        "title": "Security Architecture",
-        "intro": "TBURN Chain implements multiple layers of security to protect against current and future threats.",
+        "title": "Architecture de Sécurité",
+        "intro": "TBURN Chain implémente plusieurs couches de sécurité pour se protéger contre les menaces actuelles et futures.",
         "cryptographic": {
-          "title": "Cryptographic Primitives",
-          "function": "Function",
-          "algorithm": "Algorithm",
-          "securityLevel": "Security Level",
-          "txSigning": "Transaction Signing",
-          "blockHashing": "Block Hashing",
-          "stateTree": "State Tree",
-          "quantumResistant": "Quantum-Resistant"
+          "title": "Primitives Cryptographiques",
+          "function": "Fonction",
+          "algorithm": "Algorithme",
+          "securityLevel": "Niveau de Sécurité",
+          "txSigning": "Signature de Transaction",
+          "blockHashing": "Hachage de Bloc",
+          "stateTree": "Arbre d'État",
+          "quantumResistant": "Résistant aux Quantiques"
         },
         "slashing": {
-          "title": "Slashing Conditions",
-          "doubleSigning": "Double Signing",
-          "doubleSigningPenalty": "100% stake slashed",
-          "prolongedDowntime": "Prolonged Downtime",
-          "prolongedDowntimePenalty": "1% per 24 hours (max 10%)",
-          "invalidBlock": "Invalid Block Production",
-          "invalidBlockPenalty": "5% stake slashed",
-          "censorship": "Censorship Detected",
-          "censorshipPenalty": "10% stake slashed"
+          "title": "Conditions de Slashing",
+          "doubleSigning": "Double Signature",
+          "doubleSigningPenalty": "100% du stake supprimé",
+          "prolongedDowntime": "Temps d'Arrêt Prolongé",
+          "prolongedDowntimePenalty": "1% par 24 heures (max 10%)",
+          "invalidBlock": "Production de Bloc Invalide",
+          "invalidBlockPenalty": "5% du stake supprimé",
+          "censorship": "Censure Détectée",
+          "censorshipPenalty": "10% du stake supprimé"
         },
         "aiDriven": {
-          "title": "AI-Driven Security",
-          "anomalyDetection": "Anomaly Detection",
-          "anomalyDetectionDesc": "Real-time transaction pattern analysis",
-          "attackPrevention": "Attack Prevention",
-          "attackPreventionDesc": "Automatic rate limiting and blocking",
-          "vulnerabilityScanning": "Vulnerability Scanning",
-          "vulnerabilityScanningDesc": "Continuous smart contract analysis",
-          "incidentResponse": "Incident Response",
-          "incidentResponseDesc": "Automated emergency procedures"
+          "title": "Sécurité Pilotée par IA",
+          "anomalyDetection": "Détection d'Anomalies",
+          "anomalyDetectionDesc": "Analyse des modèles de transaction en temps réel",
+          "attackPrevention": "Prévention des Attaques",
+          "attackPreventionDesc": "Limitation de débit et blocage automatiques",
+          "vulnerabilityScanning": "Scan de Vulnérabilités",
+          "vulnerabilityScanningDesc": "Analyse continue des contrats intelligents",
+          "incidentResponse": "Réponse aux Incidents",
+          "incidentResponseDesc": "Procédures d'urgence automatisées"
         },
         "bugBounty": {
-          "title": "Bug Bounty Program",
-          "severity": "Severity",
-          "rewardRange": "Reward Range"
+          "title": "Programme de Prime aux Bugs",
+          "severity": "Sévérité",
+          "rewardRange": "Plage de Récompense"
         }
       },
       "governance": {
-        "title": "Governance Framework",
-        "intro": "TBURN Chain implements a decentralized governance model with AI-assisted proposal validation.",
+        "title": "Cadre de Gouvernance",
+        "intro": "TBURN Chain implémente un modèle de gouvernance décentralisé avec validation des propositions assistée par IA.",
         "process": {
-          "title": "Governance Process",
-          "submission": "Proposal Submission",
-          "submissionDesc": "Minimum 1,000,000 TBURN stake required",
-          "aiPrevalidation": "AI Prevalidation",
-          "aiPrevalidationDesc": "Automated risk and impact assessment",
-          "discussion": "Discussion Period",
-          "discussionDesc": "7 days for community feedback",
-          "voting": "Voting Period",
-          "votingDesc": "7 days, stake-weighted voting",
-          "execution": "Execution",
-          "executionDesc": "Automatic on-chain execution if passed"
+          "title": "Processus de Gouvernance",
+          "submission": "Soumission de Proposition",
+          "submissionDesc": "Stake minimum de 1 000 000 TBURN requis",
+          "aiPrevalidation": "Prévalidation IA",
+          "aiPrevalidationDesc": "Évaluation automatisée des risques et impacts",
+          "discussion": "Période de Discussion",
+          "discussionDesc": "7 jours pour les retours de la communauté",
+          "voting": "Période de Vote",
+          "votingDesc": "7 jours, vote pondéré par le stake",
+          "execution": "Exécution",
+          "executionDesc": "Exécution automatique on-chain si approuvé"
         },
         "votingPower": {
-          "title": "Voting Power",
-          "desc": "Voting power is calculated as:",
-          "formulaTitle": "Voting Power Formula"
+          "title": "Pouvoir de Vote",
+          "desc": "Le pouvoir de vote est calculé comme :",
+          "formulaTitle": "Formule du Pouvoir de Vote"
         },
         "proposalTypes": {
-          "title": "Proposal Types",
-          "parameterChanges": "Parameter Changes",
-          "parameterChangesDesc": "Network configuration adjustments",
-          "treasurySpending": "Treasury Spending",
-          "treasurySpendingDesc": "Fund allocation decisions",
-          "protocolUpgrades": "Protocol Upgrades",
-          "protocolUpgradesDesc": "Smart contract updates",
-          "emergencyActions": "Emergency Actions",
-          "emergencyActionsDesc": "Fast-track security responses"
+          "title": "Types de Propositions",
+          "parameterChanges": "Changements de Paramètres",
+          "parameterChangesDesc": "Ajustements de configuration réseau",
+          "treasurySpending": "Dépenses de Trésorerie",
+          "treasurySpendingDesc": "Décisions d'allocation de fonds",
+          "protocolUpgrades": "Mises à Niveau du Protocole",
+          "protocolUpgradesDesc": "Mises à jour des contrats intelligents",
+          "emergencyActions": "Actions d'Urgence",
+          "emergencyActionsDesc": "Réponses de sécurité rapides"
         }
       },
       "roadmap": {
-        "title": "Roadmap",
+        "title": "Feuille de Route",
         "phase1": {
-          "title": "Phase 1: Genesis (Q4 2025)",
-          "item1": "Mainnet launch with 1,600 validators",
-          "item2": "64 shards operational (210,000 TPS)",
-          "item3": "Core DeFi protocols deployed",
-          "item4": "Quad-Band AI system active"
+          "title": "Phase 1 : Genesis (T4 2025)",
+          "item1": "Lancement du mainnet avec 1 600 validateurs",
+          "item2": "64 partitions opérationnelles (210 000 TPS)",
+          "item3": "Protocoles DeFi principaux déployés",
+          "item4": "Système IA à Quatre Bandes actif"
         },
         "phase2": {
-          "title": "Phase 2: Expansion (Q1-Q2 2026)",
-          "item1": "Cross-chain bridge deployment",
-          "item2": "128-shard scaling (500,000+ TPS)",
-          "item3": "GameFi ecosystem launch",
-          "item4": "Enterprise partnerships"
+          "title": "Phase 2 : Expansion (T1-T2 2026)",
+          "item1": "Déploiement du pont inter-chaînes",
+          "item2": "Mise à l'échelle à 128 partitions (500 000+ TPS)",
+          "item3": "Lancement de l'écosystème GameFi",
+          "item4": "Partenariats entreprises"
         },
         "phase3": {
-          "title": "Phase 3: Maturity (Q3-Q4 2026)",
-          "item1": "Full quantum-resistant migration",
-          "item2": "DAO treasury activation",
-          "item3": "Layer 2 rollup support",
-          "item4": "Global validator decentralization"
+          "title": "Phase 3 : Maturité (T3-T4 2026)",
+          "item1": "Migration complète vers la résistance quantique",
+          "item2": "Activation de la trésorerie DAO",
+          "item3": "Support des rollups de Couche 2",
+          "item4": "Décentralisation mondiale des validateurs"
         },
         "phase4": {
-          "title": "Phase 4: Ecosystem (2027+)",
-          "item1": "1,000,000+ TPS theoretical capacity",
-          "item2": "Complete DeFi primitive suite",
-          "item3": "Institutional adoption",
-          "item4": "Self-sustaining ecosystem"
+          "title": "Phase 4 : Écosystème (2027+)",
+          "item1": "Capacité théorique de 1 000 000+ TPS",
+          "item2": "Suite complète de primitives DeFi",
+          "item3": "Adoption institutionnelle",
+          "item4": "Écosystème auto-suffisant"
         }
       },
       "conclusion": {
         "title": "Conclusion",
-        "p1": "TBURN Chain represents a significant advancement in blockchain technology, combining unprecedented throughput with intelligent automation and future-proof security.",
-        "p2": "The deflationary tokenomics model ensures long-term value appreciation while the comprehensive DeFi ecosystem provides essential financial infrastructure.",
-        "officialResources": "Official Resources"
+        "p1": "TBURN Chain représente une avancée significative dans la technologie blockchain, combinant un débit sans précédent avec une automatisation intelligente et une sécurité tournée vers l'avenir.",
+        "p2": "Le modèle tokenomics déflationniste assure l'appréciation de la valeur à long terme tandis que l'écosystème DeFi complet fournit l'infrastructure financière essentielle.",
+        "officialResources": "Ressources Officielles"
       }
     },
     "footer": {
-      "allRightsReserved": "All rights reserved.",
-      "disclaimer": "This document is for informational purposes only and does not constitute financial advice."
+      "allRightsReserved": "Tous droits réservés.",
+      "disclaimer": "Ce document est fourni à titre informatif uniquement et ne constitue pas un conseil financier."
     }
   }
 }
