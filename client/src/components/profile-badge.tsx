@@ -32,6 +32,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useWeb3 } from "@/lib/web3-context";
+import type { WalletType } from "@/lib/web3-context";
 
 interface MemberInfo {
   id: string;
@@ -54,9 +55,10 @@ interface ProfileBadgeProps {
 export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const { isConnected, address } = useWeb3();
+  const { isConnected, address, connect, isConnecting } = useWeb3();
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showWalletModal, setShowWalletModal] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef<HTMLDivElement>(null);
@@ -217,6 +219,25 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
         description: t("profile.addressCopied", "지갑 주소가 복사되었습니다"),
       });
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleConnectWallet = async (walletType: WalletType) => {
+    try {
+      const success = await connect(walletType);
+      if (success) {
+        toast({
+          title: t("profile.walletConnected", "지갑 연결됨"),
+          description: t("profile.walletConnectedDesc", "지갑이 성공적으로 연결되었습니다"),
+        });
+        setShowWalletModal(false);
+      }
+    } catch (error) {
+      toast({
+        title: t("common.error", "오류"),
+        description: t("profile.walletConnectError", "지갑 연결 중 오류가 발생했습니다"),
+        variant: "destructive",
+      });
     }
   };
 
@@ -382,6 +403,19 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
               </div>
             </Link>
 
+            {/* Wallet Connect Button */}
+            <button
+              onClick={() => setShowWalletModal(true)}
+              className="w-full flex items-center justify-between py-2.5 px-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-blue-500/30 transition-colors cursor-pointer group"
+              data-testid="button-connect-external-wallet"
+            >
+              <div className="flex items-center gap-3">
+                <Wallet className="h-4 w-4 text-blue-400 shrink-0" />
+                <span className="text-sm text-blue-400 font-medium">{t("profile.connectWallet", "지갑연결")}</span>
+              </div>
+              <ChevronRight className="h-4 w-4 text-blue-400 group-hover:translate-x-0.5 transition-transform" />
+            </button>
+
             <div className="grid grid-cols-2 gap-2">
               <div className="py-3 px-3 rounded-lg bg-muted/40">
                 <div className="flex items-center gap-2 mb-1">
@@ -433,6 +467,92 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
               )}
             </button>
           </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Wallet Connection Modal */}
+      <Dialog open={showWalletModal} onOpenChange={setShowWalletModal}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Wallet className="h-5 w-5 text-blue-400" />
+              {t("profile.connectWallet", "지갑연결")}
+            </DialogTitle>
+            <DialogDescription>
+              {t("profile.selectWalletToConnect", "연결할 지갑을 선택하세요")}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-4">
+            <button
+              onClick={() => handleConnectWallet('metamask')}
+              disabled={isConnecting}
+              className="w-full flex items-center gap-4 p-4 rounded-xl border border-border/40 hover:bg-muted/50 transition-colors disabled:opacity-50"
+              data-testid="button-connect-metamask"
+            >
+              <div className="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center">
+                <span className="text-lg">🦊</span>
+              </div>
+              <div className="flex-1 text-left">
+                <p className="font-semibold">MetaMask</p>
+                <p className="text-xs text-muted-foreground">{t("profile.popularWallet", "가장 인기있는 지갑")}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button
+              onClick={() => handleConnectWallet('coinbase')}
+              disabled={isConnecting}
+              className="w-full flex items-center gap-4 p-4 rounded-xl border border-border/40 hover:bg-muted/50 transition-colors disabled:opacity-50"
+              data-testid="button-connect-coinbase"
+            >
+              <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                <span className="text-lg">🔵</span>
+              </div>
+              <div className="flex-1 text-left">
+                <p className="font-semibold">Coinbase Wallet</p>
+                <p className="text-xs text-muted-foreground">{t("profile.secureWallet", "안전한 지갑")}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button
+              onClick={() => handleConnectWallet('rabby')}
+              disabled={isConnecting}
+              className="w-full flex items-center gap-4 p-4 rounded-xl border border-border/40 hover:bg-muted/50 transition-colors disabled:opacity-50"
+              data-testid="button-connect-rabby"
+            >
+              <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                <span className="text-lg">🐰</span>
+              </div>
+              <div className="flex-1 text-left">
+                <p className="font-semibold">Rabby Wallet</p>
+                <p className="text-xs text-muted-foreground">{t("profile.defiWallet", "DeFi 전용 지갑")}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button
+              onClick={() => handleConnectWallet('trust')}
+              disabled={isConnecting}
+              className="w-full flex items-center gap-4 p-4 rounded-xl border border-border/40 hover:bg-muted/50 transition-colors disabled:opacity-50"
+              data-testid="button-connect-trust"
+            >
+              <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center">
+                <span className="text-lg">🛡️</span>
+              </div>
+              <div className="flex-1 text-left">
+                <p className="font-semibold">Trust Wallet</p>
+                <p className="text-xs text-muted-foreground">{t("profile.mobileWallet", "모바일 지갑")}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+          </div>
+          {isConnecting && (
+            <div className="flex items-center justify-center gap-2 py-2 text-sm text-muted-foreground">
+              <div className="h-4 w-4 border-2 border-blue-300 border-t-blue-500 rounded-full animate-spin" />
+              {t("profile.connecting", "연결 중...")}
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </>
