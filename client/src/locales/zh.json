@@ -17375,11 +17375,71 @@
           "title": "战略性销毁",
           "description": "基于平台表现和治理决策的季度生态系统销毁。"
         }
+      },
+      "phases": {
+        "title": "开发阶段",
+        "phase1": "第1阶段：基础建设（第1-3年）",
+        "phase2": "第2阶段：增长（第4-6年）",
+        "phase3": "第3阶段：生态系统（第7-12年）",
+        "phase4": "第4阶段：成熟期（第13-20年）"
       }
     },
     "schedule": {
       "title": "20年经济预测",
-      "description": "发行、销毁和净供应量影响的年度详细分解。"
+      "description": "发行、销毁和净供应量影响的年度详细分解。",
+      "headers": {
+        "yearPeriod": "年份/周期",
+        "stage": "阶段",
+        "startSupply": "起始供应量",
+        "blockIssuance": "区块发行",
+        "aiBurn": "AI销毁",
+        "totalSupply": "总供应量",
+        "reductionRate": "缩减率",
+        "netChange": "净变化",
+        "notes": "备注"
+      },
+      "stages": {
+        "genesis": "创世",
+        "growth": "增长",
+        "deflation": "通缩",
+        "balance": "平衡",
+        "optimization": "优化"
+      },
+      "notes": {
+        "mainnetLaunch": "主网启动",
+        "earlyUserAcquisition": "早期用户获取",
+        "growthAcceleration": "增长加速",
+        "ecosystemExpansion": "生态系统扩展",
+        "massAdoption": "大规模采用阶段",
+        "firstHalving": "第一次减半事件",
+        "institutionalGrade": "机构级别",
+        "maturityPhase": "成熟阶段",
+        "secondHalving": "第二次减半事件",
+        "tenYearMilestone": "10年里程碑",
+        "perfectBalance": "完美供应平衡",
+        "platformMaturity": "平台成熟",
+        "enterpriseIntegration": "企业集成",
+        "sustainedGrowth": "持续增长",
+        "stabilization": "稳定化",
+        "finetuning": "微调阶段",
+        "precisionManagement": "精确管理",
+        "predictable": "可预测经济",
+        "stableState": "稳定状态",
+        "balanceStart": "平衡优化",
+        "balanceEnd": "目标平衡达成",
+        "goalAchieved": "目标达成",
+        "excellence": "运营卓越",
+        "visionComplete": "20年愿景完成"
+      },
+      "phaseHeaders": {
+        "phase1": "第1阶段：基础建设（Y1-3）",
+        "phase2": "第2阶段：增长（Y4-6）",
+        "phase3": "第3阶段：生态系统（Y7-12）",
+        "phase4": "第4阶段：成熟期（Y13-20）"
+      },
+      "total": {
+        "years": "共计20年"
+      }
     },
     "table": {
       "year": "年份",
@@ -17388,7 +17448,8 @@
       "aiBurn": "AI与费用销毁",
       "netChange": "净变化",
       "supplyEnd": "供应量（年末）",
-      "total": "合计"
+      "total": "合计",
+      "totalSupply": "总供应量"
     },
     "units": {
       "billion": "B"
@@ -17474,6 +17535,28 @@
     "footer": {
       "vision": "为AI集成区块链经济构建可持续的未来。",
       "disclaimer": "此技术计划是TBURN协议白皮书v3.0的一部分。"
+    },
+    "phase1": {
+      "title": "第1阶段：基础建设",
+      "detailedData": "详细阶段数据"
+    },
+    "phase2": {
+      "title": "第2阶段：增长"
+    },
+    "phase3": {
+      "title": "第3阶段：生态系统扩展",
+      "achievement": "企业集成里程碑达成"
+    },
+    "phase4": {
+      "title": "第4阶段：成熟期",
+      "achievement": "长期稳定性达成"
+    },
+    "summary": {
+      "title": "总结",
+      "startSupply": "起始供应量",
+      "endSupply": "最终供应量（Y20）",
+      "netReduction": "净减少量",
+      "tenYearReduction": "10年减少量"
     }
   },
   "tokenDetails": {

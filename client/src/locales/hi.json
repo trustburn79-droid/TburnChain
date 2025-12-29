@@ -15843,11 +15843,71 @@
           "title": "रणनीतिक बर्न",
           "description": "प्लेटफॉर्म प्रदर्शन और गवर्नेंस निर्णयों के आधार पर त्रैमासिक इकोसिस्टम बर्न।"
         }
+      },
+      "phases": {
+        "title": "विकास चरण",
+        "phase1": "चरण 1: फाउंडेशन (वर्ष 1-3)",
+        "phase2": "चरण 2: विकास (वर्ष 4-6)",
+        "phase3": "चरण 3: इकोसिस्टम (वर्ष 7-12)",
+        "phase4": "चरण 4: परिपक्वता (वर्ष 13-20)"
       }
     },
     "schedule": {
       "title": "20-वर्षीय आर्थिक प्रक्षेपण",
-      "description": "जारी, बर्न और शुद्ध आपूर्ति प्रभाव का वर्ष-दर-वर्ष विस्तृत विवरण।"
+      "description": "जारी, बर्न और शुद्ध आपूर्ति प्रभाव का वर्ष-दर-वर्ष विस्तृत विवरण।",
+      "headers": {
+        "yearPeriod": "वर्ष/अवधि",
+        "stage": "चरण",
+        "startSupply": "प्रारंभिक आपूर्ति",
+        "blockIssuance": "ब्लॉक जारी",
+        "aiBurn": "AI बर्न",
+        "totalSupply": "कुल आपूर्ति",
+        "reductionRate": "कमी दर",
+        "netChange": "शुद्ध परिवर्तन",
+        "notes": "नोट्स"
+      },
+      "stages": {
+        "genesis": "जेनेसिस",
+        "growth": "विकास",
+        "deflation": "अपस्फीति",
+        "balance": "संतुलन",
+        "optimization": "अनुकूलन"
+      },
+      "notes": {
+        "mainnetLaunch": "मेननेट लॉन्च",
+        "earlyUserAcquisition": "प्रारंभिक उपयोगकर्ता अधिग्रहण",
+        "growthAcceleration": "विकास त्वरण",
+        "ecosystemExpansion": "इकोसिस्टम विस्तार",
+        "massAdoption": "व्यापक अपनाने का चरण",
+        "firstHalving": "पहली हाल्विंग इवेंट",
+        "institutionalGrade": "संस्थागत ग्रेड",
+        "maturityPhase": "परिपक्वता चरण",
+        "secondHalving": "दूसरी हाल्विंग इवेंट",
+        "tenYearMilestone": "10 वर्ष माइलस्टोन",
+        "perfectBalance": "परफेक्ट सप्लाई बैलेंस",
+        "platformMaturity": "प्लेटफॉर्म परिपक्वता",
+        "enterpriseIntegration": "एंटरप्राइज इंटीग्रेशन",
+        "sustainedGrowth": "सतत विकास",
+        "stabilization": "स्थिरीकरण",
+        "finetuning": "फाइन-ट्यूनिंग चरण",
+        "precisionManagement": "सटीक प्रबंधन",
+        "predictable": "पूर्वानुमानित अर्थव्यवस्था",
+        "stableState": "स्थिर अवस्था",
+        "balanceStart": "बैलेंस ऑप्टिमाइजेशन",
+        "balanceEnd": "लक्ष्य बैलेंस प्राप्त",
+        "goalAchieved": "लक्ष्य प्राप्त",
+        "excellence": "ऑपरेशनल एक्सीलेंस",
+        "visionComplete": "20 वर्ष विजन पूर्ण"
+      },
+      "phaseHeaders": {
+        "phase1": "चरण 1: फाउंडेशन (व1-3)",
+        "phase2": "चरण 2: विकास (व4-6)",
+        "phase3": "चरण 3: इकोसिस्टम (व7-12)",
+        "phase4": "चरण 4: परिपक्वता (व13-20)"
+      },
+      "total": {
+        "years": "कुल 20 वर्ष"
+      }
     },
     "table": {
       "year": "वर्ष",
@@ -15856,7 +15916,8 @@
       "aiBurn": "AI और शुल्क बर्न",
       "netChange": "शुद्ध परिवर्तन",
       "supplyEnd": "आपूर्ति (वर्ष के अंत में)",
-      "total": "कुल"
+      "total": "कुल",
+      "totalSupply": "कुल आपूर्ति"
     },
     "units": {
       "billion": "B"
@@ -15942,6 +16003,28 @@
     "footer": {
       "vision": "AI-एकीकृत ब्लॉकचेन अर्थशास्त्र के लिए एक स्थायी भविष्य का निर्माण।",
       "disclaimer": "यह तकनीकी अनुसूची आधिकारिक TBURN प्रोटोकॉल व्हाइटपेपर v3.0 का हिस्सा है।"
+    },
+    "phase1": {
+      "title": "चरण 1: फाउंडेशन",
+      "detailedData": "विस्तृत चरण डेटा"
+    },
+    "phase2": {
+      "title": "चरण 2: विकास"
+    },
+    "phase3": {
+      "title": "चरण 3: इकोसिस्टम विस्तार",
+      "achievement": "एंटरप्राइज इंटीग्रेशन माइलस्टोन प्राप्त"
+    },
+    "phase4": {
+      "title": "चरण 4: परिपक्वता",
+      "achievement": "दीर्घकालिक स्थिरता प्राप्त"
+    },
+    "summary": {
+      "title": "सारांश",
+      "startSupply": "प्रारंभिक आपूर्ति",
+      "endSupply": "अंतिम आपूर्ति (व20)",
+      "netReduction": "शुद्ध कमी",
+      "tenYearReduction": "10 वर्ष कमी"
     }
   },
   "tokenDetails": {

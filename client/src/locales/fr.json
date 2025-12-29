@@ -15276,11 +15276,71 @@
           "title": "Burns Stratégiques",
           "description": "Burns trimestriels de l'écosystème basés sur la performance de la plateforme et les décisions de gouvernance."
         }
+      },
+      "phases": {
+        "title": "Phases de Développement",
+        "phase1": "Phase 1 : Fondation (Années 1-3)",
+        "phase2": "Phase 2 : Croissance (Années 4-6)",
+        "phase3": "Phase 3 : Écosystème (Années 7-12)",
+        "phase4": "Phase 4 : Maturité (Années 13-20)"
       }
     },
     "schedule": {
       "title": "Projection Économique sur 20 Ans",
-      "description": "Détail année par année de l'émission, du burn et de l'impact net sur l'offre."
+      "description": "Détail année par année de l'émission, du burn et de l'impact net sur l'offre.",
+      "headers": {
+        "yearPeriod": "Année/Période",
+        "stage": "Étape",
+        "startSupply": "Offre Initiale",
+        "blockIssuance": "Émission de Blocs",
+        "aiBurn": "Burn AI",
+        "totalSupply": "Offre Totale",
+        "reductionRate": "Taux de Réduction",
+        "netChange": "Changement Net",
+        "notes": "Notes"
+      },
+      "stages": {
+        "genesis": "Genèse",
+        "growth": "Croissance",
+        "deflation": "Déflation",
+        "balance": "Équilibre",
+        "optimization": "Optimisation"
+      },
+      "notes": {
+        "mainnetLaunch": "Lancement du mainnet",
+        "earlyUserAcquisition": "Acquisition d'utilisateurs précoces",
+        "growthAcceleration": "Accélération de la croissance",
+        "ecosystemExpansion": "Expansion de l'écosystème",
+        "massAdoption": "Phase d'adoption de masse",
+        "firstHalving": "Premier événement de halving",
+        "institutionalGrade": "Niveau institutionnel",
+        "maturityPhase": "Phase de maturité",
+        "secondHalving": "Deuxième événement de halving",
+        "tenYearMilestone": "Jalon de 10 ans",
+        "perfectBalance": "Équilibre d'offre parfait",
+        "platformMaturity": "Maturité de la plateforme",
+        "enterpriseIntegration": "Intégration entreprise",
+        "sustainedGrowth": "Croissance soutenue",
+        "stabilization": "Stabilisation",
+        "finetuning": "Phase de réglage fin",
+        "precisionManagement": "Gestion de précision",
+        "predictable": "Économie prévisible",
+        "stableState": "État stable",
+        "balanceStart": "Optimisation d'équilibre",
+        "balanceEnd": "Équilibre cible atteint",
+        "goalAchieved": "Objectif atteint",
+        "excellence": "Excellence opérationnelle",
+        "visionComplete": "Vision de 20 ans accomplie"
+      },
+      "phaseHeaders": {
+        "phase1": "PHASE 1 : FONDATION (A1-3)",
+        "phase2": "PHASE 2 : CROISSANCE (A4-6)",
+        "phase3": "PHASE 3 : ÉCOSYSTÈME (A7-12)",
+        "phase4": "PHASE 4 : MATURITÉ (A13-20)"
+      },
+      "total": {
+        "years": "Total 20 Ans"
+      }
     },
     "table": {
       "year": "Année",
@@ -15289,7 +15349,8 @@
       "aiBurn": "Burn IA et Frais",
       "netChange": "Changement Net",
       "supplyEnd": "Offre (Fin d'Année)",
-      "total": "Total"
+      "total": "Total",
+      "totalSupply": "Offre Totale"
     },
     "units": {
       "billion": "B"
@@ -15375,6 +15436,28 @@
     "footer": {
       "vision": "Construire un avenir durable pour l'économie blockchain intégrée à l'IA.",
       "disclaimer": "Ce calendrier technique fait partie du Livre Blanc officiel du Protocole TBURN v3.0."
+    },
+    "phase1": {
+      "title": "Phase 1 : Fondation",
+      "detailedData": "Données de Phase Détaillées"
+    },
+    "phase2": {
+      "title": "Phase 2 : Croissance"
+    },
+    "phase3": {
+      "title": "Phase 3 : Expansion de l'Écosystème",
+      "achievement": "Jalon d'intégration entreprise atteint"
+    },
+    "phase4": {
+      "title": "Phase 4 : Maturité",
+      "achievement": "Stabilité à long terme atteinte"
+    },
+    "summary": {
+      "title": "Résumé",
+      "startSupply": "Offre Initiale",
+      "endSupply": "Offre Finale (A20)",
+      "netReduction": "Réduction Nette",
+      "tenYearReduction": "Réduction de 10 Ans"
     }
   },
   "tokenDetails": {

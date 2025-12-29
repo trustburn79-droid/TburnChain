@@ -13667,11 +13667,71 @@
           "title": "اسٹریٹجک برن",
           "description": "پلیٹ فارم کی کارکردگی اور گورننس فیصلوں کی بنیاد پر سہ ماہی ایکو سسٹم برن۔"
         }
+      },
+      "phases": {
+        "title": "ترقیاتی مراحل",
+        "phase1": "مرحلہ 1: بنیاد (سال 1-3)",
+        "phase2": "مرحلہ 2: ترقی (سال 4-6)",
+        "phase3": "مرحلہ 3: ایکو سسٹم (سال 7-12)",
+        "phase4": "مرحلہ 4: پختگی (سال 13-20)"
       }
     },
     "schedule": {
       "title": "20 سالہ اقتصادی پیشن گوئی",
-      "description": "جاری، برن، اور خالص سپلائی اثر کی سال بہ سال تفصیل۔"
+      "description": "جاری، برن، اور خالص سپلائی اثر کی سال بہ سال تفصیل۔",
+      "headers": {
+        "yearPeriod": "سال/مدت",
+        "stage": "مرحلہ",
+        "startSupply": "شروع سپلائی",
+        "blockIssuance": "بلاک جاری",
+        "aiBurn": "AI برن",
+        "totalSupply": "کل سپلائی",
+        "reductionRate": "کمی کی شرح",
+        "netChange": "خالص تبدیلی",
+        "notes": "نوٹس"
+      },
+      "stages": {
+        "genesis": "جینیسس",
+        "growth": "ترقی",
+        "deflation": "ڈیفلیشن",
+        "balance": "توازن",
+        "optimization": "آپٹیمائزیشن"
+      },
+      "notes": {
+        "mainnetLaunch": "مین نیٹ لانچ",
+        "earlyUserAcquisition": "ابتدائی صارف حصول",
+        "growthAcceleration": "ترقی کی تیزی",
+        "ecosystemExpansion": "ایکو سسٹم کی توسیع",
+        "massAdoption": "بڑے پیمانے پر اپنانے کا مرحلہ",
+        "firstHalving": "پہلا ہالونگ ایونٹ",
+        "institutionalGrade": "ادارہ جاتی گریڈ",
+        "maturityPhase": "پختگی کا مرحلہ",
+        "secondHalving": "دوسرا ہالونگ ایونٹ",
+        "tenYearMilestone": "10 سال کا مائل اسٹون",
+        "perfectBalance": "کامل سپلائی توازن",
+        "platformMaturity": "پلیٹ فارم کی پختگی",
+        "enterpriseIntegration": "انٹرپرائز انٹیگریشن",
+        "sustainedGrowth": "مستقل ترقی",
+        "stabilization": "استحکام",
+        "finetuning": "فائن ٹیوننگ مرحلہ",
+        "precisionManagement": "درستگی کا انتظام",
+        "predictable": "پیش گوئی کی معیشت",
+        "stableState": "مستحکم حالت",
+        "balanceStart": "توازن آپٹیمائزیشن",
+        "balanceEnd": "ہدف توازن حاصل",
+        "goalAchieved": "مقصد حاصل",
+        "excellence": "آپریشنل ایکسیلنس",
+        "visionComplete": "20 سال کا وژن مکمل"
+      },
+      "phaseHeaders": {
+        "phase1": "مرحلہ 1: بنیاد (س1-3)",
+        "phase2": "مرحلہ 2: ترقی (س4-6)",
+        "phase3": "مرحلہ 3: ایکو سسٹم (س7-12)",
+        "phase4": "مرحلہ 4: پختگی (س13-20)"
+      },
+      "total": {
+        "years": "کل 20 سال"
+      }
     },
     "table": {
       "year": "سال",
@@ -13680,7 +13740,8 @@
       "aiBurn": "AI اور فیس برن",
       "netChange": "خالص تبدیلی",
       "supplyEnd": "سپلائی (سال کے آخر میں)",
-      "total": "کل"
+      "total": "کل",
+      "totalSupply": "کل سپلائی"
     },
     "units": {
       "billion": "B"
@@ -13766,6 +13827,28 @@
     "footer": {
       "vision": "AI-انٹیگریٹڈ بلاکچین اکنامکس کے لیے پائیدار مستقبل کی تعمیر۔",
       "disclaimer": "یہ تکنیکی شیڈول سرکاری TBURN پروٹوکول وائٹ پیپر v3.0 کا حصہ ہے۔"
+    },
+    "phase1": {
+      "title": "مرحلہ 1: بنیاد",
+      "detailedData": "تفصیلی مرحلہ ڈیٹا"
+    },
+    "phase2": {
+      "title": "مرحلہ 2: ترقی"
+    },
+    "phase3": {
+      "title": "مرحلہ 3: ایکو سسٹم کی توسیع",
+      "achievement": "انٹرپرائز انٹیگریشن مائل اسٹون حاصل"
+    },
+    "phase4": {
+      "title": "مرحلہ 4: پختگی",
+      "achievement": "طویل مدتی استحکام حاصل"
+    },
+    "summary": {
+      "title": "خلاصہ",
+      "startSupply": "شروع سپلائی",
+      "endSupply": "اختتامی سپلائی (س20)",
+      "netReduction": "خالص کمی",
+      "tenYearReduction": "10 سال کی کمی"
     }
   },
   "tokenDetails": {

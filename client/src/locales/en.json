@@ -205,11 +205,71 @@
           "title": "Strategic Burns",
           "description": "Quarterly ecosystem burns based on platform performance and governance decisions."
         }
+      },
+      "phases": {
+        "title": "Development Phases",
+        "phase1": "Phase 1: Foundation (Years 1-3)",
+        "phase2": "Phase 2: Growth (Years 4-6)",
+        "phase3": "Phase 3: Ecosystem (Years 7-12)",
+        "phase4": "Phase 4: Maturity (Years 13-20)"
       }
     },
     "schedule": {
       "title": "20-Year Economic Projection",
-      "description": "Detailed year-over-year breakdown of issuance, burn, and net supply impact."
+      "description": "Detailed year-over-year breakdown of issuance, burn, and net supply impact.",
+      "headers": {
+        "yearPeriod": "Year/Period",
+        "stage": "Stage",
+        "startSupply": "Start Supply",
+        "blockIssuance": "Block Issuance",
+        "aiBurn": "AI Burn",
+        "totalSupply": "Total Supply",
+        "reductionRate": "Reduction Rate",
+        "netChange": "Net Change",
+        "notes": "Notes"
+      },
+      "stages": {
+        "genesis": "Genesis",
+        "growth": "Growth",
+        "deflation": "Deflation",
+        "balance": "Balance",
+        "optimization": "Optimization"
+      },
+      "notes": {
+        "mainnetLaunch": "Mainnet launch",
+        "earlyUserAcquisition": "Early user acquisition",
+        "growthAcceleration": "Growth acceleration",
+        "ecosystemExpansion": "Ecosystem expansion",
+        "massAdoption": "Mass adoption phase",
+        "firstHalving": "First halving event",
+        "institutionalGrade": "Institutional grade",
+        "maturityPhase": "Maturity phase",
+        "secondHalving": "Second halving event",
+        "tenYearMilestone": "10-year milestone",
+        "perfectBalance": "Perfect supply balance",
+        "platformMaturity": "Platform maturity",
+        "enterpriseIntegration": "Enterprise integration",
+        "sustainedGrowth": "Sustained growth",
+        "stabilization": "Stabilization",
+        "finetuning": "Fine-tuning phase",
+        "precisionManagement": "Precision management",
+        "predictable": "Predictable economics",
+        "stableState": "Stable state",
+        "balanceStart": "Balance optimization",
+        "balanceEnd": "Target balance achieved",
+        "goalAchieved": "Goal achieved",
+        "excellence": "Operational excellence",
+        "visionComplete": "20-year vision complete"
+      },
+      "phaseHeaders": {
+        "phase1": "PHASE 1: FOUNDATION (Y1-3)",
+        "phase2": "PHASE 2: GROWTH (Y4-6)",
+        "phase3": "PHASE 3: ECOSYSTEM (Y7-12)",
+        "phase4": "PHASE 4: MATURITY (Y13-20)"
+      },
+      "total": {
+        "years": "20 Years Total"
+      }
     },
     "table": {
       "year": "Year",
@@ -218,7 +278,8 @@
       "aiBurn": "AI & Fee Burn",
       "netChange": "Net Change",
       "supplyEnd": "Supply (End of Year)",
-      "total": "Total"
+      "total": "Total",
+      "totalSupply": "Total Supply"
     },
     "units": {
       "billion": "B"
@@ -304,6 +365,28 @@
     "footer": {
       "vision": "Building a sustainable future for AI-integrated blockchain economics.",
       "disclaimer": "This technical schedule is part of the official TBURN Protocol Whitepaper v3.0."
+    },
+    "phase1": {
+      "title": "Phase 1: Foundation",
+      "detailedData": "Detailed Phase Data"
+    },
+    "phase2": {
+      "title": "Phase 2: Growth"
+    },
+    "phase3": {
+      "title": "Phase 3: Ecosystem Expansion",
+      "achievement": "Enterprise integration milestone achieved"
+    },
+    "phase4": {
+      "title": "Phase 4: Maturity",
+      "achievement": "Long-term stability achieved"
+    },
+    "summary": {
+      "title": "Summary",
+      "startSupply": "Starting Supply",
+      "endSupply": "End Supply (Y20)",
+      "netReduction": "Net Reduction",
+      "tenYearReduction": "10-Year Reduction"
     }
   },
   "nav": {
@@ -29274,8 +29357,7 @@
     "resendInSeconds": "Resend available in {{seconds}}s",
     "sending": "Sending...",
     "resendCode": "Resend Code"
-  }
-,
+  },
   "tokenDetails": {
     "nav": {
       "overview": "Overview",
@@ -29604,5 +29686,4 @@
       "disclaimer": "This document is provided for informational purposes only. Token distribution schedules are subject to change based on market conditions and regulatory requirements."
     }
   }
-
 }

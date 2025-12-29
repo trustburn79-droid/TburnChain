@@ -17307,11 +17307,71 @@
           "title": "Quemas Estratégicas",
           "description": "Quemas trimestrales del ecosistema basadas en el rendimiento de la plataforma y decisiones de gobernanza."
         }
+      },
+      "phases": {
+        "title": "Fases de Desarrollo",
+        "phase1": "Fase 1: Fundación (Años 1-3)",
+        "phase2": "Fase 2: Crecimiento (Años 4-6)",
+        "phase3": "Fase 3: Ecosistema (Años 7-12)",
+        "phase4": "Fase 4: Madurez (Años 13-20)"
       }
     },
     "schedule": {
       "title": "Proyección Económica de 20 Años",
-      "description": "Desglose año por año de emisión, quema e impacto neto en el suministro."
+      "description": "Desglose año por año de emisión, quema e impacto neto en el suministro.",
+      "headers": {
+        "yearPeriod": "Año/Período",
+        "stage": "Etapa",
+        "startSupply": "Suministro Inicial",
+        "blockIssuance": "Emisión de Bloques",
+        "aiBurn": "Quema AI",
+        "totalSupply": "Suministro Total",
+        "reductionRate": "Tasa de Reducción",
+        "netChange": "Cambio Neto",
+        "notes": "Notas"
+      },
+      "stages": {
+        "genesis": "Génesis",
+        "growth": "Crecimiento",
+        "deflation": "Deflación",
+        "balance": "Balance",
+        "optimization": "Optimización"
+      },
+      "notes": {
+        "mainnetLaunch": "Lanzamiento de mainnet",
+        "earlyUserAcquisition": "Adquisición de usuarios tempranos",
+        "growthAcceleration": "Aceleración del crecimiento",
+        "ecosystemExpansion": "Expansión del ecosistema",
+        "massAdoption": "Fase de adopción masiva",
+        "firstHalving": "Primer evento de halving",
+        "institutionalGrade": "Grado institucional",
+        "maturityPhase": "Fase de madurez",
+        "secondHalving": "Segundo evento de halving",
+        "tenYearMilestone": "Hito de 10 años",
+        "perfectBalance": "Balance de suministro perfecto",
+        "platformMaturity": "Madurez de plataforma",
+        "enterpriseIntegration": "Integración empresarial",
+        "sustainedGrowth": "Crecimiento sostenido",
+        "stabilization": "Estabilización",
+        "finetuning": "Fase de ajuste fino",
+        "precisionManagement": "Gestión de precisión",
+        "predictable": "Economía predecible",
+        "stableState": "Estado estable",
+        "balanceStart": "Optimización de balance",
+        "balanceEnd": "Balance objetivo alcanzado",
+        "goalAchieved": "Objetivo logrado",
+        "excellence": "Excelencia operacional",
+        "visionComplete": "Visión de 20 años completada"
+      },
+      "phaseHeaders": {
+        "phase1": "FASE 1: FUNDACIÓN (A1-3)",
+        "phase2": "FASE 2: CRECIMIENTO (A4-6)",
+        "phase3": "FASE 3: ECOSISTEMA (A7-12)",
+        "phase4": "FASE 4: MADUREZ (A13-20)"
+      },
+      "total": {
+        "years": "Total 20 Años"
+      }
     },
     "table": {
       "year": "Año",
@@ -17320,7 +17380,8 @@
       "aiBurn": "Quema de IA y Tarifas",
       "netChange": "Cambio Neto",
       "supplyEnd": "Suministro (Fin de Año)",
-      "total": "Total"
+      "total": "Total",
+      "totalSupply": "Suministro Total"
     },
     "units": {
       "billion": "B"
@@ -17406,6 +17467,28 @@
     "footer": {
       "vision": "Construyendo un futuro sostenible para la economía blockchain integrada con IA.",
       "disclaimer": "Este calendario técnico es parte del Whitepaper oficial del Protocolo TBURN v3.0."
+    },
+    "phase1": {
+      "title": "Fase 1: Fundación",
+      "detailedData": "Datos Detallados de la Fase"
+    },
+    "phase2": {
+      "title": "Fase 2: Crecimiento"
+    },
+    "phase3": {
+      "title": "Fase 3: Expansión del Ecosistema",
+      "achievement": "Hito de integración empresarial alcanzado"
+    },
+    "phase4": {
+      "title": "Fase 4: Madurez",
+      "achievement": "Estabilidad a largo plazo lograda"
+    },
+    "summary": {
+      "title": "Resumen",
+      "startSupply": "Suministro Inicial",
+      "endSupply": "Suministro Final (A20)",
+      "netReduction": "Reducción Neta",
+      "tenYearReduction": "Reducción de 10 Años"
     }
   },
   "tokenDetails": {

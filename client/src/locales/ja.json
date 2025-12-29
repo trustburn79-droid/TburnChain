@@ -18251,11 +18251,71 @@
           "title": "戦略的バーン",
           "description": "プラットフォームのパフォーマンスとガバナンス決定に基づく四半期ごとのエコシステムバーン。"
         }
+      },
+      "phases": {
+        "title": "開発フェーズ",
+        "phase1": "フェーズ1: 基盤構築 (1-3年目)",
+        "phase2": "フェーズ2: 成長 (4-6年目)",
+        "phase3": "フェーズ3: エコシステム (7-12年目)",
+        "phase4": "フェーズ4: 成熟 (13-20年目)"
       }
     },
     "schedule": {
       "title": "20年経済予測",
-      "description": "発行、バーン、純供給影響の年ごとの詳細内訳。"
+      "description": "発行、バーン、純供給影響の年ごとの詳細内訳。",
+      "headers": {
+        "yearPeriod": "年/期間",
+        "stage": "ステージ",
+        "startSupply": "開始供給量",
+        "blockIssuance": "ブロック発行",
+        "aiBurn": "AIバーン",
+        "totalSupply": "総供給量",
+        "reductionRate": "削減率",
+        "netChange": "純変動",
+        "notes": "備考"
+      },
+      "stages": {
+        "genesis": "ジェネシス",
+        "growth": "成長",
+        "deflation": "デフレーション",
+        "balance": "バランス",
+        "optimization": "最適化"
+      },
+      "notes": {
+        "mainnetLaunch": "メインネット開始",
+        "earlyUserAcquisition": "初期ユーザー獲得",
+        "growthAcceleration": "成長加速",
+        "ecosystemExpansion": "エコシステム拡大",
+        "massAdoption": "大量採用フェーズ",
+        "firstHalving": "第1回ハービングイベント",
+        "institutionalGrade": "機関グレード",
+        "maturityPhase": "成熟フェーズ",
+        "secondHalving": "第2回ハービングイベント",
+        "tenYearMilestone": "10年マイルストーン",
+        "perfectBalance": "完璧な供給バランス",
+        "platformMaturity": "プラットフォーム成熟",
+        "enterpriseIntegration": "エンタープライズ統合",
+        "sustainedGrowth": "持続的成長",
+        "stabilization": "安定化",
+        "finetuning": "微調整フェーズ",
+        "precisionManagement": "精密管理",
+        "predictable": "予測可能な経済",
+        "stableState": "安定状態",
+        "balanceStart": "バランス最適化",
+        "balanceEnd": "目標バランス達成",
+        "goalAchieved": "目標達成",
+        "excellence": "運用エクセレンス",
+        "visionComplete": "20年ビジョン完了"
+      },
+      "phaseHeaders": {
+        "phase1": "フェーズ1: 基盤構築 (Y1-3)",
+        "phase2": "フェーズ2: 成長 (Y4-6)",
+        "phase3": "フェーズ3: エコシステム (Y7-12)",
+        "phase4": "フェーズ4: 成熟 (Y13-20)"
+      },
+      "total": {
+        "years": "合計20年"
+      }
     },
     "table": {
       "year": "年",
@@ -18264,7 +18324,8 @@
       "aiBurn": "AI＆手数料バーン",
       "netChange": "純変化",
       "supplyEnd": "供給量（年末）",
-      "total": "合計"
+      "total": "合計",
+      "totalSupply": "総供給量"
     },
     "units": {
       "billion": "B"
@@ -18350,6 +18411,28 @@
     "footer": {
       "vision": "AI統合ブロックチェーン経済の持続可能な未来を構築。",
       "disclaimer": "この技術スケジュールは公式TBURNプロトコルホワイトペーパーv3.0の一部です。"
+    },
+    "phase1": {
+      "title": "フェーズ1: 基盤構築",
+      "detailedData": "詳細フェーズデータ"
+    },
+    "phase2": {
+      "title": "フェーズ2: 成長"
+    },
+    "phase3": {
+      "title": "フェーズ3: エコシステム拡大",
+      "achievement": "エンタープライズ統合マイルストーン達成"
+    },
+    "phase4": {
+      "title": "フェーズ4: 成熟",
+      "achievement": "長期安定性達成"
+    },
+    "summary": {
+      "title": "サマリー",
+      "startSupply": "開始供給量",
+      "endSupply": "最終供給量 (Y20)",
+      "netReduction": "純減少量",
+      "tenYearReduction": "10年削減量"
     }
   },
   "tokenDetails": {
