@@ -54,6 +54,7 @@ const MemberDetail = lazy(() => import("@/pages/member-detail"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 import Login from "@/pages/login";
 import Signup from "@/pages/signup";
+import GoogleVerify from "@/pages/google-verify";
 
 const TokenGenerator = lazy(() => import("@/pages/token-generator"));
 const TokenSystem = lazy(() => import("@/pages/token-system"));
@@ -464,6 +465,10 @@ function RootRouter() {
   
   if (location === "/signup") {
     return <Signup />;
+  }
+  
+  if (location === "/google-verify" || location.startsWith("/google-verify")) {
+    return <GoogleVerify />;
   }
   
   if (location === "/vc" || location.startsWith("/vc-test")) {

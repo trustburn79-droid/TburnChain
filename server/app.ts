@@ -29,6 +29,12 @@ declare module "express-session" {
     googleEmail?: string;
     googleName?: string;
     googlePicture?: string;
+    pendingGoogleUser?: {
+      googleId: string;
+      email: string;
+      name: string;
+      picture: string;
+    };
   }
 }
 

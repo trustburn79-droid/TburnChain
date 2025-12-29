@@ -944,24 +944,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
         let member = await storage.getMemberByEmail(googleUser.email);
         
         if (!member) {
-          // Create new member with Google account
-          const walletAddress = `tb1${googleUser.googleId.slice(0, 32)}gauth`;
-          
-          member = await storage.createMember({
-            email: googleUser.email,
-            username: googleUser.name || googleUser.email.split("@")[0],
-            displayName: googleUser.name || "",
-            walletAddress,
-            passwordHash: "", // No password for Google accounts
-            status: "active",
-            emailVerified: true,
-            kycStatus: "pending",
-            kycLevel: 0,
-            membershipTier: "standard",
-            referralCode: `TBURN${Date.now().toString(36).toUpperCase()}`,
+          // NEW USER: Require email verification before creating account
+          // Store Google user info in session for later account creation
+          req.session.pendingGoogleUser = {
             googleId: googleUser.googleId,
-            avatarUrl: googleUser.picture || null,
+            email: googleUser.email,
+            name: googleUser.name,
+            picture: googleUser.picture,
+          };
+          
+          // Generate verification code
+          const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+          const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+          
+          // Store verification record
+          await storage.createEmailVerification({
+            email: googleUser.email,
+            verificationCode,
+            type: "google_signup",
+            expiresAt,
           });
+          
+          // Send verification email
+          if (resend) {
+            try {
+              const targetEmail = googleUser.email === RESEND_VERIFIED_EMAIL ? googleUser.email : RESEND_VERIFIED_EMAIL;
+              await resend.emails.send({
+                from: EMAIL_FROM,
+                to: targetEmail,
+                subject: "[TBURN Chain] Google 회원가입 이메일 인증 / Google Signup Verification",
+                html: `
+                  <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                      <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">🔥 TBURN Chain</h1>
+                      <p style="color: #888; font-size: 14px;">Google 계정 회원가입 인증</p>
+                    </div>
+                    
+                    <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
+                      <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">인증 코드 / Verification Code</p>
+                      <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
+                        <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
+                      </div>
+                      <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">이 코드는 10분 후 만료됩니다 / This code expires in 10 minutes</p>
+                    </div>
+                    
+                    <p style="color: #666; font-size: 12px; text-align: center; margin-top: 30px;">
+                      Google 계정: ${googleUser.email}
+                    </p>
+                  </div>
+                `,
+              });
+            } catch (emailError) {
+              console.error("Failed to send Google signup verification email:", emailError);
+            }
+          }
+          
+          console.log(`[Google Signup Verification] Code for ${googleUser.email}: ${verificationCode}`);
+          
+          // Redirect to email verification page for Google signup
+          return res.redirect(`/google-verify?email=${encodeURIComponent(googleUser.email)}`);
         } else if (!member.googleId) {
           // Link Google account to existing member
           await storage.updateMember(member.id, {
@@ -970,7 +1011,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         }
 
-        // Set session
+        // EXISTING USER: Set session and redirect
         req.session.authenticated = true;
         req.session.memberId = member.id;
         req.session.memberEmail = member.email;
@@ -987,6 +1028,142 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     }
   );
+  
+  // Complete Google signup after email verification
+  app.post("/api/auth/google/complete-signup", async (req, res) => {
+    try {
+      const { email, code } = req.body;
+      
+      if (!email || !code) {
+        return res.status(400).json({ error: "Email and verification code are required" });
+      }
+      
+      // Verify the code
+      const verification = await storage.getEmailVerificationByEmail(email, "google_signup");
+      
+      if (!verification) {
+        return res.status(400).json({ error: "No verification request found. Please try again." });
+      }
+      
+      if (new Date() > new Date(verification.expiresAt)) {
+        return res.status(400).json({ error: "Verification code has expired. Please request a new one." });
+      }
+      
+      if (verification.verificationCode !== code) {
+        return res.status(400).json({ error: "Invalid verification code" });
+      }
+      
+      // Get pending Google user from session
+      const pendingGoogleUser = req.session.pendingGoogleUser;
+      
+      if (!pendingGoogleUser || pendingGoogleUser.email !== email) {
+        return res.status(400).json({ error: "Google session expired. Please try signing up again." });
+      }
+      
+      // Mark as verified (verification already confirmed above)
+      await storage.verifyEmailCode(email, code, "google_signup");
+      
+      // Create the member account
+      const walletAddress = `tb1${pendingGoogleUser.googleId.slice(0, 32)}gauth`;
+      
+      const member = await storage.createMember({
+        email: pendingGoogleUser.email,
+        username: pendingGoogleUser.name || pendingGoogleUser.email.split("@")[0],
+        displayName: pendingGoogleUser.name || "",
+        walletAddress,
+        passwordHash: "", // No password for Google accounts
+        status: "active",
+        emailVerified: true,
+        kycStatus: "pending",
+        kycLevel: 0,
+        membershipTier: "standard",
+        referralCode: `TBURN${Date.now().toString(36).toUpperCase()}`,
+        googleId: pendingGoogleUser.googleId,
+        avatarUrl: pendingGoogleUser.picture || null,
+      });
+      
+      // Set session
+      req.session.authenticated = true;
+      req.session.memberId = member.id;
+      req.session.memberEmail = member.email;
+      req.session.googleId = pendingGoogleUser.googleId;
+      req.session.googleEmail = pendingGoogleUser.email;
+      req.session.googleName = pendingGoogleUser.name;
+      req.session.googlePicture = pendingGoogleUser.picture;
+      
+      // Clear pending user
+      delete req.session.pendingGoogleUser;
+      
+      res.json({ success: true, message: "Account created successfully" });
+    } catch (error) {
+      console.error("Google signup completion error:", error);
+      res.status(500).json({ error: "Failed to complete signup" });
+    }
+  });
+  
+  // Resend Google signup verification code
+  app.post("/api/auth/google/resend-code", loginLimiter, async (req, res) => {
+    try {
+      const { email } = req.body;
+      
+      if (!email) {
+        return res.status(400).json({ error: "Email is required" });
+      }
+      
+      const pendingGoogleUser = req.session.pendingGoogleUser;
+      
+      if (!pendingGoogleUser || pendingGoogleUser.email !== email) {
+        return res.status(400).json({ error: "Google session expired. Please try signing up again." });
+      }
+      
+      // Generate new verification code
+      const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+      
+      await storage.createEmailVerification({
+        email,
+        verificationCode,
+        type: "google_signup",
+        expiresAt,
+      });
+      
+      // Send email
+      if (resend) {
+        try {
+          const targetEmail = email === RESEND_VERIFIED_EMAIL ? email : RESEND_VERIFIED_EMAIL;
+          await resend.emails.send({
+            from: EMAIL_FROM,
+            to: targetEmail,
+            subject: "[TBURN Chain] 새 인증 코드 / New Verification Code",
+            html: `
+              <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">🔥 TBURN Chain</h1>
+                </div>
+                
+                <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
+                  <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">새 인증 코드 / New Verification Code</p>
+                  <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
+                    <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
+                  </div>
+                  <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">이 코드는 10분 후 만료됩니다</p>
+                </div>
+              </div>
+            `,
+          });
+        } catch (emailError) {
+          console.error("Failed to resend verification email:", emailError);
+        }
+      }
+      
+      console.log(`[Google Signup Verification] New code for ${email}: ${verificationCode}`);
+      
+      res.json({ success: true, message: "New verification code sent" });
+    } catch (error) {
+      console.error("Resend Google verification error:", error);
+      res.status(500).json({ error: "Failed to resend verification code" });
+    }
+  });
 
   // Check if user is authenticated (for frontend)
   app.get("/api/auth/me", async (req, res) => {
