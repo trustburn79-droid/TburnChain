@@ -2,13 +2,6 @@ import { Link, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -21,8 +14,6 @@ import {
   BarChart3,
   Coins,
   Globe,
-  Wifi,
-  WifiOff,
   Menu,
   Home,
   User,
@@ -33,7 +24,6 @@ import {
 import { TBurnLogo } from "@/components/tburn-logo";
 import { ProfileBadge } from "@/components/profile-badge";
 import { useState, ReactNode } from "react";
-import { useScanWebSocket, useLiveIndicator } from "../hooks/useScanWebSocket";
 import i18n from "@/lib/i18n";
 
 interface ScanLayoutProps {
@@ -43,8 +33,6 @@ interface ScanLayoutProps {
 export default function ScanLayout({ children }: ScanLayoutProps) {
   const { t } = useTranslation();
   const [location, setLocation] = useLocation();
-  const { isConnected } = useScanWebSocket();
-  const { isLive } = useLiveIndicator();
   const [language, setLanguage] = useState(i18n.language || 'en');
 
   const handleLanguageChange = (value: string) => {
@@ -103,44 +91,33 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Connection Status */}
-              <div className="flex items-center gap-2">
-                {isConnected ? (
-                  <div className="flex items-center gap-1.5 text-green-400" title={t("scan.connected", "Connected")}>
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    <Wifi className="w-4 h-4" />
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-1.5 text-gray-500" title={t("scan.disconnected", "Disconnected")}>
-                    <WifiOff className="w-4 h-4" />
-                  </div>
-                )}
-              </div>
-
-              {/* Language Selector - 12 Languages */}
-              <Select value={language} onValueChange={handleLanguageChange}>
-                <SelectTrigger className="w-24 h-8 bg-gray-800/50 border-gray-700 text-gray-300">
-                  <Globe className="w-4 h-4 mr-1" />
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-gray-700 max-h-80">
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="zh">中文</SelectItem>
-                  <SelectItem value="ja">日本語</SelectItem>
-                  <SelectItem value="hi">हिन्दी</SelectItem>
-                  <SelectItem value="es">Español</SelectItem>
-                  <SelectItem value="fr">Français</SelectItem>
-                  <SelectItem value="ar">العربية</SelectItem>
-                  <SelectItem value="bn">বাংলা</SelectItem>
-                  <SelectItem value="ru">Русский</SelectItem>
-                  <SelectItem value="pt">Português</SelectItem>
-                  <SelectItem value="ur">اردو</SelectItem>
-                  <SelectItem value="ko">한국어</SelectItem>
-                </SelectContent>
-              </Select>
+              {/* Language Selector - Globe icon only with dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-gray-400 hover:text-white"
+                    data-testid="button-language-selector"
+                  >
+                    <Globe className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="bg-gray-900 border-gray-700 max-h-80 overflow-y-auto">
+                  <DropdownMenuItem onClick={() => handleLanguageChange('en')} className={language === 'en' ? 'bg-gray-800 text-white' : 'text-gray-300'}>English</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('ko')} className={language === 'ko' ? 'bg-gray-800 text-white' : 'text-gray-300'}>한국어</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('zh')} className={language === 'zh' ? 'bg-gray-800 text-white' : 'text-gray-300'}>中文</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('ja')} className={language === 'ja' ? 'bg-gray-800 text-white' : 'text-gray-300'}>日本語</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('hi')} className={language === 'hi' ? 'bg-gray-800 text-white' : 'text-gray-300'}>हिन्दी</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('es')} className={language === 'es' ? 'bg-gray-800 text-white' : 'text-gray-300'}>Español</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('fr')} className={language === 'fr' ? 'bg-gray-800 text-white' : 'text-gray-300'}>Français</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('ar')} className={language === 'ar' ? 'bg-gray-800 text-white' : 'text-gray-300'}>العربية</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('bn')} className={language === 'bn' ? 'bg-gray-800 text-white' : 'text-gray-300'}>বাংলা</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('ru')} className={language === 'ru' ? 'bg-gray-800 text-white' : 'text-gray-300'}>Русский</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('pt')} className={language === 'pt' ? 'bg-gray-800 text-white' : 'text-gray-300'}>Português</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('ur')} className={language === 'ur' ? 'bg-gray-800 text-white' : 'text-gray-300'}>اردو</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               {/* Navigation Icons - visible on all screen sizes */}
               <div className="flex items-center gap-0 sm:gap-2">
