@@ -344,22 +344,28 @@ export default function Home() {
             <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-blocks">
               <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                 {stats?.blockHeight != null 
-                  ? (stats.blockHeight >= 1000000 ? Math.floor(stats.blockHeight / 1000000) + "M+" : stats.blockHeight.toLocaleString()) 
-                  : "2.1M+"}
+                  ? (stats.blockHeight >= 1000000 
+                      ? (stats.blockHeight / 1000000).toFixed(1) + "M" 
+                      : stats.blockHeight.toLocaleString()) 
+                  : "1.9M"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.blocks')}</div>
             </div>
             <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-validators">
               <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                {stats?.activeValidators != null ? stats.activeValidators.toLocaleString() : "125"}
+                {stats?.activeValidators != null ? stats.activeValidators.toLocaleString() : "1,600"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.validators')}</div>
             </div>
             <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-daily-txs">
               <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                 {stats?.totalTransactions != null 
-                  ? (stats.totalTransactions >= 1000 ? Math.floor(stats.totalTransactions / 1000) + "K+" : stats.totalTransactions.toLocaleString()) 
-                  : "51K+"}
+                  ? (stats.totalTransactions >= 1000000 
+                      ? (stats.totalTransactions / 1000000).toFixed(1) + "M" 
+                      : stats.totalTransactions >= 1000 
+                        ? Math.floor(stats.totalTransactions / 1000).toLocaleString() + "K" 
+                        : stats.totalTransactions.toLocaleString()) 
+                  : "56.3M"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.dailyTxs')}</div>
             </div>
