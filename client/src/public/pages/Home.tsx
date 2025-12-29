@@ -218,6 +218,17 @@ export default function Home() {
   const { t } = useTranslation();
   const { data: statsResponse } = usePublicNetworkStats();
   const stats = statsResponse?.data;
+  
+  // Auto-cycling highlight effect for stat cards
+  const [activeStatIndex, setActiveStatIndex] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStatIndex((prev) => (prev + 1) % 4);
+    }, 2000); // Cycle every 2 seconds
+    
+    return () => clearInterval(interval);
+  }, []);
 
   const keywords = t('publicPages.home.heroTitleRotating', { returnObjects: true }) as string[];
 
@@ -341,8 +352,17 @@ export default function Home() {
         {/* Stats Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-32">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-tps">
-              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+            <div 
+              className={`bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border transition-all duration-500 shadow-sm ${
+                activeStatIndex === 0 
+                  ? 'border-cyan-500 dark:border-cyan-400/50 scale-105 shadow-lg shadow-cyan-500/20 dark:shadow-cyan-400/20' 
+                  : 'border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30'
+              }`} 
+              data-testid="stat-tps"
+            >
+              <div className={`text-3xl lg:text-4xl font-bold mb-2 font-mono transition-colors duration-500 ${
+                activeStatIndex === 0 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
+              }`}>
                 {stats?.tps != null 
                   ? (stats.tps >= 1000 
                       ? Math.floor(stats.tps / 1000).toLocaleString() + "K" 
@@ -351,8 +371,17 @@ export default function Home() {
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.tps')}</div>
             </div>
-            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-blocks">
-              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+            <div 
+              className={`bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border transition-all duration-500 shadow-sm ${
+                activeStatIndex === 1 
+                  ? 'border-cyan-500 dark:border-cyan-400/50 scale-105 shadow-lg shadow-cyan-500/20 dark:shadow-cyan-400/20' 
+                  : 'border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30'
+              }`} 
+              data-testid="stat-blocks"
+            >
+              <div className={`text-3xl lg:text-4xl font-bold mb-2 font-mono transition-colors duration-500 ${
+                activeStatIndex === 1 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
+              }`}>
                 {stats?.blockHeight != null 
                   ? (stats.blockHeight >= 1000000 
                       ? (stats.blockHeight / 1000000).toFixed(1) + "M" 
@@ -361,8 +390,17 @@ export default function Home() {
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.blocks')}</div>
             </div>
-            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-daily-txs">
-              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+            <div 
+              className={`bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border transition-all duration-500 shadow-sm ${
+                activeStatIndex === 2 
+                  ? 'border-cyan-500 dark:border-cyan-400/50 scale-105 shadow-lg shadow-cyan-500/20 dark:shadow-cyan-400/20' 
+                  : 'border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30'
+              }`} 
+              data-testid="stat-daily-txs"
+            >
+              <div className={`text-3xl lg:text-4xl font-bold mb-2 font-mono transition-colors duration-500 ${
+                activeStatIndex === 2 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
+              }`}>
                 {stats?.totalTransactions != null 
                   ? (stats.totalTransactions >= 1000000 
                       ? (stats.totalTransactions / 1000000).toFixed(1) + "M" 
@@ -373,8 +411,17 @@ export default function Home() {
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.dailyTxs')}</div>
             </div>
-            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-uptime">
-              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+            <div 
+              className={`bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border transition-all duration-500 shadow-sm ${
+                activeStatIndex === 3 
+                  ? 'border-cyan-500 dark:border-cyan-400/50 scale-105 shadow-lg shadow-cyan-500/20 dark:shadow-cyan-400/20' 
+                  : 'border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30'
+              }`} 
+              data-testid="stat-uptime"
+            >
+              <div className={`text-3xl lg:text-4xl font-bold mb-2 font-mono transition-colors duration-500 ${
+                activeStatIndex === 3 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
+              }`}>
                 {stats?.uptime || "99.99%"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.uptime')}</div>
