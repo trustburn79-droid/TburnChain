@@ -94,6 +94,9 @@ export function PublicFooter() {
 
   const { data: networkStats } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/public/v1/network/stats'],
+    staleTime: 30000, // Match backend cache TTL for consistent display
+    refetchOnMount: false, // Use cached value for consistency across pages
+    refetchOnWindowFocus: false,
     refetchInterval: 30000,
   });
 
@@ -121,22 +124,24 @@ export function PublicFooter() {
   const stats = networkStats?.data ? [
     { 
       value: networkStats.data.blockHeight >= 1000000 
-        ? Math.floor(networkStats.data.blockHeight / 1000000) + "M+" 
-        : networkStats.data.blockHeight?.toLocaleString() || "20M+", 
+        ? (networkStats.data.blockHeight / 1000000).toFixed(1) + "M" 
+        : networkStats.data.blockHeight?.toLocaleString() || "1.9M", 
       labelKey: "blocks" 
     },
-    { value: String(networkStats.data.activeValidators || 1600), labelKey: "validators" },
+    { value: (networkStats.data.activeValidators || 1600).toLocaleString(), labelKey: "validators" },
     { 
-      value: networkStats.data.totalTransactions >= 1000 
-        ? Math.floor(networkStats.data.totalTransactions / 1000) + "K+" 
-        : networkStats.data.totalTransactions?.toLocaleString() || "50K+", 
+      value: networkStats.data.totalTransactions >= 1000000 
+        ? (networkStats.data.totalTransactions / 1000000).toFixed(1) + "M" 
+        : networkStats.data.totalTransactions >= 1000 
+          ? Math.floor(networkStats.data.totalTransactions / 1000).toLocaleString() + "K" 
+          : networkStats.data.totalTransactions?.toLocaleString() || "56.3M", 
       labelKey: "dailyTxs" 
     },
     { value: networkStats.data.uptime || "99.99%", labelKey: "uptime" },
   ] : [
-    { value: "20M+", labelKey: "blocks" },
+    { value: "1.9M", labelKey: "blocks" },
     { value: "1,600", labelKey: "validators" },
-    { value: "67K+", labelKey: "dailyTxs" },
+    { value: "56.3M", labelKey: "dailyTxs" },
     { value: "99.99%", labelKey: "uptime" },
   ];
 
