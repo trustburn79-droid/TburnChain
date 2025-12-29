@@ -18161,5 +18161,29 @@
       "allRightsReserved": "全著作権所有。",
       "disclaimer": "本文書は情報提供のみを目的としており、財務アドバイスを構成するものではありません。"
     }
+  },
+  "googleVerify": {
+    "title": "メール認証",
+    "subtitle": "Googleサインアップを完了するには、メールに送信された認証コードを入力してください。",
+    "error": "エラー",
+    "enterSixDigits": "6桁の認証コードを入力してください。",
+    "verificationComplete": "認証完了！",
+    "signupCompleteRedirect": "登録が完了しました。アプリにリダイレクトしています。",
+    "verificationFailed": "認証失敗",
+    "checkCode": "認証コードを確認してください。",
+    "errorDuringVerification": "認証中にエラーが発生しました。",
+    "codeResent": "コードを再送信しました",
+    "newCodeSent": "新しい認証コードがメールに送信されました。",
+    "resendFailed": "再送信に失敗しました",
+    "tryAgainLater": "後でもう一度お試しください。",
+    "errorDuringResend": "コードの再送信中にエラーが発生しました。",
+    "invalidAccess": "無効なアクセスです。",
+    "backToLogin": "ログインに戻る",
+    "verify": "認証",
+    "verifying": "認証中...",
+    "didntReceiveCode": "コードが届きませんでしたか？",
+    "resendInSeconds": "{{seconds}}秒後に再送信可能",
+    "sending": "送信中...",
+    "resendCode": "コードを再送信"
   }
 }

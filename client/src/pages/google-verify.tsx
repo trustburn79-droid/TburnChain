@@ -138,8 +138,8 @@ export default function GoogleVerify() {
   const handleVerify = async () => {
     if (verificationCode.length !== 6) {
       toast({
-        title: "오류",
-        description: "6자리 인증 코드를 입력해주세요.",
+        title: t("googleVerify.error"),
+        description: t("googleVerify.enterSixDigits"),
         variant: "destructive",
       });
       return;
@@ -158,24 +158,24 @@ export default function GoogleVerify() {
 
       if (response.ok) {
         toast({
-          title: "인증 완료!",
-          description: "회원가입이 완료되었습니다. 앱으로 이동합니다.",
+          title: t("googleVerify.verificationComplete"),
+          description: t("googleVerify.signupCompleteRedirect"),
         });
         setTimeout(() => {
           setLocation("/app");
         }, 1000);
       } else {
         toast({
-          title: "인증 실패",
-          description: data.error || "인증 코드를 확인해주세요.",
+          title: t("googleVerify.verificationFailed"),
+          description: data.error || t("googleVerify.checkCode"),
           variant: "destructive",
         });
         setVerificationCode("");
       }
     } catch (error) {
       toast({
-        title: "오류",
-        description: "인증 처리 중 오류가 발생했습니다.",
+        title: t("googleVerify.error"),
+        description: t("googleVerify.errorDuringVerification"),
         variant: "destructive",
       });
     } finally {
@@ -199,22 +199,22 @@ export default function GoogleVerify() {
 
       if (response.ok) {
         toast({
-          title: "코드 재전송 완료",
-          description: "새 인증 코드가 이메일로 전송되었습니다.",
+          title: t("googleVerify.codeResent"),
+          description: t("googleVerify.newCodeSent"),
         });
         setCountdown(60);
         setVerificationCode("");
       } else {
         toast({
-          title: "재전송 실패",
-          description: data.error || "잠시 후 다시 시도해주세요.",
+          title: t("googleVerify.resendFailed"),
+          description: data.error || t("googleVerify.tryAgainLater"),
           variant: "destructive",
         });
       }
     } catch (error) {
       toast({
-        title: "오류",
-        description: "코드 재전송 중 오류가 발생했습니다.",
+        title: t("googleVerify.error"),
+        description: t("googleVerify.errorDuringResend"),
         variant: "destructive",
       });
     } finally {
@@ -226,9 +226,9 @@ export default function GoogleVerify() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white">
         <div className="text-center">
-          <p className="text-gray-400 mb-4">잘못된 접근입니다.</p>
+          <p className="text-gray-400 mb-4">{t("googleVerify.invalidAccess")}</p>
           <Link href="/login">
-            <Button variant="outline">로그인으로 돌아가기</Button>
+            <Button variant="outline">{t("googleVerify.backToLogin")}</Button>
           </Link>
         </div>
       </div>
@@ -267,12 +267,10 @@ export default function GoogleVerify() {
                 <Mail className="w-8 h-8 text-cyan-400" />
               </div>
               <h1 className="text-2xl font-bold text-white mb-2" data-testid="text-verify-title">
-                이메일 인증
+                {t("googleVerify.title")}
               </h1>
               <p className="text-sm text-gray-400">
-                Google 계정으로 회원가입을 완료하려면
-                <br />
-                이메일로 전송된 인증 코드를 입력해주세요.
+                {t("googleVerify.subtitle")}
               </p>
             </div>
 
@@ -310,12 +308,12 @@ export default function GoogleVerify() {
               {isVerifying ? (
                 <>
                   <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                  인증 중...
+                  {t("googleVerify.verifying")}
                 </>
               ) : (
                 <>
                   <CheckCircle className="w-4 h-4 mr-2" />
-                  인증 완료
+                  {t("googleVerify.verify")}
                 </>
               )}
             </Button>
@@ -323,7 +321,7 @@ export default function GoogleVerify() {
             {/* Resend */}
             <div className="mt-6 text-center">
               <p className="text-xs text-gray-500 mb-2">
-                인증 코드를 받지 못하셨나요?
+                {t("googleVerify.didntReceiveCode")}
               </p>
               <Button
                 variant="ghost"
@@ -334,16 +332,16 @@ export default function GoogleVerify() {
                 data-testid="button-resend"
               >
                 {countdown > 0 ? (
-                  `${countdown}초 후 재전송 가능`
+                  t("googleVerify.resendInSeconds", { seconds: countdown })
                 ) : isResending ? (
                   <>
                     <RefreshCw className="w-3 h-3 mr-1 animate-spin" />
-                    전송 중...
+                    {t("googleVerify.sending")}
                   </>
                 ) : (
                   <>
                     <RefreshCw className="w-3 h-3 mr-1" />
-                    인증 코드 재전송
+                    {t("googleVerify.resendCode")}
                   </>
                 )}
               </Button>
@@ -354,7 +352,7 @@ export default function GoogleVerify() {
               <Link href="/login">
                 <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  로그인으로 돌아가기
+                  {t("googleVerify.backToLogin")}
                 </Button>
               </Link>
             </div>

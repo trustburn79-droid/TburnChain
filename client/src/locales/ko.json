@@ -30251,5 +30251,29 @@
       "allRightsReserved": "모든 권리 보유.",
       "disclaimer": "이 문서는 정보 제공 목적으로만 작성되었으며 재정적 조언을 구성하지 않습니다."
     }
+  },
+  "googleVerify": {
+    "title": "이메일 인증",
+    "subtitle": "Google 가입을 완료하려면 이메일로 전송된 인증 코드를 입력해주세요.",
+    "error": "오류",
+    "enterSixDigits": "6자리 인증 코드를 입력해주세요.",
+    "verificationComplete": "인증 완료!",
+    "signupCompleteRedirect": "가입이 완료되었습니다. 앱으로 이동합니다.",
+    "verificationFailed": "인증 실패",
+    "checkCode": "인증 코드를 확인해주세요.",
+    "errorDuringVerification": "인증 중 오류가 발생했습니다.",
+    "codeResent": "코드 재전송 완료",
+    "newCodeSent": "새로운 인증 코드가 이메일로 전송되었습니다.",
+    "resendFailed": "재전송 실패",
+    "tryAgainLater": "잠시 후 다시 시도해주세요.",
+    "errorDuringResend": "코드 재전송 중 오류가 발생했습니다.",
+    "invalidAccess": "잘못된 접근입니다.",
+    "backToLogin": "로그인으로 돌아가기",
+    "verify": "인증",
+    "verifying": "인증 중...",
+    "didntReceiveCode": "코드를 받지 못하셨나요?",
+    "resendInSeconds": "{{seconds}}초 후 재전송 가능",
+    "sending": "전송 중...",
+    "resendCode": "코드 재전송"
   }
 }

@@ -13577,5 +13577,29 @@
       "allRightsReserved": "جملہ حقوق محفوظ ہیں۔",
       "disclaimer": "یہ دستاویز صرف معلوماتی مقاصد کے لیے ہے اور مالیاتی مشورہ نہیں ہے۔"
     }
+  },
+  "googleVerify": {
+    "title": "ای میل تصدیق",
+    "subtitle": "اپنا Google سائن اپ مکمل کرنے کے لیے، براہ کرم اپنی ای میل پر بھیجا گیا تصدیقی کوڈ درج کریں۔",
+    "error": "خرابی",
+    "enterSixDigits": "براہ کرم 6 ہندسوں کا تصدیقی کوڈ درج کریں۔",
+    "verificationComplete": "تصدیق مکمل!",
+    "signupCompleteRedirect": "سائن اپ مکمل۔ ایپ کی طرف ری ڈائریکٹ ہو رہا ہے۔",
+    "verificationFailed": "تصدیق ناکام",
+    "checkCode": "براہ کرم اپنا تصدیقی کوڈ چیک کریں۔",
+    "errorDuringVerification": "تصدیق کے دوران خرابی پیش آئی۔",
+    "codeResent": "کوڈ دوبارہ بھیج دیا گیا",
+    "newCodeSent": "آپ کی ای میل پر ایک نیا تصدیقی کوڈ بھیجا گیا ہے۔",
+    "resendFailed": "دوبارہ بھیجنا ناکام",
+    "tryAgainLater": "براہ کرم بعد میں دوبارہ کوشش کریں۔",
+    "errorDuringResend": "کوڈ دوبارہ بھیجتے وقت خرابی پیش آئی۔",
+    "invalidAccess": "غلط رسائی۔",
+    "backToLogin": "لاگ ان پر واپس جائیں",
+    "verify": "تصدیق کریں",
+    "verifying": "تصدیق ہو رہی ہے...",
+    "didntReceiveCode": "کوڈ نہیں ملا؟",
+    "resendInSeconds": "{{seconds}} سیکنڈ میں دوبارہ بھیجنا دستیاب",
+    "sending": "بھیجا جا رہا ہے...",
+    "resendCode": "کوڈ دوبارہ بھیجیں"
   }
 }

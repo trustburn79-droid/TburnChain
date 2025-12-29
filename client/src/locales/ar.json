@@ -15116,5 +15116,29 @@
       "allRightsReserved": "جميع الحقوق محفوظة.",
       "disclaimer": "هذه الوثيقة لأغراض إعلامية فقط ولا تشكل نصيحة مالية."
     }
+  },
+  "googleVerify": {
+    "title": "التحقق من البريد الإلكتروني",
+    "subtitle": "لإكمال تسجيلك في Google، يرجى إدخال رمز التحقق المرسل إلى بريدك الإلكتروني.",
+    "error": "خطأ",
+    "enterSixDigits": "يرجى إدخال رمز التحقق المكون من 6 أرقام.",
+    "verificationComplete": "اكتمل التحقق!",
+    "signupCompleteRedirect": "اكتمل التسجيل. جاري إعادة التوجيه إلى التطبيق.",
+    "verificationFailed": "فشل التحقق",
+    "checkCode": "يرجى التحقق من رمز التحقق الخاص بك.",
+    "errorDuringVerification": "حدث خطأ أثناء التحقق.",
+    "codeResent": "تم إعادة إرسال الرمز",
+    "newCodeSent": "تم إرسال رمز تحقق جديد إلى بريدك الإلكتروني.",
+    "resendFailed": "فشل إعادة الإرسال",
+    "tryAgainLater": "يرجى المحاولة مرة أخرى لاحقاً.",
+    "errorDuringResend": "حدث خطأ أثناء إعادة إرسال الرمز.",
+    "invalidAccess": "وصول غير صالح.",
+    "backToLogin": "العودة إلى تسجيل الدخول",
+    "verify": "تحقق",
+    "verifying": "جاري التحقق...",
+    "didntReceiveCode": "لم تستلم الرمز؟",
+    "resendInSeconds": "إعادة الإرسال متاحة خلال {{seconds}} ثانية",
+    "sending": "جاري الإرسال...",
+    "resendCode": "إعادة إرسال الرمز"
   }
 }

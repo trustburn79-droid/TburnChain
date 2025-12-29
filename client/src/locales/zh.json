@@ -17285,5 +17285,29 @@
       "allRightsReserved": "保留所有权利。",
       "disclaimer": "本文档仅供参考，不构成财务建议。"
     }
+  },
+  "googleVerify": {
+    "title": "邮箱验证",
+    "subtitle": "要完成您的Google注册，请输入发送到您邮箱的验证码。",
+    "error": "错误",
+    "enterSixDigits": "请输入6位验证码。",
+    "verificationComplete": "验证完成！",
+    "signupCompleteRedirect": "注册完成。正在跳转到应用程序。",
+    "verificationFailed": "验证失败",
+    "checkCode": "请检查您的验证码。",
+    "errorDuringVerification": "验证过程中发生错误。",
+    "codeResent": "验证码已重新发送",
+    "newCodeSent": "新的验证码已发送到您的邮箱。",
+    "resendFailed": "重新发送失败",
+    "tryAgainLater": "请稍后再试。",
+    "errorDuringResend": "重新发送验证码时发生错误。",
+    "invalidAccess": "无效访问。",
+    "backToLogin": "返回登录",
+    "verify": "验证",
+    "verifying": "验证中...",
+    "didntReceiveCode": "没有收到验证码？",
+    "resendInSeconds": "{{seconds}}秒后可重新发送",
+    "sending": "发送中...",
+    "resendCode": "重新发送验证码"
   }
 }

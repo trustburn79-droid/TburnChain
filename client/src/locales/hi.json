@@ -15753,5 +15753,29 @@
       "allRightsReserved": "सर्वाधिकार सुरक्षित।",
       "disclaimer": "यह दस्तावेज़ केवल सूचनात्मक उद्देश्यों के लिए है और वित्तीय सलाह नहीं है।"
     }
+  },
+  "googleVerify": {
+    "title": "ईमेल सत्यापन",
+    "subtitle": "अपना Google साइन-अप पूरा करने के लिए, कृपया अपने ईमेल पर भेजा गया सत्यापन कोड दर्ज करें।",
+    "error": "त्रुटि",
+    "enterSixDigits": "कृपया 6 अंकों का सत्यापन कोड दर्ज करें।",
+    "verificationComplete": "सत्यापन पूर्ण!",
+    "signupCompleteRedirect": "साइन-अप पूर्ण। ऐप पर रीडायरेक्ट हो रहा है।",
+    "verificationFailed": "सत्यापन विफल",
+    "checkCode": "कृपया अपना सत्यापन कोड जांचें।",
+    "errorDuringVerification": "सत्यापन के दौरान एक त्रुटि हुई।",
+    "codeResent": "कोड पुनः भेजा गया",
+    "newCodeSent": "आपके ईमेल पर एक नया सत्यापन कोड भेजा गया है।",
+    "resendFailed": "पुनः भेजना विफल",
+    "tryAgainLater": "कृपया बाद में पुनः प्रयास करें।",
+    "errorDuringResend": "कोड पुनः भेजते समय त्रुटि हुई।",
+    "invalidAccess": "अमान्य पहुंच।",
+    "backToLogin": "लॉगिन पर वापस जाएं",
+    "verify": "सत्यापित करें",
+    "verifying": "सत्यापित हो रहा है...",
+    "didntReceiveCode": "कोड नहीं मिला?",
+    "resendInSeconds": "{{seconds}} सेकंड में पुनः भेजना उपलब्ध",
+    "sending": "भेजा जा रहा है...",
+    "resendCode": "कोड पुनः भेजें"
   }
 }

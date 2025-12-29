@@ -14942,5 +14942,29 @@
       "allRightsReserved": "Todos os direitos reservados.",
       "disclaimer": "Este documento é apenas para fins informativos e não constitui aconselhamento financeiro."
     }
+  },
+  "googleVerify": {
+    "title": "Verificação de Email",
+    "subtitle": "Para completar seu cadastro com Google, insira o código de verificação enviado para seu email.",
+    "error": "Erro",
+    "enterSixDigits": "Por favor, insira o código de verificação de 6 dígitos.",
+    "verificationComplete": "Verificação Concluída!",
+    "signupCompleteRedirect": "Cadastro completo. Redirecionando para o aplicativo.",
+    "verificationFailed": "Falha na Verificação",
+    "checkCode": "Por favor, verifique seu código de verificação.",
+    "errorDuringVerification": "Ocorreu um erro durante a verificação.",
+    "codeResent": "Código Reenviado",
+    "newCodeSent": "Um novo código de verificação foi enviado para seu email.",
+    "resendFailed": "Falha ao Reenviar",
+    "tryAgainLater": "Por favor, tente novamente mais tarde.",
+    "errorDuringResend": "Ocorreu um erro ao reenviar o código.",
+    "invalidAccess": "Acesso inválido.",
+    "backToLogin": "Voltar ao Login",
+    "verify": "Verificar",
+    "verifying": "Verificando...",
+    "didntReceiveCode": "Não recebeu o código?",
+    "resendInSeconds": "Reenvio disponível em {{seconds}}s",
+    "sending": "Enviando...",
+    "resendCode": "Reenviar Código"
   }
 }
