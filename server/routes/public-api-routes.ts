@@ -89,7 +89,7 @@ function setCacheHeaders(res: Response, maxAge: number) {
  * CRITICAL: Dec 26 Launch - This ensures /admin/shards, /app, /scan, /rpc all show same stats
  * Uses generateShards() and sums TPS for EXACT synchronization with /api/sharding
  */
-function getUnifiedTpsData(): { tps: number; shardCount: number; validators: number; peakTps: number; totalTransactions: number } {
+function getUnifiedTpsData(): { tps: number; shardCount: number; validators: number; peakTps: number; totalTransactions: number; blockHeight: number } {
   try {
     const enterpriseNode = getEnterpriseNode();
     if (enterpriseNode) {
@@ -103,18 +103,22 @@ function getUnifiedTpsData(): { tps: number; shardCount: number; validators: num
       // Use stable value from the node's internal counter (synchronous getter)
       const totalTx = enterpriseNode.getTotalTransactions() || 80452000;
       
+      // CRITICAL: Get blockHeight from Enterprise Node for unified display
+      const blockHeight = enterpriseNode.getCurrentBlockHeight() || 2000000;
+      
       return {
         tps: totalTps, // Sum of shard TPS for exact sync
         shardCount: shards.length,
         validators: totalValidators,
         peakTps: realTimeTps.peak,
-        totalTransactions: totalTx
+        totalTransactions: totalTx,
+        blockHeight
       };
     }
   } catch (e) {
     console.log('[Public API] Enterprise node not ready, using fallback');
   }
-  return { tps: 210000, shardCount: 64, validators: 125, peakTps: 250000, totalTransactions: 80452000 };
+  return { tps: 210000, shardCount: 64, validators: 125, peakTps: 250000, totalTransactions: 80452000, blockHeight: 2000000 };
 }
 
 /**
@@ -131,7 +135,8 @@ export function formatPublicNetworkStats(
   const unifiedData = getUnifiedTpsData();
   
   return {
-    blockHeight: stats?.currentBlockHeight || snapshot?.blockHeight || 0,
+    // CRITICAL: Use Enterprise Node blockHeight for consistency with /app dashboard
+    blockHeight: unifiedData.blockHeight,
     tps: unifiedData.tps,
     peakTps: unifiedData.peakTps,
     avgBlockTime: stats?.avgBlockTime || 0.5,

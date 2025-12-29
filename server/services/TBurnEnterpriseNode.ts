@@ -846,6 +846,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return this.totalTransactions;
   }
 
+  // Get current block height (synchronous getter for public API consistency)
+  public getCurrentBlockHeight(): number {
+    return this.currentBlockHeight;
+  }
+
   // Get current shard configuration (for external sync like ValidatorService)
   public getShardConfiguration(): {
     currentShardCount: number;
