@@ -154,10 +154,14 @@ export default function TokenSchedule() {
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
-        .ts-header-icons {
+        .ts-header-left {
           display: flex;
           align-items: center;
           gap: 8px;
+        }
+        .ts-header-right {
+          display: flex;
+          align-items: center;
           margin-left: auto;
         }
         .ts-header-icon {
@@ -368,11 +372,9 @@ export default function TokenSchedule() {
       <div className="ts-root">
         <header className="ts-header">
           <div className="ts-container ts-flex ts-justify-between ts-items-center">
-            <div className="ts-logo-box">
+            <div className="ts-header-left">
               <TBurnLogo className="w-10 h-10" showText={false} />
               <div className="ts-logo-text ts-font-orbitron">TBURN</div>
-            </div>
-            <div className="ts-header-icons">
               <a href="/" className="ts-header-icon" title="Home"><Home size={18} /></a>
               <a href="/scan" className="ts-header-icon" title="Scan"><ScanLine size={18} /></a>
               <a href="/user" className="ts-header-icon" title="User"><User size={18} /></a>
@@ -381,6 +383,8 @@ export default function TokenSchedule() {
               <a href="/token-generator" className="ts-header-icon" title="Token Generator"><Coins size={18} /></a>
               <a href="/nft-marketplace" className="ts-header-icon" title="NFT Marketplace"><ImageIcon size={18} /></a>
               <a href="/qna" className="ts-header-icon" title="QnA"><HelpCircle size={18} /></a>
+            </div>
+            <div className="ts-header-right">
               <LanguageSelector isDark={true} />
             </div>
           </div>
