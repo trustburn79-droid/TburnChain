@@ -445,7 +445,7 @@ function RootRouter() {
     );
   }
   
-  if (location === "/Tokendetails" || location.startsWith("/Tokendetails")) {
+  if (location === "/TokenDetails" || location.startsWith("/TokenDetails")) {
     // Token Details page is public - accessible to all users without login
     return (
       <Suspense fallback={<PageLoading />}>
