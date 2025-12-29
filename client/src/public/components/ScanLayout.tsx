@@ -25,11 +25,10 @@ import {
   WifiOff,
   Menu,
   Home,
-  HelpCircle,
   User,
-  Bug,
-  FileText,
   ImageIcon,
+  ScanLine,
+  LayoutDashboard,
 } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { ProfileBadge } from "@/components/profile-badge";
@@ -156,14 +155,14 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                     <Home className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
-                <Link href="/qna">
+                <Link href="/scan">
                   <Button
                     variant="ghost"
                     size="icon"
                     className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-qna"
+                    data-testid="link-nav-scan"
                   >
-                    <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <ScanLine className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/user">
@@ -174,26 +173,6 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                     data-testid="link-nav-user"
                   >
                     <User className="w-3 h-3 sm:w-4 sm:h-4" />
-                  </Button>
-                </Link>
-                <Link href="/bug-bounty">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-bug-bounty"
-                  >
-                    <Bug className="w-3 h-3 sm:w-4 sm:h-4" />
-                  </Button>
-                </Link>
-                <Link href="/security-audit">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-security-audit"
-                  >
-                    <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
                 <Link href="/token-generator">
@@ -214,6 +193,16 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                     data-testid="link-nav-nft-marketplace"
                   >
                     <ImageIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </Button>
+                </Link>
+                <Link href="/app">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
+                    data-testid="link-nav-app"
+                  >
+                    <LayoutDashboard className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </Link>
               </div>
