@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TBurnLogo } from "@/components/tburn-logo";
 import { Home, ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
 
 export default function TokenDetails() {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const navItems = document.querySelectorAll('.td-nav-item');
     const sections = document.querySelectorAll('.td-section');
@@ -376,15 +379,15 @@ export default function TokenDetails() {
         <nav className="td-nav-wrapper">
           <div className="td-container">
             <div className="td-nav-scroll">
-              <a href="#overview" className="td-nav-item td-active">📋 개요</a>
-              <a href="#community" className="td-nav-item">👥 커뮤니티</a>
-              <a href="#rewards" className="td-nav-item">⛏️ 보상</a>
-              <a href="#investors" className="td-nav-item">💰 투자자</a>
-              <a href="#ecosystem" className="td-nav-item">🌐 생태계</a>
-              <a href="#team" className="td-nav-item">👔 팀</a>
-              <a href="#y1schedule" className="td-nav-item">📅 Y1 스케줄</a>
-              <a href="#checklist" className="td-nav-item">✅ 체크리스트</a>
-              <a href="#calendar" className="td-nav-item">🗓️ 캘린더</a>
+              <a href="#overview" className="td-nav-item td-active">{t('tokenDetails.nav.overview')}</a>
+              <a href="#community" className="td-nav-item">{t('tokenDetails.nav.community')}</a>
+              <a href="#rewards" className="td-nav-item">{t('tokenDetails.nav.rewards')}</a>
+              <a href="#investors" className="td-nav-item">{t('tokenDetails.nav.investors')}</a>
+              <a href="#ecosystem" className="td-nav-item">{t('tokenDetails.nav.ecosystem')}</a>
+              <a href="#team" className="td-nav-item">{t('tokenDetails.nav.team')}</a>
+              <a href="#y1schedule" className="td-nav-item">{t('tokenDetails.nav.y1Schedule')}</a>
+              <a href="#checklist" className="td-nav-item">{t('tokenDetails.nav.checklist')}</a>
+              <a href="#calendar" className="td-nav-item">{t('tokenDetails.nav.calendar')}</a>
             </div>
           </div>
         </nav>
@@ -392,23 +395,23 @@ export default function TokenDetails() {
         <main>
           <div className="td-hero td-container">
             <div className="td-fade-in-up">
-              <h1 className="td-font-orbitron">토큰 배분 & 운영 가이드</h1>
+              <h1 className="td-font-orbitron">{t('tokenDetails.hero.title')}</h1>
               <p style={{ color: 'var(--td-text-muted)', fontSize: '1.1rem' }}>
-                TBURN 토큰 실제 배분/제공 운영 스케줄 v3.0<br />
-                100억 TBURN의 투명하고 예측 가능한 배분 실행 가이드
+                {t('tokenDetails.hero.subtitle')}<br />
+                {t('tokenDetails.hero.description')}
               </p>
             </div>
             <div className="td-hero-meta td-fade-in-up">
               <div className="td-meta-item">
-                <span className="td-meta-label">메인넷 제네시스</span>
+                <span className="td-meta-label">{t('tokenDetails.hero.mainnetGenesis')}</span>
                 <span className="td-meta-value">2025.12.22</span>
               </div>
               <div className="td-meta-item">
-                <span className="td-meta-label">거래소 상장 (목표)</span>
-                <span className="td-meta-value">2026.02 (예정)</span>
+                <span className="td-meta-label">{t('tokenDetails.hero.exchangeListing')}</span>
+                <span className="td-meta-value">{t('tokenDetails.hero.listingDate')}</span>
               </div>
               <div className="td-meta-item">
-                <span className="td-meta-label">적용 기간</span>
+                <span className="td-meta-label">{t('tokenDetails.hero.applicablePeriod')}</span>
                 <span className="td-meta-value">Year 1</span>
               </div>
             </div>
@@ -417,104 +420,104 @@ export default function TokenDetails() {
           <section id="overview" className="td-section td-container td-fade-in-up">
             <div className="td-section-header">
               <div className="td-section-icon"><i className="fas fa-clipboard-list" style={{ color: 'var(--td-primary)' }}></i></div>
-              <h2 className="td-section-title">1. 문서 개요</h2>
+              <h2 className="td-section-title">{t('tokenDetails.overview.title')}</h2>
             </div>
 
             <div className="td-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
               <div className="td-card">
-                <div className="td-card-header"><h3 className="td-card-title">1.1 목적</h3></div>
+                <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.overview.purpose.title')}</h3></div>
                 <div className="td-highlight-box td-hl-ocean">
                   <p style={{ margin: 0, color: '#fff' }}>
-                    이 문서는 TBURN 100억 토큰이 <strong>"누구에게"</strong>, <strong>"언제"</strong>, <strong>"어떻게"</strong> 배분되는지를 실무 운영 관점에서 상세히 정의합니다.
+                    {t('tokenDetails.overview.purpose.description')}
                   </p>
                 </div>
                 <ul style={{ listStyle: 'none', marginTop: '15px', fontSize: '0.95rem', color: 'var(--td-text-muted)', lineHeight: 2 }}>
-                  <li><i className="fas fa-check" style={{ color: 'var(--td-secondary)', marginRight: '8px' }}></i> 각 카테고리별 토큰 수령 자격 조건</li>
-                  <li><i className="fas fa-check" style={{ color: 'var(--td-secondary)', marginRight: '8px' }}></i> 실제 토큰이 지갑으로 전송되는 시점과 방식</li>
-                  <li><i className="fas fa-check" style={{ color: 'var(--td-secondary)', marginRight: '8px' }}></i> 운영팀이 수행해야 할 배분 프로세스</li>
-                  <li><i className="fas fa-check" style={{ color: 'var(--td-secondary)', marginRight: '8px' }}></i> 월별/분기별 배분 실행 스케줄</li>
+                  <li><i className="fas fa-check" style={{ color: 'var(--td-secondary)', marginRight: '8px' }}></i> {t('tokenDetails.overview.purpose.item1')}</li>
+                  <li><i className="fas fa-check" style={{ color: 'var(--td-secondary)', marginRight: '8px' }}></i> {t('tokenDetails.overview.purpose.item2')}</li>
+                  <li><i className="fas fa-check" style={{ color: 'var(--td-secondary)', marginRight: '8px' }}></i> {t('tokenDetails.overview.purpose.item3')}</li>
+                  <li><i className="fas fa-check" style={{ color: 'var(--td-secondary)', marginRight: '8px' }}></i> {t('tokenDetails.overview.purpose.item4')}</li>
                 </ul>
               </div>
 
               <div className="td-card">
-                <div className="td-card-header"><h3 className="td-card-title">1.2 핵심 일정 요약</h3></div>
+                <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.overview.schedule.title')}</h3></div>
                 <div style={{ maxHeight: '300px', overflowY: 'auto', paddingRight: '10px' }}>
                   <div className="td-timeline-item">
                     <div className="td-t-date">2025.12.22</div>
-                    <div className="td-t-title">🔥 메인넷 제네시스</div>
-                    <div className="td-t-desc">100억 TBURN 발행, 베스팅 컨트랙트 배포</div>
+                    <div className="td-t-title">{t('tokenDetails.overview.schedule.genesis.title')}</div>
+                    <div className="td-t-desc">{t('tokenDetails.overview.schedule.genesis.desc')}</div>
                   </div>
                   <div className="td-timeline-item">
                     <div className="td-t-date">2026.01.05 ~ 11</div>
-                    <div className="td-t-title">💰 시드 라운드</div>
-                    <div className="td-t-desc">$0.04, 5억 TBURN, $20M</div>
+                    <div className="td-t-title">{t('tokenDetails.overview.schedule.seed.title')}</div>
+                    <div className="td-t-desc">$0.04, 5{t('tokenDetails.common.billion')} TBURN, $20M</div>
                   </div>
                   <div className="td-timeline-item">
                     <div className="td-t-date">2026.01.19 ~ 30</div>
-                    <div className="td-t-title">💰 퍼블릭 세일</div>
-                    <div className="td-t-desc">$0.20, 6억 TBURN, $120M</div>
+                    <div className="td-t-title">{t('tokenDetails.overview.schedule.public.title')}</div>
+                    <div className="td-t-desc">$0.20, 6{t('tokenDetails.common.billion')} TBURN, $120M</div>
                   </div>
                   <div className="td-timeline-item">
-                    <div className="td-t-date">2026.02 (목표)</div>
-                    <div className="td-t-title">🚀 1차 상장 (베스팅 기준일)</div>
-                    <div className="td-t-desc">목표 거래소 협의 진행 중</div>
+                    <div className="td-t-date">{t('tokenDetails.overview.schedule.listing.date')}</div>
+                    <div className="td-t-title">{t('tokenDetails.overview.schedule.listing.title')}</div>
+                    <div className="td-t-desc">{t('tokenDetails.overview.schedule.listing.desc')}</div>
                   </div>
                 </div>
                 <div className="td-highlight-box td-hl-fire" style={{ marginTop: '20px', fontWeight: 700, textAlign: 'center', color: '#fff' }}>
-                  ※ 모든 베스팅 스케줄은 상장일 기준으로 계산됩니다. (일정은 변경될 수 있음)
+                  {t('tokenDetails.overview.schedule.note')}
                 </div>
               </div>
             </div>
 
             <div className="td-card td-mt-6">
-              <div className="td-card-header"><h3 className="td-card-title">1.3 토큰 배분 총괄표 (100억 TBURN)</h3></div>
+              <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.overview.distribution.title')}</h3></div>
               
               <div className="td-dist-chart">
                 <div className="td-dist-item" style={{ borderTop: '3px solid #FF6B35' }}>
                   <div className="td-dist-pct" style={{ color: '#FF6B35' }}>30%</div>
-                  <div className="td-dist-amt">30억 TBURN</div>
-                  <div className="td-dist-lbl">커뮤니티</div>
+                  <div className="td-dist-amt">30{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-lbl">{t('tokenDetails.distribution.community')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #00D4AA' }}>
                   <div className="td-dist-pct" style={{ color: '#00D4AA' }}>23%</div>
-                  <div className="td-dist-amt">23억 TBURN</div>
-                  <div className="td-dist-lbl">보상</div>
+                  <div className="td-dist-amt">23{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-lbl">{t('tokenDetails.distribution.rewards')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #FFD700' }}>
                   <div className="td-dist-pct" style={{ color: '#FFD700' }}>20%</div>
-                  <div className="td-dist-amt">20억 TBURN</div>
-                  <div className="td-dist-lbl">투자자</div>
+                  <div className="td-dist-amt">20{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-lbl">{t('tokenDetails.distribution.investors')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #8B5CF6' }}>
                   <div className="td-dist-pct" style={{ color: '#8B5CF6' }}>15%</div>
-                  <div className="td-dist-amt">15억 TBURN</div>
-                  <div className="td-dist-lbl">생태계</div>
+                  <div className="td-dist-amt">15{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-lbl">{t('tokenDetails.distribution.ecosystem')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #EC4899' }}>
                   <div className="td-dist-pct" style={{ color: '#EC4899' }}>12%</div>
-                  <div className="td-dist-amt">12억 TBURN</div>
-                  <div className="td-dist-lbl">팀</div>
+                  <div className="td-dist-amt">12{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-lbl">{t('tokenDetails.distribution.team')}</div>
                 </div>
               </div>
 
               <div className="td-table-wrapper">
                 <table>
-                  <thead><tr><th>대분류</th><th>소분류</th><th>비율</th><th>수량</th><th>배분 방식</th><th>대상</th></tr></thead>
+                  <thead><tr><th>{t('tokenDetails.table.category')}</th><th>{t('tokenDetails.table.subcategory')}</th><th>{t('tokenDetails.table.ratio')}</th><th>{t('tokenDetails.table.quantity')}</th><th>{t('tokenDetails.table.method')}</th><th>{t('tokenDetails.table.target')}</th></tr></thead>
                   <tbody>
-                    <tr><td rowSpan={5} style={{ color: 'var(--td-primary)', fontWeight: 700 }}>👥 커뮤니티</td><td>에어드랍</td><td>12.0%</td><td>12.00억</td><td>클레임</td><td>테스트넷 참여자</td></tr>
-                    <tr><td>레퍼럴 보상</td><td>3.0%</td><td>3.00억</td><td>자동 지급</td><td>추천인</td></tr>
-                    <tr><td>이벤트/캠페인</td><td>4.0%</td><td>4.00억</td><td>이벤트별 배포</td><td>이벤트 참여자</td></tr>
-                    <tr><td>커뮤니티 활동</td><td>3.0%</td><td>3.00억</td><td>신청/심사</td><td>기여자</td></tr>
-                    <tr><td>DAO 트레저리</td><td>8.0%</td><td>8.00억</td><td>거버넌스 투표</td><td>DAO</td></tr>
+                    <tr><td rowSpan={5} style={{ color: 'var(--td-primary)', fontWeight: 700 }}>{t('tokenDetails.table.communityIcon')} {t('tokenDetails.distribution.community')}</td><td>{t('tokenDetails.community.airdrop.name')}</td><td>12.0%</td><td>12.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.community.airdrop.method')}</td><td>{t('tokenDetails.community.airdrop.target')}</td></tr>
+                    <tr><td>{t('tokenDetails.community.referral.name')}</td><td>3.0%</td><td>3.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.community.referral.method')}</td><td>{t('tokenDetails.community.referral.target')}</td></tr>
+                    <tr><td>{t('tokenDetails.community.events.name')}</td><td>4.0%</td><td>4.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.community.events.method')}</td><td>{t('tokenDetails.community.events.target')}</td></tr>
+                    <tr><td>{t('tokenDetails.community.activity.name')}</td><td>3.0%</td><td>3.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.community.activity.method')}</td><td>{t('tokenDetails.community.activity.target')}</td></tr>
+                    <tr><td>{t('tokenDetails.community.dao.name')}</td><td>8.0%</td><td>8.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.community.dao.method')}</td><td>{t('tokenDetails.community.dao.target')}</td></tr>
                     
-                    <tr><td rowSpan={2} style={{ color: 'var(--td-secondary)', fontWeight: 700 }}>⛏️ 보상</td><td>블록 보상</td><td>15.0%</td><td>15.00억</td><td>자동 분배</td><td>검증자</td></tr>
-                    <tr><td>검증자 인센티브</td><td>8.0%</td><td>8.00억</td><td>성과 기반</td><td>상위 검증자</td></tr>
+                    <tr><td rowSpan={2} style={{ color: 'var(--td-secondary)', fontWeight: 700 }}>{t('tokenDetails.table.rewardsIcon')} {t('tokenDetails.distribution.rewards')}</td><td>{t('tokenDetails.rewards.block.name')}</td><td>15.0%</td><td>15.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.method')}</td><td>{t('tokenDetails.rewards.block.target')}</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.validator.name')}</td><td>8.0%</td><td>8.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.validator.method')}</td><td>{t('tokenDetails.rewards.validator.target')}</td></tr>
                     
-                    <tr><td rowSpan={3} style={{ color: 'var(--td-accent)', fontWeight: 700 }}>💰 투자자</td><td>시드 라운드</td><td>5.0%</td><td>5.00억</td><td>베스팅 컨트랙트</td><td>VC</td></tr>
-                    <tr><td>프라이빗 라운드</td><td>9.0%</td><td>9.00억</td><td>베스팅 컨트랙트</td><td>기관 투자자</td></tr>
-                    <tr><td>퍼블릭 세일</td><td>6.0%</td><td>6.00억</td><td>베스팅 컨트랙트</td><td>일반 참여자</td></tr>
+                    <tr><td rowSpan={3} style={{ color: 'var(--td-accent)', fontWeight: 700 }}>{t('tokenDetails.table.investorsIcon')} {t('tokenDetails.distribution.investors')}</td><td>{t('tokenDetails.investors.seed.name')}</td><td>5.0%</td><td>5.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.investors.seed.method')}</td><td>{t('tokenDetails.investors.seed.target')}</td></tr>
+                    <tr><td>{t('tokenDetails.investors.private.name')}</td><td>9.0%</td><td>9.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.investors.private.method')}</td><td>{t('tokenDetails.investors.private.target')}</td></tr>
+                    <tr><td>{t('tokenDetails.investors.public.name')}</td><td>6.0%</td><td>6.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.investors.public.method')}</td><td>{t('tokenDetails.investors.public.target')}</td></tr>
                     
-                    <tr className="td-highlight-row"><td colSpan={2}><strong>합계</strong></td><td><strong>100.0%</strong></td><td><strong>100.00억</strong></td><td colSpan={2}></td></tr>
+                    <tr className="td-highlight-row"><td colSpan={2}><strong>{t('tokenDetails.table.total')}</strong></td><td><strong>100.0%</strong></td><td><strong>100.00{t('tokenDetails.common.billion')}</strong></td><td colSpan={2}></td></tr>
                   </tbody>
                 </table>
               </div>
@@ -524,78 +527,78 @@ export default function TokenDetails() {
           <section id="community" className="td-section td-container td-fade-in-up">
             <div className="td-section-header">
               <div className="td-section-icon"><i className="fas fa-users" style={{ color: 'var(--td-primary)' }}></i></div>
-              <h2 className="td-section-title">2. 커뮤니티 (30% = 30억 TBURN)</h2>
+              <h2 className="td-section-title">{t('tokenDetails.community.title')}</h2>
             </div>
 
             <div className="td-card">
               <div className="td-card-header">
-                <h3 className="td-card-title">2.1 에어드랍 (12%)</h3>
-                <span className="td-badge td-bg-fire">클레임 방식</span>
+                <h3 className="td-card-title">{t('tokenDetails.community.airdrop.title')}</h3>
+                <span className="td-badge td-bg-fire">{t('tokenDetails.community.airdrop.method')}</span>
               </div>
               
               <div className="td-info-grid td-mb-6">
-                <div className="td-info-box"><div className="td-info-lbl">총 물량</div><div className="td-info-val">12억 TBURN</div></div>
-                <div className="td-info-box"><div className="td-info-lbl">베스팅</div><div className="td-info-val">TGE 10% + 12M 선형</div></div>
-                <div className="td-info-box"><div className="td-info-lbl">클레임 기간</div><div className="td-info-val">상장 후 12개월 이내</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.totalSupply')}</div><div className="td-info-val">12{t('tokenDetails.common.billion')} TBURN</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.vesting')}</div><div className="td-info-val">{t('tokenDetails.community.airdrop.vesting')}</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.community.airdrop.claimPeriod')}</div><div className="td-info-val">{t('tokenDetails.community.airdrop.claimPeriodValue')}</div></div>
               </div>
 
               <div className="td-table-wrapper td-mb-6">
                 <table>
-                  <thead><tr><th>티어</th><th>자격 조건</th><th>배분량</th><th>예상 인원</th><th>인당 평균</th></tr></thead>
+                  <thead><tr><th>{t('tokenDetails.community.airdrop.tier')}</th><th>{t('tokenDetails.community.airdrop.qualification')}</th><th>{t('tokenDetails.community.airdrop.allocation')}</th><th>{t('tokenDetails.community.airdrop.expectedCount')}</th><th>{t('tokenDetails.community.airdrop.perPerson')}</th></tr></thead>
                   <tbody>
-                    <tr><td><span className="td-tier-tag td-tier-og">OG</span></td><td>테스트넷 전 기간 + 100Tx+</td><td>2.40억 (20%)</td><td>5,000명</td><td>48,000</td></tr>
-                    <tr><td><span className="td-tier-tag td-tier-early">Early</span></td><td>테스트넷 1개월+ & 50Tx+</td><td>3.60억 (30%)</td><td>15,000명</td><td>24,000</td></tr>
-                    <tr><td><span className="td-tier-tag td-tier-active">Active</span></td><td>테스트넷 2주+ & 20Tx+</td><td>3.60억 (30%)</td><td>30,000명</td><td>12,000</td></tr>
-                    <tr><td><span className="td-tier-tag td-tier-basic">Basic</span></td><td>테스트넷 참여 & 5Tx+</td><td>2.40억 (20%)</td><td>50,000명</td><td>4,800</td></tr>
+                    <tr><td><span className="td-tier-tag td-tier-og">OG</span></td><td>{t('tokenDetails.community.airdrop.tierOgCondition')}</td><td>2.40{t('tokenDetails.common.billion')} (20%)</td><td>{t('tokenDetails.community.airdrop.tierOgCount')}</td><td>48,000</td></tr>
+                    <tr><td><span className="td-tier-tag td-tier-early">Early</span></td><td>{t('tokenDetails.community.airdrop.tierEarlyCondition')}</td><td>3.60{t('tokenDetails.common.billion')} (30%)</td><td>{t('tokenDetails.community.airdrop.tierEarlyCount')}</td><td>24,000</td></tr>
+                    <tr><td><span className="td-tier-tag td-tier-active">Active</span></td><td>{t('tokenDetails.community.airdrop.tierActiveCondition')}</td><td>3.60{t('tokenDetails.common.billion')} (30%)</td><td>{t('tokenDetails.community.airdrop.tierActiveCount')}</td><td>12,000</td></tr>
+                    <tr><td><span className="td-tier-tag td-tier-basic">Basic</span></td><td>{t('tokenDetails.community.airdrop.tierBasicCondition')}</td><td>2.40{t('tokenDetails.common.billion')} (20%)</td><td>{t('tokenDetails.community.airdrop.tierBasicCount')}</td><td>4,800</td></tr>
                   </tbody>
                 </table>
               </div>
 
               <div>
-                <div className="td-step"><div className="td-step-num">1</div><div>상장일: 에어드랍 클레임 페이지 오픈 (일정 추후 공지)</div></div>
-                <div className="td-step"><div className="td-step-num">2</div><div>사용자: 테스트넷 지갑으로 클레임 페이지 접속</div></div>
-                <div className="td-step"><div className="td-step-num">3</div><div>시스템: TGE 10% 즉시 전송 + 나머지 베스팅 컨트랙트 등록</div></div>
-                <div className="td-step"><div className="td-step-num">4</div><div>매월 1일: 월간 해제분 자동 클레임 가능</div></div>
+                <div className="td-step"><div className="td-step-num">1</div><div>{t('tokenDetails.community.airdrop.step1')}</div></div>
+                <div className="td-step"><div className="td-step-num">2</div><div>{t('tokenDetails.community.airdrop.step2')}</div></div>
+                <div className="td-step"><div className="td-step-num">3</div><div>{t('tokenDetails.community.airdrop.step3')}</div></div>
+                <div className="td-step"><div className="td-step-num">4</div><div>{t('tokenDetails.community.airdrop.step4')}</div></div>
               </div>
             </div>
 
             <div className="td-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
               <div className="td-card">
-                <div className="td-card-header"><h3 className="td-card-title">2.2 레퍼럴 보상 (3%)</h3></div>
+                <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.community.referral.title')}</h3></div>
                 <div className="td-info-grid td-mb-4">
-                  <div className="td-info-box"><div className="td-info-lbl">베스팅</div><div className="td-info-val">TGE 5% + 24M 선형</div></div>
-                  <div className="td-info-box"><div className="td-info-lbl">방식</div><div className="td-info-val">자동 지급</div></div>
+                  <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.vesting')}</div><div className="td-info-val">{t('tokenDetails.community.referral.vesting')}</div></div>
+                  <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.table.method')}</div><div className="td-info-val">{t('tokenDetails.community.referral.method')}</div></div>
                 </div>
                 <div className="td-table-wrapper">
                   <table>
-                    <thead><tr><th>활동</th><th>추천인</th><th>피추천인</th></tr></thead>
+                    <thead><tr><th>{t('tokenDetails.community.referral.activity')}</th><th>{t('tokenDetails.community.referral.referrer')}</th><th>{t('tokenDetails.community.referral.referee')}</th></tr></thead>
                     <tbody>
-                      <tr><td>가입+Tx</td><td>50 TBURN</td><td>50 TBURN</td></tr>
-                      <tr><td>세일 참여</td><td>1%</td><td>0.5%</td></tr>
+                      <tr><td>{t('tokenDetails.community.referral.signupTx')}</td><td>50 TBURN</td><td>50 TBURN</td></tr>
+                      <tr><td>{t('tokenDetails.community.referral.saleParticipation')}</td><td>1%</td><td>0.5%</td></tr>
                     </tbody>
                   </table>
                 </div>
               </div>
               
               <div className="td-card">
-                <div className="td-card-header"><h3 className="td-card-title">2.3 이벤트/캠페인 (4%)</h3></div>
+                <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.community.events.title')}</h3></div>
                 <div className="td-info-grid td-mb-4">
-                  <div className="td-info-box"><div className="td-info-lbl">베스팅</div><div className="td-info-val">TGE 10% + 24M 선형</div></div>
-                  <div className="td-info-box"><div className="td-info-lbl">방식</div><div className="td-info-val">이벤트별 배포</div></div>
+                  <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.vesting')}</div><div className="td-info-val">{t('tokenDetails.community.events.vesting')}</div></div>
+                  <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.table.method')}</div><div className="td-info-val">{t('tokenDetails.community.events.method')}</div></div>
                 </div>
                 <ul style={{ listStyle: 'none', fontSize: '0.95rem', color: 'var(--td-text-muted)' }}>
-                  <li style={{ marginBottom: '8px' }}>• 상장 기념 런칭 에어드랍 (0.4억)</li>
-                  <li style={{ marginBottom: '8px' }}>• 지갑 활성화 캠페인 (0.2억)</li>
-                  <li>• Tier-1 거래소 상장 기념 (0.3억) *</li>
+                  <li style={{ marginBottom: '8px' }}>• {t('tokenDetails.community.events.launchAirdrop')}</li>
+                  <li style={{ marginBottom: '8px' }}>• {t('tokenDetails.community.events.walletCampaign')}</li>
+                  <li>• {t('tokenDetails.community.events.tier1Listing')}</li>
                 </ul>
               </div>
             </div>
 
             <div className="td-card">
-              <div className="td-card-header"><h3 className="td-card-title">2.5 DAO 트레저리 (8%)</h3><span className="td-badge td-bg-fire">12M 클리프</span></div>
+              <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.community.dao.title')}</h3><span className="td-badge td-bg-fire">{t('tokenDetails.community.dao.cliff')}</span></div>
               <div className="td-highlight-box td-hl-ocean" style={{ marginTop: 0 }}>
-                <p style={{ margin: 0, color: '#fff' }}><strong>⚠️ Y1 기간에는 토큰 해제 없음 (전량 락업)</strong></p>
-                <p style={{ margin: '5px 0 0', fontSize: '0.9rem', color: '#fff' }}>해제 시작: 상장 1주년 | 용도: 거버넌스 투표로 결정</p>
+                <p style={{ margin: 0, color: '#fff' }}><strong>{t('tokenDetails.community.dao.lockupWarning')}</strong></p>
+                <p style={{ margin: '5px 0 0', fontSize: '0.9rem', color: '#fff' }}>{t('tokenDetails.community.dao.unlockInfo')}</p>
               </div>
             </div>
           </section>
@@ -603,50 +606,50 @@ export default function TokenDetails() {
           <section id="rewards" className="td-section td-container td-fade-in-up">
             <div className="td-section-header">
               <div className="td-section-icon"><i className="fas fa-hammer" style={{ color: 'var(--td-secondary)' }}></i></div>
-              <h2 className="td-section-title">3. 보상 (23% = 23억 TBURN)</h2>
+              <h2 className="td-section-title">{t('tokenDetails.rewards.title')}</h2>
             </div>
 
             <div className="td-card">
-              <div className="td-card-header"><h3 className="td-card-title">3.1 블록 보상 (15%) & 반감기</h3><span className="td-badge td-bg-ocean">20년 배분</span></div>
+              <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.rewards.block.title')}</h3><span className="td-badge td-bg-ocean">{t('tokenDetails.rewards.block.duration')}</span></div>
               <div className="td-table-wrapper">
                 <table>
-                  <thead><tr><th>반감기</th><th>기간</th><th>블록당 보상</th><th>연간 발행</th><th>비고</th></tr></thead>
+                  <thead><tr><th>{t('tokenDetails.rewards.block.halving')}</th><th>{t('tokenDetails.rewards.block.period')}</th><th>{t('tokenDetails.rewards.block.perBlock')}</th><th>{t('tokenDetails.rewards.block.annualIssuance')}</th><th>{t('tokenDetails.rewards.block.note')}</th></tr></thead>
                   <tbody>
-                    <tr><td>1기</td><td>Year 1~4</td><td style={{ color: 'var(--td-secondary)', fontWeight: 700 }}>10 TBURN</td><td>6.31억</td><td>초기 채굴자 혜택 극대화</td></tr>
-                    <tr><td>2기</td><td>Year 5~8</td><td>5 TBURN</td><td>3.15억</td><td>1차 반감기</td></tr>
-                    <tr><td>3기</td><td>Year 9~12</td><td>2.5 TBURN</td><td>1.58억</td><td>2차 반감기</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.block.phase1')}</td><td>Year 1~4</td><td style={{ color: 'var(--td-secondary)', fontWeight: 700 }}>10 TBURN</td><td>6.31{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.phase1Note')}</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.block.phase2')}</td><td>Year 5~8</td><td>5 TBURN</td><td>3.15{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.phase2Note')}</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.block.phase3')}</td><td>Year 9~12</td><td>2.5 TBURN</td><td>1.58{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.phase3Note')}</td></tr>
                   </tbody>
                 </table>
               </div>
               <div className="td-stat-grid">
                 <div className="td-stat-box">
                   <div className="td-stat-v" style={{ color: 'var(--td-secondary)' }}>125</div>
-                  <div className="td-stat-l">검증자 수</div>
+                  <div className="td-stat-l">{t('tokenDetails.rewards.block.validatorCount')}</div>
                 </div>
                 <div className="td-stat-box">
-                  <div className="td-stat-v">~6.3억</div>
-                  <div className="td-stat-l">Y1 총 보상량</div>
+                  <div className="td-stat-v">~6.3{t('tokenDetails.common.billion')}</div>
+                  <div className="td-stat-l">{t('tokenDetails.rewards.block.y1TotalReward')}</div>
                 </div>
                 <div className="td-stat-box">
-                  <div className="td-stat-v">~42만</div>
-                  <div className="td-stat-l">검증자당 월평균</div>
+                  <div className="td-stat-v">~42{t('tokenDetails.common.tenThousand')}</div>
+                  <div className="td-stat-l">{t('tokenDetails.rewards.block.monthlyPerValidator')}</div>
                 </div>
               </div>
             </div>
 
             <div className="td-card">
-              <div className="td-card-header"><h3 className="td-card-title">3.2 검증자 인센티브 (8%)</h3><span className="td-badge td-bg-gold">성과 기반</span></div>
+              <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.rewards.validator.title')}</h3><span className="td-badge td-bg-gold">{t('tokenDetails.rewards.validator.performanceBased')}</span></div>
               <div className="td-info-grid td-mb-4">
-                <div className="td-info-box"><div className="td-info-lbl">배분 기간</div><div className="td-info-val">60개월 선형</div></div>
-                <div className="td-info-box"><div className="td-info-lbl">월간 예산</div><div className="td-info-val">1,333만 TBURN</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.rewards.validator.distributionPeriod')}</div><div className="td-info-val">{t('tokenDetails.rewards.validator.distributionPeriodValue')}</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.rewards.validator.monthlyBudget')}</div><div className="td-info-val">{t('tokenDetails.rewards.validator.monthlyBudgetValue')}</div></div>
               </div>
               <div className="td-table-wrapper">
                 <table>
-                  <thead><tr><th>유형</th><th>비율</th><th>월간 예산</th><th>조건</th></tr></thead>
+                  <thead><tr><th>{t('tokenDetails.rewards.validator.type')}</th><th>{t('tokenDetails.table.ratio')}</th><th>{t('tokenDetails.rewards.validator.monthlyBudget')}</th><th>{t('tokenDetails.rewards.validator.condition')}</th></tr></thead>
                   <tbody>
-                    <tr><td>업타임 보너스</td><td>40%</td><td>533만</td><td>99.9%+ 가동</td></tr>
-                    <tr><td>블록 생성 성과</td><td>30%</td><td>400만</td><td>생성 수 상위 25%</td></tr>
-                    <tr><td>네트워크 기여</td><td>20%</td><td>267만</td><td>제안/투표 참여</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.validator.uptimeBonus')}</td><td>40%</td><td>533{t('tokenDetails.common.tenThousand')}</td><td>{t('tokenDetails.rewards.validator.uptimeCondition')}</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.validator.blockProduction')}</td><td>30%</td><td>400{t('tokenDetails.common.tenThousand')}</td><td>{t('tokenDetails.rewards.validator.blockCondition')}</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.validator.networkContribution')}</td><td>20%</td><td>267{t('tokenDetails.common.tenThousand')}</td><td>{t('tokenDetails.rewards.validator.networkCondition')}</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -656,40 +659,40 @@ export default function TokenDetails() {
           <section id="investors" className="td-section td-container td-fade-in-up">
             <div className="td-section-header">
               <div className="td-section-icon"><i className="fas fa-coins" style={{ color: 'var(--td-accent)' }}></i></div>
-              <h2 className="td-section-title">4. 투자자 (20% = 20억 TBURN)</h2>
+              <h2 className="td-section-title">{t('tokenDetails.investors.title')}</h2>
             </div>
 
             <div className="td-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
               <div className="td-card">
                 <div className="td-card-header"><h3 className="td-card-title">Seed Round (5%)</h3><span className="td-badge td-bg-gold">$0.04</span></div>
                 <div className="td-info-grid td-mb-4" style={{ gridTemplateColumns: '1fr' }}>
-                  <div className="td-info-box"><div className="td-info-lbl">베스팅</div><div className="td-info-val">12M 클리프 + 24M 선형</div></div>
+                  <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.vesting')}</div><div className="td-info-val">{t('tokenDetails.investors.seed.vesting')}</div></div>
                 </div>
                 <div className="td-highlight-box td-hl-warning" style={{ margin: 0 }}>
-                  <strong>⚠️ Y1 해제량: 0 TBURN</strong><br />
-                  첫 해제: 2027년 2월 1일
+                  <strong>{t('tokenDetails.investors.seed.y1Unlock')}</strong><br />
+                  {t('tokenDetails.investors.seed.firstUnlock')}
                 </div>
               </div>
 
               <div className="td-card">
                 <div className="td-card-header"><h3 className="td-card-title">Private Round (9%)</h3><span className="td-badge td-bg-ocean">$0.10</span></div>
                 <div className="td-info-grid td-mb-4" style={{ gridTemplateColumns: '1fr' }}>
-                  <div className="td-info-box"><div className="td-info-lbl">베스팅</div><div className="td-info-val">9M 클리프 + 18M 선형</div></div>
+                  <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.vesting')}</div><div className="td-info-val">{t('tokenDetails.investors.private.vesting')}</div></div>
                 </div>
                 <div className="td-highlight-box td-hl-ocean" style={{ margin: 0, color: '#fff' }}>
-                  <strong>🔓 Y1 해제량: 1.5억 TBURN</strong><br />
-                  첫 해제: 2026년 11월 1일 (3개월분)
+                  <strong>{t('tokenDetails.investors.private.y1Unlock')}</strong><br />
+                  {t('tokenDetails.investors.private.firstUnlock')}
                 </div>
               </div>
 
               <div className="td-card">
                 <div className="td-card-header"><h3 className="td-card-title">Public Sale (6%)</h3><span className="td-badge td-bg-fire">$0.20</span></div>
                 <div className="td-info-grid td-mb-4" style={{ gridTemplateColumns: '1fr' }}>
-                  <div className="td-info-box"><div className="td-info-lbl">베스팅</div><div className="td-info-val">TGE 20% + 3M 클리프 + 9M 선형</div></div>
+                  <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.vesting')}</div><div className="td-info-val">{t('tokenDetails.investors.public.vesting')}</div></div>
                 </div>
                 <div className="td-highlight-box td-hl-fire" style={{ margin: 0, color: '#fff' }}>
-                  <strong>🔓 Y1 해제량: 6.0억 TBURN (100%)</strong><br />
-                  TGE 1.2억 + 월별 해제 완료
+                  <strong>{t('tokenDetails.investors.public.y1Unlock')}</strong><br />
+                  {t('tokenDetails.investors.public.details')}
                 </div>
               </div>
             </div>
@@ -698,31 +701,31 @@ export default function TokenDetails() {
           <section id="ecosystem" className="td-section td-container td-fade-in-up">
             <div className="td-section-header">
               <div className="td-section-icon"><i className="fas fa-globe" style={{ color: 'var(--td-purple)' }}></i></div>
-              <h2 className="td-section-title">5. 생태계 (15% = 15억 TBURN)</h2>
+              <h2 className="td-section-title">{t('tokenDetails.ecosystem.title')}</h2>
             </div>
             
             <div className="td-card">
               <div className="td-table-wrapper">
                 <table>
-                  <thead><tr><th>항목</th><th>물량</th><th>베스팅</th><th>Y1 활동/해제</th></tr></thead>
+                  <thead><tr><th>{t('tokenDetails.ecosystem.item')}</th><th>{t('tokenDetails.table.quantity')}</th><th>{t('tokenDetails.common.vesting')}</th><th>{t('tokenDetails.ecosystem.y1Activity')}</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td className="td-font-bold" style={{ color: 'var(--td-purple)' }}>생태계 펀드</td>
-                      <td>8억 (8%)</td>
-                      <td>60M 선형</td>
-                      <td>그랜트 30~50건 집행 (약 1.6억 해제)</td>
+                      <td className="td-font-bold" style={{ color: 'var(--td-purple)' }}>{t('tokenDetails.ecosystem.fund.name')}</td>
+                      <td>8{t('tokenDetails.common.billion')} (8%)</td>
+                      <td>{t('tokenDetails.ecosystem.fund.vesting')}</td>
+                      <td>{t('tokenDetails.ecosystem.fund.y1Activity')}</td>
                     </tr>
                     <tr>
-                      <td className="td-font-bold" style={{ color: 'var(--td-purple)' }}>파트너십</td>
-                      <td>4억 (4%)</td>
-                      <td>6M 클리프 + 36M 선형</td>
-                      <td>0.67억 해제 (8월부터 시작)</td>
+                      <td className="td-font-bold" style={{ color: 'var(--td-purple)' }}>{t('tokenDetails.ecosystem.partnership.name')}</td>
+                      <td>4{t('tokenDetails.common.billion')} (4%)</td>
+                      <td>{t('tokenDetails.ecosystem.partnership.vesting')}</td>
+                      <td>{t('tokenDetails.ecosystem.partnership.y1Activity')}</td>
                     </tr>
                     <tr>
-                      <td className="td-font-bold" style={{ color: 'var(--td-purple)' }}>마케팅</td>
-                      <td>3억 (3%)</td>
-                      <td>TGE 15% + 24M 선형</td>
-                      <td>1.73억 해제 (KOL, 거래소 마케팅)</td>
+                      <td className="td-font-bold" style={{ color: 'var(--td-purple)' }}>{t('tokenDetails.ecosystem.marketing.name')}</td>
+                      <td>3{t('tokenDetails.common.billion')} (3%)</td>
+                      <td>{t('tokenDetails.ecosystem.marketing.vesting')}</td>
+                      <td>{t('tokenDetails.ecosystem.marketing.y1Activity')}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -733,59 +736,59 @@ export default function TokenDetails() {
           <section id="team" className="td-section td-container td-fade-in-up">
             <div className="td-section-header">
               <div className="td-section-icon"><i className="fas fa-user-tie" style={{ color: 'var(--td-pink)' }}></i></div>
-              <h2 className="td-section-title">6. 팀 (12% = 12억 TBURN)</h2>
+              <h2 className="td-section-title">{t('tokenDetails.team.title')}</h2>
             </div>
 
             <div className="td-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
               <div className="td-card td-text-center">
-                <h3 className="td-card-title td-text-pink td-mb-2">코어 팀 (8%)</h3>
-                <div className="td-badge td-bg-pink td-mb-4">18M 클리프</div>
-                <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>첫 해제: 2027.08.01</p>
+                <h3 className="td-card-title td-text-pink td-mb-2">{t('tokenDetails.team.core.name')}</h3>
+                <div className="td-badge td-bg-pink td-mb-4">{t('tokenDetails.team.core.cliff')}</div>
+                <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>{t('tokenDetails.team.core.firstUnlock')}</p>
               </div>
               <div className="td-card td-text-center">
-                <h3 className="td-card-title td-text-purple td-mb-2">어드바이저 (2%)</h3>
-                <div className="td-badge td-bg-purple td-mb-4">12M 클리프</div>
-                <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>첫 해제: 2027.02.01</p>
+                <h3 className="td-card-title td-text-purple td-mb-2">{t('tokenDetails.team.advisor.name')}</h3>
+                <div className="td-badge td-bg-purple td-mb-4">{t('tokenDetails.team.advisor.cliff')}</div>
+                <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>{t('tokenDetails.team.advisor.firstUnlock')}</p>
               </div>
               <div className="td-card td-text-center">
-                <h3 className="td-card-title td-text-secondary td-mb-2">전략 파트너 (2%)</h3>
-                <div className="td-badge td-bg-ocean td-mb-4">6M 클리프</div>
-                <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>첫 해제: 2026.08.01</p>
+                <h3 className="td-card-title td-text-secondary td-mb-2">{t('tokenDetails.team.strategic.name')}</h3>
+                <div className="td-badge td-bg-ocean td-mb-4">{t('tokenDetails.team.strategic.cliff')}</div>
+                <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>{t('tokenDetails.team.strategic.firstUnlock')}</p>
               </div>
             </div>
             <div className="td-highlight-box td-hl-warning td-text-center">
-              <strong>⚠️ Y1 기간 동안 코어 팀 및 어드바이저 물량은 100% 락업되어 시장에 나오지 않습니다.</strong>
+              <strong>{t('tokenDetails.team.lockupWarning')}</strong>
             </div>
           </section>
 
           <section id="y1schedule" className="td-section td-container td-fade-in-up">
             <div className="td-section-header">
               <div className="td-section-icon"><i className="fas fa-calendar-alt" style={{ color: 'var(--td-primary)' }}></i></div>
-              <h2 className="td-section-title">7. Year-1 월별 배분 실행 스케줄</h2>
+              <h2 className="td-section-title">{t('tokenDetails.y1Schedule.title')}</h2>
             </div>
 
             <div className="td-card">
               <div className="td-flex td-justify-between td-items-center td-mb-4">
-                <p style={{ color: 'var(--td-text-muted)', fontSize: '0.9rem' }}>단위: 억 TBURN</p>
-                <div className="td-badge td-bg-fire">총 해제: 32.68억 (32.7%)</div>
+                <p style={{ color: 'var(--td-text-muted)', fontSize: '0.9rem' }}>{t('tokenDetails.y1Schedule.unit')}</p>
+                <div className="td-badge td-bg-fire">{t('tokenDetails.y1Schedule.totalUnlock')}</div>
               </div>
               <div className="td-table-wrapper">
                 <table style={{ fontSize: '0.85rem' }}>
                   <thead>
-                    <tr><th>시점</th><th>에어드랍</th><th>레퍼럴</th><th>이벤트</th><th>블록/검증</th><th>퍼블릭</th><th>프라이빗</th><th>생태계/마케팅</th><th>월합계</th><th>주요 이벤트</th></tr>
+                    <tr><th>{t('tokenDetails.y1Schedule.timing')}</th><th>{t('tokenDetails.community.airdrop.name')}</th><th>{t('tokenDetails.community.referral.name')}</th><th>{t('tokenDetails.community.events.name')}</th><th>{t('tokenDetails.y1Schedule.blockValidator')}</th><th>{t('tokenDetails.investors.public.name')}</th><th>{t('tokenDetails.investors.private.name')}</th><th>{t('tokenDetails.y1Schedule.ecosystemMarketing')}</th><th>{t('tokenDetails.y1Schedule.monthlyTotal')}</th><th>{t('tokenDetails.y1Schedule.keyEvent')}</th></tr>
                   </thead>
                   <tbody>
                     <tr style={{ background: 'rgba(255,107,53,0.15)', fontWeight: 700 }}>
-                      <td>상장일</td><td>1.200</td><td>0.150</td><td>0.400</td><td>-</td><td>1.200</td><td>-</td><td>0.450</td><td className="td-text-primary">3.400</td><td>🚀 1차 상장 (목표)</td>
+                      <td>{t('tokenDetails.y1Schedule.listingDay')}</td><td>1.200</td><td>0.150</td><td>0.400</td><td>-</td><td>1.200</td><td>-</td><td>0.450</td><td className="td-text-primary">3.400</td><td>{t('tokenDetails.y1Schedule.firstListing')}</td>
                     </tr>
-                    <tr><td>M1</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.758</td><td>블록보상 시작</td></tr>
-                    <tr><td>M2</td><td>0.900</td><td>0.119</td><td>0.300</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.908</td><td>Tier-1 상장 목표 *</td></tr>
-                    <tr><td>M3</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.841</td><td>퍼블릭 클리프 끝</td></tr>
-                    <tr><td>M4</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>0.533</td><td>-</td><td>0.239</td><td>2.374</td><td>퍼블릭 베스팅</td></tr>
-                    <tr><td>M6</td><td>0.900</td><td>0.119</td><td>0.250</td><td>0.350</td><td>0.533</td><td>-</td><td>0.350</td><td>2.585</td><td>파트너십 시작</td></tr>
-                    <tr><td>M10</td><td>0.900</td><td>0.119</td><td>0.100</td><td>0.350</td><td>0.533</td><td>0.500</td><td>0.350</td><td>2.935</td><td>프라이빗 시작</td></tr>
+                    <tr><td>M1</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.758</td><td>{t('tokenDetails.y1Schedule.blockRewardStart')}</td></tr>
+                    <tr><td>M2</td><td>0.900</td><td>0.119</td><td>0.300</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.908</td><td>{t('tokenDetails.y1Schedule.tier1Target')}</td></tr>
+                    <tr><td>M3</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>-</td><td>-</td><td>0.239</td><td>1.841</td><td>{t('tokenDetails.y1Schedule.publicCliffEnd')}</td></tr>
+                    <tr><td>M4</td><td>0.900</td><td>0.119</td><td>0.150</td><td>0.350</td><td>0.533</td><td>-</td><td>0.239</td><td>2.374</td><td>{t('tokenDetails.y1Schedule.publicVesting')}</td></tr>
+                    <tr><td>M6</td><td>0.900</td><td>0.119</td><td>0.250</td><td>0.350</td><td>0.533</td><td>-</td><td>0.350</td><td>2.585</td><td>{t('tokenDetails.y1Schedule.partnershipStart')}</td></tr>
+                    <tr><td>M10</td><td>0.900</td><td>0.119</td><td>0.100</td><td>0.350</td><td>0.533</td><td>0.500</td><td>0.350</td><td>2.935</td><td>{t('tokenDetails.y1Schedule.privateStart')}</td></tr>
                     <tr style={{ background: 'rgba(255,107,53,0.15)', fontWeight: 700 }}>
-                      <td>M12</td><td>0.900</td><td>0.119</td><td>0.300</td><td>0.350</td><td>0.536</td><td>0.500</td><td>0.350</td><td className="td-text-primary">3.138</td><td>🎉 1주년</td>
+                      <td>M12</td><td>0.900</td><td>0.119</td><td>0.300</td><td>0.350</td><td>0.536</td><td>0.500</td><td>0.350</td><td className="td-text-primary">3.138</td><td>{t('tokenDetails.y1Schedule.anniversary')}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -797,15 +800,15 @@ export default function TokenDetails() {
             <section id="checklist" className="td-section td-fade-in-up">
               <div className="td-section-header">
                 <div className="td-section-icon"><i className="fas fa-check-double" style={{ color: 'var(--td-secondary)' }}></i></div>
-                <h2 className="td-section-title">8. 운영 체크리스트</h2>
+                <h2 className="td-section-title">{t('tokenDetails.checklist.title')}</h2>
               </div>
               <div className="td-card">
                 <div className="td-checklist">
-                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> 베스팅 컨트랙트 월간 해제 확인</div>
-                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> 블록 보상 정산 및 지급</div>
-                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> 레퍼럴 보상 자동 지급 확인</div>
-                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> 그랜트 마일스톤 지급 처리</div>
-                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> 월간 토큰 배분 리포트 작성</div>
+                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> {t('tokenDetails.checklist.item1')}</div>
+                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> {t('tokenDetails.checklist.item2')}</div>
+                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> {t('tokenDetails.checklist.item3')}</div>
+                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> {t('tokenDetails.checklist.item4')}</div>
+                  <div className="td-check-item"><i className="fas fa-check-circle td-check-icon"></i> {t('tokenDetails.checklist.item5')}</div>
                 </div>
               </div>
             </section>
@@ -813,18 +816,18 @@ export default function TokenDetails() {
             <section id="calendar" className="td-section td-fade-in-up">
               <div className="td-section-header">
                 <div className="td-section-icon"><i className="fas fa-calendar-check" style={{ color: 'var(--td-accent)' }}></i></div>
-                <h2 className="td-section-title">9. 주요 일정</h2>
+                <h2 className="td-section-title">{t('tokenDetails.calendar.title')}</h2>
               </div>
               <div className="td-card">
                 <div className="td-table-wrapper">
                   <table>
-                    <thead><tr><th>날짜</th><th>이벤트</th><th>해제 물량</th></tr></thead>
+                    <thead><tr><th>{t('tokenDetails.calendar.date')}</th><th>{t('tokenDetails.calendar.event')}</th><th>{t('tokenDetails.calendar.unlockAmount')}</th></tr></thead>
                     <tbody>
-                      <tr style={{ background: 'rgba(255,107,53,0.1)' }}><td>2026.02 (목표)</td><td className="td-font-bold">🚀 상장일 (예정)</td><td>3.40억</td></tr>
-                      <tr><td>2026.05.01</td><td>퍼블릭 베스팅 시작</td><td>+0.53억/월</td></tr>
-                      <tr><td>2026.08.01</td><td>파트너십 시작</td><td>+0.11억/월</td></tr>
-                      <tr><td>2026.11.01</td><td>프라이빗 시작</td><td>+0.50억/월</td></tr>
-                      <tr style={{ background: 'rgba(255,107,53,0.1)' }}><td>2027.02.01</td><td className="td-font-bold">🎉 1주년</td><td>+3.13억</td></tr>
+                      <tr style={{ background: 'rgba(255,107,53,0.1)' }}><td>{t('tokenDetails.calendar.listingDateTarget')}</td><td className="td-font-bold">{t('tokenDetails.calendar.listingEvent')}</td><td>3.40{t('tokenDetails.common.billion')}</td></tr>
+                      <tr><td>2026.05.01</td><td>{t('tokenDetails.calendar.publicVestingStart')}</td><td>+0.53{t('tokenDetails.common.billion')}/{t('tokenDetails.common.month')}</td></tr>
+                      <tr><td>2026.08.01</td><td>{t('tokenDetails.calendar.partnershipStartEvent')}</td><td>+0.11{t('tokenDetails.common.billion')}/{t('tokenDetails.common.month')}</td></tr>
+                      <tr><td>2026.11.01</td><td>{t('tokenDetails.calendar.privateStartEvent')}</td><td>+0.50{t('tokenDetails.common.billion')}/{t('tokenDetails.common.month')}</td></tr>
+                      <tr style={{ background: 'rgba(255,107,53,0.1)' }}><td>2027.02.01</td><td className="td-font-bold">{t('tokenDetails.calendar.anniversaryEvent')}</td><td>+3.13{t('tokenDetails.common.billion')}</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -834,34 +837,34 @@ export default function TokenDetails() {
 
           <div className="td-container td-fade-in-up">
             <div className="td-card" style={{ border: '2px solid var(--td-primary-glow)' }}>
-              <div className="td-card-header"><h3 className="td-card-title">📋 문서 정보</h3></div>
+              <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.docInfo.title')}</h3></div>
               <div className="td-info-grid">
-                <div className="td-info-box"><div className="td-info-lbl">문서 제목</div><div className="td-info-val">TBURN 토큰 배분 운영 스케줄</div></div>
-                <div className="td-info-box"><div className="td-info-lbl">버전</div><div className="td-info-val">3.0.0 Final</div></div>
-                <div className="td-info-box"><div className="td-info-lbl">계획 기간</div><div className="td-info-val">2025.12.22 ~ 2027.02.01</div></div>
-                <div className="td-info-box"><div className="td-info-lbl">Y1 총 해제</div><div className="td-info-val td-text-primary">32.68억 (32.7%)</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.docInfo.docTitle')}</div><div className="td-info-val">{t('tokenDetails.docInfo.docTitleValue')}</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.docInfo.version')}</div><div className="td-info-val">3.0.0 Final</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.docInfo.planPeriod')}</div><div className="td-info-val">2025.12.22 ~ 2027.02.01</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.docInfo.y1TotalUnlock')}</div><div className="td-info-val td-text-primary">32.68{t('tokenDetails.common.billion')} (32.7%)</div></div>
               </div>
               <div style={{ marginTop: '20px', textAlign: 'center', color: 'var(--td-text-muted)', fontSize: '0.85rem' }}>
-                작성: TBURN 재단 전략기획실 | 승인: 이사회
+                {t('tokenDetails.docInfo.author')}
               </div>
             </div>
           </div>
 
           <div className="td-container td-fade-in-up" style={{ marginTop: '40px' }}>
             <div className="td-card" style={{ background: 'rgba(255, 215, 0, 0.05)', border: '1px solid rgba(255, 215, 0, 0.2)' }}>
-              <div className="td-card-header"><h3 className="td-card-title" style={{ color: 'var(--td-accent)' }}>⚠️ 면책 조항 (Disclaimer)</h3></div>
+              <div className="td-card-header"><h3 className="td-card-title" style={{ color: 'var(--td-accent)' }}>{t('tokenDetails.disclaimer.title')}</h3></div>
               <div style={{ fontSize: '0.85rem', color: 'var(--td-text-muted)', lineHeight: 1.8 }}>
                 <p style={{ marginBottom: '12px' }}>
-                  <strong>투자 권유가 아님:</strong> 본 문서는 정보 제공 목적으로만 작성되었으며, 증권, 투자상품 또는 금융상품의 매수, 매도, 보유를 권유하거나 제안하는 것이 아닙니다.
+                  <strong>{t('tokenDetails.disclaimer.notInvestmentAdvice.title')}</strong> {t('tokenDetails.disclaimer.notInvestmentAdvice.content')}
                 </p>
                 <p style={{ marginBottom: '12px' }}>
-                  <strong>미래 예측 진술:</strong> 본 문서에 포함된 일정, 거래소 상장, 가격, 배분 계획 등은 현재 계획에 기반한 예상치이며, 실제 결과는 시장 상황, 규제 환경, 기술적 요인 등에 따라 달라질 수 있습니다. "*" 표시된 항목은 목표 또는 협의 진행 중인 사항입니다.
+                  <strong>{t('tokenDetails.disclaimer.forwardLooking.title')}</strong> {t('tokenDetails.disclaimer.forwardLooking.content')}
                 </p>
                 <p style={{ marginBottom: '12px' }}>
-                  <strong>변경 가능성:</strong> 토큰 배분 일정, 베스팅 조건, 거래소 상장 계획 등 모든 정보는 사전 통지 없이 변경될 수 있습니다. 최신 정보는 공식 채널을 통해 확인하시기 바랍니다.
+                  <strong>{t('tokenDetails.disclaimer.subjectToChange.title')}</strong> {t('tokenDetails.disclaimer.subjectToChange.content')}
                 </p>
                 <p>
-                  <strong>법적 책임 제한:</strong> TBURN 재단 및 관계사는 본 문서의 정보에 기반한 투자 결정으로 인한 손실에 대해 법적 책임을 지지 않습니다.
+                  <strong>{t('tokenDetails.disclaimer.limitedLiability.title')}</strong> {t('tokenDetails.disclaimer.limitedLiability.content')}
                 </p>
               </div>
             </div>
@@ -873,9 +876,9 @@ export default function TokenDetails() {
                 <TBurnLogo className="w-10 h-10" showText={false} />
                 <div className="td-logo-text td-font-orbitron">TBURN</div>
               </div>
-              <p style={{ color: 'var(--td-text-muted)' }}>투명하고 예측 가능한 토큰 배분 시스템</p>
+              <p style={{ color: 'var(--td-text-muted)' }}>{t('tokenDetails.footer.tagline')}</p>
               <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', marginTop: '15px', maxWidth: '600px', margin: '15px auto 0' }}>
-                본 문서의 모든 일정과 수치는 예정 사항이며 변경될 수 있습니다. 투자 결정 시 반드시 전문가와 상담하시기 바랍니다.
+                {t('tokenDetails.footer.disclaimer')}
               </p>
               <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.85rem', marginTop: '20px' }}>
                 © 2025 TBURN Foundation. All Rights Reserved.
