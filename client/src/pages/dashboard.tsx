@@ -528,9 +528,9 @@ export default function Dashboard() {
 
   const { data: networkStats, isLoading: statsLoading, error: statsError, refetch: refetchStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
-    refetchInterval: 5000,
-    staleTime: 5000,
-    refetchOnMount: true,
+    refetchInterval: 30000, // Match backend cache TTL for consistent display
+    staleTime: 30000, // 30s staleTime to ensure consistent values across pages
+    refetchOnMount: false, // Don't refetch on mount - use cached value for consistency
     refetchOnWindowFocus: false,
     retry: 3,
     retryDelay: 1000,

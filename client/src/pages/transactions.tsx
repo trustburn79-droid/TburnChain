@@ -470,10 +470,12 @@ export default function Transactions() {
   const { subscribeToEvent, isConnected } = useWebSocket();
   
   // Fetch real network stats for TPS and total transactions
+  // Uses same 30s cache as dashboard for consistent totalTransactions display
   const { data: networkStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
-    staleTime: 5000,
-    refetchInterval: 5000,
+    staleTime: 30000, // 30s staleTime to ensure consistent values across pages
+    refetchInterval: 30000, // Match backend cache TTL
+    refetchOnMount: false, // Don't refetch on mount - use cached value for consistency
     refetchOnWindowFocus: false,
   });
   
@@ -792,7 +794,7 @@ export default function Transactions() {
                 {t('transactions.recentTransactions')}
               </CardTitle>
               <CardDescription>
-                {formatNumber(pagination.totalItems)} {t('transactions.totalTransactions').toLowerCase()} • {t('common.page')} {page} / {pagination.totalPages}
+                {t('transactions.showing')} {transactions.length} {t('transactions.of')} {formatNumber(metrics.totalTransactions)} {t('transactions.totalTransactions').toLowerCase()} • {t('common.page')} {page}
               </CardDescription>
             </div>
             
