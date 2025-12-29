@@ -742,24 +742,33 @@ export default function Dashboard() {
                 queryClient.setQueryData(["/api/network/stats"], (oldData: NetworkStats | undefined) => {
                   // If no REST data yet, don't set anything - wait for REST API
                   if (!oldData) return undefined;
-                  // Merge WebSocket data but ALWAYS preserve critical metrics from REST
-                  // PRODUCTION LAUNCH: Block height and block time must come from DB only
+                  // Merge WebSocket data but ALWAYS preserve critical metrics from REST API
+                  // PRODUCTION LAUNCH: All metrics that could cause flickering must come from REST only
                   const { 
                     tps: _wsTps, 
                     peakTps: _wsPeakTps, 
                     currentBlockHeight: _wsBlockHeight,
                     avgBlockTime: _wsBlockTime,
                     blockTimeP99: _wsBlockTimeP99,
+                    totalTransactions: _wsTotalTx,
+                    activeValidators: _wsActiveVal,
+                    totalValidators: _wsTotalVal,
+                    shardCount: _wsShardCount,
                     ...safePayload 
                   } = payload;
                   return {
                     ...oldData,
                     ...safePayload,
-                    tps: oldData.tps, // CRITICAL: Preserve authoritative TPS
-                    peakTps: oldData.peakTps, // CRITICAL: Preserve peak TPS
-                    currentBlockHeight: oldData.currentBlockHeight, // CRITICAL: DB-only block height
-                    avgBlockTime: oldData.avgBlockTime, // CRITICAL: DB-only block time
-                    blockTimeP99: oldData.blockTimeP99, // CRITICAL: DB-only P99
+                    // CRITICAL: Preserve ALL authoritative metrics from REST API
+                    tps: oldData.tps,
+                    peakTps: oldData.peakTps,
+                    currentBlockHeight: oldData.currentBlockHeight,
+                    avgBlockTime: oldData.avgBlockTime,
+                    blockTimeP99: oldData.blockTimeP99,
+                    totalTransactions: oldData.totalTransactions,
+                    activeValidators: oldData.activeValidators,
+                    totalValidators: oldData.totalValidators,
+                    shardCount: (oldData as any).shardCount,
                   };
                 });
                 setLastDataUpdate(new Date());

@@ -1652,14 +1652,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           // Merge with database values and real-time healing scores
           // TPS values are always overridden by shard-based calculation for determinism
+          // CRITICAL: Use Enterprise Node as single source of truth for all live metrics
           const mergedStats = mergeWithHealingScores({
             ...mainnetStats,
-            currentBlockHeight: dbStats?.currentBlockHeight || mainnetStats.currentBlockHeight || 0,
+            currentBlockHeight: mainnetStats.currentBlockHeight || dbStats?.currentBlockHeight || 0,
             // Override validators with shard-based calculation
             activeValidators: shardTps.validators,
             totalValidators: shardTps.validators,
-            totalTransactions: dbStats?.totalTransactions || mainnetStats.totalTransactions || 0,
-            totalAccounts: dbStats?.totalAccounts || mainnetStats.totalAccounts || 0,
+            // CRITICAL: Always use Enterprise Node values (mainnetStats) for consistency
+            totalTransactions: mainnetStats.totalTransactions || 0,
+            totalAccounts: mainnetStats.totalAccounts || dbStats?.totalAccounts || 0,
             // ENTERPRISE: TPS always from shard configuration
             tps: shardTps.tps,
             peakTps: shardTps.peakTps,
@@ -17280,12 +17282,22 @@ Provide JSON portfolio analysis:
     console.log('New WebSocket client connected');
     clients.add(ws);
 
-    // Send initial network stats
-    storage.getNetworkStats().then(stats => {
+    // Send initial network stats with normalized TPS/validators from Enterprise Node
+    storage.getNetworkStats().then(async (stats) => {
       if (ws.readyState === WebSocket.OPEN) {
+        // CRITICAL: Apply shard-based TPS/validators calculation for consistency
+        const shardTps = calculateRealTimeTps();
+        const normalizedStats = {
+          ...stats,
+          tps: shardTps.tps,
+          peakTps: shardTps.peakTps,
+          activeValidators: shardTps.validators,
+          totalValidators: shardTps.validators,
+          shardCount: shardTps.shardCount,
+        };
         ws.send(JSON.stringify({
           type: 'network_stats',
-          data: stats,
+          data: normalizedStats,
         }));
       }
     });
@@ -17640,7 +17652,15 @@ Provide JSON portfolio analysis:
           activeValidators: shardTps.validators,
           totalValidators: shardTps.validators
         });
-        stats = { ...stats, tps: shardTps.tps, peakTps: shardTps.peakTps };
+        // CRITICAL: Include all shard-based values for consistency
+        stats = { 
+          ...stats, 
+          tps: shardTps.tps, 
+          peakTps: shardTps.peakTps,
+          activeValidators: shardTps.validators,
+          totalValidators: shardTps.validators,
+          shardCount: shardTps.shardCount,
+        };
       }
 
       // Get real-time token economics from Enterprise Node
