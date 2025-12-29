@@ -38,8 +38,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatNumber } from "@/lib/formatters";
-import { LanguageSelector } from "@/components/language-selector";
-import { ProfileBadge } from "@/components/profile-badge";
+import { UnifiedHeaderNav } from "@/components/unified-header-nav";
 import type { NetworkStats, StakingStats } from "@shared/schema";
 
 type Section = "dashboard" | "wallet" | "stakingDashboard" | "delegationValidator" | "defi" | "nft" | "governance" | "network";
@@ -742,50 +741,7 @@ export default function UserPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
-            {/* Navigation icons */}
-            <a href="/" data-testid="link-home">
-              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <Home className="w-4 h-4" />
-              </Button>
-            </a>
-            <a href="/scan" data-testid="link-scan">
-              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <ScanLine className="w-4 h-4" />
-              </Button>
-            </a>
-            <a href="/bug-bounty" data-testid="link-bug-bounty">
-              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <Bug className="w-4 h-4" />
-              </Button>
-            </a>
-            <a href="/security-audit" data-testid="link-security-audit">
-              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <Shield className="w-4 h-4" />
-              </Button>
-            </a>
-            <a href="/token-generator" data-testid="link-token-generator">
-              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <Coins className="w-4 h-4" />
-              </Button>
-            </a>
-            <a href="/nft-marketplace" data-testid="link-nft-marketplace">
-              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <ImageIcon className="w-4 h-4" />
-              </Button>
-            </a>
-            <a href="/qna" data-testid="link-qna">
-              <Button variant="ghost" size="icon" className="h-8 w-8 lg:h-9 lg:w-9">
-                <HelpCircle className="w-4 h-4" />
-              </Button>
-            </a>
-            <Separator orientation="vertical" className="h-4 sm:h-6 hidden sm:block" />
-            <LanguageSelector />
-            <Button variant="ghost" size="icon" onClick={toggleTheme} data-testid="button-theme-toggle" className="h-8 w-8 lg:h-9 lg:w-9">
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
-            <ProfileBadge />
-          </div>
+          <UnifiedHeaderNav variant="light" />
         </header>
 
         <div className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 scroll-smooth relative z-0">

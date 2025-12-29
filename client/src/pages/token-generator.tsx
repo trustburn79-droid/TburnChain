@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { web3Provider, type Web3State, TBURN_MAINNET_CONFIG } from "@/lib/web3-provider";
 import { useTheme } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { UnifiedHeaderNav } from "@/components/unified-header-nav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -89,8 +89,6 @@ import {
   Hexagon,
   Menu,
 } from "lucide-react";
-import { LanguageSelector } from "@/components/LanguageSelector";
-import { ProfileBadge } from "@/components/profile-badge";
 
 type TabType = "create" | "myTokens" | "verification";
 type TokenStandardType = "TBC-20" | "TBC-721" | "TBC-1155";
@@ -1002,35 +1000,7 @@ export default function TokenSystemPage() {
               </Badge>
             </div>
           </div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link href="/" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-home">
-              <Home className="w-4 h-4" />
-            </Link>
-            <Link href="/scan" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-scan">
-              <ScanLine className="w-4 h-4" />
-            </Link>
-            <Link href="/user" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-user">
-              <User className="w-4 h-4" />
-            </Link>
-            <Link href="/bug-bounty" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-bug-bounty">
-              <Bug className="w-4 h-4" />
-            </Link>
-            <Link href="/security-audit" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-security-audit">
-              <Shield className="w-4 h-4" />
-            </Link>
-            <Link href="/token-generator" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-token-generator">
-              <Coins className="w-4 h-4" />
-            </Link>
-            <Link href="/nft-marketplace" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-nft-marketplace">
-              <ImageIcon className="w-4 h-4" />
-            </Link>
-            <Link href="/qna" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-qna">
-              <HelpCircle className="w-4 h-4" />
-            </Link>
-            <LanguageSelector isDark={isDark} />
-            <ThemeToggle />
-            <ProfileBadge />
-          </div>
+          <UnifiedHeaderNav variant="light" />
         </header>
 
         <div className="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth z-0">

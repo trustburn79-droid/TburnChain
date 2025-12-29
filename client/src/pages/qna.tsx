@@ -39,7 +39,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'wouter';
 import { useTheme } from '@/components/theme-provider';
-import { LanguageSelector } from '@/components/language-selector';
+import { UnifiedHeaderNav } from '@/components/unified-header-nav';
 import { cn } from '@/lib/utils';
 import { TBurnLogo } from "@/components/tburn-logo";
 
@@ -154,89 +154,7 @@ export default function QnAPage() {
             TBURN <span className="text-blue-500 hidden sm:inline">Help Center</span>
           </h1>
         </div>
-        <div className="flex items-center gap-2">
-          <Link href="/">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
-              data-testid="link-nav-home"
-            >
-              <Home className="h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/scan">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
-              data-testid="link-nav-scan"
-            >
-              <ScanLine className="h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/user">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
-              data-testid="link-nav-user"
-            >
-              <User className="h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/bug-bounty">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
-              data-testid="link-nav-bug-bounty"
-            >
-              <Bug className="h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/security-audit">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
-              data-testid="link-nav-security-audit"
-            >
-              <Shield className="h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/token-generator">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
-              data-testid="link-nav-token-generator"
-            >
-              <Coins className="h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/nft-marketplace">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full text-slate-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-white"
-              data-testid="link-nav-nft-marketplace"
-            >
-              <ImageIcon className="h-4 w-4" />
-            </Button>
-          </Link>
-          <div className="w-px h-6 bg-slate-200 dark:bg-gray-700 mx-1" />
-          <LanguageSelector />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleTheme}
-            className="rounded-full text-slate-500 dark:text-yellow-400 hover:bg-slate-100 dark:hover:bg-gray-700"
-            data-testid="button-theme-toggle"
-          >
-            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </Button>
-        </div>
+        <UnifiedHeaderNav variant="light" />
       </header>
 
       <div className="flex flex-1 overflow-hidden">

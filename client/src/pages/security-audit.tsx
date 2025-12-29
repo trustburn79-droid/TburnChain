@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { LanguageSelector } from "@/components/LanguageSelector";
+import { UnifiedHeaderNav } from "@/components/unified-header-nav";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -276,31 +275,7 @@ Report Generated: ${new Date().toISOString().split('T')[0]}
             </div>
             <span className="text-xs text-slate-400 hidden sm:block">{t('securityPages.securityAudit.lastScanned', { time: '10 mins' })}</span>
           </div>
-          <div className="flex items-center gap-3">
-            <Link href="/" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-home">
-              <Home className="w-4 h-4" />
-            </Link>
-            <Link href="/scan" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-scan">
-              <ScanLine className="w-4 h-4" />
-            </Link>
-            <Link href="/user" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-user">
-              <User className="w-4 h-4" />
-            </Link>
-            <Link href="/bug-bounty" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-bug-bounty">
-              <Bug className="w-4 h-4" />
-            </Link>
-            <Link href="/token-generator" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-token-generator">
-              <Coins className="w-4 h-4" />
-            </Link>
-            <Link href="/nft-marketplace" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-nft-marketplace">
-              <ImageIcon className="w-4 h-4" />
-            </Link>
-            <Link href="/qna" className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'}`} data-testid="link-qna">
-              <HelpCircle className="w-4 h-4" />
-            </Link>
-            <LanguageSelector isDark={isDark} />
-            <ThemeToggle />
-          </div>
+          <UnifiedHeaderNav variant="light" />
         </header>
 
         <div className="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth z-0">
