@@ -8050,6 +8050,7 @@
       "launchExplorer": "익스플로러 실행",
       "readWhitepaper": "백서 읽기",
       "stats": {
+        "tps": "TPS",
         "blocks": "블록",
         "validators": "검증자",
         "validatorsRegistered": "검증자 등록됨",

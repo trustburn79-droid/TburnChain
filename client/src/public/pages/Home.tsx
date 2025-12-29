@@ -341,6 +341,16 @@ export default function Home() {
         {/* Stats Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-32">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-tps">
+              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                {stats?.tps != null 
+                  ? (stats.tps >= 1000 
+                      ? Math.floor(stats.tps / 1000).toLocaleString() + "K" 
+                      : stats.tps.toLocaleString()) 
+                  : "210K"}
+              </div>
+              <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.tps')}</div>
+            </div>
             <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-blocks">
               <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                 {stats?.blockHeight != null 
@@ -350,12 +360,6 @@ export default function Home() {
                   : "1.9M"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.blocks')}</div>
-            </div>
-            <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-validators">
-              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                {stats?.activeValidators != null ? stats.activeValidators.toLocaleString() : "1,600"}
-              </div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.validators')}</div>
             </div>
             <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-daily-txs">
               <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
@@ -371,7 +375,7 @@ export default function Home() {
             </div>
             <div className="bg-white dark:bg-transparent dark:glass-panel p-6 rounded-2xl text-center group border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400/30 transition-colors shadow-sm" data-testid="stat-uptime">
               <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 font-mono group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                99.99%
+                {stats?.uptime || "99.99%"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.uptime')}</div>
             </div>
