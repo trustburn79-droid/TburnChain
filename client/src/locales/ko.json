@@ -30276,4 +30276,387 @@
     "sending": "전송 중...",
     "resendCode": "코드 재전송"
   }
+,
+  "tokenSchedule": {
+    "nav": {
+      "overview": "📋 기본 구조",
+      "schedule": "📊 20년 스케줄",
+      "phase1": "📈 1단계 - 성장기",
+      "phase2": "🔥 2단계 - 통화 축소기",
+      "phase3": "🏆 3단계 - 희소성",
+      "phase4": "💎 4단계 - 다이아몬드",
+      "visual": "📊 시각화",
+      "comparison": "📈 비교",
+      "summary": "📑 요약"
+    },
+    "hero": {
+      "title": "TBURN 토큰 이코노믹스",
+      "subtitle": "2025~2045 장기 통화 축소 로드맵",
+      "description": "지속적인 토큰 소각과 공급량 감소를 결합한 20년 경제 설계",
+      "stats": {
+        "initialSupply": {"label": "초기 공급량", "value": "1B TBURN"},
+        "finalSupply": {"label": "최종 공급량", "value": "100M TBURN"},
+        "projectedBurn": {"label": "예상 소각량", "value": "900M TBURN"},
+        "reductionRate": {"label": "감소율", "value": "90%"}
+      }
+    },
+    "overview": {
+      "title": "개요",
+      "supplyMechanism": {"title": "공급 메커니즘", "description": "비트코인 모델을 따라 4년마다 반감기가 있는 블록 보상"},
+      "burnMechanism": {"title": "소각 메커니즘", "description": "AI 수수료, 거래 수수료, 전략적 소각으로 공급량 영구 감소"},
+      "phaseGoals": {"title": "단계별 목표", "description": "점진적인 공급량 감소를 목표로 하는 4개의 단계"}
+    },
+    "schedule": {
+      "title": "20년 경제 스케줄",
+      "headers": {"phase": "단계", "years": "기간", "supplyTarget": "공급량 목표", "burnRate": "소각률", "notes": "비고"}
+    },
+    "phases": {
+      "phase1": {"title": "1단계: 성장기 (2025-2030)", "description": "네트워크 확장 및 생태계 개발"},
+      "phase2": {"title": "2단계: 통화 축소기 (2030-2035)", "description": "가속화된 소각 메커니즘 활성화"},
+      "phase3": {"title": "3단계: 희소성 (2035-2040)", "description": "희소성 가치 창출을 위한 공급량 감소"},
+      "phase4": {"title": "4단계: 다이아몬드 (2040-2045)", "description": "최종 최적화 및 장기 안정성"}
+    },
+    "disclaimer": {
+      "title": "⚠️ 면책 조항",
+      "investmentAdvice": "투자 조언 아님",
+      "investmentAdviceDesc": "본 문서는 정보 제공 목적으로만 작성되었습니다.",
+      "forwardLooking": "미래 예측 진술",
+      "forwardLookingDesc": "토큰 공급량과 예측은 실제 결과와 다를 수 있습니다.",
+      "subjectToChange": "변경 가능",
+      "subjectToChangeDesc": "토큰 경제는 거버넌스 투표를 통해 수정될 수 있습니다."
+    },
+    "footer": {
+      "slogan": "20년 디플레이션 비전으로 장기 가치 창출",
+      "copyright": "© 2025 TBURN 재단"
+    }
+  },
+  "tokenDetails": {
+    "nav": {
+      "overview": "개요",
+      "community": "커뮤니티",
+      "rewards": "보상",
+      "investors": "투자자",
+      "ecosystem": "생태계",
+      "team": "팀",
+      "y1Schedule": "1년차 스케줄",
+      "checklist": "체크리스트",
+      "calendar": "일정"
+    },
+    "hero": {
+      "title": "토큰 배분 & 운영 가이드",
+      "subtitle": "TBURN 토큰 할당 및 배분에 대한 종합 가이드",
+      "description": "1년차 언락 스케줄 및 카테고리별 배분 상세",
+      "mainnetGenesis": "메인넷 제네시스",
+      "exchangeListing": "거래소 상장",
+      "listingDate": "2026년 1분기",
+      "applicablePeriod": "적용 기간"
+    },
+    "overview": {
+      "title": "토큰 배분 개요",
+      "purpose": {
+        "title": "문서 목적",
+        "description": "본 문서는 TBURN 메인넷의 토큰 배분, 베스팅 스케줄 및 1년차 언락 상세 정보를 제공합니다.",
+        "item1": "이해관계자별 상세 할당 정보",
+        "item2": "투명한 베스팅 및 클리프 기간 정보",
+        "item3": "1년차 월별 언락 스케줄",
+        "item4": "배분 방식 및 대상 명세"
+      },
+      "schedule": {
+        "title": "주요 일정",
+        "genesis": {
+          "title": "메인넷 제네시스",
+          "desc": "네트워크 런칭 및 최초 블록 생성"
+        },
+        "seed": {
+          "title": "시드 라운드",
+          "desc": "초기 투자자 참여 기간"
+        },
+        "public": {
+          "title": "퍼블릭 세일",
+          "desc": "일반 대중 토큰 세일"
+        },
+        "listing": {
+          "date": "2026년 1분기 목표",
+          "title": "거래소 상장",
+          "desc": "최초 Tier-1 CEX 상장"
+        },
+        "note": "모든 일정은 시장 상황 및 규제 요건에 따라 변경될 수 있습니다"
+      },
+      "distribution": {
+        "title": "토큰 배분 개요"
+      }
+    },
+    "distribution": {
+      "community": "커뮤니티",
+      "rewards": "블록 & 검증자 보상",
+      "investors": "투자자",
+      "ecosystem": "생태계",
+      "team": "팀 & 어드바이저"
+    },
+    "table": {
+      "category": "카테고리",
+      "subcategory": "세부항목",
+      "ratio": "비율",
+      "quantity": "수량",
+      "method": "배분 방식",
+      "target": "대상",
+      "total": "합계",
+      "communityIcon": "👥",
+      "rewardsIcon": "⛏️",
+      "investorsIcon": "💰"
+    },
+    "common": {
+      "billion": "억",
+      "month": "개월",
+      "tenThousand": "만",
+      "totalSupply": "총 공급량",
+      "vesting": "베스팅"
+    },
+    "community": {
+      "title": "커뮤니티 할당 (30%)",
+      "airdrop": {
+        "title": "에어드랍 배분",
+        "name": "에어드랍",
+        "method": "스냅샷 & 클레임",
+        "target": "초기 커뮤니티 멤버",
+        "vesting": "12개월 선형 베스팅",
+        "claimPeriod": "클레임 기간",
+        "claimPeriodValue": "상장 후 90일",
+        "tier": "등급",
+        "qualification": "자격 조건",
+        "allocation": "할당량",
+        "expectedCount": "예상 인원",
+        "perPerson": "인당 수량",
+        "tierOgCondition": "제네시스 블록 참여 + 테스트넷 검증자",
+        "tierOgCount": "~5만명",
+        "tierEarlyCondition": "테스트넷 참여 + 커뮤니티 기여",
+        "tierEarlyCount": "~15만명",
+        "tierActiveCondition": "활성 지갑 + 트랜잭션 이력",
+        "tierActiveCount": "~30만명",
+        "tierBasicCondition": "지갑 등록 + KYC 완료",
+        "tierBasicCount": "~50만명",
+        "step1": "지갑 연결 및 KYC 인증 완료",
+        "step2": "등급별 자격 조건 확인",
+        "step3": "클레임 기간 내 토큰 수령",
+        "step4": "토큰은 12개월간 선형 베스팅"
+      },
+      "referral": {
+        "title": "추천인 프로그램",
+        "name": "추천 보상",
+        "method": "자동 배분",
+        "target": "활성 추천인",
+        "vesting": "즉시 언락",
+        "activity": "활동 유형",
+        "referrer": "추천인 보상",
+        "referee": "피추천인 보상",
+        "signupTx": "가입 + 첫 TX",
+        "saleParticipation": "세일 참여"
+      },
+      "events": {
+        "title": "이벤트 & 캠페인",
+        "name": "마케팅 이벤트",
+        "method": "캠페인 기반",
+        "target": "이벤트 참가자",
+        "vesting": "이벤트별 상이",
+        "launchAirdrop": "메인넷 런칭 기념 에어드랍",
+        "walletCampaign": "TBURN 지갑 다운로드 캠페인",
+        "tier1Listing": "Tier-1 거래소 상장 이벤트"
+      },
+      "activity": {
+        "name": "활동 보상",
+        "method": "사용량 기반",
+        "target": "네트워크 사용자"
+      },
+      "dao": {
+        "title": "DAO 트레저리",
+        "name": "DAO 리저브",
+        "method": "거버넌스 투표",
+        "target": "커뮤니티 거버넌스",
+        "cliff": "12개월 클리프",
+        "lockupWarning": "DAO 트레저리 토큰은 상장 후 12개월간 잠금",
+        "unlockInfo": "언락을 위해 66% 이상 정족수의 거버넌스 제안 승인 필요"
+      }
+    },
+    "rewards": {
+      "title": "블록 & 검증자 보상 (23%)",
+      "block": {
+        "title": "블록 보상",
+        "name": "블록 보상",
+        "method": "알고리즘 발행",
+        "target": "블록 생산자",
+        "duration": "20년",
+        "halving": "반감기",
+        "period": "기간",
+        "perBlock": "블록당",
+        "annualIssuance": "연간 발행량",
+        "note": "비고",
+        "phase1": "1단계",
+        "phase1Note": "초기 고보상 단계",
+        "phase2": "2단계",
+        "phase2Note": "1차 반감기 적용",
+        "phase3": "3단계",
+        "phase3Note": "2차 반감기 적용",
+        "validatorCount": "활성 검증자 수",
+        "y1TotalReward": "1년차 총 보상",
+        "monthlyPerValidator": "검증자당 월 보상"
+      },
+      "validator": {
+        "title": "검증자 인센티브",
+        "name": "검증자 보상",
+        "method": "성과 기반",
+        "target": "활성 검증자",
+        "performanceBased": "성과 기반",
+        "distributionPeriod": "배분 주기",
+        "distributionPeriodValue": "월별",
+        "monthlyBudget": "월 예산",
+        "monthlyBudgetValue": "1,333K TBURN",
+        "type": "보상 유형",
+        "condition": "조건",
+        "uptimeBonus": "가동률 보너스",
+        "uptimeCondition": "99.9% 이상 가동률 유지",
+        "blockProduction": "블록 생산",
+        "blockCondition": "할당 블록 생산 완료",
+        "networkContribution": "네트워크 기여",
+        "networkCondition": "크로스샤드 트랜잭션 처리"
+      }
+    },
+    "investors": {
+      "title": "투자자 할당 (20%)",
+      "seed": {
+        "name": "시드 라운드",
+        "method": "SAFT 계약",
+        "target": "전략적 파트너",
+        "vesting": "총 24개월 (6개월 클리프 + 18개월 선형)",
+        "y1Unlock": "1년차 언락: 25억 TBURN",
+        "firstUnlock": "상장 후 M7에 첫 언락"
+      },
+      "private": {
+        "name": "프라이빗 라운드",
+        "method": "투자 계약",
+        "target": "기관 투자자",
+        "vesting": "총 18개월 (3개월 클리프 + 15개월 선형)",
+        "y1Unlock": "1년차 언락: 60억 TBURN",
+        "firstUnlock": "상장 후 M10에 첫 언락"
+      },
+      "public": {
+        "name": "퍼블릭 세일",
+        "method": "런치패드 참여",
+        "target": "일반 대중",
+        "vesting": "총 12개월 (3개월 클리프 + 9개월 선형)",
+        "y1Unlock": "1년차 언락: 48억 TBURN",
+        "details": "TGE 20% 언락, 이후 9개월 선형 베스팅"
+      }
+    },
+    "ecosystem": {
+      "title": "생태계 개발 (15%)",
+      "item": "항목",
+      "y1Activity": "1년차 활동",
+      "fund": {
+        "name": "개발 펀드",
+        "vesting": "36개월 선형 언락",
+        "y1Activity": "코어 프로토콜 개발, SDK 출시"
+      },
+      "partnership": {
+        "name": "전략적 파트너십",
+        "vesting": "24개월 마일스톤 기반",
+        "y1Activity": "거래소 통합, DeFi 프로토콜 파트너십"
+      },
+      "marketing": {
+        "name": "마케팅 & 성장",
+        "vesting": "18개월 캠페인 기반",
+        "y1Activity": "글로벌 마케팅 캠페인, 커뮤니티 빌딩"
+      }
+    },
+    "team": {
+      "title": "팀 & 어드바이저 (12%)",
+      "lockupWarning": "모든 팀 토큰은 최소 12개월 클리프와 36개월 총 베스팅 기간 적용",
+      "core": {
+        "name": "코어 팀",
+        "cliff": "12개월 클리프",
+        "firstUnlock": "첫 언락: M13에 25%"
+      },
+      "advisor": {
+        "name": "어드바이저",
+        "cliff": "12개월 클리프",
+        "firstUnlock": "첫 언락: M13에 25%"
+      },
+      "strategic": {
+        "name": "전략적 리저브",
+        "cliff": "18개월 클리프",
+        "firstUnlock": "첫 언락: M19에 10%"
+      }
+    },
+    "y1Schedule": {
+      "title": "1년차 언락 스케줄",
+      "unit": "단위: 1억 TBURN",
+      "totalUnlock": "총 1년차: 326.8억",
+      "timing": "시점",
+      "blockValidator": "블록/검증자",
+      "ecosystemMarketing": "생태계/마케팅",
+      "monthlyTotal": "월별 합계",
+      "keyEvent": "주요 이벤트",
+      "listingDay": "상장일",
+      "firstListing": "최초 거래소 상장",
+      "blockRewardStart": "블록 보상 시작",
+      "tier1Target": "Tier-1 CEX 목표",
+      "publicCliffEnd": "퍼블릭 세일 클리프 종료",
+      "publicVesting": "퍼블릭 선형 베스팅",
+      "partnershipStart": "파트너십 언락 시작",
+      "privateStart": "프라이빗 라운드 언락 시작",
+      "anniversary": "1주년 기념"
+    },
+    "checklist": {
+      "title": "런칭 준비 체크리스트",
+      "item1": "스마트 컨트랙트 보안 감사 완료 (CertiK, Trail of Bits)",
+      "item2": "125개 이상 활성 노드로 검증자 네트워크 운영",
+      "item3": "토큰 클레임 포털 및 베스팅 대시보드 라이브",
+      "item4": "거래소 통합 및 상장 확정",
+      "item5": "커뮤니티 거버넌스 프레임워크 활성화"
+    },
+    "calendar": {
+      "title": "주요 일정 & 마일스톤",
+      "date": "날짜",
+      "event": "이벤트",
+      "unlockAmount": "언락 수량",
+      "listingDateTarget": "2026년 1분기",
+      "listingEvent": "거래소 상장 & TGE",
+      "publicVestingStart": "퍼블릭 세일 베스팅 시작",
+      "partnershipStartEvent": "파트너십 언락 시작",
+      "privateStartEvent": "프라이빗 라운드 언락 시작",
+      "anniversaryEvent": "1주년 마일스톤"
+    },
+    "docInfo": {
+      "title": "문서 정보",
+      "docTitle": "문서 제목",
+      "docTitleValue": "TBURN 토큰 배분 가이드 v3.0",
+      "version": "버전",
+      "planPeriod": "계획 기간",
+      "y1TotalUnlock": "1년차 총 언락",
+      "author": "TBURN 재단 · 토큰 이코노믹스 팀"
+    },
+    "disclaimer": {
+      "title": "⚠️ 중요 면책조항",
+      "notInvestmentAdvice": {
+        "title": "투자 조언 아님:",
+        "content": "본 문서는 정보 제공 목적으로만 작성되었으며 투자, 법률 또는 세무 조언을 구성하지 않습니다. 결정을 내리기 전에 자격을 갖춘 전문가와 상담하시기 바랍니다."
+      },
+      "forwardLooking": {
+        "title": "미래 예측 진술:",
+        "content": "본 문서에는 위험과 불확실성을 수반하는 미래 예측 진술이 포함되어 있습니다. 실제 결과는 명시적 또는 묵시적으로 표현된 것과 크게 다를 수 있습니다."
+      },
+      "subjectToChange": {
+        "title": "변경 가능:",
+        "content": "토큰 배분 일정, 베스팅 기간 및 기타 세부 사항은 시장 상황, 규제 요건 및 거버넌스 결정에 따라 변경될 수 있습니다."
+      },
+      "limitedLiability": {
+        "title": "책임 제한:",
+        "content": "TBURN 재단 및 그 계열사는 본 문서에 포함된 정보 사용으로 인해 발생하는 손실에 대해 책임을 지지 않습니다."
+      }
+    },
+    "footer": {
+      "tagline": "탈중앙화 금융의 미래를 구축합니다",
+      "disclaimer": "본 문서는 정보 제공 목적으로만 제공됩니다. 토큰 배분 일정은 시장 상황 및 규제 요건에 따라 변경될 수 있습니다."
+    }
+  }
+
 }

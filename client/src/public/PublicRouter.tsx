@@ -23,6 +23,8 @@ const EducationPrograms = lazy(() => import("./pages/learn/EducationPrograms"));
 const Whitepaper = lazy(() => import("./pages/learn/Whitepaper"));
 const TechnicalWhitepaper = lazy(() => import("./pages/learn/TechnicalWhitepaper"));
 const Tokenomics = lazy(() => import("./pages/learn/Tokenomics"));
+const TokenSchedule = lazy(() => import("@/pages/token-schedule"));
+const TokenDetails = lazy(() => import("@/pages/token-details"));
 const Roadmap = lazy(() => import("./pages/learn/Roadmap"));
 const Universities = lazy(() => import("./pages/learn/Universities"));
 const BlockchainBasics = lazy(() => import("./pages/learn/BlockchainBasics"));
@@ -121,6 +123,8 @@ export function PublicRouter() {
           <Route path="/learn/whitepaper" component={Whitepaper} />
           <Route path="/learn/technical-whitepaper" component={TechnicalWhitepaper} />
           <Route path="/learn/tokenomics" component={Tokenomics} />
+          <Route path="/token-schedule" component={TokenSchedule} />
+          <Route path="/token-details" component={TokenDetails} />
           <Route path="/learn/roadmap" component={Roadmap} />
           <Route path="/learn/blockchain-basics" component={BlockchainBasics} />
           <Route path="/learn/defi-mastery" component={DefiMastery} />

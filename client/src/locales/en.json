@@ -138,7 +138,8 @@
     "percentage": "Percentage",
     "count": "Count",
     "resolved": "Resolved",
-    "login": "Login",
+    "login": "Login"
+  },
   "tokenSchedule": {
     "nav": {
       "overview": "Overview",
@@ -29274,4 +29275,334 @@
     "sending": "Sending...",
     "resendCode": "Resend Code"
   }
-}}
+,
+  "tokenDetails": {
+    "nav": {
+      "overview": "Overview",
+      "community": "Community",
+      "rewards": "Rewards",
+      "investors": "Investors",
+      "ecosystem": "Ecosystem",
+      "team": "Team",
+      "y1Schedule": "Y1 Schedule",
+      "checklist": "Checklist",
+      "calendar": "Calendar"
+    },
+    "hero": {
+      "title": "Token Distribution & Operations Guide",
+      "subtitle": "Comprehensive guide to TBURN token allocation and distribution",
+      "description": "Year 1 unlocking schedule and category-specific distribution details",
+      "mainnetGenesis": "Mainnet Genesis",
+      "exchangeListing": "Exchange Listing",
+      "listingDate": "2026 Q1",
+      "applicablePeriod": "Applicable Period"
+    },
+    "overview": {
+      "title": "Token Distribution Overview",
+      "purpose": {
+        "title": "Document Purpose",
+        "description": "This document provides comprehensive token distribution, vesting schedules, and Year 1 unlock details for the TBURN mainnet.",
+        "item1": "Detailed allocation for each stakeholder category",
+        "item2": "Transparent vesting and cliff period information",
+        "item3": "Year 1 monthly unlocking schedule",
+        "item4": "Distribution method and target specifications"
+      },
+      "schedule": {
+        "title": "Key Schedule",
+        "genesis": {
+          "title": "Mainnet Genesis",
+          "desc": "Network launch and initial block generation"
+        },
+        "seed": {
+          "title": "Seed Round",
+          "desc": "Early investor participation period"
+        },
+        "public": {
+          "title": "Public Sale",
+          "desc": "General public token sale"
+        },
+        "listing": {
+          "date": "2026 Q1 Target",
+          "title": "Exchange Listing",
+          "desc": "First Tier-1 CEX listing"
+        },
+        "note": "All schedules are subject to market conditions and regulatory requirements"
+      },
+      "distribution": {
+        "title": "Token Distribution Overview"
+      }
+    },
+    "distribution": {
+      "community": "Community",
+      "rewards": "Block & Validator Rewards",
+      "investors": "Investors",
+      "ecosystem": "Ecosystem",
+      "team": "Team & Advisors"
+    },
+    "table": {
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "ratio": "Ratio",
+      "quantity": "Quantity",
+      "method": "Distribution Method",
+      "target": "Target",
+      "total": "Total",
+      "communityIcon": "👥",
+      "rewardsIcon": "⛏️",
+      "investorsIcon": "💰"
+    },
+    "common": {
+      "billion": "B",
+      "month": "mo",
+      "tenThousand": "K",
+      "totalSupply": "Total Supply",
+      "vesting": "Vesting"
+    },
+    "community": {
+      "title": "Community Allocation (30%)",
+      "airdrop": {
+        "title": "Airdrop Distribution",
+        "name": "Airdrop",
+        "method": "Snapshot & Claim",
+        "target": "Early community members",
+        "vesting": "12 months linear",
+        "claimPeriod": "Claim Period",
+        "claimPeriodValue": "90 days from listing",
+        "tier": "Tier",
+        "qualification": "Qualification",
+        "allocation": "Allocation",
+        "expectedCount": "Expected Count",
+        "perPerson": "Per Person",
+        "tierOgCondition": "Genesis block participant + Testnet validator",
+        "tierOgCount": "~50,000",
+        "tierEarlyCondition": "Testnet participant + Community contribution",
+        "tierEarlyCount": "~150,000",
+        "tierActiveCondition": "Active wallet + Transaction history",
+        "tierActiveCount": "~300,000",
+        "tierBasicCondition": "Wallet registration + KYC completed",
+        "tierBasicCount": "~500,000",
+        "step1": "Connect wallet and complete KYC verification",
+        "step2": "Check eligibility based on tier qualification",
+        "step3": "Claim tokens during the claim period",
+        "step4": "Tokens vest linearly over 12 months"
+      },
+      "referral": {
+        "title": "Referral Program",
+        "name": "Referral Rewards",
+        "method": "Automatic distribution",
+        "target": "Active referrers",
+        "vesting": "Immediate unlock",
+        "activity": "Activity Type",
+        "referrer": "Referrer Reward",
+        "referee": "Referee Reward",
+        "signupTx": "Signup + First TX",
+        "saleParticipation": "Sale Participation"
+      },
+      "events": {
+        "title": "Events & Campaigns",
+        "name": "Marketing Events",
+        "method": "Campaign-based",
+        "target": "Event participants",
+        "vesting": "Event-specific",
+        "launchAirdrop": "Mainnet Launch Celebration Airdrop",
+        "walletCampaign": "TBURN Wallet Download Campaign",
+        "tier1Listing": "Tier-1 Exchange Listing Event"
+      },
+      "activity": {
+        "name": "Activity Rewards",
+        "method": "Usage-based",
+        "target": "Network users"
+      },
+      "dao": {
+        "title": "DAO Treasury",
+        "name": "DAO Reserve",
+        "method": "Governance voting",
+        "target": "Community governance",
+        "cliff": "12M Cliff",
+        "lockupWarning": "DAO Treasury tokens are locked for 12 months post-listing",
+        "unlockInfo": "Unlock requires governance proposal approval with 66%+ quorum"
+      }
+    },
+    "rewards": {
+      "title": "Block & Validator Rewards (23%)",
+      "block": {
+        "title": "Block Rewards",
+        "name": "Block Rewards",
+        "method": "Algorithmic emission",
+        "target": "Block producers",
+        "duration": "20 Years",
+        "halving": "Halving",
+        "period": "Period",
+        "perBlock": "Per Block",
+        "annualIssuance": "Annual Issuance",
+        "note": "Note",
+        "phase1": "Phase 1",
+        "phase1Note": "Initial high reward phase",
+        "phase2": "Phase 2",
+        "phase2Note": "First halving applied",
+        "phase3": "Phase 3",
+        "phase3Note": "Second halving applied",
+        "validatorCount": "Active Validators",
+        "y1TotalReward": "Y1 Total Rewards",
+        "monthlyPerValidator": "Monthly Per Validator"
+      },
+      "validator": {
+        "title": "Validator Incentives",
+        "name": "Validator Rewards",
+        "method": "Performance-based",
+        "target": "Active validators",
+        "performanceBased": "Performance Based",
+        "distributionPeriod": "Distribution Period",
+        "distributionPeriodValue": "Monthly",
+        "monthlyBudget": "Monthly Budget",
+        "monthlyBudgetValue": "1,333K TBURN",
+        "type": "Reward Type",
+        "condition": "Condition",
+        "uptimeBonus": "Uptime Bonus",
+        "uptimeCondition": "99.9%+ uptime maintained",
+        "blockProduction": "Block Production",
+        "blockCondition": "Assigned blocks produced",
+        "networkContribution": "Network Contribution",
+        "networkCondition": "Cross-shard tx processing"
+      }
+    },
+    "investors": {
+      "title": "Investor Allocation (20%)",
+      "seed": {
+        "name": "Seed Round",
+        "method": "SAFT agreement",
+        "target": "Strategic partners",
+        "vesting": "24M total (6M cliff + 18M linear)",
+        "y1Unlock": "Year 1 Unlock: 2.5B TBURN",
+        "firstUnlock": "First unlock at M7 after listing"
+      },
+      "private": {
+        "name": "Private Round",
+        "method": "Investment agreement",
+        "target": "Institutional investors",
+        "vesting": "18M total (3M cliff + 15M linear)",
+        "y1Unlock": "Year 1 Unlock: 6.0B TBURN",
+        "firstUnlock": "First unlock at M10 after listing"
+      },
+      "public": {
+        "name": "Public Sale",
+        "method": "Launchpad participation",
+        "target": "General public",
+        "vesting": "12M total (3M cliff + 9M linear)",
+        "y1Unlock": "Year 1 Unlock: 4.8B TBURN",
+        "details": "TGE 20% unlock, then 9-month linear vesting"
+      }
+    },
+    "ecosystem": {
+      "title": "Ecosystem Development (15%)",
+      "item": "Item",
+      "y1Activity": "Year 1 Activity",
+      "fund": {
+        "name": "Development Fund",
+        "vesting": "36M linear unlock",
+        "y1Activity": "Core protocol development, SDK release"
+      },
+      "partnership": {
+        "name": "Strategic Partnerships",
+        "vesting": "24M milestone-based",
+        "y1Activity": "Exchange integrations, DeFi protocol partnerships"
+      },
+      "marketing": {
+        "name": "Marketing & Growth",
+        "vesting": "18M campaign-based",
+        "y1Activity": "Global marketing campaigns, community building"
+      }
+    },
+    "team": {
+      "title": "Team & Advisors (12%)",
+      "lockupWarning": "All team tokens have minimum 12-month cliff with 36-month total vesting",
+      "core": {
+        "name": "Core Team",
+        "cliff": "12M Cliff",
+        "firstUnlock": "First unlock: 25% at M13"
+      },
+      "advisor": {
+        "name": "Advisors",
+        "cliff": "12M Cliff",
+        "firstUnlock": "First unlock: 25% at M13"
+      },
+      "strategic": {
+        "name": "Strategic Reserve",
+        "cliff": "18M Cliff",
+        "firstUnlock": "First unlock: 10% at M19"
+      }
+    },
+    "y1Schedule": {
+      "title": "Year 1 Unlocking Schedule",
+      "unit": "Unit: 100M TBURN",
+      "totalUnlock": "Total Y1: 32.68B",
+      "timing": "Timing",
+      "blockValidator": "Block/Validator",
+      "ecosystemMarketing": "Ecosystem/Mkt",
+      "monthlyTotal": "Monthly Total",
+      "keyEvent": "Key Event",
+      "listingDay": "Listing Day",
+      "firstListing": "First Exchange Listing",
+      "blockRewardStart": "Block rewards begin",
+      "tier1Target": "Tier-1 CEX target",
+      "publicCliffEnd": "Public sale cliff ends",
+      "publicVesting": "Public linear vesting",
+      "partnershipStart": "Partnership unlocks begin",
+      "privateStart": "Private round unlocks begin",
+      "anniversary": "1-Year Anniversary"
+    },
+    "checklist": {
+      "title": "Launch Readiness Checklist",
+      "item1": "Smart contract security audits completed (CertiK, Trail of Bits)",
+      "item2": "Validator network operational with 125+ active nodes",
+      "item3": "Token claim portal and vesting dashboard live",
+      "item4": "Exchange integration and listing confirmed",
+      "item5": "Community governance framework activated"
+    },
+    "calendar": {
+      "title": "Key Dates & Milestones",
+      "date": "Date",
+      "event": "Event",
+      "unlockAmount": "Unlock Amount",
+      "listingDateTarget": "2026 Q1",
+      "listingEvent": "Exchange Listing & TGE",
+      "publicVestingStart": "Public Sale Vesting Begins",
+      "partnershipStartEvent": "Partnership Unlock Begins",
+      "privateStartEvent": "Private Round Unlock Begins",
+      "anniversaryEvent": "1-Year Anniversary Milestone"
+    },
+    "docInfo": {
+      "title": "Document Information",
+      "docTitle": "Document Title",
+      "docTitleValue": "TBURN Token Distribution Guide v3.0",
+      "version": "Version",
+      "planPeriod": "Plan Period",
+      "y1TotalUnlock": "Y1 Total Unlock",
+      "author": "TBURN Foundation · Token Economics Team"
+    },
+    "disclaimer": {
+      "title": "⚠️ Important Disclaimer",
+      "notInvestmentAdvice": {
+        "title": "Not Investment Advice:",
+        "content": "This document is for informational purposes only and does not constitute investment, legal, or tax advice. Please consult qualified professionals before making any decisions."
+      },
+      "forwardLooking": {
+        "title": "Forward-Looking Statements:",
+        "content": "This document contains forward-looking statements that involve risks and uncertainties. Actual results may differ materially from those expressed or implied."
+      },
+      "subjectToChange": {
+        "title": "Subject to Change:",
+        "content": "Token distribution schedules, vesting periods, and other details are subject to change based on market conditions, regulatory requirements, and governance decisions."
+      },
+      "limitedLiability": {
+        "title": "Limited Liability:",
+        "content": "TBURN Foundation and its affiliates shall not be liable for any losses arising from the use of information contained in this document."
+      }
+    },
+    "footer": {
+      "tagline": "Building the Future of Decentralized Finance",
+      "disclaimer": "This document is provided for informational purposes only. Token distribution schedules are subject to change based on market conditions and regulatory requirements."
+    }
+  }
+
+}
