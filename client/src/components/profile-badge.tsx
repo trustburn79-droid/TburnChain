@@ -314,6 +314,21 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
             </DialogDescription>
           </DialogHeader>
 
+          {/* Wallet Connect Button - Below email, above icons */}
+          <div className="px-4 py-3 border-b border-border/40">
+            <button
+              onClick={() => setShowWalletModal(true)}
+              className="w-full flex items-center justify-between py-2.5 px-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-blue-500/30 transition-colors cursor-pointer group"
+              data-testid="button-connect-external-wallet"
+            >
+              <div className="flex items-center gap-3">
+                <Wallet className="h-4 w-4 text-blue-400 shrink-0" />
+                <span className="text-sm text-blue-400 font-medium">{t("profile.connectWallet", "지갑연결")}</span>
+              </div>
+              <ChevronRight className="h-4 w-4 text-blue-400 group-hover:translate-x-0.5 transition-transform" />
+            </button>
+          </div>
+
           {/* Quick Navigation Icons */}
           <div className="flex items-center justify-between px-3 py-2.5 border-b border-border/40 bg-muted/20">
             <Link href="/" onClick={() => setIsOpen(false)}>
@@ -402,19 +417,6 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                 <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
               </div>
             </Link>
-
-            {/* Wallet Connect Button */}
-            <button
-              onClick={() => setShowWalletModal(true)}
-              className="w-full flex items-center justify-between py-2.5 px-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-blue-500/30 transition-colors cursor-pointer group"
-              data-testid="button-connect-external-wallet"
-            >
-              <div className="flex items-center gap-3">
-                <Wallet className="h-4 w-4 text-blue-400 shrink-0" />
-                <span className="text-sm text-blue-400 font-medium">{t("profile.connectWallet", "지갑연결")}</span>
-              </div>
-              <ChevronRight className="h-4 w-4 text-blue-400 group-hover:translate-x-0.5 transition-transform" />
-            </button>
 
             <div className="grid grid-cols-2 gap-2">
               <div className="py-3 px-3 rounded-lg bg-muted/40">
