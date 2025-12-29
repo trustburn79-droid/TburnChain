@@ -55,7 +55,7 @@ interface ProfileBadgeProps {
 export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const { isConnected, address, connect, isConnecting, balance: web3Balance, refreshBalance, walletType } = useWeb3();
+  const { isConnected, address, connect, isConnecting, balance: web3Balance, refreshBalance, walletType, error } = useWeb3();
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showWalletModal, setShowWalletModal] = useState(false);
@@ -527,6 +527,21 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
               {t("profile.selectWalletToConnect", "연결할 지갑을 선택하세요")}
             </DialogDescription>
           </DialogHeader>
+          
+          {/* Show warning if no ethereum provider detected */}
+          {typeof window !== "undefined" && !window.ethereum && (
+            <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3 text-sm text-yellow-600 dark:text-yellow-400">
+              {t("profile.noWalletDetected", "Web3 지갑이 감지되지 않았습니다. MetaMask 등의 지갑 확장 프로그램이 설치된 브라우저에서 열어주세요.")}
+            </div>
+          )}
+          
+          {/* Show error from web3 context */}
+          {error && (
+            <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-500">
+              {error}
+            </div>
+          )}
+          
           <div className="space-y-3 py-4">
             <button
               onClick={() => handleConnectWallet('metamask')}

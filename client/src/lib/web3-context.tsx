@@ -275,10 +275,18 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   }, [state.address, fetchMemberInfo]);
 
   const getProvider = useCallback((walletType: WalletType): Eip1193Provider | null => {
-    if (typeof window === "undefined" || !window.ethereum) return null;
+    if (typeof window === "undefined") return null;
+    
+    // Wait for ethereum to be injected (some wallets take time)
+    const ethereum = window.ethereum;
+    if (!ethereum) {
+      secureLog("No ethereum provider found");
+      return null;
+    }
 
-    if (window.ethereum.providers?.length) {
-      for (const p of window.ethereum.providers) {
+    // Check for multiple providers (common when multiple extensions installed)
+    if (ethereum.providers?.length) {
+      for (const p of ethereum.providers) {
         if (walletType === "metamask" && p.isMetaMask) return p;
         if (walletType === "rabby" && p.isRabby) return p;
         if (walletType === "trust" && p.isTrust) return p;
@@ -286,37 +294,57 @@ export function Web3Provider({ children }: { children: ReactNode }) {
       }
     }
 
-    if (walletType === "metamask" && window.ethereum.isMetaMask) return window.ethereum;
-    if (walletType === "rabby" && window.ethereum.isRabby) return window.ethereum;
-    if (walletType === "trust" && window.ethereum.isTrust) return window.ethereum;
-    if (walletType === "coinbase" && window.ethereum.isCoinbaseWallet) return window.ethereum;
+    // Check single provider flags
+    if (walletType === "metamask" && ethereum.isMetaMask) return ethereum;
+    if (walletType === "rabby" && ethereum.isRabby) return ethereum;
+    if (walletType === "trust" && ethereum.isTrust) return ethereum;
+    if (walletType === "coinbase" && ethereum.isCoinbaseWallet) return ethereum;
 
-    return window.ethereum;
+    // For Ledger or any wallet, use the default ethereum provider if available
+    if (walletType === "ledger" && ethereum) return ethereum;
+    
+    // Fallback: if window.ethereum exists, try to use it regardless of specific wallet type
+    // This handles cases where the wallet doesn't set specific flags
+    if (typeof ethereum?.request === "function") {
+      secureLog("Using fallback ethereum provider", { walletType });
+      return ethereum;
+    }
+
+    return null;
   }, []);
 
   const isWalletAvailable = useCallback((walletType: WalletType): boolean => {
-    if (typeof window === "undefined" || !window.ethereum) return false;
+    if (typeof window === "undefined") return false;
     
+    const ethereum = window.ethereum;
+    if (!ethereum) return false;
+    
+    // Ledger works through any ethereum provider
     if (walletType === "ledger") {
-      return !!window.ethereum;
+      return !!ethereum;
     }
 
-    if (window.ethereum.providers?.length) {
-      return window.ethereum.providers.some((p) => {
+    // Check multiple providers
+    if (ethereum.providers?.length) {
+      const hasSpecific = ethereum.providers.some((p) => {
         if (walletType === "metamask") return p.isMetaMask;
         if (walletType === "rabby") return p.isRabby;
         if (walletType === "trust") return p.isTrust;
         if (walletType === "coinbase") return p.isCoinbaseWallet;
         return false;
       });
+      if (hasSpecific) return true;
     }
 
-    if (walletType === "metamask") return !!window.ethereum.isMetaMask;
-    if (walletType === "rabby") return !!window.ethereum.isRabby;
-    if (walletType === "trust") return !!window.ethereum.isTrust;
-    if (walletType === "coinbase") return !!window.ethereum.isCoinbaseWallet;
+    // Check single provider
+    if (walletType === "metamask" && ethereum.isMetaMask) return true;
+    if (walletType === "rabby" && ethereum.isRabby) return true;
+    if (walletType === "trust" && ethereum.isTrust) return true;
+    if (walletType === "coinbase" && ethereum.isCoinbaseWallet) return true;
 
-    return !!window.ethereum;
+    // Return true if any ethereum provider exists - let user try to connect
+    // The actual connection will reveal if the wallet is truly available
+    return !!ethereum.request;
   }, []);
 
   const updateBalance = useCallback(async (browserProvider: BrowserProvider, address: string) => {
@@ -409,10 +437,15 @@ export function Web3Provider({ children }: { children: ReactNode }) {
 
     const connectionPromise = new Promise<boolean>(async (resolve, reject) => {
       connectionTimeoutRef.current = setTimeout(() => {
-        reject(new Error("Connection timeout - wallet did not respond"));
+        reject(new Error("Connection timeout - wallet did not respond. Please try again."));
       }, CONNECTION_TIMEOUT);
 
       try {
+        // Wait a moment for wallet injection (some wallets need time)
+        if (!window.ethereum) {
+          await new Promise(r => setTimeout(r, 500));
+        }
+        
         const ethProvider = getProvider(walletType);
         if (!ethProvider) {
           const walletNames: Record<string, string> = {
@@ -422,7 +455,13 @@ export function Web3Provider({ children }: { children: ReactNode }) {
             coinbase: "Coinbase Wallet",
             ledger: "Ledger",
           };
-          throw new Error(`${walletNames[walletType]} is not installed. Please install the wallet extension and refresh the page.`);
+          
+          // Check if we're in an environment that doesn't support extensions
+          if (typeof window !== "undefined" && !window.ethereum) {
+            throw new Error("No Web3 wallet detected. Please open this page in a browser with a wallet extension installed (e.g., Chrome with MetaMask).");
+          }
+          
+          throw new Error(`${walletNames[walletType]} is not detected. If you have it installed, please unlock it and refresh the page.`);
         }
 
         const browserProvider = new BrowserProvider(ethProvider);

@@ -95,6 +95,9 @@ export function WalletConnectModal({ open, onOpenChange }: WalletConnectModalPro
   const { connect, isConnecting, error, isWalletAvailable } = useWeb3();
   const [connectingWallet, setConnectingWallet] = useState<WalletType>(null);
 
+  // Check if any ethereum provider exists
+  const hasAnyProvider = typeof window !== "undefined" && !!window.ethereum;
+
   const handleConnect = async (walletType: WalletType) => {
     if (!walletType) return;
     
@@ -127,6 +130,15 @@ export function WalletConnectModal({ open, onOpenChange }: WalletConnectModalPro
           <Alert variant="destructive" data-testid="alert-wallet-error">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
+        {!hasAnyProvider && (
+          <Alert data-testid="alert-no-wallet">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              {t("wallet.noWalletDetected", "No Web3 wallet detected. Please install a wallet extension like MetaMask and refresh the page. If viewing in Replit, open in a new tab with your browser's wallet extension.")}
+            </AlertDescription>
           </Alert>
         )}
 
@@ -164,9 +176,11 @@ export function WalletConnectModal({ open, onOpenChange }: WalletConnectModalPro
                       </div>
                     </div>
                     
-                    {isAvailable ? (
+                    <div className="flex items-center gap-2">
+                      {/* Always show connect button - detection may fail but wallet might be installed */}
                       <Button
                         size="sm"
+                        variant={isAvailable ? "default" : "secondary"}
                         onClick={() => handleConnect(wallet.id)}
                         disabled={isConnecting}
                         data-testid={`button-connect-${wallet.id}`}
@@ -180,19 +194,20 @@ export function WalletConnectModal({ open, onOpenChange }: WalletConnectModalPro
                           t("wallet.connect")
                         )}
                       </Button>
-                    ) : (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        asChild
-                        data-testid={`button-install-${wallet.id}`}
-                      >
-                        <a href={wallet.installUrl} target="_blank" rel="noopener noreferrer">
-                          {t("wallet.install")}
-                          <ExternalLink className="h-3 w-3 ml-1" />
-                        </a>
-                      </Button>
-                    )}
+                      {/* Show install link when not detected */}
+                      {!isAvailable && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          asChild
+                          data-testid={`button-install-${wallet.id}`}
+                        >
+                          <a href={wallet.installUrl} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 );
               })}
