@@ -17,7 +17,6 @@ import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { AuthGuard } from "@/components/auth-guard";
 import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
 import { LanguageSelector } from "@/components/language-selector";
-import { WalletButton } from "@/components/wallet-button";
 import { ProfileBadge } from "@/components/profile-badge";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { Button } from "@/components/ui/button";
@@ -321,7 +320,6 @@ function AuthenticatedApp() {
                   </div>
                   <LanguageSelector />
                   <ThemeToggle />
-                  <WalletButton />
                   <ProfileBadge onLogout={() => {
                     queryClient.setQueryData(["/api/auth/check"], { authenticated: false });
                     queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
