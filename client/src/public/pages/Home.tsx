@@ -364,10 +364,8 @@ export default function Home() {
                 activeStatIndex === 0 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
               }`}>
                 {stats?.tps != null 
-                  ? (stats.tps >= 1000 
-                      ? Math.floor(stats.tps / 1000).toLocaleString() + "K" 
-                      : stats.tps.toLocaleString()) 
-                  : "210K"}
+                  ? stats.tps.toLocaleString() 
+                  : "210,000"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.tps')}</div>
             </div>
