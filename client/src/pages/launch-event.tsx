@@ -220,21 +220,17 @@ export default function LaunchEventPage() {
           </div>
           
           <nav className="flex-1 py-6 space-y-2 px-3">
-            <Link href="/user?section=wallet">
-              <a className="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
-                <Wallet className="w-6 h-6" />
-                <span className="hidden lg:block font-medium">Wallet</span>
-              </a>
+            <Link href="/user?section=wallet" className="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+              <Wallet className="w-6 h-6" />
+              <span className="hidden lg:block font-medium">Wallet</span>
             </Link>
-            <a className="flex items-center gap-4 px-3 py-3 rounded-xl bg-orange-50 text-[#F97316] border-l-4 border-[#F97316] dark:bg-[#151E32] dark:text-white dark:border-[#F97316] shadow-sm transition-colors">
+            <div className="flex items-center gap-4 px-3 py-3 rounded-xl bg-orange-50 text-[#F97316] border-l-4 border-[#F97316] dark:bg-[#151E32] dark:text-white dark:border-[#F97316] shadow-sm transition-colors">
               <Rocket className="w-6 h-6" />
               <span className="hidden lg:block font-medium">Genesis Launch</span>
-            </a>
-            <Link href="/user?section=stakingDashboard">
-              <a className="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
-                <Layers className="w-6 h-6" />
-                <span className="hidden lg:block font-medium">Staking</span>
-              </a>
+            </div>
+            <Link href="/user?section=stakingDashboard" className="flex items-center gap-4 px-3 py-3 rounded-xl text-slate-500 hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+              <Layers className="w-6 h-6" />
+              <span className="hidden lg:block font-medium">Staking</span>
             </Link>
           </nav>
         </aside>
