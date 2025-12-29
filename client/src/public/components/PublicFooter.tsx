@@ -123,12 +123,17 @@ export function PublicFooter() {
 
   const stats = networkStats?.data ? [
     { 
+      value: networkStats.data.tps >= 1000 
+        ? Math.floor(networkStats.data.tps / 1000).toLocaleString() + "K" 
+        : (networkStats.data.tps || 210000).toLocaleString(), 
+      labelKey: "tps" 
+    },
+    { 
       value: networkStats.data.blockHeight >= 1000000 
         ? (networkStats.data.blockHeight / 1000000).toFixed(1) + "M" 
         : networkStats.data.blockHeight?.toLocaleString() || "1.9M", 
       labelKey: "blocks" 
     },
-    { value: (networkStats.data.activeValidators || 1600).toLocaleString(), labelKey: "validators" },
     { 
       value: networkStats.data.totalTransactions >= 1000000 
         ? (networkStats.data.totalTransactions / 1000000).toFixed(1) + "M" 
@@ -139,8 +144,8 @@ export function PublicFooter() {
     },
     { value: networkStats.data.uptime || "99.99%", labelKey: "uptime" },
   ] : [
+    { value: "210K", labelKey: "tps" },
     { value: "1.9M", labelKey: "blocks" },
-    { value: "1,600", labelKey: "validators" },
     { value: "56.3M", labelKey: "dailyTxs" },
     { value: "99.99%", labelKey: "uptime" },
   ];

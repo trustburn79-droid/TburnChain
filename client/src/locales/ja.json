@@ -7848,6 +7848,7 @@
     "footer": {
       "brandDescription": "AI分析によって駆動される世界初のトラストネットワーク。プロジェクトの信頼性を検証し、透明性を確保します。",
       "stats": {
+        "tps": "TPS",
         "blocks": "ブロック",
         "validators": "バリデーター",
         "dailyTxs": "日次TX",

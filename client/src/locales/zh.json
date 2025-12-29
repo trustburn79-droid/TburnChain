@@ -7185,6 +7185,7 @@
     "footer": {
       "brandDescription": "全球首个由AI分析驱动的信任网络。验证项目可靠性并确保透明度。",
       "stats": {
+        "tps": "TPS",
         "blocks": "区块",
         "validators": "验证者",
         "dailyTxs": "日交易量",

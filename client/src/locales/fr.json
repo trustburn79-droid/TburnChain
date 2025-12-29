@@ -5005,6 +5005,7 @@
     "footer": {
       "brandDescription": "Le premier réseau de confiance au monde alimenté par l'analyse IA. Vérification de la fiabilité des projets et garantie de transparence.",
       "stats": {
+        "tps": "TPS",
         "blocks": "Blocs",
         "validators": "Validateurs",
         "dailyTxs": "TX quotidiennes",

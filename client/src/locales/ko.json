@@ -7960,6 +7960,7 @@
     "footer": {
       "brandDescription": "AI 분석으로 구동되는 세계 최초의 신뢰 네트워크. 프로젝트 신뢰성을 검증하고 투명성을 보장합니다.",
       "stats": {
+        "tps": "TPS",
         "blocks": "블록",
         "validators": "검증자",
         "validatorsRegistered": "검증자 등록됨",

@@ -5785,6 +5785,7 @@
     "footer": {
       "brandDescription": "La primera red de confianza del mundo impulsada por análisis de IA. Verificando la fiabilidad de proyectos y garantizando transparencia.",
       "stats": {
+        "tps": "TPS",
         "blocks": "Bloques",
         "validators": "Validadores",
         "dailyTxs": "TXs Diarias",

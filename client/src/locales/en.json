@@ -6933,6 +6933,7 @@
     "title": "NFT Launchpad",
     "subtitle": "Discover and participate in the latest NFT launches on TBURN blockchain",
     "stats": {
+        "tps": "TPS",
       "totalProjects": "Total Projects",
       "active": "Active",
       "upcoming": "Upcoming",
@@ -7117,6 +7118,7 @@
       "technology": "Technology"
     },
     "stats": {
+        "tps": "TPS",
       "marketCap": "Market Cap",
       "tvl": "Total Value Locked",
       "dailyVolume": "Daily Volume",
@@ -7761,6 +7763,7 @@
     "footer": {
       "brandDescription": "The world's first trust network powered by AI analysis. Verifying project reliability and ensuring transparency.",
       "stats": {
+        "tps": "TPS",
         "blocks": "Blocks",
         "validators": "Validators",
         "dailyTxs": "Daily TXs",
@@ -7848,6 +7851,7 @@
       "launchExplorer": "Launch Explorer",
       "readWhitepaper": "Read Whitepaper",
       "stats": {
+        "tps": "TPS",
         "blocks": "Blocks",
         "validators": "Validators",
         "dailyTxs": "Daily TXs",
@@ -7946,6 +7950,7 @@
         "title": "Education Hub",
         "subtitle": "Master the TBurn Chain V4 ecosystem. From trust-based consensus algorithms to building high-speed dApps, start your journey here.",
         "stats": {
+        "tps": "TPS",
           "courses": "COURSES",
           "learners": "LEARNERS",
           "hoursContent": "HOURS CONTENT",
@@ -8503,6 +8508,7 @@
             }
           },
           "stats": {
+        "tps": "TPS",
             "rugPulls": {
               "value": "$28억",
               "label": "2023년 러그풀로 손실"
@@ -9006,6 +9012,7 @@
         "duration": "8 hours",
         "backToEducation": "Back to Education Programs",
         "stats": {
+        "tps": "TPS",
           "tvl": {
             "value": "$2.1B",
             "label": "Total Value Locked"
@@ -9324,6 +9331,7 @@
           "certification": "Certification"
         },
         "stats": {
+        "tps": "TPS",
           "students": "Students Enrolled",
           "courses": "Courses Available",
           "certified": "Certified Graduates",
@@ -9698,6 +9706,7 @@
             }
           },
           "stats": {
+        "tps": "TPS",
             "throughput": {
               "label": "Throughput",
               "sublabel": "50,000+ TPS (Peak 520,000+)"
@@ -10989,6 +10998,7 @@
         "titleHighlight": "Ecosystem",
         "subtitle": "Complete decentralized finance infrastructure with DEX, lending, staking, and yield farming.",
         "stats": {
+        "tps": "TPS",
           "tvl": "TVL",
           "volume24h": "24H VOLUME",
           "activeLPs": "ACTIVE LPs",
@@ -12188,6 +12198,7 @@
             "type": "Luxury Fashion Brand",
             "quote": "TBurn Commerce reduced our payment processing fees by 85% and opened us to global crypto customers.",
             "stats": {
+        "tps": "TPS",
               "volume": "$2.5M Volume",
               "savings": "85% Fee Savings"
             }
@@ -12197,6 +12208,7 @@
             "type": "NFT-Verified Resale Platform",
             "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
             "stats": {
+        "tps": "TPS",
               "nfts": "50K NFTs Issued",
               "counterfeits": "Zero Counterfeits"
             }
@@ -12260,6 +12272,7 @@
           }
         },
         "stats": {
+        "tps": "TPS",
           "tvl": "Total Value Locked",
           "apy": "Average APY",
           "dau": "Daily Active Users"
@@ -12270,6 +12283,7 @@
             "type": "Digital Banking Platform",
             "quote": "TBurn's infrastructure allowed us to launch in 3 months instead of 18. Our customers love instant transfers.",
             "stats": {
+        "tps": "TPS",
               "customers": "150K Customers",
               "costs": "90% Cost Reduction"
             }
@@ -12279,6 +12293,7 @@
             "type": "Lending Protocol",
             "quote": "Trust Score integration reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
             "stats": {
+        "tps": "TPS",
               "tvl": "$500M TVL",
               "liquidations": "Zero Bad Debt"
             }
@@ -12374,6 +12389,7 @@
           }
         },
         "stats": {
+        "tps": "TPS",
           "uptime": {
             "title": "99.95% Uptime",
             "desc": "Global node distribution with AI-based self-healing"
@@ -12491,6 +12507,7 @@
           }
         },
         "stats": {
+        "tps": "TPS",
           "nftsMinted": "NFTs MINTED",
           "creatorEarnings": "CREATOR EARNINGS",
           "verifiedArtists": "VERIFIED ARTISTS"
@@ -12605,6 +12622,7 @@
           }
         },
         "stats": {
+        "tps": "TPS",
           "btcBridged": "BTC BRIDGED",
           "tvl": "TVL",
           "zeroValue": "0",
@@ -13518,6 +13536,7 @@
         "becomeValidator": "Become Validator",
         "validatorDocs": "View Validator Documentation",
         "stats": {
+        "tps": "TPS",
           "activeValidators": "Active Validators",
           "totalStaked": "Total Staked",
           "averageUptime": "Average Uptime",
@@ -14303,6 +14322,7 @@
         "viewAll": "View All",
         "recentPosts": "Recent Posts",
         "stats": {
+        "tps": "TPS",
           "totalMembers": "Total Members",
           "monthlyActive": "Monthly Active",
           "totalPosts": "Forum Posts",
@@ -14415,6 +14435,7 @@
             "description": "Decision-making on allocation and use of community treasury funds"
           },
           "stats": {
+        "tps": "TPS",
             "proposals": "Proposals",
             "votesCast": "Votes Cast",
             "treasuryBalance": "Treasury Balance",
@@ -17894,6 +17915,7 @@
     "total": "total",
     "earned": "Earned",
     "stats": {
+        "tps": "TPS",
       "completed": "Completed",
       "inProgress": "In Progress",
       "achievements": "Achievements",
@@ -19673,6 +19695,7 @@
     "newPolicy": "New Policy",
     "refresh": "Refresh",
     "stats": {
+        "tps": "TPS",
       "activePolicies": "Active Policies",
       "activeSessions": "Active Sessions",
       "ipWhitelist": "IP Whitelist",
@@ -19904,6 +19927,7 @@
     "wsConnected": "Real-time threat detection active",
     "wsReconnecting": "Attempting to reconnect...",
     "stats": {
+        "tps": "TPS",
       "detected24h": "Detected (24h)",
       "blocked": "Blocked",
       "activeIncidents": "Active Incidents",
@@ -20020,6 +20044,7 @@
     "refresh": "Refresh",
     "lastUpdate": "Last Update",
     "stats": {
+        "tps": "TPS",
       "overallScore": "Overall Score",
       "security": "Security",
       "dataProtection": "Data Protection",
@@ -20181,6 +20206,7 @@
     "day": "Day",
     "mentions": "mentions",
     "stats": {
+        "tps": "TPS",
       "avgRating": "Average Rating",
       "totalFeedback": "Total Feedback",
       "responseRate": "Response Rate",
@@ -20381,6 +20407,7 @@
       "allTypes": "All Types"
     },
     "stats": {
+        "tps": "TPS",
       "published": "Published",
       "scheduled": "Scheduled",
       "drafts": "Drafts",
@@ -24071,6 +24098,7 @@
     },
     "searchPlaceholder": "Search rules...",
     "stats": {
+        "tps": "TPS",
       "activeRules": "Active Rules",
       "criticalRules": "Critical Rules",
       "totalTriggers": "Total Triggers",
@@ -24371,6 +24399,7 @@
       "1y": "1 Year"
     },
     "stats": {
+        "tps": "TPS",
       "compliance": "SLA Compliance",
       "allTargetsMet": "All targets met",
       "currentUptime": "Current Uptime",
@@ -24522,6 +24551,7 @@
       "reconciled": "Reconciled"
     },
     "stats": {
+        "tps": "TPS",
       "totalDebits": "Total Debits",
       "totalCredits": "Total Credits",
       "netBalance": "Net Balance",
@@ -24749,6 +24779,7 @@
       "submit": "Submit Request"
     },
     "stats": {
+        "tps": "TPS",
       "totalBudget": "Total Budget",
       "spent": "Total Spent",
       "utilization": "Utilization",
@@ -24816,6 +24847,7 @@
     "export": "Export",
     "other": "Other",
     "stats": {
+        "tps": "TPS",
       "totalCost": "Total Cost",
       "vsPrevious": "vs Previous",
       "budgetUtilization": "Budget Utilization",
@@ -25009,6 +25041,7 @@
       "upcoming": "Upcoming"
     },
     "stats": {
+        "tps": "TPS",
       "totalLiability": "Total Liability",
       "paid": "Paid",
       "pendingReports": "Pending Reports",
@@ -25339,6 +25372,7 @@
       "resolved": "Resolved"
     },
     "stats": {
+        "tps": "TPS",
       "openTickets": "Open Tickets",
       "critical": "Critical",
       "resolvedToday": "Resolved Today",
@@ -27717,6 +27751,7 @@
       "liveMinting": "Live Minting"
     },
     "stats": {
+        "tps": "TPS",
       "totalVolume": "Total Volume",
       "volume24h": "24h Volume",
       "sales24h": "24h Sales",
@@ -28364,6 +28399,7 @@
       "leaderboard": "Leaderboard"
     },
     "stats": {
+        "tps": "TPS",
       "participants": "Participants",
       "totalStaked": "Total Staked",
       "nftsMinted": "NFTs Minted",
