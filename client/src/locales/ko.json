@@ -29811,5 +29811,443 @@
     "logout": "로그아웃",
     "logoutError": "로그아웃 중 오류가 발생했습니다",
     "addressCopied": "지갑 주소가 복사되었습니다"
+  },
+  "technicalWhitepaper": {
+    "badge": "기술 백서",
+    "subtitle": "쿼드밴드 AI 오케스트레이션을 갖춘 엔터프라이즈급 레이어 1 블록체인",
+    "backToWhitepaper": "백서로 돌아가기",
+    "tableOfContents": "목차",
+    "meta": {
+      "version": "버전",
+      "date": "날짜",
+      "chainId": "체인 ID",
+      "status": "상태"
+    },
+    "toc": {
+      "abstract": "개요",
+      "architecture": "아키텍처",
+      "consensus": "합의",
+      "sharding": "샤딩",
+      "aiSystem": "AI 시스템",
+      "tokenomics": "토크노믹스",
+      "tokenStandards": "토큰 표준",
+      "defi": "DeFi 스택",
+      "security": "보안",
+      "governance": "거버넌스",
+      "roadmap": "로드맵"
+    },
+    "sections": {
+      "abstract": {
+        "title": "개요",
+        "p1": "TBURN Chain은 기존 블록체인 네트워크의 근본적인 한계인 확장성, 에너지 효율성, 지능형 자동화를 해결하기 위해 설계된 엔터프라이즈급 레이어 1 블록체인 플랫폼입니다. 혁신적인 신뢰 점수 기반 BFT 합의, 동적 샤딩 아키텍처, 쿼드밴드 AI 오케스트레이션 시스템을 통합하여 TBURN Chain은 탈중앙화와 보안을 유지하면서 210,000+ TPS의 전례 없는 처리량을 달성합니다.",
+        "p2": "플랫폼은 AI 최적화 소각 메커니즘을 갖춘 디플레이션 토크노믹스 모델을 도입하여 20년간 30.6%의 토큰 감소를 예상합니다. TBURN Chain은 양자 내성 암호화 확장과 함께 완전한 EVM 호환성을 지원하여 기존 이더리움 애플리케이션의 원활한 마이그레이션과 미래 컴퓨팅 위협에 대한 대비를 가능하게 합니다.",
+        "specs": {
+          "peakTps": "최대 TPS",
+          "blockTime": "블록 시간",
+          "finality": "최종성",
+          "second": "초",
+          "validators": "활성 검증자"
+        }
+      },
+      "architecture": {
+        "title": "시스템 아키텍처",
+        "intro": "TBURN Chain은 실행, 합의, 데이터 가용성, 정산 계층에 걸쳐 관심사를 분리하는 모듈식 계층화된 아키텍처를 사용합니다. 이 설계는 각 구성 요소의 독립적인 확장 및 업그레이드를 가능하게 합니다.",
+        "diagramTitle": "TBURN Chain 아키텍처 스택",
+        "layers": {
+          "defi": "DeFi 프로토콜",
+          "nftGamefi": "NFT/GameFi",
+          "bridge": "브리지",
+          "governance": "거버넌스",
+          "smartContract": "스마트 컨트랙트 계층 (EVM + TBC 확장)",
+          "quadBandAi": "쿼드밴드 AI 오케스트레이션 시스템",
+          "trustScoreBft": "신뢰 점수 BFT 합의",
+          "dynamicSharding": "동적 샤딩 엔진",
+          "crossShard": "크로스 샤드 메시징",
+          "stateSync": "상태 동기화",
+          "p2p": "P2P 네트워크"
+        },
+        "coreComponents": {
+          "title": "핵심 구성 요소",
+          "execution": {
+            "title": "실행 계층",
+            "desc": "실행 계층은 TBURN 전용 옵코드 확장과 함께 완전한 EVM 호환 가상 머신을 구현합니다. 트랜잭션은 결정론적 상태 전이와 함께 샤드 전체에서 병렬로 처리됩니다."
+          },
+          "consensus": {
+            "title": "합의 계층",
+            "desc": "신뢰 점수 기반 비잔틴 장애 허용(TS-BFT) 합의는 과거 성능 지표, 스테이크 양, 네트워크 기여도에 따라 검증자 투표에 가중치를 부여하여 1초 이내에 최종성을 달성합니다."
+          },
+          "dataAvailability": {
+            "title": "데이터 가용성 계층",
+            "desc": "각 샤드는 크로스 샤드 증명을 통해 무신뢰 검증을 가능하게 하는 자체 상태 트리를 유지합니다. 아카이브 노드는 감사 및 규정 준수 요구 사항을 위해 완전한 기록 데이터를 보존합니다."
+          },
+          "aiOrchestration": {
+            "title": "AI 오케스트레이션 계층",
+            "desc": "쿼드밴드 AI 시스템은 네트워크 상태를 지속적으로 모니터링하고, 리소스 할당을 최적화하고, 이상을 감지하고, 최소한의 인간 개입으로 거버넌스 결정을 실행합니다."
+          }
+        },
+        "networkSpecs": {
+          "title": "네트워크 사양",
+          "parameter": "파라미터",
+          "currencySymbol": "통화 기호",
+          "blockTime": "블록 시간",
+          "gasUnit": "가스 단위"
+        }
+      },
+      "consensus": {
+        "title": "신뢰 점수 기반 BFT 합의",
+        "intro": "TBURN Chain은 동적 신뢰 점수 시스템으로 전통적인 비잔틴 장애 허용을 확장하는 혁신적인 합의 메커니즘을 도입합니다.",
+        "trustScore": {
+          "title": "신뢰 점수 계산",
+          "desc": "각 검증자는 여러 성능 지표에서 계산된 신뢰 점수(TS)를 유지합니다:",
+          "formulaTitle": "신뢰 점수 공식",
+          "coefficients": "계수는 다음과 같습니다:",
+          "alpha": "검증자 가동 시간 비율 (99%+ 최적)",
+          "beta": "블록 생성 성공률",
+          "gamma": "합의 투표 정확도 및 적시성",
+          "delta": "네트워크 총량 대비 스테이크 양",
+          "epsilon": "크로스 샤드 메시지 릴레이 및 네트워크 상태 기여"
+        },
+        "validatorTiers": {
+          "title": "검증자 등급",
+          "tier": "등급",
+          "maxValidators": "최대 검증자",
+          "minStake": "최소 스테이크",
+          "rewardShare": "보상 분배",
+          "dailyRewards": "일일 보상",
+          "unlimited": "무제한"
+        },
+        "blockProduction": {
+          "title": "블록 생성",
+          "desc": "검증자는 신뢰 점수에 비례하는 확률로 가중 무작위 선택 알고리즘을 통해 블록 생성에 선택됩니다."
+        },
+        "finality": {
+          "title": "최종성 보장",
+          "desc": "TBURN Chain은 2단계 커밋 프로세스를 통해 단일 슬롯 최종성을 달성합니다:",
+          "proposePhase": "제안 단계 (50ms)",
+          "proposeDesc": "선택된 제안자가 샤드 검증자에게 블록 전파",
+          "commitPhase": "커밋 단계 (50ms)",
+          "commitDesc": "검증자 투표, 2/3+ 가중 합의로 최종성 확인",
+          "totalTime": "총 최종성 시간: 블록당 100ms, 크로스 샤드 최종성은 1초 이내 달성."
+        }
+      },
+      "sharding": {
+        "title": "동적 샤딩 아키텍처",
+        "intro": "TBURN Chain은 네트워크 부하 및 하드웨어 용량에 따라 5개에서 128개 샤드로 자동 확장되는 동적 샤딩 시스템을 구현합니다.",
+        "config": {
+          "title": "샤드 구성",
+          "activeShards": "활성 샤드",
+          "validatorsPerShard": "샤드당 검증자",
+          "tpsPerShard": "샤드당 TPS",
+          "crossShardLatency": "크로스 샤드 지연"
+        },
+        "tpsFormula": {
+          "title": "TPS 계산 공식",
+          "formulaTitle": "네트워크 TPS 공식",
+          "withConfig": "메인넷 구성:"
+        },
+        "hardware": {
+          "title": "하드웨어 프로필",
+          "profile": "프로필",
+          "maxShards": "최대 샤드",
+          "tpsRange": "TPS 범위"
+        },
+        "crossShard": {
+          "title": "크로스 샤드 통신",
+          "desc": "크로스 샤드 트랜잭션은 비동기 메시지 전달 프로토콜을 사용합니다:",
+          "messageQueue": "메시지 큐",
+          "messageQueueDesc": "O(1) 샤드 쌍 선택을 통한 우선순위 기반 라우팅",
+          "batchProcessing": "배치 처리",
+          "batchProcessingDesc": "효율성을 위해 메시지를 배치로 집계",
+          "proofGeneration": "증명 생성",
+          "proofGenerationDesc": "머클 증명으로 무신뢰 크로스 샤드 검증 가능",
+          "caching": "캐싱",
+          "cachingDesc": "최적 성능을 위한 30초 TTL 샤드 상태 캐시"
+        },
+        "autoScaling": {
+          "title": "자동 확장",
+          "desc": "샤딩 엔진은 실시간으로 네트워크 부하를 모니터링합니다:",
+          "scaleUp": "스케일 업",
+          "scaleUpDesc": "평균 샤드 부하가 5분간 70%를 초과할 때",
+          "scaleDown": "스케일 다운",
+          "scaleDownDesc": "평균 샤드 부하가 15분간 30% 미만일 때",
+          "rebalance": "재균형",
+          "rebalanceDesc": "샤드 간 부하 불균형이 30%를 초과할 때"
+        }
+      },
+      "aiSystem": {
+        "title": "쿼드밴드 AI 오케스트레이션 시스템",
+        "intro": "TBURN Chain은 네트워크 운영, 보안, 거버넌스를 지속적으로 최적화하는 정교한 AI 오케스트레이션 계층을 통합합니다.",
+        "modelConfig": {
+          "title": "AI 모델 구성",
+          "model": "모델",
+          "primaryFunction": "주요 기능",
+          "latency": "지연 시간",
+          "band1Func": "실시간 모니터링, 이상 탐지",
+          "band2Func": "거버넌스 분석, 규정 준수 검증",
+          "band3Func": "소각 최적화, 토크노믹스 모델링",
+          "band4Func": "폴백, 비상 대응"
+        },
+        "decisionCategories": {
+          "title": "AI 결정 카테고리",
+          "adjustShards": "동적 샤드 수 최적화",
+          "optimizeBurn": "AI 기반 소각률 조정",
+          "rescheduleValidators": "검증자 로테이션 및 부하 분산",
+          "securityAlert": "위협 탐지 및 대응",
+          "governancePrevalidation": "제안 분석 및 위험 평가",
+          "crossShardOptimization": "메시지 라우팅 효율성"
+        },
+        "failFast": {
+          "title": "페일 패스트 아키텍처",
+          "desc": "AI 시스템은 자동 폴백 체인을 갖춘 페일 패스트 아키텍처를 구현합니다."
+        },
+        "burnOptimization": {
+          "title": "소각 최적화 알고리즘",
+          "desc": "AI 기반 소각 메커니즘은 네트워크 활동을 분석하여 토큰 소각을 최적화합니다:",
+          "formulaTitle": "동적 소각률"
+        }
+      },
+      "tokenomics": {
+        "title": "토크노믹스",
+        "intro": "TBURN은 장기적인 가치 상승을 위해 설계된 디플레이션 토크노믹스 모델을 구현합니다.",
+        "supply": {
+          "title": "토큰 공급",
+          "genesis": "제네시스 공급",
+          "year20": "20년 후 공급",
+          "totalReduction": "총 감소",
+          "targetStaking": "목표 스테이킹"
+        },
+        "emission": {
+          "title": "발행 일정",
+          "parameter": "파라미터",
+          "value": "값",
+          "description": "설명",
+          "baseDailyEmission": "기본 일일 발행",
+          "baseDailyEmissionDesc": "최대 일일 토큰 발행량",
+          "aiBurnRate": "AI 소각률",
+          "aiBurnRateDesc": "AI가 소각하는 발행 비율",
+          "netDailyEmission": "순 일일 발행",
+          "netDailyEmissionDesc": "실제 유통되는 토큰"
+        },
+        "priceDiscovery": {
+          "title": "가격 발견 모델",
+          "desc": "TBURN 토큰 가격은 수요-공급 균형 공식에 의해 결정됩니다:",
+          "formulaTitle": "토큰 가격 공식"
+        },
+        "gasEconomics": {
+          "title": "가스 경제학",
+          "desc": "TBURN은 Ember (EMB)를 가스 단위로 사용합니다:",
+          "standardGasPrice": "표준 가스 가격"
+        }
+      },
+      "tokenStandards": {
+        "title": "토큰 표준",
+        "intro": "TBURN Chain은 ERC 표준과 호환되는 세 가지 네이티브 토큰 표준을 구현합니다.",
+        "tbc20": {
+          "subtitle": "대체 가능 토큰",
+          "desc": "추가 기능을 갖춘 ERC-20 호환 대체 가능 토큰 표준:",
+          "feature1": "양자 내성 서명 검증",
+          "feature2": "내장 소각 메커니즘",
+          "feature3": "크로스 샤드 전송 지원",
+          "feature4": "거버넌스 투표 통합"
+        },
+        "tbc721": {
+          "subtitle": "대체 불가능 토큰",
+          "desc": "개선 기능을 갖춘 ERC-721 호환 NFT 표준:",
+          "feature1": "온체인 메타데이터 저장",
+          "feature2": "로열티 적용 (EIP-2981)",
+          "feature3": "배치 민팅 최적화",
+          "feature4": "크로스 체인 브리지 호환성"
+        },
+        "tbc1155": {
+          "subtitle": "멀티 토큰 표준",
+          "desc": "다음을 위한 ERC-1155 호환 멀티 토큰 표준:",
+          "feature1": "GameFi 자산 관리",
+          "feature2": "배치 전송",
+          "feature3": "세미 대체 가능 토큰",
+          "feature4": "가스 효율적인 운영"
+        },
+        "quantumResistant": {
+          "title": "양자 내성 확장",
+          "desc": "모든 토큰 표준은 선택적 양자 내성 서명 체계를 지원합니다:",
+          "sphincs": "해시 기반 서명 (NIST 승인)",
+          "crystals": "격자 기반 서명",
+          "hybridMode": "하이브리드 모드",
+          "hybridModeDesc": "전환 기간을 위한 ECDSA + 포스트 퀀텀"
+        }
+      },
+      "defi": {
+        "title": "DeFi 생태계",
+        "intro": "TBURN Chain은 네이티브 프로토콜 구현과 함께 포괄적인 DeFi 인프라를 제공합니다.",
+        "dex": {
+          "title": "탈중앙화 거래소 (DEX)",
+          "amm": "AMM 모델",
+          "ammDesc": "집중 유동성 (Uniswap V3 스타일)",
+          "orderBook": "오더북",
+          "orderBookDesc": "하이브리드 지정가 주문 지원",
+          "twap": "TWAP 오라클",
+          "twapDesc": "시간 가중 평균 가격 피드",
+          "mev": "MEV 보호",
+          "mevDesc": "커밋-공개를 통한 공정한 순서 지정"
+        },
+        "lending": {
+          "title": "렌딩 프로토콜",
+          "collateralized": "담보 대출",
+          "collateralizedDesc": "과담보 차입",
+          "variableRates": "변동 금리",
+          "variableRatesDesc": "이용률 기반 이자 곡선",
+          "liquidation": "청산 엔진",
+          "liquidationDesc": "더치 경매 청산",
+          "flashLoans": "플래시 론",
+          "flashLoansDesc": "단일 블록 차입"
+        },
+        "staking": {
+          "title": "스테이킹 인프라",
+          "native": "네이티브 스테이킹",
+          "nativeDesc": "직접 검증자 위임",
+          "liquid": "리퀴드 스테이킹",
+          "liquidDesc": "stTBURN 수령 토큰",
+          "pools": "스테이킹 풀",
+          "poolsDesc": "소액 보유자를 위한 집계 스테이킹",
+          "unbonding": "언본딩 기간",
+          "unbondingDesc": "보안을 위해 7일"
+        },
+        "yieldFarming": {
+          "title": "이자 농사",
+          "liquidityMining": "유동성 마이닝",
+          "liquidityMiningDesc": "프로토콜 인센티브 풀",
+          "autoCompounding": "자동 복리",
+          "autoCompoundingDesc": "수익 최적화 볼트",
+          "multiAsset": "다중 자산 전략",
+          "multiAssetDesc": "다양화된 수익 소스"
+        },
+        "bridge": {
+          "title": "크로스 체인 브리지",
+          "feature": "기능",
+          "specification": "사양",
+          "supportedChains": "지원 체인",
+          "securityModel": "보안 모델",
+          "securityModelDesc": "다중 서명 + AI 위험 평가",
+          "transferTime": "전송 시간",
+          "transferTimeDesc": "5-15분 (체인에 따라 다름)",
+          "feeStructure": "수수료 구조",
+          "gasCosts": "가스 비용"
+        }
+      },
+      "security": {
+        "title": "보안 아키텍처",
+        "intro": "TBURN Chain은 현재 및 미래 위협으로부터 보호하기 위해 다중 보안 계층을 구현합니다.",
+        "cryptographic": {
+          "title": "암호화 기본 요소",
+          "function": "기능",
+          "algorithm": "알고리즘",
+          "securityLevel": "보안 수준",
+          "txSigning": "트랜잭션 서명",
+          "blockHashing": "블록 해싱",
+          "stateTree": "상태 트리",
+          "quantumResistant": "양자 내성"
+        },
+        "slashing": {
+          "title": "슬래싱 조건",
+          "doubleSigning": "이중 서명",
+          "doubleSigningPenalty": "스테이크 100% 슬래싱",
+          "prolongedDowntime": "장기 다운타임",
+          "prolongedDowntimePenalty": "24시간당 1% (최대 10%)",
+          "invalidBlock": "무효 블록 생성",
+          "invalidBlockPenalty": "스테이크 5% 슬래싱",
+          "censorship": "검열 감지",
+          "censorshipPenalty": "스테이크 10% 슬래싱"
+        },
+        "aiDriven": {
+          "title": "AI 기반 보안",
+          "anomalyDetection": "이상 탐지",
+          "anomalyDetectionDesc": "실시간 트랜잭션 패턴 분석",
+          "attackPrevention": "공격 방지",
+          "attackPreventionDesc": "자동 속도 제한 및 차단",
+          "vulnerabilityScanning": "취약점 스캔",
+          "vulnerabilityScanningDesc": "지속적인 스마트 컨트랙트 분석",
+          "incidentResponse": "사고 대응",
+          "incidentResponseDesc": "자동화된 비상 절차"
+        },
+        "bugBounty": {
+          "title": "버그 바운티 프로그램",
+          "severity": "심각도",
+          "rewardRange": "보상 범위"
+        }
+      },
+      "governance": {
+        "title": "거버넌스 프레임워크",
+        "intro": "TBURN Chain은 AI 지원 제안 검증을 통한 탈중앙화 거버넌스 모델을 구현합니다.",
+        "process": {
+          "title": "거버넌스 프로세스",
+          "submission": "제안 제출",
+          "submissionDesc": "최소 1,000,000 TBURN 스테이크 필요",
+          "aiPrevalidation": "AI 사전 검증",
+          "aiPrevalidationDesc": "자동화된 위험 및 영향 평가",
+          "discussion": "토론 기간",
+          "discussionDesc": "커뮤니티 피드백을 위한 7일",
+          "voting": "투표 기간",
+          "votingDesc": "7일, 스테이크 가중 투표",
+          "execution": "실행",
+          "executionDesc": "통과 시 자동 온체인 실행"
+        },
+        "votingPower": {
+          "title": "투표력",
+          "desc": "투표력은 다음과 같이 계산됩니다:",
+          "formulaTitle": "투표력 공식"
+        },
+        "proposalTypes": {
+          "title": "제안 유형",
+          "parameterChanges": "파라미터 변경",
+          "parameterChangesDesc": "네트워크 구성 조정",
+          "treasurySpending": "재무 지출",
+          "treasurySpendingDesc": "자금 할당 결정",
+          "protocolUpgrades": "프로토콜 업그레이드",
+          "protocolUpgradesDesc": "스마트 컨트랙트 업데이트",
+          "emergencyActions": "긴급 조치",
+          "emergencyActionsDesc": "빠른 보안 대응"
+        }
+      },
+      "roadmap": {
+        "title": "로드맵",
+        "phase1": {
+          "title": "1단계: 제네시스 (2025년 4분기)",
+          "item1": "1,600명의 검증자와 함께 메인넷 출시",
+          "item2": "64개 샤드 운영 (210,000 TPS)",
+          "item3": "핵심 DeFi 프로토콜 배포",
+          "item4": "쿼드밴드 AI 시스템 활성화"
+        },
+        "phase2": {
+          "title": "2단계: 확장 (2026년 1-2분기)",
+          "item1": "크로스 체인 브리지 배포",
+          "item2": "128개 샤드 확장 (500,000+ TPS)",
+          "item3": "GameFi 생태계 출시",
+          "item4": "엔터프라이즈 파트너십"
+        },
+        "phase3": {
+          "title": "3단계: 성숙 (2026년 3-4분기)",
+          "item1": "완전한 양자 내성 마이그레이션",
+          "item2": "DAO 재무 활성화",
+          "item3": "레이어 2 롤업 지원",
+          "item4": "글로벌 검증자 탈중앙화"
+        },
+        "phase4": {
+          "title": "4단계: 생태계 (2027년+)",
+          "item1": "1,000,000+ TPS 이론적 용량",
+          "item2": "완전한 DeFi 프리미티브 제품군",
+          "item3": "기관 채택",
+          "item4": "자립 생태계"
+        }
+      },
+      "conclusion": {
+        "title": "결론",
+        "p1": "TBURN Chain은 전례 없는 처리량과 지능형 자동화, 미래 지향적 보안을 결합한 블록체인 기술의 중요한 발전을 나타냅니다.",
+        "p2": "디플레이션 토크노믹스 모델은 장기적인 가치 상승을 보장하고 포괄적인 DeFi 생태계는 필수적인 금융 인프라를 제공합니다.",
+        "officialResources": "공식 리소스"
+      }
+    },
+    "footer": {
+      "allRightsReserved": "모든 권리 보유.",
+      "disclaimer": "이 문서는 정보 제공 목적으로만 작성되었으며 재정적 조언을 구성하지 않습니다."
+    }
   }
 }

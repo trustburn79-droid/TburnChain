@@ -21,6 +21,7 @@ const WhatIsWallet = lazy(() => import("./pages/learn/WhatIsWallet"));
 const WalletGuide = lazy(() => import("./pages/learn/WalletGuide"));
 const EducationPrograms = lazy(() => import("./pages/learn/EducationPrograms"));
 const Whitepaper = lazy(() => import("./pages/learn/Whitepaper"));
+const TechnicalWhitepaper = lazy(() => import("./pages/learn/TechnicalWhitepaper"));
 const Tokenomics = lazy(() => import("./pages/learn/Tokenomics"));
 const Roadmap = lazy(() => import("./pages/learn/Roadmap"));
 const Universities = lazy(() => import("./pages/learn/Universities"));
@@ -118,6 +119,7 @@ export function PublicRouter() {
           <Route path="/learn/wallet-guides/:wallet">{(params) => <WalletGuide key={params.wallet} />}</Route>
           <Route path="/learn/education" component={Universities} />
           <Route path="/learn/whitepaper" component={Whitepaper} />
+          <Route path="/learn/technical-whitepaper" component={TechnicalWhitepaper} />
           <Route path="/learn/tokenomics" component={Tokenomics} />
           <Route path="/learn/roadmap" component={Roadmap} />
           <Route path="/learn/blockchain-basics" component={BlockchainBasics} />
