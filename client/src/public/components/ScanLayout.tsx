@@ -105,7 +105,6 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="bg-gray-900 border-gray-700 max-h-80 overflow-y-auto">
                   <DropdownMenuItem onClick={() => handleLanguageChange('en')} className={language === 'en' ? 'bg-gray-800 text-white' : 'text-gray-300'}>English</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleLanguageChange('ko')} className={language === 'ko' ? 'bg-gray-800 text-white' : 'text-gray-300'}>한국어</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => handleLanguageChange('zh')} className={language === 'zh' ? 'bg-gray-800 text-white' : 'text-gray-300'}>中文</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => handleLanguageChange('ja')} className={language === 'ja' ? 'bg-gray-800 text-white' : 'text-gray-300'}>日本語</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => handleLanguageChange('hi')} className={language === 'hi' ? 'bg-gray-800 text-white' : 'text-gray-300'}>हिन्दी</DropdownMenuItem>
@@ -116,6 +115,7 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
                   <DropdownMenuItem onClick={() => handleLanguageChange('ru')} className={language === 'ru' ? 'bg-gray-800 text-white' : 'text-gray-300'}>Русский</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => handleLanguageChange('pt')} className={language === 'pt' ? 'bg-gray-800 text-white' : 'text-gray-300'}>Português</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => handleLanguageChange('ur')} className={language === 'ur' ? 'bg-gray-800 text-white' : 'text-gray-300'}>اردو</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleLanguageChange('ko')} className={language === 'ko' ? 'bg-gray-800 text-white' : 'text-gray-300'}>한국어</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
