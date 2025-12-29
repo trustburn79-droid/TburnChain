@@ -666,6 +666,58 @@
       .spec-grid { grid-template-columns: repeat(2, 1fr); }
       .meta-info { gap: 12px; }
     }
+    
+    /* RTL Support for Arabic and Urdu */
+    html[dir="rtl"] body {
+      direction: rtl;
+      text-align: right;
+    }
+    html[dir="rtl"] .navbar-left {
+      flex-direction: row-reverse;
+    }
+    html[dir="rtl"] .navbar-right {
+      flex-direction: row-reverse;
+    }
+    html[dir="rtl"] .nav-buttons {
+      flex-direction: row-reverse;
+    }
+    html[dir="rtl"] .meta-info {
+      flex-direction: row-reverse;
+    }
+    html[dir="rtl"] .toc-list {
+      flex-direction: row-reverse;
+    }
+    html[dir="rtl"] h2 {
+      border-bottom: none;
+      border-right: 2px solid var(--accent-cyan);
+      padding-right: 12px;
+    }
+    html[dir="rtl"] ul, html[dir="rtl"] ol {
+      margin-left: 0;
+      margin-right: 24px;
+    }
+    html[dir="rtl"] .spec-card {
+      text-align: right;
+    }
+    html[dir="rtl"] th, html[dir="rtl"] td {
+      text-align: right;
+    }
+    html[dir="rtl"] .layer {
+      flex-direction: row-reverse;
+    }
+    html[dir="rtl"] .footer-links {
+      flex-direction: row-reverse;
+    }
+    html[dir="rtl"] pre {
+      direction: ltr;
+      text-align: left;
+    }
+    html[dir="rtl"] code {
+      direction: ltr;
+    }
+    html[dir="rtl"] .formula .equation {
+      direction: ltr;
+    }
   </style>
 </head>
 <body>
@@ -697,7 +749,7 @@
           <span class="navbar-title">TBurn <span class="navbar-title-accent">Chain</span></span>
         </a>
         <span class="navbar-divider">/</span>
-        <span class="navbar-page-title">Technical Whitepaper</span>
+        <span class="navbar-page-title" data-i18n="nav.pageTitle">Technical Whitepaper</span>
       </div>
       <div class="navbar-right">
         <div class="nav-buttons">
@@ -772,12 +824,20 @@
           </a>
           <div class="nav-separator"></div>
         </div>
-        <!-- Language Selector -->
-        <select class="lang-select" onchange="window.location.href='?lang='+this.value">
-          <option value="en">EN</option>
+        <!-- Language Selector - 12 Languages -->
+        <select class="lang-select" id="language-selector" onchange="setLanguage(this.value)" data-testid="language-selector">
+          <option value="en">English</option>
           <option value="ko">한국어</option>
-          <option value="ja">日本語</option>
           <option value="zh">中文</option>
+          <option value="ja">日本語</option>
+          <option value="hi">हिन्दी</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="ar">العربية</option>
+          <option value="bn">বাংলা</option>
+          <option value="ru">Русский</option>
+          <option value="pt">Português</option>
+          <option value="ur">اردو</option>
         </select>
         <!-- Theme Toggle -->
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
@@ -810,35 +870,35 @@
   <div class="main-header">
     <div class="container header-content">
       <div class="version-badge">
-        <span>TECHNICAL WHITEPAPER</span>
+        <span data-i18n="header.badge">TECHNICAL WHITEPAPER</span>
         <span>v9.0</span>
       </div>
-      <h1>TBURN Chain</h1>
-      <p class="subtitle">Enterprise-Grade Layer 1 Blockchain with AI-Driven Consensus and Dynamic Sharding</p>
+      <h1 data-i18n="header.title">TBURN Chain</h1>
+      <p class="subtitle" data-i18n="header.subtitle">Enterprise-Grade Layer 1 Blockchain with AI-Driven Consensus and Dynamic Sharding</p>
       <div class="meta-info">
-        <div class="meta-item"><strong>Version:</strong> 9.0 (Mainnet)</div>
-        <div class="meta-item"><strong>Date:</strong> December 26, 2025</div>
-        <div class="meta-item"><strong>Chain ID:</strong> 6000 (0x1770)</div>
-        <div class="meta-item"><strong>Status:</strong> Production</div>
+        <div class="meta-item"><strong data-i18n="meta.version">Version:</strong> 9.0 (Mainnet)</div>
+        <div class="meta-item"><strong data-i18n="meta.date">Date:</strong> December 26, 2025</div>
+        <div class="meta-item"><strong data-i18n="meta.chainId">Chain ID:</strong> 6000 (0x1770)</div>
+        <div class="meta-item"><strong data-i18n="meta.status">Status:</strong> <span data-i18n="meta.production">Production</span></div>
       </div>
     </div>
   </div>
 
   <nav class="toc">
     <div class="container">
-      <div class="toc-title">Table of Contents</div>
+      <div class="toc-title" data-i18n="toc.title">Table of Contents</div>
       <ul class="toc-list">
-        <li><a href="#abstract">Abstract</a></li>
-        <li><a href="#architecture">Architecture</a></li>
-        <li><a href="#consensus">Consensus</a></li>
-        <li><a href="#sharding">Sharding</a></li>
-        <li><a href="#ai-system">AI System</a></li>
-        <li><a href="#tokenomics">Tokenomics</a></li>
-        <li><a href="#token-standards">Token Standards</a></li>
-        <li><a href="#defi">DeFi Stack</a></li>
-        <li><a href="#security">Security</a></li>
-        <li><a href="#governance">Governance</a></li>
-        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#abstract" data-i18n="toc.abstract">Abstract</a></li>
+        <li><a href="#architecture" data-i18n="toc.architecture">Architecture</a></li>
+        <li><a href="#consensus" data-i18n="toc.consensus">Consensus</a></li>
+        <li><a href="#sharding" data-i18n="toc.sharding">Sharding</a></li>
+        <li><a href="#ai-system" data-i18n="toc.aiSystem">AI System</a></li>
+        <li><a href="#tokenomics" data-i18n="toc.tokenomics">Tokenomics</a></li>
+        <li><a href="#token-standards" data-i18n="toc.tokenStandards">Token Standards</a></li>
+        <li><a href="#defi" data-i18n="toc.defi">DeFi Stack</a></li>
+        <li><a href="#security" data-i18n="toc.security">Security</a></li>
+        <li><a href="#governance" data-i18n="toc.governance">Governance</a></li>
+        <li><a href="#roadmap" data-i18n="toc.roadmap">Roadmap</a></li>
       </ul>
     </div>
   </nav>
@@ -846,29 +906,29 @@
   <main class="container">
     <!-- Abstract -->
     <section id="abstract">
-      <h2>1. Abstract</h2>
-      <p>
+      <h2 data-i18n="section.abstract">1. Abstract</h2>
+      <p data-i18n="abstract.p1">
         <span class="highlight">TBURN Chain</span> is an enterprise-grade Layer 1 blockchain platform designed to address the fundamental limitations of existing blockchain networks: scalability, energy efficiency, and intelligent automation. By integrating a novel <span class="highlight">Trust Score-Based BFT Consensus</span>, <span class="highlight">Dynamic Sharding Architecture</span>, and <span class="highlight">Quad-Band AI Orchestration System</span>, TBURN Chain achieves unprecedented throughput of <span class="highlight">210,000+ TPS</span> while maintaining decentralization and security guarantees.
       </p>
-      <p>
+      <p data-i18n="abstract.p2">
         The platform introduces a deflationary tokenomics model with an AI-optimized burn mechanism, achieving a projected 30.6% token reduction over 20 years. TBURN Chain supports full EVM compatibility with quantum-resistant cryptographic extensions, enabling seamless migration for existing Ethereum applications while future-proofing against emerging computational threats.
       </p>
       
       <div class="spec-grid">
         <div class="spec-card">
-          <div class="label">Peak TPS</div>
+          <div class="label" data-i18n="specs.peakTps">Peak TPS</div>
           <div class="value cyan">210,000</div>
         </div>
         <div class="spec-card">
-          <div class="label">Block Time</div>
+          <div class="label" data-i18n="specs.blockTime">Block Time</div>
           <div class="value green">100ms</div>
         </div>
         <div class="spec-card">
-          <div class="label">Finality</div>
-          <div class="value orange">1 second</div>
+          <div class="label" data-i18n="specs.finality">Finality</div>
+          <div class="value orange" data-i18n="specs.oneSecond">1 second</div>
         </div>
         <div class="spec-card">
-          <div class="label">Active Validators</div>
+          <div class="label" data-i18n="specs.activeValidators">Active Validators</div>
           <div class="value purple">1,600</div>
         </div>
       </div>
@@ -876,13 +936,13 @@
 
     <!-- Architecture -->
     <section id="architecture">
-      <h2>2. System Architecture</h2>
-      <p>
+      <h2 data-i18n="section.architecture">2. System Architecture</h2>
+      <p data-i18n="architecture.intro">
         TBURN Chain employs a modular, layered architecture that separates concerns across execution, consensus, data availability, and settlement layers. This design enables independent scaling and upgradeability of each component.
       </p>
 
       <div class="architecture-diagram">
-        <div class="diagram-title">TBURN Chain Architecture Stack</div>
+        <div class="diagram-title" data-i18n="architecture.diagramTitle">TBURN Chain Architecture Stack</div>
         <div class="layer">
           <div class="layer-box">DeFi Protocols</div>
           <div class="layer-box">NFT/GameFi</div>
@@ -910,29 +970,29 @@
         </div>
       </div>
 
-      <h3>2.1 Core Components</h3>
+      <h3 data-i18n="architecture.coreComponents">2.1 Core Components</h3>
       
-      <h4>Execution Layer</h4>
-      <p>
+      <h4 data-i18n="architecture.executionLayer">Execution Layer</h4>
+      <p data-i18n="architecture.executionDesc">
         The execution layer implements a fully EVM-compatible virtual machine with extensions for TBURN-specific opcodes. Transactions are processed in parallel across shards with deterministic state transitions.
       </p>
 
-      <h4>Consensus Layer</h4>
-      <p>
+      <h4 data-i18n="architecture.consensusLayer">Consensus Layer</h4>
+      <p data-i18n="architecture.consensusDesc">
         Trust Score-Based Byzantine Fault Tolerant (TS-BFT) consensus achieves finality within 1 second by weighting validator votes according to historical performance metrics, stake amount, and network contribution.
       </p>
 
-      <h4>Data Availability Layer</h4>
-      <p>
+      <h4 data-i18n="architecture.dataAvailability">Data Availability Layer</h4>
+      <p data-i18n="architecture.dataAvailabilityDesc">
         Each shard maintains its own state tree with cross-shard proofs enabling trustless verification. Archive nodes preserve complete historical data for audit and compliance requirements.
       </p>
 
-      <h4>AI Orchestration Layer</h4>
-      <p>
+      <h4 data-i18n="architecture.aiOrchestration">AI Orchestration Layer</h4>
+      <p data-i18n="architecture.aiOrchestrationDesc">
         The Quad-Band AI system continuously monitors network health, optimizes resource allocation, detects anomalies, and executes governance decisions with minimal human intervention.
       </p>
 
-      <h3>2.2 Network Specifications</h3>
+      <h3 data-i18n="architecture.networkSpecs">2.2 Network Specifications</h3>
       <table>
         <thead>
           <tr>
@@ -983,12 +1043,12 @@
 
     <!-- Consensus -->
     <section id="consensus">
-      <h2>3. Trust Score-Based BFT Consensus</h2>
-      <p>
+      <h2 data-i18n="section.consensus">3. Trust Score-Based BFT Consensus</h2>
+      <p data-i18n="consensus.intro">
         TBURN Chain introduces an innovative consensus mechanism that extends traditional Byzantine Fault Tolerance with a dynamic trust scoring system. This approach reduces the impact of malicious or underperforming validators while rewarding consistent, high-quality participation.
       </p>
 
-      <h3>3.1 Trust Score Calculation</h3>
+      <h3 data-i18n="consensus.trustScoreCalc">3.1 Trust Score Calculation</h3>
       <p>
         Each validator maintains a Trust Score (TS) calculated from multiple performance metrics:
       </p>
@@ -1009,7 +1069,7 @@
         <li><strong>ε = 0.15:</strong> Cross-shard message relay and network health contribution</li>
       </ul>
 
-      <h3>3.2 Validator Tiers</h3>
+      <h3 data-i18n="consensus.validatorTiers">3.2 Validator Tiers</h3>
       <table>
         <thead>
           <tr>
@@ -1045,7 +1105,7 @@
         </tbody>
       </table>
 
-      <h3>3.3 Block Production</h3>
+      <h3 data-i18n="consensus.blockProduction">3.3 Block Production</h3>
       <p>
         Validators are selected for block production through a weighted random selection algorithm where the probability is proportional to their Trust Score. This ensures high-performing validators produce more blocks while maintaining decentralization.
       </p>
@@ -1064,7 +1124,7 @@ function selectBlockProposer(validators, blockHeight) {
   return findValidatorByWeight(weightedPool, selection);
 }</code></pre>
 
-      <h3>3.4 Finality Guarantee</h3>
+      <h3 data-i18n="consensus.finalityGuarantee">3.4 Finality Guarantee</h3>
       <p>
         TBURN Chain achieves single-slot finality through a two-phase commit process:
       </p>
@@ -1079,8 +1139,8 @@ function selectBlockProposer(validators, blockHeight) {
 
     <!-- Sharding -->
     <section id="sharding">
-      <h2>4. Dynamic Sharding Architecture</h2>
-      <p>
+      <h2 data-i18n="section.sharding">4. Dynamic Sharding Architecture</h2>
+      <p data-i18n="sharding.intro">
         TBURN Chain implements a dynamic sharding system that automatically scales from 5 to 128 shards based on network load and hardware capacity. This enables linear throughput scaling while maintaining security guarantees.
       </p>
 
@@ -1183,8 +1243,8 @@ TPS ≈ 210,000</code></pre>
 
     <!-- AI System -->
     <section id="ai-system">
-      <h2>5. Quad-Band AI Orchestration System</h2>
-      <p>
+      <h2 data-i18n="section.aiSystem">5. Quad-Band AI Orchestration System</h2>
+      <p data-i18n="ai.intro">
         TBURN Chain integrates a sophisticated AI orchestration layer that continuously optimizes network operations, security, and governance. The Quad-Band system leverages four leading AI models for redundancy and specialized expertise.
       </p>
 
@@ -1262,8 +1322,8 @@ Emergency: 1000ms</code></pre>
 
     <!-- Tokenomics -->
     <section id="tokenomics">
-      <h2>6. Tokenomics</h2>
-      <p>
+      <h2 data-i18n="section.tokenomics">6. Tokenomics</h2>
+      <p data-i18n="tokenomics.intro">
         TBURN implements a deflationary tokenomics model designed for long-term value appreciation through systematic token burning and controlled emission.
       </p>
 
@@ -1363,8 +1423,8 @@ Emergency: 1000ms</code></pre>
 
     <!-- Token Standards -->
     <section id="token-standards">
-      <h2>7. Token Standards</h2>
-      <p>
+      <h2 data-i18n="section.tokenStandards">7. Token Standards</h2>
+      <p data-i18n="tokenStandards.intro">
         TBURN Chain implements three native token standards compatible with ERC standards while adding quantum-resistant signature extensions.
       </p>
 
@@ -1414,8 +1474,8 @@ Emergency: 1000ms</code></pre>
 
     <!-- DeFi -->
     <section id="defi">
-      <h2>8. DeFi Ecosystem</h2>
-      <p>
+      <h2 data-i18n="section.defi">8. DeFi Ecosystem</h2>
+      <p data-i18n="defi.intro">
         TBURN Chain provides a comprehensive DeFi infrastructure with native protocol implementations.
       </p>
 
@@ -1481,8 +1541,8 @@ Emergency: 1000ms</code></pre>
 
     <!-- Security -->
     <section id="security">
-      <h2>9. Security Architecture</h2>
-      <p>
+      <h2 data-i18n="section.security">9. Security Architecture</h2>
+      <p data-i18n="security.intro">
         TBURN Chain implements multiple layers of security to protect against current and future threats.
       </p>
 
@@ -1566,8 +1626,8 @@ Emergency: 1000ms</code></pre>
 
     <!-- Governance -->
     <section id="governance">
-      <h2>10. Governance Framework</h2>
-      <p>
+      <h2 data-i18n="section.governance">10. Governance Framework</h2>
+      <p data-i18n="governance.intro">
         TBURN Chain implements a decentralized governance model with AI-assisted proposal validation.
       </p>
 
@@ -1602,9 +1662,9 @@ Emergency: 1000ms</code></pre>
 
     <!-- Roadmap -->
     <section id="roadmap">
-      <h2>11. Roadmap</h2>
+      <h2 data-i18n="section.roadmap">11. Roadmap</h2>
       
-      <h3>Phase 1: Genesis (Q4 2025)</h3>
+      <h3 data-i18n="roadmap.phase1">Phase 1: Genesis (Q4 2025)</h3>
       <ul>
         <li>Mainnet launch with 1,600 validators</li>
         <li>64 shards operational (210,000 TPS)</li>
@@ -1612,7 +1672,7 @@ Emergency: 1000ms</code></pre>
         <li>Quad-Band AI system active</li>
       </ul>
 
-      <h3>Phase 2: Expansion (Q1-Q2 2026)</h3>
+      <h3 data-i18n="roadmap.phase2">Phase 2: Expansion (Q1-Q2 2026)</h3>
       <ul>
         <li>Cross-chain bridge deployment</li>
         <li>128-shard scaling (500,000+ TPS)</li>
@@ -1620,7 +1680,7 @@ Emergency: 1000ms</code></pre>
         <li>Enterprise partnerships</li>
       </ul>
 
-      <h3>Phase 3: Maturity (Q3-Q4 2026)</h3>
+      <h3 data-i18n="roadmap.phase3">Phase 3: Maturity (Q3-Q4 2026)</h3>
       <ul>
         <li>Full quantum-resistant migration</li>
         <li>DAO treasury activation</li>
@@ -1628,7 +1688,7 @@ Emergency: 1000ms</code></pre>
         <li>Global validator decentralization</li>
       </ul>
 
-      <h3>Phase 4: Ecosystem (2027+)</h3>
+      <h3 data-i18n="roadmap.phase4">Phase 4: Ecosystem (2027+)</h3>
       <ul>
         <li>1,000,000+ TPS theoretical capacity</li>
         <li>Complete DeFi primitive suite</li>
@@ -1657,17 +1717,921 @@ Emergency: 1000ms</code></pre>
 
   <footer>
     <div class="container">
-      <p class="footer-text">&copy; 2025 TBURN Foundation. All rights reserved.</p>
-      <p class="footer-text" style="margin-top: 8px; font-size: 12px;">
+      <p class="footer-text" data-i18n="footer.copyright">&copy; 2025 TBURN Foundation. All rights reserved.</p>
+      <p class="footer-text" style="margin-top: 8px; font-size: 12px;" data-i18n="footer.disclaimer">
         This document is for informational purposes only and does not constitute financial advice.
       </p>
       <div class="footer-links">
-        <a href="https://tburn.io">Website</a>
-        <a href="https://tburn.io/whitepaper">Whitepaper</a>
-        <a href="https://tburn.io/developers">Developers</a>
-        <a href="https://tburn.io/governance">Governance</a>
+        <a href="https://tburn.io" data-i18n="footer.website">Website</a>
+        <a href="https://tburn.io/whitepaper" data-i18n="footer.whitepaper">Whitepaper</a>
+        <a href="https://tburn.io/developers" data-i18n="footer.developers">Developers</a>
+        <a href="https://tburn.io/governance" data-i18n="footer.governance">Governance</a>
       </div>
     </div>
   </footer>
+
+  <script>
+    // TBURN Technical Whitepaper i18n System
+    const translations = {
+      en: {
+        // Navigation
+        "nav.pageTitle": "Technical Whitepaper",
+        // Header
+        "header.badge": "TECHNICAL WHITEPAPER",
+        "header.title": "TBURN Chain",
+        "header.subtitle": "Enterprise-Grade Layer 1 Blockchain with AI-Driven Consensus and Dynamic Sharding",
+        // Meta
+        "meta.version": "Version:",
+        "meta.date": "Date:",
+        "meta.chainId": "Chain ID:",
+        "meta.status": "Status:",
+        "meta.production": "Production",
+        // TOC
+        "toc.title": "Table of Contents",
+        "toc.abstract": "Abstract",
+        "toc.architecture": "Architecture",
+        "toc.consensus": "Consensus",
+        "toc.sharding": "Sharding",
+        "toc.aiSystem": "AI System",
+        "toc.tokenomics": "Tokenomics",
+        "toc.tokenStandards": "Token Standards",
+        "toc.defi": "DeFi Stack",
+        "toc.security": "Security",
+        "toc.governance": "Governance",
+        "toc.roadmap": "Roadmap",
+        // Sections
+        "section.abstract": "1. Abstract",
+        "section.architecture": "2. System Architecture",
+        "section.consensus": "3. Trust Score-Based BFT Consensus",
+        "section.sharding": "4. Dynamic Sharding Architecture",
+        "section.aiSystem": "5. Quad-Band AI Orchestration System",
+        "section.tokenomics": "6. Tokenomics",
+        "section.tokenStandards": "7. Token Standards",
+        "section.defi": "8. DeFi Ecosystem",
+        "section.security": "9. Security Architecture",
+        "section.governance": "10. Governance Framework",
+        "section.roadmap": "11. Roadmap",
+        // Abstract content
+        "abstract.p1": "<span class=\"highlight\">TBURN Chain</span> is an enterprise-grade Layer 1 blockchain platform designed to address the fundamental limitations of existing blockchain networks: scalability, energy efficiency, and intelligent automation. By integrating a novel <span class=\"highlight\">Trust Score-Based BFT Consensus</span>, <span class=\"highlight\">Dynamic Sharding Architecture</span>, and <span class=\"highlight\">Quad-Band AI Orchestration System</span>, TBURN Chain achieves unprecedented throughput of <span class=\"highlight\">210,000+ TPS</span> while maintaining decentralization and security guarantees.",
+        "abstract.p2": "The platform introduces a deflationary tokenomics model with an AI-optimized burn mechanism, achieving a projected 30.6% token reduction over 20 years. TBURN Chain supports full EVM compatibility with quantum-resistant cryptographic extensions, enabling seamless migration for existing Ethereum applications while future-proofing against emerging computational threats.",
+        // Specs
+        "specs.peakTps": "Peak TPS",
+        "specs.blockTime": "Block Time",
+        "specs.finality": "Finality",
+        "specs.oneSecond": "1 second",
+        "specs.activeValidators": "Active Validators",
+        // Architecture
+        "architecture.intro": "TBURN Chain employs a modular, layered architecture that separates concerns across execution, consensus, data availability, and settlement layers. This design enables independent scaling and upgradeability of each component.",
+        "architecture.diagramTitle": "TBURN Chain Architecture Stack",
+        "architecture.coreComponents": "2.1 Core Components",
+        "architecture.executionLayer": "Execution Layer",
+        "architecture.executionDesc": "The execution layer implements a fully EVM-compatible virtual machine with extensions for TBURN-specific opcodes. Transactions are processed in parallel across shards with deterministic state transitions.",
+        "architecture.consensusLayer": "Consensus Layer",
+        // Consensus
+        "consensus.intro": "TBURN Chain introduces an innovative consensus mechanism that extends traditional Byzantine Fault Tolerance with a dynamic trust scoring system. This approach reduces the impact of malicious or underperforming validators while rewarding consistent, high-quality participation.",
+        "consensus.trustScoreCalc": "3.1 Trust Score Calculation",
+        "consensus.validatorTiers": "3.2 Validator Tiers",
+        "consensus.blockProduction": "3.3 Block Production",
+        "consensus.finalityGuarantee": "3.4 Finality Guarantee",
+        // Sharding
+        "sharding.intro": "TBURN Chain implements a dynamic sharding system that automatically scales from 5 to 128 shards based on network load and hardware capacity. This enables linear throughput scaling while maintaining security guarantees.",
+        // AI System
+        "ai.intro": "TBURN Chain integrates a sophisticated AI orchestration layer that continuously optimizes network operations, security, and governance. The Quad-Band system leverages four leading AI models for redundancy and specialized expertise.",
+        // Tokenomics
+        "tokenomics.intro": "TBURN implements a deflationary tokenomics model designed for long-term value appreciation through systematic token burning and controlled emission.",
+        // Token Standards
+        "tokenStandards.intro": "TBURN Chain implements three native token standards compatible with ERC standards while adding quantum-resistant signature extensions.",
+        // DeFi
+        "defi.intro": "TBURN Chain provides a comprehensive DeFi infrastructure with native protocol implementations.",
+        // Security
+        "security.intro": "TBURN Chain implements multiple layers of security to protect against current and future threats.",
+        // Governance
+        "governance.intro": "TBURN Chain implements a decentralized governance model with AI-assisted proposal validation.",
+        // Roadmap
+        "roadmap.phase1": "Phase 1: Genesis (Q4 2025)",
+        "roadmap.phase2": "Phase 2: Expansion (Q1-Q2 2026)",
+        "roadmap.phase3": "Phase 3: Maturity (Q3-Q4 2026)",
+        "roadmap.phase4": "Phase 4: Ecosystem (2027+)",
+        // Footer
+        "footer.copyright": "© 2025 TBURN Foundation. All rights reserved.",
+        "footer.disclaimer": "This document is for informational purposes only and does not constitute financial advice.",
+        "footer.website": "Website",
+        "footer.whitepaper": "Whitepaper",
+        "footer.developers": "Developers",
+        "footer.governance": "Governance"
+      },
+      ko: {
+        "nav.pageTitle": "기술 백서",
+        "header.badge": "기술 백서",
+        "header.title": "TBURN 체인",
+        "header.subtitle": "AI 기반 합의 및 동적 샤딩을 갖춘 엔터프라이즈급 레이어 1 블록체인",
+        "meta.version": "버전:",
+        "meta.date": "날짜:",
+        "meta.chainId": "체인 ID:",
+        "meta.status": "상태:",
+        "meta.production": "프로덕션",
+        "toc.title": "목차",
+        "toc.abstract": "개요",
+        "toc.architecture": "아키텍처",
+        "toc.consensus": "합의",
+        "toc.sharding": "샤딩",
+        "toc.aiSystem": "AI 시스템",
+        "toc.tokenomics": "토큰이코노믹스",
+        "toc.tokenStandards": "토큰 표준",
+        "toc.defi": "DeFi 스택",
+        "toc.security": "보안",
+        "toc.governance": "거버넌스",
+        "toc.roadmap": "로드맵",
+        "section.abstract": "1. 개요",
+        "section.architecture": "2. 시스템 아키텍처",
+        "section.consensus": "3. 신뢰 점수 기반 BFT 합의",
+        "section.sharding": "4. 동적 샤딩 아키텍처",
+        "section.aiSystem": "5. 쿼드밴드 AI 오케스트레이션 시스템",
+        "section.tokenomics": "6. 토큰이코노믹스",
+        "section.tokenStandards": "7. 토큰 표준",
+        "section.defi": "8. DeFi 생태계",
+        "section.security": "9. 보안 아키텍처",
+        "section.governance": "10. 거버넌스 프레임워크",
+        "section.roadmap": "11. 로드맵",
+        "abstract.p1": "<span class=\"highlight\">TBURN 체인</span>은 기존 블록체인 네트워크의 근본적인 한계인 확장성, 에너지 효율성, 지능형 자동화를 해결하기 위해 설계된 엔터프라이즈급 레이어 1 블록체인 플랫폼입니다. 혁신적인 <span class=\"highlight\">신뢰 점수 기반 BFT 합의</span>, <span class=\"highlight\">동적 샤딩 아키텍처</span>, <span class=\"highlight\">쿼드밴드 AI 오케스트레이션 시스템</span>을 통합하여 탈중앙화와 보안을 보장하면서 <span class=\"highlight\">210,000+ TPS</span>의 전례 없는 처리량을 달성합니다.",
+        "abstract.p2": "플랫폼은 AI 최적화 소각 메커니즘을 갖춘 디플레이션 토큰이코노믹스 모델을 도입하여 20년 동안 30.6%의 토큰 감소를 예상합니다. TBURN 체인은 양자 내성 암호화 확장과 함께 완전한 EVM 호환성을 지원하여 기존 이더리움 애플리케이션의 원활한 마이그레이션을 가능하게 하면서 미래의 계산 위협에 대비합니다.",
+        "specs.peakTps": "최대 TPS",
+        "specs.blockTime": "블록 시간",
+        "specs.finality": "확정성",
+        "specs.oneSecond": "1초",
+        "specs.activeValidators": "활성 검증자",
+        "architecture.intro": "TBURN 체인은 실행, 합의, 데이터 가용성 및 결제 계층에 걸쳐 관심사를 분리하는 모듈식 레이어드 아키텍처를 사용합니다. 이 설계는 각 구성 요소의 독립적인 확장 및 업그레이드를 가능하게 합니다.",
+        "architecture.diagramTitle": "TBURN 체인 아키텍처 스택",
+        "architecture.coreComponents": "2.1 핵심 구성 요소",
+        "architecture.executionLayer": "실행 계층",
+        "architecture.executionDesc": "실행 계층은 TBURN 전용 옵코드 확장과 함께 완전히 EVM 호환 가능한 가상 머신을 구현합니다. 트랜잭션은 결정론적 상태 전환으로 샤드 간에 병렬 처리됩니다.",
+        "architecture.consensusLayer": "합의 계층",
+        "consensus.intro": "TBURN 체인은 동적 신뢰 점수 시스템으로 기존 비잔틴 장애 허용을 확장하는 혁신적인 합의 메커니즘을 도입합니다. 이 접근 방식은 악의적이거나 성능이 낮은 검증자의 영향을 줄이면서 일관되고 고품질의 참여에 보상합니다.",
+        "consensus.trustScoreCalc": "3.1 신뢰 점수 계산",
+        "consensus.validatorTiers": "3.2 검증자 등급",
+        "consensus.blockProduction": "3.3 블록 생성",
+        "consensus.finalityGuarantee": "3.4 확정성 보장",
+        "sharding.intro": "TBURN 체인은 네트워크 부하와 하드웨어 용량에 따라 5개에서 128개 샤드로 자동 확장되는 동적 샤딩 시스템을 구현합니다. 이를 통해 보안 보장을 유지하면서 선형 처리량 확장이 가능합니다.",
+        "ai.intro": "TBURN 체인은 네트워크 운영, 보안 및 거버넌스를 지속적으로 최적화하는 정교한 AI 오케스트레이션 레이어를 통합합니다. 쿼드밴드 시스템은 중복성과 전문 지식을 위해 4개의 선도적인 AI 모델을 활용합니다.",
+        "tokenomics.intro": "TBURN은 체계적인 토큰 소각과 통제된 발행을 통해 장기적인 가치 상승을 위해 설계된 디플레이션 토큰이코노믹스 모델을 구현합니다.",
+        "tokenStandards.intro": "TBURN 체인은 양자 내성 서명 확장을 추가하면서 ERC 표준과 호환되는 세 가지 네이티브 토큰 표준을 구현합니다.",
+        "defi.intro": "TBURN 체인은 네이티브 프로토콜 구현과 함께 포괄적인 DeFi 인프라를 제공합니다.",
+        "security.intro": "TBURN 체인은 현재 및 미래 위협으로부터 보호하기 위해 여러 보안 계층을 구현합니다.",
+        "governance.intro": "TBURN 체인은 AI 지원 제안 검증을 통한 탈중앙화 거버넌스 모델을 구현합니다.",
+        "roadmap.phase1": "1단계: 제네시스 (2025년 4분기)",
+        "roadmap.phase2": "2단계: 확장 (2026년 1-2분기)",
+        "roadmap.phase3": "3단계: 성숙 (2026년 3-4분기)",
+        "roadmap.phase4": "4단계: 생태계 (2027년+)",
+        "footer.copyright": "© 2025 TBURN 재단. 모든 권리 보유.",
+        "footer.disclaimer": "이 문서는 정보 제공 목적으로만 작성되었으며 재정 조언을 구성하지 않습니다.",
+        "footer.website": "웹사이트",
+        "footer.whitepaper": "백서",
+        "footer.developers": "개발자",
+        "footer.governance": "거버넌스"
+      },
+      zh: {
+        "nav.pageTitle": "技术白皮书",
+        "header.badge": "技术白皮书",
+        "header.title": "TBURN 链",
+        "header.subtitle": "具备AI驱动共识和动态分片的企业级Layer 1区块链",
+        "meta.version": "版本：",
+        "meta.date": "日期：",
+        "meta.chainId": "链 ID：",
+        "meta.status": "状态：",
+        "meta.production": "生产环境",
+        "toc.title": "目录",
+        "toc.abstract": "摘要",
+        "toc.architecture": "架构",
+        "toc.consensus": "共识",
+        "toc.sharding": "分片",
+        "toc.aiSystem": "AI系统",
+        "toc.tokenomics": "代币经济学",
+        "toc.tokenStandards": "代币标准",
+        "toc.defi": "DeFi堆栈",
+        "toc.security": "安全",
+        "toc.governance": "治理",
+        "toc.roadmap": "路线图",
+        "section.abstract": "1. 摘要",
+        "section.architecture": "2. 系统架构",
+        "section.consensus": "3. 基于信任评分的BFT共识",
+        "section.sharding": "4. 动态分片架构",
+        "section.aiSystem": "5. 四频段AI编排系统",
+        "section.tokenomics": "6. 代币经济学",
+        "section.tokenStandards": "7. 代币标准",
+        "section.defi": "8. DeFi生态系统",
+        "section.security": "9. 安全架构",
+        "section.governance": "10. 治理框架",
+        "section.roadmap": "11. 路线图",
+        "abstract.p1": "<span class=\"highlight\">TBURN链</span>是一个企业级Layer 1区块链平台，旨在解决现有区块链网络的根本局限性：可扩展性、能源效率和智能自动化。通过整合创新的<span class=\"highlight\">基于信任评分的BFT共识</span>、<span class=\"highlight\">动态分片架构</span>和<span class=\"highlight\">四频段AI编排系统</span>，TBURN链在保持去中心化和安全保障的同时，实现了<span class=\"highlight\">210,000+ TPS</span>的空前吞吐量。",
+        "abstract.p2": "该平台引入了具有AI优化燃烧机制的通缩代币经济模型，预计在20年内实现30.6%的代币减少。TBURN链支持完全的EVM兼容性和抗量子加密扩展，使现有以太坊应用程序能够无缝迁移，同时为新兴计算威胁做好准备。",
+        "specs.peakTps": "峰值TPS",
+        "specs.blockTime": "区块时间",
+        "specs.finality": "最终性",
+        "specs.oneSecond": "1秒",
+        "specs.activeValidators": "活跃验证者",
+        "architecture.intro": "TBURN链采用模块化分层架构，将关注点分离到执行层、共识层、数据可用性层和结算层。这种设计使每个组件能够独立扩展和升级。",
+        "architecture.diagramTitle": "TBURN链架构堆栈",
+        "architecture.coreComponents": "2.1 核心组件",
+        "architecture.executionLayer": "执行层",
+        "architecture.executionDesc": "执行层实现了完全兼容EVM的虚拟机，并为TBURN特定操作码提供扩展。交易在分片间以确定性状态转换并行处理。",
+        "architecture.consensusLayer": "共识层",
+        "consensus.intro": "TBURN链引入了一种创新的共识机制，通过动态信任评分系统扩展了传统的拜占庭容错。这种方法减少了恶意或表现不佳的验证者的影响，同时奖励一致的高质量参与。",
+        "consensus.trustScoreCalc": "3.1 信任评分计算",
+        "consensus.validatorTiers": "3.2 验证者等级",
+        "consensus.blockProduction": "3.3 区块生产",
+        "consensus.finalityGuarantee": "3.4 最终性保证",
+        "sharding.intro": "TBURN链实现了动态分片系统，可根据网络负载和硬件容量自动从5个扩展到128个分片。这实现了线性吞吐量扩展，同时保持安全保障。",
+        "ai.intro": "TBURN链集成了复杂的AI编排层，持续优化网络运营、安全性和治理。四频段系统利用四个领先的AI模型来实现冗余和专业化。",
+        "tokenomics.intro": "TBURN实现了通缩代币经济模型，通过系统性代币燃烧和受控发行来实现长期价值增值。",
+        "tokenStandards.intro": "TBURN链实现了三种与ERC标准兼容的原生代币标准，同时添加了抗量子签名扩展。",
+        "defi.intro": "TBURN链通过原生协议实现提供全面的DeFi基础设施。",
+        "security.intro": "TBURN链实现了多层安全保护，以防御当前和未来的威胁。",
+        "governance.intro": "TBURN链实现了具有AI辅助提案验证的去中心化治理模型。",
+        "roadmap.phase1": "第一阶段：创世（2025年第四季度）",
+        "roadmap.phase2": "第二阶段：扩展（2026年第一至二季度）",
+        "roadmap.phase3": "第三阶段：成熟（2026年第三至四季度）",
+        "roadmap.phase4": "第四阶段：生态系统（2027年+）",
+        "footer.copyright": "© 2025 TBURN基金会。保留所有权利。",
+        "footer.disclaimer": "本文件仅供参考，不构成财务建议。",
+        "footer.website": "网站",
+        "footer.whitepaper": "白皮书",
+        "footer.developers": "开发者",
+        "footer.governance": "治理"
+      },
+      ja: {
+        "nav.pageTitle": "技術白書",
+        "header.badge": "技術白書",
+        "header.title": "TBURN チェーン",
+        "header.subtitle": "AI駆動コンセンサスと動的シャーディングを備えたエンタープライズグレードLayer 1ブロックチェーン",
+        "meta.version": "バージョン：",
+        "meta.date": "日付：",
+        "meta.chainId": "チェーンID：",
+        "meta.status": "ステータス：",
+        "meta.production": "本番環境",
+        "toc.title": "目次",
+        "toc.abstract": "概要",
+        "toc.architecture": "アーキテクチャ",
+        "toc.consensus": "コンセンサス",
+        "toc.sharding": "シャーディング",
+        "toc.aiSystem": "AIシステム",
+        "toc.tokenomics": "トークノミクス",
+        "toc.tokenStandards": "トークン標準",
+        "toc.defi": "DeFiスタック",
+        "toc.security": "セキュリティ",
+        "toc.governance": "ガバナンス",
+        "toc.roadmap": "ロードマップ",
+        "section.abstract": "1. 概要",
+        "section.architecture": "2. システムアーキテクチャ",
+        "section.consensus": "3. 信頼スコアベースBFTコンセンサス",
+        "section.sharding": "4. 動的シャーディングアーキテクチャ",
+        "section.aiSystem": "5. クアッドバンドAIオーケストレーションシステム",
+        "section.tokenomics": "6. トークノミクス",
+        "section.tokenStandards": "7. トークン標準",
+        "section.defi": "8. DeFiエコシステム",
+        "section.security": "9. セキュリティアーキテクチャ",
+        "section.governance": "10. ガバナンスフレームワーク",
+        "section.roadmap": "11. ロードマップ",
+        "abstract.p1": "<span class=\"highlight\">TBURNチェーン</span>は、既存のブロックチェーンネットワークの根本的な制限であるスケーラビリティ、エネルギー効率、インテリジェント自動化に対処するために設計されたエンタープライズグレードのLayer 1ブロックチェーンプラットフォームです。革新的な<span class=\"highlight\">信頼スコアベースBFTコンセンサス</span>、<span class=\"highlight\">動的シャーディングアーキテクチャ</span>、<span class=\"highlight\">クアッドバンドAIオーケストレーションシステム</span>を統合することで、分散化とセキュリティを保証しながら<span class=\"highlight\">210,000+ TPS</span>の前例のないスループットを達成します。",
+        "abstract.p2": "プラットフォームは、AI最適化バーンメカニズムを備えたデフレトークノミクスモデルを導入し、20年間で30.6%のトークン削減を予測しています。TBURNチェーンは、量子耐性暗号化拡張を備えた完全なEVM互換性をサポートし、既存のイーサリアムアプリケーションのシームレスな移行を可能にしながら、新たな計算脅威に備えます。",
+        "specs.peakTps": "ピークTPS",
+        "specs.blockTime": "ブロック時間",
+        "specs.finality": "ファイナリティ",
+        "specs.oneSecond": "1秒",
+        "specs.activeValidators": "アクティブバリデータ",
+        "architecture.intro": "TBURNチェーンは、実行、コンセンサス、データ可用性、決済レイヤーにわたって関心事を分離するモジュラー型レイヤードアーキテクチャを採用しています。この設計により、各コンポーネントの独立したスケーリングとアップグレードが可能になります。",
+        "architecture.diagramTitle": "TBURNチェーンアーキテクチャスタック",
+        "architecture.coreComponents": "2.1 コアコンポーネント",
+        "architecture.executionLayer": "実行レイヤー",
+        "architecture.executionDesc": "実行レイヤーは、TBURN固有のオペコード拡張を備えた完全にEVM互換の仮想マシンを実装します。トランザクションは決定論的状態遷移でシャード間で並列処理されます。",
+        "architecture.consensusLayer": "コンセンサスレイヤー",
+        "consensus.intro": "TBURNチェーンは、動的信頼スコアリングシステムで従来のビザンチン障害耐性を拡張する革新的なコンセンサスメカニズムを導入しています。このアプローチは、悪意のあるまたはパフォーマンスの低いバリデータの影響を減らしながら、一貫した高品質な参加に報酬を与えます。",
+        "consensus.trustScoreCalc": "3.1 信頼スコア計算",
+        "consensus.validatorTiers": "3.2 バリデータティア",
+        "consensus.blockProduction": "3.3 ブロック生成",
+        "consensus.finalityGuarantee": "3.4 ファイナリティ保証",
+        "sharding.intro": "TBURNチェーンは、ネットワーク負荷とハードウェア容量に基づいて5から128シャードに自動スケールする動的シャーディングシステムを実装しています。これにより、セキュリティ保証を維持しながらリニアスループットスケーリングが可能になります。",
+        "ai.intro": "TBURNチェーンは、ネットワーク運用、セキュリティ、ガバナンスを継続的に最適化する洗練されたAIオーケストレーションレイヤーを統合しています。クアッドバンドシステムは、冗長性と専門知識のために4つの主要なAIモデルを活用します。",
+        "tokenomics.intro": "TBURNは、体系的なトークンバーニングと制御された発行を通じて長期的な価値上昇を目指したデフレトークノミクスモデルを実装しています。",
+        "tokenStandards.intro": "TBURNチェーンは、量子耐性署名拡張を追加しながら、ERC標準と互換性のある3つのネイティブトークン標準を実装しています。",
+        "defi.intro": "TBURNチェーンは、ネイティブプロトコル実装を備えた包括的なDeFiインフラストラクチャを提供します。",
+        "security.intro": "TBURNチェーンは、現在および将来の脅威から保護するために複数のセキュリティレイヤーを実装しています。",
+        "governance.intro": "TBURNチェーンは、AI支援提案検証を備えた分散型ガバナンスモデルを実装しています。",
+        "roadmap.phase1": "フェーズ1：ジェネシス（2025年第4四半期）",
+        "roadmap.phase2": "フェーズ2：拡張（2026年第1-2四半期）",
+        "roadmap.phase3": "フェーズ3：成熟（2026年第3-4四半期）",
+        "roadmap.phase4": "フェーズ4：エコシステム（2027年+）",
+        "footer.copyright": "© 2025 TBURN財団。無断転載を禁じます。",
+        "footer.disclaimer": "本文書は情報提供のみを目的としており、財務アドバイスを構成するものではありません。",
+        "footer.website": "ウェブサイト",
+        "footer.whitepaper": "白書",
+        "footer.developers": "開発者",
+        "footer.governance": "ガバナンス"
+      },
+      es: {
+        "nav.pageTitle": "Libro Blanco Técnico",
+        "header.badge": "LIBRO BLANCO TÉCNICO",
+        "header.title": "TBURN Chain",
+        "header.subtitle": "Blockchain de Capa 1 de Grado Empresarial con Consenso Impulsado por IA y Fragmentación Dinámica",
+        "meta.version": "Versión:",
+        "meta.date": "Fecha:",
+        "meta.chainId": "ID de Cadena:",
+        "meta.status": "Estado:",
+        "meta.production": "Producción",
+        "toc.title": "Tabla de Contenidos",
+        "toc.abstract": "Resumen",
+        "toc.architecture": "Arquitectura",
+        "toc.consensus": "Consenso",
+        "toc.sharding": "Fragmentación",
+        "toc.aiSystem": "Sistema IA",
+        "toc.tokenomics": "Tokenomics",
+        "toc.tokenStandards": "Estándares de Tokens",
+        "toc.defi": "Stack DeFi",
+        "toc.security": "Seguridad",
+        "toc.governance": "Gobernanza",
+        "toc.roadmap": "Hoja de Ruta",
+        "section.abstract": "1. Resumen",
+        "section.architecture": "2. Arquitectura del Sistema",
+        "section.consensus": "3. Consenso BFT Basado en Puntuación de Confianza",
+        "section.sharding": "4. Arquitectura de Fragmentación Dinámica",
+        "section.aiSystem": "5. Sistema de Orquestación IA de Cuatro Bandas",
+        "section.tokenomics": "6. Tokenomics",
+        "section.tokenStandards": "7. Estándares de Tokens",
+        "section.defi": "8. Ecosistema DeFi",
+        "section.security": "9. Arquitectura de Seguridad",
+        "section.governance": "10. Marco de Gobernanza",
+        "section.roadmap": "11. Hoja de Ruta",
+        "abstract.p1": "<span class=\"highlight\">TBURN Chain</span> es una plataforma blockchain de Capa 1 de grado empresarial diseñada para abordar las limitaciones fundamentales de las redes blockchain existentes: escalabilidad, eficiencia energética y automatización inteligente. Al integrar un novedoso <span class=\"highlight\">Consenso BFT Basado en Puntuación de Confianza</span>, <span class=\"highlight\">Arquitectura de Fragmentación Dinámica</span> y <span class=\"highlight\">Sistema de Orquestación IA de Cuatro Bandas</span>, TBURN Chain logra un rendimiento sin precedentes de <span class=\"highlight\">210,000+ TPS</span> mientras mantiene las garantías de descentralización y seguridad.",
+        "abstract.p2": "La plataforma introduce un modelo tokenómico deflacionario con un mecanismo de quema optimizado por IA, logrando una reducción proyectada del 30.6% de tokens en 20 años. TBURN Chain soporta compatibilidad completa con EVM con extensiones criptográficas resistentes a quantum, permitiendo la migración sin problemas de aplicaciones Ethereum existentes mientras se prepara para futuras amenazas computacionales.",
+        "specs.peakTps": "TPS Máximo",
+        "specs.blockTime": "Tiempo de Bloque",
+        "specs.finality": "Finalidad",
+        "specs.oneSecond": "1 segundo",
+        "specs.activeValidators": "Validadores Activos",
+        "architecture.intro": "TBURN Chain emplea una arquitectura modular en capas que separa las preocupaciones a través de las capas de ejecución, consenso, disponibilidad de datos y liquidación. Este diseño permite el escalado y la actualización independientes de cada componente.",
+        "architecture.diagramTitle": "Stack de Arquitectura TBURN Chain",
+        "architecture.coreComponents": "2.1 Componentes Principales",
+        "architecture.executionLayer": "Capa de Ejecución",
+        "architecture.executionDesc": "La capa de ejecución implementa una máquina virtual totalmente compatible con EVM con extensiones para opcodes específicos de TBURN. Las transacciones se procesan en paralelo a través de fragmentos con transiciones de estado determinísticas.",
+        "architecture.consensusLayer": "Capa de Consenso",
+        "consensus.intro": "TBURN Chain introduce un mecanismo de consenso innovador que extiende la Tolerancia a Fallas Bizantinas tradicional con un sistema dinámico de puntuación de confianza. Este enfoque reduce el impacto de validadores maliciosos o de bajo rendimiento mientras recompensa la participación consistente y de alta calidad.",
+        "consensus.trustScoreCalc": "3.1 Cálculo de Puntuación de Confianza",
+        "consensus.validatorTiers": "3.2 Niveles de Validadores",
+        "consensus.blockProduction": "3.3 Producción de Bloques",
+        "consensus.finalityGuarantee": "3.4 Garantía de Finalidad",
+        "sharding.intro": "TBURN Chain implementa un sistema de fragmentación dinámica que escala automáticamente de 5 a 128 fragmentos basándose en la carga de red y la capacidad del hardware. Esto permite el escalado lineal del rendimiento mientras mantiene las garantías de seguridad.",
+        "ai.intro": "TBURN Chain integra una capa de orquestación IA sofisticada que optimiza continuamente las operaciones de red, seguridad y gobernanza. El sistema de cuatro bandas aprovecha cuatro modelos de IA líderes para redundancia y experiencia especializada.",
+        "tokenomics.intro": "TBURN implementa un modelo tokenómico deflacionario diseñado para la apreciación del valor a largo plazo a través de la quema sistemática de tokens y la emisión controlada.",
+        "tokenStandards.intro": "TBURN Chain implementa tres estándares de tokens nativos compatibles con los estándares ERC mientras añade extensiones de firma resistentes a quantum.",
+        "defi.intro": "TBURN Chain proporciona una infraestructura DeFi integral con implementaciones de protocolos nativos.",
+        "security.intro": "TBURN Chain implementa múltiples capas de seguridad para proteger contra amenazas actuales y futuras.",
+        "governance.intro": "TBURN Chain implementa un modelo de gobernanza descentralizado con validación de propuestas asistida por IA.",
+        "roadmap.phase1": "Fase 1: Génesis (Q4 2025)",
+        "roadmap.phase2": "Fase 2: Expansión (Q1-Q2 2026)",
+        "roadmap.phase3": "Fase 3: Madurez (Q3-Q4 2026)",
+        "roadmap.phase4": "Fase 4: Ecosistema (2027+)",
+        "footer.copyright": "© 2025 Fundación TBURN. Todos los derechos reservados.",
+        "footer.disclaimer": "Este documento es solo para fines informativos y no constituye asesoramiento financiero.",
+        "footer.website": "Sitio Web",
+        "footer.whitepaper": "Libro Blanco",
+        "footer.developers": "Desarrolladores",
+        "footer.governance": "Gobernanza"
+      },
+      fr: {
+        "nav.pageTitle": "Livre Blanc Technique",
+        "header.badge": "LIVRE BLANC TECHNIQUE",
+        "header.title": "TBURN Chain",
+        "header.subtitle": "Blockchain de Couche 1 de Grade Entreprise avec Consensus Piloté par IA et Sharding Dynamique",
+        "meta.version": "Version :",
+        "meta.date": "Date :",
+        "meta.chainId": "ID de Chaîne :",
+        "meta.status": "Statut :",
+        "meta.production": "Production",
+        "toc.title": "Table des Matières",
+        "toc.abstract": "Résumé",
+        "toc.architecture": "Architecture",
+        "toc.consensus": "Consensus",
+        "toc.sharding": "Sharding",
+        "toc.aiSystem": "Système IA",
+        "toc.tokenomics": "Tokenomics",
+        "toc.tokenStandards": "Standards de Tokens",
+        "toc.defi": "Stack DeFi",
+        "toc.security": "Sécurité",
+        "toc.governance": "Gouvernance",
+        "toc.roadmap": "Feuille de Route",
+        "section.abstract": "1. Résumé",
+        "section.architecture": "2. Architecture du Système",
+        "section.consensus": "3. Consensus BFT Basé sur le Score de Confiance",
+        "section.sharding": "4. Architecture de Sharding Dynamique",
+        "section.aiSystem": "5. Système d'Orchestration IA Quad-Band",
+        "section.tokenomics": "6. Tokenomics",
+        "section.tokenStandards": "7. Standards de Tokens",
+        "section.defi": "8. Écosystème DeFi",
+        "section.security": "9. Architecture de Sécurité",
+        "section.governance": "10. Cadre de Gouvernance",
+        "section.roadmap": "11. Feuille de Route",
+        "abstract.p1": "<span class=\"highlight\">TBURN Chain</span> est une plateforme blockchain de Couche 1 de grade entreprise conçue pour résoudre les limitations fondamentales des réseaux blockchain existants : l'évolutivité, l'efficacité énergétique et l'automatisation intelligente. En intégrant un nouveau <span class=\"highlight\">Consensus BFT Basé sur le Score de Confiance</span>, une <span class=\"highlight\">Architecture de Sharding Dynamique</span> et un <span class=\"highlight\">Système d'Orchestration IA Quad-Band</span>, TBURN Chain atteint un débit sans précédent de <span class=\"highlight\">210,000+ TPS</span> tout en maintenant les garanties de décentralisation et de sécurité.",
+        "abstract.p2": "La plateforme introduit un modèle tokenomique déflationniste avec un mécanisme de brûlage optimisé par IA, atteignant une réduction projetée de 30,6% des tokens sur 20 ans. TBURN Chain prend en charge la compatibilité EVM complète avec des extensions cryptographiques résistantes aux quantiques, permettant une migration transparente des applications Ethereum existantes tout en se préparant aux menaces computationnelles émergentes.",
+        "specs.peakTps": "TPS Maximum",
+        "specs.blockTime": "Temps de Bloc",
+        "specs.finality": "Finalité",
+        "specs.oneSecond": "1 seconde",
+        "specs.activeValidators": "Validateurs Actifs",
+        "architecture.intro": "TBURN Chain emploie une architecture modulaire en couches qui sépare les préoccupations à travers les couches d'exécution, de consensus, de disponibilité des données et de règlement. Cette conception permet le scaling et la mise à niveau indépendants de chaque composant.",
+        "architecture.diagramTitle": "Stack d'Architecture TBURN Chain",
+        "architecture.coreComponents": "2.1 Composants Principaux",
+        "architecture.executionLayer": "Couche d'Exécution",
+        "architecture.executionDesc": "La couche d'exécution implémente une machine virtuelle entièrement compatible EVM avec des extensions pour les opcodes spécifiques à TBURN. Les transactions sont traitées en parallèle à travers les shards avec des transitions d'état déterministes.",
+        "architecture.consensusLayer": "Couche de Consensus",
+        "consensus.intro": "TBURN Chain introduit un mécanisme de consensus innovant qui étend la Tolérance aux Pannes Byzantines traditionnelle avec un système de scoring de confiance dynamique. Cette approche réduit l'impact des validateurs malveillants ou sous-performants tout en récompensant une participation cohérente et de haute qualité.",
+        "consensus.trustScoreCalc": "3.1 Calcul du Score de Confiance",
+        "consensus.validatorTiers": "3.2 Niveaux de Validateurs",
+        "consensus.blockProduction": "3.3 Production de Blocs",
+        "consensus.finalityGuarantee": "3.4 Garantie de Finalité",
+        "sharding.intro": "TBURN Chain implémente un système de sharding dynamique qui scale automatiquement de 5 à 128 shards en fonction de la charge réseau et de la capacité matérielle. Cela permet un scaling linéaire du débit tout en maintenant les garanties de sécurité.",
+        "ai.intro": "TBURN Chain intègre une couche d'orchestration IA sophistiquée qui optimise en continu les opérations réseau, la sécurité et la gouvernance. Le système quad-band exploite quatre modèles IA leaders pour la redondance et l'expertise spécialisée.",
+        "tokenomics.intro": "TBURN implémente un modèle tokenomique déflationniste conçu pour l'appréciation de la valeur à long terme grâce au brûlage systématique des tokens et à l'émission contrôlée.",
+        "tokenStandards.intro": "TBURN Chain implémente trois standards de tokens natifs compatibles avec les standards ERC tout en ajoutant des extensions de signature résistantes aux quantiques.",
+        "defi.intro": "TBURN Chain fournit une infrastructure DeFi complète avec des implémentations de protocoles natifs.",
+        "security.intro": "TBURN Chain implémente plusieurs couches de sécurité pour protéger contre les menaces actuelles et futures.",
+        "governance.intro": "TBURN Chain implémente un modèle de gouvernance décentralisé avec validation des propositions assistée par IA.",
+        "roadmap.phase1": "Phase 1 : Genèse (T4 2025)",
+        "roadmap.phase2": "Phase 2 : Expansion (T1-T2 2026)",
+        "roadmap.phase3": "Phase 3 : Maturité (T3-T4 2026)",
+        "roadmap.phase4": "Phase 4 : Écosystème (2027+)",
+        "footer.copyright": "© 2025 Fondation TBURN. Tous droits réservés.",
+        "footer.disclaimer": "Ce document est fourni à titre informatif uniquement et ne constitue pas un conseil financier.",
+        "footer.website": "Site Web",
+        "footer.whitepaper": "Livre Blanc",
+        "footer.developers": "Développeurs",
+        "footer.governance": "Gouvernance"
+      },
+      ar: {
+        "nav.pageTitle": "الورقة البيضاء التقنية",
+        "header.badge": "الورقة البيضاء التقنية",
+        "header.title": "سلسلة TBURN",
+        "header.subtitle": "بلوكتشين الطبقة الأولى بمستوى المؤسسات مع إجماع مدفوع بالذكاء الاصطناعي وتقسيم ديناميكي",
+        "meta.version": "الإصدار:",
+        "meta.date": "التاريخ:",
+        "meta.chainId": "معرف السلسلة:",
+        "meta.status": "الحالة:",
+        "meta.production": "إنتاج",
+        "toc.title": "جدول المحتويات",
+        "toc.abstract": "الملخص",
+        "toc.architecture": "الهندسة المعمارية",
+        "toc.consensus": "الإجماع",
+        "toc.sharding": "التقسيم",
+        "toc.aiSystem": "نظام الذكاء الاصطناعي",
+        "toc.tokenomics": "اقتصاديات الرمز",
+        "toc.tokenStandards": "معايير الرموز",
+        "toc.defi": "مكدس DeFi",
+        "toc.security": "الأمان",
+        "toc.governance": "الحوكمة",
+        "toc.roadmap": "خارطة الطريق",
+        "section.abstract": "1. الملخص",
+        "section.architecture": "2. هندسة النظام",
+        "section.consensus": "3. إجماع BFT القائم على درجة الثقة",
+        "section.sharding": "4. هندسة التقسيم الديناميكي",
+        "section.aiSystem": "5. نظام تنسيق الذكاء الاصطناعي رباعي النطاق",
+        "section.tokenomics": "6. اقتصاديات الرمز",
+        "section.tokenStandards": "7. معايير الرموز",
+        "section.defi": "8. نظام DeFi البيئي",
+        "section.security": "9. هندسة الأمان",
+        "section.governance": "10. إطار الحوكمة",
+        "section.roadmap": "11. خارطة الطريق",
+        "abstract.p1": "<span class=\"highlight\">سلسلة TBURN</span> هي منصة بلوكتشين من الطبقة الأولى بمستوى المؤسسات مصممة لمعالجة القيود الأساسية لشبكات البلوكتشين الحالية: قابلية التوسع، كفاءة الطاقة، والأتمتة الذكية. من خلال دمج <span class=\"highlight\">إجماع BFT القائم على درجة الثقة</span> المبتكر، و<span class=\"highlight\">هندسة التقسيم الديناميكي</span>، و<span class=\"highlight\">نظام تنسيق الذكاء الاصطناعي رباعي النطاق</span>، تحقق سلسلة TBURN إنتاجية غير مسبوقة تبلغ <span class=\"highlight\">210,000+ TPS</span> مع الحفاظ على ضمانات اللامركزية والأمان.",
+        "abstract.p2": "تقدم المنصة نموذج اقتصاديات رمز انكماشي مع آلية حرق محسنة بالذكاء الاصطناعي، محققة انخفاضاً متوقعاً بنسبة 30.6% في الرموز على مدى 20 عاماً. تدعم سلسلة TBURN التوافق الكامل مع EVM مع امتدادات تشفير مقاومة للكم، مما يتيح الترحيل السلس لتطبيقات إيثريوم الحالية مع الاستعداد للتهديدات الحاسوبية الناشئة.",
+        "specs.peakTps": "ذروة TPS",
+        "specs.blockTime": "وقت الكتلة",
+        "specs.finality": "النهائية",
+        "specs.oneSecond": "ثانية واحدة",
+        "specs.activeValidators": "المدققون النشطون",
+        "architecture.intro": "تستخدم سلسلة TBURN هندسة معمارية متعددة الطبقات تفصل الاهتمامات عبر طبقات التنفيذ والإجماع وتوفر البيانات والتسوية. يتيح هذا التصميم التوسع والترقية المستقلة لكل مكون.",
+        "architecture.diagramTitle": "مكدس هندسة سلسلة TBURN",
+        "architecture.coreComponents": "2.1 المكونات الأساسية",
+        "architecture.executionLayer": "طبقة التنفيذ",
+        "architecture.executionDesc": "تنفذ طبقة التنفيذ آلة افتراضية متوافقة تماماً مع EVM مع امتدادات لأكواد التشغيل الخاصة بـ TBURN. تتم معالجة المعاملات بالتوازي عبر الشظايا مع انتقالات حالة حتمية.",
+        "architecture.consensusLayer": "طبقة الإجماع",
+        "consensus.intro": "تقدم سلسلة TBURN آلية إجماع مبتكرة توسع تحمل الأخطاء البيزنطية التقليدية بنظام تسجيل ثقة ديناميكي. يقلل هذا النهج من تأثير المدققين الخبيثين أو ذوي الأداء الضعيف مع مكافأة المشاركة المتسقة وعالية الجودة.",
+        "consensus.trustScoreCalc": "3.1 حساب درجة الثقة",
+        "consensus.validatorTiers": "3.2 مستويات المدققين",
+        "consensus.blockProduction": "3.3 إنتاج الكتل",
+        "consensus.finalityGuarantee": "3.4 ضمان النهائية",
+        "sharding.intro": "تنفذ سلسلة TBURN نظام تقسيم ديناميكي يتوسع تلقائياً من 5 إلى 128 شظية بناءً على حمل الشبكة وسعة الأجهزة. يتيح هذا التوسع الخطي للإنتاجية مع الحفاظ على ضمانات الأمان.",
+        "ai.intro": "تدمج سلسلة TBURN طبقة تنسيق ذكاء اصطناعي متطورة تحسن باستمرار عمليات الشبكة والأمان والحوكمة. يستفيد نظام النطاقات الأربعة من أربعة نماذج ذكاء اصطناعي رائدة للتكرار والخبرة المتخصصة.",
+        "tokenomics.intro": "ينفذ TBURN نموذج اقتصاديات رمز انكماشي مصمم لارتفاع القيمة على المدى الطويل من خلال حرق الرموز المنهجي والإصدار المتحكم فيه.",
+        "tokenStandards.intro": "تنفذ سلسلة TBURN ثلاثة معايير رموز أصلية متوافقة مع معايير ERC مع إضافة امتدادات توقيع مقاومة للكم.",
+        "defi.intro": "توفر سلسلة TBURN بنية تحتية DeFi شاملة مع تنفيذات بروتوكول أصلية.",
+        "security.intro": "تنفذ سلسلة TBURN طبقات أمان متعددة للحماية من التهديدات الحالية والمستقبلية.",
+        "governance.intro": "تنفذ سلسلة TBURN نموذج حوكمة لامركزي مع التحقق من المقترحات بمساعدة الذكاء الاصطناعي.",
+        "roadmap.phase1": "المرحلة 1: التكوين (الربع الرابع 2025)",
+        "roadmap.phase2": "المرحلة 2: التوسع (الربع 1-2 2026)",
+        "roadmap.phase3": "المرحلة 3: النضج (الربع 3-4 2026)",
+        "roadmap.phase4": "المرحلة 4: النظام البيئي (2027+)",
+        "footer.copyright": "© 2025 مؤسسة TBURN. جميع الحقوق محفوظة.",
+        "footer.disclaimer": "هذه الوثيقة لأغراض إعلامية فقط ولا تشكل نصيحة مالية.",
+        "footer.website": "الموقع الإلكتروني",
+        "footer.whitepaper": "الورقة البيضاء",
+        "footer.developers": "المطورون",
+        "footer.governance": "الحوكمة"
+      },
+      hi: {
+        "nav.pageTitle": "तकनीकी श्वेतपत्र",
+        "header.badge": "तकनीकी श्वेतपत्र",
+        "header.title": "TBURN चेन",
+        "header.subtitle": "AI-संचालित सहमति और गतिशील शार्डिंग के साथ एंटरप्राइज-ग्रेड लेयर 1 ब्लॉकचेन",
+        "meta.version": "संस्करण:",
+        "meta.date": "दिनांक:",
+        "meta.chainId": "चेन आईडी:",
+        "meta.status": "स्थिति:",
+        "meta.production": "उत्पादन",
+        "toc.title": "विषय सूची",
+        "toc.abstract": "सारांश",
+        "toc.architecture": "वास्तुकला",
+        "toc.consensus": "सहमति",
+        "toc.sharding": "शार्डिंग",
+        "toc.aiSystem": "AI सिस्टम",
+        "toc.tokenomics": "टोकनोमिक्स",
+        "toc.tokenStandards": "टोकन मानक",
+        "toc.defi": "DeFi स्टैक",
+        "toc.security": "सुरक्षा",
+        "toc.governance": "शासन",
+        "toc.roadmap": "रोडमैप",
+        "section.abstract": "1. सारांश",
+        "section.architecture": "2. सिस्टम आर्किटेक्चर",
+        "section.consensus": "3. ट्रस्ट स्कोर-आधारित BFT सहमति",
+        "section.sharding": "4. डायनामिक शार्डिंग आर्किटेक्चर",
+        "section.aiSystem": "5. क्वाड-बैंड AI ऑर्केस्ट्रेशन सिस्टम",
+        "section.tokenomics": "6. टोकनोमिक्स",
+        "section.tokenStandards": "7. टोकन मानक",
+        "section.defi": "8. DeFi इकोसिस्टम",
+        "section.security": "9. सुरक्षा आर्किटेक्चर",
+        "section.governance": "10. गवर्नेंस फ्रेमवर्क",
+        "section.roadmap": "11. रोडमैप",
+        "abstract.p1": "<span class=\"highlight\">TBURN चेन</span> एक एंटरप्राइज-ग्रेड लेयर 1 ब्लॉकचेन प्लेटफॉर्म है जो मौजूदा ब्लॉकचेन नेटवर्क की मूलभूत सीमाओं को संबोधित करने के लिए डिज़ाइन किया गया है: स्केलेबिलिटी, ऊर्जा दक्षता, और बुद्धिमान स्वचालन। एक नवीन <span class=\"highlight\">ट्रस्ट स्कोर-आधारित BFT सहमति</span>, <span class=\"highlight\">डायनामिक शार्डिंग आर्किटेक्चर</span>, और <span class=\"highlight\">क्वाड-बैंड AI ऑर्केस्ट्रेशन सिस्टम</span> को एकीकृत करके, TBURN चेन विकेंद्रीकरण और सुरक्षा गारंटी बनाए रखते हुए <span class=\"highlight\">210,000+ TPS</span> की अभूतपूर्व थ्रूपुट प्राप्त करता है।",
+        "abstract.p2": "प्लेटफॉर्म AI-अनुकूलित बर्न मैकेनिज्म के साथ एक डिफ्लेशनरी टोकनोमिक्स मॉडल पेश करता है, जो 20 वर्षों में 30.6% टोकन कमी की उम्मीद करता है। TBURN चेन क्वांटम-प्रतिरोधी क्रिप्टोग्राफिक एक्सटेंशन के साथ पूर्ण EVM संगतता का समर्थन करता है, मौजूदा एथेरियम एप्लिकेशन के लिए सहज माइग्रेशन सक्षम करते हुए उभरते कम्प्यूटेशनल खतरों के लिए तैयार रहता है।",
+        "specs.peakTps": "पीक TPS",
+        "specs.blockTime": "ब्लॉक समय",
+        "specs.finality": "अंतिमता",
+        "specs.oneSecond": "1 सेकंड",
+        "specs.activeValidators": "सक्रिय सत्यापनकर्ता",
+        "architecture.intro": "TBURN चेन एक मॉड्यूलर, लेयर्ड आर्किटेक्चर का उपयोग करता है जो एक्ज़ीक्यूशन, कंसेंसस, डेटा उपलब्धता और सेटलमेंट लेयर्स में चिंताओं को अलग करता है। यह डिज़ाइन प्रत्येक घटक के स्वतंत्र स्केलिंग और अपग्रेडेबिलिटी को सक्षम बनाता है।",
+        "architecture.diagramTitle": "TBURN चेन आर्किटेक्चर स्टैक",
+        "architecture.coreComponents": "2.1 मुख्य घटक",
+        "architecture.executionLayer": "एक्ज़ीक्यूशन लेयर",
+        "architecture.executionDesc": "एक्ज़ीक्यूशन लेयर TBURN-विशिष्ट ऑपकोड के लिए एक्सटेंशन के साथ पूरी तरह से EVM-संगत वर्चुअल मशीन लागू करती है। लेनदेन निर्धारक स्टेट ट्रांजिशन के साथ शार्ड्स में समानांतर रूप से संसाधित होते हैं।",
+        "architecture.consensusLayer": "सहमति परत",
+        "consensus.intro": "TBURN चेन एक अभिनव सहमति तंत्र पेश करता है जो गतिशील ट्रस्ट स्कोरिंग सिस्टम के साथ पारंपरिक बीजान्टिन फॉल्ट टॉलरेंस का विस्तार करता है। यह दृष्टिकोण दुर्भावनापूर्ण या कम प्रदर्शन करने वाले सत्यापनकर्ताओं के प्रभाव को कम करता है जबकि सुसंगत, उच्च-गुणवत्ता वाली भागीदारी को पुरस्कृत करता है।",
+        "consensus.trustScoreCalc": "3.1 ट्रस्ट स्कोर गणना",
+        "consensus.validatorTiers": "3.2 सत्यापनकर्ता स्तर",
+        "consensus.blockProduction": "3.3 ब्लॉक उत्पादन",
+        "consensus.finalityGuarantee": "3.4 अंतिमता गारंटी",
+        "sharding.intro": "TBURN चेन एक डायनामिक शार्डिंग सिस्टम लागू करता है जो नेटवर्क लोड और हार्डवेयर क्षमता के आधार पर 5 से 128 शार्ड्स तक स्वचालित रूप से स्केल करता है। यह सुरक्षा गारंटी बनाए रखते हुए रैखिक थ्रूपुट स्केलिंग सक्षम करता है।",
+        "ai.intro": "TBURN चेन एक परिष्कृत AI ऑर्केस्ट्रेशन लेयर को एकीकृत करता है जो लगातार नेटवर्क संचालन, सुरक्षा और शासन को अनुकूलित करता है। क्वाड-बैंड सिस्टम रिडंडेंसी और विशेषज्ञ विशेषज्ञता के लिए चार अग्रणी AI मॉडल का लाभ उठाता है।",
+        "tokenomics.intro": "TBURN व्यवस्थित टोकन बर्निंग और नियंत्रित उत्सर्जन के माध्यम से दीर्घकालिक मूल्य वृद्धि के लिए डिज़ाइन किया गया एक डिफ्लेशनरी टोकनोमिक्स मॉडल लागू करता है।",
+        "tokenStandards.intro": "TBURN चेन क्वांटम-प्रतिरोधी हस्ताक्षर एक्सटेंशन जोड़ते हुए ERC मानकों के साथ संगत तीन मूल टोकन मानक लागू करता है।",
+        "defi.intro": "TBURN चेन मूल प्रोटोकॉल कार्यान्वयन के साथ एक व्यापक DeFi बुनियादी ढांचा प्रदान करता है।",
+        "security.intro": "TBURN चेन वर्तमान और भविष्य के खतरों से बचाने के लिए सुरक्षा की कई परतें लागू करता है।",
+        "governance.intro": "TBURN चेन AI-सहायता प्रस्ताव सत्यापन के साथ एक विकेंद्रीकृत शासन मॉडल लागू करता है।",
+        "roadmap.phase1": "चरण 1: उत्पत्ति (Q4 2025)",
+        "roadmap.phase2": "चरण 2: विस्तार (Q1-Q2 2026)",
+        "roadmap.phase3": "चरण 3: परिपक्वता (Q3-Q4 2026)",
+        "roadmap.phase4": "चरण 4: इकोसिस्टम (2027+)",
+        "footer.copyright": "© 2025 TBURN फाउंडेशन। सर्वाधिकार सुरक्षित।",
+        "footer.disclaimer": "यह दस्तावेज़ केवल सूचनात्मक उद्देश्यों के लिए है और वित्तीय सलाह नहीं है।",
+        "footer.website": "वेबसाइट",
+        "footer.whitepaper": "श्वेतपत्र",
+        "footer.developers": "डेवलपर्स",
+        "footer.governance": "शासन"
+      },
+      bn: {
+        "nav.pageTitle": "প্রযুক্তিগত শ্বেতপত্র",
+        "header.badge": "প্রযুক্তিগত শ্বেতপত্র",
+        "header.title": "TBURN চেইন",
+        "header.subtitle": "AI-চালিত কনসেনসাস এবং ডায়নামিক শার্ডিং সহ এন্টারপ্রাইজ-গ্রেড লেয়ার 1 ব্লকচেইন",
+        "meta.version": "সংস্করণ:",
+        "meta.date": "তারিখ:",
+        "meta.chainId": "চেইন আইডি:",
+        "meta.status": "স্থিতি:",
+        "meta.production": "প্রোডাকশন",
+        "toc.title": "সূচিপত্র",
+        "toc.abstract": "সারসংক্ষেপ",
+        "toc.architecture": "আর্কিটেকচার",
+        "toc.consensus": "কনসেনসাস",
+        "toc.sharding": "শার্ডিং",
+        "toc.aiSystem": "AI সিস্টেম",
+        "toc.tokenomics": "টোকেনোমিক্স",
+        "toc.tokenStandards": "টোকেন স্ট্যান্ডার্ড",
+        "toc.defi": "DeFi স্ট্যাক",
+        "toc.security": "নিরাপত্তা",
+        "toc.governance": "গভর্নেন্স",
+        "toc.roadmap": "রোডম্যাপ",
+        "section.abstract": "1. সারসংক্ষেপ",
+        "section.architecture": "2. সিস্টেম আর্কিটেকচার",
+        "section.consensus": "3. ট্রাস্ট স্কোর-ভিত্তিক BFT কনসেনসাস",
+        "section.sharding": "4. ডায়নামিক শার্ডিং আর্কিটেকচার",
+        "section.aiSystem": "5. কোয়াড-ব্যান্ড AI অর্কেস্ট্রেশন সিস্টেম",
+        "section.tokenomics": "6. টোকেনোমিক্স",
+        "section.tokenStandards": "7. টোকেন স্ট্যান্ডার্ড",
+        "section.defi": "8. DeFi ইকোসিস্টেম",
+        "section.security": "9. নিরাপত্তা আর্কিটেকচার",
+        "section.governance": "10. গভর্নেন্স ফ্রেমওয়ার্ক",
+        "section.roadmap": "11. রোডম্যাপ",
+        "abstract.p1": "<span class=\"highlight\">TBURN চেইন</span> হল একটি এন্টারপ্রাইজ-গ্রেড লেয়ার 1 ব্লকচেইন প্ল্যাটফর্ম যা বিদ্যমান ব্লকচেইন নেটওয়ার্কের মৌলিক সীমাবদ্ধতাগুলি সমাধান করার জন্য ডিজাইন করা হয়েছে: স্কেলেবিলিটি, শক্তি দক্ষতা এবং বুদ্ধিমান অটোমেশন। একটি নতুন <span class=\"highlight\">ট্রাস্ট স্কোর-ভিত্তিক BFT কনসেনসাস</span>, <span class=\"highlight\">ডায়নামিক শার্ডিং আর্কিটেকচার</span>, এবং <span class=\"highlight\">কোয়াড-ব্যান্ড AI অর্কেস্ট্রেশন সিস্টেম</span> একত্রিত করে, TBURN চেইন বিকেন্দ্রীকরণ এবং নিরাপত্তা গ্যারান্টি বজায় রেখে <span class=\"highlight\">210,000+ TPS</span> এর অভূতপূর্ব থ্রুপুট অর্জন করে।",
+        "abstract.p2": "প্ল্যাটফর্মটি AI-অপ্টিমাইজড বার্ন মেকানিজম সহ একটি ডিফ্লেশনারি টোকেনোমিক্স মডেল প্রবর্তন করে, 20 বছরে 30.6% টোকেন হ্রাস অনুমান করে। TBURN চেইন কোয়ান্টাম-প্রতিরোধী ক্রিপ্টোগ্রাফিক এক্সটেনশন সহ সম্পূর্ণ EVM সামঞ্জস্য সমর্থন করে, বিদ্যমান ইথেরিয়াম অ্যাপ্লিকেশনগুলির জন্য নির্বিঘ্ন মাইগ্রেশন সক্ষম করে যখন উদীয়মান কম্পিউটেশনাল হুমকির জন্য প্রস্তুত থাকে।",
+        "specs.peakTps": "পিক TPS",
+        "specs.blockTime": "ব্লক সময়",
+        "specs.finality": "ফাইনালিটি",
+        "specs.oneSecond": "1 সেকেন্ড",
+        "specs.activeValidators": "সক্রিয় ভ্যালিডেটর",
+        "footer.copyright": "© 2025 TBURN ফাউন্ডেশন। সমস্ত অধিকার সংরক্ষিত।",
+        "footer.disclaimer": "এই নথিটি শুধুমাত্র তথ্যমূলক উদ্দেশ্যে এবং আর্থিক পরামর্শ গঠন করে না।",
+        "footer.website": "ওয়েবসাইট",
+        "footer.whitepaper": "শ্বেতপত্র",
+        "footer.developers": "ডেভেলপার",
+        "footer.governance": "গভর্নেন্স"
+      },
+      ru: {
+        "nav.pageTitle": "Техническая документация",
+        "header.badge": "ТЕХНИЧЕСКАЯ ДОКУМЕНТАЦИЯ",
+        "header.title": "TBURN Chain",
+        "header.subtitle": "Блокчейн уровня 1 корпоративного класса с AI-управляемым консенсусом и динамическим шардированием",
+        "meta.version": "Версия:",
+        "meta.date": "Дата:",
+        "meta.chainId": "ID цепочки:",
+        "meta.status": "Статус:",
+        "meta.production": "Производство",
+        "toc.title": "Оглавление",
+        "toc.abstract": "Аннотация",
+        "toc.architecture": "Архитектура",
+        "toc.consensus": "Консенсус",
+        "toc.sharding": "Шардирование",
+        "toc.aiSystem": "AI система",
+        "toc.tokenomics": "Токеномика",
+        "toc.tokenStandards": "Стандарты токенов",
+        "toc.defi": "DeFi стек",
+        "toc.security": "Безопасность",
+        "toc.governance": "Управление",
+        "toc.roadmap": "Дорожная карта",
+        "section.abstract": "1. Аннотация",
+        "section.architecture": "2. Архитектура системы",
+        "section.consensus": "3. Консенсус BFT на основе рейтинга доверия",
+        "section.sharding": "4. Архитектура динамического шардирования",
+        "section.aiSystem": "5. Система AI-оркестрации Quad-Band",
+        "section.tokenomics": "6. Токеномика",
+        "section.tokenStandards": "7. Стандарты токенов",
+        "section.defi": "8. Экосистема DeFi",
+        "section.security": "9. Архитектура безопасности",
+        "section.governance": "10. Система управления",
+        "section.roadmap": "11. Дорожная карта",
+        "abstract.p1": "<span class=\"highlight\">TBURN Chain</span> — это блокчейн-платформа уровня 1 корпоративного класса, разработанная для решения фундаментальных ограничений существующих блокчейн-сетей: масштабируемости, энергоэффективности и интеллектуальной автоматизации. Интегрируя инновационный <span class=\"highlight\">консенсус BFT на основе рейтинга доверия</span>, <span class=\"highlight\">архитектуру динамического шардирования</span> и <span class=\"highlight\">систему AI-оркестрации Quad-Band</span>, TBURN Chain достигает беспрецедентной пропускной способности <span class=\"highlight\">210 000+ TPS</span>, сохраняя при этом гарантии децентрализации и безопасности.",
+        "abstract.p2": "Платформа вводит дефляционную модель токеномики с механизмом сжигания, оптимизированным AI, достигая прогнозируемого сокращения токенов на 30,6% за 20 лет. TBURN Chain поддерживает полную совместимость с EVM с квантово-устойчивыми криптографическими расширениями, обеспечивая плавную миграцию существующих приложений Ethereum и защиту от новых вычислительных угроз.",
+        "specs.peakTps": "Пиковый TPS",
+        "specs.blockTime": "Время блока",
+        "specs.finality": "Финальность",
+        "specs.oneSecond": "1 секунда",
+        "specs.activeValidators": "Активные валидаторы",
+        "architecture.intro": "TBURN Chain использует модульную многоуровневую архитектуру, разделяющую задачи между уровнями исполнения, консенсуса, доступности данных и расчётов. Такой дизайн обеспечивает независимое масштабирование и обновление каждого компонента.",
+        "architecture.diagramTitle": "Архитектурный стек TBURN Chain",
+        "architecture.coreComponents": "2.1 Основные компоненты",
+        "architecture.executionLayer": "Уровень исполнения",
+        "architecture.executionDesc": "Уровень исполнения реализует полностью EVM-совместимую виртуальную машину с расширениями для TBURN-специфичных опкодов. Транзакции обрабатываются параллельно между шардами с детерминированными переходами состояний.",
+        "architecture.consensusLayer": "Уровень консенсуса",
+        "consensus.intro": "TBURN Chain вводит инновационный механизм консенсуса, расширяющий традиционную устойчивость к византийским отказам динамической системой рейтинга доверия. Этот подход снижает влияние вредоносных или неэффективных валидаторов, вознаграждая стабильное качественное участие.",
+        "consensus.trustScoreCalc": "3.1 Расчёт рейтинга доверия",
+        "consensus.validatorTiers": "3.2 Уровни валидаторов",
+        "consensus.blockProduction": "3.3 Производство блоков",
+        "consensus.finalityGuarantee": "3.4 Гарантия финальности",
+        "sharding.intro": "TBURN Chain реализует систему динамического шардирования, автоматически масштабирующуюся от 5 до 128 шардов в зависимости от нагрузки сети и аппаратных возможностей. Это обеспечивает линейное масштабирование пропускной способности при сохранении гарантий безопасности.",
+        "ai.intro": "TBURN Chain интегрирует сложный уровень AI-оркестрации, непрерывно оптимизирующий работу сети, безопасность и управление. Система Quad-Band использует четыре ведущие AI-модели для резервирования и специализированной экспертизы.",
+        "tokenomics.intro": "TBURN реализует дефляционную модель токеномики, рассчитанную на долгосрочный рост стоимости через систематическое сжигание токенов и контролируемую эмиссию.",
+        "tokenStandards.intro": "TBURN Chain реализует три нативных стандарта токенов, совместимых со стандартами ERC, с добавлением квантово-устойчивых расширений подписи.",
+        "defi.intro": "TBURN Chain предоставляет комплексную инфраструктуру DeFi с нативными реализациями протоколов.",
+        "security.intro": "TBURN Chain реализует несколько уровней безопасности для защиты от текущих и будущих угроз.",
+        "governance.intro": "TBURN Chain реализует децентрализованную модель управления с AI-ассистированной валидацией предложений.",
+        "roadmap.phase1": "Фаза 1: Генезис (Q4 2025)",
+        "roadmap.phase2": "Фаза 2: Расширение (Q1-Q2 2026)",
+        "roadmap.phase3": "Фаза 3: Зрелость (Q3-Q4 2026)",
+        "roadmap.phase4": "Фаза 4: Экосистема (2027+)",
+        "footer.copyright": "© 2025 TBURN Foundation. Все права защищены.",
+        "footer.disclaimer": "Этот документ предназначен только для информационных целей и не является финансовым советом.",
+        "footer.website": "Веб-сайт",
+        "footer.whitepaper": "Белая книга",
+        "footer.developers": "Разработчикам",
+        "footer.governance": "Управление"
+      },
+      pt: {
+        "nav.pageTitle": "Livro Branco Técnico",
+        "header.badge": "LIVRO BRANCO TÉCNICO",
+        "header.title": "TBURN Chain",
+        "header.subtitle": "Blockchain de Camada 1 de Grau Empresarial com Consenso Orientado por IA e Fragmentação Dinâmica",
+        "meta.version": "Versão:",
+        "meta.date": "Data:",
+        "meta.chainId": "ID da Cadeia:",
+        "meta.status": "Estado:",
+        "meta.production": "Produção",
+        "toc.title": "Índice",
+        "toc.abstract": "Resumo",
+        "toc.architecture": "Arquitetura",
+        "toc.consensus": "Consenso",
+        "toc.sharding": "Fragmentação",
+        "toc.aiSystem": "Sistema IA",
+        "toc.tokenomics": "Tokenomics",
+        "toc.tokenStandards": "Padrões de Tokens",
+        "toc.defi": "Stack DeFi",
+        "toc.security": "Segurança",
+        "toc.governance": "Governança",
+        "toc.roadmap": "Roteiro",
+        "section.abstract": "1. Resumo",
+        "section.architecture": "2. Arquitetura do Sistema",
+        "section.consensus": "3. Consenso BFT Baseado em Pontuação de Confiança",
+        "section.sharding": "4. Arquitetura de Fragmentação Dinâmica",
+        "section.aiSystem": "5. Sistema de Orquestração IA Quad-Band",
+        "section.tokenomics": "6. Tokenomics",
+        "section.tokenStandards": "7. Padrões de Tokens",
+        "section.defi": "8. Ecossistema DeFi",
+        "section.security": "9. Arquitetura de Segurança",
+        "section.governance": "10. Estrutura de Governança",
+        "section.roadmap": "11. Roteiro",
+        "abstract.p1": "<span class=\"highlight\">TBURN Chain</span> é uma plataforma blockchain de Camada 1 de grau empresarial projetada para resolver as limitações fundamentais das redes blockchain existentes: escalabilidade, eficiência energética e automação inteligente. Ao integrar um inovador <span class=\"highlight\">Consenso BFT Baseado em Pontuação de Confiança</span>, <span class=\"highlight\">Arquitetura de Fragmentação Dinâmica</span> e <span class=\"highlight\">Sistema de Orquestração IA Quad-Band</span>, TBURN Chain alcança um throughput sem precedentes de <span class=\"highlight\">210.000+ TPS</span> mantendo as garantias de descentralização e segurança.",
+        "abstract.p2": "A plataforma introduz um modelo tokenômico deflacionário com um mecanismo de queima otimizado por IA, alcançando uma redução projetada de 30,6% de tokens em 20 anos. TBURN Chain suporta compatibilidade EVM completa com extensões criptográficas resistentes a quantum, permitindo migração perfeita para aplicações Ethereum existentes enquanto se prepara para ameaças computacionais emergentes.",
+        "specs.peakTps": "TPS Máximo",
+        "specs.blockTime": "Tempo de Bloco",
+        "specs.finality": "Finalidade",
+        "specs.oneSecond": "1 segundo",
+        "specs.activeValidators": "Validadores Ativos",
+        "architecture.intro": "TBURN Chain emprega uma arquitetura modular em camadas que separa as preocupações entre as camadas de execução, consenso, disponibilidade de dados e liquidação. Este design permite o escalonamento e atualização independentes de cada componente.",
+        "architecture.diagramTitle": "Stack de Arquitetura TBURN Chain",
+        "architecture.coreComponents": "2.1 Componentes Principais",
+        "architecture.executionLayer": "Camada de Execução",
+        "architecture.executionDesc": "A camada de execução implementa uma máquina virtual totalmente compatível com EVM com extensões para opcodes específicos do TBURN. As transações são processadas em paralelo entre fragmentos com transições de estado determinísticas.",
+        "architecture.consensusLayer": "Camada de Consenso",
+        "consensus.intro": "TBURN Chain introduz um mecanismo de consenso inovador que estende a Tolerância a Falhas Bizantinas tradicional com um sistema dinâmico de pontuação de confiança. Esta abordagem reduz o impacto de validadores maliciosos ou com baixo desempenho enquanto recompensa a participação consistente e de alta qualidade.",
+        "consensus.trustScoreCalc": "3.1 Cálculo da Pontuação de Confiança",
+        "consensus.validatorTiers": "3.2 Níveis de Validadores",
+        "consensus.blockProduction": "3.3 Produção de Blocos",
+        "consensus.finalityGuarantee": "3.4 Garantia de Finalidade",
+        "sharding.intro": "TBURN Chain implementa um sistema de fragmentação dinâmica que escala automaticamente de 5 a 128 fragmentos com base na carga da rede e capacidade do hardware. Isso permite escalonamento linear do throughput mantendo as garantias de segurança.",
+        "ai.intro": "TBURN Chain integra uma camada de orquestração IA sofisticada que otimiza continuamente as operações de rede, segurança e governança. O sistema quad-band aproveita quatro modelos de IA líderes para redundância e especialização.",
+        "tokenomics.intro": "TBURN implementa um modelo tokenômico deflacionário projetado para valorização a longo prazo através da queima sistemática de tokens e emissão controlada.",
+        "tokenStandards.intro": "TBURN Chain implementa três padrões de tokens nativos compatíveis com padrões ERC enquanto adiciona extensões de assinatura resistentes a quantum.",
+        "defi.intro": "TBURN Chain fornece uma infraestrutura DeFi abrangente com implementações de protocolo nativas.",
+        "security.intro": "TBURN Chain implementa múltiplas camadas de segurança para proteger contra ameaças atuais e futuras.",
+        "governance.intro": "TBURN Chain implementa um modelo de governança descentralizado com validação de propostas assistida por IA.",
+        "roadmap.phase1": "Fase 1: Gênese (Q4 2025)",
+        "roadmap.phase2": "Fase 2: Expansão (Q1-Q2 2026)",
+        "roadmap.phase3": "Fase 3: Maturidade (Q3-Q4 2026)",
+        "roadmap.phase4": "Fase 4: Ecossistema (2027+)",
+        "footer.copyright": "© 2025 Fundação TBURN. Todos os direitos reservados.",
+        "footer.disclaimer": "Este documento é apenas para fins informativos e não constitui aconselhamento financeiro.",
+        "footer.website": "Website",
+        "footer.whitepaper": "Livro Branco",
+        "footer.developers": "Desenvolvedores",
+        "footer.governance": "Governança"
+      },
+      ur: {
+        "nav.pageTitle": "تکنیکی وائٹ پیپر",
+        "header.badge": "تکنیکی وائٹ پیپر",
+        "header.title": "TBURN چین",
+        "header.subtitle": "AI سے چلنے والے اتفاق رائے اور متحرک شارڈنگ کے ساتھ انٹرپرائز گریڈ لیئر 1 بلاک چین",
+        "meta.version": "ورژن:",
+        "meta.date": "تاریخ:",
+        "meta.chainId": "چین آئی ڈی:",
+        "meta.status": "حیثیت:",
+        "meta.production": "پروڈکشن",
+        "toc.title": "فہرست",
+        "toc.abstract": "خلاصہ",
+        "toc.architecture": "فن تعمیر",
+        "toc.consensus": "اتفاق رائے",
+        "toc.sharding": "شارڈنگ",
+        "toc.aiSystem": "AI سسٹم",
+        "toc.tokenomics": "ٹوکنومکس",
+        "toc.tokenStandards": "ٹوکن معیارات",
+        "toc.defi": "DeFi اسٹیک",
+        "toc.security": "سیکیورٹی",
+        "toc.governance": "گورننس",
+        "toc.roadmap": "روڈ میپ",
+        "section.abstract": "1. خلاصہ",
+        "section.architecture": "2. سسٹم آرکیٹیکچر",
+        "section.consensus": "3. ٹرسٹ سکور پر مبنی BFT اتفاق رائے",
+        "section.sharding": "4. ڈائنامک شارڈنگ آرکیٹیکچر",
+        "section.aiSystem": "5. کواڈ بینڈ AI آرکیسٹریشن سسٹم",
+        "section.tokenomics": "6. ٹوکنومکس",
+        "section.tokenStandards": "7. ٹوکن معیارات",
+        "section.defi": "8. DeFi ایکو سسٹم",
+        "section.security": "9. سیکیورٹی آرکیٹیکچر",
+        "section.governance": "10. گورننس فریم ورک",
+        "section.roadmap": "11. روڈ میپ",
+        "abstract.p1": "<span class=\"highlight\">TBURN چین</span> ایک انٹرپرائز گریڈ لیئر 1 بلاک چین پلیٹ فارم ہے جو موجودہ بلاک چین نیٹ ورکس کی بنیادی حدود کو حل کرنے کے لیے ڈیزائن کیا گیا ہے: اسکیل ایبلٹی، توانائی کی کارکردگی، اور ذہین آٹومیشن۔ ایک جدید <span class=\"highlight\">ٹرسٹ سکور پر مبنی BFT اتفاق رائے</span>، <span class=\"highlight\">ڈائنامک شارڈنگ آرکیٹیکچر</span>، اور <span class=\"highlight\">کواڈ بینڈ AI آرکیسٹریشن سسٹم</span> کو ضم کرتے ہوئے، TBURN چین ڈی سینٹرلائزیشن اور سیکیورٹی ضمانتوں کو برقرار رکھتے ہوئے <span class=\"highlight\">210,000+ TPS</span> کی بے مثال تھروپٹ حاصل کرتا ہے۔",
+        "abstract.p2": "پلیٹ فارم AI سے بہتر بنایا ہوا برن میکانزم کے ساتھ ایک انکماشی ٹوکنومکس ماڈل متعارف کراتا ہے، جو 20 سالوں میں 30.6% ٹوکن میں کمی کا تخمینہ لگاتا ہے۔ TBURN چین کوانٹم مزاحم کرپٹوگرافک ایکسٹینشنز کے ساتھ مکمل EVM مطابقت کی حمایت کرتا ہے، موجودہ ایتھیریم ایپلیکیشنز کی ہموار منتقلی کو قابل بناتا ہے جبکہ ابھرتے ہوئے کمپیوٹیشنل خطرات کے لیے تیار رہتا ہے۔",
+        "specs.peakTps": "پیک TPS",
+        "specs.blockTime": "بلاک ٹائم",
+        "specs.finality": "حتمیت",
+        "specs.oneSecond": "1 سیکنڈ",
+        "specs.activeValidators": "فعال ویلیڈیٹرز",
+        "architecture.intro": "TBURN چین ایک ماڈیولر، پرتوں والا آرکیٹیکچر استعمال کرتا ہے جو عمل درآمد، اتفاق رائے، ڈیٹا کی دستیابی اور تصفیے کی پرتوں میں خدشات کو الگ کرتا ہے۔ یہ ڈیزائن ہر جزو کی آزادانہ پیمائش اور اپ گریڈ ایبلٹی کو قابل بناتا ہے۔",
+        "architecture.diagramTitle": "TBURN چین آرکیٹیکچر اسٹیک",
+        "architecture.coreComponents": "2.1 بنیادی اجزاء",
+        "architecture.executionLayer": "عمل درآمد کی پرت",
+        "architecture.executionDesc": "عمل درآمد کی پرت TBURN مخصوص آپ کوڈز کے لیے ایکسٹینشنز کے ساتھ مکمل طور پر EVM مطابقت پذیر ورچوئل مشین لاگو کرتی ہے۔ ٹرانزیکشنز ڈیٹرمنسٹک اسٹیٹ ٹرانزیشنز کے ساتھ شارڈز میں متوازی طور پر پراسیس ہوتی ہیں۔",
+        "architecture.consensusLayer": "اتفاق رائے کی پرت",
+        "consensus.intro": "TBURN چین ایک جدید اتفاق رائے میکانزم متعارف کراتا ہے جو ڈائنامک ٹرسٹ سکورنگ سسٹم کے ساتھ روایتی بازنطینی فالٹ ٹالرنس کو بڑھاتا ہے۔ یہ نقطہ نظر بدنیتی پر مبنی یا کم کارکردگی والے ویلیڈیٹرز کے اثر کو کم کرتا ہے جبکہ مسلسل، اعلی معیار کی شرکت کو انعام دیتا ہے۔",
+        "consensus.trustScoreCalc": "3.1 ٹرسٹ سکور کا حساب",
+        "consensus.validatorTiers": "3.2 ویلیڈیٹر ٹیئرز",
+        "consensus.blockProduction": "3.3 بلاک پروڈکشن",
+        "consensus.finalityGuarantee": "3.4 حتمیت کی ضمانت",
+        "sharding.intro": "TBURN چین ایک ڈائنامک شارڈنگ سسٹم لاگو کرتا ہے جو نیٹ ورک لوڈ اور ہارڈویئر صلاحیت کی بنیاد پر 5 سے 128 شارڈز تک خودکار طور پر پیمائش کرتا ہے۔ یہ سیکیورٹی ضمانتوں کو برقرار رکھتے ہوئے لکیری تھروپٹ پیمائش کو قابل بناتا ہے۔",
+        "ai.intro": "TBURN چین ایک نفیس AI آرکیسٹریشن پرت کو ضم کرتا ہے جو مسلسل نیٹ ورک آپریشنز، سیکیورٹی اور گورننس کو بہتر بناتا ہے۔ کواڈ بینڈ سسٹم فالتو پن اور خصوصی مہارت کے لیے چار سرکردہ AI ماڈلز کا فائدہ اٹھاتا ہے۔",
+        "tokenomics.intro": "TBURN ایک انکماشی ٹوکنومکس ماڈل لاگو کرتا ہے جو منظم ٹوکن برننگ اور کنٹرولڈ اخراج کے ذریعے طویل مدتی قدر میں اضافے کے لیے ڈیزائن کیا گیا ہے۔",
+        "tokenStandards.intro": "TBURN چین ERC معیارات کے ساتھ مطابقت پذیر تین مقامی ٹوکن معیارات لاگو کرتا ہے جبکہ کوانٹم مزاحم دستخطی ایکسٹینشنز شامل کرتا ہے۔",
+        "defi.intro": "TBURN چین مقامی پروٹوکول عمل درآمد کے ساتھ ایک جامع DeFi انفراسٹرکچر فراہم کرتا ہے۔",
+        "security.intro": "TBURN چین موجودہ اور مستقبل کے خطرات سے بچانے کے لیے سیکیورٹی کی متعدد پرتیں لاگو کرتا ہے۔",
+        "governance.intro": "TBURN چین AI معاون تجویز کی توثیق کے ساتھ ایک ڈی سینٹرلائزڈ گورننس ماڈل لاگو کرتا ہے۔",
+        "roadmap.phase1": "مرحلہ 1: پیدائش (Q4 2025)",
+        "roadmap.phase2": "مرحلہ 2: توسیع (Q1-Q2 2026)",
+        "roadmap.phase3": "مرحلہ 3: پختگی (Q3-Q4 2026)",
+        "roadmap.phase4": "مرحلہ 4: ایکو سسٹم (2027+)",
+        "footer.copyright": "© 2025 TBURN فاؤنڈیشن۔ تمام حقوق محفوظ ہیں۔",
+        "footer.disclaimer": "یہ دستاویز صرف معلوماتی مقاصد کے لیے ہے اور مالیاتی مشورے کی تشکیل نہیں کرتی۔",
+        "footer.website": "ویب سائٹ",
+        "footer.whitepaper": "وائٹ پیپر",
+        "footer.developers": "ڈویلپرز",
+        "footer.governance": "گورننس"
+      }
+    };
+
+    // RTL Languages
+    const rtlLanguages = ['ar', 'ur'];
+
+    // Current language
+    let currentLanguage = localStorage.getItem('techWhitepaperLang') || 'en';
+
+    // Set language function
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      localStorage.setItem('techWhitepaperLang', lang);
+      
+      // Set document direction for RTL languages
+      if (rtlLanguages.includes(lang)) {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.documentElement.setAttribute('lang', lang);
+      } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+        document.documentElement.setAttribute('lang', lang);
+      }
+      
+      // Update language selector
+      const selector = document.getElementById('language-selector');
+      if (selector) {
+        selector.value = lang;
+      }
+      
+      // Apply translations
+      applyTranslations();
+    }
+
+    // Apply translations function
+    function applyTranslations() {
+      const langData = translations[currentLanguage] || translations['en'];
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (langData[key]) {
+          // Check if the translation contains HTML
+          if (langData[key].includes('<') && langData[key].includes('>')) {
+            element.innerHTML = langData[key];
+          } else {
+            element.textContent = langData[key];
+          }
+        }
+      });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set initial language from localStorage or browser
+      const savedLang = localStorage.getItem('techWhitepaperLang');
+      const browserLang = navigator.language.split('-')[0];
+      const supportedLangs = Object.keys(translations);
+      
+      if (savedLang && supportedLangs.includes(savedLang)) {
+        setLanguage(savedLang);
+      } else if (supportedLangs.includes(browserLang)) {
+        setLanguage(browserLang);
+      } else {
+        setLanguage('en');
+      }
+    });
+
+    // Theme toggle function (already exists, but ensure it works)
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    
+    // Initialize theme
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 </body>
 </html>

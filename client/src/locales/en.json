@@ -138,7 +138,172 @@
     "percentage": "Percentage",
     "count": "Count",
     "resolved": "Resolved",
-    "login": "Login"
+    "login": "Login",
+  "tokenSchedule": {
+    "nav": {
+      "overview": "Overview",
+      "schedule": "20-Year Schedule",
+      "phase1": "Phase 1: Foundation",
+      "phase2": "Phase 2: Growth",
+      "phase3": "Phase 3: Ecosystem",
+      "phase4": "Phase 4: Maturity",
+      "visual": "Supply Visualization",
+      "comparison": "Economic Comparison",
+      "summary": "Final Summary"
+    },
+    "hero": {
+      "title": "TBURN 20-Year Token Issuance & Burn Schedule",
+      "subtitle": "A comprehensive blueprint for sustainable tokenomics and long-term value creation.",
+      "description": "Transparent management of supply through algorithmic issuance and automated burn mechanisms.",
+      "stats": {
+        "initialSupply": {
+          "label": "Initial Supply",
+          "value": "100.0B"
+        },
+        "finalSupply": {
+          "label": "Final Supply (Y20)",
+          "value": "69.4B"
+        },
+        "totalBurn": {
+          "label": "Projected Total Burn",
+          "value": "50.3B"
+        },
+        "reductionRate": {
+          "label": "Supply Reduction Rate",
+          "value": "30.6%"
+        }
+      }
+    },
+    "overview": {
+      "title": "Supply & Burn Mechanisms",
+      "supply": {
+        "title": "Supply Mechanism",
+        "blockRewardPool": "Block Reward Pool",
+        "blockRewardValue": "19.75 Billion TBURN",
+        "distributionPeriod": "Distribution Period",
+        "distributionValue": "20 Years (7,300 Days)",
+        "blockTime": "Target Block Time",
+        "blockTimeValue": "1.0 Second",
+        "halvingTitle": "Halving Schedule",
+        "halving1Label": "1st Halving:",
+        "halving1Value": "Year 6 (50% reduction)",
+        "halving2Label": "2nd Halving:",
+        "halving2Value": "Year 9 (33% reduction)"
+      },
+      "burn": {
+        "title": "Burn Mechanism",
+        "aiFee": {
+          "title": "AI Service Fees",
+          "description": "80% of all AI orchestration and training fees are permanently burned from supply."
+        },
+        "txFee": {
+          "title": "Transaction Fees",
+          "description": "50% of base transaction fees are burned, creating constant deflationary pressure."
+        },
+        "specialEvents": {
+          "title": "Strategic Burns",
+          "description": "Quarterly ecosystem burns based on platform performance and governance decisions."
+        }
+      }
+    },
+    "schedule": {
+      "title": "20-Year Economic Projection",
+      "description": "Detailed year-over-year breakdown of issuance, burn, and net supply impact."
+    },
+    "table": {
+      "year": "Year",
+      "phase": "Phase",
+      "blockIssuance": "Block Issuance",
+      "aiBurn": "AI & Fee Burn",
+      "netChange": "Net Change",
+      "supplyEnd": "Supply (End of Year)",
+      "total": "Total"
+    },
+    "units": {
+      "billion": "B"
+    },
+    "phases": {
+      "phase1": "Phase 1: Foundation",
+      "phase2": "Phase 2: Growth",
+      "phase3": "Phase 3: Ecosystem",
+      "phase4": "Phase 4: Maturity"
+    },
+    "notes": {
+      "halving": "Halving event occurs here."
+    },
+    "milestones": {
+      "title": "Economic Milestones",
+      "year1": "Network launch and initial distribution start.",
+      "year3": "Mass adoption leads to burn exceeding issuance.",
+      "year6": "First halving significantly reduces new supply.",
+      "year10": "Supply drops below 71B, 29% reduction from initial.",
+      "year12": "Issuance and burn reach optimal equilibrium.",
+      "year20": "Final supply goal achieved, long-term stability reached."
+    },
+    "visual": {
+      "title": "Supply Trajectory Visualization",
+      "description": "Visual representation of the transition from initial distribution to a deflationary ecosystem."
+    },
+    "comparison": {
+      "title": "Economic Efficiency Comparison",
+      "headers": {
+        "burnToIssuance": "Burn/Issuance Ratio",
+        "cumulativeReduction": "Cum. Reduction",
+        "status": "Network Status"
+      },
+      "status": {
+        "earlyGrowth": "Early Growth",
+        "acceleration": "Acceleration",
+        "massAdoption": "Mass Adoption",
+        "enterpriseIntegration": "Enterprise Integration",
+        "platformMaturity": "Platform Maturity",
+        "firstHalving": "First Halving",
+        "secondHalving": "Second Halving",
+        "tenYearMilestone": "10Y Milestone",
+        "perfectBalance": "Perfect Balance",
+        "visionComplete": "Vision Complete"
+      }
+    },
+    "finalSummary": {
+      "title": "20-Year Economic Summary",
+      "cumulativeIssuance": "Cumulative Issuance (20Y)",
+      "cumulativeBurn": "Cumulative Burn (20Y)",
+      "netDeflation": "Net Deflationary Impact",
+      "burnMultiple": "Burn rate is 2.55x the issuance rate"
+    },
+    "documentInfo": {
+      "title": "Document Information",
+      "documentTitle": "Protocol Document",
+      "documentTitleValue": "TBURN-ECON-V3",
+      "version": "Version",
+      "status": "Status",
+      "statusValue": "Finalized & Governance Approved",
+      "planPeriod": "Plan Period",
+      "author": "Issued by TBURN Protocol Economics Research Division"
+    },
+    "disclaimer": {
+      "title": "IMPORTANT LEGAL DISCLAIMER",
+      "notInvestmentAdvice": {
+        "title": "Not Investment Advice:",
+        "content": "The information provided in this document is for informational purposes only and does not constitute financial, investment, or professional advice."
+      },
+      "forwardLooking": {
+        "title": "Forward-Looking Statements:",
+        "content": "Projections, targets, and estimates are based on current network parameters and are subject to market conditions and protocol changes."
+      },
+      "subjectToChange": {
+        "title": "Subject to Governance:",
+        "content": "TBURN tokenomics may be modified through community governance votes as the ecosystem evolves."
+      },
+      "limitedLiability": {
+        "title": "Limited Liability:",
+        "content": "The TBURN Foundation and contributors are not responsible for any losses incurred based on the use of this data."
+      }
+    },
+    "footer": {
+      "vision": "Building a sustainable future for AI-integrated blockchain economics.",
+      "disclaimer": "This technical schedule is part of the official TBURN Protocol Whitepaper v3.0."
+    }
   },
   "nav": {
     "brand": "TBURN Lab Mainnet",
@@ -29109,4 +29274,4 @@
     "sending": "Sending...",
     "resendCode": "Resend Code"
   }
-}
+}}
