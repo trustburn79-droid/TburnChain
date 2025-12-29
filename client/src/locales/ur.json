@@ -2369,12 +2369,13 @@
     "welcomeMessage": "TBURN بلاکچین ایکسپلورر میں خوش آمدید",
     "loginFailed": "لاگ ان ناکام",
     "invalidPassword": "غلط پاس ورڈ۔ براہ کرم دوبارہ کوشش کریں۔",
+    "invalidCredentials": "غلط ای میل یا پاس ورڈ۔ براہ کرم دوبارہ کوشش کریں۔",
     "loginError": "لاگ ان ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
     "authenticate": "تصدیق کریں",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "نیورل کنسنسس لیئر سے جڑیں",
     "enterAccessKey": "رسائی کلید درج کریں...",
-    "enterAdminEmail": "Enter admin email...",
+    "enterAdminEmail": "ایڈمن ای میل درج کریں...",
     "authenticating": "تصدیق ہو رہی ہے...",
     "connectNode": "نوڈ جوڑیں",
     "orViaOAuth": "یا OAuth کے ذریعے",
@@ -3286,8 +3287,17 @@
       "toast": {
         "successTitle": "نوڈ شروع ہو گیا",
         "successDescription": "TBurn Chain میں خوش آمدید! آپ کا اکاؤنٹ اب فعال ہے۔",
-        "errorTitle": "ابتدا ناکام",
-        "errorDescription": "اکاؤنٹ نہیں بنایا جا سکا۔ براہ کرم دوبارہ کوشش کریں۔"
+        "errorTitle": "خرابی",
+        "errorDescription": "اکاؤنٹ نہیں بنایا جا سکا۔ براہ کرم دوبارہ کوشش کریں۔",
+        "codeSentTitle": "تصدیقی کوڈ بھیج دیا گیا",
+        "codeSentDescription": "براہ کرم اپنی ای میل میں 6 ہندسوں کا کوڈ چیک کریں",
+        "sendCodeError": "تصدیقی کوڈ بھیجنے میں ناکام",
+        "invalidCodeLength": "براہ کرم تمام 6 ہندسے درج کریں",
+        "verifiedTitle": "ای میل تصدیق شدہ",
+        "verifiedDescription": "آپ کی ای میل کامیابی سے تصدیق ہو گئی",
+        "verifyError": "غلط یا میعاد ختم کوڈ",
+        "codeResent": "نیا تصدیقی کوڈ بھیج دیا گیا",
+        "resendError": "کوڈ دوبارہ بھیجنے میں ناکام"
       },
       "validation": {
         "usernameMin": "صارف نام کم از کم 3 حروف کا ہونا چاہیے",
@@ -3296,7 +3306,18 @@
         "passwordMin": "پاس ورڈ کم از کم 8 حروف کا ہونا چاہیے",
         "passwordMismatch": "پاس ورڈ میل نہیں کھاتے",
         "termsRequired": "آپ کو شرائط قبول کرنی ہوں گی"
-      }
+      },
+      "step": "مرحلہ",
+      "verificationNote": "آپ کی ای میل پر 6 ہندسوں کا تصدیقی کوڈ بھیجا جائے گا",
+      "sendCode": "تصدیقی کوڈ بھیجیں",
+      "sending": "بھیجا جا رہا ہے...",
+      "enterCode": "اپنی ای میل پر بھیجا گیا 6 ہندسوں کا کوڈ درج کریں",
+      "verify": "کوڈ تصدیق کریں",
+      "verifying": "تصدیق ہو رہی ہے...",
+      "verified": "تصدیق شدہ",
+      "back": "واپس",
+      "resendCode": "کوڈ دوبارہ بھیجیں",
+      "resendIn": "دوبارہ بھیجیں"
     },
     "header": {
       "learn": "سیکھیں",

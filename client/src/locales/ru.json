@@ -3247,12 +3247,13 @@
     "welcomeMessage": "Добро пожаловать в TBURN Blockchain Explorer",
     "loginFailed": "Ошибка входа",
     "invalidPassword": "Неверный пароль. Пожалуйста, попробуйте снова.",
+    "invalidCredentials": "Неверный email или пароль. Пожалуйста, попробуйте снова.",
     "loginError": "Не удалось войти. Пожалуйста, попробуйте снова.",
     "authenticate": "Аутентификация",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Подключиться к Neural Consensus Layer",
     "enterAccessKey": "Введите ключ доступа...",
-    "enterAdminEmail": "Enter admin email...",
+    "enterAdminEmail": "Введите email администратора...",
     "authenticating": "Аутентификация...",
     "connectNode": "Подключить узел",
     "orViaOAuth": "Или через OAuth",
@@ -4165,7 +4166,16 @@
         "successTitle": "Узел инициализирован",
         "successDescription": "Добро пожаловать в TBurn Chain! Ваш аккаунт активирован.",
         "errorTitle": "Ошибка инициализации",
-        "errorDescription": "Не удалось создать аккаунт. Пожалуйста, попробуйте снова."
+        "errorDescription": "Не удалось создать аккаунт. Пожалуйста, попробуйте снова.",
+        "codeSentTitle": "Код подтверждения отправлен",
+        "codeSentDescription": "Пожалуйста, проверьте почту для получения 6-значного кода",
+        "sendCodeError": "Не удалось отправить код подтверждения",
+        "invalidCodeLength": "Пожалуйста, введите все 6 цифр",
+        "verifiedTitle": "Email подтверждён",
+        "verifiedDescription": "Ваш email успешно подтверждён",
+        "verifyError": "Неверный или истёкший код",
+        "codeResent": "Новый код подтверждения отправлен",
+        "resendError": "Не удалось повторно отправить код"
       },
       "validation": {
         "usernameMin": "Имя пользователя должно содержать минимум 3 символа",
@@ -4174,7 +4184,18 @@
         "passwordMin": "Пароль должен содержать минимум 8 символов",
         "passwordMismatch": "Пароли не совпадают",
         "termsRequired": "Вы должны принять условия"
-      }
+      },
+      "step": "Шаг",
+      "verificationNote": "На вашу почту будет отправлен 6-значный код подтверждения",
+      "sendCode": "Отправить код подтверждения",
+      "sending": "Отправка...",
+      "enterCode": "Введите 6-значный код, отправленный на вашу почту",
+      "verify": "Подтвердить код",
+      "verifying": "Проверка...",
+      "verified": "Подтверждено",
+      "back": "Назад",
+      "resendCode": "Отправить код повторно",
+      "resendIn": "Повторная отправка через"
     },
     "header": {
       "learn": "Обучение",

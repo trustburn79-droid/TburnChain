@@ -3247,12 +3247,13 @@
     "welcomeMessage": "Bem-vindo ao Explorador Blockchain TBURN",
     "loginFailed": "Falha no Login",
     "invalidPassword": "Senha inválida. Por favor, tente novamente.",
+    "invalidCredentials": "Email ou senha inválidos. Por favor, tente novamente.",
     "loginError": "Falha ao fazer login. Por favor, tente novamente.",
     "authenticate": "Autenticar",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Conecte-se à Camada de Consenso Neural",
     "enterAccessKey": "Digite a chave de acesso...",
-    "enterAdminEmail": "Enter admin email...",
+    "enterAdminEmail": "Digite o email do administrador...",
     "authenticating": "Autenticando...",
     "connectNode": "Conectar Nó",
     "orViaOAuth": "Ou via OAuth",
@@ -4165,7 +4166,16 @@
         "successTitle": "Nó Inicializado",
         "successDescription": "Bem-vindo ao TBurn Chain! Sua conta está ativa.",
         "errorTitle": "Falha na Inicialização",
-        "errorDescription": "Não foi possível criar a conta. Por favor, tente novamente."
+        "errorDescription": "Não foi possível criar a conta. Por favor, tente novamente.",
+        "codeSentTitle": "Código de Verificação Enviado",
+        "codeSentDescription": "Por favor, verifique seu email para o código de 6 dígitos",
+        "sendCodeError": "Falha ao enviar código de verificação",
+        "invalidCodeLength": "Por favor, digite todos os 6 dígitos",
+        "verifiedTitle": "Email Verificado",
+        "verifiedDescription": "Seu email foi verificado com sucesso",
+        "verifyError": "Código inválido ou expirado",
+        "codeResent": "Um novo código de verificação foi enviado",
+        "resendError": "Falha ao reenviar código"
       },
       "validation": {
         "usernameMin": "O nome de usuário deve ter pelo menos 3 caracteres",
@@ -4174,7 +4184,18 @@
         "passwordMin": "A senha deve ter pelo menos 8 caracteres",
         "passwordMismatch": "As senhas não coincidem",
         "termsRequired": "Você deve aceitar os termos"
-      }
+      },
+      "step": "Passo",
+      "verificationNote": "Um código de verificação de 6 dígitos será enviado para seu email",
+      "sendCode": "Enviar Código de Verificação",
+      "sending": "Enviando...",
+      "enterCode": "Digite o código de 6 dígitos enviado para seu email",
+      "verify": "Verificar Código",
+      "verifying": "Verificando...",
+      "verified": "Verificado",
+      "back": "Voltar",
+      "resendCode": "Reenviar Código",
+      "resendIn": "Reenviar em"
     },
     "header": {
       "learn": "Aprender",

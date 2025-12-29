@@ -3201,12 +3201,13 @@
     "welcomeMessage": "مرحباً بك في مستكشف بلوكتشين TBURN",
     "loginFailed": "فشل تسجيل الدخول",
     "invalidPassword": "كلمة مرور غير صالحة. يرجى المحاولة مرة أخرى.",
+    "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صالحة. يرجى المحاولة مرة أخرى.",
     "loginError": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
     "authenticate": "المصادقة",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "الاتصال بطبقة الإجماع العصبي",
     "enterAccessKey": "أدخل مفتاح الوصول...",
-    "enterAdminEmail": "Enter admin email...",
+    "enterAdminEmail": "أدخل البريد الإلكتروني للمسؤول...",
     "authenticating": "جاري المصادقة...",
     "connectNode": "ربط العقدة",
     "orViaOAuth": "أو عبر OAuth",
@@ -4979,7 +4980,16 @@
         "successTitle": "تم تهيئة العقدة",
         "successDescription": "مرحباً بك في TBurn Chain! حسابك نشط الآن.",
         "errorTitle": "فشل التهيئة",
-        "errorDescription": "تعذر إنشاء الحساب. يرجى المحاولة مرة أخرى."
+        "errorDescription": "تعذر إنشاء الحساب. يرجى المحاولة مرة أخرى.",
+        "codeSentTitle": "تم إرسال رمز التحقق",
+        "codeSentDescription": "يرجى التحقق من بريدك الإلكتروني للحصول على الرمز المكون من 6 أرقام",
+        "sendCodeError": "فشل إرسال رمز التحقق",
+        "invalidCodeLength": "يرجى إدخال جميع الأرقام الستة",
+        "verifiedTitle": "تم التحقق من البريد الإلكتروني",
+        "verifiedDescription": "تم التحقق من بريدك الإلكتروني بنجاح",
+        "verifyError": "رمز غير صالح أو منتهي الصلاحية",
+        "codeResent": "تم إرسال رمز تحقق جديد",
+        "resendError": "فشل إعادة إرسال الرمز"
       },
       "validation": {
         "usernameMin": "يجب أن يتكون اسم المستخدم من ٣ أحرف على الأقل",
@@ -4988,7 +4998,18 @@
         "passwordMin": "يجب أن تتكون كلمة المرور من ٨ أحرف على الأقل",
         "passwordMismatch": "كلمات المرور غير متطابقة",
         "termsRequired": "يجب قبول الشروط"
-      }
+      },
+      "step": "الخطوة",
+      "verificationNote": "سيتم إرسال رمز تحقق مكون من 6 أرقام إلى بريدك الإلكتروني",
+      "sendCode": "إرسال رمز التحقق",
+      "sending": "جاري الإرسال...",
+      "enterCode": "أدخل الرمز المكون من 6 أرقام المرسل إلى بريدك الإلكتروني",
+      "verify": "التحقق من الرمز",
+      "verifying": "جاري التحقق...",
+      "verified": "تم التحقق",
+      "back": "رجوع",
+      "resendCode": "إعادة إرسال الرمز",
+      "resendIn": "إعادة الإرسال في"
     },
     "header": {
       "learn": "تعلم",

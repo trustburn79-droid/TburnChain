@@ -3778,12 +3778,13 @@
     "welcomeMessage": "Bienvenue sur l'explorateur blockchain TBURN",
     "loginFailed": "Échec de la connexion",
     "invalidPassword": "Mot de passe invalide. Veuillez réessayer.",
+    "invalidCredentials": "Email ou mot de passe invalide. Veuillez réessayer.",
     "loginError": "Échec de la connexion. Veuillez réessayer.",
     "authenticate": "S'authentifier",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "Connexion à la couche de consensus neural",
     "enterAccessKey": "Entrer la clé d'accès...",
-    "enterAdminEmail": "Enter admin email...",
+    "enterAdminEmail": "Entrer l'email administrateur...",
     "authenticating": "Authentification en cours...",
     "connectNode": "Connecter le nœud",
     "orViaOAuth": "Ou via OAuth",
@@ -4765,7 +4766,16 @@
         "successTitle": "Nœud Initialisé",
         "successDescription": "Bienvenue sur TBurn Chain ! Votre compte est maintenant actif.",
         "errorTitle": "Échec de l'Initialisation",
-        "errorDescription": "Impossible de créer le compte. Veuillez réessayer."
+        "errorDescription": "Impossible de créer le compte. Veuillez réessayer.",
+        "codeSentTitle": "Code de Vérification Envoyé",
+        "codeSentDescription": "Veuillez vérifier votre email pour le code à 6 chiffres",
+        "sendCodeError": "Échec de l'envoi du code de vérification",
+        "invalidCodeLength": "Veuillez entrer les 6 chiffres",
+        "verifiedTitle": "Email Vérifié",
+        "verifiedDescription": "Votre email a été vérifié avec succès",
+        "verifyError": "Code invalide ou expiré",
+        "codeResent": "Un nouveau code de vérification a été envoyé",
+        "resendError": "Échec du renvoi du code"
       },
       "validation": {
         "usernameMin": "Le nom d'utilisateur doit contenir au moins 3 caractères",
@@ -4774,7 +4784,18 @@
         "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
         "passwordMismatch": "Les mots de passe ne correspondent pas",
         "termsRequired": "Vous devez accepter les conditions"
-      }
+      },
+      "step": "Étape",
+      "verificationNote": "Un code de vérification à 6 chiffres sera envoyé à votre email",
+      "sendCode": "Envoyer le Code de Vérification",
+      "sending": "Envoi en cours...",
+      "enterCode": "Entrez le code à 6 chiffres envoyé à votre email",
+      "verify": "Vérifier le Code",
+      "verifying": "Vérification en cours...",
+      "verified": "Vérifié",
+      "back": "Retour",
+      "resendCode": "Renvoyer le Code",
+      "resendIn": "Renvoyer dans"
     },
     "header": {
       "learn": "Apprendre",

@@ -4299,12 +4299,13 @@
     "welcomeMessage": "TBURN ब्लॉकचेन एक्सप्लोरर में आपका स्वागत है",
     "loginFailed": "लॉग इन विफल",
     "invalidPassword": "अमान्य पासवर्ड। कृपया पुनः प्रयास करें।",
+    "invalidCredentials": "अमान्य ईमेल या पासवर्ड। कृपया पुनः प्रयास करें।",
     "loginError": "लॉग इन करने में विफल। कृपया पुनः प्रयास करें।",
     "authenticate": "प्रमाणित करें",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "न्यूरल कंसेंसस लेयर से कनेक्ट करें",
     "enterAccessKey": "एक्सेस कुंजी दर्ज करें...",
-    "enterAdminEmail": "Enter admin email...",
+    "enterAdminEmail": "व्यवस्थापक ईमेल दर्ज करें...",
     "authenticating": "प्रमाणित हो रहा है...",
     "connectNode": "नोड कनेक्ट करें",
     "orViaOAuth": "या OAuth के माध्यम से",
@@ -5456,7 +5457,16 @@
         "successTitle": "नोड प्रारंभ हो गया",
         "successDescription": "TBurn Chain में आपका स्वागत है! आपका खाता अब सक्रिय है।",
         "errorTitle": "प्रारंभ विफल",
-        "errorDescription": "खाता नहीं बनाया जा सका। कृपया पुनः प्रयास करें।"
+        "errorDescription": "खाता नहीं बनाया जा सका। कृपया पुनः प्रयास करें।",
+        "codeSentTitle": "सत्यापन कोड भेजा गया",
+        "codeSentDescription": "कृपया 6-अंकीय कोड के लिए अपना ईमेल जांचें",
+        "sendCodeError": "सत्यापन कोड भेजने में विफल",
+        "invalidCodeLength": "कृपया सभी 6 अंक दर्ज करें",
+        "verifiedTitle": "ईमेल सत्यापित",
+        "verifiedDescription": "आपका ईमेल सफलतापूर्वक सत्यापित हो गया है",
+        "verifyError": "अमान्य या समाप्त कोड",
+        "codeResent": "एक नया सत्यापन कोड भेज दिया गया है",
+        "resendError": "कोड पुनः भेजने में विफल"
       },
       "validation": {
         "usernameMin": "उपयोगकर्ता नाम कम से कम 3 अक्षरों का होना चाहिए",
@@ -5465,7 +5475,18 @@
         "passwordMin": "पासवर्ड कम से कम 8 अक्षरों का होना चाहिए",
         "passwordMismatch": "पासवर्ड मेल नहीं खाते",
         "termsRequired": "आपको शर्तें स्वीकार करनी होंगी"
-      }
+      },
+      "step": "चरण",
+      "verificationNote": "आपके ईमेल पर 6-अंकीय सत्यापन कोड भेजा जाएगा",
+      "sendCode": "सत्यापन कोड भेजें",
+      "sending": "भेजा जा रहा है...",
+      "enterCode": "अपने ईमेल पर भेजा गया 6-अंकीय कोड दर्ज करें",
+      "verify": "कोड सत्यापित करें",
+      "verifying": "सत्यापित हो रहा है...",
+      "verified": "सत्यापित",
+      "back": "वापस",
+      "resendCode": "कोड पुनः भेजें",
+      "resendIn": "पुनः भेजें"
     },
     "header": {
       "learn": "सीखें",

@@ -2650,12 +2650,13 @@
     "welcomeMessage": "TBURN ব্লকচেইন এক্সপ্লোরারে স্বাগতম",
     "loginFailed": "লগ ইন ব্যর্থ",
     "invalidPassword": "ভুল পাসওয়ার্ড। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "invalidCredentials": "ভুল ইমেল বা পাসওয়ার্ড। অনুগ্রহ করে আবার চেষ্টা করুন।",
     "loginError": "লগ ইন করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
     "authenticate": "প্রমাণীকরণ",
     "gatewaySecure": "GATEWAY_SECURE",
     "connectToNeural": "নিউরাল কনসেনসাস লেয়ারে সংযোগ করুন",
     "enterAccessKey": "অ্যাক্সেস কী দিন...",
-    "enterAdminEmail": "Enter admin email...",
+    "enterAdminEmail": "অ্যাডমিন ইমেল লিখুন...",
     "authenticating": "প্রমাণীকরণ হচ্ছে...",
     "connectNode": "নোড সংযুক্ত করুন",
     "orViaOAuth": "অথবা OAuth দিয়ে",
@@ -3287,7 +3288,16 @@
         "successTitle": "নোড ইনিশিয়ালাইজ হয়েছে",
         "successDescription": "TBurn Chain-এ স্বাগতম! আপনার অ্যাকাউন্ট এখন সক্রিয়।",
         "errorTitle": "ইনিশিয়ালাইজেশন ব্যর্থ",
-        "errorDescription": "অ্যাকাউন্ট তৈরি করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+        "errorDescription": "অ্যাকাউন্ট তৈরি করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+        "codeSentTitle": "যাচাই কোড পাঠানো হয়েছে",
+        "codeSentDescription": "অনুগ্রহ করে ৬-সংখ্যার কোডের জন্য আপনার ইমেল চেক করুন",
+        "sendCodeError": "যাচাই কোড পাঠাতে ব্যর্থ হয়েছে",
+        "invalidCodeLength": "অনুগ্রহ করে সব ৬টি সংখ্যা লিখুন",
+        "verifiedTitle": "ইমেল যাচাই হয়েছে",
+        "verifiedDescription": "আপনার ইমেল সফলভাবে যাচাই হয়েছে",
+        "verifyError": "কোড অবৈধ বা মেয়াদ উত্তীর্ণ",
+        "codeResent": "একটি নতুন যাচাই কোড পাঠানো হয়েছে",
+        "resendError": "কোড পুনরায় পাঠাতে ব্যর্থ হয়েছে"
       },
       "validation": {
         "usernameMin": "ইউজারনেম কমপক্ষে ৩ অক্ষরের হতে হবে",
@@ -3296,7 +3306,18 @@
         "passwordMin": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে",
         "passwordMismatch": "পাসওয়ার্ড মিলছে না",
         "termsRequired": "আপনাকে শর্তাবলী গ্রহণ করতে হবে"
-      }
+      },
+      "step": "ধাপ",
+      "verificationNote": "আপনার ইমেলে একটি ৬-সংখ্যার যাচাই কোড পাঠানো হবে",
+      "sendCode": "যাচাই কোড পাঠান",
+      "sending": "পাঠানো হচ্ছে...",
+      "enterCode": "আপনার ইমেলে পাঠানো ৬-সংখ্যার কোড লিখুন",
+      "verify": "কোড যাচাই করুন",
+      "verifying": "যাচাই হচ্ছে...",
+      "verified": "যাচাই হয়েছে",
+      "back": "পেছনে",
+      "resendCode": "কোড পুনরায় পাঠান",
+      "resendIn": "পুনরায় পাঠাতে"
     },
     "header": {
       "learn": "শিখুন",
