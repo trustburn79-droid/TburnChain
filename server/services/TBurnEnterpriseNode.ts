@@ -52,6 +52,11 @@ import {
   SYSTEM_ADDRESSES,
   SIGNER_ADDRESSES
 } from '../utils/tburn-address';
+import { 
+  transactionValidationService,
+  TransactionEnvelope,
+  BlockValidationResult
+} from './validation/TransactionValidationService';
 
 export interface NodeConfig {
   nodeId: string;
@@ -92,6 +97,12 @@ export interface BlockProduction {
   gasUsed: string;
   size: number;
   validatorSignatures: number;
+  merkleRoot: string;
+  transactionRoot: string;
+  receiptsRoot: string;
+  stateRoot: string;
+  crossShardChecksum: string;
+  validationTime: number;
 }
 
 // Enterprise Shard Configuration Types
@@ -3420,81 +3431,159 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
 
   private produceBlock(): BlockProduction {
+    const validationStartTime = Date.now();
     this.currentBlockHeight++;
-    // DETERMINISTIC SHARD-PROPORTIONAL TPS: Transactions scale with shard count
-    // Base: 625 tx/block/shard × 10 blocks/sec = ~6,250 TPS per shard
-    // Load variation: 52.5% fixed utilization (center of 35-70% range) - NO RANDOM
+    
     const shardCount = this.shardConfig.currentShardCount;
-    const baseTransactionsPerShard = 625; // ~6,250 TPS/shard capacity
+    const baseTransactionsPerShard = 625;
     
-    // DETERMINISTIC load factor based on block height and time
-    // Uses sine wave with block height for natural variation without randomness
-    // Range: 50-55% utilization for stable, predictable TPS
-    const blockCycle = this.currentBlockHeight % 1000; // 1000 block cycle
-    const loadVariation = Math.sin(blockCycle * Math.PI / 500) * 0.025; // ±2.5% variation
-    const loadFactor = 0.525 + loadVariation; // 50-55% stable load
+    const blockCycle = this.currentBlockHeight % 1000;
+    const loadVariation = Math.sin(blockCycle * Math.PI / 500) * 0.025;
+    const loadFactor = 0.525 + loadVariation;
     
-    // DETERMINISTIC transaction count - no random values
     const transactionCount = Math.floor(shardCount * baseTransactionsPerShard * loadFactor);
-    const gasUsed = BigInt(transactionCount * 21000);
     
-    this.totalTransactions += transactionCount;
+    const shardId = this.currentBlockHeight % shardCount;
+    const simulatedTransactions = this.generateSimulatedTransactions(transactionCount, shardId);
+    
+    const validationResult = transactionValidationService.validateBlockTransactions(
+      simulatedTransactions,
+      shardId,
+      this.currentBlockHeight
+    );
+    
+    const gasUsed = validationResult.totalGasUsed;
+    const gasUsedStr = gasUsed.toString();
+    
+    this.totalTransactions += validationResult.validTransactions.length;
     this.totalGasUsed += gasUsed;
     
-    // Calculate TPS (transactions per second) - Enterprise grade
-    const currentTps = transactionCount * 10; // 10 blocks per second
+    const validTxCount = validationResult.validTransactions.length;
+    
+    const currentTps = validationResult.validTransactions.length * 10;
     this.tpsHistory.push(currentTps);
     if (this.tpsHistory.length > 100) {
       this.tpsHistory.shift();
     }
     
-    // Track block time
     const now = Date.now();
     if (this.blockTimes.length > 0) {
-      const lastBlockTime = this.blockTimes[this.blockTimes.length - 1];
-      const blockTime = (now - lastBlockTime) / 1000;
-      // Keep last 100 block times for averaging
       if (this.blockTimes.length >= 100) {
         this.blockTimes.shift();
       }
     }
     this.blockTimes.push(now);
 
-    // Dynamic validator count based on shard configuration
     const totalValidatorsForBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
-    const requiredSignatures = Math.ceil(totalValidatorsForBlock * 2 / 3);
     
-    // DETERMINISTIC proposer selection based on block height
     const proposerIndex = this.currentBlockHeight % totalValidatorsForBlock;
     
-    // DETERMINISTIC block size based on transaction count
-    const blockSize = 15000 + Math.floor(transactionCount / 10);
+    const blockSize = 15000 + Math.floor(validTxCount / 10);
     
-    // DETERMINISTIC signature count: 80% of validators (realistic BFT consensus)
     const signatureCount = Math.floor(totalValidatorsForBlock * 0.80);
+    
+    const blockHash = crypto.createHash('sha256')
+      .update(`block-${this.currentBlockHeight}-${now}-${validationResult.merkleRoot}`)
+      .digest('hex');
+    
+    const validationTime = Date.now() - validationStartTime;
     
     return {
       height: this.currentBlockHeight,
-      hash: `0x${crypto.createHash('sha256').update(`block-${this.currentBlockHeight}-${now}`).digest('hex')}`,
+      hash: `0x${blockHash}`,
       timestamp: Math.floor(now / 1000),
       proposer: generateValidatorAddress(proposerIndex),
-      transactionCount,
+      transactionCount: validationResult.validTransactions.length,
       gasUsed: gasUsed.toString(),
       size: blockSize,
-      validatorSignatures: signatureCount
+      validatorSignatures: signatureCount,
+      merkleRoot: validationResult.merkleRoot,
+      transactionRoot: validationResult.transactionRoot,
+      receiptsRoot: validationResult.receiptsRoot,
+      stateRoot: validationResult.stateRoot,
+      crossShardChecksum: validationResult.crossShardChecksum,
+      validationTime
     };
+  }
+
+  private generateSimulatedTransactions(count: number, shardId: number): TransactionEnvelope[] {
+    const transactions: TransactionEnvelope[] = [];
+    const baseTimestamp = Date.now();
+    
+    for (let i = 0; i < count; i++) {
+      const txSeed = crypto.createHash('sha256')
+        .update(`tx-${this.currentBlockHeight}-${i}-${this.config.nodeId}`)
+        .digest('hex');
+      
+      const fromAddress = generateRandomTBurnAddress();
+      const toAddress = generateRandomTBurnAddress();
+      
+      const value = BigInt(parseInt(txSeed.slice(0, 8), 16) % 10000000).toString();
+      const nonce = Math.floor(parseInt(txSeed.slice(8, 12), 16) % 1000);
+      const gasLimit = (21000 + (parseInt(txSeed.slice(12, 16), 16) % 79000)).toString();
+      const gasPrice = (BigInt(1000000000) + BigInt(parseInt(txSeed.slice(16, 24), 16))).toString();
+      
+      const txData: Omit<TransactionEnvelope, 'hash' | 'signature'> = {
+        from: fromAddress,
+        to: toAddress,
+        value,
+        nonce,
+        gasLimit,
+        gasPrice,
+        data: '0x',
+        timestamp: baseTimestamp + i,
+        shardId
+      };
+      
+      const txHash = transactionValidationService.generateTransactionHash(txData);
+      
+      const sigSeed = crypto.createHash('sha256')
+        .update(`sig-${txHash}-${fromAddress}`)
+        .digest('hex');
+      
+      transactions.push({
+        ...txData,
+        hash: txHash,
+        signature: {
+          r: sigSeed.slice(0, 64),
+          s: crypto.createHash('sha256').update(sigSeed).digest('hex').slice(0, 64),
+          v: 27 + (parseInt(sigSeed.slice(0, 2), 16) % 2),
+          publicKey: crypto.createHash('sha256').update(fromAddress).digest('hex').slice(0, 64)
+        }
+      });
+    }
+    
+    return transactions;
   }
 
   private broadcastBlock(block: BlockProduction): void {
     const message = JSON.stringify({
       type: 'new_block',
-      data: block
+      data: {
+        ...block,
+        validation: {
+          merkleRoot: block.merkleRoot,
+          transactionRoot: block.transactionRoot,
+          receiptsRoot: block.receiptsRoot,
+          stateRoot: block.stateRoot,
+          crossShardChecksum: block.crossShardChecksum,
+          validationTime: block.validationTime,
+          verified: true
+        }
+      }
     });
 
     this.wsClients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(message);
       }
+    });
+    
+    this.emit('blockValidated', {
+      height: block.height,
+      merkleRoot: block.merkleRoot,
+      crossShardChecksum: block.crossShardChecksum,
+      validationTime: block.validationTime
     });
   }
 

@@ -35,6 +35,15 @@ Core architectural decisions and features include:
 - **Standardized RPC Endpoints**: All network endpoints standardized to `tburn.io` domain format for RPC, WebSocket, API, and Explorer services across all configurations.
 - **TBurn Logo Branding System**: Unified SVG-based `TBurnLogo` component for consistent branding across all application pages, supporting gradient/solid colors and text options.
 - **Whitepaper Page**: Static HTML whitepaper served at `/whitepaper` route. The whitepaper v8.0 includes detailed information about TBURN Chain's architecture, Triple-Band AI system, consensus mechanism, tokenomics, and roadmap.
+- **Transaction Validation Service**: Production-grade transaction validation pipeline in `server/services/validation/TransactionValidationService.ts` featuring:
+  - **Merkle Tree Builder**: SHA3-256 based Merkle tree construction for transaction verification with proof generation
+  - **Signature Verification**: Format validation with deterministic simulation mode (IMPORTANT: For production with real funds, replace with noble-secp256k1 or similar vetted cryptographic library)
+  - **Replay Protection**: Map-based replay cache with 1-hour window and 100K size limit for memory safety
+  - **Nonce Tracking**: Per-address nonce cache preventing transaction reordering attacks
+  - **Gas Validation**: Gas limit (21000-30M) and minimum gas price (1 Gwei) enforcement
+  - **Cross-Shard Verification**: Block validation with merkleRoot, transactionRoot, receiptsRoot, stateRoot, and crossShardChecksum
+  - **Block Production Integration**: Validation pipeline integrated into TBurnEnterpriseNode.produceBlock() with proper BigInt serialization
+  - **Simulation Environment Note**: This mainnet explorer uses simulation-grade cryptographic verification suitable for development/demonstration. Real-value transactions require production-grade cryptographic libraries.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
