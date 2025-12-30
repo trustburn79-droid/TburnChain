@@ -11,9 +11,13 @@ import runApp from "./app";
 // Use production build if available (faster startup on Replit)
 // Check for dist/public which is where Vite builds to (see vite.config.ts)
 const distPath = path.resolve(import.meta.dirname, "..", "dist", "public");
+const indexHtmlPath = path.join(distPath, "index.html");
+const indexHtmlExists = fs.existsSync(indexHtmlPath);
+console.log('[Dev] Static build check:', { distPath, indexHtmlPath, indexHtmlExists, USE_STATIC_BUILD_ENV: process.env.USE_STATIC_BUILD });
 // Only use static build if USE_STATIC_BUILD is explicitly 'true', or if not set and dist exists
 const USE_STATIC_BUILD = process.env.USE_STATIC_BUILD === 'true' || 
-  (process.env.USE_STATIC_BUILD !== 'false' && fs.existsSync(path.join(distPath, "index.html")));
+  (process.env.USE_STATIC_BUILD !== 'false' && indexHtmlExists);
+console.log('[Dev] USE_STATIC_BUILD:', USE_STATIC_BUILD);
 
 export async function setupVite(app: Express, server: Server) {
   // Check if we should use static build instead of Vite dev server
