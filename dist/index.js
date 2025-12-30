@@ -13147,29 +13147,37 @@ var init_TBurnEnterpriseNode = __esm({
         if (height > this.currentBlockHeight) {
           throw new Error(`Block ${height} not found`);
         }
-        const blockHash = typeof heightOrHash === "string" ? heightOrHash : `0x${crypto3.randomBytes(32).toString("hex")}`;
-        const parentHash = `0x${crypto3.randomBytes(32).toString("hex")}`;
+        const seededRandom = (offset = 0) => {
+          const h = crypto3.createHash("sha256").update(`block-${height}-${offset}`).digest();
+          return h.readUInt32BE(0) / 4294967295;
+        };
+        const blockHash = typeof heightOrHash === "string" ? heightOrHash : `0x${crypto3.createHash("sha256").update(`tburn-block-${height}-mainnet`).digest("hex")}`;
+        const parentHash = `0x${crypto3.createHash("sha256").update(`tburn-block-${height - 1}-mainnet`).digest("hex")}`;
         const totalValidatorsForGetBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
-        const validatorIndex = Math.floor(Math.random() * totalValidatorsForGetBlock);
+        const validatorIndex = Math.floor(seededRandom(1) * totalValidatorsForGetBlock);
         const validatorAddress = `0x${crypto3.createHash("sha256").update(`validator${validatorIndex}`).digest("hex").slice(0, 40)}`;
+        const txCount = 400 + Math.floor(seededRandom(2) * 200);
+        const blockSize = 15e3 + Math.floor(seededRandom(3) * 1e4);
+        const gasUsed = 15e6 + Math.floor(seededRandom(4) * 5e6);
+        const shardId = Math.floor(seededRandom(5) * this.shardConfig.currentShardCount);
+        const hashAlgoIndex = Math.floor(seededRandom(6) * 3);
         return {
           id: `block-${height}`,
           blockNumber: height,
           height,
-          // Keep for backward compatibility
           hash: blockHash,
           parentHash,
           timestamp: Math.floor(Date.now() / 1e3) - (this.currentBlockHeight - height) * 100,
-          transactionCount: 400 + Math.floor(Math.random() * 200),
+          transactionCount: txCount,
           validatorAddress,
           proposer: generateValidatorAddress(validatorIndex),
-          size: 15e3 + Math.floor(Math.random() * 1e4),
-          gasUsed: 15e6 + Math.floor(Math.random() * 5e6),
+          size: blockSize,
+          gasUsed,
           gasLimit: 3e7,
-          shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
-          stateRoot: `0x${crypto3.randomBytes(32).toString("hex")}`,
-          receiptsRoot: `0x${crypto3.randomBytes(32).toString("hex")}`,
-          hashAlgorithm: ["BLAKE3", "SHA3-512", "SHA-256"][Math.floor(Math.random() * 3)]
+          shardId,
+          stateRoot: `0x${crypto3.createHash("sha256").update(`state-${height}`).digest("hex")}`,
+          receiptsRoot: `0x${crypto3.createHash("sha256").update(`receipts-${height}`).digest("hex")}`,
+          hashAlgorithm: ["BLAKE3", "SHA3-512", "SHA-256"][hashAlgoIndex]
         };
       }
       async getTransaction(hash) {
@@ -17732,6 +17740,7 @@ import path from "node:path";
 import express3 from "express";
 
 // server/app.ts
+import compression from "compression";
 import express2 from "express";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
@@ -41712,6 +41721,11 @@ var activeTimeouts = [];
 var intervalExecutionState = /* @__PURE__ */ new Map();
 var DEV_INTERVAL_MULTIPLIER = process.env.NODE_ENV === "development" ? 10 : 1;
 function createTrackedInterval(callback, ms, name) {
+  if (process.env.DISABLE_INTERVALS === "true") {
+    if (name) console.log(`[Enterprise] SKIPPED interval: ${name} (DISABLE_INTERVALS=true)`);
+    return setTimeout(() => {
+    }, 0);
+  }
   const intervalName = name || `interval_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
   const actualMs = ms * DEV_INTERVAL_MULTIPLIER;
   intervalExecutionState.set(intervalName, { isRunning: false, lastRun: 0, skipCount: 0 });
@@ -58168,6 +58182,14 @@ function log(message, source = "express") {
   console.log(`${formattedTime} [${source}] ${message}`);
 }
 var app = express2();
+app.use(compression({
+  filter: (req, res) => {
+    if (req.headers["upgrade"]) return false;
+    return compression.filter(req, res);
+  },
+  threshold: 0
+  // Compress all sizes
+}));
 app.set("trust proxy", 1);
 var REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 var isReplit = process.env.REPL_ID !== void 0;
@@ -58284,6 +58306,45 @@ app.use((req, res, next) => {
   next();
 });
 async function runApp(setup) {
+  const fs2 = await import("node:fs");
+  const nodePath = await import("node:path");
+  const distPath = nodePath.resolve(import.meta.dirname, "..", "dist", "public");
+  const assetsPath = nodePath.join(distPath, "assets");
+  const useStaticBuild = process.env.USE_STATIC_BUILD !== "false" && fs2.existsSync(nodePath.join(distPath, "index.html"));
+  if (useStaticBuild) {
+    console.log("[Static] Serving ALL static files from", distPath);
+    console.log("[Static] Assets path:", assetsPath);
+    app.get("/assets/:filename", (req, res) => {
+      const filename = req.params.filename;
+      const filePath = nodePath.join(assetsPath, filename);
+      if (!fs2.existsSync(filePath)) {
+        console.log("[Static] File not found:", filePath);
+        return res.status(404).send("Not found");
+      }
+      const ext = nodePath.extname(filename).toLowerCase();
+      const mimeTypes = {
+        ".js": "application/javascript",
+        ".css": "text/css",
+        ".svg": "image/svg+xml",
+        ".woff": "font/woff",
+        ".woff2": "font/woff2",
+        ".ttf": "font/ttf",
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".gif": "image/gif",
+        ".webp": "image/webp"
+      };
+      const contentType = mimeTypes[ext] || "application/octet-stream";
+      const stat = fs2.statSync(filePath);
+      console.log("[Static] Serving file:", filename, "Size:", stat.size, "Type:", contentType);
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Content-Length", stat.size);
+      res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+      const stream = fs2.createReadStream(filePath);
+      stream.pipe(res);
+    });
+  }
   const server = await registerRoutes(app);
   app.use((err, _req, res, _next) => {
     const status = err.status || err.statusCode || 500;

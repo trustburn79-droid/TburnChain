@@ -27,6 +27,23 @@ export async function setupVite(app: Express, server: Server) {
     return;
   }
   
+  // Serve homepage with static HTML to avoid Vite compilation timeout
+  const clientTemplate = path.resolve(import.meta.dirname, "..", "client", "index.html");
+  console.log('[Dev] Homepage route registered, template path:', clientTemplate);
+  
+  app.get("/", (req, res) => {
+    console.log('[Dev] Homepage request received');
+    try {
+      const template = fs.readFileSync(clientTemplate, "utf-8");
+      console.log('[Dev] Template read, size:', template.length);
+      res.status(200).set({ "Content-Type": "text/html" }).send(template);
+      console.log('[Dev] Homepage response sent');
+    } catch (e) {
+      console.error('[Dev] Failed to serve homepage:', e);
+      res.status(500).send('Failed to load homepage');
+    }
+  });
+  
   // Fallback to Vite dev server
   console.log('[Dev] Starting Vite development server...');
   const viteLogger = createLogger();

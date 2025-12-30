@@ -1,10 +1,17 @@
 console.log('[TBURN-Main] Starting module load...');
 import { createRoot, Root } from "react-dom/client";
+import { Suspense, lazy, useState, useEffect, ComponentType } from "react";
 console.log('[TBURN-Main] React imports loaded');
 import "./index.css";
 console.log('[TBURN-Main] CSS loaded');
-import App from "./App";
-console.log('[TBURN-Main] App imported directly (no lazy loading)');
+
+const isPublicRoute = () => {
+  const path = window.location.pathname;
+  const publicPaths = ['/', '/about', '/roadmap', '/tokenomics', '/ecosystem', '/docs', '/contact', '/whitepaper', '/testnet', '/launch-event', '/mainnet'];
+  return publicPaths.some(p => path === p || path.startsWith(p + '/'));
+};
+
+console.log('[TBURN-Main] Route check:', window.location.pathname, 'isPublic:', isPublicRoute());
 
 function LoadingFallback() {
   return (
@@ -42,8 +49,50 @@ function LoadingFallback() {
 }
 
 function AppWrapper() {
-  // Direct render without Suspense (no lazy loading)
-  return <App />;
+  const [AppComponent, setAppComponent] = useState<ComponentType | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadApp = async () => {
+      try {
+        if (isPublicRoute()) {
+          console.log('[TBURN-Main] Loading lightweight PublicApp...');
+          const { PublicApp } = await import("./PublicApp");
+          setAppComponent(() => PublicApp);
+        } else {
+          console.log('[TBURN-Main] Loading full App...');
+          const App = await import("./App");
+          setAppComponent(() => App.default);
+        }
+      } catch (err) {
+        console.error('[TBURN-Main] Failed to load app:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      }
+    };
+    loadApp();
+  }, []);
+
+  if (error) {
+    return (
+      <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',height:'100vh',background:'#030407',color:'white',fontFamily:'sans-serif',textAlign:'center',padding:'20px'}}>
+        <h2 style={{color:'#FF6B35',marginBottom:'16px'}}>Loading Error</h2>
+        <p style={{color:'#999',marginBottom:'24px'}}>{error}</p>
+        <button onClick={() => location.reload()} style={{background:'#FF6B35',color:'white',border:'none',padding:'12px 24px',borderRadius:'8px',cursor:'pointer',fontSize:'16px'}}>
+          Retry
+        </button>
+      </div>
+    );
+  }
+
+  if (!AppComponent) {
+    return <LoadingFallback />;
+  }
+
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <AppComponent />
+    </Suspense>
+  );
 }
 
 console.log('[TBURN-Main] Wrapper component defined');
@@ -56,7 +105,7 @@ declare global {
   }
 }
 
-const BUILD_VERSION = "2025.12.25.v4";
+const BUILD_VERSION = "2025.12.30.v1";
 
 function safeInitApp() {
   const htmlVersion = document.documentElement.getAttribute("data-version");
