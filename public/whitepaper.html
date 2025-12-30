@@ -490,18 +490,18 @@
                             <h3 data-i18n="consensus_logic_title" class="text-xl font-bold text-white mb-4">Consensus Logic</h3>
                             <ul class="space-y-4">
                                 <li class="bg-tburn-card p-4 rounded border-l-4 border-tburn-orange">
-                                    <div class="text-white font-bold">1. AI Committee Selection</div>
-                                    <p class="text-sm text-gray-400 mt-1">1,600명의 검증자 중 AI 점수 상위 1,400명을 동적으로 선출하여 블록 생성 권한 부여.</p>
+                                    <div data-i18n="consensus_step1_title" class="text-white font-bold">1. AI Committee Selection</div>
+                                    <p data-i18n="consensus_step1_text" class="text-sm text-gray-400 mt-1">1,600명의 검증자 중 AI 점수 상위 1,400명을 동적으로 선출하여 블록 생성 권한 부여.</p>
                                 </li>
                                 <li class="bg-tburn-card p-4 rounded border-l-4 border-blue-500">
-                                    <div class="text-white font-bold">2. Multi-Factor Scoring</div>
+                                    <div data-i18n="consensus_step2_title" class="text-white font-bold">2. Multi-Factor Scoring</div>
                                     <p class="text-sm text-gray-400 mt-1">
                                         Score = (Stake × 0.3) + (Reputation × 0.4) + (Performance × 0.3)
                                     </p>
                                 </li>
                                 <li class="bg-tburn-card p-4 rounded border-l-4 border-green-500">
-                                    <div class="text-white font-bold">3. Rapid Finality</div>
-                                    <p class="text-sm text-gray-400 mt-1">Pre-Vote → Pre-Commit → Commit 과정을 500ms 내 처리. 1.8초 내 확정.</p>
+                                    <div data-i18n="consensus_step3_title" class="text-white font-bold">3. Rapid Finality</div>
+                                    <p data-i18n="consensus_step3_text" class="text-sm text-gray-400 mt-1">Pre-Vote → Pre-Commit → Commit 과정을 500ms 내 처리. 1.8초 내 확정.</p>
                                 </li>
                             </ul>
                         </div>
@@ -553,7 +553,7 @@
 
                     <div class="grid md:grid-cols-3 gap-6 mb-8">
                         <div class="bg-gray-900 p-6 rounded-xl border-t-4 border-blue-500 shadow-lg">
-                            <div class="text-xs text-blue-500 font-bold mb-2">LAYER 1: STRATEGIC</div>
+                            <div data-i18n="triple_layer1_label" class="text-xs text-blue-500 font-bold mb-2">LAYER 1: STRATEGIC</div>
                             <h3 class="text-2xl font-bold text-white mb-2">Gemini 3 Pro</h3>
                             <div class="text-sm text-gray-400 mb-4">Latency: 380ms | Acc: 92.1%</div>
                             <ul class="text-sm text-gray-500 list-disc list-inside space-y-1">
@@ -564,7 +564,7 @@
                         </div>
                         
                         <div class="bg-gray-900 p-6 rounded-xl border-t-4 border-purple-500 shadow-lg transform md:-translate-y-4">
-                            <div class="text-xs text-purple-500 font-bold mb-2">LAYER 2: TACTICAL</div>
+                            <div data-i18n="triple_layer2_label" class="text-xs text-purple-500 font-bold mb-2">LAYER 2: TACTICAL</div>
                             <h3 class="text-2xl font-bold text-white mb-2">Claude 4.5</h3>
                             <div class="text-sm text-gray-400 mb-4">Latency: 145ms | Acc: 95.8%</div>
                             <ul class="text-sm text-gray-500 list-disc list-inside space-y-1">
@@ -575,7 +575,7 @@
                         </div>
 
                         <div class="bg-gray-900 p-6 rounded-xl border-t-4 border-green-500 shadow-lg">
-                            <div class="text-xs text-green-500 font-bold mb-2">LAYER 3: OPERATIONAL</div>
+                            <div data-i18n="triple_layer3_label" class="text-xs text-green-500 font-bold mb-2">LAYER 3: OPERATIONAL</div>
                             <h3 class="text-2xl font-bold text-white mb-2">GPT-4o</h3>
                             <div class="text-sm text-gray-400 mb-4">Latency: 38ms | Acc: 94.7%</div>
                             <ul class="text-sm text-gray-500 list-disc list-inside space-y-1">
@@ -587,27 +587,27 @@
                     </div>
 
                     <div class="bg-white/5 p-6 rounded-lg text-center border border-dashed border-gray-700">
-                        <h4 class="text-white font-bold mb-2">Mutual Feedback Learning System</h4>
-                        <p class="text-sm text-gray-400">
+                        <h4 data-i18n="triple_feedback_title" class="text-white font-bold mb-2">Mutual Feedback Learning System</h4>
+                        <p data-i18n="triple_feedback_text" class="text-sm text-gray-400">
                             Layer 1 (Strategy) ⇄ Layer 2 (Tactics) ⇄ Layer 3 (Operations)<br>
                             모든 결정은 상호 검증되며, 결과는 학습 데이터로 재사용됩니다.
                         </p>
                         <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                             <div>
                                 <div class="text-2xl font-bold text-white">8.5M+</div>
-                                <div class="text-xs text-gray-500">Decisions Made</div>
+                                <div data-i18n="triple_decisions_made" class="text-xs text-gray-500">Decisions Made</div>
                             </div>
                             <div>
                                 <div class="text-2xl font-bold text-white">99.2%</div>
-                                <div class="text-xs text-gray-500">Success Rate</div>
+                                <div data-i18n="triple_success_rate" class="text-xs text-gray-500">Success Rate</div>
                             </div>
                             <div>
                                 <div class="text-2xl font-bold text-white">$2.45M</div>
-                                <div class="text-xs text-gray-500">Cost Savings</div>
+                                <div data-i18n="triple_cost_savings" class="text-xs text-gray-500">Cost Savings</div>
                             </div>
                             <div>
                                 <div class="text-2xl font-bold text-white">-89%</div>
-                                <div class="text-xs text-gray-500">Incidents</div>
+                                <div data-i18n="triple_incidents" class="text-xs text-gray-500">Incidents</div>
                             </div>
                         </div>
                     </div>
@@ -624,44 +624,44 @@
                             <div class="flex justify-between items-start">
                                 <div>
                                     <div class="text-tburn-orange font-bold text-sm">PATENT #3</div>
-                                    <h3 class="text-lg font-bold text-white">Dynamic AI-Driven Sharding</h3>
+                                    <h3 data-i18n="patent3_title" class="text-lg font-bold text-white">Dynamic AI-Driven Sharding</h3>
                                 </div>
-                                <span class="bg-blue-900 text-blue-200 text-xs px-2 py-1 rounded">Scalability</span>
+                                <span data-i18n="patent3_category" class="bg-blue-900 text-blue-200 text-xs px-2 py-1 rounded">Scalability</span>
                             </div>
-                            <p class="text-sm text-gray-400 mt-2">트래픽 패턴을 AI가 학습하여 5개에서 최대 64개까지 샤드를 자동 분할/병합. 리스크 점수 계산 및 롤백 전략 자동 생성.</p>
+                            <p data-i18n="patent3_text" class="text-sm text-gray-400 mt-2">트래픽 패턴을 AI가 학습하여 5개에서 최대 64개까지 샤드를 자동 분할/병합. 리스크 점수 계산 및 롤백 전략 자동 생성.</p>
                         </div>
 
                         <div class="bg-tburn-card p-5 rounded border border-tburn-border hover:border-gray-500 transition cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <div>
                                     <div class="text-tburn-orange font-bold text-sm">PATENT #4</div>
-                                    <h3 class="text-lg font-bold text-white">Predictive Self-Healing System</h3>
+                                    <h3 data-i18n="patent4_title" class="text-lg font-bold text-white">Predictive Self-Healing System</h3>
                                 </div>
-                                <span class="bg-green-900 text-green-200 text-xs px-2 py-1 rounded">Infrastructure</span>
+                                <span data-i18n="patent4_category" class="bg-green-900 text-green-200 text-xs px-2 py-1 rounded">Infrastructure</span>
                             </div>
-                            <p class="text-sm text-gray-400 mt-2">4가지 예측 알고리즘(트렌드, 급변, 시계열, 패턴)을 통해 장애 발생 전 85% 확률로 예측하고 90% 자동 복구.</p>
+                            <p data-i18n="patent4_text" class="text-sm text-gray-400 mt-2">4가지 예측 알고리즘(트렌드, 급변, 시계열, 패턴)을 통해 장애 발생 전 85% 확률로 예측하고 90% 자동 복구.</p>
                         </div>
 
                         <div class="bg-tburn-card p-5 rounded border border-tburn-border hover:border-gray-500 transition cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <div>
                                     <div class="text-tburn-orange font-bold text-sm">PATENT #5</div>
-                                    <h3 class="text-lg font-bold text-white">Hybrid Message Routing</h3>
+                                    <h3 data-i18n="patent5_title" class="text-lg font-bold text-white">Hybrid Message Routing</h3>
                                 </div>
-                                <span class="bg-purple-900 text-purple-200 text-xs px-2 py-1 rounded">Network</span>
+                                <span data-i18n="patent5_category" class="bg-purple-900 text-purple-200 text-xs px-2 py-1 rounded">Network</span>
                             </div>
-                            <p class="text-sm text-gray-400 mt-2">평판 기반 P2P 라우팅. 높은 평판 노드의 메시지를 우선 처리하고 비활성 피어를 자동 감지하여 제거.</p>
+                            <p data-i18n="patent5_text" class="text-sm text-gray-400 mt-2">평판 기반 P2P 라우팅. 높은 평판 노드의 메시지를 우선 처리하고 비활성 피어를 자동 감지하여 제거.</p>
                         </div>
                         
                         <div class="bg-tburn-card p-5 rounded border border-tburn-border hover:border-gray-500 transition cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <div>
                                     <div class="text-tburn-orange font-bold text-sm">PATENT #6</div>
-                                    <h3 class="text-lg font-bold text-white">Multi-Hash Cryptographic System</h3>
+                                    <h3 data-i18n="patent6_title" class="text-lg font-bold text-white">Multi-Hash Cryptographic System</h3>
                                 </div>
-                                <span class="bg-red-900 text-red-200 text-xs px-2 py-1 rounded">Security</span>
+                                <span data-i18n="patent6_category" class="bg-red-900 text-red-200 text-xs px-2 py-1 rounded">Security</span>
                             </div>
-                            <p class="text-sm text-gray-400 mt-2">용도별 최적 해시 자동 선택 (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).</p>
+                            <p data-i18n="patent6_text" class="text-sm text-gray-400 mt-2">용도별 최적 해시 자동 선택 (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).</p>
                         </div>
                     </div>
                 </section>
@@ -673,8 +673,8 @@
                     
                     <div class="grid lg:grid-cols-2 gap-8">
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-4">Enterprise SDK (v8.0.0)</h3>
-                            <p class="text-gray-400 text-sm mb-4">멀티체인 호환, 자동 재시도, 이벤트 기반 아키텍처를 지원하는 Typescript SDK.</p>
+                            <h3 data-i18n="sdk_title" class="text-xl font-bold text-white mb-4">Enterprise SDK (v8.0.0)</h3>
+                            <p data-i18n="sdk_text" class="text-gray-400 text-sm mb-4">멀티체인 호환, 자동 재시도, 이벤트 기반 아키텍처를 지원하는 Typescript SDK.</p>
                             <div class="code-window">
                                 <div class="code-header"><span class="text-xs text-gray-500">app.ts</span></div>
                                 <pre class="p-4 text-xs text-gray-300 overflow-x-auto"><code>const result = await tburn
@@ -691,7 +691,7 @@ tburn.on('blockConfirmed', (block) => {
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-4">Quantum Cryptography Specs</h3>
+                            <h3 data-i18n="quantum_title" class="text-xl font-bold text-white mb-4">Quantum Cryptography Specs</h3>
                             <div class="space-y-3">
                                 <div class="p-3 bg-blue-900/20 border border-blue-900/50 rounded">
                                     <div class="font-bold text-blue-400">Dilithium (FIPS 204)</div>
@@ -1315,6 +1315,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "AI 기반 동적 위원회 선정 및 실시간 신뢰도 평가 시스템",
             consensus_logic_title: "합의 로직",
             trust_score_title: "신뢰 점수 엔진 (Python)",
+            consensus_step1_title: "1. AI 위원회 선정",
+            consensus_step1_text: "1,600명의 검증자 중 AI 점수 상위 1,400명을 동적으로 선출하여 블록 생성 권한 부여.",
+            consensus_step2_title: "2. 다중 요소 점수 산정",
+            consensus_step3_title: "3. 빠른 최종성",
+            consensus_step3_text: "Pre-Vote → Pre-Commit → Commit 과정을 500ms 내 처리. 1.8초 내 확정.",
+            triple_layer1_label: "LAYER 1: 전략",
+            triple_layer2_label: "LAYER 2: 전술",
+            triple_layer3_label: "LAYER 3: 운영",
+            triple_feedback_title: "상호 피드백 학습 시스템",
+            triple_feedback_text: "Layer 1 (전략) ⇄ Layer 2 (전술) ⇄ Layer 3 (운영)<br>모든 결정은 상호 검증되며, 결과는 학습 데이터로 재사용됩니다.",
+            triple_decisions_made: "처리된 결정",
+            triple_success_rate: "성공률",
+            triple_cost_savings: "비용 절감",
+            triple_incidents: "사고 건수",
+            patent3_title: "동적 AI 기반 샤딩",
+            patent3_category: "확장성",
+            patent3_text: "트래픽 패턴을 AI가 학습하여 5개에서 최대 64개까지 샤드를 자동 분할/병합. 리스크 점수 계산 및 롤백 전략 자동 생성.",
+            patent4_title: "예측 자가 치유 시스템",
+            patent4_category: "인프라",
+            patent4_text: "4가지 예측 알고리즘(트렌드, 급변, 시계열, 패턴)을 통해 장애 발생 전 85% 확률로 예측하고 90% 자동 복구.",
+            patent5_title: "하이브리드 메시지 라우팅",
+            patent5_category: "네트워크",
+            patent5_text: "평판 기반 P2P 라우팅. 높은 평판 노드의 메시지를 우선 처리하고 비활성 피어를 자동 감지하여 제거.",
+            patent6_title: "멀티 해시 암호화 시스템",
+            patent6_category: "보안",
+            patent6_text: "용도별 최적 해시 자동 선택 (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).",
+            sdk_title: "엔터프라이즈 SDK (v8.0.0)",
+            sdk_text: "멀티체인 호환, 자동 재시도, 이벤트 기반 아키텍처를 지원하는 Typescript SDK.",
+            quantum_title: "양자 암호화 사양",
             consensus_text: "우리의 AI-Enhanced BFT(Byzantine Fault Tolerance) 합의 메커니즘은 기존 BFT의 보안성과 AI의 예측 능력을 결합합니다. 결과적으로 2초 미만의 최종성과 99.99%의 네트워크 가용성을 달성합니다.",
             section_triple_band: "5. Triple-Band AI 오케스트레이션",
             triple_band_subtitle: "블록체인을 위한 3계층 이질적 AI 모델 통합 의사결정 시스템",
@@ -1559,6 +1588,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "AI-Based Dynamic Committee Selection and Real-time Trust Scoring System",
             consensus_logic_title: "Consensus Logic",
             trust_score_title: "Trust Score Engine (Python)",
+            consensus_step1_title: "1. AI Committee Selection",
+            consensus_step1_text: "Dynamic selection of top 1,400 validators by AI score from 1,600 validators for block production authority.",
+            consensus_step2_title: "2. Multi-Factor Scoring",
+            consensus_step3_title: "3. Rapid Finality",
+            consensus_step3_text: "Pre-Vote → Pre-Commit → Commit process completed within 500ms. Final confirmation within 1.8 seconds.",
+            triple_layer1_label: "LAYER 1: STRATEGIC",
+            triple_layer2_label: "LAYER 2: TACTICAL",
+            triple_layer3_label: "LAYER 3: OPERATIONAL",
+            triple_feedback_title: "Mutual Feedback Learning System",
+            triple_feedback_text: "Layer 1 (Strategy) ⇄ Layer 2 (Tactics) ⇄ Layer 3 (Operations)<br>All decisions are mutually verified, and results are reused as learning data.",
+            triple_decisions_made: "Decisions Made",
+            triple_success_rate: "Success Rate",
+            triple_cost_savings: "Cost Savings",
+            triple_incidents: "Incidents",
+            patent3_title: "Dynamic AI-Driven Sharding",
+            patent3_category: "Scalability",
+            patent3_text: "AI learns traffic patterns to automatically split/merge shards from 5 to up to 64. Automatic risk score calculation and rollback strategy generation.",
+            patent4_title: "Predictive Self-Healing System",
+            patent4_category: "Infrastructure",
+            patent4_text: "Predicts failures with 85% accuracy using 4 prediction algorithms (trend, sudden change, time series, pattern) and achieves 90% automatic recovery.",
+            patent5_title: "Hybrid Message Routing",
+            patent5_category: "Network",
+            patent5_text: "Reputation-based P2P routing. Prioritizes messages from high-reputation nodes and automatically detects and removes inactive peers.",
+            patent6_title: "Multi-Hash Cryptographic System",
+            patent6_category: "Security",
+            patent6_text: "Automatic optimal hash selection by purpose (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).",
+            sdk_title: "Enterprise SDK (v8.0.0)",
+            sdk_text: "Typescript SDK supporting multi-chain compatibility, automatic retry, and event-driven architecture.",
+            quantum_title: "Quantum Cryptography Specs",
             consensus_text: "Our AI-Enhanced BFT (Byzantine Fault Tolerance) consensus mechanism combines traditional BFT security with AI predictive capabilities. As a result, we achieve sub-2-second finality and 99.99% network availability.",
             section_triple_band: "5. Triple-Band AI Orchestration",
             triple_band_subtitle: "3-Layer Heterogeneous AI Model Integration Decision System for Blockchain",
@@ -1803,6 +1861,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "基于AI的动态委员会选择和实时信任评分系统",
             consensus_logic_title: "共识逻辑",
             trust_score_title: "信任评分引擎 (Python)",
+            consensus_step1_title: "1. AI委员会选拔",
+            consensus_step1_text: "从1,600名验证者中动态选出AI评分前1,400名，授予区块生产权限。",
+            consensus_step2_title: "2. 多因素评分",
+            consensus_step3_title: "3. 快速最终性",
+            consensus_step3_text: "Pre-Vote → Pre-Commit → Commit 过程在500ms内完成。1.8秒内确认。",
+            triple_layer1_label: "层级1：战略",
+            triple_layer2_label: "层级2：战术",
+            triple_layer3_label: "层级3：运营",
+            triple_feedback_title: "相互反馈学习系统",
+            triple_feedback_text: "层级1（战略）⇄ 层级2（战术）⇄ 层级3（运营）<br>所有决策相互验证，结果作为学习数据重复使用。",
+            triple_decisions_made: "已处理决策",
+            triple_success_rate: "成功率",
+            triple_cost_savings: "成本节省",
+            triple_incidents: "事故数量",
+            patent3_title: "动态AI驱动分片",
+            patent3_category: "可扩展性",
+            patent3_text: "AI学习流量模式，自动将分片从5个拆分/合并到最多64个。自动计算风险评分并生成回滚策略。",
+            patent4_title: "预测自愈系统",
+            patent4_category: "基础设施",
+            patent4_text: "通过4种预测算法（趋势、突变、时间序列、模式）以85%的准确率预测故障，实现90%自动恢复。",
+            patent5_title: "混合消息路由",
+            patent5_category: "网络",
+            patent5_text: "基于信誉的P2P路由。优先处理高信誉节点的消息，自动检测并移除不活跃的节点。",
+            patent6_title: "多哈希加密系统",
+            patent6_category: "安全",
+            patent6_text: "按用途自动选择最优哈希（通用：SHA3，EVM：Keccak，快速：BLAKE3，安全：Double SHA256）。",
+            sdk_title: "企业SDK (v8.0.0)",
+            sdk_text: "支持多链兼容、自动重试和事件驱动架构的Typescript SDK。",
+            quantum_title: "量子密码规格",
             consensus_text: "我们的AI增强型BFT（拜占庭容错）共识机制结合了传统BFT的安全性和AI的预测能力。因此，我们实现了不到2秒的最终性和99.99%的网络可用性。",
             section_triple_band: "5. Triple-Band AI编排",
             triple_band_subtitle: "区块链的3层异构AI模型集成决策系统",
@@ -2047,6 +2134,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "AIベースの動的委員会選定とリアルタイム信頼スコアシステム",
             consensus_logic_title: "コンセンサスロジック",
             trust_score_title: "信頼スコアエンジン (Python)",
+            consensus_step1_title: "1. AI委員会選出",
+            consensus_step1_text: "1,600人の検証者からAIスコア上位1,400人を動的に選出し、ブロック生成権限を付与。",
+            consensus_step2_title: "2. 多要素スコアリング",
+            consensus_step3_title: "3. 高速ファイナリティ",
+            consensus_step3_text: "Pre-Vote → Pre-Commit → Commit プロセスを500ms以内に処理。1.8秒以内に確定。",
+            triple_layer1_label: "レイヤー1：戦略",
+            triple_layer2_label: "レイヤー2：戦術",
+            triple_layer3_label: "レイヤー3：運用",
+            triple_feedback_title: "相互フィードバック学習システム",
+            triple_feedback_text: "レイヤー1（戦略）⇄ レイヤー2（戦術）⇄ レイヤー3（運用）<br>すべての決定は相互検証され、結果は学習データとして再利用されます。",
+            triple_decisions_made: "処理された決定",
+            triple_success_rate: "成功率",
+            triple_cost_savings: "コスト削減",
+            triple_incidents: "インシデント",
+            patent3_title: "動的AIドリブンシャーディング",
+            patent3_category: "スケーラビリティ",
+            patent3_text: "AIがトラフィックパターンを学習し、5から最大64シャードまで自動分割/統合。リスクスコア計算とロールバック戦略を自動生成。",
+            patent4_title: "予測自己修復システム",
+            patent4_category: "インフラストラクチャ",
+            patent4_text: "4つの予測アルゴリズム（トレンド、急変、時系列、パターン）で障害発生前85%の確率で予測し、90%自動復旧。",
+            patent5_title: "ハイブリッドメッセージルーティング",
+            patent5_category: "ネットワーク",
+            patent5_text: "レピュテーションベースのP2Pルーティング。高評価ノードのメッセージを優先処理し、非アクティブピアを自動検出・削除。",
+            patent6_title: "マルチハッシュ暗号システム",
+            patent6_category: "セキュリティ",
+            patent6_text: "用途別に最適なハッシュを自動選択（General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256）。",
+            sdk_title: "エンタープライズSDK (v8.0.0)",
+            sdk_text: "マルチチェーン互換、自動リトライ、イベントドリブンアーキテクチャをサポートするTypescript SDK。",
+            quantum_title: "量子暗号仕様",
             consensus_text: "当社のAI強化BFT（ビザンチン障害耐性）コンセンサスメカニズムは、従来のBFTセキュリティとAI予測能力を組み合わせています。結果として、2秒未満のファイナリティと99.99%のネットワーク可用性を達成しています。",
             section_triple_band: "5. Triple-Band AIオーケストレーション",
             triple_band_subtitle: "ブロックチェーン向け3層異種AIモデル統合意思決定システム",
@@ -2291,6 +2407,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "AI-आधारित डायनामिक कमेटी चयन और रियल-टाइम ट्रस्ट स्कोरिंग सिस्टम",
             consensus_logic_title: "सहमति लॉजिक",
             trust_score_title: "ट्रस्ट स्कोर इंजन (Python)",
+            consensus_step1_title: "1. AI समिति चयन",
+            consensus_step1_text: "1,600 सत्यापनकर्ताओं में से AI स्कोर द्वारा शीर्ष 1,400 का गतिशील चयन ब्लॉक उत्पादन प्राधिकरण के लिए।",
+            consensus_step2_title: "2. बहु-कारक स्कोरिंग",
+            consensus_step3_title: "3. तीव्र अंतिमता",
+            consensus_step3_text: "Pre-Vote → Pre-Commit → Commit प्रक्रिया 500ms के भीतर पूर्ण। 1.8 सेकंड में अंतिम पुष्टि।",
+            triple_layer1_label: "लेयर 1: रणनीतिक",
+            triple_layer2_label: "लेयर 2: सामरिक",
+            triple_layer3_label: "लेयर 3: परिचालन",
+            triple_feedback_title: "पारस्परिक फीडबैक लर्निंग सिस्टम",
+            triple_feedback_text: "लेयर 1 (रणनीति) ⇄ लेयर 2 (सामरिक) ⇄ लेयर 3 (परिचालन)<br>सभी निर्णय पारस्परिक रूप से सत्यापित होते हैं, और परिणाम सीखने के डेटा के रूप में पुन: उपयोग किए जाते हैं।",
+            triple_decisions_made: "निर्णय लिए गए",
+            triple_success_rate: "सफलता दर",
+            triple_cost_savings: "लागत बचत",
+            triple_incidents: "घटनाएं",
+            patent3_title: "गतिशील AI-संचालित शार्डिंग",
+            patent3_category: "स्केलेबिलिटी",
+            patent3_text: "AI ट्रैफिक पैटर्न सीखता है और 5 से 64 तक शार्ड्स को स्वचालित रूप से विभाजित/मर्ज करता है। जोखिम स्कोर गणना और रोलबैक रणनीति स्वचालित।",
+            patent4_title: "भविष्यवाणी स्व-उपचार प्रणाली",
+            patent4_category: "इंफ्रास्ट्रक्चर",
+            patent4_text: "4 भविष्यवाणी एल्गोरिदम से 85% सटीकता से विफलता का पूर्वानुमान और 90% स्वचालित पुनर्प्राप्ति।",
+            patent5_title: "हाइब्रिड मैसेज रूटिंग",
+            patent5_category: "नेटवर्क",
+            patent5_text: "प्रतिष्ठा-आधारित P2P रूटिंग। उच्च प्रतिष्ठा नोड्स के संदेशों को प्राथमिकता और निष्क्रिय साथियों को स्वचालित पता लगाना/हटाना।",
+            patent6_title: "मल्टी-हैश क्रिप्टोग्राफिक सिस्टम",
+            patent6_category: "सुरक्षा",
+            patent6_text: "उद्देश्य के अनुसार इष्टतम हैश का स्वचालित चयन (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256)।",
+            sdk_title: "एंटरप्राइज SDK (v8.0.0)",
+            sdk_text: "मल्टी-चेन संगतता, स्वचालित पुनः प्रयास और इवेंट-संचालित आर्किटेक्चर का समर्थन करने वाला Typescript SDK।",
+            quantum_title: "क्वांटम क्रिप्टोग्राफी विनिर्देश",
             consensus_text: "हमारा AI-एन्हांस्ड BFT (बायज़ेंटाइन फॉल्ट टॉलरेंस) सहमति मैकेनिज्म पारंपरिक BFT सुरक्षा को AI प्रेडिक्टिव क्षमताओं के साथ जोड़ता है। परिणामस्वरूप, हम 2 सेकंड से कम की फाइनैलिटी और 99.99% नेटवर्क उपलब्धता प्राप्त करते हैं।",
             section_triple_band: "5. Triple-Band AI ऑर्केस्ट्रेशन",
             triple_band_subtitle: "ब्लॉकचेन के लिए 3-लेयर हेटेरोजीनियस AI मॉडल इंटीग्रेशन डिसीजन सिस्टम",
@@ -2535,6 +2680,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "Selección Dinámica de Comité Basada en AI y Sistema de Puntuación de Confianza en Tiempo Real",
             consensus_logic_title: "Lógica de Consenso",
             trust_score_title: "Motor de Puntuación de Confianza (Python)",
+            consensus_step1_title: "1. Selección del Comité AI",
+            consensus_step1_text: "Selección dinámica de los 1,400 mejores validadores por puntuación AI de 1,600 validadores para autoridad de producción de bloques.",
+            consensus_step2_title: "2. Puntuación Multi-Factor",
+            consensus_step3_title: "3. Finalidad Rápida",
+            consensus_step3_text: "Proceso Pre-Vote → Pre-Commit → Commit completado en 500ms. Confirmación final en 1.8 segundos.",
+            triple_layer1_label: "CAPA 1: ESTRATÉGICA",
+            triple_layer2_label: "CAPA 2: TÁCTICA",
+            triple_layer3_label: "CAPA 3: OPERACIONAL",
+            triple_feedback_title: "Sistema de Aprendizaje con Retroalimentación Mutua",
+            triple_feedback_text: "Capa 1 (Estrategia) ⇄ Capa 2 (Táctica) ⇄ Capa 3 (Operaciones)<br>Todas las decisiones se verifican mutuamente y los resultados se reutilizan como datos de aprendizaje.",
+            triple_decisions_made: "Decisiones Tomadas",
+            triple_success_rate: "Tasa de Éxito",
+            triple_cost_savings: "Ahorro de Costos",
+            triple_incidents: "Incidentes",
+            patent3_title: "Fragmentación Dinámica Impulsada por AI",
+            patent3_category: "Escalabilidad",
+            patent3_text: "AI aprende patrones de tráfico para dividir/fusionar automáticamente de 5 a 64 fragmentos. Cálculo automático de puntuación de riesgo y generación de estrategia de reversión.",
+            patent4_title: "Sistema Predictivo de Auto-Curación",
+            patent4_category: "Infraestructura",
+            patent4_text: "Predice fallos con 85% de precisión usando 4 algoritmos de predicción (tendencia, cambio súbito, series temporales, patrón) y logra 90% de recuperación automática.",
+            patent5_title: "Enrutamiento Híbrido de Mensajes",
+            patent5_category: "Red",
+            patent5_text: "Enrutamiento P2P basado en reputación. Prioriza mensajes de nodos de alta reputación y detecta/elimina automáticamente pares inactivos.",
+            patent6_title: "Sistema Criptográfico Multi-Hash",
+            patent6_category: "Seguridad",
+            patent6_text: "Selección automática de hash óptimo por propósito (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).",
+            sdk_title: "SDK Empresarial (v8.0.0)",
+            sdk_text: "SDK Typescript compatible con múltiples cadenas, reintento automático y arquitectura basada en eventos.",
+            quantum_title: "Especificaciones de Criptografía Cuántica",
             consensus_text: "Nuestro mecanismo de consenso AI-Enhanced BFT (Tolerancia a Fallas Bizantinas) combina la seguridad BFT tradicional con capacidades predictivas de AI. Como resultado, logramos finalidad en menos de 2 segundos y 99.99% de disponibilidad de red.",
             section_triple_band: "5. Orquestación Triple-Band AI",
             triple_band_subtitle: "Sistema de Decisión de Integración de Modelos AI Heterogéneos de 3 Capas para Blockchain",
@@ -2779,6 +2953,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "Sélection Dynamique de Comité Basée sur AI et Système de Score de Confiance en Temps Réel",
             consensus_logic_title: "Logique de Consensus",
             trust_score_title: "Moteur de Score de Confiance (Python)",
+            consensus_step1_title: "1. Sélection du Comité AI",
+            consensus_step1_text: "Sélection dynamique des 1 400 meilleurs validateurs par score AI parmi 1 600 validateurs pour l'autorité de production de blocs.",
+            consensus_step2_title: "2. Notation Multi-Facteurs",
+            consensus_step3_title: "3. Finalité Rapide",
+            consensus_step3_text: "Processus Pre-Vote → Pre-Commit → Commit complété en 500ms. Confirmation finale en 1,8 secondes.",
+            triple_layer1_label: "COUCHE 1 : STRATÉGIQUE",
+            triple_layer2_label: "COUCHE 2 : TACTIQUE",
+            triple_layer3_label: "COUCHE 3 : OPÉRATIONNELLE",
+            triple_feedback_title: "Système d'Apprentissage à Rétroaction Mutuelle",
+            triple_feedback_text: "Couche 1 (Stratégie) ⇄ Couche 2 (Tactique) ⇄ Couche 3 (Opérations)<br>Toutes les décisions sont mutuellement vérifiées et les résultats sont réutilisés comme données d'apprentissage.",
+            triple_decisions_made: "Décisions Prises",
+            triple_success_rate: "Taux de Réussite",
+            triple_cost_savings: "Économies de Coûts",
+            triple_incidents: "Incidents",
+            patent3_title: "Sharding Dynamique Piloté par AI",
+            patent3_category: "Évolutivité",
+            patent3_text: "L'AI apprend les modèles de trafic pour diviser/fusionner automatiquement de 5 à 64 shards. Calcul automatique du score de risque et génération de stratégie de rollback.",
+            patent4_title: "Système Prédictif d'Auto-Guérison",
+            patent4_category: "Infrastructure",
+            patent4_text: "Prédit les pannes avec 85% de précision en utilisant 4 algorithmes de prédiction (tendance, changement soudain, séries temporelles, modèle) et atteint 90% de récupération automatique.",
+            patent5_title: "Routage Hybride de Messages",
+            patent5_category: "Réseau",
+            patent5_text: "Routage P2P basé sur la réputation. Priorise les messages des nœuds à haute réputation et détecte/supprime automatiquement les pairs inactifs.",
+            patent6_title: "Système Cryptographique Multi-Hash",
+            patent6_category: "Sécurité",
+            patent6_text: "Sélection automatique du hash optimal par usage (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).",
+            sdk_title: "SDK Entreprise (v8.0.0)",
+            sdk_text: "SDK Typescript supportant la compatibilité multi-chaînes, les réessais automatiques et l'architecture événementielle.",
+            quantum_title: "Spécifications de Cryptographie Quantique",
             consensus_text: "Notre mécanisme de consensus AI-Enhanced BFT combine la sécurité BFT traditionnelle avec les capacités prédictives de l'AI. En conséquence, nous atteignons une finalité inférieure à 2 secondes et 99.99% de disponibilité réseau.",
             section_triple_band: "5. Orchestration Triple-Band AI",
             triple_band_subtitle: "Système de Décision d'Intégration de Modèles AI Hétérogènes à 3 Couches pour Blockchain",
@@ -3023,6 +3226,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "اختيار اللجنة الديناميكية القائمة على AI ونظام تسجيل الثقة في الوقت الفعلي",
             consensus_logic_title: "منطق الإجماع",
             trust_score_title: "محرك درجة الثقة (Python)",
+            consensus_step1_title: "1. اختيار لجنة AI",
+            consensus_step1_text: "اختيار ديناميكي لأفضل 1,400 مدقق بناءً على درجة AI من 1,600 مدقق لسلطة إنتاج الكتل.",
+            consensus_step2_title: "2. تسجيل متعدد العوامل",
+            consensus_step3_title: "3. النهائية السريعة",
+            consensus_step3_text: "عملية Pre-Vote → Pre-Commit → Commit مكتملة خلال 500 مللي ثانية. التأكيد النهائي خلال 1.8 ثانية.",
+            triple_layer1_label: "الطبقة 1: الاستراتيجية",
+            triple_layer2_label: "الطبقة 2: التكتيكية",
+            triple_layer3_label: "الطبقة 3: التشغيلية",
+            triple_feedback_title: "نظام التعلم بالتغذية الراجعة المتبادلة",
+            triple_feedback_text: "الطبقة 1 (الاستراتيجية) ⇄ الطبقة 2 (التكتيكية) ⇄ الطبقة 3 (التشغيلية)<br>جميع القرارات يتم التحقق منها بشكل متبادل، والنتائج تُعاد استخدامها كبيانات تعلم.",
+            triple_decisions_made: "القرارات المتخذة",
+            triple_success_rate: "معدل النجاح",
+            triple_cost_savings: "توفير التكاليف",
+            triple_incidents: "الحوادث",
+            patent3_title: "التجزئة الديناميكية المدفوعة بـ AI",
+            patent3_category: "قابلية التوسع",
+            patent3_text: "يتعلم AI أنماط حركة المرور لتقسيم/دمج الشظايا تلقائياً من 5 إلى 64. حساب درجة المخاطر وإنشاء استراتيجية التراجع تلقائياً.",
+            patent4_title: "نظام الإصلاح الذاتي التنبؤي",
+            patent4_category: "البنية التحتية",
+            patent4_text: "يتنبأ بالأعطال بدقة 85% باستخدام 4 خوارزميات تنبؤ (الاتجاه، التغيير المفاجئ، السلاسل الزمنية، النمط) ويحقق 90% استرداد تلقائي.",
+            patent5_title: "توجيه الرسائل الهجين",
+            patent5_category: "الشبكة",
+            patent5_text: "توجيه P2P قائم على السمعة. يعطي الأولوية لرسائل العقد ذات السمعة العالية ويكتشف/يزيل الأقران غير النشطين تلقائياً.",
+            patent6_title: "نظام التشفير متعدد الهاش",
+            patent6_category: "الأمان",
+            patent6_text: "اختيار تلقائي للهاش الأمثل حسب الغرض (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).",
+            sdk_title: "SDK المؤسسي (v8.0.0)",
+            sdk_text: "SDK Typescript يدعم التوافق متعدد السلاسل، إعادة المحاولة التلقائية، والبنية القائمة على الأحداث.",
+            quantum_title: "مواصفات التشفير الكمي",
             consensus_text: "تجمع آلية إجماع BFT المعززة بالذكاء الاصطناعي بين أمان BFT التقليدي وقدرات التنبؤ بالذكاء الاصطناعي. نتيجة لذلك، نحقق نهائية أقل من ثانيتين وتوفر شبكة بنسبة 99.99%.",
             section_triple_band: "5. تنسيق Triple-Band AI",
             triple_band_subtitle: "نظام قرار متكامل لنموذج AI غير متجانس من 3 طبقات للبلوكتشين",
@@ -3267,6 +3499,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "AI-ভিত্তিক ডায়নামিক কমিটি নির্বাচন এবং রিয়েল-টাইম ট্রাস্ট স্কোরিং সিস্টেম",
             consensus_logic_title: "সম্মতি লজিক",
             trust_score_title: "ট্রাস্ট স্কোর ইঞ্জিন (Python)",
+            consensus_step1_title: "১. AI কমিটি নির্বাচন",
+            consensus_step1_text: "ব্লক উৎপাদন কর্তৃত্বের জন্য ১,৬০০ ভ্যালিডেটরের মধ্যে AI স্কোর দ্বারা শীর্ষ ১,৪০০ জনের গতিশীল নির্বাচন।",
+            consensus_step2_title: "২. মাল্টি-ফ্যাক্টর স্কোরিং",
+            consensus_step3_title: "৩. দ্রুত চূড়ান্ততা",
+            consensus_step3_text: "Pre-Vote → Pre-Commit → Commit প্রক্রিয়া ৫০০ms এর মধ্যে সম্পন্ন। ১.৮ সেকেন্ডে চূড়ান্ত নিশ্চিতকরণ।",
+            triple_layer1_label: "লেয়ার ১: কৌশলগত",
+            triple_layer2_label: "লেয়ার ২: কৌশলী",
+            triple_layer3_label: "লেয়ার ৩: পরিচালনামূলক",
+            triple_feedback_title: "পারস্পরিক ফিডব্যাক লার্নিং সিস্টেম",
+            triple_feedback_text: "লেয়ার ১ (কৌশল) ⇄ লেয়ার ২ (কৌশলী) ⇄ লেয়ার ৩ (পরিচালনা)<br>সমস্ত সিদ্ধান্ত পারস্পরিকভাবে যাচাই করা হয় এবং ফলাফল শেখার ডেটা হিসাবে পুনরায় ব্যবহার করা হয়।",
+            triple_decisions_made: "নেওয়া সিদ্ধান্ত",
+            triple_success_rate: "সাফল্যের হার",
+            triple_cost_savings: "খরচ সাশ্রয়",
+            triple_incidents: "ঘটনা",
+            patent3_title: "ডায়নামিক AI-চালিত শার্ডিং",
+            patent3_category: "স্কেলেবিলিটি",
+            patent3_text: "AI ট্রাফিক প্যাটার্ন শেখে এবং ৫ থেকে ৬৪টি শার্ড স্বয়ংক্রিয়ভাবে বিভক্ত/মার্জ করে। ঝুঁকি স্কোর গণনা এবং রোলব্যাক কৌশল স্বয়ংক্রিয়।",
+            patent4_title: "ভবিষ্যদ্বাণীমূলক স্ব-নিরাময় সিস্টেম",
+            patent4_category: "অবকাঠামো",
+            patent4_text: "৪টি ভবিষ্যদ্বাণী অ্যালগরিদম দিয়ে ৮৫% সঠিকতায় ব্যর্থতার পূর্বাভাস এবং ৯০% স্বয়ংক্রিয় পুনরুদ্ধার।",
+            patent5_title: "হাইব্রিড মেসেজ রাউটিং",
+            patent5_category: "নেটওয়ার্ক",
+            patent5_text: "খ্যাতি-ভিত্তিক P2P রাউটিং। উচ্চ খ্যাতি নোডের বার্তাকে অগ্রাধিকার এবং নিষ্ক্রিয় পিয়ার স্বয়ংক্রিয় সনাক্তকরণ/অপসারণ।",
+            patent6_title: "মাল্টি-হ্যাশ ক্রিপ্টোগ্রাফিক সিস্টেম",
+            patent6_category: "নিরাপত্তা",
+            patent6_text: "উদ্দেশ্য অনুসারে সর্বোত্তম হ্যাশের স্বয়ংক্রিয় নির্বাচন (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256)।",
+            sdk_title: "এন্টারপ্রাইজ SDK (v8.0.0)",
+            sdk_text: "মাল্টি-চেইন সামঞ্জস্যতা, স্বয়ংক্রিয় পুনরায় চেষ্টা এবং ইভেন্ট-চালিত আর্কিটেকচার সমর্থনকারী Typescript SDK।",
+            quantum_title: "কোয়ান্টাম ক্রিপ্টোগ্রাফি স্পেসিফিকেশন",
             consensus_text: "আমাদের AI-উন্নত BFT সম্মতি মেকানিজম ঐতিহ্যবাহী BFT নিরাপত্তা এবং AI ভবিষ্যদ্বাণী ক্ষমতা সংযুক্ত করে। ফলস্বরূপ, আমরা 2 সেকেন্ডের কম চূড়ান্ততা এবং 99.99% নেটওয়ার্ক উপলব্ধতা অর্জন করি।",
             section_triple_band: "5. Triple-Band AI অর্কেস্ট্রেশন",
             triple_band_subtitle: "ব্লকচেইনের জন্য 3-স্তর হেটারোজিনিয়াস AI মডেল ইন্টিগ্রেশন ডিসিশন সিস্টেম",
@@ -3511,6 +3772,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "Динамический Выбор Комитета на Основе AI и Система Оценки Доверия в Реальном Времени",
             consensus_logic_title: "Логика Консенсуса",
             trust_score_title: "Движок Оценки Доверия (Python)",
+            consensus_step1_title: "1. Выбор AI Комитета",
+            consensus_step1_text: "Динамический отбор топ-1400 валидаторов по AI-оценке из 1600 валидаторов для полномочий на производство блоков.",
+            consensus_step2_title: "2. Многофакторная Оценка",
+            consensus_step3_title: "3. Быстрая Финализация",
+            consensus_step3_text: "Процесс Pre-Vote → Pre-Commit → Commit завершается за 500мс. Финальное подтверждение за 1.8 секунды.",
+            triple_layer1_label: "УРОВЕНЬ 1: СТРАТЕГИЧЕСКИЙ",
+            triple_layer2_label: "УРОВЕНЬ 2: ТАКТИЧЕСКИЙ",
+            triple_layer3_label: "УРОВЕНЬ 3: ОПЕРАЦИОННЫЙ",
+            triple_feedback_title: "Система Взаимного Обучения с Обратной Связью",
+            triple_feedback_text: "Уровень 1 (Стратегия) ⇄ Уровень 2 (Тактика) ⇄ Уровень 3 (Операции)<br>Все решения взаимно проверяются, а результаты повторно используются как обучающие данные.",
+            triple_decisions_made: "Принято Решений",
+            triple_success_rate: "Уровень Успеха",
+            triple_cost_savings: "Экономия Затрат",
+            triple_incidents: "Инциденты",
+            patent3_title: "Динамический AI-Управляемый Шардинг",
+            patent3_category: "Масштабируемость",
+            patent3_text: "AI изучает паттерны трафика для автоматического разделения/объединения шардов от 5 до 64. Автоматический расчет оценки риска и генерация стратегии отката.",
+            patent4_title: "Прогнозная Система Самовосстановления",
+            patent4_category: "Инфраструктура",
+            patent4_text: "Прогнозирует сбои с точностью 85% используя 4 алгоритма прогнозирования (тренд, резкое изменение, временные ряды, паттерн) и достигает 90% автоматического восстановления.",
+            patent5_title: "Гибридная Маршрутизация Сообщений",
+            patent5_category: "Сеть",
+            patent5_text: "Маршрутизация P2P на основе репутации. Приоритет сообщений от узлов с высокой репутацией и автоматическое обнаружение/удаление неактивных пиров.",
+            patent6_title: "Мульти-Хеш Криптографическая Система",
+            patent6_category: "Безопасность",
+            patent6_text: "Автоматический выбор оптимального хеша по назначению (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).",
+            sdk_title: "Корпоративный SDK (v8.0.0)",
+            sdk_text: "Typescript SDK с поддержкой мультичейн-совместимости, автоматических повторных попыток и событийной архитектуры.",
+            quantum_title: "Спецификации Квантовой Криптографии",
             consensus_text: "Наш механизм консенсуса BFT с улучшением AI объединяет традиционную безопасность BFT с возможностями прогнозирования AI. В результате мы достигаем финальности менее 2 секунд и доступности сети 99.99%.",
             section_triple_band: "5. Оркестрация Triple-Band AI",
             triple_band_subtitle: "3-уровневая Система Интеграции Гетерогенных AI Моделей для Блокчейна",
@@ -3755,6 +4045,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "Seleção Dinâmica de Comitê Baseada em AI e Sistema de Score de Confiança em Tempo Real",
             consensus_logic_title: "Lógica de Consenso",
             trust_score_title: "Engine de Score de Confiança (Python)",
+            consensus_step1_title: "1. Seleção do Comitê AI",
+            consensus_step1_text: "Seleção dinâmica dos 1.400 melhores validadores por pontuação AI de 1.600 validadores para autoridade de produção de blocos.",
+            consensus_step2_title: "2. Pontuação Multi-Fator",
+            consensus_step3_title: "3. Finalidade Rápida",
+            consensus_step3_text: "Processo Pre-Vote → Pre-Commit → Commit concluído em 500ms. Confirmação final em 1,8 segundos.",
+            triple_layer1_label: "CAMADA 1: ESTRATÉGICA",
+            triple_layer2_label: "CAMADA 2: TÁTICA",
+            triple_layer3_label: "CAMADA 3: OPERACIONAL",
+            triple_feedback_title: "Sistema de Aprendizado com Feedback Mútuo",
+            triple_feedback_text: "Camada 1 (Estratégia) ⇄ Camada 2 (Tática) ⇄ Camada 3 (Operações)<br>Todas as decisões são mutuamente verificadas e os resultados são reutilizados como dados de aprendizado.",
+            triple_decisions_made: "Decisões Tomadas",
+            triple_success_rate: "Taxa de Sucesso",
+            triple_cost_savings: "Economia de Custos",
+            triple_incidents: "Incidentes",
+            patent3_title: "Sharding Dinâmico Orientado por AI",
+            patent3_category: "Escalabilidade",
+            patent3_text: "AI aprende padrões de tráfego para dividir/mesclar automaticamente de 5 a 64 shards. Cálculo automático de pontuação de risco e geração de estratégia de rollback.",
+            patent4_title: "Sistema Preditivo de Auto-Cura",
+            patent4_category: "Infraestrutura",
+            patent4_text: "Prevê falhas com 85% de precisão usando 4 algoritmos de predição (tendência, mudança súbita, séries temporais, padrão) e alcança 90% de recuperação automática.",
+            patent5_title: "Roteamento Híbrido de Mensagens",
+            patent5_category: "Rede",
+            patent5_text: "Roteamento P2P baseado em reputação. Prioriza mensagens de nós de alta reputação e detecta/remove automaticamente pares inativos.",
+            patent6_title: "Sistema Criptográfico Multi-Hash",
+            patent6_category: "Segurança",
+            patent6_text: "Seleção automática de hash ótimo por finalidade (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256).",
+            sdk_title: "SDK Empresarial (v8.0.0)",
+            sdk_text: "SDK Typescript com suporte a compatibilidade multi-chain, retry automático e arquitetura orientada a eventos.",
+            quantum_title: "Especificações de Criptografia Quântica",
             consensus_text: "Nosso mecanismo de consenso BFT aprimorado por AI combina segurança BFT tradicional com capacidades de previsão AI. Como resultado, alcançamos finalidade sub-2s e disponibilidade de rede de 99,99%.",
             section_triple_band: "5. Orquestração Triple-Band AI",
             triple_band_subtitle: "Sistema de Decisão Integrada de Modelo AI Heterogêneo de 3 Camadas para Blockchain",
@@ -3999,6 +4318,35 @@ tburn.on('blockConfirmed', (block) => {
             consensus_subtitle: "AI پر مبنی ڈائنامک کمیٹی انتخاب اور ریئل ٹائم ٹرسٹ سکورنگ سسٹم",
             consensus_logic_title: "اتفاق رائے منطق",
             trust_score_title: "ٹرسٹ سکور انجن (Python)",
+            consensus_step1_title: "1. AI کمیٹی کا انتخاب",
+            consensus_step1_text: "بلاک پیداوار اختیار کے لیے 1,600 تصدیق کنندگان میں سے AI سکور کے ذریعے سرفہرست 1,400 کا متحرک انتخاب۔",
+            consensus_step2_title: "2. ملٹی فیکٹر سکورنگ",
+            consensus_step3_title: "3. تیز حتمیت",
+            consensus_step3_text: "Pre-Vote → Pre-Commit → Commit عمل 500ms میں مکمل۔ 1.8 سیکنڈ میں حتمی تصدیق۔",
+            triple_layer1_label: "پرت 1: حکمت عملی",
+            triple_layer2_label: "پرت 2: تدبیری",
+            triple_layer3_label: "پرت 3: آپریشنل",
+            triple_feedback_title: "باہمی فیڈ بیک لرننگ سسٹم",
+            triple_feedback_text: "پرت 1 (حکمت عملی) ⇄ پرت 2 (تدبیر) ⇄ پرت 3 (آپریشنز)<br>تمام فیصلے باہمی طور پر تصدیق شدہ ہیں، اور نتائج سیکھنے کے ڈیٹا کے طور پر دوبارہ استعمال ہوتے ہیں۔",
+            triple_decisions_made: "فیصلے کیے گئے",
+            triple_success_rate: "کامیابی کی شرح",
+            triple_cost_savings: "لاگت کی بچت",
+            triple_incidents: "واقعات",
+            patent3_title: "ڈائنامک AI-ڈریون شارڈنگ",
+            patent3_category: "اسکیل ایبلٹی",
+            patent3_text: "AI ٹریفک پیٹرن سیکھتا ہے اور 5 سے 64 شارڈز خود بخود تقسیم/ضم کرتا ہے۔ رسک سکور حساب اور رول بیک حکمت عملی خودکار۔",
+            patent4_title: "پیش گوئی خود صحت یابی سسٹم",
+            patent4_category: "انفراسٹرکچر",
+            patent4_text: "4 پیش گوئی الگورتھم سے 85% درستگی کے ساتھ ناکامی کی پیش گوئی اور 90% خودکار بحالی۔",
+            patent5_title: "ہائبرڈ میسج روٹنگ",
+            patent5_category: "نیٹ ورک",
+            patent5_text: "ساکھ پر مبنی P2P روٹنگ۔ اعلیٰ ساکھ نوڈز کے پیغامات کو ترجیح اور غیر فعال ساتھیوں کی خودکار شناخت/ہٹانا۔",
+            patent6_title: "ملٹی-ہیش کرپٹوگرافک سسٹم",
+            patent6_category: "سیکیورٹی",
+            patent6_text: "مقصد کے مطابق بہترین ہیش کا خودکار انتخاب (General: SHA3, EVM: Keccak, Fast: BLAKE3, Secure: Double SHA256)۔",
+            sdk_title: "انٹرپرائز SDK (v8.0.0)",
+            sdk_text: "ملٹی چین مطابقت، خودکار ری ٹرائی، اور ایونٹ ڈرون آرکیٹیکچر کی سپورٹ کرنے والا Typescript SDK۔",
+            quantum_title: "کوانٹم کرپٹوگرافی تفصیلات",
             consensus_text: "ہمارا AI بہتر BFT اتفاق رائے میکانزم روایتی BFT سیکیورٹی اور AI پیشگوئی صلاحیتوں کو یکجا کرتا ہے۔ نتیجے میں، ہم 2 سیکنڈ سے کم حتمیت اور 99.99% نیٹ ورک دستیابی حاصل کرتے ہیں۔",
             section_triple_band: "5. Triple-Band AI آرکیسٹریشن",
             triple_band_subtitle: "بلاکچین کے لیے 3 سطحی ہیٹروجینیس AI ماڈل انٹیگریشن فیصلہ نظام",
