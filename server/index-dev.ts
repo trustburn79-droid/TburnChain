@@ -2,21 +2,37 @@ import fs from "node:fs";
 import path from "node:path";
 import { type Server } from "node:http";
 
-import { nanoid } from "nanoid";
-import { type Express } from "express";
+import express, { type Express } from "express";
 import { createServer as createViteServer, createLogger } from "vite";
 
 import viteConfig from "../vite.config";
 import runApp from "./app";
 
+// Use production build if available (faster startup on Replit)
+// Check for dist/public which is where Vite builds to (see vite.config.ts)
+const distPath = path.resolve(import.meta.dirname, "..", "dist", "public");
+const USE_STATIC_BUILD = process.env.USE_STATIC_BUILD === 'true' || fs.existsSync(path.join(distPath, "index.html"));
+
 export async function setupVite(app: Express, server: Server) {
+  // Check if we should use static build instead of Vite dev server
+  if (USE_STATIC_BUILD) {
+    console.log('[Dev] Using static build from', distPath);
+    
+    app.use(express.static(distPath));
+    app.use("*", (_req, res) => {
+      res.sendFile(path.resolve(distPath, "index.html"));
+    });
+    return;
+  }
+  
+  // Fallback to Vite dev server
+  console.log('[Dev] Starting Vite development server...');
   const viteLogger = createLogger();
   const isReplit = Boolean(process.env.REPL_ID);
   
   const serverOptions = {
     middlewareMode: true,
     // Disable HMR in Replit to prevent WebSocket blocking issues
-    // Keep HMR enabled for local development
     hmr: isReplit ? false : { server },
     allowedHosts: true as const,
   };
@@ -47,12 +63,7 @@ export async function setupVite(app: Express, server: Server) {
         "index.html",
       );
 
-      // always reload the index.html file from disk incase it changes
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
-      template = template.replace(
-        `src="/src/main.tsx"`,
-        `src="/src/main.tsx?v=${nanoid()}"`,
-      );
       const page = await vite.transformIndexHtml(url, template);
       res.status(200).set({ "Content-Type": "text/html" }).end(page);
     } catch (e) {

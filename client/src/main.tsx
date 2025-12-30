@@ -1,7 +1,52 @@
+console.log('[TBURN-Main] Starting module load...');
 import { createRoot, Root } from "react-dom/client";
-import App from "./App";
+console.log('[TBURN-Main] React imports loaded');
 import "./index.css";
-import "./lib/i18n";
+console.log('[TBURN-Main] CSS loaded');
+import App from "./App";
+console.log('[TBURN-Main] App imported directly (no lazy loading)');
+
+function LoadingFallback() {
+  return (
+    <div style={{
+      position: 'fixed',
+      inset: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#030407',
+      color: 'white',
+      fontFamily: 'Space Grotesk, system-ui, sans-serif',
+      gap: '1.5rem'
+    }}>
+      <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="fg" x1="50%" y1="100%" x2="50%" y2="0%">
+            <stop offset="0%" stopColor="#FF6B35" />
+            <stop offset="50%" stopColor="#F7931E" />
+            <stop offset="100%" stopColor="#FFD700" />
+          </linearGradient>
+        </defs>
+        <circle cx="50" cy="50" r="40" stroke="url(#fg)" strokeWidth="2" fill="none" />
+        <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#fg)" />
+        <text x="50" y="58" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#1a1a2e">T</text>
+      </svg>
+      <div style={{ fontSize: '1.125rem', color: 'rgba(255, 255, 255, 0.7)' }}>Loading TBURN Explorer...</div>
+      <div style={{ width: '200px', height: '3px', background: 'rgba(255, 107, 53, 0.2)', borderRadius: '3px', overflow: 'hidden' }}>
+        <div style={{ width: '40%', height: '100%', background: 'linear-gradient(90deg, #FF6B35, #FFD700)', borderRadius: '3px', animation: 'loading 1.2s ease-in-out infinite' }} />
+      </div>
+      <style>{`@keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }`}</style>
+    </div>
+  );
+}
+
+function AppWrapper() {
+  // Direct render without Suspense (no lazy loading)
+  return <App />;
+}
+
+console.log('[TBURN-Main] Wrapper component defined');
 
 declare global {
   interface Window {
@@ -59,7 +104,7 @@ function safeInitApp() {
   
   try {
     window.__TBURN_APP_ROOT__ = createRoot(rootElement);
-    window.__TBURN_APP_ROOT__.render(<App />);
+    window.__TBURN_APP_ROOT__.render(<AppWrapper />);
     console.log(`[TBURN] App initialized successfully (v${BUILD_VERSION})`);
   } catch (error) {
     console.error("[TBURN] Render failed:", error);

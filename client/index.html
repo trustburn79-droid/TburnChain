@@ -88,6 +88,13 @@
       </div>
     </div>
     <div id="radix-portal-root"></div>
+    <script>
+      console.log('[TBURN-HTML] Inline script running');
+      window.onerror = function(msg, url, line, col, error) {
+        console.error('[TBURN-HTML] Global error:', msg, url, line, col, error);
+        return false;
+      };
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

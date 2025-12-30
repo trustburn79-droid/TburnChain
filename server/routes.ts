@@ -75,10 +75,16 @@ const activeIntervals: NodeJS.Timeout[] = [];
 const activeTimeouts: NodeJS.Timeout[] = [];
 const intervalExecutionState = new Map<string, { isRunning: boolean; lastRun: number; skipCount: number }>();
 
+// Development mode multiplier to reduce CPU load for Vite
+const DEV_INTERVAL_MULTIPLIER = process.env.NODE_ENV === 'development' ? 10 : 1;
+
 // Helper function to track intervals for cleanup with OVERLAP PROTECTION
 // Prevents event loop blocking by skipping execution if previous run hasn't completed
 function createTrackedInterval(callback: () => void | Promise<void>, ms: number, name?: string): NodeJS.Timeout {
   const intervalName = name || `interval_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  
+  // In development mode, increase interval by 10x to reduce CPU load for Vite
+  const actualMs = ms * DEV_INTERVAL_MULTIPLIER;
   
   // Initialize execution state for this interval
   intervalExecutionState.set(intervalName, { isRunning: false, lastRun: 0, skipCount: 0 });
@@ -112,10 +118,10 @@ function createTrackedInterval(callback: () => void | Promise<void>, ms: number,
     }
   };
   
-  const interval = setInterval(guardedCallback, ms);
+  const interval = setInterval(guardedCallback, actualMs);
   activeIntervals.push(interval);
   if (name) {
-    console.log(`[Enterprise] Registered interval: ${name} (${ms}ms)`);
+    console.log(`[Enterprise] Registered interval: ${name} (${actualMs}ms${DEV_INTERVAL_MULTIPLIER > 1 ? ' [dev mode]' : ''})`);
   }
   return interval;
 }
