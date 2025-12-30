@@ -157,6 +157,7 @@ export default function TokenDetails() {
         .td-header-right {
           display: flex;
           align-items: center;
+          gap: 8px;
           margin-left: auto;
         }
         .td-header-icon {
@@ -367,6 +368,8 @@ export default function TokenDetails() {
             <div className="td-header-left">
               <TBurnLogo className="w-10 h-10" showText={false} />
               <div className="td-logo-text td-font-orbitron">TBURN</div>
+            </div>
+            <div className="td-header-right">
               <a href="/" className="td-header-icon" title="Home"><Home size={18} /></a>
               <a href="/scan" className="td-header-icon" title="Scan"><ScanLine size={18} /></a>
               <a href="/user" className="td-header-icon" title="User"><User size={18} /></a>
@@ -375,8 +378,6 @@ export default function TokenDetails() {
               <a href="/token-generator" className="td-header-icon" title="Token Generator"><Coins size={18} /></a>
               <a href="/nft-marketplace" className="td-header-icon" title="NFT Marketplace"><ImageIcon size={18} /></a>
               <a href="/qna" className="td-header-icon" title="QnA"><HelpCircle size={18} /></a>
-            </div>
-            <div className="td-header-right">
               <LanguageSelector isDark={true} />
             </div>
           </div>
