@@ -233,31 +233,109 @@ class DataHubService {
 
   /**
    * Get unified network snapshot with all module data
+   * OPTIMIZED: Parallel fetching for production performance
    */
   async getNetworkSnapshot(): Promise<NetworkSnapshot> {
     const cached = this.getFromCache<NetworkSnapshot>('network_snapshot');
     if (cached) return cached;
 
+    // Use lastNetworkSnapshot as fallback to prevent blocking during fetch
+    if (this.lastNetworkSnapshot) {
+      // Return stale data immediately, refresh in background
+      this.refreshNetworkSnapshotAsync();
+      return this.lastNetworkSnapshot;
+    }
+
+    // First call - fetch synchronously but in parallel
+    const [
+      blockHeight,
+      tps,
+      totalTransactions,
+      pendingTransactions,
+      activeValidators,
+      totalSupply,
+      circulatingSupply,
+      marketCap
+    ] = await Promise.all([
+      this.getLatestBlockHeight(),
+      this.getCurrentTps(),
+      this.getTotalTransactions(),
+      this.getPendingTransactionCount(),
+      this.getActiveValidatorCount(),
+      this.getTotalSupply(),
+      this.getCirculatingSupply(),
+      this.getMarketCap()
+    ]);
+
     const snapshot: NetworkSnapshot = {
       timestamp: Date.now(),
-      blockHeight: await this.getLatestBlockHeight(),
-      tps: await this.getCurrentTps(),
-      totalTransactions: await this.getTotalTransactions(),
-      pendingTransactions: await this.getPendingTransactionCount(),
-      activeValidators: await this.getActiveValidatorCount(),
+      blockHeight,
+      tps,
+      totalTransactions,
+      pendingTransactions,
+      activeValidators,
       totalStaked: this.moduleMetrics.staking.totalStaked,
-      totalSupply: await this.getTotalSupply(),
-      circulatingSupply: await this.getCirculatingSupply(),
+      totalSupply,
+      circulatingSupply,
       burnedAmount: this.moduleMetrics.burn.totalBurned,
-      marketCap: await this.getMarketCap(),
+      marketCap,
       dexTvl: this.moduleMetrics.dex.tvl,
       lendingTvl: this.moduleMetrics.lending.totalSupplied,
       stakingTvl: this.moduleMetrics.staking.totalStaked
     };
 
-    this.setCache('network_snapshot', snapshot, 10000);
+    this.setCache('network_snapshot', snapshot, 30000); // Increased TTL to 30s
     this.lastNetworkSnapshot = snapshot;
     return snapshot;
+  }
+
+  /**
+   * Async background refresh for network snapshot (non-blocking)
+   */
+  private async refreshNetworkSnapshotAsync(): Promise<void> {
+    try {
+      const [
+        blockHeight,
+        tps,
+        totalTransactions,
+        pendingTransactions,
+        activeValidators,
+        totalSupply,
+        circulatingSupply,
+        marketCap
+      ] = await Promise.all([
+        this.getLatestBlockHeight(),
+        this.getCurrentTps(),
+        this.getTotalTransactions(),
+        this.getPendingTransactionCount(),
+        this.getActiveValidatorCount(),
+        this.getTotalSupply(),
+        this.getCirculatingSupply(),
+        this.getMarketCap()
+      ]);
+
+      const snapshot: NetworkSnapshot = {
+        timestamp: Date.now(),
+        blockHeight,
+        tps,
+        totalTransactions,
+        pendingTransactions,
+        activeValidators,
+        totalStaked: this.moduleMetrics.staking.totalStaked,
+        totalSupply,
+        circulatingSupply,
+        burnedAmount: this.moduleMetrics.burn.totalBurned,
+        marketCap,
+        dexTvl: this.moduleMetrics.dex.tvl,
+        lendingTvl: this.moduleMetrics.lending.totalSupplied,
+        stakingTvl: this.moduleMetrics.staking.totalStaked
+      };
+
+      this.setCache('network_snapshot', snapshot, 30000);
+      this.lastNetworkSnapshot = snapshot;
+    } catch (error) {
+      // Silent fail - we have stale data as fallback
+    }
   }
 
   /**

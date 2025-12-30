@@ -233,14 +233,25 @@ export async function buildPublicTestnetStats(): Promise<any> {
 /**
  * GET /api/public/v1/network/stats
  * Core network statistics for home page and network status
+ * OPTIMIZED: Uses ProductionDataPoller cache for fast response
  */
 router.get('/network/stats', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
     
-    // CRITICAL Dec 24: NO separate cache - always use fresh TPS from shards cache
-    // This ensures /api/network/stats TPS matches /api/shards and /api/sharding exactly
+    // Try to get cached data first (from ProductionDataPoller)
+    const cache = getDataCache();
+    const cachedData = cache.get<any>(PUBLIC_CACHE_KEYS.NETWORK_STATS);
+    
+    if (cachedData) {
+      return res.json({ success: true, data: cachedData });
+    }
+    
+    // Fallback: Build fresh if cache miss (should be rare after startup)
     const data = await buildPublicNetworkStats();
+    
+    // Cache for future requests
+    cache.set(PUBLIC_CACHE_KEYS.NETWORK_STATS, data, 30000);
     
     res.json({ success: true, data });
   } catch (error: any) {
