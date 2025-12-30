@@ -320,28 +320,40 @@
                                 <tbody>
                                     <tr>
                                         <td data-i18n="table_tps" class="font-bold text-white">TPS (Transactions Per Second)</td>
-                                        <td id="table-tps" class="text-tburn-orange font-bold">-- (Peak 520K)</td>
+                                        <td id="table-tps" class="text-tburn-orange font-bold">
+                                            <div>-- (Peak 520K)</div>
+                                            <div class="text-xs text-gray-500 font-normal mt-1" data-i18n="table_tps_theoretical">(Theoretical: 1,000,000)</div>
+                                        </td>
                                         <td>15-30</td>
                                         <td>65,000</td>
                                         <td>4,500</td>
                                     </tr>
                                     <tr>
                                         <td data-i18n="table_block_time" class="font-bold text-white">Block Time</td>
-                                        <td class="text-white font-bold">0.5s</td>
+                                        <td class="text-white font-bold">
+                                            <div>0.5s</div>
+                                            <div class="text-xs text-gray-500 font-normal mt-1" data-i18n="table_block_time_theoretical">(Theoretical: 0.1s)</div>
+                                        </td>
                                         <td>12s</td>
                                         <td>0.4s</td>
                                         <td>2s</td>
                                     </tr>
                                     <tr>
                                         <td data-i18n="table_finality" class="font-bold text-white">Finality</td>
-                                        <td class="text-white font-bold">1.8s</td>
+                                        <td class="text-white font-bold">
+                                            <div>1.8s</div>
+                                            <div class="text-xs text-gray-500 font-normal mt-1" data-i18n="table_finality_theoretical">(Theoretical: 0.5s)</div>
+                                        </td>
                                         <td>~12 mins</td>
                                         <td>0.4s</td>
                                         <td>< 2s</td>
                                     </tr>
                                     <tr>
                                         <td data-i18n="table_gas_fee" class="font-bold text-white">Gas Fee</td>
-                                        <td class="text-green-400 font-bold">$0.00036</td>
+                                        <td class="text-green-400 font-bold">
+                                            <div>$0.00036</div>
+                                            <div class="text-xs text-gray-500 font-normal mt-1" data-i18n="table_gas_fee_theoretical">(Theoretical: $0.0001)</div>
+                                        </td>
                                         <td>$1.00 - $50.00</td>
                                         <td>$0.00025</td>
                                         <td>$0.01 - $0.10</td>
@@ -1276,6 +1288,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band 네이티브",
             table_none: "없음",
             table_quantum: "양자 내성",
+            table_tps_theoretical: "(이론: 1,000,000)",
+            table_block_time_theoretical: "(이론: 0.1초)",
+            table_finality_theoretical: "(이론: 0.5초)",
+            table_gas_fee_theoretical: "(이론: $0.0001)",
             section_vision: "2. 비전 & 미션",
             vision_title: "비전",
             vision_quote: '"AI와 블록체인의 완벽한 융합으로, 누구나 신뢰할 수 있는 탈중앙화 인프라를 구축한다."',
@@ -1549,6 +1565,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band Native",
             table_none: "None",
             table_quantum: "Quantum Resistance",
+            table_tps_theoretical: "(Theoretical: 1,000,000)",
+            table_block_time_theoretical: "(Theoretical: 0.1s)",
+            table_finality_theoretical: "(Theoretical: 0.5s)",
+            table_gas_fee_theoretical: "(Theoretical: $0.0001)",
             section_vision: "2. Vision & Mission",
             vision_title: "Vision",
             vision_quote: '"Through the perfect fusion of AI and blockchain, we build decentralized infrastructure that everyone can trust."',
@@ -1822,6 +1842,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band原生",
             table_none: "无",
             table_quantum: "抗量子",
+            table_tps_theoretical: "(理论: 1,000,000)",
+            table_block_time_theoretical: "(理论: 0.1秒)",
+            table_finality_theoretical: "(理论: 0.5秒)",
+            table_gas_fee_theoretical: "(理论: $0.0001)",
             section_vision: "2. 愿景与使命",
             vision_title: "愿景",
             vision_quote: '"通过AI与区块链的完美融合，构建人人可信赖的去中心化基础设施。"',
@@ -2095,6 +2119,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Bandネイティブ",
             table_none: "なし",
             table_quantum: "量子耐性",
+            table_tps_theoretical: "(理論: 1,000,000)",
+            table_block_time_theoretical: "(理論: 0.1秒)",
+            table_finality_theoretical: "(理論: 0.5秒)",
+            table_gas_fee_theoretical: "(理論: $0.0001)",
             section_vision: "2. ビジョン＆ミッション",
             vision_title: "ビジョン",
             vision_quote: '"AIとブロックチェーンの完璧な融合により、誰もが信頼できる分散型インフラを構築する。"',
@@ -2368,6 +2396,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band नेटिव",
             table_none: "कोई नहीं",
             table_quantum: "क्वांटम प्रतिरोध",
+            table_tps_theoretical: "(सैद्धांतिक: 1,000,000)",
+            table_block_time_theoretical: "(सैद्धांतिक: 0.1 सेकंड)",
+            table_finality_theoretical: "(सैद्धांतिक: 0.5 सेकंड)",
+            table_gas_fee_theoretical: "(सैद्धांतिक: $0.0001)",
             section_vision: "2. दृष्टि और मिशन",
             vision_title: "दृष्टि",
             vision_quote: '"AI और ब्लॉकचेन के पूर्ण एकीकरण से, हम विकेंद्रीकृत इंफ्रास्ट्रक्चर का निर्माण करते हैं जिस पर सभी भरोसा कर सकते हैं।"',
@@ -2641,6 +2673,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band Nativo",
             table_none: "Ninguno",
             table_quantum: "Resistencia Cuántica",
+            table_tps_theoretical: "(Teórico: 1,000,000)",
+            table_block_time_theoretical: "(Teórico: 0.1s)",
+            table_finality_theoretical: "(Teórico: 0.5s)",
+            table_gas_fee_theoretical: "(Teórico: $0.0001)",
             section_vision: "2. Visión y Misión",
             vision_title: "Visión",
             vision_quote: '"A través de la fusión perfecta de AI y blockchain, construimos infraestructura descentralizada en la que todos pueden confiar."',
@@ -2914,6 +2950,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band Natif",
             table_none: "Aucun",
             table_quantum: "Résistance Quantique",
+            table_tps_theoretical: "(Théorique: 1,000,000)",
+            table_block_time_theoretical: "(Théorique: 0.1s)",
+            table_finality_theoretical: "(Théorique: 0.5s)",
+            table_gas_fee_theoretical: "(Théorique: $0.0001)",
             section_vision: "2. Vision et Mission",
             vision_title: "Vision",
             vision_quote: '"Grâce à la fusion parfaite de l\'AI et de la blockchain, nous construisons une infrastructure décentralisée à laquelle tout le monde peut faire confiance."',
@@ -3187,6 +3227,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band أصلي",
             table_none: "لا يوجد",
             table_quantum: "مقاومة الكم",
+            table_tps_theoretical: "(نظري: 1,000,000)",
+            table_block_time_theoretical: "(نظري: 0.1 ثانية)",
+            table_finality_theoretical: "(نظري: 0.5 ثانية)",
+            table_gas_fee_theoretical: "(نظري: $0.0001)",
             section_vision: "2. الرؤية والمهمة",
             vision_title: "الرؤية",
             vision_quote: '"من خلال الدمج المثالي للذكاء الاصطناعي والبلوكتشين، نبني بنية تحتية لامركزية يمكن للجميع الوثوق بها."',
@@ -3460,6 +3504,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band নেটিভ",
             table_none: "কিছুই না",
             table_quantum: "কোয়ান্টাম প্রতিরোধ",
+            table_tps_theoretical: "(তাত্ত্বিক: ১,০০০,০০০)",
+            table_block_time_theoretical: "(তাত্ত্বিক: ০.১ সেকেন্ড)",
+            table_finality_theoretical: "(তাত্ত্বিক: ০.৫ সেকেন্ড)",
+            table_gas_fee_theoretical: "(তাত্ত্বিক: $০.০০০১)",
             section_vision: "2. দৃষ্টি ও মিশন",
             vision_title: "দৃষ্টি",
             vision_quote: '"AI এবং ব্লকচেইনের নিখুঁত সংযোগের মাধ্যমে, আমরা বিকেন্দ্রীভূত অবকাঠামো তৈরি করি যা সবাই বিশ্বাস করতে পারে।"',
@@ -3733,6 +3781,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Нативный Triple-Band",
             table_none: "Нет",
             table_quantum: "Квантовая Устойчивость",
+            table_tps_theoretical: "(Теоретически: 1,000,000)",
+            table_block_time_theoretical: "(Теоретически: 0.1с)",
+            table_finality_theoretical: "(Теоретически: 0.5с)",
+            table_gas_fee_theoretical: "(Теоретически: $0.0001)",
             section_vision: "2. Видение и Миссия",
             vision_title: "Видение",
             vision_quote: '"Благодаря идеальному слиянию AI и блокчейна, мы создаём децентрализованную инфраструктуру, которой могут доверять все."',
@@ -4006,6 +4058,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band Nativo",
             table_none: "Nenhum",
             table_quantum: "Resistência Quântica",
+            table_tps_theoretical: "(Teórico: 1,000,000)",
+            table_block_time_theoretical: "(Teórico: 0.1s)",
+            table_finality_theoretical: "(Teórico: 0.5s)",
+            table_gas_fee_theoretical: "(Teórico: $0.0001)",
             section_vision: "2. Visão e Missão",
             vision_title: "Visão",
             vision_quote: '"Através da fusão perfeita de AI e blockchain, construímos infraestrutura descentralizada em que todos podem confiar."',
@@ -4279,6 +4335,10 @@ tburn.on('blockConfirmed', (block) => {
             table_ai_value: "Triple-Band مقامی",
             table_none: "کوئی نہیں",
             table_quantum: "کوانٹم مزاحمت",
+            table_tps_theoretical: "(نظریاتی: 1,000,000)",
+            table_block_time_theoretical: "(نظریاتی: 0.1 سیکنڈ)",
+            table_finality_theoretical: "(نظریاتی: 0.5 سیکنڈ)",
+            table_gas_fee_theoretical: "(نظریاتی: $0.0001)",
             section_vision: "2. وژن اور مشن",
             vision_title: "وژن",
             vision_quote: '"AI اور بلاکچین کے کامل امتزاج کے ذریعے، ہم ایسا ڈی سینٹرلائزڈ انفراسٹرکچر بناتے ہیں جس پر سب اعتماد کر سکتے ہیں۔"',
