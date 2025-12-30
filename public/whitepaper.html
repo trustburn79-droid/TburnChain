@@ -201,9 +201,8 @@
                     </a>
                 </div>
                 <div class="relative" id="lang-dropdown-container">
-                    <button id="lang-dropdown-btn" onclick="toggleLangDropdown()" class="flex items-center gap-2 px-3 py-1.5 text-xs font-bold rounded bg-tburn-card border border-tburn-border text-white hover:border-tburn-orange transition">
-                        <span id="current-lang-label">한국어</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    <button id="lang-dropdown-btn" onclick="toggleLangDropdown()" class="wp-header-icon" title="Language" data-testid="button-language">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
                     </button>
                     <div id="lang-dropdown" class="hidden absolute right-0 top-full mt-1 bg-tburn-card border border-tburn-border rounded shadow-lg z-50 min-w-[140px] py-1">
                         <button onclick="setLanguage('ko')" class="lang-option w-full text-left px-3 py-1.5 text-xs hover:bg-tburn-orange/20 text-gray-300 hover:text-white" data-lang="ko">한국어</button>
