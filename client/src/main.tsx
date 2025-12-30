@@ -108,14 +108,8 @@ declare global {
 const BUILD_VERSION = "2025.12.30.v1";
 
 function safeInitApp() {
-  const htmlVersion = document.documentElement.getAttribute("data-version");
-  
-  if (htmlVersion && htmlVersion !== BUILD_VERSION) {
-    console.warn(`[TBURN] Version mismatch: HTML=${htmlVersion}, JS=${BUILD_VERSION}. Force reloading...`);
-    sessionStorage.setItem("tburn-force-reload", Date.now().toString());
-    window.location.reload();
-    return;
-  }
+  // Version check completely disabled - causes infinite reload loops
+  console.log(`[TBURN] App version: ${BUILD_VERSION}`);
   
   if (window.__TBURN_INITIALIZED__) {
     console.warn("[TBURN] App already initialized, skipping duplicate mount");
