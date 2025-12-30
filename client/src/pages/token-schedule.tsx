@@ -95,7 +95,7 @@ export default function TokenSchedule() {
           --ts-pink: #EC4899;
           --ts-text-main: #FFFFFF;
           --ts-text-muted: #94A3B8;
-          --ts-container-width: 1280px;
+          --ts-container-width: 1200px;
         }
 
         .ts-root {
@@ -113,7 +113,10 @@ export default function TokenSchedule() {
         .ts-root h1, .ts-root h2, .ts-root h3, .ts-root h4, .ts-font-orbitron { font-family: 'Orbitron', sans-serif; letter-spacing: 0.5px; }
         .ts-font-mono { font-family: 'JetBrains Mono', monospace; }
 
-        .ts-container { max-width: var(--ts-container-width); margin: 0 auto; padding: 0 24px; }
+        .ts-container { max-width: var(--ts-container-width); margin: 0 auto; padding: 0 32px; }
+        @media (max-width: 1024px) {
+          .ts-container { padding: 0 24px; }
+        }
         .ts-grid { display: grid; gap: 24px; }
         .ts-flex { display: flex; }
         .ts-items-center { align-items: center; }

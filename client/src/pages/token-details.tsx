@@ -95,7 +95,7 @@ export default function TokenDetails() {
           --td-pink: #EC4899;
           --td-text-main: #FFFFFF;
           --td-text-muted: #94A3B8;
-          --td-container-width: 1280px;
+          --td-container-width: 1200px;
         }
 
         .td-root {
@@ -113,7 +113,10 @@ export default function TokenDetails() {
         .td-root h1, .td-root h2, .td-root h3, .td-root h4, .td-font-orbitron { font-family: 'Orbitron', sans-serif; letter-spacing: 0.5px; }
         .td-font-mono { font-family: 'JetBrains Mono', monospace; }
 
-        .td-container { max-width: var(--td-container-width); margin: 0 auto; padding: 0 24px; }
+        .td-container { max-width: var(--td-container-width); margin: 0 auto; padding: 0 32px; }
+        @media (max-width: 1024px) {
+          .td-container { padding: 0 24px; }
+        }
         .td-grid { display: grid; gap: 24px; }
         .td-flex { display: flex; }
         .td-items-center { align-items: center; }
