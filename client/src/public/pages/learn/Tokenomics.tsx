@@ -85,14 +85,14 @@ export default function Tokenomics() {
           {/* Navigation Links */}
           <div className="flex justify-center gap-4 mt-8">
             <a 
-              href="/TokenSchedule" 
+              href="/token-schedule" 
               className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#ff6b35] to-[#ffb800] text-white font-semibold hover:opacity-90 transition-opacity"
               data-testid="link-token-schedule"
             >
               토큰스케줄
             </a>
             <a 
-              href="/TokenDetails" 
+              href="/token-details" 
               className="px-6 py-3 rounded-lg border border-[#ff6b35] text-[#ff6b35] font-semibold hover:bg-[#ff6b35]/10 transition-colors"
               data-testid="link-token-details"
             >
