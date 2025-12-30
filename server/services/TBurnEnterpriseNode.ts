@@ -3849,30 +3849,49 @@ export class TBurnEnterpriseNode extends EventEmitter {
       throw new Error(`Block ${height} not found`);
     }
 
-    const blockHash = typeof heightOrHash === 'string' ? heightOrHash : `0x${crypto.randomBytes(32).toString('hex')}`;
-    const parentHash = `0x${crypto.randomBytes(32).toString('hex')}`;
-    // Dynamic validator index based on shard configuration
+    // Deterministic seeded random based on block height
+    const seededRandom = (offset: number = 0) => {
+      const h = crypto.createHash('sha256').update(`block-${height}-${offset}`).digest();
+      return h.readUInt32BE(0) / 0xFFFFFFFF;
+    };
+
+    // Generate deterministic block hash from height
+    const blockHash = typeof heightOrHash === 'string' 
+      ? heightOrHash 
+      : `0x${crypto.createHash('sha256').update(`tburn-block-${height}-mainnet`).digest('hex')}`;
+    
+    // Generate deterministic parent hash from previous block height
+    const parentHash = `0x${crypto.createHash('sha256').update(`tburn-block-${height - 1}-mainnet`).digest('hex')}`;
+    
+    // Dynamic validator index based on shard configuration (deterministic)
     const totalValidatorsForGetBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
-    const validatorIndex = Math.floor(Math.random() * totalValidatorsForGetBlock);
+    const validatorIndex = Math.floor(seededRandom(1) * totalValidatorsForGetBlock);
     const validatorAddress = `0x${crypto.createHash('sha256').update(`validator${validatorIndex}`).digest('hex').slice(0, 40)}`;
+    
+    // Deterministic values based on block height
+    const txCount = 400 + Math.floor(seededRandom(2) * 200);
+    const blockSize = 15000 + Math.floor(seededRandom(3) * 10000);
+    const gasUsed = 15000000 + Math.floor(seededRandom(4) * 5000000);
+    const shardId = Math.floor(seededRandom(5) * this.shardConfig.currentShardCount);
+    const hashAlgoIndex = Math.floor(seededRandom(6) * 3);
     
     return {
       id: `block-${height}`,
       blockNumber: height,
-      height, // Keep for backward compatibility
+      height,
       hash: blockHash,
       parentHash,
       timestamp: Math.floor(Date.now() / 1000) - (this.currentBlockHeight - height) * 100,
-      transactionCount: 400 + Math.floor(Math.random() * 200),
+      transactionCount: txCount,
       validatorAddress,
       proposer: generateValidatorAddress(validatorIndex),
-      size: 15000 + Math.floor(Math.random() * 10000),
-      gasUsed: 15000000 + Math.floor(Math.random() * 5000000),
+      size: blockSize,
+      gasUsed,
       gasLimit: 30000000,
-      shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
-      stateRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
-      receiptsRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
-      hashAlgorithm: ['BLAKE3', 'SHA3-512', 'SHA-256'][Math.floor(Math.random() * 3)]
+      shardId,
+      stateRoot: `0x${crypto.createHash('sha256').update(`state-${height}`).digest('hex')}`,
+      receiptsRoot: `0x${crypto.createHash('sha256').update(`receipts-${height}`).digest('hex')}`,
+      hashAlgorithm: ['BLAKE3', 'SHA3-512', 'SHA-256'][hashAlgoIndex]
     };
   }
 
