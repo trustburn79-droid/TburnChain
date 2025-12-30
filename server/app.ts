@@ -1,5 +1,4 @@
 import { type Server } from "node:http";
-import compression from "compression";
 import express, {
   type Express,
   type Request,
@@ -58,16 +57,6 @@ export function log(message: string, source = "express") {
 }
 
 export const app = express();
-
-// Enable gzip compression for all responses (critical for 15MB+ JS bundles)
-app.use(compression({
-  filter: (req, res) => {
-    // Compress everything except websocket upgrades
-    if (req.headers['upgrade']) return false;
-    return compression.filter(req, res);
-  },
-  threshold: 0, // Compress all sizes
-}));
 
 // ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
 app.set('trust proxy', 1);
@@ -227,60 +216,6 @@ app.use((req, res, next) => {
 export default async function runApp(
   setup: (app: Express, server: Server) => Promise<void>,
 ) {
-  // CRITICAL: Serve static assets BEFORE API routes to prevent /assets/* from being caught by API handlers
-  const fs = await import("node:fs");
-  const nodePath = await import("node:path");
-  const distPath = nodePath.resolve(import.meta.dirname, "..", "dist", "public");
-  const assetsPath = nodePath.join(distPath, "assets");
-  
-  // Only serve static assets if USE_STATIC_BUILD is not explicitly 'false'
-  const useStaticBuild = process.env.USE_STATIC_BUILD !== 'false' && fs.existsSync(nodePath.join(distPath, "index.html"));
-  
-  if (useStaticBuild) {
-    console.log('[Static] Serving ALL static files from', distPath);
-    console.log('[Static] Assets path:', assetsPath);
-    
-    // Directly serve assets with stream for large files
-    app.get('/assets/:filename', (req, res) => {
-      const filename = req.params.filename;
-      const filePath = nodePath.join(assetsPath, filename);
-      
-      if (!fs.existsSync(filePath)) {
-        console.log('[Static] File not found:', filePath);
-        return res.status(404).send('Not found');
-      }
-      
-      // Set proper content type
-      const ext = nodePath.extname(filename).toLowerCase();
-      const mimeTypes: Record<string, string> = {
-        '.js': 'application/javascript',
-        '.css': 'text/css',
-        '.svg': 'image/svg+xml',
-        '.woff': 'font/woff',
-        '.woff2': 'font/woff2',
-        '.ttf': 'font/ttf',
-        '.png': 'image/png',
-        '.jpg': 'image/jpeg',
-        '.jpeg': 'image/jpeg',
-        '.gif': 'image/gif',
-        '.webp': 'image/webp',
-      };
-      
-      const contentType = mimeTypes[ext] || 'application/octet-stream';
-      const stat = fs.statSync(filePath);
-      
-      console.log('[Static] Serving file:', filename, 'Size:', stat.size, 'Type:', contentType);
-      
-      res.setHeader('Content-Type', contentType);
-      res.setHeader('Content-Length', stat.size);
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-      
-      // Stream the file
-      const stream = fs.createReadStream(filePath);
-      stream.pipe(res);
-    });
-  }
-
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

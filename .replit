@@ -59,8 +59,6 @@ NODE_MODE = "production"
 VITE_NODE_MODE = "production"
 ADMIN_EMAIL = "trustburn79@gmail.com"
 EMAIL_FROM = "TBURN Chain <noreply@tburn.io>"
-DISABLE_INTERVALS = "true"
-USE_STATIC_BUILD = "false"
 
 [userenv.production]
 NODE_ENV = "production"

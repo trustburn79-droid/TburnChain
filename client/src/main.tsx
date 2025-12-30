@@ -1,101 +1,7 @@
-console.log('[TBURN-Main] Starting module load...');
 import { createRoot, Root } from "react-dom/client";
-import { Suspense, lazy, useState, useEffect, ComponentType } from "react";
-console.log('[TBURN-Main] React imports loaded');
+import App from "./App";
 import "./index.css";
-console.log('[TBURN-Main] CSS loaded');
-
-const isPublicRoute = () => {
-  const path = window.location.pathname;
-  const publicPaths = ['/', '/about', '/roadmap', '/tokenomics', '/ecosystem', '/docs', '/contact', '/whitepaper', '/testnet', '/launch-event', '/mainnet'];
-  return publicPaths.some(p => path === p || path.startsWith(p + '/'));
-};
-
-console.log('[TBURN-Main] Route check:', window.location.pathname, 'isPublic:', isPublicRoute());
-
-function LoadingFallback() {
-  return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#030407',
-      color: 'white',
-      fontFamily: 'Space Grotesk, system-ui, sans-serif',
-      gap: '1.5rem'
-    }}>
-      <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="fg" x1="50%" y1="100%" x2="50%" y2="0%">
-            <stop offset="0%" stopColor="#FF6B35" />
-            <stop offset="50%" stopColor="#F7931E" />
-            <stop offset="100%" stopColor="#FFD700" />
-          </linearGradient>
-        </defs>
-        <circle cx="50" cy="50" r="40" stroke="url(#fg)" strokeWidth="2" fill="none" />
-        <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#fg)" />
-        <text x="50" y="58" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#1a1a2e">T</text>
-      </svg>
-      <div style={{ fontSize: '1.125rem', color: 'rgba(255, 255, 255, 0.7)' }}>Loading TBURN Explorer...</div>
-      <div style={{ width: '200px', height: '3px', background: 'rgba(255, 107, 53, 0.2)', borderRadius: '3px', overflow: 'hidden' }}>
-        <div style={{ width: '40%', height: '100%', background: 'linear-gradient(90deg, #FF6B35, #FFD700)', borderRadius: '3px', animation: 'loading 1.2s ease-in-out infinite' }} />
-      </div>
-      <style>{`@keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }`}</style>
-    </div>
-  );
-}
-
-function AppWrapper() {
-  const [AppComponent, setAppComponent] = useState<ComponentType | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadApp = async () => {
-      try {
-        if (isPublicRoute()) {
-          console.log('[TBURN-Main] Loading lightweight PublicApp...');
-          const { PublicApp } = await import("./PublicApp");
-          setAppComponent(() => PublicApp);
-        } else {
-          console.log('[TBURN-Main] Loading full App...');
-          const App = await import("./App");
-          setAppComponent(() => App.default);
-        }
-      } catch (err) {
-        console.error('[TBURN-Main] Failed to load app:', err);
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      }
-    };
-    loadApp();
-  }, []);
-
-  if (error) {
-    return (
-      <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',height:'100vh',background:'#030407',color:'white',fontFamily:'sans-serif',textAlign:'center',padding:'20px'}}>
-        <h2 style={{color:'#FF6B35',marginBottom:'16px'}}>Loading Error</h2>
-        <p style={{color:'#999',marginBottom:'24px'}}>{error}</p>
-        <button onClick={() => location.reload()} style={{background:'#FF6B35',color:'white',border:'none',padding:'12px 24px',borderRadius:'8px',cursor:'pointer',fontSize:'16px'}}>
-          Retry
-        </button>
-      </div>
-    );
-  }
-
-  if (!AppComponent) {
-    return <LoadingFallback />;
-  }
-
-  return (
-    <Suspense fallback={<LoadingFallback />}>
-      <AppComponent />
-    </Suspense>
-  );
-}
-
-console.log('[TBURN-Main] Wrapper component defined');
+import "./lib/i18n";
 
 declare global {
   interface Window {
@@ -105,11 +11,17 @@ declare global {
   }
 }
 
-const BUILD_VERSION = "2025.12.30.v1";
+const BUILD_VERSION = "2025.12.25.v4";
 
 function safeInitApp() {
-  // Version check completely disabled - causes infinite reload loops
-  console.log(`[TBURN] App version: ${BUILD_VERSION}`);
+  const htmlVersion = document.documentElement.getAttribute("data-version");
+  
+  if (htmlVersion && htmlVersion !== BUILD_VERSION) {
+    console.warn(`[TBURN] Version mismatch: HTML=${htmlVersion}, JS=${BUILD_VERSION}. Force reloading...`);
+    sessionStorage.setItem("tburn-force-reload", Date.now().toString());
+    window.location.reload();
+    return;
+  }
   
   if (window.__TBURN_INITIALIZED__) {
     console.warn("[TBURN] App already initialized, skipping duplicate mount");
@@ -147,7 +59,7 @@ function safeInitApp() {
   
   try {
     window.__TBURN_APP_ROOT__ = createRoot(rootElement);
-    window.__TBURN_APP_ROOT__.render(<AppWrapper />);
+    window.__TBURN_APP_ROOT__.render(<App />);
     console.log(`[TBURN] App initialized successfully (v${BUILD_VERSION})`);
   } catch (error) {
     console.error("[TBURN] Render failed:", error);

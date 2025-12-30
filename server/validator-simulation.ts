@@ -2,7 +2,6 @@ import { IStorage } from "./storage";
 import { Validator, NetworkStats, InsertConsensusRound, InsertBlock, InsertCrossShardMessage, Shard } from "@shared/schema";
 import * as crypto from 'crypto';
 import { getEnterpriseNode } from "./services/TBurnEnterpriseNode";
-import { transactionValidationService, CrossShardVerification } from "./services/validation/TransactionValidationService";
 
 // TBURN v7.0 Enterprise Validator Configuration
 // Dynamic scaling: 16 shards = 400 validators, 32 = 800, 64 = 1600, 128 = 3200
@@ -771,36 +770,26 @@ export class ValidatorSimulationService {
   }
   
   private async simulateCrossShardMessages(): Promise<void> {
+    // Use cached shards instead of querying DB every time
     const shards = await this.getCachedShards();
     if (shards.length < 2) {
       return;
     }
     
+    // Generate 1-3 cross-shard messages per simulation
     const messageCount = 1 + Math.floor(Math.random() * 3);
     
     const messageTypes = ['transfer', 'contract_call', 'state_sync'];
     const routeOptimizations = ['speed', 'reputation', 'cost', 'balanced'];
-    const statuses = ['pending', 'confirmed', 'confirmed', 'confirmed'];
+    const statuses = ['pending', 'confirmed', 'confirmed', 'confirmed']; // 75% confirmed
     
     for (let i = 0; i < messageCount; i++) {
+      // O(1) shard pair selection (no while loop)
       const { fromShard, toShard } = this.selectShardPair(shards);
       
       this.crossShardMessageCounter++;
       const messageType = messageTypes[Math.floor(Math.random() * messageTypes.length)];
-      
-      const sourceMerkleRoot = this.generateShardMerkleRoot(fromShard.shardId);
-      const targetMerkleRoot = this.generateShardMerkleRoot(toShard.shardId);
-      
-      const verification = transactionValidationService.verifyCrossShardMessage(
-        sourceMerkleRoot,
-        targetMerkleRoot,
-        fromShard.shardId,
-        toShard.shardId,
-        this.currentBlockHeight
-      );
-      
-      const status = verification.verified ? 
-        statuses[Math.floor(Math.random() * statuses.length)] : 'failed';
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
       
       const messageData: InsertCrossShardMessage = {
         messageId: `csm-${Date.now()}-${this.crossShardMessageCounter.toString().padStart(6, '0')}`,
@@ -816,34 +805,23 @@ export class ValidatorSimulationService {
           data: messageType === 'contract_call' ? `0x${crypto.randomBytes(32).toString('hex')}` : null,
           nonce: Math.floor(Math.random() * 1000000),
           timestamp: Date.now(),
-          verification: {
-            sourceMerkleRoot,
-            targetMerkleRoot,
-            checksum: verification.checksum,
-            verified: verification.verified
-          }
         },
         retryCount: status === 'failed' ? Math.floor(Math.random() * 3) + 1 : 0,
-        gasUsed: 21000 + Math.floor(Math.random() * 150000),
-        routingPriority: 1 + Math.floor(Math.random() * 10),
-        peerReputation: 7500 + Math.floor(Math.random() * 2500),
-        networkQuality: 8000 + Math.floor(Math.random() * 2000),
+        gasUsed: 21000 + Math.floor(Math.random() * 150000), // 21k - 171k gas
+        routingPriority: 1 + Math.floor(Math.random() * 10), // 1-10
+        peerReputation: 7500 + Math.floor(Math.random() * 2500), // 7500-10000
+        networkQuality: 8000 + Math.floor(Math.random() * 2000), // 8000-10000
         routeOptimization: routeOptimizations[Math.floor(Math.random() * routeOptimizations.length)],
       };
       
+      // Buffer messages for batch insertion
       this.crossShardMessageBuffer.push(messageData);
       
+      // Flush buffer when it reaches threshold
       if (this.crossShardMessageBuffer.length >= ValidatorSimulationService.MESSAGE_BUFFER_SIZE) {
         await this.flushMessageBuffer();
       }
     }
-  }
-
-  private generateShardMerkleRoot(shardId: number): string {
-    const rootSeed = crypto.createHash('sha256')
-      .update(`shard-${shardId}-block-${this.currentBlockHeight}-${Date.now()}`)
-      .digest('hex');
-    return `0x${rootSeed}`;
   }
 
   // Update network stats based on validator activity

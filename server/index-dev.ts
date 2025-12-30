@@ -2,60 +2,21 @@ import fs from "node:fs";
 import path from "node:path";
 import { type Server } from "node:http";
 
-import express, { type Express } from "express";
+import { nanoid } from "nanoid";
+import { type Express } from "express";
 import { createServer as createViteServer, createLogger } from "vite";
 
 import viteConfig from "../vite.config";
 import runApp from "./app";
 
-// Use production build if available (faster startup on Replit)
-// Check for dist/public which is where Vite builds to (see vite.config.ts)
-const distPath = path.resolve(import.meta.dirname, "..", "dist", "public");
-const indexHtmlPath = path.join(distPath, "index.html");
-const indexHtmlExists = fs.existsSync(indexHtmlPath);
-console.log('[Dev] Static build check:', { distPath, indexHtmlPath, indexHtmlExists, USE_STATIC_BUILD_ENV: process.env.USE_STATIC_BUILD });
-// Only use static build if USE_STATIC_BUILD is explicitly 'true', or if not set and dist exists
-const USE_STATIC_BUILD = process.env.USE_STATIC_BUILD === 'true' || 
-  (process.env.USE_STATIC_BUILD !== 'false' && indexHtmlExists);
-console.log('[Dev] USE_STATIC_BUILD:', USE_STATIC_BUILD);
-
 export async function setupVite(app: Express, server: Server) {
-  // Check if we should use static build instead of Vite dev server
-  if (USE_STATIC_BUILD) {
-    console.log('[Dev] Using static build from', distPath);
-    
-    app.use(express.static(distPath));
-    app.use("*", (_req, res) => {
-      res.sendFile(path.resolve(distPath, "index.html"));
-    });
-    return;
-  }
-  
-  // Serve homepage with static HTML to avoid Vite compilation timeout
-  const clientTemplate = path.resolve(import.meta.dirname, "..", "client", "index.html");
-  console.log('[Dev] Homepage route registered, template path:', clientTemplate);
-  
-  app.get("/", (req, res) => {
-    console.log('[Dev] Homepage request received');
-    try {
-      const template = fs.readFileSync(clientTemplate, "utf-8");
-      console.log('[Dev] Template read, size:', template.length);
-      res.status(200).set({ "Content-Type": "text/html" }).send(template);
-      console.log('[Dev] Homepage response sent');
-    } catch (e) {
-      console.error('[Dev] Failed to serve homepage:', e);
-      res.status(500).send('Failed to load homepage');
-    }
-  });
-  
-  // Fallback to Vite dev server
-  console.log('[Dev] Starting Vite development server...');
   const viteLogger = createLogger();
   const isReplit = Boolean(process.env.REPL_ID);
   
   const serverOptions = {
     middlewareMode: true,
     // Disable HMR in Replit to prevent WebSocket blocking issues
+    // Keep HMR enabled for local development
     hmr: isReplit ? false : { server },
     allowedHosts: true as const,
   };
@@ -86,7 +47,12 @@ export async function setupVite(app: Express, server: Server) {
         "index.html",
       );
 
+      // always reload the index.html file from disk incase it changes
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      template = template.replace(
+        `src="/src/main.tsx"`,
+        `src="/src/main.tsx?v=${nanoid()}"`,
+      );
       const page = await vite.transformIndexHtml(url, template);
       res.status(200).set({ "Content-Type": "text/html" }).end(page);
     } catch (e) {

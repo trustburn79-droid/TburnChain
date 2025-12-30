@@ -26,7 +26,7 @@ import { useTranslation } from "react-i18next";
 import '@/lib/i18n';
 import { lazy, Suspense } from "react";
 
-const PublicRouter = lazy(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
+import { PublicRouter } from "./public/PublicRouter";
 
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Blocks = lazy(() => import("@/pages/blocks"));

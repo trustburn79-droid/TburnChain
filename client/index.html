@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-version="2025.12.30.v1">
+<html lang="en" data-version="2025.12.25.v4">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
@@ -88,13 +88,6 @@
       </div>
     </div>
     <div id="radix-portal-root"></div>
-    <script>
-      console.log('[TBURN-HTML] Inline script running');
-      window.onerror = function(msg, url, line, col, error) {
-        console.error('[TBURN-HTML] Global error:', msg, url, line, col, error);
-        return false;
-      };
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
