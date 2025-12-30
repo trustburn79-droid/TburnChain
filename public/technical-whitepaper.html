@@ -1074,44 +1074,44 @@
       <table>
         <thead>
           <tr>
-            <th>Parameter</th>
-            <th>Mainnet</th>
-            <th>Testnet</th>
+            <th data-i18n="network.paramHeader">Parameter</th>
+            <th data-i18n="network.mainnetHeader">Mainnet</th>
+            <th data-i18n="network.testnetHeader">Testnet</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Chain ID</td>
+            <td data-i18n="network.chainId">Chain ID</td>
             <td><code>6000 (0x1770)</code></td>
             <td><code>5900 (0x170C)</code></td>
           </tr>
           <tr>
-            <td>RPC Endpoint</td>
+            <td data-i18n="network.rpcEndpoint">RPC Endpoint</td>
             <td><code>https://tburn.io/rpc</code></td>
             <td><code>https://tburn.io/testnet-rpc</code></td>
           </tr>
           <tr>
-            <td>WebSocket</td>
+            <td data-i18n="network.websocket">WebSocket</td>
             <td><code>wss://tburn.io/ws</code></td>
             <td><code>wss://tburn.io/testnet-ws</code></td>
           </tr>
           <tr>
-            <td>Explorer</td>
+            <td data-i18n="network.explorer">Explorer</td>
             <td><code>https://tburn.io/scan</code></td>
             <td><code>https://tburn.io/testnet-scan</code></td>
           </tr>
           <tr>
-            <td>Currency Symbol</td>
+            <td data-i18n="network.currencySymbol">Currency Symbol</td>
             <td>TBURN</td>
             <td>tTBURN</td>
           </tr>
           <tr>
-            <td>Block Time</td>
+            <td data-i18n="network.blockTime">Block Time</td>
             <td>100ms</td>
             <td>100ms</td>
           </tr>
           <tr>
-            <td>Gas Unit</td>
+            <td data-i18n="network.gasUnit">Gas Unit</td>
             <td>Ember (EMB)</td>
             <td>Ember (EMB)</td>
           </tr>
@@ -1127,35 +1127,35 @@
       </p>
 
       <h3 data-i18n="consensus.trustScoreCalc">3.1 Trust Score Calculation</h3>
-      <p>
+      <p data-i18n="consensus.trustScoreDesc">
         Each validator maintains a Trust Score (TS) calculated from multiple performance metrics:
       </p>
 
       <div class="formula">
-        <div class="title">Trust Score Formula</div>
+        <div class="title" data-i18n="consensus.formulaTitle">Trust Score Formula</div>
         <div class="equation">
           TS = α·Uptime + β·BlockProduction + γ·VoteAccuracy + δ·StakeRatio + ε·NetworkContribution
         </div>
       </div>
 
-      <p>Where the coefficients are:</p>
+      <p data-i18n="consensus.coefficientsIntro">Where the coefficients are:</p>
       <ul>
-        <li><strong>α = 0.25:</strong> Validator uptime percentage (99%+ optimal)</li>
-        <li><strong>β = 0.20:</strong> Block production success rate</li>
-        <li><strong>γ = 0.20:</strong> Consensus vote accuracy and timeliness</li>
-        <li><strong>δ = 0.20:</strong> Stake amount relative to network total</li>
-        <li><strong>ε = 0.15:</strong> Cross-shard message relay and network health contribution</li>
+        <li data-i18n="consensus.coeffAlpha"><strong>α = 0.25:</strong> Validator uptime percentage (99%+ optimal)</li>
+        <li data-i18n="consensus.coeffBeta"><strong>β = 0.20:</strong> Block production success rate</li>
+        <li data-i18n="consensus.coeffGamma"><strong>γ = 0.20:</strong> Consensus vote accuracy and timeliness</li>
+        <li data-i18n="consensus.coeffDelta"><strong>δ = 0.20:</strong> Stake amount relative to network total</li>
+        <li data-i18n="consensus.coeffEpsilon"><strong>ε = 0.15:</strong> Cross-shard message relay and network health contribution</li>
       </ul>
 
       <h3 data-i18n="consensus.validatorTiers">3.2 Validator Tiers</h3>
       <table>
         <thead>
           <tr>
-            <th>Tier</th>
-            <th>Max Validators</th>
-            <th>Min Stake</th>
-            <th>Reward Share</th>
-            <th>Daily Rewards</th>
+            <th data-i18n="validator.tierHeader">Tier</th>
+            <th data-i18n="validator.maxValidatorsHeader">Max Validators</th>
+            <th data-i18n="validator.minStakeHeader">Min Stake</th>
+            <th data-i18n="validator.rewardShareHeader">Reward Share</th>
+            <th data-i18n="validator.dailyRewardsHeader">Daily Rewards</th>
           </tr>
         </thead>
         <tbody>
@@ -1184,7 +1184,7 @@
       </table>
 
       <h3 data-i18n="consensus.blockProduction">3.3 Block Production</h3>
-      <p>
+      <p data-i18n="consensus.blockProductionDesc">
         Validators are selected for block production through a weighted random selection algorithm where the probability is proportional to their Trust Score. This ensures high-performing validators produce more blocks while maintaining decentralization.
       </p>
 
@@ -1203,14 +1203,14 @@ function selectBlockProposer(validators, blockHeight) {
 }</code></pre>
 
       <h3 data-i18n="consensus.finalityGuarantee">3.4 Finality Guarantee</h3>
-      <p>
+      <p data-i18n="consensus.finalityDesc">
         TBURN Chain achieves single-slot finality through a two-phase commit process:
       </p>
       <ol>
-        <li><strong>Propose Phase (50ms):</strong> Selected proposer broadcasts block to shard validators</li>
-        <li><strong>Commit Phase (50ms):</strong> Validators vote, 2/3+ weighted consensus confirms finality</li>
+        <li data-i18n="consensus.proposePhase"><strong>Propose Phase (50ms):</strong> Selected proposer broadcasts block to shard validators</li>
+        <li data-i18n="consensus.commitPhase"><strong>Commit Phase (50ms):</strong> Validators vote, 2/3+ weighted consensus confirms finality</li>
       </ol>
-      <p>
+      <p data-i18n="consensus.finalityTime">
         Total finality time: <span class="highlight">100ms per block</span>, with cross-shard finality achieved within <span class="highlight">1 second</span>.
       </p>
     </section>
@@ -1222,73 +1222,73 @@ function selectBlockProposer(validators, blockHeight) {
         TBURN Chain implements a dynamic sharding system that automatically scales from 5 to 128 shards based on network load and hardware capacity. This enables linear throughput scaling while maintaining security guarantees.
       </p>
 
-      <h3>4.1 Shard Configuration</h3>
+      <h3 data-i18n="sharding.shardConfig">4.1 Shard Configuration</h3>
       <div class="spec-grid">
         <div class="spec-card">
-          <div class="label">Active Shards</div>
+          <div class="label" data-i18n="sharding.activeShards">Active Shards</div>
           <div class="value cyan">64</div>
         </div>
         <div class="spec-card">
-          <div class="label">Validators/Shard</div>
+          <div class="label" data-i18n="sharding.validatorsPerShard">Validators/Shard</div>
           <div class="value green">25</div>
         </div>
         <div class="spec-card">
-          <div class="label">TPS per Shard</div>
+          <div class="label" data-i18n="sharding.tpsPerShard">TPS per Shard</div>
           <div class="value orange">3,280</div>
         </div>
         <div class="spec-card">
-          <div class="label">Cross-Shard Latency</div>
+          <div class="label" data-i18n="sharding.crossShardLatency">Cross-Shard Latency</div>
           <div class="value purple">50ms</div>
         </div>
       </div>
 
-      <h3>4.2 TPS Calculation Formula</h3>
+      <h3 data-i18n="sharding.tpsFormula">4.2 TPS Calculation Formula</h3>
       <div class="formula">
-        <div class="title">Network TPS Formula</div>
+        <div class="title" data-i18n="sharding.networkTpsFormula">Network TPS Formula</div>
         <div class="equation">
           TPS = Shards × TxPerShard × NetworkLoad × BlocksPerSecond
         </div>
       </div>
 
-      <p>With mainnet configuration:</p>
+      <p data-i18n="sharding.mainnetConfig">With mainnet configuration:</p>
       <pre><code>TPS = 64 shards × 625 tx/shard × 0.525 load × 10 blocks/sec
 TPS ≈ 210,000</code></pre>
 
-      <h3>4.3 Hardware Profiles</h3>
+      <h3 data-i18n="sharding.hardwareProfiles">4.3 Hardware Profiles</h3>
       <table>
         <thead>
           <tr>
-            <th>Profile</th>
-            <th>CPU Cores</th>
-            <th>RAM</th>
-            <th>Max Shards</th>
-            <th>TPS Range</th>
+            <th data-i18n="hardware.profileHeader">Profile</th>
+            <th data-i18n="hardware.cpuCoresHeader">CPU Cores</th>
+            <th data-i18n="hardware.ramHeader">RAM</th>
+            <th data-i18n="hardware.maxShardsHeader">Max Shards</th>
+            <th data-i18n="hardware.tpsRangeHeader">TPS Range</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Development</td>
+            <td data-i18n="hardware.development">Development</td>
             <td>&lt;16</td>
             <td>&lt;64GB</td>
             <td>5</td>
             <td>10,000 - 25,000</td>
           </tr>
           <tr>
-            <td>Staging</td>
+            <td data-i18n="hardware.staging">Staging</td>
             <td>16+</td>
             <td>64GB+</td>
             <td>32</td>
             <td>50,000 - 100,000</td>
           </tr>
           <tr>
-            <td>Production</td>
+            <td data-i18n="hardware.production">Production</td>
             <td>32+</td>
             <td>256GB+</td>
             <td>64</td>
             <td>150,000 - 250,000</td>
           </tr>
           <tr>
-            <td>Enterprise</td>
+            <td data-i18n="hardware.enterprise">Enterprise</td>
             <td>64+</td>
             <td>512GB+</td>
             <td>128</td>
@@ -1297,25 +1297,25 @@ TPS ≈ 210,000</code></pre>
         </tbody>
       </table>
 
-      <h3>4.4 Cross-Shard Communication</h3>
-      <p>
+      <h3 data-i18n="sharding.crossShard">4.4 Cross-Shard Communication</h3>
+      <p data-i18n="sharding.crossShardDesc">
         Cross-shard transactions utilize an asynchronous message passing protocol with the following characteristics:
       </p>
       <ul>
-        <li><strong>Message Queue:</strong> Priority-based routing with O(1) shard pair selection</li>
-        <li><strong>Batch Processing:</strong> Messages aggregated into batches for efficiency</li>
-        <li><strong>Proof Generation:</strong> Merkle proofs enable trustless cross-shard verification</li>
-        <li><strong>Caching:</strong> 30-second TTL shard state cache for optimal performance</li>
+        <li data-i18n="sharding.messageQueue"><strong>Message Queue:</strong> Priority-based routing with O(1) shard pair selection</li>
+        <li data-i18n="sharding.batchProcessing"><strong>Batch Processing:</strong> Messages aggregated into batches for efficiency</li>
+        <li data-i18n="sharding.proofGeneration"><strong>Proof Generation:</strong> Merkle proofs enable trustless cross-shard verification</li>
+        <li data-i18n="sharding.caching"><strong>Caching:</strong> 30-second TTL shard state cache for optimal performance</li>
       </ul>
 
-      <h3>4.5 Automatic Scaling</h3>
-      <p>
+      <h3 data-i18n="sharding.autoScaling">4.5 Automatic Scaling</h3>
+      <p data-i18n="sharding.autoScalingDesc">
         The sharding engine monitors network load in real-time and triggers scaling events when thresholds are exceeded:
       </p>
       <ul>
-        <li><strong>Scale Up:</strong> When average shard load exceeds 70% for 5 minutes</li>
-        <li><strong>Scale Down:</strong> When average shard load drops below 30% for 15 minutes</li>
-        <li><strong>Rebalance:</strong> When load imbalance exceeds 30% between shards</li>
+        <li data-i18n="sharding.scaleUp"><strong>Scale Up:</strong> When average shard load exceeds 70% for 5 minutes</li>
+        <li data-i18n="sharding.scaleDown"><strong>Scale Down:</strong> When average shard load drops below 30% for 15 minutes</li>
+        <li data-i18n="sharding.rebalance"><strong>Rebalance:</strong> When load imbalance exceeds 30% between shards</li>
       </ul>
     </section>
 
@@ -1326,14 +1326,14 @@ TPS ≈ 210,000</code></pre>
         TBURN Chain integrates a sophisticated AI orchestration layer that continuously optimizes network operations, security, and governance. The Quad-Band system leverages four leading AI models for redundancy and specialized expertise.
       </p>
 
-      <h3>5.1 AI Model Configuration</h3>
+      <h3 data-i18n="ai.modelConfig">5.1 AI Model Configuration</h3>
       <table>
         <thead>
           <tr>
-            <th>Band</th>
-            <th>Model</th>
-            <th>Primary Function</th>
-            <th>Latency</th>
+            <th data-i18n="ai.bandHeader">Band</th>
+            <th data-i18n="ai.modelHeader">Model</th>
+            <th data-i18n="ai.primaryFunctionHeader">Primary Function</th>
+            <th data-i18n="ai.latencyHeader">Latency</th>
           </tr>
         </thead>
         <tbody>
@@ -1364,18 +1364,18 @@ TPS ≈ 210,000</code></pre>
         </tbody>
       </table>
 
-      <h3>5.2 AI Decision Categories</h3>
+      <h3 data-i18n="ai.decisionCategories">5.2 AI Decision Categories</h3>
       <ul>
-        <li><strong>ADJUST_SHARDS:</strong> Dynamic shard count optimization</li>
-        <li><strong>OPTIMIZE_BURN:</strong> AI-driven burn rate adjustments</li>
-        <li><strong>RESCHEDULE_VALIDATORS:</strong> Validator rotation and load balancing</li>
-        <li><strong>SECURITY_ALERT:</strong> Threat detection and response</li>
-        <li><strong>GOVERNANCE_PREVALIDATION:</strong> Proposal analysis and risk assessment</li>
-        <li><strong>CROSS_SHARD_OPTIMIZATION:</strong> Message routing efficiency</li>
+        <li data-i18n="ai.adjustShards"><strong>ADJUST_SHARDS:</strong> Dynamic shard count optimization</li>
+        <li data-i18n="ai.optimizeBurn"><strong>OPTIMIZE_BURN:</strong> AI-driven burn rate adjustments</li>
+        <li data-i18n="ai.rescheduleValidators"><strong>RESCHEDULE_VALIDATORS:</strong> Validator rotation and load balancing</li>
+        <li data-i18n="ai.securityAlert"><strong>SECURITY_ALERT:</strong> Threat detection and response</li>
+        <li data-i18n="ai.governancePrevalidation"><strong>GOVERNANCE_PREVALIDATION:</strong> Proposal analysis and risk assessment</li>
+        <li data-i18n="ai.crossShardOptimization"><strong>CROSS_SHARD_OPTIMIZATION:</strong> Message routing efficiency</li>
       </ul>
 
-      <h3>5.3 Fail-Fast Architecture</h3>
-      <p>
+      <h3 data-i18n="ai.failFast">5.3 Fail-Fast Architecture</h3>
+      <p data-i18n="ai.failFastDesc">
         The AI system implements a fail-fast architecture with automatic fallback:
       </p>
       <pre><code>// AI Orchestration Fallback Chain
@@ -1386,12 +1386,12 @@ Primary: 2000ms
 Fallback: 1500ms
 Emergency: 1000ms</code></pre>
 
-      <h3>5.4 Burn Optimization Algorithm</h3>
-      <p>
+      <h3 data-i18n="ai.burnOptimization">5.4 Burn Optimization Algorithm</h3>
+      <p data-i18n="ai.burnOptimizationDesc">
         The AI-driven burn mechanism analyzes network activity to optimize token burning:
       </p>
       <div class="formula">
-        <div class="title">Dynamic Burn Rate</div>
+        <div class="title" data-i18n="ai.dynamicBurnRate">Dynamic Burn Rate</div>
         <div class="equation">
           BurnRate = BaseBurn × (1 + NetworkUtilization × ActivityMultiplier)
         </div>
@@ -1896,7 +1896,88 @@ Emergency: 1000ms</code></pre>
         "footer.website": "Website",
         "footer.whitepaper": "Whitepaper",
         "footer.developers": "Developers",
-        "footer.governance": "Governance"
+        "footer.governance": "Governance",
+        // Network Specifications
+        "network.paramHeader": "Parameter",
+        "network.mainnetHeader": "Mainnet",
+        "network.testnetHeader": "Testnet",
+        "network.chainId": "Chain ID",
+        "network.rpcEndpoint": "RPC Endpoint",
+        "network.websocket": "WebSocket",
+        "network.explorer": "Explorer",
+        "network.currencySymbol": "Currency Symbol",
+        "network.blockTime": "Block Time",
+        "network.gasUnit": "Gas Unit",
+        // Consensus - Trust Score
+        "consensus.trustScoreDesc": "Each validator maintains a Trust Score (TS) calculated from multiple performance metrics:",
+        "consensus.formulaTitle": "Trust Score Formula",
+        "consensus.coefficientsIntro": "Where the coefficients are:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> Validator uptime percentage (99%+ optimal)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> Block production success rate",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> Consensus vote accuracy and timeliness",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> Stake amount relative to network total",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> Cross-shard message relay and network health contribution",
+        // Validator Tiers
+        "validator.tierHeader": "Tier",
+        "validator.maxValidatorsHeader": "Max Validators",
+        "validator.minStakeHeader": "Min Stake",
+        "validator.rewardShareHeader": "Reward Share",
+        "validator.dailyRewardsHeader": "Daily Rewards",
+        // Block Production & Finality
+        "consensus.blockProductionDesc": "Validators are selected for block production through a weighted random selection algorithm where the probability is proportional to their Trust Score. This ensures high-performing validators produce more blocks while maintaining decentralization.",
+        "consensus.finalityDesc": "TBURN Chain achieves single-slot finality through a two-phase commit process:",
+        "consensus.proposePhase": "<strong>Propose Phase (50ms):</strong> Selected proposer broadcasts block to shard validators",
+        "consensus.commitPhase": "<strong>Commit Phase (50ms):</strong> Validators vote, 2/3+ weighted consensus confirms finality",
+        "consensus.finalityTime": "Total finality time: <span class=\"highlight\">100ms per block</span>, with cross-shard finality achieved within <span class=\"highlight\">1 second</span>.",
+        // Sharding
+        "sharding.shardConfig": "4.1 Shard Configuration",
+        "sharding.activeShards": "Active Shards",
+        "sharding.validatorsPerShard": "Validators/Shard",
+        "sharding.tpsPerShard": "TPS per Shard",
+        "sharding.crossShardLatency": "Cross-Shard Latency",
+        "sharding.tpsFormula": "4.2 TPS Calculation Formula",
+        "sharding.networkTpsFormula": "Network TPS Formula",
+        "sharding.mainnetConfig": "With mainnet configuration:",
+        "sharding.hardwareProfiles": "4.3 Hardware Profiles",
+        "sharding.crossShard": "4.4 Cross-Shard Communication",
+        "sharding.crossShardDesc": "Cross-shard transactions utilize an asynchronous message passing protocol with the following characteristics:",
+        "sharding.messageQueue": "<strong>Message Queue:</strong> Priority-based routing with O(1) shard pair selection",
+        "sharding.batchProcessing": "<strong>Batch Processing:</strong> Messages aggregated into batches for efficiency",
+        "sharding.proofGeneration": "<strong>Proof Generation:</strong> Merkle proofs enable trustless cross-shard verification",
+        "sharding.caching": "<strong>Caching:</strong> 30-second TTL shard state cache for optimal performance",
+        "sharding.autoScaling": "4.5 Automatic Scaling",
+        "sharding.autoScalingDesc": "The sharding engine monitors network load in real-time and triggers scaling events when thresholds are exceeded:",
+        "sharding.scaleUp": "<strong>Scale Up:</strong> When average shard load exceeds 70% for 5 minutes",
+        "sharding.scaleDown": "<strong>Scale Down:</strong> When average shard load drops below 30% for 15 minutes",
+        "sharding.rebalance": "<strong>Rebalance:</strong> When load imbalance exceeds 30% between shards",
+        // Hardware Profiles
+        "hardware.profileHeader": "Profile",
+        "hardware.cpuCoresHeader": "CPU Cores",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "Max Shards",
+        "hardware.tpsRangeHeader": "TPS Range",
+        "hardware.development": "Development",
+        "hardware.staging": "Staging",
+        "hardware.production": "Production",
+        "hardware.enterprise": "Enterprise",
+        // AI System
+        "ai.modelConfig": "5.1 AI Model Configuration",
+        "ai.bandHeader": "Band",
+        "ai.modelHeader": "Model",
+        "ai.primaryFunctionHeader": "Primary Function",
+        "ai.latencyHeader": "Latency",
+        "ai.decisionCategories": "5.2 AI Decision Categories",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> Dynamic shard count optimization",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI-driven burn rate adjustments",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> Validator rotation and load balancing",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> Threat detection and response",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> Proposal analysis and risk assessment",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> Message routing efficiency",
+        "ai.failFast": "5.3 Fail-Fast Architecture",
+        "ai.failFastDesc": "The AI system implements a fail-fast architecture with automatic fallback:",
+        "ai.burnOptimization": "5.4 Burn Optimization Algorithm",
+        "ai.burnOptimizationDesc": "The AI-driven burn mechanism analyzes network activity to optimize token burning:",
+        "ai.dynamicBurnRate": "Dynamic Burn Rate"
       },
       ko: {
         "nav.pageTitle": "기술 백서",
@@ -1965,7 +2046,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "웹사이트",
         "footer.whitepaper": "백서",
         "footer.developers": "개발자",
-        "footer.governance": "거버넌스"
+        "footer.governance": "거버넌스",
+        "network.paramHeader": "매개변수",
+        "network.mainnetHeader": "메인넷",
+        "network.testnetHeader": "테스트넷",
+        "network.chainId": "체인 ID",
+        "network.rpcEndpoint": "RPC 엔드포인트",
+        "network.websocket": "웹소켓",
+        "network.explorer": "탐색기",
+        "network.currencySymbol": "통화 기호",
+        "network.blockTime": "블록 시간",
+        "network.gasUnit": "가스 단위",
+        "consensus.trustScoreDesc": "각 검증자는 여러 성능 지표에서 계산된 신뢰 점수(TS)를 유지합니다:",
+        "consensus.formulaTitle": "신뢰 점수 공식",
+        "consensus.coefficientsIntro": "계수는 다음과 같습니다:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> 검증자 가동 시간 비율 (99%+ 최적)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> 블록 생성 성공률",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> 합의 투표 정확도 및 적시성",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> 네트워크 전체 대비 스테이크 금액",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> 크로스샤드 메시지 중계 및 네트워크 건강 기여",
+        "validator.tierHeader": "등급",
+        "validator.maxValidatorsHeader": "최대 검증자",
+        "validator.minStakeHeader": "최소 스테이크",
+        "validator.rewardShareHeader": "보상 점유율",
+        "validator.dailyRewardsHeader": "일일 보상",
+        "consensus.blockProductionDesc": "검증자는 신뢰 점수에 비례하는 가중 무작위 선택 알고리즘을 통해 블록 생성에 선택됩니다. 이를 통해 탈중앙화를 유지하면서 고성능 검증자가 더 많은 블록을 생성합니다.",
+        "consensus.finalityDesc": "TBURN 체인은 2단계 커밋 프로세스를 통해 단일 슬롯 확정성을 달성합니다:",
+        "consensus.proposePhase": "<strong>제안 단계 (50ms):</strong> 선택된 제안자가 샤드 검증자에게 블록을 브로드캐스트",
+        "consensus.commitPhase": "<strong>커밋 단계 (50ms):</strong> 검증자 투표, 2/3+ 가중 합의로 확정성 확인",
+        "consensus.finalityTime": "총 확정 시간: <span class=\"highlight\">블록당 100ms</span>, 크로스샤드 확정은 <span class=\"highlight\">1초</span> 이내에 달성됩니다.",
+        "sharding.shardConfig": "4.1 샤드 구성",
+        "sharding.activeShards": "활성 샤드",
+        "sharding.validatorsPerShard": "샤드당 검증자",
+        "sharding.tpsPerShard": "샤드당 TPS",
+        "sharding.crossShardLatency": "크로스샤드 지연",
+        "sharding.tpsFormula": "4.2 TPS 계산 공식",
+        "sharding.networkTpsFormula": "네트워크 TPS 공식",
+        "sharding.mainnetConfig": "메인넷 구성:",
+        "sharding.hardwareProfiles": "4.3 하드웨어 프로필",
+        "sharding.crossShard": "4.4 크로스샤드 통신",
+        "sharding.crossShardDesc": "크로스샤드 트랜잭션은 다음 특성을 가진 비동기 메시지 전달 프로토콜을 사용합니다:",
+        "sharding.messageQueue": "<strong>메시지 큐:</strong> O(1) 샤드 쌍 선택을 통한 우선순위 기반 라우팅",
+        "sharding.batchProcessing": "<strong>배치 처리:</strong> 효율성을 위해 메시지를 배치로 집계",
+        "sharding.proofGeneration": "<strong>증명 생성:</strong> 머클 증명으로 신뢰할 수 없는 크로스샤드 검증 가능",
+        "sharding.caching": "<strong>캐싱:</strong> 최적 성능을 위한 30초 TTL 샤드 상태 캐시",
+        "sharding.autoScaling": "4.5 자동 스케일링",
+        "sharding.autoScalingDesc": "샤딩 엔진은 네트워크 부하를 실시간으로 모니터링하고 임계값을 초과하면 스케일링 이벤트를 트리거합니다:",
+        "sharding.scaleUp": "<strong>스케일 업:</strong> 평균 샤드 부하가 5분 동안 70%를 초과할 때",
+        "sharding.scaleDown": "<strong>스케일 다운:</strong> 평균 샤드 부하가 15분 동안 30% 미만으로 떨어질 때",
+        "sharding.rebalance": "<strong>리밸런스:</strong> 샤드 간 부하 불균형이 30%를 초과할 때",
+        "hardware.profileHeader": "프로필",
+        "hardware.cpuCoresHeader": "CPU 코어",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "최대 샤드",
+        "hardware.tpsRangeHeader": "TPS 범위",
+        "hardware.development": "개발",
+        "hardware.staging": "스테이징",
+        "hardware.production": "프로덕션",
+        "hardware.enterprise": "엔터프라이즈",
+        "ai.modelConfig": "5.1 AI 모델 구성",
+        "ai.bandHeader": "밴드",
+        "ai.modelHeader": "모델",
+        "ai.primaryFunctionHeader": "주요 기능",
+        "ai.latencyHeader": "지연 시간",
+        "ai.decisionCategories": "5.2 AI 결정 카테고리",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> 동적 샤드 수 최적화",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI 기반 소각률 조정",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> 검증자 로테이션 및 부하 분산",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> 위협 탐지 및 대응",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> 제안 분석 및 위험 평가",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> 메시지 라우팅 효율성",
+        "ai.failFast": "5.3 페일패스트 아키텍처",
+        "ai.failFastDesc": "AI 시스템은 자동 폴백을 포함한 페일패스트 아키텍처를 구현합니다:",
+        "ai.burnOptimization": "5.4 소각 최적화 알고리즘",
+        "ai.burnOptimizationDesc": "AI 기반 소각 메커니즘은 네트워크 활동을 분석하여 토큰 소각을 최적화합니다:",
+        "ai.dynamicBurnRate": "동적 소각률"
       },
       zh: {
         "nav.pageTitle": "技术白皮书",
@@ -2034,7 +2189,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "网站",
         "footer.whitepaper": "白皮书",
         "footer.developers": "开发者",
-        "footer.governance": "治理"
+        "footer.governance": "治理",
+        "network.paramHeader": "参数",
+        "network.mainnetHeader": "主网",
+        "network.testnetHeader": "测试网",
+        "network.chainId": "链 ID",
+        "network.rpcEndpoint": "RPC 端点",
+        "network.websocket": "WebSocket",
+        "network.explorer": "浏览器",
+        "network.currencySymbol": "货币符号",
+        "network.blockTime": "区块时间",
+        "network.gasUnit": "Gas 单位",
+        "consensus.trustScoreDesc": "每个验证者维护一个由多个性能指标计算得出的信任评分（TS）：",
+        "consensus.formulaTitle": "信任评分公式",
+        "consensus.coefficientsIntro": "其中系数为：",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> 验证者在线时间百分比（99%+最优）",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> 区块生产成功率",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> 共识投票准确性和及时性",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> 相对于网络总量的质押金额",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> 跨分片消息中继和网络健康贡献",
+        "validator.tierHeader": "等级",
+        "validator.maxValidatorsHeader": "最大验证者数",
+        "validator.minStakeHeader": "最低质押",
+        "validator.rewardShareHeader": "奖励份额",
+        "validator.dailyRewardsHeader": "每日奖励",
+        "consensus.blockProductionDesc": "通过加权随机选择算法选择验证者进行区块生产，其概率与其信任评分成正比。这确保高性能验证者产生更多区块，同时保持去中心化。",
+        "consensus.finalityDesc": "TBURN链通过两阶段提交过程实现单槽最终性：",
+        "consensus.proposePhase": "<strong>提议阶段（50ms）：</strong> 选定的提议者向分片验证者广播区块",
+        "consensus.commitPhase": "<strong>提交阶段（50ms）：</strong> 验证者投票，2/3+加权共识确认最终性",
+        "consensus.finalityTime": "总最终性时间：<span class=\"highlight\">每区块100ms</span>，跨分片最终性在<span class=\"highlight\">1秒</span>内实现。",
+        "sharding.shardConfig": "4.1 分片配置",
+        "sharding.activeShards": "活跃分片",
+        "sharding.validatorsPerShard": "每分片验证者",
+        "sharding.tpsPerShard": "每分片TPS",
+        "sharding.crossShardLatency": "跨分片延迟",
+        "sharding.tpsFormula": "4.2 TPS计算公式",
+        "sharding.networkTpsFormula": "网络TPS公式",
+        "sharding.mainnetConfig": "主网配置：",
+        "sharding.hardwareProfiles": "4.3 硬件配置文件",
+        "sharding.crossShard": "4.4 跨分片通信",
+        "sharding.crossShardDesc": "跨分片交易使用具有以下特征的异步消息传递协议：",
+        "sharding.messageQueue": "<strong>消息队列：</strong> 具有O(1)分片对选择的优先级路由",
+        "sharding.batchProcessing": "<strong>批处理：</strong> 消息聚合成批次以提高效率",
+        "sharding.proofGeneration": "<strong>证明生成：</strong> Merkle证明实现无需信任的跨分片验证",
+        "sharding.caching": "<strong>缓存：</strong> 30秒TTL分片状态缓存以获得最佳性能",
+        "sharding.autoScaling": "4.5 自动扩展",
+        "sharding.autoScalingDesc": "分片引擎实时监控网络负载，并在超过阈值时触发扩展事件：",
+        "sharding.scaleUp": "<strong>扩展：</strong> 当平均分片负载超过70%持续5分钟",
+        "sharding.scaleDown": "<strong>缩减：</strong> 当平均分片负载低于30%持续15分钟",
+        "sharding.rebalance": "<strong>重新平衡：</strong> 当分片间负载不平衡超过30%",
+        "hardware.profileHeader": "配置文件",
+        "hardware.cpuCoresHeader": "CPU核心",
+        "hardware.ramHeader": "内存",
+        "hardware.maxShardsHeader": "最大分片数",
+        "hardware.tpsRangeHeader": "TPS范围",
+        "hardware.development": "开发",
+        "hardware.staging": "预发布",
+        "hardware.production": "生产",
+        "hardware.enterprise": "企业",
+        "ai.modelConfig": "5.1 AI模型配置",
+        "ai.bandHeader": "频段",
+        "ai.modelHeader": "模型",
+        "ai.primaryFunctionHeader": "主要功能",
+        "ai.latencyHeader": "延迟",
+        "ai.decisionCategories": "5.2 AI决策类别",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> 动态分片数量优化",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI驱动的销毁率调整",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> 验证者轮换和负载平衡",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> 威胁检测和响应",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> 提案分析和风险评估",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> 消息路由效率",
+        "ai.failFast": "5.3 快速失败架构",
+        "ai.failFastDesc": "AI系统实现了具有自动回退的快速失败架构：",
+        "ai.burnOptimization": "5.4 销毁优化算法",
+        "ai.burnOptimizationDesc": "AI驱动的销毁机制分析网络活动以优化代币销毁：",
+        "ai.dynamicBurnRate": "动态销毁率"
       },
       ja: {
         "nav.pageTitle": "技術白書",
@@ -2103,7 +2332,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "ウェブサイト",
         "footer.whitepaper": "白書",
         "footer.developers": "開発者",
-        "footer.governance": "ガバナンス"
+        "footer.governance": "ガバナンス",
+        "network.paramHeader": "パラメータ",
+        "network.mainnetHeader": "メインネット",
+        "network.testnetHeader": "テストネット",
+        "network.chainId": "チェーンID",
+        "network.rpcEndpoint": "RPCエンドポイント",
+        "network.websocket": "WebSocket",
+        "network.explorer": "エクスプローラー",
+        "network.currencySymbol": "通貨シンボル",
+        "network.blockTime": "ブロック時間",
+        "network.gasUnit": "ガス単位",
+        "consensus.trustScoreDesc": "各バリデータは複数のパフォーマンス指標から計算された信頼スコア（TS）を維持します：",
+        "consensus.formulaTitle": "信頼スコア公式",
+        "consensus.coefficientsIntro": "係数は以下の通りです：",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> バリデータ稼働時間率（99%+が最適）",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> ブロック生成成功率",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> コンセンサス投票の正確性と適時性",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> ネットワーク全体に対するステーク量",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> クロスシャードメッセージリレーとネットワーク健全性への貢献",
+        "validator.tierHeader": "ティア",
+        "validator.maxValidatorsHeader": "最大バリデータ数",
+        "validator.minStakeHeader": "最小ステーク",
+        "validator.rewardShareHeader": "報酬シェア",
+        "validator.dailyRewardsHeader": "日次報酬",
+        "consensus.blockProductionDesc": "バリデータは信頼スコアに比例した確率で加重ランダム選択アルゴリズムによってブロック生成に選ばれます。これにより、分散化を維持しながら高性能バリデータがより多くのブロックを生成します。",
+        "consensus.finalityDesc": "TBURNチェーンは2フェーズコミットプロセスでシングルスロットファイナリティを実現します：",
+        "consensus.proposePhase": "<strong>提案フェーズ（50ms）：</strong> 選択された提案者がシャードバリデータにブロックをブロードキャスト",
+        "consensus.commitPhase": "<strong>コミットフェーズ（50ms）：</strong> バリデータが投票、2/3+加重コンセンサスでファイナリティを確認",
+        "consensus.finalityTime": "総ファイナリティ時間：<span class=\"highlight\">ブロックあたり100ms</span>、クロスシャードファイナリティは<span class=\"highlight\">1秒</span>以内に達成。",
+        "sharding.shardConfig": "4.1 シャード構成",
+        "sharding.activeShards": "アクティブシャード",
+        "sharding.validatorsPerShard": "シャードあたりバリデータ",
+        "sharding.tpsPerShard": "シャードあたりTPS",
+        "sharding.crossShardLatency": "クロスシャード遅延",
+        "sharding.tpsFormula": "4.2 TPS計算式",
+        "sharding.networkTpsFormula": "ネットワークTPS公式",
+        "sharding.mainnetConfig": "メインネット構成：",
+        "sharding.hardwareProfiles": "4.3 ハードウェアプロファイル",
+        "sharding.crossShard": "4.4 クロスシャード通信",
+        "sharding.crossShardDesc": "クロスシャードトランザクションは以下の特性を持つ非同期メッセージパッシングプロトコルを使用します：",
+        "sharding.messageQueue": "<strong>メッセージキュー：</strong> O(1)シャードペア選択による優先度ベースルーティング",
+        "sharding.batchProcessing": "<strong>バッチ処理：</strong> 効率のためにメッセージをバッチに集約",
+        "sharding.proofGeneration": "<strong>証明生成：</strong> マークル証明によるトラストレスなクロスシャード検証",
+        "sharding.caching": "<strong>キャッシング：</strong> 最適なパフォーマンスのための30秒TTLシャード状態キャッシュ",
+        "sharding.autoScaling": "4.5 自動スケーリング",
+        "sharding.autoScalingDesc": "シャーディングエンジンはネットワーク負荷をリアルタイムで監視し、しきい値を超えるとスケーリングイベントをトリガーします：",
+        "sharding.scaleUp": "<strong>スケールアップ：</strong> 平均シャード負荷が5分間70%を超えた場合",
+        "sharding.scaleDown": "<strong>スケールダウン：</strong> 平均シャード負荷が15分間30%を下回った場合",
+        "sharding.rebalance": "<strong>リバランス：</strong> シャード間の負荷不均衡が30%を超えた場合",
+        "hardware.profileHeader": "プロファイル",
+        "hardware.cpuCoresHeader": "CPUコア",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "最大シャード数",
+        "hardware.tpsRangeHeader": "TPS範囲",
+        "hardware.development": "開発",
+        "hardware.staging": "ステージング",
+        "hardware.production": "本番",
+        "hardware.enterprise": "エンタープライズ",
+        "ai.modelConfig": "5.1 AIモデル構成",
+        "ai.bandHeader": "バンド",
+        "ai.modelHeader": "モデル",
+        "ai.primaryFunctionHeader": "主要機能",
+        "ai.latencyHeader": "レイテンシ",
+        "ai.decisionCategories": "5.2 AI決定カテゴリ",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> 動的シャード数最適化",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI駆動バーン率調整",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> バリデータローテーションと負荷分散",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> 脅威検出と対応",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> 提案分析とリスク評価",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> メッセージルーティング効率",
+        "ai.failFast": "5.3 フェイルファストアーキテクチャ",
+        "ai.failFastDesc": "AIシステムは自動フォールバックを備えたフェイルファストアーキテクチャを実装しています：",
+        "ai.burnOptimization": "5.4 バーン最適化アルゴリズム",
+        "ai.burnOptimizationDesc": "AI駆動バーンメカニズムはネットワーク活動を分析してトークンバーニングを最適化します：",
+        "ai.dynamicBurnRate": "動的バーン率"
       },
       es: {
         "nav.pageTitle": "Libro Blanco Técnico",
@@ -2172,7 +2475,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "Sitio Web",
         "footer.whitepaper": "Libro Blanco",
         "footer.developers": "Desarrolladores",
-        "footer.governance": "Gobernanza"
+        "footer.governance": "Gobernanza",
+        "network.paramHeader": "Parámetro",
+        "network.mainnetHeader": "Red Principal",
+        "network.testnetHeader": "Red de Prueba",
+        "network.chainId": "ID de Cadena",
+        "network.rpcEndpoint": "Punto Final RPC",
+        "network.websocket": "WebSocket",
+        "network.explorer": "Explorador",
+        "network.currencySymbol": "Símbolo de Moneda",
+        "network.blockTime": "Tiempo de Bloque",
+        "network.gasUnit": "Unidad de Gas",
+        "consensus.trustScoreDesc": "Cada validador mantiene una Puntuación de Confianza (TS) calculada a partir de múltiples métricas de rendimiento:",
+        "consensus.formulaTitle": "Fórmula de Puntuación de Confianza",
+        "consensus.coefficientsIntro": "Donde los coeficientes son:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> Porcentaje de tiempo de actividad del validador (99%+ óptimo)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> Tasa de éxito de producción de bloques",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> Precisión y puntualidad del voto de consenso",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> Cantidad de stake relativa al total de la red",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> Retransmisión de mensajes entre fragmentos y contribución a la salud de la red",
+        "validator.tierHeader": "Nivel",
+        "validator.maxValidatorsHeader": "Máx. Validadores",
+        "validator.minStakeHeader": "Stake Mínimo",
+        "validator.rewardShareHeader": "Cuota de Recompensa",
+        "validator.dailyRewardsHeader": "Recompensas Diarias",
+        "consensus.blockProductionDesc": "Los validadores son seleccionados para la producción de bloques mediante un algoritmo de selección aleatoria ponderada donde la probabilidad es proporcional a su Puntuación de Confianza. Esto asegura que los validadores de alto rendimiento produzcan más bloques manteniendo la descentralización.",
+        "consensus.finalityDesc": "TBURN Chain logra finalidad de un solo slot mediante un proceso de compromiso de dos fases:",
+        "consensus.proposePhase": "<strong>Fase de Propuesta (50ms):</strong> El proponedor seleccionado transmite el bloque a los validadores del fragmento",
+        "consensus.commitPhase": "<strong>Fase de Compromiso (50ms):</strong> Los validadores votan, el consenso ponderado 2/3+ confirma la finalidad",
+        "consensus.finalityTime": "Tiempo total de finalidad: <span class=\"highlight\">100ms por bloque</span>, con finalidad entre fragmentos lograda en <span class=\"highlight\">1 segundo</span>.",
+        "sharding.shardConfig": "4.1 Configuración de Fragmentos",
+        "sharding.activeShards": "Fragmentos Activos",
+        "sharding.validatorsPerShard": "Validadores/Fragmento",
+        "sharding.tpsPerShard": "TPS por Fragmento",
+        "sharding.crossShardLatency": "Latencia Entre Fragmentos",
+        "sharding.tpsFormula": "4.2 Fórmula de Cálculo de TPS",
+        "sharding.networkTpsFormula": "Fórmula de TPS de Red",
+        "sharding.mainnetConfig": "Con configuración de red principal:",
+        "sharding.hardwareProfiles": "4.3 Perfiles de Hardware",
+        "sharding.crossShard": "4.4 Comunicación Entre Fragmentos",
+        "sharding.crossShardDesc": "Las transacciones entre fragmentos utilizan un protocolo de paso de mensajes asíncrono con las siguientes características:",
+        "sharding.messageQueue": "<strong>Cola de Mensajes:</strong> Enrutamiento basado en prioridad con selección de par de fragmentos O(1)",
+        "sharding.batchProcessing": "<strong>Procesamiento por Lotes:</strong> Mensajes agregados en lotes para eficiencia",
+        "sharding.proofGeneration": "<strong>Generación de Pruebas:</strong> Las pruebas de Merkle permiten verificación entre fragmentos sin confianza",
+        "sharding.caching": "<strong>Caché:</strong> Caché de estado de fragmento con TTL de 30 segundos para rendimiento óptimo",
+        "sharding.autoScaling": "4.5 Escalado Automático",
+        "sharding.autoScalingDesc": "El motor de fragmentación monitorea la carga de red en tiempo real y activa eventos de escalado cuando se superan los umbrales:",
+        "sharding.scaleUp": "<strong>Escalar Arriba:</strong> Cuando la carga promedio de fragmento supera el 70% durante 5 minutos",
+        "sharding.scaleDown": "<strong>Escalar Abajo:</strong> Cuando la carga promedio de fragmento cae por debajo del 30% durante 15 minutos",
+        "sharding.rebalance": "<strong>Reequilibrar:</strong> Cuando el desequilibrio de carga entre fragmentos supera el 30%",
+        "hardware.profileHeader": "Perfil",
+        "hardware.cpuCoresHeader": "Núcleos CPU",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "Máx. Fragmentos",
+        "hardware.tpsRangeHeader": "Rango TPS",
+        "hardware.development": "Desarrollo",
+        "hardware.staging": "Preparación",
+        "hardware.production": "Producción",
+        "hardware.enterprise": "Empresarial",
+        "ai.modelConfig": "5.1 Configuración del Modelo IA",
+        "ai.bandHeader": "Banda",
+        "ai.modelHeader": "Modelo",
+        "ai.primaryFunctionHeader": "Función Principal",
+        "ai.latencyHeader": "Latencia",
+        "ai.decisionCategories": "5.2 Categorías de Decisión IA",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> Optimización dinámica del número de fragmentos",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> Ajustes de tasa de quema impulsados por IA",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> Rotación de validadores y equilibrio de carga",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> Detección y respuesta de amenazas",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> Análisis de propuestas y evaluación de riesgos",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> Eficiencia de enrutamiento de mensajes",
+        "ai.failFast": "5.3 Arquitectura de Fallo Rápido",
+        "ai.failFastDesc": "El sistema de IA implementa una arquitectura de fallo rápido con respaldo automático:",
+        "ai.burnOptimization": "5.4 Algoritmo de Optimización de Quema",
+        "ai.burnOptimizationDesc": "El mecanismo de quema impulsado por IA analiza la actividad de la red para optimizar la quema de tokens:",
+        "ai.dynamicBurnRate": "Tasa de Quema Dinámica"
       },
       fr: {
         "nav.pageTitle": "Livre Blanc Technique",
@@ -2241,7 +2618,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "Site Web",
         "footer.whitepaper": "Livre Blanc",
         "footer.developers": "Développeurs",
-        "footer.governance": "Gouvernance"
+        "footer.governance": "Gouvernance",
+        "network.paramHeader": "Paramètre",
+        "network.mainnetHeader": "Réseau Principal",
+        "network.testnetHeader": "Réseau de Test",
+        "network.chainId": "ID de Chaîne",
+        "network.rpcEndpoint": "Point RPC",
+        "network.websocket": "WebSocket",
+        "network.explorer": "Explorateur",
+        "network.currencySymbol": "Symbole de Devise",
+        "network.blockTime": "Temps de Bloc",
+        "network.gasUnit": "Unité de Gas",
+        "consensus.trustScoreDesc": "Chaque validateur maintient un Score de Confiance (TS) calculé à partir de plusieurs métriques de performance :",
+        "consensus.formulaTitle": "Formule du Score de Confiance",
+        "consensus.coefficientsIntro": "Où les coefficients sont :",
+        "consensus.coeffAlpha": "<strong>α = 0.25 :</strong> Pourcentage de temps de fonctionnement du validateur (99%+ optimal)",
+        "consensus.coeffBeta": "<strong>β = 0.20 :</strong> Taux de réussite de production de blocs",
+        "consensus.coeffGamma": "<strong>γ = 0.20 :</strong> Précision et ponctualité du vote de consensus",
+        "consensus.coeffDelta": "<strong>δ = 0.20 :</strong> Montant de stake relatif au total du réseau",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15 :</strong> Relais de messages inter-shards et contribution à la santé du réseau",
+        "validator.tierHeader": "Niveau",
+        "validator.maxValidatorsHeader": "Validateurs Max",
+        "validator.minStakeHeader": "Stake Min",
+        "validator.rewardShareHeader": "Part de Récompense",
+        "validator.dailyRewardsHeader": "Récompenses Quotidiennes",
+        "consensus.blockProductionDesc": "Les validateurs sont sélectionnés pour la production de blocs via un algorithme de sélection aléatoire pondérée où la probabilité est proportionnelle à leur Score de Confiance. Cela garantit que les validateurs performants produisent plus de blocs tout en maintenant la décentralisation.",
+        "consensus.finalityDesc": "TBURN Chain atteint une finalité en un seul slot via un processus de validation en deux phases :",
+        "consensus.proposePhase": "<strong>Phase de Proposition (50ms) :</strong> Le proposeur sélectionné diffuse le bloc aux validateurs du shard",
+        "consensus.commitPhase": "<strong>Phase de Validation (50ms) :</strong> Les validateurs votent, le consensus pondéré 2/3+ confirme la finalité",
+        "consensus.finalityTime": "Temps de finalité total : <span class=\"highlight\">100ms par bloc</span>, avec finalité inter-shards atteinte en <span class=\"highlight\">1 seconde</span>.",
+        "sharding.shardConfig": "4.1 Configuration des Shards",
+        "sharding.activeShards": "Shards Actifs",
+        "sharding.validatorsPerShard": "Validateurs/Shard",
+        "sharding.tpsPerShard": "TPS par Shard",
+        "sharding.crossShardLatency": "Latence Inter-Shard",
+        "sharding.tpsFormula": "4.2 Formule de Calcul TPS",
+        "sharding.networkTpsFormula": "Formule TPS Réseau",
+        "sharding.mainnetConfig": "Avec configuration réseau principal :",
+        "sharding.hardwareProfiles": "4.3 Profils Matériels",
+        "sharding.crossShard": "4.4 Communication Inter-Shard",
+        "sharding.crossShardDesc": "Les transactions inter-shards utilisent un protocole de passage de messages asynchrone avec les caractéristiques suivantes :",
+        "sharding.messageQueue": "<strong>File de Messages :</strong> Routage basé sur la priorité avec sélection de paire de shards O(1)",
+        "sharding.batchProcessing": "<strong>Traitement par Lots :</strong> Messages agrégés en lots pour l'efficacité",
+        "sharding.proofGeneration": "<strong>Génération de Preuves :</strong> Les preuves Merkle permettent une vérification inter-shard sans confiance",
+        "sharding.caching": "<strong>Mise en Cache :</strong> Cache d'état de shard avec TTL de 30 secondes pour des performances optimales",
+        "sharding.autoScaling": "4.5 Scaling Automatique",
+        "sharding.autoScalingDesc": "Le moteur de sharding surveille la charge réseau en temps réel et déclenche des événements de scaling lorsque les seuils sont dépassés :",
+        "sharding.scaleUp": "<strong>Scale Up :</strong> Lorsque la charge moyenne des shards dépasse 70% pendant 5 minutes",
+        "sharding.scaleDown": "<strong>Scale Down :</strong> Lorsque la charge moyenne des shards tombe en dessous de 30% pendant 15 minutes",
+        "sharding.rebalance": "<strong>Rééquilibrage :</strong> Lorsque le déséquilibre de charge entre shards dépasse 30%",
+        "hardware.profileHeader": "Profil",
+        "hardware.cpuCoresHeader": "Cœurs CPU",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "Shards Max",
+        "hardware.tpsRangeHeader": "Plage TPS",
+        "hardware.development": "Développement",
+        "hardware.staging": "Pré-production",
+        "hardware.production": "Production",
+        "hardware.enterprise": "Entreprise",
+        "ai.modelConfig": "5.1 Configuration du Modèle IA",
+        "ai.bandHeader": "Bande",
+        "ai.modelHeader": "Modèle",
+        "ai.primaryFunctionHeader": "Fonction Principale",
+        "ai.latencyHeader": "Latence",
+        "ai.decisionCategories": "5.2 Catégories de Décision IA",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS :</strong> Optimisation dynamique du nombre de shards",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN :</strong> Ajustements du taux de brûlage pilotés par IA",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS :</strong> Rotation des validateurs et équilibrage de charge",
+        "ai.securityAlert": "<strong>SECURITY_ALERT :</strong> Détection et réponse aux menaces",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION :</strong> Analyse des propositions et évaluation des risques",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION :</strong> Efficacité du routage des messages",
+        "ai.failFast": "5.3 Architecture Fail-Fast",
+        "ai.failFastDesc": "Le système IA implémente une architecture fail-fast avec repli automatique :",
+        "ai.burnOptimization": "5.4 Algorithme d'Optimisation du Brûlage",
+        "ai.burnOptimizationDesc": "Le mécanisme de brûlage piloté par IA analyse l'activité réseau pour optimiser le brûlage de tokens :",
+        "ai.dynamicBurnRate": "Taux de Brûlage Dynamique"
       },
       ar: {
         "nav.pageTitle": "الورقة البيضاء التقنية",
@@ -2310,7 +2761,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "الموقع الإلكتروني",
         "footer.whitepaper": "الورقة البيضاء",
         "footer.developers": "المطورون",
-        "footer.governance": "الحوكمة"
+        "footer.governance": "الحوكمة",
+        "network.paramHeader": "المعامل",
+        "network.mainnetHeader": "الشبكة الرئيسية",
+        "network.testnetHeader": "شبكة الاختبار",
+        "network.chainId": "معرف السلسلة",
+        "network.rpcEndpoint": "نقطة نهاية RPC",
+        "network.websocket": "WebSocket",
+        "network.explorer": "المستكشف",
+        "network.currencySymbol": "رمز العملة",
+        "network.blockTime": "وقت الكتلة",
+        "network.gasUnit": "وحدة الغاز",
+        "consensus.trustScoreDesc": "يحتفظ كل مدقق بدرجة ثقة (TS) محسوبة من مقاييس أداء متعددة:",
+        "consensus.formulaTitle": "صيغة درجة الثقة",
+        "consensus.coefficientsIntro": "حيث المعاملات هي:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> نسبة وقت تشغيل المدقق (99%+ مثالي)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> معدل نجاح إنتاج الكتل",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> دقة وتوقيت تصويت الإجماع",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> مبلغ الحصة نسبة إلى إجمالي الشبكة",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> ترحيل الرسائل عبر الشظايا والمساهمة في صحة الشبكة",
+        "validator.tierHeader": "المستوى",
+        "validator.maxValidatorsHeader": "أقصى مدققين",
+        "validator.minStakeHeader": "الحد الأدنى للحصة",
+        "validator.rewardShareHeader": "حصة المكافأة",
+        "validator.dailyRewardsHeader": "المكافآت اليومية",
+        "consensus.blockProductionDesc": "يتم اختيار المدققين لإنتاج الكتل من خلال خوارزمية اختيار عشوائي موزونة حيث تتناسب الاحتمالية مع درجة ثقتهم. هذا يضمن أن المدققين ذوي الأداء العالي ينتجون المزيد من الكتل مع الحفاظ على اللامركزية.",
+        "consensus.finalityDesc": "تحقق سلسلة TBURN النهائية في فتحة واحدة من خلال عملية التزام من مرحلتين:",
+        "consensus.proposePhase": "<strong>مرحلة الاقتراح (50 مللي ثانية):</strong> يبث المقترح المختار الكتلة إلى مدققي الشظية",
+        "consensus.commitPhase": "<strong>مرحلة الالتزام (50 مللي ثانية):</strong> يصوت المدققون، إجماع موزون 2/3+ يؤكد النهائية",
+        "consensus.finalityTime": "إجمالي وقت النهائية: <span class=\"highlight\">100 مللي ثانية لكل كتلة</span>، مع تحقيق النهائية عبر الشظايا في <span class=\"highlight\">ثانية واحدة</span>.",
+        "sharding.shardConfig": "4.1 تكوين الشظية",
+        "sharding.activeShards": "الشظايا النشطة",
+        "sharding.validatorsPerShard": "المدققون/الشظية",
+        "sharding.tpsPerShard": "TPS لكل شظية",
+        "sharding.crossShardLatency": "تأخير عبر الشظايا",
+        "sharding.tpsFormula": "4.2 صيغة حساب TPS",
+        "sharding.networkTpsFormula": "صيغة TPS للشبكة",
+        "sharding.mainnetConfig": "مع تكوين الشبكة الرئيسية:",
+        "sharding.hardwareProfiles": "4.3 ملفات تعريف الأجهزة",
+        "sharding.crossShard": "4.4 التواصل عبر الشظايا",
+        "sharding.crossShardDesc": "تستخدم المعاملات عبر الشظايا بروتوكول تمرير رسائل غير متزامن بالخصائص التالية:",
+        "sharding.messageQueue": "<strong>قائمة الرسائل:</strong> توجيه قائم على الأولوية مع اختيار زوج الشظية O(1)",
+        "sharding.batchProcessing": "<strong>المعالجة الدفعية:</strong> تجميع الرسائل في دفعات لتحقيق الكفاءة",
+        "sharding.proofGeneration": "<strong>توليد الإثبات:</strong> إثباتات ميركل تمكن التحقق عبر الشظايا بدون ثقة",
+        "sharding.caching": "<strong>التخزين المؤقت:</strong> ذاكرة تخزين مؤقت لحالة الشظية بـ TTL 30 ثانية للأداء الأمثل",
+        "sharding.autoScaling": "4.5 التوسع التلقائي",
+        "sharding.autoScalingDesc": "يراقب محرك التقسيم حمل الشبكة في الوقت الفعلي ويطلق أحداث التوسع عند تجاوز العتبات:",
+        "sharding.scaleUp": "<strong>التوسع:</strong> عندما يتجاوز متوسط حمل الشظية 70% لمدة 5 دقائق",
+        "sharding.scaleDown": "<strong>التقليص:</strong> عندما ينخفض متوسط حمل الشظية إلى أقل من 30% لمدة 15 دقيقة",
+        "sharding.rebalance": "<strong>إعادة التوازن:</strong> عندما يتجاوز عدم توازن الحمل بين الشظايا 30%",
+        "hardware.profileHeader": "الملف الشخصي",
+        "hardware.cpuCoresHeader": "أنوية CPU",
+        "hardware.ramHeader": "الذاكرة",
+        "hardware.maxShardsHeader": "أقصى شظايا",
+        "hardware.tpsRangeHeader": "نطاق TPS",
+        "hardware.development": "التطوير",
+        "hardware.staging": "التجهيز",
+        "hardware.production": "الإنتاج",
+        "hardware.enterprise": "المؤسسات",
+        "ai.modelConfig": "5.1 تكوين نموذج الذكاء الاصطناعي",
+        "ai.bandHeader": "النطاق",
+        "ai.modelHeader": "النموذج",
+        "ai.primaryFunctionHeader": "الوظيفة الأساسية",
+        "ai.latencyHeader": "التأخير",
+        "ai.decisionCategories": "5.2 فئات قرار الذكاء الاصطناعي",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> تحسين عدد الشظايا الديناميكي",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> تعديلات معدل الحرق المدفوعة بالذكاء الاصطناعي",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> تدوير المدققين وموازنة الحمل",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> اكتشاف التهديدات والاستجابة",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> تحليل المقترحات وتقييم المخاطر",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> كفاءة توجيه الرسائل",
+        "ai.failFast": "5.3 هندسة الفشل السريع",
+        "ai.failFastDesc": "ينفذ نظام الذكاء الاصطناعي هندسة فشل سريع مع احتياطي تلقائي:",
+        "ai.burnOptimization": "5.4 خوارزمية تحسين الحرق",
+        "ai.burnOptimizationDesc": "تحلل آلية الحرق المدفوعة بالذكاء الاصطناعي نشاط الشبكة لتحسين حرق الرموز:",
+        "ai.dynamicBurnRate": "معدل الحرق الديناميكي"
       },
       hi: {
         "nav.pageTitle": "तकनीकी श्वेतपत्र",
@@ -2379,7 +2904,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "वेबसाइट",
         "footer.whitepaper": "श्वेतपत्र",
         "footer.developers": "डेवलपर्स",
-        "footer.governance": "शासन"
+        "footer.governance": "शासन",
+        "network.paramHeader": "पैरामीटर",
+        "network.mainnetHeader": "मेननेट",
+        "network.testnetHeader": "टेस्टनेट",
+        "network.chainId": "चेन आईडी",
+        "network.rpcEndpoint": "RPC एंडपॉइंट",
+        "network.websocket": "WebSocket",
+        "network.explorer": "एक्सप्लोरर",
+        "network.currencySymbol": "मुद्रा चिन्ह",
+        "network.blockTime": "ब्लॉक समय",
+        "network.gasUnit": "गैस यूनिट",
+        "consensus.trustScoreDesc": "प्रत्येक सत्यापनकर्ता कई प्रदर्शन मेट्रिक्स से गणना किए गए ट्रस्ट स्कोर (TS) को बनाए रखता है:",
+        "consensus.formulaTitle": "ट्रस्ट स्कोर फॉर्मूला",
+        "consensus.coefficientsIntro": "जहां गुणांक हैं:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> सत्यापनकर्ता अपटाइम प्रतिशत (99%+ इष्टतम)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> ब्लॉक उत्पादन सफलता दर",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> सहमति वोट सटीकता और समयबद्धता",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> नेटवर्क कुल के सापेक्ष स्टेक राशि",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> क्रॉस-शार्ड संदेश रिले और नेटवर्क स्वास्थ्य योगदान",
+        "validator.tierHeader": "स्तर",
+        "validator.maxValidatorsHeader": "अधिकतम सत्यापनकर्ता",
+        "validator.minStakeHeader": "न्यूनतम स्टेक",
+        "validator.rewardShareHeader": "इनाम हिस्सा",
+        "validator.dailyRewardsHeader": "दैनिक इनाम",
+        "consensus.blockProductionDesc": "सत्यापनकर्ताओं को भारित यादृच्छिक चयन एल्गोरिथ्म के माध्यम से ब्लॉक उत्पादन के लिए चुना जाता है जहां संभावना उनके ट्रस्ट स्कोर के समानुपाती होती है। यह सुनिश्चित करता है कि उच्च प्रदर्शन करने वाले सत्यापनकर्ता विकेंद्रीकरण बनाए रखते हुए अधिक ब्लॉक उत्पादित करें।",
+        "consensus.finalityDesc": "TBURN चेन दो-चरण प्रतिबद्धता प्रक्रिया के माध्यम से एकल-स्लॉट अंतिमता प्राप्त करता है:",
+        "consensus.proposePhase": "<strong>प्रस्ताव चरण (50ms):</strong> चयनित प्रस्तावक शार्ड सत्यापनकर्ताओं को ब्लॉक प्रसारित करता है",
+        "consensus.commitPhase": "<strong>प्रतिबद्धता चरण (50ms):</strong> सत्यापनकर्ता वोट करते हैं, 2/3+ भारित सहमति अंतिमता की पुष्टि करती है",
+        "consensus.finalityTime": "कुल अंतिमता समय: <span class=\"highlight\">प्रति ब्लॉक 100ms</span>, क्रॉस-शार्ड अंतिमता <span class=\"highlight\">1 सेकंड</span> के भीतर प्राप्त।",
+        "sharding.shardConfig": "4.1 शार्ड कॉन्फ़िगरेशन",
+        "sharding.activeShards": "सक्रिय शार्ड्स",
+        "sharding.validatorsPerShard": "प्रति शार्ड सत्यापनकर्ता",
+        "sharding.tpsPerShard": "प्रति शार्ड TPS",
+        "sharding.crossShardLatency": "क्रॉस-शार्ड विलंबता",
+        "sharding.tpsFormula": "4.2 TPS गणना फॉर्मूला",
+        "sharding.networkTpsFormula": "नेटवर्क TPS फॉर्मूला",
+        "sharding.mainnetConfig": "मेननेट कॉन्फ़िगरेशन के साथ:",
+        "sharding.hardwareProfiles": "4.3 हार्डवेयर प्रोफाइल",
+        "sharding.crossShard": "4.4 क्रॉस-शार्ड संचार",
+        "sharding.crossShardDesc": "क्रॉस-शार्ड लेनदेन निम्नलिखित विशेषताओं वाले एसिंक्रोनस मैसेज पासिंग प्रोटोकॉल का उपयोग करते हैं:",
+        "sharding.messageQueue": "<strong>मैसेज कतार:</strong> O(1) शार्ड जोड़ी चयन के साथ प्राथमिकता-आधारित रूटिंग",
+        "sharding.batchProcessing": "<strong>बैच प्रोसेसिंग:</strong> दक्षता के लिए बैचों में संदेश एकत्रित",
+        "sharding.proofGeneration": "<strong>प्रमाण जनरेशन:</strong> मर्कल प्रमाण ट्रस्टलेस क्रॉस-शार्ड सत्यापन सक्षम करते हैं",
+        "sharding.caching": "<strong>कैशिंग:</strong> इष्टतम प्रदर्शन के लिए 30-सेकंड TTL शार्ड स्टेट कैश",
+        "sharding.autoScaling": "4.5 ऑटोमैटिक स्केलिंग",
+        "sharding.autoScalingDesc": "शार्डिंग इंजन वास्तविक समय में नेटवर्क लोड की निगरानी करता है और थ्रेसहोल्ड पार होने पर स्केलिंग इवेंट ट्रिगर करता है:",
+        "sharding.scaleUp": "<strong>स्केल अप:</strong> जब औसत शार्ड लोड 5 मिनट के लिए 70% से अधिक हो",
+        "sharding.scaleDown": "<strong>स्केल डाउन:</strong> जब औसत शार्ड लोड 15 मिनट के लिए 30% से नीचे गिरे",
+        "sharding.rebalance": "<strong>रीबैलेंस:</strong> जब शार्ड्स के बीच लोड असंतुलन 30% से अधिक हो",
+        "hardware.profileHeader": "प्रोफाइल",
+        "hardware.cpuCoresHeader": "CPU कोर",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "अधिकतम शार्ड्स",
+        "hardware.tpsRangeHeader": "TPS रेंज",
+        "hardware.development": "विकास",
+        "hardware.staging": "स्टेजिंग",
+        "hardware.production": "उत्पादन",
+        "hardware.enterprise": "एंटरप्राइज",
+        "ai.modelConfig": "5.1 AI मॉडल कॉन्फ़िगरेशन",
+        "ai.bandHeader": "बैंड",
+        "ai.modelHeader": "मॉडल",
+        "ai.primaryFunctionHeader": "प्राथमिक फ़ंक्शन",
+        "ai.latencyHeader": "विलंबता",
+        "ai.decisionCategories": "5.2 AI निर्णय श्रेणियां",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> डायनामिक शार्ड काउंट ऑप्टिमाइज़ेशन",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI-संचालित बर्न रेट एडजस्टमेंट",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> सत्यापनकर्ता रोटेशन और लोड बैलेंसिंग",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> खतरा पहचान और प्रतिक्रिया",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> प्रस्ताव विश्लेषण और जोखिम मूल्यांकन",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> संदेश रूटिंग दक्षता",
+        "ai.failFast": "5.3 फेल-फास्ट आर्किटेक्चर",
+        "ai.failFastDesc": "AI सिस्टम ऑटोमैटिक फॉलबैक के साथ फेल-फास्ट आर्किटेक्चर लागू करता है:",
+        "ai.burnOptimization": "5.4 बर्न ऑप्टिमाइज़ेशन एल्गोरिथ्म",
+        "ai.burnOptimizationDesc": "AI-संचालित बर्न मैकेनिज्म टोकन बर्निंग को ऑप्टिमाइज़ करने के लिए नेटवर्क गतिविधि का विश्लेषण करता है:",
+        "ai.dynamicBurnRate": "डायनामिक बर्न रेट"
       },
       bn: {
         "nav.pageTitle": "প্রযুক্তিগত শ্বেতপত্র",
@@ -2426,7 +3025,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "ওয়েবসাইট",
         "footer.whitepaper": "শ্বেতপত্র",
         "footer.developers": "ডেভেলপার",
-        "footer.governance": "গভর্নেন্স"
+        "footer.governance": "গভর্নেন্স",
+        "network.paramHeader": "প্যারামিটার",
+        "network.mainnetHeader": "মেইননেট",
+        "network.testnetHeader": "টেস্টনেট",
+        "network.chainId": "চেইন আইডি",
+        "network.rpcEndpoint": "RPC এন্ডপয়েন্ট",
+        "network.websocket": "WebSocket",
+        "network.explorer": "এক্সপ্লোরার",
+        "network.currencySymbol": "মুদ্রা চিহ্ন",
+        "network.blockTime": "ব্লক সময়",
+        "network.gasUnit": "গ্যাস ইউনিট",
+        "consensus.trustScoreDesc": "প্রতিটি ভ্যালিডেটর একাধিক পারফরম্যান্স মেট্রিক্স থেকে গণনা করা ট্রাস্ট স্কোর (TS) বজায় রাখে:",
+        "consensus.formulaTitle": "ট্রাস্ট স্কোর সূত্র",
+        "consensus.coefficientsIntro": "যেখানে সহগুলি হল:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> ভ্যালিডেটর আপটাইম শতাংশ (99%+ সর্বোত্তম)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> ব্লক উৎপাদন সাফল্যের হার",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> কনসেনসাস ভোট নির্ভুলতা এবং সময়ানুবর্তিতা",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> নেটওয়ার্ক মোটের তুলনায় স্টেক পরিমাণ",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> ক্রস-শার্ড মেসেজ রিলে এবং নেটওয়ার্ক স্বাস্থ্য অবদান",
+        "validator.tierHeader": "টায়ার",
+        "validator.maxValidatorsHeader": "সর্বোচ্চ ভ্যালিডেটর",
+        "validator.minStakeHeader": "ন্যূনতম স্টেক",
+        "validator.rewardShareHeader": "পুরস্কার শেয়ার",
+        "validator.dailyRewardsHeader": "দৈনিক পুরস্কার",
+        "consensus.blockProductionDesc": "ভ্যালিডেটরদের ব্লক উৎপাদনের জন্য ওয়েটেড র্যান্ডম সিলেকশন অ্যালগরিদমের মাধ্যমে নির্বাচিত করা হয় যেখানে সম্ভাবনা তাদের ট্রাস্ট স্কোরের সমানুপাতিক। এটি নিশ্চিত করে যে উচ্চ-পারফরম্যান্স ভ্যালিডেটররা বিকেন্দ্রীকরণ বজায় রেখে বেশি ব্লক তৈরি করে।",
+        "consensus.finalityDesc": "TBURN চেইন দুই-পর্যায়ের কমিট প্রক্রিয়ার মাধ্যমে সিঙ্গল-স্লট ফাইনালিটি অর্জন করে:",
+        "consensus.proposePhase": "<strong>প্রস্তাব পর্যায় (50ms):</strong> নির্বাচিত প্রস্তাবকারী শার্ড ভ্যালিডেটরদের কাছে ব্লক সম্প্রচার করে",
+        "consensus.commitPhase": "<strong>কমিট পর্যায় (50ms):</strong> ভ্যালিডেটররা ভোট দেয়, 2/3+ ওয়েটেড কনসেনসাস ফাইনালিটি নিশ্চিত করে",
+        "consensus.finalityTime": "মোট ফাইনালিটি সময়: <span class=\"highlight\">প্রতি ব্লকে 100ms</span>, ক্রস-শার্ড ফাইনালিটি <span class=\"highlight\">1 সেকেন্ডে</span> অর্জিত।",
+        "sharding.shardConfig": "4.1 শার্ড কনফিগারেশন",
+        "sharding.activeShards": "সক্রিয় শার্ড",
+        "sharding.validatorsPerShard": "শার্ড প্রতি ভ্যালিডেটর",
+        "sharding.tpsPerShard": "শার্ড প্রতি TPS",
+        "sharding.crossShardLatency": "ক্রস-শার্ড লেটেন্সি",
+        "sharding.tpsFormula": "4.2 TPS গণনা সূত্র",
+        "sharding.networkTpsFormula": "নেটওয়ার্ক TPS সূত্র",
+        "sharding.mainnetConfig": "মেইননেট কনফিগারেশন সহ:",
+        "sharding.hardwareProfiles": "4.3 হার্ডওয়্যার প্রোফাইল",
+        "sharding.crossShard": "4.4 ক্রস-শার্ড যোগাযোগ",
+        "sharding.crossShardDesc": "ক্রস-শার্ড লেনদেন নিম্নলিখিত বৈশিষ্ট্য সহ অ্যাসিঙ্ক্রোনাস মেসেজ পাসিং প্রোটোকল ব্যবহার করে:",
+        "sharding.messageQueue": "<strong>মেসেজ কিউ:</strong> O(1) শার্ড জোড়া নির্বাচন সহ অগ্রাধিকার-ভিত্তিক রাউটিং",
+        "sharding.batchProcessing": "<strong>ব্যাচ প্রসেসিং:</strong> দক্ষতার জন্য ব্যাচে মেসেজ একত্রিত",
+        "sharding.proofGeneration": "<strong>প্রুফ জেনারেশন:</strong> মার্কেল প্রুফ ট্রাস্টলেস ক্রস-শার্ড যাচাইকরণ সক্ষম করে",
+        "sharding.caching": "<strong>ক্যাশিং:</strong> সর্বোত্তম পারফরম্যান্সের জন্য 30-সেকেন্ড TTL শার্ড স্টেট ক্যাশ",
+        "sharding.autoScaling": "4.5 স্বয়ংক্রিয় স্কেলিং",
+        "sharding.autoScalingDesc": "শার্ডিং ইঞ্জিন রিয়েল-টাইমে নেটওয়ার্ক লোড পর্যবেক্ষণ করে এবং থ্রেশহোল্ড অতিক্রম করলে স্কেলিং ইভেন্ট ট্রিগার করে:",
+        "sharding.scaleUp": "<strong>স্কেল আপ:</strong> যখন গড় শার্ড লোড 5 মিনিটের জন্য 70% অতিক্রম করে",
+        "sharding.scaleDown": "<strong>স্কেল ডাউন:</strong> যখন গড় শার্ড লোড 15 মিনিটের জন্য 30% এর নিচে নেমে যায়",
+        "sharding.rebalance": "<strong>রিব্যালেন্স:</strong> যখন শার্ডগুলির মধ্যে লোড অসাম্য 30% অতিক্রম করে",
+        "hardware.profileHeader": "প্রোফাইল",
+        "hardware.cpuCoresHeader": "CPU কোর",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "সর্বোচ্চ শার্ড",
+        "hardware.tpsRangeHeader": "TPS রেঞ্জ",
+        "hardware.development": "ডেভেলপমেন্ট",
+        "hardware.staging": "স্টেজিং",
+        "hardware.production": "প্রোডাকশন",
+        "hardware.enterprise": "এন্টারপ্রাইজ",
+        "ai.modelConfig": "5.1 AI মডেল কনফিগারেশন",
+        "ai.bandHeader": "ব্যান্ড",
+        "ai.modelHeader": "মডেল",
+        "ai.primaryFunctionHeader": "প্রাথমিক ফাংশন",
+        "ai.latencyHeader": "লেটেন্সি",
+        "ai.decisionCategories": "5.2 AI সিদ্ধান্ত বিভাগ",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> ডায়নামিক শার্ড কাউন্ট অপ্টিমাইজেশন",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI-চালিত বার্ন রেট অ্যাডজাস্টমেন্ট",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> ভ্যালিডেটর রোটেশন এবং লোড ব্যালেন্সিং",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> হুমকি সনাক্তকরণ এবং প্রতিক্রিয়া",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> প্রস্তাব বিশ্লেষণ এবং ঝুঁকি মূল্যায়ন",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> মেসেজ রাউটিং দক্ষতা",
+        "ai.failFast": "5.3 ফেইল-ফাস্ট আর্কিটেকচার",
+        "ai.failFastDesc": "AI সিস্টেম স্বয়ংক্রিয় ফলব্যাক সহ ফেইল-ফাস্ট আর্কিটেকচার প্রয়োগ করে:",
+        "ai.burnOptimization": "5.4 বার্ন অপ্টিমাইজেশন অ্যালগরিদম",
+        "ai.burnOptimizationDesc": "AI-চালিত বার্ন মেকানিজম টোকেন বার্নিং অপ্টিমাইজ করতে নেটওয়ার্ক কার্যকলাপ বিশ্লেষণ করে:",
+        "ai.dynamicBurnRate": "ডায়নামিক বার্ন রেট"
       },
       ru: {
         "nav.pageTitle": "Техническая документация",
@@ -2495,7 +3168,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "Веб-сайт",
         "footer.whitepaper": "Белая книга",
         "footer.developers": "Разработчикам",
-        "footer.governance": "Управление"
+        "footer.governance": "Управление",
+        "network.paramHeader": "Параметр",
+        "network.mainnetHeader": "Основная сеть",
+        "network.testnetHeader": "Тестовая сеть",
+        "network.chainId": "ID цепочки",
+        "network.rpcEndpoint": "Конечная точка RPC",
+        "network.websocket": "WebSocket",
+        "network.explorer": "Обозреватель",
+        "network.currencySymbol": "Символ валюты",
+        "network.blockTime": "Время блока",
+        "network.gasUnit": "Единица газа",
+        "consensus.trustScoreDesc": "Каждый валидатор поддерживает рейтинг доверия (TS), рассчитанный по нескольким показателям производительности:",
+        "consensus.formulaTitle": "Формула рейтинга доверия",
+        "consensus.coefficientsIntro": "Где коэффициенты:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> Процент времени работы валидатора (оптимально 99%+)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> Успешность производства блоков",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> Точность и своевременность голосования в консенсусе",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> Сумма стейка относительно общей суммы сети",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> Передача сообщений между шардами и вклад в здоровье сети",
+        "validator.tierHeader": "Уровень",
+        "validator.maxValidatorsHeader": "Макс. валидаторов",
+        "validator.minStakeHeader": "Мин. стейк",
+        "validator.rewardShareHeader": "Доля вознаграждения",
+        "validator.dailyRewardsHeader": "Ежедневные награды",
+        "consensus.blockProductionDesc": "Валидаторы выбираются для производства блоков с помощью алгоритма взвешенного случайного выбора, где вероятность пропорциональна их рейтингу доверия. Это гарантирует, что высокопроизводительные валидаторы производят больше блоков, сохраняя децентрализацию.",
+        "consensus.finalityDesc": "TBURN Chain достигает финальности за один слот с помощью двухфазного процесса фиксации:",
+        "consensus.proposePhase": "<strong>Фаза предложения (50мс):</strong> Выбранный предлагающий транслирует блок валидаторам шарда",
+        "consensus.commitPhase": "<strong>Фаза фиксации (50мс):</strong> Валидаторы голосуют, взвешенный консенсус 2/3+ подтверждает финальность",
+        "consensus.finalityTime": "Общее время финальности: <span class=\"highlight\">100мс на блок</span>, межшардовая финальность достигается за <span class=\"highlight\">1 секунду</span>.",
+        "sharding.shardConfig": "4.1 Конфигурация шардов",
+        "sharding.activeShards": "Активные шарды",
+        "sharding.validatorsPerShard": "Валидаторов/шард",
+        "sharding.tpsPerShard": "TPS на шард",
+        "sharding.crossShardLatency": "Межшардовая задержка",
+        "sharding.tpsFormula": "4.2 Формула расчёта TPS",
+        "sharding.networkTpsFormula": "Формула TPS сети",
+        "sharding.mainnetConfig": "С конфигурацией основной сети:",
+        "sharding.hardwareProfiles": "4.3 Аппаратные профили",
+        "sharding.crossShard": "4.4 Межшардовая коммуникация",
+        "sharding.crossShardDesc": "Межшардовые транзакции используют протокол асинхронной передачи сообщений со следующими характеристиками:",
+        "sharding.messageQueue": "<strong>Очередь сообщений:</strong> Маршрутизация по приоритету с O(1) выбором пары шардов",
+        "sharding.batchProcessing": "<strong>Пакетная обработка:</strong> Сообщения объединяются в пакеты для эффективности",
+        "sharding.proofGeneration": "<strong>Генерация доказательств:</strong> Доказательства Меркла позволяют доверительную межшардовую верификацию",
+        "sharding.caching": "<strong>Кэширование:</strong> 30-секундный TTL кэш состояния шарда для оптимальной производительности",
+        "sharding.autoScaling": "4.5 Автоматическое масштабирование",
+        "sharding.autoScalingDesc": "Движок шардирования отслеживает нагрузку сети в реальном времени и запускает события масштабирования при превышении порогов:",
+        "sharding.scaleUp": "<strong>Масштабирование вверх:</strong> Когда средняя нагрузка шарда превышает 70% в течение 5 минут",
+        "sharding.scaleDown": "<strong>Масштабирование вниз:</strong> Когда средняя нагрузка шарда падает ниже 30% в течение 15 минут",
+        "sharding.rebalance": "<strong>Перебалансировка:</strong> Когда дисбаланс нагрузки между шардами превышает 30%",
+        "hardware.profileHeader": "Профиль",
+        "hardware.cpuCoresHeader": "Ядра CPU",
+        "hardware.ramHeader": "ОЗУ",
+        "hardware.maxShardsHeader": "Макс. шардов",
+        "hardware.tpsRangeHeader": "Диапазон TPS",
+        "hardware.development": "Разработка",
+        "hardware.staging": "Подготовка",
+        "hardware.production": "Производство",
+        "hardware.enterprise": "Корпоративный",
+        "ai.modelConfig": "5.1 Конфигурация AI-модели",
+        "ai.bandHeader": "Полоса",
+        "ai.modelHeader": "Модель",
+        "ai.primaryFunctionHeader": "Основная функция",
+        "ai.latencyHeader": "Задержка",
+        "ai.decisionCategories": "5.2 Категории решений AI",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> Динамическая оптимизация количества шардов",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI-управляемая корректировка скорости сжигания",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> Ротация валидаторов и балансировка нагрузки",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> Обнаружение угроз и реагирование",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> Анализ предложений и оценка рисков",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> Эффективность маршрутизации сообщений",
+        "ai.failFast": "5.3 Архитектура быстрого отказа",
+        "ai.failFastDesc": "AI-система реализует архитектуру быстрого отказа с автоматическим резервированием:",
+        "ai.burnOptimization": "5.4 Алгоритм оптимизации сжигания",
+        "ai.burnOptimizationDesc": "AI-управляемый механизм сжигания анализирует активность сети для оптимизации сжигания токенов:",
+        "ai.dynamicBurnRate": "Динамическая скорость сжигания"
       },
       pt: {
         "nav.pageTitle": "Livro Branco Técnico",
@@ -2564,7 +3311,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "Website",
         "footer.whitepaper": "Livro Branco",
         "footer.developers": "Desenvolvedores",
-        "footer.governance": "Governança"
+        "footer.governance": "Governança",
+        "network.paramHeader": "Parâmetro",
+        "network.mainnetHeader": "Rede Principal",
+        "network.testnetHeader": "Rede de Teste",
+        "network.chainId": "ID da Cadeia",
+        "network.rpcEndpoint": "Ponto Final RPC",
+        "network.websocket": "WebSocket",
+        "network.explorer": "Explorador",
+        "network.currencySymbol": "Símbolo da Moeda",
+        "network.blockTime": "Tempo de Bloco",
+        "network.gasUnit": "Unidade de Gás",
+        "consensus.trustScoreDesc": "Cada validador mantém uma Pontuação de Confiança (TS) calculada a partir de múltiplas métricas de desempenho:",
+        "consensus.formulaTitle": "Fórmula da Pontuação de Confiança",
+        "consensus.coefficientsIntro": "Onde os coeficientes são:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> Percentagem de uptime do validador (99%+ ideal)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> Taxa de sucesso de produção de blocos",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> Precisão e pontualidade do voto de consenso",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> Quantidade de stake relativa ao total da rede",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> Retransmissão de mensagens entre fragmentos e contribuição para a saúde da rede",
+        "validator.tierHeader": "Nível",
+        "validator.maxValidatorsHeader": "Validadores Máx",
+        "validator.minStakeHeader": "Stake Mínimo",
+        "validator.rewardShareHeader": "Quota de Recompensa",
+        "validator.dailyRewardsHeader": "Recompensas Diárias",
+        "consensus.blockProductionDesc": "Os validadores são selecionados para produção de blocos através de um algoritmo de seleção aleatória ponderada onde a probabilidade é proporcional à sua Pontuação de Confiança. Isto garante que validadores de alto desempenho produzam mais blocos mantendo a descentralização.",
+        "consensus.finalityDesc": "TBURN Chain alcança finalidade em um único slot através de um processo de commit de duas fases:",
+        "consensus.proposePhase": "<strong>Fase de Proposta (50ms):</strong> O proponente selecionado transmite o bloco aos validadores do fragmento",
+        "consensus.commitPhase": "<strong>Fase de Commit (50ms):</strong> Os validadores votam, consenso ponderado 2/3+ confirma a finalidade",
+        "consensus.finalityTime": "Tempo total de finalidade: <span class=\"highlight\">100ms por bloco</span>, com finalidade entre fragmentos alcançada em <span class=\"highlight\">1 segundo</span>.",
+        "sharding.shardConfig": "4.1 Configuração de Fragmentos",
+        "sharding.activeShards": "Fragmentos Ativos",
+        "sharding.validatorsPerShard": "Validadores/Fragmento",
+        "sharding.tpsPerShard": "TPS por Fragmento",
+        "sharding.crossShardLatency": "Latência Entre Fragmentos",
+        "sharding.tpsFormula": "4.2 Fórmula de Cálculo TPS",
+        "sharding.networkTpsFormula": "Fórmula TPS da Rede",
+        "sharding.mainnetConfig": "Com configuração da rede principal:",
+        "sharding.hardwareProfiles": "4.3 Perfis de Hardware",
+        "sharding.crossShard": "4.4 Comunicação Entre Fragmentos",
+        "sharding.crossShardDesc": "As transações entre fragmentos utilizam um protocolo de passagem de mensagens assíncrono com as seguintes características:",
+        "sharding.messageQueue": "<strong>Fila de Mensagens:</strong> Roteamento baseado em prioridade com seleção de par de fragmentos O(1)",
+        "sharding.batchProcessing": "<strong>Processamento em Lote:</strong> Mensagens agregadas em lotes para eficiência",
+        "sharding.proofGeneration": "<strong>Geração de Provas:</strong> Provas de Merkle permitem verificação entre fragmentos sem confiança",
+        "sharding.caching": "<strong>Cache:</strong> Cache de estado de fragmento com TTL de 30 segundos para desempenho ideal",
+        "sharding.autoScaling": "4.5 Escalonamento Automático",
+        "sharding.autoScalingDesc": "O motor de fragmentação monitora a carga da rede em tempo real e aciona eventos de escalonamento quando os limites são excedidos:",
+        "sharding.scaleUp": "<strong>Escalar Acima:</strong> Quando a carga média de fragmento excede 70% por 5 minutos",
+        "sharding.scaleDown": "<strong>Escalar Abaixo:</strong> Quando a carga média de fragmento cai abaixo de 30% por 15 minutos",
+        "sharding.rebalance": "<strong>Rebalancear:</strong> Quando o desequilíbrio de carga entre fragmentos excede 30%",
+        "hardware.profileHeader": "Perfil",
+        "hardware.cpuCoresHeader": "Núcleos CPU",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "Fragmentos Máx",
+        "hardware.tpsRangeHeader": "Faixa TPS",
+        "hardware.development": "Desenvolvimento",
+        "hardware.staging": "Staging",
+        "hardware.production": "Produção",
+        "hardware.enterprise": "Empresarial",
+        "ai.modelConfig": "5.1 Configuração do Modelo IA",
+        "ai.bandHeader": "Banda",
+        "ai.modelHeader": "Modelo",
+        "ai.primaryFunctionHeader": "Função Principal",
+        "ai.latencyHeader": "Latência",
+        "ai.decisionCategories": "5.2 Categorias de Decisão IA",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> Otimização dinâmica da contagem de fragmentos",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> Ajustes de taxa de queima orientados por IA",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> Rotação de validadores e balanceamento de carga",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> Detecção e resposta a ameaças",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> Análise de propostas e avaliação de risco",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> Eficiência de roteamento de mensagens",
+        "ai.failFast": "5.3 Arquitetura Fail-Fast",
+        "ai.failFastDesc": "O sistema IA implementa uma arquitetura fail-fast com fallback automático:",
+        "ai.burnOptimization": "5.4 Algoritmo de Otimização de Queima",
+        "ai.burnOptimizationDesc": "O mecanismo de queima orientado por IA analisa a atividade da rede para otimizar a queima de tokens:",
+        "ai.dynamicBurnRate": "Taxa de Queima Dinâmica"
       },
       ur: {
         "nav.pageTitle": "تکنیکی وائٹ پیپر",
@@ -2633,7 +3454,81 @@ Emergency: 1000ms</code></pre>
         "footer.website": "ویب سائٹ",
         "footer.whitepaper": "وائٹ پیپر",
         "footer.developers": "ڈویلپرز",
-        "footer.governance": "گورننس"
+        "footer.governance": "گورننس",
+        "network.paramHeader": "پیرامیٹر",
+        "network.mainnetHeader": "مین نیٹ",
+        "network.testnetHeader": "ٹیسٹ نیٹ",
+        "network.chainId": "چین آئی ڈی",
+        "network.rpcEndpoint": "RPC اینڈ پوائنٹ",
+        "network.websocket": "WebSocket",
+        "network.explorer": "ایکسپلورر",
+        "network.currencySymbol": "کرنسی کا نشان",
+        "network.blockTime": "بلاک ٹائم",
+        "network.gasUnit": "گیس یونٹ",
+        "consensus.trustScoreDesc": "ہر ویلیڈیٹر متعدد کارکردگی میٹرکس سے حساب شدہ ٹرسٹ سکور (TS) برقرار رکھتا ہے:",
+        "consensus.formulaTitle": "ٹرسٹ سکور فارمولا",
+        "consensus.coefficientsIntro": "جہاں گتانک ہیں:",
+        "consensus.coeffAlpha": "<strong>α = 0.25:</strong> ویلیڈیٹر اپ ٹائم فیصد (99%+ مثالی)",
+        "consensus.coeffBeta": "<strong>β = 0.20:</strong> بلاک پروڈکشن کی کامیابی کی شرح",
+        "consensus.coeffGamma": "<strong>γ = 0.20:</strong> کنسینسس ووٹ کی درستگی اور بروقتی",
+        "consensus.coeffDelta": "<strong>δ = 0.20:</strong> نیٹ ورک کل کے مقابلے میں اسٹیک کی رقم",
+        "consensus.coeffEpsilon": "<strong>ε = 0.15:</strong> کراس شارڈ پیغام ریلے اور نیٹ ورک صحت میں تعاون",
+        "validator.tierHeader": "ٹیئر",
+        "validator.maxValidatorsHeader": "زیادہ سے زیادہ ویلیڈیٹرز",
+        "validator.minStakeHeader": "کم از کم اسٹیک",
+        "validator.rewardShareHeader": "انعام کا حصہ",
+        "validator.dailyRewardsHeader": "روزانہ انعامات",
+        "consensus.blockProductionDesc": "ویلیڈیٹرز کو بلاک پروڈکشن کے لیے وزنی بے ترتیب انتخاب الگورتھم کے ذریعے منتخب کیا جاتا ہے جہاں امکان ان کے ٹرسٹ سکور کے متناسب ہوتا ہے۔ یہ یقینی بناتا ہے کہ اعلی کارکردگی والے ویلیڈیٹرز ڈی سینٹرلائزیشن کو برقرار رکھتے ہوئے زیادہ بلاکس بناتے ہیں۔",
+        "consensus.finalityDesc": "TBURN چین دو مرحلے کے کمٹ عمل کے ذریعے سنگل سلاٹ حتمیت حاصل کرتا ہے:",
+        "consensus.proposePhase": "<strong>تجویز کا مرحلہ (50ms):</strong> منتخب تجویز دہندہ شارڈ ویلیڈیٹرز کو بلاک نشر کرتا ہے",
+        "consensus.commitPhase": "<strong>کمٹ مرحلہ (50ms):</strong> ویلیڈیٹرز ووٹ کرتے ہیں، 2/3+ وزنی کنسینسس حتمیت کی تصدیق کرتا ہے",
+        "consensus.finalityTime": "کل حتمیت کا وقت: <span class=\"highlight\">فی بلاک 100ms</span>، کراس شارڈ حتمیت <span class=\"highlight\">1 سیکنڈ</span> میں حاصل۔",
+        "sharding.shardConfig": "4.1 شارڈ کنفیگریشن",
+        "sharding.activeShards": "فعال شارڈز",
+        "sharding.validatorsPerShard": "ویلیڈیٹرز/شارڈ",
+        "sharding.tpsPerShard": "فی شارڈ TPS",
+        "sharding.crossShardLatency": "کراس شارڈ لیٹینسی",
+        "sharding.tpsFormula": "4.2 TPS حساب کا فارمولا",
+        "sharding.networkTpsFormula": "نیٹ ورک TPS فارمولا",
+        "sharding.mainnetConfig": "مین نیٹ کنفیگریشن کے ساتھ:",
+        "sharding.hardwareProfiles": "4.3 ہارڈویئر پروفائلز",
+        "sharding.crossShard": "4.4 کراس شارڈ مواصلات",
+        "sharding.crossShardDesc": "کراس شارڈ ٹرانزیکشنز مندرجہ ذیل خصوصیات کے ساتھ غیر ہم وقت ساز پیغام گزرنے کا پروٹوکول استعمال کرتی ہیں:",
+        "sharding.messageQueue": "<strong>پیغام کی قطار:</strong> O(1) شارڈ جوڑے کے انتخاب کے ساتھ ترجیح پر مبنی روٹنگ",
+        "sharding.batchProcessing": "<strong>بیچ پروسیسنگ:</strong> کارکردگی کے لیے بیچوں میں پیغامات کو یکجا کرنا",
+        "sharding.proofGeneration": "<strong>ثبوت کی تخلیق:</strong> مرکل ثبوت بے اعتمادی کراس شارڈ تصدیق کو قابل بناتے ہیں",
+        "sharding.caching": "<strong>کیشنگ:</strong> بہترین کارکردگی کے لیے 30 سیکنڈ TTL شارڈ اسٹیٹ کیش",
+        "sharding.autoScaling": "4.5 خودکار پیمائش",
+        "sharding.autoScalingDesc": "شارڈنگ انجن ریئل ٹائم میں نیٹ ورک لوڈ کی نگرانی کرتا ہے اور حد سے تجاوز ہونے پر پیمائش کے واقعات کو متحرک کرتا ہے:",
+        "sharding.scaleUp": "<strong>اسکیل اپ:</strong> جب اوسط شارڈ لوڈ 5 منٹ کے لیے 70% سے تجاوز کرے",
+        "sharding.scaleDown": "<strong>اسکیل ڈاؤن:</strong> جب اوسط شارڈ لوڈ 15 منٹ کے لیے 30% سے نیچے گرے",
+        "sharding.rebalance": "<strong>ری بیلنس:</strong> جب شارڈز کے درمیان لوڈ عدم توازن 30% سے تجاوز کرے",
+        "hardware.profileHeader": "پروفائل",
+        "hardware.cpuCoresHeader": "CPU کور",
+        "hardware.ramHeader": "RAM",
+        "hardware.maxShardsHeader": "زیادہ سے زیادہ شارڈز",
+        "hardware.tpsRangeHeader": "TPS رینج",
+        "hardware.development": "ڈویلپمنٹ",
+        "hardware.staging": "اسٹیجنگ",
+        "hardware.production": "پروڈکشن",
+        "hardware.enterprise": "انٹرپرائز",
+        "ai.modelConfig": "5.1 AI ماڈل کنفیگریشن",
+        "ai.bandHeader": "بینڈ",
+        "ai.modelHeader": "ماڈل",
+        "ai.primaryFunctionHeader": "بنیادی فنکشن",
+        "ai.latencyHeader": "لیٹینسی",
+        "ai.decisionCategories": "5.2 AI فیصلے کے زمرے",
+        "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> ڈائنامک شارڈ کاؤنٹ آپٹیمائزیشن",
+        "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI سے چلنے والی برن ریٹ ایڈجسٹمنٹس",
+        "ai.rescheduleValidators": "<strong>RESCHEDULE_VALIDATORS:</strong> ویلیڈیٹر روٹیشن اور لوڈ بیلنسنگ",
+        "ai.securityAlert": "<strong>SECURITY_ALERT:</strong> خطرے کا پتہ لگانا اور ردعمل",
+        "ai.governancePrevalidation": "<strong>GOVERNANCE_PREVALIDATION:</strong> تجویز کا تجزیہ اور رسک اسیسمنٹ",
+        "ai.crossShardOptimization": "<strong>CROSS_SHARD_OPTIMIZATION:</strong> پیغام روٹنگ کی کارکردگی",
+        "ai.failFast": "5.3 فیل فاسٹ آرکیٹیکچر",
+        "ai.failFastDesc": "AI سسٹم خودکار فال بیک کے ساتھ فیل فاسٹ آرکیٹیکچر لاگو کرتا ہے:",
+        "ai.burnOptimization": "5.4 برن آپٹیمائزیشن الگورتھم",
+        "ai.burnOptimizationDesc": "AI سے چلنے والا برن میکانزم ٹوکن برننگ کو بہتر بنانے کے لیے نیٹ ورک سرگرمی کا تجزیہ کرتا ہے:",
+        "ai.dynamicBurnRate": "ڈائنامک برن ریٹ"
       }
     };
 
