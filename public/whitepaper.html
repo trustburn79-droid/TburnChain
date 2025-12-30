@@ -1237,7 +1237,12 @@ tburn.on('blockConfirmed', (block) => {
                 
                 // Update table TPS
                 const tableTps = document.getElementById('table-tps');
-                if (tableTps) tableTps.textContent = formatNumber(data.tps || data.currentTps) + ' (Peak 520K)';
+                if (tableTps) {
+                    const tpsValue = formatNumber(data.tps || data.currentTps) + ' (Peak 520K)';
+                    const lang = document.documentElement.lang || 'ko';
+                    const theoreticalText = translations[lang]?.table_tps_theoretical || '(1,000,000)';
+                    tableTps.innerHTML = `<div>${tpsValue}</div><div class="text-xs text-gray-500 font-normal mt-1">${theoreticalText}</div>`;
+                }
             }
         } catch (error) {
             console.error('Failed to fetch network stats:', error);
@@ -1289,8 +1294,8 @@ tburn.on('blockConfirmed', (block) => {
             table_none: "없음",
             table_quantum: "양자 내성",
             table_tps_theoretical: "(1,000,000)",
-            table_block_time_theoretical: "(0.1초)",
-            table_finality_theoretical: "(0.5초)",
+            table_block_time_theoretical: "(0.1s)",
+            table_finality_theoretical: "(0.5s)",
             table_gas_fee_theoretical: "($0.0001)",
             section_vision: "2. 비전 & 미션",
             vision_title: "비전",
