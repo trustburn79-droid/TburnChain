@@ -141,14 +141,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private rpcApp: any = null;
   
   // Enterprise metrics
-  private totalTransactions = 52847291;
+  // Total transactions = currentBlockHeight × avgTxPerBlock (approx 400-450 tx/block)
+  // For 39M blocks: 39,000,000 × 420 = ~16.38 billion transactions
+  private totalTransactions = 16_380_000_000;
   private totalGasUsed = BigInt(0);
   private blockTimes: number[] = [];
   private tpsHistory: number[] = [];
-  private peakTps = 52000; // Realistic initial peak based on actual block production (5200 tx × 10 blocks/s)
+  private peakTps = 210000; // Realistic peak: 64 shards × 625 tx × 0.525 load × 10 blocks/s
   
   // Snapshot cache for consistent API responses (30-second TTL)
-  private cachedTotalTransactions = 52847291;
+  private cachedTotalTransactions = 16_380_000_000;
   private lastTotalTransactionsSnapshot = Date.now();
   private readonly TOTAL_TX_CACHE_TTL = 30000; // 30 seconds TTL for consistent display
   
@@ -2808,7 +2810,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         peakTps: this.peakTps,
         currentTps: 50000 + Math.floor(Math.random() * 2000),
         blockProductionRate: 10,
-        totalTransactions: this.currentBlockHeight * 5000,
+        totalTransactions: this.getTotalTransactions(),
         totalBlocks: this.currentBlockHeight,
         validatorParticipation: 0.85 + Math.random() * 0.15,
         consensusLatency: Math.floor(Math.random() * 15) + 25,
@@ -8716,7 +8718,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
     return {
       summary: {
-        totalTransactions: 52847291 + (hash(seed) % 10000),
+        totalTransactions: this.getTotalTransactions(),
         totalVolume: 185420000000 + (hash(seed + 1) % 1000000000),
         totalFees: 42850000 + (hash(seed + 2) % 100000),
         avgTransactionValue: 3508.25 + (hash(seed + 3) % 100) / 10,
