@@ -81,6 +81,12 @@ const DEV_INTERVAL_MULTIPLIER = process.env.NODE_ENV === 'development' ? 10 : 1;
 // Helper function to track intervals for cleanup with OVERLAP PROTECTION
 // Prevents event loop blocking by skipping execution if previous run hasn't completed
 function createTrackedInterval(callback: () => void | Promise<void>, ms: number, name?: string): NodeJS.Timeout {
+  // DISABLE_INTERVALS=true completely disables all background intervals for debugging
+  if (process.env.DISABLE_INTERVALS === 'true') {
+    if (name) console.log(`[Enterprise] SKIPPED interval: ${name} (DISABLE_INTERVALS=true)`);
+    return setTimeout(() => {}, 0) as unknown as NodeJS.Timeout;
+  }
+  
   const intervalName = name || `interval_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
   
   // In development mode, increase interval by 10x to reduce CPU load for Vite
