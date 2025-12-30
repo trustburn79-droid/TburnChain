@@ -77,6 +77,8 @@ export class TransactionValidationService extends EventEmitter {
   private readonly MAX_VALIDATED_POOL_SIZE = 5000;
   private readonly REPLAY_PROTECTION_WINDOW = 3600000;
   private readonly MAX_REPLAY_CACHE_SIZE = 100000;
+  private readonly MAX_NONCE_CACHE_SIZE = 50000;
+  private readonly MAX_MERKLE_CACHE_SIZE = 10000;
   
   private validationStats = {
     totalValidated: 0,
@@ -106,6 +108,24 @@ export class TransactionValidationService extends EventEmitter {
         const toRemove = entries.slice(0, entries.length - this.MAX_REPLAY_CACHE_SIZE);
         for (const [hash] of toRemove) {
           this.replayProtection.delete(hash);
+        }
+      }
+
+      // Clean up nonce cache if it exceeds limit (keep most recent entries)
+      if (this.nonceCache.size > this.MAX_NONCE_CACHE_SIZE) {
+        const keysToDelete = Array.from(this.nonceCache.keys())
+          .slice(0, this.nonceCache.size - this.MAX_NONCE_CACHE_SIZE);
+        for (const key of keysToDelete) {
+          this.nonceCache.delete(key);
+        }
+      }
+
+      // Clean up merkle cache if it exceeds limit
+      if (this.merkleCache.size > this.MAX_MERKLE_CACHE_SIZE) {
+        const keysToDelete = Array.from(this.merkleCache.keys())
+          .slice(0, this.merkleCache.size - this.MAX_MERKLE_CACHE_SIZE);
+        for (const key of keysToDelete) {
+          this.merkleCache.delete(key);
         }
       }
     }, 60000);
@@ -336,6 +356,21 @@ export class TransactionValidationService extends EventEmitter {
 
     if (errors.length === 0) {
       this.validationStats.totalValidated++;
+      
+      // Preemptive cache cleanup before adding new entries
+      if (this.nonceCache.size >= this.MAX_NONCE_CACHE_SIZE) {
+        const keysToDelete = Array.from(this.nonceCache.keys()).slice(0, 1000);
+        for (const key of keysToDelete) {
+          this.nonceCache.delete(key);
+        }
+      }
+      if (this.replayProtection.size >= this.MAX_REPLAY_CACHE_SIZE) {
+        const keysToDelete = Array.from(this.replayProtection.keys()).slice(0, 1000);
+        for (const key of keysToDelete) {
+          this.replayProtection.delete(key);
+        }
+      }
+      
       this.nonceCache.set(tx.from.toLowerCase(), tx.nonce + 1);
       this.replayProtection.set(tx.hash, Date.now());
     } else {
