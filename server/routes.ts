@@ -77,9 +77,104 @@ const intervalExecutionState = new Map<string, { isRunning: boolean; lastRun: nu
 
 // Server startup time - used to delay interval execution until Vite/frontend is ready
 const SERVER_START_TIME = Date.now();
-const STARTUP_DELAY_MS = 20000; // 20 second delay before intervals start executing
+const STARTUP_DELAY_MS = 25000; // 25 second delay before intervals start executing
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
-const DEV_MIN_INTERVAL_MS = 15000; // Minimum 15 seconds between interval executions in dev mode
+const DEV_MIN_INTERVAL_MS = 30000; // Minimum 30 seconds between interval executions in dev mode
+
+// ============================================
+// SEQUENTIAL EXECUTION QUEUE - Prevents event loop saturation
+// Only one interval callback runs at a time
+// ============================================
+const jobQueue: Array<{ name: string; callback: () => Promise<void> }> = [];
+let isProcessingQueue = false;
+
+async function processJobQueue() {
+  if (isProcessingQueue || jobQueue.length === 0) return;
+  
+  isProcessingQueue = true;
+  
+  while (jobQueue.length > 0) {
+    const job = jobQueue.shift();
+    if (!job) break;
+    
+    try {
+      // Yield to event loop before each job
+      await new Promise<void>(resolve => setImmediate(resolve));
+      await job.callback();
+    } catch (error) {
+      // Silent error handling - jobs should not crash the server
+    }
+    
+    // Yield after each job to allow HTTP requests through
+    await new Promise<void>(resolve => setImmediate(resolve));
+  }
+  
+  isProcessingQueue = false;
+}
+
+// Essential intervals that must run for basic explorer functionality
+const ESSENTIAL_INTERVALS = new Set([
+  'network_stats',
+  'block_updates', 
+  'consensus_state',
+  'validators_update',
+  'shards_snapshot',
+]);
+
+// Intervals that should be disabled in development for performance
+const DEV_DISABLED_INTERVALS = new Set([
+  'real_ai_decisions',
+  'validator_scheduling_ai',
+  'governance_prevalidation_ai',
+  'dev_ai_decisions',
+  'dev_cross_shard',
+  'dev_wallets',
+  'dev_consensus_rounds',
+  'prod_ai_decisions',
+  'prod_cross_shard',
+  'prod_wallets',
+  'prod_consensus_rounds',
+  'prod_consensus_state',
+  'staking_stats_broadcast',
+  'staking_pools_broadcast',
+  'staking_activity_broadcast',
+  'reward_cycle_broadcast',
+  'staking_tier_broadcast',
+  'dex_pool_stats_broadcast',
+  'dex_swaps_broadcast',
+  'dex_price_feed_broadcast',
+  'dex_circuit_breakers_broadcast',
+  'lending_markets_broadcast',
+  'lending_risk_broadcast',
+  'lending_transactions_broadcast',
+  'lending_rates_broadcast',
+  'lending_liquidations_broadcast',
+  'yield_vaults_broadcast',
+  'yield_positions_broadcast',
+  'yield_harvests_broadcast',
+  'yield_transactions_broadcast',
+  'lst_pools_broadcast',
+  'lst_positions_broadcast',
+  'lst_rebases_broadcast',
+  'lst_transactions_broadcast',
+  'nft_collections_broadcast',
+  'nft_listings_broadcast',
+  'nft_sales_broadcast',
+  'nft_activity_broadcast',
+  'launchpad_projects_broadcast',
+  'launchpad_rounds_broadcast',
+  'launchpad_activity_broadcast',
+  'gamefi_projects_broadcast',
+  'gamefi_tournaments_broadcast',
+  'gamefi_activity_broadcast',
+  'bridge_chains_broadcast',
+  'bridge_transfers_broadcast',
+  'bridge_validators_broadcast',
+  'bridge_activity_broadcast',
+  'bridge_liquidity_broadcast',
+  'community_activity_broadcast',
+  'community_stats_broadcast',
+]);
 
 // Helper function to track intervals for cleanup with OVERLAP PROTECTION and STARTUP DELAY
 // Prevents event loop blocking by skipping execution if previous run hasn't completed
@@ -87,8 +182,14 @@ const DEV_MIN_INTERVAL_MS = 15000; // Minimum 15 seconds between interval execut
 function createTrackedInterval(callback: () => void | Promise<void>, ms: number, name?: string): NodeJS.Timeout {
   const intervalName = name || `interval_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
   
+  // In development mode, disable non-essential intervals to allow Vite to work smoothly
+  if (IS_DEVELOPMENT && name && DEV_DISABLED_INTERVALS.has(name)) {
+    console.log(`[Enterprise] Interval disabled in dev mode: ${name}`);
+    // Return a dummy timeout that does nothing
+    return setTimeout(() => {}, 0);
+  }
+  
   // In development mode, enforce minimum interval to reduce event loop pressure
-  // This allows Vite HMR to work smoothly without constant interruptions
   const effectiveMs = IS_DEVELOPMENT ? Math.max(ms, DEV_MIN_INTERVAL_MS) : ms;
   
   // Initialize execution state for this interval
@@ -107,7 +208,6 @@ function createTrackedInterval(callback: () => void | Promise<void>, ms: number,
     // OVERLAP GUARD: Skip if previous execution is still running
     if (state.isRunning) {
       state.skipCount++;
-      // Log warning only every 10 skips to avoid log spam
       if (state.skipCount % 10 === 1) {
         console.warn(`[Enterprise] Skipping ${intervalName} - previous execution still running (skipped ${state.skipCount} times)`);
       }
@@ -118,17 +218,20 @@ function createTrackedInterval(callback: () => void | Promise<void>, ms: number,
     state.isRunning = true;
     state.lastRun = Date.now();
     
-    try {
-      // Use setImmediate to yield to event loop between interval executions
-      await new Promise<void>(resolve => setImmediate(resolve));
-      await callback();
-    } catch (error: any) {
-      // Silently handle errors to prevent interval from dying
-      // Critical intervals should not crash the server
-    } finally {
-      // Always mark as not running, even if error occurred
-      state.isRunning = false;
-    }
+    // Queue the job for sequential execution
+    jobQueue.push({
+      name: intervalName,
+      callback: async () => {
+        try {
+          await callback();
+        } finally {
+          state.isRunning = false;
+        }
+      }
+    });
+    
+    // Trigger queue processing
+    processJobQueue();
   };
   
   const interval = setInterval(guardedCallback, effectiveMs);

@@ -53,8 +53,9 @@ class ProductionDataPoller {
   };
 
   private config: PollerConfig = {
-    pollInterval: 15000, // 15 seconds
-    retryDelay: 5000, // 5 seconds on error
+    // In development, use longer intervals to reduce event loop pressure and allow Vite to work smoothly
+    pollInterval: process.env.NODE_ENV === 'development' ? 60000 : 15000, // 60s in dev, 15s in prod
+    retryDelay: process.env.NODE_ENV === 'development' ? 10000 : 5000, // 10s in dev, 5s in prod
     maxConsecutiveErrors: 5, // Back off after 5 consecutive errors
     circuitBreakerThreshold: 10, // Open circuit after 10 consecutive errors
     circuitBreakerResetMs: 60000, // Try again after 60 seconds
