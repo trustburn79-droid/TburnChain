@@ -1405,97 +1405,97 @@ Emergency: 1000ms</code></pre>
         TBURN implements a deflationary tokenomics model designed for long-term value appreciation through systematic token burning and controlled emission.
       </p>
 
-      <h3>6.1 Token Supply</h3>
+      <h3 data-i18n="tokenomics.supply.title">6.1 Token Supply</h3>
       <div class="spec-grid">
         <div class="spec-card">
-          <div class="label">Genesis Supply</div>
+          <div class="label" data-i18n="tokenomics.supply.genesis">Genesis Supply</div>
           <div class="value cyan">10B</div>
         </div>
         <div class="spec-card">
-          <div class="label">Year 20 Supply</div>
+          <div class="label" data-i18n="tokenomics.supply.year20">Year 20 Supply</div>
           <div class="value green">6.94B</div>
         </div>
         <div class="spec-card">
-          <div class="label">Total Reduction</div>
+          <div class="label" data-i18n="tokenomics.supply.reduction">Total Reduction</div>
           <div class="value orange">30.6%</div>
         </div>
         <div class="spec-card">
-          <div class="label">Target Staking</div>
+          <div class="label" data-i18n="tokenomics.supply.staking">Target Staking</div>
           <div class="value purple">32%</div>
         </div>
       </div>
 
-      <h3>6.2 Emission Schedule</h3>
+      <h3 data-i18n="tokenomics.emission.title">6.2 Emission Schedule</h3>
       <table>
         <thead>
           <tr>
-            <th>Parameter</th>
-            <th>Value</th>
-            <th>Description</th>
+            <th data-i18n="tokenomics.emission.header.parameter">Parameter</th>
+            <th data-i18n="tokenomics.emission.header.value">Value</th>
+            <th data-i18n="tokenomics.emission.header.description">Description</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Base Daily Emission</td>
+            <td data-i18n="tokenomics.emission.baseDailyEmission">Base Daily Emission</td>
             <td>500,000 TBURN</td>
-            <td>Maximum daily token issuance</td>
+            <td data-i18n="tokenomics.emission.baseDailyEmissionDesc">Maximum daily token issuance</td>
           </tr>
           <tr>
-            <td>AI Burn Rate</td>
+            <td data-i18n="tokenomics.emission.aiBurnRate">AI Burn Rate</td>
             <td>70%</td>
-            <td>Percentage of emissions burned by AI</td>
+            <td data-i18n="tokenomics.emission.aiBurnRateDesc">Percentage of emissions burned by AI</td>
           </tr>
           <tr>
-            <td>Net Daily Emission</td>
+            <td data-i18n="tokenomics.emission.netDailyEmission">Net Daily Emission</td>
             <td>150,000 TBURN</td>
-            <td>Actual tokens entering circulation</td>
+            <td data-i18n="tokenomics.emission.netDailyEmissionDesc">Actual tokens entering circulation</td>
           </tr>
           <tr>
-            <td>Tier 1 Rewards</td>
+            <td data-i18n="tokenomics.emission.tier1Rewards">Tier 1 Rewards</td>
             <td>250,000/day</td>
-            <td>50% of base emission</td>
+            <td data-i18n="tokenomics.emission.tier1RewardsDesc">50% of base emission</td>
           </tr>
           <tr>
-            <td>Tier 2 Rewards</td>
+            <td data-i18n="tokenomics.emission.tier2Rewards">Tier 2 Rewards</td>
             <td>150,000/day</td>
-            <td>30% of base emission</td>
+            <td data-i18n="tokenomics.emission.tier2RewardsDesc">30% of base emission</td>
           </tr>
           <tr>
-            <td>Tier 3 Rewards</td>
+            <td data-i18n="tokenomics.emission.tier3Rewards">Tier 3 Rewards</td>
             <td>100,000/day</td>
-            <td>20% of base emission</td>
+            <td data-i18n="tokenomics.emission.tier3RewardsDesc">20% of base emission</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>6.3 Price Discovery Model</h3>
-      <p>
+      <h3 data-i18n="tokenomics.price.title">6.3 Price Discovery Model</h3>
+      <p data-i18n="tokenomics.price.desc">
         TBURN token price is determined by a demand-supply equilibrium formula:
       </p>
       <div class="formula">
-        <div class="title">Token Price Formula</div>
+        <div class="title" data-i18n="tokenomics.price.formula">Token Price Formula</div>
         <div class="equation">
           P = P₀ × (1 + α·TPS_Util + β·Activity + γ·Confidence) / (1 + δ·NetEmission + ε·StakeLockup)
         </div>
       </div>
 
-      <p>Coefficient values:</p>
+      <p data-i18n="tokenomics.price.coefficients">Coefficient values:</p>
       <ul>
-        <li><strong>α = 0.40:</strong> TPS utilization weight</li>
-        <li><strong>β = 0.25:</strong> Activity index weight</li>
-        <li><strong>γ = 0.15:</strong> Confidence score weight</li>
-        <li><strong>δ = 35:</strong> Net emission ratio weight</li>
-        <li><strong>ε = 0.60:</strong> Staking lockup intensity weight</li>
+        <li data-i18n="tokenomics.price.coeffAlpha"><strong>α = 0.40:</strong> TPS utilization weight</li>
+        <li data-i18n="tokenomics.price.coeffBeta"><strong>β = 0.25:</strong> Activity index weight</li>
+        <li data-i18n="tokenomics.price.coeffGamma"><strong>γ = 0.15:</strong> Confidence score weight</li>
+        <li data-i18n="tokenomics.price.coeffDelta"><strong>δ = 35:</strong> Net emission ratio weight</li>
+        <li data-i18n="tokenomics.price.coeffEpsilon"><strong>ε = 0.60:</strong> Staking lockup intensity weight</li>
       </ul>
 
-      <h3>6.4 Gas Economics</h3>
-      <p>
+      <h3 data-i18n="tokenomics.gas.title">6.4 Gas Economics</h3>
+      <p data-i18n="tokenomics.gas.desc">
         TBURN uses <span class="highlight">Ember (EMB)</span> as the gas unit:
       </p>
       <ul>
-        <li><strong>1 TBURN = 1,000,000 EMB</strong></li>
-        <li><strong>1 EMB = 10<sup>12</sup> wei</strong></li>
-        <li><strong>Standard Gas Price:</strong> 10 EMB</li>
+        <li data-i18n="tokenomics.gas.conversion"><strong>1 TBURN = 1,000,000 EMB</strong></li>
+        <li data-i18n="tokenomics.gas.weiConversion"><strong>1 EMB = 10<sup>12</sup> wei</strong></li>
+        <li data-i18n="tokenomics.gas.standardPrice"><strong>Standard Gas Price:</strong> 10 EMB</li>
       </ul>
     </section>
 
@@ -1977,7 +1977,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "The AI system implements a fail-fast architecture with automatic fallback:",
         "ai.burnOptimization": "5.4 Burn Optimization Algorithm",
         "ai.burnOptimizationDesc": "The AI-driven burn mechanism analyzes network activity to optimize token burning:",
-        "ai.dynamicBurnRate": "Dynamic Burn Rate"
+        "ai.dynamicBurnRate": "Dynamic Burn Rate",
+        "tokenomics.supply.title": "6.1 Token Supply",
+        "tokenomics.supply.genesis": "Genesis Supply",
+        "tokenomics.supply.year20": "Year 20 Supply",
+        "tokenomics.supply.reduction": "Total Reduction",
+        "tokenomics.supply.staking": "Target Staking",
+        "tokenomics.emission.title": "6.2 Emission Schedule",
+        "tokenomics.emission.header.parameter": "Parameter",
+        "tokenomics.emission.header.value": "Value",
+        "tokenomics.emission.header.description": "Description",
+        "tokenomics.emission.baseDailyEmission": "Base Daily Emission",
+        "tokenomics.emission.baseDailyEmissionDesc": "Maximum daily token issuance",
+        "tokenomics.emission.aiBurnRate": "AI Burn Rate",
+        "tokenomics.emission.aiBurnRateDesc": "Percentage of emissions burned by AI",
+        "tokenomics.emission.netDailyEmission": "Net Daily Emission",
+        "tokenomics.emission.netDailyEmissionDesc": "Actual tokens entering circulation",
+        "tokenomics.emission.tier1Rewards": "Tier 1 Rewards",
+        "tokenomics.emission.tier1RewardsDesc": "50% of base emission",
+        "tokenomics.emission.tier2Rewards": "Tier 2 Rewards",
+        "tokenomics.emission.tier2RewardsDesc": "30% of base emission",
+        "tokenomics.emission.tier3Rewards": "Tier 3 Rewards",
+        "tokenomics.emission.tier3RewardsDesc": "20% of base emission",
+        "tokenomics.price.title": "6.3 Price Discovery Model",
+        "tokenomics.price.desc": "TBURN token price is determined by a demand-supply equilibrium formula:",
+        "tokenomics.price.formula": "Token Price Formula",
+        "tokenomics.price.coefficients": "Coefficient values:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> TPS utilization weight",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> Activity index weight",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> Confidence score weight",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> Net emission ratio weight",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> Staking lockup intensity weight",
+        "tokenomics.gas.title": "6.4 Gas Economics",
+        "tokenomics.gas.desc": "TBURN uses <span class=\"highlight\">Ember (EMB)</span> as the gas unit:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>Standard Gas Price:</strong> 10 EMB"
       },
       ko: {
         "nav.pageTitle": "기술 백서",
@@ -2120,7 +2155,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "AI 시스템은 자동 폴백을 포함한 페일패스트 아키텍처를 구현합니다:",
         "ai.burnOptimization": "5.4 소각 최적화 알고리즘",
         "ai.burnOptimizationDesc": "AI 기반 소각 메커니즘은 네트워크 활동을 분석하여 토큰 소각을 최적화합니다:",
-        "ai.dynamicBurnRate": "동적 소각률"
+        "ai.dynamicBurnRate": "동적 소각률",
+        "tokenomics.supply.title": "6.1 토큰 공급량",
+        "tokenomics.supply.genesis": "제네시스 공급량",
+        "tokenomics.supply.year20": "20년차 공급량",
+        "tokenomics.supply.reduction": "총 감소량",
+        "tokenomics.supply.staking": "목표 스테이킹",
+        "tokenomics.emission.title": "6.2 발행 일정",
+        "tokenomics.emission.header.parameter": "매개변수",
+        "tokenomics.emission.header.value": "값",
+        "tokenomics.emission.header.description": "설명",
+        "tokenomics.emission.baseDailyEmission": "기본 일일 발행량",
+        "tokenomics.emission.baseDailyEmissionDesc": "최대 일일 토큰 발행량",
+        "tokenomics.emission.aiBurnRate": "AI 소각률",
+        "tokenomics.emission.aiBurnRateDesc": "AI에 의해 소각되는 발행량 비율",
+        "tokenomics.emission.netDailyEmission": "순 일일 발행량",
+        "tokenomics.emission.netDailyEmissionDesc": "실제 유통에 들어가는 토큰",
+        "tokenomics.emission.tier1Rewards": "1등급 보상",
+        "tokenomics.emission.tier1RewardsDesc": "기본 발행량의 50%",
+        "tokenomics.emission.tier2Rewards": "2등급 보상",
+        "tokenomics.emission.tier2RewardsDesc": "기본 발행량의 30%",
+        "tokenomics.emission.tier3Rewards": "3등급 보상",
+        "tokenomics.emission.tier3RewardsDesc": "기본 발행량의 20%",
+        "tokenomics.price.title": "6.3 가격 발견 모델",
+        "tokenomics.price.desc": "TBURN 토큰 가격은 수요-공급 균형 공식에 의해 결정됩니다:",
+        "tokenomics.price.formula": "토큰 가격 공식",
+        "tokenomics.price.coefficients": "계수 값:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> TPS 활용률 가중치",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> 활동 지수 가중치",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> 신뢰 점수 가중치",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> 순 발행 비율 가중치",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> 스테이킹 잠금 강도 가중치",
+        "tokenomics.gas.title": "6.4 가스 경제학",
+        "tokenomics.gas.desc": "TBURN은 가스 단위로 <span class=\"highlight\">Ember (EMB)</span>를 사용합니다:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>표준 가스 가격:</strong> 10 EMB"
       },
       zh: {
         "nav.pageTitle": "技术白皮书",
@@ -2263,7 +2333,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "AI系统实现了具有自动回退的快速失败架构：",
         "ai.burnOptimization": "5.4 销毁优化算法",
         "ai.burnOptimizationDesc": "AI驱动的销毁机制分析网络活动以优化代币销毁：",
-        "ai.dynamicBurnRate": "动态销毁率"
+        "ai.dynamicBurnRate": "动态销毁率",
+        "tokenomics.supply.title": "6.1 代币供应量",
+        "tokenomics.supply.genesis": "创世供应量",
+        "tokenomics.supply.year20": "第20年供应量",
+        "tokenomics.supply.reduction": "总减少量",
+        "tokenomics.supply.staking": "目标质押",
+        "tokenomics.emission.title": "6.2 发行计划",
+        "tokenomics.emission.header.parameter": "参数",
+        "tokenomics.emission.header.value": "值",
+        "tokenomics.emission.header.description": "描述",
+        "tokenomics.emission.baseDailyEmission": "基础日发行量",
+        "tokenomics.emission.baseDailyEmissionDesc": "每日最大代币发行量",
+        "tokenomics.emission.aiBurnRate": "AI销毁率",
+        "tokenomics.emission.aiBurnRateDesc": "AI销毁的发行量百分比",
+        "tokenomics.emission.netDailyEmission": "净日发行量",
+        "tokenomics.emission.netDailyEmissionDesc": "实际进入流通的代币",
+        "tokenomics.emission.tier1Rewards": "一级奖励",
+        "tokenomics.emission.tier1RewardsDesc": "基础发行量的50%",
+        "tokenomics.emission.tier2Rewards": "二级奖励",
+        "tokenomics.emission.tier2RewardsDesc": "基础发行量的30%",
+        "tokenomics.emission.tier3Rewards": "三级奖励",
+        "tokenomics.emission.tier3RewardsDesc": "基础发行量的20%",
+        "tokenomics.price.title": "6.3 价格发现模型",
+        "tokenomics.price.desc": "TBURN代币价格由供需均衡公式决定：",
+        "tokenomics.price.formula": "代币价格公式",
+        "tokenomics.price.coefficients": "系数值：",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> TPS利用率权重",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> 活跃度指数权重",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> 信任评分权重",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> 净发行比率权重",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> 质押锁定强度权重",
+        "tokenomics.gas.title": "6.4 Gas经济学",
+        "tokenomics.gas.desc": "TBURN使用<span class=\"highlight\">Ember (EMB)</span>作为gas单位：",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>标准Gas价格：</strong> 10 EMB"
       },
       ja: {
         "nav.pageTitle": "技術白書",
@@ -2406,7 +2511,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "AIシステムは自動フォールバックを備えたフェイルファストアーキテクチャを実装しています：",
         "ai.burnOptimization": "5.4 バーン最適化アルゴリズム",
         "ai.burnOptimizationDesc": "AI駆動バーンメカニズムはネットワーク活動を分析してトークンバーニングを最適化します：",
-        "ai.dynamicBurnRate": "動的バーン率"
+        "ai.dynamicBurnRate": "動的バーン率",
+        "tokenomics.supply.title": "6.1 トークン供給量",
+        "tokenomics.supply.genesis": "ジェネシス供給量",
+        "tokenomics.supply.year20": "20年目供給量",
+        "tokenomics.supply.reduction": "総削減量",
+        "tokenomics.supply.staking": "目標ステーキング",
+        "tokenomics.emission.title": "6.2 発行スケジュール",
+        "tokenomics.emission.header.parameter": "パラメータ",
+        "tokenomics.emission.header.value": "値",
+        "tokenomics.emission.header.description": "説明",
+        "tokenomics.emission.baseDailyEmission": "基本日次発行量",
+        "tokenomics.emission.baseDailyEmissionDesc": "最大日次トークン発行量",
+        "tokenomics.emission.aiBurnRate": "AIバーン率",
+        "tokenomics.emission.aiBurnRateDesc": "AIによってバーンされる発行量の割合",
+        "tokenomics.emission.netDailyEmission": "純日次発行量",
+        "tokenomics.emission.netDailyEmissionDesc": "実際に流通に入るトークン",
+        "tokenomics.emission.tier1Rewards": "ティア1報酬",
+        "tokenomics.emission.tier1RewardsDesc": "基本発行量の50%",
+        "tokenomics.emission.tier2Rewards": "ティア2報酬",
+        "tokenomics.emission.tier2RewardsDesc": "基本発行量の30%",
+        "tokenomics.emission.tier3Rewards": "ティア3報酬",
+        "tokenomics.emission.tier3RewardsDesc": "基本発行量の20%",
+        "tokenomics.price.title": "6.3 価格発見モデル",
+        "tokenomics.price.desc": "TBURNトークン価格は需給均衡式によって決定されます：",
+        "tokenomics.price.formula": "トークン価格公式",
+        "tokenomics.price.coefficients": "係数値：",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> TPS利用率ウェイト",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> アクティビティインデックスウェイト",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> 信頼スコアウェイト",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> 純発行比率ウェイト",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> ステーキングロックアップ強度ウェイト",
+        "tokenomics.gas.title": "6.4 ガス経済学",
+        "tokenomics.gas.desc": "TBURNはガス単位として<span class=\"highlight\">Ember (EMB)</span>を使用します：",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>標準ガス価格：</strong> 10 EMB"
       },
       es: {
         "nav.pageTitle": "Libro Blanco Técnico",
@@ -2549,7 +2689,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "El sistema de IA implementa una arquitectura de fallo rápido con respaldo automático:",
         "ai.burnOptimization": "5.4 Algoritmo de Optimización de Quema",
         "ai.burnOptimizationDesc": "El mecanismo de quema impulsado por IA analiza la actividad de la red para optimizar la quema de tokens:",
-        "ai.dynamicBurnRate": "Tasa de Quema Dinámica"
+        "ai.dynamicBurnRate": "Tasa de Quema Dinámica",
+        "tokenomics.supply.title": "6.1 Suministro de Tokens",
+        "tokenomics.supply.genesis": "Suministro Génesis",
+        "tokenomics.supply.year20": "Suministro Año 20",
+        "tokenomics.supply.reduction": "Reducción Total",
+        "tokenomics.supply.staking": "Objetivo de Staking",
+        "tokenomics.emission.title": "6.2 Calendario de Emisión",
+        "tokenomics.emission.header.parameter": "Parámetro",
+        "tokenomics.emission.header.value": "Valor",
+        "tokenomics.emission.header.description": "Descripción",
+        "tokenomics.emission.baseDailyEmission": "Emisión Diaria Base",
+        "tokenomics.emission.baseDailyEmissionDesc": "Emisión máxima diaria de tokens",
+        "tokenomics.emission.aiBurnRate": "Tasa de Quema IA",
+        "tokenomics.emission.aiBurnRateDesc": "Porcentaje de emisiones quemadas por IA",
+        "tokenomics.emission.netDailyEmission": "Emisión Diaria Neta",
+        "tokenomics.emission.netDailyEmissionDesc": "Tokens reales entrando en circulación",
+        "tokenomics.emission.tier1Rewards": "Recompensas Nivel 1",
+        "tokenomics.emission.tier1RewardsDesc": "50% de la emisión base",
+        "tokenomics.emission.tier2Rewards": "Recompensas Nivel 2",
+        "tokenomics.emission.tier2RewardsDesc": "30% de la emisión base",
+        "tokenomics.emission.tier3Rewards": "Recompensas Nivel 3",
+        "tokenomics.emission.tier3RewardsDesc": "20% de la emisión base",
+        "tokenomics.price.title": "6.3 Modelo de Descubrimiento de Precios",
+        "tokenomics.price.desc": "El precio del token TBURN se determina mediante una fórmula de equilibrio oferta-demanda:",
+        "tokenomics.price.formula": "Fórmula del Precio del Token",
+        "tokenomics.price.coefficients": "Valores de coeficientes:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> Peso de utilización TPS",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> Peso del índice de actividad",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> Peso de puntuación de confianza",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> Peso de ratio de emisión neta",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> Peso de intensidad de bloqueo de staking",
+        "tokenomics.gas.title": "6.4 Economía del Gas",
+        "tokenomics.gas.desc": "TBURN usa <span class=\"highlight\">Ember (EMB)</span> como unidad de gas:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>Precio de Gas Estándar:</strong> 10 EMB"
       },
       fr: {
         "nav.pageTitle": "Livre Blanc Technique",
@@ -2692,7 +2867,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "Le système IA implémente une architecture fail-fast avec repli automatique :",
         "ai.burnOptimization": "5.4 Algorithme d'Optimisation du Brûlage",
         "ai.burnOptimizationDesc": "Le mécanisme de brûlage piloté par IA analyse l'activité réseau pour optimiser le brûlage de tokens :",
-        "ai.dynamicBurnRate": "Taux de Brûlage Dynamique"
+        "ai.dynamicBurnRate": "Taux de Brûlage Dynamique",
+        "tokenomics.supply.title": "6.1 Approvisionnement en Tokens",
+        "tokenomics.supply.genesis": "Approvisionnement Genesis",
+        "tokenomics.supply.year20": "Approvisionnement Année 20",
+        "tokenomics.supply.reduction": "Réduction Totale",
+        "tokenomics.supply.staking": "Staking Cible",
+        "tokenomics.emission.title": "6.2 Calendrier d'Émission",
+        "tokenomics.emission.header.parameter": "Paramètre",
+        "tokenomics.emission.header.value": "Valeur",
+        "tokenomics.emission.header.description": "Description",
+        "tokenomics.emission.baseDailyEmission": "Émission Quotidienne de Base",
+        "tokenomics.emission.baseDailyEmissionDesc": "Émission maximale quotidienne de tokens",
+        "tokenomics.emission.aiBurnRate": "Taux de Brûlage IA",
+        "tokenomics.emission.aiBurnRateDesc": "Pourcentage des émissions brûlées par l'IA",
+        "tokenomics.emission.netDailyEmission": "Émission Quotidienne Nette",
+        "tokenomics.emission.netDailyEmissionDesc": "Tokens réels entrant en circulation",
+        "tokenomics.emission.tier1Rewards": "Récompenses Niveau 1",
+        "tokenomics.emission.tier1RewardsDesc": "50% de l'émission de base",
+        "tokenomics.emission.tier2Rewards": "Récompenses Niveau 2",
+        "tokenomics.emission.tier2RewardsDesc": "30% de l'émission de base",
+        "tokenomics.emission.tier3Rewards": "Récompenses Niveau 3",
+        "tokenomics.emission.tier3RewardsDesc": "20% de l'émission de base",
+        "tokenomics.price.title": "6.3 Modèle de Découverte des Prix",
+        "tokenomics.price.desc": "Le prix du token TBURN est déterminé par une formule d'équilibre offre-demande :",
+        "tokenomics.price.formula": "Formule du Prix du Token",
+        "tokenomics.price.coefficients": "Valeurs des coefficients :",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40 :</strong> Poids d'utilisation TPS",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25 :</strong> Poids de l'indice d'activité",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15 :</strong> Poids du score de confiance",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35 :</strong> Poids du ratio d'émission nette",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60 :</strong> Poids de l'intensité de verrouillage de staking",
+        "tokenomics.gas.title": "6.4 Économie du Gas",
+        "tokenomics.gas.desc": "TBURN utilise <span class=\"highlight\">Ember (EMB)</span> comme unité de gas :",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>Prix de Gas Standard :</strong> 10 EMB"
       },
       ar: {
         "nav.pageTitle": "الورقة البيضاء التقنية",
@@ -2835,7 +3045,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "ينفذ نظام الذكاء الاصطناعي هندسة فشل سريع مع احتياطي تلقائي:",
         "ai.burnOptimization": "5.4 خوارزمية تحسين الحرق",
         "ai.burnOptimizationDesc": "تحلل آلية الحرق المدفوعة بالذكاء الاصطناعي نشاط الشبكة لتحسين حرق الرموز:",
-        "ai.dynamicBurnRate": "معدل الحرق الديناميكي"
+        "ai.dynamicBurnRate": "معدل الحرق الديناميكي",
+        "tokenomics.supply.title": "6.1 إمداد الرموز",
+        "tokenomics.supply.genesis": "إمداد التكوين",
+        "tokenomics.supply.year20": "إمداد السنة 20",
+        "tokenomics.supply.reduction": "إجمالي التخفيض",
+        "tokenomics.supply.staking": "التخزين المستهدف",
+        "tokenomics.emission.title": "6.2 جدول الإصدار",
+        "tokenomics.emission.header.parameter": "المعامل",
+        "tokenomics.emission.header.value": "القيمة",
+        "tokenomics.emission.header.description": "الوصف",
+        "tokenomics.emission.baseDailyEmission": "الإصدار اليومي الأساسي",
+        "tokenomics.emission.baseDailyEmissionDesc": "أقصى إصدار يومي للرموز",
+        "tokenomics.emission.aiBurnRate": "معدل حرق الذكاء الاصطناعي",
+        "tokenomics.emission.aiBurnRateDesc": "نسبة الإصدارات المحروقة بواسطة الذكاء الاصطناعي",
+        "tokenomics.emission.netDailyEmission": "صافي الإصدار اليومي",
+        "tokenomics.emission.netDailyEmissionDesc": "الرموز الفعلية التي تدخل التداول",
+        "tokenomics.emission.tier1Rewards": "مكافآت المستوى 1",
+        "tokenomics.emission.tier1RewardsDesc": "50% من الإصدار الأساسي",
+        "tokenomics.emission.tier2Rewards": "مكافآت المستوى 2",
+        "tokenomics.emission.tier2RewardsDesc": "30% من الإصدار الأساسي",
+        "tokenomics.emission.tier3Rewards": "مكافآت المستوى 3",
+        "tokenomics.emission.tier3RewardsDesc": "20% من الإصدار الأساسي",
+        "tokenomics.price.title": "6.3 نموذج اكتشاف السعر",
+        "tokenomics.price.desc": "يتم تحديد سعر رمز TBURN بواسطة صيغة توازن العرض والطلب:",
+        "tokenomics.price.formula": "صيغة سعر الرمز",
+        "tokenomics.price.coefficients": "قيم المعاملات:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> وزن استخدام TPS",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> وزن مؤشر النشاط",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> وزن درجة الثقة",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> وزن نسبة الإصدار الصافي",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> وزن كثافة قفل التخزين",
+        "tokenomics.gas.title": "6.4 اقتصاديات الغاز",
+        "tokenomics.gas.desc": "يستخدم TBURN <span class=\"highlight\">Ember (EMB)</span> كوحدة غاز:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>سعر الغاز القياسي:</strong> 10 EMB"
       },
       hi: {
         "nav.pageTitle": "तकनीकी श्वेतपत्र",
@@ -2978,7 +3223,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "AI सिस्टम ऑटोमैटिक फॉलबैक के साथ फेल-फास्ट आर्किटेक्चर लागू करता है:",
         "ai.burnOptimization": "5.4 बर्न ऑप्टिमाइज़ेशन एल्गोरिथ्म",
         "ai.burnOptimizationDesc": "AI-संचालित बर्न मैकेनिज्म टोकन बर्निंग को ऑप्टिमाइज़ करने के लिए नेटवर्क गतिविधि का विश्लेषण करता है:",
-        "ai.dynamicBurnRate": "डायनामिक बर्न रेट"
+        "ai.dynamicBurnRate": "डायनामिक बर्न रेट",
+        "tokenomics.supply.title": "6.1 टोकन आपूर्ति",
+        "tokenomics.supply.genesis": "जेनेसिस आपूर्ति",
+        "tokenomics.supply.year20": "वर्ष 20 आपूर्ति",
+        "tokenomics.supply.reduction": "कुल कमी",
+        "tokenomics.supply.staking": "लक्ष्य स्टेकिंग",
+        "tokenomics.emission.title": "6.2 उत्सर्जन अनुसूची",
+        "tokenomics.emission.header.parameter": "पैरामीटर",
+        "tokenomics.emission.header.value": "मूल्य",
+        "tokenomics.emission.header.description": "विवरण",
+        "tokenomics.emission.baseDailyEmission": "आधार दैनिक उत्सर्जन",
+        "tokenomics.emission.baseDailyEmissionDesc": "अधिकतम दैनिक टोकन जारी",
+        "tokenomics.emission.aiBurnRate": "AI बर्न दर",
+        "tokenomics.emission.aiBurnRateDesc": "AI द्वारा बर्न किए गए उत्सर्जन का प्रतिशत",
+        "tokenomics.emission.netDailyEmission": "शुद्ध दैनिक उत्सर्जन",
+        "tokenomics.emission.netDailyEmissionDesc": "प्रचलन में प्रवेश करने वाले वास्तविक टोकन",
+        "tokenomics.emission.tier1Rewards": "टियर 1 पुरस्कार",
+        "tokenomics.emission.tier1RewardsDesc": "आधार उत्सर्जन का 50%",
+        "tokenomics.emission.tier2Rewards": "टियर 2 पुरस्कार",
+        "tokenomics.emission.tier2RewardsDesc": "आधार उत्सर्जन का 30%",
+        "tokenomics.emission.tier3Rewards": "टियर 3 पुरस्कार",
+        "tokenomics.emission.tier3RewardsDesc": "आधार उत्सर्जन का 20%",
+        "tokenomics.price.title": "6.3 मूल्य खोज मॉडल",
+        "tokenomics.price.desc": "TBURN टोकन मूल्य आपूर्ति-मांग संतुलन सूत्र द्वारा निर्धारित किया जाता है:",
+        "tokenomics.price.formula": "टोकन मूल्य सूत्र",
+        "tokenomics.price.coefficients": "गुणांक मान:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> TPS उपयोग भार",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> गतिविधि सूचकांक भार",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> विश्वास स्कोर भार",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> शुद्ध उत्सर्जन अनुपात भार",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> स्टेकिंग लॉकअप तीव्रता भार",
+        "tokenomics.gas.title": "6.4 गैस अर्थशास्त्र",
+        "tokenomics.gas.desc": "TBURN गैस इकाई के रूप में <span class=\"highlight\">Ember (EMB)</span> का उपयोग करता है:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>मानक गैस मूल्य:</strong> 10 EMB"
       },
       bn: {
         "nav.pageTitle": "প্রযুক্তিগত শ্বেতপত্র",
@@ -3099,7 +3379,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "AI সিস্টেম স্বয়ংক্রিয় ফলব্যাক সহ ফেইল-ফাস্ট আর্কিটেকচার প্রয়োগ করে:",
         "ai.burnOptimization": "5.4 বার্ন অপ্টিমাইজেশন অ্যালগরিদম",
         "ai.burnOptimizationDesc": "AI-চালিত বার্ন মেকানিজম টোকেন বার্নিং অপ্টিমাইজ করতে নেটওয়ার্ক কার্যকলাপ বিশ্লেষণ করে:",
-        "ai.dynamicBurnRate": "ডায়নামিক বার্ন রেট"
+        "ai.dynamicBurnRate": "ডায়নামিক বার্ন রেট",
+        "tokenomics.supply.title": "6.1 টোকেন সরবরাহ",
+        "tokenomics.supply.genesis": "জেনেসিস সরবরাহ",
+        "tokenomics.supply.year20": "20 বছরের সরবরাহ",
+        "tokenomics.supply.reduction": "মোট হ্রাস",
+        "tokenomics.supply.staking": "লক্ষ্য স্টেকিং",
+        "tokenomics.emission.title": "6.2 নির্গমন সময়সূচী",
+        "tokenomics.emission.header.parameter": "প্যারামিটার",
+        "tokenomics.emission.header.value": "মান",
+        "tokenomics.emission.header.description": "বিবরণ",
+        "tokenomics.emission.baseDailyEmission": "বেস দৈনিক নির্গমন",
+        "tokenomics.emission.baseDailyEmissionDesc": "সর্বোচ্চ দৈনিক টোকেন ইস্যু",
+        "tokenomics.emission.aiBurnRate": "AI বার্ন রেট",
+        "tokenomics.emission.aiBurnRateDesc": "AI দ্বারা পোড়ানো নির্গমনের শতাংশ",
+        "tokenomics.emission.netDailyEmission": "নেট দৈনিক নির্গমন",
+        "tokenomics.emission.netDailyEmissionDesc": "প্রকৃত টোকেন প্রচলনে প্রবেশ করছে",
+        "tokenomics.emission.tier1Rewards": "টায়ার 1 পুরস্কার",
+        "tokenomics.emission.tier1RewardsDesc": "বেস নির্গমনের 50%",
+        "tokenomics.emission.tier2Rewards": "টায়ার 2 পুরস্কার",
+        "tokenomics.emission.tier2RewardsDesc": "বেস নির্গমনের 30%",
+        "tokenomics.emission.tier3Rewards": "টায়ার 3 পুরস্কার",
+        "tokenomics.emission.tier3RewardsDesc": "বেস নির্গমনের 20%",
+        "tokenomics.price.title": "6.3 মূল্য আবিষ্কার মডেল",
+        "tokenomics.price.desc": "TBURN টোকেন মূল্য সরবরাহ-চাহিদা ভারসাম্য সূত্র দ্বারা নির্ধারিত হয়:",
+        "tokenomics.price.formula": "টোকেন মূল্য সূত্র",
+        "tokenomics.price.coefficients": "সহগ মান:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> TPS ব্যবহার ওজন",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> কার্যকলাপ সূচক ওজন",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> বিশ্বাস স্কোর ওজন",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> নেট নির্গমন অনুপাত ওজন",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> স্টেকিং লকআপ তীব্রতা ওজন",
+        "tokenomics.gas.title": "6.4 গ্যাস অর্থনীতি",
+        "tokenomics.gas.desc": "TBURN গ্যাস ইউনিট হিসাবে <span class=\"highlight\">Ember (EMB)</span> ব্যবহার করে:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>স্ট্যান্ডার্ড গ্যাস মূল্য:</strong> 10 EMB"
       },
       ru: {
         "nav.pageTitle": "Техническая документация",
@@ -3242,7 +3557,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "AI-система реализует архитектуру быстрого отказа с автоматическим резервированием:",
         "ai.burnOptimization": "5.4 Алгоритм оптимизации сжигания",
         "ai.burnOptimizationDesc": "AI-управляемый механизм сжигания анализирует активность сети для оптимизации сжигания токенов:",
-        "ai.dynamicBurnRate": "Динамическая скорость сжигания"
+        "ai.dynamicBurnRate": "Динамическая скорость сжигания",
+        "tokenomics.supply.title": "6.1 Предложение токенов",
+        "tokenomics.supply.genesis": "Начальное предложение",
+        "tokenomics.supply.year20": "Предложение на 20 год",
+        "tokenomics.supply.reduction": "Общее сокращение",
+        "tokenomics.supply.staking": "Целевой стейкинг",
+        "tokenomics.emission.title": "6.2 График эмиссии",
+        "tokenomics.emission.header.parameter": "Параметр",
+        "tokenomics.emission.header.value": "Значение",
+        "tokenomics.emission.header.description": "Описание",
+        "tokenomics.emission.baseDailyEmission": "Базовая дневная эмиссия",
+        "tokenomics.emission.baseDailyEmissionDesc": "Максимальный дневной выпуск токенов",
+        "tokenomics.emission.aiBurnRate": "Скорость сжигания AI",
+        "tokenomics.emission.aiBurnRateDesc": "Процент эмиссии, сжигаемой AI",
+        "tokenomics.emission.netDailyEmission": "Чистая дневная эмиссия",
+        "tokenomics.emission.netDailyEmissionDesc": "Фактические токены, поступающие в обращение",
+        "tokenomics.emission.tier1Rewards": "Награды уровня 1",
+        "tokenomics.emission.tier1RewardsDesc": "50% от базовой эмиссии",
+        "tokenomics.emission.tier2Rewards": "Награды уровня 2",
+        "tokenomics.emission.tier2RewardsDesc": "30% от базовой эмиссии",
+        "tokenomics.emission.tier3Rewards": "Награды уровня 3",
+        "tokenomics.emission.tier3RewardsDesc": "20% от базовой эмиссии",
+        "tokenomics.price.title": "6.3 Модель определения цены",
+        "tokenomics.price.desc": "Цена токена TBURN определяется формулой равновесия спроса и предложения:",
+        "tokenomics.price.formula": "Формула цены токена",
+        "tokenomics.price.coefficients": "Значения коэффициентов:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> Вес использования TPS",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> Вес индекса активности",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> Вес показателя доверия",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> Вес коэффициента чистой эмиссии",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> Вес интенсивности блокировки стейкинга",
+        "tokenomics.gas.title": "6.4 Экономика газа",
+        "tokenomics.gas.desc": "TBURN использует <span class=\"highlight\">Ember (EMB)</span> в качестве единицы газа:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>Стандартная цена газа:</strong> 10 EMB"
       },
       pt: {
         "nav.pageTitle": "Livro Branco Técnico",
@@ -3385,7 +3735,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "O sistema IA implementa uma arquitetura fail-fast com fallback automático:",
         "ai.burnOptimization": "5.4 Algoritmo de Otimização de Queima",
         "ai.burnOptimizationDesc": "O mecanismo de queima orientado por IA analisa a atividade da rede para otimizar a queima de tokens:",
-        "ai.dynamicBurnRate": "Taxa de Queima Dinâmica"
+        "ai.dynamicBurnRate": "Taxa de Queima Dinâmica",
+        "tokenomics.supply.title": "6.1 Fornecimento de Tokens",
+        "tokenomics.supply.genesis": "Fornecimento Gênesis",
+        "tokenomics.supply.year20": "Fornecimento Ano 20",
+        "tokenomics.supply.reduction": "Redução Total",
+        "tokenomics.supply.staking": "Staking Alvo",
+        "tokenomics.emission.title": "6.2 Cronograma de Emissão",
+        "tokenomics.emission.header.parameter": "Parâmetro",
+        "tokenomics.emission.header.value": "Valor",
+        "tokenomics.emission.header.description": "Descrição",
+        "tokenomics.emission.baseDailyEmission": "Emissão Diária Base",
+        "tokenomics.emission.baseDailyEmissionDesc": "Emissão máxima diária de tokens",
+        "tokenomics.emission.aiBurnRate": "Taxa de Queima IA",
+        "tokenomics.emission.aiBurnRateDesc": "Porcentagem de emissões queimadas pela IA",
+        "tokenomics.emission.netDailyEmission": "Emissão Diária Líquida",
+        "tokenomics.emission.netDailyEmissionDesc": "Tokens reais entrando em circulação",
+        "tokenomics.emission.tier1Rewards": "Recompensas Nível 1",
+        "tokenomics.emission.tier1RewardsDesc": "50% da emissão base",
+        "tokenomics.emission.tier2Rewards": "Recompensas Nível 2",
+        "tokenomics.emission.tier2RewardsDesc": "30% da emissão base",
+        "tokenomics.emission.tier3Rewards": "Recompensas Nível 3",
+        "tokenomics.emission.tier3RewardsDesc": "20% da emissão base",
+        "tokenomics.price.title": "6.3 Modelo de Descoberta de Preços",
+        "tokenomics.price.desc": "O preço do token TBURN é determinado por uma fórmula de equilíbrio oferta-demanda:",
+        "tokenomics.price.formula": "Fórmula do Preço do Token",
+        "tokenomics.price.coefficients": "Valores dos coeficientes:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> Peso de utilização TPS",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> Peso do índice de atividade",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> Peso da pontuação de confiança",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> Peso da taxa de emissão líquida",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> Peso da intensidade de bloqueio de staking",
+        "tokenomics.gas.title": "6.4 Economia do Gas",
+        "tokenomics.gas.desc": "TBURN usa <span class=\"highlight\">Ember (EMB)</span> como unidade de gas:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>Preço de Gas Padrão:</strong> 10 EMB"
       },
       ur: {
         "nav.pageTitle": "تکنیکی وائٹ پیپر",
@@ -3528,7 +3913,42 @@ Emergency: 1000ms</code></pre>
         "ai.failFastDesc": "AI سسٹم خودکار فال بیک کے ساتھ فیل فاسٹ آرکیٹیکچر لاگو کرتا ہے:",
         "ai.burnOptimization": "5.4 برن آپٹیمائزیشن الگورتھم",
         "ai.burnOptimizationDesc": "AI سے چلنے والا برن میکانزم ٹوکن برننگ کو بہتر بنانے کے لیے نیٹ ورک سرگرمی کا تجزیہ کرتا ہے:",
-        "ai.dynamicBurnRate": "ڈائنامک برن ریٹ"
+        "ai.dynamicBurnRate": "ڈائنامک برن ریٹ",
+        "tokenomics.supply.title": "6.1 ٹوکن کی فراہمی",
+        "tokenomics.supply.genesis": "ابتدائی فراہمی",
+        "tokenomics.supply.year20": "سال 20 فراہمی",
+        "tokenomics.supply.reduction": "کل کمی",
+        "tokenomics.supply.staking": "ہدف سٹیکنگ",
+        "tokenomics.emission.title": "6.2 اجراء کا شیڈول",
+        "tokenomics.emission.header.parameter": "پیرامیٹر",
+        "tokenomics.emission.header.value": "قیمت",
+        "tokenomics.emission.header.description": "تفصیل",
+        "tokenomics.emission.baseDailyEmission": "بنیادی روزانہ اجراء",
+        "tokenomics.emission.baseDailyEmissionDesc": "زیادہ سے زیادہ روزانہ ٹوکن جاری",
+        "tokenomics.emission.aiBurnRate": "AI برن ریٹ",
+        "tokenomics.emission.aiBurnRateDesc": "AI کی طرف سے جلائے گئے اجراء کا فیصد",
+        "tokenomics.emission.netDailyEmission": "خالص روزانہ اجراء",
+        "tokenomics.emission.netDailyEmissionDesc": "گردش میں داخل ہونے والے اصل ٹوکن",
+        "tokenomics.emission.tier1Rewards": "ٹیئر 1 انعامات",
+        "tokenomics.emission.tier1RewardsDesc": "بنیادی اجراء کا 50%",
+        "tokenomics.emission.tier2Rewards": "ٹیئر 2 انعامات",
+        "tokenomics.emission.tier2RewardsDesc": "بنیادی اجراء کا 30%",
+        "tokenomics.emission.tier3Rewards": "ٹیئر 3 انعامات",
+        "tokenomics.emission.tier3RewardsDesc": "بنیادی اجراء کا 20%",
+        "tokenomics.price.title": "6.3 قیمت دریافت ماڈل",
+        "tokenomics.price.desc": "TBURN ٹوکن کی قیمت طلب و رسد کے توازن فارمولے سے طے ہوتی ہے:",
+        "tokenomics.price.formula": "ٹوکن قیمت فارمولا",
+        "tokenomics.price.coefficients": "گتانک کی قدریں:",
+        "tokenomics.price.coeffAlpha": "<strong>α = 0.40:</strong> TPS استعمال وزن",
+        "tokenomics.price.coeffBeta": "<strong>β = 0.25:</strong> سرگرمی انڈیکس وزن",
+        "tokenomics.price.coeffGamma": "<strong>γ = 0.15:</strong> اعتماد سکور وزن",
+        "tokenomics.price.coeffDelta": "<strong>δ = 35:</strong> خالص اجراء تناسب وزن",
+        "tokenomics.price.coeffEpsilon": "<strong>ε = 0.60:</strong> سٹیکنگ لاک اپ شدت وزن",
+        "tokenomics.gas.title": "6.4 گیس معاشیات",
+        "tokenomics.gas.desc": "TBURN گیس یونٹ کے طور پر <span class=\"highlight\">Ember (EMB)</span> استعمال کرتا ہے:",
+        "tokenomics.gas.conversion": "<strong>1 TBURN = 1,000,000 EMB</strong>",
+        "tokenomics.gas.weiConversion": "<strong>1 EMB = 10<sup>12</sup> wei</strong>",
+        "tokenomics.gas.standardPrice": "<strong>معیاری گیس قیمت:</strong> 10 EMB"
       }
     };
 
