@@ -74,6 +74,11 @@ export class BlockFinalityEngine {
   private readonly QUORUM_DENOMINATOR = BigInt(3);
   private readonly FINALITY_THRESHOLD_BLOCKS = 6; // Blocks after which finality is permanent
   
+  // Memory management constants
+  private readonly MAX_PENDING_BLOCKS = 500; // Maximum pending blocks before forced cleanup
+  private readonly MAX_FINALITY_RESULTS = 1000; // Maximum finality results to keep
+  private readonly CLEANUP_THRESHOLD = 0.8; // Start cleanup when 80% capacity reached
+  
   // Reward constants (in Wei, 10^18 Wei = 1 TBURN)
   private readonly PROPOSER_REWARD = '2000000000000000000'; // 2 TBURN
   private readonly VERIFIER_REWARD = '100000000000000000'; // 0.1 TBURN per verifier
@@ -81,10 +86,30 @@ export class BlockFinalityEngine {
   private readonly GAS_FEE_VERIFIER_SHARE = 0.3; // 30% distributed to verifiers
   private readonly GAS_FEE_BURN_SHARE = 0.2; // 20% burned
   
+  // Processing state for preventing concurrent processing
+  private isProcessing: boolean = false;
+  private lastCleanupBlock: number = 0;
+  
   /**
-   * Register a new block for verification
+   * Register a new block for verification with automatic memory management
    */
   registerBlockForVerification(block: BlockData): void {
+    // Auto-cleanup if approaching capacity limits
+    if (this.pendingBlocks.size >= this.MAX_PENDING_BLOCKS * this.CLEANUP_THRESHOLD) {
+      this.autoCleanup(block.number);
+    }
+    
+    // Validate block data before registration
+    if (!block.number || block.number < 0) {
+      console.warn(`[BlockFinality] Invalid block number: ${block.number}`);
+      return;
+    }
+    
+    if (!block.hash || !block.hash.startsWith('0x')) {
+      console.warn(`[BlockFinality] Invalid block hash for block ${block.number}`);
+      return;
+    }
+    
     this.pendingBlocks.set(block.number, block);
     this.verificationVotes.set(block.number, []);
     this.finalityResults.set(block.number, {
@@ -99,6 +124,31 @@ export class BlockFinalityEngine {
       votingPowerForInvalid: BigInt(0),
       requiredQuorum: BigInt(0),
     });
+  }
+
+  /**
+   * Automatic cleanup of old blocks to prevent memory leaks
+   */
+  private autoCleanup(currentBlockNumber: number): void {
+    const cleaned = this.cleanupFinalizedBlocks(100);
+    if (cleaned > 0 && currentBlockNumber - this.lastCleanupBlock >= 100) {
+      console.log(`[BlockFinality] Auto-cleaned ${cleaned} finalized blocks at height ${currentBlockNumber}`);
+      this.lastCleanupBlock = currentBlockNumber;
+    }
+    
+    // Force cleanup if still over capacity
+    if (this.pendingBlocks.size >= this.MAX_PENDING_BLOCKS) {
+      const forceCleanCount = Math.floor(this.MAX_PENDING_BLOCKS * 0.3);
+      const blockNumbers = Array.from(this.pendingBlocks.keys()).sort((a, b) => a - b);
+      
+      for (let i = 0; i < forceCleanCount && i < blockNumbers.length; i++) {
+        const blockNum = blockNumbers[i];
+        this.pendingBlocks.delete(blockNum);
+        this.verificationVotes.delete(blockNum);
+        // Keep finality results for longer
+      }
+      console.log(`[BlockFinality] Force-cleaned ${forceCleanCount} oldest pending blocks`);
+    }
   }
 
   /**

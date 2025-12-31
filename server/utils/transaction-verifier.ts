@@ -2,10 +2,12 @@
  * TBURN Transaction Verifier
  * Cryptographic signature verification for blockchain transactions
  * 
- * Implements ECDSA secp256k1 signature verification for transaction integrity
+ * Implements REAL ECDSA secp256k1 signature verification using ethers.js
+ * for production-grade security on mainnet
  */
 
 import crypto from 'crypto';
+import { ethers } from 'ethers';
 
 export interface TransactionData {
   from: string;
@@ -31,11 +33,12 @@ export interface VerificationResult {
   hashValid: boolean;
   nonceValid: boolean;
   verificationTimeMs: number;
+  recoveredAddress?: string;
 }
 
 export class TransactionVerifier {
   /**
-   * Generate a transaction hash for signing
+   * Generate a transaction hash for signing using keccak256 (Ethereum standard)
    */
   static generateTransactionHash(tx: TransactionData): string {
     const txData = JSON.stringify({
@@ -49,49 +52,86 @@ export class TransactionVerifier {
       timestamp: tx.timestamp,
     });
     
-    return crypto.createHash('sha256').update(txData).digest('hex');
+    // Use keccak256 for Ethereum-compatible hashing
+    return ethers.keccak256(ethers.toUtf8Bytes(txData)).substring(2);
   }
 
   /**
-   * Generate a deterministic keypair for simulation (secp256k1-like)
-   * In production, this would use actual secp256k1 library
+   * Generate a real secp256k1 keypair using ethers.js
+   * Returns cryptographically secure keypair for production use
    */
   static generateKeyPair(seed: string): { privateKey: string; publicKey: string; address: string } {
-    const privateKey = crypto.createHash('sha256').update(seed).digest('hex');
-    const publicKey = crypto.createHash('sha256').update(privateKey + 'public').digest('hex');
-    const address = '0x' + crypto.createHash('sha256').update(publicKey).digest('hex').substring(0, 40);
+    // Derive a deterministic private key from seed using keccak256
+    const privateKeyHash = ethers.keccak256(ethers.toUtf8Bytes(seed));
+    const wallet = new ethers.Wallet(privateKeyHash);
     
-    return { privateKey, publicKey, address };
+    return {
+      privateKey: wallet.privateKey,
+      publicKey: wallet.signingKey.publicKey,
+      address: wallet.address,
+    };
   }
 
   /**
-   * Sign a transaction (simulation of ECDSA signature)
-   * In production, this would use secp256k1 library for actual ECDSA signing
+   * Generate a random keypair for new accounts
    */
-  static signTransaction(tx: TransactionData, privateKey: string): SignedTransaction {
+  static generateRandomKeyPair(): { privateKey: string; publicKey: string; address: string } {
+    const wallet = ethers.Wallet.createRandom();
+    
+    return {
+      privateKey: wallet.privateKey,
+      publicKey: wallet.signingKey.publicKey,
+      address: wallet.address,
+    };
+  }
+
+  /**
+   * Sign a transaction using REAL ECDSA secp256k1 with ethers.js
+   * Produces cryptographically valid signatures for mainnet
+   */
+  static async signTransaction(tx: TransactionData, privateKey: string): Promise<SignedTransaction> {
     const hash = this.generateTransactionHash(tx);
+    const messageHash = ethers.hashMessage(hash);
     
-    // Simulate ECDSA signature (r, s, v components)
-    // In production: use secp256k1.sign(hash, privateKey)
-    const signatureData = `${hash}:${privateKey}:${Date.now()}`;
-    const r = crypto.createHash('sha256').update(signatureData + 'r').digest('hex');
-    const s = crypto.createHash('sha256').update(signatureData + 's').digest('hex');
-    const v = '1b'; // Recovery id (27 in hex)
+    // Create wallet from private key
+    const wallet = new ethers.Wallet(privateKey);
     
-    const signature = `0x${r}${s}${v}`;
-    const publicKey = crypto.createHash('sha256').update(privateKey + 'public').digest('hex');
+    // Sign the transaction hash using real ECDSA secp256k1
+    const signature = await wallet.signMessage(hash);
     
     return {
       ...tx,
       hash: `0x${hash}`,
       signature,
-      publicKey: `0x${publicKey}`,
+      publicKey: wallet.signingKey.publicKey,
     };
   }
 
   /**
-   * Verify a signed transaction
-   * Checks: 1) Hash integrity, 2) Signature validity, 3) Address derivation
+   * Sign a transaction synchronously (for backward compatibility)
+   */
+  static signTransactionSync(tx: TransactionData, privateKey: string): SignedTransaction {
+    const hash = this.generateTransactionHash(tx);
+    
+    // Create wallet from private key
+    const wallet = new ethers.Wallet(privateKey);
+    
+    // Create signature using signing key directly
+    const messageHash = ethers.hashMessage(hash);
+    const sig = wallet.signingKey.sign(messageHash);
+    const signature = ethers.Signature.from(sig).serialized;
+    
+    return {
+      ...tx,
+      hash: `0x${hash}`,
+      signature,
+      publicKey: wallet.signingKey.publicKey,
+    };
+  }
+
+  /**
+   * Verify a signed transaction using REAL ECDSA secp256k1 recovery
+   * Cryptographically validates: 1) Hash integrity, 2) Signature validity, 3) Address recovery
    */
   static verifyTransaction(signedTx: SignedTransaction, expectedNonce?: number): VerificationResult {
     const startTime = Date.now();
@@ -112,11 +152,8 @@ export class TransactionVerifier {
         };
       }
       
-      // 2. Verify signature format (65 bytes: 32r + 32s + 1v = 130 hex chars + 0x prefix)
-      const signatureValid = signedTx.signature.startsWith('0x') && 
-                             signedTx.signature.length === 132;
-      
-      if (!signatureValid) {
+      // 2. Verify signature format (must be valid hex with proper length)
+      if (!signedTx.signature.startsWith('0x') || signedTx.signature.length < 130) {
         return {
           valid: false,
           error: 'Invalid signature format',
@@ -127,19 +164,19 @@ export class TransactionVerifier {
         };
       }
       
-      // 3. Verify signature matches public key (simulated ECDSA verification)
-      // In production: use secp256k1.verify(signature, hash, publicKey)
-      const derivedAddress = '0x' + crypto.createHash('sha256')
-        .update(signedTx.publicKey.substring(2))
-        .digest('hex')
-        .substring(0, 40);
-      
-      const addressMatch = derivedAddress.toLowerCase() === signedTx.from.toLowerCase();
-      
-      if (!addressMatch) {
+      // 3. REAL ECDSA RECOVERY: Recover the signer address from the signature
+      // This is the cryptographically secure verification using secp256k1
+      let recoveredAddress: string;
+      try {
+        // Recover the address that produced this signature
+        recoveredAddress = ethers.verifyMessage(
+          signedTx.hash.substring(2), // Original hash without 0x prefix
+          signedTx.signature
+        );
+      } catch (sigError: any) {
         return {
           valid: false,
-          error: 'Signature does not match sender address',
+          error: `Signature recovery failed: ${sigError.message}`,
           signatureValid: false,
           hashValid: true,
           nonceValid: true,
@@ -147,14 +184,50 @@ export class TransactionVerifier {
         };
       }
       
-      // 4. Verify nonce if provided
+      // 4. Verify recovered address matches the claimed sender
+      const addressMatch = recoveredAddress.toLowerCase() === signedTx.from.toLowerCase();
+      
+      if (!addressMatch) {
+        return {
+          valid: false,
+          error: `Signature verification failed: recovered ${recoveredAddress}, expected ${signedTx.from}`,
+          signatureValid: false,
+          hashValid: true,
+          nonceValid: true,
+          recoveredAddress,
+          verificationTimeMs: Date.now() - startTime,
+        };
+      }
+      
+      // 5. Optionally verify public key matches (additional security layer)
+      if (signedTx.publicKey) {
+        try {
+          const derivedAddress = ethers.computeAddress(signedTx.publicKey);
+          if (derivedAddress.toLowerCase() !== signedTx.from.toLowerCase()) {
+            return {
+              valid: false,
+              error: 'Public key does not match sender address',
+              signatureValid: false,
+              hashValid: true,
+              nonceValid: true,
+              recoveredAddress,
+              verificationTimeMs: Date.now() - startTime,
+            };
+          }
+        } catch (pkError) {
+          // Public key verification is optional, continue if it fails
+        }
+      }
+      
+      // 6. Verify nonce if provided
       const nonceValid = expectedNonce === undefined || signedTx.nonce === expectedNonce;
       
       return {
-        valid: hashValid && signatureValid && addressMatch && nonceValid,
+        valid: hashValid && addressMatch && nonceValid,
         signatureValid: addressMatch,
         hashValid,
         nonceValid,
+        recoveredAddress,
         verificationTimeMs: Date.now() - startTime,
       };
       
@@ -167,6 +240,30 @@ export class TransactionVerifier {
         nonceValid: false,
         verificationTimeMs: Date.now() - startTime,
       };
+    }
+  }
+
+  /**
+   * Verify a signature directly without full transaction verification
+   * Useful for quick signature checks
+   */
+  static verifySignature(message: string, signature: string, expectedAddress: string): boolean {
+    try {
+      const recoveredAddress = ethers.verifyMessage(message, signature);
+      return recoveredAddress.toLowerCase() === expectedAddress.toLowerCase();
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Recover the signer address from a message and signature
+   */
+  static recoverSigner(message: string, signature: string): string | null {
+    try {
+      return ethers.verifyMessage(message, signature);
+    } catch {
+      return null;
     }
   }
 
@@ -227,7 +324,7 @@ export class TransactionVerifier {
       timestamp: Math.floor(Date.now() / 1000),
     };
     
-    return this.signTransaction(txData, keyPair.privateKey);
+    return this.signTransactionSync(txData, keyPair.privateKey);
   }
 }
 
