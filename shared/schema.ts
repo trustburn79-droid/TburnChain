@@ -8,7 +8,7 @@ import { z } from "zod";
 // ============================================
 
 // Blocks
-// Blocks (Multi-Hash Cryptographic System)
+// Blocks (Multi-Hash Cryptographic System with Finality Tracking)
 export const blocks = pgTable("blocks", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   blockNumber: bigint("block_number", { mode: "number" }).notNull().unique(),
@@ -29,10 +29,18 @@ export const blocks = pgTable("blocks", {
   
   // TBURN v7.0: Multi-Hash Cryptographic System (Purpose-Optimized Hash Selection)
   hashAlgorithm: text("hash_algorithm").notNull().default("blake3"), // blake3, sha3-256, keccak256, sha256d, blake2b
+  
+  // TBURN v7.1: Block Finality System
+  finalityStatus: text("finality_status").notNull().default("pending"), // pending, verified, finalized, rejected
+  verificationCount: integer("verification_count").notNull().default(0), // Number of validators who verified
+  requiredVerifications: integer("required_verifications").notNull().default(0), // Quorum requirement (2/3+1)
+  finalizedAt: timestamp("finalized_at"), // When block reached finality
+  totalBlockReward: text("total_block_reward").notNull().default("0"), // Total reward for this block
+  rewardDistributed: boolean("reward_distributed").notNull().default(false), // Whether rewards have been distributed
 });
 
 // Transactions
-// Transactions (Multi-Hash Cryptographic System)
+// Transactions (Multi-Hash Cryptographic System with Signature Verification)
 export const transactions = pgTable("transactions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   hash: text("hash").notNull().unique(),
@@ -57,6 +65,13 @@ export const transactions = pgTable("transactions", {
   
   // TBURN v7.0: Multi-Hash Cryptographic System (Purpose-Optimized Hash Selection)
   hashAlgorithm: text("hash_algorithm").notNull().default("blake3"), // blake3, sha3-256, keccak256, sha256d, blake2b
+  
+  // TBURN v7.1: Transaction Signature Verification System
+  signature: text("signature"), // ECDSA signature (r, s, v components concatenated)
+  signatureVerified: boolean("signature_verified").notNull().default(false), // Has signature been verified
+  signatureAlgorithm: text("signature_algorithm").notNull().default("secp256k1"), // secp256k1, ed25519, sphincs+
+  publicKey: text("public_key"), // Sender's public key for verification
+  verifiedAt: timestamp("verified_at"), // When transaction was verified
 });
 
 // Accounts
@@ -100,6 +115,105 @@ export const validators = pgTable("validators", {
   behaviorScore: integer("behavior_score").notNull().default(9500), // Network behavior quality
   adaptiveWeight: integer("adaptive_weight").notNull().default(10000), // Dynamic committee weight
 });
+
+// ============================================
+// TBURN v7.1: Block Verification & Finality System
+// ============================================
+
+// Block Verifications (Cross-Check Records from Validators)
+export const blockVerifications = pgTable("block_verifications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+  blockHash: text("block_hash").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Verification Details
+  verificationResult: text("verification_result").notNull().default("valid"), // valid, invalid, abstain
+  verificationSignature: text("verification_signature").notNull(), // Validator's signature confirming verification
+  stateRootMatch: boolean("state_root_match").notNull().default(true), // Did state root match
+  receiptsRootMatch: boolean("receipts_root_match").notNull().default(true), // Did receipts root match
+  transactionsValid: boolean("transactions_valid").notNull().default(true), // All transactions verified
+  
+  // Timing
+  verificationTimeMs: integer("verification_time_ms").notNull().default(0), // Time to verify in ms
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Validator Block Rewards (Per-block reward distribution to validators)
+export const validatorBlockRewards = pgTable("validator_block_rewards", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Reward Details
+  rewardType: text("reward_type").notNull(), // proposer, verifier, committee
+  rewardAmount: text("reward_amount").notNull(), // Amount in Wei
+  gasFeesEarned: text("gas_fees_earned").notNull().default("0"), // Portion of gas fees
+  
+  // Participation
+  participationRole: text("participation_role").notNull(), // proposer, prevote, precommit, verifier
+  votePower: text("vote_power").notNull().default("0"), // Voting power at time of block
+  
+  // Distribution Status
+  distributed: boolean("distributed").notNull().default(false),
+  distributedAt: timestamp("distributed_at"),
+  txHash: text("tx_hash"), // Transaction hash of reward distribution
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Block Finality Confirmations (Final state after cross-verification)
+export const blockFinalityConfirmations = pgTable("block_finality_confirmations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull().unique(),
+  blockHash: text("block_hash").notNull(),
+  
+  // Finality Details
+  finalityStatus: text("finality_status").notNull().default("pending"), // pending, confirmed, finalized, rejected
+  totalVerifications: integer("total_verifications").notNull().default(0),
+  requiredVerifications: integer("required_verifications").notNull(), // 2/3 + 1 quorum
+  validVotes: integer("valid_votes").notNull().default(0),
+  invalidVotes: integer("invalid_votes").notNull().default(0),
+  abstainVotes: integer("abstain_votes").notNull().default(0),
+  
+  // Reward Summary
+  totalRewardsDistributed: text("total_rewards_distributed").notNull().default("0"),
+  proposerReward: text("proposer_reward").notNull().default("0"),
+  verifierRewardsTotal: text("verifier_rewards_total").notNull().default("0"),
+  
+  // Timing
+  consensusStartAt: timestamp("consensus_start_at").notNull().defaultNow(),
+  finalizedAt: timestamp("finalized_at"),
+  confirmationLatencyMs: integer("confirmation_latency_ms"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Insert Schemas for Verification System
+export const insertBlockVerificationSchema = createInsertSchema(blockVerifications).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertValidatorBlockRewardSchema = createInsertSchema(validatorBlockRewards).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertBlockFinalityConfirmationSchema = createInsertSchema(blockFinalityConfirmations).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types for Verification System
+export type BlockVerification = typeof blockVerifications.$inferSelect;
+export type InsertBlockVerification = z.infer<typeof insertBlockVerificationSchema>;
+
+export type ValidatorBlockReward = typeof validatorBlockRewards.$inferSelect;
+export type InsertValidatorBlockReward = z.infer<typeof insertValidatorBlockRewardSchema>;
+
+export type BlockFinalityConfirmation = typeof blockFinalityConfirmations.$inferSelect;
+export type InsertBlockFinalityConfirmation = z.infer<typeof insertBlockFinalityConfirmationSchema>;
 
 // Smart Contracts
 export const smartContracts = pgTable("smart_contracts", {

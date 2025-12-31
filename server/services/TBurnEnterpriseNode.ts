@@ -52,6 +52,18 @@ import {
   SYSTEM_ADDRESSES,
   SIGNER_ADDRESSES
 } from '../utils/tburn-address';
+import { 
+  blockFinalityEngine, 
+  type BlockData, 
+  type ValidatorInfo 
+} from './block-finality-engine';
+import { 
+  rewardDistributionEngine 
+} from './reward-distribution-engine';
+import { 
+  TransactionVerifier, 
+  BlockVerifier 
+} from '../utils/transaction-verifier';
 
 export interface NodeConfig {
   nodeId: string;
@@ -3416,6 +3428,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const block = this.produceBlock();
       this.broadcastBlock(block);
       this.emit('block', block);
+      
+      // Process block finality and rewards (runs asynchronously to not block production)
+      this.processBlockFinality(block);
     }, 100); // 100ms = 10 blocks per second for 520k+ TPS capability
   }
 
@@ -3496,6 +3511,127 @@ export class TBurnEnterpriseNode extends EventEmitter {
         client.send(message);
       }
     });
+  }
+
+  /**
+   * Process block finality and validator rewards
+   * Runs after block production to maintain separation of concerns
+   */
+  private processBlockFinality(block: BlockProduction): void {
+    try {
+      // Generate parent hash deterministically
+      const parentHash = `0x${crypto.createHash('sha256').update(`block-${block.height - 1}`).digest('hex')}`;
+      
+      // Generate state root and receipts root
+      const stateRoot = `0x${crypto.createHash('sha256').update(`state-${block.height}`).digest('hex')}`;
+      const receiptsRoot = `0x${crypto.createHash('sha256').update(`receipts-${block.height}`).digest('hex')}`;
+      
+      // Generate transaction hashes for this block (simulated)
+      const txHashes: string[] = [];
+      for (let i = 0; i < Math.min(block.transactionCount, 100); i++) {
+        txHashes.push(`0x${crypto.createHash('sha256').update(`tx-${block.height}-${i}`).digest('hex')}`);
+      }
+      
+      // Register block for verification
+      const blockData: BlockData = {
+        number: block.height,
+        hash: block.hash,
+        parentHash,
+        stateRoot,
+        receiptsRoot,
+        transactionHashes: txHashes,
+        timestamp: block.timestamp,
+        validatorAddress: block.proposer,
+      };
+      
+      blockFinalityEngine.registerBlockForVerification(blockData);
+      
+      // Get active validators for verification
+      const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
+      const validators: ValidatorInfo[] = [];
+      for (let i = 0; i < totalValidators; i++) {
+        validators.push({
+          address: generateValidatorAddress(i),
+          votingPower: '1000000000000000000000', // 1000 TBURN
+          status: 'active',
+        });
+      }
+      
+      // Simulate cross-validator verification
+      const votes = blockFinalityEngine.simulateValidatorVerification(block.height, validators);
+      
+      // Calculate total voting power
+      let totalVotingPower = BigInt(0);
+      for (const v of validators) {
+        totalVotingPower += BigInt(v.votingPower);
+      }
+      
+      // Process votes for finality
+      const finalityResult = blockFinalityEngine.processVotesForFinality(block.height, totalVotingPower);
+      
+      // Check for blocks that can be upgraded to permanent finality
+      const permanentlyFinalized = blockFinalityEngine.checkForPermanentFinality(block.height);
+      
+      // Calculate and record rewards for verified blocks
+      if (finalityResult.status === 'confirmed' || finalityResult.status === 'finalized') {
+        const verifierAddresses = votes
+          .filter(v => v.vote === 'valid')
+          .map(v => v.validatorAddress);
+        
+        const rewards = rewardDistributionEngine.calculateBlockRewards(
+          block.height,
+          block.proposer,
+          verifierAddresses,
+          block.gasUsed,
+          '10000000000000' // 10 EMB gas price
+        );
+        
+        // Emit rewards event for tracking
+        if (rewards.length > 0 && block.height % 100 === 0) {
+          console.log(`[BlockFinality] Block ${block.height}: ${finalityResult.status}, ${votes.length} votes, ${rewards.length} rewards`);
+        }
+      }
+      
+      // Periodic cleanup (every 1000 blocks)
+      if (block.height % 1000 === 0) {
+        const cleaned = blockFinalityEngine.cleanupFinalizedBlocks(100);
+        const rewardsCleaned = rewardDistributionEngine.cleanupOldRewards(10);
+        if (cleaned > 0 || rewardsCleaned > 0) {
+          console.log(`[BlockFinality] Cleaned ${cleaned} finalized blocks, ${rewardsCleaned} old rewards`);
+        }
+      }
+      
+    } catch (error) {
+      // Don't let finality processing errors affect block production
+      console.error(`[BlockFinality] Error processing block ${block.height}:`, error);
+    }
+  }
+
+  /**
+   * Get block finality statistics
+   */
+  public getBlockFinalityStats(): {
+    pendingBlocks: number;
+    confirmedBlocks: number;
+    finalizedBlocks: number;
+    rejectedBlocks: number;
+    totalVotesProcessed: number;
+    avgConfirmationLatency: number;
+  } {
+    return blockFinalityEngine.getStatistics();
+  }
+
+  /**
+   * Get reward distribution statistics
+   */
+  public getRewardDistributionStats(): {
+    totalDistributed: string;
+    totalBurned: string;
+    totalGasCollected: string;
+    completedEpochs: number;
+    pendingRewardCount: number;
+  } {
+    return rewardDistributionEngine.getStatistics();
   }
 
   private startMetricsCollection(): void {
