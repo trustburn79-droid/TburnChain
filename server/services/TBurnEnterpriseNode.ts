@@ -144,7 +144,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // Enterprise metrics
   private totalTransactions = 52847291;
   private totalGasUsed = BigInt(0);
-  private blockTimes: number[] = [];
+  private blockTimes: number[] = []; // Timestamps of block production
+  private blockIntervals: number[] = []; // Actual intervals between blocks (ms)
+  private lastBlockTimestamp: number = 0; // Last block production time
   private tpsHistory: number[] = [];
   private peakTps = 52000; // Realistic initial peak based on actual block production (5200 tx × 10 blocks/s)
   
@@ -3471,15 +3473,21 @@ export class TBurnEnterpriseNode extends EventEmitter {
       this.tpsHistory.shift();
     }
     
-    // Track block time
+    // Track block time with accurate interval measurement
     const now = Date.now();
-    if (this.blockTimes.length > 0) {
-      const lastBlockTime = this.blockTimes[this.blockTimes.length - 1];
-      const blockTime = (now - lastBlockTime) / 1000;
-      // Keep last 100 block times for averaging
-      if (this.blockTimes.length >= 100) {
-        this.blockTimes.shift();
+    if (this.lastBlockTimestamp > 0) {
+      const interval = now - this.lastBlockTimestamp; // Actual ms between blocks
+      this.blockIntervals.push(interval);
+      // Keep last 1000 intervals for accurate averaging and P99
+      if (this.blockIntervals.length > 1000) {
+        this.blockIntervals.shift();
       }
+    }
+    this.lastBlockTimestamp = now;
+    
+    // Legacy: Keep timestamp array for backward compatibility
+    if (this.blockTimes.length >= 100) {
+      this.blockTimes.shift();
     }
     this.blockTimes.push(now);
 
@@ -3683,10 +3691,20 @@ export class TBurnEnterpriseNode extends EventEmitter {
       
       // PRODUCTION: Calculate and persist REAL-TIME DYNAMIC TPS to database
       try {
-        // CRITICAL: Block time is ALWAYS 100ms - this is the mainnet specification
-        // Do NOT calculate from this.blockTimes array as it contains measurement noise
-        const FIXED_BLOCK_TIME_MS = 100; // Mainnet block time constant
-        const FIXED_BLOCK_TIME_P99 = 105; // P99 within 5% variance for production stability
+        // Calculate REAL measured block time from actual intervals
+        let avgBlockTimeMs = 100; // Default until we have data
+        let blockTimeP99Ms = 105;
+        
+        if (this.blockIntervals.length >= 10) {
+          // Calculate average from measured intervals
+          const sum = this.blockIntervals.reduce((a, b) => a + b, 0);
+          avgBlockTimeMs = Math.round(sum / this.blockIntervals.length);
+          
+          // Calculate P99 from sorted intervals
+          const sorted = [...this.blockIntervals].sort((a, b) => a - b);
+          const p99Index = Math.floor(sorted.length * 0.99);
+          blockTimeP99Ms = sorted[Math.min(p99Index, sorted.length - 1)];
+        }
         
         // REAL-TIME DYNAMIC TPS: Based on shard, cross-shard, latency, validators, load
         const realTimeTpsData = this.getRealTimeTPS();
@@ -3694,8 +3712,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
         const dynamicPeakTps = realTimeTpsData.peak;
         
         await storage.updateNetworkStats({
-          avgBlockTime: FIXED_BLOCK_TIME_MS,
-          blockTimeP99: FIXED_BLOCK_TIME_P99,
+          avgBlockTime: avgBlockTimeMs,
+          blockTimeP99: blockTimeP99Ms,
           currentBlockHeight: this.currentBlockHeight,
           tps: dynamicTps,
           peakTps: dynamicPeakTps,
@@ -4363,6 +4381,38 @@ export class TBurnEnterpriseNode extends EventEmitter {
         validatorFactor: 1.0   // No synthetic modifier
       }
     };
+  }
+  
+  /**
+   * Record block interval from external sources (e.g., ValidatorSimulation)
+   * This allows accurate measurement of actual block production timing
+   */
+  recordBlockInterval(intervalMs: number): void {
+    if (intervalMs > 0 && intervalMs < 10000) { // Sanity check: 0-10 seconds
+      this.blockIntervals.push(intervalMs);
+      // Keep last 1000 intervals for accurate averaging and P99
+      if (this.blockIntervals.length > 1000) {
+        this.blockIntervals.shift();
+      }
+    }
+  }
+  
+  /**
+   * Get measured block time statistics
+   */
+  getBlockTimeStats(): { avg: number; p99: number; samples: number } {
+    if (this.blockIntervals.length < 10) {
+      return { avg: 100, p99: 105, samples: this.blockIntervals.length };
+    }
+    
+    const sum = this.blockIntervals.reduce((a, b) => a + b, 0);
+    const avg = Math.round(sum / this.blockIntervals.length);
+    
+    const sorted = [...this.blockIntervals].sort((a, b) => a - b);
+    const p99Index = Math.floor(sorted.length * 0.99);
+    const p99 = sorted[Math.min(p99Index, sorted.length - 1)];
+    
+    return { avg, p99, samples: this.blockIntervals.length };
   }
   
   // Get comprehensive token economics data with demand-supply analysis and tier system

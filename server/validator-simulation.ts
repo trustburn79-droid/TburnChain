@@ -154,6 +154,10 @@ export class ValidatorSimulationService {
   // Reentrancy guard to prevent overlapping interval executions
   private isProcessingBlock: boolean = false;
   
+  // Block timing measurement for accurate block time reporting
+  private lastBlockTimestamp: number = 0;
+  private enterpriseNode: any = null; // Reference to Enterprise Node for interval recording
+  
   // Dynamic shard configuration
   private currentShardCount: number = 5;
   private validatorsPerShard: number = 25;
@@ -176,6 +180,13 @@ export class ValidatorSimulationService {
 
   constructor(storage: IStorage) {
     this.storage = storage;
+  }
+  
+  /**
+   * Set reference to Enterprise Node for block interval recording
+   */
+  setEnterpriseNode(node: any): void {
+    this.enterpriseNode = node;
   }
   
   // Calculate composite priority score for message routing (higher = more priority)
@@ -688,6 +699,14 @@ export class ValidatorSimulationService {
       console.warn("No active validators for block production");
       return;
     }
+    
+    // Measure actual block interval and record to Enterprise Node
+    const now = Date.now();
+    if (this.lastBlockTimestamp > 0 && this.enterpriseNode) {
+      const interval = now - this.lastBlockTimestamp;
+      this.enterpriseNode.recordBlockInterval(interval);
+    }
+    this.lastBlockTimestamp = now;
     
     // Capture current block height BEFORE incrementing
     const blockHeight = this.currentBlockHeight;

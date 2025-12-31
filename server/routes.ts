@@ -407,6 +407,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       validatorSimulation = new ValidatorSimulationService(storage);
       
+      // Connect ValidatorSimulation to Enterprise Node for block interval recording
+      const enterpriseNodeForInterval = getEnterpriseNode();
+      if (enterpriseNodeForInterval) {
+        validatorSimulation.setEnterpriseNode(enterpriseNodeForInterval);
+        console.log('[Validator] ✅ Connected to Enterprise Node for block interval tracking');
+      }
+      
       // Only initialize validators if none exist
       if (existingValidators.length === 0) {
         console.log("[Validator] No validators found, initializing 125 enterprise validators...");
@@ -1987,8 +1994,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             peakTps: shardTps.peakTps,
             shardCount: shardTps.shardCount,
             tpsPerShard: shardTps.tpsPerShard,
-            avgBlockTime: 100, // FIXED: Always 100ms mainnet block time
-            blockTimeP99: 105, // FIXED: P99 within 5% variance
+            avgBlockTime: dbStats?.avgBlockTime || mainnetStats.avgBlockTime || 100,
+            blockTimeP99: dbStats?.blockTimeP99 || mainnetStats.blockTimeP99 || 105,
             slaUptime: dbStats?.slaUptime || mainnetStats.slaUptime || 9999,
             latency: dbStats?.latency || mainnetStats.latency || 12,
             latencyP99: dbStats?.latencyP99 || mainnetStats.latencyP99 || 25,
@@ -2020,10 +2027,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
               currentBlockHeight: 21200000 + Math.floor(Date.now() / 1000),
               tps: shardTps.tps,
               peakTps: shardTps.peakTps,
-              avgBlockTime: 100, // FIXED: Always 100ms mainnet block time
-              blockTimeP99: 105, // FIXED: P99 within 5% variance
+              avgBlockTime: 100, // Default until measured data available
+              blockTimeP99: 105, // Default until measured data available
               slaUptime: 9999, // 99.99% enterprise SLA
-              latency: 8 + Math.floor(Math.random() * 7), // 8-15ms
+              latency: 12, // Stable latency value
               latencyP99: 25,
               activeValidators: shardTps.validators,
               totalValidators: shardTps.validators,
