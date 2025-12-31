@@ -233,18 +233,38 @@ export async function buildPublicTestnetStats(): Promise<any> {
 /**
  * GET /api/public/v1/network/stats
  * Core network statistics for home page and network status
+ * OPTIMIZED: Cache-first response to prevent slow page loads
  */
 router.get('/network/stats', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
     
-    // CRITICAL Dec 24: NO separate cache - always use fresh TPS from shards cache
-    // This ensures /api/network/stats TPS matches /api/shards and /api/sharding exactly
+    // OPTIMIZED: Check cache first to prevent 4-5 second response times
+    const cache = getDataCache();
+    const cachedData = cache.get<any>(PUBLIC_CACHE_KEYS.NETWORK_STATS, true);
+    
+    if (cachedData) {
+      // Return cached data immediately for fast page loads
+      res.json({ success: true, data: cachedData });
+      return;
+    }
+    
+    // Cache miss - build fresh data and cache it
     const data = await buildPublicNetworkStats();
+    cache.set(PUBLIC_CACHE_KEYS.NETWORK_STATS, data, CACHE_MEDIUM * 1000);
     
     res.json({ success: true, data });
   } catch (error: any) {
     console.error('[Public API] Network stats error:', error?.message || error);
+    
+    // On error, try to serve stale cache if available
+    const cache = getDataCache();
+    const staleData = cache.get<any>(PUBLIC_CACHE_KEYS.NETWORK_STATS, true);
+    if (staleData) {
+      res.json({ success: true, data: staleData, stale: true });
+      return;
+    }
+    
     res.status(500).json({
       success: false,
       error: 'Failed to fetch network stats'

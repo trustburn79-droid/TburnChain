@@ -104,6 +104,15 @@ class AIOrchestrator extends EventEmitter {
   private startTime: number = 0;
   private lastDecisionAt: number | null = null;
   
+  // Circuit breaker to prevent hammering rate-limited providers
+  private circuitBreaker = {
+    isOpen: false,
+    openedAt: 0,
+    cooldownMs: 60000, // 1 minute cooldown when all providers are rate limited
+    consecutiveFailures: 0,
+    failureThreshold: 5, // Open circuit after 5 consecutive rate limit failures
+  };
+  
   // PRODUCTION: Retry queue for failed AI decisions
   private retryQueue: Map<string, FailedDecision> = new Map();
   private retryInterval: NodeJS.Timeout | null = null;
@@ -307,12 +316,54 @@ class AIOrchestrator extends EventEmitter {
   }
   
   /**
+   * Check and manage circuit breaker state
+   */
+  private checkCircuitBreaker(): boolean {
+    if (this.circuitBreaker.isOpen) {
+      const elapsed = Date.now() - this.circuitBreaker.openedAt;
+      if (elapsed >= this.circuitBreaker.cooldownMs) {
+        // Reset circuit breaker after cooldown
+        console.log('[AIOrchestrator] Circuit breaker cooldown complete, attempting to resume');
+        this.circuitBreaker.isOpen = false;
+        this.circuitBreaker.consecutiveFailures = 0;
+        return false; // Circuit is now closed
+      }
+      return true; // Circuit is still open
+    }
+    return false; // Circuit is closed
+  }
+  
+  private tripCircuitBreaker(): void {
+    this.circuitBreaker.consecutiveFailures++;
+    if (this.circuitBreaker.consecutiveFailures >= this.circuitBreaker.failureThreshold) {
+      if (!this.circuitBreaker.isOpen) {
+        console.log(`[AIOrchestrator] Circuit breaker OPEN - all AI providers rate limited, cooling down for ${this.circuitBreaker.cooldownMs / 1000}s`);
+        this.circuitBreaker.isOpen = true;
+        this.circuitBreaker.openedAt = Date.now();
+      }
+    }
+  }
+  
+  private resetCircuitBreaker(): void {
+    if (this.circuitBreaker.consecutiveFailures > 0) {
+      this.circuitBreaker.consecutiveFailures = 0;
+    }
+  }
+  
+  /**
    * Internal processor that can be called directly for retries
    */
   private async processBlockchainEventInternal(event: BlockchainEvent, allowQueue: boolean): Promise<AIDecisionResult | null> {
     if (!this.isRunning) {
       console.log('[AIOrchestrator] Not running, skipping event');
       return null;
+    }
+    
+    // Check circuit breaker - skip AI calls if circuit is open
+    if (this.checkCircuitBreaker()) {
+      console.log('[AIOrchestrator] Circuit breaker OPEN - using local fallback immediately');
+      const band = this.getBandForEvent(event.type);
+      return this.handleFallback(event, band, new Error('Circuit breaker open'));
     }
 
     const band = this.getBandForEvent(event.type);
@@ -366,6 +417,9 @@ class AIOrchestrator extends EventEmitter {
       this.totalCost += response.cost;
       this.totalTokens += response.tokensUsed;
       this.lastDecisionAt = Date.now();
+      
+      // Reset circuit breaker on successful AI call
+      this.resetCircuitBreaker();
 
       const executionResult = await this.executeAIDecision(result, event, band, response);
       result.executionResult = executionResult;
@@ -379,6 +433,15 @@ class AIOrchestrator extends EventEmitter {
       return result;
     } catch (error) {
       console.error(`[AIOrchestrator] AI call failed for ${band} band:`, error);
+      
+      // Check if this is a rate limit error and trip circuit breaker
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('rate limit') || errorMessage.includes('429') || errorMessage.includes('RATELIMIT')) {
+        this.tripCircuitBreaker();
+      } else {
+        // Non-rate-limit error, reset consecutive failures
+        this.resetCircuitBreaker();
+      }
 
       await this.recordUsageLog({
         decision: 'fallback',
