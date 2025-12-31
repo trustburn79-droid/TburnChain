@@ -667,90 +667,85 @@ export class ValidatorSimulationService {
     // Update consensus data with voting results
     const quorumAchieved = Math.floor((Number(votingPowerAchieved) / Number(totalVotingPower)) * 10000);
     
-    // Save consensus round to database with error handling
-    try {
-      await this.storage.createConsensusRound(consensusData);
-      // Update round only after successful insertion
-      this.currentRound++;
-    } catch (error: any) {
+    // CRITICAL: Increment round IMMEDIATELY to maintain 100ms cadence
+    this.currentRound++;
+    
+    // Fire-and-forget DB write - don't block the 100ms loop
+    this.storage.createConsensusRound(consensusData).catch((error: any) => {
       if (error?.code === '23505') {
-        // Duplicate key error - skip this round as it already exists
-        console.log(`Consensus round for block ${this.currentBlockHeight} already exists, skipping`);
+        // Duplicate key - round already exists, safe to ignore
       } else {
         console.error("Error creating consensus round:", error);
       }
-    }
+    });
   }
 
-  // Simulate block production
+  // Simulate block production - OPTIMIZED for 100ms cadence
+  // Block height increments immediately, DB writes are fire-and-forget
   private async simulateBlockProduction(): Promise<void> {
     const activeValidators = this.validators.filter(v => v.status === "active");
     if (activeValidators.length === 0) {
       console.warn("No active validators for block production");
       return;
     }
-    const producer = activeValidators[this.currentBlockHeight % activeValidators.length];
+    
+    // Capture current block height BEFORE incrementing
+    const blockHeight = this.currentBlockHeight;
+    const producer = activeValidators[blockHeight % activeValidators.length];
+    
+    // CRITICAL: Increment block height IMMEDIATELY to maintain 100ms cadence
+    // This allows the next interval tick to proceed without waiting for DB
+    this.currentBlockHeight++;
     
     // PRODUCTION LAUNCH: Match exact displayed TPS (~210K)
     // ~2.75 blocks/second × ~76,000 tx/block = ~210K TPS
-    // Using calculated value to match Enterprise Node display exactly
     const baseTransactions = 75000 + Math.floor(Math.random() * 3000); // 75,000-78,000 txs per block
     const transactionCount = baseTransactions;
     
-    // Mix of transaction types for realistic gas usage:
-    // 20% simple transfers (21,000 gas each)
-    // 50% smart contract calls (50,000-200,000 gas each)
-    // 30% DeFi/complex operations (200,000-500,000 gas each)
+    // Mix of transaction types for realistic gas usage
     const simpleTransfers = Math.floor(transactionCount * 0.2);
     const contractCalls = Math.floor(transactionCount * 0.5);
     const complexOps = transactionCount - simpleTransfers - contractCalls;
     
     const gasUsed = 
-      (simpleTransfers * 21000) + // Simple transfers
-      (contractCalls * (50000 + Math.floor(Math.random() * 150000))) + // Smart contracts
-      (complexOps * (200000 + Math.floor(Math.random() * 300000))); // DeFi/complex
+      (simpleTransfers * 21000) + 
+      (contractCalls * (50000 + Math.floor(Math.random() * 150000))) + 
+      (complexOps * (200000 + Math.floor(Math.random() * 300000)));
     
-    // Create block with proper 0x prefixed hashes
+    // Create block with captured height (not current which may have changed)
     const block = {
-      blockNumber: this.currentBlockHeight,
+      blockNumber: blockHeight,
       hash: `0x${crypto.randomBytes(32).toString('hex')}`,
       parentHash: `0x${crypto.randomBytes(32).toString('hex')}`,
       timestamp: Math.floor(Date.now() / 1000),
       transactionCount: transactionCount,
       validatorAddress: producer.address,
-      gasUsed: Math.min(gasUsed, 30000000), // Cap at gas limit
-      gasLimit: 30000000, // 30M gas limit (standard for high-throughput chains)
+      gasUsed: Math.min(gasUsed, 30000000),
+      gasLimit: 30000000,
       size: 50000 + Math.floor(Math.random() * 100000),
       shardId: Math.floor(Math.random() * this.currentShardCount),
       stateRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
       receiptsRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
       executionClass: "parallel",
-      latencyNs: BigInt(50000000 + Math.floor(Math.random() * 50000000)), // 50-100ms
+      latencyNs: BigInt(50000000 + Math.floor(Math.random() * 50000000)),
       parallelBatchId: crypto.randomBytes(16).toString('hex'),
       hashAlgorithm: "blake3",
     };
     
-    try {
-      await this.storage.createBlock(block);
-      
-      // Update validator's total blocks
-      producer.totalBlocks = (producer.totalBlocks || 0) + 1;
-      await this.storage.updateValidator(producer.address, { totalBlocks: producer.totalBlocks });
-      
-      // Increment block height ONLY after successful insertion
-      this.currentBlockHeight++;
-    } catch (error: any) {
-      if (error?.code === '23505') {
-        // Duplicate key error - resync with database
-        const recentBlocks = await this.storage.getRecentBlocks(1);
-        if (recentBlocks.length > 0) {
-          this.currentBlockHeight = recentBlocks[0].blockNumber + 1;
-          console.log(`📦 Resynced block height to: ${this.currentBlockHeight}`);
+    // Fire-and-forget DB write - don't block the 100ms loop
+    this.storage.createBlock(block)
+      .then(() => {
+        // Update validator's total blocks in background
+        producer.totalBlocks = (producer.totalBlocks || 0) + 1;
+        return this.storage.updateValidator(producer.address, { totalBlocks: producer.totalBlocks });
+      })
+      .catch((error: any) => {
+        if (error?.code === '23505') {
+          // Duplicate key - block already exists, safe to ignore
+        } else {
+          console.error("Error creating block:", error);
         }
-      } else {
-        console.error("Error creating block:", error);
-      }
-    }
+      });
   }
 
   // Simulate cross-shard messages between shards (OPTIMIZED)
@@ -910,26 +905,17 @@ export class ValidatorSimulationService {
       console.log(`Using default block height: ${this.currentBlockHeight}`);
     }
     
-    // Block production every 100ms with reentrancy guard
-    this.blockInterval = setInterval(async () => {
-      // Skip if previous cycle is still running (prevents overlap)
-      if (this.isProcessingBlock) {
-        return;
-      }
-      
-      this.isProcessingBlock = true;
+    // Block production every 100ms - CRITICAL: Strict 100ms cadence for mainnet
+    // The 100ms BLOCK_TIME is a hard requirement for mainnet launch (10 blocks/second)
+    this.blockInterval = setInterval(() => {
+      // Each function immediately increments its counter and fires DB writes asynchronously
+      // No blocking - this ensures exactly 10 blocks/second
       try {
-        // Block production must succeed first (maintains data consistency)
-        await this.simulateBlockProduction();
-        // Consensus and stats can run in parallel (no dependencies between them)
-        await Promise.all([
-          this.simulateConsensusRound(),
-          this.updateNetworkStats()
-        ]);
+        this.simulateBlockProduction();
+        this.simulateConsensusRound();
+        this.updateNetworkStats();
       } catch (error) {
         console.error("Error in block production:", error);
-      } finally {
-        this.isProcessingBlock = false;
       }
     }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
     

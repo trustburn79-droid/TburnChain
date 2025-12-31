@@ -3422,6 +3422,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   private startBlockProduction(): void {
     // Produce blocks at optimal 100ms intervals (10 blocks/second)
+    // CRITICAL: Block production must complete in <100ms to maintain cadence
+    const isDev = process.env.NODE_ENV === 'development';
+    
     this.blockProductionInterval = setInterval(() => {
       if (!this.isRunning) return;
 
@@ -3429,8 +3432,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
       this.broadcastBlock(block);
       this.emit('block', block);
       
-      // Process block finality and rewards (runs asynchronously to not block production)
-      this.processBlockFinality(block);
+      // In development: Only process finality every 100 blocks to avoid CPU blocking
+      // In production: Process every block for real-time finality
+      if (!isDev || block.height % 100 === 0) {
+        setImmediate(() => {
+          this.processBlockFinality(block);
+        });
+      }
     }, 100); // 100ms = 10 blocks per second for 520k+ TPS capability
   }
 
