@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { 
   Fire, 
@@ -87,6 +87,7 @@ function getLocationData(location?: string) {
 }
 
 export default function ValidatorInfrastructure() {
+  const [, navigate] = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [viewMode, setViewMode] = useState<"stake" | "score">("stake");
@@ -403,6 +404,7 @@ export default function ValidatorInfrastructure() {
                           <tr 
                             key={validator.id} 
                             className="tburn-row cursor-pointer"
+                            onClick={() => navigate(`/validator/${validator.id}`)}
                             data-testid={`row-validator-${validator.id}`}
                           >
                             <td className="p-4">

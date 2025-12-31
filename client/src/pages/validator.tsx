@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from 'recharts';
 import { 
   Fire, 
@@ -113,6 +113,7 @@ const staticValidators = [
 ];
 
 export default function ValidatorCommandCenter() {
+  const [, navigate] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -399,6 +400,7 @@ export default function ValidatorCommandCenter() {
                     <tr 
                       key={validator.id} 
                       className="hover:bg-white/5 transition-colors group cursor-pointer"
+                      onClick={() => navigate(`/validator/${validator.id}`)}
                       data-testid={`validator-row-${validator.id}`}
                     >
                       <td className="p-5">
