@@ -87,6 +87,15 @@ class AIServiceManager extends EventEmitter {
   };
   private readonly GROK_ACTIVATION_THRESHOLD = 3; // Activate Grok after 3 consecutive failures
   
+  // Global circuit breaker - stops ALL AI calls when all providers are rate limited
+  private globalCircuitBreaker = {
+    isOpen: false,
+    openedAt: 0,
+    cooldownMs: 60000, // 60 second cooldown when circuit is open
+    consecutiveAllProvidersDown: 0,
+    threshold: 3 // Open after 3 consecutive "all providers down" events
+  };
+  
   constructor() {
     super();
     this.initializeProviders();
@@ -575,11 +584,30 @@ class AIServiceManager extends EventEmitter {
     let lastError: any;
     let allProvidersExhausted = false;
     
+    // GLOBAL CIRCUIT BREAKER - Fastest possible rejection
+    if (this.globalCircuitBreaker.isOpen) {
+      const elapsed = Date.now() - this.globalCircuitBreaker.openedAt;
+      if (elapsed < this.globalCircuitBreaker.cooldownMs) {
+        // Circuit is open and still cooling down - fail IMMEDIATELY
+        throw new Error("AI service circuit breaker is open. All providers rate limited.");
+      }
+      // Cooldown complete - allow half-open test
+      console.log('[AI Service] Circuit breaker half-open - testing...');
+    }
+    
     // CRITICAL FIX: Check if ALL providers are rate-limited BEFORE attempting requests
     // This prevents blocking the event loop when no providers are available
     const initialAvailable = this.getAvailableProviders();
     if (initialAvailable.length === 0) {
-      console.log(`[AI Service] All providers are rate limited - failing fast!`);
+      // Track consecutive "all providers down" events
+      this.globalCircuitBreaker.consecutiveAllProvidersDown++;
+      if (this.globalCircuitBreaker.consecutiveAllProvidersDown >= this.globalCircuitBreaker.threshold) {
+        if (!this.globalCircuitBreaker.isOpen) {
+          this.globalCircuitBreaker.isOpen = true;
+          this.globalCircuitBreaker.openedAt = Date.now();
+          console.log(`[AI Service] 🔴 GLOBAL CIRCUIT BREAKER OPEN - cooling down for ${this.globalCircuitBreaker.cooldownMs / 1000}s`);
+        }
+      }
       // Track failure for Grok activation before throwing
       this.trackFailureAndCheckGrok(this.activeProvider);
       throw new Error("All AI providers are currently rate limited. Please wait and try again.");
@@ -665,6 +693,13 @@ class AIServiceManager extends EventEmitter {
         // Reset failure tracker on success (for primary providers only)
         if (provider !== "grok") {
           this.resetFailureTracker();
+        }
+        
+        // Reset global circuit breaker on success
+        if (this.globalCircuitBreaker.isOpen || this.globalCircuitBreaker.consecutiveAllProvidersDown > 0) {
+          console.log('[AI Service] ✅ Request succeeded - resetting circuit breaker');
+          this.globalCircuitBreaker.isOpen = false;
+          this.globalCircuitBreaker.consecutiveAllProvidersDown = 0;
         }
         
         return result;

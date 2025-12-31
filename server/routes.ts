@@ -17942,7 +17942,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error('Error broadcasting block updates:', error);
     }
-  }, 2000, 'block_updates'); // Balanced: responsive without overloading
+  }, 5000, 'block_updates'); // Increased from 2s to 5s to reduce event loop contention
 
   // ============================================
   // REAL AI Decision Processing
@@ -18234,7 +18234,7 @@ Provide JSON portfolio analysis:
       } catch (error) {
         console.error('Error broadcasting consensus rounds snapshot:', error);
       }
-    }, 3000, 'dev_consensus_rounds');
+    }, 5000, 'dev_consensus_rounds'); // Increased from 3s to 5s
   }
 
   // Consensus State snapshot every 3000ms (balanced for performance)
@@ -18246,7 +18246,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error('Error broadcasting consensus state update:', error);
     }
-  }, 3000, 'consensus_state'); // Balanced: responsive without overloading
+  }, 5000, 'consensus_state'); // Increased from 3s to 5s to reduce event loop blocking
 
   // Validator Updates snapshot every 5 seconds (voting power changes, status updates)
   createTrackedInterval(async () => {
@@ -18392,7 +18392,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error('Error broadcasting voting activity:', error);
     }
-  }, 1000, 'voting_activity');
+  }, 5000, 'voting_activity'); // Reduced from 1s to 5s to prevent event loop blocking
 
   // ============================================
   // STAKING REAL-TIME BROADCASTS
@@ -18795,7 +18795,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error('[DEX WS] Error broadcasting price feed:', error);
     }
-  }, 2000, 'dex_price_feed_broadcast');
+  }, 5000, 'dex_price_feed_broadcast'); // Increased from 2s to 5s for better performance
 
   // DEX Circuit Breaker Status Broadcast - Every 30 seconds
   createTrackedInterval(async () => {

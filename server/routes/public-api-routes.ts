@@ -245,9 +245,11 @@ router.get('/network/stats', async (req: Request, res: Response) => {
     
     if (cachedData) {
       // Return cached data immediately for fast page loads
+      console.log('[Public API] network/stats: CACHE HIT - returning immediately');
       res.json({ success: true, data: cachedData });
       return;
     }
+    console.log('[Public API] network/stats: CACHE MISS - building fresh data');
     
     // Cache miss - build fresh data and cache it
     const data = await buildPublicNetworkStats();
