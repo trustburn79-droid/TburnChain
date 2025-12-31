@@ -17,7 +17,7 @@ import {
   shardScalingEvents, 
   shardConfigAuditLogs 
 } from '@shared/schema';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, sql } from 'drizzle-orm';
 import { z } from 'zod';
 import {
   endpointRegistry,
@@ -1873,6 +1873,43 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // STATE PERSISTENCE METHODS
   // ============================================
   
+  private async loadBlockHeightFromDatabase(): Promise<void> {
+    try {
+      // Import blocks table from schema
+      const { blocks } = await import('@shared/schema');
+      
+      // Get the latest block from database
+      const latestBlocks = await db.select()
+        .from(blocks)
+        .orderBy(sql`block_number DESC`)
+        .limit(1);
+      
+      if (latestBlocks.length > 0) {
+        const latestBlock = latestBlocks[0];
+        this.currentBlockHeight = latestBlock.blockNumber + 1;
+        console.log(`[Enterprise Node] ✅ Loaded block height from database: ${this.currentBlockHeight} (resuming from block ${latestBlock.blockNumber})`);
+        
+        // Also estimate total transactions from blocks
+        const txCountResult = await db.select({
+          total: sql<string>`COALESCE(SUM(transaction_count), 0)`
+        }).from(blocks);
+        
+        if (txCountResult.length > 0 && txCountResult[0].total) {
+          const dbTotalTx = parseInt(txCountResult[0].total, 10);
+          if (dbTotalTx > this.totalTransactions) {
+            this.totalTransactions = dbTotalTx;
+            this.cachedTotalTransactions = dbTotalTx;
+            console.log(`[Enterprise Node] ✅ Loaded total transactions from database: ${this.totalTransactions}`);
+          }
+        }
+      } else {
+        console.log(`[Enterprise Node] ⚠️ No blocks found in database, starting from default height: ${this.currentBlockHeight}`);
+      }
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to load block height from database, using default:', error);
+    }
+  }
+
   private async loadConfigFromDatabase(): Promise<void> {
     try {
       // Get active configuration from database
@@ -2092,6 +2129,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
     try {
       // Load configuration from database (cold start recovery)
       await this.loadConfigFromDatabase();
+      
+      // Load block height and transaction count from database for persistence across restarts
+      await this.loadBlockHeightFromDatabase();
+      
       if (process.env.MAX_SHARDS) {
         const envShards = parseInt(process.env.MAX_SHARDS, 10);
         console.log(`[Enterprise Node] ⚡ FORCE OVERRIDE: Setting shards to ${envShards} (Ignoring DB value of ${this.shardConfig.currentShardCount})`);
