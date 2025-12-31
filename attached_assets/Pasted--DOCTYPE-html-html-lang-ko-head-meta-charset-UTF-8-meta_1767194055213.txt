@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBURN Mainnet - Validator Command Center</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-glow: rgba(245, 158, 11, 0.4); /* Amber glow for Burn */
+            --accent-glow: rgba(59, 130, 246, 0.4);  /* Blue glow for Trust */
+        }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+            background-color: #050509;
+            background-image: 
+                linear-gradient(rgba(15, 23, 42, 0.9), rgba(5, 5, 9, 1)),
+                url("https://www.transparenttextures.com/patterns/cubes.png");
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-panel {
+            background: rgba(20, 20, 35, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
+        }
+
+        /* Animated Background Mesh */
+        .bg-mesh {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 400px;
+            background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, transparent 60%);
+            z-index: -1;
+        }
+
+        /* Status Indicators */
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px currentColor;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
+        /* Map Placeholder Animation */
+        .map-point {
+            position: absolute;
+            width: 6px; height: 6px;
+            background: #F59E0B;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #F59E0B;
+            animation: blink 3s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; transform: scale(1.2); } }
+    </style>
+</head>
+<body class="min-h-screen text-slate-300">
+
+    <div class="bg-mesh"></div>
+
+    <div class="max-w-[1600px] mx-auto p-6 lg:p-10">
+        
+        <header class="flex justify-between items-end mb-10 border-b border-white/5 pb-6">
+            <div>
+                <div class="flex items-center gap-3 mb-1">
+                    <i class="ph-fill ph-fire text-amber-500 text-3xl animate-pulse"></i>
+                    <h1 class="text-4xl font-bold text-white tracking-wide">TBURN <span class="font-light text-slate-400">Scan</span></h1>
+                </div>
+                <p class="text-sm text-slate-400 font-mono tracking-wider uppercase pl-1">
+                    Decentralized Trust Network / Validator Intelligence
+                </p>
+            </div>
+            
+            <div class="flex gap-4">
+                <div class="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
+                    <span class="text-xs text-slate-500 uppercase font-bold">Network TPS</span>
+                    <span class="text-2xl font-bold text-emerald-400 font-mono">102,491</span>
+                </div>
+                <div class="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
+                    <span class="text-xs text-slate-500 uppercase font-bold">Epoch</span>
+                    <span class="text-2xl font-bold text-amber-400 font-mono">402</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
+            
+            <div class="lg:col-span-8 glass-panel rounded-2xl p-6 relative overflow-hidden min-h-[300px]">
+                <div class="flex justify-between items-start z-10 relative">
+                    <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                        <i class="ph ph-globe-hemisphere-west text-amber-500"></i>
+                        Global Node Topology
+                    </h3>
+                    <div class="flex gap-2">
+                         <span class="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs rounded">Live Feed</span>
+                    </div>
+                </div>
+                
+                <div class="absolute inset-0 opacity-20" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg'); background-size: cover; background-position: center; filter: invert(1);"></div>
+                
+                <div class="map-point" style="top: 30%; left: 25%; animation-delay: 0s;"></div> <div class="map-point" style="top: 32%; left: 28%; animation-delay: 0.5s;"></div> <div class="map-point" style="top: 25%; left: 48%; animation-delay: 1s;"></div> <div class="map-point" style="top: 28%; left: 50%; animation-delay: 1.2s;"></div> <div class="map-point" style="top: 35%; left: 80%; animation-delay: 0.2s;"></div> <div class="map-point" style="top: 38%; left: 75%; animation-delay: 0.8s;"></div> <div class="absolute bottom-6 left-6 z-10">
+                    <div class="flex gap-8">
+                        <div>
+                            <div class="text-3xl font-bold text-white">195</div>
+                            <div class="text-xs text-slate-400 uppercase">Data Centers</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-white">32</div>
+                            <div class="text-xs text-slate-400 uppercase">Countries</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                <div class="glass-panel rounded-2xl p-6 flex-1 flex flex-col justify-center items-center text-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="ph-fill ph-shield-check text-6xl"></i></div>
+                    <span class="text-sm text-slate-400 uppercase tracking-widest mb-2">Nakamoto Coefficient</span>
+                    <span class="text-5xl font-bold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">19</span>
+                    <span class="text-xs text-emerald-400 mt-2 flex items-center gap-1">
+                        <i class="ph-bold ph-trend-up"></i> Super Minority Secured
+                    </span>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-5 flex-1">
+                    <h4 class="text-sm font-semibold text-slate-300 mb-4 flex justify-between">
+                        <span>Stake Concentration</span>
+                        <i class="ph ph-chart-pie-slice"></i>
+                    </h4>
+                    <div class="h-32">
+                        <canvas id="stakeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="ph-fill ph-list-dashes text-amber-500"></i> Validator Matrix
+                </h2>
+                
+                <div class="flex gap-3">
+                    <div class="relative group">
+                        <input type="text" placeholder="Search Validator / ISP..." class="bg-[#0f1016] border border-slate-700 text-slate-300 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block pl-10 p-2.5 w-64 transition-all focus:w-80">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="ph ph-magnifying-glass text-slate-500"></i>
+                        </div>
+                    </div>
+                    <button class="bg-[#1a1b2e] hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-lg border border-slate-700 text-sm transition flex items-center gap-2">
+                        <i class="ph ph-sliders"></i> Filters
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-2xl overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-black/30 text-xs uppercase tracking-wider text-slate-500 border-b border-white/5">
+                            <th class="p-5 font-semibold">Node Identity</th>
+                            <th class="p-5 font-semibold">Location (ISP)</th>
+                            <th class="p-5 font-semibold text-center">Trust Score</th>
+                            <th class="p-5 font-semibold text-center">Version</th>
+                            <th class="p-5 font-semibold text-right">Active Stake (SOL)</th>
+                            <th class="p-5 font-semibold text-right">Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-white/5">
+                        <tr class="hover:bg-white/5 transition-colors group cursor-pointer">
+                            <td class="p-5">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg">
+                                        TB
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-white group-hover:text-amber-400 transition">TBURN_Genesis_01</div>
+                                        <div class="text-xs text-slate-500 font-mono">Ap2...9xQ</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex items-center gap-2">
+                                    <img src="https://flagcdn.com/w20/us.png" class="rounded-sm opacity-80">
+                                    <span class="text-slate-300">Chicago, US</span>
+                                </div>
+                                <div class="text-xs text-slate-500 mt-1">AS20326 (TeraSwitch)</div>
+                            </td>
+                            <td class="p-5 text-center">
+                                <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    98.5%
+                                </div>
+                            </td>
+                            <td class="p-5 text-center text-slate-400 font-mono">
+                                v1.14.17
+                            </td>
+                            <td class="p-5 text-right">
+                                <div class="font-bold text-white">36,468,183</div>
+                                <div class="text-xs text-amber-500">8.65% share</div>
+                            </td>
+                            <td class="p-5 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <span class="status-dot text-emerald-500"></span>
+                                    <span class="text-slate-300">Delinquent: 0%</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-white/5 transition-colors group cursor-pointer">
+                            <td class="p-5">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 font-bold">
+                                        AN
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-white group-hover:text-amber-400 transition">AllNodes_Secure</div>
+                                        <div class="text-xs text-slate-500 font-mono">Hk4...3mL</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex items-center gap-2">
+                                    <img src="https://flagcdn.com/w20/de.png" class="rounded-sm opacity-80">
+                                    <span class="text-slate-300">Frankfurt, DE</span>
+                                </div>
+                                <div class="text-xs text-slate-500 mt-1">AS20326 (Cherry Servers)</div>
+                            </td>
+                            <td class="p-5 text-center">
+                                <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    100%
+                                </div>
+                            </td>
+                            <td class="p-5 text-center text-slate-400 font-mono">
+                                v1.14.17
+                            </td>
+                            <td class="p-5 text-right">
+                                <div class="font-bold text-white">25,043,993</div>
+                                <div class="text-xs text-slate-500">5.94% share</div>
+                            </td>
+                            <td class="p-5 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <span class="status-dot text-emerald-500"></span>
+                                    <span class="text-slate-300">Delinquent: 0%</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-white/5 transition-colors group cursor-pointer">
+                            <td class="p-5">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 font-bold">
+                                        L
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-white group-hover:text-amber-400 transition">Latitude_Node_V</div>
+                                        <div class="text-xs text-slate-500 font-mono">Bp2...8xK</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex items-center gap-2">
+                                    <img src="https://flagcdn.com/w20/jp.png" class="rounded-sm opacity-80">
+                                    <span class="text-slate-300">Tokyo, JP</span>
+                                </div>
+                                <div class="text-xs text-slate-500 mt-1">AS20326 (Latitude.sh)</div>
+                            </td>
+                            <td class="p-5 text-center">
+                                <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
+                                    96.2%
+                                </div>
+                            </td>
+                            <td class="p-5 text-center text-slate-400 font-mono">
+                                v1.13.5
+                            </td>
+                            <td class="p-5 text-right">
+                                <div class="font-bold text-white">15,663,731</div>
+                                <div class="text-xs text-slate-500">3.71% share</div>
+                            </td>
+                            <td class="p-5 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <span class="status-dot text-yellow-500"></span>
+                                    <span class="text-slate-300">Warning</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="p-4 bg-black/20 border-t border-white/5 flex justify-between items-center text-xs text-slate-500">
+                    <span>Showing 1-3 of 195 Validators</span>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition">Prev</button>
+                        <button class="px-3 py-1 bg-amber-600/20 text-amber-500 border border-amber-500/30 rounded">1</button>
+                        <button class="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition">2</button>
+                        <button class="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition">3</button>
+                        <span class="px-2 py-1">...</span>
+                        <button class="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Chart Configuration (Minimalist Neon Style)
+        const ctxStake = document.getElementById('stakeChart').getContext('2d');
+        
+        // Gradient for Chart
+        let gradient = ctxStake.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(245, 158, 11, 0.8)');
+        gradient.addColorStop(1, 'rgba(59, 130, 246, 0.8)');
+
+        new Chart(ctxStake, {
+            type: 'bar',
+            data: {
+                labels: ['Top 1', 'Top 10', 'Top 19', 'Others'],
+                datasets: [{
+                    label: 'Stake Control',
+                    data: [8, 35, 51, 100],
+                    backgroundColor: [
+                        '#F59E0B',
+                        '#3B82F6',
+                        '#10B981',
+                        '#64748B'
+                    ],
+                    borderRadius: 4,
+                    barThickness: 20
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal Bar
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { display: false },
+                    y: { 
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 10 } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
