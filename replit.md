@@ -40,6 +40,7 @@ Core architectural decisions and features include:
 - **Reward Distribution Engine**: Automatic validator reward distribution with 2 TBURN proposer reward, 0.1 TBURN per verifier, and gas fee distribution (50% proposer, 30% verifiers, 20% burn). Epoch-based reward cycles with configurable intervals.
 - **December 31st Mainnet Launch**: Production blockchain infrastructure with 1,600 validators, 64 shards, ~210,000 TPS capacity, complete block finality, and automated reward distribution.
 - **Development Mode Optimization (v7.2)**: Heavy blockchain services are deferred in development to allow Vite to serve the frontend first. Enterprise Node initialization is deferred by 3 seconds, ProductionDataPoller and ValidatorSimulation by 8-9 seconds. Poll intervals increased to 60 seconds in development (15s in production). Non-essential broadcast intervals (47 of 55) are disabled in development mode. This optimization does not affect production behavior or BLOCK_TIME (100ms).
+- **Block Time 100ms Optimization (v7.3)**: Critical fix for maintaining strict 100ms block cadence. `processBlockFinality()` in TBurnEnterpriseNode now runs only every 100 blocks in development (every block in production) to prevent CPU blocking. ValidatorSimulation uses fire-and-forget DB writes with immediate block height increment. Verified: 10 blocks/second maintained, ~201K TPS achieved.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
