@@ -51,11 +51,17 @@ export interface FinalityResult {
 
 export interface BlockReward {
   validatorAddress: string;
-  rewardType: 'proposer' | 'verifier' | 'committee';
+  rewardType: 'proposer' | 'verifier' | 'committee' | 'burn';
   rewardAmount: string;
   gasFeesEarned: string;
   participationRole: string;
   votePower: string;
+}
+
+export interface BlockRewardsResult {
+  rewards: BlockReward[];
+  burnAmount: string;
+  totalGasFees: string;
 }
 
 export class BlockFinalityEngine {
@@ -71,8 +77,9 @@ export class BlockFinalityEngine {
   // Reward constants (in Wei, 10^18 Wei = 1 TBURN)
   private readonly PROPOSER_REWARD = '2000000000000000000'; // 2 TBURN
   private readonly VERIFIER_REWARD = '100000000000000000'; // 0.1 TBURN per verifier
-  private readonly GAS_FEE_PROPOSER_SHARE = 0.7; // 70% to proposer
+  private readonly GAS_FEE_PROPOSER_SHARE = 0.5; // 50% to proposer
   private readonly GAS_FEE_VERIFIER_SHARE = 0.3; // 30% distributed to verifiers
+  private readonly GAS_FEE_BURN_SHARE = 0.2; // 20% burned
   
   /**
    * Register a new block for verification
@@ -260,18 +267,20 @@ export class BlockFinalityEngine {
 
   /**
    * Calculate and distribute block rewards
+   * Gas fee distribution: 50% proposer, 30% verifiers, 20% burned
    */
   calculateBlockRewards(
     blockNumber: number,
     proposerAddress: string,
     gasFeesCollected: string,
     verifierAddresses: string[]
-  ): BlockReward[] {
+  ): BlockRewardsResult {
     const rewards: BlockReward[] = [];
+    const totalGasFees = BigInt(gasFeesCollected);
     
-    // Proposer reward (fixed + gas fees share)
+    // Proposer reward (fixed + 50% of gas fees)
     const gasFeesProposer = BigInt(Math.floor(
-      Number(BigInt(gasFeesCollected)) * this.GAS_FEE_PROPOSER_SHARE
+      Number(totalGasFees) * this.GAS_FEE_PROPOSER_SHARE
     ));
     
     rewards.push({
@@ -283,10 +292,10 @@ export class BlockFinalityEngine {
       votePower: '0', // Will be filled by caller
     });
     
-    // Verifier rewards (split among all verifiers)
+    // Verifier rewards (30% of gas fees split among all verifiers)
     if (verifierAddresses.length > 0) {
       const gasFeesVerifier = BigInt(Math.floor(
-        Number(BigInt(gasFeesCollected)) * this.GAS_FEE_VERIFIER_SHARE / verifierAddresses.length
+        Number(totalGasFees) * this.GAS_FEE_VERIFIER_SHARE / verifierAddresses.length
       ));
       
       for (const address of verifierAddresses) {
@@ -301,7 +310,16 @@ export class BlockFinalityEngine {
       }
     }
     
-    return rewards;
+    // Calculate burn amount (20% of gas fees)
+    const burnAmount = BigInt(Math.floor(
+      Number(totalGasFees) * this.GAS_FEE_BURN_SHARE
+    ));
+    
+    return {
+      rewards,
+      burnAmount: burnAmount.toString(),
+      totalGasFees: gasFeesCollected,
+    };
   }
 
   /**

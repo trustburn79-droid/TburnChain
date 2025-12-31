@@ -35,6 +35,10 @@ Core architectural decisions and features include:
 - **Standardized RPC Endpoints**: All network endpoints standardized to `tburn.io` domain format for RPC, WebSocket, API, and Explorer services across all configurations.
 - **TBurn Logo Branding System**: Unified SVG-based `TBurnLogo` component for consistent branding across all application pages, supporting gradient/solid colors and text options.
 - **Whitepaper Page**: Static HTML whitepaper served at `/whitepaper` route. The whitepaper v8.0 includes detailed information about TBURN Chain's architecture, Triple-Band AI system, consensus mechanism, tokenomics, and roadmap.
+- **Block Finality System (v7.1)**: Complete block finality infrastructure with cross-validator verification using 2/3+1 quorum voting. Blocks transition through `pending → verified → finalized` states with permanent finalization after 6 block confirmations. Integrated via `processBlockFinality()` running asynchronously after each block production.
+- **Transaction Verification Pipeline**: ECDSA-style signature verification with secp256k1, Merkle root generation, and block integrity verification. Extended transactions table with `signature`, `signature_verified`, `signature_algorithm`, `public_key`, and `verified_at` fields.
+- **Reward Distribution Engine**: Automatic validator reward distribution with 2 TBURN proposer reward, 0.1 TBURN per verifier, and gas fee distribution (50% proposer, 30% verifiers, 20% burn). Epoch-based reward cycles with configurable intervals.
+- **December 31st Mainnet Launch**: Production blockchain infrastructure with 1,600 validators, 64 shards, ~210,000 TPS capacity, complete block finality, and automated reward distribution.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
