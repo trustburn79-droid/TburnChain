@@ -125,7 +125,10 @@ export function useScanWebSocket() {
       return;
     }
 
-    const delay = Math.min(1000 * Math.pow(2, reconnectAttempts.current), 30000);
+    // Exponential backoff with jitter to prevent thundering herd
+    const baseDelay = Math.min(1000 * Math.pow(2, reconnectAttempts.current), 30000);
+    const jitter = Math.random() * 1000; // Add 0-1000ms of random jitter
+    const delay = baseDelay + jitter;
     reconnectAttempts.current += 1;
 
     reconnectTimeoutRef.current = setTimeout(() => {

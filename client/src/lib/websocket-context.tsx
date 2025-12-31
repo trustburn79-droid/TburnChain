@@ -133,14 +133,16 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
           return;
         }
 
-        // Exponential backoff reconnection with max delay cap
-        const delay = Math.min(
+        // Exponential backoff with jitter to prevent thundering herd
+        const baseDelay = Math.min(
           1000 * Math.pow(2, reconnectAttemptsRef.current), 
           RECONNECT_CONFIG.maxDelay
         );
+        const jitter = Math.random() * 1000; // Add 0-1000ms of random jitter
+        const delay = baseDelay + jitter;
         reconnectAttemptsRef.current++;
 
-        console.log(`[WebSocket] Reconnecting in ${delay}ms (attempt ${reconnectAttemptsRef.current}/${RECONNECT_CONFIG.maxAttempts})`);
+        console.log(`[WebSocket] Reconnecting in ${Math.round(delay)}ms (attempt ${reconnectAttemptsRef.current}/${RECONNECT_CONFIG.maxAttempts})`);
         reconnectTimeoutRef.current = setTimeout(connect, delay);
       };
     } catch (error) {
