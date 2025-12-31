@@ -117,22 +117,26 @@ export default function ValidatorCommandCenter() {
   
   const displayValidators = (Array.isArray(validators) ? validators : []).map((v, index) => {
     const locationInfo = getLocationInfo(index);
-    const stakeNum = typeof v.stake === 'string' ? parseFloat(v.stake) : v.stake;
+    const rawStake = v.stake;
+    const stakeNum = typeof rawStake === 'string' ? (parseFloat(rawStake) || 0) : (rawStake || 0);
+    const safeUptime = typeof v.uptime === 'number' ? v.uptime : 10000;
+    const uptimePercent = safeUptime / 100;
+    
     return {
       id: v.id,
-      name: v.name,
-      address: v.address,
-      shortAddr: v.address.slice(0, 6) + '...' + v.address.slice(-4),
+      name: v.name || `Validator_${index + 1}`,
+      address: v.address || '',
+      shortAddr: v.address ? (v.address.slice(0, 6) + '...' + v.address.slice(-4)) : 'Unknown',
       stake: stakeNum,
-      stakeShare: (stakeNum / totalStake) * 100,
-      trustScore: v.uptime / 100,
+      stakeShare: totalStake > 0 ? (stakeNum / totalStake) * 100 : 0,
+      trustScore: uptimePercent,
       version: v.version || 'v1.14.17',
       location: v.location || locationInfo.location,
       countryCode: v.countryCode || locationInfo.countryCode,
       isp: v.isp || locationInfo.isp,
-      delinquent: (10000 - v.uptime) / 100,
+      delinquent: Math.max(0, 100 - uptimePercent),
       status: v.status === 'active' ? 'active' : 'warning',
-      initials: v.name.slice(0, 2).toUpperCase(),
+      initials: (v.name || 'V').slice(0, 2).toUpperCase(),
       gradient: getGradient(index),
     };
   });
