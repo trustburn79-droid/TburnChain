@@ -63,14 +63,20 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 (async () => {
-  // Always start enterprise node for development
-  console.log('[Enterprise] Initializing TBURN enterprise infrastructure...');
-  console.log('[Enterprise] Current TBURN_API_KEY:', process.env.TBURN_API_KEY || 'not set');
-  
-  // Force start enterprise node
-  const { getEnterpriseNode } = await import("./services/TBurnEnterpriseNode");
-  const enterpriseNode = getEnterpriseNode(); // This will auto-start
-  console.log('[Enterprise] TBURN enterprise node initialized with API key tburn797900');
-  
+  // CRITICAL: Start Vite FIRST to serve frontend immediately
+  // Enterprise Node initialization is deferred to prevent blocking the event loop
+  // This ensures the UI loads without waiting for heavy blockchain initialization
   await runApp(setupVite);
+  
+  // Defer heavy enterprise infrastructure initialization
+  // This allows Vite to serve the frontend bundle before blockchain services start
+  setTimeout(async () => {
+    console.log('[Enterprise] Initializing TBURN enterprise infrastructure (deferred)...');
+    console.log('[Enterprise] Current TBURN_API_KEY:', process.env.TBURN_API_KEY || 'not set');
+    
+    // Start enterprise node after Vite is ready
+    const { getEnterpriseNode } = await import("./services/TBurnEnterpriseNode");
+    const enterpriseNode = getEnterpriseNode(); // This will auto-start
+    console.log('[Enterprise] TBURN enterprise node initialized with API key tburn797900');
+  }, 3000); // 3 second delay to let Vite compile and serve frontend first
 })();

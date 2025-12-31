@@ -372,11 +372,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Start Production Data Poller - CRITICAL for preventing rate limit freezing
   // This runs in background and keeps cache warm, decoupling UI from live RPC
   const dataPoller = getProductionDataPoller();
-  dataPoller.start().then(() => {
-    console.log('[DataPoller] ✅ Production data poller started - cache warming in background');
-  }).catch((err) => {
-    console.error('[DataPoller] ⚠️ Failed to start poller:', err.message);
-  });
+  
+  // In development, defer heavy services to allow Vite to serve frontend first
+  const isDev = process.env.NODE_ENV === 'development';
+  const HEAVY_INIT_DELAY = isDev ? 8000 : 0; // 8 seconds in dev, immediate in prod
+  
+  function startHeavyServices() {
+    dataPoller.start().then(() => {
+      console.log('[DataPoller] ✅ Production data poller started - cache warming in background');
+    }).catch((err) => {
+      console.error('[DataPoller] ⚠️ Failed to start poller:', err.message);
+    });
+  }
+  
+  if (isDev) {
+    console.log('[Routes] 🚀 Development mode: Deferring heavy services by 8s to allow Vite to serve frontend first');
+    setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
+  } else {
+    startHeavyServices();
+  }
 
   // Initialize validator simulation service
   let validatorSimulation: ValidatorSimulationService | null = null;
@@ -454,8 +468,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }
   
-  // Initialize on startup
-  initializeValidatorSimulation();
+  // Initialize on startup - deferred in development to allow Vite to serve frontend first
+  if (isDev) {
+    setTimeout(() => {
+      console.log('[Routes] 🚀 Starting validator simulation (deferred)...');
+      initializeValidatorSimulation();
+    }, HEAVY_INIT_DELAY + 1000); // 9 seconds in dev (after data poller starts)
+  } else {
+    initializeValidatorSimulation();
+  }
 
   // WebSocket clients - initialized early for use in broadcast functions
   const clients = new Set<WebSocket>();
