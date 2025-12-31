@@ -1913,10 +1913,10 @@ router.post('/testnet/faucet/request', async (req: Request, res: Response) => {
       });
     }
     
-    // Generate transaction
+    // Generate transaction with proper hash using SHA-256
     const now = Date.now();
     const blockNumber = 1245000 + Math.floor((now - new Date('2024-12-01').getTime()) / 500);
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}${walletAddress.slice(2, 10)}`.padEnd(66, '0').slice(0, 66);
+    const txHash = generateConsistentTxHash(blockNumber, parseInt(walletAddress.slice(2, 10), 16) % 1000);
     
     // Create block if needed
     const existingBlock = await storage.getTestnetBlockByNumber(blockNumber);

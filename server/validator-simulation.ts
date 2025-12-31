@@ -710,11 +710,11 @@ export class ValidatorSimulationService {
       (contractCalls * (50000 + Math.floor(Math.random() * 150000))) + // Smart contracts
       (complexOps * (200000 + Math.floor(Math.random() * 300000))); // DeFi/complex
     
-    // Create block
+    // Create block with proper 0x prefixed hashes
     const block = {
       blockNumber: this.currentBlockHeight,
-      hash: crypto.randomBytes(32).toString('hex'),
-      parentHash: crypto.randomBytes(32).toString('hex'),
+      hash: `0x${crypto.randomBytes(32).toString('hex')}`,
+      parentHash: `0x${crypto.randomBytes(32).toString('hex')}`,
       timestamp: Math.floor(Date.now() / 1000),
       transactionCount: transactionCount,
       validatorAddress: producer.address,
@@ -722,8 +722,8 @@ export class ValidatorSimulationService {
       gasLimit: 30000000, // 30M gas limit (standard for high-throughput chains)
       size: 50000 + Math.floor(Math.random() * 100000),
       shardId: Math.floor(Math.random() * this.currentShardCount),
-      stateRoot: crypto.randomBytes(32).toString('hex'),
-      receiptsRoot: crypto.randomBytes(32).toString('hex'),
+      stateRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
+      receiptsRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
       executionClass: "parallel",
       latencyNs: BigInt(50000000 + Math.floor(Math.random() * 50000000)), // 50-100ms
       parallelBatchId: crypto.randomBytes(16).toString('hex'),

@@ -141,9 +141,25 @@ const createMockTokens = (): Record<string, TokenInfo> => ({
 
 const mockTokens = createMockTokens();
 
+function generateTxHash(seed: string): string {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    const char = seed.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  const seedNum = Math.abs(hash);
+  let result = '';
+  for (let j = 0; j < 64; j++) {
+    const val = (seedNum * (j + 1) * 31337) % 16;
+    result += val.toString(16);
+  }
+  return `0x${result}`;
+}
+
 const generateMockTransfers = (tokenAddress: string): Transfer[] => {
   return Array.from({ length: 10 }, (_, i) => ({
-    txHash: `0x${tokenAddress.slice(2, 10)}${i.toString(16).padStart(56, '0')}`,
+    txHash: generateTxHash(`${tokenAddress}-transfer-${i}`),
     from: generateTb1Address(`transfer-from-${tokenAddress}-${i}`),
     to: generateTb1Address(`transfer-to-${tokenAddress}-${i}`),
     amount: `${(Math.random() * 10000).toFixed(2)}`,

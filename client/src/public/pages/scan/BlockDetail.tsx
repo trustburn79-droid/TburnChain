@@ -24,6 +24,23 @@ import { useToast } from "@/hooks/use-toast";
 import { generateTb1Address } from "@/lib/utils";
 import ScanLayout from "../../components/ScanLayout";
 
+function generateBlockHash(blockNumber: number): string {
+  let hash = 0;
+  const str = `tburn-block-${blockNumber}`;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  const seed = Math.abs(hash);
+  let result = '';
+  for (let i = 0; i < 64; i++) {
+    const val = (seed * (i + 1) * 31337) % 16;
+    result += val.toString(16);
+  }
+  return `0x${result}`;
+}
+
 interface Block {
   number: number;
   hash: string;
@@ -63,13 +80,12 @@ export default function BlockDetail() {
   const blocks = blocksData?.data || [];
   let block = blocks.find(b => b.number === blockNumber);
   
-  // Generate block data if not found in recent blocks
+  // Generate block data if not found in recent blocks using proper hash generation
   if (!block && blockNumber > 0 && !isLoading) {
-    const hashBase = blockNumber.toString(16).padStart(64, '0');
     block = {
       number: blockNumber,
-      hash: `0x${hashBase}`,
-      parentHash: `0x${(blockNumber - 1).toString(16).padStart(64, '0')}`,
+      hash: generateBlockHash(blockNumber),
+      parentHash: generateBlockHash(blockNumber - 1),
       timestamp: Date.now() - ((20514096 - blockNumber) * 3000),
       transactions: 5 + (blockNumber % 20),
       validator: generateTb1Address(`validator-${blockNumber}`),
