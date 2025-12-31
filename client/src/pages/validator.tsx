@@ -257,7 +257,7 @@ export default function ValidatorCommandCenter() {
                 <GlobeHemisphereWest className="text-amber-500" size={20} />
                 Global Node Topology
               </h3>
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <span className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs rounded">
                   Live Feed
                 </span>
@@ -267,6 +267,13 @@ export default function ValidatorCommandCenter() {
                   data-testid="link-infrastructure"
                 >
                   Infrastructure <ArrowRight size={12} />
+                </Link>
+                <Link 
+                  href="/validator/governance" 
+                  className="px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs rounded flex items-center gap-1 hover:bg-orange-500/20 transition"
+                  data-testid="link-governance"
+                >
+                  Governance <ArrowRight size={12} />
                 </Link>
               </div>
             </div>
