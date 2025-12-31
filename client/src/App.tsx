@@ -196,6 +196,8 @@ function AuthenticatedApp() {
     refetchInterval: 60000,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
+    placeholderData: { authenticated: false }, // Non-blocking: assume not authenticated initially
+    retry: 1, // Reduce retries for faster fallback
   });
   
   const { data: dataSourceStatus } = useQuery<DataSourceStatus>({
@@ -204,6 +206,8 @@ function AuthenticatedApp() {
     refetchOnWindowFocus: false,
     refetchOnMount: true,
     refetchInterval: 30000,
+    placeholderData: { dataSourceType: 'mainnet', isSimulated: false, nodeUrl: '', message: '', connectionStatus: 'connected' }, // Non-blocking default
+    retry: 1,
   });
 
   const style = {

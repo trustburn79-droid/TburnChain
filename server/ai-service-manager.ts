@@ -88,12 +88,14 @@ class AIServiceManager extends EventEmitter {
   private readonly GROK_ACTIVATION_THRESHOLD = 3; // Activate Grok after 3 consecutive failures
   
   // Global circuit breaker - stops ALL AI calls when all providers are rate limited
+  // CRITICAL: Uses exponential backoff to prevent event loop blocking
   private globalCircuitBreaker = {
     isOpen: false,
     openedAt: 0,
-    cooldownMs: 60000, // 60 second cooldown when circuit is open
+    cooldownMs: 300000, // 5 minute cooldown (increased from 60s to prevent event loop thrashing)
     consecutiveAllProvidersDown: 0,
-    threshold: 3 // Open after 3 consecutive "all providers down" events
+    threshold: 1, // Open immediately after first "all providers down" event (reduced from 3)
+    maxCooldownMs: 900000 // Max 15 minute cooldown with exponential backoff
   };
   
   constructor() {

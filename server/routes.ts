@@ -69,16 +69,27 @@ const RESEND_VERIFIED_EMAIL = "trustburn79@gmail.com";
 
 // ============================================
 // ENTERPRISE STABILITY: Interval Tracking for Graceful Shutdown
-// With overlap protection and execution guards for 366-day stability
+// With overlap protection, execution guards, and startup delay for 366-day stability
 // ============================================
 const activeIntervals: NodeJS.Timeout[] = [];
 const activeTimeouts: NodeJS.Timeout[] = [];
 const intervalExecutionState = new Map<string, { isRunning: boolean; lastRun: number; skipCount: number }>();
 
-// Helper function to track intervals for cleanup with OVERLAP PROTECTION
+// Server startup time - used to delay interval execution until Vite/frontend is ready
+const SERVER_START_TIME = Date.now();
+const STARTUP_DELAY_MS = 20000; // 20 second delay before intervals start executing
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+const DEV_MIN_INTERVAL_MS = 15000; // Minimum 15 seconds between interval executions in dev mode
+
+// Helper function to track intervals for cleanup with OVERLAP PROTECTION and STARTUP DELAY
 // Prevents event loop blocking by skipping execution if previous run hasn't completed
+// Also delays execution until frontend has time to load and stabilize
 function createTrackedInterval(callback: () => void | Promise<void>, ms: number, name?: string): NodeJS.Timeout {
   const intervalName = name || `interval_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  
+  // In development mode, enforce minimum interval to reduce event loop pressure
+  // This allows Vite HMR to work smoothly without constant interruptions
+  const effectiveMs = IS_DEVELOPMENT ? Math.max(ms, DEV_MIN_INTERVAL_MS) : ms;
   
   // Initialize execution state for this interval
   intervalExecutionState.set(intervalName, { isRunning: false, lastRun: 0, skipCount: 0 });
@@ -86,6 +97,12 @@ function createTrackedInterval(callback: () => void | Promise<void>, ms: number,
   const guardedCallback = async () => {
     const state = intervalExecutionState.get(intervalName);
     if (!state) return;
+    
+    // STARTUP DELAY: Skip execution during server startup to allow frontend to load
+    const timeSinceStart = Date.now() - SERVER_START_TIME;
+    if (timeSinceStart < STARTUP_DELAY_MS) {
+      return; // Silent skip during startup - no logging to reduce noise
+    }
     
     // OVERLAP GUARD: Skip if previous execution is still running
     if (state.isRunning) {
@@ -102,6 +119,8 @@ function createTrackedInterval(callback: () => void | Promise<void>, ms: number,
     state.lastRun = Date.now();
     
     try {
+      // Use setImmediate to yield to event loop between interval executions
+      await new Promise<void>(resolve => setImmediate(resolve));
       await callback();
     } catch (error: any) {
       // Silently handle errors to prevent interval from dying
@@ -112,10 +131,10 @@ function createTrackedInterval(callback: () => void | Promise<void>, ms: number,
     }
   };
   
-  const interval = setInterval(guardedCallback, ms);
+  const interval = setInterval(guardedCallback, effectiveMs);
   activeIntervals.push(interval);
   if (name) {
-    console.log(`[Enterprise] Registered interval: ${name} (${ms}ms)`);
+    console.log(`[Enterprise] Registered interval: ${name} (${effectiveMs}ms${IS_DEVELOPMENT && ms < DEV_MIN_INTERVAL_MS ? ` [dev throttled from ${ms}ms]` : ''})`);
   }
   return interval;
 }
