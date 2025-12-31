@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBURN Mainnet | Enterprise Validator Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- TBURN Enterprise Theme Core --- */
+        :root {
+            --burn-orange: #ff8c00;
+            --burn-fire: #ff4500;
+            --trust-blue: #00bfff;
+            --deep-bg: #0a0a0f;
+            --panel-bg: rgba(20, 24, 35, 0.7);
+            --border-color: rgba(255, 140, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--deep-bg);
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(255, 69, 0, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(0, 191, 255, 0.05) 0%, transparent 40%);
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- Glassmorphism & Tech Panels --- */
+        .tburn-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tburn-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--burn-orange), transparent);
+            opacity: 0.3;
+        }
+
+        /* --- Accents & Effects --- */
+        .text-accent-burn { color: var(--burn-orange); }
+        .text-accent-trust { color: var(--trust-blue); }
+        .bg-accent-burn { background-color: var(--burn-orange); }
+        
+        .tburn-glow {
+            text-shadow: 0 0 12px rgba(255, 140, 0, 0.6);
+        }
+
+        /* --- Data Table Styling --- */
+        .tburn-table-header {
+            background: rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .tburn-row {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .tburn-row:hover {
+            background: linear-gradient(90deg, rgba(255, 140, 0, 0.05) 0%, transparent 100%);
+            transform: translateX(2px);
+            border-left: 2px solid var(--burn-orange);
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--burn-orange); }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 lg:p-12">
+
+    <header class="max-w-[1600px] mx-auto mb-10">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-bold font-heading tracking-tight">
+                    TBURN <span class="text-accent-burn tburn-glow">Mainnet</span>
+                </h1>
+                <p class="text-xl text-slate-400 mt-2 font-light">Enterprise Validator Intelligence & Network Telemetry</p>
+            </div>
+            <div class="flex gap-4">
+                <div class="tburn-panel rounded-lg p-4 flex items-center gap-3">
+                    <i class="ph-fill ph-cpu text-3xl text-accent-trust"></i>
+                    <div>
+                        <div class="text-xs text-slate-500 uppercase font-semibold">Active Validators</div>
+                        <div class="text-2xl font-bold font-heading">1,892</div>
+                    </div>
+                </div>
+                <div class="tburn-panel rounded-lg p-4 flex items-center gap-3">
+                    <i class="ph-fill ph-fire text-3xl text-accent-burn"></i>
+                    <div>
+                        <div class="text-xs text-slate-500 uppercase font-semibold">Total Staked</div>
+                        <div class="text-2xl font-bold font-heading">421.7M <span class="text-sm text-slate-400">SOL</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[1600px] mx-auto space-y-8">
+
+        <section>
+            <div class="flex justify-between items-center mb-5">
+                <h2 class="text-2xl font-bold font-heading flex items-center gap-2">
+                    <i class="ph-duotone ph-globe-hemisphere-west text-accent-trust"></i>
+                    Infrastructure Distribution <span class="text-slate-500 text-lg font-normal">(195 Data Centers)</span>
+                </h2>
+                <button class="tburn-panel rounded-full px-5 py-2 text-sm font-medium hover:border-accent-burn transition flex items-center gap-2">
+                    <i class="ph-bold ph-map-trifold"></i> Global Network Map
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="tburn-panel rounded-xl p-6 relative">
+                    <div class="absolute top-0 right-0 p-6 opacity-20">
+                        <i class="ph-fill ph-flag text-6xl text-slate-700"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold font-heading mb-6 text-center">Data Centers by Country</h3>
+                    <div class="h-72 relative z-10">
+                        <canvas id="countryChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="tburn-panel rounded-xl p-6 relative">
+                    <div class="absolute top-0 right-0 p-6 opacity-20">
+                        <i class="ph-fill ph-buildings text-6xl text-slate-700"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold font-heading mb-6 text-center">Data Centers by Organization</h3>
+                    <div class="h-72 relative z-10">
+                        <canvas id="orgChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 tburn-panel rounded-full p-2 inline-flex flex-wrap gap-2 bg-black/20">
+                <button class="px-4 py-2 rounded-full bg-accent-burn/90 text-white text-sm font-medium shadow-lg shadow-orange-900/30">Data Center</button>
+                <button class="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition">ASN Filter</button>
+                <div class="w-px h-6 bg-slate-700/50 my-auto mx-2"></div>
+                <button class="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition flex items-center gap-1">
+                    <i class="ph-bold ph-sort-descending"></i> Sort by Stake
+                </button>
+                <button class="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition flex items-center gap-1">
+                    <i class="ph-bold ph-list-numbers"></i> Sort by Count
+                </button>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-5 gap-4">
+                <h2 class="text-2xl font-bold font-heading flex items-center gap-2">
+                    <i class="ph-duotone ph-list-dashes text-accent-burn"></i>
+                    Validator Matrix
+                </h2>
+                
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="relative group">
+                        <input type="text" placeholder="Search Validator, ASN, or Location..." 
+                               class="bg-black/30 border border-slate-700 text-slate-200 text-sm rounded-lg focus:ring-2 focus:ring-accent-burn focus:border-transparent block pl-10 p-3 w-72 transition-all group-hover:border-slate-600">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="ph-bold ph-magnifying-glass text-slate-500"></i>
+                        </div>
+                    </div>
+                    <div class="tburn-panel rounded-lg p-1 flex">
+                        <button class="px-4 py-2 rounded-md bg-accent-burn/10 text-accent-burn text-sm font-semibold">Stake View</button>
+                        <button class="px-4 py-2 rounded-md text-slate-400 text-sm font-semibold hover:text-slate-200 transition">Score View</button>
+                    </div>
+                    <button class="tburn-panel rounded-lg px-4 py-3 text-sm font-medium hover:border-accent-trust transition flex items-center gap-2 text-slate-300">
+                        <i class="ph-bold ph-sliders-horizontal"></i> Filters
+                    </button>
+                </div>
+            </div>
+
+            <div class="tburn-panel rounded-xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="tburn-table-header">
+                                <th class="p-4">Identity & Version</th>
+                                <th class="p-4">Location & Network (ISP)</th>
+                                <th class="p-4 text-center">Nodes</th>
+                                <th class="p-4">Status Indicators</th>
+                                <th class="p-4 text-right">Active Stake (Share)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/50 font-medium text-sm">
+                            <tr class="tburn-row cursor-pointer">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white font-bold shadow-lg">
+                                            TB
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-white text-base">TBURN_Genesis_01</div>
+                                            <div class="text-xs text-slate-500 font-mono flex items-center gap-1">
+                                                v1.14.17 <span class="w-1 h-1 rounded-full bg-slate-500"></span> 5% Comm.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex flex-col">
+                                        <span class="text-slate-200 font-semibold flex items-center gap-2">
+                                            <img src="https://flagcdn.com/w20/us.png" width="20" alt="US" class="rounded-sm shadow-sm">
+                                            Chicago, US
+                                        </span>
+                                        <span class="text-slate-500 text-xs mt-1 font-mono">ASN 20326 | TeraSwitch Inc.</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center text-lg font-heading text-slate-300">37</td>
+                                <td class="p-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2 text-xs text-slate-400">
+                                            <i class="ph-fill ph-shield-warning text-red-500"></i> Bad: 0
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs text-accent-trust">
+                                            <i class="ph-fill ph-lock-key"></i> Private: 8 (21.6%)
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <div class="font-bold text-white text-lg font-heading">36,468,183 <span class="text-sm text-slate-400">SOL</span></div>
+                                    <div class="text-sm text-accent-burn font-medium mb-1">8.65% Share</div>
+                                    <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-orange-500 to-fire-500" style="width: 8.65%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="tburn-row cursor-pointer">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 font-bold">
+                                            AN
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-white text-base">AllNodes_Secure</div>
+                                            <div class="text-xs text-slate-500 font-mono flex items-center gap-1">
+                                                v1.14.17 <span class="w-1 h-1 rounded-full bg-slate-500"></span> 0% Comm.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex flex-col">
+                                        <span class="text-slate-200 font-semibold flex items-center gap-2">
+                                            <img src="https://flagcdn.com/w20/de.png" width="20" alt="DE" class="rounded-sm shadow-sm">
+                                            Frankfurt, DE
+                                        </span>
+                                        <span class="text-slate-500 text-xs mt-1 font-mono">ASN 20326 | Cherry Servers</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center text-lg font-heading text-slate-300">18</td>
+                                <td class="p-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2 text-xs text-slate-400">
+                                            <i class="ph-fill ph-shield-warning text-slate-600"></i> Bad: 0
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs text-accent-trust">
+                                            <i class="ph-fill ph-lock-key"></i> Private: 1 (5.56%)
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <div class="font-bold text-white text-lg font-heading">25,043,993 <span class="text-sm text-slate-400">SOL</span></div>
+                                    <div class="text-sm text-accent-burn font-medium mb-1">5.94% Share</div>
+                                    <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-orange-500 to-fire-500" style="width: 5.94%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="tburn-row cursor-pointer">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 font-bold">
+                                            LS
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-white text-base">Latitude_Tokyo_Node</div>
+                                            <div class="text-xs text-slate-500 font-mono flex items-center gap-1">
+                                                v1.13.5 <span class="w-1 h-1 rounded-full bg-slate-500"></span> 8% Comm.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex flex-col">
+                                        <span class="text-slate-200 font-semibold flex items-center gap-2">
+                                            <img src="https://flagcdn.com/w20/jp.png" width="20" alt="JP" class="rounded-sm shadow-sm">
+                                            Tokyo, JP
+                                        </span>
+                                        <span class="text-slate-500 text-xs mt-1 font-mono">ASN 20326 | Latitude.sh</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center text-lg font-heading text-slate-300">9</td>
+                                <td class="p-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2 text-xs text-slate-400">
+                                            <i class="ph-fill ph-shield-warning text-slate-600"></i> Bad: 0
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs text-accent-trust">
+                                            <i class="ph-fill ph-lock-key"></i> Private: 6 (66.7%)
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <div class="font-bold text-white text-lg font-heading">15,663,731 <span class="text-sm text-slate-400">SOL</span></div>
+                                    <div class="text-sm text-accent-burn font-medium mb-1">3.71% Share</div>
+                                    <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-orange-500 to-fire-500" style="width: 3.71%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="p-4 border-t border-slate-800/50 flex justify-between items-center text-sm text-slate-400 bg-black/20">
+                    <div>Showing <span class="font-semibold text-white">1-3</span> of <span class="font-semibold text-white">195</span> Validators</div>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 transition disabled:opacity-50">Previous</button>
+                        <button class="px-3 py-1.5 rounded-md bg-accent-burn text-white font-medium shadow-md shadow-orange-900/20">1</button>
+                        <button class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 transition">2</button>
+                        <button class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 transition">3</button>
+                        <span class="px-2">...</span>
+                        <button class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 transition">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="max-w-[1600px] mx-auto mt-12 py-8 border-t border-slate-800/50 text-center text-slate-500 text-sm">
+        <p>© 2024 TBURN Foundation. All rights reserved. | Decentralized Intelligence Platform.</p>
+    </footer>
+
+    <script>
+        // --- Chart Configuration for TBURN Enterprise Theme ---
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(20, 24, 35, 0.9)';
+        Chart.defaults.plugins.tooltip.borderColor = 'rgba(255, 140, 0, 0.3)';
+        Chart.defaults.plugins.tooltip.borderWidth = 1;
+        Chart.defaults.plugins.tooltip.titleFont = { family: "'Outfit', sans-serif", size: 14, weight: 'bold' };
+
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%', // Thinner, more modern ring
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        boxWidth: 8,
+                        font: { size: 11 }
+                    }
+                }
+            },
+            elements: {
+                arc: {
+                    borderWidth: 2,
+                    borderColor: '#0a0a0f', // Match background for clean separation
+                    hoverBorderColor: '#ff8c00',
+                    hoverBorderWidth: 3
+                }
+            }
+        };
+
+        // 1. Country Chart
+        const ctxCountry = document.getElementById('countryChart').getContext('2d');
+        new Chart(ctxCountry, {
+            type: 'doughnut',
+            data: {
+                labels: ['Germany', 'United States', 'Netherlands', 'Lithuania', 'UK', 'Other'],
+                datasets: [{
+                    data: [25, 23, 18, 10, 8, 16],
+                    backgroundColor: [
+                        '#ff8c00', // Burn Orange
+                        '#ff4500', // Fire Red
+                        '#00bfff', // Deep Sky Blue
+                        '#1e90ff', // Dodger Blue
+                        '#6a0dad', // Deep Purple
+                        '#475569'  // Slate Grey
+                    ]
+                }]
+            },
+            options: commonOptions
+        });
+
+        // 2. Organization Chart
+        const ctxOrg = document.getElementById('orgChart').getContext('2d');
+        new Chart(ctxOrg, {
+            type: 'doughnut',
+            data: {
+                labels: ['TeraSwitch', 'Cherry Servers', 'Amazon AWS', 'Latitude.sh', 'ALLNODES', 'Other'],
+                datasets: [{
+                    data: [35, 20, 10, 10, 5, 20],
+                    backgroundColor: [
+                        '#ff8c00',
+                        '#ff6347', 
+                        '#00ced1', 
+                        '#4682b4',
+                        '#9370db',
+                        '#475569'
+                    ]
+                }]
+            },
+            options: commonOptions
+        });
+    </script>
+</body>
+</html>

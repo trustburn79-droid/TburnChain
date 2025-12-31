@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { Link } from "wouter";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from 'recharts';
 import { 
   Fire, 
@@ -9,7 +10,8 @@ import {
   ListDashes, 
   MagnifyingGlass,
   Sliders,
-  TrendUp
+  TrendUp,
+  ArrowRight
 } from "@phosphor-icons/react";
 
 interface ValidatorData {
@@ -258,6 +260,13 @@ export default function ValidatorCommandCenter() {
                 <span className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs rounded">
                   Live Feed
                 </span>
+                <Link 
+                  href="/validator/infrastructure" 
+                  className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs rounded flex items-center gap-1 hover:bg-blue-500/20 transition"
+                  data-testid="link-infrastructure"
+                >
+                  Infrastructure <ArrowRight size={12} />
+                </Link>
               </div>
             </div>
             
