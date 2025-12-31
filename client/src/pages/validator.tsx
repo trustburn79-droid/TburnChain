@@ -217,7 +217,7 @@ export default function ValidatorCommandCenter() {
 
       <div className="bg-mesh" />
 
-      <div className="max-w-[1600px] mx-auto p-6 lg:p-10 relative z-10">
+      <div className="container mx-auto px-4 py-6 relative z-10">
         <header className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4 mb-10 border-b border-white/5 pb-6">
           <div>
             <div className="flex items-center gap-3 mb-1">
