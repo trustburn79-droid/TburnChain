@@ -21,6 +21,7 @@ import {
   CircleNotch
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData, calculateInfrastructureStats } from "@/lib/validator-utils";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -249,9 +250,12 @@ export default function ValidatorInfrastructure() {
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="page-title">
-              TBURN <span className="text-accent-burn tburn-glow">Mainnet</span>
-            </h1>
+            <div className="flex items-center gap-3">
+              <TBurnLogo className="w-12 h-12" showText={false} />
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="page-title">
+                TBURN <span className="text-accent-burn tburn-glow">Mainnet</span>
+              </h1>
+            </div>
             <p className="text-xl text-slate-400 mt-2 font-light">Enterprise Validator Intelligence & Network Telemetry</p>
           </div>
           <div className="flex flex-wrap gap-4">

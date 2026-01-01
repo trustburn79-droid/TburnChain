@@ -11,6 +11,7 @@ import {
   CircleNotch
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData } from "@/lib/validator-utils";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 interface Proposal {
   id: string;
@@ -189,9 +190,12 @@ export default function ValidatorGovernance() {
             </div>
             <span className="text-sm font-medium">Back to Validator Matrix</span>
           </Link>
-          <h1 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="page-title">
-            TBURN <span className="text-cyan-400">Governance</span>
-          </h1>
+          <div className="flex items-center gap-3">
+            <TBurnLogo className="w-10 h-10" showText={false} />
+            <h1 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="page-title">
+              TBURN <span className="text-cyan-400">Governance</span>
+            </h1>
+          </div>
           <p className="text-slate-400 mt-1">Participate in network upgrades & Estimate staking rewards</p>
         </div>
         
