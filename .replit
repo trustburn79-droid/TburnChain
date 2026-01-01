@@ -63,6 +63,7 @@ EMAIL_FROM = "TBURN Chain <noreply@tburn.io>"
 [userenv.production]
 NODE_ENV = "production"
 MAX_SHARDS = "64"
+COOKIE_SECURE = "true"
 
 [userenv.development]
 NODE_ENV = "development"
