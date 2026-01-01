@@ -107,6 +107,7 @@ const TestnetFaucet = lazy(() => import("./pages/testnet-scan/TestnetFaucet"));
 const ValidatorCommandCenter = lazy(() => import("@/pages/validator"));
 const ValidatorIntelligence = lazy(() => import("@/pages/validator-intelligence"));
 const ValidatorGovernance = lazy(() => import("@/pages/validator-governance"));
+const ValidatorInfrastructure = lazy(() => import("@/pages/validator-infrastructure"));
 
 export function PublicRouter() {
   return (
@@ -173,6 +174,7 @@ export function PublicRouter() {
           
           {/* Network Routes */}
           <Route path="/validator" component={ValidatorCommandCenter} />
+          <Route path="/validator/infrastructure" component={ValidatorInfrastructure} />
           <Route path="/validator/:id" component={ValidatorIntelligence} />
           <Route path="/validator-governance" component={ValidatorGovernance} />
           <Route path="/network/validators" component={Validators} />

@@ -11,7 +11,8 @@ import {
   MagnifyingGlass,
   Sliders,
   ChartPieSlice,
-  Coins
+  Coins,
+  TreeStructure
 } from "@phosphor-icons/react";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
@@ -300,6 +301,10 @@ export default function ValidatorCommandCenter() {
           </div>
           
           <div className="flex gap-4 flex-wrap">
+            <Link href="/validator/infrastructure" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-cyan-400/50 transition text-sm font-medium" data-testid="link-infrastructure">
+              <TreeStructure className="text-cyan-400" weight="duotone" size={18} />
+              Infrastructure
+            </Link>
             <Link href="/validator-governance" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-amber-500/50 transition text-sm font-medium" data-testid="link-governance">
               <Coins className="text-amber-400" weight="duotone" size={18} />
               Governance & Rewards
