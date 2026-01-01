@@ -30,13 +30,28 @@
 export const BILLION = 100_000_000; // 1억 in base units
 export const GENESIS_SUPPLY = 100 * BILLION; // 100억
 
-// Phase definitions
+/**
+ * v4.3 문서 사양 Phase 분류
+ */
 export enum Phase {
-  GROWTH = 'GROWTH',           // Y0-Y1: 공격적 성장
-  DEFLATION = 'DEFLATION',     // Y2-Y10: 지속 가능한 디플레이션
-  EQUILIBRIUM = 'EQUILIBRIUM', // Y11-Y15: 완전 균형
-  OPTIMIZATION = 'OPTIMIZATION' // Y16-Y20: 미세 최적화
+  GROWTH = 'GROWTH',           // Phase 1 성장기: Y1-Y5 (100억 → 84.50억)
+  DEFLATION = 'DEFLATION',     // Phase 2 디플레이션기: Y6-Y10 (84.50억 → 71.63억)
+  EQUILIBRIUM = 'EQUILIBRIUM', // Phase 3 균형기: Y11-Y15 (71.63억 → 70.88억)
+  OPTIMIZATION = 'OPTIMIZATION' // Phase 4 최적화기: Y16-Y20 (70.88억 → 69.40억)
 }
+
+/**
+ * v4.3 문서 사양 제네시스 검증자 설정
+ * 문서 Section 4.1: 125명 × 100만 TBURN = 1.25억 TBURN
+ */
+export const GENESIS_VALIDATOR_CONFIG = {
+  validatorCount: 125,         // 제네시스 검증자 수
+  stakePerValidator: 1000000,  // 100만 TBURN (1M)
+  totalStake: 125000000,       // 1.25억 TBURN 총 스테이킹
+  totalStakeBillion: 1.25,     // 억 단위
+  stakingLockupDays: 365,      // 365일 락업
+  note: 'TGE 스테이킹 락업 (유통량 미포함)'
+};
 
 // Period type for Y1 sub-periods
 export type PeriodType = 'genesis' | 'quarter' | 'half' | 'year';
@@ -1578,13 +1593,26 @@ export const TGE_UNLOCK_DETAILS: TGEUnlockDetail[] = [
   { category: '재단 긴급 예비금', categoryKey: 'tokenomics.tgeDetail.foundationEmergency', tgePercent: 50, amountBillion: 0.50, amountTBURN: 50000000, purpose: '긴급 대응, 체인 안정화', purposeKey: 'tokenomics.tgeDetail.foundationEmergency.purpose' }
 ];
 
-// v4.3 문서 사양 TGE 합계: 10.75억 (10.75%)
-// 투자자 TGE: 1.35억, 재단 예비금 TGE: 0.95억
+/**
+ * v4.3 문서 사양 TGE 합계 및 실제 유통량 계산
+ * 
+ * TGE 전체 언락: 10.75억 (10.75%)
+ * - 에어드랍: 1.20억, 레퍼럴: 0.15억, 이벤트: 0.40억
+ * - 마케팅: 0.45억
+ * - 프라이빗: 0.45억, 퍼블릭: 0.90억 (투자자 TGE: 1.35억)
+ * - 운영 예비금: 0.45억, 긴급 예비금: 0.50억 (재단 TGE: 0.95억)
+ * - DEX 유동성: 5.00억 (LP 락업 365일, 유통량 미포함)
+ * - 제네시스 검증자: 1.25억 (스테이킹 락업 365일, 유통량 미포함)
+ * 
+ * 실제 유통량 = 10.75억 - 5.00억(LP) - 1.25억(스테이킹) = 4.50억
+ */
 export const TGE_TOTALS = {
-  totalUnlock: 10.75, // 억 TBURN (10.75%)
-  investorTGE: 1.35, // 억 TBURN (프라이빗 0.45 + 퍼블릭 0.90)
-  foundationTGE: 0.95, // 억 TBURN (운영 0.45 + 긴급 0.50)
-  actualCirculation: 4.50 // 억 TBURN - v4.3 문서 사양 (LP/스테이킹 제외)
+  totalUnlock: 10.75,      // 억 TBURN - TGE 전체 언락량 (10.75%)
+  lpLockup: 5.00,          // 억 TBURN - DEX LP 락업 (유통량 미포함)
+  stakingLockup: 1.25,     // 억 TBURN - 제네시스 검증자 스테이킹 (유통량 미포함)
+  investorTGE: 1.35,       // 억 TBURN - 투자자 TGE (프라이빗 0.45 + 퍼블릭 0.90)
+  foundationTGE: 0.95,     // 억 TBURN - 재단 예비금 TGE (운영 0.45 + 긴급 0.50)
+  actualCirculation: 4.50  // 억 TBURN - v4.3 문서 사양 실제 유통량 (LP/스테이킹 제외)
 };
 
 /**
