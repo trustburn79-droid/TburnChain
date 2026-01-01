@@ -395,6 +395,7 @@ export default function TokenDetails() {
               <a href="#investors" className="td-nav-item">{t('tokenDetails.nav.investors')}</a>
               <a href="#ecosystem" className="td-nav-item">{t('tokenDetails.nav.ecosystem')}</a>
               <a href="#team" className="td-nav-item">{t('tokenDetails.nav.team')}</a>
+              <a href="#foundation" className="td-nav-item">{t('tokenDetails.nav.foundation', { defaultValue: 'Foundation' })}</a>
               <a href="#y1schedule" className="td-nav-item">{t('tokenDetails.nav.y1Schedule')}</a>
               <a href="#checklist" className="td-nav-item">{t('tokenDetails.nav.checklist')}</a>
               <a href="#calendar" className="td-nav-item">{t('tokenDetails.nav.calendar')}</a>
@@ -482,6 +483,7 @@ export default function TokenDetails() {
             <div className="td-card td-mt-6">
               <div className="td-card-header"><h3 className="td-card-title">{t('tokenDetails.overview.distribution.title')}</h3></div>
               
+              {/* v4.3 토큰 배분 구조 */}
               <div className="td-dist-chart">
                 <div className="td-dist-item" style={{ borderTop: '3px solid #FF6B35' }}>
                   <div className="td-dist-pct" style={{ color: '#FF6B35' }}>30%</div>
@@ -489,8 +491,8 @@ export default function TokenDetails() {
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.community')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #00D4AA' }}>
-                  <div className="td-dist-pct" style={{ color: '#00D4AA' }}>23%</div>
-                  <div className="td-dist-amt">23{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-pct" style={{ color: '#00D4AA' }}>22%</div>
+                  <div className="td-dist-amt">22{t('tokenDetails.common.billion')} TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.rewards')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #FFD700' }}>
@@ -499,14 +501,19 @@ export default function TokenDetails() {
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.investors')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #8B5CF6' }}>
-                  <div className="td-dist-pct" style={{ color: '#8B5CF6' }}>15%</div>
-                  <div className="td-dist-amt">15{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-pct" style={{ color: '#8B5CF6' }}>14%</div>
+                  <div className="td-dist-amt">14{t('tokenDetails.common.billion')} TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.ecosystem')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #EC4899' }}>
-                  <div className="td-dist-pct" style={{ color: '#EC4899' }}>12%</div>
-                  <div className="td-dist-amt">12{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-pct" style={{ color: '#EC4899' }}>11%</div>
+                  <div className="td-dist-amt">11{t('tokenDetails.common.billion')} TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.team')}</div>
+                </div>
+                <div className="td-dist-item" style={{ borderTop: '3px solid #60A5FA' }}>
+                  <div className="td-dist-pct" style={{ color: '#60A5FA' }}>3%</div>
+                  <div className="td-dist-amt">3{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-lbl">{t('tokenDetails.distribution.foundation', { defaultValue: 'Foundation Reserve' })}</div>
                 </div>
               </div>
 
@@ -520,12 +527,26 @@ export default function TokenDetails() {
                     <tr><td>{t('tokenDetails.community.activity.name')}</td><td>3.0%</td><td>3.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.community.activity.method')}</td><td>{t('tokenDetails.community.activity.target')}</td></tr>
                     <tr><td>{t('tokenDetails.community.dao.name')}</td><td>8.0%</td><td>8.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.community.dao.method')}</td><td>{t('tokenDetails.community.dao.target')}</td></tr>
                     
-                    <tr><td rowSpan={2} style={{ color: 'var(--td-secondary)', fontWeight: 700 }}>{t('tokenDetails.table.rewardsIcon')} {t('tokenDetails.distribution.rewards')}</td><td>{t('tokenDetails.rewards.block.name')}</td><td>15.0%</td><td>15.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.method')}</td><td>{t('tokenDetails.rewards.block.target')}</td></tr>
+                    <tr><td rowSpan={2} style={{ color: 'var(--td-secondary)', fontWeight: 700 }}>{t('tokenDetails.table.rewardsIcon')} {t('tokenDetails.distribution.rewards')}</td><td>{t('tokenDetails.rewards.block.name')}</td><td>14.0%</td><td>14.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.method')}</td><td>{t('tokenDetails.rewards.block.target')}</td></tr>
                     <tr><td>{t('tokenDetails.rewards.validator.name')}</td><td>8.0%</td><td>8.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.validator.method')}</td><td>{t('tokenDetails.rewards.validator.target')}</td></tr>
                     
                     <tr><td rowSpan={3} style={{ color: 'var(--td-accent)', fontWeight: 700 }}>{t('tokenDetails.table.investorsIcon')} {t('tokenDetails.distribution.investors')}</td><td>{t('tokenDetails.investors.seed.name')}</td><td>5.0%</td><td>5.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.investors.seed.method')}</td><td>{t('tokenDetails.investors.seed.target')}</td></tr>
                     <tr><td>{t('tokenDetails.investors.private.name')}</td><td>9.0%</td><td>9.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.investors.private.method')}</td><td>{t('tokenDetails.investors.private.target')}</td></tr>
                     <tr><td>{t('tokenDetails.investors.public.name')}</td><td>6.0%</td><td>6.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.investors.public.method')}</td><td>{t('tokenDetails.investors.public.target')}</td></tr>
+                    
+                    {/* v4.3 Ecosystem - 14% */}
+                    <tr><td rowSpan={3} style={{ color: 'var(--td-purple)', fontWeight: 700 }}><i className="fas fa-globe" style={{ marginRight: '5px' }}></i> {t('tokenDetails.distribution.ecosystem')}</td><td>{t('tokenDetails.ecosystem.fund.name')}</td><td>8.0%</td><td>8.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.ecosystem.fund.vesting')}</td><td>{t('tokenDetails.ecosystem.fund.y1Activity')}</td></tr>
+                    <tr><td>{t('tokenDetails.ecosystem.partnership.name')}</td><td>4.0%</td><td>4.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.ecosystem.partnership.vesting')}</td><td>{t('tokenDetails.ecosystem.partnership.y1Activity')}</td></tr>
+                    <tr><td>{t('tokenDetails.ecosystem.marketing.name')}</td><td>2.0%</td><td>2.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.ecosystem.marketing.vesting')}</td><td>{t('tokenDetails.ecosystem.marketing.y1Activity')}</td></tr>
+                    
+                    {/* v4.3 Team - 11% */}
+                    <tr><td rowSpan={3} style={{ color: 'var(--td-pink)', fontWeight: 700 }}><i className="fas fa-user-tie" style={{ marginRight: '5px' }}></i> {t('tokenDetails.distribution.team')}</td><td>{t('tokenDetails.team.core.name')}</td><td>6.0%</td><td>6.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.team.core.cliff')}</td><td>Core Team</td></tr>
+                    <tr><td>{t('tokenDetails.team.advisor.name')}</td><td>3.0%</td><td>3.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.team.advisor.cliff')}</td><td>Advisors</td></tr>
+                    <tr><td>{t('tokenDetails.team.strategic.name')}</td><td>2.0%</td><td>2.00{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.team.strategic.cliff')}</td><td>Strategic Partners</td></tr>
+                    
+                    {/* v4.3 Foundation Reserve - 3% */}
+                    <tr><td rowSpan={2} style={{ color: '#60A5FA', fontWeight: 700 }}><i className="fas fa-landmark" style={{ marginRight: '5px' }}></i> {t('tokenDetails.distribution.foundation', { defaultValue: 'Foundation Reserve' })}</td><td>{t('tokenDetails.foundation.operations.name', { defaultValue: 'Foundation Operations' })}</td><td>1.5%</td><td>1.50{t('tokenDetails.common.billion')}</td><td>30% TGE</td><td>Legal, Listing, Infra</td></tr>
+                    <tr><td>{t('tokenDetails.foundation.emergency.name', { defaultValue: 'Emergency Fund' })}</td><td>1.5%</td><td>1.50{t('tokenDetails.common.billion')}</td><td>50% TGE + Lock</td><td>Emergency Fund</td></tr>
                     
                     <tr className="td-highlight-row"><td colSpan={2}><strong>{t('tokenDetails.table.total')}</strong></td><td><strong>100.0%</strong></td><td><strong>100.00{t('tokenDetails.common.billion')}</strong></td><td colSpan={2}></td></tr>
                   </tbody>
@@ -733,7 +754,7 @@ export default function TokenDetails() {
                     </tr>
                     <tr>
                       <td className="td-font-bold" style={{ color: 'var(--td-purple)' }}>{t('tokenDetails.ecosystem.marketing.name')}</td>
-                      <td>3{t('tokenDetails.common.billion')} (3%)</td>
+                      <td>2{t('tokenDetails.common.billion')} (2%)</td>
                       <td>{t('tokenDetails.ecosystem.marketing.vesting')}</td>
                       <td>{t('tokenDetails.ecosystem.marketing.y1Activity')}</td>
                     </tr>
@@ -768,6 +789,37 @@ export default function TokenDetails() {
             </div>
             <div className="td-highlight-box td-hl-warning td-text-center">
               <strong>{t('tokenDetails.team.lockupWarning')}</strong>
+            </div>
+          </section>
+
+          {/* v4.3 Foundation Reserve Section - 3% */}
+          <section id="foundation" className="td-section td-container td-fade-in-up">
+            <div className="td-section-header">
+              <div className="td-section-icon"><i className="fas fa-landmark" style={{ color: '#60A5FA' }}></i></div>
+              <h2 className="td-section-title">{t('tokenDetails.foundation.title', { defaultValue: 'Foundation Reserve (3%)' })}</h2>
+            </div>
+
+            <div className="td-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
+              <div className="td-card td-text-center">
+                <h3 className="td-card-title td-mb-2" style={{ color: '#60A5FA' }}>{t('tokenDetails.foundation.operations.name', { defaultValue: 'Foundation Operations' })}</h3>
+                <div className="td-dist-pct" style={{ color: '#60A5FA', fontSize: '2rem' }}>1.5%</div>
+                <div className="td-dist-amt">1.5{t('tokenDetails.common.billion')} TBURN</div>
+                <div className="td-badge td-mb-4" style={{ background: 'rgba(96, 165, 250, 0.15)', color: '#60A5FA', border: '1px solid rgba(96, 165, 250, 0.3)' }}>30% TGE</div>
+                <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>{t('tokenDetails.foundation.operations.desc') || 'Immediate operational funding for legal, exchange listing, infrastructure'}</p>
+              </div>
+              <div className="td-card td-text-center">
+                <h3 className="td-card-title td-mb-2" style={{ color: '#60A5FA' }}>{t('tokenDetails.foundation.emergency.name', { defaultValue: 'Emergency Fund' })}</h3>
+                <div className="td-dist-pct" style={{ color: '#60A5FA', fontSize: '2rem' }}>1.5%</div>
+                <div className="td-dist-amt">1.5{t('tokenDetails.common.billion')} TBURN</div>
+                <div className="td-badge td-mb-4" style={{ background: 'rgba(96, 165, 250, 0.15)', color: '#60A5FA', border: '1px solid rgba(96, 165, 250, 0.3)' }}>50% TGE + 50% Lock</div>
+                <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>{t('tokenDetails.foundation.emergency.desc') || 'Reserved for unforeseen circumstances, market volatility, and ecosystem protection'}</p>
+              </div>
+            </div>
+            <div className="td-highlight-box" style={{ borderColor: '#60A5FA', background: 'rgba(96, 165, 250, 0.05)' }}>
+              <p style={{ margin: 0, color: '#fff', textAlign: 'center' }}>
+                <strong style={{ color: '#60A5FA' }}>{t('tokenDetails.foundation.note.title', { defaultValue: 'Foundation Transparency' })}</strong><br />
+                {t('tokenDetails.foundation.note.desc', { defaultValue: 'All Foundation funds are managed with multi-sig wallets and quarterly transparency reports.' })}
+              </p>
             </div>
           </section>
 

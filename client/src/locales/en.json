@@ -29371,7 +29371,8 @@
       "team": "Team",
       "y1Schedule": "Y1 Schedule",
       "checklist": "Checklist",
-      "calendar": "Calendar"
+      "calendar": "Calendar",
+      "foundation": "Foundation"
     },
     "hero": {
       "title": "Token Distribution & Operations Guide",
@@ -29422,7 +29423,8 @@
       "rewards": "Block & Validator Rewards",
       "investors": "Investors",
       "ecosystem": "Ecosystem",
-      "team": "Team & Advisors"
+      "team": "Team & Advisors",
+      "foundation": "Foundation Reserve"
     },
     "table": {
       "category": "Category",
@@ -29687,6 +29689,31 @@
     "footer": {
       "tagline": "Building the Future of Decentralized Finance",
       "disclaimer": "This document is provided for informational purposes only. Token distribution schedules are subject to change based on market conditions and regulatory requirements."
+    },
+    "foundation": {
+      "title": "Foundation Reserve (3%)",
+      "subtitle": "Operational and emergency funding for TBURN ecosystem",
+      "description": "Foundation reserves ensure sustainable operations and emergency preparedness for the TBURN network.",
+      "operations": {
+        "title": "Operations (1.5%)",
+        "name": "Foundation Operations",
+        "purpose": "Covers operational expenses including development, marketing, and partnerships",
+        "tge": "30% TGE",
+        "vesting": "6-month cliff + 36-month linear",
+        "amount": "1.5B TBURN"
+      },
+      "emergency": {
+        "title": "Emergency (1.5%)",
+        "name": "Emergency Fund",
+        "purpose": "Reserved for critical network security, market stabilization, and unforeseen circumstances",
+        "tge": "50% TGE",
+        "vesting": "6-month cliff + 24-month linear",
+        "amount": "1.5B TBURN"
+      },
+      "note": {
+        "title": "Foundation Transparency",
+        "desc": "All Foundation funds are managed with multi-sig wallets and quarterly transparency reports."
+      }
     }
   }
 }

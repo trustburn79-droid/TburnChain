@@ -561,37 +561,34 @@ export default function TokenSchedule() {
                       <td>{t('tokenSchedule.schedule.notes.mainnetLaunch')}</td>
                     </tr>
                     
+                    {/* v4.3 문서 Section 2.2 정확한 수치 적용 */}
                     <tr className="ts-phase-header"><td colSpan={9}>{t('tokenSchedule.schedule.phaseHeaders.phase1')}</td></tr>
-                    <tr><td>Y1-Q1</td><td>{t('tokenSchedule.schedule.stages.growth')}</td><td>100.00</td><td>+0.80</td><td>-1.00</td><td>-0.20</td><td>99.80</td><td>-0.20%</td><td>{t('tokenSchedule.schedule.notes.earlyUserAcquisition')}</td></tr>
-                    <tr><td>Y1-Q2</td><td>{t('tokenSchedule.schedule.stages.growth')}</td><td>99.80</td><td>+0.60</td><td>-1.40</td><td>-0.80</td><td>99.00</td><td>-0.80%</td><td>{t('tokenSchedule.schedule.notes.growthAcceleration')}</td></tr>
-                    <tr><td>Y1-H2</td><td>{t('tokenSchedule.schedule.stages.growth')}</td><td>99.00</td><td>+1.20</td><td>-3.20</td><td>-2.00</td><td>97.00</td><td>-2.02%</td><td>{t('tokenSchedule.schedule.notes.ecosystemExpansion')}</td></tr>
-                    <tr style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}><td><strong>Y1 Total</strong></td><td></td><td></td><td className="ts-font-mono">+2.60</td><td className="ts-font-mono">-5.60</td><td className="ts-font-mono ts-text-pink">-3.00</td><td className="ts-font-bold">97.00</td><td>-3.00%</td><td></td></tr>
-                    
-                    <tr><td>Y2</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>97.00</td><td>+2.00</td><td>-5.10</td><td>-3.10</td><td>93.90</td><td>-3.20%</td><td>{t('tokenSchedule.schedule.notes.sustainedGrowth')}</td></tr>
-                    <tr><td>Y3</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>93.90</td><td>+1.90</td><td>-5.00</td><td>-3.10</td><td>90.80</td><td>-3.30%</td><td>{t('tokenSchedule.schedule.notes.massAdoption')}</td></tr>
-                    <tr><td>Y4</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>90.80</td><td>+1.80</td><td>-4.90</td><td>-3.10</td><td>87.70</td><td>-3.41%</td><td>{t('tokenSchedule.schedule.notes.enterpriseIntegration')}</td></tr>
-                    <tr><td>Y5</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>87.70</td><td>+1.70</td><td>-4.80</td><td>-3.10</td><td>84.60</td><td>-3.53%</td><td>{t('tokenSchedule.schedule.notes.platformMaturity')}</td></tr>
+                    <tr><td>Y1</td><td>{t('tokenSchedule.schedule.stages.growth')}</td><td>100.00</td><td>+2.50</td><td>-5.60</td><td>-3.10</td><td>96.90</td><td>-3.10%</td><td>{t('tokenSchedule.schedule.notes.earlyUserAcquisition')}</td></tr>
+                    <tr><td>Y2</td><td>{t('tokenSchedule.schedule.stages.growth')}</td><td>96.90</td><td>+2.00</td><td>-5.10</td><td>-3.10</td><td>93.80</td><td>-3.20%</td><td>{t('tokenSchedule.schedule.notes.sustainedGrowth')}</td></tr>
+                    <tr><td>Y3</td><td>{t('tokenSchedule.schedule.stages.growth')}</td><td>93.80</td><td>+1.90</td><td>-5.00</td><td>-3.10</td><td>90.70</td><td>-3.30%</td><td>{t('tokenSchedule.schedule.notes.massAdoption')}</td></tr>
+                    <tr><td>Y4</td><td>{t('tokenSchedule.schedule.stages.growth')}</td><td>90.70</td><td>+1.80</td><td>-4.90</td><td>-3.10</td><td>87.60</td><td>-3.42%</td><td>{t('tokenSchedule.schedule.notes.enterpriseIntegration')}</td></tr>
+                    <tr><td>Y5</td><td>{t('tokenSchedule.schedule.stages.growth')}</td><td>87.60</td><td>+1.70</td><td>-4.80</td><td>-3.10</td><td>84.50</td><td>-3.54%</td><td>{t('tokenSchedule.schedule.notes.platformMaturity')}</td></tr>
 
                     <tr className="ts-phase-header"><td colSpan={9}>{t('tokenSchedule.schedule.phaseHeaders.phase2')}</td></tr>
-                    <tr><td>Y6 ⚡</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>84.60</td><td>+1.40</td><td>-4.20</td><td>-2.80</td><td>81.80</td><td>-3.31%</td><td>{t('tokenSchedule.schedule.notes.firstHalving')}</td></tr>
-                    <tr><td>Y7</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>81.80</td><td>+1.20</td><td>-4.00</td><td>-2.80</td><td>79.00</td><td>-3.42%</td><td>{t('tokenSchedule.schedule.notes.stabilization')}</td></tr>
-                    <tr><td>Y8</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>79.00</td><td>+1.00</td><td>-3.80</td><td>-2.80</td><td>76.20</td><td>-3.54%</td><td>{t('tokenSchedule.schedule.notes.institutionalGrade')}</td></tr>
-                    <tr><td>Y9 ⚡</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>76.20</td><td>+0.90</td><td>-3.60</td><td>-2.70</td><td>73.50</td><td>-3.54%</td><td>{t('tokenSchedule.schedule.notes.secondHalving')}</td></tr>
-                    <tr><td>Y10 🎉</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>73.50</td><td>+0.80</td><td>-3.50</td><td>-2.70</td><td>70.80</td><td>-3.67%</td><td>{t('tokenSchedule.schedule.notes.tenYearMilestone')}</td></tr>
+                    <tr><td>Y6 ⚡</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>84.50</td><td>+0.85</td><td>-3.60</td><td>-2.75</td><td>81.75</td><td>-3.25%</td><td>{t('tokenSchedule.schedule.notes.firstHalving')}</td></tr>
+                    <tr><td>Y7</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>81.75</td><td>+0.80</td><td>-3.40</td><td>-2.60</td><td>79.15</td><td>-3.18%</td><td>{t('tokenSchedule.schedule.notes.stabilization')}</td></tr>
+                    <tr><td>Y8</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>79.15</td><td>+0.75</td><td>-3.20</td><td>-2.45</td><td>76.70</td><td>-3.09%</td><td>{t('tokenSchedule.schedule.notes.institutionalGrade')}</td></tr>
+                    <tr><td>Y9 ⚡</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>76.70</td><td>+0.38</td><td>-3.00</td><td>-2.62</td><td>74.08</td><td>-3.42%</td><td>{t('tokenSchedule.schedule.notes.secondHalving')}</td></tr>
+                    <tr><td>Y10 🎉</td><td>{t('tokenSchedule.schedule.stages.deflation')}</td><td>74.08</td><td>+0.35</td><td>-2.80</td><td>-2.45</td><td>71.63</td><td>-3.31%</td><td>{t('tokenSchedule.schedule.notes.tenYearMilestone')}</td></tr>
 
                     <tr className="ts-phase-header"><td colSpan={9}>{t('tokenSchedule.schedule.phaseHeaders.phase3')}</td></tr>
-                    <tr><td>Y11</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>70.80</td><td>+0.70</td><td>-1.40</td><td>-0.70</td><td>70.10</td><td>-0.99%</td><td>{t('tokenSchedule.schedule.notes.balanceStart')}</td></tr>
-                    <tr><td>Y12</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>70.10</td><td>+0.65</td><td>-0.65</td><td style={{ color: 'var(--ts-secondary)' }}>0.00</td><td>70.10</td><td>0.00%</td><td>{t('tokenSchedule.schedule.notes.perfectBalance')}</td></tr>
-                    <tr><td>Y13</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>70.10</td><td>+0.60</td><td>-0.60</td><td style={{ color: 'var(--ts-secondary)' }}>0.00</td><td>70.10</td><td>0.00%</td><td>{t('tokenSchedule.schedule.notes.stableState')}</td></tr>
-                    <tr><td>Y14</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>70.10</td><td>+0.55</td><td>-0.55</td><td style={{ color: 'var(--ts-secondary)' }}>0.00</td><td>70.10</td><td>0.00%</td><td>{t('tokenSchedule.schedule.notes.predictable')}</td></tr>
-                    <tr><td>Y15</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>70.10</td><td>+0.50</td><td>-0.50</td><td style={{ color: 'var(--ts-secondary)' }}>0.00</td><td>70.10</td><td>0.00%</td><td>{t('tokenSchedule.schedule.notes.balanceEnd')}</td></tr>
+                    <tr><td>Y11</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>71.63</td><td>+0.50</td><td>-0.65</td><td>-0.15</td><td>71.48</td><td>-0.21%</td><td>{t('tokenSchedule.schedule.notes.balanceStart')}</td></tr>
+                    <tr><td>Y12</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>71.48</td><td>+0.48</td><td>-0.63</td><td>-0.15</td><td>71.33</td><td>-0.21%</td><td>{t('tokenSchedule.schedule.notes.perfectBalance')}</td></tr>
+                    <tr><td>Y13</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>71.33</td><td>+0.46</td><td>-0.61</td><td>-0.15</td><td>71.18</td><td>-0.21%</td><td>{t('tokenSchedule.schedule.notes.stableState')}</td></tr>
+                    <tr><td>Y14</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>71.18</td><td>+0.44</td><td>-0.59</td><td>-0.15</td><td>71.03</td><td>-0.21%</td><td>{t('tokenSchedule.schedule.notes.predictable')}</td></tr>
+                    <tr><td>Y15</td><td>{t('tokenSchedule.schedule.stages.balance')}</td><td>71.03</td><td>+0.42</td><td>-0.57</td><td>-0.15</td><td>70.88</td><td>-0.21%</td><td>{t('tokenSchedule.schedule.notes.balanceEnd')}</td></tr>
 
                     <tr className="ts-phase-header"><td colSpan={9}>{t('tokenSchedule.schedule.phaseHeaders.phase4')}</td></tr>
-                    <tr><td>Y16</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>70.10</td><td>+0.45</td><td>-0.61</td><td>-0.16</td><td>69.94</td><td>-0.23%</td><td>{t('tokenSchedule.schedule.notes.finetuning')}</td></tr>
-                    <tr><td>Y17</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>69.94</td><td>+0.43</td><td>-0.57</td><td>-0.14</td><td>69.80</td><td>-0.20%</td><td>{t('tokenSchedule.schedule.notes.precisionManagement')}</td></tr>
-                    <tr><td>Y18</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>69.80</td><td>+0.41</td><td>-0.55</td><td>-0.14</td><td>69.66</td><td>-0.20%</td><td>{t('tokenSchedule.schedule.notes.maturityPhase')}</td></tr>
-                    <tr><td>Y19</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>69.66</td><td>+0.39</td><td>-0.53</td><td>-0.14</td><td>69.52</td><td>-0.20%</td><td>{t('tokenSchedule.schedule.notes.excellence')}</td></tr>
-                    <tr><td>Y20 🏆</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>69.52</td><td>+0.37</td><td>-0.49</td><td>-0.12</td><td>69.40</td><td>-0.17%</td><td>{t('tokenSchedule.schedule.notes.visionComplete')}</td></tr>
+                    <tr><td>Y16</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>70.88</td><td>+0.45</td><td>-0.59</td><td>-0.14</td><td>70.74</td><td>-0.20%</td><td>{t('tokenSchedule.schedule.notes.finetuning')}</td></tr>
+                    <tr><td>Y17</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>70.74</td><td>+0.43</td><td>-0.57</td><td>-0.14</td><td>70.60</td><td>-0.20%</td><td>{t('tokenSchedule.schedule.notes.precisionManagement')}</td></tr>
+                    <tr><td>Y18</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>70.60</td><td>+0.41</td><td>-0.55</td><td>-0.14</td><td>70.46</td><td>-0.20%</td><td>{t('tokenSchedule.schedule.notes.maturityPhase')}</td></tr>
+                    <tr><td>Y19</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>70.46</td><td>+0.39</td><td>-0.53</td><td>-0.14</td><td>70.32</td><td>-0.20%</td><td>{t('tokenSchedule.schedule.notes.excellence')}</td></tr>
+                    <tr><td>Y20 🏆</td><td>{t('tokenSchedule.schedule.stages.optimization')}</td><td>70.32</td><td>+0.37</td><td>-0.49</td><td>-0.12</td><td>69.40</td><td>-1.31%</td><td>{t('tokenSchedule.schedule.notes.visionComplete')}</td></tr>
 
                     <tr className="ts-total-row">
                       <td>TOTAL</td>
@@ -625,12 +622,12 @@ export default function TokenSchedule() {
                   <table>
                     <thead><tr><th>{t('tokenSchedule.table.year')}</th><th>{t('tokenSchedule.table.blockIssuance')}</th><th>{t('tokenSchedule.table.aiBurn')}</th><th>{t('tokenSchedule.table.netChange')}</th><th>{t('tokenSchedule.table.totalSupply')}</th></tr></thead>
                     <tbody>
-                      <tr><td>Y1</td><td>+2.60{t('tokenSchedule.units.billion')}</td><td>-5.60{t('tokenSchedule.units.billion')}</td><td>-3.00{t('tokenSchedule.units.billion')}</td><td>97.00{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y2</td><td>+2.00{t('tokenSchedule.units.billion')}</td><td>-5.10{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>93.90{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y3</td><td>+1.90{t('tokenSchedule.units.billion')}</td><td>-5.00{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>90.80{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y4</td><td>+1.80{t('tokenSchedule.units.billion')}</td><td>-4.90{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>87.70{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y5</td><td>+1.70{t('tokenSchedule.units.billion')}</td><td>-4.80{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>84.60{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr className="ts-total-row"><td>{t('tokenSchedule.table.total')}</td><td>+10.00{t('tokenSchedule.units.billion')}</td><td>-25.40{t('tokenSchedule.units.billion')}</td><td>-15.40{t('tokenSchedule.units.billion')}</td><td></td></tr>
+                      <tr><td>Y1</td><td>+2.50{t('tokenSchedule.units.billion')}</td><td>-5.60{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>96.90{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y2</td><td>+2.00{t('tokenSchedule.units.billion')}</td><td>-5.10{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>93.80{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y3</td><td>+1.90{t('tokenSchedule.units.billion')}</td><td>-5.00{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>90.70{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y4</td><td>+1.80{t('tokenSchedule.units.billion')}</td><td>-4.90{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>87.60{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y5</td><td>+1.70{t('tokenSchedule.units.billion')}</td><td>-4.80{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td>84.50{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr className="ts-total-row"><td>{t('tokenSchedule.table.total')}</td><td>+9.90{t('tokenSchedule.units.billion')}</td><td>-25.40{t('tokenSchedule.units.billion')}</td><td>-15.50{t('tokenSchedule.units.billion')}</td><td></td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -644,11 +641,11 @@ export default function TokenSchedule() {
                   </div>
                   <div>
                     <div style={{ fontSize: '0.9rem', color: 'var(--ts-text-muted)' }}>{t('tokenSchedule.summary.endSupply')}</div>
-                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--ts-primary)' }}>84.60{t('tokenSchedule.units.billion')}</div>
+                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--ts-primary)' }}>84.50{t('tokenSchedule.units.billion')}</div>
                   </div>
                   <div>
                     <div style={{ fontSize: '0.9rem', color: 'var(--ts-text-muted)' }}>{t('tokenSchedule.summary.netReduction')}</div>
-                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--ts-pink)' }}>-15.40{t('tokenSchedule.units.billion')}</div>
+                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--ts-pink)' }}>-15.50{t('tokenSchedule.units.billion')}</div>
                   </div>
                 </div>
               </div>
@@ -670,12 +667,12 @@ export default function TokenSchedule() {
                   <table>
                     <thead><tr><th>{t('tokenSchedule.table.year')}</th><th>{t('tokenSchedule.table.blockIssuance')}</th><th>{t('tokenSchedule.table.aiBurn')}</th><th>{t('tokenSchedule.table.netChange')}</th><th>{t('tokenSchedule.table.totalSupply')}</th></tr></thead>
                     <tbody>
-                      <tr><td>Y6 ⚡</td><td>+1.40{t('tokenSchedule.units.billion')}</td><td>-4.20{t('tokenSchedule.units.billion')}</td><td>-2.80{t('tokenSchedule.units.billion')}</td><td>81.80{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y7</td><td>+1.20{t('tokenSchedule.units.billion')}</td><td>-4.00{t('tokenSchedule.units.billion')}</td><td>-2.80{t('tokenSchedule.units.billion')}</td><td>79.00{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y8</td><td>+1.00{t('tokenSchedule.units.billion')}</td><td>-3.80{t('tokenSchedule.units.billion')}</td><td>-2.80{t('tokenSchedule.units.billion')}</td><td>76.20{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y9 ⚡</td><td>+0.90{t('tokenSchedule.units.billion')}</td><td>-3.60{t('tokenSchedule.units.billion')}</td><td>-2.70{t('tokenSchedule.units.billion')}</td><td>73.50{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y10</td><td>+0.80{t('tokenSchedule.units.billion')}</td><td>-3.50{t('tokenSchedule.units.billion')}</td><td>-2.70{t('tokenSchedule.units.billion')}</td><td>70.80{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr className="ts-total-row"><td>{t('tokenSchedule.table.total')}</td><td>+5.30{t('tokenSchedule.units.billion')}</td><td>-19.10{t('tokenSchedule.units.billion')}</td><td>-13.80{t('tokenSchedule.units.billion')}</td><td></td></tr>
+                      <tr><td>Y6 ⚡</td><td>+0.85{t('tokenSchedule.units.billion')}</td><td>-3.60{t('tokenSchedule.units.billion')}</td><td>-2.75{t('tokenSchedule.units.billion')}</td><td>81.75{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y7</td><td>+0.80{t('tokenSchedule.units.billion')}</td><td>-3.40{t('tokenSchedule.units.billion')}</td><td>-2.60{t('tokenSchedule.units.billion')}</td><td>79.15{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y8</td><td>+0.75{t('tokenSchedule.units.billion')}</td><td>-3.20{t('tokenSchedule.units.billion')}</td><td>-2.45{t('tokenSchedule.units.billion')}</td><td>76.70{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y9 ⚡</td><td>+0.38{t('tokenSchedule.units.billion')}</td><td>-3.00{t('tokenSchedule.units.billion')}</td><td>-2.62{t('tokenSchedule.units.billion')}</td><td>74.08{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y10</td><td>+0.35{t('tokenSchedule.units.billion')}</td><td>-2.80{t('tokenSchedule.units.billion')}</td><td>-2.45{t('tokenSchedule.units.billion')}</td><td>71.63{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr className="ts-total-row"><td>{t('tokenSchedule.table.total')}</td><td>+3.13{t('tokenSchedule.units.billion')}</td><td>-16.00{t('tokenSchedule.units.billion')}</td><td>-12.87{t('tokenSchedule.units.billion')}</td><td></td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -685,15 +682,15 @@ export default function TokenSchedule() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   <div>
                     <div style={{ fontSize: '0.9rem', color: 'var(--ts-text-muted)' }}>{t('tokenSchedule.summary.startSupply')}</div>
-                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem' }}>84.60{t('tokenSchedule.units.billion')}</div>
+                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem' }}>84.50{t('tokenSchedule.units.billion')}</div>
                   </div>
                   <div>
                     <div style={{ fontSize: '0.9rem', color: 'var(--ts-text-muted)' }}>{t('tokenSchedule.summary.endSupply')}</div>
-                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--ts-secondary)' }}>70.80{t('tokenSchedule.units.billion')}</div>
+                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--ts-secondary)' }}>71.63{t('tokenSchedule.units.billion')}</div>
                   </div>
                   <div>
                     <div style={{ fontSize: '0.9rem', color: 'var(--ts-text-muted)' }}>{t('tokenSchedule.summary.tenYearReduction')}</div>
-                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--ts-accent)' }}>-29.20%</div>
+                    <div className="ts-font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--ts-accent)' }}>-28.37%</div>
                   </div>
                 </div>
               </div>
@@ -715,11 +712,11 @@ export default function TokenSchedule() {
                   <table>
                     <thead><tr><th>{t('tokenSchedule.table.year')}</th><th>{t('tokenSchedule.table.netChange')}</th><th>{t('tokenSchedule.table.totalSupply')}</th></tr></thead>
                     <tbody>
-                      <tr><td>Y11</td><td>-0.70{t('tokenSchedule.units.billion')}</td><td>70.10{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y12</td><td style={{ color: 'var(--ts-secondary)' }}>0.00</td><td>70.10{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y13</td><td style={{ color: 'var(--ts-secondary)' }}>0.00</td><td>70.10{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y14</td><td style={{ color: 'var(--ts-secondary)' }}>0.00</td><td>70.10{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y15</td><td style={{ color: 'var(--ts-secondary)' }}>0.00</td><td>70.10{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y11</td><td>-0.15{t('tokenSchedule.units.billion')}</td><td>71.48{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y12</td><td>-0.15{t('tokenSchedule.units.billion')}</td><td>71.33{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y13</td><td>-0.15{t('tokenSchedule.units.billion')}</td><td>71.18{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y14</td><td>-0.15{t('tokenSchedule.units.billion')}</td><td>71.03{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y15</td><td>-0.15{t('tokenSchedule.units.billion')}</td><td>70.88{t('tokenSchedule.units.billion')}</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -743,11 +740,11 @@ export default function TokenSchedule() {
                   <table>
                     <thead><tr><th>{t('tokenSchedule.table.year')}</th><th>{t('tokenSchedule.table.netChange')}</th><th>{t('tokenSchedule.table.totalSupply')}</th></tr></thead>
                     <tbody>
-                      <tr><td>Y16</td><td>-0.16{t('tokenSchedule.units.billion')}</td><td>69.94{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y17</td><td>-0.14{t('tokenSchedule.units.billion')}</td><td>69.80{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y18</td><td>-0.14{t('tokenSchedule.units.billion')}</td><td>69.66{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y19</td><td>-0.14{t('tokenSchedule.units.billion')}</td><td>69.52{t('tokenSchedule.units.billion')}</td></tr>
-                      <tr><td>Y20</td><td>-0.12{t('tokenSchedule.units.billion')}</td><td>69.40{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y16</td><td>-0.14{t('tokenSchedule.units.billion')}</td><td>70.74{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y17</td><td>-0.14{t('tokenSchedule.units.billion')}</td><td>70.60{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y18</td><td>-0.14{t('tokenSchedule.units.billion')}</td><td>70.46{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y19</td><td>-0.14{t('tokenSchedule.units.billion')}</td><td>70.32{t('tokenSchedule.units.billion')}</td></tr>
+                      <tr><td>Y20</td><td>-0.92{t('tokenSchedule.units.billion')}</td><td>69.40{t('tokenSchedule.units.billion')}</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -772,23 +769,23 @@ export default function TokenSchedule() {
                 </div>
                 <div className="ts-chart-row">
                   <div className="ts-chart-label">Y1</div>
-                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '97%', background: 'linear-gradient(90deg, #FF6B35, #FF8F5C)' }}><span className="ts-chart-value-text">97.00{t('tokenSchedule.units.billion')}</span></div></div>
+                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '96.9%', background: 'linear-gradient(90deg, #FF6B35, #FF8F5C)' }}><span className="ts-chart-value-text">96.90{t('tokenSchedule.units.billion')}</span></div></div>
                 </div>
                 <div className="ts-chart-row">
                   <div className="ts-chart-label">Y5</div>
-                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '84.6%', background: 'linear-gradient(90deg, #FF6B35, #00D4AA)' }}><span className="ts-chart-value-text">84.60{t('tokenSchedule.units.billion')}</span></div></div>
+                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '84.5%', background: 'linear-gradient(90deg, #FF6B35, #00D4AA)' }}><span className="ts-chart-value-text">84.50{t('tokenSchedule.units.billion')}</span></div></div>
                 </div>
                 <div className="ts-chart-row">
                   <div className="ts-chart-label">Y6 ⚡</div>
-                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '81.8%', background: 'linear-gradient(90deg, #00D4AA, #00B4D8)' }}><span className="ts-chart-value-text">81.80{t('tokenSchedule.units.billion')}</span></div></div>
+                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '81.75%', background: 'linear-gradient(90deg, #00D4AA, #00B4D8)' }}><span className="ts-chart-value-text">81.75{t('tokenSchedule.units.billion')}</span></div></div>
                 </div>
                 <div className="ts-chart-row">
                   <div className="ts-chart-label">Y10 🎉</div>
-                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '70.8%', background: 'linear-gradient(90deg, #00D4AA, #FFD700)' }}><span className="ts-chart-value-text">70.80{t('tokenSchedule.units.billion')}</span></div></div>
+                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '71.63%', background: 'linear-gradient(90deg, #00D4AA, #FFD700)' }}><span className="ts-chart-value-text">71.63{t('tokenSchedule.units.billion')}</span></div></div>
                 </div>
                 <div className="ts-chart-row">
-                  <div className="ts-chart-label">Y12 ✅</div>
-                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '70.1%', background: 'linear-gradient(90deg, #FFD700, #FFA500)' }}><span className="ts-chart-value-text">70.10{t('tokenSchedule.units.billion')}</span></div></div>
+                  <div className="ts-chart-label">Y12</div>
+                  <div className="ts-chart-track"><div className="ts-chart-fill" style={{ width: '71.33%', background: 'linear-gradient(90deg, #FFD700, #FFA500)' }}><span className="ts-chart-value-text">71.33{t('tokenSchedule.units.billion')}</span></div></div>
                 </div>
                 <div className="ts-chart-row">
                   <div className="ts-chart-label">Y20 🏆</div>
@@ -809,17 +806,18 @@ export default function TokenSchedule() {
                 <table>
                   <thead><tr><th>{t('tokenSchedule.table.year')}</th><th>{t('tokenSchedule.table.blockIssuance')}</th><th>{t('tokenSchedule.table.aiBurn')}</th><th>{t('tokenSchedule.table.netChange')}</th><th>{t('tokenSchedule.comparison.headers.burnToIssuance')}</th><th>{t('tokenSchedule.comparison.headers.cumulativeReduction')}</th><th>{t('tokenSchedule.comparison.headers.status')}</th></tr></thead>
                   <tbody>
-                    <tr><td>Y1</td><td>+2.60{t('tokenSchedule.units.billion')}</td><td>-5.60{t('tokenSchedule.units.billion')}</td><td>-3.00{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">215%</td><td>-3.00%</td><td>{t('tokenSchedule.comparison.status.earlyGrowth')}</td></tr>
-                    <tr><td>Y2</td><td>+2.00{t('tokenSchedule.units.billion')}</td><td>-5.10{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">255%</td><td>-6.10%</td><td>{t('tokenSchedule.comparison.status.acceleration')}</td></tr>
-                    <tr><td>Y3</td><td>+1.90{t('tokenSchedule.units.billion')}</td><td>-5.00{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">263%</td><td>-9.20%</td><td>{t('tokenSchedule.comparison.status.massAdoption')}</td></tr>
-                    <tr><td>Y4</td><td>+1.80{t('tokenSchedule.units.billion')}</td><td>-4.90{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">272%</td><td>-12.30%</td><td>{t('tokenSchedule.comparison.status.enterpriseIntegration')}</td></tr>
-                    <tr><td>Y5</td><td>+1.70{t('tokenSchedule.units.billion')}</td><td>-4.80{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">282%</td><td>-15.40%</td><td>{t('tokenSchedule.comparison.status.platformMaturity')}</td></tr>
-                    <tr style={{ background: 'rgba(255,215,0,0.05)' }}><td>Y6</td><td>+1.40{t('tokenSchedule.units.billion')}</td><td>-4.20{t('tokenSchedule.units.billion')}</td><td>-2.80{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-accent">300%</td><td>-18.20%</td><td>{t('tokenSchedule.comparison.status.firstHalving')}</td></tr>
-                    <tr><td>Y9</td><td>+0.90{t('tokenSchedule.units.billion')}</td><td>-3.60{t('tokenSchedule.units.billion')}</td><td>-2.70{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-accent">400%</td><td>-26.50%</td><td>{t('tokenSchedule.comparison.status.secondHalving')}</td></tr>
-                    <tr><td>Y10</td><td>+0.80{t('tokenSchedule.units.billion')}</td><td>-3.50{t('tokenSchedule.units.billion')}</td><td>-2.70{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-primary">438%</td><td>-29.20%</td><td>{t('tokenSchedule.comparison.status.tenYearMilestone')}</td></tr>
-                    <tr style={{ background: 'rgba(0,212,170,0.05)' }}><td>Y12</td><td>+0.65{t('tokenSchedule.units.billion')}</td><td>-0.65{t('tokenSchedule.units.billion')}</td><td>0</td><td className="ts-font-bold ts-text-secondary">100%</td><td>-29.90%</td><td>{t('tokenSchedule.comparison.status.perfectBalance')}</td></tr>
-                    <tr><td>Y20</td><td>+0.37{t('tokenSchedule.units.billion')}</td><td>-0.49{t('tokenSchedule.units.billion')}</td><td>-0.12{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-purple">132%</td><td>-30.60%</td><td>{t('tokenSchedule.comparison.status.visionComplete')}</td></tr>
-                    <tr className="ts-total-row"><td>{t('tokenSchedule.table.total')}</td><td>+19.75{t('tokenSchedule.units.billion')}</td><td>-50.35{t('tokenSchedule.units.billion')}</td><td>-30.60{t('tokenSchedule.units.billion')}</td><td>255%</td><td>-30.60%</td><td></td></tr>
+                    {/* v4.3 Section 2.2 정확한 수치 적용 */}
+                    <tr><td>Y1</td><td>+2.50{t('tokenSchedule.units.billion')}</td><td>-5.60{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">224%</td><td>-3.10%</td><td>{t('tokenSchedule.comparison.status.earlyGrowth')}</td></tr>
+                    <tr><td>Y2</td><td>+2.00{t('tokenSchedule.units.billion')}</td><td>-5.10{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">255%</td><td>-6.20%</td><td>{t('tokenSchedule.comparison.status.acceleration')}</td></tr>
+                    <tr><td>Y3</td><td>+1.90{t('tokenSchedule.units.billion')}</td><td>-5.00{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">263%</td><td>-9.30%</td><td>{t('tokenSchedule.comparison.status.massAdoption')}</td></tr>
+                    <tr><td>Y4</td><td>+1.80{t('tokenSchedule.units.billion')}</td><td>-4.90{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">272%</td><td>-12.40%</td><td>{t('tokenSchedule.comparison.status.enterpriseIntegration')}</td></tr>
+                    <tr><td>Y5</td><td>+1.70{t('tokenSchedule.units.billion')}</td><td>-4.80{t('tokenSchedule.units.billion')}</td><td>-3.10{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">282%</td><td>-15.50%</td><td>{t('tokenSchedule.comparison.status.platformMaturity')}</td></tr>
+                    <tr style={{ background: 'rgba(255,215,0,0.05)' }}><td>Y6 ⚡</td><td>+0.85{t('tokenSchedule.units.billion')}</td><td>-3.60{t('tokenSchedule.units.billion')}</td><td>-2.75{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-accent">424%</td><td>-18.25%</td><td>{t('tokenSchedule.comparison.status.firstHalving')}</td></tr>
+                    <tr><td>Y9 ⚡</td><td>+0.38{t('tokenSchedule.units.billion')}</td><td>-3.00{t('tokenSchedule.units.billion')}</td><td>-2.62{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-accent">789%</td><td>-25.92%</td><td>{t('tokenSchedule.comparison.status.secondHalving')}</td></tr>
+                    <tr><td>Y10</td><td>+0.35{t('tokenSchedule.units.billion')}</td><td>-2.80{t('tokenSchedule.units.billion')}</td><td>-2.45{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-primary">800%</td><td>-28.37%</td><td>{t('tokenSchedule.comparison.status.tenYearMilestone')}</td></tr>
+                    <tr style={{ background: 'rgba(0,212,170,0.05)' }}><td>Y12</td><td>+0.48{t('tokenSchedule.units.billion')}</td><td>-0.63{t('tokenSchedule.units.billion')}</td><td>-0.15{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-secondary">131%</td><td>-28.67%</td><td>{t('tokenSchedule.comparison.status.perfectBalance')}</td></tr>
+                    <tr><td>Y20 🏆</td><td>+0.37{t('tokenSchedule.units.billion')}</td><td>-0.49{t('tokenSchedule.units.billion')}</td><td>-0.92{t('tokenSchedule.units.billion')}</td><td className="ts-font-bold ts-text-purple">132%</td><td>-30.60%</td><td>{t('tokenSchedule.comparison.status.visionComplete')}</td></tr>
+                    <tr className="ts-total-row"><td>{t('tokenSchedule.table.total')}</td><td>+15.33{t('tokenSchedule.units.billion')}</td><td>-45.93{t('tokenSchedule.units.billion')}</td><td>-30.60{t('tokenSchedule.units.billion')}</td><td>300%</td><td>-30.60%</td><td></td></tr>
                   </tbody>
                 </table>
               </div>
@@ -835,11 +833,11 @@ export default function TokenSchedule() {
                 <div className="ts-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                   <div style={{ background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '16px', textAlign: 'center' }}>
                     <div style={{ color: 'var(--ts-text-muted)', fontSize: '0.9rem' }}>{t('tokenSchedule.finalSummary.cumulativeIssuance')}</div>
-                    <div className="ts-font-orbitron" style={{ fontSize: '1.5rem', color: 'var(--ts-primary)' }}>+19.75{t('tokenSchedule.units.billion')}</div>
+                    <div className="ts-font-orbitron" style={{ fontSize: '1.5rem', color: 'var(--ts-primary)' }}>+15.33{t('tokenSchedule.units.billion')}</div>
                   </div>
                   <div style={{ background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '16px', textAlign: 'center' }}>
                     <div style={{ color: 'var(--ts-text-muted)', fontSize: '0.9rem' }}>{t('tokenSchedule.finalSummary.cumulativeBurn')}</div>
-                    <div className="ts-font-orbitron" style={{ fontSize: '1.5rem', color: 'var(--ts-secondary)' }}>-50.35{t('tokenSchedule.units.billion')}</div>
+                    <div className="ts-font-orbitron" style={{ fontSize: '1.5rem', color: 'var(--ts-secondary)' }}>-45.93{t('tokenSchedule.units.billion')}</div>
                   </div>
                 </div>
                 <div style={{ marginTop: '20px', background: 'rgba(236, 72, 153, 0.1)', padding: '20px', borderRadius: '16px', textAlign: 'center', border: '1px solid rgba(236, 72, 153, 0.3)' }}>
@@ -860,7 +858,7 @@ export default function TokenSchedule() {
                   </div>
                   <div className="ts-flex ts-justify-between ts-border-b ts-pb-2">
                     <span style={{ color: 'var(--ts-text-muted)' }}>{t('tokenSchedule.documentInfo.version')}</span>
-                    <span className="ts-badge ts-bg-ocean">3.0.0 Final</span>
+                    <span className="ts-badge ts-bg-ocean">v4.3 Production</span>
                   </div>
                   <div className="ts-flex ts-justify-between ts-border-b ts-pb-2">
                     <span style={{ color: 'var(--ts-text-muted)' }}>{t('tokenSchedule.documentInfo.status')}</span>

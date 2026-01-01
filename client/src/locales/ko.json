@@ -30564,7 +30564,8 @@
       "team": "팀",
       "y1Schedule": "1년차 스케줄",
       "checklist": "체크리스트",
-      "calendar": "일정"
+      "calendar": "일정",
+      "foundation": "재단"
     },
     "hero": {
       "title": "토큰 배분 & 운영 가이드",
@@ -30615,7 +30616,8 @@
       "rewards": "블록 & 검증자 보상",
       "investors": "투자자",
       "ecosystem": "생태계",
-      "team": "팀 & 어드바이저"
+      "team": "팀 & 어드바이저",
+      "foundation": "재단 리저브"
     },
     "table": {
       "category": "카테고리",
@@ -30880,6 +30882,31 @@
     "footer": {
       "tagline": "탈중앙화 금융의 미래를 구축합니다",
       "disclaimer": "본 문서는 정보 제공 목적으로만 제공됩니다. 토큰 배분 일정은 시장 상황 및 규제 요건에 따라 변경될 수 있습니다."
+    },
+    "foundation": {
+      "title": "재단 리저브 (3%)",
+      "subtitle": "TBURN 생태계 운영 및 비상 자금",
+      "description": "재단 리저브는 TBURN 네트워크의 지속 가능한 운영과 비상 대비를 보장합니다.",
+      "operations": {
+        "title": "운영 (1.5%)",
+        "name": "재단 운영",
+        "purpose": "개발, 마케팅, 파트너십 등 운영 비용 충당",
+        "tge": "TGE 30%",
+        "vesting": "6개월 클리프 + 36개월 선형 베스팅",
+        "amount": "15억 TBURN"
+      },
+      "emergency": {
+        "title": "비상 (1.5%)",
+        "name": "비상 기금",
+        "purpose": "중요 네트워크 보안, 시장 안정화 및 예기치 않은 상황을 위해 예약",
+        "tge": "TGE 50%",
+        "vesting": "6개월 클리프 + 24개월 선형 베스팅",
+        "amount": "15억 TBURN"
+      },
+      "note": {
+        "title": "재단 투명성",
+        "desc": "모든 재단 자금은 멀티시그 지갑으로 관리되며 분기별 투명성 보고서가 공개됩니다."
+      }
     }
   }
 }
