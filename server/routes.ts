@@ -4958,7 +4958,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.get("/api/validators/:address", async (req, res) => {
     try {
       const address = req.params.address;
-      // Use the getValidatorDetails method to get extended validator info
+      
+      // First try to get from EnterpriseNode (same source as /api/validators list)
+      const enterpriseNode = getEnterpriseNode();
+      const allValidators = enterpriseNode.getValidators();
+      const validator = allValidators.find(v => v.address.toLowerCase() === address.toLowerCase());
+      
+      if (validator) {
+        res.json(validator);
+        return;
+      }
+      
+      // Fallback to database if not found in EnterpriseNode
       const validatorDetails = await storage.getValidatorDetails(address);
       res.json(validatorDetails);
     } catch (error) {
