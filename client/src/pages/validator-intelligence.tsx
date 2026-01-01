@@ -20,10 +20,6 @@ import { type ValidatorData } from "@/lib/validator-utils";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Filler, Tooltip);
 
-interface ValidatorApiResponse {
-  validator: ValidatorData;
-}
-
 const generateChartData = (points: number, baseValue: number, variance: number) => {
   return Array.from({ length: points }, () => Math.random() * variance + baseValue);
 };
@@ -63,14 +59,12 @@ export default function ValidatorIntelligence() {
   const validatorAddress = params.id || '';
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  const { data: validatorResponse, isLoading } = useQuery<ValidatorApiResponse>({
-    queryKey: ["/api/validators", validatorAddress],
+  const { data: validator, isLoading } = useQuery<ValidatorData>({
+    queryKey: [`/api/validators/${validatorAddress}`],
     enabled: !!validatorAddress,
     staleTime: 15000,
     refetchInterval: 30000,
   });
-
-  const validator = validatorResponse?.validator;
 
   const latencyChartData = useMemo(() => ({
     labels: Array.from({ length: 50 }, (_, i) => i),

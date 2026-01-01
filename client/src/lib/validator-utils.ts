@@ -57,17 +57,23 @@ export function transformValidator(validator: ValidatorData, totalStake: number)
   const locationParts = validator.location?.split(',') || ['Unknown'];
   const countryCode = getCountryCode(locationParts[locationParts.length - 1]?.trim() || '');
   
-  const name = validator.name || `Validator_${validator.id.slice(0, 6)}`;
+  const validatorId = validator.id || validator.address || 'unknown';
+  const name = validator.name || `Validator_${validatorId.slice(0, 6)}`;
   const initials = getInitials(name);
   
-  const isGenesis = name.toLowerCase().includes('genesis') || validator.id.startsWith('genesis');
+  const isGenesis = name.toLowerCase().includes('genesis') || validatorId.startsWith('genesis');
   
   const uptime = validator.uptime || 100;
   const performanceStatus = uptime >= 98 ? 'good' : uptime >= 95 ? 'warning' : 'bad';
   const delinquent = 100 - uptime;
   
+  const idHash = hashString(validatorId);
+  const nodes = (idHash % 30) + 5;
+  const privateNodes = ((idHash >> 8) % 10) + 1;
+  const privatePercent = ((idHash >> 16) % 50) + 10;
+  
   return {
-    id: validator.id,
+    id: validatorId,
     address: validator.address,
     name,
     shortAddr: shortenAddress(validator.address),
@@ -82,14 +88,14 @@ export function transformValidator(validator: ValidatorData, totalStake: number)
     performanceStatus,
     isGenesis,
     initials,
-    nodes: Math.floor(Math.random() * 30) + 5,
+    nodes,
     commission: validator.commission || 5,
     uptime,
     blocksProduced: validator.blocksProduced || 0,
     delegators: validator.totalDelegators || 0,
     bad: validator.slashingEvents || 0,
-    privateNodes: Math.floor(Math.random() * 10) + 1,
-    privatePercent: Math.floor(Math.random() * 50) + 10,
+    privateNodes,
+    privatePercent,
   };
 }
 
@@ -120,6 +126,16 @@ function getCountryCode(country: string): string {
     'AU': 'au', 'Australia': 'au',
   };
   return countryMap[country] || 'us';
+}
+
+function hashString(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash);
 }
 
 export function calculateInfrastructureStats(validators: ValidatorDisplayData[]) {
