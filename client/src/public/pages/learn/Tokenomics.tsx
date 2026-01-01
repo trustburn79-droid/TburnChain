@@ -25,7 +25,7 @@ export default function Tokenomics() {
     { percent: "20%", title: t('publicPages.learn.tokenomics.distribution.investors.title'), subtitle: t('publicPages.learn.tokenomics.distribution.investors.subtitle'), color: "#00ff9d" },
     { percent: "14%", title: t('publicPages.learn.tokenomics.distribution.ecosystem.title'), subtitle: t('publicPages.learn.tokenomics.distribution.ecosystem.subtitle'), color: "#ffb800" },
     { percent: "11%", title: t('publicPages.learn.tokenomics.distribution.team.title'), subtitle: t('publicPages.learn.tokenomics.distribution.team.subtitle'), color: "#ff0055" },
-    { percent: "3%", title: t('publicPages.learn.tokenomics.distribution.foundation.title', { defaultValue: 'Foundation Reserve' }), subtitle: t('publicPages.learn.tokenomics.distribution.foundation.subtitle', { defaultValue: 'Operations & Emergency' }), color: "#60A5FA" },
+    { percent: "3%", title: t('publicPages.learn.tokenomics.distribution.foundationReserve.title'), subtitle: t('publicPages.learn.tokenomics.distribution.foundationReserve.subtitle'), color: "#60A5FA" },
   ];
 
   const burnMechanisms = [
