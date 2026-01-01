@@ -1428,19 +1428,24 @@ export const TGE_TOTAL_UNLOCK = 10.20; // 억 TBURN (전체 공급의 10.20%)
 export const TGE_ACTUAL_CIRCULATION = 3.00; // 억 TBURN (LP/스테이킹 제외 실제 유통량)
 
 /**
- * 제네시스 검증자 설정 - v4.0
+ * 제네시스 검증자 설정 - v4.3
+ * 1,600개 검증자 (재단 팀 풀) x 64 샤드 = ~210,000 TPS 실현
  */
 export const GENESIS_VALIDATOR_CONFIG = {
-  totalValidators: 125,
-  stakePerValidator: 1000000, // 1,000,000 TBURN (100만)
+  totalValidators: 1600,
+  shardsCount: 64,
+  validatorsPerShard: 25,
+  stakePerValidator: 781250, // 1.25억 / 1,600 = 78.125만 TBURN
   totalTeamStake: 125000000, // 125,000,000 TBURN (1.25억)
-  source: '코어 팀 배분 (8억) 중 일부',
+  source: '코어 팀 배분 (7억) 중 일부 (v4.3 조정)',
   unbondingPeriod: 21, // 일
   slashingDowntime: 1, // 사건당 1%
   slashingDoubleSign: 5, // 5% + 영구 감옥
   minSelfDelegation: 10, // 10%
   commissionRate: 10, // 10% (5-20% 조정 가능)
-  commissionRateRange: { min: 5, max: 20 }
+  commissionRateRange: { min: 5, max: 20 },
+  targetTPS: 210000, // ~210,000 TPS
+  blockTime: 0.5 // 초
 };
 
 /**
@@ -1656,8 +1661,8 @@ export const VESTING_CATEGORIES: VestingCategory[] = [
 ];
 
 /**
- * Year-1 월별 종합 언락표 (억 TBURN) - v4.0
- * TGE부터 M12까지 16개 카테고리별 월별 배분
+ * Year-1 월별 종합 언락표 (억 TBURN) - v4.3
+ * TGE부터 M12까지 19개 카테고리별 월별 배분 (투자자 TGE 및 재단 예비금 포함)
  */
 export interface MonthlyUnlockData {
   category: string;
@@ -1686,34 +1691,39 @@ export const Y1_MONTHLY_UNLOCKS: MonthlyUnlockData[] = [
   { category: '이벤트', categoryId: 'events', tge: 0.400, m1: 0.150, m2: 0.150, m3: 0.150, m4: 0.150, m5: 0.150, m6: 0.150, m7: 0.150, m8: 0.150, m9: 0.150, m10: 0.150, m11: 0.150, m12: 0.150, y1Total: 2.200, note: 'TGE 10%+24M 선형' },
   { category: '커뮤니티활동', categoryId: 'community', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.083, m5: 0.083, m6: 0.083, m7: 0.083, m8: 0.083, m9: 0.083, m10: 0.083, m11: 0.083, m12: 0.083, y1Total: 0.750, note: '3M 클리프+36M 선형' },
   { category: 'DAO 트레저리', categoryId: 'dao', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.000, m11: 0.000, m12: 0.000, y1Total: 0.000, note: '12M 클리프' },
-  // 보상 (23%)
+  // 보상 (22%) - v4.3
   { category: '블록보상', categoryId: 'blockReward', tge: 0.000, m1: 0.217, m2: 0.217, m3: 0.217, m4: 0.217, m5: 0.217, m6: 0.217, m7: 0.217, m8: 0.217, m9: 0.217, m10: 0.217, m11: 0.217, m12: 0.217, y1Total: 2.600, note: '블록 생성 즉시' },
-  { category: '검증자 인센티브', categoryId: 'validatorIncentive', tge: 0.000, m1: 0.133, m2: 0.133, m3: 0.133, m4: 0.133, m5: 0.133, m6: 0.133, m7: 0.133, m8: 0.133, m9: 0.133, m10: 0.133, m11: 0.133, m12: 0.133, y1Total: 1.600, note: '성과 기반 월간' },
-  // 투자자 (20%) - 순수 클리프 모델 v4.2 (TGE 0%)
+  { category: '검증자 인센티브', categoryId: 'validatorIncentive', tge: 0.000, m1: 0.125, m2: 0.125, m3: 0.125, m4: 0.125, m5: 0.125, m6: 0.125, m7: 0.125, m8: 0.125, m9: 0.125, m10: 0.125, m11: 0.125, m12: 0.125, y1Total: 1.500, note: '성과 기반 월간' },
+  // 투자자 (20%) - v4.3 업계 표준 TGE 적용
   { category: '시드 라운드', categoryId: 'seed', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.000, m11: 0.000, m12: 0.000, y1Total: 0.000, note: 'TGE 0%+12M 클리프' },
-  { category: '프라이빗', categoryId: 'private', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.500, m11: 0.500, m12: 0.500, y1Total: 1.500, note: 'TGE 0%+9M 클리프+18M 선형' },
-  { category: '퍼블릭 세일', categoryId: 'public', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.667, m5: 0.667, m6: 0.667, m7: 0.667, m8: 0.667, m9: 0.667, m10: 0.667, m11: 0.667, m12: 0.667, y1Total: 6.000, note: 'TGE 0%+3M 클리프+9M 선형' },
-  // 생태계 (15%)
-  { category: '생태계 펀드', categoryId: 'ecosystem', tge: 0.000, m1: 0.133, m2: 0.133, m3: 0.133, m4: 0.133, m5: 0.133, m6: 0.133, m7: 0.133, m8: 0.133, m9: 0.133, m10: 0.133, m11: 0.133, m12: 0.133, y1Total: 1.600, note: '그랜트 기반' },
+  { category: '프라이빗', categoryId: 'private', tge: 0.450, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.500, m11: 0.500, m12: 0.500, y1Total: 1.950, note: 'TGE 5%+9M 클리프+18M 선형' },
+  { category: '퍼블릭 세일', categoryId: 'public', tge: 0.900, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.567, m5: 0.567, m6: 0.567, m7: 0.567, m8: 0.567, m9: 0.567, m10: 0.567, m11: 0.567, m12: 0.567, y1Total: 6.000, note: 'TGE 15%+3M 클리프+9M 선형' },
+  // 생태계 (14%) - v4.3
+  { category: '생태계 펀드', categoryId: 'ecosystem', tge: 0.000, m1: 0.117, m2: 0.117, m3: 0.117, m4: 0.117, m5: 0.117, m6: 0.117, m7: 0.117, m8: 0.117, m9: 0.117, m10: 0.117, m11: 0.117, m12: 0.117, y1Total: 1.400, note: '그랜트 기반' },
   { category: '파트너십', categoryId: 'partnership', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.111, m8: 0.111, m9: 0.111, m10: 0.111, m11: 0.111, m12: 0.111, y1Total: 0.667, note: '6M 클리프+36M 선형' },
   { category: '마케팅', categoryId: 'marketing', tge: 0.450, m1: 0.106, m2: 0.106, m3: 0.106, m4: 0.106, m5: 0.106, m6: 0.106, m7: 0.106, m8: 0.106, m9: 0.106, m10: 0.106, m11: 0.106, m12: 0.106, y1Total: 1.725, note: 'TGE 15%+24M 선형' },
-  // 팀 (12%)
+  // 팀 (11%) - v4.3
   { category: '코어 팀', categoryId: 'coreTeam', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.000, m11: 0.000, m12: 0.000, y1Total: 0.000, note: '18M 클리프' },
   { category: '어드바이저', categoryId: 'advisor', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.000, m11: 0.000, m12: 0.000, y1Total: 0.000, note: '12M 클리프' },
-  { category: '전략 파트너', categoryId: 'strategicPartner', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.083, m8: 0.083, m9: 0.083, m10: 0.083, m11: 0.083, m12: 0.083, y1Total: 0.500, note: '6M 클리프+24M 선형' }
+  { category: '전략 파트너', categoryId: 'strategicPartner', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.083, m8: 0.083, m9: 0.083, m10: 0.083, m11: 0.083, m12: 0.083, y1Total: 0.500, note: '6M 클리프+24M 선형' },
+  // 재단 운영 예비금 (3%) - v4.3 신설
+  { category: '운영 예비금', categoryId: 'foundationOps', tge: 0.450, m1: 0.044, m2: 0.044, m3: 0.044, m4: 0.044, m5: 0.044, m6: 0.044, m7: 0.044, m8: 0.044, m9: 0.044, m10: 0.044, m11: 0.044, m12: 0.044, y1Total: 1.088, note: 'TGE 30%+24M 선형' },
+  { category: '긴급 예비금', categoryId: 'foundationEmergency', tge: 0.500, m1: 0.014, m2: 0.014, m3: 0.014, m4: 0.014, m5: 0.014, m6: 0.014, m7: 0.014, m8: 0.014, m9: 0.014, m10: 0.014, m11: 0.014, m12: 0.014, y1Total: 0.667, note: 'TGE 50%+36M 선형' },
+  { category: '전략 투자', categoryId: 'strategicInvestment', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.014, m8: 0.014, m9: 0.014, m10: 0.014, m11: 0.014, m12: 0.014, y1Total: 0.083, note: '6M 클리프+36M 선형' }
 ];
 
 /**
- * 월별 합계 및 누적 (억 TBURN) - v4.0
+ * 월별 합계 및 누적 (억 TBURN) - v4.3
+ * 투자자 TGE 1.35억 + 재단 예비금 TGE 0.95억 반영
  */
 export const Y1_MONTHLY_TOTALS = {
-  monthly: { tge: 2.200, m1: 1.758, m2: 1.758, m3: 1.758, m4: 2.509, m5: 2.509, m6: 2.509, m7: 2.703, m8: 2.703, m9: 2.703, m10: 3.120, m11: 3.120, m12: 3.120 },
-  cumulative: { tge: 2.200, m1: 3.958, m2: 5.717, m3: 7.475, m4: 9.984, m5: 12.493, m6: 15.002, m7: 17.705, m8: 20.408, m9: 23.111, m10: 26.231, m11: 29.351, m12: 32.471 },
-  y1Total: 32.471 // 억 TBURN - 순수 클리프 모델 v4.2 (투자자 TGE 0%)
+  monthly: { tge: 4.500, m1: 1.792, m2: 1.792, m3: 1.792, m4: 2.323, m5: 2.323, m6: 2.323, m7: 2.573, m8: 2.573, m9: 2.573, m10: 2.973, m11: 2.973, m12: 2.973 },
+  cumulative: { tge: 4.500, m1: 6.292, m2: 8.084, m3: 9.876, m4: 12.199, m5: 14.522, m6: 16.845, m7: 19.418, m8: 21.991, m9: 24.564, m10: 27.537, m11: 30.510, m12: 33.483 },
+  y1Total: 33.483 // 억 TBURN - v4.3 (투자자 TGE 1.35억 + 재단 예비금 TGE 0.95억 포함)
 };
 
 /**
- * 락업 조건 및 덤핑 방지 메커니즘 - v4.0
+ * 락업 조건 및 덤핑 방지 메커니즘 - v4.3
  */
 export const LOCKUP_CONDITIONS = {
   dexLiquidity: {
@@ -1726,15 +1736,18 @@ export const LOCKUP_CONDITIONS = {
     initialPrice: 0.50
   },
   genesisValidators: {
-    validatorCount: 125,
-    stakePerValidator: 1000000, // TBURN
+    validatorCount: 1600, // v4.3: 125 → 1,600
+    shardsCount: 64,
+    validatorsPerShard: 25,
+    stakePerValidator: 781250, // 1.25억 / 1,600 = 78.125만 TBURN
     totalStake: 125000000, // TBURN (1.25억)
-    source: '코어 팀 배분 (8억) 중 사용',
+    source: '코어 팀 배분 (7억) 중 사용 (v4.3 조정)',
     unbondingPeriod: 21, // 일
     slashingDowntime: '1%', // 사건당
     slashingDoubleSign: '5% + 영구 감옥 (Jailing)',
     minSelfDelegation: '10%',
-    commissionRate: '10% (5-20% 조정 가능)'
+    commissionRate: '10% (5-20% 조정 가능)',
+    targetTPS: '~210,000 TPS'
   },
   dumpingPrevention: {
     dailySellLimit: '보유량의 5% / 일 (에어드랍 수령자)',
