@@ -97,10 +97,12 @@ export interface TokenomicsSummary {
 }
 
 /**
- * Complete tokenomics data based on "완전 시뮬레이션 표 (최종 조정)"
+ * v4.3 문서 사양 20년 토큰노믹스 스케줄
+ * 문서 Section 2.2 연도별 상세 스케줄 참조
  * All values in 억 (100 million) units
  */
 export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
+  // Y0 - 메인넷 런칭 (2025.12.22)
   {
     id: 'Y0',
     year: 0,
@@ -112,122 +114,93 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     netChange: 0,
     endSupply: 100.00,
     changeRate: 0,
-    note: 'Genesis',
+    note: '메인넷 런칭',
     noteKey: 'tokenomics.notes.genesis'
   },
+  // Phase 1: 성장기 (Y1-Y5) - 100억 → 84.50억 (-15.5%)
   {
-    id: 'Y1-Q1',
+    id: 'Y1',
     year: 1,
-    quarter: 'Q1',
-    periodType: 'quarter',
+    periodType: 'year',
     phase: Phase.GROWTH,
     startSupply: 100.00,
-    blockEmission: 0.80,
-    aiBurn: 1.00,
-    netChange: -0.20,
-    endSupply: 99.80,
-    changeRate: -0.20,
-    note: '초기 유저 유치',
-    noteKey: 'tokenomics.notes.y1q1'
-  },
-  {
-    id: 'Y1-Q2',
-    year: 1,
-    quarter: 'Q2',
-    periodType: 'quarter',
-    phase: Phase.GROWTH,
-    startSupply: 99.80,
-    blockEmission: 0.60,
-    aiBurn: 1.40,
-    netChange: -0.80,
-    endSupply: 99.00,
-    changeRate: -0.80,
-    note: '성장 가속',
-    noteKey: 'tokenomics.notes.y1q2'
-  },
-  {
-    id: 'Y1-H2',
-    year: 1,
-    quarter: 'H2',
-    periodType: 'half',
-    phase: Phase.GROWTH,
-    startSupply: 99.00,
-    blockEmission: 1.20,
-    aiBurn: 3.20,
-    netChange: -2.00,
-    endSupply: 97.00,
-    changeRate: -2.02,
-    note: '생태계 확장',
-    noteKey: 'tokenomics.notes.y1h2'
+    blockEmission: 2.50,
+    aiBurn: 5.60,
+    netChange: -3.10,
+    endSupply: 96.90,
+    changeRate: -3.10,
+    note: '거래소 상장, AI 서비스 런칭',
+    noteKey: 'tokenomics.notes.y1'
   },
   {
     id: 'Y2',
     year: 2,
     periodType: 'year',
-    phase: Phase.DEFLATION,
-    startSupply: 97.00,
+    phase: Phase.GROWTH,
+    startSupply: 96.90,
     blockEmission: 2.00,
     aiBurn: 5.10,
     netChange: -3.10,
-    endSupply: 93.90,
+    endSupply: 93.80,
     changeRate: -3.20,
-    note: '지속 성장',
+    note: '글로벌 확장, AI 에이전트',
     noteKey: 'tokenomics.notes.y2'
   },
   {
     id: 'Y3',
     year: 3,
     periodType: 'year',
-    phase: Phase.DEFLATION,
-    startSupply: 93.90,
+    phase: Phase.GROWTH,
+    startSupply: 93.80,
     blockEmission: 1.90,
     aiBurn: 5.00,
     netChange: -3.10,
-    endSupply: 90.80,
+    endSupply: 90.70,
     changeRate: -3.30,
-    note: '대량 채택',
+    note: '대량 채택, 업계 표준',
     noteKey: 'tokenomics.notes.y3'
   },
   {
     id: 'Y4',
     year: 4,
     periodType: 'year',
-    phase: Phase.DEFLATION,
-    startSupply: 90.80,
+    phase: Phase.GROWTH,
+    startSupply: 90.70,
     blockEmission: 1.80,
     aiBurn: 4.90,
     netChange: -3.10,
-    endSupply: 87.70,
-    changeRate: -3.41,
-    note: '기업 통합',
+    endSupply: 87.60,
+    changeRate: -3.42,
+    note: '기업 통합, Fortune 500',
     noteKey: 'tokenomics.notes.y4'
   },
   {
     id: 'Y5',
     year: 5,
     periodType: 'year',
-    phase: Phase.DEFLATION,
-    startSupply: 87.70,
+    phase: Phase.GROWTH,
+    startSupply: 87.60,
     blockEmission: 1.70,
     aiBurn: 4.80,
     netChange: -3.10,
-    endSupply: 84.60,
-    changeRate: -3.53,
-    note: '플랫폼 성숙',
+    endSupply: 84.50,
+    changeRate: -3.54,
+    note: '플랫폼 성숙, 1차 반감기 준비',
     noteKey: 'tokenomics.notes.y5'
   },
+  // Phase 2: 디플레이션기 (Y6-Y10) - 84.50억 → 71.63억 (-15.2%)
   {
     id: 'Y6',
     year: 6,
     periodType: 'year',
     phase: Phase.DEFLATION,
-    startSupply: 84.60,
-    blockEmission: 1.40,
-    aiBurn: 4.20,
-    netChange: -2.80,
-    endSupply: 81.80,
-    changeRate: -3.31,
-    note: '첫 반감기',
+    startSupply: 84.50,
+    blockEmission: 0.85,
+    aiBurn: 3.60,
+    netChange: -2.75,
+    endSupply: 81.75,
+    changeRate: -3.25,
+    note: '⚡ 1차 반감기 (50% 감소)',
     noteKey: 'tokenomics.notes.y6'
   },
   {
@@ -235,13 +208,13 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 7,
     periodType: 'year',
     phase: Phase.DEFLATION,
-    startSupply: 81.80,
-    blockEmission: 1.20,
-    aiBurn: 4.00,
-    netChange: -2.80,
-    endSupply: 79.00,
-    changeRate: -3.42,
-    note: '안정화',
+    startSupply: 81.75,
+    blockEmission: 0.80,
+    aiBurn: 3.40,
+    netChange: -2.60,
+    endSupply: 79.15,
+    changeRate: -3.18,
+    note: '디플레이션 가속',
     noteKey: 'tokenomics.notes.y7'
   },
   {
@@ -249,13 +222,13 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 8,
     periodType: 'year',
     phase: Phase.DEFLATION,
-    startSupply: 79.00,
-    blockEmission: 1.00,
-    aiBurn: 3.80,
-    netChange: -2.80,
-    endSupply: 76.20,
-    changeRate: -3.54,
-    note: '기관급',
+    startSupply: 79.15,
+    blockEmission: 0.75,
+    aiBurn: 3.20,
+    netChange: -2.45,
+    endSupply: 76.70,
+    changeRate: -3.09,
+    note: 'AI 생태계 확장',
     noteKey: 'tokenomics.notes.y8'
   },
   {
@@ -263,13 +236,13 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 9,
     periodType: 'year',
     phase: Phase.DEFLATION,
-    startSupply: 76.20,
-    blockEmission: 0.90,
-    aiBurn: 3.60,
-    netChange: -2.70,
-    endSupply: 73.50,
-    changeRate: -3.54,
-    note: '두 번째 반감',
+    startSupply: 76.70,
+    blockEmission: 0.38,
+    aiBurn: 3.00,
+    netChange: -2.62,
+    endSupply: 74.08,
+    changeRate: -3.42,
+    note: '⚡ 2차 반감기 (75% 감소)',
     noteKey: 'tokenomics.notes.y9'
   },
   {
@@ -277,27 +250,28 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 10,
     periodType: 'year',
     phase: Phase.DEFLATION,
-    startSupply: 73.50,
-    blockEmission: 0.80,
-    aiBurn: 3.50,
-    netChange: -2.70,
-    endSupply: 70.80,
-    changeRate: -3.67,
-    note: '10년 달성',
+    startSupply: 74.08,
+    blockEmission: 0.35,
+    aiBurn: 2.80,
+    netChange: -2.45,
+    endSupply: 71.63,
+    changeRate: -3.31,
+    note: 'Phase 2 완료',
     noteKey: 'tokenomics.notes.y10'
   },
+  // Phase 3: 균형기 (Y11-Y15) - 71.63억 → 70.88억 (-1.0%)
   {
     id: 'Y11',
     year: 11,
     periodType: 'year',
     phase: Phase.EQUILIBRIUM,
-    startSupply: 70.80,
-    blockEmission: 0.70,
-    aiBurn: 1.40,
-    netChange: -0.70,
-    endSupply: 70.10,
-    changeRate: -0.99,
-    note: '균형 시작',
+    startSupply: 71.63,
+    blockEmission: 0.50,
+    aiBurn: 0.65,
+    netChange: -0.15,
+    endSupply: 71.48,
+    changeRate: -0.21,
+    note: '균형 단계 진입',
     noteKey: 'tokenomics.notes.y11'
   },
   {
@@ -305,13 +279,13 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 12,
     periodType: 'year',
     phase: Phase.EQUILIBRIUM,
-    startSupply: 70.10,
-    blockEmission: 0.65,
-    aiBurn: 0.65,
-    netChange: 0,
-    endSupply: 70.10,
-    changeRate: 0,
-    note: '완전 균형',
+    startSupply: 71.48,
+    blockEmission: 0.48,
+    aiBurn: 0.63,
+    netChange: -0.15,
+    endSupply: 71.33,
+    changeRate: -0.21,
+    note: '안정화 유지',
     noteKey: 'tokenomics.notes.y12'
   },
   {
@@ -319,13 +293,13 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 13,
     periodType: 'year',
     phase: Phase.EQUILIBRIUM,
-    startSupply: 70.10,
-    blockEmission: 0.60,
-    aiBurn: 0.60,
-    netChange: 0,
-    endSupply: 70.10,
-    changeRate: 0,
-    note: '안정 상태',
+    startSupply: 71.33,
+    blockEmission: 0.46,
+    aiBurn: 0.61,
+    netChange: -0.15,
+    endSupply: 71.18,
+    changeRate: -0.21,
+    note: '균형 유지',
     noteKey: 'tokenomics.notes.y13'
   },
   {
@@ -333,13 +307,13 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 14,
     periodType: 'year',
     phase: Phase.EQUILIBRIUM,
-    startSupply: 70.10,
-    blockEmission: 0.55,
-    aiBurn: 0.55,
-    netChange: 0,
-    endSupply: 70.10,
-    changeRate: 0,
-    note: '예측 가능',
+    startSupply: 71.18,
+    blockEmission: 0.44,
+    aiBurn: 0.59,
+    netChange: -0.15,
+    endSupply: 71.03,
+    changeRate: -0.21,
+    note: '성숙 단계',
     noteKey: 'tokenomics.notes.y14'
   },
   {
@@ -347,27 +321,28 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 15,
     periodType: 'year',
     phase: Phase.EQUILIBRIUM,
-    startSupply: 70.10,
-    blockEmission: 0.50,
-    aiBurn: 0.50,
-    netChange: 0,
-    endSupply: 70.10,
-    changeRate: 0,
-    note: '균형 종료',
+    startSupply: 71.03,
+    blockEmission: 0.42,
+    aiBurn: 0.57,
+    netChange: -0.15,
+    endSupply: 70.88,
+    changeRate: -0.21,
+    note: 'Phase 3 완료',
     noteKey: 'tokenomics.notes.y15'
   },
+  // Phase 4: 최적화기 (Y16-Y20) - 70.88억 → 69.40억 (-2.1%)
   {
     id: 'Y16',
     year: 16,
     periodType: 'year',
     phase: Phase.OPTIMIZATION,
-    startSupply: 70.10,
+    startSupply: 70.88,
     blockEmission: 0.45,
-    aiBurn: 0.61,
-    netChange: -0.16,
-    endSupply: 69.94,
-    changeRate: -0.23,
-    note: '미세 조정',
+    aiBurn: 0.59,
+    netChange: -0.14,
+    endSupply: 70.74,
+    changeRate: -0.20,
+    note: '최적화 단계',
     noteKey: 'tokenomics.notes.y16'
   },
   {
@@ -375,13 +350,13 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 17,
     periodType: 'year',
     phase: Phase.OPTIMIZATION,
-    startSupply: 69.94,
+    startSupply: 70.74,
     blockEmission: 0.43,
     aiBurn: 0.57,
     netChange: -0.14,
-    endSupply: 69.80,
+    endSupply: 70.60,
     changeRate: -0.20,
-    note: '정밀 관리',
+    note: '미세 조정',
     noteKey: 'tokenomics.notes.y17'
   },
   {
@@ -389,11 +364,11 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 18,
     periodType: 'year',
     phase: Phase.OPTIMIZATION,
-    startSupply: 69.80,
+    startSupply: 70.60,
     blockEmission: 0.41,
     aiBurn: 0.55,
     netChange: -0.14,
-    endSupply: 69.66,
+    endSupply: 70.46,
     changeRate: -0.20,
     note: '성숙 단계',
     noteKey: 'tokenomics.notes.y18'
@@ -403,11 +378,11 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 19,
     periodType: 'year',
     phase: Phase.OPTIMIZATION,
-    startSupply: 69.66,
+    startSupply: 70.46,
     blockEmission: 0.39,
     aiBurn: 0.53,
     netChange: -0.14,
-    endSupply: 69.52,
+    endSupply: 70.32,
     changeRate: -0.20,
     note: '탁월함',
     noteKey: 'tokenomics.notes.y19'
@@ -417,42 +392,42 @@ export const TOKENOMICS_DATA: TokenomicsPeriod[] = [
     year: 20,
     periodType: 'year',
     phase: Phase.OPTIMIZATION,
-    startSupply: 69.52,
+    startSupply: 70.32,
     blockEmission: 0.37,
     aiBurn: 0.49,
     netChange: -0.12,
     endSupply: 69.40,
     changeRate: -0.17,
-    note: '비전 완성',
+    note: '🏆 20년 비전 완성!',
     noteKey: 'tokenomics.notes.y20'
   }
 ];
 
 /**
- * Price forecast data based on v2.1 specification
- * All prices in USD, market cap in 억 달러
+ * v4.3 문서 사양 기준 가격 예측 데이터
+ * Supply는 TOKENOMICS_DATA의 endSupply와 일치
  */
 export const PRICE_FORECAST_DATA: PriceForecast[] = [
   { year: 0, supply: 100.00, conservative: 0.50, conservativeGrowth: 0, neutral: 0.50, neutralGrowth: 0, optimistic: 0.50, optimisticGrowth: 0, marketCapNeutral: 50 },
-  { year: 1, supply: 97.00, conservative: 0.85, conservativeGrowth: 70, neutral: 1.25, neutralGrowth: 150, optimistic: 2.50, optimisticGrowth: 400, marketCapNeutral: 121 },
-  { year: 2, supply: 93.90, conservative: 0.98, conservativeGrowth: 15, neutral: 1.56, neutralGrowth: 25, optimistic: 3.50, optimisticGrowth: 40, marketCapNeutral: 146 },
-  { year: 3, supply: 90.80, conservative: 1.13, conservativeGrowth: 15, neutral: 1.95, neutralGrowth: 25, optimistic: 4.90, optimisticGrowth: 40, marketCapNeutral: 177 },
-  { year: 4, supply: 87.70, conservative: 1.30, conservativeGrowth: 15, neutral: 2.44, neutralGrowth: 25, optimistic: 6.86, optimisticGrowth: 40, marketCapNeutral: 214 },
-  { year: 5, supply: 84.60, conservative: 1.49, conservativeGrowth: 15, neutral: 3.05, neutralGrowth: 25, optimistic: 9.60, optimisticGrowth: 40, marketCapNeutral: 258 },
-  { year: 6, supply: 81.80, conservative: 1.67, conservativeGrowth: 12, neutral: 3.66, neutralGrowth: 20, optimistic: 12.48, optimisticGrowth: 30, marketCapNeutral: 299 },
-  { year: 7, supply: 79.00, conservative: 1.87, conservativeGrowth: 12, neutral: 4.39, neutralGrowth: 20, optimistic: 16.22, optimisticGrowth: 30, marketCapNeutral: 347 },
-  { year: 8, supply: 76.20, conservative: 2.09, conservativeGrowth: 12, neutral: 5.27, neutralGrowth: 20, optimistic: 21.09, optimisticGrowth: 30, marketCapNeutral: 402 },
-  { year: 9, supply: 73.50, conservative: 2.34, conservativeGrowth: 12, neutral: 6.32, neutralGrowth: 20, optimistic: 27.42, optimisticGrowth: 30, marketCapNeutral: 465 },
-  { year: 10, supply: 70.80, conservative: 2.62, conservativeGrowth: 12, neutral: 7.58, neutralGrowth: 20, optimistic: 35.65, optimisticGrowth: 30, marketCapNeutral: 537 },
-  { year: 11, supply: 70.10, conservative: 2.75, conservativeGrowth: 5, neutral: 8.34, neutralGrowth: 10, optimistic: 40.99, optimisticGrowth: 15, marketCapNeutral: 585 },
-  { year: 12, supply: 70.10, conservative: 2.89, conservativeGrowth: 5, neutral: 9.17, neutralGrowth: 10, optimistic: 47.14, optimisticGrowth: 15, marketCapNeutral: 643 },
-  { year: 13, supply: 70.10, conservative: 3.03, conservativeGrowth: 5, neutral: 10.09, neutralGrowth: 10, optimistic: 54.21, optimisticGrowth: 15, marketCapNeutral: 707 },
-  { year: 14, supply: 70.10, conservative: 3.18, conservativeGrowth: 5, neutral: 11.10, neutralGrowth: 10, optimistic: 62.34, optimisticGrowth: 15, marketCapNeutral: 778 },
-  { year: 15, supply: 70.10, conservative: 3.34, conservativeGrowth: 5, neutral: 12.21, neutralGrowth: 10, optimistic: 71.69, optimisticGrowth: 15, marketCapNeutral: 856 },
-  { year: 16, supply: 69.94, conservative: 3.44, conservativeGrowth: 3, neutral: 12.82, neutralGrowth: 5, optimistic: 77.43, optimisticGrowth: 8, marketCapNeutral: 897 },
-  { year: 17, supply: 69.80, conservative: 3.54, conservativeGrowth: 3, neutral: 13.46, neutralGrowth: 5, optimistic: 83.62, optimisticGrowth: 8, marketCapNeutral: 940 },
-  { year: 18, supply: 69.66, conservative: 3.65, conservativeGrowth: 3, neutral: 14.13, neutralGrowth: 5, optimistic: 90.31, optimisticGrowth: 8, marketCapNeutral: 984 },
-  { year: 19, supply: 69.52, conservative: 3.76, conservativeGrowth: 3, neutral: 14.84, neutralGrowth: 5, optimistic: 97.53, optimisticGrowth: 8, marketCapNeutral: 1032 },
+  { year: 1, supply: 96.90, conservative: 0.85, conservativeGrowth: 70, neutral: 1.25, neutralGrowth: 150, optimistic: 2.50, optimisticGrowth: 400, marketCapNeutral: 121 },
+  { year: 2, supply: 93.80, conservative: 0.98, conservativeGrowth: 15, neutral: 1.56, neutralGrowth: 25, optimistic: 3.50, optimisticGrowth: 40, marketCapNeutral: 146 },
+  { year: 3, supply: 90.70, conservative: 1.13, conservativeGrowth: 15, neutral: 1.95, neutralGrowth: 25, optimistic: 4.90, optimisticGrowth: 40, marketCapNeutral: 177 },
+  { year: 4, supply: 87.60, conservative: 1.30, conservativeGrowth: 15, neutral: 2.44, neutralGrowth: 25, optimistic: 6.86, optimisticGrowth: 40, marketCapNeutral: 214 },
+  { year: 5, supply: 84.50, conservative: 1.49, conservativeGrowth: 15, neutral: 3.05, neutralGrowth: 25, optimistic: 9.60, optimisticGrowth: 40, marketCapNeutral: 258 },
+  { year: 6, supply: 81.75, conservative: 1.67, conservativeGrowth: 12, neutral: 3.66, neutralGrowth: 20, optimistic: 12.48, optimisticGrowth: 30, marketCapNeutral: 299 },
+  { year: 7, supply: 79.15, conservative: 1.87, conservativeGrowth: 12, neutral: 4.39, neutralGrowth: 20, optimistic: 16.22, optimisticGrowth: 30, marketCapNeutral: 347 },
+  { year: 8, supply: 76.70, conservative: 2.09, conservativeGrowth: 12, neutral: 5.27, neutralGrowth: 20, optimistic: 21.09, optimisticGrowth: 30, marketCapNeutral: 402 },
+  { year: 9, supply: 74.08, conservative: 2.34, conservativeGrowth: 12, neutral: 6.32, neutralGrowth: 20, optimistic: 27.42, optimisticGrowth: 30, marketCapNeutral: 465 },
+  { year: 10, supply: 71.63, conservative: 2.62, conservativeGrowth: 12, neutral: 7.58, neutralGrowth: 20, optimistic: 35.65, optimisticGrowth: 30, marketCapNeutral: 537 },
+  { year: 11, supply: 71.48, conservative: 2.75, conservativeGrowth: 5, neutral: 8.34, neutralGrowth: 10, optimistic: 40.99, optimisticGrowth: 15, marketCapNeutral: 585 },
+  { year: 12, supply: 71.33, conservative: 2.89, conservativeGrowth: 5, neutral: 9.17, neutralGrowth: 10, optimistic: 47.14, optimisticGrowth: 15, marketCapNeutral: 643 },
+  { year: 13, supply: 71.18, conservative: 3.03, conservativeGrowth: 5, neutral: 10.09, neutralGrowth: 10, optimistic: 54.21, optimisticGrowth: 15, marketCapNeutral: 707 },
+  { year: 14, supply: 71.03, conservative: 3.18, conservativeGrowth: 5, neutral: 11.10, neutralGrowth: 10, optimistic: 62.34, optimisticGrowth: 15, marketCapNeutral: 778 },
+  { year: 15, supply: 70.88, conservative: 3.34, conservativeGrowth: 5, neutral: 12.21, neutralGrowth: 10, optimistic: 71.69, optimisticGrowth: 15, marketCapNeutral: 856 },
+  { year: 16, supply: 70.74, conservative: 3.44, conservativeGrowth: 3, neutral: 12.82, neutralGrowth: 5, optimistic: 77.43, optimisticGrowth: 8, marketCapNeutral: 897 },
+  { year: 17, supply: 70.60, conservative: 3.54, conservativeGrowth: 3, neutral: 13.46, neutralGrowth: 5, optimistic: 83.62, optimisticGrowth: 8, marketCapNeutral: 940 },
+  { year: 18, supply: 70.46, conservative: 3.65, conservativeGrowth: 3, neutral: 14.13, neutralGrowth: 5, optimistic: 90.31, optimisticGrowth: 8, marketCapNeutral: 984 },
+  { year: 19, supply: 70.32, conservative: 3.76, conservativeGrowth: 3, neutral: 14.84, neutralGrowth: 5, optimistic: 97.53, optimisticGrowth: 8, marketCapNeutral: 1032 },
   { year: 20, supply: 69.40, conservative: 3.87, conservativeGrowth: 3, neutral: 15.58, neutralGrowth: 5, optimistic: 105.33, optimisticGrowth: 8, marketCapNeutral: 1081 }
 ];
 
@@ -523,10 +498,12 @@ export function calculateSummary(): TokenomicsSummary {
   const totalDeflation = genesis.startSupply - final.endSupply;
   const deflationPercent = (totalDeflation / genesis.startSupply) * 100;
   
-  // Calculate phase stats
+  // v4.3 문서 사양 Phase 분류
+  // Phase 1 성장기: Y1~Y5, Phase 2 디플레이션기: Y6~Y10
+  // Phase 3 균형기: Y11~Y15, Phase 4 최적화기: Y16~Y20
   const phaseStats: PhaseStats[] = [
-    calculatePhaseStats(Phase.GROWTH, 0, 1),
-    calculatePhaseStats(Phase.DEFLATION, 2, 10),
+    calculatePhaseStats(Phase.GROWTH, 1, 5),
+    calculatePhaseStats(Phase.DEFLATION, 6, 10),
     calculatePhaseStats(Phase.EQUILIBRIUM, 11, 15),
     calculatePhaseStats(Phase.OPTIMIZATION, 16, 20)
   ];
@@ -1421,22 +1398,20 @@ export const TGE_UNLOCKS: TGEUnlock[] = [
   { category: '재단 긴급 예비금 (1.0억 중)', categoryKey: 'tokenomics.tge.foundationEmergency', tgePercent: 50, amount: 0.50, purpose: '긴급 대응, 체인 안정화', purposeKey: 'tokenomics.tge.foundationEmergency.purpose' }
 ];
 
-// v4.3 TGE 합계: 10.75억 TBURN (10.75%)
-// 기존 TGE: 8.45억 (에어드랍 1.20 + 마케팅 0.45 + 레퍼럴 0.15 + 이벤트 0.40 + DEX 5.00 + 검증자 1.25)
+// v4.3 문서 사양 TGE 합계: 10.75억 TBURN (10.75%)
+// 에어드랍 1.20 + 마케팅 0.45 + 레퍼럴 0.15 + 이벤트 0.40 + DEX 5.00 + 검증자 1.25
 // 투자자 TGE: 1.35억 (프라이빗 0.45 + 퍼블릭 0.90)
 // 재단 예비금 TGE: 0.95억 (운영 0.45 + 긴급 0.50)
 export const TGE_TOTAL_UNLOCK = 10.75; // 억 TBURN (전체 공급의 10.75%)
-export const TGE_ACTUAL_CIRCULATION = 4.55; // 억 TBURN (LP 5.00 + 스테이킹 1.25 제외 실제 유통량)
+export const TGE_ACTUAL_CIRCULATION = 4.50; // 억 TBURN - v4.3 문서 사양 (LP/스테이킹 제외)
 
 /**
- * 제네시스 검증자 설정 - v4.3
- * 1,600개 검증자 (재단 팀 풀) x 64 샤드 = ~210,000 TPS 실현
+ * 제네시스 검증자 설정 - v4.3 문서 사양
+ * 125개 검증자 (팀 운영), 검증자당 1,000,000 TBURN
  */
 export const GENESIS_VALIDATOR_CONFIG = {
-  totalValidators: 1600,
-  shardsCount: 64,
-  validatorsPerShard: 25,
-  stakePerValidator: 781250, // 1.25억 / 1,600 = 78.125만 TBURN
+  totalValidators: 125, // v4.3 문서: 125개 (팀 운영)
+  stakePerValidator: 1000000, // 1,000,000 TBURN
   totalTeamStake: 125000000, // 125,000,000 TBURN (1.25억)
   source: '코어 팀 배분 (7억) 중 일부 (v4.3 조정)',
   unbondingPeriod: 21, // 일
@@ -1444,9 +1419,7 @@ export const GENESIS_VALIDATOR_CONFIG = {
   slashingDoubleSign: 5, // 5% + 영구 감옥
   minSelfDelegation: 10, // 10%
   commissionRate: 10, // 10% (5-20% 조정 가능)
-  commissionRateRange: { min: 5, max: 20 },
-  targetTPS: 210000, // ~210,000 TPS
-  blockTime: 0.5 // 초
+  commissionRateRange: { min: 5, max: 20 }
 };
 
 /**
@@ -1605,13 +1578,13 @@ export const TGE_UNLOCK_DETAILS: TGEUnlockDetail[] = [
   { category: '재단 긴급 예비금', categoryKey: 'tokenomics.tgeDetail.foundationEmergency', tgePercent: 50, amountBillion: 0.50, amountTBURN: 50000000, purpose: '긴급 대응, 체인 안정화', purposeKey: 'tokenomics.tgeDetail.foundationEmergency.purpose' }
 ];
 
-// v4.3 TGE 합계: 10.75억 (10.75%)
-// 투자자 TGE: 1.35억, 재단 예비금 TGE: 0.95억, 기존 TGE: 8.45억
+// v4.3 문서 사양 TGE 합계: 10.75억 (10.75%)
+// 투자자 TGE: 1.35억, 재단 예비금 TGE: 0.95억
 export const TGE_TOTALS = {
   totalUnlock: 10.75, // 억 TBURN (10.75%)
   investorTGE: 1.35, // 억 TBURN (프라이빗 0.45 + 퍼블릭 0.90)
   foundationTGE: 0.95, // 억 TBURN (운영 0.45 + 긴급 0.50)
-  actualCirculation: 4.55 // 억 TBURN (LP/스테이킹 제외 실제 유통)
+  actualCirculation: 4.50 // 억 TBURN - v4.3 문서 사양 (LP/스테이킹 제외)
 };
 
 /**
@@ -1633,32 +1606,36 @@ export interface VestingCategory {
   y1ReleaseAmount: number; // 억 TBURN
 }
 
+/**
+ * v4.3 문서 사양 기준 베스팅 카테고리
+ * 문서 Section 5.1 전체 카테고리 베스팅 매트릭스 참조
+ */
 export const VESTING_CATEGORIES: VestingCategory[] = [
   // 커뮤니티 (30%)
   { id: 'airdrop', category: '에어드랍', categoryKey: 'tokenomics.vesting.airdrop', parentCategory: '커뮤니티', allocationPercent: 12, totalAmount: 12.00, tgePercent: 10, cliffMonths: 0, vestingMonths: 12, vestingType: 'linear', y1ReleasePercent: 100, y1ReleaseAmount: 12.00 },
-  { id: 'referral', category: '레퍼럴 보상', categoryKey: 'tokenomics.vesting.referral', parentCategory: '커뮤니티', allocationPercent: 3, totalAmount: 3.00, tgePercent: 5, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 52.5, y1ReleaseAmount: 1.58 },
+  { id: 'referral', category: '레퍼럴 보상', categoryKey: 'tokenomics.vesting.referral', parentCategory: '커뮤니티', allocationPercent: 3, totalAmount: 3.00, tgePercent: 5, cliffMonths: 0, vestingMonths: 36, vestingType: 'linear', y1ReleasePercent: 36.7, y1ReleaseAmount: 1.10 },
   { id: 'events', category: '이벤트/캠페인', categoryKey: 'tokenomics.vesting.events', parentCategory: '커뮤니티', allocationPercent: 4, totalAmount: 4.00, tgePercent: 10, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 55, y1ReleaseAmount: 2.20 },
   { id: 'community', category: '커뮤니티 활동', categoryKey: 'tokenomics.vesting.community', parentCategory: '커뮤니티', allocationPercent: 3, totalAmount: 3.00, tgePercent: 0, cliffMonths: 3, vestingMonths: 36, vestingType: 'linear', y1ReleasePercent: 25, y1ReleaseAmount: 0.75 },
   { id: 'dao', category: 'DAO 트레저리', categoryKey: 'tokenomics.vesting.dao', parentCategory: '커뮤니티', allocationPercent: 8, totalAmount: 8.00, tgePercent: 0, cliffMonths: 12, vestingMonths: 48, vestingType: 'linear', y1ReleasePercent: 0, y1ReleaseAmount: 0.00 },
   // 보상 (22%) - v4.3: 23%→22%
-  { id: 'blockReward', category: '블록 보상', categoryKey: 'tokenomics.vesting.blockReward', parentCategory: '보상', allocationPercent: 14.5, totalAmount: 14.50, tgePercent: 0, cliffMonths: 0, vestingMonths: 240, vestingType: 'halving', y1ReleasePercent: 17.9, y1ReleaseAmount: 2.60 },
+  { id: 'blockReward', category: '블록 보상', categoryKey: 'tokenomics.vesting.blockReward', parentCategory: '보상', allocationPercent: 14.5, totalAmount: 14.50, tgePercent: 0, cliffMonths: 0, vestingMonths: 240, vestingType: 'halving', y1ReleasePercent: 17.2, y1ReleaseAmount: 2.50 },
   { id: 'validatorIncentive', category: '검증자 인센티브', categoryKey: 'tokenomics.vesting.validatorIncentive', parentCategory: '보상', allocationPercent: 7.5, totalAmount: 7.50, tgePercent: 0, cliffMonths: 0, vestingMonths: 60, vestingType: 'linear', y1ReleasePercent: 20, y1ReleaseAmount: 1.50 },
   // 투자자 (20%) - v4.3 업계 표준 TGE 적용
   { id: 'seed', category: '시드 라운드', categoryKey: 'tokenomics.vesting.seed', parentCategory: '투자자', allocationPercent: 5, totalAmount: 5.00, tgePercent: 0, cliffMonths: 12, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 0, y1ReleaseAmount: 0.00 },
   { id: 'private', category: '프라이빗 라운드', categoryKey: 'tokenomics.vesting.private', parentCategory: '투자자', allocationPercent: 9, totalAmount: 9.00, tgePercent: 5, cliffMonths: 9, vestingMonths: 18, vestingType: 'linear', y1ReleasePercent: 21.7, y1ReleaseAmount: 1.95 },
-  { id: 'public', category: '퍼블릭 세일', categoryKey: 'tokenomics.vesting.public', parentCategory: '투자자', allocationPercent: 6, totalAmount: 6.00, tgePercent: 15, cliffMonths: 3, vestingMonths: 9, vestingType: 'linear', y1ReleasePercent: 100, y1ReleaseAmount: 6.00 },
+  { id: 'public', category: '퍼블릭 세일', categoryKey: 'tokenomics.vesting.public', parentCategory: '투자자', allocationPercent: 6, totalAmount: 6.00, tgePercent: 15, cliffMonths: 3, vestingMonths: 9, vestingType: 'linear', y1ReleasePercent: 95, y1ReleaseAmount: 5.70 },
   // 생태계 (14%) - v4.3: 15%→14%
   { id: 'ecosystem', category: '생태계 펀드', categoryKey: 'tokenomics.vesting.ecosystem', parentCategory: '생태계', allocationPercent: 7, totalAmount: 7.00, tgePercent: 0, cliffMonths: 0, vestingMonths: 60, vestingType: 'linear', y1ReleasePercent: 20, y1ReleaseAmount: 1.40 },
-  { id: 'partnership', category: '파트너십', categoryKey: 'tokenomics.vesting.partnership', parentCategory: '생태계', allocationPercent: 4, totalAmount: 4.00, tgePercent: 0, cliffMonths: 6, vestingMonths: 36, vestingType: 'linear', y1ReleasePercent: 16.7, y1ReleaseAmount: 0.67 },
-  { id: 'marketing', category: '마케팅', categoryKey: 'tokenomics.vesting.marketing', parentCategory: '생태계', allocationPercent: 3, totalAmount: 3.00, tgePercent: 15, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 57.4, y1ReleaseAmount: 1.72 },
+  { id: 'partnership', category: '파트너십', categoryKey: 'tokenomics.vesting.partnership', parentCategory: '생태계', allocationPercent: 4, totalAmount: 4.00, tgePercent: 0, cliffMonths: 6, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 16.7, y1ReleaseAmount: 0.67 },
+  { id: 'marketing', category: '마케팅', categoryKey: 'tokenomics.vesting.marketing', parentCategory: '생태계', allocationPercent: 3, totalAmount: 3.00, tgePercent: 15, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 57.7, y1ReleaseAmount: 1.73 },
   // 팀 (11%) - v4.3: 12%→11%
   { id: 'coreTeam', category: '코어 팀', categoryKey: 'tokenomics.vesting.coreTeam', parentCategory: '팀', allocationPercent: 7, totalAmount: 7.00, tgePercent: 0, cliffMonths: 18, vestingMonths: 36, vestingType: 'linear', y1ReleasePercent: 0, y1ReleaseAmount: 0.00 },
   { id: 'advisor', category: '어드바이저', categoryKey: 'tokenomics.vesting.advisor', parentCategory: '팀', allocationPercent: 2, totalAmount: 2.00, tgePercent: 0, cliffMonths: 12, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 0, y1ReleaseAmount: 0.00 },
-  { id: 'strategicPartner', category: '전략 파트너', categoryKey: 'tokenomics.vesting.strategicPartner', parentCategory: '팀', allocationPercent: 2, totalAmount: 2.00, tgePercent: 0, cliffMonths: 6, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 25, y1ReleaseAmount: 0.50 },
+  { id: 'strategicPartner', category: '전략 파트너', categoryKey: 'tokenomics.vesting.strategicPartner', parentCategory: '팀', allocationPercent: 2, totalAmount: 2.00, tgePercent: 0, cliffMonths: 6, vestingMonths: 18, vestingType: 'linear', y1ReleasePercent: 25, y1ReleaseAmount: 0.50 },
   // 재단 운영 예비금 (3%) - v4.3 신설
-  { id: 'foundationOps', category: '운영 예비금', categoryKey: 'tokenomics.vesting.foundationOps', parentCategory: '재단 예비금', allocationPercent: 1.5, totalAmount: 1.50, tgePercent: 30, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 72.5, y1ReleaseAmount: 1.09 },
-  { id: 'foundationEmergency', category: '긴급 예비금', categoryKey: 'tokenomics.vesting.foundationEmergency', parentCategory: '재단 예비금', allocationPercent: 1.0, totalAmount: 1.00, tgePercent: 50, cliffMonths: 0, vestingMonths: 36, vestingType: 'linear', y1ReleasePercent: 66.7, y1ReleaseAmount: 0.67 },
-  { id: 'strategicInvestment', category: '전략 투자', categoryKey: 'tokenomics.vesting.strategicInvestment', parentCategory: '재단 예비금', allocationPercent: 0.5, totalAmount: 0.50, tgePercent: 0, cliffMonths: 6, vestingMonths: 36, vestingType: 'linear', y1ReleasePercent: 16.7, y1ReleaseAmount: 0.08 }
+  { id: 'foundationOps', category: '운영 예비금', categoryKey: 'tokenomics.vesting.foundationOps', parentCategory: '재단 예비금', allocationPercent: 1.5, totalAmount: 1.50, tgePercent: 30, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 65.3, y1ReleaseAmount: 0.98 },
+  { id: 'foundationEmergency', category: '긴급 예비금', categoryKey: 'tokenomics.vesting.foundationEmergency', parentCategory: '재단 예비금', allocationPercent: 1.0, totalAmount: 1.00, tgePercent: 50, cliffMonths: 0, vestingMonths: 12, vestingType: 'linear', y1ReleasePercent: 100, y1ReleaseAmount: 1.00 },
+  { id: 'strategicInvestment', category: '전략 투자', categoryKey: 'tokenomics.vesting.strategicInvestment', parentCategory: '재단 예비금', allocationPercent: 0.5, totalAmount: 0.50, tgePercent: 0, cliffMonths: 6, vestingMonths: 18, vestingType: 'linear', y1ReleasePercent: 34, y1ReleaseAmount: 0.17 }
 ];
 
 /**
@@ -1685,46 +1662,50 @@ export interface MonthlyUnlockData {
   note: string;
 }
 
+/**
+ * v4.3 문서 사양 Y1 월별 종합 언락표 (억 TBURN)
+ * 문서 Section 6.1 참조 - M12 누적 31.65억
+ */
 export const Y1_MONTHLY_UNLOCKS: MonthlyUnlockData[] = [
-  // 커뮤니티 (30%)
-  { category: '에어드랍', categoryId: 'airdrop', tge: 1.200, m1: 0.900, m2: 0.900, m3: 0.900, m4: 0.900, m5: 0.900, m6: 0.900, m7: 0.900, m8: 0.900, m9: 0.900, m10: 0.900, m11: 0.900, m12: 0.900, y1Total: 12.000, note: 'TGE 10%+12M 선형' },
-  { category: '레퍼럴', categoryId: 'referral', tge: 0.150, m1: 0.119, m2: 0.119, m3: 0.119, m4: 0.119, m5: 0.119, m6: 0.119, m7: 0.119, m8: 0.119, m9: 0.119, m10: 0.119, m11: 0.119, m12: 0.119, y1Total: 1.575, note: 'TGE 5%+24M 선형' },
+  // 커뮤니티 (30%) - 문서 에어드랍 열
+  { category: '에어드랍', categoryId: 'airdrop', tge: 1.200, m1: 0.900, m2: 0.900, m3: 0.900, m4: 0.900, m5: 0.900, m6: 0.900, m7: 0.900, m8: 0.900, m9: 0.900, m10: 0.900, m11: 0.900, m12: 0.900, y1Total: 12.000, note: 'TGE 10%+12M 선형 (100%)' },
+  { category: '레퍼럴', categoryId: 'referral', tge: 0.150, m1: 0.079, m2: 0.079, m3: 0.079, m4: 0.079, m5: 0.079, m6: 0.079, m7: 0.079, m8: 0.079, m9: 0.079, m10: 0.079, m11: 0.079, m12: 0.079, y1Total: 1.100, note: 'TGE 5%+36M 선형' },
   { category: '이벤트', categoryId: 'events', tge: 0.400, m1: 0.150, m2: 0.150, m3: 0.150, m4: 0.150, m5: 0.150, m6: 0.150, m7: 0.150, m8: 0.150, m9: 0.150, m10: 0.150, m11: 0.150, m12: 0.150, y1Total: 2.200, note: 'TGE 10%+24M 선형' },
   { category: '커뮤니티활동', categoryId: 'community', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.083, m5: 0.083, m6: 0.083, m7: 0.083, m8: 0.083, m9: 0.083, m10: 0.083, m11: 0.083, m12: 0.083, y1Total: 0.750, note: '3M 클리프+36M 선형' },
   { category: 'DAO 트레저리', categoryId: 'dao', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.000, m11: 0.000, m12: 0.000, y1Total: 0.000, note: '12M 클리프' },
-  // 보상 (22%) - v4.3
-  { category: '블록보상', categoryId: 'blockReward', tge: 0.000, m1: 0.217, m2: 0.217, m3: 0.217, m4: 0.217, m5: 0.217, m6: 0.217, m7: 0.217, m8: 0.217, m9: 0.217, m10: 0.217, m11: 0.217, m12: 0.217, y1Total: 2.600, note: '블록 생성 즉시' },
+  // 보상 (22%) - 문서 보상 열: 월간 0.33억
+  { category: '블록보상', categoryId: 'blockReward', tge: 0.000, m1: 0.208, m2: 0.208, m3: 0.208, m4: 0.208, m5: 0.208, m6: 0.208, m7: 0.208, m8: 0.208, m9: 0.208, m10: 0.208, m11: 0.208, m12: 0.208, y1Total: 2.500, note: '블록 생성 즉시' },
   { category: '검증자 인센티브', categoryId: 'validatorIncentive', tge: 0.000, m1: 0.125, m2: 0.125, m3: 0.125, m4: 0.125, m5: 0.125, m6: 0.125, m7: 0.125, m8: 0.125, m9: 0.125, m10: 0.125, m11: 0.125, m12: 0.125, y1Total: 1.500, note: '성과 기반 월간' },
-  // 투자자 (20%) - v4.3 업계 표준 TGE 적용
+  // 투자자 (20%) - 문서 투자자 열: TGE 1.35억, M4-M9 퍼블릭 0.57억, M10-M12 1.05억
   { category: '시드 라운드', categoryId: 'seed', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.000, m11: 0.000, m12: 0.000, y1Total: 0.000, note: 'TGE 0%+12M 클리프' },
-  { category: '프라이빗', categoryId: 'private', tge: 0.450, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.500, m11: 0.500, m12: 0.500, y1Total: 1.950, note: 'TGE 5%+9M 클리프+18M 선형' },
-  { category: '퍼블릭 세일', categoryId: 'public', tge: 0.900, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.567, m5: 0.567, m6: 0.567, m7: 0.567, m8: 0.567, m9: 0.567, m10: 0.567, m11: 0.567, m12: 0.567, y1Total: 6.000, note: 'TGE 15%+3M 클리프+9M 선형' },
-  // 생태계 (14%) - v4.3
+  { category: '프라이빗', categoryId: 'private', tge: 0.450, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.480, m11: 0.480, m12: 0.480, y1Total: 1.950, note: 'TGE 5%+9M 클리프+18M 선형' },
+  { category: '퍼블릭 세일', categoryId: 'public', tge: 0.900, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.570, m5: 0.570, m6: 0.570, m7: 0.570, m8: 0.570, m9: 0.570, m10: 0.570, m11: 0.570, m12: 0.570, y1Total: 5.700, note: 'TGE 15%+3M 클리프+9M 선형' },
+  // 생태계 (14%) - 문서 생태계 열: TGE 1.00억, M1-M6 0.27억, M7-M12 0.50억
   { category: '생태계 펀드', categoryId: 'ecosystem', tge: 0.000, m1: 0.117, m2: 0.117, m3: 0.117, m4: 0.117, m5: 0.117, m6: 0.117, m7: 0.117, m8: 0.117, m9: 0.117, m10: 0.117, m11: 0.117, m12: 0.117, y1Total: 1.400, note: '그랜트 기반' },
-  { category: '파트너십', categoryId: 'partnership', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.111, m8: 0.111, m9: 0.111, m10: 0.111, m11: 0.111, m12: 0.111, y1Total: 0.667, note: '6M 클리프+36M 선형' },
-  { category: '마케팅', categoryId: 'marketing', tge: 0.450, m1: 0.106, m2: 0.106, m3: 0.106, m4: 0.106, m5: 0.106, m6: 0.106, m7: 0.106, m8: 0.106, m9: 0.106, m10: 0.106, m11: 0.106, m12: 0.106, y1Total: 1.725, note: 'TGE 15%+24M 선형' },
-  // 팀 (11%) - v4.3
+  { category: '파트너십', categoryId: 'partnership', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.111, m8: 0.111, m9: 0.111, m10: 0.111, m11: 0.111, m12: 0.111, y1Total: 0.670, note: '6M 클리프+24M 선형' },
+  { category: '마케팅', categoryId: 'marketing', tge: 0.450, m1: 0.107, m2: 0.107, m3: 0.107, m4: 0.107, m5: 0.107, m6: 0.107, m7: 0.107, m8: 0.107, m9: 0.107, m10: 0.107, m11: 0.107, m12: 0.107, y1Total: 1.730, note: 'TGE 15%+24M 선형' },
+  // 팀 (11%) - 문서: Y1 해제 0.50억 (전략 파트너만)
   { category: '코어 팀', categoryId: 'coreTeam', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.000, m11: 0.000, m12: 0.000, y1Total: 0.000, note: '18M 클리프' },
   { category: '어드바이저', categoryId: 'advisor', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.000, m8: 0.000, m9: 0.000, m10: 0.000, m11: 0.000, m12: 0.000, y1Total: 0.000, note: '12M 클리프' },
-  { category: '전략 파트너', categoryId: 'strategicPartner', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.083, m8: 0.083, m9: 0.083, m10: 0.083, m11: 0.083, m12: 0.083, y1Total: 0.500, note: '6M 클리프+24M 선형' },
-  // 재단 운영 예비금 (3%) - v4.3 신설
-  { category: '운영 예비금', categoryId: 'foundationOps', tge: 0.450, m1: 0.044, m2: 0.044, m3: 0.044, m4: 0.044, m5: 0.044, m6: 0.044, m7: 0.044, m8: 0.044, m9: 0.044, m10: 0.044, m11: 0.044, m12: 0.044, y1Total: 1.088, note: 'TGE 30%+24M 선형' },
-  { category: '긴급 예비금', categoryId: 'foundationEmergency', tge: 0.500, m1: 0.014, m2: 0.014, m3: 0.014, m4: 0.014, m5: 0.014, m6: 0.014, m7: 0.014, m8: 0.014, m9: 0.014, m10: 0.014, m11: 0.014, m12: 0.014, y1Total: 0.667, note: 'TGE 50%+36M 선형' },
-  { category: '전략 투자', categoryId: 'strategicInvestment', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.014, m8: 0.014, m9: 0.014, m10: 0.014, m11: 0.014, m12: 0.014, y1Total: 0.083, note: '6M 클리프+36M 선형' }
+  { category: '전략 파트너', categoryId: 'strategicPartner', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.083, m8: 0.083, m9: 0.083, m10: 0.083, m11: 0.083, m12: 0.083, y1Total: 0.500, note: '6M 클리프+18M 선형' },
+  // 재단 운영 예비금 (3%) - 문서 재단예비금 열: TGE 0.95억, M1-M6 0.07억, M7-M12 0.10억
+  { category: '운영 예비금', categoryId: 'foundationOps', tge: 0.450, m1: 0.044, m2: 0.044, m3: 0.044, m4: 0.044, m5: 0.044, m6: 0.044, m7: 0.044, m8: 0.044, m9: 0.044, m10: 0.044, m11: 0.044, m12: 0.044, y1Total: 0.980, note: 'TGE 30%+24M 선형' },
+  { category: '긴급 예비금', categoryId: 'foundationEmergency', tge: 0.500, m1: 0.042, m2: 0.042, m3: 0.042, m4: 0.042, m5: 0.042, m6: 0.042, m7: 0.042, m8: 0.042, m9: 0.042, m10: 0.042, m11: 0.042, m12: 0.042, y1Total: 1.000, note: 'TGE 50%+12M 선형' },
+  { category: '전략 투자', categoryId: 'strategicInvestment', tge: 0.000, m1: 0.000, m2: 0.000, m3: 0.000, m4: 0.000, m5: 0.000, m6: 0.000, m7: 0.028, m8: 0.028, m9: 0.028, m10: 0.028, m11: 0.028, m12: 0.028, y1Total: 0.170, note: '6M 클리프+18M 선형' }
 ];
 
 /**
- * 월별 합계 및 누적 (억 TBURN) - v4.3
- * 투자자 TGE 1.35억 + 재단 예비금 TGE 0.95억 반영
+ * v4.3 문서 사양 월별 합계 및 누적 (억 TBURN)
+ * 문서 Section 6.1 참조 - M12 누적 31.65억
  */
 export const Y1_MONTHLY_TOTALS = {
-  monthly: { tge: 4.500, m1: 1.792, m2: 1.792, m3: 1.792, m4: 2.323, m5: 2.323, m6: 2.323, m7: 2.573, m8: 2.573, m9: 2.573, m10: 2.973, m11: 2.973, m12: 2.973 },
-  cumulative: { tge: 4.500, m1: 6.292, m2: 8.084, m3: 9.876, m4: 12.199, m5: 14.522, m6: 16.845, m7: 19.418, m8: 21.991, m9: 24.564, m10: 27.537, m11: 30.510, m12: 33.483 },
-  y1Total: 33.483 // 억 TBURN - v4.3 (투자자 TGE 1.35억 + 재단 예비금 TGE 0.95억 포함)
+  monthly: { tge: 4.50, m1: 1.57, m2: 1.57, m3: 1.57, m4: 2.20, m5: 2.20, m6: 2.20, m7: 2.40, m8: 2.40, m9: 2.40, m10: 2.88, m11: 2.88, m12: 2.88 },
+  cumulative: { tge: 4.50, m1: 6.07, m2: 7.64, m3: 9.21, m4: 11.41, m5: 13.61, m6: 15.81, m7: 18.21, m8: 20.61, m9: 23.01, m10: 25.89, m11: 28.77, m12: 31.65 },
+  y1Total: 33.03 // 억 TBURN - v4.3 문서 사양 Y1 총 배분량
 };
 
 /**
- * 락업 조건 및 덤핑 방지 메커니즘 - v4.3
+ * 락업 조건 및 덤핑 방지 메커니즘 - v4.3 문서 사양
  */
 export const LOCKUP_CONDITIONS = {
   dexLiquidity: {
@@ -1737,18 +1718,15 @@ export const LOCKUP_CONDITIONS = {
     initialPrice: 0.50
   },
   genesisValidators: {
-    validatorCount: 1600, // v4.3: 125 → 1,600
-    shardsCount: 64,
-    validatorsPerShard: 25,
-    stakePerValidator: 781250, // 1.25억 / 1,600 = 78.125만 TBURN
+    validatorCount: 125, // v4.3 문서: 125개 (팀 운영)
+    stakePerValidator: 1000000, // 1,000,000 TBURN
     totalStake: 125000000, // TBURN (1.25억)
-    source: '코어 팀 배분 (7억) 중 사용 (v4.3 조정)',
+    source: '코어 팀 배분 (7억) 중 사용',
     unbondingPeriod: 21, // 일
     slashingDowntime: '1%', // 사건당
     slashingDoubleSign: '5% + 영구 감옥 (Jailing)',
     minSelfDelegation: '10%',
-    commissionRate: '10% (5-20% 조정 가능)',
-    targetTPS: '~210,000 TPS'
+    commissionRate: '10% (5-20% 조정 가능)'
   },
   dumpingPrevention: {
     dailySellLimit: '보유량의 5% / 일 (에어드랍 수령자)',
@@ -1813,25 +1791,25 @@ export interface CategoryY1Summary {
 }
 
 /**
- * 카테고리별 Y1 배분 요약 - v4.3
- * Y1_MONTHLY_UNLOCKS 데이터 기준 정밀 계산
+ * v4.3 문서 사양 카테고리별 Y1 배분 요약
+ * 문서 Section 5.1 베스팅 매트릭스 참조
  */
 export const Y1_CATEGORY_SUMMARY: CategoryY1Summary[] = [
-  { category: '커뮤니티 (30%)', categoryKey: 'tokenomics.category.community', totalAllocation: 30.00, tgeAmount: 1.75, y1Release: 16.53, y1Percent: 55.1 },
-  { category: '보상 (22%)', categoryKey: 'tokenomics.category.rewards', totalAllocation: 22.00, tgeAmount: 0.00, y1Release: 4.10, y1Percent: 18.6 },
-  { category: '투자자 (20%)', categoryKey: 'tokenomics.category.investors', totalAllocation: 20.00, tgeAmount: 1.35, y1Release: 7.95, y1Percent: 39.8 },
-  { category: '생태계 (14%)', categoryKey: 'tokenomics.category.ecosystem', totalAllocation: 14.00, tgeAmount: 0.45, y1Release: 3.79, y1Percent: 27.1 },
+  { category: '커뮤니티 (30%)', categoryKey: 'tokenomics.category.community', totalAllocation: 30.00, tgeAmount: 1.75, y1Release: 16.05, y1Percent: 53.5 },
+  { category: '보상 (22%)', categoryKey: 'tokenomics.category.rewards', totalAllocation: 22.00, tgeAmount: 0.00, y1Release: 4.00, y1Percent: 18.2 },
+  { category: '투자자 (20%)', categoryKey: 'tokenomics.category.investors', totalAllocation: 20.00, tgeAmount: 1.35, y1Release: 7.65, y1Percent: 38.3 },
+  { category: '생태계 (14%)', categoryKey: 'tokenomics.category.ecosystem', totalAllocation: 14.00, tgeAmount: 0.45, y1Release: 3.80, y1Percent: 27.1 },
   { category: '팀 (11%)', categoryKey: 'tokenomics.category.team', totalAllocation: 11.00, tgeAmount: 0.00, y1Release: 0.50, y1Percent: 4.5 },
-  { category: '재단 예비금 (3%)', categoryKey: 'tokenomics.category.foundationReserve', totalAllocation: 3.00, tgeAmount: 0.95, y1Release: 1.84, y1Percent: 61.3 }
+  { category: '재단 예비금 (3%)', categoryKey: 'tokenomics.category.foundationReserve', totalAllocation: 3.00, tgeAmount: 0.95, y1Release: 2.15, y1Percent: 71.7 }
 ];
 
-// v4.3 Y1 합계 - Y1_MONTHLY_UNLOCKS 기준 정밀 계산
-// TGE: 4.50억 (커뮤니티 2.20 + 마케팅 0.45 + 투자자 1.35 + 재단 예비금 0.95 - 중복 조정)
-// M1~M12 누적: 28.98억
-// Y1 총계: 33.48억
+/**
+ * v4.3 문서 사양 Y1 합계
+ * 문서 Section 1.2 핵심 지표 참조
+ */
 export const Y1_TOTALS = {
   totalAllocation: 100.00, // 억
-  tgeAmount: 4.50, // 억 (v4.3: 에어드랍/레퍼럴/이벤트 1.75 + 마케팅 0.45 + 투자자 1.35 + 재단 0.95)
-  y1Release: 33.48, // 억 (v4.3: Y1_MONTHLY_TOTALS 기준)
-  y1Percent: 33.5
+  tgeAmount: 4.50, // 억 - 문서 사양 TGE 실제 유통량
+  y1Release: 33.03, // 억 - 문서 사양 Y1 총 배분량
+  y1Percent: 33.03
 };
