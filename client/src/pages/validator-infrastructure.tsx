@@ -43,7 +43,13 @@ export default function ValidatorInfrastructure() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<'stake' | 'score'>('stake');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const [distributionView, setDistributionView] = useState<'datacenter' | 'asn'>('datacenter');
+  const [sortBy, setSortBy] = useState<'stake' | 'count'>('stake');
+  const [showFilters, setShowFilters] = useState(false);
+  const [showNetworkMap, setShowNetworkMap] = useState(false);
+  const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'warning'>('all');
+  const [filterMinStake, setFilterMinStake] = useState(0);
+  const itemsPerPage = 10;
 
   const { data: networkStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
@@ -64,20 +70,45 @@ export default function ValidatorInfrastructure() {
   }, [validatorResponse]);
 
   const filteredValidators = useMemo(() => {
-    if (!searchQuery) return validators;
-    const query = searchQuery.toLowerCase();
-    return validators.filter(v => 
-      v.name.toLowerCase().includes(query) ||
-      v.isp.toLowerCase().includes(query) ||
-      v.location.toLowerCase().includes(query) ||
-      v.address.toLowerCase().includes(query)
-    );
-  }, [searchQuery, validators]);
+    let result = validators;
+    
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(v => 
+        v.name.toLowerCase().includes(query) ||
+        v.isp.toLowerCase().includes(query) ||
+        v.location.toLowerCase().includes(query) ||
+        v.address.toLowerCase().includes(query)
+      );
+    }
+    
+    if (filterStatus === 'active') {
+      result = result.filter(v => v.performanceStatus === 'good');
+    } else if (filterStatus === 'warning') {
+      result = result.filter(v => v.performanceStatus !== 'good');
+    }
+    
+    if (filterMinStake > 0) {
+      result = result.filter(v => v.stake >= filterMinStake);
+    }
+    
+    return result;
+  }, [searchQuery, validators, filterStatus, filterMinStake]);
+
+  const sortedValidators = useMemo(() => {
+    const sorted = [...filteredValidators];
+    if (viewMode === 'stake') {
+      sorted.sort((a, b) => b.stake - a.stake);
+    } else {
+      sorted.sort((a, b) => b.trustScore - a.trustScore);
+    }
+    return sorted;
+  }, [filteredValidators, viewMode]);
 
   const paginatedValidators = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
-    return filteredValidators.slice(start, start + itemsPerPage);
-  }, [filteredValidators, currentPage]);
+    return sortedValidators.slice(start, start + itemsPerPage);
+  }, [sortedValidators, currentPage]);
 
   const totalPages = Math.ceil(filteredValidators.length / itemsPerPage);
   const totalActiveValidators = networkStats?.activeValidators || validators.filter(v => v.performanceStatus === 'good').length || 1600;
@@ -88,17 +119,40 @@ export default function ValidatorInfrastructure() {
 
   const formatNumber = (num: number) => new Intl.NumberFormat('en-US').format(num);
 
-  const { countryDistribution, ispDistribution } = useMemo(() => 
-    calculateInfrastructureStats(validators), [validators]);
+  const { countryDistribution, ispDistribution, countryStakeDistribution, ispStakeDistribution } = useMemo(() => {
+    const stats = calculateInfrastructureStats(validators);
+    const countryStake: Record<string, number> = {};
+    const ispStake: Record<string, number> = {};
+    
+    validators.forEach(v => {
+      const country = v.location.split(',').pop()?.trim() || 'Unknown';
+      countryStake[country] = (countryStake[country] || 0) + v.stake;
+      ispStake[v.isp] = (ispStake[v.isp] || 0) + v.stake;
+    });
+    
+    return { ...stats, countryStakeDistribution: countryStake, ispStakeDistribution: ispStake };
+  }, [validators]);
 
-  const countryLabels = Object.keys(countryDistribution).slice(0, 5);
-  const countryValues = countryLabels.map(k => countryDistribution[k]);
-  const otherCountries = Object.keys(countryDistribution).slice(5).reduce((sum, k) => sum + countryDistribution[k], 0);
+  const sortedCountryData = useMemo(() => {
+    const data = sortBy === 'stake' ? countryStakeDistribution : countryDistribution;
+    const entries = Object.entries(data).sort((a, b) => b[1] - a[1]);
+    const top5 = entries.slice(0, 5);
+    const otherValue = entries.slice(5).reduce((sum, [_, v]) => sum + v, 0);
+    return { labels: [...top5.map(([k]) => k), 'Other'], values: [...top5.map(([_, v]) => v), otherValue] };
+  }, [countryDistribution, countryStakeDistribution, sortBy]);
+
+  const sortedIspData = useMemo(() => {
+    const data = sortBy === 'stake' ? ispStakeDistribution : ispDistribution;
+    const entries = Object.entries(data).sort((a, b) => b[1] - a[1]);
+    const top5 = entries.slice(0, 5);
+    const otherValue = entries.slice(5).reduce((sum, [_, v]) => sum + v, 0);
+    return { labels: [...top5.map(([k]) => k), 'Other'], values: [...top5.map(([_, v]) => v), otherValue] };
+  }, [ispDistribution, ispStakeDistribution, sortBy]);
 
   const countryChartData = {
-    labels: countryLabels.length > 0 ? [...countryLabels, 'Other'] : ['Germany', 'United States', 'Netherlands', 'Lithuania', 'UK', 'Other'],
+    labels: sortedCountryData.labels,
     datasets: [{
-      data: countryLabels.length > 0 ? [...countryValues, otherCountries] : [25, 23, 18, 10, 8, 16],
+      data: sortedCountryData.values,
       backgroundColor: ['#ff8c00', '#ff4500', '#00bfff', '#1e90ff', '#6a0dad', '#475569'],
       borderWidth: 2,
       borderColor: '#0a0a0f',
@@ -107,14 +161,10 @@ export default function ValidatorInfrastructure() {
     }]
   };
 
-  const ispLabels = Object.keys(ispDistribution).slice(0, 5);
-  const ispValues = ispLabels.map(k => ispDistribution[k]);
-  const otherIsps = Object.keys(ispDistribution).slice(5).reduce((sum, k) => sum + ispDistribution[k], 0);
-
   const orgChartData = {
-    labels: ispLabels.length > 0 ? [...ispLabels, 'Other'] : ['TeraSwitch', 'Cherry Servers', 'Amazon AWS', 'Latitude.sh', 'ALLNODES', 'Other'],
+    labels: sortedIspData.labels,
     datasets: [{
-      data: ispLabels.length > 0 ? [...ispValues, otherIsps] : [35, 20, 10, 10, 5, 20],
+      data: sortedIspData.values,
       backgroundColor: ['#ff8c00', '#ff6347', '#00ced1', '#4682b4', '#9370db', '#475569'],
       borderWidth: 2,
       borderColor: '#0a0a0f',
@@ -243,7 +293,11 @@ export default function ValidatorInfrastructure() {
               <GlobeHemisphereWest className="text-accent-trust" size={24} weight="duotone" />
               Infrastructure Distribution <span className="text-slate-500 text-lg font-normal">({dataCenters} Data Centers)</span>
             </h2>
-            <button className="tburn-panel rounded-full px-5 py-2 text-sm font-medium hover:border-accent-burn transition flex items-center gap-2" data-testid="button-global-map">
+            <button 
+              onClick={() => setShowNetworkMap(true)}
+              className="tburn-panel rounded-full px-5 py-2 text-sm font-medium hover:border-orange-500 hover:bg-orange-500/10 transition flex items-center gap-2" 
+              data-testid="button-global-map"
+            >
               <MapTrifold size={16} weight="bold" /> Global Network Map
             </button>
           </div>
@@ -275,13 +329,33 @@ export default function ValidatorInfrastructure() {
           </div>
 
           <div className="mt-6 tburn-panel rounded-full p-2 inline-flex flex-wrap gap-2 bg-black/20">
-            <button className="px-4 py-2 rounded-full bg-orange-500/90 text-white text-sm font-medium shadow-lg shadow-orange-900/30">Data Center</button>
-            <button className="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition">ASN Filter</button>
+            <button 
+              onClick={() => setDistributionView('datacenter')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${distributionView === 'datacenter' ? 'bg-orange-500/90 text-white shadow-lg shadow-orange-900/30' : 'hover:bg-slate-800 text-slate-300'}`}
+              data-testid="button-datacenter"
+            >
+              Data Center
+            </button>
+            <button 
+              onClick={() => setDistributionView('asn')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${distributionView === 'asn' ? 'bg-orange-500/90 text-white shadow-lg shadow-orange-900/30' : 'hover:bg-slate-800 text-slate-300'}`}
+              data-testid="button-asn"
+            >
+              ASN Filter
+            </button>
             <div className="w-px h-6 bg-slate-700/50 my-auto mx-2" />
-            <button className="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition flex items-center gap-1">
+            <button 
+              onClick={() => setSortBy('stake')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-1 ${sortBy === 'stake' ? 'bg-cyan-500/20 text-cyan-400' : 'hover:bg-slate-800 text-slate-300'}`}
+              data-testid="button-sort-stake"
+            >
               <SortDescending size={14} weight="bold" /> Sort by Stake
             </button>
-            <button className="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition flex items-center gap-1">
+            <button 
+              onClick={() => setSortBy('count')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-1 ${sortBy === 'count' ? 'bg-cyan-500/20 text-cyan-400' : 'hover:bg-slate-800 text-slate-300'}`}
+              data-testid="button-sort-count"
+            >
               <ListNumbers size={14} weight="bold" /> Sort by Count
             </button>
           </div>
@@ -326,11 +400,60 @@ export default function ValidatorInfrastructure() {
                   Score View
                 </button>
               </div>
-              <button className="tburn-panel rounded-lg px-4 py-3 text-sm font-medium hover:border-cyan-400/50 transition flex items-center gap-2 text-slate-300" data-testid="button-filters">
+              <button 
+                onClick={() => setShowFilters(!showFilters)}
+                className={`tburn-panel rounded-lg px-4 py-3 text-sm font-medium transition flex items-center gap-2 ${showFilters ? 'border-cyan-400 text-cyan-400' : 'hover:border-cyan-400/50 text-slate-300'}`}
+                data-testid="button-filters"
+              >
                 <SlidersHorizontal size={16} weight="bold" /> Filters
+                {(filterStatus !== 'all' || filterMinStake > 0) && (
+                  <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                )}
               </button>
             </div>
           </div>
+
+          {showFilters && (
+            <div className="tburn-panel rounded-xl p-4 mb-4 flex flex-wrap items-center gap-4" data-testid="filter-panel">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-slate-400">Status:</span>
+                <div className="flex gap-1">
+                  {(['all', 'active', 'warning'] as const).map(status => (
+                    <button
+                      key={status}
+                      onClick={() => { setFilterStatus(status); setCurrentPage(1); }}
+                      className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${filterStatus === status ? 'bg-orange-500 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
+                      data-testid={`filter-status-${status}`}
+                    >
+                      {status === 'all' ? 'All' : status === 'active' ? 'Active' : 'Warning'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-slate-400">Min Stake:</span>
+                <input
+                  type="number"
+                  value={filterMinStake}
+                  onChange={(e) => { setFilterMinStake(parseFloat(e.target.value) || 0); setCurrentPage(1); }}
+                  placeholder="0"
+                  className="w-32 bg-black/30 border border-slate-700 text-slate-200 text-sm rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-orange-500"
+                  data-testid="filter-min-stake"
+                />
+                <span className="text-xs text-slate-500">TBURN</span>
+              </div>
+              <button 
+                onClick={() => { setFilterStatus('all'); setFilterMinStake(0); setCurrentPage(1); }}
+                className="px-3 py-1.5 rounded-md text-xs font-medium bg-slate-800 text-slate-400 hover:bg-slate-700 transition"
+                data-testid="filter-reset"
+              >
+                Reset Filters
+              </button>
+              <div className="ml-auto text-xs text-slate-500">
+                Showing {filteredValidators.length} of {validators.length} validators
+              </div>
+            </div>
+          )}
 
           <div className="tburn-panel rounded-xl overflow-hidden">
             {validatorsLoading ? (
@@ -464,6 +587,67 @@ export default function ValidatorInfrastructure() {
       <footer className="max-w-[1600px] mx-auto mt-12 py-8 border-t border-slate-800/50 text-center text-slate-500 text-sm">
         <p>© 2024 TBURN Foundation. All rights reserved. | Decentralized Intelligence Platform.</p>
       </footer>
+
+      {showNetworkMap && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowNetworkMap(false)}>
+          <div className="tburn-panel rounded-2xl p-6 max-w-4xl w-full max-h-[80vh] overflow-auto" onClick={e => e.stopPropagation()} data-testid="network-map-modal">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                <MapTrifold className="text-orange-500" size={28} weight="duotone" />
+                Global Network Distribution
+              </h2>
+              <button 
+                onClick={() => setShowNetworkMap(false)} 
+                className="text-slate-400 hover:text-white transition text-2xl"
+                data-testid="button-close-map"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              {Object.entries(countryDistribution).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([country, count]) => (
+                <div key={country} className="bg-black/30 rounded-xl p-4 border border-slate-700/50">
+                  <div className="flex items-center gap-3 mb-2">
+                    <GlobeHemisphereWest className="text-cyan-400" size={20} />
+                    <span className="font-semibold text-white">{country}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-400">Validators:</span>
+                    <span className="text-orange-400 font-bold">{count}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-400">Share:</span>
+                    <span className="text-cyan-400">{((count / validators.length) * 100).toFixed(1)}%</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-black/30 rounded-xl p-4 border border-slate-700/50">
+              <h3 className="text-lg font-semibold text-white mb-4">Network Summary</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div>
+                  <div className="text-3xl font-bold text-orange-500">{Object.keys(countryDistribution).length}</div>
+                  <div className="text-xs text-slate-400 uppercase">Countries</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-cyan-400">{Object.keys(ispDistribution).length}</div>
+                  <div className="text-xs text-slate-400 uppercase">ISP Providers</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-green-400">{totalShards}</div>
+                  <div className="text-xs text-slate-400 uppercase">Active Shards</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-purple-400">{currentEpoch}</div>
+                  <div className="text-xs text-slate-400 uppercase">Current Epoch</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
