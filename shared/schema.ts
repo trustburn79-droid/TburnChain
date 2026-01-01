@@ -31,7 +31,8 @@ export const blocks = pgTable("blocks", {
   hashAlgorithm: text("hash_algorithm").notNull().default("blake3"), // blake3, sha3-256, keccak256, sha256d, blake2b
   
   // TBURN v7.1: Block Finality System
-  finalityStatus: text("finality_status").notNull().default("pending"), // pending, verified, finalized, rejected
+  finalityStatus: text("finality_status").notNull().default("finalized"), // pending, verified, finalized, rejected
+  finalityConfirmations: integer("finality_confirmations").notNull().default(0), // Number of block confirmations
   verificationCount: integer("verification_count").notNull().default(0), // Number of validators who verified
   requiredVerifications: integer("required_verifications").notNull().default(0), // Quorum requirement (2/3+1)
   finalizedAt: timestamp("finalized_at"), // When block reached finality
