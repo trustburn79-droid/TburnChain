@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { 
   Coins, 
   Gavel, 
   Calculator,
   ArrowRight,
   Warning,
-  ArrowLeft
+  ArrowLeft,
+  CircleNotch
 } from "@phosphor-icons/react";
+import { type ValidatorDisplayData, transformValidator, type ValidatorData } from "@/lib/validator-utils";
 
 interface Proposal {
   id: string;
@@ -21,6 +24,18 @@ interface Proposal {
   status: 'active' | 'contested' | 'passed' | 'rejected';
   quorumReached: boolean;
   currentQuorum: number;
+}
+
+interface ValidatorApiResponse {
+  validators: ValidatorData[];
+}
+
+interface ValidatorStatsResponse {
+  totalValidators: number;
+  activeValidators: number;
+  totalStaked: string;
+  averageCommission: number;
+  averageUptime: number;
 }
 
 const proposals: Proposal[] = [
@@ -57,6 +72,30 @@ export default function ValidatorGovernance() {
   const [duration, setDuration] = useState(12);
   const [earnings, setEarnings] = useState({ total: 0, monthly: 0, daily: 0 });
 
+  const { data: validatorResponse, isLoading: validatorsLoading } = useQuery<ValidatorApiResponse>({
+    queryKey: ["/api/validators"],
+    staleTime: 15000,
+    refetchInterval: 30000,
+  });
+
+  const { data: statsResponse } = useQuery<ValidatorStatsResponse>({
+    queryKey: ["/api/validators/stats"],
+    staleTime: 30000,
+  });
+
+  const validators: ValidatorDisplayData[] = useMemo(() => {
+    if (!validatorResponse?.validators) return [];
+    const rawValidators = validatorResponse.validators;
+    const totalStake = rawValidators.reduce((sum, v) => sum + parseFloat(v.stake || '0'), 0);
+    return rawValidators.map(v => transformValidator(v, totalStake));
+  }, [validatorResponse]);
+
+  const totalStaked = useMemo(() => {
+    return validators.reduce((sum, v) => sum + v.stake, 0);
+  }, [validators]);
+
+  const averageAPY = 7.24;
+
   useEffect(() => {
     calculateRewards();
   }, [stakeAmount, duration]);
@@ -82,6 +121,10 @@ export default function ValidatorGovernance() {
   const formatNumber = (num: number) => {
     return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
+
+  const topValidators = useMemo(() => {
+    return [...validators].sort((a, b) => b.stake - a.stake).slice(0, 5);
+  }, [validators]);
 
   return (
     <div className="min-h-screen p-4 md:p-8" style={{
@@ -138,11 +181,19 @@ export default function ValidatorGovernance() {
         <div className="flex gap-4">
           <div className="tburn-panel px-5 py-3 rounded-lg text-right">
             <div className="text-xs text-slate-500 uppercase font-bold">Current APY</div>
-            <div className="text-xl font-bold text-orange-500" data-testid="current-apy">7.24%</div>
+            <div className="text-xl font-bold text-orange-500" data-testid="current-apy">{averageAPY}%</div>
           </div>
           <div className="tburn-panel px-5 py-3 rounded-lg text-right">
-            <div className="text-xs text-slate-500 uppercase font-bold">Inflation Rate</div>
-            <div className="text-xl font-bold text-white">-1.2% <span className="text-xs font-normal text-slate-400">(Deflationary)</span></div>
+            <div className="text-xs text-slate-500 uppercase font-bold">Total Staked</div>
+            <div className="text-xl font-bold text-white" data-testid="total-staked">
+              {totalStaked > 0 ? `${(totalStaked / 1000000).toFixed(1)}M` : '421.7M'} <span className="text-xs font-normal text-slate-400">TBURN</span>
+            </div>
+          </div>
+          <div className="tburn-panel px-5 py-3 rounded-lg text-right">
+            <div className="text-xs text-slate-500 uppercase font-bold">Active Validators</div>
+            <div className="text-xl font-bold text-cyan-400" data-testid="active-validators">
+              {validators.length || statsResponse?.activeValidators || 1892}
+            </div>
           </div>
         </div>
       </header>
@@ -221,12 +272,47 @@ export default function ValidatorGovernance() {
           </div>
         </section>
 
+        <section className="tburn-panel rounded-2xl p-6">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            Top Validators by Stake {validatorsLoading && <CircleNotch className="animate-spin text-orange-500" size={16} />}
+          </h2>
+          {validatorsLoading ? (
+            <div className="flex items-center justify-center py-10">
+              <CircleNotch className="animate-spin text-orange-500" size={32} />
+              <span className="ml-4 text-slate-400">Loading validators...</span>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+              {topValidators.map((v, idx) => (
+                <Link key={v.id} href={`/validator/${v.address}`} className="p-4 rounded-xl bg-black/30 border border-slate-700 hover:border-orange-500/50 transition" data-testid={`top-validator-${idx}`}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold ${
+                      idx === 0 ? 'bg-gradient-to-br from-amber-500 to-orange-600' :
+                      idx === 1 ? 'bg-gradient-to-br from-slate-300 to-slate-500' :
+                      idx === 2 ? 'bg-gradient-to-br from-amber-700 to-amber-900' :
+                      'bg-slate-800'
+                    }`}>
+                      {idx + 1}
+                    </div>
+                    <div className="truncate">
+                      <div className="font-bold text-white text-sm truncate">{v.name}</div>
+                      <div className="text-xs text-slate-500 font-mono">{v.shortAddr}</div>
+                    </div>
+                  </div>
+                  <div className="text-lg font-bold text-orange-500">{(v.stake / 1000000).toFixed(2)}M</div>
+                  <div className="text-xs text-slate-500">{v.stakeShare.toFixed(2)}% share</div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+
         <section>
           <div className="flex justify-between items-end mb-6">
             <h2 className="text-2xl font-bold text-white flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
               <Gavel size={24} weight="duotone" className="text-cyan-400" /> Active Proposals
             </h2>
-            <a href="#" className="text-sm text-cyan-400 hover:text-white transition">View Archive →</a>
+            <a href="#" className="text-sm text-cyan-400 hover:text-white transition">View Archive</a>
           </div>
 
           <div className="grid gap-4">
