@@ -32,13 +32,18 @@ export const GENESIS_SUPPLY = 100 * BILLION; // 100억
 
 /**
  * v4.3 문서 사양 Phase 분류
- * Y0(Genesis)는 성장기에 포함 (메인넷 런칭 → Y5 완료)
+ * 
+ * 참고: 문서 Section 2.1(개요)과 2.2(상세 스케줄) 간 Y5 수치 차이 존재
+ * - 2.1 개요: 100억 → 84.60억 (-15.4%)
+ * - 2.2 상세: 100억 → 84.50억 (계산: 100-3.10×5=84.50)
+ * 
+ * 코드는 2.2 상세 스케줄의 정밀 계산 수치(84.50억)를 기준으로 함
  */
 export enum Phase {
-  GROWTH = 'GROWTH',           // Phase 1 성장기: Y0(Genesis)+Y1-Y5 (100억 → 84.50억)
-  DEFLATION = 'DEFLATION',     // Phase 2 디플레이션기: Y6-Y10 (84.50억 → 71.63억)
-  EQUILIBRIUM = 'EQUILIBRIUM', // Phase 3 균형기: Y11-Y15 (71.63억 → 70.88억)
-  OPTIMIZATION = 'OPTIMIZATION' // Phase 4 최적화기: Y16-Y20 (70.88억 → 69.40억)
+  GROWTH = 'GROWTH',           // Phase 1 성장기: Y0(Genesis)+Y1-Y5 (100억 → 84.50억, -15.5%)
+  DEFLATION = 'DEFLATION',     // Phase 2 디플레이션기: Y6-Y10 (84.50억 → 71.63억, -15.2%)
+  EQUILIBRIUM = 'EQUILIBRIUM', // Phase 3 균형기: Y11-Y15 (71.63억 → 70.88억, -1.05%)
+  OPTIMIZATION = 'OPTIMIZATION' // Phase 4 최적화기: Y16-Y20 (70.88억 → 69.40억, -2.09%)
 }
 
 /**
@@ -1399,19 +1404,32 @@ export interface TGEUnlock {
 }
 
 /**
- * TGE 언락 - v4.3 업계 표준 TGE 적용
- * 투자자 TGE: 시드 0%, 프라이빗 5% (0.45억), 퍼블릭 15% (0.90억)
- * 재단 운영 예비금: 운영 30% (0.45억), 긴급 50% (0.50억)
+ * TGE 언락 - v4.3 문서 사양 (Year-1 문서 Section 4.2)
+ * 
+ * 커뮤니티: 에어드랍 1.20억, 레퍼럴 0.15억, 이벤트 0.40억
+ * 생태계: 마케팅 0.45억
+ * 투자자: 프라이빗 0.45억 (5%), 퍼블릭 0.90억 (15%)
+ * 재단: 운영 0.45억 (30%), 긴급 0.50억 (50%)
+ * 락업: DEX LP 5.00억, 제네시스 검증자 1.25억
+ * 
+ * TGE 전체 합계: 10.75억 TBURN
  */
 export const TGE_UNLOCKS: TGEUnlock[] = [
+  // 커뮤니티 TGE (1.75억)
   { category: '에어드랍 (12억 중)', categoryKey: 'tokenomics.tge.airdrop', tgePercent: 10, amount: 1.20, purpose: '초기 커뮤니티 활성화', purposeKey: 'tokenomics.tge.airdrop.purpose' },
+  { category: '레퍼럴 보상 (3억 중)', categoryKey: 'tokenomics.tge.referral', tgePercent: 5, amount: 0.15, purpose: '추천인 보상 즉시 지급', purposeKey: 'tokenomics.tge.referral.purpose' },
+  { category: '이벤트/캠페인 (4억 중)', categoryKey: 'tokenomics.tge.events', tgePercent: 10, amount: 0.40, purpose: '런칭 이벤트 보상', purposeKey: 'tokenomics.tge.events.purpose' },
+  // 생태계 TGE (0.45억)
   { category: '마케팅 (3억 중)', categoryKey: 'tokenomics.tge.marketing', tgePercent: 15, amount: 0.45, purpose: '런칭 마케팅 즉시 집행', purposeKey: 'tokenomics.tge.marketing.purpose' },
-  { category: 'DEX 유동성', categoryKey: 'tokenomics.tge.dexLiquidity', tgePercent: 100, amount: 5.00, purpose: '초기 유동성 풀 공급 (LP 락 1년)', purposeKey: 'tokenomics.tge.dexLiquidity.purpose' },
-  { category: '제네시스 검증자', categoryKey: 'tokenomics.tge.genesisValidators', tgePercent: 100, amount: 1.25, purpose: '125개 검증자 스테이킹 (1M TBURN/검증자, 락업)', purposeKey: 'tokenomics.tge.genesisValidators.purpose' },
+  // 투자자 TGE (1.35억)
   { category: '프라이빗 라운드 (9억 중)', categoryKey: 'tokenomics.tge.private', tgePercent: 5, amount: 0.45, purpose: '업계 표준 TGE - 중간가 참여', purposeKey: 'tokenomics.tge.private.purpose' },
   { category: '퍼블릭 세일 (6억 중)', categoryKey: 'tokenomics.tge.public', tgePercent: 15, amount: 0.90, purpose: '업계 표준 TGE - 최고가 참여', purposeKey: 'tokenomics.tge.public.purpose' },
+  // 재단 예비금 TGE (0.95억)
   { category: '재단 운영 예비금 (1.5억 중)', categoryKey: 'tokenomics.tge.foundationOps', tgePercent: 30, amount: 0.45, purpose: '초기 운영비, 체인 활성화', purposeKey: 'tokenomics.tge.foundationOps.purpose' },
-  { category: '재단 긴급 예비금 (1.0억 중)', categoryKey: 'tokenomics.tge.foundationEmergency', tgePercent: 50, amount: 0.50, purpose: '긴급 대응, 체인 안정화', purposeKey: 'tokenomics.tge.foundationEmergency.purpose' }
+  { category: '재단 긴급 예비금 (1.0억 중)', categoryKey: 'tokenomics.tge.foundationEmergency', tgePercent: 50, amount: 0.50, purpose: '긴급 대응, 체인 안정화', purposeKey: 'tokenomics.tge.foundationEmergency.purpose' },
+  // 락업 물량 (6.25억 - 유통량 미포함)
+  { category: 'DEX 유동성', categoryKey: 'tokenomics.tge.dexLiquidity', tgePercent: 100, amount: 5.00, purpose: '초기 유동성 풀 공급 (LP 락업 365일)', purposeKey: 'tokenomics.tge.dexLiquidity.purpose' },
+  { category: '제네시스 검증자', categoryKey: 'tokenomics.tge.genesisValidators', tgePercent: 100, amount: 1.25, purpose: '125개 검증자 스테이킹 (1M TBURN/검증자, 락업)', purposeKey: 'tokenomics.tge.genesisValidators.purpose' }
 ];
 
 // v4.3 문서 사양 TGE 합계: 10.75억 TBURN (10.75%)
