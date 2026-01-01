@@ -52,10 +52,19 @@ export enum Phase {
  */
 export const GENESIS_VALIDATOR_CONFIG = {
   validatorCount: 125,         // 제네시스 검증자 수
+  totalValidators: 125,        // Alias for validatorCount (backward compatibility)
   stakePerValidator: 1000000,  // 100만 TBURN (1M)
   totalStake: 125000000,       // 1.25억 TBURN 총 스테이킹
+  totalTeamStake: 125000000,   // Alias for totalStake (backward compatibility)
   totalStakeBillion: 1.25,     // 억 단위
   stakingLockupDays: 365,      // 365일 락업
+  unbondingPeriod: '21 Days',  // 언본딩 기간
+  commissionRate: 10,          // 기본 커미션 (10%)
+  commissionRateRange: { min: 5, max: 20 }, // 커미션 범위
+  slashingDowntime: 0.01,      // 다운타임 슬래싱 (0.01%)
+  slashingDoubleSign: 5,       // 이중 서명 슬래싱 (5%)
+  minSelfDelegation: 10,       // 최소 자체 위임 (10%)
+  source: 'v4.3 Master Plan Specification',
   note: 'TGE 스테이킹 락업 (유통량 미포함)'
 };
 
