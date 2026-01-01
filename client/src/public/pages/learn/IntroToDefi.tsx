@@ -117,7 +117,7 @@ export default function IntroToDefi() {
   ];
 
   return (
-    <main className="flex-grow relative z-10 pt-24 bg-gray-50 dark:bg-transparent transition-colors">
+    <main className="flex-grow relative z-10 pt-4 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-12 mb-8 text-center">
         <div className="absolute inset-0 bg-gradient-to-b from-[#00ff9d]/10 via-transparent to-transparent pointer-events-none" />

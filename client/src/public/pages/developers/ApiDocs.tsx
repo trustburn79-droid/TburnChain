@@ -125,7 +125,7 @@ export default function ApiDocs() {
   ];
 
   return (
-    <main className="flex-grow relative z-10 pt-24 bg-gray-50 dark:bg-transparent transition-colors">
+    <main className="flex-grow relative z-10 pt-4 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
       <section className="relative py-12 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />

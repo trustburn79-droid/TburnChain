@@ -28,7 +28,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
     <div className="public-page min-h-screen flex flex-col bg-[#030407] text-white antialiased">
       <NeuralCanvas />
       <PublicHeader />
-      <main className="flex-1 relative z-10 pt-20">
+      <main className="flex-1 relative z-10 pt-16">
         {children}
       </main>
       <PublicFooter />
