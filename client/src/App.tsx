@@ -51,9 +51,6 @@ const AdminPage = lazy(() => import("@/pages/admin"));
 const Members = lazy(() => import("@/pages/members"));
 const MemberDetail = lazy(() => import("@/pages/member-detail"));
 const NotFound = lazy(() => import("@/pages/not-found"));
-import Login from "@/pages/login";
-import Signup from "@/pages/signup";
-import GoogleVerify from "@/pages/google-verify";
 
 const TokenGenerator = lazy(() => import("@/pages/token-generator"));
 const TokenSystem = lazy(() => import("@/pages/token-system"));
@@ -99,6 +96,10 @@ const OperatorValidators = lazy(() => import("@/pages/operator/validators"));
 const OperatorSecurity = lazy(() => import("@/pages/operator/security"));
 const OperatorReports = lazy(() => import("@/pages/operator/reports"));
 const OperatorStaking = lazy(() => import("@/pages/operator/staking"));
+
+const Login = lazy(() => import("@/pages/login"));
+const Signup = lazy(() => import("@/pages/signup"));
+const GoogleVerify = lazy(() => import("@/pages/google-verify"));
 
 import { AdminPortalLayout } from "@/components/admin-portal-layout";
 
@@ -502,19 +503,31 @@ function RootRouter() {
   }
   
   if (location === "/login") {
-    return <Login onLoginSuccess={() => {
-      const redirectUrl = sessionStorage.getItem("redirectAfterLogin") || "/app";
-      sessionStorage.removeItem("redirectAfterLogin");
-      setLocation(redirectUrl);
-    }} />;
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <Login onLoginSuccess={() => {
+          const redirectUrl = sessionStorage.getItem("redirectAfterLogin") || "/app";
+          sessionStorage.removeItem("redirectAfterLogin");
+          setLocation(redirectUrl);
+        }} />
+      </Suspense>
+    );
   }
   
   if (location === "/signup") {
-    return <Signup />;
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <Signup />
+      </Suspense>
+    );
   }
   
   if (location === "/google-verify" || location.startsWith("/google-verify")) {
-    return <GoogleVerify />;
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <GoogleVerify />
+      </Suspense>
+    );
   }
   
   if (location === "/vc" || location.startsWith("/vc-test")) {

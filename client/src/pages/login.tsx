@@ -100,14 +100,14 @@ function NeuralCanvasLogin() {
 
     const initParticles = () => {
       particles = [];
-      const count = Math.floor((width * height) / 20000);
+      const count = Math.min(Math.floor((width * height) / 40000), 50);
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          dx: (Math.random() - 0.5) * 0.5,
-          dy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 1.5 + 0.5,
+          dx: (Math.random() - 0.5) * 0.3,
+          dy: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 1.2 + 0.5,
         });
       }
     };
