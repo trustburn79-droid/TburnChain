@@ -338,7 +338,7 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
 // 4. Use a persistent session store (Redis, PostgreSQL)
 // 5. Set strong SESSION_SECRET environment variable
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app: Express, existingServer?: Server): Promise<Server> {
   // ============================================
   // CRITICAL CONFIGURATION VALIDATION AT STARTUP
   // ============================================
@@ -17560,7 +17560,7 @@ Provide JSON portfolio analysis:
   // ============================================
   // WebSocket Server
   // ============================================
-  const httpServer = createServer(app);
+  const httpServer = existingServer || createServer(app);
   
   // WebSocket is public for blockchain explorer real-time updates
   // No authentication required - same as public API endpoints
