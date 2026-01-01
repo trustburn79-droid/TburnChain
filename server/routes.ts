@@ -736,7 +736,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   lastLoginAt: new Date(),
                 });
               } catch (err) {
-                // Silently ignore background task errors
+                console.error('[Login Background] Profile/metrics update failed:', err instanceof Error ? err.message : err);
               }
             });
             
