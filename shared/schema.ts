@@ -822,10 +822,19 @@ export const members = pgTable("members", {
   
   // Identity Information
   displayName: text("display_name"),
+  username: text("username").unique(), // User-chosen username
   legalName: text("legal_name"), // KYC verified name
   entityType: text("entity_type").notNull().default("individual"), // individual, corporation, partnership, dao, foundation, government
   jurisdiction: text("jurisdiction"), // ISO 3166-1 country code
   registrationNumber: text("registration_number"), // business/legal registration
+  
+  // Contact & Social (plain text for OAuth)
+  email: text("email").unique(), // Plain email for OAuth users
+  avatarUrl: text("avatar_url"), // Profile picture URL
+  walletAddress: text("wallet_address"), // External wallet address if different from accountAddress
+  
+  // OAuth Integration
+  googleId: text("google_id").unique(), // Google OAuth ID
   
   // Member Classification
   memberTier: text("member_tier").notNull().default("basic_user"), // basic_user, delegated_staker, candidate_validator, active_validator, inactive_validator, genesis_validator, enterprise_validator, governance_validator, probation_validator, suspended_validator, slashed_validator
@@ -840,7 +849,7 @@ export const members = pgTable("members", {
   sanctionsCheckPassed: boolean("sanctions_check_passed").notNull().default(false),
   pepStatus: boolean("pep_status").notNull().default(false), // Politically Exposed Person
   
-  // Contact (encrypted)
+  // Contact (encrypted) - for KYC verified users
   encryptedEmail: text("encrypted_email"),
   encryptedPhone: text("encrypted_phone"),
   
@@ -921,25 +930,41 @@ export const memberGovernanceProfiles = pgTable("member_governance_profiles", {
   // Voting Power
   votingPower: text("voting_power").notNull().default("0"),
   delegatedVotingPower: text("delegated_voting_power").notNull().default("0"),
+  receivedVotingPower: text("received_voting_power").notNull().default("0"), // VP received from delegators
   
   // Proposal Activity
   proposalsCreated: integer("proposals_created").notNull().default(0),
   proposalsPassed: integer("proposals_passed").notNull().default(0),
   proposalsRejected: integer("proposals_rejected").notNull().default(0),
+  proposalsVoted: integer("proposals_voted").notNull().default(0), // Total proposals voted on
   
   // Voting Activity
   totalVotesCast: integer("total_votes_cast").notNull().default(0),
+  votesCast: integer("votes_cast").notNull().default(0), // Alias for compatibility
+  votesDelegated: integer("votes_delegated").notNull().default(0), // Votes delegated to others
   votesFor: integer("votes_for").notNull().default(0),
   votesAgainst: integer("votes_against").notNull().default(0),
   votesAbstain: integer("votes_abstain").notNull().default(0),
   votingParticipationRate: integer("voting_participation_rate").notNull().default(0), // basis points
+  participationRate: integer("participation_rate").notNull().default(0), // Alias for compatibility (basis points)
+  proposalSuccessRate: integer("proposal_success_rate").notNull().default(0), // basis points
+  votingConsistency: integer("voting_consistency").notNull().default(0), // basis points
   
   // Delegation
   delegatedTo: text("delegated_to"), // member address if voting power is delegated
   delegatedFrom: jsonb("delegated_from").notNull().default([]), // array of addresses who delegated to this member
+  activeDelegations: integer("active_delegations").notNull().default(0),
+  receivedDelegations: integer("received_delegations").notNull().default(0),
+  maxDelegationsAllowed: integer("max_delegations_allowed").notNull().default(100),
+  
+  // Organization Membership
+  daoMemberships: jsonb("dao_memberships").notNull().default([]), // DAOs member belongs to
+  committeePositions: jsonb("committee_positions").notNull().default([]), // Committee positions held
   
   // Reputation
   reputationScore: integer("reputation_score").notNull().default(5000), // basis points
+  governanceScore: integer("governance_score").notNull().default(5000), // basis points
+  influenceScore: integer("influence_score").notNull().default(0), // basis points
   contributionLevel: text("contribution_level").notNull().default("observer"), // observer, participant, contributor, leader
   
   lastVoteAt: timestamp("last_vote_at"),
@@ -987,25 +1012,52 @@ export const memberSecurityProfiles = pgTable("member_security_profiles", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   memberId: varchar("member_id").notNull().unique(),
   
-  // Authentication
+  // Authentication - Two Factor
   twoFactorEnabled: boolean("two_factor_enabled").notNull().default(false),
+  twoFactorMethod: text("two_factor_method"), // totp, sms, email, hardware
+  twoFactorBackupCodes: jsonb("two_factor_backup_codes").notNull().default([]),
+  
+  // Authentication - Other
+  securityKeys: jsonb("security_keys").notNull().default([]), // Hardware security keys
+  passkeyEnabled: boolean("passkey_enabled").notNull().default(false),
   multiSigEnabled: boolean("multi_sig_enabled").notNull().default(false),
   requiredConfirmations: integer("required_confirmations").notNull().default(1),
   
+  // Session Management
+  activeSessions: integer("active_sessions").notNull().default(0),
+  maxSessions: integer("max_sessions").notNull().default(5),
+  sessionTimeout: integer("session_timeout").notNull().default(3600), // seconds
+  
   // Access Control
   ipWhitelist: jsonb("ip_whitelist").notNull().default([]), // array of allowed IPs
+  ipBlacklist: jsonb("ip_blacklist").notNull().default([]), // array of blocked IPs
   allowedRegions: jsonb("allowed_regions").notNull().default([]), // array of ISO country codes
+  countryRestrictions: jsonb("country_restrictions").notNull().default([]), // blocked countries
   maxSessionDuration: integer("max_session_duration").notNull().default(86400), // seconds
   
   // Security Events
   failedLoginAttempts: integer("failed_login_attempts").notNull().default(0),
   lastFailedLogin: timestamp("last_failed_login"),
+  lastSuccessfulLogin: timestamp("last_successful_login"),
+  lastPasswordChange: timestamp("last_password_change"),
   lastKeyRotation: timestamp("last_key_rotation"),
   nextKeyRotationDue: timestamp("next_key_rotation_due"),
   
   // Risk Management
   riskScore: integer("risk_score").notNull().default(0), // 0-100 (higher is riskier)
+  fraudScore: integer("fraud_score").notNull().default(0), // 0-100
+  suspiciousActivityCount: integer("suspicious_activity_count").notNull().default(0),
   lastRiskAssessment: timestamp("last_risk_assessment").notNull().defaultNow(),
+  
+  // Account Recovery
+  recoveryEmail: text("recovery_email"),
+  recoveryPhone: text("recovery_phone"),
+  recoveryQuestions: jsonb("recovery_questions").notNull().default([]),
+  
+  // Account Lock
+  accountLocked: boolean("account_locked").notNull().default(false),
+  lockReason: text("lock_reason"),
+  lockedAt: timestamp("locked_at"),
   
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

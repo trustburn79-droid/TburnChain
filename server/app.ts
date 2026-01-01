@@ -23,6 +23,7 @@ declare module "express-session" {
     adminAuthenticated?: boolean;
     memberId?: string;
     memberEmail?: string;
+    memberAddress?: string;
     emailVerified?: string;
     emailVerifiedAt?: string;
     googleId?: string;
