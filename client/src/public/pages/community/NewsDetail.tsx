@@ -69,7 +69,7 @@ export default function NewsDetail() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-4 px-6">
+      <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
           <Loader2 className="w-8 h-8 animate-spin text-purple-500 mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">{t('common.loading')}</p>
@@ -80,7 +80,7 @@ export default function NewsDetail() {
 
   if (!announcement) {
     return (
-      <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-4 px-6">
+      <main className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] transition-colors pt-24 px-6">
         <div className="container mx-auto max-w-4xl text-center py-20">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             {t('publicPages.community.news.detail.notFound')}

@@ -221,14 +221,8 @@ export default async function runApp(
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-    
-    // Log error for debugging (don't throw after response)
-    console.error(`[Error Handler] ${status}: ${message}`, err.stack || err);
-    
-    // Only send response if headers haven't been sent
-    if (!res.headersSent) {
-      res.status(status).json({ message });
-    }
+    res.status(status).json({ message });
+    throw err;
   });
 
   await setup(app, server);

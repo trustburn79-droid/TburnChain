@@ -11,9 +11,7 @@ import {
   MagnifyingGlass,
   Sliders,
   TrendUp,
-  ArrowRight,
-  X,
-  FunnelSimple
+  ArrowRight
 } from "@phosphor-icons/react";
 
 interface ValidatorData {
@@ -100,10 +98,6 @@ export default function ValidatorCommandCenter() {
   const [, navigate] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [showFilters, setShowFilters] = useState(false);
-  const [statusFilter, setStatusFilter] = useState<"all" | "active" | "inactive">("all");
-  const [minStake, setMinStake] = useState<number>(0);
-  const [sortBy, setSortBy] = useState<"stake" | "uptime" | "name">("stake");
   const itemsPerPage = 10;
 
   const { data: validatorsResponse } = useQuery<ValidatorsResponse>({
@@ -147,18 +141,10 @@ export default function ValidatorCommandCenter() {
     };
   });
 
-  const filteredValidators = displayValidators
-    .filter(v => 
-      (v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      v.address.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (statusFilter === "all" || v.status === statusFilter) &&
-      v.stake >= minStake
-    )
-    .sort((a, b) => {
-      if (sortBy === "stake") return b.stake - a.stake;
-      if (sortBy === "uptime") return b.trustScore - a.trustScore;
-      return a.name.localeCompare(b.name);
-    });
+  const filteredValidators = displayValidators.filter(v => 
+    v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    v.address.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const totalPages = Math.ceil(filteredValidators.length / itemsPerPage);
   const paginatedValidators = filteredValidators.slice(
@@ -387,115 +373,12 @@ export default function ValidatorCommandCenter() {
               </div>
               <button 
                 className="bg-[#1a1b2e] hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-lg border border-slate-700 text-sm transition flex items-center gap-2"
-                onClick={() => setShowFilters(true)}
                 data-testid="button-filters"
               >
                 <Sliders size={16} /> Filters
-                {(statusFilter !== "all" || minStake > 0) && (
-                  <span className="w-2 h-2 rounded-full bg-amber-500" />
-                )}
               </button>
             </div>
           </div>
-
-          {showFilters && (
-            <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowFilters(false)}>
-              <div className="glass-panel rounded-2xl p-6 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
-                <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                    <FunnelSimple className="text-amber-500" size={24} weight="fill" />
-                    Filter Validators
-                  </h3>
-                  <button 
-                    onClick={() => setShowFilters(false)}
-                    className="text-slate-400 hover:text-white transition"
-                    data-testid="button-close-filters"
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
-
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm text-slate-400 mb-2">Status</label>
-                    <div className="flex gap-2">
-                      {(["all", "active", "inactive"] as const).map((status) => (
-                        <button
-                          key={status}
-                          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                            statusFilter === status
-                              ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-                              : "bg-white/5 text-slate-300 hover:bg-white/10 border border-transparent"
-                          }`}
-                          onClick={() => setStatusFilter(status)}
-                          data-testid={`button-filter-${status}`}
-                        >
-                          {status.charAt(0).toUpperCase() + status.slice(1)}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm text-slate-400 mb-2">Minimum Stake (TBURN)</label>
-                    <input
-                      type="number"
-                      value={minStake}
-                      onChange={(e) => setMinStake(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-black/30 border border-slate-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:border-amber-500 transition"
-                      placeholder="0"
-                      data-testid="input-min-stake"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm text-slate-400 mb-2">Sort By</label>
-                    <div className="flex gap-2">
-                      {([
-                        { value: "stake", label: "Stake" },
-                        { value: "uptime", label: "Uptime" },
-                        { value: "name", label: "Name" }
-                      ] as const).map((option) => (
-                        <button
-                          key={option.value}
-                          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                            sortBy === option.value
-                              ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                              : "bg-white/5 text-slate-300 hover:bg-white/10 border border-transparent"
-                          }`}
-                          onClick={() => setSortBy(option.value)}
-                          data-testid={`button-sort-${option.value}`}
-                        >
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-3 mt-8">
-                  <button
-                    className="flex-1 py-3 rounded-lg bg-white/5 text-slate-300 hover:bg-white/10 transition font-medium"
-                    onClick={() => {
-                      setStatusFilter("all");
-                      setMinStake(0);
-                      setSortBy("stake");
-                    }}
-                    data-testid="button-reset-filters"
-                  >
-                    Reset
-                  </button>
-                  <button
-                    className="flex-1 py-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-bold transition"
-                    onClick={() => setShowFilters(false)}
-                    data-testid="button-apply-filters"
-                  >
-                    Apply Filters
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div className="glass-panel rounded-2xl overflow-hidden">
             <div className="overflow-x-auto">
@@ -511,15 +394,12 @@ export default function ValidatorCommandCenter() {
                   </tr>
                 </thead>
                 <tbody className="text-sm divide-y divide-white/5">
-                  {paginatedValidators.map((validator, pageIndex) => {
-                    const globalIndex = (currentPage - 1) * itemsPerPage + pageIndex;
-                    const validatorUrlId = globalIndex + 1;
-                    return (
+                  {paginatedValidators.map((validator) => (
                     <tr 
-                      key={validator.id || validatorUrlId} 
+                      key={validator.id} 
                       className="hover:bg-white/5 transition-colors group cursor-pointer"
-                      onClick={() => navigate(`/validator/${validatorUrlId}`)}
-                      data-testid={`validator-row-${validatorUrlId}`}
+                      onClick={() => navigate(`/validator/${validator.id}`)}
+                      data-testid={`validator-row-${validator.id}`}
                     >
                       <td className="p-5">
                         <div className="flex items-center gap-3">
@@ -572,8 +452,7 @@ export default function ValidatorCommandCenter() {
                         </div>
                       </td>
                     </tr>
-                  );
-                  })}
+                  ))}
                 </tbody>
               </table>
             </div>

@@ -25,7 +25,7 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import { eq, desc, sql } from "drizzle-orm";
-import { db, pool as sharedPool, startDbKeepAlive } from "./db";
+import { db, pool as sharedPool } from "./db";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 import { ValidatorSimulationService } from "./validator-simulation";
 import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
@@ -340,11 +340,6 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
-  // DB CONNECTION KEEP-ALIVE (prevents cold start delays)
-  // ============================================
-  startDbKeepAlive();
-  
-  // ============================================
   // CRITICAL CONFIGURATION VALIDATION AT STARTUP
   // ============================================
   const configValidation = validateCriticalConfiguration();
@@ -378,10 +373,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // This runs in background and keeps cache warm, decoupling UI from live RPC
   const dataPoller = getProductionDataPoller();
   
-  // Defer heavy services to allow server to be ready for requests first
-  // This prevents upstream timeout errors on first request
+  // In development, defer heavy services to allow Vite to serve frontend first
   const isDev = process.env.NODE_ENV === 'development';
-  const HEAVY_INIT_DELAY = isDev ? 8000 : 3000; // 8s in dev, 3s in prod (allows server to start accepting requests)
+  const HEAVY_INIT_DELAY = isDev ? 8000 : 0; // 8 seconds in dev, immediate in prod
   
   function startHeavyServices() {
     dataPoller.start().then(() => {
@@ -393,10 +387,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   if (isDev) {
     console.log('[Routes] 🚀 Development mode: Deferring heavy services by 8s to allow Vite to serve frontend first');
+    setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
   } else {
-    console.log('[Routes] 🚀 Production mode: Deferring heavy services by 3s to allow server to accept requests first');
+    startHeavyServices();
   }
-  setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
 
   // Initialize validator simulation service
   let validatorSimulation: ValidatorSimulationService | null = null;
@@ -481,13 +475,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }
   
-  // Initialize on startup - deferred to allow server to accept requests first
-  // In prod: 4s delay (after data poller at 3s), In dev: 9s delay (after data poller at 8s)
-  const VALIDATOR_INIT_DELAY = HEAVY_INIT_DELAY + 1000;
-  setTimeout(() => {
-    console.log('[Routes] 🚀 Starting validator simulation (deferred)...');
+  // Initialize on startup - deferred in development to allow Vite to serve frontend first
+  if (isDev) {
+    setTimeout(() => {
+      console.log('[Routes] 🚀 Starting validator simulation (deferred)...');
+      initializeValidatorSimulation();
+    }, HEAVY_INIT_DELAY + 1000); // 9 seconds in dev (after data poller starts)
+  } else {
     initializeValidatorSimulation();
-  }, VALIDATOR_INIT_DELAY);
+  }
 
   // WebSocket clients - initialized early for use in broadcast functions
   const clients = new Set<WebSocket>();
@@ -715,10 +711,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
             req.session.memberEmail = email;
             req.session.memberAddress = member.accountAddress;
             
+            // Ensure all profile records exist for this member (for users who registered before profile initialization was added)
+            await ensureMemberProfiles(member.id);
+            
+            // Update login metrics
+            try {
+              await storage.updateMemberPerformanceMetrics(member.id, {
+                lastLoginAt: new Date(),
+              });
+            } catch (err) {
+              // Ignore metrics update errors
+            }
+            
             console.log(`[Login] Member ${member.displayName} logged in with wallet ${member.accountAddress}`);
             
-            // Send response immediately - don't wait for profile/metrics updates
-            res.json({ 
+            return res.json({ 
               success: true, 
               member: { 
                 id: member.id, 
@@ -726,20 +733,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 accountAddress: member.accountAddress
               } 
             });
-            
-            // Fire-and-forget: Ensure profiles exist and update metrics in background
-            setImmediate(async () => {
-              try {
-                await ensureMemberProfiles(member.id);
-                await storage.updateMemberPerformanceMetrics(member.id, {
-                  lastLoginAt: new Date(),
-                });
-              } catch (err) {
-                console.error('[Login Background] Profile/metrics update failed:', err instanceof Error ? err.message : err);
-              }
-            });
-            
-            return;
           }
         }
         // Member auth failed, fall through to site password check
@@ -888,60 +881,76 @@ export async function registerRoutes(app: Express): Promise<Server> {
         expiresAt,
       });
       
-      // Respond immediately - don't wait for email to send
-      res.json({ 
-        success: true, 
-        message: "Verification code sent to your email",
-        expiresAt: expiresAt.toISOString()
-      });
-      
-      // Send email via Resend in background (fire-and-forget)
+      // Send email via Resend
       if (resend) {
-        setImmediate(async () => {
-          try {
-            const { error: sendError } = await resend.emails.send({
-              from: EMAIL_FROM,
-              to: email,
-              subject: "[TBURN Chain] 이메일 인증 코드 / Verification Code",
-              html: `
-                <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
-                  <div style="text-align: center; margin-bottom: 30px;">
-                    <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">🔥 TBURN Chain</h1>
-                    <p style="color: #888; font-size: 14px;">Blockchain Mainnet Explorer</p>
-                  </div>
-                  
-                  <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
-                    <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">인증 코드 / Verification Code</p>
-                    <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
-                      <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
-                    </div>
-                    <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">이 코드는 10분 후 만료됩니다 / This code expires in 10 minutes</p>
-                  </div>
-                  
-                  <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                    <p style="color: #666; font-size: 12px;">© 2025 TBurn Chain Foundation. All rights reserved.</p>
-                  </div>
+        try {
+          const { error: sendError } = await resend.emails.send({
+            from: EMAIL_FROM,
+            to: email,
+            subject: "[TBURN Chain] 이메일 인증 코드 / Verification Code",
+            html: `
+              <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">🔥 TBURN Chain</h1>
+                  <p style="color: #888; font-size: 14px;">Blockchain Mainnet Explorer</p>
                 </div>
-              `,
-            });
-            
-            if (sendError) {
-              console.error("[Email Verification] Resend error:", sendError);
-              if (sendError.message?.includes('verify a domain') || sendError.name === 'validation_error') {
-                console.log(`[Email Verification] ⚠️ Domain not verified - Code for ${email}: ${verificationCode}`);
-              }
-            } else {
-              console.log(`[Email Verification] Email sent to ${email}`);
-            }
-          } catch (emailError: any) {
-            console.error("[Email Verification] Email send failed:", emailError);
-            if (emailError?.message?.includes('verify a domain') || emailError?.statusCode === 403) {
+                
+                <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
+                  <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">인증 코드 / Verification Code</p>
+                  <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
+                    <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
+                  </div>
+                  <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">이 코드는 10분 후 만료됩니다 / This code expires in 10 minutes</p>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                  <p style="color: #666; font-size: 12px;">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                </div>
+              </div>
+            `,
+          });
+          
+          if (sendError) {
+            console.error("[Email Verification] Resend error:", sendError);
+            // Handle domain verification error - allow testing with console code
+            if (sendError.message?.includes('verify a domain') || sendError.name === 'validation_error') {
               console.log(`[Email Verification] ⚠️ Domain not verified - Code for ${email}: ${verificationCode}`);
+              console.log(`[Email Verification] 💡 To fix: Verify domain at https://resend.com/domains`);
+              return res.json({ 
+                success: true, 
+                message: "이메일 서비스가 테스트 모드입니다. 서버 콘솔에서 인증 코드를 확인하세요.",
+                testMode: true,
+                expiresAt: expiresAt.toISOString()
+              });
             }
+            return res.status(500).json({ error: "Failed to send verification email" });
           }
-        });
+          
+          console.log(`[Email Verification] Email sent to ${email}`);
+          res.json({ 
+            success: true, 
+            message: "Verification code sent to your email",
+            expiresAt: expiresAt.toISOString()
+          });
+        } catch (emailError: any) {
+          console.error("[Email Verification] Email send failed:", emailError);
+          // Handle domain verification error gracefully
+          if (emailError?.message?.includes('verify a domain') || emailError?.statusCode === 403) {
+            console.log(`[Email Verification] ⚠️ Domain not verified - Code for ${email}: ${verificationCode}`);
+            console.log(`[Email Verification] 💡 To fix: Verify domain at https://resend.com/domains`);
+            return res.json({ 
+              success: true, 
+              message: "이메일 서비스가 테스트 모드입니다. 서버 콘솔에서 인증 코드를 확인하세요.",
+              testMode: true,
+              expiresAt: expiresAt.toISOString()
+            });
+          }
+          return res.status(500).json({ error: "Failed to send verification email" });
+        }
       } else {
+        // No email service configured - log warning
         console.warn("[Email Verification] No email service configured! Code:", verificationCode);
+        res.status(500).json({ error: "Email service not configured" });
       }
     } catch (error) {
       console.error("Send verification error:", error);

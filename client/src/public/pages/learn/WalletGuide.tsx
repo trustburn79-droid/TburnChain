@@ -193,7 +193,7 @@ export default function WalletGuide() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
-      <section className="relative pt-4 pb-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 left-1/4 w-[600px] h-[500px] blur-[120px] rounded-full pointer-events-none" style={{ backgroundColor: `${config.iconColor}20` }} />
         
         <div className="container mx-auto max-w-4xl relative z-10">

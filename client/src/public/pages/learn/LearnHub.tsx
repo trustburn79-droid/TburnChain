@@ -116,9 +116,9 @@ export default function LearnHub() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
+    <div ref={containerRef} className="min-h-screen pt-24 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative pt-4 pb-12 px-6 overflow-hidden">
+      <section className="relative py-12 px-6 overflow-hidden">
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-[#7000ff]/20 rounded-full blur-[100px] animate-pulse pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">

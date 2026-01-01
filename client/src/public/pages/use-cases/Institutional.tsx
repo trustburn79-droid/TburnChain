@@ -116,7 +116,7 @@ export default function Institutional() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
-      <section className="relative pt-4 pb-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/3 w-[600px] h-[500px] bg-[#ffd700]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">

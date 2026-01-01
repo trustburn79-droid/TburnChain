@@ -68,7 +68,7 @@ export default function Tokenomics() {
   return (
     <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative pt-4 pb-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-20 right-1/4 w-[500px] h-[500px] bg-[#ffb800]/10 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">

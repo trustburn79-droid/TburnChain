@@ -80,7 +80,7 @@ export default function DefiMastery() {
   return (
     <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative pt-4 pb-12 mb-8">
+      <section className="relative py-12 mb-8">
         <div className="absolute inset-0 bg-gradient-to-br from-[#7000ff]/20 via-[#ff00ff]/5 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 
