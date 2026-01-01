@@ -4,7 +4,6 @@ import { Link, useLocation } from "wouter";
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
 import { 
-  Fire, 
   GlobeHemisphereWest, 
   ShieldCheck,
   ListDashes, 
@@ -18,6 +17,7 @@ import {
 import { type ValidatorDisplayData, transformValidator, type ValidatorData } from "@/lib/validator-utils";
 import { DelegationDialog } from "@/components/DelegationDialog";
 import { Button } from "@/components/ui/button";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -231,9 +231,9 @@ export default function ValidatorCommandCenter() {
         <header className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 border-b border-white/5 pb-6 gap-6">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <Fire className="text-amber-500 text-3xl animate-pulse" weight="fill" size={32} />
+              <TBurnLogo className="w-10 h-10" showText={false} />
               <h1 className="text-4xl font-bold text-white tracking-wide" data-testid="page-title">
-                TBURN <span className="font-light text-slate-400">Scan</span>
+                TBURN <span className="font-light text-slate-400">Network</span>
               </h1>
             </div>
             <p className="text-sm text-slate-400 font-mono tracking-wider uppercase pl-1">
