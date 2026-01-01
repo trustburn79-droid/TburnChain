@@ -16005,6 +16005,36 @@
       "active": "Actif",
       "inactive": "Inactif",
       "jailed": "Emprisonné"
+    },
+    "intelligencePage": {
+      "backToMatrix": "Retour à la Matrice des Validateurs",
+      "loadingDetails": "Chargement des détails du validateur...",
+      "notFound": "Validateur Non Trouvé",
+      "notFoundDesc": "Le validateur avec l'adresse \"{{address}}\" n'a pas pu être trouvé.",
+      "operational": "OPÉRATIONNEL",
+      "shard": "FRAGMENT",
+      "trustScore": "Score de Confiance",
+      "activeStake": "Stake Actif",
+      "version": "Version",
+      "voteLatency": "Latence de Vote",
+      "last6h": "6 dernières heures",
+      "rootDistance": "Distance Racine",
+      "blockDiff": "Diff. de Bloc",
+      "skippedSlots": "Slots Manqués %",
+      "movingAvg": "Moyenne Mobile",
+      "voteDistance": "Distance de Vote",
+      "voteDiff": "Diff. de Vote",
+      "nodeSpecs": "Spécifications du Nœud",
+      "validatorAddress": "Adresse du Validateur",
+      "validatorId": "ID du Validateur",
+      "location": "Emplacement",
+      "blocksProduced": "Blocs Produits",
+      "governanceRewards": "Gouvernance et Récompenses",
+      "infraOverview": "Aperçu de l'Infrastructure",
+      "recentProduction": "Production Récente",
+      "live": "En Direct",
+      "epoch": "Époque",
+      "enterpriseDesc": "Validateur entreprise avec {{trustScore}}% de Score de Confiance IA. {{delegators}} délégateurs actifs."
     }
   }
 }

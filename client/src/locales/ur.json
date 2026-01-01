@@ -14396,6 +14396,36 @@
       "active": "فعال",
       "inactive": "غیر فعال",
       "jailed": "قید"
+    },
+    "intelligencePage": {
+      "backToMatrix": "ویلیڈیٹر میٹرکس پر واپس جائیں",
+      "loadingDetails": "ویلیڈیٹر تفصیلات لوڈ ہو رہی ہیں...",
+      "notFound": "ویلیڈیٹر نہیں ملا",
+      "notFoundDesc": "پتہ \"{{address}}\" والا ویلیڈیٹر نہیں مل سکا۔",
+      "operational": "فعال",
+      "shard": "شارڈ",
+      "trustScore": "اعتماد کا سکور",
+      "activeStake": "فعال سٹیک",
+      "version": "ورژن",
+      "voteLatency": "ووٹ تاخیر",
+      "last6h": "پچھلے 6 گھنٹے",
+      "rootDistance": "جڑ کا فاصلہ",
+      "blockDiff": "بلاک فرق",
+      "skippedSlots": "چھوڑے گئے سلاٹس %",
+      "movingAvg": "متحرک اوسط",
+      "voteDistance": "ووٹ کا فاصلہ",
+      "voteDiff": "ووٹ فرق",
+      "nodeSpecs": "نوڈ کی تفصیلات",
+      "validatorAddress": "ویلیڈیٹر کا پتہ",
+      "validatorId": "ویلیڈیٹر آئی ڈی",
+      "location": "مقام",
+      "blocksProduced": "پیدا کردہ بلاکس",
+      "governanceRewards": "گورننس اور انعامات",
+      "infraOverview": "انفراسٹرکچر کا جائزہ",
+      "recentProduction": "حالیہ پیداوار",
+      "live": "لائیو",
+      "epoch": "ایپوک",
+      "enterpriseDesc": "{{trustScore}}% AI اعتماد کے سکور کے ساتھ انٹرپرائز ویلیڈیٹر۔ {{delegators}} فعال نمائندے۔"
     }
   }
 }

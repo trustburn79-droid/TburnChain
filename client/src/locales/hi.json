@@ -16572,6 +16572,36 @@
       "active": "सक्रिय",
       "inactive": "निष्क्रिय",
       "jailed": "जेल में"
+    },
+    "intelligencePage": {
+      "backToMatrix": "सत्यापनकर्ता मैट्रिक्स पर वापस जाएं",
+      "loadingDetails": "सत्यापनकर्ता विवरण लोड हो रहा है...",
+      "notFound": "सत्यापनकर्ता नहीं मिला",
+      "notFoundDesc": "पता \"{{address}}\" वाला सत्यापनकर्ता नहीं मिल सका।",
+      "operational": "सक्रिय",
+      "shard": "शार्ड",
+      "trustScore": "विश्वास स्कोर",
+      "activeStake": "सक्रिय स्टेक",
+      "version": "संस्करण",
+      "voteLatency": "वोट विलंबता",
+      "last6h": "पिछले 6 घंटे",
+      "rootDistance": "रूट दूरी",
+      "blockDiff": "ब्लॉक अंतर",
+      "skippedSlots": "छूटे स्लॉट %",
+      "movingAvg": "मूविंग औसत",
+      "voteDistance": "वोट दूरी",
+      "voteDiff": "वोट अंतर",
+      "nodeSpecs": "नोड विनिर्देश",
+      "validatorAddress": "सत्यापनकर्ता पता",
+      "validatorId": "सत्यापनकर्ता ID",
+      "location": "स्थान",
+      "blocksProduced": "उत्पादित ब्लॉक",
+      "governanceRewards": "गवर्नेंस और पुरस्कार",
+      "infraOverview": "इन्फ्रास्ट्रक्चर अवलोकन",
+      "recentProduction": "हाल का उत्पादन",
+      "live": "लाइव",
+      "epoch": "एपोक",
+      "enterpriseDesc": "{{trustScore}}% AI विश्वास स्कोर वाला एंटरप्राइज सत्यापनकर्ता। {{delegators}} सक्रिय प्रतिनिधि।"
     }
   }
 }

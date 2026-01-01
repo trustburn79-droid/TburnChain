@@ -18104,6 +18104,36 @@
       "active": "活跃",
       "inactive": "非活跃",
       "jailed": "已入狱"
+    },
+    "intelligencePage": {
+      "backToMatrix": "返回验证者矩阵",
+      "loadingDetails": "加载验证者详情...",
+      "notFound": "未找到验证者",
+      "notFoundDesc": "无法找到地址为 \"{{address}}\" 的验证者。",
+      "operational": "运行中",
+      "shard": "分片",
+      "trustScore": "信任分数",
+      "activeStake": "活跃质押",
+      "version": "版本",
+      "voteLatency": "投票延迟",
+      "last6h": "最近6小时",
+      "rootDistance": "根距离",
+      "blockDiff": "区块差异",
+      "skippedSlots": "跳过的槽位 %",
+      "movingAvg": "移动平均",
+      "voteDistance": "投票距离",
+      "voteDiff": "投票差异",
+      "nodeSpecs": "节点规格",
+      "validatorAddress": "验证者地址",
+      "validatorId": "验证者ID",
+      "location": "位置",
+      "blocksProduced": "生成的区块",
+      "governanceRewards": "治理和奖励",
+      "infraOverview": "基础设施概览",
+      "recentProduction": "最近生产",
+      "live": "实时",
+      "epoch": "纪元",
+      "enterpriseDesc": "企业级验证者，AI信任分数{{trustScore}}%。{{delegators}}名活跃委托者。"
     }
   }
 }

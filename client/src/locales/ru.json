@@ -15053,6 +15053,36 @@
       "active": "Активен",
       "inactive": "Неактивен",
       "jailed": "Заблокирован"
+    },
+    "intelligencePage": {
+      "backToMatrix": "Вернуться к Матрице Валидаторов",
+      "loadingDetails": "Загрузка данных валидатора...",
+      "notFound": "Валидатор Не Найден",
+      "notFoundDesc": "Валидатор с адресом \"{{address}}\" не найден.",
+      "operational": "РАБОТАЕТ",
+      "shard": "ШАРД",
+      "trustScore": "Уровень Доверия",
+      "activeStake": "Активный Стейк",
+      "version": "Версия",
+      "voteLatency": "Задержка Голосования",
+      "last6h": "Последние 6ч",
+      "rootDistance": "Расстояние до Корня",
+      "blockDiff": "Разница Блоков",
+      "skippedSlots": "Пропущенные Слоты %",
+      "movingAvg": "Скользящее Среднее",
+      "voteDistance": "Расстояние Голосов",
+      "voteDiff": "Разница Голосов",
+      "nodeSpecs": "Характеристики Узла",
+      "validatorAddress": "Адрес Валидатора",
+      "validatorId": "ID Валидатора",
+      "location": "Местоположение",
+      "blocksProduced": "Произведено Блоков",
+      "governanceRewards": "Управление и Награды",
+      "infraOverview": "Обзор Инфраструктуры",
+      "recentProduction": "Недавнее Производство",
+      "live": "Онлайн",
+      "epoch": "Эпоха",
+      "enterpriseDesc": "Корпоративный валидатор с {{trustScore}}% уровнем доверия ИИ. {{delegators}} активных делегаторов."
     }
   }
 }

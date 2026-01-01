@@ -15761,6 +15761,36 @@
       "active": "Ativo",
       "inactive": "Inativo",
       "jailed": "Preso"
+    },
+    "intelligencePage": {
+      "backToMatrix": "Voltar para a Matriz de Validadores",
+      "loadingDetails": "Carregando detalhes do validador...",
+      "notFound": "Validador Não Encontrado",
+      "notFoundDesc": "O validador com endereço \"{{address}}\" não foi encontrado.",
+      "operational": "OPERACIONAL",
+      "shard": "FRAGMENTO",
+      "trustScore": "Pontuação de Confiança",
+      "activeStake": "Stake Ativo",
+      "version": "Versão",
+      "voteLatency": "Latência de Voto",
+      "last6h": "Últimas 6h",
+      "rootDistance": "Distância Raiz",
+      "blockDiff": "Dif. de Bloco",
+      "skippedSlots": "Slots Ignorados %",
+      "movingAvg": "Média Móvel",
+      "voteDistance": "Distância de Voto",
+      "voteDiff": "Dif. de Voto",
+      "nodeSpecs": "Especificações do Nó",
+      "validatorAddress": "Endereço do Validador",
+      "validatorId": "ID do Validador",
+      "location": "Localização",
+      "blocksProduced": "Blocos Produzidos",
+      "governanceRewards": "Governança e Recompensas",
+      "infraOverview": "Visão Geral da Infraestrutura",
+      "recentProduction": "Produção Recente",
+      "live": "Ao Vivo",
+      "epoch": "Época",
+      "enterpriseDesc": "Validador empresarial com {{trustScore}}% de Pontuação de Confiança IA. {{delegators}} delegadores ativos."
     }
   }
 }

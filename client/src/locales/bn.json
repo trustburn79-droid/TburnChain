@@ -14152,6 +14152,36 @@
       "active": "সক্রিয়",
       "inactive": "নিষ্ক্রিয়",
       "jailed": "জেলে"
+    },
+    "intelligencePage": {
+      "backToMatrix": "ভ্যালিডেটর ম্যাট্রিক্সে ফিরে যান",
+      "loadingDetails": "ভ্যালিডেটর বিবরণ লোড হচ্ছে...",
+      "notFound": "ভ্যালিডেটর পাওয়া যায়নি",
+      "notFoundDesc": "\"{{address}}\" ঠিকানার ভ্যালিডেটর খুঁজে পাওয়া যায়নি।",
+      "operational": "সক্রিয়",
+      "shard": "শার্ড",
+      "trustScore": "বিশ্বাস স্কোর",
+      "activeStake": "সক্রিয় স্টেক",
+      "version": "সংস্করণ",
+      "voteLatency": "ভোট বিলম্ব",
+      "last6h": "গত ৬ ঘণ্টা",
+      "rootDistance": "রুট দূরত্ব",
+      "blockDiff": "ব্লক পার্থক্য",
+      "skippedSlots": "স্কিপ করা স্লট %",
+      "movingAvg": "চলমান গড়",
+      "voteDistance": "ভোট দূরত্ব",
+      "voteDiff": "ভোট পার্থক্য",
+      "nodeSpecs": "নোড স্পেসিফিকেশন",
+      "validatorAddress": "ভ্যালিডেটর ঠিকানা",
+      "validatorId": "ভ্যালিডেটর আইডি",
+      "location": "অবস্থান",
+      "blocksProduced": "উৎপাদিত ব্লক",
+      "governanceRewards": "গভর্নেন্স ও পুরস্কার",
+      "infraOverview": "অবকাঠামো সংক্ষিপ্ত বিবরণ",
+      "recentProduction": "সাম্প্রতিক উৎপাদন",
+      "live": "লাইভ",
+      "epoch": "এপক",
+      "enterpriseDesc": "{{trustScore}}% AI বিশ্বাস স্কোর সহ এন্টারপ্রাইজ ভ্যালিডেটর। {{delegators}} জন সক্রিয় প্রতিনিধি।"
     }
   }
 }

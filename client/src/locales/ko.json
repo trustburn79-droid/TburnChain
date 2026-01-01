@@ -31046,6 +31046,36 @@
       "active": "활성",
       "inactive": "비활성",
       "jailed": "제재됨"
+    },
+    "intelligencePage": {
+      "backToMatrix": "검증자 매트릭스로 돌아가기",
+      "loadingDetails": "검증자 상세 정보 로딩 중...",
+      "notFound": "검증자를 찾을 수 없음",
+      "notFoundDesc": "주소 \"{{address}}\"의 검증자를 찾을 수 없습니다.",
+      "operational": "운영중",
+      "shard": "샤드",
+      "trustScore": "신뢰 점수",
+      "activeStake": "활성 스테이크",
+      "version": "버전",
+      "voteLatency": "투표 지연시간",
+      "last6h": "최근 6시간",
+      "rootDistance": "루트 거리",
+      "blockDiff": "블록 차이",
+      "skippedSlots": "건너뛴 슬롯 %",
+      "movingAvg": "이동 평균",
+      "voteDistance": "투표 거리",
+      "voteDiff": "투표 차이",
+      "nodeSpecs": "노드 사양",
+      "validatorAddress": "검증자 주소",
+      "validatorId": "검증자 ID",
+      "location": "위치",
+      "blocksProduced": "생성된 블록",
+      "governanceRewards": "거버넌스 및 보상",
+      "infraOverview": "인프라 개요",
+      "recentProduction": "최근 생산",
+      "live": "실시간",
+      "epoch": "에폭",
+      "enterpriseDesc": "AI 신뢰 점수 {{trustScore}}%의 엔터프라이즈 검증자. {{delegators}}명의 활성 위임자."
     }
   }
 }

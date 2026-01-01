@@ -18980,6 +18980,36 @@
       "active": "アクティブ",
       "inactive": "非アクティブ",
       "jailed": "ジェイル済み"
+    },
+    "intelligencePage": {
+      "backToMatrix": "バリデーターマトリックスに戻る",
+      "loadingDetails": "バリデーター詳細を読み込み中...",
+      "notFound": "バリデーターが見つかりません",
+      "notFoundDesc": "アドレス \"{{address}}\" のバリデーターが見つかりませんでした。",
+      "operational": "稼働中",
+      "shard": "シャード",
+      "trustScore": "信頼スコア",
+      "activeStake": "アクティブステーク",
+      "version": "バージョン",
+      "voteLatency": "投票レイテンシ",
+      "last6h": "過去6時間",
+      "rootDistance": "ルート距離",
+      "blockDiff": "ブロック差",
+      "skippedSlots": "スキップスロット %",
+      "movingAvg": "移動平均",
+      "voteDistance": "投票距離",
+      "voteDiff": "投票差",
+      "nodeSpecs": "ノード仕様",
+      "validatorAddress": "バリデーターアドレス",
+      "validatorId": "バリデーターID",
+      "location": "ロケーション",
+      "blocksProduced": "生成ブロック数",
+      "governanceRewards": "ガバナンスと報酬",
+      "infraOverview": "インフラ概要",
+      "recentProduction": "最近の生産",
+      "live": "ライブ",
+      "epoch": "エポック",
+      "enterpriseDesc": "AI信頼スコア{{trustScore}}%のエンタープライズバリデーター。{{delegators}}人のアクティブデリゲーター。"
     }
   }
 }

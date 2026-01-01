@@ -15935,6 +15935,36 @@
       "active": "نشط",
       "inactive": "غير نشط",
       "jailed": "موقوف"
+    },
+    "intelligencePage": {
+      "backToMatrix": "العودة إلى مصفوفة المدققين",
+      "loadingDetails": "جاري تحميل تفاصيل المدقق...",
+      "notFound": "المدقق غير موجود",
+      "notFoundDesc": "لم يتم العثور على المدقق بالعنوان \"{{address}}\".",
+      "operational": "عامل",
+      "shard": "جزء",
+      "trustScore": "درجة الثقة",
+      "activeStake": "الحصة النشطة",
+      "version": "الإصدار",
+      "voteLatency": "تأخير التصويت",
+      "last6h": "آخر 6 ساعات",
+      "rootDistance": "مسافة الجذر",
+      "blockDiff": "فرق الكتلة",
+      "skippedSlots": "الفتحات المتخطاة %",
+      "movingAvg": "المتوسط المتحرك",
+      "voteDistance": "مسافة التصويت",
+      "voteDiff": "فرق التصويت",
+      "nodeSpecs": "مواصفات العقدة",
+      "validatorAddress": "عنوان المدقق",
+      "validatorId": "معرف المدقق",
+      "location": "الموقع",
+      "blocksProduced": "الكتل المنتجة",
+      "governanceRewards": "الحوكمة والمكافآت",
+      "infraOverview": "نظرة عامة على البنية التحتية",
+      "recentProduction": "الإنتاج الأخير",
+      "live": "مباشر",
+      "epoch": "حقبة",
+      "enterpriseDesc": "مدقق مؤسسي بدرجة ثقة ذكاء اصطناعي {{trustScore}}%. {{delegators}} مفوضين نشطين."
     }
   }
 }
