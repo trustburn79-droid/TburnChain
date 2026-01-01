@@ -11,14 +11,14 @@ if (!process.env.DATABASE_URL) {
 neonConfig.webSocketConstructor = ws;
 
 // Production-optimized pool settings for Neon Serverless
-// - max:3 prevents connection exhaustion in serverless (Neon recommends 2-5)
-// - idleTimeoutMillis:20000 releases idle connections faster
-// - connectionTimeoutMillis:5000 fails fast on connection issues
+// - max:5 balances connection efficiency with serverless constraints
+// - idleTimeoutMillis:30000 keeps connections warm longer
+// - connectionTimeoutMillis:15000 allows for Neon cold start (can take 5-10s)
 export const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL,
-  max: 3,
-  idleTimeoutMillis: 20000,
-  connectionTimeoutMillis: 5000,
+  max: 5,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 15000,
 });
 
 export const db = drizzle(pool, { schema });
