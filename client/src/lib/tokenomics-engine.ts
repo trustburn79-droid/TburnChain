@@ -32,9 +32,10 @@ export const GENESIS_SUPPLY = 100 * BILLION; // 100억
 
 /**
  * v4.3 문서 사양 Phase 분류
+ * Y0(Genesis)는 성장기에 포함 (메인넷 런칭 → Y5 완료)
  */
 export enum Phase {
-  GROWTH = 'GROWTH',           // Phase 1 성장기: Y1-Y5 (100억 → 84.50억)
+  GROWTH = 'GROWTH',           // Phase 1 성장기: Y0(Genesis)+Y1-Y5 (100억 → 84.50억)
   DEFLATION = 'DEFLATION',     // Phase 2 디플레이션기: Y6-Y10 (84.50억 → 71.63억)
   EQUILIBRIUM = 'EQUILIBRIUM', // Phase 3 균형기: Y11-Y15 (71.63억 → 70.88억)
   OPTIMIZATION = 'OPTIMIZATION' // Phase 4 최적화기: Y16-Y20 (70.88억 → 69.40억)
@@ -514,10 +515,10 @@ export function calculateSummary(): TokenomicsSummary {
   const deflationPercent = (totalDeflation / genesis.startSupply) * 100;
   
   // v4.3 문서 사양 Phase 분류
-  // Phase 1 성장기: Y1~Y5, Phase 2 디플레이션기: Y6~Y10
+  // Phase 1 성장기: Y0(Genesis)+Y1~Y5, Phase 2 디플레이션기: Y6~Y10
   // Phase 3 균형기: Y11~Y15, Phase 4 최적화기: Y16~Y20
   const phaseStats: PhaseStats[] = [
-    calculatePhaseStats(Phase.GROWTH, 1, 5),
+    calculatePhaseStats(Phase.GROWTH, 0, 5),
     calculatePhaseStats(Phase.DEFLATION, 6, 10),
     calculatePhaseStats(Phase.EQUILIBRIUM, 11, 15),
     calculatePhaseStats(Phase.OPTIMIZATION, 16, 20)
@@ -1406,7 +1407,7 @@ export const TGE_UNLOCKS: TGEUnlock[] = [
   { category: '에어드랍 (12억 중)', categoryKey: 'tokenomics.tge.airdrop', tgePercent: 10, amount: 1.20, purpose: '초기 커뮤니티 활성화', purposeKey: 'tokenomics.tge.airdrop.purpose' },
   { category: '마케팅 (3억 중)', categoryKey: 'tokenomics.tge.marketing', tgePercent: 15, amount: 0.45, purpose: '런칭 마케팅 즉시 집행', purposeKey: 'tokenomics.tge.marketing.purpose' },
   { category: 'DEX 유동성', categoryKey: 'tokenomics.tge.dexLiquidity', tgePercent: 100, amount: 5.00, purpose: '초기 유동성 풀 공급 (LP 락 1년)', purposeKey: 'tokenomics.tge.dexLiquidity.purpose' },
-  { category: '제네시스 검증자', categoryKey: 'tokenomics.tge.genesisValidators', tgePercent: 100, amount: 1.25, purpose: '1,600개 검증자 스테이킹 (락업)', purposeKey: 'tokenomics.tge.genesisValidators.purpose' },
+  { category: '제네시스 검증자', categoryKey: 'tokenomics.tge.genesisValidators', tgePercent: 100, amount: 1.25, purpose: '125개 검증자 스테이킹 (1M TBURN/검증자, 락업)', purposeKey: 'tokenomics.tge.genesisValidators.purpose' },
   { category: '프라이빗 라운드 (9억 중)', categoryKey: 'tokenomics.tge.private', tgePercent: 5, amount: 0.45, purpose: '업계 표준 TGE - 중간가 참여', purposeKey: 'tokenomics.tge.private.purpose' },
   { category: '퍼블릭 세일 (6억 중)', categoryKey: 'tokenomics.tge.public', tgePercent: 15, amount: 0.90, purpose: '업계 표준 TGE - 최고가 참여', purposeKey: 'tokenomics.tge.public.purpose' },
   { category: '재단 운영 예비금 (1.5억 중)', categoryKey: 'tokenomics.tge.foundationOps', tgePercent: 30, amount: 0.45, purpose: '초기 운영비, 체인 활성화', purposeKey: 'tokenomics.tge.foundationOps.purpose' },
@@ -1419,23 +1420,6 @@ export const TGE_UNLOCKS: TGEUnlock[] = [
 // 재단 예비금 TGE: 0.95억 (운영 0.45 + 긴급 0.50)
 export const TGE_TOTAL_UNLOCK = 10.75; // 억 TBURN (전체 공급의 10.75%)
 export const TGE_ACTUAL_CIRCULATION = 4.50; // 억 TBURN - v4.3 문서 사양 (LP/스테이킹 제외)
-
-/**
- * 제네시스 검증자 설정 - v4.3 문서 사양
- * 125개 검증자 (팀 운영), 검증자당 1,000,000 TBURN
- */
-export const GENESIS_VALIDATOR_CONFIG = {
-  totalValidators: 125, // v4.3 문서: 125개 (팀 운영)
-  stakePerValidator: 1000000, // 1,000,000 TBURN
-  totalTeamStake: 125000000, // 125,000,000 TBURN (1.25억)
-  source: '코어 팀 배분 (7억) 중 일부 (v4.3 조정)',
-  unbondingPeriod: 21, // 일
-  slashingDowntime: 1, // 사건당 1%
-  slashingDoubleSign: 5, // 5% + 영구 감옥
-  minSelfDelegation: 10, // 10%
-  commissionRate: 10, // 10% (5-20% 조정 가능)
-  commissionRateRange: { min: 5, max: 20 }
-};
 
 /**
  * DEX 유동성 풀 설정 - v4.0
